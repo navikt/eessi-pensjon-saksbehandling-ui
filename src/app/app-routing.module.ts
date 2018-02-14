@@ -1,10 +1,22 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule }             from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent }        from './home/home.component';
+import { IsaliveComponent }     from './isalive/isalive.component';
+import { SelftestComponent }    from './selftest/selftest.component';
+import { SummaryComponent }     from './summary/summary.component';
+
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'selftest', component: SelftestComponent },
+  { path: 'summary', component: SummaryComponent },
+  { path: 'internal/selftest', component: SelftestComponent },
+  { path: 'internal/isalive', component: IsaliveComponent }
+];
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: []
+  imports: [ RouterModule.forRoot(routes) ],
+  exports: [ RouterModule ]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
+

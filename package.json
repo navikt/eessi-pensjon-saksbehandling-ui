@@ -5,10 +5,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
+    "build": "ng build && cp server.js dist",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "start_express": "cd dist && node server.js"
   },
   "private": true,
   "dependencies": {
@@ -24,6 +25,9 @@
     "@ng-bootstrap/ng-bootstrap": "^1.0.0",
     "bootstrap": "^4.0.0",
     "core-js": "^2.4.1",
+    "express": "^4.16.2",
+    "fs-extra": "^5.0.0",
+    "prom-client": "^10.2.2",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },

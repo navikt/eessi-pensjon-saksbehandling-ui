@@ -1,26 +1,31 @@
 name: eessi-fagmodul-frontend
-image: docker.adeo.no:5000/eessi-fagmodul-frontend
+image: repo.adeo.no:5443/eessi-fagmodul-frontend
 replicas:
     min: 1
-    max: 1
+    max: 2
     cpuThresholdPercentage: 50
 prometheus:
     enabled: false
-port: 8080
+port: 80
 healthcheck:
     liveness:
       initialDelay: 60
-      path: /internal/isAlive
+      path: /internal/isalive
     readiness:
       initialDelay: 60
-      path: /internal/isAlive
+      path: /internal/isready
 resources:
     limits:
-      cpu: 1
+      cpu: 500m
       memory: 1024Mi
     requests:
       cpu: 100m
       memory: 256Mi
 fasitResources:
   used:
+  - alias: eessifagmodulservice
+    resourceType: restservice
   exposed:
+  - alias: eessifagmodulfrontendservice
+    resourceType: restservice
+    path: /
