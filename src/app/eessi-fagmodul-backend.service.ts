@@ -15,7 +15,7 @@ export class EessiFagmodulBackendService {
     console.log(`Backend url set to: ${this.backendUrl}`);
   }
 
-  ping(): Observable<string | {}> {
+  ping(): Observable<any> {
     return this.http.get(this.backendUrl + 'internal/ping', { responseType: 'text' }).pipe(
       tap(() => console.log('Pinging backend')),
       catchError(this.handleError('ping'))
@@ -23,11 +23,11 @@ export class EessiFagmodulBackendService {
   }
 
   isalive(): Observable<any> {
-    return this.http.get<any>(this.backendUrl + 'internal/isalive');
+    return this.http.get(this.backendUrl + 'internal/isalive');
   }
 
   isread(): Observable<any> {
-    return this.http.get<any>(this.backendUrl + 'internal/isready');
+    return this.http.get(this.backendUrl + 'internal/isready');
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
