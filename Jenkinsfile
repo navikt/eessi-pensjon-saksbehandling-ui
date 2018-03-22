@@ -30,8 +30,10 @@ pipeline {
     stage('Build') {
       steps {
         withEnv(["NPM_CONFIG_LOGLEVEL=warn"]) {
-          sh 'npm install'
-          sh 'npm run build'
+          ansiColor('xterm') {
+            sh 'npm install'
+            sh 'npm run build'
+          }
         }
       }
     }
@@ -39,9 +41,19 @@ pipeline {
     stage('Test') {
       steps {
         withEnv(["CHROME_BIN=/bin/google-chrome"]) {
-          sh 'ng test --single-run --code-coverage --progress=false --watch false'
+          ansiColor('xterm') {
+            sh 'ng test --single-run --code-coverage --progress=false --watch false --browsers ChromeHeadless'
+          }
         }
-        junit '**/test-results.xml'
+        publishHTML([
+          allowMissing         : false,
+          alwaysLinkToLastBuild: false,
+          keepAll              : true,
+          reportDir            : 'coverage',
+          reportFiles          : 'index.html',
+          reportName           : 'HTML Report',
+          reportTitles         : ''
+        ])
       }
     }
 
