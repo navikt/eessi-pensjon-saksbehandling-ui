@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-REPO="repo.adeo.no:5443"
+REPO="docker.adeo.no:5000"
 APP_NAME="eessi-fagmodul-frontend"
 NUM=$(cat ./version)
-VERSION="0.1-SNAPSHOT-${NUM}"
+VERSION="0.0.1-SNAPSHOT-${NUM}"
 
 ENV=${1:-t1}
 NS=${2:-t1}
@@ -10,7 +10,12 @@ NS=${2:-t1}
 ## Bump snapshot-version
 echo $((NUM + 1)) > ./version
 
+#rm -rf ./dist/
+npm install
+npm run build
+
 # build & push
+echo "Running docker build"
 docker build . -t ${REPO}/${APP_NAME}:${VERSION}
 if [ ! $? -eq 0 ]; then
     echo "Error during docker build"
