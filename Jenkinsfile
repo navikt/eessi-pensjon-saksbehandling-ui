@@ -1,3 +1,5 @@
+import groovy.json.JsonOutput
+
 pipeline {
   agent any
   tools {
@@ -23,6 +25,7 @@ pipeline {
             version = "${version}.${env.BUILD_ID}-${commitHashShort}"
           }
           applicationFullName = "${app_name}:${version}"
+          branchName = "${env.BRANCH_NAME}"
         }
       }
     }
@@ -69,51 +72,21 @@ pipeline {
       }
     }
 
-    stage('Nais') {
+    stage('Deploy') {
       steps {
         script {
-          withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'nexus-user', usernameVariable: 'NEXUS_USERNAME', passwordVariable: 'NEXUS_PASSWORD']]) {
-            sh('nais validate')
-//                        sh "nais upload --app ${app_name} -v ${version}"
+          echo "Deploy '${branchName}'?"
+          if (branchName.startsWith('feature')) {
+            echo "\tdeploying to u89"
+            deploy.naisDeploy(app_name, version, 'u89', 'u89', 'fss')
+          } else if (branchName == 'master') {
+            echo "\tdeploying to t1"
+            deploy.naisDeploy(app_name, version, 't1', 't1', 'fss')
+          } else {
+            echo "Skipping deploy"
           }
         }
       }
     }
-
-//        stage('deploy to nais') {
-//            steps {
-//                script {
-//                    def postBody = [
-//                            fields: [
-//                                    project          : [key: "DEPLOY"],
-//                                    issuetype        : [id: "14302"],
-//                                    customfield_14811: [value: "${env.FASIT_ENV}"],
-//                                    customfield_14812: "${applicationFullName}",
-//                                    customfield_17410: "${env.BUILD_URL}input/Deploy/",
-//                                    customfield_19015: [id: "22707", value: "Yes"],
-//                                    customfield_19413: "${env.APPLICATION_NAMESPACE}",
-//                                    customfield_19610: [value: "${env.ZONE}"],
-//                                    summary          : "Automatisk deploy av ${applicationFullName} til ${env.FASIT_ENV}"
-//                            ]
-//                    ]
-//
-//                    def jiraPayload = groovy.json.JsonOutput.toJson(postBody)
-//
-//                    echo jiraPayload
-//
-//                    def response = httpRequest([
-//                            url                   : "https://jira.adeo.no/rest/api/2/issue/",
-//                            authentication        : "nais-user",
-//                            consoleLogResponseBody: true,
-//                            contentType           : "APPLICATION_JSON",
-//                            httpMode              : "POST",
-//                            requestBody           : jiraPayload
-//                    ])
-//
-//                    def jiraIssueId = readJSON([text: response.content])["key"]
-//                    currentBuild.description = "Waiting for <a href=\"https://jira.adeo.no/browse/$jiraIssueId\">${jiraIssueId}</a>"
-//                }
-//            }
-//        }
   }
 }
