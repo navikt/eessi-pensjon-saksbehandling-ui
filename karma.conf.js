@@ -29,6 +29,9 @@ module.exports = function (config) {
     autoWatch: true,
     browsers: ['Chrome'],
     singleRun: false,
+    browserDisconnectTimeout : 10000,
+    browserDisconnectTolerance : 1,
+    browserNoActivityTimeout : 60000, // default is 10000
     files: [
       './node_modules/bootstrap/dist/css/bootstrap.min.css'
     ],

@@ -15,7 +15,12 @@ export class SelftestComponent implements OnInit {
 
   ngOnInit() {
     this.backendService.ping()
-      .subscribe(() => this.backendIsUp = true);
+      .subscribe(res => {
+        if (res) {
+          this.backendIsUp = true;
+        } else {
+          this.backendIsUp = false;
+        }
+      });
   }
-
 }

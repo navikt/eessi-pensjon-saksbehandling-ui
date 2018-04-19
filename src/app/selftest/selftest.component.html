@@ -1,6 +1,9 @@
 <div *ngIf="backendIsUp == null">
   <p>Pinging backend...</p>
 </div>
-<div *ngIf="backendIsUp != null">
+<div *ngIf="backendIsUp == true">
   <p>Backend is up!</p>
+</div>
+<div *ngIf="backendIsUp == false">
+  <p>Backend is not up...</p>
 </div>
