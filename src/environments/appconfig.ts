@@ -1,20 +1,20 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 
 @Injectable()
 export class AppConfig {
 
-  appConfig;
+    appConfig;
 
-  constructor(private http: HttpClient) {
-  }
+    constructor(private http: HttpClient) {
+    }
 
-  public load() {
-    return this.http.get('assets/appconfig.json').toPromise().then(x => {
-        this.appConfig = x;
-        console.log('AppConfig loaded:');
-        console.log(this.appConfig);
-      }
-    );
-  }
+    public load() {
+        return this.http.get('assets/appconfig.json').toPromise().then(x => {
+                this.appConfig = x;
+                console.log('AppConfig loaded:');
+                console.log(this.appConfig);
+            }
+        );
+    }
 }

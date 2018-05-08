@@ -1,49 +1,49 @@
 <form (ngSubmit)="onSubmit()">
-  <div class="form-row align-items-center">
-    <div class="form-group col-md-3">
-      <label for="inputSaksbehandler">Saksbehandler</label>
-      <input type="text" class="form-control" id="inputSaksbehandler" placeholder="#">
-    </div>
-    <div class="form-group col-md-3">
-      <label for="inputPsakId">SaksId</label>
-      <input type="text" class="form-control" id="inputPsakId" [placeholder]="saksId ? saksId : '#'">
-    </div>
-  </div>
-
-  <div class="form-row align-items-center">
-    <div class="col-sm-3 my-1">
-      <label class="mr-sm-2" for="inlineFormInstitutionSelect">Institusjon</label>
-      <select class="custom-select" id="inlineFormInstitutionSelect" (change)="onChangeInstitution($event)">
-        <option *ngFor="let institution of institutions" [value]="institution.id">{{institution.countryCode}}:{{institution.name}}</option>
-      </select>
+    <div class="form-row align-items-center">
+        <div class="form-group col-md-3">
+            <label for="inputSaksbehandler">Saksbehandler</label>
+            <input type="text" class="form-control" id="inputSaksbehandler" placeholder="#">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputPsakId">SaksId</label>
+            <input type="text" class="form-control" id="inputPsakId" [placeholder]="saksId ? saksId : '#'">
+        </div>
     </div>
 
-    <div class="col-sm-3 my-1">
-      <label class="mr-sm-2" for="inlineFormBucSelect">BUC</label>
-      <select class="custom-select" id="inlineFormBucSelect" (change)="onChangeBuc($event)">
-        <option *ngFor="let buc of bucs" [value]="buc.id">{{buc.shortName}}</option>
-      </select>
-    </div>
+    <div class="form-row align-items-center">
+        <div class="col-sm-3 my-1">
+            <label class="mr-sm-2" for="inlineFormInstitutionSelect">Institusjon</label>
+            <select class="custom-select" id="inlineFormInstitutionSelect" (change)="onChangeInstitution($event)">
+                <option *ngFor="let institution of institutions" [value]="institution.id">{{institution.countryCode}}:{{institution.name}}</option>
+            </select>
+        </div>
 
-    <div class="col-sm-3 my-1">
-      <label class="mr-sm-2" for="inlineFormSedSelect">SED</label>
-      <select class="custom-select" id="inlineFormSedSelect" (change)="onChangeSed($event)">
-        <option *ngFor="let sed of seds" [value]="sed.id">{{sed.shortName}}</option>
-      </select>
-    </div>
+        <div class="col-sm-3 my-1">
+            <label class="mr-sm-2" for="inlineFormBucSelect">BUC</label>
+            <select class="custom-select" id="inlineFormBucSelect" (change)="onChangeBuc($event)">
+                <option *ngFor="let buc of bucs" [value]="buc.id">{{buc.shortName}}</option>
+            </select>
+        </div>
 
-    <!--<div class="col-sm-3 my-1">-->
-      <!--<label class="alignmr-sm-2" for="inlineFormSedSelect">SED</label>-->
-      <!--<select class="custom-select" id="inlineFormSedSelect" disabled>-->
+        <div class="col-sm-3 my-1">
+            <label class="mr-sm-2" for="inlineFormSedSelect">SED</label>
+            <select class="custom-select" id="inlineFormSedSelect" (change)="onChangeSed($event)">
+                <option *ngFor="let sed of seds" [value]="sed.id">{{sed.shortName}}</option>
+            </select>
+        </div>
+
+        <!--<div class="col-sm-3 my-1">-->
+        <!--<label class="alignmr-sm-2" for="inlineFormSedSelect">SED</label>-->
+        <!--<select class="custom-select" id="inlineFormSedSelect" disabled>-->
         <!--<div *ngIf="seds; then loadedSeds else loadingSeds"></div>-->
         <!--<ng-template #loadedSeds>-->
-          <!--<option *ngFor="let sed of seds">{{sed.shortName}}</option>-->
+        <!--<option *ngFor="let sed of seds">{{sed.shortName}}</option>-->
         <!--</ng-template>-->
         <!--<ng-template #loadingSeds>-->
-          <!--<option selected>-</option>-->
+        <!--<option selected>-</option>-->
         <!--</ng-template>-->
-      <!--</select>-->
-    <!--</div>-->
-  </div>
-  <button type="submit" class="btn btn-primary" >Submit</button>
+        <!--</select>-->
+        <!--</div>-->
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>

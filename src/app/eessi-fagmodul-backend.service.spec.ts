@@ -7,26 +7,26 @@ import { AppConfig }        from '../environments/appconfig';
 import { EessiFagmodulBackendService } from './eessi-fagmodul-backend.service';
 
 function initConfig(config: AppConfig) {
-  return () => config.appConfig = {
-    'eessiFagmodulUrl': ''
-  };
+    return () => config.appConfig = {
+        'eessiFagmodulUrl': ''
+    };
 }
 
 describe('EessiFagmodulBackendService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        HttpClientModule,
-      ],
-      providers: [
-        AppConfig,
-        { provide: APP_INITIALIZER, useFactory: initConfig, deps: [ AppConfig ], multi: true },
-        EessiFagmodulBackendService
-      ]
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                HttpClientModule,
+            ],
+            providers: [
+                AppConfig,
+                {provide: APP_INITIALIZER, useFactory: initConfig, deps: [AppConfig], multi: true},
+                EessiFagmodulBackendService
+            ]
+        });
     });
-  });
 
-  it('should be created', inject([ EessiFagmodulBackendService ], (service: EessiFagmodulBackendService) => {
-    expect(service).toBeTruthy();
-  }));
+    it('should be created', inject([EessiFagmodulBackendService], (service: EessiFagmodulBackendService) => {
+        expect(service).toBeTruthy();
+    }));
 });

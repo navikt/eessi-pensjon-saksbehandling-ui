@@ -78,10 +78,10 @@ pipeline {
           echo "Deploy '${branchName}'?"
           if (branchName.startsWith('feature')) {
             echo "\tdeploying to u89"
-            deploy.naisDeploy(app_name, version, 'u89', 'u89', 'fss')
+            deploy.naisDeploy(app_name, version, 'u2', 'u2', 'fss')
           } else if (branchName == 'master') {
             echo "\tdeploying to t1"
-            deploy.naisDeploy(app_name, version, 't1', 't1', 'fss')
+            deploy.naisDeploy(app_name, version, 't8', 't8', 'fss')
           } else {
             echo "Skipping deploy"
           }
