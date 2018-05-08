@@ -4,6 +4,12 @@ let fs = require('fs');
 let prometheus = require('prom-client');
 let http = require('http');
 
+/* Resources from Fasit that need to be available to the application must be declared in this appconfig-object.
+ *
+ * Fasit-resources are automatically available as environment-variables in the container, but these variables
+ * are not available in the Angular-app. The solution is to populate this appconfig-object and inject it as a
+ * provider in AppModule.
+ */
 let appconfig = {
   eessiFagmodulUrl: process.env['EESSIFAGMODULSERVICE_URL'] || 'https://eessi-fagmodul-t1.nais.preprod.local/'
 };
