@@ -1,6 +1,8 @@
+
+import {takeWhile} from 'rxjs/operators';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute }               from '@angular/router';
-import 'rxjs/add/operator/takeWhile';
+
 import { TimerObservable }              from 'rxjs/observable/TimerObservable';
 import { EessiFagmodulBackendService }  from '../eessi-fagmodul-backend.service';
 import { BUC, Institution, SED }        from '../models';
@@ -38,8 +40,8 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.saksId = params['saksId'];
         });
 
-        TimerObservable.create(0, 10000)
-            .takeWhile(() => this.alive && this.institutions.length === 0)
+        TimerObservable.create(0, 10000).pipe(
+            takeWhile(() => this.alive && this.institutions.length === 0))
             .subscribe(() => {
                 this.backendService.getInstitutions()
                     .subscribe((res) => {
@@ -48,8 +50,8 @@ export class HomeComponent implements OnInit, OnDestroy {
                     });
             });
 
-        TimerObservable.create(0, 10000)
-            .takeWhile(() => this.alive && this.bucs.length === 0)
+        TimerObservable.create(0, 10000).pipe(
+            takeWhile(() => this.alive && this.bucs.length === 0))
             .subscribe(() => {
                 this.backendService.getBucs().subscribe(res => {
                         this.bucs = res;
@@ -58,8 +60,8 @@ export class HomeComponent implements OnInit, OnDestroy {
                 );
             });
 
-        TimerObservable.create(0, 10000)
-            .takeWhile(() => this.alive && this.seds.length === 0)
+        TimerObservable.create(0, 10000).pipe(
+            takeWhile(() => this.alive && this.seds.length === 0))
             .subscribe(() => {
                 this.backendService.getSeds().subscribe(res => {
                         this.seds = res;

@@ -34,8 +34,8 @@ pipeline {
       steps {
         withEnv(["NPM_CONFIG_LOGLEVEL=warn"]) {
           ansiColor('xterm') {
-            sh 'npm install'
-            sh 'npm run build'
+            sh 'yarn install'
+            sh 'yarn run build'
           }
         }
       }
@@ -45,7 +45,7 @@ pipeline {
       steps {
         withEnv(["CHROME_BIN=/bin/google-chrome"]) {
           ansiColor('xterm') {
-            sh 'ng test --single-run --code-coverage --progress=false --watch false --browsers ChromeHeadless'
+            sh 'ng test --code-coverage --progress=false --watch false --browsers ChromeHeadless'
           }
         }
         publishHTML([
