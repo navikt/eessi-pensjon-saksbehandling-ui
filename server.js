@@ -1,6 +1,7 @@
 let express = require('express');
 let path = require('path');
 let fs = require('fs');
+let bodyParser = require('body-parser');
 let prometheus = require('prom-client');
 let http = require('http');
 
@@ -25,9 +26,10 @@ let app = express();
 
 app.set('port', 80);
 app.use(express.static(path.join(__dirname, 'build')));
+app.use(bodyParser.json());
 
 // Catch requests to /internal/isalive and /internal/isready that have 'Accept: application/json'.
-// All other requests go to '*' and the Angular app.
+// All other requests go to '*' and the React app.
 app.get('/internal/:diagnostic', (req, res, next) => {
 
   if (req.header('Accepts') !== 'application/json') {
@@ -52,6 +54,48 @@ app.get('/internal/:diagnostic', (req, res, next) => {
 app.get('/internal/metrics', (req, res) => {
   res.set('Content-Type', prometheus.register.contentType);
   res.end(prometheus.register.metrics());
+});
+
+app.get('/case/:caseId', (req, res) => {
+  let caseId = req.params.caseId;
+  if (caseId.match(/\d+/)) {
+    res.json({caseId: caseId})
+  } else {
+    res.status(403).json({'serverMessage': 'invalidCaseNumber'});
+  }
+});
+
+app.post('/casesubmit', (req, res) => {
+  let params = req.body;
+  if (params.mottager && params.buc && params.sed) {
+    res.json(params);
+  } else {
+    res.status(403).json({'serverMessage': 'insufficientParameters'});
+  }
+});
+
+app.get('/mottager', (req, res) => {
+  res.json([
+   'Mottager4',
+   'Mottager5',
+   'Mottager6'
+ ])
+});
+
+app.get('/buc', (req, res) => {
+  res.json([
+   'buc4',
+   'buc5',
+   'buc6'
+ ])
+});
+
+app.get('/sed', (req, res) => {
+  res.json([
+   'sed4',
+   'sed5',
+   'sed6'
+ ])
 });
 
 app.get('*', (req, res) => {

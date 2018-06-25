@@ -10,7 +10,7 @@ export function call(options) {
     });
     request({
       url: options.url,
-      method:  options.method,
+      method:  options.method || 'GET',
       crossOrigin: true,
       json: true,
       headers: options.headers,
