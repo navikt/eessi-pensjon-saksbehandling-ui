@@ -24,7 +24,7 @@ prometheus.collectDefaultMetrics();
 let app = express();
 
 app.set('port', 80);
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, 'build')));
 
 // Catch requests to /internal/isalive and /internal/isready that have 'Accept: application/json'.
 // All other requests go to '*' and the Angular app.
@@ -55,7 +55,7 @@ app.get('/internal/metrics', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 const server = http.createServer(app);

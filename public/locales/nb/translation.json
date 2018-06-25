@@ -1,0 +1,15 @@
+{
+  "mottager"  : "Mottager",
+  "buc" : "BUC",
+  "sed" : "SED",
+  "caseFound" : "Saken funnet",
+  "caseNotFound" : "Saken ikke funnet",
+  "go" : "Gå",
+  "caseId" : "SaksId",
+  "caseHandler" : "Saksbehandler",
+  "søk" : "Søk",
+  "dataSubmitted" : "Data sendt",
+  "invalidCaseNumber": "Ugyldig saksId",
+  "invalidCaseHandler": "Ugyldig saksbehandler",
+  "insufficientParameters": "ikke nok parametere"
+}

@@ -1,0 +1,155 @@
+@font-face {
+   font-family: "Source Sans Pro";
+   src: url(../fonts/SourceSansPro-Regular.ttf)
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-family: sans-serif;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0px;
+}
+
+button,
+input {
+    overflow: visible;
+}
+
+button,
+select {
+    text-transform: none;
+}
+
+button,
+html [type="button"],
+[type="reset"],
+[type="submit"] {
+    -webkit-appearance: button;
+}
+
+* {
+    font-family: "Source Sans Pro";
+    box-sizing: border-box;
+}
+
+input,
+button,
+select,
+textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.knapp {
+    display: inline-block;
+    font-weight: 600;
+    font-family: "Source Sans Pro", Arial, sans-serif;
+    font-size: 1em;
+    white-space: nowrap;
+    border-radius: 0.125em;
+    cursor: pointer;
+    user-select: none;
+    letter-spacing: 0.0625em;
+    line-height: 1;
+    text-transform: uppercase;
+    text-decoration: none;
+    background-color: transparent;
+    padding: calc(0.5em - 2px) calc(2.5em - 2px) calc(0.625em - 2px);
+    border: 2px solid rgb(0, 103, 197);
+    color: rgb(0, 103, 197);
+}
+
+.skjemaelement {
+    margin-bottom: 1rem;
+}
+
+.skjemaelement__label {
+    font-family: "Source Sans Pro", Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    display: block;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+}
+
+.input--fullbredde {
+    width: 100%;
+}
+
+.skjemaelement__input {
+    padding: 0.45rem;
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px;
+    border: 1px solid rgb(183, 177, 169);
+    box-sizing: border-box;
+}
+
+.alertstripe {
+    background-color: rgb(255, 255, 255);
+    padding: 1rem;
+    display: flex;
+    align-content: center;
+    border-radius: 2px;
+    color: rgb(62, 56, 50);
+}
+
+.alertstripe--suksess {
+    border: 1px solid rgb(6, 137, 58);
+}
+
+.alertstripe--advarsel {
+    border: 1px solid rgb(186, 58, 38);
+}
+
+.alertstripe__ikon {
+    margin-right: 0.75rem;
+    padding-right: 0.75rem;
+    width: 2.5rem;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+}
+
+.alertstripe:not(.alertstripe--solid) .alertstripe__ikon {
+    border-right: 1px solid rgb(183, 177, 169);
+}
+
+svg:not(:root) {
+    overflow: hidden;
+}
+
+.typo-normal {
+    margin: 0px;
+    font-family: "Source Sans Pro", Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.375rem;
+    font-weight: 400;
+}
+
+.typo-ingress,
+.typo-normal {
+    max-width: 640px;
+}
+
+.alertstripe .alertstripe__tekst {
+    margin: auto 0px;
+    max-width: 37.5rem;
+}
+
+.spinner {
+    display: inline-block;
+    position: relative;
+    animation: rotering 2s linear infinite;
+}
+
+.spinner--m {
+    height: 32px;
+    width: 32px;
+    background-size: 32px 32px;
+    animation-duration: 1.1s;
+}
