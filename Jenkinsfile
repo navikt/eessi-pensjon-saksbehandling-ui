@@ -2,9 +2,6 @@ import groovy.json.JsonOutput
 
 pipeline {
   agent any
-  tools {
-    maven('Maven 3.3.9')
-  }
 
   environment {
     repo = "docker.adeo.no:5000"
@@ -41,7 +38,7 @@ pipeline {
       }
     }
 
-    stage('Test') {
+    /*stage('Test') {
       steps {
         withEnv(["CHROME_BIN=/bin/google-chrome"]) {
           ansiColor('xterm') {
@@ -58,7 +55,7 @@ pipeline {
           reportTitles         : ''
         ])
       }
-    }
+    }*/
 
     stage('Docker') {
       steps {
@@ -77,11 +74,11 @@ pipeline {
         script {
           echo "Deploy '${branchName}'?"
           if (branchName.startsWith('feature')) {
-            echo "\tdeploying to u89"
-            deploy.naisDeploy(app_name, version, 'u2', 'u2', 'fss')
+            echo "\tdeploying to t8"
+            deploy.naisDeploy(app_name, version, 't8', 't8', 'fss')
           } else if (branchName == 'master') {
             echo "\tdeploying to t1"
-            deploy.naisDeploy(app_name, version, 't8', 't8', 'fss')
+            deploy.naisDeploy(app_name, version, 't1', 't1', 'fss')
           } else {
             echo "Skipping deploy"
           }

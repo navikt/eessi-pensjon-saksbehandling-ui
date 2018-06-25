@@ -7,7 +7,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "start_express": "cd dist && node server.js"
+    "start_express": "node server.js"
   },
   "private": true,
   "dependencies": {
