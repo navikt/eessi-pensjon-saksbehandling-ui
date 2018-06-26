@@ -1,6 +1,9 @@
+var protocol = window.location.protocol;
+var host = protocol.concat('//').concat(window.location.hostname);
+
 const BASE_URL = {
   'development': 'http://localhost:3000',
-  'production': 'http://localhost:80'
+  'production': host + ':80'
 };
 
 export const CASE_URL       = BASE_URL[process.env.NODE_ENV] + '/case';
