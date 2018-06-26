@@ -22,6 +22,7 @@ const mapStateToProps = (state) => {
     sed          : state.usercase.sed,
     submitted    : state.usercase.submitted,
     error        : state.usercase.error,
+    serverError  : state.server.error,
     isProcessing : state.usercase.isProcessing
   };
 };
@@ -141,7 +142,7 @@ class Case extends Component {
 
   render() {
 
-    const { t, usercase, error, isProcessing } = this.props;
+    const { t, usercase, error, serverError, isProcessing } = this.props;
 
     let alert;
     let loading = (isProcessing ? <NavFrontendSpinner /> : null);
@@ -151,6 +152,10 @@ class Case extends Component {
     } else {
       alert = <AlertStripe type='stopp'>{t('caseNotFound')}</AlertStripe>;
     };
+
+    if (serverError) {
+      alert = <AlertStripe type='stopp'>{t(serverError)}</AlertStripe>;
+    }
 
     if (error) {
       alert = <AlertStripe type='stopp'>{t(error)}</AlertStripe>;
@@ -181,7 +186,8 @@ Case.propTypes = {
   mottager     : PropTypes.object,
   sed          : PropTypes.object,
   buc          : PropTypes.object,
-  error        : PropTypes.objec
+  error        : PropTypes.object,
+  serverError  : PropTypes.object
 };
 
 export default connect(

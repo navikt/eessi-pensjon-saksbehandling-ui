@@ -16,7 +16,8 @@ const mapStateToProps = (state) => {
   return {
     error        : state.usercase.error,
     usercase     : state.usercase.usercase,
-    isProcessing : state.usercase.isProcessing
+    isProcessing : state.usercase.isProcessing,
+    serverError  : state.server.error
   };
 };
 
@@ -58,9 +59,11 @@ class Index extends Component {
 
   render() {
 
-    const { t, error, isProcessing } = this.props;
+    const { t, error, serverError, isProcessing } = this.props;
 
-    let alert = (error ? <AlertStripe type='stopp'>{t(error)}</AlertStripe> : null);
+    let alert = (error ? <AlertStripe type='stopp'>{t(error)}</AlertStripe> : (
+      serverError ? <AlertStripe type='stopp'>{t(serverError)}</AlertStripe> : null
+    ));
     let loading = (isProcessing ? <NavFrontendSpinner /> : null);
 
     return <Main>
@@ -82,6 +85,7 @@ class Index extends Component {
 Index.propTypes = {
   usercase     : PropTypes.object,
   error        : PropTypes.object,
+  serverError  : PropTypes.object,
   isProcessing : PropTypes.bool,
   actions      : PropTypes.object,
   history      : PropTypes.object,

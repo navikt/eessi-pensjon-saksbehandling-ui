@@ -11,5 +11,6 @@
   "dataSubmitted" : "Data sendt",
   "invalidCaseNumber": "Ugyldig saksId",
   "invalidCaseHandler": "Ugyldig saksbehandler",
-  "insufficientParameters": "ikke nok parametere"
+  "insufficientParameters": "ikke nok parametere",
+  "serveroffline" : "server offline"
 }
