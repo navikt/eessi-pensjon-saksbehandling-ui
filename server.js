@@ -56,7 +56,7 @@ app.get('/internal/metrics', (req, res) => {
   res.end(prometheus.register.metrics());
 });
 
-app.get('/case/:caseId', (req, res) => {
+app.get('/api/case/:caseId', (req, res) => {
   let caseId = req.params.caseId;
   if (caseId.match(/\d+/)) {
     res.json({caseId: caseId})
@@ -65,7 +65,7 @@ app.get('/case/:caseId', (req, res) => {
   }
 });
 
-app.post('/casesubmit', (req, res) => {
+app.post('/api/casesubmit', (req, res) => {
   let params = req.body;
   if (params.mottager && params.buc && params.sed) {
     res.json(params);
@@ -74,7 +74,7 @@ app.post('/casesubmit', (req, res) => {
   }
 });
 
-app.get('/mottager', (req, res) => {
+app.get('/api/mottager', (req, res) => {
   res.json([
    'Mottager4',
    'Mottager5',
@@ -82,7 +82,7 @@ app.get('/mottager', (req, res) => {
  ])
 });
 
-app.get('/buc', (req, res) => {
+app.get('/api/buc', (req, res) => {
   res.json([
    'buc4',
    'buc5',
@@ -90,7 +90,7 @@ app.get('/buc', (req, res) => {
  ])
 });
 
-app.get('/sed', (req, res) => {
+app.get('/api/sed', (req, res) => {
   res.json([
    'sed4',
    'sed5',

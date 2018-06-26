@@ -6,8 +6,8 @@ const BASE_URL = {
   'production': host + ':80'
 };
 
-export const CASE_URL       = BASE_URL[process.env.NODE_ENV] + '/case';
-export const MOTTAGER_URL   = BASE_URL[process.env.NODE_ENV] + '/mottager';
-export const BUC_URL        = BASE_URL[process.env.NODE_ENV] + '/buc';
-export const SED_URL        = BASE_URL[process.env.NODE_ENV] + '/sed';
-export const CASESUBMIT_URL = BASE_URL[process.env.NODE_ENV] + '/casesubmit';
+export const CASE_URL       = BASE_URL[process.env.NODE_ENV] + '/api/case';
+export const MOTTAGER_URL   = BASE_URL[process.env.NODE_ENV] + '/api/mottager';
+export const BUC_URL        = BASE_URL[process.env.NODE_ENV] + '/api/buc';
+export const SED_URL        = BASE_URL[process.env.NODE_ENV] + '/api/sed';
+export const CASESUBMIT_URL = BASE_URL[process.env.NODE_ENV] + '/api/casesubmit';
