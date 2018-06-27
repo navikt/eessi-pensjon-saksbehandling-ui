@@ -16,8 +16,8 @@ const mapStateToProps = (state) => {
   return {
     error        : state.usercase.error,
     usercase     : state.usercase.usercase,
-    isProcessing : state.usercase.isProcessing,
-    serverError  : state.server.error
+    isProcessing : state.ui.isProcessing,
+    serverError  : state.ui.serverError
   };
 };
 
@@ -72,9 +72,9 @@ class Index extends Component {
       <div>
         <Input label={t('caseId')} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
       </div>
-       <div>
-         <Input label={t('caseHandler')} value={this.state.caseHandler} onChange={this.onCaseHandlerChange.bind(this)}/>
-       </div>
+      <div>
+        <Input label={t('caseHandler')} value={this.state.caseHandler} onChange={this.onCaseHandlerChange.bind(this)}/>
+      </div>
       <div>
         <KnappBase type='standard' onClick={this.onButtonClick.bind(this)}>{t('søk')}</KnappBase>
       </div>

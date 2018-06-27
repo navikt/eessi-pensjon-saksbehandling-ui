@@ -8,6 +8,7 @@ export function call(options) {
     dispatch({
       type: options.type.request
     });
+
     request({
       url: options.url,
       method:  options.method || 'GET',

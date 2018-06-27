@@ -17,13 +17,13 @@ import Main from '../components/Main';
 const mapStateToProps = (state) => {
   return {
     usercase     : state.usercase.usercase,
-    mottager     : state.usercase.mottager,
+    institution  : state.usercase.institution,
     buc          : state.usercase.buc,
     sed          : state.usercase.sed,
     submitted    : state.usercase.submitted,
     error        : state.usercase.error,
-    serverError  : state.server.error,
-    isProcessing : state.usercase.isProcessing
+    serverError  : state.ui.serverError,
+    isProcessing : state.ui.isProcessing
   };
 };
 
@@ -35,28 +35,26 @@ class Case extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      sedDisabled: true
+    };
   }
 
   componentWillMount() {
 
-    const { actions, match, usercase, mottager, buc, sed } = this.props;
+    const { actions, match, usercase, institution, buc } = this.props;
 
     if (_.isEmpty(usercase)) {
       let id = match.params.id;
       actions.getCaseFromCaseNumber(id);
     }
 
-    if (_.isEmpty(mottager)) {
-      actions.getMottagerOptions();
+    if (_.isEmpty(institution)) {
+      actions.getInstitutionOptions();
     }
 
     if (_.isEmpty(buc)) {
       actions.getBucOptions();
-    }
-
-    if (_.isEmpty(sed)) {
-      actions.getSedOptions();
     }
   }
 
@@ -64,24 +62,36 @@ class Case extends Component {
 
     const { history } = this.props;
     if (nextProps.submitted) {
-      history.push('/handle');
+      history.push('/casesubmit');
+    }
+    if (nextProps.sed && !_.isEmpty(nextProps.sed)) {
+      this.setState({sedDisabled: false})
     }
   }
 
   onButtonClick() {
 
-    const { actions } = this.props;
-    actions.postChoices(this.state);
+    const { actions, usercase } = this.props;
+
+    actions.postChoices({
+      'institution' : this.state.institution,
+      'buc'         : this.state.buc,
+      'sed'         : this.state.sed,
+      'caseId'      : usercase.caseId
+    });
   }
 
-  onMottagerChange(e) {
+  onInstitutionChange(e) {
 
-    this.setState({mottager: e.target.value})
+    this.setState({institution: e.target.value})
   }
 
   onBucChange(e) {
 
-    this.setState({buc: e.target.value})
+    const { actions } = this.props;
+    let buc = e.target.value;
+    this.setState({buc: buc})
+    actions.getSedOptions(buc);
   }
 
   onSedChange(e) {
@@ -100,16 +110,16 @@ class Case extends Component {
     return options;
   }
 
-  renderMottager() {
+  renderInstitution() {
 
-    const { t, mottager } = this.props;
+    const { t, institution } = this.props;
     let options;
 
-    if (mottager) {
-      options = this.renderOptions(mottager);
+    if (institution) {
+      options = this.renderOptions(institution);
     }
 
-    return <Select label={t('mottager')} value={this.state.mottager} onChange={this.onMottagerChange.bind(this)}>
+    return <Select label={t('institution')} value={this.state.institution} onChange={this.onInstitutionChange.bind(this)}>
       {options}
     </Select>
   }
@@ -135,7 +145,7 @@ class Case extends Component {
       options = this.renderOptions(sed);
     }
 
-    return <Select label={t('sed')} value={this.state.sed} onChange={this.onSedChange.bind(this)}>
+    return <Select disabled={this.state.sedDisabled} label={t('sed')} value={this.state.sed} onChange={this.onSedChange.bind(this)}>
       {options}
     </Select>
   }
@@ -151,7 +161,7 @@ class Case extends Component {
       alert = <AlertStripe type='suksess'>{t('caseFound') + ': ' + usercase.caseId}</AlertStripe>;
     } else {
       alert = <AlertStripe type='stopp'>{t('caseNotFound')}</AlertStripe>;
-    };
+    }
 
     if (serverError) {
       alert = <AlertStripe type='stopp'>{t(serverError)}</AlertStripe>;
@@ -161,14 +171,14 @@ class Case extends Component {
       alert = <AlertStripe type='stopp'>{t(error)}</AlertStripe>;
     }
 
-    let mottagerSelect = this.renderMottager();
-    let bucSelect = this.renderBuc();
-    let sedSelect = this.renderSed();
+    let institutionSelect = this.renderInstitution();
+    let bucSelect         = this.renderBuc();
+    let sedSelect         = this.renderSed();
 
     return <Main>
       <div>{alert}</div>
       <div>{loading}</div>
-      <div>{mottagerSelect}</div>
+      <div>{institutionSelect}</div>
       <div>{bucSelect}</div>
       <div>{sedSelect}</div>
       <KnappBase type='standard' onClick={this.onButtonClick.bind(this)}>{t('go')}</KnappBase>
@@ -183,9 +193,10 @@ Case.propTypes = {
   isProcessing : PropTypes.bool,
   t            : PropTypes.func,
   match        : PropTypes.func,
-  mottager     : PropTypes.object,
+  institution  : PropTypes.object,
   sed          : PropTypes.object,
   buc          : PropTypes.object,
+  submitted    : PropTypes.object,
   error        : PropTypes.object,
   serverError  : PropTypes.object
 };

@@ -3,6 +3,7 @@
   "version": "0.0.1-SNAPSHOT",
   "license": "MIT",
   "scripts": {
+    "lint": "eslint --ext .js src",
     "start:dev": "react-scripts start NODE_ENV=development",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
@@ -12,12 +13,12 @@
   "proxy": "http://localhost:80",
   "private": true,
   "dependencies": {
-    "babel-eslint": "^8.2.3",
+    "babel-eslint": "^8.2.5",
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.3",
     "classnames": "^2.2.6",
-    "express": "^4.16.2",
-    "fs-extra": "^5.0.0",
+    "express": "^4.16.3",
+    "fs-extra": "^6.0.1",
     "history": "^4.7.2",
     "i18next": "^11.3.3",
     "i18next-browser-languagedetector": "^2.2.0",
@@ -39,7 +40,7 @@
     "nav-frontend-spinner-style": "^0.2.4",
     "nav-frontend-typografi": "^2.0.5",
     "nav-frontend-typografi-style": "^1.0.9",
-    "prom-client": "^10.2.2",
+    "prom-client": "^11.0.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -53,16 +54,16 @@
     "request": "^2.87.0"
   },
   "devDependencies": {
-    "jasmine-core": "~2.8.0",
+    "jasmine-core": "~3.1.0",
     "jasmine-spec-reporter": "~4.2.1",
-    "karma": "~2.0.0",
+    "karma": "~2.0.4",
     "karma-chrome-launcher": "~2.2.0",
-    "karma-coverage-istanbul-reporter": "^1.2.1",
-    "karma-jasmine": "~1.1.0",
-    "karma-jasmine-html-reporter": "^0.2.2",
-    "protractor": "~5.1.2",
-    "ts-node": "~4.1.0",
-    "tslint": "~5.9.1",
-    "typescript": "2.7.2"
+    "karma-coverage-istanbul-reporter": "^2.0.1",
+    "karma-jasmine": "~1.1.2",
+    "karma-jasmine-html-reporter": "^1.1.0",
+    "protractor": "~5.3.2",
+    "ts-node": "~7.0.0",
+    "tslint": "~5.10.0",
+    "typescript": "2.9.2"
   }
 }

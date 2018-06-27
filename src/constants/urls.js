@@ -1,13 +1,10 @@
-var protocol = window.location.protocol;
-var host = protocol.concat('//').concat(window.location.hostname);
+var BASE_URL = window.location.protocol.concat('//').concat(window.location.hostname);
 if (window.location.port) {
-   host = host.concat(':' + window.location.port);
+  BASE_URL = BASE_URL.concat(':' + window.location.port);
 }
 
-const BASE_URL = host;
-
-export const CASE_URL       = BASE_URL + '/api/case';
-export const MOTTAGER_URL   = BASE_URL + '/api/mottager';
-export const BUC_URL        = BASE_URL + '/api/buc';
-export const SED_URL        = BASE_URL + '/api/sed';
-export const CASESUBMIT_URL = BASE_URL + '/api/casesubmit';
+export const CASE_URL        = BASE_URL + '/api/case';
+export const INSTITUTION_URL = BASE_URL + '/api/institutions';
+export const BUC_URL         = BASE_URL + '/api/bucs';
+export const SED_URL         = BASE_URL + '/api/seds';
+export const CASESUBMIT_URL  = BASE_URL + '/api/casesubmit';

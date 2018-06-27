@@ -14,7 +14,7 @@ import { I18nextProvider } from 'react-i18next';
 
 import Index from './pages/Index';
 import Case from './pages/Case';
-import Handle from './pages/Handle';
+import CaseSubmit from './pages/CaseSubmit';
 
 import * as reducers from './reducers';
 
@@ -39,7 +39,7 @@ ReactDOM.render(
       <ConnectedRouter history={history}>
         <Switch>
           <Route path='/case/:id' component={Case}/>
-          <Route path='/handle' component={Handle}/>
+          <Route path='/casesubmit' component={CaseSubmit}/>
           <Route path='/' component={Index}/>
         </Switch>
       </ConnectedRouter>

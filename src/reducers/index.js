@@ -1,7 +1,7 @@
 
 import usercase from './usercase';
-import server from './server';
+import ui from './ui';
 
 export {
-  usercase, server
+  usercase, ui
 }

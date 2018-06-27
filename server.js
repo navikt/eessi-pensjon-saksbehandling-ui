@@ -67,14 +67,14 @@ app.get('/api/case/:caseId', (req, res) => {
 
 app.post('/api/casesubmit', (req, res) => {
   let params = req.body;
-  if (params.mottager && params.buc && params.sed) {
+  if (params.institution && params.buc && params.sed) {
     res.json(params);
   } else {
     res.status(403).json({'serverMessage': 'insufficientParameters'});
   }
 });
 
-app.get('/api/mottager', (req, res) => {
+app.get('/api/institutions', (req, res) => {
   res.json([
    'Mottager4',
    'Mottager5',
@@ -82,7 +82,7 @@ app.get('/api/mottager', (req, res) => {
  ])
 });
 
-app.get('/api/buc', (req, res) => {
+app.get('/api/bucs', (req, res) => {
   res.json([
    'buc4',
    'buc5',
@@ -90,11 +90,12 @@ app.get('/api/buc', (req, res) => {
  ])
 });
 
-app.get('/api/sed', (req, res) => {
+app.get('/api/seds/:buc', (req, res) => {
+  let buc = req.params.buc;
   res.json([
-   'sed4',
-   'sed5',
-   'sed6'
+   'sed4' + buc,
+   'sed5' + buc,
+   'sed6' + buc
  ])
 });
 
