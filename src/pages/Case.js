@@ -46,7 +46,9 @@ class Case extends Component {
 
     if (_.isEmpty(usercase)) {
       let id = match.params.id;
-      actions.getCaseFromCaseNumber(id);
+      actions.getCaseFromCaseNumber({
+        caseId: id
+      });
     }
 
     if (_.isEmpty(institution)) {

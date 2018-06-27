@@ -18,7 +18,7 @@ const mapStateToProps = (state) => {
     usercase     : state.usercase.usercase,
     isProcessing : state.ui.isProcessing,
     serverError  : state.ui.serverError
-  };
+  }
 };
 
 const mapDispatchToProps = (dispatch) => {

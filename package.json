@@ -4,11 +4,12 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint --ext .js src",
-    "start:dev": "react-scripts start NODE_ENV=development",
+    "start:dev-react": "cross-env NODE_ENV=development react-scripts start",
+    "start:dev-node": "cross-env NODE_ENV=development node server.js",
+    "start:prod": "cross-env NODE_ENV=production node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "start:prod": "node server.js NODE_ENV=production"
+    "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:80",
   "private": true,
@@ -17,6 +18,7 @@
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.3",
     "classnames": "^2.2.6",
+    "cross-env": "^5.2.0",
     "express": "^4.16.3",
     "fs-extra": "^6.0.1",
     "history": "^4.7.2",
@@ -51,7 +53,8 @@
     "react-scripts": "^1.1.4",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
-    "request": "^2.87.0"
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
     "jasmine-core": "~3.1.0",

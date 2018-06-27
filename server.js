@@ -5,6 +5,8 @@ let bodyParser = require('body-parser');
 let prometheus = require('prom-client');
 let http = require('http');
 
+let api = require('./api');
+
 /* Resources from Fasit that need to be available to the application must be declared in this appconfig-object.
  *
  * Fasit-resources are automatically available as environment-variables in the container, but these variables
@@ -12,7 +14,7 @@ let http = require('http');
  * provider in AppModule.
  */
 let appconfig = {
-  eessiFagmodulUrl: process.env['EESSIFAGMODULSERVICE_URL'] || 'https://eessi-fagmodul-t1.nais.preprod.local/'
+  eessiFagmodulUrl: process.env['EESSIFAGMODULSERVICE_URL'] || 'https://eessi-fagmodul-t8.nais.preprod.local/'
 };
 if (!fs.existsSync('assets'))
   fs.mkdirSync('assets');
@@ -56,54 +58,16 @@ app.get('/internal/metrics', (req, res) => {
   res.end(prometheus.register.metrics());
 });
 
-app.get('/api/case/:caseId', (req, res) => {
-  let caseId = req.params.caseId;
-  if (caseId.match(/\d+/)) {
-    res.json({caseId: caseId})
-  } else {
-    res.status(403).json({'serverMessage': 'invalidCaseNumber'});
-  }
-});
-
-app.post('/api/casesubmit', (req, res) => {
-  let params = req.body;
-  if (params.institution && params.buc && params.sed) {
-    res.json(params);
-  } else {
-    res.status(403).json({'serverMessage': 'insufficientParameters'});
-  }
-});
-
-app.get('/api/institutions', (req, res) => {
-  res.json([
-   'Mottager4',
-   'Mottager5',
-   'Mottager6'
- ])
-});
-
-app.get('/api/bucs', (req, res) => {
-  res.json([
-   'buc4',
-   'buc5',
-   'buc6'
- ])
-});
-
-app.get('/api/seds/:buc', (req, res) => {
-  let buc = req.params.buc;
-  res.json([
-   'sed4' + buc,
-   'sed5' + buc,
-   'sed6' + buc
- ])
-});
-
-app.get('*', (req, res) => {
+app.get( '/api/case/:caseId', api.handleCase);
+app.post('/api/casesubmit',   api.handleCaseSubmit);
+app.get( '/api/institutions', api.handleInstitutions);
+app.get( '/api/bucs',         api.handleBucs);
+app.get( '/api/seds/:buc',    api.handleSeds);
+app.get( '*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 const server = http.createServer(app);
 server.listen(app.get('port'), function () {
-  console.log(('  App is running at http://localhost:%d in %s mode'), app.get('port'), app.get('env'));
+  console.log(('App is running at http://localhost:%d in %s mode'), app.get('port'), app.get('env'));
 });

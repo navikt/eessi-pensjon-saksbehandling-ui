@@ -4,6 +4,8 @@ This project was generated with [React](https://reactjs.org) and [Node](https://
 
 ## Development server
 
+First, run `npm install`. 
+
 Run `run-dev.sh` or `run-dev.bat` to start frontend dev server running on port 3000.
 Run `run-prod.sh` or `run-prod.bat` to start the frontend API server running on port 80.
 
@@ -14,7 +16,9 @@ Open `http://localhost:3000/` for the React dev webpage.
 
 ## Production server
 
-First run `npm run build` to build the project ready for production. 
+First, run `npm install`. 
+
+Run `npm run build` to build the project ready for production. 
 The build files will be stored in the `build/` directory.
 
 Run `run-prod.sh` or `run-prod.bat` to start the frontend API server running on port 80.
