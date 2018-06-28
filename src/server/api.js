@@ -53,7 +53,7 @@ let handleCase = function (req, res) {
   }
 }
 
-let handleCaseSubmit = function (req, res) {
+let handleCaseSubmit = async function (req, res) {
 
   if (process.env.NODE_ENV == 'production') {
 
