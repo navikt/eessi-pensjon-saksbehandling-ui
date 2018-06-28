@@ -2,29 +2,47 @@
 
 This project was generated with [React](https://reactjs.org) and [Node](https://nodejs.org).
 
-## Development server
+## Development React UI, development node server
+
+This is the best setup for development of React UI and the node server.
 
 First, run `npm install`. 
 
-Run `run-dev.sh` or `run-dev.bat` to start frontend dev server running on port 3000.
-Run `run-prod.sh` or `run-prod.bat` to start the frontend API server running on port 80.
+Run `run-dev-react.sh` or `run-dev-react.bat`. It starts React UI on port 3000.
 
-The proxy directive on package.json will proxy-pass frontend API calls to the frontend API server.
-This way, the dev server at port 3000 can still be hot-changed while still be able to do API calls. 
+Run `run-dev-node.sh` or `run-dev-node.bat`. It starts node server on port 80, with no connection to 3rd party services. 
+The node server will return sample responses for development purposes only.
+
+The proxy directive on package.json proxy-passes React ajax calls to the node server at port 80.
+This way, React app at port 3000 can still be hot-changed and be able to use node API in a dev environment.
  
-Open `http://localhost:3000/` for the React dev webpage.
+Open `http://localhost:3000/` for the React homepage.
 
-## Production server
+## Development React UI, production node server
+
+This is the best setup for integration development of the node server against 3rd party services.
 
 First, run `npm install`. 
 
-Run `npm run build` to build the project ready for production. 
-The build files will be stored in the `build/` directory.
+Run `run-dev-react.sh` or `run-dev-react.bat`. It starts React UI on port 3000.
 
-Run `run-prod.sh` or `run-prod.bat` to start the frontend API server running on port 80.
-The frontend API server forwards requests to the compiled frontend build/ directory. 
+Run `run-prod.sh` or `run-prod.bat`. It starts node server on port 80, with connection to 3rd party services. 
 
-Open `http://localhost:80/` for the React prod webpage.
+Open `http://localhost:3000/` for the React homepage.
+
+## Production
+
+This is the best setup for production, but can also be launched locally.
+
+First, run `npm install`. 
+
+Run `npm run build` to compact React project for production. 
+The build files will be placed in the `build/` directory.
+
+Run `run-prod.sh` or `run-prod.bat`. It starts the node server on port 80, with connection to 3rd party services. 
+The node server will connect to OAuth2 and other 3rd party services.
+
+Open `http://localhost:80/` for the React webpage.
 
 ## Running unit tests
 
