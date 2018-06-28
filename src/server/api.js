@@ -1,6 +1,5 @@
 'use strict';
 
-let http = require('http');
 let https = require('https');
 let url = require('url');
 
@@ -11,36 +10,36 @@ let appconfig = {
 
 let doRequest = function (options) {
 
-  console.log('Start doRequest')
   return new Promise((resolve, reject) => {
-    console.log('on Promise')
-    console.log(options)
-    let req = https.request(options, (res) => {
+    console.log('HTTPS request ' + options.method + ' ' + options.hostname + options.path)
+    let req = https.request(options, res => {
       let body = '';
-      console.log("On RES")
-      res.on('data', (chunk) => {
-         console.log("On RES DATA")
-         body += chunk.toString()
+      res.on('data', chunk => {
+        body += chunk.toString();
       });
       res.on('error', err => {
-         console.log("on RES ERROR")
-         reject(err);
+        reject(err);
       });
       res.on('end', () => {
-        console.log('on RES END, status Code: ' + res.statusCode);
+        console.log('HTTPS request ended, status Code: ' + res.statusCode);
         if (res.statusCode <= 200 && res.statusCode <= 299) {
           resolve({
-            statusCode: res.statusCode,
-            headers: res.headers,
-            body: body
+            statusCode : res.statusCode,
+            headers    : res.headers,
+            body       : body
           });
         } else {
-          console.log(res)
-          reject(res)
+          reject({
+            statusCode : res.statusCode,
+            headers    : res.headers
+          });
         }
       });
     });
     req.on('error', reject);
+    if (options.body) {
+      req.write(options.body);
+    }
     req.end();
   });
 }
@@ -55,11 +54,38 @@ let handleCase = function (req, res) {
 }
 
 let handleCaseSubmit = function (req, res) {
-  let params = req.body;
-  if (params.institution && params.buc && params.sed) {
-    res.json(params);
-  } else {
-    res.status(403).json({'serverMessage': 'insufficientParameters'});
+
+  if (process.env.NODE_ENV == 'production') {
+
+    let body = JSON.stringify(req.body);
+
+    let srvUrl = url.parse(appconfig.eessiFagmodulUrl);
+    try {
+      let request = await doRequest({
+        hostname           : srvUrl.host,
+        path               : '/api/create',
+        method             : 'POST',
+        headers            : {
+          'Content-Type'   : 'application/json',
+          'Content-Length' : body.length
+        },
+        body               : body,
+        rejectUnauthorized : false,
+        rejectCert         : true,
+        agent              : false
+      });
+      res.json(request.body);
+    } catch (err) {
+      res.status(500).json({'serverMessage': err.statusCode});
+    }
+  }
+
+  if (process.env.NODE_ENV == 'development') {
+    if (params.institution && params.buc && params.sed) {
+      res.json(params);
+    } else {
+      res.status(403).json({'serverMessage': 'insufficientParameters'});
+    }
   }
 }
 
@@ -79,15 +105,15 @@ let handleInstitutions = async function (req, res) {
       });
       res.json(request.body);
     } catch (err) {
-      res.status(500).json({'serverMessage': err.syscall + ':' + err.code});
+      res.status(500).json({'serverMessage': err.statusCode});
     }
   }
 
   if (process.env.NODE_ENV == 'development') {
     res.json([
-     'Mottager4',
-     'Mottager5',
-     'Mottager6'
+      'Mottager4',
+      'Mottager5',
+      'Mottager6'
     ])
   }
 }
@@ -108,16 +134,16 @@ let handleBucs = async function (req, res) {
       });
       res.json(request.body);
     } catch (err) {
-      res.status(500).json({'serverMessage': err.syscall + ':' + err.code});
+      res.status(500).json({'serverMessage': err.statusCode});
     }
   }
 
   if (process.env.NODE_ENV == 'development') {
     res.json([
-     'buc4',
-     'buc5',
-     'buc6'
-   ])
+      'buc4',
+      'buc5',
+      'buc6'
+    ]);
   }
 }
 
@@ -139,7 +165,7 @@ let handleSeds = async function (req, res) {
       });
       res.json(request.body);
     } catch (err) {
-      res.status(500).json({'serverMessage': err.syscall + ':' + err.code});
+       res.status(500).json({'serverMessage': err.statusCode});
     }
   }
 

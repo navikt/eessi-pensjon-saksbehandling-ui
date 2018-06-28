@@ -39,17 +39,17 @@ app.get('/internal/:diagnostic', (req, res, next) => {
     return;
   }
   switch (req.params['diagnostic'].toLowerCase()) {
-    case 'isalive':
-      res.status(200).send('I\'m alive');
-      break;
-    case 'isready':
-      res.status(200).send('I\'m ready');
-      break;
-    case 'selftest':
-      res.status(200).send('I\'m ok');
-      break;
-    default:
-      next();
+  case 'isalive':
+    res.status(200).send('I\'m alive');
+    break;
+  case 'isready':
+    res.status(200).send('I\'m ready');
+    break;
+  case 'selftest':
+    res.status(200).send('I\'m ok');
+    break;
+  default:
+    next();
   }
 });
 
