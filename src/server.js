@@ -5,7 +5,7 @@ let bodyParser = require('body-parser');
 let prometheus = require('prom-client');
 let http = require('http');
 
-let api = require('./server/api');
+let api = require('./server/api.' + process.env.NODE_ENV);
 
 /* Resources from Fasit that need to be available to the application must be declared in this appconfig-object.
  *

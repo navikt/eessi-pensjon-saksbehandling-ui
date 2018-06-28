@@ -170,6 +170,7 @@ class Case extends Component {
     }
 
     if (error) {
+      console.log("ERROR FOUND")
       alert = <AlertStripe type='stopp'>{t(error)}</AlertStripe>;
     }
 
