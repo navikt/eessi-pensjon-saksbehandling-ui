@@ -42,6 +42,7 @@
     "nav-frontend-spinner-style": "^0.2.4",
     "nav-frontend-typografi": "^2.0.5",
     "nav-frontend-typografi-style": "^1.0.9",
+    "node-keytool": "0.0.3",
     "prom-client": "^11.0.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",

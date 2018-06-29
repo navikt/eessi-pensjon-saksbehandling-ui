@@ -17,7 +17,8 @@ const mapStateToProps = (state) => {
     error        : state.usercase.error,
     usercase     : state.usercase.usercase,
     isProcessing : state.ui.isProcessing,
-    serverError  : state.ui.serverError
+    serverError  : state.ui.serverError,
+    language     : state.ui.language
   }
 };
 

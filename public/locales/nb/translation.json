@@ -8,6 +8,7 @@
   "caseId" : "SaksId",
   "caseHandler" : "Saksbehandler",
   "søk" : "Søk",
+  "language" : "Språk",
   "dataSubmitted" : "Data sendt",
   "invalidCaseNumber": "Ugyldig saksId",
   "invalidCaseHandler": "Ugyldig saksbehandler",

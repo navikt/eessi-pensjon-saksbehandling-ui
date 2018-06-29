@@ -25,6 +25,8 @@ fasitResources:
   used:
   - alias: eessifagmodulservice
     resourceType: restservice
+  - alias: srvPensjon
+    resourceType: credential
   exposed:
   - alias: eessifagmodulfrontendservice
     resourceType: restservice

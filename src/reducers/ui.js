@@ -37,6 +37,12 @@ export default function (state = {}, action = {}) {
       isProcessing : false
     });
 
+  case types.LANGUAGE_CHANGED:
+
+    return Object.assign({}, state, {
+      language : action.payload
+    });
+
   default:
 
     return state;

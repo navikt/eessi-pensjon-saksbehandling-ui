@@ -1,0 +1,17 @@
+{
+  "institution"  : "NN_Mottager",
+  "buc" : "NN_BUC",
+  "sed" : "NN_SED",
+  "caseFound" : "NN_Saken funnet",
+  "caseNotFound" : "NN_Saken ikke funnet",
+  "go" : "NN_Gå",
+  "caseId" : "NN_SaksId",
+  "caseHandler" : "NN_Saksbehandler",
+  "søk" : "NN_Søk",
+  "language" : "NN_Språk",
+  "dataSubmitted" : "NN_Data sendt",
+  "invalidCaseNumber": "NN_Ugyldig saksId",
+  "invalidCaseHandler": "NN_Ugyldig saksbehandler",
+  "insufficientParameters": "NN_ikke nok parametere",
+  "serveroffline" : "NN_server offline"
+}

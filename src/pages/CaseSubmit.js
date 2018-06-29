@@ -10,6 +10,7 @@ import Main from '../components/Main';
 const mapStateToProps = (state) => {
   return {
     submitted : state.usercase.submitted,
+    language  : state.ui.language
   };
 };
 

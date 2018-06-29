@@ -8,8 +8,8 @@ i18next
   .use(LanguageDetector)
   .use(reactI18nextModule)
   .init({
-    lng: 'nb',
-    fallbackLng: 'nb',
+    lng: 'en',
+    fallbackLng: 'en',
     debug: true,
     ns: ['translation'],
     defaultNs: 'translation',
@@ -26,6 +26,6 @@ i18next
       bindStore: 'added removed',
       nsMode: 'default'
     }
-  }).loadLanguages(['nb']);
+  }).loadLanguages(['nb','nn','en']);
 
 export default i18next;

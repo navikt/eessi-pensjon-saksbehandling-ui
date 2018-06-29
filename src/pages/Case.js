@@ -23,7 +23,8 @@ const mapStateToProps = (state) => {
     submitted    : state.usercase.submitted,
     error        : state.usercase.error,
     serverError  : state.ui.serverError,
-    isProcessing : state.ui.isProcessing
+    isProcessing : state.ui.isProcessing,
+    language     : state.ui.language
   };
 };
 
