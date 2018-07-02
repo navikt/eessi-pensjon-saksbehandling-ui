@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 
+import KnappBase from 'nav-frontend-knapper';
 import AlertStripe from 'nav-frontend-alertstriper';
 
 import Main from '../components/Main';
@@ -18,7 +19,13 @@ const mapDispatchToProps = () => {
   return {actions: {}};
 };
 
-class CaseSubmit extends Component {
+class EndCase extends Component {
+
+  onButtonClick() {
+
+    const { history } = this.props;
+    history.push('/getcase');
+  }
 
   render() {
 
@@ -27,11 +34,14 @@ class CaseSubmit extends Component {
     return <Main>
       <AlertStripe type='suksess'>{t('dataSubmitted')}</AlertStripe>
       {JSON.stringify(submitted)}
+      <div className='mt-3'>
+        <KnappBase className='mr-3' type='hoved' onClick={this.onButtonClick.bind(this)}>{t('createNew')}</KnappBase>
+     </div>
     </Main>;
   }
 }
 
-CaseSubmit.propTypes = {
+EndCase.propTypes = {
   actions   :  PropTypes.object,
   history   :  PropTypes.object,
   submitted : PropTypes.object,
@@ -42,5 +52,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(CaseSubmit)
+  translate()(EndCase)
 );

@@ -13,8 +13,10 @@ import i18n from './i18n';
 import { I18nextProvider } from 'react-i18next';
 
 import Index from './pages/Index';
-import Case from './pages/Case';
-import CaseSubmit from './pages/CaseSubmit';
+import GetCase from './pages/GetCase';
+import EditCase from './pages/EditCase';
+import ConfirmEditCase from './pages/ConfirmEditCase';
+import EndCase from './pages/EndCase';
 
 import * as reducers from './reducers';
 
@@ -38,9 +40,11 @@ ReactDOM.render(
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <Switch>
-          <Route path='/case/:id' component={Case}/>
-          <Route path='/casesubmit' component={CaseSubmit}/>
-          <Route path='/' component={Index}/>
+          <Route path='/getcase'     component={GetCase}/>
+          <Route path='/case/:id'    component={EditCase}/>
+          <Route path='/confirmcase' component={ConfirmEditCase}/>
+          <Route path='/endcase'     component={EndCase}/>
+          <Route path='/'            component={Index}/>
         </Switch>
       </ConnectedRouter>
     </Provider>

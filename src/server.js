@@ -42,7 +42,7 @@ app.get('/internal/:diagnostic', prometheus.handleDiagnostic);
 app.get('/internal/metrics',  prometheus.handleMetrics);
 
 app.get( '/api/case/:caseId', api.handleCase);
-app.post('/api/casesubmit',   api.handleCaseSubmit);
+app.post('/api/case',   api.handleCaseSubmit);
 app.get( '/api/institutions', api.handleInstitutions);
 app.get( '/api/bucs',         api.handleBucs);
 app.get( '/api/seds/:buc',    api.handleSeds);

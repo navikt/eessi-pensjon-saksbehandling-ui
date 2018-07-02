@@ -29,8 +29,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const styles = {
   hr: {
-    width: '10%',
-    borderColor: 'orange'
+    width       : '10%',
+    borderColor : 'orange'
   }
 }
 
@@ -85,14 +85,14 @@ class Index extends Component {
         <div>{alert}</div>
         <div>{loading}</div>
       </div>
-      <div>
+      <div className='mt-3'>
         <Input label={t('caseId')} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
       </div>
-      <div>
+      <div className='mt-3'>
         <Input label={t('caseHandler')} value={this.state.caseHandler} onChange={this.onCaseHandlerChange.bind(this)}/>
       </div>
-      <div>
-        <KnappBase type='standard' onClick={this.onButtonClick.bind(this)}>{t('søk')}</KnappBase>
+      <div className='mt-3'>
+        <KnappBase type='hoved' onClick={this.onButtonClick.bind(this)}>{t('søk')}</KnappBase>
       </div>
     </Main>
   }

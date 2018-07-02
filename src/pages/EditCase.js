@@ -20,7 +20,7 @@ const mapStateToProps = (state) => {
     institution  : state.usercase.institution,
     buc          : state.usercase.buc,
     sed          : state.usercase.sed,
-    submitted    : state.usercase.submitted,
+    toConfirm    : state.usercase.toConfirm,
     error        : state.usercase.error,
     serverError  : state.ui.serverError,
     isProcessing : state.ui.isProcessing,
@@ -64,19 +64,26 @@ class Case extends Component {
   componentWillReceiveProps(nextProps) {
 
     const { history } = this.props;
-    if (nextProps.submitted) {
-      history.push('/casesubmit');
+
+    if (nextProps.toConfirm) {
+      history.push('/confirmcase');
     }
     if (nextProps.sed && !_.isEmpty(nextProps.sed)) {
       this.setState({sedDisabled: false})
     }
   }
 
+  onBackButtonClick() {
+
+    const {history} = this.props;
+    history.goBack();
+  }
+
   onButtonClick() {
 
     const { actions, usercase } = this.props;
 
-    actions.postChoices({
+    actions.toConfirmChoices({
       'institution' : this.state.institution,
       'buc'         : this.state.buc,
       'sed'         : this.state.sed,
@@ -181,11 +188,14 @@ class Case extends Component {
 
     return <Main>
       <div>{alert}</div>
-      <div>{loading}</div>
-      <div>{institutionSelect}</div>
-      <div>{bucSelect}</div>
-      <div>{sedSelect}</div>
-      <KnappBase type='standard' onClick={this.onButtonClick.bind(this)}>{t('go')}</KnappBase>
+      <div className='float-right'>{loading}</div>
+      <div className='mt-3'>{institutionSelect}</div>
+      <div className='mt-3'>{bucSelect}</div>
+      <div className='mt-3'>{sedSelect}</div>
+      <div>
+        <KnappBase className='mr-3' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('tilbake')}</KnappBase>
+        <KnappBase                  type='hoved'    onClick={this.onButtonClick.bind(this)}    >{t('go')}</KnappBase>
+      </div>
     </Main>;
   }
 }
@@ -200,7 +210,7 @@ Case.propTypes = {
   institution  : PropTypes.object,
   sed          : PropTypes.object,
   buc          : PropTypes.object,
-  submitted    : PropTypes.object,
+  toConfirm    : PropTypes.object,
   error        : PropTypes.object,
   serverError  : PropTypes.object
 };

@@ -35,6 +35,12 @@ export default function (state = {}, action = {}) {
     });
 
   case types.USERCASE_GET_CASE_REQUEST:
+
+    return Object.assign({}, state, {
+      error     : undefined,
+      usercase  : undefined
+    });
+
   case types.USERCASE_GET_INSTITUTION_OPTIONS_REQUEST:
   case types.USERCASE_GET_SED_OPTIONS_REQUEST:
   case types.USERCASE_GET_BUC_OPTIONS_REQUEST:
@@ -53,6 +59,19 @@ export default function (state = {}, action = {}) {
     return Object.assign({}, state, {
       error : action.payload.serverMessage
     });
+
+  case types.USERCASE_TO_CONFIRM_OPTIONS:
+
+    return Object.assign({}, state, {
+      toConfirm : action.payload
+    });
+
+  case types.USERCASE_TO_CONFIRM_CANCEL:
+
+    return Object.assign({}, state, {
+      toConfirm : undefined
+    });
+
 
   default:
     return state;

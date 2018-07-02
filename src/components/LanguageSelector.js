@@ -33,7 +33,7 @@ class LanguageSelector extends Component {
   render () {
 
     let { t, language } = this.props;
-    return <Select label={t('language')} value={language} onChange={this.changeLanguage.bind(this)}>
+    return <Select label={t('chooseLanguage')} value={language} onChange={this.changeLanguage.bind(this)}>
       <option value='en'>English</option>
       <option value='nb'>Bokmål</option>
       <option value='nn'>Nynorsk</option>
@@ -41,6 +41,10 @@ class LanguageSelector extends Component {
    }
 }
 
+LanguageSelector.propTypes = {
+  language : PropTypes.obj,
+  t        : PropTypes.func
+}
 
 export default connect(
   mapStateToProps,
