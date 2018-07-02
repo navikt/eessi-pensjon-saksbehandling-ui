@@ -29,7 +29,8 @@ class Main extends Component {
 }
 
 Main.propTypes = {
-  children: PropTypes.node.isRequired
+  children : PropTypes.node.isRequired,
+  t        : PropTypes.func.isRequired
 };
 
 export default translate()(Main);

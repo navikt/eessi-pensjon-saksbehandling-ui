@@ -17,7 +17,7 @@ const mapStateToProps = (state) => {
   return {
     error        : state.usercase.error,
     usercase     : state.usercase.usercase,
-    isProcessing : state.ui.isProcessing,
+    loading      : state.loading,
     serverError  : state.ui.serverError,
     language     : state.ui.language
   }
@@ -34,7 +34,7 @@ const styles = {
   }
 }
 
-class Index extends Component {
+class GetCase extends Component {
 
   constructor(props) {
 
@@ -68,12 +68,12 @@ class Index extends Component {
 
   render() {
 
-    const { t, error, serverError, isProcessing } = this.props;
+    const { t, error, serverError, loading } = this.props;
 
     let alert = (error ? <AlertStripe type='stopp'>{t(error)}</AlertStripe> : (
       serverError ? <AlertStripe type='stopp'>{t(serverError)}</AlertStripe> : null
     ));
-    let loading = (isProcessing ? <NavFrontendSpinner /> : null);
+    let loadingSpinner = (loading && loading['case'] ? <NavFrontendSpinner /> : null);
 
     return <Main>
       <div className='text-center'>
@@ -83,7 +83,7 @@ class Index extends Component {
       </div>
       <div>
         <div>{alert}</div>
-        <div>{loading}</div>
+        <div>{loadingSpinner}</div>
       </div>
       <div className='mt-3'>
         <Input label={t('caseId')} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
@@ -98,11 +98,11 @@ class Index extends Component {
   }
 }
 
-Index.propTypes = {
+GetCase.propTypes = {
   usercase     : PropTypes.object,
   error        : PropTypes.object,
   serverError  : PropTypes.object,
-  isProcessing : PropTypes.bool,
+  loading      : PropTypes.object,
   actions      : PropTypes.object,
   history      : PropTypes.object,
   t            : PropTypes.func
@@ -112,5 +112,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(Index)
+  translate()(GetCase)
 );

@@ -23,8 +23,9 @@ const mapStateToProps = (state) => {
     toConfirm    : state.usercase.toConfirm,
     error        : state.usercase.error,
     serverError  : state.ui.serverError,
-    isProcessing : state.ui.isProcessing,
-    language     : state.ui.language
+    language     : state.ui.language,
+    loading      : state.loading
+
   };
 };
 
@@ -32,7 +33,7 @@ const mapDispatchToProps = (dispatch) => {
   return {actions: bindActionCreators(Object.assign({}, usercaseActions), dispatch)};
 };
 
-class Case extends Component {
+class EditCase extends Component {
 
   constructor(props) {
     super(props);
@@ -75,7 +76,7 @@ class Case extends Component {
 
   onBackButtonClick() {
 
-    const {history} = this.props;
+    const { history } = this.props;
     history.goBack();
   }
 
@@ -162,10 +163,9 @@ class Case extends Component {
 
   render() {
 
-    const { t, usercase, error, serverError, isProcessing } = this.props;
+    const { t, usercase, error, serverError, loading } = this.props;
 
     let alert;
-    let loading = (isProcessing ? <NavFrontendSpinner /> : null);
 
     if (usercase) {
       alert = <AlertStripe type='suksess'>{t('caseFound') + ': ' + usercase.caseId}</AlertStripe>;
@@ -178,20 +178,23 @@ class Case extends Component {
     }
 
     if (error) {
-      console.log("ERROR FOUND")
       alert = <AlertStripe type='stopp'>{t(error)}</AlertStripe>;
     }
 
-    let institutionSelect = this.renderInstitution();
-    let bucSelect         = this.renderBuc();
-    let sedSelect         = this.renderSed();
-
     return <Main>
       <div>{alert}</div>
-      <div className='float-right'>{loading}</div>
-      <div className='mt-3'>{institutionSelect}</div>
-      <div className='mt-3'>{bucSelect}</div>
-      <div className='mt-3'>{sedSelect}</div>
+      <div>
+        <div className='mt-3'>{this.renderInstitution()}</div>
+        <div className='float-right'>{loading && loading.institution ? <NavFrontendSpinner /> : null}</div>
+      </div>
+      <div>
+        <div className='mt-3'>{this.renderBuc()}</div>
+        <div className='float-right'>{loading && loading.buc ? <NavFrontendSpinner /> : null}</div>
+      </div>
+      <div>
+        <div className='mt-3'>{this.renderSed()}</div>
+        <div className='float-right'>{loading && loading.sed ? <NavFrontendSpinner /> : null}</div>
+      </div>
       <div>
         <KnappBase className='mr-3' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('tilbake')}</KnappBase>
         <KnappBase                  type='hoved'    onClick={this.onButtonClick.bind(this)}    >{t('go')}</KnappBase>
@@ -200,11 +203,11 @@ class Case extends Component {
   }
 }
 
-Case.propTypes = {
+EditCase.propTypes = {
   usercase     : PropTypes.object,
   actions      : PropTypes.object,
   history      : PropTypes.object,
-  isProcessing : PropTypes.bool,
+  loading      : PropTypes.object,
   t            : PropTypes.func,
   match        : PropTypes.func,
   institution  : PropTypes.object,
@@ -219,5 +222,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(Case)
+  translate()(EditCase)
 );

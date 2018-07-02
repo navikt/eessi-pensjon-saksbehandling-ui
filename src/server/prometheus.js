@@ -12,8 +12,8 @@ let handleMetrics = function (req, res) {
 let handleDiagnostic = function (req, res, next) {
 
   if (req.header('Accepts') !== 'application/json') {
-     next();
-     return;
+    next();
+    return;
   }
   switch (req.params['diagnostic'].toLowerCase()) {
   case 'isalive':

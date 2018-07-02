@@ -21,8 +21,6 @@ let appconfig = {
   truststorePassword : process.env['NAV_TRUSTSTORE_PASSWORD']      || '467792be15c4a8807681fd2d5c9c1748',
   keystoreAlias      : process.env['NAV_TRUSTSTORE_KEYSTOREALIAS'] || 'webproxy',
   truststorePath     : process.env['NAV_TRUSTSTORE_PATH']          || './certificates/sample.jts',
-  srvPensjonUsername : process.env['SRVPENSJON_USERNAME']          || 'srvPensjon',
-  srvPensjonUsername : process.env['SRVPENSJON_PASSWORD']          || 'Ash5SoxP',
 };
 
 if (!fs.existsSync('assets'))
@@ -56,17 +54,16 @@ let main = async function () {
 
   if (process.env.NODE_ENV == 'production') {
 
-     console.log('Production env: #1: Processing certificates')
-     //await certificates.load(appconfig);
-     console.log('Production env: #2: Logging in')
-     //tokenId = await login.login(appconfig);
-     console.log(tokenId)
+    console.log('Production env: #1: Processing certificates')
+    //await certificates.load(appconfig);
+    console.log('Production env: #2: Logging in')
+    //tokenId = await login.login(appconfig);
+    console.log(tokenId)
   }
-
 
   console.log('ready for server');
   http.createServer(app).listen(app.get('port'), function () {
-     console.log(('App is running at http://localhost:%d in %s mode'), app.get('port'), app.get('env'));
+    console.log(('App is running at http://localhost:%d in %s mode'), app.get('port'), app.get('env'));
   });
 }
 

@@ -55,7 +55,6 @@ let handleInstitutions = async function (req, res) {
     });
     res.json(r.body);
   } catch (err) {
-  console.log(err)
     res.status(500).json({'serverMessage': err.statusCode});
   }
 }
@@ -86,7 +85,7 @@ let handleSeds = async function (req, res) {
   try {
     let r = await request.https({
       hostname           : srvUrl.host,
-      path               : '/api/seds',
+      path               : '/api/seds/' + buc,
       method             : 'GET',
       rejectUnauthorized : false,
       rejectCert         : true,
@@ -94,7 +93,7 @@ let handleSeds = async function (req, res) {
     });
     res.json(r.body);
   } catch (err) {
-     res.status(500).json({'serverMessage': err.statusCode});
+    res.status(500).json({'serverMessage': err.statusCode});
   }
 }
 

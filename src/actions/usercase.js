@@ -56,8 +56,7 @@ export function toConfirmChoices (params) {
   };
 }
 
-export function cancelConfirmChoices (params) {
-console.log("YES")
+export function cancelConfirmChoices () {
   return (dispatch) => {
     dispatch({
       type : types.USERCASE_TO_CONFIRM_CANCEL

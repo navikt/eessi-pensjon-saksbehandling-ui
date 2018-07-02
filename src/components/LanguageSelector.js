@@ -19,15 +19,10 @@ const mapDispatchToProps = (dispatch) => {
 
 class LanguageSelector extends Component {
 
-  constructor(props) {
-     super(props);
-     this.state = {};
-  }
-
   changeLanguage(e) {
 
-     let { actions } = this.props;
-     actions.changeLanguage(e.target.value);
+    let { actions } = this.props;
+    actions.changeLanguage(e.target.value);
   }
 
   render () {
@@ -38,12 +33,13 @@ class LanguageSelector extends Component {
       <option value='nb'>Bokmål</option>
       <option value='nn'>Nynorsk</option>
     </Select>
-   }
+  }
 }
 
 LanguageSelector.propTypes = {
   language : PropTypes.obj,
-  t        : PropTypes.func
+  t        : PropTypes.func,
+  actions  : PropTypes.obj
 }
 
 export default connect(

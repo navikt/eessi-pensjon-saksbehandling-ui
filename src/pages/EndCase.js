@@ -15,10 +15,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = () => {
-  return {actions: {}};
-};
-
 class EndCase extends Component {
 
   onButtonClick() {
@@ -36,7 +32,7 @@ class EndCase extends Component {
       {JSON.stringify(submitted)}
       <div className='mt-3'>
         <KnappBase className='mr-3' type='hoved' onClick={this.onButtonClick.bind(this)}>{t('createNew')}</KnappBase>
-     </div>
+      </div>
     </Main>;
   }
 }
@@ -50,7 +46,7 @@ EndCase.propTypes = {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  {}
 )(
   translate()(EndCase)
 );

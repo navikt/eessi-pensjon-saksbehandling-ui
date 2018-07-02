@@ -15,10 +15,6 @@ const mapStateToProps = (state) => {
   }
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-
 const styles = {
   hr: {
     width: '10%',
@@ -59,7 +55,6 @@ Index.propTypes = {
   usercase     : PropTypes.object,
   error        : PropTypes.object,
   serverError  : PropTypes.object,
-  isProcessing : PropTypes.bool,
   actions      : PropTypes.object,
   history      : PropTypes.object,
   t            : PropTypes.func
@@ -67,7 +62,7 @@ Index.propTypes = {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  {}
 )(
   translate()(Index)
 );

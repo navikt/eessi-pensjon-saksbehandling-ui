@@ -7,20 +7,20 @@ let load = async function (appconfig) {
   console.log('Loading truststore ' + filename + '= ' + fs.existsSync(filename));
   var store = keytool(filename, appconfig.truststorePassword, {debug: false, storetype: 'JKS'});
   try {
-    res = await list(store);
+    let res = await list(store);
     for (var certidx = 0; certidx < res.certs.length; certidx++) {
       var resobj = res.certs[certidx];
-      var f = path.resolve(__dirname, './certificates/' + resobj.alias.replace(/[\(\)\/\\]/g,"_"));
+      var f = path.resolve(__dirname, './certificates/' + resobj.alias.replace(/[()/\\]/g, '_'));
       if (fs.existsSync(filename)) {
-        console.log("certificate " + resobj.alias + ' already exists, skipping');
+        console.log('certificate ' + resobj.alias + ' already exists, skipping');
       } else {
-        console.log("writing certificate " + resobj.alias + ' to ' + f);
+        console.log('writing certificate ' + resobj.alias + ' to ' + f);
         store.exportcert(resobj.alias, f);
       }
     }
   } catch (err) {
-     console.log(err);
-  };
+    console.log(err);
+  }
 }
 
 var list = function (store) {
@@ -37,5 +37,5 @@ var list = function (store) {
 }
 
 module.exports = {
-   load
+  load
 }
