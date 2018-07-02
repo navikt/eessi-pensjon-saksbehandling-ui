@@ -17,8 +17,8 @@ class Main extends Component {
       <div className='row'>
         <div className='mt-3 col-12 py-3 text-center'>
           <img alt='logo' src={logo}/>
-          <h1 className='mt-3 appTitle'>{t('appTitle')}</h1>
-          <h5 className='mt-3 appDescription'>{t('appDescription')}</h5>
+          <h1 className='mt-3 appTitle'>{t('content:title')}</h1>
+          <h5 className='mt-3 appDescription'>{t('content:description')}</h5>
         </div>
         <div className="main col-12 h-100 py-3">
           {this.props.children}

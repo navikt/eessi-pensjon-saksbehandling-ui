@@ -7,6 +7,7 @@ import { translate } from 'react-i18next';
 import AlertStripe from 'nav-frontend-alertstriper';
 import KnappBase from 'nav-frontend-knapper';
 import NavFrontendSpinner from 'nav-frontend-spinner';
+import Ikon from 'nav-frontend-ikoner-assets';
 
 import * as usercaseActions from '../actions/usercase';
 
@@ -68,7 +69,8 @@ class ConfirmEditCase extends Component {
     }
 
     let alert;
-    let loadingSpinner = (loading && loading.postcase? <NavFrontendSpinner /> : null);
+    let spinner = loading && loading.postcase;
+    let buttonText = spinner ? t('loading:postcase') : t('confirmAndSend');
 
     if (serverError) {
       alert = <AlertStripe type='stopp'>{t(serverError)}</AlertStripe>;
@@ -79,8 +81,13 @@ class ConfirmEditCase extends Component {
     }
 
     return <Main>
+      <div className='text-center'>
+        <Ikon kind='info-sirkel-orange'/>
+        <h4>{t('content:undertitle')}</h4>
+        <hr/>
+      </div>
+      <div>{t('content:confirmCaseDescription')}</div>
       <div>{alert}</div>
-      <div className='float-right'>{loadingSpinner}</div>
       <div>
         <div>{t('confirm')}</div>
         <div>{t('caseId')}: {toConfirm.caseId}</div>
@@ -90,7 +97,7 @@ class ConfirmEditCase extends Component {
       </div>
       <div className='mt-3'>
         <KnappBase className='mr-3' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('tilbake')}</KnappBase>
-        <KnappBase                  type='hoved' onClick={this.onButtonClick.bind(this)}>{t('confirmAndSend')}</KnappBase>
+        <KnappBase spinner={spinner} type='hoved'   onClick={this.onButtonClick.bind(this)}>{buttonText}</KnappBase>
       </div>
     </Main>;
   }

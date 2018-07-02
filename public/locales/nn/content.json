@@ -1,0 +1,10 @@
+{
+    "title" : "NN_EESSIPEN-12",
+    "description" : "NN_Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse",
+    "indexDescription" : "NN_Index Beskrivelse Index Beskrivelse Index Beskrivelse",
+    "getCaseDescription" : "NN_Saken Beskrivelse Saken Beskrivelse Saken Beskrivelse",
+    "editCaseDescription" : "NN_Rediger Saken Beskrivelse Rediger Saken Beskrivelse Rediger Saken Beskrivelse",
+    "confirmCaseDescription" : "NN_Bekrefte Saken Beskrivelse Bekrefte Saken Beskrivelse Bekrefte Saken Beskrivelse",
+    "endCaseDescription" : "NN_Ferdig Saken Beskrivelse Ferdig Saken Beskrivelse Ferdig Saken Beskrivelse",
+    "undertitle" : "NN_App undertittel"
+}

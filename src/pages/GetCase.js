@@ -83,9 +83,10 @@ class GetCase extends Component {
     return <Main>
       <div className='text-center'>
         <Ikon kind='info-sirkel-orange'/>
-        <h4>Undertittel</h4>
-        <hr style={styles.hr}/>
+        <h4>{t('content:undertitle')}</h4>
+        <hr/>
       </div>
+      <div>{t('content:getCaseDescription')}</div>
       <div>
         <div>{alert}</div>
       </div>

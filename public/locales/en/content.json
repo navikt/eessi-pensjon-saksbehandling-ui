@@ -1,0 +1,10 @@
+{
+    "title" : "EESSIPEN-12",
+    "description" : "Description Description Description Description Description Description Description Description Description Description",
+    "indexDescription" : "Index Description Index Description Index Description Index Description Index Description Index Description",
+    "getCaseDescription" : "Get case description Get case description Get case description Get case description Get case description",
+    "editCaseDescription" : "Edit case description Edit case description Edit case description Edit case description Edit case description",
+    "confirmCaseDescription" : "Confirm case description Confirm case description Confirm case description Confirm case description Confirm case description",
+    "endCaseDescription" : "End case description End case description End case description End case description End case description",
+    "undertitle" : "App undertitle"
+}

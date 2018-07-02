@@ -15,13 +15,6 @@ const mapStateToProps = (state) => {
   }
 };
 
-const styles = {
-  hr: {
-    width: '10%',
-    borderColor: 'orange'
-  }
-}
-
 class Index extends Component {
 
   onButtonClick() {
@@ -37,15 +30,15 @@ class Index extends Component {
     return <Main>
       <div className='text-center'>
         <Ikon kind='info-sirkel-orange'/>
-        <h4>{t('appUndertitle')}</h4>
-        <hr style={styles.hr}/>
+        <h4>{t('content:undertitle')}</h4>
+        <hr/>
       </div>
-      <div>{t('appIntroduction')}</div>
+      <div>{t('content:indexDescription')}</div>
       <div className='mt-4'>
         <LanguageSelector/>
       </div>
       <div className='mt-4'>
-        <KnappBase type='hoved' onClick={this.onButtonClick.bind(this)}>{t('appStart')}</KnappBase>
+        <KnappBase type='hoved' onClick={this.onButtonClick.bind(this)}>{t('start')}</KnappBase>
       </div>
     </Main>
   }

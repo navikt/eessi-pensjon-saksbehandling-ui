@@ -1,9 +1,4 @@
 {
-  "appTitle" : "EESSIPEN-12",
-  "appDescription" : "Description Description Description Description Description Description Description Description Description Description Description Description Description",
-  "appIntroduction" : "App Introduction App Introduction App Introduction App Introduction App Introduction App Introduction App Introduction ",
-  "appStart" : "Start app",
-  "appUndertitle" : "App undertitle",
   "institution"  : "Institution",
   "buc" : "BUC",
   "sed" : "SED",
@@ -15,6 +10,7 @@
   "go" : "Go",
   "caseId" : "Case ID",
   "caseHandler" : "Case handler",
+  "start" : "Start",
   "søk" : "Search",
   "chooseLanguage" : "Choose language",
   "dataSubmitted" : "Data sent",

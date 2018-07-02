@@ -5,6 +5,7 @@ import { translate } from 'react-i18next';
 
 import KnappBase from 'nav-frontend-knapper';
 import AlertStripe from 'nav-frontend-alertstriper';
+import Ikon from 'nav-frontend-ikoner-assets';
 
 import Main from '../components/Main';
 
@@ -28,6 +29,12 @@ class EndCase extends Component {
     let { t, submitted } = this.props;
 
     return <Main>
+      <div className='text-center'>
+        <Ikon kind='info-sirkel-orange'/>
+        <h4>{t('content:undertitle')}</h4>
+        <hr/>
+      </div>
+      <div>{t('content:endCaseDescription')}</div>
       <AlertStripe type='suksess'>{t('dataSubmitted')}</AlertStripe>
       {JSON.stringify(submitted)}
       <div className='mt-3'>

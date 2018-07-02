@@ -9,6 +9,7 @@ import AlertStripe from 'nav-frontend-alertstriper';
 import { Select } from 'nav-frontend-skjema';
 import KnappBase from 'nav-frontend-knapper';
 import NavFrontendSpinner from 'nav-frontend-spinner';
+import Ikon from 'nav-frontend-ikoner-assets';
 
 import * as usercaseActions from '../actions/usercase';
 
@@ -188,6 +189,12 @@ class EditCase extends Component {
     }
 
     return <Main>
+      <div className='text-center'>
+        <Ikon kind='info-sirkel-orange'/>
+        <h4>{t('content:undertitle')}</h4>
+        <hr/>
+      </div>
+      <div>{t('content:editCaseDescription')}</div>
       <div>{alert}</div>
       <div className='mt-3 align-middle'>
         <div className='d-inline-block align-bottom'>{this.renderInstitution()}</div>

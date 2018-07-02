@@ -1,9 +1,5 @@
 {
-  "appTitle" : "NN_EESSIPEN-12",
-  "appDescription" : "NN_Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse",
-  "appIntroduction" : "NN_App Introduction App Introduction App Introduction App Introduction App Introduction App Introduction App Introduction ",
-  "appStart" : "NN_Start appen",
-  "appUndertitle" : "NN_App Undertittel",
+  "start" : "NN_Start",
   "institution"  : "NN_Mottager",
   "buc" : "NN_BUC",
   "sed" : "NN_SED",

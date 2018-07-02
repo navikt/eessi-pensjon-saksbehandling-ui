@@ -1,9 +1,5 @@
 {
-  "appTitle" : "EESSIPEN-12",
-  "appDescription" : "Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse",
-  "appIntroduction" : "App Introdusjon App Introdusjon App Introdusjon App Introdusjon App Introdusjon App Introdusjon App Introdusjon",
-  "appStart" : "Start appen",
-  "appUndertitle" : "App Undertittel",
+  "start" : "start",
   "institution"  : "Mottager",
   "buc" : "BUC",
   "sed" : "SED",
