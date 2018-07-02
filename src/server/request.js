@@ -19,7 +19,7 @@ let _https = function (options) {
           resolve({
             statusCode : res.statusCode,
             headers    : res.headers,
-            body       : body
+            body       : JSON.parse(body)
           });
         } else {
           reject({
@@ -57,7 +57,7 @@ let _http = function (options) {
           resolve({
             statusCode : res.statusCode,
             headers    : res.headers,
-            body       : body
+            body       : JSON.parse(body)
           });
         } else {
           reject({
