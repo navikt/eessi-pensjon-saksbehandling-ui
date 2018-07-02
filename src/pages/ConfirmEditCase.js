@@ -63,6 +63,10 @@ class ConfirmEditCase extends Component {
 
     const { t, toConfirm, error, serverError, loading } = this.props;
 
+    if (!toConfirm) {
+      return <Main/>
+    }
+
     let alert;
     let loadingSpinner = (loading && loading.postcase? <NavFrontendSpinner /> : null);
 

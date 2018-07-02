@@ -130,7 +130,7 @@ class EditCase extends Component {
       options = this.renderOptions(institution);
     }
 
-    return <Select label={t('institution')} value={this.state.institution} onChange={this.onInstitutionChange.bind(this)}>
+    return <Select bredde='l' label={t('institution')} value={this.state.institution} onChange={this.onInstitutionChange.bind(this)}>
       {options}
     </Select>
   }
@@ -143,7 +143,7 @@ class EditCase extends Component {
       options = this.renderOptions(buc);
     }
 
-    return <Select label={t('buc')} value={this.state.buc} onChange={this.onBucChange.bind(this)}>
+    return <Select bredde='l' label={t('buc')} value={this.state.buc} onChange={this.onBucChange.bind(this)}>
       {options}
     </Select>
   }
@@ -156,9 +156,15 @@ class EditCase extends Component {
       options = this.renderOptions(sed);
     }
 
-    return <Select disabled={this.state.sedDisabled} label={t('sed')} value={this.state.sed} onChange={this.onSedChange.bind(this)}>
+    return <Select bredde='l' disabled={this.state.sedDisabled} label={t('sed')} value={this.state.sed} onChange={this.onSedChange.bind(this)}>
       {options}
     </Select>
+  }
+
+  isButtonDisabled() {
+    return !this.state.institution || this.state.institution === '--' ||
+    !this.state.buc || this.state.buc === '--' ||
+    !this.state.sed || this.state.sed === '--'
   }
 
   render() {
@@ -183,21 +189,27 @@ class EditCase extends Component {
 
     return <Main>
       <div>{alert}</div>
-      <div>
-        <div className='mt-3'>{this.renderInstitution()}</div>
-        <div className='float-right'>{loading && loading.institution ? <NavFrontendSpinner /> : null}</div>
+      <div className='mt-3 align-middle'>
+        <div className='d-inline-block align-bottom'>{this.renderInstitution()}</div>
+        <div className='d-inline-block align-bottom' style={{marginBottom: '1rem'}}>
+          {loading && loading.institution ? <div className='ml-2'><NavFrontendSpinner /><div className='float-right ml-2'>{t('loading:institution')}</div></div> : null}
+        </div>
       </div>
-      <div>
-        <div className='mt-3'>{this.renderBuc()}</div>
-        <div className='float-right'>{loading && loading.buc ? <NavFrontendSpinner /> : null}</div>
+      <div className='mt-3 align-middle'>
+        <div className='d-inline-block align-bottom'>{this.renderBuc()}</div>
+        <div className='d-inline-block align-bottom' style={{marginBottom: '1rem'}}>
+          {loading && loading.buc ? <div className='ml-2'><NavFrontendSpinner /><div className='float-right ml-2'>{t('loading:buc')}</div></div> : null}
+        </div>
       </div>
-      <div>
-        <div className='mt-3'>{this.renderSed()}</div>
-        <div className='float-right'>{loading && loading.sed ? <NavFrontendSpinner /> : null}</div>
+      <div className='mt-3 align-middle'>
+        <div className='d-inline-block align-bottom'>{this.renderSed()}</div>
+        <div className='d-inline-block align-bottom' style={{marginBottom: '1rem'}}>
+          {loading && loading.sed ? <div className='ml-2'><NavFrontendSpinner /><div className='float-right ml-2'>{t('loading:sed')}</div></div> : null}
+        </div>
       </div>
-      <div>
+      <div className='mt-3'>
         <KnappBase className='mr-3' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('tilbake')}</KnappBase>
-        <KnappBase                  type='hoved'    onClick={this.onButtonClick.bind(this)}    >{t('go')}</KnappBase>
+        <KnappBase                  type='hoved'    onClick={this.onButtonClick.bind(this)} disabled={this.isButtonDisabled()}>{t('go')}</KnappBase>
       </div>
     </Main>;
   }

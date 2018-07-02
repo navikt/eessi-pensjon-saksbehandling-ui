@@ -1,0 +1,7 @@
+{
+    "getcase":  "Loading case...",
+    "postcase":  "Sending case...",
+    "institution" : "Loading institutions...",
+    "buc" : "Loading BUC...",
+    "sed" : "Loading SED..."
+}

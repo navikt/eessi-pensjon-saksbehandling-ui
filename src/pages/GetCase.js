@@ -7,7 +7,6 @@ import { translate } from 'react-i18next';
 import { Input } from 'nav-frontend-skjema';
 import KnappBase from 'nav-frontend-knapper';
 import AlertStripe from 'nav-frontend-alertstriper';
-import NavFrontendSpinner from 'nav-frontend-spinner';
 import Ikon from 'nav-frontend-ikoner-assets';
 
 import Main from '../components/Main';
@@ -66,6 +65,10 @@ class GetCase extends Component {
     }
   }
 
+  isButtonDisabled() {
+    return !this.state.caseId && !this.state.caseHandler;
+  }
+
   render() {
 
     const { t, error, serverError, loading } = this.props;
@@ -73,7 +76,9 @@ class GetCase extends Component {
     let alert = (error ? <AlertStripe type='stopp'>{t(error)}</AlertStripe> : (
       serverError ? <AlertStripe type='stopp'>{t(serverError)}</AlertStripe> : null
     ));
-    let loadingSpinner = (loading && loading['case'] ? <NavFrontendSpinner /> : null);
+
+    let spinner = loading && loading.getcase;
+    let buttonText = spinner ? t('loading:getcase') : t('søk');
 
     return <Main>
       <div className='text-center'>
@@ -83,7 +88,6 @@ class GetCase extends Component {
       </div>
       <div>
         <div>{alert}</div>
-        <div>{loadingSpinner}</div>
       </div>
       <div className='mt-3'>
         <Input label={t('caseId')} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
@@ -92,7 +96,7 @@ class GetCase extends Component {
         <Input label={t('caseHandler')} value={this.state.caseHandler} onChange={this.onCaseHandlerChange.bind(this)}/>
       </div>
       <div className='mt-3'>
-        <KnappBase type='hoved' onClick={this.onButtonClick.bind(this)}>{t('søk')}</KnappBase>
+        <KnappBase type='hoved' spinner={spinner} disabled={this.isButtonDisabled()} onClick={this.onButtonClick.bind(this)}>{buttonText}</KnappBase>
       </div>
     </Main>
   }
