@@ -57,9 +57,9 @@ let main = async function () {
   if (process.env.NODE_ENV == 'production') {
 
      console.log('Production env: #1: Processing certificates')
-     await certificates.load(appconfig);
+     //await certificates.load(appconfig);
      console.log('Production env: #2: Logging in')
-     tokenId = await login.login(appconfig);
+     //tokenId = await login.login(appconfig);
      console.log(tokenId)
   }
 
