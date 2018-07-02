@@ -3,6 +3,20 @@
    src: url(../fonts/SourceSansPro-Regular.ttf)
 }
 
+@font-face {
+   font-family: "Source Sans Pro Bold";
+   src: url(../fonts/SourceSansPro-Bold.ttf)
+}
+
+h1 {
+   font-weight: bold !important;
+   font-size: 2.5 rem !important;
+}
+
+h5 {
+   font-size: 1.25 rem !important;
+}
+
 button,
 input,
 optgroup,

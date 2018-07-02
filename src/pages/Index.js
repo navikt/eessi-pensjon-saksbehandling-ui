@@ -8,6 +8,7 @@ import { Input } from 'nav-frontend-skjema';
 import KnappBase from 'nav-frontend-knapper';
 import AlertStripe from 'nav-frontend-alertstriper';
 import NavFrontendSpinner from 'nav-frontend-spinner';
+import Ikon from 'nav-frontend-ikoner-assets';
 
 import Main from '../components/Main';
 import * as usercaseActions from '../actions/usercase';
@@ -25,6 +26,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {actions: bindActionCreators(Object.assign({}, usercaseActions), dispatch)};
 };
+
+const styles = {
+  hr: {
+    width: '10%',
+    borderColor: 'orange'
+  }
+}
 
 class Index extends Component {
 
@@ -68,8 +76,15 @@ class Index extends Component {
     let loading = (isProcessing ? <NavFrontendSpinner /> : null);
 
     return <Main>
-      <div>{alert}</div>
-      <div>{loading}</div>
+      <div className='text-center'>
+        <Ikon kind='info-sirkel-orange'/>
+        <h4>Undertittel</h4>
+        <hr style={styles.hr}/>
+      </div>
+      <div>
+        <div>{alert}</div>
+        <div>{loading}</div>
+      </div>
       <div>
         <Input label={t('caseId')} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
       </div>
