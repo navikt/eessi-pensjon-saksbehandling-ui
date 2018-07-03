@@ -1,10 +1,11 @@
 {
-    "title" : "EESSIPEN-12",
-    "description" : "Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse Beskrivelse",
+    "headerTitle" : "EESSIPEN-12",
+    "pageTitle" : "Opprett EU/EØS dokument (SED)",
+    "description" : "Beskrivelse Beskrivelse Beskrivelse Beskrivelse",
     "indexDescription" : "Index Beskrivelse Index Beskrivelse Index Beskrivelse",
     "getCaseDescription" : "Saken Beskrivelse Saken Beskrivelse Saken Beskrivelse",
-    "editCaseDescription" : "Rediger Saken Beskrivelse Rediger Saken Beskrivelse Rediger Saken Beskrivelse",
-    "confirmCaseDescription" : "Bekrefte Saken Beskrivelse Bekrefte Saken Beskrivelse Bekrefte Saken Beskrivelse",
-    "endCaseDescription" : "Ferdig Saken Beskrivelse Ferdig Saken Beskrivelse Ferdig Saken Beskrivelse",
+    "editCaseDescription" : "Rediger Saken Rediger Saken Rediger Saken",
+    "confirmCaseDescription" : "Bekrefte Saken Bekrefte Saken Bekrefte Saken ",
+    "endCaseDescription" : "Ferdig Saken Ferdig Saken Ferdig Saken",
     "undertitle" : "App undertittel"
 }

@@ -5,7 +5,9 @@ import './Main.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { translate } from 'react-i18next';
-import logo from '../images/logo.png';
+
+import * as Nav from './Nav'
+import TopHeader from './TopHeader';
 
 class Main extends Component {
 
@@ -14,16 +16,19 @@ class Main extends Component {
     let { t } = this.props;
 
     return <div className='h-100'>
-      <div className='row'>
-        <div className='mt-3 col-12 py-3 text-center'>
-          <img alt='logo' src={logo}/>
-          <h1 className='mt-3 appTitle'>{t('content:title')}</h1>
-          <h5 className='mt-3 appDescription'>{t('content:description')}</h5>
-        </div>
-        <div className="main col-12 h-100 py-3">
-          {this.props.children}
-        </div>
-      </div>
+      <TopHeader/>
+      <Nav.Container>
+        <Nav.Row>
+          <Nav.Column className='py-3 text-left'>
+            <h1 className='mt-3 appTitle'>{t('content:pageTitle')}</h1>
+          </Nav.Column>
+        </Nav.Row>
+        <Nav.Row>
+          <Nav.Column className='py-3 text-left'>
+            {this.props.children}
+          </Nav.Column>
+        </Nav.Row>
+      </Nav.Container>
     </div>
   }
 }

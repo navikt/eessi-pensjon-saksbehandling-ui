@@ -1,0 +1,22 @@
+{
+  "start" : "start",
+  "institution"  : "Mottager",
+  "buc" : "BUC",
+  "sed" : "SED",
+  "createNewCase" : "Opprett ny saks",
+  "caseFound" : "Saken funnet",
+  "caseNotFound" : "Saken ikke funnet",
+  "confirm" : "Bekrefte",
+  "confirmAndSend": "Bekrefte og sende",
+  "createNew" : "Lager nytt sak",
+  "go" : "Gå",
+  "caseId" : "SaksId",
+  "caseHandler" : "Saksbehandler",
+  "søk" : "Søk",
+  "chooseLanguage" : "Velg språk",
+  "dataSubmitted" : "Data sendt",
+  "invalidCaseNumber": "Ugyldig saksId",
+  "invalidCaseHandler": "Ugyldig saksbehandler",
+  "insufficientParameters": "ikke nok parametere",
+  "serveroffline" : "server offline"
+}

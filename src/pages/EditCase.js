@@ -168,6 +168,16 @@ class EditCase extends Component {
     !this.state.sed || this.state.sed === '--'
   }
 
+  getSpinner(text) {
+
+    const { t } = this.props;
+
+    return <div className='ml-2'>
+      <NavFrontendSpinner type='s' />
+      <div className='float-right ml-2'>{t(text)}</div>
+    </div>
+  }
+
   render() {
 
     const { t, usercase, error, serverError, loading } = this.props;
@@ -193,35 +203,36 @@ class EditCase extends Component {
         <Ikon kind='info-sirkel-orange'/>
         <h4>{t('content:undertitle')}</h4>
         <hr/>
+        <div>{t('content:editCaseDescription')}</div>
       </div>
-      <div>{t('content:editCaseDescription')}</div>
-      <div>{alert}</div>
-      <div className='mt-3 align-middle'>
-        <div className='d-inline-block align-bottom'>{this.renderInstitution()}</div>
-        <div className='d-inline-block align-bottom' style={{marginBottom: '1rem'}}>
-          {loading && loading.institution ? <div className='ml-2'><NavFrontendSpinner /><div className='float-right ml-2'>{t('loading:institution')}</div></div> : null}
+      <div className='mx-4 text-center'>
+        <div className='mt-4'>{alert}</div>
+        <div className='mt-4 align-middle text-left'>
+          <div className='d-inline-block'>{this.renderInstitution()}</div>
+          <div className='d-inline-block'>
+            {loading && loading.institution ? this.getSpinner('loading:institution'): null}
+          </div>
         </div>
-      </div>
-      <div className='mt-3 align-middle'>
-        <div className='d-inline-block align-bottom'>{this.renderBuc()}</div>
-        <div className='d-inline-block align-bottom' style={{marginBottom: '1rem'}}>
-          {loading && loading.buc ? <div className='ml-2'><NavFrontendSpinner /><div className='float-right ml-2'>{t('loading:buc')}</div></div> : null}
+        <div className='mt-4 align-middle text-left'>
+          <div className='d-inline-block'>{this.renderBuc()}</div>
+          <div className='d-inline-block'>
+            {loading && loading.buc ? this.getSpinner('loading:buc') : null}
+          </div>
         </div>
-      </div>
-      <div className='mt-3 align-middle'>
-        <div className='d-inline-block align-bottom'>{this.renderSed()}</div>
-        <div className='d-inline-block align-bottom' style={{marginBottom: '1rem'}}>
-          {loading && loading.sed ? <div className='ml-2'><NavFrontendSpinner /><div className='float-right ml-2'>{t('loading:sed')}</div></div> : null}
+        <div className='mt-4 align-middle text-left'>
+          <div className='d-inline-block'>{this.renderSed()}</div>
+          <div className='d-inline-block'>
+            {loading && loading.sed ? this.getSpinner('loading:sed') : null}
+          </div>
         </div>
-      </div>
-      <div className='mt-3'>
-        <KnappBase className='mr-3' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('tilbake')}</KnappBase>
-        <KnappBase                  type='hoved'    onClick={this.onButtonClick.bind(this)} disabled={this.isButtonDisabled()}>{t('go')}</KnappBase>
+        <div className='mt-4'>
+          <KnappBase className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('tilbake')}</KnappBase>
+          <KnappBase disabled={this.isButtonDisabled()} type='hoved' onClick={this.onButtonClick.bind(this)}>{t('go')}</KnappBase>
+        </div>
       </div>
     </Main>;
   }
 }
-
 EditCase.propTypes = {
   usercase     : PropTypes.object,
   actions      : PropTypes.object,

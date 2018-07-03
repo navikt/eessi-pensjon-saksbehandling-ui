@@ -44,6 +44,7 @@ app.post('/api/case',         api.handleCaseSubmit);
 app.get( '/api/institutions', api.handleInstitutions);
 app.get( '/api/bucs',         api.handleBucs);
 app.get( '/api/seds/:buc',    api.handleSeds);
+
 app.get( '*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });

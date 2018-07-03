@@ -81,23 +81,23 @@ class GetCase extends Component {
     let buttonText = spinner ? t('loading:getcase') : t('søk');
 
     return <Main>
-      <div className='text-center'>
+      <div className='mx-3 text-center'>
         <Ikon kind='info-sirkel-orange'/>
         <h4>{t('content:undertitle')}</h4>
         <hr/>
+        <div>{t('content:getCaseDescription')}</div>
       </div>
-      <div>{t('content:getCaseDescription')}</div>
-      <div>
-        <div>{alert}</div>
-      </div>
-      <div className='mt-3'>
-        <Input label={t('caseId')} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
-      </div>
-      <div className='mt-3'>
-        <Input label={t('caseHandler')} value={this.state.caseHandler} onChange={this.onCaseHandlerChange.bind(this)}/>
-      </div>
-      <div className='mt-3'>
-        <KnappBase type='hoved' spinner={spinner} disabled={this.isButtonDisabled()} onClick={this.onButtonClick.bind(this)}>{buttonText}</KnappBase>
+      <div className='mx-4 text-center'>
+        <div className='mt-4'>{alert}</div>
+        <div className='mt-4 text-left'>
+          <Input label={t('caseId')} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
+        </div>
+        <div className='mt-4 text-left'>
+          <Input label={t('caseHandler')} value={this.state.caseHandler} onChange={this.onCaseHandlerChange.bind(this)}/>
+        </div>
+        <div className='mt-4'>
+          <KnappBase type='hoved' spinner={spinner} disabled={this.isButtonDisabled()} onClick={this.onButtonClick.bind(this)}>{buttonText}</KnappBase>
+        </div>
       </div>
     </Main>
   }

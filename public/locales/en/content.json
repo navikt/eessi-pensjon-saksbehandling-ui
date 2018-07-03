@@ -1,5 +1,6 @@
 {
-    "title" : "EESSIPEN-12",
+    "headerTitle" : "EESSIPEN-12",
+    "pageTitle" : "Create EU Documents (SED)",
     "description" : "Description Description Description Description Description Description Description Description Description Description",
     "indexDescription" : "Index Description Index Description Index Description Index Description Index Description Index Description",
     "getCaseDescription" : "Get case description Get case description Get case description Get case description Get case description",

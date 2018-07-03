@@ -85,19 +85,20 @@ class ConfirmEditCase extends Component {
         <Ikon kind='info-sirkel-orange'/>
         <h4>{t('content:undertitle')}</h4>
         <hr/>
+        <div>{t('content:confirmCaseDescription')}</div>
       </div>
-      <div>{t('content:confirmCaseDescription')}</div>
-      <div>{alert}</div>
-      <div>
-        <div>{t('confirm')}</div>
-        <div>{t('caseId')}: {toConfirm.caseId}</div>
-        <div>{t('institution')}: {toConfirm.institution}</div>
-        <div>{t('buc')}: {toConfirm.buc}</div>
-        <div>{t('sed')}: {toConfirm.sed}</div>
-      </div>
-      <div className='mt-3'>
-        <KnappBase className='mr-3' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('tilbake')}</KnappBase>
-        <KnappBase spinner={spinner} type='hoved'   onClick={this.onButtonClick.bind(this)}>{buttonText}</KnappBase>
+      <div className='mx-4 text-center'>
+        <div>{alert}</div>
+        <div className='mt-4 mb-4 text-left'>
+          <div>{t('caseId')}: {toConfirm.caseId}</div>
+          <div>{t('institution')}: {toConfirm.institution}</div>
+          <div>{t('buc')}: {toConfirm.buc}</div>
+          <div>{t('sed')}: {toConfirm.sed}</div>
+        </div>
+        <div className='mt-4'>
+          <KnappBase className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('tilbake')}</KnappBase>
+          <KnappBase spinner={spinner} type='hoved'   onClick={this.onButtonClick.bind(this)}>{buttonText}</KnappBase>
+        </div>
       </div>
     </Main>;
   }

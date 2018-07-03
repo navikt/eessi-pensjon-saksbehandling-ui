@@ -55,6 +55,7 @@ let handleInstitutions = async function (req, res) {
     });
     res.json(r.body);
   } catch (err) {
+    console.log(err)
     res.status(500).json({'serverMessage': err.statusCode});
   }
 }
