@@ -31,7 +31,8 @@ export default function (state = {}, action = {}) {
   case types.USERCASE_POST_SUCCESS:
 
     return Object.assign({}, state, {
-      submitted : action.payload
+      submitted : action.payload,
+      toConfirm : undefined
     });
 
   case types.USERCASE_GET_CASE_REQUEST:

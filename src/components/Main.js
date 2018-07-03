@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import './Main.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { translate } from 'react-i18next';

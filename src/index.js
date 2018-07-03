@@ -18,6 +18,8 @@ import EditCase from './pages/EditCase';
 import ConfirmEditCase from './pages/ConfirmEditCase';
 import EndCase from './pages/EndCase';
 
+import './index.css';
+
 import * as reducers from './reducers';
 
 const history = createBrowserHistory();
