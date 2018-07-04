@@ -1,0 +1,6 @@
+{
+    "invalidCaseNumber": "NN_Ugyldig saksId",
+    "invalidCaseHandler": "NN_Ugyldig saksbehandler",
+    "insufficientParameters": "NN_ikke nok parametere",
+    "serveroffline" : "NN_server offline"
+}

@@ -44,4 +44,6 @@ testem.log
 Thumbs.db
 package.json___jb_old___
 
+
 src/main/resources/public
+src/*.css

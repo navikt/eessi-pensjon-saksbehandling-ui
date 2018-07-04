@@ -1,0 +1,18 @@
+{
+  "start" : "NN_Start",
+  "institution"  : "NN_Mottager",
+  "buc" : "NN_BUC",
+  "sed" : "NN_SED",
+  "createNewCase" : "NN_Opprett ny saks",
+  "caseFound" : "NN_Saken funnet",
+  "caseNotFound" : "NN_Saken ikke funnet",
+  "confirm" : "NN_Bekrefte",
+  "confirmAndSend": "NN_Bekrefte og sende",
+  "createNew" : "NN_Lager nytt sak",
+  "go" : "NN_Gå",
+  "caseId" : "NN_SaksId",
+  "caseHandler" : "NN_Saksbehandler",
+  "søk" : "NN_Søk",
+  "chooseLanguage" : "NN_Velg språk",
+  "dataSubmitted" : "NN_Data sendt"
+}

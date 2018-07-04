@@ -1,0 +1,7 @@
+{
+    "getcase":  "NN_Henter saken...",
+    "postcase":  "NN_Lagring saken..",
+    "institution" : "NN_Henter institutjoner...",
+    "buc" : "NN_Henter BUC...",
+    "sed" : "NN_Henter SED..."
+}

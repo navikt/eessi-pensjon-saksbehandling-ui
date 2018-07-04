@@ -1,0 +1,18 @@
+{
+  "institution"  : "Institution",
+  "buc" : "BUC",
+  "sed" : "SED",
+  "createNewCase" : "Create new case",
+  "caseFound" : "Case found",
+  "caseNotFound" : "Case not found",
+  "confirm" : "Confirm",
+  "confirmAndSend": "Confirm and send",
+  "createNew" : "Create new",
+  "go" : "Go",
+  "caseId" : "Case ID",
+  "caseHandler" : "Case handler",
+  "start" : "Start",
+  "søk" : "Search",
+  "chooseLanguage" : "Choose language",
+  "dataSubmitted" : "Data sent"
+}
