@@ -1,0 +1,23 @@
+server:
+    port: 8080
+
+freg:
+  security:
+    oidc:
+      ignored-paths: '/internal/**,/error**'
+      refresh:
+        enabled: 'true'
+      auth:
+        header-filter-enabled: 'false'
+        cookie-filter-enabled: 'true'
+      login:
+        enabled: 'true'
+        path: '/login/oauth2/code/openam'
+      openam:
+        url: 'https://isso-t.adeo.no:443/isso'
+      client-id: 'eessi-fagmodul-localhost'
+      client-secret: 'Test1234'
+
+credential:
+  username: 'srvPensjon'
+  password: 'Ash5SoxP'
