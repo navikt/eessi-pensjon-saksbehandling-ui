@@ -1,6 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
+src/main/js/build
+src/main/resources/public
 /dist
 /dist-server
 /tmp
@@ -44,6 +46,4 @@ testem.log
 Thumbs.db
 package.json___jb_old___
 
-
-src/main/resources/public
-src/*.css
+src/**/*.css

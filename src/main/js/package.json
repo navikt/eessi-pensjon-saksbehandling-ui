@@ -11,6 +11,7 @@
     "start:prod": "cross-env NODE_ENV=production node server.js",
     "prebuild": "npm run less",
     "build": "react-scripts build",
+    "postbuild": "node ./scripts/copy-build-to-resources.js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
