@@ -8,7 +8,7 @@
 /build
 
 # dependencies
-/node_modules
+node_modules
 
 # IDEs and editors
 /.idea
@@ -44,5 +44,4 @@ testem.log
 Thumbs.db
 package.json___jb_old___
 
-# certificates
-src/server/certificates
+src/main/resources/public
