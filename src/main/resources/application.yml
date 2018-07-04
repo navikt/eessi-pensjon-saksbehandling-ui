@@ -1,0 +1,23 @@
+server:
+    port: 8080
+
+freg:
+  security:
+    oidc:
+      ignored-paths: '/internal/**,/error**'
+      refresh:
+        enabled: 'true'
+      auth:
+        header-filter-enabled: 'false'
+        cookie-filter-enabled: 'true'
+      login:
+        enabled: 'true'
+        path: '/login/oauth2/code/openam'
+      openam:
+        url: '${OPENIDCONNECT_URL}'
+      client-id: 'eessi-fagmodul-${FASIT_ENVIRONMENT_NAME}' # TODO: Bytt til riktig client-id når det er registrert hos OpenAm!
+      client-secret: '${OPENIDCONNECTAGENT_PASSWORD}'
+
+credential:
+  username: '${SRVPENSJON_USERNAME}'
+  password: '${SRVPENSJON_PASSWORD}'
