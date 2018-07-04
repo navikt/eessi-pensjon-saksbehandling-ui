@@ -1,23 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
-import PropTypes from 'prop-types';
+import PT from 'prop-types';
 import { translate } from 'react-i18next';
 
-import { Input } from 'nav-frontend-skjema';
-import KnappBase from 'nav-frontend-knapper';
-import AlertStripe from 'nav-frontend-alertstriper';
-import Ikon from 'nav-frontend-ikoner-assets';
-
-import Main from '../components/Main';
+import * as Nav from '../components/Nav';
+import TopContainer from '../components/TopContainer';
 import * as usercaseActions from '../actions/usercase';
 
 const mapStateToProps = (state) => {
   return {
-    error        : state.usercase.error,
+    errorMessage : state.usercase.errorMessage,
     usercase     : state.usercase.usercase,
     loading      : state.loading,
-    serverError  : state.ui.serverError,
     language     : state.ui.language
   }
 };
@@ -25,13 +20,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {actions: bindActionCreators(Object.assign({}, usercaseActions), dispatch)};
 };
-
-const styles = {
-  hr: {
-    width       : '10%',
-    borderColor : 'orange'
-  }
-}
 
 class GetCase extends Component {
 
@@ -61,7 +49,7 @@ class GetCase extends Component {
 
     const { history } = this.props;
     if (nextProps.usercase && nextProps.usercase.hasOwnProperty('caseId')) {
-      history.push('/case/' + nextProps.usercase.caseId);
+      history.push('/case/get/' + nextProps.usercase.caseId);
     }
   }
 
@@ -71,46 +59,39 @@ class GetCase extends Component {
 
   render() {
 
-    const { t, error, serverError, loading } = this.props;
+    const { t, errorMessage, loading } = this.props;
 
-    let alert = (error ? <AlertStripe type='stopp'>{t(error)}</AlertStripe> : (
-      serverError ? <AlertStripe type='stopp'>{t(serverError)}</AlertStripe> : null
-    ));
-
-    let spinner = loading && loading.getcase;
+    let alert      = errorMessage ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
+    let spinner    = loading && loading.getcase;
     let buttonText = spinner ? t('loading:getcase') : t('søk');
 
-    return <Main>
-      <div className='mx-3 text-center'>
-        <Ikon kind='info-sirkel-orange'/>
-        <h4>{t('content:undertitle')}</h4>
-        <hr/>
+    return <TopContainer>
+      <Nav.Panel className='panel'>
         <div>{t('content:getCaseDescription')}</div>
-      </div>
-      <div className='mx-4 text-center'>
-        <div className='mt-4'>{alert}</div>
-        <div className='mt-4 text-left'>
-          <Input label={t('caseId')} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
+        <div className='mx-4 text-center'>
+          <div className='mt-4'>{alert}</div>
+          <div className='mt-4 text-left'>
+            <Nav.Input label={t('caseId')} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
+          </div>
+          <div className='mt-4 text-left'>
+            <Nav.Input label={t('caseHandler')} value={this.state.caseHandler} onChange={this.onCaseHandlerChange.bind(this)}/>
+          </div>
+          <div className='mt-4'>
+            <Nav.Hovedknapp spinner={spinner} disabled={this.isButtonDisabled()} onClick={this.onButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+          </div>
         </div>
-        <div className='mt-4 text-left'>
-          <Input label={t('caseHandler')} value={this.state.caseHandler} onChange={this.onCaseHandlerChange.bind(this)}/>
-        </div>
-        <div className='mt-4'>
-          <KnappBase type='hoved' spinner={spinner} disabled={this.isButtonDisabled()} onClick={this.onButtonClick.bind(this)}>{buttonText}</KnappBase>
-        </div>
-      </div>
-    </Main>
+      </Nav.Panel>
+    </TopContainer>
   }
 }
 
 GetCase.propTypes = {
-  usercase     : PropTypes.object,
-  error        : PropTypes.object,
-  serverError  : PropTypes.object,
-  loading      : PropTypes.object,
-  actions      : PropTypes.object,
-  history      : PropTypes.object,
-  t            : PropTypes.func
+  usercase     : PT.object,
+  errorMessage : PT.string,
+  loading      : PT.object,
+  actions      : PT.object,
+  history      : PT.object,
+  t            : PT.func
 };
 
 export default connect(

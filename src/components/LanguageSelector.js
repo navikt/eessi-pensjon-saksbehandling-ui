@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import PT from 'prop-types';
 import { bindActionCreators }  from 'redux';
-import { Select } from 'nav-frontend-skjema';
+import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 
+import * as Nav from './Nav'
 import * as languageActions from '../actions/language';
 
 const mapStateToProps = (state) => {
@@ -28,18 +28,18 @@ class LanguageSelector extends Component {
   render () {
 
     let { t, language } = this.props;
-    return <Select label={t('chooseLanguage')} value={language} onChange={this.changeLanguage.bind(this)}>
+    return <Nav.Select label={t('ui:chooseLanguage')} value={language} onChange={this.changeLanguage.bind(this)}>
       <option value='en'>English</option>
       <option value='nb'>Bokmål</option>
       <option value='nn'>Nynorsk</option>
-    </Select>
+    </Nav.Select>
   }
 }
 
 LanguageSelector.propTypes = {
-  language : PropTypes.obj,
-  t        : PropTypes.func,
-  actions  : PropTypes.obj
+  language : PT.string.isRequired,
+  t        : PT.func.isRequired,
+  actions  : PT.object.isRequired
 }
 
 export default connect(

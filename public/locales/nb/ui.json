@@ -14,9 +14,5 @@
   "caseHandler" : "Saksbehandler",
   "søk" : "Søk",
   "chooseLanguage" : "Velg språk",
-  "dataSubmitted" : "Data sendt",
-  "invalidCaseNumber": "Ugyldig saksId",
-  "invalidCaseHandler": "Ugyldig saksbehandler",
-  "insufficientParameters": "ikke nok parametere",
-  "serveroffline" : "server offline"
+  "dataSubmitted" : "Data sendt"
 }

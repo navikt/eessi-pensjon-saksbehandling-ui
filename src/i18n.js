@@ -1,6 +1,6 @@
 import i18next from 'i18next';
 import Backend from 'i18next-xhr-backend';
-import { reactI18nextModule} from 'react-i18next';
+import { reactI18nextModule } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 i18next
@@ -8,8 +8,8 @@ i18next
   .use(LanguageDetector)
   .use(reactI18nextModule)
   .init({
-    lng: 'en',
-    fallbackLng: 'en',
+    lng: 'nb',
+    fallbackLng: 'nb',
     debug: true,
     ns: ['ui','loading','content'],
     defaultNs: 'ui',

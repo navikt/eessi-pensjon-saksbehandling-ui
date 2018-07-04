@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
-import PropTypes from 'prop-types';
+import PT from 'prop-types';
 import { translate } from 'react-i18next';
 
-import AlertStripe from 'nav-frontend-alertstriper';
-import KnappBase from 'nav-frontend-knapper';
-import NavFrontendSpinner from 'nav-frontend-spinner';
-import Ikon from 'nav-frontend-ikoner-assets';
+import * as Nav from '../components/Nav';
+import TopContainer from '../components/TopContainer';
 
 import * as usercaseActions from '../actions/usercase';
-
-import Main from '../components/Main';
 
 const mapStateToProps = (state) => {
   return {
@@ -43,7 +39,7 @@ class ConfirmEditCase extends Component {
 
     const { history } = this.props;
     if (nextProps.submitted) {
-      history.push('/endcase');
+      history.push('/case/end');
     }
   }
 
@@ -65,7 +61,7 @@ class ConfirmEditCase extends Component {
     const { t, toConfirm, error, serverError, loading } = this.props;
 
     if (!toConfirm) {
-      return <Main/>
+      return <TopContainer/>
     }
 
     let alert;
@@ -73,16 +69,15 @@ class ConfirmEditCase extends Component {
     let buttonText = spinner ? t('loading:postcase') : t('confirmAndSend');
 
     if (serverError) {
-      alert = <AlertStripe type='stopp'>{t(serverError)}</AlertStripe>;
+      alert = <Nav.AlertStripe type='stopp'>{t(serverError)}</Nav.AlertStripe>;
     }
 
     if (error) {
-      alert = <AlertStripe type='stopp'>{t(error)}</AlertStripe>;
+      alert = <Nav.AlertStripe type='stopp'>{t(error)}</Nav.AlertStripe>;
     }
 
-    return <Main>
+    return <TopContainer>
       <div className='text-center'>
-        <Ikon kind='info-sirkel-orange'/>
         <h4>{t('content:undertitle')}</h4>
         <hr/>
         <div>{t('content:confirmCaseDescription')}</div>
@@ -96,23 +91,23 @@ class ConfirmEditCase extends Component {
           <div>{t('sed')}: {toConfirm.sed}</div>
         </div>
         <div className='mt-4'>
-          <KnappBase className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('tilbake')}</KnappBase>
-          <KnappBase spinner={spinner} type='hoved'   onClick={this.onButtonClick.bind(this)}>{buttonText}</KnappBase>
+          <Nav.Knapp className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('tilbake')}</Nav.Knapp>
+          <Nav.Hovedknapp spinner={spinner}  onClick={this.onButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
         </div>
       </div>
-    </Main>;
+    </TopContainer>;
   }
 }
 
 ConfirmEditCase.propTypes = {
-  actions     : PropTypes.object,
-  history     : PropTypes.object,
-  loading     : PropTypes.object,
-  t           : PropTypes.func,
-  toConfirm   : PropTypes.object,
-  submitted   : PropTypes.object,
-  error       : PropTypes.object,
-  serverError : PropTypes.object
+  actions     : PT.object.isRequired,
+  history     : PT.object.isRequired,
+  loading     : PT.object.isRequired,
+  t           : PT.func,
+  toConfirm   : PT.object,
+  submitted   : PT.object,
+  error       : PT.object,
+  serverError : PT.object
 };
 
 export default connect(

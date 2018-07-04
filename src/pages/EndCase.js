@@ -7,7 +7,7 @@ import KnappBase from 'nav-frontend-knapper';
 import AlertStripe from 'nav-frontend-alertstriper';
 import Ikon from 'nav-frontend-ikoner-assets';
 
-import Main from '../components/Main';
+import TopContainer from '../components/TopContainer';
 
 const mapStateToProps = (state) => {
   return {
@@ -21,14 +21,14 @@ class EndCase extends Component {
   onButtonClick() {
 
     const { history } = this.props;
-    history.push('/getcase');
+    history.push('/case/get');
   }
 
   render() {
 
     let { t, submitted } = this.props;
 
-    return <Main>
+    return <TopContainer>
       <div className='text-center'>
         <Ikon kind='info-sirkel-orange'/>
         <h4>{t('content:undertitle')}</h4>
@@ -46,7 +46,7 @@ class EndCase extends Component {
           <KnappBase className='mr-3' type='hoved' onClick={this.onButtonClick.bind(this)}>{t('createNew')}</KnappBase>
         </div>
       </div>
-    </Main>;
+    </TopContainer>;
   }
 }
 

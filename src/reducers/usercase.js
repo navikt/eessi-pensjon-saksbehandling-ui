@@ -38,8 +38,8 @@ export default function (state = {}, action = {}) {
   case types.USERCASE_GET_CASE_REQUEST:
 
     return Object.assign({}, state, {
-      error     : undefined,
-      usercase  : undefined
+      errorMessage : undefined,
+      usercase     : undefined
     });
 
   case types.USERCASE_GET_INSTITUTION_OPTIONS_REQUEST:
@@ -48,7 +48,7 @@ export default function (state = {}, action = {}) {
   case types.USERCASE_POST_REQUEST:
 
     return Object.assign({}, state, {
-      error : undefined
+      errorMessage : undefined
     });
 
   case types.USERCASE_GET_CASE_FAILURE:
@@ -58,7 +58,7 @@ export default function (state = {}, action = {}) {
   case types.USERCASE_POST_FAILURE:
 
     return Object.assign({}, state, {
-      error : action.payload.serverMessage
+      errorMessage : action.payload.serverMessage
     });
 
   case types.USERCASE_TO_CONFIRM_OPTIONS:
@@ -72,7 +72,6 @@ export default function (state = {}, action = {}) {
     return Object.assign({}, state, {
       toConfirm : undefined
     });
-
 
   default:
     return state;

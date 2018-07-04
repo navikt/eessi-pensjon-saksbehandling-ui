@@ -14,9 +14,5 @@
   "start" : "Start",
   "søk" : "Search",
   "chooseLanguage" : "Choose language",
-  "dataSubmitted" : "Data sent",
-  "invalidCaseNumber": "Invalid Case ID",
-  "invalidCaseHandler": "Invalid Case handler",
-  "insufficientParameters": "Insufficient parameters",
-  "serveroffline" : "server offline",
+  "dataSubmitted" : "Data sent"
 }

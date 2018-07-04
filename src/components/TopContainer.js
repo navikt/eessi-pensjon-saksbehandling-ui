@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import PT from 'prop-types';
 import { translate } from 'react-i18next';
 
 import * as Nav from './Nav'
 import TopHeader from './TopHeader';
+import AlertHeader from './AlertHeader';
 
-class Main extends Component {
+class TopContainer extends Component {
 
   render () {
 
@@ -16,6 +14,7 @@ class Main extends Component {
 
     return <div className='h-100'>
       <TopHeader/>
+      <AlertHeader/>
       <Nav.Container>
         <Nav.Row>
           <Nav.Column className='py-3 text-left'>
@@ -32,9 +31,9 @@ class Main extends Component {
   }
 }
 
-Main.propTypes = {
-  children : PropTypes.node.isRequired,
-  t        : PropTypes.func.isRequired
+TopContainer.propTypes = {
+  children    : PT.node.isRequired,
+  t           : PT.func.isRequired
 };
 
-export default translate()(Main);
+export default translate()(TopContainer);
