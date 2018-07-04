@@ -27,6 +27,11 @@ fasitResources:
     resourceType: restservice
   - alias: srvPensjon
     resourceType: credential
+  - alias: OpenIdConnect
+    resourceType: baseurl
+  - alias: OpenIdConnectAgent
+    resourceType: credential
+
   exposed:
   - alias: eessifagmodulfrontendservice
     resourceType: restservice
