@@ -4,28 +4,28 @@ import { reactI18nextModule } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 i18next
-  .use(Backend)
-  .use(LanguageDetector)
-  .use(reactI18nextModule)
-  .init({
-    lng: 'nb',
-    fallbackLng: 'nb',
-    debug: true,
-    ns: ['ui','loading','content'],
-    defaultNs: 'ui',
-    backend: {
-      loadPath: '/locales/{{lng}}/{{ns}}.json'
-    },
-    interpolation: {
-      escapeValue: false
-    },
-    react: {
-      wait: true,
-      withRef: false,
-      bindI18n: 'languageChange loaded',
-      bindStore: 'added removed',
-      nsMode: 'default'
-    }
-  }).loadLanguages(['nb','nn','en']);
+    .use(Backend)
+    .use(LanguageDetector)
+    .use(reactI18nextModule)
+    .init({
+        lng: 'nb',
+        fallbackLng: 'nb',
+        debug: true,
+        ns: ['ui','loading','content'],
+        defaultNs: 'ui',
+        backend: {
+            loadPath: '/locales/{{lng}}/{{ns}}.json'
+        },
+        interpolation: {
+            escapeValue: false
+        },
+        react: {
+            wait: true,
+            withRef: false,
+            bindI18n: 'languageChange loaded',
+            bindStore: 'added removed',
+            nsMode: 'default'
+        }
+    }).loadLanguages(['nb','nn','en']);
 
 export default i18next;

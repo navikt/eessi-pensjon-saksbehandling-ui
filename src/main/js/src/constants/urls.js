@@ -1,6 +1,6 @@
 var BASE_URL = window.location.protocol.concat('//').concat(window.location.hostname);
 if (window.location.port) {
-  BASE_URL = BASE_URL.concat(':' + window.location.port);
+    BASE_URL = BASE_URL.concat(':' + window.location.port);
 }
 
 export const CASE_URL        = BASE_URL + '/api/case';

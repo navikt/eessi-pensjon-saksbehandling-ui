@@ -1,6 +1,8 @@
 # EessiFagmodulFrontend
 
-This project was generated with [React](https://reactjs.org) and [Node](https://nodejs.org).
+This project has:
+* A frontend module, in `src/main/js`, that uses [React](https://reactjs.org) and [Node](https://nodejs.org).
+* A backend module, in `src/main/kotlin` that uses Kotlin.
 
 ## Development React UI, development node server
 

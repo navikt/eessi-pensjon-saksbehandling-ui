@@ -26,32 +26,32 @@ const history = createBrowserHistory();
 const routeMiddleware = routerMiddleware(history);
 
 const createStoreWithMiddleware = compose(
-  applyMiddleware(thunk),
-  applyMiddleware(routeMiddleware),
-  window.devToolsExtension ? window.devToolsExtension() : f => f
+    applyMiddleware(thunk),
+    applyMiddleware(routeMiddleware),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore);
 
 const reducer = combineReducers({
-  ...reducers
+    ...reducers
 });
 
-const initialState = {'language' : i18n.language};
+const initialState = {ui: {language : i18n.language}};
 
 const store = createStoreWithMiddleware(reducer, initialState);
 
 ReactDOM.render(
-  <I18nextProvider i18n={i18n}>
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <Switch>
-          <Route exact path='/case/get'     component={GetCase}/>
-          <Route exact path='/case/get/:id' component={EditCase}/>
-          <Route exact path='/case/confirm' component={ConfirmEditCase}/>
-          <Route exact path='/case/end'     component={EndCase}/>
-          <Route path='/'                   component={Index}/>
-        </Switch>
-      </ConnectedRouter>
-    </Provider>
-  </I18nextProvider>, document.getElementById('root'));
+    <I18nextProvider i18n={i18n}>
+        <Provider store={store}>
+            <ConnectedRouter history={history}>
+                <Switch>
+                    <Route exact path='/case/get'     component={GetCase}/>
+                    <Route exact path='/case/get/:id' component={EditCase}/>
+                    <Route exact path='/case/confirm' component={ConfirmEditCase}/>
+                    <Route exact path='/case/end'     component={EndCase}/>
+                    <Route path='/'                   component={Index}/>
+                </Switch>
+            </ConnectedRouter>
+        </Provider>
+    </I18nextProvider>, document.getElementById('root'));
 
 registerServiceWorker();

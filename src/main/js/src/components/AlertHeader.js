@@ -6,31 +6,31 @@ import { translate } from 'react-i18next';
 import * as Nav from './Nav';
 
 const mapStateToProps = (state) => {
-  return {
-    serverError : state.ui.serverError
-  }
+    return {
+        serverError : state.ui.serverError
+    }
 };
 
 class AlertHeader extends Component {
 
-  render () {
+    render () {
 
-    let { t, serverError } = this.props;
+        let { t, serverError } = this.props;
 
-    if (!serverError) { return null };
+        if (!serverError) { return null }
 
-    return <Nav.AlertStripe type='advarsel' solid={true}>{t('error:' + serverError)}</Nav.AlertStripe>
-  }
+        return <Nav.AlertStripe type='advarsel' solid={true}>{t('error:' + serverError)}</Nav.AlertStripe>
+    }
 }
 
 AlertHeader.propTypes = {
-  t           : PT.func.isRequired,
-  serverError : PT.string
+    t           : PT.func.isRequired,
+    serverError : PT.string
 }
 
 export default connect(
-  mapStateToProps,
-  {}
+    mapStateToProps,
+    {}
 )(
-  translate()(AlertHeader)
+    translate()(AlertHeader)
 );

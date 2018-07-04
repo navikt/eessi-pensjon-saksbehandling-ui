@@ -8,44 +8,44 @@ import * as Nav from './Nav'
 import * as languageActions from '../actions/language';
 
 const mapStateToProps = (state) => {
-  return {
-    language : state.ui.language
-  };
+    return {
+        language : state.ui.language
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {actions: bindActionCreators(Object.assign({}, languageActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, languageActions), dispatch)};
 };
 
 class LanguageSelector extends Component {
 
-  changeLanguage(e) {
+    changeLanguage(e) {
 
-    let { actions } = this.props;
-    actions.changeLanguage(e.target.value);
-  }
+        let { actions } = this.props;
+        actions.changeLanguage(e.target.value);
+    }
 
-  render () {
+    render () {
 
-    let { t, language } = this.props;
-    return <Nav.Select label={t('ui:chooseLanguage')} value={language} onChange={this.changeLanguage.bind(this)}>
-      <option value='en'>English</option>
-      <option value='nb'>Bokmål</option>
-      <option value='nn'>Nynorsk</option>
-    </Nav.Select>
-  }
+        let { t, language } = this.props;
+        return <Nav.Select label={t('ui:chooseLanguage')} value={language} onChange={this.changeLanguage.bind(this)}>
+            <option value='en'>English</option>
+            <option value='nb'>Bokmål</option>
+            <option value='nn'>Nynorsk</option>
+        </Nav.Select>
+    }
 }
 
 LanguageSelector.propTypes = {
-  language : PT.string.isRequired,
-  t        : PT.func.isRequired,
-  actions  : PT.object.isRequired
+    language : PT.string.isRequired,
+    t        : PT.func.isRequired,
+    actions  : PT.object.isRequired
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(
-  translate()(LanguageSelector)
+    translate()(LanguageSelector)
 );
 

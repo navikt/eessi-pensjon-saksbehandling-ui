@@ -13,15 +13,15 @@ import Stegindikator from 'nav-frontend-stegindikator';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 
 export {
-  AlertStripe, AlertStripeAdvarsel,
-  Container, Row, Column,
-  Checkbox, Radio, RadioGruppe, SkjemaGruppe, Fieldset, Select, Input, Textarea,
-  EkspanderbartpanelBase, Panel, Lenkepanel,
-  Innholdstittel, Systemtittel, Undertittel, Element, Normaltekst, UndertekstBold,
-  NavFrontendSpinner,
-  Knapp, Hovedknapp,
-  Stegindikator,
-  Tabs,
-  Ikon,
-  HjelpetekstBase,
+    AlertStripe, AlertStripeAdvarsel,
+    Container, Row, Column,
+    Checkbox, Radio, RadioGruppe, SkjemaGruppe, Fieldset, Select, Input, Textarea,
+    EkspanderbartpanelBase, Panel, Lenkepanel,
+    Innholdstittel, Systemtittel, Undertittel, Element, Normaltekst, UndertekstBold,
+    NavFrontendSpinner,
+    Knapp, Hovedknapp,
+    Stegindikator,
+    Tabs,
+    Ikon,
+    HjelpetekstBase,
 };
