@@ -74,7 +74,7 @@ export function dataToConfirm (params) {
     };
 }
 
-export function cancelConfirmChoices () {
+export function cancelDataToConfirm () {
     return (dispatch) => {
         dispatch({
             type : types.USERCASE_DATA_TO_CONFIRM_CANCEL
@@ -82,7 +82,7 @@ export function cancelConfirmChoices () {
     };
 }
 
-export function postChoices (params) {
+export function submitData (params) {
     return api.call({
         url: urls.CASESUBMIT_URL,
         method: 'POST',

@@ -262,7 +262,7 @@ class EditCase extends Component {
 
         return <Nav.Select bredde='l' feil={this.state.validation.bucFail ? {feilmelding: this.state.validation.bucFail} : null}
             label={t('ui:buc')} value={this.state.buc} onChange={this.onBucChange.bind(this)}>
-            this.renderOptions(bucList)}
+            {this.renderOptions(bucList)}
         </Nav.Select>
     }
 
@@ -281,7 +281,7 @@ class EditCase extends Component {
         const { t } = this.props;
 
         return <div className='ml-2'>
-            <Nav.NavFrontendSpinner type='S' />
+            <Nav.NavFrontendSpinner type='S'/>
             <div className='float-right ml-2'>{t(text)}</div>
         </div>
     }
@@ -291,12 +291,13 @@ class EditCase extends Component {
         const { t } = this.props;
 
         return <Nav.Row className='mt-2'>
-            <Nav.Column className='col-4' style={{lineHeight: '2rem'}}>
+            <Nav.Column style={{lineHeight: '2rem'}}>
                 <b>{institution.country + '/' + institution.institution}</b>
             </Nav.Column>
             <Nav.Column>
                 <Nav.Knapp type='standard' onClick={this.onRemoveInstitutionButtonClick.bind(this, institution)}>{t('remove')}</Nav.Knapp>
             </Nav.Column>
+            <Nav.Column/>
         </Nav.Row>;
     }
 
@@ -312,13 +313,13 @@ class EditCase extends Component {
         }
 
         renderedInstitutions.push(<Nav.Row className='mt-4'>
-            <Nav.Column className='col-4'>
+            <Nav.Column>
                 {this.renderCountry()}
             </Nav.Column>
-            <Nav.Column className='col-4'>
+            <Nav.Column>
                 {this.renderInstitution()}
             </Nav.Column>
-            <Nav.Column className='col-4' style={{lineHeight: '6rem'}}>
+            <Nav.Column style={{lineHeight: '6rem'}}>
                 <Nav.Knapp type='standard' onClick={this.onCreateInstitutionButtonClick.bind(this)}>{t('create')}</Nav.Knapp>
             </Nav.Column>
         </Nav.Row>);
@@ -340,7 +341,7 @@ class EditCase extends Component {
             alert = <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe>;
         }
 
-        let disabledForwardButton = Object.keys(this.state.validation).length != 0;
+        let disabledForwardButton = Object.keys(this.state.validation).length !== 0;
 
         return <TopContainer>
             <Nav.Panel>

@@ -3,22 +3,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 
-import KnappBase from 'nav-frontend-knapper';
-import AlertStripe from 'nav-frontend-alertstriper';
-import Ikon from 'nav-frontend-ikoner-assets';
-
+import * as Nav from '../components/Nav';
 import TopContainer from '../components/TopContainer';
 
 const mapStateToProps = (state) => {
     return {
-        submitted : state.usercase.submitted,
-        language  : state.ui.language
+        dataSubmitted : state.usercase.dataSubmitted,
+        language      : state.ui.language
     };
 };
 
 class EndCase extends Component {
 
-    onButtonClick() {
+    onForwardButtonClick() {
 
         const { history } = this.props;
         history.push('/case/get');
@@ -26,35 +23,32 @@ class EndCase extends Component {
 
     render() {
 
-        let { t, submitted } = this.props;
+        let { t, dataSubmitted } = this.props;
 
         return <TopContainer>
-            <div className='text-center'>
-                <Ikon kind='info-sirkel-orange'/>
-                <h4>{t('content:undertitle')}</h4>
-                <hr/>
+            <Nav.Panel>
                 <div>{t('content:endCaseDescription')}</div>
-            </div>
-            <div className='mx-4 text-center'>
-                <div className='mt-4'>
-                    <AlertStripe type='suksess'>{t('dataSubmitted')}</AlertStripe>
+                <div className='mx-4 text-center'>
+                    <div className='mt-4'>
+                        <Nav.AlertStripe type='suksess'>{t('dataSubmitted')}</Nav.AlertStripe>
+                    </div>
+                    <div className='mt-4'>
+                        {JSON.stringify(dataSubmitted)}
+                    </div>
+                    <div className='mt-4'>
+                        <Nav.Hovedknapp className='mr-3' onClick={this.onForwardButtonClick.bind(this)}>{t('createNew')}</Nav.Hovedknapp>
+                    </div>
                 </div>
-                <div className='mt-4'>
-                    {JSON.stringify(submitted)}
-                </div>
-                <div className='mt-4'>
-                    <KnappBase className='mr-3' type='hoved' onClick={this.onButtonClick.bind(this)}>{t('createNew')}</KnappBase>
-                </div>
-            </div>
+            </Nav.Panel>
         </TopContainer>;
     }
 }
 
 EndCase.propTypes = {
-    actions   :  PropTypes.object,
-    history   :  PropTypes.object,
-    submitted : PropTypes.object,
-    t         : PropTypes.func
+    actions       :  PropTypes.object,
+    history       :  PropTypes.object,
+    dataSubmitted : PropTypes.object,
+    t             : PropTypes.func
 };
 
 export default connect(

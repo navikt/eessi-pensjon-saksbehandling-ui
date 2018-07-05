@@ -1,0 +1,9 @@
+{
+    'caseId' : 'NN_Hjelp til caseId',
+    'caseHandler' : 'NN_Hjelp til caseHandler',
+    'buc' : 'NN_Hjelp til buc',
+    'sed' : 'NN_Hjelp til sed',
+    'subjectArea' : 'NN_Hjelp til subjectArea',
+    'institution' : 'NN_Hjelp til institution',
+    'country' : 'NN_Hjelp til country'
+}

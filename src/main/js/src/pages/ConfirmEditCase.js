@@ -11,12 +11,12 @@ import * as usercaseActions from '../actions/usercase';
 
 const mapStateToProps = (state) => {
     return {
-        toConfirm   : state.usercase.toConfirm,
-        submitted   : state.usercase.submitted,
-        error       : state.usercase.error,
-        serverError : state.ui.serverError,
-        loading     : state.loading,
-        language    : state.ui.language
+        dataToConfirm   : state.usercase.dataToConfirm,
+        dataSubmitted   : state.usercase.dataSubmitted,
+        errorMessage    : state.usercase.errorMessage,
+        errorStatus     : state.usercase.errorStatus,
+        loading         : state.loading,
+        language        : state.ui.language
     };
 };
 
@@ -28,9 +28,9 @@ class ConfirmEditCase extends Component {
 
     componentWillMount() {
 
-        let { history, toConfirm } = this.props;
+        let { history, dataToConfirm } = this.props;
 
-        if (!toConfirm) {
+        if (!dataToConfirm) {
             history.push('/');
         }
     }
@@ -38,7 +38,7 @@ class ConfirmEditCase extends Component {
     componentWillReceiveProps(nextProps) {
 
         const { history } = this.props;
-        if (nextProps.submitted) {
+        if (nextProps.dataSubmitted) {
             history.push('/case/end');
         }
     }
@@ -46,68 +46,63 @@ class ConfirmEditCase extends Component {
     onBackButtonClick() {
 
         const { history, actions } = this.props;
-        actions.cancelConfirmChoices();
+        actions.cancelDataToConfirm();
         history.goBack();
     }
 
     onButtonClick() {
 
-        const { actions, toConfirm } = this.props;
-        actions.postChoices(toConfirm);
+        const { actions, dataToConfirm } = this.props;
+        actions.submitData(dataToConfirm);
     }
 
     render() {
 
-        const { t, toConfirm, error, serverError, loading } = this.props;
+        const { t, dataToConfirm, errorStatus, errorMessage, loading } = this.props;
 
-        if (!toConfirm) {
+        if (!dataToConfirm) {
             return <TopContainer/>
         }
 
         let alert;
         let spinner = loading && loading.postcase;
-        let buttonText = spinner ? t('loading:postcase') : t('confirmAndSend');
+        let buttonText = spinner ? t('loading:postcase') : t('ui:confirmAndSend');
 
-        if (serverError) {
-            alert = <Nav.AlertStripe type='stopp'>{t(serverError)}</Nav.AlertStripe>;
-        }
-
-        if (error) {
-            alert = <Nav.AlertStripe type='stopp'>{t(error)}</Nav.AlertStripe>;
+        if (errorStatus) {
+            alert = <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe>;
         }
 
         return <TopContainer>
-            <div className='text-center'>
-                <h4>{t('content:undertitle')}</h4>
-                <hr/>
+            <Nav.Panel>
                 <div>{t('content:confirmCaseDescription')}</div>
-            </div>
-            <div className='mx-4 text-center'>
-                <div>{alert}</div>
-                <div className='mt-4 mb-4 text-left'>
-                    <div>{t('caseId')}: {toConfirm.caseId}</div>
-                    <div>{t('institution')}: {toConfirm.institution}</div>
-                    <div>{t('buc')}: {toConfirm.buc}</div>
-                    <div>{t('sed')}: {toConfirm.sed}</div>
+                <div className='mx-4 text-center'>
+                    <div>{alert}</div>
+                    <div className='mt-4 mb-4 text-left'>
+                        <div>{t('ui:caseId')}: {dataToConfirm.caseId}</div>
+                        <div>{t('ui:subjectArea')}: {dataToConfirm.subjectArea}</div>
+                        <div>{t('ui:buc')}: {dataToConfirm.buc}</div>
+                        <div>{t('ui:sed')}: {dataToConfirm.sed}</div>
+                        <div>{t('ui:institutions')}: {JSON.stringify(dataToConfirm.institutions)}</div>
+                    </div>
                 </div>
                 <div className='mt-4'>
                     <Nav.Knapp className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('tilbake')}</Nav.Knapp>
-                    <Nav.Hovedknapp spinner={spinner}  onClick={this.onButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                    <Nav.Hovedknapp spinner={spinner} onClick={this.onButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
                 </div>
-            </div>
+            </Nav.Panel>
         </TopContainer>;
     }
 }
 
 ConfirmEditCase.propTypes = {
-    actions     : PT.object.isRequired,
-    history     : PT.object.isRequired,
-    loading     : PT.object.isRequired,
-    t           : PT.func,
-    toConfirm   : PT.object,
-    submitted   : PT.object,
-    error       : PT.object,
-    serverError : PT.object
+    actions       : PT.object.isRequired,
+    history       : PT.object.isRequired,
+    loading       : PT.object.isRequired,
+    t             : PT.func,
+    dataToConfirm : PT.object,
+    dataSubmitted : PT.object,
+    errorStatus   : PT.object,
+    errorMessage  : PT.object
 };
 
 export default connect(

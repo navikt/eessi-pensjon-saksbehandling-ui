@@ -1,0 +1,9 @@
+{
+    'caseId' : 'Help for caseId',
+    'caseHandler' : 'Help for caseHandler',
+    'buc' : 'Help for buc',
+    'sed' : 'Help for sed',
+    'subjectArea' : 'Help for subjectArea',
+    'institution' : 'Help for institution',
+    'country' : 'Help for country'
+}
