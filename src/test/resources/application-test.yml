@@ -12,11 +12,12 @@ freg:
         cookie-filter-enabled: 'true'
       login:
         enabled: 'true'
+        path: '/login/oauth2/code/openam'
       openam:
-        url: '${OPENIDCONNECT_URL}'
-      client-id: '${APP_NAME}-${FASIT_ENVIRONMENT_NAME}'
-      client-secret: '${OPENIDCONNECTAGENT_PASSWORD}'
+        url: 'https://isso-t.adeo.no:443/isso'
+      client-id: 'eessi-fagmodul-localhost'
+      client-secret: 'Test1234'
 
 credential:
-  username: '${SRVPENSJON_USERNAME}'
-  password: '${SRVPENSJON_PASSWORD}'
+  username: 'srvPensjon'
+  password: 'Ash5SoxP'

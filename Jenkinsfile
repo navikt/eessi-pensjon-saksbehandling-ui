@@ -31,10 +31,9 @@ pipeline {
 
         stage('Build') {
             steps {
-                dir('src/main/js') {
+                dir('./src/main/js') {
                     withEnv(["NPM_CONFIG_LOGLEVEL=warn"]) {
                         ansiColor('xterm') {
-                            sh 'cd src/main/js'
                             sh 'npm install'
                             sh 'npm run build'
                         }
