@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
+import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.client.getForEntity
@@ -31,6 +32,16 @@ class ApiController {
     @GetMapping("/institutions", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getInstitutions(@CookieValue("id-token") idToken: Cookie): ResponseEntity<List<String>> {
         return fagmodulRestTemplate.getForEntity("/api/institutions", typeRefs<List<String>>())
+    }
+}
+
+@Controller
+class ForwardController {
+
+    @RequestMapping("/react/*")
+    fun index(): String {
+        println("forwarding to index.html")
+        return "forward:/index.html"
     }
 }
 
