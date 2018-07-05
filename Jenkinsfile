@@ -8,7 +8,7 @@ pipeline {
         FASIT_ENV_TEST = 't8'
         APPLICATION_NAMESPACE_TEST = 't8'
         ZONE = 'fss'
-        openAmContextRoot = '/login/oauth2/code/openam'
+        openAmContextRoot = '/openid_connect_login'
     }
 
     stages {

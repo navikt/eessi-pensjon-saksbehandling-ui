@@ -39,7 +39,7 @@ class ConfirmEditCase extends Component {
 
         const { history } = this.props;
         if (nextProps.dataSubmitted) {
-            history.push('/case/end');
+            history.push('/react/end');
         }
     }
 

@@ -44,11 +44,11 @@ ReactDOM.render(
         <Provider store={store}>
             <ConnectedRouter history={history}>
                 <Switch>
-                    <Route exact path='/case/get'     component={GetCase}/>
-                    <Route exact path='/case/get/:id' component={EditCase}/>
-                    <Route exact path='/case/confirm' component={ConfirmEditCase}/>
-                    <Route exact path='/case/end'     component={EndCase}/>
-                    <Route path='/'                   component={Index}/>
+                    <Route exact path='/react/get'     component={GetCase}/>
+                    <Route       path='/react/get/:id' component={EditCase}/>
+                    <Route exact path='/react/confirm' component={ConfirmEditCase}/>
+                    <Route exact path='/react/end'     component={EndCase}/>
+                    <Route       path='/'             component={Index}/>
                 </Switch>
             </ConnectedRouter>
         </Provider>

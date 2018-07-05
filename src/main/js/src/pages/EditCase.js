@@ -73,11 +73,11 @@ class EditCase extends Component {
         const { history } = this.props;
 
         if ( !nextProps.loading.getcase && !nextProps.currentCase) {
-            history.push('/case/get');
+            history.push('/react/get');
         }
 
         if (nextProps.dataToConfirm) {
-            history.push('/case/confirm');
+            history.push('/react/confirm');
         }
     }
 

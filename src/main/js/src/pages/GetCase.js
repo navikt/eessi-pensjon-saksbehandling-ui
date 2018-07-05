@@ -50,7 +50,7 @@ class GetCase extends Component {
 
         const { history } = this.props;
         if (nextProps.currentCase && nextProps.currentCase.hasOwnProperty('casenumber')) {
-            history.push('/case/get/' + nextProps.currentCase.casenumber);
+            history.push('/react/get/' + nextProps.currentCase.casenumber);
         }
     }
 
@@ -72,10 +72,13 @@ class GetCase extends Component {
                    <Nav.Column>{t('content:getCaseDescription')}</Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4 text-left'>
+                    <Nav.Column>{alert}</Nav.Column>
+                </Nav.Row>
+                <Nav.Row className='mt-4 text-left'>
                     <Nav.Column>
                         <Nav.Input label={t('ui:caseId')} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
                     </Nav.Column>
-                    <Nav.Column>
+                    <Nav.Column className='mt-4'>
                         <Nav.HjelpetekstBase id="caseId" type="under">{t('help:caseId')}</Nav.HjelpetekstBase>
                     </Nav.Column>
                 </Nav.Row>
@@ -83,7 +86,7 @@ class GetCase extends Component {
                     <Nav.Column>
                         <Nav.Input label={t('ui:caseHandler')} value={this.state.caseHandler} onChange={this.onCaseHandlerChange.bind(this)}/>
                     </Nav.Column>
-                    <Nav.Column>
+                    <Nav.Column className='mt-4'>
                         <Nav.HjelpetekstBase id="caseHandler" type="under">{t('help:caseHandler')}</Nav.HjelpetekstBase>
                     </Nav.Column>
                 </Nav.Row>

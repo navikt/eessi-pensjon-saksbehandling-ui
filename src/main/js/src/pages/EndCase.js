@@ -18,7 +18,7 @@ class EndCase extends Component {
     onForwardButtonClick() {
 
         const { history } = this.props;
-        history.push('/case/get');
+        history.push('/react/get');
     }
 
     render() {

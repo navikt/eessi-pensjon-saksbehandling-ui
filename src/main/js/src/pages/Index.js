@@ -26,7 +26,7 @@ class Index extends Component {
                     <LanguageSelector/>
                 </div>
                 <div className='mt-4'>
-                    <Nav.Lenkepanel href="/case/get">{t('ui:createNewCase')}</Nav.Lenkepanel>
+                    <Nav.Lenkepanel href="/react/get">{t('ui:createNewCase')}</Nav.Lenkepanel>
                 </div>
             </div>
         </TopContainer>
