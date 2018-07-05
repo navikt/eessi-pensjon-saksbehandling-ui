@@ -15,7 +15,7 @@ class OidcHeaderRequestInterceptor : ClientHttpRequestInterceptor {
     private val logger: Logger by lazy { LoggerFactory.getLogger(OidcHeaderRequestInterceptor::class.java) }
 
     override fun intercept(request: HttpRequest, body: ByteArray, execution: ClientHttpRequestExecution): ClientHttpResponse {
-        request.headers[HttpHeaders.AUTHORIZATION]?.let {
+        if (request.headers[HttpHeaders.AUTHORIZATION] == null) {
             logger.debug("Adding authorization header with bearer-token to request")
             val authentication = SecurityContextHolder.getContext().authentication as OidcTokenAuthentication
             logger.debug("\tPrincipal: ${authentication.principal}")
