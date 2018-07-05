@@ -36,7 +36,8 @@ class EditCase extends Component {
         super(props);
         this.state = {
             institutions: [],
-            validation: {}
+            validation: {},
+            firstUse: true
         };
     }
 
@@ -139,6 +140,7 @@ class EditCase extends Component {
     setValidationState(key, value) {
 
         this.setState({
+            firstUse: false,
             validation: Object.assign(this.state.validation, {[key]: value})
         });
     }
@@ -230,7 +232,7 @@ class EditCase extends Component {
 
         const { t, subjectAreaList } = this.props;
 
-        return <Nav.Select bredde='l' feil={this.state.validation.subjectAreaFail ? {feilmelding: this.state.validation.subjectAreaFail} : null}
+        return <Nav.Select bredde='xxl' feil={this.state.validation.subjectAreaFail ? {feilmelding: this.state.validation.subjectAreaFail} : null}
             label={t('ui:subjectArea')} value={this.state.subjectArea} onChange={this.onSubjectAreaChange.bind(this)}>
             {this.renderOptions(subjectAreaList)}
         </Nav.Select>
@@ -240,7 +242,7 @@ class EditCase extends Component {
 
         const { t, countryList } = this.props;
 
-        return <Nav.Select bredde='l' feil={this.state.validation.countryFail ? {feilmelding: this.state.validation.countryFail} : null}
+        return <Nav.Select bredde='xxl' feil={this.state.validation.countryFail ? {feilmelding: this.state.validation.countryFail} : null}
             label={t('ui:country')} value={currentValue} onChange={this.onCountryChange.bind(this)}>
             {this.renderOptions(countryList)}
         </Nav.Select>
@@ -250,7 +252,7 @@ class EditCase extends Component {
 
         const { t, institutionList } = this.props;
 
-        return <Nav.Select bredde='l' feil={this.state.validation.institutionFail ? {feilmelding: this.state.validation.institutionFail} : null}
+        return <Nav.Select bredde='xxl' feil={this.state.validation.institutionFail ? {feilmelding: this.state.validation.institutionFail} : null}
             label={t('ui:institution')} value={currentValue} onChange={this.onInstitutionChange.bind(this)}>
             {this.renderOptions(institutionList)}
         </Nav.Select>
@@ -260,7 +262,7 @@ class EditCase extends Component {
 
         const { t, bucList } = this.props;
 
-        return <Nav.Select bredde='l' feil={this.state.validation.bucFail ? {feilmelding: this.state.validation.bucFail} : null}
+        return <Nav.Select bredde='xxl' feil={this.state.validation.bucFail ? {feilmelding: this.state.validation.bucFail} : null}
             label={t('ui:buc')} value={this.state.buc} onChange={this.onBucChange.bind(this)}>
             {this.renderOptions(bucList)}
         </Nav.Select>
@@ -270,7 +272,7 @@ class EditCase extends Component {
 
         const { t, sedList, bucList } = this.props;
 
-        return <Nav.Select bredde='l' feil={this.state.validation.sedFail? {feilmelding: this.state.validation.sedFail} : null}
+        return <Nav.Select bredde='xxl' feil={this.state.validation.sedFail? {feilmelding: this.state.validation.sedFail} : null}
             disabled={!bucList} label={t('ui:sed')} value={this.state.sed} onChange={this.onSedChange.bind(this)}>
             {this.renderOptions(sedList)}
         </Nav.Select>
@@ -314,10 +316,16 @@ class EditCase extends Component {
 
         renderedInstitutions.push(<Nav.Row className='mt-4'>
             <Nav.Column>
-                {this.renderCountry()}
+                <div>{this.renderCountry()}</div>
+                <div className='mt-4'>
+                   <Nav.HjelpetekstBase id="country" type="under">{t('help:country')}</Nav.HjelpetekstBase>
+                </div>
             </Nav.Column>
             <Nav.Column>
-                {this.renderInstitution()}
+                <div>{this.renderInstitution()}</div>
+                <div className='mt-4'>
+                   <Nav.HjelpetekstBase id="institution" type="under">{t('help:institution')}</Nav.HjelpetekstBase>
+                </div>
             </Nav.Column>
             <Nav.Column style={{lineHeight: '6rem'}}>
                 <Nav.Knapp type='standard' onClick={this.onCreateInstitutionButtonClick.bind(this)}>{t('create')}</Nav.Knapp>
@@ -341,40 +349,44 @@ class EditCase extends Component {
             alert = <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe>;
         }
 
-        let disabledForwardButton = Object.keys(this.state.validation).length !== 0;
+        let disabledForwardButton = Object.keys(this.state.validation).length !== 0 || this.state.firstUse;
 
         return <TopContainer>
             <Nav.Panel>
-                <div>{t('content:editCaseDescription')}</div>
-                <div className='mx-4 text-center'>
-                    <div className='mt-4'>{alert}</div>
-                    <div className='mt-4 align-middle text-left'>
-                        <div className='d-inline-block'>{this.renderSubjectArea()}</div>
-                        <div className='d-inline-block'>
-                            {loading && loading.subjectArea ? this.getSpinner('loading:subjectArea'): null}
-                        </div>
-                    </div>
-
-                    <div className='mt-4 align-middle text-left'>
-                        <div className='d-inline-block'>{this.renderBuc()}</div>
-                        <div className='d-inline-block'>
-                            {loading && loading.buc ? this.getSpinner('loading:buc') : null}
-                        </div>
-                    </div>
-                    <div className='mt-4 align-middle text-left'>
-                        <div className='d-inline-block'>{this.renderSed()}</div>
-                        <div className='d-inline-block'>
-                            {loading && loading.sed ? this.getSpinner('loading:sed') : null}
-                        </div>
-                    </div>
-                    <div className='mt-4 align-middle text-left'>
-                        {this.renderInstitutions()}
-                    </div>
-                    <div className='mt-4'>
+                <Nav.Row className='mt-4'>
+                    <Nav.Column>{t('content:editCaseDescription')}</Nav.Column>
+                </Nav.Row>
+                <Nav.Row className='mt-4 text-center'>
+                    <Nav.Column>{alert}</Nav.Column>
+                </Nav.Row>
+                <Nav.Row className='mt-4 align-middle text-left'>
+                    <Nav.Column>{this.renderSubjectArea()}</Nav.Column>
+                    <Nav.Column className='mt-4'>
+                        <Nav.HjelpetekstBase id="subjectArea" type="under">{t('help:subjectArea')}</Nav.HjelpetekstBase>
+                        <div>{loading && loading.subjectArea ? this.getSpinner('loading:subjectArea'): null}</div>
+                    </Nav.Column>
+                </Nav.Row>
+                <Nav.Row className='mt-4 align-middle text-left'>
+                    <Nav.Column>{this.renderBuc()}</Nav.Column>
+                    <Nav.Column className='mt-4'>
+                        <Nav.HjelpetekstBase id="buc" type="under">{t('help:buc')}</Nav.HjelpetekstBase>
+                        <div>{loading && loading.buc ? this.getSpinner('loading:buc') : null}</div>
+                    </Nav.Column>
+                </Nav.Row>
+                <Nav.Row className='mt-4 align-middle text-left'>
+                    <Nav.Column>{this.renderSed()}</Nav.Column>
+                    <Nav.Column className='mt-4'>
+                        <Nav.HjelpetekstBase id="sed" type="under">{t('help:sed')}</Nav.HjelpetekstBase>
+                        <div>{loading && loading.sed ? this.getSpinner('loading:sed') : null}</div>
+                    </Nav.Column>
+                </Nav.Row>
+                {this.renderInstitutions()}
+                <Nav.Row className='mt-4'>
+                    <Nav.Column>
                         <Nav.Knapp className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('tilbake')}</Nav.Knapp>
                         <Nav.Hovedknapp disabled={disabledForwardButton} onClick={this.onForwardButtonClick.bind(this)}>{t('go')}</Nav.Hovedknapp>
-                    </div>
-                </div>
+                    </Nav.Column>
+                </Nav.Row>
             </Nav.Panel>
         </TopContainer>;
     }

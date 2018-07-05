@@ -20,15 +20,21 @@ class Index extends Component {
         const { t } = this.props;
 
         return <TopContainer>
-            <div>{t('content:indexDescription')}</div>
-            <div className='mx-3 text-left'>
-                <div className='mt-4'>
-                    <LanguageSelector/>
-                </div>
-                <div className='mt-4'>
-                    <Nav.Lenkepanel href="/react/get">{t('ui:createNewCase')}</Nav.Lenkepanel>
-                </div>
-            </div>
+            <Nav.Panel className='panel'>
+                <Nav.Row>
+                     <Nav.Column>{t('content:indexDescription')}</Nav.Column>
+                </Nav.Row>
+                <Nav.Row className='mt-4 text-left'>
+                    <Nav.Column>
+                        <LanguageSelector/>
+                    </Nav.Column>
+                </Nav.Row>
+                <Nav.Row className='mt-4 text-left'>
+                    <Nav.Column>
+                        <Nav.Lenkepanel href="/react/get">{t('ui:createNewCase')}</Nav.Lenkepanel>
+                    </Nav.Column>
+                </Nav.Row>
+            </Nav.Panel>
         </TopContainer>
     }
 }

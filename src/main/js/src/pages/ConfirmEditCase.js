@@ -74,21 +74,27 @@ class ConfirmEditCase extends Component {
 
         return <TopContainer>
             <Nav.Panel>
-                <div>{t('content:confirmCaseDescription')}</div>
-                <div className='mx-4 text-center'>
-                    <div>{alert}</div>
-                    <div className='mt-4 mb-4 text-left'>
+                <Nav.Row className='mt-4'>
+                    <Nav.Column>{t('content:confirmCaseDescription')}</Nav.Column>
+                </Nav.Row>
+                <Nav.Row className='mt-4 text-center'>
+                    <Nav.Column>{alert}</Nav.Column>
+                </Nav.Row>
+                <Nav.Row className='mt-4 mb-4 text-left'>
+                    <Nav.Column>
                         <div>{t('ui:caseId')}: {dataToConfirm.caseId}</div>
                         <div>{t('ui:subjectArea')}: {dataToConfirm.subjectArea}</div>
                         <div>{t('ui:buc')}: {dataToConfirm.buc}</div>
                         <div>{t('ui:sed')}: {dataToConfirm.sed}</div>
                         <div>{t('ui:institutions')}: {JSON.stringify(dataToConfirm.institutions)}</div>
-                    </div>
-                </div>
-                <div className='mt-4'>
-                    <Nav.Knapp className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('tilbake')}</Nav.Knapp>
-                    <Nav.Hovedknapp spinner={spinner} onClick={this.onButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
-                </div>
+                    </Nav.Column>
+                </Nav.Row>
+                <Nav.Row className='mt-4'>
+                    <Nav.Column>
+                        <Nav.Knapp className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('tilbake')}</Nav.Knapp>
+                        <Nav.Hovedknapp spinner={spinner} onClick={this.onButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                    </Nav.Column>
+                </Nav.Row>
             </Nav.Panel>
         </TopContainer>;
     }

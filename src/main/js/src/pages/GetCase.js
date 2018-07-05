@@ -68,7 +68,7 @@ class GetCase extends Component {
 
         return <TopContainer>
             <Nav.Panel className='panel'>
-                <Nav.Row>
+                <Nav.Row className='mt-4'>
                    <Nav.Column>{t('content:getCaseDescription')}</Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4 text-left'>
