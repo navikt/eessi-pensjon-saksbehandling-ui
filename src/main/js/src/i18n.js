@@ -11,7 +11,7 @@ i18next
         lng: 'nb',
         fallbackLng: 'nb',
         debug: true,
-        ns: ['ui','loading','content'],
+        ns: ['ui', 'loading', 'content', 'error', 'validation'],
         defaultNs: 'ui',
         backend: {
             loadPath: '/locales/{{lng}}/{{ns}}.json'

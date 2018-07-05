@@ -14,43 +14,61 @@ export function getCaseFromCaseNumber (obj) {
     });
 }
 
-export function getInstitutionOptions () {
+export function getSubjectAreaList () {
+    return (dispatch) => {
+        dispatch({
+            type    : types.USERCASE_GET_SUBJECT_AREA_LIST_SUCCESS,
+            payload : ['subjectArea1', 'subjectArea2', 'subjectArea3']
+        });
+    };
+}
+
+export function getCountryList () {
+    return (dispatch) => {
+        dispatch({
+            type    : types.USERCASE_GET_COUNTRY_LIST_SUCCESS,
+            payload : ['country1', 'country2', 'country3']
+        });
+    };
+}
+
+export function getInstitutionList () {
     return api.call({
         url: urls.INSTITUTION_URL,
         type: {
-            request : types.USERCASE_GET_INSTITUTION_OPTIONS_REQUEST,
-            success : types.USERCASE_GET_INSTITUTION_OPTIONS_SUCCESS,
-            failure : types.USERCASE_GET_INSTITUTION_OPTIONS_FAILURE
+            request : types.USERCASE_GET_INSTITUTION_LIST_REQUEST,
+            success : types.USERCASE_GET_INSTITUTION_LIST_SUCCESS,
+            failure : types.USERCASE_GET_INSTITUTION_LIST_FAILURE
         }
     });
 }
 
-export function getBucOptions () {
+export function getBucList () {
     return api.call({
         url: urls.BUC_URL,
         type: {
-            request : types.USERCASE_GET_BUC_OPTIONS_REQUEST,
-            success : types.USERCASE_GET_BUC_OPTIONS_SUCCESS,
-            failure : types.USERCASE_GET_BUC_OPTIONS_FAILURE
+            request : types.USERCASE_GET_BUC_LIST_REQUEST,
+            success : types.USERCASE_GET_BUC_LIST_SUCCESS,
+            failure : types.USERCASE_GET_BUC_LIST_FAILURE
         }
     });
 }
 
-export function getSedOptions (buc) {
+export function getSedList (buc) {
     return api.call({
         url: urls.SED_URL + '/' + buc,
         type: {
-            request : types.USERCASE_GET_SED_OPTIONS_REQUEST,
-            success : types.USERCASE_GET_SED_OPTIONS_SUCCESS,
-            failure : types.USERCASE_GET_SED_OPTIONS_FAILURE
+            request : types.USERCASE_GET_SED_LIST_REQUEST,
+            success : types.USERCASE_GET_SED_LIST_SUCCESS,
+            failure : types.USERCASE_GET_SED_LIST_FAILURE
         }
     });
 }
 
-export function toConfirmChoices (params) {
+export function dataToConfirm (params) {
     return (dispatch) => {
         dispatch({
-            type    : types.USERCASE_TO_CONFIRM_OPTIONS,
+            type    : types.USERCASE_DATA_TO_CONFIRM,
             payload : params
         })
     };
@@ -59,7 +77,7 @@ export function toConfirmChoices (params) {
 export function cancelConfirmChoices () {
     return (dispatch) => {
         dispatch({
-            type : types.USERCASE_TO_CONFIRM_CANCEL
+            type : types.USERCASE_DATA_TO_CONFIRM_CANCEL
         })
     };
 }

@@ -11,6 +11,7 @@ import * as usercaseActions from '../actions/usercase';
 const mapStateToProps = (state) => {
     return {
         errorMessage : state.usercase.errorMessage,
+        errorStatus  : state.usercase.errorStatus,
         currentCase  : state.usercase.currentCase,
         loading      : state.loading,
         language     : state.ui.language
@@ -59,9 +60,9 @@ class GetCase extends Component {
 
     render() {
 
-        const { t, errorMessage, loading } = this.props;
+        const { t, errorMessage, errorStatus, loading } = this.props;
 
-        let alert      = errorMessage ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
+        let alert      = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
         let spinner    = loading && loading.getcase;
         let buttonText = spinner ? t('loading:getcase') : t('søk');
 
@@ -88,6 +89,7 @@ class GetCase extends Component {
 GetCase.propTypes = {
     currentCase  : PT.object,
     errorMessage : PT.string,
+    errorStatus  : PT.string,
     loading      : PT.object,
     actions      : PT.object,
     history      : PT.object,

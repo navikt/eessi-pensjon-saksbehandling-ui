@@ -10,22 +10,34 @@ export default function (state = {}, action = {}) {
             'getcase' : true,
         });
 
-    case types.USERCASE_GET_INSTITUTION_OPTIONS_REQUEST:
+    case types.USERCASE_GET_SUBJECT_AREA_LIST_REQUEST:
 
         return Object.assign({}, state, {
-            'institution' : true,
+            'subjectAreaList' : true,
         });
 
-    case types.USERCASE_GET_SED_OPTIONS_REQUEST:
+    case types.USERCASE_GET_INSTITUTION_LIST_REQUEST:
 
         return Object.assign({}, state, {
-            'sed' : true,
+            'institutionList' : true,
         });
 
-    case types.USERCASE_GET_BUC_OPTIONS_REQUEST:
+    case types.USERCASE_GET_SED_LIST_REQUEST:
 
         return Object.assign({}, state, {
-            'buc' : true,
+            'sedList' : true,
+        });
+
+    case types.USERCASE_GET_BUC_LIST_REQUEST:
+
+        return Object.assign({}, state, {
+            'bucList' : true,
+        });
+
+    case types.USERCASE_GET_COUNTRY_LIST_REQUEST:
+
+        return Object.assign({}, state, {
+            'countryList' : true,
         });
 
     case types.USERCASE_POST_REQUEST:
@@ -41,25 +53,39 @@ export default function (state = {}, action = {}) {
             'getcase' : false,
         });
 
-    case types.USERCASE_GET_INSTITUTION_OPTIONS_SUCCESS:
-    case types.USERCASE_GET_INSTITUTION_OPTIONS_FAILURE:
+    case types.USERCASE_GET_SUBJECT_AREA_LIST_SUCCESS:
+    case types.USERCASE_GET_SUBJECT_AREA_LIST_FAILURE:
 
         return Object.assign({}, state, {
-            'institution' : false,
+            'subjectAreaList' : false,
         });
 
-    case types.USERCASE_GET_SED_OPTIONS_SUCCESS:
-    case types.USERCASE_GET_SED_OPTIONS_FAILURE:
+    case types.USERCASE_GET_INSTITUTION_LIST_SUCCESS:
+    case types.USERCASE_GET_INSTITUTION_LIST_FAILURE:
 
         return Object.assign({}, state, {
-            'sed' : false,
+            'institutionList' : false,
         });
 
-    case types.USERCASE_GET_BUC_OPTIONS_SUCCESS:
-    case types.USERCASE_GET_BUC_OPTIONS_FAILURE:
+    case types.USERCASE_GET_SED_LIST_SUCCESS:
+    case types.USERCASE_GET_SED_LIST_FAILURE:
 
         return Object.assign({}, state, {
-            'buc' : false,
+            'sedList' : false,
+        });
+
+    case types.USERCASE_GET_BUC_LIST_SUCCESS:
+    case types.USERCASE_GET_BUC_LIST_FAILURE:
+
+        return Object.assign({}, state, {
+            'bucList' : false,
+        });
+
+    case types.USERCASE_GET_COUNTRY_LIST_SUCCESS:
+    case types.USERCASE_GET_COUNTRY_LIST_FAILURE:
+
+        return Object.assign({}, state, {
+            'countryList' : false,
         });
 
     case types.USERCASE_POST_SUCCESS:
