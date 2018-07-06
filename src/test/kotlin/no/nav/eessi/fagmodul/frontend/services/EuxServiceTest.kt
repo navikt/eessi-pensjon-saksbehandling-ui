@@ -5,7 +5,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.whenever
-import no.nav.eessi.eessifagmodul.utils.typeRef
+import no.nav.eessi.fagmodul.frontend.utils.typeRef
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test

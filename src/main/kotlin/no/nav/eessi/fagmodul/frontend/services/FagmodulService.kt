@@ -1,9 +1,6 @@
 package no.nav.eessi.fagmodul.frontend.services
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import no.nav.eessi.eessifagmodul.utils.createErrorMessage
-import no.nav.eessi.eessifagmodul.utils.typeRef
-import no.nav.eessi.eessifagmodul.utils.typeRefs
 import no.nav.eessi.fagmodul.frontend.models.FrontendRequest
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

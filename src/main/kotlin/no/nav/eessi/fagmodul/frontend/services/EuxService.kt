@@ -5,9 +5,9 @@ import com.google.common.cache.CacheBuilder
 import com.google.common.cache.CacheLoader
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
-import no.nav.eessi.eessifagmodul.utils.createErrorMessage
-import no.nav.eessi.eessifagmodul.utils.typeRef
-import no.nav.eessi.eessifagmodul.utils.typeRefs
+import no.nav.eessi.fagmodul.frontend.utils.createErrorMessage
+import no.nav.eessi.fagmodul.frontend.utils.typeRef
+import no.nav.eessi.fagmodul.frontend.utils.typeRefs
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Description

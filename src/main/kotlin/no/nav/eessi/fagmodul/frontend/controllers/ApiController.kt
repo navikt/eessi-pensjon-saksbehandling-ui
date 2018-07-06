@@ -27,6 +27,7 @@ class ApiController(private val euxService: EuxService) {
         return rinaUrl
     }
 
+    //test
     @GetMapping("/sector")
     fun getSector(): List<Sector> {
         return createSectorList()
