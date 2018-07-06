@@ -79,7 +79,7 @@ class GetCase extends Component {
                         <Nav.Input label={t('ui:caseId')} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
                     </Nav.Column>
                     <Nav.Column className='mt-4'>
-                        <Nav.HjelpetekstBase id="caseId" type="under">{t('help:caseId')}</Nav.HjelpetekstBase>
+                        <Nav.HjelpetekstBase id='caseId' type='under'>{t('help:caseId')}</Nav.HjelpetekstBase>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row  className='mt-4 text-left'>
@@ -87,7 +87,7 @@ class GetCase extends Component {
                         <Nav.Input label={t('ui:caseHandler')} value={this.state.caseHandler} onChange={this.onCaseHandlerChange.bind(this)}/>
                     </Nav.Column>
                     <Nav.Column className='mt-4'>
-                        <Nav.HjelpetekstBase id="caseHandler" type="under">{t('help:caseHandler')}</Nav.HjelpetekstBase>
+                        <Nav.HjelpetekstBase id='caseHandler' type='under'>{t('help:caseHandler')}</Nav.HjelpetekstBase>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4'>

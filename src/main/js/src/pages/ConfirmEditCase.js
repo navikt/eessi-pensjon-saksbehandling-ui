@@ -11,12 +11,12 @@ import * as usercaseActions from '../actions/usercase';
 
 const mapStateToProps = (state) => {
     return {
-        dataToConfirm   : state.usercase.dataToConfirm,
-        dataSubmitted   : state.usercase.dataSubmitted,
-        errorMessage    : state.error.clientErrorMessage,
-        errorStatus     : state.error.clientErrorStatus,
-        loading         : state.loading,
-        language        : state.ui.language
+        dataToConfirm : state.usercase.dataToConfirm,
+        dataSubmitted : state.usercase.dataSubmitted,
+        errorMessage  : state.error.clientErrorMessage,
+        errorStatus   : state.error.clientErrorStatus,
+        loading       : state.loading,
+        language      : state.ui.language
     };
 };
 
@@ -45,9 +45,9 @@ class ConfirmEditCase extends Component {
 
     onBackButtonClick() {
 
-        const { history, actions } = this.props;
+        const { history, actions, dataToConfirm } = this.props;
         actions.cancelDataToConfirm();
-        history.goBack();
+        history.push('/react/get/' + dataToConfirm.caseId);
     }
 
     onButtonClick() {

@@ -19,6 +19,7 @@ const mapStateToProps = (state) => {
         countryList     : state.usercase.countryList,
         currentCase     : state.usercase.currentCase,
         dataToConfirm   : state.usercase.dataToConfirm,
+        action          : state.usercase.action,
         errorMessage    : state.error.clientErrorMessage,
         errorStatus     : state.error.clientErrorStatus,
         language        : state.ui.language,
@@ -36,13 +37,20 @@ class EditCase extends Component {
         super(props);
         this.state = {
             institutions: [],
-            validation: {}
+            validation: {},
+            defaultSelects: {
+                subjectArea: '--',
+                buc: '--',
+                sed: '--',
+                institution: '--',
+                country: 'allCountries'
+            }
         };
     }
 
     componentWillMount() {
 
-        const { actions, match, currentCase, institutionList, bucList, subjectAreaList, countryList } = this.props;
+        const { actions, match, currentCase, institutionList, bucList, subjectAreaList, countryList, dataToConfirm } = this.props;
 
         if (_.isEmpty(currentCase)) {
             let id = match.params.id;
@@ -77,7 +85,20 @@ class EditCase extends Component {
         }
 
         if (nextProps.dataToConfirm) {
-            history.push('/react/confirm');
+
+            if (nextProps.action === 'forward') {
+                history.push('/react/confirm');
+            }
+
+            if (nextProps.action === 'back') {
+
+                this.setState({
+                    'institutions' : nextProps.dataToConfirm.institutions,
+                    'buc'          : nextProps.dataToConfirm.buc,
+                    'sed'          : nextProps.dataToConfirm.sed,
+                    'subjectArea'  : nextProps.dataToConfirm.subjectArea
+                });
+            }
         }
     }
 
@@ -105,6 +126,7 @@ class EditCase extends Component {
     }
 
     performAllValidations() {
+
         this.validateSubjectArea(this.state.subjectArea);
         this.validateBuc(this.state.buc);
         this.validateSed(this.state.sed);
@@ -112,6 +134,7 @@ class EditCase extends Component {
     }
 
     validateSubjectArea(subjectArea) {
+
         const { t } = this.props;
         if (!subjectArea || subjectArea === '--') {
             this.setValidationState('subjectAreaFail', t('validation:chooseSubjectArea'));
@@ -161,13 +184,7 @@ class EditCase extends Component {
     }
 
     validateCountry(country) {
-
-         const { t } = this.props;
-         if (!country || country === '--') {
-             this.setValidationState('countryFail', t('validation:chooseCountry'));
-         } else {
-             this.resetValidationState('countryFail');
-         }
+        // nothing to do here, country is optional, any value is OK
     }
 
     onCreateInstitutionButtonClick() {
@@ -196,7 +213,7 @@ class EditCase extends Component {
 
         for (var i in institutions) {
             if (institution.institution !== institutions[i].institution ||
-                   institution.country !== institutions[i].country) {
+                institution.country !== institutions[i].country) {
                 newInstitutions.push(institutions[i]);
             }
         }
@@ -257,9 +274,15 @@ class EditCase extends Component {
 
     onCountryChange(e) {
 
+        const { actions } = this.props;
+
         let country = e.target.value;
         this.setState({country: country})
         this.validateCountry(country);
+        //TODO
+        if (!this.state.validation.countryFail) {
+             actions.getInstitutionListForCountry(country);
+        }
     }
 
     renderOptions(map) {
@@ -353,7 +376,7 @@ class EditCase extends Component {
 
     renderInstitutions() {
 
-        const { t } = this.props;
+        const { t, loading } = this.props;
 
         let renderedInstitutions = [];
 
@@ -366,13 +389,15 @@ class EditCase extends Component {
             <Nav.Column>
                 <div>{this.renderCountry()}</div>
                 <div className='mt-4'>
-                    <Nav.HjelpetekstBase id="country" type="under">{t('help:country')}</Nav.HjelpetekstBase>
+                    <Nav.HjelpetekstBase className='d-inline-block' id='country' type='under'>{t('help:country')}</Nav.HjelpetekstBase>
+                    <div className='d-inline-block'>{loading && loading.countryList ? this.getSpinner('loading:country'): null}</div>
                 </div>
             </Nav.Column>
             <Nav.Column>
                 <div>{this.renderInstitution()}</div>
                 <div className='mt-4'>
-                    <Nav.HjelpetekstBase id="institution" type="under">{t('help:institution')}</Nav.HjelpetekstBase>
+                    <Nav.HjelpetekstBase className='d-inline-block' id='institution' type='under'>{t('help:institution')}</Nav.HjelpetekstBase>
+                    <div className='d-inline-block'>{loading && loading.institutionList ? this.getSpinner('loading:institution'): null}</div>
                 </div>
             </Nav.Column>
             <Nav.Column style={{lineHeight: '6rem'}}>
@@ -384,8 +409,11 @@ class EditCase extends Component {
     }
 
     noValidationErrors() {
-        return Object.keys(this.state.validation).length === 0 && Object.keys(this.state.institutions).length !== 0 &&
-        this.state.subjectArea && this.state.buc && this.state.sed;
+        return Object.keys(this.state.validation).length === 0 &&
+               Object.keys(this.state.institutions).length !== 0 &&
+               this.state.subjectArea &&
+               this.state.buc &&
+               this.state.sed;
     }
 
     render() {
@@ -413,22 +441,22 @@ class EditCase extends Component {
                 <Nav.Row className='mt-4 align-middle text-left'>
                     <Nav.Column>{this.renderSubjectArea()}</Nav.Column>
                     <Nav.Column className='mt-4'>
-                        <Nav.HjelpetekstBase id="subjectArea" type="under">{t('help:subjectArea')}</Nav.HjelpetekstBase>
-                        <div>{loading && loading.subjectArea ? this.getSpinner('loading:subjectArea'): null}</div>
+                        <Nav.HjelpetekstBase className='d-inline-block' id='subjectArea' type='under'>{t('help:subjectArea')}</Nav.HjelpetekstBase>
+                        <div className='d-inline-block'>{loading && loading.subjectAreaList ? this.getSpinner('loading:subjectArea'): null}</div>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4 align-middle text-left'>
                     <Nav.Column>{this.renderBuc()}</Nav.Column>
                     <Nav.Column className='mt-4'>
-                        <Nav.HjelpetekstBase id="buc" type="under">{t('help:buc')}</Nav.HjelpetekstBase>
-                        <div>{loading && loading.buc ? this.getSpinner('loading:buc') : null}</div>
+                        <Nav.HjelpetekstBase className='d-inline-block' id='buc' type='under'>{t('help:buc')}</Nav.HjelpetekstBase>
+                        <div className='d-inline-block'>{loading && loading.bucList ? this.getSpinner('loading:buc') : null}</div>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4 align-middle text-left'>
                     <Nav.Column>{this.renderSed()}</Nav.Column>
                     <Nav.Column className='mt-4'>
-                        <Nav.HjelpetekstBase id="sed" type="under">{t('help:sed')}</Nav.HjelpetekstBase>
-                        <div>{loading && loading.sed ? this.getSpinner('loading:sed') : null}</div>
+                        <Nav.HjelpetekstBase className='d-inline-block' id='sed' type='under'>{t('help:sed')}</Nav.HjelpetekstBase>
+                        <div className='d-inline-block'>{loading && loading.sedList ? this.getSpinner('loading:sed') : null}</div>
                     </Nav.Column>
                 </Nav.Row>
                 {this.renderInstitutions()}
