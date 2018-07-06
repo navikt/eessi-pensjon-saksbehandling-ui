@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
 import java.io.IOException
+import kotlin.math.log
 
 @Service
 class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
@@ -23,12 +24,13 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
 
 
     fun create(frontRequest: FrontendRequest): String? {
-        val path = "/api/create"
+        logger.debug("create reqeust to fagmodul : $frontRequest")
+        val path = "/create"
 
         val builder = UriComponentsBuilder.fromPath("$FAG_PATH$path")
-        //.queryParam("RINASaksnummer", euSaksnr)
-
         val httpEntity = HttpEntity(frontRequest, HttpHeaders())
+
+        logger.debug("handler uri : " + fagmodulRestTemplate.uriTemplateHandler.toString())
 
         val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, String::class.java)
         return response.body

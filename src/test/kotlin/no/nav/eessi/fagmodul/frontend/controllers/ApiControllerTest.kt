@@ -94,7 +94,7 @@ class ApiControllerTest {
         val req = map.readValue(json, FrontendRequest::class.java)
         assertNotNull(req)
         assertEquals("P_BUC_06",req.buc)
-        assertEquals("DUMMY", req.institution!![0].institution)
+        assertEquals("DUMMY", req.institutions!![0].institution)
     }
 
 }

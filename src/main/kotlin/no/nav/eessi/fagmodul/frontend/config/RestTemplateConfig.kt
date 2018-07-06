@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.client.DefaultResponseErrorHandler
 import org.springframework.web.client.RestTemplate
 import springfox.documentation.swagger2.mappers.SerializableParameterFactories.factory
+import java.util.function.Supplier
 
 @Component
 class RestTemplateConfig(val restTemplateBuilder: RestTemplateBuilder) {
@@ -25,6 +26,7 @@ class RestTemplateConfig(val restTemplateBuilder: RestTemplateBuilder) {
             .rootUri(basisUrl)
             .errorHandler(DefaultResponseErrorHandler())
             .additionalInterceptors(OidcHeaderRequestInterceptor())
+            .additionalInterceptors(RequestResponseLoggerInterceptor())
             .build()
             //must be add for logging or data is lost after logging.
             restTemplate.requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory())
@@ -33,10 +35,14 @@ class RestTemplateConfig(val restTemplateBuilder: RestTemplateBuilder) {
 
     @Bean
     fun fagmodulRestTemplate(): RestTemplate {
-        return restTemplateBuilder
+        val restTemplate = restTemplateBuilder
             .rootUri(fagmodulUrl)
             .errorHandler(DefaultResponseErrorHandler())
             .additionalInterceptors(OidcHeaderRequestInterceptor())
+            .additionalInterceptors(RequestResponseLoggerInterceptor())
             .build()
+        //must be add for logging or data is lost after logging.
+        restTemplate.requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory())
+        return restTemplate
     }
 }
