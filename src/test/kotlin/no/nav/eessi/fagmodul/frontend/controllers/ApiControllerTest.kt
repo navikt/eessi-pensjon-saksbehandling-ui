@@ -3,6 +3,7 @@ package no.nav.eessi.fagmodul.frontend.controllers
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.nhaarman.mockito_kotlin.whenever
 import no.nav.eessi.fagmodul.frontend.models.FrontendRequest
+import no.nav.eessi.fagmodul.frontend.models.Institusjon
 import no.nav.eessi.fagmodul.frontend.services.EuxService
 import org.junit.Assert
 import org.junit.Before
@@ -12,6 +13,7 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 @RunWith(MockitoJUnitRunner::class)
 class ApiControllerTest {
@@ -54,8 +56,8 @@ class ApiControllerTest {
 
         val response = apiController.getSeds("")
 
-        Assert.assertEquals(response.size, mockData.size)
-        Assert.assertTrue(response.containsAll(mockData))
+        assertEquals(response.size, mockData.size)
+        assertTrue(response.containsAll(mockData))
     }
 
     @Test
@@ -68,50 +70,31 @@ class ApiControllerTest {
 
         val response = apiController.getSeds("P_BUC_01")
 
-        Assert.assertEquals(response.size , mockData.size)
-        Assert.assertTrue(response.containsAll(mockData))
+        assertEquals(response.size , mockData.size)
+        assertTrue(response.containsAll(mockData))
     }
 
     @Test
     fun `get all institutions`() {
-        val mockData = listOf(
-                "NAV02","DUMMY"
-        )
+        val mockData = listOf("MAV02","DUMMY")
         whenever(mockEuxService.getCachedInstitusjoner()).thenReturn(mockData)
 
-        val response = apiController.getInstitutions("","")
-        Assert.assertEquals(response.size , mockData.size)
-        Assert.assertTrue(response.containsAll(mockData))
-
+        val response = apiController.getInstitutions()
+        assertNotNull(response)
+        assertEquals(mockData.size, response.size )
+        assertTrue(mockData == response)
 
     }
 
     @Test
     fun `create frontend request`() {
-        val json = "{\"institution\":\"DUMMY\",\"buc\":\"P_BUC_06\",\"sed\":\"P6000\",\"caseId\":\"caseId\"}"
-
+        val json = "{\"institution\":[{\"country\":\"NO\",\"institution\":\"DUMMY\"}],\"buc\":\"P_BUC_06\",\"sed\":\"P6000\",\"caseId\":\"caseId\"}"
         //map json request back to FrontendRequest obj
         val map = jacksonObjectMapper()
         val req = map.readValue(json, FrontendRequest::class.java)
         assertNotNull(req)
         assertEquals("P_BUC_06",req.buc)
-        assertEquals("DUMMY", req.institution)
+        assertEquals("DUMMY", req.institution!![0].institution)
     }
 
-//    @Test
-//    fun `create document`() {
-//        val mockData = FrontendRequest(
-//            caseId = "EESSI-PEN-123",
-//            institution = "DUMMY",
-//            sed = "P6000",
-//            buc = "P_BUC_06"
-//        )
-//        val mockResponse = "1234567890"
-//
-//        whenever(mockEuxService.createCaseAndDocument(anyString(), anyString(), anyString(), anyString(), anyString(), anyString() )).thenReturn(mockResponse)
-//
-//        val response = apiController.createDocument(mockData)
-//
-//        Assert.assertEquals("{\"euxcaseid\":\"$mockResponse\"}" , response)
-//    }
 }
