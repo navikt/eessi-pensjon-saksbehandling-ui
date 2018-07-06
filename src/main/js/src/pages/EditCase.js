@@ -50,8 +50,7 @@ class EditCase extends Component {
 
     componentWillMount() {
 
-        const { actions, match, currentCase, institutionList, bucList, subjectAreaList, countryList, dataToConfirm } = this.props;
-
+        const { actions, match, currentCase, institutionList, bucList, subjectAreaList, countryList, dataToConfirm, action } = this.props;
 
         if (_.isEmpty(currentCase)) {
             let id = match.params.id;
@@ -75,6 +74,16 @@ class EditCase extends Component {
         if (_.isEmpty(countryList)) {
             actions.getCountryList();
         }
+
+        if (dataToConfirm && action === 'back') {
+
+            this.setState({
+                'institutions' : dataToConfirm.institutions,
+                'buc'          : dataToConfirm.buc,
+                'sed'          : dataToConfirm.sed,
+                'subjectArea'  : dataToConfirm.subjectArea
+            });
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -89,16 +98,6 @@ class EditCase extends Component {
 
             if (nextProps.action === 'forward') {
                 history.push('/react/confirm');
-            }
-
-            if (nextProps.action === 'back') {
-
-                this.setState({
-                    'institutions' : nextProps.dataToConfirm.institutions,
-                    'buc'          : nextProps.dataToConfirm.buc,
-                    'sed'          : nextProps.dataToConfirm.sed,
-                    'subjectArea'  : nextProps.dataToConfirm.subjectArea
-                });
             }
         }
     }
@@ -456,14 +455,14 @@ class EditCase extends Component {
                         <div className='d-inline-block'>{loading && loading.subjectAreaList ? this.getSpinner('loading:subjectArea'): null}</div>
                     </Nav.Column>
                 </Nav.Row>
-                <Nav.Row className='mt-4 align-middle text-left'>
+                <Nav.Row className='mt-1 align-middle text-left'>
                     <Nav.Column>{this.renderBuc()}</Nav.Column>
                     <Nav.Column className='mt-4'>
                         <Nav.HjelpetekstBase className='d-inline-block' id='buc' type='under'>{t('help:buc')}</Nav.HjelpetekstBase>
                         <div className='d-inline-block'>{loading && loading.bucList ? this.getSpinner('loading:buc') : null}</div>
                     </Nav.Column>
                 </Nav.Row>
-                <Nav.Row className='mt-4 align-middle text-left'>
+                <Nav.Row className='mt-1 align-middle text-left'>
                     <Nav.Column>{this.renderSed()}</Nav.Column>
                     <Nav.Column className='mt-4'>
                         <Nav.HjelpetekstBase className='d-inline-block' id='sed' type='under'>{t('help:sed')}</Nav.HjelpetekstBase>
