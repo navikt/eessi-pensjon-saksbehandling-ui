@@ -1,4 +1,4 @@
-package no.nav.eessi.eessifagmodul.utils
+package no.nav.eessi.fagmodul.frontend.utils
 
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
@@ -64,13 +64,27 @@ fun mapAnyToJson(data: Any): String {
 //    return false
 //}
 //
-//fun createListOfSEDOnBUC(buc: BUC): List<SED> {
-//    val buclist = createPensjonBucList()
+//fun createListOfBuConSector(sector: Sector): List<BUC> {
+//    val sectorlist = createSectorList()
+//    val buclist : MutableList<BUC> = mutableListOf()
+//    sectorlist.forEach {
+//        if (it.name == sector.name) {
+//            it.buc!!.forEach {
+//                buclist.add(it)
+//            }
+//        }
+//    }
+//    return buclist.toList()
+//}
+//
+//fun createListOfSEDOnBUC(sector: Sector, buc: BUC): List<SED> {
+//    val sectorlist = createSectorList()
 //    val sedlist : MutableList<SED> = mutableListOf()
-//    buclist.forEach {
-//        if (buc.bucType == it.bucType) {
-//            it.sed!!.forEach {
-//                sedlist.add(it)
+//    sectorlist.forEach {
+//        if (it.name == sector.name) {
+//            it.buc!!.forEach {
+//                if (it.bucType == buc.bucType)
+//                    sedlist.addAll(it.sed!!)
 //            }
 //        }
 //    }
@@ -78,11 +92,14 @@ fun mapAnyToJson(data: Any): String {
 //}
 //
 //fun createListOfSED(): List<SED> {
-//    val buclist = createPensjonBucList()
+//    val sectorlist = createSectorList()
 //    val sedlist : MutableList<SED> = mutableListOf()
-//    buclist.forEach { it: BUC ->
-//        it.sed!!.forEach {
-//            sedlist.add(it)
+//    sectorlist.forEach {
+//        if (it.name == sector.name) {
+//            it.buc!!.forEach {
+//                if (it.bucType == buc.bucType)
+//                    sedlist.addAll(it.sed!!)
+//            }
 //        }
 //    }
 //    return sedlist.toList()

@@ -1,8 +1,8 @@
 package no.nav.eessi.fagmodul.frontend.controllers
 
 import io.swagger.annotations.ApiOperation
+import no.nav.eessi.fagmodul.frontend.models.*
 import no.nav.eessi.fagmodul.frontend.services.EuxService
-import no.nav.eessi.fagmodul.frontend.models.FrontendRequest
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -25,6 +25,11 @@ class ApiController(private val euxService: EuxService) {
     @GetMapping("/rinaurl")
     fun getRinaURL(): String {
         return rinaUrl
+    }
+
+    @GetMapping("/sector")
+    fun getSector(): List<Sector> {
+        return createSectorList()
     }
 
     @GetMapping("/case/{casenumber}", produces = [MediaType.APPLICATION_JSON_VALUE])
