@@ -27,8 +27,7 @@ class RestTemplateConfig(val restTemplateBuilder: RestTemplateBuilder) {
             .additionalInterceptors(OidcHeaderRequestInterceptor())
             .build()
             //must be add for logging or data is lost after logging.
-            val factory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory())
-            restTemplate.requestFactory = factory
+            restTemplate.requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory())
             return restTemplate
     }
 
