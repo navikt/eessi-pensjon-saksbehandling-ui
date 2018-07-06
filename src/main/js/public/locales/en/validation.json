@@ -1,7 +1,7 @@
 {
-    "chooseSubjectArea" : "Choose a subject area",
     "chooseBuc" : "Choose a BUC",
-    "chooseSed" : "Choose a SED",
+    "chooseCountry" : "Choose a country",
     "chooseInstitution" : "Choose a institution",
-    "chooseCountry" : "Choose a country"
+    "chooseSed" : "Choose a SED",
+    "chooseSubjectArea" : "Choose a subject area"
 }

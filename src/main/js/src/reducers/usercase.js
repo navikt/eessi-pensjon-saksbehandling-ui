@@ -56,13 +56,14 @@ export default function (state = {}, action = {}) {
     case types.USERCASE_DATA_TO_CONFIRM:
 
         return Object.assign({}, state, {
-            dataToConfirm : action.payload
+            dataToConfirm : action.payload,
+            action        : 'forward'
         });
 
     case types.USERCASE_DATA_TO_CONFIRM_CANCEL:
 
         return Object.assign({}, state, {
-            dataToConfirm : undefined
+            action : 'back'
         });
 
     default:
