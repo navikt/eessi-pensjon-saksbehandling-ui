@@ -3,6 +3,7 @@ package no.nav.eessi.fagmodul.frontend.controllers
 import io.swagger.annotations.ApiOperation
 import no.nav.eessi.fagmodul.frontend.services.EuxService
 import no.nav.eessi.fagmodul.frontend.models.FrontendRequest
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -13,9 +14,17 @@ import java.util.regex.Pattern.matches
 @RequestMapping("/api")
 class ApiController(private val euxService: EuxService) {
 
+    @Value("\${rina.url}")
+    lateinit var rinaUrl: String
+
     @GetMapping("/refreshAll")
     fun refreshAll() {
         euxService.refreshAll()
+    }
+
+    @GetMapping("/rinaurl")
+    fun getRinaURL(): String {
+        return rinaUrl
     }
 
     @GetMapping("/case/{casenumber}", produces = [MediaType.APPLICATION_JSON_VALUE])

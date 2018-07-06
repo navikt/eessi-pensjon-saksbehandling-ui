@@ -32,3 +32,5 @@ eessibasis:
 fagmodul:
   url: 'http://example.com:8081'
 
+rina:
+   url: "'http://example.com:8087'"
