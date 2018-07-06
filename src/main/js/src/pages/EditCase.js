@@ -190,21 +190,16 @@ class EditCase extends Component {
 
     onCreateInstitutionButtonClick() {
 
-        this.validateInstitution(this.state.institution);
-        this.validateCountry(this.state.country);
-
-        if (!this.state.validation.countryFail && !this.state.validation.institutionFail) {
-            let institutions = this.state.institutions;
-            institutions.push({
-                institution: this.state.institution,
-                country: this.state.country
-            });
-            this.setState({
-                institutions : institutions,
-                institution  : undefined,
-                country      : undefined
-            });
-        }
+        let institutions = this.state.institutions;
+        institutions.push({
+            institution: this.state.institution,
+            country: this.state.country
+        });
+        this.setState({
+            institutions : institutions,
+            institution  : undefined,
+            country      : undefined
+        });
     }
 
     onRemoveInstitutionButtonClick(institution) {
@@ -278,10 +273,14 @@ class EditCase extends Component {
         const { actions } = this.props;
 
         let country = e.target.value;
-        this.setState({country: country})
+        this.setState({country: country, institution: undefined})
         this.validateCountry(country);
         if (!this.state.validation.countryFail) {
-             actions.getInstitutionListForCountry(country);
+            if (country != this.state.defaultSelects.country) {
+                actions.getInstitutionListForCountry(country);
+            } else {
+                actions.getInstitutionList();
+            }
         }
     }
 
@@ -289,7 +288,7 @@ class EditCase extends Component {
 
         const { t } = this.props;
 
-        if (!map) {
+        if (!map || Object.keys(map).length === 0) {
             return null;
         }
 
@@ -374,7 +373,8 @@ class EditCase extends Component {
 
         return <Nav.Row className='mt-2'>
             <Nav.Column style={{lineHeight: '2rem'}}>
-                <b>{institution.country + '/' + institution.institution}</b>
+                <b>{institution.country && institution.country !== this.state.defaultSelects.country ? institution.country + '/' : ''}</b>
+                <b>{institution.institution}</b>
             </Nav.Column>
             <Nav.Column>
                 <Nav.Knapp type='standard' onClick={this.onRemoveInstitutionButtonClick.bind(this, institution)}>{t('ui:remove')}</Nav.Knapp>
@@ -394,6 +394,8 @@ class EditCase extends Component {
             renderedInstitutions.push(this.renderChosenInstitution(institution));
         }
 
+        let validInstitution = (!this.state.validation.countryFail && !this.state.validation.institutionFail) && this.state.institution;
+
         renderedInstitutions.push(<Nav.Row className='mt-4'>
             <Nav.Column>
                 <div>{this.renderCountry()}</div>
@@ -410,7 +412,7 @@ class EditCase extends Component {
                 </div>
             </Nav.Column>
             <Nav.Column style={{lineHeight: '6rem'}}>
-                <Nav.Knapp type='standard' onClick={this.onCreateInstitutionButtonClick.bind(this)}>{t('ui:create')}</Nav.Knapp>
+                <Nav.Hovedknapp disabled={!validInstitution} onClick={this.onCreateInstitutionButtonClick.bind(this)}>{t('ui:create')}</Nav.Hovedknapp>
             </Nav.Column>
         </Nav.Row>);
 
