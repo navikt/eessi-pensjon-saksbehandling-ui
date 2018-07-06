@@ -39,10 +39,10 @@ class EditCase extends Component {
             institutions: [],
             validation: {},
             defaultSelects: {
-                subjectArea: '--',
-                buc: '--',
-                sed: '--',
-                institution: '--',
+                subjectArea: 'chooseSubjectArea',
+                buc: 'chooseBuc',
+                sed: 'chooseSed',
+                institution: 'chooseInstitution',
                 country: 'allCountries'
             }
         };
@@ -51,6 +51,7 @@ class EditCase extends Component {
     componentWillMount() {
 
         const { actions, match, currentCase, institutionList, bucList, subjectAreaList, countryList, dataToConfirm } = this.props;
+
 
         if (_.isEmpty(currentCase)) {
             let id = match.params.id;
@@ -136,7 +137,7 @@ class EditCase extends Component {
     validateSubjectArea(subjectArea) {
 
         const { t } = this.props;
-        if (!subjectArea || subjectArea === '--') {
+        if (!subjectArea || subjectArea === this.state.defaultSelects.subjectArea) {
             this.setValidationState('subjectAreaFail', t('validation:chooseSubjectArea'));
         } else {
             this.resetValidationState('subjectAreaFail');
@@ -146,7 +147,7 @@ class EditCase extends Component {
     validateBuc(buc) {
 
         const { t } = this.props;
-        if (!buc || buc === '--') {
+        if (!buc || buc === this.state.defaultSelects.buc) {
             this.setValidationState('bucFail', t('validation:chooseBuc'));
         } else {
             this.resetValidationState('bucFail');
@@ -156,7 +157,7 @@ class EditCase extends Component {
     validateSed(sed) {
 
         const { t } = this.props;
-        if (!sed || sed === '--') {
+        if (!sed || sed === this.state.defaultSelects.sed) {
             this.setValidationState('sedFail', t('validation:chooseSed'));
         } else {
             this.resetValidationState('sedFail');
@@ -176,7 +177,7 @@ class EditCase extends Component {
     validateInstitution(institution) {
 
         const { t } = this.props;
-        if (!institution || institution === '--') {
+        if (!institution || institution === this.state.defaultSelects.institution) {
             this.setValidationState('institutionFail', t('validation:chooseInstitution'));
         } else {
             this.resetValidationState('institutionFail');
@@ -279,23 +280,31 @@ class EditCase extends Component {
         let country = e.target.value;
         this.setState({country: country})
         this.validateCountry(country);
-        //TODO
         if (!this.state.validation.countryFail) {
              actions.getInstitutionListForCountry(country);
         }
     }
 
-    renderOptions(map) {
+    renderOptions(map, type) {
+
+        const { t } = this.props;
 
         if (!map) {
             return null;
         }
 
-        if (map[0] !== '--') {
-            map.unshift('--');
+        if (!map[0].key || (map[0].key && map[0].key !== this.state.defaultSelects[type])) {
+            map.unshift({
+               key: this.state.defaultSelects[type],
+               value: t('ui:' + this.state.defaultSelects[type])
+            });
         }
         return map.map(el => {
-            return <option key={el}>{el}</option>
+            if (typeof el === 'string') {
+                return <option value={el} key={el}>{el}</option>
+            } else {
+                return <option value={el.key} key={el}>{el.value}</option>
+            }
         });
     }
 
@@ -305,7 +314,7 @@ class EditCase extends Component {
 
         return <Nav.Select bredde='xxl' feil={this.state.validation.subjectAreaFail ? {feilmelding: this.state.validation.subjectAreaFail} : null}
             label={t('ui:subjectArea')} value={this.state.subjectArea} onChange={this.onSubjectAreaChange.bind(this)}>
-            {this.renderOptions(subjectAreaList)}
+            {this.renderOptions(subjectAreaList, 'subjectArea')}
         </Nav.Select>
     }
 
@@ -315,7 +324,7 @@ class EditCase extends Component {
 
         return <Nav.Select bredde='xxl' feil={this.state.validation.countryFail ? {feilmelding: this.state.validation.countryFail} : null}
             label={t('ui:country')} value={currentValue} onChange={this.onCountryChange.bind(this)}>
-            {this.renderOptions(countryList)}
+            {this.renderOptions(countryList, 'country')}
         </Nav.Select>
     }
 
@@ -325,7 +334,7 @@ class EditCase extends Component {
 
         return <Nav.Select bredde='xxl' feil={this.state.validation.institutionFail ? {feilmelding: this.state.validation.institutionFail} : null}
             label={t('ui:institution')} value={currentValue} onChange={this.onInstitutionChange.bind(this)}>
-            {this.renderOptions(institutionList)}
+            {this.renderOptions(institutionList, 'institution')}
         </Nav.Select>
     }
 
@@ -335,7 +344,7 @@ class EditCase extends Component {
 
         return <Nav.Select bredde='xxl' feil={this.state.validation.bucFail ? {feilmelding: this.state.validation.bucFail} : null}
             label={t('ui:buc')} value={this.state.buc} onChange={this.onBucChange.bind(this)}>
-            {this.renderOptions(bucList)}
+            {this.renderOptions(bucList, 'buc')}
         </Nav.Select>
     }
 
@@ -345,7 +354,7 @@ class EditCase extends Component {
 
         return <Nav.Select bredde='xxl' feil={this.state.validation.sedFail? {feilmelding: this.state.validation.sedFail} : null}
             disabled={!bucList} label={t('ui:sed')} value={this.state.sed} onChange={this.onSedChange.bind(this)}>
-            {this.renderOptions(sedList)}
+            {this.renderOptions(sedList, 'sed')}
         </Nav.Select>
     }
 

@@ -47,6 +47,18 @@ export function getInstitutionList () {
     });
 }
 
+
+export function getInstitutionListForCountry (country) {
+    return api.call({
+        url: urls.INSTITUTION_LIST_URL + '/' + country,
+        type: {
+            request : types.USERCASE_GET_INSTITUTION_LIST_REQUEST,
+            success : types.USERCASE_GET_INSTITUTION_LIST_SUCCESS,
+            failure : types.USERCASE_GET_INSTITUTION_LIST_FAILURE
+        }
+    });
+}
+
 export function getBucList () {
     return api.call({
         url: urls.BUC_LIST_URL,
