@@ -7,7 +7,7 @@ import * as Nav from './Nav';
 
 const mapStateToProps = (state) => {
     return {
-        serverError : state.ui.serverError
+        serverErrorMessage : state.error.serverErrorMessage
     }
 };
 
@@ -15,17 +15,17 @@ class AlertHeader extends Component {
 
     render () {
 
-        let { t, serverError } = this.props;
+        let { t, serverErrorMessage } = this.props;
 
-        if (!serverError) { return null }
+        if (!serverErrorMessage) { return null }
 
-        return <Nav.AlertStripe type='advarsel' solid={true}>{t('error:' + serverError)}</Nav.AlertStripe>
+        return <Nav.AlertStripe type='advarsel' solid={true}>{t('error:' + serverErrorMessage)}</Nav.AlertStripe>
     }
 }
 
 AlertHeader.propTypes = {
-    t           : PT.func.isRequired,
-    serverError : PT.string
+    t                  : PT.func.isRequired,
+    serverErrorMessage : PT.string
 }
 
 export default connect(

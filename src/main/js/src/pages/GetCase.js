@@ -10,8 +10,8 @@ import * as usercaseActions from '../actions/usercase';
 
 const mapStateToProps = (state) => {
     return {
-        errorMessage : state.usercase.errorMessage,
-        errorStatus  : state.usercase.errorStatus,
+        errorMessage : state.error.clientErrorMessage,
+        errorStatus  : state.error.clientErrorStatus,
         currentCase  : state.usercase.currentCase,
         loading      : state.loading,
         language     : state.ui.language
@@ -68,8 +68,8 @@ class GetCase extends Component {
 
         return <TopContainer>
             <Nav.Panel className='panel'>
-                <Nav.Row>
-                   <Nav.Column>{t('content:getCaseDescription')}</Nav.Column>
+                <Nav.Row className='mt-4'>
+                    <Nav.Column>{t('content:getCaseDescription')}</Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4 text-left'>
                     <Nav.Column>{alert}</Nav.Column>

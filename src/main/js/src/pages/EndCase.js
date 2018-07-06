@@ -27,18 +27,26 @@ class EndCase extends Component {
 
         return <TopContainer>
             <Nav.Panel>
-                <div>{t('content:endCaseDescription')}</div>
-                <div className='mx-4 text-center'>
-                    <div className='mt-4'>
-                        <Nav.AlertStripe type='suksess'>{t('dataSubmitted')}</Nav.AlertStripe>
-                    </div>
-                    <div className='mt-4'>
+                <Nav.Row className='mt-4'>
+                    <Nav.Column>
+                        {t('content:endCaseDescription')}
+                    </Nav.Column>
+                </Nav.Row>
+                <Nav.Row className='mt-4'>
+                    <Nav.Column>
+                        <Nav.AlertStripe type='suksess'>{t('ui:dataSubmitted')}</Nav.AlertStripe>
+                    </Nav.Column>
+                </Nav.Row>
+                <Nav.Row className='mt-4'>
+                    <Nav.Column>
                         {JSON.stringify(dataSubmitted)}
-                    </div>
-                    <div className='mt-4'>
-                        <Nav.Hovedknapp className='mr-3' onClick={this.onForwardButtonClick.bind(this)}>{t('createNew')}</Nav.Hovedknapp>
-                    </div>
-                </div>
+                    </Nav.Column>
+                </Nav.Row>
+                <Nav.Row className='mt-4'>
+                    <Nav.Column>
+                        <Nav.Hovedknapp className='mr-3' onClick={this.onForwardButtonClick.bind(this)}>{t('ui:createNew')}</Nav.Hovedknapp>
+                    </Nav.Column>
+                </Nav.Row>
             </Nav.Panel>
         </TopContainer>;
     }

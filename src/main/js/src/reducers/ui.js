@@ -4,12 +4,6 @@ export default function (state = {}, action = {}) {
 
     switch (action.type) {
 
-    case types.SERVER_OFFLINE:
-
-        return Object.assign({}, state, {
-            serverError : 'serverOffline'
-        });
-
     case types.LANGUAGE_CHANGED:
 
         return Object.assign({}, state, {
