@@ -1,5 +1,23 @@
 import * as types from '../constants/actionTypes';
 
+function processError(error) {
+    let errorMessage = [];
+    if (error.status) {
+        errorMessage.push(error.status);
+    }
+    if (error.message) {
+        errorMessage.push(error.message);
+    } else {
+        if (error.error) {
+            errorMessage.push(error.error);
+        }
+    }
+     if (error.serverMessage) {
+        errorMessage.push(error.serverMessage);
+    }
+    return errorMessage.join(' ');
+}
+
 export default function (state = {}, action = {}) {
 
     switch (action.type) {
@@ -27,7 +45,7 @@ export default function (state = {}, action = {}) {
 
          return Object.assign({}, state, {
                clientErrorStatus  : 'ERROR',
-               clientErrorMessage : action.payload.serverMessage
+               clientErrorMessage : processError(action.payload)
          });
 
     case types.USERCASE_GET_SUBJECT_AREA_LIST_FAILURE:
@@ -69,7 +87,7 @@ export default function (state = {}, action = {}) {
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : action.payload.serverMessage
+            clientErrorMessage : processError(action.payload)
         });
 
     default:

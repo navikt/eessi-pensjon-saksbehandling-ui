@@ -64,7 +64,7 @@ class GetCase extends Component {
 
         let alert      = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
         let spinner    = loading && loading.getcase;
-        let buttonText = spinner ? t('loading:getcase') : t('søk');
+        let buttonText = spinner ? t('loading:getcase') : t('ui:search');
 
         return <TopContainer>
             <Nav.Panel className='panel'>
