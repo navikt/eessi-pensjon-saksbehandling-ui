@@ -2,7 +2,6 @@ package no.nav.eessi.fagmodul.frontend.controllers
 
 import io.swagger.annotations.ApiOperation
 import no.nav.eessi.fagmodul.frontend.models.FrontendRequest
-import no.nav.eessi.fagmodul.frontend.services.EuxService
 import no.nav.eessi.fagmodul.frontend.services.FagmodulService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

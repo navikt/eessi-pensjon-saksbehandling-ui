@@ -20,9 +20,6 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
 
     private val FAG_PATH: String = "/api"
 
-    private val objectMapper = jacksonObjectMapper()
-
-
     fun create(frontRequest: FrontendRequest): String? {
         logger.debug("create reqeust to fagmodul : $frontRequest")
         val path = "/create"
