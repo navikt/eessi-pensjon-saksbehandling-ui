@@ -1,4 +1,6 @@
 {
+  "subjectArea": "Subject area",
+  "country" : "Country",
   "institution"  : "Institution",
   "buc" : "BUC",
   "sed" : "SED",
@@ -7,12 +9,14 @@
   "caseNotFound" : "Case not found",
   "confirm" : "Confirm",
   "confirmAndSend": "Confirm and send",
+  "create" : "Create",
   "createNew" : "Create new",
   "go" : "Go",
   "caseId" : "Case ID",
   "caseHandler" : "Case handler",
   "start" : "Start",
-  "søk" : "Search",
+  "search" : "Search",
+  "remove" : "Remove",
   "chooseLanguage" : "Choose language",
   "dataSubmitted" : "Data sent"
 }

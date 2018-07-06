@@ -15,26 +15,30 @@ export function getCaseFromCaseNumber (obj) {
 }
 
 export function getSubjectAreaList () {
-    return (dispatch) => {
-        dispatch({
-            type    : types.USERCASE_GET_SUBJECT_AREA_LIST_SUCCESS,
-            payload : ['subjectArea1', 'subjectArea2', 'subjectArea3']
-        });
-    };
+    return api.call({
+        url: urls.SUBJECT_AREA_LIST_URL,
+        type: {
+            request : types.USERCASE_GET_SUBJECT_AREA_LIST_REQUEST,
+            success : types.USERCASE_GET_SUBJECT_AREA_LIST_SUCCESS,
+            failure : types.USERCASE_GET_SUBJECT_AREA_LIST_FAILURE
+        }
+    });
 }
 
 export function getCountryList () {
-    return (dispatch) => {
-        dispatch({
-            type    : types.USERCASE_GET_COUNTRY_LIST_SUCCESS,
-            payload : ['country1', 'country2', 'country3']
-        });
-    };
+    return api.call({
+        url: urls.COUNTRY_LIST_URL,
+        type: {
+            request : types.USERCASE_GET_COUNTRY_LIST_REQUEST,
+            success : types.USERCASE_GET_COUNTRY_LIST_SUCCESS,
+            failure : types.USERCASE_GET_COUNTRY_LIST_FAILURE
+        }
+    });
 }
 
 export function getInstitutionList () {
     return api.call({
-        url: urls.INSTITUTION_URL,
+        url: urls.INSTITUTION_LIST_URL,
         type: {
             request : types.USERCASE_GET_INSTITUTION_LIST_REQUEST,
             success : types.USERCASE_GET_INSTITUTION_LIST_SUCCESS,
@@ -45,7 +49,7 @@ export function getInstitutionList () {
 
 export function getBucList () {
     return api.call({
-        url: urls.BUC_URL,
+        url: urls.BUC_LIST_URL,
         type: {
             request : types.USERCASE_GET_BUC_LIST_REQUEST,
             success : types.USERCASE_GET_BUC_LIST_SUCCESS,
@@ -56,7 +60,7 @@ export function getBucList () {
 
 export function getSedList (buc) {
     return api.call({
-        url: urls.SED_URL + '/' + buc,
+        url: urls.SED_LIST_URL + '/' + buc,
         type: {
             request : types.USERCASE_GET_SED_LIST_REQUEST,
             success : types.USERCASE_GET_SED_LIST_SUCCESS,

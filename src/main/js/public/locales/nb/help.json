@@ -1,9 +1,9 @@
 {
-    'caseId' : 'Hjelp til caseId',
-    'caseHandler' : 'Hjelp til caseHandler',
-    'buc' : 'Hjelp til buc',
-    'sed' : 'Hjelp til sed',
-    'subjectArea' : 'Hjelp til subjectArea',
-    'institution' : 'Hjelp til institution',
-    'country' : 'Hjelp til country'
+    "caseId" : "Hjelp til caseId",
+    "caseHandler" : "Hjelp til caseHandler",
+    "buc" : "Hjelp til buc",
+    "sed" : "Hjelp til sed",
+    "subjectArea" : "Hjelp til subjectArea",
+    "institution" : "Hjelp til institution",
+    "country" : "Hjelp til country"
 }

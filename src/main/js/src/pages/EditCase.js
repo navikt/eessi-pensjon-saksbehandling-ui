@@ -36,8 +36,7 @@ class EditCase extends Component {
         super(props);
         this.state = {
             institutions: [],
-            validation: {},
-            firstUse: true
+            validation: {}
         };
     }
 
@@ -92,27 +91,102 @@ class EditCase extends Component {
 
         const { actions, currentCase } = this.props;
 
-        actions.dataToConfirm({
-            'institutions' : this.state.institutions,
-            'buc'          : this.state.buc,
-            'sed'          : this.state.sed,
-            'subjectArea'  : this.state.subjectArea,
-            'caseId'       : currentCase.casenumber
-        });
+        this.performAllValidations();
+
+        if (this.noValidationErrors()) {
+            actions.dataToConfirm({
+                'institutions' : this.state.institutions,
+                'buc'          : this.state.buc,
+                'sed'          : this.state.sed,
+                'subjectArea'  : this.state.subjectArea,
+                'caseId'       : currentCase.casenumber
+            });
+        }
+    }
+
+    performAllValidations() {
+        this.validateSubjectArea(this.state.subjectArea);
+        this.validateBuc(this.state.buc);
+        this.validateSed(this.state.sed);
+        this.validateInstitutions(this.state.institutions);
+    }
+
+    validateSubjectArea(subjectArea) {
+        const { t } = this.props;
+        if (!subjectArea || subjectArea === '--') {
+            this.setValidationState('subjectAreaFail', t('validation:chooseSubjectArea'));
+        } else {
+            this.resetValidationState('subjectAreaFail');
+        }
+    }
+
+    validateBuc(buc) {
+
+        const { t } = this.props;
+        if (!buc || buc === '--') {
+            this.setValidationState('bucFail', t('validation:chooseBuc'));
+        } else {
+            this.resetValidationState('bucFail');
+        }
+    }
+
+    validateSed(sed) {
+
+        const { t } = this.props;
+        if (!sed || sed === '--') {
+            this.setValidationState('sedFail', t('validation:chooseSed'));
+        } else {
+            this.resetValidationState('sedFail');
+        }
+    }
+
+    validateInstitutions(institutions) {
+
+        const { t } = this.props;
+        if (!institutions || Object.keys(institutions).length === 0) {
+            this.setValidationState('institutionaFail', t('validation:chooseInstitutions'));
+        } else {
+             this.resetValidationState('institutionsFail');
+        }
+    }
+
+    validateInstitution(institution) {
+
+        const { t } = this.props;
+        if (!institution || institution === '--') {
+            this.setValidationState('institutionFail', t('validation:chooseInstitution'));
+        } else {
+            this.resetValidationState('institutionFail');
+        }
+    }
+
+    validateCountry(country) {
+
+         const { t } = this.props;
+         if (!country || country === '--') {
+             this.setValidationState('countryFail', t('validation:chooseCountry'));
+         } else {
+             this.resetValidationState('countryFail');
+         }
     }
 
     onCreateInstitutionButtonClick() {
 
-        let institutions = this.state.institutions;
-        institutions.push({
-            institution: this.state.institution,
-            country: this.state.country
-        });
-        this.setState({
-            institutions : institutions,
-            institution  : undefined,
-            country      : undefined
-        });
+        this.validateInstitution(this.state.institution);
+        this.validateCountry(this.state.country);
+
+        if (!this.state.validation.countryFail && !this.state.validation.institutionFail) {
+            let institutions = this.state.institutions;
+            institutions.push({
+                institution: this.state.institution,
+                country: this.state.country
+            });
+            this.setState({
+                institutions : institutions,
+                institution  : undefined,
+                country      : undefined
+            });
+        }
     }
 
     onRemoveInstitutionButtonClick(institution) {
@@ -123,7 +197,6 @@ class EditCase extends Component {
         for (var i in institutions) {
             if (institution.institution !== institutions[i].institution ||
                    institution.country !== institutions[i].country) {
-
                 newInstitutions.push(institutions[i]);
             }
         }
@@ -134,84 +207,59 @@ class EditCase extends Component {
     }
 
     resetValidationState(key) {
-        this.setValidationState(key, undefined);
+
+        let validation = this.state.validation;
+        if (validation.hasOwnProperty(key)) {
+            delete validation[key];
+            this.setState({ validation: validation });
+        }
     }
 
     setValidationState(key, value) {
 
         this.setState({
-            firstUse: false,
             validation: Object.assign(this.state.validation, {[key]: value})
         });
     }
 
     onSubjectAreaChange(e) {
 
-        const { t } = this.props;
-
         let subjectArea = e.target.value;
         this.setState({subjectArea: subjectArea});
-
-        if (subjectArea === '--') {
-            this.setValidationState('subjectAreaFail', t('validation:chooseSubjectArea'));
-        } else {
-            this.resetValidationState('subjectAreaFail');
-        }
+        this.validateSubjectArea(subjectArea);
     }
 
     onBucChange(e) {
 
-        const { t, actions } = this.props;
+        const { actions } = this.props;
 
         let buc = e.target.value;
         this.setState({buc: buc});
-
-        if (buc === '--') {
-            this.setValidationState('bucFail', t('validation:chooseBuc'));
-        } else {
-            this.resetValidationState('bucFail');
-            actions.getSedOptions(buc);
+        this.validateBuc(buc);
+        if (!this.state.validation.bucFail) {
+            actions.getSedList(buc);
         }
     }
 
     onSedChange(e) {
 
-        const { t } = this.props;
-
         let sed = e.target.value;
         this.setState({sed: sed})
-
-        if (sed === '--') {
-            this.setValidationState('sedFail', t('validation:chooseSed'));
-        } else {
-            this.resetValidationState('sedFail');
-        }
+        this.validateSed(sed);
     }
 
     onInstitutionChange(e) {
-        const { t } = this.props;
 
         let institution = e.target.value;
         this.setState({institution: institution})
-
-        if (institution === '--') {
-            this.setValidationState('institutionFail', t('validation:chooseInstitution'));
-        } else {
-            this.resetValidationState('institutionFail');
-        }
+        this.validateInstitution(institution);
     }
 
     onCountryChange(e) {
-        const { t } = this.props;
 
         let country = e.target.value;
         this.setState({country: country})
-
-        if (country === '--') {
-            this.setValidationState('countryFail', t('validation:chooseCountry'));
-        } else {
-            this.resetValidationState('countryFail');
-        }
+        this.validateCountry(country);
     }
 
     renderOptions(map) {
@@ -335,6 +383,11 @@ class EditCase extends Component {
         return renderedInstitutions.map(i => { return i});
     }
 
+    noValidationErrors() {
+        return Object.keys(this.state.validation).length === 0 && Object.keys(this.state.institutions).length !== 0 &&
+        this.state.subjectArea && this.state.buc && this.state.sed;
+    }
+
     render() {
 
         const { t, currentCase, errorMessage, errorStatus, loading } = this.props;
@@ -348,8 +401,6 @@ class EditCase extends Component {
         if (errorStatus) {
             alert = <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe>;
         }
-
-        let disabledForwardButton = Object.keys(this.state.validation).length !== 0 || this.state.firstUse;
 
         return <TopContainer>
             <Nav.Panel>
@@ -384,7 +435,7 @@ class EditCase extends Component {
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
                         <Nav.Knapp className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:tilbake')}</Nav.Knapp>
-                        <Nav.Hovedknapp disabled={disabledForwardButton} onClick={this.onForwardButtonClick.bind(this)}>{t('ui:go')}</Nav.Hovedknapp>
+                        <Nav.Hovedknapp disabled={!this.noValidationErrors()} onClick={this.onForwardButtonClick.bind(this)}>{t('ui:go')}</Nav.Hovedknapp>
                     </Nav.Column>
                 </Nav.Row>
             </Nav.Panel>

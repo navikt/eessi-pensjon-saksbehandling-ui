@@ -37,3 +37,13 @@ Run `npm run test` to execute the unit tests.
 ## Linting
 
 Run `npm run lint` for linting the JS files.
+
+## Troubleshoot
+
+### backend complains about certificate access to other 3rd party https urls
+
+On any page of https://(.*).nais.preprod.local, click on the certificate, download it as a file (say C:\Temp\nais-preprod.cer)
+
+Launch the kse explorer, the JAR executable file (at F:\programvare\kse-51), load cacerts from your JAVA_HOME\lib\security.
+
+Import the downloaded certificate into cacerts, save it (if you don't have permissions, save it in Temp, then copy over).

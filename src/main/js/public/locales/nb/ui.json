@@ -1,8 +1,11 @@
 {
   "start" : "start",
+  "subjectArea": "Fagområde",
+  "country" : "Land",
   "institution"  : "Mottager",
   "buc" : "BUC",
   "sed" : "SED",
+  "create" : "Opprett",
   "createNewCase" : "Opprett ny saks",
   "caseFound" : "Saken funnet",
   "caseNotFound" : "Saken ikke funnet",
@@ -12,7 +15,8 @@
   "go" : "Gå",
   "caseId" : "SaksId",
   "caseHandler" : "Saksbehandler",
-  "søk" : "Søk",
+  "remove" : "Slett",
+  "search" : "Søk",
   "chooseLanguage" : "Velg språk",
   "dataSubmitted" : "Data sendt"
 }
