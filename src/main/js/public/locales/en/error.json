@@ -2,5 +2,10 @@
     "invalidCaseNumber": "Invalid Case ID",
     "invalidCaseHandler": "Invalid Case handler",
     "insufficientParameters": "Insufficient parameters",
-    "serveroffline" : "server offline"
+    "serveroffline" : "server offline",
+    "noSubjectAreaList" : "No subjecdt area list",
+    "noBucList" : "No BUC list",
+    "noSedList" : "No SED list",
+    "noCountryList" : "No Country list",
+    "noInstitutionList" : "No institution list"
 }

@@ -32,9 +32,9 @@ class EndCase extends Component {
                         {t('content:endCaseDescription')}
                     </Nav.Column>
                 </Nav.Row>
-                <Nav.Row className='mx-4 text-center'>
+                <Nav.Row className='mt-4'>
                     <Nav.Column>
-                        <Nav.AlertStripe type='suksess'>{t('dataSubmitted')}</Nav.AlertStripe>
+                        <Nav.AlertStripe type='suksess'>{t('ui:dataSubmitted')}</Nav.AlertStripe>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4'>
@@ -44,7 +44,7 @@ class EndCase extends Component {
                 </Nav.Row>
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
-                        <Nav.Hovedknapp className='mr-3' onClick={this.onForwardButtonClick.bind(this)}>{t('createNew')}</Nav.Hovedknapp>
+                        <Nav.Hovedknapp className='mr-3' onClick={this.onForwardButtonClick.bind(this)}>{t('ui:createNew')}</Nav.Hovedknapp>
                     </Nav.Column>
                 </Nav.Row>
             </Nav.Panel>

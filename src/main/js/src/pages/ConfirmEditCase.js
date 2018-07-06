@@ -13,8 +13,8 @@ const mapStateToProps = (state) => {
     return {
         dataToConfirm   : state.usercase.dataToConfirm,
         dataSubmitted   : state.usercase.dataSubmitted,
-        errorMessage    : state.usercase.errorMessage,
-        errorStatus     : state.usercase.errorStatus,
+        errorMessage    : state.error.clientErrorMessage,
+        errorStatus     : state.error.clientEerrorStatus,
         loading         : state.loading,
         language        : state.ui.language
     };
@@ -91,7 +91,7 @@ class ConfirmEditCase extends Component {
                 </Nav.Row>
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
-                        <Nav.Knapp className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('tilbake')}</Nav.Knapp>
+                        <Nav.Knapp className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:tilbake')}</Nav.Knapp>
                         <Nav.Hovedknapp spinner={spinner} onClick={this.onButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
                     </Nav.Column>
                 </Nav.Row>

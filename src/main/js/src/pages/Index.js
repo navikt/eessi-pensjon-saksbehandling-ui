@@ -22,7 +22,7 @@ class Index extends Component {
         return <TopContainer>
             <Nav.Panel className='panel'>
                 <Nav.Row>
-                     <Nav.Column>{t('content:indexDescription')}</Nav.Column>
+                    <Nav.Column>{t('content:indexDescription')}</Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4 text-left'>
                     <Nav.Column>
@@ -40,12 +40,8 @@ class Index extends Component {
 }
 
 Index.propTypes = {
-    usercase     : PropTypes.object,
-    error        : PropTypes.object,
-    serverError  : PropTypes.object,
-    actions      : PropTypes.object,
-    history      : PropTypes.object,
-    t            : PropTypes.func
+    language : PropTypes.string,
+    t        : PropTypes.func
 };
 
 export default connect(

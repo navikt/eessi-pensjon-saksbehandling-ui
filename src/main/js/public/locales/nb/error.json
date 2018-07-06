@@ -2,5 +2,10 @@
     "invalidCaseNumber": "Ugyldig saksId",
     "invalidCaseHandler": "Ugyldig saksbehandler",
     "insufficientParameters": "ikke nok parametere",
-    "serveroffline" : "server offline"
+    "serveroffline" : "server offline",
+    "noSubjectAreaList" : "Ingen fagområde liste",
+    "noBucList" : "Ingen BUC liste",
+    "noSedList" : "Ingen SED liste",
+    "noCountryList" : "Ingen land liste",
+    "noInstitutionList" : "Ingen mottager liste"
 }

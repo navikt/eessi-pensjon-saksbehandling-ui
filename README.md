@@ -4,47 +4,31 @@ This project has:
 * A frontend module, in `src/main/js`, that uses [React](https://reactjs.org) and [Node](https://nodejs.org).
 * A backend module, in `src/main/kotlin` that uses Kotlin.
 
-## Development React UI, development node server
+## Development with Hot reloading
 
-This is the best setup for development of React UI and the node server.
+Make sure you have ADEO_MAVEN_URL, ADEO_MEVEN_USERNAME and ADEO_MAVEN_PASSWORD in your env.
+Run in your IDE the `Application.kt` file with VM options `-Dspring.profiles.active=local`.
 
-First, run `npm install`. 
+It will start the service in port 8080.
 
-Run `run-dev-react.sh` or `run-dev-react.bat`. It starts React UI on port 3000.
+Now go to src/main/js, run `npm install` if never ran before (or if there is package changes).
+Run also `npm run less` if there is no CSS files, to create them.
 
-Run `run-dev-node.sh` or `run-dev-node.bat`. It starts node server on port 80, with no connection to 3rd party services. 
-The node server will return sample responses for development purposes only.
+The `"proxy": "http://localhost:8080"` directive on package.json proxy-passes React ajax calls to the server at port 8080.
 
-The proxy directive on package.json proxy-passes React ajax calls to the node server at port 80.
-This way, React app at port 3000 can still be hot-changed and be able to use node API in a dev environment.
- 
-Open `http://localhost:3000/` for the React homepage.
+Run `run-dev.sh` or `run-dev.bat`. It starts React UI on port 3000
+(to change, do `set PORT={wantedPort}` before in Windows, or `export PORT={wantedPort}` in Linux/Mac).
 
-## Development React UI, production node server
+Open `http://localhost:3000/` for the homepage.
 
-This is the best setup for integration development of the node server against 3rd party services.
-
-First, run `npm install`. 
-
-Run `run-dev-react.sh` or `run-dev-react.bat`. It starts React UI on port 3000.
-
-Run `run-prod.sh` or `run-prod.bat`. It starts node server on port 80, with connection to 3rd party services. 
-
-Open `http://localhost:3000/` for the React homepage.
+Any changes made to React files will trigger a reload. API access is still working.
 
 ## Production
 
-This is the best setup for production, but can also be launched locally.
+Go to src/main/js, run `npm install` if never ran before (or if there is package changes).
+Run `npm run build`. It will run less, compile the frontend, and copy everything into a resources folder.
 
-First, run `npm install`. 
-
-Run `npm run build` to compact React project for production. 
-The build files will be placed in the `build/` directory.
-
-Run `run-prod.sh` or `run-prod.bat`. It starts the node server on port 80, with connection to 3rd party services. 
-The node server will connect to OAuth2 and other 3rd party services.
-
-Open `http://localhost:80/` for the React webpage.
+Run ``Application.kt` as described above. Open `http://localhost:8080/` for the homepage.
 
 ## Running unit tests
 

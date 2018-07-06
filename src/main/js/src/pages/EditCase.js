@@ -19,8 +19,8 @@ const mapStateToProps = (state) => {
         countryList     : state.usercase.countryList,
         currentCase     : state.usercase.currentCase,
         dataToConfirm   : state.usercase.dataToConfirm,
-        errorMessage    : state.usercase.errorMessage,
-        errorStatus     : state.usercase.errorStatus,
+        errorMessage    : state.error.clientErrorMessage,
+        errorStatus     : state.error.clientErrorStatus,
         language        : state.ui.language,
         loading         : state.loading
     };
@@ -167,10 +167,10 @@ class EditCase extends Component {
         this.setState({buc: buc});
 
         if (buc === '--') {
-             this.setValidationState('bucFail', t('validation:chooseBuc'));
+            this.setValidationState('bucFail', t('validation:chooseBuc'));
         } else {
-             this.resetValidationState('bucFail');
-              actions.getSedOptions(buc);
+            this.resetValidationState('bucFail');
+            actions.getSedOptions(buc);
         }
     }
 
@@ -184,7 +184,7 @@ class EditCase extends Component {
         if (sed === '--') {
             this.setValidationState('sedFail', t('validation:chooseSed'));
         } else {
-             this.resetValidationState('sedFail');
+            this.resetValidationState('sedFail');
         }
     }
 
@@ -297,7 +297,7 @@ class EditCase extends Component {
                 <b>{institution.country + '/' + institution.institution}</b>
             </Nav.Column>
             <Nav.Column>
-                <Nav.Knapp type='standard' onClick={this.onRemoveInstitutionButtonClick.bind(this, institution)}>{t('remove')}</Nav.Knapp>
+                <Nav.Knapp type='standard' onClick={this.onRemoveInstitutionButtonClick.bind(this, institution)}>{t('ui:remove')}</Nav.Knapp>
             </Nav.Column>
             <Nav.Column/>
         </Nav.Row>;
@@ -318,17 +318,17 @@ class EditCase extends Component {
             <Nav.Column>
                 <div>{this.renderCountry()}</div>
                 <div className='mt-4'>
-                   <Nav.HjelpetekstBase id="country" type="under">{t('help:country')}</Nav.HjelpetekstBase>
+                    <Nav.HjelpetekstBase id="country" type="under">{t('help:country')}</Nav.HjelpetekstBase>
                 </div>
             </Nav.Column>
             <Nav.Column>
                 <div>{this.renderInstitution()}</div>
                 <div className='mt-4'>
-                   <Nav.HjelpetekstBase id="institution" type="under">{t('help:institution')}</Nav.HjelpetekstBase>
+                    <Nav.HjelpetekstBase id="institution" type="under">{t('help:institution')}</Nav.HjelpetekstBase>
                 </div>
             </Nav.Column>
             <Nav.Column style={{lineHeight: '6rem'}}>
-                <Nav.Knapp type='standard' onClick={this.onCreateInstitutionButtonClick.bind(this)}>{t('create')}</Nav.Knapp>
+                <Nav.Knapp type='standard' onClick={this.onCreateInstitutionButtonClick.bind(this)}>{t('ui:create')}</Nav.Knapp>
             </Nav.Column>
         </Nav.Row>);
 
@@ -383,8 +383,8 @@ class EditCase extends Component {
                 {this.renderInstitutions()}
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
-                        <Nav.Knapp className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('tilbake')}</Nav.Knapp>
-                        <Nav.Hovedknapp disabled={disabledForwardButton} onClick={this.onForwardButtonClick.bind(this)}>{t('go')}</Nav.Hovedknapp>
+                        <Nav.Knapp className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:tilbake')}</Nav.Knapp>
+                        <Nav.Hovedknapp disabled={disabledForwardButton} onClick={this.onForwardButtonClick.bind(this)}>{t('ui:go')}</Nav.Hovedknapp>
                     </Nav.Column>
                 </Nav.Row>
             </Nav.Panel>

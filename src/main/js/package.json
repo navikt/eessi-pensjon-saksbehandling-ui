@@ -5,10 +5,7 @@
   "scripts": {
     "less": "autoless --no-watch src",
     "lint": "eslint --ext .js src",
-    "start:dev-react": "cross-env NODE_ENV=development react-scripts start",
-    "start:dev-node": "cross-env NODE_ENV=development node src/server.js",
-    "start:prod-local": "cross-env NODE_ENV=production node src/server.js",
-    "start:prod": "cross-env NODE_ENV=production node server.js",
+    "start": "cross-env NODE_ENV=development react-scripts start",
     "prebuild": "npm run less",
     "build": "react-scripts build",
     "postbuild": "node ./scripts/copy-build-to-resources.js",
