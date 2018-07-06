@@ -13,31 +13,30 @@ import springfox.documentation.swagger2.mappers.SerializableParameterFactories.f
 @Component
 class RestTemplateConfig(val restTemplateBuilder: RestTemplateBuilder) {
 
-    @Value("\${asdf:http://localhost:8081}")
-    lateinit var fagmodulBaseUrl: String
+    @Value("\${fagmodul.url}")
+    lateinit var fagmodulUrl: String
 
-    @Value("\${eux.baseurl:http://localhost:8082}")
-    lateinit var euxBaseUrl: String
-
+    @Value("\${eessibasis.url}")
+    lateinit var basisUrl: String
 
     @Bean
     fun euxRestTemplate(): RestTemplate {
-        return restTemplateBuilder
-            .rootUri(euxBaseUrl)
+        val restTemplate = restTemplateBuilder
+            .rootUri(basisUrl)
             .errorHandler(DefaultResponseErrorHandler())
-            //.additionalInterceptors(RequestResponseLoggerInterceptor())
             .additionalInterceptors(OidcHeaderRequestInterceptor())
-            //.requestFactory(SimpleClientHttpRequestFactory::class.java)
-            //.requestFactory(BufferingClientHttpRequestFactory::class.java)
             .build()
+            //must be add for logging or data is lost after logging.
+            val factory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory())
+            restTemplate.requestFactory = factory
+            return restTemplate
     }
 
     @Bean
     fun fagmodulRestTemplate(): RestTemplate {
         return restTemplateBuilder
-            .rootUri(fagmodulBaseUrl)
+            .rootUri(fagmodulUrl)
             .errorHandler(DefaultResponseErrorHandler())
-            //.additionalInterceptors(RequestResponseLoggerInterceptor())
             .additionalInterceptors(OidcHeaderRequestInterceptor())
             .build()
     }

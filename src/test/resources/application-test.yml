@@ -1,6 +1,10 @@
 server:
     port: 8080
 
+app:
+  name: TEST
+  version: 0.1
+
 freg:
   security:
     oidc:
@@ -21,3 +25,10 @@ freg:
 credential:
   username: 'srvPensjon'
   password: 'Ash5SoxP'
+
+eessibasis:
+  url:  'http://example.com:8089'
+
+fagmodul:
+  url: 'http://example.com:8081'
+

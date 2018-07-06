@@ -39,15 +39,23 @@ class ApiController(private val euxService: EuxService) {
 
     @ApiOperation("henter liste av alle tilgjengelige instusjoner fra EUX")
     @GetMapping("/institutions")
-    fun getInstitutions(@RequestParam(value = "buc", required = false, defaultValue = "") buc: String,
-                        @RequestParam(value = "landkode", required = false, defaultValue  = "") landkode: String): List<String> {
+    fun getInstitutions(): List<String> {
         return euxService.getCachedInstitusjoner()
-        //return euxService.getInstitusjoner(buc, landkode)
     }
 
     @GetMapping("/institutions/{countrycode}")
     fun getInstitutionsWithCountry(@PathVariable(value = "countrycode", required = false) landkode: String = ""): List<String> {
         return euxService.getInstitusjoner("",landkode)
+    }
+
+    @GetMapping("/countrycode")
+    fun getCountryCode() : List<String> {
+        return listOf("NO","SE","DK","FI")
+    }
+
+    @GetMapping("/subjectarea")
+    fun getSubjectArea() : List<String> {
+        return listOf("Pensjon")
     }
 
 }
