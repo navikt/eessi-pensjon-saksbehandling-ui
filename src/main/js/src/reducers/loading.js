@@ -40,10 +40,22 @@ export default function (state = {}, action = {}) {
             countryList : true
         });
 
+    case types.GET_RINA_URL_REQUEST:
+
+        return Object.assign({}, state, {
+            rinaurl : true
+        });
+
     case types.USERCASE_POST_REQUEST:
 
         return Object.assign({}, state, {
             postcase : true
+        });
+
+    case types.USERCASE_DATA_TO_GENERATE_REQUEST:
+
+        return Object.assign({}, state, {
+            generatecase : true
         });
 
     case types.USERCASE_GET_CASE_SUCCESS:
@@ -93,6 +105,20 @@ export default function (state = {}, action = {}) {
 
         return Object.assign({}, state, {
             postcase : false
+        });
+
+    case types.USERCASE_DATA_TO_GENERATE_SUCCESS:
+    case types.USERCASE_DATA_TO_GENERATE_FAILURE:
+
+        return Object.assign({}, state, {
+            generatecase : false
+        });
+
+    case types.GET_RINA_URL_SUCCESS:
+    case types.GET_RINA_URL_FAILURE:
+
+        return Object.assign({}, state, {
+            rinaurl : false
         });
 
     default:

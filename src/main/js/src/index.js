@@ -16,7 +16,8 @@ import registerServiceWorker from './registerServiceWorker';
 import Index from './pages/Index';
 import GetCase from './pages/GetCase';
 import EditCase from './pages/EditCase';
-import ConfirmEditCase from './pages/ConfirmEditCase';
+import ConfirmCase from './pages/ConfirmCase';
+import GenerateCase from './pages/GenerateCase';
 import EndCase from './pages/EndCase';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -44,11 +45,12 @@ ReactDOM.render(
         <Provider store={store}>
             <ConnectedRouter history={history}>
                 <Switch>
-                    <Route exact path='/react/get'     component={GetCase}/>
-                    <Route       path='/react/get/:id' component={EditCase}/>
-                    <Route exact path='/react/confirm' component={ConfirmEditCase}/>
-                    <Route exact path='/react/end'     component={EndCase}/>
-                    <Route       path='/'             component={Index}/>
+                    <Route exact path='/react/get'      component={GetCase}/>
+                    <Route       path='/react/get/:id'  component={EditCase}/>
+                    <Route exact path='/react/confirm'  component={ConfirmCase}/>
+                    <Route exact path='/react/generate' component={GenerateCase}/>
+                    <Route exact path='/react/end'      component={EndCase}/>
+                    <Route       path='/'               component={Index}/>
                 </Switch>
             </ConnectedRouter>
         </Provider>

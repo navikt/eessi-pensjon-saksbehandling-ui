@@ -34,11 +34,22 @@ export default function (state = {}, action = {}) {
             countryList : action.payload
         });
 
+    case types.USERCASE_DATA_TO_CONFIRM_SUCCESS:
+
+        return Object.assign({}, state, {
+            dataToConfirm  : action.payload
+        });
+
+    case types.USERCASE_DATA_TO_GENERATE_SUCCESS:
+
+        return Object.assign({}, state, {
+            dataToGenerate : action.payload
+        });
+
     case types.USERCASE_POST_SUCCESS:
 
         return Object.assign({}, state, {
-            dataSubmitted : action.payload,
-            dataToConfirm : undefined
+            dataSubmitted : action.payload
         });
 
     case types.USERCASE_GET_CASE_SUCCESS:
@@ -53,17 +64,10 @@ export default function (state = {}, action = {}) {
             currentCase  : undefined
         });
 
-    case types.USERCASE_DATA_TO_CONFIRM:
+    case types.GET_RINA_URL_SUCCESS:
 
         return Object.assign({}, state, {
-            dataToConfirm : action.payload,
-            action        : 'forward'
-        });
-
-    case types.USERCASE_DATA_TO_CONFIRM_CANCEL:
-
-        return Object.assign({}, state, {
-            action : 'back'
+            rinaurl : action.payload
         });
 
     default:

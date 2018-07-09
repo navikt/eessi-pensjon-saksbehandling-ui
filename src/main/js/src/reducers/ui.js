@@ -10,6 +10,18 @@ export default function (state = {}, action = {}) {
             language : action.payload
         });
 
+    case types.NAVIGATION_FORWARD:
+
+        return Object.assign({}, state, {
+            action : 'forward'
+        });
+
+    case types.NAVIGATION_BACK:
+
+        return Object.assign({}, state, {
+            action : 'back'
+        });
+
     default:
 
         return state;
