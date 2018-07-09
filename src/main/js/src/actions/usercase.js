@@ -84,18 +84,24 @@ export function getSedList (buc) {
 export function dataToConfirm (params) {
     return (dispatch) => {
         dispatch({
-            type    : types.USERCASE_DATA_TO_CONFIRM,
+            type    : types.USERCASE_DATA_TO_CONFIRM_SUCCESS,
             payload : params
         })
     };
 }
 
-export function cancelDataToConfirm () {
-    return (dispatch) => {
-        dispatch({
-            type : types.USERCASE_DATA_TO_CONFIRM_CANCEL
-        })
-    };
+export function generateData (params) {
+
+    return api.call({
+        url: urls.GENERATE_URL,
+        method: 'POST',
+        payload: params,
+        type: {
+            request : types.USERCASE_DATA_TO_GENERATE_REQUEST,
+            success : types.USERCASE_DATA_TO_GENERATE_SUCCESS,
+            failure : types.USERCASE_DATA_TO_GENERATE_FAILURE
+        }
+    });
 }
 
 export function submitData (params) {
@@ -107,6 +113,18 @@ export function submitData (params) {
             request : types.USERCASE_POST_REQUEST,
             success : types.USERCASE_POST_SUCCESS,
             failure : types.USERCASE_POST_FAILURE
+        }
+    });
+}
+
+export function getRinaUrl () {
+    return api.call({
+        url: urls.RINA_URL,
+        method: 'GET',
+        type: {
+            request : types.GET_RINA_URL_REQUEST,
+            success : types.GET_RINA_URL_SUCCESS,
+            failure : types.GET_RINA_URL_FAILURE
         }
     });
 }

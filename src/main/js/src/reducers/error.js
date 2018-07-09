@@ -35,17 +35,12 @@ export default function (state = {}, action = {}) {
     case types.USERCASE_GET_BUC_LIST_REQUEST:
     case types.USERCASE_GET_COUNTRY_LIST_REQUEST:
     case types.USERCASE_POST_REQUEST:
+    case types.USERCASE_DATA_TO_GENERATE_REQUEST:
+    case types.GET_RINA_URL_REQUEST:
 
         return Object.assign({}, state, {
             clientErrorMessage : undefined,
             clientErrorStatus  : undefined
-        });
-
-    case types.USERCASE_GET_CASE_FAILURE:
-
-        return Object.assign({}, state, {
-            clientErrorStatus  : 'ERROR',
-            clientErrorMessage : processError(action.payload)
         });
 
     case types.USERCASE_GET_SUBJECT_AREA_LIST_FAILURE:
@@ -83,7 +78,10 @@ export default function (state = {}, action = {}) {
             clientErrorMessage : 'noCountryList'
         });
 
+    case types.USERCASE_GET_CASE_FAILURE:
+    case types.USERCASE_DATA_TO_GENERATE_FAILURE:
     case types.USERCASE_POST_FAILURE:
+    case types.GET_RINA_URL_FAILURE:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',

@@ -16,16 +16,20 @@
     "chooseSed": "Velg Sed",
     "chooseInstitution": "Velg mottager",
     "confirm" : "Bekrefte",
-    "confirmAndSend": "Bekrefte og sende",
+    "confirmAndGenerate": "Bekrefte og generere",
+    "confirmAndSend": "Bekrefte og lagre",
     "createNew" : "Lager nytt sak",
     "go" : "Gå",
     "caseId" : "SaksId",
+    "caseLink" : "Saken lenke",
     "caseHandler" : "Saksbehandler",
     "remove" : "Slett",
     "search" : "Søk",
     "chooseLanguage" : "Velg språk",
+    "dataGenerated" : "Data generert",
     "dataSubmitted" : "Data sendt",
     "step1" : "Rediger saken",
     "step2" : "Bekrefte saken",
-    "step3" : "Lagre saken"
+    "step3" : "Generere saken",
+    "step4" : "Lagre saken"
 }

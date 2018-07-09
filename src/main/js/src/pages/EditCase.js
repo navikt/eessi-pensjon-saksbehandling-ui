@@ -10,6 +10,7 @@ import * as Nav from '../components/Nav';
 import TopContainer from '../components/TopContainer';
 
 import * as usercaseActions from '../actions/usercase';
+import * as uiActions from '../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
@@ -20,16 +21,17 @@ const mapStateToProps = (state) => {
         countryList     : state.usercase.countryList,
         currentCase     : state.usercase.currentCase,
         dataToConfirm   : state.usercase.dataToConfirm,
-        action          : state.usercase.action,
         errorMessage    : state.error.clientErrorMessage,
         errorStatus     : state.error.clientErrorStatus,
         language        : state.ui.language,
+        action          : state.ui.action,
         loading         : state.loading
     };
 };
 
+
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, usercaseActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, usercaseActions, uiActions), dispatch)};
 };
 
 class EditCase extends Component {
@@ -95,18 +97,16 @@ class EditCase extends Component {
             history.push('/react/get');
         }
 
-        if (nextProps.dataToConfirm) {
-
-            if (nextProps.action === 'forward') {
-                history.push('/react/confirm');
-            }
+        if (nextProps.dataToConfirm && nextProps.action === 'forward') {
+            history.push('/react/confirm');
         }
     }
 
     onBackButtonClick() {
 
-        const { history } = this.props;
-        history.goBack();
+        const { history, actions } = this.props;
+        actions.navigateBack();
+        history.push('/react/get');
     }
 
     onForwardButtonClick() {
@@ -116,6 +116,8 @@ class EditCase extends Component {
         this.performAllValidations();
 
         if (this.noValidationErrors()) {
+
+            actions.navigateForward();
             actions.dataToConfirm({
                 'institutions' : this.state.institutions,
                 'buc'          : this.state.buc,
@@ -433,7 +435,7 @@ class EditCase extends Component {
 
     render() {
 
-        const { t, currentCase, errorMessage, errorStatus, loading } = this.props;
+        const { t, currentCase, errorMessage, errorStatus, action, loading } = this.props;
 
         if (!currentCase) {
             return null;
@@ -482,7 +484,7 @@ class EditCase extends Component {
                 {this.renderInstitutions()}
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
-                        <Nav.Knapp className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
+                        {action === 'forward' ? <Nav.Knapp className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp> : null}
                         <Nav.Hovedknapp disabled={!this.noValidationErrors()} onClick={this.onForwardButtonClick.bind(this)}>{t('ui:go')}</Nav.Hovedknapp>
                     </Nav.Column>
                 </Nav.Row>

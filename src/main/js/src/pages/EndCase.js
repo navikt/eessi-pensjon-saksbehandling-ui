@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { bindActionCreators }  from 'redux';
+import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 
@@ -7,14 +8,33 @@ import StepIndicator from '../components/StepIndicator';
 import * as Nav from '../components/Nav';
 import TopContainer from '../components/TopContainer';
 
+import * as usercaseActions from '../actions/usercase';
+
 const mapStateToProps = (state) => {
     return {
         dataSubmitted : state.usercase.dataSubmitted,
-        language      : state.ui.language
+        language      : state.ui.language,
+        rinaUrl       : state.usercase.rinaurl,
+        rinaLoading   : state.loading.rinaurl
     };
 };
 
+const mapDispatchToProps = (dispatch) => {
+    return {actions: bindActionCreators(Object.assign({}, usercaseActions), dispatch)};
+};
+
 class EndCase extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    componentWillMount() {
+
+        let { actions } = this.props;
+        actions.getRinaUrl();
+    }
 
     onForwardButtonClick() {
 
@@ -24,7 +44,17 @@ class EndCase extends Component {
 
     render() {
 
-        let { t, dataSubmitted } = this.props;
+        let { t, dataSubmitted, rinaLoading, rinaUrl } = this.props;
+
+        let body;
+
+        if (rinaLoading) {
+            body = t('loading:loadingRina')
+        }
+
+        if (rinaUrl) {
+            body = <a href={rinaUrl + dataSubmitted.euxcaseid}>t('ui:caseLink')</a>
+        }
 
         return <TopContainer>
             <Nav.Panel>
@@ -40,12 +70,12 @@ class EndCase extends Component {
                 </Nav.Row>
                 <Nav.Row className='mt-4 text-center'>
                     <Nav.Column>
-                        <StepIndicator activeStep={2}/>
+                        <StepIndicator activeStep={3}/>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
-                        {JSON.stringify(dataSubmitted)}
+                        {body}
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4'>
@@ -59,15 +89,17 @@ class EndCase extends Component {
 }
 
 EndCase.propTypes = {
-    actions       :  PropTypes.object,
-    history       :  PropTypes.object,
-    dataSubmitted : PropTypes.object,
-    t             : PropTypes.func
+    actions       : PT.object,
+    history       : PT.object,
+    dataSubmitted : PT.object,
+    t             : PT.func,
+    rinaLoading   : PT.bool,
+    rinaUrl       : PT.string
 };
 
 export default connect(
     mapStateToProps,
-    {}
+    mapDispatchToProps
 )(
     translate()(EndCase)
 );

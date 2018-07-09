@@ -1,9 +1,11 @@
 {
     "buc" : "Loading BUC...",
     "getcase":  "Loading case...",
+    "generatecase":  "Generating case..",
     "institution" : "Loading institutions...",
     "postcase":  "Sending case...",
     "sed" : "Loading SED...",
     "country" : "Loading countries...",
     "subjectArea" : "Loading subject area..."
+    "rinaurl" : "Getting URL..."
 }
