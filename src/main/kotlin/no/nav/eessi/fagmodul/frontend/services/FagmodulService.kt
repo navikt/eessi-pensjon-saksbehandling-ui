@@ -2,6 +2,7 @@ package no.nav.eessi.fagmodul.frontend.services
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import no.nav.eessi.fagmodul.frontend.models.FrontendRequest
+import no.nav.eessi.fagmodul.frontend.models.SED
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpEntity
@@ -23,6 +24,17 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
     fun create(frontRequest: FrontendRequest): String? {
         logger.debug("create reqeust to fagmodul : $frontRequest")
         val path = "/create"
+
+        val builder = UriComponentsBuilder.fromPath("$FAG_PATH$path")
+        val httpEntity = HttpEntity(frontRequest, HttpHeaders())
+
+        val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, String::class.java)
+        return response.body
+    }
+
+    fun confirm(frontRequest: FrontendRequest): String? {
+        logger.debug("create reqeust to fagmodul : $frontRequest")
+        val path = "/confirm"
 
         val builder = UriComponentsBuilder.fromPath("$FAG_PATH$path")
         val httpEntity = HttpEntity(frontRequest, HttpHeaders())

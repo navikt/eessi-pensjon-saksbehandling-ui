@@ -23,5 +23,11 @@ class FagmodulController(private val service: FagmodulService) {
             return service.create(request)
     }
 
+    @ApiOperation("kjører prosess OpprettBuCogSED på EUX for å få dokuemt opprett i Rina")
+    @PostMapping("/confirm")
+    fun confirmDocument(@RequestBody request: FrontendRequest): String? {
+        logger.debug("request model : $request")
+        return service.confirm(request)
+    }
 
 }
