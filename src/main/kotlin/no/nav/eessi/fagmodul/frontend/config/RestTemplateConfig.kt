@@ -8,8 +8,6 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory
 import org.springframework.stereotype.Component
 import org.springframework.web.client.DefaultResponseErrorHandler
 import org.springframework.web.client.RestTemplate
-import springfox.documentation.swagger2.mappers.SerializableParameterFactories.factory
-import java.util.function.Supplier
 
 @Component
 class RestTemplateConfig(val restTemplateBuilder: RestTemplateBuilder) {

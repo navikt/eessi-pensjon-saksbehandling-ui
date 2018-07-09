@@ -1,9 +1,6 @@
 package no.nav.eessi.fagmodul.frontend.controllers
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.nhaarman.mockito_kotlin.whenever
-import no.nav.eessi.fagmodul.frontend.models.FrontendRequest
-import no.nav.eessi.fagmodul.frontend.models.Institusjon
 import no.nav.eessi.fagmodul.frontend.services.EuxService
 import org.junit.Assert
 import org.junit.Before

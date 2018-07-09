@@ -3,21 +3,24 @@ package no.nav.eessi.fagmodul.frontend.no.nav.eessi.fagmodul.frontend.controller
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.whenever
-import no.nav.eessi.fagmodul.frontend.controllers.ApiController
 import no.nav.eessi.fagmodul.frontend.controllers.FagmodulController
 import no.nav.eessi.fagmodul.frontend.models.FrontendRequest
-import no.nav.eessi.fagmodul.frontend.services.EuxService
 import no.nav.eessi.fagmodul.frontend.services.FagmodulService
+import no.nav.eessi.fagmodul.frontend.utils.mapAnyToJson
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 @RunWith(MockitoJUnitRunner::class)
 class FagmodulControllerTest {
+
+    private val logger: Logger by lazy { LoggerFactory.getLogger(FagmodulControllerTest::class.java) }
 
     @Mock
     lateinit var mockFagmodulService: FagmodulService
@@ -50,6 +53,8 @@ class FagmodulControllerTest {
         val map = jacksonObjectMapper()
         val mockResponse = map.readValue(json, FrontendRequest::class.java)
         assertNotNull(mockResponse)
+
+        logger.debug(mapAnyToJson(mockResponse))
 
         whenever(mockFagmodulService.create(any())).thenReturn("123456")
 
