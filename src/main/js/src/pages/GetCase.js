@@ -71,7 +71,7 @@ class GetCase extends Component {
                 <Nav.Row className='mt-4'>
                     <Nav.Column>{t('content:getCaseDescription')}</Nav.Column>
                 </Nav.Row>
-                <Nav.Row className='mt-4 text-left'>
+                <Nav.Row className='mt-4 text-center'>
                     <Nav.Column>{alert}</Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4 text-left'>

@@ -4,6 +4,7 @@ import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 
+import StepIndicator from '../components/StepIndicator';
 import * as Nav from '../components/Nav';
 import TopContainer from '../components/TopContainer';
 
@@ -80,6 +81,11 @@ class ConfirmEditCase extends Component {
                 <Nav.Row className='mt-4 text-center'>
                     <Nav.Column>{alert}</Nav.Column>
                 </Nav.Row>
+                <Nav.Row className='mt-4 text-center'>
+                    <Nav.Column>
+                        <StepIndicator activeStep={1}/>
+                    </Nav.Column>
+                </Nav.Row>
                 <Nav.Row className='mt-4 mb-4 text-left'>
                     <Nav.Column>
                         <div>{t('ui:caseId')}: {dataToConfirm.caseId}</div>
@@ -91,7 +97,7 @@ class ConfirmEditCase extends Component {
                 </Nav.Row>
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
-                        <Nav.Knapp className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:tilbake')}</Nav.Knapp>
+                        <Nav.Knapp className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
                         <Nav.Hovedknapp spinner={spinner} onClick={this.onButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
                     </Nav.Column>
                 </Nav.Row>
@@ -104,11 +110,11 @@ ConfirmEditCase.propTypes = {
     actions       : PT.object.isRequired,
     history       : PT.object.isRequired,
     loading       : PT.object.isRequired,
-    t             : PT.func,
-    dataToConfirm : PT.object,
+    t             : PT.func.isRequired,
+    dataToConfirm : PT.object.isRequired,
     dataSubmitted : PT.object,
-    errorStatus   : PT.object,
-    errorMessage  : PT.object
+    errorStatus   : PT.string,
+    errorMessage  : PT.string
 };
 
 export default connect(

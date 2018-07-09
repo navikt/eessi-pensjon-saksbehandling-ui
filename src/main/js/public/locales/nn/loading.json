@@ -3,5 +3,7 @@
     "postcase":  "NN_Lagring saken..",
     "institution" : "NN_Henter institutjoner...",
     "buc" : "NN_Henter BUC...",
-    "sed" : "NN_Henter SED..."
+    "sed" : "NN_Henter SED...",
+    "country" : "NN__Henter land...",
+    "subjectArea" : "NN_Henter fagområde..."
 }

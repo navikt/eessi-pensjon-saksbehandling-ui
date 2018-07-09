@@ -28,7 +28,7 @@ class TopHeader extends Component {
 }
 
 TopHeader.propTypes = {
-    t : PT.funct
+    t : PT.func.isRequired
 };
 
 export default translate()(TopHeader);

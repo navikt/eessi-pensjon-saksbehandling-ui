@@ -12,7 +12,7 @@ function processError(error) {
             errorMessage.push(error.error);
         }
     }
-     if (error.serverMessage) {
+    if (error.serverMessage) {
         errorMessage.push(error.serverMessage);
     }
     return errorMessage.join(' ');
@@ -43,45 +43,45 @@ export default function (state = {}, action = {}) {
 
     case types.USERCASE_GET_CASE_FAILURE:
 
-         return Object.assign({}, state, {
-               clientErrorStatus  : 'ERROR',
-               clientErrorMessage : processError(action.payload)
-         });
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'ERROR',
+            clientErrorMessage : processError(action.payload)
+        });
 
     case types.USERCASE_GET_SUBJECT_AREA_LIST_FAILURE:
 
-         return Object.assign({}, state, {
-               clientErrorStatus  : 'ERROR',
-               clientErrorMessage : 'noSubjectAreaList'
-         });
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'ERROR',
+            clientErrorMessage : 'noSubjectAreaList'
+        });
 
     case types.USERCASE_GET_INSTITUTION_LIST_FAILURE:
 
-         return Object.assign({}, state, {
-               clientErrorStatus  : 'ERROR',
-               clientErrorMessage : 'noInstitutionList'
-         });
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'ERROR',
+            clientErrorMessage : 'noInstitutionList'
+        });
 
     case types.USERCASE_GET_SED_LIST_FAILURE:
 
-         return Object.assign({}, state, {
-               clientErrorStatus  : 'ERROR',
-               clientErrorMessage : 'noSedList'
-         });
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'ERROR',
+            clientErrorMessage : 'noSedList'
+        });
 
     case types.USERCASE_GET_BUC_LIST_FAILURE:
 
-         return Object.assign({}, state, {
-               clientErrorStatus  : 'ERROR',
-               clientErrorMessage : 'noBucList'
-         });
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'ERROR',
+            clientErrorMessage : 'noBucList'
+        });
 
     case types.USERCASE_GET_COUNTRY_LIST_FAILURE:
 
-         return Object.assign({}, state, {
-               clientErrorStatus  : 'ERROR',
-               clientErrorMessage : 'noCountryList'
-         });
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'ERROR',
+            clientErrorMessage : 'noCountryList'
+        });
 
     case types.USERCASE_POST_FAILURE:
 

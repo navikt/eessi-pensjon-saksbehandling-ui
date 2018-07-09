@@ -1,5 +1,6 @@
 {
     "allCountries" : "All countries",
+    "back" : "Back",
     "buc" : "BUC",
     "subjectArea": "Subject area",
     "caseFound" : "Case found",
@@ -23,5 +24,8 @@
     "search" : "Search",
     "sed" : "SED",
     "start" : "Start",
+    "step1" : "Edit case",
+    "step2" : "Confirm case",
+    "step3" : "Create case",
     "remove" : "Remove"
 }

@@ -1,5 +1,7 @@
 {
+    "allCountries" : "NN_Alle land",
     "start" : "NN_Start",
+    "back" : "NN_Tilbake",
     "subjectArea": "NN_Fagområde",
     "country" : "NN_Land",
     "institution"  : "NN_Mottager",
@@ -22,5 +24,8 @@
     "caseHandler" : "NN_Saksbehandler",
     "search" : "NN_Søk",
     "chooseLanguage" : "NN_Velg språk",
-    "dataSubmitted" : "NN_Data sendt"
+    "dataSubmitted" : "NN_Data sendt",
+    "step1" : "NN_Rediger saken",
+    "step2" : "NN_Bekrefte saken",
+    "step3" : "NN_Lagre saken"
 }

@@ -5,6 +5,7 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import { translate } from 'react-i18next';
 
+import StepIndicator from '../components/StepIndicator';
 import * as Nav from '../components/Nav';
 import TopContainer from '../components/TopContainer';
 
@@ -169,7 +170,7 @@ class EditCase extends Component {
         if (!institutions || Object.keys(institutions).length === 0) {
             this.setValidationState('institutionaFail', t('validation:chooseInstitutions'));
         } else {
-             this.resetValidationState('institutionsFail');
+            this.resetValidationState('institutionsFail');
         }
     }
 
@@ -275,7 +276,7 @@ class EditCase extends Component {
         this.setState({country: country, institution: undefined})
         this.validateCountry(country);
         if (!this.state.validation.countryFail) {
-            if (country != this.state.defaultSelects.country) {
+            if (country !== this.state.defaultSelects.country) {
                 actions.getInstitutionListForCountry(country);
             } else {
                 actions.getInstitutionList();
@@ -288,13 +289,16 @@ class EditCase extends Component {
         const { t } = this.props;
 
         if (!map || Object.keys(map).length === 0) {
-            return null;
+            map = [{
+                key: this.state.defaultSelects[type],
+                value: t('ui:' + this.state.defaultSelects[type])
+            }];
         }
 
         if (!map[0].key || (map[0].key && map[0].key !== this.state.defaultSelects[type])) {
             map.unshift({
-               key: this.state.defaultSelects[type],
-               value: t('ui:' + this.state.defaultSelects[type])
+                key: this.state.defaultSelects[type],
+                value: t('ui:' + this.state.defaultSelects[type])
             });
         }
         return map.map(el => {
@@ -370,10 +374,11 @@ class EditCase extends Component {
 
         const { t } = this.props;
 
-        return <Nav.Row className='mt-2'>
+        let renderedInstitution = (institution.country && institution.country !== this.state.defaultSelects.country ? institution.country + '/' : '') + institution.institution;
+
+        return <Nav.Row key={renderedInstitution} className='mt-2'>
             <Nav.Column style={{lineHeight: '2rem'}}>
-                <b>{institution.country && institution.country !== this.state.defaultSelects.country ? institution.country + '/' : ''}</b>
-                <b>{institution.institution}</b>
+                <b>{renderedInstitution}</b>
             </Nav.Column>
             <Nav.Column>
                 <Nav.Knapp type='standard' onClick={this.onRemoveInstitutionButtonClick.bind(this, institution)}>{t('ui:remove')}</Nav.Knapp>
@@ -395,7 +400,7 @@ class EditCase extends Component {
 
         let validInstitution = (!this.state.validation.countryFail && !this.state.validation.institutionFail) && this.state.institution;
 
-        renderedInstitutions.push(<Nav.Row className='mt-4'>
+        renderedInstitutions.push(<Nav.Row key={'newInstitution'} className='mt-4'>
             <Nav.Column>
                 <div>{this.renderCountry()}</div>
                 <div className='mt-4'>
@@ -448,6 +453,11 @@ class EditCase extends Component {
                 <Nav.Row className='mt-4 text-center'>
                     <Nav.Column>{alert}</Nav.Column>
                 </Nav.Row>
+                <Nav.Row className='mt-4 text-center'>
+                    <Nav.Column>
+                        <StepIndicator activeStep={0}/>
+                    </Nav.Column>
+                </Nav.Row>
                 <Nav.Row className='mt-4 align-middle text-left'>
                     <Nav.Column>{this.renderSubjectArea()}</Nav.Column>
                     <Nav.Column className='mt-4'>
@@ -472,7 +482,7 @@ class EditCase extends Component {
                 {this.renderInstitutions()}
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
-                        <Nav.Knapp className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:tilbake')}</Nav.Knapp>
+                        <Nav.Knapp className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
                         <Nav.Hovedknapp disabled={!this.noValidationErrors()} onClick={this.onForwardButtonClick.bind(this)}>{t('ui:go')}</Nav.Hovedknapp>
                     </Nav.Column>
                 </Nav.Row>
@@ -487,11 +497,12 @@ EditCase.propTypes = {
     loading          : PT.object,
     t                : PT.func,
     match            : PT.object,
-    subjectAreaList  : PT.Array,
-    institutionList  : PT.Array,
-    countryList      : PT.Array,
-    sedList          : PT.Array,
-    bucList          : PT.Array,
+    action           : PT.string,
+    subjectAreaList  : PT.array,
+    institutionList  : PT.array,
+    countryList      : PT.array,
+    sedList          : PT.array,
+    bucList          : PT.array,
     dataToConfirm    : PT.object,
     errorMessage     : PT.string,
     errorStatus      : PT.string

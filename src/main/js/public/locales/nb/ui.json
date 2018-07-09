@@ -1,5 +1,6 @@
 {
     "allCountries" : "Alle land",
+    "back" : "Tilbake",
     "start" : "start",
     "subjectArea": "Fagområde",
     "country" : "Land",
@@ -23,5 +24,8 @@
     "remove" : "Slett",
     "search" : "Søk",
     "chooseLanguage" : "Velg språk",
-    "dataSubmitted" : "Data sendt"
+    "dataSubmitted" : "Data sendt",
+    "step1" : "Rediger saken",
+    "step2" : "Bekrefte saken",
+    "step3" : "Lagre saken"
 }
