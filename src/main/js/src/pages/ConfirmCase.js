@@ -77,6 +77,7 @@ class ConfirmCase extends Component {
 
         let alert;
         let spinner = loading && loading.generatecase;
+
         let buttonText = spinner ? t('loading:generatecase') : t('ui:confirmAndGenerate');
 
         if (errorStatus) {
