@@ -100,7 +100,7 @@ export function cancelDataToConfirm () {
 
 export function submitData (params) {
     return api.call({
-        url: urls.CASESUBMIT_URL,
+        url: urls.FAG_CREATE_URL,
         method: 'POST',
         payload: params,
         type: {
