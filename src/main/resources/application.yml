@@ -30,4 +30,4 @@ fagmodul:
   url: 'https://eessi-fagmodul-t8.nais.preprod.local'
 
 rina:
-   url: "http://rina-oppl-utv004.adeo.no/portal/#/caseManagement/"
+   url: 'http://rina-oppl-utv004.adeo.no/portal/#/caseManagement/'
