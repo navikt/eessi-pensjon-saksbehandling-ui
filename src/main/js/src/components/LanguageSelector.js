@@ -3,6 +3,7 @@ import PT from 'prop-types';
 import { bindActionCreators }  from 'redux';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
+import i18n from '../i18n';
 
 import * as Nav from './Nav'
 import * as languageActions from '../actions/language';
@@ -28,7 +29,9 @@ class LanguageSelector extends Component {
     render () {
 
         let { t, language } = this.props;
-        return <Nav.Select label={t('ui:chooseLanguage')} value={language} onChange={this.changeLanguage.bind(this)}>
+        let thisLanguage = language || i18n.language;
+
+        return <Nav.Select label={t('ui:chooseLanguage')} value={thisLanguage} onChange={this.changeLanguage.bind(this)}>
             <option value='en'>English</option>
             <option value='nb'>Bokmål</option>
             <option value='nn'>Nynorsk</option>
@@ -37,7 +40,7 @@ class LanguageSelector extends Component {
 }
 
 LanguageSelector.propTypes = {
-    language : PT.string.isRequired,
+    language : PT.string,
     t        : PT.func.isRequired,
     actions  : PT.object.isRequired
 }

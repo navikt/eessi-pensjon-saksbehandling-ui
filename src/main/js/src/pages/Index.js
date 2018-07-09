@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
@@ -17,9 +18,9 @@ class Index extends Component {
 
     render() {
 
-        const { t } = this.props;
+        const { t, language } = this.props;
 
-        return <TopContainer>
+        return <TopContainer language={language}>
             <Nav.Panel className='panel'>
                 <Nav.Row>
                     <Nav.Column>{t('content:indexDescription')}</Nav.Column>
@@ -31,7 +32,9 @@ class Index extends Component {
                 </Nav.Row>
                 <Nav.Row className='mt-4 text-left'>
                     <Nav.Column>
-                        <Nav.Lenkepanel href="/react/get">{t('ui:createNewCase')}</Nav.Lenkepanel>
+                        <Link to='/react/get'>
+                            <Nav.Lenkepanel href="#">{t('ui:createNewCase')}</Nav.Lenkepanel>
+                        </Link>
                     </Nav.Column>
                 </Nav.Row>
             </Nav.Panel>

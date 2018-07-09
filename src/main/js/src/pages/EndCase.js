@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 
+import StepIndicator from '../components/StepIndicator';
 import * as Nav from '../components/Nav';
 import TopContainer from '../components/TopContainer';
 
@@ -35,6 +36,11 @@ class EndCase extends Component {
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
                         <Nav.AlertStripe type='suksess'>{t('ui:dataSubmitted')}</Nav.AlertStripe>
+                    </Nav.Column>
+                </Nav.Row>
+                <Nav.Row className='mt-4 text-center'>
+                    <Nav.Column>
+                        <StepIndicator activeStep={2}/>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4'>

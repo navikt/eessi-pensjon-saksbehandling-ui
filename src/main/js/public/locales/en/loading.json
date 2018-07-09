@@ -3,5 +3,7 @@
     "getcase":  "Loading case...",
     "institution" : "Loading institutions...",
     "postcase":  "Sending case...",
-    "sed" : "Loading SED..."
+    "sed" : "Loading SED...",
+    "country" : "Loading countries...",
+    "subjectArea" : "Loading subject area..."
 }
