@@ -27,8 +27,6 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
         val builder = UriComponentsBuilder.fromPath("$FAG_PATH$path")
         val httpEntity = HttpEntity(frontRequest, HttpHeaders())
 
-        logger.debug("handler uri : " + fagmodulRestTemplate.uriTemplateHandler.toString())
-
         val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, String::class.java)
         return response.body
     }
