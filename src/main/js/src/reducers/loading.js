@@ -4,10 +4,10 @@ export default function (state = {}, action = {}) {
 
     switch (action.type) {
 
-    case types.USERCASE_GET_CASE_REQUEST:
+    case types.USERCASE_GET_CASE_NUMBER_REQUEST:
 
         return Object.assign({}, state, {
-            getcase : true
+            gettingCase : true
         });
 
     case types.USERCASE_GET_SUBJECT_AREA_LIST_REQUEST:
@@ -43,26 +43,26 @@ export default function (state = {}, action = {}) {
     case types.GET_RINA_URL_REQUEST:
 
         return Object.assign({}, state, {
-            rinaurl : true
+            rinaUrl : true
         });
 
-    case types.USERCASE_POST_REQUEST:
+    case types.USERCASE_SEND_DATA_REQUEST:
 
         return Object.assign({}, state, {
-            postcase : true
+            sendingCase : true
         });
 
-    case types.USERCASE_DATA_TO_GENERATE_REQUEST:
+    case types.USERCASE_GENERATE_DATA_REQUEST:
 
         return Object.assign({}, state, {
-            generatecase : true
+            generatingCase : true
         });
 
-    case types.USERCASE_GET_CASE_SUCCESS:
-    case types.USERCASE_GET_CASE_FAILURE:
+    case types.USERCASE_GET_CASE_NUMBER_SUCCESS:
+    case types.USERCASE_GET_CASE_NUMBER_FAILURE:
 
         return Object.assign({}, state, {
-            getcase : false
+            gettingCase : false
         });
 
     case types.USERCASE_GET_SUBJECT_AREA_LIST_SUCCESS:
@@ -100,25 +100,25 @@ export default function (state = {}, action = {}) {
             countryList : false
         });
 
-    case types.USERCASE_POST_SUCCESS:
-    case types.USERCASE_POST_FAILURE:
+    case types.USERCASE_SEND_DATA_SUCCESS:
+    case types.USERCASE_SEND_DATA_FAILURE:
 
         return Object.assign({}, state, {
-            postcase : false
+            sendingCase : false
         });
 
-    case types.USERCASE_DATA_TO_GENERATE_SUCCESS:
-    case types.USERCASE_DATA_TO_GENERATE_FAILURE:
+    case types.USERCASE_GENERATE_DATA_SUCCESS:
+    case types.USERCASE_GENERATE_DATA_FAILURE:
 
         return Object.assign({}, state, {
-            generatecase : false
+            generatingCase : false
         });
 
     case types.GET_RINA_URL_SUCCESS:
     case types.GET_RINA_URL_FAILURE:
 
         return Object.assign({}, state, {
-            rinaurl : false
+            rinaUrl : false
         });
 
     default:

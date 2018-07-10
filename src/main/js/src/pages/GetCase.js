@@ -14,7 +14,7 @@ const mapStateToProps = (state) => {
         errorMessage : state.error.clientErrorMessage,
         errorStatus  : state.error.clientErrorStatus,
         currentCase  : state.usercase.currentCase,
-        loading      : state.loading,
+        gettingCase  : state.loading.gettingCase,
         language     : state.ui.language
     }
 };
@@ -62,11 +62,10 @@ class GetCase extends Component {
 
     render() {
 
-        const { t, errorMessage, errorStatus, loading } = this.props;
+        const { t, errorMessage, errorStatus, gettingCase } = this.props;
 
         let alert      = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
-        let spinner    = loading && loading.getcase;
-        let buttonText = spinner ? t('loading:getcase') : t('ui:search');
+        let buttonText = gettingCase ? t('loading:gettingCase') : t('ui:search');
 
         return <TopContainer>
             <Nav.Panel className='panel'>
@@ -94,7 +93,7 @@ class GetCase extends Component {
                 </Nav.Row>
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
-                        <Nav.Hovedknapp spinner={spinner} disabled={this.isButtonDisabled()} onClick={this.onButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                        <Nav.Hovedknapp spinner={gettingCase} disabled={this.isButtonDisabled()} onClick={this.onButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
                     </Nav.Column>
                 </Nav.Row>
             </Nav.Panel>
@@ -106,7 +105,7 @@ GetCase.propTypes = {
     currentCase  : PT.object,
     errorMessage : PT.string,
     errorStatus  : PT.string,
-    loading      : PT.object,
+    gettingCase  : PT.bool,
     actions      : PT.object,
     history      : PT.object,
     t            : PT.func

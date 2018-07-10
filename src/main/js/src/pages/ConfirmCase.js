@@ -19,7 +19,7 @@ const mapStateToProps = (state) => {
         errorStatus    : state.error.clientErrorStatus,
         action         : state.ui.action,
         language       : state.ui.language,
-        loading        : state.loading
+        generatingCase : state.loading.generatingCase
     };
 };
 
@@ -69,16 +69,15 @@ class ConfirmCase extends Component {
 
     render() {
 
-        const { t, dataToConfirm, errorStatus, errorMessage, loading } = this.props;
+        const { t, dataToConfirm, errorStatus, errorMessage, generatingCase } = this.props;
 
         if (!dataToConfirm) {
             return <TopContainer/>
         }
 
         let alert;
-        let spinner = loading && loading.generatecase;
 
-        let buttonText = spinner ? t('loading:generatecase') : t('ui:confirmAndGenerate');
+        let buttonText = generatingCase ? t('loading:generatingCase') : t('ui:confirmAndGenerate');
 
         if (errorStatus) {
             alert = <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe>;
@@ -109,7 +108,7 @@ class ConfirmCase extends Component {
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
                         <Nav.Knapp className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
-                        <Nav.Hovedknapp spinner={spinner} onClick={this.onButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                        <Nav.Hovedknapp spinner={generatingCase} onClick={this.onButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
                     </Nav.Column>
                 </Nav.Row>
             </Nav.Panel>

@@ -93,7 +93,7 @@ class EditCase extends Component {
 
         const { history } = this.props;
 
-        if ( !nextProps.loading.getcase && !nextProps.currentCase) {
+        if ( !nextProps.loading.gettingCase && !nextProps.currentCase) {
             history.push('/react/get');
         }
 
@@ -403,21 +403,21 @@ class EditCase extends Component {
         let validInstitution = (!this.state.validation.countryFail && !this.state.validation.institutionFail) && this.state.institution;
 
         renderedInstitutions.push(<Nav.Row key={'newInstitution'} className='mt-4'>
-            <Nav.Column>
+            <Nav.Column className='col-sm'>
                 <div>{this.renderCountry()}</div>
                 <div className='mt-4'>
                     <Nav.HjelpetekstBase className='d-inline-block' id='country' type='under'>{t('help:country')}</Nav.HjelpetekstBase>
                     <div className='d-inline-block'>{loading && loading.countryList ? this.getSpinner('loading:country'): null}</div>
                 </div>
             </Nav.Column>
-            <Nav.Column>
+            <Nav.Column className='col-sm'>
                 <div>{this.renderInstitution()}</div>
                 <div className='mt-4'>
                     <Nav.HjelpetekstBase className='d-inline-block' id='institution' type='under'>{t('help:institution')}</Nav.HjelpetekstBase>
                     <div className='d-inline-block'>{loading && loading.institutionList ? this.getSpinner('loading:institution'): null}</div>
                 </div>
             </Nav.Column>
-            <Nav.Column style={{lineHeight: '6rem'}}>
+            <Nav.Column className='col-sm' style={{lineHeight: '6rem'}}>
                 <Nav.Hovedknapp disabled={!validInstitution} onClick={this.onCreateInstitutionButtonClick.bind(this)}>{t('ui:create')}</Nav.Hovedknapp>
             </Nav.Column>
         </Nav.Row>);
@@ -441,7 +441,7 @@ class EditCase extends Component {
             return null;
         }
 
-        let alert = <Nav.AlertStripe type='suksess'>{t('ui:caseFound') + ': ' + currentCase.casenumber}</Nav.AlertStripe>
+        let alert = (action === 'forward' ? <Nav.AlertStripe type='suksess'>{t('ui:caseFound') + ': ' + currentCase.casenumber}</Nav.AlertStripe> : null);
 
         if (errorStatus) {
             alert = <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe>;

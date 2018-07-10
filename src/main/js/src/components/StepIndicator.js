@@ -6,18 +6,12 @@ import * as Nav from './Nav'
 
 class StepIndicator extends Component {
 
-    onStepIndicatorChange(e) {
-
-        console.log(e)
-        return false;
-    }
-
     render () {
 
         let { t, activeStep } = this.props;
 
-        return <Nav.Stegindikator onChange={this.onStepIndicatorChange.bind(this)}
-            visLabel={true} onBeforeChange={() => {return false}}
+        return <Nav.Stegindikator visLabel={true} onBeforeChange={() => {return false}}
+            autoResponsiv={true}
             steg={[
                 {label: t('ui:step1'), aktiv: (activeStep === 0)},
                 {label: t('ui:step2'), aktiv: (activeStep === 1)},

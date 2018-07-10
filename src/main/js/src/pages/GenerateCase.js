@@ -7,6 +7,7 @@ import { translate } from 'react-i18next';
 import StepIndicator from '../components/StepIndicator';
 import * as Nav from '../components/Nav';
 import TopContainer from '../components/TopContainer';
+import RenderGeneratedData from '../components/RenderGeneratedData';
 
 import * as usercaseActions from '../actions/usercase';
 import * as uiActions from '../actions/ui';
@@ -18,7 +19,7 @@ const mapStateToProps = (state) => {
         dataSubmitted  : state.usercase.dataSubmitted,
         errorMessage   : state.error.clientErrorMessage,
         errorStatus    : state.error.clientErrorStatus,
-        loading        : state.loading,
+        sendingCase    : state.loading.sendingCase,
         language       : state.ui.language,
         action         : state.ui.action
     };
@@ -71,15 +72,14 @@ class GenerateCase extends Component {
 
     render() {
 
-        const { t, dataToGenerate, errorStatus, errorMessage, loading } = this.props;
+        const { t, dataToGenerate, dataToConfirm, errorStatus, errorMessage, sendingCase } = this.props;
 
         if (!dataToGenerate) {
             return <TopContainer/>
         }
 
         let alert;
-        let spinner = loading && loading.postcase;
-        let buttonText = spinner ? t('loading:postcase') : t('ui:confirmAndSend');
+        let buttonText = sendingCase ? t('loading:sendingCase') : t('ui:confirmAndSend');
 
         if (dataToGenerate) {
             alert = <Nav.AlertStripe type='suksess'>{t('ui:dataGenerated')}</Nav.AlertStripe>
@@ -88,26 +88,7 @@ class GenerateCase extends Component {
         if (errorStatus) {
             alert = <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe>;
         }
-        /*
-data Gernated
 
-{"nav":{
-    "bruker":null,
-    "eessisak":null
-    },
- "sed":"P2000",
- "sedGVer":"4",
- "sedVer":"0",
- "pensjon":{
-    "reduksjon":null,
-    "vedtak":null,
-    "sak":null,
-    "gjenlevende":null,
-    "tilleggsinformasjon":null
- },
- "ignore":null
- }
-*/
 
         return <TopContainer>
             <Nav.Panel>
@@ -124,18 +105,13 @@ data Gernated
                 </Nav.Row>
                 <Nav.Row className='mt-4 mb-4 text-left'>
                     <Nav.Column>
-                        <div>{JSON.stringify(dataToGenerate)}</div>
-                        <div>{t('ui:caseId')}: {dataToGenerate.caseId}</div>
-                        <div>{t('ui:subjectArea')}: {dataToGenerate.subjectArea}</div>
-                        <div>{t('ui:buc')}: {dataToGenerate.buc}</div>
-                        <div>{t('ui:sed')}: {dataToGenerate.sed}</div>
-                        <div>{t('ui:institutions')}: {JSON.stringify(dataToGenerate.institutions)}</div>
+                        <RenderGeneratedData dataToGenerate={dataToGenerate} dataToConfirm={dataToConfirm}/>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
                         <Nav.Knapp className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
-                        <Nav.Hovedknapp spinner={spinner} onClick={this.onButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                        <Nav.Hovedknapp spinner={sendingCase} onClick={this.onButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
                     </Nav.Column>
                 </Nav.Row>
             </Nav.Panel>
@@ -146,7 +122,7 @@ data Gernated
 GenerateCase.propTypes = {
     actions        : PT.object.isRequired,
     history        : PT.object.isRequired,
-    loading        : PT.object.isRequired,
+    sendingCase    : PT.bool.isRequired,
     t              : PT.func.isRequired,
     dataToConfirm  : PT.object,
     dataToGenerate : PT.object.isRequired,

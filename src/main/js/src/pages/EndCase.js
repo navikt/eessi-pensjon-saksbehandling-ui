@@ -13,9 +13,8 @@ import * as usercaseActions from '../actions/usercase';
 const mapStateToProps = (state) => {
     return {
         dataSubmitted : state.usercase.dataSubmitted,
-        language      : state.ui.language,
-        rinaUrl       : state.usercase.rinaurl,
-        rinaLoading   : state.loading.rinaurl
+        rinaUrl       : state.usercase.rinaUrl,
+        rinaLoading   : state.loading.rinaUrl
     };
 };
 
@@ -38,7 +37,8 @@ class EndCase extends Component {
 
     onForwardButtonClick() {
 
-        const { history } = this.props;
+        const { history, actions } = this.props;
+        actions.clearData();
         history.push('/react/get');
     }
 
@@ -50,11 +50,13 @@ class EndCase extends Component {
 
         if (rinaLoading) {
             body = t('loading:loadingRina')
-        }
-
-        if (rinaUrl) {
-            body = <a href={rinaUrl + dataSubmitted.euxcaseid}>{t('ui:caseLink')}</a>
-        }
+        } else {
+            if (rinaUrl && dataSubmitted && dataSubmitted.euxcaseid) {
+                body = <a href={rinaUrl + dataSubmitted.euxcaseid}>{t('ui:caseLink')}</a>
+            } else {
+                body = null;
+            }
+       }
 
         return <TopContainer>
             <Nav.Panel>

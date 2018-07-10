@@ -5,18 +5,19 @@ import * as api   from './api';
 export function getCaseFromCaseNumber (obj) {
 
     return api.call({
-        url: urls.CASE_URL + '/' + obj.caseId,
+        url: urls.GET_CASE_NUMBER_URL + '/' + obj.caseId,
         type: {
-            request : types.USERCASE_GET_CASE_REQUEST,
-            success : types.USERCASE_GET_CASE_SUCCESS,
-            failure : types.USERCASE_GET_CASE_FAILURE
+            request : types.USERCASE_GET_CASE_NUMBER_REQUEST,
+            success : types.USERCASE_GET_CASE_NUMBER_SUCCESS,
+            failure : types.USERCASE_GET_CASE_NUMBER_FAILURE
         }
     });
 }
 
 export function getSubjectAreaList () {
+
     return api.call({
-        url: urls.SUBJECT_AREA_LIST_URL,
+        url: urls.GET_SUBJECT_AREA_LIST_URL,
         type: {
             request : types.USERCASE_GET_SUBJECT_AREA_LIST_REQUEST,
             success : types.USERCASE_GET_SUBJECT_AREA_LIST_SUCCESS,
@@ -26,8 +27,9 @@ export function getSubjectAreaList () {
 }
 
 export function getCountryList () {
+
     return api.call({
-        url: urls.COUNTRY_LIST_URL,
+        url: urls.GET_COUNTRY_LIST_URL,
         type: {
             request : types.USERCASE_GET_COUNTRY_LIST_REQUEST,
             success : types.USERCASE_GET_COUNTRY_LIST_SUCCESS,
@@ -37,8 +39,9 @@ export function getCountryList () {
 }
 
 export function getInstitutionList () {
+
     return api.call({
-        url: urls.INSTITUTION_LIST_URL,
+        url: urls.GET_INSTITUTION_LIST_URL,
         type: {
             request : types.USERCASE_GET_INSTITUTION_LIST_REQUEST,
             success : types.USERCASE_GET_INSTITUTION_LIST_SUCCESS,
@@ -49,8 +52,9 @@ export function getInstitutionList () {
 
 
 export function getInstitutionListForCountry (country) {
+
     return api.call({
-        url: urls.INSTITUTION_LIST_URL + '/' + country,
+        url: urls.GET_INSTITUTION_LIST_URL + '/' + country,
         type: {
             request : types.USERCASE_GET_INSTITUTION_LIST_REQUEST,
             success : types.USERCASE_GET_INSTITUTION_LIST_SUCCESS,
@@ -60,8 +64,9 @@ export function getInstitutionListForCountry (country) {
 }
 
 export function getBucList () {
+
     return api.call({
-        url: urls.BUC_LIST_URL,
+        url: urls.GET_BUC_LIST_URL,
         type: {
             request : types.USERCASE_GET_BUC_LIST_REQUEST,
             success : types.USERCASE_GET_BUC_LIST_SUCCESS,
@@ -71,8 +76,9 @@ export function getBucList () {
 }
 
 export function getSedList (buc) {
+
     return api.call({
-        url: urls.SED_LIST_URL + '/' + buc,
+        url: urls.GET_SED_LIST_URL + '/' + buc,
         type: {
             request : types.USERCASE_GET_SED_LIST_REQUEST,
             success : types.USERCASE_GET_SED_LIST_SUCCESS,
@@ -82,45 +88,50 @@ export function getSedList (buc) {
 }
 
 export function dataToConfirm (params) {
-    return (dispatch) => {
-        dispatch({
-            type    : types.USERCASE_DATA_TO_CONFIRM_SUCCESS,
-            payload : params
-        })
+
+    return ({
+        type    : types.USERCASE_CONFIRM_DATA_SUCCESS,
+        payload : params
+    })
+}
+
+export function clearData() {
+
+    return {
+        type : types.USERCASE_CLEAR_DATA
     };
 }
 
 export function generateData (params) {
 
     return api.call({
-        url: urls.GENERATE_URL,
+        url: urls.GENERATE_DATA_URL,
         method: 'POST',
         payload: params,
         type: {
-            request : types.USERCASE_DATA_TO_GENERATE_REQUEST,
-            success : types.USERCASE_DATA_TO_GENERATE_SUCCESS,
-            failure : types.USERCASE_DATA_TO_GENERATE_FAILURE
+            request : types.USERCASE_GENERATE_DATA_REQUEST,
+            success : types.USERCASE_GENERATE_DATA_SUCCESS,
+            failure : types.USERCASE_GENERATE_DATA_FAILURE
         }
     });
 }
 
 export function submitData (params) {
     return api.call({
-        url: urls.FAG_CREATE_URL,
+        url: urls.SEND_DATA_URL,
         method: 'POST',
         payload: params,
         type: {
-            request : types.USERCASE_POST_REQUEST,
-            success : types.USERCASE_POST_SUCCESS,
-            failure : types.USERCASE_POST_FAILURE
+            request : types.USERCASE_SEND_DATA_REQUEST,
+            success : types.USERCASE_SEND_DATA_SUCCESS,
+            failure : types.USERCASE_SEND_DATA_FAILURE
         }
     });
 }
 
 export function getRinaUrl () {
     return api.call({
-        url: urls.RINA_URL,
-        method: 'GET',
+        url: urls.GET_RINA_URL,
         type: {
             request : types.GET_RINA_URL_REQUEST,
             success : types.GET_RINA_URL_SUCCESS,

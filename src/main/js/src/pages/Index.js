@@ -21,7 +21,7 @@ class Index extends Component {
         const { t, language } = this.props;
 
         return <TopContainer language={language}>
-            <Nav.Panel className='panel'>
+            <Nav.Panel>
                 <Nav.Row>
                     <Nav.Column>{t('content:indexDescription')}</Nav.Column>
                 </Nav.Row>

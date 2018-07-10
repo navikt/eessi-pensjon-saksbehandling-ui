@@ -1,11 +1,11 @@
 {
-    "getcase":  "Henter saken...",
-    "postcase":  "Lagring saken..",
-    "generatecase":  "Genererer saken..",
+    "gettingCase":  "Henter saken...",
+    "sendingCase":  "Lagring saken..",
+    "generatingCase":  "Genererer saken..",
     "institution" : "Henter institutjoner...",
     "buc" : "Henter BUC...",
     "sed" : "Henter SED...",
     "country" : "Henter land...",
     "subjectArea" : "Henter fagområde...",
-    "rinaurl" : "Henter URL..."
+    "rinaUrl" : "Henter URL..."
 }
