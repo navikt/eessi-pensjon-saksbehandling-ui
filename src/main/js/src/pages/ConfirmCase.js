@@ -9,23 +9,25 @@ import * as Nav from '../components/Nav';
 import TopContainer from '../components/TopContainer';
 
 import * as usercaseActions from '../actions/usercase';
+import * as uiActions from '../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
-        dataToConfirm : state.usercase.dataToConfirm,
-        dataSubmitted : state.usercase.dataSubmitted,
-        errorMessage  : state.error.clientErrorMessage,
-        errorStatus   : state.error.clientErrorStatus,
-        loading       : state.loading,
-        language      : state.ui.language
+        dataToConfirm  : state.usercase.dataToConfirm,
+        dataToGenerate : state.usercase.dataToGenerate,
+        errorMessage   : state.error.clientErrorMessage,
+        errorStatus    : state.error.clientErrorStatus,
+        action         : state.ui.action,
+        language       : state.ui.language,
+        loading        : state.loading
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, usercaseActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, usercaseActions, uiActions), dispatch)};
 };
 
-class ConfirmEditCase extends Component {
+class ConfirmCase extends Component {
 
     componentWillMount() {
 
@@ -38,23 +40,31 @@ class ConfirmEditCase extends Component {
 
     componentWillReceiveProps(nextProps) {
 
-        const { history } = this.props;
-        if (nextProps.dataSubmitted) {
-            history.push('/react/end');
+        const { history, action } = this.props;
+        if (nextProps.dataToGenerate && action === 'forward') {
+            history.push('/react/generate');
         }
     }
 
     onBackButtonClick() {
 
         const { history, actions, dataToConfirm } = this.props;
-        actions.cancelDataToConfirm();
+        actions.navigateBack();
         history.push('/react/get/' + dataToConfirm.caseId);
     }
 
     onButtonClick() {
 
         const { actions, dataToConfirm } = this.props;
-        actions.submitData(dataToConfirm);
+
+        actions.navigateForward();
+        actions.generateData({
+            subjectArea   : dataToConfirm.subjectArea,
+            caseId        : dataToConfirm.caseId,
+            buc           : dataToConfirm.buc,
+            sed           : dataToConfirm.sed,
+            institutions  : dataToConfirm.institutions
+        });
     }
 
     render() {
@@ -66,8 +76,9 @@ class ConfirmEditCase extends Component {
         }
 
         let alert;
-        let spinner = loading && loading.postcase;
-        let buttonText = spinner ? t('loading:postcase') : t('ui:confirmAndSend');
+        let spinner = loading && loading.generatecase;
+
+        let buttonText = spinner ? t('loading:generatecase') : t('ui:confirmAndGenerate');
 
         if (errorStatus) {
             alert = <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe>;
@@ -106,20 +117,21 @@ class ConfirmEditCase extends Component {
     }
 }
 
-ConfirmEditCase.propTypes = {
-    actions       : PT.object.isRequired,
-    history       : PT.object.isRequired,
-    loading       : PT.object.isRequired,
-    t             : PT.func.isRequired,
-    dataToConfirm : PT.object.isRequired,
-    dataSubmitted : PT.object,
-    errorStatus   : PT.string,
-    errorMessage  : PT.string
+ConfirmCase.propTypes = {
+    actions        : PT.object.isRequired,
+    history        : PT.object.isRequired,
+    loading        : PT.object.isRequired,
+    t              : PT.func.isRequired,
+    dataToConfirm  : PT.object.isRequired,
+    action         : PT.string,
+    dataToGenerate : PT.object,
+    errorStatus    : PT.string,
+    errorMessage   : PT.string
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(
-    translate()(ConfirmEditCase)
+    translate()(ConfirmCase)
 );

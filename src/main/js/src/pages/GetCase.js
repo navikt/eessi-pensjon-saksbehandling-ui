@@ -7,6 +7,7 @@ import { translate } from 'react-i18next';
 import * as Nav from '../components/Nav';
 import TopContainer from '../components/TopContainer';
 import * as usercaseActions from '../actions/usercase';
+import * as uiActions from '../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
@@ -19,7 +20,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, usercaseActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, usercaseActions, uiActions), dispatch)};
 };
 
 class GetCase extends Component {
@@ -43,6 +44,7 @@ class GetCase extends Component {
     onButtonClick() {
 
         const {actions} = this.props;
+        actions.navigateForward();
         actions.getCaseFromCaseNumber(this.state);
     }
 
