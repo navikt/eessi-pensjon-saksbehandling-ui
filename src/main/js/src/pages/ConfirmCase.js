@@ -7,6 +7,7 @@ import { translate } from 'react-i18next';
 import StepIndicator from '../components/StepIndicator';
 import * as Nav from '../components/Nav';
 import TopContainer from '../components/TopContainer';
+import RenderConfirmData from '../components/RenderConfirmData';
 
 import * as usercaseActions from '../actions/usercase';
 import * as uiActions from '../actions/ui';
@@ -98,17 +99,13 @@ class ConfirmCase extends Component {
                 </Nav.Row>
                 <Nav.Row className='mt-4 mb-4 text-left'>
                     <Nav.Column>
-                        <div>{t('ui:caseId')}: {dataToConfirm.caseId}</div>
-                        <div>{t('ui:subjectArea')}: {dataToConfirm.subjectArea}</div>
-                        <div>{t('ui:buc')}: {dataToConfirm.buc}</div>
-                        <div>{t('ui:sed')}: {dataToConfirm.sed}</div>
-                        <div>{t('ui:institutions')}: {JSON.stringify(dataToConfirm.institutions)}</div>
+                        <RenderConfirmData dataToConfirm={dataToConfirm}/>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
                         <Nav.Knapp className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
-                        <Nav.Hovedknapp spinner={generatingCase} onClick={this.onButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                        <Nav.Hovedknapp disabled={generatingCase} spinner={generatingCase} onClick={this.onButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
                     </Nav.Column>
                 </Nav.Row>
             </Nav.Panel>

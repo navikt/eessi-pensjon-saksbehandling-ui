@@ -57,7 +57,7 @@ class GetCase extends Component {
     }
 
     isButtonDisabled() {
-        return !this.state.caseId && !this.state.caseHandler;
+        return (!this.state.caseId && !this.state.caseHandler) || this.props.gettingCase;
     }
 
     render() {

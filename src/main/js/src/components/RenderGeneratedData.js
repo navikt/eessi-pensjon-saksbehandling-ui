@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 
-import * as Nav from './Nav';
-
 class RenderGeneratedData extends Component {
 
     render () {
