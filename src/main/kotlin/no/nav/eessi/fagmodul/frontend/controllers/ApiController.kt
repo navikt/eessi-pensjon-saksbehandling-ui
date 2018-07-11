@@ -3,9 +3,11 @@ package no.nav.eessi.fagmodul.frontend.controllers
 import io.swagger.annotations.ApiOperation
 import no.nav.eessi.fagmodul.frontend.models.*
 import no.nav.eessi.fagmodul.frontend.services.EuxService
+import no.nav.freg.security.oidc.common.OidcTokenAuthentication
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.bind.annotation.RequestMapping
 import java.util.regex.Pattern.matches
@@ -73,6 +75,11 @@ class ApiController(private val euxService: EuxService) {
         return listOf("Pensjon")
     }
 
+    @GetMapping("/userinfo")
+    fun getUserInfo(): String {
+        val auth = SecurityContextHolder.getContext().authentication as OidcTokenAuthentication
+        return auth.principal
+    }
 }
 
 

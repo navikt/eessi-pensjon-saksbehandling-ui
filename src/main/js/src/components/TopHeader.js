@@ -1,16 +1,40 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators }  from 'redux';
+
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 
 import './TopHeader.css';
 import * as navLogo from '../resources/images/nav.svg';
 
+import * as uiActions from '../actions/ui';
+const mapStateToProps = (state) => {
+    return {
+        userInfo : state.ui.userInfo
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {actions: bindActionCreators(Object.assign({}, uiActions), dispatch)};
+};
+
+
 class TopHeader extends Component {
+
+    componentWillMount() {
+
+        const { userInfo, actions } = this.props;
+
+        if (!userInfo) {
+            actions.getUserInfo();
+        }
+    }
 
     render () {
 
-        let { t } = this.props;
+        let { t, userInfo } = this.props;
 
         return <header className="topplinje">
             <div className="topplinje__brand">
@@ -21,7 +45,7 @@ class TopHeader extends Component {
                 <div className="brand__tittel"><span>{t('content:headerTitle')}</span></div>
             </div>
             <div className="topplinje__saksbehandler">
-                <div className="saksbehandler__navn">Firstname lastname</div>
+                <div className="saksbehandler__navn">{userInfo}</div>
             </div>
         </header>
     }
@@ -31,4 +55,9 @@ TopHeader.propTypes = {
     t : PT.func.isRequired
 };
 
-export default translate()(TopHeader);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(
+    translate()(TopHeader)
+);

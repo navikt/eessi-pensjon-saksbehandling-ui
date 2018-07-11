@@ -58,6 +58,13 @@ export default function (state = {}, action = {}) {
             generatingCase : true
         });
 
+    case types.USER_INFO_REQUEST: {
+
+        return Object.assign({}, state, {
+            gettingUserInfo : true
+        });
+    }
+
     case types.USERCASE_GET_CASE_NUMBER_SUCCESS:
     case types.USERCASE_GET_CASE_NUMBER_FAILURE:
 
@@ -119,6 +126,13 @@ export default function (state = {}, action = {}) {
 
         return Object.assign({}, state, {
             rinaUrl : false
+        });
+
+    case types.USER_INFO_SUCCESS:
+    case types.USER_INFO_FAILURE:
+
+        return Object.assign({}, state, {
+            gettingUserInfo : false
         });
 
     default:

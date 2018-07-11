@@ -7,5 +7,6 @@
     "noBucList" : "Ingen BUC liste",
     "noSedList" : "Ingen SED liste",
     "noCountryList" : "Ingen land liste",
-    "noInstitutionList" : "Ingen mottager liste"
+    "noInstitutionList" : "Ingen mottager liste",
+    "noSuchUser" : "Ukjent bruker"
 }

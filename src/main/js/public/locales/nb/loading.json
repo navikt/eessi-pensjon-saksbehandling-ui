@@ -7,5 +7,6 @@
     "sed" : "Henter SED...",
     "country" : "Henter land...",
     "subjectArea" : "Henter fagområde...",
-    "rinaUrl" : "Henter URL..."
+    "rinaUrl" : "Henter URL...",
+    "gettingUserInfo" : "Henter brukerinfo..."
 }

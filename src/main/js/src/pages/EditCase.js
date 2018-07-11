@@ -38,6 +38,7 @@ class EditCase extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             institutions: [],
             validation: {},

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import PT from 'prop-types';
 import { translate } from 'react-i18next';
 
 import LanguageSelector from '../components/LanguageSelector';
@@ -14,7 +14,7 @@ const mapStateToProps = (state) => {
     }
 };
 
-class Index extends Component {
+class FrontPage extends Component {
 
     render() {
 
@@ -42,14 +42,14 @@ class Index extends Component {
     }
 }
 
-Index.propTypes = {
-    language : PropTypes.string,
-    t        : PropTypes.func
+FrontPage.propTypes = {
+    language : PT.string,
+    t        : PT.func
 };
 
 export default connect(
     mapStateToProps,
     {}
 )(
-    translate()(Index)
+    translate()(FrontPage)
 );

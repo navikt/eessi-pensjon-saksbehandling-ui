@@ -7,5 +7,6 @@
     "sed" : "Loading SED...",
     "country" : "Loading countries...",
     "subjectArea" : "Loading subject area...",
-    "rinaUrl" : "Getting URL..."
+    "rinaUrl" : "Getting URL...",
+    "gettingUserInfo" : "Getting user info..."
 }

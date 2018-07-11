@@ -7,5 +7,6 @@
     "noBucList" : "No BUC list",
     "noSedList" : "No SED list",
     "noCountryList" : "No Country list",
-    "noInstitutionList" : "No institution list"
+    "noInstitutionList" : "No institution list",
+    "noSuchUser" : "No Such User"
 }

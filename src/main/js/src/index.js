@@ -7,18 +7,12 @@ import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import { I18nextProvider } from 'react-i18next';
 
 import * as reducers from './reducers';
 import i18n from './i18n';
-import { I18nextProvider } from 'react-i18next';
 import registerServiceWorker from './registerServiceWorker';
-
-import Index from './pages/Index';
-import GetCase from './pages/GetCase';
-import EditCase from './pages/EditCase';
-import ConfirmCase from './pages/ConfirmCase';
-import GenerateCase from './pages/GenerateCase';
-import EndCase from './pages/EndCase';
+import * as Pages from './pages';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
@@ -45,12 +39,12 @@ ReactDOM.render(
         <Provider store={store}>
             <ConnectedRouter history={history}>
                 <Switch>
-                    <Route exact path='/react/get'      component={GetCase}/>
-                    <Route       path='/react/get/:id'  component={EditCase}/>
-                    <Route exact path='/react/confirm'  component={ConfirmCase}/>
-                    <Route exact path='/react/generate' component={GenerateCase}/>
-                    <Route exact path='/react/end'      component={EndCase}/>
-                    <Route       path='/'               component={Index}/>
+                    <Route exact path='/react/get'      component={Pages.GetCase}/>
+                    <Route       path='/react/get/:id'  component={Pages.EditCase}/>
+                    <Route exact path='/react/confirm'  component={Pages.ConfirmCase}/>
+                    <Route exact path='/react/generate' component={Pages.GenerateCase}/>
+                    <Route exact path='/react/end'      component={Pages.EndCase}/>
+                    <Route       path='/'               component={Pages.FrontPage}/>
                 </Switch>
             </ConnectedRouter>
         </Provider>

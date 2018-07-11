@@ -7,5 +7,6 @@
     "noBucList" : "NN_Ingen BUC liste",
     "noSedList" : "NN_Ingen SED liste",
     "noCountryList" : "NN_Ingen land liste",
-    "noInstitutionList" : "NN_Ingen mottager liste"
+    "noInstitutionList" : "NN_Ingen mottager liste",
+    "noSuchUser" : "NN_Ukjent bruker"
 }

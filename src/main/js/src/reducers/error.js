@@ -88,6 +88,13 @@ export default function (state = {}, action = {}) {
             clientErrorMessage : processError(action.payload)
         });
 
+    case types.USER_INFO_FAILURE: {
+
+        return Object.assign({}, state, {
+            serverErrorMessage : 'noSuchUser'
+        });
+    }
+
     default:
 
         return state;

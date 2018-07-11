@@ -7,5 +7,6 @@
     "sed" : "NN_Henter SED...",
     "country" : "NN__Henter land...",
     "subjectArea" : "NN_Henter fagområde...",
-    "rinaUrl" : "NN_Henter URL..."
+    "rinaUrl" : "NN_Henter URL...",
+    "gettingUserInfo" : "NN_Henter brukerinfo..."
 }

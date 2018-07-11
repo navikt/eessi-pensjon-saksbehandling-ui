@@ -10,7 +10,7 @@ i18next
     .init({
         lng: 'nb',
         fallbackLng: 'nb',
-        debug: true,
+        debug: false,
         ns: ['ui', 'loading', 'content', 'error', 'validation', 'help'],
         defaultNs: 'ui',
         backend: {
