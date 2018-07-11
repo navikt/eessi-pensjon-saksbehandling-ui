@@ -72,12 +72,18 @@ export default function (state = {}, action = {}) {
 
     case types.USERCASE_CLEAR_DATA:
 
-         return Object.assign({}, state, {
+        return Object.assign({}, state, {
             currentCase    : undefined,
             dataToGenerate : undefined,
             dataToConfirm  : undefined,
             dataSubmitted  : undefined
-         });
+        });
+
+    case types.USERCASE_CLEAR_CURRENT_CASE: {
+        return  Object.assign({}, state, {
+            currentCase : undefined
+        });
+    }
 
     default:
         return state;

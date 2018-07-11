@@ -25,11 +25,7 @@ const mapDispatchToProps = (dispatch) => {
 
 class GetCase extends Component {
 
-    constructor(props) {
-
-        super(props);
-        this.state = {};
-    }
+    state = {};
 
     onCaseIdChange (e) {
 
@@ -41,18 +37,18 @@ class GetCase extends Component {
         this.setState({caseHandler: e.target.value});
     }
 
-    onButtonClick() {
+    onForwardButtonClick() {
 
         const {actions} = this.props;
         actions.navigateForward();
         actions.getCaseFromCaseNumber(this.state);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate() {
 
-        const { history } = this.props;
-        if (nextProps.currentCase && nextProps.currentCase.hasOwnProperty('casenumber')) {
-            history.push('/react/get/' + nextProps.currentCase.casenumber);
+        const { history, currentCase } = this.props;
+        if (currentCase && currentCase.hasOwnProperty('casenumber')) {
+            history.push('/react/get/' + currentCase.casenumber);
         }
     }
 
@@ -93,7 +89,7 @@ class GetCase extends Component {
                 </Nav.Row>
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
-                        <Nav.Hovedknapp spinner={gettingCase} disabled={this.isButtonDisabled()} onClick={this.onButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                        <Nav.Hovedknapp spinner={gettingCase} disabled={this.isButtonDisabled()} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
                     </Nav.Column>
                 </Nav.Row>
             </Nav.Panel>

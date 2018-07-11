@@ -12,7 +12,8 @@ import * as navLogo from '../resources/images/nav.svg';
 import * as uiActions from '../actions/ui';
 const mapStateToProps = (state) => {
     return {
-        userInfo : state.ui.userInfo
+        userInfo        : state.ui.userInfo,
+        gettingUserInfo : state.loading.gettingUserInfo
     };
 };
 
@@ -23,7 +24,7 @@ const mapDispatchToProps = (dispatch) => {
 
 class TopHeader extends Component {
 
-    componentWillMount() {
+    componentDidMount() {
 
         const { userInfo, actions } = this.props;
 
@@ -34,7 +35,9 @@ class TopHeader extends Component {
 
     render () {
 
-        let { t, userInfo } = this.props;
+        let { t, userInfo, gettingUserInfo } = this.props;
+
+        let userText = (userInfo ? userInfo : (gettingUserInfo ? t('loading:gettingUserInfo') : ''));
 
         return <header className="topplinje">
             <div className="topplinje__brand">
@@ -45,14 +48,17 @@ class TopHeader extends Component {
                 <div className="brand__tittel"><span>{t('content:headerTitle')}</span></div>
             </div>
             <div className="topplinje__saksbehandler">
-                <div className="saksbehandler__navn">{userInfo}</div>
+                <div className="saksbehandler__navn">{userText}</div>
             </div>
         </header>
     }
 }
 
 TopHeader.propTypes = {
-    t : PT.func.isRequired
+    t               : PT.func.isRequired,
+    userInfo        : PT.string,
+    actions         : PT.object,
+    gettingUserInfo : PT.bool
 };
 
 export default connect(

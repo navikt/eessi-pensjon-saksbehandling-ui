@@ -24,7 +24,7 @@ export default function (state = {}, action = {}) {
 
     case types.USER_INFO_SUCCESS:
 
-     return Object.assign({}, state, {
+        return Object.assign({}, state, {
             userInfo : action.payload
         });
 

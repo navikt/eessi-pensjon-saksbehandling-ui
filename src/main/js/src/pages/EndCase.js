@@ -24,12 +24,9 @@ const mapDispatchToProps = (dispatch) => {
 
 class EndCase extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
+    state = {};
 
-    componentWillMount() {
+    componentDidMount() {
 
         let { actions } = this.props;
         actions.getRinaUrl();
@@ -38,6 +35,7 @@ class EndCase extends Component {
     onForwardButtonClick() {
 
         const { history, actions } = this.props;
+
         actions.clearData();
         history.push('/react/get');
     }
@@ -56,7 +54,7 @@ class EndCase extends Component {
             } else {
                 body = null;
             }
-       }
+        }
 
         return <TopContainer>
             <Nav.Panel>

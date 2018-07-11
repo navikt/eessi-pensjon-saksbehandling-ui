@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch) => {
 
 class ConfirmCase extends Component {
 
-    componentWillMount() {
+    componentDidMount() {
 
         let { history, dataToConfirm } = this.props;
 
@@ -39,10 +39,11 @@ class ConfirmCase extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate() {
 
-        const { history, action } = this.props;
-        if (nextProps.dataToGenerate && action === 'forward') {
+        const { history, dataToGenerate, action } = this.props;
+
+        if (dataToGenerate && action === 'forward') {
             history.push('/react/generate');
         }
     }
@@ -50,11 +51,12 @@ class ConfirmCase extends Component {
     onBackButtonClick() {
 
         const { history, actions, dataToConfirm } = this.props;
+
         actions.navigateBack();
         history.push('/react/get/' + dataToConfirm.caseId);
     }
 
-    onButtonClick() {
+    onForwardButtonClick() {
 
         const { actions, dataToConfirm } = this.props;
 
@@ -105,7 +107,7 @@ class ConfirmCase extends Component {
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
                         <Nav.Knapp className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
-                        <Nav.Hovedknapp disabled={generatingCase} spinner={generatingCase} onClick={this.onButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                        <Nav.Hovedknapp disabled={generatingCase} spinner={generatingCase} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
                     </Nav.Column>
                 </Nav.Row>
             </Nav.Panel>
@@ -116,7 +118,7 @@ class ConfirmCase extends Component {
 ConfirmCase.propTypes = {
     actions        : PT.object.isRequired,
     history        : PT.object.isRequired,
-    loading        : PT.object.isRequired,
+    generatingCase : PT.bool,
     t              : PT.func.isRequired,
     dataToConfirm  : PT.object.isRequired,
     action         : PT.string,

@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch) => {
 
 class GenerateCase extends Component {
 
-    componentWillMount() {
+    componentDidMount() {
 
         let { history, dataToGenerate } = this.props;
 
@@ -40,10 +40,11 @@ class GenerateCase extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate() {
 
-        const { history } = this.props;
-        if (nextProps.dataSubmitted && nextProps.action === 'forward') {
+        const { history, dataSubmitted, action } = this.props;
+
+        if (dataSubmitted && action === 'forward') {
             history.push('/react/end');
         }
     }

@@ -36,23 +36,19 @@ const mapDispatchToProps = (dispatch) => {
 
 class EditCase extends Component {
 
-    constructor(props) {
-        super(props);
+    state = {
+        institutions: [],
+        validation: {},
+        defaultSelects: {
+            subjectArea: 'chooseSubjectArea',
+            buc: 'chooseBuc',
+            sed: 'chooseSed',
+            institution: 'chooseInstitution',
+            country: 'allCountries'
+        }
+    };
 
-        this.state = {
-            institutions: [],
-            validation: {},
-            defaultSelects: {
-                subjectArea: 'chooseSubjectArea',
-                buc: 'chooseBuc',
-                sed: 'chooseSed',
-                institution: 'chooseInstitution',
-                country: 'allCountries'
-            }
-        };
-    }
-
-    componentWillMount() {
+    componentDidMount() {
 
         const { actions, match, currentCase, institutionList, bucList, subjectAreaList, countryList, dataToConfirm, action } = this.props;
 
@@ -90,15 +86,15 @@ class EditCase extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate() {
 
-        const { history } = this.props;
+        const { history, loading, currentCase, dataToConfirm, action } = this.props;
 
-        if ( !nextProps.loading.gettingCase && !nextProps.currentCase) {
+        if ( !loading.gettingCase && !currentCase) {
             history.push('/react/get');
         }
 
-        if (nextProps.dataToConfirm && nextProps.action === 'forward') {
+        if (dataToConfirm && action === 'forward') {
             history.push('/react/confirm');
         }
     }
@@ -106,7 +102,9 @@ class EditCase extends Component {
     onBackButtonClick() {
 
         const { history, actions } = this.props;
+
         actions.navigateBack();
+        actions.clearCurrentCase();
         history.push('/react/get');
     }
 

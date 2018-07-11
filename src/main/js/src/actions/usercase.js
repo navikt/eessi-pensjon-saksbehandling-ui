@@ -89,10 +89,17 @@ export function getSedList (buc) {
 
 export function dataToConfirm (params) {
 
-    return ({
+    return {
         type    : types.USERCASE_CONFIRM_DATA_SUCCESS,
         payload : params
-    })
+    };
+}
+
+export function clearCurrentCase() {
+
+    return {
+        type : types.USERCASE_CLEAR_CURRENT_CASE
+    };
 }
 
 export function clearData() {
