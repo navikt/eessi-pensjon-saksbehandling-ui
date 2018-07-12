@@ -31,7 +31,8 @@ class LanguageSelector extends Component {
         let { t, language } = this.props;
         let thisLanguage = language || i18n.language;
 
-        return <Nav.Select label={t('ui:chooseLanguage')} value={thisLanguage} onChange={this.changeLanguage.bind(this)}>
+        return <Nav.Select className='languageSelector' label={t('ui:chooseLanguage')}
+            value={thisLanguage} onChange={this.changeLanguage.bind(this)}>
             <option value='en'>English</option>
             <option value='nb'>Bokmål</option>
             <option value='nn'>Nynorsk</option>

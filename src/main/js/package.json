@@ -9,7 +9,7 @@
     "prebuild": "npm run less",
     "build": "react-scripts build",
     "postbuild": "node ./scripts/copy-build-to-resources.js",
-    "test": "react-scripts test --env=jsdom",
+    "test": "cross-env NODE_ENV=test mocha -t 600000 --recursive --exit src/**/*.test.js",
     "eject": "react-scripts eject"
   },
   "proxy": "http://localhost:8080",
@@ -83,6 +83,9 @@
     "request-promise": "^4.2.2"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "chai-string": "^1.4.0",
     "jasmine-core": "~3.1.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~2.0.4",
@@ -91,6 +94,7 @@
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^1.2.0",
     "protractor": "~5.3.2",
+    "selenium-webdriver": "^4.0.0-alpha.1",
     "ts-node": "~7.0.0",
     "tslint": "~5.10.0",
     "typescript": "2.9.2"

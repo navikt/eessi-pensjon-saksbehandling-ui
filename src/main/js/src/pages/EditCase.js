@@ -315,7 +315,7 @@ class EditCase extends Component {
 
         const { t, subjectAreaList } = this.props;
 
-        return <Nav.Select bredde='xxl' feil={this.state.validation.subjectAreaFail ? {feilmelding: this.state.validation.subjectAreaFail} : null}
+        return <Nav.Select className='subjectAreaList' bredde='xxl' feil={this.state.validation.subjectAreaFail ? {feilmelding: this.state.validation.subjectAreaFail} : null}
             label={t('ui:subjectArea')} value={this.state.subjectArea} onChange={this.onSubjectAreaChange.bind(this)}>
             {this.renderOptions(subjectAreaList, 'subjectArea')}
         </Nav.Select>
@@ -325,7 +325,7 @@ class EditCase extends Component {
 
         const { t, countryList } = this.props;
 
-        return <Nav.Select bredde='xxl' feil={this.state.validation.countryFail ? {feilmelding: this.state.validation.countryFail} : null}
+        return <Nav.Select className='countryList' bredde='xxl' feil={this.state.validation.countryFail ? {feilmelding: this.state.validation.countryFail} : null}
             label={t('ui:country')} value={currentValue} onChange={this.onCountryChange.bind(this)}>
             {this.renderOptions(countryList, 'country')}
         </Nav.Select>
@@ -335,7 +335,7 @@ class EditCase extends Component {
 
         const { t, institutionList } = this.props;
 
-        return <Nav.Select bredde='xxl' feil={this.state.validation.institutionFail ? {feilmelding: this.state.validation.institutionFail} : null}
+        return <Nav.Select className='institutionList' bredde='xxl' feil={this.state.validation.institutionFail ? {feilmelding: this.state.validation.institutionFail} : null}
             label={t('ui:institution')} value={currentValue} onChange={this.onInstitutionChange.bind(this)}>
             {this.renderOptions(institutionList, 'institution')}
         </Nav.Select>
@@ -345,7 +345,7 @@ class EditCase extends Component {
 
         const { t, bucList } = this.props;
 
-        return <Nav.Select bredde='xxl' feil={this.state.validation.bucFail ? {feilmelding: this.state.validation.bucFail} : null}
+        return <Nav.Select className='bucList' bredde='xxl' feil={this.state.validation.bucFail ? {feilmelding: this.state.validation.bucFail} : null}
             label={t('ui:buc')} value={this.state.buc} onChange={this.onBucChange.bind(this)}>
             {this.renderOptions(bucList, 'buc')}
         </Nav.Select>
@@ -355,7 +355,7 @@ class EditCase extends Component {
 
         const { t, sedList, bucList } = this.props;
 
-        return <Nav.Select bredde='xxl' feil={this.state.validation.sedFail? {feilmelding: this.state.validation.sedFail} : null}
+        return <Nav.Select className='sedList' bredde='xxl' feil={this.state.validation.sedFail? {feilmelding: this.state.validation.sedFail} : null}
             disabled={!bucList} label={t('ui:sed')} value={this.state.sed} onChange={this.onSedChange.bind(this)}>
             {this.renderOptions(sedList, 'sed')}
         </Nav.Select>
@@ -377,9 +377,9 @@ class EditCase extends Component {
 
         let renderedInstitution = (institution.country && institution.country !== this.state.defaultSelects.country ? institution.country + '/' : '') + institution.institution;
 
-        return <Nav.Row key={renderedInstitution} className='mt-2'>
+        return <Nav.Row key={renderedInstitution} className='mt-2 renderedInstitutions'>
             <Nav.Column style={{lineHeight: '2rem'}}>
-                <b>{renderedInstitution}</b>
+                <div className='renderedInstitution'><b>{renderedInstitution}</b></div>
             </Nav.Column>
             <Nav.Column>
                 <Nav.Knapp type='standard' onClick={this.onRemoveInstitutionButtonClick.bind(this, institution)}>{t('ui:remove')}</Nav.Knapp>
@@ -417,7 +417,7 @@ class EditCase extends Component {
                 </div>
             </Nav.Column>
             <Nav.Column className='col-sm' style={{lineHeight: '6rem'}}>
-                <Nav.Hovedknapp disabled={!validInstitution} onClick={this.onCreateInstitutionButtonClick.bind(this)}>{t('ui:create')}</Nav.Hovedknapp>
+                <Nav.Hovedknapp className='createInstitutionButton' disabled={!validInstitution} onClick={this.onCreateInstitutionButtonClick.bind(this)}>{t('ui:create')}</Nav.Hovedknapp>
             </Nav.Column>
         </Nav.Row>);
 
@@ -484,7 +484,7 @@ class EditCase extends Component {
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
                         {action === 'forward' ? <Nav.Knapp className='mr-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp> : null}
-                        <Nav.Hovedknapp disabled={!this.noValidationErrors()} onClick={this.onForwardButtonClick.bind(this)}>{t('ui:go')}</Nav.Hovedknapp>
+                        <Nav.Hovedknapp className='forwardButton' disabled={!this.noValidationErrors()} onClick={this.onForwardButtonClick.bind(this)}>{t('ui:go')}</Nav.Hovedknapp>
                     </Nav.Column>
                 </Nav.Row>
             </Nav.Panel>

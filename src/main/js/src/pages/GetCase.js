@@ -73,7 +73,7 @@ class GetCase extends Component {
                 </Nav.Row>
                 <Nav.Row className='mt-4 text-left'>
                     <Nav.Column>
-                        <Nav.Input label={t('ui:caseId')} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
+                        <Nav.Input className='getCaseInputCaseId' label={t('ui:caseId')} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
                     </Nav.Column>
                     <Nav.Column className='mt-4'>
                         <Nav.HjelpetekstBase id='caseId' type='under'>{t('help:caseId')}</Nav.HjelpetekstBase>
@@ -81,7 +81,7 @@ class GetCase extends Component {
                 </Nav.Row>
                 <Nav.Row  className='mt-4 text-left'>
                     <Nav.Column>
-                        <Nav.Input label={t('ui:caseHandler')} value={this.state.caseHandler} onChange={this.onCaseHandlerChange.bind(this)}/>
+                        <Nav.Input className='getCaseInputCaseHandler' label={t('ui:caseHandler')} value={this.state.caseHandler} onChange={this.onCaseHandlerChange.bind(this)}/>
                     </Nav.Column>
                     <Nav.Column className='mt-4'>
                         <Nav.HjelpetekstBase id='caseHandler' type='under'>{t('help:caseHandler')}</Nav.HjelpetekstBase>
@@ -89,7 +89,7 @@ class GetCase extends Component {
                 </Nav.Row>
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
-                        <Nav.Hovedknapp spinner={gettingCase} disabled={this.isButtonDisabled()} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                        <Nav.Hovedknapp className='forwardButton' spinner={gettingCase} disabled={this.isButtonDisabled()} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
                     </Nav.Column>
                 </Nav.Row>
             </Nav.Panel>

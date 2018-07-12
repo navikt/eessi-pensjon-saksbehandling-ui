@@ -33,7 +33,7 @@ class FrontPage extends Component {
                 <Nav.Row className='mt-4 text-left'>
                     <Nav.Column>
                         <Link to='/react/get'>
-                            <Nav.Lenkepanel href="#">{t('ui:createNewCase')}</Nav.Lenkepanel>
+                            <Nav.Lenkepanel className='frontPageLink' href="#">{t('ui:createNewCase')}</Nav.Lenkepanel>
                         </Link>
                     </Nav.Column>
                 </Nav.Row>

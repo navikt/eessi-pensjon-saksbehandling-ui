@@ -32,7 +32,9 @@ Run ``Application.kt` as described above. Open `http://localhost:8080/` for the 
 
 ## Running unit tests
 
-Run `npm run test` to execute the unit tests.
+Run `npm run test` to execute the Selenium unit tests.
+
+Make sure you have the latest chromedriver.exe on the PATH so that Selenium can launch Chrome.
 
 ## Linting
 
