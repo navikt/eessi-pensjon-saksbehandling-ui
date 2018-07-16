@@ -32,9 +32,9 @@ class GetCase extends Component {
         this.setState({caseId: e.target.value});
     }
 
-    onCaseHandlerChange (e) {
+    onActorIdChange (e) {
 
-        this.setState({caseHandler: e.target.value});
+        this.setState({actorId: e.target.value});
     }
 
     onForwardButtonClick() {
@@ -47,13 +47,13 @@ class GetCase extends Component {
     componentDidUpdate() {
 
         const { history, currentCase } = this.props;
-        if (currentCase && currentCase.hasOwnProperty('casenumber')) {
-            history.push('/react/get/' + currentCase.casenumber);
+        if (currentCase && currentCase.hasOwnProperty('casenumber') && currentCase.hasOwnProperty('pinid')) {
+            history.push('/react/get/' + currentCase.casenumber + '/' + currentCase.pinid);
         }
     }
 
     isButtonDisabled() {
-        return (!this.state.caseId && !this.state.caseHandler) || this.props.gettingCase;
+        return !this.state.caseId || !this.state.actorId || this.props.gettingCase;
     }
 
     render() {
@@ -81,10 +81,10 @@ class GetCase extends Component {
                 </Nav.Row>
                 <Nav.Row  className='mt-4 text-left'>
                     <Nav.Column>
-                        <Nav.Input className='getCaseInputCaseHandler' label={t('ui:caseHandler')} value={this.state.caseHandler} onChange={this.onCaseHandlerChange.bind(this)}/>
+                        <Nav.Input className='getCaseInputActorId' label={t('ui:actorId')} value={this.state.actorId} onChange={this.onActorIdChange.bind(this)}/>
                     </Nav.Column>
                     <Nav.Column className='mt-4'>
-                        <Nav.HjelpetekstBase id='caseHandler' type='under'>{t('help:caseHandler')}</Nav.HjelpetekstBase>
+                        <Nav.HjelpetekstBase id='actorId' type='under'>{t('help:actorId')}</Nav.HjelpetekstBase>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4'>

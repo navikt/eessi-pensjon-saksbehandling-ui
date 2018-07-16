@@ -53,7 +53,7 @@ class ConfirmCase extends Component {
         const { history, actions, dataToConfirm } = this.props;
 
         actions.navigateBack();
-        history.push('/react/get/' + dataToConfirm.caseId);
+        history.push('/react/get/' + dataToConfirm.caseId + '/' + dataToConfirm.actorId);
     }
 
     onForwardButtonClick() {
@@ -64,6 +64,7 @@ class ConfirmCase extends Component {
         actions.generateData({
             subjectArea   : dataToConfirm.subjectArea,
             caseId        : dataToConfirm.caseId,
+            actorId       : dataToConfirm.actorId,
             buc           : dataToConfirm.buc,
             sed           : dataToConfirm.sed,
             institutions  : dataToConfirm.institutions

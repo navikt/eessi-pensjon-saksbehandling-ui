@@ -1,6 +1,5 @@
 {
-    "invalidCaseNumber": "NN_Ugyldig saksId",
-    "invalidCaseHandler": "NN_Ugyldig saksbehandler",
+    "invalidCase": "NN_Ugyldig saksId eller pinID",
     "insufficientParameters": "NN_ikke nok parametere",
     "serverOffline" : "NN_server offline",
     "noSubjectAreaList" : "NN_Ingen fagområde liste",

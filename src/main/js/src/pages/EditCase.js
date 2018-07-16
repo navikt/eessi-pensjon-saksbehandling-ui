@@ -53,9 +53,11 @@ class EditCase extends Component {
         const { actions, match, currentCase, institutionList, bucList, subjectAreaList, countryList, dataToConfirm, action } = this.props;
 
         if (_.isEmpty(currentCase)) {
-            let id = match.params.id;
+            let caseId = match.params.caseid;
+            let actorId = match.params.actorid;
             actions.getCaseFromCaseNumber({
-                caseId: id
+                caseId  : caseId,
+                actorId : actorId
             });
         }
 
@@ -122,7 +124,8 @@ class EditCase extends Component {
                 'buc'          : this.state.buc,
                 'sed'          : this.state.sed,
                 'subjectArea'  : this.state.subjectArea,
-                'caseId'       : currentCase.casenumber
+                'caseId'       : currentCase.casenumber,
+                'actorId'      : currentCase.pinid
             });
         }
     }

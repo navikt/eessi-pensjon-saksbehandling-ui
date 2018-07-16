@@ -1,3 +1,7 @@
+import 'babel-polyfill';  // IE 11 compatibility
+import 'core-js/es6/map'; // IE 11 compatibility
+import 'core-js/es6/set'; // IE 11 compatibility
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -39,12 +43,12 @@ ReactDOM.render(
         <Provider store={store}>
             <ConnectedRouter history={history}>
                 <Switch>
-                    <Route exact path='/react/get'      component={Pages.GetCase}/>
-                    <Route       path='/react/get/:id'  component={Pages.EditCase}/>
-                    <Route exact path='/react/confirm'  component={Pages.ConfirmCase}/>
-                    <Route exact path='/react/generate' component={Pages.GenerateCase}/>
-                    <Route exact path='/react/end'      component={Pages.EndCase}/>
-                    <Route       path='/'               component={Pages.FrontPage}/>
+                    <Route exact path='/react/get'                  component={Pages.GetCase}/>
+                    <Route       path='/react/get/:caseid/:actorid' component={Pages.EditCase}/>
+                    <Route exact path='/react/confirm'              component={Pages.ConfirmCase}/>
+                    <Route exact path='/react/generate'             component={Pages.GenerateCase}/>
+                    <Route exact path='/react/end'                  component={Pages.EndCase}/>
+                    <Route       path='/'                           component={Pages.FrontPage}/>
                 </Switch>
             </ConnectedRouter>
         </Provider>

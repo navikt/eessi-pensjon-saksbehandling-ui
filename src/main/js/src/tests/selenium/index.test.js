@@ -105,15 +105,15 @@ describe('Selenium case submit', () => {
 ///////// GET PAGE ////////////
     describe('Get page', () => {
 
-        let caseId, caseHandler, forwardButton;
+        let caseId, actorId, forwardButton;
 
         it('Waiting until GetPage loads...', async function () {
 
             await driver.wait(until.elementLocated(By.css('.getCaseInputCaseId input[type="text"]')));
-            await driver.wait(until.elementLocated(By.css('.getCaseInputCaseHandler input[type="text"]')));
+            await driver.wait(until.elementLocated(By.css('.getCaseInputActorId input[type="text"]')));
             await driver.wait(until.elementLocated(By.css('button.forwardButton')));
             caseId = await driver.findElement(By.css('.getCaseInputCaseId input[type="text"]'));
-            caseHandler = await driver.findElement(By.css('.getCaseInputCaseHandler input[type="text"]'));
+            actorId = await driver.findElement(By.css('.getCaseInputActorId input[type="text"]'));
             forwardButton = await driver.findElement(By.css('button.forwardButton'));
             expect(!(await forwardButton.isEnabled()));
         });
@@ -291,7 +291,7 @@ describe('Selenium case submit', () => {
 ///////// END PAGE ////////////
     describe('End page', () => {
 
-        let alertstripe, caseId, caseHandler;
+        let alertstripe, caseId, actorId;
 
         it('Waiting for EndPage to load...', async function () {
 
@@ -324,10 +324,10 @@ describe('Selenium case submit', () => {
         it('Loading getCase..', async function () {
 
             await driver.wait(until.elementLocated(By.css('.getCaseInputCaseId input[type="text"]')));
-            await driver.wait(until.elementLocated(By.css('.getCaseInputCaseHandler input[type="text"]')));
+            await driver.wait(until.elementLocated(By.css('.getCaseInputActorId input[type="text"]')));
             await driver.wait(until.elementLocated(By.css('button')));
             caseId = await driver.findElement(By.css('.getCaseInputCaseId input[type="text"]'));
-            caseHandler = await driver.findElement(By.css('.getCaseInputCaseHandler input[type="text"]'));
+            actorId = await driver.findElement(By.css('.getCaseInputActorId input[type="text"]'));
             forwardButton = await driver.findElement(By.css('button.forwardButton'));
             expect(!(await forwardButton.isEnabled()));
         });
