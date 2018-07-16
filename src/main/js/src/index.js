@@ -8,6 +8,7 @@ import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { I18nextProvider } from 'react-i18next';
+import 'babel-polyfill'; // IE 11 compatibility
 
 import * as reducers from './reducers';
 import i18n from './i18n';
