@@ -4,6 +4,24 @@ import { translate } from 'react-i18next';
 
 class RenderGeneratedData extends Component {
 
+    renderJson (json, level) {
+
+        let res = [];
+        let padding = level * 50;
+
+        for (var key in json) {
+            let value = json[key];
+            if (typeof value === 'string') {
+                if (value !== 'null' && value !== '') {
+                    res.push('<div style={{paddingLeft: "' + padding + '"}}><b>' + key + '</b>: ' + value + '</div>');
+                }
+            } else {
+                res.push(this.renderJson(value, level++))
+            }
+        }
+        return res.flat().join('');
+    }
+
     render () {
 
         let { t, dataToGenerate, dataToConfirm } = this.props;
@@ -16,17 +34,7 @@ class RenderGeneratedData extends Component {
             <div><b>SED</b>: {dataToConfirm.sed}</div>
             <div><b>Mottaker</b>: {JSON.stringify(dataToConfirm.institutions)}</div>
 
-            <div><b>NAV bruker</b>: {dataToGenerate.nav ? dataToGenerate.nav.bruker : null}</div>
-            <div><b>NAV eessisak</b>: {dataToGenerate.nav ? dataToGenerate.nav.eessisak : null}</div>
-            <div><b>SED</b>: {dataToGenerate.sed}</div>
-            <div><b>sedGVer</b>: {dataToGenerate.sedGVer}</div>
-            <div><b>sedVer</b>: {dataToGenerate.sedVer}</div>
-            <div><b>pensjon reduksjon</b>: {dataToGenerate.pensjon ? dataToGenerate.pensjon.reduksjon : null}</div>
-            <div><b>pensjon vedtak</b>: {dataToGenerate.pensjon ? dataToGenerate.pensjon.vedtak : null}</div>
-            <div><b>pensjon sak</b>: {dataToGenerate.pensjon? dataToGenerate.pensjon.sak : null}</div>
-            <div><b>pensjon gjenlevende</b>: {dataToGenerate.pensjon? dataToGenerate.pensjon.gjenlevende : null}</div>
-            <div><b>pensjon tilleggsinformasjon</b>: {dataToGenerate.pensjon? dataToGenerate.pensjon.tilleggsinformasjon : null}</div>
-            <div><b>ignore</b>: {dataToGenerate.ignore}</div>
+            {this.renderJson(dataToGenerate, 0)}
         </div>;
     }
 }
