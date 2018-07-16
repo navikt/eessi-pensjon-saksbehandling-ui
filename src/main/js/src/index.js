@@ -1,4 +1,6 @@
-import 'babel-polyfill'; // IE 11 compatibility
+import 'babel-polyfill';  // IE 11 compatibility
+import 'core-js/es6/map'; // IE 11 compatibility
+import 'core-js/es6/set'; // IE 11 compatibility
 
 import React from 'react';
 import ReactDOM from 'react-dom';
