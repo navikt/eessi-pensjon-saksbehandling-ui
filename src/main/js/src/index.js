@@ -1,3 +1,5 @@
+import 'babel-polyfill'; // IE 11 compatibility
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -8,7 +10,6 @@ import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { I18nextProvider } from 'react-i18next';
-import 'babel-polyfill'; // IE 11 compatibility
 
 import * as reducers from './reducers';
 import i18n from './i18n';
@@ -40,12 +41,12 @@ ReactDOM.render(
         <Provider store={store}>
             <ConnectedRouter history={history}>
                 <Switch>
-                    <Route exact path='/react/get'      component={Pages.GetCase}/>
-                    <Route       path='/react/get/:id'  component={Pages.EditCase}/>
-                    <Route exact path='/react/confirm'  component={Pages.ConfirmCase}/>
-                    <Route exact path='/react/generate' component={Pages.GenerateCase}/>
-                    <Route exact path='/react/end'      component={Pages.EndCase}/>
-                    <Route       path='/'               component={Pages.FrontPage}/>
+                    <Route exact path='/react/get'                  component={Pages.GetCase}/>
+                    <Route       path='/react/get/:caseid/:actorid' component={Pages.EditCase}/>
+                    <Route exact path='/react/confirm'              component={Pages.ConfirmCase}/>
+                    <Route exact path='/react/generate'             component={Pages.GenerateCase}/>
+                    <Route exact path='/react/end'                  component={Pages.EndCase}/>
+                    <Route       path='/'                           component={Pages.FrontPage}/>
                 </Switch>
             </ConnectedRouter>
         </Provider>

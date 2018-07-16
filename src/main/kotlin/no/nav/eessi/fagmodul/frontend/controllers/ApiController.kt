@@ -35,12 +35,12 @@ class ApiController(private val euxService: EuxService) {
         return createSectorList()
     }
 
-    @GetMapping("/case/{casenumber}", produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun validateCaseNumber(@PathVariable casenumber: String): ResponseEntity<Map<String, String>> {
-        if (matches("\\d+", casenumber)) {
-            return ResponseEntity.ok(mapOf("casenumber" to casenumber))
+    @GetMapping("/case/{caseid}/{actorid}", produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun validateCaseNumber(@PathVariable caseid: String, @PathVariable actorid: String): ResponseEntity<Map<String, String>> {
+        if (matches("\\d+", caseid) && matches("\\d+", actorid)) {
+            return ResponseEntity.ok(mapOf("casenumber" to caseid, "pinid" to actorid))
         }
-        return ResponseEntity.badRequest().body(mapOf("serverMessage" to "asdfvalidCaseNumber"))
+        return ResponseEntity.badRequest().body(mapOf("serverMessage" to "invalidCase"))
     }
 
     @ApiOperation("henter liste av alle tilgjengelige BuC fra EUX")

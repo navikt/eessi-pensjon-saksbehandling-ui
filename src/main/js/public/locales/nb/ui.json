@@ -22,7 +22,7 @@
     "go" : "Gå",
     "caseId" : "SaksId",
     "caseLink" : "Saken lenke",
-    "caseHandler" : "Saksbehandler",
+    "actorId" : "Pin ID",
     "remove" : "Slett",
     "search" : "Søk",
     "chooseLanguage" : "Velg språk",

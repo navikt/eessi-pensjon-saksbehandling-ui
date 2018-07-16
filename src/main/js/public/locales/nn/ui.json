@@ -23,7 +23,7 @@
     "remove" : "NN_Slett",
     "caseId" : "NN_SaksId",
     "caseLink" : "NN_Saken lenke",
-    "caseHandler" : "NN_Saksbehandler",
+    "actorId" : "NN_PinID",
     "search" : "NN_Søk",
     "chooseLanguage" : "NN_Velg språk",
     "dataGenerated" : "NN_Data generert",

@@ -1,6 +1,5 @@
 {
-    "invalidCaseNumber": "Ugyldig saksId",
-    "invalidCaseHandler": "Ugyldig saksbehandler",
+    "invalidCase": "Ugyldig saksId eller PinID",
     "insufficientParameters": "ikke nok parametere",
     "serverOffline" : "server offline",
     "noSubjectAreaList" : "Ingen fagområde liste",

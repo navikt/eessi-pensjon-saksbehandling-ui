@@ -1,10 +1,10 @@
 {
+    "actorID" : "Actor ID",
     "allCountries" : "All countries",
     "back" : "Back",
     "buc" : "BUC",
     "subjectArea": "Subject area",
     "caseFound" : "Case found",
-    "caseHandler" : "Case handler",
     "caseId" : "Case ID",
     "caseLink" : "Case link",
     "caseNotFound" : "Case not found",

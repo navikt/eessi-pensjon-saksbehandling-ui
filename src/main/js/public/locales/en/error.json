@@ -1,6 +1,5 @@
 {
-    "invalidCaseNumber": "Invalid Case ID",
-    "invalidCaseHandler": "Invalid Case handler",
+    "invalidCase": "Invalid Case ID or Actor ID",
     "insufficientParameters": "Insufficient parameters",
     "serverOffline" : "server offline",
     "noSubjectAreaList" : "No subject area list",
