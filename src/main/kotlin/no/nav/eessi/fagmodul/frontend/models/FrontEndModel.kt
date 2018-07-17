@@ -1,5 +1,7 @@
 package no.nav.eessi.fagmodul.frontend.models
 
+import com.fasterxml.jackson.annotation.JsonProperty
+
 //{"institution":[{"NO:"DUMMY"}],"buc":"P_BUC_06","sed":"P6000","caseId":"caseId","subjectArea":"pensjon"}
 data class FrontendRequest(
         val subjectArea: String? = null,
@@ -7,6 +9,7 @@ data class FrontendRequest(
         val buc: String? = null,
         val sed : String? = null,
         val institutions: List<Institusjon>? = null,
+        @JsonProperty("actorId")
         var pinid: String? = null
 )
 
