@@ -19,12 +19,15 @@ class RenderGeneratedData extends Component {
                 res.push(this.renderJson(value, level++))
             }
         }
-        return lodash.flatten(res).join('');
+
+        return lodash.flatten(res);
     }
 
     render () {
 
         let { t, dataToGenerate, dataToConfirm } = this.props;
+
+        let renderJson = this.renderJson(dataToGenerate, 0).map(i => { return i});
 
         return <div className='generateData' style={{padding: '10px', border: '1px solid black'}}>
             <div><b>Saks ID</b>: {dataToConfirm.caseId}</div>
@@ -34,7 +37,7 @@ class RenderGeneratedData extends Component {
             <div><b>SED</b>: {dataToConfirm.sed}</div>
             <div><b>Mottaker</b>: {JSON.stringify(dataToConfirm.institutions)}</div>
 
-            {this.renderJson(dataToGenerate, 0)}
+            {renderJson}
         </div>;
     }
 }
