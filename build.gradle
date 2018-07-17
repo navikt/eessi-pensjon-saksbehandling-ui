@@ -4,7 +4,7 @@ buildscript {
         springBootVersion = '2.0.2.RELEASE'
         springSecOauthVersion = '2.0.1.RELEASE'
         prometheusVersion = '0.2.0'
-        springfoxVersion = '2.8.0'
+        springfoxVersion = '2.9.0'
         jacksonModuleKotlinVersion = '2.9.4'
         cxfVersion = '3.2.1'
         aktoerIdVersion = '2.0.1'
