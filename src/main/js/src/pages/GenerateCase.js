@@ -65,7 +65,7 @@ class GenerateCase extends Component {
         actions.submitData({
             subjectArea   : dataToConfirm.subjectArea,
             caseId        : dataToConfirm.caseId,
-            pinid         : dataToConfirm.actorId,
+            actorId       : dataToConfirm.actorId,
             buc           : dataToConfirm.buc,
             sed           : dataToConfirm.sed,
             institutions  : dataToConfirm.institutions
