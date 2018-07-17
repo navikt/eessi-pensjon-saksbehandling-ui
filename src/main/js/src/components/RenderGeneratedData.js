@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
-
+import lodash from 'lodash';
 class RenderGeneratedData extends Component {
 
     renderJson (json, level) {
@@ -19,7 +19,7 @@ class RenderGeneratedData extends Component {
                 res.push(this.renderJson(value, level++))
             }
         }
-        return res.flat().join('');
+        return lodash.flatten(res).join('');
     }
 
     render () {
