@@ -11,9 +11,9 @@ import * as pdfActions from '../../actions/pdf';
 
 const getListStyle = isDraggingOver => ({
     background: isDraggingOver ? 'lightblue' : 'lightgrey',
-    display: 'flex',
     padding: 5,
-    overflow: 'auto'
+    overflowX: 'auto',
+    whiteSpace: 'nowrap'
 });
 
 const getItemStyle = (isDragging, draggableStyle) => ({

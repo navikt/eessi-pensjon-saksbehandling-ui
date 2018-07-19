@@ -10,6 +10,7 @@ import DnDSource from '../../components/pdf/DnDSource';
 import DnDTarget from '../../components/pdf/DnDTarget';
 import DnD from '../../components/pdf/DnD';
 import PreviewPDF from '../../components/pdf/PreviewPDF';
+import PDFSizeSlider from '../../components/pdf/PDFSizeSlider';
 
 import * as pdfActions from '../../actions/pdf';
 import * as uiActions from '../../actions/ui';
@@ -80,8 +81,11 @@ class EditPDF extends Component {
                 </Nav.Row>
                 <PreviewPDF/>
                 <DnD>
+                    <Nav.Row>
+                        <Nav.Column className='col-3'><PDFSizeSlider/></Nav.Column>
+                    </Nav.Row>
                     <Nav.Row className='mt-4 text-left'>
-                        <Nav.Column className='col-3'>
+                        <Nav.Column className='col col-auto'>
                             <DnDTarget/>
                         </Nav.Column>
                         <Nav.Column>

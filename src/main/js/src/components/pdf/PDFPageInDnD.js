@@ -12,6 +12,7 @@ import * as pdfActions from '../../actions/pdf';
 const mapStateToProps = (state) => {
     return {
         recipe : state.pdf.recipe,
+        pdfsize: state.settings.pdfsize
     };
 };
 
@@ -68,7 +69,7 @@ class PDFPageInDnD extends Component {
 
     render () {
 
-        const { pdf, pageNumber, action } = this.props;
+        const { pdf, pageNumber, action, pdfsize } = this.props;
 
         let clickFunction;
         if (action === 'add') {
@@ -87,7 +88,7 @@ class PDFPageInDnD extends Component {
                      <div>
                           <Page
                           onClick={clickFunction.bind(this, pdf.fileName, pageNumber)}
-                          className='d-inline-block page' width='100' renderMode='svg' pageNumber={pageNumber}/>
+                          className='d-inline-block page' width={pdfsize} renderMode='svg' pageNumber={pageNumber}/>
                      </div>
                 </Document>
             </div>
@@ -99,7 +100,8 @@ PDFPageInDnD.propTypes = {
     actions: PT.object,
     pdfs: PT.array.isRequired,
     fileName: PT.string.isRequired,
-    pageNumber: PT.number.isRequired
+    pageNumber: PT.number.isRequired,
+    pdfsize : PT.number.isRequired
 }
 
 export default connect(

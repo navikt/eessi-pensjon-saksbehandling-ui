@@ -8,9 +8,9 @@ import PDFPageInDnD from './PDFPageInDnD';
 
 const getListStyle = isDraggingOver => ({
     background: isDraggingOver ? 'lightblue' : 'lightgrey',
-    // display: 'flex',
     padding: 5,
-    overflow: 'auto'
+    overflowY: 'auto',
+    whiteSpace: 'nowrap'
 });
 
 const getItemStyle = (isDragging, draggableStyle) => ({
