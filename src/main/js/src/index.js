@@ -43,6 +43,10 @@ ReactDOM.render(
         <Provider store={store}>
             <ConnectedRouter history={history}>
                 <Switch>
+                    <Route exact path='/react/generatePDF' component={Pages.GeneratePDF}/>
+                    <Route exact path='/react/editPDF'     component={Pages.EditPDF}/>
+                    <Route exact path='/react/selectPDF'   component={Pages.SelectPDF}/>
+
                     <Route exact path='/react/get'                  component={Pages.GetCase}/>
                     <Route       path='/react/get/:caseid/:actorid' component={Pages.EditCase}/>
                     <Route exact path='/react/confirm'              component={Pages.ConfirmCase}/>

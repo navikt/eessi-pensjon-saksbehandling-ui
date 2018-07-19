@@ -14,3 +14,5 @@ export const GET_USER_INFO_URL         = BASE_URL + '/api/userinfo';
 
 export const SEND_DATA_URL             = BASE_URL + '/fag/create';
 export const GENERATE_DATA_URL         = BASE_URL + '/fag/confirm';
+
+export const GENERATE_PDF_URL          = BASE_URL + '/api/generatePDF';

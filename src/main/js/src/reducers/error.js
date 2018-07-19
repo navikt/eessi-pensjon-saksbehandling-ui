@@ -95,6 +95,13 @@ export default function (state = {}, action = {}) {
         });
     }
 
+    case types.PDF_GENERATE_FAILURE:
+
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'ERROR',
+            clientErrorMessage : 'pdfGenerationFail'
+        });
+
     default:
 
         return state;

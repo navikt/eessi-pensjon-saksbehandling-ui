@@ -35,6 +35,9 @@ class FrontPage extends Component {
                         <Link to='/react/get'>
                             <Nav.Lenkepanel className='frontPageLink' href="#">{t('ui:createNewCase')}</Nav.Lenkepanel>
                         </Link>
+                         <Link to='/react/selectPDF'>
+                            <Nav.Lenkepanel className='frontPageLink' href="#">{t('ui:createPdf')}</Nav.Lenkepanel>
+                         </Link>
                     </Nav.Column>
                 </Nav.Row>
             </Nav.Panel>

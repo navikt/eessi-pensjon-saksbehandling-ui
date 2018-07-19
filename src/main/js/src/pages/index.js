@@ -5,11 +5,18 @@ import ConfirmCase from './ConfirmCase';
 import GenerateCase from './GenerateCase';
 import EndCase from './EndCase';
 
+import SelectPDF   from './SelectPDF';
+import EditPDF     from './EditPDF';
+import GeneratePDF from './GeneratePDF';
+
 export {
     ConfirmCase,
     EditCase,
     EndCase,
     FrontPage,
     GenerateCase,
-    GetCase
+    GetCase,
+    SelectPDF,
+    EditPDF,
+    GeneratePDF
 };

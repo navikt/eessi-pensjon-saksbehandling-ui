@@ -135,6 +135,19 @@ export default function (state = {}, action = {}) {
             gettingUserInfo : false
         });
 
+    case types.PDF_GENERATE_REQUEST:
+
+        return Object.assign({}, state, {
+            generatingPDF : true
+        });
+
+    case types.PDF_GENERATE_SUCCESS:
+    case types.PDF_GENERATE_FAILURE:
+
+        return Object.assign({}, state, {
+            generatingPDF : false
+        });
+
     default:
 
         return state;

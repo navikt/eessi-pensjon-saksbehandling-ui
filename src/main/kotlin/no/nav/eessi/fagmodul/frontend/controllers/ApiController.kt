@@ -3,6 +3,7 @@ package no.nav.eessi.fagmodul.frontend.controllers
 import io.swagger.annotations.ApiOperation
 import no.nav.eessi.fagmodul.frontend.models.*
 import no.nav.eessi.fagmodul.frontend.services.EuxService
+import no.nav.eessi.fagmodul.frontend.utils.logger
 import no.nav.freg.security.oidc.common.OidcTokenAuthentication
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
@@ -79,6 +80,12 @@ class ApiController(private val euxService: EuxService) {
     fun getUserInfo(): String {
         val auth = SecurityContextHolder.getContext().authentication as OidcTokenAuthentication
         return auth.principal
+    }
+
+    @PostMapping("/generatePDF")
+    fun generatePDF(@RequestBody request: PDFRequest): ResponseEntity<Map<String, String?>> {
+        logger.debug(request.toString())
+        return ResponseEntity.ok(mapOf("pdf" to request?.pdfs?.get(0)?.base64));
     }
 }
 

@@ -11,6 +11,7 @@ import Tabs from 'nav-frontend-tabs';
 import Ikon from 'nav-frontend-ikoner-assets';
 import Stegindikator from 'nav-frontend-stegindikator';
 import NavFrontendSpinner from 'nav-frontend-spinner';
+import Modal from 'nav-frontend-modal';
 
 export {
     AlertStripe, AlertStripeAdvarsel,
@@ -24,4 +25,5 @@ export {
     Tabs,
     Ikon,
     HjelpetekstBase,
+    Modal
 };
