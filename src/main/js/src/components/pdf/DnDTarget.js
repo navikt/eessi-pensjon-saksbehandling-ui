@@ -10,7 +10,9 @@ const getListStyle = isDraggingOver => ({
     background: isDraggingOver ? 'lightblue' : 'lightgrey',
     padding: 5,
     overflowY: 'auto',
-    whiteSpace: 'nowrap'
+    whiteSpace: 'nowrap',
+    height : '600px',
+    minWidth: '130px'
 });
 
 const getItemStyle = (isDragging, draggableStyle) => ({

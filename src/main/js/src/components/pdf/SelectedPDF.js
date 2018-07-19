@@ -4,6 +4,14 @@ import { Document, Page } from 'react-pdf/dist/entry.noworker';
 
 import { Ikon } from '../ui/Nav';
 
+const styles = {
+    selectedDocument: {
+         border: 'solid 1px lightgray',
+         padding: '5px',
+         marginRight: '5px'
+    }
+}
+
 class SelectedPDF extends Component {
 
     state = {
@@ -24,10 +32,10 @@ class SelectedPDF extends Component {
 
         let deleteLink = this.state.isHovering ? <Ikon size={20} kind='trashcan' onClick={onDeleteDocument}/> : null;
 
-        return <div className='d-inline-block'
+        return <div className='d-inline-block' style={styles.selectedDocument}
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
             onMouseLeave={this.onHandleMouseLeave.bind(this)}>
-            <Document className='text-center position-relative selectedDocument' file={{data: pdf.data }} onLoadSuccess={onLoadSuccess}>
+            <Document className='text-center position-relative' file={{data: pdf.data }} onLoadSuccess={onLoadSuccess}>
                 <div className='position-absolute' style={{zIndex: 10, right: 5, top: 5}}> {deleteLink}</div>
                 <div><Page width='100' className='page' renderMode='svg' pageNumber={1}/></div>
                 <div>File: {pdf.fileName}</div>

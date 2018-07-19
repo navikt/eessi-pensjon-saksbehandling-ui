@@ -15,8 +15,6 @@ import PDFSizeSlider from '../../components/pdf/PDFSizeSlider';
 import * as pdfActions from '../../actions/pdf';
 import * as uiActions from '../../actions/ui';
 
-import './pdf.css';
-
 const mapStateToProps = (state) => {
     return {
         errorMessage : state.error.clientErrorMessage,

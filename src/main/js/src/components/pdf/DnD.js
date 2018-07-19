@@ -30,7 +30,7 @@ class DnD extends Component {
     onDragEnd(result) {
 
         let { recipe, actions } = this.props;
-        
+
         let newRecipe = recipe.slice();
         let modified = false;
 
