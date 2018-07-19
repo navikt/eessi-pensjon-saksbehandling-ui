@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 
-import LanguageSelector from '../components/LanguageSelector';
-import TopContainer from '../components/TopContainer';
-import * as Nav from '../components/Nav'
+import LanguageSelector from '../components/ui/LanguageSelector';
+import TopContainer from '../components/ui/TopContainer';
+import * as Nav from '../components/ui/Nav'
 
 const mapStateToProps = (state) => {
     return {
@@ -32,10 +32,10 @@ class FrontPage extends Component {
                 </Nav.Row>
                 <Nav.Row className='mt-4 text-left'>
                     <Nav.Column>
-                        <Link to='/react/get'>
+                        <Link to='/react/case/get'>
                             <Nav.Lenkepanel className='frontPageLink' href="#">{t('ui:createNewCase')}</Nav.Lenkepanel>
                         </Link>
-                         <Link to='/react/selectPDF'>
+                         <Link to='/react/pdf/select'>
                             <Nav.Lenkepanel className='frontPageLink' href="#">{t('ui:createPdf')}</Nav.Lenkepanel>
                          </Link>
                     </Nav.Column>

@@ -7,7 +7,7 @@ import { bindActionCreators }  from 'redux';
 
 import PDFPageInDnD from './PDFPageInDnD';
 
-import * as pdfActions from '../actions/pdf';
+import * as pdfActions from '../../actions/pdf';
 
 const getListStyle = isDraggingOver => ({
     background: isDraggingOver ? 'lightblue' : 'lightgrey',

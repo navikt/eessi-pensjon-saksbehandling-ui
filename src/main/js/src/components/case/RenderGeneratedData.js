@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
-import lodash from 'lodash';
+import _ from 'lodash';
+
 class RenderGeneratedData extends Component {
 
     renderJson (json, level) {
@@ -20,7 +21,7 @@ class RenderGeneratedData extends Component {
             }
         }
 
-        return lodash.flatten(res);
+        return _.flatten(res);
     }
 
     render () {

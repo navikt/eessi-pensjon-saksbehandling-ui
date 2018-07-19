@@ -4,11 +4,11 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 
-import StepIndicator from '../components/StepIndicator';
-import * as Nav from '../components/Nav';
-import TopContainer from '../components/TopContainer';
+import StepIndicator from '../../components/case/StepIndicator';
+import * as Nav from '../../components/ui/Nav';
+import TopContainer from '../../components/ui/TopContainer';
 
-import * as usercaseActions from '../actions/usercase';
+import * as usercaseActions from '../../actions/usercase';
 
 const mapStateToProps = (state) => {
     return {
@@ -37,7 +37,7 @@ class EndCase extends Component {
         const { history, actions } = this.props;
 
         actions.clearData();
-        history.push('/react/get');
+        history.push('/react/case/get');
     }
 
     render() {

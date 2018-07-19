@@ -4,13 +4,13 @@ import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 
-import StepIndicator from '../components/StepIndicator';
-import * as Nav from '../components/Nav';
-import TopContainer from '../components/TopContainer';
-import RenderConfirmData from '../components/RenderConfirmData';
+import StepIndicator from '../../components/case/StepIndicator';
+import * as Nav from '../../components/ui/Nav';
+import TopContainer from '../../components/ui/TopContainer';
+import RenderConfirmData from '../../components/case/RenderConfirmData';
 
-import * as usercaseActions from '../actions/usercase';
-import * as uiActions from '../actions/ui';
+import * as usercaseActions from '../../actions/usercase';
+import * as uiActions from '../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
@@ -44,7 +44,7 @@ class ConfirmCase extends Component {
         const { history, dataToGenerate, action } = this.props;
 
         if (dataToGenerate && action === 'forward') {
-            history.push('/react/generate');
+            history.push('/react/case/generate');
         }
     }
 
@@ -53,7 +53,7 @@ class ConfirmCase extends Component {
         const { history, actions, dataToConfirm } = this.props;
 
         actions.navigateBack();
-        history.push('/react/get/' + dataToConfirm.caseId + '/' + dataToConfirm.actorId);
+        history.push('/react/case/get/' + dataToConfirm.caseId + '/' + dataToConfirm.actorId);
     }
 
     onForwardButtonClick() {

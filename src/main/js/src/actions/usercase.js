@@ -138,11 +138,11 @@ export function submitData (params) {
 
 export function getRinaUrl () {
     return api.call({
-        url: urls.GET_RINA_URL,
+        url: urls.RINA_URL,
         type: {
-            request : types.GET_RINA_URL_REQUEST,
-            success : types.GET_RINA_URL_SUCCESS,
-            failure : types.GET_RINA_URL_FAILURE
+            request : types.RINA_GET_URL_REQUEST,
+            success : types.RINA_GET_URL_SUCCESS,
+            failure : types.RINA_GET_URL_FAILURE
         }
     });
 }

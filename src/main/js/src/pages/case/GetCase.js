@@ -4,10 +4,11 @@ import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 
-import * as Nav from '../components/Nav';
-import TopContainer from '../components/TopContainer';
-import * as usercaseActions from '../actions/usercase';
-import * as uiActions from '../actions/ui';
+import * as Nav from '../../components/ui/Nav';
+import TopContainer from '../../components/ui/TopContainer';
+
+import * as usercaseActions from '../../actions/usercase';
+import * as uiActions from '../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
@@ -48,7 +49,7 @@ class GetCase extends Component {
 
         const { history, currentCase } = this.props;
         if (currentCase && currentCase.hasOwnProperty('casenumber') && currentCase.hasOwnProperty('pinid')) {
-            history.push('/react/get/' + currentCase.casenumber + '/' + currentCase.pinid);
+            history.push('/react/case/get/' + currentCase.casenumber + '/' + currentCase.pinid);
         }
     }
 

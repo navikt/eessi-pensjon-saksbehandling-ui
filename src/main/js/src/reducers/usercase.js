@@ -64,7 +64,7 @@ export default function (state = {}, action = {}) {
             currentCase : undefined
         });
 
-    case types.GET_RINA_URL_SUCCESS:
+    case types.RINA_GET_URL_SUCCESS:
 
         return Object.assign({}, state, {
             rinaUrl : action.payload

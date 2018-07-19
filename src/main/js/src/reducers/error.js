@@ -36,7 +36,7 @@ export default function (state = {}, action = {}) {
     case types.USERCASE_GET_COUNTRY_LIST_REQUEST:
     case types.USERCASE_SEND_DATA_REQUEST:
     case types.USERCASE_GENERATE_DATA_REQUEST:
-    case types.GET_RINA_URL_REQUEST:
+    case types.RINA_GET_URL_REQUEST:
 
         return Object.assign({}, state, {
             clientErrorMessage : undefined,
@@ -81,7 +81,7 @@ export default function (state = {}, action = {}) {
     case types.USERCASE_GET_CASE_NUMBER_FAILURE:
     case types.USERCASE_GENERATE_DATA_FAILURE:
     case types.USERCASE_SEND_DATA_FAILURE:
-    case types.GET_RINA_URL_FAILURE:
+    case types.RINA_GET_URL_FAILURE:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',

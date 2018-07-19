@@ -6,11 +6,11 @@ import { translate } from 'react-i18next';
 
 import { Document, Page } from 'react-pdf/dist/entry.noworker';
 
-import * as Nav from '../components/Nav';
-import TopContainer from '../components/TopContainer';
+import * as Nav from '../../components/ui/Nav';
+import TopContainer from '../../components/ui/TopContainer';
 
-import * as pdfActions from '../actions/pdf';
-import * as uiActions from '../actions/ui';
+import * as pdfActions from '../../actions/pdf';
+import * as uiActions from '../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
@@ -44,7 +44,7 @@ class GeneratePDF extends Component {
         const { history, pdfs } = this.props;
 
         if (!pdfs) {
-            history.push('/react/selectPDF');
+            history.push('/react/pdf/select');
         }
     }
 

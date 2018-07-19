@@ -5,9 +5,9 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 
-import * as Nav from './Nav';
+import * as Nav from '../ui/Nav';
 
-import * as pdfActions from '../actions/pdf';
+import * as pdfActions from '../../actions/pdf';
 
 const mapStateToProps = (state) => {
     return {

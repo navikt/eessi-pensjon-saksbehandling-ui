@@ -5,12 +5,12 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import { translate } from 'react-i18next';
 
-import StepIndicator from '../components/StepIndicator';
-import * as Nav from '../components/Nav';
-import TopContainer from '../components/TopContainer';
+import StepIndicator from '../../components/case/StepIndicator';
+import * as Nav from '../../components/ui/Nav';
+import TopContainer from '../../components/ui/TopContainer';
 
-import * as usercaseActions from '../actions/usercase';
-import * as uiActions from '../actions/ui';
+import * as usercaseActions from '../../actions/usercase';
+import * as uiActions from '../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
@@ -93,11 +93,11 @@ class EditCase extends Component {
         const { history, loading, currentCase, dataToConfirm, action } = this.props;
 
         if ( !loading.gettingCase && !currentCase) {
-            history.push('/react/get');
+            history.push('/react/case/get');
         }
 
         if (dataToConfirm && action === 'forward') {
-            history.push('/react/confirm');
+            history.push('/react/case/confirm');
         }
     }
 
@@ -107,7 +107,7 @@ class EditCase extends Component {
 
         actions.navigateBack();
         actions.clearCurrentCase();
-        history.push('/react/get');
+        history.push('/react/case/get');
     }
 
     onForwardButtonClick() {

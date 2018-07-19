@@ -43,15 +43,16 @@ ReactDOM.render(
         <Provider store={store}>
             <ConnectedRouter history={history}>
                 <Switch>
-                    <Route exact path='/react/generatePDF' component={Pages.GeneratePDF}/>
-                    <Route exact path='/react/editPDF'     component={Pages.EditPDF}/>
-                    <Route exact path='/react/selectPDF'   component={Pages.SelectPDF}/>
+                    <Route exact path='/react/pdf/generate' component={Pages.GeneratePDF}/>
+                    <Route exact path='/react/pdf/edit'     component={Pages.EditPDF}/>
+                    <Route exact path='/react/pdf/select'   component={Pages.SelectPDF}/>
 
-                    <Route exact path='/react/get'                  component={Pages.GetCase}/>
-                    <Route       path='/react/get/:caseid/:actorid' component={Pages.EditCase}/>
-                    <Route exact path='/react/confirm'              component={Pages.ConfirmCase}/>
-                    <Route exact path='/react/generate'             component={Pages.GenerateCase}/>
-                    <Route exact path='/react/end'                  component={Pages.EndCase}/>
+                    <Route exact path='/react/case/get'                  component={Pages.GetCase}/>
+                    <Route       path='/react/case/get/:caseid/:actorid' component={Pages.EditCase}/>
+                    <Route exact path='/react/case/confirm'              component={Pages.ConfirmCase}/>
+                    <Route exact path='/react/case/generate'             component={Pages.GenerateCase}/>
+                    <Route exact path='/react/case/end'                  component={Pages.EndCase}/>
+
                     <Route       path='/'                           component={Pages.FrontPage}/>
                 </Switch>
             </ConnectedRouter>

@@ -4,15 +4,15 @@ import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 
-import * as Nav from '../components/Nav';
-import TopContainer from '../components/TopContainer';
-import DnDSource from '../components/DnDSource';
-import DnDTarget from '../components/DnDTarget';
-import DnD from '../components/DnD';
-import PreviewPDF from '../components/PreviewPDF';
+import * as Nav from '../../components/ui/Nav';
+import TopContainer from '../../components/ui/TopContainer';
+import DnDSource from '../../components/pdf/DnDSource';
+import DnDTarget from '../../components/pdf/DnDTarget';
+import DnD from '../../components/pdf/DnD';
+import PreviewPDF from '../../components/pdf/PreviewPDF';
 
-import * as pdfActions from '../actions/pdf';
-import * as uiActions from '../actions/ui';
+import * as pdfActions from '../../actions/pdf';
+import * as uiActions from '../../actions/ui';
 
 import './pdf.css';
 
@@ -38,7 +38,7 @@ class EditPDF extends Component {
         const { history, pdfs } = this.props;
 
         if (!pdfs) {
-            history.push('/react/selectPDF');
+            history.push('/react/pdf/select');
         }
     }
 
@@ -48,7 +48,7 @@ class EditPDF extends Component {
 
         actions.navigateBack();
         actions.clearPDF();
-        history.push('/react/selectPDF');
+        history.push('/react/pdf/select');
     }
 
     onForwardButtonClick() {
@@ -60,7 +60,7 @@ class EditPDF extends Component {
             recipe: recipe,
             pdfs: pdfs
         });
-        history.push('/react/generatePDF');
+        history.push('/react/pdf/generate');
     }
 
     render() {

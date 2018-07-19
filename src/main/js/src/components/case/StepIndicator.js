@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 
-import * as Nav from './Nav'
+import * as Nav from '../ui/Nav'
 
 class StepIndicator extends Component {
 

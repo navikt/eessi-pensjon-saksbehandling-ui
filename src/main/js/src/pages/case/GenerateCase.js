@@ -4,13 +4,13 @@ import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 
-import StepIndicator from '../components/StepIndicator';
-import * as Nav from '../components/Nav';
-import TopContainer from '../components/TopContainer';
-import RenderGeneratedData from '../components/RenderGeneratedData';
+import StepIndicator from '../../components/case/StepIndicator';
+import * as Nav from '../../components/ui/Nav';
+import TopContainer from '../../components/ui/TopContainer';
+import RenderGeneratedData from '../../components/case/RenderGeneratedData';
 
-import * as usercaseActions from '../actions/usercase';
-import * as uiActions from '../actions/ui';
+import * as usercaseActions from '../../actions/usercase';
+import * as uiActions from '../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
@@ -45,7 +45,7 @@ class GenerateCase extends Component {
         const { history, dataSubmitted, action } = this.props;
 
         if (dataSubmitted && action === 'forward') {
-            history.push('/react/end');
+            history.push('/react/case/end');
         }
     }
 
@@ -54,7 +54,7 @@ class GenerateCase extends Component {
         const { history, actions } = this.props;
 
         actions.navigateBack();
-        history.push('/react/confirm')
+        history.push('/react/case/confirm')
     }
 
     onButtonClick() {

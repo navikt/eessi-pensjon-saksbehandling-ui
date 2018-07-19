@@ -1,13 +1,14 @@
 import FrontPage from './FrontPage';
-import GetCase from './GetCase';
-import EditCase from './EditCase';
-import ConfirmCase from './ConfirmCase';
-import GenerateCase from './GenerateCase';
-import EndCase from './EndCase';
 
-import SelectPDF   from './SelectPDF';
-import EditPDF     from './EditPDF';
-import GeneratePDF from './GeneratePDF';
+import GetCase from './case/GetCase';
+import EditCase from './case/EditCase';
+import ConfirmCase from './case/ConfirmCase';
+import GenerateCase from './case/GenerateCase';
+import EndCase from './case/EndCase';
+
+import SelectPDF   from './pdf/SelectPDF';
+import EditPDF     from './pdf/EditPDF';
+import GeneratePDF from './pdf/GeneratePDF';
 
 export {
     ConfirmCase,

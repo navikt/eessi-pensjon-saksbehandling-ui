@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import { DragDropContext } from 'react-beautiful-dnd';
 
-import * as pdfActions from '../actions/pdf';
+import * as pdfActions from '../../actions/pdf';
 
 const mapStateToProps = (state) => {
     return {

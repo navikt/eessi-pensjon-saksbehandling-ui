@@ -5,7 +5,7 @@ import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import _ from 'lodash';
 
-import * as pdfActions from '../actions/pdf';
+import * as pdfActions from '../../actions/pdf';
 
 const mapStateToProps = (state) => {
     return {

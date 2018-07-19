@@ -40,7 +40,7 @@ export default function (state = {}, action = {}) {
             countryList : true
         });
 
-    case types.GET_RINA_URL_REQUEST:
+    case types.RINA_GET_URL_REQUEST:
 
         return Object.assign({}, state, {
             rinaUrl : true
@@ -121,8 +121,8 @@ export default function (state = {}, action = {}) {
             generatingCase : false
         });
 
-    case types.GET_RINA_URL_SUCCESS:
-    case types.GET_RINA_URL_FAILURE:
+    case types.RINA_GET_URL_SUCCESS:
+    case types.RINA_GET_URL_FAILURE:
 
         return Object.assign({}, state, {
             rinaUrl : false
