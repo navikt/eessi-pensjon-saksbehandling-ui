@@ -5,6 +5,8 @@ import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import _ from 'lodash';
 
+import { Ikon } from '../../components/ui/Nav';
+
 import * as pdfActions from '../../actions/pdf';
 
 const mapStateToProps = (state) => {
@@ -19,13 +21,15 @@ const mapDispatchToProps = (dispatch) => {
 
 class PDFPageInDnD extends Component {
 
-    state = {}
+     state = {
+         isHovering : false
+     }
+
 
     addPageToTargetPdf(fileName, pageNumber) {
 
         let { recipe, actions } = this.props;
 
-        this.cancelTimeout();
         let newRecipe = recipe.slice();
         newRecipe.push({fileName: fileName, pageNumber: pageNumber});
         actions.setRecipe(newRecipe);
@@ -42,32 +46,24 @@ class PDFPageInDnD extends Component {
         }
     }
 
-    onMouseEnter(fileName, pageNumber) {
+    onHandleMouseEnter(fileName, pageNumber) {
+
+        this.setState({isHovering : true});
+    }
+
+    onHandleMouseLeave(fileName, pageNumber) {
+
+        this.setState({isHovering : false});
+    }
+
+    openPreview(fileName, pageNumber) {
 
         const { actions } = this.props;
 
-        let timeout = this.state.timeout;
-        if (!timeout) {
-            let newTimeout = setTimeout(function() {
-                actions.previewPDF({
-                    fileName: fileName,
-                    pageNumber : pageNumber
-                });
-            }, 2000);
-            this.setState({timeout : newTimeout})
-        }
-    }
-
-    cancelTimeout() {
-
-        if (this.state.timeout) {
-            clearTimeout(this.state.timeout);
-            this.setState({timeout: undefined});
-        }
-    }
-
-    onMouseLeave(fileName, pageNumber) {
-        this.cancelTimeout();
+        actions.previewPDF({
+            fileName: fileName,
+            pageNumber : pageNumber
+        });
     }
 
     render () {
@@ -81,12 +77,20 @@ class PDFPageInDnD extends Component {
             clickFunction = this.removePageFromTargetPdf
         }
 
-        return <Document className='document d-inline-block' file={{data: pdf.data}}>
-            <Page onMouseEnter={this.onMouseEnter.bind(this, pdf.fileName, pageNumber)}
-                onMouseLeave={this.onMouseLeave.bind(this, pdf.fileName, pageNumber)}
-                onClick={clickFunction.bind(this, pdf.fileName, pageNumber)}
-                className='d-inline-block page' width='100' renderMode='svg' pageNumber={pageNumber}/>
-        </Document>
+        let previewLink = this.state.isHovering ? <Ikon size={20} kind='info-sirkel-fylt' onClick={this.openPreview.bind(this, pdf.fileName, pageNumber)}/> : null;
+
+        return <div className='d-inline-block'
+            onMouseEnter={this.onHandleMouseEnter.bind(this, pdf.fileName, pageNumber)}
+            onMouseLeave={this.onHandleMouseLeave.bind(this, pdf.fileName, pageNumber)}>
+                <Document className='position-relative' file={{data: pdf.data}}>
+                     <div className='position-absolute' style={{zIndex: 10, right: 10, top: 10}}>{previewLink}</div>
+                     <div>
+                          <Page
+                          onClick={clickFunction.bind(this, pdf.fileName, pageNumber)}
+                          className='d-inline-block page' width='100' renderMode='svg' pageNumber={pageNumber}/>
+                     </div>
+                </Document>
+            </div>
     }
 }
 

@@ -11,11 +11,11 @@ class SelectedPDF extends Component {
     }
 
     onHandleMouseEnter() {
-        this.setState({isHovering : true})
+        this.setState({isHovering : true});
     }
 
     onHandleMouseLeave() {
-        this.setState({isHovering : false})
+        this.setState({isHovering : false});
     }
 
     render () {
