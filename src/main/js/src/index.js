@@ -43,6 +43,8 @@ ReactDOM.render(
         <Provider store={store}>
             <ConnectedRouter history={history}>
                 <Switch>
+                    <Route exact path='/react/p4000/start' component={Pages.StartP4000}/>
+
                     <Route exact path='/react/pdf/generate' component={Pages.GeneratePDF}/>
                     <Route exact path='/react/pdf/edit'     component={Pages.EditPDF}/>
                     <Route exact path='/react/pdf/select'   component={Pages.SelectPDF}/>
@@ -53,7 +55,7 @@ ReactDOM.render(
                     <Route exact path='/react/case/generate'             component={Pages.GenerateCase}/>
                     <Route exact path='/react/case/end'                  component={Pages.EndCase}/>
 
-                    <Route       path='/'                           component={Pages.FrontPage}/>
+                    <Route       path='/' component={Pages.FrontPage}/>
                 </Switch>
             </ConnectedRouter>
         </Provider>

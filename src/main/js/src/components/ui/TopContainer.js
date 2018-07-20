@@ -21,8 +21,8 @@ class TopContainer extends Component {
                         <h1 className='mt-3 appTitle'>{t('content:pageTitle')}</h1>
                     </Nav.Column>
                 </Nav.Row>
-                <Nav.Row>
-                    <Nav.Column className='py-3 text-left'>
+                <Nav.Row className='no-gutters'>
+                    <Nav.Column>
                         {this.props.children}
                     </Nav.Column>
                 </Nav.Row>

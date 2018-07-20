@@ -62,7 +62,7 @@ class GeneratePDF extends Component {
         let buttonText = generatingPDF ? t('loading:generatingPDF') : t('ui:forward');
 
         return <TopContainer>
-            <Nav.Panel className='panel'>
+            <Nav.Panel className='panel py-4 m-4'>
                 <Nav.Row className='mt-4'>
                     <Nav.Column>{t('content:generatePdf')}</Nav.Column>
                 </Nav.Row>

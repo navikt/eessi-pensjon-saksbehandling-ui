@@ -1,0 +1,62 @@
+.Side-menu-nav {
+	.divider {
+		background-color: lightgreen;
+		font-weight: 600;
+        position: relative;
+
+		&:after {
+            z-index: 10;
+            content: " ";
+            position: absolute;
+            right: 0px;
+            top:0px;
+            border-top: 44px solid white;
+            border-left: 10px solid white;
+        }
+	}
+
+	.item {
+		background-color: honeydew;
+        position: relative;
+
+        &.item-title {
+            padding-right: 30px;
+
+        }
+
+		&.item-level-1 .item-label {
+			font-style: italic;
+		}
+
+		&.item-level-2 .item-label {
+			font-size: 10px;
+		}
+
+        &.active {
+            background-color: lightgreen;
+
+            > :after {
+                z-index: 10;
+                content: " ";
+                display: inline-block;
+                position: absolute;
+                top: 0px;
+                right: -22px;
+                border-top: 22px solid transparent;
+                border-bottom: 22px solid transparent;
+                border-left: 22px solid lightgreen;
+            }
+        }
+
+        &:not(.active):after {
+            z-index: 10;
+            content: " ";
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            border-top: 22px solid white;
+            border-bottom: 22px solid white;
+            border-left: 10px solid white;
+        }
+   	}
+}

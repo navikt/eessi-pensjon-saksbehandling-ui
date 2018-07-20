@@ -70,7 +70,7 @@ class EditPDF extends Component {
         let buttonText = editingPDF ? t('loading:editPDF') : t('ui:forward');
 
         return <TopContainer>
-            <Nav.Panel className='panel'>
+            <Nav.Panel className='panel py-4 m-4'>
                 <Nav.Row className='mt-4'>
                     <Nav.Column>{t('content:editPdf')}</Nav.Column>
                 </Nav.Row>

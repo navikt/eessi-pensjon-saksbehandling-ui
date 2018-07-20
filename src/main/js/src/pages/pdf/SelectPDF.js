@@ -130,7 +130,7 @@ class SelectPDF extends Component {
         let buttonText = gettingPDF ? t('loading:gettingPDF') : t('ui:forward');
 
         return <TopContainer>
-            <Nav.Panel className='panel'>
+            <Nav.Panel className='panel py-4 m-4'>
                 <Nav.Row className='mt-4'>
                     <Nav.Column>{t('content:choosePdf')}</Nav.Column>
                 </Nav.Row>
