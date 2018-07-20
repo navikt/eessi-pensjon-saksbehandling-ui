@@ -15,7 +15,7 @@ class TopContainer extends Component {
         return <div className='h-100'>
             <TopHeader/>
             <AlertHeader/>
-            <Nav.Container>
+            <Nav.Container fluid={true}>
                 <Nav.Row>
                     <Nav.Column className='py-3 text-left'>
                         <h1 className='mt-3 appTitle'>{t('content:pageTitle')}</h1>

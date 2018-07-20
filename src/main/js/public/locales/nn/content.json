@@ -7,5 +7,6 @@
     "editCaseDescription" : "NN_Rediger Saken Beskrivelse Rediger Saken Beskrivelse Rediger Saken Beskrivelse",
     "confirmCaseDescription" : "NN_Bekrefte Saken Beskrivelse Bekrefte Saken Beskrivelse Bekrefte Saken Beskrivelse",
     "endCaseDescription" : "NN_Ferdig Saken Beskrivelse Ferdig Saken Beskrivelse Ferdig Saken Beskrivelse",
-    "undertitle" : "NN_App undertittel"
+    "undertitle" : "NN_App undertittel",
+    "editPdf": "Click or drag and drop PDF pages to add. You can sort the selected pages or remove them by clicking on them"
 }

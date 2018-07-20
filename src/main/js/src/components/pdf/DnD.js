@@ -34,16 +34,20 @@ class DnD extends Component {
         let newRecipe = recipe.slice();
         let modified = false;
 
-        if (!result.destination) { // 'dragged outside'
+        if (!result.destination) { // 'dragged to nowhere'
             return
         }
 
-        if (_.startsWith(result.destination.droppableId, 'dndsource')) { // dragged into source
-            return
-        }
+        // dragged from source...
+        if (_.startsWith(result.source.droppableId, 'dndsource')) {
 
-        if (_.startsWith(result.source.droppableId, 'dndsource')) {// dragged from source
 
+            // ...to another source
+            if (_.startsWith(result.destination.droppableId, 'dndsource')) {
+                return
+            }
+
+            // ...to the target
             let lastIndexOf = result.draggableId.lastIndexOf('-');
             let fileName = result.draggableId.substring(0, lastIndexOf);
             let pageNumber = parseInt(result.draggableId.substring(lastIndexOf + 1), 10)
@@ -56,14 +60,25 @@ class DnD extends Component {
             modified = true;
         }
 
-        // dragged to and from the target
-        if (_.startsWith(result.source.droppableId, 'dndtarget') &&
-          _.startsWith(result.destination.droppableId, 'dndtarget')) {
+        // dragged from the target...
+        if (_.startsWith(result.source.droppableId, 'dndtarget')) {
 
-            newRecipe = this.reorder(newRecipe, result.source.index, result.destination.index);
-            modified = true;
+            // ... to the target: reorder
+            if (_.startsWith(result.destination.droppableId, 'dndtarget')) {
+
+                newRecipe = this.reorder(newRecipe, result.source.index, result.destination.index);
+                modified = true;
+            }
+
+            // ... to a source: remove
+            if (_.startsWith(result.destination.droppableId, 'dndsource')) {
+
+                newRecipe.splice(result.source.index, 1);
+                modified = true;
+            }
         }
 
+        // if dragged fromn
         if (modified) {
             actions.setRecipe(newRecipe);
         }

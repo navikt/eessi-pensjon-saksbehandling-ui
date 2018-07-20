@@ -40,10 +40,13 @@ class PreviewPDF extends Component {
 
         return <Nav.Modal isOpen={true}
             onRequestClose={this.closeModal.bind(this)}
+            closeButton={false}
             contentLabel='contentLabel'>
-            <Document className='document' file={{data: pdf.data }}>
-                <Page className='page' width='600' renderMode='svg' pageNumber={preview.pageNumber}/>
-            </Document>
+            <div style={{cursor: 'pointer'}} onClick={this.closeModal.bind(this)}>
+                <Document className='document' file={{data: pdf.data }}>
+                    <Page className='page' width='600' renderMode='svg' pageNumber={preview.pageNumber}/>
+                </Document>
+            </div>
         </Nav.Modal>
     }
 }

@@ -7,5 +7,6 @@
     "editCaseDescription" : "Rediger Saken Rediger Saken Rediger Saken",
     "confirmCaseDescription" : "Bekrefte Saken Bekrefte Saken Bekrefte Saken ",
     "endCaseDescription" : "Ferdig Saken Ferdig Saken Ferdig Saken",
-    "undertitle" : "App undertittel"
+    "undertitle" : "App undertittel",
+    "editPdf": "Click or drag and drop PDF pages to add. You can sort the selected pages or remove them by clicking on them"
 }

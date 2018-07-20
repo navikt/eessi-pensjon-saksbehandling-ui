@@ -10,16 +10,19 @@ import PDFPageInDnD from './PDFPageInDnD';
 import * as pdfActions from '../../actions/pdf';
 
 const getListStyle = isDraggingOver => ({
-    background: isDraggingOver ? 'lightblue' : 'lightgrey',
-    padding: 5,
+    background: isDraggingOver ? 'honeydew' : 'whitesmoke',
+    padding: 10,
     overflowX: 'auto',
-    whiteSpace: 'nowrap'
+    whiteSpace: 'nowrap',
+    boxShadow: 'inset 5px 5px 5px lightgrey'
 });
 
 const getItemStyle = (isDragging, draggableStyle) => ({
-    border: isDragging ? '2px color red' : 'none',
+    border: isDragging ? '2px color red' : '1px solid lightgrey',
     padding: 5,
+    boxShadow: '5px 5px 5px lightgrey',
     margin: '0 5px 0 0',
+    backgroundColor: isDragging ? 'lightgreen' : 'white',
     ...draggableStyle
 })
 
@@ -91,7 +94,6 @@ class DnDSource extends Component {
                                 )}
                             </Draggable>
                         })}
-                        {provided.placeholder}
                     </div>
                 )}
             </Droppable>

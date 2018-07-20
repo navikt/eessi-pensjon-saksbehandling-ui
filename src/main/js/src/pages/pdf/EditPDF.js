@@ -91,7 +91,9 @@ class EditPDF extends Component {
                         </Nav.Column>
                     </Nav.Row>
                 </DnD>
-                <Nav.Row className='mt-4'>
+            </Nav.Panel>
+             <Nav.Panel>
+                 <Nav.Row className='mt-4'>
                     <Nav.Column>
                         <Nav.Knapp className='backButton' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
                         <Nav.Hovedknapp className='forwardButton' spinner={editingPDF} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>

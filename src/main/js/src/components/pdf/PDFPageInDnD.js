@@ -52,6 +52,11 @@ class PDFPageInDnD extends Component {
         this.setState({isHovering : true});
     }
 
+    onHandleMouseOver(fileName, pageNumber) {
+
+        this.setState({isHovering : true});
+    }
+
     onHandleMouseLeave(fileName, pageNumber) {
 
         this.setState({isHovering : false});
@@ -71,25 +76,33 @@ class PDFPageInDnD extends Component {
 
         const { pdf, pageNumber, action, pdfsize } = this.props;
 
-        let clickFunction;
+        let iconFunction, iconKind, iconLink;
         if (action === 'add') {
-            clickFunction = this.addPageToTargetPdf;
+            iconFunction = this.addPageToTargetPdf;
+            iconKind = 'vedlegg'
         } else {
-            clickFunction = this.removePageFromTargetPdf
+            iconFunction = this.removePageFromTargetPdf
+            iconKind = 'trashcan';
         }
 
-        let previewLink = this.state.isHovering ? <Ikon size={20} kind='info-sirkel-fylt' onClick={this.openPreview.bind(this, pdf.fileName, pageNumber)}/> : null;
+        if (this.state.isHovering) {
+            iconLink = <Ikon style={{cursor: 'pointer'}}
+                size={32} kind={iconKind}
+                onClick={iconFunction.bind(this, pdf.fileName, pageNumber)}/>
+        }
 
         return <div className='d-inline-block'
             onMouseEnter={this.onHandleMouseEnter.bind(this, pdf.fileName, pageNumber)}
+            onMouseOver={this.onHandleMouseOver.bind(this, pdf.fileName, pageNumber)}
             onMouseLeave={this.onHandleMouseLeave.bind(this, pdf.fileName, pageNumber)}>
                 <Document className='position-relative' file={{data: pdf.data}}>
-                     <div className='position-absolute' style={{zIndex: 10, right: 10, top: 10}}>{previewLink}</div>
+                     <div className='position-absolute' style={{zIndex: 10, right: 2, top: 2}}>{iconLink}</div>
                      <div>
                           <Page
-                          onClick={clickFunction.bind(this, pdf.fileName, pageNumber)}
+                          onClick={this.openPreview.bind(this, pdf.fileName, pageNumber)}
                           className='d-inline-block page' width={pdfsize} renderMode='svg' pageNumber={pageNumber}/>
                      </div>
+                     <div className='position-absolute' style={{zIndex: 10, right: 2, bottom: 2}}>{pageNumber}</div>
                 </Document>
             </div>
     }
