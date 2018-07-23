@@ -3,5 +3,6 @@
     "chooseBuc" : "NN_Velg en BUC",
     "chooseSed" : "NN_Velg en SED",
     "chooseInstitution" : "NN_Velg en mottaker",
-    "chooseCountry" : "NN_Velg et land"
+    "chooseCountry" : "NN_Velg et land",
+    "endDateEarlierThanStartDate" : "NN_Sluttdato kan ikke være tidligere enn startdato"
 }

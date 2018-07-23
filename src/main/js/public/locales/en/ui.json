@@ -3,7 +3,6 @@
     "allCountries" : "All countries",
     "back" : "Back",
     "buc" : "BUC",
-    "subjectArea": "Subject area",
     "caseFound" : "Case found",
     "caseId" : "Case ID",
     "caseLink" : "Case link",
@@ -22,14 +21,20 @@
     "createNewCase" : "Create new case",
     "dataGenerated" : "Data generated",
     "dataSubmitted" : "Data sent",
+    "endDate" : "End date",
     "go" : "Go",
     "institution"  : "Institution",
+    "openPeriod" : "Open period",
+    "remove" : "Remove",
+    "rangePeriod" : "Range period",
     "search" : "Search",
     "sed" : "SED",
     "start" : "Start",
+    "startDate" : "Start date",
     "step1" : "Edit case",
     "step2" : "Confirm case",
     "step3" : "Generate case",
     "step4" : "Create case",
-    "remove" : "Remove"
+    "subjectArea": "Subject area"
+
 }

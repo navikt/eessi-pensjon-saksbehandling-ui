@@ -8,5 +8,16 @@
     "confirmCaseDescription" : "Bekrefte Saken Bekrefte Saken Bekrefte Saken ",
     "endCaseDescription" : "Ferdig Saken Ferdig Saken Ferdig Saken",
     "undertitle" : "App undertittel",
-    "editPdf": "Click or drag and drop PDF pages to add. You can sort the selected pages or remove them by clicking on them"
+    "editPdf": "Click or drag and drop PDF pages to add. You can sort the selected pages or remove them by clicking on them",
+    "p4000-work" : "Ansatt / selvstending",
+    "p4000-period" : "Periode",
+    "p4000-home": "Botid",
+    "p4000-child": "Omsorg for barn",
+    "p4000-voluntary" : "Friville forsikring",
+    "p4000-military" : "Militærtjenest",
+    "p4000-birth" : "Fødselspenger",
+    "p4000-learning" : "Opplæring",
+    "p4000-daily" : "Dagpenger",
+    "p4000-sick" : "Sykepenger",
+    "p4000-other" : "Andre typer"
 }

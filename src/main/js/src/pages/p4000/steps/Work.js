@@ -3,42 +3,98 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
+import { bindActionCreators }  from 'redux';
 
 import DatePicker from '../../../components/p4000/DatePicker';
+import * as Nav from '../../../components/ui/Nav';
+import Icons from '../../../components/ui/Icons';
 
-import * as Nav from '../../../components/ui/Nav'
+import * as p4000Actions from '../../../actions/p4000';
 
 const mapStateToProps = (state) => {
     return {
+        form          : state.p4000.form,
+        editFormEvent : state.p4000.editFormEvent
     }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch)};
 };
 
 class Work extends Component {
 
-    onDatePicked(year, month) {
+    state = {
+        type: 'work'
+    };
 
-        console.log(year + ' ' + month);
+    componentDidMount() {
+
+        const { editFormEvent } = this.props;
+
+        if (editFormEvent) {
+            this.setState(editFormEvent);
+        }
+    }
+
+    onStartDatePicked(year, month) {
+        this.setState({
+            startDate: {year: year, month: month}
+        });
+    }
+
+    onEndDatePicked(year, month) {
+        this.setState({
+            endDate: {year: year, month: month}
+        });
+    }
+
+    saveForm () {
+        const { actions } = this.props;
+        actions.pushEventToP4000Form(this.state);
     }
 
     render() {
 
         const { t } = this.props;
 
-        return <Nav.Row className='mt-4 text-left'>
-            <Nav.Column>
-                <DatePicker onDatePicked={this.onDatePicked.bind(this)}/>
+        return <div>
+        <Nav.Row>
+            <Nav.Column className='mt-4'>
+                <Icons size='3x' kind='work' className='d-inline-block'/>
+                <h1 className='d-inline-block m-0 ml-3 align-bottom'>{t('content:p4000-work')}</h1>
             </Nav.Column>
         </Nav.Row>
+        <Nav.Row className='mt-4'>
+            <Nav.Column>
+                <DatePicker
+                    onStartDatePicked={this.onStartDatePicked.bind(this)}
+                    onEndDatePicked={this.onEndDatePicked.bind(this)}
+                />
+            </Nav.Column>
+        </Nav.Row>
+        <Nav.Row className='mt-4'>
+            <Nav.Column>
+                <Nav.Input label={t('content:p4000-activity')} value={this.state.activity}
+                  onChange={(e) => {this.setState({activity: e.target.value})}} />
+            </Nav.Column>
+        </Nav.Row>
+         <Nav.Row className='mt-4'>
+            <Nav.Column>
+                <Nav.Hovedknapp className='forwardButton' onClick={this.saveForm.bind(this)}>{t('ui:save')}</Nav.Hovedknapp>
+            </Nav.Column>
+        </Nav.Row>
+        </div>
     }
 }
 
 Work.propTypes = {
-    t        : PT.func
+    t : PT.func
 };
 
 export default connect(
     mapStateToProps,
-    {}
+    mapDispatchToProps
 )(
     translate()(Work)
 );

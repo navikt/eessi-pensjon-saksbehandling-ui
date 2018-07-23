@@ -1,5 +1,3 @@
-
-import Start from './Start';
 import Work from './Work';
 import Home from './Home';
 import Child from './Child';
@@ -12,7 +10,6 @@ import Sick from './Sick';
 import Other from './Other';
 
 export {
-    Start,
     Work,
     Home,
     Child,

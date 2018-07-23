@@ -8,5 +8,16 @@
     "confirmCaseDescription" : "Confirm case description Confirm case description Confirm case description Confirm case description Confirm case description",
     "endCaseDescription" : "End case description End case description End case description End case description End case description",
     "undertitle" : "App undertitle",
-    "editPdf": "Click or drag and drop PDF pages to add. You can sort the selected pages or remove them by clicking on them"
+    "editPdf": "Click or drag and drop PDF pages to add. You can sort the selected pages or remove them by clicking on them",
+    "p4000-work" : "Work / Self-employed",
+    "p4000-period" : "Period",
+    "p4000-home": "Home",
+    "p4000-child": "Child",
+    "p4000-voluntary" : "Voluntary",
+    "p4000-military" : "Military",
+    "p4000-birth" : "Birth",
+    "p4000-learning" : "Learning",
+    "p4000-daily" : "Daily",
+    "p4000-sick" : "Sick",
+    "p4000-other" : "Other"
 }
