@@ -2,6 +2,8 @@ package no.nav.eessi.fagmodul.frontend.controllers
 
 import io.swagger.annotations.ApiOperation
 import no.nav.eessi.fagmodul.frontend.models.FrontendRequest
+import no.nav.eessi.fagmodul.frontend.models.TrygdeTid
+import no.nav.eessi.fagmodul.frontend.models.createTrygdeTidMock
 import no.nav.eessi.fagmodul.frontend.services.FagmodulService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -28,6 +30,12 @@ class FagmodulController(private val service: FagmodulService) {
     fun confirmDocument(@RequestBody request: FrontendRequest): String? {
         logger.debug("request model : $request")
         return service.confirm(request)
+    }
+
+    @ApiOperation("Henter opp mock av TrygdeTid")
+    @PostMapping("/trygdetid")
+    fun trygdetid(): TrygdeTid {
+        return createTrygdeTidMock()
     }
 
 }

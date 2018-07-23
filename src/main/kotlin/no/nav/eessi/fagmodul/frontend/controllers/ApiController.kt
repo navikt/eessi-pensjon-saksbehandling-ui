@@ -3,6 +3,7 @@ package no.nav.eessi.fagmodul.frontend.controllers
 import io.swagger.annotations.ApiOperation
 import no.nav.eessi.fagmodul.frontend.models.*
 import no.nav.eessi.fagmodul.frontend.services.EuxService
+import no.nav.eessi.fagmodul.frontend.services.FagmodulService
 import no.nav.eessi.fagmodul.frontend.utils.logger
 import no.nav.freg.security.oidc.common.OidcTokenAuthentication
 import org.springframework.beans.factory.annotation.Value
@@ -15,7 +16,7 @@ import java.util.regex.Pattern.matches
 
 @RestController
 @RequestMapping("/api")
-class ApiController(private val euxService: EuxService) {
+class ApiController(private val euxService: EuxService, private val fagService: FagmodulService) {
 
     @Value("\${rina.url}")
     lateinit var rinaUrl: String
@@ -68,7 +69,12 @@ class ApiController(private val euxService: EuxService) {
 
     @GetMapping("/countrycode")
     fun getCountryCode() : List<String> {
-        return listOf("NO","SE","DK","FI")
+        try {
+            return fagService.landkoder()
+        } catch (ex: Exception) {
+            logger.error(ex.message)
+            return listOf("NO","SE","DK","FI")
+        }
     }
 
     @GetMapping("/subjectarea")

@@ -2,6 +2,7 @@ package no.nav.eessi.fagmodul.frontend.controllers
 
 import com.nhaarman.mockito_kotlin.whenever
 import no.nav.eessi.fagmodul.frontend.services.EuxService
+import no.nav.eessi.fagmodul.frontend.services.FagmodulService
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -18,11 +19,14 @@ class ApiControllerTest {
     @Mock
     lateinit var mockEuxService: EuxService
 
+    @Mock
+    lateinit var mockFagService: FagmodulService
+
     lateinit var apiController: ApiController
 
     @Before
     fun setUp() {
-        apiController = ApiController(mockEuxService)
+        apiController = ApiController(mockEuxService, mockFagService)
     }
 
 
