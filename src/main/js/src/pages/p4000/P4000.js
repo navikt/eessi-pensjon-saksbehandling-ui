@@ -12,7 +12,9 @@ import SelectedPDF from '../../components/pdf/SelectedPDF';
 import * as pdfActions from '../../actions/pdf';
 import * as uiActions from '../../actions/ui';
 
-import 'font-awesome/css/font-awesome.min.css';
+import * as Steps from './steps';
+
+import '@fortawesome/fontawesome-free/css/all.css';
 import 'react-sidemenu/dist/react-sidemenu.min.css';
 import './sidemenu.css';
 
@@ -22,7 +24,7 @@ const mapStateToProps = (state) => {
         errorStatus  : state.error.clientErrorStatus,
         gettingCase  : state.loading.gettingCase,
         language     : state.ui.language,
-        x         : state.p4000.x
+        form         : state.p4000.form
     }
 };
 
@@ -32,62 +34,56 @@ const mapDispatchToProps = (dispatch) => {
 
 const items = [
   	{divider: true, label: 'Perioder', value: 'main-nav'},
-  	{label: 'Ansatt / selvstending', value: 'item1', icon: 'fa-search',
-  	children: [
-  		{label: 'item 1.1', value: 'item1.1', icon: 'fa-snapchat',
-  		children: [
-  			{label: 'item 1.1.1', value: 'item1.1.1', icon: 'fa-anchor'},
-  			{label: 'item 1.1.2', value: 'item1.1.2', icon: 'fa-bar-chart'}]},
-  		{label: 'item 1.2', value: 'item1.2'}]},
-  	{label: 'botid', value: 'item2', icon: 'fa-automobile',
-  	children: [
-  		{label: 'item 2.1', value: 'item2.1',
-  		children: [
-  			{label: 'item 2.1.1', value: 'item2.1.1'},
-  			{label: 'item 2.1.2', value: 'item2.1.2'}]},
-  		{label: 'item 2.2', value: 'item2.2'}]},
-  	{label: 'Omsorg for barn', value: 'item3', icon: 'fa-beer'},
-  	{label: 'Friville forsikring', value: 'item4', icon: 'fa-beer'},
-  	{label: 'Militærtjeneste', value: 'item6', icon: 'fa-beer'},
-  	{label: 'Fødselspenger', value: 'item7', icon: 'fa-beer'},
-  	{label: 'Opplæring', value: 'item8', icon: 'fa-beer'},
-  	{label: 'Sykepenger', value: 'item9', icon: 'fa-beer'},
-  	{label: 'Andre typer', value: 'item10', icon: 'fa-beer'},
-    {divider: true, label: 'Motors', value: 'motors-nav'}
-
+  	{label: 'Ansatt / selvstending', value: 'work', icon: 'fa-briefcase'},
+  	{label: 'Botid', value: 'home', icon: 'fa-home'},
+  	{label: 'Omsorg for barn', value: 'child', icon: 'fa-child'},
+  	{label: 'Friville forsikring', value: 'voluntary', icon: 'fa-hands-helping'},
+  	{label: 'Militærtjeneste', value: 'military', icon: 'fa-fighter-jet'},
+  	{label: 'Fødselspenger', value: 'birth', icon: 'fa-money-bill-wave'},
+  	{label: 'Opplæring', value: 'learn', icon: 'fa-school'},
+  	{label: 'Dagpenger', value: 'daily', icon: 'fa-hand-holding-usd'},
+  	{label: 'Sykepenger', value: 'sick', icon: 'fa-h-square'},
+  	{label: 'Andre typer', value: 'other', icon: 'fa-calendar'},
+    {divider: true, label: 'Other', value: 'timeline-nav'},
+  	{label: 'Timeline', value: 'timeline', icon: 'fa-calendar-check'}
   ];
 
 
-class StartP4000 extends Component {
+class P4000 extends Component {
 
     state = {
-        pdfs: [],
-        numPages: []
+       menu: 'work'
     };
 
-    onForwardButtonClick() {
 
-        const {actions} = this.props;
+    componentDidUpdate() {}
 
-        actions.navigateForward();
-        let pdfs = this.state.pdfs;
-        let numPages = this.state.numPages;
-        for (var i in pdfs) {
-            pdfs[i]['numPages'] = numPages[i];
-        }
-        actions.selectPDF(pdfs);
-    }
-
-    componentDidUpdate() {
-
-        const { history, pdfs } = this.props;
-        if (pdfs) {
-            history.push('/react/pdf/edit');
-        }
-    }
+    handleForwardButtonClick() {}
 
     handleMenuItemClick(value, extras) {
-        console.log(value + ' ' + extras);
+        console.log(value)
+        this.setState({menu : value});
+    }
+
+    renderBody(type) {
+
+        switch(type) {
+
+            case 'start': return <Steps.Start/>
+            case 'work': return <Steps.Work/>
+            case 'home': return <Steps.Home/>
+            case 'child': return <Steps.Child/>
+            case 'voluntary': return <Steps.Voluntary/>
+            case 'military': return <Steps.Military/>
+            case 'birth': return <Steps.Birth/>
+            case 'learn': return <Steps.Learn/>
+            case 'daily': return <Steps.Daily/>
+            case 'sick': return <Steps.Sick/>
+            case 'other': return <Steps.Other/>
+
+            default: return <Steps.Start/>
+        }
+
     }
 
     render() {
@@ -97,27 +93,26 @@ class StartP4000 extends Component {
         let alert      = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
         let buttonText = gettingPDF ? t('loading:gettingPDF') : t('ui:forward');
 
+        let body = this.renderBody(this.state.menu);
+
         return <TopContainer>
             <Nav.Row className='no-gutters'>
                 <Nav.Column className='col-3'>
-                    <SideMenu items={items} theme='nav' shouldTriggerClickOnParents={true} onMenuItemClick={this.handleMenuItemClick.bind(this)}/>
+                    <SideMenu activeItem={this.state.menu} items={items} theme='nav' shouldTriggerClickOnParents={true} onMenuItemClick={this.handleMenuItemClick.bind(this)}/>
                 </Nav.Column>
                 <Nav.Column>
                     <Nav.Panel className='h-100'>
-                        <Nav.Row className='mt-4'>
-                            <Nav.Column>{t('content:startP4000')}</Nav.Column>
-                        </Nav.Row>
                         <Nav.Row className='mt-4 text-center'>
                             <Nav.Column>{alert}</Nav.Column>
                         </Nav.Row>
                         <Nav.Row className='mt-4 text-left'>
                             <Nav.Column>
-
+                                {body}
                             </Nav.Column>
                         </Nav.Row>
                         <Nav.Row className='mt-4'>
                             <Nav.Column>
-                                <Nav.Hovedknapp className='forwardButton' spinner={gettingPDF} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                                <Nav.Hovedknapp className='forwardButton' spinner={gettingPDF} onClick={this.handleForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
                             </Nav.Column>
                         </Nav.Row>
                     </Nav.Panel>
@@ -127,7 +122,7 @@ class StartP4000 extends Component {
     }
 }
 
-StartP4000.propTypes = {
+P4000.propTypes = {
     errorMessage : PT.string,
     errorStatus  : PT.string,
     gettingPDF   : PT.bool,
@@ -141,5 +136,5 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(
-    translate()(StartP4000)
+    translate()(P4000)
 );

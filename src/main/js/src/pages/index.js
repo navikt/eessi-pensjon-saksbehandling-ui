@@ -10,7 +10,7 @@ import SelectPDF   from './pdf/SelectPDF';
 import EditPDF     from './pdf/EditPDF';
 import GeneratePDF from './pdf/GeneratePDF';
 
-import StartP4000 from './p4000/StartP4000';
+import P4000 from './p4000/P4000';
 
 export {
     ConfirmCase,
@@ -22,5 +22,5 @@ export {
     SelectPDF,
     EditPDF,
     GeneratePDF,
-    StartP4000
+    P4000
 };

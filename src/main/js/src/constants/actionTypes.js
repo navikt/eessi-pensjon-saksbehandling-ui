@@ -59,4 +59,8 @@ export const PDF_SET_RECIPE       = 'PDF/SET_RECIPE';
 export const PDF_PREVIEW_START    = 'PDF/PREVIEW/START';
 export const PDF_PREVIEW_END      = 'PDF/PREVIEW/END';
 
-export const SETTINGS_SET_PDF_SIZE = 'SETTINGS/SET_PDF_SIZE'
+export const SETTINGS_SET_PDF_SIZE = 'SETTINGS/SET_PDF_SIZE';
+
+export const P4000_ADD_TO_FORM = 'P4000/ADD_TO_FORM';
+
+
