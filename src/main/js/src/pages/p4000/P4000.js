@@ -11,6 +11,7 @@ import TopContainer from '../../components/ui/TopContainer';
 import FormEvent from '../../components/p4000/FormEvent';
 
 import * as Steps from './steps';
+import * as Views from './views';
 
 import * as p4000Actions from '../../actions/p4000';
 
@@ -42,7 +43,14 @@ const components = {
     learn: Steps.Learn,
     daily: Steps.Daily,
     sick: Steps.Sick,
-    other: Steps.Other
+    other: Steps.Other,
+    timeline: Views.Timeline
+}
+
+const style = {
+    menu: {
+        backgroundColor: 'white'
+    }
 }
 
 class P4000 extends Component {
@@ -51,12 +59,9 @@ class P4000 extends Component {
        currentType: 'work'
     };
 
-
     handleMenuItemClick(newType, extras) {
 
-        if (newType !== this.state.currentType) {
-            this.setState({currentType : newType});
-        }
+        this.setState({currentType : newType});
     }
 
     getItems() {
@@ -64,7 +69,7 @@ class P4000 extends Component {
         const { t } = this.props;
 
         return [
-      	{divider: true, label: t('content:p4000_period'), value: 'main-nav'},
+      	{divider: true, label: t('content:p4000_period'), value: 'steps'},
       	{label: t('content:p4000-work'), value: 'work', icon: 'fa-briefcase'},
       	{label: t('content:p4000-botid'), value: 'home', icon: 'fa-home'},
       	{label: t('content:p4000-child'), value: 'child', icon: 'fa-child'},
@@ -75,8 +80,8 @@ class P4000 extends Component {
       	{label: t('content:p4000-daily'), value: 'daily', icon: 'fa-hand-holding-usd'},
       	{label: t('content:p4000-sick'), value: 'sick', icon: 'fa-h-square'},
       	{label: t('content:p4000-other'), value: 'other', icon: 'fa-calendar'},
-        {divider: true, label: 'Other', value: 'timeline-nav'},
-      	{label: 'Timeline', value: 'timeline', icon: 'fa-calendar-check'}
+        {divider: true, label: 'Other', value: 'views'},
+      	{label: t('content:p4000-timeline'), value: 'timeline', icon: 'fa-calendar-check'}
         ];
     }
 
@@ -102,7 +107,7 @@ class P4000 extends Component {
 
         return <TopContainer>
             <Nav.Row className='no-gutters'>
-                <Nav.Column className='col-3'>
+                <Nav.Column className='col-3' styles={style.menu}>
                     <SideMenu activeItem={currentType} items={this.getItems()} theme='nav' shouldTriggerClickOnParents={true} onMenuItemClick={this.handleMenuItemClick.bind(this)}/>
                 </Nav.Column>
                 <Nav.Column>
@@ -110,11 +115,15 @@ class P4000 extends Component {
                         <Nav.Row className='text-center'>
                             <Nav.Column>{alert}</Nav.Column>
                         </Nav.Row>
-                        <Nav.Row>
-                            <Nav.Column>
-                                {this.renderExistingOnes(form, editFormEvent)}
-                            </Nav.Column>
-                        </Nav.Row>
+                        {(() => {
+                            if (currentType !== 'timeline') {
+                                return <Nav.Row>
+                                    <Nav.Column>
+                                        {this.renderExistingOnes(form, editFormEvent)}
+                                    </Nav.Column>
+                                </Nav.Row>
+                            }
+                        })()}
                         <Nav.Row>
                             <Nav.Column>
                             {(() => {
