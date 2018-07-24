@@ -6,12 +6,14 @@ import DatePicker from '../../../components/p4000/DatePicker';
 import * as Nav from '../../../components/ui/Nav';
 import Icons from '../../../components/ui/Icons';
 
+const initialState =  {
+     type : 'work',
+     event : {}
+}
+
 class Work extends Component {
 
-    state = {
-        type : 'work',
-        event : {}
-    }
+    state = initialState;
 
     componentDidMount() {
         this.onUpdate();
@@ -32,7 +34,8 @@ class Work extends Component {
             });
         }
         if (!event == !_.isEmpty(this.state.event)) {
-            this.setStatate
+           // this.state = initialState;
+           // this.setState(initialState);
         }
     }
 

@@ -11,7 +11,6 @@ import './sidemenu.css';
 
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
-import ExistingEvents from '../../components/p4000/ExistingEvents';
 import EventForm from '../../components/p4000/EventForm';
 
 import * as p4000Actions from '../../actions/p4000';
@@ -104,6 +103,9 @@ class P4000 extends Component {
         const { t } = this.props;
 
         return [
+            {label: t('content:p4000-views'),     value: 'views',     divider: true},
+            {label: t('content:p4000-timeline'),  value: 'timeline',  icon: 'fa-calendar-check'},
+            {label: t('content:p4000-file'),      value: 'file',      icon: 'fa-file'},
             {label: t('content:p4000-events'),    value: 'events',    divider: true, },
             {label: t('content:p4000-work'),      value: 'work',      icon: 'fa-briefcase'},
             {label: t('content:p4000-home'),      value: 'home',      icon: 'fa-home'},
@@ -114,9 +116,7 @@ class P4000 extends Component {
             {label: t('content:p4000-learn'),     value: 'learn',     icon: 'fa-school'},
             {label: t('content:p4000-daily'),     value: 'daily',     icon: 'fa-hand-holding-usd'},
             {label: t('content:p4000-sick'),      value: 'sick',      icon: 'fa-h-square'},
-            {label: t('content:p4000-other'),     value: 'other',     icon: 'fa-calendar'},
-            {label: t('content:p4000-views'),     value: 'views',     divider: true},
-            {label: t('content:p4000-timeline'),  value: 'timeline',  icon: 'fa-calendar-check'}
+            {label: t('content:p4000-other'),     value: 'other',     icon: 'fa-calendar'}
         ];
     }
 
@@ -137,18 +137,9 @@ class P4000 extends Component {
                         <Nav.Row className='text-center'>
                             <Nav.Column>{alert}</Nav.Column>
                         </Nav.Row>
-                        {(() => {
-                            if (type !== 'timeline') {
-                                return <Nav.Row>
-                                    <Nav.Column>
-                                        <ExistingEvents events={events} eventIndex={this.state.eventIndex}/>
-                                    </Nav.Column>
-                                </Nav.Row>
-                            }
-                        })()}
                         <Nav.Row>
                             <Nav.Column>
-                                <EventForm type={type} editMode={this.state.editMode} event={this.state.event} eventIndex={this.state.eventIndex}/>
+                                <EventForm type={type} events={events} editMode={this.state.editMode} event={this.state.event} eventIndex={this.state.eventIndex}/>
                             </Nav.Column>
                         </Nav.Row>
                     </Nav.Panel>

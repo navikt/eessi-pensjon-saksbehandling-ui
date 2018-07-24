@@ -22,6 +22,8 @@ class Icons extends Component {
         case 'daily' : return <FontAwesomeIcon icon={icons.faHandHoldingUsd} {...this.props}/>;
         case 'sick' : return <FontAwesomeIcon icon={icons.faHSquare} {...this.props}/>;
         case 'other' : return <FontAwesomeIcon icon={icons.faCalendar} {...this.props}/>;
+
+        case 'p4000' : return <FontAwesomeIcon icon={icons.faFile} {...this.props}/>;
         }
 
         return null;
