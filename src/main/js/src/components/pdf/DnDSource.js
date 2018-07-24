@@ -46,13 +46,13 @@ class DnDSource extends Component {
 
         let potentialPages = [], newRecipe = recipe.slice();
         _.range(1, pdf.numPages + 1).map(pageNumber => {
-            potentialPages.push({ pageNumber : pageNumber, fileName : fileName });
+            return potentialPages.push({ pageNumber : pageNumber, fileName : fileName });
         });
         potentialPages.map(page => {
             if (! _.find(recipe, page)) {
-                newRecipe.push(page);
+                return newRecipe.push(page);
             }
-            return
+            return;
         });
         actions.setRecipe(newRecipe);
     }

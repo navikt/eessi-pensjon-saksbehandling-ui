@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import PT from 'prop-types';
 import { bindActionCreators }  from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import Slider from 'rc-slider';
-
 import 'rc-slider/assets/index.css';
 
 import * as settingsActions from '../../actions/settings';
@@ -38,7 +36,9 @@ class PDFSizeSlider extends Component {
 }
 
 PDFSizeSlider.propTypes = {
-}
+    pdfsize: PT.number.isRequired,
+    actions: PT.object
+};
 
 export default connect(
     mapStateToProps,

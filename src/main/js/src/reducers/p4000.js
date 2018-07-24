@@ -1,36 +1,42 @@
 import * as types from '../constants/actionTypes';
 
 
-export default function (state = { form: []}, action = {}) {
+export default function (state = { events: []}, action = {}) {
+
+    let newEvents;
 
     switch (action.type) {
 
-        case types.P4000_SELECTED_STEP:
+    case types.P4000_PUSH_EVENT_TO_FORM:
 
-         return Object.assign({}, state, {
-            editFormEvent : undefined
-         });
+        newEvents = state.events.slice();
+        newEvents[newEvents.length] = action.payload.event
 
-        case types.P4000_PUSH_EVENT_TO_FORM:
+        return Object.assign({}, state, {
+            events : newEvents
+        });
 
-           let newForm = state.form.slice();
-           newForm[newForm.length] = action.payload
 
-            return Object.assign({}, state, {
-                form : newForm
-            });
+    case types.P4000_EDIT_EVENT:
 
-        case types.P4000_EDIT_FORM_EVENT:
+        newEvents = state.events.slice();
+        newEvents[action.payload.eventIndex] = action.payload.event;
 
-            let editFormEvent = state.form[action.payload.index];
-            editFormEvent.index = action.payload.index;
+        return Object.assign({}, state, {
+            events : newEvents
+        });
 
-            return Object.assign({}, state, {
-                editFormEvent : editFormEvent
-            });
+    case types.P4000_DELETE_EVENT:
 
-        default:
-            return state;
+        newEvents = state.events.slice();
+        newEvents.splice(action.payload.eventIndex, 1);
+
+        return Object.assign({}, state, {
+            events : newEvents
+        });
+
+    default:
+        return state;
 
     }
 }

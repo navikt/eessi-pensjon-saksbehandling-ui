@@ -76,7 +76,7 @@ class EndCase extends Component {
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
                         <div className='endCase'>
-                             {body}
+                            {body}
                         </div>
                     </Nav.Column>
                 </Nav.Row>

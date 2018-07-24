@@ -6,9 +6,9 @@ import { Ikon } from '../ui/Nav';
 
 const styles = {
     selectedDocument: {
-         border: 'solid 1px lightgray',
-         padding: '5px',
-         marginRight: '5px'
+        border: 'solid 1px lightgray',
+        padding: '5px',
+        marginRight: '5px'
     }
 }
 

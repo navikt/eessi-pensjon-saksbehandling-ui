@@ -33,14 +33,14 @@ class FrontPage extends Component {
                 <Nav.Row className='mt-4 text-left'>
                     <Nav.Column>
                         <Link to='/react/case/get'>
-                             <Nav.Lenkepanel className='frontPageLink' href="#">{t('ui:createNewCase')}</Nav.Lenkepanel>
+                            <Nav.Lenkepanel className='frontPageLink' href="#">{t('ui:createNewCase')}</Nav.Lenkepanel>
                         </Link>
-                         <Link to='/react/pdf/select'>
-                             <Nav.Lenkepanel className='frontPageLink' href="#">{t('ui:createPdf')}</Nav.Lenkepanel>
-                         </Link>
-                         <Link to='/react/p4000'>
-                             <Nav.Lenkepanel className='frontPageLink' href="#">{t('ui:startP4000')}</Nav.Lenkepanel>
-                         </Link>
+                        <Link to='/react/pdf/select'>
+                            <Nav.Lenkepanel className='frontPageLink' href="#">{t('ui:createPdf')}</Nav.Lenkepanel>
+                        </Link>
+                        <Link to='/react/p4000'>
+                            <Nav.Lenkepanel className='frontPageLink' href="#">{t('ui:startP4000')}</Nav.Lenkepanel>
+                        </Link>
                     </Nav.Column>
                 </Nav.Row>
             </Nav.Panel>

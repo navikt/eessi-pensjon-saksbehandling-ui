@@ -13,8 +13,7 @@ import * as p4000Actions from '../../../actions/p4000';
 
 const mapStateToProps = (state) => {
     return {
-        form          : state.p4000.form,
-        editFormEvent : state.p4000.editFormEvent
+        events : state.p4000.events
     }
 };
 
@@ -22,11 +21,11 @@ const mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch)};
 };
 
-class Work extends Component {
+class Military extends Component {
 
     state = {
-        type: 'work'
-    };
+        type: 'military'
+    }
 
     componentDidMount() {
 
@@ -59,36 +58,36 @@ class Work extends Component {
         const { t } = this.props;
 
         return <div>
-        <Nav.Row>
-            <Nav.Column className='mt-4'>
-                <Icons size='3x' kind='work' className='d-inline-block'/>
-                <h1 className='d-inline-block m-0 ml-3 align-bottom'>{t('content:p4000-work')}</h1>
-            </Nav.Column>
-        </Nav.Row>
-        <Nav.Row className='mt-4'>
-            <Nav.Column>
-                <DatePicker
-                    onStartDatePicked={this.onStartDatePicked.bind(this)}
-                    onEndDatePicked={this.onEndDatePicked.bind(this)}
-                />
-            </Nav.Column>
-        </Nav.Row>
-        <Nav.Row className='mt-4'>
-            <Nav.Column>
-                <Nav.Input label={t('content:p4000-activity')} value={this.state.activity}
-                  onChange={(e) => {this.setState({activity: e.target.value})}} />
-            </Nav.Column>
-        </Nav.Row>
-         <Nav.Row className='mt-4'>
-            <Nav.Column>
-                <Nav.Hovedknapp className='forwardButton' onClick={this.saveForm.bind(this)}>{t('ui:save')}</Nav.Hovedknapp>
-            </Nav.Column>
-        </Nav.Row>
+            <Nav.Row>
+                <Nav.Column className='mt-4'>
+                    <Icons size='3x' kind='military' className='d-inline-block'/>
+                    <h1 className='d-inline-block m-0 ml-3 align-bottom'>{t('content:p4000-military')}</h1>
+                </Nav.Column>
+            </Nav.Row>
+            <Nav.Row className='mt-4'>
+                <Nav.Column>
+                    <DatePicker
+                        onStartDatePicked={this.onStartDatePicked.bind(this)}
+                        onEndDatePicked={this.onEndDatePicked.bind(this)}
+                    />
+                </Nav.Column>
+            </Nav.Row>
+            <Nav.Row className='mt-4'>
+                <Nav.Column>
+                    <Nav.Input label={t('content:p4000-activity')} value={this.state.activity}
+                        onChange={(e) => {this.setState({activity: e.target.value})}} />
+                </Nav.Column>
+            </Nav.Row>
+            <Nav.Row className='mt-4'>
+                <Nav.Column>
+                    <Nav.Hovedknapp className='forwardButton' onClick={this.saveForm.bind(this)}>{t('ui:save')}</Nav.Hovedknapp>
+                </Nav.Column>
+            </Nav.Row>
         </div>
     }
 }
 
-Work.propTypes = {
+Military.propTypes = {
     t : PT.func
 };
 
@@ -96,5 +95,5 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(
-    translate()(Work)
+    translate()(Military)
 );

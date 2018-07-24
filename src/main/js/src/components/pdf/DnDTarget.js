@@ -42,39 +42,39 @@ class DnDTarget extends Component {
             <div>Total pages: {recipe.length}</div>
             <Droppable droppableId='dndtarget'>
 
-            {(provided, snapshot) => (
+                {(provided, snapshot) => (
 
-                <div className='recipePDFarea text-center' ref={provided.innerRef}
-                    style={getListStyle(snapshot.isDraggingOver)}>
+                    <div className='recipePDFarea text-center' ref={provided.innerRef}
+                        style={getListStyle(snapshot.isDraggingOver)}>
 
-                    {recipe.map((recipeStep, index) => {
+                        {recipe.map((recipeStep, index) => {
 
-                        let pdf = _.find(pdfs, {fileName: recipeStep.fileName});
+                            let pdf = _.find(pdfs, {fileName: recipeStep.fileName});
 
-                        return <Draggable key={index} draggableId={index} index={index}>
+                            return <Draggable key={index} draggableId={index} index={index}>
 
-                            {(provided, snapshot) => (
+                                {(provided, snapshot) => (
 
-                                <div ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    style={getItemStyle(
-                                        snapshot.isDragging,
-                                        provided.draggableProps.style
-                                    )}>
-                                    <PDFPageInDnD
-                                        pdf={pdf}
-                                        pageNumber={recipeStep.pageNumber}
-                                        action='remove'
-                                    />
-                                </div>
-                            )}
-                        </Draggable>
-                    })}
-                </div>
-            )}
-        </Droppable>
-    </div>
+                                    <div ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        style={getItemStyle(
+                                            snapshot.isDragging,
+                                            provided.draggableProps.style
+                                        )}>
+                                        <PDFPageInDnD
+                                            pdf={pdf}
+                                            pageNumber={recipeStep.pageNumber}
+                                            action='remove'
+                                        />
+                                    </div>
+                                )}
+                            </Draggable>
+                        })}
+                    </div>
+                )}
+            </Droppable>
+        </div>
     }
 }
 

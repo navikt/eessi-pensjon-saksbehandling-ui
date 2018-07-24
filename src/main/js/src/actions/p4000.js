@@ -1,23 +1,32 @@
 import * as types from '../constants/actionTypes';
 
-export function pushEventToP4000Form(payload) {
+export function pushEventToP4000Form(event) {
 
     return {
         type : types.P4000_PUSH_EVENT_TO_FORM,
-        payload: payload
+        payload: {
+            event : event
+        }
     };
 }
 
-export function editP4000FormEvent(payload) {
+export function editEventToP4000Form(event, eventIndex) {
 
     return {
-        type : types.P4000_EDIT_FORM_EVENT,
-        payload: payload
+        type : types.P4000_EDIT_EVENT,
+        payload: {
+            event      : event,
+            eventIndex : eventIndex
+        }
     };
 }
 
-export function selectedP4000Step() {
+export function deleteEventToP4000Form(eventIndex) {
+
     return {
-        type : types.P4000_SELECTED_STEP
-    }
-};
+        type : types.P4000_DELETE_EVENT,
+        payload: {
+            eventIndex : eventIndex
+        }
+    };
+}

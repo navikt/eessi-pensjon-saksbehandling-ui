@@ -43,7 +43,8 @@ ReactDOM.render(
         <Provider store={store}>
             <ConnectedRouter history={history}>
                 <Switch>
-                    <Route       path='/react/p4000'        component={Pages.P4000}/>
+                    <Route       path='/react/p4000/edit/:editid' component={Pages.P4000}/>
+                    <Route       path='/react/p4000'              component={Pages.P4000}/>
 
                     <Route exact path='/react/pdf/generate' component={Pages.GeneratePDF}/>
                     <Route exact path='/react/pdf/edit'     component={Pages.EditPDF}/>
@@ -59,6 +60,8 @@ ReactDOM.render(
                 </Switch>
             </ConnectedRouter>
         </Provider>
-    </I18nextProvider>, document.getElementById('root'));
+    </I18nextProvider>,
+    document.getElementById('root')
+);
 
 registerServiceWorker();

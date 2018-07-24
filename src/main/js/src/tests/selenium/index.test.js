@@ -9,8 +9,8 @@ chai.use(require('chai-as-promised'));
 chai.use(require('chai-string'));
 
 const driver = new webdriver.Builder()
-   .forBrowser('chrome')
-   .build();
+    .forBrowser('chrome')
+    .build();
 
 const urls = {
     'test' : 'localhost:8080',
@@ -29,7 +29,7 @@ describe('Selenium case submit', () => {
 
     before(function(done) {
         driver.navigate().to(urls[process.env.NODE_ENV] || 'test')
-        .then(() => done())
+            .then(() => done())
     });
 
     ///////// LOGIN PAGE ////////////
@@ -58,7 +58,7 @@ describe('Selenium case submit', () => {
             expect(passwordBox).to.not.equal(null);
             await passwordBox.sendKeys(params.login.password);
             expect(await passwordBox.getAttribute('value')).to.equal(params.login.password);
-         });
+        });
 
 
         it('Submitting login form...', async function () {
@@ -67,7 +67,7 @@ describe('Selenium case submit', () => {
         });
     });
 
-///////// FRONT PAGE ////////////
+    ///////// FRONT PAGE ////////////
     describe('Front page', () => {
 
         let link, languageSelector, englishOption, bokmalOption, nynorskOption;
@@ -102,7 +102,7 @@ describe('Selenium case submit', () => {
         });
     });
 
-///////// GET PAGE ////////////
+    ///////// GET PAGE ////////////
     describe('Get page', () => {
 
         let caseId, actorId, forwardButton;
@@ -148,7 +148,7 @@ describe('Selenium case submit', () => {
         });
     });
 
-///////// EDIT PAGE ////////////
+    ///////// EDIT PAGE ////////////
     describe('Edit page', () => {
 
         let forwardButton, institutionButton, alertStripe, subjectareaList, pensjonOption;
@@ -234,7 +234,7 @@ describe('Selenium case submit', () => {
         });
     });
 
-///////// CONFIRM PAGE ////////////
+    ///////// CONFIRM PAGE ////////////
     describe('Confirm page', () => {
 
         let forwardButton;
@@ -261,7 +261,7 @@ describe('Selenium case submit', () => {
         });
     });
 
-///////// GENERATE PAGE ////////////
+    ///////// GENERATE PAGE ////////////
     describe('Generate page', () => {
 
         let forwardButton;
@@ -288,7 +288,7 @@ describe('Selenium case submit', () => {
         });
     });
 
-///////// END PAGE ////////////
+    ///////// END PAGE ////////////
     describe('End page', () => {
 
         let alertstripe, caseId, actorId;
@@ -336,13 +336,13 @@ describe('Selenium case submit', () => {
     after(function(done) {
 
         driver.quit()
-         .then(() => done());
+            .then(() => done());
     });
 });
 
 let dump = function (driver, done) {
     driver.getPageSource().then((source) => {
-         console.log(source)
-         if (done) {done()};
+        console.log(source)
+        if (done) {done()}
     });
 }

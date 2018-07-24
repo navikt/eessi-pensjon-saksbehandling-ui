@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
@@ -12,7 +11,7 @@ import * as p4000Actions from '../../../actions/p4000';
 
 const mapStateToProps = (state) => {
     return {
-        form : state.p4000.form
+        events : state.p4000.events
     }
 };
 
@@ -28,6 +27,7 @@ class Timeline extends Component {
 
         return <Nav.Row style={{backgroundColor: 'whitesmoke'}}>
             <Nav.Column>
+                <h3>{t('content:p4000-timeline')}</h3>
                 <TimelineComponent/>
             </Nav.Column>
         </Nav.Row>

@@ -27,94 +27,95 @@ class PDFPageInDnD extends Component {
      }
 
 
-    addPageToTargetPdf(fileName, pageNumber) {
+     addPageToTargetPdf(fileName, pageNumber) {
 
-        let { recipe, actions } = this.props;
+         let { recipe, actions } = this.props;
 
-        let newRecipe = recipe.slice();
-        newRecipe.push({fileName: fileName, pageNumber: pageNumber});
-        actions.setRecipe(newRecipe);
-    }
+         let newRecipe = recipe.slice();
+         newRecipe.push({fileName: fileName, pageNumber: pageNumber});
+         actions.setRecipe(newRecipe);
+     }
 
-    removePageFromTargetPdf(fileName, pageNumber) {
+     removePageFromTargetPdf(fileName, pageNumber) {
 
-        const { recipe, actions } = this.props;
-        let newRecipe = recipe.slice();
-        let index = _.findIndex(recipe, {fileName: fileName, pageNumber : pageNumber});
-        if (index >= 0) {
-            newRecipe.splice(index, 1);
-            actions.setRecipe(newRecipe);
-        }
-    }
+         const { recipe, actions } = this.props;
+         let newRecipe = recipe.slice();
+         let index = _.findIndex(recipe, {fileName: fileName, pageNumber : pageNumber});
+         if (index >= 0) {
+             newRecipe.splice(index, 1);
+             actions.setRecipe(newRecipe);
+         }
+     }
 
-    onHandleMouseEnter(fileName, pageNumber) {
+     onHandleMouseEnter() {
 
-        this.setState({isHovering : true});
-    }
+         this.setState({isHovering : true});
+     }
 
-    onHandleMouseOver(fileName, pageNumber) {
+     onHandleMouseOver() {
 
-        this.setState({isHovering : true});
-    }
+         this.setState({isHovering : true});
+     }
 
-    onHandleMouseLeave(fileName, pageNumber) {
+     onHandleMouseLeave() {
 
-        this.setState({isHovering : false});
-    }
+         this.setState({isHovering : false});
+     }
 
-    openPreview(fileName, pageNumber) {
+     openPreview(fileName, pageNumber) {
 
-        const { actions } = this.props;
+         const { actions } = this.props;
 
-        actions.previewPDF({
-            fileName: fileName,
-            pageNumber : pageNumber
-        });
-    }
+         actions.previewPDF({
+             fileName: fileName,
+             pageNumber : pageNumber
+         });
+     }
 
-    render () {
+     render () {
 
-        const { pdf, pageNumber, action, pdfsize } = this.props;
+         const { pdf, pageNumber, action, pdfsize } = this.props;
 
-        let iconFunction, iconKind, iconLink;
-        if (action === 'add') {
-            iconFunction = this.addPageToTargetPdf;
-            iconKind = 'vedlegg'
-        } else {
-            iconFunction = this.removePageFromTargetPdf
-            iconKind = 'trashcan';
-        }
+         let iconFunction, iconKind, iconLink;
+         if (action === 'add') {
+             iconFunction = this.addPageToTargetPdf;
+             iconKind = 'vedlegg'
+         } else {
+             iconFunction = this.removePageFromTargetPdf
+             iconKind = 'trashcan';
+         }
 
-        if (this.state.isHovering) {
-            iconLink = <Ikon style={{cursor: 'pointer'}}
-                size={32} kind={iconKind}
-                onClick={iconFunction.bind(this, pdf.fileName, pageNumber)}/>
-        }
+         if (this.state.isHovering) {
+             iconLink = <Ikon style={{cursor: 'pointer'}}
+                 size={32} kind={iconKind}
+                 onClick={iconFunction.bind(this, pdf.fileName, pageNumber)}/>
+         }
 
-        return <div className='d-inline-block'
-            onMouseEnter={this.onHandleMouseEnter.bind(this, pdf.fileName, pageNumber)}
-            onMouseOver={this.onHandleMouseOver.bind(this, pdf.fileName, pageNumber)}
-            onMouseLeave={this.onHandleMouseLeave.bind(this, pdf.fileName, pageNumber)}>
-                <Document className='position-relative' file={{data: pdf.data}}>
-                     <div className='position-absolute' style={{zIndex: 10, right: 2, top: 2}}>{iconLink}</div>
-                     <div>
-                          <Page
-                          onClick={this.openPreview.bind(this, pdf.fileName, pageNumber)}
-                          className='d-inline-block page' width={pdfsize} renderMode='svg' pageNumber={pageNumber}/>
-                     </div>
-                     <div className='position-absolute' style={{zIndex: 10, right: 2, bottom: 2}}>{pageNumber}</div>
-                </Document>
-            </div>
-    }
+         return <div className='d-inline-block'
+             onMouseEnter={this.onHandleMouseEnter.bind(this)}
+             onMouseOver={this.onHandleMouseOver.bind(this)}
+             onMouseLeave={this.onHandleMouseLeave.bind(this)}>
+             <Document className='position-relative' file={{data: pdf.data}}>
+                 <div className='position-absolute' style={{zIndex: 10, right: 2, top: 2}}>{iconLink}</div>
+                 <div>
+                     <Page
+                         onClick={this.openPreview.bind(this, pdf.fileName, pageNumber)}
+                         className='d-inline-block page' width={pdfsize} renderMode='svg' pageNumber={pageNumber}/>
+                 </div>
+                 <div className='position-absolute' style={{zIndex: 10, right: 2, bottom: 2}}>{pageNumber}</div>
+             </Document>
+         </div>
+     }
 }
 
 PDFPageInDnD.propTypes = {
     recipe: PT.array.isRequired,
     actions: PT.object,
-    pdfs: PT.array.isRequired,
+    pdf: PT.object.isRequired,
     fileName: PT.string.isRequired,
     pageNumber: PT.number.isRequired,
-    pdfsize : PT.number.isRequired
+    pdfsize : PT.number.isRequired,
+    action: PT.string.isRequired
 }
 
 export default connect(

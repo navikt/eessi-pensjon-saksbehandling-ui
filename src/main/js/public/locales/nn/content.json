@@ -9,15 +9,17 @@
     "endCaseDescription" : "NN_Ferdig Saken Beskrivelse Ferdig Saken Beskrivelse Ferdig Saken Beskrivelse",
     "undertitle" : "NN_App undertittel",
     "editPdf": "Click or drag and drop PDF pages to add. You can sort the selected pages or remove them by clicking on them"
+    "p4000-events" : "NN_Heldelser",
+    "p4000-views" : "NN_Sider",
     "p4000-work" : "NN_Ansatt / selvstending",
-    "p4000-period" : "NN_Periode",
-    "p4000-home": "Botid",
-    "p4000-child": "Omsorg for barn",
-    "p4000-voluntary" : "Friville forsikring",
-    "p4000-military" : "Militærtjenest",
-    "p4000-birth" : "Fødselspenger",
-    "p4000-learning" : "Opplæring",
-    "p4000-daily" : "Dagpenger",
-    "p4000-sick" : "Sykepenger",
-    "p4000-other" : "Andre typer"
+    "p4000-home": "NN_Botid",
+    "p4000-child": "NN_Omsorg for barn",
+    "p4000-voluntary" : "NN_Friville forsikring",
+    "p4000-military" : "NN_Militærtjenest",
+    "p4000-birth" : "NN_Fødselspenger",
+    "p4000-learning" : "NN_Opplæring",
+    "p4000-daily" : "NN_Dagpenger",
+    "p4000-sick" : "NN_Sykepenger",
+    "p4000-other" : "NN_Andre typer",
+    "p4000-timeline" : "NN_Tidslinje"
 }
