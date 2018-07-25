@@ -50,3 +50,15 @@ export function editEvent(eventIndex) {
         }
     };
 }
+
+export function setEventProperty(key, value, type) {
+
+    return {
+        type: types.P4000_EVENT_SET_PROPERTY,
+        payload: {
+            key: key,
+            value: value,
+            type: type
+        }
+    }
+}

@@ -68,7 +68,7 @@ class P4000 extends Component {
 
     render() {
 
-        const { t, events, editMode, event} = this.props;
+        const { editMode, event} = this.props;
 
         let alert = null;
         let page  = editMode && event ? event.type : this.state.page;
@@ -77,7 +77,7 @@ class P4000 extends Component {
             <Nav.Row className='no-gutters'>
                 <Nav.Column className='col-3' style={styles.menu}>
                     <SideMenu activeItem={page} items={this.getItems()} theme='nav'
-                    shouldTriggerClickOnParents={false} onMenuItemClick={this.handleMenuItemClick.bind(this)}/>
+                        shouldTriggerClickOnParents={false} onMenuItemClick={this.handleMenuItemClick.bind(this)}/>
                 </Nav.Column>
                 <Nav.Column>
                     <Nav.Panel className='h-100'>

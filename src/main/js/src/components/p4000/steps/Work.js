@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import PT from 'prop-types';
-import _ from 'lodash';
+import { translate } from 'react-i18next';
+import { connect } from 'react-redux';
+import { bindActionCreators }  from 'redux';
+
+import * as p4000Actions from '../../../actions/p4000';
 
 import DatePicker from '../../../components/p4000/DatePicker';
 import * as Nav from '../../../components/ui/Nav';
@@ -8,43 +12,22 @@ import Icons from '../../../components/ui/Icons';
 
 const mapStateToProps = (state) => {
     return {
-        event : state.p4000.event,
-        editMode: state.p4000.editMode
-    }
+        event    : state.p4000.event,
+        editMode : state.p4000.editMode
+    };
 };
 
-const initialState =  {
-     type : 'work',
-     event : {},
-     startDate: undefined,
-     endDate : undefined
+const mapDispatchToProps = (dispatch) => {
+    return {actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch)};
 };
+
+const type = 'work';
 
 class Work extends Component {
 
-    state = initialState;
-
-    addValueToEvent(key, value) {
-        let event = this.state.event;
-        event[key] = value;
-        this.setState({
-            event: event
-        });
-    }
-
-    onStartDatePicked(year, month) {
-
-        this.setState({startDate: {year: year, month: month}});
-    }
-
-    onEndDatePicked(year, month) {
-
-        this.setState({endDate: {year: year, month: month}});
-    }
-
     render() {
 
-        const { t } = this.props;
+        const { t, event, actions } = this.props;
 
         return <div>
             <Nav.Row>
@@ -55,17 +38,13 @@ class Work extends Component {
             </Nav.Row>
             <Nav.Row className='mt-4'>
                 <Nav.Column>
-                    <DatePicker initialStartDate={this.state.startDate}
-                        initialEndDate={this.state.endDate}
-                        onStartDatePicked={this.onStartDatePicked.bind(this)}
-                        onEndDatePicked={this.onEndDatePicked.bind(this)}
-                    />
+                    <DatePicker/>
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className='mt-4'>
                 <Nav.Column>
-                    <Nav.Input label={t('content:p4000-activity')} value={this.state.activity}
-                        onChange={(e) => {this.addValueToEvent.bind(this, 'activity', e.target.value)}} />
+                    <Nav.Input label={t('content:p4000-activity')} value={event.activity || ''}
+                        onChange={(e) => {actions.setEventProperty('activity', e.target.value, type)}} />
                 </Nav.Column>
             </Nav.Row>
         </div>
@@ -73,8 +52,14 @@ class Work extends Component {
 }
 
 Work.propTypes = {
-    t         : PT.func.isRequired,
-    event     : PT.object
+    t       : PT.func.isRequired,
+    event   : PT.object.isRequired,
+    actions : PT.object.isRequired
 };
 
-export default Work;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(
+    translate()(Work)
+);

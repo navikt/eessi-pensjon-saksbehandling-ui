@@ -22,8 +22,8 @@ class Menu extends Component {
     }
 
     handleResume() {
-         const { history } = this.props;
-         history.push('/react/p4000/form');
+        const { history } = this.props;
+        history.push('/react/p4000/form');
     }
 
     render() {
@@ -31,19 +31,19 @@ class Menu extends Component {
         const { t } = this.props;
 
         return <TopContainer>
-           <Nav.Panel className='h-100'>
-              <Nav.Row className='text-center'>
-                 <Nav.Column>
-                    <Nav.Knapp style={styles.button} onClick={this.handleNew.bind(this)}>
-                        <div><Icons size='6x' kind='p4000'/></div>
-                        <div>{t('content:p4000-createNew')}</div>
-                    </Nav.Knapp>
-                 </Nav.Column>
-                 <Nav.Column>
-                    <Nav.Knapp style={styles.button} disabled={true} onClick={this.handleResume.bind(this)}>{t('content:p4000-resume')}</Nav.Knapp>
-                 </Nav.Column>
-              </Nav.Row>
-           </Nav.Panel>
+            <Nav.Panel className='h-100'>
+                <Nav.Row className='text-center'>
+                    <Nav.Column>
+                        <Nav.Knapp style={styles.button} onClick={this.handleNew.bind(this)}>
+                            <div><Icons size='6x' kind='p4000'/></div>
+                            <div>{t('content:p4000-createNew')}</div>
+                        </Nav.Knapp>
+                    </Nav.Column>
+                    <Nav.Column>
+                        <Nav.Knapp style={styles.button} disabled={true} onClick={this.handleResume.bind(this)}>{t('content:p4000-resume')}</Nav.Knapp>
+                    </Nav.Column>
+                </Nav.Row>
+            </Nav.Panel>
         </TopContainer>
     }
 }

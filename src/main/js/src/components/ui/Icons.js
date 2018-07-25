@@ -24,6 +24,7 @@ class Icons extends Component {
         case 'other' : return <FontAwesomeIcon icon={icons.faCalendar} {...this.props}/>;
 
         case 'p4000' : return <FontAwesomeIcon icon={icons.faFile} {...this.props}/>;
+        default: return null;
         }
 
         return null;

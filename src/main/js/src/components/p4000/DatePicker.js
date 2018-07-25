@@ -1,38 +1,34 @@
 import React, { Component } from 'react';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
-import _ from 'lodash';
+import { connect } from 'react-redux';
+import { bindActionCreators }  from 'redux';
+
+import * as p4000Actions from '../../actions/p4000';
 
 import YearMonthSelector from 'react-year-month-selector';
 import 'react-year-month-selector/src/styles/index.css';
 import './custom-datepicker.css';
 import * as Nav from '../ui/Nav';
 
+const mapStateToProps = (state) => {
+    return {
+        event : state.p4000.event
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch)};
+};
+
 class DatePicker extends Component {
 
     state = {
-        rangePeriod: true,
-        startDate: {},
-        endDate: {}
+        rangePeriod: true
     };
 
-    componentDidUpdate() {
-
-        const { initialStartDate, initialEndDate } = this.props;
-        if (initialStartDate && _.isEmpty(this.state.startDate)) {
-            this.setState({
-                startDate: initialStartDate
-            });
-        }
-        if (initialEndDate && _.isEmpty(this.state.endDate)) {
-            this.setState({
-                endDate: initialEndDate
-            });
-        }
-    }
-
     renderDate(date) {
-        if (!date.year) {
+        if (!date || !date.year) {
             return '';
         }
         return date.year + '/' + date.month;
@@ -40,48 +36,40 @@ class DatePicker extends Component {
 
     onStartDateChange(year, month) {
 
-        let { t, onStartDatePicked } = this.props;
+        let { t, event, actions } = this.props;
 
-        this.setState({
-            startDate : {year: year, month : month + 1}
-        }, () => {
-            if (this.state.endDate && (
-                (this.state.endDate.year < this.state.startDate.year) ||
-                (this.state.endDate.year === this.state.startDate.year && this.state.endDate.month < this.state.startDate.month)
-            )) {
-                this.setState({
-                    onEndDateFail: t('ui:onEndDateFail')
-                })
-            } else {
-                this.setState({
-                    onEndDateFail: undefined
-                })
-            }
-            onStartDatePicked(year, month + 1);
-        });
+        if (event.endDate && (
+            (event.endDate.year < year) ||
+                (event.endDate.year === year && event.endDate.month < month)
+        )) {
+            this.setState({
+                onEndDateFail: t('ui:onEndDateFail')
+            })
+        } else {
+            this.setState({
+                onEndDateFail: undefined
+            })
+        }
+        actions.setEventProperty('startDate', {year: year, month: month});
     }
 
     onEndDateChange(year, month) {
 
-        let { t, onEndDatePicked } = this.props;
+        let { t, event, actions } = this.props;
 
-        this.setState({
-            endDate: {year: year, month : month + 1}
-        }, () => {
-            if (this.state.startDate && (
-                (this.state.endDate.year < this.state.startDate.year) ||
-                (this.state.endDate.year === this.state.startDate.year && this.state.endDate.month < this.state.startDate.month)
-            )) {
-                this.setState({
-                    onEndDateFail: t('validation:endDateEarlierThanStartDate')
-                })
-            } else {
-                this.setState({
-                    onEndDateFail: undefined
-                })
-            }
-            onEndDatePicked(year, month + 1);
-        });
+        if (event.startDate && (
+            (year < event.startDate.year) ||
+             (year === event.startDate.year && month < event.startDate.month)
+        )) {
+            this.setState({
+                onEndDateFail: t('validation:endDateEarlierThanStartDate')
+            })
+        } else {
+            this.setState({
+                onEndDateFail: undefined
+            })
+        }
+        actions.setEventProperty('endDate', {year: year, month: month});
     }
 
     onFocus (input) {
@@ -108,7 +96,7 @@ class DatePicker extends Component {
 
     render () {
 
-        let { t } = this.props;
+        let { t, event } = this.props;
 
         return <div>
             <Nav.Row>
@@ -121,14 +109,14 @@ class DatePicker extends Component {
             </Nav.Row>
             <Nav.Row>
                 <Nav.Column>
-                    <Nav.Input label={t('ui:startDate')} value={this.renderDate(this.state.startDate)}
+                    <Nav.Input label={t('ui:startDate')} value={this.renderDate(event.startDate)}
                         onFocus={this.onFocus.bind(this, 'startopen')}
                         feil={this.state.onStartDateFail ? {'feilmelding' : this.state.onStartDateFail} : null}/>
                     <YearMonthSelector onChange={this.onStartDateChange.bind(this)} open={this.state.startopen}
                         onClose={this.onClose.bind(this, 'startopen')}/>
                 </Nav.Column>
                 {this.state.rangePeriod ? <Nav.Column>
-                    <Nav.Input label={t('ui:endDate')} value={this.renderDate(this.state.endDate)}
+                    <Nav.Input label={t('ui:endDate')} value={this.renderDate(event.endDate)}
                         onFocus={this.onFocus.bind(this, 'endopen')}
                         feil={this.state.onEndDateFail ? {'feilmelding' : this.state.onEndDateFail} : null}/>
                     <YearMonthSelector onChange={this.onEndDateChange.bind(this)} open={this.state.endopen}
@@ -140,12 +128,15 @@ class DatePicker extends Component {
 }
 
 DatePicker.propTypes = {
-    onStartDatePicked : PT.func.isRequired,
-    onEndDatePicked   : PT.func.isRequired,
-    initialStartDate  : PT.object,
-    initialEndDate    : PT.object,
-    t                 : PT.func.isRequired
+    t       : PT.func.isRequired,
+    event   : PT.object.isRequired,
+    actions : PT.object.isRequired
 };
 
-export default translate()(DatePicker);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(
+    translate()(DatePicker)
+);
 

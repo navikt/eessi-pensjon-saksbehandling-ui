@@ -51,26 +51,16 @@ const styles = {
 
 class EventForm extends React.Component {
 
-    prepareEvent(refState) {
-
-        let event = refState.event;
-        event.startDate = refState.startDate;
-        event.endDate = refState.endDate;
-        event.type = refState.type;
-        return event;
-    }
 
     handleSave () {
 
-        const { actions } = this.props;
-        let event = this.prepareEvent(this.formRef.state);
+        const { actions, event } = this.props;
         actions.pushEventToP4000Form(event);
     }
 
     handleEdit () {
 
-        const { actions, eventIndex } = this.props;
-        let event = this.prepareEvent(this.formRef.state);
+        const { actions, event, eventIndex } = this.props;
         actions.replaceEventOnP4000Form(event, eventIndex);
     }
 
@@ -88,7 +78,7 @@ class EventForm extends React.Component {
 
     render() {
 
-        let { t, type, editMode, eventIndex, event, events } = this.props;
+        let { t, type, editMode, eventIndex, events } = this.props;
 
         let Component = components[type];
 
@@ -103,7 +93,7 @@ class EventForm extends React.Component {
                 }
             })()}
             <div style={editMode ? styles.editMode : null}>
-                <Component t={t} ref={(ref) => {this.formRef = ref}}/>
+                <Component/>
             </div>
             <Nav.Row className='mt-4'>
                 <Nav.Column>
@@ -122,7 +112,6 @@ EventForm.propTypes = {
     type       : PT.string.isRequired,
     events     : PT.array.isRequired,
     editMode   : PT.bool.isRequired,
-    event      : PT.object,
     eventIndex : PT.number,
     history    : PT.object,
     actions    : PT.object

@@ -3,7 +3,6 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import classNames from 'classnames';
-import { withRouter } from 'react-router';
 
 import * as p4000Actions from '../../actions/p4000';
 import Icons from '../ui/Icons';
@@ -34,10 +33,10 @@ class Event extends Component {
 }
 
 Event.propTypes = {
-    event    : PT.object.isRequired,
-    index    : PT.number.isRequired,
-    selected : PT.bool.isRequired,
-    history  : PT.object
+    event      : PT.object.isRequired,
+    eventIndex : PT.number.isRequired,
+    selected   : PT.bool.isRequired,
+    actions    : PT.object.isRequired
 };
 
 export default connect(

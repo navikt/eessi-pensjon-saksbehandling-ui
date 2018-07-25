@@ -6,7 +6,6 @@ import { bindActionCreators }  from 'redux';
 
 import Icons from '../../../components/ui/Icons';
 import * as Nav from '../../../components/ui/Nav';
-import TimelineComponent from '../../../components/p4000/Timeline';
 
 import * as p4000Actions from '../../../actions/p4000';
 
