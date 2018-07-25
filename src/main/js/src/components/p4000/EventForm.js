@@ -43,10 +43,9 @@ const components = {
 
 const styles = {
     editMode: {
-        backgroundColor: '#FFCCCC',
-        borderRadius: '10px',
+        backgroundColor: '#FFF0F0',
         padding: '10px',
-        margin: '10px 0px 10px 0px'
+        margin: '15px 5px'
     }
 }
 
@@ -83,18 +82,18 @@ class EventForm extends React.Component {
 
         let Component = components[type];
 
-        return <div>
-            {(() => <Nav.Row>
-                    <Nav.Column>
-                        <ExistingEvents events={events} eventIndex={eventIndex}
-                        className={classNames({'invisible' : type === 'timeline' || type === 'file'})}/>
-                    </Nav.Column>
-                </Nav.Row>
-            )()}
-            <div style={editMode ? styles.editMode : null}>
-                <Component/>
-            </div>
-            <Nav.Row className='mt-4'>
+        return <div className='div-eventForm'>
+            <Nav.Row className={classNames('row-existingEvents', 'mb-4', {'invisible' : type === 'timeline' || type === 'file'})}>
+                <Nav.Column>
+                    <ExistingEvents events={events} eventIndex={eventIndex}/>
+                </Nav.Column>
+            </Nav.Row>
+            <Nav.Row className='row-component mb-4' style={editMode ? styles.editMode : null}>
+                <Nav.Column>
+                    <Component/>
+                </Nav.Column>
+            </Nav.Row>
+            <Nav.Row className='row-buttons mb-4'>
                 <Nav.Column>
                     {!editMode && (type !== 'timeline' && type !== 'file') ? <Nav.Hovedknapp className='forwardButton' onClick={this.handleSave.bind(this)}>{t('ui:save')}</Nav.Hovedknapp> : null}
                     {editMode ?  <Nav.Hovedknapp className='editButton'    onClick={this.handleEdit.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp> : null}

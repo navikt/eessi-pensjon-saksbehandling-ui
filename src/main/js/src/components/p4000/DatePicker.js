@@ -23,14 +23,13 @@ const mapDispatchToProps = (dispatch) => {
 class DatePicker extends Component {
 
     state = {
-        rangePeriod: true
+        rangeType: 'both'
     };
 
-    renderDate(date) {
-        if (!date ) {
-            return '';
-        }
-        return date;
+    handlePeriodChange(e) {
+          this.setState({
+              rangeType: e.target.value
+          });
     }
 
     onStartDateChange(date) {
@@ -71,44 +70,33 @@ class DatePicker extends Component {
         actions.setEventProperty('endDate', date);
     }
 
-    setRangePeriod() {
-        this.setState({
-            rangePeriod: true
-        })
-    }
-
-    setOpenPeriod() {
-        this.setState({
-            rangePeriod: false
-        })
-    }
-
     render () {
 
         let { t, event } = this.props;
 
-        return <div>
-            <Nav.Row>
+        return <div className='div-datePicker p-2'>
+            <Nav.Row className='row-datePicker-toggleButton no-gutters mb-3'>
                 <Nav.Column>
-                    <Nav.Radio label={t('ui:rangePeriod')} name='period' checked={this.state.rangePeriod === true}
-                        onChange={this.setRangePeriod.bind(this)}/>
-                    <Nav.Radio label={t('ui:openPeriod')} name='period' checked={this.state.rangePeriod === false}
-                        onChange={this.setOpenPeriod.bind(this)}/>
+                    <Nav.ToggleGruppe onChange={this.handlePeriodChange.bind(this)}>
+                        <Nav.ToggleKnapp value='both' defaultChecked={true} key='1'>{t('ui:rangePeriod')}</Nav.ToggleKnapp>
+                        <Nav.ToggleKnapp value='onlyStartDate' defaultChecked={false} key='2'>{t('ui:onlyStartDate')}</Nav.ToggleKnapp>
+                        <Nav.ToggleKnapp value='onlyEndDate' defaultChecked={false} key='3'>{t('ui:onlyEndDate')}</Nav.ToggleKnapp>
+                    </Nav.ToggleGruppe>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row>
-                <Nav.Column>
-                    <ReactDatePicker value={event.startDate}
+            <Nav.Row className='row-datepickers no-gutters'>
+                <Nav.Column className='col-3'>
+                    <ReactDatePicker value={event.startDate} disabled={this.state.rangeType === 'onlyEndDate'}
                         locale='no-NB'
                         onChange={this.onStartDateChange.bind(this)}/>
                     <div>{this.state.onStartDateFail}</div>
                 </Nav.Column>
-                {this.state.rangePeriod ? <Nav.Column>
-                    <ReactDatePicker value={event.endDate}
+                <Nav.Column className='col-3'>
+                    <ReactDatePicker value={event.endDate} disabled={this.state.rangeType === 'onlyStartDate'}
                          locale='no-NB'
                          onChange={this.onEndDateChange.bind(this)}/>
                     <div>{this.state.onEndDateFail}</div>
-                </Nav.Column> : null}
+                </Nav.Column>
             </Nav.Row>
         </div>
     }

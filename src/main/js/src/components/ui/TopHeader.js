@@ -37,7 +37,7 @@ class TopHeader extends Component {
 
         let { t, userInfo, gettingUserInfo } = this.props;
 
-        let userText = (userInfo ? userInfo : (gettingUserInfo ? t('loading:gettingUserInfo') : ''));
+        let userText = (userInfo ? userInfo : (gettingUserInfo ? t('case:loadingGettingUserInfo') : ''));
 
         return <header className="topplinje">
             <div className="topplinje__brand">
@@ -45,7 +45,7 @@ class TopHeader extends Component {
                     <img className="brand__logo" src={navLogo} alt="To personer på NAV kontor"/>
                 </Link>
                 <div className="brand__skillelinje" />
-                <div className="brand__tittel"><span>{t('content:headerTitle')}</span></div>
+                <div className="brand__tittel"><span>{t('headerTitle')}</span></div>
             </div>
             <div className="topplinje__saksbehandler">
                 <div className="saksbehandler__navn">{userText}</div>

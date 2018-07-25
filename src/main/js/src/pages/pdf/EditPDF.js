@@ -67,12 +67,12 @@ class EditPDF extends Component {
         const { t, errorMessage, errorStatus, editingPDF, pdfs } = this.props;
 
         let alert      = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
-        let buttonText = editingPDF ? t('loading:editPDF') : t('ui:forward');
+        let buttonText = editingPDF ? t('pdf:loadingEditPDF') : t('ui:forward');
 
         return <TopContainer>
             <Nav.Panel className='panel py-4 m-4'>
                 <Nav.Row className='mt-4'>
-                    <Nav.Column>{t('content:editPdf')}</Nav.Column>
+                    <Nav.Column>{t('pdf:editPdf')}</Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4 text-center'>
                     <Nav.Column>{alert}</Nav.Column>

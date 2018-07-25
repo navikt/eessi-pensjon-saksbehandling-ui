@@ -1,0 +1,21 @@
+{
+    "events" : "Events",
+    "views" : "Views",
+    "work" : "Work / Self-employed",
+    "home": "Home",
+    "child": "Child",
+    "voluntary" : "Voluntary",
+    "military" : "Military",
+    "birth" : "Birth",
+    "learning" : "Learning",
+    "daily" : "Daily",
+    "sick" : "Sick",
+    "other" : "Other",
+    "timeline" : "Timeline",
+
+    "menuTitle" : "P4000 Menu",
+    "createNewP4000Title" : "Create new P4000",
+    "startP4000" : "Start a P4000",
+
+    "endDateEarlierThanStartDate" : "End date can't be earlier than start date"
+}

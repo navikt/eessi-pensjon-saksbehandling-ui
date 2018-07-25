@@ -35,7 +35,6 @@ class LanguageSelector extends Component {
             value={thisLanguage} onChange={this.changeLanguage.bind(this)}>
             <option value='en'>English</option>
             <option value='nb'>Bokmål</option>
-            <option value='nn'>Nynorsk</option>
         </Nav.Select>
     }
 }

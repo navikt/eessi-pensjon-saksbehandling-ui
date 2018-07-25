@@ -47,35 +47,35 @@ export default function (state = {}, action = {}) {
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : 'noSubjectAreaList'
+            clientErrorMessage : 'case:errorNoSubjectAreaList'
         });
 
     case types.USERCASE_GET_INSTITUTION_LIST_FAILURE:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : 'noInstitutionList'
+            clientErrorMessage : 'case:errorNoInstitutionList'
         });
 
     case types.USERCASE_GET_SED_LIST_FAILURE:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : 'noSedList'
+            clientErrorMessage : 'case:errorNoSedList'
         });
 
     case types.USERCASE_GET_BUC_LIST_FAILURE:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : 'noBucList'
+            clientErrorMessage : 'case:errorNoBucList'
         });
 
     case types.USERCASE_GET_COUNTRY_LIST_FAILURE:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : 'noCountryList'
+            clientErrorMessage : 'case:errorNoCountryList'
         });
 
     case types.USERCASE_GET_CASE_NUMBER_FAILURE:
@@ -91,7 +91,7 @@ export default function (state = {}, action = {}) {
     case types.USER_INFO_FAILURE: {
 
         return Object.assign({}, state, {
-            serverErrorMessage : 'noSuchUser'
+            serverErrorMessage : 'case:errorNoSuchUser'
         });
     }
 
@@ -99,7 +99,7 @@ export default function (state = {}, action = {}) {
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : 'pdfGenerationFail'
+            clientErrorMessage : 'pdf:errorPdfGenerationFail'
         });
 
     default:

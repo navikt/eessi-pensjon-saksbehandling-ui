@@ -1,0 +1,11 @@
+{
+    "invalidCase": "Ugyldig saksId eller PinID",
+    "insufficientParameters": "ikke nok parametere",
+    "serverOffline" : "server offline",
+    "noSubjectAreaList" : "Ingen fagområde liste",
+    "noBucList" : "Ingen BUC liste",
+    "noSedList" : "Ingen SED liste",
+    "noCountryList" : "Ingen land liste",
+    "noInstitutionList" : "Ingen mottager liste",
+    "noSuchUser" : "Ukjent bruker"
+}

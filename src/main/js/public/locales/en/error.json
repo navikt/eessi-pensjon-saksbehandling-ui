@@ -1,11 +1,3 @@
 {
-    "invalidCase": "Invalid Case ID or Actor ID",
-    "insufficientParameters": "Insufficient parameters",
-    "serverOffline" : "server offline",
-    "noSubjectAreaList" : "No subject area list",
-    "noBucList" : "No BUC list",
-    "noSedList" : "No SED list",
-    "noCountryList" : "No Country list",
-    "noInstitutionList" : "No institution list",
-    "noSuchUser" : "No Such User"
+    "serverOffline" : "server offline"
 }

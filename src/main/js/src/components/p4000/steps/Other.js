@@ -61,7 +61,7 @@ class Other extends Component {
             <Nav.Row>
                 <Nav.Column className='mt-4'>
                     <Icons size='3x' kind='other' className='d-inline-block'/>
-                    <h1 className='d-inline-block m-0 ml-3 align-bottom'>{t('content:p4000-other')}</h1>
+                    <h1 className='d-inline-block m-0 ml-3 align-bottom'>{t('p4000:other')}</h1>
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className='mt-4'>

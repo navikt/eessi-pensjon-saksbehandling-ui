@@ -1,6 +1,11 @@
 import * as types from '../constants/actionTypes';
 
-export default function (state = {recipe: []}, action = {}) {
+let initialState =  {
+    recipe: [],
+    pdfs: []
+};
+
+export default function (state = initialState, action = {}) {
 
     switch (action.type) {
 

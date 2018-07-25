@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
+import _ from 'lodash';
 
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
@@ -48,7 +49,7 @@ class SelectPDF extends Component {
     componentDidUpdate() {
 
         const { history, pdfs } = this.props;
-        if (pdfs) {
+        if (!_.isEmpty(pdfs)) {
             history.push('/react/pdf/edit');
         }
     }
@@ -127,12 +128,15 @@ class SelectPDF extends Component {
         const { t, errorMessage, errorStatus, gettingPDF } = this.props;
 
         let alert      = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
-        let buttonText = gettingPDF ? t('loading:gettingPDF') : t('ui:forward');
+        let buttonText = gettingPDF ? t('pdf:loadingGettingPDF') : t('ui:forward');
 
         return <TopContainer>
             <Nav.Panel className='panel py-4 m-4'>
                 <Nav.Row className='mt-4'>
-                    <Nav.Column>{t('content:choosePdf')}</Nav.Column>
+                    <Nav.Column>
+                        <h1 className='mt-3 appTitle'>{t('pdf:selectPdfTitle')}</h1>
+                        <h4>{t('pdf:selectPdfDescription')}</h4>
+                    </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4 text-center'>
                     <Nav.Column>{alert}</Nav.Column>

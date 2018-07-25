@@ -1,8 +1,0 @@
-{
-    "chooseBuc" : "Choose a BUC",
-    "chooseCountry" : "Choose a country",
-    "chooseInstitution" : "Choose a institution",
-    "chooseSed" : "Choose a SED",
-    "chooseSubjectArea" : "Choose a subject area",
-    "endDateEarlierThanStartDate" : "End date can't be earlier than start date"
-}

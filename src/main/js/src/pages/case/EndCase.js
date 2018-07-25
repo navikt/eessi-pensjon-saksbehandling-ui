@@ -47,10 +47,10 @@ class EndCase extends Component {
         let body;
 
         if (rinaLoading) {
-            body = t('loading:loadingRina')
+            body = t('case:loadingRina')
         } else {
             if (rinaUrl && dataSubmitted && dataSubmitted.euxcaseid) {
-                body = <a href={rinaUrl + dataSubmitted.euxcaseid}>{t('ui:caseLink')}</a>
+                body = <a href={rinaUrl + dataSubmitted.euxcaseid}>{t('case:caseLink')}</a>
             } else {
                 body = null;
             }
@@ -60,7 +60,8 @@ class EndCase extends Component {
             <Nav.Panel>
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
-                        {t('content:endCaseDescription')}
+                        <h1 className='mt-3 appTitle'>{t('case:endCaseTitle')}</h1>
+                        <h4>{t('case:endCaseDescription')}</h4>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4'>

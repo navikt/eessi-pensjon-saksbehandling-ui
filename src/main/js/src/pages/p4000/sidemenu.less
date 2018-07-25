@@ -1,22 +1,15 @@
 .Side-menu-nav {
+
+    background-color: honeydew;
+
 	.divider {
 		background-color: lightgrey;
 		font-weight: 600;
         position: relative;
-
-		&:after {
-            z-index: 10;
-            content: " ";
-            position: absolute;
-            right: 0px;
-            top:0px;
-            border-top: 42px solid white;
-            border-left: 22px solid white;
-        }
+       border-right: 20px solid white;
 	}
 
 	.item {
-		background-color: honeydew;
         position: relative;
 
         .item-title {
@@ -27,32 +20,31 @@
 
         }
 
-        &.active {
-            background-color: lightgreen;
+        &:not(.active) {
+            border-right: 20px solid white;
+        }
 
-            > :after {
-                z-index: 10;
-                content: " ";
-                display: inline-block;
-                position: absolute;
-                top: 0px;
-                right: -22px;
-                border-top: 22px solid transparent;
-                border-bottom: 22px solid transparent;
-                border-left: 22px solid lightgreen;
+        &.active {
+
+            background-color: lightgreen;
+            box-shadow: 1px 2px 3px 3px lightgrey;
+            z-index: 1;
+
+            &:after {
+                  content: " ";
+                  position: absolute;
+                  top: 100%;
+                  left: 100%;
+                  box-shadow: -5px 2px 4px 1px lightgrey;
+                  box-sizing: border-box;
+                  border: 1em solid black;
+                  border-color: transparent transparent lightgreen lightgreen;
+                  transform-origin: 0 0;
+                  transform: rotate(-135deg);
+
             }
         }
 
-        &:not(.active):after {
-            z-index: 10;
-            content: " ";
-            position: absolute;
-            right: 0px;
-            top: 0px;
-            border-top: 22px solid white;
-            border-bottom: 22px solid white;
-            border-left: 22px solid white;
 
-        }
    	}
 }

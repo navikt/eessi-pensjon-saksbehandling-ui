@@ -49,31 +49,32 @@ class P4000 extends Component {
         const { t } = this.props;
 
         return [
-            {label: t('content:p4000-views'),     value: 'views',     divider: true},
-            {label: t('content:p4000-timeline'),  value: 'timeline',  icon: 'fa-calendar-check'},
-            {label: t('content:p4000-file'),      value: 'file',      icon: 'fa-file'},
-            {label: t('content:p4000-events'),    value: 'events',    divider: true, },
-            {label: t('content:p4000-work'),      value: 'work',      icon: 'fa-briefcase'},
-            {label: t('content:p4000-home'),      value: 'home',      icon: 'fa-home'},
-            {label: t('content:p4000-child'),     value: 'child',     icon: 'fa-child'},
-            {label: t('content:p4000-voluntary'), value: 'voluntary', icon: 'fa-hands-helping'},
-            {label: t('content:p4000-military'),  value: 'military',  icon: 'fa-fighter-jet'},
-            {label: t('content:p4000-birth'),     value: 'birth',     icon: 'fa-money-bill-wave'},
-            {label: t('content:p4000-learn'),     value: 'learn',     icon: 'fa-school'},
-            {label: t('content:p4000-daily'),     value: 'daily',     icon: 'fa-hand-holding-usd'},
-            {label: t('content:p4000-sick'),      value: 'sick',      icon: 'fa-h-square'},
-            {label: t('content:p4000-other'),     value: 'other',     icon: 'fa-calendar'}
+            {label: t('p4000:views'),     value: 'views',     divider: true},
+            {label: t('p4000:timeline'),  value: 'timeline',  icon: 'fa-calendar-check'},
+            {label: t('p4000:file'),      value: 'file',      icon: 'fa-file'},
+            {label: t('p4000:events'),    value: 'events',    divider: true, },
+            {label: t('p4000:work'),      value: 'work',      icon: 'fa-briefcase'},
+            {label: t('p4000:home'),      value: 'home',      icon: 'fa-home'},
+            {label: t('p4000:child'),     value: 'child',     icon: 'fa-child'},
+            {label: t('p4000:voluntary'), value: 'voluntary', icon: 'fa-hands-helping'},
+            {label: t('p4000:military'),  value: 'military',  icon: 'fa-fighter-jet'},
+            {label: t('p4000:birth'),     value: 'birth',     icon: 'fa-money-bill-wave'},
+            {label: t('p4000:learn'),     value: 'learn',     icon: 'fa-school'},
+            {label: t('p4000:daily'),     value: 'daily',     icon: 'fa-hand-holding-usd'},
+            {label: t('p4000:sick'),      value: 'sick',      icon: 'fa-h-square'},
+            {label: t('p4000:other'),     value: 'other',     icon: 'fa-calendar'}
         ];
     }
 
     render() {
 
-        const { editMode, event} = this.props;
+        const { t, editMode, event} = this.props;
 
         let alert = null;
         let page  = editMode && event ? event.type : this.state.page;
 
         return <TopContainer>
+            <h1 className='mt-3 appTitle'>{t('p4000:createNewP4000Title')}</h1>
             <Nav.Row className='no-gutters'>
                 <Nav.Column className='col-3' style={styles.menu}>
                     <SideMenu activeItem={page} items={this.getItems()} theme='nav'
@@ -81,10 +82,10 @@ class P4000 extends Component {
                 </Nav.Column>
                 <Nav.Column>
                     <Nav.Panel className='h-100'>
-                        <Nav.Row>
+                        <Nav.Row className='row-alert'>
                             <Nav.Column>{alert}</Nav.Column>
                         </Nav.Row>
-                        <Nav.Row>
+                        <Nav.Row className='row-eventForm'>
                             <Nav.Column>
                                 <EventForm type={page}/>
                             </Nav.Column>

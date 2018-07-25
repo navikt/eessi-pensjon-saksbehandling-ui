@@ -40,13 +40,13 @@ class File extends Component {
             <Nav.Column>
                 <Nav.Knapp style={styles.button} onClick={this.handleSubmit.bind(this)}>
                     <div><Icons size='6x' kind='p4000'/></div>
-                    <div>{t('content:p4000-submit')}</div>
+                    <div>{t('p4000:submit')}</div>
                 </Nav.Knapp>
             </Nav.Column>
             <Nav.Column>
                 <Nav.Knapp style={styles.button} disabled={true} onClick={this.handleSaveTemp.bind(this)}>
                     <div><Icons size='6x' kind='p4000'/></div>
-                    <div>{t('content:p4000-save-temp')}</div>
+                    <div>{t('p4000:save-temp')}</div>
                 </Nav.Knapp>
             </Nav.Column>
         </Nav.Row>

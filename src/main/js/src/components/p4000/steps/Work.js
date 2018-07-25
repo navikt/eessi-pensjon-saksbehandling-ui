@@ -23,31 +23,39 @@ const mapDispatchToProps = (dispatch) => {
 
 const type = 'work';
 
+const styles = {
+    fieldset: {
+        backgroundColor: 'whitesmoke',
+        borderRadius: '20px'
+    }
+};
+
 class Work extends Component {
 
     render() {
 
         const { t, event, editMode, actions } = this.props;
 
-        return <div>
-            <Nav.Row>
-                <Nav.Column className='mt-4'>
+        return <Nav.Panel className='p-0'>
+            <Nav.Row className='eventTitle mb-4'>
+                <Nav.Column>
                     <Icons size='3x' kind='work' className='d-inline-block'/>
-                    <h1 className='d-inline-block m-0 ml-3 align-bottom'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('content:p4000-work')}</h1>
+                    <h1 className='d-inline-block m-0 ml-3 align-bottom'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('p4000:work')}</h1>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='mt-4'>
+            <Nav.Row className='eventDates mb-4 p-4' style={styles.fieldset}>
                 <Nav.Column>
+                    <h2 className='mb-3'>Datoer</h2>
                     <DatePicker/>
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className='mt-4'>
                 <Nav.Column>
-                    <Nav.Input label={t('content:p4000-activity')} value={event.activity || ''}
+                    <Nav.Input label={t('p4000:activity')} value={event.activity || ''}
                         onChange={(e) => {actions.setEventProperty('activity', e.target.value, type)}} />
                 </Nav.Column>
             </Nav.Row>
-        </div>
+        </Nav.Panel>
     }
 }
 

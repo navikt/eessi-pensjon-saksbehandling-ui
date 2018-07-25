@@ -59,7 +59,7 @@ class GeneratePDF extends Component {
         const { t, errorMessage, errorStatus, generatingPDF, generatedPDF } = this.props;
 
         let alert      = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
-        let buttonText = generatingPDF ? t('loading:generatingPDF') : t('ui:forward');
+        let buttonText = generatingPDF ? t('pdf:loadingGeneratingPDF') : t('ui:forward');
 
         return <TopContainer>
             <Nav.Panel className='panel py-4 m-4'>

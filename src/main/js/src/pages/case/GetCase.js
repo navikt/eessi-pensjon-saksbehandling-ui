@@ -61,31 +61,34 @@ class GetCase extends Component {
 
         const { t, errorMessage, errorStatus, gettingCase } = this.props;
 
-        let alert      = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
-        let buttonText = gettingCase ? t('loading:gettingCase') : t('ui:search');
+        let alert      = errorStatus ? <Nav.AlertStripe type='stopp'>{t(errorMessage)}</Nav.AlertStripe> : null;
+        let buttonText = gettingCase ? t('case:loadingGettingCase') : t('ui:search');
 
         return <TopContainer>
             <Nav.Panel className='panel'>
                 <Nav.Row className='mt-4'>
-                    <Nav.Column>{t('content:getCaseDescription')}</Nav.Column>
+                    <Nav.Column>
+                      <h1 className='mt-3 appTitle'>{t('case:getCaseTitle')}</h1>
+                      <h4>{t('case:getCaseDescription')}</h4>
+                    </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4 text-center'>
                     <Nav.Column>{alert}</Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4 text-left'>
                     <Nav.Column>
-                        <Nav.Input className='getCaseInputCaseId' label={t('ui:caseId')} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
+                        <Nav.Input className='getCaseInputCaseId' label={t('case:caseId')} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
                     </Nav.Column>
                     <Nav.Column className='mt-4'>
-                        <Nav.HjelpetekstBase id='caseId' type='under'>{t('help:caseId')}</Nav.HjelpetekstBase>
+                        <Nav.HjelpetekstBase id='caseId' type='under'>{t('case:helpCaseId')}</Nav.HjelpetekstBase>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row  className='mt-4 text-left'>
                     <Nav.Column>
-                        <Nav.Input className='getCaseInputActorId' label={t('ui:actorId')} value={this.state.actorId} onChange={this.onActorIdChange.bind(this)}/>
+                        <Nav.Input className='getCaseInputActorId' label={t('case:actorId')} value={this.state.actorId} onChange={this.onActorIdChange.bind(this)}/>
                     </Nav.Column>
                     <Nav.Column className='mt-4'>
-                        <Nav.HjelpetekstBase id='actorId' type='under'>{t('help:actorId')}</Nav.HjelpetekstBase>
+                        <Nav.HjelpetekstBase id='actorId' type='under'>{t('case:helpActorId')}</Nav.HjelpetekstBase>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4'>

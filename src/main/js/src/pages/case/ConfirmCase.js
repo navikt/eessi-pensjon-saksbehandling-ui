@@ -81,16 +81,19 @@ class ConfirmCase extends Component {
 
         let alert;
 
-        let buttonText = generatingCase ? t('loading:generatingCase') : t('ui:confirmAndGenerate');
+        let buttonText = generatingCase ? t('case:loadingGeneratingCase') : t('ui:confirmAndGenerate');
 
         if (errorStatus) {
-            alert = <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe>;
+            alert = <Nav.AlertStripe type='stopp'>{t(errorMessage)}</Nav.AlertStripe>;
         }
 
         return <TopContainer>
             <Nav.Panel>
                 <Nav.Row className='mt-4'>
-                    <Nav.Column>{t('content:confirmCaseDescription')}</Nav.Column>
+                    <Nav.Column>
+                        <h1 className='mt-3 appTitle'>{t('case:confirmCaseTitle')}</h1>
+                        <h4>{t('case:confirmCaseDescription')}</h4>
+                    </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4 text-center'>
                     <Nav.Column>{alert}</Nav.Column>

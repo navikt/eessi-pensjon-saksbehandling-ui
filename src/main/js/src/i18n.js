@@ -10,9 +10,9 @@ i18next
     .init({
         lng: 'nb',
         fallbackLng: 'nb',
-        debug: false,
-        ns: ['ui', 'loading', 'content', 'error', 'validation', 'help'],
-        defaultNs: 'ui',
+        debug: true,
+        ns: ['translation', 'ui', 'error', 'case', 'pdf', 'p4000'],
+        defaultNs: 'translation',
         backend: {
             loadPath: '/locales/{{lng}}/{{ns}}.json'
         },
@@ -26,6 +26,6 @@ i18next
             bindStore: 'added removed',
             nsMode: 'default'
         }
-    }).loadLanguages(['nb','nn','en']);
+    }).loadLanguages(['nb','en']);
 
 export default i18next;

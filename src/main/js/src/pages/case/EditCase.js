@@ -142,7 +142,7 @@ class EditCase extends Component {
 
         const { t } = this.props;
         if (!subjectArea || subjectArea === this.state.defaultSelects.subjectArea) {
-            this.setValidationState('subjectAreaFail', t('validation:chooseSubjectArea'));
+            this.setValidationState('subjectAreaFail', t('case:validationChooseSubjectArea'));
         } else {
             this.resetValidationState('subjectAreaFail');
         }
@@ -152,7 +152,7 @@ class EditCase extends Component {
 
         const { t } = this.props;
         if (!buc || buc === this.state.defaultSelects.buc) {
-            this.setValidationState('bucFail', t('validation:chooseBuc'));
+            this.setValidationState('bucFail', t('case:validationChooseBuc'));
         } else {
             this.resetValidationState('bucFail');
         }
@@ -162,7 +162,7 @@ class EditCase extends Component {
 
         const { t } = this.props;
         if (!sed || sed === this.state.defaultSelects.sed) {
-            this.setValidationState('sedFail', t('validation:chooseSed'));
+            this.setValidationState('sedFail', t('case:validationChooseSed'));
         } else {
             this.resetValidationState('sedFail');
         }
@@ -172,7 +172,7 @@ class EditCase extends Component {
 
         const { t } = this.props;
         if (!institutions || Object.keys(institutions).length === 0) {
-            this.setValidationState('institutionaFail', t('validation:chooseInstitutions'));
+            this.setValidationState('institutionaFail', t('case:validationChooseInstitutions'));
         } else {
             this.resetValidationState('institutionsFail');
         }
@@ -182,7 +182,7 @@ class EditCase extends Component {
 
         const { t } = this.props;
         if (!institution || institution === this.state.defaultSelects.institution) {
-            this.setValidationState('institutionFail', t('validation:chooseInstitution'));
+            this.setValidationState('institutionFail', t('case:validationChooseInstitution'));
         } else {
             this.resetValidationState('institutionFail');
         }
@@ -295,14 +295,14 @@ class EditCase extends Component {
         if (!map || Object.keys(map).length === 0) {
             map = [{
                 key: this.state.defaultSelects[type],
-                value: t('ui:' + this.state.defaultSelects[type])
+                value: t('case:' + this.state.defaultSelects[type])
             }];
         }
 
         if (!map[0].key || (map[0].key && map[0].key !== this.state.defaultSelects[type])) {
             map.unshift({
                 key: this.state.defaultSelects[type],
-                value: t('ui:' + this.state.defaultSelects[type])
+                value: t('case:' + this.state.defaultSelects[type])
             });
         }
         return map.map(el => {
@@ -319,7 +319,7 @@ class EditCase extends Component {
         const { t, subjectAreaList } = this.props;
 
         return <Nav.Select className='subjectAreaList' bredde='xxl' feil={this.state.validation.subjectAreaFail ? {feilmelding: this.state.validation.subjectAreaFail} : null}
-            label={t('ui:subjectArea')} value={this.state.subjectArea} onChange={this.onSubjectAreaChange.bind(this)}>
+            label={t('case:subjectArea')} value={this.state.subjectArea} onChange={this.onSubjectAreaChange.bind(this)}>
             {this.renderOptions(subjectAreaList, 'subjectArea')}
         </Nav.Select>
     }
@@ -329,7 +329,7 @@ class EditCase extends Component {
         const { t, countryList } = this.props;
 
         return <Nav.Select className='countryList' bredde='xxl' feil={this.state.validation.countryFail ? {feilmelding: this.state.validation.countryFail} : null}
-            label={t('ui:country')} value={currentValue} onChange={this.onCountryChange.bind(this)}>
+            label={t('case:country')} value={currentValue} onChange={this.onCountryChange.bind(this)}>
             {this.renderOptions(countryList, 'country')}
         </Nav.Select>
     }
@@ -339,7 +339,7 @@ class EditCase extends Component {
         const { t, institutionList } = this.props;
 
         return <Nav.Select className='institutionList' bredde='xxl' feil={this.state.validation.institutionFail ? {feilmelding: this.state.validation.institutionFail} : null}
-            label={t('ui:institution')} value={currentValue} onChange={this.onInstitutionChange.bind(this)}>
+            label={t('case:institution')} value={currentValue} onChange={this.onInstitutionChange.bind(this)}>
             {this.renderOptions(institutionList, 'institution')}
         </Nav.Select>
     }
@@ -349,7 +349,7 @@ class EditCase extends Component {
         const { t, bucList } = this.props;
 
         return <Nav.Select className='bucList' bredde='xxl' feil={this.state.validation.bucFail ? {feilmelding: this.state.validation.bucFail} : null}
-            label={t('ui:buc')} value={this.state.buc} onChange={this.onBucChange.bind(this)}>
+            label={t('case:buc')} value={this.state.buc} onChange={this.onBucChange.bind(this)}>
             {this.renderOptions(bucList, 'buc')}
         </Nav.Select>
     }
@@ -359,7 +359,7 @@ class EditCase extends Component {
         const { t, sedList, bucList } = this.props;
 
         return <Nav.Select className='sedList' bredde='xxl' feil={this.state.validation.sedFail? {feilmelding: this.state.validation.sedFail} : null}
-            disabled={!bucList} label={t('ui:sed')} value={this.state.sed} onChange={this.onSedChange.bind(this)}>
+            disabled={!bucList} label={t('case:sed')} value={this.state.sed} onChange={this.onSedChange.bind(this)}>
             {this.renderOptions(sedList, 'sed')}
         </Nav.Select>
     }
@@ -408,15 +408,15 @@ class EditCase extends Component {
             <Nav.Column className='col-sm'>
                 <div>{this.renderCountry()}</div>
                 <div className='mt-4'>
-                    <Nav.HjelpetekstBase className='d-inline-block' id='country' type='under'>{t('help:country')}</Nav.HjelpetekstBase>
-                    <div className='d-inline-block'>{loading && loading.countryList ? this.getSpinner('loading:country'): null}</div>
+                    <Nav.HjelpetekstBase className='d-inline-block' id='country' type='under'>{t('case:helpCountry')}</Nav.HjelpetekstBase>
+                    <div className='d-inline-block'>{loading && loading.countryList ? this.getSpinner('case:loadingCountry'): null}</div>
                 </div>
             </Nav.Column>
             <Nav.Column className='col-sm'>
                 <div>{this.renderInstitution()}</div>
                 <div className='mt-4'>
-                    <Nav.HjelpetekstBase className='d-inline-block' id='institution' type='under'>{t('help:institution')}</Nav.HjelpetekstBase>
-                    <div className='d-inline-block'>{loading && loading.institutionList ? this.getSpinner('loading:institution'): null}</div>
+                    <Nav.HjelpetekstBase className='d-inline-block' id='institution' type='under'>{t('case:helpInstitution')}</Nav.HjelpetekstBase>
+                    <div className='d-inline-block'>{loading && loading.institutionList ? this.getSpinner('case:loadingInstitution'): null}</div>
                 </div>
             </Nav.Column>
             <Nav.Column className='col-sm' style={{lineHeight: '6rem'}}>
@@ -443,16 +443,19 @@ class EditCase extends Component {
             return null;
         }
 
-        let alert = (action === 'forward' ? <Nav.AlertStripe type='suksess'>{t('ui:caseFound') + ': ' + currentCase.casenumber}</Nav.AlertStripe> : null);
+        let alert = (action === 'forward' ? <Nav.AlertStripe type='suksess'>{t('case:caseFound') + ': ' + currentCase.casenumber}</Nav.AlertStripe> : null);
 
         if (errorStatus) {
-            alert = <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe>;
+            alert = <Nav.AlertStripe type='stopp'>{t(errorMessage)}</Nav.AlertStripe>;
         }
 
         return <TopContainer>
             <Nav.Panel>
                 <Nav.Row className='mt-4'>
-                    <Nav.Column>{t('content:editCaseDescription')}</Nav.Column>
+                   <Nav.Column>
+                       <h1 className='mt-3 appTitle'>{t('case:editCaseTitle')}</h1>
+                       <h4>{t('case:editCaseDescription')}</h4>
+                   </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4 text-center'>
                     <Nav.Column>{alert}</Nav.Column>
@@ -465,22 +468,22 @@ class EditCase extends Component {
                 <Nav.Row className='mt-4 align-middle text-left'>
                     <Nav.Column>{this.renderSubjectArea()}</Nav.Column>
                     <Nav.Column className='mt-4'>
-                        <Nav.HjelpetekstBase className='d-inline-block' id='subjectArea' type='under'>{t('help:subjectArea')}</Nav.HjelpetekstBase>
-                        <div className='d-inline-block'>{loading && loading.subjectAreaList ? this.getSpinner('loading:subjectArea'): null}</div>
+                        <Nav.HjelpetekstBase className='d-inline-block' id='subjectArea' type='under'>{t('case:helpSubjectArea')}</Nav.HjelpetekstBase>
+                        <div className='d-inline-block'>{loading && loading.subjectAreaList ? this.getSpinner('case:loadingSubjectArea'): null}</div>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-1 align-middle text-left'>
                     <Nav.Column>{this.renderBuc()}</Nav.Column>
                     <Nav.Column className='mt-4'>
-                        <Nav.HjelpetekstBase className='d-inline-block' id='buc' type='under'>{t('help:buc')}</Nav.HjelpetekstBase>
-                        <div className='d-inline-block'>{loading && loading.bucList ? this.getSpinner('loading:buc') : null}</div>
+                        <Nav.HjelpetekstBase className='d-inline-block' id='buc' type='under'>{t('case:helpBuc')}</Nav.HjelpetekstBase>
+                        <div className='d-inline-block'>{loading && loading.bucList ? this.getSpinner('case:loadingBuc') : null}</div>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-1 align-middle text-left'>
                     <Nav.Column>{this.renderSed()}</Nav.Column>
                     <Nav.Column className='mt-4'>
-                        <Nav.HjelpetekstBase className='d-inline-block' id='sed' type='under'>{t('help:sed')}</Nav.HjelpetekstBase>
-                        <div className='d-inline-block'>{loading && loading.sedList ? this.getSpinner('loading:sed') : null}</div>
+                        <Nav.HjelpetekstBase className='d-inline-block' id='sed' type='under'>{t('case:helpSed')}</Nav.HjelpetekstBase>
+                        <div className='d-inline-block'>{loading && loading.sedList ? this.getSpinner('case:loadingSed') : null}</div>
                     </Nav.Column>
                 </Nav.Row>
                 {this.renderInstitutions()}

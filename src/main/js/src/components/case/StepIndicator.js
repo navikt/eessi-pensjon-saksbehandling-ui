@@ -13,10 +13,10 @@ class StepIndicator extends Component {
         return <Nav.Stegindikator visLabel={true} onBeforeChange={() => {return false}}
             autoResponsiv={true}
             steg={[
-                {label: t('ui:step1'), aktiv: (activeStep === 0)},
-                {label: t('ui:step2'), aktiv: (activeStep === 1)},
-                {label: t('ui:step3'), aktiv: (activeStep === 2)},
-                {label: t('ui:step4'), aktiv: (activeStep === 3)}
+                {label: t('case:step1'), aktiv: (activeStep === 0)},
+                {label: t('case:step2'), aktiv: (activeStep === 1)},
+                {label: t('case:step3'), aktiv: (activeStep === 2)},
+                {label: t('case:step4'), aktiv: (activeStep === 3)}
             ]}/>
     }
 }

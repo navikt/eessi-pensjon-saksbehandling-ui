@@ -81,7 +81,7 @@ class GenerateCase extends Component {
         }
 
         let alert;
-        let buttonText = sendingCase ? t('loading:sendingCase') : t('ui:confirmAndSend');
+        let buttonText = sendingCase ? t('case:loadingSendingCase') : t('ui:confirmAndSend');
 
         if (dataToGenerate) {
             alert = <Nav.AlertStripe type='suksess'>{t('ui:dataGenerated')}</Nav.AlertStripe>
@@ -95,7 +95,10 @@ class GenerateCase extends Component {
         return <TopContainer>
             <Nav.Panel>
                 <Nav.Row className='mt-4'>
-                    <Nav.Column>{t('content:confirmCaseDescription')}</Nav.Column>
+                    <Nav.Column>
+                        <h1 className='mt-3 appTitle'>{t('case:generateCaseTitle')}</h1>
+                        <h4>{t('case:generateCaseDescription')}</h4>
+                    </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4 text-center'>
                     <Nav.Column>{alert}</Nav.Column>

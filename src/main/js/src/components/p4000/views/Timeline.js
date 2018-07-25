@@ -27,7 +27,7 @@ class Timeline extends Component {
 
         return <Nav.Row style={{backgroundColor: 'whitesmoke'}}>
             <Nav.Column>
-                <h3>{t('content:p4000-timeline')}</h3>
+                <h3>{t('p4000:timeline')}</h3>
                 <TimelineComponent/>
             </Nav.Column>
         </Nav.Row>
