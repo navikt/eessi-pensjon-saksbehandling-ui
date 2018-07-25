@@ -27,13 +27,13 @@ class Work extends Component {
 
     render() {
 
-        const { t, event, actions } = this.props;
+        const { t, event, editMode, actions } = this.props;
 
         return <div>
             <Nav.Row>
                 <Nav.Column className='mt-4'>
                     <Icons size='3x' kind='work' className='d-inline-block'/>
-                    <h1 className='d-inline-block m-0 ml-3 align-bottom'>{t('content:p4000-work')}</h1>
+                    <h1 className='d-inline-block m-0 ml-3 align-bottom'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('content:p4000-work')}</h1>
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className='mt-4'>

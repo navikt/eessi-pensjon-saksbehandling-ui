@@ -22,22 +22,25 @@ const mapDispatchToProps = (dispatch) => {
 
 class Timeline extends Component {
 
+    renderDate(date) {
+        return date ? date.toDateString() : 'unknown';
+    }
+
     render() {
 
         const { events } = this.props;
         return <VerticalTimeline>
             {(() => {
                 return events.map((event, index) => {
-                    let dateString = event.startDate.year + '/' + event.startDate.month + ' - ' +  event.endDate.year + '/' + event.endDate.month
-                    return (<VerticalTimelineElement
+                    let dateString = this.renderDate(event.startDate) + ' - ' +  this.renderDate(event.endDate);
+                    return <VerticalTimelineElement
                         date={dateString}
                         key={index}
                         iconStyle={{ background: 'rgb(33,150,24)', color: '#fff'}}
-                        icon={<Icons size='3x' kind={event.type}/>}
-                    >
+                        icon={<Icons size='3x' kind={event.type}/>}>
                         <h3 className='vertical-timeline-element-title'>Title</h3>
                         <h4 className='vertical-timeline-element-subtitle'>SubTitle</h4>
-                    </VerticalTimelineElement>);
+                    </VerticalTimelineElement>;
                 });
             })()}
         </VerticalTimeline>

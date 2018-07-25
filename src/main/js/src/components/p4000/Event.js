@@ -20,6 +20,10 @@ class Event extends Component {
         actions.editEvent(eventIndex);
     }
 
+    renderDate(date) {
+        return date ? date.toDateString() : 'unknown';
+    }
+
     render() {
 
         const { event, eventIndex, selected } = this.props;
@@ -27,7 +31,7 @@ class Event extends Component {
         return <div className={classNames('d-inline-block','mr-3','eventBadge', { selected: selected })}
             onClick={selected ? null : this.editEvent.bind(this, eventIndex)}>
             <Icons kind={event.type}/>
-            <div className='eventBadgeDate'>{event.startDate.year}/{event.startDate.month} - {event.endDate.year}/{event.endDate.month}</div>
+            <div className='eventBadgeDate'>{this.renderDate(event.startDate)} - {this.renderDate(event.endDate)}</div>
         </div>
     }
 }

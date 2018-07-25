@@ -6,10 +6,9 @@ import { bindActionCreators }  from 'redux';
 
 import * as p4000Actions from '../../actions/p4000';
 
-import YearMonthSelector from 'react-year-month-selector';
-import 'react-year-month-selector/src/styles/index.css';
-import './custom-datepicker.css';
+import ReactDatePicker from 'react-date-picker';
 import * as Nav from '../ui/Nav';
+
 
 const mapStateToProps = (state) => {
     return {
@@ -28,17 +27,17 @@ class DatePicker extends Component {
     };
 
     renderDate(date) {
-        if (!date || !date.year) {
+        if (!date ) {
             return '';
         }
-        return date.year + '/' + date.month;
+        return date;
     }
 
-    onStartDateChange(year, month) {
+    onStartDateChange(date) {
 
         let { t, event, actions } = this.props;
 
-        if (event.endDate && (
+       /* if (event.endDate && (
             (event.endDate.year < year) ||
                 (event.endDate.year === year && event.endDate.month < month)
         )) {
@@ -49,14 +48,14 @@ class DatePicker extends Component {
             this.setState({
                 onEndDateFail: undefined
             })
-        }
-        actions.setEventProperty('startDate', {year: year, month: month});
+        }*/
+        actions.setEventProperty('startDate', date);
     }
 
-    onEndDateChange(year, month) {
+    onEndDateChange(date) {
 
         let { t, event, actions } = this.props;
-
+        /*
         if (event.startDate && (
             (year < event.startDate.year) ||
              (year === event.startDate.year && month < event.startDate.month)
@@ -68,18 +67,8 @@ class DatePicker extends Component {
             this.setState({
                 onEndDateFail: undefined
             })
-        }
-        actions.setEventProperty('endDate', {year: year, month: month});
-    }
-
-    onFocus (input) {
-
-        this.setState({[input]: true});
-    }
-
-    onClose(input) {
-
-        this.setState({[input]: false});
+        }*/
+        actions.setEventProperty('endDate', date);
     }
 
     setRangePeriod() {
@@ -109,18 +98,16 @@ class DatePicker extends Component {
             </Nav.Row>
             <Nav.Row>
                 <Nav.Column>
-                    <Nav.Input label={t('ui:startDate')} value={this.renderDate(event.startDate)}
-                        onFocus={this.onFocus.bind(this, 'startopen')}
-                        feil={this.state.onStartDateFail ? {'feilmelding' : this.state.onStartDateFail} : null}/>
-                    <YearMonthSelector onChange={this.onStartDateChange.bind(this)} open={this.state.startopen}
-                        onClose={this.onClose.bind(this, 'startopen')}/>
+                    <ReactDatePicker value={event.startDate}
+                        locale='no-NB'
+                        onChange={this.onStartDateChange.bind(this)}/>
+                    <div>{this.state.onStartDateFail}</div>
                 </Nav.Column>
                 {this.state.rangePeriod ? <Nav.Column>
-                    <Nav.Input label={t('ui:endDate')} value={this.renderDate(event.endDate)}
-                        onFocus={this.onFocus.bind(this, 'endopen')}
-                        feil={this.state.onEndDateFail ? {'feilmelding' : this.state.onEndDateFail} : null}/>
-                    <YearMonthSelector onChange={this.onEndDateChange.bind(this)} open={this.state.endopen}
-                        onClose={this.onClose.bind(this, 'endopen')}/>
+                    <ReactDatePicker value={event.endDate}
+                         locale='no-NB'
+                         onChange={this.onEndDateChange.bind(this)}/>
+                    <div>{this.state.onEndDateFail}</div>
                 </Nav.Column> : null}
             </Nav.Row>
         </div>
