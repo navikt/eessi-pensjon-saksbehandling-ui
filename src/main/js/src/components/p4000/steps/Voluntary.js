@@ -13,7 +13,7 @@ import * as p4000Actions from '../../../actions/p4000';
 
 const mapStateToProps = (state) => {
     return {
-        events : state.p4000.events
+        event : state.p4000.event
     }
 };
 

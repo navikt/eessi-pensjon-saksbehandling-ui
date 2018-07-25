@@ -38,7 +38,7 @@ class FrontPage extends Component {
                         <Link to='/react/pdf/select'>
                             <Nav.Lenkepanel className='frontPageLink' href="#">{t('ui:createPdf')}</Nav.Lenkepanel>
                         </Link>
-                        <Link to='/react/p4000'>
+                        <Link to='/react/p4000/menu'>
                             <Nav.Lenkepanel className='frontPageLink' href="#">{t('ui:startP4000')}</Nav.Lenkepanel>
                         </Link>
                     </Nav.Column>

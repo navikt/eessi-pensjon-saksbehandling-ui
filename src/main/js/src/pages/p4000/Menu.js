@@ -18,10 +18,13 @@ class Menu extends Component {
     handleNew() {
 
         const { history } = this.props;
-        history.push('/react/p4000/new');
+        history.push('/react/p4000/form');
     }
 
-    handleResume() {}
+    handleResume() {
+         const { history } = this.props;
+         history.push('/react/p4000/form');
+    }
 
     render() {
 

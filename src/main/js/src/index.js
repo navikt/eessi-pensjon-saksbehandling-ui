@@ -43,11 +43,8 @@ ReactDOM.render(
         <Provider store={store}>
             <ConnectedRouter history={history}>
                 <Switch>
-                    <Route       path='/react/p4000/edit/:editid' component={Pages.P4000Form}/>
-                    <Route exact path='/react/p4000/edit'         component={Pages.P4000Form}/>
-                    <Route       path='/react/p4000/new/:editid'  component={Pages.P4000Form}/>
-                    <Route exact path='/react/p4000/new'          component={Pages.P4000Form}/>
-                    <Route exact path='/react/p4000'              component={Pages.P4000Menu}/>
+                    <Route exact path='/react/p4000/form'   component={Pages.P4000Form}/>
+                    <Route exact path='/react/p4000/menu'   component={Pages.P4000Menu}/>
 
                     <Route exact path='/react/pdf/generate' component={Pages.GeneratePDF}/>
                     <Route exact path='/react/pdf/edit'     component={Pages.EditPDF}/>

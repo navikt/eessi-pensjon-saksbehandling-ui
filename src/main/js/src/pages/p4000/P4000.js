@@ -17,10 +17,9 @@ import * as p4000Actions from '../../actions/p4000';
 
 const mapStateToProps = (state) => {
     return {
-        errorMessage : state.error.clientErrorMessage,
-        errorStatus  : state.error.clientErrorStatus,
-        sendingForm  : state.loading.sendingForm,
-        events       : state.p4000.events
+        events   : state.p4000.events,
+        editMode : state.p4000.editMode,
+        event    : state.p4000.event
     }
 };
 
@@ -37,65 +36,12 @@ const styles = {
 class P4000 extends Component {
 
     state = {
-        currentType: 'work',
-        editMode: false
+        page: 'work'
     };
 
-    componentDidMount() {
-        this.checkEditStatus();
-    }
+    handleMenuItemClick(newPage, extras) {
 
-    componentDidUpdate() {
-        this.checkEditStatus();
-    }
-
-    checkEditStatus() {
-
-        const { history, match, events } = this.props;
-
-        // we want to edit an event, according to URL
-        if (match.params.editid) {
-
-            let eventIndex = parseInt(match.params.editid, 10);
-
-            // if there is such an event to edit...
-            if (events && events[eventIndex] !== undefined) {
-
-                // set state if we don't have the event to edit there
-                if (this.state.eventIndex === undefined ||
-                (this.state.eventIndex !== undefined && this.state.eventIndex !== eventIndex)) {
-
-                    this.setState({
-                        eventIndex: eventIndex,
-                        editMode: true,
-                        event: events[eventIndex]
-                    });
-                }
-
-            // no we don't have the event, the URL is obsolete
-            } else {
-                history.replace('/react/p4000');
-            }
-
-        // we do not want to edit events
-        } else {
-
-            // the state is obsolete, replace with non-edit one
-            if (this.state.editMode === true) {
-
-                this.setState({
-                  currentType: 'work',
-                  editMode: false,
-                  eventIndex: undefined,
-                  event: undefined
-                });
-            }
-        }
-    }
-
-    handleMenuItemClick(newType, extras) {
-
-        this.setState({currentType : newType});
+        this.setState({page : newPage});
     }
 
     getItems() {
@@ -122,24 +68,25 @@ class P4000 extends Component {
 
     render() {
 
-        const { t, errorMessage, errorStatus, sendingForm, events } = this.props;
+        const { t, events, editMode, event} = this.props;
 
-        let alert = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
-        let type = this.state.editMode && this.state.event ? this.state.event.type : this.state.currentType;
+        let alert = null;
+        let page  = editMode && event ? event.type : this.state.page;
 
         return <TopContainer>
             <Nav.Row className='no-gutters'>
                 <Nav.Column className='col-3' style={styles.menu}>
-                    <SideMenu activeItem={type} items={this.getItems()} theme='nav' shouldTriggerClickOnParents={true} onMenuItemClick={this.handleMenuItemClick.bind(this)}/>
+                    <SideMenu activeItem={page} items={this.getItems()} theme='nav'
+                    shouldTriggerClickOnParents={false} onMenuItemClick={this.handleMenuItemClick.bind(this)}/>
                 </Nav.Column>
                 <Nav.Column>
                     <Nav.Panel className='h-100'>
-                        <Nav.Row className='text-center'>
+                        <Nav.Row>
                             <Nav.Column>{alert}</Nav.Column>
                         </Nav.Row>
                         <Nav.Row>
                             <Nav.Column>
-                                <EventForm type={type} events={events} editMode={this.state.editMode} event={this.state.event} eventIndex={this.state.eventIndex}/>
+                                <EventForm type={page}/>
                             </Nav.Column>
                         </Nav.Row>
                     </Nav.Panel>
@@ -150,13 +97,12 @@ class P4000 extends Component {
 }
 
 P4000.propTypes = {
-    errorMessage : PT.string,
-    errorStatus  : PT.string,
-    gettingPDF   : PT.bool,
     history      : PT.object,
     t            : PT.func,
     match        : PT.object.isRequired,
-    events       : PT.array.isRequired
+    events       : PT.array.isRequired,
+    editMode     : PT.bool,
+    event        : PT.object
 };
 
 export default connect(

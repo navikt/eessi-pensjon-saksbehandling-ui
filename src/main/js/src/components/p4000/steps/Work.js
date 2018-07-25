@@ -6,38 +6,23 @@ import DatePicker from '../../../components/p4000/DatePicker';
 import * as Nav from '../../../components/ui/Nav';
 import Icons from '../../../components/ui/Icons';
 
+const mapStateToProps = (state) => {
+    return {
+        event : state.p4000.event,
+        editMode: state.p4000.editMode
+    }
+};
+
 const initialState =  {
      type : 'work',
-     event : {}
-}
+     event : {},
+     startDate: undefined,
+     endDate : undefined
+};
 
 class Work extends Component {
 
     state = initialState;
-
-    componentDidMount() {
-        this.onUpdate();
-    }
-
-    componentDidUpdate() {
-       this.onUpdate();
-    }
-
-    onUpdate() {
-        const { event } = this.props;
-
-        if (event && _.isEmpty(this.state.event)) {
-            this.setState({
-                event : event,
-                startDate: event.startDate,
-                endDate: event.endDate
-            });
-        }
-        if (!event == !_.isEmpty(this.state.event)) {
-           // this.state = initialState;
-           // this.setState(initialState);
-        }
-    }
 
     addValueToEvent(key, value) {
         let event = this.state.event;

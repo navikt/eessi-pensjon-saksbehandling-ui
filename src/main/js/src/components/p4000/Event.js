@@ -1,25 +1,32 @@
 import React, { Component } from 'react';
 import PT from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators }  from 'redux';
 import classNames from 'classnames';
 import { withRouter } from 'react-router';
 
+import * as p4000Actions from '../../actions/p4000';
 import Icons from '../ui/Icons';
 import './custom-event.css';
 
+const mapDispatchToProps = (dispatch) => {
+    return {actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch)};
+};
+
 class Event extends Component {
 
-    editEvent(index) {
+    editEvent(eventIndex) {
 
-        const { history } = this.props;
-        history.push('/react/p4000/edit/' + index);
+        const { actions } = this.props;
+        actions.editEvent(eventIndex);
     }
 
     render() {
 
-        const { event, index, selected } = this.props;
+        const { event, eventIndex, selected } = this.props;
 
         return <div className={classNames('d-inline-block','mr-3','event', { selected: selected })}
-            onClick={selected ? null : this.editEvent.bind(this, index)}>
+            onClick={selected ? null : this.editEvent.bind(this, eventIndex)}>
             <Icons kind={event.type}/>
             <div className='eventDate'>{event.startDate.year}/{event.startDate.month} - {event.endDate.year}/{event.endDate.month}</div>
         </div>
@@ -33,4 +40,7 @@ Event.propTypes = {
     history  : PT.object
 };
 
-export default withRouter(Event);
+export default connect(
+    null,
+    mapDispatchToProps
+)(Event);

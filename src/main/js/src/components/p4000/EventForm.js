@@ -12,6 +12,15 @@ import ExistingEvents from '../../components/p4000/ExistingEvents';
 import * as Steps from './steps';
 import * as Views from './views';
 
+const mapStateToProps = (state) => {
+    return {
+        events     : state.p4000.events,
+        editMode   : state.p4000.editMode,
+        event      : state.p4000.event,
+        eventIndex : state.p4000.eventIndex
+    }
+};
+
 const mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch)};
 };
@@ -33,8 +42,7 @@ const components = {
 
 const styles = {
     editMode: {
-        backgroundColor: '#FFF8F8',
-        border: '1px solid red',
+        backgroundColor: '#FFCCCC',
         borderRadius: '10px',
         padding: '10px',
         margin: '10px 0px 10px 0px'
@@ -54,30 +62,28 @@ class EventForm extends React.Component {
 
     handleSave () {
 
-        const { history, actions } = this.props;
+        const { actions } = this.props;
         let event = this.prepareEvent(this.formRef.state);
         actions.pushEventToP4000Form(event);
     }
 
     handleEdit () {
 
-        const { history, actions, eventIndex } = this.props;
+        const { actions, eventIndex } = this.props;
         let event = this.prepareEvent(this.formRef.state);
-        actions.editEventToP4000Form(event, eventIndex);
-        history.push('/react/p4000/new');
+        actions.replaceEventOnP4000Form(event, eventIndex);
     }
 
     handleDelete () {
 
-        const { history, actions, eventIndex } = this.props;
+        const { actions, eventIndex } = this.props;
         actions.deleteEventToP4000Form(eventIndex);
-        history.push('/react/p4000/new');
     }
 
     handleCancel () {
 
-        const { history } = this.props;
-        history.push('/react/p4000/new');
+        const { actions, eventIndex } = this.props;
+        actions.cancelEditEvent(eventIndex);
     }
 
     render() {
@@ -86,7 +92,7 @@ class EventForm extends React.Component {
 
         let Component = components[type];
 
-        return <div style={editMode ? styles.editMode : null}>
+        return <div>
             {(() => {
                 if (type !== 'timeline' && type !== 'file') {
                     return <Nav.Row>
@@ -96,7 +102,9 @@ class EventForm extends React.Component {
                     </Nav.Row>
                 }
             })()}
-            <Component t={t} event={event} ref={(ref) => {this.formRef = ref}}/>
+            <div style={editMode ? styles.editMode : null}>
+                <Component t={t} ref={(ref) => {this.formRef = ref}}/>
+            </div>
             <Nav.Row className='mt-4'>
                 <Nav.Column>
                     {!editMode && (type !== 'timeline' && type !== 'file') ? <Nav.Hovedknapp className='forwardButton' onClick={this.handleSave.bind(this)}>{t('ui:save')}</Nav.Hovedknapp> : null}
@@ -112,6 +120,7 @@ class EventForm extends React.Component {
 EventForm.propTypes = {
     t          : PT.func.isRequired,
     type       : PT.string.isRequired,
+    events     : PT.array.isRequired,
     editMode   : PT.bool.isRequired,
     event      : PT.object,
     eventIndex : PT.number,
@@ -120,7 +129,7 @@ EventForm.propTypes = {
 };
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(
     translate()(
