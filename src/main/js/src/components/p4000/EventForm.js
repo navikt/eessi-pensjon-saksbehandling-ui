@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import { translate } from 'react-i18next';
 import { withRouter } from 'react-router';
+import classNames from 'classnames';
 
 import * as p4000Actions from '../../actions/p4000';
 import * as Nav from '../../components/ui/Nav';
@@ -83,15 +84,13 @@ class EventForm extends React.Component {
         let Component = components[type];
 
         return <div>
-            {(() => {
-                if (type !== 'timeline' && type !== 'file') {
-                    return <Nav.Row>
-                        <Nav.Column>
-                            <ExistingEvents events={events} eventIndex={eventIndex}/>
-                        </Nav.Column>
-                    </Nav.Row>
-                }
-            })()}
+            {(() => <Nav.Row>
+                    <Nav.Column>
+                        <ExistingEvents events={events} eventIndex={eventIndex}
+                        className={classNames({'invisible' : type === 'timeline' || type === 'file'})}/>
+                    </Nav.Column>
+                </Nav.Row>
+            )()}
             <div style={editMode ? styles.editMode : null}>
                 <Component/>
             </div>
