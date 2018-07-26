@@ -5,10 +5,13 @@ import { bindActionCreators }  from 'redux';
 import { translate } from 'react-i18next';
 import { withRouter } from 'react-router';
 import classNames from 'classnames';
+import _ from 'lodash';
 
 import * as p4000Actions from '../../actions/p4000';
 import * as Nav from '../../components/ui/Nav';
 import ExistingEvents from '../../components/p4000/ExistingEvents';
+
+import './custom-eventform.css';
 
 import * as Steps from './steps';
 import * as Views from './views';
@@ -83,7 +86,8 @@ class EventForm extends React.Component {
         let Component = components[type];
 
         return <div className='div-eventForm'>
-            <Nav.Row className={classNames('row-existingEvents', 'mb-4', {'invisible' : type === 'timeline' || type === 'file'})}>
+            <Nav.Row className={classNames('existingEvents', 'mb-4', 'no-gutters',
+                {'hiding' : (type === 'timeline' || type === 'file') || _.isEmpty(events)})}>
                 <Nav.Column>
                     <ExistingEvents events={events} eventIndex={eventIndex}/>
                 </Nav.Column>

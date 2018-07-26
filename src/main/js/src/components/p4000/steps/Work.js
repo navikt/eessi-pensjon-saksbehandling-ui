@@ -3,6 +3,7 @@ import PT from 'prop-types';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
+import CountrySelect from 'react-country-select';
 
 import * as p4000Actions from '../../../actions/p4000';
 
@@ -45,14 +46,46 @@ class Work extends Component {
             </Nav.Row>
             <Nav.Row className='eventDates mb-4 p-4' style={styles.fieldset}>
                 <Nav.Column>
-                    <h2 className='mb-3'>Datoer</h2>
+                    <h2 className='mb-3'>{t('p4000:work-fieldset-1-dates-title')}</h2>
                     <DatePicker/>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='mt-4'>
+            <Nav.Row className='eventDates mb-4 p-4' style={styles.fieldset}>
                 <Nav.Column>
-                    <Nav.Input label={t('p4000:activity')} value={event.activity || ''}
+                    <h2 className='mb-3'>{t('p4000:work-fieldset-2-info-title')}</h2>
+
+                    <Nav.Input label={t('p4000:work-fieldset-2_1-activity')} value={event.activity}
                         onChange={(e) => {actions.setEventProperty('activity', e.target.value, type)}} />
+
+                    <Nav.Input label={t('p4000:work-fieldset-2_2-id')} value={event.id}
+                        onChange={(e) => {actions.setEventProperty('id', e.target.value, type)}} />
+
+                    <Nav.Input label={t('p4000:work-fieldset-2_3-name')} value={event.name}
+                        onChange={(e) => {actions.setEventProperty('name', e.target.value, type)}} />
+
+                    <label>{t('p4000:work-fieldset-2_4-address')}</label>
+
+                    <Nav.Input label={t('ui:street')} value={event.street}
+                        onChange={(e) => {actions.setEventProperty('street', e.target.value, type)}} />
+
+                    <Nav.Input label={t('ui:buildingName')} value={event.buildingName}
+                        onChange={(e) => {actions.setEventProperty('buildingName', e.target.value, type)}} />
+
+                    <Nav.Input label={t('ui:city')} value={event.city}
+                        onChange={(e) => {actions.setEventProperty('city', e.target.value, type)}} />
+
+                    <Nav.Input label={t('ui:region')} value={event.buildingName}
+                        onChange={(e) => {actions.setEventProperty('region', e.target.value, type)}} />
+
+                    <CountrySelect value={event.country} multi={false}
+                    flagImagePath="../../Flagicons/"
+                    onSelect={(e) => {
+                        actions.setEventProperty('country', e, type)}
+                    }/>
+
+                    <Nav.Input label={t('p4000:work-fieldset-2_5-other')} value={event.other}
+                         onChange={(e) => {actions.setEventProperty('other', e.target.value, type)}} />
+
                 </Nav.Column>
             </Nav.Row>
         </Nav.Panel>

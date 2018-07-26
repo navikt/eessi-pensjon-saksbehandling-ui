@@ -17,5 +17,13 @@
     "createNewP4000Title" : "Create new P4000",
     "startP4000" : "Start a P4000",
 
+    "work-fieldset-1-dates-title" : "1. Perioder som ansatt eller selvstendig næringsdrivende",
+    "work-fieldset-2-info-title"  : "2. Yrkesaktivitet",
+    "work-fieldset-2_1-activity"  : "Yrkesaktivitet under ansettelsesforhold eller selvstendig næringsvirksomhet",
+    "work-fieldset-2_2-id"        : "Forsikrings- eller identifikasjonsnummer",
+    "work-fieldset-2_3-name"      : "Arbeidsgivers/selskapets navn",
+    "work-fieldset-2_4-address"   : "Arbeidsgivers/selskapets address",
+    "work-fieldset-2_5-other"     : "Tilleggsinformasjon om perioden",
+
     "endDateEarlierThanStartDate" : "End date can't be earlier than start date"
 }

@@ -18,5 +18,10 @@
     "resume" : "Resume",
     "search" : "Search",
     "start" : "Start",
-    "startDate" : "Start date"
+    "startDate" : "Start date",
+    "street" : "Street",
+    "buildingName" : "Building name",
+    "city" : "City",
+    "region" : "Region",
+    "country" : "Country"
 }

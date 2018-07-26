@@ -14,7 +14,7 @@ class ExistingEvents extends Component {
             return null;
         }
 
-        return <div className={classNames('existingEvents', className)}>
+        return <div className={classNames('div-existingEvents', className)}>
             {(() => {
                 return events.map((event, index) => {
                     let selected = (eventIndex !== undefined && eventIndex === index);

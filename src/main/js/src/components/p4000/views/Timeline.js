@@ -4,9 +4,12 @@ import PT from 'prop-types';
 import { translate } from 'react-i18next';
 import { bindActionCreators }  from 'redux';
 
-import * as Nav from '../../../components/ui/Nav';
-import TimelineComponent from '../../../components/p4000/Timeline';
+import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
+import 'react-vertical-timeline-component/style.min.css';
+import './custom-timeline.css';
 
+import * as Nav from '../..//ui/Nav';
+import Icons from '../../ui/Icons';
 import * as p4000Actions from '../../../actions/p4000';
 
 const mapStateToProps = (state) => {
@@ -19,16 +22,41 @@ const mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch)};
 };
 
+const styles = {
+    timelineView: {
+        backgroundColor: 'whitesmoke',
+        borderRadius: '20px'
+    }
+};
+
 class Timeline extends Component {
+
+ renderDate(date) {
+        return date ? date.toDateString() : 'unknown';
+    }
 
     render() {
 
-        const { t } = this.props;
+        const { t, events } = this.props;
 
-        return <Nav.Row style={{backgroundColor: 'whitesmoke'}}>
+        return <Nav.Row classname='row-timeline-view' style={styles.timelineView}>
             <Nav.Column>
                 <h3>{t('p4000:timeline')}</h3>
-                <TimelineComponent/>
+                <VerticalTimeline>
+                    {(() => {
+                        return events.map((event, index) => {
+                            let dateString = this.renderDate(event.startDate) + ' - ' +  this.renderDate(event.endDate);
+                            return <VerticalTimelineElement
+                                date={dateString}
+                                key={index}
+                                iconStyle={{ background: 'rgb(33,150,24)', color: '#fff'}}
+                                icon={<Icons size='3x' kind={event.type}/>}>
+                                <h3 className='vertical-timeline-element-title'>Title</h3>
+                                <h4 className='vertical-timeline-element-subtitle'>SubTitle</h4>
+                            </VerticalTimelineElement>;
+                        });
+                    })()}
+                </VerticalTimeline>
             </Nav.Column>
         </Nav.Row>
     }
