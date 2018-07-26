@@ -49,10 +49,11 @@ class P4000 extends Component {
         const { t } = this.props;
 
         return [
-            {label: t('p4000:views'),     value: 'views',     divider: true},
+            {label: t('p4000:views'),     value: '_view',     divider: true},
+            {label: t('p4000:events'),    value: 'events',    icon: 'fa-calendar-check'},
             {label: t('p4000:timeline'),  value: 'timeline',  icon: 'fa-calendar-check'},
             {label: t('p4000:file'),      value: 'file',      icon: 'fa-file'},
-            {label: t('p4000:events'),    value: 'events',    divider: true, },
+            {label: t('p4000:events'),    value: '_event',    divider: true, },
             {label: t('p4000:work'),      value: 'work',      icon: 'fa-briefcase'},
             {label: t('p4000:home'),      value: 'home',      icon: 'fa-home'},
             {label: t('p4000:child'),     value: 'child',     icon: 'fa-child'},
@@ -76,7 +77,7 @@ class P4000 extends Component {
         return <TopContainer>
             <h1 className='mt-3 appTitle'>{t('p4000:createNewP4000Title')}</h1>
             <Nav.Row className='no-gutters'>
-                <Nav.Column className='col-3' style={styles.menu}>
+                <Nav.Column className='col-lg-3' style={styles.menu}>
                     <SideMenu activeItem={page} items={this.getItems()} theme='nav'
                         shouldTriggerClickOnParents={false} onMenuItemClick={this.handleMenuItemClick.bind(this)}/>
                 </Nav.Column>

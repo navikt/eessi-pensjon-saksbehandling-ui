@@ -40,6 +40,7 @@ const components = {
     daily: Steps.Daily,
     sick: Steps.Sick,
     other: Steps.Other,
+    events: Views.Events,
     timeline: Views.Timeline,
     file: Views.File
 }
@@ -53,7 +54,6 @@ const styles = {
 }
 
 class EventForm extends React.Component {
-
 
     handleSave () {
 

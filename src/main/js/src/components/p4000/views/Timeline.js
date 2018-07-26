@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import { renderToString } from 'react-dom/server';
 import { connect } from 'react-redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 import { bindActionCreators }  from 'redux';
 
-import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
-import 'react-vertical-timeline-component/style.min.css';
+import Timeline from 'react-visjs-timeline';
 import './custom-timeline.css';
 
 import * as Nav from '../..//ui/Nav';
@@ -29,7 +29,7 @@ const styles = {
     }
 };
 
-class Timeline extends Component {
+class ThisTimeline extends Component {
 
  renderDate(date) {
         return date ? date.toDateString() : 'unknown';
@@ -39,30 +39,42 @@ class Timeline extends Component {
 
         const { t, events } = this.props;
 
-        return <Nav.Row classname='row-timeline-view' style={styles.timelineView}>
+        return <Nav.Row className='row-timeline-view' style={styles.timelineView}>
             <Nav.Column>
                 <h3>{t('p4000:timeline')}</h3>
-                <VerticalTimeline>
-                    {(() => {
-                        return events.map((event, index) => {
-                            let dateString = this.renderDate(event.startDate) + ' - ' +  this.renderDate(event.endDate);
-                            return <VerticalTimelineElement
-                                date={dateString}
-                                key={index}
-                                iconStyle={{ background: 'rgb(33,150,24)', color: '#fff'}}
-                                icon={<Icons size='3x' kind={event.type}/>}>
-                                <h3 className='vertical-timeline-element-title'>Title</h3>
-                                <h4 className='vertical-timeline-element-subtitle'>SubTitle</h4>
-                            </VerticalTimelineElement>;
-                        });
-                    })()}
-                </VerticalTimeline>
+                <Timeline options={{
+                     width: '100%',
+                     height: '50vh',
+                     orientation: 'top',
+                     showTooltips: true
+                }}
+                items = {[
+                    {
+                        id: 1,
+                        type: 'range',
+                        start: new Date(1970, 1, 1),
+                        end: new Date(1980, 1, 1),
+                        content: renderToString(<div><Icons kind='work'/>Item A</div>),
+                        title: 'this is a tooltip'
+                     }, {
+                        id: 2,
+                        type: 'range',
+                        start: new Date(1975, 1, 1),
+                        end: new Date(1985, 1, 1),
+                        content: 'Item B'
+                     }
+                ]}
+                animation={{
+                    duration: 3000,
+                    easingFunction: 'easeInQuint'
+                }}
+                />
             </Nav.Column>
         </Nav.Row>
     }
 }
 
-Timeline.propTypes = {
+ThisTimeline.propTypes = {
     t : PT.func
 };
 
@@ -70,5 +82,5 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(
-    translate()(Timeline)
+    translate()(ThisTimeline)
 );

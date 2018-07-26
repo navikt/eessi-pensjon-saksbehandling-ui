@@ -1,94 +1,90 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
+import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
+import CountrySelect from 'react-country-select';
+
+import ReactDatePicker from 'react-date-picker';
+import '../custom-datepicker.css';
+
+import * as p4000Actions from '../../../actions/p4000';
 
 import DatePicker from '../../../components/p4000/DatePicker';
 import * as Nav from '../../../components/ui/Nav';
 import Icons from '../../../components/ui/Icons';
 
-import * as p4000Actions from '../../../actions/p4000';
-
 const mapStateToProps = (state) => {
     return {
-        events : state.p4000.events
-    }
+        event    : state.p4000.event,
+        editMode : state.p4000.editMode
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch)};
 };
 
+const type = 'learn';
+
 class Learn extends Component {
-
-    state = {
-        type: 'learn'
-    }
-
-    componentDidMount() {
-
-        const { editFormEvent } = this.props;
-
-        if (editFormEvent) {
-            this.setState(editFormEvent);
-        }
-    }
-
-    onStartDatePicked(year, month) {
-        this.setState({
-            startDate: {year: year, month: month}
-        });
-    }
-
-    onEndDatePicked(year, month) {
-        this.setState({
-            endDate: {year: year, month: month}
-        });
-    }
-
-    saveForm () {
-        const { actions } = this.props;
-        actions.pushEventToP4000Form(this.state);
-    }
 
     render() {
 
-        const { t } = this.props;
+        const { t, event, editMode, actions } = this.props;
 
-        return <div>
-            <Nav.Row>
-                <Nav.Column className='mt-4'>
-                    <Icons size='3x' kind='learn' className='d-inline-block'/>
-                    <h1 className='d-inline-block m-0 ml-3 align-bottom'>{t('content:p4000-learn')}</h1>
-                </Nav.Column>
-            </Nav.Row>
-            <Nav.Row className='mt-4'>
+        return <Nav.Panel className='p-0'>
+            <Nav.Row className='eventTitle mb-4'>
                 <Nav.Column>
-                    <DatePicker
-                        onStartDatePicked={this.onStartDatePicked.bind(this)}
-                        onEndDatePicked={this.onEndDatePicked.bind(this)}
-                    />
+                    <Icons size='3x' kind={type} className='d-inline-block'/>
+                    <h1 className='d-inline-block m-0 ml-3 align-bottom'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('p4000:learn-title')}</h1>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='mt-4'>
+             <Nav.Row className='eventDescription mb-4 p-4 fieldset'>
                 <Nav.Column>
-                    <Nav.Input label={t('content:p4000-activity')} value={this.state.activity}
-                        onChange={(e) => {this.setState({activity: e.target.value})}} />
+                    <Nav.Tekstomrade>{t('p4000:learn-description')}</Nav.Tekstomrade>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='mt-4'>
+            <Nav.Row className='eventDates mb-4 p-4 fieldset'>
                 <Nav.Column>
-                    <Nav.Hovedknapp className='forwardButton' onClick={this.saveForm.bind(this)}>{t('ui:save')}</Nav.Hovedknapp>
+                    <Nav.HjelpetekstBase className='float-right'>{t('p4000:help-learn-dates')}</Nav.HjelpetekstBase>
+                    <h2 className='mb-3'>{t('p4000:learn-fieldset-1-dates-title')}</h2>
+                    <DatePicker/>
                 </Nav.Column>
             </Nav.Row>
-        </div>
+            <Nav.Row className='eventInfo mb-4 p-4 fieldset'>
+                <Nav.Column>
+                    <Nav.HjelpetekstBase className='float-right'>{t('p4000:help-learn-info')}</Nav.HjelpetekstBase>
+                    <h2 className='mb-3'>{t('p4000:learn-fieldset-2-info-title')}</h2>
+
+                    <Nav.Input label={t('p4000:learn-fieldset-2_1-name')} value={event.name}
+                        onChange={(e) => {actions.setEventProperty('name', e.target.value, type)}} />
+                </Nav.Column>
+            </Nav.Row>
+            <Nav.Row className='eventCountry mb-4 p-4 fieldset'>
+                <Nav.Column>
+                    <h2 className='mb-3'>{t('p4000:learn-fieldset-3-country-title')}</h2>
+
+                    <CountrySelect className='mb-3' value={event.country} multi={false}
+                    flagImagePath="../../../flags/"
+                    onSelect={(e) => {
+                        actions.setEventProperty('country', e, type)}
+                    }/>
+
+                    <Nav.Textarea style={{minHeight:'200px'}} label={t('p4000:learn-fieldset-3_1-other')} value={event.other || ''}
+                         onChange={(e) => {actions.setEventProperty('other', e.target.value, type)}} />
+
+                </Nav.Column>
+            </Nav.Row>
+        </Nav.Panel>
     }
 }
 
 Learn.propTypes = {
-    t : PT.func
+    t        : PT.func.isRequired,
+    event    : PT.object.isRequired,
+    editMode : PT.bool.isRequired,
+    actions  : PT.object.isRequired
 };
 
 export default connect(

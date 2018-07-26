@@ -9,6 +9,7 @@ import * as p4000Actions from '../../actions/p4000';
 import ReactDatePicker from 'react-date-picker';
 import * as Nav from '../ui/Nav';
 
+import './custom-datepicker.css';
 
 const mapStateToProps = (state) => {
     return {
@@ -70,28 +71,35 @@ class DatePicker extends Component {
         actions.setEventProperty('endDate', date);
     }
 
+    handleUncertainDateChange(e) {
+
+        let { actions } = this.props;
+        actions.setEventProperty('uncertainDate', e.target.value);
+    }
+
     render () {
 
         let { t, event } = this.props;
 
         return <div className='div-datePicker p-2'>
             <Nav.Row className='row-datePicker-toggleButton no-gutters mb-3'>
-                <Nav.Column>
-                    <Nav.ToggleGruppe onChange={this.handlePeriodChange.bind(this)}>
+                <Nav.Column className='text-center'>
+                    <Nav.ToggleGruppe name='datePickerType' style={{display: 'inline-flex'}} onChange={this.handlePeriodChange.bind(this)}>
                         <Nav.ToggleKnapp value='both' defaultChecked={true} key='1'>{t('ui:rangePeriod')}</Nav.ToggleKnapp>
                         <Nav.ToggleKnapp value='onlyStartDate' defaultChecked={false} key='2'>{t('ui:onlyStartDate')}</Nav.ToggleKnapp>
                         <Nav.ToggleKnapp value='onlyEndDate' defaultChecked={false} key='3'>{t('ui:onlyEndDate')}</Nav.ToggleKnapp>
                     </Nav.ToggleGruppe>
+                    <Nav.Checkbox className='d-inline-flex ml-4' label='Usikre datoer' onChange={this.handleUncertainDateChange.bind(this)}/>
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className='row-datepickers no-gutters'>
-                <Nav.Column className='col-3'>
+                <Nav.Column className='text-center'>
                     <ReactDatePicker value={event.startDate} disabled={this.state.rangeType === 'onlyEndDate'}
                         locale='no-NB'
                         onChange={this.onStartDateChange.bind(this)}/>
                     <div>{this.state.onStartDateFail}</div>
                 </Nav.Column>
-                <Nav.Column className='col-3'>
+                <Nav.Column className='text-center'>
                     <ReactDatePicker value={event.endDate} disabled={this.state.rangeType === 'onlyStartDate'}
                          locale='no-NB'
                          onChange={this.onEndDateChange.bind(this)}/>
