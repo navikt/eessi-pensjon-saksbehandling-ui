@@ -35,13 +35,13 @@ class FrontPage extends Component {
             <Nav.Row className='mt-4 text-left'>
                 <Nav.Column>
                     <Nav.Lenkepanel className='frontPageLink' linkCreator={(props) => (
-                       <Link to='/react/case/get' {...props}/>)
+                        <Link to='/react/case/get' {...props}/>)
                     } href="#">{t('case:createNewCase')}</Nav.Lenkepanel>
                     <Nav.Lenkepanel className='frontPageLink' linkCreator={(props) => (
-                       <Link to='/react/pdf/select' {...props}/>)
+                        <Link to='/react/pdf/select' {...props}/>)
                     } href="#">{t('pdf:createPdf')}</Nav.Lenkepanel>
                     <Nav.Lenkepanel className='frontPageLink' linkCreator={(props) => (
-                        <Link to='/react/p4000/menu' {...props}/>)
+                        <Link to='/react/p4000' {...props}/>)
                     } href="#">{t('p4000:startP4000')}</Nav.Lenkepanel>
                 </Nav.Column>
             </Nav.Row>
@@ -49,10 +49,6 @@ class FrontPage extends Component {
     }
 }
 
-/*
-
-
- */
 FrontPage.propTypes = {
     language : PT.string,
     t        : PT.func

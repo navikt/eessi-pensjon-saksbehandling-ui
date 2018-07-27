@@ -3,7 +3,8 @@ import * as types from '../constants/actionTypes';
 let initialState =  {
     events: [],
     event: {},
-    editMode: false
+    editMode: false,
+    page: 'file'
 };
 
 export default function (state = initialState, action = {}) {
@@ -12,10 +13,33 @@ export default function (state = initialState, action = {}) {
 
     switch (action.type) {
 
+    case types.P4000_NEW:
+
+        return Object.assign({}, state, {
+            page  : 'work',
+            event : {},
+            events: []
+        });
+
+    case types.P4000_OPEN:
+
+        return Object.assign({}, state, {
+            page   : 'work',
+            event  : {},
+            events : action.payload.events
+        });
+
+    case types.P4000_PAGE_SET:
+
+        return Object.assign({}, state, {
+            page : action.payload.page
+        });
+
     case types.P4000_EVENT_ADD:
 
         newEvents = state.events.slice();
         newEvents[newEvents.length] = action.payload.event
+        newEvents.sort((a, b) => { return a.startDate - b.startDate })
 
         return Object.assign({}, state, {
             events     : newEvents,
@@ -28,6 +52,7 @@ export default function (state = initialState, action = {}) {
 
         newEvents = state.events.slice();
         newEvents[action.payload.eventIndex] = action.payload.event;
+        newEvents.sort((a, b) => { return a.startDate - b.startDate })
 
         return Object.assign({}, state, {
             events     : newEvents,
@@ -67,9 +92,6 @@ export default function (state = initialState, action = {}) {
     case types.P4000_EVENT_SET_PROPERTY: {
 
         let newEvent = Object.assign({}, state.event);
-        if (!newEvent.type && action.payload.type) {
-            newEvent.type = action.payload.type;
-        }
         newEvent[action.payload.key] = action.payload.value;
 
         return Object.assign({}, state, {

@@ -1,9 +1,9 @@
 import Timeline from './Timeline';
-import Events from './Events';
 import File from './File';
+import View from './View';
 
 export {
-    Events,
     Timeline,
-    File
+    File,
+    View
 };

@@ -3,6 +3,7 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import classNames from 'classnames';
+import { translate } from 'react-i18next';
 
 import * as p4000Actions from '../../actions/p4000';
 import Icons from '../ui/Icons';
@@ -21,7 +22,14 @@ class Event extends Component {
     }
 
     renderDate(date) {
-        return date ? date.toDateString() : 'unknown';
+
+        const { t } = this.props;
+        if (!date) {
+            return t('ui:unknown');
+        }
+        let mm = date.getMonth() + 1; // getMonth() is zero-based
+        let dd = date.getDate();
+        return [date.getFullYear(), (mm > 9 ? '' : '0') + mm,  (dd > 9 ? '' : '0') + dd].join('.');
     }
 
     render() {
@@ -31,12 +39,16 @@ class Event extends Component {
         return <div className={classNames('d-inline-block','mr-3','eventBadge', { selected: selected })}
             onClick={selected ? null : this.editEvent.bind(this, eventIndex)}>
             <Icons kind={event.type}/>
-            <div className='eventBadgeDate'>{this.renderDate(event.startDate)} - {this.renderDate(event.endDate)}</div>
+            <div className='eventBadgeDate'>
+                <div>{this.renderDate(event.startDate)}</div>
+                <div>{this.renderDate(event.endDate)}</div>
+            </div>
         </div>
     }
 }
 
 Event.propTypes = {
+    t          : PT.func.isRequired,
     event      : PT.object.isRequired,
     eventIndex : PT.number.isRequired,
     selected   : PT.bool.isRequired,
@@ -46,4 +58,6 @@ Event.propTypes = {
 export default connect(
     null,
     mapDispatchToProps
-)(Event);
+)(
+    translate()(Event)
+);

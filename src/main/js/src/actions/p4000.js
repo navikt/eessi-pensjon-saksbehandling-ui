@@ -1,5 +1,32 @@
 import * as types from '../constants/actionTypes';
 
+export function setPage(newPage) {
+
+    return {
+        type : types.P4000_PAGE_SET,
+        payload: {
+            page : newPage
+        }
+    };
+}
+
+export function newP4000() {
+
+    return {
+        type : types.P4000_NEW
+    };
+}
+
+export function openP4000(p4000) {
+
+    return {
+        type : types.P4000_OPEN,
+        payload : {
+            events: p4000
+        }
+    }
+}
+
 export function pushEventToP4000Form(event) {
 
     return {
@@ -51,14 +78,13 @@ export function editEvent(eventIndex) {
     };
 }
 
-export function setEventProperty(key, value, type) {
+export function setEventProperty(key, value) {
 
     return {
         type: types.P4000_EVENT_SET_PROPERTY,
         payload: {
             key: key,
-            value: value,
-            type: type
+            value: value
         }
     }
 }

@@ -14,9 +14,18 @@
     "file"  : "File",
     "timeline" : "Timeline",
 
+    "file-new" : "New P4000",
+    "file-open" : "Open P4000",
+    "file-save" : "Save P4000",
+    "file-submit" : "Submit P4000",
+    "file-new-confirm" : "There is still an unsaved p4000 form. Still want to create a new?",
+    "file-open-confirm" : "There is still an unsaved p4000 form. Still want to open another p4000?",
+
     "menuTitle"           : "P4000 Menu",
     "createNewP4000Title" : "Create new P4000",
     "startP4000"          : "Start a P4000",
+    "seeClientJSON"       : "See client JSON",
+    "seeServerJSON"       : "See server JSON",
 
     "work-title"                    : "work / self-employed event",
     "work-description"              : "Work or self employed event description",

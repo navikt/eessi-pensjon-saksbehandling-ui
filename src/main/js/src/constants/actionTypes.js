@@ -61,6 +61,10 @@ export const PDF_PREVIEW_END      = 'PDF/PREVIEW/END';
 
 export const SETTINGS_SET_PDF_SIZE = 'SETTINGS/SET_PDF_SIZE';
 
+export const P4000_NEW                = 'P4000/NEW';
+export const P4000_OPEN               = 'P4000/OPEN';
+export const P4000_PAGE_SET           = 'P4000/PAGE/SET';
+
 export const P4000_EVENT_ADD          = 'P4000/EVENT/ADD';
 export const P4000_EVENT_REPLACE      = 'P4000/EVENT/REPLACE';
 export const P4000_EVENT_EDIT_MODE    = 'P4000/EVENT/EDIT_MODE';

@@ -5,9 +5,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import CountrySelect from 'react-country-select';
 
-import ReactDatePicker from 'react-date-picker';
-import '../custom-datepicker.css';
-
 import * as p4000Actions from '../../../actions/p4000';
 
 import DatePicker from '../../../components/p4000/DatePicker';
@@ -40,7 +37,7 @@ class Learn extends Component {
                     <h1 className='d-inline-block m-0 ml-3 align-bottom'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('p4000:learn-title')}</h1>
                 </Nav.Column>
             </Nav.Row>
-             <Nav.Row className='eventDescription mb-4 p-4 fieldset'>
+            <Nav.Row className='eventDescription mb-4 p-4 fieldset'>
                 <Nav.Column>
                     <Nav.Tekstomrade>{t('p4000:learn-description')}</Nav.Tekstomrade>
                 </Nav.Column>
@@ -58,21 +55,23 @@ class Learn extends Component {
                     <h2 className='mb-3'>{t('p4000:learn-fieldset-2-info-title')}</h2>
 
                     <Nav.Input label={t('p4000:learn-fieldset-2_1-name')} value={event.name}
-                        onChange={(e) => {actions.setEventProperty('name', e.target.value, type)}} />
+                        onChange={(e) => {actions.setEventProperty('name', e.target.value)}} />
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className='eventCountry mb-4 p-4 fieldset'>
                 <Nav.Column>
                     <h2 className='mb-3'>{t('p4000:learn-fieldset-3-country-title')}</h2>
 
-                    <CountrySelect className='mb-3' value={event.country} multi={false}
-                    flagImagePath="../../../flags/"
-                    onSelect={(e) => {
-                        actions.setEventProperty('country', e, type)}
-                    }/>
+                    <div className='mb-3'>
+                        <CountrySelect value={event.country} multi={false}
+                            flagImagePath="../../../flags/"
+                            onSelect={(e) => {
+                                actions.setEventProperty('country', e)}
+                            }/>
+                    </div>
 
                     <Nav.Textarea style={{minHeight:'200px'}} label={t('p4000:learn-fieldset-3_1-other')} value={event.other || ''}
-                         onChange={(e) => {actions.setEventProperty('other', e.target.value, type)}} />
+                        onChange={(e) => {actions.setEventProperty('other', e.target.value)}} />
 
                 </Nav.Column>
             </Nav.Row>

@@ -1,6 +1,7 @@
+/* global describe, before, after, it */
+
 const webdriver = require('selenium-webdriver');
 const By = webdriver.By;
-const Keys = webdriver.Key;
 const until = webdriver.until;
 const chai = require('chai');
 const expect = chai.expect;
@@ -139,6 +140,10 @@ describe('Selenium case submit', () => {
 
             await caseId.clear();
             await caseId.sendKeys('123');
+
+            await actorId.clear();
+            await actorId.sendKeys('456');
+
             expect(await forwardButton.isEnabled());
         });
 
@@ -248,7 +253,6 @@ describe('Selenium case submit', () => {
 
         it('Checking ConfirmPage content...', async function () {
 
-            let backButton = await driver.findElement(By.css('button.backButton'));
             forwardButton = await driver.findElement(By.css('button.forwardButton'));
             let confirmData = await driver.findElement(By.css('div.confirmData'));
             expect(confirmData).to.not.equal(null);
@@ -275,7 +279,6 @@ describe('Selenium case submit', () => {
 
         it('Checking GeneratePage content...', async function () {
 
-            backButton = await driver.findElement(By.css('button.backButton'));
             forwardButton = await driver.findElement(By.css('button.forwardButton'));
             let generateData = await driver.findElement(By.css('div.generateData'));
             expect(generateData).to.not.equal(null);
@@ -291,8 +294,6 @@ describe('Selenium case submit', () => {
     ///////// END PAGE ////////////
     describe('End page', () => {
 
-        let alertstripe, caseId, actorId;
-
         it('Waiting for EndPage to load...', async function () {
 
             await driver.wait(until.elementLocated(By.css('div.alertstripe')));
@@ -302,14 +303,14 @@ describe('Selenium case submit', () => {
 
         it('Confirming alert stripe for end case...', async function () {
 
-            alertStripe = await driver.findElement(By.css('div.alertstripe .alertstripe__tekst'));
+            let alertStripe = await driver.findElement(By.css('div.alertstripe .alertstripe__tekst'));
             expect(await alertStripe.getText()).to.be.equal('NN_Data sendt');
         });
 
         it('Confirming link...', async function () {
 
             let endCase = await driver.findElement(By.css('div.endCase'));
-            link = await driver.findElement(By.css('a', endCase));
+            let link = await driver.findElement(By.css('a', endCase));
             let href = await link.getAttribute('href');
             console.log(href);
             expect(href).to.startsWith('http://rina-oppl-utv004.adeo.no/portal/#/caseManagement/');
@@ -317,7 +318,7 @@ describe('Selenium case submit', () => {
 
         it('Forwarding to new case..', async function () {
 
-            forwardButton = await driver.findElement(By.css('button.forwardButton'));
+            let forwardButton = await driver.findElement(By.css('button.forwardButton'));
             await forwardButton.click();
         });
 
@@ -328,7 +329,7 @@ describe('Selenium case submit', () => {
             await driver.wait(until.elementLocated(By.css('button')));
             caseId = await driver.findElement(By.css('.getCaseInputCaseId input[type="text"]'));
             actorId = await driver.findElement(By.css('.getCaseInputActorId input[type="text"]'));
-            forwardButton = await driver.findElement(By.css('button.forwardButton'));
+            let forwardButton = await driver.findElement(By.css('button.forwardButton'));
             expect(!(await forwardButton.isEnabled()));
         });
     });
@@ -340,9 +341,9 @@ describe('Selenium case submit', () => {
     });
 });
 
-let dump = function (driver, done) {
+/*let dump = function (driver, done) {
     driver.getPageSource().then((source) => {
         console.log(source)
         if (done) {done()}
     });
-}
+}*/

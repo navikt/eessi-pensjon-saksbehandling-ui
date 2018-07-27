@@ -13,15 +13,13 @@ import ExistingEvents from '../../components/p4000/ExistingEvents';
 
 import './custom-eventform.css';
 
-import * as Steps from './steps';
-import * as Views from './views';
-
 const mapStateToProps = (state) => {
     return {
         events     : state.p4000.events,
         editMode   : state.p4000.editMode,
         event      : state.p4000.event,
-        eventIndex : state.p4000.eventIndex
+        eventIndex : state.p4000.eventIndex,
+        page       : state.p4000.page
     }
 };
 
@@ -29,41 +27,19 @@ const mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch)};
 };
 
-const components = {
-    work: Steps.Work,
-    home: Steps.Home,
-    child: Steps.Child,
-    voluntary: Steps.Voluntary,
-    military: Steps.Military,
-    birth: Steps.Birth,
-    learn: Steps.Learn,
-    daily: Steps.Daily,
-    sick: Steps.Sick,
-    other: Steps.Other,
-    events: Views.Events,
-    timeline: Views.Timeline,
-    file: Views.File
-}
-
-const styles = {
-    editMode: {
-        backgroundColor: '#FFF0F0',
-        padding: '10px',
-        margin: '15px 5px'
-    }
-}
-
 class EventForm extends React.Component {
 
     handleSave () {
 
-        const { actions, event } = this.props;
+        const { actions, event, page } = this.props;
+        event.type = page;
         actions.pushEventToP4000Form(event);
     }
 
     handleEdit () {
 
-        const { actions, event, eventIndex } = this.props;
+        const { actions, page, event, eventIndex } = this.props;
+        event.type = page;
         actions.replaceEventOnP4000Form(event, eventIndex);
     }
 
@@ -81,42 +57,45 @@ class EventForm extends React.Component {
 
     render() {
 
-        let { t, type, editMode, eventIndex, events } = this.props;
-
-        let Component = components[type];
+        let { t, page, editMode, eventIndex, events, children } = this.props;
+        let isMenuPages = (page === 'view' || page === 'timeline' || page === 'file');
 
         return <div className='div-eventForm'>
             <Nav.Row className={classNames('existingEvents', 'mb-4', 'no-gutters',
-                {'hiding' : (type === 'timeline' || type === 'file') || _.isEmpty(events)})}>
+                {'hiding' : isMenuPages || _.isEmpty(events)})}>
                 <Nav.Column>
                     <ExistingEvents events={events} eventIndex={eventIndex}/>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='row-component mb-4' style={editMode ? styles.editMode : null}>
+            <Nav.Row className={classNames('row-component', 'mb-4', {'editMode' : editMode})}>
                 <Nav.Column>
-                    <Component/>
+                    {children}
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='row-buttons mb-4'>
-                <Nav.Column>
-                    {!editMode && (type !== 'timeline' && type !== 'file') ? <Nav.Hovedknapp className='forwardButton' onClick={this.handleSave.bind(this)}>{t('ui:save')}</Nav.Hovedknapp> : null}
-                    {editMode ?  <Nav.Hovedknapp className='editButton'    onClick={this.handleEdit.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp> : null}
-                    {editMode ?  <Nav.Knapp className='deleteButton'       onClick={this.handleDelete.bind(this)}>{t('ui:delete')}</Nav.Knapp>  : null}
-                    {editMode ?  <Nav.Knapp className='cancelButton'       onClick={this.handleCancel.bind(this)}>{t('ui:cancel')}</Nav.Knapp>  : null}
-                </Nav.Column>
-            < /Nav.Row>
+            {isMenuPages ? null :
+                <Nav.Row className='row-buttons mb-4'>
+                    <Nav.Column>
+                        {!editMode ? <Nav.Hovedknapp className='forwardButton' onClick={this.handleSave.bind(this)}>{t('ui:save')}</Nav.Hovedknapp> : null}
+                        {editMode ?  <Nav.Hovedknapp className='editButton'    onClick={this.handleEdit.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp> : null}
+                        {editMode ?  <Nav.Knapp className='deleteButton'       onClick={this.handleDelete.bind(this)}>{t('ui:delete')}</Nav.Knapp>  : null}
+                        {editMode ?  <Nav.Knapp className='cancelButton'       onClick={this.handleCancel.bind(this)}>{t('ui:cancel')}</Nav.Knapp>  : null}
+                    </Nav.Column>
+                </Nav.Row>
+            }
         </div>
     }
 }
 
 EventForm.propTypes = {
     t          : PT.func.isRequired,
-    type       : PT.string.isRequired,
+    page       : PT.string.isRequired,
     events     : PT.array.isRequired,
+    event      : PT.object,
     editMode   : PT.bool.isRequired,
     eventIndex : PT.number,
     history    : PT.object,
-    actions    : PT.object
+    actions    : PT.object,
+    children   : PT.node.isRequired
 };
 
 export default connect(

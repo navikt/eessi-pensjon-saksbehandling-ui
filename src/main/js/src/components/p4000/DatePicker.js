@@ -28,16 +28,16 @@ class DatePicker extends Component {
     };
 
     handlePeriodChange(e) {
-          this.setState({
-              rangeType: e.target.value
-          });
+        this.setState({
+            rangeType: e.target.value
+        });
     }
 
     onStartDateChange(date) {
 
         let { t, event, actions } = this.props;
 
-       /* if (event.endDate && (
+        /* if (event.endDate && (
             (event.endDate.year < year) ||
                 (event.endDate.year === year && event.endDate.month < month)
         )) {
@@ -101,8 +101,8 @@ class DatePicker extends Component {
                 </Nav.Column>
                 <Nav.Column className='text-center'>
                     <ReactDatePicker value={event.endDate} disabled={this.state.rangeType === 'onlyStartDate'}
-                         locale='no-NB'
-                         onChange={this.onEndDateChange.bind(this)}/>
+                        locale='no-NB'
+                        onChange={this.onEndDateChange.bind(this)}/>
                     <div>{this.state.onEndDateFail}</div>
                 </Nav.Column>
             </Nav.Row>

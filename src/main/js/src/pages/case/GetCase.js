@@ -68,8 +68,8 @@ class GetCase extends Component {
             <Nav.Panel className='panel'>
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
-                      <h1 className='mt-3 appTitle'>{t('case:getCaseTitle')}</h1>
-                      <h4>{t('case:getCaseDescription')}</h4>
+                        <h1 className='mt-3 appTitle'>{t('case:getCaseTitle')}</h1>
+                        <h4>{t('case:getCaseDescription')}</h4>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4 text-center'>

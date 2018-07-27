@@ -37,8 +37,9 @@ class Work extends Component {
                     <h1 className='d-inline-block m-0 ml-3 align-bottom'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('p4000:work-title')}</h1>
                 </Nav.Column>
             </Nav.Row>
-             <Nav.Row className='eventDescription mb-4 p-4 fieldset'>
+            <Nav.Row className='eventDescription mb-4 p-4 fieldset'>
                 <Nav.Column>
+                    <Nav.Ikon className='float-left mr-4' kind='info-sirkel' />
                     <Nav.Tekstomrade>{t('p4000:work-description')}</Nav.Tekstomrade>
                 </Nav.Column>
             </Nav.Row>
@@ -55,41 +56,42 @@ class Work extends Component {
                     <h2 className='mb-3'>{t('p4000:work-fieldset-2-info-title')}</h2>
 
                     <Nav.Input label={t('p4000:work-fieldset-2_1-activity')} value={event.activity}
-                        onChange={(e) => {actions.setEventProperty('activity', e.target.value, type)}} />
+                        onChange={(e) => {actions.setEventProperty('activity', e.target.value)}} />
 
                     <Nav.Input label={t('p4000:work-fieldset-2_2-id')} value={event.id}
-                        onChange={(e) => {actions.setEventProperty('id', e.target.value, type)}} />
+                        onChange={(e) => {actions.setEventProperty('id', e.target.value)}} />
 
                     <Nav.Input label={t('p4000:work-fieldset-2_3-name')} value={event.name}
-                        onChange={(e) => {actions.setEventProperty('name', e.target.value, type)}} />
+                        onChange={(e) => {actions.setEventProperty('name', e.target.value)}} />
 
                     <h4>{t('p4000:work-fieldset-2_4-address')}</h4>
 
                     <Nav.Input label={t('ui:street')} value={event.street}
-                        onChange={(e) => {actions.setEventProperty('street', e.target.value, type)}} />
+                        onChange={(e) => {actions.setEventProperty('street', e.target.value)}} />
 
                     <Nav.Input label={t('ui:buildingName')} value={event.buildingName}
-                        onChange={(e) => {actions.setEventProperty('buildingName', e.target.value, type)}} />
+                        onChange={(e) => {actions.setEventProperty('buildingName', e.target.value)}} />
 
                     <Nav.Input label={t('ui:city')} value={event.city}
-                        onChange={(e) => {actions.setEventProperty('city', e.target.value, type)}} />
+                        onChange={(e) => {actions.setEventProperty('city', e.target.value)}} />
 
-                    <Nav.Input label={t('ui:region')} value={event.buildingName}
-                        onChange={(e) => {actions.setEventProperty('region', e.target.value, type)}} />
+                    <Nav.Input label={t('ui:region')} value={event.region}
+                        onChange={(e) => {actions.setEventProperty('region', e.target.value)}} />
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className='eventCountry mb-4 p-4 fieldset'>
                 <Nav.Column>
                     <h2 className='mb-3'>{t('p4000:work-fieldset-3-country-title')}</h2>
 
-                    <CountrySelect className='mb-3' value={event.country} multi={false}
-                    flagImagePath="../../../flags/"
-                    onSelect={(e) => {
-                        actions.setEventProperty('country', e, type)}
-                    }/>
-
+                    <div className='mb-3'>
+                        <CountrySelect value={event.country} multi={false}
+                            flagImagePath="../../../flags/"
+                            onSelect={(e) => {
+                                actions.setEventProperty('country', e)}
+                            }/>
+                    </div>
                     <Nav.Textarea style={{minHeight:'200px'}} label={t('p4000:work-fieldset-2_5-other')} value={event.other || ''}
-                         onChange={(e) => {actions.setEventProperty('other', e.target.value, type)}} />
+                        onChange={(e) => {actions.setEventProperty('other', e.target.value)}} />
 
                 </Nav.Column>
             </Nav.Row>

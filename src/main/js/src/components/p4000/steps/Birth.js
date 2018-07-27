@@ -37,7 +37,7 @@ class Birth extends Component {
                     <h1 className='d-inline-block m-0 ml-3 align-bottom'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('p4000:birth-title')}</h1>
                 </Nav.Column>
             </Nav.Row>
-             <Nav.Row className='eventDescription mb-4 p-4 fieldset'>
+            <Nav.Row className='eventDescription mb-4 p-4 fieldset'>
                 <Nav.Column>
                     <Nav.Tekstomrade>{t('p4000:birth-description')}</Nav.Tekstomrade>
                 </Nav.Column>
@@ -53,14 +53,15 @@ class Birth extends Component {
                 <Nav.Column>
                     <h2 className='mb-3'>{t('p4000:birth-fieldset-2-country-title')}</h2>
 
-                    <CountrySelect className='mb-3' value={event.country} multi={false}
-                    flagImagePath="../../../flags/"
-                    onSelect={(e) => {
-                        actions.setEventProperty('country', e, type)}
-                    }/>
-
+                    <div className='mb-3'>
+                        <CountrySelect value={event.country} multi={false}
+                            flagImagePath="../../../flags/"
+                            onSelect={(e) => {
+                                actions.setEventProperty('country', e)}
+                            }/>
+                    </div>
                     <Nav.Textarea style={{minHeight:'200px'}} label={t('p4000:birth-fieldset-2_1-other')} value={event.other || ''}
-                         onChange={(e) => {actions.setEventProperty('other', e.target.value, type)}} />
+                        onChange={(e) => {actions.setEventProperty('other', e.target.value)}} />
 
                 </Nav.Column>
             </Nav.Row>

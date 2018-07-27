@@ -26,5 +26,7 @@
     "buildingName" : "Building name",
     "city" : "City",
     "region" : "Region",
-    "country" : "Country"
+    "country" : "Country",
+    "yes-continue" : "Yes, continue",
+    "no-cancel" : "No, cancel"
 }

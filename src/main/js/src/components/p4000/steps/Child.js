@@ -40,7 +40,7 @@ class Child extends Component {
                     <h1 className='d-inline-block m-0 ml-3 align-bottom'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('p4000:child-title')}</h1>
                 </Nav.Column>
             </Nav.Row>
-             <Nav.Row className='eventDescription mb-4 p-4 fieldset'>
+            <Nav.Row className='eventDescription mb-4 p-4 fieldset'>
                 <Nav.Column>
                     <Nav.Tekstomrade>{t('p4000:child-description')}</Nav.Tekstomrade>
                 </Nav.Column>
@@ -58,10 +58,10 @@ class Child extends Component {
                     <h2 className='mb-3'>{t('p4000:child-fieldset-2-info-title')}</h2>
 
                     <Nav.Input label={t('p4000:child-fieldset-2_1-lastname')} value={event.lastname}
-                        onChange={(e) => {actions.setEventProperty('lastname', e.target.value, type)}} />
+                        onChange={(e) => {actions.setEventProperty('lastname', e.target.value)}} />
 
                     <Nav.Input label={t('p4000:child-fieldset-2_2-firstname')} value={event.firstname}
-                        onChange={(e) => {actions.setEventProperty('firstname', e.target.value, type)}} />
+                        onChange={(e) => {actions.setEventProperty('firstname', e.target.value)}} />
 
                     <div>
                         <label>{t('p4000:child-fieldset-2_3-birthdate')}</label>
@@ -77,14 +77,16 @@ class Child extends Component {
                 <Nav.Column>
                     <h2 className='mb-3'>{t('p4000:child-fieldset-3-country-title')}</h2>
 
-                    <CountrySelect className='mb-3' value={event.country} multi={false}
-                    flagImagePath="../../../flags/"
-                    onSelect={(e) => {
-                        actions.setEventProperty('country', e, type)}
-                    }/>
+                    <div className='mb-3'>
+                        <CountrySelect value={event.country} multi={false}
+                            flagImagePath="../../../flags/"
+                            onSelect={(e) => {
+                                actions.setEventProperty('country', e)}
+                            }/>
+                    </div>
 
                     <Nav.Textarea style={{minHeight:'200px'}} label={t('p4000:child-fieldset-3_1-other')} value={event.other || ''}
-                         onChange={(e) => {actions.setEventProperty('other', e.target.value, type)}} />
+                        onChange={(e) => {actions.setEventProperty('other', e.target.value)}} />
 
                 </Nav.Column>
             </Nav.Row>
