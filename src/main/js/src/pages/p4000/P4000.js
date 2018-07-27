@@ -15,7 +15,7 @@ import EventForm from '../../components/p4000/EventForm';
 
 import * as p4000Actions from '../../actions/p4000';
 
-import * as Steps from '../../components/p4000/steps/';
+import * as Events from '../../components/p4000/events/';
 import * as Views from '../../components/p4000/views/';
 
 const mapStateToProps = (state) => {
@@ -38,19 +38,21 @@ const styles = {
 }
 
 const components = {
-    work: Steps.Work,
-    home: Steps.Home,
-    child: Steps.Child,
-    voluntary: Steps.Voluntary,
-    military: Steps.Military,
-    birth: Steps.Birth,
-    learn: Steps.Learn,
-    daily: Steps.Daily,
-    sick: Steps.Sick,
-    other: Steps.Other,
-    timeline: Views.Timeline,
     file: Views.File,
-    view: Views.View
+    view: Views.View,
+    timeline: Views.Timeline,
+
+    work: Events.Work,
+    home: Events.Home,
+    child: Events.Child,
+    voluntary: Events.Voluntary,
+    military: Events.Military,
+    birth: Events.Birth,
+    learn: Events.Learn,
+    daily: Events.Daily,
+    sick: Events.Sick,
+    other: Events.Other
+
 }
 
 class P4000 extends Component {
@@ -90,7 +92,6 @@ class P4000 extends Component {
 
         let alert = null;
         let thisPage  = editMode && event ? event.type : page;
-
         let Component = components[thisPage];
 
         return <TopContainer>
@@ -107,9 +108,7 @@ class P4000 extends Component {
                         </Nav.Row>
                         <Nav.Row className='row-eventForm'>
                             <Nav.Column>
-                                <EventForm>
-                                    <Component/>
-                                </EventForm>
+                                <EventForm Component={Component}/>
                             </Nav.Column>
                         </Nav.Row>
                     </Nav.Panel>

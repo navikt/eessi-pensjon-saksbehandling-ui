@@ -4,6 +4,7 @@ import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import CountrySelect from 'react-country-select';
+import classNames from 'classnames';
 
 import * as p4000Actions from '../../../actions/p4000';
 
@@ -26,6 +27,79 @@ const type = 'work';
 
 class Work extends Component {
 
+    state = {
+    }
+
+    componentDidMount() {
+        this.props.provideController({
+            hasNoValidationErrors: this.hasNoValidationErrors.bind(this),
+            passesValidation : this.passesValidation.bind(this)
+        });
+    }
+
+    componentWillUnmount() {
+        this.props.provideController(null)
+    }
+
+    hasNoInfoErrors() {
+        return this.state.infoValidationError === undefined
+    }
+
+    hasNoOtherErrors() {
+       return this.state.otherValidationError === undefined
+    }
+
+    hasNoValidationErrors() {
+        return this.hasNoInfoErrors() && this.hasNoOtherErrors() &&
+            this.datepicker ? this.datepicker.hasNoValidationErrors() : undefined;
+    }
+
+    performInfoValidation() {
+
+         const { t, event } = this.props;
+         let validation = undefined;
+
+         if (event.street === undefined) {
+
+              validation = t('validation-nostreret');
+         }
+         return validation;
+    }
+
+    performOtherValidation() {
+
+         const { t, event } = this.props;
+         let validation = undefined;
+
+         if (event.country === undefined) {
+
+              validation = t('validation-nocountry');
+         }
+         return validation;
+    }
+
+    async passesValidation() {
+
+        return new Promise(async (resolve, reject) => {
+
+            try {
+
+                // trigger the validation in child's datepicker
+                await this.datepicker.passesValidation();
+
+                this.setState({
+                   infoValidationError : this.performInfoValidation(),
+                   otherValidationError : this.performOtherValidation(),
+                }, () => {
+                    // after setting up state, use it to see the validation state
+                    resolve(this.hasNoValidationErrors());
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
     render() {
 
         const { t, event, editMode, actions } = this.props;
@@ -43,15 +117,20 @@ class Work extends Component {
                     <Nav.Tekstomrade>{t('p4000:work-description')}</Nav.Tekstomrade>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='eventDates mb-4 p-4 fieldset'>
+            <Nav.Row className={classNames('eventDates','mb-4','p-4','fieldset', {
+                validationFail : this.datepicker ? !this.datepicker.hasNoValidationErrors() : false
+            })}>
                 <Nav.Column>
                     <Nav.HjelpetekstBase className='float-right'>{t('p4000:help-work-dates')}</Nav.HjelpetekstBase>
                     <h2 className='mb-3'>{t('p4000:work-fieldset-1-dates-title')}</h2>
-                    <DatePicker/>
+                    <DatePicker provideController={(datepicker) => this.datepicker = datepicker}/>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='eventInfo mb-4 p-4 fieldset'>
-                <Nav.Column>
+            <Nav.Row className={classNames('eventInfo','mb-4','p-4','fieldset', {
+                   validationFail : this ? ! this.hasNoInfoErrors() : false
+               })}>
+               <Nav.Column>
+                    {!this.hasNoInfoErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{this.state.infoValidationError}</Nav.AlertStripe> : null}
                     <Nav.HjelpetekstBase className='float-right'>{t('p4000:help-work-info')}</Nav.HjelpetekstBase>
                     <h2 className='mb-3'>{t('p4000:work-fieldset-2-info-title')}</h2>
 
@@ -79,10 +158,12 @@ class Work extends Component {
                         onChange={(e) => {actions.setEventProperty('region', e.target.value)}} />
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='eventCountry mb-4 p-4 fieldset'>
+            <Nav.Row  className={classNames('eventOther','mb-4','p-4','fieldset', {
+                    validationFail : this ? ! this.hasNoOtherErrors() : false
+                })}>
                 <Nav.Column>
-                    <h2 className='mb-3'>{t('p4000:work-fieldset-3-country-title')}</h2>
-
+                    <h2 className='mb-3'>{t('p4000:work-fieldset-3-other-title')}</h2>
+                    {!this.hasNoOtherErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{this.state.otherValidationError}</Nav.AlertStripe> : null}
                     <div className='mb-3'>
                         <CountrySelect value={event.country} multi={false}
                             flagImagePath="../../../flags/"
@@ -108,7 +189,9 @@ Work.propTypes = {
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
+    null,
+    {withRef: true}
 )(
     translate()(Work)
 );

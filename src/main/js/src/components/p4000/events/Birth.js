@@ -22,9 +22,9 @@ const mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch)};
 };
 
-const type = 'home';
+const type = 'birth';
 
-class Home extends Component {
+class Birth extends Component {
 
     render() {
 
@@ -34,24 +34,24 @@ class Home extends Component {
             <Nav.Row className='eventTitle mb-4'>
                 <Nav.Column>
                     <Icons size='3x' kind={type} className='d-inline-block'/>
-                    <h1 className='d-inline-block m-0 ml-3 align-bottom'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('p4000:home-title')}</h1>
+                    <h1 className='d-inline-block m-0 ml-3 align-bottom'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('p4000:birth-title')}</h1>
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className='eventDescription mb-4 p-4 fieldset'>
                 <Nav.Column>
-                    <Nav.Tekstomrade>{t('p4000:home-description')}</Nav.Tekstomrade>
+                    <Nav.Tekstomrade>{t('p4000:birth-description')}</Nav.Tekstomrade>
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className='eventDates mb-4 p-4 fieldset'>
                 <Nav.Column>
-                    <Nav.HjelpetekstBase className='float-right'>{t('p4000:help-home-dates')}</Nav.HjelpetekstBase>
-                    <h2 className='mb-3'>{t('p4000:home-fieldset-1-dates-title')}</h2>
+                    <Nav.HjelpetekstBase className='float-right'>{t('p4000:help-birth-dates')}</Nav.HjelpetekstBase>
+                    <h2 className='mb-3'>{t('p4000:birth-fieldset-1-dates-title')}</h2>
                     <DatePicker/>
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className='eventCountry mb-4 p-4 fieldset'>
                 <Nav.Column>
-                    <h2 className='mb-3'>{t('p4000:home-fieldset-2-country-title')}</h2>
+                    <h2 className='mb-3'>{t('p4000:birth-fieldset-2-other-title')}</h2>
 
                     <div className='mb-3'>
                         <CountrySelect value={event.country} multi={false}
@@ -60,8 +60,7 @@ class Home extends Component {
                                 actions.setEventProperty('country', e)}
                             }/>
                     </div>
-
-                    <Nav.Textarea style={{minHeight:'200px'}} label={t('p4000:home-fieldset-2_1-other')} value={event.other || ''}
+                    <Nav.Textarea style={{minHeight:'200px'}} label={t('p4000:birth-fieldset-2_1-other')} value={event.other || ''}
                         onChange={(e) => {actions.setEventProperty('other', e.target.value)}} />
 
                 </Nav.Column>
@@ -70,7 +69,7 @@ class Home extends Component {
     }
 }
 
-Home.propTypes = {
+Birth.propTypes = {
     t        : PT.func.isRequired,
     event    : PT.object.isRequired,
     editMode : PT.bool.isRequired,
@@ -81,5 +80,5 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(
-    translate()(Home)
+    translate()(Birth)
 );

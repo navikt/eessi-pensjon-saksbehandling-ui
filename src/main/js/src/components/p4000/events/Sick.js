@@ -51,7 +51,7 @@ class Sick extends Component {
             </Nav.Row>
             <Nav.Row className='eventCountry mb-4 p-4 fieldset'>
                 <Nav.Column>
-                    <h2 className='mb-3'>{t('p4000:sick-fieldset-2-country-title')}</h2>
+                    <h2 className='mb-3'>{t('p4000:sick-fieldset-2-other-title')}</h2>
 
                     <div className='mb-3'>
                         <CountrySelect value={event.country} multi={false}

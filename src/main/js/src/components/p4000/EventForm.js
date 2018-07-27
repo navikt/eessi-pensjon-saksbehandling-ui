@@ -29,11 +29,16 @@ const mapDispatchToProps = (dispatch) => {
 
 class EventForm extends React.Component {
 
-    handleSave () {
+    async handleSave () {
 
         const { actions, event, page } = this.props;
-        event.type = page;
-        actions.pushEventToP4000Form(event);
+
+        let valid = await this.component.passesValidation();
+
+        if (valid) {
+            event.type = page;
+            actions.pushEventToP4000Form(event);
+        }
     }
 
     handleEdit () {
@@ -57,7 +62,7 @@ class EventForm extends React.Component {
 
     render() {
 
-        let { t, page, editMode, eventIndex, events, children } = this.props;
+        let { t, page, editMode, eventIndex, events, Component } = this.props;
         let isMenuPages = (page === 'view' || page === 'timeline' || page === 'file');
 
         return <div className='div-eventForm'>
@@ -69,13 +74,14 @@ class EventForm extends React.Component {
             </Nav.Row>
             <Nav.Row className={classNames('row-component', 'mb-4', {'editMode' : editMode})}>
                 <Nav.Column>
-                    {children}
+                    <Component provideController={(component) => {this.component = component}}/>
                 </Nav.Column>
             </Nav.Row>
             {isMenuPages ? null :
                 <Nav.Row className='row-buttons mb-4'>
                     <Nav.Column>
-                        {!editMode ? <Nav.Hovedknapp className='forwardButton' onClick={this.handleSave.bind(this)}>{t('ui:save')}</Nav.Hovedknapp> : null}
+                        {!editMode ? <Nav.Hovedknapp className='saveButton'
+                            onClick={this.handleSave.bind(this)}>{t('ui:save')}</Nav.Hovedknapp> : null}
                         {editMode ?  <Nav.Hovedknapp className='editButton'    onClick={this.handleEdit.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp> : null}
                         {editMode ?  <Nav.Knapp className='deleteButton'       onClick={this.handleDelete.bind(this)}>{t('ui:delete')}</Nav.Knapp>  : null}
                         {editMode ?  <Nav.Knapp className='cancelButton'       onClick={this.handleCancel.bind(this)}>{t('ui:cancel')}</Nav.Knapp>  : null}
@@ -86,6 +92,7 @@ class EventForm extends React.Component {
     }
 }
 
+
 EventForm.propTypes = {
     t          : PT.func.isRequired,
     page       : PT.string.isRequired,
@@ -95,7 +102,7 @@ EventForm.propTypes = {
     eventIndex : PT.number,
     history    : PT.object,
     actions    : PT.object,
-    children   : PT.node.isRequired
+    component  : PT.node.isRequired
 };
 
 export default connect(

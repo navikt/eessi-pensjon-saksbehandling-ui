@@ -151,7 +151,7 @@ class File extends Component {
                 <Nav.Column className='text-center'>
                     <Nav.Knapp style={styles.button} onClick={this.handleFileNew.bind(this)}>
                         <div><Icons size='4x' kind='file-new'/></div>
-                        <div>{t('p4000:file-new')}</div>
+                        <div className='mt-3'>{t('p4000:file-new')}</div>
                     </Nav.Knapp>
                 </Nav.Column>
                 <Nav.Column className='text-center'>
@@ -161,7 +161,7 @@ class File extends Component {
                     />
                     <Nav.Knapp style={styles.button} onClick={this.handleFileOpen.bind(this)}>
                         <div><Icons size='4x' kind='file-open'/></div>
-                        <div>{t('p4000:file-open')}</div>
+                        <div className='mt-3'>{t('p4000:file-open')}</div>
                     </Nav.Knapp>
                 </Nav.Column>
                 <div style={{width: '100%', height: '20px'}}/>
@@ -172,13 +172,13 @@ class File extends Component {
                     <Nav.Knapp style={styles.button} disabled={_.isEmpty(events)}
                         onClick={this.handleFileSave.bind(this)}>
                         <div><Icons size='4x' kind='p4000'/></div>
-                        <div>{t('p4000:file-save')}</div>
+                        <div className='mt-3'>{t('p4000:file-save')}</div>
                     </Nav.Knapp>
                 </Nav.Column>
                 <Nav.Column className='text-center'>
                     <Nav.Knapp style={styles.button} disabled={true} onClick={this.handleFileSubmit.bind(this)}>
                         <div><Icons size='4x' kind='p4000'/></div>
-                        <div>{t('p4000:file-submit')}</div>
+                        <div className='mt-3'>{t('p4000:file-submit')}</div>
                     </Nav.Knapp>
                 </Nav.Column>
             </Nav.Row>
