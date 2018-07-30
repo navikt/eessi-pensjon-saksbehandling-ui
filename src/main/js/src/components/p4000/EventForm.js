@@ -30,6 +30,11 @@ const mapDispatchToProps = (dispatch) => {
 
 class EventForm extends React.Component {
 
+    state = {
+        status  : undefined,
+        timeout : undefined
+    }
+
     async handleSave () {
 
         const { actions, event, page } = this.props;
@@ -66,10 +71,11 @@ class EventForm extends React.Component {
         }
     }
 
-    handleEditRequest(eventIndex) {
+    async handleEditRequest(eventIndex) {
 
         const { actions } = this.props;
 
+        await this.component.resetValidation();
         actions.editEvent(eventIndex);
     }
 
@@ -85,16 +91,32 @@ class EventForm extends React.Component {
         actions.cancelEditEvent(eventIndex);
     }
 
+    handleTimeouts() {
+
+        const { status, actions } = this.props;
+
+        if (status !== this.state.status) {
+            if (this.state.timeout) {
+                clearTimeout(this.state.timeout);
+            }
+            let timeout = setTimeout(() => {
+                actions.clearStatus();
+            }, 5000);
+
+            this.setState({
+                timeout: timeout,
+                status: status
+            });
+        }
+    }
+
     render() {
 
         let { t, actions, page, editMode, eventIndex, events, status, Component } = this.props;
         let isMenuPages = (page === 'view' || page === 'timeline' || page === 'file');
 
         if (status) {
-
-            setTimeout(() => {
-                actions.clearStatus();
-            }, 5000);
+            this.handleTimeouts();
         }
 
         return <div className='div-eventForm'>
@@ -107,9 +129,9 @@ class EventForm extends React.Component {
             <Nav.Row className={classNames('row-component', 'mb-4', {'editMode' : editMode})}>
                 <Nav.Column>
                      <div style={{minHeight:'90px'}}>
-                         {status ? <Nav.AlertStripe type='suksess'>{t(status)}</Nav.AlertStripe> : null}
+                         {status ? <Nav.AlertStripe className='toFade' type='suksess'>{t(status)}</Nav.AlertStripe> : null}
                      </div>
-                    <Component provideController={(component) => {this.component = component}}/>
+                    <Component type={page} provideController={(component) => {this.component = component}}/>
                 </Nav.Column>
             </Nav.Row>
             {isMenuPages ? null :
@@ -125,7 +147,7 @@ class EventForm extends React.Component {
                         {editMode ?  <Nav.Knapp className='cancelButton ml-3' onClick={this.handleCancel.bind(this)}>{t('ui:cancel')}</Nav.Knapp>  : null}
                         </div>
                         <div>
-                            {status ? <Nav.AlertStripe className='mt-3' type='suksess'>{t(status)}</Nav.AlertStripe> : null}
+                            {status ? <Nav.AlertStripe className='mt-3 toFade' type='suksess'>{t(status)}</Nav.AlertStripe> : null}
                         </div>
                     </Nav.Column>
                 </Nav.Row>

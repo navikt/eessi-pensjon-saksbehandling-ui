@@ -6,18 +6,16 @@
 
 .fieldset {
    background-color: whitesmoke;
-   border-radius: 20px;
+   box-shadow: 3px 3px 3px lightgrey;
 }
 
 .editMode {
     background-color: aliceblue;
-    padding: 10px;
-    border-radius: 20px;
 }
 
 .editMode .fieldset {
     border: 1px solid lightblue;
-    background-color: whitesmoke;
+    background-color: white;
 }
 
 .row-component .panel {
@@ -27,4 +25,36 @@
 .fieldset.validationFail {
     border: 1px solid red;
     background-color: #FFF0F0;
+
+}
+
+@-webkit-keyframes fade {
+0% {opacity: 1}
+80% {opacity: 1}
+100% {opacity:0.2}
+}
+
+@-moz-keyframes fade{
+    0% {opacity: 1}
+  80% {opacity: 1}
+  100% {opacity:0}
+}
+
+@keyframes fade {
+  0% {opacity: 1}
+  80% {opacity: 1}
+  100%{opacity: 0.2}
+    }
+@-o-keyframes fade {
+0% {opacity: 1}
+  80% {opacity: 1}
+  100%{opacity: 0.2}
+
+}
+.toFade {
+  -webkit-animation: fade 5s;
+  -moz-animation: fade 5s;
+  -ms-animation: fade 5s;
+  -o-animation: fade 5s;
+  animation: fade 5s;
 }

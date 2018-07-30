@@ -10,7 +10,6 @@ class ExistingEvents extends Component {
 
         const { handleEditRequest } = this.props;
         handleEditRequest(index);
-
     }
 
     render() {

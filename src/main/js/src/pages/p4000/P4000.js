@@ -41,26 +41,41 @@ const components = {
     file: Views.File,
     view: Views.View,
     timeline: Views.Timeline,
-
     work: Events.Work,
-    home: Events.Home,
-    child: Events.Child,
-    voluntary: Events.Voluntary,
-    military: Events.Military,
-    birth: Events.Birth,
+    home: Events.GenericEvent,
+    child: Events.GenericEvent,
+    voluntary: Events.GenericEvent,
+    military: Events.GenericEvent,
+    birth: Events.GenericEvent,
     learn: Events.Learn,
-    daily: Events.Daily,
-    sick: Events.Sick,
-    other: Events.Other
-
+    daily: Events.GenericEvent,
+    sick: Events.GenericEvent,
+    other: Events.GenericEvent
 }
 
 class P4000 extends Component {
 
+    state = {
+        isLoaded: false
+    };
+
+    componentDidMount() {
+
+        this.setState({
+            isLoaded : true,
+            page     : this.props.page
+        })
+    }
+
     handleMenuItemClick(newPage, extras) {
 
-        const { actions } = this.props;
+        const { actions, page } = this.props;
+
         actions.setPage(newPage);
+
+        this.setState({
+            page: newPage
+        });
     }
 
     getItems() {
@@ -90,15 +105,18 @@ class P4000 extends Component {
 
         const { t, editMode, event, page } = this.props;
 
+        if (!this.state.isLoaded) {
+            return null;
+        }
         let alert = null;
-        let thisPage  = editMode && event ? event.type : page;
-        let Component = components[thisPage];
+        let activeItem  = editMode && event ? event.type : page;
+        let Component = components[activeItem];
 
         return <TopContainer>
             <h1 className='mt-3 appTitle'>{t('p4000:createNewP4000Title')}</h1>
             <Nav.Row className='no-gutters'>
                 <Nav.Column className='col-lg-3' style={styles.menu}>
-                    <SideMenu activeItem={thisPage} items={this.getItems()} theme='nav'
+                    <SideMenu activeItem={activeItem} items={this.getItems()} theme='nav'
                         shouldTriggerClickOnParents={false} onMenuItemClick={this.handleMenuItemClick.bind(this)}/>
                 </Nav.Column>
                 <Nav.Column>

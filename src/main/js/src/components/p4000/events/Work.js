@@ -33,7 +33,8 @@ class Work extends Component {
     componentDidMount() {
         this.props.provideController({
             hasNoValidationErrors : this.hasNoValidationErrors.bind(this),
-            passesValidation      : this.passesValidation.bind(this)
+            passesValidation      : this.passesValidation.bind(this),
+            resetValidation       : this.resetValidation.bind(this)
         });
     }
 
@@ -54,6 +55,26 @@ class Work extends Component {
             this.datepicker ? this.datepicker.hasNoValidationErrors() : undefined;
     }
 
+    async resetValidation() {
+
+        return new Promise(async (resolve, reject) => {
+
+           try {
+                if (this.datepicker) {
+                    await this.datepicker.resetValidation();
+                }
+                this.setState({
+                    infoValidationError: undefined,
+                    otherValidationError: undefined
+                }, () => {
+                     resolve();
+                });
+           } catch (error) {
+                 reject(error);
+           }
+       });
+    }
+
     async passesValidation() {
 
         const { event } = this.props;
@@ -61,9 +82,9 @@ class Work extends Component {
         return new Promise(async (resolve, reject) => {
 
             try {
-
-                // trigger the validation in child's datepicker
-                await this.datepicker.passesValidation();
+                if (this.datepicker) {
+                    await this.datepicker.passesValidation();
+                }
 
                 this.setState({
                    infoValidationError : Validation.validateWorkInfo(event),

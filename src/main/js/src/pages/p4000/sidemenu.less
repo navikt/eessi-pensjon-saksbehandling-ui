@@ -1,6 +1,5 @@
 .Side-menu-nav {
 
-    background-color: aliceblue;
     position: sticky;
     top: 0;
 
@@ -19,7 +18,9 @@
         }
 
         &:not(.active) {
-            border-right: 50px solid white;
+            background-color: aliceblue;
+            width: 250px;
+            box-shadow: 3px 3px 3px 3px lightgrey;
         }
 
         &.active {
@@ -34,7 +35,7 @@
                   position: absolute;
                   top: 100%;
                   left: 100%;
-                  box-shadow:-4px 2px 5px 1p lightgrey;
+                  box-shadow:-4px 2px 5px 1px lightgrey;
                   box-sizing: border-box;
                   border: 1em solid black;
                   border-color: transparent transparent lightblue lightblue;

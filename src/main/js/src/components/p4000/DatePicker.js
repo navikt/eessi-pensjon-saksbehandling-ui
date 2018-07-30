@@ -26,14 +26,15 @@ class DatePicker extends Component {
 
     state = {
         rangeType: 'both',
-        validation: undefined
+        validationError: undefined
     };
 
     componentDidMount() {
 
         this.props.provideController({
             hasNoValidationErrors : this.hasNoValidationErrors.bind(this),
-            passesValidation      : this.passesValidation.bind(this)
+            passesValidation      : this.passesValidation.bind(this),
+            resetValidation       : this.resetValidation.bind(this)
         });
     }
 
@@ -44,7 +45,24 @@ class DatePicker extends Component {
 
     hasNoValidationErrors() {
 
-        return this.state.validation === undefined;
+        return this.state.validationError === undefined;
+    }
+
+    async resetValidation() {
+
+        return new Promise(async (resolve, reject) => {
+
+           try {
+                this.setState({
+                    validationError: undefined
+                }, () => {
+                     // after setting up state, use it to see the validation state
+                     resolve();
+                });
+           } catch (error) {
+                 reject(error);
+           }
+       });
     }
 
     async passesValidation() {
@@ -55,7 +73,7 @@ class DatePicker extends Component {
 
             try {
                 this.setState({
-                   validation : Validation.validateDatePicker(this.state.rangeType, event)
+                   validationError : Validation.validateDatePicker(this.state.rangeType, event)
                 }, () => {
                     // after setting up state, use it to see the validation state
                     resolve(this.hasNoValidationErrors());
@@ -86,19 +104,19 @@ class DatePicker extends Component {
     onStartDateChange(date) {
 
         let { t, event, actions } = this.props;
-        let validation = undefined;
+        let validationError = undefined;
 
         if (this.state.rangeType === 'both') {
             if (event.endDate && event.endDate < date) {
-                validation = 'p4000:validation-endDateEarlierThanStartDate';
+                validationError = 'p4000:validation-endDateEarlierThanStartDate';
             }
         }
         if (date > new Date()) {
-            validation = 'p4000:validation-startDateCantBeInFuture';
+            validationError = 'p4000:validation-startDateCantBeInFuture';
         }
 
         this.setState({
-            validation : validation
+            validationError : validationError
         }, () => {
              actions.setEventProperty('startDate', date);
         });
@@ -107,19 +125,19 @@ class DatePicker extends Component {
     onEndDateChange(date) {
 
         let { t, event, actions } = this.props;
-        let validation = undefined;
+        let validationError = undefined;
 
         if (this.state.rangeType === 'both') {
             if (event.startDate && event.startDate > date) {
-                validation = 'p4000:validation-endDateEarlierThanStartDate';
+                validationError = 'p4000:validation-endDateEarlierThanStartDate';
             }
         }
         if (date > new Date()) {
-            validation = 'p4000:validation-endDateCantBeInFuture';
+            validationError = 'p4000:validation-endDateCantBeInFuture';
         }
 
         this.setState({
-            validation : validation
+            validationError : validationError
         }, () => {
              actions.setEventProperty('endDate', date);
         });
@@ -136,7 +154,7 @@ class DatePicker extends Component {
         let { t, event } = this.props;
 
         return <div className={classNames('div-datePicker', 'p-2')}>
-            {!this.hasNoValidationErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.validation)}</Nav.AlertStripe> : null}
+            {!this.hasNoValidationErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.validationError)}</Nav.AlertStripe> : null}
             <Nav.Row className='row-datePicker-toggleButton no-gutters mb-3'>
                 <Nav.Column className='text-center'>
                     <Nav.ToggleGruppe name='datePickerType' style={{display: 'inline-flex'}} onChange={this.handlePeriodChange.bind(this)}>

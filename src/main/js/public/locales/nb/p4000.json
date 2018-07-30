@@ -30,6 +30,8 @@
     "uncertainDate"       : "Usikre datoer",
     "newP4000Form"        : "New P4000 form",
     "openP4000Form"       : "Opened a P4000 form",
+    "replacedP4000Event"  : "Edited event",
+    "deletedP4000Event"   : "Deleted event",
 
     "work-title"                    : "work / self-employed event",
     "work-description"              : "Work or self employed event description",
