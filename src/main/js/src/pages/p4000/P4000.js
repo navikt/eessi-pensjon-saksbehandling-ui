@@ -69,7 +69,14 @@ class P4000 extends Component {
 
     handleMenuItemClick(newPage, extras) {
 
-        const { actions, page } = this.props;
+        const { actions, page, editMode } = this.props;
+
+        if (editMode) {
+            this.setState({
+                page: page
+            });
+            return;
+        }
 
         actions.setPage(newPage);
 
@@ -126,7 +133,7 @@ class P4000 extends Component {
                         </Nav.Row>
                         <Nav.Row className='row-eventForm'>
                             <Nav.Column>
-                                <EventForm Component={Component}/>
+                                <EventForm type={activeItem} Component={Component}/>
                             </Nav.Column>
                         </Nav.Row>
                     </Nav.Panel>

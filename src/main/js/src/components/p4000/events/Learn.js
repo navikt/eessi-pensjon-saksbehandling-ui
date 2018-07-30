@@ -4,12 +4,14 @@ import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import CountrySelect from 'react-country-select';
+import classNames from 'classnames';
 
 import * as p4000Actions from '../../../actions/p4000';
 
 import DatePicker from '../../../components/p4000/DatePicker';
 import * as Nav from '../../../components/ui/Nav';
 import Icons from '../../../components/ui/Icons';
+import Validation from '../../../components/p4000/Validation';
 
 const mapStateToProps = (state) => {
     return {
@@ -22,57 +24,134 @@ const mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch)};
 };
 
-const type = 'learn';
-
 class Learn extends Component {
+
+    state = {}
+
+    componentDidMount() {
+        this.props.provideController({
+            hasNoValidationErrors : this.hasNoValidationErrors.bind(this),
+            passesValidation      : this.passesValidation.bind(this),
+            resetValidation       : this.resetValidation.bind(this)
+        });
+    }
+
+    componentWillUnmount() {
+        this.props.provideController(null)
+    }
+
+    hasNoInfoErrors() {
+        return this.state.infoValidationError === undefined
+    }
+
+    hasNoOtherErrors() {
+       return this.state.otherValidationError === undefined
+    }
+
+    hasNoValidationErrors() {
+        return this.hasNoInfoErrors() && this.hasNoOtherErrors() &&
+            this.datepicker ? this.datepicker.hasNoValidationErrors() : undefined;
+    }
+
+    async resetValidation() {
+
+        return new Promise(async (resolve, reject) => {
+
+           try {
+                if (this.datepicker) {
+                    await this.datepicker.resetValidation();
+                }
+                this.setState({
+                    infoValidationError: undefined,
+                    otherValidationError: undefined
+                }, () => {
+                     resolve();
+                });
+           } catch (error) {
+                 reject(error);
+           }
+       });
+    }
+
+    async passesValidation() {
+
+        const { event } = this.props;
+
+        return new Promise(async (resolve, reject) => {
+
+            try {
+                if (this.datepicker) {
+                    await this.datepicker.passesValidation();
+                }
+
+                this.setState({
+                   infoValidationError : Validation.validateLearnInfo(event),
+                   otherValidationError : Validation.validateOther(event)
+                }, () => {
+                    // after setting up state, use it to see the validation state
+                    resolve(this.hasNoValidationErrors());
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
 
     render() {
 
-        const { t, event, editMode, actions } = this.props;
+        const { t, event, editMode, actions, type } = this.props;
 
         return <Nav.Panel className='p-0'>
             <Nav.Row className='eventTitle mb-4'>
                 <Nav.Column>
                     <Icons size='3x' kind={type} className='d-inline-block'/>
-                    <h1 className='d-inline-block m-0 ml-3 align-bottom'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('p4000:learn-title')}</h1>
+                    <h1 className='d-inline-block m-0 ml-3 align-bottom'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('p4000:' + type + '-title')}</h1>
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className='eventDescription mb-4 p-4 fieldset'>
                 <Nav.Column>
-                    <Nav.Tekstomrade>{t('p4000:learn-description')}</Nav.Tekstomrade>
+                    <Nav.Ikon className='float-left mr-4' kind='info-sirkel' />
+                    <Nav.Tekstomrade>{t('p4000:' + type + '-description')}</Nav.Tekstomrade>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='eventDates mb-4 p-4 fieldset'>
+            <Nav.Row className={classNames('eventDates','mb-4','p-4','fieldset', {
+                validationFail : this.datepicker ? !this.datepicker.hasNoValidationErrors() : false
+            })}>
                 <Nav.Column>
-                    <Nav.HjelpetekstBase className='float-right'>{t('p4000:help-learn-dates')}</Nav.HjelpetekstBase>
-                    <h2 className='mb-3'>{t('p4000:learn-fieldset-1-dates-title')}</h2>
-                    <DatePicker/>
+                    <Nav.HjelpetekstBase className='float-right'>{t('p4000:help-' + type + '-dates')}</Nav.HjelpetekstBase>
+                    <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-1-dates-title')}</h2>
+                    <DatePicker provideController={(datepicker) => this.datepicker = datepicker}/>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='eventInfo mb-4 p-4 fieldset'>
-                <Nav.Column>
-                    <Nav.HjelpetekstBase className='float-right'>{t('p4000:help-learn-info')}</Nav.HjelpetekstBase>
-                    <h2 className='mb-3'>{t('p4000:learn-fieldset-2-info-title')}</h2>
+            <Nav.Row className={classNames('eventInfo','mb-4','p-4','fieldset', {
+                   validationFail : this ? !this.hasNoInfoErrors() : false
+               })}>
+               <Nav.Column>
+                    {!this.hasNoInfoErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.infoValidationError)}</Nav.AlertStripe> : null}
+                    <Nav.HjelpetekstBase className='float-right'>{t('p4000:help-' + type + '-info')}</Nav.HjelpetekstBase>
+                    <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-2-info-title')}</h2>
 
-                    <Nav.Input label={t('p4000:learn-fieldset-2_1-name')} value={event.name}
+                    <Nav.Input label={t('p4000:' + type + ' -fieldset-2_1-name')} value={event.name}
                         onChange={(e) => {actions.setEventProperty('name', e.target.value)}} />
+
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='eventCountry mb-4 p-4 fieldset'>
+            <Nav.Row className={classNames('eventOther','mb-4','p-4','fieldset', {
+                    validationFail : this ? ! this.hasNoOtherErrors() : false
+                })}>
                 <Nav.Column>
-                    <h2 className='mb-3'>{t('p4000:learn-fieldset-3-other-title')}</h2>
-
+                    <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-3-other-title')}</h2>
+                    {!this.hasNoOtherErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.otherValidationError)}</Nav.AlertStripe> : null}
                     <div className='mb-3'>
+                        <div>
+                            <label>{t('ui:country') + ' *'}</label>
+                        </div>
                         <CountrySelect value={event.country} multi={false}
-                            flagImagePath="../../../flags/"
-                            onSelect={(e) => {
-                                actions.setEventProperty('country', e)}
-                            }/>
+                            flagImagePath='../../../flags/'
+                            onSelect={(e) => {actions.setEventProperty('country', e)}}/>
                     </div>
-
-                    <Nav.Textarea style={{minHeight:'200px'}} label={t('p4000:learn-fieldset-3_1-other')} value={event.other || ''}
+                    <Nav.Textarea style={{minHeight:'200px'}} label={t('p4000:' + type + '-fieldset-2_5-other')} value={event.other || ''}
                         onChange={(e) => {actions.setEventProperty('other', e.target.value)}} />
-
                 </Nav.Column>
             </Nav.Row>
         </Nav.Panel>

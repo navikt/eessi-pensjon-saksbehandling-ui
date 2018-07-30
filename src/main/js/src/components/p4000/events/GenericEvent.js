@@ -96,22 +96,22 @@ class Home extends Component {
         return <Nav.Panel className='p-0'>
             <Nav.Row className='eventTitle mb-4'>
                 <Nav.Column>
-                    <Icons size='3x' kind={this.props.type} className='d-inline-block'/>
-                    <h1 className='d-inline-block m-0 ml-3 align-bottom'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('p4000:' + this.props.type + '-title')}</h1>
+                    <Icons size='3x' kind={type} className='d-inline-block'/>
+                    <h1 className='d-inline-block m-0 ml-3 align-bottom'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('p4000:' + type + '-title')}</h1>
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className='eventDescription mb-4 p-4 fieldset'>
                 <Nav.Column>
                     <Nav.Ikon className='float-left mr-4' kind='info-sirkel' />
-                    <Nav.Tekstomrade>{t('p4000:' + this.props.type + '-description')}</Nav.Tekstomrade>
+                    <Nav.Tekstomrade>{t('p4000:' + type + '-description')}</Nav.Tekstomrade>
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className={classNames('eventDates','mb-4','p-4','fieldset', {
                validationFail : this.datepicker ? !this.datepicker.hasNoValidationErrors() : false
            })}>
                 <Nav.Column>
-                    <Nav.HjelpetekstBase className='float-right'>{t('p4000:help-' + this.props.type + '-dates')}</Nav.HjelpetekstBase>
-                    <h2 className='mb-3'>{t('p4000:' + this.props.type + '-fieldset-1-dates-title')}</h2>
+                    <Nav.HjelpetekstBase className='float-right'>{t('p4000:help-' + type + '-dates')}</Nav.HjelpetekstBase>
+                    <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-1-dates-title')}</h2>
                     <DatePicker provideController={(datepicker) => this.datepicker = datepicker}/>
                 </Nav.Column>
             </Nav.Row>
@@ -119,19 +119,19 @@ class Home extends Component {
                validationFail : this ? ! this.hasNoOtherErrors() : false
            })}>
                 <Nav.Column>
-                    <h2 className='mb-3'>{t('p4000:' + this.props.type + '-fieldset-2-other-title')}</h2>
+                    <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-2-other-title')}</h2>
                     {!this.hasNoOtherErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.otherValidationError)}</Nav.AlertStripe> : null}
                     <div className='mb-3'>
                             <div>
                                 <label>{t('ui:country') + ' *'}</label>
                             </div>
-                            <CountrySelect value={event.country ? event.country.value : undefined} multi={false}
+                            <CountrySelect value={event.country} multi={false}
                             flagImagePath="../../../flags/"
                             onSelect={(e) => {
                                 actions.setEventProperty('country', e)}
                             }/>
                     </div>
-                    <Nav.Textarea style={{minHeight:'200px'}} label={t('p4000:' + this.props.type + '-fieldset-2_1-other')} value={event.other || ''}
+                    <Nav.Textarea style={{minHeight:'200px'}} label={t('p4000:' + type + '-fieldset-2_1-other')} value={event.other || ''}
                         onChange={(e) => {actions.setEventProperty('other', e.target.value)}} />
                 </Nav.Column>
             </Nav.Row>

@@ -19,7 +19,6 @@ const mapStateToProps = (state) => {
         editMode   : state.p4000.editMode,
         event      : state.p4000.event,
         eventIndex : state.p4000.eventIndex,
-        page       : state.p4000.page,
         status     : state.p4000.status
     }
 };
@@ -37,36 +36,35 @@ class EventForm extends React.Component {
 
     async handleSave () {
 
-        const { actions, event, page } = this.props;
+        const { actions, event, type } = this.props;
 
         let valid = await this.component.passesValidation();
 
         if (valid) {
-            event.type = page;
+            event.type = type;
             actions.pushEventToP4000Form(event);
         }
     }
 
      async handleSaveAndBack () {
 
-         const { actions, event, page } = this.props;
+         const { actions, event, type } = this.props;
 
          let valid = await this.component.passesValidation();
 
          if (valid) {
-             event.type = page;
+             event.type = type;
             actions.pushEventToP4000Form(event);
          }
      }
 
     async handleEdit () {
 
-        const { actions, page, event, eventIndex } = this.props;
+        const { actions, event, eventIndex } = this.props;
 
         let valid = await this.component.passesValidation();
 
         if (valid) {
-            event.type = page;
             actions.replaceEventOnP4000Form(event, eventIndex);
         }
     }
@@ -112,8 +110,8 @@ class EventForm extends React.Component {
 
     render() {
 
-        let { t, actions, page, editMode, eventIndex, events, status, Component } = this.props;
-        let isMenuPages = (page === 'view' || page === 'timeline' || page === 'file');
+        let { t, actions, type, editMode, eventIndex, events, status, Component } = this.props;
+        let isMenuPages = (type === 'view' || type === 'timeline' || type === 'file');
 
         if (status) {
             this.handleTimeouts();
@@ -131,7 +129,7 @@ class EventForm extends React.Component {
                      <div style={{minHeight:'90px'}}>
                          {status ? <Nav.AlertStripe className='toFade' type='suksess'>{t(status)}</Nav.AlertStripe> : null}
                      </div>
-                    <Component type={page} provideController={(component) => {this.component = component}}/>
+                    <Component type={type} provideController={(component) => {this.component = component}}/>
                 </Nav.Column>
             </Nav.Row>
             {isMenuPages ? null :
@@ -159,7 +157,7 @@ class EventForm extends React.Component {
 
 EventForm.propTypes = {
     t          : PT.func.isRequired,
-    page       : PT.string.isRequired,
+    type       : PT.string.isRequired,
     events     : PT.array.isRequired,
     event      : PT.object,
     status     : PT.string,

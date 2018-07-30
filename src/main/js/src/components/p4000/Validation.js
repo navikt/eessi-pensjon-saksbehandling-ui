@@ -31,6 +31,15 @@ class Validation {
          return undefined;
     }
 
+    validateLearnInfo(event) {
+
+         if (this.isEmpty(event.name)) {
+              return 'p4000:validation-noSchoolName';
+         }
+
+         return undefined;
+    }
+
     validateOther(event) {
 
          if (this.isEmpty(event.country)) {

@@ -129,5 +129,6 @@
     "validation-noBuildingName" : "Please specify a building name/number",
     "validation-noCityName" : "Please specify a city",
     "validation-noRegionName" : "Please specify a region",
-    "validation-noCountry": "Please specify a country"
+    "validation-noCountry": "Please specify a country",
+    "validation-noSchoolName" : "Please specify an institution name"
 }
