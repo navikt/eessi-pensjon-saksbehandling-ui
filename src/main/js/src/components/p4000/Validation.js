@@ -1,0 +1,65 @@
+
+class Validation {
+
+     isEmpty(item) {
+        return item === undefined || item === null || item === '' || item === [] || item === {};
+     }
+
+     validateWorkInfo(event) {
+
+         if (this.isEmpty(event.activity)) {
+              return 'p4000:validation-noActivity';
+         }
+         if (this.isEmpty(event.id)) {
+              return 'p4000:validation-noIdNumber';
+         }
+         if (this.isEmpty(event.name)) {
+              return 'p4000:validation-noCompanyName';
+         }
+         if (this.isEmpty(event.street)) {
+              return 'p4000:validation-noStreetName';
+         }
+         if (this.isEmpty(event.buildingName)) {
+              return 'p4000:validation-noBuildingName';
+         }
+         if (this.isEmpty(event.city)) {
+              return 'p4000:validation-noCityName';
+         }
+         if (this.isEmpty(event.region)) {
+              return 'p4000:validation-noRegionName';
+         }
+         return undefined;
+    }
+
+    validateOther(event) {
+
+         if (this.isEmpty(event.country)) {
+              return 'p4000:validation-noCountry';
+         }
+         return undefined;
+    }
+
+    validateDatePicker(rangeType, event) {
+
+         if ( (rangeType === 'both' && (!event.startDate || !event.endDate)) ||
+              (rangeType === 'endDateOnly' && !event.endDate) ||
+              (rangeType === 'startDateOnly' && !event.startDate)
+         )  {
+              return 'p4000:validation-insufficientDates';
+         }
+         if (rangeType === 'both' && event.endDate < event.startDate) {
+             return 'p4000:validation-endDateEarlierThanStartDate';
+         }
+         if (event.startDate && event.startDate > new Date()) {
+             return 'p4000:validation-startDateCantBeInFuture';
+         }
+         if (event.endDate && event.endDate > new Date()) {
+             return 'p4000:validation-endDateCantBeInFuture';
+         }
+         return undefined;
+    }
+}
+
+const instance = new Validation();
+Object.freeze(instance);
+export default instance;

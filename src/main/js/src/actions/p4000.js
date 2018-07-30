@@ -88,3 +88,10 @@ export function setEventProperty(key, value) {
         }
     }
 }
+
+export function clearStatus() {
+
+    return {
+        type: types.P4000_CLEAR_STATUS
+    }
+}

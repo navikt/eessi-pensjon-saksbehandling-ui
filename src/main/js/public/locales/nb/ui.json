@@ -1,6 +1,7 @@
 {
     "back" : "Back",
     "chooseLanguage" : "Choose language",
+    "cancel" : "Cancel",
     "confirm" : "Confirm",
     "confirmAndGenerate" : "Confirm and Generate",
     "confirmAndSend": "Confirm and submit",
@@ -8,6 +9,7 @@
     "createNew" : "Create new",
     "dataGenerated" : "Data generated",
     "dataSubmitted" : "Data sent",
+    "delete" : "Delete",
     "edit" : "Edit",
     "endDate" : "End date",
     "forward" : "Forward",
@@ -19,14 +21,16 @@
     "remove" : "Remove",
     "resume" : "Resume",
     "save"   : "Save",
+    "saveAndBack" : "Save and back to the form",
     "search" : "Search",
     "start" : "Start",
     "startDate" : "Start date",
     "street" : "Street",
-    "buildingName" : "Building name",
+    "buildingName" : "Building name/number",
     "city" : "City",
     "region" : "Region",
     "country" : "Country",
     "yes-continue" : "Yes, continue",
-    "no-cancel" : "No, cancel"
+    "no-cancel" : "No, cancel",
+    "unknown" : "Unknown"
 }

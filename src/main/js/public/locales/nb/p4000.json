@@ -28,6 +28,8 @@
     "seeClientJSON"       : "See client JSON",
     "seeServerJSON"       : "See server JSON",
     "uncertainDate"       : "Usikre datoer",
+    "newP4000Form"        : "New P4000 form",
+    "openP4000Form"       : "Opened a P4000 form",
 
     "work-title"                    : "work / self-employed event",
     "work-description"              : "Work or self employed event description",
@@ -117,5 +119,13 @@
     "validation-startDateCantBeInFuture": "Start date can't be in the future",
     "validation-endDateCantBeInFuture": "End date can't be in the future",
     "validation-endDateEarlierThanStartDate" : "End date can't be earlier than start date",
-    "validation-insufficientDates" : "Insufficient dates"
+    "validation-insufficientDates" : "Insufficient dates",
+    "validation-noActivity": "Please specify an activity",
+    "validation-noIdNumber": "Please specify an ID number",
+    "validation-noCompanyName": "Please specify a company",
+    "validation-noStreetName" : "Please specify a street",
+    "validation-noBuildingName" : "Please specify a building name/number",
+    "validation-noCityName" : "Please specify a city",
+    "validation-noRegionName" : "Please specify a region",
+    "validation-noCountry": "Please specify a country"
 }

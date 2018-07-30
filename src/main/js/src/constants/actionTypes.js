@@ -64,6 +64,7 @@ export const SETTINGS_SET_PDF_SIZE = 'SETTINGS/SET_PDF_SIZE';
 export const P4000_NEW                = 'P4000/NEW';
 export const P4000_OPEN               = 'P4000/OPEN';
 export const P4000_PAGE_SET           = 'P4000/PAGE/SET';
+export const P4000_CLEAR_STATUS       = 'P4000/CLEAR_STATUS';
 
 export const P4000_EVENT_ADD          = 'P4000/EVENT/ADD';
 export const P4000_EVENT_REPLACE      = 'P4000/EVENT/REPLACE';
@@ -71,3 +72,5 @@ export const P4000_EVENT_EDIT_MODE    = 'P4000/EVENT/EDIT_MODE';
 export const P4000_EVENT_DELETE       = 'P4000/EVENT/DELETE';
 export const P4000_EVENT_CANCEL_EDIT  = 'P4000/EVENT/CANCEL_EDIT';
 export const P4000_EVENT_SET_PROPERTY = 'P4000/EVENT/SET_PROPERTY';
+
+

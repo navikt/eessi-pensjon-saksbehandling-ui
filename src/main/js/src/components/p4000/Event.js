@@ -15,12 +15,6 @@ const mapDispatchToProps = (dispatch) => {
 
 class Event extends Component {
 
-    editEvent(eventIndex) {
-
-        const { actions } = this.props;
-        actions.editEvent(eventIndex);
-    }
-
     renderDate(date) {
 
         const { t } = this.props;
@@ -34,10 +28,10 @@ class Event extends Component {
 
     render() {
 
-        const { event, eventIndex, selected } = this.props;
+        const { event, eventIndex, selected, onClick } = this.props;
 
         return <div className={classNames('d-inline-block','mr-3','eventBadge', { selected: selected })}
-            onClick={selected ? null : this.editEvent.bind(this, eventIndex)}>
+            onClick={onClick}>
             <Icons kind={event.type}/>
             <div className='eventBadgeDate'>
                 <div>{this.renderDate(event.startDate)}</div>
@@ -52,7 +46,8 @@ Event.propTypes = {
     event      : PT.object.isRequired,
     eventIndex : PT.number.isRequired,
     selected   : PT.bool.isRequired,
-    actions    : PT.object.isRequired
+    actions    : PT.object.isRequired,
+    onClick    : PT.func.isRequired
 };
 
 export default connect(

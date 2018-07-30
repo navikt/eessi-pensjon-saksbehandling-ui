@@ -1,8 +1,5 @@
 class Util {
 
-    validateP4000 (p4000) {
-    }
-
     // converting text loaded from file to JSON object still needs us to parse
     // date and convert them
     getEventsFromLoadedJson(loadedString) {

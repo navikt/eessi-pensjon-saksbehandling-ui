@@ -6,9 +6,16 @@ import Event from './Event';
 
 class ExistingEvents extends Component {
 
+    handleClick(index) {
+
+        const { handleEditRequest } = this.props;
+        handleEditRequest(index);
+
+    }
+
     render() {
 
-        const { events, eventIndex, className } = this.props;
+        const { events, eventIndex, handleEditRequest, className } = this.props;
 
         if (_.isEmpty(events)) {
             return null;
@@ -18,7 +25,11 @@ class ExistingEvents extends Component {
             {(() => {
                 return events.map((event, index) => {
                     let selected = (eventIndex !== undefined && eventIndex === index);
-                    return <Event key={index} event={event} eventIndex={index} selected={selected}/>
+                    return <Event key={index}
+                        onClick={() => {selected ? null : handleEditRequest(index)}}
+                        event={event}
+                        eventIndex={index}
+                        selected={selected}/>
                 });
             })()}
         </div>
@@ -28,7 +39,8 @@ class ExistingEvents extends Component {
 ExistingEvents.propTypes = {
     events     : PT.array.isRequired,
     eventIndex : PT.number,
-    className  : PT.object
+    className  : PT.object,
+    handleEditRequest : PT.func.isRequired
 };
 
 export default ExistingEvents;
