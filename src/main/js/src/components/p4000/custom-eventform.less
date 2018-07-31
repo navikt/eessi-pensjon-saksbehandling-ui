@@ -4,6 +4,11 @@
     visibility: hidden;
 }
 
+.existingEvents {
+    position: relative;
+    background-color: #f0fff0;
+}
+
 .fieldset {
    background-color: whitesmoke;
    box-shadow: 3px 3px 3px lightgrey;
@@ -25,8 +30,16 @@
 .fieldset.validationFail {
     border: 1px solid red;
     background-color: #FFF0F0;
-
 }
+
+.floatingAlertOnTop {
+    min-height: 90px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: block;
+    z-index: 1
+};
 
 @-webkit-keyframes fade {
 0% {opacity: 1}

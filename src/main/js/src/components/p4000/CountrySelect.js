@@ -1,10 +1,11 @@
-import React, {Component, PropTypes as t} from 'react'
-import {render} from 'react-dom'
+import React, {Component} from 'react'
 import Select from 'react-select'
+import PT from 'prop-types'
+import { translate } from 'react-i18next'
 import 'react-select/dist/react-select.css'
 import {countries} from './CountrySelectData'
 
-export default class ReactCountrySelect extends Component {
+class ReactCountrySelect extends Component {
 
     constructor(props) {
         super(props);
@@ -37,7 +38,7 @@ export default class ReactCountrySelect extends Component {
             <span style={{
                 color: option.color
             }}>
-                <img src={flagImageUrl} style={optionStyle}/>&nbsp; {option.label}
+                <img src={flagImageUrl} alt={option.label} style={optionStyle}/>&nbsp; {option.label}
             </span>
         )
     }
@@ -49,24 +50,34 @@ export default class ReactCountrySelect extends Component {
         } else {
             return (
                 <span>
-                    <img src={flagImageUrl} style={this.state.imageStyle} alt="" onError={this.onImageError}/>&nbsp; {option.label}
+                    <img src={flagImageUrl} style={this.state.imageStyle} alt={option.label} onError={this.onImageError}/>&nbsp; {option.label}
                 </span>
             )
         }
     }
 
     render() {
-        return (
-            <div>
-                <Select placeholder="Search country.."
-                value={this.state.tag || this.props.value}
+
+        const { t, value, multi } = this.props;
+        return <div>
+            <Select placeholder={t('ui:searchCountry')}
+                value={this.state.tag || value}
                 options={countries}
                 optionRenderer={this.CountryOptionRenderer}
                 backspaceRemoves={true}
                 onChange={this.logChange}
                 valueRenderer={this.CountryRenderValue}
-                multi={this.props.multi}/>
-            </div>
-        );
+                multi={multi}/>
+        </div>;
     }
 }
+
+ReactCountrySelect.propTypes = {
+    onSelect       : PT.func.isRequired,
+    flagImageUrl   : PT.string.isRequired,
+    value          : PT.object,
+    multi          : PT.bool.isRequired,
+    t              : PT.func.isRequired
+}
+
+export default translate()(ReactCountrySelect);

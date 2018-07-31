@@ -52,17 +52,17 @@ class DatePicker extends Component {
 
         return new Promise(async (resolve, reject) => {
 
-           try {
+            try {
                 this.setState({
                     validationError: undefined
                 }, () => {
-                     // after setting up state, use it to see the validation state
-                     resolve();
+                    // after setting up state, use it to see the validation state
+                    resolve();
                 });
-           } catch (error) {
-                 reject(error);
-           }
-       });
+            } catch (error) {
+                reject(error);
+            }
+        });
     }
 
     async passesValidation() {
@@ -73,7 +73,7 @@ class DatePicker extends Component {
 
             try {
                 this.setState({
-                   validationError : Validation.validateDatePicker(this.state.rangeType, event)
+                    validationError : Validation.validateDatePicker(this.state.rangeType, event)
                 }, () => {
                     // after setting up state, use it to see the validation state
                     resolve(this.hasNoValidationErrors());
@@ -92,18 +92,18 @@ class DatePicker extends Component {
         this.setState({
             rangeType: rangeType
         }, () => {
-             if (rangeType === 'onlyEndDate' && event.startDate) {
+            if (rangeType === 'onlyEndDate' && event.startDate) {
                 actions.setEventProperty('startDate', undefined);
-             }
-              if (rangeType === 'onlyStartDate' && event.endDate) {
-                 actions.setEventProperty('endDate', undefined);
-              }
+            }
+            if (rangeType === 'onlyStartDate' && event.endDate) {
+                actions.setEventProperty('endDate', undefined);
+            }
         });
     }
 
     onStartDateChange(date) {
 
-        let { t, event, actions } = this.props;
+        let { event, actions } = this.props;
         let validationError = undefined;
 
         if (this.state.rangeType === 'both') {
@@ -118,13 +118,13 @@ class DatePicker extends Component {
         this.setState({
             validationError : validationError
         }, () => {
-             actions.setEventProperty('startDate', date);
+            actions.setEventProperty('startDate', date);
         });
     }
 
     onEndDateChange(date) {
 
-        let { t, event, actions } = this.props;
+        let { event, actions } = this.props;
         let validationError = undefined;
 
         if (this.state.rangeType === 'both') {
@@ -139,7 +139,7 @@ class DatePicker extends Component {
         this.setState({
             validationError : validationError
         }, () => {
-             actions.setEventProperty('endDate', date);
+            actions.setEventProperty('endDate', date);
         });
     }
 
@@ -186,9 +186,10 @@ class DatePicker extends Component {
 }
 
 DatePicker.propTypes = {
-    t       : PT.func.isRequired,
-    event   : PT.object.isRequired,
-    actions : PT.object.isRequired
+    t                 : PT.func.isRequired,
+    event             : PT.object.isRequired,
+    actions           : PT.object.isRequired,
+    provideController : PT.object.isRequired
 };
 
 export default connect(

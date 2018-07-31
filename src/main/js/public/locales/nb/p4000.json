@@ -130,5 +130,9 @@
     "validation-noCityName" : "Please specify a city",
     "validation-noRegionName" : "Please specify a region",
     "validation-noCountry": "Please specify a country",
-    "validation-noSchoolName" : "Please specify an institution name"
+    "validation-noSchoolName" : "Please specify an institution name",
+    "validation-noFirstname" : "Please specify a first name",
+    "validation-noLastname" : "Please specify a last name",
+    "validation-noBirthDate" : "Please specify a birth date name",
+    "validation-birthDateInfuture" : "birth date is in the future"
 }

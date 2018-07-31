@@ -36,6 +36,16 @@ class Timeline extends Component {
         return date ? date.toDateString() : 'unknown';
     }
 
+    renderContent(event) {
+
+        const { t } = this.props;
+
+        return renderToString(<div className='timeline-event'>
+            <div><Icons size='3x' kind={event.type}/></div>
+            <h4>{t('p4000:' + event.type)}</h4>
+        </div>);
+    }
+
     render() {
 
         const { t, events } = this.props;
@@ -46,10 +56,9 @@ class Timeline extends Component {
                 type: 'range',
                 start: event.startDate,
                 end: event.endDate,
-                content: renderToString(<div><Icons kind={event.type}/>{event.type}</div>),
+                content: this.renderContent(event),
                 title: 'this is a tooltip'
             }
-
         })
         return <Nav.Panel className='p-0 panel-timeline'>
             <Nav.Row className='timelineTitle mb-4'>
@@ -74,8 +83,8 @@ class Timeline extends Component {
                                     key={index}
                                     iconStyle={{ background: 'rgb(33,150,24)', color: '#fff'}}
                                     icon={<Icons size='3x' kind={event.type}/>}>
-                                    <h3 className='vertical-timeline-element-title'>Title</h3>
-                                    <h4 className='vertical-timeline-element-subtitle'>SubTitle</h4>
+                                    <h3 className='vertical-timeline-element-title'>{t('p4000:' + event.type)}</h3>
+                                    <h4 className='vertical-timeline-element-subtitle'>{event.name || ''}</h4>
                                 </VerticalTimelineElement>;
                             });
                         })()}

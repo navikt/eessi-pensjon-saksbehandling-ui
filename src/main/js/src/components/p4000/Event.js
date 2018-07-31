@@ -28,7 +28,7 @@ class Event extends Component {
 
     render() {
 
-        const { event, eventIndex, selected, onClick } = this.props;
+        const { event, selected, onClick } = this.props;
 
         return <div className={classNames('d-inline-block','mr-3','eventBadge', { selected: selected })}
             onClick={onClick}>

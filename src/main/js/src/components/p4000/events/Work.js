@@ -45,7 +45,7 @@ class Work extends Component {
     }
 
     hasNoOtherErrors() {
-       return this.state.otherValidationError === undefined
+        return this.state.otherValidationError === undefined
     }
 
     hasNoValidationErrors() {
@@ -57,7 +57,7 @@ class Work extends Component {
 
         return new Promise(async (resolve, reject) => {
 
-           try {
+            try {
                 if (this.datepicker) {
                     await this.datepicker.resetValidation();
                 }
@@ -65,12 +65,12 @@ class Work extends Component {
                     infoValidationError: undefined,
                     otherValidationError: undefined
                 }, () => {
-                     resolve();
+                    resolve();
                 });
-           } catch (error) {
-                 reject(error);
-           }
-       });
+            } catch (error) {
+                reject(error);
+            }
+        });
     }
 
     async passesValidation() {
@@ -85,8 +85,8 @@ class Work extends Component {
                 }
 
                 this.setState({
-                   infoValidationError : Validation.validateWorkInfo(event),
-                   otherValidationError : Validation.validateOther(event)
+                    infoValidationError : Validation.validateWorkInfo(event),
+                    otherValidationError : Validation.validateOther(event)
                 }, () => {
                     // after setting up state, use it to see the validation state
                     resolve(this.hasNoValidationErrors());
@@ -124,9 +124,9 @@ class Work extends Component {
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className={classNames('eventInfo','mb-4','p-4','fieldset', {
-                   validationFail : this ? !this.hasNoInfoErrors() : false
-               })}>
-               <Nav.Column>
+                validationFail : this ? !this.hasNoInfoErrors() : false
+            })}>
+                <Nav.Column>
                     {!this.hasNoInfoErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.infoValidationError)}</Nav.AlertStripe> : null}
                     <Nav.HjelpetekstBase className='float-right'>{t('p4000:help-' + type + '-info')}</Nav.HjelpetekstBase>
                     <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-2-info-title')}</h2>
@@ -158,8 +158,8 @@ class Work extends Component {
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className={classNames('eventOther','mb-4','p-4','fieldset', {
-                    validationFail : this ? ! this.hasNoOtherErrors() : false
-                })}>
+                validationFail : this ? ! this.hasNoOtherErrors() : false
+            })}>
                 <Nav.Column>
                     <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-3-other-title')}</h2>
                     {!this.hasNoOtherErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.otherValidationError)}</Nav.AlertStripe> : null}
@@ -167,11 +167,11 @@ class Work extends Component {
                         <div>
                             <label>{t('ui:country') + ' *'}</label>
                         </div>
-                        <CountrySelect value={event.country} multi={false}
+                        <CountrySelect value={event.country || {}} multi={false}
                             flagImagePath='../../../flags/'
                             onSelect={(e) => {actions.setEventProperty('country', e)}}/>
                     </div>
-                    <Nav.Textarea style={{minHeight:'200px'}} label={t('p4000:' + type + '-fieldset-2_5-other')} value={event.other || ''}
+                    <Nav.Textarea style={{minHeight:'200px'}} label={t('p4000:' + type + '-fieldset-3_1-other')} value={event.other || ''}
                         onChange={(e) => {actions.setEventProperty('other', e.target.value)}} />
                 </Nav.Column>
             </Nav.Row>
@@ -180,10 +180,12 @@ class Work extends Component {
 }
 
 Work.propTypes = {
-    t        : PT.func.isRequired,
-    event    : PT.object.isRequired,
-    editMode : PT.bool.isRequired,
-    actions  : PT.object.isRequired
+    t                 : PT.func.isRequired,
+    event             : PT.object.isRequired,
+    type              : PT.string.isRequired,
+    editMode          : PT.bool.isRequired,
+    actions           : PT.object.isRequired,
+    provideController : PT.object.isRequired
 };
 
 export default connect(

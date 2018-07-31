@@ -62,7 +62,8 @@ class View extends Component {
 }
 
 View.propTypes = {
-    t : PT.func
+    t      : PT.func,
+    events : PT.array.isRequired
 };
 
 export default connect(

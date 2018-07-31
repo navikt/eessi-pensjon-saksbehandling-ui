@@ -37,6 +37,17 @@ export function pushEventToP4000Form(event) {
     };
 }
 
+export function pushEventToP4000FormAndToBackToForm(event) {
+
+    return {
+        type : types.P4000_EVENT_ADD,
+        payload: {
+            event : event,
+            page  : 'file'
+        }
+    };
+}
+
 export function replaceEventOnP4000Form(event, eventIndex) {
 
     return {

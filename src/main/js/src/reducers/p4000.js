@@ -17,7 +17,7 @@ export default function (state = initialState, action = {}) {
     case types.P4000_CLEAR_STATUS:
 
         return Object.assign({}, state, {
-             status: undefined
+            status: undefined
         });
 
     case types.P4000_NEW:
@@ -55,7 +55,8 @@ export default function (state = initialState, action = {}) {
             event      : {},
             eventIndex : undefined,
             editMode   : false,
-            status     : 'p4000:addedP4000Event'
+            status     : 'p4000:addedP4000Event',
+            page       : action.payload.page || state.page
         });
 
     case types.P4000_EVENT_REPLACE:

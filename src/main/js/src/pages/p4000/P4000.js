@@ -43,7 +43,7 @@ const components = {
     timeline: Views.Timeline,
     work: Events.Work,
     home: Events.GenericEvent,
-    child: Events.GenericEvent,
+    child: Events.Child,
     voluntary: Events.GenericEvent,
     military: Events.GenericEvent,
     birth: Events.GenericEvent,
@@ -146,10 +146,12 @@ class P4000 extends Component {
 P4000.propTypes = {
     history      : PT.object,
     t            : PT.func,
+    page         : PT.string.isRequired,
     match        : PT.object.isRequired,
     events       : PT.array.isRequired,
     editMode     : PT.bool,
-    event        : PT.object
+    event        : PT.object,
+    actions      : PT.object.isRequired
 };
 
 export default connect(

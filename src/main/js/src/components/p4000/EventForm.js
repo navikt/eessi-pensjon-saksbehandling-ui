@@ -46,17 +46,17 @@ class EventForm extends React.Component {
         }
     }
 
-     async handleSaveAndBack () {
+    async handleSaveAndBack () {
 
-         const { actions, event, type } = this.props;
+        const { actions, event, type } = this.props;
 
-         let valid = await this.component.passesValidation();
+        let valid = await this.component.passesValidation();
 
-         if (valid) {
-             event.type = type;
-            actions.pushEventToP4000Form(event);
-         }
-     }
+        if (valid) {
+            event.type = type;
+            actions.pushEventToP4000FormAndToBackToForm(event);
+        }
+    }
 
     async handleEdit () {
 
@@ -110,7 +110,7 @@ class EventForm extends React.Component {
 
     render() {
 
-        let { t, actions, type, editMode, eventIndex, events, status, Component } = this.props;
+        let { t, type, editMode, eventIndex, events, status, Component } = this.props;
         let isMenuPages = (type === 'view' || type === 'timeline' || type === 'file');
 
         if (status) {
@@ -118,6 +118,15 @@ class EventForm extends React.Component {
         }
 
         return <div className='div-eventForm'>
+            <Nav.Row style={{minHeight:'90px'}} className={
+                classNames('row-floating-alert', 'no-gutters', {'toFade' : status})
+            }>
+                <Nav.Column>
+                    <div className='floatingAlertOnTop'>
+                        {status ? <Nav.AlertStripe type='suksess'>{t(status)}</Nav.AlertStripe> : null}
+                    </div>
+                </Nav.Column>
+            </Nav.Row>
             <Nav.Row className={classNames('existingEvents', 'mb-4', 'no-gutters',
                 {'hiding' : isMenuPages || _.isEmpty(events)})}>
                 <Nav.Column>
@@ -126,9 +135,6 @@ class EventForm extends React.Component {
             </Nav.Row>
             <Nav.Row className={classNames('row-component', 'mb-4', {'editMode' : editMode})}>
                 <Nav.Column>
-                     <div style={{minHeight:'90px'}}>
-                         {status ? <Nav.AlertStripe className='toFade' type='suksess'>{t(status)}</Nav.AlertStripe> : null}
-                     </div>
                     <Component type={type} provideController={(component) => {this.component = component}}/>
                 </Nav.Column>
             </Nav.Row>
@@ -136,13 +142,13 @@ class EventForm extends React.Component {
                 <Nav.Row className='row-buttons mb-4'>
                     <Nav.Column>
                         <div>
-                        {!editMode ? <Nav.Hovedknapp className='saveButton'
-                             onClick={this.handleSave.bind(this)}>{t('ui:save')}</Nav.Hovedknapp> : null}
-                        {!editMode ? <Nav.Hovedknapp className='saveAndBackButton ml-3'
-                             onClick={this.handleSaveAndBack.bind(this)}>{t('ui:saveAndBack')}</Nav.Hovedknapp> : null}
-                        {editMode ?  <Nav.Hovedknapp className='editButton'   onClick={this.handleEdit.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp> : null}
-                        {editMode ?  <Nav.Knapp className='deleteButton ml-3' onClick={this.handleDelete.bind(this)}>{t('ui:delete')}</Nav.Knapp>  : null}
-                        {editMode ?  <Nav.Knapp className='cancelButton ml-3' onClick={this.handleCancel.bind(this)}>{t('ui:cancel')}</Nav.Knapp>  : null}
+                            {!editMode ? <Nav.Hovedknapp className='saveButton'
+                                onClick={this.handleSave.bind(this)}>{t('ui:save')}</Nav.Hovedknapp> : null}
+                            {!editMode ? <Nav.Hovedknapp className='saveAndBackButton ml-3'
+                                onClick={this.handleSaveAndBack.bind(this)}>{t('ui:saveAndBack')}</Nav.Hovedknapp> : null}
+                            {editMode ?  <Nav.Hovedknapp className='editButton'   onClick={this.handleEdit.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp> : null}
+                            {editMode ?  <Nav.Knapp className='deleteButton ml-3' onClick={this.handleDelete.bind(this)}>{t('ui:delete')}</Nav.Knapp>  : null}
+                            {editMode ?  <Nav.Knapp className='cancelButton ml-3' onClick={this.handleCancel.bind(this)}>{t('ui:cancel')}</Nav.Knapp>  : null}
                         </div>
                         <div>
                             {status ? <Nav.AlertStripe className='mt-3 toFade' type='suksess'>{t(status)}</Nav.AlertStripe> : null}
@@ -165,7 +171,7 @@ EventForm.propTypes = {
     eventIndex : PT.number,
     history    : PT.object,
     actions    : PT.object,
-    component  : PT.node.isRequired
+    Component  : PT.node.isRequired
 };
 
 export default connect(
