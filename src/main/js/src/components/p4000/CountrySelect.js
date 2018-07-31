@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import Select from 'react-select'
 import PT from 'prop-types'
 import { translate } from 'react-i18next'
-import 'react-select/dist/react-select.css'
+//import 'react-select/dist/react-select.css'
 import {countries} from './CountrySelectData'
 
-class ReactCountrySelect extends Component {
+class CountrySelect extends Component {
 
     constructor(props) {
         super(props);
@@ -72,12 +72,12 @@ class ReactCountrySelect extends Component {
     }
 }
 
-ReactCountrySelect.propTypes = {
+CountrySelect.propTypes = {
     onSelect       : PT.func.isRequired,
-    flagImageUrl   : PT.string.isRequired,
+    flagImageUrl   : PT.string,
     value          : PT.object,
     multi          : PT.bool.isRequired,
     t              : PT.func.isRequired
 }
 
-export default translate()(ReactCountrySelect);
+export default translate()(CountrySelect);

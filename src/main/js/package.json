@@ -81,6 +81,7 @@
     "react-collapse": "^4.0.3",
     "react-date-picker": "^6.11.2",
     "react-dom": "^16.4.1",
+    "react-dropzone": "^4.2.13",
     "react-i18next": "^7.9.0",
     "react-json-view": "^1.19.1",
     "react-modal": "^3.5.1",

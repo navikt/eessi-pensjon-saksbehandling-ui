@@ -189,7 +189,7 @@ DatePicker.propTypes = {
     t                 : PT.func.isRequired,
     event             : PT.object.isRequired,
     actions           : PT.object.isRequired,
-    provideController : PT.object.isRequired
+    provideController : PT.func.isRequired
 };
 
 export default connect(

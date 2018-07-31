@@ -171,7 +171,7 @@ EventForm.propTypes = {
     eventIndex : PT.number,
     history    : PT.object,
     actions    : PT.object,
-    Component  : PT.node.isRequired
+    Component  : PT.node
 };
 
 export default connect(

@@ -20,6 +20,13 @@ const mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch)};
 };
 
+const styles = {
+    jsonview : {
+        overflow: 'auto',
+        whiteSpace: 'nowrap'
+    }
+};
+
 class View extends Component {
 
     state = {}
@@ -43,18 +50,26 @@ class View extends Component {
         const { t } = this.props;
 
         return <div className='div-view'>
-            <Nav.Row className='fileButtons mb-4 p-4 fieldset'>
-                <Nav.Column>
-                    <Nav.Hovedknapp onClick={this.handleClientJSON.bind(this)}>
-                        <div>{t('p4000:seeClientJSON')}</div>
-                    </Nav.Hovedknapp>
-                    {this.state.clientJSON ? <ReactJson src={this.state.clientJSON} theme='monokai'/> : null}
+            <Nav.Row className='fileButtons p-4 fieldset'>
+                <Nav.Column className='col-6'>
+                    <div className='mb-4 text-center'>
+                        <Nav.Hovedknapp onClick={this.handleClientJSON.bind(this)}>
+                            <div>{t('p4000:seeClientJSON')}</div>
+                        </Nav.Hovedknapp>
+                    </div>
+                    <div style={styles.jsonview}>
+                        {this.state.clientJSON ? <ReactJson src={this.state.clientJSON} theme='monokai'/> : null}
+                    </div>
                 </Nav.Column>
-                <Nav.Column>
-                    <Nav.Hovedknapp onClick={this.handleServerJSON.bind(this)}>
-                        <div>{t('p4000:seeServerJSON')}</div>
-                    </Nav.Hovedknapp>
-                    {this.state.serverJSON ? <ReactJson src={this.state.serverJSON} theme='monokai'/> : null}
+                <Nav.Column className='col-6'>
+                     <div className='mb-4 text-center'>
+                        <Nav.Hovedknapp onClick={this.handleServerJSON.bind(this)}>
+                            <div>{t('p4000:seeServerJSON')}</div>
+                        </Nav.Hovedknapp>
+                     </div>
+                     <div style={styles.jsonview}>
+                         {this.state.serverJSON ? <ReactJson src={this.state.serverJSON} theme='monokai'/> : null}
+                     </div>
                 </Nav.Column>
             </Nav.Row>
         </div>

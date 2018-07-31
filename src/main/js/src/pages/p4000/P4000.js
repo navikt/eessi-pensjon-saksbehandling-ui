@@ -126,7 +126,7 @@ class P4000 extends Component {
                     <SideMenu activeItem={activeItem} items={this.getItems()} theme='nav'
                         shouldTriggerClickOnParents={false} onMenuItemClick={this.handleMenuItemClick.bind(this)}/>
                 </Nav.Column>
-                <Nav.Column>
+                <Nav.Column  className='col-lg-9'>
                     <Nav.Panel className='h-100'>
                         <Nav.Row className='row-alert'>
                             <Nav.Column>{alert}</Nav.Column>

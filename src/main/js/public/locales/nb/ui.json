@@ -1,5 +1,6 @@
 {
     "back" : "Back",
+    "bytes" : "bytes",
     "chooseLanguage" : "Choose language",
     "cancel" : "Cancel",
     "confirm" : "Confirm",
@@ -10,8 +11,11 @@
     "dataGenerated" : "Data generated",
     "dataSubmitted" : "Data sent",
     "delete" : "Delete",
+    "download" : "Download",
+    "dropFilesHere" : "Drop files here, or click to select files",
     "edit" : "Edit",
     "endDate" : "End date",
+    "fileUpload" : "File upload",
     "forward" : "Forward",
     "go" : "Go",
     "new" : "New",

@@ -7,11 +7,12 @@ import classNames from 'classnames';
 
 import * as p4000Actions from '../../../actions/p4000';
 
-import CountrySelect from '../../../components/p4000/CountrySelect';
-import DatePicker from '../../../components/p4000/DatePicker';
-import * as Nav from '../../../components/ui/Nav';
-import Icons from '../../../components/ui/Icons';
-import Validation from '../../../components/p4000/Validation';
+import FileUpload from '../FileUpload';
+import CountrySelect from '../CountrySelect';
+import DatePicker from '../DatePicker';
+import Validation from '../Validation';
+import * as Nav from '../../ui/Nav';
+import Icons from '../../ui/Icons';
 
 const mapStateToProps = (state) => {
     return {
@@ -97,6 +98,12 @@ class Learn extends Component {
         });
     }
 
+    handleFileChange(files) {
+
+        const { actions } =  this.props;
+        actions.setEventProperty('files', files);
+    }
+
     render() {
 
         const { t, event, editMode, actions, type } = this.props;
@@ -154,6 +161,12 @@ class Learn extends Component {
                         onChange={(e) => {actions.setEventProperty('other', e.target.value)}} />
                 </Nav.Column>
             </Nav.Row>
+            <Nav.Row className={classNames('eventFileUpload','mb-4','p-4','fieldset')}>
+                <Nav.Column>
+                    <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
+                    <FileUpload files={event.files} onFileChange={this.handleFileChange.bind(this)}/>
+                </Nav.Column>
+            </Nav.Row>
         </Nav.Panel>
     }
 }
@@ -164,7 +177,7 @@ Learn.propTypes = {
     type              : PT.string.isRequired,
     editMode          : PT.bool.isRequired,
     actions           : PT.object.isRequired,
-    provideController : PT.object.isRequired
+    provideController : PT.func.isRequired
 };
 
 export default connect(
