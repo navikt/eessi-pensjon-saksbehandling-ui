@@ -19,7 +19,7 @@ export function navigateBack () {
 export function getUserInfo () {
 
     return api.call({
-        url: urls.GET_USER_INFO_URL,
+        url: urls.UI_GET_USER_INFO_URL,
         type: {
             request : types.USER_INFO_REQUEST,
             success : types.USER_INFO_SUCCESS,

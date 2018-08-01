@@ -66,15 +66,14 @@ class Validation {
         return undefined;
     }
 
-    validateDatePicker(rangeType, event) {
+    validateDatePicker(dateType, event) {
 
-        if ( (rangeType === 'both' && (!event.startDate || !event.endDate)) ||
-              (rangeType === 'endDateOnly' && !event.endDate) ||
-              (rangeType === 'startDateOnly' && !event.startDate)
+        if ( (dateType === 'both' && (!event.startDate || !event.endDate)) ||
+              (dateType !== 'both' && !event.startDate)
         )  {
             return 'p4000:validation-insufficientDates';
         }
-        if (rangeType === 'both' && event.endDate < event.startDate) {
+        if (dateType === 'both' && event.endDate < event.startDate) {
             return 'p4000:validation-endDateEarlierThanStartDate';
         }
         if (event.startDate && event.startDate > new Date()) {

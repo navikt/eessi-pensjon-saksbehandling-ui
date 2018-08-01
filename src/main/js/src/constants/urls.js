@@ -3,16 +3,18 @@ if (window.location.port) {
     BASE_URL = BASE_URL.concat(':' + window.location.port);
 }
 
-export const GET_CASE_NUMBER_URL       = BASE_URL + '/api/case';
-export const GET_SUBJECT_AREA_LIST_URL = BASE_URL + '/api/subjectarea';
-export const GET_INSTITUTION_LIST_URL  = BASE_URL + '/api/institutions';
-export const GET_BUC_LIST_URL          = BASE_URL + '/api/bucs';
-export const GET_SED_LIST_URL          = BASE_URL + '/api/seds';
-export const GET_COUNTRY_LIST_URL      = BASE_URL + '/api/countrycode';
-export const RINA_URL                  = BASE_URL + '/api/rinaurl';
-export const GET_USER_INFO_URL         = BASE_URL + '/api/userinfo';
+export const UI_GET_USER_INFO_URL           = BASE_URL + '/api/userinfo';
 
-export const SEND_DATA_URL             = BASE_URL + '/fag/create';
-export const GENERATE_DATA_URL         = BASE_URL + '/fag/confirm';
+export const CASE_GET_CASE_NUMBER_URL       = BASE_URL + '/api/case';
+export const CASE_GET_SUBJECT_AREA_LIST_URL = BASE_URL + '/api/subjectarea';
+export const CASE_GET_INSTITUTION_LIST_URL  = BASE_URL + '/api/institutions';
+export const CASE_GET_BUC_LIST_URL          = BASE_URL + '/api/bucs';
+export const CASE_GET_SED_LIST_URL          = BASE_URL + '/api/seds';
+export const CASE_GET_COUNTRY_LIST_URL      = BASE_URL + '/api/countrycode';
+export const CASE_GET_RINA_URL              = BASE_URL + '/api/rinaurl';
+export const CASE_SEND_DATA_URL             = BASE_URL + '/fag/create';
+export const CASE_GENERATE_DATA_URL         = BASE_URL + '/fag/confirm';
 
-export const GENERATE_PDF_URL          = BASE_URL + '/api/generatePDF';
+export const PDF_GENERATE_URL               = BASE_URL + '/api/generatePDF';
+
+export const P4000_SUBMIT_URL               = BASE_URL + '/api/experiments/trygdetid';

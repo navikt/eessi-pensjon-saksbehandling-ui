@@ -1,4 +1,6 @@
 import * as types from '../constants/actionTypes';
+import * as urls  from '../constants/urls';
+import * as api   from './api';
 
 export function setPage(newPage) {
 
@@ -105,4 +107,18 @@ export function clearStatus() {
     return {
         type: types.P4000_CLEAR_STATUS
     }
+}
+
+export function submit (p4000) {
+
+    return api.call({
+        url: urls.P4000_SUBMIT_URL,
+        method: 'POST',
+        payload: p4000,
+        type: {
+            request : types.P4000_SUBMIT_REQUEST,
+            success : types.P4000_SUBMIT_SUCCESS,
+            failure : types.P4000_SUBMIT_FAILURE
+        }
+    });
 }

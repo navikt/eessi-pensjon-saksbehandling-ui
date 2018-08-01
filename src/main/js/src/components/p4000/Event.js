@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import classNames from 'classnames';
 import { translate } from 'react-i18next';
+import _ from 'lodash';
 
 import * as p4000Actions from '../../actions/p4000';
 import Icons from '../ui/Icons';
+import * as Nav from '../ui/Nav';
 import './custom-event.css';
 
 const mapDispatchToProps = (dispatch) => {
@@ -30,9 +32,12 @@ class Event extends Component {
 
         const { event, selected, onClick } = this.props;
 
-        return <div className={classNames('d-inline-block','mr-3','eventBadge', { selected: selected })}
+        return <div className={classNames('d-inline-block','mr-3','eventBadge', 'position-relative', { selected: selected })}
             onClick={onClick}>
-            <Icons kind={event.type}/>
+            { !_.isEmpty(event.files) ? <div className='position-absolute' style={{zIndex: 10, right: 0, top: 0}}>
+                <Nav.Ikon size={20} kind='vedlegg'/>
+            </div> : null}
+            <Icons className='eventBadgeIcon' kind={event.type}/>
             <div className='eventBadgeDate'>
                 <div>{this.renderDate(event.startDate)}</div>
                 <div>{this.renderDate(event.endDate)}</div>

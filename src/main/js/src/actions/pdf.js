@@ -47,7 +47,7 @@ export function generatePDF (body) {
     }
 
     return api.call({
-        url: urls.GENERATE_PDF_URL,
+        url: urls.PDF_GENERATE_URL,
         method: 'POST',
         payload: body,
         type: {

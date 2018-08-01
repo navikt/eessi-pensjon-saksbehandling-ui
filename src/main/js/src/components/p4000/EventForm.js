@@ -8,8 +8,8 @@ import classNames from 'classnames';
 import _ from 'lodash';
 
 import * as p4000Actions from '../../actions/p4000';
-import * as Nav from '../../components/ui/Nav';
-import ExistingEvents from '../../components/p4000/ExistingEvents';
+import * as Nav from '../ui/Nav';
+import EventList from './EventList/EventList';
 
 import './custom-eventform.css';
 
@@ -122,7 +122,7 @@ class EventForm extends React.Component {
                 classNames('row-floating-alert', 'no-gutters', {'toFade' : status})
             }>
                 <Nav.Column>
-                    <div className='floatingAlertOnTop'>
+                    <div className='floatingAlertOnTop mt-3'>
                         {status ? <Nav.AlertStripe type='suksess'>{t(status)}</Nav.AlertStripe> : null}
                     </div>
                 </Nav.Column>
@@ -130,7 +130,7 @@ class EventForm extends React.Component {
             <Nav.Row className={classNames('existingEvents', 'mb-4', 'no-gutters',
                 {'hiding' : isMenuPages || _.isEmpty(events)})}>
                 <Nav.Column>
-                    <ExistingEvents events={events} eventIndex={eventIndex} handleEditRequest={this.handleEditRequest.bind(this)}/>
+                    <EventList events={events} eventIndex={eventIndex} handleEditRequest={this.handleEditRequest.bind(this)}/>
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className={classNames('row-component', 'mb-4', {'editMode' : editMode})}>

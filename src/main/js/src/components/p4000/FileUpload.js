@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import PT from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators }  from 'redux';
-import classNames from 'classnames';
 import { translate } from 'react-i18next';
 import Dropzone from 'react-dropzone';
 import _ from 'lodash';
 
-import * as p4000Actions from '../../actions/p4000';
 import './custom-file-upload.css';
 
 class FileUpload extends Component {
@@ -59,8 +55,8 @@ class FileUpload extends Component {
                 let data = 'data:application/octet-stream;base64,' + encodeURIComponent(f.base64);
 
                 res.push(<li className='fileUploadItem' key={f.name}>{f.name} - {f.size} {t('ui:bytes')} (
-                <a onClick={this.removeFile.bind(this, f)} href='#'>{t('ui:remove')}</a>) (
-                <a href={data} download={f.name}>{t('ui:download')}</a>)</li>);
+                    <a onClick={this.removeFile.bind(this, f)} href='#remove'>{t('ui:remove')}</a>) (
+                    <a href={data} download={f.name}>{t('ui:download')}</a>)</li>);
             });
         }
         return res;

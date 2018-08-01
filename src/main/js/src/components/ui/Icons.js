@@ -4,8 +4,6 @@ import PT from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as icons from '@fortawesome/free-solid-svg-icons';
 
-import babyImg from '../../resources/baby.png';
-
 class Icons extends Component {
 
     render () {
@@ -34,6 +32,11 @@ class Icons extends Component {
         case 'file-open' :  return <FontAwesomeIcon icon={icons.faFolderOpen} {...this.props}/>;
         case 'file-save' :  return <FontAwesomeIcon icon={icons.faSave} {...this.props}/>;
         case 'file-submit' :  return <FontAwesomeIcon icon={icons.faUpload} {...this.props}/>;
+
+        case 'plus' :  return <FontAwesomeIcon icon={icons.faPlus} {...this.props}/>;
+        case 'download' :  return <FontAwesomeIcon icon={icons.faDownload} {...this.props}/>;
+        case 'caretRight' :  return <FontAwesomeIcon icon={icons.faCaretRight} {...this.props}/>;
+        case 'server' :  return <FontAwesomeIcon icon={icons.faServer} {...this.props}/>;
         default: return null;
         }
     }

@@ -9,7 +9,7 @@ import * as p4000Actions from '../../../actions/p4000';
 
 import FileUpload from '../FileUpload';
 import CountrySelect from '../CountrySelect';
-import DatePicker from '../DatePicker';
+import DatePicker from '../DatePicker/DatePicker';
 import Validation from '../Validation';
 import * as Nav from '../../ui/Nav';
 import Icons from '../../ui/Icons';
@@ -25,9 +25,11 @@ const mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch)};
 };
 
-class Learn extends Component {
+class Work extends Component {
 
-    state = {}
+    state = {
+        files : {}
+    }
 
     componentDidMount() {
         this.props.provideController({
@@ -86,7 +88,7 @@ class Learn extends Component {
                 }
 
                 this.setState({
-                    infoValidationError : Validation.validateLearnInfo(event),
+                    infoValidationError : Validation.validateWorkInfo(event),
                     otherValidationError : Validation.validateOther(event)
                 }, () => {
                     // after setting up state, use it to see the validation state
@@ -138,9 +140,30 @@ class Learn extends Component {
                     <Nav.HjelpetekstBase className='float-right'>{t('p4000:help-' + type + '-info')}</Nav.HjelpetekstBase>
                     <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-2-info-title')}</h2>
 
-                    <Nav.Input label={t('p4000:' + type + '-fieldset-2_1-name')} value={event.name}
+                    <Nav.Input label={t('p4000:' + type + '-fieldset-2_1-activity') + ' *'} value={event.activity || ''}
+                        onChange={(e) => {actions.setEventProperty('activity', e.target.value)}} />
+
+                    <Nav.Input label={t('p4000:' + type + '-fieldset-2_2-id') + ' *'} value={event.id || ''}
+                        onChange={(e) => {actions.setEventProperty('id', e.target.value)}} />
+
+                    <Nav.Input label={t('p4000:' + type + '-fieldset-2_3-name') + ' *'} value={event.name || ''}
                         onChange={(e) => {actions.setEventProperty('name', e.target.value)}} />
 
+                    <h4>{t('p4000:' + type + '-fieldset-2_4-address')}</h4>
+
+                    <div className='ml-4'>
+                        <Nav.Input label={t('ui:street') + ' *'} value={event.street || ''}
+                            onChange={(e) => {actions.setEventProperty('street', e.target.value)}} />
+
+                        <Nav.Input label={t('ui:buildingName') + ' *'} value={event.buildingName || ''}
+                            onChange={(e) => {actions.setEventProperty('buildingName', e.target.value)}} />
+
+                        <Nav.Input label={t('ui:city') + ' *'} value={event.city || ''}
+                            onChange={(e) => {actions.setEventProperty('city', e.target.value)}} />
+
+                        <Nav.Input label={t('ui:region') + ' *'} value={event.region || ''}
+                            onChange={(e) => {actions.setEventProperty('region', e.target.value)}} />
+                    </div>
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className={classNames('eventOther','mb-4','p-4','fieldset', {
@@ -171,7 +194,7 @@ class Learn extends Component {
     }
 }
 
-Learn.propTypes = {
+Work.propTypes = {
     t                 : PT.func.isRequired,
     event             : PT.object.isRequired,
     type              : PT.string.isRequired,
@@ -184,5 +207,5 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(
-    translate()(Learn)
+    translate()(Work)
 );

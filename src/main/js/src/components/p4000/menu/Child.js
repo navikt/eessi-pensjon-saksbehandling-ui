@@ -4,12 +4,13 @@ import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import classNames from 'classnames';
+import ReactDatePicker from 'react-date-picker';
 
 import * as p4000Actions from '../../../actions/p4000';
 
 import FileUpload from '../FileUpload';
 import CountrySelect from '../CountrySelect';
-import DatePicker from '../DatePicker';
+import DatePicker from '../DatePicker/DatePicker';
 import Validation from '../Validation';
 import * as Nav from '../../ui/Nav';
 import Icons from '../../ui/Icons';
@@ -25,7 +26,7 @@ const mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch)};
 };
 
-class Home extends Component {
+class Child extends Component {
 
     state = {}
 
@@ -41,12 +42,17 @@ class Home extends Component {
         this.props.provideController(null)
     }
 
+    hasNoInfoErrors() {
+        return this.state.infoValidationError === undefined
+    }
+
     hasNoOtherErrors() {
         return this.state.otherValidationError === undefined
     }
 
     hasNoValidationErrors() {
-        return this.hasNoOtherErrors() && this.datepicker ? this.datepicker.hasNoValidationErrors() : undefined;
+        return this.hasNoInfoErrors() && this.hasNoOtherErrors() &&
+            this.datepicker ? this.datepicker.hasNoValidationErrors() : undefined;
     }
 
     async resetValidation() {
@@ -58,6 +64,7 @@ class Home extends Component {
                     await this.datepicker.resetValidation();
                 }
                 this.setState({
+                    infoValidationError: undefined,
                     otherValidationError: undefined
                 }, () => {
                     resolve();
@@ -80,8 +87,10 @@ class Home extends Component {
                 }
 
                 this.setState({
+                    infoValidationError : Validation.validateChildInfo(event),
                     otherValidationError : Validation.validateOther(event)
                 }, () => {
+                    // after setting up state, use it to see the validation state
                     resolve(this.hasNoValidationErrors());
                 });
             } catch (error) {
@@ -122,23 +131,45 @@ class Home extends Component {
                     <DatePicker provideController={(datepicker) => this.datepicker = datepicker}/>
                 </Nav.Column>
             </Nav.Row>
+            <Nav.Row className={classNames('eventInfo','mb-4','p-4','fieldset', {
+                validationFail : this ? !this.hasNoInfoErrors() : false
+            })}>
+                <Nav.Column>
+                    {!this.hasNoInfoErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.infoValidationError)}</Nav.AlertStripe> : null}
+                    <Nav.HjelpetekstBase className='float-right'>{t('p4000:help-' + type + '-info')}</Nav.HjelpetekstBase>
+                    <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-2-info-title')}</h2>
+
+                    <Nav.Input label={t('p4000:' + type + '-fieldset-2_1-lastname')} value={event.lastname}
+                        onChange={(e) => {actions.setEventProperty('lastname', e.target.value)}} />
+
+                    <Nav.Input label={t('p4000:' + type + '-fieldset-2_2-firstname')} value={event.firstname}
+                        onChange={(e) => {actions.setEventProperty('firstname', e.target.value)}} />
+
+                    <div>
+                        <label>{t('p4000:' + type + '-fieldset-2_3-birthdate')}</label>
+                    </div>
+                    <div>
+                        <ReactDatePicker value={event.birthDate}
+                            locale='no-NB'
+                            onChange={(date) => actions.setEventProperty('birthDate', date)}/>
+                    </div>
+                </Nav.Column>
+            </Nav.Row>
             <Nav.Row className={classNames('eventOther','mb-4','p-4','fieldset', {
                 validationFail : this ? ! this.hasNoOtherErrors() : false
             })}>
                 <Nav.Column>
-                    <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-2-other-title')}</h2>
+                    <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-3-other-title')}</h2>
                     {!this.hasNoOtherErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.otherValidationError)}</Nav.AlertStripe> : null}
                     <div className='mb-3'>
                         <div>
                             <label>{t('ui:country') + ' *'}</label>
                         </div>
                         <CountrySelect value={event.country || {}} multi={false}
-                            flagImagePath="../../../flags/"
-                            onSelect={(e) => {
-                                actions.setEventProperty('country', e)}
-                            }/>
+                            flagImagePath='../../../flags/'
+                            onSelect={(e) => {actions.setEventProperty('country', e)}}/>
                     </div>
-                    <Nav.Textarea style={{minHeight:'200px'}} label={t('p4000:' + type + '-fieldset-2_1-other')} value={event.other || ''}
+                    <Nav.Textarea style={{minHeight:'200px'}} label={t('p4000:' + type + '-fieldset-3_1-other')} value={event.other || ''}
                         onChange={(e) => {actions.setEventProperty('other', e.target.value)}} />
                 </Nav.Column>
             </Nav.Row>
@@ -152,19 +183,18 @@ class Home extends Component {
     }
 }
 
-Home.propTypes = {
+Child.propTypes = {
     t                 : PT.func.isRequired,
     event             : PT.object.isRequired,
     type              : PT.string.isRequired,
     editMode          : PT.bool.isRequired,
     actions           : PT.object.isRequired,
     provideController : PT.func.isRequired
-
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(
-    translate()(Home)
+    translate()(Child)
 );

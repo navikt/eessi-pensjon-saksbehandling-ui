@@ -1,4 +1,5 @@
 {
+    "addAll" : "Add all",
     "back" : "Back",
     "bytes" : "bytes",
     "chooseLanguage" : "Choose language",
@@ -19,9 +20,6 @@
     "forward" : "Forward",
     "go" : "Go",
     "new" : "New",
-    "onlyEndDate" : "Only end date",
-    "onlyStartDate" : "Only start date",
-    "rangePeriod" : "Range period",
     "remove" : "Remove",
     "resume" : "Resume",
     "save"   : "Save",

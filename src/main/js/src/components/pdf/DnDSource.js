@@ -4,6 +4,7 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
+import { translate } from 'react-i18next';
 
 import PDFPageInDnD from './PDFPageInDnD';
 
@@ -52,20 +53,20 @@ class DnDSource extends Component {
             if (! _.find(recipe, page)) {
                 return newRecipe.push(page);
             }
-            return;
+            return page;
         });
         actions.setRecipe(newRecipe);
     }
 
     render () {
 
-        const { pdf, recipe } = this.props;
+        const { t, pdf, recipe } = this.props;
 
         let selectedPages = _.filter(recipe, {fileName: pdf.fileName});
 
         return <div>
             <div>File: {pdf.fileName}</div>
-            <div><a href='#' onClick={this.addAllPagesToTargetPdf.bind(this, pdf.fileName)}>add all</a></div>
+            <div><a href='#addAll' onClick={this.addAllPagesToTargetPdf.bind(this, pdf.fileName)}>{t('ui:addAll')}</a></div>
 
             <Droppable droppableId={'dndsource-' + pdf.fileName} direction='horizontal'>
 
@@ -111,4 +112,6 @@ DnDSource.propTypes = {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(DnDSource);
+)(
+    translate()(DnDSource)
+);

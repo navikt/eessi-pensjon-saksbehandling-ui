@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import Select from 'react-select'
 import PT from 'prop-types'
 import { translate } from 'react-i18next'
-//import 'react-select/dist/react-select.css'
+import 'react-select/dist/react-select.css'
 import {countries} from './CountrySelectData'
 
 class CountrySelect extends Component {

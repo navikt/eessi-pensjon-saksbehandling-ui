@@ -6,11 +6,11 @@ import { bindActionCreators }  from 'redux';
 import classNames from 'classnames';
 import ReactDatePicker from 'react-date-picker';
 
-import Validation from './Validation';
-import * as Nav from '../ui/Nav';
-import * as p4000Actions from '../../actions/p4000';
+import Validation from '../Validation';
+import * as Nav from '../../ui/Nav';
+import * as p4000Actions from '../../../actions/p4000';
 
-import './custom-datepicker.css';
+import './DatePicker.css';
 
 const mapStateToProps = (state) => {
     return {
@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch) => {
 class DatePicker extends Component {
 
     state = {
-        rangeType: 'both',
+        dateType: 'both',
         validationError: undefined
     };
 
@@ -73,7 +73,7 @@ class DatePicker extends Component {
 
             try {
                 this.setState({
-                    validationError : Validation.validateDatePicker(this.state.rangeType, event)
+                    validationError : Validation.validateDatePicker(this.state.dateType, event)
                 }, () => {
                     // after setting up state, use it to see the validation state
                     resolve(this.hasNoValidationErrors());
@@ -87,15 +87,13 @@ class DatePicker extends Component {
     handlePeriodChange(e) {
 
         let { event, actions } = this.props;
-        let rangeType = e.target.value;
+        let dateType = e.target.value;
 
         this.setState({
-            rangeType: rangeType
+            dateType: dateType
         }, () => {
-            if (rangeType === 'onlyEndDate' && event.startDate) {
-                actions.setEventProperty('startDate', undefined);
-            }
-            if (rangeType === 'onlyStartDate' && event.endDate) {
+            actions.setEventProperty('dateType', dateType);
+            if (dateType !== 'both' && event.endDate) {
                 actions.setEventProperty('endDate', undefined);
             }
         });
@@ -106,7 +104,7 @@ class DatePicker extends Component {
         let { event, actions } = this.props;
         let validationError = undefined;
 
-        if (this.state.rangeType === 'both') {
+        if (this.state.dateType === 'both') {
             if (event.endDate && event.endDate < date) {
                 validationError = 'p4000:validation-endDateEarlierThanStartDate';
             }
@@ -118,6 +116,7 @@ class DatePicker extends Component {
         this.setState({
             validationError : validationError
         }, () => {
+            actions.setEventProperty('dateType', this.state.dateType);
             actions.setEventProperty('startDate', date);
         });
     }
@@ -127,7 +126,7 @@ class DatePicker extends Component {
         let { event, actions } = this.props;
         let validationError = undefined;
 
-        if (this.state.rangeType === 'both') {
+        if (this.state.dateType === 'both') {
             if (event.startDate && event.startDate > date) {
                 validationError = 'p4000:validation-endDateEarlierThanStartDate';
             }
@@ -139,6 +138,7 @@ class DatePicker extends Component {
         this.setState({
             validationError : validationError
         }, () => {
+            actions.setEventProperty('dateType', this.state.dateType);
             actions.setEventProperty('endDate', date);
         });
     }
@@ -155,12 +155,12 @@ class DatePicker extends Component {
 
         return <div className={classNames('div-datePicker', 'p-2')}>
             {!this.hasNoValidationErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.validationError)}</Nav.AlertStripe> : null}
-            <Nav.Row className='row-datePicker-toggleButton no-gutters mb-3'>
+            <Nav.Row className='row-datePicker-toggleButton no-gutters mb-5'>
                 <Nav.Column className='text-center'>
                     <Nav.ToggleGruppe name='datePickerType' style={{display: 'inline-flex'}} onChange={this.handlePeriodChange.bind(this)}>
-                        <Nav.ToggleKnapp value='both' defaultChecked={true} key='1'>{t('ui:rangePeriod')}</Nav.ToggleKnapp>
-                        <Nav.ToggleKnapp value='onlyStartDate' defaultChecked={false} key='2'>{t('ui:onlyStartDate')}</Nav.ToggleKnapp>
-                        <Nav.ToggleKnapp value='onlyEndDate' defaultChecked={false} key='3'>{t('ui:onlyEndDate')}</Nav.ToggleKnapp>
+                        <Nav.ToggleKnapp value='both' defaultChecked={true} key='1'>{t('p4000:rangePeriod')}</Nav.ToggleKnapp>
+                        <Nav.ToggleKnapp value='onlyStartDate01' defaultChecked={false} key='2'>{t('p4000:onlyStartDate01')}</Nav.ToggleKnapp>
+                        <Nav.ToggleKnapp value='onlyStartDate98' defaultChecked={false} key='3'>{t('p4000:onlyStartDate98')}</Nav.ToggleKnapp>
                     </Nav.ToggleGruppe>
                     <Nav.Checkbox className='d-inline-flex ml-4' label={t('p4000:uncertainDate')}
                         checked={event.uncertainDate}
@@ -169,13 +169,13 @@ class DatePicker extends Component {
             </Nav.Row>
             <Nav.Row className='row-datepickers no-gutters'>
                 <Nav.Column className='text-center'>
-                    <ReactDatePicker value={event.startDate} disabled={this.state.rangeType === 'onlyEndDate'}
+                    <ReactDatePicker value={event.startDate}
                         locale='no-NB'
                         onChange={this.onStartDateChange.bind(this)}/>
                     <div>{this.state.onStartDateFail}</div>
                 </Nav.Column>
                 <Nav.Column className='text-center'>
-                    <ReactDatePicker value={event.endDate} disabled={this.state.rangeType === 'onlyStartDate'}
+                    <ReactDatePicker value={event.endDate} disabled={this.state.dateType !== 'both'}
                         locale='no-NB'
                         onChange={this.onEndDateChange.bind(this)}/>
                     <div>{this.state.onEndDateFail}</div>

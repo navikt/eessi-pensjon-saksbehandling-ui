@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PT from 'prop-types';
+import classNames from 'classnames';
 
 import * as Nav from './Nav'
 import TopHeader from './TopHeader';
@@ -9,7 +10,9 @@ class TopContainer extends Component {
 
     render () {
 
-        return <div className='h-100'>
+        const { className, style } = this.props;
+
+        return <div style={style} className={classNames(className)}>
             <TopHeader/>
             <AlertHeader/>
             <Nav.Container fluid={true}>
@@ -20,7 +23,9 @@ class TopContainer extends Component {
 }
 
 TopContainer.propTypes = {
-    children : PT.node.isRequired
+    children : PT.node.isRequired,
+    classNames : PT.string,
+    styles : PT.object
 };
 
 export default TopContainer;

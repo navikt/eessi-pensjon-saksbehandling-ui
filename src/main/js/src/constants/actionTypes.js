@@ -63,6 +63,10 @@ export const SETTINGS_SET_PDF_SIZE = 'SETTINGS/SET_PDF_SIZE';
 
 export const P4000_NEW                = 'P4000/NEW';
 export const P4000_OPEN               = 'P4000/OPEN';
+export const P4000_SUBMIT_REQUEST     = 'P4000/SUBMIT/REQUEST';
+export const P4000_SUBMIT_SUCCESS     = 'P4000/SUBMIT/SUCCESS';
+export const P4000_SUBMIT_FAILURE     = 'P4000/SUBMIT/FAILURE';
+
 export const P4000_PAGE_SET           = 'P4000/PAGE/SET';
 export const P4000_CLEAR_STATUS       = 'P4000/CLEAR_STATUS';
 

@@ -7,16 +7,14 @@ import { SideMenu } from 'react-sidemenu';
 
 import '@fortawesome/fontawesome-free/css/all.css';
 import 'react-sidemenu/dist/react-sidemenu.min.css';
-import './sidemenu.css';
+import './P4000.css';
 
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import EventForm from '../../components/p4000/EventForm';
+import * as Menu from '../../components/p4000/menu/';
 
 import * as p4000Actions from '../../actions/p4000';
-
-import * as Events from '../../components/p4000/events/';
-import * as Views from '../../components/p4000/views/';
 
 const mapStateToProps = (state) => {
     return {
@@ -32,25 +30,25 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const styles = {
-    menu: {
-        backgroundColor: 'white'
+    background: {
+        backgroundColor: 'white',
+        minHeight: '100vh'
     }
 }
 
 const components = {
-    file: Views.File,
-    view: Views.View,
-    timeline: Views.Timeline,
-    work: Events.Work,
-    home: Events.GenericEvent,
-    child: Events.Child,
-    voluntary: Events.GenericEvent,
-    military: Events.GenericEvent,
-    birth: Events.GenericEvent,
-    learn: Events.Learn,
-    daily: Events.GenericEvent,
-    sick: Events.GenericEvent,
-    other: Events.GenericEvent
+    file: Menu.File,
+    view: Menu.View,
+    work: Menu.Work,
+    home: Menu.GenericEvent,
+    child: Menu.Child,
+    voluntary: Menu.GenericEvent,
+    military: Menu.GenericEvent,
+    birth: Menu.GenericEvent,
+    learn: Menu.Learn,
+    daily: Menu.GenericEvent,
+    sick: Menu.GenericEvent,
+    other: Menu.GenericEvent
 }
 
 class P4000 extends Component {
@@ -90,10 +88,9 @@ class P4000 extends Component {
         const { t } = this.props;
 
         return [
-            {label: t('p4000:views'),     value: '_view',     divider: true},
+            {label: t('p4000:menu'),      value: '_menu',     divider: true},
             {label: t('p4000:file'),      value: 'file',      icon: 'fa-file'},
             {label: t('p4000:view'),      value: 'view',      icon: 'fa-eye'},
-            {label: t('p4000:timeline'),  value: 'timeline',  icon: 'fa-calendar-check'},
             {label: t('p4000:events'),    value: '_event',    divider: true, },
             {label: t('p4000:work'),      value: 'work',      icon: 'fa-briefcase'},
             {label: t('p4000:home'),      value: 'home',      icon: 'fa-home'},
@@ -119,24 +116,22 @@ class P4000 extends Component {
         let activeItem  = editMode && event ? event.type : page;
         let Component = components[activeItem];
 
-        return <TopContainer>
-            <h1 className='mt-3 appTitle'>{t('p4000:createNewP4000Title')}</h1>
-            <Nav.Row className='no-gutters'>
-                <Nav.Column className='col-lg-3' style={styles.menu}>
+        return <TopContainer style={styles.background}>
+            <Nav.Row>
+                <Nav.Column className='col' style={{maxWidth: '300px', padding: 0}}>
+                    <h1 className='mt-4 ml-3 appTitle'>{t('p4000:app-title')}</h1>
                     <SideMenu activeItem={activeItem} items={this.getItems()} theme='nav'
                         shouldTriggerClickOnParents={false} onMenuItemClick={this.handleMenuItemClick.bind(this)}/>
                 </Nav.Column>
-                <Nav.Column  className='col-lg-9'>
-                    <Nav.Panel className='h-100'>
-                        <Nav.Row className='row-alert'>
-                            <Nav.Column>{alert}</Nav.Column>
-                        </Nav.Row>
-                        <Nav.Row className='row-eventForm'>
-                            <Nav.Column>
-                                <EventForm type={activeItem} Component={Component}/>
-                            </Nav.Column>
-                        </Nav.Row>
-                    </Nav.Panel>
+                <Nav.Column className='col' style={{marginLeft: '-10px'}}>
+                    <Nav.Row className='row-alert'>
+                        <Nav.Column>{alert}</Nav.Column>
+                    </Nav.Row>
+                    <Nav.Row className='row-eventForm'>
+                        <Nav.Column>
+                            <EventForm type={activeItem} Component={Component}/>
+                        </Nav.Column>
+                    </Nav.Row>
                 </Nav.Column>
             </Nav.Row>
         </TopContainer>

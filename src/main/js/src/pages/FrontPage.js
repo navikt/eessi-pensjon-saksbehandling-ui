@@ -42,7 +42,7 @@ class FrontPage extends Component {
                     } href="#">{t('pdf:createPdf')}</Nav.Lenkepanel>
                     <Nav.Lenkepanel className='frontPageLink' linkCreator={(props) => (
                         <Link to='/react/p4000' {...props}/>)
-                    } href="#">{t('p4000:startP4000')}</Nav.Lenkepanel>
+                    } href="#">{t('p4000:app-startP4000')}</Nav.Lenkepanel>
                 </Nav.Column>
             </Nav.Row>
         </TopContainer>
