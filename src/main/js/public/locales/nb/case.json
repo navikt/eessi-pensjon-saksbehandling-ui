@@ -55,9 +55,9 @@
     "loadingRinaUrl" : "Getting URL...",
     "loadingGettingUserInfo" : "Getting user info...",
 
-    "validation:ChooseBuc" : "Choose a BUC",
-    "validation:ChooseCountry" : "Choose a country",
-    "validation:ChooseInstitution" : "Choose a institution",
-    "validation:ChooseSed" : "Choose a SED",
-    "validation:ChooseSubjectArea" : "Choose a subject area"
+    "validationChooseBuc" : "Choose a BUC",
+    "validationChooseCountry" : "Choose a country",
+    "validationChooseInstitution" : "Choose a institution",
+    "validationChooseSed" : "Choose a SED",
+    "validationChooseSubjectArea" : "Choose a subject area"
 }

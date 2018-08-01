@@ -21,8 +21,8 @@ const mapStateToProps = (state) => {
         countryList     : state.usercase.countryList,
         currentCase     : state.usercase.currentCase,
         dataToConfirm   : state.usercase.dataToConfirm,
-        errorMessage    : state.error.clientErrorMessage,
-        errorStatus     : state.error.clientErrorStatus,
+        errorMessage    : state.alert.clientErrorMessage,
+        errorStatus     : state.alert.clientErrorStatus,
         language        : state.ui.language,
         action          : state.ui.action,
         loading         : state.loading

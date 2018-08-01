@@ -11,7 +11,7 @@ import './P4000.css';
 
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
-import EventForm from '../../components/p4000/EventForm';
+import EventForm from '../../components/p4000/EventForm/EventForm';
 import * as Menu from '../../components/p4000/menu/';
 
 import * as p4000Actions from '../../actions/p4000';
@@ -21,20 +21,13 @@ const mapStateToProps = (state) => {
         events   : state.p4000.events,
         editMode : state.p4000.editMode,
         event    : state.p4000.event,
-        page     : state.p4000.page
+        page     : state.p4000.page,
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch)};
 };
-
-const styles = {
-    background: {
-        backgroundColor: 'white',
-        minHeight: '100vh'
-    }
-}
 
 const components = {
     file: Menu.File,
@@ -112,26 +105,20 @@ class P4000 extends Component {
         if (!this.state.isLoaded) {
             return null;
         }
-        let alert = null;
-        let activeItem  = editMode && event ? event.type : page;
-        let Component = components[activeItem];
 
-        return <TopContainer style={styles.background}>
+        let activeItem  = editMode && event ? event.type : page;
+        let Component   = components[activeItem];
+
+        return <TopContainer className='topContainer'>
             <Nav.Row>
-                <Nav.Column className='col' style={{maxWidth: '300px', padding: 0}}>
-                    <h1 className='mt-4 ml-3 appTitle'>{t('p4000:app-title')}</h1>
+                <Nav.Column style={{maxWidth: '300px', padding: 0}}>
+                    <h1 className='mt-4 ml-3 mb-2 appTitle'>{t('p4000:app-title')}</h1>
                     <SideMenu activeItem={activeItem} items={this.getItems()} theme='nav'
-                        shouldTriggerClickOnParents={false} onMenuItemClick={this.handleMenuItemClick.bind(this)}/>
+                        shouldTriggerClickOnParents={false}
+                        onMenuItemClick={this.handleMenuItemClick.bind(this)}/>
                 </Nav.Column>
-                <Nav.Column className='col' style={{marginLeft: '-10px'}}>
-                    <Nav.Row className='row-alert'>
-                        <Nav.Column>{alert}</Nav.Column>
-                    </Nav.Row>
-                    <Nav.Row className='row-eventForm'>
-                        <Nav.Column>
-                            <EventForm type={activeItem} Component={Component}/>
-                        </Nav.Column>
-                    </Nav.Row>
+                <Nav.Column className='row-eventForm'>
+                    <EventForm type={activeItem} Component={Component}/>
                 </Nav.Column>
             </Nav.Row>
         </TopContainer>

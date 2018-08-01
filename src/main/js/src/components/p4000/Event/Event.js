@@ -6,10 +6,11 @@ import classNames from 'classnames';
 import { translate } from 'react-i18next';
 import _ from 'lodash';
 
-import * as p4000Actions from '../../actions/p4000';
-import Icons from '../ui/Icons';
-import * as Nav from '../ui/Nav';
-import './custom-event.css';
+import * as p4000Actions from '../../../actions/p4000';
+
+import Icons from '../../ui/Icons';
+import * as Nav from '../../ui/Nav';
+import './Event.css';
 
 const mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch)};

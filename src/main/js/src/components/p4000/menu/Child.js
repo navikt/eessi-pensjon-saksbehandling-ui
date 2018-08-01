@@ -8,8 +8,8 @@ import ReactDatePicker from 'react-date-picker';
 
 import * as p4000Actions from '../../../actions/p4000';
 
-import FileUpload from '../FileUpload';
-import CountrySelect from '../CountrySelect';
+import FileUpload from '../FileUpload/FileUpload';
+import CountrySelect from '../CountrySelect/CountrySelect';
 import DatePicker from '../DatePicker/DatePicker';
 import Validation from '../Validation';
 import * as Nav from '../../ui/Nav';

@@ -4,7 +4,7 @@ import { translate } from 'react-i18next';
 import Dropzone from 'react-dropzone';
 import _ from 'lodash';
 
-import './custom-file-upload.css';
+import './FileUpload.css';
 
 class FileUpload extends Component {
 
@@ -20,7 +20,7 @@ class FileUpload extends Component {
                 let data = new Uint8Array(e.target.result);
                 let base64 = window.btoa(String.fromCharCode(...data));
 
-                let newFiles = _.isEmpty(files) ? {} : files.slice();
+                let newFiles = _.isEmpty(files) ? {} : _.clone(files);
                 newFiles[file.name] = {
                     'base64' : base64,
                     'size' : file.size,
@@ -38,7 +38,7 @@ class FileUpload extends Component {
         const { onFileChange, files } = this.props;
 
         e.preventDefault();
-        let newFiles = _.isEmpty(files) ? {} : files.slice();
+        let newFiles = _.isEmpty(files) ? {} : _.clone(files);
         delete newFiles[file.name];
         onFileChange(newFiles);
     }

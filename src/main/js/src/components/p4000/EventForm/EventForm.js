@@ -7,19 +7,19 @@ import { withRouter } from 'react-router';
 import classNames from 'classnames';
 import _ from 'lodash';
 
-import * as p4000Actions from '../../actions/p4000';
-import * as Nav from '../ui/Nav';
-import EventList from './EventList/EventList';
+import * as p4000Actions from '../../../actions/p4000';
+import * as Nav from '../../ui/Nav';
+import ClientAlert from '../../ui/ClientAlert/ClientAlert';
+import EventList from '../EventList/EventList';
 
-import './custom-eventform.css';
+import './EventForm.css';
 
 const mapStateToProps = (state) => {
     return {
         events     : state.p4000.events,
         editMode   : state.p4000.editMode,
         event      : state.p4000.event,
-        eventIndex : state.p4000.eventIndex,
-        status     : state.p4000.status
+        eventIndex : state.p4000.eventIndex
     }
 };
 
@@ -28,11 +28,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 class EventForm extends React.Component {
-
-    state = {
-        status  : undefined,
-        timeout : undefined
-    }
 
     async handleSave () {
 
@@ -89,46 +84,18 @@ class EventForm extends React.Component {
         actions.cancelEditEvent(eventIndex);
     }
 
-    handleTimeouts() {
-
-        const { status, actions } = this.props;
-
-        if (status !== this.state.status) {
-            if (this.state.timeout) {
-                clearTimeout(this.state.timeout);
-            }
-            let timeout = setTimeout(() => {
-                actions.clearStatus();
-            }, 5000);
-
-            this.setState({
-                timeout: timeout,
-                status: status
-            });
-        }
-    }
-
     render() {
 
-        let { t, type, editMode, eventIndex, events, status, Component } = this.props;
+        let { t, type, editMode, eventIndex, events, Component } = this.props;
         let isMenuPages = (type === 'view' || type === 'timeline' || type === 'file');
 
-        if (status) {
-            this.handleTimeouts();
-        }
-
-        return <div className='div-eventForm'>
-            <Nav.Row style={{minHeight:'90px'}} className={
-                classNames('row-floating-alert', 'no-gutters', {'toFade' : status})
-            }>
+        return <Nav.Panel className='panel-eventForm' style={{padding: 0, paddingBottom: '2rem'}}>
+            <Nav.Row className='row-floating-alert floatingAlertOnTop mt-3'>
                 <Nav.Column>
-                    <div className='floatingAlertOnTop mt-3'>
-                        {status ? <Nav.AlertStripe type='suksess'>{t(status)}</Nav.AlertStripe> : null}
-                    </div>
+                    <ClientAlert/>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className={classNames('existingEvents', 'mb-4', 'no-gutters',
-                {'hiding' : isMenuPages || _.isEmpty(events)})}>
+            <Nav.Row className={classNames('existingEvents', 'mb-4', {'hiding' : isMenuPages || _.isEmpty(events)})}>
                 <Nav.Column>
                     <EventList events={events} eventIndex={eventIndex} handleEditRequest={this.handleEditRequest.bind(this)}/>
                 </Nav.Column>
@@ -139,24 +106,31 @@ class EventForm extends React.Component {
                 </Nav.Column>
             </Nav.Row>
             {isMenuPages ? null :
-                <Nav.Row className='row-buttons mb-4'>
-                    <Nav.Column>
-                        <div>
-                            {!editMode ? <Nav.Hovedknapp className='saveButton'
-                                onClick={this.handleSave.bind(this)}>{t('ui:save')}</Nav.Hovedknapp> : null}
-                            {!editMode ? <Nav.Hovedknapp className='saveAndBackButton ml-3'
-                                onClick={this.handleSaveAndBack.bind(this)}>{t('ui:saveAndBack')}</Nav.Hovedknapp> : null}
-                            {editMode ?  <Nav.Hovedknapp className='editButton'   onClick={this.handleEdit.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp> : null}
-                            {editMode ?  <Nav.Knapp className='deleteButton ml-3' onClick={this.handleDelete.bind(this)}>{t('ui:delete')}</Nav.Knapp>  : null}
-                            {editMode ?  <Nav.Knapp className='cancelButton ml-3' onClick={this.handleCancel.bind(this)}>{t('ui:cancel')}</Nav.Knapp>  : null}
-                        </div>
-                        <div>
-                            {status ? <Nav.AlertStripe className='mt-3 toFade' type='suksess'>{t(status)}</Nav.AlertStripe> : null}
-                        </div>
-                    </Nav.Column>
-                </Nav.Row>
-            }
-        </div>
+                <Nav.Row className='row-buttons mb-4 text-center'>
+                    {!editMode ? <Nav.Column>
+                        <Nav.Hovedknapp className='saveButton'
+                          onClick={this.handleSave.bind(this)}>{t('ui:save')}</Nav.Hovedknapp>
+                        </Nav.Column> : null}
+                    {!editMode ? <Nav.Column>
+                        <Nav.Knapp className='saveAndBackButton'
+                          onClick={this.handleSaveAndBack.bind(this)}>{t('ui:saveAndBack')}</Nav.Knapp>
+                        </Nav.Column> : null}
+                    {editMode ? <Nav.Column>
+                        <Nav.Hovedknapp className='editButton'   onClick={this.handleEdit.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp>
+                        </Nav.Column> : null}
+                    {editMode ? <Nav.Column>
+                        <Nav.Knapp className='deleteButton' onClick={this.handleDelete.bind(this)}>{t('ui:delete')}</Nav.Knapp>
+                        </Nav.Column> : null}
+                    {editMode ? <Nav.Column>
+                        <Nav.Knapp className='cancelButton' onClick={this.handleCancel.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
+                        </Nav.Column> : null}
+                </Nav.Row>}
+            <Nav.Row>
+                <Nav.Column>
+                    <ClientAlert/>
+                </Nav.Column>
+            </Nav.Row>
+        </Nav.Panel>
     }
 }
 

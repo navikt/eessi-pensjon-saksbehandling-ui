@@ -4,7 +4,7 @@ import _ from 'lodash';
 import classNames from 'classnames';
 import { translate } from 'react-i18next';
 
-import Event from '../Event';
+import Event from '../Event/Event';
 import './EventList.css';
 
 class EventList extends Component {

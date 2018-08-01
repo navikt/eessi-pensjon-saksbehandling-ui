@@ -17,8 +17,8 @@ import * as uiActions from '../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
-        errorMessage : state.error.clientErrorMessage,
-        errorStatus  : state.error.clientErrorStatus,
+        errorMessage : state.alert.clientErrorMessage,
+        errorStatus  : state.alert.clientErrorStatus,
         editingPDF   : state.loading.editingPDF,
         language     : state.ui.language,
         pdfs         : state.pdf.pdfs,

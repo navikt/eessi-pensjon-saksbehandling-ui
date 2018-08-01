@@ -37,6 +37,7 @@ export default function (state = {}, action = {}) {
     case types.USERCASE_SEND_DATA_REQUEST:
     case types.USERCASE_GENERATE_DATA_REQUEST:
     case types.RINA_GET_URL_REQUEST:
+    case types.ALERT_CLIENT_CLEAR:
 
         return Object.assign({}, state, {
             clientErrorMessage : undefined,
@@ -101,6 +102,56 @@ export default function (state = {}, action = {}) {
             clientErrorStatus  : 'ERROR',
             clientErrorMessage : 'pdf:errorPdfGenerationFail'
         });
+
+   case types.P4000_NEW:
+
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'OK',
+            clientErrorMessage : 'p4000:newP4000Form'
+        });
+
+   case types.P4000_OPEN:
+
+         return Object.assign({}, state, {
+             clientErrorStatus  : 'OK',
+             clientErrorMessage : 'p4000:openP4000Form'
+         });
+
+   case types.P4000_EVENT_ADD:
+
+         return Object.assign({}, state, {
+             clientErrorStatus  : 'OK',
+             clientErrorMessage : 'p4000:addedP4000Event'
+         });
+
+   case types.P4000_EVENT_REPLACE:
+
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'OK',
+            clientErrorMessage : 'p4000:replacedP4000Event'
+        });
+
+   case types.P4000_EVENT_DELETE:
+
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'OK',
+            clientErrorMessage : 'p4000:deletedP4000Event'
+        });
+
+   case types.P4000_SUBMIT_SUCCESS:
+
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'OK',
+            clientErrorMessage : 'p4000:file-submitSuccess'
+        });
+
+   case types.P4000_SUBMIT_FAILURE:
+
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'ERROR',
+            clientErrorMessage : 'p4000:file-submitFailure'
+        });
+
 
     default:
 

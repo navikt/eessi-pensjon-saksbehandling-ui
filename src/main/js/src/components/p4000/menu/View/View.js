@@ -25,27 +25,49 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const options = {
-    width: '100%',
-    orientation: 'top',
-    showTooltips: true
+    width        : '100%',
+    orientation  : 'top',
+    showTooltips : true
 }
 
 class View extends Component {
 
-    state = {}
+    state = {
+        formData: undefined,
+        p4000Data : undefined,
+        formDataButtonLabel: 'p4000:seeFormData',
+        p4000DataButtonLabel: 'p4000:seeP4000Data'
 
-    handleClientJSON() {
-
-        this.setState({
-            clientJSON: this.props.events
-        });
     }
 
-    handleServerJSON() {
+    handleFormDataClick() {
 
-        this.setState({
-            serverJSON: P4000Util.convertEventsToP4000(this.props.events)
-        });
+        if (!this.state.formData) {
+            this.setState({
+                formData: this.props.events,
+                formDataButtonLabel: 'p4000:hideFormData'
+            });
+        } else {
+            this.setState({
+                formData: undefined,
+                formDataButtonLabel: 'p4000:seeFormData'
+            });
+        }
+    }
+
+    handleP4000DataClick() {
+
+         if (!this.state.p4000Data) {
+            this.setState({
+                p4000Data: P4000Util.convertEventsToP4000(this.props.events),
+                p4000DataButtonLabel: 'p4000:hideP4000Data'
+            });
+         } else {
+            this.setState({
+                p4000Data: undefined,
+                p4000DataButtonLabel: 'p4000:seeP4000Data'
+            });
+         }
     }
 
     renderDate(date) {
@@ -61,7 +83,6 @@ class View extends Component {
             <h4>{t('p4000:' + event.type)}</h4>
         </div>);
     }
-
 
     renderTooltip(event) {
 
@@ -104,26 +125,24 @@ class View extends Component {
 
             <Nav.Ekspanderbartpanel className='row-advanced-view fieldset' apen={false} tittel={t('p4000:advancedView')} tittelProps='undertittel'>
 
-                <Nav.Row className='fileButtons p-4'>
-                    <Nav.Column className='col-6'>
-                        <div className='mb-4 text-center'>
-                            <Nav.Hovedknapp onClick={this.handleClientJSON.bind(this)}>
-                                <div>{t('p4000:seeFormData')}</div>
-                            </Nav.Hovedknapp>
-                        </div>
-                        <div className='jsonview'>
-                            {this.state.clientJSON ? <ReactJson src={this.state.clientJSON} theme='monokai'/> : null}
-                        </div>
+                <Nav.Row className='fileButtons m-4 text-center'>
+                    <Nav.Column>
+                        <Nav.Hovedknapp onClick={this.handleFormDataClick.bind(this)}>
+                             <div>{t(this.state.formDataButtonLabel)}</div>
+                        </Nav.Hovedknapp>
                     </Nav.Column>
-                    <Nav.Column className='col-6'>
-                        <div className='mb-4 text-center'>
-                            <Nav.Hovedknapp onClick={this.handleServerJSON.bind(this)}>
-                                <div>{t('p4000:seeP4000Data')}</div>
+                    <Nav.Column>
+                       <Nav.Hovedknapp onClick={this.handleP4000DataClick.bind(this)}>
+                                <div>{t(this.state.p4000DataButtonLabel)}</div>
                             </Nav.Hovedknapp>
-                        </div>
-                        <div className='jsonview'>
-                            {this.state.serverJSON ? <ReactJson src={this.state.serverJSON} theme='monokai'/> : null}
-                        </div>
+                    </Nav.Column>
+                </Nav.Row>
+                <Nav.Row>
+                    <Nav.Column className='jsonview'>
+                         <ReactJson src={this.state.formData} theme='monokai'/>
+                    </Nav.Column>
+                    <Nav.Column className='jsonview'>
+                        <ReactJson src={this.state.p4000Data} theme='monokai'/>
                     </Nav.Column>
                 </Nav.Row>
             </Nav.Ekspanderbartpanel>

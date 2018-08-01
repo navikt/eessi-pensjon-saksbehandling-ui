@@ -4,8 +4,7 @@ let initialState =  {
     events: [],
     event: {},
     editMode: false,
-    page: 'file',        // for current menu page
-    status: undefined    // For saving message flashes
+    page: 'file' // for current menu page
 };
 
 export default function (state = initialState, action = {}) {
@@ -14,19 +13,12 @@ export default function (state = initialState, action = {}) {
 
     switch (action.type) {
 
-    case types.P4000_CLEAR_STATUS:
-
-        return Object.assign({}, state, {
-            status: undefined
-        });
-
     case types.P4000_NEW:
 
         return Object.assign({}, state, {
             page  : 'work',
             event : {},
-            events: [],
-            status: 'p4000:newP4000Form'
+            events: []
         });
 
     case types.P4000_OPEN:
@@ -34,8 +26,7 @@ export default function (state = initialState, action = {}) {
         return Object.assign({}, state, {
             page   : 'work',
             event  : {},
-            events : action.payload.events,
-            status: 'p4000:openP4000Form'
+            events : action.payload.events
         });
 
     case types.P4000_PAGE_SET:
@@ -55,7 +46,6 @@ export default function (state = initialState, action = {}) {
             event      : {},
             eventIndex : undefined,
             editMode   : false,
-            status     : 'p4000:addedP4000Event',
             page       : action.payload.page || state.page
         });
 
@@ -69,8 +59,7 @@ export default function (state = initialState, action = {}) {
             events     : newEvents,
             event      : {},
             eventIndex : undefined,
-            editMode   : false,
-            status     : 'p4000:replacedP4000Event'
+            editMode   : false
         });
 
     case types.P4000_EVENT_DELETE:
@@ -82,8 +71,7 @@ export default function (state = initialState, action = {}) {
             events     : newEvents,
             event      : {},
             eventIndex : undefined,
-            editMode   : false,
-            status     : 'p4000:deletedP4000Event'
+            editMode   : false
         });
 
     case types.P4000_EVENT_CANCEL_EDIT:

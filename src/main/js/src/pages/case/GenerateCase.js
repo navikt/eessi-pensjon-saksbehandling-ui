@@ -17,8 +17,8 @@ const mapStateToProps = (state) => {
         dataToConfirm  : state.usercase.dataToConfirm,
         dataToGenerate : state.usercase.dataToGenerate,
         dataSubmitted  : state.usercase.dataSubmitted,
-        errorMessage   : state.error.clientErrorMessage,
-        errorStatus    : state.error.clientErrorStatus,
+        errorMessage   : state.alert.clientErrorMessage,
+        errorStatus    : state.alert.clientErrorStatus,
         sendingCase    : state.loading.sendingCase,
         language       : state.ui.language,
         action         : state.ui.action

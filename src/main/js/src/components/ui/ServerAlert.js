@@ -7,11 +7,11 @@ import * as Nav from './Nav';
 
 const mapStateToProps = (state) => {
     return {
-        serverErrorMessage : state.error.serverErrorMessage
+        serverErrorMessage : state.alert.serverErrorMessage
     }
 };
 
-class AlertHeader extends Component {
+class ServerAlert extends Component {
 
     render () {
 
@@ -23,7 +23,7 @@ class AlertHeader extends Component {
     }
 }
 
-AlertHeader.propTypes = {
+ServerAlert.propTypes = {
     t                  : PT.func.isRequired,
     serverErrorMessage : PT.string
 }
@@ -32,5 +32,5 @@ export default connect(
     mapStateToProps,
     {}
 )(
-    translate()(AlertHeader)
+    translate()(ServerAlert)
 );

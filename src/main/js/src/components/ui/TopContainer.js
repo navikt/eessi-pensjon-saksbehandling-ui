@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import * as Nav from './Nav'
 import TopHeader from './TopHeader';
-import AlertHeader from './AlertHeader';
+import ServerAlert from './ServerAlert';
 
 class TopContainer extends Component {
 
@@ -14,7 +14,7 @@ class TopContainer extends Component {
 
         return <div style={style} className={classNames(className)}>
             <TopHeader/>
-            <AlertHeader/>
+            <ServerAlert/>
             <Nav.Container fluid={true}>
                 {this.props.children}
             </Nav.Container>

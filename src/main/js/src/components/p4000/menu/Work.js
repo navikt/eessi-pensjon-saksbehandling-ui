@@ -7,8 +7,8 @@ import classNames from 'classnames';
 
 import * as p4000Actions from '../../../actions/p4000';
 
-import FileUpload from '../FileUpload';
-import CountrySelect from '../CountrySelect';
+import FileUpload from '../FileUpload/FileUpload';
+import CountrySelect from '../CountrySelect/CountrySelect';
 import DatePicker from '../DatePicker/DatePicker';
 import Validation from '../Validation';
 import * as Nav from '../../ui/Nav';
@@ -173,9 +173,7 @@ class Work extends Component {
                     <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-3-other-title')}</h2>
                     {!this.hasNoOtherErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.otherValidationError)}</Nav.AlertStripe> : null}
                     <div className='mb-3'>
-                        <div>
-                            <label>{t('ui:country') + ' *'}</label>
-                        </div>
+                        <label>{t('ui:country') + ' *'}</label>
                         <CountrySelect value={event.country || {}} multi={false}
                             flagImagePath='../../../flags/'
                             onSelect={(e) => {actions.setEventProperty('country', e)}}/>
