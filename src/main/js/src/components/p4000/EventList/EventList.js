@@ -26,23 +26,24 @@ class EventList extends Component {
         return <div>
             <div className='mb-1'>{t('p4000:eventsSoFar')}</div>
             <div className={classNames('div-eventList', className)}>
-            {(() => {
-                return events.map((event, index) => {
-                    let selected = (eventIndex !== undefined && eventIndex === index);
-                    return <Event key={index}
-                        onClick={() => selected ? null : handleEditRequest(index)}
-                        event={event}
-                        eventIndex={index}
-                        selected={selected}/>
-                });
-            })()}
+                {(() => {
+                    return events.map((event, index) => {
+                        let selected = (eventIndex !== undefined && eventIndex === index);
+                        return <Event key={index}
+                            onClick={() => selected ? null : handleEditRequest(index)}
+                            event={event}
+                            eventIndex={index}
+                            selected={selected}/>
+                    });
+                })()}
             </div>
         </div>
     }
 }
 
 EventList.propTypes = {
-    events: PT.array.isRequired,
+    t                 : PT.func.isRequired,
+    events            : PT.array.isRequired,
     eventIndex        : PT.number,
     className         : PT.object,
     handleEditRequest : PT.func.isRequired

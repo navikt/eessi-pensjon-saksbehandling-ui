@@ -82,7 +82,8 @@ class FileUpload extends Component {
 FileUpload.propTypes = {
     t            : PT.func.isRequired,
     onFileChange : PT.func.isRequired,
-    initialFiles : PT.object
+    initialFiles : PT.object,
+    files        : PT.array.isRequired
 };
 
 export default translate()(FileUpload);

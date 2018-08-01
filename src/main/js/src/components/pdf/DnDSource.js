@@ -104,9 +104,10 @@ class DnDSource extends Component {
 }
 
 DnDSource.propTypes = {
-    recipe: PT.array.isRequired,
-    actions: PT.object,
-    pdf: PT.object.isRequired
+    t       : PT.func.isRequired
+    recipe  : PT.array.isRequired,
+    actions : PT.object,
+    pdf     : PT.object.isRequired
 }
 
 export default connect(

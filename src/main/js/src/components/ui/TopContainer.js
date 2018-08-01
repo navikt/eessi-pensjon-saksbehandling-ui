@@ -23,9 +23,9 @@ class TopContainer extends Component {
 }
 
 TopContainer.propTypes = {
-    children : PT.node.isRequired,
-    classNames : PT.string,
-    styles : PT.object
+    children  : PT.node.isRequired,
+    className : PT.string,
+    style     : PT.object
 };
 
 export default TopContainer;

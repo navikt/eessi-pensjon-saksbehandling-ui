@@ -29,54 +29,25 @@ class ClientAlert extends Component {
         timeout : undefined
     }
 
-   /* handleTimeouts() {
+    handleTimeouts() {
 
-        const { status, actions } = this.props;
+        const { clientErrorStatus, clientErrorMessage, actions } = this.props;
 
-        if (status !== this.state.status) {
+        if (clientErrorStatus !== this.state.status || clientErrorMessage !== this.state.message) {
             if (this.state.timeout) {
                 clearTimeout(this.state.timeout);
             }
             let timeout = setTimeout(() => {
-                actions.clearStatus();
+                actions.clientClear();
             }, 5000);
 
             this.setState({
                 timeout: timeout,
-                status: status
+                status: clientErrorStatus,
+                message: clientErrorMessage
             });
         }
     }
-
-    getSnapshotBeforeUpdate() {
-
-        const { actions, clientErrorStatus, clientErrorMessage } = this.props;
-        const { status, timeout } = this.state;
-
-        if (!clientErrorStatus) {
-            this.setState({
-                status  : undefined,
-                message : undefined
-            });
-
-        } else {
-
-            if (clientErrorStatus !== status) {
-                if (timeout) {
-                    clearTimeout(timeout);
-                }
-                let _timeout = setTimeout(() => {
-                    actions.clearStatus();
-                }, 5000);
-
-               this.setState({
-                    timeout : _timeout,
-                    status  : clientErrorStatus,
-                    message : clientErrorMessage
-                });
-            }
-        }
-    }*/
 
     render () {
 
@@ -84,17 +55,20 @@ class ClientAlert extends Component {
 
         if (!clientErrorMessage) { return null }
 
-        return <Nav.AlertStripe className='toFade'
+        this.handleTimeouts();
+
+        return <Nav.AlertStripe className={classNames({'toFade' : clientErrorStatus})}
             type={clientErrorStatus === 'OK' ? 'suksess' : 'advarsel'}>
-                {t(clientErrorMessage)}
-            </Nav.AlertStripe>;
+            {t(clientErrorMessage)}
+        </Nav.AlertStripe>;
     }
 }
 
 ClientAlert.propTypes = {
     t                  : PT.func.isRequired,
     clientErrorStatus  : PT.string,
-    clientErrorMessage : PT.string
+    clientErrorMessage : PT.string,
+    actions            : PT.object.isRequired
 }
 
 export default connect(

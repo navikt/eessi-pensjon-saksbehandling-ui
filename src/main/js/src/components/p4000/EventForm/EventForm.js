@@ -109,21 +109,21 @@ class EventForm extends React.Component {
                 <Nav.Row className='row-buttons mb-4 text-center'>
                     {!editMode ? <Nav.Column>
                         <Nav.Hovedknapp className='saveButton'
-                          onClick={this.handleSave.bind(this)}>{t('ui:save')}</Nav.Hovedknapp>
-                        </Nav.Column> : null}
+                            onClick={this.handleSave.bind(this)}>{t('ui:save')}</Nav.Hovedknapp>
+                    </Nav.Column> : null}
                     {!editMode ? <Nav.Column>
                         <Nav.Knapp className='saveAndBackButton'
-                          onClick={this.handleSaveAndBack.bind(this)}>{t('ui:saveAndBack')}</Nav.Knapp>
-                        </Nav.Column> : null}
+                            onClick={this.handleSaveAndBack.bind(this)}>{t('ui:saveAndBack')}</Nav.Knapp>
+                    </Nav.Column> : null}
                     {editMode ? <Nav.Column>
                         <Nav.Hovedknapp className='editButton'   onClick={this.handleEdit.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp>
-                        </Nav.Column> : null}
+                    </Nav.Column> : null}
                     {editMode ? <Nav.Column>
                         <Nav.Knapp className='deleteButton' onClick={this.handleDelete.bind(this)}>{t('ui:delete')}</Nav.Knapp>
-                        </Nav.Column> : null}
+                    </Nav.Column> : null}
                     {editMode ? <Nav.Column>
                         <Nav.Knapp className='cancelButton' onClick={this.handleCancel.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
-                        </Nav.Column> : null}
+                    </Nav.Column> : null}
                 </Nav.Row>}
             <Nav.Row>
                 <Nav.Column>
@@ -140,7 +140,6 @@ EventForm.propTypes = {
     type       : PT.string.isRequired,
     events     : PT.array.isRequired,
     event      : PT.object,
-    status     : PT.string,
     editMode   : PT.bool.isRequired,
     eventIndex : PT.number,
     history    : PT.object,

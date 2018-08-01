@@ -74,7 +74,7 @@ class CountrySelect extends Component {
 
 CountrySelect.propTypes = {
     onSelect       : PT.func.isRequired,
-    flagImageUrl   : PT.string,
+    flagImagePath  : PT.string,
     value          : PT.object,
     multi          : PT.bool.isRequired,
     t              : PT.func.isRequired

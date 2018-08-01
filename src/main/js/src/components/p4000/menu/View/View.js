@@ -57,17 +57,17 @@ class View extends Component {
 
     handleP4000DataClick() {
 
-         if (!this.state.p4000Data) {
+        if (!this.state.p4000Data) {
             this.setState({
                 p4000Data: P4000Util.convertEventsToP4000(this.props.events),
                 p4000DataButtonLabel: 'p4000:hideP4000Data'
             });
-         } else {
+        } else {
             this.setState({
                 p4000Data: undefined,
                 p4000DataButtonLabel: 'p4000:seeP4000Data'
             });
-         }
+        }
     }
 
     renderDate(date) {
@@ -94,7 +94,7 @@ class View extends Component {
             'onlyStartDate98' : t('p4000:onlyStartDate98')
         };
         let data = [{key: t('p4000:dateType'), value: dateType[event.dateType]},
-                    {key: t('ui:startDate'), value: event.startDate.toDateString()}];
+            {key: t('ui:startDate'), value: event.startDate.toDateString()}];
 
         if (event.endDate) {
             data.push({key: t('ui:endDate'), value: event.endDate.toDateString() });
@@ -128,18 +128,18 @@ class View extends Component {
                 <Nav.Row className='fileButtons m-4 text-center'>
                     <Nav.Column>
                         <Nav.Hovedknapp onClick={this.handleFormDataClick.bind(this)}>
-                             <div>{t(this.state.formDataButtonLabel)}</div>
+                            <div>{t(this.state.formDataButtonLabel)}</div>
                         </Nav.Hovedknapp>
                     </Nav.Column>
                     <Nav.Column>
-                       <Nav.Hovedknapp onClick={this.handleP4000DataClick.bind(this)}>
-                                <div>{t(this.state.p4000DataButtonLabel)}</div>
-                            </Nav.Hovedknapp>
+                        <Nav.Hovedknapp onClick={this.handleP4000DataClick.bind(this)}>
+                            <div>{t(this.state.p4000DataButtonLabel)}</div>
+                        </Nav.Hovedknapp>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row>
                     <Nav.Column className='jsonview'>
-                         <ReactJson src={this.state.formData} theme='monokai'/>
+                        <ReactJson src={this.state.formData} theme='monokai'/>
                     </Nav.Column>
                     <Nav.Column className='jsonview'>
                         <ReactJson src={this.state.p4000Data} theme='monokai'/>
