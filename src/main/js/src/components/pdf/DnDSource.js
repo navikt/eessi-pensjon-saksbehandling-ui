@@ -13,16 +13,18 @@ import * as pdfActions from '../../actions/pdf';
 const getListStyle = isDraggingOver => ({
     background: isDraggingOver ? 'honeydew' : 'whitesmoke',
     padding: 10,
+    display: 'flex',
     overflowX: 'auto',
     whiteSpace: 'nowrap',
     boxShadow: 'inset 5px 5px 5px lightgrey'
 });
 
-const getItemStyle = (isDragging, draggableStyle) => ({
+const getItemStyle = (pdfsize, isDragging, draggableStyle) => ({
     border: isDragging ? '2px color red' : '1px solid lightgrey',
     padding: 5,
     boxShadow: '5px 5px 5px lightgrey',
     margin: '0 5px 0 0',
+    minWidth: pdfsize,
     backgroundColor: isDragging ? 'lightgreen' : 'white',
     ...draggableStyle
 })
@@ -30,6 +32,8 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 const mapStateToProps = (state) => {
     return {
         recipe : state.pdf.recipe,
+        pdfsize: state.pdf.pdfsize,
+        dndTarget : state.pdf.dndTarget
     };
 };
 
@@ -41,34 +45,49 @@ class DnDSource extends Component {
 
     addAllPagesToTargetPdf(fileName, e) {
 
-        const { pdf, recipe, actions } = this.props;
+        const { pdf, recipe, dndTarget, actions } = this.props;
 
         e.preventDefault();
 
-        let potentialPages = [], newRecipe = recipe.slice();
+        let potentialPages = [], newRecipe = _.clone(recipe);
+        let modified = false;
+
         _.range(1, pdf.numPages + 1).map(pageNumber => {
             return potentialPages.push({ pageNumber : pageNumber, fileName : fileName });
         });
+
+        if (!newRecipe[dndTarget]) {
+            newRecipe[dndTarget] = [];
+        }
         potentialPages.map(page => {
-            if (! _.find(recipe, page)) {
-                return newRecipe.push(page);
+            if (! _.find(newRecipe[dndTarget], page)) {
+                modified = true;
+                return newRecipe[dndTarget].push(page);
             }
             return page;
         });
-        actions.setRecipe(newRecipe);
+
+        if (modified) {
+            actions.setRecipe(newRecipe);
+        }
     }
 
     render () {
 
-        const { t, pdf, recipe } = this.props;
+        const { t, pdf, pdfsize, recipe, dndTarget } = this.props;
 
-        let selectedPages = _.filter(recipe, {fileName: pdf.fileName});
+        let selectedPages = [];
+
+        if (recipe[dndTarget]) {
+            selectedPages = _.filter(recipe[dndTarget], {fileName: pdf.fileName});
+        }
 
         return <div>
             <div>File: {pdf.fileName}</div>
             <div><a href='#addAll' onClick={this.addAllPagesToTargetPdf.bind(this, pdf.fileName)}>{t('ui:addAll')}</a></div>
 
-            <Droppable droppableId={'dndsource-' + pdf.fileName} direction='horizontal'>
+            <div className='foo'>
+                <Droppable droppableId={'dndsource-' + pdf.fileName} direction='horizontal'>
 
                 {(provided, snapshot) => (
 
@@ -87,6 +106,7 @@ class DnDSource extends Component {
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}
                                         style={getItemStyle(
+                                            pdfsize,
                                             snapshot.isDragging,
                                             provided.draggableProps.style
                                         )}>
@@ -98,13 +118,14 @@ class DnDSource extends Component {
                     </div>
                 )}
             </Droppable>
+            </div>
         </div>
 
     }
 }
 
 DnDSource.propTypes = {
-    t       : PT.func.isRequired
+    t       : PT.func.isRequired,
     recipe  : PT.array.isRequired,
     actions : PT.object,
     pdf     : PT.object.isRequired

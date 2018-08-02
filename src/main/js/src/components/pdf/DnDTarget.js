@@ -10,7 +10,8 @@ const getListStyle = isDraggingOver => ({
     background: isDraggingOver ? 'honeydew' : 'whitesmoke',
     padding: 10,
     overflowY: 'auto',
-    height : '80vh',
+    minHeight : '60vh',
+    maxHeight : '60vh',
     display: 'flex',
     flexDirection: 'column',
     boxShadow: 'inset 5px 5px 5px lightgrey'
@@ -36,18 +37,18 @@ class DnDTarget extends Component {
 
     render () {
 
-        const { pdfs, recipe } = this.props;
+        const { pdfs, recipe, targetId } = this.props;
 
         return <div>
-            <div>Total pages: {recipe.length}</div>
-            <Droppable droppableId='dndtarget'>
+            {/*<div>Pages: {recipe.length}</div>*/}
+            <Droppable droppableId={'dndtarget-' + targetId}>
 
                 {(provided, snapshot) => (
 
                     <div className='recipePDFarea text-center' ref={provided.innerRef}
                         style={getListStyle(snapshot.isDraggingOver)}>
 
-                        {recipe.map((recipeStep, index) => {
+                        {recipe[targetId] ? recipe[targetId].map((recipeStep, index) => {
 
                             let pdf = _.find(pdfs, {fileName: recipeStep.fileName});
 
@@ -70,7 +71,7 @@ class DnDTarget extends Component {
                                     </div>
                                 )}
                             </Draggable>
-                        })}
+                        }) : null}
                     </div>
                 )}
             </Droppable>

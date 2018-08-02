@@ -7,7 +7,7 @@ import GenerateCase from './case/GenerateCase';
 import EndCase from './case/EndCase';
 
 import SelectPDF   from './pdf/SelectPDF';
-import EditPDF     from './pdf/EditPDF';
+import EditPDF     from './pdf/EditPDF/EditPDF';
 import GeneratePDF from './pdf/GeneratePDF';
 
 import P4000 from './P4000/P4000';
@@ -19,8 +19,10 @@ export {
     FrontPage,
     GenerateCase,
     GetCase,
+
     SelectPDF,
     EditPDF,
     GeneratePDF,
+
     P4000
 };

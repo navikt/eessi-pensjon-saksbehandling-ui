@@ -3,17 +3,23 @@ import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
+import Collapse from 'rc-collapse';
 
-import * as Nav from '../../components/ui/Nav';
-import TopContainer from '../../components/ui/TopContainer';
-import DnDSource from '../../components/pdf/DnDSource';
-import DnDTarget from '../../components/pdf/DnDTarget';
-import DnD from '../../components/pdf/DnD';
-import PreviewPDF from '../../components/pdf/PreviewPDF';
-import PDFSizeSlider from '../../components/pdf/PDFSizeSlider';
+import _ from 'lodash';
 
-import * as pdfActions from '../../actions/pdf';
-import * as uiActions from '../../actions/ui';
+import * as Nav from '../../../components/ui/Nav';
+import TopContainer from '../../../components/ui/TopContainer';
+import DnDSource from '../../../components/pdf/DnDSource';
+import DnDTarget from '../../../components/pdf/DnDTarget';
+import DnD from '../../../components/pdf/DnD';
+import PreviewPDF from '../../../components/pdf/PreviewPDF';
+import PDFSizeSlider from '../../../components/pdf/PDFSizeSlider';
+
+import 'rc-collapse/assets/index.css';
+import './EditPDF.css';
+
+import * as pdfActions from '../../../actions/pdf';
+import * as uiActions from '../../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
@@ -22,7 +28,9 @@ const mapStateToProps = (state) => {
         editingPDF   : state.loading.editingPDF,
         language     : state.ui.language,
         pdfs         : state.pdf.pdfs,
-        recipe       : state.pdf.recipe
+        recipe       : state.pdf.recipe,
+        pdfsize      : state.pdf.pdfsize,
+        dndTarget    : state.pdf.dndTarget
     }
 };
 
@@ -36,7 +44,7 @@ class EditPDF extends Component {
 
         const { history, pdfs } = this.props;
 
-        if (!pdfs) {
+        if (_.isEmpty(pdfs)) {
             history.push('/react/pdf/select');
         }
     }
@@ -62,15 +70,23 @@ class EditPDF extends Component {
         history.push('/react/pdf/generate');
     }
 
+    handleAccordionChange(index) {
+
+        const { actions } = this.props;
+
+        if (!index) {return;}
+        actions.setActiveDnDTarget(index);
+    }
+
     render() {
 
-        const { t, errorMessage, errorStatus, editingPDF, pdfs } = this.props;
+        const { t, errorMessage, errorStatus, editingPDF, pdfs, pdfsize, dndTarget, recipe } = this.props;
 
         let alert      = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
         let buttonText = editingPDF ? t('pdf:loadingEditPDF') : t('ui:forward');
 
         return <TopContainer>
-            <Nav.Panel className='panel py-4 m-4'>
+            <Nav.Panel style={{padding: 0, margin: 0}}>
                 <Nav.Row className='mt-4'>
                     <Nav.Column>{t('pdf:editPdf')}</Nav.Column>
                 </Nav.Row>
@@ -83,10 +99,23 @@ class EditPDF extends Component {
                         <Nav.Column className='col-3'><PDFSizeSlider/></Nav.Column>
                     </Nav.Row>
                     <Nav.Row className='mt-4 text-left'>
-                        <Nav.Column className='col col-auto'>
-                            <DnDTarget/>
+                        <Nav.Column className='col-3' style={{maxWidth: pdfsize + 50}}>
+                            <Collapse destroyInactivePanel={true} activeKey={dndTarget} accordion={true} onChange={this.handleAccordionChange.bind(this)}>
+                              <Collapse.Panel key='work' header={'Work (' + (recipe.work ? recipe.work.length : '0') + ')'} showArrow={true}>
+                                  <DnDTarget targetId='work'/>
+                              </Collapse.Panel>
+                              <Collapse.Panel key='home' header={'Home (' + (recipe.home ? recipe.home.length : '0') + ')'} showArrow={true}>
+                                  <DnDTarget targetId='home'/>
+                              </Collapse.Panel>
+                            <Collapse.Panel key='sick' header={'Sick (' + (recipe.sick ? recipe.sick.length : '0') + ')'} showArrow={true}>
+                                  <DnDTarget targetId='sick'/>
+                              </Collapse.Panel>
+                            <Collapse.Panel key='other' header={'Other (' + (recipe.other ? recipe.other.length : '0') + ')'} showArrow={true}>
+                                  <DnDTarget targetId='other'/>
+                              </Collapse.Panel>
+                            </Collapse>
                         </Nav.Column>
-                        <Nav.Column>
+                        <Nav.Column className='col-9'>
                             {pdfs ? pdfs.map(pdf => {return <DnDSource key={pdf.fileName} pdf={pdf}/>}) : null}
                         </Nav.Column>
                     </Nav.Row>

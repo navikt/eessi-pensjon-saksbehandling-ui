@@ -31,28 +31,39 @@ class DnD extends Component {
 
         let { recipe, actions } = this.props;
 
-        let newRecipe = recipe.slice();
+        let newRecipe = _.clone(recipe);
         let modified = false;
 
         if (!result.destination) { // 'dragged to nowhere'
             return
         }
 
-        // dragged from source...
+        // get target ID
+        let lastIndexOf = result.destination.droppableId.lastIndexOf('-');
+        let targetId = result.destination.droppableId.substring(lastIndexOf + 1);
+
+        // get source ID
+        lastIndexOf = result.source.droppableId.lastIndexOf('-');
+        let sourceId = result.source.droppableId.substring(lastIndexOf + 1);
+
+        // dragged from a PDF source...
         if (_.startsWith(result.source.droppableId, 'dndsource')) {
 
-
-            // ...to another source
+            // ...to another PDF source? skip it
             if (_.startsWith(result.destination.droppableId, 'dndsource')) {
                 return
             }
 
-            // ...to the target
+            // ...to a PDF target? Add it
             let lastIndexOf = result.draggableId.lastIndexOf('-');
             let fileName = result.draggableId.substring(0, lastIndexOf);
             let pageNumber = parseInt(result.draggableId.substring(lastIndexOf + 1), 10)
 
-            newRecipe.splice(result.destination.index, 0, {
+            if (!newRecipe[targetId]) {
+                newRecipe[targetId] = [];
+            }
+
+            newRecipe[targetId].splice(result.destination.index, 0, {
                 fileName: fileName,
                 pageNumber: pageNumber
             });
@@ -60,25 +71,24 @@ class DnD extends Component {
             modified = true;
         }
 
-        // dragged from the target...
+        // dragged from a PDF target...
         if (_.startsWith(result.source.droppableId, 'dndtarget')) {
 
-            // ... to the target: reorder
+            // ... to the same PDF target: reorder
             if (_.startsWith(result.destination.droppableId, 'dndtarget')) {
 
-                newRecipe = this.reorder(newRecipe, result.source.index, result.destination.index);
+                newRecipe[targetId] = this.reorder(newRecipe[targetId], result.source.index, result.destination.index);
                 modified = true;
             }
 
-            // ... to a source: remove
+            // ... to another PDF source: remove
             if (_.startsWith(result.destination.droppableId, 'dndsource')) {
 
-                newRecipe.splice(result.source.index, 1);
+                newRecipe[sourceId].splice(result.source.index, 1);
                 modified = true;
             }
         }
 
-        // if dragged fromn
         if (modified) {
             actions.setRecipe(newRecipe);
         }

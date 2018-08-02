@@ -11,8 +11,9 @@ import * as pdfActions from '../../actions/pdf';
 
 const mapStateToProps = (state) => {
     return {
-        recipe : state.pdf.recipe,
-        pdfsize: state.settings.pdfsize
+        recipe    : state.pdf.recipe,
+        pdfsize   : state.pdf.pdfsize,
+        dndTarget : state.pdf.dndTarget
     };
 };
 
@@ -26,23 +27,26 @@ class PDFPageInDnD extends Component {
          isHovering : false
      }
 
-
      addPageToTargetPdf(fileName, pageNumber) {
 
-         let { recipe, actions } = this.props;
+         let { recipe, dndTarget, actions } = this.props;
 
-         let newRecipe = recipe.slice();
-         newRecipe.push({fileName: fileName, pageNumber: pageNumber});
+         let newRecipe = _.clone(recipe);
+         if (!newRecipe[dndTarget]) {
+            newRecipe[dndTarget] = [];
+         }
+         newRecipe[dndTarget].push({fileName: fileName, pageNumber: pageNumber});
          actions.setRecipe(newRecipe);
      }
 
      removePageFromTargetPdf(fileName, pageNumber) {
 
-         const { recipe, actions } = this.props;
-         let newRecipe = recipe.slice();
-         let index = _.findIndex(recipe, {fileName: fileName, pageNumber : pageNumber});
+         const { recipe, dndTarget, actions } = this.props;
+         let newRecipe = _.clone(recipe);
+
+         let index = _.findIndex(recipe[dndTarget], {fileName: fileName, pageNumber : pageNumber});
          if (index >= 0) {
-             newRecipe.splice(index, 1);
+             newRecipe[dndTarget].splice(index, 1);
              actions.setRecipe(newRecipe);
          }
      }

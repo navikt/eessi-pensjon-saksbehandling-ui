@@ -5,16 +5,16 @@ import { connect } from 'react-redux';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
-import * as settingsActions from '../../actions/settings';
+import * as pdfActions from '../../actions/pdf';
 
 const mapStateToProps = (state) => {
     return {
-        pdfsize : state.settings.pdfsize
+        pdfsize : state.pdf.pdfsize
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, settingsActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, pdfActions), dispatch)};
 };
 
 class PDFSizeSlider extends Component {

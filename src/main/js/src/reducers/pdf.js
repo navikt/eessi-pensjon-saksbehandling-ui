@@ -1,8 +1,10 @@
 import * as types from '../constants/actionTypes';
 
 let initialState =  {
-    recipe: [],
-    pdfs: []
+    recipe: {},
+    pdfs: [],
+    pdfsize: 100,
+    dndTarget: 'work'
 };
 
 export default function (state = initialState, action = {}) {
@@ -44,6 +46,18 @@ export default function (state = initialState, action = {}) {
 
         return Object.assign({}, state, {
             preview : undefined
+        });
+
+    case types.PDF_SET_DND_TARGET:
+
+        return Object.assign({}, state, {
+            dndTarget : action.payload
+        });
+
+    case types.PDF_SET_PAGE_SIZE:
+
+        return Object.assign({}, state, {
+            pdfsize : action.payload
         });
 
     default:

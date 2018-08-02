@@ -40,6 +40,22 @@ export function cancelPreviewPDF() {
     };
 }
 
+export function setActiveDnDTarget(target) {
+
+    return {
+        type: types.PDF_SET_DND_TARGET,
+        payload: target
+    };
+}
+
+export function setPdfSize (payload) {
+
+    return {
+        type: types.PDF_SET_PAGE_SIZE,
+        payload: payload
+    };
+}
+
 export function generatePDF (body) {
 
     for (var i in body.pdfs) {
