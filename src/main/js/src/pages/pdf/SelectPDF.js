@@ -9,7 +9,7 @@ import _ from 'lodash';
 
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
-import SelectedPDF from '../../components/pdf/SelectedPDF';
+import MiniaturePDF from '../../components/ui/File/MiniaturePDF';
 
 import * as pdfActions from '../../actions/pdf';
 import * as uiActions from '../../actions/ui';
@@ -112,7 +112,7 @@ class SelectPDF extends Component {
         }
 
         let html = this.state.pdfs.map((pdf, i) => {
-            return <SelectedPDF
+            return <MiniaturePDF
                 key={i}
                 pdf={pdf}
                 onLoadSuccess={this.onLoadSuccess.bind(this, i)}

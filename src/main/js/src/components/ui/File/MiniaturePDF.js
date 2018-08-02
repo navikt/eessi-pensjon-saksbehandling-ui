@@ -2,18 +2,12 @@ import React, { Component } from 'react';
 import PT from 'prop-types';
 import { Document, Page } from 'react-pdf/dist/entry.noworker';
 
-import { Ikon } from '../ui/Nav';
-import Icons from '../ui/Icons';
+import { Ikon } from '../Nav';
+import Icons from '../Icons';
 
-const styles = {
-    selectedDocument: {
-        border: 'solid 1px lightgray',
-        padding: '5px',
-        marginRight: '5px'
-    }
-}
+import './MiniaturePDF.css';
 
-class SelectedPDF extends Component {
+class MiniaturePDF extends Component {
 
     state = {
         isHovering : false,
@@ -51,26 +45,29 @@ class SelectedPDF extends Component {
             <Icons size={20} kind='download'/>
         </a> : null;
 
-        return <div className='d-inline-block' style={styles.selectedDocument}
+        return <div className='miniaturePdf'
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
             onMouseLeave={this.onHandleMouseLeave.bind(this)}>
-            <Document className='text-center position-relative' file={{data: pdf.data }}
+            <Document className='position-relative' file={{data: pdf.data }}
                 onLoadSuccess={this.handleOnLoadSuccess.bind(this)}>
-                <div className='position-absolute' style={{zIndex: 10, right: 5, top: 5}}> {deleteLink}</div>
-                <div className='position-absolute' style={{zIndex: 10, left: 5, top: 5}}> {downloadLink}</div>
-                <div><Page width='100' className='page' renderMode='svg' pageNumber={1}/></div>
-                <div>File: {pdf.name}</div>
-                <div>Pages: {this.state.numPages || 0}</div>
+                <div className='deleteLink'> {deleteLink}</div>
+                <div className='downloadLink'> {downloadLink}</div>
+                <div className='page'>
+                    <Page width='100' renderMode='svg' pageNumber={1}/>
+                </div>
+                <div className='fileName'> {pdf.name}</div>
+                <div className='numPages'>Pages: {this.state.numPages || 0}</div>
+                <div className='numPages'>Size: {pdf.size} bytes</div>
             </Document>
         </div>
     }
 }
 
-SelectedPDF.propTypes = {
+MiniaturePDF.propTypes = {
     onLoadSuccess: PT.func.isRequired,
     pdf: PT.object.isRequired,
     onDeleteDocument: PT.func.isRequired,
     pageNumbers: PT.number.isRequired
 }
 
-export default SelectedPDF;
+export default MiniaturePDF;

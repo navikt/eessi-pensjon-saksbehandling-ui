@@ -7,7 +7,7 @@ import classNames from 'classnames';
 
 import * as p4000Actions from '../../../actions/p4000';
 
-import FileUpload from '../FileUpload/FileUpload';
+import FileUpload from '../../ui/FileUpload/FileUpload';
 import CountrySelect from '../CountrySelect/CountrySelect';
 import DatePicker from '../DatePicker/DatePicker';
 import Validation from '../Validation';

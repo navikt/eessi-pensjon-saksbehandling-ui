@@ -2,17 +2,45 @@ import _ from 'lodash';
 
 class Util {
 
-    // converting text loaded from file to JSON object still needs us to parse
-    // date and convert them
-    getEventsFromLoadedJson(loadedString) {
+    // converting text loaded from file to JSON object
+    // can't save file.data on JSON, only base64, therefore reconstruct file.data from file.base64
+    readEventsFromString(loadedString) {
 
         return JSON.parse(loadedString).map(event => {
             if (event.startDate) event.startDate = new Date(event.startDate);
             if (event.birthDate) event.birthDate = new Date(event.birthDate);
-            if (event.endDate)   event.endDate   = new Date(event.endDate)
+            if (event.endDate)   event.endDate   = new Date(event.endDate);
+            if (event.files) {
+                 event.files.map(file => {
+                    var raw = window.atob(file.base64);
+                    var array = new Uint8Array(new ArrayBuffer(raw.length));
+                    for (var i = 0; i < raw.length; i++) {
+                        array[i] = raw.charCodeAt(i);
+                    }
+                    file.data = array;
+                    return file;
+                 });
+            }
             return event;
         });
     }
+
+    writeEventsToString(events) {
+
+        events.map(event => {
+            if (event.files) {
+                events.files.map(file => {
+                    if (file.data) {
+                        delete file.data;
+                    }
+                    return file;
+                });
+            }
+            return event;
+        });
+        return 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(events));
+    }
+
 
     handleDate(event) {
 

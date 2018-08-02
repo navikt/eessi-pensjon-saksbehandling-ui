@@ -101,10 +101,8 @@ class File extends Component {
 
         const { events } = this.props;
 
-        let data = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(events));
-
         this.setState({
-            fileOutput : data
+            fileOutput : P4000Util.writeEventsToString(events)
         }, () => {
             this.fileOutput.click()
         })
@@ -128,7 +126,7 @@ class File extends Component {
             reader.readAsArrayBuffer(e.target.files[0]);
             reader.onloadend = (e) => {
                 let string = String.fromCharCode.apply(null, new Uint8Array(e.target.result));
-                let events = P4000Util.getEventsFromLoadedJson(string);
+                let events = P4000Util.readEventsFromString(string);
                 actions.openP4000(events)
                 resolve(events);
             }
@@ -201,7 +199,7 @@ class File extends Component {
                     <Nav.Row className='mb-3 no-gutters'>
                         <Nav.Column className='col-auto buttonColumn'>
                             <a className='hiddenFileInputOutput' ref={fileOutput => this.fileOutput = fileOutput}
-                                href={'data:' + this.state.fileOutput} download='p4000.json'>&nbsp;</a>
+                                href={this.state.fileOutput} download='p4000.json'>&nbsp;</a>
                             <Nav.Knapp className='fileButton' disabled={_.isEmpty(events)}
                                 onClick={this.handleFileSave.bind(this)}>
                                 <div>
