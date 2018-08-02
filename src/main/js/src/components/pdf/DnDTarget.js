@@ -50,7 +50,7 @@ class DnDTarget extends Component {
 
                         {recipe[targetId] ? recipe[targetId].map((recipeStep, index) => {
 
-                            let pdf = _.find(pdfs, {fileName: recipeStep.fileName});
+                            let pdf = _.find(pdfs, {name: recipeStep.name});
 
                             return <Draggable key={index} draggableId={index} index={index}>
 

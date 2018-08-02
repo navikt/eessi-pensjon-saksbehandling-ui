@@ -17,20 +17,20 @@ class EventList extends Component {
 
     render() {
 
-        const { t, events, eventIndex, handleEditRequest, className } = this.props;
+        const { t, events, eventIndex, handleEditRequest, cancelEditRequest, className } = this.props;
 
         if (_.isEmpty(events)) {
             return null;
         }
 
-        return <div>
+        return <div className='mb-4'>
             <div className='mb-1'>{t('p4000:eventsSoFar')}</div>
             <div className={classNames('div-eventList', className)}>
                 {(() => {
                     return events.map((event, index) => {
                         let selected = (eventIndex !== undefined && eventIndex === index);
                         return <Event key={index}
-                            onClick={() => selected ? null : handleEditRequest(index)}
+                            onClick={() => selected ? cancelEditRequest() : handleEditRequest(index)}
                             event={event}
                             eventIndex={index}
                             selected={selected}/>
@@ -46,7 +46,8 @@ EventList.propTypes = {
     events            : PT.array.isRequired,
     eventIndex        : PT.number,
     className         : PT.object,
-    handleEditRequest : PT.func.isRequired
+    handleEditRequest : PT.func.isRequired,
+    cancelEditRequest : PT.func.isRequired
 };
 
 export default translate()(EventList);

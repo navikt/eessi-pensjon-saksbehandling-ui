@@ -78,7 +78,7 @@ class SelectPDF extends Component {
     onFileChange(e) {
 
         let arrayPosition = this.state.pdfs.length;
-        let fileName = e.target.value.split('\\').pop();
+        let name = e.target.value.split('\\').pop();
 
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -90,7 +90,8 @@ class SelectPDF extends Component {
                 pdfs[arrayPosition] = {
                     'base64'   : base64,
                     'data'     : data,
-                    'fileName' : fileName
+                    'name'     : name,
+                    'size'     : 0
                 }
                 this.setState({pdfs: pdfs})
                 resolve(e.target.result);
@@ -98,7 +99,6 @@ class SelectPDF extends Component {
             reader.onerror = error => reject(error);
         })
     }
-
 
     renderFileUpload() {
 
@@ -112,13 +112,11 @@ class SelectPDF extends Component {
         }
 
         let html = this.state.pdfs.map((pdf, i) => {
-            let pageNumbers = this.state.numPages[i];
             return <SelectedPDF
-                key={pageNumbers}
+                key={i}
                 pdf={pdf}
                 onLoadSuccess={this.onLoadSuccess.bind(this, i)}
                 onDeleteDocument={this.onDeleteDocument.bind(this, i)}
-                pageNumbers={pageNumbers}
             />
         });
 

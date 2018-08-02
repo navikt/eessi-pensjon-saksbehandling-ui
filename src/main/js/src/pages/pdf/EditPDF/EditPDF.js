@@ -116,7 +116,7 @@ class EditPDF extends Component {
                             </Collapse>
                         </Nav.Column>
                         <Nav.Column className='col-9'>
-                            {pdfs ? pdfs.map(pdf => {return <DnDSource key={pdf.fileName} pdf={pdf}/>}) : null}
+                            {pdfs ? pdfs.map(pdf => {return <DnDSource key={pdf.name} pdf={pdf}/>}) : null}
                         </Nav.Column>
                     </Nav.Row>
                 </DnD>

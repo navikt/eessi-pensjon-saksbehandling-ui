@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch) => {
 
 class DnDSource extends Component {
 
-    addAllPagesToTargetPdf(fileName, e) {
+    addAllPagesToTargetPdf(name, e) {
 
         const { pdf, recipe, dndTarget, actions } = this.props;
 
@@ -53,7 +53,7 @@ class DnDSource extends Component {
         let modified = false;
 
         _.range(1, pdf.numPages + 1).map(pageNumber => {
-            return potentialPages.push({ pageNumber : pageNumber, fileName : fileName });
+            return potentialPages.push({ pageNumber : pageNumber, name : name });
         });
 
         if (!newRecipe[dndTarget]) {
@@ -79,15 +79,15 @@ class DnDSource extends Component {
         let selectedPages = [];
 
         if (recipe[dndTarget]) {
-            selectedPages = _.filter(recipe[dndTarget], {fileName: pdf.fileName});
+            selectedPages = _.filter(recipe[dndTarget], {name: pdf.name});
         }
 
         return <div>
-            <div>File: {pdf.fileName}</div>
-            <div><a href='#addAll' onClick={this.addAllPagesToTargetPdf.bind(this, pdf.fileName)}>{t('ui:addAll')}</a></div>
+            <div>File: {pdf.name}</div>
+            <div><a href='#addAll' onClick={this.addAllPagesToTargetPdf.bind(this, pdf.name)}>{t('ui:addAll')}</a></div>
 
             <div className='foo'>
-                <Droppable droppableId={'dndsource-' + pdf.fileName} direction='horizontal'>
+                <Droppable droppableId={'dndsource-' + pdf.name} direction='horizontal'>
 
                 {(provided, snapshot) => (
 
@@ -97,7 +97,7 @@ class DnDSource extends Component {
                             if (_.find(selectedPages, {pageNumber: pageNumber})) {
                                 return null;
                             }
-                            let key = pdf.fileName + '-' + pageNumber;
+                            let key = pdf.name + '-' + pageNumber;
                             return  <Draggable key={key} draggableId={key} index={pageNumber}>
 
                                 {(provided, snapshot) => (

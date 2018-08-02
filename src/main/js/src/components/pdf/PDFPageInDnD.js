@@ -27,7 +27,7 @@ class PDFPageInDnD extends Component {
          isHovering : false
      }
 
-     addPageToTargetPdf(fileName, pageNumber) {
+     addPageToTargetPdf(name, pageNumber) {
 
          let { recipe, dndTarget, actions } = this.props;
 
@@ -35,16 +35,16 @@ class PDFPageInDnD extends Component {
          if (!newRecipe[dndTarget]) {
             newRecipe[dndTarget] = [];
          }
-         newRecipe[dndTarget].push({fileName: fileName, pageNumber: pageNumber});
+         newRecipe[dndTarget].push({name: name, pageNumber: pageNumber});
          actions.setRecipe(newRecipe);
      }
 
-     removePageFromTargetPdf(fileName, pageNumber) {
+     removePageFromTargetPdf(name, pageNumber) {
 
          const { recipe, dndTarget, actions } = this.props;
          let newRecipe = _.clone(recipe);
 
-         let index = _.findIndex(recipe[dndTarget], {fileName: fileName, pageNumber : pageNumber});
+         let index = _.findIndex(recipe[dndTarget], {name: name, pageNumber : pageNumber});
          if (index >= 0) {
              newRecipe[dndTarget].splice(index, 1);
              actions.setRecipe(newRecipe);
@@ -66,12 +66,12 @@ class PDFPageInDnD extends Component {
          this.setState({isHovering : false});
      }
 
-     openPreview(fileName, pageNumber) {
+     openPreview(name, pageNumber) {
 
          const { actions } = this.props;
 
          actions.previewPDF({
-             fileName: fileName,
+             name       : name,
              pageNumber : pageNumber
          });
      }
@@ -92,7 +92,7 @@ class PDFPageInDnD extends Component {
          if (this.state.isHovering) {
              iconLink = <Ikon style={{cursor: 'pointer'}}
                  size={32} kind={iconKind}
-                 onClick={iconFunction.bind(this, pdf.fileName, pageNumber)}/>
+                 onClick={iconFunction.bind(this, pdf.name, pageNumber)}/>
          }
 
          return <div className='d-inline-block'
@@ -103,7 +103,7 @@ class PDFPageInDnD extends Component {
                  <div className='position-absolute' style={{zIndex: 10, right: 2, top: 2}}>{iconLink}</div>
                  <div>
                      <Page
-                         onClick={this.openPreview.bind(this, pdf.fileName, pageNumber)}
+                         onClick={this.openPreview.bind(this, pdf.name, pageNumber)}
                          className='d-inline-block page' width={pdfsize} renderMode='svg' pageNumber={pageNumber}/>
                  </div>
                  <div className='position-absolute' style={{zIndex: 10, right: 2, bottom: 2}}>{pageNumber}</div>

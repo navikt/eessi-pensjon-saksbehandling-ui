@@ -9,7 +9,7 @@ import _ from 'lodash';
 
 import * as p4000Actions from '../../../actions/p4000';
 import * as Nav from '../../ui/Nav';
-import ClientAlert from '../../ui/ClientAlert/ClientAlert';
+import ClientAlert from '../../ui/Alert/ClientAlert';
 import EventList from '../EventList/EventList';
 
 import './EventForm.css';
@@ -78,9 +78,11 @@ class EventForm extends React.Component {
         actions.deleteEventToP4000Form(eventIndex);
     }
 
-    handleCancel () {
+    async handleCancelRequest () {
 
         const { actions, eventIndex } = this.props;
+
+        await this.component.resetValidation();
         actions.cancelEditEvent(eventIndex);
     }
 
@@ -95,9 +97,9 @@ class EventForm extends React.Component {
                     <ClientAlert/>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className={classNames('existingEvents', 'mb-4', {'hiding' : isMenuPages || _.isEmpty(events)})}>
+            <Nav.Row className={classNames('eventList', {'hiding' : isMenuPages || _.isEmpty(events)})}>
                 <Nav.Column>
-                    <EventList events={events} eventIndex={eventIndex} handleEditRequest={this.handleEditRequest.bind(this)}/>
+                    <EventList events={events} eventIndex={eventIndex} cancelEditRequest={this.handleCancelRequest.bind(this)} handleEditRequest={this.handleEditRequest.bind(this)}/>
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className={classNames('row-component', 'mb-4', {'editMode' : editMode})}>
@@ -122,7 +124,7 @@ class EventForm extends React.Component {
                         <Nav.Knapp className='deleteButton' onClick={this.handleDelete.bind(this)}>{t('ui:delete')}</Nav.Knapp>
                     </Nav.Column> : null}
                     {editMode ? <Nav.Column>
-                        <Nav.Knapp className='cancelButton' onClick={this.handleCancel.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
+                        <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
                     </Nav.Column> : null}
                 </Nav.Row>}
             <Nav.Row>

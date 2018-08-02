@@ -37,9 +37,14 @@ class ClientAlert extends Component {
             if (this.state.timeout) {
                 clearTimeout(this.state.timeout);
             }
-            let timeout = setTimeout(() => {
-                actions.clientClear();
-            }, 5000);
+
+            let timeout = undefined;
+
+            if (clientErrorStatus === 'OK') {
+                timeout = setTimeout(() => {
+                    actions.clientClear();
+                }, 5000);
+            }
 
             this.setState({
                 timeout: timeout,
@@ -57,7 +62,7 @@ class ClientAlert extends Component {
 
         this.handleTimeouts();
 
-        return <Nav.AlertStripe className={classNames({'toFade' : clientErrorStatus})}
+        return <Nav.AlertStripe className={classNames({'toFade' : clientErrorStatus === 'OK'})}
             type={clientErrorStatus === 'OK' ? 'suksess' : 'advarsel'}>
             {t(clientErrorMessage)}
         </Nav.AlertStripe>;

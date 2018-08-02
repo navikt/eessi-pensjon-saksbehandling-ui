@@ -3,8 +3,8 @@ import PT from 'prop-types';
 import classNames from 'classnames';
 
 import * as Nav from './Nav'
-import TopHeader from './TopHeader';
-import ServerAlert from './ServerAlert';
+import TopHeader from './Header/TopHeader';
+import ServerAlert from './Alert/ServerAlert';
 
 class TopContainer extends Component {
 

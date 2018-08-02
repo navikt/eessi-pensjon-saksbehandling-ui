@@ -23,6 +23,7 @@ class FileUpload extends Component {
                 let newFiles = _.isEmpty(files) ? {} : _.clone(files);
                 newFiles[file.name] = {
                     'base64' : base64,
+                    'data' : data,
                     'size' : file.size,
                     'name' : file.name
                 };

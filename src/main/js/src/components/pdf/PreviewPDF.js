@@ -36,7 +36,7 @@ class PreviewPDF extends Component {
             return null;
         }
 
-        let pdf = _.find(pdfs, {fileName: preview.fileName});
+        let pdf = _.find(pdfs, {name: preview.name});
 
         return <Nav.Modal isOpen={true}
             onRequestClose={this.closeModal.bind(this)}

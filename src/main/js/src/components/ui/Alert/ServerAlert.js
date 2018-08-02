@@ -3,7 +3,7 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 
-import * as Nav from './Nav';
+import * as Nav from '../Nav';
 
 const mapStateToProps = (state) => {
     return {

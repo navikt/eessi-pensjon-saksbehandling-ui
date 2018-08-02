@@ -2,7 +2,7 @@ import * as types from '../constants/actionTypes';
 
 let initialState =  {
     events: [],
-    event: {},
+    event: undefined,
     editMode: false,
     page: 'file' // for current menu page
 };

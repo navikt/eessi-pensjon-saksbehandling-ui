@@ -78,8 +78,14 @@ class P4000 extends Component {
 
     getItems() {
 
-        const { t } = this.props;
+        const { t, event } = this.props;
 
+        if (event === undefined) {
+             return [
+                 {label: t('p4000:menu'),      value: '_menu',     divider: true},
+                 {label: t('p4000:file'),      value: 'file',      icon: 'fa-file'}
+             ];
+        }
         return [
             {label: t('p4000:menu'),      value: '_menu',     divider: true},
             {label: t('p4000:file'),      value: 'file',      icon: 'fa-file'},
@@ -113,7 +119,7 @@ class P4000 extends Component {
             <Nav.Row>
                 <Nav.Column style={{maxWidth: '300px', padding: 0}}>
                     <h1 className='mt-4 ml-3 mb-2 appTitle'>{t('p4000:app-title')}</h1>
-                    <SideMenu activeItem={activeItem} items={this.getItems()} theme='nav'
+                    <SideMenu activeItem={activeItem} items={this.getItems()} theme={'nav' + (editMode ? ' Side-menu-nav-edit' : '')}
                         shouldTriggerClickOnParents={false}
                         onMenuItemClick={this.handleMenuItemClick.bind(this)}/>
                 </Nav.Column>

@@ -57,3 +57,27 @@
         }
    	}
 }
+
+.Side-menu-nav-edit {
+
+    cursor: wait !important;
+
+    .item {
+        width: 250px;
+        .item-title {
+            cursor: wait !important;
+        }
+        &:not(.active) {
+            background-color: whitesmoke !important;
+        }
+        &.active {
+            background-color: lightgrey !important;
+            border-right: none !important;
+            box-shadow: 3px 3px 3px lightgrey;
+            &:after {
+                content: "" !important;
+                left: -99999px;
+            }
+        }
+    }
+}

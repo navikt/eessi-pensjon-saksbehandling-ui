@@ -56,7 +56,7 @@ class DnD extends Component {
 
             // ...to a PDF target? Add it
             let lastIndexOf = result.draggableId.lastIndexOf('-');
-            let fileName = result.draggableId.substring(0, lastIndexOf);
+            let name = result.draggableId.substring(0, lastIndexOf);
             let pageNumber = parseInt(result.draggableId.substring(lastIndexOf + 1), 10)
 
             if (!newRecipe[targetId]) {
@@ -64,8 +64,8 @@ class DnD extends Component {
             }
 
             newRecipe[targetId].splice(result.destination.index, 0, {
-                fileName: fileName,
-                pageNumber: pageNumber
+                name       : name,
+                pageNumber : pageNumber
             });
 
             modified = true;

@@ -33,17 +33,21 @@ class Event extends Component {
 
         const { event, selected, onClick } = this.props;
 
-        return <div className={classNames('d-inline-block','mr-3','eventBadge', 'position-relative', { selected: selected })}
-            onClick={onClick}>
-            { !_.isEmpty(event.files) ? <div className='position-absolute' style={{zIndex: 10, right: 0, top: 0}}>
-                <Nav.Ikon size={20} kind='vedlegg'/>
-            </div> : null}
-            <Icons className='eventBadgeIcon' kind={event.type}/>
-            <div className='eventBadgeDate'>
-                <div>{this.renderDate(event.startDate)}</div>
-                <div>{this.renderDate(event.endDate)}</div>
+        return <div className='event' title={(!selected ? 'click to edit' : 'click to cancel')}>
+            <div className='eventBadgeLine'>&nbsp;</div>
+            <div className={classNames('eventBadge', 'position-relative', { selected: selected })}  onClick={onClick}>
+                { !_.isEmpty(event.files) ? <div className='eventBadgeHasAttachments'>
+                    <Nav.Ikon size={20} kind='vedlegg'/>
+                </div> : null}
+
+                <Icons className='eventBadgeIcon' kind={event.type}/>
+                <div className='eventBadgeDate'>
+                    <div>{this.renderDate(event.startDate)}</div>
+                    <div>{this.renderDate(event.endDate)}</div>
+                </div>
             </div>
         </div>
+
     }
 }
 

@@ -1,3 +1,8 @@
+.event {
+    position: relative;
+    display: inline-block;
+    margin-right: 1rem;
+}
 .eventBadge {
     background: rgb(33,150, 24);
     color: white;
@@ -13,6 +18,25 @@
      animation: cd-bounce-1 0.6s;
      cursor: pointer;
      box-shadow: 3px 3px 3px lightgray;
+     transition: all .2s ease-in-out;
+
+     &:hover {
+         transform: scale(1.2);
+     }
+}
+.eventBadgeLine {
+    position: absolute;
+    top: 30px;
+    left: -10px;
+    width: 80px;
+    height: 4px;
+    background: #219618;
+}
+.eventBadgeHasAttachments {
+    position: absolute;
+    z-index: 10;
+    right: 0;
+    top: 0
 }
 
 .eventBadgeDate {
@@ -29,18 +53,8 @@
 }
 
 .eventBadge.selected {
-    background: red
-}
-
-.eventBadge::before {
-  content: '';
-  position: absolute;
-  top: 30px;
-  left: -15px;
-  width: 150%;
-  height: 4px;
-  background: #219618;
-  z-index: -1;
+    background: red;
+    transform: scale(1.2);
 }
 .eventBadge.selected:before {
     background: transparent;
