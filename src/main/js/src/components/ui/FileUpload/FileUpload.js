@@ -1,3 +1,5 @@
+/* global window, Uint8Array */
+
 import React, { Component } from 'react';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
@@ -18,9 +20,20 @@ class FileUpload extends Component {
         });
     }
 
-    onDrop(acceptedFiles) {
+    updateFiles(newFiles) {
 
         const { onFileChange } = this.props;
+
+        this.setState({
+            files: newFiles
+        }, () => {
+            if (onFileChange) {
+                onFileChange(newFiles);
+            }
+        });
+    }
+
+    onDrop(acceptedFiles) {
 
         acceptedFiles.forEach(file => {
 
@@ -38,14 +51,7 @@ class FileUpload extends Component {
                     'size' : file.size,
                     'name' : file.name
                 });
-
-                this.setState({
-                    files: newFiles
-                }, () => {
-                    if (onFileChange) {
-                        onFileChange(newFiles);
-                    }
-                });
+                this.updateFiles(newFiles);
             }
             reader.onerror = error => {console.log(error)};
         })
@@ -53,26 +59,24 @@ class FileUpload extends Component {
 
     removeFile(fileIndex) {
 
-        const { onFileChange } = this.props;
-
         let newFiles = _.clone(this.state.files);
         newFiles.splice(fileIndex, 1);
-
-        this.setState({
-            files: newFiles
-        }, () => {
-            if (onFileChange) {
-                onFileChange(newFiles);
-            }
-        });
+        this.updateFiles(newFiles);
     }
 
-    onLoadSuccess() {}
+    onLoadSuccess(index, event) {
+
+        if (index !== undefined && event && event.numPages) {
+
+            let newFiles = _.clone(this.state.files);
+            newFiles[index].numPages = event.numPages;
+            this.updateFiles(newFiles);
+        }
+    }
 
     renderFiles() {
 
-        const { t, files } = this.props;
-        let res = [];
+        const { files } = this.props;
 
         if (_.isEmpty(files)) {
             return null;
@@ -88,10 +92,10 @@ class FileUpload extends Component {
                 />
             } else {
                 return <MiniatureOther
-                   key={i}
-                   file={file}
-                   onDeleteDocument={this.removeFile.bind(this, i)}
-               />
+                    key={i}
+                    file={file}
+                    onDeleteDocument={this.removeFile.bind(this, i)}
+                />
             }
         });
         return <div className='scrollable'>{html}</div>

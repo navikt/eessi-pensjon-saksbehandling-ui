@@ -101,18 +101,18 @@ class EditPDF extends Component {
                     <Nav.Row className='mt-4 text-left'>
                         <Nav.Column className='col-3' style={{maxWidth: pdfsize + 50}}>
                             <Collapse destroyInactivePanel={true} activeKey={dndTarget} accordion={true} onChange={this.handleAccordionChange.bind(this)}>
-                              <Collapse.Panel key='work' header={'Work (' + (recipe.work ? recipe.work.length : '0') + ')'} showArrow={true}>
-                                  <DnDTarget targetId='work'/>
-                              </Collapse.Panel>
-                              <Collapse.Panel key='home' header={'Home (' + (recipe.home ? recipe.home.length : '0') + ')'} showArrow={true}>
-                                  <DnDTarget targetId='home'/>
-                              </Collapse.Panel>
-                            <Collapse.Panel key='sick' header={'Sick (' + (recipe.sick ? recipe.sick.length : '0') + ')'} showArrow={true}>
-                                  <DnDTarget targetId='sick'/>
-                              </Collapse.Panel>
-                            <Collapse.Panel key='other' header={'Other (' + (recipe.other ? recipe.other.length : '0') + ')'} showArrow={true}>
-                                  <DnDTarget targetId='other'/>
-                              </Collapse.Panel>
+                                <Collapse.Panel key='work' header={'Work (' + (recipe.work ? recipe.work.length : '0') + ')'} showArrow={true}>
+                                    <DnDTarget targetId='work'/>
+                                </Collapse.Panel>
+                                <Collapse.Panel key='home' header={'Home (' + (recipe.home ? recipe.home.length : '0') + ')'} showArrow={true}>
+                                    <DnDTarget targetId='home'/>
+                                </Collapse.Panel>
+                                <Collapse.Panel key='sick' header={'Sick (' + (recipe.sick ? recipe.sick.length : '0') + ')'} showArrow={true}>
+                                    <DnDTarget targetId='sick'/>
+                                </Collapse.Panel>
+                                <Collapse.Panel key='other' header={'Other (' + (recipe.other ? recipe.other.length : '0') + ')'} showArrow={true}>
+                                    <DnDTarget targetId='other'/>
+                                </Collapse.Panel>
                             </Collapse>
                         </Nav.Column>
                         <Nav.Column className='col-9'>
@@ -141,7 +141,9 @@ EditPDF.propTypes = {
     history      : PT.object,
     t            : PT.func,
     pdfs         : PT.array.isRequired,
-    recipe       : PT.array.isRequired
+    recipe       : PT.array.isRequired,
+    pdfsize      : PT.number,
+    dndTarget    : PT.string
 };
 
 export default connect(

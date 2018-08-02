@@ -44,7 +44,7 @@ class PreviewPDF extends Component {
             contentLabel='contentLabel'>
             <div style={{cursor: 'pointer'}} onClick={this.closeModal.bind(this)}>
                 <Document className='document' file={{data: pdf.data }}>
-                    <Page className='page' width='600' renderMode='svg' pageNumber={preview.pageNumber}/>
+                    <Page className='bigpage' width='600' renderMode='svg' pageNumber={preview.pageNumber}/>
                 </Document>
             </div>
         </Nav.Modal>

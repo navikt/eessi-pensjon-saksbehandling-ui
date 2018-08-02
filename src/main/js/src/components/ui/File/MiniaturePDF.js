@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PT from 'prop-types';
 import { Document, Page } from 'react-pdf/dist/entry.noworker';
+import { translate } from 'react-i18next';
 
 import { Ikon } from '../Nav';
 import Icons from '../Icons';
@@ -30,18 +31,18 @@ class MiniaturePDF extends Component {
             numPages : e.numPages
         }, () => {
             if (onLoadSuccess) {
-                   onLoadSuccess(e);
-               }
+                onLoadSuccess(e);
+            }
         });
     }
 
     render () {
 
-        const { pdf, onLoadSuccess, onDeleteDocument } = this.props;
+        const { t, pdf, onDeleteDocument } = this.props;
 
         let data = 'data:application/octet-stream;base64,' + encodeURIComponent(pdf.base64);
         let deleteLink = this.state.isHovering ? <Ikon size={20} kind='trashcan' onClick={onDeleteDocument}/> : null;
-        let downloadLink = this.state.isHovering ? <a title='download' href={data} download={pdf.name}>
+        let downloadLink = this.state.isHovering ? <a title={t('ui:download')} href={data} download={pdf.name}>
             <Icons size={20} kind='download'/>
         </a> : null;
 
@@ -56,18 +57,19 @@ class MiniaturePDF extends Component {
                     <Page width='100' renderMode='svg' pageNumber={1}/>
                 </div>
                 <div className='fileName'> {pdf.name}</div>
-                <div className='numPages'>Pages: {this.state.numPages || 0}</div>
-                <div className='numPages'>Size: {pdf.size} bytes</div>
+                <div className='numPages'>{t('ui:pages')}: {this.state.numPages || 0}</div>
+                <div className='numPages'>{t('ui:size')}: {pdf.size} {t('ui:bytes')}</div>
             </Document>
         </div>
     }
 }
 
 MiniaturePDF.propTypes = {
-    onLoadSuccess: PT.func.isRequired,
-    pdf: PT.object.isRequired,
-    onDeleteDocument: PT.func.isRequired,
-    pageNumbers: PT.number.isRequired
+    t                : PT.func.isRequired,
+    onLoadSuccess    : PT.func.isRequired,
+    pdf              : PT.object.isRequired,
+    onDeleteDocument : PT.func.isRequired,
+    pageNumbers      : PT.number.isRequired
 }
 
-export default MiniaturePDF;
+export default translate()(MiniaturePDF);

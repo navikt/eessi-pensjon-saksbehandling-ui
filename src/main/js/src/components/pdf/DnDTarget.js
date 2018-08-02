@@ -19,8 +19,6 @@ const getListStyle = isDraggingOver => ({
 
 const getItemStyle = (isDragging, draggableStyle) => ({
     border: isDragging ? '2px color red' : '1px solid lightgrey',
-    padding: 5,
-    boxShadow: '5px 5px 5px lightgrey',
     margin: '0 0 5px 0',
     backgroundColor: isDragging ? 'lightgreen' : 'white',
     ...draggableStyle
@@ -29,7 +27,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 const mapStateToProps = (state) => {
     return {
         recipe : state.pdf.recipe,
-        pdfs:    state.pdf.pdfs
+        pdfs   : state.pdf.pdfs
     };
 };
 
@@ -39,49 +37,47 @@ class DnDTarget extends Component {
 
         const { pdfs, recipe, targetId } = this.props;
 
-        return <div>
-            {/*<div>Pages: {recipe.length}</div>*/}
-            <Droppable droppableId={'dndtarget-' + targetId}>
+        return <Droppable droppableId={'dndtarget-' + targetId}>
 
-                {(provided, snapshot) => (
+            {(provided, snapshot) => (
 
-                    <div className='recipePDFarea text-center' ref={provided.innerRef}
-                        style={getListStyle(snapshot.isDraggingOver)}>
+                <div className='recipePDFarea text-center' ref={provided.innerRef}
+                    style={getListStyle(snapshot.isDraggingOver)}>
 
-                        {recipe[targetId] ? recipe[targetId].map((recipeStep, index) => {
+                    {recipe[targetId] ? recipe[targetId].map((recipeStep, index) => {
 
-                            let pdf = _.find(pdfs, {name: recipeStep.name});
+                        let pdf = _.find(pdfs, {name: recipeStep.name});
 
-                            return <Draggable key={index} draggableId={index} index={index}>
+                        return <Draggable key={index} draggableId={index} index={index}>
 
-                                {(provided, snapshot) => (
+                            {(provided, snapshot) => (
 
-                                    <div ref={provided.innerRef}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
-                                        style={getItemStyle(
-                                            snapshot.isDragging,
-                                            provided.draggableProps.style
-                                        )}>
-                                        <PDFPageInDnD
-                                            pdf={pdf}
-                                            pageNumber={recipeStep.pageNumber}
-                                            action='remove'
-                                        />
-                                    </div>
-                                )}
-                            </Draggable>
-                        }) : null}
-                    </div>
-                )}
-            </Droppable>
-        </div>
+                                <div ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    style={getItemStyle(
+                                        snapshot.isDragging,
+                                        provided.draggableProps.style
+                                    )}>
+                                    <PDFPageInDnD
+                                        pdf={pdf}
+                                        pageNumber={recipeStep.pageNumber}
+                                        action='remove'
+                                    />
+                                </div>
+                            )}
+                        </Draggable>
+                    }) : null}
+                </div>
+            )}
+        </Droppable>
     }
 }
 
 DnDTarget.propTypes = {
     recipe: PT.array.isRequired,
-    pdfs: PT.array.isRequired
+    pdfs: PT.array.isRequired,
+    targetId: PT.string.isRequired
 }
 
 export default connect(

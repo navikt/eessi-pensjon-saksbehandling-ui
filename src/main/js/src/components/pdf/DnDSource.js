@@ -21,8 +21,6 @@ const getListStyle = isDraggingOver => ({
 
 const getItemStyle = (pdfsize, isDragging, draggableStyle) => ({
     border: isDragging ? '2px color red' : '1px solid lightgrey',
-    padding: 5,
-    boxShadow: '5px 5px 5px lightgrey',
     margin: '0 5px 0 0',
     minWidth: pdfsize,
     backgroundColor: isDragging ? 'lightgreen' : 'white',
@@ -86,8 +84,7 @@ class DnDSource extends Component {
             <div>File: {pdf.name}</div>
             <div><a href='#addAll' onClick={this.addAllPagesToTargetPdf.bind(this, pdf.name)}>{t('ui:addAll')}</a></div>
 
-            <div className='foo'>
-                <Droppable droppableId={'dndsource-' + pdf.name} direction='horizontal'>
+            <Droppable droppableId={'dndsource-' + pdf.name} direction='horizontal'>
 
                 {(provided, snapshot) => (
 
@@ -118,9 +115,7 @@ class DnDSource extends Component {
                     </div>
                 )}
             </Droppable>
-            </div>
         </div>
-
     }
 }
 
@@ -128,7 +123,9 @@ DnDSource.propTypes = {
     t       : PT.func.isRequired,
     recipe  : PT.array.isRequired,
     actions : PT.object,
-    pdf     : PT.object.isRequired
+    pdf     : PT.object.isRequired,
+    pdfsize : PT.number,
+    dndTarget : PT.string
 }
 
 export default connect(

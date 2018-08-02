@@ -1,3 +1,5 @@
+/* global Uint8Array, ArrayBuffer */
+
 import _ from 'lodash';
 
 class Util {
@@ -11,7 +13,7 @@ class Util {
             if (event.birthDate) event.birthDate = new Date(event.birthDate);
             if (event.endDate)   event.endDate   = new Date(event.endDate);
             if (event.files) {
-                 event.files.map(file => {
+                event.files.map(file => {
                     var raw = window.atob(file.base64);
                     var array = new Uint8Array(new ArrayBuffer(raw.length));
                     for (var i = 0; i < raw.length; i++) {
@@ -19,7 +21,7 @@ class Util {
                     }
                     file.data = array;
                     return file;
-                 });
+                });
             }
             return event;
         });

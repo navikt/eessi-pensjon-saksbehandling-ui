@@ -81,10 +81,10 @@ class P4000 extends Component {
         const { t, event } = this.props;
 
         if (event === undefined) {
-             return [
-                 {label: t('p4000:menu'),      value: '_menu',     divider: true},
-                 {label: t('p4000:file'),      value: 'file',      icon: 'fa-file'}
-             ];
+            return [
+                {label: t('p4000:menu'),      value: '_menu',     divider: true},
+                {label: t('p4000:file'),      value: 'file',      icon: 'fa-file'}
+            ];
         }
         return [
             {label: t('p4000:menu'),      value: '_menu',     divider: true},

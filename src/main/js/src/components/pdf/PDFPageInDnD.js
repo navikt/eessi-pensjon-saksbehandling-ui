@@ -33,7 +33,7 @@ class PDFPageInDnD extends Component {
 
          let newRecipe = _.clone(recipe);
          if (!newRecipe[dndTarget]) {
-            newRecipe[dndTarget] = [];
+             newRecipe[dndTarget] = [];
          }
          newRecipe[dndTarget].push({name: name, pageNumber: pageNumber});
          actions.setRecipe(newRecipe);
@@ -119,6 +119,7 @@ PDFPageInDnD.propTypes = {
     fileName: PT.string.isRequired,
     pageNumber: PT.number.isRequired,
     pdfsize : PT.number.isRequired,
+    dndTarget: PT.string,
     action: PT.string.isRequired
 }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PT from 'prop-types';
+import { translate } from 'react-i18next';
 
 import { Ikon } from '../Nav';
 import Icons from '../Icons';
@@ -22,11 +23,11 @@ class MiniatureOther extends Component {
 
     render () {
 
-        const { file, onDeleteDocument } = this.props;
+        const { t, file, onDeleteDocument } = this.props;
 
         let data = 'data:application/octet-stream;base64,' + encodeURIComponent(file.base64);
         let deleteLink = this.state.isHovering ? <Ikon size={20} kind='trashcan' onClick={onDeleteDocument}/> : null;
-        let downloadLink = this.state.isHovering ? <a title='download' href={data} download={file.name}>
+        let downloadLink = this.state.isHovering ? <a title={t('ui:download')} href={data} download={file.name}>
             <Icons size={20} kind='download'/>
         </a> : null;
 
@@ -35,20 +36,21 @@ class MiniatureOther extends Component {
         return <div className='miniatureOther position-relative'
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
             onMouseLeave={this.onHandleMouseLeave.bind(this)}>
-                <div className='deleteLink'> {deleteLink}</div>
-                <div className='downloadLink'> {downloadLink}</div>
-                <div className='document'>
-                    <div className='content'>{extension}</div>
-                </div>
-                <div className='fileName'> {file.name}</div>
-                <div className='numPages'>Size: {file.size} bytes</div>
+            <div className='deleteLink'> {deleteLink}</div>
+            <div className='downloadLink'> {downloadLink}</div>
+            <div className='document'>
+                <div className='content'>{extension}</div>
             </div>
+            <div className='fileName'> {file.name}</div>
+            <div className='numPages'>{t('ui:size')}: {file.size} {t('ui:bytes')}</div>
+        </div>
     }
 }
 
 MiniatureOther.propTypes = {
+    t                : PT.func.isRequired,
     file: PT.object.isRequired,
     onDeleteDocument: PT.func.isRequired,
 }
 
-export default MiniatureOther;
+export default translate()(MiniatureOther);
