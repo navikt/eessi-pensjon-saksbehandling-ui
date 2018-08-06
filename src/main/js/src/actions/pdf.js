@@ -5,8 +5,8 @@ import * as api from './api';
 export function selectPDF (pdfs) {
 
     return {
-        type: types.PDF_SELECTED,
-        payload: pdfs
+        type    : types.PDF_SELECTED,
+        payload : pdfs
     };
 }
 
@@ -20,16 +20,16 @@ export function clearPDF () {
 export function setRecipe (recipe) {
 
     return {
-        type: types.PDF_SET_RECIPE,
-        payload: recipe
+        type    : types.PDF_SET_RECIPE,
+        payload : recipe
     };
 }
 
-export function previewPDF(payload) {
+export function previewPDF(pdf) {
 
     return {
-        type: types.PDF_PREVIEW_START,
-        payload: payload
+        type    : types.PDF_PREVIEW_START,
+        payload : pdf
     };
 }
 
@@ -43,16 +43,16 @@ export function cancelPreviewPDF() {
 export function setActiveDnDTarget(target) {
 
     return {
-        type: types.PDF_SET_DND_TARGET,
-        payload: target
+        type    : types.PDF_SET_DND_TARGET,
+        payload : target
     };
 }
 
-export function setPdfSize (payload) {
+export function setPdfSize (size) {
 
     return {
-        type: types.PDF_SET_PAGE_SIZE,
-        payload: payload
+        type    : types.PDF_SET_PAGE_SIZE,
+        payload : size
     };
 }
 

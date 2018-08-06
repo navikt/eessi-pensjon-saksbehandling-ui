@@ -81,14 +81,10 @@ class FileUpload extends Component {
 
     onLoadSuccess(index, event) {
 
-        const { t } = this.props;
-
         if (index !== undefined && event && event.numPages) {
 
             let newFiles = _.clone(this.state.files);
             newFiles[index].numPages = event.numPages;
-
-           //let status = t('ui:uploaded') + ' ' + newFiles[index].name;
 
             this.updateFiles(newFiles);
         }
@@ -125,14 +121,14 @@ class FileUpload extends Component {
         const { t, accept, className } = this.props;
 
         return <div className={classNames('div-dropzone', className)}>
-                <Dropzone className='dropzone' activeClassName='dropzone-active' accept={accept} onDrop={this.onDrop.bind(this)}>
-                    <div className='dropzone-placeholder'>
-                        <div className='dropzone-placeholder-message'>{t('ui:dropFilesHere')}</div>
-                        <div className='dropzone-placeholder-status'>{this.state.status}</div>
-                    </div>
-                    <div className='dropzone-files scrollable'>{this.renderFiles()}</div>
-                </Dropzone>
-           </div>
+            <Dropzone className='dropzone' activeClassName='dropzone-active' accept={accept} onDrop={this.onDrop.bind(this)}>
+                <div className='dropzone-placeholder'>
+                    <div className='dropzone-placeholder-message'>{t('ui:dropFilesHere')}</div>
+                    <div className='dropzone-placeholder-status'>{this.state.status}</div>
+                </div>
+                <div className='dropzone-files scrollable'>{this.renderFiles()}</div>
+            </Dropzone>
+        </div>
     }
 }
 

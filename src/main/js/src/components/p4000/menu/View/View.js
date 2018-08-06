@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { renderToString } from 'react-dom/server';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 import { bindActionCreators }  from 'redux';
-import VisTimeline from 'react-visjs-timeline';
+import Timeline from 'react-visjs-timeline';
 import ReactJson from 'react-json-view';
 
 import P4000Util from  '../../../p4000/Util';
 import * as Nav from '../../../ui/Nav';
-import Icons from '../../../ui/Icons';
+import TimelineEvent from '../../../ui/TimelineEvent';
+
 import * as p4000Actions from '../../../../actions/p4000';
 
 import './View.css';
@@ -23,12 +24,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch)};
 };
-
-const options = {
-    width        : '100%',
-    orientation  : 'top',
-    showTooltips : true
-}
 
 class View extends Component {
 
@@ -71,17 +66,8 @@ class View extends Component {
     }
 
     renderDate(date) {
+
         return date ? date.toDateString() : 'unknown';
-    }
-
-    renderContent(event) {
-
-        const { t } = this.props;
-
-        return renderToString(<div className='timeline-event'>
-            <div><Icons size='3x' kind={event.type}/></div>
-            <h4>{t('p4000:' + event.type)}</h4>
-        </div>);
     }
 
     renderTooltip(event) {
@@ -105,7 +91,7 @@ class View extends Component {
 
     render() {
 
-        const { t, events } = this.props;
+        const { t, events, actions } = this.props;
 
         let items = events.map((event, index) => {
             return {
@@ -113,14 +99,26 @@ class View extends Component {
                 type: 'range',
                 start: event.startDate,
                 end: event.endDate,
-                content: this.renderContent(event),
+                content: event,
                 title: this.renderTooltip(event)
             }
-        })
+        });
 
         return <Nav.Panel className='p-0 panel-timeline'>
             <Nav.Ekspanderbartpanel className='row-timeline-view fieldset mb-5' apen={true} tittel={t('p4000:timeline')} tittelProps='undertittel'>
-                <VisTimeline options={options} items={items}/>
+                <Timeline items={items}
+                    options={{
+                        width        : '100%',
+                        orientation  : 'top',
+                        showTooltips : true,
+                        template     : (item, element) => {
+                            if (!item) {return}
+                            ReactDOM.render(<TimelineEvent event={item}
+                                onClick={() => actions.editEvent(item.id)}
+                            />, element);
+                            return item.content;
+                        }
+                    }}/>
             </Nav.Ekspanderbartpanel>
 
             <Nav.Ekspanderbartpanel className='row-advanced-view fieldset' apen={false} tittel={t('p4000:advancedView')} tittelProps='undertittel'>
@@ -151,8 +149,9 @@ class View extends Component {
 }
 
 View.propTypes = {
-    t      : PT.func,
-    events : PT.array.isRequired
+    t       : PT.func,
+    events  : PT.array.isRequired,
+    actions : PT.object.isRequired
 };
 
 export default connect(

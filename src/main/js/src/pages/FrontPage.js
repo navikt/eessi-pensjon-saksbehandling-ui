@@ -21,30 +21,32 @@ class FrontPage extends Component {
         const { t, language } = this.props;
 
         return <TopContainer language={language}>
-            <Nav.Row>
-                <Nav.Column>
-                    <h1 className='mt-3 appTitle'>{t('pageTitle')}</h1>
-                    <h4>{t('pageDescription')}</h4>
-                </Nav.Column>
-            </Nav.Row>
-            <Nav.Row className='mt-4 text-center'>
-                <Nav.Column className='col-4 m-auto'>
-                    <LanguageSelector/>
-                </Nav.Column>
-            </Nav.Row>
-            <Nav.Row className='mt-4 text-left'>
-                <Nav.Column>
-                    <Nav.Lenkepanel className='frontPageLink' linkCreator={(props) => (
-                        <Link to='/react/case/get' {...props}/>)
-                    } href="#">{t('case:createNewCase')}</Nav.Lenkepanel>
-                    <Nav.Lenkepanel className='frontPageLink' linkCreator={(props) => (
-                        <Link to='/react/pdf/select' {...props}/>)
-                    } href="#">{t('pdf:createPdf')}</Nav.Lenkepanel>
-                    <Nav.Lenkepanel className='frontPageLink' linkCreator={(props) => (
-                        <Link to='/react/p4000' {...props}/>)
-                    } href="#">{t('p4000:app-startP4000')}</Nav.Lenkepanel>
-                </Nav.Column>
-            </Nav.Row>
+            <Nav.Container fluid={false}>
+                <Nav.Row>
+                    <Nav.Column>
+                        <h1 className='mt-3 appTitle'>{t('pageTitle')}</h1>
+                        <h4>{t('pageDescription')}</h4>
+                    </Nav.Column>
+                </Nav.Row>
+                <Nav.Row className='mt-4 text-center'>
+                    <Nav.Column className='col-4 m-auto'>
+                        <LanguageSelector/>
+                    </Nav.Column>
+                </Nav.Row>
+                <Nav.Row className='mt-4 text-left'>
+                    <Nav.Column>
+                        <Nav.Lenkepanel className='frontPageLink' linkCreator={(props) => (
+                            <Link to='/react/case/get' {...props}/>)
+                        } href="#">{t('case:createNewCase')}</Nav.Lenkepanel>
+                        <Nav.Lenkepanel className='frontPageLink' linkCreator={(props) => (
+                            <Link to='/react/pdf/select' {...props}/>)
+                        } href="#">{t('pdf:createPdf')}</Nav.Lenkepanel>
+                        <Nav.Lenkepanel className='frontPageLink' linkCreator={(props) => (
+                            <Link to='/react/p4000' {...props}/>)
+                        } href="#">{t('p4000:app-startP4000')}</Nav.Lenkepanel>
+                    </Nav.Column>
+                </Nav.Row>
+            </Nav.Container>
         </TopContainer>
     }
 }

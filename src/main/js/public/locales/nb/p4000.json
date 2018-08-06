@@ -34,6 +34,8 @@
     "addedP4000Event"     : "Added event",
     "advancedView"        : "Advanced view",
     "eventsSoFar"         : "P4000 form events so far",
+    "cancelEditEvent"     : "Cancel edit event",
+    "editEvent"           : "Edit event",
 
     "file-title" : "File menu for P4000",
     "file-new" : "New P4000",

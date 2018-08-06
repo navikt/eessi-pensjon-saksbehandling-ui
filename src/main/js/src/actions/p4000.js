@@ -19,12 +19,12 @@ export function newP4000() {
     };
 }
 
-export function openP4000(p4000) {
+export function openP4000(events) {
 
     return {
         type : types.P4000_OPEN,
         payload : {
-            events: p4000
+            events: events
         }
     }
 }

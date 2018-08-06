@@ -31,9 +31,9 @@ class Event extends Component {
 
     render() {
 
-        const { event, selected, onClick } = this.props;
+        const { t, event, selected, onClick } = this.props;
 
-        return <div className='event' title={(!selected ? 'click to edit' : 'click to cancel')}>
+        return <div className='event' title={selected ? t('p4000:cancelEditEvent') : t('p4000:editEvent')}>
             <div className='eventBadgeLine'>&nbsp;</div>
             <div className={classNames('eventBadge', 'position-relative', { selected: selected })}  onClick={onClick}>
                 { !_.isEmpty(event.files) ? <div className='eventBadgeHasAttachments'>

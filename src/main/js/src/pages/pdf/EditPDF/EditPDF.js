@@ -86,15 +86,15 @@ class EditPDF extends Component {
         let buttonText = editingPDF ? t('pdf:loadingEditPDF') : t('ui:forward');
 
         return <TopContainer className='topContainer'>
-             <Nav.Row>
+            <Nav.Row>
                 <Nav.Column>
                     <h1 className='mt-3 appTitle'>{t('pdf:selectPdfTitle')}</h1>
                 </Nav.Column>
-             </Nav.Row>
-             {alert ? <Nav.Row className='mt-3 mb-3'>
+            </Nav.Row>
+            {alert ? <Nav.Row className='mt-3 mb-3'>
                 <Nav.Column>{alert}</Nav.Column>
-             </Nav.Row> : null}
-             <PreviewPDF/>
+            </Nav.Row> : null}
+            <PreviewPDF/>
 
             <Nav.Row className='mb-2'>
                 <Nav.Column className='col-3'>
@@ -124,10 +124,10 @@ class EditPDF extends Component {
                             {! pdfs ? null : <Collapse destroyInactivePanel={false} accordion={false}>
                                 {pdfs.map((pdf, i) => {
                                     return <Collapse.Panel key={i} header={pdf.name} showArrow={true}>
-                                       <DnDSource pdf={pdf}/>
+                                        <DnDSource pdf={pdf}/>
                                     </Collapse.Panel>
                                 })}
-                                </Collapse>
+                            </Collapse>
                             }
                         </div>
                         <Nav.Row>
