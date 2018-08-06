@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PT from 'prop-types';
 import { bindActionCreators }  from 'redux';
 import { connect } from 'react-redux';
+import { translate } from 'react-i18next';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
@@ -27,21 +28,25 @@ class PDFSizeSlider extends Component {
 
     render () {
 
-        const { pdfsize } = this.props;
+        const { t, pdfsize } = this.props;
 
-        return <div>
+        return <div title={t('pdf:sizeSliderTooltip')}>
             <Slider value={pdfsize} min={50} max={300} step={25} onChange={this.onChange.bind(this)}/>
         </div>
     }
 }
 
 PDFSizeSlider.propTypes = {
-    pdfsize: PT.number.isRequired,
-    actions: PT.object
+
+    t       : PT.func.isRequired,
+    pdfsize : PT.number.isRequired,
+    actions : PT.object
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(PDFSizeSlider);
+)(
+    translate()(PDFSizeSlider)
+);
 

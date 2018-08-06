@@ -42,7 +42,7 @@ class MiniaturePDF extends Component {
 
         let data = 'data:application/octet-stream;base64,' + encodeURIComponent(pdf.base64);
         let deleteLink = this.state.isHovering ? <Ikon size={20} kind='trashcan' onClick={onDeleteDocument}/> : null;
-        let downloadLink = this.state.isHovering ? <a title={t('ui:download')} href={data} download={pdf.name}>
+        let downloadLink = this.state.isHovering ? <a onClick={(e) => e.stopPropagation()} title={t('ui:download')} href={data} download={pdf.name}>
             <Icons size={20} kind='download'/>
         </a> : null;
 

@@ -10,12 +10,13 @@ import PDFPageInDnD from './PDFPageInDnD';
 
 import * as pdfActions from '../../actions/pdf';
 
-const getListStyle = isDraggingOver => ({
+const getListStyle = (pdfsize, isDraggingOver) => ({
     background: isDraggingOver ? 'honeydew' : 'whitesmoke',
     padding: 10,
     display: 'flex',
     overflowX: 'auto',
     whiteSpace: 'nowrap',
+    minHeight: pdfsize * 1.3,
     boxShadow: 'inset 5px 5px 5px lightgrey'
 });
 
@@ -41,11 +42,24 @@ const mapDispatchToProps = (dispatch) => {
 
 class DnDSource extends Component {
 
+    state = {
+        isHovering : false
+    }
+
+    onHandleMouseEnter() {
+        this.setState({isHovering : true});
+    }
+
+    onHandleMouseLeave() {
+        this.setState({isHovering : false});
+    }
+
     addAllPagesToTargetPdf(name, e) {
 
         const { pdf, recipe, dndTarget, actions } = this.props;
 
         e.preventDefault();
+        e.stopPropagation();
 
         let potentialPages = [], newRecipe = _.clone(recipe);
         let modified = false;
@@ -80,15 +94,19 @@ class DnDSource extends Component {
             selectedPages = _.filter(recipe[dndTarget], {name: pdf.name});
         }
 
-        return <div>
-            <div>File: {pdf.name}</div>
-            <div><a href='#addAll' onClick={this.addAllPagesToTargetPdf.bind(this, pdf.name)}>{t('ui:addAll')}</a></div>
+        let addAllLink = this.state.isHovering ? <a href='#addAll' onClick={this.addAllPagesToTargetPdf.bind(this, pdf.name)}>{t('ui:addAll')}</a> : null;
+
+        return <div className='div-dndsource position-relative'
+            onMouseEnter={this.onHandleMouseEnter.bind(this)}
+            onMouseLeave={this.onHandleMouseLeave.bind(this)}>
+
+            <div className='position-absolute' style={{top: 5, right: 5}}>{addAllLink}</div>
 
             <Droppable droppableId={'dndsource-' + pdf.name} direction='horizontal'>
 
                 {(provided, snapshot) => (
 
-                    <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
+                    <div ref={provided.innerRef} style={getListStyle(pdfsize, snapshot.isDraggingOver)}>
 
                         {_.range(1, pdf.numPages + 1).map(pageNumber => {
                             if (_.find(selectedPages, {pageNumber: pageNumber})) {

@@ -85,50 +85,62 @@ class EditPDF extends Component {
         let alert      = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
         let buttonText = editingPDF ? t('pdf:loadingEditPDF') : t('ui:forward');
 
-        return <TopContainer>
-            <Nav.Panel style={{padding: 0, margin: 0}}>
-                <Nav.Row className='mt-4'>
-                    <Nav.Column>{t('pdf:editPdf')}</Nav.Column>
-                </Nav.Row>
-                <Nav.Row className='mt-4 text-center'>
-                    <Nav.Column>{alert}</Nav.Column>
-                </Nav.Row>
-                <PreviewPDF/>
+        return <TopContainer className='topContainer'>
+             <Nav.Row>
+                <Nav.Column>
+                    <h1 className='mt-3 appTitle'>{t('pdf:selectPdfTitle')}</h1>
+                </Nav.Column>
+             </Nav.Row>
+             {alert ? <Nav.Row className='mt-3 mb-3'>
+                <Nav.Column>{alert}</Nav.Column>
+             </Nav.Row> : null}
+             <PreviewPDF/>
+
+            <Nav.Row className='mb-2'>
+                <Nav.Column className='col-3'>
+                    <PDFSizeSlider/>
+                </Nav.Column>
+            </Nav.Row>
+            <Nav.Row className='mb-4'>
                 <DnD>
-                    <Nav.Row>
-                        <Nav.Column className='col-3'><PDFSizeSlider/></Nav.Column>
-                    </Nav.Row>
-                    <Nav.Row className='mt-4 text-left'>
-                        <Nav.Column className='col-3' style={{maxWidth: pdfsize + 50}}>
-                            <Collapse destroyInactivePanel={true} activeKey={dndTarget} accordion={true} onChange={this.handleAccordionChange.bind(this)}>
-                                <Collapse.Panel key='work' header={'Work (' + (recipe.work ? recipe.work.length : '0') + ')'} showArrow={true}>
-                                    <DnDTarget targetId='work'/>
-                                </Collapse.Panel>
-                                <Collapse.Panel key='home' header={'Home (' + (recipe.home ? recipe.home.length : '0') + ')'} showArrow={true}>
-                                    <DnDTarget targetId='home'/>
-                                </Collapse.Panel>
-                                <Collapse.Panel key='sick' header={'Sick (' + (recipe.sick ? recipe.sick.length : '0') + ')'} showArrow={true}>
-                                    <DnDTarget targetId='sick'/>
-                                </Collapse.Panel>
-                                <Collapse.Panel key='other' header={'Other (' + (recipe.other ? recipe.other.length : '0') + ')'} showArrow={true}>
-                                    <DnDTarget targetId='other'/>
-                                </Collapse.Panel>
-                            </Collapse>
-                        </Nav.Column>
-                        <Nav.Column className='col-9'>
-                            {pdfs ? pdfs.map(pdf => {return <DnDSource key={pdf.name} pdf={pdf}/>}) : null}
-                        </Nav.Column>
-                    </Nav.Row>
-                </DnD>
-            </Nav.Panel>
-            <Nav.Panel>
-                <Nav.Row className='mt-4'>
-                    <Nav.Column>
-                        <Nav.Knapp className='backButton' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
-                        <Nav.Hovedknapp className='forwardButton' spinner={editingPDF} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                    <Nav.Column className='col-2' style={{maxWidth: pdfsize + 50}}>
+                        <Collapse destroyInactivePanel={true} activeKey={dndTarget} accordion={true} onChange={this.handleAccordionChange.bind(this)}>
+                            <Collapse.Panel key='work' header={'Work (' + (recipe.work ? recipe.work.length : '0') + ')'} showArrow={true}>
+                                <DnDTarget targetId='work'/>
+                            </Collapse.Panel>
+                            <Collapse.Panel key='home' header={'Home (' + (recipe.home ? recipe.home.length : '0') + ')'} showArrow={true}>
+                                <DnDTarget targetId='home'/>
+                            </Collapse.Panel>
+                            <Collapse.Panel key='sick' header={'Sick (' + (recipe.sick ? recipe.sick.length : '0') + ')'} showArrow={true}>
+                                <DnDTarget targetId='sick'/>
+                            </Collapse.Panel>
+                            <Collapse.Panel key='other' header={'Other (' + (recipe.other ? recipe.other.length : '0') + ')'} showArrow={true}>
+                                <DnDTarget targetId='other'/>
+                            </Collapse.Panel>
+                        </Collapse>
                     </Nav.Column>
-                </Nav.Row>
-            </Nav.Panel>
+                    <Nav.Column className='col-10'>
+                        <div className='h-100'>
+                            {! pdfs ? null : <Collapse destroyInactivePanel={false} accordion={false}>
+                                {pdfs.map((pdf, i) => {
+                                    return <Collapse.Panel key={i} header={pdf.name} showArrow={true}>
+                                       <DnDSource pdf={pdf}/>
+                                    </Collapse.Panel>
+                                })}
+                                </Collapse>
+                            }
+                        </div>
+                        <Nav.Row>
+                            <Nav.Column>
+                                <Nav.Knapp className='backButton w-100' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
+                            </Nav.Column>
+                            <Nav.Column>
+                                <Nav.Hovedknapp className='forwardButton w-100' spinner={editingPDF} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                            </Nav.Column>
+                        </Nav.Row>
+                    </Nav.Column>
+                </DnD>
+            </Nav.Row>
         </TopContainer>
     }
 }

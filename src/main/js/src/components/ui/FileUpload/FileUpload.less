@@ -1,20 +1,36 @@
-.fileUploadItem:before {
-    font-family: 'Font Awesome 5 Free';
-    content: "\F15B";
-    margin-right: 10px;
-}
-
-.fileUploadItem {
-    list-style-type: none;
-    margin-left: -20px;
-}
-
-.dropzone-placeholder {
-    margin-top:70px;
-    text-align: center;
-}
 
 .scrollable {
     overflow-x: auto;
     white-space: nowrap;
 }
+
+.dropzone {
+     position: relative;
+     min-height: 200px;
+     border: none !important;
+     box-shadow: inset 3px 3px 3px lightgray;
+     background-color: white;
+ }
+.dropzone:hover {
+   background-color: #FAFAFF;
+}
+.dropzone-active {
+    background-color: honeydew;
+}
+.dropzone-placeholder,
+.dropzone-files {
+   padding: 5px;
+  cursor: pointer;
+}
+
+.dropzone-placeholder-message,
+.dropzone-placeholder-status {
+    display: inline-block;
+}
+
+.dropzone-placeholder-status {
+    float: right;
+    margin-right: 5px;
+    color: gray;
+}
+

@@ -67,29 +67,22 @@ class SelectPDF extends Component {
         let alert      = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
         let buttonText = gettingPDF ? t('pdf:loadingGettingPDF') : t('ui:forward');
 
-        return <TopContainer>
-            <Nav.Panel className='panel py-4 m-4'>
-                <Nav.Row className='mt-4'>
-                    <Nav.Column>
-                        <h1 className='mt-3 appTitle'>{t('pdf:selectPdfTitle')}</h1>
-                        <h4>{t('pdf:selectPdfDescription')}</h4>
-                    </Nav.Column>
-                </Nav.Row>
-                <Nav.Row className='mt-4 text-center'>
-                    <Nav.Column>{alert}</Nav.Column>
-                </Nav.Row>
-                <Nav.Row className='mt-4 text-left'>
-                    <Nav.Column>
-                        <FileUpload files={this.state.files} onFileChange={this.handleFileChange.bind(this)}/>
-                    </Nav.Column>
-                </Nav.Row>
-
-                <Nav.Row className='mt-4'>
-                    <Nav.Column>
-                        <Nav.Hovedknapp className='forwardButton' spinner={gettingPDF} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
-                    </Nav.Column>
-                </Nav.Row>
-            </Nav.Panel>
+        return <TopContainer className='topContainer'>
+            <Nav.Row className='mb-4'>
+                <Nav.Column>
+                    <h1 className='mt-3 appTitle'>{t('pdf:selectPdfTitle')}</h1>
+                </Nav.Column>
+            </Nav.Row>
+            {alert ? <Nav.Row className='mb-4'>
+                <Nav.Column>{alert}</Nav.Column>
+            </Nav.Row> : null}
+            <Nav.Row className='m-3 p-3 fieldset'>
+                <Nav.Column>
+                    <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
+                    <FileUpload accept='application/pdf' className='mb-3' files={this.state.files} onFileChange={this.handleFileChange.bind(this)}/>
+                    <Nav.Hovedknapp className='forwardButton' spinner={gettingPDF} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                </Nav.Column>
+            </Nav.Row>
         </TopContainer>
     }
 }

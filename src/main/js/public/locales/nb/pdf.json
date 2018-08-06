@@ -1,6 +1,5 @@
 {
-    "editPdf": "Click or drag and drop PDF pages to add. You can sort the selected pages or remove them by clicking on them",
-    "createPdf" : "Create PDF",
+   "createPdf" : "Create PDF",
 
     "selectPdfTitle" : "Select PDF",
     "selectPdfDescription" : "Select PDF description",
@@ -9,5 +8,6 @@
     "generatePdfTitle" : "Generate PDF",
     "generatePdfDescription" : "Generate PDF description",
 
-    "loadingGettingPDF": "Getting PDF..."
+    "loadingGettingPDF": "Getting PDF...",
+    "sizeSliderTooltip" : "Slide to increase/decrease PDF page size"
 }

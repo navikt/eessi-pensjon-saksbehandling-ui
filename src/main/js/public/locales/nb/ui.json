@@ -1,4 +1,5 @@
 {
+    "accepted" : "Accepted",
     "addAll" : "Add all",
     "back" : "Back",
     "bytes" : "bytes",
@@ -13,7 +14,7 @@
     "dataSubmitted" : "Data sent",
     "delete" : "Delete",
     "download" : "Download",
-    "dropFilesHere" : "Drop files here, or click to select files",
+    "dropFilesHere" : "Drop files here, or click in the area to open the file select dialog",
     "edit" : "Edit",
     "endDate" : "End date",
     "fileUpload" : "File upload",
@@ -21,6 +22,7 @@
     "go" : "Go",
     "new" : "New",
     "pages" : "Pages",
+    "rejected" : "Rejected",
     "remove" : "Remove",
     "resume" : "Resume",
     "save"   : "Save",
@@ -37,5 +39,6 @@
     "country" : "Country",
     "yes-continue" : "Yes, continue",
     "no-cancel" : "No, cancel",
-    "unknown" : "Unknown"
+    "unknown" : "Unknown",
+    "uploaded" : "Uploaded"
 }

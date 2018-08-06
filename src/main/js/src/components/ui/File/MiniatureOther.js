@@ -27,7 +27,7 @@ class MiniatureOther extends Component {
 
         let data = 'data:application/octet-stream;base64,' + encodeURIComponent(file.base64);
         let deleteLink = this.state.isHovering ? <Ikon size={20} kind='trashcan' onClick={onDeleteDocument}/> : null;
-        let downloadLink = this.state.isHovering ? <a title={t('ui:download')} href={data} download={file.name}>
+        let downloadLink = this.state.isHovering ? <a onClick={(e) => e.stopPropagation()} title={t('ui:download')} href={data} download={file.name}>
             <Icons size={20} kind='download'/>
         </a> : null;
 

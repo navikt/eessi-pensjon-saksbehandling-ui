@@ -43,7 +43,6 @@ class Util {
         return 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(events));
     }
 
-
     handleDate(event) {
 
         switch(event.dateType) {
