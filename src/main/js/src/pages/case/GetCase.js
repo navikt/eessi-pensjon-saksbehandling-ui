@@ -5,6 +5,7 @@ import PT from 'prop-types';
 import { translate } from 'react-i18next';
 
 import * as Nav from '../../components/ui/Nav';
+import Icons from '../../components/ui/Icons';
 import TopContainer from '../../components/ui/TopContainer';
 
 import * as usercaseActions from '../../actions/usercase';
@@ -59,17 +60,20 @@ class GetCase extends Component {
 
     render() {
 
-        const { t, errorMessage, errorStatus, gettingCase } = this.props;
+        const { t, history, errorMessage, errorStatus, gettingCase } = this.props;
 
         let alert      = errorStatus ? <Nav.AlertStripe type='stopp'>{t(errorMessage)}</Nav.AlertStripe> : null;
-        let buttonText = gettingCase ? t('case:loadingGettingCase') : t('ui:search');
+        let buttonText = gettingCase ? t('case:loading-gettingCase') : t('ui:search');
 
         return <TopContainer>
             <Nav.Panel className='panel'>
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
-                        <h1 className='mt-3 appTitle'>{t('case:getCaseTitle')}</h1>
-                        <h4>{t('case:getCaseDescription')}</h4>
+                        <h1 className='mt-3 appTitle'>
+                            <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
+                            {t('case:app-getCaseTitle')}
+                        </h1>
+                        <h4>{t('case:app-getCaseDescription')}</h4>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4 text-center'>
@@ -80,7 +84,7 @@ class GetCase extends Component {
                         <Nav.Input className='getCaseInputCaseId' label={t('case:caseId')} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
                     </Nav.Column>
                     <Nav.Column className='mt-4'>
-                        <Nav.HjelpetekstBase id='caseId' type='under'>{t('case:helpCaseId')}</Nav.HjelpetekstBase>
+                        <Nav.HjelpetekstBase id='caseId' type='under'>{t('case:help-caseId')}</Nav.HjelpetekstBase>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row  className='mt-4 text-left'>
@@ -88,7 +92,7 @@ class GetCase extends Component {
                         <Nav.Input className='getCaseInputActorId' label={t('case:actorId')} value={this.state.actorId} onChange={this.onActorIdChange.bind(this)}/>
                     </Nav.Column>
                     <Nav.Column className='mt-4'>
-                        <Nav.HjelpetekstBase id='actorId' type='under'>{t('case:helpActorId')}</Nav.HjelpetekstBase>
+                        <Nav.HjelpetekstBase id='actorId' type='under'>{t('case:help-actorId')}</Nav.HjelpetekstBase>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4'>

@@ -7,6 +7,7 @@ import { translate } from 'react-i18next';
 import StepIndicator from '../../components/case/StepIndicator';
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
+import Icons from '../../components/ui/Icons';
 
 import * as usercaseActions from '../../actions/usercase';
 
@@ -42,12 +43,12 @@ class EndCase extends Component {
 
     render() {
 
-        let { t, dataSubmitted, rinaLoading, rinaUrl } = this.props;
+        let { t, history, dataSubmitted, rinaLoading, rinaUrl } = this.props;
 
         let body;
 
         if (rinaLoading) {
-            body = t('case:loadingRina')
+            body = t('case:loading.rina')
         } else {
             if (rinaUrl && dataSubmitted && dataSubmitted.euxcaseid) {
                 body = <a href={rinaUrl + dataSubmitted.euxcaseid}>{t('case:caseLink')}</a>
@@ -60,8 +61,11 @@ class EndCase extends Component {
             <Nav.Panel>
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
-                        <h1 className='mt-3 appTitle'>{t('case:endCaseTitle')}</h1>
-                        <h4>{t('case:endCaseDescription')}</h4>
+                        <h1 className='mt-3 appTitle'>
+                            <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
+                            {t('case:app-endCaseTitle')}
+                        </h1>
+                        <h4>{t('case:app-endCaseDescription')}</h4>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4'>

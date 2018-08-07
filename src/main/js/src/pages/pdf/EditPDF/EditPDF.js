@@ -14,6 +14,7 @@ import DnDTarget from '../../../components/pdf/DnDTarget';
 import DnD from '../../../components/pdf/DnD';
 import PreviewPDF from '../../../components/pdf/PreviewPDF';
 import PDFSizeSlider from '../../../components/pdf/PDFSizeSlider';
+import Icons from '../../../components/ui/Icons';
 
 import 'rc-collapse/assets/index.css';
 import './EditPDF.css';
@@ -80,7 +81,7 @@ class EditPDF extends Component {
 
     render() {
 
-        const { t, errorMessage, errorStatus, editingPDF, pdfs, pdfsize, dndTarget, recipe } = this.props;
+        const { t, history, errorMessage, errorStatus, editingPDF, pdfs, pdfsize, dndTarget, recipe } = this.props;
 
         let alert      = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
         let buttonText = editingPDF ? t('pdf:loadingEditPDF') : t('ui:forward');
@@ -88,22 +89,27 @@ class EditPDF extends Component {
         return <TopContainer className='topContainer'>
             <Nav.Row>
                 <Nav.Column>
-                    <h1 className='mt-3 appTitle'>{t('pdf:selectPdfTitle')}</h1>
+                    <h1 className='mt-3 appTitle'>
+                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
+                        {t('pdf:editPdfTitle')}
+                    </h1>
                 </Nav.Column>
             </Nav.Row>
             {alert ? <Nav.Row className='mt-3 mb-3'>
                 <Nav.Column>{alert}</Nav.Column>
             </Nav.Row> : null}
             <PreviewPDF/>
-
             <Nav.Row className='mb-2'>
-                <Nav.Column className='col-3'>
+                <Nav.Column className='col-md-3'>
                     <PDFSizeSlider/>
+                </Nav.Column>
+                <Nav.Column className='col-md-9'>
+                    <Nav.HjelpetekstBase>{t('pdf:help-edit-pdf')}</Nav.HjelpetekstBase>
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className='mb-4'>
                 <DnD>
-                    <Nav.Column className='col-2' style={{maxWidth: pdfsize + 50}}>
+                    <Nav.Column className='col-sm-2 mb-4' style={{maxWidth: pdfsize + 50}}>
                         <Collapse destroyInactivePanel={true} activeKey={dndTarget} accordion={true} onChange={this.handleAccordionChange.bind(this)}>
                             <Collapse.Panel key='work' header={'Work (' + (recipe.work ? recipe.work.length : '0') + ')'} showArrow={true}>
                                 <DnDTarget targetId='work'/>
@@ -119,9 +125,9 @@ class EditPDF extends Component {
                             </Collapse.Panel>
                         </Collapse>
                     </Nav.Column>
-                    <Nav.Column className='col-10'>
+                    <Nav.Column className='col-sm-10 mb-4'>
                         <div className='h-100'>
-                            {! pdfs ? null : <Collapse destroyInactivePanel={false} accordion={false}>
+                            {! pdfs ? null : <Collapse className='mb-4' destroyInactivePanel={false} accordion={false}>
                                 {pdfs.map((pdf, i) => {
                                     return <Collapse.Panel key={i} header={pdf.name} showArrow={true}>
                                         <DnDSource pdf={pdf}/>
@@ -129,15 +135,15 @@ class EditPDF extends Component {
                                 })}
                             </Collapse>
                             }
+                            <Nav.Row className='mb-4'>
+                                <Nav.Column>
+                                    <Nav.Knapp className='backButton w-100' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
+                                </Nav.Column>
+                                <Nav.Column>
+                                    <Nav.Hovedknapp className='forwardButton w-100' spinner={editingPDF} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                                </Nav.Column>
+                            </Nav.Row>
                         </div>
-                        <Nav.Row>
-                            <Nav.Column>
-                                <Nav.Knapp className='backButton w-100' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
-                            </Nav.Column>
-                            <Nav.Column>
-                                <Nav.Hovedknapp className='forwardButton w-100' spinner={editingPDF} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
-                            </Nav.Column>
-                        </Nav.Row>
                     </Nav.Column>
                 </DnD>
             </Nav.Row>

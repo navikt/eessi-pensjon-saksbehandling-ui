@@ -125,7 +125,7 @@ class Learn extends Component {
                 validationFail : this.datepicker ? !this.datepicker.hasNoValidationErrors() : false
             })}>
                 <Nav.Column>
-                    <Nav.HjelpetekstBase className='float-right'>{t('p4000:help-' + type + '-dates')}</Nav.HjelpetekstBase>
+                    <Nav.HjelpetekstBase>{t('p4000:help-' + type + '-dates')}</Nav.HjelpetekstBase>
                     <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-1-dates-title')}</h2>
                     <DatePicker provideController={(datepicker) => this.datepicker = datepicker}/>
                 </Nav.Column>
@@ -135,7 +135,7 @@ class Learn extends Component {
             })}>
                 <Nav.Column>
                     {!this.hasNoInfoErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.infoValidationError)}</Nav.AlertStripe> : null}
-                    <Nav.HjelpetekstBase className='float-right'>{t('p4000:help-' + type + '-info')}</Nav.HjelpetekstBase>
+                    <Nav.HjelpetekstBase>{t('p4000:help-' + type + '-info')}</Nav.HjelpetekstBase>
                     <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-2-info-title')}</h2>
 
                     <Nav.Input label={t('p4000:' + type + '-fieldset-2_1-name')} value={event.name}

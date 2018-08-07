@@ -8,6 +8,7 @@ import StepIndicator from '../../components/case/StepIndicator';
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import RenderGeneratedData from '../../components/case/RenderGeneratedData';
+import Icons from '../../components/ui/Icons';
 
 import * as usercaseActions from '../../actions/usercase';
 import * as uiActions from '../../actions/ui';
@@ -74,14 +75,14 @@ class GenerateCase extends Component {
 
     render() {
 
-        const { t, dataToGenerate, dataToConfirm, errorStatus, errorMessage, sendingCase } = this.props;
+        const { t, history, dataToGenerate, dataToConfirm, errorStatus, errorMessage, sendingCase } = this.props;
 
         if (!dataToGenerate) {
             return <TopContainer/>
         }
 
         let alert;
-        let buttonText = sendingCase ? t('case:loadingSendingCase') : t('ui:confirmAndSend');
+        let buttonText = sendingCase ? t('case:loading-sendingCase') : t('ui:confirmAndSend');
 
         if (dataToGenerate) {
             alert = <Nav.AlertStripe type='suksess'>{t('ui:dataGenerated')}</Nav.AlertStripe>
@@ -96,8 +97,11 @@ class GenerateCase extends Component {
             <Nav.Panel>
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
-                        <h1 className='mt-3 appTitle'>{t('case:generateCaseTitle')}</h1>
-                        <h4>{t('case:generateCaseDescription')}</h4>
+                        <h1 className='mt-3 appTitle'>
+                            <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
+                            {t('case:app-generateCaseTitle')}
+                        </h1>
+                        <h4>{t('case:app-generateCaseDescription')}</h4>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4 text-center'>

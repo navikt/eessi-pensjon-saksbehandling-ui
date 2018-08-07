@@ -37,7 +37,7 @@ class TopHeader extends Component {
 
         let { t, userInfo, gettingUserInfo } = this.props;
 
-        let userText = (userInfo ? userInfo : (gettingUserInfo ? t('case:loadingGettingUserInfo') : ''));
+        let userText = (userInfo ? userInfo : (gettingUserInfo ? t('case:loading-gettingUserInfo') : ''));
 
         return <header className="topplinje">
             <div className="topplinje__brand">

@@ -48,35 +48,35 @@ export default function (state = {}, action = {}) {
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : 'case:errorNoSubjectAreaList'
+            clientErrorMessage : 'case:error-noSubjectAreaList'
         });
 
     case types.USERCASE_GET_INSTITUTION_LIST_FAILURE:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : 'case:errorNoInstitutionList'
+            clientErrorMessage : 'case:error-noInstitutionList'
         });
 
     case types.USERCASE_GET_SED_LIST_FAILURE:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : 'case:errorNoSedList'
+            clientErrorMessage : 'case:error-noSedList'
         });
 
     case types.USERCASE_GET_BUC_LIST_FAILURE:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : 'case:errorNoBucList'
+            clientErrorMessage : 'case:error-noBucList'
         });
 
     case types.USERCASE_GET_COUNTRY_LIST_FAILURE:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : 'case:errorNoCountryList'
+            clientErrorMessage : 'case:error-noCountryList'
         });
 
     case types.USERCASE_GET_CASE_NUMBER_FAILURE:
@@ -92,7 +92,7 @@ export default function (state = {}, action = {}) {
     case types.USER_INFO_FAILURE: {
 
         return Object.assign({}, state, {
-            serverErrorMessage : 'case:errorNoSuchUser'
+            serverErrorMessage : 'case:error-noSuchUser'
         });
     }
 
@@ -100,7 +100,7 @@ export default function (state = {}, action = {}) {
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : 'pdf:errorPdfGenerationFail'
+            clientErrorMessage : 'pdf:error-PdfGenerationFail'
         });
 
     case types.P4000_NEW:
@@ -110,11 +110,18 @@ export default function (state = {}, action = {}) {
             clientErrorMessage : 'p4000:newP4000Form'
         });
 
-    case types.P4000_OPEN:
+    case types.P4000_OPEN_SUCCESS:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'OK',
             clientErrorMessage : 'p4000:openP4000Form'
+        });
+
+    case types.P4000_OPEN_FAILURE:
+
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'ERROR',
+            clientErrorMessage : 'p4000:error-openP4000|' + action.payload.error
         });
 
     case types.P4000_EVENT_ADD:

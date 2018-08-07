@@ -6,6 +6,7 @@ import { translate } from 'react-i18next';
 import Dropzone from 'react-dropzone';
 import _ from 'lodash';
 import classNames from 'classnames';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import MiniaturePDF from '../File/MiniaturePDF';
 import MiniatureOther from '../File/MiniatureOther';
@@ -66,10 +67,12 @@ class FileUpload extends Component {
 
     removeFile(fileIndex, e) {
 
-        e.stopPropagation();
-        e.preventDefault();
-
         const { t } = this.props;
+
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
 
         let newFiles = _.clone(this.state.files);
         newFiles.splice(fileIndex, 1);
@@ -90,32 +93,6 @@ class FileUpload extends Component {
         }
     }
 
-    renderFiles() {
-
-        const { files } = this.props;
-
-        if (_.isEmpty(files)) {
-            return null;
-        }
-
-        return files.map((file, i) => {
-            if (_.endsWith(file.name, '.pdf')) {
-                return <MiniaturePDF
-                    key={i}
-                    pdf={file}
-                    onLoadSuccess={this.onLoadSuccess.bind(this, i)}
-                    onDeleteDocument={this.removeFile.bind(this, i)}
-                />
-            } else {
-                return <MiniatureOther
-                    key={i}
-                    file={file}
-                    onDeleteDocument={this.removeFile.bind(this, i)}
-                />
-            }
-        });
-    }
-
     render() {
 
         const { t, accept, className } = this.props;
@@ -126,7 +103,25 @@ class FileUpload extends Component {
                     <div className='dropzone-placeholder-message'>{t('ui:dropFilesHere')}</div>
                     <div className='dropzone-placeholder-status'>{this.state.status}</div>
                 </div>
-                <div className='dropzone-files scrollable'>{this.renderFiles()}</div>
+                <div className='dropzone-files scrollable'>
+                    <TransitionGroup className='dropzone-files-transition'>
+                    { this.state.files ? this.state.files.map((file, i) => {
+                       if (_.endsWith(file.name, '.pdf')) {
+                           return <CSSTransition key={i} classNames='fileUploadFile' timeout={500}>
+                               <MiniaturePDF key={i} pdf={file}
+                               onLoadSuccess={this.onLoadSuccess.bind(this, i)}
+                               onDeleteDocument={this.removeFile.bind(this, i)}
+                           />
+                        </CSSTransition>
+                       } else {
+                           return <CSSTransition key={i} classNames='fileUploadFile' timeout={500}>
+                               <MiniatureOther key={i} file={file}
+                               onDeleteDocument={this.removeFile.bind(this, i)}/>
+                           </CSSTransition>
+                       }
+                   }) : null }
+                   </TransitionGroup>
+                </div>
             </Dropzone>
         </div>
     }

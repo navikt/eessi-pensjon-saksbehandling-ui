@@ -117,7 +117,7 @@ class Home extends Component {
                 validationFail : this.datepicker ? !this.datepicker.hasNoValidationErrors() : false
             })}>
                 <Nav.Column>
-                    <Nav.HjelpetekstBase className='float-right'>{t('p4000:help-' + type + '-dates')}</Nav.HjelpetekstBase>
+                    <Nav.HjelpetekstBase>{t('p4000:help-' + type + '-dates')}</Nav.HjelpetekstBase>
                     <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-1-dates-title')}</h2>
                     <DatePicker provideController={(datepicker) => this.datepicker = datepicker}/>
                 </Nav.Column>

@@ -33,8 +33,8 @@ class LanguageSelector extends Component {
 
         return <Nav.Select className='languageSelector' label={t('ui:chooseLanguage')}
             value={thisLanguage} onChange={this.changeLanguage.bind(this)}>
-            <option value='en'>English</option>
-            <option value='nb'>Bokmål</option>
+            <option value='en'>{'English'}</option>
+            <option value='nb'>{'Norsk Bokmål'}</option>
         </Nav.Select>
     }
 }

@@ -8,6 +8,7 @@ import StepIndicator from '../../components/case/StepIndicator';
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import RenderConfirmData from '../../components/case/RenderConfirmData';
+import Icons from '../../components/ui/Icons';
 
 import * as usercaseActions from '../../actions/usercase';
 import * as uiActions from '../../actions/ui';
@@ -73,7 +74,7 @@ class ConfirmCase extends Component {
 
     render() {
 
-        const { t, dataToConfirm, errorStatus, errorMessage, generatingCase } = this.props;
+        const { t, history, dataToConfirm, errorStatus, errorMessage, generatingCase } = this.props;
 
         if (!dataToConfirm) {
             return <TopContainer/>
@@ -81,7 +82,7 @@ class ConfirmCase extends Component {
 
         let alert;
 
-        let buttonText = generatingCase ? t('case:loadingGeneratingCase') : t('ui:confirmAndGenerate');
+        let buttonText = generatingCase ? t('case:loading-generatingCase') : t('ui:confirmAndGenerate');
 
         if (errorStatus) {
             alert = <Nav.AlertStripe type='stopp'>{t(errorMessage)}</Nav.AlertStripe>;
@@ -91,8 +92,11 @@ class ConfirmCase extends Component {
             <Nav.Panel>
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
-                        <h1 className='mt-3 appTitle'>{t('case:confirmCaseTitle')}</h1>
-                        <h4>{t('case:confirmCaseDescription')}</h4>
+                        <h1 className='mt-3 appTitle'>
+                            <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
+                            {t('case:app-confirmCaseTitle')}
+                        </h1>
+                        <h4>{t('case:app-confirmCaseDescription')}</h4>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mt-4 text-center'>

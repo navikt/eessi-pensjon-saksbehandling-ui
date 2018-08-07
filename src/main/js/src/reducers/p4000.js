@@ -21,7 +21,7 @@ export default function (state = initialState, action = {}) {
             events: []
         });
 
-    case types.P4000_OPEN:
+    case types.P4000_OPEN_SUCCESS:
 
         return Object.assign({}, state, {
             page   : 'work',

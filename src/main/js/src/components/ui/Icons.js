@@ -35,6 +35,7 @@ class Icons extends Component {
 
         case 'plus' :  return <FontAwesomeIcon icon={icons.faPlus} {...this.props}/>;
         case 'download' :  return <FontAwesomeIcon icon={icons.faDownload} {...this.props}/>;
+        case 'caretLeft' :  return <FontAwesomeIcon icon={icons.faCaretLeft} {...this.props}/>;
         case 'caretRight' :  return <FontAwesomeIcon icon={icons.faCaretRight} {...this.props}/>;
         case 'server' :  return <FontAwesomeIcon icon={icons.faServer} {...this.props}/>;
         default: return null;

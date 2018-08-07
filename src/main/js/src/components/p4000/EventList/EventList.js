@@ -23,20 +23,18 @@ class EventList extends Component {
             return null;
         }
 
-        return <div className='mb-4'>
+        return <div className={classNames('div-eventList', 'mb-4', className)}>
             <div className='mb-1'>{t('p4000:eventsSoFar')}</div>
-            <div className={classNames('div-eventList', className)}>
-                {(() => {
-                    return events.map((event, index) => {
-                        let selected = (eventIndex !== undefined && eventIndex === index);
-                        return <Event key={index}
-                            onClick={() => selected ? cancelEditRequest() : handleEditRequest(index)}
-                            event={event}
-                            eventIndex={index}
-                            selected={selected}/>
-                    });
-                })()}
-            </div>
+            {(() => {
+                return events.map((event, index) => {
+                    let selected = (eventIndex !== undefined && eventIndex === index);
+                    return <Event key={index}
+                        onClick={() => selected ? cancelEditRequest() : handleEditRequest(index)}
+                        event={event}
+                        eventIndex={index}
+                        selected={selected}/>
+                });
+            })()}
         </div>
     }
 }

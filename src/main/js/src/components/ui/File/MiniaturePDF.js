@@ -10,9 +10,13 @@ import './MiniaturePDF.css';
 
 class MiniaturePDF extends Component {
 
-    state = {
-        isHovering : false,
-        numPages: undefined
+    state = {}
+
+    componentDidMount() {
+        this.setState({
+            isHovering : false,
+            numPages: undefined
+        });
     }
 
     onHandleMouseEnter() {
@@ -43,7 +47,7 @@ class MiniaturePDF extends Component {
         let data = 'data:application/octet-stream;base64,' + encodeURIComponent(pdf.base64);
         let deleteLink = this.state.isHovering ? <Ikon size={20} kind='trashcan' onClick={onDeleteDocument}/> : null;
         let downloadLink = this.state.isHovering ? <a onClick={(e) => e.stopPropagation()} title={t('ui:download')} href={data} download={pdf.name}>
-            <Icons size={20} kind='download'/>
+            <Icons size={'sm'} kind='download'/>
         </a> : null;
 
         return <div className='miniaturePdf'
@@ -57,8 +61,8 @@ class MiniaturePDF extends Component {
                     <Page width='100' renderMode='svg' pageNumber={1}/>
                 </div>
                 <div className='fileName'> {pdf.name}</div>
-                <div className='numPages'>{t('ui:pages')}: {this.state.numPages || 0}</div>
-                <div className='numPages'>{t('ui:size')}: {pdf.size} {t('ui:bytes')}</div>
+                <div className='numPages'>{t('ui:pages')}{': '}{this.state.numPages || '0'}</div>
+                <div className='numPages'>{t('ui:size')}{': '}{pdf.size}{' '}{t('ui:bytes')}</div>
             </Document>
         </div>
     }

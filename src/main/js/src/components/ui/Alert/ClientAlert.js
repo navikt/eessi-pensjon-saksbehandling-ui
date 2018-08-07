@@ -62,9 +62,17 @@ class ClientAlert extends Component {
 
         this.handleTimeouts();
 
+        let message = undefined;
+        let separatorIndex = clientErrorMessage.lastIndexOf('|');
+
+        if (separatorIndex >= 0) {
+            message = t(clientErrorMessage.substring(0, separatorIndex)) + ': ' + clientErrorMessage.substring(separatorIndex + 1);
+        } else {
+            message = t(clientErrorMessage);
+        }
         return <Nav.AlertStripe className={classNames({'toFade' : clientErrorStatus === 'OK'})}
             type={clientErrorStatus === 'OK' ? 'suksess' : 'advarsel'}>
-            {t(clientErrorMessage)}
+            {message}
         </Nav.AlertStripe>;
     }
 }

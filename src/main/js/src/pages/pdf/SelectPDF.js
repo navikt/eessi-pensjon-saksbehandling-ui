@@ -8,6 +8,7 @@ import _ from 'lodash';
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import FileUpload from '../../components/ui/FileUpload/FileUpload';
+import Icons from '../../components/ui/Icons';
 
 import * as pdfActions from '../../actions/pdf';
 import * as uiActions from '../../actions/ui';
@@ -62,7 +63,7 @@ class SelectPDF extends Component {
 
     render() {
 
-        const { t, errorMessage, errorStatus, gettingPDF } = this.props;
+        const { t, history, errorMessage, errorStatus, gettingPDF } = this.props;
 
         let alert      = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
         let buttonText = gettingPDF ? t('pdf:loadingGettingPDF') : t('ui:forward');
@@ -70,7 +71,10 @@ class SelectPDF extends Component {
         return <TopContainer className='topContainer'>
             <Nav.Row className='mb-4'>
                 <Nav.Column>
-                    <h1 className='mt-3 appTitle'>{t('pdf:selectPdfTitle')}</h1>
+                    <h1 className='mt-3 appTitle'>
+                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
+                        {t('pdf:selectPdfTitle')}
+                    </h1>
                 </Nav.Column>
             </Nav.Row>
             {alert ? <Nav.Row className='mb-4'>
@@ -78,6 +82,7 @@ class SelectPDF extends Component {
             </Nav.Row> : null}
             <Nav.Row className='m-3 p-3 fieldset'>
                 <Nav.Column>
+                    <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
                     <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
                     <FileUpload accept='application/pdf' className='mb-3' files={this.state.files} onFileChange={this.handleFileChange.bind(this)}/>
                     <Nav.Hovedknapp className='forwardButton' spinner={gettingPDF} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>

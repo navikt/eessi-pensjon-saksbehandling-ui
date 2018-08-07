@@ -10,7 +10,9 @@ class StepIndicator extends Component {
 
         let { t, activeStep } = this.props;
 
-        return <Nav.Stegindikator visLabel={true} onBeforeChange={() => {return false}}
+        return <Nav.Stegindikator
+            visLabel={true}
+            onBeforeChange={() => {return false}}
             autoResponsiv={true}
             steg={[
                 {label: t('case:step1'), aktiv: (activeStep === 0)},

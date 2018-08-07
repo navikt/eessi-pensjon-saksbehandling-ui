@@ -8,23 +8,28 @@ class Util {
     // can't save file.data on JSON, only base64, therefore reconstruct file.data from file.base64
     readEventsFromString(loadedString) {
 
-        return JSON.parse(loadedString).map(event => {
-            if (event.startDate) event.startDate = new Date(event.startDate);
-            if (event.birthDate) event.birthDate = new Date(event.birthDate);
-            if (event.endDate)   event.endDate   = new Date(event.endDate);
-            if (event.files) {
-                event.files.map(file => {
-                    var raw = window.atob(file.base64);
-                    var array = new Uint8Array(new ArrayBuffer(raw.length));
-                    for (var i = 0; i < raw.length; i++) {
-                        array[i] = raw.charCodeAt(i);
-                    }
-                    file.data = array;
-                    return file;
-                });
-            }
-            return event;
-        });
+        try {
+            return JSON.parse(loadedString).map(event => {
+
+                if (event.startDate) event.startDate = new Date(event.startDate);
+                if (event.birthDate) event.birthDate = new Date(event.birthDate);
+                if (event.endDate)   event.endDate   = new Date(event.endDate);
+                if (event.files) {
+                    event.files.map(file => {
+                        var raw = window.atob(file.base64);
+                        var array = new Uint8Array(new ArrayBuffer(raw.length));
+                        for (var i = 0; i < raw.length; i++) {
+                            array[i] = raw.charCodeAt(i);
+                        }
+                        file.data = array;
+                        return file;
+                    });
+                }
+                return event;
+            });
+        } catch (error) {
+            return error.message;
+        }
     }
 
     writeEventsToString(events) {

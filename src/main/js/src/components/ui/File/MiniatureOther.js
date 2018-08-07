@@ -26,9 +26,9 @@ class MiniatureOther extends Component {
         const { t, file, onDeleteDocument } = this.props;
 
         let data = 'data:application/octet-stream;base64,' + encodeURIComponent(file.base64);
-        let deleteLink = this.state.isHovering ? <Ikon size={20} kind='trashcan' onClick={onDeleteDocument}/> : null;
+        let deleteLink   = this.state.isHovering ? <Ikon size={20} kind='trashcan' onClick={onDeleteDocument}/> : null;
         let downloadLink = this.state.isHovering ? <a onClick={(e) => e.stopPropagation()} title={t('ui:download')} href={data} download={file.name}>
-            <Icons size={20} kind='download'/>
+            <Icons size={'sm'} kind='download'/>
         </a> : null;
 
         let extension = file.name.substring(file.name.lastIndexOf('.') + 1);
@@ -42,7 +42,7 @@ class MiniatureOther extends Component {
                 <div className='content'>{extension}</div>
             </div>
             <div className='fileName'> {file.name}</div>
-            <div className='numPages'>{t('ui:size')}: {file.size} {t('ui:bytes')}</div>
+            <div className='numPages'>{t('ui:size')}{': '}{file.size}{' '}{t('ui:bytes')}</div>
         </div>
     }
 }

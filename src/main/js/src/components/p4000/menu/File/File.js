@@ -127,8 +127,13 @@ class File extends Component {
             reader.onloadend = (e) => {
                 let string = String.fromCharCode.apply(null, new Uint8Array(e.target.result));
                 let events = P4000Util.readEventsFromString(string);
-                actions.openP4000(events)
-                resolve(events);
+                if (typeof events === 'string') {
+                    actions.openP4000Failure(events);
+                    reject(events);
+                } else {
+                    actions.openP4000Success(events)
+                    resolve(events);
+                }
             }
             reader.onerror = error => reject(error);
         })
@@ -154,7 +159,7 @@ class File extends Component {
             </Nav.Modal>
             <Nav.Row className='fileButtons mb-4 p-4 fieldset'>
                 <Nav.Column>
-                    <Nav.HjelpetekstBase className='float-right'>{t('p4000:help-file-info')}</Nav.HjelpetekstBase>
+                    <Nav.HjelpetekstBase>{t('p4000:help-file-info')}</Nav.HjelpetekstBase>
                     <h2 className='mb-5'>{t('p4000:file-title')}</h2>
                     <Nav.Row className='mb-3 no-gutters'>
                         <Nav.Column className='col-auto buttonColumn'>
