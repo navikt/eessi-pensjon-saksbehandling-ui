@@ -16,7 +16,7 @@ export default function (state = initialState, action = {}) {
     case types.P4000_NEW:
 
         return Object.assign({}, state, {
-            page  : 'work',
+            page  : 'new',
             event : {},
             events: []
         });
@@ -24,7 +24,7 @@ export default function (state = initialState, action = {}) {
     case types.P4000_OPEN_SUCCESS:
 
         return Object.assign({}, state, {
-            page   : 'work',
+            page   : 'new',
             event  : {},
             events : action.payload.events
         });
@@ -71,7 +71,8 @@ export default function (state = initialState, action = {}) {
             events     : newEvents,
             event      : {},
             eventIndex : undefined,
-            editMode   : false
+            editMode   : false,
+            page       : action.payload.page
         });
 
     case types.P4000_EVENT_CANCEL_EDIT:
@@ -79,7 +80,8 @@ export default function (state = initialState, action = {}) {
         return Object.assign({}, state, {
             event      : {},
             eventIndex : undefined,
-            editMode   : false
+            editMode   : false,
+            page       : action.payload.page
         });
 
     case types.P4000_EVENT_EDIT_MODE:

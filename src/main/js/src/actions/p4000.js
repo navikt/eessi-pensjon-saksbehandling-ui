@@ -44,18 +44,8 @@ export function pushEventToP4000Form(event) {
     return {
         type : types.P4000_EVENT_ADD,
         payload: {
-            event : event
-        }
-    };
-}
-
-export function pushEventToP4000FormAndToBackToForm(event) {
-
-    return {
-        type : types.P4000_EVENT_ADD,
-        payload: {
             event : event,
-            page  : 'file'
+            page  : 'new'
         }
     };
 }
@@ -76,7 +66,8 @@ export function deleteEventToP4000Form(eventIndex) {
     return {
         type : types.P4000_EVENT_DELETE,
         payload: {
-            eventIndex : eventIndex
+            eventIndex : eventIndex,
+            page       : 'new'
         }
     };
 }
@@ -86,7 +77,8 @@ export function cancelEditEvent(eventIndex) {
     return {
         type : types.P4000_EVENT_CANCEL_EDIT,
         payload: {
-            eventIndex : eventIndex
+            eventIndex : eventIndex,
+            page       : 'new'
         }
     };
 }

@@ -3,6 +3,7 @@ import View from './View/View';
 import Work from './Work';
 import Learn from './Learn';
 import Child from './Child';
+import New from './New';
 import GenericEvent from './GenericEvent';
 
 export {
@@ -11,5 +12,6 @@ export {
     Work,
     Learn,
     Child,
-    GenericEvent
+    GenericEvent,
+    New
 };

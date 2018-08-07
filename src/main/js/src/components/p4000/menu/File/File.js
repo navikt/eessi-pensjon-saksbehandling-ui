@@ -108,6 +108,20 @@ class File extends Component {
         })
     }
 
+    handleFileView() {
+
+        const { actions } = this.props;
+
+        actions.setPage('view');
+    }
+
+    handleFileNewEvent() {
+
+        const { actions } = this.props;
+
+        actions.setPage('new');
+    }
+
     handleFileSubmit() {
 
         const { events, actions } = this.props;
@@ -141,7 +155,7 @@ class File extends Component {
 
     render() {
 
-        const { t, events } = this.props;
+        const { t, events, event } = this.props;
 
         return <div className='div-file'>
             <Nav.Modal isOpen={this.state.modalOpen}
@@ -157,15 +171,15 @@ class File extends Component {
                 }) : null}
                 </div>
             </Nav.Modal>
+            <Nav.HjelpetekstBase>{t('p4000:help-file-info')}</Nav.HjelpetekstBase>
+            <h2 className='mb-5'>{t('p4000:file-title')}</h2>
             <Nav.Row className='fileButtons mb-4 p-4 fieldset'>
                 <Nav.Column>
-                    <Nav.HjelpetekstBase>{t('p4000:help-file-info')}</Nav.HjelpetekstBase>
-                    <h2 className='mb-5'>{t('p4000:file-title')}</h2>
                     <Nav.Row className='mb-3 no-gutters'>
                         <Nav.Column className='col-auto buttonColumn'>
                             <Nav.Knapp className='fileButton' onClick={this.handleFileNew.bind(this)}>
                                 <div>
-                                    <Icons className='mr-3' size='4x' kind='file-new'/>
+                                    <Icons className='mr-3' size='4x' kind='file'/>
                                     <Icons size='3x' kind='plus'/>
                                 </div>
                                 <div className='mt-3'>{t('p4000:file-new')}</div>
@@ -197,6 +211,42 @@ class File extends Component {
                                 <li>{t('p4000:file-open-description-2')}</li>
                                 <li>{t('p4000:file-open-description-3')}</li>
                                 <li>{t('p4000:file-open-description-4')}</li>
+                            </ul>
+                        </Nav.Column>
+                    </Nav.Row>
+
+                     <Nav.Row className='mb-3 no-gutters'>
+                        <Nav.Column className='col-auto buttonColumn'>
+                            <Nav.Knapp className='fileButton' onClick={this.handleFileView.bind(this)} disabled={event === undefined}>
+                                <div>
+                                    <Icons className='mr-3' size='4x' kind='file'/>
+                                    <Icons size='3x' kind='view'/>
+                                </div>
+                                <div className='mt-3'>{t('p4000:file-view')}</div>
+                            </Nav.Knapp>
+                        </Nav.Column>
+                        <Nav.Column className='text-left'>
+                            <ul className='fileDescriptionList'>
+                                <li>{t('p4000:file-view-description-1')}</li>
+                            </ul>
+                        </Nav.Column>
+                    </Nav.Row>
+                </Nav.Column>
+                <Nav.Column>
+
+                    <Nav.Row className='mb-3 no-gutters'>
+                        <Nav.Column className='col-auto buttonColumn'>
+                            <Nav.Knapp className='fileButton' onClick={this.handleFileNewEvent.bind(this)} disabled={event === undefined}>
+                                <div>
+                                    <Icons className='mr-3' size='4x' kind='file'/>
+                                    <Icons size='3x' kind='calendar'/>
+                                </div>
+                                <div className='mt-3'>{t('p4000:file-new-event')}</div>
+                            </Nav.Knapp>
+                        </Nav.Column>
+                        <Nav.Column className='text-left'>
+                            <ul className='fileDescriptionList'>
+                                <li>{t('p4000:file-new-events-description-1')}</li>
                             </ul>
                         </Nav.Column>
                     </Nav.Row>

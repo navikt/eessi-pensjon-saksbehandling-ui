@@ -17,18 +17,17 @@ class Icons extends Component {
         case 'child' : return <FontAwesomeIcon icon={icons.faChild} {...this.props}/>;
         case 'voluntary' : return <FontAwesomeIcon icon={icons.faHandsHelping} {...this.props}/>;
         case 'military' : return <FontAwesomeIcon icon={icons.faFighterJet} {...this.props}/>;
-        case 'birth' : return <FontAwesomeIcon icon={icons.faMoneyBillWave} {...this.props}/>;
-        // case 'birth' : return <img src={babyImg} {...this.props}/>;
+        case 'birth' : return <FontAwesomeIcon icon={icons.faChild} {...this.props}/>;
         case 'learn' : return <FontAwesomeIcon icon={icons.faSchool} {...this.props}/>;
-        case 'daily' : return <FontAwesomeIcon icon={icons.faHandHoldingUsd} {...this.props}/>;
+        case 'daily' : return <FontAwesomeIcon icon={icons.faMoneyBillWave} {...this.props}/>;
         case 'sick' : return <FontAwesomeIcon icon={icons.faHSquare} {...this.props}/>;
         case 'other' : return <FontAwesomeIcon icon={icons.faCalendar} {...this.props}/>;
 
         case 'p4000' : return <FontAwesomeIcon icon={icons.faFile} {...this.props}/>;
         case 'view' : return <FontAwesomeIcon icon={icons.faEye} {...this.props}/>;
-        case 'timeline' : return <FontAwesomeIcon icon={icons.faCalendarCheck} {...this.props}/>;
+        case 'calendar' : return <FontAwesomeIcon icon={icons.faCalendarCheck} {...this.props}/>;
 
-        case 'file-new' :  return <FontAwesomeIcon icon={icons.faFile} {...this.props}/>;
+        case 'file' :  return <FontAwesomeIcon icon={icons.faFile} {...this.props}/>;
         case 'file-open' :  return <FontAwesomeIcon icon={icons.faFolderOpen} {...this.props}/>;
         case 'file-save' :  return <FontAwesomeIcon icon={icons.faSave} {...this.props}/>;
         case 'file-submit' :  return <FontAwesomeIcon icon={icons.faUpload} {...this.props}/>;

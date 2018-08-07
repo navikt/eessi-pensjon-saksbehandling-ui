@@ -41,18 +41,6 @@ class EventForm extends React.Component {
         }
     }
 
-    async handleSaveAndBack () {
-
-        const { actions, event, type } = this.props;
-
-        let valid = await this.component.passesValidation();
-
-        if (valid) {
-            event.type = type;
-            actions.pushEventToP4000FormAndToBackToForm(event);
-        }
-    }
-
     async handleEdit () {
 
         const { actions, event, eventIndex } = this.props;
@@ -89,7 +77,8 @@ class EventForm extends React.Component {
     render() {
 
         let { t, type, editMode, eventIndex, events, Component } = this.props;
-        let isMenuPages = (type === 'view' || type === 'timeline' || type === 'file');
+        let isEventPage = ! ((type === 'view' || type === 'new' || type === 'file'));
+        let hideEventList = (type === 'view' || type === 'file') || _.isEmpty(events);
 
         return <Nav.Panel className='panel-eventForm' style={{padding: 0, paddingBottom: '2rem'}}>
             <Nav.Row className='row-floating-alert floatingAlertOnTop mt-3'>
@@ -97,7 +86,7 @@ class EventForm extends React.Component {
                     <ClientAlert/>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className={classNames('eventList', {'hiding' : isMenuPages || _.isEmpty(events)})}>
+            <Nav.Row className={classNames('eventList', {'hiding' : hideEventList})}>
                 <Nav.Column>
                     <EventList events={events} eventIndex={eventIndex} cancelEditRequest={this.handleCancelRequest.bind(this)} handleEditRequest={this.handleEditRequest.bind(this)}/>
                 </Nav.Column>
@@ -107,35 +96,34 @@ class EventForm extends React.Component {
                     <Component type={type} provideController={(component) => {this.component = component}}/>
                 </Nav.Column>
             </Nav.Row>
-            {isMenuPages ? null :
+            {isEventPage ? (!editMode ?
                 <Nav.Row className='row-buttons mb-4 text-center'>
-                    {!editMode ? <Nav.Column>
-                        <Nav.Hovedknapp className='saveButton'
-                            onClick={this.handleSave.bind(this)}>{t('ui:save')}</Nav.Hovedknapp>
-                    </Nav.Column> : null}
-                    {!editMode ? <Nav.Column>
-                        <Nav.Knapp className='saveAndBackButton'
-                            onClick={this.handleSaveAndBack.bind(this)}>{t('ui:saveAndBack')}</Nav.Knapp>
-                    </Nav.Column> : null}
-                    {editMode ? <Nav.Column>
-                        <Nav.Hovedknapp className='editButton'   onClick={this.handleEdit.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp>
-                    </Nav.Column> : null}
-                    {editMode ? <Nav.Column>
-                        <Nav.Knapp className='deleteButton' onClick={this.handleDelete.bind(this)}>{t('ui:delete')}</Nav.Knapp>
-                    </Nav.Column> : null}
-                    {editMode ? <Nav.Column>
+                    <Nav.Column>
+                        <Nav.Hovedknapp className='saveButton' onClick={this.handleSave.bind(this)}>{t('ui:save')}</Nav.Hovedknapp>
+                    </Nav.Column>
+                     <Nav.Column>
+                         <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
+                     </Nav.Column>
+                </Nav.Row> :
+                <Nav.Row className='row-buttons mb-4 text-center'>
+                    <Nav.Column>
+                         <Nav.Hovedknapp className='editButton' onClick={this.handleEdit.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp>
+                    </Nav.Column>
+                    <Nav.Column>
+                          <Nav.Knapp className='deleteButton' onClick={this.handleDelete.bind(this)}>{t('ui:delete')}</Nav.Knapp>
+                    </Nav.Column>
+                    <Nav.Column>
                         <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
-                    </Nav.Column> : null}
-                </Nav.Row>}
-            <Nav.Row>
+                    </Nav.Column>
+                </Nav.Row>) : null}
+            {isEventPage ? <Nav.Row>
                 <Nav.Column>
                     <ClientAlert/>
                 </Nav.Column>
-            </Nav.Row>
+            </Nav.Row> : null}
         </Nav.Panel>
     }
 }
-
 
 EventForm.propTypes = {
     t          : PT.func.isRequired,
