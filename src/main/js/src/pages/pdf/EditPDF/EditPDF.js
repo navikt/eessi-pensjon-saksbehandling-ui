@@ -111,16 +111,16 @@ class EditPDF extends Component {
                 <DnD>
                     <Nav.Column className='col-sm-2 mb-4' style={{maxWidth: pdfsize + 50}}>
                         <Collapse destroyInactivePanel={true} activeKey={dndTarget} accordion={true} onChange={this.handleAccordionChange.bind(this)}>
-                            <Collapse.Panel key='work' header={'Work (' + (recipe.work ? recipe.work.length : '0') + ')'} showArrow={true}>
+                            <Collapse.Panel key='work' header={t('pdf:work') + ' (' + (recipe.work ? recipe.work.length : '0') + ')'} showArrow={true}>
                                 <DnDTarget targetId='work'/>
                             </Collapse.Panel>
-                            <Collapse.Panel key='home' header={'Home (' + (recipe.home ? recipe.home.length : '0') + ')'} showArrow={true}>
+                            <Collapse.Panel key='home' header={t('pdf:home') + ' (' + (recipe.home ? recipe.home.length : '0') + ')'} showArrow={true}>
                                 <DnDTarget targetId='home'/>
                             </Collapse.Panel>
-                            <Collapse.Panel key='sick' header={'Sick (' + (recipe.sick ? recipe.sick.length : '0') + ')'} showArrow={true}>
+                            <Collapse.Panel key='sick' header={t('pdf:sick') + ' (' + (recipe.sick ? recipe.sick.length : '0') + ')'} showArrow={true}>
                                 <DnDTarget targetId='sick'/>
                             </Collapse.Panel>
-                            <Collapse.Panel key='other' header={'Other (' + (recipe.other ? recipe.other.length : '0') + ')'} showArrow={true}>
+                            <Collapse.Panel key='other' header={t('pdf:other') + ' (' + (recipe.other ? recipe.other.length : '0') + ')'} showArrow={true}>
                                 <DnDTarget targetId='other'/>
                             </Collapse.Panel>
                         </Collapse>

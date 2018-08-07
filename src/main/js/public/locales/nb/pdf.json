@@ -1,18 +1,23 @@
 {
-    "createPdf" : "Create PDF",
+    "createPdf" : "Opprett en PDF",
 
-    "selectPdfTitle" : "Select PDF",
-    "selectPdfDescription" : "Select PDF description",
-    "editPdfTitle" : "Edit PDF",
-    "editPdfDescription" : "Edit PDF description",
-    "generatePdfTitle" : "Generate PDF",
-    "generatePdfDescription" : "Generate PDF description",
+    "selectPdfTitle" : "Velg PDF",
+    "selectPdfDescription" : "Velg PDF beskrivelse",
+    "editPdfTitle" : "Redigere PDF",
+    "editPdfDescription" : "Redigere PDF beskrivelse",
+    "generatePdfTitle" : "Generere PDF",
+    "generatePdfDescription" : "Generere PDF beskrivelse",
 
-    "loadingGettingPDF" : "Getting PDF...",
-    "sizeSliderTooltip" : "Slide to increase/decrease PDF page size",
+    "loadingGettingPDF" : "Lasting PDF...",
+    "sizeSliderTooltip" : "Skyv for å øke/redusere PDFs størrelse",
 
-    "help-select-pdf"  : "Drag PDF files for edit, or click in the area to open file select dialog",
-    "help-edit-pdf"    : "Drag PDF pages from the right into the target area in the left",
+    "help-select-pdf"  : "Dra PDF filer i område, eller klikk i område til å åpen dialogboksen for filvalg",
+    "help-edit-pdf"    : "Dra PDF sider fra høyre side til målområde til venstre side",
 
-    "error-PdfGenerationFail" : "Error generating PDF"
+    "error-PdfGenerationFail" : "Feil å generere PDF",
+
+    "home" : "Botid",
+    "work" : "Arbeid",
+    "sick" : "Syk",
+    "other" : "Andre"
 }

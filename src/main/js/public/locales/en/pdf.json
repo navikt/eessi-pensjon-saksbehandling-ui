@@ -1,0 +1,18 @@
+{
+    "createPdf" : "Create PDF",
+
+    "selectPdfTitle" : "Select PDF",
+    "selectPdfDescription" : "Select PDF description",
+    "editPdfTitle" : "Edit PDF",
+    "editPdfDescription" : "Edit PDF description",
+    "generatePdfTitle" : "Generate PDF",
+    "generatePdfDescription" : "Generate PDF description",
+
+    "loadingGettingPDF" : "Getting PDF...",
+    "sizeSliderTooltip" : "Slide to increase/decrease PDF page size",
+
+    "help-select-pdf"  : "Drag PDF files for edit, or click in the area to open file select dialog",
+    "help-edit-pdf"    : "Drag PDF pages from the right into the target area in the left",
+
+    "error-PdfGenerationFail" : "Error generating PDF"
+}

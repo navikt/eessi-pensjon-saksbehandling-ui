@@ -26,6 +26,6 @@ i18next
             bindStore: 'added removed',
             nsMode: 'default'
         }
-    }).loadLanguages(['nb']);
+    }).loadLanguages(['nb','en']);
 
 export default i18next;
