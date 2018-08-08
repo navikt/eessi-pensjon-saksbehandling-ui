@@ -11,7 +11,7 @@ import PDFPageInDnD from './PDFPageInDnD';
 import * as pdfActions from '../../actions/pdf';
 
 const getListStyle = (pdfsize, isDraggingOver) => ({
-    background: isDraggingOver ? 'honeydew' : 'whitesmoke',
+    background: isDraggingOver ? 'aliceblue' : 'whitesmoke',
     padding: 10,
     display: 'flex',
     overflowX: 'auto',
@@ -24,7 +24,7 @@ const getItemStyle = (pdfsize, isDragging, draggableStyle) => ({
     border: isDragging ? '2px color red' : '1px solid lightgrey',
     margin: '0 5px 0 0',
     minWidth: pdfsize,
-    backgroundColor: isDragging ? 'lightgreen' : 'white',
+    backgroundColor: isDragging ? 'lightblue' : 'white',
     ...draggableStyle
 })
 
@@ -102,7 +102,7 @@ class DnDSource extends Component {
 
             <div className='position-absolute' style={{top: 5, right: 5}}>{addAllLink}</div>
 
-            <Droppable droppableId={'dndsource-' + pdf.name} direction='horizontal'>
+            <Droppable isDropDisabled={true} droppableId={'dndsource-' + pdf.name} direction='horizontal'>
 
                 {(provided, snapshot) => (
 

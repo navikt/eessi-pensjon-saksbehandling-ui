@@ -27,6 +27,11 @@ class DnD extends Component {
         return newList;
     }
 
+    onDragStart() {
+
+
+    }
+
     onDragEnd(result) {
 
         let { recipe, actions } = this.props;

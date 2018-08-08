@@ -7,7 +7,7 @@ import _ from 'lodash';
 import PDFPageInDnD from './PDFPageInDnD';
 
 const getListStyle = isDraggingOver => ({
-    background: isDraggingOver ? 'honeydew' : 'whitesmoke',
+    background: isDraggingOver ? 'aliceblue' : 'whitesmoke',
     padding: 10,
     overflowY: 'auto',
     minHeight : '55vh',
@@ -19,7 +19,7 @@ const getListStyle = isDraggingOver => ({
 
 const getItemStyle = (isDragging, draggableStyle) => ({
     marginBottom: '5px',
-    backgroundColor: isDragging ? 'lightgreen' : 'white',
+    backgroundColor: isDragging ? 'lightblue' : 'white',
     ...draggableStyle
 })
 
@@ -36,7 +36,7 @@ class DnDTarget extends Component {
 
         const { pdfs, recipe, targetId } = this.props;
 
-        return <Droppable droppableId={'dndtarget-' + targetId}>
+        return <Droppable  droppableId={'dndtarget-' + targetId}>
 
             {(provided, snapshot) => (
 

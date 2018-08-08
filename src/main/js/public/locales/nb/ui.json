@@ -24,6 +24,7 @@
     "forward" : "Neste",
     "go" : "Gå",
     "new" : "Ny",
+    "ok-got-it" : "OK, stemmer det",
     "options" : "Opsjoner",
     "pages" : "Sider",
     "rejected" : "Avvist",
@@ -44,6 +45,7 @@
     "region" : "Region",
     "country" : "Land",
     "yes-continue" : "Ja, fortsette",
+    "yes-generate" : "Ja, generere",
     "no-cancel" : "Nei, avbryt",
     "unknown" : "Ukjent",
     "uploaded" : "Lasted opp"

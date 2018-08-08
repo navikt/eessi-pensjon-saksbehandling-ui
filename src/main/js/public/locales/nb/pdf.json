@@ -16,6 +16,11 @@
 
     "error-PdfGenerationFail" : "Feil å generere PDF",
 
+    "recipe-empty" : "Tømme PDF",
+    "recipe-empty-text": "Du har valgt ingen PDF sider til å generere",
+    "recipe-valid": "Generere PDF",
+    "recipe-valid-text" : "Er du sikkert at du vil generere PDF nå?",
+
     "home" : "Botid",
     "work" : "Arbeid",
     "sick" : "Syk",

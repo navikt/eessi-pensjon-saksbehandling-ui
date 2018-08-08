@@ -21,7 +21,8 @@ const mapStateToProps = (state) => {
         generatingPDF: state.loading.generatingPDF,
         language     : state.ui.language,
         generatedPDF : state.pdf.generatedPDF,
-        pdfs         : state.pdf.pdfs
+        pdfs         : state.pdf.pdfs,
+        recipe       : state.pdf.recipe
 
     }
 };
@@ -43,12 +44,28 @@ class GeneratePDF extends Component {
 
     componentDidMount() {
 
-        const { history, pdfs } = this.props;
+        const { history, actions, pdfs, recipe } = this.props;
 
         if (!pdfs) {
+
             history.push('/react/pdf/select');
+
+        } else {
+
+            actions.generatePDF({
+                recipe: recipe,
+                pdfs: pdfs
+            });
         }
     }
+
+   onBackButtonClick() {
+
+       const { history, actions } = this.props;
+
+       actions.navigateBack();
+       history.push('/react/pdf/edit');
+   }
 
     onForwardButtonClick() {
 
@@ -80,7 +97,10 @@ class GeneratePDF extends Component {
                 </Nav.Row>
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
-                        <Nav.Hovedknapp className='forwardButton' spinner={generatingPDF} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                        <Nav.Knapp className='backButton w-100' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
+                    </Nav.Column>
+                    <Nav.Column>
+                        <Nav.Hovedknapp className='forwardButton w-100' spinner={generatingPDF} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
                     </Nav.Column>
                 </Nav.Row>
             </Nav.Panel>

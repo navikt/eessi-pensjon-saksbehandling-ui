@@ -14,5 +14,10 @@
     "help-select-pdf"  : "Drag PDF files for edit, or click in the area to open file select dialog",
     "help-edit-pdf"    : "Drag PDF pages from the right into the target area in the left",
 
+    "recipe-empty" : "Empty PDF",
+    "recipe-empty-text": "You haven't selected any pages for the new PDF",
+    "recipe-valid": "Generate PDF",
+    "recipe-valid-text" : "Are you sure you want to generate a PDF now?",
+
     "error-PdfGenerationFail" : "Error generating PDF"
 }

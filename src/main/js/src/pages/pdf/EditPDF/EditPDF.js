@@ -41,6 +41,10 @@ const mapDispatchToProps = (dispatch) => {
 
 class EditPDF extends Component {
 
+    state = {
+        modalOpen: false
+    }
+
     componentDidMount() {
 
         const { history, pdfs } = this.props;
@@ -59,15 +63,54 @@ class EditPDF extends Component {
         history.push('/react/pdf/select');
     }
 
+    hasOnlyEmptyArrays(obj) {
+
+        var emptyArrayMembers = _.filter(obj, (it) => {
+            return !it || (_.isArray(it) && _.isEmpty(it))
+        });
+        return emptyArrayMembers.length === Object.keys(obj).length;
+    }
+
     onForwardButtonClick() {
+
+        const { t, recipe } = this.props;
+
+        if (this.hasOnlyEmptyArrays(recipe)) {
+
+            this.setState({
+                modalOpen: true,
+                modalTitle: t('pdf:recipe-empty'),
+                modalText: t('pdf:recipe-empty-text'),
+                modalButtons: [{
+                    main: true,
+                    text: t('ui:ok-got-it'),
+                    onClick: this.closeModal
+                }]
+            });
+
+        } else {
+
+            this.setState({
+                modalOpen: true,
+                modalTitle: t('pdf:recipe-valid'),
+                modalText: t('pdf:recipe-valid-text'),
+                modalButtons: [{
+                       main: true,
+                       text: t('ui:yes-generate'),
+                       onClick: this.goToGenerate
+                   },{
+                    text: t('ui:cancel'),
+                    onClick: this.closeModal
+                }]
+            });
+        }
+    }
+
+    goToGenerate() {
 
         const { history, actions, pdfs, recipe } = this.props;
 
         actions.navigateForward();
-        actions.generatePDF({
-            recipe: recipe,
-            pdfs: pdfs
-        });
         history.push('/react/pdf/generate');
     }
 
@@ -79,6 +122,11 @@ class EditPDF extends Component {
         actions.setActiveDnDTarget(index);
     }
 
+    closeModal() {
+
+        this.setState({modalOpen: false});
+    }
+
     render() {
 
         const { t, history, errorMessage, errorStatus, editingPDF, pdfs, pdfsize, dndTarget, recipe } = this.props;
@@ -87,6 +135,19 @@ class EditPDF extends Component {
         let buttonText = editingPDF ? t('pdf:loadingEditPDF') : t('ui:forward');
 
         return <TopContainer className='topContainer'>
+            <Nav.Modal isOpen={this.state.modalOpen}
+                onRequestClose={this.closeModal.bind(this)}
+                closeButton={false}
+                contentLabel='contentLabel'>
+                <div className='m-3 text-center'><h4>{this.state.modalTitle}</h4></div>
+                <div className='m-4 text-center'>{this.state.modalText}</div>
+                <div className='text-center'>{this.state.modalButtons ? this.state.modalButtons.map(button => {
+                    return button.main ?
+                        <Nav.Hovedknapp className='mr-3 mb-3' key={button.text} onClick={button.onClick.bind(this)}>{button.text}</Nav.Hovedknapp>
+                        : <Nav.Knapp className='mr-3 mb-3' key={button.text} onClick={button.onClick.bind(this)}>{button.text}</Nav.Knapp>
+                }) : null}
+                </div>
+            </Nav.Modal>
             <Nav.Row>
                 <Nav.Column>
                     <h1 className='mt-3 appTitle'>
@@ -127,7 +188,8 @@ class EditPDF extends Component {
                     </Nav.Column>
                     <Nav.Column className='col-sm-10 mb-4'>
                         <div className='h-100'>
-                            {! pdfs ? null : <Collapse className='mb-4' destroyInactivePanel={false} accordion={false}>
+                            {! pdfs ? null : <Collapse className='mb-4' defaultActiveKey={Array(pdfs.length).fill().map((v, i) => {return '' + i})}
+                                destroyInactivePanel={false} accordion={false}>
                                 {pdfs.map((pdf, i) => {
                                     return <Collapse.Panel key={i} header={pdf.name} showArrow={true}>
                                         <DnDSource pdf={pdf}/>

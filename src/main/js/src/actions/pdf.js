@@ -1,6 +1,7 @@
 import * as types from '../constants/actionTypes';
 import * as urls from '../constants/urls';
 import * as api from './api';
+import _ from 'lodash';
 
 export function selectPDF (pdfs) {
 
@@ -56,16 +57,20 @@ export function setPdfSize (size) {
     };
 }
 
-export function generatePDF (body) {
+export function generatePDF (payload) {
 
-    for (var i in body.pdfs) {
-        delete body.pdfs[i].data;
-    }
+    let newPayload = Object.assign({}, payload);
+
+    newPayload.pdfs.map(pdf => {
+        let newPdf = _.clone(pdf);
+        delete newPdf.data;
+        return newPdf;
+    });
 
     return api.call({
         url: urls.PDF_GENERATE_URL,
         method: 'POST',
-        payload: body,
+        payload: newPayload,
         type: {
             request : types.PDF_GENERATE_REQUEST,
             success : types.PDF_GENERATE_SUCCESS,
