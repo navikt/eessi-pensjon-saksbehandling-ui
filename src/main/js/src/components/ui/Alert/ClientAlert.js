@@ -56,7 +56,7 @@ class ClientAlert extends Component {
 
     render () {
 
-        let { t, clientErrorStatus, clientErrorMessage } = this.props;
+        let { t, clientErrorStatus, clientErrorMessage, className } = this.props;
 
         if (!clientErrorMessage) { return null }
 
@@ -70,7 +70,7 @@ class ClientAlert extends Component {
         } else {
             message = t(clientErrorMessage);
         }
-        return <Nav.AlertStripe className={classNames({'toFade' : clientErrorStatus === 'OK'})}
+        return <Nav.AlertStripe className={classNames(className, 'clientAlert', 'mb-3', {'toFade' : clientErrorStatus === 'OK'})}
             type={clientErrorStatus === 'OK' ? 'suksess' : 'advarsel'}>
             {message}
         </Nav.AlertStripe>;
@@ -81,7 +81,8 @@ ClientAlert.propTypes = {
     t                  : PT.func.isRequired,
     clientErrorStatus  : PT.string,
     clientErrorMessage : PT.string,
-    actions            : PT.object.isRequired
+    actions            : PT.object.isRequired,
+    classNames         : PT.string
 }
 
 export default connect(

@@ -31,6 +31,7 @@ class Icons extends Component {
         case 'file-open' :  return <FontAwesomeIcon icon={icons.faFolderOpen} {...this.props}/>;
         case 'file-save' :  return <FontAwesomeIcon icon={icons.faSave} {...this.props}/>;
         case 'file-submit' :  return <FontAwesomeIcon icon={icons.faUpload} {...this.props}/>;
+        case 'menu' :  return <FontAwesomeIcon icon={icons.faBars} {...this.props}/>;
 
         case 'plus' :  return <FontAwesomeIcon icon={icons.faPlus} {...this.props}/>;
         case 'download' :  return <FontAwesomeIcon icon={icons.faDownload} {...this.props}/>;

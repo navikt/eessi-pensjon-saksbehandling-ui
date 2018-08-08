@@ -11,6 +11,7 @@ import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import EventForm from '../../components/p4000/EventForm/EventForm';
 import * as Menu from '../../components/p4000/menu/';
+import ClientAlert from '../../components/ui/Alert/ClientAlert';
 
 import * as p4000Actions from '../../actions/p4000';
 
@@ -72,22 +73,30 @@ class P4000 extends Component {
 
         let activeItem  = editMode && event ? event.type : page;
         let Component   = components[activeItem];
+        let isEventPage = activeItem !== 'view' && activeItem !== 'new' && activeItem !== 'file';
 
         return <TopContainer className='topContainer'>
             <Nav.Row>
-                <Nav.Column>
-                    <h1 className='mt-4 ml-3 mb-2 appTitle'>
+                <div className='col-md-5 col-lg-4'>
+                    <h1 className='mt-4 ml-3 mb-3 appTitle'>
                         <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
                         {t('p4000:app-title')}
                     </h1>
-                </Nav.Column>
-                <Nav.Column className='text-right'>
-                    <div>
-                        <Nav.Knapp className='mt-4' onClick={this.handleEventSelect.bind(this, 'file')}>{t('ui:file')}</Nav.Knapp>
-                    </div>
-                </Nav.Column>
+                    <Nav.Knapp className='ml-3 mb-3' onClick={this.handleEventSelect.bind(this, 'file')} disabled={activeItem === 'file'}>
+                        <Icons className='mr-2' kind='menu' size='1x'/>
+                        {t('ui:file')}
+                    </Nav.Knapp>
+                </div>
+                <div className='col-md-7 col-lg-8'>
+                    <ClientAlert className='mt-3'/>
+                </div>
             </Nav.Row>
             <EventForm type={activeItem} Component={Component}/>
+            {isEventPage ? <Nav.Row className='mb-4'>
+                <Nav.Column>
+                    <ClientAlert/>
+                </Nav.Column>
+            </Nav.Row> : null}
         </TopContainer>
     }
 }

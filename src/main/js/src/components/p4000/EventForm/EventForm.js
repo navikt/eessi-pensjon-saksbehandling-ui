@@ -9,7 +9,6 @@ import _ from 'lodash';
 
 import * as p4000Actions from '../../../actions/p4000';
 import * as Nav from '../../ui/Nav';
-import ClientAlert from '../../ui/Alert/ClientAlert';
 import EventList from '../EventList/EventList';
 
 import './EventForm.css';
@@ -80,12 +79,7 @@ class EventForm extends React.Component {
         let isEventPage = ! ((type === 'view' || type === 'new' || type === 'file'));
         let hideEventList = (type === 'view' || type === 'file') || _.isEmpty(events);
 
-        return <Nav.Panel className='panel-eventForm' style={{padding: 0, paddingBottom: '2rem'}}>
-            <Nav.Row className='row-floating-alert floatingAlertOnTop mt-3'>
-                <Nav.Column>
-                    <ClientAlert/>
-                </Nav.Column>
-            </Nav.Row>
+        return <Nav.Panel className='p-0 panel-eventForm'>
             <Nav.Row className={classNames('eventList', {'hiding' : hideEventList})}>
                 <Nav.Column>
                     <EventList events={events} eventIndex={eventIndex} cancelEditRequest={this.handleCancelRequest.bind(this)} handleEditRequest={this.handleEditRequest.bind(this)}/>
@@ -97,30 +91,25 @@ class EventForm extends React.Component {
                 </Nav.Column>
             </Nav.Row>
             {isEventPage ? (!editMode ?
-                <Nav.Row className='row-buttons mb-4 text-center'>
-                    <Nav.Column>
-                        <Nav.Hovedknapp className='saveButton' onClick={this.handleSave.bind(this)}>{t('ui:save')}</Nav.Hovedknapp>
-                    </Nav.Column>
-                    <Nav.Column>
-                        <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
-                    </Nav.Column>
-                </Nav.Row> :
-                <Nav.Row className='row-buttons mb-4 text-center'>
-                    <Nav.Column>
-                        <Nav.Hovedknapp className='editButton' onClick={this.handleEdit.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp>
-                    </Nav.Column>
-                    <Nav.Column>
-                        <Nav.Knapp className='deleteButton' onClick={this.handleDelete.bind(this)}>{t('ui:delete')}</Nav.Knapp>
-                    </Nav.Column>
-                    <Nav.Column>
-                        <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
-                    </Nav.Column>
-                </Nav.Row>) : null}
-            {isEventPage ? <Nav.Row>
+            <Nav.Row className='row-buttons mb-4 text-center'>
                 <Nav.Column>
-                    <ClientAlert/>
+                    <Nav.Hovedknapp className='saveButton' onClick={this.handleSave.bind(this)}>{t('ui:save')}</Nav.Hovedknapp>
                 </Nav.Column>
-            </Nav.Row> : null}
+                <Nav.Column>
+                    <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
+                </Nav.Column>
+            </Nav.Row> :
+            <Nav.Row className='row-buttons mb-4 text-center'>
+                <Nav.Column>
+                    <Nav.Hovedknapp className='editButton' onClick={this.handleEdit.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp>
+                </Nav.Column>
+                <Nav.Column>
+                    <Nav.Knapp className='deleteButton' onClick={this.handleDelete.bind(this)}>{t('ui:delete')}</Nav.Knapp>
+                </Nav.Column>
+                <Nav.Column>
+                    <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
+                </Nav.Column>
+            </Nav.Row>) : null}
         </Nav.Panel>
     }
 }

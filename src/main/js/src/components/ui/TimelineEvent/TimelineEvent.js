@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 
-import Icons from './Icons';
+import Icons from '../Icons';
+import './TimelineEvent.css'
 
 class TimelineEvent extends Component {
 
@@ -11,10 +12,10 @@ class TimelineEvent extends Component {
         const { t, event, onClick } = this.props;
 
         return <div className='timeline-event'>
-            <div>
-                <Icons size='3x' kind={event.content.type}/>
-                <h4 className='m-0'>{t('p4000:type-' + event.content.type)}</h4>
+            <div className='timeline-event-badge'>
+                <Icons size='2x' kind={event.content.type}/>
             </div>
+            <span>{t('p4000:type-' + event.content.type)}</span>
             <div className='timeline-event-edit'>
                 <a href='#edit' onClick={onClick}>{t('p4000:editEvent')}</a>
             </div>

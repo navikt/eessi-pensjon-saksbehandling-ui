@@ -66,7 +66,7 @@ class GetCase extends Component {
         let buttonText = gettingCase ? t('case:loading-gettingCase') : t('ui:search');
 
         return <TopContainer>
-            <Nav.Panel className='panel'>
+            <Nav.Panel>
                 <Nav.Row className='mt-4'>
                     <Nav.Column>
                         <h1 className='mt-3 appTitle'>

@@ -161,7 +161,7 @@ class Child extends Component {
 
         const { t, event, locale, editMode, actions, type } = this.props;
 
-        return <Nav.Panel className='p-0'>
+        return <Nav.Panel>
             <Nav.Row className='eventTitle mb-4'>
                 <Nav.Column>
                     <Icons size='3x' kind={type} className='d-inline-block'/>

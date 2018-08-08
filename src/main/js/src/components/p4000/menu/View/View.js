@@ -9,7 +9,7 @@ import ReactJson from 'react-json-view';
 
 import P4000Util from  '../../../p4000/Util';
 import * as Nav from '../../../ui/Nav';
-import TimelineEvent from '../../../ui/TimelineEvent';
+import TimelineEvent from '../../../ui/TimelineEvent/TimelineEvent';
 
 import * as p4000Actions from '../../../../actions/p4000';
 
@@ -107,7 +107,7 @@ class View extends Component {
             }
         });
 
-        return <Nav.Panel className='p-0 panel-timeline'>
+        return <Nav.Panel className='panel-timeline'>
             <Nav.Ekspanderbartpanel className='row-timeline-view fieldset mb-5' apen={true} tittel={t('p4000:timeline')} tittelProps='undertittel'>
                 <Timeline items={items}
                     options={{
