@@ -13,7 +13,7 @@ class TimelineEvent extends Component {
         return <div className='timeline-event'>
             <div>
                 <Icons size='3x' kind={event.content.type}/>
-                <h4>{t('p4000:menu-' + event.content.type)}</h4>
+                <h4 className='m-0'>{t('p4000:type-' + event.content.type)}</h4>
             </div>
             <div className='timeline-event-edit'>
                 <a href='#edit' onClick={onClick}>{t('p4000:editEvent')}</a>

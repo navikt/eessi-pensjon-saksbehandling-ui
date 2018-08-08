@@ -28,4 +28,5 @@ i18next
         }
     }).loadLanguages(['nb','en']);
 
+i18next.locale = 'nb';
 export default i18next;

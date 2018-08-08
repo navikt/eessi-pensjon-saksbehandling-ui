@@ -105,22 +105,22 @@ class FileUpload extends Component {
                 </div>
                 <div className='dropzone-files scrollable'>
                     <TransitionGroup className='dropzone-files-transition'>
-                    { this.state.files ? this.state.files.map((file, i) => {
-                       if (_.endsWith(file.name, '.pdf')) {
-                           return <CSSTransition key={i} classNames='fileUploadFile' timeout={500}>
-                               <MiniaturePDF key={i} pdf={file}
-                               onLoadSuccess={this.onLoadSuccess.bind(this, i)}
-                               onDeleteDocument={this.removeFile.bind(this, i)}
-                           />
-                        </CSSTransition>
-                       } else {
-                           return <CSSTransition key={i} classNames='fileUploadFile' timeout={500}>
-                               <MiniatureOther key={i} file={file}
-                               onDeleteDocument={this.removeFile.bind(this, i)}/>
-                           </CSSTransition>
-                       }
-                   }) : null }
-                   </TransitionGroup>
+                        { this.state.files ? this.state.files.map((file, i) => {
+                            if (_.endsWith(file.name, '.pdf')) {
+                                return <CSSTransition key={i} classNames='fileUploadFile' timeout={500}>
+                                    <MiniaturePDF key={i} pdf={file}
+                                        onLoadSuccess={this.onLoadSuccess.bind(this, i)}
+                                        onDeleteDocument={this.removeFile.bind(this, i)}
+                                    />
+                                </CSSTransition>
+                            } else {
+                                return <CSSTransition key={i} classNames='fileUploadFile' timeout={500}>
+                                    <MiniatureOther key={i} file={file}
+                                        onDeleteDocument={this.removeFile.bind(this, i)}/>
+                                </CSSTransition>
+                            }
+                        }) : null }
+                    </TransitionGroup>
                 </div>
             </Dropzone>
         </div>

@@ -4,7 +4,9 @@ import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import classNames from 'classnames';
-import ReactDatePicker from 'react-date-picker';
+import ReactDatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.min.css';
+import moment from 'moment';
 
 import Validation from '../Validation';
 import * as Nav from '../../ui/Nav';
@@ -14,7 +16,8 @@ import './DatePicker.css';
 
 const mapStateToProps = (state) => {
     return {
-        event : state.p4000.event
+        event  : state.p4000.event,
+        locale : state.ui.locale
     }
 };
 
@@ -99,7 +102,75 @@ class DatePicker extends Component {
         });
     }
 
-    onStartDateChange(date) {
+    onStartDateBlur(e) {
+
+        const { event, actions } = this.props;
+        let date = e.target.value;
+
+        if (! /\d\d\.\d\d\.\d\d\d\d/.test(date)) {
+
+            if (!event.startDate || date !== event.startDate)  {
+
+                this.setState({
+                    validationError : 'p4000:validation-invalidDate'
+                },  () => {
+                    actions.setEventProperty('dateType', this.state.dateType);
+                    actions.setEventProperty('startDate', undefined);
+                });
+            }
+        } else {
+            let startDate = moment(date, 'DD.MM.YYYY').toDate();
+            if (!event.startDate || startDate.getTime() !== event.startDate.getTime())  {
+                this.onStartDateHandle(startDate);
+            }
+        }
+    }
+
+    onEndDateBlur(e) {
+
+        const { event, actions } = this.props;
+        let date = e.target.value;
+
+        if (! /\d\d\.\d\d\.\d\d\d\d/.test(date)) {
+
+            if (!event.endDate || date !== event.endDate)  {
+
+                this.setState({
+                    validationError : 'p4000:validation-invalidDate'
+                },  () => {
+                    actions.setEventProperty('dateType', this.state.dateType);
+                    actions.setEventProperty('endDate', undefined);
+                });
+            }
+        } else {
+            let endDate = moment(date, 'DD.MM.YYYY').toDate();
+            if (!event.endDate || endDate.getTime() !== event.endDate.getTime())  {
+                this.onEndDateHandle(endDate);
+            }
+        }
+    }
+
+    onStartDateChange(moment) {
+
+        const { event } = this.props;
+
+        let date = moment.toDate();
+        if (!event.startDate || date.getTime() !== event.startDate.getTime())  {
+            this.onStartDateHandle(date);
+        }
+    }
+
+    onEndDateChange(moment) {
+
+        const { event } = this.props;
+
+        let date = moment.toDate();
+        if (!event.endDate || date.getTime() !== event.endDate.getTime())  {
+            this.onEndDateHandle(date);
+        }
+    }
+
+    onStartDateHandle(date) {
 
         let { event, actions } = this.props;
         let validationError = undefined;
@@ -121,7 +192,7 @@ class DatePicker extends Component {
         });
     }
 
-    onEndDateChange(date) {
+    onEndDateHandle(date) {
 
         let { event, actions } = this.props;
         let validationError = undefined;
@@ -151,7 +222,7 @@ class DatePicker extends Component {
 
     render () {
 
-        let { t, event } = this.props;
+        let { t, event, locale } = this.props;
 
         return <div className={classNames('div-datePicker', 'p-2')}>
             {!this.hasNoValidationErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.validationError)}</Nav.AlertStripe> : null}
@@ -170,15 +241,27 @@ class DatePicker extends Component {
             <Nav.Row className='row-datepickers no-gutters'>
                 <Nav.Column className='text-center'>
                     <label className='mr-3'>{t('ui:startDate') + ' *'}</label>
-                    <ReactDatePicker value={event.startDate}
-                        locale='no-NB'
+                    <ReactDatePicker selected={event.startDate ? moment(event.startDate) : undefined}
+                        dateFormat='DD.MM.YYYY'
+                        placeholderText={t('ui:dateFormat')}
+                        showYearDropdown
+                        showMonthDropdown
+                        dropdownMode='select'
+                        locale={locale}
+                        onBlur={this.onStartDateBlur.bind(this)}
                         onChange={this.onStartDateChange.bind(this)}/>
                     <div>{this.state.onStartDateFail}</div>
                 </Nav.Column>
                 <Nav.Column className='text-center'>
                     <label className='mr-3'>{t('ui:endDate')}</label>
-                    <ReactDatePicker value={event.endDate} disabled={this.state.dateType !== 'both'}
-                        locale='no-NB'
+                    <ReactDatePicker selected={event.endDate ? moment(event.endDate) : undefined} disabled={this.state.dateType !== 'both'}
+                        dateFormat='DD.MM.YYYY'
+                        placeholderText={t('ui:dateFormat')}
+                        showYearDropdown
+                        showMonthDropdown
+                        dropdownMode='select'
+                        locale={locale}
+                        onBlur={this.onEndDateBlur.bind(this)}
                         onChange={this.onEndDateChange.bind(this)}/>
                     <div>{this.state.onEndDateFail}</div>
                 </Nav.Column>
@@ -191,7 +274,8 @@ DatePicker.propTypes = {
     t                 : PT.func.isRequired,
     event             : PT.object.isRequired,
     actions           : PT.object.isRequired,
-    provideController : PT.func.isRequired
+    provideController : PT.func.isRequired,
+    locale            : PT.string.isRequired
 };
 
 export default connect(

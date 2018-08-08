@@ -83,7 +83,7 @@ class P4000 extends Component {
                 </Nav.Column>
                 <Nav.Column className='text-right'>
                     <div>
-                         <Nav.Knapp className='mt-4' onClick={this.handleEventSelect.bind(this, 'file')}>{t('p4000:menu-file')}</Nav.Knapp>
+                        <Nav.Knapp className='mt-4' onClick={this.handleEventSelect.bind(this, 'file')}>{t('ui:file')}</Nav.Knapp>
                     </div>
                 </Nav.Column>
             </Nav.Row>

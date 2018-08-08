@@ -4,7 +4,9 @@ import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import classNames from 'classnames';
-import ReactDatePicker from 'react-date-picker';
+import moment from 'moment';
+import ReactDatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.min.css';
 
 import * as p4000Actions from '../../../actions/p4000';
 
@@ -18,7 +20,8 @@ import Icons from '../../ui/Icons';
 const mapStateToProps = (state) => {
     return {
         event    : state.p4000.event,
-        editMode : state.p4000.editMode
+        editMode : state.p4000.editMode,
+        locale   : state.ui.locale
     };
 };
 
@@ -105,9 +108,58 @@ class Child extends Component {
         actions.setEventProperty('files', files);
     }
 
+    onBirthDateBlur(e) {
+
+        const { event, actions } = this.props;
+        let date = e.target.value;
+
+        if (! /\d\d\.\d\d\.\d\d\d\d/.test(date)) {
+
+            if (!event.birthDate || date !== event.birthDate)  {
+
+                this.setState({
+                    infoValidationError : 'p4000:validation-invalidDate'
+                },  () => {
+                    actions.setEventProperty('birthDate', undefined);
+                });
+            }
+        } else {
+            let birthDate = moment(date, 'DD.MM.YYYY').toDate();
+            if (!event.birthDate || birthDate.getTime() !== event.birthDate.getTime())  {
+                this.onBirthDateHandle(birthDate);
+            }
+        }
+    }
+
+    onBirthDateChange(moment) {
+
+        const { event } = this.props;
+
+        let date = moment.toDate();
+        if (!event.birthDate || date.getTime() !== event.birthDate.getTime())  {
+            this.onBirthDateHandle(date);
+        }
+    }
+
+    onBirthDateHandle(date) {
+
+        let { actions } = this.props;
+        let infoValidationError = undefined;
+
+        if (date > new Date()) {
+            infoValidationError = 'p4000:validation-birthDateInfuture';
+        }
+
+        this.setState({
+            infoValidationError : infoValidationError
+        }, () => {
+            actions.setEventProperty('birthDate', date);
+        });
+    }
+
     render() {
 
-        const { t, event, editMode, actions, type } = this.props;
+        const { t, event, locale, editMode, actions, type } = this.props;
 
         return <Nav.Panel className='p-0'>
             <Nav.Row className='eventTitle mb-4'>
@@ -149,9 +201,15 @@ class Child extends Component {
                         <label>{t('p4000:' + type + '-fieldset-2_3-birthdate')}</label>
                     </div>
                     <div>
-                        <ReactDatePicker value={event.birthDate}
-                            locale='no-NB'
-                            onChange={(date) => actions.setEventProperty('birthDate', date)}/>
+                        <ReactDatePicker selected={event.birthDate ? moment(event.birthDate) : undefined}
+                            dateFormat='DD.MM.YYYY'
+                            placeholderText={t('ui:dateFormat')}
+                            showYearDropdown
+                            showMonthDropdown
+                            dropdownMode='select'
+                            locale={locale}
+                            onBlur={this.onBirthDateBlur.bind(this)}
+                            onChange={this.onBirthDateChange.bind(this)}/>
                     </div>
                 </Nav.Column>
             </Nav.Row>
@@ -165,7 +223,7 @@ class Child extends Component {
                         <div>
                             <label>{t('ui:country') + ' *'}</label>
                         </div>
-                        <CountrySelect value={event.country || {}} multi={false}
+                        <CountrySelect locale={locale} value={event.country || {}} multi={false}
                             flagImagePath='../../../flags/'
                             onSelect={(e) => {actions.setEventProperty('country', e)}}/>
                     </div>
@@ -189,7 +247,8 @@ Child.propTypes = {
     type              : PT.string.isRequired,
     editMode          : PT.bool.isRequired,
     actions           : PT.object.isRequired,
-    provideController : PT.func.isRequired
+    provideController : PT.func.isRequired,
+    locale            : PT.string.isRequired
 };
 
 export default connect(

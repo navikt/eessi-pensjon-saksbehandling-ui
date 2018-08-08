@@ -17,7 +17,8 @@ import Icons from '../../ui/Icons';
 const mapStateToProps = (state) => {
     return {
         event    : state.p4000.event,
-        editMode : state.p4000.editMode
+        editMode : state.p4000.editMode,
+        locale   : state.ui.locale
     };
 };
 
@@ -108,7 +109,7 @@ class Work extends Component {
 
     render() {
 
-        const { t, event, editMode, actions, type } = this.props;
+        const { t, event, editMode, actions, type, locale } = this.props;
 
         return <Nav.Panel className='p-0'>
             <Nav.Row className='eventTitle mb-4'>
@@ -174,7 +175,7 @@ class Work extends Component {
                     {!this.hasNoOtherErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.otherValidationError)}</Nav.AlertStripe> : null}
                     <div className='mb-3'>
                         <label>{t('ui:country') + ' *'}</label>
-                        <CountrySelect value={event.country || {}} multi={false}
+                        <CountrySelect locale={locale} value={event.country || {}} multi={false}
                             flagImagePath='../../../flags/'
                             onSelect={(e) => {actions.setEventProperty('country', e)}}/>
                     </div>
@@ -198,7 +199,8 @@ Work.propTypes = {
     type              : PT.string.isRequired,
     editMode          : PT.bool.isRequired,
     actions           : PT.object.isRequired,
-    provideController : PT.func.isRequired
+    provideController : PT.func.isRequired,
+    locale            : PT.string.isRequired
 };
 
 export default connect(

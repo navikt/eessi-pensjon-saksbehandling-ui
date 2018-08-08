@@ -58,11 +58,11 @@ class CountrySelect extends Component {
 
     render() {
 
-        const { t, value, multi } = this.props;
+        const { t, value, multi, locale } = this.props;
         return <div>
             <Select placeholder={t('ui:searchCountry')}
                 value={this.state.tag || value}
-                options={countries}
+                options={countries[locale]}
                 optionRenderer={this.CountryOptionRenderer}
                 backspaceRemoves={true}
                 onChange={this.logChange}
@@ -77,7 +77,8 @@ CountrySelect.propTypes = {
     flagImagePath  : PT.string,
     value          : PT.object,
     multi          : PT.bool.isRequired,
-    t              : PT.func.isRequired
+    t              : PT.func.isRequired,
+    locale         : PT.string.isRequired
 }
 
 export default translate()(CountrySelect);

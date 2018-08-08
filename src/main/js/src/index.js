@@ -14,6 +14,10 @@ import thunk from 'redux-thunk';
 import { I18nextProvider } from 'react-i18next';
 
 import * as reducers from './reducers';
+import 'moment';
+import 'moment/locale/en-gb';
+import 'moment/locale/nb';
+
 import i18n from './i18n';
 import registerServiceWorker from './registerServiceWorker';
 import * as Pages from './pages';
@@ -34,7 +38,10 @@ const reducer = combineReducers({
     ...reducers
 });
 
-const initialState = {ui: {language : i18n.language}};
+const initialState = {ui: {
+    language : i18n.language,
+    locale   : i18n.locale
+}};
 
 const store = createStoreWithMiddleware(reducer, initialState);
 

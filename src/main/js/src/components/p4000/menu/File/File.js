@@ -215,7 +215,7 @@ class File extends Component {
                         </Nav.Column>
                     </Nav.Row>
 
-                     <Nav.Row className='mb-3 no-gutters'>
+                    <Nav.Row className='mb-3 no-gutters'>
                         <Nav.Column className='col-auto buttonColumn'>
                             <Nav.Knapp className='fileButton' onClick={this.handleFileView.bind(this)} disabled={event === undefined}>
                                 <div>

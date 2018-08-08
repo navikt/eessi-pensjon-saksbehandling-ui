@@ -79,8 +79,11 @@ class View extends Component {
             'onlyStartDate01' : t('p4000:onlyStartDate01'),
             'onlyStartDate98' : t('p4000:onlyStartDate98')
         };
-        let data = [{key: t('p4000:dateType'), value: dateType[event.dateType]},
-            {key: t('ui:startDate'), value: event.startDate.toDateString()}];
+        let data = [
+            {key: t('ui:type'), value: t('p4000:type-' + event.type)},
+            {key: t('p4000:dateType'), value: dateType[event.dateType]},
+            {key: t('ui:startDate'), value: event.startDate.toDateString()}
+        ];
 
         if (event.endDate) {
             data.push({key: t('ui:endDate'), value: event.endDate.toDateString() });

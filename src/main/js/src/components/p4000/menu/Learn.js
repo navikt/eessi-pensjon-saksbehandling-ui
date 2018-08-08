@@ -17,7 +17,8 @@ import Icons from '../../ui/Icons';
 const mapStateToProps = (state) => {
     return {
         event    : state.p4000.event,
-        editMode : state.p4000.editMode
+        editMode : state.p4000.editMode,
+        locale   : state.ui.locale
     };
 };
 
@@ -106,7 +107,7 @@ class Learn extends Component {
 
     render() {
 
-        const { t, event, editMode, actions, type } = this.props;
+        const { t, event, editMode, actions, type, locale } = this.props;
 
         return <Nav.Panel className='p-0'>
             <Nav.Row className='eventTitle mb-4'>
@@ -153,7 +154,7 @@ class Learn extends Component {
                         <div>
                             <label>{t('ui:country') + ' *'}</label>
                         </div>
-                        <CountrySelect value={event.country || {}} multi={false}
+                        <CountrySelect locale={locale} value={event.country || {}} multi={false}
                             flagImagePath='../../../flags/'
                             onSelect={(e) => {actions.setEventProperty('country', e)}}/>
                     </div>
@@ -177,7 +178,8 @@ Learn.propTypes = {
     type              : PT.string.isRequired,
     editMode          : PT.bool.isRequired,
     actions           : PT.object.isRequired,
-    provideController : PT.func.isRequired
+    provideController : PT.func.isRequired,
+    locale            : PT.string.isRequired
 };
 
 export default connect(

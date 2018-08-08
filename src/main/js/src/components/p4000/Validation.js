@@ -73,15 +73,25 @@ class Validation {
         )  {
             return 'p4000:validation-insufficientDates';
         }
+
+        if ( (dateType === 'both' && (!(event.startDate instanceof Date) || !(event.endDate instanceof Date) )) ||
+           (dateType !== 'both' && !(event.startDate instanceof Date))
+        ) {
+            return 'p4000:validation-invalidDate';
+        }
+
         if (dateType === 'both' && event.endDate < event.startDate) {
             return 'p4000:validation-endDateEarlierThanStartDate';
         }
+
         if (event.startDate && event.startDate > new Date()) {
             return 'p4000:validation-startDateCantBeInFuture';
         }
+
         if (event.endDate && event.endDate > new Date()) {
             return 'p4000:validation-endDateCantBeInFuture';
         }
+
         return undefined;
     }
 }

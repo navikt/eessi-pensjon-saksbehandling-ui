@@ -7,7 +7,8 @@ export default function (state = {}, action = {}) {
     case types.LANGUAGE_CHANGED:
 
         return Object.assign({}, state, {
-            language : action.payload
+            language : action.payload,
+            locale   : action.payload === 'nb' ? 'nb' : 'en-gb'
         });
 
     case types.NAVIGATION_FORWARD:
