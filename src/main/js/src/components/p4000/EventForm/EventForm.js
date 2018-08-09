@@ -91,25 +91,25 @@ class EventForm extends React.Component {
                 </Nav.Column>
             </Nav.Row>
             {isEventPage ? (!editMode ?
-            <Nav.Row className='row-buttons mb-4 text-center'>
-                <Nav.Column>
-                    <Nav.Hovedknapp className='saveButton' onClick={this.handleSave.bind(this)}>{t('ui:save')}</Nav.Hovedknapp>
-                </Nav.Column>
-                <Nav.Column>
-                    <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
-                </Nav.Column>
-            </Nav.Row> :
-            <Nav.Row className='row-buttons mb-4 text-center'>
-                <Nav.Column>
-                    <Nav.Hovedknapp className='editButton' onClick={this.handleEdit.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp>
-                </Nav.Column>
-                <Nav.Column>
-                    <Nav.Knapp className='deleteButton' onClick={this.handleDelete.bind(this)}>{t('ui:delete')}</Nav.Knapp>
-                </Nav.Column>
-                <Nav.Column>
-                    <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
-                </Nav.Column>
-            </Nav.Row>) : null}
+                <Nav.Row className='row-buttons mb-4 text-center'>
+                    <Nav.Column>
+                        <Nav.Hovedknapp className='saveButton' onClick={this.handleSave.bind(this)}>{t('ui:save')}</Nav.Hovedknapp>
+                    </Nav.Column>
+                    <Nav.Column>
+                        <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
+                    </Nav.Column>
+                </Nav.Row> :
+                <Nav.Row className='row-buttons mb-4 text-center'>
+                    <Nav.Column>
+                        <Nav.Hovedknapp className='editButton' onClick={this.handleEdit.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp>
+                    </Nav.Column>
+                    <Nav.Column>
+                        <Nav.Knapp className='deleteButton' onClick={this.handleDelete.bind(this)}>{t('ui:delete')}</Nav.Knapp>
+                    </Nav.Column>
+                    <Nav.Column>
+                        <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
+                    </Nav.Column>
+                </Nav.Row>) : null}
         </Nav.Panel>
     }
 }
@@ -123,7 +123,7 @@ EventForm.propTypes = {
     eventIndex : PT.number,
     history    : PT.object,
     actions    : PT.object,
-    Component  : PT.node
+    Component  : PT.element
 };
 
 export default connect(

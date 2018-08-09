@@ -9,6 +9,21 @@ export function navigateForward () {
     };
 }
 
+export function openModal(modal) {
+
+    return {
+        type    : types.UI_MODAL_OPEN,
+        payload : modal
+    }
+}
+
+export function closeModal() {
+
+    return {
+        type    : types.UI_MODAL_CLOSE
+    }
+}
+
 export function navigateBack () {
 
     return {

@@ -118,13 +118,13 @@ class Work extends Component {
                     <h1 className='d-inline-block m-0 ml-3 align-bottom'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('p4000:' + type + '-title')}</h1>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='eventDescription mb-4 p-4 fieldset'>
+            <Nav.Row className='eventDescription mb-4 p-3 fieldset'>
                 <Nav.Column>
                     <Nav.Ikon className='float-left mr-4' kind='info-sirkel' />
                     <Nav.Tekstomrade>{t('p4000:' + type + '-description')}</Nav.Tekstomrade>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className={classNames('eventDates','mb-4','p-4','fieldset', {
+            <Nav.Row className={classNames('eventDates','mb-4','p-3','fieldset', {
                 validationFail : this.datepicker ? !this.datepicker.hasNoValidationErrors() : false
             })}>
                 <Nav.Column>
@@ -133,7 +133,7 @@ class Work extends Component {
                     <DatePicker provideController={(datepicker) => this.datepicker = datepicker}/>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className={classNames('eventInfo','mb-4','p-4','fieldset', {
+            <Nav.Row className={classNames('eventInfo','mb-4','p-3','fieldset', {
                 validationFail : this ? !this.hasNoInfoErrors() : false
             })}>
                 <Nav.Column>
@@ -150,24 +150,17 @@ class Work extends Component {
                     <Nav.Input label={t('p4000:' + type + '-fieldset-2_3-name') + ' *'} value={event.name || ''}
                         onChange={(e) => {actions.setEventProperty('name', e.target.value)}} />
 
-                    <h4>{t('p4000:' + type + '-fieldset-2_4-address')}</h4>
+                    <Nav.Textarea style={{minHeight:'200px'}} label={t('p4000:' + type + '-fieldset-2_4-address') + ' *'} value={event.address || ''}
+                    onChange={(e) => {actions.setEventProperty('address', e.target.value)}} />
 
-                    <div className='ml-4'>
-                        <Nav.Input label={t('ui:street') + ' *'} value={event.street || ''}
-                            onChange={(e) => {actions.setEventProperty('street', e.target.value)}} />
+                    <Nav.Input label={t('ui:city') + ' *'} value={event.city || ''}
+                        onChange={(e) => {actions.setEventProperty('city', e.target.value)}} />
 
-                        <Nav.Input label={t('ui:buildingName') + ' *'} value={event.buildingName || ''}
-                            onChange={(e) => {actions.setEventProperty('buildingName', e.target.value)}} />
-
-                        <Nav.Input label={t('ui:city') + ' *'} value={event.city || ''}
-                            onChange={(e) => {actions.setEventProperty('city', e.target.value)}} />
-
-                        <Nav.Input label={t('ui:region') + ' *'} value={event.region || ''}
-                            onChange={(e) => {actions.setEventProperty('region', e.target.value)}} />
-                    </div>
+                    <Nav.Input label={t('ui:region') + ' *'} value={event.region || ''}
+                        onChange={(e) => {actions.setEventProperty('region', e.target.value)}} />
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className={classNames('eventOther','mb-4','p-4','fieldset', {
+            <Nav.Row className={classNames('eventOther','mb-4','p-3','fieldset', {
                 validationFail : this ? ! this.hasNoOtherErrors() : false
             })}>
                 <Nav.Column>
@@ -183,7 +176,7 @@ class Work extends Component {
                         onChange={(e) => {actions.setEventProperty('other', e.target.value)}} />
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className={classNames('eventFileUpload','mb-4','p-4','fieldset')}>
+            <Nav.Row className={classNames('eventFileUpload','mb-4','p-3','fieldset')}>
                 <Nav.Column>
                     <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
                     <FileUpload files={event.files} onFileChange={this.handleFileChange.bind(this)}/>

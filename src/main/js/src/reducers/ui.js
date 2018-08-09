@@ -1,8 +1,26 @@
 import * as types from '../constants/actionTypes';
 
-export default function (state = {}, action = {}) {
+let initialState =  {
+    modalOpen: false
+};
+
+export default function (state = initialState, action = {}) {
 
     switch (action.type) {
+
+    case types.UI_MODAL_OPEN:
+
+        return Object.assign({}, state, {
+            modalOpen : true,
+            modal     : action.payload
+        });
+
+    case types.UI_MODAL_CLOSE:
+
+        return Object.assign({}, state, {
+            modalOpen : false,
+            modal     : undefined
+        });
 
     case types.LANGUAGE_CHANGED:
 

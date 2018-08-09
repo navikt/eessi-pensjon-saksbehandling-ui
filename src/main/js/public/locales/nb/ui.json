@@ -9,6 +9,7 @@
     "confirm" : "Bekrefte",
     "confirmAndGenerate" : "Bekrefte og Generere",
     "confirmAndSend": "Bekrefte og sende",
+    "continue" : "fortsette",
     "create" : "Opprett",
     "createNew" : "Opprett ny",
     "dataGenerated" : "Data generert",
@@ -22,6 +23,7 @@
     "file"      : "Fil",
     "fileUpload" : "Last opp filer",
     "forward" : "Neste",
+    "generate" : "generere",
     "go" : "Gå",
     "new" : "Ny",
     "ok-got-it" : "OK, stemmer det",
@@ -39,14 +41,14 @@
     "start" : "Start",
     "startDate" : "Startdato",
     "street" : "Gate",
+    "submit" : "sender",
     "type" : "Type",
     "view"      : "Oversikt",
     "city" : "By",
     "region" : "Region",
     "country" : "Land",
-    "yes-continue" : "Ja, fortsette",
-    "yes-generate" : "Ja, generere",
     "no-cancel" : "Nei, avbryt",
     "unknown" : "Ukjent",
-    "uploaded" : "Lasted opp"
+    "uploaded" : "Lasted opp",
+    "yes" : "Ja"
 }

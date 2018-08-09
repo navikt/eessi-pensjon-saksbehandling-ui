@@ -36,7 +36,7 @@ class Util {
 
         events.map(event => {
             if (event.files) {
-                events.files.map(file => {
+                event.files.map(file => {
                     if (file.data) {
                         delete file.data;
                     }
@@ -94,8 +94,7 @@ class Util {
         let newEvent = this.handleGenericEvent(event);
         newEvent.addressFirma = {
             by : event.city,
-            bygning: event.buildingName,
-            gate: event.street,
+            address: event.address,
             region: event.region,
             land: event.country
         };

@@ -108,13 +108,13 @@ class Home extends Component {
                     <h1 className='d-inline-block m-0 ml-3 align-bottom'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('p4000:' + type + '-title')}</h1>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='eventDescription mb-4 p-4 fieldset'>
+            <Nav.Row className='eventDescription mb-4 p-3 fieldset'>
                 <Nav.Column>
                     <Nav.Ikon className='float-left mr-4' kind='info-sirkel' />
                     <Nav.Tekstomrade>{t('p4000:' + type + '-description')}</Nav.Tekstomrade>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className={classNames('eventDates','mb-4','p-4','fieldset', {
+            <Nav.Row className={classNames('eventDates','mb-4','p-3','fieldset', {
                 validationFail : this.datepicker ? !this.datepicker.hasNoValidationErrors() : false
             })}>
                 <Nav.Column>
@@ -123,7 +123,7 @@ class Home extends Component {
                     <DatePicker provideController={(datepicker) => this.datepicker = datepicker}/>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className={classNames('eventOther','mb-4','p-4','fieldset', {
+            <Nav.Row className={classNames('eventOther','mb-4','p-3','fieldset', {
                 validationFail : this ? ! this.hasNoOtherErrors() : false
             })}>
                 <Nav.Column>
@@ -143,7 +143,7 @@ class Home extends Component {
                         onChange={(e) => {actions.setEventProperty('other', e.target.value)}} />
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className={classNames('eventFileUpload','mb-4','p-4','fieldset')}>
+            <Nav.Row className={classNames('eventFileUpload','mb-4','p-3','fieldset')}>
                 <Nav.Column>
                     <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
                     <FileUpload files={event.files} onFileChange={this.handleFileChange.bind(this)}/>

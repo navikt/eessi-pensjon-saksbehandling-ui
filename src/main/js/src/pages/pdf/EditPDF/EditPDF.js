@@ -95,10 +95,10 @@ class EditPDF extends Component {
                 modalTitle: t('pdf:recipe-valid'),
                 modalText: t('pdf:recipe-valid-text'),
                 modalButtons: [{
-                       main: true,
-                       text: t('ui:yes-generate'),
-                       onClick: this.goToGenerate
-                   },{
+                    main: true,
+                    text: t('ui:yes') + ', ' + t('ui:generate'),
+                    onClick: this.goToGenerate
+                },{
                     text: t('ui:cancel'),
                     onClick: this.closeModal
                 }]
@@ -108,7 +108,7 @@ class EditPDF extends Component {
 
     goToGenerate() {
 
-        const { history, actions, pdfs, recipe } = this.props;
+        const { history, actions } = this.props;
 
         actions.navigateForward();
         history.push('/react/pdf/generate');

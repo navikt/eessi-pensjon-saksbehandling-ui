@@ -82,7 +82,7 @@ ClientAlert.propTypes = {
     clientErrorStatus  : PT.string,
     clientErrorMessage : PT.string,
     actions            : PT.object.isRequired,
-    classNames         : PT.string
+    className          : PT.string
 }
 
 export default connect(

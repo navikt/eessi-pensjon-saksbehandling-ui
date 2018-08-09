@@ -59,13 +59,13 @@ class GeneratePDF extends Component {
         }
     }
 
-   onBackButtonClick() {
+    onBackButtonClick() {
 
-       const { history, actions } = this.props;
+        const { history, actions } = this.props;
 
-       actions.navigateBack();
-       history.push('/react/pdf/edit');
-   }
+        actions.navigateBack();
+        history.push('/react/pdf/edit');
+    }
 
     onForwardButtonClick() {
 
@@ -116,6 +116,7 @@ GeneratePDF.propTypes = {
     history      : PT.object,
     t            : PT.func,
     pdfs         : PT.array.isRequired,
+    recipe       : PT.array.isRequired,
     generatedPDF : PT.obj
 
 

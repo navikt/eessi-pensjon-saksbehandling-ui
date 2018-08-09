@@ -58,6 +58,8 @@
     "file-new-confirm-text"     : "Det er fortsatt en ikke-lagret P4000 skjema. Vil du fortsett å opprett en ny skjema?",
     "file-open-confirm-title"   : "P4000 i prosess",
     "file-open-confirm-text"    : "Det er fortsatt en ikke-lagret P4000 skjema. Vil du fortsett å åpen andre skjema?",
+    "file-submit-confirm-title" : "Sende P4000",
+    "file-submit-confirm-text"  : "Du skal sende P4000 skjema nå. Er du sikkert?",
     "file-new-description-1"    : "Begynne en ny P4000 skjema",
     "file-new-description-2"    : "Enhver ikke-lagret P4000 skjema vil bli slettet",
     "file-open-description-1"   : "Fortsette å redigere en P4000 skjemafil",
@@ -159,6 +161,8 @@
     "help-sick-dates"       : "Hjelpe til syk datoer",
     "help-other-dates"      : "Hjelpe til andre datoer",
     "help-file-info"        : "Hjelpe til fil info",
+    "help-new-event"        : "Hjelpe til ny hendelse",
+    "help-new-options"      : "Hjelpe til opsjoner",
 
     "validation-startDateCantBeInFuture"     : "Startdato kan ikke være i framtiden",
     "validation-endDateCantBeInFuture"       : "Sluttdato kan ikke være i framtiden",

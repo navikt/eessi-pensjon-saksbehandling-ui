@@ -58,6 +58,8 @@
     "file-new-confirm-text"     : "There is still an unsaved p4000 form. Still want to create a new?",
     "file-open-confirm-title"   : "P4000 in progress",
     "file-open-confirm-text"    : "There is still an unsaved p4000 form. Still want to open another p4000?",
+    "file-submit-confirm-title" : "Submit P4000",
+    "file-submit-confirm-text"  : "You are about to submit the current P4000. Are you sure?",
     "file-new-description-1"    : "Choose this button if you want to start a new P4000 form",
     "file-new-description-2"    : "Any current unsaved P4000 forms will be discarded",
     "file-open-description-1"   : "Choose this button if you want to resuming working on an existing P4000 form",
@@ -159,6 +161,8 @@
     "help-sick-dates"       : "Help for sick dates",
     "help-other-dates"      : "Help for other dates",
     "help-file-info"        : "Help for file info",
+    "help-new-event"        : "Help for new event",
+    "help-new-options"      : "Help for new options",
 
     "validation-startDateCantBeInFuture"     : "Start date can't be in the future",
     "validation-endDateCantBeInFuture"       : "End date can't be in the future",

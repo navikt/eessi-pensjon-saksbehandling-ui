@@ -9,7 +9,6 @@ import _ from 'lodash';
 import * as p4000Actions from '../../../actions/p4000';
 
 import Icons from '../../ui/Icons';
-import * as Nav from '../../ui/Nav';
 import './Event.css';
 
 const mapDispatchToProps = (dispatch) => {
@@ -37,7 +36,7 @@ class Event extends Component {
             <div className='eventBadgeLine'>&nbsp;</div>
             <div className={classNames('eventBadge', 'position-relative', { selected: selected })}  onClick={onClick}>
                 { !_.isEmpty(event.files) ? <div className='eventBadgeHasAttachments'>
-                    <Nav.Ikon size={20} kind='vedlegg'/>
+                    <Icons size={'md'} kind='clip'/>
                 </div> : null}
 
                 <Icons className='eventBadgeIcon' kind={event.type}/>

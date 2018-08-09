@@ -34,11 +34,8 @@ class Validation {
         if (this.isEmpty(event.name)) {
             return 'p4000:validation-noCompanyName';
         }
-        if (this.isEmpty(event.street)) {
-            return 'p4000:validation-noStreetName';
-        }
-        if (this.isEmpty(event.buildingName)) {
-            return 'p4000:validation-noBuildingName';
+        if (this.isEmpty(event.address)) {
+            return 'p4000:validation-noAddress';
         }
         if (this.isEmpty(event.city)) {
             return 'p4000:validation-noCityName';
