@@ -6,9 +6,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import { translate } from 'react-i18next';
 
-import PDFPageInDnD from './PDFPageInDnD';
+import PDFPageInDnD from '../PDFPageInDnD';
 
-import * as pdfActions from '../../actions/pdf';
+import * as pdfActions from '../../../actions/pdf';
+
+import './DnDSource.css';
 
 const getListStyle = (pdfsize, isDraggingOver) => ({
     background: isDraggingOver ? 'aliceblue' : 'whitesmoke',
@@ -100,8 +102,6 @@ class DnDSource extends Component {
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
             onMouseLeave={this.onHandleMouseLeave.bind(this)}>
 
-            <div className='position-absolute' style={{top: 5, right: 5}}>{addAllLink}</div>
-
             <Droppable isDropDisabled={true} droppableId={'dndsource-' + pdf.name} direction='horizontal'>
 
                 {(provided, snapshot) => (
@@ -133,16 +133,17 @@ class DnDSource extends Component {
                     </div>
                 )}
             </Droppable>
+            <div className='addAllLink'>{addAllLink}</div>
         </div>
     }
 }
 
 DnDSource.propTypes = {
-    t       : PT.func.isRequired,
-    recipe  : PT.array.isRequired,
-    actions : PT.object,
-    pdf     : PT.object.isRequired,
-    pdfsize : PT.number,
+    t         : PT.func.isRequired,
+    recipe    : PT.object.isRequired,
+    actions   : PT.object,
+    pdf       : PT.object.isRequired,
+    pdfsize   : PT.number,
     dndTarget : PT.string
 }
 

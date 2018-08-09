@@ -148,6 +148,18 @@ export default function (state = {}, action = {}) {
             generatingPDF : false
         });
 
+    case types.PDF_LOADING_FILES_STARTED:
+
+        return Object.assign({}, state, {
+            loadingPDF : true
+        });
+
+    case types.PDF_LOADING_FILES_FINISHED:
+
+        return Object.assign({}, state, {
+            loadingPDF : false
+        });
+
     default:
 
         return state;

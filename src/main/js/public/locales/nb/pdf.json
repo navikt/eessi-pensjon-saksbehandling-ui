@@ -7,9 +7,9 @@
     "editPdfDescription" : "Redigere PDF beskrivelse",
     "generatePdfTitle" : "Generere PDF",
     "generatePdfDescription" : "Generere PDF beskrivelse",
-
-    "loadingGettingPDF" : "Lasting PDF...",
     "sizeSliderTooltip" : "Skyv for å øke/redusere PDFs størrelse",
+
+    "loading-loadingPDF" : "Lasting PDF...",
 
     "help-select-pdf"  : "Dra PDF filer i område, eller klikk i område til å åpen dialogboksen for filvalg",
     "help-edit-pdf"    : "Dra PDF sider fra høyre side til målområde til venstre side",

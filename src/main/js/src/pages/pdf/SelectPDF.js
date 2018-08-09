@@ -17,9 +17,10 @@ const mapStateToProps = (state) => {
     return {
         errorMessage : state.alert.clientErrorMessage,
         errorStatus  : state.alert.clientErrorStatus,
-        gettingCase  : state.loading.gettingCase,
+        loadingPDF   : state.loading.loadingPDF,
         language     : state.ui.language,
-        pdfs         : state.pdf.pdfs
+        pdfs         : state.pdf.pdfs,
+        action       : state.ui.action
     }
 };
 
@@ -29,44 +30,35 @@ const mapDispatchToProps = (dispatch) => {
 
 class SelectPDF extends Component {
 
-    state = {}
-
-    componentDidMount() {
-
-        this.setState({
-            files: []
-        });
-    }
-
     onForwardButtonClick() {
 
-        const {actions} = this.props;
+        const { history, actions } = this.props;
 
         actions.navigateForward();
-        actions.selectPDF(this.state.files);
-    }
-
-    componentDidUpdate() {
-
-        const { history, pdfs } = this.props;
-        if (!_.isEmpty(pdfs)) {
-            history.push('/react/pdf/edit');
-        }
+        history.push('/react/pdf/edit');
     }
 
     handleFileChange(files) {
 
-        this.setState({
-            files: files
-        });
+        this.props.actions.selectPDF(files);
+    }
+
+    handleBeforeDrop() {
+
+        this.props.actions.loadingFilesStart();
+    }
+
+    handleAfterDrop() {
+
+        this.props.actions.loadingFilesEnd();
     }
 
     render() {
 
-        const { t, history, errorMessage, errorStatus, gettingPDF } = this.props;
+        const { t, history, errorMessage, errorStatus, loadingPDF, pdfs } = this.props;
 
         let alert      = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
-        let buttonText = gettingPDF ? t('pdf:loadingGettingPDF') : t('ui:forward');
+        let buttonText = loadingPDF ? t('pdf:loading-loadingPDF') : t('ui:forward');
 
         return <TopContainer className='topContainer'>
             <Nav.Row className='mb-4'>
@@ -84,8 +76,23 @@ class SelectPDF extends Component {
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
                     <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
-                    <FileUpload accept='application/pdf' className='mb-3' files={this.state.files} onFileChange={this.handleFileChange.bind(this)}/>
-                    <Nav.Hovedknapp className='forwardButton' spinner={gettingPDF} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                    <FileUpload className='mb-3'
+                        accept='application/pdf'
+                        files={pdfs}
+                        beforeDrop={this.handleBeforeDrop.bind(this)}
+                        afterDrop={this.handleAfterDrop.bind(this)}
+                        onFileChange={this.handleFileChange.bind(this)}/>
+                    <Nav.Row>
+                        <Nav.Column></Nav.Column>
+                        <Nav.Column>
+                            <Nav.Hovedknapp
+                                className='forwardButton'
+                                style={{width: '100%'}}
+                                spinner={loadingPDF}
+                                disabled={_.isEmpty(pdfs)}
+                                onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                        </Nav.Column>
+                    </Nav.Row>
                 </Nav.Column>
             </Nav.Row>
         </TopContainer>
@@ -95,10 +102,11 @@ class SelectPDF extends Component {
 SelectPDF.propTypes = {
     errorMessage : PT.string,
     errorStatus  : PT.string,
-    gettingPDF   : PT.bool,
+    loadingPDF   : PT.bool,
     actions      : PT.object,
     history      : PT.object,
     t            : PT.func,
+    action       : PT.string,
     pdfs         : PT.array.isRequired
 };
 

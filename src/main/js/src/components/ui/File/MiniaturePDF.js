@@ -58,7 +58,7 @@ class MiniaturePDF extends Component {
                 <div className='deleteLink'> {deleteLink}</div>
                 <div className='downloadLink'> {downloadLink}</div>
                 <div className='page'>
-                    <Page width='100' renderMode='svg' pageNumber={1}/>
+                    <Page width={100} renderMode='svg' pageNumber={1}/>
                 </div>
                 <div className='fileName'> {pdf.name}</div>
                 <div className='numPages'>{t('ui:pages')}{': '}{this.state.numPages || '0'}</div>
@@ -72,8 +72,7 @@ MiniaturePDF.propTypes = {
     t                : PT.func.isRequired,
     onLoadSuccess    : PT.func.isRequired,
     pdf              : PT.object.isRequired,
-    onDeleteDocument : PT.func.isRequired,
-    pageNumbers      : PT.number.isRequired
+    onDeleteDocument : PT.func.isRequired
 }
 
 export default translate()(MiniaturePDF);

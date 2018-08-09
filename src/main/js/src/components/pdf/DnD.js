@@ -108,9 +108,9 @@ class DnD extends Component {
 }
 
 DnD.propTypes = {
-    recipe: PT.array.isRequired,
-    actions: PT.object,
-    children: PT.node.isRequired
+    recipe   : PT.object.isRequired,
+    actions  : PT.object,
+    children : PT.node.isRequired
 }
 
 export default connect(

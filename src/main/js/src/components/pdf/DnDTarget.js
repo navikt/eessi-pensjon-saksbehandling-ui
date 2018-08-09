@@ -74,9 +74,9 @@ class DnDTarget extends Component {
 }
 
 DnDTarget.propTypes = {
-    recipe: PT.array.isRequired,
-    pdfs: PT.array.isRequired,
-    targetId: PT.string.isRequired
+    recipe   : PT.object.isRequired,
+    pdfs     : PT.array.isRequired,
+    targetId : PT.string.isRequired
 }
 
 export default connect(

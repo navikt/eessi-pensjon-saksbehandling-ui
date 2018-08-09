@@ -27,45 +27,78 @@ class FileUpload extends Component {
 
         const { onFileChange } = this.props;
 
-        this.setState({
-            files: newFiles,
-            status: (status ? status : this.state.status)
-        }, () => {
-            if (onFileChange) {
-                onFileChange(newFiles);
-            }
+        return new Promise((resolve) => {
+
+            this.setState({
+                files: newFiles,
+                status: (status ? status : this.state.status)
+            }, () => {
+                if (onFileChange) {
+                    onFileChange(newFiles);
+                }
+                resolve()
+            });
         });
     }
 
-    onDrop(acceptedFiles, rejectedFiles) {
+    async onDrop(acceptedFiles, rejectedFiles) {
+
+        const { beforeDrop, afterDrop } = this.props;
+
+        if (beforeDrop) {
+            beforeDrop();
+        }
+
+        await this.processFiles(acceptedFiles, rejectedFiles);
+
+        if (afterDrop) {
+            afterDrop();
+        }
+    }
+
+    processFiles(acceptedFiles, rejectedFiles) {
 
         const { t } = this.props;
 
-        acceptedFiles.forEach(file => {
+        return new Promise((resolve) => {
 
-            const reader = new FileReader();
-            reader.readAsArrayBuffer(file);
-            reader.onloadend = (e) => {
+            let loadingStatus = Array(acceptedFiles.length).fill().map(() => {return false});
 
-                let data = new Uint8Array(e.target.result);
-                let base64 = window.btoa(String.fromCharCode(...data));
+            acceptedFiles.forEach((file, index) => {
 
-                let newFiles = _.clone(this.state.files);
-                newFiles.push({
-                    'base64' : base64,
-                    'data' : data,
-                    'size' : file.size,
-                    'name' : file.name
-                });
+                const reader = new FileReader();
+                reader.readAsArrayBuffer(file);
+                reader.onloadend = async (e) => {
 
-                let status = t('ui:accepted') + ': ' + acceptedFiles.length + ', ' + t('ui:rejected') + ': ' + rejectedFiles.length
-                this.updateFiles(newFiles, status);
-            }
-            reader.onerror = error => {console.log(error)};
-        })
+                    let data = new Uint8Array(e.target.result);
+                    let base64 = window.btoa(String.fromCharCode(...data));
+                    let newFiles = _.clone(this.state.files);
+
+                    newFiles.push({
+                        'base64' : base64,
+                        'data' : data,
+                        'size' : file.size,
+                        'name' : file.name
+                    });
+
+                    let status = t('ui:accepted') + ': ' + acceptedFiles.length + ', ' + t('ui:rejected') + ': ' + rejectedFiles.length
+                    await this.updateFiles(newFiles, status);
+
+                    loadingStatus[index] = true;
+                    let ok = true;
+                    for (var i in loadingStatus) {
+                        ok = ok && loadingStatus[i];
+                    }
+                    if (ok) {
+                        resolve();
+                    }
+                }
+                reader.onerror = error => {console.log(error)};
+            });
+        });
     }
 
-    removeFile(fileIndex, e) {
+    async removeFile(fileIndex, e) {
 
         const { t } = this.props;
 
@@ -79,17 +112,17 @@ class FileUpload extends Component {
         let filename = this.state.files[fileIndex].name;
         let status = t('ui:removed') + ' ' + filename;
 
-        this.updateFiles(newFiles, status);
+        await this.updateFiles(newFiles, status);
     }
 
-    onLoadSuccess(index, event) {
+    async onLoadSuccess(index, event) {
 
         if (index !== undefined && event && event.numPages) {
 
             let newFiles = _.clone(this.state.files);
             newFiles[index].numPages = event.numPages;
 
-            this.updateFiles(newFiles);
+            await this.updateFiles(newFiles);
         }
     }
 
@@ -133,7 +166,9 @@ FileUpload.propTypes = {
     initialFiles : PT.object,
     files        : PT.array.isRequired,
     accept       : PT.string,
-    className    : PT.string
+    className    : PT.string,
+    beforeDrop   : PT.func,
+    afterDrop    : PT.func
 };
 
 export default translate()(FileUpload);

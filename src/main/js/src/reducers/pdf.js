@@ -1,4 +1,5 @@
 import * as types from '../constants/actionTypes';
+import _ from 'lodash';
 
 let initialState =  {
     recipe: {},
@@ -13,8 +14,18 @@ export default function (state = initialState, action = {}) {
 
     case types.PDF_SELECTED: {
 
+        let newRecipe   = _.clone(state.recipe);
+        let existingPDF = action.payload.map(pdf => {return pdf.name});
+
+        for (var i in newRecipe) {
+            newRecipe[i] = _.filter(newRecipe[i], (step) => {
+                return existingPDF.indexOf(step.name) >= 0;
+            });
+        }
+
         return Object.assign({}, state, {
-            pdfs : action.payload
+            pdfs   : action.payload,
+            recipe : newRecipe
         });
     }
 

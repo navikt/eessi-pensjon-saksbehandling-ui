@@ -183,6 +183,7 @@ class Util {
             default:
                 return {}
             }
+            return event
         });
 
         return p4000;

@@ -11,6 +11,20 @@ export function selectPDF (pdfs) {
     };
 }
 
+export function loadingFilesStart () {
+
+    return {
+        type: types.PDF_LOADING_FILES_STARTED
+    };
+}
+
+export function loadingFilesEnd () {
+
+    return {
+        type: types.PDF_LOADING_FILES_FINISHED
+    };
+}
+
 export function clearPDF () {
 
     return {

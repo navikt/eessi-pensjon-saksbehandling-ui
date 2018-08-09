@@ -113,14 +113,13 @@ class PDFPageInDnD extends Component {
 }
 
 PDFPageInDnD.propTypes = {
-    recipe: PT.array.isRequired,
-    actions: PT.object,
-    pdf: PT.object.isRequired,
-    fileName: PT.string.isRequired,
-    pageNumber: PT.number.isRequired,
-    pdfsize : PT.number.isRequired,
-    dndTarget: PT.string,
-    action: PT.string.isRequired
+    recipe     : PT.object.isRequired,
+    actions    : PT.object,
+    pdf        : PT.object.isRequired,
+    pageNumber : PT.number.isRequired,
+    pdfsize    : PT.number.isRequired,
+    dndTarget  : PT.string,
+    action     : PT.string.isRequired
 }
 
 export default connect(

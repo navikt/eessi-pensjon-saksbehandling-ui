@@ -151,7 +151,7 @@ class Work extends Component {
                         onChange={(e) => {actions.setEventProperty('name', e.target.value)}} />
 
                     <Nav.Textarea style={{minHeight:'200px'}} label={t('p4000:' + type + '-fieldset-2_4-address') + ' *'} value={event.address || ''}
-                    onChange={(e) => {actions.setEventProperty('address', e.target.value)}} />
+                        onChange={(e) => {actions.setEventProperty('address', e.target.value)}} />
 
                     <Nav.Input label={t('ui:city') + ' *'} value={event.city || ''}
                         onChange={(e) => {actions.setEventProperty('city', e.target.value)}} />

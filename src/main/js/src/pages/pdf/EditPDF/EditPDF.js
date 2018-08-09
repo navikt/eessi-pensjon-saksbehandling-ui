@@ -9,7 +9,7 @@ import _ from 'lodash';
 
 import * as Nav from '../../../components/ui/Nav';
 import TopContainer from '../../../components/ui/TopContainer';
-import DnDSource from '../../../components/pdf/DnDSource';
+import DnDSource from '../../../components/pdf/DnDSource/DnDSource';
 import DnDTarget from '../../../components/pdf/DnDTarget';
 import DnD from '../../../components/pdf/DnD';
 import PreviewPDF from '../../../components/pdf/PreviewPDF';
@@ -26,7 +26,6 @@ const mapStateToProps = (state) => {
     return {
         errorMessage : state.alert.clientErrorMessage,
         errorStatus  : state.alert.clientErrorStatus,
-        editingPDF   : state.loading.editingPDF,
         language     : state.ui.language,
         pdfs         : state.pdf.pdfs,
         recipe       : state.pdf.recipe,
@@ -59,7 +58,6 @@ class EditPDF extends Component {
         const { history, actions } = this.props;
 
         actions.navigateBack();
-        actions.clearPDF();
         history.push('/react/pdf/select');
     }
 
@@ -129,10 +127,9 @@ class EditPDF extends Component {
 
     render() {
 
-        const { t, history, errorMessage, errorStatus, editingPDF, pdfs, pdfsize, dndTarget, recipe } = this.props;
+        const { t, history, errorMessage, errorStatus, pdfs, pdfsize, dndTarget, recipe } = this.props;
 
-        let alert      = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
-        let buttonText = editingPDF ? t('pdf:loadingEditPDF') : t('ui:forward');
+        let alert = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
 
         return <TopContainer className='topContainer'>
             <Nav.Modal isOpen={this.state.modalOpen}
@@ -150,6 +147,7 @@ class EditPDF extends Component {
             </Nav.Modal>
             <Nav.Row>
                 <Nav.Column>
+                    <Nav.HjelpetekstBase>{t('pdf:help-edit-pdf')}</Nav.HjelpetekstBase>
                     <h1 className='mt-3 appTitle'>
                         <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
                         {t('pdf:editPdfTitle')}
@@ -163,9 +161,6 @@ class EditPDF extends Component {
             <Nav.Row className='mb-2'>
                 <Nav.Column className='col-md-3'>
                     <PDFSizeSlider/>
-                </Nav.Column>
-                <Nav.Column className='col-md-9'>
-                    <Nav.HjelpetekstBase>{t('pdf:help-edit-pdf')}</Nav.HjelpetekstBase>
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className='mb-4'>
@@ -202,7 +197,11 @@ class EditPDF extends Component {
                                     <Nav.Knapp className='backButton w-100' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
                                 </Nav.Column>
                                 <Nav.Column>
-                                    <Nav.Hovedknapp className='forwardButton w-100' spinner={editingPDF} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                                    <Nav.Hovedknapp className='forwardButton w-100'
+                                        disabled={this.hasOnlyEmptyArrays(recipe)}
+                                        onClick={this.onForwardButtonClick.bind(this)}>
+                                        {t('ui:forward')}
+                                    </Nav.Hovedknapp>
                                 </Nav.Column>
                             </Nav.Row>
                         </div>
@@ -216,12 +215,11 @@ class EditPDF extends Component {
 EditPDF.propTypes = {
     errorMessage : PT.string,
     errorStatus  : PT.string,
-    editingPDF   : PT.bool,
     actions      : PT.object,
     history      : PT.object,
     t            : PT.func,
     pdfs         : PT.array.isRequired,
-    recipe       : PT.array.isRequired,
+    recipe       : PT.object.isRequired,
     pdfsize      : PT.number,
     dndTarget    : PT.string
 };
