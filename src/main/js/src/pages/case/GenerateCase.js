@@ -101,20 +101,20 @@ class GenerateCase extends Component {
                 </Nav.Column>
             </Nav.Row>
             <div className='fieldset p-4 mb-4 ml-3 mr-3'>
-                <Nav.Row className='mb-4'>
+                <Nav.Row>
                     <Nav.Column>
                         <RenderGeneratedData dataToGenerate={dataToGenerate} dataToConfirm={dataToConfirm}/>
                     </Nav.Column>
                 </Nav.Row>
-                <Nav.Row>
-                    <Nav.Column>
-                        <Nav.Knapp className='w-100 backButton' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
-                    </Nav.Column>
-                    <Nav.Column>
-                        <Nav.Hovedknapp className='w-100 forwardButton' disabled={sendingCase} spinner={sendingCase} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
-                    </Nav.Column>
-                </Nav.Row>
             </div>
+            <Nav.Row>
+                <Nav.Column>
+                    <Nav.Knapp className='w-100 backButton' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
+                </Nav.Column>
+                <Nav.Column>
+                    <Nav.Hovedknapp className='w-100 forwardButton' disabled={sendingCase} spinner={sendingCase} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                </Nav.Column>
+            </Nav.Row>
         </TopContainer>;
     }
 

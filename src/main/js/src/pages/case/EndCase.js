@@ -77,17 +77,17 @@ class EndCase extends Component {
                 </Nav.Column>
             </Nav.Row>
             <div className='fieldset p-4 mb-4 ml-3 mr-3'>
-                <Nav.Row className='mb-4'>
+                <Nav.Row>
                     <Nav.Column className='endCase'>
                         {body}
                     </Nav.Column>
                 </Nav.Row>
-                <Nav.Row>
-                    <Nav.Column>
-                        <Nav.Hovedknapp className='mr-3 forwardButton' onClick={this.onForwardButtonClick.bind(this)}>{t('ui:createNew')}</Nav.Hovedknapp>
-                    </Nav.Column>
-                </Nav.Row>
             </div>
+            <Nav.Row>
+                <Nav.Column>
+                    <Nav.Hovedknapp className='mr-3 forwardButton' onClick={this.onForwardButtonClick.bind(this)}>{t('ui:createNew')}</Nav.Hovedknapp>
+                </Nav.Column>
+            </Nav.Row>
         </TopContainer>;
     }
 }

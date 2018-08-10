@@ -101,7 +101,7 @@ class View extends Component {
                 id: index,
                 type: 'range',
                 start: event.startDate,
-                end: event.endDate,
+                end: event.endDate || new Date(),
                 content: event,
                 title: this.renderTooltip(event)
             }

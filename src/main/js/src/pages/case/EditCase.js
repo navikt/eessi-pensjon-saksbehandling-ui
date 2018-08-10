@@ -497,16 +497,14 @@ class EditCase extends Component {
                 {this.renderInstitutions()}
             </div>
 
-            <div className='fieldset p-4 mb-4 ml-3 mr-3'>
-                <Nav.Row>
-                    <Nav.Column>
-                        {action === 'forward' ? <Nav.Knapp className='backButton mr-4 w-100' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp> : null}
-                    </Nav.Column>
-                    <Nav.Column>
-                        <Nav.Hovedknapp className='forwardButton w-100' disabled={!this.noValidationErrors()} onClick={this.onForwardButtonClick.bind(this)}>{t('ui:go')}</Nav.Hovedknapp>
-                    </Nav.Column>
-                </Nav.Row>
-            </div>
+            <Nav.Row>
+                <Nav.Column>
+                    {action === 'forward' ? <Nav.Knapp className='backButton mr-4 w-100' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp> : null}
+                </Nav.Column>
+                <Nav.Column>
+                    <Nav.Hovedknapp className='forwardButton w-100' disabled={!this.noValidationErrors()} onClick={this.onForwardButtonClick.bind(this)}>{t('ui:go')}</Nav.Hovedknapp>
+                </Nav.Column>
+            </Nav.Row>
         </TopContainer>;
     }
 }

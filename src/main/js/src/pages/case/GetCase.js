@@ -81,7 +81,7 @@ class GetCase extends Component {
                 </Nav.Column>
             </Nav.Row>
             <div className='fieldset p-4 m-4'>
-                <Nav.Row className='mb-4'>
+                <Nav.Row>
                     <Nav.Column>
                         <Nav.HjelpetekstBase id='caseId'>{t('case:help-caseId')}</Nav.HjelpetekstBase>
                         <Nav.Input className='getCaseInputCaseId' label={t('case:caseId')} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
@@ -90,15 +90,15 @@ class GetCase extends Component {
                         <Nav.Input className='getCaseInputActorId' label={t('case:actorId')} value={this.state.actorId} onChange={this.onActorIdChange.bind(this)}/>
                     </Nav.Column>
                 </Nav.Row>
-                <Nav.Row className='mb-2'>
-                    <Nav.Column>
-                        <Nav.Hovedknapp className='forwardButton w-100'
-                            spinner={gettingCase}
-                            disabled={this.isButtonDisabled()}
-                            onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
-                    </Nav.Column>
-                </Nav.Row>
             </div>
+            <Nav.Row className='mb-4'>
+                <Nav.Column>
+                    <Nav.Hovedknapp className='forwardButton w-100'
+                        spinner={gettingCase}
+                        disabled={this.isButtonDisabled()}
+                        onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                </Nav.Column>
+            </Nav.Row>
         </TopContainer>
     }
 }
