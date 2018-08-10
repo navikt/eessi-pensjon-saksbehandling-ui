@@ -89,9 +89,35 @@ class ApiController(private val euxService: EuxService, private val fagService: 
     }
 
     @PostMapping("/generatePDF")
-    fun generatePDF(@RequestBody request: PDFRequest): ResponseEntity<Map<String, String?>> {
-        logger.debug(request.toString())
-        return ResponseEntity.ok(mapOf("pdf" to request?.pdfs?.get(0)?.base64));
+    fun generatePDF(@RequestBody request: PDFRequest): ResponseEntity<Map<String, Map<String, Any>>> {
+        logger.debug(request.toString());
+
+        return ResponseEntity.ok(mapOf(
+                "work" to mapOf(
+                        "base64" to request?.pdfs?.get(0)?.base64,
+                        "name" to request?.pdfs?.get(0)?.name,
+                        "size" to request?.pdfs?.get(0)?.size,
+                        "numPages" to request?.pdfs?.get(0)?.numPages
+                ),
+                "home" to mapOf(
+                        "base64" to request?.pdfs?.get(0)?.base64,
+                        "name" to request?.pdfs?.get(0)?.name,
+                        "size" to request?.pdfs?.get(0)?.size,
+                        "numPages" to request?.pdfs?.get(0)?.numPages
+                ),
+                "sick" to mapOf(
+                        "base64" to request?.pdfs?.get(0)?.base64,
+                        "name" to request?.pdfs?.get(0)?.name,
+                        "size" to request?.pdfs?.get(0)?.size,
+                        "numPages" to request?.pdfs?.get(0)?.numPages
+                ),
+                "other" to mapOf(
+                        "base64" to request?.pdfs?.get(0)?.base64,
+                        "name" to request?.pdfs?.get(0)?.name,
+                        "size" to request?.pdfs?.get(0)?.size,
+                        "numPages" to request?.pdfs?.get(0)?.numPages
+                )
+        ));
     }
 }
 

@@ -15,8 +15,6 @@ import * as uiActions from '../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
-        errorMessage : state.alert.clientErrorMessage,
-        errorStatus  : state.alert.clientErrorStatus,
         loadingPDF   : state.loading.loadingPDF,
         language     : state.ui.language,
         pdfs         : state.pdf.pdfs,
@@ -55,9 +53,8 @@ class SelectPDF extends Component {
 
     render() {
 
-        const { t, history, errorMessage, errorStatus, loadingPDF, pdfs } = this.props;
+        const { t, history, loadingPDF, pdfs } = this.props;
 
-        let alert      = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
         let buttonText = loadingPDF ? t('pdf:loading-loadingPDF') : t('ui:forward');
 
         return <TopContainer className='topContainer'>
@@ -69,9 +66,14 @@ class SelectPDF extends Component {
                     </h1>
                 </Nav.Column>
             </Nav.Row>
-            {alert ? <Nav.Row className='mb-4'>
-                <Nav.Column>{alert}</Nav.Column>
-            </Nav.Row> : null}
+            <Nav.Row className='m-3 p-3 fieldset'>
+                <Nav.Column>
+                    <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
+                    <h2 className='mb-3'>{t('ui:fileSelect')}</h2>
+                    <span>Soon</span>
+                </Nav.Column>
+            </Nav.Row>
+
             <Nav.Row className='m-3 p-3 fieldset'>
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>

@@ -100,8 +100,16 @@ export default function (state = {}, action = {}) {
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : 'pdf:error-PdfGenerationFail'
+            clientErrorMessage : 'pdf:alert-PDFGenerationFail'
         });
+
+    case types.PDF_GENERATE_SUCCESS:
+
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'OK',
+            clientErrorMessage : 'pdf:alert-PDFGenerationSuccess'
+        });
+
 
     case types.P4000_NEW:
 

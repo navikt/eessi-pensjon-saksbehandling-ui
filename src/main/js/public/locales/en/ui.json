@@ -19,7 +19,8 @@
     "dropFilesHere" : "Drop files here, or click in the area to open the file select dialog",
     "edit" : "Edit",
     "endDate" : "End date",
-    "file"      : "File",
+    "file" : "File",
+    "fileSelect" : "File select",
     "fileUpload" : "File upload",
     "forward" : "Forward",
     "generate" : "generate",
@@ -38,11 +39,12 @@
     "searchCountry" : "Search country...",
     "size" : "Size",
     "start" : "Start",
+    "startAgain" : "Start again",
     "startDate" : "Start date",
     "street" : "Street",
     "submit" : "Submit",
     "type" : "Type",
-    "view"      : "View",
+    "view" : "View",
     "buildingName" : "Building name/number",
     "city" : "City",
     "region" : "Region",
@@ -50,5 +52,6 @@
     "no-cancel" : "No, cancel",
     "unknown" : "Unknown",
     "uploaded" : "Uploaded",
-    "yes" : "Yes"
+    "yes" : "Yes",
+    "no" : "No"
 }

@@ -5,25 +5,26 @@ import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
+import _ from 'lodash';
 
 import { Document, Page } from 'react-pdf/dist/entry.noworker';
 
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
+import ClientAlert from '../../components/ui/Alert/ClientAlert';
+import MiniaturePDF from '../../components/ui/File/MiniaturePDF';
+import Icons from '../../components/ui/Icons';
 
 import * as pdfActions from '../../actions/pdf';
 import * as uiActions from '../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
-        errorMessage : state.alert.clientErrorMessage,
-        errorStatus  : state.alert.clientErrorStatus,
-        generatingPDF: state.loading.generatingPDF,
-        language     : state.ui.language,
-        generatedPDF : state.pdf.generatedPDF,
-        pdfs         : state.pdf.pdfs,
-        recipe       : state.pdf.recipe
-
+        generatingPDF : state.loading.generatingPDF,
+        language      : state.ui.language,
+        generatedPDFs : state.pdf.generatedPDFs,
+        pdfs          : state.pdf.pdfs,
+        recipe        : state.pdf.recipe
     }
 };
 
@@ -35,26 +36,19 @@ class GeneratePDF extends Component {
 
     state = {};
 
-    base64ToUint8Array(base64string) {
-        if (!base64string) {
-            return null;
-        }
-        return Uint8Array.from(window.atob(base64string), c => c.charCodeAt(0))
-    }
-
     componentDidMount() {
 
         const { history, actions, pdfs, recipe } = this.props;
 
-        if (!pdfs) {
+        if (!pdfs || _.isEmpty(pdfs)) {
 
             history.push('/react/pdf/select');
 
         } else {
 
             actions.generatePDF({
-                recipe: recipe,
-                pdfs: pdfs
+                recipe : recipe,
+                pdfs   : pdfs
             });
         }
     }
@@ -73,37 +67,61 @@ class GeneratePDF extends Component {
         actions.navigateForward();
     }
 
+    onLoadSuccess() {}
+
+    removeFile() {}
+
     render() {
 
-        const { t, errorMessage, errorStatus, generatingPDF, generatedPDF } = this.props;
+        const { t, history, generatingPDF, generatedPDFs } = this.props;
 
-        let alert      = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
-        let buttonText = generatingPDF ? t('pdf:loadingGeneratingPDF') : t('ui:forward');
-
-        return <TopContainer>
-            <Nav.Panel className='panel py-4 m-4'>
-                <Nav.Row className='mt-4'>
-                    <Nav.Column>{t('content:generatePdf')}</Nav.Column>
-                </Nav.Row>
-                <Nav.Row className='mt-4 text-center'>
-                    <Nav.Column>{alert}</Nav.Column>
-                </Nav.Row>
-                <Nav.Row className='mt-4 text-left'>
-                    <Nav.Column>
-                        <Document className='document scrollable' file={{data: this.base64ToUint8Array(generatedPDF) }}>
-                            <Page className='d-inline-block page' width='100' renderMode='svg' pageNumber={1}/>
-                        </Document>
-                    </Nav.Column>
-                </Nav.Row>
-                <Nav.Row className='mt-4'>
-                    <Nav.Column>
-                        <Nav.Knapp className='backButton w-100' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
-                    </Nav.Column>
-                    <Nav.Column>
-                        <Nav.Hovedknapp className='forwardButton w-100' spinner={generatingPDF} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
-                    </Nav.Column>
-                </Nav.Row>
-            </Nav.Panel>
+        return <TopContainer className='topContainer'>
+             <Nav.Row>
+                 <Nav.Column>
+                   <Nav.HjelpetekstBase>{t('pdf:help-generate-pdf')}</Nav.HjelpetekstBase>
+                   <h1 className='mt-3 appTitle'>
+                       <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
+                       {t('pdf:generatePdfTitle')}
+                   </h1>
+                 </Nav.Column>
+            </Nav.Row>
+            <Nav.Row className='mt-4 text-center' style={{minHeight: '100px'}}>
+                <Nav.Column>
+                    <ClientAlert/>
+                </Nav.Column>
+            </Nav.Row>
+            <Nav.Row className='mt-4 text-left'>
+                <Nav.Column>
+                   {generatedPDFs ?
+                   <div>
+                   <MiniaturePDF pdf={generatedPDFs.work}
+                       onLoadSuccess={this.onLoadSuccess.bind(this)}
+                       onDeleteDocument={this.removeFile.bind(this)}
+                   />
+                   <MiniaturePDF pdf={generatedPDFs.home}
+                       onLoadSuccess={this.onLoadSuccess.bind(this)}
+                       onDeleteDocument={this.removeFile.bind(this)}
+                  />
+                   <MiniaturePDF pdf={generatedPDFs.sick}
+                       onLoadSuccess={this.onLoadSuccess.bind(this)}
+                       onDeleteDocument={this.removeFile.bind(this)}
+                   />
+                   <MiniaturePDF pdf={generatedPDFs.other}
+                       onLoadSuccess={this.onLoadSuccess.bind(this)}
+                       onDeleteDocument={this.removeFile.bind(this)}
+                  />
+                  </div>
+                  : null}
+                </Nav.Column>
+            </Nav.Row>
+            <Nav.Row className='mt-4'>
+                <Nav.Column>
+                    <Nav.Knapp className='backButton w-100' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
+                </Nav.Column>
+                <Nav.Column>
+                    <Nav.Hovedknapp className='forwardButton w-100' onClick={this.onForwardButtonClick.bind(this)}>{t('ui:startAgain')}</Nav.Hovedknapp>
+                </Nav.Column>
+            </Nav.Row>
         </TopContainer>
     }
 }
@@ -117,7 +135,7 @@ GeneratePDF.propTypes = {
     t            : PT.func,
     pdfs         : PT.array.isRequired,
     recipe       : PT.array.isRequired,
-    generatedPDF : PT.obj
+    generatedPDFs: PT.object
 
 
 };

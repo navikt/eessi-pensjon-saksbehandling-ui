@@ -1,3 +1,5 @@
+/* global Uint8Array */
+
 import * as types from '../constants/actionTypes';
 import _ from 'lodash';
 
@@ -36,10 +38,17 @@ export default function (state = initialState, action = {}) {
         });
     }
 
-    case types.PDF_GENERATE_SUCCESS:
+    case types.PDF_GENERATE_SUCCESS: {
+
+         const pdfs = _.clone(action.payload);
+         for (var j in pdfs) {
+            pdfs[j].data =  Uint8Array.from(window.atob(pdfs[j].base64), c => c.charCodeAt(0))
+         }
+
         return Object.assign({}, state, {
-            generatedPDF : action.payload.pdf
+            generatedPDFs : pdfs
         });
+    }
 
     case types.PDF_SET_RECIPE:
 
