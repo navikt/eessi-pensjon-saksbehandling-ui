@@ -2,7 +2,7 @@
     "actorId" : "Actor ID",
     "allCountries" : "All countries",
     "buc" : "BUC",
-    "caseFound" : "Case found",
+
     "caseId" : "Case ID",
     "caseLink" : "Case link",
     "caseNotFound" : "Case not found",
@@ -29,12 +29,17 @@
     "app-getCaseTitle"           : "Create EU Documents (SED) - Get case",
     "app-getCaseDescription"     : "Get case description ",
 
+    "alert-caseFound" : "Case found",
+    "alert-generatedData" : "Generated case",
+    "alert-sentData" : "Sent data",
+
     "error-noBucList"         : "No BUC list",
     "error-noCountryList"     : "No Country list",
     "error-noInstitutionList" : "No institution list",
     "error-noSedList"         : "No SED list",
     "error-noSubjectAreaList" : "No subject area list",
     "error-noSuchUser"        : "No such user",
+    "error-no"
 
     "help-actorId"     : "Help for actorId",
     "help-buc"         : "Help for buc",

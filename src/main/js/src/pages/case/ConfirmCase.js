@@ -9,16 +9,17 @@ import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import RenderConfirmData from '../../components/case/RenderConfirmData';
 import Icons from '../../components/ui/Icons';
+import ClientAlert from '../../components/ui/Alert/ClientAlert';
 
 import * as usercaseActions from '../../actions/usercase';
 import * as uiActions from '../../actions/ui';
+
+import './case.css';
 
 const mapStateToProps = (state) => {
     return {
         dataToConfirm  : state.usercase.dataToConfirm,
         dataToGenerate : state.usercase.dataToGenerate,
-        errorMessage   : state.alert.clientErrorMessage,
-        errorStatus    : state.alert.clientErrorStatus,
         action         : state.ui.action,
         language       : state.ui.language,
         generatingCase : state.loading.generatingCase
@@ -74,51 +75,45 @@ class ConfirmCase extends Component {
 
     render() {
 
-        const { t, history, dataToConfirm, errorStatus, errorMessage, generatingCase } = this.props;
+        const { t, history, dataToConfirm, generatingCase } = this.props;
 
         if (!dataToConfirm) {
             return <TopContainer/>
         }
 
-        let alert;
-
         let buttonText = generatingCase ? t('case:loading-generatingCase') : t('ui:confirmAndGenerate');
 
-        if (errorStatus) {
-            alert = <Nav.AlertStripe type='stopp'>{t(errorMessage)}</Nav.AlertStripe>;
-        }
-
-        return <TopContainer>
-            <Nav.Panel>
-                <Nav.Row className='mt-4'>
-                    <Nav.Column>
-                        <h1 className='mt-3 appTitle'>
-                            <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
-                            {t('case:app-confirmCaseTitle')}
-                        </h1>
-                        <h4>{t('case:app-confirmCaseDescription')}</h4>
-                    </Nav.Column>
-                </Nav.Row>
-                <Nav.Row className='mt-4 text-center'>
-                    <Nav.Column>{alert}</Nav.Column>
-                </Nav.Row>
-                <Nav.Row className='mt-4 text-center'>
-                    <Nav.Column>
-                        <StepIndicator activeStep={1}/>
-                    </Nav.Column>
-                </Nav.Row>
-                <Nav.Row className='mt-4 mb-4 text-left'>
+        return <TopContainer className='case topContainer'>
+            <Nav.Row className='mb-4'>
+                <Nav.Column>
+                    <h1 className='mb-3 appTitle'>
+                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
+                        {t('case:app-confirmCaseTitle')}
+                    </h1>
+                    <h4>{t('case:app-confirmCaseDescription')}</h4>
+                </Nav.Column>
+            </Nav.Row>
+            <Nav.Row className='mb-4 text-center'>
+                <Nav.Column>
+                    <ClientAlert className='mb-3'/>
+                    <StepIndicator activeStep={1}/>
+                </Nav.Column>
+            </Nav.Row>
+            <div className='fieldset p-4 mb-4 ml-3 mr-3'>
+                <Nav.Row className='mb-4'>
                     <Nav.Column>
                         <RenderConfirmData dataToConfirm={dataToConfirm}/>
                     </Nav.Column>
                 </Nav.Row>
-                <Nav.Row className='mt-4'>
+                <Nav.Row>
                     <Nav.Column>
-                        <Nav.Knapp className='mr-4 backButton' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
-                        <Nav.Hovedknapp className='forwardButton' disabled={generatingCase} spinner={generatingCase} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                        <Nav.Knapp className='w-100 backButton' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
+                    </Nav.Column>
+                    <Nav.Column>
+                        <Nav.Hovedknapp className='w-100 forwardButton' disabled={generatingCase} spinner={generatingCase} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
                     </Nav.Column>
                 </Nav.Row>
-            </Nav.Panel>
+            </div>
         </TopContainer>;
     }
 }
@@ -130,9 +125,7 @@ ConfirmCase.propTypes = {
     t              : PT.func.isRequired,
     dataToConfirm  : PT.object.isRequired,
     action         : PT.string,
-    dataToGenerate : PT.object,
-    errorStatus    : PT.string,
-    errorMessage   : PT.string
+    dataToGenerate : PT.object
 };
 
 export default connect(

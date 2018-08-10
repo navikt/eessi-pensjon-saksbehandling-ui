@@ -40,10 +40,10 @@ export default function (state = initialState, action = {}) {
 
     case types.PDF_GENERATE_SUCCESS: {
 
-         const pdfs = _.clone(action.payload);
-         for (var j in pdfs) {
+        const pdfs = _.clone(action.payload);
+        for (var j in pdfs) {
             pdfs[j].data =  Uint8Array.from(window.atob(pdfs[j].base64), c => c.charCodeAt(0))
-         }
+        }
 
         return Object.assign({}, state, {
             generatedPDFs : pdfs

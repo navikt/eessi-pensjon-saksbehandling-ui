@@ -1,13 +1,9 @@
-/* global Uint8Array */
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 import _ from 'lodash';
-
-import { Document, Page } from 'react-pdf/dist/entry.noworker';
 
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
@@ -74,16 +70,17 @@ class GeneratePDF extends Component {
     render() {
 
         const { t, history, generatingPDF, generatedPDFs } = this.props;
+        let buttonText = generatingPDF ? t('pdf:loading-generatingPDF') : t('ui:startAgain');
 
         return <TopContainer className='topContainer'>
-             <Nav.Row>
-                 <Nav.Column>
-                   <Nav.HjelpetekstBase>{t('pdf:help-generate-pdf')}</Nav.HjelpetekstBase>
-                   <h1 className='mt-3 appTitle'>
-                       <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
-                       {t('pdf:generatePdfTitle')}
-                   </h1>
-                 </Nav.Column>
+            <Nav.Row>
+                <Nav.Column>
+                    <Nav.HjelpetekstBase>{t('pdf:help-generate-pdf')}</Nav.HjelpetekstBase>
+                    <h1 className='mt-3 appTitle'>
+                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
+                        {t('pdf:generatePdfTitle')}
+                    </h1>
+                </Nav.Column>
             </Nav.Row>
             <Nav.Row className='mt-4 text-center' style={{minHeight: '100px'}}>
                 <Nav.Column>
@@ -92,26 +89,26 @@ class GeneratePDF extends Component {
             </Nav.Row>
             <Nav.Row className='mt-4 text-left'>
                 <Nav.Column>
-                   {generatedPDFs ?
-                   <div>
-                   <MiniaturePDF pdf={generatedPDFs.work}
-                       onLoadSuccess={this.onLoadSuccess.bind(this)}
-                       onDeleteDocument={this.removeFile.bind(this)}
-                   />
-                   <MiniaturePDF pdf={generatedPDFs.home}
-                       onLoadSuccess={this.onLoadSuccess.bind(this)}
-                       onDeleteDocument={this.removeFile.bind(this)}
-                  />
-                   <MiniaturePDF pdf={generatedPDFs.sick}
-                       onLoadSuccess={this.onLoadSuccess.bind(this)}
-                       onDeleteDocument={this.removeFile.bind(this)}
-                   />
-                   <MiniaturePDF pdf={generatedPDFs.other}
-                       onLoadSuccess={this.onLoadSuccess.bind(this)}
-                       onDeleteDocument={this.removeFile.bind(this)}
-                  />
-                  </div>
-                  : null}
+                    {generatedPDFs ?
+                        <div>
+                            <MiniaturePDF pdf={generatedPDFs.work}
+                                onLoadSuccess={this.onLoadSuccess.bind(this)}
+                                onDeleteDocument={this.removeFile.bind(this)}
+                            />
+                            <MiniaturePDF pdf={generatedPDFs.home}
+                                onLoadSuccess={this.onLoadSuccess.bind(this)}
+                                onDeleteDocument={this.removeFile.bind(this)}
+                            />
+                            <MiniaturePDF pdf={generatedPDFs.sick}
+                                onLoadSuccess={this.onLoadSuccess.bind(this)}
+                                onDeleteDocument={this.removeFile.bind(this)}
+                            />
+                            <MiniaturePDF pdf={generatedPDFs.other}
+                                onLoadSuccess={this.onLoadSuccess.bind(this)}
+                                onDeleteDocument={this.removeFile.bind(this)}
+                            />
+                        </div>
+                        : null}
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className='mt-4'>
@@ -119,7 +116,7 @@ class GeneratePDF extends Component {
                     <Nav.Knapp className='backButton w-100' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
                 </Nav.Column>
                 <Nav.Column>
-                    <Nav.Hovedknapp className='forwardButton w-100' onClick={this.onForwardButtonClick.bind(this)}>{t('ui:startAgain')}</Nav.Hovedknapp>
+                    <Nav.Hovedknapp className='forwardButton w-100' onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
                 </Nav.Column>
             </Nav.Row>
         </TopContainer>

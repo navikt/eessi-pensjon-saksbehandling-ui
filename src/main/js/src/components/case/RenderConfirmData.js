@@ -8,7 +8,7 @@ class RenderConfirmData extends Component {
 
         let { t, dataToConfirm } = this.props;
 
-        return <div className='confirmData' style={{padding: '10px', border: '1px solid black'}}>
+        return <div className='confirmData'>
             <div><b>{t('case:caseId')}</b>{': '}{dataToConfirm.caseId}</div>
             <div><b>{t('case:actorId')}</b>{': '}{dataToConfirm.actorId}</div>
             <div><b>{t('case:subjectArea')}</b>{': '}{dataToConfirm.subjectArea}</div>

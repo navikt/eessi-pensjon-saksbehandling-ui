@@ -27,7 +27,7 @@ class RenderGeneratedData extends Component {
 
         let { t, dataToGenerate, dataToConfirm } = this.props;
 
-        return <div className='generateData' style={{padding: '10px', border: '1px solid black'}}>
+        return <div className='generateData'>
             <div><b>{t('case:caseId')}</b>{': '}{dataToConfirm.caseId}</div>
             <div><b>{t('case:actorId')}</b>{': '}{dataToConfirm.actorId}</div>
             <div><b>{t('case:subjectArea')}</b>{': '}{dataToConfirm.subjectArea}</div>

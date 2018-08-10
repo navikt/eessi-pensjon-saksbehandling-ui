@@ -2,7 +2,6 @@
     "actorId" : "Pin ID",
     "allCountries" : "Alle land",
     "buc" : "BUC",
-    "caseFound" : "Saken funnet",
     "caseId" : "Saks ID",
     "caseLink" : "Sakens lenke",
     "caseNotFound" : "Saken ikke funnet",
@@ -10,7 +9,7 @@
     "chooseBuc" : "Velg BUC",
     "chooseSed": "Velg SED",
     "chooseInstitution": "Velg mottager",
-    "country" : "Labd",
+    "country" : "Land",
     "createNewCase" : "Opprett ny sak",
     "institution"  : "Mottager",
     "sed" : "SED",
@@ -28,6 +27,10 @@
     "app-endCaseDescription"     : "Slutt sak beskrivelse",
     "app-getCaseTitle"           : "Opprett EU/EØS dokument (SED) - Få sak",
     "app-getCaseDescription"     : "Få sak beskrivelse",
+
+    "alert-caseFound" : "Saken funnet",
+    "alert-generatedData" : "Generert saken",
+    "alert-sentData" : "Sendt saken",
 
     "error-noBucList"         : "Ingen BUC liste",
     "error-noCountryList"     : "Ingen land liste",

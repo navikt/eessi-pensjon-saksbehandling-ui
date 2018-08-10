@@ -89,6 +89,27 @@ export default function (state = {}, action = {}) {
             clientErrorMessage : processError(action.payload)
         });
 
+    case types.USERCASE_GET_CASE_NUMBER_SUCCESS:
+
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'OK',
+            clientErrorMessage : 'case:alert-caseFound'
+        });
+
+    case types.USERCASE_GENERATE_DATA_SUCCESS:
+
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'OK',
+            clientErrorMessage : 'case:alert-generatedData'
+        });
+
+    case types.USERCASE_SEND_DATA_SUCCESS:
+
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'OK',
+            clientErrorMessage : 'case:alert-sentData'
+        });
+
     case types.USER_INFO_FAILURE: {
 
         return Object.assign({}, state, {
@@ -109,7 +130,6 @@ export default function (state = {}, action = {}) {
             clientErrorStatus  : 'OK',
             clientErrorMessage : 'pdf:alert-PDFGenerationSuccess'
         });
-
 
     case types.P4000_NEW:
 
@@ -166,7 +186,6 @@ export default function (state = {}, action = {}) {
             clientErrorStatus  : 'ERROR',
             clientErrorMessage : 'p4000:file-submitFailure'
         });
-
 
     default:
 

@@ -70,7 +70,7 @@ class SelectPDF extends Component {
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
                     <h2 className='mb-3'>{t('ui:fileSelect')}</h2>
-                    <span>Soon</span>
+                    <span>{'Soon'}</span>
                 </Nav.Column>
             </Nav.Row>
 
