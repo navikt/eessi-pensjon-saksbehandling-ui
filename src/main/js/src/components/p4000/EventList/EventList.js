@@ -24,7 +24,7 @@ class EventList extends Component {
         }
 
         return <div className={classNames('div-eventList', 'm-2', className)}>
-            <div className='ml-2 mt-1'>{t('p4000:eventsSoFar')}</div>
+            <div className='ml-2 mt-1'>{t('p4000:form-eventsSoFar')}</div>
             <div className='flex-eventList'>
                 {(() => {
                     return events.map((event, index) => {

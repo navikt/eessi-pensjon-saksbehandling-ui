@@ -30,8 +30,8 @@ class View extends Component {
     state = {
         formData: undefined,
         p4000Data : undefined,
-        formDataButtonLabel: 'p4000:seeFormData',
-        p4000DataButtonLabel: 'p4000:seeP4000Data'
+        formDataButtonLabel: 'p4000:form-seeFormData',
+        p4000DataButtonLabel: 'p4000:form-seeP4000Data'
 
     }
 
@@ -40,12 +40,12 @@ class View extends Component {
         if (!this.state.formData) {
             this.setState({
                 formData: this.props.events,
-                formDataButtonLabel: 'p4000:hideFormData'
+                formDataButtonLabel: 'p4000:form-hideFormData'
             });
         } else {
             this.setState({
                 formData: undefined,
-                formDataButtonLabel: 'p4000:seeFormData'
+                formDataButtonLabel: 'p4000:form-seeFormData'
             });
         }
     }
@@ -55,12 +55,12 @@ class View extends Component {
         if (!this.state.p4000Data) {
             this.setState({
                 p4000Data: P4000Util.convertEventsToP4000(this.props.events),
-                p4000DataButtonLabel: 'p4000:hideP4000Data'
+                p4000DataButtonLabel: 'p4000:form-hideP4000Data'
             });
         } else {
             this.setState({
                 p4000Data: undefined,
-                p4000DataButtonLabel: 'p4000:seeP4000Data'
+                p4000DataButtonLabel: 'p4000:form-seeP4000Data'
             });
         }
     }
@@ -75,13 +75,13 @@ class View extends Component {
         const { t } = this.props;
 
         let dateType = {
-            'both' : t('p4000:rangePeriod'),
-            'onlyStartDate01' : t('p4000:onlyStartDate01'),
-            'onlyStartDate98' : t('p4000:onlyStartDate98')
+            'both' : t('p4000:form-rangePeriod'),
+            'onlyStartDate01' : t('p4000:form-onlyStartDate01'),
+            'onlyStartDate98' : t('p4000:form-onlyStartDate98')
         };
         let data = [
             {key: t('ui:type'), value: t('p4000:type-' + event.type)},
-            {key: t('p4000:dateType'), value: dateType[event.dateType]},
+            {key: t('p4000:form-dateType'), value: dateType[event.dateType]},
             {key: t('ui:startDate'), value: event.startDate.toDateString()}
         ];
 
@@ -108,7 +108,7 @@ class View extends Component {
         });
 
         return <Nav.Panel className='panel-timeline'>
-            <Nav.Ekspanderbartpanel className='row-timeline-view fieldset mb-5' apen={true} tittel={t('p4000:timeline')} tittelProps='undertittel'>
+            <Nav.Ekspanderbartpanel className='row-timeline-view fieldset mb-5' apen={true} tittel={t('p4000:form-timeline')} tittelProps='undertittel'>
                 <Timeline items={items}
                     options={{
                         width        : '100%',
@@ -124,7 +124,7 @@ class View extends Component {
                     }}/>
             </Nav.Ekspanderbartpanel>
 
-            <Nav.Ekspanderbartpanel className='row-advanced-view fieldset' apen={false} tittel={t('p4000:advancedView')} tittelProps='undertittel'>
+            <Nav.Ekspanderbartpanel className='row-advanced-view fieldset' apen={false} tittel={t('p4000:form-advancedView')} tittelProps='undertittel'>
 
                 <Nav.Row className='fileButtons m-4 text-center'>
                     <Nav.Column>

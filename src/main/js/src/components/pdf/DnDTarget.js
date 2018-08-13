@@ -10,8 +10,7 @@ const getListStyle = isDraggingOver => ({
     background: isDraggingOver ? 'aliceblue' : 'whitesmoke',
     padding: 10,
     overflowY: 'auto',
-    minHeight : '55vh',
-    maxHeight : '55vh',
+    minHeight : '65vh',
     display: 'flex',
     flexDirection: 'column',
     boxShadow: 'inset 5px 5px 5px lightgrey'

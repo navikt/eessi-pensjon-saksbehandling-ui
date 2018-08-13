@@ -42,21 +42,22 @@ class MiniaturePDF extends Component {
 
     render () {
 
-        const { t, pdf, onDeleteDocument } = this.props;
-
-        let data = 'data:application/octet-stream;base64,' + encodeURIComponent(pdf.base64);
-        let deleteLink = this.state.isHovering ? <Ikon size={20} kind='trashcan' onClick={onDeleteDocument}/> : null;
-        let downloadLink = this.state.isHovering ? <a onClick={(e) => e.stopPropagation()} title={t('ui:download')} href={data} download={pdf.name}>
-            <Icons size={'sm'} kind='download'/>
-        </a> : null;
+        const { t, pdf, onDeleteDocument, deleteLink, downloadLink } = this.props;
 
         return <div className='miniaturePdf'
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
             onMouseLeave={this.onHandleMouseLeave.bind(this)}>
             <Document className='position-relative' file={{data: pdf.data }}
                 onLoadSuccess={this.handleOnLoadSuccess.bind(this)}>
-                <div className='deleteLink'> {deleteLink}</div>
-                <div className='downloadLink'> {downloadLink}</div>
+                { deleteLink && this.state.isHovering ? <div className='deleteLink'>
+                    <Ikon size={20} kind='trashcan' onClick={onDeleteDocument}/>
+                 </div> : null}
+                { downloadLink && this.state.isHovering ? <div className='downloadLink'><a
+                    onClick={(e) => e.stopPropagation()} title={t('ui:download')}
+                    href={'data:application/octet-stream;base64,' + encodeURIComponent(pdf.base64)}
+                    download={pdf.name}>
+                       <Icons size={'sm'} kind='download'/>
+                </a></div> : null}
                 <div className='page'>
                     <Page width={100} height={140} renderMode='svg' pageNumber={1}/>
                 </div>
@@ -72,7 +73,9 @@ MiniaturePDF.propTypes = {
     t                : PT.func.isRequired,
     onLoadSuccess    : PT.func.isRequired,
     pdf              : PT.object.isRequired,
-    onDeleteDocument : PT.func.isRequired
+    onDeleteDocument : PT.func.isRequired,
+    deleteLink       : PT.bool,
+    downloadLink     : PT.bool
 }
 
 export default translate()(MiniaturePDF);

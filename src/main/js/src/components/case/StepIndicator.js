@@ -15,10 +15,10 @@ class StepIndicator extends Component {
             onBeforeChange={() => {return false}}
             autoResponsiv={true}
             steg={[
-                {label: t('case:step1'), aktiv: (activeStep === 0)},
-                {label: t('case:step2'), aktiv: (activeStep === 1)},
-                {label: t('case:step3'), aktiv: (activeStep === 2)},
-                {label: t('case:step4'), aktiv: (activeStep === 3)}
+                {label: t('case:form-step1'), aktiv: (activeStep === 0)},
+                {label: t('case:form-step2'), aktiv: (activeStep === 1)},
+                {label: t('case:form-step3'), aktiv: (activeStep === 2)},
+                {label: t('case:form-step4'), aktiv: (activeStep === 3)}
             ]}/>
     }
 }

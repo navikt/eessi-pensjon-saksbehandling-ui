@@ -297,14 +297,14 @@ class EditCase extends Component {
         if (!map || Object.keys(map).length === 0) {
             map = [{
                 key: this.state.defaultSelects[type],
-                value: t('case:' + this.state.defaultSelects[type])
+                value: t('case:form-' + this.state.defaultSelects[type])
             }];
         }
 
         if (!map[0].key || (map[0].key && map[0].key !== this.state.defaultSelects[type])) {
             map.unshift({
                 key: this.state.defaultSelects[type],
-                value: t('case:' + this.state.defaultSelects[type])
+                value: t('case:form-' + this.state.defaultSelects[type])
             });
         }
         return map.map(el => {
@@ -321,7 +321,7 @@ class EditCase extends Component {
         const { t, subjectAreaList } = this.props;
 
         return <Nav.Select className='subjectAreaList' bredde='xxl' feil={this.state.validation.subjectAreaFail ? {feilmelding: this.state.validation.subjectAreaFail} : null}
-            label={t('case:subjectArea')} value={this.state.subjectArea} onChange={this.onSubjectAreaChange.bind(this)}>
+            label={t('case:form-subjectArea')} value={this.state.subjectArea} onChange={this.onSubjectAreaChange.bind(this)}>
             {this.renderOptions(subjectAreaList, 'subjectArea')}
         </Nav.Select>
     }
@@ -331,7 +331,7 @@ class EditCase extends Component {
         const { t, countryList } = this.props;
 
         return <Nav.Select className='countryList' bredde='xxl' feil={this.state.validation.countryFail ? {feilmelding: this.state.validation.countryFail} : null}
-            label={t('case:country')} value={currentValue} onChange={this.onCountryChange.bind(this)}>
+            label={t('ui:country')} value={currentValue} onChange={this.onCountryChange.bind(this)}>
             {this.renderOptions(countryList, 'country')}
         </Nav.Select>
     }
@@ -341,7 +341,7 @@ class EditCase extends Component {
         const { t, institutionList } = this.props;
 
         return <Nav.Select className='institutionList' bredde='xxl' feil={this.state.validation.institutionFail ? {feilmelding: this.state.validation.institutionFail} : null}
-            label={t('case:institution')} value={currentValue} onChange={this.onInstitutionChange.bind(this)}>
+            label={t('case:form-institution')} value={currentValue} onChange={this.onInstitutionChange.bind(this)}>
             {this.renderOptions(institutionList, 'institution')}
         </Nav.Select>
     }
@@ -351,7 +351,7 @@ class EditCase extends Component {
         const { t, bucList } = this.props;
 
         return <Nav.Select className='bucList' bredde='xxl' feil={this.state.validation.bucFail ? {feilmelding: this.state.validation.bucFail} : null}
-            label={t('case:buc')} value={this.state.buc} onChange={this.onBucChange.bind(this)}>
+            label={t('case:form-buc')} value={this.state.buc} onChange={this.onBucChange.bind(this)}>
             {this.renderOptions(bucList, 'buc')}
         </Nav.Select>
     }
@@ -361,7 +361,7 @@ class EditCase extends Component {
         const { t, sedList, bucList } = this.props;
 
         return <Nav.Select className='sedList' bredde='xxl' feil={this.state.validation.sedFail? {feilmelding: this.state.validation.sedFail} : null}
-            disabled={!bucList} label={t('case:sed')} value={this.state.sed} onChange={this.onSedChange.bind(this)}>
+            disabled={!bucList} label={t('case:form-sed')} value={this.state.sed} onChange={this.onSedChange.bind(this)}>
             {this.renderOptions(sedList, 'sed')}
         </Nav.Select>
     }

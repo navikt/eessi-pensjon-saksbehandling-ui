@@ -1,30 +1,27 @@
 {
-    "createPdf" : "Opprett en PDF",
+    "app-createPdf"        : "Opprett en PDF",
+    "app-selectPdfTitle"   : "Velg PDF",
+    "app-editPdfTitle"     : "Redigere PDF",
+    "app-generatePdfTitle" : "Generere PDF",
 
-    "selectPdfTitle" : "Velg PDF",
-    "selectPdfDescription" : "Velg PDF beskrivelse",
-    "editPdfTitle" : "Redigere PDF",
-    "editPdfDescription" : "Redigere PDF beskrivelse",
-    "generatePdfTitle" : "Generere PDF",
-    "generatePdfDescription" : "Generere PDF beskrivelse",
+    "loading-loadingPDF"    : "Lasting PDF...",
+    "loading-generatingPDF" : "Generering PDF...",
 
-    "loading-loadingPDF" : "Lasting PDF...",
-
-    "help-select-pdf"  : "Dra PDF filer i område, eller klikk i område til å åpen dialogboksen for filvalg",
-    "help-edit-pdf"    : "Dra PDF sider fra høyre side til målområde til venstre side",
+    "help-select-pdf"        : "Dra PDF filer i område, eller klikk i område til å åpen dialogboksen for filvalg",
+    "help-edit-pdf"          : "Dra PDF sider fra høyre side til målområde til venstre side",
+    "help-generate-pdf"      : "Du kan last ned PDF filer du har generert",
     "help-sizeSliderTooltip" : "Skyv for å øke/redusere PDFs størrelse",
 
+    "recipe-empty-title" : "Tømme PDF",
+    "recipe-empty-text"  : "Du har valgt ingen PDF sider til å generere",
+    "recipe-valid-title" : "Generere PDF",
+    "recipe-valid-text"  : "Er du sikkert at du vil generere PDF nå?",
 
-    "alert-PDFGenerationFail" : "Feil å generere PDF",
+    "alert-PDFGenerationFail"    : "Feil å generere PDF",
     "alert-PDFGenerationSuccess" : "Generert PDF",
 
-    "recipe-empty" : "Tømme PDF",
-    "recipe-empty-text": "Du har valgt ingen PDF sider til å generere",
-    "recipe-valid": "Generere PDF",
-    "recipe-valid-text" : "Er du sikkert at du vil generere PDF nå?",
-
-    "home" : "Botid",
-    "work" : "Arbeid",
-    "sick" : "Syk",
-    "other" : "Andre"
+    "form-home"  : "Botid",
+    "form-work"  : "Arbeid",
+    "form-sick"  : "Syk",
+    "form-other" : "Andre"
 }

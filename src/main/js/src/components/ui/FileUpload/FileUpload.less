@@ -10,10 +10,12 @@
      border: none !important;
      box-shadow: inset 3px 3px 3px lightgray;
      background-color: white;
+
+     &:hover {
+         background-color: #FAFAFF;
+     }
  }
-.dropzone:hover {
-   background-color: #FAFAFF;
-}
+
 .dropzone-active {
     background-color: aliceblue;
 }
@@ -29,9 +31,11 @@
 }
 
 .dropzone-placeholder-status {
-    float: right;
-    margin-right: 5px;
+    right: 5px;
+    top: 0px;
+    position: absolute;
     color: gray;
+    font-size: 0.8rem;
 }
 
 .fileUploadFile-exit {

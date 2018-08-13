@@ -62,7 +62,7 @@ class SelectPDF extends Component {
                 <Nav.Column>
                     <h1 className='mt-3 appTitle'>
                         <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
-                        {t('pdf:selectPdfTitle')}
+                        {t('pdf:app-selectPdfTitle')}
                     </h1>
                 </Nav.Column>
             </Nav.Row>
@@ -80,7 +80,7 @@ class SelectPDF extends Component {
                     <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
                     <FileUpload className='mb-3'
                         accept='application/pdf'
-                        files={pdfs}
+                        files={pdfs || []}
                         beforeDrop={this.handleBeforeDrop.bind(this)}
                         afterDrop={this.handleAfterDrop.bind(this)}
                         onFileChange={this.handleFileChange.bind(this)}/>

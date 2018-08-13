@@ -83,7 +83,10 @@ class FileUpload extends Component {
                         'name' : file.name
                     });
 
-                    let status = t('ui:accepted') + ': ' + acceptedFiles.length + ', ' + t('ui:rejected') + ': ' + rejectedFiles.length
+                    let status = t('ui:accepted') + ': ' + acceptedFiles.length + ', ';
+                    status += t('ui:rejected') + ': ' + rejectedFiles.length + ', ';
+                    status += t('ui:total') + ': ' + (this.state.files.length + acceptedFiles.length);
+
                     await this.updateFiles(newFiles, status);
 
                     loadingStatus[index] = true;
@@ -144,6 +147,7 @@ class FileUpload extends Component {
                             if (_.endsWith(file.name, '.pdf')) {
                                 return <CSSTransition key={i} classNames='fileUploadFile' timeout={500}>
                                     <MiniaturePDF key={i} pdf={file}
+                                        deleteLink={true} downloadLink={true}
                                         onLoadSuccess={this.onLoadSuccess.bind(this, i)}
                                         onDeleteDocument={this.removeFile.bind(this, i)}
                                     />

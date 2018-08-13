@@ -77,7 +77,7 @@ class EditPDF extends Component {
 
             this.setState({
                 modalOpen: true,
-                modalTitle: t('pdf:recipe-empty'),
+                modalTitle: t('pdf:recipe-empty-title'),
                 modalText: t('pdf:recipe-empty-text'),
                 modalButtons: [{
                     main: true,
@@ -90,7 +90,7 @@ class EditPDF extends Component {
 
             this.setState({
                 modalOpen: true,
-                modalTitle: t('pdf:recipe-valid'),
+                modalTitle: t('pdf:recipe-valid-title'),
                 modalText: t('pdf:recipe-valid-text'),
                 modalButtons: [{
                     main: true,
@@ -150,7 +150,7 @@ class EditPDF extends Component {
                     <Nav.HjelpetekstBase>{t('pdf:help-edit-pdf')}</Nav.HjelpetekstBase>
                     <h1 className='mt-3 appTitle'>
                         <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
-                        {t('pdf:editPdfTitle')}
+                        {t('pdf:app-editPdfTitle')}
                     </h1>
                 </Nav.Column>
             </Nav.Row>
@@ -166,17 +166,17 @@ class EditPDF extends Component {
             <Nav.Row className='mb-4'>
                 <DnD>
                     <Nav.Column className='col-sm-2 mb-4' style={{maxWidth: pdfsize + 50}}>
-                        <Collapse destroyInactivePanel={true} activeKey={dndTarget} accordion={true} onChange={this.handleAccordionChange.bind(this)}>
-                            <Collapse.Panel key='work' header={t('pdf:work') + ' (' + (recipe.work ? recipe.work.length : '0') + ')'} showArrow={true}>
+                        <Collapse className='dndtargets' destroyInactivePanel={true} activeKey={dndTarget} accordion={true} onChange={this.handleAccordionChange.bind(this)}>
+                            <Collapse.Panel key='work' header={t('pdf:form-work') + ' (' + (recipe.work ? recipe.work.length : '0') + ')'} showArrow={true}>
                                 <DnDTarget targetId='work'/>
                             </Collapse.Panel>
-                            <Collapse.Panel key='home' header={t('pdf:home') + ' (' + (recipe.home ? recipe.home.length : '0') + ')'} showArrow={true}>
+                            <Collapse.Panel key='home' header={t('pdf:form-home') + ' (' + (recipe.home ? recipe.home.length : '0') + ')'} showArrow={true}>
                                 <DnDTarget targetId='home'/>
                             </Collapse.Panel>
-                            <Collapse.Panel key='sick' header={t('pdf:sick') + ' (' + (recipe.sick ? recipe.sick.length : '0') + ')'} showArrow={true}>
+                            <Collapse.Panel key='sick' header={t('pdf:form-sick') + ' (' + (recipe.sick ? recipe.sick.length : '0') + ')'} showArrow={true}>
                                 <DnDTarget targetId='sick'/>
                             </Collapse.Panel>
-                            <Collapse.Panel key='other' header={t('pdf:other') + ' (' + (recipe.other ? recipe.other.length : '0') + ')'} showArrow={true}>
+                            <Collapse.Panel key='other' header={t('pdf:form-other') + ' (' + (recipe.other ? recipe.other.length : '0') + ')'} showArrow={true}>
                                 <DnDTarget targetId='other'/>
                             </Collapse.Panel>
                         </Collapse>

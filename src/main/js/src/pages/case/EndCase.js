@@ -54,7 +54,7 @@ class EndCase extends Component {
             body = t('case:loading.rina')
         } else {
             if (rinaUrl && dataSubmitted && dataSubmitted.euxcaseid) {
-                body = <a href={rinaUrl + dataSubmitted.euxcaseid}>{t('case:caseLink')}</a>
+                body = <a href={rinaUrl + dataSubmitted.euxcaseid}>{t('case:form-caseLink')}</a>
             } else {
                 body = null;
             }

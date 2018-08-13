@@ -8,7 +8,7 @@ import EndCase from './case/EndCase';
 
 import SelectPDF   from './pdf/SelectPDF';
 import EditPDF     from './pdf/EditPDF/EditPDF';
-import GeneratePDF from './pdf/GeneratePDF';
+import GeneratePDF from './pdf/GeneratePDF/GeneratePDF';
 
 import P4000 from './P4000/P4000';
 

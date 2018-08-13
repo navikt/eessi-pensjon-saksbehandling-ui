@@ -28,12 +28,12 @@ class RenderGeneratedData extends Component {
         let { t, dataToGenerate, dataToConfirm } = this.props;
 
         return <div className='generateData'>
-            <div><b>{t('case:caseId')}</b>{': '}{dataToConfirm.caseId}</div>
-            <div><b>{t('case:actorId')}</b>{': '}{dataToConfirm.actorId}</div>
-            <div><b>{t('case:subjectArea')}</b>{': '}{dataToConfirm.subjectArea}</div>
-            <div><b>{t('case:buc')}</b>{': '}{dataToConfirm.buc}</div>
-            <div><b>{t('case:sed')}</b>{': '}{dataToConfirm.sed}</div>
-            <div><b>{t('case:institution')}</b>{': '}{JSON.stringify(dataToConfirm.institutions)}</div>
+            <div><b>{t('case:form-caseId')}</b>{': '}{dataToConfirm.caseId}</div>
+            <div><b>{t('case:form-actorId')}</b>{': '}{dataToConfirm.actorId}</div>
+            <div><b>{t('case:form-subjectArea')}</b>{': '}{dataToConfirm.subjectArea}</div>
+            <div><b>{t('case:form-buc')}</b>{': '}{dataToConfirm.buc}</div>
+            <div><b>{t('case:form-sed')}</b>{': '}{dataToConfirm.sed}</div>
+            <div><b>{t('case:form-institution')}</b>{': '}{JSON.stringify(dataToConfirm.institutions)}</div>
             {this.renderJson(dataToGenerate, 0).map(i => { return i})}
         </div>;
     }

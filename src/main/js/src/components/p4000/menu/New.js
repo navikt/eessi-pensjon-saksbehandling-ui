@@ -94,7 +94,7 @@ class New extends Component {
                 text: t('ui:yes') + ', ' + t('ui:submit'),
                 onClick: this.doSubmitP4000.bind(this)
             },{
-                text: t('ui:no-cancel'),
+                text: t('ui:no') + ', ' + t('ui:cancel'),
                 onClick: this.closeModal.bind(this)
             }]
         });

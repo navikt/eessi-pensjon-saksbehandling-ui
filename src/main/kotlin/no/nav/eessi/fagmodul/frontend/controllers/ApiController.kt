@@ -95,25 +95,25 @@ class ApiController(private val euxService: EuxService, private val fagService: 
         return ResponseEntity.ok(mapOf(
                 "work" to mapOf(
                         "base64" to request?.pdfs?.get(0)?.base64,
-                        "name" to request?.pdfs?.get(0)?.name,
+                        "name" to "work.pdf",
                         "size" to request?.pdfs?.get(0)?.size,
                         "numPages" to request?.pdfs?.get(0)?.numPages
                 ),
                 "home" to mapOf(
                         "base64" to request?.pdfs?.get(0)?.base64,
-                        "name" to request?.pdfs?.get(0)?.name,
+                        "name" to "home.pdf",
                         "size" to request?.pdfs?.get(0)?.size,
                         "numPages" to request?.pdfs?.get(0)?.numPages
                 ),
                 "sick" to mapOf(
                         "base64" to request?.pdfs?.get(0)?.base64,
-                        "name" to request?.pdfs?.get(0)?.name,
+                        "name" to "sick.pdf",
                         "size" to request?.pdfs?.get(0)?.size,
                         "numPages" to request?.pdfs?.get(0)?.numPages
                 ),
                 "other" to mapOf(
                         "base64" to request?.pdfs?.get(0)?.base64,
-                        "name" to request?.pdfs?.get(0)?.name,
+                        "name" to "other.pdf",
                         "size" to request?.pdfs?.get(0)?.size,
                         "numPages" to request?.pdfs?.get(0)?.numPages
                 )
