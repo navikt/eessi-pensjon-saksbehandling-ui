@@ -20,7 +20,7 @@ export function openModal(modal) {
 export function closeModal() {
 
     return {
-        type    : types.UI_MODAL_CLOSE
+        type : types.UI_MODAL_CLOSE
     }
 }
 

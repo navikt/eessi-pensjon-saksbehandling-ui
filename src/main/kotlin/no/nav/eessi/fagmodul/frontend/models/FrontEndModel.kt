@@ -40,18 +40,18 @@ data class Institusjon(
 )
 
 data class PDFRequest(
-        val recipe: List<RecipeStep>,
+        val recipe: Map<String, List<RecipeStep>>,
         val pdfs: List<PDF>
 )
 
 data class RecipeStep(
-        val fileName: String,
-        val pageNumber: Int,
-        val fileOrder: Int
+        val name: String,
+        val pageNumber: Int
 )
 
 data class PDF(
         val base64: String,
-        val file: String,
-        val numPages: Int
+        val name: String,
+        val numPages: Int,
+        val size: Int
 )

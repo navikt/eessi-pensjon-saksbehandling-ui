@@ -229,11 +229,11 @@ class DatePicker extends Component {
             <Nav.Row className='row-datePicker-toggleButton no-gutters'>
                 <Nav.Column className='text-center mb-4'>
                     <Nav.ToggleGruppe name='datePickerType' style={{display: 'inline-flex'}} onChange={this.handlePeriodChange.bind(this)}>
-                        <Nav.ToggleKnapp value='both' defaultChecked={true} key='1'>{t('p4000:rangePeriod')}</Nav.ToggleKnapp>
-                        <Nav.ToggleKnapp value='onlyStartDate01' defaultChecked={false} key='2'>{t('p4000:onlyStartDate01')}</Nav.ToggleKnapp>
-                        <Nav.ToggleKnapp value='onlyStartDate98' defaultChecked={false} key='3'>{t('p4000:onlyStartDate98')}</Nav.ToggleKnapp>
+                        <Nav.ToggleKnapp value='both' defaultChecked={true} key='1'>{t('p4000:form-rangePeriod')}</Nav.ToggleKnapp>
+                        <Nav.ToggleKnapp value='onlyStartDate01' defaultChecked={false} key='2'>{t('p4000:form-onlyStartDate01')}</Nav.ToggleKnapp>
+                        <Nav.ToggleKnapp value='onlyStartDate98' defaultChecked={false} key='3'>{t('p4000:form-onlyStartDate98')}</Nav.ToggleKnapp>
                     </Nav.ToggleGruppe>
-                    <Nav.Checkbox className='d-inline-flex ml-4 mt-3' label={t('p4000:uncertainDate')}
+                    <Nav.Checkbox className='d-inline-flex ml-4 mt-3' label={t('p4000:form-uncertainDate')}
                         checked={event.uncertainDate}
                         onChange={this.handleUncertainDateChange.bind(this)}/>
                 </Nav.Column>

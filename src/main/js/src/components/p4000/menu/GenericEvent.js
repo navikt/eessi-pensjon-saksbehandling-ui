@@ -146,7 +146,7 @@ class Home extends Component {
             <Nav.Row className={classNames('eventFileUpload','mb-4','p-3','fieldset')}>
                 <Nav.Column>
                     <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
-                    <FileUpload files={event.files} onFileChange={this.handleFileChange.bind(this)}/>
+                    <FileUpload files={event.files || []} onFileChange={this.handleFileChange.bind(this)}/>
                 </Nav.Column>
             </Nav.Row>
         </Nav.Panel>

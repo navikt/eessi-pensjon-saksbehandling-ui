@@ -104,7 +104,9 @@ class PDFPageInDnD extends Component {
                  <div>
                      <Page
                          onClick={this.openPreview.bind(this, pdf.name, pageNumber)}
-                         className='d-inline-block page' width={pdfsize} renderMode='svg' pageNumber={pageNumber}/>
+                         className='d-inline-block page'
+                         width={pdfsize} height={pdfsize * 1.3}
+                         renderMode='svg' pageNumber={pageNumber}/>
                  </div>
                  <div className='position-absolute' style={{zIndex: 10, right: 2, bottom: 2}}>{pageNumber}</div>
              </Document>

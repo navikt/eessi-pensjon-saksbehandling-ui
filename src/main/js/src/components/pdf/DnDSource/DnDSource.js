@@ -26,6 +26,7 @@ const getItemStyle = (pdfsize, isDragging, draggableStyle) => ({
     border: isDragging ? '2px color red' : '1px solid lightgrey',
     margin: '0 5px 0 0',
     minWidth: pdfsize,
+    minHeight: pdfsize * 1.3,
     backgroundColor: isDragging ? 'lightblue' : 'white',
     ...draggableStyle
 })

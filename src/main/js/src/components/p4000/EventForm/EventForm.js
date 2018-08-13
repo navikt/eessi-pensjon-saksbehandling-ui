@@ -8,6 +8,8 @@ import classNames from 'classnames';
 import _ from 'lodash';
 
 import * as p4000Actions from '../../../actions/p4000';
+import * as uiActions from '../../../actions/ui';
+
 import * as Nav from '../../ui/Nav';
 import EventList from '../EventList/EventList';
 
@@ -23,12 +25,12 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, p4000Actions, uiActions), dispatch)};
 };
 
 class EventForm extends React.Component {
 
-    async handleSave () {
+    async handleSaveRequest () {
 
         const { actions, event, type } = this.props;
 
@@ -40,7 +42,7 @@ class EventForm extends React.Component {
         }
     }
 
-    async handleEdit () {
+    async handleSaveEditRequest () {
 
         const { actions, event, eventIndex } = this.props;
 
@@ -59,10 +61,37 @@ class EventForm extends React.Component {
         actions.editEvent(eventIndex);
     }
 
-    handleDelete () {
+    handleDeleteRequest () {
+
+        const { t, actions } = this.props;
+
+        actions.openModal({
+            modalTitle: t('p4000:event-delete-confirm-title'),
+            modalText: t('p4000:event-delete-confirm-text'),
+            modalButtons: [{
+                main: true,
+                text: t('ui:yes') + ', ' + t('ui:delete'),
+                onClick: this.deleteEvent.bind(this)
+            },{
+                text: t('ui:no') + ', ' + t('ui:cancel'),
+                onClick: this.closeModal.bind(this)
+            }]
+        });
+    }
+
+    deleteEvent() {
 
         const { actions, eventIndex } = this.props;
+
+        actions.closeModal();
         actions.deleteEventToP4000Form(eventIndex);
+    }
+
+    closeModal() {
+
+        const { actions } = this.props;
+
+        actions.closeModal();
     }
 
     async handleCancelRequest () {
@@ -93,7 +122,7 @@ class EventForm extends React.Component {
             {isEventPage ? (!editMode ?
                 <Nav.Row className='row-buttons mb-4 text-center'>
                     <Nav.Column>
-                        <Nav.Hovedknapp className='saveButton' onClick={this.handleSave.bind(this)}>{t('ui:save')}</Nav.Hovedknapp>
+                        <Nav.Hovedknapp className='saveButton' onClick={this.handleSaveRequest.bind(this)}>{t('ui:save')}</Nav.Hovedknapp>
                     </Nav.Column>
                     <Nav.Column>
                         <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
@@ -101,10 +130,10 @@ class EventForm extends React.Component {
                 </Nav.Row> :
                 <Nav.Row className='row-buttons mb-4 text-center'>
                     <Nav.Column>
-                        <Nav.Hovedknapp className='editButton' onClick={this.handleEdit.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp>
+                        <Nav.Hovedknapp className='editButton' onClick={this.handleSaveEditRequest.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp>
                     </Nav.Column>
                     <Nav.Column>
-                        <Nav.Knapp className='deleteButton' onClick={this.handleDelete.bind(this)}>{t('ui:delete')}</Nav.Knapp>
+                        <Nav.Knapp className='deleteButton' onClick={this.handleDeleteRequest.bind(this)}>{t('ui:delete')}</Nav.Knapp>
                     </Nav.Column>
                     <Nav.Column>
                         <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
@@ -123,7 +152,7 @@ EventForm.propTypes = {
     eventIndex : PT.number,
     history    : PT.object,
     actions    : PT.object,
-    Component  : PT.element
+    Component  : PT.func
 };
 
 export default connect(

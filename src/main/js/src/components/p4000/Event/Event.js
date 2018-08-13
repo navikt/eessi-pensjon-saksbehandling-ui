@@ -32,14 +32,14 @@ class Event extends Component {
 
         const { t, event, selected, onClick } = this.props;
 
-        return <div className='event' title={selected ? t('p4000:cancelEditEvent') : t('p4000:editEvent')}>
+        return <div className='event' title={selected ? t('p4000:form-cancelEditEvent') : t('p4000:form-editEvent')}>
             <div className='eventBadgeLine'>&nbsp;</div>
             <div className={classNames('eventBadge', 'position-relative', { selected: selected })}  onClick={onClick}>
                 { !_.isEmpty(event.files) ? <div className='eventBadgeHasAttachments'>
-                    <Icons size={'md'} kind='clip'/>
+                    <Icons size={'sm'} kind='clip'/>
                 </div> : null}
 
-                <Icons className='eventBadgeIcon' kind={event.type}/>
+                <Icons className='eventBadgeIcon' size={'lg'} kind={event.type}/>
                 <div className='eventBadgeDate'>
                     <div>{this.renderDate(event.startDate)}</div>
                     <div>{this.renderDate(event.endDate)}</div>

@@ -7,14 +7,15 @@ import { translate } from 'react-i18next';
 import * as Nav from '../../components/ui/Nav';
 import Icons from '../../components/ui/Icons';
 import TopContainer from '../../components/ui/TopContainer';
+import ClientAlert from '../../components/ui/Alert/ClientAlert';
 
 import * as usercaseActions from '../../actions/usercase';
 import * as uiActions from '../../actions/ui';
 
+import './case.css';
+
 const mapStateToProps = (state) => {
     return {
-        errorMessage : state.alert.clientErrorMessage,
-        errorStatus  : state.alert.clientErrorStatus,
         currentCase  : state.usercase.currentCase,
         gettingCase  : state.loading.gettingCase,
         language     : state.ui.language
@@ -31,12 +32,16 @@ class GetCase extends Component {
 
     onCaseIdChange (e) {
 
-        this.setState({caseId: e.target.value});
+        this.setState({
+            caseId: e.target.value
+        });
     }
 
     onActorIdChange (e) {
 
-        this.setState({actorId: e.target.value});
+        this.setState({
+            actorId: e.target.value
+        });
     }
 
     onForwardButtonClick() {
@@ -60,55 +65,46 @@ class GetCase extends Component {
 
     render() {
 
-        const { t, history, errorMessage, errorStatus, gettingCase } = this.props;
+        const { t, history, gettingCase } = this.props;
 
-        let alert      = errorStatus ? <Nav.AlertStripe type='stopp'>{t(errorMessage)}</Nav.AlertStripe> : null;
         let buttonText = gettingCase ? t('case:loading-gettingCase') : t('ui:search');
 
-        return <TopContainer>
-            <Nav.Panel>
-                <Nav.Row className='mt-4'>
+        return <TopContainer className='case topContainer'>
+            <Nav.Row className='mb-4'>
+                <Nav.Column>
+                    <h1 className='mb-3 appTitle'>
+                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
+                        {t('case:app-getCaseTitle')}
+                    </h1>
+                    <h4 className='mb-3'>{t('case:app-getCaseDescription')}</h4>
+                    <ClientAlert/>
+                </Nav.Column>
+            </Nav.Row>
+            <div className='fieldset p-4 m-4'>
+                <Nav.Row>
                     <Nav.Column>
-                        <h1 className='mt-3 appTitle'>
-                            <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
-                            {t('case:app-getCaseTitle')}
-                        </h1>
-                        <h4>{t('case:app-getCaseDescription')}</h4>
+                        <Nav.HjelpetekstBase id='caseId'>{t('case:help-caseId')}</Nav.HjelpetekstBase>
+                        <Nav.Input className='getCaseInputCaseId' label={t('case:form-caseId')} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
+                        <div>&nbsp;</div>
+                        <Nav.HjelpetekstBase id='actorId'>{t('case:help-actorId')}</Nav.HjelpetekstBase>
+                        <Nav.Input className='getCaseInputActorId' label={t('case:form-actorId')} value={this.state.actorId} onChange={this.onActorIdChange.bind(this)}/>
                     </Nav.Column>
                 </Nav.Row>
-                <Nav.Row className='mt-4 text-center'>
-                    <Nav.Column>{alert}</Nav.Column>
-                </Nav.Row>
-                <Nav.Row className='mt-4 text-left'>
-                    <Nav.Column>
-                        <Nav.Input className='getCaseInputCaseId' label={t('case:caseId')} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
-                    </Nav.Column>
-                    <Nav.Column className='mt-4'>
-                        <Nav.HjelpetekstBase id='caseId' type='under'>{t('case:help-caseId')}</Nav.HjelpetekstBase>
-                    </Nav.Column>
-                </Nav.Row>
-                <Nav.Row  className='mt-4 text-left'>
-                    <Nav.Column>
-                        <Nav.Input className='getCaseInputActorId' label={t('case:actorId')} value={this.state.actorId} onChange={this.onActorIdChange.bind(this)}/>
-                    </Nav.Column>
-                    <Nav.Column className='mt-4'>
-                        <Nav.HjelpetekstBase id='actorId' type='under'>{t('case:help-actorId')}</Nav.HjelpetekstBase>
-                    </Nav.Column>
-                </Nav.Row>
-                <Nav.Row className='mt-4'>
-                    <Nav.Column>
-                        <Nav.Hovedknapp className='forwardButton' spinner={gettingCase} disabled={this.isButtonDisabled()} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
-                    </Nav.Column>
-                </Nav.Row>
-            </Nav.Panel>
+            </div>
+            <Nav.Row className='mb-4'>
+                <Nav.Column>
+                    <Nav.Hovedknapp className='forwardButton w-100'
+                        spinner={gettingCase}
+                        disabled={this.isButtonDisabled()}
+                        onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                </Nav.Column>
+            </Nav.Row>
         </TopContainer>
     }
 }
 
 GetCase.propTypes = {
     currentCase  : PT.object,
-    errorMessage : PT.string,
-    errorStatus  : PT.string,
     gettingCase  : PT.bool,
     actions      : PT.object,
     history      : PT.object,

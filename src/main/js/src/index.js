@@ -40,7 +40,8 @@ const reducer = combineReducers({
 
 const initialState = {ui: {
     language : i18n.language,
-    locale   : i18n.locale
+    locale   : i18n.locale,
+    modalOpen: false
 }};
 
 const store = createStoreWithMiddleware(reducer, initialState);

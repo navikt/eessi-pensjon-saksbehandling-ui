@@ -8,8 +8,11 @@ import StepIndicator from '../../components/case/StepIndicator';
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import Icons from '../../components/ui/Icons';
+import ClientAlert from '../../components/ui/Alert/ClientAlert';
 
 import * as usercaseActions from '../../actions/usercase';
+
+import './case.css';
 
 const mapStateToProps = (state) => {
     return {
@@ -51,46 +54,40 @@ class EndCase extends Component {
             body = t('case:loading.rina')
         } else {
             if (rinaUrl && dataSubmitted && dataSubmitted.euxcaseid) {
-                body = <a href={rinaUrl + dataSubmitted.euxcaseid}>{t('case:caseLink')}</a>
+                body = <a href={rinaUrl + dataSubmitted.euxcaseid}>{t('case:form-caseLink')}</a>
             } else {
                 body = null;
             }
         }
 
-        return <TopContainer>
-            <Nav.Panel>
-                <Nav.Row className='mt-4'>
-                    <Nav.Column>
-                        <h1 className='mt-3 appTitle'>
-                            <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
-                            {t('case:app-endCaseTitle')}
-                        </h1>
-                        <h4>{t('case:app-endCaseDescription')}</h4>
+        return <TopContainer className='case topContainer'>
+            <Nav.Row className='mb-4'>
+                <Nav.Column>
+                    <h1 className='mb-3 appTitle'>
+                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
+                        {t('case:app-endCaseTitle')}
+                    </h1>
+                    <h4>{t('case:app-endCaseDescription')}</h4>
+                </Nav.Column>
+            </Nav.Row>
+            <Nav.Row className='mb-4'>
+                <Nav.Column>
+                    <ClientAlert className='mb-3'/>
+                    <StepIndicator activeStep={3}/>
+                </Nav.Column>
+            </Nav.Row>
+            <div className='fieldset p-4 mb-4 ml-3 mr-3'>
+                <Nav.Row>
+                    <Nav.Column className='endCase'>
+                        {body}
                     </Nav.Column>
                 </Nav.Row>
-                <Nav.Row className='mt-4'>
-                    <Nav.Column>
-                        <Nav.AlertStripe type='suksess'>{t('ui:dataSubmitted')}</Nav.AlertStripe>
-                    </Nav.Column>
-                </Nav.Row>
-                <Nav.Row className='mt-4 text-center'>
-                    <Nav.Column>
-                        <StepIndicator activeStep={3}/>
-                    </Nav.Column>
-                </Nav.Row>
-                <Nav.Row className='mt-4'>
-                    <Nav.Column>
-                        <div className='endCase'>
-                            {body}
-                        </div>
-                    </Nav.Column>
-                </Nav.Row>
-                <Nav.Row className='mt-4'>
-                    <Nav.Column>
-                        <Nav.Hovedknapp className='mr-3 forwardButton' onClick={this.onForwardButtonClick.bind(this)}>{t('ui:createNew')}</Nav.Hovedknapp>
-                    </Nav.Column>
-                </Nav.Row>
-            </Nav.Panel>
+            </div>
+            <Nav.Row>
+                <Nav.Column>
+                    <Nav.Hovedknapp className='mr-3 forwardButton' onClick={this.onForwardButtonClick.bind(this)}>{t('ui:createNew')}</Nav.Hovedknapp>
+                </Nav.Column>
+            </Nav.Row>
         </TopContainer>;
     }
 }

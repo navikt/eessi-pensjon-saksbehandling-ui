@@ -1,23 +1,27 @@
 {
-    "createPdf" : "Create PDF",
+    "app-createPdf"        : "Create PDF",
+    "app-selectPdfTitle"   : "Select PDF",
+    "app-editPdfTitle"     : "Edit PDF",
+    "app-generatePdfTitle" : "Generate PDF",
 
-    "selectPdfTitle" : "Select PDF",
-    "selectPdfDescription" : "Select PDF description",
-    "editPdfTitle" : "Edit PDF",
-    "editPdfDescription" : "Edit PDF description",
-    "generatePdfTitle" : "Generate PDF",
-    "generatePdfDescription" : "Generate PDF description",
-    "sizeSliderTooltip" : "Slide to increase/decrease PDF page size",
+    "loading-loadingPDF"    : "Loading PDF...",
+    "loading-generatingPDF" : "Generating PDF...",
 
-    "loading-loadingPDF" : "Loading PDF...",
+    "help-select-pdf"        : "Drag PDF files for edit, or click in the area to open file select dialog",
+    "help-edit-pdf"          : "Drag PDF pages from the right into the target area in the left",
+    "help-generate-pdf"      : "PDF files are generated, you can download them",
+    "help-sizeSliderTooltip" : "Slide to increase/decrease PDF page size",
 
-    "help-select-pdf"  : "Drag PDF files for edit, or click in the area to open file select dialog",
-    "help-edit-pdf"    : "Drag PDF pages from the right into the target area in the left",
+    "recipe-empty-title" : "Empty PDF",
+    "recipe-empty-text"  : "You haven't selected any pages for the new PDF",
+    "recipe-valid-title" : "Generate PDF",
+    "recipe-valid-text"  : "Are you sure you want to generate a PDF now?",
 
-    "recipe-empty" : "Empty PDF",
-    "recipe-empty-text": "You haven't selected any pages for the new PDF",
-    "recipe-valid": "Generate PDF",
-    "recipe-valid-text" : "Are you sure you want to generate a PDF now?",
+    "alert-PDFGenerationFail"    : "Error generating PDF",
+    "alert-PDFGenerationSuccess" : "Successfully generated PDF",
 
-    "error-PdfGenerationFail" : "Error generating PDF"
+    "form-home"  : "Botid",
+    "form-work"  : "Arbeid",
+    "form-sick"  : "Syk",
+    "form-other" : "Andre"
 }

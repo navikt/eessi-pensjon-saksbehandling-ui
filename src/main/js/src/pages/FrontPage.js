@@ -37,10 +37,10 @@ class FrontPage extends Component {
                     <Nav.Column>
                         <Nav.Lenkepanel className='frontPageLink' linkCreator={(props) => (
                             <Link to='/react/case/get' {...props}/>)
-                        } href="#">{t('case:createNewCase')}</Nav.Lenkepanel>
+                        } href="#">{t('case:app-createNewCase')}</Nav.Lenkepanel>
                         <Nav.Lenkepanel className='frontPageLink' linkCreator={(props) => (
                             <Link to='/react/pdf/select' {...props}/>)
-                        } href="#">{t('pdf:createPdf')}</Nav.Lenkepanel>
+                        } href="#">{t('pdf:app-createPdf')}</Nav.Lenkepanel>
                         <Nav.Lenkepanel className='frontPageLink' linkCreator={(props) => (
                             <Link to='/react/p4000' {...props}/>)
                         } href="#">{t('p4000:app-startP4000')}</Nav.Lenkepanel>

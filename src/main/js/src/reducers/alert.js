@@ -25,7 +25,7 @@ export default function (state = {}, action = {}) {
     case types.SERVER_OFFLINE:
 
         return Object.assign({}, state, {
-            serverErrorMessage : 'serverOffline'
+            serverErrorMessage : 'ui:serverOffline'
         });
 
     case types.USERCASE_GET_CASE_NUMBER_REQUEST:
@@ -48,35 +48,35 @@ export default function (state = {}, action = {}) {
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : 'case:error-noSubjectAreaList'
+            clientErrorMessage : 'case:alert-noSubjectAreaList'
         });
 
     case types.USERCASE_GET_INSTITUTION_LIST_FAILURE:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : 'case:error-noInstitutionList'
+            clientErrorMessage : 'case:alert-noInstitutionList'
         });
 
     case types.USERCASE_GET_SED_LIST_FAILURE:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : 'case:error-noSedList'
+            clientErrorMessage : 'case:alert-noSedList'
         });
 
     case types.USERCASE_GET_BUC_LIST_FAILURE:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : 'case:error-noBucList'
+            clientErrorMessage : 'case:alert-noBucList'
         });
 
     case types.USERCASE_GET_COUNTRY_LIST_FAILURE:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : 'case:error-noCountryList'
+            clientErrorMessage : 'case:alert-noCountryList'
         });
 
     case types.USERCASE_GET_CASE_NUMBER_FAILURE:
@@ -89,10 +89,31 @@ export default function (state = {}, action = {}) {
             clientErrorMessage : processError(action.payload)
         });
 
+    case types.USERCASE_GET_CASE_NUMBER_SUCCESS:
+
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'OK',
+            clientErrorMessage : 'case:alert-caseFound'
+        });
+
+    case types.USERCASE_GENERATE_DATA_SUCCESS:
+
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'OK',
+            clientErrorMessage : 'case:alert-generatedData'
+        });
+
+    case types.USERCASE_SEND_DATA_SUCCESS:
+
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'OK',
+            clientErrorMessage : 'case:alert-sentData'
+        });
+
     case types.USER_INFO_FAILURE: {
 
         return Object.assign({}, state, {
-            serverErrorMessage : 'case:error-noSuchUser'
+            serverErrorMessage : 'ui:alert-noSuchUser'
         });
     }
 
@@ -100,65 +121,71 @@ export default function (state = {}, action = {}) {
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : 'pdf:error-PdfGenerationFail'
+            clientErrorMessage : 'pdf:alert-PDFGenerationFail'
+        });
+
+    case types.PDF_GENERATE_SUCCESS:
+
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'OK',
+            clientErrorMessage : 'pdf:alert-PDFGenerationSuccess'
         });
 
     case types.P4000_NEW:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'OK',
-            clientErrorMessage : 'p4000:newP4000Form'
+            clientErrorMessage : 'p4000:alert-newP4000Form'
         });
 
     case types.P4000_OPEN_SUCCESS:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'OK',
-            clientErrorMessage : 'p4000:openP4000Form'
+            clientErrorMessage : 'p4000:alert-openP4000Form'
         });
 
     case types.P4000_OPEN_FAILURE:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : 'p4000:error-openP4000|' + action.payload.error
+            clientErrorMessage : 'p4000:alert-openP4000error|' + action.payload.error
         });
 
     case types.P4000_EVENT_ADD:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'OK',
-            clientErrorMessage : 'p4000:addedP4000Event'
+            clientErrorMessage : 'p4000:alert-addedP4000Event'
         });
 
     case types.P4000_EVENT_REPLACE:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'OK',
-            clientErrorMessage : 'p4000:replacedP4000Event'
+            clientErrorMessage : 'p4000:alert-replacedP4000Event'
         });
 
     case types.P4000_EVENT_DELETE:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'OK',
-            clientErrorMessage : 'p4000:deletedP4000Event'
+            clientErrorMessage : 'p4000:alert-deletedP4000Event'
         });
 
     case types.P4000_SUBMIT_SUCCESS:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'OK',
-            clientErrorMessage : 'p4000:file-submitSuccess'
+            clientErrorMessage : 'p4000:alert-submitSuccess'
         });
 
     case types.P4000_SUBMIT_FAILURE:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',
-            clientErrorMessage : 'p4000:file-submitFailure'
+            clientErrorMessage : 'p4000:alert-submitFailure'
         });
-
 
     default:
 

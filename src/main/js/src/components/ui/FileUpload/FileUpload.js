@@ -70,18 +70,23 @@ class FileUpload extends Component {
                 reader.readAsArrayBuffer(file);
                 reader.onloadend = async (e) => {
 
-                    let data = new Uint8Array(e.target.result);
-                    let base64 = window.btoa(String.fromCharCode(...data));
+                    let blob = new Uint8Array(e.target.result);
+                    let base64 = window.btoa(blob.reduce((data, byte) => {
+                        return data + String.fromCharCode(byte);
+                    }));
                     let newFiles = _.clone(this.state.files);
 
                     newFiles.push({
                         'base64' : base64,
-                        'data' : data,
+                        'data' : blob,
                         'size' : file.size,
                         'name' : file.name
                     });
 
-                    let status = t('ui:accepted') + ': ' + acceptedFiles.length + ', ' + t('ui:rejected') + ': ' + rejectedFiles.length
+                    let status = t('ui:accepted') + ': ' + acceptedFiles.length + ', ';
+                    status += t('ui:rejected') + ': ' + rejectedFiles.length + ', ';
+                    status += t('ui:total') + ': ' + (this.state.files.length + acceptedFiles.length);
+
                     await this.updateFiles(newFiles, status);
 
                     loadingStatus[index] = true;
@@ -142,6 +147,7 @@ class FileUpload extends Component {
                             if (_.endsWith(file.name, '.pdf')) {
                                 return <CSSTransition key={i} classNames='fileUploadFile' timeout={500}>
                                     <MiniaturePDF key={i} pdf={file}
+                                        deleteLink={true} downloadLink={true}
                                         onLoadSuccess={this.onLoadSuccess.bind(this, i)}
                                         onDeleteDocument={this.removeFile.bind(this, i)}
                                     />
