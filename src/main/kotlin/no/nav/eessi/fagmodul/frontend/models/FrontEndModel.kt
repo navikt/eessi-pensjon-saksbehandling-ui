@@ -3,15 +3,36 @@ package no.nav.eessi.fagmodul.frontend.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 //{"institution":[{"NO:"DUMMY"}],"buc":"P_BUC_06","sed":"P6000","caseId":"caseId","subjectArea":"pensjon"}
+//data class FrontendRequest(
+//        val subjectArea: String? = null,
+//        val caseId: String? = null,
+//        val buc: String? = null,
+//        val sed : String? = null,
+//        val institutions: List<Institusjon>? = null,
+//        @JsonProperty("actorId")
+//        var pinid: String? = null
+//)
+
 data class FrontendRequest(
+        //sector
         val subjectArea: String? = null,
+        //PEN-saksnummer
         val caseId: String? = null,
         val buc: String? = null,
         val sed : String? = null,
+        //mottakere
         val institutions: List<Institusjon>? = null,
         @JsonProperty("actorId")
-        var pinid: String? = null
+        //aktoerid
+        val pinid: String? = null,
+        @JsonProperty("dodactorId")
+        val dodpinid: String? = null,
+        //mere maa legges til..
+        val euxCaseId: String? = null,
+        //partpayload json/sed
+        val payload: String? = null
 )
+
 
 data class Institusjon(
         val country: String? = null,

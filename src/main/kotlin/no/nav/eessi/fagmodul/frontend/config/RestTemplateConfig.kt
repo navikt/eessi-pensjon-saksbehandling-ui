@@ -20,27 +20,25 @@ class RestTemplateConfig(val restTemplateBuilder: RestTemplateBuilder) {
 
     @Bean
     fun euxRestTemplate(): RestTemplate {
-        val restTemplate = restTemplateBuilder
+        return restTemplateBuilder
             .rootUri(basisUrl)
             .errorHandler(DefaultResponseErrorHandler())
             .additionalInterceptors(OidcHeaderRequestInterceptor())
             .additionalInterceptors(RequestResponseLoggerInterceptor())
-            .build()
-            //must be add for logging or data is lost after logging.
-            restTemplate.requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory())
-            return restTemplate
+            .build().apply {
+                    requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory())
+                }
     }
 
     @Bean
     fun fagmodulRestTemplate(): RestTemplate {
-        val restTemplate = restTemplateBuilder
+        return restTemplateBuilder
             .rootUri(fagmodulUrl)
             .errorHandler(DefaultResponseErrorHandler())
             .additionalInterceptors(OidcHeaderRequestInterceptor())
             .additionalInterceptors(RequestResponseLoggerInterceptor())
-            .build()
-        //must be add for logging or data is lost after logging.
-        restTemplate.requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory())
-        return restTemplate
+            .build().apply {
+                    requestFactory = BufferingClientHttpRequestFactory(SimpleClientHttpRequestFactory())
+                }
     }
 }

@@ -1,7 +1,7 @@
 package no.nav.eessi.fagmodul.frontend.controllers
 
 import io.swagger.annotations.ApiOperation
-import no.nav.eessi.fagmodul.frontend.models.*
+import no.nav.eessi.fagmodul.frontend.models.PDFRequest
 import no.nav.eessi.fagmodul.frontend.services.EuxService
 import no.nav.eessi.fagmodul.frontend.services.FagmodulService
 import no.nav.eessi.fagmodul.frontend.utils.logger
@@ -11,7 +11,6 @@ import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.bind.annotation.RequestMapping
 import java.util.regex.Pattern.matches
 
 @RestController
@@ -29,12 +28,6 @@ class ApiController(private val euxService: EuxService, private val fagService: 
     @GetMapping("/rinaurl")
     fun getRinaURL(): String {
         return rinaUrl
-    }
-
-    //test
-    @GetMapping("/sector")
-    fun getSector(): List<Sector> {
-        return createSectorList()
     }
 
     @GetMapping("/case/{caseid}/{actorid}", produces = [MediaType.APPLICATION_JSON_VALUE])
