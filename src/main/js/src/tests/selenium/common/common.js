@@ -20,7 +20,9 @@ const params = {
     login: {
         'username' : 'srvPensjon',
         'password' : 'Ash5SoxP'
-    }
+    },
+    caseId  : '123',
+    actorId : '1000027223724'
 };
 
 exports.chai = chai;

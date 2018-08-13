@@ -14,7 +14,7 @@ it('Filling username', async function () {
   let loginBox = await _.driver.findElement(_.By.css('#idToken1'));
   _.expect(loginBox).to.not.equal(null);
   await loginBox.sendKeys(_.params.login.username);
-  expect(await loginBox.getAttribute('value')).to.equal(_.params.login.username);
+  _.expect(await loginBox.getAttribute('value')).to.equal(_.params.login.username);
 });
 
 it('Filling password', async function () {
@@ -22,7 +22,7 @@ it('Filling password', async function () {
   let passwordBox = await _.driver.findElement(_.By.css('#idToken2'));
   _.expect(passwordBox).to.not.equal(null);
   await passwordBox.sendKeys(_.params.login.password);
-  expect(await passwordBox.getAttribute('value')).to.equal(_.params.login.password);
+  _.expect(await passwordBox.getAttribute('value')).to.equal(_.params.login.password);
 });
 
 

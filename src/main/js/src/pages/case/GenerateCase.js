@@ -59,7 +59,7 @@ class GenerateCase extends Component {
         history.push('/react/case/confirm')
     }
 
-    onButtonClick() {
+    onForwardButtonClick() {
 
         const { actions, dataToConfirm, dataToGenerate } = this.props;
 
