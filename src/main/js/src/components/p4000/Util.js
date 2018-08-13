@@ -48,6 +48,10 @@ class Util {
         return 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(events));
     }
 
+    writeDate(date) {
+        return date.format('YYYY-mm-DD');
+    }
+
     handleDate(event) {
 
         switch(event.dateType) {
@@ -55,22 +59,22 @@ class Util {
         case 'both':
             return {
                 lukketPeriode: {
-                    fom: event.startDate.toGMTString(),
-                    tom: event.endDate.toGMTString()
+                    fom: this.writeDate(event.startDate),
+                    tom: this.writeDate(event.endDate)
                 }
             }
         case 'onlyStartDate01':
             return {
                 openPeriode: {
                     extra: '01',
-                    fom: event.startDate.toGMTString()
+                    fom: this.writeDate(event.startDate)
                 }
             }
         case 'onlyStartDate98':
             return {
                 openPeriode: {
                     extra: '98',
-                    fom: event.startDate.toGMTString()
+                    fom: this.writeDate(event.startDate)
                 }
             }
 
@@ -110,7 +114,7 @@ class Util {
         let newEvent = this.handleGenericEvent(event);
         newEvent.informasjonBarn = {
             etternavn: event.firstname,
-            foedseldato: event.birthDate.toGMTString(),
+            foedseldato: this.writeDate(event.birthDate),
             fornavn: event.firstname,
             land: event.country
         };
