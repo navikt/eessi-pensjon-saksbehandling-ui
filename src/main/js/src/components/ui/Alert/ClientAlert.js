@@ -29,9 +29,18 @@ class ClientAlert extends Component {
         timeout : undefined
     }
 
+    clear () {
+        const { clientErrorStatus, actions } = this.props;
+
+        // after 5 seconds, if the client alert is still not an error, then clear it
+        if (clientErrorStatus !== 'ERROR') {
+                actions.clientClear();
+        }
+    }
+
     handleTimeouts() {
 
-        const { clientErrorStatus, clientErrorMessage, actions } = this.props;
+        const { clientErrorStatus, clientErrorMessage } = this.props;
 
         if (clientErrorStatus !== this.state.status || clientErrorMessage !== this.state.message) {
             if (this.state.timeout) {
@@ -39,10 +48,11 @@ class ClientAlert extends Component {
             }
 
             let timeout = undefined;
+            let self = this;
 
             if (clientErrorStatus === 'OK') {
                 timeout = setTimeout(() => {
-                    actions.clientClear();
+                    self.clear();
                 }, 5000);
             }
 

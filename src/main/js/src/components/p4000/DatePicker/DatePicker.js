@@ -248,6 +248,8 @@ class DatePicker extends Component {
                         showMonthDropdown
                         dropdownMode='select'
                         locale={locale}
+                        onMonthChange={this.onStartDateChange.bind(this)}
+                        onYearChange={this.onStartDateChange.bind(this)}
                         onBlur={this.onStartDateBlur.bind(this)}
                         onChange={this.onStartDateChange.bind(this)}/>
                     <div>{this.state.onStartDateFail}</div>
@@ -261,6 +263,8 @@ class DatePicker extends Component {
                         showMonthDropdown
                         dropdownMode='select'
                         locale={locale}
+                        onMonthChange={this.onEndDateChange.bind(this)}
+                        onYearChange={this.onEndDateChange.bind(this)}
                         onBlur={this.onEndDateBlur.bind(this)}
                         onChange={this.onEndDateChange.bind(this)}/>
                     <div>{this.state.onEndDateFail}</div>

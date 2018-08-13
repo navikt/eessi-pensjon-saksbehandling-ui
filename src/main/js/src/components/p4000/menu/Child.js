@@ -208,6 +208,8 @@ class Child extends Component {
                             showMonthDropdown
                             dropdownMode='select'
                             locale={locale}
+                            onMonthChange={this.onBirthDateChange.bind(this)}
+                            onYearChange={this.onBirthDateChange.bind(this)}
                             onBlur={this.onBirthDateBlur.bind(this)}
                             onChange={this.onBirthDateChange.bind(this)}/>
                     </div>

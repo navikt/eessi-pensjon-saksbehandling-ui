@@ -42,11 +42,11 @@ class EditCase extends Component {
         institutions: [],
         validation: {},
         defaultSelects: {
-            subjectArea: 'chooseSubjectArea',
-            buc: 'chooseBuc',
-            sed: 'chooseSed',
-            institution: 'chooseInstitution',
-            country: 'allCountries'
+            subjectArea : 'case:form-chooseSubjectArea',
+            buc         : 'case:form-chooseBuc',
+            sed         : 'case:form-chooseSed',
+            institution : 'case:form-chooseInstitution',
+            country     : 'case:form-chooseCountry'
         }
     };
 
@@ -297,14 +297,14 @@ class EditCase extends Component {
         if (!map || Object.keys(map).length === 0) {
             map = [{
                 key: this.state.defaultSelects[type],
-                value: t('case:form-' + this.state.defaultSelects[type])
+                value: t(this.state.defaultSelects[type])
             }];
         }
 
         if (!map[0].key || (map[0].key && map[0].key !== this.state.defaultSelects[type])) {
             map.unshift({
                 key: this.state.defaultSelects[type],
-                value: t('case:form-' + this.state.defaultSelects[type])
+                value: t(this.state.defaultSelects[type])
             });
         }
         return map.map(el => {

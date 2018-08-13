@@ -1,8 +1,10 @@
 {
     "form-actorId" : "Actor ID",
+
     "form-buc" : "BUC",
     "form-caseId" : "Case ID",
     "form-caseLink" : "Case link",
+    "form-chooseCountry" : "Choose country",
     "form-chooseSubjectArea" : "Choose subject area",
     "form-chooseBuc" : "Choose Buc",
     "form-chooseSed": "Choose Sed",
