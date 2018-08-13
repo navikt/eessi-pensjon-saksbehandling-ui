@@ -36,7 +36,7 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
         val path = "/addsed"
 
         val builder = UriComponentsBuilder.fromPath("$FAG_PATH$path")
-        val httpEntity = HttpEntity("", HttpHeaders())
+        val httpEntity = HttpEntity(frontRequest, HttpHeaders())
 
         val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, typeRef<String>())
 
