@@ -1,6 +1,8 @@
 package no.nav.eessi.fagmodul.frontend.utils
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.core.type.TypeReference
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -14,15 +16,14 @@ val logger: Logger by lazy { LoggerFactory.getLogger(Utils::class.java) }
 
 inline fun <reified T : Any> typeRef(): ParameterizedTypeReference<T> = object : ParameterizedTypeReference<T>() {}
 inline fun <reified T : Any> typeRefs(): TypeReference<T> = object : TypeReference<T>() {}
-
-/**
- * Sende httpheader til BASSIS token/cookie?
- */
-fun createHeaderData(token: String): HttpHeaders {
-    val headers = HttpHeaders()
-    headers.add(HttpHeaders.COOKIE, "JSESSIONID=$token")
-    headers.add(HttpHeaders.CONTENT_TYPE, "application/json;charset=utf-8")
-    return headers
+inline fun <reified T : Any> mapJsonToAny(json: String, objec : TypeReference<T>, failonunknown: Boolean = false): T {
+    if (validateJson(json)) {
+        return jacksonObjectMapper()
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, failonunknown)
+                .readValue<T>(json, objec)
+    } else {
+        throw IllegalArgumentException("Not valid json format")
+    }
 }
 
 fun createErrorMessage(responseBody: String?): RestClientException {
@@ -32,75 +33,30 @@ fun createErrorMessage(responseBody: String?): RestClientException {
 }
 
 fun mapAnyToJson(data: Any): String {
-    val json = jacksonObjectMapper()
-            //.setDefaultPropertyInclusion(JsonInclude.Include.NON_EMPTY)
+    return  jacksonObjectMapper()
             .writerWithDefaultPrettyPrinter()
             .writeValueAsString(data)
-    return json
 }
 
-//fun mapAnyToJson(data: Any, nonempty: Boolean = false): String {
-//    if (nonempty) {
-//        val json = jacksonObjectMapper()
-//                .setDefaultPropertyInclusion(JsonInclude.Include.NON_EMPTY)
-//                .writerWithDefaultPrettyPrinter()
-//                .writeValueAsString(data)
-//        return json
-//    } else {
-//        return mapAnyToJson(data)
-//    }
-//}
-//
-//
-//fun validateJson(json: String) : Boolean {
-//    try {
-//        val objectMapper = ObjectMapper()
-//        objectMapper.enable(DeserializationFeature.FAIL_ON_READING_DUP_TREE_KEY)
-//        objectMapper.readTree(json)
-//        return true
-//    } catch (ex: Exception) {
-//        println(ex.message)
-//    }
-//    return false
-//}
-//
-//fun createListOfBuConSector(sector: Sector): List<BUC> {
-//    val sectorlist = createSectorList()
-//    val buclist : MutableList<BUC> = mutableListOf()
-//    sectorlist.forEach {
-//        if (it.name == sector.name) {
-//            it.buc!!.forEach {
-//                buclist.add(it)
-//            }
-//        }
-//    }
-//    return buclist.toList()
-//}
-//
-//fun createListOfSEDOnBUC(sector: Sector, buc: BUC): List<SED> {
-//    val sectorlist = createSectorList()
-//    val sedlist : MutableList<SED> = mutableListOf()
-//    sectorlist.forEach {
-//        if (it.name == sector.name) {
-//            it.buc!!.forEach {
-//                if (it.bucType == buc.bucType)
-//                    sedlist.addAll(it.sed!!)
-//            }
-//        }
-//    }
-//    return sedlist.toList()
-//}
-//
-//fun createListOfSED(): List<SED> {
-//    val sectorlist = createSectorList()
-//    val sedlist : MutableList<SED> = mutableListOf()
-//    sectorlist.forEach {
-//        if (it.name == sector.name) {
-//            it.buc!!.forEach {
-//                if (it.bucType == buc.bucType)
-//                    sedlist.addAll(it.sed!!)
-//            }
-//        }
-//    }
-//    return sedlist.toList()
-//}
+fun mapAnyToJson(data: Any, nonempty: Boolean = false): String {
+    return if (nonempty) {
+        val json = jacksonObjectMapper()
+                .setDefaultPropertyInclusion(JsonInclude.Include.NON_EMPTY)
+                .writerWithDefaultPrettyPrinter()
+                .writeValueAsString(data)
+        json
+    } else {
+        mapAnyToJson(data)
+    }
+}
+
+fun validateJson(json: String) : Boolean {
+    return try {
+        jacksonObjectMapper()
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true)
+                .readTree(json)
+        true
+    } catch (ex: Exception) {
+        false
+    }
+}

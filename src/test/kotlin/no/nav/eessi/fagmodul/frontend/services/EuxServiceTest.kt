@@ -68,26 +68,26 @@ class EuxServiceTest {
         assertEquals("NO:NAV02", data.get(0))
     }
 
-    //@Ignore("Not yet implemented")
-    @Test
-    fun `check for mulige aksjoner on rinacaseid`() {
-        val bucType = "FB_BUC_01"
-
-        val data = "[" +
-                "{\"navn\":\"Create\"," +
-                "\"id\":\"312430_f54d4c4ea29840a3bd8404ec08ffd29f\",\n" +
-                "\"kategori\":\"Documents\",\n" +
-                "\"dokumentType\":\"P2000\"," +
-                "\"dokumentId\":\"602982a0a84d4fe6aaf46a61b30a3a2e\"}]"
-        val response: ResponseEntity<String> = ResponseEntity(data, HttpStatus.OK)
-        whenever(mockrestTemplate.exchange(anyString(),eq(HttpMethod.GET), any(), eq(typeRef<String>()))).thenReturn(response)
-
-        val resultat = service.getMuligeAksjoner(bucType)
-
-        assertNotNull(resultat)
-        assertTrue(resultat.contains("P2000"))
-        assertTrue("Skal komme hit", true)
-    }
+//    //@Ignore("Not yet implemented")
+//    @Test
+//    fun `check for mulige aksjoner on rinacaseid`() {
+//        val bucType = "FB_BUC_01"
+//
+//        val data = "[" +
+//                "{\"navn\":\"Create\"," +
+//                "\"id\":\"312430_f54d4c4ea29840a3bd8404ec08ffd29f\",\n" +
+//                "\"kategori\":\"Documents\",\n" +
+//                "\"dokumentType\":\"P2000\"," +
+//                "\"dokumentId\":\"602982a0a84d4fe6aaf46a61b30a3a2e\"}]"
+//        val response: ResponseEntity<String> = ResponseEntity(data, HttpStatus.OK)
+//        whenever(mockrestTemplate.exchange(anyString(),eq(HttpMethod.GET), any(), eq(typeRef<String>()))).thenReturn(response)
+//
+//        val resultat = service.getMuligeAksjoner(bucType)
+//
+//        assertNotNull(resultat)
+//        assertTrue(resultat.contains("P2000"))
+//        assertTrue("Skal komme hit", true)
+//    }
 
     @Test
     fun getAvailableSEDTypes() {

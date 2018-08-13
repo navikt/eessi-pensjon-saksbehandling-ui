@@ -2,8 +2,6 @@ package no.nav.eessi.fagmodul.frontend.controllers
 
 import io.swagger.annotations.ApiOperation
 import no.nav.eessi.fagmodul.frontend.models.FrontendRequest
-import no.nav.eessi.fagmodul.frontend.models.TrygdeTid
-import no.nav.eessi.fagmodul.frontend.models.createTrygdeTidMock
 import no.nav.eessi.fagmodul.frontend.services.FagmodulService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -20,22 +18,24 @@ class FagmodulController(private val service: FagmodulService) {
 
     @ApiOperation("kjører prosess OpprettBuCogSED på EUX for å få dokuemt opprett i Rina")
     @PostMapping("/create")
-    fun createDocument(@RequestBody request: FrontendRequest): String? {
-        logger.debug("request model : $request")
+    fun createDocument(@RequestBody request: FrontendRequest): String {
+        logger.debug("Create: request model : $request")
             return service.create(request)
     }
 
-    @ApiOperation("kjører prosess OpprettBuCogSED på EUX for å få dokuemt opprett i Rina")
+    @ApiOperation("kjører prosess Confirm for valgt SED før create. kan så validere korrekt data før Create.")
     @PostMapping("/confirm")
-    fun confirmDocument(@RequestBody request: FrontendRequest): String? {
-        logger.debug("request model : $request")
+    fun confirmDocument(@RequestBody request: FrontendRequest): String {
+        logger.debug("Confirm: request model : $request")
         return service.confirm(request)
     }
 
-    @ApiOperation("Henter opp mock av TrygdeTid")
-    @PostMapping("/trygdetid")
-    fun trygdetid(): TrygdeTid {
-        return createTrygdeTidMock()
+    @ApiOperation("legge til SED på et eksisterende Rina document. kjører preutfylling")
+    @PostMapping("/addsed")
+    fun addDocument(@RequestBody request: FrontendRequest): String {
+        logger.debug("Addsed: request model : $request")
+        return service.addsed(request)
     }
+
 
 }

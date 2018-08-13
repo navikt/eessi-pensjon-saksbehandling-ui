@@ -89,53 +89,6 @@ class EuxService(val euxRestTemplate: RestTemplate) {
         }
     }
 
-//    //henter ut status på rina.
-//    fun getRinaSaker(bucType: String = "",rinaNummer: String? = ""): List<RINASaker> {
-//        val urlPath = "/RINASaker"
-//
-//        val builder = UriComponentsBuilder.fromPath("$EUX_PATH$urlPath")
-//                .queryParam("BuCType", bucType)
-//                .queryParam("RINASaksnummer", rinaNummer)
-//
-//        val headers = logonBasis()
-//
-//        val httpEntity = HttpEntity("", headers)
-//        val response = oidcRestTemplate.exchange(builder.toUriString(), HttpMethod.GET, httpEntity, String::class.java)
-//        val responseBody = response.body!!
-//        try {
-//            if (response.statusCode.isError) {
-//                throw createErrorMessage(responseBody)
-//            } else {
-//                return objectMapper.readValue(responseBody, typeRefs<List<RINASaker>>())
-//            }
-//        } catch (ex: IOException) {
-//            throw RuntimeException(ex.message)
-//        }
-//    }
-
-    //Henter en liste over tilgjengelige aksjoner for den aktuelle RINA saken PK-51365"
-    fun getMuligeAksjoner(euSaksnr: String): String {
-        val urlPath = "/MuligeAksjoner"
-
-        val builder = UriComponentsBuilder.fromPath("$EUX_PATH$urlPath")
-                .queryParam("RINASaksnummer", euSaksnr)
-
-        val headers = logonBasis()
-        val httpEntity = HttpEntity("", headers)
-
-        val response = euxRestTemplate.exchange(builder.toUriString(), HttpMethod.GET, httpEntity, typeRef<String>())
-        val responseBody = response.body!!
-        try {
-            if (response.statusCode.isError) {
-                throw createErrorMessage(responseBody)
-            } else {
-                return responseBody // objectMapper.readValue(responseBody, typeRefs<String>())
-            }
-        } catch (ex: IOException) {
-            throw RuntimeException(ex.message)
-        }
-    }
-
     //Cached list of Institusjoner..
     fun getCachedInstitusjoner(): List<String> {
         val result = instituitioncache.get("")
