@@ -497,7 +497,7 @@ class EditCase extends Component {
                 {this.renderInstitutions()}
             </div>
 
-            <Nav.Row>
+            <Nav.Row className='mb-4 p-2'>
                 <Nav.Column>
                     {action === 'forward' ? <Nav.Knapp className='backButton mr-4 w-100' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp> : null}
                 </Nav.Column>

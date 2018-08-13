@@ -83,7 +83,7 @@ class EndCase extends Component {
                     </Nav.Column>
                 </Nav.Row>
             </div>
-            <Nav.Row>
+            <Nav.Row className='mb-4 p-2'>
                 <Nav.Column>
                     <Nav.Hovedknapp className='mr-3 forwardButton' onClick={this.onForwardButtonClick.bind(this)}>{t('ui:createNew')}</Nav.Hovedknapp>
                 </Nav.Column>

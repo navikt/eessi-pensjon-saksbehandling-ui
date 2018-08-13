@@ -24,6 +24,8 @@
     "app-editCaseDescription"    : "Edit case description",
     "app-endCaseTitle"           : "Create EU Documents (SED) - End case",
     "app-endCaseDescription"     : "End case description",
+    "app-generateCaseTitle"      : "OCreate EU Documents (SED) - Generate case",
+    "app-generateCaseDescription": "Generate case description",
     "app-getCaseTitle"           : "Create EU Documents (SED) - Get case",
     "app-getCaseDescription"     : "Get case description ",
 

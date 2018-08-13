@@ -107,7 +107,7 @@ class GenerateCase extends Component {
                     </Nav.Column>
                 </Nav.Row>
             </div>
-            <Nav.Row>
+            <Nav.Row className='mb-4 p-2'>
                 <Nav.Column>
                     <Nav.Knapp className='w-100 backButton' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
                 </Nav.Column>

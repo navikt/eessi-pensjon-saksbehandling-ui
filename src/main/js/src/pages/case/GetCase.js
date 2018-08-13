@@ -91,7 +91,8 @@ class GetCase extends Component {
                     </Nav.Column>
                 </Nav.Row>
             </div>
-            <Nav.Row className='mb-4'>
+            <Nav.Row className='p-2 mb-4'>
+                <Nav.Column/>
                 <Nav.Column>
                     <Nav.Hovedknapp className='forwardButton w-100'
                         spinner={gettingCase}

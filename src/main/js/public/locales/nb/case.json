@@ -23,6 +23,8 @@
     "app-editCaseDescription"    : "Redigere sak beskrivelse",
     "app-endCaseTitle"           : "Opprett EU/EØS dokument (SED) - Slutt sak",
     "app-endCaseDescription"     : "Slutt sak beskrivelse",
+    "app-generateCaseTitle"      : "Opprett EU/EØS dokument (SED) - Generere sak",
+    "app-generateCaseDescription": "Generere sak beskrivelse",
     "app-getCaseTitle"           : "Opprett EU/EØS dokument (SED) - Få sak",
     "app-getCaseDescription"     : "Få sak beskrivelse",
 
