@@ -41,7 +41,13 @@ class ApiController(private val euxService: EuxService, private val fagService: 
     @ApiOperation("henter liste av alle tilgjengelige BuC fra EUX")
     @GetMapping("/bucs", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun getBucs(): List<String> {
-        return euxService.getCachedBuCTypePerSekor()
+        return try {
+            euxService.getCachedBuCTypePerSekor()
+        } catch (ex: Exception) {
+            //ResponseEntity.badRequest().body(mapOf("serverMessage" to ex.message))
+            throw ex
+        }
+
     }
 
     @GetMapping("/seds", "/seds/{buc}")
