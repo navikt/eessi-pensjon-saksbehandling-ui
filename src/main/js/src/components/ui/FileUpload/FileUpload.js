@@ -135,7 +135,7 @@ class FileUpload extends Component {
 
         const { t, accept, className } = this.props;
 
-        return <div className={classNames('div-dropzone', className)}>
+        return <div className={classNames('nav-fileUpload div-dropzone', className)}>
             <Dropzone className='dropzone' activeClassName='dropzone-active' accept={accept} onDrop={this.onDrop.bind(this)}>
                 <div className='dropzone-placeholder'>
                     <div className='dropzone-placeholder-message'>{t('ui:dropFilesHere')}</div>

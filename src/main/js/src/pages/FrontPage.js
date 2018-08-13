@@ -35,13 +35,13 @@ class FrontPage extends Component {
                 </Nav.Row>
                 <Nav.Row className='mt-4 text-left'>
                     <Nav.Column>
-                        <Nav.Lenkepanel className='frontPageLink' linkCreator={(props) => (
+                        <Nav.Lenkepanel className='frontPageLink caseLink' linkCreator={(props) => (
                             <Link to='/react/case/get' {...props}/>)
                         } href="#">{t('case:app-createNewCase')}</Nav.Lenkepanel>
-                        <Nav.Lenkepanel className='frontPageLink' linkCreator={(props) => (
+                        <Nav.Lenkepanel className='frontPageLink pdfLink' linkCreator={(props) => (
                             <Link to='/react/pdf/select' {...props}/>)
                         } href="#">{t('pdf:app-createPdf')}</Nav.Lenkepanel>
-                        <Nav.Lenkepanel className='frontPageLink' linkCreator={(props) => (
+                        <Nav.Lenkepanel className='frontPageLink p4000link' linkCreator={(props) => (
                             <Link to='/react/p4000' {...props}/>)
                         } href="#">{t('p4000:app-startP4000')}</Nav.Lenkepanel>
                     </Nav.Column>

@@ -56,6 +56,4 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
         val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, String::class.java)
         return response.body
     }
-
-
 }
