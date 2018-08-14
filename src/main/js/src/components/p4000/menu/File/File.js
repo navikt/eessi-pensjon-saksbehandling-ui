@@ -28,9 +28,7 @@ const mapDispatchToProps = (dispatch) => {
 
 class File extends Component {
 
-    state = {
-        modalOpen: false
-    }
+    state = {}
 
     doNewP4000() {
 

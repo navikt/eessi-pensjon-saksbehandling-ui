@@ -71,7 +71,6 @@ class EditPDF extends Component {
         if (this.hasOnlyEmptyArrays(recipe)) {
 
              actions.openModal({
-                modalOpen: true,
                 modalTitle: t('pdf:recipe-empty-title'),
                 modalText: t('pdf:recipe-empty-text'),
                 modalButtons: [{
@@ -84,7 +83,6 @@ class EditPDF extends Component {
         } else {
 
             actions.openModal({
-                modalOpen: true,
                 modalTitle: t('pdf:recipe-valid-title'),
                 modalText: t('pdf:recipe-valid-text'),
                 modalButtons: [{

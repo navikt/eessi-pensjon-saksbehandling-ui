@@ -5,7 +5,7 @@ import * as api   from './api';
 export function getCaseFromCaseNumber (obj) {
 
     return api.call({
-        url: urls.CASE_GET_CASE_NUMBER_URL + '/' + obj.caseId + '/' + obj.actorId,
+        url: urls.CASE_GET_CASE_NUMBER_URL + '/' + obj.caseId + '/' + obj.actorId + (obj.rinaId ? '/' + obj.rinaId : ''),
         type: {
             request : types.USERCASE_GET_CASE_NUMBER_REQUEST,
             success : types.USERCASE_GET_CASE_NUMBER_SUCCESS,

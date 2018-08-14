@@ -37,6 +37,13 @@ class GetCase extends Component {
         });
     }
 
+    onRinaIdChange (e) {
+
+        this.setState({
+            rinaId: e.target.value
+        });
+    }
+
     onActorIdChange (e) {
 
         this.setState({
@@ -54,13 +61,25 @@ class GetCase extends Component {
     componentDidUpdate() {
 
         const { history, currentCase } = this.props;
-        if (currentCase && currentCase.hasOwnProperty('casenumber') && currentCase.hasOwnProperty('pinid')) {
-            history.push('/react/case/get/' + currentCase.casenumber + '/' + currentCase.pinid);
+        if (currentCase) {
+            history.push('/react/case/get/' +
+                (currentCase.hasOwnProperty('casenumber') ? currentCase.hasOwnProperty('casenumber') + '/' : null) +
+                (currentCase.hasOwnProperty('pinid') ? currentCase.hasOwnProperty('pinid') + '/' : null) +
+                (currentCase.hasOwnProperty('rinaid') ? currentCase.hasOwnProperty('rinaid') + '/' : null)
+            );
         }
     }
 
     isButtonDisabled() {
         return !this.state.caseId || !this.state.actorId || this.props.gettingCase;
+    }
+
+    backToMenu () {
+
+        const { history, actions }  = this.props;
+
+        actions.clearData();
+        history.push('/');
     }
 
     render() {
@@ -69,11 +88,11 @@ class GetCase extends Component {
 
         let buttonText = gettingCase ? t('case:loading-gettingCase') : t('ui:search');
 
-        return <TopContainer className='case topContainer'>
+        return <TopContainer className='case getcase topContainer'>
             <Nav.Row className='mb-4'>
                 <Nav.Column>
                     <h1 className='mb-3 appTitle'>
-                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
+                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={this.backToMenu.bind(this)}/>
                         {t('case:app-getCaseTitle')}
                     </h1>
                     <h4 className='mb-3'>{t('case:app-getCaseDescription')}</h4>
@@ -84,10 +103,13 @@ class GetCase extends Component {
                 <Nav.Row>
                     <Nav.Column>
                         <Nav.HjelpetekstBase id='caseId'>{t('case:help-caseId')}</Nav.HjelpetekstBase>
-                        <Nav.Input className='getCaseInputCaseId' label={t('case:form-caseId')} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
+                        <Nav.Input className='getCaseInputCaseId' label={t('case:form-caseId') + ' *'} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
                         <div>&nbsp;</div>
                         <Nav.HjelpetekstBase id='actorId'>{t('case:help-actorId')}</Nav.HjelpetekstBase>
-                        <Nav.Input className='getCaseInputActorId' label={t('case:form-actorId')} value={this.state.actorId} onChange={this.onActorIdChange.bind(this)}/>
+                        <Nav.Input className='getCaseInputActorId' label={t('case:form-actorId') + ' *'} value={this.state.actorId} onChange={this.onActorIdChange.bind(this)}/>
+                        <div>&nbsp;</div>
+                        <Nav.HjelpetekstBase id='rinaId'>{t('case:help-rinaId')}</Nav.HjelpetekstBase>
+                        <Nav.Input className='getCaseInputActorId' label={t('case:form-rinaId')} value={this.state.rinaId} onChange={this.onRinaIdChange.bind(this)}/>
                     </Nav.Column>
                 </Nav.Row>
             </div>

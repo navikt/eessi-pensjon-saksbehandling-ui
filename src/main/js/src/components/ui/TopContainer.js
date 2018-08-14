@@ -12,8 +12,8 @@ import * as uiActions from '../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
-        modalOpen: state.ui.modalOpen,
-        modal    : state.ui.modal
+        modalOpen : state.ui.modalOpen,
+        modal     : state.ui.modal
     }
 };
 
@@ -65,7 +65,6 @@ TopContainer.propTypes = {
     style     : PT.object,
     modalOpen : PT.bool.isRequired,
     modal     : PT.object
-
 };
 
 export default connect(

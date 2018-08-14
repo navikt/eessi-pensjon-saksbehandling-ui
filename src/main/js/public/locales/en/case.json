@@ -16,6 +16,7 @@
     "form-step3" : "Generate case",
     "form-step4" : "Create case",
     "form-subjectArea": "Subject area",
+    "form-rinaId" : "Rina ID",
 
     "app-createNewCase"          : "Create new case",
     "app-confirmCaseTitle"       : "Create EU Documents (SED) - Confirm case",
@@ -40,6 +41,7 @@
     "alert-noSubjectAreaList" : "No subject area list",
 
     "help-actorId"     : "Help for actorId",
+    "help-rinaId"      : "Help for rinaId",
     "help-buc"         : "Help for buc",
     "help-caseId"      : "Help for caseId",
     "help-country"     : "Help for country",

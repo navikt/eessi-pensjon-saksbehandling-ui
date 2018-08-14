@@ -15,6 +15,7 @@
     "form-step3" : "Genererer saken",
     "form-step4" : "Lagrer saken",
     "form-subjectArea": "Fagområde",
+    "form-rinaId" : "Rina ID",
 
     "app-createNewCase"          : "Opprett ny sak",
     "app-confirmCaseTitle"       : "Opprett EU/EØS dokument (SED) - Bekrefte sak",
@@ -39,6 +40,7 @@
     "alert-noSubjectAreaList" : "Ingen fagområde liste",
 
     "help-actorId"     : "Hjelpe til Pin ID",
+    "help-rinaId"      : "Hjelpe til RinaId",
     "help-buc"         : "Hjelpe til BUC",
     "help-caseId"      : "Hjelpe til saks ID",
     "help-country"     : "Hjelpe til land",

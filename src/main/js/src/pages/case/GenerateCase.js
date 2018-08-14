@@ -96,7 +96,7 @@ class GenerateCase extends Component {
             <Nav.Row className='mb-4'>
                 <Nav.Column>
                     <h1 className='mb-3 appTitle'>
-                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
+                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={this.backToMenu.bind(this)}/>
                         {t('case:app-generateCaseTitle')}
                     </h1>
                     <h4>{t('case:app-generateCaseDescription')}</h4>

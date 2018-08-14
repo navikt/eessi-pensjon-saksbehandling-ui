@@ -43,7 +43,11 @@ class ConfirmCase extends Component {
 
     componentDidUpdate() {
 
-        const { history, dataToGenerate, action } = this.props;
+        const { history, dataToGenerate, dataToConfirm, action } = this.props;
+
+        if (!dataToConfirm) {
+            history.push('/');
+        }
 
         if (dataToGenerate && action === 'forward') {
             history.push('/react/case/generate');
@@ -85,17 +89,13 @@ class ConfirmCase extends Component {
 
         const { t, history, dataToConfirm, generatingCase } = this.props;
 
-        if (!dataToConfirm) {
-            return <TopContainer/>
-        }
-
         let buttonText = generatingCase ? t('case:loading-generatingCase') : t('ui:confirmAndGenerate');
 
         return <TopContainer className='case topContainer'>
             <Nav.Row className='mb-4'>
                 <Nav.Column>
                     <h1 className='mb-3 appTitle'>
-                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
+                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={this.backToMenu.bind(this)}/>
                         {t('case:app-confirmCaseTitle')}
                     </h1>
                     <h4>{t('case:app-confirmCaseDescription')}</h4>
