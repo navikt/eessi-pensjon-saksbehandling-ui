@@ -21,9 +21,7 @@ const mapStateToProps = (state) => {
         events   : state.p4000.events,
         editMode : state.p4000.editMode,
         event    : state.p4000.event,
-        page     : state.p4000.page,
-        modalOpen: state.ui.modalOpen,
-        modal    : state.ui.modal
+        page     : state.p4000.page
     }
 };
 
@@ -66,22 +64,9 @@ class P4000 extends Component {
         actions.setPage(newPage);
     }
 
-
-    closeModal() {
-
-        const { actions } = this.props;
-        actions.closeModal();
-    }
-
-    openModal(modal) {
-
-        const { actions } = this.props;
-        actions.openModal(modal);
-    }
-
     render() {
 
-        const { t, editMode, event, page, history, modalOpen, modal } = this.props;
+        const { t, editMode, event, page, history } = this.props;
 
         if (!this.state.isLoaded) {
             return null;
@@ -91,22 +76,7 @@ class P4000 extends Component {
         let Component   = components[activeItem];
         let isEventPage = activeItem !== 'view' && activeItem !== 'new' && activeItem !== 'file';
 
-        return <TopContainer className='topContainer'>
-            <Nav.Modal isOpen={modalOpen}
-                onRequestClose={this.closeModal.bind(this)}
-                closeButton={false}
-                contentLabel='contentLabel'>
-                {modal ? <div>
-                    <div className='m-3 text-center'><h4>{modal.modalTitle}</h4></div>
-                    <div className='m-4 text-center'>{modal.modalText}</div>
-                    <div className='text-center'>{modal.modalButtons.map(button => {
-                        return button.main ?
-                            <Nav.Hovedknapp className='mr-3 mb-3' key={button.text} onClick={button.onClick.bind(this)}>{button.text}</Nav.Hovedknapp>
-                            : <Nav.Knapp className='mr-3 mb-3' key={button.text} onClick={button.onClick.bind(this)}>{button.text}</Nav.Knapp>
-                    })}
-                    </div>
-                </div>  : null}
-            </Nav.Modal>
+        return <TopContainer className='p4000 topContainer'>
             <Nav.Row>
                 <div className='col-md-5 col-lg-4'>
                     <h1 className='mt-4 ml-3 mb-3 appTitle'>
@@ -140,9 +110,7 @@ P4000.propTypes = {
     events       : PT.array.isRequired,
     editMode     : PT.bool,
     event        : PT.object,
-    actions      : PT.object.isRequired,
-    modalOpen    : PT.bool.isRequired,
-    modal        : PT.object
+    actions      : PT.object.isRequired
 };
 
 export default connect(

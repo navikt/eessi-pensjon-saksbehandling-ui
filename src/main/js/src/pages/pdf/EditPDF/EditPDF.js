@@ -40,10 +40,6 @@ const mapDispatchToProps = (dispatch) => {
 
 class EditPDF extends Component {
 
-    state = {
-        modalOpen: false
-    }
-
     componentDidMount() {
 
         const { history, pdfs } = this.props;
@@ -71,34 +67,34 @@ class EditPDF extends Component {
 
     onForwardButtonClick() {
 
-        const { t, recipe } = this.props;
+        const { t, recipe, actions } = this.props;
 
         if (this.hasOnlyEmptyArrays(recipe)) {
 
-            this.setState({
+             actions.openModal({
                 modalOpen: true,
                 modalTitle: t('pdf:recipe-empty-title'),
                 modalText: t('pdf:recipe-empty-text'),
                 modalButtons: [{
                     main: true,
                     text: t('ui:ok-got-it'),
-                    onClick: this.closeModal
+                    onClick: this.closeModal.bind(this)
                 }]
             });
 
         } else {
 
-            this.setState({
+            actions.openModal({
                 modalOpen: true,
                 modalTitle: t('pdf:recipe-valid-title'),
                 modalText: t('pdf:recipe-valid-text'),
                 modalButtons: [{
                     main: true,
                     text: t('ui:yes') + ', ' + t('ui:generate'),
-                    onClick: this.goToGenerate
+                    onClick: this.goToGenerate.bind(this)
                 },{
                     text: t('ui:cancel'),
-                    onClick: this.closeModal
+                    onClick: this.closeModal.bind(this)
                 }]
             });
         }
@@ -108,6 +104,7 @@ class EditPDF extends Component {
 
         const { history, actions } = this.props;
 
+        actions.closeModal();
         actions.navigateForward();
         history.push('/react/pdf/generate');
     }
@@ -116,13 +113,17 @@ class EditPDF extends Component {
 
         const { actions } = this.props;
 
-        if (!index) {return;}
+        if (!index) {
+            return;
+        }
         actions.setActiveDnDTarget(index);
     }
 
     closeModal() {
 
-        this.setState({modalOpen: false});
+        const { actions } = this.props;
+
+        actions.closeModal();
     }
 
     render() {
@@ -132,19 +133,6 @@ class EditPDF extends Component {
         let alert = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
 
         return <TopContainer className='topContainer'>
-            <Nav.Modal isOpen={this.state.modalOpen}
-                onRequestClose={this.closeModal.bind(this)}
-                closeButton={false}
-                contentLabel='contentLabel'>
-                <div className='m-3 text-center'><h4>{this.state.modalTitle}</h4></div>
-                <div className='m-4 text-center'>{this.state.modalText}</div>
-                <div className='text-center'>{this.state.modalButtons ? this.state.modalButtons.map(button => {
-                    return button.main ?
-                        <Nav.Hovedknapp className='mr-3 mb-3' key={button.text} onClick={button.onClick.bind(this)}>{button.text}</Nav.Hovedknapp>
-                        : <Nav.Knapp className='mr-3 mb-3' key={button.text} onClick={button.onClick.bind(this)}>{button.text}</Nav.Knapp>
-                }) : null}
-                </div>
-            </Nav.Modal>
             <Nav.Row>
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('pdf:help-edit-pdf')}</Nav.HjelpetekstBase>

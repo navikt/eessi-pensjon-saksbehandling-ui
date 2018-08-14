@@ -74,6 +74,14 @@ class GenerateCase extends Component {
         });
     }
 
+    backToMenu () {
+
+        const { history, actions }  = this.props;
+
+        actions.clearData();
+        history.push('/');
+    }
+
     render() {
 
         const { t, history, dataToGenerate, dataToConfirm, sendingCase } = this.props;

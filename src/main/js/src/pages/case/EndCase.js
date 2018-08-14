@@ -44,6 +44,14 @@ class EndCase extends Component {
         history.push('/react/case/get');
     }
 
+    backToMenu () {
+
+        const { history, actions }  = this.props;
+
+        actions.clearData();
+        history.push('/');
+    }
+
     render() {
 
         let { t, history, dataSubmitted, rinaLoading, rinaUrl } = this.props;

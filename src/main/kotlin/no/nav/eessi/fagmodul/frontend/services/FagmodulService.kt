@@ -54,13 +54,13 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
         val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, String::class.java)
 
         val euxCaseID = response.body ?: throw IllegalArgumentException("Ingen EUXcaseid mottatt. feil ved opprettelse av SED (eux basis)")
-        return euxCaseID
+        return
     }
 
     fun confirm(frontRequest: FrontendRequest): String {
         logger.debug("create reqeust to fagmodul : $frontRequest")
         val path = "/confirm"
-
+        euxCaseID
         val builder = UriComponentsBuilder.fromPath("$FAG_PATH$path")
         val httpEntity = HttpEntity(frontRequest, HttpHeaders())
 

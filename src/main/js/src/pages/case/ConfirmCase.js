@@ -73,6 +73,14 @@ class ConfirmCase extends Component {
         });
     }
 
+    backToMenu () {
+
+        const { history, actions }  = this.props;
+
+        actions.clearData();
+        history.push('/');
+    }
+
     render() {
 
         const { t, history, dataToConfirm, generatingCase } = this.props;

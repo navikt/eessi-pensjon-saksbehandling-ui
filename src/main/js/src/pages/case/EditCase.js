@@ -445,6 +445,14 @@ class EditCase extends Component {
                this.state.sed;
     }
 
+    backToMenu () {
+
+        const { history, actions }  = this.props;
+
+        actions.clearData();
+        history.push('/');
+    }
+
     render() {
 
         const { t, history, currentCase, action, loading } = this.props;
@@ -457,7 +465,8 @@ class EditCase extends Component {
             <Nav.Row className='mb-4'>
                 <Nav.Column>
                     <h1 className='mb-3 appTitle'>
-                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
+                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft'
+                            onClick={this.backToMenu.bind(this)}/>
                         {t('case:app-editCaseTitle')}
                     </h1>
                     <h4>{t('case:app-editCaseDescription')}</h4>
@@ -472,23 +481,23 @@ class EditCase extends Component {
             <div className='fieldset p-4 mb-4 ml-3 mr-3'>
                 <Nav.Row className='mb-3 align-middle text-left'>
                     <Nav.Column>{this.renderSubjectArea()}</Nav.Column>
-                    <Nav.Column>
-                        <Nav.HjelpetekstBase id='subjectArea'>{t('case:help-subjectArea')}</Nav.HjelpetekstBase>
+                    <Nav.Column className='selectBoxMessage'>
                         <div className='d-inline-block'>{loading && loading.subjectAreaList ? this.getSpinner('case:loading-subjectArea'): null}</div>
+                        <Nav.HjelpetekstBase id='subjectArea'>{t('case:help-subjectArea')}</Nav.HjelpetekstBase>
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mb-3 align-middle text-left'>
                     <Nav.Column>{this.renderBuc()}</Nav.Column>
-                    <Nav.Column>
-                        <Nav.HjelpetekstBase id='buc' type='under'>{t('case:help-buc')}</Nav.HjelpetekstBase>
+                    <Nav.Column className='selectBoxMessage'>
                         <div className='d-inline-block'>{loading && loading.bucList ? this.getSpinner('case:loading-buc') : null}</div>
+                        <Nav.HjelpetekstBase id='buc' type='under'>{t('case:help-buc')}</Nav.HjelpetekstBase>
                     </Nav.Column>
                 </Nav.Row>
-                <Nav.Row className='mb-1 align-middle text-left'>
+                <Nav.Row className='align-middle text-left'>
                     <Nav.Column>{this.renderSed()}</Nav.Column>
-                    <Nav.Column>
-                        <Nav.HjelpetekstBase id='sed' type='under'>{t('case:help-sed')}</Nav.HjelpetekstBase>
+                    <Nav.Column className='selectBoxMessage'>
                         <div className='d-inline-block'>{loading && loading.sedList ? this.getSpinner('case:loading-sed') : null}</div>
+                        <Nav.HjelpetekstBase id='sed' type='under'>{t('case:help-sed')}</Nav.HjelpetekstBase>
                     </Nav.Column>
                 </Nav.Row>
             </div>
