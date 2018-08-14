@@ -34,7 +34,7 @@ class ClientAlert extends Component {
 
         // after 5 seconds, if the client alert is still not an error, then clear it
         if (clientErrorStatus !== 'ERROR') {
-                actions.clientClear();
+            actions.clientClear();
         }
     }
 
@@ -66,9 +66,13 @@ class ClientAlert extends Component {
 
     render () {
 
-        let { t, clientErrorStatus, clientErrorMessage, className } = this.props;
+        let { t, clientErrorStatus, clientErrorMessage, permanent, className } = this.props;
 
-        if (!clientErrorMessage) { return null }
+        if (!clientErrorMessage) {
+            return permanent ? <Nav.AlertStripe type={'suksess'}
+                className={classNames(className, 'clientAlert', 'm-4')}
+                style={{opacity: 0}}/> : null
+        }
 
         this.handleTimeouts();
 
@@ -80,7 +84,7 @@ class ClientAlert extends Component {
         } else {
             message = t(clientErrorMessage);
         }
-        return <Nav.AlertStripe className={classNames(className, 'clientAlert', 'mb-3', {'toFade' : clientErrorStatus === 'OK'})}
+        return <Nav.AlertStripe className={classNames(className, 'clientAlert', 'm-4', {'toFade' : clientErrorStatus === 'OK'})}
             type={clientErrorStatus === 'OK' ? 'suksess' : 'advarsel'}>
             {message}
         </Nav.AlertStripe>;
@@ -89,6 +93,7 @@ class ClientAlert extends Component {
 
 ClientAlert.propTypes = {
     t                  : PT.func.isRequired,
+    permanent          : PT.bool,
     clientErrorStatus  : PT.string,
     clientErrorMessage : PT.string,
     actions            : PT.object.isRequired,

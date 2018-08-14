@@ -4,15 +4,10 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 
-import StepIndicator from '../../components/case/StepIndicator';
+import Case from './Case';
 import * as Nav from '../../components/ui/Nav';
-import TopContainer from '../../components/ui/TopContainer';
-import Icons from '../../components/ui/Icons';
-import ClientAlert from '../../components/ui/Alert/ClientAlert';
 
 import * as usercaseActions from '../../actions/usercase';
-
-import './case.css';
 
 const mapStateToProps = (state) => {
     return {
@@ -44,14 +39,6 @@ class EndCase extends Component {
         history.push('/react/case/get');
     }
 
-    backToMenu () {
-
-        const { history, actions }  = this.props;
-
-        actions.clearData();
-        history.push('/');
-    }
-
     render() {
 
         let { t, history, dataSubmitted, rinaLoading, rinaUrl } = this.props;
@@ -68,22 +55,9 @@ class EndCase extends Component {
             }
         }
 
-        return <TopContainer className='case topContainer'>
-            <Nav.Row className='mb-4'>
-                <Nav.Column>
-                    <h1 className='mb-3 appTitle'>
-                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={this.backToMenu.bind(this)}/>
-                        {t('case:app-endCaseTitle')}
-                    </h1>
-                    <h4>{t('case:app-endCaseDescription')}</h4>
-                </Nav.Column>
-            </Nav.Row>
-            <Nav.Row className='mb-4'>
-                <Nav.Column>
-                    <ClientAlert className='mb-3'/>
-                    <StepIndicator activeStep={3}/>
-                </Nav.Column>
-            </Nav.Row>
+        return <Case className='endCase'
+            title='case:app-endCaseTitle' description='case:app-endCaseDescription'
+            stepIndicator={3} history={history}>
             <div className='fieldset p-4 mb-4 ml-3 mr-3'>
                 <Nav.Row>
                     <Nav.Column className='endCase'>
@@ -96,7 +70,7 @@ class EndCase extends Component {
                     <Nav.Hovedknapp className='mr-3 forwardButton' onClick={this.onForwardButtonClick.bind(this)}>{t('ui:createNew')}</Nav.Hovedknapp>
                 </Nav.Column>
             </Nav.Row>
-        </TopContainer>;
+        </Case>;
     }
 }
 

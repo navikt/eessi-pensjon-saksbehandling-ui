@@ -4,17 +4,12 @@ import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 
-import StepIndicator from '../../components/case/StepIndicator';
+import Case from './Case';
 import * as Nav from '../../components/ui/Nav';
-import TopContainer from '../../components/ui/TopContainer';
 import RenderGeneratedData from '../../components/case/RenderGeneratedData';
-import Icons from '../../components/ui/Icons';
-import ClientAlert from '../../components/ui/Alert/ClientAlert';
 
 import * as usercaseActions from '../../actions/usercase';
 import * as uiActions from '../../actions/ui';
-
-import './case.css';
 
 const mapStateToProps = (state) => {
     return {
@@ -61,25 +56,25 @@ class GenerateCase extends Component {
 
     onForwardButtonClick() {
 
-        const { actions, dataToConfirm, dataToGenerate } = this.props;
+        const { actions, dataToConfirm } = this.props;
 
-        actions.navigateForward();
-        actions.submitData({
+        let payload = {
             subjectArea   : dataToConfirm.subjectArea,
             caseId        : dataToConfirm.caseId,
             actorId       : dataToConfirm.actorId,
+            euxCaseId     : dataToConfirm.rinaId,
             buc           : dataToConfirm.buc,
             sed           : dataToConfirm.sed,
             institutions  : dataToConfirm.institutions
-        });
-    }
+        }
 
-    backToMenu () {
+        actions.navigateForward();
 
-        const { history, actions }  = this.props;
-
-        actions.clearData();
-        history.push('/');
+        if (payload.euxCaseId) {
+            actions.createSed(payload);
+        } else {
+            actions.addToSed(payload);
+        }
     }
 
     render() {
@@ -87,27 +82,21 @@ class GenerateCase extends Component {
         const { t, history, dataToGenerate, dataToConfirm, sendingCase } = this.props;
 
         if (!dataToGenerate) {
-            return <TopContainer/>
+            return  <Case className='generateCase'
+                title='case:app-generateCaseTitle' description='case:app-generateCaseDescription'
+                stepIndicator={2} history={history}>
+                <div className='w-100 text-center'>
+                    <Nav.NavFrontendSpinner/>
+                    <p>{t('case:loading-generatingCase')}</p>
+                </div>
+            </Case>
         }
 
         let buttonText = sendingCase ? t('case:loading-sendingCase') : t('ui:confirmAndSend');
 
-        return <TopContainer className='case topContainer'>
-            <Nav.Row className='mb-4'>
-                <Nav.Column>
-                    <h1 className='mb-3 appTitle'>
-                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={this.backToMenu.bind(this)}/>
-                        {t('case:app-generateCaseTitle')}
-                    </h1>
-                    <h4>{t('case:app-generateCaseDescription')}</h4>
-                </Nav.Column>
-            </Nav.Row>
-            <Nav.Row className='mb-4 text-center'>
-                <Nav.Column>
-                    <ClientAlert className='mb-3'/>
-                    <StepIndicator activeStep={2}/>
-                </Nav.Column>
-            </Nav.Row>
+        return <Case className='generateCase'
+            title='case:app-generateCaseTitle' description='case:app-generateCaseDescription'
+            stepIndicator={2} history={history}>
             <div className='fieldset p-4 mb-4 ml-3 mr-3'>
                 <Nav.Row>
                     <Nav.Column>
@@ -123,9 +112,8 @@ class GenerateCase extends Component {
                     <Nav.Hovedknapp className='w-100 forwardButton' disabled={sendingCase} spinner={sendingCase} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
                 </Nav.Column>
             </Nav.Row>
-        </TopContainer>;
+        </Case>;
     }
-
 }
 
 GenerateCase.propTypes = {

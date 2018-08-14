@@ -6,14 +6,11 @@ describe('Selenium PDF create', () => {
 
     before(function(done) {
 
-        this.suiteContext = {
-            name: 'pdf',
-            frontPageButtonClass: '.pdfLink'
-        };
+        this.suiteContext = 'pdf';
 
         _.driver.navigate().to(
             _.urls[process.env.NODE_ENV] || 'test')
-         .then(() => done())
+            .then(() => done())
     });
 
     ///////// LOGIN PAGE ////////////
@@ -34,27 +31,28 @@ describe('Selenium PDF create', () => {
 
         it('Waiting until selectPDF loads...', async function () {
 
-            await _.driver.wait(_.until.elementLocated(_.By.css('.nav-fileUpload')));
-            await _.driver.wait(_.until.elementLocated(_.By.css('button.forwardButton')));
-            await _.driver.wait(_.until.elementLocated(_.By.css('.nav-fileUpload .dropzone')));
-            forwardButton = await _.driver.findElement(_.By.css('button.forwardButton'));
+            await _.elementLoads('.nav-fileUpload');
+            await _.elementLoads('button.forwardButton');
+            await _.elementLoads('.nav-fileUpload .dropzone');
+            forwardButton = await _.getElement('button.forwardButton');
+
             _.expect(!(await forwardButton.isEnabled()));
         });
 
         it('Upload file', async function () {
 
-            let fileUpload = await _.driver.findElement(_.By.css('.nav-fileUpload .dropzone'));
+            let fileUpload = await _.getElement('.nav-fileUpload .dropzone');
             fileUpload.click();
-          //  await caseId.sendKeys('notvalid');
-          //  expect(await forwardButton.isEnabled());
+
+           // it should load files from joark
         });
 
     });
 
     after(function(done) {
 
-        _.driver.quit()
-            .then(() => done());
+      //  _.driver.quit()
+      //      .then(() => done());
     });
 });
 

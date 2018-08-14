@@ -1,5 +1,3 @@
-/* global describe, before, after, it */
-
 const webdriver = require('selenium-webdriver');
 const chai = require('chai');
 
@@ -11,25 +9,25 @@ const driver = new webdriver.Builder()
     .build();
 
 const urls = {
-    'test' : 'localhost:8080',
+    'test'        : 'localhost:8080',
     'development' : 'localhost:3000',
-    'production' : 'localhost:8080'
+    'production'  : 'localhost:8080'
 };
 
-const params = {
-    login: {
-        'username' : 'srvPensjon',
-        'password' : 'Ash5SoxP'
-    },
-    caseId  : '123',
-    actorId : '1000027223724'
-};
+let elementLoads = async function (cssPattern) {
+    return await driver.wait(webdriver.until.elementLocated(webdriver.By.css(cssPattern)));
+}
 
-exports.chai = chai;
-exports.assert = chai.assert;
-exports.driver = driver;
-exports.expect = chai.expect;
-exports.urls = urls;
-exports.until = webdriver.until;
-exports.By = webdriver.By;
-exports.params = params;
+let getElement = async function (cssPattern, parentEl) {
+    return await driver.findElement(webdriver.By.css(cssPattern, parentEl));
+}
+
+module.exports = {
+    assert : chai.assert,
+    driver : driver,
+    expect : chai.expect,
+    urls   : urls,
+    elementLoads : elementLoads,
+    getElement   : getElement
+
+}

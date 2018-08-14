@@ -31,22 +31,22 @@ class PDFPageInDnD extends Component {
 
      closePreview() {
 
-          const { actions } = this.props;
+         const { actions } = this.props;
 
-          actions.closeModal();
+         actions.closeModal();
      }
 
      openPreview(pdf, pageNumber) {
 
-        const { actions } = this.props;
+         const { actions } = this.props;
 
-        actions.openModal({
-            content: <div style={{cursor: 'pointer'}} onClick={this.closePreview.bind(this)}>
-                  <Document className='document' file={{data: pdf.data }}>
-                      <Page className='bigpage' width={600} renderMode='svg' pageNumber={pageNumber}/>
-                  </Document>
-              </div>
-        })
+         actions.openModal({
+             content: <div style={{cursor: 'pointer'}} onClick={this.closePreview.bind(this)}>
+                 <Document className='document' file={{data: pdf.data }}>
+                     <Page className='bigpage' width={600} renderMode='svg' pageNumber={pageNumber}/>
+                 </Document>
+             </div>
+         })
      }
 
      addPageToTargetPdf(name, pageNumber) {

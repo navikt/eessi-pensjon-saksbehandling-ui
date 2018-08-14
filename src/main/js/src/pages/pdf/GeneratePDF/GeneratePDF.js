@@ -91,27 +91,27 @@ class GeneratePDF extends Component {
             <Nav.Row className='mt-4 text-left'>
                 <Nav.Column>
                     {generatingPDF ? <div className='w-100 text-center'>
-                      <Nav.NavFrontendSpinner/>
-                     <p>{t('pdf:loading-generatingPDF')}</p>
+                        <Nav.NavFrontendSpinner/>
+                        <p>{t('pdf:loading-generatingPDF')}</p>
                     </div> : (generatedPDFs ? <div>
                         {Object.keys(generatedPDFs).map(key => {
-                          let pdf = generatedPDFs[key];
-                          return <div className='fieldset p-2 mb-3 w-100'>
-                              <Nav.Row>
-                                  <Nav.Column>
-                                      <MiniaturePDF pdf={pdf}/>
-                                  </Nav.Column>
-                                  <Nav.Column className='text-right'>
-                                      <a className='hiddenLink' ref={item => this[key] = item}
-                                          onClick={(e) => e.stopPropagation()} title={t('ui:download')}
-                                          href={'data:application/octet-stream;base64,' + encodeURIComponent(pdf.base64)}
-                                          download={pdf.name}>{t('ui:download')}</a>
-                                      <Nav.Knapp className='downloadButton' onClick={() => this[key].click()}>{t('ui:download')}</Nav.Knapp>
-                                  </Nav.Column>
-                              </Nav.Row>
-                          </div>
-                     })}
-                  </div> : null)}
+                            let pdf = generatedPDFs[key];
+                            return <div key={key} className='fieldset p-2 mb-3 w-100'>
+                                <Nav.Row>
+                                    <Nav.Column>
+                                        <MiniaturePDF pdf={pdf}/>
+                                    </Nav.Column>
+                                    <Nav.Column className='text-right'>
+                                        <a className='hiddenLink' ref={item => this[key] = item}
+                                            onClick={(e) => e.stopPropagation()} title={t('ui:download')}
+                                            href={'data:application/octet-stream;base64,' + encodeURIComponent(pdf.base64)}
+                                            download={pdf.name}>{t('ui:download')}</a>
+                                        <Nav.Knapp className='downloadButton' onClick={() => this[key].click()}>{t('ui:download')}</Nav.Knapp>
+                                    </Nav.Column>
+                                </Nav.Row>
+                            </div>
+                        })}
+                    </div> : null)}
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className='mt-4'>

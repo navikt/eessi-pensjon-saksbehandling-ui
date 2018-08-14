@@ -12,7 +12,8 @@ export const CASE_GET_BUC_LIST_URL          = BASE_URL + '/api/bucs';
 export const CASE_GET_SED_LIST_URL          = BASE_URL + '/api/seds';
 export const CASE_GET_COUNTRY_LIST_URL      = BASE_URL + '/api/countrycode';
 export const CASE_GET_RINA_URL              = BASE_URL + '/api/rinaurl';
-export const CASE_SEND_DATA_URL             = BASE_URL + '/fag/addsed';
+export const CASE_CREATE_SED_URL            = BASE_URL + '/fag/create';
+export const CASE_ADD_TO_SED_URL            = BASE_URL + '/fag/addsed';
 export const CASE_GENERATE_DATA_URL         = BASE_URL + '/fag/confirm';
 
 export const PDF_GENERATE_URL               = BASE_URL + '/api/generatePDF';

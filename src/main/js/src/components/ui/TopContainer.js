@@ -64,7 +64,8 @@ TopContainer.propTypes = {
     className : PT.string,
     style     : PT.object,
     modalOpen : PT.bool.isRequired,
-    modal     : PT.object
+    modal     : PT.object,
+    actions   : PT.object.isRequired
 };
 
 export default connect(

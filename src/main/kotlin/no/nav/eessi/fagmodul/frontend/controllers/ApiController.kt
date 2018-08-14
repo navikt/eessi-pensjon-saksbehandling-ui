@@ -30,6 +30,14 @@ class ApiController(private val euxService: EuxService, private val fagService: 
         return rinaUrl
     }
 
+    @GetMapping("/case/{caseid}/{actorid}/{rinaid}", produces = [MediaType.APPLICATION_JSON_VALUE])
+    fun validateCaseNumberWithRinaID(@PathVariable caseid: String, @PathVariable actorid: String, @PathVariable rinaid: String): ResponseEntity<Map<String, String>> {
+        if (matches("\\d+", caseid) && matches("\\d+", actorid) && matches("\\d+", rinaid)) {
+            return ResponseEntity.ok(mapOf("casenumber" to caseid, "pinid" to actorid, "rinaid" to rinaid))
+        }
+        return ResponseEntity.badRequest().body(mapOf("serverMessage" to "invalidCase"))
+    }
+
     @GetMapping("/case/{caseid}/{actorid}", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun validateCaseNumber(@PathVariable caseid: String, @PathVariable actorid: String): ResponseEntity<Map<String, String>> {
         if (matches("\\d+", caseid) && matches("\\d+", actorid)) {

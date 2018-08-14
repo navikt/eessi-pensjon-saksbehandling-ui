@@ -70,7 +70,7 @@ class EditPDF extends Component {
 
         if (this.hasOnlyEmptyArrays(recipe)) {
 
-             actions.openModal({
+            actions.openModal({
                 modalTitle: t('pdf:recipe-empty-title'),
                 modalText: t('pdf:recipe-empty-text'),
                 modalButtons: [{

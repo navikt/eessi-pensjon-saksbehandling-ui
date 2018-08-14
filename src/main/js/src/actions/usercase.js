@@ -123,15 +123,28 @@ export function generateData (params) {
     });
 }
 
-export function submitData (params) {
+export function createSed (params) {
     return api.call({
-        url: urls.CASE_SEND_DATA_URL,
+        url: urls.CASE_CREATE_SED_URL,
         method: 'POST',
         payload: params,
         type: {
-            request : types.USERCASE_SEND_DATA_REQUEST,
-            success : types.USERCASE_SEND_DATA_SUCCESS,
-            failure : types.USERCASE_SEND_DATA_FAILURE
+            request : types.USERCASE_CREATE_SED_REQUEST,
+            success : types.USERCASE_CREATE_SED_SUCCESS,
+            failure : types.USERCASE_CREATE_SED_FAILURE
+        }
+    });
+}
+
+export function addToSed (params) {
+    return api.call({
+        url: urls.CASE_ADD_TO_SED_URL,
+        method: 'POST',
+        payload: params,
+        type: {
+            request : types.USERCASE_ADD_TO_SED_REQUEST,
+            success : types.USERCASE_ADD_TO_SED_SUCCESS,
+            failure : types.USERCASE_ADD_TO_SED_FAILURE
         }
     });
 }

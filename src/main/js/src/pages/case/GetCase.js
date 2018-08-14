@@ -4,15 +4,11 @@ import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 
+import Case from './Case';
 import * as Nav from '../../components/ui/Nav';
-import Icons from '../../components/ui/Icons';
-import TopContainer from '../../components/ui/TopContainer';
-import ClientAlert from '../../components/ui/Alert/ClientAlert';
 
 import * as usercaseActions from '../../actions/usercase';
 import * as uiActions from '../../actions/ui';
-
-import './case.css';
 
 const mapStateToProps = (state) => {
     return {
@@ -74,31 +70,16 @@ class GetCase extends Component {
         return !this.state.caseId || !this.state.actorId || this.props.gettingCase;
     }
 
-    backToMenu () {
-
-        const { history, actions }  = this.props;
-
-        actions.clearData();
-        history.push('/');
-    }
-
     render() {
 
-        const { t, history, gettingCase } = this.props;
+        const { t, gettingCase, history } = this.props;
 
         let buttonText = gettingCase ? t('case:loading-gettingCase') : t('ui:search');
 
-        return <TopContainer className='case getcase topContainer'>
-            <Nav.Row className='mb-4'>
-                <Nav.Column>
-                    <h1 className='mb-3 appTitle'>
-                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={this.backToMenu.bind(this)}/>
-                        {t('case:app-getCaseTitle')}
-                    </h1>
-                    <h4 className='mb-3'>{t('case:app-getCaseDescription')}</h4>
-                    <ClientAlert/>
-                </Nav.Column>
-            </Nav.Row>
+        return <Case className='getcase'
+            title='case:app-getCaseTitle'
+            description='case:app-getCaseDescription'
+            history={history}>
             <div className='fieldset p-4 m-4'>
                 <Nav.Row>
                     <Nav.Column>
@@ -109,7 +90,7 @@ class GetCase extends Component {
                         <Nav.Input className='getCaseInputActorId' label={t('case:form-actorId') + ' *'} value={this.state.actorId} onChange={this.onActorIdChange.bind(this)}/>
                         <div>&nbsp;</div>
                         <Nav.HjelpetekstBase id='rinaId'>{t('case:help-rinaId')}</Nav.HjelpetekstBase>
-                        <Nav.Input className='getCaseInputActorId' label={t('case:form-rinaId')} value={this.state.rinaId} onChange={this.onRinaIdChange.bind(this)}/>
+                        <Nav.Input className='getCaseInputRinaId' label={t('case:form-rinaId')} value={this.state.rinaId} onChange={this.onRinaIdChange.bind(this)}/>
                     </Nav.Column>
                 </Nav.Row>
             </div>
@@ -122,7 +103,7 @@ class GetCase extends Component {
                         onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
                 </Nav.Column>
             </Nav.Row>
-        </TopContainer>
+        </Case>
     }
 }
 

@@ -119,11 +119,11 @@ describe('Selenium PDF create', () => {
 
         it('Upload file', async function () {
             fileUpload.click();
-          //  await caseId.sendKeys('notvalid');
-          //  expect(await forwardButton.isEnabled());
+            //  await caseId.sendKeys('notvalid');
+            //  expect(await forwardButton.isEnabled());
         });
 
-      /*  it('Submitting invalid case...', async function () {
+        /*  it('Submitting invalid case...', async function () {
 
             await forwardButton.click();
             await driver.wait(until.elementLocated(By.css('div.alertstripe')));

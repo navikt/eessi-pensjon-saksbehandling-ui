@@ -11,6 +11,7 @@ class RenderConfirmData extends Component {
         return <div className='confirmData'>
             <div><b>{t('case:form-caseId')}</b>{': '}{dataToConfirm.caseId}</div>
             <div><b>{t('case:form-actorId')}</b>{': '}{dataToConfirm.actorId}</div>
+            <div><b>{t('case:form-rinaId')}</b>{': '}{dataToConfirm.rinaId}</div>
             <div><b>{t('case:form-subjectArea')}</b>{': '}{dataToConfirm.subjectArea}</div>
             <div><b>{t('case:form-buc')}</b>{': '}{dataToConfirm.buc}</div>
             <div><b>{t('case:form-sed')}</b>{': '}{dataToConfirm.sed}</div>

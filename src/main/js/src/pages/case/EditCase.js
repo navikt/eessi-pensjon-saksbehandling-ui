@@ -5,16 +5,11 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import { translate } from 'react-i18next';
 
-import StepIndicator from '../../components/case/StepIndicator';
+import Case from './Case';
 import * as Nav from '../../components/ui/Nav';
-import TopContainer from '../../components/ui/TopContainer';
-import Icons from '../../components/ui/Icons';
-import ClientAlert from '../../components/ui/Alert/ClientAlert';
 
 import * as usercaseActions from '../../actions/usercase';
 import * as uiActions from '../../actions/ui';
-
-import './case.css';
 
 const mapStateToProps = (state) => {
     return {
@@ -57,9 +52,11 @@ class EditCase extends Component {
         if (_.isEmpty(currentCase)) {
             let caseId = match.params.caseid;
             let actorId = match.params.actorid;
+            let rinaId = match.params.rinaid;
             actions.getCaseFromCaseNumber({
                 caseId  : caseId,
-                actorId : actorId
+                actorId : actorId,
+                rinaId : rinaId
             });
         }
 
@@ -127,7 +124,8 @@ class EditCase extends Component {
                 'sed'          : this.state.sed,
                 'subjectArea'  : this.state.subjectArea,
                 'caseId'       : currentCase.casenumber,
-                'actorId'      : currentCase.pinid
+                'actorId'      : currentCase.pinid,
+                'rinaId'       : currentCase.rinaid
             });
         }
     }
@@ -412,16 +410,16 @@ class EditCase extends Component {
         renderedInstitutions.push(<Nav.Row key={'newInstitution'} className='mb-4'>
             <Nav.Column className='col-sm'>
                 <div>{this.renderCountry()}</div>
-                <div className='mb-3'>
+                <div className='mb-3 selectBoxMessage'>
+                    <div>{loading && loading.countryList ? this.getSpinner('case:loading-country'): null}</div>
                     <Nav.HjelpetekstBase id='country'>{t('case:help-country')}</Nav.HjelpetekstBase>
-                    <div className='d-inline-block'>{loading && loading.countryList ? this.getSpinner('case:loading-country'): null}</div>
                 </div>
             </Nav.Column>
             <Nav.Column className='col-sm'>
                 <div>{this.renderInstitution()}</div>
-                <div className='mb-3'>
+                <div className='mb-3 selectBoxMessage'>
+                    <div>{loading && loading.institutionList ? this.getSpinner('case:loading-institution'): null}</div>
                     <Nav.HjelpetekstBase id='institution'>{t('case:help-institution')}</Nav.HjelpetekstBase>
-                    <div className='d-inline-block'>{loading && loading.institutionList ? this.getSpinner('case:loading-institution'): null}</div>
                 </div>
             </Nav.Column>
             <Nav.Column className='col-sm' style={{lineHeight: '6rem'}}>
@@ -445,38 +443,24 @@ class EditCase extends Component {
                this.state.sed;
     }
 
-    backToMenu () {
-
-        const { history, actions }  = this.props;
-
-        actions.clearData();
-        history.push('/');
-    }
-
     render() {
 
         const { t, history, currentCase, action, loading } = this.props;
 
         if (!currentCase) {
-            return null;
+            return <Case className='editCase'
+                title='case:app-editCaseTitle' description='case:app-editCaseDescription'
+                stepIndicator={0} history={history}>
+                <div className='w-100 text-center'>
+                    <Nav.NavFrontendSpinner/>
+                    <p>{t('case:loading-gettingCase')}</p>
+                </div>
+            </Case>
         }
 
-        return <TopContainer className='topContainer'>
-            <Nav.Row className='mb-4'>
-                <Nav.Column>
-                    <h1 className='mb-3 appTitle'>
-                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={this.backToMenu.bind(this)}/>
-                        {t('case:app-editCaseTitle')}
-                    </h1>
-                    <h4>{t('case:app-editCaseDescription')}</h4>
-                </Nav.Column>
-            </Nav.Row>
-            <Nav.Row className='mb-4'>
-                <Nav.Column>
-                    <ClientAlert className='mb-3'/>
-                    <StepIndicator activeStep={0}/>
-                </Nav.Column>
-            </Nav.Row>
+        return <Case className='editCase'
+            title='case:app-editCaseTitle' description='case:app-editCaseDescription'
+            stepIndicator={0} history={history}>
             <div className='fieldset p-4 mb-4 ml-3 mr-3'>
                 <Nav.Row className='mb-3 align-middle text-left'>
                     <Nav.Column>{this.renderSubjectArea()}</Nav.Column>
@@ -503,6 +487,7 @@ class EditCase extends Component {
 
             <div className='fieldset p-4 mb-4 ml-3 mr-3'>
                 {this.renderInstitutions()}
+                <div>{currentCase.rinaid ? t('case:form-rinaId') + ': ' + currentCase.rinaid : null}</div>
             </div>
 
             <Nav.Row className='mb-4 p-2'>
@@ -513,7 +498,7 @@ class EditCase extends Component {
                     <Nav.Hovedknapp className='forwardButton w-100' disabled={!this.noValidationErrors()} onClick={this.onForwardButtonClick.bind(this)}>{t('ui:go')}</Nav.Hovedknapp>
                 </Nav.Column>
             </Nav.Row>
-        </TopContainer>;
+        </Case>;
     }
 }
 EditCase.propTypes = {

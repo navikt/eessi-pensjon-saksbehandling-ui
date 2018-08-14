@@ -57,11 +57,12 @@ ReactDOM.render(
                     <Route exact path='/react/pdf/edit'     component={Pages.EditPDF}/>
                     <Route exact path='/react/pdf/select'   component={Pages.SelectPDF}/>
 
-                    <Route exact path='/react/case/get'                  component={Pages.GetCase}/>
-                    <Route       path='/react/case/get/:caseid/:actorid' component={Pages.EditCase}/>
-                    <Route exact path='/react/case/confirm'              component={Pages.ConfirmCase}/>
-                    <Route exact path='/react/case/generate'             component={Pages.GenerateCase}/>
-                    <Route exact path='/react/case/end'                  component={Pages.EndCase}/>
+                    <Route exact path='/react/case/get'                          component={Pages.GetCase}/>
+                    <Route       path='/react/case/get/:caseid/:actorid/:rinaid' component={Pages.EditCase}/>
+                    <Route       path='/react/case/get/:caseid/:actorid'         component={Pages.EditCase}/>
+                    <Route exact path='/react/case/confirm'  component={Pages.ConfirmCase}/>
+                    <Route exact path='/react/case/generate' component={Pages.GenerateCase}/>
+                    <Route exact path='/react/case/end'      component={Pages.EndCase}/>
 
                     <Route       path='/' component={Pages.FrontPage}/>
                 </Switch>

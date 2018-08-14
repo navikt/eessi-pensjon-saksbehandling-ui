@@ -51,12 +51,12 @@ class MiniaturePDF extends Component {
                 onLoadSuccess={this.handleOnLoadSuccess.bind(this)}>
                 { deleteLink && this.state.isHovering ? <div className='deleteLink'>
                     <Ikon size={20} kind='trashcan' onClick={onDeleteDocument}/>
-                 </div> : null}
+                </div> : null}
                 { downloadLink && this.state.isHovering ? <div className='downloadLink'><a
                     onClick={(e) => e.stopPropagation()} title={t('ui:download')}
                     href={'data:application/octet-stream;base64,' + encodeURIComponent(pdf.base64)}
                     download={pdf.name}>
-                       <Icons size={'sm'} kind='download'/>
+                    <Icons size={'sm'} kind='download'/>
                 </a></div> : null}
                 <div className='page'>
                     <Page width={100} height={140} renderMode='svg' pageNumber={1}/>

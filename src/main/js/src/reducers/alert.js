@@ -34,7 +34,8 @@ export default function (state = {}, action = {}) {
     case types.USERCASE_GET_SED_LIST_REQUEST:
     case types.USERCASE_GET_BUC_LIST_REQUEST:
     case types.USERCASE_GET_COUNTRY_LIST_REQUEST:
-    case types.USERCASE_SEND_DATA_REQUEST:
+    case types.USERCASE_CREATE_SED_REQUEST:
+    case types.USERCASE_ADD_TO_SED_REQUEST:
     case types.USERCASE_GENERATE_DATA_REQUEST:
     case types.RINA_GET_URL_REQUEST:
     case types.ALERT_CLIENT_CLEAR:
@@ -81,7 +82,8 @@ export default function (state = {}, action = {}) {
 
     case types.USERCASE_GET_CASE_NUMBER_FAILURE:
     case types.USERCASE_GENERATE_DATA_FAILURE:
-    case types.USERCASE_SEND_DATA_FAILURE:
+    case types.USERCASE_CREATE_SED_FAILURE:
+    case types.USERCASE_ADD_TO_SED_FAILURE:
     case types.RINA_GET_URL_FAILURE:
 
         return Object.assign({}, state, {
@@ -103,7 +105,8 @@ export default function (state = {}, action = {}) {
             clientErrorMessage : 'case:alert-generatedData'
         });
 
-    case types.USERCASE_SEND_DATA_SUCCESS:
+    case types.USERCASE_CREATE_SED_SUCCESS:
+    case types.USERCASE_ADD_TO_SED_SUCCESS:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'OK',

@@ -46,7 +46,8 @@ export default function (state = {}, action = {}) {
             dataToGenerate : action.payload
         });
 
-    case types.USERCASE_SEND_DATA_SUCCESS:
+    case types.USERCASE_CREATE_SED_SUCCESS:
+    case types.USERCASE_ADD_TO_SED_SUCCESS:
 
         return Object.assign({}, state, {
             dataSubmitted : action.payload
