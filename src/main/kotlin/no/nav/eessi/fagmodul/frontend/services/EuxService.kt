@@ -1,11 +1,11 @@
 package no.nav.eessi.fagmodul.frontend.services
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.google.common.cache.CacheBuilder
 import com.google.common.cache.CacheLoader
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import no.nav.eessi.fagmodul.frontend.utils.createErrorMessage
+import no.nav.eessi.fagmodul.frontend.utils.mapJsonToAny
 import no.nav.eessi.fagmodul.frontend.utils.typeRef
 import no.nav.eessi.fagmodul.frontend.utils.typeRefs
 import org.slf4j.Logger
@@ -28,8 +28,6 @@ class EuxService(val euxRestTemplate: RestTemplate) {
     private val logger: Logger by lazy { LoggerFactory.getLogger(EuxService::class.java) }
 
     private val EUX_PATH: String = "/cpi"
-
-    private val objectMapper = jacksonObjectMapper()
 
     //testing only
     var overrideheaders: Boolean? = null
@@ -82,7 +80,8 @@ class EuxService(val euxRestTemplate: RestTemplate) {
             if (response.statusCode.isError) {
                 throw createErrorMessage(responseBody)
             } else {
-                return objectMapper.readValue(responseBody, typeRefs<List<String>>())
+                val list = mapJsonToAny(responseBody, typeRefs<List<String>>())
+                return list
             }
         } catch (ex: IOException) {
             throw RuntimeException(ex.message)
@@ -113,7 +112,8 @@ class EuxService(val euxRestTemplate: RestTemplate) {
             if (response.statusCode.isError) {
                 throw createErrorMessage(responseBody)
             } else {
-                return objectMapper.readValue(responseBody, typeRefs<List<String>>())
+                val list = mapJsonToAny(responseBody, typeRefs<List<String>>())
+                return list
             }
         } catch (ex: IOException) {
             throw RuntimeException()
@@ -152,10 +152,8 @@ class EuxService(val euxRestTemplate: RestTemplate) {
         }
         val urlPath = "/login"
         val builder = UriComponentsBuilder.fromPath("$EUX_PATH$urlPath")
-                .queryParam("username", "T102")
-                .queryParam("password", "rina@nav")
-//                .queryParam("username", "srvPensjon")
-//                .queryParam("password", "Ash5SoxP")
+            .queryParam("username", "T102")
+            .queryParam("password", "rina@nav")
 
         val httpEntity = HttpEntity("", HttpHeaders())
         val response = euxRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, String::class.java)
