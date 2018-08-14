@@ -32,18 +32,24 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
 
     }
 
+    @Throws(IllegalArgumentException::class, Exception::class)
     fun addsed(frontRequest: FrontendRequest): String {
         val path = "/addsed"
 
         val builder = UriComponentsBuilder.fromPath("$FAG_PATH$path")
         val httpEntity = HttpEntity(frontRequest, HttpHeaders())
 
-        val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, typeRef<String>())
+        return try {
+            val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, typeRef<String>())
 
-        val euxCaseID = response.body ?: throw IllegalArgumentException("Ingen EUXcaseid mottatt. feil ved leggetil av SED (eux basis)")
-        return euxCaseID
+            val euxCaseID = response.body ?: throw IllegalArgumentException("Ingen EUXcaseid mottatt. feil ved leggetil av SED (eux basis)")
+            euxCaseID
+        } catch (ex: Exception) {
+            throw ex
+        }
     }
 
+    @Throws(IllegalArgumentException::class, Exception::class)
     fun create(frontRequest: FrontendRequest): String {
         logger.debug("create reqeust to fagmodul : $frontRequest")
         val path = "/create"
@@ -51,12 +57,17 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
         val builder = UriComponentsBuilder.fromPath("$FAG_PATH$path")
         val httpEntity = HttpEntity(frontRequest, HttpHeaders())
 
-        val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, String::class.java)
+        return try {
+            val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, String::class.java)
 
-        val euxCaseID = response.body ?: throw IllegalArgumentException("Ingen EUXcaseid mottatt. feil ved opprettelse av SED (eux basis)")
-        return euxCaseID
+            val euxCaseID = response.body ?: throw IllegalArgumentException("Ingen EUXcaseid mottatt. feil ved opprettelse av SED (eux basis)")
+            euxCaseID
+        } catch (ex: Exception) {
+            throw ex
+        }
     }
 
+    @Throws(IllegalArgumentException::class)
     fun confirm(frontRequest: FrontendRequest): String {
         logger.debug("create reqeust to fagmodul : $frontRequest")
         val path = "/confirm"
