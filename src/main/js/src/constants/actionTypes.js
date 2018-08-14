@@ -68,9 +68,6 @@ export const PDF_SET_RECIPE       = 'PDF/SET_RECIPE';
 export const PDF_SET_DND_TARGET   = 'PDF/SET_DND_TARGET';
 export const PDF_SET_PAGE_SIZE    = 'PDF/SET_PAGE_SIZE';
 
-export const PDF_PREVIEW_START    = 'PDF/PREVIEW/START';
-export const PDF_PREVIEW_END      = 'PDF/PREVIEW/END';
-
 export const P4000_NEW                = 'P4000/NEW';
 export const P4000_OPEN_SUCCESS       = 'P4000/OPEN/SUCCESS';
 export const P4000_OPEN_FAILURE       = 'P4000/OPEN/FAILURE';

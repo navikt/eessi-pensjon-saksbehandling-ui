@@ -56,18 +56,6 @@ export default function (state = initialState, action = {}) {
             recipe : action.payload
         });
 
-    case types.PDF_PREVIEW_START:
-
-        return Object.assign({}, state, {
-            preview : action.payload
-        });
-
-    case types.PDF_PREVIEW_END:
-
-        return Object.assign({}, state, {
-            preview : undefined
-        });
-
     case types.PDF_SET_DND_TARGET:
 
         return Object.assign({}, state, {

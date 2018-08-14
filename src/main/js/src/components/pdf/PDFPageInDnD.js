@@ -8,23 +8,45 @@ import _ from 'lodash';
 import { Ikon } from '../../components/ui/Nav';
 
 import * as pdfActions from '../../actions/pdf';
+import * as uiActions from '../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
         recipe    : state.pdf.recipe,
         pdfsize   : state.pdf.pdfsize,
-        dndTarget : state.pdf.dndTarget
+        dndTarget : state.pdf.dndTarget,
+        pdfs      : state.pdf.pdfs
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, pdfActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, pdfActions, uiActions), dispatch)};
 };
 
 class PDFPageInDnD extends Component {
 
      state = {
          isHovering : false
+     }
+
+     closePreview() {
+
+          const { actions } = this.props;
+
+          actions.closeModal();
+     }
+
+     openPreview(pdf, pageNumber) {
+
+        const { actions } = this.props;
+
+        actions.openModal({
+            content: <div style={{cursor: 'pointer'}} onClick={this.closePreview.bind(this)}>
+                  <Document className='document' file={{data: pdf.data }}>
+                      <Page className='bigpage' width={600} renderMode='svg' pageNumber={pageNumber}/>
+                  </Document>
+              </div>
+        })
      }
 
      addPageToTargetPdf(name, pageNumber) {
@@ -66,16 +88,6 @@ class PDFPageInDnD extends Component {
          this.setState({isHovering : false});
      }
 
-     openPreview(name, pageNumber) {
-
-         const { actions } = this.props;
-
-         actions.previewPDF({
-             name       : name,
-             pageNumber : pageNumber
-         });
-     }
-
      render () {
 
          const { pdf, pageNumber, action, pdfsize } = this.props;
@@ -103,7 +115,7 @@ class PDFPageInDnD extends Component {
                  <div className='position-absolute' style={{zIndex: 10, right: 2, top: 2}}>{iconLink}</div>
                  <div>
                      <Page
-                         onClick={this.openPreview.bind(this, pdf.name, pageNumber)}
+                         onClick={this.openPreview.bind(this, pdf, pageNumber)}
                          className='d-inline-block page'
                          width={pdfsize} height={pdfsize * 1.3}
                          renderMode='svg' pageNumber={pageNumber}/>

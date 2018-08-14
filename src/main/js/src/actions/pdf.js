@@ -40,21 +40,6 @@ export function setRecipe (recipe) {
     };
 }
 
-export function previewPDF(pdf) {
-
-    return {
-        type    : types.PDF_PREVIEW_START,
-        payload : pdf
-    };
-}
-
-export function cancelPreviewPDF() {
-
-    return {
-        type: types.PDF_PREVIEW_END
-    };
-}
-
 export function setActiveDnDTarget(target) {
 
     return {

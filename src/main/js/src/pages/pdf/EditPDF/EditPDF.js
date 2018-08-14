@@ -12,7 +12,6 @@ import TopContainer from '../../../components/ui/TopContainer';
 import DnDSource from '../../../components/pdf/DnDSource/DnDSource';
 import DnDTarget from '../../../components/pdf/DnDTarget';
 import DnD from '../../../components/pdf/DnD';
-import PreviewPDF from '../../../components/pdf/PreviewPDF';
 import PDFSizeSlider from '../../../components/pdf/PDFSizeSlider';
 import Icons from '../../../components/ui/Icons';
 
@@ -145,7 +144,6 @@ class EditPDF extends Component {
             {alert ? <Nav.Row className='mt-3 mb-3'>
                 <Nav.Column>{alert}</Nav.Column>
             </Nav.Row> : null}
-            <PreviewPDF/>
             <Nav.Row className='mb-2'>
                 <Nav.Column className='col-md-3'>
                     <PDFSizeSlider/>
