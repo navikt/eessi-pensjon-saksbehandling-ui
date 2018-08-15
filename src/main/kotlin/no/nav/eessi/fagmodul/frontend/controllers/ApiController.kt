@@ -58,8 +58,11 @@ class ApiController(private val euxService: EuxService, private val fagService: 
 
     }
 
-    @GetMapping("/seds", "/seds/{buc}")
-    fun getSeds(@PathVariable(value = "buc", required = false) buc: String?): List<String> {
+    @GetMapping("/seds", "/seds/{buc}", "/sedwithrina/{rinanr}")
+    fun getSeds(@PathVariable(value = "buc", required = false) buc: String?, @PathVariable(value = "rinanr", required = false) rinanr: String?): List<String> {
+        if (rinanr != null) {
+            return euxService.getSedActionFromRina(rinanr)
+        }
         return euxService.getAvailableSEDonBuc(buc)
     }
 

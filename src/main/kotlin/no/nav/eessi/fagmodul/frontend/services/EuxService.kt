@@ -4,6 +4,8 @@ import com.google.common.cache.CacheBuilder
 import com.google.common.cache.CacheLoader
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
+import no.nav.eessi.fagmodul.frontend.models.RINASaker
+import no.nav.eessi.fagmodul.frontend.models.RINAaksjoner
 import no.nav.eessi.fagmodul.frontend.utils.createErrorMessage
 import no.nav.eessi.fagmodul.frontend.utils.mapJsonToAny
 import no.nav.eessi.fagmodul.frontend.utils.typeRef
@@ -120,26 +122,103 @@ class EuxService(val euxRestTemplate: RestTemplate) {
         }
     }
 
+    //Henter en liste over tilgjengelige aksjoner for den aktuelle RINA saken PK-51365"
+    fun getMuligeAksjoner(euSaksnr: String): List<RINAaksjoner> {
+        val urlPath = "/MuligeAksjoner"
+
+        val builder = UriComponentsBuilder.fromPath("$EUX_PATH$urlPath")
+                .queryParam("RINASaksnummer", euSaksnr)
+
+        val headers = logonBasis()
+        val httpEntity = HttpEntity("", headers)
+
+        val response = euxRestTemplate.exchange(builder.toUriString(), HttpMethod.GET, httpEntity, typeRef<String>())
+        val responseBody = response.body!!
+        try {
+            if (response.statusCode.isError) {
+                throw createErrorMessage(responseBody)
+            } else {
+                val list = mapJsonToAny(responseBody, typeRefs<List<RINAaksjoner>>()  )
+                return list
+            }
+        } catch (ex: IOException) {
+            throw RuntimeException(ex.message)
+        }
+    }
+
+    fun getSedActionFromRina(rinanr: String): List<String> {
+        val list = getMuligeAksjoner(rinanr)
+
+        val seds = mutableListOf<String>()
+        list.forEach {
+            if (it.navn == "Create" && it.dokumentType != null) {
+                seds.add(it.dokumentType)
+            }
+        }
+        return seds
+    }
+
+    fun getBucFromRina(rinanr: String) : String {
+        val result = getRinaSaker(rinanr)
+        result.forEach {
+            if (it.id == rinanr) {
+                return it.traits?.flowType ?: ""
+            }
+        }
+        return ""
+    }
+
+    //henter ut status på rina.
+    fun getRinaSaker(rinaNummer: String): List<RINASaker> {
+        val urlPath = "/RINASaker"
+
+        val builder = UriComponentsBuilder.fromPath("$EUX_PATH$urlPath")
+                .queryParam("BuCType", "")
+                .queryParam("Fødselsnummer", "")
+                .queryParam("RINASaksnummer", rinaNummer)
+
+        val headers = logonBasis()
+
+        val httpEntity = HttpEntity("", headers)
+        val response = euxRestTemplate.exchange(builder.toUriString(), HttpMethod.GET, httpEntity, String::class.java)
+        val responseBody = response.body!!
+        try {
+            if (response.statusCode.isError) {
+                throw createErrorMessage(responseBody)
+            } else {
+                val response = mapJsonToAny(responseBody, typeRefs<List<RINASaker>>())
+                return response
+            }
+        } catch (ex: IOException) {
+            throw RuntimeException(ex.message)
+        }
+    }
+
     //Own impl. no list from eux that contains list of sed to a speific buc
     fun getAvailableSEDonBuc(buc: String?): List<String> {
-        val list1 = listOf("P2000","P2200")
-        val list2 = listOf("P6000","P10000")
-        val list3 = listOf("P5000")
+        val list1 = listOf("P2000")
+        val list2 = listOf("P2100")
+        val list3 = listOf("P2200")
+        val list4 = listOf("")
+        val list5 = listOf("P4000","P5000","P6000","P3000_NO")
 
         val map : Map<String, List<String>> =
                 mapOf(
                         "P_BUC_01" to list1,
-                        "P_BUC_06" to list2,
-                        "P_BUC_07" to list3
+                        "P_BUC_02" to list2,
+                        "P_BUC_03" to list3,
+                        "P_BUC_05" to list4,
+                        "P_BUC_06" to list5
                 )
         if (buc.isNullOrEmpty()) {
             val set: MutableSet<String> = Sets.newHashSet()
             set.addAll(list1)
             set.addAll(list2)
             set.addAll(list3)
-            return Lists.newArrayList(set)
+            set.addAll(list4)
+            set.addAll(list5)
+            return set.toList()
         }
-
         val result = map.get(buc).orEmpty()
         return result
     }

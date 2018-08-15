@@ -1,7 +1,10 @@
 package no.nav.eessi.fagmodul.frontend.services
 
+import no.nav.eessi.fagmodul.frontend.models.ErrorResponse
 import no.nav.eessi.fagmodul.frontend.models.FrontendRequest
+import no.nav.eessi.fagmodul.frontend.utils.mapJsonToAny
 import no.nav.eessi.fagmodul.frontend.utils.typeRef
+import no.nav.eessi.fagmodul.frontend.utils.typeRefs
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpEntity
@@ -10,6 +13,8 @@ import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
+import java.io.IOException
+import kotlin.math.log
 
 @Service
 // fagmodul servie mellom frontend og fagmodul (eessi-pen)
@@ -32,7 +37,6 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
 
     }
 
-    @Throws(IllegalArgumentException::class, Exception::class)
     fun addsed(frontRequest: FrontendRequest): String {
         val path = "/addsed"
 
@@ -49,7 +53,6 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
         }
     }
 
-    @Throws(IllegalArgumentException::class, Exception::class)
     fun create(frontRequest: FrontendRequest): String {
         logger.debug("create reqeust to fagmodul : $frontRequest")
         val path = "/create"
@@ -59,7 +62,6 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
 
         return try {
             val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, String::class.java)
-
             val euxCaseID = response.body ?: throw IllegalArgumentException("Ingen EUXcaseid mottatt. feil ved opprettelse av SED (eux basis)")
             euxCaseID
         } catch (ex: Exception) {
@@ -67,7 +69,6 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
         }
     }
 
-    @Throws(IllegalArgumentException::class)
     fun confirm(frontRequest: FrontendRequest): String {
         logger.debug("create reqeust to fagmodul : $frontRequest")
         val path = "/confirm"
@@ -76,8 +77,21 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
         val httpEntity = HttpEntity(frontRequest, HttpHeaders())
 
         val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, String::class.java)
+        //val sed = response.body ?: throw IllegalArgumentException("Ingen Json/SED mottatt. Feil ved generering av SED")
+        //return sed
+        val responseBody = response.body!!
+        try {
+            if (response.statusCode.isError) {
+                val error = mapJsonToAny(responseBody, typeRefs<ErrorResponse>())
+                logger.debug("error $error")
+                throw error
+            } else {
+                return responseBody
+            }
+        } catch (ex: IOException) {
+            throw RuntimeException()
+        }
 
-        val sed = response.body ?: throw IllegalArgumentException("Ingen Json/SED mottatt. Feil ved generering av SED")
-        return sed
+
     }
 }
