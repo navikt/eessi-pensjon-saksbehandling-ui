@@ -1,4 +1,5 @@
-# EessiFagmodulFrontend
+EESSI Pensjon Fagmodul Frontend
+===============================
 
 This project has:
 * A frontend module, in `src/main/js`, that uses [React](https://reactjs.org) and [Node](https://nodejs.org).
@@ -49,3 +50,15 @@ On any page of https://(.*).nais.preprod.local, click on the certificate, downlo
 Launch the kse explorer, the JAR executable file (at F:\programvare\kse-51), load cacerts from your JAVA_HOME\lib\security.
 
 Import the downloaded certificate into cacerts, save it (if you don't have permissions, save it in Temp, then copy over).
+
+---
+
+# Henvendelser
+
+Spørsmål knyttet til koden eller prosjektet kan rettes mot:
+
+* David Steinsland, david.steinsland@nav.no
+
+## For NAV-ansatte
+
+Interne henvendelser kan sendes via Slack i kanalen #eessi-pensjonpub.
