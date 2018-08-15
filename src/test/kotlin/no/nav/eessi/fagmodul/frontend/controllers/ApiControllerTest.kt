@@ -7,6 +7,7 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import kotlin.test.assertEquals
@@ -55,7 +56,7 @@ class ApiControllerTest {
         //whenever(mockEuxService.getAvailableSEDTypes("")).thenReturn(mockData)
         whenever(mockEuxService.getAvailableSEDonBuc("")).thenReturn(mockData)
 
-        val response = apiController.getSeds("")
+        val response = apiController.getSeds("", null)
 
         assertEquals(response.size, mockData.size)
         assertTrue(response.containsAll(mockData))
@@ -69,11 +70,27 @@ class ApiControllerTest {
         )
         whenever(mockEuxService.getAvailableSEDonBuc("P_BUC_01")).thenReturn(mockData)
 
-        val response = apiController.getSeds("P_BUC_01")
+        val response = apiController.getSeds("P_BUC_01", null)
 
         assertEquals(response.size , mockData.size)
         assertTrue(response.containsAll(mockData))
     }
+
+    @Test
+    fun `get all SED-types for specific Rinanr`() {
+        val mockData = listOf(
+                "P2000","P3000_NO",
+                "P4000"
+        )
+        whenever(mockEuxService.getSedActionFromRina(ArgumentMatchers.anyString())).thenReturn(mockData)
+
+        val response = apiController.getSeds("", "12123123123")
+
+        assertEquals(mockData.size, response.size)
+        assertTrue(response.containsAll(mockData))
+    }
+
+
 
     @Test
     fun `get all institutions`() {
