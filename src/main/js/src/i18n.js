@@ -11,7 +11,7 @@ i18next
         lng: 'nb',
         fallbackLng: 'nb',
         debug: true,
-        ns: ['translation', 'ui', 'case', 'pdf', 'p4000'],
+        ns: ['translation', 'ui', 'case', 'pdf', 'p2x00', 'p4000'],
         defaultNs: 'translation',
         backend: {
             loadPath: '/locales/{{lng}}/{{ns}}.json'

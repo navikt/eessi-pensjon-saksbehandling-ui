@@ -41,6 +41,9 @@ class FrontPage extends Component {
                         <Nav.Lenkepanel className='frontPageLink pdfLink' linkCreator={(props) => (
                             <Link to='/react/pdf/select' {...props}/>)
                         } href="#">{t('pdf:app-createPdf')}</Nav.Lenkepanel>
+                        <Nav.Lenkepanel className='frontPageLink p2X00link' linkCreator={(props) => (
+                           <Link to='/react/p2x00' {...props}/>)
+                        } href="#">{t('p2X00:app-startP2X00')}</Nav.Lenkepanel>
                         <Nav.Lenkepanel className='frontPageLink p4000link' linkCreator={(props) => (
                             <Link to='/react/p4000' {...props}/>)
                         } href="#">{t('p4000:app-startP4000')}</Nav.Lenkepanel>

@@ -70,7 +70,7 @@ class GenerateCase extends Component {
 
         actions.navigateForward();
 
-        if (payload.euxCaseId) {
+        if (!payload.euxCaseId) {
             actions.createSed(payload);
         } else {
             actions.addToSed(payload);
