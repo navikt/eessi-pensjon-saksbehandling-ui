@@ -58,9 +58,18 @@ class ApiController(private val euxService: EuxService, private val fagService: 
 
     }
 
-    @GetMapping("/seds", "/seds/{buc}")
-    fun getSeds(@PathVariable(value = "buc", required = false) buc: String?): List<String> {
+    @GetMapping("/seds", "/seds/{buc}", "/sedfromrina/{rinanr}")
+    fun getSeds(@PathVariable(value = "buc", required = false) buc: String?, @PathVariable(value = "rinanr", required = false) rinanr: String?): List<String> {
+        if (rinanr != null) {
+            return euxService.getSedActionFromRina(rinanr)
+        }
         return euxService.getAvailableSEDonBuc(buc)
+    }
+
+    @ApiOperation("henter ut Buc fra Rinanr")
+    @GetMapping("/bucfromrina/{rinanr}")
+    fun getBucFromRina(@PathVariable(value = "rinanr", required = true) rinanr: String): String {
+        return euxService.getBucFromRina(rinanr)
     }
 
     @ApiOperation("henter liste av alle tilgjengelige instusjoner fra EUX")
