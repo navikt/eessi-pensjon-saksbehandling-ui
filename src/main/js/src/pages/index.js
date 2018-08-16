@@ -10,7 +10,7 @@ import SelectPDF   from './pdf/SelectPDF';
 import EditPDF     from './pdf/EditPDF/EditPDF';
 import GeneratePDF from './pdf/GeneratePDF/GeneratePDF';
 
-import P2X00 from './P2X00/P2X00';
+import PInfo from './PInfo/PInfo';
 import P4000 from './P4000/P4000';
 
 export {
@@ -25,6 +25,6 @@ export {
     EditPDF,
     GeneratePDF,
 
-    P2X00,
+    PInfo,
     P4000
 };

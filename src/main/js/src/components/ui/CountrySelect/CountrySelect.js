@@ -2,14 +2,16 @@ import React, {Component} from 'react'
 import Select from 'react-select'
 import PT from 'prop-types'
 import { translate } from 'react-i18next'
-import 'react-select/dist/react-select.css'
-import {countries} from './CountrySelectData'
+import './react-select.min.css'
+import { countries } from './CountrySelectData'
+import _ from 'lodash';
 
 class CountrySelect extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            flagImagePath : '../../../../../flags/',
             imageStyle: {
                 width: 30,
                 height: 15
@@ -29,7 +31,7 @@ class CountrySelect extends Component {
     }
 
     CountryOptionRenderer(option) {
-        const flagImageUrl = this.props.flagImagePath + option.value + '.png';
+        const flagImageUrl = this.state.flagImagePath + option.value + '.png';
         const optionStyle = {
             width: 50,
             height: 30
@@ -44,7 +46,7 @@ class CountrySelect extends Component {
     }
 
     CountryRenderValue(option) {
-        const flagImageUrl = this.props.flagImagePath + option.value + '.png';
+        const flagImageUrl = this.state.flagImagePath + option.value + '.png';
         if (option.value === undefined) {
             return null;
         } else {
@@ -56,29 +58,37 @@ class CountrySelect extends Component {
         }
     }
 
+    filter(selectedCountries, allCountries) {
+        return _.filter(allCountries, country => {
+            return selectedCountries.indexOf(country.value) >= 0
+        });
+    }
+
     render() {
 
-        const { t, value, multi, locale } = this.props;
+        const { t, value, locale, list } = this.props;
+
+        let options = list ? this.filter(list, countries[locale]) : countries[locale];
+
         return <div>
             <Select placeholder={t('ui:searchCountry')}
                 value={this.state.tag || value}
-                options={countries[locale]}
+                options={options}
                 optionRenderer={this.CountryOptionRenderer}
                 backspaceRemoves={true}
                 onChange={this.logChange}
                 valueRenderer={this.CountryRenderValue}
-                multi={multi}/>
+                multi={false}/>
         </div>;
     }
 }
 
 CountrySelect.propTypes = {
     onSelect       : PT.func.isRequired,
-    flagImagePath  : PT.string,
     value          : PT.object,
-    multi          : PT.bool.isRequired,
     t              : PT.func.isRequired,
-    locale         : PT.string.isRequired
+    locale         : PT.string.isRequired,
+    list           : PT.array
 }
 
 export default translate()(CountrySelect);

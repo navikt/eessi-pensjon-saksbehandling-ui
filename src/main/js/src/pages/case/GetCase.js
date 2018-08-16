@@ -50,6 +50,7 @@ class GetCase extends Component {
     onForwardButtonClick() {
 
         const {actions} = this.props;
+
         actions.navigateForward();
         actions.getCaseFromCaseNumber(this.state);
     }
@@ -57,11 +58,12 @@ class GetCase extends Component {
     componentDidUpdate() {
 
         const { history, currentCase } = this.props;
+
         if (currentCase) {
             history.push('/react/case/get/' +
-                (currentCase.hasOwnProperty('casenumber') ? currentCase.hasOwnProperty('casenumber') + '/' : null) +
-                (currentCase.hasOwnProperty('pinid') ? currentCase.hasOwnProperty('pinid') + '/' : null) +
-                (currentCase.hasOwnProperty('rinaid') ? currentCase.hasOwnProperty('rinaid') + '/' : null)
+                (currentCase.hasOwnProperty('casenumber') ? currentCase.casenumber + '/' : null) +
+                (currentCase.hasOwnProperty('pinid')      ? currentCase.pinid      + '/' : null) +
+                (currentCase.hasOwnProperty('rinaid')     ? currentCase.rinaid     + '/' : null)
             );
         }
     }

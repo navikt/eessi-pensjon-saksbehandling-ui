@@ -53,9 +53,7 @@ class Event extends Component {
 Event.propTypes = {
     t          : PT.func.isRequired,
     event      : PT.object.isRequired,
-    eventIndex : PT.number.isRequired,
     selected   : PT.bool.isRequired,
-    actions    : PT.object.isRequired,
     onClick    : PT.func.isRequired
 };
 

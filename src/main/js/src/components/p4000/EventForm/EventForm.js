@@ -150,7 +150,6 @@ EventForm.propTypes = {
     event      : PT.object,
     editMode   : PT.bool.isRequired,
     eventIndex : PT.number,
-    history    : PT.object,
     actions    : PT.object,
     Component  : PT.func
 };

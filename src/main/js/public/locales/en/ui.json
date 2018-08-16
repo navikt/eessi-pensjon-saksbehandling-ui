@@ -1,4 +1,8 @@
 {
+    "headerTitle"     : "EESSIPEN-12",
+    "pageTitle"       : "Create EU Documents (SED)",
+    "pageDescription" : "Page Description",
+
     "accepted" : "Accepted",
     "add" : "Add",
     "addAll" : "Add all",
@@ -30,7 +34,7 @@
     "generate" : "generate",
     "go" : "Go",
     "new" : "New",
-    "no" : "No"
+    "no" : "No",
     "ok-got-it" : "OK, got it",
     "options" : "Options",
     "pages" : "Pages",

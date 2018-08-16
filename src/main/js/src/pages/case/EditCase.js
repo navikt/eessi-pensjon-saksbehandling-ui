@@ -7,6 +7,7 @@ import { translate } from 'react-i18next';
 
 import Case from './Case';
 import * as Nav from '../../components/ui/Nav';
+import CountrySelect from '../../components/ui/CountrySelect/CountrySelect';
 
 import * as usercaseActions from '../../actions/usercase';
 import * as uiActions from '../../actions/ui';
@@ -21,8 +22,10 @@ const mapStateToProps = (state) => {
         currentCase     : state.usercase.currentCase,
         dataToConfirm   : state.usercase.dataToConfirm,
         language        : state.ui.language,
+        locale          : state.ui.locale,
         action          : state.ui.action,
-        loading         : state.loading
+        loading         : state.loading,
+
     };
 };
 
@@ -141,6 +144,7 @@ class EditCase extends Component {
     validateSubjectArea(subjectArea) {
 
         const { t } = this.props;
+
         if (!subjectArea || subjectArea === this.state.defaultSelects.subjectArea) {
             this.setValidationState('subjectAreaFail', t('case:validation-chooseSubjectArea'));
         } else {
@@ -151,6 +155,7 @@ class EditCase extends Component {
     validateBuc(buc) {
 
         const { t } = this.props;
+
         if (!buc || buc === this.state.defaultSelects.buc) {
             this.setValidationState('bucFail', t('case:validation-chooseBuc'));
         } else {
@@ -161,6 +166,7 @@ class EditCase extends Component {
     validateSed(sed) {
 
         const { t } = this.props;
+
         if (!sed || sed === this.state.defaultSelects.sed) {
             this.setValidationState('sedFail', t('case:validation-chooseSed'));
         } else {
@@ -171,6 +177,7 @@ class EditCase extends Component {
     validateInstitutions(institutions) {
 
         const { t } = this.props;
+
         if (!institutions || Object.keys(institutions).length === 0) {
             this.setValidationState('institutionsFail', t('case:validation-chooseInstitutions'));
         } else {
@@ -181,6 +188,7 @@ class EditCase extends Component {
     validateInstitution(institution) {
 
         const { t } = this.props;
+
         if (!institution || institution === this.state.defaultSelects.institution) {
             this.setValidationState('institutionFail', t('case:validation-chooseInstitution'));
         } else {
@@ -189,7 +197,14 @@ class EditCase extends Component {
     }
 
     validateCountry(country) {
-        // nothing to do here, country is optional, any value is OK
+
+        const { t } = this.props;
+
+        if (!country) {
+            this.setValidationState('countryFail', t('case:validation-chooseCountry'));
+        } else {
+            this.resetValidationState('countryFail');
+        }
     }
 
     onCreateInstitutionButtonClick() {
@@ -276,7 +291,7 @@ class EditCase extends Component {
 
         const { actions } = this.props;
 
-        let country = e.target.value;
+        let country = e.value;
         this.setState({country: country, institution: undefined})
         this.validateCountry(country);
         if (!this.state.validation.countryFail) {
@@ -326,12 +341,15 @@ class EditCase extends Component {
 
     renderCountry(currentValue) {
 
-        const { t, countryList } = this.props;
+        const { t, countryList, locale } = this.props;
 
-        return <Nav.Select className='countryList' bredde='xxl' feil={this.state.validation.countryFail ? {feilmelding: this.state.validation.countryFail} : null}
-            label={t('ui:country')} value={currentValue} onChange={this.onCountryChange.bind(this)}>
-            {this.renderOptions(countryList, 'country')}
-        </Nav.Select>
+        return <div>
+                <label className='skjemaelement__label'>{t('ui:country')}</label>
+                <CountrySelect locale={locale}
+                value={currentValue}
+                onSelect={this.onCountryChange.bind(this)}
+                list={countryList}/>
+            </div>
     }
 
     renderInstitution(currentValue) {
@@ -436,6 +454,7 @@ class EditCase extends Component {
     }
 
     noValidationErrors() {
+
         return Object.keys(this.state.validation).length === 0 &&
                Object.keys(this.state.institutions).length !== 0 &&
                this.state.subjectArea &&
@@ -502,19 +521,20 @@ class EditCase extends Component {
     }
 }
 EditCase.propTypes = {
-    currentCase      : PT.object,
-    actions          : PT.object,
-    history          : PT.object,
-    loading          : PT.object,
-    t                : PT.func,
-    match            : PT.object,
-    action           : PT.string,
-    subjectAreaList  : PT.array,
-    institutionList  : PT.array,
-    countryList      : PT.array,
-    sedList          : PT.array,
-    bucList          : PT.array,
-    dataToConfirm    : PT.object
+    currentCase     : PT.object,
+    actions         : PT.object,
+    history         : PT.object,
+    loading         : PT.object,
+    t               : PT.func,
+    match           : PT.object,
+    action          : PT.string,
+    subjectAreaList : PT.array,
+    institutionList : PT.array,
+    countryList     : PT.array,
+    sedList         : PT.array,
+    bucList         : PT.array,
+    dataToConfirm   : PT.object,
+    locale          : PT.string
 };
 
 export default connect(

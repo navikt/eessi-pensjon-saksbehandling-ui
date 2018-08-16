@@ -27,7 +27,7 @@ describe('Selenium case submit', () => {
     ///////// GET PAGE ////////////
     describe('Get page', () => {
 
-        let caseId, actorId, forwardButton;
+        let caseId, actorId, rinaId, forwardButton;
 
         it('Waiting until GetPage loads...', async function () {
 

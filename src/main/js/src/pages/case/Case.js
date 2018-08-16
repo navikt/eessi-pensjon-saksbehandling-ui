@@ -9,9 +9,9 @@ import * as Nav from '../../components/ui/Nav';
 import Icons from '../../components/ui/Icons';
 import TopContainer from '../../components/ui/TopContainer';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';
-import StepIndicator from '../../components/case/StepIndicator';
 
 import * as usercaseActions from '../../actions/usercase';
+import * as alertActions from '../../actions/alert';
 
 import './Case.css';
 
@@ -22,7 +22,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, usercaseActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, usercaseActions, alertActions), dispatch)};
 };
 
 class Case extends Component {
@@ -33,6 +33,8 @@ class Case extends Component {
         const { history, actions }  = this.props;
 
         actions.clearData();
+        actions.clientClear();
+
         history.push('/');
     }
 
@@ -49,7 +51,16 @@ class Case extends Component {
                     </h1>
                     { description ? <h4 className='mb-3 ml-4'>{t(description)}</h4> : null }
                     <ClientAlert permanent={true}/>
-                    { stepIndicator !== undefined ? <StepIndicator activeStep={stepIndicator}/> : null }
+                    { stepIndicator !== undefined ? <Nav.Stegindikator
+                        visLabel={true}
+                        onBeforeChange={() => {return false}}
+                        autoResponsiv={true}
+                        steg={[
+                            {label: t('case:form-step1'), aktiv: (stepIndicator === 0)},
+                            {label: t('case:form-step2'), aktiv: (stepIndicator === 1)},
+                            {label: t('case:form-step3'), aktiv: (stepIndicator === 2)},
+                            {label: t('case:form-step4'), aktiv: (stepIndicator === 3)}
+                        ]}/> : null }
                 </Nav.Column>
             </Nav.Row>
             {children}

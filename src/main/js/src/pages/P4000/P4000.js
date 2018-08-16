@@ -106,8 +106,6 @@ P4000.propTypes = {
     history      : PT.object,
     t            : PT.func,
     page         : PT.string.isRequired,
-    match        : PT.object.isRequired,
-    events       : PT.array.isRequired,
     editMode     : PT.bool,
     event        : PT.object,
     actions      : PT.object.isRequired

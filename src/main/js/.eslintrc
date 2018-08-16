@@ -21,7 +21,8 @@
     "no-console": 0,
     "indent": ["error", 4],
     "quotes": [2, "single"],
-    "react/jsx-no-literals" : 2
+    "react/jsx-no-literals" : 2,
+    "react/no-unused-prop-types" : 2
     // overrides
   }
 }

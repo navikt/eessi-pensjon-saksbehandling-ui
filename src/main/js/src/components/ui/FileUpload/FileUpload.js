@@ -169,7 +169,6 @@ class FileUpload extends Component {
 FileUpload.propTypes = {
     t            : PT.func.isRequired,
     onFileChange : PT.func.isRequired,
-    initialFiles : PT.object,
     files        : PT.array.isRequired,
     accept       : PT.string,
     className    : PT.string,

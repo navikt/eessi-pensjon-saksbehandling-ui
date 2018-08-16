@@ -44,6 +44,8 @@ const initialState = {ui: {
     modalOpen: false
 }};
 
+console.log(initialState);
+
 const store = createStoreWithMiddleware(reducer, initialState);
 
 ReactDOM.render(
@@ -51,7 +53,7 @@ ReactDOM.render(
         <Provider store={store}>
             <ConnectedRouter history={history}>
                 <Switch>
-                    <Route exact path='/react/p2x00'   component={Pages.P2X00}/>
+                    <Route exact path='/react/pinfo'   component={Pages.PInfo}/>
                     <Route exact path='/react/p4000'   component={Pages.P4000}/>
 
                     <Route exact path='/react/pdf/generate' component={Pages.GeneratePDF}/>

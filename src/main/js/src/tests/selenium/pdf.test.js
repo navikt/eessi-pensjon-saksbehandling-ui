@@ -41,18 +41,17 @@ describe('Selenium PDF create', () => {
 
         it('Upload file', async function () {
 
-            let fileUpload = await _.getElement('.nav-fileUpload .dropzone');
+            fileUpload = await _.getElement('.nav-fileUpload .dropzone');
             fileUpload.click();
 
-           // it should load files from joark
+            // it should load files from joark
         });
 
     });
 
     after(function(done) {
 
-      //  _.driver.quit()
-      //      .then(() => done());
+        _.driver.quit().then(() => done());
     });
 });
 

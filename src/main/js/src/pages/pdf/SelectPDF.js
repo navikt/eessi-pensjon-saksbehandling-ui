@@ -102,13 +102,10 @@ class SelectPDF extends Component {
 }
 
 SelectPDF.propTypes = {
-    errorMessage : PT.string,
-    errorStatus  : PT.string,
     loadingPDF   : PT.bool,
     actions      : PT.object,
     history      : PT.object,
     t            : PT.func,
-    action       : PT.string,
     pdfs         : PT.array.isRequired
 };
 

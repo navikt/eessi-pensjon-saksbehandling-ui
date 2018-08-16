@@ -127,8 +127,6 @@ class GeneratePDF extends Component {
 }
 
 GeneratePDF.propTypes = {
-    errorMessage : PT.string,
-    errorStatus  : PT.string,
     generatingPDF: PT.bool,
     actions      : PT.object,
     history      : PT.object,

@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import * as p4000Actions from '../../../actions/p4000';
 
 import FileUpload from '../../ui/FileUpload/FileUpload';
-import CountrySelect from '../CountrySelect/CountrySelect';
+import CountrySelect from '../../ui/CountrySelect/CountrySelect';
 import DatePicker from '../DatePicker/DatePicker';
 import Validation from '../Validation';
 import * as Nav from '../../ui/Nav';
@@ -133,8 +133,7 @@ class Home extends Component {
                         <div>
                             <label>{t('ui:country') + ' *'}</label>
                         </div>
-                        <CountrySelect locale={locale} value={event.country || {}} multi={false}
-                            flagImagePath="../../../flags/"
+                        <CountrySelect locale={locale} value={event.country || {}}
                             onSelect={(e) => {
                                 actions.setEventProperty('country', e)}
                             }/>

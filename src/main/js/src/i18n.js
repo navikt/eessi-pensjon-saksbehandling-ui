@@ -11,8 +11,8 @@ i18next
         lng: 'nb',
         fallbackLng: 'nb',
         debug: true,
-        ns: ['translation', 'ui', 'case', 'pdf', 'p2x00', 'p4000'],
-        defaultNs: 'translation',
+        ns: ['ui', 'case', 'pdf', 'pinfo', 'p4000'],
+        defaultNS: 'ui',
         backend: {
             loadPath: '/locales/{{lng}}/{{ns}}.json'
         },
@@ -29,4 +29,5 @@ i18next
     }).loadLanguages(['nb','en']);
 
 i18next.locale = 'nb';
+i18next.language = 'nb';
 export default i18next;
