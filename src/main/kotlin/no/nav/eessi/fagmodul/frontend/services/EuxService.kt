@@ -151,7 +151,7 @@ class EuxService(val euxRestTemplate: RestTemplate) {
 
         val seds = mutableListOf<String>()
         list.forEach {
-            if (it.navn == "Create" && it.dokumentType != null) {
+            if (it.navn == "Create" && it.dokumentType != null && it.dokumentType.startsWith("")) {
                 seds.add(it.dokumentType)
             }
         }

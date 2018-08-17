@@ -1,6 +1,7 @@
 package no.nav.eessi.fagmodul.frontend.controllers
 
 import com.nhaarman.mockito_kotlin.whenever
+import no.nav.eessi.fagmodul.frontend.models.RINAaksjoner
 import no.nav.eessi.fagmodul.frontend.services.EuxService
 import no.nav.eessi.fagmodul.frontend.services.FagmodulService
 import org.junit.Assert
@@ -23,11 +24,11 @@ class ApiControllerTest {
     @Mock
     lateinit var mockFagService: FagmodulService
 
-    lateinit var apiController: ApiController
+    lateinit var apiController: EuxController
 
     @Before
     fun setUp() {
-        apiController = ApiController(mockEuxService, mockFagService)
+        apiController = EuxController(mockEuxService, mockFagService)
     }
 
 
@@ -102,6 +103,74 @@ class ApiControllerTest {
         assertEquals(mockData.size, response.size )
         assertTrue(mockData == response)
 
+    }
+
+    @Test
+    fun `check for aksjoner filter P`() {
+        whenever(mockEuxService.getMuligeAksjoner(ArgumentMatchers.anyString())).thenReturn(getAksjonlist())
+
+        val result = apiController.getMuligeAksjoner("123123123", "P")
+        assertNotNull(result)
+
+        println(result)
+
+        assertEquals(1, result.size)
+        assertEquals("P6000", result[0].dokumentType)
+
+    }
+
+    @Test
+    fun `check for aksjoner filter X`() {
+        whenever(mockEuxService.getMuligeAksjoner(ArgumentMatchers.anyString())).thenReturn(getAksjonlist())
+
+        val result = apiController.getMuligeAksjoner("123123123", "X")
+        assertNotNull(result)
+
+        println(result)
+
+        assertEquals(2, result.size)
+        assertEquals("X6000", result[0].dokumentType)
+        assertEquals("X200", result[1].dokumentType)
+
+    }
+
+    @Test
+    fun `check for mulige aksjoner no filter`() {
+        whenever(mockEuxService.getMuligeAksjoner(ArgumentMatchers.anyString())).thenReturn(getAksjonlist())
+        val result = apiController.getMuligeAksjoner("123123123", "")
+        assertNotNull(result)
+        println(result)
+
+        assertEquals(3, result.size)
+        assertEquals("P6000", result[0].dokumentType)
+        assertEquals("X6000", result[1].dokumentType)
+        assertEquals("X200", result[2].dokumentType)
+    }
+
+    private fun getAksjonlist(): List<RINAaksjoner> {
+        return listOf(
+                RINAaksjoner(
+                        navn = "Create",
+                        id = "123123343123",
+                        kategori = "Documents",
+                        dokumentType = "P6000",
+                        dokumentId = "213123123"
+                ),
+                RINAaksjoner(
+                        navn = "Create",
+                        id = "123123343123",
+                        kategori = "Documents",
+                        dokumentType = "X6000",
+                        dokumentId = "213123123"
+                ),
+                RINAaksjoner(
+                        navn = "Update",
+                        id = "123123343123",
+                        kategori = "Documents",
+                        dokumentType = "X200",
+                        dokumentId = "213123123"
+                )
+        )
     }
 
 

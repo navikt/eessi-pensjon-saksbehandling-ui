@@ -30,7 +30,8 @@ data class FrontendRequest(
         //mere maa legges til..
         val euxCaseId: String? = null,
         //partpayload json/sed
-        val payload: String? = null
+        val payload: String? = null,
+        val sendsed: Boolean? = false
 )
 
 

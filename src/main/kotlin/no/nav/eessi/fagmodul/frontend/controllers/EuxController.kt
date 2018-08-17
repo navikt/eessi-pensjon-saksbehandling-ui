@@ -2,6 +2,7 @@ package no.nav.eessi.fagmodul.frontend.controllers
 
 import io.swagger.annotations.ApiOperation
 import no.nav.eessi.fagmodul.frontend.models.PDFRequest
+import no.nav.eessi.fagmodul.frontend.models.RINAaksjoner
 import no.nav.eessi.fagmodul.frontend.services.EuxService
 import no.nav.eessi.fagmodul.frontend.services.FagmodulService
 import no.nav.eessi.fagmodul.frontend.utils.logger
@@ -15,7 +16,7 @@ import java.util.regex.Pattern.matches
 
 @RestController
 @RequestMapping("/api")
-class ApiController(private val euxService: EuxService, private val fagService: FagmodulService) {
+class EuxController(private val euxService: EuxService, private val fagService: FagmodulService) {
 
     @Value("\${rina.url}")
     lateinit var rinaUrl: String
@@ -58,6 +59,7 @@ class ApiController(private val euxService: EuxService, private val fagService: 
 
     }
 
+    @ApiOperation("henter liste over seds, seds til valgt buc eller seds til valgt rinasak")
     @GetMapping("/seds", "/seds/{buc}", "/sedfromrina/{rinanr}")
     fun getSeds(@PathVariable(value = "buc", required = false) buc: String?, @PathVariable(value = "rinanr", required = false) rinanr: String?): List<String> {
         if (rinanr != null) {
@@ -71,6 +73,35 @@ class ApiController(private val euxService: EuxService, private val fagService: 
     fun getBucFromRina(@PathVariable(value = "rinanr", required = true) rinanr: String): String {
         return euxService.getBucFromRina(rinanr)
     }
+
+
+    @ApiOperation("henter opp mulige aksjoner som kan utføres på valgt rinacase, filtert på sed starter med 'P'")
+    @GetMapping("/aksjoner/{rinanr}", "/aksjoner/{rinanr}/{filter}")
+    fun getMuligeAksjoner(@PathVariable(value = "rinanr",  required = true)rinanr: String, @PathVariable(value = "filter",  required = false)filter: String?= null): List<RINAaksjoner> {
+        val list = euxService.getMuligeAksjoner(rinanr)
+        if (filter == null) {
+            return getMuligeAksjonerFilter(rinanr, list)
+        }
+        return getMuligeAksjonerFilter(rinanr, list, filter)
+    }
+
+    private fun getMuligeAksjonerFilter(euxCaseId: String, list: List<RINAaksjoner>, filter: String = ""): List<RINAaksjoner> {
+        val filterlist = mutableListOf<RINAaksjoner>()
+        println("list: $list")
+        list.forEach {
+            println("it: $it")
+            if (it.dokumentType != null && it.dokumentType.startsWith(filter)) {
+                filterlist.add(it)
+            }
+        }
+        return filterlist.toList()
+    }
+
+//    @ApiOperation("Henter lisgte over alle mulige aksjoner på valgt rina")
+//    @GetMapping("/muligeaksjoner/{rinanr}")
+//    fun getMuligeAksjoner(@PathVariable(value = "rinanr", required = true) rinanr: String): List<RINAaksjoner> {
+//        return euxService.getMuligeAksjoner(rinanr)
+//    }
 
     @ApiOperation("henter liste av alle tilgjengelige instusjoner fra EUX")
     @GetMapping("/institutions")
@@ -95,7 +126,7 @@ class ApiController(private val euxService: EuxService, private val fagService: 
 
     @GetMapping("/subjectarea")
     fun getSubjectArea() : List<String> {
-        return listOf("Pensjon")
+        return listOf("Pensjon","Andre")
     }
 
     @GetMapping("/userinfo")
@@ -106,7 +137,7 @@ class ApiController(private val euxService: EuxService, private val fagService: 
 
     @PostMapping("/generatePDF")
     fun generatePDF(@RequestBody request: PDFRequest): ResponseEntity<Map<String, Map<String, Any>>> {
-        logger.debug(request.toString());
+        logger.debug("Request : $request")
 
         return ResponseEntity.ok(mapOf(
                 "work" to mapOf(
