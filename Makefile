@@ -34,4 +34,4 @@ tag:
 	git tag -a $(VERSION) -m "auto-tag from Makefile"
 
 manifest:
-	nais upload --app eessi-fagmodul-frontendk -v $(VERSION)
+	nais upload --app eessi-fagmodul-frontend -v $(VERSION)
