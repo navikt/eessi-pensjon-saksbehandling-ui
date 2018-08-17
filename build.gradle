@@ -13,11 +13,7 @@ buildscript {
     }
     repositories {
         maven {
-            url = "${System.env.ADEO_MAVEN_URL}"
-            credentials {
-                username = "${System.env.ADEO_MAVEN_USERNAME}"
-                password = "${System.env.ADEO_MAVEN_PASSWORD}"
-            }
+            url "https://repo.adeo.no/repository/maven-central"
         }
     }
     dependencies {
@@ -95,10 +91,9 @@ dependencies {
 
 repositories {
     maven {
-        url = "${System.env.ADEO_MAVEN_URL}"
-        credentials {
-            username = "${System.env.ADEO_MAVEN_USERNAME}"
-            password = "${System.env.ADEO_MAVEN_PASSWORD}"
-        }
+        url "https://repo.adeo.no/repository/maven-central"
+    }
+    maven {
+        url "https://repo.adeo.no/repository/maven-releases/"
     }
 }
