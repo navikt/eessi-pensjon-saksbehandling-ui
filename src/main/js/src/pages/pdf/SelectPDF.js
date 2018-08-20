@@ -66,7 +66,7 @@ class SelectPDF extends Component {
                     </h1>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='m-3 p-3 fieldset'>
+            <Nav.Row className='m-4 p-3 fieldset'>
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
                     <h2 className='mb-3'>{t('ui:fileSelect')}</h2>
@@ -74,7 +74,7 @@ class SelectPDF extends Component {
                 </Nav.Column>
             </Nav.Row>
 
-            <Nav.Row className='m-3 p-3 fieldset'>
+            <Nav.Row className='m-4 p-3 fieldset'>
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
                     <h2 className='mb-3'>{t('ui:fileUpload')}</h2>

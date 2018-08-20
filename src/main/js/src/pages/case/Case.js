@@ -49,7 +49,7 @@ class Case extends Component {
                         <Icons size={'lg'} title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={this.backToMenu.bind(this)}/>
                         {t(title)}
                     </h1>
-                    { description ? <h4 className='mb-3 ml-4'>{t(description)}</h4> : null }
+                    { description ? <h4 className='mb-3 appDescription'>{t(description)}</h4> : null }
                     <ClientAlert permanent={true}/>
                     { stepIndicator !== undefined ? <Nav.Stegindikator
                         visLabel={true}
