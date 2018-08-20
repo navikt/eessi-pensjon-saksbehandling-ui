@@ -1,7 +1,9 @@
 package no.nav.eessi.fagmodul.frontend.services
 
+import io.swagger.annotations.ApiOperation
 import no.nav.eessi.fagmodul.frontend.models.ErrorResponse
 import no.nav.eessi.fagmodul.frontend.models.FrontendRequest
+import no.nav.eessi.fagmodul.frontend.models.SedDokumentIkkeOpprettetException
 import no.nav.eessi.fagmodul.frontend.utils.mapJsonToAny
 import no.nav.eessi.fagmodul.frontend.utils.typeRef
 import no.nav.eessi.fagmodul.frontend.utils.typeRefs
@@ -11,9 +13,12 @@ import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Service
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
 import java.io.IOException
+import java.util.*
 import kotlin.math.log
 
 @Service
@@ -45,7 +50,6 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
 
         return try {
             val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, typeRef<String>())
-
             val euxCaseID = response.body ?: throw IllegalArgumentException("Ingen EUXcaseid mottatt. feil ved leggetil av SED (eux basis)")
             euxCaseID
         } catch (ex: Exception) {
@@ -76,22 +80,32 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
         val builder = UriComponentsBuilder.fromPath("$FAG_PATH$path")
         val httpEntity = HttpEntity(frontRequest, HttpHeaders())
 
-        val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, String::class.java)
-        //val sed = response.body ?: throw IllegalArgumentException("Ingen Json/SED mottatt. Feil ved generering av SED")
-        //return sed
-        val responseBody = response.body!!
-        try {
-            if (response.statusCode.isError) {
-                val error = mapJsonToAny(responseBody, typeRefs<ErrorResponse>())
-                logger.debug("error $error")
-                throw error
-            } else {
-                return responseBody
-            }
-        } catch (ex: IOException) {
-            throw RuntimeException()
+        //val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, String::class.java)
+        return try {
+            val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, String::class.java)
+            val euxCaseID = response.body ?: throw SedDokumentIkkeOpprettetException("Ingen RINANR mottatt. feil ved opprett ny SED")
+            euxCaseID
+        } catch (ex: Exception) {
+            logger.error(ex.message, ex)
+            throw ex
         }
-
-
     }
+
+    fun sendsed(frontRequest: FrontendRequest): Boolean {
+        val path = "/sendsed"
+
+        val builder = UriComponentsBuilder.fromPath("$FAG_PATH$path")
+        val httpEntity = HttpEntity(frontRequest, HttpHeaders())
+
+        return try {
+            val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, typeRef<Boolean>())
+            val result = response.body ?: throw IllegalArgumentException("Ingen RINANR mottatt, feil ved send sed")
+            result
+        } catch (ex: Exception) {
+            logger.error(ex.message, ex)
+            throw ex
+        }
+    }
+
+
 }
