@@ -14,7 +14,7 @@ class CountrySelect extends Component {
             flagImagePath : '../../../../../flags/',
             imageStyle: {
                 width: 30,
-                height: 15
+                height: 20
             },
             tag: null
         };
@@ -32,27 +32,35 @@ class CountrySelect extends Component {
 
     CountryOptionRenderer(option) {
         const flagImageUrl = this.state.flagImagePath + option.value + '.png';
+
+        const _type = this.props.type || 'country';
         const optionStyle = {
             width: 50,
             height: 30
         };
+
+        const label = _type === 'country' ? option.label : (option.currency ? option.currency + ' - ' : '') + option.currencyLabel;
         return (
             <span style={{
                 color: option.color
             }}>
-                <img src={flagImageUrl} alt={option.label} style={optionStyle}/>&nbsp; {option.label}
+                <img src={flagImageUrl} alt={option.label} style={optionStyle}/>&nbsp; {label}
             </span>
         )
     }
 
     CountryRenderValue(option) {
         const flagImageUrl = this.state.flagImagePath + option.value + '.png';
+
+        const _type = this.props.type || 'country';
+        const label = _type === 'country' ? option.label : (option.currency ? option.currency + ' - ' : '') + option.currencyLabel;
+
         if (option.value === undefined) {
             return null;
         } else {
             return (
                 <span>
-                    <img src={flagImageUrl} style={this.state.imageStyle} alt={option.label} onError={this.onImageError}/>&nbsp; {option.label}
+                    <img src={flagImageUrl} style={this.state.imageStyle} alt={option.label} onError={this.onImageError}/>&nbsp; {label}
                 </span>
             )
         }
@@ -68,7 +76,8 @@ class CountrySelect extends Component {
 
         const { t, value, locale, list } = this.props;
 
-        let options = list ? this.filter(list, countries[locale]) : countries[locale];
+        let optionList = countries[locale];
+        let options = list ? this.filter(list, optionList) : optionList;
 
         return <div>
             <Select placeholder={t('ui:searchCountry')}
@@ -84,11 +93,12 @@ class CountrySelect extends Component {
 }
 
 CountrySelect.propTypes = {
-    onSelect       : PT.func.isRequired,
-    value          : PT.object,
-    t              : PT.func.isRequired,
-    locale         : PT.string.isRequired,
-    list           : PT.array
+    onSelect : PT.func.isRequired,
+    value    : PT.object,
+    t        : PT.func.isRequired,
+    locale   : PT.string.isRequired,
+    list    : PT.array,
+    type    : PT.string
 }
 
 export default translate()(CountrySelect);

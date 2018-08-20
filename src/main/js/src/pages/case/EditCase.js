@@ -343,13 +343,13 @@ class EditCase extends Component {
 
         const { t, countryList, locale } = this.props;
 
-        return <div>
-                <label className='skjemaelement__label'>{t('ui:country')}</label>
-                <CountrySelect locale={locale}
+        return <div className='mb-3'>
+            <label className='skjemaelement__label'>{t('ui:country')}</label>
+            <CountrySelect locale={locale}
                 value={currentValue}
                 onSelect={this.onCountryChange.bind(this)}
                 list={countryList}/>
-            </div>
+        </div>
     }
 
     renderInstitution(currentValue) {

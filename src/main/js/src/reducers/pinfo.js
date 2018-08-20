@@ -10,6 +10,7 @@ export default function (state = initialState, action = {}) {
 
     case types.PINFO_NEW:
 
+        break;
 
     default:
 
