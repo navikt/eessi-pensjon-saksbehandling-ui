@@ -62,8 +62,10 @@ dependencies {
     compile("org.springframework.boot:spring-boot-devtools")
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("org.springframework.security:spring-security-test")
+
     // OIDC-support
     compile("no.nav.freg:freg-security-oidc:2.1.1")
+    compile("org.bitbucket.b_c:jose4j:0.6.4")
 
 //    // Apache CXF
 //    compile("org.apache.cxf:cxf-spring-boot-starter-jaxws:3.2.1")
