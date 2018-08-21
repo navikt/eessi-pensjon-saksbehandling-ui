@@ -19,5 +19,12 @@ module.exports = {
             en: 'Create PDF',
             nb: 'Opprett en PDF'
         }
+    },
+    'p4000' : {
+        frontPageButtonClass: '.p4000Link',
+        frontPageButtonText: {
+            en: 'Start new P4000',
+            nb: 'Begynner ny P4000'
+        }
     }
 };

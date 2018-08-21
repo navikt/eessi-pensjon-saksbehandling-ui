@@ -49,8 +49,8 @@ class MiniatureOther extends Component {
 
 MiniatureOther.propTypes = {
     t                : PT.func.isRequired,
-    file: PT.object.isRequired,
-    onDeleteDocument: PT.func.isRequired,
+    file             : PT.object.isRequired,
+    onDeleteDocument : PT.func
 }
 
 export default translate()(MiniatureOther);

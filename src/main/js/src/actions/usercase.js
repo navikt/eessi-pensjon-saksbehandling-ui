@@ -63,10 +63,10 @@ export function getInstitutionListForCountry (country) {
     });
 }
 
-export function getBucList () {
+export function getBucList (rinaId) {
 
     return api.call({
-        url: urls.CASE_GET_BUC_LIST_URL,
+        url: rinaId ? urls.CASE_GET_BUC_LIST_FROM_RINA_URL + '/' + rinaId : urls.CASE_GET_BUC_LIST_URL,
         type: {
             request : types.USERCASE_GET_BUC_LIST_REQUEST,
             success : types.USERCASE_GET_BUC_LIST_SUCCESS,
@@ -75,10 +75,10 @@ export function getBucList () {
     });
 }
 
-export function getSedList (buc) {
+export function getSedList (buc, rinaId) {
 
     return api.call({
-        url: urls.CASE_GET_SED_LIST_URL + '/' + buc,
+        url: rinaId ? urls.CASE_GET_SED_LIST_FROM_RINA_URL + '/' + rinaId : urls.CASE_GET_SED_LIST_URL + '/' + buc,
         type: {
             request : types.USERCASE_GET_SED_LIST_REQUEST,
             success : types.USERCASE_GET_SED_LIST_SUCCESS,

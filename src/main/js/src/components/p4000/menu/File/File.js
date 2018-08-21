@@ -190,7 +190,7 @@ class File extends Component {
                         <Nav.Column>
                             <Nav.Row className='no-gutters'>
                                 <Nav.Column className='col-auto buttonColumn'>
-                                    <Nav.Knapp className='bigButton' onClick={this.handleFileNew.bind(this)}>
+                                    <Nav.Knapp className='bigButton newP4000Button' onClick={this.handleFileNew.bind(this)}>
                                         <div>
                                             <Icons className='mr-3' size='4x' kind='file'/>
                                             <Icons size='3x' kind='plus'/>
@@ -208,7 +208,7 @@ class File extends Component {
 
                             <Nav.Row className='no-gutters'>
                                 <Nav.Column className='col-auto buttonColumn'>
-                                    <Nav.Knapp className='bigButton' onClick={this.handleFileOpen.bind(this)}>
+                                    <Nav.Knapp className='bigButton openP4000Button' onClick={this.handleFileOpen.bind(this)}>
                                         <div>
                                             <Icons size='4x' kind='file-open'/>
                                         </div>
@@ -230,7 +230,7 @@ class File extends Component {
 
                             <Nav.Row className='no-gutters'>
                                 <Nav.Column className='col-auto buttonColumn'>
-                                    <Nav.Knapp className='bigButton' onClick={this.handleFileView.bind(this)} disabled={event === undefined}>
+                                    <Nav.Knapp className='bigButton viewP4000Button' onClick={this.handleFileView.bind(this)} disabled={event === undefined}>
                                         <div>
                                             <Icons className='mr-3' size='4x' kind='file'/>
                                             <Icons size='3x' kind='view'/>
@@ -248,7 +248,7 @@ class File extends Component {
                         <Nav.Column>
                             <Nav.Row className='no-gutters'>
                                 <Nav.Column className='col-auto buttonColumn'>
-                                    <Nav.Knapp className='bigButton' onClick={this.handleFileNewEvent.bind(this)} disabled={event === undefined}>
+                                    <Nav.Knapp className='bigButton newEventButton' onClick={this.handleFileNewEvent.bind(this)} disabled={event === undefined}>
                                         <div>
                                             <Icons className='mr-3' size='4x' kind='file'/>
                                             <Icons size='3x' kind='calendar'/>
@@ -267,7 +267,7 @@ class File extends Component {
                                 <Nav.Column className='col-auto buttonColumn'>
                                     <a className='hiddenFileInputOutput' ref={fileOutput => this.fileOutput = fileOutput}
                                         href={this.state.fileOutput} download='p4000.json'>&nbsp;</a>
-                                    <Nav.Knapp className='bigButton' disabled={_.isEmpty(events)}
+                                    <Nav.Knapp className='bigButton saveP4000Button' disabled={_.isEmpty(events)}
                                         onClick={this.handleFileSave.bind(this)}>
                                         <div>
                                             <Icons className='mr-3' size='4x' kind='p4000'/>
@@ -287,7 +287,7 @@ class File extends Component {
 
                             <Nav.Row className='no-gutters'>
                                 <Nav.Column className='col-auto buttonColumn'>
-                                    <Nav.Knapp className='bigButton' disabled={_.isEmpty(events)}
+                                    <Nav.Knapp className='bigButton submitP4000Button' disabled={_.isEmpty(events)}
                                         onClick={this.handleFileSubmit.bind(this)}>
                                         <div>
                                             <Icons className='mr-3' size='4x' kind='p4000'/>

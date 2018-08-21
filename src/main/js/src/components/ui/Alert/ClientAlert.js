@@ -71,7 +71,7 @@ class ClientAlert extends Component {
         if (!clientErrorMessage) {
             return permanent ? <Nav.AlertStripe type={'suksess'}
                 className={classNames(className, 'clientAlert', 'm-4')}
-                style={{opacity: 0}}/> : null
+                style={{opacity: 0}}>&nbsp;</Nav.AlertStripe> : null
         }
 
         this.handleTimeouts();

@@ -44,8 +44,6 @@ const initialState = {ui: {
     modalOpen: false
 }};
 
-console.log(initialState);
-
 const store = createStoreWithMiddleware(reducer, initialState);
 
 ReactDOM.render(
@@ -53,16 +51,17 @@ ReactDOM.render(
         <Provider store={store}>
             <ConnectedRouter history={history}>
                 <Switch>
-                    <Route exact path='/react/pinfo'   component={Pages.PInfo}/>
-                    <Route exact path='/react/p4000'   component={Pages.P4000}/>
+                    <Route exact path='/react/pinfo' component={Pages.PInfo}/>
+                    <Route exact path='/react/p4000' component={Pages.P4000}/>
 
                     <Route exact path='/react/pdf/generate' component={Pages.GeneratePDF}/>
                     <Route exact path='/react/pdf/edit'     component={Pages.EditPDF}/>
                     <Route exact path='/react/pdf/select'   component={Pages.SelectPDF}/>
 
                     <Route exact path='/react/case/get'                          component={Pages.GetCase}/>
-                    <Route       path='/react/case/get/:caseid/:actorid/:rinaid' component={Pages.EditCase}/>
-                    <Route       path='/react/case/get/:caseid/:actorid'         component={Pages.EditCase}/>
+                    <Route exact path='/react/case/get/:caseid/:actorid'         component={Pages.EditCase}/>
+                    <Route exact path='/react/case/get/:caseid/:actorid/:rinaid' component={Pages.EditCase}/>
+
                     <Route exact path='/react/case/confirm'  component={Pages.ConfirmCase}/>
                     <Route exact path='/react/case/generate' component={Pages.GenerateCase}/>
                     <Route exact path='/react/case/end'      component={Pages.EndCase}/>

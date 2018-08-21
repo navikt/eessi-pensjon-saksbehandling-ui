@@ -57,7 +57,7 @@ class SelectPDF extends Component {
 
         let buttonText = loadingPDF ? t('pdf:loading-loadingPDF') : t('ui:forward');
 
-        return <TopContainer className='topContainer'>
+        return <TopContainer className='pdf topContainer'>
             <Nav.Row className='mb-4'>
                 <Nav.Column>
                     <h1 className='mt-3 appTitle'>

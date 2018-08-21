@@ -14,10 +14,11 @@ import PInfo from './PInfo/PInfo';
 import P4000 from './P4000/P4000';
 
 export {
+    FrontPage,
+
     ConfirmCase,
     EditCase,
     EndCase,
-    FrontPage,
     GenerateCase,
     GetCase,
 

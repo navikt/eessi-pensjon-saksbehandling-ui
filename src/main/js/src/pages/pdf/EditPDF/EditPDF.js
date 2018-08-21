@@ -129,10 +129,12 @@ class EditPDF extends Component {
 
         let alert = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
 
-        return <TopContainer className='topContainer'>
+        return <TopContainer className='pdf topContainer'>
             <Nav.Row>
                 <Nav.Column>
-                    <Nav.HjelpetekstBase>{t('pdf:help-edit-pdf')}</Nav.HjelpetekstBase>
+                    <div className='mt-4'>
+                        <Nav.HjelpetekstBase>{t('pdf:help-edit-pdf')}</Nav.HjelpetekstBase>
+                    </div>
                     <h1 className='mt-3 appTitle'>
                         <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
                         {t('pdf:app-editPdfTitle')}

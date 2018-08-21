@@ -71,9 +71,9 @@ class MiniaturePDF extends Component {
 
 MiniaturePDF.propTypes = {
     t                : PT.func.isRequired,
-    onLoadSuccess    : PT.func.isRequired,
+    onLoadSuccess    : PT.func,
     pdf              : PT.object.isRequired,
-    onDeleteDocument : PT.func.isRequired,
+    onDeleteDocument : PT.func,
     deleteLink       : PT.bool,
     downloadLink     : PT.bool
 }

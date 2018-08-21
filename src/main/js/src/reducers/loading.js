@@ -66,6 +66,13 @@ export default function (state = {}, action = {}) {
         });
     }
 
+    case types.STATUS_GET_REQUEST: {
+
+        return Object.assign({}, state, {
+            gettingStatus : true
+        });
+    }
+
     case types.USERCASE_GET_CASE_NUMBER_SUCCESS:
     case types.USERCASE_GET_CASE_NUMBER_FAILURE:
 
@@ -136,6 +143,13 @@ export default function (state = {}, action = {}) {
 
         return Object.assign({}, state, {
             gettingUserInfo : false
+        });
+
+    case types.STATUS_GET_SUCCESS:
+    case types.STATUS_GET_FAILURE:
+
+        return Object.assign({}, state, {
+            gettingStatus : false
         });
 
     case types.PDF_GENERATE_REQUEST:

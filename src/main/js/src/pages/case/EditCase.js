@@ -48,18 +48,34 @@ class EditCase extends Component {
         }
     };
 
-    componentDidMount() {
+    async componentDidMount() {
 
         const { actions, match, currentCase, institutionList, bucList, subjectAreaList, countryList, dataToConfirm, action } = this.props;
 
         if (_.isEmpty(currentCase)) {
+
             let caseId = match.params.caseid;
             let actorId = match.params.actorid;
             let rinaId = match.params.rinaid;
+
+            await this.setState({
+                caseId  : caseId,
+                actorId : actorId,
+                rinaId  : rinaId
+            });
+
             actions.getCaseFromCaseNumber({
                 caseId  : caseId,
                 actorId : actorId,
-                rinaId : rinaId
+                rinaId  : rinaId
+            });
+
+        } else {
+
+            await this.setState({
+                caseId  : currentCase.caseId,
+                actorId : currentCase.actorId,
+                rinaId  : currentCase.rinaId
             });
         }
 
@@ -68,7 +84,7 @@ class EditCase extends Component {
         }
 
         if (_.isEmpty(bucList)) {
-            actions.getBucList();
+            actions.getBucList(this.state.rinaId);
         }
 
         if (_.isEmpty(institutionList)) {
@@ -90,11 +106,19 @@ class EditCase extends Component {
         }
     }
 
-    componentDidUpdate() {
+    async componentDidUpdate() {
 
         const { history, loading, currentCase, dataToConfirm, action } = this.props;
 
-        if ( !loading.gettingCase && !currentCase) {
+         if (currentCase && (!this.state.caseId || !this.state.actorId)) {
+            await this.setState({
+                caseId  : currentCase.casenumber,
+                actorId : currentCase.pinid,
+                rinaId  : currentCase.rinaid
+            });
+        }
+
+        if ( !loading.gettingCase && !this.state.caseId) {
             history.push('/react/case/get');
         }
 
@@ -269,7 +293,7 @@ class EditCase extends Component {
         this.setState({buc: buc});
         this.validateBuc(buc);
         if (!this.state.validation.bucFail) {
-            actions.getSedList(buc);
+            actions.getSedList(buc, this.state.rinaId);
         }
     }
 
@@ -306,6 +330,10 @@ class EditCase extends Component {
     renderOptions(map, type) {
 
         const { t } = this.props;
+
+        if (typeof map === 'string') {
+            map = [map];
+        }
 
         if (!map || Object.keys(map).length === 0) {
             map = [{
@@ -465,6 +493,7 @@ class EditCase extends Component {
     render() {
 
         const { t, history, currentCase, action, loading } = this.props;
+        const { rinaId } = this.state;
 
         if (!currentCase) {
             return <Case className='editCase'
@@ -506,7 +535,7 @@ class EditCase extends Component {
 
             <div className='fieldset p-4 mb-4 ml-3 mr-3'>
                 {this.renderInstitutions()}
-                <div>{currentCase.rinaid ? t('case:form-rinaId') + ': ' + currentCase.rinaid : null}</div>
+                <div>{rinaId ? t('case:form-rinaId') + ': ' + rinaId : null}</div>
             </div>
 
             <Nav.Row className='mb-4 p-2'>

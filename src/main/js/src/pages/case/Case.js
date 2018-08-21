@@ -76,7 +76,7 @@ Case.propTypes = {
     history       : PT.object.isRequired,
     t             : PT.func,
     className     : PT.string,
-    children      : PT.oneOf([PT.array, PT.object]).isRequired
+    children      : PT.oneOfType([PT.array, PT.object]).isRequired
 };
 
 export default connect(

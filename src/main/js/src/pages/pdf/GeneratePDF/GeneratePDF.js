@@ -73,7 +73,7 @@ class GeneratePDF extends Component {
         const { t, history, generatingPDF, generatedPDFs } = this.props;
         let buttonText = generatingPDF ? t('pdf:loading-generatingPDF') : t('ui:startAgain');
 
-        return <TopContainer className='topContainer'>
+        return <TopContainer className='pdf topContainer'>
             <Nav.Row>
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('pdf:help-generate-pdf')}</Nav.HjelpetekstBase>
@@ -119,7 +119,7 @@ class GeneratePDF extends Component {
                     <Nav.Knapp className='backButton w-100' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
                 </Nav.Column>
                 <Nav.Column>
-                    <Nav.Hovedknapp disables={generatingPDF} className='forwardButton w-100' onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                    <Nav.Hovedknapp disabled={generatingPDF} className='forwardButton w-100' onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
                 </Nav.Column>
             </Nav.Row>
         </TopContainer>
