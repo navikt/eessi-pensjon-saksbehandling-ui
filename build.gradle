@@ -90,13 +90,12 @@ dependencies {
 }
 
 repositories {
+    jcenter()
+
     maven {
         url "https://repo.adeo.no/repository/maven-central"
     }
     maven {
         url "https://repo.adeo.no/repository/maven-releases/"
-    }
-    maven {
-        url "http://maven.adeo.no/nexus/content/groups/public"
     }
 }

@@ -2,10 +2,10 @@ DOCKER  := docker
 GRADLE  := ./gradlew
 NPM     := npm
 NAIS    := nais
-VERSION := $(shell cat ./VERSION)
+VERSION := $(shell git describe --abbrev=0)
 REGISTRY:= repo.adeo.no:5443
 
-.PHONY: all build test docker docker-push bump-version release manifest
+.PHONY: all build test docker docker-push release manifest
 
 all: build test docker
 release: tag docker-push
@@ -20,18 +20,15 @@ test:
 
 docker:
 	$(NAIS) validate
-	$(DOCKER) build --pull -t $(REGISTRY)/eessi-fagmodul-frontend -t $(REGISTRY)/eessi-fagmodul-frontend:$(VERSION) .
+	$(DOCKER) build --pull -t $(REGISTRY)/eessi-fagmodul-frontend .
 
 docker-push:
+	$(DOCKER) tag $(REGISTRY)/eessi-fagmodul-frontend $(REGISTRY)/eessi-fagmodul-frontend:$(VERSION)
 	$(DOCKER) push $(REGISTRY)/eessi-fagmodul-frontend:$(VERSION)
 
-bump-version:
-	@echo $$(($$(cat ./VERSION) + 1)) > ./VERSION
-
 tag:
-	git add VERSION
-	git commit -m "Bump version to $(VERSION) [skip ci]"
-	git tag -a $(VERSION) -m "auto-tag from Makefile"
+	$(eval VERSION=$(shell echo $$(($(VERSION) + 1))))
+	$(GIT) tag -a $(VERSION) -m "auto-tag from Makefile"
 
 manifest:
-	nais upload --app eessi-fagmodul-frontend -v $(VERSION)
+	$(NAIS) upload --app eessi-fagmodul-frontend -v $(VERSION)
