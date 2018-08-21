@@ -163,7 +163,7 @@ class New extends Component {
                         </Nav.Knapp>
                         <Nav.Knapp className='bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSubmit.bind(this)}>
                             <div>
-                                <Icons className='mr-3' size='4x' kind='p4000'/>
+                                <Icons className='mr-3' size='4x' kind='document'/>
                                 <Icons className='mr-3' size='3x' kind='caretRight'/>
                                 <Icons size='3x' kind='server'/>
                             </div>

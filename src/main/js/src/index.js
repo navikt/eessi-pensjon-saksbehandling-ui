@@ -52,7 +52,7 @@ ReactDOM.render(
             <ConnectedRouter history={history}>
                 <Switch>
                     <Route exact path='/react/pinfo' component={Pages.PInfo}/>
-                    <Route exact path='/react/p4000' component={Pages.P4000}/>
+                    <Route exact path='/react/P4000' component={Pages.P4000}/>
 
                     <Route exact path='/react/pdf/generate' component={Pages.GeneratePDF}/>
                     <Route exact path='/react/pdf/edit'     component={Pages.EditPDF}/>

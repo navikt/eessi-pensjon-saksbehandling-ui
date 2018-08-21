@@ -10,14 +10,15 @@ import LanguageSelector from '../components/ui/LanguageSelector';
 import TopContainer from '../components/ui/TopContainer';
 import * as Nav from '../components/ui/Nav';
 import Icons from '../components/ui/Icons';
+import DocumentStatus from '../components/ui/DocumentStatus/DocumentStatus';
 
 import * as statusActions from '../actions/status';
 
 const mapStateToProps = (state) => {
     return {
         language      : state.ui.language,
-        gettingStatus : state.loading.status,
-        status        : state.status
+        gettingStatus : state.loading.gettingStatus,
+        status        : state.status.status
     }
 };
 
@@ -38,6 +39,13 @@ class FrontPage extends Component {
         if (params.get('rinaId')) {
             actions.getStatus(params.get('rinaId'));
         }
+    }
+
+    getCreateableDocuments(status) {
+
+       return status
+           .filter(item => {return item.navn === 'Create'})
+           .sort((a, b) => {return (a.dokumentType > b.dokumentType) ? 1 : ((a.dokumentType < b.dokumentType) ? -1 : 0)});
     }
 
     render() {
@@ -68,7 +76,7 @@ class FrontPage extends Component {
                             </div>
                         </div>: null) : <div>
                             <h4 className='mb-4'>{t('status')}</h4>
-                            <div>got it</div>
+                            <DocumentStatus status={status}/>
                         </div> }
                     </Nav.Column>
                 </Nav.Row>
@@ -81,9 +89,16 @@ class FrontPage extends Component {
                         <Nav.Lenkepanel className='frontPageLink pInfoLink' linkCreator={(props) => (
                             <Link to='/react/pinfo' {...props}/>)
                         } href="#">{t('pinfo:app-startPinfo')}</Nav.Lenkepanel>
-                        <Nav.Lenkepanel className='frontPageLink p4000Link' linkCreator={(props) => (
-                            <Link to='/react/p4000' {...props}/>)
-                        } href="#">{t('p4000:app-startP4000')}</Nav.Lenkepanel>
+                        {status ? this.getCreateableDocuments(status).map(item => <Nav.Lenkepanel
+                                className={'frontPageLink ' + item.dokumentType + 'Link'}
+                                linkCreator={(props) => (
+                                    <Link to={'/react/' + item.dokumentType} {...props}/>)
+                                } href="#">{t(item.dokumentType + ':app-start' + item.dokumentType)}
+                                </Nav.Lenkepanel>) : <Nav.Lenkepanel
+                                className='frontPageLink p4000Link' linkCreator={(props) => (
+                                <Link to='/react/P4000' {...props}/>)
+                             } href="#">{t('p4000:app-startP4000')}</Nav.Lenkepanel>
+                        }
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mb-4'>

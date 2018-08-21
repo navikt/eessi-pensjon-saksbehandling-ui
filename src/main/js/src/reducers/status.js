@@ -9,7 +9,9 @@ export default function (state = initialState, action = {}) {
 
     case types.STATUS_GET_SUCCESS:
 
-        break;
+        return  Object.assign({}, state, {
+            status : action.payload
+        });
 
     default:
 

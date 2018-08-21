@@ -270,7 +270,7 @@ class File extends Component {
                                     <Nav.Knapp className='bigButton saveP4000Button' disabled={_.isEmpty(events)}
                                         onClick={this.handleFileSave.bind(this)}>
                                         <div>
-                                            <Icons className='mr-3' size='4x' kind='p4000'/>
+                                            <Icons className='mr-3' size='4x' kind='document'/>
                                             <Icons size='3x' kind='download'/>
                                         </div>
                                         <div className='mt-3'>{t('p4000:file-save')}</div>
@@ -290,7 +290,7 @@ class File extends Component {
                                     <Nav.Knapp className='bigButton submitP4000Button' disabled={_.isEmpty(events)}
                                         onClick={this.handleFileSubmit.bind(this)}>
                                         <div>
-                                            <Icons className='mr-3' size='4x' kind='p4000'/>
+                                            <Icons className='mr-3' size='4x' kind='document'/>
                                             <Icons className='mr-3' size='3x' kind='caretRight'/>
                                             <Icons size='3x' kind='server'/>
                                         </div>
