@@ -50,7 +50,13 @@ export default function (state = {}, action = {}) {
     case types.USERCASE_ADD_TO_SED_SUCCESS:
 
         return Object.assign({}, state, {
-            dataSubmitted : action.payload
+            dataSaved : action.payload
+        });
+
+    case types.USERCASE_SEND_SED_SUCCESS:
+
+        return Object.assign({}, state, {
+            dataSent : action.payload
         });
 
     case types.USERCASE_GET_CASE_NUMBER_SUCCESS:
@@ -77,7 +83,7 @@ export default function (state = {}, action = {}) {
             currentCase    : undefined,
             dataToGenerate : undefined,
             dataToConfirm  : undefined,
-            dataSubmitted  : undefined
+            dataSaved      : undefined
         });
 
     case types.USERCASE_CLEAR_CURRENT_CASE: {

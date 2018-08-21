@@ -110,7 +110,7 @@ class EditCase extends Component {
 
         const { history, loading, currentCase, dataToConfirm, action } = this.props;
 
-         if (currentCase && (!this.state.caseId || !this.state.actorId)) {
+        if (currentCase && (!this.state.caseId || !this.state.actorId)) {
             await this.setState({
                 caseId  : currentCase.casenumber,
                 actorId : currentCase.pinid,

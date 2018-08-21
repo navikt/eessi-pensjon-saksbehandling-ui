@@ -43,9 +43,9 @@ class FrontPage extends Component {
 
     getCreateableDocuments(status) {
 
-       return status
-           .filter(item => {return item.navn === 'Create'})
-           .sort((a, b) => {return (a.dokumentType > b.dokumentType) ? 1 : ((a.dokumentType < b.dokumentType) ? -1 : 0)});
+        return status
+            .filter(item => {return item.navn === 'Create'})
+            .sort((a, b) => {return (a.dokumentType > b.dokumentType) ? 1 : ((a.dokumentType < b.dokumentType) ? -1 : 0)});
     }
 
     render() {
@@ -90,14 +90,14 @@ class FrontPage extends Component {
                             <Link to='/react/pinfo' {...props}/>)
                         } href="#">{t('pinfo:app-startPinfo')}</Nav.Lenkepanel>
                         {status ? this.getCreateableDocuments(status).map(item => <Nav.Lenkepanel
-                                className={'frontPageLink ' + item.dokumentType + 'Link'}
-                                linkCreator={(props) => (
-                                    <Link to={'/react/' + item.dokumentType} {...props}/>)
-                                } href="#">{t(item.dokumentType + ':app-start' + item.dokumentType)}
-                                </Nav.Lenkepanel>) : <Nav.Lenkepanel
-                                className='frontPageLink p4000Link' linkCreator={(props) => (
+                            className={'frontPageLink ' + item.dokumentType + 'Link'}
+                            linkCreator={(props) => (
+                                <Link to={'/react/' + item.dokumentType} {...props}/>)
+                            } href="#">{t(item.dokumentType + ':app-start' + item.dokumentType)}
+                        </Nav.Lenkepanel>) : <Nav.Lenkepanel
+                            className='frontPageLink p4000Link' linkCreator={(props) => (
                                 <Link to='/react/P4000' {...props}/>)
-                             } href="#">{t('p4000:app-startP4000')}</Nav.Lenkepanel>
+                            } href="#">{t('p4000:app-startP4000')}</Nav.Lenkepanel>
                         }
                     </Nav.Column>
                 </Nav.Row>

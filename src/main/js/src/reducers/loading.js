@@ -50,6 +50,12 @@ export default function (state = {}, action = {}) {
     case types.USERCASE_ADD_TO_SED_REQUEST:
 
         return Object.assign({}, state, {
+            savingCase : true
+        });
+
+    case types.USERCASE_SEND_SED_REQUEST:
+
+        return Object.assign({}, state, {
             sendingCase : true
         });
 
@@ -119,6 +125,13 @@ export default function (state = {}, action = {}) {
     case types.USERCASE_CREATE_SED_FAILURE:
     case types.USERCASE_ADD_TO_SED_SUCCESS:
     case types.USERCASE_ADD_TO_SED_FAILURE:
+
+        return Object.assign({}, state, {
+            savingCase : false
+        });
+
+    case types.USERCASE_SEND_SED_SUCCESS:
+    case types.USERCASE_SEND_SED_FAILURE:
 
         return Object.assign({}, state, {
             sendingCase : false

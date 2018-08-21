@@ -59,7 +59,8 @@ class Case extends Component {
                             {label: t('case:form-step1'), aktiv: (stepIndicator === 0)},
                             {label: t('case:form-step2'), aktiv: (stepIndicator === 1)},
                             {label: t('case:form-step3'), aktiv: (stepIndicator === 2)},
-                            {label: t('case:form-step4'), aktiv: (stepIndicator === 3)}
+                            {label: t('case:form-step4'), aktiv: (stepIndicator === 3)},
+                            {label: t('case:form-step5'), aktiv: (stepIndicator === 4)}
                         ]}/> : null }
                 </Nav.Column>
             </Nav.Row>

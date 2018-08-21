@@ -64,9 +64,10 @@ ReactDOM.render(
 
                     <Route exact path='/react/case/confirm'  component={Pages.ConfirmCase}/>
                     <Route exact path='/react/case/generate' component={Pages.GenerateCase}/>
-                    <Route exact path='/react/case/end'      component={Pages.EndCase}/>
+                    <Route exact path='/react/case/save'     component={Pages.SaveCase}/>
+                    <Route exact path='/react/case/send'     component={Pages.SendCase}/>
 
-                    <Route       path='/' component={Pages.FrontPage}/>
+                    <Route path='/' component={Pages.FrontPage}/>
                 </Switch>
             </ConnectedRouter>
         </Provider>

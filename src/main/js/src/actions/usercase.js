@@ -149,6 +149,19 @@ export function addToSed (params) {
     });
 }
 
+export function sendSed (params) {
+    return api.call({
+        url: urls.CASE_SEND_SED_URL,
+        method: 'POST',
+        payload: params,
+        type: {
+            request : types.USERCASE_SEND_SED_REQUEST,
+            success : types.USERCASE_SEND_SED_SUCCESS,
+            failure : types.USERCASE_SEND_SED_FAILURE
+        }
+    });
+}
+
 export function getRinaUrl () {
     return api.call({
         url: urls.CASE_GET_RINA_URL,

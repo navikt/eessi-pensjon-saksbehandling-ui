@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PT from 'prop-types';
-import _ from 'lodash';
 import classNames from 'classnames';
 import { translate } from 'react-i18next';
 
@@ -50,7 +49,7 @@ class DocumentStatus extends Component {
         return <div className={classNames('div-documentStatus', 'm-2', className)}>
             <div className='flex-documentStatus'>
                 {docs.map((doc, index) => {
-                       console.log(JSON.stringify(doc))
+                    console.log(JSON.stringify(doc))
                     return <div key={index} className='document' title={doc.aksjoner.join(', ')}>
                         <Icons className='mr-3' size='3x' kind='document'/>
                         <div>{doc.dokumentType}</div>

@@ -234,7 +234,7 @@ describe('Selenium case submit', () => {
         it('Waiting for EndPage to load...', async function () {
 
             await _.elementLoads('div.alertstripe');
-            await _.elementLoads('div.endCase a');
+            await _.elementLoads('div.saveCase a');
             await _.elementLoads('button.forwardButton');
         });
 
@@ -247,8 +247,8 @@ describe('Selenium case submit', () => {
 
         it('Confirming link...', async function () {
 
-            let endCase = await _.getElement('div.endCase');
-            let link    = await _.getElement('a', endCase);
+            let saveCase = await _.getElement('div.saveCase');
+            let link    = await _.getElement('a', saveCase);
             let href    = await link.getAttribute('href');
             console.log(href);
 

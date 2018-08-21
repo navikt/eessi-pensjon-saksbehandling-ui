@@ -149,14 +149,14 @@ class New extends Component {
                     <div style={{display: 'flex', flexWrap: 'wrap'}}>
                         <Nav.Knapp className='bigButton' onClick={this.handleEventSelect.bind(this, 'view')}>
                             <div>
-                                <Icons size='4x' className='mr-3' kind={'file'}/>
+                                <Icons size='4x' className='mr-3' kind='document'/>
                                 <Icons size='3x' kind={'view'}/>
                             </div>
                             <div className='mt-3'>{t('ui:view')}</div>
                         </Nav.Knapp>
                         <Nav.Knapp className='bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSave.bind(this)}>
                             <div>
-                                <Icons size='4x' className='mr-3' kind={'p4000'}/>
+                                <Icons size='4x' className='mr-3' kind='document'/>
                                 <Icons size='3x' kind={'download'}/>
                             </div>
                             <div className='mt-3'>{t('p4000:file-save')}</div>

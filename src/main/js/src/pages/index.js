@@ -4,7 +4,8 @@ import GetCase from './case/GetCase';
 import EditCase from './case/EditCase';
 import ConfirmCase from './case/ConfirmCase';
 import GenerateCase from './case/GenerateCase';
-import EndCase from './case/EndCase';
+import SaveCase from './case/SaveCase';
+import SendCase from './case/SendCase';
 
 import SelectPDF   from './pdf/SelectPDF';
 import EditPDF     from './pdf/EditPDF/EditPDF';
@@ -16,11 +17,12 @@ import P4000 from './P4000/P4000';
 export {
     FrontPage,
 
-    ConfirmCase,
-    EditCase,
-    EndCase,
-    GenerateCase,
     GetCase,
+    EditCase,
+    ConfirmCase,
+    GenerateCase,
+    SaveCase,
+    SendCase,
 
     SelectPDF,
     EditPDF,
