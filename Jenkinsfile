@@ -10,6 +10,7 @@ node {
             withCredentials([string(credentialsId: 'navikt-ci-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
                 sh "git init"
                 sh "git pull https://${GITHUB_OAUTH_TOKEN}:x-oauth-basic@github.com/navikt/eessi-pensjon-fagmodul-frontend.git"
+                sh "git fetch --tags https://${GITHUB_OAUTH_TOKEN}:x-oauth-basic@github.com/navikt/eessi-pensjon-fagmodul-frontend.git"
             }
 
             commitHash = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
