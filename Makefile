@@ -2,6 +2,7 @@ DOCKER  := docker
 GRADLE  := ./gradlew
 NPM     := npm
 NAIS    := nais
+GIT     := git
 VERSION := $(shell git describe --abbrev=0)
 REGISTRY:= repo.adeo.no:5443
 
