@@ -42,7 +42,7 @@ class PDFPageInDnD extends Component {
 
          actions.openModal({
              content: <div style={{cursor: 'pointer'}} onClick={this.closePreview.bind(this)}>
-                 <Document className='document' file={{data: pdf.data }}>
+                 <Document className='documentPreview' file={{data: pdf.data }}>
                      <Page className='bigpage' width={600} renderMode='svg' pageNumber={pageNumber}/>
                  </Document>
              </div>

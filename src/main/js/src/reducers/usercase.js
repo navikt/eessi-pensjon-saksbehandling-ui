@@ -46,6 +46,13 @@ export default function (state = {}, action = {}) {
             dataToGenerate : action.payload
         });
 
+    case types.USERCASE_CREATE_SED_REQUEST:
+    case types.USERCASE_ADD_TO_SED_REQUEST:
+
+        return Object.assign({}, state, {
+            dataSaved : undefined
+        });
+
     case types.USERCASE_CREATE_SED_SUCCESS:
     case types.USERCASE_ADD_TO_SED_SUCCESS:
 

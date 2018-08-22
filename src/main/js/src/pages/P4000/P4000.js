@@ -92,7 +92,7 @@ class P4000 extends Component {
                     <ClientAlert className='mt-3'/>
                 </div>
             </Nav.Row>
-            <EventForm type={activeItem} Component={Component}/>
+            <EventForm type={activeItem} Component={Component} history={history}/>
             {isEventPage ? <Nav.Row className='mb-4'>
                 <Nav.Column>
                     <ClientAlert/>

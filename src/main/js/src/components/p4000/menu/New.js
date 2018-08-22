@@ -14,7 +14,9 @@ import Icons from '../../ui/Icons';
 
 const mapStateToProps = (state) => {
     return {
-        events : state.p4000.events
+        events : state.p4000.events,
+        dataToConfirm : state.usercase.dataToConfirm,
+        dataSaved  : state.usercase.dataSaved
     };
 };
 
@@ -37,7 +39,9 @@ const eventList = [
 
 class New extends Component {
 
-    state = {}
+    state = {
+        submitted: false
+    }
 
     handleEventSelect(newPage) {
 
@@ -52,6 +56,16 @@ class New extends Component {
             resetValidation       : this.resetValidation.bind(this)
         });
         window.scrollTo(0,0);
+    }
+
+     componentDidUpdate() {
+
+        const { history, dataSaved } = this.props;
+
+        if (this.state.submitted && dataSaved ) {
+
+            history.push('/?rinaId=' + dataSaved.euxcaseid);
+        }
     }
 
     hasNoValidationErrors() {
@@ -84,7 +98,7 @@ class New extends Component {
 
     handleFileSubmit() {
 
-        const { t, actions } = this.props;
+        const { t, actions, dataToConfirm, dataSaved } = this.props;
 
         actions.openModal({
             modalTitle: t('p4000:file-submit-confirm-title'),
@@ -109,11 +123,38 @@ class New extends Component {
 
     doSubmitP4000() {
 
-        const { actions, events } = this.props;
+        const { actions, events, dataToConfirm, dataSaved } = this.props;
 
         let p4000 = P4000Util.convertEventsToP4000(events);
         actions.closeModal();
-        actions.submit(p4000);
+
+         let body = {
+            subjectArea   : dataToConfirm.subjectArea,
+            caseId        : dataToConfirm.caseId,
+            actorId       : dataToConfirm.actorId,
+            buc           : dataToConfirm.buc,
+            sed           : dataToConfirm.sed,
+            institutions  : dataToConfirm.institutions
+        }
+
+        body.sendsed = true;
+        body.payload = JSON.stringify(p4000.payload);
+        body.sed = 'P4000';
+        body.euxCaseId = dataSaved.euxcaseid
+
+        actions.navigateForward();
+
+        //if (!payload.euxCaseId) {
+        //    actions.createSed(payload);
+        //} else {
+        //actions.addToSed(body);
+        //}
+
+        this.setState({
+            submitted: true
+        }, () => {
+            actions.submitP4000(body);
+        })
     }
 
     render() {

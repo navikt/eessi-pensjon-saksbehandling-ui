@@ -18,7 +18,9 @@ import './File.css';
 const mapStateToProps = (state) => {
     return {
         events : state.p4000.events,
-        event  : state.p4000.event
+        event  : state.p4000.event,
+        dataToConfirm : state.usercase.dataToConfirm,
+        dataSaved  : state.usercase.dataSaved
     }
 };
 
@@ -28,7 +30,19 @@ const mapDispatchToProps = (dispatch) => {
 
 class File extends Component {
 
-    state = {}
+    state = {
+         submitted: false
+    }
+
+    componentDidUpdate() {
+
+        const { history, dataSaved } = this.props;
+
+        if (this.state.submitted && dataSaved ) {
+
+            history.push('/?rinaId=' + dataSaved.euxcaseid);
+        }
+    }
 
     doNewP4000() {
 
@@ -48,11 +62,38 @@ class File extends Component {
 
     doSubmitP4000() {
 
-        const { actions, events } = this.props;
+        const { actions, events, dataToConfirm, dataSaved } = this.props;
 
         let p4000 = P4000Util.convertEventsToP4000(events);
         actions.closeModal();
-        actions.submit(p4000);
+
+        let body = {
+            subjectArea   : dataToConfirm.subjectArea,
+            caseId        : dataToConfirm.caseId,
+            actorId       : dataToConfirm.actorId,
+            buc           : dataToConfirm.buc,
+            sed           : dataToConfirm.sed,
+            institutions  : dataToConfirm.institutions
+        }
+
+        body.sendsed = true;
+        body.payload = JSON.stringify(p4000.payload);
+        body.sed = 'P4000';
+        body.euxCaseId = dataSaved.euxcaseid
+
+        actions.navigateForward();
+
+        //if (!payload.euxCaseId) {
+        //    actions.createSed(payload);
+        //} else {
+        //actions.addToSed(body);
+        //}
+
+        this.setState({
+            submitted: true
+        }, () => {
+            actions.submitP4000(body);
+        })
     }
 
     closeModal() {

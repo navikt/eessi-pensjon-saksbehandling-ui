@@ -104,12 +104,12 @@ export function setEventProperty(key, value) {
     }
 }
 
-export function submit (p4000) {
+export function submitP4000 (payload) {
 
     return api.call({
-        url: urls.P4000_SUBMIT_URL,
+        url: urls.CASE_ADD_TO_SED_URL,
         method: 'POST',
-        payload: p4000,
+        payload: payload,
         type: {
             request : types.P4000_SUBMIT_REQUEST,
             success : types.P4000_SUBMIT_SUCCESS,

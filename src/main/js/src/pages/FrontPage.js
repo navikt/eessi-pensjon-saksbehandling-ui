@@ -94,11 +94,12 @@ class FrontPage extends Component {
                             linkCreator={(props) => (
                                 <Link to={'/react/' + item.dokumentType} {...props}/>)
                             } href="#">{t(item.dokumentType + ':app-start' + item.dokumentType)}
-                        </Nav.Lenkepanel>) : <Nav.Lenkepanel
+                        </Nav.Lenkepanel>) : null}
+                        <Nav.Lenkepanel
                             className='frontPageLink p4000Link' linkCreator={(props) => (
                                 <Link to='/react/P4000' {...props}/>)
                             } href="#">{t('p4000:app-startP4000')}</Nav.Lenkepanel>
-                        }
+                        
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mb-4'>

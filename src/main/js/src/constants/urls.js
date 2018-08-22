@@ -24,4 +24,3 @@ export const CASE_GENERATE_DATA_URL = BASE_URL + '/fag/confirm';
 
 export const PDF_GENERATE_URL = BASE_URL + '/api/generatePDF';
 
-export const P4000_SUBMIT_URL = BASE_URL + '/api/experiments/trygdetid';

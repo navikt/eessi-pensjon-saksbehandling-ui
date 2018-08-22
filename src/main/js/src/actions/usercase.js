@@ -105,7 +105,8 @@ export function clearCurrentCase() {
 export function clearData() {
 
     return {
-        type : types.USERCASE_CLEAR_DATA
+      //  type : types.USERCASE_CLEAR_DATA
+      type : types.USERCASE_NULL
     };
 }
 
