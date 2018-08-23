@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PT from 'prop-types';
 import { Document, Page } from 'react-pdf/dist/entry.noworker';
 import { translate } from 'react-i18next';
+import classNames from 'classnames';
 
 import { Ikon } from '../Nav';
 import Icons from '../Icons';
@@ -42,28 +43,28 @@ class MiniaturePDF extends Component {
 
     render () {
 
-        const { t, pdf, onDeleteDocument, deleteLink, downloadLink } = this.props;
+        const { t, file, onDeleteDocument, deleteLink, downloadLink, className } = this.props;
 
-        return <div className='miniaturePdf'
+        return <div className={classNames('miniaturePdf', className)}
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
             onMouseLeave={this.onHandleMouseLeave.bind(this)}>
-            <Document className='position-relative' file={{data: pdf.data }}
+            <Document className='position-relative' file={{data: file.data }}
                 onLoadSuccess={this.handleOnLoadSuccess.bind(this)}>
                 { deleteLink && this.state.isHovering ? <div className='deleteLink'>
                     <Ikon size={20} kind='trashcan' onClick={onDeleteDocument}/>
                 </div> : null}
                 { downloadLink && this.state.isHovering ? <div className='downloadLink'><a
                     onClick={(e) => e.stopPropagation()} title={t('ui:download')}
-                    href={'data:application/octet-stream;base64,' + encodeURIComponent(pdf.base64)}
-                    download={pdf.name}>
+                    href={'data:application/octet-stream;base64,' + encodeURIComponent(file.base64)}
+                    download={file.name}>
                     <Icons size={'sm'} kind='download'/>
                 </a></div> : null}
                 <div className='page'>
                     <Page width={100} height={140} renderMode='svg' pageNumber={1}/>
                 </div>
-                <div className='fileName'> {pdf.name}</div>
+                <div className='fileName'> {file.name}</div>
                 <div className='numPages'>{t('ui:pages')}{': '}{this.state.numPages || '0'}</div>
-                <div className='numPages'>{t('ui:size')}{': '}{pdf.size}{' '}{t('ui:bytes')}</div>
+                <div className='fileSize'>{t('ui:size')}{': '}{file.size}{' '}{t('ui:bytes')}</div>
             </Document>
         </div>
     }
@@ -72,10 +73,11 @@ class MiniaturePDF extends Component {
 MiniaturePDF.propTypes = {
     t                : PT.func.isRequired,
     onLoadSuccess    : PT.func,
-    pdf              : PT.object.isRequired,
+    file             : PT.object.isRequired,
     onDeleteDocument : PT.func,
     deleteLink       : PT.bool,
-    downloadLink     : PT.bool
+    downloadLink     : PT.bool,
+    className        : PT.string
 }
 
 export default translate()(MiniaturePDF);

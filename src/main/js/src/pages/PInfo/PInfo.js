@@ -16,8 +16,7 @@ import ClientAlert from '../../components/ui/Alert/ClientAlert';
 import CountrySelect from '../../components/ui/CountrySelect/CountrySelect';
 import FileUpload from '../../components/ui/FileUpload/FileUpload';
 import P4000Util from '../../components/p4000/Util';
-import MiniaturePDF from '../../components/ui/File/MiniaturePDF';
-import MiniatureOther from '../../components/ui/File/MiniatureOther';
+import File from '../../components/ui/File/File';
 
 import * as pinfoActions from '../../actions/pinfo';
 import * as uiActions from '../../actions/ui';
@@ -592,11 +591,7 @@ class PInfo extends Component {
                             <dt className='col-sm-4'><label>{t('pinfo:form-attachments')}</label></dt>
                             <dd className='col-sm-8'>{
                                 this.state.attachments ? this.state.attachments.map((file, i) => {
-                                    if (_.endsWith(file.name, '.pdf')) {
-                                        return <MiniaturePDF key={i} pdf={file} deleteLink={false} downloadLink={false} />
-                                    } else {
-                                        return <MiniatureOther key={i} file={file} deleteLink={false} downloadLink={false} />
-                                    }
+                                    return <File className='mr-2' key={i} file={file} deleteLink={false} downloadLink={false} />
                                 }) : null }
                             </dd>
                         </dl>

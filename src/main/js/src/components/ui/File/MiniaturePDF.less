@@ -1,6 +1,6 @@
 .miniaturePdf {
+    position: relative;
     display: inline-block;
-    margin-right: 5px;
     vertical-align: top;
     text-align: center;
     -webkit-backface-visibility: hidden;
@@ -9,89 +9,11 @@
     animation: cd-bounce-1 0.6s;
 }
 
-
-.deleteLink {
-    position: absolute;
-    z-index: 10;
-    right: 5px;
-    top: 5px;
-}
-
-.downloadLink {
-    position: absolute;
-    z-index: 10;
-    left: 5px;
-    top: 5px;
-}
-
 .page {
     border: solid 1px whitesmoke;
     box-shadow: 3px 3px 3px lightgray;
 }
 
-.fileName,
-.numPages,
-.fileSize {
-    font-size: 0.7rem;
-}
-
 .annotationLayer {
     display: none
-}
-@-webkit-keyframes cd-bounce-1 {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale(0.5);
-  }
-
-  60% {
-    opacity: 1;
-    -webkit-transform: scale(1.2);
-  }
-
-  100% {
-    -webkit-transform: scale(1);
-  }
-}
-@-moz-keyframes cd-bounce-1 {
-  0% {
-    opacity: 0;
-    -moz-transform: scale(0.5);
-  }
-
-  60% {
-    opacity: 1;
-    -moz-transform: scale(1.2);
-  }
-
-  100% {
-    -moz-transform: scale(1);
-  }
-}
-@keyframes cd-bounce-1 {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale(0.5);
-    -moz-transform: scale(0.5);
-    -ms-transform: scale(0.5);
-    -o-transform: scale(0.5);
-    transform: scale(0.5);
-  }
-
-  60% {
-    opacity: 1;
-    -webkit-transform: scale(1.2);
-    -moz-transform: scale(1.2);
-    -ms-transform: scale(1.2);
-    -o-transform: scale(1.2);
-    transform: scale(1.2);
-  }
-
-  100% {
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    -ms-transform: scale(1);
-    -o-transform: scale(1);
-    transform: scale(1);
-  }
 }

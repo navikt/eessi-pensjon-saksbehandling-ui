@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { translate } from 'react-i18next';
 
 import Icons from '../Icons';
+import * as Nav from '../Nav';
 
 import './DocumentStatus.css';
 
@@ -40,20 +41,28 @@ class DocumentStatus extends Component {
 
     }
 
+    getStatus(aksjoner) {
+        if (!aksjoner) {
+            return null;
+        }
+        return aksjoner.indexOf('Send') >= 0 ? 'sent' : 'notsent'
+    }
+
     render() {
 
         const { t, status, className } = this.props;
 
         let docs = this.sortStatusByDocs(status);
 
-        return <div className={classNames('div-documentStatus', 'm-2', className)}>
+        return <div className={classNames('div-documentStatus', className)}>
             <div className='flex-documentStatus'>
                 {docs.map((doc, index) => {
-                    console.log(JSON.stringify(doc))
-                    return <div key={index} className='document' title={doc.aksjoner.join(', ')}>
+                    let status = this.getStatus(doc.aksjoner);
+                    return <Nav.Hovedknapp key={index} className={classNames('document', 'mr-2', status)}
+                         title={doc.aksjoner.join(', ')}>
                         <Icons className='mr-3' size='3x' kind='document'/>
                         <div>{doc.dokumentType}</div>
-                    </div>
+                    </Nav.Hovedknapp>
                 })}
             </div>
         </div>

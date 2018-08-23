@@ -8,8 +8,7 @@ import _ from 'lodash';
 import classNames from 'classnames';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import MiniaturePDF from '../File/MiniaturePDF';
-import MiniatureOther from '../File/MiniatureOther';
+import File from '../File/File';
 import './FileUpload.css';
 
 class FileUpload extends Component {
@@ -136,7 +135,7 @@ class FileUpload extends Component {
         const { t, accept, className } = this.props;
 
         return <div className={classNames('nav-fileUpload div-dropzone', className)}>
-            <Dropzone className='dropzone' activeClassName='dropzone-active' accept={accept} onDrop={this.onDrop.bind(this)}>
+            <Dropzone className='dropzone p-2' activeClassName='dropzone-active' accept={accept} onDrop={this.onDrop.bind(this)}>
                 <div className='dropzone-placeholder'>
                     <div className='dropzone-placeholder-message'>{t('ui:dropFilesHere')}</div>
                     <div className='dropzone-placeholder-status'>{this.state.status}</div>
@@ -144,20 +143,13 @@ class FileUpload extends Component {
                 <div className='dropzone-files scrollable'>
                     <TransitionGroup className='dropzone-files-transition'>
                         { this.state.files ? this.state.files.map((file, i) => {
-                            if (_.endsWith(file.name, '.pdf')) {
-                                return <CSSTransition key={i} classNames='fileUploadFile' timeout={500}>
-                                    <MiniaturePDF key={i} pdf={file}
-                                        deleteLink={true} downloadLink={true}
-                                        onLoadSuccess={this.onLoadSuccess.bind(this, i)}
-                                        onDeleteDocument={this.removeFile.bind(this, i)}
-                                    />
-                                </CSSTransition>
-                            } else {
-                                return <CSSTransition key={i} classNames='fileUploadFile' timeout={500}>
-                                    <MiniatureOther key={i} file={file}
-                                        onDeleteDocument={this.removeFile.bind(this, i)}/>
-                                </CSSTransition>
-                            }
+                            return <CSSTransition key={i} classNames='fileUploadFile' timeout={500}>
+                                <File className='mr-2' key={i} file={file}
+                                    deleteLink={true} downloadLink={true}
+                                    onLoadSuccess={this.onLoadSuccess.bind(this, i)}
+                                    onDeleteDocument={this.removeFile.bind(this, i)}
+                                />
+                            </CSSTransition>
                         }) : null }
                     </TransitionGroup>
                 </div>

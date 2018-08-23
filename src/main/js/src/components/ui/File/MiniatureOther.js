@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
+import classNames from 'classnames';
 
 import { Ikon } from '../Nav';
 import Icons from '../Icons';
@@ -23,7 +24,7 @@ class MiniatureOther extends Component {
 
     render () {
 
-        const { t, file, onDeleteDocument } = this.props;
+        const { t, file, onDeleteDocument, className } = this.props;
 
         let data = 'data:application/octet-stream;base64,' + encodeURIComponent(file.base64);
         let deleteLink   = this.state.isHovering ? <Ikon size={20} kind='trashcan' onClick={onDeleteDocument}/> : null;
@@ -33,12 +34,12 @@ class MiniatureOther extends Component {
 
         let extension = file.name.substring(file.name.lastIndexOf('.') + 1);
 
-        return <div className='miniatureOther position-relative'
+        return <div className={classNames('miniatureOther', className)}
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
             onMouseLeave={this.onHandleMouseLeave.bind(this)}>
             <div className='deleteLink'> {deleteLink}</div>
             <div className='downloadLink'> {downloadLink}</div>
-            <div className='document'>
+            <div className='miniatureDocument'>
                 <div className='content'>{extension}</div>
             </div>
             <div className='fileName'> {file.name}</div>
@@ -50,7 +51,8 @@ class MiniatureOther extends Component {
 MiniatureOther.propTypes = {
     t                : PT.func.isRequired,
     file             : PT.object.isRequired,
-    onDeleteDocument : PT.func
+    onDeleteDocument : PT.func,
+    className        : PT.string
 }
 
 export default translate()(MiniatureOther);

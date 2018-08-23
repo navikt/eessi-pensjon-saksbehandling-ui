@@ -8,7 +8,7 @@ import _ from 'lodash';
 import * as Nav from '../../../components/ui/Nav';
 import TopContainer from '../../../components/ui/TopContainer';
 import ClientAlert from '../../../components/ui/Alert/ClientAlert';
-import MiniaturePDF from '../../../components/ui/File/MiniaturePDF';
+import File from '../../../components/ui/File/File';
 import Icons from '../../../components/ui/Icons';
 
 import * as pdfActions from '../../../actions/pdf';
@@ -99,7 +99,7 @@ class GeneratePDF extends Component {
                             return <div key={key} className='fieldset p-2 mb-3 w-100'>
                                 <Nav.Row>
                                     <Nav.Column>
-                                        <MiniaturePDF pdf={pdf}/>
+                                        <File file={pdf}/>
                                     </Nav.Column>
                                     <Nav.Column className='text-right'>
                                         <a className='hiddenLink' ref={item => this[key] = item}
