@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch) => {
 class File extends Component {
 
     state = {
-         submitted: false
+        submitted: false
     }
 
     componentDidUpdate() {
@@ -357,7 +357,8 @@ File.propTypes = {
     t       : PT.func.isRequired,
     actions : PT.object.isRequired,
     events  : PT.array.isRequired,
-    event   : PT.object
+    event   : PT.object,
+    history : PT.object.isRequired
 };
 
 export default connect(

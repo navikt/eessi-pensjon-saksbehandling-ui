@@ -91,6 +91,7 @@ class FrontPage extends Component {
                         } href="#">{t('pinfo:app-startPinfo')}</Nav.Lenkepanel>
                         {status ? this.getCreateableDocuments(status).map(item => <Nav.Lenkepanel
                             className={'frontPageLink ' + item.dokumentType + 'Link'}
+                            key={item.dokumentType}
                             linkCreator={(props) => (
                                 <Link to={'/react/' + item.dokumentType} {...props}/>)
                             } href="#">{t(item.dokumentType + ':app-start' + item.dokumentType)}
@@ -99,7 +100,7 @@ class FrontPage extends Component {
                             className='frontPageLink p4000Link' linkCreator={(props) => (
                                 <Link to='/react/P4000' {...props}/>)
                             } href="#">{t('p4000:app-startP4000')}</Nav.Lenkepanel>
-                        
+
                     </Nav.Column>
                 </Nav.Row>
                 <Nav.Row className='mb-4'>
@@ -116,9 +117,12 @@ class FrontPage extends Component {
 }
 
 FrontPage.propTypes = {
-    language : PT.string,
-    t        : PT.func.isRequired,
-    actions  : PT.object.isRequired
+    language      : PT.string,
+    location      : PT.object.isRequired,
+    t             : PT.func.isRequired,
+    actions       : PT.object.isRequired,
+    gettingStatus : PT.bool,
+    status        : PT.array
 };
 
 export default connect(

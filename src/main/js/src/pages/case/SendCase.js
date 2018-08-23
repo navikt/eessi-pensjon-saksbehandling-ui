@@ -70,7 +70,6 @@ class SendCase extends Component {
 SendCase.propTypes = {
     actions       : PT.object,
     history       : PT.object,
-    dataSent      : PT.bool,
     dataSaved     : PT.object,
     dataToConfirm : PT.object,
     t             : PT.func

@@ -35,11 +35,11 @@ class RenderGeneratedData extends Component {
             <div><b>{t('case:form-buc')}</b>{': '}{dataToConfirm.buc}</div>
             <div><b>{t('case:form-sed')}</b>{': '}{dataToConfirm.sed}</div>
             <div><b>{t('case:form-institution')}</b>{': '}{dataToConfirm.institutions.map((inst, i) => {
-                return <div className='d-inline-block'>
+                return <div key={i}  className='d-inline-block'>
                     <img src={'../../../../flags/' + inst.country + '.png'}
-                       style={{width: 30, height: 20}}
-                       alt={inst.country}/>&nbsp; {inst.institution}
-                   </div>
+                        style={{width: 30, height: 20}}
+                        alt={inst.country}/>&nbsp; {inst.institution}
+                </div>
             })}</div>
             {this.renderJson(dataToGenerate, 0).map(i => { return i})}
         </div>;

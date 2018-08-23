@@ -38,12 +38,12 @@ describe('Selenium P4000 page test', () => {
             newEventButton = await _.driver.getElement('.newEventButton');
             saveP4000Button = await _.driver.getElement('.saveP4000Button');
             submitP4000Button = await _.driver.getElement('.submitP4000Button');
-            expect(await newP4000Button.isEnabled());
-            expect(await openP4000Button.isEnabled());
-            expect(await viewP4000Button.isEnabled());
-            expect(await newEventButton.isEnabled());
-            expect(await saveP4000Button.isEnabled());
-            expect(await submitP4000Button.isEnabled());
+            _.expect(await newP4000Button.isEnabled());
+            _.expect(await openP4000Button.isEnabled());
+            _.expect(await viewP4000Button.isEnabled());
+            _.expect(await newEventButton.isEnabled());
+            _.expect(await saveP4000Button.isEnabled());
+            _.expect(await submitP4000Button.isEnabled());
         });
     });
 

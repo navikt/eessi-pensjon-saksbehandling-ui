@@ -151,7 +151,8 @@ EventForm.propTypes = {
     editMode   : PT.bool.isRequired,
     eventIndex : PT.number,
     actions    : PT.object,
-    Component  : PT.func
+    Component  : PT.func,
+    history    : PT.object.isRequired
 };
 
 export default connect(

@@ -59,7 +59,7 @@ class DocumentStatus extends Component {
                 {docs.map((doc, index) => {
                     let status = this.getStatus(doc.aksjoner);
                     return <Nav.Hovedknapp key={index} className={classNames('document', 'mr-2', status)}
-                         title={doc.aksjoner.join(', ')}>
+                        title={doc.aksjoner.map(aks => {return t(aks)}).join(', ')}>
                         <Icons className='mr-3' size='3x' kind='document'/>
                         <div>{doc.dokumentType}</div>
                     </Nav.Hovedknapp>

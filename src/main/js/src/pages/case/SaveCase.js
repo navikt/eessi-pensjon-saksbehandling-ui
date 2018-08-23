@@ -31,7 +31,7 @@ class SaveCase extends Component {
 
     componentDidMount() {
 
-        let { history, actions, dataSaved, dataSent } = this.props;
+        let { history, actions, dataSaved } = this.props;
 
         if (!dataSaved) {
             history.push('/');
@@ -42,7 +42,7 @@ class SaveCase extends Component {
 
     componentDidUpdate() {
 
-        const { history, dataSent, action } = this.props;
+        const { history, dataSent } = this.props;
 
         if (dataSent) {
             history.push('/react/case/send');
@@ -63,7 +63,7 @@ class SaveCase extends Component {
 
         actions.navigateForward();
 
-         let payload = {
+        let payload = {
             subjectArea  : dataToConfirm.subjectArea,
             caseId       : dataToConfirm.caseId,
             actorId      : dataToConfirm.actorId,
@@ -72,7 +72,7 @@ class SaveCase extends Component {
             institutions : dataToConfirm.institutions,
             sendsed      : true,
             euxCaseId    : dataSaved.euxcaseid
-         }
+        }
 
         actions.sendSed(payload);
     }
@@ -121,15 +121,15 @@ class SaveCase extends Component {
 }
 
 SaveCase.propTypes = {
-    action      : PT.string,
-    actions     : PT.object,
-    history     : PT.object,
-    dataSaved   : PT.object,
-    dataSent    : PT.bool,
-    sendingCase : PT.bool,
-    t           : PT.func,
-    rinaLoading : PT.bool,
-    rinaUrl     : PT.string
+    actions       : PT.object,
+    history       : PT.object,
+    dataSaved     : PT.object,
+    dataSent      : PT.bool,
+    dataToConfirm : PT.object,
+    sendingCase   : PT.bool,
+    t             : PT.func,
+    rinaLoading   : PT.bool,
+    rinaUrl       : PT.string
 };
 
 export default connect(

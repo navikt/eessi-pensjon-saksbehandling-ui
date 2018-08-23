@@ -58,7 +58,7 @@ class New extends Component {
         window.scrollTo(0,0);
     }
 
-     componentDidUpdate() {
+    componentDidUpdate() {
 
         const { history, dataSaved } = this.props;
 
@@ -98,7 +98,7 @@ class New extends Component {
 
     handleFileSubmit() {
 
-        const { t, actions, dataToConfirm, dataSaved } = this.props;
+        const { t, actions } = this.props;
 
         actions.openModal({
             modalTitle: t('p4000:file-submit-confirm-title'),
@@ -128,7 +128,7 @@ class New extends Component {
         let p4000 = P4000Util.convertEventsToP4000(events);
         actions.closeModal();
 
-         let body = {
+        let body = {
             subjectArea   : dataToConfirm.subjectArea,
             caseId        : dataToConfirm.caseId,
             actorId       : dataToConfirm.actorId,

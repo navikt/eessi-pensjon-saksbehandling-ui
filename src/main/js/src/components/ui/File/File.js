@@ -11,19 +11,18 @@ class File extends Component {
 
     render () {
 
-        const { file, className } = this.props;
+        const { file } = this.props;
 
         if (_.endsWith(file.name, '.pdf')) {
-             return <MiniaturePDF {...this.props}/>
+            return <MiniaturePDF {...this.props}/>
         } else {
-             return <MiniatureOther {...this.props}/>
+            return <MiniatureOther {...this.props}/>
         }
     }
 }
 
 File.propTypes = {
-    file      : PT.object.isRequired,
-    className : PT.string
+    file : PT.object.isRequired
 }
 
 export default File;
