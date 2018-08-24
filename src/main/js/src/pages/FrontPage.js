@@ -5,6 +5,7 @@ import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 import _ from 'lodash';
+import 'url-search-params-polyfill';
 
 import LanguageSelector from '../components/ui/LanguageSelector';
 import TopContainer from '../components/ui/TopContainer';
