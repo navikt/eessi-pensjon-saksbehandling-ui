@@ -43,7 +43,7 @@ class MiniaturePDF extends Component {
 
     render () {
 
-        const { t, file, onDeleteDocument, deleteLink, downloadLink, className } = this.props;
+        const { t, file, size, onDeleteDocument, deleteLink, downloadLink, className } = this.props;
 
         return <div className={classNames('miniaturePdf', className)}
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
@@ -64,7 +64,7 @@ class MiniaturePDF extends Component {
                 </div>
                 <div className='fileName'> {file.name}</div>
                 <div className='numPages'>{t('ui:pages')}{': '}{this.state.numPages || '0'}</div>
-                <div className='fileSize'>{t('ui:size')}{': '}{file.size}{' '}{t('ui:bytes')}</div>
+                <div className='fileSize'>{t('ui:size')}{': '}{size}</div>
             </Document>
         </div>
     }
@@ -74,6 +74,7 @@ MiniaturePDF.propTypes = {
     t                : PT.func.isRequired,
     onLoadSuccess    : PT.func,
     file             : PT.object.isRequired,
+    size             : PT.string,
     onDeleteDocument : PT.func,
     deleteLink       : PT.bool,
     downloadLink     : PT.bool,

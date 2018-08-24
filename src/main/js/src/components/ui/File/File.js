@@ -7,16 +7,27 @@ import MiniaturePDF from './MiniaturePDF';
 
 import './File.css';
 
+const units = ['bytes', 'KB', 'MB', 'GB'];
+
 class File extends Component {
+
+    renderBytes(bytes) {
+
+        let level = 0;
+        while(bytes >= 1024 && ++level) {
+            bytes = bytes/1024;
+        }
+        return bytes.toFixed(bytes >= 10 || level < 1 ? 0 : 1) + ' ' + units[level];
+    }
 
     render () {
 
         const { file } = this.props;
 
         if (_.endsWith(file.name, '.pdf')) {
-            return <MiniaturePDF {...this.props}/>
+            return <MiniaturePDF size={this.renderBytes(file.size)} {...this.props}/>
         } else {
-            return <MiniatureOther {...this.props}/>
+            return <MiniatureOther size={this.renderBytes(file.size)} {...this.props}/>
         }
     }
 }

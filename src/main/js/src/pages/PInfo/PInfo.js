@@ -345,7 +345,8 @@ class PInfo extends Component {
                         <div className='col-md-6'>
                             <Nav.Input label={t('pinfo:form-bankName') + ' *'} value={this.state.bankName || ''}
                                 onChange={this.setValue.bind(this, 'bankName')}/>
-
+                        </div>
+                        <div className='col-md-6'>
                             <Nav.Textarea label={t('pinfo:form-bankAddress') + ' *'} value={this.state.bankAddress || ''}
                                 style={{minHeight:'200px'}}
                                 onChange={this.setValue.bind(this, 'bankAddress')}/>
@@ -391,7 +392,7 @@ class PInfo extends Component {
 
                 {this.state.step === 2 ? <div className='mt-3'>
 
-                    <Nav.Row>
+                    <Nav.Row className='mb-4'>
                         <div className='col-md-6'>
                             <Nav.Select label={t('pinfo:form-workType') + ' *'} value={this.state.workType || ''}
                                 onChange={this.setValue.bind(this, 'workType')}>
@@ -407,7 +408,8 @@ class PInfo extends Component {
                             </Nav.Select>
                         </div>
                     </Nav.Row>
-                    <div>
+                    <Nav.Row className='mb-4'>
+                    <div className='col-md-4'>
                         <label>{t('pinfo:form-workStartDate')+ ' *'}</label>
                         <ReactDatePicker selected={this.state.workStartDate ? moment(this.state.workStartDate) : undefined}
                             dateFormat='DD.MM.YYYY'
@@ -421,8 +423,7 @@ class PInfo extends Component {
                             onBlur={this.onDateBlur.bind(this, 'workStartDate')}
                             onChange={this.onDateChange.bind(this, 'workStartDate')}/>
                     </div>
-
-                    <div>
+                    <div className='col-md-4'>
                         <label>{t('pinfo:form-workEndDate')+ ' *'}</label>
                         <ReactDatePicker selected={this.state.workEndDate ? moment(this.state.workEndDate) : undefined}
                             dateFormat='DD.MM.YYYY'
@@ -436,8 +437,7 @@ class PInfo extends Component {
                             onBlur={this.onDateBlur.bind(this, 'workEndDate')}
                             onChange={this.onDateChange.bind(this, 'workEndDate')}/>
                     </div>
-
-                    <div>
+                    <div className='col-md-4'>
                         <label>{t('pinfo:form-workEstimatedRetirementDate')+ ' *'}</label>
                         <ReactDatePicker selected={this.state.workEstimatedRetirementDate ? moment(this.state.workEstimatedRetirementDate) : undefined}
                             dateFormat='DD.MM.YYYY'
@@ -451,16 +451,15 @@ class PInfo extends Component {
                             onBlur={this.onDateBlur.bind(this, 'workEstimatedRetirementDate')}
                             onChange={this.onDateChange.bind(this, 'workEstimatedRetirementDate')}/>
                     </div>
-
-                    <Nav.Row>
+                    </Nav.Row>
+                    <Nav.Row className='mb-4'>
                         <div className='col-md-6'>
                             <Nav.Input label={t('pinfo:form-workHourPerWeek') + ' *'} value={this.state.workHourPerWeek || ''}
                                 onChange={this.setValue.bind(this, 'workHourPerWeek')}/>
 
                         </div>
                     </Nav.Row>
-
-                    <Nav.Row>
+                    <Nav.Row className='mb-4'>
                         <div className='col-md-6'>
                             <Nav.Input label={t('pinfo:form-workIncome') + ' *'} value={this.state.workIncome || ''}
                                 onChange={this.setValue.bind(this, 'workIncome')}/>
@@ -472,22 +471,21 @@ class PInfo extends Component {
                                 onSelect={this.setValue.bind(this, 'workIncomeCurrency')}/>
                         </div>
                     </Nav.Row>
-                    <div>
-                        <label>{t('pinfo:form-workPaymentDate')+ ' *'}</label>
-                        <ReactDatePicker selected={this.state.workPaymentDate ? moment(this.state.workPaymentDate) : undefined}
-                            dateFormat='DD.MM.YYYY'
-                            placeholderText={t('ui:dateFormat')}
-                            showYearDropdown
-                            showMonthDropdown
-                            dropdownMode='select'
-                            locale={locale}
-                            onMonthChange={this.onDateChange.bind(this, 'workPaymentDate')}
-                            onYearChange={this.onDateChange.bind(this, 'workPaymentDate')}
-                            onBlur={this.onDateBlur.bind(this, 'workPaymentDate')}
-                            onChange={this.onDateChange.bind(this, 'workPaymentDate')}/>
-                    </div>
-
-                    <Nav.Row>
+                    <Nav.Row className='mb-4'>
+                        <div className='col-md-6'>
+                            <label>{t('pinfo:form-workPaymentDate')+ ' *'}</label>
+                            <ReactDatePicker selected={this.state.workPaymentDate ? moment(this.state.workPaymentDate) : undefined}
+                                dateFormat='DD.MM.YYYY'
+                                placeholderText={t('ui:dateFormat')}
+                                showYearDropdown
+                                showMonthDropdown
+                                dropdownMode='select'
+                                locale={locale}
+                                onMonthChange={this.onDateChange.bind(this, 'workPaymentDate')}
+                                onYearChange={this.onDateChange.bind(this, 'workPaymentDate')}
+                                onBlur={this.onDateBlur.bind(this, 'workPaymentDate')}
+                                onChange={this.onDateChange.bind(this, 'workPaymentDate')}/>
+                        </div>
                         <div className='col-md-6'>
                             <Nav.Select label={t('pinfo:form-workPaymentFrequency') + ' *'} value={this.state.workPaymentFrequency || ''}
                                 onChange={this.setValue.bind(this, 'workPaymentFrequency')}>
