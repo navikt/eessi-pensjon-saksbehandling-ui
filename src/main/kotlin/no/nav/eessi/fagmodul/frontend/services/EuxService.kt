@@ -159,7 +159,7 @@ class EuxService(val euxRestTemplate: RestTemplate) {
     }
 
     fun getBucFromRina(rinanr: String) : String {
-        val result = getRinaSaker(rinanr)
+        val result = getRinaSaker(rinanr, "")
         result.forEach {
             if (it.id == rinanr) {
                 return it.traits?.flowType ?: ""
@@ -169,12 +169,12 @@ class EuxService(val euxRestTemplate: RestTemplate) {
     }
 
     //henter ut status på rina.
-    fun getRinaSaker(rinaNummer: String): List<RINASaker> {
+    fun getRinaSaker(rinaNummer: String = "", fnr: String = ""): List<RINASaker> {
         val urlPath = "/RINASaker"
 
         val builder = UriComponentsBuilder.fromPath("$EUX_PATH$urlPath")
                 .queryParam("BuCType", "")
-                .queryParam("Fødselsnummer", "")
+                .queryParam("Fødselsnummer", fnr)
                 .queryParam("RINASaksnummer", rinaNummer)
 
         val headers = logonBasis()
