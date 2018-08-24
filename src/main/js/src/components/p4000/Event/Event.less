@@ -5,11 +5,11 @@
 }
 .eventBadge {
     background: #0067c5;
+    padding: 0px !important;
     color: white;
-    width: 60px;
+    width: 60px !important;
     height: 60px;
-    border-radius: 20px;
-    position: relative;
+    border-radius: 10px !important;
     /* Force Hardware Acceleration in WebKit */
     -webkit-transform: translateZ(0);
     -webkit-backface-visibility: hidden;
@@ -49,12 +49,13 @@
 .eventBadgeIcon {
    width: 40px !important;
    height: 40px !important;
-   margin: 10px;
+   margin: 0.5rem;
 }
 
-.eventBadge.selected {
-    background: red;
-    transform: scale(1.2);
+.eventBadge.selected,
+.eventBadge.selected.knapp--hoved:focus{
+  background: red;
+  transform: scale(1.2);
 }
 .eventBadge.selected:before {
     background: transparent;
