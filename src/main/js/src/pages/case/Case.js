@@ -27,7 +27,6 @@ const mapDispatchToProps = (dispatch) => {
 
 class Case extends Component {
 
-
     backToMenu () {
 
         const { history, actions }  = this.props;

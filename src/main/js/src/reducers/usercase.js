@@ -10,6 +10,12 @@ export default function (state = {}, action = {}) {
             subjectAreaList : action.payload
         });
 
+    case types.USERCASE_GET_INSTITUTION_LIST_REQUEST:
+
+        return Object.assign({}, state, {
+            institutionList : undefined
+        });
+
     case types.USERCASE_GET_INSTITUTION_LIST_SUCCESS:
 
         return Object.assign({}, state, {
@@ -20,6 +26,12 @@ export default function (state = {}, action = {}) {
 
         return Object.assign({}, state, {
             sedList : action.payload
+        });
+
+    case types.USERCASE_GET_BUC_LIST_REQUEST:
+
+        return Object.assign({}, state, {
+            bucList : undefined
         });
 
     case types.USERCASE_GET_BUC_LIST_SUCCESS:
@@ -66,16 +78,16 @@ export default function (state = {}, action = {}) {
             dataSent : action.payload
         });
 
-    case types.USERCASE_GET_CASE_NUMBER_SUCCESS:
-
-        return Object.assign({}, state, {
-            currentCase : action.payload
-        });
-
     case types.USERCASE_GET_CASE_NUMBER_REQUEST:
 
         return Object.assign({}, state, {
             currentCase : undefined
+        });
+
+    case types.USERCASE_GET_CASE_NUMBER_SUCCESS:
+
+        return Object.assign({}, state, {
+            currentCase : action.payload
         });
 
     case types.RINA_GET_URL_SUCCESS:
@@ -101,6 +113,5 @@ export default function (state = {}, action = {}) {
 
     default:
         return state;
-
     }
 }

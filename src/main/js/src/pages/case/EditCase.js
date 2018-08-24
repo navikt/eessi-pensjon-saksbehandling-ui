@@ -24,11 +24,9 @@ const mapStateToProps = (state) => {
         language        : state.ui.language,
         locale          : state.ui.locale,
         action          : state.ui.action,
-        loading         : state.loading,
-
+        loading         : state.loading
     };
 };
-
 
 const mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(Object.assign({}, usercaseActions, uiActions), dispatch)};
@@ -454,28 +452,28 @@ class EditCase extends Component {
         let validInstitution = (!this.state.validation.countryFail && !this.state.validation.institutionFail) && this.state.institution;
 
         renderedInstitutions.push(<Nav.Row key={'newInstitution'} className='mb-4'>
-            <Nav.Column className='col-sm'>
+            <div className='col-md-4'>
                 <div>{this.renderCountry()}</div>
                 <div className='mb-3 selectBoxMessage'>
                     <div>{loading && loading.countryList ? this.getSpinner('case:loading-country'): null}</div>
                     <Nav.HjelpetekstBase id='country'>{t('case:help-country')}</Nav.HjelpetekstBase>
                 </div>
-            </Nav.Column>
-            <Nav.Column className='col-sm'>
+            </div>
+            <div className='col-md-4'>
                 <div>{this.renderInstitution()}</div>
                 <div className='mb-3 selectBoxMessage'>
                     <div>{loading && loading.institutionList ? this.getSpinner('case:loading-institution'): null}</div>
                     <Nav.HjelpetekstBase id='institution'>{t('case:help-institution')}</Nav.HjelpetekstBase>
                 </div>
-            </Nav.Column>
-            <Nav.Column className='col-sm' style={{lineHeight: '6rem'}}>
-                <Nav.Knapp className='createInstitutionButton'
+            </div>
+            <div className='col-md-4' style={{lineHeight: '6rem'}}>
+                <Nav.Knapp className='w-100 createInstitutionButton'
                     disabled={!validInstitution}
                     onClick={this.onCreateInstitutionButtonClick.bind(this)}>
                     {validInstitution ? <Nav.Ikon size={20} className='mr-2' kind='tilsette'/> : null}
                     {t('ui:add')}
                 </Nav.Knapp>
-            </Nav.Column>
+            </div>
         </Nav.Row>);
 
         return renderedInstitutions.map(i => { return i});
@@ -509,42 +507,42 @@ class EditCase extends Component {
         return <Case className='editCase'
             title='case:app-editCaseTitle' description='case:app-editCaseDescription'
             stepIndicator={0} history={history}>
-            <div className='fieldset p-4 mb-4 ml-3 mr-3'>
+            <div className='fieldset p-4 m-4'>
                 <Nav.Row className='mb-3 align-middle text-left'>
-                    <Nav.Column>{this.renderSubjectArea()}</Nav.Column>
-                    <Nav.Column className='selectBoxMessage'>
+                    <div className='col-md-6'>{this.renderSubjectArea()}</div>
+                    <div className='col-md-6 selectBoxMessage'>
                         <div className='d-inline-block'>{loading && loading.subjectAreaList ? this.getSpinner('case:loading-subjectArea'): null}</div>
                         <Nav.HjelpetekstBase id='subjectArea'>{t('case:help-subjectArea')}</Nav.HjelpetekstBase>
-                    </Nav.Column>
+                    </div>
                 </Nav.Row>
                 <Nav.Row className='mb-3 align-middle text-left'>
-                    <Nav.Column>{this.renderBuc()}</Nav.Column>
-                    <Nav.Column className='selectBoxMessage'>
+                    <div className='col-md-6'>{this.renderBuc()}</div>
+                    <div className='col-md-6 selectBoxMessage'>
                         <div className='d-inline-block'>{loading && loading.bucList ? this.getSpinner('case:loading-buc') : null}</div>
-                        <Nav.HjelpetekstBase id='buc' type='under'>{t('case:help-buc')}</Nav.HjelpetekstBase>
-                    </Nav.Column>
+                        <Nav.HjelpetekstBase id='buc'>{t('case:help-buc')}</Nav.HjelpetekstBase>
+                    </div>
                 </Nav.Row>
                 <Nav.Row className='align-middle text-left'>
-                    <Nav.Column>{this.renderSed()}</Nav.Column>
-                    <Nav.Column className='selectBoxMessage'>
+                    <div className='col-md-6'>{this.renderSed()}</div>
+                    <div className='col-md-6 selectBoxMessage'>
                         <div className='d-inline-block'>{loading && loading.sedList ? this.getSpinner('case:loading-sed') : null}</div>
-                        <Nav.HjelpetekstBase id='sed' type='under'>{t('case:help-sed')}</Nav.HjelpetekstBase>
-                    </Nav.Column>
+                        <Nav.HjelpetekstBase id='sed'>{t('case:help-sed')}</Nav.HjelpetekstBase>
+                    </div>
                 </Nav.Row>
             </div>
 
-            <div className='fieldset p-4 mb-4 ml-3 mr-3'>
+            <div className='fieldset p-4 m-4'>
                 {this.renderInstitutions()}
                 <div>{rinaId ? t('case:form-rinaId') + ': ' + rinaId : null}</div>
             </div>
 
-            <Nav.Row className='mb-4 p-2'>
-                <Nav.Column>
+            <Nav.Row className='mb-4 p-4'>
+                <div className='col-md-6 mb-2'>
                     {action === 'forward' ? <Nav.Knapp className='backButton mr-4 w-100' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp> : null}
-                </Nav.Column>
-                <Nav.Column>
+                </div>
+                <div className='col-md-6 mb-2'>
                     <Nav.Hovedknapp className='forwardButton w-100' disabled={!this.noValidationErrors()} onClick={this.onForwardButtonClick.bind(this)}>{t('ui:go')}</Nav.Hovedknapp>
-                </Nav.Column>
+                </div>
             </Nav.Row>
         </Case>;
     }

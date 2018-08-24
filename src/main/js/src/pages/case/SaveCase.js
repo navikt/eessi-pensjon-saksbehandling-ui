@@ -88,8 +88,10 @@ class SaveCase extends Component {
         } else {
             if (rinaUrl && dataSaved && dataSaved.euxcaseid) {
                 body = <div>
-                    <a href={rinaUrl + dataSaved.euxcaseid}>{t('case:form-caseLink')}</a>
-                    <h4>{t('case:form-rinaId') + ': ' + dataSaved.euxcaseid}</h4>
+                    <div className='m-4'><a href={rinaUrl + dataSaved.euxcaseid}>{t('case:form-caseLink')}</a></div>
+                    <div className='m-4'>
+                        <h4>{t('case:form-rinaId') + ': ' + dataSaved.euxcaseid}</h4>
+                    </div>
                 </div>
             } else {
                 body = null;
@@ -101,20 +103,20 @@ class SaveCase extends Component {
         return <Case className='saveCase'
             title='case:app-saveCaseTitle' description='case:app-saveCaseDescription'
             stepIndicator={3} history={history}>
-            <div className='fieldset p-4 mb-4 ml-3 mr-3'>
+            <div className='fieldset p-4 m-4'>
                 <Nav.Row>
                     <Nav.Column className='saveCase'>
                         {body}
                     </Nav.Column>
                 </Nav.Row>
             </div>
-            <Nav.Row className='mb-4 p-2'>
-                <Nav.Column>
+            <Nav.Row className='mb-4 p-4'>
+                <div className='col-md-6 mb-2'>
                     <Nav.Knapp className='w-100 backButton' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
-                </Nav.Column>
-                <Nav.Column>
+                </div>
+                <div className='col-md-6 mb-2'>
                     <Nav.Hovedknapp className='w-100 forwardButton' disabled={sendingCase} spinner={sendingCase} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
-                </Nav.Column>
+                </div>
             </Nav.Row>
         </Case>;
     }

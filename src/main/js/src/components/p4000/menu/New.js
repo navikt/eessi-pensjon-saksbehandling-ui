@@ -4,6 +4,7 @@ import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import P4000Util from '../Util';
 import * as p4000Actions from '../../../actions/p4000';
@@ -14,9 +15,9 @@ import Icons from '../../ui/Icons';
 
 const mapStateToProps = (state) => {
     return {
-        events : state.p4000.events,
+        events        : state.p4000.events,
         dataToConfirm : state.usercase.dataToConfirm,
-        dataSaved  : state.usercase.dataSaved
+        dataSaved     : state.usercase.dataSaved
     };
 };
 
@@ -161,7 +162,7 @@ class New extends Component {
 
         const { t, events } = this.props;
 
-        return <Nav.Panel>
+        return <Nav.Panel className='newEventPanel'>
             <div>
                 <a className='hiddenFileInputOutput' ref={fileOutput => this.fileOutput = fileOutput}
                     href={this.state.fileOutput} download='p4000.json'>&nbsp;</a>
@@ -172,7 +173,7 @@ class New extends Component {
                     <h1 className='mt-3 mb-3'>{t('ui:new')}{' '}{t('p4000:type-event')}</h1>
                     <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
                         {eventList.map(e => {
-                            return <Nav.Knapp title={t(e.description)} className='bigButton'
+                            return <Nav.Knapp title={t(e.description)} className={classNames('bigButton', e.value + 'Button')}
                                 key={e.value} onClick={this.handleEventSelect.bind(this, e.value)}>
                                 <div>
                                     <Icons size='4x' kind={e.icon}/>
@@ -188,21 +189,21 @@ class New extends Component {
                     <Nav.HjelpetekstBase>{t('p4000:help-new-options')}</Nav.HjelpetekstBase>
                     <h1 className='mt-3 mb-3'>{t('ui:options')}</h1>
                     <div style={{display: 'flex', flexWrap: 'wrap'}}>
-                        <Nav.Knapp className='bigButton' onClick={this.handleEventSelect.bind(this, 'view')}>
+                        <Nav.Knapp className='viewButton bigButton' onClick={this.handleEventSelect.bind(this, 'view')}>
                             <div>
                                 <Icons size='4x' className='mr-3' kind='document'/>
                                 <Icons size='3x' kind={'view'}/>
                             </div>
                             <div className='mt-3'>{t('ui:view')}</div>
                         </Nav.Knapp>
-                        <Nav.Knapp className='bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSave.bind(this)}>
+                        <Nav.Knapp className='saveButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSave.bind(this)}>
                             <div>
                                 <Icons size='4x' className='mr-3' kind='document'/>
                                 <Icons size='3x' kind={'download'}/>
                             </div>
                             <div className='mt-3'>{t('p4000:file-save')}</div>
                         </Nav.Knapp>
-                        <Nav.Knapp className='bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSubmit.bind(this)}>
+                        <Nav.Knapp className='sendButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSubmit.bind(this)}>
                             <div>
                                 <Icons className='mr-3' size='4x' kind='document'/>
                                 <Icons className='mr-3' size='3x' kind='caretRight'/>

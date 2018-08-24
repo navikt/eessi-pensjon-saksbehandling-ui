@@ -3,6 +3,8 @@ import PT from 'prop-types';
 import { translate } from 'react-i18next';
 import _ from 'lodash';
 
+import './RenderData.css';
+
 class RenderGeneratedData extends Component {
 
     renderJson (json, level) {
@@ -27,20 +29,30 @@ class RenderGeneratedData extends Component {
 
         let { t, dataToGenerate, dataToConfirm } = this.props;
 
-        return <div className='generateData'>
-            <div><b>{t('case:form-caseId')}</b>{': '}{dataToConfirm.caseId}</div>
-            <div><b>{t('case:form-actorId')}</b>{': '}{dataToConfirm.actorId}</div>
-            <div><b>{t('case:form-rinaId')}</b>{': '}{dataToConfirm.rinaId}</div>
-            <div><b>{t('case:form-subjectArea')}</b>{': '}{dataToConfirm.subjectArea}</div>
-            <div><b>{t('case:form-buc')}</b>{': '}{dataToConfirm.buc}</div>
-            <div><b>{t('case:form-sed')}</b>{': '}{dataToConfirm.sed}</div>
-            <div><b>{t('case:form-institution')}</b>{': '}{dataToConfirm.institutions.map((inst, i) => {
-                return <div key={i}  className='d-inline-block'>
-                    <img src={'../../../../flags/' + inst.country + '.png'}
-                        style={{width: 30, height: 20}}
-                        alt={inst.country}/>&nbsp; {inst.institution}
-                </div>
-            })}</div>
+
+        return <div className='p-3 renderData'>
+            <dl className='row'>
+                <dt className='col-sm-4'><label>{t('case:form-caseId')}</label></dt>
+                <dd className='col-sm-8'>{dataToConfirm.caseId}</dd>
+                <dt className='col-sm-4'><label>{t('case:form-actorId')}</label></dt>
+                <dd className='col-sm-8'>{dataToConfirm.actorId}</dd>
+                <dt className='col-sm-4'><label>{t('case:form-rinaId')}</label></dt>
+                <dd className='col-sm-8'>{dataToConfirm.rinaId}</dd>
+                <dt className='col-sm-4'><label>{t('case:form-subjectArea')}</label></dt>
+                <dd className='col-sm-8'>{dataToConfirm.subjectArea}</dd>
+                <dt className='col-sm-4'><label>{t('case:form-buc')}</label></dt>
+                <dd className='col-sm-8'>{dataToConfirm.buc}</dd>
+                <dt className='col-sm-4'><label>{t('case:form-sed')}</label></dt>
+                <dd className='col-sm-8'>{dataToConfirm.sed}</dd>
+                <dt className='col-sm-4'><label>{t('case:form-institution')}</label></dt>
+                <dd className='col-sm-8'>{dataToConfirm.institutions.map((inst, i) => {
+                    return <div key={i} className='d-inline-block'>
+                        <img src={'../../../../flags/' + inst.country + '.png'}
+                            style={{width: 30, height: 20}}
+                            alt={inst.country}/>&nbsp; {inst.institution}
+                    </div>
+                })}</dd>
+            </dl>
             {this.renderJson(dataToGenerate, 0).map(i => { return i})}
         </div>;
     }
