@@ -96,14 +96,14 @@ class GetCase extends Component {
                     </Nav.Column>
                 </Nav.Row>
             </div>
-            <Nav.Row className='p-2 mb-4'>
-                <Nav.Column/>
-                <Nav.Column>
+            <Nav.Row className='p-4'>
+                <div className='col-md-6 mb-2'/>
+                <div className='col-md-6 mb-2'>
                     <Nav.Hovedknapp className='forwardButton w-100'
                         spinner={gettingCase}
                         disabled={this.isButtonDisabled()}
                         onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
-                </Nav.Column>
+                </div>
             </Nav.Row>
         </Case>
     }

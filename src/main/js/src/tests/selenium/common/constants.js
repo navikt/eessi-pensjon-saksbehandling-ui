@@ -5,8 +5,7 @@ module.exports = {
     },
     'case': {
         caseId  : '123',
-        actorId : '1000027223724',
-        rinaId  : '340303',
+        actorId : '1000060964183',
         frontPageButtonClass: '.caseLink',
         frontPageButtonText: {
             en: 'Create new case',
@@ -23,7 +22,7 @@ module.exports = {
     'p4000' : {
         frontPageButtonClass: '.p4000Link',
         frontPageButtonText: {
-            en: 'Start new P4000',
+            en: 'Start a P4000',
             nb: 'Begynner ny P4000'
         }
     }

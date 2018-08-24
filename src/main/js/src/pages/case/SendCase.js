@@ -48,20 +48,20 @@ class SendCase extends Component {
         return <Case className='sendCase'
             title='case:app-sendCaseTitle' description='case:app-sendCaseDescription'
             stepIndicator={4} history={history}>
-            <div className='fieldset p-4 mb-4 ml-3 mr-3'>
+            <div className='fieldset p-4 m-4'>
                 <Nav.Row>
                     <Nav.Column className='sendCase'>
                         <div>{t('case:form-caseSent')}</div>
                     </Nav.Column>
                 </Nav.Row>
             </div>
-            <Nav.Row className='mb-4 p-2'>
-                <Nav.Column>
+            <Nav.Row className='mb-4 p-4'>
+                <div className='col-md-6 mb-2'>
                     <Nav.Knapp className='w-100 createNewButton' onClick={this.onCreateNewButtonClick.bind(this)}>{t('ui:createNew')}</Nav.Knapp>
-                </Nav.Column>
-                <Nav.Column>
+                </div>
+                <div className='col-md-6 mb-2'>
                     <Nav.Hovedknapp className='w-100 goToStartButton' onClick={this.onGoToStartButtonClick.bind(this)}>{t('ui:goToStart')}</Nav.Hovedknapp>
-                </Nav.Column>
+                </div>
             </Nav.Row>
         </Case>;
     }

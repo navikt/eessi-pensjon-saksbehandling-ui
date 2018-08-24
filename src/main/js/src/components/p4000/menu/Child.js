@@ -164,17 +164,17 @@ class Child extends Component {
         return <Nav.Panel>
             <Nav.Row className='eventTitle mb-4'>
                 <Nav.Column>
-                    <Icons size='3x' kind={type} className='d-inline-block'/>
-                    <h1 className='d-inline-block m-0 ml-3 align-bottom'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('p4000:' + type + '-title')}</h1>
+                    <Icons size='3x' kind={type} className='float-left mr-4'/>
+                    <h1 className='m-0'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('p4000:' + type + '-title')}</h1>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='eventDescription mb-4 p-3 fieldset'>
+            <Nav.Row className='eventDescription mb-4 p-4 fieldset'>
                 <Nav.Column>
                     <Nav.Ikon className='float-left mr-4' kind='info-sirkel' />
                     <Nav.Tekstomrade>{t('p4000:' + type + '-description')}</Nav.Tekstomrade>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className={classNames('eventDates','mb-4','p-3','fieldset', {
+            <Nav.Row className={classNames('eventDates','mb-4','p-4','fieldset', {
                 validationFail : this.datepicker ? !this.datepicker.hasNoValidationErrors() : false
             })}>
                 <Nav.Column>
@@ -183,7 +183,7 @@ class Child extends Component {
                     <DatePicker provideController={(datepicker) => this.datepicker = datepicker}/>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className={classNames('eventInfo','mb-4','p-3','fieldset', {
+            <Nav.Row className={classNames('eventInfo','mb-4','p-4','fieldset', {
                 validationFail : this ? !this.hasNoInfoErrors() : false
             })}>
                 <Nav.Column>
@@ -215,7 +215,7 @@ class Child extends Component {
                     </div>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className={classNames('eventOther','mb-4','p-3','fieldset', {
+            <Nav.Row className={classNames('eventOther','mb-4','p-4','fieldset', {
                 validationFail : this ? ! this.hasNoOtherErrors() : false
             })}>
                 <Nav.Column>
@@ -232,7 +232,7 @@ class Child extends Component {
                         onChange={(e) => {actions.setEventProperty('other', e.target.value)}} />
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className={classNames('eventFileUpload','mb-4','p-3','fieldset')}>
+            <Nav.Row className={classNames('eventFileUpload','mb-4','p-4','fieldset')}>
                 <Nav.Column>
                     <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
                     <FileUpload files={event.files || []} onFileChange={this.handleFileChange.bind(this)}/>

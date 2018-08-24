@@ -60,7 +60,7 @@ class FrontPage extends Component {
                         {t('pageTitle')}
                     </h1>
                     <h4 className='appDescription'>{t('pageDescription')}</h4>
-                    <div className='col-4 text-center m-auto'>
+                    <div className='col text-center m-auto'>
                         <LanguageSelector/>
                     </div>
                 </Nav.Column>

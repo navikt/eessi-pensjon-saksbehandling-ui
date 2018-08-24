@@ -87,20 +87,20 @@ class ConfirmCase extends Component {
         return <Case className='confirmCase'
             title='case:app-confirmCaseTitle' description='case:app-confirmCaseDescription'
             stepIndicator={1} history={history}>
-            <div className='fieldset p-4 mb-4 ml-3 mr-3'>
+            <div className='fieldset p-4 m-4'>
                 <Nav.Row>
                     <Nav.Column>
                         <RenderConfirmData dataToConfirm={dataToConfirm}/>
                     </Nav.Column>
                 </Nav.Row>
             </div>
-            <Nav.Row className='mb-4 p-2'>
-                <Nav.Column>
+            <Nav.Row className='mb-4 p-4'>
+                <div className='col-md-6 mb-2'>
                     <Nav.Knapp className='w-100 backButton' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
-                </Nav.Column>
-                <Nav.Column>
+                </div>
+                <div className='col-md-6 mb-2'>
                     <Nav.Hovedknapp className='w-100 forwardButton' disabled={generatingCase} spinner={generatingCase} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
-                </Nav.Column>
+                </div>
             </Nav.Row>
         </Case>;
     }
