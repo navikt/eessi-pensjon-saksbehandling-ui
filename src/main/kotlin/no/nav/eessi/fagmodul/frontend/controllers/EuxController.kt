@@ -2,6 +2,7 @@ package no.nav.eessi.fagmodul.frontend.controllers
 
 import io.swagger.annotations.ApiOperation
 import no.nav.eessi.fagmodul.frontend.models.PDFRequest
+import no.nav.eessi.fagmodul.frontend.models.RINASaker
 import no.nav.eessi.fagmodul.frontend.models.RINAaksjoner
 import no.nav.eessi.fagmodul.frontend.services.EuxService
 import no.nav.eessi.fagmodul.frontend.services.FagmodulService
@@ -97,11 +98,11 @@ class EuxController(private val euxService: EuxService, private val fagService: 
         return filterlist.toList()
     }
 
-//    @ApiOperation("Henter lisgte over alle mulige aksjoner på valgt rina")
-//    @GetMapping("/muligeaksjoner/{rinanr}")
-//    fun getMuligeAksjoner(@PathVariable(value = "rinanr", required = true) rinanr: String): List<RINAaksjoner> {
-//        return euxService.getMuligeAksjoner(rinanr)
-//    }
+    @ApiOperation("Henter lisgte over rina mot fnr")
+    @GetMapping("/rinasaker/{fnr}")
+    fun getRinaSaker(@PathVariable(value = "fnr", required = true) fnr: String): List<RINASaker> {
+        return euxService.getRinaSaker("", fnr)
+    }
 
     @ApiOperation("henter liste av alle tilgjengelige instusjoner fra EUX")
     @GetMapping("/institutions")
