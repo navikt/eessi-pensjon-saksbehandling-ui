@@ -21,7 +21,7 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
     private val FAG_PATH: String = "/api"
 
     fun landkoder(): List<String> {
-        val path = "/v1.0/landkoder"
+        val path = "/landkoder"
 
         val builder = UriComponentsBuilder.fromPath("$FAG_PATH$path")
         val httpEntity = HttpEntity("", HttpHeaders())
@@ -34,7 +34,7 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
     }
 
     fun addsed(frontRequest: FrontendRequest): String {
-        val path = "/v1.1/sed/add"
+        val path = "/sed/add"
 
         val builder = UriComponentsBuilder.fromPath("$FAG_PATH$path")
         val httpEntity = HttpEntity(frontRequest, HttpHeaders())
@@ -50,7 +50,7 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
 
     fun create(frontRequest: FrontendRequest): String {
         logger.debug("create reqeust to fagmodul : $frontRequest")
-        val path = "/v1.2/buc/create"
+        val path = "/buc/create"
 
         val builder = UriComponentsBuilder.fromPath("$FAG_PATH$path")
         val httpEntity = HttpEntity(frontRequest, HttpHeaders())
@@ -66,7 +66,7 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
 
     fun confirm(frontRequest: FrontendRequest): String {
         logger.debug("create reqeust to fagmodul : $frontRequest")
-        val path = "/v1.0/sed/confirm"
+        val path = "/sed/confirm"
 
         val builder = UriComponentsBuilder.fromPath("$FAG_PATH$path")
         val httpEntity = HttpEntity(frontRequest, HttpHeaders())
@@ -83,7 +83,7 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
     }
 
     fun sendsed(frontRequest: FrontendRequest): Boolean {
-        val path = "/v1.0/sed/send"
+        val path = "/sed/send"
 
         val builder = UriComponentsBuilder.fromPath("$FAG_PATH$path")
         val httpEntity = HttpEntity(frontRequest, HttpHeaders())
