@@ -39,9 +39,6 @@ class EuxServiceTest {
         logger.debug("Starting tests.... ...")
         objMapper.enable(SerializationFeature.WRAP_ROOT_VALUE)
         service = EuxService(mockrestTemplate)
-        //skip eux basis login (onlu for mock)
-        service.overrideheaders = true
-
     }
 
     @Test

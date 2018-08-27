@@ -1,9 +1,7 @@
 package no.nav.eessi.fagmodul.frontend.controllers
 
 import io.swagger.annotations.ApiOperation
-import no.nav.eessi.fagmodul.frontend.models.ErrorResponse
 import no.nav.eessi.fagmodul.frontend.models.FrontendRequest
-import no.nav.eessi.fagmodul.frontend.models.IkkeGyldigKallException
 import no.nav.eessi.fagmodul.frontend.services.FagmodulService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -11,8 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import java.util.*
-import kotlin.math.log
 
 @RestController
 @RequestMapping("/fag")

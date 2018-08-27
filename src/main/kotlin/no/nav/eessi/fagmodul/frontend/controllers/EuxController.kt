@@ -6,14 +6,16 @@ import no.nav.eessi.fagmodul.frontend.models.RINASaker
 import no.nav.eessi.fagmodul.frontend.models.RINAaksjoner
 import no.nav.eessi.fagmodul.frontend.services.EuxService
 import no.nav.eessi.fagmodul.frontend.services.FagmodulService
-import no.nav.eessi.fagmodul.frontend.utils.logger
 import no.nav.freg.security.oidc.common.OidcTokenAuthentication
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
 import java.util.regex.Pattern.matches
+
+private val logger = LoggerFactory.getLogger(EuxController::class.java)
 
 @RestController
 @RequestMapping("/api")
@@ -78,15 +80,15 @@ class EuxController(private val euxService: EuxService, private val fagService: 
 
     @ApiOperation("henter opp mulige aksjoner som kan utføres på valgt rinacase, filtert på sed starter med 'P'")
     @GetMapping("/aksjoner/{rinanr}", "/aksjoner/{rinanr}/{filter}")
-    fun getMuligeAksjoner(@PathVariable(value = "rinanr",  required = true)rinanr: String, @PathVariable(value = "filter",  required = false)filter: String?= null): List<RINAaksjoner> {
+    fun getMuligeAksjoner(@PathVariable(value = "rinanr", required = true) rinanr: String, @PathVariable(value = "filter", required = false) filter: String? = null): List<RINAaksjoner> {
         val list = euxService.getMuligeAksjoner(rinanr)
         if (filter == null) {
-            return getMuligeAksjonerFilter(rinanr, list)
+            return getMuligeAksjonerFilter(list)
         }
-        return getMuligeAksjonerFilter(rinanr, list, filter)
+        return getMuligeAksjonerFilter(list, filter)
     }
 
-    private fun getMuligeAksjonerFilter(euxCaseId: String, list: List<RINAaksjoner>, filter: String = ""): List<RINAaksjoner> {
+    private fun getMuligeAksjonerFilter(list: List<RINAaksjoner>, filter: String = ""): List<RINAaksjoner> {
         val filterlist = mutableListOf<RINAaksjoner>()
         println("list: $list")
         list.forEach {
@@ -112,22 +114,22 @@ class EuxController(private val euxService: EuxService, private val fagService: 
 
     @GetMapping("/institutions/{countrycode}")
     fun getInstitutionsWithCountry(@PathVariable(value = "countrycode", required = false) landkode: String = ""): List<String> {
-        return euxService.getInstitusjoner("",landkode)
+        return euxService.getInstitusjoner("", landkode)
     }
 
     @GetMapping("/countrycode")
-    fun getCountryCode() : List<String> {
-        try {
-            return fagService.landkoder()
+    fun getCountryCode(): List<String> {
+        return try {
+            fagService.landkoder()
         } catch (ex: Exception) {
             logger.error(ex.message)
-            return listOf("NO","SE","DK","FI")
+            listOf("NO", "SE", "DK", "FI")
         }
     }
 
     @GetMapping("/subjectarea")
-    fun getSubjectArea() : List<String> {
-        return listOf("Pensjon","Andre")
+    fun getSubjectArea(): List<String> {
+        return listOf("Pensjon", "Andre")
     }
 
     @GetMapping("/userinfo")
@@ -142,30 +144,30 @@ class EuxController(private val euxService: EuxService, private val fagService: 
 
         return ResponseEntity.ok(mapOf(
                 "work" to mapOf(
-                        "base64" to request?.pdfs?.get(0)?.base64,
+                        "base64" to request.pdfs[0].base64,
                         "name" to "work.pdf",
-                        "size" to request?.pdfs?.get(0)?.size,
-                        "numPages" to request?.pdfs?.get(0)?.numPages
+                        "size" to request.pdfs[0].size,
+                        "numPages" to request.pdfs[0].numPages
                 ),
                 "home" to mapOf(
-                        "base64" to request?.pdfs?.get(0)?.base64,
+                        "base64" to request.pdfs[0].base64,
                         "name" to "home.pdf",
-                        "size" to request?.pdfs?.get(0)?.size,
-                        "numPages" to request?.pdfs?.get(0)?.numPages
+                        "size" to request.pdfs[0].size,
+                        "numPages" to request.pdfs[0].numPages
                 ),
                 "sick" to mapOf(
-                        "base64" to request?.pdfs?.get(0)?.base64,
+                        "base64" to request.pdfs[0].base64,
                         "name" to "sick.pdf",
-                        "size" to request?.pdfs?.get(0)?.size,
-                        "numPages" to request?.pdfs?.get(0)?.numPages
+                        "size" to request.pdfs[0].size,
+                        "numPages" to request.pdfs[0].numPages
                 ),
                 "other" to mapOf(
-                        "base64" to request?.pdfs?.get(0)?.base64,
+                        "base64" to request.pdfs[0].base64,
                         "name" to "other.pdf",
-                        "size" to request?.pdfs?.get(0)?.size,
-                        "numPages" to request?.pdfs?.get(0)?.numPages
+                        "size" to request.pdfs[0].size,
+                        "numPages" to request.pdfs[0].numPages
                 )
-        ));
+        ))
     }
 }
 

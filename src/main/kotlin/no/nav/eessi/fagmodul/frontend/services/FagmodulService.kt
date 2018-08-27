@@ -12,13 +12,12 @@ import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
 
+private const val FAG_PATH = "/api"
+
 @Service
-// fagmodul servie mellom frontend og fagmodul (eessi-pen)
 class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
 
     private val logger: Logger by lazy { LoggerFactory.getLogger(FagmodulService::class.java) }
-
-    private val FAG_PATH: String = "/api"
 
     fun landkoder(): List<String> {
         val path = "/landkoder"
@@ -28,9 +27,7 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
 
         val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, typeRef<List<String>>())
 
-        val list = response.body ?: throw IllegalArgumentException("Ingen list over landkoder funnet")
-        return list
-
+        return response.body ?: throw IllegalArgumentException("Ingen list over landkoder funnet")
     }
 
     fun addsed(frontRequest: FrontendRequest): String {
@@ -71,7 +68,6 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
         val builder = UriComponentsBuilder.fromPath("$FAG_PATH$path")
         val httpEntity = HttpEntity(frontRequest, HttpHeaders())
 
-        //val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, String::class.java)
         return try {
             val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, String::class.java)
             val euxCaseID = response.body ?: throw SedDokumentIkkeOpprettetException("Ingen RINANR mottatt. feil ved opprett ny SED")
@@ -97,6 +93,4 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
             throw ex
         }
     }
-
-
 }
