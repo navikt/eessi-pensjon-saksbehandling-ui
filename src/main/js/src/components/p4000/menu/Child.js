@@ -191,10 +191,10 @@ class Child extends Component {
                     <Nav.HjelpetekstBase>{t('p4000:help-' + type + '-info')}</Nav.HjelpetekstBase>
                     <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-2-info-title')}</h2>
 
-                    <Nav.Input label={t('p4000:' + type + '-fieldset-2_1-lastname')} value={event.lastname}
+                    <Nav.Input className='lastname' label={t('p4000:' + type + '-fieldset-2_1-lastname')} value={event.lastname}
                         onChange={(e) => {actions.setEventProperty('lastname', e.target.value)}} />
 
-                    <Nav.Input label={t('p4000:' + type + '-fieldset-2_2-firstname')} value={event.firstname}
+                    <Nav.Input className='firstname' label={t('p4000:' + type + '-fieldset-2_2-firstname')} value={event.firstname}
                         onChange={(e) => {actions.setEventProperty('firstname', e.target.value)}} />
 
                     <div>
@@ -202,6 +202,7 @@ class Child extends Component {
                     </div>
                     <div>
                         <ReactDatePicker selected={event.birthDate ? moment(event.birthDate) : undefined}
+                            className='birthDate'
                             dateFormat='DD.MM.YYYY'
                             placeholderText={t('ui:dateFormat')}
                             showYearDropdown
@@ -225,10 +226,10 @@ class Child extends Component {
                         <div>
                             <label>{t('ui:country') + ' *'}</label>
                         </div>
-                        <CountrySelect locale={locale} value={event.country || {}}
+                        <CountrySelect className='countrySelect' locale={locale} value={event.country || {}}
                             onSelect={(e) => {actions.setEventProperty('country', e)}}/>
                     </div>
-                    <Nav.Textarea style={{minHeight:'200px'}} label={t('p4000:' + type + '-fieldset-3_1-other')} value={event.other || ''}
+                    <Nav.Textarea id='other' style={{minHeight:'200px'}} label={t('p4000:' + type + '-fieldset-3_1-other')} value={event.other || ''}
                         onChange={(e) => {actions.setEventProperty('other', e.target.value)}} />
                 </Nav.Column>
             </Nav.Row>

@@ -22,12 +22,16 @@ let getElement = async function (cssPattern, parentEl) {
     return await driver.findElement(webdriver.By.css(cssPattern, parentEl));
 }
 
-module.exports = {
-    assert : chai.assert,
-    driver : driver,
-    expect : chai.expect,
-    urls   : urls,
-    elementLoads : elementLoads,
-    getElement   : getElement
+let getElements = async function (cssPattern, parentEl) {
+    return await driver.findElements(webdriver.By.css(cssPattern, parentEl));
+}
 
+module.exports = {
+    assert       : chai.assert,
+    driver       : driver,
+    expect       : chai.expect,
+    urls         : urls,
+    elementLoads : elementLoads,
+    getElement   : getElement,
+    getElements  : getElements
 }

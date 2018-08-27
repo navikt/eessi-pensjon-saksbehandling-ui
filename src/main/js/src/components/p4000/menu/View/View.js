@@ -128,12 +128,12 @@ class View extends Component {
 
                 <Nav.Row className='fileButtons m-4 text-center'>
                     <Nav.Column>
-                        <Nav.Hovedknapp onClick={this.handleFormDataClick.bind(this)}>
+                        <Nav.Hovedknapp className='seeFormDataButton' onClick={this.handleFormDataClick.bind(this)}>
                             <div>{t(this.state.formDataButtonLabel)}</div>
                         </Nav.Hovedknapp>
                     </Nav.Column>
                     <Nav.Column>
-                        <Nav.Hovedknapp onClick={this.handleP4000DataClick.bind(this)}>
+                        <Nav.Hovedknapp className='seeP4000DataButton' onClick={this.handleP4000DataClick.bind(this)}>
                             <div>{t(this.state.p4000DataButtonLabel)}</div>
                         </Nav.Hovedknapp>
                     </Nav.Column>

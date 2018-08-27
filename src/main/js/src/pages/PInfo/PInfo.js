@@ -356,7 +356,7 @@ class PInfo extends Component {
                         <div className='col-md-6'>
                             <div className='mb-3'>
                                 <label>{t('pinfo:form-bankCountry') + ' *'}</label>
-                                <CountrySelect locale={locale} value={this.state.bankCountry || {}}
+                                <CountrySelect className='countrySelect' locale={locale} value={this.state.bankCountry || {}}
                                     onSelect={this.setValue.bind(this, 'bankCountry')}/>
                             </div>
                         </div>
@@ -466,7 +466,7 @@ class PInfo extends Component {
                         </div>
                         <div className='col-md-6'>
                             <label>{t('pinfo:form-workIncomeCurrency') + ' *'}</label>
-                            <CountrySelect locale={locale} type={'currency'}
+                            <CountrySelect className='currencySelect' locale={locale} type={'currency'}
                                 value={this.state.workIncomeCurrency || {}}
                                 onSelect={this.setValue.bind(this, 'workIncomeCurrency')}/>
                         </div>
@@ -523,7 +523,7 @@ class PInfo extends Component {
                     <Nav.Row>
                         <div className='col-md-6'>
                             <label>{t('pinfo:form-retirementCountry') + ' *'}</label>
-                            <CountrySelect locale={locale} value={this.state.retirementCountry || {}}
+                            <CountrySelect className='countrySelect' locale={locale} value={this.state.retirementCountry || {}}
                                 onSelect={this.setValue.bind(this, 'retirementCountry')}/>
                         </div>
                     </Nav.Row>

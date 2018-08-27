@@ -371,7 +371,7 @@ class EditCase extends Component {
 
         return <div className='mb-3'>
             <label className='skjemaelement__label'>{t('ui:country')}</label>
-            <CountrySelect locale={locale}
+            <CountrySelect className='countrySelect' locale={locale}
                 value={currentValue}
                 onSelect={this.onCountryChange.bind(this)}
                 list={countryList}/>

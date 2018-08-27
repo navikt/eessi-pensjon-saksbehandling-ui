@@ -174,7 +174,7 @@ class Work extends Component {
                     {!this.hasNoOtherErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.otherValidationError)}</Nav.AlertStripe> : null}
                     <div className='mb-3'>
                         <label>{t('ui:country') + ' *'}</label>
-                        <CountrySelect className='country'
+                        <CountrySelect className='countrySelect'
                             locale={locale} value={event.country || {}}
                             onSelect={(e) => {actions.setEventProperty('country', e)}}/>
                     </div>

@@ -5,6 +5,7 @@ import { translate } from 'react-i18next'
 import './react-select.min.css'
 import { countries } from './CountrySelectData'
 import _ from 'lodash';
+import classNames from 'classnames';
 
 class CountrySelect extends Component {
 
@@ -74,12 +75,12 @@ class CountrySelect extends Component {
 
     render() {
 
-        const { t, value, locale, list } = this.props;
+        const { t, value, locale, list, className } = this.props;
 
         let optionList = countries[locale];
         let options = list ? this.filter(list, optionList) : optionList;
 
-        return <div>
+        return <div className={classNames(className)}>
             <Select placeholder={t('ui:searchCountry')}
                 value={this.state.tag || value}
                 options={options}
@@ -93,12 +94,13 @@ class CountrySelect extends Component {
 }
 
 CountrySelect.propTypes = {
-    onSelect : PT.func.isRequired,
-    value    : PT.object,
-    t        : PT.func.isRequired,
-    locale   : PT.string.isRequired,
-    list    : PT.array,
-    type    : PT.string
+    onSelect  : PT.func.isRequired,
+    value     : PT.object,
+    t         : PT.func.isRequired,
+    locale    : PT.string.isRequired,
+    list      : PT.array,
+    type      : PT.string,
+    className : PT.string
 }
 
 export default translate()(CountrySelect);

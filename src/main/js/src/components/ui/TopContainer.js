@@ -46,8 +46,8 @@ class TopContainer extends Component {
                     <div className='m-4 text-center'>{modal.modalText}</div>
                     <div className='text-center'>{modal.modalButtons.map(button => {
                         return button.main ?
-                            <Nav.Hovedknapp className='mr-3 mb-3' key={button.text} onClick={button.onClick.bind(this)}>{button.text}</Nav.Hovedknapp>
-                            : <Nav.Knapp className='mr-3 mb-3' key={button.text} onClick={button.onClick.bind(this)}>{button.text}</Nav.Knapp>
+                            <Nav.Hovedknapp className='mr-3 mb-3 modal-main-button' key={button.text} onClick={button.onClick.bind(this)}>{button.text}</Nav.Hovedknapp>
+                            : <Nav.Knapp className='mr-3 mb-3 modal-other-button' key={button.text} onClick={button.onClick.bind(this)}>{button.text}</Nav.Knapp>
                     })}
                     </div>
                 </div>) : null}
