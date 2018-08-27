@@ -9,7 +9,6 @@ import no.nav.eessi.fagmodul.frontend.utils.createErrorMessage
 import no.nav.eessi.fagmodul.frontend.utils.mapJsonToAny
 import no.nav.eessi.fagmodul.frontend.utils.typeRef
 import no.nav.eessi.fagmodul.frontend.utils.typeRefs
-import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Description
 import org.springframework.http.HttpEntity
@@ -20,17 +19,12 @@ import org.springframework.web.util.UriComponentsBuilder
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
+private const val EUX_PATH: String = "/cpi"
+private val logger = LoggerFactory.getLogger(EuxService::class.java)
 
 @Service
 @Description("Service class for EuxBasis - EuxCpiServiceController.java")
 class EuxService(val euxRestTemplate: RestTemplate) {
-
-    private val logger: Logger by lazy { LoggerFactory.getLogger(EuxService::class.java) }
-
-    private val EUX_PATH: String = "/cpi"
-
-    //testing only
-    var overrideheaders: Boolean? = null
 
     private val buccache = CacheBuilder.newBuilder()
             .expireAfterAccess(2, TimeUnit.HOURS)
@@ -79,8 +73,7 @@ class EuxService(val euxRestTemplate: RestTemplate) {
             if (response.statusCode.isError) {
                 throw createErrorMessage(responseBody)
             } else {
-                val list = mapJsonToAny(responseBody, typeRefs<List<String>>())
-                return list
+                return mapJsonToAny(responseBody, typeRefs())
             }
         } catch (ex: IOException) {
             throw RuntimeException(ex.message)
@@ -89,8 +82,7 @@ class EuxService(val euxRestTemplate: RestTemplate) {
 
     //Cached list of Institusjoner..
     fun getCachedInstitusjoner(): List<String> {
-        val result = instituitioncache.get("")
-        return result
+        return instituitioncache.get("")
     }
 
     //PK-51002 --
@@ -110,8 +102,7 @@ class EuxService(val euxRestTemplate: RestTemplate) {
             if (response.statusCode.isError) {
                 throw createErrorMessage(responseBody)
             } else {
-                val list = mapJsonToAny(responseBody, typeRefs<List<String>>())
-                return list
+                return mapJsonToAny(responseBody, typeRefs())
             }
         } catch (ex: IOException) {
             throw RuntimeException()
@@ -133,8 +124,7 @@ class EuxService(val euxRestTemplate: RestTemplate) {
             if (response.statusCode.isError) {
                 throw createErrorMessage(responseBody)
             } else {
-                val list = mapJsonToAny(responseBody, typeRefs<List<RINAaksjoner>>())
-                return list
+                return mapJsonToAny(responseBody, typeRefs())
             }
         } catch (ex: IOException) {
             throw RuntimeException(ex.message)
@@ -180,8 +170,7 @@ class EuxService(val euxRestTemplate: RestTemplate) {
             if (response.statusCode.isError) {
                 throw createErrorMessage(responseBody)
             } else {
-                val response = mapJsonToAny(responseBody, typeRefs<List<RINASaker>>())
-                return response
+                return mapJsonToAny(responseBody, typeRefs())
             }
         } catch (ex: IOException) {
             throw RuntimeException(ex.message)
@@ -213,7 +202,6 @@ class EuxService(val euxRestTemplate: RestTemplate) {
             set.addAll(list5)
             return set.toList()
         }
-        val result = map.get(buc).orEmpty()
-        return result
+        return map[buc].orEmpty()
     }
 }
