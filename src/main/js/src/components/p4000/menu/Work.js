@@ -141,22 +141,28 @@ class Work extends Component {
                     <Nav.HjelpetekstBase>{t('p4000:help-' + type + '-info')}</Nav.HjelpetekstBase>
                     <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-2-info-title')}</h2>
 
-                    <Nav.Input label={t('p4000:' + type + '-fieldset-2_1-activity') + ' *'} value={event.activity || ''}
+                    <Nav.Input className='activity'
+                        label={t('p4000:' + type + '-fieldset-2_1-activity') + ' *'} value={event.activity || ''}
                         onChange={(e) => {actions.setEventProperty('activity', e.target.value)}} />
 
-                    <Nav.Input label={t('p4000:' + type + '-fieldset-2_2-id') + ' *'} value={event.id || ''}
+                    <Nav.Input className='id'
+                        label={t('p4000:' + type + '-fieldset-2_2-id') + ' *'} value={event.id || ''}
                         onChange={(e) => {actions.setEventProperty('id', e.target.value)}} />
 
-                    <Nav.Input label={t('p4000:' + type + '-fieldset-2_3-name') + ' *'} value={event.name || ''}
+                    <Nav.Input className='name'
+                        label={t('p4000:' + type + '-fieldset-2_3-name') + ' *'} value={event.name || ''}
                         onChange={(e) => {actions.setEventProperty('name', e.target.value)}} />
 
-                    <Nav.Textarea style={{minHeight:'200px'}} label={t('p4000:' + type + '-fieldset-2_4-address') + ' *'} value={event.address || ''}
+                    <Nav.Textarea id='address' style={{minHeight:'200px'}}
+                        label={t('p4000:' + type + '-fieldset-2_4-address') + ' *'} value={event.address || ''}
                         onChange={(e) => {actions.setEventProperty('address', e.target.value)}} />
 
-                    <Nav.Input label={t('ui:city') + ' *'} value={event.city || ''}
+                    <Nav.Input className='city'
+                        label={t('ui:city') + ' *'} value={event.city || ''}
                         onChange={(e) => {actions.setEventProperty('city', e.target.value)}} />
 
-                    <Nav.Input label={t('ui:region') + ' *'} value={event.region || ''}
+                    <Nav.Input className='region'
+                        label={t('ui:region') + ' *'} value={event.region || ''}
                         onChange={(e) => {actions.setEventProperty('region', e.target.value)}} />
                 </Nav.Column>
             </Nav.Row>
@@ -168,17 +174,20 @@ class Work extends Component {
                     {!this.hasNoOtherErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.otherValidationError)}</Nav.AlertStripe> : null}
                     <div className='mb-3'>
                         <label>{t('ui:country') + ' *'}</label>
-                        <CountrySelect locale={locale} value={event.country || {}}
+                        <CountrySelect className='country'
+                            locale={locale} value={event.country || {}}
                             onSelect={(e) => {actions.setEventProperty('country', e)}}/>
                     </div>
-                    <Nav.Textarea style={{minHeight:'200px'}} label={t('p4000:' + type + '-fieldset-3_1-other')} value={event.other || ''}
+                    <Nav.Textarea id='other' style={{minHeight:'200px'}}
+                        label={t('p4000:' + type + '-fieldset-3_1-other')} value={event.other || ''}
                         onChange={(e) => {actions.setEventProperty('other', e.target.value)}} />
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className={classNames('eventFileUpload','mb-4','p-4','fieldset')}>
                 <Nav.Column>
                     <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
-                    <FileUpload files={event.files || []} onFileChange={this.handleFileChange.bind(this)}/>
+                    <FileUpload className='fileUpload'
+                    files={event.files || []} onFileChange={this.handleFileChange.bind(this)}/>
                 </Nav.Column>
             </Nav.Row>
         </Nav.Panel>

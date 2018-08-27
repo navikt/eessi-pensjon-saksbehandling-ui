@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch)};
 };
 
-class Home extends Component {
+class GenericEvent extends Component {
 
     state = {}
 
@@ -152,7 +152,7 @@ class Home extends Component {
     }
 }
 
-Home.propTypes = {
+GenericEvent.propTypes = {
     t                 : PT.func.isRequired,
     event             : PT.object.isRequired,
     type              : PT.string.isRequired,
@@ -167,5 +167,5 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(
-    translate()(Home)
+    translate()(GenericEvent)
 );

@@ -21,6 +21,7 @@ const mapStateToProps = (state) => {
         events   : state.p4000.events,
         editMode : state.p4000.editMode,
         event    : state.p4000.event,
+        eventIndex : state.p4000.eventIndex,
         page     : state.p4000.page
     }
 };
@@ -58,10 +59,13 @@ class P4000 extends Component {
         })
     }
 
-    handleEventSelect(newPage) {
+    onFileButtonClick() {
 
-        const { actions } = this.props;
-        actions.setPage(newPage);
+        const { actions, editMode, eventIndex } = this.props;
+        if (editMode) {
+            actions.cancelEditEvent(eventIndex);
+        }
+        actions.setPage('file');
     }
 
     render() {
@@ -83,7 +87,7 @@ class P4000 extends Component {
                         <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
                         {t('p4000:app-title')}
                     </h1>
-                    <Nav.Knapp className='fileButton ml-3 mb-3' onClick={this.handleEventSelect.bind(this, 'file')} disabled={activeItem === 'file'}>
+                    <Nav.Knapp className='fileButton ml-3 mb-3' onClick={this.onFileButtonClick.bind(this)} disabled={activeItem === 'file'}>
                         <Icons className='mr-2' kind='menu' size='1x'/>
                         {t('ui:file')}
                     </Nav.Knapp>

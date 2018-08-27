@@ -78,11 +78,51 @@ describe('Selenium P4000 page test', () => {
             _.expect(await sendButton.isEnabled());
         });
 
+        it('Create a new work...', async function () {
+
+            workButton.click();
+
+            await _.driver.wait(_.elementLoads('.eventDescription'));
+
+            let startDate = await _.getElement('.startDate');
+            let endDate = await _.getElement('.endDate');
+            let uncertainDate = await _.getElement('.uncertainDate');
+            let activity = await _.getElement('.activity');
+            let id = await _.getElement('.id');
+            let name = await _.getElement('.name');
+            let address = await _.getElement('#address');
+            let city = await _.getElement('.city');
+            let region = await _.getElement('.region');
+            let country = await _.getElement('.country');
+            let country_NO_option = await _.getElement('option[value="NO"]', country);
+            let other = await _.getElement('#other');
+
+            await startDate.sendKeys('01.01.1970');
+
+             _.expect(!(await uncertainDate.isSelected()));
+            await uncertainDate.click();
+             _.expect(await uncertainDate.isSelected());
+            await uncertainDate.click();
+             _.expect(!(await uncertainDate.isSelected()));
+
+            await endDate.sendKeys('01.01.1971');
+
+            await activity.sendKeys('activity');
+            await id.sendKeys('id');
+            await name.sendKeys('name');
+            await address.sendKeys('address');
+            await city.sendKeys('city');
+            await region.sendKeys('region');
+            await country_NO_option.click();
+            await other.sendKeys('other');
+        });
+
+
     });
 
     after(function(done) {
 
-        //   _.driver.quit()
-        //       .then(() => done());
+           _.driver.quit()
+               .then(() => done());
     });
 });
