@@ -2,7 +2,6 @@ package no.nav.eessi.fagmodul.frontend.services
 
 import com.google.common.cache.CacheBuilder
 import com.google.common.cache.CacheLoader
-import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import no.nav.eessi.fagmodul.frontend.models.RINASaker
 import no.nav.eessi.fagmodul.frontend.models.RINAaksjoner
@@ -14,7 +13,6 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Description
 import org.springframework.http.HttpEntity
-import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
@@ -51,7 +49,7 @@ class EuxService(val euxRestTemplate: RestTemplate) {
                 @Throws(IOException::class)
                 override fun load(s: Any): List<String> {
                     val result = getInstitusjoner()
-                    return result.sortedWith(compareBy({it},{it }))
+                    return result.sortedWith(compareBy({ it }, { it }))
                 }
             })
 
@@ -74,8 +72,7 @@ class EuxService(val euxRestTemplate: RestTemplate) {
     fun getBuCtypePerSektor(): List<String> {
         val urlPath = "/BuCTypePerSektor"
 
-        val headers = logonBasis()
-        val httpEntity = HttpEntity("", headers)
+        val httpEntity = HttpEntity("")
         val response = euxRestTemplate.exchange("$EUX_PATH$urlPath", HttpMethod.GET, httpEntity, typeRef<String>())
         val responseBody = response.body!!
         try {
@@ -105,8 +102,7 @@ class EuxService(val euxRestTemplate: RestTemplate) {
                 .queryParam("BuCType", bucType)
                 .queryParam("LandKode", landKode)
 
-        val headers = logonBasis()
-        val httpEntity = HttpEntity("", headers)
+        val httpEntity = HttpEntity("")
 
         val response = euxRestTemplate.exchange(builder.toUriString(), HttpMethod.GET, httpEntity, typeRef<String>())
         val responseBody = response.body!!
@@ -129,8 +125,7 @@ class EuxService(val euxRestTemplate: RestTemplate) {
         val builder = UriComponentsBuilder.fromPath("$EUX_PATH$urlPath")
                 .queryParam("RINASaksnummer", euSaksnr)
 
-        val headers = logonBasis()
-        val httpEntity = HttpEntity("", headers)
+        val httpEntity = HttpEntity("")
 
         val response = euxRestTemplate.exchange(builder.toUriString(), HttpMethod.GET, httpEntity, typeRef<String>())
         val responseBody = response.body!!
@@ -138,7 +133,7 @@ class EuxService(val euxRestTemplate: RestTemplate) {
             if (response.statusCode.isError) {
                 throw createErrorMessage(responseBody)
             } else {
-                val list = mapJsonToAny(responseBody, typeRefs<List<RINAaksjoner>>()  )
+                val list = mapJsonToAny(responseBody, typeRefs<List<RINAaksjoner>>())
                 return list
             }
         } catch (ex: IOException) {
@@ -158,7 +153,7 @@ class EuxService(val euxRestTemplate: RestTemplate) {
         return seds
     }
 
-    fun getBucFromRina(rinanr: String) : String {
+    fun getBucFromRina(rinanr: String): String {
         val result = getRinaSaker(rinanr, "")
         result.forEach {
             if (it.id == rinanr) {
@@ -177,9 +172,8 @@ class EuxService(val euxRestTemplate: RestTemplate) {
                 .queryParam("Fødselsnummer", fnr)
                 .queryParam("RINASaksnummer", rinaNummer)
 
-        val headers = logonBasis()
 
-        val httpEntity = HttpEntity("", headers)
+        val httpEntity = HttpEntity("")
         val response = euxRestTemplate.exchange(builder.toUriString(), HttpMethod.GET, httpEntity, String::class.java)
         val responseBody = response.body!!
         try {
@@ -200,9 +194,9 @@ class EuxService(val euxRestTemplate: RestTemplate) {
         val list2 = listOf("P2100")
         val list3 = listOf("P2200")
         val list4 = listOf("")
-        val list5 = listOf("P4000","P5000","P6000","P3000_NO")
+        val list5 = listOf("P4000", "P5000", "P6000", "P3000_NO")
 
-        val map : Map<String, List<String>> =
+        val map: Map<String, List<String>> =
                 mapOf(
                         "P_BUC_01" to list1,
                         "P_BUC_02" to list2,
@@ -222,28 +216,4 @@ class EuxService(val euxRestTemplate: RestTemplate) {
         val result = map.get(buc).orEmpty()
         return result
     }
-
-    //temp fuction to log system onto eux basis
-    fun logonBasis(): HttpHeaders {
-        logger.debug("overrideheaders : $overrideheaders")
-        if (overrideheaders !== null && overrideheaders!! == true) {
-            return HttpHeaders()
-        }
-        val urlPath = "/login"
-        val builder = UriComponentsBuilder.fromPath("$EUX_PATH$urlPath")
-            .queryParam("username", "T102")
-            .queryParam("password", "rina@nav")
-
-        val httpEntity = HttpEntity("", HttpHeaders())
-        val response = euxRestTemplate.exchange(builder.toUriString(), HttpMethod.POST, httpEntity, String::class.java)
-        val header = response.headers
-
-        val cookies = HttpHeaders()
-        cookies.set("Cookie", header.getFirst(HttpHeaders.SET_COOKIE))
-        logger.debug("setting request cookie : ${header.getFirst(HttpHeaders.SET_COOKIE)}")
-        cookies.set("X-XSRF-TOKEN", header.getFirst("X-XSRF-TOKEN"))
-        logger.debug("setting request X-XSRF-TOKEN : ${header.getFirst("X-XSRF-TOKEN")}")
-        return cookies
-    }
-
 }
