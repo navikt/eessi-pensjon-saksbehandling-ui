@@ -114,13 +114,13 @@ class EuxController(private val euxService: EuxService, private val fagService: 
 
     @GetMapping("/institutions/{countrycode}")
     fun getInstitutionsWithCountry(@PathVariable(value = "countrycode", required = false) landkode: String = ""): List<String> {
-        return euxService.getInstitusjoner("", "NO") // TODO: Using "NO" temporarily to avoid sending documents to other countries in test by accident
+        return euxService.getInstitusjoner("", landkode)
     }
 
     @GetMapping("/countrycode")
     fun getCountryCode(): List<String> {
         return try {
-            fagService.landkoder()
+            fagService.landkoder().filter { s -> s == "NO" } // TODO: Using "NO" temporarily to avoid sending documents to other countries in test by accident
         } catch (ex: Exception) {
             logger.error(ex.message)
             listOf("NO", "SE", "DK", "FI")

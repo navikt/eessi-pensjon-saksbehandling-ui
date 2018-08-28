@@ -42,7 +42,7 @@ class EuxService(val euxRestTemplate: RestTemplate) {
             .build(object : CacheLoader<Any, List<String>>() {
                 @Throws(IOException::class)
                 override fun load(s: Any): List<String> {
-                    val result = getInstitusjoner()
+                    val result = getInstitusjoner(landKode = "NO") // TODO: Using "NO" temporarily to avoid sending documents to other countries in test by accident
                     return result.sortedWith(compareBy({ it }, { it }))
                 }
             })
