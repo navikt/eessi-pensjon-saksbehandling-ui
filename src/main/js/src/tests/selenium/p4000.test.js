@@ -92,13 +92,13 @@ describe('Selenium P4000 page test', () => {
 
             await startDate.sendKeys('01.01.1970');
 
-             _.expect(!(await uncertainDate.isSelected()));
+            _.expect(!(await uncertainDate.isSelected()));
             await uncertainDate.click();
-             _.expect(await uncertainDate.isSelected());
+            _.expect(await uncertainDate.isSelected());
 
             await endDate.sendKeys('31.12.1970');
             await uncertainDate.click();
-             _.expect(!(await uncertainDate.isSelected()));
+            _.expect(!(await uncertainDate.isSelected()));
 
             await activity.sendKeys('activity');
             await id.sendKeys('id');
@@ -407,7 +407,7 @@ describe('Selenium P4000 page test', () => {
         });
     });
 
-   ///////// VIEW PAGE ////////////
+    ///////// VIEW PAGE ////////////
     describe('View P4000 page', () => {
 
         it('View P4000 events...', async function () {
@@ -421,7 +421,7 @@ describe('Selenium P4000 page test', () => {
 
         });
 
-         it('View P4000 advanced options...', async function () {
+        it('View P4000 advanced options...', async function () {
 
             await _.driver.wait(_.elementLoads('.row-advanced-view button'));
             let advancedViewButton = await _.getElement('.row-advanced-view button');
@@ -439,13 +439,13 @@ describe('Selenium P4000 page test', () => {
         });
     });
 
-   ///////// OPEN PAGE ////////////
+    ///////// OPEN PAGE ////////////
     describe('Open P4000 page', () => {
 
         it('Click on File button...', async function () {
 
             await _.driver.wait(_.elementLoads('.fileButton'));
-             let fileButton = await _.getElement('.fileButton');
+            let fileButton = await _.getElement('.fileButton');
             fileButton.click();
         });
 
@@ -483,7 +483,7 @@ describe('Selenium P4000 page test', () => {
         });
     });
 
-  ///////// SAVE PAGE ////////////
+    ///////// SAVE PAGE ////////////
     describe('Save P4000 page', () => {
 
         it('Click on File button...', async function () {
@@ -504,7 +504,7 @@ describe('Selenium P4000 page test', () => {
 
     after(function(done) {
 
-           _.driver.quit()
-               .then(() => done());
+        _.driver.quit()
+            .then(() => done());
     });
 });

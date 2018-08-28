@@ -41,29 +41,47 @@ class MiniaturePDF extends Component {
         });
     }
 
+    onDeleteDocument(e) {
+
+        e.stopPropagation();
+        e.preventDefault();
+
+        const { onDeleteDocument } = this.props;
+
+        this.setState({
+            currentPage: 1
+        }, () => {
+            onDeleteDocument();
+        });
+    }
+
     render () {
 
-        const { t, file, size, onDeleteDocument, deleteLink, downloadLink, className } = this.props;
+        const { t, file, size, deleteLink, downloadLink, className, currentPage, onPreviousPage, onNextPage } = this.props;
+        const { numPages, isHovering } = this.state;
 
         return <div className={classNames('miniaturePdf', className)}
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
             onMouseLeave={this.onHandleMouseLeave.bind(this)}>
             <Document className='position-relative' file={{data: file.data }}
                 onLoadSuccess={this.handleOnLoadSuccess.bind(this)}>
-                { deleteLink && this.state.isHovering ? <div className='deleteLink'>
-                    <Ikon size={20} kind='trashcan' onClick={onDeleteDocument}/>
+                { deleteLink && isHovering ? <div className='deleteLink'>
+                    <Ikon size={20} kind='trashcan' onClick={this.onDeleteDocument.bind(this)}/>
                 </div> : null}
-                { downloadLink && this.state.isHovering ? <div className='downloadLink'><a
+                { downloadLink && isHovering ? <div className='downloadLink'><a
                     onClick={(e) => e.stopPropagation()} title={t('ui:download')}
                     href={'data:application/octet-stream;base64,' + encodeURIComponent(file.base64)}
                     download={file.name}>
                     <Icons size={'sm'} kind='download'/>
                 </a></div> : null}
+                {currentPage > 1 && isHovering ? <Icons size={'2x'} className='previousPage' kind='caretLeft' onClick={onPreviousPage}/> : null}
+                {currentPage < numPages && isHovering ? <Icons size={'2x'} className='nextPage' kind='caretRight' onClick={onNextPage}/> : null}
+                {isHovering ? <div className='pageNumber'>{currentPage}</div> : null}
                 <div className='page'>
-                    <Page width={100} height={140} renderMode='svg' pageNumber={1}/>
+                    <Page width={100} height={140} renderMode='svg' pageNumber={currentPage}/>
                 </div>
                 <div className='fileName'> {file.name}</div>
-                <div className='numPages'>{t('ui:pages')}{': '}{this.state.numPages || '0'}</div>
+                <div className='numPages'>{t('ui:pages')}{': '}{numPages || '0'}</div>
                 <div className='fileSize'>{t('ui:size')}{': '}{size}</div>
             </Document>
         </div>
@@ -78,7 +96,10 @@ MiniaturePDF.propTypes = {
     onDeleteDocument : PT.func,
     deleteLink       : PT.bool,
     downloadLink     : PT.bool,
-    className        : PT.string
+    className        : PT.string,
+    currentPage      : PT.number.isRequired,
+    onPreviousPage   : PT.func,
+    onNextPage       : PT.func
 }
 
 export default translate()(MiniaturePDF);

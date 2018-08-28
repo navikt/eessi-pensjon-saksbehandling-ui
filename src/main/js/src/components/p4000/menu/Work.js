@@ -187,7 +187,7 @@ class Work extends Component {
                 <Nav.Column>
                     <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
                     <FileUpload className='fileUpload'
-                    files={event.files || []} onFileChange={this.handleFileChange.bind(this)}/>
+                        files={event.files || []} onFileChange={this.handleFileChange.bind(this)}/>
                 </Nav.Column>
             </Nav.Row>
         </Nav.Panel>

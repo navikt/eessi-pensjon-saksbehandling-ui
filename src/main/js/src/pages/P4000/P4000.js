@@ -112,6 +112,7 @@ P4000.propTypes = {
     page         : PT.string.isRequired,
     editMode     : PT.bool,
     event        : PT.object,
+    eventIndex   : PT.number,
     actions      : PT.object.isRequired
 };
 
