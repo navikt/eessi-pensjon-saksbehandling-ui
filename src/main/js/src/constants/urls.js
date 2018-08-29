@@ -22,5 +22,5 @@ export const CASE_ADD_TO_SED_URL    = BASE_URL + '/fag/addsed';
 export const CASE_SEND_SED_URL      = BASE_URL + '/fag/sendsed';
 export const CASE_GENERATE_DATA_URL = BASE_URL + '/fag/confirm';
 
-export const PDF_GENERATE_URL = BASE_URL + '/api/generatePDF';
+export const PDF_GENERATE_URL = BASE_URL + '/pdf/generate';
 

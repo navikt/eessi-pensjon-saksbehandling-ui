@@ -71,18 +71,22 @@ class FileUpload extends Component {
                 reader.onloadend = async (e) => {
 
                     let blob = new Uint8Array(e.target.result);
-                    let base64 = window.btoa(blob.reduce((data, byte) => {
-                        return data + String.fromCharCode(byte);
-                    }));
+
+                    var len = blob.byteLength;
+                    var x = '';
+                    for (var i = 0; i < len; i++) {
+                        x += String.fromCharCode( blob[i] );
+                    }
+                    let base64 = window.btoa(x);
 
                     let newFiles = _.clone(this.state.files);
                     let newCurrentPages = _.clone(this.state.currentPages);
 
                     newFiles.push({
                         'base64' : base64,
-                        'data' : blob,
-                        'size' : file.size,
-                        'name' : file.name
+                        'data'   : blob,
+                        'size'   : file.size,
+                        'name'   : file.name
                     });
                     newCurrentPages[newCurrentPages.length] = 1;
 

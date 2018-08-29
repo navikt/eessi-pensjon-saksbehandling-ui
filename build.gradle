@@ -76,6 +76,9 @@ dependencies {
     // Logging
     compile("net.logstash.logback:logstash-logback-encoder:${logstashLogbackVersion}")
 
+    // PDF box
+    compile("org.apache.pdfbox:pdfbox:2.0.1")
+
     //mock
     testCompile("org.mockito:mockito-core:${mockitoVersion}")
     testCompile("org.jetbrains.kotlin:kotlin-test")
