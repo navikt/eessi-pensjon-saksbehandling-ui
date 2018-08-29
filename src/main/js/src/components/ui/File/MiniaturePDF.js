@@ -77,7 +77,7 @@ class MiniaturePDF extends Component {
                 {currentPage > 1 && isHovering ? <Icons size={'2x'} className='previousPage' kind='caretLeft' onClick={onPreviousPage}/> : null}
                 {currentPage < numPages && isHovering ? <Icons size={'2x'} className='nextPage' kind='caretRight' onClick={onNextPage}/> : null}
                 {isHovering ? <div className='pageNumber'>{currentPage}</div> : null}
-                <div className='page'>
+                <div className='page' onClick={(e) => e.stopPropagation()}>
                     <Page width={100} height={140} renderMode='svg' pageNumber={currentPage}/>
                 </div>
                 <div className='fileName'> {file.name}</div>
