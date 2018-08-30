@@ -21,7 +21,7 @@ data class FrontendRequest(
         val buc: String? = null,
         val sed : String? = null,
         //mottakere
-        val institutions: List<Institusjon>? = null,
+        val institutions: List<InstitusjonItem>? = null,
         @JsonProperty("actorId")
         //aktoerid
         val pinid: String? = null,
@@ -31,13 +31,13 @@ data class FrontendRequest(
         val euxCaseId: String? = null,
         //partpayload json/sed
         val payload: String? = null,
-        val sendsed: Boolean? = false
+        val sendsed: Boolean? = null
 )
 
 
-data class Institusjon(
+data class InstitusjonItem(
         val country: String? = null,
-        val institution: String? =null
+        val institution: String? = null
 )
 
 data class PDFRequest(

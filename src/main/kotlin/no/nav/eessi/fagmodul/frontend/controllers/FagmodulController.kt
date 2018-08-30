@@ -5,10 +5,8 @@ import no.nav.eessi.fagmodul.frontend.models.FrontendRequest
 import no.nav.eessi.fagmodul.frontend.services.FagmodulService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/fag")
@@ -53,6 +51,26 @@ class FagmodulController(private val service: FagmodulService) {
         logger.debug("sendSed: request model : $request")
         return service.sendsed(request)
     }
+
+    @ApiOperation("henter ut en SED fra et eksisterende Rina document. krever unik dokumentid fra valgt SED")
+    @GetMapping("/sed/get/{rinanr}/{documentid}")
+    fun getDocument(@PathVariable("rinanr", required = true) rinanr: String, @PathVariable("documentid", required = true) documentid: String): String {
+        logger.debug("/sed/get: rinanr : $rinanr  documentid : $documentid")
+
+        return service.fetchSEDfromExistingRinaCase(rinanr, documentid)
+
+    }
+
+    @ApiOperation("sletter SED fra et eksisterende Rina document. krever unik dokumentid fra valgt SED")
+    @GetMapping("/sed/delete/{rinanr}/{sed}/{documentid}")
+    fun deleteDocument(@PathVariable("rinanr", required = true) rinanr: String, @PathVariable("sed", required = true) sed: String, @PathVariable("documentid", required = true) documentid: String): HttpStatus {
+        logger.debug("/sed/delete: rinanr : $rinanr, sed : $sed, documentid : $documentid")
+
+         return service.deleteSEDfromExistingRinaCase(rinanr, sed, documentid)
+
+    }
+
+
 
 
 }

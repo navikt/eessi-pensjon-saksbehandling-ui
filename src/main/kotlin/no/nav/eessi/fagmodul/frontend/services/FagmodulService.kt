@@ -2,15 +2,24 @@ package no.nav.eessi.fagmodul.frontend.services
 
 import no.nav.eessi.fagmodul.frontend.models.FrontendRequest
 import no.nav.eessi.fagmodul.frontend.models.SedDokumentIkkeOpprettetException
+import no.nav.eessi.fagmodul.frontend.utils.createErrorMessage
+import no.nav.eessi.fagmodul.frontend.utils.mapJsonToAny
 import no.nav.eessi.fagmodul.frontend.utils.typeRef
+import no.nav.eessi.fagmodul.frontend.utils.typeRefs
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
+import java.io.IOException
+import java.util.Collections.singletonMap
+import org.springframework.web.util.UriComponents
+import java.util.*
+
 
 private const val FAG_PATH = "/api"
 
@@ -76,6 +85,45 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
             logger.error(ex.message, ex)
             throw ex
         }
+    }
+
+    fun fetchSEDfromExistingRinaCase(euxCaseId: String, documentId: String): String {
+        val path = "/sed/get/{rinanr}/{documentid}"
+
+        val uriParams = HashMap<String, String>()
+        uriParams["rinanr"] = euxCaseId
+        uriParams["documentid"] = documentId
+
+        val builder = UriComponentsBuilder.fromUriString(path).buildAndExpand(uriParams)
+
+        val httpEntity = HttpEntity("")
+        val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.GET, httpEntity, String::class.java)
+        val responseBody = response.body!!
+        try {
+            if (response.statusCode.isError) {
+                throw createErrorMessage(responseBody)
+            } else {
+                return responseBody
+            }
+        } catch (ex: IOException) {
+            throw RuntimeException(ex.message)
+        }
+
+    }
+
+    fun deleteSEDfromExistingRinaCase(euxCaseId: String, sed: String, documentId: String): HttpStatus {
+        val path = "/sed/get/{rinanr}/{sed}/{documentid}"
+
+        val uriParams = HashMap<String, String>()
+        uriParams["rinanr"] = euxCaseId
+        uriParams["sed"] = sed
+        uriParams["documentid"] = documentId
+
+        val builder = UriComponentsBuilder.fromUriString(path).buildAndExpand(uriParams)
+        val httpEntity = HttpEntity("")
+        val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.GET, httpEntity, String::class.java)
+        return response.statusCode
+
     }
 
     fun sendsed(frontRequest: FrontendRequest): Boolean {
