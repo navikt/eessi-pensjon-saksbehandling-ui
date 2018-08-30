@@ -15,7 +15,7 @@ class RestTemplateConfig(val restTemplateBuilder: RestTemplateBuilder) {
     @Value("\${eessifagmodulservice.url}")
     lateinit var fagmodulUrl: String
 
-    @Value("\${euxbasis_v1.url}")
+    @Value("\${euxbasis.v1.url}")
     lateinit var basisUrl: String
 
     @Bean
