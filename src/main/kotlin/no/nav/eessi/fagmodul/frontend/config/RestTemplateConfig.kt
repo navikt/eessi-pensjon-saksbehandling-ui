@@ -12,10 +12,10 @@ import org.springframework.web.client.RestTemplate
 @Component
 class RestTemplateConfig(val restTemplateBuilder: RestTemplateBuilder) {
 
-    @Value("\${fagmodul.url}")
+    @Value("\${eessifagmodulservice.url}")
     lateinit var fagmodulUrl: String
 
-    @Value("\${eessibasis.url}")
+    @Value("\${euxbasis_v1.url}")
     lateinit var basisUrl: String
 
     @Bean

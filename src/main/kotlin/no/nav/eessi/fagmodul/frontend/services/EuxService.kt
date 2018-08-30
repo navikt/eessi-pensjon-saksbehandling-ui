@@ -19,7 +19,6 @@ import org.springframework.web.util.UriComponentsBuilder
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-private const val EUX_PATH: String = "/cpi"
 private val logger = LoggerFactory.getLogger(EuxService::class.java)
 
 @Service
@@ -64,10 +63,8 @@ class EuxService(val euxRestTemplate: RestTemplate) {
     }
 
     fun getBuCtypePerSektor(): List<String> {
-        val urlPath = "/BuCTypePerSektor"
-
         val httpEntity = HttpEntity("")
-        val response = euxRestTemplate.exchange("$EUX_PATH$urlPath", HttpMethod.GET, httpEntity, typeRef<String>())
+        val response = euxRestTemplate.exchange("/BuCTypePerSektor", HttpMethod.GET, httpEntity, typeRef<String>())
         val responseBody = response.body!!
         try {
             if (response.statusCode.isError) {
@@ -88,9 +85,7 @@ class EuxService(val euxRestTemplate: RestTemplate) {
     //PK-51002 --
     //Henter ut en liste over registrerte institusjoner innenfor spesifiserte EU-land. PK-51002"
     fun getInstitusjoner(bucType: String = "", landKode: String = ""): List<String> {
-        val urlPath = "/Institusjoner"
-
-        val builder = UriComponentsBuilder.fromPath("$EUX_PATH$urlPath")
+        val builder = UriComponentsBuilder.fromPath("/Institusjoner")
                 .queryParam("BuCType", bucType)
                 .queryParam("LandKode", landKode)
 
@@ -111,9 +106,7 @@ class EuxService(val euxRestTemplate: RestTemplate) {
 
     //Henter en liste over tilgjengelige aksjoner for den aktuelle RINA saken PK-51365"
     fun getMuligeAksjoner(euSaksnr: String): List<RINAaksjoner> {
-        val urlPath = "/MuligeAksjoner"
-
-        val builder = UriComponentsBuilder.fromPath("$EUX_PATH$urlPath")
+        val builder = UriComponentsBuilder.fromPath("/MuligeAksjoner")
                 .queryParam("RINASaksnummer", euSaksnr)
 
         val httpEntity = HttpEntity("")
@@ -155,9 +148,7 @@ class EuxService(val euxRestTemplate: RestTemplate) {
 
     //henter ut status på rina.
     fun getRinaSaker(rinaNummer: String = "", fnr: String = ""): List<RINASaker> {
-        val urlPath = "/RINASaker"
-
-        val builder = UriComponentsBuilder.fromPath("$EUX_PATH$urlPath")
+        val builder = UriComponentsBuilder.fromPath("/RINASaker")
                 .queryParam("BuCType", "")
                 .queryParam("Fødselsnummer", fnr)
                 .queryParam("RINASaksnummer", rinaNummer)

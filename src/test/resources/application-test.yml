@@ -26,10 +26,10 @@ credential:
   username: 'srvPensjon'
   password: 'Ash5SoxP'
 
-eessibasis:
-  url:  'http://example.com:8089'
+euxbasis_v1:
+  url:  'http://example.com:9090'
 
-fagmodul:
+eessifagmodulservice:
   url: 'http://example.com:8081'
 
 rina:
