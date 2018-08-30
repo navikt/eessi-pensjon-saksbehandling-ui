@@ -11,6 +11,7 @@ import SelectPDF   from './pdf/SelectPDF';
 import EditPDF     from './pdf/EditPDF/EditPDF';
 import GeneratePDF from './pdf/GeneratePDF/GeneratePDF';
 
+import PSelv from './PSelv/PSelv';
 import PInfo from './PInfo/PInfo';
 import P4000 from './P4000/P4000';
 
@@ -28,6 +29,7 @@ export {
     EditPDF,
     GeneratePDF,
 
+    PSelv,
     PInfo,
     P4000
 };

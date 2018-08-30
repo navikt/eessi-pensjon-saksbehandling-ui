@@ -11,7 +11,7 @@ i18next
         lng: 'nb',
         fallbackLng: 'nb',
         debug: true,
-        ns: ['ui', 'case', 'pdf', 'pinfo', 'p4000'],
+        ns: ['ui', 'case', 'pdf', 'pinfo', 'pselv', 'p4000'],
         defaultNS: 'ui',
         backend: {
             loadPath: '/locales/{{lng}}/{{ns}}.json'

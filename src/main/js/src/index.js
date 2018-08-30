@@ -51,6 +51,7 @@ ReactDOM.render(
         <Provider store={store}>
             <ConnectedRouter history={history}>
                 <Switch>
+                    <Route exact path='/react/pselv' component={Pages.PSelv}/>
                     <Route exact path='/react/pinfo' component={Pages.PInfo}/>
                     <Route exact path='/react/P4000' component={Pages.P4000}/>
 
