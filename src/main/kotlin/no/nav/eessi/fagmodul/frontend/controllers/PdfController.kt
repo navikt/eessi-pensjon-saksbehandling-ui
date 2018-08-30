@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.springframework.util.Base64Utils
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.*
 import java.io.FileOutputStream
@@ -25,10 +26,6 @@ class PdfController {
 
         val tmpDir = File(System.getProperty("java.io.tmpdir"));
         val timeStamp = System.nanoTime();
-        val workingDir = File(tmpDir, "pdf-" + timeStamp);
-        workingDir.mkdir();
-        val outputDir = File(tmpDir, "pdfoutput-" + timeStamp);
-        outputDir.mkdir();
 
         logger.debug("Request : $request")
 
@@ -36,11 +33,7 @@ class PdfController {
         val response = HashMap<String, Map<String, Any>>()
 
         request.pdfs.forEach { pdf ->
-            val file = File(workingDir, pdf.name)
-            val fos = FileOutputStream(file)
-            fos.write(Base64Utils.decodeFromString(pdf.base64))
-            fos.close()
-            workingPdfs.put(pdf.name, PDDocument.load(file))
+            workingPdfs.put(pdf.name, PDDocument.load(Base64Utils.decodeFromString(pdf.base64)))
         }
 
         request.recipe.forEach { (targetPdf, recipe) ->
@@ -48,6 +41,7 @@ class PdfController {
             if (!recipe.isEmpty()) {
 
                 var outputPdf = PDDocument()
+                val baos = ByteArrayOutputStream()
 
                 recipe.forEach { step ->
                     val sourcePdf = workingPdfs.get(step.name)
@@ -55,25 +49,18 @@ class PdfController {
                     outputPdf.addPage(page)
                 }
 
-                val outputPdfFile = File(outputDir, targetPdf)
-                outputPdf.save(outputPdfFile)
+                outputPdf.save(baos)
                 outputPdf.close()
 
                 response.put(targetPdf, mapOf(
-                        "base64" to Base64.getEncoder().encodeToString(outputPdfFile.readBytes()),
+                        "base64" to Base64.getEncoder().encodeToString(baos.toByteArray()),
                         "name" to targetPdf + ".pdf",
-                        "size" to outputPdfFile.length(),
+                        "size" to baos.toByteArray().size,
                         "numPages" to recipe.size
                 ))
             }
         }
-
-        // cleanup
-        workingDir.deleteRecursively();
-        outputDir.deleteRecursively();
-
         return ResponseEntity.ok(response);
-
     }
 }
 

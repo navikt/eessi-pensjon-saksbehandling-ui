@@ -78,7 +78,7 @@ class SelectPDF extends Component {
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
                     <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
-                    <FileUpload className='mb-3'
+                    <FileUpload className='fileUpload mb-3'
                         accept='application/pdf'
                         files={pdfs || []}
                         beforeDrop={this.handleBeforeDrop.bind(this)}

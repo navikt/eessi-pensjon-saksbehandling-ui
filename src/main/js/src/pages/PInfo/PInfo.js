@@ -515,7 +515,7 @@ class PInfo extends Component {
                                 onChange={this.setValue.bind(this, 'attachmentTypes')} />
                         </div>
                     </Nav.Row>
-                    <FileUpload files={this.state.attachments || []}
+                    <FileUpload className='fileUpload' files={this.state.attachments || []}
                         onFileChange={this.setValue.bind(this, 'attachments')}/>
                 </div> : null}
 

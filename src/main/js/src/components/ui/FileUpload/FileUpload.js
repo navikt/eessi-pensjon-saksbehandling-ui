@@ -22,6 +22,19 @@ class FileUpload extends Component {
         });
     }
 
+     componentDidUpdate() {
+          if (!_.isEmpty(this.props.files) && (!(this.state.currentPages) || _.isEmpty(this.state.currentPages))) {
+              let currentPages = []
+              for (var i in this.props.files) {
+                currentPages[i] = 1;
+              }
+
+              this.setState({
+                    currentPages: currentPages
+              });
+          }
+     }
+
     updateFiles(newFiles, newCurrentPages, status) {
 
         const { onFileChange } = this.props;
@@ -98,7 +111,7 @@ class FileUpload extends Component {
 
                     loadingStatus[index] = true;
                     let ok = true;
-                    for (var i in loadingStatus) {
+                    for (i in loadingStatus) {
                         ok = ok && loadingStatus[i];
                     }
                     if (ok) {
@@ -137,22 +150,15 @@ class FileUpload extends Component {
         }
     }
 
-    onPreviousPageRequest(fileIndex, e) {
+    onPreviousPageRequest(fileIndex) {
 
-        if (e) {
-            e.stopPropagation();
-            e.preventDefault();
-        }
         let newCurrentPages = _.clone(this.state.currentPages);
         newCurrentPages[fileIndex] = newCurrentPages[fileIndex] - 1;
         this.setState({currentPages: newCurrentPages});
     }
 
-    onNextPageRequest(fileIndex, e) {
-        if (e) {
-            e.stopPropagation();
-            e.preventDefault();
-        }
+    onNextPageRequest(fileIndex) {
+
         let newCurrentPages = _.clone(this.state.currentPages);
         newCurrentPages[fileIndex] = newCurrentPages[fileIndex] + 1;
         this.setState({currentPages: newCurrentPages});
@@ -161,17 +167,18 @@ class FileUpload extends Component {
     render() {
 
         const { t, accept, className } = this.props;
+        const { files, currentPages, status } = this.state;
 
         return <div className={classNames('nav-fileUpload div-dropzone', className)}>
             <Dropzone className='dropzone p-2' activeClassName='dropzone-active' accept={accept} onDrop={this.onDrop.bind(this)}>
                 <div className='dropzone-placeholder'>
                     <div className='dropzone-placeholder-message'>{t('ui:dropFilesHere')}</div>
-                    <div className='dropzone-placeholder-status'>{this.state.status}</div>
+                    <div className='dropzone-placeholder-status'>{status}</div>
                 </div>
                 <div className='dropzone-files scrollable'>
-                    { this.state.files ? this.state.files.map((file, i) => {
-                        return  <File className='mr-2' key={i} file={file}
-                            currentPage={this.state.currentPages[i]}
+                    { files ? files.map((file, i) => {
+                        return <File className='mr-2' key={i} file={file}
+                            currentPage={currentPages[i]}
                             deleteLink={true} downloadLink={true}
                             onPreviousPage={this.onPreviousPageRequest.bind(this, i)}
                             onNextPage={this.onNextPageRequest.bind(this, i)}

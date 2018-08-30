@@ -99,7 +99,7 @@ class GeneratePDF extends Component {
                             return <div key={key} className='fieldset p-2 mb-3 w-100'>
                                 <Nav.Row>
                                     <Nav.Column>
-                                        <File file={pdf} currentPage={1}/>
+                                        <File file={pdf}/>
                                     </Nav.Column>
                                     <Nav.Column className='text-right'>
                                         <a className='hiddenLink' ref={item => this[key] = item}

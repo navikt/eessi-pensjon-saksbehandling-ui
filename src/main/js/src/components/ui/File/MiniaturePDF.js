@@ -13,10 +13,37 @@ class MiniaturePDF extends Component {
 
     state = {}
 
+    static getDerivedStateFromProps(props, state) {
+
+        if (props.currentPage !== undefined &&
+            !isNaN(props.currentPage) &&
+        props.currentPage !== state.currentPage) {
+
+            return {
+                currentPage: props.currentPage
+            }
+        }
+    }
+
+    componentDidUpdate() {
+
+        let { currentPage } = this.props;
+
+        if (this.state.currentPage === undefined) {
+            this.setState({
+                currentPage: !isNaN(currentPage) ? currentPage : 1
+            });
+        }
+    }
+
     componentDidMount() {
+
+        let { currentPage } = this.props;
+
         this.setState({
             isHovering : false,
-            numPages: undefined
+            numPages: undefined,
+            currentPage: !isNaN(currentPage) ? currentPage : 1
         });
     }
 
@@ -55,10 +82,43 @@ class MiniaturePDF extends Component {
         });
     }
 
+
+    handlePreviousPageRequest(e) {
+
+        e.stopPropagation();
+        e.preventDefault();
+
+        const { onPreviousPage } = this.props;
+
+        if (onPreviousPage) {
+            onPreviousPage();
+        } else {
+            this.setState({
+                currentPage : this.state.currentPage - 1
+            });
+        }
+    }
+
+    handleNextPageRequest(e) {
+
+        e.stopPropagation();
+        e.preventDefault();
+
+        const { onNextPage } = this.props;
+
+        if (onNextPage) {
+            onNextPage();
+        } else {
+             this.setState({
+                 currentPage : this.state.currentPage + 1
+             });
+        }
+    }
+
     render () {
 
-        const { t, file, size, deleteLink, downloadLink, className, currentPage, onPreviousPage, onNextPage } = this.props;
-        const { numPages, isHovering } = this.state;
+        const { t, file, size, deleteLink, downloadLink, className } = this.props;
+        const { numPages, isHovering, currentPage } = this.state;
 
         return <div className={classNames('miniaturePdf', className)}
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
@@ -74,8 +134,8 @@ class MiniaturePDF extends Component {
                     download={file.name}>
                     <Icons size={'sm'} kind='download'/>
                 </a></div> : null}
-                {currentPage > 1 && isHovering ? <Icons size={'2x'} className='previousPage' kind='caretLeft' onClick={onPreviousPage}/> : null}
-                {currentPage < numPages && isHovering ? <Icons size={'2x'} className='nextPage' kind='caretRight' onClick={onNextPage}/> : null}
+                {currentPage > 1 && isHovering ? <Icons size={'2x'} className='previousPage' kind='caretLeft' onClick={this.handlePreviousPageRequest.bind(this)}/> : null}
+                {currentPage < numPages && isHovering ? <Icons size={'2x'} className='nextPage' kind='caretRight' onClick={this.handleNextPageRequest.bind(this)}/> : null}
                 {isHovering ? <div className='pageNumber'>{currentPage}</div> : null}
                 <div className='page' onClick={(e) => e.stopPropagation()}>
                     <Page width={100} height={140} renderMode='svg' pageNumber={currentPage}/>
