@@ -109,9 +109,9 @@ class MiniaturePDF extends Component {
         if (onNextPage) {
             onNextPage();
         } else {
-             this.setState({
-                 currentPage : this.state.currentPage + 1
-             });
+            this.setState({
+                currentPage : this.state.currentPage + 1
+            });
         }
     }
 

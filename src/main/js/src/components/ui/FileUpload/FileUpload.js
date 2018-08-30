@@ -22,18 +22,18 @@ class FileUpload extends Component {
         });
     }
 
-     componentDidUpdate() {
-          if (!_.isEmpty(this.props.files) && (!(this.state.currentPages) || _.isEmpty(this.state.currentPages))) {
-              let currentPages = []
-              for (var i in this.props.files) {
+    componentDidUpdate() {
+        if (!_.isEmpty(this.props.files) && (!(this.state.currentPages) || _.isEmpty(this.state.currentPages))) {
+            let currentPages = []
+            for (var i in this.props.files) {
                 currentPages[i] = 1;
-              }
+            }
 
-              this.setState({
-                    currentPages: currentPages
-              });
-          }
-     }
+            this.setState({
+                currentPages: currentPages
+            });
+        }
+    }
 
     updateFiles(newFiles, newCurrentPages, status) {
 

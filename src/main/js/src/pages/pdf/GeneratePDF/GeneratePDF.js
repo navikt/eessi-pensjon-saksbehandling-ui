@@ -32,7 +32,25 @@ const mapDispatchToProps = (dispatch) => {
 
 class GeneratePDF extends Component {
 
-    state = {};
+    state = {
+        fileNames: {}
+    };
+
+    static getDerivedStateFromProps(props, state) {
+
+        if (!_.isEmpty(props.generatedPDFs) && _.isEmpty(state.fileNames)) {
+
+            let fileNames = {};
+
+            Object.keys(props.generatedPDFs).map(key => {
+                fileNames[key] = props.generatedPDFs[key].name;
+            });
+
+            return {
+                fileNames: fileNames
+            }
+        }
+    }
 
     componentDidMount() {
 
@@ -68,6 +86,25 @@ class GeneratePDF extends Component {
         history.push('/react/pdf/select');
     }
 
+    setFileName(key, e) {
+
+        let newFileNames = _.clone(this.state.fileNames);
+        newFileNames[key] = e.target.value;
+
+        this.setState({
+            fileNames: newFileNames
+        });
+    }
+
+    downloadAll() {
+
+        const { generatedPDFs } = this.props;
+
+        Object.keys(generatedPDFs).map(key => {
+            this[key].click();
+        });
+    }
+
     render() {
 
         const { t, history, generatingPDF, generatedPDFs } = this.props;
@@ -97,20 +134,29 @@ class GeneratePDF extends Component {
                         {Object.keys(generatedPDFs).map(key => {
                             let pdf = generatedPDFs[key];
                             return <div key={key} className='fieldset p-2 mb-3 w-100'>
-                                <Nav.Row>
+                                <Nav.Row className='pdfrow'>
                                     <Nav.Column>
                                         <File file={pdf}/>
+                                    </Nav.Column>
+                                    <Nav.Column>
+                                        <Nav.Input label={t('ui:filename')} value={this.state.fileNames[key]}
+                                            onChange={this.setFileName.bind(this, key)}/>
                                     </Nav.Column>
                                     <Nav.Column className='text-right'>
                                         <a className='hiddenLink' ref={item => this[key] = item}
                                             onClick={(e) => e.stopPropagation()} title={t('ui:download')}
                                             href={'data:application/octet-stream;base64,' + encodeURIComponent(pdf.base64)}
-                                            download={pdf.name}>{t('ui:download')}</a>
+                                            download={this.state.fileNames[key]}>{t('ui:download')}</a>
                                         <Nav.Knapp className='downloadButton' onClick={() => this[key].click()}>{t('ui:download')}</Nav.Knapp>
                                     </Nav.Column>
                                 </Nav.Row>
                             </div>
                         })}
+                        <Nav.Row>
+                            <Nav.Column className='text-right'>
+                                <Nav.Knapp className='w-25 downloadAllButton' onClick={this.downloadAll.bind(this)}>{t('ui:downloadAll')}</Nav.Knapp>
+                            </Nav.Column>
+                        </Nav.Row>
                     </div> : null)}
                 </Nav.Column>
             </Nav.Row>
@@ -134,8 +180,6 @@ GeneratePDF.propTypes = {
     pdfs         : PT.array.isRequired,
     recipe       : PT.array.isRequired,
     generatedPDFs: PT.object
-
-
 };
 
 export default connect(

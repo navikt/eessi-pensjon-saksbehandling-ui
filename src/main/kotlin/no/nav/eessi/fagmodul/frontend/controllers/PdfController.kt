@@ -24,16 +24,11 @@ class PdfController {
     fun generatePDF(@RequestBody request: PDFRequest): ResponseEntity<Map<String, Map<String, Any>>> {
         logger.debug("Request : $request")
 
-        val tmpDir = File(System.getProperty("java.io.tmpdir"));
-        val timeStamp = System.nanoTime();
-
-        logger.debug("Request : $request")
-
         val workingPdfs = HashMap<String, PDDocument>()
         val response = HashMap<String, Map<String, Any>>()
 
         request.pdfs.forEach { pdf ->
-            workingPdfs.put(pdf.name, PDDocument.load(Base64Utils.decodeFromString(pdf.base64)))
+            workingPdfs[pdf.name] = PDDocument.load(Base64Utils.decodeFromString(pdf.base64))
         }
 
         request.recipe.forEach { (targetPdf, recipe) ->
@@ -45,7 +40,7 @@ class PdfController {
 
                 recipe.forEach { step ->
                     val sourcePdf = workingPdfs.get(step.name)
-                    val page = sourcePdf?.getPage(step.pageNumber - 1) // here, page #1 is accessed as index 0
+                    val page = sourcePdf?.getPage(step.pageNumber - 1) // page #1 is accessed as index 0
                     outputPdf.addPage(page)
                 }
 
@@ -53,14 +48,14 @@ class PdfController {
                 outputPdf.close()
 
                 response.put(targetPdf, mapOf(
-                        "base64" to Base64.getEncoder().encodeToString(baos.toByteArray()),
-                        "name" to targetPdf + ".pdf",
-                        "size" to baos.toByteArray().size,
-                        "numPages" to recipe.size
+                    "base64" to Base64.getEncoder().encodeToString(baos.toByteArray()),
+                    "name" to targetPdf + ".pdf",
+                    "size" to baos.toByteArray().size,
+                    "numPages" to recipe.size
                 ))
             }
         }
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(response)
     }
 }
 
