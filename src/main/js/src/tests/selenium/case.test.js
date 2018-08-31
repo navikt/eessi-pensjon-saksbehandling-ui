@@ -252,7 +252,7 @@ describe('Selenium case submit', () => {
             let href    = await link.getAttribute('href');
             console.log(href);
 
-            _.expect(href).to.startsWith('http://rina-oppl-utv004.adeo.no/portal/#/caseManagement/');
+            _.expect(href).to.startsWith('http://rina-oppl-utv004.adeo.no/portal/_/caseManagement/');
         });
 
         it('Forwarding to new case..', async function () {

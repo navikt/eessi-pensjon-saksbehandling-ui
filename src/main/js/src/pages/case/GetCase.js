@@ -60,7 +60,7 @@ class GetCase extends Component {
         const { history, currentCase } = this.props;
 
         if (currentCase) {
-            history.push('/react/case/get/' +
+            history.push('/_/case/get/' +
                 (currentCase.hasOwnProperty('casenumber') ? currentCase.casenumber + '/' : null) +
                 (currentCase.hasOwnProperty('pinid')      ? currentCase.pinid      + '/' : null) +
                 (currentCase.hasOwnProperty('rinaid')     ? currentCase.rinaid     + '/' : null)

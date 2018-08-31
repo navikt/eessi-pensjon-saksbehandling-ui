@@ -44,7 +44,7 @@ class EditPDF extends Component {
         const { history, pdfs } = this.props;
 
         if (_.isEmpty(pdfs)) {
-            history.push('/react/pdf/select');
+            history.push('/_/pdf/select');
         }
     }
 
@@ -53,7 +53,7 @@ class EditPDF extends Component {
         const { history, actions } = this.props;
 
         actions.navigateBack();
-        history.push('/react/pdf/select');
+        history.push('/_/pdf/select');
     }
 
     hasOnlyEmptyArrays(obj) {
@@ -103,7 +103,7 @@ class EditPDF extends Component {
 
         actions.closeModal();
         actions.navigateForward();
-        history.push('/react/pdf/generate');
+        history.push('/_/pdf/generate');
     }
 
     handleAccordionChange(index) {

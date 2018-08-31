@@ -117,11 +117,11 @@ class EditCase extends Component {
         }
 
         if ( !loading.gettingCase && !this.state.caseId) {
-            history.push('/react/case/get');
+            history.push('/_/case/get');
         }
 
         if (dataToConfirm && action === 'forward') {
-            history.push('/react/case/confirm');
+            history.push('/_/case/confirm');
         }
     }
 
@@ -131,7 +131,7 @@ class EditCase extends Component {
 
         actions.navigateBack();
         actions.clearCurrentCase();
-        history.push('/react/case/get');
+        history.push('/_/case/get');
     }
 
     onForwardButtonClick() {

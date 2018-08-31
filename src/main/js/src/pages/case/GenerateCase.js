@@ -42,7 +42,7 @@ class GenerateCase extends Component {
         const { history, dataSaved, action } = this.props;
 
         if (dataSaved && action === 'forward') {
-            history.push('/react/case/save');
+            history.push('/_/case/save');
         }
     }
 
@@ -51,7 +51,7 @@ class GenerateCase extends Component {
         const { history, actions } = this.props;
 
         actions.navigateBack();
-        history.push('/react/case/confirm')
+        history.push('/_/case/confirm')
     }
 
     onForwardButtonClick() {

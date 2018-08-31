@@ -77,7 +77,7 @@ class PInfo extends Component {
         const { history } = this.props;
 
         console.log(this.getFormData())
-        history.push('/react/pselv?referrer=pinfo');
+        history.push('/_/pselv?referrer=pinfo');
     }
 
 
@@ -86,7 +86,7 @@ class PInfo extends Component {
         const { history } = this.props;
 
         await this.resetValidation();
-        history.push('/react/' + this.state.referrer);
+        history.push('/_/' + this.state.referrer);
     }
 
     async resetValidation() {

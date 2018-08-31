@@ -3,24 +3,35 @@ if (window.location.port) {
     BASE_URL = BASE_URL.concat(':' + window.location.port);
 }
 
-export const UI_GET_USER_INFO_URL = BASE_URL + '/api/userinfo';
+var API_URL = BASE_URL + '/api';
+var FAG_URL = BASE_URL + '/fag';
+var PDF_URL = BASE_URL + '/pdf';
 
-export const CASE_GET_CASE_NUMBER_URL        = BASE_URL + '/api/case';
-export const CASE_GET_SUBJECT_AREA_LIST_URL  = BASE_URL + '/api/subjectarea';
-export const CASE_GET_INSTITUTION_LIST_URL   = BASE_URL + '/api/institutions';
-export const CASE_GET_BUC_LIST_URL           = BASE_URL + '/api/bucs';
-export const CASE_GET_BUC_LIST_FROM_RINA_URL = BASE_URL + '/api/bucfromrina';
-export const CASE_GET_SED_LIST_URL           = BASE_URL + '/api/seds';
-export const CASE_GET_SED_LIST_FROM_RINA_URL = BASE_URL + '/api/sedfromrina';
-export const CASE_GET_COUNTRY_LIST_URL       = BASE_URL + '/api/countrycode';
-export const CASE_GET_RINA_URL               = BASE_URL + '/api/rinaurl';
+// EuxController
+export const CASE_GET_RINA_URL                = API_URL + '/rinaurl';
+export const CASE_GET_CASE_WITH_RINAID_URL    = API_URL + '/case/%(caseId)s/%(actorId)s/%(rinaId)s';
+export const CASE_GET_CASE_WITHOUT_RINAID_URL = API_URL + '/case/%(caseId)s/%(actorId)s';
+export const CASE_GET_BUC_LIST_URL            = API_URL + '/bucs';
+export const CASE_GET_SED_LIST_URL            = API_URL + '/seds';
+export const CASE_GET_SED_FOR_BUC_LIST_URL    = API_URL + '/seds/%(buc)s';
+export const CASE_GET_SED_FROM_RINA_LIST_URL  = API_URL + '/sedfromrina/%(rinaId)s';
+export const CASE_GET_BUC_FROM_RINA_LIST_URL  = API_URL + '/bucfromrina/%(rinaId)s';
+export const STATUS_GET_URL                   = API_URL + '/aksjoner/%(rinaId)s';
+export const STATUS_RINA_CASE                 = API_URL + '/rinasaker/%(rinaId)s';
+export const CASE_GET_INSTITUTION_LIST_URL    = API_URL + '/institutions';
+export const CASE_GET_INSTITUTION_FOR_COUNTRY_LIST_URL = API_URL + '/institutions/%(country)s';
+export const CASE_GET_COUNTRY_LIST_URL       = API_URL + '/countrycode';
+export const CASE_GET_SUBJECT_AREA_LIST_URL  = API_URL + '/subjectarea';
+export const UI_GET_USER_INFO_URL            = API_URL + '/userinfo';
 
-export const STATUS_GET_URL  = BASE_URL + '/api/aksjoner';
+// FagmodulController
+export const CASE_CREATE_SED_URL    = FAG_URL + '/create';
+export const CASE_GENERATE_DATA_URL = FAG_URL + '/confirm';
+export const CASE_ADD_TO_SED_URL    = FAG_URL + '/addsed';
+export const CASE_SEND_SED_URL      = FAG_URL + '/sendsed';
+export const CASE_GET_SED           = FAG_URL + '/sed/get/%(rinaId)s/%(docId)s';
+export const CASE_DELETE_SED        = FAG_URL + '/sed/delete/%(rinaId)s/%(sed)s/%(docId)s';
 
-export const CASE_CREATE_SED_URL    = BASE_URL + '/fag/create';
-export const CASE_ADD_TO_SED_URL    = BASE_URL + '/fag/addsed';
-export const CASE_SEND_SED_URL      = BASE_URL + '/fag/sendsed';
-export const CASE_GENERATE_DATA_URL = BASE_URL + '/fag/confirm';
-
-export const PDF_GENERATE_URL = BASE_URL + '/pdf/generate';
+// PdfController
+export const PDF_GENERATE_URL = PDF_URL + '/generate';
 
