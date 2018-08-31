@@ -27,7 +27,7 @@ credential:
   password: '${SRVPENSJON_PASSWORD}'
 
 euxbasis.v1:
-  url:  'http://localhost:9090'
+  url:  'http://localhost:9090/cpi'
 #  url: 'https://eux-app.nais.preprod.local'
 # url: 'https://eux-app-t8.nais.preprod.local'
 
