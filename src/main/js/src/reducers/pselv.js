@@ -2,7 +2,7 @@ import * as types from '../constants/actionTypes';
 
 let initialState =  {
     step: 0,
-    maxStep: 6
+    maxStep: 4
 };
 
 export default function (state = initialState, action = {}) {

@@ -2,23 +2,17 @@
     "app-title": "Add pselv",
     "app-startPselv": "Add pselv",
 
-    "form-step0": "step0",
-    "form-step1": "step1",
-    "form-step2": "step2",
-    "form-step3": "step3",
-    "form-step4": "step4",
-    "form-step5": "step5",
-    "form-step6": "step6",
-    "form-step7": "step7",
+    "form-step0": "Opplysninger",
+    "form-step1": "Alderspensjon",
+    "form-step2": "Personlig informasjon",
+    "form-step3": "Familieforhold",
+    "form-step4": "Godkjenning",
 
     "help-step0": "help step0",
     "help-step1": "help step1",
     "help-step2": "help step2",
     "help-step3": "help step3",
     "help-step4": "help step4",
-    "help-step5": "help step5",
-    "help-step6": "help step6",
-    "help-step7": "help step7",
 
     "form-step0-title" : "Opplysninger om opphold utenfor Norge",
     "form-step0-description" : "Her skal du registrere om du har bodd eller arbeidet utenfor Norge etter at du fylte 16 år.",
@@ -49,7 +43,15 @@
     "form-step3-deceased-name" : "Avdødes navn",
     "form-step3-deceased-id" : "Avdødes fødselsnummer",
     "form-step3-samboer-title" : "Registrere samboer",
-    "form-step3-samboer-label" : "Jeg har samboer"
+    "form-step3-samboer-label" : "Jeg har samboer",
 
+    "form-step4-title" : "Godkjenning og innsending av søknad",
+    "form-step4-description-1" : "Du er nå ferdig med å fylle ut søknadsskjemaet. Du sender inn søknaden ved å klikke på knappen <b>Godkjenn og send inn</b>.",
+    "form-step4-description-2" : "NAV vil behandle søknademn automatisk, og du vil få en elektronisk kvittering med resultatet eller beskjed om den videre saksbehandlingen. For mer informasjon om automatisk saksbehandling se lenken \"Bruk av elektronisk søknad\" under. Vedtaksbrevet vil være tilgjengelig i Din pensjon. Hvis vi har behov for å innhente flere opplysninger, vil du få beskjed om at vi vil behandle søknaden manuelt.",
+    "form-step4-anchor-text-1" : "Bruk av elektronisk søknad",
+    "form-step4-description-3" : "Du kan endre innholdet i søknaden din før du sender inn ved å klikke på lenken \"Endre\" i et av de foregående stegene.",
+    "form-step4-anchor-text-2" : "Vis det utfylte skjemaet",
+    "form-step4-description-4" : "Merk at når du sender inn søknaden din kan NAV innhente informasjon om deg fra norske eller andre lands myndigheter og pensjonsordninger.",
+    "form-step4-description-5" : "Pensjon som er utbetalt feil på grunn av at du uaktsomt har unnlatt å melde fra eller har gitt uriktige opplysningen kan medføre krav om tilbakebetaling og straffeansvar. Det gjelder også pensjon som du har mottatt og som du burde ha forstått at du ikke hadde rett til"
 }
 

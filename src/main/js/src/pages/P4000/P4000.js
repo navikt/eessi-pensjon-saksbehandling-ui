@@ -70,7 +70,7 @@ class P4000 extends Component {
 
     render() {
 
-        const { t, editMode, event, page, history } = this.props;
+        const { t, editMode, event, page, history, location } = this.props;
 
         if (!this.state.isLoaded) {
             return null;
@@ -96,7 +96,7 @@ class P4000 extends Component {
                     <ClientAlert className='mt-3'/>
                 </div>
             </Nav.Row>
-            <EventForm type={activeItem} Component={Component} history={history}/>
+            <EventForm type={activeItem} Component={Component} history={history} location={location}/>
             {isEventPage ? <Nav.Row className='mb-4'>
                 <Nav.Column>
                     <ClientAlert/>
@@ -108,6 +108,7 @@ class P4000 extends Component {
 
 P4000.propTypes = {
     history      : PT.object,
+    location     : PT.object,
     t            : PT.func,
     page         : PT.string.isRequired,
     editMode     : PT.bool,
