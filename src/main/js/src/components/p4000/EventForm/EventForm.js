@@ -104,7 +104,7 @@ class EventForm extends React.Component {
 
     render() {
 
-        let { t, type, editMode, eventIndex, events, history, Component } = this.props;
+        let { t, type, editMode, eventIndex, events, history, location, Component } = this.props;
         let isEventPage = ! ((type === 'view' || type === 'new' || type === 'file'));
         let hideEventList = (type === 'view' || type === 'file') || _.isEmpty(events);
 
@@ -116,7 +116,7 @@ class EventForm extends React.Component {
             </Nav.Row>
             <Nav.Row className={classNames('row-component', 'mb-4', {'editMode' : editMode})}>
                 <Nav.Column>
-                    <Component history={history} type={type} provideController={(component) => {this.component = component}}/>
+                    <Component history={history} location={location} type={type} provideController={(component) => {this.component = component}}/>
                 </Nav.Column>
             </Nav.Row>
             {isEventPage ? (!editMode ?

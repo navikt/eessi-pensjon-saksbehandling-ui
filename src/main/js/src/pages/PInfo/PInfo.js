@@ -39,13 +39,17 @@ class PInfo extends Component {
         isLoaded : false,
         step     : 0,
         maxstep  : 6,
-        validationError: undefined
+        validationError: undefined,
+        referrer : undefined
     };
 
     componentDidMount() {
 
+        const { location } = this.props;
+
         this.setState({
-            isLoaded : true
+            isLoaded : true,
+            referrer : new URLSearchParams(location.search).get('referrer')
         })
     }
 
@@ -73,7 +77,16 @@ class PInfo extends Component {
         const { history } = this.props;
 
         console.log(this.getFormData())
-        history.push('/react/pselv');
+        history.push('/react/pselv?referrer=pinfo');
+    }
+
+
+    async onBackToReferrerButtonClick() {
+
+        const { history } = this.props;
+
+        await this.resetValidation();
+        history.push('/react/' + this.state.referrer);
     }
 
     async resetValidation() {
@@ -612,7 +625,9 @@ class PInfo extends Component {
 
             <Nav.Row className='mb-4 p-2'>
                 <Nav.Column>
-                    {this.state.step !== 0 ? <Nav.Knapp className='backButton mr-4 w-100' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp> : null}
+                    {this.state.step !== 0 ? <Nav.Knapp className='backButton mr-4 w-100' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp> :
+                        this.state.referrer ? <Nav.Knapp className='backButton mr-4 w-100' type='standard' onClick={this.onBackToReferrerButtonClick.bind(this)}>{t('ui:backTo') + ' ' + t('ui:' + this.state.referrer)}</Nav.Knapp>
+                     : null }
                 </Nav.Column>
                 <Nav.Column>
                     {this.state.step !== 5 ?

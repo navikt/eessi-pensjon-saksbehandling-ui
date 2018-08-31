@@ -44,6 +44,7 @@ class GeneratePDF extends Component {
 
             Object.keys(props.generatedPDFs).map(key => {
                 fileNames[key] = props.generatedPDFs[key].name;
+                return key;
             });
 
             return {
@@ -102,6 +103,7 @@ class GeneratePDF extends Component {
 
         Object.keys(generatedPDFs).map(key => {
             this[key].click();
+            return key;
         });
     }
 

@@ -31,7 +31,17 @@ const mapDispatchToProps = (dispatch) => {
 class File extends Component {
 
     state = {
-        submitted: false
+        submitted : false,
+        referrer  : undefined
+    }
+
+    componentDidMount() {
+
+        const { location } = this.props;
+
+        this.setState({
+            referrer: new URLSearchParams(location.search).get('referrer')
+        });
     }
 
     componentDidUpdate() {
@@ -213,13 +223,19 @@ class File extends Component {
         })
     }
 
+    handleBackToReferrerRequest() {
+
+        const { history } = this.props;
+
+        history.push('/react/' + this.state.referrer);
+    }
+
     render() {
 
         const { t, events, event } = this.props;
 
         return <Nav.Panel className='panel-file'>
             <Nav.Row className='fileButtons mb-4 p-3 fieldset'>
-
                 <Nav.Column>
                     <Nav.Row>
                         <Nav.Column>
@@ -349,6 +365,12 @@ class File extends Component {
                     </Nav.Row>
                 </Nav.Column>
             </Nav.Row>
+            {this.state.referrer ? <Nav.Row>
+                 <Nav.Column>
+                        <Nav.Hovedknapp className='backToReferrerButton' onClick={this.handleBackToReferrerRequest.bind(this)}>{t('ui:backTo') + ' ' + t('ui:' + this.state.referrer)}</Nav.Hovedknapp>
+                 </Nav.Column>
+                 <Nav.Column/>
+            </Nav.Row> : null }
         </Nav.Panel>
     }
 }
@@ -358,7 +380,8 @@ File.propTypes = {
     actions : PT.object.isRequired,
     events  : PT.array.isRequired,
     event   : PT.object,
-    history : PT.object.isRequired
+    history : PT.object.isRequired,
+    location: PT.object.isRequired
 };
 
 export default connect(
