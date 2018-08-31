@@ -26,15 +26,15 @@ credential:
   username: '${SRVPENSJON_USERNAME}'
   password: '${SRVPENSJON_PASSWORD}'
 
-eessibasis:
+euxbasis.v1:
+  url:  'http://localhost:9090'
 #  url: 'https://eux-app.nais.preprod.local'
 # url: 'https://eux-app-t8.nais.preprod.local'
- url: 'http://localhost:9090'
 
-fagmodul:
+eessifagmodulservice:
+  url: 'http://localhost:8081'
 #  url: 'https://eessi-fagmodul.nais.preprod.local'
 #  url: 'https://eessi-fagmodul-t8.nais.preprod.local'
-  url: 'http://localhost:8081'
 
 rina:
    url: "http://rina-oppl-utv004.adeo.no/portal/#/caseManagement/"
