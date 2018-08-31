@@ -48,7 +48,7 @@ class TopHeader extends Component {
                 <div className="brand__tittel"><span>{t('headerTitle')}</span></div>
             </div>
             <div className="topplinje__saksbehandler">
-                <div className="mr-4 saksbehandler__navn">{userText}</div>
+                <div className="mr-4 saksbehandler__navn">{userText.principal}</div>
             </div>
         </header>
     }

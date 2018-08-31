@@ -18,14 +18,17 @@ import FileUpload from '../../components/ui/FileUpload/FileUpload';
 import P4000Util from '../../components/p4000/Util';
 import File from '../../components/ui/File/File';
 
+import Validation from '../../components/pinfo/Validation';
 import * as pinfoActions from '../../actions/pinfo';
 import * as uiActions from '../../actions/ui';
 
 import './PInfo.css';
 
+
 const mapStateToProps = (state) => {
     return {
-        locale : state.ui.locale
+        locale : state.ui.locale,
+        form : state.pinfo.form
     }
 };
 
@@ -33,616 +36,427 @@ const mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(Object.assign({}, pinfoActions, uiActions), dispatch)};
 };
 
-class PInfo extends Component {
+const hasError = (props, key) => (
+    props.form.displayError && props.form.validationErrors[key] ?
+    true:
+    false
+);
 
-    state = {
-        isLoaded : false,
-        step     : 0,
-        maxstep  : 6,
-        validationError: undefined,
-        referrer : undefined
-    };
+const getErrors = (props, key) => (
+    hasError(props, key)?
+        props.form.validationErrors[key]:
+        []
+)
 
-    componentDidMount() {
+const errorStyle = (props, key) =>(
+    hasError(props, key) ?
+        {background: "#F3E3E3"}:
+        {}
+);
 
-        const { location } = this.props;
-
-        this.setState({
-            isLoaded : true,
-            referrer : new URLSearchParams(location.search).get('referrer')
-        })
-    }
-
-    async onBackButtonClick() {
-
-        await this.resetValidation();
-        this.setState({
-            step: this.state.step - 1
-        });
-    }
-
-    async onForwardButtonClick() {
-
-        let valid = await this.passesValidation();
-
-        if (valid) {
-            this.setState({
-                step: this.state.step + 1
-            });
-        }
-    }
-
-    onSaveButtonClick() {
-
-        const { history } = this.props;
-
-        console.log(this.getFormData())
-        history.push('/react/pselv?referrer=pinfo');
-    }
-
-
-    async onBackToReferrerButtonClick() {
-
-        const { history } = this.props;
-
-        await this.resetValidation();
-        history.push('/react/' + this.state.referrer);
-    }
-
-    async resetValidation() {
-
-        return new Promise(async (resolve) => {
-            this.setState({
-                validationError: undefined
-            }, () => {
-                resolve();
-            });
-        });
-    }
-
-    hasNoValidationErrors() {
-        return this.state.validationError === undefined
-    }
-
-    hasValidationErrors() {
-        return !this.hasNoValidationErrors();
-    }
-
-    getFormData() {
-
-        let data = _.clone(this.state);
-
-        delete data.step;
-        delete data.maxstep;
-        delete data.validationError;
-        delete data.isLoaded;
-
-        return data;
-    }
-
-    async passesValidation() {
-
-        const { step } = this.state;
-
-        let validation = undefined;
-
-        return new Promise(async (resolve) => {
-
-            switch(step) {
-            case 0:
-
-                if (!this.state.bankName) {
-                    validation = 'pinfo:validation-noBankName';
-                    break;
-                }
-                if (!this.state.bankAddress) {
-                    validation = 'pinfo:validation-noBankAddress';
-                    break;
-                }
-                if (!this.state.bankCountry) {
-                    validation = 'pinfo:validation-noBankCountry';
-                    break;
-                }
-                if (!this.state.bankBicSwift ) {
-                    validation = 'pinfo:validation-noBankBicSwift';
-                    break;
-                }
-                if (! /[\d\w]+/.test(this.state.bankBicSwift)) {
-                    validation = 'pinfo:validation-invalidBankBicSwift';
-                    break;
-                }
-                if (!this.state.bankIban) {
-                    validation = 'pinfo:validation-noBankIban';
-                    break;
-                }
-                if (! /[\d\w]+/.test(this.state.bankIban)) {
-                    validation = 'pinfo:validation-invalidBankIban';
-                    break;
-                }
-                if (!this.state.bankCode) {
-                    validation = 'pinfo:validation-noBankCode';
-                    break;
-                }
-                break;
-
-            case 1:
-
-                if (!this.state.userEmail) {
-                    validation = 'pinfo:validation-noUserEmail';
-                    break;
-                }
-                if (!/\S+@\S+\.\S+/.test(this.state.userEmail)) {
-                    validation = 'pinfo:validation-invalidUserEmail';
-                    break;
-                }
-                if (!this.state.userPhone) {
-                    validation = 'pinfo:validation-noUserPhone';
-                    break;
-                }
-                break;
-
-            case 2:
-
-                if (!this.state.workType || !(/\d\d/.test(this.state.workType))) {
-                    validation = 'pinfo:validation-noWorkType';
-                    break;
-                }
-                if (!this.state.workStartDate) {
-                    validation = 'pinfo:validation-noWorkStartDate';
-                    break;
-                }
-                if (!this.state.workEndDate) {
-                    validation = 'pinfo:validation-noWorkEndDate';
-                    break;
-                }
-                if (!this.state.workEstimatedRetirementDate) {
-                    validation = 'pinfo:validation-noWorkEstimatedRetirementDate';
-                    break;
-                }
-                if (!this.state.workHourPerWeek) {
-                    validation = 'pinfo:validation-noWorkHourPerWeek';
-                    break;
-                }
-                if (!this.state.workIncome) {
-                    validation = 'pinfo:validation-noWorkIncome';
-                    break;
-                }
-                if (!this.state.workIncomeCurrency || !(/[A-Z]{3}/.test(this.state.workIncomeCurrency))) {
-                    validation = 'pinfo:validation-noWorkIncomeCurrency';
-                    break;
-                }
-                if (!this.state.workPaymentDate) {
-                    validation = 'pinfo:validation-noWorkPaymentDate';
-                    break;
-                }
-                if (!this.state.workPaymentFrequency || !(/\d\d/.test(this.state.workPaymentFrequency))) {
-                    validation = 'pinfo:validation-noWorkPaymentFrequency';
-                    break;
-                }
-
-                break;
-
-            case 3:
-
-                if (!this.state.attachmentTypes) {
-                    validation = 'pinfo:validation-noAttachmentTypes';
-                    break;
-                }
-                break;
-
-            case 4:
-
-                if (!this.state.retirementCountry) {
-                    validation = 'pinfo:validation-noRetirementCountry';
-                    break;
-                }
-                break;
-
-            default:
-                return
-            }
-
-            this.setState({
-                validationError: validation
-            }, () => {
-                resolve(this.hasNoValidationErrors());
-            });
-        });
-    }
-
-    onDateBlur(key, e) {
-
-        let date = e.target.value;
-
-        if (! /\d\d\.\d\d\.\d\d\d\d/.test(date)) {
-
-            if (!this.state[key] || date !== this.state[key])  {
-
-                this.setState({
-                    [key] : undefined,
-                    infoValidationError : 'pinfo:validation-invalidDate'
-                });
-            }
-        } else {
-            let thisDate = moment(date, 'DD.MM.YYYY').toDate();
-            if (!this.state[key] || thisDate.getTime() !== this.state[key].getTime())  {
-                this.onDateHandle(key, thisDate);
-            }
-        }
-    }
-
-    onDateChange(key, moment) {
-
-        let date = moment.toDate();
-        if (!this.state[key] || date.getTime() !== this.state[key].getTime())  {
-            this.onDateHandle(key, date);
-        }
-    }
-
-    onDateHandle(key, date) {
-
-        this.setState({
-            [key] : date
-        });
-    }
-
-    setValue(key, e) {
-
-        let value;
-
-        if (key === 'bankCountry' || key === 'retirementCountry' || key === 'attachments') {
-            value = e;
-        } else if (key === 'workIncomeCurrency') {
-            value = e.currency;
-        } else if (key === 'attachmentTypes') {
-
-            value = this.state[key] || [];
-            let id = e.target.getAttribute('id');
-            let index = value.indexOf(id);
-            if (e.target.checked) {
-                if (index === -1) {
-                    value.push(id);
-                }
-            } else {
-                if (index !== -1) {
-                    value.splice(index, 1);
+const validateForm = async (props) => (
+    isNaN(props.form.step)?
+        false:
+        function(){
+            if(this !== undefined){
+                if(this.length === 0){
+                    props.actions.setEventProperty({validationErrors: null});
+                    return true;
+                }else {
+                    props.actions.setEventProperty({validationErrors: this});
+                    return false;
                 }
             }
-        } else {
-            value = e.target.value;
-        }
-        this.setState({
-            [key] : value
-        });
-    }
+            return false;
+        }.apply(Validation(props.form, props.form.step))
+);
 
-    render() {
+const onBackButtonClick = async (props) => (
+    props.actions.setEventProperty( {step: props.form.step - 1, displayError: false} )
+);
 
-        const { t, locale, history } = this.props;
-        const { step } = this.state;
+const onForwardButtonClick = async (props) => (
+    await validateForm(props) ?
+        props.actions.setEventProperty( {step: props.form.step + 1, displayError: false} ) :
+        props.actions.setEventProperty( {displayError: true} )
+);
 
-        if (!this.state.isLoaded) {
-            return null;
-        }
+const onSaveButtonClick = (props) => (
+    props.history.push('/react/pselv?referrer=pinfo')
+);
 
-        return <TopContainer className='pInfo topContainer'>
-            <Nav.Row className='mb-4'>
-                <Nav.Column>
-                    <h1 className='mt-4 ml-3 mb-3 appTitle'>
-                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
-                        {t('pinfo:app-title')}
-                    </h1>
-                    <h4 className='appDescription mb-4'>{t('pinfo:form-step' + step)}</h4>
-                    <ClientAlert className='mb-4'/>
-                    <Nav.Stegindikator
-                        aktivtSteg={step}
-                        visLabel={true}
-                        onBeforeChange={() => {return false}}
-                        autoResponsiv={true}
-                        steg={[
-                            {label: t('pinfo:form-step0')},
-                            {label: t('pinfo:form-step1')},
-                            {label: t('pinfo:form-step2')},
-                            {label: t('pinfo:form-step3')},
-                            {label: t('pinfo:form-step4')},
-                            {label: t('pinfo:form-step5')},
-                            {label: t('pinfo:form-step6')}
-                        ]}/>
-                </Nav.Column>
-            </Nav.Row>
-            <div className={classNames('fieldset','p-4','mb-4','ml-3','mr-3', {
-                validationFail : this ? this.hasValidationErrors() : false
-            })}>
-                <Nav.HjelpetekstBase>{t('pinfo:help-step' + step )}</Nav.HjelpetekstBase>
-                {this.hasValidationErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.validationError)}</Nav.AlertStripe> : null}
+const onDateBlur = (props, key, e) => (
+    ! /\d\d\.\d\d\.\d\d\d\d/.test(e.target.value) ?
+        ! props.form[key] || e.target.value !== props.form[key] ?
+            props.actions.setEventProperty({
+                [key] : undefined,
+                infoValidationError : 'pinfo:validation-invalidDate'
+            }):
+            undefined:
+        ! props.form[key] || moment(e.target.value, 'DD.MM.YYYY').toDate().getTime() !== props.form[key].getTime() ?
+            props.actions.setEventProperty({[key] : moment(e.target.value, 'DD.MM.YYYY').toDate() }):
+            undefined
+);
 
-                {step === 0 ? <div className='mt-3'>
-                    <Nav.Row>
-                        <div className='col-md-6'>
-                            <Nav.Input label={t('pinfo:form-bankName') + ' *'} value={this.state.bankName || ''}
-                                onChange={this.setValue.bind(this, 'bankName')}/>
-                        </div>
-                        <div className='col-md-6'>
-                            <Nav.Textarea label={t('pinfo:form-bankAddress') + ' *'} value={this.state.bankAddress || ''}
-                                style={{minHeight:'200px'}}
-                                onChange={this.setValue.bind(this, 'bankAddress')}/>
-                        </div>
-                    </Nav.Row>
-                    <Nav.Row>
-                        <div className='col-md-6'>
-                            <div className='mb-3'>
-                                <label>{t('pinfo:form-bankCountry') + ' *'}</label>
-                                <CountrySelect className='countrySelect' locale={locale} value={this.state.bankCountry || {}}
-                                    onSelect={this.setValue.bind(this, 'bankCountry')}/>
-                            </div>
-                        </div>
-                        <div className='col-md-6'>
-                            <Nav.Input label={t('pinfo:form-bankBicSwift') + ' *'} value={this.state.bankBicSwift || ''}
-                                onChange={this.setValue.bind(this, 'bankBicSwift')}/>
-                        </div>
-                    </Nav.Row>
-                    <Nav.Row>
-                        <div className='col-md-6'>
-                            <Nav.Input label={t('pinfo:form-bankIban') + ' *'} value={this.state.bankIban || ''}
-                                onChange={this.setValue.bind(this, 'bankIban')}/>
-                        </div>
-                        <div className='col-md-6'>
-                            <Nav.Input label={t('pinfo:form-bankCode') + ' *'} value={this.state.bankCode || ''}
-                                onChange={this.setValue.bind(this, 'bankCode')}/>
-                        </div>
-                    </Nav.Row>
-                </div> : null}
+const onDateChange = (props, key, moment) => (
+    ! props.form[key] || moment.toDate().getTime() !== props.form[key].getTime() ?
+        props.actions.setEventProperty({[key] : moment.toDate() }):
+        undefined
+);
 
-                {this.state.step === 1 ? <div className='mt-3'>
+const setValue = (props, key , e) => (
+    ( key === 'bankCountry' || key === 'retirementCountry' || key === 'attachments' || key === 'workIncomeCurrency') ?
+        props.actions.setEventProperty( {[key]: e} ):
+        key === 'attachmentTypes' ?
+            props.actions.setEventProperty({[key]: {...props.form[key], [e.target.getAttribute('id')] : e.target.checked}} ) :
+            props.actions.setEventProperty( {[key]: e.target.value })
+)
 
-                    <Nav.Row>
-                        <div className='col-md-6'>
-                            <Nav.Input label={t('pinfo:form-userEmail') + ' *'} value={this.state.userEmail || ''}
-                                onChange={this.setValue.bind(this, 'userEmail')}/>
+const PInfo = (props) => ( 
+    <TopContainer className='pInfo topContainer'>
+        <Nav.Row className='mb-4'>
+            <Nav.Column>
+                <h1 className='mt-4 ml-3 mb-3 appTitle'>
+                    <Icons title={props.t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => props.history.push('/')}/>
+                    {props.t('pinfo:app-title')}
+                </h1>
+                <h4 className='appDescription mb-4'>{props.t('pinfo:form-step' + props.form.step)}</h4>
+                <ClientAlert className='mb-4'/>
+                <Nav.Stegindikator
+                    aktivtSteg={props.form.step}
+                    visLabel={true}
+                    onBeforeChange={() => {return false}}
+                    autoResponsiv={true}
+                    steg={[
+                        {label: props.t('pinfo:form-step0')},
+                        {label: props.t('pinfo:form-step1')},
+                        {label: props.t('pinfo:form-step2')},
+                        {label: props.t('pinfo:form-step3')},
+                        {label: props.t('pinfo:form-step4')},
+                        {label: props.t('pinfo:form-step5')},
+                        {label: props.t('pinfo:form-step6')}
+                    ]}/>
+            </Nav.Column>
+        </Nav.Row>
+        <div className={classNames('fieldset','p-4','mb-4','ml-3','mr-3')}>
+            <Nav.HjelpetekstBase>{props.t('pinfo:help-step' + props.form.step )}</Nav.HjelpetekstBase>
 
-                            <Nav.Input label={t('pinfo:form-userPhone') + ' *'} value={this.state.userPhone || ''}
-                                onChange={this.setValue.bind(this, 'userPhone')}/>
+            {props.form.step === 0 ? <div className='mt-3'>
+                <Nav.Row>
+                    <div className='col-md-6'>
+                        {hasError(props, 'bankName') ? 
+                            getErrors(props, 'bankName').map(err => props.t(err))
+                            :'' }
+                        <Nav.Input label={props.t('pinfo:form-bankName') + ' *'} value={props.form.bankName || ''}
+                            onChange={setValue.bind(null, props, 'bankName')}
+                            style= {errorStyle(props, 'bankName')} />
+                    </div>
+                    <div className='col-md-6'>
+                        {hasError(props, 'bankAddress') ? 
+                            getErrors(props, 'bankAddress').map(err => props.t(err))
+                            :'' }
+                        <Nav.Textarea label={props.t('pinfo:form-bankAddress') + ' *'} value={props.form.bankAddress || ''}
+                            style={{minHeight:'200px', ...errorStyle(props, 'bankAddress')}}
+                            onChange={setValue.bind(null, props, 'bankAddress')}/>
+                    </div>
+                </Nav.Row>
+                <Nav.Row>
+                    <div className='col-md-6'>
+                        <div className='mb-3' >
+                            {hasError(props, 'bankCountry') ? 
+                                getErrors(props, 'bankCountry').map(err => props.t(err))
+                                :'' }
+                            <label>{props.t('pinfo:form-bankCountry') + ' *'}</label>
+                            <CountrySelect locale={props.locale} value={props.form.bankCountry || {}}
+                                onSelect={setValue.bind(null, props, 'bankCountry')}
+                                style = {errorStyle(props, 'bankCountry')}
+                                />
                         </div>
-                    </Nav.Row>
-                </div> : null}
+                    </div>
+                    <div className='col-md-6'>
+                        {hasError(props, 'bankBicSwift') ? 
+                            getErrors(props, 'bankBicSwift').map(err => props.t(err))
+                            :'' }
+                        <Nav.Input label={props.t('pinfo:form-bankBicSwift') + ' *'} value={props.form.bankBicSwift || ''}
+                            onChange={setValue.bind(null, props, 'bankBicSwift')}
+                            style = {errorStyle(props, 'bankBicSwift')}/>
+                    </div>
+                </Nav.Row>
+                <Nav.Row>
+                    <div className='col-md-6'>
+                        {hasError(props, 'bankIban') ? 
+                            getErrors(props, 'bankIban').map(err => props.t(err))
+                            :'' }
+                        <Nav.Input label={props.t('pinfo:form-bankIban') + ' *'} value={props.form.bankIban || ''}
+                            onChange={setValue.bind(null, props, 'bankIban')}
+                            style = {errorStyle(props, 'bankIban')}/>
+                    </div>
+                    <div className='col-md-6'>
+                        {hasError(props, 'bankCode') ? 
+                            getErrors(props, 'bankCode').map(err => props.t(err))
+                            :'' }
+                        <Nav.Input 
+                            label={(props.t('pinfo:form-bankCode') + ' *')}
+                            value={props.form.bankCode || ''}
+                            onChange={setValue.bind(null, props, 'bankCode')}
+                            style = {errorStyle(props, 'bankCode')}/>
+                    </div>
+                </Nav.Row>
+            </div> : null}
 
-                {this.state.step === 2 ? <div className='mt-3'>
+            {props.form.step === 1 ? <div className='mt-3'>
 
-                    <Nav.Row className='mb-4'>
-                        <div className='col-md-6'>
-                            <Nav.Select label={t('pinfo:form-workType') + ' *'} value={this.state.workType || ''}
-                                onChange={this.setValue.bind(this, 'workType')}>
-                                <option value='--'>{t('pinfo:form-workType-select-option')}</option>
-                                <option value='01'>{t('pinfo:form-workType-option-01')}</option>
-                                <option value='02'>{t('pinfo:form-workType-option-02')}</option>
-                                <option value='03'>{t('pinfo:form-workType-option-03')}</option>
-                                <option value='04'>{t('pinfo:form-workType-option-04')}</option>
-                                <option value='05'>{t('pinfo:form-workType-option-05')}</option>
-                                <option value='06'>{t('pinfo:form-workType-option-06')}</option>
-                                <option value='07'>{t('pinfo:form-workType-option-07')}</option>
-                                <option value='08'>{t('pinfo:form-workType-option-08')}</option>
-                            </Nav.Select>
-                        </div>
-                    </Nav.Row>
-                    <Nav.Row className='mb-4'>
-                        <div className='col-md-4'>
-                            <label>{t('pinfo:form-workStartDate')+ ' *'}</label>
-                            <ReactDatePicker selected={this.state.workStartDate ? moment(this.state.workStartDate) : undefined}
-                                dateFormat='DD.MM.YYYY'
-                                placeholderText={t('ui:dateFormat')}
-                                showYearDropdown
-                                showMonthDropdown
-                                dropdownMode='select'
-                                locale={locale}
-                                onMonthChange={this.onDateChange.bind(this, 'workStartDate')}
-                                onYearChange={this.onDateChange.bind(this, 'workStartDate')}
-                                onBlur={this.onDateBlur.bind(this, 'workStartDate')}
-                                onChange={this.onDateChange.bind(this, 'workStartDate')}/>
-                        </div>
-                        <div className='col-md-4'>
-                            <label>{t('pinfo:form-workEndDate')+ ' *'}</label>
-                            <ReactDatePicker selected={this.state.workEndDate ? moment(this.state.workEndDate) : undefined}
-                                dateFormat='DD.MM.YYYY'
-                                placeholderText={t('ui:dateFormat')}
-                                showYearDropdown
-                                showMonthDropdown
-                                dropdownMode='select'
-                                locale={locale}
-                                onMonthChange={this.onDateChange.bind(this, 'workEndDate')}
-                                onYearChange={this.onDateChange.bind(this, 'workEndDate')}
-                                onBlur={this.onDateBlur.bind(this, 'workEndDate')}
-                                onChange={this.onDateChange.bind(this, 'workEndDate')}/>
-                        </div>
-                        <div className='col-md-4'>
-                            <label>{t('pinfo:form-workEstimatedRetirementDate')+ ' *'}</label>
-                            <ReactDatePicker selected={this.state.workEstimatedRetirementDate ? moment(this.state.workEstimatedRetirementDate) : undefined}
-                                dateFormat='DD.MM.YYYY'
-                                placeholderText={t('ui:dateFormat')}
-                                showYearDropdown
-                                showMonthDropdown
-                                dropdownMode='select'
-                                locale={locale}
-                                onMonthChange={this.onDateChange.bind(this, 'workEstimatedRetirementDate')}
-                                onYearChange={this.onDateChange.bind(this, 'workEstimatedRetirementDate')}
-                                onBlur={this.onDateBlur.bind(this, 'workEstimatedRetirementDate')}
-                                onChange={this.onDateChange.bind(this, 'workEstimatedRetirementDate')}/>
-                        </div>
-                    </Nav.Row>
-                    <Nav.Row className='mb-4'>
-                        <div className='col-md-6'>
-                            <Nav.Input label={t('pinfo:form-workHourPerWeek') + ' *'} value={this.state.workHourPerWeek || ''}
-                                onChange={this.setValue.bind(this, 'workHourPerWeek')}/>
+                <Nav.Row>
+                    <div className='col-md-6'>
+                        <Nav.Input label={props.t('pinfo:form-userEmail') + ' *'} value={props.form.userEmail || ''}
+                            onChange={setValue.bind(null, props, 'userEmail')}/>
 
-                        </div>
-                    </Nav.Row>
-                    <Nav.Row className='mb-4'>
-                        <div className='col-md-6'>
-                            <Nav.Input label={t('pinfo:form-workIncome') + ' *'} value={this.state.workIncome || ''}
-                                onChange={this.setValue.bind(this, 'workIncome')}/>
-                        </div>
-                        <div className='col-md-6'>
-                            <label>{t('pinfo:form-workIncomeCurrency') + ' *'}</label>
-                            <CountrySelect className='currencySelect' locale={locale} type={'currency'}
-                                value={this.state.workIncomeCurrency || {}}
-                                onSelect={this.setValue.bind(this, 'workIncomeCurrency')}/>
-                        </div>
-                    </Nav.Row>
-                    <Nav.Row className='mb-4'>
-                        <div className='col-md-6'>
-                            <label>{t('pinfo:form-workPaymentDate')+ ' *'}</label>
-                            <ReactDatePicker selected={this.state.workPaymentDate ? moment(this.state.workPaymentDate) : undefined}
-                                dateFormat='DD.MM.YYYY'
-                                placeholderText={t('ui:dateFormat')}
-                                showYearDropdown
-                                showMonthDropdown
-                                dropdownMode='select'
-                                locale={locale}
-                                onMonthChange={this.onDateChange.bind(this, 'workPaymentDate')}
-                                onYearChange={this.onDateChange.bind(this, 'workPaymentDate')}
-                                onBlur={this.onDateBlur.bind(this, 'workPaymentDate')}
-                                onChange={this.onDateChange.bind(this, 'workPaymentDate')}/>
-                        </div>
-                        <div className='col-md-6'>
-                            <Nav.Select label={t('pinfo:form-workPaymentFrequency') + ' *'} value={this.state.workPaymentFrequency || ''}
-                                onChange={this.setValue.bind(this, 'workPaymentFrequency')}>
-                                <option value='--'>{t('pinfo:form-workPaymentFrequency-choose-option')}</option>
-                                <option value='01'>{t('pinfo:form-workPaymentFrequency-option-01')}</option>
-                                <option value='02'>{t('pinfo:form-workPaymentFrequency-option-02')}</option>
-                                <option value='03'>{t('pinfo:form-workPaymentFrequency-option-03')}</option>
-                                <option value='04'>{t('pinfo:form-workPaymentFrequency-option-04')}</option>
-                                <option value='05'>{t('pinfo:form-workPaymentFrequency-option-05')}</option>
-                                <option value='06'>{t('pinfo:form-workPaymentFrequency-option-06')}</option>
-                                <option value='99'>{t('pinfo:form-workPaymentFrequency-option-99')}</option>
-                            </Nav.Select>
-                        </div>
-                    </Nav.Row>
-                </div> : null}
+                        <Nav.Input label={props.t('pinfo:form-userPhone') + ' *'} value={props.form.userPhone || ''}
+                            onChange={setValue.bind(null, props, 'userPhone')}/>
+                    </div>
+                </Nav.Row>
+            </div> : null}
 
-                {this.state.step === 3 ? <div>
-                    <Nav.Row>
-                        <div className='col-md-6'>
-                            <Nav.CheckboksPanelGruppe legend={t('pinfo:form-attachmentTypes')}
-                                checkboxes={[
-                                    {'label' : t('pinfo:form-attachmentTypes-01'), 'value' : '01', 'id' : '01'},
-                                    {'label' : t('pinfo:form-attachmentTypes-02'), 'value' : '02', 'id' : '02'},
-                                    {'label' : t('pinfo:form-attachmentTypes-03'), 'value' : '03', 'id' : '03'},
-                                    {'label' : t('pinfo:form-attachmentTypes-04'), 'value' : '04', 'id' : '04'}
-                                ]}
-                                onChange={this.setValue.bind(this, 'attachmentTypes')} />
-                        </div>
-                    </Nav.Row>
-                    <FileUpload className='fileUpload' files={this.state.attachments || []}
-                        onFileChange={this.setValue.bind(this, 'attachments')}/>
-                </div> : null}
+            {props.form.step === 2 ? <div className='mt-3'>
 
-                {this.state.step === 4 ? <div className='mb-3'>
-                    <Nav.Row>
-                        <div className='col-md-6'>
-                            <label>{t('pinfo:form-retirementCountry') + ' *'}</label>
-                            <CountrySelect className='countrySelect' locale={locale} value={this.state.retirementCountry || {}}
-                                onSelect={this.setValue.bind(this, 'retirementCountry')}/>
-                        </div>
-                    </Nav.Row>
-                </div> : null}
+                <Nav.Row className='mb-4'>
+                    <div className='col-md-6'>
+                        <Nav.Select label={props.t('pinfo:form-workType') + ' *'} value={props.form.workType || ''}
+                            onChange={setValue.bind(null, props, 'workType')}>
+                            <option value='--'>{props.t('pinfo:form-workType-select-option')}</option>
+                            <option value='01'>{props.t('pinfo:form-workType-option-01')}</option>
+                            <option value='02'>{props.t('pinfo:form-workType-option-02')}</option>
+                            <option value='03'>{props.t('pinfo:form-workType-option-03')}</option>
+                            <option value='04'>{props.t('pinfo:form-workType-option-04')}</option>
+                            <option value='05'>{props.t('pinfo:form-workType-option-05')}</option>
+                            <option value='06'>{props.t('pinfo:form-workType-option-06')}</option>
+                            <option value='07'>{props.t('pinfo:form-workType-option-07')}</option>
+                            <option value='08'>{props.t('pinfo:form-workType-option-08')}</option>
+                        </Nav.Select>
+                    </div>
+                </Nav.Row>
+                <Nav.Row className='mb-4'>
+                <div className='col-md-4'>
+                    <label>{props.t('pinfo:form-workStartDate')+ ' *'}</label>
+                    <ReactDatePicker selected={props.form.workStartDate ? moment(props.form.workStartDate) : undefined}
+                        dateFormat='DD.MM.YYYY'
+                        placeholderText={props.t('ui:dateFormat')}
+                        showYearDropdown
+                        showMonthDropdown
+                        dropdownMode='select'
+                        locale={props.locale}
+                        onMonthChange={onDateChange.bind(null, props, 'workStartDate')}
+                        onYearChange={onDateChange.bind(null, props, 'workStartDate')}
+                        onBlur={onDateBlur.bind(null, props, 'workStartDate')}
+                        onChange={onDateChange.bind(null, props, 'workStartDate')}/>
+                </div>
+                <div className='col-md-4'>
+                    <label>{props.t('pinfo:form-workEndDate')+ ' *'}</label>
+                    <ReactDatePicker selected={props.form.workEndDate ? moment(props.form.workEndDate) : undefined}
+                        dateFormat='DD.MM.YYYY'
+                        placeholderText={props.t('ui:dateFormat')}
+                        showYearDropdown
+                        showMonthDropdown
+                        dropdownMode='select'
+                        locale={props.locale}
+                        onMonthChange={onDateChange.bind(null, props, 'workEndDate')}
+                        onYearChange={onDateChange.bind(null, props, 'workEndDate')}
+                        onBlur={onDateBlur.bind(null, props, 'workEndDate')}
+                        onChange={onDateChange.bind(null, props, 'workEndDate')}/>
+                </div>
+                <div className='col-md-4'>
+                    <label>{props.t('pinfo:form-workEstimatedRetirementDate')+ ' *'}</label>
+                    <ReactDatePicker selected={props.form.workEstimatedRetirementDate ? moment(props.form.workEstimatedRetirementDate) : undefined}
+                        dateFormat='DD.MM.YYYY'
+                        placeholderText={props.t('ui:dateFormat')}
+                        showYearDropdown
+                        showMonthDropdown
+                        dropdownMode='select'
+                        locale={props.locale}
+                        onMonthChange={onDateChange.bind(null, props, 'workEstimatedRetirementDate')}
+                        onYearChange={onDateChange.bind(null, props, 'workEstimatedRetirementDate')}
+                        onBlur={onDateBlur.bind(null, props, 'workEstimatedRetirementDate')}
+                        onChange={onDateChange.bind(null, props, 'workEstimatedRetirementDate')}/>
+                </div>
+                </Nav.Row>
+                <Nav.Row className='mb-4'>
+                    <div className='col-md-6'>
+                        <Nav.Input label={props.t('pinfo:form-workHourPerWeek') + ' *'} value={props.form.workHourPerWeek || ''}
+                            onChange={setValue.bind(null, props, 'workHourPerWeek')}/>
 
-                {this.state.step === 5 ? <div>
-                    <fieldset>
-                        <legend>{t('pinfo:form-bank')}</legend>
-                        <dl className='row'>
-                            <dt className='col-sm-4'><label>{t('pinfo:form-bankName')}</label></dt>
-                            <dd className='col-sm-8'>{this.state.bankName}</dd>
-                            <dt className='col-sm-4'><label>{t('pinfo:form-bankAddress')}</label></dt>
-                            <dd className='col-sm-8'><pre>{this.state.bankAddress}</pre></dd>
-                            <dt className='col-sm-4'><label>{t('pinfo:form-bankCountry')}</label></dt>
-                            <dd className='col-sm-8'>
-                                <img src={'../../../../../flags/' + this.state.bankCountry.value + '.png'}
-                                    style={{width: 30, height: 20}}
-                                    alt={this.state.bankCountry.label}/>&nbsp; {this.state.bankCountry.label}
-                            </dd>
-                            <dt className='col-sm-4'><label>{t('pinfo:form-bankBicSwift')}</label></dt>
-                            <dd className='col-sm-8'>{this.state.bankBicSwift}</dd>
-                            <dt className='col-sm-4'><label>{t('pinfo:form-bankIban')}</label></dt>
-                            <dd className='col-sm-8'>{this.state.bankIban}</dd>
-                            <dt className='col-sm-4'><label>{t('pinfo:form-bankCode')}</label></dt>
-                            <dd className='col-sm-8'>{this.state.bankCode}</dd>
-                        </dl>
-                    </fieldset>
-                    <fieldset>
-                        <legend>{t('pinfo:form-user')}</legend>
-                        <dl className='row'>
-                            <dt className='col-sm-4'><label>{t('pinfo:form-userEmail')}</label></dt>
-                            <dd className='col-sm-8'>{this.state.userEmail}</dd>
-                            <dt className='col-sm-4'><label>{t('pinfo:form-userPhone')}</label></dt>
-                            <dd className='col-sm-8'>{this.state.userPhone}</dd>
-                        </dl>
-                    </fieldset>
-                    <fieldset>
-                        <legend>{t('pinfo:form-work')}</legend>
-                        <dl className='row'>
-                            <dt className='col-sm-4'><label>{t('pinfo:form-workType')}</label></dt>
-                            <dd className='col-sm-8'>{t('pinfo:form-workType-option-' + this.state.workType)}</dd>
-                            <dt className='col-sm-4'><label>{t('pinfo:form-workStartDate')}</label></dt>
-                            <dd className='col-sm-8'>{P4000Util.writeDate(this.state.workStartDate)}</dd>
-                            <dt className='col-sm-4'><label>{t('pinfo:form-workEndDate')}</label></dt>
-                            <dd className='col-sm-8'>{P4000Util.writeDate(this.state.workEndDate)}</dd>
-                            <dt className='col-sm-4'><label>{t('pinfo:form-workEstimatedRetirementDate')}</label></dt>
-                            <dd className='col-sm-8'>{P4000Util.writeDate(this.state.workEstimatedRetirementDate)}</dd>
-                            <dt className='col-sm-4'><label>{t('pinfo:form-workHourPerWeek')}</label></dt>
-                            <dd className='col-sm-8'>{this.state.workHourPerWeek}</dd>
-                            <dt className='col-sm-4'><label>{t('pinfo:form-workIncome')}</label></dt>
-                            <dd className='col-sm-8'>{this.state.workIncome}{' '}{this.state.workIncomeCurrency}</dd>
-                            <dt className='col-sm-4'><label>{t('pinfo:form-workPaymentDate')}</label></dt>
-                            <dd className='col-sm-8'>{P4000Util.writeDate(this.state.workPaymentDate)}</dd>
-                            <dt className='col-sm-4'><label>{t('pinfo:form-workPaymentFrequency')}</label></dt>
-                            <dd className='col-sm-8'>{t('pinfo:form-workPaymentFrequency-option-' + this.state.workPaymentFrequency)}</dd>
-                        </dl>
-                    </fieldset>
-                    <fieldset>
-                        <legend>{t('pinfo:form-attachments')}</legend>
-                        <dl className='row'>
-                            <dt className='col-sm-4'><label>{t('pinfo:form-attachmentTypes')}</label></dt>
-                            <dd className='col-sm-8'>{this.state.attachmentTypes.map(type => {return t('pinfo:form-attachmentTypes-' + type)}).join(', ')}</dd>
-                            <dt className='col-sm-4'><label>{t('pinfo:form-attachments')}</label></dt>
-                            <dd className='col-sm-8'>{
-                                this.state.attachments ? this.state.attachments.map((file, i) => {
-                                    return <File className='mr-2' key={i} file={file} deleteLink={false} downloadLink={false} />
-                                }) : null }
-                            </dd>
-                        </dl>
-                    </fieldset>
-                    <fieldset>
-                        <legend>{t('pinfo:form-retirement')}</legend>
-                        <dl className='row'>
-                            <dt className='col-sm-4'><label>{t('pinfo:form-retirementCountry')}</label></dt>
-                            <dd className='col-sm-8'><img src={'../../../../../flags/' + this.state.retirementCountry.value + '.png'}
+                    </div>
+                </Nav.Row>
+                <Nav.Row className='mb-4'>
+                    <div className='col-md-6'>
+                        <Nav.Input label={props.t('pinfo:form-workIncome') + ' *'} value={props.form.workIncome || ''}
+                            onChange={setValue.bind(null, props, 'workIncome')}/>
+                    </div>
+                    <div className='col-md-6'>
+                        <label>{props.t('pinfo:form-workIncomeCurrency') + ' *'}</label>
+                        <CountrySelect locale={props.locale} type={'currency'}
+                            value={props.form.workIncomeCurrency || {}}
+                            onSelect={setValue.bind(null, props, 'workIncomeCurrency')}/>
+                    </div>
+                </Nav.Row>
+                <Nav.Row className='mb-4'>
+                    <div className='col-md-6'>
+                        <label>{props.t('pinfo:form-workPaymentDate')+ ' *'}</label>
+                        <ReactDatePicker selected={props.form.workPaymentDate ? moment(props.form.workPaymentDate) : undefined}
+                            dateFormat='DD.MM.YYYY'
+                            placeholderText={props.t('ui:dateFormat')}
+                            showYearDropdown
+                            showMonthDropdown
+                            dropdownMode='select'
+                            locale={props.locale}
+                            onMonthChange={onDateChange.bind(null, props, 'workPaymentDate')}
+                            onYearChange={onDateChange.bind(null, props, 'workPaymentDate')}
+                            onBlur={onDateBlur.bind(null, props, 'workPaymentDate')}
+                            onChange={onDateChange.bind(null, props, 'workPaymentDate')}/>
+                    </div>
+                    <div className='col-md-6'>
+                        <Nav.Select label={props.t('pinfo:form-workPaymentFrequency') + ' *'} value={props.form.workPaymentFrequency || ''}
+                            onChange={setValue.bind(null, props, 'workPaymentFrequency')}>
+                            <option value='--'>{props.t('pinfo:form-workPaymentFrequency-choose-option')}</option>
+                            <option value='01'>{props.t('pinfo:form-workPaymentFrequency-option-01')}</option>
+                            <option value='02'>{props.t('pinfo:form-workPaymentFrequency-option-02')}</option>
+                            <option value='03'>{props.t('pinfo:form-workPaymentFrequency-option-03')}</option>
+                            <option value='04'>{props.t('pinfo:form-workPaymentFrequency-option-04')}</option>
+                            <option value='05'>{props.t('pinfo:form-workPaymentFrequency-option-05')}</option>
+                            <option value='06'>{props.t('pinfo:form-workPaymentFrequency-option-06')}</option>
+                            <option value='99'>{props.t('pinfo:form-workPaymentFrequency-option-99')}</option>
+                        </Nav.Select>
+                    </div>
+                </Nav.Row>
+            </div> : null}
+
+            {props.form.step === 3 ? <div>
+                <Nav.Row>
+                    <div className='col-md-6'>
+                        <Nav.CheckboksPanelGruppe legend={props.t('pinfo:form-attachmentTypes')}
+                            checkboxes={[
+                                {'label' : props.t('pinfo:form-attachmentTypes-01'), 'value' : '01', 'id' : '01', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['01']: false) }},
+                                {'label' : props.t('pinfo:form-attachmentTypes-02'), 'value' : '02', 'id' : '02', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['02']: false) }},
+                                {'label' : props.t('pinfo:form-attachmentTypes-03'), 'value' : '03', 'id' : '03', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['03']: false) }},
+                                {'label' : props.t('pinfo:form-attachmentTypes-04'), 'value' : '04', 'id' : '04', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['04']: false) }}
+                            ]}
+                            onChange={setValue.bind(null, props, 'attachmentTypes')} />
+                    </div>
+                </Nav.Row>
+                <FileUpload files={props.form.attachments || []}
+                    onFileChange={setValue.bind(null, props, 'attachments')}/>
+            </div> : null}
+
+            {props.form.step === 4 ? <div className='mb-3'>
+                <Nav.Row>
+                    <div className='col-md-6'>
+                        <label>{props.t('pinfo:form-retirementCountry') + ' *'}</label>
+                        <CountrySelect locale={props.locale} value={props.form.retirementCountry || {}}
+                            onSelect={setValue.bind(null, props, 'retirementCountry')}/>
+                    </div>
+                </Nav.Row>
+            </div> : null}
+
+            {props.form.step === 5 ? <div>
+                <fieldset>
+                    <legend>{props.t('pinfo:form-bank')}</legend>
+                    <dl className='row'>
+                        <dt className='col-sm-4'><label>{props.t('pinfo:form-bankName')}</label></dt>
+                        <dd className='col-sm-8'>{props.form.bankName}</dd>
+                        <dt className='col-sm-4'><label>{props.t('pinfo:form-bankAddress')}</label></dt>
+                        <dd className='col-sm-8'><pre>{props.form.bankAddress}</pre></dd>
+                        <dt className='col-sm-4'><label>{props.t('pinfo:form-bankCountry')}</label></dt>
+                        <dd className='col-sm-8'>
+                            <img src={'../../../../../flags/' + props.form.bankCountry.value + '.png'}
                                 style={{width: 30, height: 20}}
-                                alt={this.state.retirementCountry.label}/>&nbsp; {this.state.retirementCountry.label}
-                            </dd>
-                        </dl>
-                    </fieldset>
-                </div> : null}
-            </div>
+                                alt={props.form.bankCountry.label}/>&nbsp; {props.form.bankCountry.label}
+                        </dd>
+                        <dt className='col-sm-4'><label>{props.t('pinfo:form-bankBicSwift')}</label></dt>
+                        <dd className='col-sm-8'>{props.form.bankBicSwift}</dd>
+                        <dt className='col-sm-4'><label>{props.t('pinfo:form-bankIban')}</label></dt>
+                        <dd className='col-sm-8'>{props.form.bankIban}</dd>
+                        <dt className='col-sm-4'><label>{props.t('pinfo:form-bankCode')}</label></dt>
+                        <dd className='col-sm-8'>{props.form.bankCode}</dd>
+                    </dl>
+                </fieldset>
+                <fieldset>
+                    <legend>{props.t('pinfo:form-user')}</legend>
+                    <dl className='row'>
+                        <dt className='col-sm-4'><label>{props.t('pinfo:form-userEmail')}</label></dt>
+                        <dd className='col-sm-8'>{props.form.userEmail}</dd>
+                        <dt className='col-sm-4'><label>{props.t('pinfo:form-userPhone')}</label></dt>
+                        <dd className='col-sm-8'>{props.form.userPhone}</dd>
+                    </dl>
+                </fieldset>
+                <fieldset>
+                    <legend>{props.t('pinfo:form-work')}</legend>
+                    <dl className='row'>
+                        <dt className='col-sm-4'><label>{props.t('pinfo:form-workType')}</label></dt>
+                        <dd className='col-sm-8'>{props.t('pinfo:form-workType-option-' + props.form.workType)}</dd>
+                        <dt className='col-sm-4'><label>{props.t('pinfo:form-workStartDate')}</label></dt>
+                        <dd className='col-sm-8'>{P4000Util.writeDate(props.form.workStartDate)}</dd>
+                        <dt className='col-sm-4'><label>{props.t('pinfo:form-workEndDate')}</label></dt>
+                        <dd className='col-sm-8'>{P4000Util.writeDate(props.form.workEndDate)}</dd>
+                        <dt className='col-sm-4'><label>{props.t('pinfo:form-workEstimatedRetirementDate')}</label></dt>
+                        <dd className='col-sm-8'>{P4000Util.writeDate(props.form.workEstimatedRetirementDate)}</dd>
+                        <dt className='col-sm-4'><label>{props.t('pinfo:form-workHourPerWeek')}</label></dt>
+                        <dd className='col-sm-8'>{props.form.workHourPerWeek}</dd>
+                        <dt className='col-sm-4'><label>{props.t('pinfo:form-workIncome')}</label></dt>
+                        <dd className='col-sm-8'>{props.form.workIncome}{' '}{props.form.workIncomeCurrency.currency}</dd>
+                        <dt className='col-sm-4'><label>{props.t('pinfo:form-workPaymentDate')}</label></dt>
+                        <dd className='col-sm-8'>{P4000Util.writeDate(props.form.workPaymentDate)}</dd>
+                        <dt className='col-sm-4'><label>{props.t('pinfo:form-workPaymentFrequency')}</label></dt>
+                        <dd className='col-sm-8'>{props.t('pinfo:form-workPaymentFrequency-option-' + props.form.workPaymentFrequency)}</dd>
+                    </dl>
+                </fieldset>
+                <fieldset>
+                    <legend>{props.t('pinfo:form-attachments')}</legend>
+                    <dl className='row'>
+                        <dt className='col-sm-4'><label>{props.t('pinfo:form-attachmentTypes')}</label></dt>
+                        <dd className='col-sm-8'>{
+                            Object.entries(props.form.attachmentTypes)
+                            .filter(KV => KV[1])
+                            .map(type => {return props.t('pinfo:form-attachmentTypes-' + type[0])}).join(', ')
+                        }</dd>
+                        <dt className='col-sm-4'><label>{props.t('pinfo:form-attachments')}</label></dt>
+                        <dd className='col-sm-8'>{
+                            props.form.attachments ? props.form.attachments.map((file, i) => {
+                                return <File className='mr-2' key={i} file={file} deleteLink={false} downloadLink={false} />
+                            }) : null }
+                        </dd>
+                    </dl>
+                </fieldset>
+                <fieldset>
+                    <legend>{props.t('pinfo:form-retirement')}</legend>
+                    <dl className='row'>
+                        <dt className='col-sm-4'><label>{props.t('pinfo:form-retirementCountry')}</label></dt>
+                        <dd className='col-sm-8'><img src={'../../../../../flags/' + props.form.retirementCountry.value + '.png'}
+                            style={{width: 30, height: 20}}
+                            alt={props.form.retirementCountry.label}/>&nbsp; {props.form.retirementCountry.label}
+                        </dd>
+                    </dl>
+                </fieldset>
+            </div> : null}
+        </div>
 
-            <Nav.Row className='mb-4 p-2'>
-                <Nav.Column>
-                    {this.state.step !== 0 ? <Nav.Knapp className='backButton mr-4 w-100' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp> :
-                        this.state.referrer ? <Nav.Knapp className='backButton mr-4 w-100' type='standard' onClick={this.onBackToReferrerButtonClick.bind(this)}>{t('ui:backTo') + ' ' + t('ui:' + this.state.referrer)}</Nav.Knapp>
-                     : null }
-                </Nav.Column>
-                <Nav.Column>
-                    {this.state.step !== 5 ?
-                        <Nav.Hovedknapp className='forwardButton w-100' onClick={this.onForwardButtonClick.bind(this)}>{t('ui:forward')}</Nav.Hovedknapp>
-                        : <Nav.Hovedknapp className='sendButton w-100' onClick={this.onSaveButtonClick.bind(this)}>{t('ui:save')}</Nav.Hovedknapp> }
-                </Nav.Column>
-            </Nav.Row>
-        </TopContainer>
-    }
-}
+        <Nav.Row className='mb-4 p-2'>
+            <Nav.Column>
+                {props.form.step !== 0 ? <Nav.Knapp className='backButton mr-4 w-100' type='standard' onClick={onBackButtonClick.bind(null, props)}>{props.t('ui:back')}</Nav.Knapp> : null}
+            </Nav.Column>
+            <Nav.Column>
+                {props.form.step !== 5 ?
+                    <Nav.Hovedknapp className='forwardButton w-100' onClick={onForwardButtonClick.bind(null, props)}>{props.t('ui:forward')}</Nav.Hovedknapp>
+                    : <Nav.Hovedknapp className='sendButton w-100' onClick={onSaveButtonClick.bind(null, props)}>{props.t('ui:save')}</Nav.Hovedknapp> }
+            </Nav.Column>
+        </Nav.Row>
+    </TopContainer>
+    
+);
 
 PInfo.propTypes = {
     history : PT.object,
     t       : PT.func,
-    locale  : PT.string
+    locale  : PT.string,
+    form    : PT.object
 };
 
 export default connect(
