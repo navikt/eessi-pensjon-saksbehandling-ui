@@ -90,10 +90,7 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
     fun fetchSEDfromExistingRinaCase(euxCaseId: String, documentId: String): String {
         val path = "/sed/get/{rinanr}/{documentid}"
 
-        val uriParams = HashMap<String, String>()
-        uriParams["rinanr"] = euxCaseId
-        uriParams["documentid"] = documentId
-
+        val uriParams = mapOf("rinanr" to euxCaseId, "documentid" to documentId)
         val builder = UriComponentsBuilder.fromUriString(path).buildAndExpand(uriParams)
 
         val httpEntity = HttpEntity("")
@@ -114,15 +111,11 @@ class FagmodulService(val fagmodulRestTemplate: RestTemplate) {
     fun deleteSEDfromExistingRinaCase(euxCaseId: String, sed: String, documentId: String): HttpStatus {
         val path = "/sed/get/{rinanr}/{sed}/{documentid}"
 
-        val uriParams = HashMap<String, String>()
-        uriParams["rinanr"] = euxCaseId
-        uriParams["sed"] = sed
-        uriParams["documentid"] = documentId
-
+        val uriParams = mapOf("rinanr" to euxCaseId, "sed" to sed, "documentid" to documentId)
         val builder = UriComponentsBuilder.fromUriString(path).buildAndExpand(uriParams)
         val httpEntity = HttpEntity("")
-        val response = fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.GET, httpEntity, String::class.java)
-        return response.statusCode
+
+        return fagmodulRestTemplate.exchange(builder.toUriString(), HttpMethod.GET, httpEntity, String::class.java).statusCode
 
     }
 
