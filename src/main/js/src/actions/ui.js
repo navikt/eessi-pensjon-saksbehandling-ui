@@ -9,6 +9,13 @@ export function navigateForward () {
     };
 }
 
+export function navigateBack () {
+
+    return {
+        type: types.NAVIGATION_BACK
+    };
+}
+
 export function openModal(modal) {
 
     return {
@@ -22,13 +29,6 @@ export function closeModal() {
     return {
         type : types.UI_MODAL_CLOSE
     }
-}
-
-export function navigateBack () {
-
-    return {
-        type: types.NAVIGATION_BACK
-    };
 }
 
 export function getUserInfo () {

@@ -35,9 +35,9 @@
     "form-step2-bankAccount" : "Norsk kontonummer for utbetalinger fra NAV:",
     "form-step2-language" : "Svar ønskes på",
     "form-step2-phonePreferences" : "Hvilket telefonnummer ønsker du å bli oppringt på?",
-    "form-step2-mobile-phone" : "Mobiltelefonnummer:",
-    "form-step2-home-phone" : "Telefonnummer hjem:",
-    "form-step2-work-phone" : "Telefonnummer arbeid:",
+    "form-step2-phone-mobile" : "Mobiltelefonnummer:",
+    "form-step2-phone-home" : "Telefonnummer hjem:",
+    "form-step2-phone-work" : "Telefonnummer arbeid:",
 
     "form-step3-title" : "Familieforhold",
     "form-step3-description" : "Her kan du registrere opplysninger om familieforholdene dine",

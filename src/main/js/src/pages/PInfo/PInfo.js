@@ -70,7 +70,10 @@ class PInfo extends Component {
 
     onSaveButtonClick() {
 
+        const { history } = this.props;
+
         console.log(this.getFormData())
+        history.push('/react/pselv');
     }
 
     async resetValidation() {

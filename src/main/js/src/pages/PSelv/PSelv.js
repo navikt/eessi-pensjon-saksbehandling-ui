@@ -22,7 +22,8 @@ import './PSelv.css';
 
 const mapStateToProps = (state) => {
     return {
-        locale : state.ui.locale
+        locale : state.ui.locale,
+        step   : state.pselv.step
     }
 };
 
@@ -34,8 +35,6 @@ class PSelv extends Component {
 
     state = {
         isLoaded : false,
-        step     : 0,
-        maxstep  : 6,
         validationError: undefined
     };
 
@@ -48,35 +47,44 @@ class PSelv extends Component {
 
     async onBackButtonClick() {
 
+        const { actions } = this.props;
+
         await this.resetValidation();
-        this.setState({
-            step: this.state.step - 1
-        });
+        actions.stepBack();
     }
 
     goToP4000() {
-        this.props.actions.closeModal();
-        this.props.history.push('/react/p4000');
+
+        const { actions, history } = this.props;
+
+        actions.closeModal();
+        history.push('/react/p4000');
     }
 
     goToPInfo() {
-        this.props.actions.closeModal();
-        this.props.history.push('/react/pinfo');
+
+        const { actions, history } = this.props;
+
+        actions.closeModal();
+        history.push('/react/pinfo');
     }
 
     closeModal() {
-        this.props.actions.closeModal();
+
+        const { actions } = this.props;
+
+        actions.closeModal();
     }
 
     async onForwardButtonClick() {
 
-        const { t, history, actions } = this.props;
+        const { t, history, actions, step } = this.props;
 
         let valid = await this.passesValidation();
 
         if (valid) {
 
-            if (this.state.step === 0 && this.state.livedOrWorkedOutsideNorway === true) {
+            if (step === 0 && this.state.livedOrWorkedOutsideNorway === true) {
                 actions.openModal({
                     modalTitle: t('leavingpage'),
                     modalText: t('you will leave this page and continue on p4000'),
@@ -89,7 +97,7 @@ class PSelv extends Component {
                         onClick: this.closeModal.bind(this)
                     }]
                 })
-            } else if (this.state.step === 3) {
+            } else if (step === 3) {
                  actions.openModal({
                     modalTitle: t('leavingpage'),
                     modalText: t('you will leave this page and continue on pinfo'),
@@ -104,10 +112,7 @@ class PSelv extends Component {
                 })
             } else {
 
-                this.setState({
-                    step: this.state.step + 1
-
-                });
+                actions.stepForward();
             }
         }
     }
@@ -140,8 +145,6 @@ class PSelv extends Component {
 
         let data = _.clone(this.state);
 
-        delete data.step;
-        delete data.maxstep;
         delete data.validationError;
         delete data.isLoaded;
 
@@ -215,8 +218,7 @@ class PSelv extends Component {
 
     render() {
 
-        const { t, locale, history } = this.props;
-        const { step } = this.state;
+        const { t, locale, history, step } = this.props;
 
         if (!this.state.isLoaded) {
             return null;
@@ -255,14 +257,18 @@ class PSelv extends Component {
                 {step === 0 ? <div className='mt-3'>
                     <Nav.Row>
                         <div className='col'>
-                            <h4>{t('pselv:form-step0-title')}</h4>
-                            <div>{t('pselv:form-step0-description')}</div>
-                            <label>{t('pselv:form-step0-radio-label')}</label>
-                            <Nav.Radio label={t('yes')}
+                            <div className='mb-4'>
+                                <h4>{t('pselv:form-step0-title')}</h4>
+                                <div>{t('pselv:form-step0-description')}</div>
+                            </div>
+                            <div>
+                                <label>{t('pselv:form-step0-radio-label')}</label>
+                            </div>
+                            <Nav.Radio className='d-inline-block mr-4' label={t('yes')}
                                 checked={this.state.livedOrWorkedOutsideNorway === true}
                                 name='livedOrWorkedOutsideNorway'
                                 onChange={this.setValue.bind(this, 'livedOrWorkedOutsideNorway', true)}/>
-                            <Nav.Radio label={t('no')}
+                            <Nav.Radio className='d-inline-block' label={t('no')}
                                 checked={this.state.livedOrWorkedOutsideNorway === false}
                                 name='livedOrWorkedOutsideNorway'
                                 onChange={this.setValue.bind(this, 'livedOrWorkedOutsideNorway', false)}/>
@@ -441,10 +447,10 @@ class PSelv extends Component {
             </div>
             <Nav.Row className='mb-4 p-2'>
                 <Nav.Column>
-                    {this.state.step !== 0 ? <Nav.Knapp className='backButton mr-4 w-100' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp> : null}
+                    {step !== 0 ? <Nav.Knapp className='backButton mr-4 w-100' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp> : null}
                 </Nav.Column>
                 <Nav.Column>
-                    {this.state.step !== 5 ?
+                    {step !== 5 ?
                         <Nav.Hovedknapp className='forwardButton w-100' onClick={this.onForwardButtonClick.bind(this)}>{t('ui:forward')}</Nav.Hovedknapp>
                         : <Nav.Hovedknapp className='sendButton w-100' onClick={this.onSaveButtonClick.bind(this)}>{t('ui:save')}</Nav.Hovedknapp> }
                 </Nav.Column>
@@ -456,7 +462,8 @@ class PSelv extends Component {
 PSelv.propTypes = {
     history : PT.object,
     t       : PT.func,
-    locale  : PT.string
+    locale  : PT.string,
+    step    : PT.number.isRequired
 };
 
 export default connect(
