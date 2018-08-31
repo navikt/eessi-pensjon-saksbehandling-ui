@@ -1,0 +1,53 @@
+{
+    "app-title": "Legg til pselv",
+    "app-startPselv": "Legg til pselv",
+
+    "form-step0": "step0",
+    "form-step1": "step1",
+    "form-step2": "step2",
+    "form-step3": "step3",
+    "form-step4": "step4",
+    "form-step5": "step5",
+    "form-step6": "step6",
+    "form-step7": "step7",
+
+    "help-step0": "help step0",
+    "help-step1": "help step1",
+    "help-step2": "help step2",
+    "help-step3": "help step3",
+    "help-step4": "help step4",
+    "help-step5": "help step5",
+    "help-step6": "help step6",
+    "help-step7": "help step7",
+
+    "form-step0-title" : "Opplysninger om opphold utenfor Norge",
+    "form-step0-description" : "Her skal du registrere om du har bodd eller arbeidet utenfor Norge etter at du fylte 16 år.",
+    "form-step0-radio-label" : "Har du bodd eller arbeidet utenfor Norge etter at du fylte 16 år?",
+
+    "form-step1-startPensionDate" : "Når vil du starte å ta ut alderspensjon?",
+    "form-step1-grade" : "Hvilken uttaksgrad ønsker du?",
+    "form-step1-afp" : "Har du rett til og ønsker å søke om AFP i privat sektor?",
+
+    "form-step2-title" : "Opplysninger om deg",
+    "form-step2-citizenship" : "Oppgi statsborgerskap",
+    "form-step2-selectCountry" : "I hvilket land er du statsborger?",
+    "form-step2-refugee" : "Er du registrert som flyktning?",
+    "form-step2-bankAccount" : "Norsk kontonummer for utbetalinger fra NAV:",
+    "form-step2-language" : "Svar ønskes på",
+    "form-step2-phonePreferences" : "Hvilket telefonnummer ønsker du å bli oppringt på?",
+    "form-step2-mobile-phone" : "Mobiltelefonnummer:",
+    "form-step2-home-phone" : "Telefonnummer hjem:",
+    "form-step2-work-phone" : "Telefonnummer arbeid:",
+
+    "form-step3-title" : "Familieforhold",
+    "form-step3-description" : "Her kan du registrere opplysninger om familieforholdene dine",
+    "form-step3-sed-anchor-text" : "Bruk av elektronisk søknad",
+    "form-step3-civilstatus-title" : "Opplysninger om sivilstanden din:",
+    "form-step3-civilstatus" : "Sivilstand",
+    "form-step3-civilstatus-description" : "Hvis sivilstanden din er registrert feil, må du melde fra til folkeregisteret. Detter er ikke nødvendig ved inngåelse eller opphør av samboerskap. Det er da tilsrekkelig å melde fra til NAV. Du bør melde fra før du søker om alderspensjon",
+    "form-step3-deceased-title" : "Opplysninger om avdød",
+    "form-step3-deceased-name" : "Avdødes navn",
+    "form-step3-deceased-id" : "Avdødes fødselsnummer",
+    "form-step3-samboer-title" : "Registrere samboer",
+    "form-step3-samboer-label" : "Jeg har samboer"
+}

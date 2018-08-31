@@ -87,6 +87,9 @@ class FrontPage extends Component {
                         <Nav.Lenkepanel className='frontPageLink caseLink' linkCreator={(props) => (
                             <Link to='/react/case/get' {...props}/>)
                         } href="#">{t('case:app-createNewCase')}</Nav.Lenkepanel>
+                        <Nav.Lenkepanel className='frontPageLink pSelvLink' linkCreator={(props) => (
+                            <Link to='/react/pselv' {...props}/>)
+                        } href="#">{t('pselv:app-startPselv')}</Nav.Lenkepanel>
                         <Nav.Lenkepanel className='frontPageLink pInfoLink' linkCreator={(props) => (
                             <Link to='/react/pinfo' {...props}/>)
                         } href="#">{t('pinfo:app-startPinfo')}</Nav.Lenkepanel>
