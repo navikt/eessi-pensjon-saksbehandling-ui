@@ -15,3 +15,15 @@ export function getStatus (rinaId) {
     });
 }
 
+export function getCase (rinaId) {
+
+    return api.call({
+        url  : sprintf(urls.STATUS_RINA_CASE_URL, {rinaId: rinaId}),
+        type : {
+            request : types.STATUS_GET_REQUEST,
+            success : types.STATUS_GET_SUCCESS,
+            failure : types.STATUS_GET_FAILURE
+        }
+    });
+}
+

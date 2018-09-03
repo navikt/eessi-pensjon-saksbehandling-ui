@@ -1,7 +1,7 @@
 import request from 'request';
 import * as types from '../constants/actionTypes';
 
-export function call(options) {
+export function call (options) {
 
     return (dispatch) => {
 

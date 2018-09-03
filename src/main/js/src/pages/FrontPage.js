@@ -35,10 +35,11 @@ class FrontPage extends Component {
 
         const { actions, location } = this.props;
 
-        const params = new URLSearchParams(location.search);
+        const rinaId = new URLSearchParams(location.search).get('rinaId');
 
-        if (params.get('rinaId')) {
-            actions.getStatus(params.get('rinaId'));
+        if (rinaId) {
+            actions.getStatus(rinaId);
+            actions.getCase(rinaId);
         }
     }
 

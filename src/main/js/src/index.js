@@ -19,6 +19,8 @@ import 'moment/locale/en-gb';
 import 'moment/locale/nb';
 
 import i18n from './i18n';
+import * as routes from './constants/routes';
+
 import registerServiceWorker from './registerServiceWorker';
 import * as Pages from './pages';
 
@@ -51,24 +53,24 @@ ReactDOM.render(
         <Provider store={store}>
             <ConnectedRouter history={history}>
                 <Switch>
-                    <Route exact path='/_/pselv' component={Pages.PSelv}/>
-                    <Route exact path='/_/pinfo' component={Pages.PInfo}/>
-                    <Route exact path='/_/P4000' component={Pages.P4000}/>
+                    <Route exact path={routes.PSELV} component={Pages.PSelv}/>
+                    <Route exact path={routes.PINFO}  component={Pages.PInfo}/>
+                    <Route exact path={routes.P4000}  component={Pages.P4000}/>
 
-                    <Route exact path='/_/pdf/generate' component={Pages.GeneratePDF}/>
-                    <Route exact path='/_/pdf/edit'     component={Pages.EditPDF}/>
-                    <Route exact path='/_/pdf/select'   component={Pages.SelectPDF}/>
+                    <Route exact path={routes.PDF_GENERATE} component={Pages.GeneratePDF}/>
+                    <Route exact path={routes.PDF_EDIT}     component={Pages.EditPDF}/>
+                    <Route exact path={routes.PDF_SELECT}   component={Pages.SelectPDF}/>
 
-                    <Route exact path='/_/case/get'                          component={Pages.GetCase}/>
-                    <Route exact path='/_/case/get/:caseid/:actorid'         component={Pages.EditCase}/>
-                    <Route exact path='/_/case/get/:caseid/:actorid/:rinaid' component={Pages.EditCase}/>
+                    <Route exact path={routes.CASE_GET}               component={Pages.GetCase}/>
+                    <Route exact path={routes.CASE_EDIT_WITHOUT_RINA} component={Pages.EditCase}/>
+                    <Route exact path={routes.CASE_EDIT_WITH_RINA}    component={Pages.EditCase}/>
 
-                    <Route exact path='/_/case/confirm'  component={Pages.ConfirmCase}/>
-                    <Route exact path='/_/case/generate' component={Pages.GenerateCase}/>
-                    <Route exact path='/_/case/save'     component={Pages.SaveCase}/>
-                    <Route exact path='/_/case/send'     component={Pages.SendCase}/>
+                    <Route exact path={routes.CASE_CONFIRM}  component={Pages.ConfirmCase}/>
+                    <Route exact path={routes.CASE_GENERATE} component={Pages.GenerateCase}/>
+                    <Route exact path={routes.CASE_SAVE}     component={Pages.SaveCase}/>
+                    <Route exact path={routes.CASE_SEND}     component={Pages.SendCase}/>
 
-                    <Route path='/' component={Pages.FrontPage}/>
+                    <Route path={routes.ROOT} component={Pages.FrontPage}/>
                 </Switch>
             </ConnectedRouter>
         </Provider>

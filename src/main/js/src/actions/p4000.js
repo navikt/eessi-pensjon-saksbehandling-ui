@@ -2,102 +2,102 @@ import * as types from '../constants/actionTypes';
 import * as urls  from '../constants/urls';
 import * as api   from './api';
 
-export function setPage(newPage) {
+export function setPage (newPage) {
 
     return {
-        type : types.P4000_PAGE_SET,
-        payload: {
+        type    : types.P4000_PAGE_SET,
+        payload : {
             page : newPage
         }
     };
 }
 
-export function newP4000() {
+export function newP4000 () {
 
     return {
         type : types.P4000_NEW
     };
 }
 
-export function openP4000Success(events) {
+export function openP4000Success (events) {
 
     return {
-        type : types.P4000_OPEN_SUCCESS,
+        type    : types.P4000_OPEN_SUCCESS,
         payload : {
             events: events
         }
     }
 }
 
-export function openP4000Failure(events) {
+export function openP4000Failure (events) {
 
     return {
-        type : types.P4000_OPEN_FAILURE,
+        type    : types.P4000_OPEN_FAILURE,
         payload : {
             error: events
         }
     }
 }
 
-export function pushEventToP4000Form(event) {
+export function pushEventToP4000Form (event) {
 
     return {
-        type : types.P4000_EVENT_ADD,
-        payload: {
+        type    : types.P4000_EVENT_ADD,
+        payload : {
             event : event,
             page  : 'new'
         }
     };
 }
 
-export function replaceEventOnP4000Form(event, eventIndex) {
+export function replaceEventOnP4000Form (event, eventIndex) {
 
     return {
-        type : types.P4000_EVENT_REPLACE,
-        payload: {
+        type    : types.P4000_EVENT_REPLACE,
+        payload : {
             event      : event,
             eventIndex : eventIndex
         }
     };
 }
 
-export function deleteEventToP4000Form(eventIndex) {
+export function deleteEventToP4000Form (eventIndex) {
 
     return {
-        type : types.P4000_EVENT_DELETE,
-        payload: {
+        type    : types.P4000_EVENT_DELETE,
+        payload : {
             eventIndex : eventIndex,
             page       : 'new'
         }
     };
 }
 
-export function cancelEditEvent(eventIndex) {
+export function cancelEditEvent (eventIndex) {
 
     return {
-        type : types.P4000_EVENT_CANCEL_EDIT,
-        payload: {
+        type    : types.P4000_EVENT_CANCEL_EDIT,
+        payload : {
             eventIndex : eventIndex,
             page       : 'new'
         }
     };
 }
 
-export function editEvent(eventIndex) {
+export function editEvent (eventIndex) {
 
     return {
-        type : types.P4000_EVENT_EDIT_MODE,
-        payload: {
+        type    : types.P4000_EVENT_EDIT_MODE,
+        payload : {
             eventIndex : eventIndex
         }
     };
 }
 
-export function setEventProperty(key, value) {
+export function setEventProperty (key, value) {
 
     return {
-        type: types.P4000_EVENT_SET_PROPERTY,
-        payload: {
+        type    : types.P4000_EVENT_SET_PROPERTY,
+        payload : {
             key: key,
             value: value
         }
@@ -107,10 +107,10 @@ export function setEventProperty(key, value) {
 export function submitP4000 (payload) {
 
     return api.call({
-        url: urls.CASE_ADD_TO_SED_URL,
-        method: 'POST',
-        payload: payload,
-        type: {
+        url     : urls.CASE_ADD_TO_SED_URL,
+        method  : 'POST',
+        payload : payload,
+        type    : {
             request : types.P4000_SUBMIT_REQUEST,
             success : types.P4000_SUBMIT_SUCCESS,
             failure : types.P4000_SUBMIT_FAILURE

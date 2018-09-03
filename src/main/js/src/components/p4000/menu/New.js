@@ -7,6 +7,7 @@ import _ from 'lodash';
 import classNames from 'classnames';
 
 import P4000Util from '../Util';
+import * as routes from '../../../constants/routes';
 import * as p4000Actions from '../../../actions/p4000';
 import * as uiActions from '../../../actions/ui';
 
@@ -65,7 +66,7 @@ class New extends Component {
 
         if (this.state.submitted && dataSaved ) {
 
-            history.push('/?rinaId=' + dataSaved.euxcaseid);
+            history.push(routes.ROOT + '?rinaId=' + dataSaved.euxcaseid);
         }
     }
 

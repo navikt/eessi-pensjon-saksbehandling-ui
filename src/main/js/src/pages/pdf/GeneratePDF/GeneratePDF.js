@@ -11,6 +11,7 @@ import ClientAlert from '../../../components/ui/Alert/ClientAlert';
 import File from '../../../components/ui/File/File';
 import Icons from '../../../components/ui/Icons';
 
+import * as routes from '../../../constants/routes';
 import * as pdfActions from '../../../actions/pdf';
 import * as uiActions from '../../../actions/ui';
 
@@ -59,7 +60,7 @@ class GeneratePDF extends Component {
 
         if (!pdfs || _.isEmpty(pdfs)) {
 
-            history.push('/_/pdf/select');
+            history.push(routes.PDF_SELECT);
 
         } else {
 
@@ -75,7 +76,7 @@ class GeneratePDF extends Component {
         const { history, actions } = this.props;
 
         actions.navigateBack();
-        history.push('/_/pdf/edit');
+        history.push(routes.PDF_EDIT);
     }
 
     onForwardButtonClick() {
@@ -84,7 +85,7 @@ class GeneratePDF extends Component {
 
         actions.navigateForward();
         actions.clearPDF();
-        history.push('/_/pdf/select');
+        history.push(routes.PDF_SELECT);
     }
 
     setFileName(key, e) {
@@ -117,7 +118,7 @@ class GeneratePDF extends Component {
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('pdf:help-generate-pdf')}</Nav.HjelpetekstBase>
                     <h1 className='mt-3 appTitle'>
-                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
+                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push(routes.ROOT)}/>
                         {t('pdf:app-generatePdfTitle')}
                     </h1>
                 </Nav.Column>

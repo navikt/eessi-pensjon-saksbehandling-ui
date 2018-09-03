@@ -5,12 +5,6 @@ var sprintf = require('sprintf-js').sprintf;
 
 export function getCaseFromCaseNumber (obj) {
 
-    console.log(urls.CASE_GET_CASE_WITH_RINAID_URL)
-    console.log(urls.CASE_GET_CASE_WITHOUT_RINAID_URL)
-    console.log(obj)
-    console.log(sprintf(urls.CASE_GET_CASE_WITH_RINAID_URL, obj))
-    console.log(sprintf(urls.CASE_GET_CASE_WITHOUT_RINAID_URL, obj))
-
     let url = obj.rinaId ? sprintf(urls.CASE_GET_CASE_WITH_RINAID_URL, obj) : sprintf(urls.CASE_GET_CASE_WITHOUT_RINAID_URL, obj);
     return api.call({
         url: url,
@@ -127,10 +121,10 @@ export function clearData() {
 export function generateData (params) {
 
     return api.call({
-        url: urls.CASE_GENERATE_DATA_URL,
-        method: 'POST',
-        payload: params,
-        type: {
+        url     : urls.CASE_GENERATE_DATA_URL,
+        method  : 'POST',
+        payload : params,
+        type    : {
             request : types.USERCASE_GENERATE_DATA_REQUEST,
             success : types.USERCASE_GENERATE_DATA_SUCCESS,
             failure : types.USERCASE_GENERATE_DATA_FAILURE
@@ -139,11 +133,12 @@ export function generateData (params) {
 }
 
 export function createSed (params) {
+
     return api.call({
-        url: urls.CASE_CREATE_SED_URL,
-        method: 'POST',
-        payload: params,
-        type: {
+        url     : urls.CASE_CREATE_SED_URL,
+        method  : 'POST',
+        payload : params,
+        type    : {
             request : types.USERCASE_CREATE_SED_REQUEST,
             success : types.USERCASE_CREATE_SED_SUCCESS,
             failure : types.USERCASE_CREATE_SED_FAILURE
@@ -151,12 +146,13 @@ export function createSed (params) {
     });
 }
 
-export function addToSed (params) {
+export function addToSed (payload) {
+
     return api.call({
-        url: urls.CASE_ADD_TO_SED_URL,
-        method: 'POST',
-        payload: params,
-        type: {
+        url     : urls.CASE_ADD_TO_SED_URL,
+        method  : 'POST',
+        payload : payload,
+        type    : {
             request : types.USERCASE_ADD_TO_SED_REQUEST,
             success : types.USERCASE_ADD_TO_SED_SUCCESS,
             failure : types.USERCASE_ADD_TO_SED_FAILURE
@@ -164,12 +160,13 @@ export function addToSed (params) {
     });
 }
 
-export function sendSed (params) {
+export function sendSed (payload) {
+
     return api.call({
-        url: urls.CASE_SEND_SED_URL,
-        method: 'POST',
-        payload: params,
-        type: {
+        url     : urls.CASE_SEND_SED_URL,
+        method  : 'POST',
+        payload : payload,
+        type    : {
             request : types.USERCASE_SEND_SED_REQUEST,
             success : types.USERCASE_SEND_SED_SUCCESS,
             failure : types.USERCASE_SEND_SED_FAILURE
@@ -178,12 +175,14 @@ export function sendSed (params) {
 }
 
 export function getRinaUrl () {
+
     return api.call({
-        url: urls.CASE_GET_RINA_URL,
-        type: {
+        url  : urls.CASE_GET_RINA_URL,
+        type : {
             request : types.RINA_GET_URL_REQUEST,
             success : types.RINA_GET_URL_SUCCESS,
             failure : types.RINA_GET_URL_FAILURE
         }
     });
 }
+

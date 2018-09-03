@@ -7,6 +7,8 @@ import classNames from 'classnames';
 import _ from 'lodash';
 import moment from 'moment';
 import ReactDatePicker from 'react-datepicker';
+import lifecycle from 'react-pure-lifecycle';
+
 import 'react-datepicker/dist/react-datepicker.min.css';
 
 import Icons from '../../components/ui/Icons';
@@ -17,24 +19,35 @@ import CountrySelect from '../../components/ui/CountrySelect/CountrySelect';
 import FileUpload from '../../components/ui/FileUpload/FileUpload';
 import P4000Util from '../../components/p4000/Util';
 import File from '../../components/ui/File/File';
-
 import Validation from '../../components/pinfo/Validation';
+
+import * as UrlValidator from '../../utils/UrlValidator';
+import * as routes from '../../constants/routes';
 import * as pinfoActions from '../../actions/pinfo';
 import * as uiActions from '../../actions/ui';
+import * as appActions from '../../actions/app';
 
 import './PInfo.css';
 
-
 const mapStateToProps = (state) => {
     return {
-        locale : state.ui.locale,
-        form : state.pinfo.form
+        locale   : state.ui.locale,
+        form     : state.pinfo.form,
+        referrer : state.app.referrer
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, pinfoActions, uiActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, pinfoActions, uiActions, appActions), dispatch)};
 };
+
+const componentDidMount = (props) => {
+
+   let referrer = new URLSearchParams(props.location.search).get('referrer')
+   if (referrer) {
+        props.actions.setReferrer(referrer);
+   }
+}
 
 const hasError = (props, key) => (
     props.form.displayError && props.form.validationErrors[key] ?
@@ -75,6 +88,12 @@ const onBackButtonClick = async (props) => (
     props.actions.setEventProperty( {step: props.form.step - 1, displayError: false} )
 );
 
+const onBackToReferrerButtonClick = async (props) => (
+    UrlValidator.validateReferrer(props.referrer) ?
+    props.history.push(routes.ROOT + props.referrer) :
+    null
+);
+
 const onForwardButtonClick = async (props) => (
     await validateForm(props) ?
         props.actions.setEventProperty( {step: props.form.step + 1, displayError: false} ) :
@@ -112,7 +131,7 @@ const setValue = (props, key , e) => (
             props.actions.setEventProperty( {[key]: e.target.value })
 )
 
-const PInfo = (props) => ( 
+const PInfo = (props) => (
     <TopContainer className='pInfo topContainer'>
         <Nav.Row className='mb-4'>
             <Nav.Column>
@@ -144,7 +163,7 @@ const PInfo = (props) => (
             {props.form.step === 0 ? <div className='mt-3'>
                 <Nav.Row>
                     <div className='col-md-6'>
-                        {hasError(props, 'bankName') ? 
+                        {hasError(props, 'bankName') ?
                             getErrors(props, 'bankName').map(err => props.t(err))
                             :'' }
                         <Nav.Input label={props.t('pinfo:form-bankName') + ' *'} value={props.form.bankName || ''}
@@ -152,7 +171,7 @@ const PInfo = (props) => (
                             style= {errorStyle(props, 'bankName')} />
                     </div>
                     <div className='col-md-6'>
-                        {hasError(props, 'bankAddress') ? 
+                        {hasError(props, 'bankAddress') ?
                             getErrors(props, 'bankAddress').map(err => props.t(err))
                             :'' }
                         <Nav.Textarea label={props.t('pinfo:form-bankAddress') + ' *'} value={props.form.bankAddress || ''}
@@ -163,7 +182,7 @@ const PInfo = (props) => (
                 <Nav.Row>
                     <div className='col-md-6'>
                         <div className='mb-3' >
-                            {hasError(props, 'bankCountry') ? 
+                            {hasError(props, 'bankCountry') ?
                                 getErrors(props, 'bankCountry').map(err => props.t(err))
                                 :'' }
                             <label>{props.t('pinfo:form-bankCountry') + ' *'}</label>
@@ -174,7 +193,7 @@ const PInfo = (props) => (
                         </div>
                     </div>
                     <div className='col-md-6'>
-                        {hasError(props, 'bankBicSwift') ? 
+                        {hasError(props, 'bankBicSwift') ?
                             getErrors(props, 'bankBicSwift').map(err => props.t(err))
                             :'' }
                         <Nav.Input label={props.t('pinfo:form-bankBicSwift') + ' *'} value={props.form.bankBicSwift || ''}
@@ -184,7 +203,7 @@ const PInfo = (props) => (
                 </Nav.Row>
                 <Nav.Row>
                     <div className='col-md-6'>
-                        {hasError(props, 'bankIban') ? 
+                        {hasError(props, 'bankIban') ?
                             getErrors(props, 'bankIban').map(err => props.t(err))
                             :'' }
                         <Nav.Input label={props.t('pinfo:form-bankIban') + ' *'} value={props.form.bankIban || ''}
@@ -192,10 +211,10 @@ const PInfo = (props) => (
                             style = {errorStyle(props, 'bankIban')}/>
                     </div>
                     <div className='col-md-6'>
-                        {hasError(props, 'bankCode') ? 
+                        {hasError(props, 'bankCode') ?
                             getErrors(props, 'bankCode').map(err => props.t(err))
                             :'' }
-                        <Nav.Input 
+                        <Nav.Input
                             label={(props.t('pinfo:form-bankCode') + ' *')}
                             value={props.form.bankCode || ''}
                             onChange={setValue.bind(null, props, 'bankCode')}
@@ -440,7 +459,9 @@ const PInfo = (props) => (
 
         <Nav.Row className='mb-4 p-2'>
             <Nav.Column>
-                {props.form.step !== 0 ? <Nav.Knapp className='backButton mr-4 w-100' type='standard' onClick={onBackButtonClick.bind(null, props)}>{props.t('ui:back')}</Nav.Knapp> : null}
+                {props.form.step !== 0 ? <Nav.Knapp className='backButton mr-4 w-100' type='standard' onClick={onBackButtonClick.bind(null, props)}>{props.t('ui:back')}</Nav.Knapp> :
+                 props.referrer ? <Nav.Knapp className='backButton mr-4 w-100' type='standard' onClick={onBackToReferrerButtonClick.bind(this, props)}>{props.t('ui:backTo') + ' ' + props.t('ui:' + props.referrer)}</Nav.Knapp>
+                 : null }
             </Nav.Column>
             <Nav.Column>
                 {props.form.step !== 5 ?
@@ -449,19 +470,24 @@ const PInfo = (props) => (
             </Nav.Column>
         </Nav.Row>
     </TopContainer>
-    
+
 );
 
 PInfo.propTypes = {
     history : PT.object,
     t       : PT.func,
     locale  : PT.string,
-    form    : PT.object
+    form    : PT.object,
+    referrer: PT.string
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(
-    translate()(PInfo)
+    translate()(
+        lifecycle({
+            componentDidMount
+        })(PInfo)
+    )
 );

@@ -11,6 +11,8 @@ import Icons from '../../../../components/ui/Icons';
 import * as Nav from '../../../../components/ui/Nav';
 import P4000Util from '../../../../components/p4000/Util';
 
+import * as routes from '../../../../constants/routes';
+import * as UrlValidator from '../../../../utils/UrlValidator';
 import * as p4000Actions from '../../../../actions/p4000';
 import * as uiActions from '../../../../actions/ui';
 import './File.css';
@@ -50,7 +52,7 @@ class File extends Component {
 
         if (this.state.submitted && dataSaved ) {
 
-            history.push('/?rinaId=' + dataSaved.euxcaseid);
+            history.push(routes.ROOT + '?rinaId=' + dataSaved.euxcaseid);
         }
     }
 
@@ -227,7 +229,9 @@ class File extends Component {
 
         const { history } = this.props;
 
-        history.push('/_/' + this.state.referrer);
+        if (UrlValidator.validateReferrer(this.state.referrer)) {
+            history.push(routes.ROOT + this.state.referrer);
+        }
     }
 
     render() {

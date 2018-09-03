@@ -14,21 +14,21 @@ export function selectPDF (pdfs) {
 export function loadingFilesStart () {
 
     return {
-        type: types.PDF_LOADING_FILES_STARTED
+        type : types.PDF_LOADING_FILES_STARTED
     };
 }
 
 export function loadingFilesEnd () {
 
     return {
-        type: types.PDF_LOADING_FILES_FINISHED
+        type : types.PDF_LOADING_FILES_FINISHED
     };
 }
 
 export function clearPDF () {
 
     return {
-        type: types.PDF_CLEAR
+        type : types.PDF_CLEAR
     };
 }
 
@@ -40,7 +40,7 @@ export function setRecipe (recipe) {
     };
 }
 
-export function setActiveDnDTarget(target) {
+export function setActiveDnDTarget (target) {
 
     return {
         type    : types.PDF_SET_DND_TARGET,
@@ -67,10 +67,10 @@ export function generatePDF (payload) {
     });
 
     return api.call({
-        url: urls.PDF_GENERATE_URL,
-        method: 'POST',
-        payload: newPayload,
-        type: {
+        url     : urls.PDF_GENERATE_URL,
+        method  : 'POST',
+        payload : newPayload,
+        type    : {
             request : types.PDF_GENERATE_REQUEST,
             success : types.PDF_GENERATE_SUCCESS,
             failure : types.PDF_GENERATE_FAILURE

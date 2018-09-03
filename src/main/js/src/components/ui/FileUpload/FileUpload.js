@@ -196,7 +196,7 @@ FileUpload.propTypes = {
     t            : PT.func.isRequired,
     onFileChange : PT.func.isRequired,
     files        : PT.array.isRequired,
-    currentPages : PT.array.isRequired,
+    currentPages : PT.array,
     accept       : PT.string,
     className    : PT.string,
     beforeDrop   : PT.func,

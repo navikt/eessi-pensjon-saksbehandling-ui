@@ -5,18 +5,18 @@ import * as api   from './api';
 export function navigateForward () {
 
     return {
-        type: types.NAVIGATION_FORWARD
+        type : types.NAVIGATION_FORWARD
     };
 }
 
 export function navigateBack () {
 
     return {
-        type: types.NAVIGATION_BACK
+        type : types.NAVIGATION_BACK
     };
 }
 
-export function openModal(modal) {
+export function openModal (modal) {
 
     return {
         type    : types.UI_MODAL_OPEN,
@@ -24,7 +24,7 @@ export function openModal(modal) {
     }
 }
 
-export function closeModal() {
+export function closeModal () {
 
     return {
         type : types.UI_MODAL_CLOSE
