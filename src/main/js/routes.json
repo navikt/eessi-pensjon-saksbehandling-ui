@@ -1,0 +1,4 @@
+{
+    "/api/userinfo": "/userinfo",
+    "/api/case/*/*/*" : "/rino/1"
+}

@@ -88,6 +88,7 @@ class CountrySelect extends Component {
                 backspaceRemoves={true}
                 onChange={this.logChange}
                 valueRenderer={this.CountryRenderValue}
+                style={{...this.props.style}}
                 multi={false}/>
         </div>;
     }
