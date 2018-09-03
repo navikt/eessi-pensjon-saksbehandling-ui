@@ -69,8 +69,4 @@ class FagmodulController(private val service: FagmodulService) {
          return service.deleteSEDfromExistingRinaCase(rinanr, sed, documentid)
 
     }
-
-
-
-
 }

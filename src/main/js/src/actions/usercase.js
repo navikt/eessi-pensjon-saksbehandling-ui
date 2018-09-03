@@ -1,11 +1,19 @@
 import * as types from '../constants/actionTypes';
 import * as urls  from '../constants/urls';
 import * as api   from './api';
+var sprintf = require('sprintf-js').sprintf;
 
 export function getCaseFromCaseNumber (obj) {
 
+    console.log(urls.CASE_GET_CASE_WITH_RINAID_URL)
+    console.log(urls.CASE_GET_CASE_WITHOUT_RINAID_URL)
+    console.log(obj)
+    console.log(sprintf(urls.CASE_GET_CASE_WITH_RINAID_URL, obj))
+    console.log(sprintf(urls.CASE_GET_CASE_WITHOUT_RINAID_URL, obj))
+
+    let url = obj.rinaId ? sprintf(urls.CASE_GET_CASE_WITH_RINAID_URL, obj) : sprintf(urls.CASE_GET_CASE_WITHOUT_RINAID_URL, obj);
     return api.call({
-        url: urls.CASE_GET_CASE_NUMBER_URL + '/' + obj.caseId + '/' + obj.actorId + (obj.rinaId ? '/' + obj.rinaId : ''),
+        url: url,
         type: {
             request : types.USERCASE_GET_CASE_NUMBER_REQUEST,
             success : types.USERCASE_GET_CASE_NUMBER_SUCCESS,
@@ -54,7 +62,7 @@ export function getInstitutionList () {
 export function getInstitutionListForCountry (country) {
 
     return api.call({
-        url: urls.CASE_GET_INSTITUTION_LIST_URL + '/' + country,
+        url: sprintf(urls.CASE_GET_INSTITUTION_FOR_COUNTRY_LIST_URL, {country : country}),
         type: {
             request : types.USERCASE_GET_INSTITUTION_LIST_REQUEST,
             success : types.USERCASE_GET_INSTITUTION_LIST_SUCCESS,
@@ -65,8 +73,11 @@ export function getInstitutionListForCountry (country) {
 
 export function getBucList (rinaId) {
 
+    let url = rinaId ? sprintf(urls.CASE_GET_BUC_FROM_RINA_LIST_URL, {rinaId: rinaId}) :
+                       urls.CASE_GET_BUC_LIST_URL;
+
     return api.call({
-        url: rinaId ? urls.CASE_GET_BUC_LIST_FROM_RINA_URL + '/' + rinaId : urls.CASE_GET_BUC_LIST_URL,
+        url: url,
         type: {
             request : types.USERCASE_GET_BUC_LIST_REQUEST,
             success : types.USERCASE_GET_BUC_LIST_SUCCESS,
@@ -77,8 +88,11 @@ export function getBucList (rinaId) {
 
 export function getSedList (buc, rinaId) {
 
+    let url = rinaId ? sprintf(urls.CASE_GET_SED_FROM_RINA_LIST_URL, {rinaId: rinaId}) :
+                       sprintf(urls.CASE_GET_SED_FOR_BUC_LIST_URL, {buc: buc});
+
     return api.call({
-        url: rinaId ? urls.CASE_GET_SED_LIST_FROM_RINA_URL + '/' + rinaId : urls.CASE_GET_SED_LIST_URL + '/' + buc,
+        url: url,
         type: {
             request : types.USERCASE_GET_SED_LIST_REQUEST,
             success : types.USERCASE_GET_SED_LIST_SUCCESS,

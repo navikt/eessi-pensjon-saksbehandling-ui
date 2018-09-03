@@ -51,22 +51,22 @@ ReactDOM.render(
         <Provider store={store}>
             <ConnectedRouter history={history}>
                 <Switch>
-                    <Route exact path='/react/pselv' component={Pages.PSelv}/>
-                    <Route exact path='/react/pinfo' component={Pages.PInfo}/>
-                    <Route exact path='/react/P4000' component={Pages.P4000}/>
+                    <Route exact path='/_/pselv' component={Pages.PSelv}/>
+                    <Route exact path='/_/pinfo' component={Pages.PInfo}/>
+                    <Route exact path='/_/P4000' component={Pages.P4000}/>
 
-                    <Route exact path='/react/pdf/generate' component={Pages.GeneratePDF}/>
-                    <Route exact path='/react/pdf/edit'     component={Pages.EditPDF}/>
-                    <Route exact path='/react/pdf/select'   component={Pages.SelectPDF}/>
+                    <Route exact path='/_/pdf/generate' component={Pages.GeneratePDF}/>
+                    <Route exact path='/_/pdf/edit'     component={Pages.EditPDF}/>
+                    <Route exact path='/_/pdf/select'   component={Pages.SelectPDF}/>
 
-                    <Route exact path='/react/case/get'                          component={Pages.GetCase}/>
-                    <Route exact path='/react/case/get/:caseid/:actorid'         component={Pages.EditCase}/>
-                    <Route exact path='/react/case/get/:caseid/:actorid/:rinaid' component={Pages.EditCase}/>
+                    <Route exact path='/_/case/get'                          component={Pages.GetCase}/>
+                    <Route exact path='/_/case/get/:caseid/:actorid'         component={Pages.EditCase}/>
+                    <Route exact path='/_/case/get/:caseid/:actorid/:rinaid' component={Pages.EditCase}/>
 
-                    <Route exact path='/react/case/confirm'  component={Pages.ConfirmCase}/>
-                    <Route exact path='/react/case/generate' component={Pages.GenerateCase}/>
-                    <Route exact path='/react/case/save'     component={Pages.SaveCase}/>
-                    <Route exact path='/react/case/send'     component={Pages.SendCase}/>
+                    <Route exact path='/_/case/confirm'  component={Pages.ConfirmCase}/>
+                    <Route exact path='/_/case/generate' component={Pages.GenerateCase}/>
+                    <Route exact path='/_/case/save'     component={Pages.SaveCase}/>
+                    <Route exact path='/_/case/send'     component={Pages.SendCase}/>
 
                     <Route path='/' component={Pages.FrontPage}/>
                 </Switch>

@@ -45,7 +45,7 @@ class ConfirmCase extends Component {
         }
 
         if (dataToGenerate && action === 'forward') {
-            history.push('/react/case/generate');
+            history.push('/_/case/generate');
         }
     }
 
@@ -54,7 +54,7 @@ class ConfirmCase extends Component {
         const { history, actions, dataToConfirm } = this.props;
 
         actions.navigateBack();
-        history.push('/react/case/get/' + dataToConfirm.caseId + '/' + dataToConfirm.actorId +
+        history.push('/_/case/get/' + dataToConfirm.caseId + '/' + dataToConfirm.actorId +
             (dataToConfirm.rinaId ? '/' + dataToConfirm.rinaId : null));
     }
 

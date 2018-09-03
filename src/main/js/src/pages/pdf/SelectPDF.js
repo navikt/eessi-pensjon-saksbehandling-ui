@@ -33,7 +33,7 @@ class SelectPDF extends Component {
         const { history, actions } = this.props;
 
         actions.navigateForward();
-        history.push('/react/pdf/edit');
+        history.push('/_/pdf/edit');
     }
 
     handleFileChange(files) {

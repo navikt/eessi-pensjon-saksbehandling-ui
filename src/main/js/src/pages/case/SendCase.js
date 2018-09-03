@@ -30,7 +30,7 @@ class SendCase extends Component {
         const { history, actions, dataToConfirm, dataSaved } = this.props;
 
         actions.clearData();
-        history.push('/react/case/get/' + dataToConfirm.caseId + '/' + dataToConfirm.actorId + '/' + dataSaved.euxcaseid);
+        history.push('/_/case/get/' + dataToConfirm.caseId + '/' + dataToConfirm.actorId + '/' + dataSaved.euxcaseid);
     }
 
     onGoToStartButtonClick() {

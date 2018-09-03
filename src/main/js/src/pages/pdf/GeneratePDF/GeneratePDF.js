@@ -59,7 +59,7 @@ class GeneratePDF extends Component {
 
         if (!pdfs || _.isEmpty(pdfs)) {
 
-            history.push('/react/pdf/select');
+            history.push('/_/pdf/select');
 
         } else {
 
@@ -75,7 +75,7 @@ class GeneratePDF extends Component {
         const { history, actions } = this.props;
 
         actions.navigateBack();
-        history.push('/react/pdf/edit');
+        history.push('/_/pdf/edit');
     }
 
     onForwardButtonClick() {
@@ -84,7 +84,7 @@ class GeneratePDF extends Component {
 
         actions.navigateForward();
         actions.clearPDF();
-        history.push('/react/pdf/select');
+        history.push('/_/pdf/select');
     }
 
     setFileName(key, e) {

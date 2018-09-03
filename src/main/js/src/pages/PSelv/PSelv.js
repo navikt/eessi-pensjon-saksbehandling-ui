@@ -50,7 +50,7 @@ class PSelv extends Component {
             if (this.state.referrer === 'pinfo' && step === 3) {
                 actions.stepForward();
                 // clean the referrer param. ComponentDidMount will run again
-                history.push('/react/pselv');
+                history.push('/_/pselv');
             }
         });
     }
@@ -68,7 +68,7 @@ class PSelv extends Component {
         const { actions, history } = this.props;
 
         actions.closeModal();
-        history.push('/react/p4000?referrer=pselv');
+        history.push('/_/p4000?referrer=pselv');
     }
 
     goToPInfo() {
@@ -76,7 +76,7 @@ class PSelv extends Component {
         const { actions, history } = this.props;
 
         actions.closeModal();
-        history.push('/react/pinfo?referrer=pselv');
+        history.push('/_/pinfo?referrer=pselv');
     }
 
     closeModal() {

@@ -1,12 +1,13 @@
 package no.nav.eessi.fagmodul.frontend.controllers
 
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
-@Controller
+@RestController
+@RequestMapping("/_")
 class ForwardController {
 
-    @RequestMapping("/react/*")
+    @RequestMapping("/*")
     fun index(): String {
         println("forwarding to index.html")
         return "forward:/index.html"

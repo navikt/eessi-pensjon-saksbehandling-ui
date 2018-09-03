@@ -45,7 +45,7 @@ class SaveCase extends Component {
         const { history, dataSent } = this.props;
 
         if (dataSent) {
-            history.push('/react/case/send');
+            history.push('/_/case/send');
         }
     }
 
@@ -54,7 +54,7 @@ class SaveCase extends Component {
         const { history, actions } = this.props;
 
         actions.navigateBack();
-        history.push('/react/case/generate')
+        history.push('/_/case/generate')
     }
 
     onForwardButtonClick() {

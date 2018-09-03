@@ -227,7 +227,7 @@ class File extends Component {
 
         const { history } = this.props;
 
-        history.push('/react/' + this.state.referrer);
+        history.push('/_/' + this.state.referrer);
     }
 
     render() {
