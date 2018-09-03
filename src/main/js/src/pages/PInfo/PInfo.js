@@ -59,7 +59,7 @@ const validateForm = async (props) => (
         false:
         function(){
             if(this !== undefined){
-                if(this.length === 0){
+                if(Object.keys(this).length === 0){
                     props.actions.setEventProperty({validationErrors: null});
                     return true;
                 }else {
