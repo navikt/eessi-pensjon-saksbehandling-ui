@@ -9,31 +9,16 @@ node {
         stage("checkout") {
             withCredentials([string(credentialsId: 'navikt-ci-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
                 sh "git init"
-                sh "git pull https://${GITHUB_OAUTH_TOKEN}:x-oauth-basic@github.com/navikt/eessi-pensjon-fagmodul-frontend.git"
-                sh "git fetch --tags https://${GITHUB_OAUTH_TOKEN}:x-oauth-basic@github.com/navikt/eessi-pensjon-fagmodul-frontend.git"
+                sh "git pull https://${GITHUB_OAUTH_TOKEN}:x-oauth-basic@github.com/navikt/eessi-pensjon-frontend-ui.git"
+                sh "git fetch --tags https://${GITHUB_OAUTH_TOKEN}:x-oauth-basic@github.com/navikt/eessi-pensjon-frontend-ui.git"
             }
 
             commitHash = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
-            github.commitStatus("navikt-ci-oauthtoken", "navikt/eessi-pensjon-fagmodul-frontend", 'continuous-integration/jenkins', commitHash, 'pending', "Build #${env.BUILD_NUMBER} has started")
+            github.commitStatus("navikt-ci-oauthtoken", "navikt/eessi-pensjon-frontend-ui", 'continuous-integration/jenkins', commitHash, 'pending', "Build #${env.BUILD_NUMBER} has started")
         }
 
         stage("build") {
-            try {
-                sh "make"
-            } catch (e) {
-                junit('build/test-results/test/**/*.xml')
-                publishHTML([
-                        allowMissing         : false,
-                        alwaysLinkToLastBuild: false,
-                        keepAll              : true,
-                        reportDir            : 'build/reports/tests/test',
-                        reportFiles          : 'index.html',
-                        reportName           : 'HTML Report',
-                        reportTitles         : ''
-                ])
-
-                throw e
-            }
+            sh "make"
         }
 
         stage("release") {
@@ -44,7 +29,7 @@ node {
             sh "make release"
 
             withCredentials([string(credentialsId: 'navikt-ci-oauthtoken', variable: 'GITHUB_OAUTH_TOKEN')]) {
-                sh "git push --tags https://${GITHUB_OAUTH_TOKEN}@github.com/navikt/eessi-pensjon-fagmodul-frontend HEAD:master"
+                sh "git push --tags https://${GITHUB_OAUTH_TOKEN}@github.com/navikt/eessi-pensjon-frontend-ui HEAD:master"
             }
         }
 
@@ -76,19 +61,20 @@ node {
                     job       : 'nais-deploy-pipeline',
                     wait      : true,
                     parameters: [
-                            string(name: 'APP', value: "eessi-fagmodul-frontend"),
-                            string(name: 'REPO', value: "navikt/eessi-pensjon-fagmodul-frontend"),
+                            string(name: 'APP', value: "eessi-pensjon-frontend-ui"),
+                            string(name: 'REPO', value: "navikt/eessi-pensjon-frontend-ui"),
                             string(name: 'VERSION', value: version),
                             string(name: 'DEPLOY_REF', value: version),
                             string(name: 'DEPLOY_ENV', value: 't8'),
-                            string(name: 'NAMESPACE', value: 't8')
+                            string(name: 'NAMESPACE', value: 't8'),
+                            string(name: 'CLUSTER', value: 'sbs')
                     ]
             ])
         }
 
-        github.commitStatus("navikt-ci-oauthtoken", "navikt/eessi-pensjon-fagmodul-frontend", 'continuous-integration/jenkins', commitHash, 'success', "Build #${env.BUILD_NUMBER} has finished")
+        github.commitStatus("navikt-ci-oauthtoken", "navikt/eessi-pensjon-frontend-ui", 'continuous-integration/jenkins', commitHash, 'success', "Build #${env.BUILD_NUMBER} has finished")
     } catch (err) {
-        github.commitStatus("navikt-ci-oauthtoken", "navikt/eessi-pensjon-fagmodul-frontend", 'continuous-integration/jenkins', commitHash, 'failure', "Build #${env.BUILD_NUMBER} has failed")
+        github.commitStatus("navikt-ci-oauthtoken", "navikt/eessi-pensjon-frontend-ui", 'continuous-integration/jenkins', commitHash, 'failure', "Build #${env.BUILD_NUMBER} has failed")
 
         throw err
     }

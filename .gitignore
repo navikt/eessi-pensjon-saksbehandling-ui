@@ -9,6 +9,7 @@ src/main/resources/public
 /out-tsc
 /build
 /out
+build
 
 # dependencies
 node_modules

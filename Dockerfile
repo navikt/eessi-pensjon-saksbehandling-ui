@@ -1,5 +1,4 @@
-FROM navikt/java:8
+FROM nginx:1.15
 
-COPY build/libs/eessi-fagmodul-frontend*.jar /app/app.jar
-
-ENV JAVA_OPTS -Dspring.profiles.active=prod
+COPY default.conf /etc/nginx/conf.d/default.conf
+COPY build /usr/share/nginx/html/public/

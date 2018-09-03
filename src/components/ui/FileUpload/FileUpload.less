@@ -1,0 +1,53 @@
+
+.scrollable {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.dropzone {
+     position: relative;
+     min-height: 200px;
+     border: none !important;
+     box-shadow: inset 3px 3px 3px lightgray;
+     background-color: white;
+     cursor: pointer;
+     &:hover {
+         background-color: #FAFAFF;
+     }
+ }
+
+.dropzone-active {
+    background-color: aliceblue;
+}
+.dropzone-placeholder,
+.dropzone-files {
+   padding: 5px;
+   width: 100%;
+}
+.dropzone-placeholder-message {
+   top: 45%;
+   position: absolute;
+   text-align: center;
+   width: 90%;
+}
+
+.dropzone-placeholder-status {
+    right: 5px;
+    top: 90%;
+    position: absolute;
+    color: gray;
+    font-size: 0.8rem;
+    text-align: right;
+}
+
+.fileUploadFile-exit {
+    opacity: 0.01;
+    transform: scale(0.1);
+      transition: all 500ms ease-out;
+}
+
+.fileUploadFile-exit-active {
+    opacity: 0.01;
+    transform: scale(0.1);
+    transition: all 500ms ease-out;
+}

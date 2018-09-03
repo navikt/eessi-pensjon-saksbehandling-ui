@@ -1,0 +1,59 @@
+
+@import '~nav-frontend-core/less/core';
+@import '~nav-frontend-typografi-style/src/index';
+@import '~nav-frontend-chevron-style/src/index';
+@import '~nav-frontend-alertstriper-style/src/index';
+@import '~nav-frontend-skjema-style/src/index';
+@import '~nav-frontend-knapper-style/src/index';
+@import '~nav-frontend-paneler-style/src/index';
+@import '~nav-frontend-lenkepanel-style/src/index';
+@import '~nav-frontend-ekspanderbartpanel-style/src/index';
+@import '~nav-frontend-tabell-style/src/index';
+@import '~nav-frontend-alertstriper-style/src/index';
+@import '~nav-frontend-grid-style/src/index';
+@import '~nav-frontend-stegindikator-style/src/index';
+@import '~nav-frontend-modal-style/src/index';
+
+//Disse må importeres separat siden de ikke inneholder src/index.less.
+@import '~nav-frontend-spinner-style/src/spinner-style';
+@import '~nav-frontend-lenker-style/src/lenker-style';
+@import '~nav-frontend-snakkeboble-style/src/snakkeboble-style';
+@import '~nav-frontend-tabs-style/src/tabs-style';
+@import '~nav-frontend-hjelpetekst-style/src/hjelpetekst-style';
+@import '~nav-frontend-lukknapp-style/src/lukknapp-style';
+
+@import './constants';
+
+body {
+  margin: 0;
+  padding: 0;
+
+  background-color: @white-off;
+  color: @font-color;
+
+  .typo-normal-mixin();
+  line-height: 1.42857143;
+}
+
+h4.appDescription {
+    margin-left: 2rem;
+}
+.p4000 .hjelpetekst,
+.case .hjelpetekst {
+    float: right!important;
+    margin-top: 1rem;
+}
+
+.pInfo .hjelpetekst,
+.pdf .hjelpetekst,
+.pSelv .hjelpetekst {
+    position: absolute;
+    right: 1rem;
+}
+
+.fieldset {
+   position: relative;
+   background-color: whitesmoke;
+   box-shadow: 3px 3px 3px lightgrey;
+}
+

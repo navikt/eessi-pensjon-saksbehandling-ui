@@ -1,44 +1,35 @@
-name: eessi-fagmodul-frontend
-image: repo.adeo.no:5443/eessi-fagmodul-frontend
+name: eessi-pensjon-frontend-ui
+image: repo.adeo.no:5443/eessi-pensjon-frontend-ui
 team: eessi-pensjon
+
 replicas:
     min: 1
-    max: 2
+    max: 1
     cpuThresholdPercentage: 50
+
 prometheus:
     enabled: false
+
 port: 8080
+
 healthcheck:
     liveness:
-      initialDelay: 60
-      path: /internal/isalive
+        initialDelay: 30
+        path: /internal/isalive
     readiness:
-      initialDelay: 60
-      path: /internal/isready
+        initialDelay: 30
+        path: /internal/isready
+
 resources:
     limits:
-      cpu: 1
-      memory: 1024Mi
+        cpu: 1
+        memory: 512Mi
     requests:
-      cpu: 100m
-      memory: 256Mi
+        cpu: 100m
+        memory: 256Mi
+
 fasitResources:
-  used:
-  - alias: EuxBasis_v1
-    resourceType: RestService
-
-  - alias: eessifagmodulservice
-    resourceType: RestService
-
-  - alias: srvPensjon
-    resourceType: credential
-
-  - alias: OpenIdConnect
-    resourceType: baseurl
-
-  - alias: OpenIdConnectAgent
-    resourceType: credential
-  exposed:
-  - alias: eessifagmodulfrontendservice
-    resourceType: restservice
-    path: /
+    exposed:
+    - alias: eessifagmodulfrontendservice
+      resourceType: restservice
+      path: /
