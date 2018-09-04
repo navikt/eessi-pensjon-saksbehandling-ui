@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 import classNames from 'classnames';
-import _ from 'lodash';
 import moment from 'moment';
 import ReactDatePicker from 'react-datepicker';
 import lifecycle from 'react-pure-lifecycle';
@@ -43,16 +42,16 @@ const mapDispatchToProps = (dispatch) => {
 
 const componentDidMount = (props) => {
 
-   let referrer = new URLSearchParams(props.location.search).get('referrer')
-   if (referrer) {
+    let referrer = new URLSearchParams(props.location.search).get('referrer')
+    if (referrer) {
         props.actions.setReferrer(referrer);
-   }
+    }
 }
 
 const hasError = (props, key) => (
     props.form.displayError && props.form.validationErrors[key] ?
-    true:
-    false
+        true:
+        false
 );
 
 const getErrors = (props, key) => (
@@ -63,7 +62,7 @@ const getErrors = (props, key) => (
 
 const errorStyle = (props, key) =>(
     hasError(props, key) ?
-        {background: "#F3E3E3"}:
+        {background: '#F3E3E3'}:
         {}
 );
 
@@ -90,8 +89,8 @@ const onBackButtonClick = async (props) => (
 
 const onBackToReferrerButtonClick = async (props) => (
     UrlValidator.validateReferrer(props.referrer) ?
-    props.history.push(routes.ROOT + props.referrer) :
-    null
+        props.history.push(routes.ROOT + props.referrer) :
+        null
 );
 
 const onForwardButtonClick = async (props) => (
@@ -189,7 +188,7 @@ const PInfo = (props) => (
                             <CountrySelect locale={props.locale} value={props.form.bankCountry || {}}
                                 onSelect={setValue.bind(null, props, 'bankCountry')}
                                 style = {errorStyle(props, 'bankCountry')}
-                                />
+                            />
                         </div>
                     </div>
                     <div className='col-md-6'>
@@ -255,48 +254,48 @@ const PInfo = (props) => (
                     </div>
                 </Nav.Row>
                 <Nav.Row className='mb-4'>
-                <div className='col-md-4'>
-                    <label>{props.t('pinfo:form-workStartDate')+ ' *'}</label>
-                    <ReactDatePicker selected={props.form.workStartDate ? moment(props.form.workStartDate) : undefined}
-                        dateFormat='DD.MM.YYYY'
-                        placeholderText={props.t('ui:dateFormat')}
-                        showYearDropdown
-                        showMonthDropdown
-                        dropdownMode='select'
-                        locale={props.locale}
-                        onMonthChange={onDateChange.bind(null, props, 'workStartDate')}
-                        onYearChange={onDateChange.bind(null, props, 'workStartDate')}
-                        onBlur={onDateBlur.bind(null, props, 'workStartDate')}
-                        onChange={onDateChange.bind(null, props, 'workStartDate')}/>
-                </div>
-                <div className='col-md-4'>
-                    <label>{props.t('pinfo:form-workEndDate')+ ' *'}</label>
-                    <ReactDatePicker selected={props.form.workEndDate ? moment(props.form.workEndDate) : undefined}
-                        dateFormat='DD.MM.YYYY'
-                        placeholderText={props.t('ui:dateFormat')}
-                        showYearDropdown
-                        showMonthDropdown
-                        dropdownMode='select'
-                        locale={props.locale}
-                        onMonthChange={onDateChange.bind(null, props, 'workEndDate')}
-                        onYearChange={onDateChange.bind(null, props, 'workEndDate')}
-                        onBlur={onDateBlur.bind(null, props, 'workEndDate')}
-                        onChange={onDateChange.bind(null, props, 'workEndDate')}/>
-                </div>
-                <div className='col-md-4'>
-                    <label>{props.t('pinfo:form-workEstimatedRetirementDate')+ ' *'}</label>
-                    <ReactDatePicker selected={props.form.workEstimatedRetirementDate ? moment(props.form.workEstimatedRetirementDate) : undefined}
-                        dateFormat='DD.MM.YYYY'
-                        placeholderText={props.t('ui:dateFormat')}
-                        showYearDropdown
-                        showMonthDropdown
-                        dropdownMode='select'
-                        locale={props.locale}
-                        onMonthChange={onDateChange.bind(null, props, 'workEstimatedRetirementDate')}
-                        onYearChange={onDateChange.bind(null, props, 'workEstimatedRetirementDate')}
-                        onBlur={onDateBlur.bind(null, props, 'workEstimatedRetirementDate')}
-                        onChange={onDateChange.bind(null, props, 'workEstimatedRetirementDate')}/>
-                </div>
+                    <div className='col-md-4'>
+                        <label>{props.t('pinfo:form-workStartDate')+ ' *'}</label>
+                        <ReactDatePicker selected={props.form.workStartDate ? moment(props.form.workStartDate) : undefined}
+                            dateFormat='DD.MM.YYYY'
+                            placeholderText={props.t('ui:dateFormat')}
+                            showYearDropdown
+                            showMonthDropdown
+                            dropdownMode='select'
+                            locale={props.locale}
+                            onMonthChange={onDateChange.bind(null, props, 'workStartDate')}
+                            onYearChange={onDateChange.bind(null, props, 'workStartDate')}
+                            onBlur={onDateBlur.bind(null, props, 'workStartDate')}
+                            onChange={onDateChange.bind(null, props, 'workStartDate')}/>
+                    </div>
+                    <div className='col-md-4'>
+                        <label>{props.t('pinfo:form-workEndDate')+ ' *'}</label>
+                        <ReactDatePicker selected={props.form.workEndDate ? moment(props.form.workEndDate) : undefined}
+                            dateFormat='DD.MM.YYYY'
+                            placeholderText={props.t('ui:dateFormat')}
+                            showYearDropdown
+                            showMonthDropdown
+                            dropdownMode='select'
+                            locale={props.locale}
+                            onMonthChange={onDateChange.bind(null, props, 'workEndDate')}
+                            onYearChange={onDateChange.bind(null, props, 'workEndDate')}
+                            onBlur={onDateBlur.bind(null, props, 'workEndDate')}
+                            onChange={onDateChange.bind(null, props, 'workEndDate')}/>
+                    </div>
+                    <div className='col-md-4'>
+                        <label>{props.t('pinfo:form-workEstimatedRetirementDate')+ ' *'}</label>
+                        <ReactDatePicker selected={props.form.workEstimatedRetirementDate ? moment(props.form.workEstimatedRetirementDate) : undefined}
+                            dateFormat='DD.MM.YYYY'
+                            placeholderText={props.t('ui:dateFormat')}
+                            showYearDropdown
+                            showMonthDropdown
+                            dropdownMode='select'
+                            locale={props.locale}
+                            onMonthChange={onDateChange.bind(null, props, 'workEstimatedRetirementDate')}
+                            onYearChange={onDateChange.bind(null, props, 'workEstimatedRetirementDate')}
+                            onBlur={onDateBlur.bind(null, props, 'workEstimatedRetirementDate')}
+                            onChange={onDateChange.bind(null, props, 'workEstimatedRetirementDate')}/>
+                    </div>
                 </Nav.Row>
                 <Nav.Row className='mb-4'>
                     <div className='col-md-6'>
@@ -433,8 +432,8 @@ const PInfo = (props) => (
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-attachmentTypes')}</label></dt>
                         <dd className='col-sm-8'>{
                             Object.entries(props.form.attachmentTypes)
-                            .filter(KV => KV[1])
-                            .map(type => {return props.t('pinfo:form-attachmentTypes-' + type[0])}).join(', ')
+                                .filter(KV => KV[1])
+                                .map(type => {return props.t('pinfo:form-attachmentTypes-' + type[0])}).join(', ')
                         }</dd>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-attachments')}</label></dt>
                         <dd className='col-sm-8'>{
@@ -460,8 +459,8 @@ const PInfo = (props) => (
         <Nav.Row className='mb-4 p-2'>
             <Nav.Column>
                 {props.form.step !== 0 ? <Nav.Knapp className='backButton mr-4 w-100' type='standard' onClick={onBackButtonClick.bind(null, props)}>{props.t('ui:back')}</Nav.Knapp> :
-                 props.referrer ? <Nav.Knapp className='backButton mr-4 w-100' type='standard' onClick={onBackToReferrerButtonClick.bind(this, props)}>{props.t('ui:backTo') + ' ' + props.t('ui:' + props.referrer)}</Nav.Knapp>
-                 : null }
+                    props.referrer ? <Nav.Knapp className='backButton mr-4 w-100' type='standard' onClick={onBackToReferrerButtonClick.bind(this, props)}>{props.t('ui:backTo') + ' ' + props.t('ui:' + props.referrer)}</Nav.Knapp>
+                        : null }
             </Nav.Column>
             <Nav.Column>
                 {props.form.step !== 5 ?

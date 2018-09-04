@@ -68,7 +68,7 @@ export function getInstitutionListForCountry (country) {
 export function getBucList (rinaId) {
 
     let url = rinaId ? sprintf(urls.CASE_GET_BUC_FROM_RINA_LIST_URL, {rinaId: rinaId}) :
-                       urls.CASE_GET_BUC_LIST_URL;
+        urls.CASE_GET_BUC_LIST_URL;
 
     return api.call({
         url: url,
@@ -83,7 +83,7 @@ export function getBucList (rinaId) {
 export function getSedList (buc, rinaId) {
 
     let url = rinaId ? sprintf(urls.CASE_GET_SED_FROM_RINA_LIST_URL, {rinaId: rinaId}) :
-                       sprintf(urls.CASE_GET_SED_FOR_BUC_LIST_URL, {buc: buc});
+        sprintf(urls.CASE_GET_SED_FOR_BUC_LIST_URL, {buc: buc});
 
     return api.call({
         url: url,

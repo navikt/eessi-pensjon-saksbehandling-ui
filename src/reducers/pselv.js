@@ -11,23 +11,23 @@ export default function (state = initialState, action = {}) {
 
     case types.PSELV_STEP_FORWARD:
 
-         if (state.step === state.maxStep) {
+        if (state.step === state.maxStep) {
             return state;
-         } else {
-             return Object.assign({}, state, {
-                 step : state.step + 1
-             });
-         }
+        } else {
+            return Object.assign({}, state, {
+                step : state.step + 1
+            });
+        }
 
     case types.PSELV_STEP_BACK:
 
-         if (state.step === 0) {
+        if (state.step === 0) {
             return state;
-         } else {
-             return Object.assign({}, state, {
-                 step : state.step - 1
-             });
-         }
+        } else {
+            return Object.assign({}, state, {
+                step : state.step - 1
+            });
+        }
 
     default:
 

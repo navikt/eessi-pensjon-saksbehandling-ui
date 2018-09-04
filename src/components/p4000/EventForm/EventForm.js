@@ -152,7 +152,8 @@ EventForm.propTypes = {
     eventIndex : PT.number,
     actions    : PT.object,
     Component  : PT.func,
-    history    : PT.object.isRequired
+    history    : PT.object.isRequired,
+    location   : PT.object
 };
 
 export default connect(

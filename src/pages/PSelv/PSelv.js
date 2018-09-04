@@ -108,7 +108,7 @@ class PSelv extends Component {
                     }]
                 })
             } else if (step === 3) {
-                 actions.openModal({
+                actions.openModal({
                     modalTitle: t('leavingpage'),
                     modalText: t('you will leave this page and continue on pinfo'),
                     modalButtons: [{
@@ -215,7 +215,7 @@ class PSelv extends Component {
 
         let value = e.target ? e.target.value : e;
         let newState = {
-           [key] : value
+            [key] : value
         };
 
         if (key === 'citizenshipNorway') {
@@ -324,14 +324,14 @@ class PSelv extends Component {
                                 <div>
                                     <label>{t('pselv:form-step1-afp') + ' *'}</label>
                                 </div>
-                            <Nav.Radio className='d-inline-block mr-4' label={t('yes')}
-                                checked={this.state.afp === true}
-                                name='afp'
-                                onChange={this.setValue.bind(this, 'afp', true)}/>
-                            <Nav.Radio className='d-inline-block mr-4' label={t('no')}
-                                checked={this.state.afp === false}
-                                name='afp'
-                                onChange={this.setValue.bind(this, 'afp', false)}/>
+                                <Nav.Radio className='d-inline-block mr-4' label={t('yes')}
+                                    checked={this.state.afp === true}
+                                    name='afp'
+                                    onChange={this.setValue.bind(this, 'afp', true)}/>
+                                <Nav.Radio className='d-inline-block mr-4' label={t('no')}
+                                    checked={this.state.afp === false}
+                                    name='afp'
+                                    onChange={this.setValue.bind(this, 'afp', false)}/>
                             </div>
                         </div>
                     </Nav.Row>
@@ -357,7 +357,7 @@ class PSelv extends Component {
                     <Nav.Row>
                         <div className='mb-4 col-md-4'>
                             <div>
-                                  <label>{t('pselv:form-step2-citizenship') + ' *'}</label>
+                                <label>{t('pselv:form-step2-citizenship') + ' *'}</label>
                             </div>
                             <Nav.Radio className='d-inline-block mr-4' label={t('ui:norway')}
                                 checked={this.state.citizenshipNorway === true}
@@ -426,62 +426,62 @@ class PSelv extends Component {
                 </div> : null }
 
                 { step === 3 ? <div className='mt-3'>
-                      <Nav.Row>
-                            <Nav.Column className='mb-4'>
-                                <h4>{t('pselv:form-step3-title')}</h4>
-                                  <h6>{t('pselv:form-step3-description')}</h6>
-                                  <div><a href='#'>{t('pselv:form-step3-sed-anchor-text')}</a></div>
-                            </Nav.Column>
-                      </Nav.Row>
-                      <Nav.Row>
-                            <Nav.Column className='col-md-6 mb-4'>
-                                <h4>{t('pselv:form-step3-civilstatus-title')}</h4>
-                                <Nav.Select label={t('pselv:form-step3-civilstatus')} value={this.state.civilstatus || ''}
-                                    onChange={this.setValue.bind(this, 'civilstatus')}>
-                                    <option value=''>{'--'}</option>
-                                    <option value='single'>{'Single'}</option>
-                                    <option value='samboer'>{'Samboer'}</option>
-                                    <option value='married'>{'Married'}</option>
-                                    <option value='divorced'>{'Divorced'}</option>
-                                    <option value='widow'>{'Widow'}</option>
-                                </Nav.Select>
-                                 <div>{t('pselv:form-step3-civilstatus-description')}</div>
-                            </Nav.Column>
-                      </Nav.Row>
-                      {this.state.civilstatus === 'widow' ? <h5>{t('pselv:form-step3-deceased-title')}</h5> : null }
-                      {this.state.civilstatus === 'widow' ? <Nav.Row>
-                           <div className='col-md-6 mb-4'>
-                                <Nav.Input label={t('pselv:form-step3-deceased-name')} value={this.state.deceasedName || ''}
-                                    onChange={this.setValue.bind(this, 'deceasedName')}/>
-                           </div>
-                            <div className='col-md-6 mb-4'>
-                                <Nav.Input label={t('pselv:form-step3-deceased-id')} value={this.state.deceasedId || ''}
-                                    onChange={this.setValue.bind(this, 'deceasedId')}/>
-                           </div>
-                       </Nav.Row> : null
-                      }
-                        {this.state.civilstatus === 'samboer' ? <Nav.Row>
-                              <div className='col-md-6 mb-4'>
-                                   <h5>{t('pselv:form-step3-samboer-title')}</h5>
-                                   <Nav.Checkbox label={t('pselv:form-step3-samboer-label')} value={this.state.samboer || ''}
-                                       onChange={this.setValue.bind(this, 'samboer')}/>
-                              </div>
-                          </Nav.Row> : null
-                        }
-                    </div> : null
+                    <Nav.Row>
+                        <Nav.Column className='mb-4'>
+                            <h4>{t('pselv:form-step3-title')}</h4>
+                            <h6>{t('pselv:form-step3-description')}</h6>
+                            <div><a href='#'>{t('pselv:form-step3-sed-anchor-text')}</a></div>
+                        </Nav.Column>
+                    </Nav.Row>
+                    <Nav.Row>
+                        <Nav.Column className='col-md-6 mb-4'>
+                            <h4>{t('pselv:form-step3-civilstatus-title')}</h4>
+                            <Nav.Select label={t('pselv:form-step3-civilstatus')} value={this.state.civilstatus || ''}
+                                onChange={this.setValue.bind(this, 'civilstatus')}>
+                                <option value=''>{'--'}</option>
+                                <option value='single'>{'Single'}</option>
+                                <option value='samboer'>{'Samboer'}</option>
+                                <option value='married'>{'Married'}</option>
+                                <option value='divorced'>{'Divorced'}</option>
+                                <option value='widow'>{'Widow'}</option>
+                            </Nav.Select>
+                            <div>{t('pselv:form-step3-civilstatus-description')}</div>
+                        </Nav.Column>
+                    </Nav.Row>
+                    {this.state.civilstatus === 'widow' ? <h5>{t('pselv:form-step3-deceased-title')}</h5> : null }
+                    {this.state.civilstatus === 'widow' ? <Nav.Row>
+                        <div className='col-md-6 mb-4'>
+                            <Nav.Input label={t('pselv:form-step3-deceased-name')} value={this.state.deceasedName || ''}
+                                onChange={this.setValue.bind(this, 'deceasedName')}/>
+                        </div>
+                        <div className='col-md-6 mb-4'>
+                            <Nav.Input label={t('pselv:form-step3-deceased-id')} value={this.state.deceasedId || ''}
+                                onChange={this.setValue.bind(this, 'deceasedId')}/>
+                        </div>
+                    </Nav.Row> : null
+                    }
+                    {this.state.civilstatus === 'samboer' ? <Nav.Row>
+                        <div className='col-md-6 mb-4'>
+                            <h5>{t('pselv:form-step3-samboer-title')}</h5>
+                            <Nav.Checkbox label={t('pselv:form-step3-samboer-label')} value={this.state.samboer || ''}
+                                onChange={this.setValue.bind(this, 'samboer')}/>
+                        </div>
+                    </Nav.Row> : null
+                    }
+                </div> : null
                 }
 
                 { step === 4 ? <div className='mt-3 mb-4'>
-                          <h4 className='mb-4'>{t('pselv:form-step4-title')}</h4>
-                          <div className='mb-4' dangerouslySetInnerHTML={{__html: t('pselv:form-step4-description-1')}}/>
-                          <div className='mb-4'>{t('pselv:form-step4-description-2')}</div>
-                          <div className='mb-4'><a href='#'>{t('pselv:form-step4-anchor-text-1')}</a></div>
-                          <hr/>
-                           <div className='mb-4'>{t('pselv:form-step4-description-3')}</div>
-                           <div className='mb-4'><a href='#'>{t('pselv:form-step4-anchor-text-2')}</a></div>
-                           <div className='mb-4'>{t('pselv:form-step4-description-4')}</div>
-                           <div className='mb-4'>{t('pselv:form-step4-description-5')}</div>
-                    </div> : null
+                    <h4 className='mb-4'>{t('pselv:form-step4-title')}</h4>
+                    <div className='mb-4' dangerouslySetInnerHTML={{__html: t('pselv:form-step4-description-1')}}/>
+                    <div className='mb-4'>{t('pselv:form-step4-description-2')}</div>
+                    <div className='mb-4'><a href='#'>{t('pselv:form-step4-anchor-text-1')}</a></div>
+                    <hr/>
+                    <div className='mb-4'>{t('pselv:form-step4-description-3')}</div>
+                    <div className='mb-4'><a href='#'>{t('pselv:form-step4-anchor-text-2')}</a></div>
+                    <div className='mb-4'>{t('pselv:form-step4-description-4')}</div>
+                    <div className='mb-4'>{t('pselv:form-step4-description-5')}</div>
+                </div> : null
                 }
             </div>
             <Nav.Row className='mb-4 p-2'>
@@ -499,10 +499,12 @@ class PSelv extends Component {
 }
 
 PSelv.propTypes = {
-    history : PT.object,
-    t       : PT.func,
-    locale  : PT.string,
-    step    : PT.number.isRequired
+    history  : PT.object,
+    t        : PT.func,
+    locale   : PT.string,
+    location : PT.object,
+    actions  : PT.object,
+    step     : PT.number.isRequired
 };
 
 export default connect(

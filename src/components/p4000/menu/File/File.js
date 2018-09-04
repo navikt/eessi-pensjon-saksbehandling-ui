@@ -370,10 +370,10 @@ class File extends Component {
                 </Nav.Column>
             </Nav.Row>
             {this.state.referrer ? <Nav.Row>
-                 <Nav.Column>
-                        <Nav.Hovedknapp className='backToReferrerButton' onClick={this.handleBackToReferrerRequest.bind(this)}>{t('ui:backTo') + ' ' + t('ui:' + this.state.referrer)}</Nav.Hovedknapp>
-                 </Nav.Column>
-                 <Nav.Column/>
+                <Nav.Column>
+                    <Nav.Hovedknapp className='backToReferrerButton' onClick={this.handleBackToReferrerRequest.bind(this)}>{t('ui:backTo') + ' ' + t('ui:' + this.state.referrer)}</Nav.Hovedknapp>
+                </Nav.Column>
+                <Nav.Column/>
             </Nav.Row> : null }
         </Nav.Panel>
     }

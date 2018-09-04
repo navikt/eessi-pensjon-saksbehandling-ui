@@ -222,6 +222,7 @@ class New extends Component {
 New.propTypes = {
     t                 : PT.func.isRequired,
     actions           : PT.object.isRequired,
+    history           : PT.object.isRequired,
     provideController : PT.func.isRequired,
     events            : PT.array
 };

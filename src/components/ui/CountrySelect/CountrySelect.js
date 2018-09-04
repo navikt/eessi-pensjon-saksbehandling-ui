@@ -99,6 +99,7 @@ CountrySelect.propTypes = {
     value     : PT.object,
     t         : PT.func.isRequired,
     locale    : PT.string.isRequired,
+    style     : PT.object,
     list      : PT.array,
     type      : PT.string,
     className : PT.string
