@@ -117,18 +117,18 @@ class GeneratePDF extends Component {
             <Nav.Row>
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('pdf:help-generate-pdf')}</Nav.HjelpetekstBase>
-                    <h1 className='mt-3 appTitle'>
+                    <h1 className='mb-3 appTitle'>
                         <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push(routes.ROOT)}/>
                         {t('pdf:app-generatePdfTitle')}
                     </h1>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='mt-4 text-center' style={{minHeight: '100px'}}>
+            <Nav.Row className='text-center' style={{minHeight: '100px'}}>
                 <Nav.Column>
                     <ClientAlert/>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='mt-4 text-left'>
+            <Nav.Row className='p-4'>
                 <Nav.Column>
                     {generatingPDF ? <div className='w-100 text-center'>
                         <Nav.NavFrontendSpinner/>
@@ -157,13 +157,13 @@ class GeneratePDF extends Component {
                         })}
                         <Nav.Row>
                             <Nav.Column className='text-right'>
-                                <Nav.Knapp className='w-25 downloadAllButton' onClick={this.downloadAll.bind(this)}>{t('ui:downloadAll')}</Nav.Knapp>
+                                <Nav.Knapp className='downloadAllButton' onClick={this.downloadAll.bind(this)}>{t('ui:downloadAll')}</Nav.Knapp>
                             </Nav.Column>
                         </Nav.Row>
                     </div> : null)}
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='mt-4'>
+            <Nav.Row className='p-4'>
                 <Nav.Column>
                     <Nav.Knapp className='backButton w-100' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
                 </Nav.Column>

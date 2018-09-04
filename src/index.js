@@ -6,7 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import createBrowserHistory from 'history/createBrowserHistory';
-import { Route, Switch } from 'react-router';
+import { Route, Switch, Redirect } from 'react-router';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { Provider } from 'react-redux';
@@ -71,6 +71,7 @@ ReactDOM.render(
                     <Route exact path={routes.CASE_SEND}     component={Pages.SendCase}/>
 
                     <Route path={routes.ROOT} component={Pages.FrontPage}/>
+                    <Redirect from='/' to={routes.ROOT}/>
                 </Switch>
             </ConnectedRouter>
         </Provider>
