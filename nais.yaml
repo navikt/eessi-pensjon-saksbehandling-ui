@@ -29,7 +29,14 @@ resources:
         memory: 256Mi
 
 fasitResources:
+    used:
+    - alias: loginservice
+      resourceType: RestService
+
+    - alias: EessiPensjonFrontendApi_v1
+      resourceType: RestService
+
     exposed:
-    - alias: eessifagmodulfrontendservice
-      resourceType: restservice
+    - alias: EessiPensjonFrontend
+      resourceType: RestService
       path: /
