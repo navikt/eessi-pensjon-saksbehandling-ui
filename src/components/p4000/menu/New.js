@@ -87,7 +87,7 @@ class New extends Component {
         });
     }
 
-    handleFileSave() {
+    handleFileSaveToFile() {
 
         const { events } = this.props;
 
@@ -96,6 +96,24 @@ class New extends Component {
         }, () => {
             this.fileOutput.click()
         })
+    }
+
+    handleFileSaveToServer() {
+
+        const { t, events, event, actions } = this.props;
+
+        actions.openModal({
+            modalTitle: t('soon'),
+            modalText: t('soon'),
+            modalButtons: [{
+                main: true,
+                text: t('yes') + ', ' + t('continue'),
+                onClick: this.closeModal.bind(this)
+            },{
+                text: t('no') + ', ' + t('cancel'),
+                onClick: this.closeModal.bind(this)
+            }]
+        });
     }
 
     handleFileSubmit() {
@@ -197,12 +215,20 @@ class New extends Component {
                             </div>
                             <div className='mt-3'>{t('ui:view')}</div>
                         </Nav.Knapp>
-                        <Nav.Knapp className='saveButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSave.bind(this)}>
+                        <Nav.Knapp className='saveToFileButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSaveToFile.bind(this)}>
                             <div>
                                 <Icons size='4x' className='mr-3' kind='document'/>
                                 <Icons size='3x' kind={'download'}/>
                             </div>
-                            <div className='mt-3'>{t('p4000:file-save')}</div>
+                            <div className='mt-3'>{t('p4000:file-save-to-file')}</div>
+                        </Nav.Knapp>
+                        <Nav.Knapp className='saveToServerButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSaveToServer.bind(this)}>
+                           <div>
+                               <Icons className='mr-3' size='4x' kind='document'/>
+                               <Icons className='mr-3' size='3x' kind='caretRight'/>
+                               <Icons size='3x' kind='server'/>
+                           </div>
+                           <div className='mt-3'>{t('p4000:file-save-to-server')}</div>
                         </Nav.Knapp>
                         <Nav.Knapp className='sendButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSubmit.bind(this)}>
                             <div>

@@ -1,11 +1,11 @@
 /* global Uint8Array, ArrayBuffer */
 
 import _ from 'lodash';
+import moment from 'moment';
 
 class Util {
 
-    // converting text loaded from file to JSON object
-    // can't save file.data on JSON, only base64, therefore reconstruct file.data from file.base64
+    // converting string loaded from local file to JSON Event object
     readEventsFromString(loadedString) {
 
         try {
@@ -15,6 +15,7 @@ class Util {
                 if (event.birthDate) event.birthDate = new Date(event.birthDate);
                 if (event.endDate)   event.endDate   = new Date(event.endDate);
                 if (event.files) {
+                    // can't save file.data on JSON, only base64, therefore reconstruct file.data from file.base64
                     event.files.map(file => {
                         var raw = window.atob(file.base64);
                         var array = new Uint8Array(new ArrayBuffer(raw.length));
@@ -32,6 +33,7 @@ class Util {
         }
     }
 
+    // converting JSON Event object to string so it can be saved to a file
     writeEventsToString(events) {
 
         events.map(event => {
@@ -50,6 +52,10 @@ class Util {
 
     writeDate(date) {
         return date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+    }
+
+    readDate(date) {
+        return moment(date, 'YYYY-MM-DD').toDate()
     }
 
     handleDate(event) {
@@ -200,6 +206,93 @@ class Util {
             actorId: 'actorId',
             payload: this.convertEvents(events)
         };
+    }
+
+    convertP4000SedToEvents (sed) {
+
+        let events = [];
+
+        if (sed.trygdetid) {
+
+            Object.keys(sed.trygdetid).map(key => {
+
+                sed.trygdetid[key].map(sourceEvent => {
+
+                    let targetEvent = {}
+                    targetEvent.country = { value : sourceEvent.land };
+
+                    if (!_.isEmpty(sourceEvent.periode.lukketPeriode)) {
+
+                        targetEvent.dateType = 'both';
+                        targetEvent.startDate = sourceEvent.periode.lukketPeriode.fom ? this.readDate(sourceEvent.periode.lukketPeriode.fom) : undefined;
+                        targetEvent.endDate = sourceEvent.periode.lukketPeriode.tom ? this.readDate(sourceEvent.periode.lukketPeriode.tom) : undefined;
+
+                    }
+                    if (!_.isEmpty(sourceEvent.periode.openPeriode)) {
+
+                        targetEvent.dateType = sourceEvent.periode.openPeriode.extra === '01' ? 'onlyStartDate01' : 'onlyStartDate98';
+                        targetEvent.startDate = sourceEvent.periode.openPeriode.fom ? this.readDate(sourceEvent.periode.openPeriode.fom) : undefined;
+                        targetEvent.endDate = sourceEvent.periode.openPeriode.tom ? this.readDate(sourceEvent.periode.openPeriode.tom) : undefined;
+                    }
+
+                    targetEvent.uncertainDate = sourceEvent.usikkerDatoIndikator === '1'
+                    targetEvent.other = sourceEvent.annenInformasjon;
+
+                    switch (key) {
+
+                    case 'ansattSelvstendigPerioder' :
+                        targetEvent.type = 'work';
+                        targetEvent.id = sourceEvent.forsikkringEllerRegistreringNr;
+                        targetEvent.activity = sourceEvent.jobbUnderAnsattEllerSelvstendig;
+                        targetEvent.name = sourceEvent.navnFirma;
+                        if (sourceEvent.addresseFirma) {
+                           targetEvent.city = sourceEvent.addresseFirma.by;
+                           targetEvent.address = sourceEvent.addresseFirma.address;
+                           targetEvent.region = sourceEvent.addresseFirma.region;
+                           targetEvent.country = sourceEvent.addresseFirma.land.value;
+                        }
+                        break;
+                    case 'boPerioder' :
+                        targetEvent.type = 'home';
+                        break;
+                    case 'barnepassPerioder' :
+                        targetEvent.type = 'child';
+                        if (sourceEvent.informasjonBarn) {
+                            targetEvent.firstname = sourceEvent.informasjonBarn.etternavn;
+                            targetEvent.lastname = sourceEvent.informasjonBarn.forrnavn;
+                            targetEvent.birthDate = this.readDate(sourceEvent.informasjonBarn.foedseldato);
+                            targetEvent.country = sourceEvent.informasjonBarn.land.value;
+                        }
+                        break;
+                    case 'frivilligPerioder' :
+                        targetEvent.type = 'voluntary';
+                        break;
+                    case 'forsvartjenestePerioder' :
+                        targetEvent.type = 'military';
+                        break;
+                    case 'foedselspermisjonPerioder' :
+                        targetEvent.type = 'birth';
+                        break;
+                    case 'opplaeringPerioder' :
+                        targetEvent.type = 'learn';
+                        targetEvent.name = sourceEvent.navnPaaInstitusjon;
+                        break;
+                    case 'arbeidsledigPerioder' :
+                        targetEvent.type = 'daily';
+                        break;
+                    case 'sykePerioder' :
+                        targetEvent.type = 'sick';
+                        break;
+                    case 'andrePerioder' :
+                        targetEvent.type = 'other';
+                        break;
+                    }
+
+                    events.push(targetEvent);
+                });
+            });
+        }
+        return events;
     }
 }
 

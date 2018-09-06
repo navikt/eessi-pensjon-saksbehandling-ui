@@ -4,7 +4,7 @@ let initialState =  {
     events: [],
     event: undefined,
     editMode: false,
-    page: 'file' // for current menu page
+    page: undefined
 };
 
 export default function (state = initialState, action = {}) {

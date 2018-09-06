@@ -17,7 +17,8 @@ import './View.css';
 
 const mapStateToProps = (state) => {
     return {
-        events : state.p4000.events
+        events : state.p4000.events,
+        sed    : state.status.sed
     }
 };
 
@@ -30,9 +31,10 @@ class View extends Component {
     state = {
         formData: undefined,
         p4000Data : undefined,
+        sedData : undefined,
         formDataButtonLabel: 'p4000:form-seeFormData',
-        p4000DataButtonLabel: 'p4000:form-seeP4000Data'
-
+        p4000DataButtonLabel: 'p4000:form-seeP4000Data',
+        sedDataButtonLabel: 'p4000:form-seeSedData'
     }
 
     handleFormDataClick() {
@@ -61,6 +63,21 @@ class View extends Component {
             this.setState({
                 p4000Data: undefined,
                 p4000DataButtonLabel: 'p4000:form-seeP4000Data'
+            });
+        }
+    }
+
+    handleSedDataClick() {
+
+        if (!this.state.sedData) {
+            this.setState({
+                sedData: this.props.sed,
+                sedDataButtonLabel: 'p4000:form-hideSedData'
+            });
+        } else {
+            this.setState({
+                sedData: undefined,
+                sedDataButtonLabel: 'p4000:form-seeSedData'
             });
         }
     }
@@ -128,22 +145,30 @@ class View extends Component {
 
                 <Nav.Row className='fileButtons m-4 text-center'>
                     <Nav.Column>
-                        <Nav.Hovedknapp className='seeFormDataButton' onClick={this.handleFormDataClick.bind(this)}>
-                            <div>{t(this.state.formDataButtonLabel)}</div>
-                        </Nav.Hovedknapp>
-                    </Nav.Column>
-                    <Nav.Column>
-                        <Nav.Hovedknapp className='seeP4000DataButton' onClick={this.handleP4000DataClick.bind(this)}>
-                            <div>{t(this.state.p4000DataButtonLabel)}</div>
-                        </Nav.Hovedknapp>
-                    </Nav.Column>
-                </Nav.Row>
-                <Nav.Row>
-                    <Nav.Column className='jsonview'>
-                        <ReactJson src={this.state.formData} theme='monokai'/>
-                    </Nav.Column>
-                    <Nav.Column className='jsonview'>
-                        <ReactJson src={this.state.p4000Data} theme='monokai'/>
+                        <Nav.Tabs tabs={[
+                            {'label': t('p4000:form-formData')},
+                            {'label': t('p4000:form-p4000Data')},
+                            {'label': t('p4000:form-sedData')}
+                        ]}>
+                            <div>
+                                <Nav.Hovedknapp className='seeFormDataButton' onClick={this.handleFormDataClick.bind(this)}>
+                                    <div>{t(this.state.formDataButtonLabel)}</div>
+                                </Nav.Hovedknapp>
+                                <ReactJson src={this.state.formData} theme='monokai'/>
+                            </div>
+                            <div>
+                                <Nav.Hovedknapp className='seeP4000DataButton' onClick={this.handleP4000DataClick.bind(this)}>
+                                    <div>{t(this.state.p4000DataButtonLabel)}</div>
+                                </Nav.Hovedknapp>
+                                <ReactJson src={this.state.p4000Data} theme='monokai'/>
+                            </div>
+                            <div>
+                                <Nav.Hovedknapp className='seeSedDataButton' onClick={this.handleSedDataClick.bind(this)}>
+                                    <div>{t(this.state.sedDataButtonLabel)}</div>
+                                </Nav.Hovedknapp>
+                                <ReactJson src={this.state.sedData} theme='monokai'/>
+                            </div>
+                        </Nav.Tabs>
                     </Nav.Column>
                 </Nav.Row>
             </Nav.Ekspanderbartpanel>

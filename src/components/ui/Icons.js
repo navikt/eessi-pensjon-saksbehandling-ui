@@ -28,7 +28,7 @@ class Icons extends Component {
         case 'calendar' : return <FontAwesomeIcon icon={icons.faCalendarCheck} {...this.props}/>;
 
         case 'file' :  return <FontAwesomeIcon icon={icons.faFile} {...this.props}/>;
-        case 'file-open' :  return <FontAwesomeIcon icon={icons.faFolderOpen} {...this.props}/>;
+        case 'folder' :  return <FontAwesomeIcon icon={icons.faFolderOpen} {...this.props}/>;
         case 'file-save' :  return <FontAwesomeIcon icon={icons.faSave} {...this.props}/>;
         case 'file-submit' :  return <FontAwesomeIcon icon={icons.faUpload} {...this.props}/>;
         case 'menu' :  return <FontAwesomeIcon icon={icons.faBars} {...this.props}/>;
@@ -36,6 +36,7 @@ class Icons extends Component {
         case 'clip' :  return <FontAwesomeIcon icon={icons.faPaperclip} {...this.props}/>;
         case 'plus' :  return <FontAwesomeIcon icon={icons.faPlus} {...this.props}/>;
         case 'download' :  return <FontAwesomeIcon icon={icons.faDownload} {...this.props}/>;
+        case 'upload' :  return <FontAwesomeIcon icon={icons.faUpload} {...this.props}/>;
         case 'caretLeft' :  return <FontAwesomeIcon icon={icons.faCaretLeft} {...this.props}/>;
         case 'caretRight' :  return <FontAwesomeIcon icon={icons.faCaretRight} {...this.props}/>;
         case 'server' :  return <FontAwesomeIcon icon={icons.faServer} {...this.props}/>;
