@@ -66,7 +66,7 @@ node {
                             string(name: 'VERSION', value: version),
                             string(name: 'DEPLOY_REF', value: version),
                             string(name: 'DEPLOY_ENV', value: 't8'),
-                            string(name: 'NAMESPACE', value: 't8'),
+                            string(name: 'NAMESPACE', value: 'default'),
                             string(name: 'CLUSTER', value: 'sbs')
                     ]
             ])
