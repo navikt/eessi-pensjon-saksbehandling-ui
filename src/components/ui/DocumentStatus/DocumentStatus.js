@@ -68,8 +68,8 @@ class DocumentStatus extends Component {
     static getDerivedStateFromProps (nextProps, prevState) {
 
         return {
-           docs: nextProps.documents ? sortStatusByDocs(nextProps.documents) : undefined,
-           sed: !_.isEqual(nextProps.sed, prevState.sed) ? nextProps.sed : prevState.sed
+            docs: nextProps.documents ? sortStatusByDocs(nextProps.documents) : undefined,
+            sed: !_.isEqual(nextProps.sed, prevState.sed) ? nextProps.sed : prevState.sed
         };
     }
 
@@ -90,11 +90,13 @@ class DocumentStatus extends Component {
 
         case 'P4000':
 
-           let events = P4000Util.convertP4000SedToEvents(sed);
-           actions.openP4000Success(events);
-           actions.setPage('new');
-           history.push(routes.P4000);
-           break;
+            let events = P4000Util.convertP4000SedToEvents(sed);
+            actions.openP4000Success(events);
+            actions.setPage('new');
+            history.push(routes.P4000);
+            break;
+        default:
+            break;
         }
     }
 
@@ -105,7 +107,7 @@ class DocumentStatus extends Component {
         return aksjoner.indexOf('Send') >= 0 ? 'sent' : 'notsent'
     }
 
-    documentClick(doc, e) {
+    documentClick(doc) {
 
         const { rinaId, actions } = this.props;
 
@@ -134,10 +136,10 @@ class DocumentStatus extends Component {
 
 DocumentStatus.propTypes = {
     t                 : PT.func.isRequired,
-    documents         : PT.array,
     rinaId            : PT.string,
     className         : PT.object,
-    history           : PT.object.isRequired
+    history           : PT.object.isRequired,
+    actions           : PT.object.isRequired
 };
 
 export default connect(

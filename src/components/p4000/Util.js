@@ -246,10 +246,10 @@ class Util {
                         targetEvent.activity = sourceEvent.jobbUnderAnsattEllerSelvstendig;
                         targetEvent.name = sourceEvent.navnFirma;
                         if (sourceEvent.addresseFirma) {
-                           targetEvent.city = sourceEvent.addresseFirma.by;
-                           targetEvent.address = sourceEvent.addresseFirma.address;
-                           targetEvent.region = sourceEvent.addresseFirma.region;
-                           targetEvent.country = sourceEvent.addresseFirma.land.value;
+                            targetEvent.city = sourceEvent.addresseFirma.by;
+                            targetEvent.address = sourceEvent.addresseFirma.address;
+                            targetEvent.region = sourceEvent.addresseFirma.region;
+                            targetEvent.country = sourceEvent.addresseFirma.land.value;
                         }
                         break;
                     case 'boPerioder' :
@@ -258,8 +258,8 @@ class Util {
                     case 'barnepassPerioder' :
                         targetEvent.type = 'child';
                         if (sourceEvent.informasjonBarn) {
-                            targetEvent.firstname = sourceEvent.informasjonBarn.etternavn;
-                            targetEvent.lastname = sourceEvent.informasjonBarn.forrnavn;
+                            targetEvent.firstname = sourceEvent.informasjonBarn.fornavn;
+                            targetEvent.lastname = sourceEvent.informasjonBarn.etternavn;
                             targetEvent.birthDate = this.readDate(sourceEvent.informasjonBarn.foedseldato);
                             targetEvent.country = sourceEvent.informasjonBarn.land.value;
                         }

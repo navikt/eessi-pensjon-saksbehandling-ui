@@ -223,12 +223,12 @@ class New extends Component {
                             <div className='mt-3'>{t('p4000:file-save-to-file')}</div>
                         </Nav.Knapp>
                         <Nav.Knapp className='saveToServerButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSaveToServer.bind(this)}>
-                           <div>
-                               <Icons className='mr-3' size='4x' kind='document'/>
-                               <Icons className='mr-3' size='3x' kind='caretRight'/>
-                               <Icons size='3x' kind='server'/>
-                           </div>
-                           <div className='mt-3'>{t('p4000:file-save-to-server')}</div>
+                            <div>
+                                <Icons className='mr-3' size='4x' kind='document'/>
+                                <Icons className='mr-3' size='3x' kind='caretRight'/>
+                                <Icons size='3x' kind='server'/>
+                            </div>
+                            <div className='mt-3'>{t('p4000:file-save-to-server')}</div>
                         </Nav.Knapp>
                         <Nav.Knapp className='sendButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSubmit.bind(this)}>
                             <div>

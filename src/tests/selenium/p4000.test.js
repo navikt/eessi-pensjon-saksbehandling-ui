@@ -29,7 +29,7 @@ describe('Selenium P4000 page test', () => {
     describe('New P4000 page', () => {
 
         let fileButton, newP4000Button, openP4000FromFileButton, openP4000FromServerButton;
-        let viewP4000Button, newEventButton, saveP4000ToFileButton, saveP4000ToServerButton submitP4000Button;
+        let viewP4000Button, newEventButton, saveP4000ToFileButton, saveP4000ToServerButton, submitP4000Button;
 
         let workButton, homeButton, childButton, voluntaryButton, militaryButton;
         let birthButton, learnButton, dailyButton, sickButton, otherButton;

@@ -117,7 +117,7 @@ const onDateBlur = (props, key, e) => (
 );
 
 const onDateChange = (props, key, moment) => (
-    ! props.form[key] || moment.toDate().getTime() !== props.form[key].getTime() ?
+    ! props.form[key] || moment.toDate().getTime() !== props.form[key].getTime() ?
         props.actions.setEventProperty({[key] : moment.toDate() }):
         undefined
 );

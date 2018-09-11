@@ -36,8 +36,8 @@ class DatePicker extends Component {
         const { event, actions } = this.props;
 
         if (!event.dateType) {
-             // set initial state
-             actions.setEventProperty('dateType', 'both');
+            // set initial state
+            actions.setEventProperty('dateType', 'both');
         }
         this.props.provideController({
             hasNoValidationErrors : this.hasNoValidationErrors.bind(this),
@@ -220,7 +220,7 @@ class DatePicker extends Component {
     getToggle(dateType) {
 
         let { t } = this.props;
-        
+
         return <Nav.ToggleGruppe name='dateType' className='dateType' style={{display: 'inline-flex'}} onChange={this.handlePeriodChange.bind(this)}>
             <Nav.ToggleKnapp value='both'            checked={dateType === 'both'}            key='1'>{t('p4000:form-rangePeriod')}</Nav.ToggleKnapp>
             <Nav.ToggleKnapp value='onlyStartDate01' checked={dateType === 'onlyStartDate01'} key='2'>{t('p4000:form-onlyStartDate01')}</Nav.ToggleKnapp>
