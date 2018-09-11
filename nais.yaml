@@ -28,6 +28,9 @@ resources:
         cpu: 100m
         memory: 256Mi
 
+ingress:
+      enabled: true
+
 fasitResources:
     used:
     - alias: loginservice
