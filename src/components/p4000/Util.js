@@ -245,11 +245,11 @@ class Util {
                         targetEvent.id = sourceEvent.forsikkringEllerRegistreringNr;
                         targetEvent.activity = sourceEvent.jobbUnderAnsattEllerSelvstendig;
                         targetEvent.name = sourceEvent.navnFirma;
-                        if (sourceEvent.addresseFirma) {
-                            targetEvent.city = sourceEvent.addresseFirma.by;
-                            targetEvent.address = sourceEvent.addresseFirma.address;
-                            targetEvent.region = sourceEvent.addresseFirma.region;
-                            targetEvent.country = sourceEvent.addresseFirma.land.value;
+                        if (sourceEvent.adresseFirma) {
+                            targetEvent.city = sourceEvent.adresseFirma.by;
+                            targetEvent.address = sourceEvent.adresseFirma.address;
+                            targetEvent.region = sourceEvent.adresseFirma.region;
+                            targetEvent.country = { value : sourceEvent.adresseFirma.land };
                         }
                         break;
                     case 'boPerioder' :
@@ -261,7 +261,7 @@ class Util {
                             targetEvent.firstname = sourceEvent.informasjonBarn.fornavn;
                             targetEvent.lastname = sourceEvent.informasjonBarn.etternavn;
                             targetEvent.birthDate = this.readDate(sourceEvent.informasjonBarn.foedseldato);
-                            targetEvent.country = sourceEvent.informasjonBarn.land.value;
+                            targetEvent.country = { value : sourceEvent.informasjonBarn.land };
                         }
                         break;
                     case 'frivilligPerioder' :

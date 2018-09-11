@@ -86,6 +86,11 @@ class DocumentStatus extends Component {
 
         const { actions, history } = this.props;
 
+        this.setState({
+            loading: false,
+            dokumentId : undefined
+        });
+
         switch (sed.sed) {
 
         case 'P4000':
@@ -112,12 +117,17 @@ class DocumentStatus extends Component {
         const { rinaId, actions } = this.props;
 
         actions.getSed(rinaId, doc.dokumentId);
+
+        this.setState({
+            loading: true,
+            dokumentId : doc.dokumentId
+        });
     }
 
     render() {
 
         const { t, className } = this.props;
-        const { docs } = this.state;
+        const { docs, loading, dokumentId } = this.state;
 
         return <div className={classNames('div-documentStatus', className)}>
             <div className='flex-documentStatus'>
@@ -125,6 +135,7 @@ class DocumentStatus extends Component {
                     return <Nav.Hovedknapp key={index} className={classNames('document', 'mr-2', this.getClass(doc.aksjoner))}
                         title={doc.aksjoner.map(aks => {return t(aks.toLowerCase())}).join(', ')}
                         onClick={this.documentClick.bind(this, doc)}>
+                        {loading && doc.dokumentId === dokumentId ? <Nav.NavFrontendSpinner style={{position: 'absolute', top: '1rem'}}/> : null}
                         <Icons className='mr-3' size='3x' kind='document'/>
                         <div>{doc.dokumentType}</div>
                     </Nav.Hovedknapp>

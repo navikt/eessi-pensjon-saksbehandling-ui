@@ -80,9 +80,13 @@ class CountrySelect extends Component {
         let optionList = countries[locale];
         let options = list ? this.filter(list, optionList) : optionList;
 
+        let defValue = this.state.tag || value;
+        if (!defValue.label) {
+            defValue = _.find(options, {value: defValue.value});
+        }
         return <div className={classNames(className)}>
             <Select placeholder={t('ui:searchCountry')}
-                value={this.state.tag || value}
+                value={defValue}
                 options={options}
                 optionRenderer={this.CountryOptionRenderer}
                 backspaceRemoves={true}
