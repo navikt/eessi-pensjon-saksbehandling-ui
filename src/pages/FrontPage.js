@@ -70,7 +70,7 @@ class FrontPage extends Component {
                         <LanguageSelector/>
                     </div>
                     <div className='col text-center m-auto'>
-                        <a href='https://[loginservice]/login?redirect=https://pensjon-utland-t.nav.no/'>LOGINSERVICE</a>
+                        <a href='https://loginservice-q.nav.no/login?redirect=https://pensjon-utland-t.nav.no/'>LOGINSERVICE</a>
                     </div>
                 </Nav.Column>
             </Nav.Row>
