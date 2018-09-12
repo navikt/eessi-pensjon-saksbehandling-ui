@@ -69,6 +69,9 @@ class FrontPage extends Component {
                     <div className='col text-center m-auto'>
                         <LanguageSelector/>
                     </div>
+                    <div className='col text-center m-auto'>
+                        <a href='https://[loginservice]/login?redirect=https://pensjon-utland-t.nav.no/'>LOGINSERVICE</a>
+                    </div>
                 </Nav.Column>
             </Nav.Row>
             <div className='fieldset p-4 m-4'>
