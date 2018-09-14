@@ -81,7 +81,7 @@ class CountrySelect extends Component {
         let options = list ? this.filter(list, optionList) : optionList;
 
         let defValue = this.state.tag || value;
-        if (!defValue.label) {
+        if (defValue && !defValue.label) {
             defValue = _.find(options, {value: defValue.value});
         }
         return <div className={classNames(className)}>
