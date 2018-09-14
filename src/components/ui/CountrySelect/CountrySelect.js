@@ -17,7 +17,8 @@ class CountrySelect extends Component {
                 width: 30,
                 height: 20
             },
-            tag: null
+            tag: this.props.value || null,
+            selectRef: React.createRef()
         };
         this.logChange = this.logChange.bind(this);
         this.CountryRenderValue = this.CountryRenderValue.bind(this);
@@ -26,6 +27,10 @@ class CountrySelect extends Component {
 
     logChange(val) {
         this.setState({tag: val});
+        if(this.state.selectRef){
+            console.log(this.state.selectRef.current);
+        }
+
         if (typeof this.props.onSelect === 'function') {
             this.props.onSelect(val);
         }
@@ -78,22 +83,30 @@ class CountrySelect extends Component {
         const { t, value, locale, list, className } = this.props;
 
         let optionList = countries[locale];
-        let options = list ? this.filter(list, optionList) : optionList;
+        let options = (list ? this.filter(list, optionList) : optionList);
 
         return <div className={classNames(className)}>
             <Select placeholder={t('ui:searchCountry')}
-                value={this.state.tag || value}
+                value={this.state.tag || ''}
                 options={options}
                 optionRenderer={this.CountryOptionRenderer}
                 backspaceRemoves={true}
                 onChange={this.logChange}
                 valueRenderer={this.CountryRenderValue}
                 style={{...this.props.style}}
-                multi={false}/>
+                multi={false}
+                required={this.props.required}
+                id={this.props.id}
+                inputProps={
+                    {
+                        ...this.props.inputProps,
+                        Ref: this.state.selectRef           
+                    }}
+            />
         </div>;
     }
 }
-
+//                
 CountrySelect.propTypes = {
     onSelect  : PT.func.isRequired,
     value     : PT.object,
