@@ -20,10 +20,7 @@ class CountrySelect extends Component {
 
     onChange(val) {
         this.setState({tag: val});
-        if(this.state.selectRef){
-            console.log(this.state.selectRef.current);
-        }
-
+        
         if (typeof this.props.onSelect === 'function') {
             this.props.onSelect(val);
         }
@@ -55,7 +52,7 @@ class CountrySelect extends Component {
                 inputProps={
                     {
                         ...this.props.inputProps,
-                        Ref: this.state.selectRef           
+                        Ref: this.state.selectRef
                     }}
                 components={{Option: CountryOption, SingleValue: CountryValue}}
                 selectProps={{
