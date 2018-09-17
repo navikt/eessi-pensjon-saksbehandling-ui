@@ -15,9 +15,9 @@ export default class CheckboxesWithValidation extends React.Component {
     validate(){
         let valid = Object.values(this.state.checkboxStates).reduce((acc, cur)=> acc||cur,false);
         if(valid){
-            this.props.onValid();
+            this.props.active();
         }else{
-            this.props.onInvalid();
+            this.props.inactive();
         }
     }
 
@@ -44,8 +44,8 @@ export default class CheckboxesWithValidation extends React.Component {
 }
 
 CheckboxesWithValidation.propTypes = {
-    onValid   : PT.func,
-    onInvalid : PT.func,
+    active    : PT.func,
+    inactive  : PT.func,
     action    : PT.func,
     t         : PT.func
 }

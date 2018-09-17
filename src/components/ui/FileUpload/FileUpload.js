@@ -23,8 +23,8 @@ class FileUpload extends Component {
     validate(e) {
         this.props.action(e);
         this.state.files.length > 0?
-            this.props.onValid():
-            this.props.onInvalid();
+            this.props.active():
+            this.props.inactive();
     }
 
     componentDidMount() {
@@ -213,8 +213,8 @@ FileUpload.propTypes = {
     className    : PT.string,
     beforeDrop   : PT.func,
     afterDrop    : PT.func,
-    onValid      : PT.func,
-    onInvalid    : PT.func,
+    active       : PT.func,
+    inactive     : PT.func,
     action       : PT.func,
     inputProps   : PT.object
 };

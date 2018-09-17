@@ -25,38 +25,38 @@ function validityObjectToObject(val){
 function getError(val, name){
     let errorType;
     switch(true){
-        case val.customError:
-            errorType='customError';
-            break;
-        case val.valueMissing:
-            errorType='valueMissing';
-            break;
-        case val.patternMismatch:
-            errorType='patternMismatch';
-            break;
-        case val.badInput:
-            errorType='badInput';
-            break;
-        case val.rangeOverflow:
-            errorType='rangeOverflow';
-            break;
-        case val.rangeUnderflow:
-            errorType='rangeUnderflow';
-            break;
-        case val.stepMismatch:
-            errorType='stepMismatch';
-            break;
-        case val.tooLong:
-            errorType='tooLong';
-            break;
-        case val.tooShort:
-            errorType='tooShort';
-            break;
-        case val.typeMismatch:
-            errorType='typeMismatch';
-            break;
-        default:
-            errorType='unknownError';        
+    case val.customError:
+        errorType='customError';
+        break;
+    case val.valueMissing:
+        errorType='valueMissing';
+        break;
+    case val.patternMismatch:
+        errorType='patternMismatch';
+        break;
+    case val.badInput:
+        errorType='badInput';
+        break;
+    case val.rangeOverflow:
+        errorType='rangeOverflow';
+        break;
+    case val.rangeUnderflow:
+        errorType='rangeUnderflow';
+        break;
+    case val.stepMismatch:
+        errorType='stepMismatch';
+        break;
+    case val.tooLong:
+        errorType='tooLong';
+        break;
+    case val.tooShort:
+        errorType='tooShort';
+        break;
+    case val.typeMismatch:
+        errorType='typeMismatch';
+        break;
+    default:
+        errorType='unknownError';        
     }
     if(errorMessages[name]){
         return errorType || null;
@@ -187,10 +187,10 @@ export class Contact extends React.Component{
                 <Nav.Row>
                     <div className='col-md-6'>
                         <Nav.Input label={t('pinfo:form-bankName') + ' *'} defaultValue={bank.bankName || null}
-                        onChange={this.onChangeHandler.bind(this)} required="true"
-                        onInvalid={this.onInvalid.bind(this)}
-                        id={this.state.nameToId['bankName']}
-                        feil={inputStates['bankName'].showError? inputStates['bankName'].error: null}
+                            onChange={this.onChangeHandler.bind(this)} required="true"
+                            onInvalid={this.onInvalid.bind(this)}
+                            id={this.state.nameToId['bankName']}
+                            feil={inputStates['bankName'].showError? inputStates['bankName'].error: null}
                         />
 
                     </div>
@@ -201,7 +201,7 @@ export class Contact extends React.Component{
                             onInvalid={this.onInvalid.bind(this)}
                             id={this.state.nameToId['bankAddress']}
                             feil={inputStates['bankAddress'].showError? inputStates['bankAddress'].error: null}
-                            />
+                        />
                             
                     </div>
                 </Nav.Row>
@@ -212,12 +212,12 @@ export class Contact extends React.Component{
                             <Nav.SkjemaGruppe feil={inputStates['bankCountry'].showError? inputStates['bankCountry'].error: null}>
                                 <CountrySelect locale={locale} value={
                                     bank.bankCountry || null}
-                                    onSelect={this.onSelectHandler.bind(this, 'bankCountry')/*action.bind(null, 'bankCountry')*/} required="true" 
-                                    inputProps={{
-                                        onInvalid: this.onInvalid.bind(this),
-                                    }}
-                                    id={this.state.nameToId['bankCountry']}
-                                    />
+                                onSelect={this.onSelectHandler.bind(this, 'bankCountry')/*action.bind(null, 'bankCountry')*/} required="true" 
+                                inputProps={{
+                                    onInvalid: this.onInvalid.bind(this),
+                                }}
+                                id={this.state.nameToId['bankCountry']}
+                                />
                             </ Nav.SkjemaGruppe>
                         </div>
                     </div>
@@ -228,7 +228,7 @@ export class Contact extends React.Component{
                             onInvalid={this.onInvalid.bind(this)}
                             id={this.state.nameToId['bankBicSwift']}
                             feil={inputStates['bankBicSwift'].showError? inputStates['bankBicSwift'].error: null}
-                            />
+                        />
                     </div>
                 </Nav.Row>
                 <Nav.Row>
@@ -239,7 +239,7 @@ export class Contact extends React.Component{
                             onInvalid={this.onInvalid.bind(this)}
                             id={this.state.nameToId['bankIban']}
                             feil={inputStates['bankIban'].showError? inputStates['bankIban'].error: null}
-                            />
+                        />
                     </div>
                     <div className='col-md-6'>
                         <Nav.Input
@@ -249,13 +249,13 @@ export class Contact extends React.Component{
                             onInvalid={this.onInvalid.bind(this)}
                             id={this.state.nameToId['bankCode']}
                             feil={inputStates['bankCode'].showError? inputStates['bankCode'].error: null}
-                            />
+                        />
                     </div>
                 </Nav.Row>
             </div>
         );
 
-    };
+    }
 }
 
 export default Bank;
