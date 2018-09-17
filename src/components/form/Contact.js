@@ -1,8 +1,8 @@
 import React from 'react';
 import uuidv4 from 'uuid/v4';
+import PT from 'prop-types';
 import getError from './shared/getError';
 import * as Nav from '../ui/Nav';
-import CountrySelect from '../ui/CountrySelect/CountrySelect';
 
 
 const errorMessages = {
@@ -35,11 +35,9 @@ export class Contact extends React.Component{
             let id = event.target.id;
             let name = this.state.idToName[id];
             let validity = event.target.validity;
-            let inputStates = this.state.inputStates;
-            let input = inputStates[name];
             let error = getError(validity);
             this.setState(
-                (prevState, props)=>
+                (prevState)=>
                 {   
                     return {
                         inputStates: {
@@ -89,7 +87,6 @@ export class Contact extends React.Component{
     render(){
         const {t, contact} = this.props;
         const nameToId = this.state.nameToId;
-        const idToName = this.state.idToName;
         const inputStates = this.state.inputStates;     
         return(
             <div className='mt-3'>
@@ -98,21 +95,27 @@ export class Contact extends React.Component{
                         <Nav.Input label={t('pinfo:form-userEmail') + ' *'} defaultValue={contact.userEmail || ''}
                             onChange={this.onChangeHandler.bind(this)} required="true" type="email"
                             onInvalid={this.onInvalid.bind(this)}
-                            id={this.state.nameToId['userEmail']}
+                            id={nameToId['userEmail']}
                             feil={inputStates['userEmail'].showError? inputStates['userEmail'].error: null}
-                            />
+                        />
 
                         <Nav.Input label={t('pinfo:form-userPhone') + ' *'} defaultValue={contact.userPhone || ''}
                             onChange={this.onChangeHandler.bind(this)} required="true" type="tel" pattern=".*\d.*"
                             onInvalid={this.onInvalid.bind(this)}
-                            id={this.state.nameToId['userPhone']}
+                            id={nameToId['userPhone']}
                             feil={inputStates['userPhone'].showError? inputStates['userPhone'].error: null}
-                            />
+                        />
                     </div>
                 </Nav.Row>
             </div>
         );
     }
 }
+Contact.propTypes = {
+    contact : PT.object,
+    action  : PT.func,
+    t       : PT.func
+};
+
 
 export default Contact;
