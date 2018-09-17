@@ -1,4 +1,6 @@
 import * as types from '../constants/actionTypes';
+import * as urls  from '../constants/urls';
+import * as api   from './api';
 import i18n from '../i18n';
 
 export function changeLanguage (language) {
@@ -9,6 +11,19 @@ export function changeLanguage (language) {
         payload : language
     };
 }
+
+export function login () {
+
+    return api.call({
+            url     : urls.APP_LOGIN_URL,
+            type    : {
+                request : types.APP_LOGIN_REQUEST,
+                success : types.APP_LOGIN_SUCCESS,
+                failure : types.APP_LOGIN_FAILURE
+            }
+        });
+}
+
 
 export function setReferrer (referrer) {
 

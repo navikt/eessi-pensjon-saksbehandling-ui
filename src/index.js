@@ -12,6 +12,7 @@ import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { I18nextProvider } from 'react-i18next';
+import { CookiesProvider } from 'react-cookie';
 
 import * as reducers from './reducers';
 import 'moment';
@@ -50,31 +51,33 @@ const store = createStoreWithMiddleware(reducer, initialState);
 
 ReactDOM.render(
     <I18nextProvider i18n={i18n}>
-        <Provider store={store}>
-            <ConnectedRouter history={history}>
-                <Switch>
-                    <Route exact path={routes.PSELV} component={Pages.PSelv}/>
-                    <Route exact path={routes.PINFO}  component={Pages.PInfo}/>
-                    <Route exact path={routes.P4000}  component={Pages.P4000}/>
+        <CookiesProvider>
+            <Provider store={store}>
+                <ConnectedRouter history={history}>
+                    <Switch>
+                        <Route exact path={routes.PSELV} component={Pages.PSelv}/>
+                        <Route exact path={routes.PINFO} component={Pages.PInfo}/>
+                        <Route exact path={routes.P4000} component={Pages.P4000}/>
 
-                    <Route exact path={routes.PDF_GENERATE} component={Pages.GeneratePDF}/>
-                    <Route exact path={routes.PDF_EDIT}     component={Pages.EditPDF}/>
-                    <Route exact path={routes.PDF_SELECT}   component={Pages.SelectPDF}/>
+                        <Route exact path={routes.PDF_GENERATE} component={Pages.GeneratePDF}/>
+                        <Route exact path={routes.PDF_EDIT}     component={Pages.EditPDF}/>
+                        <Route exact path={routes.PDF_SELECT}   component={Pages.SelectPDF}/>
 
-                    <Route exact path={routes.CASE_GET}               component={Pages.GetCase}/>
-                    <Route exact path={routes.CASE_EDIT_WITHOUT_RINA} component={Pages.EditCase}/>
-                    <Route exact path={routes.CASE_EDIT_WITH_RINA}    component={Pages.EditCase}/>
+                        <Route exact path={routes.CASE_GET}               component={Pages.GetCase}/>
+                        <Route exact path={routes.CASE_EDIT_WITHOUT_RINA} component={Pages.EditCase}/>
+                        <Route exact path={routes.CASE_EDIT_WITH_RINA}    component={Pages.EditCase}/>
 
-                    <Route exact path={routes.CASE_CONFIRM}  component={Pages.ConfirmCase}/>
-                    <Route exact path={routes.CASE_GENERATE} component={Pages.GenerateCase}/>
-                    <Route exact path={routes.CASE_SAVE}     component={Pages.SaveCase}/>
-                    <Route exact path={routes.CASE_SEND}     component={Pages.SendCase}/>
+                        <Route exact path={routes.CASE_CONFIRM}  component={Pages.ConfirmCase}/>
+                        <Route exact path={routes.CASE_GENERATE} component={Pages.GenerateCase}/>
+                        <Route exact path={routes.CASE_SAVE}     component={Pages.SaveCase}/>
+                        <Route exact path={routes.CASE_SEND}     component={Pages.SendCase}/>
 
-                    <Route path={routes.ROOT} component={Pages.FrontPage}/>
-                    <Redirect from='/' to={routes.ROOT}/>
-                </Switch>
-            </ConnectedRouter>
-        </Provider>
+                        <Route path={routes.ROOT} component={Pages.FrontPage}/>
+                        <Redirect from='/' to={routes.ROOT}/>
+                    </Switch>
+                </ConnectedRouter>
+            </Provider>
+        </CookiesProvider>
     </I18nextProvider>,
     document.getElementById('root')
 );

@@ -32,6 +32,9 @@ export const CASE_SEND_SED_URL      = FAG_URL + '/sendsed';
 export const CASE_GET_SED_URL       = FAG_URL + '/sed/get/%(rinaId)s/%(dokumentId)s';
 export const CASE_DELETE_SED_URL    = FAG_URL + '/sed/delete/%(rinaId)s/%(sed)s/%(dokumentId)s';
 
+// Temp
+export const APP_LOGIN_URL = FAG_URL + '/login';
+
 // PdfController
 export const PDF_GENERATE_URL = PDF_URL + '/generate';
 
