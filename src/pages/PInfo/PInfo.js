@@ -15,16 +15,17 @@ import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';
 import CountrySelect from '../../components/ui/CountrySelect/CountrySelect';
-import FileUpload from '../../components/ui/FileUpload/FileUpload';
 import P4000Util from '../../components/p4000/Util';
 import File from '../../components/ui/File/File';
-import Validation from '../../components/pinfo/Validation';
 
 import * as UrlValidator from '../../utils/UrlValidator';
 import * as routes from '../../constants/routes';
 import * as pinfoActions from '../../actions/pinfo';
 import * as uiActions from '../../actions/ui';
 import * as appActions from '../../actions/app';
+import Bank from '../../components/form/Bank';
+import Contact from '../../components/form/Contact';
+import PdfUploadComponent from '../../components/form/PdfUploadComponent';
 
 import './PInfo.css';
 
@@ -48,41 +49,6 @@ const componentDidMount = (props) => {
     }
 }
 
-const hasError = (props, key) => (
-    props.form.displayError && props.form.validationErrors[key] ?
-        true:
-        false
-);
-
-const getErrors = (props, key) => (
-    hasError(props, key)?
-        props.form.validationErrors[key]:
-        []
-)
-
-const errorStyle = (props, key) =>(
-    hasError(props, key) ?
-        {background: '#F3E3E3'}:
-        {}
-);
-
-const validateForm = async (props) => (
-    isNaN(props.form.step)?
-        false:
-        function(){
-            if(this !== undefined){
-                if(Object.keys(this).length === 0){
-                    props.actions.setEventProperty({validationErrors: null});
-                    return true;
-                }else {
-                    props.actions.setEventProperty({validationErrors: this});
-                    return false;
-                }
-            }
-            return false;
-        }.apply(Validation(props.form, props.form.step))
-);
-
 const onBackButtonClick = async (props) => (
     props.actions.setEventProperty( {step: props.form.step - 1, displayError: false} )
 );
@@ -91,12 +57,6 @@ const onBackToReferrerButtonClick = async (props) => (
     UrlValidator.validateReferrer(props.referrer) ?
         props.history.push(routes.ROOT + props.referrer) :
         null
-);
-
-const onForwardButtonClick = async (props) => (
-    await validateForm(props) ?
-        props.actions.setEventProperty( {step: props.form.step + 1, displayError: false} ) :
-        props.actions.setEventProperty( {displayError: true} )
 );
 
 const onSaveButtonClick = (props) => (
@@ -122,13 +82,22 @@ const onDateChange = (props, key, moment) => (
         undefined
 );
 
-const setValue = (props, key , e) => (
-    ( key === 'bankCountry' || key === 'retirementCountry' || key === 'attachments' || key === 'workIncomeCurrency') ?
-        props.actions.setEventProperty( {[key]: e} ):
-        key === 'attachmentTypes' ?
-            props.actions.setEventProperty({[key]: {...props.form[key], [e.target.getAttribute('id')] : e.target.checked}} ) :
-            props.actions.setEventProperty( {[key]: e.target.value })
-)
+const setValue = (props, key , e) => {
+    if( key === 'bankCountry' || key === 'retirementCountry' || key === 'attachments' || key === 'workIncomeCurrency'){
+        props.actions.setEventProperty( {[key]: e} )
+    }else if(key === 'attachmentTypes' && e.target){
+        props.actions.setEventProperty({[key]: {...props.form[key], [e.target.getAttribute('id')] : e.target.checked}} )
+    }else if(e.target){
+        props.actions.setEventProperty( {[key]: e.target.value })
+    }
+}
+
+function isValid (e) {
+    e.preventDefault();
+    let validity = e.target.form.checkValidity();//reportValidity();
+    console.log(validity);
+    return validity;
+}
 
 const PInfo = (props) => (
     <TopContainer className='pInfo topContainer'>
@@ -159,89 +128,44 @@ const PInfo = (props) => (
         <div className={classNames('fieldset','p-4','mb-4','ml-3','mr-3')}>
             <Nav.HjelpetekstBase>{props.t('pinfo:help-step' + props.form.step )}</Nav.HjelpetekstBase>
 
-            {props.form.step === 0 ? <div className='mt-3'>
-                <Nav.Row>
-                    <div className='col-md-6'>
-                        {hasError(props, 'bankName') ?
-                            getErrors(props, 'bankName').map(err => props.t(err))
-                            :'' }
-                        <Nav.Input label={props.t('pinfo:form-bankName') + ' *'} value={props.form.bankName || ''}
-                            onChange={setValue.bind(null, props, 'bankName')}
-                            style= {errorStyle(props, 'bankName')} />
-                    </div>
-                    <div className='col-md-6'>
-                        {hasError(props, 'bankAddress') ?
-                            getErrors(props, 'bankAddress').map(err => props.t(err))
-                            :'' }
-                        <Nav.Textarea label={props.t('pinfo:form-bankAddress') + ' *'} value={props.form.bankAddress || ''}
-                            style={{minHeight:'200px', ...errorStyle(props, 'bankAddress')}}
-                            onChange={setValue.bind(null, props, 'bankAddress')}/>
-                    </div>
-                </Nav.Row>
-                <Nav.Row>
-                    <div className='col-md-6'>
-                        <div className='mb-3' >
-                            {hasError(props, 'bankCountry') ?
-                                getErrors(props, 'bankCountry').map(err => props.t(err))
-                                :'' }
-                            <label>{props.t('pinfo:form-bankCountry') + ' *'}</label>
-                            <CountrySelect locale={props.locale} value={props.form.bankCountry || {}}
-                                onSelect={setValue.bind(null, props, 'bankCountry')}
-                                style = {errorStyle(props, 'bankCountry')}
-                            />
-                        </div>
-                    </div>
-                    <div className='col-md-6'>
-                        {hasError(props, 'bankBicSwift') ?
-                            getErrors(props, 'bankBicSwift').map(err => props.t(err))
-                            :'' }
-                        <Nav.Input label={props.t('pinfo:form-bankBicSwift') + ' *'} value={props.form.bankBicSwift || ''}
-                            onChange={setValue.bind(null, props, 'bankBicSwift')}
-                            style = {errorStyle(props, 'bankBicSwift')}/>
-                    </div>
-                </Nav.Row>
-                <Nav.Row>
-                    <div className='col-md-6'>
-                        {hasError(props, 'bankIban') ?
-                            getErrors(props, 'bankIban').map(err => props.t(err))
-                            :'' }
-                        <Nav.Input label={props.t('pinfo:form-bankIban') + ' *'} value={props.form.bankIban || ''}
-                            onChange={setValue.bind(null, props, 'bankIban')}
-                            style = {errorStyle(props, 'bankIban')}/>
-                    </div>
-                    <div className='col-md-6'>
-                        {hasError(props, 'bankCode') ?
-                            getErrors(props, 'bankCode').map(err => props.t(err))
-                            :'' }
-                        <Nav.Input
-                            label={(props.t('pinfo:form-bankCode') + ' *')}
-                            value={props.form.bankCode || ''}
-                            onChange={setValue.bind(null, props, 'bankCode')}
-                            style = {errorStyle(props, 'bankCode')}/>
-                    </div>
-                </Nav.Row>
-            </div> : null}
-
-            {props.form.step === 1 ? <div className='mt-3'>
-
-                <Nav.Row>
-                    <div className='col-md-6'>
-                        <Nav.Input label={props.t('pinfo:form-userEmail') + ' *'} value={props.form.userEmail || ''}
-                            onChange={setValue.bind(null, props, 'userEmail')}/>
-
-                        <Nav.Input label={props.t('pinfo:form-userPhone') + ' *'} value={props.form.userPhone || ''}
-                            onChange={setValue.bind(null, props, 'userPhone')}/>
-                    </div>
-                </Nav.Row>
-            </div> : null}
-
-            {props.form.step === 2 ? <div className='mt-3'>
+            {props.form.step === 0 ?
+                <form id='pinfo-form'>
+                    <Bank
+                        t={props.t}
+                        bank={{
+                            bankName: props.form.bankName,
+                            bankAddress: props.form.bankAddress,
+                            bankCountry: props.form.bankCountry,
+                            bankBicSwift: props.form.bankBicSwift,
+                            bankIban: props.form.bankIban,
+                            bankCode: props.form.bankCode
+                        }}
+                        action={setValue.bind(null, props)}
+                        locale={props.locale}
+                        showError='true'
+                    />
+                </form>
+                : null}
+            {props.form.step === 1 ?
+                <form id='pinfo-form'>
+                    <Contact
+                        t={props.t}
+                        contact={{
+                            userEmail: props.form.userEmail,
+                            userPhone: props.form.userPhone,
+                        }}
+                        action={setValue.bind(null, props)}
+                    />
+                </ form>:
+                null
+            }
+            {props.form.step === 2 ? <form id='pinfo-form'><div className='mt-3'>
 
                 <Nav.Row className='mb-4'>
                     <div className='col-md-6'>
                         <Nav.Select label={props.t('pinfo:form-workType') + ' *'} value={props.form.workType || ''}
-                            onChange={setValue.bind(null, props, 'workType')}>
-                            <option value='--'>{props.t('pinfo:form-workType-select-option')}</option>
+                            onChange={setValue.bind(null, props, 'workType')} required='true'>
+                            <option value=''>{props.t('pinfo:form-workType-select-option')}</option>
                             <option value='01'>{props.t('pinfo:form-workType-option-01')}</option>
                             <option value='02'>{props.t('pinfo:form-workType-option-02')}</option>
                             <option value='03'>{props.t('pinfo:form-workType-option-03')}</option>
@@ -266,7 +190,8 @@ const PInfo = (props) => (
                             onMonthChange={onDateChange.bind(null, props, 'workStartDate')}
                             onYearChange={onDateChange.bind(null, props, 'workStartDate')}
                             onBlur={onDateBlur.bind(null, props, 'workStartDate')}
-                            onChange={onDateChange.bind(null, props, 'workStartDate')}/>
+                            onChange={onDateChange.bind(null, props, 'workStartDate')}
+                            required='true'/>
                     </div>
                     <div className='col-md-4'>
                         <label>{props.t('pinfo:form-workEndDate')+ ' *'}</label>
@@ -280,7 +205,8 @@ const PInfo = (props) => (
                             onMonthChange={onDateChange.bind(null, props, 'workEndDate')}
                             onYearChange={onDateChange.bind(null, props, 'workEndDate')}
                             onBlur={onDateBlur.bind(null, props, 'workEndDate')}
-                            onChange={onDateChange.bind(null, props, 'workEndDate')}/>
+                            onChange={onDateChange.bind(null, props, 'workEndDate')}
+                            required='true'/>
                     </div>
                     <div className='col-md-4'>
                         <label>{props.t('pinfo:form-workEstimatedRetirementDate')+ ' *'}</label>
@@ -294,26 +220,28 @@ const PInfo = (props) => (
                             onMonthChange={onDateChange.bind(null, props, 'workEstimatedRetirementDate')}
                             onYearChange={onDateChange.bind(null, props, 'workEstimatedRetirementDate')}
                             onBlur={onDateBlur.bind(null, props, 'workEstimatedRetirementDate')}
-                            onChange={onDateChange.bind(null, props, 'workEstimatedRetirementDate')}/>
+                            onChange={onDateChange.bind(null, props, 'workEstimatedRetirementDate')}
+                            required='true'/>
                     </div>
                 </Nav.Row>
                 <Nav.Row className='mb-4'>
                     <div className='col-md-6'>
                         <Nav.Input label={props.t('pinfo:form-workHourPerWeek') + ' *'} value={props.form.workHourPerWeek || ''}
-                            onChange={setValue.bind(null, props, 'workHourPerWeek')}/>
+                            onChange={setValue.bind(null, props, 'workHourPerWeek')} required='true'/>
 
                     </div>
                 </Nav.Row>
                 <Nav.Row className='mb-4'>
                     <div className='col-md-6'>
                         <Nav.Input label={props.t('pinfo:form-workIncome') + ' *'} value={props.form.workIncome || ''}
-                            onChange={setValue.bind(null, props, 'workIncome')}/>
+                            onChange={setValue.bind(null, props, 'workIncome')} required='true'/>
                     </div>
                     <div className='col-md-6'>
                         <label>{props.t('pinfo:form-workIncomeCurrency') + ' *'}</label>
                         <CountrySelect locale={props.locale} type={'currency'}
                             value={props.form.workIncomeCurrency || {}}
-                            onSelect={setValue.bind(null, props, 'workIncomeCurrency')}/>
+                            onSelect={setValue.bind(null, props, 'workIncomeCurrency')}
+                            required='true'/>
                     </div>
                 </Nav.Row>
                 <Nav.Row className='mb-4'>
@@ -329,12 +257,13 @@ const PInfo = (props) => (
                             onMonthChange={onDateChange.bind(null, props, 'workPaymentDate')}
                             onYearChange={onDateChange.bind(null, props, 'workPaymentDate')}
                             onBlur={onDateBlur.bind(null, props, 'workPaymentDate')}
-                            onChange={onDateChange.bind(null, props, 'workPaymentDate')}/>
+                            onChange={onDateChange.bind(null, props, 'workPaymentDate')}
+                            required='true'/>
                     </div>
                     <div className='col-md-6'>
                         <Nav.Select label={props.t('pinfo:form-workPaymentFrequency') + ' *'} value={props.form.workPaymentFrequency || ''}
-                            onChange={setValue.bind(null, props, 'workPaymentFrequency')}>
-                            <option value='--'>{props.t('pinfo:form-workPaymentFrequency-choose-option')}</option>
+                            onChange={setValue.bind(null, props, 'workPaymentFrequency')} required='true'>
+                            <option value=''>{props.t('pinfo:form-workPaymentFrequency-choose-option')}</option>
                             <option value='01'>{props.t('pinfo:form-workPaymentFrequency-option-01')}</option>
                             <option value='02'>{props.t('pinfo:form-workPaymentFrequency-option-02')}</option>
                             <option value='03'>{props.t('pinfo:form-workPaymentFrequency-option-03')}</option>
@@ -345,36 +274,33 @@ const PInfo = (props) => (
                         </Nav.Select>
                     </div>
                 </Nav.Row>
-            </div> : null}
+            </div></ form>: null}
 
-            {props.form.step === 3 ? <div>
-                <Nav.Row>
-                    <div className='col-md-6'>
-                        <Nav.CheckboksPanelGruppe legend={props.t('pinfo:form-attachmentTypes')}
-                            checkboxes={[
-                                {'label' : props.t('pinfo:form-attachmentTypes-01'), 'value' : '01', 'id' : '01', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['01']: false) }},
-                                {'label' : props.t('pinfo:form-attachmentTypes-02'), 'value' : '02', 'id' : '02', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['02']: false) }},
-                                {'label' : props.t('pinfo:form-attachmentTypes-03'), 'value' : '03', 'id' : '03', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['03']: false) }},
-                                {'label' : props.t('pinfo:form-attachmentTypes-04'), 'value' : '04', 'id' : '04', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['04']: false) }}
-                            ]}
-                            onChange={setValue.bind(null, props, 'attachmentTypes')} />
-                    </div>
-                </Nav.Row>
-                <FileUpload files={props.form.attachments || []}
-                    onFileChange={setValue.bind(null, props, 'attachments')}/>
-            </div> : null}
+            {props.form.step === 3 ? <form id='pinfo-form'><div>
+                <PdfUploadComponent t={props.t} form={props.form} 
+                    checkboxes={[
+                        {'label' : props.t('pinfo:form-attachmentTypes-01'), 'value' : '01', 'id' : '01', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['01']: false) }},
+                        {'label' : props.t('pinfo:form-attachmentTypes-02'), 'value' : '02', 'id' : '02', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['02']: false) }},
+                        {'label' : props.t('pinfo:form-attachmentTypes-03'), 'value' : '03', 'id' : '03', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['03']: false) }},
+                        {'label' : props.t('pinfo:form-attachmentTypes-04'), 'value' : '04', 'id' : '04', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['04']: false) }}
+                    ]}
+                    files= {props.form.attachments || []}
+                    checkboxAction = {setValue.bind(null, props, 'attachmentTypes')}
+                    fileUploadAction = {setValue.bind(null, props, 'attachments')}
+                />
+            </div></ form>: null}
 
-            {props.form.step === 4 ? <div className='mb-3'>
+            {props.form.step === 4 ? <form id='pinfo-form'><div className='mb-3'>
                 <Nav.Row>
                     <div className='col-md-6'>
                         <label>{props.t('pinfo:form-retirementCountry') + ' *'}</label>
                         <CountrySelect locale={props.locale} value={props.form.retirementCountry || {}}
-                            onSelect={setValue.bind(null, props, 'retirementCountry')}/>
+                            onSelect={setValue.bind(null, props, 'retirementCountry')} required='true'/>
                     </div>
                 </Nav.Row>
-            </div> : null}
+            </div> </ form>: null}
 
-            {props.form.step === 5 ? <div>
+            {props.form.step === 5 ? <form id='pinfo-form'><div>
                 <fieldset>
                     <legend>{props.t('pinfo:form-bank')}</legend>
                     <dl className='row'>
@@ -453,7 +379,7 @@ const PInfo = (props) => (
                         </dd>
                     </dl>
                 </fieldset>
-            </div> : null}
+            </div> </ form>: null}
         </div>
 
         <Nav.Row className='mb-4 p-2'>
@@ -464,10 +390,11 @@ const PInfo = (props) => (
             </Nav.Column>
             <Nav.Column>
                 {props.form.step !== 5 ?
-                    <Nav.Hovedknapp className='forwardButton w-100' onClick={onForwardButtonClick.bind(null, props)}>{props.t('ui:forward')}</Nav.Hovedknapp>
+                    <Nav.Hovedknapp className='forwardButton w-100' onClick={e => (isValid(e)? props.actions.setEventProperty( {step: props.form.step + 1}): null)} form="pinfo-form">{props.t('ui:forward')}</Nav.Hovedknapp>
                     : <Nav.Hovedknapp className='sendButton w-100' onClick={onSaveButtonClick.bind(null, props)}>{props.t('ui:save')}</Nav.Hovedknapp> }
             </Nav.Column>
         </Nav.Row>
+
     </TopContainer>
 
 );
@@ -477,7 +404,8 @@ PInfo.propTypes = {
     t       : PT.func,
     locale  : PT.string,
     form    : PT.object,
-    referrer: PT.string
+    referrer: PT.string,
+    actions : PT.object,
 };
 
 export default connect(

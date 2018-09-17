@@ -75,7 +75,7 @@
     "validation-noBankCode" : "No bank code",
     "validation-noUserEmail" : "No user email",
     "validation-invalidUserEmail" : "Invalid user email",
-    "validation-noUserPhone" : "No user mobile"
+    "validation-noUserPhone" : "No user mobile",
     "validation-noWorkType" : "No work type",
     "validation-noWorkStartDate" : "No work start date",
     "validation-noWorkEndDate" : "No work end date",
@@ -87,3 +87,4 @@
     "validation-noWorkPaymentFrequency" : "No work payment frequency",
     "validation-noAttachmentTypes" : "No attachmentTypes",
     "validation-noRetirementCountry" : "No retirement country"
+}

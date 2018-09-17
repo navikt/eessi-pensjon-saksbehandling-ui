@@ -62,7 +62,7 @@ class FrontPage extends Component {
         let idtoken = cookies.get('idToken');
 
         if (!idtoken) {
-             actions.login();
+            actions.login();
         }
     }
 
@@ -73,7 +73,7 @@ class FrontPage extends Component {
         let idtoken = cookies.get('idToken');
 
         if (!idtoken && this.state.token) {
-             cookies.set('idToken', this.state.token, {path: '/'});
+            cookies.set('idToken', this.state.token, {path: '/'});
         }
     }
 

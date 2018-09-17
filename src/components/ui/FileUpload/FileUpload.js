@@ -12,13 +12,26 @@ import './FileUpload.css';
 
 class FileUpload extends Component {
 
-    state = {};
+    constructor(props){
+        super(props);
+        this.state = {
+            files: []
+        }
+        this.validate = this.validate.bind(this)
+    }
+
+    validate(e) {
+        this.props.action(e);
+        this.state.files.length > 0?
+            this.props.active():
+            this.props.inactive();
+    }
 
     componentDidMount() {
         this.setState({
             files: this.props.files || [],
             currentPages: this.props.currentPages || [],
-            status: undefined
+            status: undefined,
         });
     }
 
@@ -37,7 +50,7 @@ class FileUpload extends Component {
 
     updateFiles(newFiles, newCurrentPages, status) {
 
-        const { onFileChange } = this.props;
+        const onFileChange = this.props.onFileChange? this.props.onFileChange: this.validate;
 
         return new Promise((resolve) => {
 
@@ -82,7 +95,6 @@ class FileUpload extends Component {
                 const reader = new FileReader();
                 reader.readAsArrayBuffer(file);
                 reader.onloadend = async (e) => {
-
                     let blob = new Uint8Array(e.target.result);
 
                     var len = blob.byteLength;
@@ -169,8 +181,8 @@ class FileUpload extends Component {
         const { t, accept, className } = this.props;
         const { files, currentPages, status } = this.state;
 
-        return <div className={classNames('nav-fileUpload div-dropzone', className)}>
-            <Dropzone className='dropzone p-2' activeClassName='dropzone-active' accept={accept} onDrop={this.onDrop.bind(this)}>
+        return <div className={classNames('nav-fileUpload div-dropzone', className)} length={this.state.files.length}>
+            <Dropzone className='dropzone p-2' activeClassName='dropzone-active' accept={accept} onDrop={this.onDrop.bind(this)} inputProps={{...this.props.inputProps}}>
                 <div className='dropzone-placeholder'>
                     <div className='dropzone-placeholder-message'>{t('ui:dropFilesHere')}</div>
                     <div className='dropzone-placeholder-status'>{status}</div>
@@ -200,7 +212,11 @@ FileUpload.propTypes = {
     accept       : PT.string,
     className    : PT.string,
     beforeDrop   : PT.func,
-    afterDrop    : PT.func
+    afterDrop    : PT.func,
+    active       : PT.func,
+    inactive     : PT.func,
+    action       : PT.func,
+    inputProps   : PT.object
 };
 
 export default translate()(FileUpload);

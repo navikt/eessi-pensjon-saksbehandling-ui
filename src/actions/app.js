@@ -15,13 +15,13 @@ export function changeLanguage (language) {
 export function login () {
 
     return api.call({
-            url     : urls.APP_LOGIN_URL,
-            type    : {
-                request : types.APP_LOGIN_REQUEST,
-                success : types.APP_LOGIN_SUCCESS,
-                failure : types.APP_LOGIN_FAILURE
-            }
-        });
+        url     : urls.APP_LOGIN_URL,
+        type    : {
+            request : types.APP_LOGIN_REQUEST,
+            success : types.APP_LOGIN_SUCCESS,
+            failure : types.APP_LOGIN_FAILURE
+        }
+    });
 }
 
 
