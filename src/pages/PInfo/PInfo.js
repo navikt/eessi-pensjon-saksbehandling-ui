@@ -15,10 +15,8 @@ import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';
 import CountrySelect from '../../components/ui/CountrySelect/CountrySelect';
-import FileUpload from '../../components/ui/FileUpload/FileUpload';
 import P4000Util from '../../components/p4000/Util';
 import File from '../../components/ui/File/File';
-import Validation from '../../components/pinfo/Validation';
 
 import * as UrlValidator from '../../utils/UrlValidator';
 import * as routes from '../../constants/routes';
@@ -26,7 +24,6 @@ import * as pinfoActions from '../../actions/pinfo';
 import * as uiActions from '../../actions/ui';
 import * as appActions from '../../actions/app';
 import Bank from '../../components/form/Bank';
-import CheckboxesWithValidation from '../../components/form/CheckboxesWithValidation';
 import PdfUploadComponent from '../../components/form/PdfUploadComponent';
 
 import './PInfo.css';
@@ -51,41 +48,6 @@ const componentDidMount = (props) => {
     }
 }
 
-const hasError = (props, key) => (
-    props.form.displayError && props.form.validationErrors[key] ?
-        true:
-        false
-);
-
-const getErrors = (props, key) => (
-    hasError(props, key)?
-        props.form.validationErrors[key]:
-        []
-)
-
-const errorStyle = (props, key) =>(
-    hasError(props, key) ?
-        {background: '#F3E3E3'}:
-        {}
-);
-
-const validateForm = async (props) => (
-    isNaN(props.form.step)?
-        false:
-        function(){
-            if(this !== undefined){
-                if(Object.keys(this).length === 0){
-                    props.actions.setEventProperty({validationErrors: null});
-                    return true;
-                }else {
-                    props.actions.setEventProperty({validationErrors: this});
-                    return false;
-                }
-            }
-            return false;
-        }.apply(Validation(props.form, props.form.step))
-);
-
 const onBackButtonClick = async (props) => (
     props.actions.setEventProperty( {step: props.form.step - 1, displayError: false} )
 );
@@ -94,12 +56,6 @@ const onBackToReferrerButtonClick = async (props) => (
     UrlValidator.validateReferrer(props.referrer) ?
         props.history.push(routes.ROOT + props.referrer) :
         null
-);
-
-const onForwardButtonClick = async (props) => (
-    //await validateForm(props) ?
-    props.actions.setEventProperty( {step: props.form.step + 1})
-        //props.actions.setEventProperty( {displayError: true} )
 );
 
 const onSaveButtonClick = (props) => (
@@ -322,10 +278,10 @@ const PInfo = (props) => (
             {props.form.step === 3 ? <form id='pinfo-form'><div>
                 <PdfUploadComponent t={props.t} form={props.form} 
                     checkboxes={[
-                            {'label' : props.t('pinfo:form-attachmentTypes-01'), 'value' : '01', 'id' : '01', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['01']: false) }},
-                            {'label' : props.t('pinfo:form-attachmentTypes-02'), 'value' : '02', 'id' : '02', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['02']: false) }},
-                            {'label' : props.t('pinfo:form-attachmentTypes-03'), 'value' : '03', 'id' : '03', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['03']: false) }},
-                            {'label' : props.t('pinfo:form-attachmentTypes-04'), 'value' : '04', 'id' : '04', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['04']: false) }}
+                        {'label' : props.t('pinfo:form-attachmentTypes-01'), 'value' : '01', 'id' : '01', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['01']: false) }},
+                        {'label' : props.t('pinfo:form-attachmentTypes-02'), 'value' : '02', 'id' : '02', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['02']: false) }},
+                        {'label' : props.t('pinfo:form-attachmentTypes-03'), 'value' : '03', 'id' : '03', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['03']: false) }},
+                        {'label' : props.t('pinfo:form-attachmentTypes-04'), 'value' : '04', 'id' : '04', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['04']: false) }}
                     ]}
                     files= {props.form.attachments || []}
                     checkboxAction = {setValue.bind(null, props, 'attachmentTypes')}
@@ -447,7 +403,8 @@ PInfo.propTypes = {
     t       : PT.func,
     locale  : PT.string,
     form    : PT.object,
-    referrer: PT.string
+    referrer: PT.string,
+    actions : PT.object,
 };
 
 export default connect(

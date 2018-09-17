@@ -20,13 +20,8 @@ class FileUpload extends Component {
         this.validate = this.validate.bind(this)
     }
 
-/*    state = {
-        files: []
-    };*/
-
     validate(e) {
         this.props.action(e);
-        console.log(e);
         this.state.files.length > 0?
             this.props.onValid():
             this.props.onInvalid();
@@ -37,7 +32,6 @@ class FileUpload extends Component {
             files: this.props.files || [],
             currentPages: this.props.currentPages || [],
             status: undefined,
-            validate: this.validate
         });
     }
 
@@ -219,7 +213,10 @@ FileUpload.propTypes = {
     className    : PT.string,
     beforeDrop   : PT.func,
     afterDrop    : PT.func,
-    validate     : PT.func
+    onValid      : PT.func,
+    onInvalid    : PT.func,
+    action       : PT.func,
+    inputProps   : PT.object
 };
 
 export default translate()(FileUpload);

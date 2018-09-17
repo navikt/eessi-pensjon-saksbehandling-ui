@@ -1,4 +1,5 @@
 import React from 'react';
+import PT from 'prop-types';
 import * as Nav from '../ui/Nav';
 import CheckboxesWithValidation from './CheckboxesWithValidation';
 import FileUpload from '../ui/FileUpload/FileUpload';
@@ -17,9 +18,9 @@ export default class PdfUploadComponent extends React.Component {
         this.setCustomValidity = this.setValidity.bind(this);
     }
 
-    validate(field, value){
+    validate(){
         this.setState({valid: this.state.Checkboxes === this.state.FileUpload},
-            () => this.setValidity("fooo"));
+            () => this.setValidity('fooo'));
     }
 
     setValidity(error){
@@ -56,33 +57,41 @@ export default class PdfUploadComponent extends React.Component {
         let requiredFileUpload = this.state.Checkboxes;
         let error = (requiredCheckbox||requiredFileUpload)? {feil: {feilmelding: this.props.t('SomeError')}}: {}
         return <Nav.SkjemaGruppe {...error}>
-                <Nav.Row>
-                    <div className='col-md-6'>
-                        <CheckboxesWithValidation legend={this.props.t('pinfo:form-attachmentTypes')} 
-                            checkboxes={this.props.checkboxes.map(e=>(
-                                {
-                                    ...e,
-                                    inputProps: {
-                                        ...e.inputProps,
-                                        required: requiredCheckbox,
-                                        feil:{feilmelding: "checkbox"}
-                                    }
+            <Nav.Row>
+                <div className='col-md-6'>
+                    <CheckboxesWithValidation legend={this.props.t('pinfo:form-attachmentTypes')} 
+                        checkboxes={this.props.checkboxes.map(e=>(
+                            {
+                                ...e,
+                                inputProps: {
+                                    ...e.inputProps,
+                                    required: requiredCheckbox,
+                                    feil:{feilmelding: 'checkbox'}
                                 }
-                            ))}
-                            onInvalid = {this.onInvalid.bind(this, 'Checkboxes')}
-                            onValid = {this.onValid.bind(this, 'Checkboxes')}
-                            action = {this.props.checkboxAction}
+                            }
+                        ))}
+                        onInvalid = {this.onInvalid.bind(this, 'Checkboxes')}
+                        onValid = {this.onValid.bind(this, 'Checkboxes')}
+                        action = {this.props.checkboxAction}
                             
-                            />
-                    </div>
-                </Nav.Row><Nav.SkjemaGruppe feil={{feilmelding: "test2"}}>
+                    />
+                </div>
+            </Nav.Row><Nav.SkjemaGruppe feil={{feilmelding: 'test2'}}>
                 <FileUpload files={this.props.files || []} 
                     onInvalid = {this.onInvalid.bind(this, 'FileUpload')}
                     onValid = {this.onValid.bind(this, 'FileUpload')}
                     inputProps = {{required: requiredFileUpload}}
                     action = {this.props.fileUploadAction}
-                    />
-                    </Nav.SkjemaGruppe>
+                />
             </Nav.SkjemaGruppe>
+        </Nav.SkjemaGruppe>
     }
+}
+
+PdfUploadComponent.propTypes = {
+    checkboxes       : PT.array,
+    files            : PT.array,
+    checkboxAction   : PT.func,
+    fileUploadAction : PT.func,
+    t                : PT.func
 }

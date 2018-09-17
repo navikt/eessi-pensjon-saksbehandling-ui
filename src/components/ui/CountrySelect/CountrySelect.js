@@ -119,7 +119,10 @@ CountrySelect.propTypes = {
     style     : PT.object,
     list      : PT.array,
     type      : PT.string,
-    className : PT.string
+    className : PT.string,
+    required  : PT.string,
+    id        : PT.string,
+    inputProps: PT.object
 }
 
 export default translate()(CountrySelect);

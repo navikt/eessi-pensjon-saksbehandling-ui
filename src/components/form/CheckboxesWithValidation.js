@@ -1,6 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators }  from 'redux';
+import PT from 'prop-types';
 
 import * as Nav from '../ui/Nav';
 
@@ -42,4 +41,11 @@ export default class CheckboxesWithValidation extends React.Component {
             {...this.props}
         />
     }
+}
+
+CheckboxesWithValidation.propTypes = {
+    onValid   : PT.func,
+    onInvalid : PT.func,
+    action    : PT.func,
+    t         : PT.func
 }
