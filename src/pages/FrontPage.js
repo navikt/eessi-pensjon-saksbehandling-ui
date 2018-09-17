@@ -6,6 +6,7 @@ import PT from 'prop-types';
 import { translate } from 'react-i18next';
 import _ from 'lodash';
 import 'url-search-params-polyfill';
+import { withCookies, Cookies } from 'react-cookie';
 
 import LanguageSelector from '../components/ui/LanguageSelector';
 import TopContainer from '../components/ui/TopContainer';
@@ -14,26 +15,39 @@ import Icons from '../components/ui/Icons';
 import DocumentStatus from '../components/ui/DocumentStatus/DocumentStatus';
 
 import * as statusActions from '../actions/status';
+import * as appActions from '../actions/app';
 
 const mapStateToProps = (state) => {
     return {
         language      : state.ui.language,
         gettingStatus : state.loading.gettingStatus,
-        status        : state.status
+        status        : state.status,
+        token         : state.app.token
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, statusActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, appActions, statusActions), dispatch)};
 };
 
 class FrontPage extends Component {
 
-    state = {}
+    state = {
+        token : undefined
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+
+        if (nextProps.token && !prevState.token) {
+            return {
+                token : nextProps.token
+            }
+        }
+    }
 
     componentDidMount() {
 
-        const { actions, location } = this.props;
+        const { actions, location, cookies } = this.props;
 
         const rinaId = new URLSearchParams(location.search).get('rinaId');
 
@@ -43,6 +57,23 @@ class FrontPage extends Component {
 
             actions.getStatus(rinaId);
             actions.getCase(rinaId);
+        }
+
+        let idtoken = cookies.get('idToken');
+
+        if (!idtoken) {
+             actions.login();
+        }
+    }
+
+    componentDidUpdate(props) {
+
+        const { cookies } = this.props;
+
+        let idtoken = cookies.get('idToken');
+
+        if (!idtoken && this.state.token) {
+             cookies.set('idToken', this.state.token, {path: '/'});
         }
     }
 
@@ -70,7 +101,7 @@ class FrontPage extends Component {
                         <LanguageSelector/>
                     </div>
                     <div className='col text-center m-auto'>
-                        <a href='https://loginservice-q.nav.no/login?redirect=https://pensjon-utland-t.nav.no/'>LOGINSERVICE</a>
+                        <a href='https://loginservice.nais.adeo.no/login?redirect=https://eux-app.nais.preprod.local/swagger-ui.html/'>LOGINSERVICE</a>
                     </div>
                 </Nav.Column>
             </Nav.Row>
@@ -135,12 +166,15 @@ FrontPage.propTypes = {
     actions       : PT.object.isRequired,
     gettingStatus : PT.bool,
     status        : PT.object,
-    history       : PT.object.isRequired
+    history       : PT.object.isRequired,
+    cookies       : PT.instanceOf(Cookies)
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(
-    translate()(FrontPage)
+    translate()(
+        withCookies(FrontPage)
+    )
 );
