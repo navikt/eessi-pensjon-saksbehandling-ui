@@ -24,6 +24,7 @@ import * as pinfoActions from '../../actions/pinfo';
 import * as uiActions from '../../actions/ui';
 import * as appActions from '../../actions/app';
 import Bank from '../../components/form/Bank';
+import Contact from '../../components/form/Contact';
 import PdfUploadComponent from '../../components/form/PdfUploadComponent';
 
 import './PInfo.css';
@@ -145,19 +146,19 @@ const PInfo = (props) => (
                     />
                 </form>
                 : null}
-            {props.form.step === 1 ? <form id='pinfo-form'><div className='mt-3'>
-
-                <Nav.Row>
-                    <div className='col-md-6'>
-                        <Nav.Input label={props.t('pinfo:form-userEmail') + ' *'} value={props.form.userEmail || ''}
-                            onChange={setValue.bind(null, props, 'userEmail')} required="true"/>
-
-                        <Nav.Input label={props.t('pinfo:form-userPhone') + ' *'} value={props.form.userPhone || ''}
-                            onChange={setValue.bind(null, props, 'userPhone')} required="true"/>
-                    </div>
-                </Nav.Row>
-            </div></ form>: null}
-
+            {props.form.step === 1 ?
+                <form id='pinfo-form'>
+                    <Contact
+                        t={props.t}
+                        contact={{
+                            userEmail: props.form.userEmail,
+                            userPhone: props.form.userPhone,
+                        }}
+                        action={setValue.bind(null, props)}
+                    />
+                </ form>:
+                null
+            }
             {props.form.step === 2 ? <form id='pinfo-form'><div className='mt-3'>
 
                 <Nav.Row className='mb-4'>
