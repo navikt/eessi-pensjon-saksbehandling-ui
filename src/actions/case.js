@@ -9,9 +9,9 @@ export function getCaseFromCaseNumber (obj) {
     return api.call({
         url: url,
         type: {
-            request : types.USERCASE_GET_CASE_NUMBER_REQUEST,
-            success : types.USERCASE_GET_CASE_NUMBER_SUCCESS,
-            failure : types.USERCASE_GET_CASE_NUMBER_FAILURE
+            request : types.CASE_GET_CASE_NUMBER_REQUEST,
+            success : types.CASE_GET_CASE_NUMBER_SUCCESS,
+            failure : types.CASE_GET_CASE_NUMBER_FAILURE
         }
     });
 }
@@ -21,9 +21,9 @@ export function getSubjectAreaList () {
     return api.call({
         url: urls.CASE_GET_SUBJECT_AREA_LIST_URL,
         type: {
-            request : types.USERCASE_GET_SUBJECT_AREA_LIST_REQUEST,
-            success : types.USERCASE_GET_SUBJECT_AREA_LIST_SUCCESS,
-            failure : types.USERCASE_GET_SUBJECT_AREA_LIST_FAILURE
+            request : types.CASE_GET_SUBJECT_AREA_LIST_REQUEST,
+            success : types.CASE_GET_SUBJECT_AREA_LIST_SUCCESS,
+            failure : types.CASE_GET_SUBJECT_AREA_LIST_FAILURE
         }
     });
 }
@@ -33,9 +33,9 @@ export function getCountryList () {
     return api.call({
         url: urls.CASE_GET_COUNTRY_LIST_URL,
         type: {
-            request : types.USERCASE_GET_COUNTRY_LIST_REQUEST,
-            success : types.USERCASE_GET_COUNTRY_LIST_SUCCESS,
-            failure : types.USERCASE_GET_COUNTRY_LIST_FAILURE
+            request : types.CASE_GET_COUNTRY_LIST_REQUEST,
+            success : types.CASE_GET_COUNTRY_LIST_SUCCESS,
+            failure : types.CASE_GET_COUNTRY_LIST_FAILURE
         }
     });
 }
@@ -45,9 +45,9 @@ export function getInstitutionList () {
     return api.call({
         url: urls.CASE_GET_INSTITUTION_LIST_URL,
         type: {
-            request : types.USERCASE_GET_INSTITUTION_LIST_REQUEST,
-            success : types.USERCASE_GET_INSTITUTION_LIST_SUCCESS,
-            failure : types.USERCASE_GET_INSTITUTION_LIST_FAILURE
+            request : types.CASE_GET_INSTITUTION_LIST_REQUEST,
+            success : types.CASE_GET_INSTITUTION_LIST_SUCCESS,
+            failure : types.CASE_GET_INSTITUTION_LIST_FAILURE
         }
     });
 }
@@ -58,9 +58,9 @@ export function getInstitutionListForCountry (country) {
     return api.call({
         url: sprintf(urls.CASE_GET_INSTITUTION_FOR_COUNTRY_LIST_URL, {country : country}),
         type: {
-            request : types.USERCASE_GET_INSTITUTION_LIST_REQUEST,
-            success : types.USERCASE_GET_INSTITUTION_LIST_SUCCESS,
-            failure : types.USERCASE_GET_INSTITUTION_LIST_FAILURE
+            request : types.CASE_GET_INSTITUTION_LIST_REQUEST,
+            success : types.CASE_GET_INSTITUTION_LIST_SUCCESS,
+            failure : types.CASE_GET_INSTITUTION_LIST_FAILURE
         }
     });
 }
@@ -73,9 +73,9 @@ export function getBucList (rinaId) {
     return api.call({
         url: url,
         type: {
-            request : types.USERCASE_GET_BUC_LIST_REQUEST,
-            success : types.USERCASE_GET_BUC_LIST_SUCCESS,
-            failure : types.USERCASE_GET_BUC_LIST_FAILURE
+            request : types.CASE_GET_BUC_LIST_REQUEST,
+            success : types.CASE_GET_BUC_LIST_SUCCESS,
+            failure : types.CASE_GET_BUC_LIST_FAILURE
         }
     });
 }
@@ -88,9 +88,9 @@ export function getSedList (buc, rinaId) {
     return api.call({
         url: url,
         type: {
-            request : types.USERCASE_GET_SED_LIST_REQUEST,
-            success : types.USERCASE_GET_SED_LIST_SUCCESS,
-            failure : types.USERCASE_GET_SED_LIST_FAILURE
+            request : types.CASE_GET_SED_LIST_REQUEST,
+            success : types.CASE_GET_SED_LIST_SUCCESS,
+            failure : types.CASE_GET_SED_LIST_FAILURE
         }
     });
 }
@@ -98,7 +98,7 @@ export function getSedList (buc, rinaId) {
 export function dataToConfirm (params) {
 
     return {
-        type    : types.USERCASE_CONFIRM_DATA_SUCCESS,
+        type    : types.CASE_CONFIRM_DATA_SUCCESS,
         payload : params
     };
 }
@@ -106,15 +106,14 @@ export function dataToConfirm (params) {
 export function clearCurrentCase() {
 
     return {
-        type : types.USERCASE_CLEAR_CURRENT_CASE
+        type : types.CASE_CLEAR_CURRENT_CASE
     };
 }
 
 export function clearData() {
 
     return {
-        //  type : types.USERCASE_CLEAR_DATA
-        type : types.USERCASE_NULL
+        type : types.CASE_CLEAR_DATA
     };
 }
 
@@ -125,9 +124,9 @@ export function generateData (params) {
         method  : 'POST',
         payload : params,
         type    : {
-            request : types.USERCASE_GENERATE_DATA_REQUEST,
-            success : types.USERCASE_GENERATE_DATA_SUCCESS,
-            failure : types.USERCASE_GENERATE_DATA_FAILURE
+            request : types.CASE_GENERATE_DATA_REQUEST,
+            success : types.CASE_GENERATE_DATA_SUCCESS,
+            failure : types.CASE_GENERATE_DATA_FAILURE
         }
     });
 }
@@ -139,9 +138,9 @@ export function createSed (params) {
         method  : 'POST',
         payload : params,
         type    : {
-            request : types.USERCASE_CREATE_SED_REQUEST,
-            success : types.USERCASE_CREATE_SED_SUCCESS,
-            failure : types.USERCASE_CREATE_SED_FAILURE
+            request : types.CASE_CREATE_SED_REQUEST,
+            success : types.CASE_CREATE_SED_SUCCESS,
+            failure : types.CASE_CREATE_SED_FAILURE
         }
     });
 }
@@ -153,9 +152,9 @@ export function addToSed (payload) {
         method  : 'POST',
         payload : payload,
         type    : {
-            request : types.USERCASE_ADD_TO_SED_REQUEST,
-            success : types.USERCASE_ADD_TO_SED_SUCCESS,
-            failure : types.USERCASE_ADD_TO_SED_FAILURE
+            request : types.CASE_ADD_TO_SED_REQUEST,
+            success : types.CASE_ADD_TO_SED_SUCCESS,
+            failure : types.CASE_ADD_TO_SED_FAILURE
         }
     });
 }
@@ -167,9 +166,9 @@ export function sendSed (payload) {
         method  : 'POST',
         payload : payload,
         type    : {
-            request : types.USERCASE_SEND_SED_REQUEST,
-            success : types.USERCASE_SEND_SED_SUCCESS,
-            failure : types.USERCASE_SEND_SED_FAILURE
+            request : types.CASE_SEND_SED_REQUEST,
+            success : types.CASE_SEND_SED_SUCCESS,
+            failure : types.CASE_SEND_SED_FAILURE
         }
     });
 }

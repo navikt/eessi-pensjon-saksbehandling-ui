@@ -21,8 +21,8 @@ const mapStateToProps = (state) => {
     return {
         events : state.p4000.events,
         event  : state.p4000.event,
-        dataToConfirm : state.usercase.dataToConfirm,
-        dataSaved  : state.usercase.dataSaved
+        dataToConfirm : state.case.dataToConfirm,
+        dataSaved  : state.case.dataSaved
     }
 };
 

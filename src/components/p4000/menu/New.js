@@ -17,8 +17,8 @@ import Icons from '../../ui/Icons';
 const mapStateToProps = (state) => {
     return {
         events        : state.p4000.events,
-        dataToConfirm : state.usercase.dataToConfirm,
-        dataSaved     : state.usercase.dataSaved
+        dataToConfirm : state.case.dataToConfirm,
+        dataSaved     : state.case.dataSaved
     };
 };
 

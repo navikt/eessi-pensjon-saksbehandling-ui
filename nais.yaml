@@ -33,8 +33,6 @@ ingress:
 
 fasitResources:
     used:
-    - alias: loginservice
-      resourceType: RestService
 
     - alias: EessiPensjonFrontendApi_v1
       resourceType: RestService

@@ -9,18 +9,18 @@ import Case from './Case';
 import * as Nav from '../../components/ui/Nav';
 import CountrySelect from '../../components/ui/CountrySelect/CountrySelect';
 
-import * as usercaseActions from '../../actions/usercase';
+import * as caseActions from '../../actions/case';
 import * as uiActions from '../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
-        subjectAreaList : state.usercase.subjectAreaList,
-        institutionList : state.usercase.institutionList,
-        bucList         : state.usercase.bucList,
-        sedList         : state.usercase.sedList,
-        countryList     : state.usercase.countryList,
-        currentCase     : state.usercase.currentCase,
-        dataToConfirm   : state.usercase.dataToConfirm,
+        subjectAreaList : state.case.subjectAreaList,
+        institutionList : state.case.institutionList,
+        bucList         : state.case.bucList,
+        sedList         : state.case.sedList,
+        countryList     : state.case.countryList,
+        currentCase     : state.case.currentCase,
+        dataToConfirm   : state.case.dataToConfirm,
         language        : state.ui.language,
         locale          : state.ui.locale,
         action          : state.ui.action,
@@ -29,7 +29,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, usercaseActions, uiActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, caseActions, uiActions), dispatch)};
 };
 
 class EditCase extends Component {

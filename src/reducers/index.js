@@ -1,5 +1,5 @@
 
-import usercase from './usercase';
+import _case from './case';
 import ui from './ui';
 import app from './app';
 import status from './status';
@@ -11,5 +11,5 @@ import pselv from './pselv';
 import p4000 from './p4000';
 
 export {
-    usercase, app, ui, status, loading, alert, pdf, pinfo, pselv, p4000
+    _case as case, app, ui, status, loading, alert, pdf, pinfo, pselv, p4000
 }

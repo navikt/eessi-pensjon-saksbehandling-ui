@@ -28,6 +28,12 @@ import * as Pages from './pages';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
+if (typeof String.prototype.endsWith !== 'function') {
+    String.prototype.endsWith = function(suffix) {
+        return this.indexOf(suffix, this.length - suffix.length) !== -1;
+    };
+}
+
 const history = createBrowserHistory();
 const routeMiddleware = routerMiddleware(history);
 

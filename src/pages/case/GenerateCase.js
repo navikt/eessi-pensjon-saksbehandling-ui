@@ -8,14 +8,14 @@ import Case from './Case';
 import * as Nav from '../../components/ui/Nav';
 import RenderGeneratedData from '../../components/case/RenderGeneratedData';
 
-import * as usercaseActions from '../../actions/usercase';
+import * as caseActions from '../../actions/case';
 import * as uiActions from '../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
-        dataToConfirm  : state.usercase.dataToConfirm,
-        dataToGenerate : state.usercase.dataToGenerate,
-        dataSaved      : state.usercase.dataSaved,
+        dataToConfirm  : state.case.dataToConfirm,
+        dataToGenerate : state.case.dataToGenerate,
+        dataSaved      : state.case.dataSaved,
         savingCase     : state.loading.savingCase,
         language       : state.ui.language,
         action         : state.ui.action
@@ -23,7 +23,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, usercaseActions, uiActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, caseActions, uiActions), dispatch)};
 };
 
 class GenerateCase extends Component {

@@ -43,6 +43,7 @@ class FrontPage extends Component {
                 token : nextProps.token
             }
         }
+        return {};
     }
 
     componentDidMount() {

@@ -4,37 +4,37 @@ export default function (state = {}, action = {}) {
 
     switch (action.type) {
 
-    case types.USERCASE_GET_CASE_NUMBER_REQUEST:
+    case types.CASE_GET_CASE_NUMBER_REQUEST:
 
         return Object.assign({}, state, {
             gettingCase : true
         });
 
-    case types.USERCASE_GET_SUBJECT_AREA_LIST_REQUEST:
+    case types.CASE_GET_SUBJECT_AREA_LIST_REQUEST:
 
         return Object.assign({}, state, {
             subjectAreaList : true
         });
 
-    case types.USERCASE_GET_INSTITUTION_LIST_REQUEST:
+    case types.CASE_GET_INSTITUTION_LIST_REQUEST:
 
         return Object.assign({}, state, {
             institutionList : true
         });
 
-    case types.USERCASE_GET_SED_LIST_REQUEST:
+    case types.CASE_GET_SED_LIST_REQUEST:
 
         return Object.assign({}, state, {
             sedList : true
         });
 
-    case types.USERCASE_GET_BUC_LIST_REQUEST:
+    case types.CASE_GET_BUC_LIST_REQUEST:
 
         return Object.assign({}, state, {
             bucList : true
         });
 
-    case types.USERCASE_GET_COUNTRY_LIST_REQUEST:
+    case types.CASE_GET_COUNTRY_LIST_REQUEST:
 
         return Object.assign({}, state, {
             countryList : true
@@ -46,20 +46,20 @@ export default function (state = {}, action = {}) {
             rinaUrl : true
         });
 
-    case types.USERCASE_CREATE_SED_REQUEST:
-    case types.USERCASE_ADD_TO_SED_REQUEST:
+    case types.CASE_CREATE_SED_REQUEST:
+    case types.CASE_ADD_TO_SED_REQUEST:
 
         return Object.assign({}, state, {
             savingCase : true
         });
 
-    case types.USERCASE_SEND_SED_REQUEST:
+    case types.CASE_SEND_SED_REQUEST:
 
         return Object.assign({}, state, {
             sendingCase : true
         });
 
-    case types.USERCASE_GENERATE_DATA_REQUEST:
+    case types.CASE_GENERATE_DATA_REQUEST:
 
         return Object.assign({}, state, {
             generatingCase : true
@@ -78,66 +78,66 @@ export default function (state = {}, action = {}) {
             gettingStatus : true
         });
 
-    case types.USERCASE_GET_CASE_NUMBER_SUCCESS:
-    case types.USERCASE_GET_CASE_NUMBER_FAILURE:
+    case types.CASE_GET_CASE_NUMBER_SUCCESS:
+    case types.CASE_GET_CASE_NUMBER_FAILURE:
 
         return Object.assign({}, state, {
             gettingCase : false
         });
 
-    case types.USERCASE_GET_SUBJECT_AREA_LIST_SUCCESS:
-    case types.USERCASE_GET_SUBJECT_AREA_LIST_FAILURE:
+    case types.CASE_GET_SUBJECT_AREA_LIST_SUCCESS:
+    case types.CASE_GET_SUBJECT_AREA_LIST_FAILURE:
 
         return Object.assign({}, state, {
             subjectAreaList : false
         });
 
-    case types.USERCASE_GET_INSTITUTION_LIST_SUCCESS:
-    case types.USERCASE_GET_INSTITUTION_LIST_FAILURE:
+    case types.CASE_GET_INSTITUTION_LIST_SUCCESS:
+    case types.CASE_GET_INSTITUTION_LIST_FAILURE:
 
         return Object.assign({}, state, {
             institutionList : false
         });
 
-    case types.USERCASE_GET_SED_LIST_SUCCESS:
-    case types.USERCASE_GET_SED_LIST_FAILURE:
+    case types.CASE_GET_SED_LIST_SUCCESS:
+    case types.CASE_GET_SED_LIST_FAILURE:
 
         return Object.assign({}, state, {
             sedList : false
         });
 
-    case types.USERCASE_GET_BUC_LIST_SUCCESS:
-    case types.USERCASE_GET_BUC_LIST_FAILURE:
+    case types.CASE_GET_BUC_LIST_SUCCESS:
+    case types.CASE_GET_BUC_LIST_FAILURE:
 
         return Object.assign({}, state, {
             bucList : false
         });
 
-    case types.USERCASE_GET_COUNTRY_LIST_SUCCESS:
-    case types.USERCASE_GET_COUNTRY_LIST_FAILURE:
+    case types.CASE_GET_COUNTRY_LIST_SUCCESS:
+    case types.CASE_GET_COUNTRY_LIST_FAILURE:
 
         return Object.assign({}, state, {
             countryList : false
         });
 
-    case types.USERCASE_CREATE_SED_SUCCESS:
-    case types.USERCASE_CREATE_SED_FAILURE:
-    case types.USERCASE_ADD_TO_SED_SUCCESS:
-    case types.USERCASE_ADD_TO_SED_FAILURE:
+    case types.CASE_CREATE_SED_SUCCESS:
+    case types.CASE_CREATE_SED_FAILURE:
+    case types.CASE_ADD_TO_SED_SUCCESS:
+    case types.CASE_ADD_TO_SED_FAILURE:
 
         return Object.assign({}, state, {
             savingCase : false
         });
 
-    case types.USERCASE_SEND_SED_SUCCESS:
-    case types.USERCASE_SEND_SED_FAILURE:
+    case types.CASE_SEND_SED_SUCCESS:
+    case types.CASE_SEND_SED_FAILURE:
 
         return Object.assign({}, state, {
             sendingCase : false
         });
 
-    case types.USERCASE_GENERATE_DATA_SUCCESS:
-    case types.USERCASE_GENERATE_DATA_FAILURE:
+    case types.CASE_GENERATE_DATA_SUCCESS:
+    case types.CASE_GENERATE_DATA_FAILURE:
 
         return Object.assign({}, state, {
             generatingCase : false

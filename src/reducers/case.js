@@ -4,87 +4,87 @@ export default function (state = {}, action = {}) {
 
     switch (action.type) {
 
-    case types.USERCASE_GET_SUBJECT_AREA_LIST_SUCCESS:
+    case types.CASE_GET_SUBJECT_AREA_LIST_SUCCESS:
 
         return Object.assign({}, state, {
             subjectAreaList : action.payload
         });
 
-    case types.USERCASE_GET_INSTITUTION_LIST_REQUEST:
+    case types.CASE_GET_INSTITUTION_LIST_REQUEST:
 
         return Object.assign({}, state, {
             institutionList : undefined
         });
 
-    case types.USERCASE_GET_INSTITUTION_LIST_SUCCESS:
+    case types.CASE_GET_INSTITUTION_LIST_SUCCESS:
 
         return Object.assign({}, state, {
             institutionList : action.payload
         });
 
-    case types.USERCASE_GET_SED_LIST_SUCCESS:
+    case types.CASE_GET_SED_LIST_SUCCESS:
 
         return Object.assign({}, state, {
             sedList : action.payload
         });
 
-    case types.USERCASE_GET_BUC_LIST_REQUEST:
+    case types.CASE_GET_BUC_LIST_REQUEST:
 
         return Object.assign({}, state, {
             bucList : undefined
         });
 
-    case types.USERCASE_GET_BUC_LIST_SUCCESS:
+    case types.CASE_GET_BUC_LIST_SUCCESS:
 
         return Object.assign({}, state, {
             bucList : action.payload
         });
 
-    case types.USERCASE_GET_COUNTRY_LIST_SUCCESS:
+    case types.CASE_GET_COUNTRY_LIST_SUCCESS:
 
         return Object.assign({}, state, {
             countryList : action.payload
         });
 
-    case types.USERCASE_CONFIRM_DATA_SUCCESS:
+    case types.CASE_CONFIRM_DATA_SUCCESS:
 
         return Object.assign({}, state, {
             dataToConfirm  : action.payload
         });
 
-    case types.USERCASE_GENERATE_DATA_SUCCESS:
+    case types.CASE_GENERATE_DATA_SUCCESS:
 
         return Object.assign({}, state, {
             dataToGenerate : action.payload
         });
 
-    case types.USERCASE_CREATE_SED_REQUEST:
-    case types.USERCASE_ADD_TO_SED_REQUEST:
+    case types.CASE_CREATE_SED_REQUEST:
+    case types.CASE_ADD_TO_SED_REQUEST:
 
         return Object.assign({}, state, {
             dataSaved : undefined
         });
 
-    case types.USERCASE_CREATE_SED_SUCCESS:
-    case types.USERCASE_ADD_TO_SED_SUCCESS:
+    case types.CASE_CREATE_SED_SUCCESS:
+    case types.CASE_ADD_TO_SED_SUCCESS:
 
         return Object.assign({}, state, {
             dataSaved : action.payload
         });
 
-    case types.USERCASE_SEND_SED_SUCCESS:
+    case types.CASE_SEND_SED_SUCCESS:
 
         return Object.assign({}, state, {
             dataSent : action.payload
         });
 
-    case types.USERCASE_GET_CASE_NUMBER_REQUEST:
+    case types.CASE_GET_CASE_NUMBER_REQUEST:
 
         return Object.assign({}, state, {
             currentCase : undefined
         });
 
-    case types.USERCASE_GET_CASE_NUMBER_SUCCESS:
+    case types.CASE_GET_CASE_NUMBER_SUCCESS:
 
         return Object.assign({}, state, {
             currentCase : action.payload
@@ -96,7 +96,7 @@ export default function (state = {}, action = {}) {
             rinaUrl : action.payload
         });
 
-    case types.USERCASE_CLEAR_DATA:
+    case types.CASE_CLEAR_DATA:
 
         return Object.assign({}, state, {
             currentCase    : undefined,
@@ -105,7 +105,7 @@ export default function (state = {}, action = {}) {
             dataSaved      : undefined
         });
 
-    case types.USERCASE_CLEAR_CURRENT_CASE: {
+    case types.CASE_CLEAR_CURRENT_CASE: {
         return  Object.assign({}, state, {
             currentCase : undefined
         });

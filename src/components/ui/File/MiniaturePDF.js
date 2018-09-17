@@ -17,12 +17,13 @@ class MiniaturePDF extends Component {
 
         if (props.currentPage !== undefined &&
             !isNaN(props.currentPage) &&
-        props.currentPage !== state.currentPage) {
+            props.currentPage !== state.currentPage) {
 
             return {
                 currentPage: props.currentPage
             }
         }
+        return {};
     }
 
     componentDidUpdate() {
