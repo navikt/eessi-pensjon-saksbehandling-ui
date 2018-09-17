@@ -43,6 +43,7 @@ class FrontPage extends Component {
                 token : nextProps.token
             }
         }
+        return {};
     }
 
     componentDidMount() {
@@ -66,7 +67,7 @@ class FrontPage extends Component {
         }
     }
 
-    componentDidUpdate(props) {
+    componentDidUpdate() {
 
         const { cookies } = this.props;
 
@@ -101,7 +102,7 @@ class FrontPage extends Component {
                         <LanguageSelector/>
                     </div>
                     <div className='col text-center m-auto'>
-                        <a href='https://loginservice.nais.adeo.no/login?redirect=https://eux-app.nais.preprod.local/swagger-ui.html/'>LOGINSERVICE</a>
+                        <a href='https://loginservice.nais.adeo.no/login?redirect=https://eux-app.nais.preprod.local/swagger-ui.html/'>{'LOGINSERVICE'}</a>
                     </div>
                 </Nav.Column>
             </Nav.Row>

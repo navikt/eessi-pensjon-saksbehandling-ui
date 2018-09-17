@@ -8,13 +8,13 @@ import * as Nav from '../../components/ui/Nav';
 import RenderConfirmData from '../../components/case/RenderConfirmData';
 import Case from './Case';
 
-import * as usercaseActions from '../../actions/usercase';
+import * as caseActions from '../../actions/case';
 import * as uiActions from '../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
-        dataToConfirm  : state.usercase.dataToConfirm,
-        dataToGenerate : state.usercase.dataToGenerate,
+        dataToConfirm  : state.case.dataToConfirm,
+        dataToGenerate : state.case.dataToGenerate,
         action         : state.ui.action,
         language       : state.ui.language,
         generatingCase : state.loading.generatingCase
@@ -22,7 +22,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, usercaseActions, uiActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, caseActions, uiActions), dispatch)};
 };
 
 class ConfirmCase extends Component {

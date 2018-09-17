@@ -17,8 +17,8 @@ import Icons from '../../ui/Icons';
 const mapStateToProps = (state) => {
     return {
         events        : state.p4000.events,
-        dataToConfirm : state.usercase.dataToConfirm,
-        dataSaved     : state.usercase.dataSaved
+        dataToConfirm : state.case.dataToConfirm,
+        dataSaved     : state.case.dataSaved
     };
 };
 
@@ -100,7 +100,7 @@ class New extends Component {
 
     handleFileSaveToServer() {
 
-        const { t, events, event, actions } = this.props;
+        const { t, actions } = this.props;
 
         actions.openModal({
             modalTitle: t('soon'),
@@ -250,7 +250,9 @@ New.propTypes = {
     actions           : PT.object.isRequired,
     history           : PT.object.isRequired,
     provideController : PT.func.isRequired,
-    events            : PT.array
+    events            : PT.array,
+    dataSaved         : PT.object,
+    dataToConfirm     : PT.object
 };
 
 export default connect(

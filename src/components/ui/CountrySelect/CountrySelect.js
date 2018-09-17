@@ -2,73 +2,27 @@ import React, {Component} from 'react'
 import Select from 'react-select'
 import PT from 'prop-types'
 import { translate } from 'react-i18next'
-import './react-select.min.css'
 import { countries } from './CountrySelectData'
 import _ from 'lodash';
 import classNames from 'classnames';
+import CountryOption from './CountryOption';
+import CountryValue from './CountryValue';
 
 class CountrySelect extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            flagImagePath : '../../../../../flags/',
-            imageStyle: {
-                width: 30,
-                height: 20
-            },
             tag: this.props.value || null,
             selectRef: React.createRef()
         };
-        this.logChange = this.logChange.bind(this);
-        this.CountryRenderValue = this.CountryRenderValue.bind(this);
-        this.CountryOptionRenderer = this.CountryOptionRenderer.bind(this);
     }
 
-    logChange(val) {
+    onChange(val) {
         this.setState({tag: val});
-        if(this.state.selectRef){
-            console.log(this.state.selectRef.current);
-        }
-
+        
         if (typeof this.props.onSelect === 'function') {
             this.props.onSelect(val);
-        }
-    }
-
-    CountryOptionRenderer(option) {
-        const flagImageUrl = this.state.flagImagePath + option.value + '.png';
-
-        const _type = this.props.type || 'country';
-        const optionStyle = {
-            width: 50,
-            height: 30
-        };
-
-        const label = _type === 'country' ? option.label : (option.currency ? option.currency + ' - ' : '') + option.currencyLabel;
-        return (
-            <span style={{
-                color: option.color
-            }}>
-                <img src={flagImageUrl} alt={option.label} style={optionStyle}/>&nbsp; {label}
-            </span>
-        )
-    }
-
-    CountryRenderValue(option) {
-        const flagImageUrl = this.state.flagImagePath + option.value + '.png';
-
-        const _type = this.props.type || 'country';
-        const label = _type === 'country' ? option.label : (option.currency ? option.currency + ' - ' : '') + option.currencyLabel;
-
-        if (option.value === undefined) {
-            return null;
-        } else {
-            return (
-                <span>
-                    <img src={flagImageUrl} style={this.state.imageStyle} alt={option.label} onError={this.onImageError}/>&nbsp; {label}
-                </span>
-            )
         }
     }
 
@@ -80,7 +34,7 @@ class CountrySelect extends Component {
 
     render() {
 
-        const { t, value, locale, list, className } = this.props;
+        const { t, value, locale, type, list, className, style } = this.props;
 
         let optionList = countries[locale];
         let options = (list ? this.filter(list, optionList) : optionList);
@@ -93,24 +47,25 @@ class CountrySelect extends Component {
             <Select placeholder={t('ui:searchCountry')}
                 value={defValue}
                 options={options}
-                optionRenderer={this.CountryOptionRenderer}
-                backspaceRemoves={true}
-                onChange={this.logChange}
-                valueRenderer={this.CountryRenderValue}
-                style={{...this.props.style}}
-                multi={false}
                 required={this.props.required}
                 id={this.props.id}
                 inputProps={
                     {
                         ...this.props.inputProps,
-                        Ref: this.state.selectRef           
+                        Ref: this.state.selectRef
                     }}
+                components={{Option: CountryOption, SingleValue: CountryValue}}
+                selectProps={{
+                    type: type,
+                    flagImagePath : '../../../../../flags/'
+                }}
+                onChange={this.onChange.bind(this)}
+                style={{...style}}
+                multi={false}
             />
         </div>;
     }
 }
-//                
 CountrySelect.propTypes = {
     onSelect  : PT.func.isRequired,
     value     : PT.object,

@@ -52,6 +52,7 @@ class GeneratePDF extends Component {
                 fileNames: fileNames
             }
         }
+        return {};
     }
 
     componentDidMount() {

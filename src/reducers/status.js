@@ -8,7 +8,6 @@ export default function (state = initialState, action = {}) {
 
     switch (action.type) {
 
-
     case types.STATUS_SET_RINAID:
 
         return  Object.assign({}, state, {

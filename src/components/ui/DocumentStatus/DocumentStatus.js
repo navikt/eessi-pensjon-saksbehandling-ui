@@ -58,6 +58,8 @@ const sortStatusByDocs = (documents) => {
     });
 }
 
+const P4000 = 'P4000';
+
 class DocumentStatus extends Component {
 
     state = {
@@ -93,13 +95,14 @@ class DocumentStatus extends Component {
 
         switch (sed.sed) {
 
-        case 'P4000':
+        case P4000: {
 
             let events = P4000Util.convertP4000SedToEvents(sed);
             actions.openP4000Success(events);
             actions.setPage('new');
             history.push(routes.P4000);
             break;
+        }
         default:
             break;
         }

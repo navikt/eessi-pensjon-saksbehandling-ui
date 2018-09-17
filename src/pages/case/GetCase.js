@@ -7,19 +7,19 @@ import { translate } from 'react-i18next';
 import Case from './Case';
 import * as Nav from '../../components/ui/Nav';
 
-import * as usercaseActions from '../../actions/usercase';
+import * as caseActions from '../../actions/case';
 import * as uiActions from '../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
-        currentCase  : state.usercase.currentCase,
+        currentCase  : state.case.currentCase,
         gettingCase  : state.loading.gettingCase,
         language     : state.ui.language
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, usercaseActions, uiActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, caseActions, uiActions), dispatch)};
 };
 
 class GetCase extends Component {

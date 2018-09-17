@@ -53,7 +53,7 @@ class RenderGeneratedData extends Component {
                     </div>
                 })}</dd>
             </dl>
-            {this.renderJson(dataToGenerate, 0).map(i => { return i})}
+            {this.renderJson(dataToGenerate, 0).map(html => { return html})}
         </div>;
     }
 }

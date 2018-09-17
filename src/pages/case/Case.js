@@ -10,7 +10,7 @@ import Icons from '../../components/ui/Icons';
 import TopContainer from '../../components/ui/TopContainer';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';
 
-import * as usercaseActions from '../../actions/usercase';
+import * as caseActions from '../../actions/case';
 import * as alertActions from '../../actions/alert';
 
 import './Case.css';
@@ -22,7 +22,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, usercaseActions, alertActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, caseActions, alertActions), dispatch)};
 };
 
 class Case extends Component {

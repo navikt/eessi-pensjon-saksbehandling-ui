@@ -7,18 +7,18 @@ import { translate } from 'react-i18next';
 import Case from './Case';
 import * as Nav from '../../components/ui/Nav';
 
-import * as usercaseActions from '../../actions/usercase';
+import * as caseActions from '../../actions/case';
 
 const mapStateToProps = (state) => {
     return {
-        dataToConfirm : state.usercase.dataToConfirm,
-        dataSent      : state.usercase.dataSent,
-        dataSaved     : state.usercase.dataSaved
+        dataToConfirm : state.case.dataToConfirm,
+        dataSent      : state.case.dataSent,
+        dataSaved     : state.case.dataSaved
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, usercaseActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, caseActions), dispatch)};
 };
 
 class SendCase extends Component {
