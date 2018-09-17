@@ -6,7 +6,7 @@ import { translate } from 'react-i18next';
 import i18n from '../../i18n';
 
 import * as Nav from './Nav'
-import * as languageActions from '../../actions/language';
+import * as appActions from '../../actions/app';
 
 const mapStateToProps = (state) => {
     return {
@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, languageActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, appActions), dispatch)};
 };
 
 class LanguageSelector extends Component {

@@ -65,19 +65,18 @@ export default function (state = {}, action = {}) {
             generatingCase : true
         });
 
-    case types.USER_INFO_REQUEST: {
+    case types.USER_INFO_REQUEST:
 
         return Object.assign({}, state, {
             gettingUserInfo : true
         });
-    }
 
-    case types.STATUS_GET_REQUEST: {
+    case types.STATUS_GET_REQUEST:
+    case types.STATUS_RINA_CASE_REQUEST:
 
         return Object.assign({}, state, {
             gettingStatus : true
         });
-    }
 
     case types.USERCASE_GET_CASE_NUMBER_SUCCESS:
     case types.USERCASE_GET_CASE_NUMBER_FAILURE:
@@ -160,6 +159,8 @@ export default function (state = {}, action = {}) {
 
     case types.STATUS_GET_SUCCESS:
     case types.STATUS_GET_FAILURE:
+    case types.STATUS_RINA_CASE_SUCCESS:
+    case types.STATUS_RINA_CASE_FAILURE:
 
         return Object.assign({}, state, {
             gettingStatus : false

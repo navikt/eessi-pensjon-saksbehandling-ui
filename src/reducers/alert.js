@@ -40,6 +40,7 @@ export default function (state = {}, action = {}) {
     case types.USERCASE_GENERATE_DATA_REQUEST:
     case types.RINA_GET_URL_REQUEST:
     case types.ALERT_CLIENT_CLEAR:
+    case types.STATUS_GET_SED_REQUEST:
 
         return Object.assign({}, state, {
             clientErrorMessage : undefined,
@@ -87,6 +88,7 @@ export default function (state = {}, action = {}) {
     case types.USERCASE_ADD_TO_SED_FAILURE:
     case types.USERCASE_SEND_SED_FAILURE:
     case types.RINA_GET_URL_FAILURE:
+    case types.STATUS_GET_SED_FAILURE:
 
         return Object.assign({}, state, {
             clientErrorStatus  : 'ERROR',

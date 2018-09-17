@@ -18,11 +18,11 @@ import * as uiActions from '../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
-        events   : state.p4000.events,
-        editMode : state.p4000.editMode,
-        event    : state.p4000.event,
+        events     : state.p4000.events,
+        editMode   : state.p4000.editMode,
+        event      : state.p4000.event,
         eventIndex : state.p4000.eventIndex,
-        page     : state.p4000.page
+        page       : state.p4000.page
     }
 };
 
@@ -54,9 +54,12 @@ class P4000 extends Component {
 
     componentDidMount() {
 
+        const { actions } = this.props;
+
         this.setState({
             isLoaded : true
-        })
+        });
+        actions.setPage('file');
     }
 
     onFileButtonClick() {

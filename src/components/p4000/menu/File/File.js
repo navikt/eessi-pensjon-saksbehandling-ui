@@ -126,10 +126,10 @@ class File extends Component {
                 modalText: t('p4000:file-new-confirm-text'),
                 modalButtons: [{
                     main: true,
-                    text: t('ui:yes') + ', ' + t('ui:continue'),
+                    text: t('yes') + ', ' + t('continue'),
                     onClick: this.doNewP4000.bind(this)
                 },{
-                    text: t('ui:no') + ', ' + t('ui:cancel'),
+                    text: t('no') + ', ' + t('cancel'),
                     onClick: this.closeModal.bind(this)
                 }]
             });
@@ -138,7 +138,7 @@ class File extends Component {
         }
     }
 
-    handleFileOpen() {
+    handleFileOpenFromFile() {
 
         const { t, events, event, actions } = this.props;
 
@@ -148,10 +148,10 @@ class File extends Component {
                 modalText: t('p4000:file-open-confirm-text'),
                 modalButtons: [{
                     main: true,
-                    text: t('ui:yes') + ', ' + t('ui:continue'),
+                    text: t('yes') + ', ' + t('continue'),
                     onClick: this.doOpenP4000.bind(this)
                 },{
-                    text: t('ui:no-cancel'),
+                    text: t('no') + ', ' + t('cancel'),
                     onClick: this.closeModal.bind(this)
                 }]
             });
@@ -160,7 +160,25 @@ class File extends Component {
         }
     }
 
-    handleFileSave() {
+    handleFileOpenFromServer() {
+
+        const { t, events, event, actions } = this.props;
+
+        actions.openModal({
+            modalTitle: t('p4000:choose'),
+            modalText: t('p4000:choose'),
+            modalButtons: [{
+                main: true,
+                text: t('yes') + ', ' + t('continue'),
+                onClick: this.doOpenP4000.bind(this)
+            },{
+                text: t('no') + ', ' + t('cancel'),
+                onClick: this.closeModal.bind(this)
+            }]
+        });
+    }
+
+    handleFileSaveToFile() {
 
         const { events } = this.props;
 
@@ -169,6 +187,24 @@ class File extends Component {
         }, () => {
             this.fileOutput.click()
         })
+    }
+
+    handleFileSaveToServer() {
+
+        const { t, events, event, actions } = this.props;
+
+        actions.openModal({
+            modalTitle: t('soon'),
+            modalText: t('soon'),
+            modalButtons: [{
+                main: true,
+                text: t('yes') + ', ' + t('continue'),
+                onClick: this.closeModal.bind(this)
+            },{
+                text: t('no') + ', ' + t('cancel'),
+                onClick: this.closeModal.bind(this)
+            }]
+        });
     }
 
     handleFileView() {
@@ -194,10 +230,10 @@ class File extends Component {
             modalText: t('p4000:file-submit-confirm-text'),
             modalButtons: [{
                 main: true,
-                text: t('ui:yes') + ', ' + t('ui:submit'),
+                text: t('yes') + ', ' + t('submit'),
                 onClick: this.doSubmitP4000.bind(this)
             },{
-                text: t('ui:no') + ', ' + t('ui:cancel'),
+                text: t('no') + ', ' + t('cancel'),
                 onClick: this.closeModal.bind(this)
             }]
         });
@@ -253,8 +289,8 @@ class File extends Component {
                                 <Nav.Column className='col-auto buttonColumn'>
                                     <Nav.Knapp className='bigButton newP4000Button' onClick={this.handleFileNew.bind(this)}>
                                         <div>
-                                            <Icons className='mr-3' size='4x' kind='file'/>
-                                            <Icons size='3x' kind='plus'/>
+                                            <Icons className='mr-3' size='3x' kind='plus'/>
+                                            <Icons size='4x' kind='file'/>
                                         </div>
                                         <div className='mt-3'>{t('p4000:file-new')}</div>
                                     </Nav.Knapp>
@@ -269,11 +305,12 @@ class File extends Component {
 
                             <Nav.Row className='no-gutters'>
                                 <Nav.Column className='col-auto buttonColumn'>
-                                    <Nav.Knapp className='bigButton openP4000Button' onClick={this.handleFileOpen.bind(this)}>
+                                    <Nav.Knapp className='bigButton openP4000FromFileButton' onClick={this.handleFileOpenFromFile.bind(this)}>
                                         <div>
-                                            <Icons size='4x' kind='file-open'/>
+                                            <Icons className='mr-3' size='3x' kind='upload'/>
+                                            <Icons size='4x' kind='file'/>
                                         </div>
-                                        <div className='mt-3'>{t('p4000:file-open')}</div>
+                                        <div className='mt-3'>{t('p4000:file-open-from-file')}</div>
                                     </Nav.Knapp>
                                     <input className='hiddenFileInputOutput' type='file' ref={fileInput => this.fileInput = fileInput}
                                         onChange={this.handleFileInputClick.bind(this)}
@@ -281,13 +318,35 @@ class File extends Component {
                                 </Nav.Column>
                                 <Nav.Column className='text-left'>
                                     <ul className='fileDescriptionList'>
-                                        <li>{t('p4000:file-open-description-1')}</li>
-                                        <li>{t('p4000:file-open-description-2')}</li>
-                                        <li>{t('p4000:file-open-description-3')}</li>
-                                        <li>{t('p4000:file-open-description-4')}</li>
+                                        <li>{t('p4000:file-open-from-file-description-1')}</li>
+                                        <li>{t('p4000:file-open-from-file-description-2')}</li>
+                                        <li>{t('p4000:file-open-from-file-description-3')}</li>
+                                        <li>{t('p4000:file-open-from-file-description-4')}</li>
                                     </ul>
                                 </Nav.Column>
                             </Nav.Row>
+
+                            <Nav.Row className='no-gutters'>
+                                <Nav.Column className='col-auto buttonColumn'>
+                                    <Nav.Knapp className='bigButton openP4000FromServerButton' onClick={this.handleFileOpenFromServer.bind(this)}>
+                                        <div>
+                                            <Icons size='3x' className='mr-3' kind='server'/>
+                                            <Icons className='mr-3' size='3x' kind='caretRight'/>
+                                            <Icons size='4x' kind='document'/>
+                                        </div>
+                                        <div className='mt-3'>{t('p4000:file-open-from-server')}</div>
+                                    </Nav.Knapp>
+
+                                </Nav.Column>
+                                <Nav.Column className='text-left'>
+                                    <ul className='fileDescriptionList'>
+                                        <li>{t('p4000:file-open-from-server-description-1')}</li>
+                                        <li>{t('p4000:file-open-from-server-description-2')}</li>
+                                        <li>{t('p4000:file-open-from-server-description-3')}</li>
+                                    </ul>
+                                </Nav.Column>
+                            </Nav.Row>
+
 
                             <Nav.Row className='no-gutters'>
                                 <Nav.Column className='col-auto buttonColumn'>
@@ -328,20 +387,40 @@ class File extends Component {
                                 <Nav.Column className='col-auto buttonColumn'>
                                     <a className='hiddenFileInputOutput' ref={fileOutput => this.fileOutput = fileOutput}
                                         href={this.state.fileOutput} download='p4000.json'>&nbsp;</a>
-                                    <Nav.Knapp className='bigButton saveP4000Button' disabled={_.isEmpty(events)}
-                                        onClick={this.handleFileSave.bind(this)}>
+                                    <Nav.Knapp className='bigButton saveP4000ToFileButton' disabled={_.isEmpty(events)}
+                                        onClick={this.handleFileSaveToFile.bind(this)}>
                                         <div>
                                             <Icons className='mr-3' size='4x' kind='document'/>
                                             <Icons size='3x' kind='download'/>
                                         </div>
-                                        <div className='mt-3'>{t('p4000:file-save')}</div>
+                                        <div className='mt-3'>{t('p4000:file-save-to-file')}</div>
                                     </Nav.Knapp>
                                 </Nav.Column>
                                 <Nav.Column className='text-left'>
                                     <ul className='fileDescriptionList'>
-                                        <li>{t('p4000:file-save-description-1')}</li>
-                                        <li>{t('p4000:file-save-description-2')}</li>
-                                        <li>{t('p4000:file-save-description-3')}</li>
+                                        <li>{t('p4000:file-save-to-file-description-1')}</li>
+                                        <li>{t('p4000:file-save-to-file-description-2')}</li>
+                                        <li>{t('p4000:file-save-to-file-description-3')}</li>
+                                    </ul>
+                                </Nav.Column>
+                            </Nav.Row>
+
+                            <Nav.Row className='no-gutters'>
+                                <Nav.Column className='col-auto buttonColumn'>
+                                    <Nav.Knapp className='bigButton saveP4000toServerButton' disabled={_.isEmpty(events)}
+                                        onClick={this.handleFileSaveToServer.bind(this)}>
+                                        <div>
+                                            <Icons className='mr-3' size='4x' kind='document'/>
+                                            <Icons className='mr-3' size='3x' kind='caretRight'/>
+                                            <Icons size='3x' kind='server'/>
+                                        </div>
+                                        <div className='mt-3'>{t('p4000:file-save-to-server')}</div>
+                                    </Nav.Knapp>
+                                </Nav.Column>
+                                <Nav.Column className='text-left'>
+                                    <ul className='fileDescriptionList'>
+                                        <li>{t('p4000:file-save-to-server-description-1')}</li>
+                                        <li>{t('p4000:file-save-to-server-description-2')}</li>
                                     </ul>
                                 </Nav.Column>
                             </Nav.Row>

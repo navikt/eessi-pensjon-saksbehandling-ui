@@ -28,7 +28,8 @@ describe('Selenium P4000 page test', () => {
     ///////// GET PAGE ////////////
     describe('New P4000 page', () => {
 
-        let fileButton, newP4000Button, openP4000Button, viewP4000Button, newEventButton, saveP4000Button, submitP4000Button;
+        let fileButton, newP4000Button, openP4000FromFileButton, openP4000FromServerButton;
+        let viewP4000Button, newEventButton, saveP4000ToFileButton, saveP4000ToServerButton, submitP4000Button;
 
         let workButton, homeButton, childButton, voluntaryButton, militaryButton;
         let birthButton, learnButton, dailyButton, sickButton, otherButton;
@@ -39,17 +40,20 @@ describe('Selenium P4000 page test', () => {
             await _.driver.wait(_.elementLoads('button.newP4000Button'));
             fileButton = await _.getElement('.fileButton');
             newP4000Button = await _.getElement('.newP4000Button');
-            openP4000Button = await _.getElement('.openP4000Button');
+            openP4000FromFileButton = await _.getElement('.openP4000FromFileButton');
             viewP4000Button = await _.getElement('.viewP4000Button');
             newEventButton = await _.getElement('.newEventButton');
-            saveP4000Button = await _.getElement('.saveP4000Button');
+            saveP4000ToFileButton = await _.getElement('.saveP4000ToFileButton');
+            saveP4000ToServerButton = await _.getElement('.saveP4000ToServerButton');
             submitP4000Button = await _.getElement('.submitP4000Button');
             _.expect(!(await fileButton.isEnabled()));
             _.expect(await newP4000Button.isEnabled());
-            _.expect(await openP4000Button.isEnabled());
+            _.expect(await openP4000FromFileButton.isEnabled());
+            _.expect(await openP4000FromServerButton.isEnabled());
             _.expect(!(await viewP4000Button.isEnabled()));
             _.expect(!(await newEventButton.isEnabled()));
-            _.expect(!(await saveP4000Button.isEnabled()));
+            _.expect(!(await saveP4000ToFileButton.isEnabled()));
+            _.expect(!(await saveP4000ToServerButton.isEnabled()));
             _.expect(!(await submitP4000Button.isEnabled()));
         });
 
@@ -451,8 +455,8 @@ describe('Selenium P4000 page test', () => {
 
         it('Click on Open button...', async function () {
 
-            await _.driver.wait(_.elementLoads('.openP4000Button'));
-            let openButton = await _.getElement('.openP4000Button');
+            await _.driver.wait(_.elementLoads('.openP4000FromFileButton'));
+            let openButton = await _.getElement('.openP4000FromFileButton');
             openButton.click();
         });
 
@@ -495,8 +499,8 @@ describe('Selenium P4000 page test', () => {
 
         it('Click on Save button...', async function () {
 
-            await _.driver.wait(_.elementLoads('.saveP4000Button'));
-            let saveButton = await _.getElement('.saveP4000Button');
+            await _.driver.wait(_.elementLoads('.saveP4000ToFileButton'));
+            let saveButton = await _.getElement('.saveP4000FoFileButton');
             saveButton.click();
         });
 

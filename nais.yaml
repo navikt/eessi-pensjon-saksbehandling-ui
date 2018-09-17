@@ -28,6 +28,9 @@ resources:
         cpu: 100m
         memory: 256Mi
 
+ingress:
+      enabled: true
+
 fasitResources:
     used:
     - alias: loginservice
@@ -36,7 +39,9 @@ fasitResources:
     - alias: EessiPensjonFrontendApi_v1
       resourceType: RestService
 
+    - alias: loadbalancer:pensjon-utland
+      resourceType: LoadBalancerConfig
+
     exposed:
     - alias: EessiPensjonFrontend
-      resourceType: RestService
-      path: /
+      resourceType: BaseUrl

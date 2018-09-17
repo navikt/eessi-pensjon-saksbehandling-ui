@@ -19,7 +19,7 @@ const mapStateToProps = (state) => {
     return {
         language      : state.ui.language,
         gettingStatus : state.loading.gettingStatus,
-        status        : state.status.status
+        status        : state.status
     }
 };
 
@@ -37,7 +37,10 @@ class FrontPage extends Component {
 
         const rinaId = new URLSearchParams(location.search).get('rinaId');
 
+        actions.setRinaId(rinaId); // if rinaId is undefined, it erases rinaId
+
         if (rinaId) {
+
             actions.getStatus(rinaId);
             actions.getCase(rinaId);
         }
@@ -45,14 +48,15 @@ class FrontPage extends Component {
 
     getCreateableDocuments(status) {
 
-        return status
+        return status.docs ? status.docs
             .filter(item => {return item.navn === 'Create'})
-            .sort((a, b) => {return (a.dokumentType > b.dokumentType) ? 1 : ((a.dokumentType < b.dokumentType) ? -1 : 0)});
+            .sort((a, b) => {return (a.dokumentType > b.dokumentType) ? 1 : ((a.dokumentType < b.dokumentType) ? -1 : 0)})
+            : [];
     }
 
     render() {
 
-        const { t, language, gettingStatus, status } = this.props;
+        const { t, language, gettingStatus, history, status } = this.props;
 
         return <TopContainer className='frontPage topContainer' language={language}>
             <Nav.Row>
@@ -65,12 +69,15 @@ class FrontPage extends Component {
                     <div className='col text-center m-auto'>
                         <LanguageSelector/>
                     </div>
+                    <div className='col text-center m-auto'>
+                        <a href='https://loginservice-q.nav.no/login?redirect=https://pensjon-utland-t.nav.no/'>LOGINSERVICE</a>
+                    </div>
                 </Nav.Column>
             </Nav.Row>
             <div className='fieldset p-4 m-4'>
                 <Nav.Row className='mb-4'>
                     <Nav.Column>
-                        {_.isEmpty(status) ? (gettingStatus ? <div>
+                        {_.isEmpty(status.documents) ? (gettingStatus ? <div>
                             <h4 className='mb-4'>{t('status')}</h4>
                             <div className='w-100 text-center'>
                                 <Nav.NavFrontendSpinner/>
@@ -78,7 +85,7 @@ class FrontPage extends Component {
                             </div>
                         </div>: null) : <div>
                             <h4 className='mb-4'>{t('status')}</h4>
-                            <DocumentStatus status={status}/>
+                            <DocumentStatus history={history}/>
                         </div> }
                     </Nav.Column>
                 </Nav.Row>
@@ -127,7 +134,8 @@ FrontPage.propTypes = {
     t             : PT.func.isRequired,
     actions       : PT.object.isRequired,
     gettingStatus : PT.bool,
-    status        : PT.array
+    status        : PT.object,
+    history       : PT.object.isRequired
 };
 
 export default connect(

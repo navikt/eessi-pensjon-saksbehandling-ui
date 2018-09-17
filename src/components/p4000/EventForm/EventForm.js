@@ -57,7 +57,9 @@ class EventForm extends React.Component {
 
         const { actions } = this.props;
 
-        await this.component.resetValidation();
+        if (this.component) {
+            await this.component.resetValidation();
+        }
         actions.editEvent(eventIndex);
     }
 
@@ -106,7 +108,7 @@ class EventForm extends React.Component {
 
         let { t, type, editMode, eventIndex, events, history, location, Component } = this.props;
         let isEventPage = ! ((type === 'view' || type === 'new' || type === 'file'));
-        let hideEventList = (type === 'view' || type === 'file') || _.isEmpty(events);
+        let hideEventList = (type === 'view' || _.isEmpty(events));
 
         return <Nav.Panel className='p-0 panel-eventForm'>
             <Nav.Row className={classNames('eventList', {'hiding' : hideEventList})}>
