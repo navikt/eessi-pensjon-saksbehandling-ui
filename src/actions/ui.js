@@ -1,6 +1,4 @@
 import * as types from '../constants/actionTypes';
-import * as urls  from '../constants/urls';
-import * as api   from './api';
 
 export function navigateForward () {
 
@@ -19,7 +17,7 @@ export function navigateBack () {
 export function openModal (modal) {
 
     return {
-        type    : types.UI_MODAL_OPEN,
+        type    : types.MODAL_OPEN,
         payload : modal
     }
 }
@@ -27,6 +25,6 @@ export function openModal (modal) {
 export function closeModal () {
 
     return {
-        type : types.UI_MODAL_CLOSE
+        type : types.MODAL_CLOSE
     }
 }

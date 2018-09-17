@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import PT from 'prop-types';
 
-export default class CountryOption extends Component {
+class CountryOption extends Component {
 
     render () {
 
@@ -23,12 +24,24 @@ export default class CountryOption extends Component {
             <img src={flagImageUrl}
                 alt={label}
                 style={{
-                     width: 50,
-                     height: 30
-                 }}
+                    width: 50,
+                    height: 30
+                }}
                 onError={selectProps.selectProps.onImageError}
             />
             &nbsp; {_label}
         </div>
     }
 }
+
+CountryOption.propTypes = {
+    value      : PT.string,
+    label      : PT.string,
+    selectProps: PT.object,
+    data       : PT.object,
+    innerProps : PT.object,
+    isSelected : PT.bool,
+    isFocused  : PT.bool
+}
+
+export default CountryOption;

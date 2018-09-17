@@ -93,10 +93,10 @@ export default function (state = {}, action = {}) {
             break;
         }
 
-         return Object.assign({}, state, {
-             clientErrorStatus  : 'ERROR',
-             clientErrorMessage : message
-         });
+        return Object.assign({}, state, {
+            clientErrorStatus  : 'ERROR',
+            clientErrorMessage : message
+        });
     }
 
     switch (action.type) {
@@ -164,7 +164,7 @@ export default function (state = {}, action = {}) {
     }
 
     return Object.assign({}, state, {
-         clientErrorStatus  : 'OK',
-         clientErrorMessage : message
+        clientErrorStatus  : 'OK',
+        clientErrorMessage : message
     });
 }

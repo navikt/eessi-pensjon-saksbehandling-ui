@@ -8,14 +8,14 @@ export default function (state = initialState, action = {}) {
 
     switch (action.type) {
 
-    case types.UI_MODAL_OPEN:
+    case types.MODAL_OPEN:
 
         return Object.assign({}, state, {
             modalOpen : true,
             modal     : action.payload
         });
 
-    case types.UI_MODAL_CLOSE:
+    case types.MODAL_CLOSE:
 
         return Object.assign({}, state, {
             modalOpen : false,

@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import PT from 'prop-types';
 
-export default class CountryValue extends Component {
+class CountryValue extends Component {
 
     render () {
 
@@ -11,10 +12,18 @@ export default class CountryValue extends Component {
 
         return  <div {...innerProps}>
             <img src={flagImageUrl} alt={data.label}
-            style={{
-                width: 50,
-                height: 30
-            }}/>&nbsp; {_label}
+                style={{
+                    width: 50,
+                    height: 30
+                }}/>&nbsp; {_label}
         </div>
     }
 }
+
+CountryValue.propTypes = {
+    selectProps: PT.object,
+    data       : PT.object,
+    innerProps : PT.object
+}
+
+export default CountryValue;

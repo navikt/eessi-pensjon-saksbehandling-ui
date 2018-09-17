@@ -19,10 +19,10 @@ import './File.css';
 
 const mapStateToProps = (state) => {
     return {
-        events : state.p4000.events,
-        event  : state.p4000.event,
+        events        : state.p4000.events,
+        event         : state.p4000.event,
         dataToConfirm : state.case.dataToConfirm,
-        dataSaved  : state.case.dataSaved
+        dataSaved     : state.case.dataSaved
     }
 };
 
@@ -140,7 +140,7 @@ class File extends Component {
 
     handleFileOpenFromFile() {
 
-        const { t, events, event, actions } = this.props;
+        const { t, actions, event, events } = this.props;
 
         if (!_.isEmpty(event) || !_.isEmpty(events)) {
             actions.openModal({
@@ -162,20 +162,25 @@ class File extends Component {
 
     handleFileOpenFromServer() {
 
-        const { t, events, event, actions } = this.props;
+        const { t, actions, event, events } = this.props;
 
-        actions.openModal({
-            modalTitle: t('p4000:choose'),
-            modalText: t('p4000:choose'),
-            modalButtons: [{
-                main: true,
-                text: t('yes') + ', ' + t('continue'),
-                onClick: this.doOpenP4000.bind(this)
-            },{
-                text: t('no') + ', ' + t('cancel'),
-                onClick: this.closeModal.bind(this)
-            }]
-        });
+        if (!_.isEmpty(event) || !_.isEmpty(events)) {
+
+            actions.openModal({
+                modalTitle: t('p4000:choose'),
+                modalText: t('p4000:choose'),
+                modalButtons: [{
+                    main: true,
+                    text: t('yes') + ', ' + t('continue'),
+                    onClick: this.doOpenP4000.bind(this)
+                },{
+                    text: t('no') + ', ' + t('cancel'),
+                    onClick: this.closeModal.bind(this)
+                }]
+            });
+        } else {
+            this.doOpenP4000();
+        }
     }
 
     handleFileSaveToFile() {
@@ -191,7 +196,7 @@ class File extends Component {
 
     handleFileSaveToServer() {
 
-        const { t, events, event, actions } = this.props;
+        const { t, actions } = this.props;
 
         actions.openModal({
             modalTitle: t('soon'),
@@ -464,7 +469,9 @@ File.propTypes = {
     events  : PT.array.isRequired,
     event   : PT.object,
     history : PT.object.isRequired,
-    location: PT.object.isRequired
+    location: PT.object.isRequired,
+    dataSaved     : PT.object,
+    dataToConfirm : PT.object
 };
 
 export default connect(

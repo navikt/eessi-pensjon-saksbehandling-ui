@@ -5,8 +5,8 @@ export const LANGUAGE_CHANGED = 'LANGUAGE/CHANGED';
 export const NAVIGATION_FORWARD = 'NAVIGATION/FORWARD';
 export const NAVIGATION_BACK    = 'NAVIGATION/BACK';
 
-export const UI_MODAL_OPEN  = 'UI/MODAL/OPEN';
-export const UI_MODAL_CLOSE = 'UI/MODAL/CLOSE';
+export const MODAL_OPEN  = 'MODAL/OPEN';
+export const MODAL_CLOSE = 'MODAL/CLOSE';
 
 export const ALERT_CLIENT_CLEAR = 'ALERT/CLIENT/CLEAR';
 

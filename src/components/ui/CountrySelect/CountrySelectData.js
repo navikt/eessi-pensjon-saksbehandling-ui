@@ -2,7 +2,6 @@ export var countries = {'en' : [
     {
         'value': 'NO',
         'label': 'Norway',
-
     }, {
         'value': 'SE',
         'label': 'Sweden'
@@ -14,7 +13,6 @@ export var countries = {'en' : [
         'label': 'Afghanistan',
         'currency': 'AFN',
         'currencyLabel' : 'Afghani'
-
     }, {
         'value': 'AX',
         'label': 'Åland Islands'

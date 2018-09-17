@@ -65,7 +65,7 @@ class CountrySelect extends Component {
                 onChange={this.onChange.bind(this)}
                 style={{...style}}
                 multi={false}
-                />
+            />
         </div>;
     }
 }
