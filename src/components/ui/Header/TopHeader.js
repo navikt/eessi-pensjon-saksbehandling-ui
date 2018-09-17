@@ -9,7 +9,8 @@ import { translate } from 'react-i18next';
 import './TopHeader.css';
 import * as navLogo from '../../../resources/images/nav.svg';
 
-import * as uiActions from '../../../actions/ui';
+import * as appActions from '../../../actions/app';
+
 const mapStateToProps = (state) => {
     return {
         userInfo        : state.ui.userInfo,
@@ -18,7 +19,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, uiActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, appActions), dispatch)};
 };
 
 

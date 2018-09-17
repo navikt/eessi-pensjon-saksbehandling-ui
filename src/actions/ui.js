@@ -30,15 +30,3 @@ export function closeModal () {
         type : types.UI_MODAL_CLOSE
     }
 }
-
-export function getUserInfo () {
-
-    return api.call({
-        url  : urls.UI_GET_USER_INFO_URL,
-        type : {
-            request : types.USER_INFO_REQUEST,
-            success : types.USER_INFO_SUCCESS,
-            failure : types.USER_INFO_FAILURE
-        }
-    });
-}
