@@ -39,9 +39,9 @@ class Case extends Component {
 
     render() {
 
-        const { t, children, title, description, stepIndicator, className} = this.props;
+        const { t, children, title, description, stepIndicator, className, location} = this.props;
 
-        return <TopContainer className={classNames('case','topContainer', className)}>
+        return <TopContainer className={classNames('case','topContainer', className)} location={location}>
             <Nav.Row className='mb-4'>
                 <Nav.Column>
                     <h1 className='mb-3 appTitle'>
@@ -76,7 +76,8 @@ Case.propTypes = {
     history       : PT.object.isRequired,
     t             : PT.func,
     className     : PT.string,
-    children      : PT.oneOfType([PT.array, PT.object]).isRequired
+    children      : PT.oneOfType([PT.array, PT.object]).isRequired,
+    location      : PT.object.isRequired
 };
 
 export default connect(

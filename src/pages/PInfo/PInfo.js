@@ -100,7 +100,7 @@ function isValid (e) {
 }
 
 const PInfo = (props) => (
-    <TopContainer className='pInfo topContainer'>
+    <TopContainer className='pInfo topContainer' location={props.location}>
         <Nav.Row className='mb-4'>
             <Nav.Column>
                 <h1 className='mt-4 ml-3 mb-3 appTitle'>
@@ -277,7 +277,7 @@ const PInfo = (props) => (
             </div></ form>: null}
 
             {props.form.step === 3 ? <form id='pinfo-form'><div>
-                <PdfUploadComponent t={props.t} form={props.form} 
+                <PdfUploadComponent t={props.t} form={props.form}
                     checkboxes={[
                         {'label' : props.t('pinfo:form-attachmentTypes-01'), 'value' : '01', 'id' : '01', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['01']: false) }},
                         {'label' : props.t('pinfo:form-attachmentTypes-02'), 'value' : '02', 'id' : '02', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['02']: false) }},
@@ -406,6 +406,7 @@ PInfo.propTypes = {
     form    : PT.object,
     referrer: PT.string,
     actions : PT.object,
+    location: PT.object.isRequired
 };
 
 export default connect(

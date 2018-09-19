@@ -83,7 +83,7 @@ class P4000 extends Component {
         let Component   = components[activeItem];
         let isEventPage = activeItem !== 'view' && activeItem !== 'new' && activeItem !== 'file';
 
-        return <TopContainer className='p4000 topContainer'>
+        return <TopContainer className='p4000 topContainer' location={location}>
             <Nav.Row>
                 <div className='col-md-5 col-lg-4'>
                     <h1 className='mt-4 ml-3 mb-3 appTitle'>
@@ -111,7 +111,7 @@ class P4000 extends Component {
 
 P4000.propTypes = {
     history      : PT.object,
-    location     : PT.object,
+    location     : PT.object.isRequired,
     t            : PT.func,
     page         : PT.string.isRequired,
     editMode     : PT.bool,

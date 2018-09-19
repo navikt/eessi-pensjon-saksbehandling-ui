@@ -36,6 +36,7 @@
     "less-plugin-npm-import": "^2.1.0",
     "less-watch-compiler": "^1.11.3",
     "lodash": "^4.17.11",
+    "lodash.throttle": "^4.1.1",
     "moment": "^2.22.2",
     "nav-frontend-alertstriper": "^1.0.27",
     "nav-frontend-alertstriper-style": "^0.2.48",

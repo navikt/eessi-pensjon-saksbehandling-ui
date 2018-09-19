@@ -53,11 +53,11 @@ class SelectPDF extends Component {
 
     render() {
 
-        const { t, history, loadingPDF, pdfs } = this.props;
+        const { t, history, loadingPDF, pdfs, location } = this.props;
 
         let buttonText = loadingPDF ? t('pdf:loading-loadingPDF') : t('ui:forward');
 
-        return <TopContainer className='pdf topContainer'>
+        return <TopContainer className='pdf topContainer' location={location}>
             <Nav.Row className='mb-4'>
                 <Nav.Column>
                     <h1 className='mt-3 appTitle'>
@@ -106,7 +106,8 @@ SelectPDF.propTypes = {
     actions      : PT.object,
     history      : PT.object,
     t            : PT.func,
-    pdfs         : PT.array.isRequired
+    pdfs         : PT.array.isRequired,
+    location     : PT.object.isRequired
 };
 
 export default connect(

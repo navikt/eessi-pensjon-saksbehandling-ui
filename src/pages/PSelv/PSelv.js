@@ -231,13 +231,13 @@ class PSelv extends Component {
 
     render() {
 
-        const { t, locale, history, step } = this.props;
+        const { t, locale, history, step, location } = this.props;
 
         if (!this.state.isLoaded) {
             return null;
         }
 
-        return <TopContainer className='pSelv topContainer'>
+        return <TopContainer className='pSelv topContainer' location={location}>
             <Nav.Row className='mb-4'>
                 <Nav.Column>
                     <h1 className='mt-4 ml-3 mb-3 appTitle'>
@@ -502,7 +502,7 @@ PSelv.propTypes = {
     history  : PT.object,
     t        : PT.func,
     locale   : PT.string,
-    location : PT.object,
+    location : PT.object.isRequired,
     actions  : PT.object,
     step     : PT.number.isRequired
 };

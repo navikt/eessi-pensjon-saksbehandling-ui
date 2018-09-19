@@ -13,16 +13,14 @@ export function changeLanguage (language) {
     };
 }
 
-export function login () {
+export function login (options) {
 
-    return api.call({
-        url     : urls.APP_LOGIN_URL,
-        type    : {
-            request : types.APP_LOGIN_REQUEST,
-            success : types.APP_LOGIN_SUCCESS,
-            failure : types.APP_LOGIN_FAILURE
-        }
-    });
+    let url = urls.APP_LOGIN_URL;
+
+    if (options.redirectTo) {
+        url += '?redirectTo=' + options.redirectTo;
+    }
+    window.location.href = url;
 }
 
 export function getUserInfo () {

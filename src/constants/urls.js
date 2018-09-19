@@ -1,7 +1,6 @@
-var BASE_URL = window.location.protocol.concat('//').concat(window.location.hostname);
-if (window.location.port) {
-    BASE_URL = BASE_URL.concat(':' + window.location.port);
-}
+export const BASE_URL = window.location.protocol + '//' +
+                        window.location.hostname +
+                        (window.location.port ? ':' + window.location.port : '');
 
 var API_URL = BASE_URL + '/api';
 var FAG_URL = BASE_URL + '/fag';
@@ -33,7 +32,8 @@ export const CASE_GET_SED_URL       = FAG_URL + '/sed/get/%(rinaId)s/%(dokumentI
 export const CASE_DELETE_SED_URL    = FAG_URL + '/sed/delete/%(rinaId)s/%(sed)s/%(dokumentId)s';
 
 // Temp
-export const APP_LOGIN_URL = FAG_URL + '/login';
+export const APP_LOGIN_URL = window.location.protocol + '//' +
+    window.location.hostname + ':8080/login';
 
 // PdfController
 export const PDF_GENERATE_URL = PDF_URL + '/generate';

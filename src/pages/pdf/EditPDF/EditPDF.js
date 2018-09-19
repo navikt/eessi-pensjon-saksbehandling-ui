@@ -125,11 +125,11 @@ class EditPDF extends Component {
 
     render() {
 
-        const { t, history, errorMessage, errorStatus, pdfs, pdfsize, dndTarget, recipe } = this.props;
+        const { t, history, errorMessage, errorStatus, pdfs, pdfsize, dndTarget, recipe, location } = this.props;
 
         let alert = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
 
-        return <TopContainer className='pdf topContainer'>
+        return <TopContainer className='pdf topContainer' location={location}>
             <Nav.Row>
                 <Nav.Column>
                     <div className='mt-4'>
@@ -207,7 +207,8 @@ EditPDF.propTypes = {
     pdfs         : PT.array.isRequired,
     recipe       : PT.object.isRequired,
     pdfsize      : PT.number,
-    dndTarget    : PT.string
+    dndTarget    : PT.string,
+    location     : PT.object.isRequired
 };
 
 export default connect(

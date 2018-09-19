@@ -111,10 +111,10 @@ class GeneratePDF extends Component {
 
     render() {
 
-        const { t, history, generatingPDF, generatedPDFs } = this.props;
+        const { t, history, generatingPDF, generatedPDFs, location } = this.props;
         let buttonText = generatingPDF ? t('pdf:loading-generatingPDF') : t('ui:startAgain');
 
-        return <TopContainer className='pdf topContainer'>
+        return <TopContainer className='pdf topContainer' location={location}>
             <Nav.Row>
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('pdf:help-generate-pdf')}</Nav.HjelpetekstBase>
@@ -183,7 +183,8 @@ GeneratePDF.propTypes = {
     t            : PT.func,
     pdfs         : PT.array.isRequired,
     recipe       : PT.array.isRequired,
-    generatedPDFs: PT.object
+    generatedPDFs: PT.object,
+    location     : PT.object.isRequired
 };
 
 export default connect(

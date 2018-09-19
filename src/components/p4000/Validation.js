@@ -7,7 +7,6 @@ class Validation {
 
     validateChildInfo(event) {
 
-
         if (this.isEmpty(event.lastname)) {
             return 'p4000:validation-noLastname';
         }

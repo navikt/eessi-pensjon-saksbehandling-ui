@@ -6,7 +6,6 @@ import PT from 'prop-types';
 import { translate } from 'react-i18next';
 import _ from 'lodash';
 import 'url-search-params-polyfill';
-import { withCookies, Cookies } from 'react-cookie';
 
 import LanguageSelector from '../components/ui/LanguageSelector';
 import TopContainer from '../components/ui/TopContainer';
@@ -21,8 +20,7 @@ const mapStateToProps = (state) => {
     return {
         language      : state.ui.language,
         gettingStatus : state.loading.gettingStatus,
-        status        : state.status,
-        token         : state.app.token
+        status        : state.status
     }
 };
 
@@ -31,52 +29,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 class FrontPage extends Component {
-
-    state = {
-        token : undefined
-    }
-
-    static getDerivedStateFromProps(nextProps, prevState) {
-
-        if (nextProps.token && !prevState.token) {
-            return {
-                token : nextProps.token
-            }
-        }
-        return {};
-    }
-
-    componentDidMount() {
-
-        const { actions, location, cookies } = this.props;
-
-        const rinaId = new URLSearchParams(location.search).get('rinaId');
-
-        actions.setRinaId(rinaId); // if rinaId is undefined, it erases rinaId
-
-        if (rinaId) {
-
-            actions.getStatus(rinaId);
-            actions.getCase(rinaId);
-        }
-
-        let idtoken = cookies.get('idToken');
-
-        if (!idtoken) {
-            actions.login();
-        }
-    }
-
-    componentDidUpdate() {
-
-        const { cookies } = this.props;
-
-        let idtoken = cookies.get('idToken');
-
-        if (!idtoken && this.state.token) {
-            cookies.set('idToken', this.state.token, {path: '/'});
-        }
-    }
 
     getCreateableDocuments(status) {
 
@@ -88,9 +40,9 @@ class FrontPage extends Component {
 
     render() {
 
-        const { t, language, gettingStatus, history, status } = this.props;
+        const { t, language, gettingStatus, history, status, location } = this.props;
 
-        return <TopContainer className='frontPage topContainer' language={language}>
+        return <TopContainer className='frontPage topContainer' language={language} location={location}>
             <Nav.Row>
                 <Nav.Column>
                     <h1 className='appTitle'>
@@ -167,15 +119,12 @@ FrontPage.propTypes = {
     actions       : PT.object.isRequired,
     gettingStatus : PT.bool,
     status        : PT.object,
-    history       : PT.object.isRequired,
-    cookies       : PT.instanceOf(Cookies)
+    history       : PT.object.isRequired
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(
-    translate()(
-        withCookies(FrontPage)
-    )
+    translate()(FrontPage)
 );

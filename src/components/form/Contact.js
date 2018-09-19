@@ -100,14 +100,14 @@ export class Contact extends React.Component{
                             onInvalid={this.onInvalid.bind(this)}
                             id={this.state.nameToId['userEmail']}
                             feil={inputStates['userEmail'].showError? inputStates['userEmail'].error: null}
-                            />
+                        />
 
                         <Nav.Input label={t('pinfo:form-userPhone') + ' *'} defaultValue={contact.userPhone || ''}
                             onChange={this.onChangeHandler.bind(this)} required="true" type="tel" pattern=".*\d.*"
                             onInvalid={this.onInvalid.bind(this)}
                             id={this.state.nameToId['userPhone']}
                             feil={inputStates['userPhone'].showError? inputStates['userPhone'].error: null}
-                            />
+                        />
                     </div>
                 </Nav.Row>
             </div>

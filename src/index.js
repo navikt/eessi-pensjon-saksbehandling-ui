@@ -79,7 +79,7 @@ ReactDOM.render(
                         <Route exact path={routes.CASE_SEND}     component={Pages.SendCase}/>
 
                         <Route path={routes.ROOT} component={Pages.FrontPage}/>
-                        <Redirect from='/' to={routes.ROOT}/>
+                        <Redirect exact from='/' to={routes.ROOT}/>
                     </Switch>
                 </ConnectedRouter>
             </Provider>
