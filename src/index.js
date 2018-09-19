@@ -49,9 +49,14 @@ const reducer = combineReducers({
 });
 
 const initialState = {ui: {
-    language : i18n.language,
-    locale   : i18n.locale,
-    modalOpen: false
+    language    : i18n.language,
+    locale      : i18n.locale,
+    modalOpen   : false,
+    breadcrumbs : [{
+        label : 'ui:home',
+        ns    : 'app',
+        url   : routes.ROOT
+    }]
 }};
 
 const store = createStoreWithMiddleware(reducer, initialState);

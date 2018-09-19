@@ -3,21 +3,21 @@ import * as types from '../constants/actionTypes';
 export function navigateForward () {
 
     return {
-        type : types.NAVIGATION_FORWARD
+        type : types.UI_NAVIGATION_FORWARD
     };
 }
 
 export function navigateBack () {
 
     return {
-        type : types.NAVIGATION_BACK
+        type : types.UI_NAVIGATION_BACK
     };
 }
 
 export function openModal (modal) {
 
     return {
-        type    : types.MODAL_OPEN,
+        type    : types.UI_MODAL_OPEN,
         payload : modal
     }
 }
@@ -25,6 +25,14 @@ export function openModal (modal) {
 export function closeModal () {
 
     return {
-        type : types.MODAL_CLOSE
+        type : types.UI_MODAL_CLOSE
+    }
+}
+
+export function addToBreadcrumbs (breadcrumbs) {
+
+    return {
+        type    : types.UI_BREADCRUMBS_ADD,
+        payload : breadcrumbs
     }
 }

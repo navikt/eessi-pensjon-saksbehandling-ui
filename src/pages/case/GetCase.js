@@ -5,8 +5,9 @@ import PT from 'prop-types';
 import { translate } from 'react-i18next';
 
 import Case from './Case';
-import * as Nav from '../../components/ui/Nav';
 
+import * as Nav from '../../components/ui/Nav';
+import * as routes from '../../constants/routes';
 import * as caseActions from '../../actions/case';
 import * as uiActions from '../../actions/ui';
 
@@ -49,10 +50,21 @@ class GetCase extends Component {
 
     onForwardButtonClick() {
 
-        const {actions} = this.props;
+        const { actions } = this.props;
 
         actions.navigateForward();
         actions.getCaseFromCaseNumber(this.state);
+    }
+
+    componentDidMount() {
+
+        const { actions } = this.props;
+
+        actions.addToBreadcrumbs({
+            url  : routes.CASE_GET,
+            ns   : 'case',
+            label: 'ui:case'
+        });
     }
 
     componentDidUpdate() {
@@ -60,7 +72,7 @@ class GetCase extends Component {
         const { history, currentCase } = this.props;
 
         if (currentCase) {
-            history.push('/_/case/get/' +
+            history.push(routes.CASE_GET  +
                 (currentCase.hasOwnProperty('casenumber') ? currentCase.casenumber + '/' : null) +
                 (currentCase.hasOwnProperty('pinid')      ? currentCase.pinid      + '/' : null) +
                 (currentCase.hasOwnProperty('rinaid')     ? currentCase.rinaid     + '/' : null)

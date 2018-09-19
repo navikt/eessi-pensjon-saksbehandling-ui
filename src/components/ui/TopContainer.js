@@ -7,6 +7,7 @@ import { bindActionCreators }  from 'redux';
 import * as Nav from './Nav';
 import TopHeader from './Header/TopHeader';
 import ServerAlert from './Alert/ServerAlert';
+import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
 import Modal from './Modal';
 
 import * as statusActions from '../../actions/status';
@@ -39,10 +40,11 @@ class TopContainer extends Component {
 
         const { className, style } = this.props;
 
-        return <div style={style} className={classNames(className)}>
+        return <div style={style} className={classNames('topcontainer', className)}>
             <TopHeader/>
             <ServerAlert/>
             <Modal/>
+            <Breadcrumbs/>
             <Nav.Container fluid={true}>
                 {this.props.children}
             </Nav.Container>

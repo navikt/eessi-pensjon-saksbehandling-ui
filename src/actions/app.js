@@ -8,7 +8,7 @@ export function changeLanguage (language) {
     i18n.changeLanguage(language);
 
     return {
-        type    : types.LANGUAGE_CHANGED,
+        type    : types.UI_LANGUAGE_CHANGED,
         payload : language
     };
 }
