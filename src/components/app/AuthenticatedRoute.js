@@ -30,7 +30,7 @@ class AuthenticatedRoute extends Component {
 
         if (!idtoken) {
             actions.login({
-                redirectTo: encodeURIComponent(window.location.href)
+                redirectTo: encodeURIComponent(window.location.pathname)
             });
         } else {
             this.setState({
