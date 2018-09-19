@@ -43,11 +43,14 @@ class SendCase extends Component {
 
     render() {
 
-        let { t, history } = this.props;
+        let { t, history, location } = this.props;
 
         return <Case className='sendCase'
-            title='case:app-sendCaseTitle' description='case:app-sendCaseDescription'
-            stepIndicator={4} history={history}>
+            title='case:app-sendCaseTitle'
+             description='case:app-sendCaseDescription'
+            stepIndicator={4}
+            history={history}
+            location={location}>
             <div className='fieldset p-4 m-4'>
                 <Nav.Row>
                     <Nav.Column className='sendCase'>
@@ -70,6 +73,7 @@ class SendCase extends Component {
 SendCase.propTypes = {
     actions       : PT.object,
     history       : PT.object,
+    location      : PT.object,
     dataSaved     : PT.object,
     dataToConfirm : PT.object,
     t             : PT.func

@@ -79,12 +79,15 @@ class GenerateCase extends Component {
 
     render() {
 
-        const { t, history, dataToGenerate, dataToConfirm, savingCase } = this.props;
+        const { t, history, location, dataToGenerate, dataToConfirm, savingCase } = this.props;
 
         if (!dataToGenerate) {
             return  <Case className='generateCase'
-                title='case:app-generateCaseTitle' description='case:app-generateCaseDescription'
-                stepIndicator={2} history={history}>
+                title='case:app-generateCaseTitle'
+                description='case:app-generateCaseDescription'
+                stepIndicator={2}
+                history={history}
+                location={location}>
                 <div className='w-100 text-center'>
                     <Nav.NavFrontendSpinner/>
                     <p>{t('case:loading-generatingCase')}</p>
@@ -95,8 +98,11 @@ class GenerateCase extends Component {
         let buttonText = savingCase ? t('case:loading-savingCase') : t('ui:confirmAndSave');
 
         return <Case className='generateCase'
-            title='case:app-generateCaseTitle' description='case:app-generateCaseDescription'
-            stepIndicator={2} history={history}>
+            title='case:app-generateCaseTitle'
+            description='case:app-generateCaseDescription'
+            stepIndicator={2}
+            history={history}
+            location={location}>
             <div className='fieldset p-4 m-4'>
                 <Nav.Row>
                     <Nav.Column>
@@ -119,6 +125,7 @@ class GenerateCase extends Component {
 GenerateCase.propTypes = {
     actions        : PT.object.isRequired,
     history        : PT.object.isRequired,
+    location       : PT.object.isRequired,
     savingCase     : PT.bool,
     t              : PT.func.isRequired,
     dataToConfirm  : PT.object,

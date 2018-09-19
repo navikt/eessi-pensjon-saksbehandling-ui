@@ -3,7 +3,6 @@ import PT from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
-import { translate } from 'react-i18next';
 
 import * as Nav from './Nav'
 import * as uiActions from '../../actions/ui';

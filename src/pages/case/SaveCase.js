@@ -79,7 +79,7 @@ class SaveCase extends Component {
 
     render() {
 
-        let { t, history, sendingCase, dataSaved, rinaLoading, rinaUrl } = this.props;
+        let { t, history, location, sendingCase, dataSaved, rinaLoading, rinaUrl } = this.props;
 
         let body;
 
@@ -101,8 +101,11 @@ class SaveCase extends Component {
         let buttonText = sendingCase ? t('case:loading-sendingCase') : t('ui:confirmAndSend');
 
         return <Case className='saveCase'
-            title='case:app-saveCaseTitle' description='case:app-saveCaseDescription'
-            stepIndicator={3} history={history}>
+            title='case:app-saveCaseTitle'
+            description='case:app-saveCaseDescription'
+            stepIndicator={3}
+            history={history}
+            location={location}>
             <div className='fieldset p-4 m-4'>
                 <Nav.Row>
                     <Nav.Column className='saveCase'>
@@ -125,6 +128,7 @@ class SaveCase extends Component {
 SaveCase.propTypes = {
     actions       : PT.object,
     history       : PT.object,
+    location      : PT.object,
     dataSaved     : PT.object,
     dataSent      : PT.bool,
     dataToConfirm : PT.object,

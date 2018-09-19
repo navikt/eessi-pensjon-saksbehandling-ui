@@ -74,14 +74,15 @@ class GetCase extends Component {
 
     render() {
 
-        const { t, gettingCase, history } = this.props;
+        const { t, gettingCase, history, location } = this.props;
 
         let buttonText = gettingCase ? t('case:loading-gettingCase') : t('ui:search');
 
         return <Case className='getcase'
             title='case:app-getCaseTitle'
             description='case:app-getCaseDescription'
-            history={history}>
+            history={history}
+            location={location}>
             <div className='fieldset p-4 m-4'>
                 <Nav.Row>
                     <Nav.Column>
@@ -114,6 +115,7 @@ GetCase.propTypes = {
     gettingCase  : PT.bool,
     actions      : PT.object,
     history      : PT.object,
+    location     : PT.object,
     t            : PT.func
 };
 

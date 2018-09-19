@@ -76,7 +76,7 @@ class ConfirmCase extends Component {
 
     render() {
 
-        const { t, history, dataToConfirm, generatingCase } = this.props;
+        const { t, history, location, dataToConfirm, generatingCase } = this.props;
 
         let buttonText = generatingCase ? t('case:loading-generatingCase') : t('ui:confirmAndGenerate');
 
@@ -85,8 +85,11 @@ class ConfirmCase extends Component {
         }
 
         return <Case className='confirmCase'
-            title='case:app-confirmCaseTitle' description='case:app-confirmCaseDescription'
-            stepIndicator={1} history={history}>
+            title='case:app-confirmCaseTitle'
+            description='case:app-confirmCaseDescription'
+            stepIndicator={1}
+            history={history}
+            location={location}>
             <div className='fieldset p-4 m-4'>
                 <Nav.Row>
                     <Nav.Column>
@@ -109,6 +112,7 @@ class ConfirmCase extends Component {
 ConfirmCase.propTypes = {
     actions        : PT.object.isRequired,
     history        : PT.object.isRequired,
+    location        : PT.object.isRequired,
     generatingCase : PT.bool,
     t              : PT.func.isRequired,
     dataToConfirm  : PT.object.isRequired,

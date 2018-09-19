@@ -6,7 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import createBrowserHistory from 'history/createBrowserHistory';
-import { Route, Switch, Redirect } from 'react-router';
+import { Switch, Redirect } from 'react-router';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import { Provider } from 'react-redux';
@@ -24,6 +24,7 @@ import * as routes from './constants/routes';
 
 import registerServiceWorker from './registerServiceWorker';
 import * as Pages from './pages';
+import AuthenticatedRoute from './components/app/AuthenticatedRoute';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
@@ -61,24 +62,24 @@ ReactDOM.render(
             <Provider store={store}>
                 <ConnectedRouter history={history}>
                     <Switch>
-                        <Route exact path={routes.PSELV} component={Pages.PSelv}/>
-                        <Route exact path={routes.PINFO} component={Pages.PInfo}/>
-                        <Route exact path={routes.P4000} component={Pages.P4000}/>
+                        <AuthenticatedRoute exact path={routes.PSELV} component={Pages.PSelv}/>
+                        <AuthenticatedRoute exact path={routes.PINFO} component={Pages.PInfo}/>
+                        <AuthenticatedRoute exact path={routes.P4000} component={Pages.P4000}/>
 
-                        <Route exact path={routes.PDF_GENERATE} component={Pages.GeneratePDF}/>
-                        <Route exact path={routes.PDF_EDIT}     component={Pages.EditPDF}/>
-                        <Route exact path={routes.PDF_SELECT}   component={Pages.SelectPDF}/>
+                        <AuthenticatedRoute exact path={routes.PDF_GENERATE} component={Pages.GeneratePDF}/>
+                        <AuthenticatedRoute exact path={routes.PDF_EDIT}     component={Pages.EditPDF}/>
+                        <AuthenticatedRoute exact path={routes.PDF_SELECT}   component={Pages.SelectPDF}/>
 
-                        <Route exact path={routes.CASE_GET}               component={Pages.GetCase}/>
-                        <Route exact path={routes.CASE_EDIT_WITHOUT_RINA} component={Pages.EditCase}/>
-                        <Route exact path={routes.CASE_EDIT_WITH_RINA}    component={Pages.EditCase}/>
+                        <AuthenticatedRoute exact path={routes.CASE_GET}               component={Pages.GetCase}/>
+                        <AuthenticatedRoute exact path={routes.CASE_EDIT_WITHOUT_RINA} component={Pages.EditCase}/>
+                        <AuthenticatedRoute exact path={routes.CASE_EDIT_WITH_RINA}    component={Pages.EditCase}/>
 
-                        <Route exact path={routes.CASE_CONFIRM}  component={Pages.ConfirmCase}/>
-                        <Route exact path={routes.CASE_GENERATE} component={Pages.GenerateCase}/>
-                        <Route exact path={routes.CASE_SAVE}     component={Pages.SaveCase}/>
-                        <Route exact path={routes.CASE_SEND}     component={Pages.SendCase}/>
+                        <AuthenticatedRoute exact path={routes.CASE_CONFIRM}  component={Pages.ConfirmCase}/>
+                        <AuthenticatedRoute exact path={routes.CASE_GENERATE} component={Pages.GenerateCase}/>
+                        <AuthenticatedRoute exact path={routes.CASE_SAVE}     component={Pages.SaveCase}/>
+                        <AuthenticatedRoute exact path={routes.CASE_SEND}     component={Pages.SendCase}/>
 
-                        <Route path={routes.ROOT} component={Pages.FrontPage}/>
+                        <AuthenticatedRoute path={routes.ROOT} component={Pages.FrontPage}/>
                         <Redirect exact from='/' to={routes.ROOT}/>
                     </Switch>
                 </ConnectedRouter>

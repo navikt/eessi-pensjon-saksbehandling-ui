@@ -490,13 +490,16 @@ class EditCase extends Component {
 
     render() {
 
-        const { t, history, currentCase, action, loading } = this.props;
+        const { t, history, location, currentCase, action, loading } = this.props;
         const { rinaId } = this.state;
 
         if (!currentCase) {
             return <Case className='editCase'
-                title='case:app-editCaseTitle' description='case:app-editCaseDescription'
-                stepIndicator={0} history={history}>
+                title='case:app-editCaseTitle'
+                description='case:app-editCaseDescription'
+                stepIndicator={0}
+                history={history}
+                location={location}>
                 <div className='w-100 text-center'>
                     <Nav.NavFrontendSpinner/>
                     <p>{t('case:loading-gettingCase')}</p>
@@ -505,8 +508,11 @@ class EditCase extends Component {
         }
 
         return <Case className='editCase'
-            title='case:app-editCaseTitle' description='case:app-editCaseDescription'
-            stepIndicator={0} history={history}>
+            title='case:app-editCaseTitle'
+            description='case:app-editCaseDescription'
+            stepIndicator={0}
+            history={history}
+            location={location}>
             <div className='fieldset p-4 m-4'>
                 <Nav.Row className='mb-3 align-middle text-left'>
                     <div className='col-md-6'>{this.renderSubjectArea()}</div>
@@ -551,6 +557,7 @@ EditCase.propTypes = {
     currentCase     : PT.object,
     actions         : PT.object,
     history         : PT.object,
+    location        : PT.object,
     loading         : PT.object,
     t               : PT.func,
     match           : PT.object,
