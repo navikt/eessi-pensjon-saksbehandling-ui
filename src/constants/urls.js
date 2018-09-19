@@ -33,7 +33,7 @@ export const CASE_DELETE_SED_URL    = FAG_URL + '/sed/delete/%(rinaId)s/%(sed)s/
 
 // Temp
 export const APP_LOGIN_URL = window.location.protocol + '//' +
-    window.location.hostname + ':8080/login';
+    window.location.hostname + '/login';
 
 // PdfController
 export const PDF_GENERATE_URL = PDF_URL + '/generate';
