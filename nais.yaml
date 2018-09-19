@@ -37,8 +37,9 @@ fasitResources:
     - alias: EessiPensjonFrontendApi_v1
       resourceType: RestService
 
-    - alias: loadbalancer:pensjon-utland
-      resourceType: LoadBalancerConfig
+# TODO: commented out until we move back to SBS
+#    - alias: loadbalancer:pensjon-utland
+#      resourceType: LoadBalancerConfig
 
     exposed:
     - alias: EessiPensjonFrontend
