@@ -2,8 +2,6 @@ import React from 'react';
 import uuidv4 from 'uuid/v4';
 import getError from './shared/getError';
 import * as Nav from '../ui/Nav';
-import CountrySelect from '../ui/CountrySelect/CountrySelect';
-
 
 const errorMessages = {
     userEmail: {patternMismatch: 'patternMismatch', valueMissing: 'valueMissing', typeMismatch: 'typeMismatch'},
@@ -40,7 +38,7 @@ export class Contact extends React.Component{
             let error = getError(validity);
             this.setState(
                 (prevState, props)=>
-                {   
+                {
                     return {
                         inputStates: {
                             ...prevState.inputStates,
@@ -90,7 +88,7 @@ export class Contact extends React.Component{
         const {t, contact} = this.props;
         const nameToId = this.state.nameToId;
         const idToName = this.state.idToName;
-        const inputStates = this.state.inputStates;     
+        const inputStates = this.state.inputStates;
         return(
             <div className='mt-3'>
                 <Nav.Row>

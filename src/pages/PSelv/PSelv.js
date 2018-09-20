@@ -15,6 +15,7 @@ import TopContainer from '../../components/ui/TopContainer';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';
 import CountrySelect from '../../components/ui/CountrySelect/CountrySelect';
 
+import * as routes from '../../constants/routes';
 import * as pselvActions from '../../actions/pselv';
 import * as uiActions from '../../actions/ui';
 
@@ -50,8 +51,14 @@ class PSelv extends Component {
             if (this.state.referrer === 'pinfo' && step === 3) {
                 actions.stepForward();
                 // clean the referrer param. ComponentDidMount will run again
-                history.push('/_/pselv');
+                history.push(routes.PSELV);
             }
+        });
+
+        actions.addToBreadcrumbs({
+            url  : routes.PSELV,
+            ns   : 'pselv',
+            label: 'pselv:app-title'
         });
     }
 
@@ -68,7 +75,7 @@ class PSelv extends Component {
         const { actions, history } = this.props;
 
         actions.closeModal();
-        history.push('/_/p4000?referrer=pselv');
+        history.push(routes.P4000 + '?referrer=pselv');
     }
 
     goToPInfo() {
@@ -76,7 +83,7 @@ class PSelv extends Component {
         const { actions, history } = this.props;
 
         actions.closeModal();
-        history.push('/_/pinfo?referrer=pselv');
+        history.push(routes.PINFO + '?referrer=pselv');
     }
 
     closeModal() {
@@ -237,7 +244,7 @@ class PSelv extends Component {
             return null;
         }
 
-        return <TopContainer className='pSelv topContainer' location={location}>
+        return <TopContainer className='pSelv topContainer' history={history} location={location}>
             <Nav.Row className='mb-4'>
                 <Nav.Column>
                     <h1 className='mt-4 ml-3 mb-3 appTitle'>

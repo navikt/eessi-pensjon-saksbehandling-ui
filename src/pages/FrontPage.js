@@ -13,6 +13,7 @@ import * as Nav from '../components/ui/Nav';
 import Icons from '../components/ui/Icons';
 import DocumentStatus from '../components/ui/DocumentStatus/DocumentStatus';
 
+import * as routes from '../constants/routes';
 import * as statusActions from '../actions/status';
 import * as appActions from '../actions/app';
 
@@ -42,7 +43,7 @@ class FrontPage extends Component {
 
         const { t, language, gettingStatus, history, status, location } = this.props;
 
-        return <TopContainer className='frontPage topContainer' language={language} location={location}>
+        return <TopContainer className='frontPage topContainer' language={language} history={history} location={location}>
             <Nav.Row>
                 <Nav.Column>
                     <h1 className='appTitle'>
@@ -77,24 +78,24 @@ class FrontPage extends Component {
                     <Nav.Column>
                         <h4 className='mb-4'>{t('forms')}</h4>
                         <Nav.Lenkepanel className='frontPageLink caseLink' linkCreator={(props) => (
-                            <Link to='/_/case/get' {...props}/>)
+                            <Link to={routes.CASE_GET} {...props}/>)
                         } href="#">{t('case:app-createNewCase')}</Nav.Lenkepanel>
                         <Nav.Lenkepanel className='frontPageLink pSelvLink' linkCreator={(props) => (
-                            <Link to='/_/pselv' {...props}/>)
+                            <Link to={routes.PSELV} {...props}/>)
                         } href="#">{t('pselv:app-startPselv')}</Nav.Lenkepanel>
                         <Nav.Lenkepanel className='frontPageLink pInfoLink' linkCreator={(props) => (
-                            <Link to='/_/pinfo' {...props}/>)
+                            <Link to={routes.PINFO} {...props}/>)
                         } href="#">{t('pinfo:app-startPinfo')}</Nav.Lenkepanel>
                         {status ? this.getCreateableDocuments(status).map(item => <Nav.Lenkepanel
                             className={'frontPageLink ' + item.dokumentType + 'Link'}
                             key={item.dokumentType}
                             linkCreator={(props) => (
-                                <Link to={'/_/' + item.dokumentType} {...props}/>)
+                                <Link to={routes.ROOT + item.dokumentType} {...props}/>)
                             } href="#">{t(item.dokumentType + ':app-start' + item.dokumentType)}
                         </Nav.Lenkepanel>) : null}
                         <Nav.Lenkepanel
                             className='frontPageLink p4000Link' linkCreator={(props) => (
-                                <Link to='/_/P4000' {...props}/>)
+                                <Link to={routes.P4000} {...props}/>)
                             } href="#">{t('p4000:app-startP4000')}</Nav.Lenkepanel>
 
                     </Nav.Column>
@@ -103,7 +104,7 @@ class FrontPage extends Component {
                     <Nav.Column>
                         <h4 className='mb-4'>{t('tools')}</h4>
                         <Nav.Lenkepanel className='frontPageLink pdfLink' linkCreator={(props) => (
-                            <Link to='/_/pdf/select' {...props}/>)
+                            <Link to={routes.PDF_SELECT} {...props}/>)
                         } href="#">{t('pdf:app-createPdf')}</Nav.Lenkepanel>
                     </Nav.Column>
                 </Nav.Row>

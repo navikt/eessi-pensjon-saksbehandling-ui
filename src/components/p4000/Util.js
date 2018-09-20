@@ -286,10 +286,16 @@ class Util {
                     case 'andrePerioder' :
                         targetEvent.type = 'other';
                         break;
+                    default:
+                        break;
                     }
 
                     events.push(targetEvent);
+
+                    return sourceEvent ;
                 });
+
+                return key;
             });
         }
         return events;

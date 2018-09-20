@@ -5,9 +5,10 @@ import { translate } from 'react-i18next';
 import classNames from 'classnames';
 import { bindActionCreators }  from 'redux';
 
+import * as appActions from '../../../actions/app';
 import * as uiActions from '../../../actions/ui';
+import * as alertActions from '../../../actions/alert';
 
-import * as Nav from '../Nav';
 import './Breadcrumbs.css';
 
 const mapStateToProps = (state) => {
@@ -17,26 +18,36 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, uiActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, alertActions, uiActions, appActions), dispatch)};
 };
 
 class Breadcrumbs extends Component {
 
-    onBreadcrumbClick () {
+    onBreadcrumbClick (breadcrumb, e) {
 
+        e.preventDefault();
+
+        const { history, actions } = this.props;
+
+        actions.clearData();
+        actions.clientClear();
+        actions.trimBreadcrumbsTo(breadcrumb);
+
+        history.push(breadcrumb.url);
     }
 
     render () {
 
         let { t, className, breadcrumbs } = this.props;
 
-        return <div className={classNames('breadcrumbs', className)}>
+        return <div className={classNames('breadcrumb', className)}>
             {breadcrumbs ? breadcrumbs.map((b, index) => {
-                return index === (breadcrumbs.length - 1) ? <div>{t(b.label)}</div> : <div>
-                    <a href={b.url} title={t(b.label)}>{t(b.label)}</a>
-                    <span className='separator'></span>
-                </div>;
-
+                return index === (breadcrumbs.length - 1) ?
+                    <div className='_breadcrumb'>{t(b.label)}</div> :
+                    <div  className='_breadcrumb'>
+                        <a href={'#' + b.ns} title={t(b.label)} onClick={this.onBreadcrumbClick.bind(this, b)}>{t(b.label)}</a>
+                        <span className='separator'></span>
+                    </div>;
             }) : null}
         </div>;
     }
@@ -46,6 +57,7 @@ Breadcrumbs.propTypes = {
     t           : PT.function,
     breadcrumbs : PT.array,
     actions     : PT.object.isRequired,
+    history     : PT.object.isRequired,
     className   : PT.string
 }
 

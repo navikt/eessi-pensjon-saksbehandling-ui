@@ -8,6 +8,7 @@ import Case from './Case';
 import * as Nav from '../../components/ui/Nav';
 import RenderGeneratedData from '../../components/case/RenderGeneratedData';
 
+import * as routes from '../../constants/routes';
 import * as caseActions from '../../actions/case';
 import * as uiActions from '../../actions/ui';
 
@@ -42,7 +43,7 @@ class GenerateCase extends Component {
         const { history, dataSaved, action } = this.props;
 
         if (dataSaved && action === 'forward') {
-            history.push('/_/case/save');
+            history.push(routes.CASE_SAVE);
         }
     }
 
@@ -51,7 +52,7 @@ class GenerateCase extends Component {
         const { history, actions } = this.props;
 
         actions.navigateBack();
-        history.push('/_/case/confirm')
+        history.push(routes.CASE_CONFIRM)
     }
 
     onForwardButtonClick() {

@@ -38,10 +38,10 @@ const sortStatusByDocs = (documents) => {
     }
 
     documents.map(item => {
-        item.navn !== 'Create' && res[item.dokumentType] ? () => {
-            res[item.dokumentType]['aksjoner'].push(item.navn)
+        item.navn !== 'Create' && res[item.dokumentType] ?
+            res[item.dokumentType]['aksjoner'].push(item.navn) &&
             res[item.dokumentType]['aksjoner'].sort()
-        } :
+            :
             res[item.dokumentType] = {
                 'dokumentId' : item.dokumentId,
                 'aksjoner'   : [item.navn]

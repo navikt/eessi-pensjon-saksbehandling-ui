@@ -96,7 +96,7 @@ export default function (state = {}, action = {}) {
             rinaUrl : action.payload
         });
 
-    case types.CASE_CLEAR_DATA:
+    case types.CLEAR_DATA:
 
         return Object.assign({}, state, {
             currentCase    : undefined,

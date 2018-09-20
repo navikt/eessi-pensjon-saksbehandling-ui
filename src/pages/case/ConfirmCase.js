@@ -8,6 +8,7 @@ import * as Nav from '../../components/ui/Nav';
 import RenderConfirmData from '../../components/case/RenderConfirmData';
 import Case from './Case';
 
+import * as routes from '../../constants/routes';
 import * as caseActions from '../../actions/case';
 import * as uiActions from '../../actions/ui';
 
@@ -29,10 +30,18 @@ class ConfirmCase extends Component {
 
     componentDidMount() {
 
-        let { history, dataToConfirm } = this.props;
+        let { history, actions,  dataToConfirm } = this.props;
 
         if (!dataToConfirm) {
-            history.push('/');
+            history.push(routes.ROOT);
+
+        } else {
+
+            actions.addToBreadcrumbs({
+                url  : routes.CASE_CONFIRM,
+                ns   : 'case',
+                label: 'ui:case'
+            });
         }
     }
 
@@ -41,11 +50,11 @@ class ConfirmCase extends Component {
         const { history, dataToGenerate, dataToConfirm, action } = this.props;
 
         if (!dataToConfirm) {
-            history.push('/');
+            history.push(routes.ROOT);
         }
 
         if (dataToGenerate && action === 'forward') {
-            history.push('/_/case/generate');
+            history.push(routes.CASE_GENERATE);
         }
     }
 
@@ -54,7 +63,7 @@ class ConfirmCase extends Component {
         const { history, actions, dataToConfirm } = this.props;
 
         actions.navigateBack();
-        history.push('/_/case/get/' + dataToConfirm.caseId + '/' + dataToConfirm.actorId +
+        history.push(routes.CASE_GET + '/' + dataToConfirm.caseId + '/' + dataToConfirm.actorId +
             (dataToConfirm.rinaId ? '/' + dataToConfirm.rinaId : null));
     }
 

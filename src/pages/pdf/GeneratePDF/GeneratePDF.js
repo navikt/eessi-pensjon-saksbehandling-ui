@@ -70,6 +70,12 @@ class GeneratePDF extends Component {
                 pdfs   : pdfs
             });
         }
+
+        actions.addToBreadcrumbs({
+            url  : routes.PDF_GENERATE,
+            ns   : 'pdf',
+            label: 'pdf:app-generatePdfTitle'
+        });
     }
 
     onBackButtonClick() {
@@ -114,7 +120,7 @@ class GeneratePDF extends Component {
         const { t, history, generatingPDF, generatedPDFs, location } = this.props;
         let buttonText = generatingPDF ? t('pdf:loading-generatingPDF') : t('ui:startAgain');
 
-        return <TopContainer className='pdf topContainer' location={location}>
+        return <TopContainer className='pdf topContainer' history={history} location={location}>
             <Nav.Row>
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('pdf:help-generate-pdf')}</Nav.HjelpetekstBase>

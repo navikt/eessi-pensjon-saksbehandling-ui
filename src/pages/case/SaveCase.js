@@ -7,6 +7,7 @@ import { translate } from 'react-i18next';
 import Case from './Case';
 import * as Nav from '../../components/ui/Nav';
 
+import * as routes from '../../constants/routes';
 import * as caseActions from '../../actions/case';
 import * as uiActions from '../../actions/ui';
 
@@ -34,9 +35,14 @@ class SaveCase extends Component {
         let { history, actions, dataSaved } = this.props;
 
         if (!dataSaved) {
-            history.push('/');
+            history.push(routes.ROOT);
         } else {
             actions.getRinaUrl();
+            actions.addToBreadcrumbs({
+                url  : routes.CASE_SAVE,
+                ns   : 'case',
+                label: 'ui:case'
+            });
         }
     }
 
@@ -45,7 +51,7 @@ class SaveCase extends Component {
         const { history, dataSent } = this.props;
 
         if (dataSent) {
-            history.push('/_/case/send');
+            history.push(routes.CASE_SEND);
         }
     }
 
@@ -54,7 +60,7 @@ class SaveCase extends Component {
         const { history, actions } = this.props;
 
         actions.navigateBack();
-        history.push('/_/case/generate')
+        history.push(routes.CASE_GENERATE)
     }
 
     onForwardButtonClick() {

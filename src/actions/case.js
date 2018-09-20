@@ -110,13 +110,6 @@ export function clearCurrentCase() {
     };
 }
 
-export function clearData() {
-
-    return {
-        type : types.CASE_CLEAR_DATA
-    };
-}
-
 export function generateData (params) {
 
     return api.call({

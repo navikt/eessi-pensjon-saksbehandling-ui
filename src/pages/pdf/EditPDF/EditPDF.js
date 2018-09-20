@@ -18,6 +18,7 @@ import Icons from '../../../components/ui/Icons';
 import 'rc-collapse/assets/index.css';
 import './EditPDF.css';
 
+import * as routes from '../../../constants/routes';
 import * as pdfActions from '../../../actions/pdf';
 import * as uiActions from '../../../actions/ui';
 
@@ -41,11 +42,17 @@ class EditPDF extends Component {
 
     componentDidMount() {
 
-        const { history, pdfs } = this.props;
+        const { history, actions, pdfs } = this.props;
 
         if (_.isEmpty(pdfs)) {
-            history.push('/_/pdf/select');
+            history.push(routes.PDF_SELECT);
         }
+
+        actions.addToBreadcrumbs({
+            url  : routes.PDF_EDIT,
+            ns   : 'pdf',
+            label: 'pdf:app-editPdfTitle'
+        });
     }
 
     onBackButtonClick() {
@@ -53,7 +60,7 @@ class EditPDF extends Component {
         const { history, actions } = this.props;
 
         actions.navigateBack();
-        history.push('/_/pdf/select');
+        history.push(routes.PDF_SELECT);
     }
 
     hasOnlyEmptyArrays(obj) {
@@ -103,7 +110,7 @@ class EditPDF extends Component {
 
         actions.closeModal();
         actions.navigateForward();
-        history.push('/_/pdf/generate');
+        history.push(routes.PDF_GENERATE);
     }
 
     handleAccordionChange(index) {
@@ -129,7 +136,7 @@ class EditPDF extends Component {
 
         let alert = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
 
-        return <TopContainer className='pdf topContainer' location={location}>
+        return <TopContainer className='pdf topContainer' history={history} location={location}>
             <Nav.Row>
                 <Nav.Column>
                     <div className='mt-4'>

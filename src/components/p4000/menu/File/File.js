@@ -268,9 +268,10 @@ class File extends Component {
 
     handleBackToReferrerRequest() {
 
-        const { history } = this.props;
+        const { history, actions } = this.props;
 
         if (UrlValidator.validateReferrer(this.state.referrer)) {
+            actions.deleteLastBreadcrumb();
             history.push(routes.ROOT + this.state.referrer);
         }
     }

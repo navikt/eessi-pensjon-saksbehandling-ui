@@ -35,6 +35,13 @@ export function getUserInfo () {
     });
 }
 
+export function clearData() {
+
+    return {
+        type : types.CLEAR_DATA
+    };
+}
+
 export function setReferrer (referrer) {
 
     return {

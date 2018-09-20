@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import { withCookies, Cookies } from 'react-cookie';
@@ -20,7 +21,9 @@ const mapDispatchToProps = (dispatch) => {
 
 class AuthenticatedRoute extends Component {
 
-    state = {loggedIn : false}
+    state = {
+        loggedIn : false
+    }
 
     componentDidMount() {
 
@@ -44,12 +47,19 @@ class AuthenticatedRoute extends Component {
         const { t, className } = this.props;
 
         return this.state.loggedIn ? <Route {...this.props}/> :
-        <div className={classNames('w-100 text-center p-5', className)}>
-            <Nav.NavFrontendSpinner/>
-            <p>{t('authenticating')}</p>
-        </div>
+            <div className={classNames('w-100 text-center p-5', className)}>
+                <Nav.NavFrontendSpinner/>
+                <p>{t('authenticating')}</p>
+            </div>
     }
 }
+
+AuthenticatedRoute.propTypes = {
+    t              : PT.func.isRequired,
+    className      : PT.string,
+    cookies        : PT.instanceOf(Cookies),
+    actions        : PT.object.isRequired
+};
 
 export default withCookies(
     connect(

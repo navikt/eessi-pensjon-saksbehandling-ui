@@ -13,6 +13,7 @@ import EventForm from '../../components/p4000/EventForm/EventForm';
 import * as Menu from '../../components/p4000/menu/';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';
 
+import * as routes from '../../constants/routes';
 import * as p4000Actions from '../../actions/p4000';
 import * as uiActions from '../../actions/ui';
 
@@ -60,6 +61,12 @@ class P4000 extends Component {
             isLoaded : true
         });
         actions.setPage('file');
+
+        actions.addToBreadcrumbs({
+            url  : routes.P4000,
+            ns   : 'p4000',
+            label: 'ui:p4000'
+        });
     }
 
     onFileButtonClick() {
@@ -83,7 +90,7 @@ class P4000 extends Component {
         let Component   = components[activeItem];
         let isEventPage = activeItem !== 'view' && activeItem !== 'new' && activeItem !== 'file';
 
-        return <TopContainer className='p4000 topContainer' location={location}>
+        return <TopContainer className='p4000 topContainer' history={history} location={location}>
             <Nav.Row>
                 <div className='col-md-5 col-lg-4'>
                     <h1 className='mt-4 ml-3 mb-3 appTitle'>

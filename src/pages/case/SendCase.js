@@ -7,7 +7,9 @@ import { translate } from 'react-i18next';
 import Case from './Case';
 import * as Nav from '../../components/ui/Nav';
 
+import * as routes from '../../constants/routes';
 import * as caseActions from '../../actions/case';
+import * as uiActions from '../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
@@ -18,19 +20,31 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, caseActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, uiActions, caseActions), dispatch)};
 };
 
 class SendCase extends Component {
 
     state = {};
 
+    componentDidUpdate() {
+
+        const { actions } = this.props;
+
+        actions.addToBreadcrumbs({
+            url  : routes.CASE_SEND,
+            ns   : 'case',
+            label: 'ui:case'
+        });
+
+    }
+
     onCreateNewButtonClick() {
 
         const { history, actions, dataToConfirm, dataSaved } = this.props;
 
         actions.clearData();
-        history.push('/_/case/get/' + dataToConfirm.caseId + '/' + dataToConfirm.actorId + '/' + dataSaved.euxcaseid);
+        history.push(routes.CASE_GET + '/' + dataToConfirm.caseId + '/' + dataToConfirm.actorId + '/' + dataSaved.euxcaseid);
     }
 
     onGoToStartButtonClick() {
@@ -38,7 +52,7 @@ class SendCase extends Component {
         const { history, actions, dataSaved } = this.props;
 
         actions.clearData();
-        history.push('/?rinaId=' + dataSaved.euxcaseid);
+        history.push(routes.ROOT + '?rinaId=' + dataSaved.euxcaseid);
     }
 
     render() {
@@ -47,7 +61,7 @@ class SendCase extends Component {
 
         return <Case className='sendCase'
             title='case:app-sendCaseTitle'
-             description='case:app-sendCaseDescription'
+            description='case:app-sendCaseDescription'
             stepIndicator={4}
             history={history}
             location={location}>

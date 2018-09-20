@@ -12,7 +12,7 @@ import Modal from './Modal';
 
 import * as statusActions from '../../actions/status';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = () => {
     return {}
 };
 
@@ -24,7 +24,7 @@ class TopContainer extends Component {
 
     componentDidMount() {
 
-        const { actions, location, cookies } = this.props;
+        const { actions, location } = this.props;
 
         const rinaId = new URLSearchParams(location.search).get('rinaId');
 
@@ -38,13 +38,13 @@ class TopContainer extends Component {
 
     render () {
 
-        const { className, style } = this.props;
+        const { className, style, history } = this.props;
 
         return <div style={style} className={classNames('topcontainer', className)}>
             <TopHeader/>
             <ServerAlert/>
             <Modal/>
-            <Breadcrumbs/>
+            <Breadcrumbs history={history}/>
             <Nav.Container fluid={true}>
                 {this.props.children}
             </Nav.Container>
@@ -57,6 +57,8 @@ TopContainer.propTypes = {
     className : PT.string,
     style     : PT.object,
     actions   : PT.object.isRequired,
+    history   : PT.object.isRequired,
+    location  : PT.object.isRequired
 };
 
 export default connect(

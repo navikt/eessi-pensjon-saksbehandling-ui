@@ -47,6 +47,11 @@ const componentDidMount = (props) => {
     if (referrer) {
         props.actions.setReferrer(referrer);
     }
+    props.actions.addToBreadcrumbs({
+        url  : routes.PINFO,
+        ns   : 'pinfo',
+        label: 'pinfo:app-title'
+    });
 }
 
 const onBackButtonClick = async (props) => (
@@ -55,12 +60,12 @@ const onBackButtonClick = async (props) => (
 
 const onBackToReferrerButtonClick = async (props) => (
     UrlValidator.validateReferrer(props.referrer) ?
-        props.history.push(routes.ROOT + props.referrer) :
+        props.actions.deleteLastBreadcrumb() && props.history.push(routes.ROOT + props.referrer) :
         null
 );
 
 const onSaveButtonClick = (props) => (
-    props.history.push('/react/pselv?referrer=pinfo')
+    props.history.push(routes.PSELV + '?referrer=pinfo')
 );
 
 const onDateBlur = (props, key, e) => (
@@ -100,7 +105,7 @@ function isValid (e) {
 }
 
 const PInfo = (props) => (
-    <TopContainer className='pInfo topContainer' location={props.location}>
+    <TopContainer className='pInfo topContainer' history={props.history} location={props.location}>
         <Nav.Row className='mb-4'>
             <Nav.Column>
                 <h1 className='mt-4 ml-3 mb-3 appTitle'>

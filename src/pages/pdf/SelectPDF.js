@@ -10,6 +10,7 @@ import TopContainer from '../../components/ui/TopContainer';
 import FileUpload from '../../components/ui/FileUpload/FileUpload';
 import Icons from '../../components/ui/Icons';
 
+import * as routes from '../../constants/routes';
 import * as pdfActions from '../../actions/pdf';
 import * as uiActions from '../../actions/ui';
 
@@ -28,12 +29,23 @@ const mapDispatchToProps = (dispatch) => {
 
 class SelectPDF extends Component {
 
+    componentDidMount() {
+
+        const { actions } = this.props;
+
+        actions.addToBreadcrumbs({
+            url  : routes.PDF_SELECT,
+            ns   : 'pdf',
+            label: 'pdf:app-selectPdfTitle'
+        });
+    }
+
     onForwardButtonClick() {
 
         const { history, actions } = this.props;
 
         actions.navigateForward();
-        history.push('/_/pdf/edit');
+        history.push(routes.PDF_EDIT);
     }
 
     handleFileChange(files) {
@@ -57,7 +69,7 @@ class SelectPDF extends Component {
 
         let buttonText = loadingPDF ? t('pdf:loading-loadingPDF') : t('ui:forward');
 
-        return <TopContainer className='pdf topContainer' location={location}>
+        return <TopContainer className='pdf topContainer' history={history} location={location}>
             <Nav.Row className='mb-4'>
                 <Nav.Column>
                     <h1 className='mt-3 appTitle'>

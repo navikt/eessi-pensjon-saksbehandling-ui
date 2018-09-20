@@ -36,3 +36,19 @@ export function addToBreadcrumbs (breadcrumbs) {
         payload : breadcrumbs
     }
 }
+
+export function trimBreadcrumbsTo (breadcrumb) {
+
+    return {
+        type    : types.UI_BREADCRUMBS_TRIM,
+        payload : breadcrumb
+    }
+}
+
+export function deleteLastBreadcrumb () {
+
+    return {
+        type : types.UI_BREADCRUMBS_DELETE
+    }
+}
+

@@ -1,4 +1,5 @@
 import * as types from '../constants/actionTypes';
+import _ from 'lodash';
 
 export default function (state = {}, action = {}) {
 
@@ -45,16 +46,42 @@ export default function (state = {}, action = {}) {
 
     case types.UI_BREADCRUMBS_ADD: {
 
-        let _breadcrumbs = Object.assign({}, state.ui.breadcrumbs);
+        let _breadcrumbs = _.clone(state.breadcrumbs);
+
         if ( _breadcrumbs[_breadcrumbs.length -1].ns === action.payload.ns) {
             _breadcrumbs.splice(_breadcrumbs.length -1, 1);
         }
         _breadcrumbs.push(action.payload);
-         return Object.assign({}, state, {
-                   userInfo : action.payload
-               });
 
+        return Object.assign({}, state, {
+            breadcrumbs : _breadcrumbs
+        });
+    }
 
+    case types.UI_BREADCRUMBS_TRIM : {
+
+        let _breadcrumbs = _.clone(state.breadcrumbs);
+
+        let index = _.findIndex(_breadcrumbs, { url : action.payload.url});
+
+        if (index >= 0) {
+            _breadcrumbs.splice( index + 1)
+        }
+
+        return Object.assign({}, state, {
+            breadcrumbs : _breadcrumbs
+        });
+    }
+
+    case types.UI_BREADCRUMBS_DELETE : {
+
+        let _breadcrumbs = _.clone(state.breadcrumbs);
+
+        _breadcrumbs.splice( _breadcrumbs.length - 1, 1)
+
+        return Object.assign({}, state, {
+            breadcrumbs : _breadcrumbs
+        });
     }
 
     default:

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PT from 'prop-types';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 
@@ -51,7 +50,8 @@ class Modal extends Component {
 
 Modal.propTypes = {
     modalOpen : PT.bool.isRequired,
-    modal     : PT.object
+    modal     : PT.object,
+    actions   : PT.object.isRequired
 };
 
 export default connect(

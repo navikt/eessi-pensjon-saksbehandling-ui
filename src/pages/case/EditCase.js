@@ -9,6 +9,7 @@ import Case from './Case';
 import * as Nav from '../../components/ui/Nav';
 import CountrySelect from '../../components/ui/CountrySelect/CountrySelect';
 
+import * as routes from '../../constants/routes';
 import * as caseActions from '../../actions/case';
 import * as uiActions from '../../actions/ui';
 
@@ -102,6 +103,12 @@ class EditCase extends Component {
                 'subjectArea'  : dataToConfirm.subjectArea
             });
         }
+
+        actions.addToBreadcrumbs({
+            url  : routes.CASE_GET,
+            ns   : 'case',
+            label: 'ui:case'
+        });
     }
 
     async componentDidUpdate() {
@@ -117,11 +124,11 @@ class EditCase extends Component {
         }
 
         if ( !loading.gettingCase && !this.state.caseId) {
-            history.push('/_/case/get');
+            history.push(routes.CASE_GET);
         }
 
         if (dataToConfirm && action === 'forward') {
-            history.push('/_/case/confirm');
+            history.push(routes.CASE_CONFIRM);
         }
     }
 
@@ -131,7 +138,7 @@ class EditCase extends Component {
 
         actions.navigateBack();
         actions.clearCurrentCase();
-        history.push('/_/case/get');
+        history.push(routes.CASE_GET);
     }
 
     onForwardButtonClick() {
