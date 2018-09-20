@@ -7,16 +7,10 @@ server {
     error_log /dev/stdout info;
     access_log /dev/stdout;
 
-    location /api/ {
-        proxy_pass http://eessi-pensjon-frontend-api/;
-    }
+    rewrite ^/login(.*)$ ${EESSIPENSJONFRONTENDAPI_V1_URL}login$1 permanent;
 
-    location /login {
-        proxy_pass http://eessi-pensjon-frontend-api/;
-        proxy_set_header HOST $host;
-        proxy_set_header Referer $http_referer;
-        proxy_set_header X-Forwarded-For $remote_addr;
-        proxy_set_header X-Forwarded-Proto $scheme;
+    location /api/ {
+        proxy_pass ${EESSIPENSJONFRONTENDAPI_V1_URL}api/;
     }
 
     location / {
