@@ -141,7 +141,7 @@ class EditPDF extends Component {
                     <div className='mt-4'>
                         <Nav.HjelpetekstBase>{t('pdf:help-edit-pdf')}</Nav.HjelpetekstBase>
                     </div>
-                    <h1 className='mt-3 appTitle'>{t('pdf:app-editPdfTitle')}</h1>
+                    <h1 className='appTitle'>{t('pdf:app-editPdfTitle')}</h1>
                 </Nav.Column>
             </Nav.Row>
             {alert ? <Nav.Row className='mt-3 mb-3'>

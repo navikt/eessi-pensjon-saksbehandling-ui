@@ -71,7 +71,7 @@ class SelectPDF extends Component {
         return <TopContainer className='pdf topContainer' history={history} location={location}>
             <Nav.Row className='mb-4'>
                 <Nav.Column>
-                    <h1 className='mt-3 appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
+                    <h1 className='appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className='m-4 p-3 fieldset'>

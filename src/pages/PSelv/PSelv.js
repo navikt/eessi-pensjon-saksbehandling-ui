@@ -246,7 +246,7 @@ class PSelv extends Component {
         return <TopContainer className='pSelv topContainer' history={history} location={location}>
             <Nav.Row className='mb-4'>
                 <Nav.Column>
-                    <h1 className='mt-4 ml-3 mb-3 appTitle'>{t('pselv:app-title')}</h1>
+                    <h1 className='appTitle'>{t('pselv:app-title')}</h1>
                     <h4 className='appDescription mb-4'>{t('pselv:form-step' + step)}</h4>
                     <ClientAlert className='mb-4'/>
                     <Nav.Stegindikator
@@ -407,7 +407,7 @@ class PSelv extends Component {
                                 <option value=''>{'--'}</option>
                                 <option value='nb'>{'Norsk Bokmål'}</option>
                                 <option value='nn'>{'Nynorsk'}</option>
-                                <option value='en'>{'English'}</option>
+                                <option value='en-gb'>{'English'}</option>
                             </Nav.Select>
                         </div>
                     </Nav.Row>

@@ -16,8 +16,8 @@ class Case extends Component {
         const { t, children, title, description, stepIndicator, className, history, location } = this.props;
 
         return <TopContainer className={classNames('case','topContainer', className)} history={history} location={location}>
-            <h1 className='mb-3 appTitle'>{t(title)}</h1>
-            { description ? <h4 className='mb-3 appDescription'>{t(description)}</h4> : null }
+            <h1 className='appTitle'>{t(title)}</h1>
+            { description ? <h4 className='appDescription'>{t(description)}</h4> : null }
             <ClientAlert permanent={true}/>
             { stepIndicator !== undefined ? <Nav.Stegindikator
                 visLabel={true}

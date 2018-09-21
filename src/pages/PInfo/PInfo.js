@@ -107,7 +107,7 @@ const PInfo = (props) => (
     <TopContainer className='pInfo topContainer' history={props.history} location={props.location}>
         <Nav.Row className='mb-4'>
             <Nav.Column>
-                <h1 className='mt-4 ml-3 mb-3 appTitle'>{props.t('pinfo:app-title')}</h1>
+                <h1 className='appTitle'>{props.t('pinfo:app-title')}</h1>
                 <h4 className='appDescription mb-4'>{props.t('pinfo:form-step' + props.form.step)}</h4>
                 <ClientAlert className='mb-4'/>
                 <Nav.Stegindikator

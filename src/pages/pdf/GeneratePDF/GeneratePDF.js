@@ -123,7 +123,7 @@ class GeneratePDF extends Component {
             <Nav.Row>
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('pdf:help-generate-pdf')}</Nav.HjelpetekstBase>
-                    <h1 className='mb-3 appTitle'>{t('pdf:app-generatePdfTitle')}</h1>
+                    <h1 className='appTitle'>{t('pdf:app-generatePdfTitle')}</h1>
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className='text-center' style={{minHeight: '100px'}}>

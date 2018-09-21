@@ -45,8 +45,8 @@ class Breadcrumbs extends Component {
         return <div className={classNames('breadcrumb', className)}>
             {breadcrumbs ? breadcrumbs.map((b, index) => {
                 return index === (breadcrumbs.length - 1) ?
-                    <div className='_breadcrumb'>{t(b.label)}</div> :
-                    <div  className='_breadcrumb'>
+                    <div key={b.label} className='_breadcrumb'>{t(b.label)}</div> :
+                    <div key={b.label} className='_breadcrumb'>
                         <a href={'#' + b.ns} title={t(b.label)} onClick={this.onBreadcrumbClick.bind(this, b)}>{t(b.label)}</a>
                         <span className='separator'>
                             <Icons kind='caretRight' size='1x'/>
