@@ -67,7 +67,7 @@ export default function (state = {}, action = {}) {
             message = 'case:alert-noCountryList';
             break;
 
-        case types.USER_INFO_FAILURE:
+        case types.APP_USERINFO_FAILURE:
 
             message = 'ui:alert-noSuchUser';
             break;

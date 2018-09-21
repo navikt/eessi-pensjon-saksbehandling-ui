@@ -38,12 +38,6 @@ export default function (state = {}, action = {}) {
             action : 'back'
         });
 
-    case types.USER_INFO_SUCCESS:
-
-        return Object.assign({}, state, {
-            userInfo : action.payload
-        });
-
     case types.UI_BREADCRUMBS_ADD: {
 
         let _breadcrumbs = _.clone(state.breadcrumbs);

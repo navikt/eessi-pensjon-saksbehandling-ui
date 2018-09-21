@@ -14,12 +14,16 @@ export default function (state = initialState, action = {}) {
     switch (action.type) {
 
     case types.PINFO_EVENT_SET_PROPERTY:
-        
+
         return {...state, form: { ...state.form, ...action.payload }};
 
     case types.PINFO_NEW:
 
         break;
+
+    case types.APP_CLEAR_DATA:
+
+        return initialState;
 
     default:
 

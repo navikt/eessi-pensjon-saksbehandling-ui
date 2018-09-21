@@ -21,7 +21,7 @@ export const CASE_GET_INSTITUTION_LIST_URL    = API_URL + '/institutions';
 export const CASE_GET_INSTITUTION_FOR_COUNTRY_LIST_URL = API_URL + '/institutions/%(country)s';
 export const CASE_GET_COUNTRY_LIST_URL       = API_URL + '/countrycode';
 export const CASE_GET_SUBJECT_AREA_LIST_URL  = API_URL + '/subjectarea';
-export const UI_GET_USER_INFO_URL            = API_URL + '/userinfo';
+export const APP_GET_USERINFO_URL            = API_URL + '/userinfo';
 
 // FagmodulController
 export const CASE_CREATE_SED_URL    = FAG_URL + '/create';

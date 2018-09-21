@@ -10,13 +10,16 @@ import { translate } from 'react-i18next';
 import * as Nav from '../ui/Nav';
 
 import * as appActions from '../../actions/app';
+import * as statusActions from '../../actions/status';
 
 const mapStateToProps = (state) => {
-    return {}
+    return {
+        rinaId : state.status.rinaId
+    }
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, appActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, appActions, statusActions), dispatch)};
 };
 
 class AuthenticatedRoute extends Component {
@@ -27,7 +30,8 @@ class AuthenticatedRoute extends Component {
 
     componentDidMount() {
 
-        const { cookies, actions } = this.props;
+        const { cookies, actions, location } = this.props;
+        const { rinaId } = this.state;
 
         let idtoken = cookies.get('eessipensjon-idtoken-public');
 
@@ -40,6 +44,14 @@ class AuthenticatedRoute extends Component {
                 loggedIn: true
             });
         }
+
+        const rinaIdFromParam = new URLSearchParams(location.search).get('rinaId');
+
+        if (rinaIdFromParam && !rinaId) {
+            actions.setRinaId(rinaIdFromParam);
+            actions.getStatus(rinaIdFromParam);
+            actions.getCase(rinaIdFromParam);
+        }
     }
 
     render () {
@@ -49,7 +61,7 @@ class AuthenticatedRoute extends Component {
         return this.state.loggedIn ? <Route {...this.props}/> :
             <div className={classNames('w-100 text-center p-5', className)}>
                 <Nav.NavFrontendSpinner/>
-                <p>{t('authenticating')}</p>
+                <p>{t('ui:authenticating')}</p>
             </div>
     }
 }

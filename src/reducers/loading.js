@@ -65,7 +65,7 @@ export default function (state = {}, action = {}) {
             generatingCase : true
         });
 
-    case types.USER_INFO_REQUEST:
+    case types.APP_USERINFO_REQUEST:
 
         return Object.assign({}, state, {
             gettingUserInfo : true
@@ -150,8 +150,8 @@ export default function (state = {}, action = {}) {
             rinaUrl : false
         });
 
-    case types.USER_INFO_SUCCESS:
-    case types.USER_INFO_FAILURE:
+    case types.APP_USERINFO_SUCCESS:
+    case types.APP_USERINFO_FAILURE:
 
         return Object.assign({}, state, {
             gettingUserInfo : false

@@ -58,7 +58,7 @@ class Breadcrumbs extends Component {
 }
 
 Breadcrumbs.propTypes = {
-    t           : PT.function,
+    t           : PT.func,
     breadcrumbs : PT.array,
     actions     : PT.object.isRequired,
     history     : PT.object.isRequired,
@@ -68,4 +68,6 @@ Breadcrumbs.propTypes = {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(translate()(Breadcrumbs));
+)(
+    translate()(Breadcrumbs)
+);

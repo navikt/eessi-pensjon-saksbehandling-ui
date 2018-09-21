@@ -97,16 +97,18 @@ class GetCase extends Component {
             location={location}>
             <div className='fieldset p-4 m-4'>
                 <Nav.Row>
-                    <Nav.Column>
+                    <div className='col-md-6'>
                         <Nav.HjelpetekstBase id='caseId'>{t('case:help-caseId')}</Nav.HjelpetekstBase>
                         <Nav.Input className='getCaseInputCaseId' label={t('case:form-caseId') + ' *'} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
-                        <div>&nbsp;</div>
+                    </div>
+                    <div className='col-md-6'>
                         <Nav.HjelpetekstBase id='actorId'>{t('case:help-actorId')}</Nav.HjelpetekstBase>
                         <Nav.Input className='getCaseInputActorId' label={t('case:form-actorId') + ' *'} value={this.state.actorId} onChange={this.onActorIdChange.bind(this)}/>
-                        <div>&nbsp;</div>
+                    </div>
+                    <div className='col-md-6'>
                         <Nav.HjelpetekstBase id='rinaId'>{t('case:help-rinaId')}</Nav.HjelpetekstBase>
                         <Nav.Input className='getCaseInputRinaId' label={t('case:form-rinaId')} value={this.state.rinaId} onChange={this.onRinaIdChange.bind(this)}/>
-                    </Nav.Column>
+                    </div>
                 </Nav.Row>
             </div>
             <Nav.Row className='p-4'>

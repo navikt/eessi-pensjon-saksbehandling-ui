@@ -96,7 +96,7 @@ export default function (state = {}, action = {}) {
             rinaUrl : action.payload
         });
 
-    case types.CLEAR_DATA:
+    case types.APP_CLEAR_DATA:
 
         return Object.assign({}, state, {
             currentCase    : undefined,
@@ -104,12 +104,6 @@ export default function (state = {}, action = {}) {
             dataToConfirm  : undefined,
             dataSaved      : undefined
         });
-
-    case types.CASE_CLEAR_CURRENT_CASE: {
-        return  Object.assign({}, state, {
-            currentCase : undefined
-        });
-    }
 
     default:
         return state;

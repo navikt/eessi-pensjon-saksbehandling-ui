@@ -68,6 +68,10 @@ export default function (state = initialState, action = {}) {
             pdfsize : action.payload
         });
 
+    case types.APP_CLEAR_DATA:
+
+        return initialState;
+
     default:
 
         return state;

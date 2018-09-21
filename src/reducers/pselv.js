@@ -29,6 +29,10 @@ export default function (state = initialState, action = {}) {
             });
         }
 
+    case types.APP_CLEAR_DATA:
+
+        return initialState;
+
     default:
 
         return state;

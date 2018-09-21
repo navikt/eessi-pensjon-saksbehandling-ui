@@ -137,7 +137,7 @@ class EditCase extends Component {
         const { history, actions } = this.props;
 
         actions.navigateBack();
-        actions.clearCurrentCase();
+        actions.clearData();
         history.push(routes.CASE_GET);
     }
 
