@@ -63,7 +63,7 @@ class GetCase extends Component {
         actions.addToBreadcrumbs({
             url  : routes.CASE_GET,
             ns   : 'case',
-            label: 'ui:case'
+            label: 'case:app-getCaseTitle'
         });
     }
 
@@ -73,9 +73,9 @@ class GetCase extends Component {
 
         if (currentCase) {
             history.push(routes.CASE_GET  +
-                (currentCase.hasOwnProperty('casenumber') ? currentCase.casenumber + '/' : null) +
-                (currentCase.hasOwnProperty('pinid')      ? currentCase.pinid      + '/' : null) +
-                (currentCase.hasOwnProperty('rinaid')     ? currentCase.rinaid     + '/' : null)
+                (currentCase.casenumber ? '/' + currentCase.casenumber : '') +
+                (currentCase.pinid      ? '/' + currentCase.pinid      : '') +
+                (currentCase.rinaid     ? '/' + currentCase.rinaid     : '')
             );
         }
     }

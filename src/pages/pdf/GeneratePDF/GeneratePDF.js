@@ -9,7 +9,6 @@ import * as Nav from '../../../components/ui/Nav';
 import TopContainer from '../../../components/ui/TopContainer';
 import ClientAlert from '../../../components/ui/Alert/ClientAlert';
 import File from '../../../components/ui/File/File';
-import Icons from '../../../components/ui/Icons';
 
 import * as routes from '../../../constants/routes';
 import * as pdfActions from '../../../actions/pdf';
@@ -124,10 +123,7 @@ class GeneratePDF extends Component {
             <Nav.Row>
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('pdf:help-generate-pdf')}</Nav.HjelpetekstBase>
-                    <h1 className='mb-3 appTitle'>
-                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push(routes.ROOT)}/>
-                        {t('pdf:app-generatePdfTitle')}
-                    </h1>
+                    <h1 className='mb-3 appTitle'>{t('pdf:app-generatePdfTitle')}</h1>
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className='text-center' style={{minHeight: '100px'}}>

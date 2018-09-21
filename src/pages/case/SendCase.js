@@ -34,7 +34,7 @@ class SendCase extends Component {
         actions.addToBreadcrumbs({
             url  : routes.CASE_SEND,
             ns   : 'case',
-            label: 'ui:case'
+            label: 'case:app-sendCaseTitle'
         });
 
     }

@@ -107,7 +107,7 @@ class EditCase extends Component {
         actions.addToBreadcrumbs({
             url  : routes.CASE_GET,
             ns   : 'case',
-            label: 'ui:case'
+            label: 'case:app-editCaseTitle'
         });
     }
 

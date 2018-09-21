@@ -158,9 +158,11 @@ export default function (state = {}, action = {}) {
         break;
 
     default:
-
-        message = 'success'
         break
+    }
+
+    if (!message) {
+        return state;
     }
 
     return Object.assign({}, state, {

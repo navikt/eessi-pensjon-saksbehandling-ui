@@ -40,7 +40,7 @@ class ConfirmCase extends Component {
             actions.addToBreadcrumbs({
                 url  : routes.CASE_CONFIRM,
                 ns   : 'case',
-                label: 'ui:case'
+                label: 'case:app-confirmCaseTitle'
             });
         }
     }

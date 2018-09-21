@@ -10,7 +10,6 @@ import 'url-search-params-polyfill';
 import LanguageSelector from '../components/ui/LanguageSelector';
 import TopContainer from '../components/ui/TopContainer';
 import * as Nav from '../components/ui/Nav';
-import Icons from '../components/ui/Icons';
 import DocumentStatus from '../components/ui/DocumentStatus/DocumentStatus';
 
 import * as routes from '../constants/routes';
@@ -46,10 +45,7 @@ class FrontPage extends Component {
         return <TopContainer className='frontPage topContainer' language={language} history={history} location={location}>
             <Nav.Row>
                 <Nav.Column>
-                    <h1 className='appTitle'>
-                        <Icons style={{opacity: 0}} size={'lg'} title={t('ui:back')} className='mr-3' kind='caretLeft'/>
-                        {t('pageTitle')}
-                    </h1>
+                    <h1 className='appTitle'>{t('pageTitle')}</h1>
                     <h4 className='appDescription'>{t('pageDescription')}</h4>
                     <div className='col text-center m-auto'>
                         <LanguageSelector/>
@@ -57,6 +53,7 @@ class FrontPage extends Component {
                     <div className='col text-center m-auto'>
                         <a href='https://loginservice.nais.adeo.no/login?redirect=https://eux-app.nais.preprod.local/swagger-ui.html/'>{'LOGINSERVICE'}</a>
                     </div>
+
                 </Nav.Column>
             </Nav.Row>
             <div className='fieldset p-4 m-4'>

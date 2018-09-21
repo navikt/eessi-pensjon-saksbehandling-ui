@@ -9,7 +9,6 @@ import moment from 'moment';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.min.css';
 
-import Icons from '../../components/ui/Icons';
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';
@@ -247,10 +246,7 @@ class PSelv extends Component {
         return <TopContainer className='pSelv topContainer' history={history} location={location}>
             <Nav.Row className='mb-4'>
                 <Nav.Column>
-                    <h1 className='mt-4 ml-3 mb-3 appTitle'>
-                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
-                        {t('pselv:app-title')}
-                    </h1>
+                    <h1 className='mt-4 ml-3 mb-3 appTitle'>{t('pselv:app-title')}</h1>
                     <h4 className='appDescription mb-4'>{t('pselv:form-step' + step)}</h4>
                     <ClientAlert className='mb-4'/>
                     <Nav.Stegindikator

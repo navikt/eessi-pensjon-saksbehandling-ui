@@ -31,11 +31,17 @@ class GenerateCase extends Component {
 
     componentDidMount() {
 
-        let { history, dataToGenerate } = this.props;
+        let { history, actions, dataToGenerate } = this.props;
 
         if (!dataToGenerate) {
-            history.push('/');
+            history.push(routes.ROOT);
         }
+
+        actions.addToBreadcrumbs({
+            url  : routes.CASE_GET,
+            ns   : 'case',
+            label: 'case:app-generateCaseTitle'
+        });
     }
 
     componentDidUpdate() {

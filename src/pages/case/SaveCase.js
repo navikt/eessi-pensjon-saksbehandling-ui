@@ -41,7 +41,7 @@ class SaveCase extends Component {
             actions.addToBreadcrumbs({
                 url  : routes.CASE_SAVE,
                 ns   : 'case',
-                label: 'ui:case'
+                label: 'case:app-saveCaseTitle'
             });
         }
     }

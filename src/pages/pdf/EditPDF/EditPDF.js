@@ -13,7 +13,6 @@ import DnDSource from '../../../components/pdf/DnDSource/DnDSource';
 import DnDTarget from '../../../components/pdf/DnDTarget';
 import DnD from '../../../components/pdf/DnD';
 import PDFSizeSlider from '../../../components/pdf/PDFSizeSlider';
-import Icons from '../../../components/ui/Icons';
 
 import 'rc-collapse/assets/index.css';
 import './EditPDF.css';
@@ -142,10 +141,7 @@ class EditPDF extends Component {
                     <div className='mt-4'>
                         <Nav.HjelpetekstBase>{t('pdf:help-edit-pdf')}</Nav.HjelpetekstBase>
                     </div>
-                    <h1 className='mt-3 appTitle'>
-                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
-                        {t('pdf:app-editPdfTitle')}
-                    </h1>
+                    <h1 className='mt-3 appTitle'>{t('pdf:app-editPdfTitle')}</h1>
                 </Nav.Column>
             </Nav.Row>
             {alert ? <Nav.Row className='mt-3 mb-3'>

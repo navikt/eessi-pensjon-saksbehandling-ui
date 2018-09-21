@@ -10,7 +10,6 @@ import lifecycle from 'react-pure-lifecycle';
 
 import 'react-datepicker/dist/react-datepicker.min.css';
 
-import Icons from '../../components/ui/Icons';
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';
@@ -108,10 +107,7 @@ const PInfo = (props) => (
     <TopContainer className='pInfo topContainer' history={props.history} location={props.location}>
         <Nav.Row className='mb-4'>
             <Nav.Column>
-                <h1 className='mt-4 ml-3 mb-3 appTitle'>
-                    <Icons title={props.t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => props.history.push('/')}/>
-                    {props.t('pinfo:app-title')}
-                </h1>
+                <h1 className='mt-4 ml-3 mb-3 appTitle'>{props.t('pinfo:app-title')}</h1>
                 <h4 className='appDescription mb-4'>{props.t('pinfo:form-step' + props.form.step)}</h4>
                 <ClientAlert className='mb-4'/>
                 <Nav.Stegindikator

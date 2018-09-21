@@ -65,7 +65,7 @@ class P4000 extends Component {
         actions.addToBreadcrumbs({
             url  : routes.P4000,
             ns   : 'p4000',
-            label: 'ui:p4000'
+            label: 'p4000:app-title'
         });
     }
 
@@ -93,10 +93,7 @@ class P4000 extends Component {
         return <TopContainer className='p4000 topContainer' history={history} location={location}>
             <Nav.Row>
                 <div className='col-md-5 col-lg-4'>
-                    <h1 className='mt-4 ml-3 mb-3 appTitle'>
-                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
-                        {t('p4000:app-title')}
-                    </h1>
+                    <h1 className='mt-4 ml-3 mb-3 appTitle'>{t('p4000:app-title')}</h1>
                     <Nav.Knapp className='fileButton ml-3 mb-3' onClick={this.onFileButtonClick.bind(this)} disabled={activeItem === 'file'}>
                         <Icons className='mr-2' kind='menu' size='1x'/>
                         {t('ui:file')}

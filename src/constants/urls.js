@@ -2,9 +2,9 @@ export const BASE_URL = window.location.protocol + '//' +
                         window.location.hostname +
                         (window.location.port ? ':' + window.location.port : '');
 
-var API_URL = BASE_URL + '/api';
-var FAG_URL = BASE_URL + '/fag';
-var PDF_URL = BASE_URL + '/pdf';
+let API_URL = BASE_URL + '/api';
+let FAG_URL = BASE_URL + '/fag';
+let PDF_URL = BASE_URL + '/pdf';
 
 // EuxController
 export const CASE_GET_RINA_URL                = API_URL + '/rinaurl';
@@ -31,9 +31,8 @@ export const CASE_SEND_SED_URL      = FAG_URL + '/sendsed';
 export const CASE_GET_SED_URL       = FAG_URL + '/sed/get/%(rinaId)s/%(dokumentId)s';
 export const CASE_DELETE_SED_URL    = FAG_URL + '/sed/delete/%(rinaId)s/%(sed)s/%(dokumentId)s';
 
-// Temp
-export const APP_LOGIN_URL = window.location.protocol + '//' +
-    window.location.hostname + '/login';
+// Login
+export const APP_LOGIN_URL = window.location.protocol + '//' + window.location.hostname + '/login';
 
 // PdfController
 export const PDF_GENERATE_URL = PDF_URL + '/generate';

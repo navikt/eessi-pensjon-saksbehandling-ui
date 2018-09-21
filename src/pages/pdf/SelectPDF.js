@@ -8,7 +8,6 @@ import _ from 'lodash';
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import FileUpload from '../../components/ui/FileUpload/FileUpload';
-import Icons from '../../components/ui/Icons';
 
 import * as routes from '../../constants/routes';
 import * as pdfActions from '../../actions/pdf';
@@ -72,10 +71,7 @@ class SelectPDF extends Component {
         return <TopContainer className='pdf topContainer' history={history} location={location}>
             <Nav.Row className='mb-4'>
                 <Nav.Column>
-                    <h1 className='mt-3 appTitle'>
-                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
-                        {t('pdf:app-selectPdfTitle')}
-                    </h1>
+                    <h1 className='mt-3 appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
                 </Nav.Column>
             </Nav.Row>
             <Nav.Row className='m-4 p-3 fieldset'>

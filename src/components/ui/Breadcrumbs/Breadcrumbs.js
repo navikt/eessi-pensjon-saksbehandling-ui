@@ -5,6 +5,8 @@ import { translate } from 'react-i18next';
 import classNames from 'classnames';
 import { bindActionCreators }  from 'redux';
 
+import Icons from  '../Icons';
+
 import * as appActions from '../../../actions/app';
 import * as uiActions from '../../../actions/ui';
 import * as alertActions from '../../../actions/alert';
@@ -46,7 +48,9 @@ class Breadcrumbs extends Component {
                     <div className='_breadcrumb'>{t(b.label)}</div> :
                     <div  className='_breadcrumb'>
                         <a href={'#' + b.ns} title={t(b.label)} onClick={this.onBreadcrumbClick.bind(this, b)}>{t(b.label)}</a>
-                        <span className='separator'></span>
+                        <span className='separator'>
+                            <Icons kind='caretRight' size='1x'/>
+                        </span>
                     </div>;
             }) : null}
         </div>;

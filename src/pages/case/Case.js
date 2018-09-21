@@ -11,30 +11,25 @@ import './Case.css';
 
 class Case extends Component {
 
-
     render() {
 
         const { t, children, title, description, stepIndicator, className, history, location } = this.props;
 
         return <TopContainer className={classNames('case','topContainer', className)} history={history} location={location}>
-            <Nav.Row className='mb-4'>
-                <Nav.Column>
-                    <h1 className='mb-3 appTitle'>{t(title)}</h1>
-                    { description ? <h4 className='mb-3 appDescription'>{t(description)}</h4> : null }
-                    <ClientAlert permanent={true}/>
-                    { stepIndicator !== undefined ? <Nav.Stegindikator
-                        visLabel={true}
-                        onBeforeChange={() => {return false}}
-                        autoResponsiv={true}
-                        steg={[
-                            {label: t('case:form-step1'), aktiv: (stepIndicator === 0)},
-                            {label: t('case:form-step2'), aktiv: (stepIndicator === 1)},
-                            {label: t('case:form-step3'), aktiv: (stepIndicator === 2)},
-                            {label: t('case:form-step4'), aktiv: (stepIndicator === 3)},
-                            {label: t('case:form-step5'), aktiv: (stepIndicator === 4)}
-                        ]}/> : null }
-                </Nav.Column>
-            </Nav.Row>
+            <h1 className='mb-3 appTitle'>{t(title)}</h1>
+            { description ? <h4 className='mb-3 appDescription'>{t(description)}</h4> : null }
+            <ClientAlert permanent={true}/>
+            { stepIndicator !== undefined ? <Nav.Stegindikator
+                visLabel={true}
+                onBeforeChange={() => {return false}}
+                autoResponsiv={true}
+                steg={[
+                    {label: t('case:form-step1'), aktiv: (stepIndicator === 0)},
+                    {label: t('case:form-step2'), aktiv: (stepIndicator === 1)},
+                    {label: t('case:form-step3'), aktiv: (stepIndicator === 2)},
+                    {label: t('case:form-step4'), aktiv: (stepIndicator === 3)},
+                    {label: t('case:form-step5'), aktiv: (stepIndicator === 4)}
+                ]}/> : null }
             {children}
         </TopContainer>
     }
