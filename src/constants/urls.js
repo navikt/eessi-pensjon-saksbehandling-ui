@@ -36,4 +36,5 @@ export const APP_LOGIN_URL = window.location.protocol + '//' + window.location.h
 
 // PdfController
 export const PDF_GENERATE_URL = PDF_URL + '/generate';
+export const PDF_GET_LIST_URL = PDF_URL + '/list';
 

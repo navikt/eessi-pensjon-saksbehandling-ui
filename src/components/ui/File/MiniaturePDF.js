@@ -83,6 +83,15 @@ class MiniaturePDF extends Component {
         });
     }
 
+    onAddDocument(e) {
+
+        e.stopPropagation();
+        e.preventDefault();
+
+        const { onAddDocument } = this.props;
+
+        onAddDocument();
+    }
 
     handlePreviousPageRequest(e) {
 
@@ -118,7 +127,7 @@ class MiniaturePDF extends Component {
 
     render () {
 
-        const { t, file, size, deleteLink, downloadLink, className } = this.props;
+        const { t, file, size, addLink, deleteLink, downloadLink, className } = this.props;
         const { numPages, isHovering, currentPage } = this.state;
 
         return <div className={classNames('miniaturePdf', className)}
@@ -128,6 +137,9 @@ class MiniaturePDF extends Component {
                 onLoadSuccess={this.handleOnLoadSuccess.bind(this)}>
                 { deleteLink && isHovering ? <div className='deleteLink'>
                     <Ikon size={20} kind='trashcan' onClick={this.onDeleteDocument.bind(this)}/>
+                </div> : null}
+                { addLink && isHovering ? <div className='addLink'>
+                    <Ikon size={20} kind='vedlegg' onClick={this.onAddDocument.bind(this)}/>
                 </div> : null}
                 { downloadLink && isHovering ? <div className='downloadLink'><a
                     onClick={(e) => e.stopPropagation()} title={t('ui:download')}
@@ -155,8 +167,10 @@ MiniaturePDF.propTypes = {
     file             : PT.object.isRequired,
     size             : PT.string,
     onDeleteDocument : PT.func,
+    onAddDocument    : PT.func,
     deleteLink       : PT.bool,
     downloadLink     : PT.bool,
+    addLink          : PT.bool,
     className        : PT.string,
     currentPage      : PT.number.isRequired,
     onPreviousPage   : PT.func,

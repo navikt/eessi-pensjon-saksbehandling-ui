@@ -135,6 +135,21 @@ class FileUpload extends Component {
         });
     }
 
+    async addFile(file) {
+
+        const { t } = this.props;
+
+        let newFiles = _.clone(this.state.files);
+        let newCurrentPages = _.clone(this.state.currentPages);
+
+        newFiles.push(file);
+        newCurrentPages.push(file.numPages);
+
+        let status = t('ui:added') + ' ' + file.name;
+
+        await this.updateFiles(newFiles, newCurrentPages, status);
+    }
+
     async removeFile(fileIndex) {
 
         const { t } = this.props;

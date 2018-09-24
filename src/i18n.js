@@ -21,7 +21,7 @@ i18next
         },
         react: {
             wait: true,
-            withRef: false,
+            withRef: true,
             bindI18n: 'languageChange loaded',
             bindStore: 'added removed',
             nsMode: 'default'

@@ -8,6 +8,7 @@ import _ from 'lodash';
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import FileUpload from '../../components/ui/FileUpload/FileUpload';
+import File from '../../components/ui/File/File';
 
 import * as routes from '../../constants/routes';
 import * as pdfActions from '../../actions/pdf';
@@ -18,6 +19,8 @@ const mapStateToProps = (state) => {
         loadingPDF   : state.loading.loadingPDF,
         language     : state.ui.language,
         pdfs         : state.pdf.pdfs,
+        loadingExtPDF: state.loading.loadingExtPDF,
+        extPdfs      : state.pdf.extPdfs,
         action       : state.ui.action
     }
 };
@@ -37,6 +40,7 @@ class SelectPDF extends Component {
             ns   : 'pdf',
             label: 'pdf:app-selectPdfTitle'
         });
+
     }
 
     onForwardButtonClick() {
@@ -62,9 +66,23 @@ class SelectPDF extends Component {
         this.props.actions.loadingFilesEnd();
     }
 
+    addDocument(pdf) {
+
+        this.fileUpload.getWrappedInstance().addFile(pdf);
+    }
+
+    onExternalFileRequest() {
+
+        const { actions, extPdfs } = this.props;
+
+        if (!extPdfs) {
+            actions.getPdfList();
+        }
+    }
+
     render() {
 
-        const { t, history, loadingPDF, pdfs, location } = this.props;
+        const { t, history, loadingPDF, loadingExtPDF, pdfs, extPdfs, location } = this.props;
 
         let buttonText = loadingPDF ? t('pdf:loading-loadingPDF') : t('ui:forward');
 
@@ -74,19 +92,30 @@ class SelectPDF extends Component {
                     <h1 className='appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='m-4 p-3 fieldset'>
-                <Nav.Column>
-                    <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
-                    <h2 className='mb-3'>{t('ui:fileSelect')}</h2>
-                    <span>{'Soon'}</span>
-                </Nav.Column>
-            </Nav.Row>
+            <Nav.Ekspanderbartpanel className='m-4 fieldset'
+                apen={false} tittel={t('ui:fileSelect')} tittelProps='undertittel'
+                onClick={this.onExternalFileRequest.bind(this)}>
+                <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
+                    <div style={{minHeight: '190px'}}>
+                    {loadingExtPDF ? <div className='w-100 text-center'>
+                         <Nav.NavFrontendSpinner/>
+                         <p>{t('pdf:loading-loadingExtPDF')}</p>
+                    </div> : null}
+                    {extPdfs ? extPdfs.map((pdf, index) => {
+                         return <File key={index} file={pdf} addLink={true}
+                            onAddDocument={this.addDocument.bind(this, pdf)}
+                            currentPage={1}
+                         />
+                    }) : null}
+                    </div>
+            </Nav.Ekspanderbartpanel>
 
             <Nav.Row className='m-4 p-3 fieldset'>
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
                     <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
-                    <FileUpload className='fileUpload mb-3'
+                    <FileUpload ref={f => this.fileUpload = f}
+                        className='fileUpload mb-3'
                         accept='application/pdf'
                         files={pdfs || []}
                         beforeDrop={this.handleBeforeDrop.bind(this)}

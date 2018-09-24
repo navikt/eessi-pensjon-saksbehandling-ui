@@ -5,6 +5,7 @@
     "app-generatePdfTitle" : "Generate PDF",
 
     "loading-loadingPDF"    : "Loading PDF...",
+    "loading-loadingExtPDF" : "Loading External PDF...",
     "loading-generatingPDF" : "Generating PDF...",
 
     "help-select-pdf"        : "Drag PDF files for edit, or click in the area to open file select dialog",

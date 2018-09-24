@@ -56,6 +56,19 @@ export function setPdfSize (size) {
     };
 }
 
+
+export function getPdfList () {
+
+    return api.call({
+        url     : urls.PDF_GET_LIST_URL,
+        type    : {
+            request : types.PDF_GET_LIST_REQUEST,
+            success : types.PDF_GET_LIST_SUCCESS,
+            failure : types.PDF_GET_LIST_FAILURE
+        }
+    });
+}
+
 export function generatePDF (payload) {
 
     let newPayload = Object.assign({}, payload);

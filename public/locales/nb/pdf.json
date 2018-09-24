@@ -5,6 +5,7 @@
     "app-generatePdfTitle" : "Generer ny PDF",
 
     "loading-loadingPDF"    : "Laster ny PDF...",
+    "loading-loadingExtPDF" : "Laster eksterne PDF...",
     "loading-generatingPDF" : "Genererer ny PDF...",
 
     "help-select-pdf"        : "Dra PDF filer inn i målområdet, eller klikk her for å åpne dialogboks for filvalg",
