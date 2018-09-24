@@ -13,6 +13,14 @@ server {
         proxy_pass ${EESSIPENSJONFRONTENDAPI_V1_URL}api/;
     }
 
+    location /fag/ {
+        proxy_pass ${EESSIPENSJONFRONTENDAPI_V1_URL}fag/;
+    }
+
+    location /pdf/ {
+        proxy_pass ${EESSIPENSJONFRONTENDAPI_V1_URL}pdf/;
+    }
+
     location / {
         try_files $uri /index.html;
         root   /usr/share/nginx/html;
