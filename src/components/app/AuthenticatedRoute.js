@@ -15,7 +15,6 @@ import * as statusActions from '../../actions/status';
 
 const mapStateToProps = (state) => {
     return {
-        rinaId : state.status.rinaId
     }
 };
 
@@ -32,7 +31,6 @@ class AuthenticatedRoute extends Component {
     componentDidMount() {
 
         const { cookies, actions, location } = this.props;
-        const { rinaId } = this.state;
 
         let idtoken = cookies.get('eessipensjon-idtoken-public');
 
@@ -47,12 +45,25 @@ class AuthenticatedRoute extends Component {
             });
         }
 
-        const rinaIdFromParam = new URLSearchParams(location.search).get('rinaId');
+        let params = new URLSearchParams(location.search);
+        const rinaIdFromParam = params.get('rinaId');
 
-        if (rinaIdFromParam && !rinaId) {
-            actions.setRinaId(rinaIdFromParam);
+        if (rinaIdFromParam) {
+            actions.setStatusParam('rinaId', rinaIdFromParam);
             actions.getStatus(rinaIdFromParam);
             actions.getCase(rinaIdFromParam);
+        }
+
+        const saksNrFromParam = params.get('saksNr');
+
+        if (saksNrFromParam) {
+            actions.setStatusParam('saksNr', saksNrFromParam);
+        }
+
+        const fnrFromParam = params.get('fnr');
+
+        if (fnrFromParam) {
+            actions.setStatusParam('fnr', fnrFromParam);
         }
     }
 

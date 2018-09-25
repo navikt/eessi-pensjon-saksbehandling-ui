@@ -3,12 +3,13 @@ import * as urls  from '../constants/urls';
 import * as api   from './api';
 var sprintf = require('sprintf-js').sprintf;
 
-export function setRinaId (rinaId) {
+export function setStatusParam (key, value) {
 
     return {
-        type    : types.STATUS_SET_RINAID,
+        type    : types.STATUS_PARAM_SET,
         payload : {
-            rinaId : rinaId
+            key   : key,
+            value : value
         }
     };
 }

@@ -8,10 +8,10 @@ export default function (state = initialState, action = {}) {
 
     switch (action.type) {
 
-    case types.STATUS_SET_RINAID:
+    case types.STATUS_PARAM_SET:
 
         return  Object.assign({}, state, {
-            rinaId : action.payload.rinaId
+            [action.payload.key] : action.payload.value
         });
 
     case types.STATUS_GET_SUCCESS:
