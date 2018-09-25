@@ -1,4 +1,7 @@
 export default function getError(val){
+    if(!val || val.valid){
+        return null;
+    }
     let errorType;
     switch(true){
     case val.customError:

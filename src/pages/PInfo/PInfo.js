@@ -5,7 +5,6 @@ import PT from 'prop-types';
 import { translate } from 'react-i18next';
 import classNames from 'classnames';
 import moment from 'moment';
-import ReactDatePicker from 'react-datepicker';
 import lifecycle from 'react-pure-lifecycle';
 
 import 'react-datepicker/dist/react-datepicker.min.css';
@@ -14,8 +13,6 @@ import Icons from '../../components/ui/Icons';
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';
-import CountrySelect from '../../components/ui/CountrySelect/CountrySelect';
-import P4000Util from '../../components/p4000/Util';
 import File from '../../components/ui/File/File';
 
 import * as UrlValidator from '../../utils/UrlValidator';
@@ -25,7 +22,9 @@ import * as uiActions from '../../actions/ui';
 import * as appActions from '../../actions/app';
 import Bank from '../../components/form/Bank';
 import Contact from '../../components/form/Contact';
+import Work from '../../components/form/Work';
 import PdfUploadComponent from '../../components/form/PdfUploadComponent';
+import Pension from '../../components/form/Pension';
 
 import './PInfo.css';
 
@@ -63,32 +62,24 @@ const onSaveButtonClick = (props) => (
     props.history.push('/react/pselv?referrer=pinfo')
 );
 
-const onDateBlur = (props, key, e) => (
-    ! /\d\d\.\d\d\.\d\d\d\d/.test(e.target.value) ?
-        ! props.form[key] || e.target.value !== props.form[key] ?
-            props.actions.setEventProperty({
-                [key] : undefined,
-                infoValidationError : 'pinfo:validation-invalidDate'
-            }):
-            undefined:
-        ! props.form[key] || moment(e.target.value, 'DD.MM.YYYY').toDate().getTime() !== props.form[key].getTime() ?
-            props.actions.setEventProperty({[key] : moment(e.target.value, 'DD.MM.YYYY').toDate() }):
-            undefined
-);
-
-const onDateChange = (props, key, moment) => (
-    ! props.form[key] || moment.toDate().getTime() !== props.form[key].getTime() ?
-        props.actions.setEventProperty({[key] : moment.toDate() }):
-        undefined
-);
-
-const setValue = (props, key , e) => {
-    if( key === 'bankCountry' || key === 'retirementCountry' || key === 'attachments' || key === 'workIncomeCurrency'){
-        props.actions.setEventProperty( {[key]: e} )
-    }else if(key === 'attachmentTypes' && e.target){
-        props.actions.setEventProperty({[key]: {...props.form[key], [e.target.getAttribute('id')] : e.target.checked}} )
-    }else if(e.target){
-        props.actions.setEventProperty( {[key]: e.target.value })
+/*
+if 'e' is an actual event, store e.target.value under [key]
+else if 'e' is an instance of moment (ie. a datetime object) store e as date format string under [key].
+else store the raw value of e under [key]
+*/
+const setValue = (props, key, e) =>{
+    if(e){
+        if(!e.target){
+            if(e instanceof moment){
+                props.actions.setEventProperty({[key] : e.toDate() })
+            }else{
+                props.actions.setEventProperty( {[key]: e} )
+            }
+        }else{
+            props.actions.setEventProperty( {[key]: e.target.value });
+        }
+    }else{
+        props.actions.setEventProperty( {[key]: null });
     }
 }
 
@@ -159,122 +150,28 @@ const PInfo = (props) => (
                 </ form>:
                 null
             }
-            {props.form.step === 2 ? <form id='pinfo-form'><div className='mt-3'>
-
-                <Nav.Row className='mb-4'>
-                    <div className='col-md-6'>
-                        <Nav.Select label={props.t('pinfo:form-workType') + ' *'} value={props.form.workType || ''}
-                            onChange={setValue.bind(null, props, 'workType')} required='true'>
-                            <option value=''>{props.t('pinfo:form-workType-select-option')}</option>
-                            <option value='01'>{props.t('pinfo:form-workType-option-01')}</option>
-                            <option value='02'>{props.t('pinfo:form-workType-option-02')}</option>
-                            <option value='03'>{props.t('pinfo:form-workType-option-03')}</option>
-                            <option value='04'>{props.t('pinfo:form-workType-option-04')}</option>
-                            <option value='05'>{props.t('pinfo:form-workType-option-05')}</option>
-                            <option value='06'>{props.t('pinfo:form-workType-option-06')}</option>
-                            <option value='07'>{props.t('pinfo:form-workType-option-07')}</option>
-                            <option value='08'>{props.t('pinfo:form-workType-option-08')}</option>
-                        </Nav.Select>
-                    </div>
-                </Nav.Row>
-                <Nav.Row className='mb-4'>
-                    <div className='col-md-4'>
-                        <label>{props.t('pinfo:form-workStartDate')+ ' *'}</label>
-                        <ReactDatePicker selected={props.form.workStartDate ? moment(props.form.workStartDate) : undefined}
-                            dateFormat='DD.MM.YYYY'
-                            placeholderText={props.t('ui:dateFormat')}
-                            showYearDropdown
-                            showMonthDropdown
-                            dropdownMode='select'
-                            locale={props.locale}
-                            onMonthChange={onDateChange.bind(null, props, 'workStartDate')}
-                            onYearChange={onDateChange.bind(null, props, 'workStartDate')}
-                            onBlur={onDateBlur.bind(null, props, 'workStartDate')}
-                            onChange={onDateChange.bind(null, props, 'workStartDate')}
-                            required='true'/>
-                    </div>
-                    <div className='col-md-4'>
-                        <label>{props.t('pinfo:form-workEndDate')+ ' *'}</label>
-                        <ReactDatePicker selected={props.form.workEndDate ? moment(props.form.workEndDate) : undefined}
-                            dateFormat='DD.MM.YYYY'
-                            placeholderText={props.t('ui:dateFormat')}
-                            showYearDropdown
-                            showMonthDropdown
-                            dropdownMode='select'
-                            locale={props.locale}
-                            onMonthChange={onDateChange.bind(null, props, 'workEndDate')}
-                            onYearChange={onDateChange.bind(null, props, 'workEndDate')}
-                            onBlur={onDateBlur.bind(null, props, 'workEndDate')}
-                            onChange={onDateChange.bind(null, props, 'workEndDate')}
-                            required='true'/>
-                    </div>
-                    <div className='col-md-4'>
-                        <label>{props.t('pinfo:form-workEstimatedRetirementDate')+ ' *'}</label>
-                        <ReactDatePicker selected={props.form.workEstimatedRetirementDate ? moment(props.form.workEstimatedRetirementDate) : undefined}
-                            dateFormat='DD.MM.YYYY'
-                            placeholderText={props.t('ui:dateFormat')}
-                            showYearDropdown
-                            showMonthDropdown
-                            dropdownMode='select'
-                            locale={props.locale}
-                            onMonthChange={onDateChange.bind(null, props, 'workEstimatedRetirementDate')}
-                            onYearChange={onDateChange.bind(null, props, 'workEstimatedRetirementDate')}
-                            onBlur={onDateBlur.bind(null, props, 'workEstimatedRetirementDate')}
-                            onChange={onDateChange.bind(null, props, 'workEstimatedRetirementDate')}
-                            required='true'/>
-                    </div>
-                </Nav.Row>
-                <Nav.Row className='mb-4'>
-                    <div className='col-md-6'>
-                        <Nav.Input label={props.t('pinfo:form-workHourPerWeek') + ' *'} value={props.form.workHourPerWeek || ''}
-                            onChange={setValue.bind(null, props, 'workHourPerWeek')} required='true'/>
-
-                    </div>
-                </Nav.Row>
-                <Nav.Row className='mb-4'>
-                    <div className='col-md-6'>
-                        <Nav.Input label={props.t('pinfo:form-workIncome') + ' *'} value={props.form.workIncome || ''}
-                            onChange={setValue.bind(null, props, 'workIncome')} required='true'/>
-                    </div>
-                    <div className='col-md-6'>
-                        <label>{props.t('pinfo:form-workIncomeCurrency') + ' *'}</label>
-                        <CountrySelect locale={props.locale} type={'currency'}
-                            value={props.form.workIncomeCurrency || {}}
-                            onSelect={setValue.bind(null, props, 'workIncomeCurrency')}
-                            required='true'/>
-                    </div>
-                </Nav.Row>
-                <Nav.Row className='mb-4'>
-                    <div className='col-md-6'>
-                        <label>{props.t('pinfo:form-workPaymentDate')+ ' *'}</label>
-                        <ReactDatePicker selected={props.form.workPaymentDate ? moment(props.form.workPaymentDate) : undefined}
-                            dateFormat='DD.MM.YYYY'
-                            placeholderText={props.t('ui:dateFormat')}
-                            showYearDropdown
-                            showMonthDropdown
-                            dropdownMode='select'
-                            locale={props.locale}
-                            onMonthChange={onDateChange.bind(null, props, 'workPaymentDate')}
-                            onYearChange={onDateChange.bind(null, props, 'workPaymentDate')}
-                            onBlur={onDateBlur.bind(null, props, 'workPaymentDate')}
-                            onChange={onDateChange.bind(null, props, 'workPaymentDate')}
-                            required='true'/>
-                    </div>
-                    <div className='col-md-6'>
-                        <Nav.Select label={props.t('pinfo:form-workPaymentFrequency') + ' *'} value={props.form.workPaymentFrequency || ''}
-                            onChange={setValue.bind(null, props, 'workPaymentFrequency')} required='true'>
-                            <option value=''>{props.t('pinfo:form-workPaymentFrequency-choose-option')}</option>
-                            <option value='01'>{props.t('pinfo:form-workPaymentFrequency-option-01')}</option>
-                            <option value='02'>{props.t('pinfo:form-workPaymentFrequency-option-02')}</option>
-                            <option value='03'>{props.t('pinfo:form-workPaymentFrequency-option-03')}</option>
-                            <option value='04'>{props.t('pinfo:form-workPaymentFrequency-option-04')}</option>
-                            <option value='05'>{props.t('pinfo:form-workPaymentFrequency-option-05')}</option>
-                            <option value='06'>{props.t('pinfo:form-workPaymentFrequency-option-06')}</option>
-                            <option value='99'>{props.t('pinfo:form-workPaymentFrequency-option-99')}</option>
-                        </Nav.Select>
-                    </div>
-                </Nav.Row>
-            </div></ form>: null}
+            {props.form.step === 2 ?
+                <form id='pinfo-form'>
+                    <Work 
+                        t={props.t}
+                        work={{
+                            workType: props.form.workType,
+                            workStartDate: props.form.workStartDate,
+                            workEndDate: props.form.workEndDate,
+                            workEstimatedRetirementDate: props.form.workEstimatedRetirementDate,
+                            workHourPerWeek: props.form.workHourPerWeek,
+                            workIncome: props.form.workIncome,
+                            workIncomeCurrency: props.form.workIncomeCurrency,
+                            workPaymentDate: props.form.workPaymentDate,
+                            workPaymentFrequency: props.form.workPaymentFrequency
+                        }}
+                        action={setValue.bind(null, props)}
+                        locale={props.locale}
+                        showError='true'
+                    />
+                </ form>:
+                null
+            }
 
             {props.form.step === 3 ? <form id='pinfo-form'><div>
                 <PdfUploadComponent t={props.t} form={props.form} 
@@ -291,13 +188,14 @@ const PInfo = (props) => (
             </div></ form>: null}
 
             {props.form.step === 4 ? <form id='pinfo-form'><div className='mb-3'>
-                <Nav.Row>
-                    <div className='col-md-6'>
-                        <label>{props.t('pinfo:form-retirementCountry') + ' *'}</label>
-                        <CountrySelect locale={props.locale} value={props.form.retirementCountry || {}}
-                            onSelect={setValue.bind(null, props, 'retirementCountry')} required='true'/>
-                    </div>
-                </Nav.Row>
+                <Pension
+                    t={props.t}
+                    pension={{
+                        retirementCountry: props.form.retirementCountry,
+                    }}
+                    action={setValue.bind(null, props)}
+                    locale={props.locale}
+                />
             </div> </ form>: null}
 
             {props.form.step === 5 ? <form id='pinfo-form'><div>
@@ -337,17 +235,17 @@ const PInfo = (props) => (
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-workType')}</label></dt>
                         <dd className='col-sm-8'>{props.t('pinfo:form-workType-option-' + props.form.workType)}</dd>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-workStartDate')}</label></dt>
-                        <dd className='col-sm-8'>{P4000Util.writeDate(props.form.workStartDate)}</dd>
+                        <dd className='col-sm-8'>{moment(props.form.workStartDate).format('DD MM YYYY')/*P4000Util.writeDate(props.form.workStartDate)*/}</dd>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-workEndDate')}</label></dt>
-                        <dd className='col-sm-8'>{P4000Util.writeDate(props.form.workEndDate)}</dd>
+                        <dd className='col-sm-8'>{moment(props.form.workEndDate).format('DD MM YYYY')/*P4000Util.writeDate(props.form.workEndDate)*/}</dd>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-workEstimatedRetirementDate')}</label></dt>
-                        <dd className='col-sm-8'>{P4000Util.writeDate(props.form.workEstimatedRetirementDate)}</dd>
+                        <dd className='col-sm-8'>{moment(props.form.workEstimatedRetirementDate).format('DD MM YYYY')/*P4000Util.writeDate(props.form.workEstimatedRetirementDate)*/}</dd>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-workHourPerWeek')}</label></dt>
                         <dd className='col-sm-8'>{props.form.workHourPerWeek}</dd>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-workIncome')}</label></dt>
                         <dd className='col-sm-8'>{props.form.workIncome}{' '}{props.form.workIncomeCurrency.currency}</dd>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-workPaymentDate')}</label></dt>
-                        <dd className='col-sm-8'>{P4000Util.writeDate(props.form.workPaymentDate)}</dd>
+                        <dd className='col-sm-8'>{moment(props.form.workPaymentDate).format('DD MM YYYY')/*P4000Util.writeDate(props.form.workPaymentDate)*/}</dd>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-workPaymentFrequency')}</label></dt>
                         <dd className='col-sm-8'>{props.t('pinfo:form-workPaymentFrequency-option-' + props.form.workPaymentFrequency)}</dd>
                     </dl>

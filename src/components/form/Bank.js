@@ -4,7 +4,7 @@ import uuidv4 from 'uuid/v4';
 
 import * as Nav from '../ui/Nav';
 import CountrySelect from '../ui/CountrySelect/CountrySelect';
-
+import { onChange, onInvalid, onSelect } from './shared/eventFunctions';
 
 const errorMessages = {
     bankName: {patternMismatch: 'patternMismatch', valueMissing: 'valueMissing'},
@@ -16,63 +16,15 @@ const errorMessages = {
 }
 
 
-function validityObjectToObject(val){
-    let returnObject = {};
-    for(var key in val){
-        returnObject[key] = val[key];
-    }
-    return returnObject;
-}
-
-function getError(val, name){
-    let errorType;
-    switch(true){
-    case val.customError:
-        errorType='customError';
-        break;
-    case val.valueMissing:
-        errorType='valueMissing';
-        break;
-    case val.patternMismatch:
-        errorType='patternMismatch';
-        break;
-    case val.badInput:
-        errorType='badInput';
-        break;
-    case val.rangeOverflow:
-        errorType='rangeOverflow';
-        break;
-    case val.rangeUnderflow:
-        errorType='rangeUnderflow';
-        break;
-    case val.stepMismatch:
-        errorType='stepMismatch';
-        break;
-    case val.tooLong:
-        errorType='tooLong';
-        break;
-    case val.tooShort:
-        errorType='tooShort';
-        break;
-    case val.typeMismatch:
-        errorType='typeMismatch';
-        break;
-    default:
-        errorType='unknownError';        
-    }
-    if(errorMessages[name]){
-        return errorType || null;
-    }
-    else{
-        return null;
-    }
-}
-
-
 
 export class Bank extends React.Component{
     constructor(props){
         super(props);
+
+        this.onInvalid = onInvalid.bind(this, errorMessages);
+        this.onChange = onChange.bind(this, errorMessages);
+        this.onSelect = onSelect.bind(this, 'bankCountry');
+
         let uuid = uuidv4();
         let nameToId = Object.keys(this.props.bank).reduce((acc, cur, i)=>({...acc, [cur]: uuid+'_'+i }) , {});
         let idToName = Object.keys(this.props.bank).reduce((acc, cur)=>({...acc, [nameToId[cur]]: cur }) , {});
@@ -82,78 +34,14 @@ export class Bank extends React.Component{
             errorType: null,
             action: this.props.action.bind(null, cur)
         }}), {});
+        let countryRequired = this.props.bank.bankCountry? false: true;
         this.state = {
             ref: React.createRef(),
             idToName,
             nameToId,
             inputStates,
+            customInputProps : {required: countryRequired, onInvalid: this.onInvalid, id: nameToId['bankCountry']}
         };
-    }
-
-    onInvalid(event){
-        if(event && event.target && event.target.id){
-            let id = event.target.id;
-            let name = this.state.idToName[id];
-            let validity = event.target.validity;
-            let error = getError(validityObjectToObject(validity), name);
-            this.setState(
-                (prevState)=>
-                {   
-                    return {
-                        inputStates: {
-                            ...prevState.inputStates,
-                            [name]: {
-                                ...prevState.inputStates[name],
-                                errorType: error,
-                                error: {
-                                    feilmelding: errorMessages[name][error]
-                                },
-                                showError: true
-                            }
-                        }
-                    }
-                },
-            )
-        }
-    }
-
-
-    onChangeHandler(event){
-        if(event && event.target && event.target.id){
-            let id = event.target.id;
-            let name = this.state.idToName[id];
-            let validity = event.target.validity;
-            let inputStates = this.state.inputStates;
-            let input = inputStates[name];
-            if(validity.valid){
-                this.setState({
-                    inputStates: {...inputStates, [name]: {...input, showError: false, error: null, errorType: null}}
-                });
-            }else if(input.showError && validity[input.errorType] === false){
-                let error = getError(validityObjectToObject(validity), name);
-                this.setState({
-                    inputStates: {...inputStates, [name]: {
-                        ...input,
-                        error: {
-                            feilmelding: errorMessages[name][error]
-                        },
-                        errorType: error}}
-                })
-            }
-            input.action(event)
-        }
-    }
-
-    //react-select does not behave nice when it comes to Events.
-    onSelectHandler(name, val){
-        let inputStates = this.state.inputStates;
-        let input = inputStates[name];
-        if(val !== null){
-            this.setState({
-                inputStates: {...inputStates, [name]: {...input, showError: false, error: null, errorType: null}}
-            });
-        }
-        input.action(val || {});
     }
 
     render(){
@@ -165,8 +53,8 @@ export class Bank extends React.Component{
                 <Nav.Row>
                     <div className='col-md-6'>
                         <Nav.Input label={t('pinfo:form-bankName') + ' *'} defaultValue={bank.bankName || null}
-                            onChange={this.onChangeHandler.bind(this)} required="true"
-                            onInvalid={this.onInvalid.bind(this)}
+                            onChange={this.onChange} required={true}
+                            onInvalid={this.onInvalid}
                             id={nameToId['bankName']}
                             feil={inputStates['bankName'].showError? inputStates['bankName'].error: null}
                         />
@@ -175,8 +63,8 @@ export class Bank extends React.Component{
                     <div className='col-md-6'>
                         <Nav.Textarea label={t('pinfo:form-bankAddress') + ' *'} value={bank.bankAddress || ''}
                             style={{minHeight:'200px'}}
-                            onChange={this.onChangeHandler.bind(this)} required="true"
-                            onInvalid={this.onInvalid.bind(this)}
+                            onChange={this.onChange} required={true}
+                            onInvalid={this.onInvalid}
                             id={nameToId['bankAddress']}
                             feil={inputStates['bankAddress'].showError? inputStates['bankAddress'].error: null}
                         />
@@ -187,23 +75,30 @@ export class Bank extends React.Component{
                     <div className='col-md-6'>
                         <div className='mb-3' >
                             <label>{t('pinfo:form-bankCountry') + ' *'}</label>
-                            <Nav.SkjemaGruppe feil={inputStates['bankCountry'].showError? inputStates['bankCountry'].error: null}>
-                                <CountrySelect locale={locale} value={
-                                    bank.bankCountry || null}
-                                onSelect={this.onSelectHandler.bind(this, 'bankCountry')/*action.bind(null, 'bankCountry')*/} required="true" 
-                                inputProps={{
-                                    onInvalid: this.onInvalid.bind(this),
-                                }}
-                                id={nameToId['bankCountry']}
+                            <div>
+                                <CountrySelect locale={locale}
+                                    value={bank.bankCountry || null}
+                                    onSelect={this.onSelect}
+                                    customInputProps={{
+                                        required: bank.bankCountry? false: true,
+                                        onInvalid: this.onInvalid,
+                                        id: nameToId['bankCountry']
+                                    }}
+                                    error={inputStates.bankCountry.showError}
+                                    errorMessage={
+                                        inputStates.bankCountry.error?
+                                            inputStates.bankCountry.error.feilmelding:
+                                            null
+                                    }
                                 />
-                            </ Nav.SkjemaGruppe>
+                            </div>
                         </div>
                     </div>
                     <div className='col-md-6'>
                         <Nav.Input label={t('pinfo:form-bankBicSwift') + ' *'} defaultValue={bank.bankBicSwift || null}
-                            required="true"
-                            onChange={this.onChangeHandler.bind(this)}
-                            onInvalid={this.onInvalid.bind(this)}
+                            required={true}
+                            onChange={this.onChange}
+                            onInvalid={this.onInvalid}
                             id={nameToId['bankBicSwift']}
                             feil={inputStates['bankBicSwift'].showError? inputStates['bankBicSwift'].error: null}
                         />
@@ -213,8 +108,8 @@ export class Bank extends React.Component{
                     <div className='col-md-6'>
                         <Nav.Input label={t('pinfo:form-bankIban') + ' *'}
                             defaultValue={bank.bankIban || null}
-                            onChange={this.onChangeHandler.bind(this)} required="true"
-                            onInvalid={this.onInvalid.bind(this)}
+                            onChange={this.onChange} required={true}
+                            onInvalid={this.onInvalid}
                             id={nameToId['bankIban']}
                             feil={inputStates['bankIban'].showError? inputStates['bankIban'].error: null}
                         />
@@ -223,8 +118,8 @@ export class Bank extends React.Component{
                         <Nav.Input
                             label={(t('pinfo:form-bankCode') + ' *')}
                             defaultValue={bank.bankCode || null}
-                            onChange={this.onChangeHandler.bind(this)} required="true"
-                            onInvalid={this.onInvalid.bind(this)}
+                            onChange={this.onChange} required={true}
+                            onInvalid={this.onInvalid}
                             id={nameToId['bankCode']}
                             feil={inputStates['bankCode'].showError? inputStates['bankCode'].error: null}
                         />
