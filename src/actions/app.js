@@ -2,16 +2,6 @@ import * as types from '../constants/actionTypes';
 import * as urls  from '../constants/urls';
 import * as api   from './api';
 
-export function login (options) {
-
-    let url = urls.APP_LOGIN_URL;
-
-    if (options.redirectTo) {
-        url += '?redirectTo=' + options.redirectTo;
-    }
-    window.location.href = url;
-}
-
 export function getUserInfo () {
 
     return api.call({

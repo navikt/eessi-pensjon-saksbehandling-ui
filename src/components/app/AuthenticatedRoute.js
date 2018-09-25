@@ -9,6 +9,7 @@ import { translate } from 'react-i18next';
 
 import * as Nav from '../ui/Nav';
 
+import * as urls from '../../constants/urls';
 import * as appActions from '../../actions/app';
 import * as statusActions from '../../actions/status';
 
@@ -36,9 +37,10 @@ class AuthenticatedRoute extends Component {
         let idtoken = cookies.get('eessipensjon-idtoken-public');
 
         if (!idtoken) {
-            actions.login({
-                redirectTo: encodeURIComponent(window.location.href)
-            });
+
+            let redirectUrl = urls.APP_LOGIN_URL + '?redirectTo=' + window.location.href;
+            window.location.href = redirectUrl;
+
         } else {
             this.setState({
                 loggedIn: true
