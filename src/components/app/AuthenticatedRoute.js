@@ -36,7 +36,7 @@ class AuthenticatedRoute extends Component {
 
         if (!idtoken) {
 
-            let redirectUrl = urls.APP_LOGIN_URL + '?redirectTo=' + window.location.href;
+            let redirectUrl = urls.APP_LOGIN_URL + '?redirectTo=' + encodeURIComponent(window.location.href);
             window.location.href = redirectUrl;
 
         } else {

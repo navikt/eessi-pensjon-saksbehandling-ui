@@ -79,7 +79,7 @@ ReactDOM.render(
                         <AuthenticatedRoute exact path={routes.CASE_SEND}     component={Pages.SendCase}/>
 
                         <AuthenticatedRoute path={routes.ROOT} component={Pages.FrontPage}/>
-                        <Redirect exact from='/' to={routes.ROOT}/>
+                        <Redirect from='/' to={{ pathname: routes.ROOT, search : window.location.search}}/>
                     </Switch>
                 </ConnectedRouter>
             </Provider>
