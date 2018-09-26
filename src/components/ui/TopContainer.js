@@ -6,9 +6,10 @@ import * as Nav from './Nav';
 import TopHeader from './Header/TopHeader';
 import ServerAlert from './Alert/ServerAlert';
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
+import Drawer from './Drawer';
 import Modal from './Modal';
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
+
+import ExternalFiles from '../pdf/ExternalFiles/ExternalFiles';
 
 class TopContainer extends Component {
 
@@ -43,30 +44,11 @@ class TopContainer extends Component {
             <ServerAlert/>
             <Modal/>
             <Breadcrumbs history={history}/>
-            <div id="wrapper" className={classNames( { toggled : this.state.toggled } )}>
-
-                <div id="sidebar-wrapper"
-                  style={{backgroundColor: 'whitesmoke', float: "left", width: this.state.width,
-                    minHeight: '600px', position: 'sticky', top: 0,left: 0, transition: 'width 0.2s ease-out'}}>
-
-                     <div style={{overflow: 'hidden'}}>
-                        <Slider value={this.state.width} min={0} max={500} step={1} onChange={this.changeSidebarWidth.bind(this)}/>
-
-                     </div>
-
-                    <div style={{width: '10px', background: 'red', height: '100%', right: 0, top: 0, position: 'absolute'}}>
-                        <button style={{width: '10px', minHeight: '600px', padding: 0, border: 0}} onClick={this.toggle.bind(this)}>
-                            {this.state.toggled ? '<' : '>'}
-                        </button>
-                    </div>
-               </div>
-               <div id="page-content-wrapper" style={{paddingLeft: this.state.width, transition: 'padding 0.2s ease-out'}}>
-
-                    <Nav.Container fluid={true}>
-                        {this.props.children}
-                    </Nav.Container>
-                </div>
-            </div>
+            <Drawer sidebar={<ExternalFiles/>}>
+                <Nav.Container fluid={true}>
+                    {this.props.children}
+                </Nav.Container>
+            </Drawer>
         </div>
     }
 }
