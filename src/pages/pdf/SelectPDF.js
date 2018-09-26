@@ -7,11 +7,10 @@ import _ from 'lodash';
 import classNames from 'classnames';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
-import DnDExternalFiles from '../../components/pdf/DnDExternalFiles/DnDExternalFiles';
+import ExternalFiles from '../../components/pdf/ExternalFiles/ExternalFiles';
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import FileUpload from '../../components/ui/FileUpload/FileUpload';
-
 
 import * as routes from '../../constants/routes';
 import * as pdfActions from '../../actions/pdf';
@@ -22,7 +21,6 @@ const mapStateToProps = (state) => {
         loadingPDF   : state.loading.loadingPDF,
         language     : state.ui.language,
         pdfs         : state.pdf.pdfs,
-        loadingExtPDF: state.loading.loadingExtPDF,
         extPdfs      : state.pdf.extPdfs,
         action       : state.ui.action
     }
@@ -78,16 +76,7 @@ class SelectPDF extends Component {
         this.fileUpload.getWrappedInstance().addFile(pdf);
     }
 
-    requestExternalFileList() {
-
-        const { actions, extPdfs } = this.props;
-
-        if (!extPdfs) {
-            actions.getPdfList();
-        }
-    }
-
-    addPdfToFileUpload(e) {
+    addExternalPdfToFileUpload(e) {
 
         const { extPdfs } = this.props;
 
@@ -102,25 +91,14 @@ class SelectPDF extends Component {
 
     render() {
 
-        const { t, history, loadingPDF, loadingExtPDF, pdfs, extPdfs, location } = this.props;
+        const { t, history, loadingPDF, pdfs, location } = this.props;
 
         let buttonText = loadingPDF ? t('pdf:loading-loadingPDF') : t('ui:forward');
 
-        return <TopContainer className='pdf topContainer' history={history} location={location}>
-            <DragDropContext onDragEnd={this.addPdfToFileUpload.bind(this)}>
+        return  <DragDropContext onDragEnd={this.addExternalPdfToFileUpload.bind(this)}>
+            <TopContainer className='pdf topContainer' history={history} location={location}>
                 <h1 className='appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
-                <Nav.Ekspanderbartpanel className='m-4 fieldset'
-                    apen={false} tittel={t('ui:fileSelect')} tittelProps='undertittel'
-                    onClick={this.requestExternalFileList.bind(this)}>
-                    <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
-                    <div style={{minHeight: '20 0px'}}>
-                        {loadingExtPDF ? <div className='w-100 text-center'>
-                            <Nav.NavFrontendSpinner/>
-                            <p>{t('pdf:loading-loadingExtPDF')}</p>
-                        </div> : <DnDExternalFiles extPdfs={extPdfs}/>}
-                    </div>
-                </Nav.Ekspanderbartpanel>
-
+                <ExternalFiles/>
                 <div className='m-4 p-4 fieldset'>
                     <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
                     <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
@@ -149,19 +127,17 @@ class SelectPDF extends Component {
                         </Nav.Column>
                     </Nav.Row>
                 </div>
-            </DragDropContext>
-        </TopContainer>
+            </TopContainer>
+        </DragDropContext>
     }
 }
 
 SelectPDF.propTypes = {
     loadingPDF   : PT.bool,
-    loadingExtPDF: PT.bool,
     actions      : PT.object,
     history      : PT.object,
     t            : PT.func,
     pdfs         : PT.array.isRequired,
-    extPdfs      : PT.array,
     location     : PT.object.isRequired
 };
 
