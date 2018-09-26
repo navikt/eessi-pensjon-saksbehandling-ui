@@ -13,7 +13,7 @@ import * as urls from '../../constants/urls';
 import * as appActions from '../../actions/app';
 import * as statusActions from '../../actions/status';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = () => {
     return {
     }
 };

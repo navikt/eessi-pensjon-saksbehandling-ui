@@ -76,11 +76,11 @@ class FrontPage extends Component {
                         <h4 className='mb-4'>{t('forms')}</h4>
                         <Nav.Lenkepanel className='frontPageLink caseLink' linkCreator={(props) => (
                             <Link to={
-                            status.saksNr ?
-                            routes.CASE_EDIT_WITHOUT_RINA
-                                .replace(':actorid', status.fnr)
-                                .replace(':caseid', status.saksNr)
-                            : routes.CASE_GET
+                                status.saksNr ?
+                                    routes.CASE_EDIT_WITHOUT_RINA
+                                        .replace(':actorid', status.fnr)
+                                        .replace(':caseid', status.saksNr)
+                                    : routes.CASE_GET
                             } {...props}/>)
                         } href="#">{t('case:app-createNewCase')}</Nav.Lenkepanel>
                         <Nav.Lenkepanel className='frontPageLink pSelvLink' linkCreator={(props) => (
