@@ -108,16 +108,12 @@ class SelectPDF extends Component {
 
         return <TopContainer className='pdf topContainer' history={history} location={location}>
             <DragDropContext onDragEnd={this.addPdfToFileUpload.bind(this)}>
-                <Nav.Row className='mb-4'>
-                    <Nav.Column>
-                        <h1 className='appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
-                    </Nav.Column>
-                </Nav.Row>
+                <h1 className='appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
                 <Nav.Ekspanderbartpanel className='m-4 fieldset'
                     apen={false} tittel={t('ui:fileSelect')} tittelProps='undertittel'
                     onClick={this.requestExternalFileList.bind(this)}>
                     <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
-                    <div style={{minHeight: '190px'}}>
+                    <div style={{minHeight: '20 0px'}}>
                         {loadingExtPDF ? <div className='w-100 text-center'>
                             <Nav.NavFrontendSpinner/>
                             <p>{t('pdf:loading-loadingExtPDF')}</p>
@@ -125,37 +121,34 @@ class SelectPDF extends Component {
                     </div>
                 </Nav.Ekspanderbartpanel>
 
-                <Nav.Row className='m-4 p-3 fieldset'>
-                    <Nav.Column>
-                        <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
-                        <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
-
-                        <Droppable droppableId={'fileUploadDroppable'} direction='horizontal'>
-                            {(provided, snapshot) => (
-                                <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
-                                    <FileUpload ref={f => this.fileUpload = f}
-                                        className={classNames('fileUpload', 'mb-3')}
-                                        accept='application/pdf'
-                                        files={pdfs || []}
-                                        beforeDrop={this.handleBeforeDrop.bind(this)}
-                                        afterDrop={this.handleAfterDrop.bind(this)}
-                                        onFileChange={this.handleFileChange.bind(this)}/>
-                                </div>
-                            )}
-                        </Droppable>
-                        <Nav.Row>
-                            <Nav.Column></Nav.Column>
-                            <Nav.Column>
-                                <Nav.Hovedknapp
-                                    className='forwardButton'
-                                    style={{width: '100%'}}
-                                    spinner={loadingPDF}
-                                    disabled={_.isEmpty(pdfs)}
-                                    onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
-                            </Nav.Column>
-                        </Nav.Row>
-                    </Nav.Column>
-                </Nav.Row>
+                <div className='m-4 p-4 fieldset'>
+                    <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
+                    <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
+                    <Droppable droppableId={'fileUploadDroppable'} direction='horizontal'>
+                        {(provided, snapshot) => (
+                            <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
+                                <FileUpload ref={f => this.fileUpload = f}
+                                    className={classNames('fileUpload', 'mb-3')}
+                                    accept='application/pdf'
+                                    files={pdfs || []}
+                                    beforeDrop={this.handleBeforeDrop.bind(this)}
+                                    afterDrop={this.handleAfterDrop.bind(this)}
+                                    onFileChange={this.handleFileChange.bind(this)}/>
+                            </div>
+                        )}
+                    </Droppable>
+                    <Nav.Row>
+                        <Nav.Column></Nav.Column>
+                        <Nav.Column>
+                            <Nav.Hovedknapp
+                                className='forwardButton'
+                                style={{width: '100%'}}
+                                spinner={loadingPDF}
+                                disabled={_.isEmpty(pdfs)}
+                                onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+                        </Nav.Column>
+                    </Nav.Row>
+                </div>
             </DragDropContext>
         </TopContainer>
     }

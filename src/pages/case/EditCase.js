@@ -22,7 +22,6 @@ const mapStateToProps = (state) => {
         countryList     : state.case.countryList,
         currentCase     : state.case.currentCase,
         dataToConfirm   : state.case.dataToConfirm,
-        language        : state.ui.language,
         locale          : state.ui.locale,
         action          : state.ui.action,
         loading         : state.loading
@@ -50,6 +49,13 @@ class EditCase extends Component {
     async componentDidMount() {
 
         const { actions, match, currentCase, institutionList, bucList, subjectAreaList, countryList, dataToConfirm, action } = this.props;
+        const { rinaId } = this.state;
+
+        actions.addToBreadcrumbs({
+            url  : routes.CASE_GET,
+            ns   : 'case',
+            label: 'case:app-editCaseTitle'
+        });
 
         if (_.isEmpty(currentCase)) {
 
@@ -83,7 +89,7 @@ class EditCase extends Component {
         }
 
         if (_.isEmpty(bucList)) {
-            actions.getBucList(this.state.rinaId);
+            actions.getBucList(rinaId);
         }
 
         if (_.isEmpty(institutionList)) {
@@ -103,12 +109,6 @@ class EditCase extends Component {
                 'subjectArea'  : dataToConfirm.subjectArea
             });
         }
-
-        actions.addToBreadcrumbs({
-            url  : routes.CASE_GET,
-            ns   : 'case',
-            label: 'case:app-editCaseTitle'
-        });
     }
 
     async componentDidUpdate() {
@@ -456,9 +456,9 @@ class EditCase extends Component {
             renderedInstitutions.push(this.renderChosenInstitution(institution));
         }
 
-        let validInstitution = (!this.state.validation.countryFail && !this.state.validation.institutionFail) && this.state.institution;
+        let validInstitution = (!this.state.validation.countryFail && !this.state.validation.institutionFail) && this.state.country && this.state.institution;
 
-        renderedInstitutions.push(<Nav.Row key={'newInstitution'} className='mb-4'>
+        renderedInstitutions.push(<Nav.Row key={'newInstitution'}>
             <div className='col-md-4'>
                 <div>{this.renderCountry()}</div>
                 <div className='mb-3 selectBoxMessage'>

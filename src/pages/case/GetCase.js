@@ -13,9 +13,8 @@ import * as uiActions from '../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
-        currentCase  : state.case.currentCase,
-        gettingCase  : state.loading.gettingCase,
-        language     : state.ui.language
+        currentCase : state.case.currentCase,
+        gettingCase : state.loading.gettingCase
     }
 };
 

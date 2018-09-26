@@ -6,8 +6,8 @@ import File from '../../ui/File/File';
 import './DnDExternalFiles.css';
 
 const getListStyle = (isDraggingOver) => ({
-    background: isDraggingOver ? 'aliceblue' : 'whitesmoke',
-    padding: 0,
+    background: isDraggingOver ? 'aliceblue' : 'white',
+    padding: 5,
     display: 'flex',
     overflowX: 'auto',
     whiteSpace: 'nowrap'
@@ -54,7 +54,7 @@ class DnDExternalFiles extends Component {
                                         </div>
                                         {snapshot.isDragging && (
                                             <div className='cloneStyle'>
-                                                <File key={index} file={pdf} currentPage={1}/>
+                                                <File animate={false} key={index} file={pdf} currentPage={1}/>
                                             </div>
                                         )}
                                     </React.Fragment>

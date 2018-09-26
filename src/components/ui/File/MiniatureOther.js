@@ -24,7 +24,7 @@ class MiniatureOther extends Component {
 
     render () {
 
-        const { t, file, size, onDeleteDocument, className } = this.props;
+        const { t, file, size, onDeleteDocument, className, animate } = this.props;
 
         let data = 'data:application/octet-stream;base64,' + encodeURIComponent(file.base64);
         let deleteLink   = this.state.isHovering ? <Ikon size={20} kind='trashcan' onClick={onDeleteDocument}/> : null;
@@ -34,7 +34,7 @@ class MiniatureOther extends Component {
 
         let extension = file.name.substring(file.name.lastIndexOf('.') + 1);
 
-        return <div className={classNames('miniatureOther', className)}
+        return <div className={classNames('miniatureOther', className, {'animate' : animate})}
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
             onMouseLeave={this.onHandleMouseLeave.bind(this)}>
             <div className='deleteLink'> {deleteLink}</div>
@@ -52,6 +52,7 @@ MiniatureOther.propTypes = {
     t                : PT.func.isRequired,
     file             : PT.object.isRequired,
     size             : PT.string,
+    animate          : PT.boolean,
     onDeleteDocument : PT.func,
     className        : PT.string
 }

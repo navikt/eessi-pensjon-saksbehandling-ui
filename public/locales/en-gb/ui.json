@@ -5,6 +5,7 @@
 
     "accepted" : "Accepted",
     "add" : "Add",
+    "added" : "Added",
     "addAll" : "Add all",
     "address" : "Home address",
     "alert-noSuchUser" : "No such user",
@@ -12,7 +13,6 @@
     "back" : "Back",
     "backTo" : "Back to",
     "bytes" : "bytes",
-    "chooseLanguage" : "Choose language",
     "cancel" : "Cancel",
     "cancelAndDeleteForm" : "Cancel and delete form",
     "city" : "City",
@@ -41,6 +41,7 @@
     "forward" : "Forward",
     "generate" : "generate",
     "gettingStatus" : "Henting status...",
+    "giveFeedback" : "Give feedback",
     "go" : "Go",
     "home" : "Home",
     "idNumber" : "ID number",
