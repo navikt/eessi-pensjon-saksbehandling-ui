@@ -1,11 +1,10 @@
-var BASE_URL = window.location.protocol.concat('//').concat(window.location.hostname);
-if (window.location.port) {
-    BASE_URL = BASE_URL.concat(':' + window.location.port);
-}
+export const BASE_URL = window.location.protocol + '//' +
+                        window.location.hostname +
+                        (window.location.port ? ':' + window.location.port : '');
 
-var API_URL = BASE_URL + '/api';
-var FAG_URL = BASE_URL + '/fag';
-var PDF_URL = BASE_URL + '/pdf';
+let API_URL = BASE_URL + '/api';
+let FAG_URL = BASE_URL + '/fag';
+let PDF_URL = BASE_URL + '/pdf';
 
 // EuxController
 export const CASE_GET_RINA_URL                = API_URL + '/rinaurl';
@@ -22,7 +21,7 @@ export const CASE_GET_INSTITUTION_LIST_URL    = API_URL + '/institutions';
 export const CASE_GET_INSTITUTION_FOR_COUNTRY_LIST_URL = API_URL + '/institutions/%(country)s';
 export const CASE_GET_COUNTRY_LIST_URL       = API_URL + '/countrycode';
 export const CASE_GET_SUBJECT_AREA_LIST_URL  = API_URL + '/subjectarea';
-export const UI_GET_USER_INFO_URL            = API_URL + '/userinfo';
+export const APP_GET_USERINFO_URL            = API_URL + '/userinfo';
 
 // FagmodulController
 export const CASE_CREATE_SED_URL    = FAG_URL + '/create';
@@ -32,9 +31,10 @@ export const CASE_SEND_SED_URL      = FAG_URL + '/sendsed';
 export const CASE_GET_SED_URL       = FAG_URL + '/sed/get/%(rinaId)s/%(dokumentId)s';
 export const CASE_DELETE_SED_URL    = FAG_URL + '/sed/delete/%(rinaId)s/%(sed)s/%(dokumentId)s';
 
-// Temp
-export const APP_LOGIN_URL = FAG_URL + '/login';
+// Login
+export const APP_LOGIN_URL = window.location.protocol + '//' + window.location.hostname + '/login';
 
 // PdfController
 export const PDF_GENERATE_URL = PDF_URL + '/generate';
+export const PDF_GET_LIST_URL = PDF_URL + '/list';
 

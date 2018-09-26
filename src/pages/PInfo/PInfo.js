@@ -9,7 +9,6 @@ import lifecycle from 'react-pure-lifecycle';
 
 import 'react-datepicker/dist/react-datepicker.min.css';
 
-import Icons from '../../components/ui/Icons';
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';
@@ -46,6 +45,11 @@ const componentDidMount = (props) => {
     if (referrer) {
         props.actions.setReferrer(referrer);
     }
+    props.actions.addToBreadcrumbs({
+        url  : routes.PINFO,
+        ns   : 'pinfo',
+        label: 'pinfo:app-title'
+    });
 }
 
 const onBackButtonClick = async (props) => (
@@ -54,12 +58,12 @@ const onBackButtonClick = async (props) => (
 
 const onBackToReferrerButtonClick = async (props) => (
     UrlValidator.validateReferrer(props.referrer) ?
-        props.history.push(routes.ROOT + props.referrer) :
+        props.actions.deleteLastBreadcrumb() && props.history.push(routes.ROOT + props.referrer) :
         null
 );
 
 const onSaveButtonClick = (props) => (
-    props.history.push('/react/pselv?referrer=pinfo')
+    props.history.push(routes.PSELV + '?referrer=pinfo')
 );
 
 /*
@@ -91,13 +95,10 @@ function isValid (e) {
 }
 
 const PInfo = (props) => (
-    <TopContainer className='pInfo topContainer'>
+    <TopContainer className='pInfo topContainer' history={props.history} location={props.location}>
         <Nav.Row className='mb-4'>
             <Nav.Column>
-                <h1 className='mt-4 ml-3 mb-3 appTitle'>
-                    <Icons title={props.t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => props.history.push('/')}/>
-                    {props.t('pinfo:app-title')}
-                </h1>
+                <h1 className='appTitle'>{props.t('pinfo:app-title')}</h1>
                 <h4 className='appDescription mb-4'>{props.t('pinfo:form-step' + props.form.step)}</h4>
                 <ClientAlert className='mb-4'/>
                 <Nav.Stegindikator
@@ -174,7 +175,7 @@ const PInfo = (props) => (
             }
 
             {props.form.step === 3 ? <form id='pinfo-form'><div>
-                <PdfUploadComponent t={props.t} form={props.form} 
+                <PdfUploadComponent t={props.t} form={props.form}
                     checkboxes={[
                         {'label' : props.t('pinfo:form-attachmentTypes-01'), 'value' : '01', 'id' : '01', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['01']: false) }},
                         {'label' : props.t('pinfo:form-attachmentTypes-02'), 'value' : '02', 'id' : '02', 'inputProps' : {'defaultChecked' : (props.form.attachmentTypes? props.form.attachmentTypes['02']: false) }},
@@ -304,6 +305,7 @@ PInfo.propTypes = {
     form    : PT.object,
     referrer: PT.string,
     actions : PT.object,
+    location: PT.object.isRequired
 };
 
 export default connect(

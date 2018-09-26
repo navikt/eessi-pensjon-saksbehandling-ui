@@ -21,12 +21,12 @@ i18next
         },
         react: {
             wait: true,
-            withRef: false,
+            withRef: true,
             bindI18n: 'languageChange loaded',
             bindStore: 'added removed',
             nsMode: 'default'
         }
-    }).loadLanguages(['nb','en']);
+    }).loadLanguages(['nb','en-gb']);
 
 i18next.locale = 'nb';
 i18next.language = 'nb';

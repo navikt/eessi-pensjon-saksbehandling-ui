@@ -1,4 +1,4 @@
-export var countries = {'en' : [
+export var countries = {'en-gb' : [
     {
         'value': 'NO',
         'label': 'Norway',

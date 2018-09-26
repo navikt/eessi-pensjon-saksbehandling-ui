@@ -8,6 +8,7 @@ import * as Nav from '../../components/ui/Nav';
 import RenderConfirmData from '../../components/case/RenderConfirmData';
 import Case from './Case';
 
+import * as routes from '../../constants/routes';
 import * as caseActions from '../../actions/case';
 import * as uiActions from '../../actions/ui';
 
@@ -29,10 +30,18 @@ class ConfirmCase extends Component {
 
     componentDidMount() {
 
-        let { history, dataToConfirm } = this.props;
+        let { history, actions,  dataToConfirm } = this.props;
 
         if (!dataToConfirm) {
-            history.push('/');
+            history.push(routes.ROOT);
+
+        } else {
+
+            actions.addToBreadcrumbs({
+                url  : routes.CASE_CONFIRM,
+                ns   : 'case',
+                label: 'case:app-confirmCaseTitle'
+            });
         }
     }
 
@@ -41,11 +50,11 @@ class ConfirmCase extends Component {
         const { history, dataToGenerate, dataToConfirm, action } = this.props;
 
         if (!dataToConfirm) {
-            history.push('/');
+            history.push(routes.ROOT);
         }
 
         if (dataToGenerate && action === 'forward') {
-            history.push('/_/case/generate');
+            history.push(routes.CASE_GENERATE);
         }
     }
 
@@ -54,7 +63,7 @@ class ConfirmCase extends Component {
         const { history, actions, dataToConfirm } = this.props;
 
         actions.navigateBack();
-        history.push('/_/case/get/' + dataToConfirm.caseId + '/' + dataToConfirm.actorId +
+        history.push(routes.CASE_GET + '/' + dataToConfirm.caseId + '/' + dataToConfirm.actorId +
             (dataToConfirm.rinaId ? '/' + dataToConfirm.rinaId : null));
     }
 
@@ -76,7 +85,7 @@ class ConfirmCase extends Component {
 
     render() {
 
-        const { t, history, dataToConfirm, generatingCase } = this.props;
+        const { t, history, location, dataToConfirm, generatingCase } = this.props;
 
         let buttonText = generatingCase ? t('case:loading-generatingCase') : t('ui:confirmAndGenerate');
 
@@ -85,8 +94,11 @@ class ConfirmCase extends Component {
         }
 
         return <Case className='confirmCase'
-            title='case:app-confirmCaseTitle' description='case:app-confirmCaseDescription'
-            stepIndicator={1} history={history}>
+            title='case:app-confirmCaseTitle'
+            description='case:app-confirmCaseDescription'
+            stepIndicator={1}
+            history={history}
+            location={location}>
             <div className='fieldset p-4 m-4'>
                 <Nav.Row>
                     <Nav.Column>
@@ -109,6 +121,7 @@ class ConfirmCase extends Component {
 ConfirmCase.propTypes = {
     actions        : PT.object.isRequired,
     history        : PT.object.isRequired,
+    location        : PT.object.isRequired,
     generatingCase : PT.bool,
     t              : PT.func.isRequired,
     dataToConfirm  : PT.object.isRequired,

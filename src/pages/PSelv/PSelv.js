@@ -9,12 +9,12 @@ import moment from 'moment';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.min.css';
 
-import Icons from '../../components/ui/Icons';
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';
 import CountrySelect from '../../components/ui/CountrySelect/CountrySelect';
 
+import * as routes from '../../constants/routes';
 import * as pselvActions from '../../actions/pselv';
 import * as uiActions from '../../actions/ui';
 
@@ -50,8 +50,14 @@ class PSelv extends Component {
             if (this.state.referrer === 'pinfo' && step === 3) {
                 actions.stepForward();
                 // clean the referrer param. ComponentDidMount will run again
-                history.push('/_/pselv');
+                history.push(routes.PSELV);
             }
+        });
+
+        actions.addToBreadcrumbs({
+            url  : routes.PSELV,
+            ns   : 'pselv',
+            label: 'pselv:app-title'
         });
     }
 
@@ -68,7 +74,7 @@ class PSelv extends Component {
         const { actions, history } = this.props;
 
         actions.closeModal();
-        history.push('/_/p4000?referrer=pselv');
+        history.push(routes.P4000 + '?referrer=pselv');
     }
 
     goToPInfo() {
@@ -76,7 +82,7 @@ class PSelv extends Component {
         const { actions, history } = this.props;
 
         actions.closeModal();
-        history.push('/_/pinfo?referrer=pselv');
+        history.push(routes.PINFO + '?referrer=pselv');
     }
 
     closeModal() {
@@ -231,19 +237,16 @@ class PSelv extends Component {
 
     render() {
 
-        const { t, locale, history, step } = this.props;
+        const { t, locale, history, step, location } = this.props;
 
         if (!this.state.isLoaded) {
             return null;
         }
 
-        return <TopContainer className='pSelv topContainer'>
+        return <TopContainer className='pSelv topContainer' history={history} location={location}>
             <Nav.Row className='mb-4'>
                 <Nav.Column>
-                    <h1 className='mt-4 ml-3 mb-3 appTitle'>
-                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
-                        {t('pselv:app-title')}
-                    </h1>
+                    <h1 className='appTitle'>{t('pselv:app-title')}</h1>
                     <h4 className='appDescription mb-4'>{t('pselv:form-step' + step)}</h4>
                     <ClientAlert className='mb-4'/>
                     <Nav.Stegindikator
@@ -404,7 +407,7 @@ class PSelv extends Component {
                                 <option value=''>{'--'}</option>
                                 <option value='nb'>{'Norsk Bokmål'}</option>
                                 <option value='nn'>{'Nynorsk'}</option>
-                                <option value='en'>{'English'}</option>
+                                <option value='en-gb'>{'English'}</option>
                             </Nav.Select>
                         </div>
                     </Nav.Row>
@@ -502,7 +505,7 @@ PSelv.propTypes = {
     history  : PT.object,
     t        : PT.func,
     locale   : PT.string,
-    location : PT.object,
+    location : PT.object.isRequired,
     actions  : PT.object,
     step     : PT.number.isRequired
 };

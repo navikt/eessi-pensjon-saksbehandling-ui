@@ -7,6 +7,7 @@ import { translate } from 'react-i18next';
 import Case from './Case';
 import * as Nav from '../../components/ui/Nav';
 
+import * as routes from '../../constants/routes';
 import * as caseActions from '../../actions/case';
 import * as uiActions from '../../actions/ui';
 
@@ -34,9 +35,14 @@ class SaveCase extends Component {
         let { history, actions, dataSaved } = this.props;
 
         if (!dataSaved) {
-            history.push('/');
+            history.push(routes.ROOT);
         } else {
             actions.getRinaUrl();
+            actions.addToBreadcrumbs({
+                url  : routes.CASE_SAVE,
+                ns   : 'case',
+                label: 'case:app-saveCaseTitle'
+            });
         }
     }
 
@@ -45,7 +51,7 @@ class SaveCase extends Component {
         const { history, dataSent } = this.props;
 
         if (dataSent) {
-            history.push('/_/case/send');
+            history.push(routes.CASE_SEND);
         }
     }
 
@@ -54,7 +60,7 @@ class SaveCase extends Component {
         const { history, actions } = this.props;
 
         actions.navigateBack();
-        history.push('/_/case/generate')
+        history.push(routes.CASE_GENERATE)
     }
 
     onForwardButtonClick() {
@@ -79,7 +85,7 @@ class SaveCase extends Component {
 
     render() {
 
-        let { t, history, sendingCase, dataSaved, rinaLoading, rinaUrl } = this.props;
+        let { t, history, location, sendingCase, dataSaved, rinaLoading, rinaUrl } = this.props;
 
         let body;
 
@@ -101,8 +107,11 @@ class SaveCase extends Component {
         let buttonText = sendingCase ? t('case:loading-sendingCase') : t('ui:confirmAndSend');
 
         return <Case className='saveCase'
-            title='case:app-saveCaseTitle' description='case:app-saveCaseDescription'
-            stepIndicator={3} history={history}>
+            title='case:app-saveCaseTitle'
+            description='case:app-saveCaseDescription'
+            stepIndicator={3}
+            history={history}
+            location={location}>
             <div className='fieldset p-4 m-4'>
                 <Nav.Row>
                     <Nav.Column className='saveCase'>
@@ -125,6 +134,7 @@ class SaveCase extends Component {
 SaveCase.propTypes = {
     actions       : PT.object,
     history       : PT.object,
+    location      : PT.object,
     dataSaved     : PT.object,
     dataSent      : PT.bool,
     dataToConfirm : PT.object,

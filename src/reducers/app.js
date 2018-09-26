@@ -12,10 +12,10 @@ export default function (state = initialState, action = {}) {
             referrer : action.payload.referrer
         });
 
-    case types.APP_LOGIN_SUCCESS:
+    case types.APP_USERINFO_SUCCESS:
 
         return Object.assign({}, state, {
-            token : action.payload
+            userInfo : action.payload
         });
 
     default:

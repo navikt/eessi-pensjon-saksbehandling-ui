@@ -5,8 +5,9 @@ import PT from 'prop-types';
 import { translate } from 'react-i18next';
 
 import Case from './Case';
-import * as Nav from '../../components/ui/Nav';
 
+import * as Nav from '../../components/ui/Nav';
+import * as routes from '../../constants/routes';
 import * as caseActions from '../../actions/case';
 import * as uiActions from '../../actions/ui';
 
@@ -49,10 +50,21 @@ class GetCase extends Component {
 
     onForwardButtonClick() {
 
-        const {actions} = this.props;
+        const { actions } = this.props;
 
         actions.navigateForward();
         actions.getCaseFromCaseNumber(this.state);
+    }
+
+    componentDidMount() {
+
+        const { actions } = this.props;
+
+        actions.addToBreadcrumbs({
+            url  : routes.CASE_GET,
+            ns   : 'case',
+            label: 'case:app-getCaseTitle'
+        });
     }
 
     componentDidUpdate() {
@@ -60,10 +72,10 @@ class GetCase extends Component {
         const { history, currentCase } = this.props;
 
         if (currentCase) {
-            history.push('/_/case/get/' +
-                (currentCase.hasOwnProperty('casenumber') ? currentCase.casenumber + '/' : null) +
-                (currentCase.hasOwnProperty('pinid')      ? currentCase.pinid      + '/' : null) +
-                (currentCase.hasOwnProperty('rinaid')     ? currentCase.rinaid     + '/' : null)
+            history.push(routes.CASE_GET  +
+                (currentCase.casenumber ? '/' + currentCase.casenumber : '') +
+                (currentCase.pinid      ? '/' + currentCase.pinid      : '') +
+                (currentCase.rinaid     ? '/' + currentCase.rinaid     : '')
             );
         }
     }
@@ -74,26 +86,29 @@ class GetCase extends Component {
 
     render() {
 
-        const { t, gettingCase, history } = this.props;
+        const { t, gettingCase, history, location } = this.props;
 
         let buttonText = gettingCase ? t('case:loading-gettingCase') : t('ui:search');
 
         return <Case className='getcase'
             title='case:app-getCaseTitle'
             description='case:app-getCaseDescription'
-            history={history}>
+            history={history}
+            location={location}>
             <div className='fieldset p-4 m-4'>
                 <Nav.Row>
-                    <Nav.Column>
+                    <div className='col-md-6'>
                         <Nav.HjelpetekstBase id='caseId'>{t('case:help-caseId')}</Nav.HjelpetekstBase>
                         <Nav.Input className='getCaseInputCaseId' label={t('case:form-caseId') + ' *'} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
-                        <div>&nbsp;</div>
+                    </div>
+                    <div className='col-md-6'>
                         <Nav.HjelpetekstBase id='actorId'>{t('case:help-actorId')}</Nav.HjelpetekstBase>
                         <Nav.Input className='getCaseInputActorId' label={t('case:form-actorId') + ' *'} value={this.state.actorId} onChange={this.onActorIdChange.bind(this)}/>
-                        <div>&nbsp;</div>
+                    </div>
+                    <div className='col-md-6'>
                         <Nav.HjelpetekstBase id='rinaId'>{t('case:help-rinaId')}</Nav.HjelpetekstBase>
                         <Nav.Input className='getCaseInputRinaId' label={t('case:form-rinaId')} value={this.state.rinaId} onChange={this.onRinaIdChange.bind(this)}/>
-                    </Nav.Column>
+                    </div>
                 </Nav.Row>
             </div>
             <Nav.Row className='p-4'>
@@ -114,6 +129,7 @@ GetCase.propTypes = {
     gettingCase  : PT.bool,
     actions      : PT.object,
     history      : PT.object,
+    location     : PT.object,
     t            : PT.func
 };
 

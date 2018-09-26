@@ -40,22 +40,6 @@ node {
         }
 
         stage("deploy") {
-            /*if (params.OPENAM_CONTEXT_ROOT) {
-                if (params.CLUSTER == "fss") {
-                    def namedBaseUrl = "https://named.nais.preprod.local"
-                    if (params.DEPLOY_ENV == "p") {
-                        namedBaseUrl = "https://named.nais.adeo.no"
-                    }
-                    deploy.registerToAMFSS(params.SERVICE_USER_CREDENTIALS_ID, namedBaseUrl, params.APP, params.VERSION, params.DEPLOY_ENV, params.CLUSTER, params.OPENAM_CONTEXT_ROOT)
-                } else {
-                    def namedBaseUrl = "https://named.nais.oera-q.local"
-                    if (params.DEPLOY_ENV == "p") {
-                        namedBaseUrl = "https://named.nais.oera.no"
-                    }
-                    deploy.registerToAMSBS(params.SERVICE_USER_CREDENTIALS_ID, namedBaseUrl, params.APP, params.VERSION, params.DEPLOY_ENV, params.CLUSTER)
-                }
-            }*/
-
             def version = sh(script: 'git describe --abbrev=0', returnStdout: true).trim()
             build([
                     job       : 'nais-deploy-pipeline',

@@ -13,11 +13,11 @@ import DnDSource from '../../../components/pdf/DnDSource/DnDSource';
 import DnDTarget from '../../../components/pdf/DnDTarget';
 import DnD from '../../../components/pdf/DnD';
 import PDFSizeSlider from '../../../components/pdf/PDFSizeSlider';
-import Icons from '../../../components/ui/Icons';
 
 import 'rc-collapse/assets/index.css';
 import './EditPDF.css';
 
+import * as routes from '../../../constants/routes';
 import * as pdfActions from '../../../actions/pdf';
 import * as uiActions from '../../../actions/ui';
 
@@ -41,11 +41,17 @@ class EditPDF extends Component {
 
     componentDidMount() {
 
-        const { history, pdfs } = this.props;
+        const { history, actions, pdfs } = this.props;
 
         if (_.isEmpty(pdfs)) {
-            history.push('/_/pdf/select');
+            history.push(routes.PDF_SELECT);
         }
+
+        actions.addToBreadcrumbs({
+            url  : routes.PDF_EDIT,
+            ns   : 'pdf',
+            label: 'pdf:app-editPdfTitle'
+        });
     }
 
     onBackButtonClick() {
@@ -53,7 +59,7 @@ class EditPDF extends Component {
         const { history, actions } = this.props;
 
         actions.navigateBack();
-        history.push('/_/pdf/select');
+        history.push(routes.PDF_SELECT);
     }
 
     hasOnlyEmptyArrays(obj) {
@@ -103,7 +109,7 @@ class EditPDF extends Component {
 
         actions.closeModal();
         actions.navigateForward();
-        history.push('/_/pdf/generate');
+        history.push(routes.PDF_GENERATE);
     }
 
     handleAccordionChange(index) {
@@ -125,20 +131,17 @@ class EditPDF extends Component {
 
     render() {
 
-        const { t, history, errorMessage, errorStatus, pdfs, pdfsize, dndTarget, recipe } = this.props;
+        const { t, history, errorMessage, errorStatus, pdfs, pdfsize, dndTarget, recipe, location } = this.props;
 
         let alert = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
 
-        return <TopContainer className='pdf topContainer'>
+        return <TopContainer className='pdf topContainer' history={history} location={location}>
             <Nav.Row>
                 <Nav.Column>
                     <div className='mt-4'>
                         <Nav.HjelpetekstBase>{t('pdf:help-edit-pdf')}</Nav.HjelpetekstBase>
                     </div>
-                    <h1 className='mt-3 appTitle'>
-                        <Icons title={t('ui:back')} className='mr-3' style={{cursor: 'pointer'}} kind='caretLeft' onClick={() => history.push('/')}/>
-                        {t('pdf:app-editPdfTitle')}
-                    </h1>
+                    <h1 className='appTitle'>{t('pdf:app-editPdfTitle')}</h1>
                 </Nav.Column>
             </Nav.Row>
             {alert ? <Nav.Row className='mt-3 mb-3'>
@@ -207,7 +210,8 @@ EditPDF.propTypes = {
     pdfs         : PT.array.isRequired,
     recipe       : PT.object.isRequired,
     pdfsize      : PT.number,
-    dndTarget    : PT.string
+    dndTarget    : PT.string,
+    location     : PT.object.isRequired
 };
 
 export default connect(

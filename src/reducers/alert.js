@@ -1,5 +1,5 @@
 import * as types from '../constants/actionTypes';
-
+import _ from 'lodash';
 
 function processError(error) {
     let errorMessage = [];
@@ -23,7 +23,7 @@ export default function (state = {}, action = {}) {
 
     let message;
 
-    if (action.type.endsWith('/REQUEST')) {
+    if (_.endsWith(action.type, '/REQUEST')) {
 
         return Object.assign({}, state, {
             clientErrorMessage : undefined,
@@ -38,7 +38,7 @@ export default function (state = {}, action = {}) {
         });
     }
 
-    if (action.type.endsWith('/FAILURE')) {
+    if (_.endsWith(action.type, '/FAILURE')) {
 
         switch (action.type) {
 
@@ -67,7 +67,7 @@ export default function (state = {}, action = {}) {
             message = 'case:alert-noCountryList';
             break;
 
-        case types.USER_INFO_FAILURE:
+        case types.APP_USERINFO_FAILURE:
 
             message = 'ui:alert-noSuchUser';
             break;
@@ -158,9 +158,11 @@ export default function (state = {}, action = {}) {
         break;
 
     default:
-
-        message = 'success'
         break
+    }
+
+    if (!message) {
+        return state;
     }
 
     return Object.assign({}, state, {

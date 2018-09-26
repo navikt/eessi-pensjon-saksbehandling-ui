@@ -4,7 +4,6 @@ import PT from 'prop-types';
 import getError from './shared/getError';
 import * as Nav from '../ui/Nav';
 
-
 const errorMessages = {
     userEmail: {patternMismatch: 'patternMismatch', valueMissing: 'valueMissing', typeMismatch: 'typeMismatch'},
     userPhone: {patternMismatch: 'patternMismatch', valueMissing: 'valueMissing'}
@@ -37,8 +36,8 @@ export class Contact extends React.Component{
             let validity = event.target.validity;
             let error = getError(validity);
             this.setState(
-                (prevState)=>
-                {   
+                (prevState, props)=>
+                {
                     return {
                         inputStates: {
                             ...prevState.inputStates,
@@ -87,7 +86,8 @@ export class Contact extends React.Component{
     render(){
         const {t, contact} = this.props;
         const nameToId = this.state.nameToId;
-        const inputStates = this.state.inputStates;     
+        const idToName = this.state.idToName;
+        const inputStates = this.state.inputStates;
         return(
             <div className='mt-3'>
                 <Nav.Row>

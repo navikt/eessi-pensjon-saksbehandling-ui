@@ -103,20 +103,6 @@ export function dataToConfirm (params) {
     };
 }
 
-export function clearCurrentCase() {
-
-    return {
-        type : types.CASE_CLEAR_CURRENT_CASE
-    };
-}
-
-export function clearData() {
-
-    return {
-        type : types.CASE_CLEAR_DATA
-    };
-}
-
 export function generateData (params) {
 
     return api.call({
@@ -184,4 +170,3 @@ export function getRinaUrl () {
         }
     });
 }
-

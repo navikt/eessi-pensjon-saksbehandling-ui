@@ -13,7 +13,7 @@ import * as appActions from '../../../actions/app';
 
 const mapStateToProps = (state) => {
     return {
-        userInfo        : state.ui.userInfo,
+        userInfo        : state.app.userInfo,
         gettingUserInfo : state.loading.gettingUserInfo
     };
 };

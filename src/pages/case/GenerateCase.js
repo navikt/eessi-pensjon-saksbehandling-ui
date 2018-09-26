@@ -8,6 +8,7 @@ import Case from './Case';
 import * as Nav from '../../components/ui/Nav';
 import RenderGeneratedData from '../../components/case/RenderGeneratedData';
 
+import * as routes from '../../constants/routes';
 import * as caseActions from '../../actions/case';
 import * as uiActions from '../../actions/ui';
 
@@ -30,11 +31,17 @@ class GenerateCase extends Component {
 
     componentDidMount() {
 
-        let { history, dataToGenerate } = this.props;
+        let { history, actions, dataToGenerate } = this.props;
 
         if (!dataToGenerate) {
-            history.push('/');
+            history.push(routes.ROOT);
         }
+
+        actions.addToBreadcrumbs({
+            url  : routes.CASE_GET,
+            ns   : 'case',
+            label: 'case:app-generateCaseTitle'
+        });
     }
 
     componentDidUpdate() {
@@ -42,7 +49,7 @@ class GenerateCase extends Component {
         const { history, dataSaved, action } = this.props;
 
         if (dataSaved && action === 'forward') {
-            history.push('/_/case/save');
+            history.push(routes.CASE_SAVE);
         }
     }
 
@@ -51,7 +58,7 @@ class GenerateCase extends Component {
         const { history, actions } = this.props;
 
         actions.navigateBack();
-        history.push('/_/case/confirm')
+        history.push(routes.CASE_CONFIRM)
     }
 
     onForwardButtonClick() {
@@ -79,12 +86,15 @@ class GenerateCase extends Component {
 
     render() {
 
-        const { t, history, dataToGenerate, dataToConfirm, savingCase } = this.props;
+        const { t, history, location, dataToGenerate, dataToConfirm, savingCase } = this.props;
 
         if (!dataToGenerate) {
             return  <Case className='generateCase'
-                title='case:app-generateCaseTitle' description='case:app-generateCaseDescription'
-                stepIndicator={2} history={history}>
+                title='case:app-generateCaseTitle'
+                description='case:app-generateCaseDescription'
+                stepIndicator={2}
+                history={history}
+                location={location}>
                 <div className='w-100 text-center'>
                     <Nav.NavFrontendSpinner/>
                     <p>{t('case:loading-generatingCase')}</p>
@@ -95,8 +105,11 @@ class GenerateCase extends Component {
         let buttonText = savingCase ? t('case:loading-savingCase') : t('ui:confirmAndSave');
 
         return <Case className='generateCase'
-            title='case:app-generateCaseTitle' description='case:app-generateCaseDescription'
-            stepIndicator={2} history={history}>
+            title='case:app-generateCaseTitle'
+            description='case:app-generateCaseDescription'
+            stepIndicator={2}
+            history={history}
+            location={location}>
             <div className='fieldset p-4 m-4'>
                 <Nav.Row>
                     <Nav.Column>
@@ -119,6 +132,7 @@ class GenerateCase extends Component {
 GenerateCase.propTypes = {
     actions        : PT.object.isRequired,
     history        : PT.object.isRequired,
+    location       : PT.object.isRequired,
     savingCase     : PT.bool,
     t              : PT.func.isRequired,
     dataToConfirm  : PT.object,

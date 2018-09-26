@@ -50,6 +50,18 @@ export default function (state = initialState, action = {}) {
         });
     }
 
+    case types.PDF_GET_LIST_SUCCESS: {
+
+        const extPdfs = _.clone(action.payload);
+        for (var k in extPdfs) {
+            extPdfs[k].data =  Uint8Array.from(window.atob(extPdfs[k].base64), c => c.charCodeAt(0))
+        }
+
+        return Object.assign({}, state, {
+            extPdfs : extPdfs
+        });
+    }
+
     case types.PDF_SET_RECIPE:
 
         return Object.assign({}, state, {
@@ -67,6 +79,10 @@ export default function (state = initialState, action = {}) {
         return Object.assign({}, state, {
             pdfsize : action.payload
         });
+
+    case types.APP_CLEAR_DATA:
+
+        return initialState;
 
     default:
 
