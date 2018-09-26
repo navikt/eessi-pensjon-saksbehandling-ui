@@ -13,38 +13,16 @@ import ExternalFiles from '../pdf/ExternalFiles/ExternalFiles';
 
 class TopContainer extends Component {
 
-   state = {
-        toggled: false,
-	    width: 10,
-	    oldWidth : 250
-   }
-
-    toggle () {
-
-        this.setState({
-            toggled: !this.state.toggled,
-            oldWidth:  this.state.width,
-            width: this.state.oldWidth
-        })
-    }
-
-    changeSidebarWidth(value) {
-        this.setState({
-            width: value
-        })
-    }
-
     render () {
 
         const { className, style, history } = this.props;
 
-        return <div style={style}
-            className={classNames('topcontainer', className)}>
-            <TopHeader/>
-            <ServerAlert/>
-            <Modal/>
-            <Breadcrumbs history={history}/>
+        return <div style={style} className={classNames('topcontainer', className)}>
             <Drawer sidebar={<ExternalFiles/>}>
+                <TopHeader/>
+                <ServerAlert/>
+                <Modal/>
+                <Breadcrumbs history={history}/>
                 <Nav.Container fluid={true}>
                     {this.props.children}
                 </Nav.Container>
@@ -61,4 +39,3 @@ TopContainer.propTypes = {
 };
 
 export default TopContainer;
-

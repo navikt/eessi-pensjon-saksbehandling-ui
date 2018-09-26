@@ -138,6 +138,7 @@ SelectPDF.propTypes = {
     history      : PT.object,
     t            : PT.func,
     pdfs         : PT.array.isRequired,
+    extPdfs      : PT.array,
     location     : PT.object.isRequired
 };
 
