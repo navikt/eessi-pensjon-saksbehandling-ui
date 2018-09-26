@@ -35,7 +35,7 @@ class DnDTarget extends Component {
 
         const { pdfs, recipe, targetId } = this.props;
 
-        return <Droppable  droppableId={'dndtarget-' + targetId}>
+        return <Droppable droppableId={'dndtarget-' + targetId}>
 
             {(provided, snapshot) => (
 

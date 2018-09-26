@@ -280,15 +280,11 @@ class File extends Component {
 
         const { t, events, event } = this.props;
 
-        return <Nav.Panel className='panel-file'>
-            <Nav.Row className='fileButtons mb-4 p-3 fieldset'>
+        return <Nav.Panel className='panel-file p-0'>
+            <Nav.Row className='fileButtons m-4 p-4 fieldset no-gutters'>
                 <Nav.Column>
-                    <Nav.Row>
-                        <Nav.Column>
-                            <Nav.HjelpetekstBase>{t('p4000:help-file-info')}</Nav.HjelpetekstBase>
-                            <h2 className='mb-5'>{t('p4000:file-title')}</h2>
-                        </Nav.Column>
-                    </Nav.Row>
+                    <Nav.HjelpetekstBase>{t('p4000:help-file-info')}</Nav.HjelpetekstBase>
+                    <h2 className='mb-4'>{t('p4000:file-title')}</h2>
                     <Nav.Row>
                         <Nav.Column>
                             <Nav.Row className='no-gutters'>

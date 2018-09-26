@@ -4,7 +4,6 @@ import 'core-js/es6/set'; // IE 11 compatibility
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import createBrowserHistory from 'history/createBrowserHistory';
 import { Switch, Redirect } from 'react-router';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
@@ -13,15 +12,13 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { I18nextProvider } from 'react-i18next';
 import { CookiesProvider } from 'react-cookie';
-
-import * as reducers from './reducers';
 import 'moment';
 import 'moment/locale/en-gb';
 import 'moment/locale/nb';
 
 import i18n from './i18n';
+import * as reducers from './reducers';
 import * as routes from './constants/routes';
-
 import registerServiceWorker from './registerServiceWorker';
 import * as Pages from './pages';
 import AuthenticatedRoute from './components/app/AuthenticatedRoute';

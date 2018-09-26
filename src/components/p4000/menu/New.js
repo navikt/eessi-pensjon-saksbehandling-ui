@@ -181,15 +181,15 @@ class New extends Component {
 
         const { t, events } = this.props;
 
-        return <Nav.Panel className='newEventPanel'>
+        return <Nav.Panel className='newEventPanel p-0'>
             <div>
                 <a className='hiddenFileInputOutput' ref={fileOutput => this.fileOutput = fileOutput}
                     href={this.state.fileOutput} download='p4000.json'>&nbsp;</a>
             </div>
-            <Nav.Row className='eventTitle mb-4 p-3 fieldset'>
+            <Nav.Row className='eventTitle m-4 p-4 fieldset no-gutters'>
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('p4000:help-new-event')}</Nav.HjelpetekstBase>
-                    <h1 className='mt-3 mb-3'>{t('ui:new')}{' '}{t('p4000:type-event')}</h1>
+                    <h1 className='m-0 mb-4'>{t('ui:new')}{' '}{t('p4000:type-event')}</h1>
                     <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
                         {eventList.map(e => {
                             return <Nav.Knapp title={t(e.description)} className={classNames('bigButton', e.value + 'Button')}
@@ -203,10 +203,10 @@ class New extends Component {
                     </div>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='eventTitle mb-4 p-3 fieldset'>
+            <Nav.Row className='eventTitle m-4 p-4 fieldset no-gutters'>
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('p4000:help-new-options')}</Nav.HjelpetekstBase>
-                    <h1 className='mt-3 mb-3'>{t('ui:options')}</h1>
+                    <h1 className='m-0 mb-4'>{t('ui:options')}</h1>
                     <div style={{display: 'flex', flexWrap: 'wrap'}}>
                         <Nav.Knapp className='viewButton bigButton' onClick={this.handleEventSelect.bind(this, 'view')}>
                             <div>

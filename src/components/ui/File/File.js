@@ -22,18 +22,21 @@ class File extends Component {
 
     render () {
 
-        const { file } = this.props;
+        const { file, animate } = this.props;
+
+        let _animate = _.isBoolean(animate) ? animate : true;
 
         if (_.endsWith(file.name, '.pdf')) {
-            return <MiniaturePDF size={this.renderBytes(file.size)} {...this.props}/>
+            return <MiniaturePDF animate={_animate} size={this.renderBytes(file.size)} {...this.props}/>
         } else {
-            return <MiniatureOther size={this.renderBytes(file.size)} {...this.props}/>
+            return <MiniatureOther animate={_animate} size={this.renderBytes(file.size)} {...this.props}/>
         }
     }
 }
 
 File.propTypes = {
-    file : PT.object.isRequired
+    file    : PT.object.isRequired,
+    animate : PT.boolean
 }
 
 export default File;

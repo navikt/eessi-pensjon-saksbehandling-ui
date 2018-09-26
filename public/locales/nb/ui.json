@@ -5,6 +5,7 @@
 
     "accepted" : "Akseptert",
     "add" : "Legg til",
+    "added" : "La til",
     "addAll" : "Legg til alle",
     "address" : "Bostedsaddress",
     "authenticating" : "Autentisering...",
@@ -12,7 +13,6 @@
     "back" : "Tilbake",
     "backTo" : "Tilbake til",
     "bytes" : "byter",
-    "chooseLanguage" : "Velg språk",
     "cancel" : "Avbryt",
     "cancelAndDeleteForm" : "Avbryt og slett skjema",
     "city" : "By",
@@ -41,6 +41,7 @@
     "forward" : "Neste",
     "generate" : "generere",
     "gettingStatus" : "Henter status...",
+    "giveFeedback" : "Gi tilbakemelding",
     "go" : "Neste",
     "home" : "Hjem",
     "idNumber" : "Fødselsnummer",

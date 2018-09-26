@@ -127,10 +127,10 @@ class MiniaturePDF extends Component {
 
     render () {
 
-        const { t, file, size, addLink, deleteLink, downloadLink, className } = this.props;
+        const { t, file, size, addLink, deleteLink, downloadLink, className, animate } = this.props;
         const { numPages, isHovering, currentPage } = this.state;
 
-        return <div className={classNames('miniaturePdf', className)}
+        return <div className={classNames('miniaturePdf', className, {'animate' : animate})}
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
             onMouseLeave={this.onHandleMouseLeave.bind(this)}>
             <Document className='position-relative' file={{data: file.data }}
@@ -166,6 +166,7 @@ MiniaturePDF.propTypes = {
     onLoadSuccess    : PT.func,
     file             : PT.object.isRequired,
     size             : PT.string,
+    animate          : PT.boolean,
     onDeleteDocument : PT.func,
     onAddDocument    : PT.func,
     deleteLink       : PT.bool,

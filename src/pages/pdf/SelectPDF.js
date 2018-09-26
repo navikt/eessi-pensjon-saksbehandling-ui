@@ -4,11 +4,13 @@ import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 import _ from 'lodash';
+import classNames from 'classnames';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
+import ExternalFiles from '../../components/pdf/ExternalFiles/ExternalFiles';
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import FileUpload from '../../components/ui/FileUpload/FileUpload';
-import File from '../../components/ui/File/File';
 
 import * as routes from '../../constants/routes';
 import * as pdfActions from '../../actions/pdf';
@@ -19,7 +21,6 @@ const mapStateToProps = (state) => {
         loadingPDF   : state.loading.loadingPDF,
         language     : state.ui.language,
         pdfs         : state.pdf.pdfs,
-        loadingExtPDF: state.loading.loadingExtPDF,
         extPdfs      : state.pdf.extPdfs,
         action       : state.ui.action
     }
@@ -28,6 +29,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(Object.assign({}, uiActions, pdfActions), dispatch)};
 };
+
+const getListStyle = (isDraggingOver) => ({
+    background: isDraggingOver ? 'lightgreen' : 'white',
+    padding: 0
+});
 
 class SelectPDF extends Component {
 
@@ -40,7 +46,6 @@ class SelectPDF extends Component {
             ns   : 'pdf',
             label: 'pdf:app-selectPdfTitle'
         });
-
     }
 
     onForwardButtonClick() {
@@ -71,56 +76,45 @@ class SelectPDF extends Component {
         this.fileUpload.getWrappedInstance().addFile(pdf);
     }
 
-    onExternalFileRequest() {
+    addExternalPdfToFileUpload(e) {
 
-        const { actions, extPdfs } = this.props;
+        const { extPdfs } = this.props;
 
-        if (!extPdfs) {
-            actions.getPdfList();
+        if (e.source && e.source.droppableId === 'dndfiles' &&
+            e.destination && e.destination.droppableId === 'fileUploadDroppable') {
+
+            let sourcePdf = extPdfs[e.source.index];
+            this.fileUpload.getWrappedInstance().addFile(sourcePdf);
         }
+        return;
     }
 
     render() {
 
-        const { t, history, loadingPDF, loadingExtPDF, pdfs, extPdfs, location } = this.props;
+        const { t, history, loadingPDF, pdfs, location } = this.props;
 
         let buttonText = loadingPDF ? t('pdf:loading-loadingPDF') : t('ui:forward');
 
-        return <TopContainer className='pdf topContainer' history={history} location={location}>
-            <Nav.Row className='mb-4'>
-                <Nav.Column>
-                    <h1 className='appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
-                </Nav.Column>
-            </Nav.Row>
-            <Nav.Ekspanderbartpanel className='m-4 fieldset'
-                apen={false} tittel={t('ui:fileSelect')} tittelProps='undertittel'
-                onClick={this.onExternalFileRequest.bind(this)}>
-                <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
-                    <div style={{minHeight: '190px'}}>
-                    {loadingExtPDF ? <div className='w-100 text-center'>
-                         <Nav.NavFrontendSpinner/>
-                         <p>{t('pdf:loading-loadingExtPDF')}</p>
-                    </div> : null}
-                    {extPdfs ? extPdfs.map((pdf, index) => {
-                         return <File key={index} file={pdf} addLink={true}
-                            onAddDocument={this.addDocument.bind(this, pdf)}
-                            currentPage={1}
-                         />
-                    }) : null}
-                    </div>
-            </Nav.Ekspanderbartpanel>
-
-            <Nav.Row className='m-4 p-3 fieldset'>
-                <Nav.Column>
+        return  <DragDropContext onDragEnd={this.addExternalPdfToFileUpload.bind(this)}>
+            <TopContainer className='pdf topContainer' history={history} location={location}>
+                <h1 className='appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
+                <ExternalFiles/>
+                <div className='m-4 p-4 fieldset'>
                     <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
                     <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
-                    <FileUpload ref={f => this.fileUpload = f}
-                        className='fileUpload mb-3'
-                        accept='application/pdf'
-                        files={pdfs || []}
-                        beforeDrop={this.handleBeforeDrop.bind(this)}
-                        afterDrop={this.handleAfterDrop.bind(this)}
-                        onFileChange={this.handleFileChange.bind(this)}/>
+                    <Droppable droppableId={'fileUploadDroppable'} direction='horizontal'>
+                        {(provided, snapshot) => (
+                            <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
+                                <FileUpload ref={f => this.fileUpload = f}
+                                    className={classNames('fileUpload', 'mb-3')}
+                                    accept='application/pdf'
+                                    files={pdfs || []}
+                                    beforeDrop={this.handleBeforeDrop.bind(this)}
+                                    afterDrop={this.handleAfterDrop.bind(this)}
+                                    onFileChange={this.handleFileChange.bind(this)}/>
+                            </div>
+                        )}
+                    </Droppable>
                     <Nav.Row>
                         <Nav.Column></Nav.Column>
                         <Nav.Column>
@@ -132,9 +126,9 @@ class SelectPDF extends Component {
                                 onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
                         </Nav.Column>
                     </Nav.Row>
-                </Nav.Column>
-            </Nav.Row>
-        </TopContainer>
+                </div>
+            </TopContainer>
+        </DragDropContext>
     }
 }
 

@@ -43,6 +43,9 @@ class Breadcrumbs extends Component {
         let { t, className, breadcrumbs } = this.props;
 
         return <div className={classNames('breadcrumb', className)}>
+            <div style={{position: 'absolute', right: '1rem'}}>
+                <a href='mailto:Nuno.Cardoso@nav.no'>{t('ui:giveFeedback')}</a>
+            </div>
             {breadcrumbs ? breadcrumbs.map((b, index) => {
                 return index === (breadcrumbs.length - 1) ?
                     <div key={b.label} className='_breadcrumb'>{t(b.label)}</div> :
