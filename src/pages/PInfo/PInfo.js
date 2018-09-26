@@ -256,7 +256,7 @@ const PInfo = (props) => (
                     <dl className='row'>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-attachmentTypes')}</label></dt>
                         <dd className='col-sm-8'>{
-                            Object.entries(props.form.attachmentTypes)
+                            Object.entries(props.form.attachmentTypes? props.form.attachmentTypes: {})
                                 .filter(KV => KV[1])
                                 .map(type => {return props.t('pinfo:form-attachmentTypes-' + type[0])}).join(', ')
                         }</dd>
