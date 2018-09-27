@@ -32,7 +32,7 @@ class ExternalFiles extends Component {
 
     render () {
 
-        const { t, loadingExtPDF, extPdfs } = this.props;
+        const { t, loadingExtPDF, extPdfs, addDocument } = this.props;
 
         return <Nav.Ekspanderbartpanel className='m-4 fieldset'
             apen={false} tittel={t('ui:fileSelect')} tittelProps='undertittel'
@@ -42,7 +42,7 @@ class ExternalFiles extends Component {
                 {loadingExtPDF ? <div className='w-100 text-center'>
                     <Nav.NavFrontendSpinner/>
                     <p>{t('pdf:loading-loadingExtPDF')}</p>
-                </div> : <DnDExternalFiles extPdfs={extPdfs}/>}
+                </div> : <DnDExternalFiles extPdfs={extPdfs} addDocument={addDocument}/>}
             </div>
         </Nav.Ekspanderbartpanel>
     }

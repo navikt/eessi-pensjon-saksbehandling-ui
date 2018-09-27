@@ -5,7 +5,6 @@ import PT from 'prop-types';
 import { translate } from 'react-i18next';
 import _ from 'lodash';
 import classNames from 'classnames';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 import ExternalFiles from '../../components/pdf/ExternalFiles/ExternalFiles';
 import * as Nav from '../../components/ui/Nav';
@@ -29,11 +28,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(Object.assign({}, uiActions, pdfActions), dispatch)};
 };
-
-const getListStyle = (isDraggingOver) => ({
-    background: isDraggingOver ? 'lightgreen' : 'white',
-    padding: 0
-});
 
 class SelectPDF extends Component {
 
@@ -76,45 +70,26 @@ class SelectPDF extends Component {
         this.fileUpload.getWrappedInstance().addFile(pdf);
     }
 
-    addExternalPdfToFileUpload(e) {
-
-        const { extPdfs } = this.props;
-
-        if (e.source && e.source.droppableId === 'dndfiles' &&
-            e.destination && e.destination.droppableId === 'fileUploadDroppable') {
-
-            let sourcePdf = extPdfs[e.source.index];
-            this.fileUpload.getWrappedInstance().addFile(sourcePdf);
-        }
-        return;
-    }
-
     render() {
 
         const { t, history, loadingPDF, pdfs, location } = this.props;
 
         let buttonText = loadingPDF ? t('pdf:loading-loadingPDF') : t('ui:forward');
 
-        return  <DragDropContext onDragEnd={this.addExternalPdfToFileUpload.bind(this)}>
-            <TopContainer className='pdf topContainer' history={history} location={location}>
+        return <TopContainer className='pdf topContainer' history={history} location={location}
+                fileUpload={this.fileUpload}>
                 <h1 className='appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
-                <ExternalFiles/>
+                <ExternalFiles addDocument={this.addDocument.bind(this)}/>
                 <div className='m-4 p-4 fieldset'>
                     <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
                     <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
-                    <Droppable droppableId={'fileUploadDroppable'} direction='horizontal'>
-                        {(provided, snapshot) => (
-                            <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
-                                <FileUpload ref={f => this.fileUpload = f}
-                                    className={classNames('fileUpload', 'mb-3')}
-                                    accept='application/pdf'
-                                    files={pdfs || []}
-                                    beforeDrop={this.handleBeforeDrop.bind(this)}
-                                    afterDrop={this.handleAfterDrop.bind(this)}
-                                    onFileChange={this.handleFileChange.bind(this)}/>
-                            </div>
-                        )}
-                    </Droppable>
+                        <FileUpload ref={f => this.fileUpload = f}
+                            className={classNames('fileUpload', 'mb-3')}
+                            accept='application/pdf'
+                            files={pdfs || []}
+                            beforeDrop={this.handleBeforeDrop.bind(this)}
+                            afterDrop={this.handleAfterDrop.bind(this)}
+                            onFileChange={this.handleFileChange.bind(this)}/>
                     <Nav.Row>
                         <Nav.Column></Nav.Column>
                         <Nav.Column>
@@ -128,7 +103,7 @@ class SelectPDF extends Component {
                     </Nav.Row>
                 </div>
             </TopContainer>
-        </DragDropContext>
+
     }
 }
 

@@ -19,7 +19,14 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 
 class DnDExternalFiles extends Component {
 
-    addDocument() {}
+    addDocument(pdf) {
+
+        const { addDocument } = this.props;
+
+        if (typeof addDocument === 'function') {
+            addDocument(pdf);
+        }
+    }
 
     render () {
 
@@ -29,42 +36,37 @@ class DnDExternalFiles extends Component {
             return null;
         }
 
-        return <div className=' position-relative'>
-
-            <Droppable isDropDisabled={true} droppableId={'dndfiles'} direction='horizontal'>
-                {(provided, snapshot) => (
-                    <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
-                        {extPdfs.map((pdf, index) => {
-                            return <Draggable key={index} draggableId={index} index={index}>
-                                {(provided, snapshot) => (
-                                    <React.Fragment>
-                                        <div
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            style={getItemStyle(
-                                                snapshot.isDragging,
-                                                provided.draggableProps.style
-                                            )}>
-
-                                            <File key={index} file={pdf} addLink={true}
-                                                onAddDocument={this.addDocument.bind(this, pdf)}
-                                                currentPage={1}/>
-
+        return <Droppable isDropDisabled={true} droppableId={'dndfiles'} direction='horizontal'>
+            {(provided, snapshot) => (
+                <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
+                    {extPdfs.map((pdf, index) => {
+                        return <Draggable key={index} draggableId={index} index={index}>
+                            {(provided, snapshot) => (
+                                <React.Fragment>
+                                    <div
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        style={getItemStyle(
+                                            snapshot.isDragging,
+                                            provided.draggableProps.style
+                                        )}>
+                                        <File key={index} file={pdf} addLink={true}
+                                            onAddDocument={this.addDocument.bind(this, pdf)}
+                                            currentPage={1}/>
+                                    </div>
+                                    {snapshot.isDragging && (
+                                        <div className='cloneStyle'>
+                                            <File animate={false} key={index} file={pdf} currentPage={1}/>
                                         </div>
-                                        {snapshot.isDragging && (
-                                            <div className='cloneStyle'>
-                                                <File animate={false} key={index} file={pdf} currentPage={1}/>
-                                            </div>
-                                        )}
-                                    </React.Fragment>
-                                )}
-                            </Draggable>
-                        })}
-                    </div>
-                )}
-            </Droppable>
-        </div>
+                                    )}
+                                </React.Fragment>
+                            )}
+                        </Draggable>
+                    })}
+                </div>
+            )}
+        </Droppable>
     }
 }
 

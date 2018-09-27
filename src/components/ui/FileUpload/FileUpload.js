@@ -6,9 +6,15 @@ import { translate } from 'react-i18next';
 import Dropzone from 'react-dropzone';
 import _ from 'lodash';
 import classNames from 'classnames';
+import { Droppable } from 'react-beautiful-dnd';
 
 import File from '../File/File';
 import './FileUpload.css';
+
+const getListStyle = (isDraggingOver) => ({
+    background: isDraggingOver ? 'lightgreen' : 'white',
+    padding: 0
+});
 
 class FileUpload extends Component {
 
@@ -196,26 +202,32 @@ class FileUpload extends Component {
         const { t, accept, className } = this.props;
         const { files, currentPages, status } = this.state;
 
-        return <div className={classNames('nav-fileUpload div-dropzone', className)} length={this.state.files.length}>
-            <Dropzone className='dropzone p-2' activeClassName='dropzone-active' accept={accept} onDrop={this.onDrop.bind(this)} inputProps={{...this.props.inputProps}}>
-                <div className='dropzone-placeholder'>
-                    <div className='dropzone-placeholder-message'>{t('ui:dropFilesHere')}</div>
-                    <div className='dropzone-placeholder-status'>{status}</div>
+        return  <Droppable droppableId={'fileUploadDroppable'} direction='horizontal'>
+            {(provided, snapshot) => (
+                <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
+                    <div className={classNames('nav-fileUpload div-dropzone', className)} length={this.state.files.length}>
+                        <Dropzone className='dropzone p-2' activeClassName='dropzone-active' accept={accept} onDrop={this.onDrop.bind(this)} inputProps={{...this.props.inputProps}}>
+                            <div className='dropzone-placeholder'>
+                                <div className='dropzone-placeholder-message'>{t('ui:dropFilesHere')}</div>
+                                <div className='dropzone-placeholder-status'>{status}</div>
+                            </div>
+                            <div className='dropzone-files scrollable'>
+                                { files ? files.map((file, i) => {
+                                    return <File className='mr-2' key={i} file={file}
+                                        currentPage={currentPages[i]}
+                                        deleteLink={true} downloadLink={true}
+                                        onPreviousPage={this.onPreviousPageRequest.bind(this, i)}
+                                        onNextPage={this.onNextPageRequest.bind(this, i)}
+                                        onLoadSuccess={this.onLoadSuccess.bind(this, i)}
+                                        onDeleteDocument={this.removeFile.bind(this, i)}
+                                    />
+                                }) : null }
+                            </div>
+                        </Dropzone>
+                    </div>
                 </div>
-                <div className='dropzone-files scrollable'>
-                    { files ? files.map((file, i) => {
-                        return <File className='mr-2' key={i} file={file}
-                            currentPage={currentPages[i]}
-                            deleteLink={true} downloadLink={true}
-                            onPreviousPage={this.onPreviousPageRequest.bind(this, i)}
-                            onNextPage={this.onNextPageRequest.bind(this, i)}
-                            onLoadSuccess={this.onLoadSuccess.bind(this, i)}
-                            onDeleteDocument={this.removeFile.bind(this, i)}
-                        />
-                    }) : null }
-                </div>
-            </Dropzone>
-        </div>
+            )}
+        </Droppable>
     }
 }
 
