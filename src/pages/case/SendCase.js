@@ -43,16 +43,16 @@ class SendCase extends Component {
 
         const { history, actions, dataToConfirm, dataSaved } = this.props;
 
-        actions.clearData();
         history.push(routes.CASE_GET + '/' + dataToConfirm.caseId + '/' + dataToConfirm.actorId + '/' + dataSaved.euxcaseid);
+        actions.clearData();
     }
 
     onGoToStartButtonClick() {
 
         const { history, actions, dataSaved } = this.props;
 
-        actions.clearData();
         history.push(routes.ROOT + '?rinaId=' + dataSaved.euxcaseid);
+        actions.clearData();
     }
 
     render() {
