@@ -14,7 +14,7 @@ const errorMessages = {
 export default class PdfUploadComponent extends React.Component {
     constructor(props){
         super(props);
-        let activeCheckbox = this.props.checkboxes.reduce((acc, cur)=>(acc||cur.defaultChecked), false);
+        let activeCheckbox = this.oneOrMoreChecked(this.props.checkboxes);
         let activeFileUpload = (this.props.files.length > 0? true: false);
         this.state = {
             Checkboxes: {active: activeCheckbox, showError: false, error: null, errorMessage: null},
@@ -22,6 +22,10 @@ export default class PdfUploadComponent extends React.Component {
             valid: activeCheckbox === activeFileUpload,
         };
         this.validate = this.validate.bind(this);
+    }
+
+    oneOrMoreChecked(checkboxes){
+        return checkboxes.reduce((acc, cur)=>(acc||cur.inputProps.defaultChecked), false);
     }
 
     validate(){

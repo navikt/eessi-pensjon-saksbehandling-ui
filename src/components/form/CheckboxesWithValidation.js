@@ -6,7 +6,9 @@ import * as Nav from '../ui/Nav';
 export default class CheckboxesWithValidation extends React.Component {
     constructor(props){
         super(props);
-        this.state = {checkboxStates: {}};
+        this.state = {
+            checkboxStates: this.props.checkboxes.reduce((acc, cur)=> ({...acc, [cur.id]: cur.inputProps.defaultChecked}), {} )
+        };
         this.validate = this.validate.bind(this);
         this.onChange = this.onChange.bind(this);
     }
@@ -19,10 +21,10 @@ export default class CheckboxesWithValidation extends React.Component {
         }else{
             this.props.inactive();
         }
+        this.props.action(this.state.checkboxStates);
     }
 
-    onChange(e){
-        this.props.action(e);
+    onChange(e){    
         this.setState(
             {
                 checkboxStates: {
@@ -44,6 +46,7 @@ export default class CheckboxesWithValidation extends React.Component {
 }
 
 CheckboxesWithValidation.propTypes = {
+    checkboxes: PT.array,
     active    : PT.func,
     inactive  : PT.func,
     action    : PT.func,
