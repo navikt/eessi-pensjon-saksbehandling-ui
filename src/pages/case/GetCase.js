@@ -29,21 +29,21 @@ class GetCase extends Component {
     onCaseIdChange (e) {
 
         this.setState({
-            caseId: e.target.value
+            caseId: e.target.value.trim()
         });
     }
 
     onRinaIdChange (e) {
 
         this.setState({
-            rinaId: e.target.value
+            rinaId: e.target.value.trim()
         });
     }
 
     onActorIdChange (e) {
 
         this.setState({
-            actorId: e.target.value
+            actorId: e.target.value.trim()
         });
     }
 
