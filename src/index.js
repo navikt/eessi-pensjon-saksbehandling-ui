@@ -40,10 +40,13 @@ const reducer = combineReducers({
 });
 
 const initialState = {ui: {
-    language    : i18n.language,
-    locale      : i18n.locale,
-    modalOpen   : false,
-    breadcrumbs : [{
+    language       : i18n.language,
+    locale         : i18n.locale,
+    modalOpen      : false,
+    drawerOpen     : false,
+    drawerWidth    : 10,
+    drawerOldWidth : 250,
+    breadcrumbs    : [{
         label : 'ui:home',
         ns    : 'app',
         url   : routes.ROOT

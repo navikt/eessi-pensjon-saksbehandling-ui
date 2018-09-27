@@ -63,3 +63,16 @@ export function deleteLastBreadcrumb () {
     }
 }
 
+export function toggleDrawer () {
+
+    return {
+        type : types.UI_DRAWER_TOGGLE
+    }
+}
+
+export function changeDrawerWidth(newWidth) {
+    return {
+        type    : types.UI_DRAWER_WIDTH_SET,
+        payload : newWidth
+    }
+}

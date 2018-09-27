@@ -6,7 +6,7 @@ import * as Nav from './Nav';
 import TopHeader from './Header/TopHeader';
 import ServerAlert from './Alert/ServerAlert';
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
-import Drawer from './Drawer';
+import Drawer from './Drawer/Drawer';
 import Modal from './Modal';
 
 import ExternalFiles from '../pdf/ExternalFiles/ExternalFiles';

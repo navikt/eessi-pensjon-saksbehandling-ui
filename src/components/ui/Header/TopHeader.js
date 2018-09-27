@@ -22,7 +22,6 @@ const mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(Object.assign({}, appActions), dispatch)};
 };
 
-
 class TopHeader extends Component {
 
     componentDidMount() {

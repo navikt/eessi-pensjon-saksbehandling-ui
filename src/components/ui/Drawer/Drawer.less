@@ -1,0 +1,28 @@
+#drawer {
+    background-color: whitesmoke;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    zIndex: 2;
+    transition: width 0.2s ease-out;
+}
+#drawer-content {
+  overflow: hidden
+}
+#drawer-button {
+   width: 10px;
+   height: 100%;
+   background-color: lightgray;
+   right: 0;
+   top: 0;
+   position: absolute;
+   cursor: pointer;
+   font-size: 0.6rem;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-around;
+}
+#drawer-page {
+   margin-top: -100vh;
+   transition: padding 0.2s ease-out;
+}
