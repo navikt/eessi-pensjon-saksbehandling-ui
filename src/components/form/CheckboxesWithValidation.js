@@ -23,7 +23,6 @@ export default class CheckboxesWithValidation extends React.Component {
         }
         this.props.action(this.state.checkboxStates);
     }
-    //TODO Lag funksjon for å sende hele checkboxpanelstaten slik at setvalue ikke trenger å ha special case for checkboxes
 
     onChange(e){    
         this.setState(

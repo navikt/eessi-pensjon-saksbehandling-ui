@@ -3,6 +3,7 @@ import uuidv4 from 'uuid/v4';
 import PT from 'prop-types';
 import getError from './shared/getError';
 import * as Nav from '../ui/Nav';
+import {onChange, onInvalid} from './shared/eventFunctions'
 
 const errorMessages = {
     userEmail: {patternMismatch: 'patternMismatch', valueMissing: 'valueMissing', typeMismatch: 'typeMismatch'},
@@ -12,6 +13,10 @@ const errorMessages = {
 export class Contact extends React.Component{
     constructor(props){
         super(props);
+
+        this.onInvalid = onInvalid.bind(this, errorMessages);
+        this.onChange = onChange.bind(this, errorMessages);
+
         let uuid = uuidv4();
         let nameToId = Object.keys(this.props.contact).reduce((acc, cur, i)=>({...acc, [cur]: uuid+'_'+i }) , {});
         let idToName = Object.keys(this.props.contact).reduce((acc, cur)=>({...acc, [nameToId[cur]]: cur }) , {});
@@ -29,7 +34,7 @@ export class Contact extends React.Component{
         };
     }
 
-    onInvalid(event){
+    /*onInvalid(event){
         if(event && event.target && event.target.id){
             let id = event.target.id;
             let name = this.state.idToName[id];
@@ -81,7 +86,7 @@ export class Contact extends React.Component{
             }
             input.action(event)
         }
-    }
+    }*/
 
     render(){
         const {t, contact} = this.props;
@@ -93,15 +98,15 @@ export class Contact extends React.Component{
                 <Nav.Row>
                     <div className='col-md-6'>
                         <Nav.Input label={t('pinfo:form-userEmail') + ' *'} defaultValue={contact.userEmail || ''}
-                            onChange={this.onChangeHandler.bind(this)} required="true" type="email"
-                            onInvalid={this.onInvalid.bind(this)}
+                            onChange={this.onChange} required="true" type="email"
+                            onInvalid={this.onInvalid}
                             id={nameToId['userEmail']}
                             feil={inputStates['userEmail'].showError? inputStates['userEmail'].error: null}
                         />
 
                         <Nav.Input label={t('pinfo:form-userPhone') + ' *'} defaultValue={contact.userPhone || ''}
-                            onChange={this.onChangeHandler.bind(this)} required="true" type="tel" pattern=".*\d.*"
-                            onInvalid={this.onInvalid.bind(this)}
+                            onChange={this.onChange} required="true" type="tel" pattern=".*\d.*"
+                            onInvalid={this.onInvalid}
                             id={nameToId['userPhone']}
                             feil={inputStates['userPhone'].showError? inputStates['userPhone'].error: null}
                         />
