@@ -24,7 +24,7 @@ class Drawer extends Component {
 
    state = {
        draggable : false,
-       enabled   : true
+       enabled   : false
    }
 
    toggleDrawer () {
