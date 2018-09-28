@@ -1,6 +1,7 @@
 #drawer {
     background-color: whitesmoke;
     height: 100vh;
+    position: fixed;   /* because IE11 */
     position: sticky;
     top: 0;
     z-index: 2;
@@ -27,6 +28,13 @@
 #drawer-button.toggled {
     cursor : col-resize;
 }
+/* because IE11 */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+   #drawer-page {
+        margin-top: 0px;
+   }
+}
+
 #drawer-page {
    margin-top: -100vh;
    transition: padding 0.2s ease-out;
