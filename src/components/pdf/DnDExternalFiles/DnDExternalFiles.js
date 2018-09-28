@@ -76,7 +76,7 @@ class DnDExternalFiles extends Component {
             {(provided, snapshot) => (
                 <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
                     {files.map((pdf, index) => {
-                        return <Draggable key={index} draggableId={index} index={index}>
+                        return <Draggable className='draggable' key={index} draggableId={index} index={index}>
                             {(provided, snapshot) => (
                                 <React.Fragment>
                                     <div

@@ -32,9 +32,9 @@ class ExternalFiles extends Component {
 
     render () {
 
-        const { t, loadingExtPDF, extPdfs, addDocument } = this.props;
+        const { t, loadingExtPDF, extPdfs, addDocument, style } = this.props;
 
-        return <Nav.Ekspanderbartpanel className='m-4 fieldset'
+        return <Nav.Ekspanderbartpanel style={style} className='m-4 fieldset'
             apen={false} tittel={t('ui:fileSelect')} tittelProps='undertittel'
             onClick={this.requestExternalFileList.bind(this)}>
             <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
@@ -53,7 +53,8 @@ ExternalFiles.propTypes = {
     loadingExtPDF : PT.bool,
     extPdfs       : PT.array,
     actions       : PT.object,
-    addDocument   : PT.func
+    addDocument   : PT.func,
+    style         : PT.object
 };
 
 export default connect(

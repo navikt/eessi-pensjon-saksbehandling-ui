@@ -2,42 +2,18 @@
 .clientAlert {
     height: 60px;
     min-height: 60px;
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
 }
-
-@-webkit-keyframes fade {
+@keyframes fadeIn {
   0% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.0;
-  }
-}
-@-moz-keyframes fade {
-  0% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 1;
-  }
-  100% {
     opacity: 0;
   }
-}
-@keyframes fade {
-  0% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 1;
-  }
   100% {
-    opacity: 0;
+    opacity: 1;
   }
 }
-@-o-keyframes fade {
+@keyframes fadeOut {
   0% {
     opacity: 1;
   }
@@ -49,11 +25,7 @@
   }
 }
 .toFade {
-  -webkit-animation: fade 5s;
-  -moz-animation: fade 5s;
-  -ms-animation: fade 5s;
-  -o-animation: fade 5s;
-  animation: fade 5s;
+  animation: fadeOut 5s;
   opacity: 0;
   animation-iteration-count: 1;
 }

@@ -95,12 +95,6 @@ class File extends Component {
 
         actions.navigateForward();
 
-        //if (!payload.euxCaseId) {
-        //    actions.createSed(payload);
-        //} else {
-        //actions.addToSed(body);
-        //}
-
         this.setState({
             submitted: true
         }, () => {
@@ -281,13 +275,13 @@ class File extends Component {
         const { t, events, event } = this.props;
 
         return <Nav.Panel className='panel-file p-0'>
-            <Nav.Row className='fileButtons m-4 p-4 fieldset no-gutters'>
+            <Nav.Row style={{animationDelay: '-0.3s'}} className='fileButtons m-4 p-4 fieldset no-gutters'>
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('p4000:help-file-info')}</Nav.HjelpetekstBase>
                     <h2 className='mb-4'>{t('p4000:file-title')}</h2>
                     <Nav.Row>
                         <Nav.Column>
-                            <Nav.Row className='no-gutters'>
+                            <Nav.Row className='fileButton no-gutters'>
                                 <Nav.Column className='col-auto buttonColumn'>
                                     <Nav.Knapp className='bigButton newP4000Button' onClick={this.handleFileNew.bind(this)}>
                                         <div>
@@ -305,7 +299,7 @@ class File extends Component {
                                 </Nav.Column>
                             </Nav.Row>
 
-                            <Nav.Row className='no-gutters'>
+                            <Nav.Row style={{animationDelay: '0.1s'}} className='fileButton no-gutters'>
                                 <Nav.Column className='col-auto buttonColumn'>
                                     <Nav.Knapp className='bigButton openP4000FromFileButton' onClick={this.handleFileOpenFromFile.bind(this)}>
                                         <div>
@@ -328,7 +322,7 @@ class File extends Component {
                                 </Nav.Column>
                             </Nav.Row>
 
-                            <Nav.Row className='no-gutters'>
+                            <Nav.Row style={{animationDelay: '0.2s'}} className='fileButton no-gutters'>
                                 <Nav.Column className='col-auto buttonColumn'>
                                     <Nav.Knapp className='bigButton openP4000FromServerButton' onClick={this.handleFileOpenFromServer.bind(this)}>
                                         <div>
@@ -349,8 +343,7 @@ class File extends Component {
                                 </Nav.Column>
                             </Nav.Row>
 
-
-                            <Nav.Row className='no-gutters'>
+                            <Nav.Row style={{animationDelay: '0.3s'}} className='fileButton no-gutters'>
                                 <Nav.Column className='col-auto buttonColumn'>
                                     <Nav.Knapp className='bigButton viewP4000Button' onClick={this.handleFileView.bind(this)} disabled={event === undefined}>
                                         <div>
@@ -366,9 +359,11 @@ class File extends Component {
                                     </ul>
                                 </Nav.Column>
                             </Nav.Row>
+
                         </Nav.Column>
                         <Nav.Column>
-                            <Nav.Row className='no-gutters'>
+
+                            <Nav.Row style={{animationDelay: '0.4s'}} className='fileButton no-gutters'>
                                 <Nav.Column className='col-auto buttonColumn'>
                                     <Nav.Knapp className='bigButton newEventButton' onClick={this.handleFileNewEvent.bind(this)} disabled={event === undefined}>
                                         <div>
@@ -385,7 +380,7 @@ class File extends Component {
                                 </Nav.Column>
                             </Nav.Row>
 
-                            <Nav.Row className='no-gutters'>
+                            <Nav.Row style={{animationDelay: '0.5s'}} className='fileButton no-gutters'>
                                 <Nav.Column className='col-auto buttonColumn'>
                                     <a className='hiddenFileInputOutput' ref={fileOutput => this.fileOutput = fileOutput}
                                         href={this.state.fileOutput} download='p4000.json'>&nbsp;</a>
@@ -407,7 +402,7 @@ class File extends Component {
                                 </Nav.Column>
                             </Nav.Row>
 
-                            <Nav.Row className='no-gutters'>
+                            <Nav.Row style={{animationDelay: '0.6s'}} className='fileButton no-gutters'>
                                 <Nav.Column className='col-auto buttonColumn'>
                                     <Nav.Knapp className='bigButton saveP4000toServerButton' disabled={_.isEmpty(events)}
                                         onClick={this.handleFileSaveToServer.bind(this)}>
@@ -427,7 +422,7 @@ class File extends Component {
                                 </Nav.Column>
                             </Nav.Row>
 
-                            <Nav.Row className='no-gutters'>
+                            <Nav.Row style={{animationDelay: '0.7s'}} className='fileButton no-gutters'>
                                 <Nav.Column className='col-auto buttonColumn'>
                                     <Nav.Knapp className='bigButton submitP4000Button' disabled={_.isEmpty(events)}
                                         onClick={this.handleFileSubmit.bind(this)}>

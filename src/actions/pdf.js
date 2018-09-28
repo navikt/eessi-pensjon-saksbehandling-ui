@@ -71,10 +71,10 @@ export function getExternalFileList () {
 
 export function setExternalFileList (files) {
 
-   return {
-       type    : types.PDF_EXTERNAL_FILE_LIST_SET,
-       payload : files
-   };
+    return {
+        type    : types.PDF_EXTERNAL_FILE_LIST_SET,
+        payload : files
+    };
 }
 
 export function generatePDF (payload) {

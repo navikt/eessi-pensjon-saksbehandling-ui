@@ -6,13 +6,15 @@ import { bindActionCreators }  from 'redux';
 import _ from 'lodash';
 import classNames from 'classnames';
 
-import P4000Util from '../Util';
-import * as routes from '../../../constants/routes';
-import * as p4000Actions from '../../../actions/p4000';
-import * as uiActions from '../../../actions/ui';
+import P4000Util from '../../Util';
+import * as routes from '../../../../constants/routes';
+import * as p4000Actions from '../../../../actions/p4000';
+import * as uiActions from '../../../../actions/ui';
 
-import * as Nav from '../../ui/Nav';
-import Icons from '../../ui/Icons';
+import * as Nav from '../../../ui/Nav';
+import Icons from '../../../ui/Icons';
+
+import './New.css';
 
 const mapStateToProps = (state) => {
     return {
@@ -164,12 +166,6 @@ class New extends Component {
 
         actions.navigateForward();
 
-        //if (!payload.euxCaseId) {
-        //    actions.createSed(payload);
-        //} else {
-        //actions.addToSed(body);
-        //}
-
         this.setState({
             submitted: true
         }, () => {
@@ -190,9 +186,10 @@ class New extends Component {
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('p4000:help-new-event')}</Nav.HjelpetekstBase>
                     <h1 className='m-0 mb-4'>{t('ui:new')}{' '}{t('p4000:type-event')}</h1>
-                    <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
-                        {eventList.map(e => {
-                            return <Nav.Knapp title={t(e.description)} className={classNames('bigButton', e.value + 'Button')}
+                    <div className='bigButtons'>
+                        {eventList.map((e, index) => {
+                            return <Nav.Knapp style={{animationDelay: index * 0.04 + 's'}}
+                                title={t(e.description)} className={classNames('bigButton', e.value + 'Button')}
                                 key={e.value} onClick={this.handleEventSelect.bind(this, e.value)}>
                                 <div>
                                     <Icons size='4x' kind={e.icon}/>
@@ -203,26 +200,26 @@ class New extends Component {
                     </div>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className='eventTitle m-4 p-4 fieldset no-gutters'>
+            <Nav.Row style={{animationDelay: '0.3s'}} className='eventTitle m-4 p-4 fieldset no-gutters'>
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('p4000:help-new-options')}</Nav.HjelpetekstBase>
                     <h1 className='m-0 mb-4'>{t('ui:options')}</h1>
                     <div style={{display: 'flex', flexWrap: 'wrap'}}>
-                        <Nav.Knapp className='viewButton bigButton' onClick={this.handleEventSelect.bind(this, 'view')}>
+                        <Nav.Knapp style={{animationDelay: '0.34s'}} className='viewButton bigButton' onClick={this.handleEventSelect.bind(this, 'view')}>
                             <div>
                                 <Icons size='4x' className='mr-3' kind='document'/>
                                 <Icons size='3x' kind={'view'}/>
                             </div>
                             <div className='mt-3'>{t('ui:view')}</div>
                         </Nav.Knapp>
-                        <Nav.Knapp className='saveToFileButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSaveToFile.bind(this)}>
+                        <Nav.Knapp style={{animationDelay: '0.38s'}} className='saveToFileButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSaveToFile.bind(this)}>
                             <div>
                                 <Icons size='4x' className='mr-3' kind='document'/>
                                 <Icons size='3x' kind={'download'}/>
                             </div>
                             <div className='mt-3'>{t('p4000:file-save-to-file')}</div>
                         </Nav.Knapp>
-                        <Nav.Knapp className='saveToServerButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSaveToServer.bind(this)}>
+                        <Nav.Knapp style={{animationDelay: '0.42s'}} className='saveToServerButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSaveToServer.bind(this)}>
                             <div>
                                 <Icons className='mr-3' size='4x' kind='document'/>
                                 <Icons className='mr-3' size='3x' kind='caretRight'/>
@@ -230,7 +227,7 @@ class New extends Component {
                             </div>
                             <div className='mt-3'>{t('p4000:file-save-to-server')}</div>
                         </Nav.Knapp>
-                        <Nav.Knapp className='sendButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSubmit.bind(this)}>
+                        <Nav.Knapp style={{animationDelay: '0.46s'}} className='sendButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSubmit.bind(this)}>
                             <div>
                                 <Icons className='mr-3' size='4x' kind='document'/>
                                 <Icons className='mr-3' size='3x' kind='caretRight'/>

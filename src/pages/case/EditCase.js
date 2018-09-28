@@ -544,7 +544,7 @@ class EditCase extends Component {
                 </Nav.Row>
             </div>
 
-            <div className='fieldset p-4 m-4'>
+            <div className='fieldset p-4 m-4' style={{animationDelay: '0.3s'}}>
                 {this.renderInstitutions()}
                 <div>{rinaId ? t('case:form-rinaId') + ': ' + rinaId : null}</div>
             </div>

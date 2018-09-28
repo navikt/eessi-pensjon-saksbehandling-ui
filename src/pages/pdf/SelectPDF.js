@@ -93,8 +93,8 @@ class SelectPDF extends Component {
 
         return <TopContainer className='pdf topContainer' history={history} location={location}>
             <h1 className='appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
-            <ExternalFiles addDocument={this.addDocument.bind(this)}/>
-            <div className='m-4 p-4 fieldset'>
+            <ExternalFiles style={{zIndex: 2}} addDocument={this.addDocument.bind(this)}/>
+            <div style={{zIndex: 1}}  className='m-4 p-4 fieldset'>
                 <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
                 <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
                 <FileUpload ref={f => this.fileUpload = f} fileUploadDroppableId={'selectPdf'}
