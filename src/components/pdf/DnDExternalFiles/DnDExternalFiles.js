@@ -10,7 +10,7 @@ import './DnDExternalFiles.css';
 import * as pdfActions from '../../../actions/pdf';
 
 const getListStyle = (isDraggingOver) => ({
-    background: isDraggingOver ? 'aliceblue' : 'white',
+    background: isDraggingOver ? 'aliceblue' : 'transparent',
     padding: 5,
     display: 'flex',
     overflowX: 'auto',

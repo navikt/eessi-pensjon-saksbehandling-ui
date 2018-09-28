@@ -61,17 +61,23 @@ class SelectPDF extends Component {
 
     handleFileChange(files) {
 
-        this.props.actions.selectPDF(files);
+        const { actions } = this.props;
+
+        actions.selectPDF(files);
     }
 
     handleBeforeDrop() {
 
-        this.props.actions.loadingFilesStart();
+        const { actions } = this.props;
+
+        actions.loadingFilesStart();
     }
 
     handleAfterDrop() {
 
-        this.props.actions.loadingFilesEnd();
+        const { actions } = this.props;
+
+        actions.loadingFilesEnd();
     }
 
     addDocument(pdf) {
@@ -111,7 +117,6 @@ class SelectPDF extends Component {
                 </Nav.Row>
             </div>
         </TopContainer>
-
     }
 }
 

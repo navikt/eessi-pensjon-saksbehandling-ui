@@ -11,11 +11,6 @@ import { Droppable } from 'react-beautiful-dnd';
 import File from '../File/File';
 import './FileUpload.css';
 
-const getListStyle = (isDraggingOver) => ({
-    background: isDraggingOver ? 'lightgreen' : 'white',
-    padding: 0
-});
-
 class FileUpload extends Component {
 
     state = {
@@ -209,14 +204,22 @@ class FileUpload extends Component {
         const { files, currentPages, status } = this.state;
 
         return <Droppable droppableId={fileUploadDroppableId} direction='horizontal'>
+
             {(provided, snapshot) => (
-                <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
-                    <div className={classNames('nav-fileUpload div-dropzone', className)} length={this.state.files.length}>
-                        <Dropzone className='dropzone p-2' activeClassName='dropzone-active' accept={accept} onDrop={this.onDrop.bind(this)} inputProps={{...this.props.inputProps}}>
+
+                <div className={classNames('nav-fileUpload div-dropzone', className)} length={this.state.files.length}>
+
+                    <Dropzone className='dropzone p-2' activeClassName='dropzone-active' accept={accept} onDrop={this.onDrop.bind(this)} inputProps={{...this.props.inputProps}}>
+
+                        <div ref={provided.innerRef} className={classNames('droppable-zone', {'droppable-zone-active ' : snapshot.isDraggingOver})}>
+
                             <div className='dropzone-placeholder'>
                                 <div className='dropzone-placeholder-message'>{t('ui:dropFilesHere')}</div>
                                 <div className='dropzone-placeholder-status'>{status}</div>
                             </div>
+
+                            {provided.placeholder}
+
                             <div className='dropzone-files scrollable'>
                                 { files ? files.map((file, i) => {
                                     return <File className='mr-2' key={i} file={file}
@@ -229,8 +232,8 @@ class FileUpload extends Component {
                                     />
                                 }) : null }
                             </div>
-                        </Dropzone>
-                    </div>
+                        </div>
+                    </Dropzone>
                 </div>
             )}
         </Droppable>
