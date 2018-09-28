@@ -4,13 +4,13 @@ import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 import Collapse from 'rc-collapse';
-
 import _ from 'lodash';
 
 import * as Nav from '../../../components/ui/Nav';
 import TopContainer from '../../../components/ui/TopContainer';
+import ClientAlert from '../../../components/ui/Alert/ClientAlert';
 import DnDSource from '../../../components/pdf/DnDSource/DnDSource';
-import DnDTarget from '../../../components/pdf/DnDTarget';
+import DnDTarget from '../../../components/pdf/DnDTarget/DnDTarget';
 import DnD from '../../../components/pdf/DnD';
 import PDFSizeSlider from '../../../components/pdf/PDFSizeSlider';
 
@@ -23,8 +23,6 @@ import * as uiActions from '../../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
-        errorMessage : state.alert.clientErrorMessage,
-        errorStatus  : state.alert.clientErrorStatus,
         language     : state.ui.language,
         pdfs         : state.pdf.pdfs,
         recipe       : state.pdf.recipe,
@@ -131,28 +129,19 @@ class EditPDF extends Component {
 
     render() {
 
-        const { t, history, errorMessage, errorStatus, pdfs, pdfsize, dndTarget, recipe, location } = this.props;
-
-        let alert = errorStatus ? <Nav.AlertStripe type='stopp'>{t('error:' + errorMessage)}</Nav.AlertStripe> : null;
+        const { t, history, pdfs, pdfsize, dndTarget, recipe, location } = this.props;
 
         return <TopContainer className='pdf topContainer' history={history} location={location}>
-            <Nav.Row>
-                <Nav.Column>
-                    <div className='mt-4'>
-                        <Nav.HjelpetekstBase>{t('pdf:help-edit-pdf')}</Nav.HjelpetekstBase>
-                    </div>
-                    <h1 className='appTitle'>{t('pdf:app-editPdfTitle')}</h1>
-                </Nav.Column>
-            </Nav.Row>
-            {alert ? <Nav.Row className='mt-3 mb-3'>
-                <Nav.Column>{alert}</Nav.Column>
-            </Nav.Row> : null}
-            <Nav.Row className='mb-2'>
-                <Nav.Column className='col-md-3'>
-                    <PDFSizeSlider/>
-                </Nav.Column>
-            </Nav.Row>
-            <Nav.Row className='mb-4'>
+
+            <div className='mt-4'>
+                <Nav.HjelpetekstBase>{t('pdf:help-edit-pdf')}</Nav.HjelpetekstBase>
+            </div>
+            <h1 className='appTitle'>{t('pdf:app-editPdfTitle')}</h1>
+            <ClientAlert/>
+            <div className={'m-4'} style={{width: '20%'}}>
+                 <PDFSizeSlider/>
+            </div>
+            <Nav.Row className='m-4'>
                 <DnD>
                     <Nav.Column className='col-sm-2 mb-4' style={{maxWidth: pdfsize + 50}}>
                         <Collapse className='dndtargets' destroyInactivePanel={true} activeKey={dndTarget} accordion={true} onChange={this.handleAccordionChange.bind(this)}>
@@ -202,8 +191,6 @@ class EditPDF extends Component {
 }
 
 EditPDF.propTypes = {
-    errorMessage : PT.string,
-    errorStatus  : PT.string,
     actions      : PT.object,
     history      : PT.object,
     t            : PT.func,

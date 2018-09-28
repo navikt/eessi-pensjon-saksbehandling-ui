@@ -6,3 +6,52 @@
     padding: 5px;
 }
 
+.div-dndsource-droppable {
+    background-color: whitesmoke;
+    padding: 10px;
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    box-shadow: inset 5px 5px 5px lightgrey;
+};
+
+.div-dndsource-droppable-active {
+    background-color: rgba(0,128,0,0.2);
+    animation: pulsate 1s ease-out;
+    animation-iteration-count: infinite;
+}
+
+.div-dndsource-draggable {
+    margin: 0 5px 0 0;
+};
+.div-dndsource-draggable-active {
+     border: 2px dashed gray;
+     padding: 2px;
+     animation: pulsateBorder 1s ease-out;
+     animation-iteration-count: infinite;
+};
+
+@keyframes pulsate {
+    0% {
+        background-color: rgba(0,128,0,0.2);
+    }
+    50% {
+        background-color: rgba(0,128,0,0.1);
+    }
+    100% {
+        background-color: rgba(0,128,0,0.2);
+    }
+}
+
+
+@keyframes pulsateBorder {
+    0% {
+        border: 2px dashed rgba(128,128,128,1);
+    }
+    50% {
+        border: 2px dashed rgba(128,128,128,0);
+    }
+    100% {
+        border: 2px dashed rgba(128,128,128,1);
+    }
+}

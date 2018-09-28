@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import { Ikon } from '../../components/ui/Nav';
 
@@ -90,7 +91,7 @@ class PDFPageInDnD extends Component {
 
      render () {
 
-         const { pdf, pageNumber, action, pdfsize } = this.props;
+         const { pdf, pageNumber, action, pdfsize, className, style } = this.props;
 
          let iconFunction, iconKind, iconLink;
          if (action === 'add') {
@@ -107,7 +108,8 @@ class PDFPageInDnD extends Component {
                  onClick={iconFunction.bind(this, pdf.name, pageNumber)}/>
          }
 
-         return <div className='d-inline-block'
+console.log(className)
+         return <div style={style} className={classNames('d-inline-block', className)}
              onMouseEnter={this.onHandleMouseEnter.bind(this)}
              onMouseOver={this.onHandleMouseOver.bind(this)}
              onMouseLeave={this.onHandleMouseLeave.bind(this)}>
@@ -133,7 +135,8 @@ PDFPageInDnD.propTypes = {
     pageNumber : PT.number.isRequired,
     pdfsize    : PT.number.isRequired,
     dndTarget  : PT.string,
-    action     : PT.string.isRequired
+    action     : PT.string.isRequired,
+    className  : PT.string
 }
 
 export default connect(

@@ -5,31 +5,13 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import { translate } from 'react-i18next';
+import classNames from 'classnames';
 
 import PDFPageInDnD from '../PDFPageInDnD';
 
 import * as pdfActions from '../../../actions/pdf';
 
 import './DnDSource.css';
-
-const getListStyle = (pdfsize, isDraggingOver) => ({
-    background: isDraggingOver ? 'aliceblue' : 'whitesmoke',
-    padding: 10,
-    display: 'flex',
-    overflowX: 'auto',
-    whiteSpace: 'nowrap',
-    minHeight: pdfsize * 1.3,
-    boxShadow: 'inset 5px 5px 5px lightgrey'
-});
-
-const getItemStyle = (pdfsize, isDragging, draggableStyle) => ({
-    border: isDragging ? '2px color red' : '1px solid lightgrey',
-    margin: '0 5px 0 0',
-    minWidth: pdfsize,
-    minHeight: pdfsize * 1.3,
-    backgroundColor: isDragging ? 'lightblue' : 'white',
-    ...draggableStyle
-})
 
 const mapStateToProps = (state) => {
     return {
@@ -107,7 +89,9 @@ class DnDSource extends Component {
 
                 {(provided, snapshot) => (
 
-                    <div ref={provided.innerRef} style={getListStyle(pdfsize, snapshot.isDraggingOver)}>
+                    <div ref={provided.innerRef}
+                    className={classNames('div-dndsource-droppable', {'div-dndsource-droppable-active' : snapshot.isDraggingOver})}
+                    style={{minHeight: pdfsize * 1.3}}>
 
                         {_.range(1, pdf.numPages + 1).map(pageNumber => {
                             if (_.find(selectedPages, {pageNumber: pageNumber})) {
@@ -117,16 +101,19 @@ class DnDSource extends Component {
                             return  <Draggable key={key} draggableId={key} index={pageNumber}>
 
                                 {(provided, snapshot) => (
-                                    <div className='d-inline-block'
+                                    <div className={classNames('div-dndsource-draggable')}
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
-                                        style={getItemStyle(
-                                            pdfsize,
-                                            snapshot.isDragging,
-                                            provided.draggableProps.style
-                                        )}>
-                                        <PDFPageInDnD pdf={pdf} pageNumber={pageNumber} action='add'/>
+                                        {...provided.dragHandleProps}>
+                                        <PDFPageInDnD
+                                            className={classNames({'div-dndsource-draggable-active' : snapshot.isDragging})}
+                                             style={{
+                                                minWidth: pdfsize,
+                                                minHeight: pdfsize * 1.3
+                                            }}
+                                            pdf={pdf}
+                                            pageNumber={pageNumber}
+                                            action='add'/>
                                     </div>
                                 )}
                             </Draggable>

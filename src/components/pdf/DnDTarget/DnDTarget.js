@@ -3,24 +3,10 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { connect } from 'react-redux';
 import PT from 'prop-types';
 import _ from 'lodash';
+import classNames from 'classnames';
 
-import PDFPageInDnD from './PDFPageInDnD';
-
-const getListStyle = isDraggingOver => ({
-    background: isDraggingOver ? 'aliceblue' : 'whitesmoke',
-    padding: 10,
-    overflowY: 'auto',
-    minHeight : '65vh',
-    display: 'flex',
-    flexDirection: 'column',
-    boxShadow: 'inset 5px 5px 5px lightgrey'
-});
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-    marginBottom: '5px',
-    backgroundColor: isDragging ? 'lightblue' : 'white',
-    ...draggableStyle
-})
+import PDFPageInDnD from '../PDFPageInDnD';
+import './DnDTarget.css';
 
 const mapStateToProps = (state) => {
     return {
@@ -39,8 +25,8 @@ class DnDTarget extends Component {
 
             {(provided, snapshot) => (
 
-                <div className='recipePDFarea text-center' ref={provided.innerRef}
-                    style={getListStyle(snapshot.isDraggingOver)}>
+                <div ref={provided.innerRef}
+                className={classNames('div-dndtarget-droppable', 'text-center', {'div-dndtarget-droppable-active ' : snapshot.isDraggingOver})}>
 
                     {recipe[targetId] ? recipe[targetId].map((recipeStep, index) => {
 
@@ -50,14 +36,12 @@ class DnDTarget extends Component {
 
                             {(provided, snapshot) => (
 
-                                <div ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    style={getItemStyle(
-                                        snapshot.isDragging,
-                                        provided.draggableProps.style
-                                    )}>
+                                <div className={classNames('div-dndtarget-draggable')}
+                                     ref={provided.innerRef}
+                                     {...provided.draggableProps}
+                                     {...provided.dragHandleProps}>
                                     <PDFPageInDnD
+                                        className={classNames({'div-dndtarget-draggable-active' : snapshot.isDragging})}
                                         pdf={pdf}
                                         pageNumber={recipeStep.pageNumber}
                                         action='remove'

@@ -1,0 +1,37 @@
+.div-dndtarget-droppable {
+    background-color: whitesmoke;
+    padding: 10;
+    overflow-y: auto;
+    min-height : 65vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: inset 5px 5px 5px lightgrey;
+}
+
+.div-dndtarget-droppable-active {
+    background-color: rgba(0,128,0,0.2);
+    animation: pulsate 1s ease-out;
+    animation-iteration-count: infinite;
+}
+
+.div-dndtarget-draggable {
+     margin: 5px;
+}
+.div-dndtarget-draggable-active {
+    border: 2px dashed gray;
+    padding: 2px;
+    animation: pulsateBorder 1s ease-out;
+    animation-iteration-count: infinite;
+}
+
+@keyframes pulsate {
+    0% {
+        background-color: rgba(0,128,0,0.2);
+    }
+    50% {
+        background-color: rgba(0,128,0,0.1);
+    }
+    100% {
+        background-color: rgba(0,128,0,0.2);
+    }
+}
