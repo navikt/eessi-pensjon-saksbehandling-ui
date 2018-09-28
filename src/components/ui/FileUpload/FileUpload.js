@@ -18,22 +18,27 @@ const getListStyle = (isDraggingOver) => ({
 
 class FileUpload extends Component {
 
+    state = {
+        files: []
+    }
+
     constructor(props){
+
         super(props);
-        this.state = {
-            files: []
-        }
         this.validate = this.validate.bind(this)
     }
 
     validate(e) {
-        this.props.action(e);
-        this.state.files.length > 0?
-            this.props.active():
-            this.props.inactive();
+
+        const { action , active, inactive } = this.props;
+        const { files } = this.state;
+
+        action(e);
+        files.length > 0 ? active() : inactive();
     }
 
     componentDidMount() {
+
         this.setState({
             files: this.props.files || [],
             currentPages: this.props.currentPages || [],
@@ -42,6 +47,7 @@ class FileUpload extends Component {
     }
 
     componentDidUpdate() {
+
         if (!_.isEmpty(this.props.files) && (!(this.state.currentPages) || _.isEmpty(this.state.currentPages))) {
             let currentPages = []
             for (var i in this.props.files) {
@@ -199,10 +205,10 @@ class FileUpload extends Component {
 
     render() {
 
-        const { t, accept, className } = this.props;
+        const { t, accept, className, fileUploadDroppableId } = this.props;
         const { files, currentPages, status } = this.state;
 
-        return  <Droppable droppableId={'fileUploadDroppable'} direction='horizontal'>
+        return <Droppable droppableId={fileUploadDroppableId} direction='horizontal'>
             {(provided, snapshot) => (
                 <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
                     <div className={classNames('nav-fileUpload div-dropzone', className)} length={this.state.files.length}>
@@ -243,7 +249,8 @@ FileUpload.propTypes = {
     active       : PT.func,
     inactive     : PT.func,
     action       : PT.func,
-    inputProps   : PT.object
+    inputProps   : PT.object,
+    fileUploadDroppableId : PT.string.isRequired
 };
 
 export default translate()(FileUpload);

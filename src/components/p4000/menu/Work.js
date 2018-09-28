@@ -6,6 +6,7 @@ import { bindActionCreators }  from 'redux';
 import classNames from 'classnames';
 
 import * as p4000Actions from '../../../actions/p4000';
+import * as appActions from '../../../actions/app';
 
 import FileUpload from '../../ui/FileUpload/FileUpload';
 import CountrySelect from '../../ui/CountrySelect/CountrySelect';
@@ -23,7 +24,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, appActions, p4000Actions), dispatch)};
 };
 
 class Work extends Component {
@@ -33,15 +34,24 @@ class Work extends Component {
     }
 
     componentDidMount() {
-        this.props.provideController({
+
+        const { actions, provideController } = this.props;
+
+        provideController({
             hasNoValidationErrors : this.hasNoValidationErrors.bind(this),
             passesValidation      : this.passesValidation.bind(this),
             resetValidation       : this.resetValidation.bind(this)
         });
+
+        actions.registerDroppable('fileUpload', this.fileUpload);
     }
 
     componentWillUnmount() {
-        this.props.provideController(null)
+
+        const { actions, provideController } = this.props;
+
+        provideController(null);
+        actions.unregisterDroppable('fileUpload');
     }
 
     hasNoInfoErrors() {
@@ -186,7 +196,7 @@ class Work extends Component {
             <Nav.Row className={classNames('eventFileUpload','mb-4','p-4','fieldset')}>
                 <Nav.Column>
                     <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
-                    <FileUpload className='fileUpload'
+                    <FileUpload ref={f => this.fileUpload = f} fileUploadDroppableId={'fileUpload'} className='fileUpload'
                         files={event.files || []} onFileChange={this.handleFileChange.bind(this)}/>
                 </Nav.Column>
             </Nav.Row>

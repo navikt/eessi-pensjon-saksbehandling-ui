@@ -84,7 +84,7 @@ export default function (state = {}, action = {}) {
             drawerOpen : !state.drawerOpen,
             drawerOldWidth:  state.drawerWidth,
             drawerWidth: state.drawerOldWidth
-       });
+        });
     }
 
     case types.UI_DRAWER_WIDTH_SET :

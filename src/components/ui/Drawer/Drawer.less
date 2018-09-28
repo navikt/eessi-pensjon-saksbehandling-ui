@@ -16,11 +16,16 @@
    right: 0;
    top: 0;
    position: absolute;
-   cursor: pointer;
    font-size: 0.6rem;
    display: flex;
    flex-direction: column;
    justify-content: space-around;
+}
+#drawer-button:not(.toggled) {
+    cursor : pointer;
+}
+#drawer-button.toggled {
+    cursor : col-resize;
 }
 #drawer-page {
    margin-top: -100vh;

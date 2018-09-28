@@ -1,17 +1,31 @@
 import React from 'react';
 import PT from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators }  from 'redux';
+
 import * as Nav from '../ui/Nav';
 import CheckboxesWithValidation from './CheckboxesWithValidation';
 import FileUpload from '../ui/FileUpload/FileUpload';
 import getError from './shared/getError';
 
+import * as appActions from '../../actions/app';
+
+const mapStateToProps = () => {
+    return {
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {actions: bindActionCreators(Object.assign({}, appActions), dispatch)};
+};
 
 const errorMessages = {
     FileUpload: {valueMissing: 'Vennligst last opp et eller flere dokument(er).'},
     Checkboxes: {valueMissing: 'Vennligst velg type(r) dokumenter som er lastet opp.'}
 }
 
-export default class PdfUploadComponent extends React.Component {
+class PdfUploadComponent extends React.Component {
+
     constructor(props){
         super(props);
         let activeCheckbox = this.oneOrMoreChecked(this.props.checkboxes);
@@ -42,9 +56,20 @@ export default class PdfUploadComponent extends React.Component {
     }
 
     componentDidMount() {
+
+        const { actions } = this.props;
+
         this.setState({
             validate: this.validate
         });
+        actions.registerDroppable('pdfUploadComponent', this.fileUpload);
+    }
+
+    componentWillUnmount() {
+
+        const { actions } = this.props;
+
+        actions.unregisterDroppable('pdfUploadComponent');
     }
 
     onInvalid(child, event){
@@ -74,7 +99,6 @@ export default class PdfUploadComponent extends React.Component {
         )
     }
 
-
     render(){
         let requiredCheckbox = this.state.FileUpload.active && !this.state.Checkboxes.active;
         let requiredFileUpload = this.state.Checkboxes.active;
@@ -83,7 +107,7 @@ export default class PdfUploadComponent extends React.Component {
         return <Nav.SkjemaGruppe>
             <Nav.Row>
                 <div className='col-md-6'>
-                    <CheckboxesWithValidation legend={this.props.t('pinfo:form-attachmentTypes')} 
+                    <CheckboxesWithValidation legend={this.props.t('pinfo:form-attachmentTypes')}
                         checkboxes={this.props.checkboxes.map(e=>(
                             {
                                 ...e,
@@ -100,8 +124,11 @@ export default class PdfUploadComponent extends React.Component {
                         {...checkboxError}
                     />
                 </div>
-            </Nav.Row><Nav.SkjemaGruppe {...fileUploadError}>
-                <FileUpload files={this.props.files || []} 
+            </Nav.Row>
+            <Nav.SkjemaGruppe {...fileUploadError}>
+                <FileUpload ref={f => this.fileUpload = f}
+                    fileUploadDroppableId={'pdfUploadComponent'}
+                    files={this.props.files || []}
                     active = {this.active.bind(this, 'FileUpload')}
                     inactive = {this.inactive.bind(this, 'FileUpload')}
                     inputProps = {{
@@ -122,3 +149,8 @@ PdfUploadComponent.propTypes = {
     fileUploadAction : PT.func,
     t                : PT.func
 }
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(PdfUploadComponent);

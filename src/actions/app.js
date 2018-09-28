@@ -31,3 +31,23 @@ export function setReferrer (referrer) {
     };
 }
 
+export function registerDroppable (id, ref) {
+
+    return {
+        type    : types.APP_DROPPABLE_REGISTER,
+        payload : {
+            id  : id,
+            ref : ref
+        }
+    };
+}
+
+export function unregisterDroppable (id) {
+
+    return {
+        type    : types.APP_DROPPABLE_UNREGISTER,
+        payload : {
+            id  : id
+        }
+    };
+}

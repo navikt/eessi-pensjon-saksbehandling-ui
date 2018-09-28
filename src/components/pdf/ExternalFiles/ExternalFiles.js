@@ -26,7 +26,7 @@ class ExternalFiles extends Component {
         const { actions, extPdfs } = this.props;
 
         if (!extPdfs) {
-            actions.getPdfList();
+            actions.getExternalFileList();
         }
     }
 
@@ -42,7 +42,7 @@ class ExternalFiles extends Component {
                 {loadingExtPDF ? <div className='w-100 text-center'>
                     <Nav.NavFrontendSpinner/>
                     <p>{t('pdf:loading-loadingExtPDF')}</p>
-                </div> : <DnDExternalFiles extPdfs={extPdfs} addDocument={addDocument}/>}
+                </div> : <DnDExternalFiles extPdfs={extPdfs || []} addDocument={addDocument}/>}
             </div>
         </Nav.Ekspanderbartpanel>
     }
@@ -52,7 +52,8 @@ ExternalFiles.propTypes = {
     t             : PT.func.isRequired,
     loadingExtPDF : PT.bool,
     extPdfs       : PT.array,
-    actions       : PT.object
+    actions       : PT.object,
+    addDocument   : PT.func
 };
 
 export default connect(

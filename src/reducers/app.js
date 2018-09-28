@@ -18,6 +18,26 @@ export default function (state = initialState, action = {}) {
             userInfo : action.payload
         });
 
+    case types.APP_DROPPABLE_REGISTER : {
+
+        let droppables = state.droppables || {};
+        droppables[action.payload.id] = action.payload.ref;
+
+        return Object.assign({}, state, {
+            droppables : droppables
+        });
+    }
+
+    case types.APP_DROPPABLE_UNREGISTER : {
+
+        let droppables = state.droppables || {};
+        delete droppables[action.payload.id];
+
+        return Object.assign({}, state, {
+            droppables : droppables
+        });
+    }
+
     default:
         return state;
     }

@@ -15,11 +15,12 @@ import ExternalFiles from '../pdf/ExternalFiles/ExternalFiles';
 
 const mapStateToProps = (state) => {
     return {
-        extPdfs  : state.pdf.extPdfs
+        extPdfs    : state.pdf.extPdfs,
+        droppables : state.app.droppables
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = () => {
     return {};
 };
 
@@ -27,18 +28,17 @@ class TopContainer extends Component {
 
     onDragEnd(e) {
 
+        const { droppables, extPdfs } = this.props;
         let sourcePdf;
 
-        if (e.source && e.source.droppableId === 'dndfiles') {
-
-            sourcePdf = this.props.extPdfs[e.source.index];
+        if (e.source && e.source.droppableId === 'dnd-external-files') {
+            sourcePdf = extPdfs[e.source.index];
         }
 
-        if (e.destination && e.destination.droppableId === 'fileUploadDroppable') {
-
-            this.props.fileUpload.getWrappedInstance().addFile(sourcePdf);
+        if (sourcePdf && e.destination) {
+            let droppableRef = droppables[e.destination.droppableId];
+            droppableRef.getWrappedInstance().addFile(sourcePdf);
         }
-        return;
     }
 
     render () {
@@ -47,15 +47,15 @@ class TopContainer extends Component {
 
         return <div style={style} className={classNames('topcontainer', className)}>
             <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
-            <Drawer sidebar={<ExternalFiles/>}>
-                <TopHeader/>
-                <ServerAlert/>
-                <Modal/>
-                <Breadcrumbs history={history}/>
-                <Nav.Container fluid={true}>
-                    {this.props.children}
-                </Nav.Container>
-            </Drawer>
+                <Drawer sidebar={<ExternalFiles/>}>
+                    <TopHeader/>
+                    <ServerAlert/>
+                    <Modal/>
+                    <Breadcrumbs history={history}/>
+                    <Nav.Container fluid={true}>
+                        {this.props.children}
+                    </Nav.Container>
+                </Drawer>
             </DragDropContext>
         </div>
     }
@@ -65,7 +65,8 @@ TopContainer.propTypes = {
     children  : PT.node.isRequired,
     className : PT.string,
     style     : PT.object,
-    onDragEnd : PT.func,
+    droppables: PT.object,
+    extPdfs   : PT.array,
     history   : PT.object.isRequired
 };
 

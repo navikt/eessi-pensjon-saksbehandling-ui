@@ -191,14 +191,14 @@ export default function (state = {}, action = {}) {
             loadingPDF : false
         });
 
-    case types.PDF_GET_LIST_REQUEST:
+    case types.PDF_EXTERNAL_FILE_LIST_REQUEST:
 
         return Object.assign({}, state, {
             loadingExtPDF : true
         });
 
-    case types.PDF_GET_LIST_SUCCESS:
-    case types.PDF_GET_LIST_FAILURE:
+    case types.PDF_EXTERNAL_FILE_LIST_SUCCESS:
+    case types.PDF_EXTERNAL_FILE_LIST_FAILURE:
 
         return Object.assign({}, state, {
             loadingExtPDF : false

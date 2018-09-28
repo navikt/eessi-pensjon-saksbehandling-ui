@@ -23,7 +23,8 @@ const mapDispatchToProps = (dispatch) => {
 class Drawer extends Component {
 
    state = {
-       draggable: false
+       draggable : false,
+       enabled   : true
    }
 
    toggleDrawer () {
@@ -35,12 +36,12 @@ class Drawer extends Component {
 
    changeDrawerWidth(value) {
 
-        const { actions } = this.props;
+       const { actions } = this.props;
 
-        actions.changeDrawerWidth(value);
+       actions.changeDrawerWidth(value);
    }
 
-   onMouseClick(e) {
+   onMouseClick() {
 
        const { draggable } = this.state;
 
@@ -52,53 +53,54 @@ class Drawer extends Component {
        }
    }
 
-   onMouseDown(e) {
+   onMouseDown() {
 
        this.setState({
-            draggable: true
+           draggable: true
        })
    }
 
    onMouseMove(e) {
 
-        const { actions } = this.props;
-        const { draggable } = this.state;
+       const { actions, drawerOpen } = this.props;
+       const { draggable } = this.state;
 
-        if (draggable) {
-            let newX = e.clientX >= 10 ? e.clientX : 10;
-            actions.changeDrawerWidth(newX);
-        }
+       if (draggable && drawerOpen) {
+           let newX = e.clientX >= 10 ? e.clientX : 10;
+           actions.changeDrawerWidth(newX);
+       }
    }
 
-   onMouseUp(e) {
+   onMouseUp() {
 
-        const { draggable } = this.state;
+       const { draggable } = this.state;
 
-        if (draggable) {
-            this.setState({
-                draggable: false
-            })
-        }
+       if (draggable) {
+           this.setState({
+               draggable: false
+           })
+       }
    }
 
    render () {
 
        const { children, sidebar, drawerOpen, drawerWidth } = this.props;
-       const { draggable } = this.state;
+       const { draggable, enabled } = this.state;
 
        return <div id="drawer-container"
            className={classNames({ toggled : drawerOpen, draggable : draggable })}
            onMouseMove={this.onMouseMove.bind(this)}
            onMouseUp={this.onMouseUp.bind(this)}>
-           <div id="drawer" style={{width: drawerWidth}}>
+           <div id="drawer" style={{width: enabled ? drawerWidth : 0}}>
                <div id="drawer-content">
                    {sidebar}
                </div>
-               <div id="drawer-button" onMouseDown={this.onMouseDown.bind(this)} onClick={this.onMouseClick.bind(this)}>
+               { enabled ? <div className={classNames({ toggled : drawerOpen })}
+                   id="drawer-button" onMouseDown={this.onMouseDown.bind(this)} onClick={this.onMouseClick.bind(this)}>
                    {drawerOpen ? '◀' : '▶'}
-               </div>
+               </div> : null }
            </div>
-           <div id="drawer-page" style={{paddingLeft: drawerWidth}}>
+           <div id="drawer-page" style={{paddingLeft: enabled ? drawerWidth : 0}}>
                {children}
            </div>
        </div>
@@ -106,11 +108,14 @@ class Drawer extends Component {
 }
 
 Drawer.propTypes = {
-    children  : PT.node.isRequired,
-    sidebar   : PT.func
+    children    : PT.node.isRequired,
+    sidebar     : PT.object,
+    actions     : PT.object.isRequired,
+    drawerOpen  : PT.bool,
+    drawerWidth : PT.number
 };
 
 export default connect(
-   mapStateToProps,
-   mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(Drawer);

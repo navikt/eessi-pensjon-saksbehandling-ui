@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import PT from 'prop-types';
+import _ from 'lodash';
+import { bindActionCreators }  from 'redux';
+import { connect } from 'react-redux';
 
 import File from '../../ui/File/File';
 import './DnDExternalFiles.css';
+import * as pdfActions from '../../../actions/pdf';
 
 const getListStyle = (isDraggingOver) => ({
     background: isDraggingOver ? 'aliceblue' : 'white',
@@ -17,7 +21,26 @@ const getItemStyle = (isDragging, draggableStyle) => ({
     ...draggableStyle
 })
 
+const mapStateToProps = () => {
+    return {}
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {actions: bindActionCreators(Object.assign({}, pdfActions), dispatch)};
+};
+
 class DnDExternalFiles extends Component {
+
+    state = {
+        files: []
+    };
+
+    static getDerivedStateFromProps(newProps) {
+
+        return {
+            files : newProps.extPdfs
+        }
+    }
 
     addDocument(pdf) {
 
@@ -28,18 +51,31 @@ class DnDExternalFiles extends Component {
         }
     }
 
+    onLoadSuccess(index, event) {
+
+        const { actions } = this.props;
+
+        if (index !== undefined && event && event.numPages) {
+
+            let newFiles = _.clone(this.state.files);
+            newFiles[index].numPages = event.numPages;
+
+            actions.setExternalFileList(newFiles);
+        }
+    }
+
     render () {
 
-        const { extPdfs } = this.props;
+        const { files } = this.state;
 
-        if (!extPdfs) {
+        if (!files) {
             return null;
         }
 
-        return <Droppable isDropDisabled={true} droppableId={'dndfiles'} direction='horizontal'>
+        return <Droppable isDropDisabled={true} droppableId={'dnd-external-files'} direction='horizontal'>
             {(provided, snapshot) => (
                 <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
-                    {extPdfs.map((pdf, index) => {
+                    {files.map((pdf, index) => {
                         return <Draggable key={index} draggableId={index} index={index}>
                             {(provided, snapshot) => (
                                 <React.Fragment>
@@ -53,6 +89,7 @@ class DnDExternalFiles extends Component {
                                         )}>
                                         <File key={index} file={pdf} addLink={true}
                                             onAddDocument={this.addDocument.bind(this, pdf)}
+                                            onLoadSuccess={this.onLoadSuccess.bind(this, index)}
                                             currentPage={1}/>
                                     </div>
                                     {snapshot.isDragging && (
@@ -74,4 +111,7 @@ DnDExternalFiles.propTypes = {
     extPdfs : PT.array.isRequired
 }
 
-export default DnDExternalFiles;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(DnDExternalFiles);
