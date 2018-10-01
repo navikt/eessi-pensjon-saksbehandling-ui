@@ -160,7 +160,9 @@ DocumentStatus.propTypes = {
     rinaId            : PT.string,
     className         : PT.object,
     history           : PT.object.isRequired,
-    actions           : PT.object.isRequired
+    actions           : PT.object.isRequired,
+    loadingStatus     : PT.string,
+    gettingSED        : PT.bool
 };
 
 export default connect(

@@ -70,7 +70,7 @@ export function toggleDrawerOpen () {
     }
 }
 
-export function toggleDrawerEnable(value) {
+export function toggleDrawerEnable() {
 
     return {
         type : types.UI_DRAWER_TOGGLE_ENABLE

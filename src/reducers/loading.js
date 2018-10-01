@@ -250,7 +250,7 @@ export default function (state = {}, action = {}) {
 
         return Object.assign({}, state, {
             loadingPDF : true,
-             status: status
+            status: status
         });
 
     case types.PDF_LOADING_FILES_FINISHED:

@@ -1,23 +1,18 @@
 import React, { Component } from 'react';
-import PT from 'prop-types';
-import { translate } from 'react-i18next';
 
 import ExternalFiles from '../pdf/ExternalFiles/ExternalFiles';
 
-class FrontPage extends Component {
+class Pdf extends Component {
 
     render () {
 
-        let { t } = this.props;
-
         return <div className="topplinje__brand">
-              <ExternalFiles/>
+            <ExternalFiles/>
         </div>
     }
 }
 
-FrontPage.propTypes = {
-    t : PT.func.isRequired
+Pdf.propTypes = {
 };
 
-export default FrontPage;
+export default Pdf;

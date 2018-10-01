@@ -246,8 +246,8 @@ class PSelv extends Component {
         }
 
         return <TopContainer className='pSelv topContainer'
-        history={history} location={location}
-        sideContent={<FrontPageDrawer t={t} status={status}/>}>
+            history={history} location={location}
+            sideContent={<FrontPageDrawer t={t} status={status}/>}>
             <Nav.Row className='mb-4'>
                 <Nav.Column>
                     <h1 className='appTitle'>{t('pselv:app-title')}</h1>

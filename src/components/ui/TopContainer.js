@@ -9,9 +9,7 @@ import ServerAlert from './Alert/ServerAlert';
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
 import Drawer from './Drawer/Drawer';
 import Modal from './Modal';
-
 import { DragDropContext } from 'react-beautiful-dnd';
-import ExternalFiles from '../pdf/ExternalFiles/ExternalFiles';
 
 const mapStateToProps = (state) => {
     return {

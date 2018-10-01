@@ -90,8 +90,8 @@ class DnDSource extends Component {
                 {(provided, snapshot) => (
 
                     <div ref={provided.innerRef}
-                    className={classNames('div-dndsource-droppable', {'div-dndsource-droppable-active' : snapshot.isDraggingOver})}
-                    style={{minHeight: pdfsize * 1.3}}>
+                        className={classNames('div-dndsource-droppable', {'div-dndsource-droppable-active' : snapshot.isDraggingOver})}
+                        style={{minHeight: pdfsize * 1.3}}>
 
                         {_.range(1, pdf.numPages + 1).map(pageNumber => {
                             if (_.find(selectedPages, {pageNumber: pageNumber})) {
@@ -107,7 +107,7 @@ class DnDSource extends Component {
                                         {...provided.dragHandleProps}>
                                         <PDFPageInDnD
                                             className={classNames({'div-dndsource-draggable-active' : snapshot.isDragging})}
-                                             style={{
+                                            style={{
                                                 minWidth: pdfsize,
                                                 minHeight: pdfsize * 1.3
                                             }}

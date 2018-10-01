@@ -93,8 +93,8 @@ class P4000 extends Component {
         let isEventPage = activeItem !== 'view' && activeItem !== 'new' && activeItem !== 'file';
 
         return <TopContainer className='p4000 topContainer'
-        history={history} location={location}
-        sideContent={<FrontPageDrawer t={t} status={status}/>}>
+            history={history} location={location}
+            sideContent={<FrontPageDrawer t={t} status={status}/>}>
             <Nav.Row className='no-gutters'>
                 <div className='col-md-5 col-lg-4'>
                     <h1 className='appTitle'>{t('p4000:app-title')}</h1>

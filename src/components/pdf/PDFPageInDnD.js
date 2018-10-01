@@ -108,7 +108,6 @@ class PDFPageInDnD extends Component {
                  onClick={iconFunction.bind(this, pdf.name, pageNumber)}/>
          }
 
-console.log(className)
          return <div style={style} className={classNames('d-inline-block', className)}
              onMouseEnter={this.onHandleMouseEnter.bind(this)}
              onMouseOver={this.onHandleMouseOver.bind(this)}
@@ -136,7 +135,8 @@ PDFPageInDnD.propTypes = {
     pdfsize    : PT.number.isRequired,
     dndTarget  : PT.string,
     action     : PT.string.isRequired,
-    className  : PT.string
+    className  : PT.string,
+    style      : PT.object
 }
 
 export default connect(

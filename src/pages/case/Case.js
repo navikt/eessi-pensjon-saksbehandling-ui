@@ -17,7 +17,7 @@ const mapStateToProps = (state) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = () => {
     return {};
 };
 
@@ -57,7 +57,8 @@ Case.propTypes = {
     t             : PT.func,
     className     : PT.string,
     children      : PT.oneOfType([PT.array, PT.object]).isRequired,
-    location      : PT.object.isRequired
+    location      : PT.object.isRequired,
+    status        : PT.object
 };
 
 export default connect(

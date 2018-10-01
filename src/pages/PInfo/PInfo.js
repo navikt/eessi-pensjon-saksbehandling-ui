@@ -98,8 +98,8 @@ function isValid (e) {
 
 const PInfo = (props) => (
     <TopContainer className='pInfo topContainer'
-    history={props.history} location={props.location}
-    sideContent={<FrontPageDrawer t={props.t} status={props.status}/>}>
+        history={props.history} location={props.location}
+        sideContent={<FrontPageDrawer t={props.t} status={props.status}/>}>
         <Nav.Row className='mb-4'>
             <Nav.Column>
                 <h1 className='appTitle'>{props.t('pinfo:app-title')}</h1>
@@ -309,7 +309,8 @@ PInfo.propTypes = {
     form    : PT.object,
     referrer: PT.string,
     actions : PT.object,
-    location: PT.object.isRequired
+    location: PT.object.isRequired,
+    status  : PT.object
 };
 
 export default connect(
