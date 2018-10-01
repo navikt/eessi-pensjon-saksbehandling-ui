@@ -9,6 +9,7 @@ import * as Nav from '../../../components/ui/Nav';
 import TopContainer from '../../../components/ui/TopContainer';
 import ClientAlert from '../../../components/ui/Alert/ClientAlert';
 import File from '../../../components/ui/File/File';
+import PdfDrawer from '../../../components/drawer/Pdf';
 
 import * as routes from '../../../constants/routes';
 import * as pdfActions from '../../../actions/pdf';
@@ -119,7 +120,9 @@ class GeneratePDF extends Component {
         const { t, history, generatingPDF, generatedPDFs, location } = this.props;
         let buttonText = generatingPDF ? t('pdf:loading-generatingPDF') : t('ui:startAgain');
 
-        return <TopContainer className='pdf topContainer' history={history} location={location}>
+        return <TopContainer className='pdf topContainer'
+            history={history} location={location}
+            sideContent={<PdfDrawer/>}>
             <Nav.Row>
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('pdf:help-generate-pdf')}</Nav.HjelpetekstBase>

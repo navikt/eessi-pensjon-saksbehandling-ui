@@ -10,6 +10,7 @@ import ExternalFiles from '../../components/pdf/ExternalFiles/ExternalFiles';
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import FileUpload from '../../components/ui/FileUpload/FileUpload';
+import PdfDrawer from '../../components/drawer/Pdf';
 
 import * as routes from '../../constants/routes';
 import * as pdfActions from '../../actions/pdf';
@@ -91,7 +92,9 @@ class SelectPDF extends Component {
 
         let buttonText = loadingPDF ? t('pdf:loading-loadingPDF') : t('ui:forward');
 
-        return <TopContainer className='pdf topContainer' history={history} location={location}>
+        return <TopContainer className='pdf topContainer'
+         history={history} location={location}
+         sideContent={<PdfDrawer/>}>
             <h1 className='appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
             <ExternalFiles style={{zIndex: 2}} addDocument={this.addDocument.bind(this)}/>
             <div style={{zIndex: 1}}  className='m-4 p-4 fieldset'>

@@ -43,11 +43,11 @@ class TopContainer extends Component {
 
     render () {
 
-        const { className, style, history } = this.props;
+        const { className, style, history, sideContent } = this.props;
 
         return <div style={style} className={classNames('topcontainer', className)}>
             <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
-                <Drawer sidebar={<ExternalFiles/>}>
+                <Drawer sideContent={sideContent}>
                     <TopHeader/>
                     <ServerAlert/>
                     <Modal/>
@@ -62,12 +62,13 @@ class TopContainer extends Component {
 }
 
 TopContainer.propTypes = {
-    children  : PT.node.isRequired,
-    className : PT.string,
-    style     : PT.object,
-    droppables: PT.object,
-    extPdfs   : PT.array,
-    history   : PT.object.isRequired
+    children    : PT.node.isRequired,
+    className   : PT.string,
+    style       : PT.object,
+    droppables  : PT.object,
+    extPdfs     : PT.array,
+    sideContent : PT.object.isRequired,
+    history     : PT.object.isRequired
 };
 
 export default connect(

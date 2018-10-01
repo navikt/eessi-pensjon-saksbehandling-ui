@@ -13,6 +13,7 @@ import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';
 import File from '../../components/ui/File/File';
+import FrontPageDrawer from '../../components/drawer/FrontPage';
 
 import * as UrlValidator from '../../utils/UrlValidator';
 import * as routes from '../../constants/routes';
@@ -31,7 +32,8 @@ const mapStateToProps = (state) => {
     return {
         locale   : state.ui.locale,
         form     : state.pinfo.form,
-        referrer : state.app.referrer
+        referrer : state.app.referrer,
+        status   : state.status
     }
 };
 
@@ -95,7 +97,9 @@ function isValid (e) {
 }
 
 const PInfo = (props) => (
-    <TopContainer className='pInfo topContainer' history={props.history} location={props.location}>
+    <TopContainer className='pInfo topContainer'
+    history={props.history} location={props.location}
+    sideContent={<FrontPageDrawer t={props.t} status={props.status}/>}>
         <Nav.Row className='mb-4'>
             <Nav.Column>
                 <h1 className='appTitle'>{props.t('pinfo:app-title')}</h1>
@@ -153,7 +157,7 @@ const PInfo = (props) => (
             }
             {props.form.step === 2 ?
                 <form id='pinfo-form'>
-                    <Work 
+                    <Work
                         t={props.t}
                         work={{
                             workType: props.form.workType,

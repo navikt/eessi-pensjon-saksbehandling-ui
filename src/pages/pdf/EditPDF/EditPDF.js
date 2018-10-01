@@ -13,6 +13,7 @@ import DnDSource from '../../../components/pdf/DnDSource/DnDSource';
 import DnDTarget from '../../../components/pdf/DnDTarget/DnDTarget';
 import DnD from '../../../components/pdf/DnD';
 import PDFSizeSlider from '../../../components/pdf/PDFSizeSlider';
+import PdfDrawer from '../../../components/drawer/Pdf';
 
 import 'rc-collapse/assets/index.css';
 import './EditPDF.css';
@@ -131,8 +132,9 @@ class EditPDF extends Component {
 
         const { t, history, pdfs, pdfsize, dndTarget, recipe, location } = this.props;
 
-        return <TopContainer className='pdf topContainer' history={history} location={location}>
-
+        return <TopContainer className='pdf topContainer'
+            history={history} location={location}
+            sideContent={<PdfDrawer/>}>
             <div className='mt-4'>
                 <Nav.HjelpetekstBase>{t('pdf:help-edit-pdf')}</Nav.HjelpetekstBase>
             </div>

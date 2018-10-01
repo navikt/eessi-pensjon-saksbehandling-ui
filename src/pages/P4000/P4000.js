@@ -12,6 +12,7 @@ import TopContainer from '../../components/ui/TopContainer';
 import EventForm from '../../components/p4000/EventForm/EventForm';
 import * as Menu from '../../components/p4000/menu/';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';
+import FrontPageDrawer from '../../components/drawer/FrontPage';
 
 import * as routes from '../../constants/routes';
 import * as p4000Actions from '../../actions/p4000';
@@ -23,7 +24,8 @@ const mapStateToProps = (state) => {
         editMode   : state.p4000.editMode,
         event      : state.p4000.event,
         eventIndex : state.p4000.eventIndex,
-        page       : state.p4000.page
+        page       : state.p4000.page,
+        status     : state.status
     }
 };
 
@@ -80,7 +82,7 @@ class P4000 extends Component {
 
     render() {
 
-        const { t, editMode, event, page, history, location } = this.props;
+        const { t, editMode, event, page, history, location, status } = this.props;
 
         if (!this.state.isLoaded) {
             return null;
@@ -90,7 +92,9 @@ class P4000 extends Component {
         let Component   = components[activeItem];
         let isEventPage = activeItem !== 'view' && activeItem !== 'new' && activeItem !== 'file';
 
-        return <TopContainer className='p4000 topContainer' history={history} location={location}>
+        return <TopContainer className='p4000 topContainer'
+        history={history} location={location}
+        sideContent={<FrontPageDrawer t={t} status={status}/>}>
             <Nav.Row className='no-gutters'>
                 <div className='col-md-5 col-lg-4'>
                     <h1 className='appTitle'>{t('p4000:app-title')}</h1>
@@ -121,7 +125,8 @@ P4000.propTypes = {
     editMode     : PT.bool,
     event        : PT.object,
     eventIndex   : PT.number,
-    actions      : PT.object.isRequired
+    actions      : PT.object.isRequired,
+    status       : PT.object
 };
 
 export default connect(

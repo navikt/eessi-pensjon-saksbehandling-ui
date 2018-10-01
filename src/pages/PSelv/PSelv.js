@@ -13,6 +13,7 @@ import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';
 import CountrySelect from '../../components/ui/CountrySelect/CountrySelect';
+import FrontPageDrawer from '../../components/drawer/FrontPage';
 
 import * as routes from '../../constants/routes';
 import * as pselvActions from '../../actions/pselv';
@@ -23,7 +24,8 @@ import './PSelv.css';
 const mapStateToProps = (state) => {
     return {
         locale : state.ui.locale,
-        step   : state.pselv.step
+        step   : state.pselv.step,
+        status : state.status
     }
 };
 
@@ -237,13 +239,15 @@ class PSelv extends Component {
 
     render() {
 
-        const { t, locale, history, step, location } = this.props;
+        const { t, locale, history, step, location, status } = this.props;
 
         if (!this.state.isLoaded) {
             return null;
         }
 
-        return <TopContainer className='pSelv topContainer' history={history} location={location}>
+        return <TopContainer className='pSelv topContainer'
+        history={history} location={location}
+        sideContent={<FrontPageDrawer t={t} status={status}/>}>
             <Nav.Row className='mb-4'>
                 <Nav.Column>
                     <h1 className='appTitle'>{t('pselv:app-title')}</h1>
@@ -507,7 +511,8 @@ PSelv.propTypes = {
     locale   : PT.string,
     location : PT.object.isRequired,
     actions  : PT.object,
-    step     : PT.number.isRequired
+    step     : PT.number.isRequired,
+    status   : PT.object
 };
 
 export default connect(

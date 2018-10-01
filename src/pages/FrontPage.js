@@ -12,6 +12,7 @@ import TopContainer from '../components/ui/TopContainer';
 import * as Nav from '../components/ui/Nav';
 import DocumentStatus from '../components/ui/DocumentStatus/DocumentStatus';
 import ClientAlert from '../components/ui/Alert/ClientAlert';
+import EmptyDrawer from '../components/drawer/Empty';
 
 import * as routes from '../constants/routes';
 import * as statusActions from '../actions/status';
@@ -45,7 +46,9 @@ class FrontPage extends Component {
 
         const { t, language, gettingStatus, gettingRinaCase, history, status, location } = this.props;
 
-        return <TopContainer className='frontPage topContainer' language={language} history={history} location={location}>
+        return <TopContainer className='frontPage topContainer'
+            language={language} history={history} location={location}
+            sideContent={<EmptyDrawer/>}>
             <h1 className='appTitle'>{t('pageTitle')}</h1>
             <h4 className='appDescription'>{t('pageDescription')}</h4>
             <div className='text-center m-auto'>

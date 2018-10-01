@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 import classNames from 'classnames';
@@ -6,16 +7,29 @@ import classNames from 'classnames';
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';
+import FrontPageDrawer from '../../components/drawer/FrontPage';
 
 import './Case.css';
+
+const mapStateToProps = (state) => {
+    return {
+        status : state.status
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {};
+};
 
 class Case extends Component {
 
     render() {
 
-        const { t, children, title, description, stepIndicator, className, history, location } = this.props;
+        const { t, children, title, description, stepIndicator, className, history, location, status } = this.props;
 
-        return <TopContainer className={classNames('case','topContainer', className)} history={history} location={location}>
+        return <TopContainer className={classNames('case','topContainer', className)}
+            history={history} location={location}
+            sideContent={<FrontPageDrawer t={t} status={status}/>}>
             <h1 className='appTitle'>{t(title)}</h1>
             { description ? <h4 className='appDescription'>{t(description)}</h4> : null }
             <ClientAlert permanent={true}/>
@@ -46,4 +60,9 @@ Case.propTypes = {
     location      : PT.object.isRequired
 };
 
-export default translate()(Case)
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(
+    translate()(Case)
+);
