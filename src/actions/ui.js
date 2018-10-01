@@ -63,10 +63,17 @@ export function deleteLastBreadcrumb () {
     }
 }
 
-export function toggleDrawer () {
+export function toggleDrawerOpen () {
 
     return {
-        type : types.UI_DRAWER_TOGGLE
+        type : types.UI_DRAWER_TOGGLE_OPEN
+    }
+}
+
+export function toggleDrawerEnable(value) {
+
+    return {
+        type : types.UI_DRAWER_TOGGLE_ENABLE
     }
 }
 

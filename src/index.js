@@ -43,6 +43,7 @@ const initialState = {ui: {
     language       : i18n.language,
     locale         : i18n.locale,
     modalOpen      : false,
+    drawerEnabled  : false,
     drawerOpen     : false,
     drawerWidth    : 10,
     drawerOldWidth : 250,

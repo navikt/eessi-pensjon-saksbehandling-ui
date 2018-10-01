@@ -78,12 +78,19 @@ export default function (state = {}, action = {}) {
         });
     }
 
-    case types.UI_DRAWER_TOGGLE : {
+    case types.UI_DRAWER_TOGGLE_OPEN : {
 
         return Object.assign({}, state, {
             drawerOpen : !state.drawerOpen,
             drawerOldWidth:  state.drawerWidth,
             drawerWidth: state.drawerOldWidth
+        });
+    }
+
+    case types.UI_DRAWER_TOGGLE_ENABLE : {
+
+        return Object.assign({}, state, {
+            drawerEnabled : !state.drawerEnabled
         });
     }
 

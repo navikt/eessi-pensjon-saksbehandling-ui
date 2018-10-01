@@ -12,7 +12,8 @@ const mapStateToProps = (state) => {
     return {
         drawerOpen     : state.ui.drawerOpen,
         drawerWidth    : state.ui.drawerWidth,
-        drawerOldWidth : state.ui.drawerOldWidth
+        drawerOldWidth : state.ui.drawerOldWidth,
+        drawerEnabled  : state.ui.drawerEnabled
     };
 };
 
@@ -23,15 +24,14 @@ const mapDispatchToProps = (dispatch) => {
 class Drawer extends Component {
 
    state = {
-       draggable : false,
-       enabled   : true
+       draggable : false
    }
 
-   toggleDrawer () {
+   toggleDrawerOpen () {
 
        const { actions } = this.props;
 
-       actions.toggleDrawer();
+       actions.toggleDrawerOpen();
    }
 
    changeDrawerWidth(value) {
@@ -45,7 +45,7 @@ class Drawer extends Component {
 
        const { draggable } = this.state;
 
-       this.toggleDrawer();
+       this.toggleDrawerOpen();
        if (draggable) {
            this.setState({
                draggable: false
@@ -84,23 +84,23 @@ class Drawer extends Component {
 
    render () {
 
-       const { children, sideContent, drawerOpen, drawerWidth } = this.props;
-       const { draggable, enabled } = this.state;
+       const { children, sideContent, drawerOpen, drawerWidth, drawerEnabled } = this.props;
+       const { draggable } = this.state;
 
        return <div id="drawer-container"
            className={classNames({ toggled : drawerOpen, draggable : draggable })}
            onMouseMove={this.onMouseMove.bind(this)}
            onMouseUp={this.onMouseUp.bind(this)}>
-           <div id="drawer" style={{width: enabled ? drawerWidth : 0}}>
+           <div id="drawer" style={{width: drawerEnabled ? drawerWidth : 0}}>
                <div id="drawer-content">
                    {sideContent}
                </div>
-               { enabled ? <div className={classNames({ toggled : drawerOpen })}
+               { drawerEnabled ? <div className={classNames({ toggled : drawerOpen })}
                    id="drawer-button" onMouseDown={this.onMouseDown.bind(this)} onClick={this.onMouseClick.bind(this)}>
                    {drawerOpen ? '◀' : '▶'}
                </div> : null }
            </div>
-           <div id="drawer-page" style={{paddingLeft: enabled ? drawerWidth : 0}}>
+           <div id="drawer-page" style={{paddingLeft: drawerEnabled ? drawerWidth : 0}}>
                {children}
            </div>
        </div>
@@ -112,7 +112,8 @@ Drawer.propTypes = {
     sideContent : PT.object,
     actions     : PT.object.isRequired,
     drawerOpen  : PT.bool,
-    drawerWidth : PT.number
+    drawerWidth : PT.number,
+    drawerEnabled : PT.bool.isRequired
 };
 
 export default connect(

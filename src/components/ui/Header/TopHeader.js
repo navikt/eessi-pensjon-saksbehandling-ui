@@ -10,6 +10,7 @@ import './TopHeader.css';
 import * as navLogo from '../../../resources/images/nav.svg';
 
 import * as appActions from '../../../actions/app';
+import * as uiActions from '../../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
@@ -19,7 +20,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, appActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, uiActions, appActions), dispatch)};
 };
 
 class TopHeader extends Component {
@@ -33,6 +34,13 @@ class TopHeader extends Component {
         }
     }
 
+    onLogoClick () {
+
+        const { actions } = this.props;
+
+        actions.toggleDrawerEnable();
+    }
+
     render () {
 
         let { t, userInfo, gettingUserInfo } = this.props;
@@ -41,9 +49,9 @@ class TopHeader extends Component {
 
         return <header className="topplinje">
             <div className="topplinje__brand">
-                <Link to="/" alt="NAV, lenke hovedsiden">
+                <a href="#toggleDrawerEnable" onClick={this.onLogoClick.bind(this)}>
                     <img className="brand__logo" src={navLogo} alt="To personer på NAV kontor"/>
-                </Link>
+                </a>
                 <div className="brand__skillelinje" />
                 <div className="brand__tittel"><span>{t('headerTitle')}</span></div>
             </div>
