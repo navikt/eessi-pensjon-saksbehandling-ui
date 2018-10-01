@@ -43,7 +43,7 @@ class FrontPage extends Component {
 
     render() {
 
-        const { t, language, gettingStatus, history, status, location } = this.props;
+        const { t, language, gettingStatus, gettingRinaCase, history, status, location } = this.props;
 
         return <TopContainer className='frontPage topContainer' language={language} history={history} location={location}>
             <h1 className='appTitle'>{t('pageTitle')}</h1>
@@ -51,15 +51,15 @@ class FrontPage extends Component {
             <div className='text-center m-auto'>
                 <LanguageSelector/>
             </div>
-            <ClientAlert/>
+            <ClientAlert permanent={true}/>
             <div className='fieldset p-4 m-4'>
-                {_.isEmpty(status.documents) ? (gettingStatus ? <div>
+                {_.isEmpty(status.documents) ? ( gettingStatus || gettingRinaCase ? <div>
                     <h4 className='mb-4'>{t('status')}</h4>
-                    <div className='w-100 text-center'>
+                    <div className='w-100 text-center' style={{minHeight: '110px'}}>
                         <Nav.NavFrontendSpinner/>
-                        <p>{t('ui:gettingStatus')}</p>
+                        <p>{gettingStatus ? t('ui:gettingStatus') : t('ui:gettingRinaCase')}</p>
                     </div>
-                </div>: null) : <div className='mb-4'>
+                </div> : null) : <div className='mb-4'>
                     <h4 className='mb-4'>{t('status')}</h4>
                     <DocumentStatus history={history}/>
                 </div> }

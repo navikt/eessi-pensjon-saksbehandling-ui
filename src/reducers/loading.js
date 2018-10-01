@@ -1,123 +1,168 @@
 import * as types from '../constants/actionTypes';
+import _ from 'lodash';
 
 export default function (state = {}, action = {}) {
 
+    let status;
+
+    if (_.endsWith(action.type, '/REQUEST')) {
+        status = undefined;
+    }
+
+    if (_.endsWith(action.type, '/FAILURE')) {
+        status = 'ERROR';
+    }
+
+    if (_.endsWith(action.type, '/SUCCESS')) {
+        status = 'OK';
+    }
     switch (action.type) {
 
     case types.CASE_GET_CASE_NUMBER_REQUEST:
 
         return Object.assign({}, state, {
-            gettingCase : true
+            gettingCase : true,
+            status: status
         });
 
     case types.CASE_GET_SUBJECT_AREA_LIST_REQUEST:
 
         return Object.assign({}, state, {
-            subjectAreaList : true
+            subjectAreaList : true,
+            status: status
         });
 
     case types.CASE_GET_INSTITUTION_LIST_REQUEST:
 
         return Object.assign({}, state, {
-            institutionList : true
+            institutionList : true,
+            status: status
         });
 
     case types.CASE_GET_SED_LIST_REQUEST:
 
         return Object.assign({}, state, {
-            sedList : true
+            sedList : true,
+            status: status
         });
 
     case types.CASE_GET_BUC_LIST_REQUEST:
 
         return Object.assign({}, state, {
-            bucList : true
+            bucList : true,
+            status: status
         });
 
     case types.CASE_GET_COUNTRY_LIST_REQUEST:
 
         return Object.assign({}, state, {
-            countryList : true
+            countryList : true,
+            status: status
         });
 
     case types.RINA_GET_URL_REQUEST:
 
         return Object.assign({}, state, {
-            rinaUrl : true
+            rinaUrl : true,
+            status: status
         });
 
     case types.CASE_CREATE_SED_REQUEST:
     case types.CASE_ADD_TO_SED_REQUEST:
 
         return Object.assign({}, state, {
-            savingCase : true
+            savingCase : true,
+            status: status
         });
 
     case types.CASE_SEND_SED_REQUEST:
 
         return Object.assign({}, state, {
-            sendingCase : true
+            sendingCase : true,
+            status: status
         });
 
     case types.CASE_GENERATE_DATA_REQUEST:
 
         return Object.assign({}, state, {
-            generatingCase : true
+            generatingCase : true,
+            status: status
         });
 
     case types.APP_USERINFO_REQUEST:
 
         return Object.assign({}, state, {
-            gettingUserInfo : true
+            gettingUserInfo : true,
+            status: status
         });
 
     case types.STATUS_GET_REQUEST:
+
+        return Object.assign({}, state, {
+            gettingStatus : true,
+            status: status
+        });
+
+    case types.STATUS_GET_SED_REQUEST:
+
+        return Object.assign({}, state, {
+            gettingSED : true,
+            status: status
+        });
+
     case types.STATUS_RINA_CASE_REQUEST:
 
         return Object.assign({}, state, {
-            gettingStatus : true
+            gettingRinaCase : true,
+            status: status
         });
 
     case types.CASE_GET_CASE_NUMBER_SUCCESS:
     case types.CASE_GET_CASE_NUMBER_FAILURE:
 
         return Object.assign({}, state, {
-            gettingCase : false
+            gettingCase : false,
+            status: status
         });
 
     case types.CASE_GET_SUBJECT_AREA_LIST_SUCCESS:
     case types.CASE_GET_SUBJECT_AREA_LIST_FAILURE:
 
         return Object.assign({}, state, {
-            subjectAreaList : false
+            subjectAreaList : false,
+            status: status
         });
 
     case types.CASE_GET_INSTITUTION_LIST_SUCCESS:
     case types.CASE_GET_INSTITUTION_LIST_FAILURE:
 
         return Object.assign({}, state, {
-            institutionList : false
+            institutionList : false,
+            status: status
         });
 
     case types.CASE_GET_SED_LIST_SUCCESS:
     case types.CASE_GET_SED_LIST_FAILURE:
 
         return Object.assign({}, state, {
-            sedList : false
+            sedList : false,
+            status: status
         });
 
     case types.CASE_GET_BUC_LIST_SUCCESS:
     case types.CASE_GET_BUC_LIST_FAILURE:
 
         return Object.assign({}, state, {
-            bucList : false
+            bucList : false,
+            status: status
         });
 
     case types.CASE_GET_COUNTRY_LIST_SUCCESS:
     case types.CASE_GET_COUNTRY_LIST_FAILURE:
 
         return Object.assign({}, state, {
-            countryList : false
+            countryList : false,
+            status: status
         });
 
     case types.CASE_CREATE_SED_SUCCESS:
@@ -126,82 +171,108 @@ export default function (state = {}, action = {}) {
     case types.CASE_ADD_TO_SED_FAILURE:
 
         return Object.assign({}, state, {
-            savingCase : false
+            savingCase : false,
+            status: status
         });
 
     case types.CASE_SEND_SED_SUCCESS:
     case types.CASE_SEND_SED_FAILURE:
 
         return Object.assign({}, state, {
-            sendingCase : false
+            sendingCase : false,
+            status: status
         });
 
     case types.CASE_GENERATE_DATA_SUCCESS:
     case types.CASE_GENERATE_DATA_FAILURE:
 
         return Object.assign({}, state, {
-            generatingCase : false
+            generatingCase : false,
+            status: status
         });
 
     case types.RINA_GET_URL_SUCCESS:
     case types.RINA_GET_URL_FAILURE:
 
         return Object.assign({}, state, {
-            rinaUrl : false
+            rinaUrl : false,
+            status: status
         });
 
     case types.APP_USERINFO_SUCCESS:
     case types.APP_USERINFO_FAILURE:
 
         return Object.assign({}, state, {
-            gettingUserInfo : false
+            gettingUserInfo : false,
+            status: status
         });
 
     case types.STATUS_GET_SUCCESS:
     case types.STATUS_GET_FAILURE:
+
+        return Object.assign({}, state, {
+            gettingStatus : false,
+            status: status
+        });
+
+    case types.STATUS_GET_SED_SUCCESS:
+    case types.STATUS_GET_SED_FAILURE:
+
+        return Object.assign({}, state, {
+            gettingSED : false,
+            status: status
+        });
+
     case types.STATUS_RINA_CASE_SUCCESS:
     case types.STATUS_RINA_CASE_FAILURE:
 
         return Object.assign({}, state, {
-            gettingStatus : false
+            gettingRinaCase : true,
+            status: status
         });
 
     case types.PDF_GENERATE_REQUEST:
 
         return Object.assign({}, state, {
-            generatingPDF : true
+            generatingPDF : true,
+            status: status
         });
 
     case types.PDF_GENERATE_SUCCESS:
     case types.PDF_GENERATE_FAILURE:
 
         return Object.assign({}, state, {
-            generatingPDF : false
+            generatingPDF : false,
+            status: status
         });
 
     case types.PDF_LOADING_FILES_STARTED:
 
         return Object.assign({}, state, {
-            loadingPDF : true
+            loadingPDF : true,
+             status: status
         });
 
     case types.PDF_LOADING_FILES_FINISHED:
 
         return Object.assign({}, state, {
-            loadingPDF : false
+            loadingPDF : false,
+            status: status
         });
 
     case types.PDF_EXTERNAL_FILE_LIST_REQUEST:
 
         return Object.assign({}, state, {
-            loadingExtPDF : true
+            loadingExtPDF : true,
+            status: status
         });
 
     case types.PDF_EXTERNAL_FILE_LIST_SUCCESS:
     case types.PDF_EXTERNAL_FILE_LIST_FAILURE:
 
         return Object.assign({}, state, {
-            loadingExtPDF : false
+            loadingExtPDF : false,
+            status: status
         });
 
     default:

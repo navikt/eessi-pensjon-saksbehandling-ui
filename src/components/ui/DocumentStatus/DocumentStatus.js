@@ -19,9 +19,11 @@ import './DocumentStatus.css';
 
 const mapStateToProps = (state) => {
     return {
-        sed       : state.status.sed,
-        rinaId    : state.status.rinaId,
-        documents : state.status.documents
+        sed           : state.status.sed,
+        rinaId        : state.status.rinaId,
+        documents     : state.status.documents,
+        gettingSED    : state.loading.gettingSED,
+        loadingStatus : state.loading.status
     }
 };
 
@@ -89,7 +91,6 @@ class DocumentStatus extends Component {
         const { actions, history } = this.props;
 
         this.setState({
-            loading: false,
             dokumentId : undefined
         });
 
@@ -108,37 +109,43 @@ class DocumentStatus extends Component {
         }
     }
 
-    getClass(aksjoner) {
-        if (!aksjoner) {
+    getClass(doc) {
+
+        const { loadingStatus } = this.props;
+        const { dokumentId } = this.state;
+
+        if (!doc.aksjoner) {
             return null;
         }
-        return aksjoner.indexOf('Send') >= 0 ? 'sent' : 'notsent'
+        if (loadingStatus === 'ERROR' && doc.dokumentId === dokumentId) {
+            return 'error';
+        }
+        return doc.aksjoner.indexOf('Send') >= 0 ? 'sent' : 'notsent'
     }
 
     documentClick(doc) {
 
         const { rinaId, actions } = this.props;
 
-        actions.getSed(rinaId, doc.dokumentId);
-
         this.setState({
-            loading: true,
             dokumentId : doc.dokumentId
         });
+
+        actions.getSed(rinaId, doc.dokumentId);
     }
 
     render() {
 
-        const { t, className } = this.props;
-        const { docs, loading, dokumentId } = this.state;
+        const { t, className, gettingSED } = this.props;
+        const { docs, dokumentId } = this.state;
 
         return <div className={classNames('div-documentStatus', className)}>
             <div className='flex-documentStatus'>
                 {docs.map((doc, index) => {
-                    return <Nav.Hovedknapp key={index} className={classNames('document', 'mr-2', this.getClass(doc.aksjoner))}
+                    return <Nav.Hovedknapp key={index} style={{animationDelay: index * 0.05 + 's'}} className={classNames('document', 'mr-2', this.getClass(doc))}
                         title={doc.aksjoner.map(aks => {return t(aks.toLowerCase())}).join(', ')}
                         onClick={this.documentClick.bind(this, doc)}>
-                        {loading && doc.dokumentId === dokumentId ? <Nav.NavFrontendSpinner style={{position: 'absolute', top: '1rem'}}/> : null}
+                        {gettingSED && doc.dokumentId === dokumentId ? <Nav.NavFrontendSpinner style={{position: 'absolute', top: '1rem'}}/> : null}
                         <Icons className='mr-3' size='3x' kind='document'/>
                         <div>{doc.dokumentType}</div>
                     </Nav.Hovedknapp>
