@@ -177,67 +177,63 @@ class New extends Component {
 
         const { t, events } = this.props;
 
-        return <Nav.Panel className='newEventPanel p-0'>
+        return <Nav.Panel className='c-p4000-menu-new p-0'>
             <div>
                 <a className='hiddenFileInputOutput' ref={fileOutput => this.fileOutput = fileOutput}
                     href={this.state.fileOutput} download='p4000.json'>&nbsp;</a>
             </div>
-            <Nav.Row className='eventTitle m-4 p-4 fieldset no-gutters'>
-                <Nav.Column>
-                    <Nav.HjelpetekstBase>{t('p4000:help-new-event')}</Nav.HjelpetekstBase>
-                    <h1 className='m-0 mb-4'>{t('ui:new')}{' '}{t('p4000:type-event')}</h1>
-                    <div className='bigButtons'>
-                        {eventList.map((e, index) => {
-                            return <Nav.Knapp style={{animationDelay: index * 0.04 + 's'}}
-                                title={t(e.description)} className={classNames('bigButton', e.value + 'Button')}
-                                key={e.value} onClick={this.handleEventSelect.bind(this, e.value)}>
-                                <div>
-                                    <Icons size='4x' kind={e.icon}/>
-                                </div>
-                                <div className='mt-3'>{t(e.label)}</div>
-                            </Nav.Knapp>
-                        })}
-                    </div>
-                </Nav.Column>
-            </Nav.Row>
-            <Nav.Row style={{animationDelay: '0.3s'}} className='eventTitle m-4 p-4 fieldset no-gutters'>
-                <Nav.Column>
-                    <Nav.HjelpetekstBase>{t('p4000:help-new-options')}</Nav.HjelpetekstBase>
-                    <h1 className='m-0 mb-4'>{t('ui:options')}</h1>
-                    <div style={{display: 'flex', flexWrap: 'wrap'}}>
-                        <Nav.Knapp style={{animationDelay: '0.34s'}} className='viewButton bigButton' onClick={this.handleEventSelect.bind(this, 'view')}>
+            <div className='m-4 p-4 fieldset'>
+                <Nav.HjelpetekstBase>{t('p4000:help-new-event')}</Nav.HjelpetekstBase>
+                <h1 className='m-0 mb-4'>{t('ui:new')}{' '}{t('p4000:type-event')}</h1>
+                <div className='bigButtons'>
+                    {eventList.map((e, index) => {
+                        return <Nav.Knapp style={{animationDelay: index * 0.04 + 's'}}
+                            title={t(e.description)} className={classNames('bigButton', e.value + 'Button')}
+                            key={e.value} onClick={this.handleEventSelect.bind(this, e.value)}>
                             <div>
-                                <Icons size='4x' className='mr-3' kind='document'/>
-                                <Icons size='3x' kind={'view'}/>
+                                <Icons size='4x' kind={e.icon}/>
                             </div>
-                            <div className='mt-3'>{t('ui:view')}</div>
+                            <div className='mt-3'>{t(e.label)}</div>
                         </Nav.Knapp>
-                        <Nav.Knapp style={{animationDelay: '0.38s'}} className='saveToFileButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSaveToFile.bind(this)}>
-                            <div>
-                                <Icons size='4x' className='mr-3' kind='document'/>
-                                <Icons size='3x' kind={'download'}/>
-                            </div>
-                            <div className='mt-3'>{t('p4000:file-save-to-file')}</div>
-                        </Nav.Knapp>
-                        <Nav.Knapp style={{animationDelay: '0.42s'}} className='saveToServerButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSaveToServer.bind(this)}>
-                            <div>
-                                <Icons className='mr-3' size='4x' kind='document'/>
-                                <Icons className='mr-3' size='3x' kind='caretRight'/>
-                                <Icons size='3x' kind='server'/>
-                            </div>
-                            <div className='mt-3'>{t('p4000:file-save-to-server')}</div>
-                        </Nav.Knapp>
-                        <Nav.Knapp style={{animationDelay: '0.46s'}} className='sendButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSubmit.bind(this)}>
-                            <div>
-                                <Icons className='mr-3' size='4x' kind='document'/>
-                                <Icons className='mr-3' size='3x' kind='caretRight'/>
-                                <Icons size='3x' kind='server'/>
-                            </div>
-                            <div className='mt-3'>{t('p4000:file-submit')}</div>
-                        </Nav.Knapp>
-                    </div>
-                </Nav.Column>
-            </Nav.Row>
+                    })}
+                </div>
+            </div>
+            <div style={{animationDelay: '0.3s'}} className='m-4 p-4 fieldset'>
+                <Nav.HjelpetekstBase>{t('p4000:help-new-options')}</Nav.HjelpetekstBase>
+                <h1 className='m-0 mb-4'>{t('ui:options')}</h1>
+                <div style={{display: 'flex', flexWrap: 'wrap'}}>
+                    <Nav.Knapp style={{animationDelay: '0.34s'}} className='viewButton bigButton' onClick={this.handleEventSelect.bind(this, 'view')}>
+                        <div>
+                            <Icons size='4x' className='mr-3' kind='document'/>
+                            <Icons size='3x' kind={'view'}/>
+                        </div>
+                        <div className='mt-3'>{t('ui:view')}</div>
+                    </Nav.Knapp>
+                    <Nav.Knapp style={{animationDelay: '0.38s'}} className='saveToFileButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSaveToFile.bind(this)}>
+                        <div>
+                            <Icons size='4x' className='mr-3' kind='document'/>
+                            <Icons size='3x' kind={'download'}/>
+                        </div>
+                        <div className='mt-3'>{t('p4000:file-save-to-file')}</div>
+                    </Nav.Knapp>
+                    <Nav.Knapp style={{animationDelay: '0.42s'}} className='saveToServerButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSaveToServer.bind(this)}>
+                        <div>
+                            <Icons className='mr-3' size='4x' kind='document'/>
+                            <Icons className='mr-3' size='3x' kind='caretRight'/>
+                            <Icons size='3x' kind='server'/>
+                        </div>
+                        <div className='mt-3'>{t('p4000:file-save-to-server')}</div>
+                    </Nav.Knapp>
+                    <Nav.Knapp style={{animationDelay: '0.46s'}} className='sendButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSubmit.bind(this)}>
+                        <div>
+                            <Icons className='mr-3' size='4x' kind='document'/>
+                            <Icons className='mr-3' size='3x' kind='caretRight'/>
+                            <Icons size='3x' kind='server'/>
+                        </div>
+                        <div className='mt-3'>{t('p4000:file-submit')}</div>
+                    </Nav.Knapp>
+                </div>
+            </div>
         </Nav.Panel>
     }
 }

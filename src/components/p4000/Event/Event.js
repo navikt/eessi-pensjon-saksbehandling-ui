@@ -34,21 +34,19 @@ class Event extends Component {
 
         const { t, event, selected, onClick } = this.props;
 
-        return <div className='event' title={selected ? t('p4000:form-cancelEditEvent') : t('p4000:form-editEvent')}>
-            <div className='eventBadgeLine'>&nbsp;</div>
-            <Nav.Hovedknapp className={classNames('eventBadge', 'position-relative', { selected: selected })}  onClick={onClick}>
-                { !_.isEmpty(event.files) ? <div className='eventBadgeHasAttachments'>
+        return <div className='c-p4000-event' title={selected ? t('p4000:form-cancelEditEvent') : t('p4000:form-editEvent')}>
+            <div className='badgeLine'>&nbsp;</div>
+            <Nav.Hovedknapp className={classNames('badge', { selected: selected })}  onClick={onClick}>
+                { !_.isEmpty(event.files) ? <div className='badgeHasAttachments'>
                     <Icons size={'sm'} kind='clip'/>
                 </div> : null}
-
-                <Icons className='eventBadgeIcon' size={'lg'} kind={event.type}/>
-                <div className='eventBadgeDate'>
+                <Icons className='badgeIcon' size={'lg'} kind={event.type}/>
+                <div className='badgeDate'>
                     <div>{this.renderDate(event.startDate)}</div>
                     <div>{this.renderDate(event.endDate)}</div>
                 </div>
             </Nav.Hovedknapp>
         </div>
-
     }
 }
 

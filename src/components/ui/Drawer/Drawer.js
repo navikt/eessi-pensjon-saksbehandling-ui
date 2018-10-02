@@ -87,8 +87,7 @@ class Drawer extends Component {
        const { children, sideContent, drawerOpen, drawerWidth, drawerEnabled } = this.props;
        const { draggable } = this.state;
 
-       return <div id="drawer-container"
-           className={classNames({ toggled : drawerOpen, draggable : draggable })}
+       return <div className={classNames('c-ui-drawer', { toggled : drawerOpen, draggable : draggable })}
            onMouseMove={this.onMouseMove.bind(this)}
            onMouseUp={this.onMouseUp.bind(this)}>
            <div id="drawer" style={{width: drawerEnabled ? drawerWidth : 0}}>

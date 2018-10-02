@@ -30,7 +30,8 @@ class Modal extends Component {
 
         const { modalOpen, modal } = this.props;
 
-        return <Nav.Modal isOpen={modalOpen}
+        return <Nav.Modal className='c-ui-modal'
+            isOpen={modalOpen}
             onRequestClose={this.closeModal.bind(this)}
             closeButton={false}
             contentLabel='contentLabel'>

@@ -1,14 +1,16 @@
+.c-p4000-menu-new {
+    .bigButtons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    .bigButton {
+        opacity: 0;
+        animation: menuNewFadeIn 0.2s forwards;
+    }
+}
 
-.bigButtons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-.bigButton {
-    opacity: 0;
-    animation: fadeIn 0.2s forwards;
-}
-@keyframes fadeIn {
+@keyframes menuNewFadeIn {
     0% {
         opacity: 0;
     }

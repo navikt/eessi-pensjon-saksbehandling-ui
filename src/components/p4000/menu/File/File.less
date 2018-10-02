@@ -1,17 +1,20 @@
-.buttonColumn {
-     max-width: 200px;
-     padding-right: 10px !important;
-     padding-bottom: 10px !important;
+.c-p4000-menu-file {
+    .buttonColumn {
+         max-width: 200px;
+         padding-right: 10px !important;
+         padding-bottom: 10px !important;
+    }
+    .fileDescriptionList {
+        list-style-type: none;
+        padding-left: 1rem;
+    }
+    .fileButton {
+        opacity: 0;
+        animation: menuFileFadeIn 0.2s forwards;
+    }
 }
-.fileDescriptionList {
-    list-style-type: none;
-    padding-left: 0px;
-}
-.fileButton {
-  opacity: 0;
-  animation: fadeIn 0.2s forwards;
-}
-@keyframes fadeIn {
+
+@keyframes menuFileFadeIn {
   0% {
     opacity: 0;
   }

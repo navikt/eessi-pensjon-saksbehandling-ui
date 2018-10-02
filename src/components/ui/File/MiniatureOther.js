@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import { Ikon } from '../Nav';
 import Icons from '../Icons';
 
+import './File.css';
 import './MiniatureOther.css';
 
 class MiniatureOther extends Component {
@@ -34,7 +35,7 @@ class MiniatureOther extends Component {
 
         let extension = file.name.substring(file.name.lastIndexOf('.') + 1);
 
-        return <div className={classNames('miniatureOther', className, {'animate' : animate})}
+        return <div className={classNames('c-ui-file', 'c-ui-miniatureOther', className, {'animate' : animate})}
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
             onMouseLeave={this.onHandleMouseLeave.bind(this)}>
             <div className='deleteLink'> {deleteLink}</div>

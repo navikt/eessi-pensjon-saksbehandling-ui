@@ -203,13 +203,13 @@ class FileUpload extends Component {
         const { t, accept, className, fileUploadDroppableId } = this.props;
         const { files, currentPages, status } = this.state;
 
-        return <Droppable droppableId={fileUploadDroppableId} direction='horizontal'>
+        return <div className='c-ui-fileUpload'>
+            <Droppable droppableId={fileUploadDroppableId} direction='horizontal'>
 
-            {(provided, snapshot) => (
+                {(provided, snapshot) => (
 
-                <div className={classNames('nav-fileUpload div-dropzone', className)} length={this.state.files.length}>
-
-                    <Dropzone className='dropzone p-2' activeClassName='dropzone-active' accept={accept} onDrop={this.onDrop.bind(this)} inputProps={{...this.props.inputProps}}>
+                    <Dropzone className={classNames('c-ui-fileUpload-dropzone', 'p-2', className)} length={this.state.files.length}
+                        activeClassName='dropzone-active' accept={accept} onDrop={this.onDrop.bind(this)} inputProps={{...this.props.inputProps}}>
 
                         <div ref={provided.innerRef} className={classNames('droppable-zone', {'droppable-zone-active ' : snapshot.isDraggingOver})}>
 
@@ -234,9 +234,9 @@ class FileUpload extends Component {
                             </div>
                         </div>
                     </Dropzone>
-                </div>
-            )}
-        </Droppable>
+                )}
+            </Droppable>
+        </div>
     }
 }
 

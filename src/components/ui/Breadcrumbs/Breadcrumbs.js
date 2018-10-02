@@ -42,7 +42,7 @@ class Breadcrumbs extends Component {
 
         let { t, className, breadcrumbs } = this.props;
 
-        return <div className={classNames('breadcrumb', className)}>
+        return <div className={classNames('c-ui-breadcrumbs', 'breadcrumb', className)}>
             <div style={{position: 'absolute', right: '1rem'}}>
                 <a href='mailto:Nuno.Cardoso@nav.no'>{t('ui:giveFeedback')}</a>
             </div>

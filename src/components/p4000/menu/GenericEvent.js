@@ -111,7 +111,7 @@ class GenericEvent extends Component {
 
         const { t, event, editMode, actions, type, locale } = this.props;
 
-        return <Nav.Panel>
+        return <Nav.Panel className='m-4'>
             <Nav.Row className='eventTitle mb-4'>
                 <Nav.Column>
                     <Icons size='3x' kind={type} className='float-left mr-4'/>

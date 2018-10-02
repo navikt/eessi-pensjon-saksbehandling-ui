@@ -21,38 +21,41 @@ class DnDTarget extends Component {
 
         const { pdfs, recipe, targetId } = this.props;
 
-        return <Droppable droppableId={'dndtarget-' + targetId}>
+        return <div className='c-pdf-dndTarget'>
 
-            {(provided, snapshot) => (
+            <Droppable droppableId={'c-pdf-dndTarget-droppable-' + targetId}>
 
-                <div ref={provided.innerRef}
-                    className={classNames('div-dndtarget-droppable', 'text-center', {'div-dndtarget-droppable-active ' : snapshot.isDraggingOver})}>
+                {(provided, snapshot) => (
 
-                    {recipe[targetId] ? recipe[targetId].map((recipeStep, index) => {
+                    <div ref={provided.innerRef}
+                        className={classNames('c-pdf-dndTarget-droppable', 'text-center', {'c-pdf-dndTarget-droppable-active ' : snapshot.isDraggingOver})}>
 
-                        let pdf = _.find(pdfs, {name: recipeStep.name});
+                        {recipe[targetId] ? recipe[targetId].map((recipeStep, index) => {
 
-                        return <Draggable key={index} draggableId={index} index={index}>
+                            let pdf = _.find(pdfs, {name: recipeStep.name});
 
-                            {(provided, snapshot) => (
+                            return <Draggable key={index} draggableId={index} index={index}>
 
-                                <div className={classNames('div-dndtarget-draggable')}
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}>
-                                    <PDFPageInDnD
-                                        className={classNames({'div-dndtarget-draggable-active' : snapshot.isDragging})}
-                                        pdf={pdf}
-                                        pageNumber={recipeStep.pageNumber}
-                                        action='remove'
-                                    />
-                                </div>
-                            )}
-                        </Draggable>
-                    }) : null}
-                </div>
-            )}
-        </Droppable>
+                                {(provided, snapshot) => (
+
+                                    <div className={classNames('c-pdf-dndTarget-draggable')}
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}>
+                                        <PDFPageInDnD
+                                            className={classNames({'c-pdf-dndTarget-draggable-active' : snapshot.isDragging})}
+                                            pdf={pdf}
+                                            pageNumber={recipeStep.pageNumber}
+                                            action='remove'
+                                        />
+                                    </div>
+                                )}
+                            </Draggable>
+                        }) : null}
+                    </div>
+                )}
+            </Droppable>
+        </div>
     }
 }
 

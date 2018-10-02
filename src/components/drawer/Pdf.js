@@ -6,7 +6,7 @@ class Pdf extends Component {
 
     render () {
 
-        return <div className="topplinje__brand">
+        return <div>
             <ExternalFiles/>
         </div>
     }

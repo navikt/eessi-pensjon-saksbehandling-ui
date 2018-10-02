@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class FrontPage extends Component {
+class Empty extends Component {
 
     render () {
 
@@ -8,7 +8,7 @@ class FrontPage extends Component {
     }
 }
 
-FrontPage.propTypes = {
+Empty.propTypes = {
 };
 
-export default FrontPage;
+export default Empty;

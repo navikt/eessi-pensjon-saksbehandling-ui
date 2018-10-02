@@ -50,7 +50,7 @@ class CountrySelect extends Component {
         if (defValue && !defValue.label) {
             defValue = _.find(options, {value: defValue.value});
         }
-        return <div className={classNames(className)}>
+        return <div className={classNames('c-ui-countrySelect', className)}>
             <Select placeholder={t('ui:searchCountry')}
                 value={defValue}
                 options={options}

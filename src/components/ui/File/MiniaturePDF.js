@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import { Ikon } from '../Nav';
 import Icons from '../Icons';
 
+import './File.css';
 import './MiniaturePDF.css';
 
 class MiniaturePDF extends Component {
@@ -133,7 +134,7 @@ class MiniaturePDF extends Component {
         const { t, file, size, addLink, deleteLink, downloadLink, className, animate } = this.props;
         const { numPages, isHovering, currentPage } = this.state;
 
-        return <div className={classNames('miniaturePdf', className, {'animate' : animate})}
+        return <div className={classNames('c-ui-file', 'c-ui-miniaturePdf', className, {'animate' : animate})}
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
             onMouseLeave={this.onHandleMouseLeave.bind(this)}>
             <Document className='position-relative' file={{data: file.data }}

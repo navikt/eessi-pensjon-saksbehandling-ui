@@ -81,16 +81,16 @@ class DnDSource extends Component {
 
         let addAllLink = this.state.isHovering ? <a href='#addAll' onClick={this.addAllPagesToTargetPdf.bind(this, pdf.name)}>{t('ui:addAll')}</a> : null;
 
-        return <div className='div-dndsource position-relative'
+        return <div className='c-pdf-dndSource position-relative'
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
             onMouseLeave={this.onHandleMouseLeave.bind(this)}>
 
-            <Droppable isDropDisabled={true} droppableId={'dndsource-' + pdf.name} direction='horizontal'>
+            <Droppable isDropDisabled={true} droppableId={'c-pdf-dndSource-droppable-' + pdf.name} direction='horizontal'>
 
                 {(provided, snapshot) => (
 
                     <div ref={provided.innerRef}
-                        className={classNames('div-dndsource-droppable', {'div-dndsource-droppable-active' : snapshot.isDraggingOver})}
+                        className={classNames('c-pdf-dndSource-droppable', {'c-pdf-dndSource-droppable-active' : snapshot.isDraggingOver})}
                         style={{minHeight: pdfsize * 1.3}}>
 
                         {_.range(1, pdf.numPages + 1).map(pageNumber => {
@@ -101,12 +101,12 @@ class DnDSource extends Component {
                             return  <Draggable key={key} draggableId={key} index={pageNumber}>
 
                                 {(provided, snapshot) => (
-                                    <div className={classNames('div-dndsource-draggable')}
+                                    <div className={classNames('c-pdf-dndSource-draggable')}
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}>
                                         <PDFPageInDnD
-                                            className={classNames({'div-dndsource-draggable-active' : snapshot.isDragging})}
+                                            className={classNames({'c-pdf-dndSource-draggable-active' : snapshot.isDragging})}
                                             style={{
                                                 minWidth: pdfsize,
                                                 minHeight: pdfsize * 1.3

@@ -10,7 +10,7 @@ class RenderConfirmData extends Component {
 
         let { t, dataToConfirm } = this.props;
 
-        return <div className='p-3 renderData'>
+        return <div className='p-3 c-case-renderData'>
             <dl className='row'>
                 <dt className='col-sm-4'><label>{t('case:form-caseId')}</label></dt>
                 <dd className='col-sm-8'>{dataToConfirm.caseId}</dd>

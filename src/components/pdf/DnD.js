@@ -47,10 +47,10 @@ class DnD extends Component {
         let sourceId = result.source.droppableId.substring(lastIndexOf + 1);
 
         // dragged from a PDF source...
-        if (_.startsWith(result.source.droppableId, 'dndsource')) {
+        if (_.startsWith(result.source.droppableId, 'c-pdf-dndSource-droppable-')) {
 
             // ...to another PDF source? skip it
-            if (_.startsWith(result.destination.droppableId, 'dndsource')) {
+            if (_.startsWith(result.destination.droppableId, 'c-pdf-dndSource-droppable-')) {
                 return
             }
 
@@ -72,17 +72,17 @@ class DnD extends Component {
         }
 
         // dragged from a PDF target...
-        if (_.startsWith(result.source.droppableId, 'dndtarget')) {
+        if (_.startsWith(result.source.droppableId, 'c-pdf-dndTarget-droppable-')) {
 
             // ... to the same PDF target: reorder
-            if (_.startsWith(result.destination.droppableId, 'dndtarget')) {
+            if (_.startsWith(result.destination.droppableId, 'c-pdf-dndTarget-droppable-')) {
 
                 newRecipe[targetId] = this.reorder(newRecipe[targetId], result.source.index, result.destination.index);
                 modified = true;
             }
 
             // ... to another PDF source: remove
-            if (_.startsWith(result.destination.droppableId, 'dndsource')) {
+            if (_.startsWith(result.destination.droppableId, 'c-pdf-dndSource-droppable-')) {
 
                 newRecipe[sourceId].splice(result.source.index, 1);
                 modified = true;

@@ -1,11 +1,12 @@
-.miniatureOther {
+
+.c-ui-miniatureOther {
     position: relative;
     display: inline-block;
     vertical-align: top;
     text-align: center;
     -webkit-backface-visibility: hidden;
     &.animate {
-        animation: fileFadeIn 0.4s;
+        animation: c-ui-miniatureOther-FadeIn 0.4s;
     }
    .miniatureDocument {
         width: 90px;
@@ -24,7 +25,7 @@
     }
 }
 
-@keyframes fileFadeIn {
+@keyframes c-ui-miniatureOther-FadeIn {
   0% {
     opacity: 0;
     transform: scale(0.5);

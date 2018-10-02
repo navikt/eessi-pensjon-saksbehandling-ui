@@ -30,7 +30,7 @@ class PDFSizeSlider extends Component {
 
         const { t, pdfsize } = this.props;
 
-        return <div title={t('pdf:help-sizeSliderTooltip')}>
+        return <div className='c-pdf-PDFSizeSlider' title={t('pdf:help-sizeSliderTooltip')}>
             <Slider value={pdfsize} min={50} max={300} step={25} onChange={this.onChange.bind(this)}/>
         </div>
     }

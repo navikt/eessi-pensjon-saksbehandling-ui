@@ -19,7 +19,7 @@ class ServerAlert extends Component {
 
         if (!serverErrorMessage) { return null }
 
-        return <Nav.AlertStripe type='advarsel' solid={true}>{t(serverErrorMessage)}</Nav.AlertStripe>
+        return <Nav.AlertStripe className='c-ui-serverAlert' type='advarsel' solid={true}>{t(serverErrorMessage)}</Nav.AlertStripe>
     }
 }
 

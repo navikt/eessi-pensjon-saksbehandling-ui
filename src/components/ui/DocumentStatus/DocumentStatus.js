@@ -139,7 +139,7 @@ class DocumentStatus extends Component {
         const { t, className, gettingSED } = this.props;
         const { docs, dokumentId } = this.state;
 
-        return <div className={classNames('div-documentStatus', className)}>
+        return <div className={classNames('c-ui-documentStatus', className)}>
             <div className='flex-documentStatus'>
                 {docs.map((doc, index) => {
                     return <Nav.Hovedknapp key={index} style={{animationDelay: index * 0.05 + 's'}} className={classNames('document', 'mr-2', this.getClass(doc))}

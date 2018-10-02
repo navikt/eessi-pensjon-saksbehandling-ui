@@ -5,8 +5,6 @@ import _ from 'lodash';
 import MiniatureOther from './MiniatureOther';
 import MiniaturePDF from './MiniaturePDF';
 
-import './File.css';
-
 const units = ['bytes', 'KB', 'MB', 'GB'];
 
 class File extends Component {

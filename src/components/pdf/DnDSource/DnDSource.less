@@ -1,37 +1,39 @@
-.addAllLink {
-    position: absolute;
-    top: 6px;
-    right: 5px;
-    background-color: whitesmoke;
-    padding: 5px;
+.c-pdf-dndSource {
+    position: relative;
+    .addAllLink {
+        position: absolute;
+        top: 6px;
+        right: 5px;
+        background-color: whitesmoke;
+        padding: 5px;
+    }
+
+    .c-pdf-dndSource-droppable {
+        background-color: whitesmoke;
+        padding: 10px;
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        box-shadow: inset 5px 5px 5px lightgrey;
+    };
+
+    .c-pdf-dndSource-droppable-active {
+        background-color: rgba(0,128,0,0.2);
+        animation: dndSourcePulsate 1s ease-out;
+        animation-iteration-count: infinite;
+    }
+
+    .c-pdf-dndSource-draggable {
+        margin: 0 5px 0 0;
+    };
+    .c-pdf-dndSource-draggable-active {
+         border: 2px dashed gray;
+         padding: 2px;
+         animation: dndSourcePulsateBorder 1s ease-out;
+         animation-iteration-count: infinite;
+    };
 }
-
-.div-dndsource-droppable {
-    background-color: whitesmoke;
-    padding: 10px;
-    display: flex;
-    overflow-x: auto;
-    white-space: nowrap;
-    box-shadow: inset 5px 5px 5px lightgrey;
-};
-
-.div-dndsource-droppable-active {
-    background-color: rgba(0,128,0,0.2);
-    animation: pulsate 1s ease-out;
-    animation-iteration-count: infinite;
-}
-
-.div-dndsource-draggable {
-    margin: 0 5px 0 0;
-};
-.div-dndsource-draggable-active {
-     border: 2px dashed gray;
-     padding: 2px;
-     animation: pulsateBorder 1s ease-out;
-     animation-iteration-count: infinite;
-};
-
-@keyframes pulsate {
+@keyframes dndSourcePulsate {
     0% {
         background-color: rgba(0,128,0,0.2);
     }
@@ -43,8 +45,7 @@
     }
 }
 
-
-@keyframes pulsateBorder {
+@keyframes dndSourcePulsateBorder {
     0% {
         border: 2px dashed rgba(128,128,128,1);
     }

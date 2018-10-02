@@ -84,7 +84,7 @@ class ClientAlert extends Component {
         } else {
             message = t(clientErrorMessage);
         }
-        return <Nav.AlertStripe className={classNames(className, 'clientAlert', 'm-4', {'toFade' : clientErrorStatus === 'OK'})}
+        return <Nav.AlertStripe className={classNames(className, 'c-ui-clientAlert', 'm-4', {'toFade' : clientErrorStatus === 'OK'})}
             type={clientErrorStatus === 'OK' ? 'suksess' : 'advarsel'}>
             {message}
         </Nav.AlertStripe>;

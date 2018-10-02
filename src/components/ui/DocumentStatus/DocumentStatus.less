@@ -1,33 +1,48 @@
-.div-documentStatus {
+.c-ui-documentStatus {
+
     position: relative;
     background-color: white;
     box-shadow: inset 3px 3px 3px lightgrey;
+
+    .flex-documentStatus {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding: 10px;
+        height: 100px;
+    }
+
+    .document svg {
+        margin-left: 1rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .document {
+      opacity: 0;
+      padding: 0 !important;
+      width: 80px;
+      height: 80px;
+      border: none !important;
+      transform: translateZ(0);
+      animation: c-ui-documentStatus-shrink 0.3s forwards;
+    }
+    .document:hover svg {
+      transform: scale(1.1) !important;
+    }
+
+    .sent {
+        background-color: #0067c5 !important;
+    }
+    .notsent {
+        background-color: green !important;
+    }
+    .error {
+      background-color: red !important;
+    }
+
 }
 
-.flex-documentStatus {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding: 10px;
-    height: 100px;
-}
-
-.document svg {
-    margin-left: 1rem;
-    margin-bottom: 0.25rem;
-}
-
-.sent {
-    background-color: #0067c5 !important;
-}
-.notsent {
-    background-color: green !important;
-}
-.error {
-  background-color: red !important;
-}
-
-@keyframes shrink {
+@keyframes c-ui-documentStatus-shrink {
   0% {
     opacity: 0;
     transform: scale(1.1);
@@ -36,16 +51,4 @@
     opacity: 1;
     transform: scale(1);
   }
-}
-.document {
-  opacity: 0;
-  padding: 0 !important;
-  width: 80px;
-  height: 80px;
-  border: none !important;
-  transform: translateZ(0);
-  animation: shrink 0.3s forwards;
-}
-.document:hover svg {
-  transform: scale(1.1) !important;
 }

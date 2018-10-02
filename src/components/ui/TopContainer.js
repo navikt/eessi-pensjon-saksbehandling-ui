@@ -29,7 +29,7 @@ class TopContainer extends Component {
         const { droppables, extPdfs } = this.props;
         let sourcePdf;
 
-        if (e.source && e.source.droppableId === 'dnd-external-files') {
+        if (e.source && e.source.droppableId === 'c-pdf-dndExternalFiles-droppable') {
             sourcePdf = extPdfs[e.source.index];
         }
 
@@ -43,7 +43,7 @@ class TopContainer extends Component {
 
         const { className, style, history, sideContent } = this.props;
 
-        return <div style={style} className={classNames('topcontainer', className)}>
+        return <div style={style} className={classNames('c-ui-topContainer', className)}>
             <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
                 <Drawer sideContent={sideContent}>
                     <TopHeader/>

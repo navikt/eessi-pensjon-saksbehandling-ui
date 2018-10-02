@@ -46,7 +46,7 @@ class TopHeader extends Component {
 
         let userText = (userInfo ? userInfo : (gettingUserInfo ? t('case:loading-gettingUserInfo') : ''));
 
-        return <header className="topplinje">
+        return <header className="c-ui-topHeader">
             <div className="topplinje__brand">
                 <a href="#toggleDrawerEnable" onClick={this.onLogoClick.bind(this)}>
                     <img className="brand__logo" src={navLogo} alt="To personer på NAV kontor"/>

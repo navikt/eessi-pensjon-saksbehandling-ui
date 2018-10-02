@@ -1,50 +1,53 @@
-#drawer {
-    background-color: white;
-    height: 100vh;
-    position: fixed;   /* because IE11 */
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    transition: width 0.2s ease-out;
-}
-#drawer-content {
-  overflow: hidden
-}
-#drawer-button {
-   width: 10px;
-   height: 100%;
-   background-color: whitesmoke;
-   color: darkgray;
-   right: 0;
-   top: 0;
-   position: absolute;
-   font-size: 0.6rem;
-   display: flex;
-   flex-direction: column;
-   justify-content: space-around;
-   &:hover {
-        background-color: lightgray;
-        color: black;
-   }
-   &:not(.toggled) {
-        cursor : pointer;
-   }
-   &.toggled {
-        cursor : col-resize;
-   }
-}
+.c-ui-drawer {
 
-/* because IE11 */
-@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-   #drawer-page {
-        margin-top: 0px;
-   }
-}
+    #drawer {
+        background-color: white;
+        height: 100vh;
+        position: fixed;   /* because IE11 */
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        transition: width 0.2s ease-out;
+    }
+    #drawer-content {
+      overflow: hidden
+    }
+    #drawer-button {
+       width: 10px;
+       height: 100%;
+       background-color: whitesmoke;
+       color: darkgray;
+       right: 0;
+       top: 0;
+       position: absolute;
+       font-size: 0.6rem;
+       display: flex;
+       flex-direction: column;
+       justify-content: space-around;
+       &:hover {
+            background-color: lightgray;
+            color: black;
+       }
+       &:not(.toggled) {
+            cursor : pointer;
+       }
+       &.toggled {
+            cursor : col-resize;
+       }
+    }
 
-#drawer-page {
-   margin-top: -100vh;
-   transition: padding 0.2s ease-out;
-}
-.draggable {
-   cursor: col-resize;
+    /* because IE11 */
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+       #drawer-page {
+            margin-top: 0px;
+       }
+    }
+
+    #drawer-page {
+       margin-top: -100vh;
+       transition: padding 0.2s ease-out;
+    }
+    .draggable {
+       cursor: col-resize;
+    }
 }

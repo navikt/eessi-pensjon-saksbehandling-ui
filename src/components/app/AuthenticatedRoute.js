@@ -8,14 +8,14 @@ import classNames from 'classnames';
 import { translate } from 'react-i18next';
 
 import * as Nav from '../ui/Nav';
+import TopHeader from '../ui/Header/TopHeader';
 
 import * as urls from '../../constants/urls';
 import * as appActions from '../../actions/app';
 import * as statusActions from '../../actions/status';
 
 const mapStateToProps = () => {
-    return {
-    }
+    return {}
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -72,18 +72,21 @@ class AuthenticatedRoute extends Component {
         const { t, className } = this.props;
 
         return this.state.loggedIn ? <Route {...this.props}/> :
-            <div className={classNames('w-100 text-center p-5', className)}>
-                <Nav.NavFrontendSpinner/>
-                <p>{t('ui:authenticating')}</p>
+            <div style={{minHeight: '100vh', backgroundColor: 'white'}}>
+                <TopHeader/>
+                <div className={classNames('w-100 text-center p-5', className)}>
+                    <Nav.NavFrontendSpinner/>
+                    <p>{t('ui:authenticating')}</p>
+                </div>
             </div>
     }
 }
 
 AuthenticatedRoute.propTypes = {
-    t              : PT.func.isRequired,
-    className      : PT.string,
-    cookies        : PT.instanceOf(Cookies),
-    actions        : PT.object.isRequired
+    t         : PT.func.isRequired,
+    className : PT.string,
+    cookies   : PT.instanceOf(Cookies),
+    actions   : PT.object.isRequired
 };
 
 export default withCookies(

@@ -9,18 +9,6 @@ import File from '../../ui/File/File';
 import './DnDExternalFiles.css';
 import * as pdfActions from '../../../actions/pdf';
 
-const getListStyle = (isDraggingOver) => ({
-    background: isDraggingOver ? 'aliceblue' : 'transparent',
-    padding: 5,
-    display: 'flex',
-    overflowX: 'auto',
-    whiteSpace: 'nowrap'
-});
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-    ...draggableStyle
-})
-
 const mapStateToProps = () => {
     return {}
 }
@@ -72,37 +60,34 @@ class DnDExternalFiles extends Component {
             return null;
         }
 
-        return <Droppable isDropDisabled={true} droppableId={'dnd-external-files'} direction='horizontal'>
-            {(provided, snapshot) => (
-                <div ref={provided.innerRef} style={getListStyle(snapshot.isDraggingOver)}>
-                    {files.map((pdf, index) => {
-                        return <Draggable className='draggable' key={index} draggableId={index} index={index}>
-                            {(provided, snapshot) => (
-                                <React.Fragment>
-                                    <div
-                                        ref={provided.innerRef}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
-                                        style={getItemStyle(
-                                            snapshot.isDragging,
-                                            provided.draggableProps.style
-                                        )}>
-                                        <File key={index} file={pdf} addLink={true}
-                                            onAddDocument={this.addDocument.bind(this, pdf)}
-                                            onLoadSuccess={this.onLoadSuccess.bind(this, index)}/>
-                                    </div>
-                                    {snapshot.isDragging && (
-                                        <div className='cloneStyle'>
-                                            <File animate={false} key={index} file={pdf}/>
+        return <div className='c-pdf-dndExternalFiles'>
+            <Droppable isDropDisabled={true} droppableId={'c-pdf-dndExternalFiles-droppable'} direction='horizontal'>
+                {(provided, snapshot) => (
+                    <div ref={provided.innerRef}>
+                        {files.map((pdf, index) => {
+                            return <Draggable className='draggable' key={index} draggableId={index} index={index}>
+                                {(provided, snapshot) => (
+                                    <React.Fragment>
+                                        <div ref={provided.innerRef}
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}>
+                                            <File key={index} file={pdf} addLink={true}
+                                                onAddDocument={this.addDocument.bind(this, pdf)}
+                                                onLoadSuccess={this.onLoadSuccess.bind(this, index)}/>
                                         </div>
-                                    )}
-                                </React.Fragment>
-                            )}
-                        </Draggable>
-                    })}
-                </div>
-            )}
-        </Droppable>
+                                        {snapshot.isDragging && (
+                                            <div className='cloneStyle'>
+                                                <File animate={false} key={index} file={pdf}/>
+                                            </div>
+                                        )}
+                                    </React.Fragment>
+                                )}
+                            </Draggable>
+                        })}
+                    </div>
+                )}
+            </Droppable>
+        </div>
     }
 }
 

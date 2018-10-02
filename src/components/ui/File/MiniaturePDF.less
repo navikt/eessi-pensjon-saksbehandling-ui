@@ -1,80 +1,79 @@
-.miniaturePdf {
+.c-ui-miniaturePdf {
     position: relative;
     display: inline-block;
     vertical-align: top;
     text-align: center;
     -webkit-backface-visibility: hidden;
+
+    .animate {
+        animation: c-ui-miniaturePdf-FadeIn 0.4s;
+    }
+
+    .page {
+        border: none;
+        box-shadow: 3px 3px 3px lightgray;
+        background: linear-gradient(-45deg, rgba(255,255,255,1), rgba(255,255,255,1)), linear-gradient(45deg, rgba(255,255,255,1), rgba(255,255,255,1)), linear-gradient(135deg, transparent 14px, rgba(255,255,255,1) 14px);
+        background-size: 50% 0%, 50% 100%, 100% 100%;
+        background-position: 0 0, 100% 100%, 100% 0;
+        background-repeat: no-repeat;
+    }
+
+    .page:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        box-shadow: 1px 1px 1px rgba(128,128,128,0.3), 2px 2px 2px rgba(128,128,128,0.2);
+        background: linear-gradient(135deg, transparent 50%, rgba(255,255,255,1) 50%);
+    }
+
+    .page .react-pdf__Page__svg  {
+        background: transparent !important;
+    }
+
+    *, :after, :before {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .annotationLayer {
+        display: none
+    }
+
+    .previousPage {
+        left:0px;
+    }
+
+    .nextPage {
+        right:0px;
+    }
+
+    .previousPage, .nextPage {
+        text-decoration: none;
+        font-size: 1.2rem;
+        position: absolute;
+        top:30%;
+        z-index: 2;
+        -webkit-text-stroke: 2px white;
+    }
+
+
+    .previousPage:hover, .nextPage:hover {
+        text-decoration: none;
+    }
+
+    .pageNumber {
+        position: absolute;
+        bottom: 50px;
+        right:5px;
+        z-index: 2;
+        background-color: white;
+        padding: 0px 3px;
+    }
 }
 
-.animate {
-    animation: fileFadeIn 0.4s;
-}
-
-.page {
-    border: none;
-    box-shadow: 3px 3px 3px lightgray;
-    background: linear-gradient(-45deg, rgba(255,255,255,1), rgba(255,255,255,1)), linear-gradient(45deg, rgba(255,255,255,1), rgba(255,255,255,1)), linear-gradient(135deg, transparent 14px, rgba(255,255,255,1) 14px);
-    background-size: 50% 0%, 50% 100%, 100% 100%;
-    background-position: 0 0, 100% 100%, 100% 0;
-    background-repeat: no-repeat;
-}
-
-.page:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 20px;
-    height: 20px;
-    box-shadow: 1px 1px 1px rgba(128,128,128,0.3), 2px 2px 2px rgba(128,128,128,0.2);
-    background: linear-gradient(135deg, transparent 50%, rgba(250,250,250,1) 50%);
-}
-
-.page .react-pdf__Page__svg  {
-    background: transparent !important;
-}
-
-*, :after, :before {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
-.annotationLayer {
-    display: none
-}
-
-.previousPage {
-    left:0px;
-}
-
-.nextPage {
-    right:0px;
-}
-
-.previousPage, .nextPage {
-    text-decoration: none;
-    font-size: 1.2rem;
-    position: absolute;
-    top:30%;
-    z-index: 2;
-    -webkit-text-stroke: 2px white;
-}
-
-
-.previousPage:hover, .nextPage:hover {
-    text-decoration: none;
-}
-
-.pageNumber {
-    position: absolute;
-    bottom: 50px;
-    right:5px;
-    z-index: 2;
-    background-color: white;
-    padding: 0px 3px;
-}
-
-
-@keyframes fileFadeIn {
+@keyframes c-ui-miniaturePdf-FadeIn {
   0% {
     opacity: 0;
     transform: scale(0.5);
@@ -87,5 +86,3 @@
     transform: scale(1);
   }
 }
-
-

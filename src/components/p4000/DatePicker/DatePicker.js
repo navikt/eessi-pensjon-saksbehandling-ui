@@ -232,7 +232,7 @@ class DatePicker extends Component {
 
         let { t, event, locale } = this.props;
 
-        return <div className={classNames('div-datePicker', 'p-2')}>
+        return <div className={classNames('c-p4000-datePicker', 'p-2')}>
             {!this.hasNoValidationErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.validationError)}</Nav.AlertStripe> : null}
             <Nav.Row className='row-datePicker-toggleButton no-gutters'>
                 <Nav.Column className='text-center mb-4'>

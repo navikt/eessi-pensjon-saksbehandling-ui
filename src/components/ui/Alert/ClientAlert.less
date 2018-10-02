@@ -1,11 +1,18 @@
+.c-ui-clientAlert {
 
-.clientAlert {
     height: 60px;
     min-height: 60px;
     opacity: 0;
-    animation: fadeIn 0.3s forwards;
+    animation: c-ui-clientAlert-fadeIn 0.3s forwards;
+
+    &.toFade {
+      animation: c-ui-clientAlert-fadeOut 5s;
+      opacity: 0;
+      animation-iteration-count: 1;
+    }
 }
-@keyframes fadeIn {
+
+@keyframes c-ui-clientAlert-fadeIn {
   0% {
     opacity: 0;
   }
@@ -13,7 +20,7 @@
     opacity: 1;
   }
 }
-@keyframes fadeOut {
+@keyframes c-ui-clientAlert-fadeOut {
   0% {
     opacity: 1;
   }
@@ -23,9 +30,4 @@
   100% {
     opacity: 0;
   }
-}
-.toFade {
-  animation: fadeOut 5s;
-  opacity: 0;
-  animation-iteration-count: 1;
 }

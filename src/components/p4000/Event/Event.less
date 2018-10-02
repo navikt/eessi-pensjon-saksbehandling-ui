@@ -1,64 +1,67 @@
-.event {
+.c-p4000-event {
+
     position: relative;
     display: inline-block;
     margin-right: 1rem;
-}
-.eventBadge {
-    background: #0067c5;
-    padding: 0px !important;
-    color: white;
-    width: 60px !important;
-    height: 60px;
-    border-radius: 10px !important;
-    /* Force Hardware Acceleration in WebKit */
-     transform: translateZ(0);
-     animation: cd-bounce-1 0.6s forwards;
-     cursor: pointer;
-     box-shadow: 3px 3px 3px lightgray;
-     transition: all .2s ease-in-out;
-     &:hover {
-         transform: scale(1.2);
-     }
-}
-.eventBadgeLine {
-    position: absolute;
-    top: 30px;
-    left: -10px;
-    width: 80px;
-    height: 4px;
-    background-color: #0067c5;
-}
-.eventBadgeHasAttachments {
-    position: absolute;
-    z-index: 10;
-    right: 0;
-    top: 0;
-    color: black;
+
+    .badge {
+        position: relative;
+        background: #0067c5;
+        padding: 0px !important;
+        color: white;
+        width: 60px !important;
+        height: 60px;
+        border-radius: 10px !important;
+        /* Force Hardware Acceleration in WebKit */
+        transform: translateZ(0);
+        animation: badgeFadeIn 0.4s forwards;
+        cursor: pointer;
+        box-shadow: 3px 3px 3px lightgray;
+        transition: all .2s ease-in-out;
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
+    .badgeLine {
+        position: absolute;
+        top: 30px;
+        left: -10px;
+        width: 80px;
+        height: 4px;
+        background-color: #0067c5;
+    }
+    .badgeHasAttachments {
+        position: absolute;
+        z-index: 10;
+        right: 0;
+        top: 0;
+        color: black;
+    }
+
+    .badgeDate {
+        color: black;
+        font-size: 0.7rem;
+        text-align:center;
+        margin-top:10px;
+    }
+
+    .badgeIcon {
+       width: 40px !important;
+       height: 40px !important;
+       margin: 0.5rem;
+    }
+
+    .badge.selected,
+    .badge.selected.knapp--hoved:focus{
+      background: red;
+      transform: scale(1.2);
+    }
+    .badge.selected:before {
+        background: transparent;
+    }
 }
 
-.eventBadgeDate {
-    color: black;
-    font-size: 0.7rem;
-    text-align:center;
-    margin-top:10px;
-}
-
-.eventBadgeIcon {
-   width: 40px !important;
-   height: 40px !important;
-   margin: 0.5rem;
-}
-
-.eventBadge.selected,
-.eventBadge.selected.knapp--hoved:focus{
-  background: red;
-  transform: scale(1.2);
-}
-.eventBadge.selected:before {
-    background: transparent;
-}
-
-@keyframes cd-bounce-1 {
+@keyframes badgeFadeIn {
   0% {
     opacity: 0;
     transform: scale(0.5);

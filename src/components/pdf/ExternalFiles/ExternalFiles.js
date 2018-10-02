@@ -34,7 +34,7 @@ class ExternalFiles extends Component {
 
         const { t, loadingExtPDF, extPdfs, addDocument, style } = this.props;
 
-        return <Nav.Ekspanderbartpanel style={style} className='m-4 fieldset'
+        return <Nav.Ekspanderbartpanel style={style} className='c-pdf-externalFiles m-4 fieldset'
             apen={false} tittel={t('ui:fileSelect')} tittelProps='undertittel'
             onClick={this.requestExternalFileList.bind(this)}>
             <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>

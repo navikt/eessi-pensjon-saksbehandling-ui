@@ -112,17 +112,17 @@ class PDFPageInDnD extends Component {
                  onClick={iconFunction.bind(this, pdf.name, pageNumber)}/>
          }
 
-         return <div style={style} className={classNames('d-inline-block', className)}
+         return <div style={style} className={classNames('c-pdf-PDFPageInDnD', className)}
              onMouseEnter={this.onHandleMouseEnter.bind(this)}
              onMouseOver={this.onHandleMouseOver.bind(this)}
              onMouseLeave={this.onHandleMouseLeave.bind(this)}>
-             <Document className='PDFPageInDnD-document' file={{data: pdf.data}}>
-                 <div className='PDFPageInDnD-icon'>{iconLink}</div>
-                 <Page className='PDFPageInDnD-page'
+             <Document className='document' file={{data: pdf.data}}>
+                 <div className='icon'>{iconLink}</div>
+                 <Page className='page'
                      onClick={this.openPreview.bind(this, pdf, pageNumber)}
                      width={pdfsize} height={pdfsize * 1.3}
                      renderMode='svg' pageNumber={pageNumber}/>
-                 <div className='PDFPageInDnD-pageNumber'>{pageNumber}</div>
+                 <div className='pageNumber'>{pageNumber}</div>
              </Document>
          </div>
      }

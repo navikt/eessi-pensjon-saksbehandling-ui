@@ -11,7 +11,7 @@ class TimelineEvent extends Component {
 
         const { t, event, onClick } = this.props;
 
-        return <div className='timeline-event'>
+        return <div className='c-ui-timelineEvent'>
             <div className='timeline-event-badge'>
                 <Icons size='2x' kind={event.content.type}/>
             </div>
