@@ -11,7 +11,9 @@ import './MiniaturePDF.css';
 
 class MiniaturePDF extends Component {
 
-    state = {}
+    state = {
+        currentPage: 1
+    }
 
     static getDerivedStateFromProps(props, state) {
 
@@ -23,6 +25,7 @@ class MiniaturePDF extends Component {
                 currentPage: props.currentPage
             }
         }
+
         return {};
     }
 
@@ -136,7 +139,7 @@ class MiniaturePDF extends Component {
             <Document className='position-relative' file={{data: file.data }}
                 onLoadSuccess={this.handleOnLoadSuccess.bind(this)}>
                 { deleteLink && isHovering ? <div className='deleteLink'>
-                    <Ikon size={20} kind='trashcan' onClick={this.onDeleteDocument.bind(this)}/>
+                    <Ikon size={15} kind='trashcan' onClick={this.onDeleteDocument.bind(this)}/>
                 </div> : null}
                 { addLink && isHovering ? <div className='addLink'>
                     <Ikon size={20} kind='vedlegg' onClick={this.onAddDocument.bind(this)}/>
@@ -147,8 +150,8 @@ class MiniaturePDF extends Component {
                     download={file.name}>
                     <Icons size={'sm'} kind='download'/>
                 </a></div> : null}
-                {currentPage > 1 && isHovering ? <Icons size={'2x'} className='previousPage' kind='caretLeft' onClick={this.handlePreviousPageRequest.bind(this)}/> : null}
-                {currentPage < numPages && isHovering ? <Icons size={'2x'} className='nextPage' kind='caretRight' onClick={this.handleNextPageRequest.bind(this)}/> : null}
+                {currentPage > 1 && isHovering ? <a href='#previousPage' className='previousPage' onClick={this.handlePreviousPageRequest.bind(this)}>{'◀'}</a> : null}
+                {currentPage < numPages && isHovering ? <a href='#nextPage' className='nextPage'  onClick={this.handleNextPageRequest.bind(this)}>{'▶'}</a> : null}
                 {isHovering ? <div className='pageNumber'>{currentPage}</div> : null}
                 <div className='page' onClick={(e) => e.stopPropagation()}>
                     <Page width={100} height={140} renderMode='svg' pageNumber={currentPage}/>
@@ -173,7 +176,7 @@ MiniaturePDF.propTypes = {
     downloadLink     : PT.bool,
     addLink          : PT.bool,
     className        : PT.string,
-    currentPage      : PT.number.isRequired,
+    currentPage      : PT.number,
     onPreviousPage   : PT.func,
     onNextPage       : PT.func
 }

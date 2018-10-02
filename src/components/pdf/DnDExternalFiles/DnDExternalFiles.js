@@ -89,12 +89,11 @@ class DnDExternalFiles extends Component {
                                         )}>
                                         <File key={index} file={pdf} addLink={true}
                                             onAddDocument={this.addDocument.bind(this, pdf)}
-                                            onLoadSuccess={this.onLoadSuccess.bind(this, index)}
-                                            currentPage={1}/>
+                                            onLoadSuccess={this.onLoadSuccess.bind(this, index)}/>
                                     </div>
                                     {snapshot.isDragging && (
                                         <div className='cloneStyle'>
-                                            <File animate={false} key={index} file={pdf} currentPage={1}/>
+                                            <File animate={false} key={index} file={pdf}/>
                                         </div>
                                     )}
                                 </React.Fragment>

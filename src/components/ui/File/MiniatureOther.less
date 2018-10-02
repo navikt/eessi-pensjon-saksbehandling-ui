@@ -5,9 +5,7 @@
     text-align: center;
     -webkit-backface-visibility: hidden;
     &.animate {
-        -webkit-animation: cd-bounce-1 0.6s;
-        -moz-animation: cd-bounce-1 0.6s;
-        animation: cd-bounce-1 0.6s;
+        animation: fileFadeIn 0.4s;
     }
    .miniatureDocument {
         width: 90px;
@@ -25,4 +23,19 @@
         }
     }
 }
+
+@keyframes fileFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 

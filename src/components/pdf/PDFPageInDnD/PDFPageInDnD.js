@@ -6,10 +6,12 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import classNames from 'classnames';
 
-import { Ikon } from '../../components/ui/Nav';
+import { Ikon } from '../../../components/ui/Nav';
 
-import * as pdfActions from '../../actions/pdf';
-import * as uiActions from '../../actions/ui';
+import * as pdfActions from '../../../actions/pdf';
+import * as uiActions from '../../../actions/ui';
+
+import './PDFPageInDnD.css';
 
 const mapStateToProps = (state) => {
     return {
@@ -93,18 +95,20 @@ class PDFPageInDnD extends Component {
 
          const { pdf, pageNumber, action, pdfsize, className, style } = this.props;
 
-         let iconFunction, iconKind, iconLink;
+         let iconFunction, iconKind, iconLink, iconSize;
          if (action === 'add') {
              iconFunction = this.addPageToTargetPdf;
              iconKind = 'vedlegg'
+             iconSize = '20';
          } else {
-             iconFunction = this.removePageFromTargetPdf
+             iconFunction = this.removePageFromTargetPdf;
              iconKind = 'trashcan';
+             iconSize = '15';
          }
 
          if (this.state.isHovering) {
              iconLink = <Ikon style={{cursor: 'pointer'}}
-                 size={32} kind={iconKind}
+                 size={iconSize} kind={iconKind}
                  onClick={iconFunction.bind(this, pdf.name, pageNumber)}/>
          }
 
@@ -112,16 +116,13 @@ class PDFPageInDnD extends Component {
              onMouseEnter={this.onHandleMouseEnter.bind(this)}
              onMouseOver={this.onHandleMouseOver.bind(this)}
              onMouseLeave={this.onHandleMouseLeave.bind(this)}>
-             <Document className='position-relative' file={{data: pdf.data}}>
-                 <div className='position-absolute' style={{zIndex: 10, right: 2, top: 2}}>{iconLink}</div>
-                 <div>
-                     <Page
-                         onClick={this.openPreview.bind(this, pdf, pageNumber)}
-                         className='d-inline-block page'
-                         width={pdfsize} height={pdfsize * 1.3}
-                         renderMode='svg' pageNumber={pageNumber}/>
-                 </div>
-                 <div className='position-absolute' style={{zIndex: 10, right: 2, bottom: 2}}>{pageNumber}</div>
+             <Document className='PDFPageInDnD-document' file={{data: pdf.data}}>
+                 <div className='PDFPageInDnD-icon'>{iconLink}</div>
+                 <Page className='PDFPageInDnD-page'
+                     onClick={this.openPreview.bind(this, pdf, pageNumber)}
+                     width={pdfsize} height={pdfsize * 1.3}
+                     renderMode='svg' pageNumber={pageNumber}/>
+                 <div className='PDFPageInDnD-pageNumber'>{pageNumber}</div>
              </Document>
          </div>
      }

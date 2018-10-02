@@ -7,7 +7,7 @@ import { bindActionCreators }  from 'redux';
 import { translate } from 'react-i18next';
 import classNames from 'classnames';
 
-import PDFPageInDnD from '../PDFPageInDnD';
+import PDFPageInDnD from '../PDFPageInDnD/PDFPageInDnD';
 
 import * as pdfActions from '../../../actions/pdf';
 

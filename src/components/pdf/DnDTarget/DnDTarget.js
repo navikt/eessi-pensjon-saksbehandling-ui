@@ -5,7 +5,7 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import classNames from 'classnames';
 
-import PDFPageInDnD from '../PDFPageInDnD';
+import PDFPageInDnD from '../PDFPageInDnD/PDFPageInDnD';
 import './DnDTarget.css';
 
 const mapStateToProps = (state) => {

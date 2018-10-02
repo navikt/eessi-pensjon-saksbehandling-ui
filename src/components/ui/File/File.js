@@ -25,11 +25,12 @@ class File extends Component {
         const { file, animate } = this.props;
 
         let _animate = _.isBoolean(animate) ? animate : true;
+        let _size = this.renderBytes(file.size);
 
         if (_.endsWith(file.name, '.pdf')) {
-            return <MiniaturePDF animate={_animate} size={this.renderBytes(file.size)} {...this.props}/>
+            return <MiniaturePDF animate={_animate} size={_size} {...this.props}/>
         } else {
-            return <MiniatureOther animate={_animate} size={this.renderBytes(file.size)} {...this.props}/>
+            return <MiniatureOther animate={_animate} size={_size} {...this.props}/>
         }
     }
 }
