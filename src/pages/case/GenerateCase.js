@@ -104,7 +104,7 @@ class GenerateCase extends Component {
 
         let buttonText = savingCase ? t('case:loading-savingCase') : t('ui:confirmAndSave');
 
-        return <Case className='generateCase'
+        return <Case className='p-case-generateCase'
             title='case:app-generateCaseTitle'
             description='case:app-generateCaseDescription'
             stepIndicator={2}

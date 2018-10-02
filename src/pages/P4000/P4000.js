@@ -92,7 +92,7 @@ class P4000 extends Component {
         let Component   = components[activeItem];
         let isEventPage = activeItem !== 'view' && activeItem !== 'new' && activeItem !== 'file';
 
-        return <TopContainer className='p4000 topContainer'
+        return <TopContainer className='p-p4000'
             history={history} location={location}
             sideContent={<FrontPageDrawer t={t} status={status}/>}>
             <Nav.Row className='no-gutters'>

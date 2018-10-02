@@ -59,7 +59,7 @@ class SendCase extends Component {
 
         let { t, history, location } = this.props;
 
-        return <Case className='sendCase'
+        return <Case className='p-case-sendCase'
             title='case:app-sendCaseTitle'
             description='case:app-sendCaseDescription'
             stepIndicator={4}

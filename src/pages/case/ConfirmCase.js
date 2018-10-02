@@ -93,7 +93,7 @@ class ConfirmCase extends Component {
             return null;
         }
 
-        return <Case className='confirmCase'
+        return <Case className='p-case-confirmCase'
             title='case:app-confirmCaseTitle'
             description='case:app-confirmCaseDescription'
             stepIndicator={1}

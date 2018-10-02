@@ -1,9 +1,11 @@
-.frontPageLink {
-  transform: translateX(-20px);
-  opacity: 0;
-  animation: slideInFromLeft 0.2s forwards;
+.frontPage {
+    .frontPageLink {
+      transform: translateX(-20px);
+      opacity: 0;
+      animation: frontPage-slideInFromLeft 0.2s forwards;
+    }
 }
-@keyframes slideInFromLeft {
+@keyframes frontPage-slideInFromLeft {
   0% {
     opacity: 0;
     transform: translateX(-20px);

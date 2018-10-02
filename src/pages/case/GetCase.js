@@ -89,7 +89,7 @@ class GetCase extends Component {
 
         let buttonText = gettingCase ? t('case:loading-gettingCase') : t('ui:search');
 
-        return <Case className='getcase'
+        return <Case className='p-case-getcase'
             title='case:app-getCaseTitle'
             description='case:app-getCaseDescription'
             history={history}

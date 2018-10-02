@@ -46,7 +46,7 @@ class FrontPage extends Component {
 
         const { t, language, gettingStatus, gettingRinaCase, history, status, location } = this.props;
 
-        return <TopContainer className='frontPage topContainer'
+        return <TopContainer className='frontPage'
             language={language} history={history} location={location}
             sideContent={<EmptyDrawer/>}>
             <h1 className='appTitle'>{t('pageTitle')}</h1>

@@ -27,7 +27,7 @@ class Case extends Component {
 
         const { t, children, title, description, stepIndicator, className, history, location, status } = this.props;
 
-        return <TopContainer className={classNames('case','topContainer', className)}
+        return <TopContainer className={classNames('p-case-case', className)}
             history={history} location={location}
             sideContent={<FrontPageDrawer t={t} status={status}/>}>
             <h1 className='appTitle'>{t(title)}</h1>

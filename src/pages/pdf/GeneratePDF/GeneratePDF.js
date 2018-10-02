@@ -120,7 +120,7 @@ class GeneratePDF extends Component {
         const { t, history, generatingPDF, generatedPDFs, location } = this.props;
         let buttonText = generatingPDF ? t('pdf:loading-generatingPDF') : t('ui:startAgain');
 
-        return <TopContainer className='pdf topContainer'
+        return <TopContainer className='p-pdf-generatePDF'
             history={history} location={location}
             sideContent={<PdfDrawer/>}>
             <Nav.Row>

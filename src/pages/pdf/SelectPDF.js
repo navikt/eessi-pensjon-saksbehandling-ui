@@ -92,7 +92,7 @@ class SelectPDF extends Component {
 
         let buttonText = loadingPDF ? t('pdf:loading-loadingPDF') : t('ui:forward');
 
-        return <TopContainer className='pdf topContainer'
+        return <TopContainer className='p-pdf-selectPDF'
             history={history} location={location}
             sideContent={<PdfDrawer/>}>
             <h1 className='appTitle'>{t('pdf:app-selectPdfTitle')}</h1>

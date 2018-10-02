@@ -514,7 +514,7 @@ class EditCase extends Component {
             </Case>
         }
 
-        return <Case className='editCase'
+        return <Case className='p-case-editCase'
             title='case:app-editCaseTitle'
             description='case:app-editCaseDescription'
             stepIndicator={0}

@@ -132,7 +132,7 @@ class EditPDF extends Component {
 
         const { t, history, pdfs, pdfsize, dndTarget, recipe, location } = this.props;
 
-        return <TopContainer className='pdf topContainer'
+        return <TopContainer className='p-pdf-editPdf'
             history={history} location={location}
             sideContent={<PdfDrawer/>}>
             <div className='mt-4'>

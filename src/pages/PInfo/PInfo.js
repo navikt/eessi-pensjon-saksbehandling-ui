@@ -97,7 +97,7 @@ function isValid (e) {
 }
 
 const PInfo = (props) => (
-    <TopContainer className='pInfo topContainer'
+    <TopContainer className='p-pInfo'
         history={props.history} location={props.location}
         sideContent={<FrontPageDrawer t={props.t} status={props.status}/>}>
         <Nav.Row className='mb-4'>
