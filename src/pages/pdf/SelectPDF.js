@@ -8,7 +8,7 @@ import classNames from 'classnames';
 
 import ExternalFiles from '../../components/pdf/ExternalFiles/ExternalFiles';
 import * as Nav from '../../components/ui/Nav';
-import TopContainer from '../../components/ui/TopContainer';
+import TopContainer from '../../components/ui/TopContainer/TopContainer';
 import FileUpload from '../../components/ui/FileUpload/FileUpload';
 import PdfDrawer from '../../components/drawer/Pdf';
 

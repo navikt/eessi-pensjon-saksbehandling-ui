@@ -7,7 +7,7 @@ import Collapse from 'rc-collapse';
 import _ from 'lodash';
 
 import * as Nav from '../../../components/ui/Nav';
-import TopContainer from '../../../components/ui/TopContainer';
+import TopContainer from '../../../components/ui/TopContainer/TopContainer';
 import ClientAlert from '../../../components/ui/Alert/ClientAlert';
 import DnDSource from '../../../components/pdf/DnDSource/DnDSource';
 import DnDTarget from '../../../components/pdf/DnDTarget/DnDTarget';

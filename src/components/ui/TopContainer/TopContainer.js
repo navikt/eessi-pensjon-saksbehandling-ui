@@ -3,13 +3,15 @@ import PT from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 
-import * as Nav from './Nav';
-import TopHeader from './Header/TopHeader';
-import ServerAlert from './Alert/ServerAlert';
-import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
-import Drawer from './Drawer/Drawer';
-import Modal from './Modal';
+import * as Nav from '../Nav';
+import TopHeader from '../Header/TopHeader';
+import ServerAlert from '../Alert/ServerAlert';
+import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
+import Drawer from '../Drawer/Drawer';
+import Modal from '../Modal';
 import { DragDropContext } from 'react-beautiful-dnd';
+
+import './TopContainer.css';
 
 const mapStateToProps = (state) => {
     return {

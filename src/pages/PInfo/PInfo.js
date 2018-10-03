@@ -10,7 +10,7 @@ import lifecycle from 'react-pure-lifecycle';
 import 'react-datepicker/dist/react-datepicker.min.css';
 
 import * as Nav from '../../components/ui/Nav';
-import TopContainer from '../../components/ui/TopContainer';
+import TopContainer from '../../components/ui/TopContainer/TopContainer';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';
 import File from '../../components/ui/File/File';
 import FrontPageDrawer from '../../components/drawer/FrontPage';

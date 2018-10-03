@@ -6,7 +6,7 @@ import { translate } from 'react-i18next';
 import _ from 'lodash';
 
 import * as Nav from '../../../components/ui/Nav';
-import TopContainer from '../../../components/ui/TopContainer';
+import TopContainer from '../../../components/ui/TopContainer/TopContainer';
 import ClientAlert from '../../../components/ui/Alert/ClientAlert';
 import File from '../../../components/ui/File/File';
 import PdfDrawer from '../../../components/drawer/Pdf';

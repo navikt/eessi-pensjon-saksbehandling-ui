@@ -8,7 +8,7 @@ import './P4000.css';
 
 import Icons from '../../components/ui/Icons';
 import * as Nav from '../../components/ui/Nav';
-import TopContainer from '../../components/ui/TopContainer';
+import TopContainer from '../../components/ui/TopContainer/TopContainer';
 import EventForm from '../../components/p4000/EventForm/EventForm';
 import * as Menu from '../../components/p4000/menu/';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';

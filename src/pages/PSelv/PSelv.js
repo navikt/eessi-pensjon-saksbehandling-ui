@@ -10,7 +10,7 @@ import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.min.css';
 
 import * as Nav from '../../components/ui/Nav';
-import TopContainer from '../../components/ui/TopContainer';
+import TopContainer from '../../components/ui/TopContainer/TopContainer';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';
 import CountrySelect from '../../components/ui/CountrySelect/CountrySelect';
 import FrontPageDrawer from '../../components/drawer/FrontPage';

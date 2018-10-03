@@ -112,9 +112,9 @@ class EventForm extends React.Component {
 
         return <Nav.Panel className='p-0 c-p4000-eventForm'>
             <EventList className={classNames({'hiding' : hideEventList})}
-            events={events} eventIndex={eventIndex}
-            cancelEditRequest={this.handleCancelRequest.bind(this)}
-            handleEditRequest={this.handleEditRequest.bind(this)}/>
+                events={events} eventIndex={eventIndex}
+                cancelEditRequest={this.handleCancelRequest.bind(this)}
+                handleEditRequest={this.handleEditRequest.bind(this)}/>
             <Nav.Row className={classNames('row-component', 'no-gutters', 'mb-4', {'editMode' : editMode})}>
                 <Nav.Column>
                     <Component history={history} location={location} type={type} provideController={(component) => {this.component = component}}/>

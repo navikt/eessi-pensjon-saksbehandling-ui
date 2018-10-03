@@ -59,6 +59,22 @@
     .badge.selected:before {
         background: transparent;
     }
+    &:nth-child(2n-1) .badge {
+      opacity: 0;
+      animation-delay: 0.3s;
+    }
+    &:nth-child(2n) .badge {
+      opacity: 0;
+      animation-delay: 0.1s;
+    }
+    &:nth-child(3n) .badge {
+      opacity: 0;
+      animation-delay: 0.2s;
+    }
+    &:nth-child(5n) .badge {
+      opacity: 0;
+      animation-delay: 0.4s;
+    }
 }
 
 @keyframes badgeFadeIn {

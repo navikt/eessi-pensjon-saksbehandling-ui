@@ -8,7 +8,7 @@ import _ from 'lodash';
 import 'url-search-params-polyfill';
 
 import LanguageSelector from '../components/ui/LanguageSelector';
-import TopContainer from '../components/ui/TopContainer';
+import TopContainer from '../components/ui/TopContainer/TopContainer';
 import * as Nav from '../components/ui/Nav';
 import DocumentStatus from '../components/ui/DocumentStatus/DocumentStatus';
 import ClientAlert from '../components/ui/Alert/ClientAlert';

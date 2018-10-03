@@ -5,7 +5,7 @@ import { translate } from 'react-i18next';
 import classNames from 'classnames';
 
 import * as Nav from '../../components/ui/Nav';
-import TopContainer from '../../components/ui/TopContainer';
+import TopContainer from '../../components/ui/TopContainer/TopContainer';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';
 import FrontPageDrawer from '../../components/drawer/FrontPage';
 
