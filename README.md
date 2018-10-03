@@ -46,9 +46,7 @@ Run  `run-build.bat` (Windows) or `./run-build.sh` (Mac/Linux). It will compile 
 
 # Henvendelser
 
-Spørsmål knyttet til koden eller prosjektet kan rettes mot:
-
-* David Steinsland, david.steinsland@nav.no
+Spørsmål knyttet til koden eller prosjektet kan stilles som issues her på GitHub.
 
 ## For NAV-ansatte
 
