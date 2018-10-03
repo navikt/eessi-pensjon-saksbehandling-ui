@@ -5,21 +5,28 @@
     margin-right: 1rem;
 
     .badge {
-        position: relative;
         background: #0067c5;
         padding: 0px !important;
-        color: white;
         width: 60px !important;
         height: 60px;
         border-radius: 10px !important;
         /* Force Hardware Acceleration in WebKit */
         transform: translateZ(0);
         animation: badgeFadeIn 0.4s forwards;
-        cursor: pointer;
-        box-shadow: 3px 3px 3px lightgray;
         transition: all .2s ease-in-out;
+        cursor: pointer;
+        box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+
         &:hover {
             transform: scale(1.2);
+        }
+        &.selected,
+        &.selected.knapp--hoved:focus{
+          background: red;
+          transform: scale(1.2);
+        }
+        &.selected:before {
+            background: transparent;
         }
     }
     .badgeLine {
@@ -51,14 +58,6 @@
        margin: 0.5rem;
     }
 
-    .badge.selected,
-    .badge.selected.knapp--hoved:focus{
-      background: red;
-      transform: scale(1.2);
-    }
-    .badge.selected:before {
-        background: transparent;
-    }
     &:nth-child(2n-1) .badge {
       opacity: 0;
       animation-delay: 0.3s;

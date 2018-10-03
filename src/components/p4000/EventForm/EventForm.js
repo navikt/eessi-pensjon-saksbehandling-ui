@@ -110,7 +110,7 @@ class EventForm extends React.Component {
         let isEventPage = ! ((type === 'view' || type === 'new' || type === 'file'));
         let hideEventList = (type === 'view' || _.isEmpty(events));
 
-        return <Nav.Panel className='p-0 c-p4000-eventForm'>
+        return <Nav.Panel className='c-p4000-eventForm p-0'>
             <EventList className={classNames({'hiding' : hideEventList})}
                 events={events} eventIndex={eventIndex}
                 cancelEditRequest={this.handleCancelRequest.bind(this)}

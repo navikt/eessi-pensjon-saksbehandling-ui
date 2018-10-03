@@ -112,7 +112,7 @@ class SaveCase extends Component {
             stepIndicator={3}
             history={history}
             location={location}>
-            <div className='fieldset p-4 m-4'>
+            <div className='fieldset'>
                 <Nav.Row>
                     <Nav.Column className='saveCase'>
                         {body}

@@ -177,12 +177,12 @@ class New extends Component {
 
         const { t, events } = this.props;
 
-        return <Nav.Panel className='c-p4000-menu-new p-0'>
+        return <Nav.Panel className='c-p4000-menu-new mt-4 p-0'>
             <div>
                 <a className='hiddenFileInputOutput' ref={fileOutput => this.fileOutput = fileOutput}
                     href={this.state.fileOutput} download='p4000.json'>&nbsp;</a>
             </div>
-            <div className='m-4 p-4 fieldset'>
+            <div className='fieldset'>
                 <Nav.HjelpetekstBase>{t('p4000:help-new-event')}</Nav.HjelpetekstBase>
                 <h1 className='m-0 mb-4'>{t('ui:new')}{' '}{t('p4000:type-event')}</h1>
                 <div className='bigButtons'>
@@ -198,7 +198,7 @@ class New extends Component {
                     })}
                 </div>
             </div>
-            <div style={{animationDelay: '0.3s'}} className='m-4 p-4 fieldset'>
+            <div style={{animationDelay: '0.3s'}} className='fieldset'>
                 <Nav.HjelpetekstBase>{t('p4000:help-new-options')}</Nav.HjelpetekstBase>
                 <h1 className='m-0 mb-4'>{t('ui:options')}</h1>
                 <div style={{display: 'flex', flexWrap: 'wrap'}}>

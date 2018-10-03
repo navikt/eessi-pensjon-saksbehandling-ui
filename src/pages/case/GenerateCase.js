@@ -110,7 +110,7 @@ class GenerateCase extends Component {
             stepIndicator={2}
             history={history}
             location={location}>
-            <div className='fieldset p-4 m-4'>
+            <div className='fieldset'>
                 <Nav.Row>
                     <Nav.Column>
                         <RenderGeneratedData dataToGenerate={dataToGenerate} dataToConfirm={dataToConfirm}/>

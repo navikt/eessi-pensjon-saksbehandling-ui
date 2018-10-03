@@ -9,12 +9,6 @@ import './EventList.css';
 
 class EventList extends Component {
 
-    handleClick(index) {
-
-        const { handleEditRequest } = this.props;
-        handleEditRequest(index);
-    }
-
     render() {
 
         const { t, events, eventIndex, handleEditRequest, cancelEditRequest, className } = this.props;
@@ -23,7 +17,7 @@ class EventList extends Component {
             return null;
         }
 
-        return <div className={classNames('c-p4000-eventList', 'm-2', className)}>
+        return <div className={classNames('c-p4000-eventList', className)}>
             <div className='ml-2 mt-1'>{t('p4000:form-eventsSoFar')}</div>
             <div className='flex-eventList'>
                 {(() => {

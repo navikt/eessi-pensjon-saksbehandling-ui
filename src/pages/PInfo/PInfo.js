@@ -121,7 +121,7 @@ const PInfo = (props) => (
                     ]}/>
             </Nav.Column>
         </Nav.Row>
-        <div className={classNames('fieldset','p-4','mb-4','ml-3','mr-3')}>
+        <div className={classNames('fieldset','mb-4')}>
             <Nav.HjelpetekstBase>{props.t('pinfo:help-step' + props.form.step )}</Nav.HjelpetekstBase>
 
             {props.form.step === 0 ?
