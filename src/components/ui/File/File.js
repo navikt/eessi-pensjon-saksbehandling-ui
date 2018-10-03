@@ -20,15 +20,16 @@ class File extends Component {
 
     render () {
 
-        const { file, animate } = this.props;
+        const { file, animate, scale } = this.props;
 
         let _animate = _.isBoolean(animate) ? animate : true;
         let _size = this.renderBytes(file.size);
+        let _scale = scale || 1.0;
 
         if (_.endsWith(file.name, '.pdf')) {
-            return <MiniaturePDF animate={_animate} size={_size} {...this.props}/>
+            return <MiniaturePDF animate={_animate} size={_size} scale={_scale} {...this.props}/>
         } else {
-            return <MiniatureOther animate={_animate} size={_size} {...this.props}/>
+            return <MiniatureOther animate={_animate} size={_size} scale={_scale} {...this.props}/>
         }
     }
 }

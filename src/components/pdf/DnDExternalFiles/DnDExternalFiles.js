@@ -4,6 +4,7 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import { bindActionCreators }  from 'redux';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 
 import File from '../../ui/File/File';
 import './DnDExternalFiles.css';
@@ -70,14 +71,16 @@ class DnDExternalFiles extends Component {
                                     <React.Fragment>
                                         <div ref={provided.innerRef}
                                             {...provided.draggableProps}
-                                            {...provided.dragHandleProps}>
-                                            <File key={index} file={pdf} addLink={true}
+                                            {...provided.dragHandleProps}
+                                            className={classNames({'dragging' : snapshot.isDragging})}
+                                            >
+                                            <File key={index} file={pdf} addLink={true} scale={1.0}
                                                 onAddDocument={this.addDocument.bind(this, pdf)}
                                                 onLoadSuccess={this.onLoadSuccess.bind(this, index)}/>
                                         </div>
                                         {snapshot.isDragging && (
                                             <div className='cloneStyle'>
-                                                <File animate={false} key={index} file={pdf}/>
+                                                <File animate={false} key={index} file={pdf} scale={1.0}/>
                                             </div>
                                         )}
                                     </React.Fragment>

@@ -208,7 +208,7 @@ class FileUpload extends Component {
 
                 {(provided, snapshot) => (
 
-                    <Dropzone className={classNames('c-ui-fileUpload-dropzone', 'p-2', className)} length={this.state.files.length}
+                    <Dropzone className={classNames('dropzone', 'p-2', className)} length={this.state.files.length}
                         activeClassName='dropzone-active' accept={accept} onDrop={this.onDrop.bind(this)} inputProps={{...this.props.inputProps}}>
 
                         <div ref={provided.innerRef} className={classNames('droppable-zone', {'droppable-zone-active ' : snapshot.isDraggingOver})}>

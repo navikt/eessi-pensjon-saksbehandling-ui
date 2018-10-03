@@ -6,7 +6,7 @@ import _ from 'lodash';
 let initialState =  {
     recipe: {},
     pdfs: [],
-    pdfsize: 100,
+    pdfsize: 1.0,
     dndTarget: 'work'
 };
 

@@ -38,7 +38,7 @@ class DnDTarget extends Component {
 
                                 {(provided, snapshot) => (
 
-                                    <div className={classNames('c-pdf-dndTarget-draggable')}
+                                    <div className={classNames('c-pdf-dndTarget-draggable', { dragging : snapshot.isDragging })}
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}>

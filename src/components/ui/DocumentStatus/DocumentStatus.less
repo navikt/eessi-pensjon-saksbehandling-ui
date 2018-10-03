@@ -4,17 +4,12 @@
     background-color: white;
     box-shadow: inset 3px 3px 3px lightgrey;
 
-    .flex-documentStatus {
+    .flex {
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;
         padding: 10px;
         height: 100px;
-    }
-
-    .document svg {
-        margin-left: 1rem;
-        margin-bottom: 0.25rem;
     }
 
     .document {
@@ -25,9 +20,15 @@
       border: none !important;
       transform: translateZ(0);
       animation: c-ui-documentStatus-shrink 0.3s forwards;
-    }
-    .document:hover svg {
-      transform: scale(1.1) !important;
+
+      &:hover svg {
+        transform: scale(1.1) !important;
+      }
+
+      svg {
+          margin-left: 1rem;
+          margin-bottom: 0.25rem;
+      }
     }
 
     .sent {
@@ -39,7 +40,6 @@
     .error {
       background-color: red !important;
     }
-
 }
 
 @keyframes c-ui-documentStatus-shrink {

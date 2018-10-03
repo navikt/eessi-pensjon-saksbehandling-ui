@@ -1,6 +1,6 @@
 .c-ui-file {
-    .addLink, .deleteLink {
-        right: 0px;
+
+    .link {
         top: 0px;
         position: absolute;
         z-index: 10;
@@ -8,26 +8,21 @@
         padding: 1px 5px;
         border-radius: 3px;
         box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
-    }
 
-    .deleteLink:hover, .addLink:hover, .downloadLink:hover {
-        background-color: lightblue;
-    }
+        &.addLink, &.deleteLink {
+            right: 0px;
 
-    .downloadLink {
-        position: absolute;
-        z-index: 10;
-        right: 26px;
-        top: 0px;
-        background-color: white;
-        padding: 1px 5px;
-        border-radius: 3px;
-        box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
-    }
+            &:hover {
+                background-color: lightblue;
+            }
+        }
 
-    .fileName,
-    .fileSize,
-    .numPages {
-        font-size: 0.7rem;
+        &.downloadLink {
+             right: 26px;
+
+             &:hover {
+                background-color: lightblue;
+             }
+        }
     }
 }

@@ -7,22 +7,27 @@
         display: flex;
         flex-direction: column;
         box-shadow: inset 5px 5px 5px lightgrey;
-    }
 
-    .c-pdf-dndTarget-droppable-active {
-        background-color: rgba(0,128,0,0.2);
-        animation: dndTargetPulsate 1s ease-out;
-        animation-iteration-count: infinite;
+         &-active {
+                background-color: rgba(0,128,0,0.2);
+                animation: dndTargetPulsate 1s ease-out;
+                animation-iteration-count: infinite;
+         }
     }
 
     .c-pdf-dndTarget-draggable {
          margin: 5px;
+
+         &-active {
+             border: 2px dashed gray;
+             padding: 2px;
+             animation: dndTargetPulsateBorder 1s ease-out;
+             animation-iteration-count: infinite;
+         }
     }
-    .c-pdf-dndTarget-draggable-active {
-        border: 2px dashed gray;
-        padding: 2px;
-        animation: dndTargetPulsateBorder 1s ease-out;
-        animation-iteration-count: infinite;
+
+    .dragging {
+        opacity: 0.5;
     }
 }
 

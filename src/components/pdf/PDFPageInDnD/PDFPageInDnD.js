@@ -7,6 +7,7 @@ import _ from 'lodash';
 import classNames from 'classnames';
 
 import { Ikon } from '../../../components/ui/Nav';
+import Icons from '../../../components/ui/Icons';
 
 import * as pdfActions from '../../../actions/pdf';
 import * as uiActions from '../../../actions/ui';
@@ -117,10 +118,14 @@ class PDFPageInDnD extends Component {
              onMouseOver={this.onHandleMouseOver.bind(this)}
              onMouseLeave={this.onHandleMouseLeave.bind(this)}>
              <Document className='document' file={{data: pdf.data}}>
-                 <div className='icon'>{iconLink}</div>
+                 <div className='icon actionIcon'>{iconLink}</div>
+                 {this.state.isHovering ? <div className='icon previewIcon'>
+                     <Icons style={{cursor: 'pointer'}}
+                          size={'20'} kind={'view'}
+                          onClick={this.openPreview.bind(this, pdf, pageNumber)}/>
+                  </div> : null}
                  <Page className='page'
-                     onClick={this.openPreview.bind(this, pdf, pageNumber)}
-                     width={pdfsize} height={pdfsize * 1.3}
+                     width={100 * pdfsize} height={140 * pdfsize}
                      renderMode='svg' pageNumber={pageNumber}/>
                  <div className='pageNumber'>{pageNumber}</div>
              </Document>

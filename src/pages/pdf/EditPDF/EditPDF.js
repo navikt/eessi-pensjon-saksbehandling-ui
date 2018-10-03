@@ -27,7 +27,6 @@ const mapStateToProps = (state) => {
         language     : state.ui.language,
         pdfs         : state.pdf.pdfs,
         recipe       : state.pdf.recipe,
-        pdfsize      : state.pdf.pdfsize,
         dndTarget    : state.pdf.dndTarget
     }
 };
@@ -130,7 +129,7 @@ class EditPDF extends Component {
 
     render() {
 
-        const { t, history, pdfs, pdfsize, dndTarget, recipe, location } = this.props;
+        const { t, history, pdfs, dndTarget, recipe, location } = this.props;
 
         return <TopContainer className='p-pdf-editPdf'
             history={history} location={location}
@@ -145,7 +144,7 @@ class EditPDF extends Component {
             </div>
             <Nav.Row className='m-4'>
                 <DnD>
-                    <Nav.Column className='col-sm-2 mb-4' style={{maxWidth: pdfsize + 50}}>
+                    <Nav.Column className='col-sm-2 mb-4'>
                         <Collapse className='dndtargets' destroyInactivePanel={true} activeKey={dndTarget} accordion={true} onChange={this.handleAccordionChange.bind(this)}>
                             <Collapse.Panel key='work' header={t('pdf:form-work') + ' (' + (recipe.work ? recipe.work.length : '0') + ')'} showArrow={true}>
                                 <DnDTarget targetId='work'/>
@@ -198,7 +197,6 @@ EditPDF.propTypes = {
     t            : PT.func,
     pdfs         : PT.array.isRequired,
     recipe       : PT.object.isRequired,
-    pdfsize      : PT.number,
     dndTarget    : PT.string,
     location     : PT.object.isRequired
 };

@@ -7,29 +7,28 @@
     &.animate {
         animation: c-ui-miniaturePdf-FadeIn 0.4s;
     }
-
     .page {
         border: none;
         box-shadow: 3px 3px 3px lightgray;
-        background: linear-gradient(-45deg, rgba(255,255,255,1), rgba(255,255,255,1)), linear-gradient(45deg, rgba(255,255,255,1), rgba(255,255,255,1)), linear-gradient(135deg, transparent 14px, rgba(255,255,255,1) 14px);
+        background: linear-gradient(-45deg, rgba(255,255,255,1), rgba(255,255,255,1)), linear-gradient(45deg, rgba(255,255,255,1), rgba(255,255,255,1)), linear-gradient(135deg, transparent 7%, rgba(255,255,255,1) 7%);
         background-size: 50% 0%, 50% 100%, 100% 100%;
         background-position: 0 0, 100% 100%, 100% 0;
         background-repeat: no-repeat;
-    }
 
-    .page:after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 20px;
-        height: 20px;
-        box-shadow: 1px 1px 1px rgba(128,128,128,0.3), 2px 2px 2px rgba(128,128,128,0.2);
-        background: linear-gradient(135deg, transparent 50%, rgba(255,255,255,1) 50%);
-    }
+         &:after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 16%;
+                height: 11%;
+                box-shadow: 1px 1px 1px rgba(128,128,128,0.3), 2px 2px 2px rgba(128,128,128,0.2);
+                background: linear-gradient(135deg, transparent 50%, rgba(255,255,255,1) 50%);
+         }
 
-    .page .react-pdf__Page__svg  {
-        background: transparent !important;
+         .react-pdf__Page__svg  {
+                 background: transparent !important;
+         }
     }
 
     *, :after, :before {
@@ -52,20 +51,19 @@
         text-decoration: none;
         font-size: 1.2rem;
         position: absolute;
-        top:30%;
+        top:45%;
         z-index: 2;
         -webkit-text-stroke: 2px white;
-    }
 
-
-    .previousPage:hover, .nextPage:hover {
-        text-decoration: none;
+        &:hover {
+            text-decoration: none;
+        }
     }
 
     .pageNumber {
         position: absolute;
-        bottom: 50px;
-        right:5px;
+        bottom: 0px;
+        right : 0px;
         z-index: 2;
         background-color: white;
         padding: 0px 3px;

@@ -131,23 +131,24 @@ class MiniaturePDF extends Component {
 
     render () {
 
-        const { t, file, size, addLink, deleteLink, downloadLink, className, animate } = this.props;
+        const { t, file, size, addLink, deleteLink, downloadLink, className, animate, scale } = this.props;
         const { numPages, isHovering, currentPage } = this.state;
 
-        const title = '' + file.name + '&#13;' + t('ui:pages') + ': ' + (numPages || '0') + '&#13;' + t('ui:size') + ': ' + size;
+        const title = '' + file.name + '\n' + t('ui:pages') + ': ' + (numPages || '0') + '\n' + t('ui:size') + ': ' + size;
 
         return <div title={title} className={classNames('c-ui-file', 'c-ui-miniaturePdf', className, {'animate' : animate})}
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
-            onMouseLeave={this.onHandleMouseLeave.bind(this)}>
+            onMouseLeave={this.onHandleMouseLeave.bind(this)}
+            style={{transform: 'scale(' + scale + ')'}}>
             <Document className='position-relative' file={{data: file.data }}
                 onLoadSuccess={this.handleOnLoadSuccess.bind(this)}>
-                { deleteLink && isHovering ? <div className='deleteLink'>
+                { deleteLink && isHovering ? <div className='link deleteLink'>
                     <Ikon size={15} kind='trashcan' onClick={this.onDeleteDocument.bind(this)}/>
                 </div> : null}
-                { addLink && isHovering ? <div className='addLink'>
+                { addLink && isHovering ? <div className='link addLink'>
                     <Ikon size={20} kind='vedlegg' onClick={this.onAddDocument.bind(this)}/>
                 </div> : null}
-                { downloadLink && isHovering ? <div className='downloadLink'><a
+                { downloadLink && isHovering ? <div className='link downloadLink'><a
                     onClick={(e) => e.stopPropagation()} title={t('ui:download')}
                     href={'data:application/octet-stream;base64,' + encodeURIComponent(file.base64)}
                     download={file.name}>
@@ -178,7 +179,8 @@ MiniaturePDF.propTypes = {
     className        : PT.string,
     currentPage      : PT.number,
     onPreviousPage   : PT.func,
-    onNextPage       : PT.func
+    onNextPage       : PT.func,
+    scale            : PT.number.isRequired
 }
 
 export default translate()(MiniaturePDF);

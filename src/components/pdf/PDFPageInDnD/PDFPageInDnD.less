@@ -1,4 +1,5 @@
 .c-pdf-PDFPageInDnD {
+
     display: inline-block;
 
     .pageNumber {
@@ -22,32 +23,42 @@
        padding: 0px 5px;
        border-radius: 3px;
        box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
-       right: 0px;
        top: 0px;
+
+       &:hover {
+            background-color: lightblue;
+       }
+
+       &.actionIcon {
+          right: 0px;
+       }
+
+       &.previewIcon {
+          right: 30px;
+       }
     }
 
     .page {
         display: inline-block;
         border: none;
         box-shadow: 3px 3px 3px lightgray;
-        background: linear-gradient(-45deg, rgba(255,255,255,1), rgba(255,255,255,1)), linear-gradient(45deg, rgba(255,255,255,1), rgba(255,255,255,1)), linear-gradient(135deg, transparent 14px, rgba(255,255,255,1) 14px);
+        background: linear-gradient(-45deg, rgba(255,255,255,1), rgba(255,255,255,1)), linear-gradient(45deg, rgba(255,255,255,1), rgba(255,255,255,1)), linear-gradient(135deg, transparent 7%, rgba(255,255,255,1) 7%);
         background-size: 50% 0%, 50% 100%, 100% 100%;
         background-position: 0 0, 100% 100%, 100% 0;
         background-repeat: no-repeat;
-    }
 
-    .page:after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 20px;
-        height: 20px;
-        box-shadow: 1px 1px 1px rgba(128,128,128,0.3), 2px 2px 2px rgba(128,128,128,0.2);
-        background: linear-gradient(135deg, transparent 50%, rgba(255,255,255,1) 50%);
-    }
-
-    .page .react-pdf__Page__svg  {
-        background: transparent !important;
+        &:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 16%;
+            height: 11%;
+            box-shadow: 1px 1px 1px rgba(128,128,128,0.3), 2px 2px 2px rgba(128,128,128,0.2);
+            background: linear-gradient(135deg, transparent 50%, rgba(255,255,255,1) 50%);
+        }
+        .react-pdf__Page__svg  {
+            background: transparent !important;
+        }
     }
 }

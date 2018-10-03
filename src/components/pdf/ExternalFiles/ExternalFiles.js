@@ -8,6 +8,8 @@ import * as Nav from '../../ui/Nav';
 import DnDExternalFiles from '../DnDExternalFiles/DnDExternalFiles';
 import * as pdfActions from '../../../actions/pdf';
 
+import './ExternalFiles.css';
+
 const mapStateToProps = (state) => {
     return {
         loadingExtPDF: state.loading.loadingExtPDF,
@@ -37,8 +39,7 @@ class ExternalFiles extends Component {
         return <Nav.Ekspanderbartpanel style={style} className='c-pdf-externalFiles fieldset'
             apen={false} tittel={t('ui:fileSelect')} tittelProps='undertittel'
             onClick={this.requestExternalFileList.bind(this)}>
-            <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
-            <div style={{minHeight: '200px'}}>
+            <div className='fileArea'>
                 {loadingExtPDF ? <div className='w-100 text-center'>
                     <Nav.NavFrontendSpinner/>
                     <p>{t('pdf:loading-loadingExtPDF')}</p>
