@@ -134,7 +134,9 @@ class MiniaturePDF extends Component {
         const { t, file, size, addLink, deleteLink, downloadLink, className, animate } = this.props;
         const { numPages, isHovering, currentPage } = this.state;
 
-        return <div className={classNames('c-ui-file', 'c-ui-miniaturePdf', className, {'animate' : animate})}
+        const title = '' + file.name + '&#13;' + t('ui:pages') + ': ' + (numPages || '0') + '&#13;' + t('ui:size') + ': ' + size;
+
+        return <div title={title} className={classNames('c-ui-file', 'c-ui-miniaturePdf', className, {'animate' : animate})}
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
             onMouseLeave={this.onHandleMouseLeave.bind(this)}>
             <Document className='position-relative' file={{data: file.data }}
@@ -157,9 +159,6 @@ class MiniaturePDF extends Component {
                 <div className='page' onClick={(e) => e.stopPropagation()}>
                     <Page width={100} height={140} renderMode='svg' pageNumber={currentPage}/>
                 </div>
-                <div className='fileName'> {file.name}</div>
-                <div className='numPages'>{t('ui:pages')}{': '}{numPages || '0'}</div>
-                <div className='fileSize'>{t('ui:size')}{': '}{size}</div>
             </Document>
         </div>
     }

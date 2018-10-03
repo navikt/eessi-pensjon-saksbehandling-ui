@@ -268,7 +268,7 @@ class PSelv extends Component {
                         ]}/>
                 </Nav.Column>
             </Nav.Row>
-            <div className={classNames('fieldset','p-4','mb-4','ml-3','mr-3', {
+            <div className={classNames('fieldset','mb-4', {
                 validationFail : this ? this.hasValidationErrors() : false
             })}>
                 <Nav.HjelpetekstBase>{t('pselv:help-step' + step )}</Nav.HjelpetekstBase>

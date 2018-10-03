@@ -1,10 +1,10 @@
 import File from './File/File';
 import View from './View/View';
-import Work from './Work';
-import Learn from './Learn';
-import Child from './Child';
+import Work from './Event/Work';
+import Learn from './Event/Learn';
+import Child from './Event/Child';
 import New from './New/New';
-import GenericEvent from './GenericEvent';
+import GenericEvent from './Event/GenericEvent';
 
 export {
     File,

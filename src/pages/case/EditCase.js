@@ -520,7 +520,7 @@ class EditCase extends Component {
             stepIndicator={0}
             history={history}
             location={location}>
-            <div className='fieldset p-4 m-4'>
+            <div className='fieldset'>
                 <Nav.Row className='mb-3 align-middle text-left'>
                     <div className='col-md-6'>{this.renderSubjectArea()}</div>
                     <div className='col-md-6 selectBoxMessage'>
@@ -544,7 +544,7 @@ class EditCase extends Component {
                 </Nav.Row>
             </div>
 
-            <div className='fieldset p-4 m-4' style={{animationDelay: '0.3s'}}>
+            <div className='fieldset' style={{animationDelay: '0.3s'}}>
                 {this.renderInstitutions()}
                 <div>{rinaId ? t('case:form-rinaId') + ': ' + rinaId : null}</div>
             </div>

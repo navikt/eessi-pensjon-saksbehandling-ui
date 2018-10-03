@@ -5,15 +5,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import classNames from 'classnames';
 
-import * as p4000Actions from '../../../actions/p4000';
-import * as appActions from '../../../actions/app';
+import * as p4000Actions from '../../../../actions/p4000';
+import * as appActions from '../../../../actions/app';
 
-import FileUpload from '../../ui/FileUpload/FileUpload';
-import CountrySelect from '../../ui/CountrySelect/CountrySelect';
-import DatePicker from '../DatePicker/DatePicker';
-import Validation from '../Validation';
-import * as Nav from '../../ui/Nav';
-import Icons from '../../ui/Icons';
+import FileUpload from '../../../ui/FileUpload/FileUpload';
+import CountrySelect from '../../../ui/CountrySelect/CountrySelect';
+import DatePicker from '../../DatePicker/DatePicker';
+import Validation from '../../Validation';
+import * as Nav from '../../../ui/Nav';
+import Icons from '../../../ui/Icons';
+
+import './Event.css';
 
 const mapStateToProps = (state) => {
     return {
@@ -27,9 +29,11 @@ const mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(Object.assign({}, appActions, p4000Actions), dispatch)};
 };
 
-class GenericEvent extends Component {
+class Work extends Component {
 
-    state = {}
+    state = {
+        files : {}
+    }
 
     componentDidMount() {
 
@@ -52,12 +56,17 @@ class GenericEvent extends Component {
         actions.unregisterDroppable('fileUpload');
     }
 
+    hasNoInfoErrors() {
+        return this.state.infoValidationError === undefined
+    }
+
     hasNoOtherErrors() {
         return this.state.otherValidationError === undefined
     }
 
     hasNoValidationErrors() {
-        return this.hasNoOtherErrors() && this.datepicker ? this.datepicker.hasNoValidationErrors() : undefined;
+        return this.hasNoInfoErrors() && this.hasNoOtherErrors() &&
+            this.datepicker ? this.datepicker.hasNoValidationErrors() : undefined;
     }
 
     async resetValidation() {
@@ -69,6 +78,7 @@ class GenericEvent extends Component {
                     await this.datepicker.resetValidation();
                 }
                 this.setState({
+                    infoValidationError: undefined,
                     otherValidationError: undefined
                 }, () => {
                     resolve();
@@ -91,8 +101,10 @@ class GenericEvent extends Component {
                 }
 
                 this.setState({
+                    infoValidationError : Validation.validateWorkInfo(event),
                     otherValidationError : Validation.validateOther(event)
                 }, () => {
+                    // after setting up state, use it to see the validation state
                     resolve(this.hasNoValidationErrors());
                 });
             } catch (error) {
@@ -111,20 +123,18 @@ class GenericEvent extends Component {
 
         const { t, event, editMode, actions, type, locale } = this.props;
 
-        return <Nav.Panel className='m-4'>
-            <Nav.Row className='eventTitle mb-4'>
-                <Nav.Column>
-                    <Icons size='3x' kind={type} className='float-left mr-4'/>
-                    <h1 className='m-0'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('p4000:' + type + '-title')}</h1>
-                </Nav.Column>
-            </Nav.Row>
-            <Nav.Row className='eventDescription mb-4 p-4 fieldset'>
+        return <Nav.Panel className='c-p4000-menu-event p-0'>
+            <div className='eventTitle m-4'>
+                <Icons size='3x' kind={type} className='float-left mr-4'/>
+                <h1 className='m-0'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('p4000:' + type + '-title')}</h1>
+            </div>
+            <Nav.Row className='eventDescription mb-4 fieldset'>
                 <Nav.Column>
                     <Nav.Ikon className='float-left mr-4' kind='info-sirkel' />
                     <Nav.Tekstomrade>{t('p4000:' + type + '-description')}</Nav.Tekstomrade>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className={classNames('eventDates','mb-4','p-4','fieldset', {
+            <Nav.Row className={classNames('eventDates','mb-4','fieldset', {
                 validationFail : this.datepicker ? !this.datepicker.hasNoValidationErrors() : false
             })}>
                 <Nav.Column>
@@ -133,26 +143,57 @@ class GenericEvent extends Component {
                     <DatePicker provideController={(datepicker) => this.datepicker = datepicker}/>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className={classNames('eventOther','mb-4','p-4','fieldset', {
+            <Nav.Row className={classNames('eventInfo','mb-4','fieldset', {
+                validationFail : this ? !this.hasNoInfoErrors() : false
+            })}>
+                <Nav.Column>
+                    {!this.hasNoInfoErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.infoValidationError)}</Nav.AlertStripe> : null}
+                    <Nav.HjelpetekstBase>{t('p4000:help-' + type + '-info')}</Nav.HjelpetekstBase>
+                    <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-2-info-title')}</h2>
+
+                    <Nav.Input className='activity'
+                        label={t('p4000:' + type + '-fieldset-2_1-activity') + ' *'} value={event.activity || ''}
+                        onChange={(e) => {actions.setEventProperty('activity', e.target.value)}} />
+
+                    <Nav.Input className='id'
+                        label={t('p4000:' + type + '-fieldset-2_2-id') + ' *'} value={event.id || ''}
+                        onChange={(e) => {actions.setEventProperty('id', e.target.value)}} />
+
+                    <Nav.Input className='name'
+                        label={t('p4000:' + type + '-fieldset-2_3-name') + ' *'} value={event.name || ''}
+                        onChange={(e) => {actions.setEventProperty('name', e.target.value)}} />
+
+                    <Nav.Textarea id='address' style={{minHeight:'200px'}}
+                        label={t('p4000:' + type + '-fieldset-2_4-address') + ' *'} value={event.address || ''}
+                        onChange={(e) => {actions.setEventProperty('address', e.target.value)}} />
+
+                    <Nav.Input className='city'
+                        label={t('ui:city') + ' *'} value={event.city || ''}
+                        onChange={(e) => {actions.setEventProperty('city', e.target.value)}} />
+
+                    <Nav.Input className='region'
+                        label={t('ui:region') + ' *'} value={event.region || ''}
+                        onChange={(e) => {actions.setEventProperty('region', e.target.value)}} />
+                </Nav.Column>
+            </Nav.Row>
+            <Nav.Row className={classNames('eventOther','mb-4','fieldset', {
                 validationFail : this ? ! this.hasNoOtherErrors() : false
             })}>
                 <Nav.Column>
-                    <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-2-other-title')}</h2>
+                    <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-3-other-title')}</h2>
                     {!this.hasNoOtherErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.otherValidationError)}</Nav.AlertStripe> : null}
                     <div className='mb-3'>
-                        <div>
-                            <label>{t('ui:country') + ' *'}</label>
-                        </div>
-                        <CountrySelect className='countrySelect' locale={locale} value={event.country || {}}
-                            onSelect={(e) => {
-                                actions.setEventProperty('country', e)}
-                            }/>
+                        <label>{t('ui:country') + ' *'}</label>
+                        <CountrySelect className='countrySelect'
+                            locale={locale} value={event.country || {}}
+                            onSelect={(e) => {actions.setEventProperty('country', e)}}/>
                     </div>
-                    <Nav.Textarea id='other' style={{minHeight:'200px'}} label={t('p4000:' + type + '-fieldset-2_1-other')} value={event.other || ''}
+                    <Nav.Textarea id='other' style={{minHeight:'200px'}}
+                        label={t('p4000:' + type + '-fieldset-3_1-other')} value={event.other || ''}
                         onChange={(e) => {actions.setEventProperty('other', e.target.value)}} />
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className={classNames('eventFileUpload','mb-4','p-4','fieldset')}>
+            <Nav.Row className={classNames('eventFileUpload','mb-4','fieldset')}>
                 <Nav.Column>
                     <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
                     <FileUpload ref={f => this.fileUpload = f} fileUploadDroppableId={'fileUpload'} className='fileUpload'
@@ -163,7 +204,7 @@ class GenericEvent extends Component {
     }
 }
 
-GenericEvent.propTypes = {
+Work.propTypes = {
     t                 : PT.func.isRequired,
     event             : PT.object.isRequired,
     type              : PT.string.isRequired,
@@ -171,12 +212,11 @@ GenericEvent.propTypes = {
     actions           : PT.object.isRequired,
     provideController : PT.func.isRequired,
     locale            : PT.string.isRequired
-
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(
-    translate()(GenericEvent)
+    translate()(Work)
 );

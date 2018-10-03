@@ -6,16 +6,18 @@ import { translate } from 'react-i18next';
 import _ from 'lodash';
 import classNames from 'classnames';
 
-import ExternalFiles from '../../components/pdf/ExternalFiles/ExternalFiles';
-import * as Nav from '../../components/ui/Nav';
-import TopContainer from '../../components/ui/TopContainer/TopContainer';
-import FileUpload from '../../components/ui/FileUpload/FileUpload';
-import PdfDrawer from '../../components/drawer/Pdf';
+import ExternalFiles from '../../../components/pdf/ExternalFiles/ExternalFiles';
+import * as Nav from '../../../components/ui/Nav';
+import TopContainer from '../../../components/ui/TopContainer/TopContainer';
+import FileUpload from '../../../components/ui/FileUpload/FileUpload';
+import PdfDrawer from '../../../components/drawer/Pdf';
 
-import * as routes from '../../constants/routes';
-import * as pdfActions from '../../actions/pdf';
-import * as uiActions from '../../actions/ui';
-import * as appActions from '../../actions/app';
+import * as routes from '../../../constants/routes';
+import * as pdfActions from '../../../actions/pdf';
+import * as uiActions from '../../../actions/ui';
+import * as appActions from '../../../actions/app';
+
+import './SelectPDF.css';
 
 const mapStateToProps = (state) => {
     return {
@@ -92,12 +94,13 @@ class SelectPDF extends Component {
 
         let buttonText = loadingPDF ? t('pdf:loading-loadingPDF') : t('ui:forward');
 
-        return <TopContainer className='p-pdf-selectPDF'
+        return <TopContainer className='p-pdf-selectPdf'
             history={history} location={location}
             sideContent={<PdfDrawer/>}>
             <h1 className='appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
             <ExternalFiles style={{zIndex: 2}} addDocument={this.addDocument.bind(this)}/>
-            <div style={{zIndex: 1}}  className='m-4 p-4 fieldset'>
+            <div style={{animation: 'none', opacity: 1}} className='fieldset mt-4'>
+
                 <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
                 <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
                 <FileUpload ref={f => this.fileUpload = f} fileUploadDroppableId={'selectPdf'}
