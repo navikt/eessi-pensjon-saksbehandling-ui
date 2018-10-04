@@ -10,6 +10,7 @@ import * as Nav from '../../../components/ui/Nav';
 import TopContainer from '../../../components/ui/TopContainer/TopContainer';
 import ClientAlert from '../../../components/ui/Alert/ClientAlert';
 import DnDSource from '../../../components/pdf/DnDSource/DnDSource';
+import DnDSpecial from '../../../components/pdf/DnDSpecial/DnDSpecial';
 import DnDTarget from '../../../components/pdf/DnDTarget/DnDTarget';
 import DnD from '../../../components/pdf/DnD';
 import PDFSizeSlider from '../../../components/pdf/PDFSizeSlider';
@@ -36,6 +37,10 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 class EditPDF extends Component {
+
+    state = {
+        showSpecialPages : false
+    }
 
     componentDidMount() {
 
@@ -127,9 +132,21 @@ class EditPDF extends Component {
         actions.closeModal();
     }
 
+    toggleSpecialPages() {
+
+        this.setState({
+            showSpecialPages : !this.state.showSpecialPages
+        });
+    }
+
     render() {
 
         const { t, history, pdfs, dndTarget, recipe, location } = this.props;
+
+        let openedPanels = Array(pdfs.length).fill().map((v, i) => {return '' + i});
+        if (this.state.showSpecialPages) {
+            openedPanels.push('special');
+        }
 
         return <TopContainer className='p-pdf-editPdf'
             history={history} location={location}
@@ -139,10 +156,12 @@ class EditPDF extends Component {
             </div>
             <h1 className='appTitle'>{t('pdf:app-editPdfTitle')}</h1>
             <ClientAlert/>
-            <div className={'m-4'} style={{width: '20%'}}>
-                <PDFSizeSlider/>
-            </div>
-            <Nav.Row className='m-4'>
+            <Nav.Row className='m-2'>
+                <div className='col-12'>
+                    <PDFSizeSlider style={{width: '20%'}}/>
+                </div>
+            </Nav.Row>
+            <Nav.Row className='m-0'>
                 <DnD>
                     <Nav.Column className='col-sm-2 mb-4'>
                         <Collapse className='dndtargets' destroyInactivePanel={true} activeKey={dndTarget} accordion={true} onChange={this.handleAccordionChange.bind(this)}>
@@ -162,8 +181,11 @@ class EditPDF extends Component {
                     </Nav.Column>
                     <Nav.Column className='col-sm-10 mb-4'>
                         <div className='h-100'>
-                            {! pdfs ? null : <Collapse className='mb-4' defaultActiveKey={Array(pdfs.length).fill().map((v, i) => {return '' + i})}
+                            {! pdfs ? null : <Collapse className='mb-4' defaultActiveKey={openedPanels}
                                 destroyInactivePanel={false} accordion={false}>
+                                <Collapse.Panel key={'special'} header={'Specials'} showArrow={true}>
+                                    <DnDSpecial/>
+                                </Collapse.Panel>
                                 {pdfs.map((pdf, i) => {
                                     return <Collapse.Panel key={i} header={pdf.name} showArrow={true}>
                                         <DnDSource pdf={pdf}/>

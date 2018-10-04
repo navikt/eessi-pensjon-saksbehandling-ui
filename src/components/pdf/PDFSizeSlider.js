@@ -28,9 +28,9 @@ class PDFSizeSlider extends Component {
 
     render () {
 
-        const { t, pdfsize } = this.props;
+        const { t, pdfsize, style } = this.props;
 
-        return <div className='c-pdf-PDFSizeSlider' title={t('pdf:help-sizeSliderTooltip')}>
+        return <div style={style} className='c-pdf-PDFSizeSlider' title={t('pdf:help-sizeSliderTooltip')}>
             <Slider value={pdfsize} min={0.5} max={2.5} step={0.1} onChange={this.onChange.bind(this)}/>
         </div>
     }
@@ -40,7 +40,8 @@ PDFSizeSlider.propTypes = {
 
     t       : PT.func.isRequired,
     pdfsize : PT.number.isRequired,
-    actions : PT.object
+    actions : PT.object,
+    style   : PT.object
 };
 
 export default connect(

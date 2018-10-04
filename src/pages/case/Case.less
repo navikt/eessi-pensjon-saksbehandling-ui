@@ -24,4 +24,21 @@
         justify-content: space-between;
         margin-bottom: 1rem;
     }
+
+    .renderedInstitutions {
+        transform: translateX(-20px);
+        opacity: 0;
+        animation: renderedInstitutions-slideInFromLeft 0.4s forwards;
+    }
+}
+
+@keyframes renderedInstitutions-slideInFromLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
 }

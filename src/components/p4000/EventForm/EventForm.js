@@ -121,24 +121,24 @@ class EventForm extends React.Component {
                 </Nav.Column>
             </Nav.Row>
             {isEventPage ? (!editMode ?
-                <Nav.Row className='row-buttons mb-4 text-center'>
-                    <Nav.Column>
+                <Nav.Row className='row-buttons mb-4 ml-2 mr-2 text-center'>
+                    <div className='col-md-6'>
                         <Nav.Hovedknapp className='saveButton' onClick={this.handleSaveRequest.bind(this)}>{t('ui:save')}</Nav.Hovedknapp>
-                    </Nav.Column>
-                    <Nav.Column>
+                    </div>
+                    <div className='col-md-6'>
                         <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
-                    </Nav.Column>
+                    </div>
                 </Nav.Row> :
-                <Nav.Row className='row-buttons mb-4 text-center'>
-                    <Nav.Column>
+                <Nav.Row className='row-buttons mb-4 ml-2 mr-2 text-center'>
+                    <div className='col-md-4'>
                         <Nav.Hovedknapp className='editButton' onClick={this.handleSaveEditRequest.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp>
-                    </Nav.Column>
-                    <Nav.Column>
+                    </div>
+                    <div className='col-md-4'>
                         <Nav.Knapp className='deleteButton' onClick={this.handleDeleteRequest.bind(this)}>{t('ui:delete')}</Nav.Knapp>
-                    </Nav.Column>
-                    <Nav.Column>
+                    </div>
+                    <div className='col-md-4'>
                         <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
-                    </Nav.Column>
+                    </div>
                 </Nav.Row>) : null}
         </Nav.Panel>
     }

@@ -6,6 +6,8 @@ import _ from 'lodash';
 import classNames from 'classnames';
 
 import PDFPageInDnD from '../PDFPageInDnD/PDFPageInDnD';
+import PDFSpecialPage from '../PDFSpecialPage/PDFSpecialPage';
+
 import './DnDTarget.css';
 
 const mapStateToProps = (state) => {
@@ -42,12 +44,17 @@ class DnDTarget extends Component {
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}>
-                                        <PDFPageInDnD
-                                            className={classNames({'c-pdf-dndTarget-draggable-active' : snapshot.isDragging})}
-                                            pdf={pdf}
-                                            pageNumber={recipeStep.pageNumber}
-                                            action='remove'
-                                        />
+                                        { recipeStep.type === 'pickPage' ?
+                                            <PDFPageInDnD
+                                                className={classNames({'c-pdf-dndTarget-draggable-active' : snapshot.isDragging})}
+                                                pdf={pdf}
+                                                pageNumber={recipeStep.pageNumber}
+                                                action='remove'
+                                            /> : (
+                                          recipeStep.type === 'specialPage' ?
+                                            <PDFSpecialPage deleteLink={true} title={recipeStep.title}/>
+                                            : null )
+                                        }
                                     </div>
                                 )}
                             </Draggable>

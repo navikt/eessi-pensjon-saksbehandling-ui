@@ -483,7 +483,7 @@ class EditCase extends Component {
             </div>
         </Nav.Row>);
 
-        return renderedInstitutions.map(i => { return i});
+        return <div className='mt-4'>{renderedInstitutions.map(i => { return i})}</div>
     }
 
     noValidationErrors() {
@@ -542,9 +542,6 @@ class EditCase extends Component {
                         <Nav.HjelpetekstBase id='sed'>{t('case:help-sed')}</Nav.HjelpetekstBase>
                     </div>
                 </Nav.Row>
-            </div>
-
-            <div className='fieldset' style={{animationDelay: '0.3s'}}>
                 {this.renderInstitutions()}
                 <div>{rinaId ? t('case:form-rinaId') + ': ' + rinaId : null}</div>
             </div>

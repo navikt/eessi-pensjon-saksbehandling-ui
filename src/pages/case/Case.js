@@ -37,6 +37,7 @@ class Case extends Component {
                 visLabel={true}
                 onBeforeChange={() => {return false}}
                 autoResponsiv={true}
+                className='mb-4'
                 steg={[
                     {label: t('case:form-step1'), aktiv: (stepIndicator === 0)},
                     {label: t('case:form-step2'), aktiv: (stepIndicator === 1)},

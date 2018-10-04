@@ -65,7 +65,8 @@ class DnD extends Component {
 
             newRecipe[targetId].splice(result.destination.index, 0, {
                 name       : name,
-                pageNumber : pageNumber
+                pageNumber : pageNumber,
+                type       : 'pickPage'
             });
 
             modified = true;
@@ -87,6 +88,28 @@ class DnD extends Component {
                 newRecipe[sourceId].splice(result.source.index, 1);
                 modified = true;
             }
+        }
+
+        // dragged from a special PDF ...
+        if (_.startsWith(result.source.droppableId, 'c-pdf-dndSpecial-droppable')) {
+
+            // ... only accept to a PDF target
+            if (! _.startsWith(result.destination.droppableId, 'c-pdf-dndTarget-droppable-')) {
+                return
+            }
+
+            if (!newRecipe[targetId]) {
+                newRecipe[targetId] = [];
+            }
+
+            let title = decodeURIComponent(result.draggableId);
+
+            newRecipe[targetId].splice(result.destination.index, 0, {
+                title : title,
+                type : 'specialPage'
+            });
+
+            modified = true;
         }
 
         if (modified) {

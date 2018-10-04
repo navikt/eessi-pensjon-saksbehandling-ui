@@ -121,9 +121,9 @@ class PDFPageInDnD extends Component {
                  <div className='icon actionIcon'>{iconLink}</div>
                  {this.state.isHovering ? <div className='icon previewIcon'>
                      <Icons style={{cursor: 'pointer'}}
-                          size={'20'} kind={'view'}
-                          onClick={this.openPreview.bind(this, pdf, pageNumber)}/>
-                  </div> : null}
+                         size={'20'} kind={'view'}
+                         onClick={this.openPreview.bind(this, pdf, pageNumber)}/>
+                 </div> : null}
                  <Page className='page'
                      width={100 * pdfsize} height={140 * pdfsize}
                      renderMode='svg' pageNumber={pageNumber}/>

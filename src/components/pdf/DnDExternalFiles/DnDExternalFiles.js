@@ -73,7 +73,7 @@ class DnDExternalFiles extends Component {
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
                                             className={classNames({'dragging' : snapshot.isDragging})}
-                                            >
+                                        >
                                             <File key={index} file={pdf} addLink={true} scale={1.0}
                                                 onAddDocument={this.addDocument.bind(this, pdf)}
                                                 onLoadSuccess={this.onLoadSuccess.bind(this, index)}/>
