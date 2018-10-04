@@ -20,27 +20,22 @@
 
         &-active {
             background-color: rgba(0,128,0,0.2);
-            animation: dndSourcePulsate 1s ease-out;
+            animation: dndSourceDroppablePulsate 1s ease-out;
             animation-iteration-count: infinite;
         }
     };
 
-    .dragging {
-        opacity: 0.5;
-    }
-
     .c-pdf-dndSource-draggable {
-        margin: 0 5px 0 0;
+        margin: 0 0.25rem;
 
         &-active {
-              border: 2px dashed gray;
-              padding: 2px;
-              animation: dndSourcePulsateBorder 1s ease-out;
+              opacity: 0.8;
+              animation: dndSourceDraggablePulsate 1s ease-out;
               animation-iteration-count: infinite;
         };
     };
 }
-@keyframes dndSourcePulsate {
+@keyframes dndSourceDroppablePulsate {
     0% {
         background-color: rgba(0,128,0,0.2);
     }
@@ -52,14 +47,14 @@
     }
 }
 
-@keyframes dndSourcePulsateBorder {
+@keyframes dndSourceDraggablePulsate {
     0% {
-        border: 2px dashed rgba(128,128,128,1);
+        opacity: 0.8;
     }
     50% {
-        border: 2px dashed rgba(128,128,128,0);
+        opacity: 0.2;
     }
     100% {
-        border: 2px dashed rgba(128,128,128,1);
+        opacity: 0.8;
     }
 }

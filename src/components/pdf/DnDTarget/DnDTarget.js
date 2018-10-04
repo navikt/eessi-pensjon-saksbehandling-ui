@@ -51,9 +51,9 @@ class DnDTarget extends Component {
                                                 pageNumber={recipeStep.pageNumber}
                                                 action='remove'
                                             /> : (
-                                          recipeStep.type === 'specialPage' ?
-                                            <PDFSpecialPage deleteLink={true} title={recipeStep.title}/>
-                                            : null )
+                                                recipeStep.type === 'specialPage' ?
+                                                    <PDFSpecialPage deleteLink={true} title={recipeStep.title}/>
+                                                    : null )
                                         }
                                     </div>
                                 )}

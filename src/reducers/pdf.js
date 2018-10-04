@@ -7,7 +7,8 @@ let initialState =  {
     recipe: {},
     pdfs: [],
     pdfsize: 1.0,
-    dndTarget: 'work'
+    dndTarget: 'work',
+    watermark: {}
 };
 
 export default function (state = initialState, action = {}) {
@@ -90,6 +91,22 @@ export default function (state = initialState, action = {}) {
     case types.APP_CLEAR_DATA:
 
         return initialState;
+
+
+    case types.PDF_WATERMARK_SET : {
+
+        if (action.payload.enabled) {
+            return Object.assign({}, state, {
+                watermark : {
+                    title : action.payload.title
+                }
+            });
+        } else {
+            return Object.assign({}, state, {
+                watermark : {}
+            });
+        }
+    }
 
     default:
 

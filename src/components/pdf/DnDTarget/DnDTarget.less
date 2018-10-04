@@ -3,35 +3,30 @@
         background-color: whitesmoke;
         padding: 10;
         overflow-y: auto;
-        min-height : 65vh;
+        height : 65vh;
         display: flex;
         flex-direction: column;
         box-shadow: inset 5px 5px 5px lightgrey;
 
          &-active {
                 background-color: rgba(0,128,0,0.2);
-                animation: dndTargetPulsate 1s ease-out;
+                animation: dndTargetDroppablePulsate 1s ease-out;
                 animation-iteration-count: infinite;
          }
     }
 
     .c-pdf-dndTarget-draggable {
-         margin: 5px;
+         margin: 0.5rem 0 0 0;
 
          &-active {
-             border: 2px dashed gray;
-             padding: 2px;
-             animation: dndTargetPulsateBorder 1s ease-out;
+             opacity: 0.8;
+             animation: dndTargetDraggablePulsate 1s ease-out;
              animation-iteration-count: infinite;
          }
     }
-
-    .dragging {
-        opacity: 0.5;
-    }
 }
 
-@keyframes dndTargetPulsate {
+@keyframes dndTargetDroppablePulsate {
     0% {
         background-color: rgba(0,128,0,0.2);
     }
@@ -43,14 +38,14 @@
     }
 }
 
-@keyframes dndTargetPulsateBorder {
+@keyframes dndTargetDraggablePulsate {
     0% {
-        border: 2px dashed rgba(128,128,128,1);
+        opacity: 0.8;
     }
     50% {
-        border: 2px dashed rgba(128,128,128,0);
+        opacity: 0.2;
     }
     100% {
-        border: 2px dashed rgba(128,128,128,1);
+        opacity: 0.8;
     }
 }
