@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import PT from 'prop-types';
-import _ from 'lodash';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import { translate } from 'react-i18next';
@@ -9,6 +8,7 @@ import classNames from 'classnames';
 
 import PDFSpecialPage from '../PDFSpecialPage/PDFSpecialPage';
 import * as Nav from '../../ui/Nav';
+import Icons from '../../ui/Icons';
 
 import * as pdfActions from '../../../actions/pdf';
 
@@ -42,8 +42,13 @@ class DnDSpecial extends Component {
     }
 
     setSpecialPageTitle(e) {
+
+        if (e.target) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
         this.setState({
-            title : e.target.value
+            title : e.target ? e.target.value : e
         })
     }
 
@@ -62,20 +67,31 @@ class DnDSpecial extends Component {
                     <div ref={provided.innerRef}
                         className={classNames('c-pdf-dndSpecial-droppable', {'c-pdf-dndSpecial-droppable-active' : snapshot.isDraggingOver})}>
 
+                        { this.state.title ?
                         <Draggable key={'dndspecial'} draggableId={encodeURIComponent(this.state.title)} index={0}>
 
                             {(provided, snapshot) => (
-                                <div className={classNames('c-pdf-dndSpecial-draggable', { dragging : snapshot.isDragging })}
+                                 <React.Fragment>
+                                    <div className={classNames('c-pdf-dndSpecial-draggable', { dragging : snapshot.isDragging })}
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}>
                                     <PDFSpecialPage title={this.state.title} deleteLink={false}
                                         className={classNames({'c-pdf-dndSpecial-draggable-active' : snapshot.isDragging})}/>
+
                                 </div>
+                                {snapshot.isDragging && (
+                                    <div className='cloneStyle'>
+                                         <PDFSpecialPage title={this.state.title} deleteLink={false}/>
+                                    </div>
+                                )}
+                                </React.Fragment>
                             )}
-                        </Draggable>
-                        <div>
-                            <Nav.Input label={t('ui:title')} defaultValue={this.state.title} onChange={this.setSpecialPageTitle.bind(this)}/>
+                        </Draggable> : <PDFSpecialPage className='disabled' title={''} deleteLink={false}/>
+                        }
+                        <div className='ml-3'>
+                            <Nav.Input className='d-inline-block' label={t('ui:title')} value={this.state.title} onChange={this.setSpecialPageTitle.bind(this)}/>
+                            <Icons style={{cursor: 'pointer', marginLeft: '0.5rem'}} kind='close' size='15' onClick={this.setSpecialPageTitle.bind(this, '')}/>
                         </div>
                     </div>
                 )}

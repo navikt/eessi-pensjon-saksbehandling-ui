@@ -123,52 +123,38 @@ class GeneratePDF extends Component {
         return <TopContainer className='p-pdf-generatePDF'
             history={history} location={location}
             sideContent={<PdfDrawer/>}>
-            <Nav.Row>
-                <Nav.Column>
-                    <Nav.HjelpetekstBase>{t('pdf:help-generate-pdf')}</Nav.HjelpetekstBase>
-                    <h1 className='appTitle'>{t('pdf:app-generatePdfTitle')}</h1>
-                </Nav.Column>
-            </Nav.Row>
-            <Nav.Row className='text-center' style={{minHeight: '100px'}}>
-                <Nav.Column>
-                    <ClientAlert/>
-                </Nav.Column>
-            </Nav.Row>
-            <Nav.Row className='p-4'>
-                <Nav.Column>
-                    {generatingPDF ? <div className='w-100 text-center'>
-                        <Nav.NavFrontendSpinner/>
-                        <p>{t('pdf:loading-generatingPDF')}</p>
-                    </div> : (generatedPDFs ? <div>
-                        {Object.keys(generatedPDFs).map(key => {
-                            let pdf = generatedPDFs[key];
-                            return <div key={key} className='fieldset p-2 mb-3 w-100'>
-                                <Nav.Row className='pdfrow'>
-                                    <Nav.Column>
-                                        <File file={pdf}/>
-                                    </Nav.Column>
-                                    <Nav.Column>
-                                        <Nav.Input label={t('ui:filename')} value={this.state.fileNames[key]}
-                                            onChange={this.setFileName.bind(this, key)}/>
-                                    </Nav.Column>
-                                    <Nav.Column className='text-right'>
-                                        <a className='hiddenLink' ref={item => this[key] = item}
-                                            onClick={(e) => e.stopPropagation()} title={t('ui:download')}
-                                            href={'data:application/octet-stream;base64,' + encodeURIComponent(pdf.base64)}
-                                            download={this.state.fileNames[key]}>{t('ui:download')}</a>
-                                        <Nav.Knapp className='downloadButton' onClick={() => this[key].click()}>{t('ui:download')}</Nav.Knapp>
-                                    </Nav.Column>
-                                </Nav.Row>
-                            </div>
-                        })}
-                        <Nav.Row>
-                            <Nav.Column className='text-right'>
-                                <Nav.Knapp className='downloadAllButton' onClick={this.downloadAll.bind(this)}>{t('ui:downloadAll')}</Nav.Knapp>
-                            </Nav.Column>
-                        </Nav.Row>
-                    </div> : null)}
-                </Nav.Column>
-            </Nav.Row>
+            <Nav.HjelpetekstBase>{t('pdf:help-generate-pdf')}</Nav.HjelpetekstBase>
+            <h1 className='appTitle'>{t('pdf:app-generatePdfTitle')}</h1>
+            <ClientAlert permanent={true}/>
+            {generatingPDF ? <div className='w-100 text-center'>
+                <Nav.NavFrontendSpinner/>
+                <p>{t('pdf:loading-generatingPDF')}</p>
+            </div> : (generatedPDFs ? <div>
+                {Object.keys(generatedPDFs).map(key => {
+                let pdf = generatedPDFs[key];
+                return <div key={key} className='fieldset'>
+                    <div className='row pdfrow'>
+                        <div className='col-sm-4'>
+                            <File file={pdf}/>
+                        </div>
+                        <div className='col-sm-4'>
+                            <Nav.Input label={t('ui:filename')} value={this.state.fileNames[key]}
+                                onChange={this.setFileName.bind(this, key)}/>
+                        </div>
+                        <div className='col-sm-4 text-right'>
+                            <a className='hiddenLink' ref={item => this[key] = item}
+                                onClick={(e) => e.stopPropagation()} title={t('ui:download')}
+                                href={'data:application/octet-stream;base64,' + encodeURIComponent(pdf.base64)}
+                                download={this.state.fileNames[key]}>{t('ui:download')}</a>
+                            <Nav.Knapp className='downloadButton' onClick={() => this[key].click()}>{t('ui:download')}</Nav.Knapp>
+                        </div>
+                    </div>
+                </div>
+                })}
+                <div className='text-right'>
+                      <Nav.Knapp className='downloadAllButton' onClick={this.downloadAll.bind(this)}>{t('ui:downloadAll')}</Nav.Knapp>
+                </div>
+            </div> : null)}
             <Nav.Row className='p-4'>
                 <Nav.Column>
                     <Nav.Knapp className='backButton w-100' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>

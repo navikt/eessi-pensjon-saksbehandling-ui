@@ -22,8 +22,7 @@
     }
 
     .c-pdf-dndSpecial-draggable {
-        margin: 0 5px 0 0;
-
+      
         &-active {
               border: 2px dashed gray;
               padding: 2px;
@@ -31,6 +30,10 @@
               animation-iteration-count: infinite;
         };
     };
+
+    .cloneStyle + div {
+        display: none !important;
+    }
 }
 @keyframes dndSpecialPulsate {
     0% {

@@ -40,6 +40,7 @@ class Icons extends Component {
         case 'caretLeft' :  return <FontAwesomeIcon icon={icons.faCaretLeft} {...this.props}/>;
         case 'caretRight' :  return <FontAwesomeIcon icon={icons.faCaretRight} {...this.props}/>;
         case 'server' :  return <FontAwesomeIcon icon={icons.faServer} {...this.props}/>;
+        case 'close' : return <FontAwesomeIcon icon={icons.faTimesCircle} {...this.props}/>;
         default: return null;
         }
     }
