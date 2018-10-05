@@ -8,7 +8,6 @@ import classNames from 'classnames';
 
 import PDFSpecialPage from '../PDFSpecialPage/PDFSpecialPage';
 import * as Nav from '../../ui/Nav';
-import Icons from '../../ui/Icons';
 
 import * as pdfActions from '../../../actions/pdf';
 
@@ -54,20 +53,6 @@ class DnDSpecial extends Component {
         })
     }
 
-    toggleWatermark () {
-
-        const { actions } = this.props;
-
-        this.setState({
-            watermarkEnabled: !this.state.watermarkEnabled
-        }, () => {
-            actions.setWatermark({
-                enabled : this.state.watermarkEnabled,
-                title   : this.state.watermarkTitle
-            });
-        })
-    }
-
     setWatermarkTitle (e) {
 
         const { actions } = this.props;
@@ -76,8 +61,7 @@ class DnDSpecial extends Component {
             watermarkTitle: e.target.value
         }, () => {
             actions.setWatermark({
-                enabled : this.state.watermarkEnabled,
-                title   : this.state.watermarkTitle
+                title : this.state.watermarkTitle
             });
         })
     }
@@ -85,6 +69,8 @@ class DnDSpecial extends Component {
     render () {
 
         const { t } = this.props;
+
+        let separatorEnabled = this.state.title ? true : false;
 
         return <div className='c-pdf-dndSpecial position-relative'
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
@@ -97,37 +83,37 @@ class DnDSpecial extends Component {
                     <div ref={provided.innerRef}
                         className={classNames('c-pdf-dndSpecial-droppable', {'c-pdf-dndSpecial-droppable-active' : snapshot.isDraggingOver})}>
 
-                        { this.state.title ?
-                            <Draggable key={'dndspecial'} draggableId={encodeURIComponent(this.state.title)} index={0}>
+                        <Draggable key={'dndspecial'} draggableId={encodeURIComponent(this.state.title)} index={0} isDragDisabled={!separatorEnabled}>
 
-                                {(provided, snapshot) => (
-                                    <React.Fragment>
-                                        <div className={classNames('c-pdf-dndSpecial-draggable', { dragging : snapshot.isDragging })}
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}>
-                                            <PDFSpecialPage title={this.state.title} deleteLink={false}
-                                                className={classNames({'c-pdf-dndSpecial-draggable-active' : snapshot.isDragging})}/>
-
+                            {(provided, snapshot) => (
+                                <React.Fragment>
+                                    <div className={classNames('c-pdf-dndSpecial-draggable', { dragging : snapshot.isDragging })}
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}>
+                                        <PDFSpecialPage title={this.state.title} deleteLink={false}
+                                            className={classNames({
+                                                'enabled' : separatorEnabled,
+                                                'disabled' : !separatorEnabled,
+                                                'c-pdf-dndSpecial-draggable-active' : snapshot.isDragging
+                                            })}/>
+                                    </div>
+                                    {snapshot.isDragging && (
+                                        <div className='cloneStyle'>
+                                            <PDFSpecialPage title={this.state.title} deleteLink={false}/>
                                         </div>
-                                        {snapshot.isDragging && (
-                                            <div className='cloneStyle'>
-                                                <PDFSpecialPage title={this.state.title} deleteLink={false}/>
-                                            </div>
-                                        )}
-                                    </React.Fragment>
-                                )}
-                            </Draggable> : <PDFSpecialPage className='disabled' title={''} deleteLink={false}/>
-                        }
-                        <div className='ml-3'>
-                            <Nav.Input className='d-inline-block' label={t('ui:title')} value={this.state.title} onChange={this.setSpecialPageTitle.bind(this)}/>
-                            <Icons style={{cursor: 'pointer', marginLeft: '0.5rem'}} kind='close' size='15' onClick={this.setSpecialPageTitle.bind(this, '')}/>
-                        </div>
+                                    )}
+                                </React.Fragment>
+                            )}
+                        </Draggable>
 
-                         <div className='ml-3'>
-                             <Nav.Checkbox label={t('watermark')} value={this.state.watermarkEnabled} onChange={this.toggleWatermark.bind(this)}/>
-                             <Nav.Input className='d-inline-block' value={this.state.watermarkTitle} onChange={this.setWatermarkTitle.bind(this)}/>
-                             <Icons style={{cursor: 'pointer', marginLeft: '0.5rem'}} kind='close' size='15' onClick={this.setSpecialPageTitle.bind(this, '')}/>
+                        <div className='ml-3'>
+                            <Nav.Textarea className='d-inline-block' placeholder={t('ui:text')} value={this.state.title} onChange={this.setSpecialPageTitle.bind(this)}/>
+
+                        </div>
+                        <div className='ml-3'>
+                             <Nav.Textarea placeholder={t('watermark')} className='d-inline-block' value={this.state.watermarkTitle} onChange={this.setWatermarkTitle.bind(this)}/>
+
                          </div>
                     </div>
                 )}

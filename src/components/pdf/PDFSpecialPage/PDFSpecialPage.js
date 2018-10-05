@@ -67,8 +67,8 @@ class PDFSpecialPage extends Component {
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
             onMouseOver={this.onHandleMouseOver.bind(this)}
             onMouseLeave={this.onHandleMouseLeave.bind(this)}>
-            {this.state.isHovering && deleteLink ? <div className='link deleteLink'>
-                <Ikon size={15} kind='trashcan' onClick={this.onDeleteDocument.bind(this, title)}/>
+            {this.state.isHovering && deleteLink ? <div  onClick={this.onDeleteDocument.bind(this, title)} className='link deleteLink'>
+                <Ikon size={15} kind='trashcan'/>
             </div> : null}
             <div className='page' style={{width : 100 * pdfsize, height: 140 * pdfsize}}>
                 <div className='content'>{title}</div>

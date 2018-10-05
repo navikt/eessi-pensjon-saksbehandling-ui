@@ -156,11 +156,9 @@ class EditPDF extends Component {
             </div>
             <h1 className='appTitle'>{t('pdf:app-editPdfTitle')}</h1>
             <ClientAlert/>
-            <Nav.Row className='m-2'>
-                <div className='col-12'>
-                    <PDFSizeSlider style={{width: '20%'}}/>
-                </div>
-            </Nav.Row>
+            <div className='w-100'>
+                <PDFSizeSlider style={{width: '20%'}}/>
+            </div>
             <Nav.Row className='m-0'>
                 <DnD>
                     <Nav.Column className='col-sm-2 mb-4'>

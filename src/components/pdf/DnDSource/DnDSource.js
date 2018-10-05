@@ -50,7 +50,7 @@ class DnDSource extends Component {
         let modified = false;
 
         _.range(1, pdf.numPages + 1).map(pageNumber => {
-            return potentialPages.push({ pageNumber : pageNumber, name : name });
+            return potentialPages.push({ pageNumber : pageNumber, name : name, type: 'pickPage' });
         });
 
         if (!newRecipe[dndTarget]) {

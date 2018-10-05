@@ -61,7 +61,7 @@ class PDFPageInDnD extends Component {
          if (!newRecipe[dndTarget]) {
              newRecipe[dndTarget] = [];
          }
-         newRecipe[dndTarget].push({name: name, pageNumber: pageNumber});
+         newRecipe[dndTarget].push({name: name, pageNumber: pageNumber, type: 'pickPage'});
          actions.setRecipe(newRecipe);
      }
 
@@ -108,9 +108,7 @@ class PDFPageInDnD extends Component {
          }
 
          if (this.state.isHovering) {
-             iconLink = <Ikon style={{cursor: 'pointer'}}
-                 size={iconSize} kind={iconKind}
-                 onClick={iconFunction.bind(this, pdf.name, pageNumber)}/>
+             iconLink = <Ikon style={{cursor: 'pointer'}} size={iconSize} kind={iconKind}/>
          }
 
          return <div style={style} className={classNames('c-pdf-PDFPageInDnD', className)}
@@ -118,11 +116,10 @@ class PDFPageInDnD extends Component {
              onMouseOver={this.onHandleMouseOver.bind(this)}
              onMouseLeave={this.onHandleMouseLeave.bind(this)}>
              <Document className='document' file={{data: pdf.data}}>
-                 <div className='icon actionIcon'>{iconLink}</div>
-                 {this.state.isHovering ? <div className='icon previewIcon'>
+                 <div onClick={iconFunction.bind(this, pdf.name, pageNumber)} className='icon actionIcon'>{iconLink}</div>
+                 {this.state.isHovering ? <div className='icon previewIcon' onClick={this.openPreview.bind(this, pdf, pageNumber)}>
                      <Icons style={{cursor: 'pointer'}}
-                         size={'20'} kind={'view'}
-                         onClick={this.openPreview.bind(this, pdf, pageNumber)}/>
+                         size={'20'} kind={'view'}/>
                  </div> : null}
                  <Page className='page'
                      width={100 * pdfsize} height={140 * pdfsize}

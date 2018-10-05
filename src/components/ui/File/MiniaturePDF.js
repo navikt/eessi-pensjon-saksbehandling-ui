@@ -142,11 +142,11 @@ class MiniaturePDF extends Component {
             style={{transform: 'scale(' + scale + ')'}}>
             <Document className='position-relative' file={{data: file.data }}
                 onLoadSuccess={this.handleOnLoadSuccess.bind(this)}>
-                { deleteLink && isHovering ? <div className='link deleteLink'>
-                    <Ikon size={15} kind='trashcan' onClick={this.onDeleteDocument.bind(this)}/>
+                { deleteLink && isHovering ? <div onClick={this.onDeleteDocument.bind(this)} className='link deleteLink'>
+                    <Ikon size={15} kind='trashcan'/>
                 </div> : null}
-                { addLink && isHovering ? <div className='link addLink'>
-                    <Ikon size={20} kind='vedlegg' onClick={this.onAddDocument.bind(this)}/>
+                { addLink && isHovering ? <div onClick={this.onAddDocument.bind(this)} className='link addLink'>
+                    <Ikon size={20} kind='vedlegg'/>
                 </div> : null}
                 { downloadLink && isHovering ? <div className='link downloadLink'><a
                     onClick={(e) => e.stopPropagation()} title={t('ui:download')}

@@ -95,17 +95,12 @@ export default function (state = initialState, action = {}) {
 
     case types.PDF_WATERMARK_SET : {
 
-        if (action.payload.enabled) {
-            return Object.assign({}, state, {
-                watermark : {
-                    title : action.payload.title
-                }
-            });
-        } else {
-            return Object.assign({}, state, {
-                watermark : {}
-            });
-        }
+
+        return Object.assign({}, state, {
+            watermark : {
+                title : action.payload.title
+            }
+        });
     }
 
     default:
