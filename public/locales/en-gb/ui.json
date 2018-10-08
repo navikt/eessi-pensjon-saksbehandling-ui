@@ -40,6 +40,7 @@
     "forms" : "Forms",
     "forward" : "Forward",
     "generate" : "generate",
+    "getReceipt" : "Get receipt",
     "gettingRinaCase" : "Getting RINA case...",
     "gettingStatus" : "Getting status...",
     "giveFeedback" : "Give feedback",

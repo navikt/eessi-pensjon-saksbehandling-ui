@@ -3,6 +3,8 @@ import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
+import Print from '../../components/ui/Print';
+import RenderPrintData from '../../components/case/RenderPrintData';
 
 import Case from './Case';
 import * as Nav from '../../components/ui/Nav';
@@ -14,6 +16,7 @@ import * as uiActions from '../../actions/ui';
 const mapStateToProps = (state) => {
     return {
         dataToConfirm : state.case.dataToConfirm,
+        dataToGenerate: state.case.dataToGenerate,
         dataSaved     : state.case.dataSaved,
         dataSent      : state.case.dataSent,
         rinaUrl       : state.case.rinaUrl,
@@ -85,24 +88,8 @@ class SaveCase extends Component {
 
     render() {
 
-        let { t, history, location, sendingCase, dataSaved, rinaLoading, rinaUrl } = this.props;
-
-        let body;
-
-        if (rinaLoading) {
-            body = t('case:loading-rinaUrl')
-        } else {
-            if (rinaUrl && dataSaved && dataSaved.euxcaseid) {
-                body = <div>
-                    <div className='m-4'><a href={rinaUrl + dataSaved.euxcaseid}>{t('case:form-caseLink')}</a></div>
-                    <div className='m-4'>
-                        <h4>{t('case:form-rinaId') + ': ' + dataSaved.euxcaseid}</h4>
-                    </div>
-                </div>
-            } else {
-                body = null;
-            }
-        }
+        let { t, history, location, sendingCase, dataSaved,
+        dataToGenerate, dataToConfirm,rinaLoading, rinaUrl } = this.props;
 
         let buttonText = sendingCase ? t('case:loading-sendingCase') : t('ui:confirmAndSend');
 
@@ -112,13 +99,19 @@ class SaveCase extends Component {
             stepIndicator={3}
             history={history}
             location={location}>
-            <div className='fieldset'>
-                <Nav.Row>
-                    <Nav.Column className='saveCase'>
-                        {body}
-                    </Nav.Column>
-                </Nav.Row>
+            <div className='fieldset saveCase'>
+             { rinaLoading ? <span>{t('case:loading-rinaUrl')}</span> :
+               (rinaUrl && dataSaved && dataSaved.euxcaseid ? <div>
+                   <div className='m-4'><a href={rinaUrl + dataSaved.euxcaseid}>{t('case:form-caseLink')}</a></div>
+                   <div className='m-4'>
+                       <h4>{t('case:form-rinaId') + ': ' + dataSaved.euxcaseid}</h4>
+                   </div>
+               </div> : null)}
             </div>
+
+            <RenderPrintData t={t} dataToGenerate={dataToGenerate} dataToConfirm={dataToConfirm}/>
+            <Print fileName='kvittering.pdf' nodeId='divToPrint' buttonLabel={t('ui:getReceipt')}/>
+
             <Nav.Row className='mb-4 p-4'>
                 <div className='col-md-6 mb-2'>
                     <Nav.Knapp className='w-100 backButton' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
