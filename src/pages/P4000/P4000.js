@@ -13,6 +13,7 @@ import EventForm from '../../components/p4000/EventForm/EventForm';
 import * as Menu from '../../components/p4000/menu/';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';
 import FrontPageDrawer from '../../components/drawer/FrontPage';
+import Print from '../../components/ui/Print';
 
 import * as routes from '../../constants/routes';
 import * as p4000Actions from '../../actions/p4000';
@@ -113,6 +114,11 @@ class P4000 extends Component {
                     <ClientAlert/>
                 </Nav.Column>
             </Nav.Row> : null}
+            <div id='nodeId' style={{display: 'none'}}>
+               <div>Note: Here the dimensions of div are same as A4</div>
+               <div>You Can add any component here</div>
+            </div>
+            <Print fileName='x.pdf' nodeId='nodeId' buttonLabel={t('ui:render')}/>
         </TopContainer>
     }
 }

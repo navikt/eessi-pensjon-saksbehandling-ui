@@ -153,7 +153,7 @@ class GeneratePDF extends Component {
                         </div>
                     </div>
                 })}
-                <div className='text-right mt-4'>
+                <div className='text-right m-4'>
                     <Nav.Knapp className='downloadAllButton' onClick={this.downloadAll.bind(this)}>{t('ui:downloadAll')}</Nav.Knapp>
                 </div>
             </div> : null)}

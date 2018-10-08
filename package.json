@@ -32,6 +32,7 @@
     "i18next": "^11.9.0",
     "i18next-browser-languagedetector": "^2.2.3",
     "i18next-xhr-backend": "^1.5.1",
+    "jspdf": "^1.4.1",
     "less": "^3.8.1",
     "less-plugin-npm-import": "^2.1.0",
     "less-watch-compiler": "^1.11.3",

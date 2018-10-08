@@ -108,12 +108,14 @@ class DnDSpecial extends Component {
                         </Draggable>
 
                         <div className='ml-3'>
-                            <Nav.Textarea className='d-inline-block' placeholder={t('ui:text')} value={this.state.title} onChange={this.setSpecialPageTitle.bind(this)}/>
 
                         </div>
                         <div className='ml-3'>
-                             <Nav.Textarea placeholder={t('watermark')} className='d-inline-block' value={this.state.watermarkTitle} onChange={this.setWatermarkTitle.bind(this)}/>
+                            <Nav.Textarea maxLength={100} className='d-inline-block' placeholder={t('ui:text')} value={this.state.title} onChange={this.setSpecialPageTitle.bind(this)}/>
 
+                        </div>
+                        <div className='ml-3'>
+                             <Nav.Textarea maxLength={100} className='d-inline-block' placeholder={t('ui:watermark')} value={this.state.watermarkTitle} onChange={this.setWatermarkTitle.bind(this)}/>
                          </div>
                     </div>
                 )}
