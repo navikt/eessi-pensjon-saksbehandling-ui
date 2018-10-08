@@ -89,7 +89,7 @@ class SaveCase extends Component {
     render() {
 
         let { t, history, location, sendingCase, dataSaved,
-        dataToGenerate, dataToConfirm,rinaLoading, rinaUrl } = this.props;
+            dataToGenerate, dataToConfirm,rinaLoading, rinaUrl } = this.props;
 
         let buttonText = sendingCase ? t('case:loading-sendingCase') : t('ui:confirmAndSend');
 
@@ -99,18 +99,18 @@ class SaveCase extends Component {
             stepIndicator={3}
             history={history}
             location={location}>
-            <div className='fieldset saveCase'>
-             { rinaLoading ? <span>{t('case:loading-rinaUrl')}</span> :
-               (rinaUrl && dataSaved && dataSaved.euxcaseid ? <div>
-                   <div className='m-4'><a href={rinaUrl + dataSaved.euxcaseid}>{t('case:form-caseLink')}</a></div>
-                   <div className='m-4'>
-                       <h4>{t('case:form-rinaId') + ': ' + dataSaved.euxcaseid}</h4>
-                   </div>
-               </div> : null)}
+            <div className='fieldset saveCase text-center'>
+                { rinaLoading ? <span>{t('case:loading-rinaUrl')}</span> :
+                    (rinaUrl && dataSaved && dataSaved.euxcaseid ? <div>
+                        <div className='m-4'><a href={rinaUrl + dataSaved.euxcaseid}>{t('case:form-caseLink')}</a></div>
+                        <div className='m-4'>
+                            <h4>{t('case:form-rinaId') + ': ' + dataSaved.euxcaseid}</h4>
+                        </div>
+                        <RenderPrintData t={t} dataToGenerate={dataToGenerate} dataToConfirm={dataToConfirm}/>
+                        <Print fileName='kvittering.pdf' nodeId='divToPrint' buttonLabel={t('ui:getReceipt')}/>
+                    </div> : null)}
             </div>
 
-            <RenderPrintData t={t} dataToGenerate={dataToGenerate} dataToConfirm={dataToConfirm}/>
-            <Print fileName='kvittering.pdf' nodeId='divToPrint' buttonLabel={t('ui:getReceipt')}/>
 
             <Nav.Row className='mb-4 p-4'>
                 <div className='col-md-6 mb-2'>
@@ -131,6 +131,7 @@ SaveCase.propTypes = {
     dataSaved     : PT.object,
     dataSent      : PT.bool,
     dataToConfirm : PT.object,
+    dataToGenerate: PT.object,
     sendingCase   : PT.bool,
     t             : PT.func,
     rinaLoading   : PT.bool,

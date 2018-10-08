@@ -115,8 +115,8 @@ class DnDSpecial extends Component {
 
                         </div>
                         <div className='ml-3'>
-                             <Nav.Textarea maxLength={100} className='d-inline-block' placeholder={t('ui:watermark')} value={this.state.watermarkTitle} onChange={this.setWatermarkTitle.bind(this)}/>
-                         </div>
+                            <Nav.Textarea maxLength={100} className='d-inline-block' placeholder={t('ui:watermark')} value={this.state.watermarkTitle} onChange={this.setWatermarkTitle.bind(this)}/>
+                        </div>
                     </div>
                 )}
             </Droppable>

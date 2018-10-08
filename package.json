@@ -29,6 +29,7 @@
     "cross-env": "^5.2.0",
     "eslint-plugin-react": "^7.11.1",
     "history": "^4.7.2",
+    "html2canvas": "^1.0.0-alpha.12",
     "i18next": "^11.9.0",
     "i18next-browser-languagedetector": "^2.2.3",
     "i18next-xhr-backend": "^1.5.1",

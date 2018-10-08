@@ -177,7 +177,8 @@ GeneratePDF.propTypes = {
     pdfs         : PT.array.isRequired,
     recipe       : PT.array.isRequired,
     generatedPDFs: PT.object,
-    location     : PT.object.isRequired
+    location     : PT.object.isRequired,
+    watermark    : PT.object
 };
 
 export default connect(

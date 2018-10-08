@@ -52,7 +52,7 @@ class RenderPrintData extends Component {
                     </div>
                 })}</dd>
             </dl>
-             {this.renderJson(dataToGenerate, 0).map(html => { return html})}
+            {this.renderJson(dataToGenerate, 0).map(html => { return html})}
         </div>;
     }
 }

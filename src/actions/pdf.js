@@ -99,9 +99,9 @@ export function generatePDF (payload) {
         method  : 'POST',
         payload : newPayload,
         type    : {
-             request : types.PDF_GENERATE_REQUEST,
-             success : types.PDF_GENERATE_SUCCESS,
-             failure : types.PDF_GENERATE_FAILURE
+            request : types.PDF_GENERATE_REQUEST,
+            success : types.PDF_GENERATE_SUCCESS,
+            failure : types.PDF_GENERATE_FAILURE
         }
     });
 }
