@@ -6,8 +6,10 @@ import { bindActionCreators }  from 'redux';
 import { translate } from 'react-i18next';
 import classNames from 'classnames';
 
+
 import PDFSpecialPage from '../PDFSpecialPage/PDFSpecialPage';
 import * as Nav from '../../ui/Nav';
+import ColorPicker from '../../ui/ColorPicker';
 
 import * as pdfActions from '../../../actions/pdf';
 
@@ -30,8 +32,14 @@ class DnDSpecial extends Component {
     state = {
         isHovering : false,
         watermarkEnabled : false,
-        watermarkTitle : '',
-        title: ''
+        watermarkText : '',
+        watermarkTextColor : {
+            r : 255, g: 0, b: 0
+        },
+        separatorText: '',
+        separatorTextColor: {
+            r: 0, g: 0, b: 0
+        }
     }
 
     onHandleMouseEnter() {
@@ -42,26 +50,47 @@ class DnDSpecial extends Component {
         this.setState({isHovering : false});
     }
 
-    setSpecialPageTitle(e) {
+    setSeparatorText(e) {
 
         if (e.target) {
             e.preventDefault();
             e.stopPropagation();
         }
         this.setState({
-            title : e.target ? e.target.value : e
-        })
+            separatorText : e.target ? e.target.value : e
+        });
+    }
+    setSeparatorTextColor(color) {
+
+        this.setState({
+            separatorTextColor : color.rgb
+        });
     }
 
-    setWatermarkTitle (e) {
+    setWatermarkText (e) {
 
         const { actions } = this.props;
 
         this.setState({
-            watermarkTitle: e.target.value
+            watermarkText: e.target.value
         }, () => {
             actions.setWatermark({
-                title : this.state.watermarkTitle
+                watermarkText : this.state.watermarkText,
+                watermarkTextColor : this.state.watermarkTextColor
+            });
+        })
+    }
+
+    setWatermarkTextColor (color) {
+
+        const { actions } = this.props;
+
+        this.setState({
+            watermarkTextColor: color.rgb
+        }, () => {
+            actions.setWatermark({
+                watermarkText : this.state.watermarkText,
+                watermarkTextColor : this.state.watermarkTextColor
             });
         })
     }
@@ -70,7 +99,7 @@ class DnDSpecial extends Component {
 
         const { t } = this.props;
 
-        let separatorEnabled = this.state.title ? true : false;
+        let separatorEnabled = this.state.separatorText ? true : false;
 
         return <div className='c-pdf-dndSpecial position-relative'
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
@@ -83,7 +112,9 @@ class DnDSpecial extends Component {
                     <div ref={provided.innerRef}
                         className={classNames('c-pdf-dndSpecial-droppable', {'c-pdf-dndSpecial-droppable-active' : snapshot.isDraggingOver})}>
 
-                        <Draggable key={'dndspecial'} draggableId={encodeURIComponent(this.state.title)} index={0} isDragDisabled={!separatorEnabled}>
+                        <Draggable key={'dndspecial'} draggableId={encodeURIComponent(
+                            JSON.stringify({'separatorText': this.state.separatorText, 'separatorTextColor' : this.state.separatorTextColor})
+                        )} index={0} isDragDisabled={!separatorEnabled}>
 
                             {(provided, snapshot) => (
                                 <React.Fragment>
@@ -91,7 +122,7 @@ class DnDSpecial extends Component {
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}>
-                                        <PDFSpecialPage title={this.state.title} deleteLink={false}
+                                        <PDFSpecialPage separatorTextColor={this.state.separatorTextColor} separatorText={this.state.separatorText} deleteLink={false}
                                             className={classNames({
                                                 'enabled' : separatorEnabled,
                                                 'disabled' : !separatorEnabled,
@@ -100,7 +131,7 @@ class DnDSpecial extends Component {
                                     </div>
                                     {snapshot.isDragging && (
                                         <div className='cloneStyle'>
-                                            <PDFSpecialPage title={this.state.title} deleteLink={false}/>
+                                            <PDFSpecialPage separatorTextColor={this.state.separatorTextColor} separatorText={this.state.separatorText} deleteLink={false}/>
                                         </div>
                                     )}
                                 </React.Fragment>
@@ -111,11 +142,12 @@ class DnDSpecial extends Component {
 
                         </div>
                         <div className='ml-3'>
-                            <Nav.Textarea maxLength={100} className='d-inline-block' placeholder={t('ui:text')} value={this.state.title} onChange={this.setSpecialPageTitle.bind(this)}/>
-
+                            <Nav.Textarea maxLength={100} className='d-inline-block mb-0' placeholder={t('ui:text')} value={this.state.separatorText} onChange={this.setSeparatorText.bind(this)}/>
+                            <ColorPicker color={ this.state.separatorTextColor } onChangeComplete={ this.setSeparatorTextColor.bind(this) }/>
                         </div>
                         <div className='ml-3'>
-                            <Nav.Textarea maxLength={100} className='d-inline-block' placeholder={t('ui:watermark')} value={this.state.watermarkTitle} onChange={this.setWatermarkTitle.bind(this)}/>
+                            <Nav.Textarea maxLength={100} className='d-inline-block mb-0' placeholder={t('ui:watermark')} value={this.state.watermarkText} onChange={this.setWatermarkText.bind(this)}/>
+                            <ColorPicker color={ this.state.watermarkTextColor } onChangeComplete={ this.setWatermarkTextColor.bind(this) } />
                         </div>
                     </div>
                 )}

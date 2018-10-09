@@ -102,11 +102,12 @@ class DnD extends Component {
                 newRecipe[targetId] = [];
             }
 
-            let title = decodeURIComponent(result.draggableId);
+            let payload = JSON.parse(decodeURIComponent(result.draggableId));
 
             newRecipe[targetId].splice(result.destination.index, 0, {
-                title : title,
-                type : 'specialPage'
+                separatorText      : payload.separatorText,
+                separatorTextColor : payload.separatorTextColor,
+                type               : 'specialPage'
             });
 
             modified = true;

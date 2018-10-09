@@ -3,15 +3,12 @@
     position: relative;
     background-color: white;
     box-shadow: inset 3px 3px 3px lightgrey;
-    transition: all 0.2s ease-out;
-
-    &.collapsed {
-        height: 110px;
-
-    }
+    transition: max-height 1s ease-out;
+    max-height: 110px;
 
     &.expanded {
-        height: 220px;
+        transition: max-height 1s ease-out;
+        max-height: 500px;
         background-color: rgba(0,255,0,0.1);
     }
 
@@ -20,7 +17,6 @@
         flex-wrap: nowrap;
         overflow-x: auto;
         padding: 1rem;
-        min-height: 110px;
     }
 
     .documentActions {
