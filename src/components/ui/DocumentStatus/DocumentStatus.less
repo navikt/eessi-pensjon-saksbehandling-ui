@@ -3,46 +3,69 @@
     position: relative;
     background-color: white;
     box-shadow: inset 3px 3px 3px lightgrey;
+    transition: all 0.2s ease-out;
 
-    .flex {
+    &.collapsed {
+        height: 110px;
+
+    }
+
+    &.expanded {
+        height: 220px;
+        background-color: rgba(0,255,0,0.1);
+    }
+
+    .documentButtons {
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;
-        padding: 10px;
-        height: 100px;
+        padding: 1rem;
+        min-height: 110px;
     }
 
-    .document {
-      opacity: 0;
-      padding: 0 !important;
-      width: 80px;
-      height: 80px;
-      border: none !important;
-      transform: translateZ(0);
-      animation: c-ui-documentStatus-shrink 0.3s forwards;
-
-      &:hover svg {
-        transform: scale(1.1) !important;
-      }
-
-      svg {
-          margin-left: 1rem;
-          margin-bottom: 0.25rem;
-      }
+    .documentActions {
+        padding: 1rem;
     }
 
-    .sent {
-        background-color: #0067c5 !important;
-    }
-    .notsent {
-        background-color: green !important;
-    }
-    .error {
-      background-color: red !important;
+    .documentButton {
+
+          opacity: 0;
+          animation: c-ui-document-load 0.3s forwards;
+
+          .documentButtonContent {
+                padding: 0 !important;
+                width: 80px;
+                height: 80px;
+                border: none !important;
+                &.sent {
+                   background-color: #0067c5 !important;
+                }
+                &.notsent {
+                    background-color: green !important;
+                }
+                &:hover {
+                    z-index: 2;
+                    animation: c-ui-documentStatus-enlarge 0.3s forwards ease-in-out;
+                }
+                &:not(:hover) {
+                    animation: c-ui-documentStatus-shrink 0.3s forwards ease-in-out;
+                }
+                &.active {
+                   background-color: greenyellow !important;
+                }
+                &.error {
+                    background-color: red !important;
+                }
+                svg {
+                    margin-left: 1rem;
+                    margin-bottom: 0.25rem;
+                }
+
+          }
     }
 }
 
-@keyframes c-ui-documentStatus-shrink {
+@keyframes c-ui-document-load {
   0% {
     opacity: 0;
     transform: scale(1.1);
@@ -51,4 +74,28 @@
     opacity: 1;
     transform: scale(1);
   }
+}
+
+
+@keyframes c-ui-documentStatus-enlarge {
+  0% {
+    filter: brightness(100%);
+    transform: scale(1.0);
+  }
+  100% {
+    filter: brightness(120%);
+    transform: scale(1.2);
+  }
+}
+
+@keyframes c-ui-documentStatus-shrink {
+  0% {
+    filter: brightness(120%);
+    transform: scale(1.2);
+  }
+  100% {
+    filter: brightness(100%);
+    transform: scale(1.0);
+  }
+
 }

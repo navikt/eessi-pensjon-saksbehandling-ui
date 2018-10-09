@@ -12,7 +12,6 @@ import * as Nav from '../Nav';
 import * as routes from '../../../constants/routes';
 import * as statusActions from '../../../actions/status';
 import * as p4000Actions from '../../../actions/p4000';
-
 import P4000Util from  '../../../components/p4000/Util';
 
 import './DocumentStatus.css';
@@ -91,7 +90,7 @@ class DocumentStatus extends Component {
         const { actions, history } = this.props;
 
         this.setState({
-            dokumentId : undefined
+            doc : undefined
         });
 
         switch (sed.sed) {
@@ -109,48 +108,94 @@ class DocumentStatus extends Component {
         }
     }
 
-    getClass(doc) {
+    getDocumentButtonClass(_doc) {
 
         const { loadingStatus } = this.props;
-        const { dokumentId } = this.state;
+        const { doc, requestedDokumentId } = this.state;
 
-        if (!doc.aksjoner) {
+        if (!_doc.aksjoner) {
             return null;
         }
-        if (loadingStatus === 'ERROR' && doc.dokumentId === dokumentId) {
+        if (loadingStatus === 'ERROR' && requestedDokumentId === _doc.dokumentId) {
             return 'error';
         }
-        return doc.aksjoner.indexOf('Send') >= 0 ? 'sent' : 'notsent'
+        return _doc.aksjoner.indexOf('Send') >= 0 ? 'sent' : 'notsent'
     }
 
-    documentClick(doc) {
+    toogleDocumentStatus(_doc) {
+
+        if (!this.state.doc) {
+            this.setState({
+                doc : _doc
+            });
+        } else {
+            if (this.state.doc.dokumentId === _doc.dokumentId) {
+                this.setState({
+                     doc : undefined
+                })
+            } else {
+                this.setState({
+                     doc : _doc
+                })
+            }
+        }
+    }
+
+    handleDocumentClick(doc, aksjoner) {
 
         const { rinaId, actions } = this.props;
 
-        this.setState({
-            dokumentId : doc.dokumentId
-        });
+        switch (aksjoner) {
 
-        actions.getSed(rinaId, doc.dokumentId);
+            case 'Read':
+            case 'Update':
+            case 'Delete':
+            case 'Create':
+            actions.getSed(rinaId, doc.dokumentId);
+            break;
+            default:
+            break;
+        }
+
+        this.setState({
+            requestedDokumentId : doc.dokumentId
+        });
     }
 
     render() {
 
         const { t, className, gettingSED } = this.props;
-        const { docs, dokumentId } = this.state;
+        const { docs, doc } = this.state;
 
-        return <div className={classNames('c-ui-documentStatus', className)}>
-            <div className='flex'>
-                {docs.map((doc, index) => {
-                    return <Nav.Hovedknapp key={index} style={{animationDelay: index * 0.05 + 's'}} className={classNames('document', 'mr-2', this.getClass(doc))}
-                        title={doc.aksjoner.map(aks => {return t(aks.toLowerCase())}).join(', ')}
-                        onClick={this.documentClick.bind(this, doc)}>
-                        {gettingSED && doc.dokumentId === dokumentId ? <Nav.NavFrontendSpinner style={{position: 'absolute', top: '1rem'}}/> : null}
+        return <div className={classNames('c-ui-documentStatus', {
+            collapsed: !doc,
+            expanded : doc
+        }, className)}>
+            <div className='documentButtons'>
+                {docs.map((_doc, index) => {
+                    let active = doc ? _doc.dokumentId === doc.dokumentId : false;
+                    return <div className='documentButton' style={{animationDelay: index * 0.05 + 's'}}>
+                    <Nav.Hovedknapp key={index}
+                        className={classNames('documentButtonContent', 'mr-2',
+                        {'active' : active },
+                        this.getDocumentButtonClass(_doc))}
+                        onClick={this.toogleDocumentStatus.bind(this, _doc)}>
+                        {gettingSED && active ? <Nav.NavFrontendSpinner style={{position: 'absolute', top: '1rem'}}/> : null}
                         <Icons className='mr-3' size='3x' kind='document'/>
-                        <div>{doc.dokumentType}</div>
+                        <div>{_doc.dokumentType}</div>
                     </Nav.Hovedknapp>
+                    </div>
                 })}
             </div>
+            {doc ? <div className='documentActions'>
+                <div>{t('documentType') + ': ' + doc.dokumentType}</div>
+                <div>{t('documentId') + ': ' + doc.dokumentId}</div>
+                {doc.aksjoner.map((aksjon, index) => {
+                    return <Nav.Hovedknapp className='mr-2' key={index} onClick={this.handleDocumentClick.bind(this, doc, aksjon)}>
+                    {t(aksjon.toLowerCase())}
+                    </Nav.Hovedknapp>
+                })}
+            </div> : null}
         </div>
     }
 }
