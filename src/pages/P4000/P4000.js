@@ -95,7 +95,7 @@ class P4000 extends Component {
         return <TopContainer className='p-p4000'
             history={history} location={location}
             sideContent={<FrontPageDrawer t={t} status={status}/>}>
-            <Nav.Row className='no-gutters'>
+            <Nav.Row className='no-gutters mb-2'>
                 <div className='col-md-5 col-lg-4'>
                     <h1 className='appTitle'>{t('p4000:app-title')}</h1>
                     <Nav.Knapp className='fileButton ml-4' onClick={this.onFileButtonClick.bind(this)} disabled={activeItem === 'file'}>

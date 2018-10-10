@@ -5,29 +5,39 @@ import moment from 'moment';
 
 class Util {
 
+    readEvents(loadedObject) {
+
+        if (!loadedObject) {
+            return null;
+        }
+
+        return loadedObject.map(event => {
+
+            if (event.startDate) event.startDate = new Date(event.startDate);
+            if (event.birthDate) event.birthDate = new Date(event.birthDate);
+            if (event.endDate)   event.endDate   = new Date(event.endDate);
+            if (event.files) {
+                // can't save file.data on JSON, only base64, therefore reconstruct file.data from file.base64
+                event.files.map(file => {
+                    var raw = window.atob(file.base64);
+                    var array = new Uint8Array(new ArrayBuffer(raw.length));
+                    for (var i = 0; i < raw.length; i++) {
+                        array[i] = raw.charCodeAt(i);
+                    }
+                    file.data = array;
+                    return file;
+                });
+            }
+            return event;
+        });
+    }
+
     // converting string loaded from local file to JSON Event object
     readEventsFromString(loadedString) {
 
         try {
-            return JSON.parse(loadedString).map(event => {
-
-                if (event.startDate) event.startDate = new Date(event.startDate);
-                if (event.birthDate) event.birthDate = new Date(event.birthDate);
-                if (event.endDate)   event.endDate   = new Date(event.endDate);
-                if (event.files) {
-                    // can't save file.data on JSON, only base64, therefore reconstruct file.data from file.base64
-                    event.files.map(file => {
-                        var raw = window.atob(file.base64);
-                        var array = new Uint8Array(new ArrayBuffer(raw.length));
-                        for (var i = 0; i < raw.length; i++) {
-                            array[i] = raw.charCodeAt(i);
-                        }
-                        file.data = array;
-                        return file;
-                    });
-                }
-                return event;
-            });
+            let loadedObject = JSON.parse(loadedString);
+            return this.readEvents(loadedObject);
         } catch (error) {
             return error.message;
         }

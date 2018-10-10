@@ -9,7 +9,6 @@ import _ from 'lodash';
 
 import Icons from '../../../../components/ui/Icons';
 import * as Nav from '../../../../components/ui/Nav';
-import BucketFileBrowser from '../../../../components/ui/BucketFileBrowser/BucketFileBrowser';
 import P4000Util from '../../../../components/p4000/Util';
 
 import * as routes from '../../../../constants/routes';
@@ -35,8 +34,7 @@ class File extends Component {
 
     state = {
         submitted : false,
-        referrer  : undefined,
-        remoteFile: undefined
+        referrer  : undefined
     }
 
     componentDidMount() {
@@ -74,29 +72,24 @@ class File extends Component {
         this.fileInput.click();
     }
 
-    addRemoteFile(file) {
+    fileSelected(file, fileContent) {
 
-        this.setState({
-            remoteFile : file
-        });
+        const { actions } = this.props;
+
+        let events = P4000Util.readEvents(fileContent);
+        if (typeof events === 'string') {
+            actions.openP4000Failure(events);
+        } else {
+            actions.openP4000Success(events);
+        }
     }
 
     doOpenP4000FromServer() {
 
-        const { t, actions } = this.props;
+        const { actions } = this.props;
 
-        actions.openModal({
-            modalTitle: t('p4000:file-open-from-server-title'),
-            modalContent: <BucketFileBrowser onFileSelected={this.addRemoteFile.bind(this)}/>,
-            modalButtons: [{
-                disabled : this.state.remoteFile === undefined,
-                main: true,
-                text: t('yes') + ', ' + t('open'),
-                onClick: this.closeModal.bind(this)
-            },{
-                text: t('no') + ', ' + t('cancel'),
-                onClick: this.closeModal.bind(this)
-            }]
+        actions.openBucketFileModal({
+            onFileSelected: this.fileSelected.bind(this)
         });
     }
 

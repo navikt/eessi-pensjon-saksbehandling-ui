@@ -275,6 +275,36 @@ export default function (state = {}, action = {}) {
             status: status
         });
 
+    case types.UI_BUCKET_FILES_LIST_REQUEST:
+
+        return Object.assign({}, state, {
+            loadingBucketFileList : true,
+            status: status
+        });
+
+    case types.UI_BUCKET_FILES_LIST_SUCCESS:
+    case types.UI_BUCKET_FILES_LIST_FAILURE:
+
+        return Object.assign({}, state, {
+            loadingBucketFileList : false,
+            status: status
+        });
+
+    case types.UI_BUCKET_FILES_GET_REQUEST:
+
+        return Object.assign({}, state, {
+            loadingBucketFile : true,
+            status: status
+        });
+
+    case types.UI_BUCKET_FILES_GET_SUCCESS:
+    case types.UI_BUCKET_FILES_GET_FAILURE:
+
+        return Object.assign({}, state, {
+            loadingBucketFile : false,
+            status: status
+        });
+
     default:
 
         return state;

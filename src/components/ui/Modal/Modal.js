@@ -3,8 +3,8 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 
-import * as Nav from './Nav'
-import * as uiActions from '../../actions/ui';
+import * as Nav from '../Nav'
+import * as uiActions from '../../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {

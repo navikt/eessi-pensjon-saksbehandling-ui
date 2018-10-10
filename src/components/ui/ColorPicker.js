@@ -1,6 +1,7 @@
-import React from 'react'
-import reactCSS from 'reactcss'
-import { SketchPicker } from 'react-color'
+import React from 'react';
+import PT from 'prop-types';
+import reactCSS from 'reactcss';
+import { SketchPicker } from 'react-color';
 
 class ColorPicker extends React.Component {
 
@@ -18,31 +19,33 @@ class ColorPicker extends React.Component {
 
       return {
           color : props.color
-      }
+      };
   }
 
   handleClick () {
 
       this.setState({
-        displayColorPicker: !this.state.displayColorPicker
+          displayColorPicker: !this.state.displayColorPicker
       });
-  };
+  }
 
   handleClose () {
 
       this.setState({
           displayColorPicker: false
       });
-  };
+  }
 
   handleChange (color) {
 
       this.setState({
           color: color
       });
-  };
+  }
 
   render () {
+
+      const { color, onChangeComplete } = this.props;
 
       const styles = reactCSS({
           'default': {
@@ -74,19 +77,22 @@ class ColorPicker extends React.Component {
           },
       });
 
-      return (
-          <div>
-              <div style={ styles.swatch } onClick={ this.handleClick.bind(this) }>
-                  <div style={ styles.color } />
-              </div>
-              { this.state.displayColorPicker ? <div style={ styles.popover }>
-                  <div style={ styles.cover } onClick={ this.handleClose.bind(this) }/>
-                  <SketchPicker color={ this.props.color } onChange={ this.handleChange.bind(this) } onChangeComplete={this.props.onChangeComplete}/>
-              </div> : null }
-
+      return  <div>
+          <div style={ styles.swatch } onClick={ this.handleClick.bind(this) }>
+              <div style={ styles.color } />
           </div>
-      )
+          { this.state.displayColorPicker ? <div style={ styles.popover }>
+              <div style={ styles.cover } onClick={ this.handleClose.bind(this) }/>
+              <SketchPicker color={ color } onChange={ this.handleChange.bind(this) } onChangeComplete={ onChangeComplete }/>
+          </div> : null }
+
+      </div>
   }
 }
+
+ColorPicker.propTypes = {
+    color            : PT.object,
+    onChangeComplete : PT.func
+};
 
 export default ColorPicker

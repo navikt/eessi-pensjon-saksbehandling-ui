@@ -1,4 +1,6 @@
 import * as types from '../constants/actionTypes';
+import * as urls  from '../constants/urls';
+import * as api   from './api';
 import i18n from '../i18n';
 
 export function changeLanguage (language) {
@@ -38,6 +40,44 @@ export function closeModal () {
     return {
         type : types.UI_MODAL_CLOSE
     }
+}
+
+export function openBucketFileModal(options) {
+    return {
+        type    : types.UI_BUCKET_MODAL_OPEN,
+        payload : options
+    }
+}
+
+export function closeBucketFileModal () {
+
+    return {
+        type : types.UI_BUCKET_MODAL_CLOSE
+    }
+}
+
+export function listBucketFiles() {
+
+    return api.call({
+        url  : urls.UI_BUCKET_FILES_LIST_URL,
+        type : {
+            request : types.UI_BUCKET_FILES_LIST_REQUEST,
+            success : types.UI_BUCKET_FILES_LIST_SUCCESS,
+            failure : types.UI_BUCKET_FILES_LIST_FAILURE
+        }
+    });
+}
+
+export function getBucketFile(file) {
+
+    return api.call({
+        url  : urls.UI_BUCKET_FILES_GET_URL + '/' + file.id,
+        type : {
+            request : types.UI_BUCKET_FILES_GET_REQUEST,
+            success : types.UI_BUCKET_FILES_GET_SUCCESS,
+            failure : types.UI_BUCKET_FILES_GET_FAILURE
+        }
+    });
 }
 
 export function addToBreadcrumbs (breadcrumbs) {
