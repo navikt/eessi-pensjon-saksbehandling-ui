@@ -34,11 +34,11 @@ class DnDSpecial extends Component {
         watermarkEnabled : false,
         watermarkText : '',
         watermarkTextColor : {
-            r : 255, g: 0, b: 0
+            r : 255, g: 0, b: 0, a: 0.25
         },
         separatorText: '',
         separatorTextColor: {
-            r: 0, g: 0, b: 0
+            r: 0, g: 0, b: 0, a: 1
         }
     }
 
@@ -142,11 +142,11 @@ class DnDSpecial extends Component {
 
                         </div>
                         <div className='ml-3'>
-                            <Nav.Textarea maxLength={100} className='d-inline-block mb-0' placeholder={t('ui:text')} value={this.state.separatorText} onChange={this.setSeparatorText.bind(this)}/>
+                            <Nav.Textarea maxLength={100} className='d-inline-block' placeholder={t('ui:text')} value={this.state.separatorText} onChange={this.setSeparatorText.bind(this)}/>
                             <ColorPicker color={ this.state.separatorTextColor } onChangeComplete={ this.setSeparatorTextColor.bind(this) }/>
                         </div>
                         <div className='ml-3'>
-                            <Nav.Textarea maxLength={100} className='d-inline-block mb-0' placeholder={t('ui:watermark')} value={this.state.watermarkText} onChange={this.setWatermarkText.bind(this)}/>
+                            <Nav.Textarea maxLength={100} className='d-inline-block' placeholder={t('ui:watermark')} value={this.state.watermarkText} onChange={this.setWatermarkText.bind(this)}/>
                             <ColorPicker color={ this.state.watermarkTextColor } onChangeComplete={ this.setWatermarkTextColor.bind(this) } />
                         </div>
                     </div>

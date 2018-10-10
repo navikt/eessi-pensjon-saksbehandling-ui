@@ -4,7 +4,6 @@ import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import _ from 'lodash';
 import { translate } from 'react-i18next';
-import Print from '../../components/ui/Print';
 
 import Case from './Case';
 import * as Nav from '../../components/ui/Nav';

@@ -111,7 +111,7 @@ class DocumentStatus extends Component {
     getDocumentButtonClass(_doc) {
 
         const { loadingStatus } = this.props;
-        const { doc, requestedDokumentId } = this.state;
+        const { requestedDokumentId } = this.state;
 
         if (!_doc.aksjoner) {
             return null;
@@ -131,11 +131,11 @@ class DocumentStatus extends Component {
         } else {
             if (this.state.doc.dokumentId === _doc.dokumentId) {
                 this.setState({
-                     doc : undefined
+                    doc : undefined
                 })
             } else {
                 this.setState({
-                     doc : _doc
+                    doc : _doc
                 })
             }
         }
@@ -147,13 +147,13 @@ class DocumentStatus extends Component {
 
         switch (aksjoner) {
 
-            case 'Read':
-            case 'Update':
-            case 'Delete':
-            case 'Create':
+        case 'Read':
+        case 'Update':
+        case 'Delete':
+        case 'Create':
             actions.getSed(rinaId, doc.dokumentId);
             break;
-            default:
+        default:
             break;
         }
 
@@ -174,16 +174,16 @@ class DocumentStatus extends Component {
             <div className='documentButtons'>
                 {docs.map((_doc, index) => {
                     let active = doc ? _doc.dokumentId === doc.dokumentId : false;
-                    return <div className='documentButton' style={{animationDelay: index * 0.05 + 's'}}>
-                    <Nav.Hovedknapp key={index}
-                        className={classNames('documentButtonContent', 'mr-2',
-                        {'active' : active },
-                        this.getDocumentButtonClass(_doc))}
-                        onClick={this.toogleDocumentStatus.bind(this, _doc)}>
-                        {gettingSED && active ? <Nav.NavFrontendSpinner style={{position: 'absolute', top: '1rem'}}/> : null}
-                        <Icons className='mr-3' size='3x' kind='document'/>
-                        <div>{_doc.dokumentType}</div>
-                    </Nav.Hovedknapp>
+                    return <div key={index} className='documentButton' style={{animationDelay: index * 0.05 + 's'}}>
+                        <Nav.Hovedknapp key={index}
+                            className={classNames('documentButtonContent', 'mr-2',
+                                {'active' : active },
+                                this.getDocumentButtonClass(_doc))}
+                            onClick={this.toogleDocumentStatus.bind(this, _doc)}>
+                            {gettingSED && active ? <Nav.NavFrontendSpinner style={{position: 'absolute', top: '1rem'}}/> : null}
+                            <Icons className='mr-3' size='3x' kind='document'/>
+                            <div>{_doc.dokumentType}</div>
+                        </Nav.Hovedknapp>
                     </div>
                 })}
             </div>
@@ -192,7 +192,7 @@ class DocumentStatus extends Component {
                 <div>{t('documentId') + ': ' + doc.dokumentId}</div>
                 {doc.aksjoner.map((aksjon, index) => {
                     return <Nav.Hovedknapp className='mr-2' key={index} onClick={this.handleDocumentClick.bind(this, doc, aksjon)}>
-                    {t(aksjon.toLowerCase())}
+                        {t(aksjon.toLowerCase())}
                     </Nav.Hovedknapp>
                 })}
             </div> : null}

@@ -72,7 +72,7 @@ class PDFSpecialPage extends Component {
             </div> : null}
             <div className='page' style={{width : 100 * pdfsize, height: 140 * pdfsize}}>
                 <div className='content' style={{
-                    color: 'rgba(' + separatorTextColor.r + ',' + separatorTextColor.g + ',' + separatorTextColor.b + ',1)'
+                    color: `rgba(${ separatorTextColor.r }, ${ separatorTextColor.g }, ${ separatorTextColor.b }, ${ separatorTextColor.a})`
                 }}>{separatorText}</div>
             </div>
         </div>

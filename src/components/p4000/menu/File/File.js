@@ -9,6 +9,7 @@ import _ from 'lodash';
 
 import Icons from '../../../../components/ui/Icons';
 import * as Nav from '../../../../components/ui/Nav';
+import BucketFileBrowser from '../../../../components/ui/BucketFileBrowser/BucketFileBrowser';
 import P4000Util from '../../../../components/p4000/Util';
 
 import * as routes from '../../../../constants/routes';
@@ -34,7 +35,8 @@ class File extends Component {
 
     state = {
         submitted : false,
-        referrer  : undefined
+        referrer  : undefined,
+        remoteFile: undefined
     }
 
     componentDidMount() {
@@ -64,12 +66,38 @@ class File extends Component {
         actions.newP4000();
     }
 
-    doOpenP4000() {
+    doOpenP4000FromFile() {
 
         const { actions } = this.props;
 
         actions.closeModal();
         this.fileInput.click();
+    }
+
+    addRemoteFile(file) {
+
+        this.setState({
+            remoteFile : file
+        });
+    }
+
+    doOpenP4000FromServer() {
+
+        const { t, actions } = this.props;
+
+        actions.openModal({
+            modalTitle: t('p4000:file-open-from-server-title'),
+            modalContent: <BucketFileBrowser onFileSelected={this.addRemoteFile.bind(this)}/>,
+            modalButtons: [{
+                disabled : this.state.remoteFile === undefined,
+                main: true,
+                text: t('yes') + ', ' + t('open'),
+                onClick: this.closeModal.bind(this)
+            },{
+                text: t('no') + ', ' + t('cancel'),
+                onClick: this.closeModal.bind(this)
+            }]
+        });
     }
 
     doSubmitP4000() {
@@ -143,14 +171,14 @@ class File extends Component {
                 modalButtons: [{
                     main: true,
                     text: t('yes') + ', ' + t('continue'),
-                    onClick: this.doOpenP4000.bind(this)
+                    onClick: this.doOpenP4000FromFile.bind(this)
                 },{
                     text: t('no') + ', ' + t('cancel'),
                     onClick: this.closeModal.bind(this)
                 }]
             });
         } else {
-            this.doOpenP4000();
+            this.doOpenP4000FromFile();
         }
     }
 
@@ -161,19 +189,19 @@ class File extends Component {
         if (!_.isEmpty(event) || !_.isEmpty(events)) {
 
             actions.openModal({
-                modalTitle: t('p4000:choose'),
-                modalText: t('p4000:choose'),
+                modalTitle: t('p4000:file-open-confirm-title'),
+                modalText: t('p4000:file-open-confirm-text'),
                 modalButtons: [{
                     main: true,
                     text: t('yes') + ', ' + t('continue'),
-                    onClick: this.doOpenP4000.bind(this)
+                    onClick: this.doOpenP4000FromServer.bind(this)
                 },{
                     text: t('no') + ', ' + t('cancel'),
                     onClick: this.closeModal.bind(this)
                 }]
             });
         } else {
-            this.doOpenP4000();
+            this.doOpenP4000FromServer();
         }
     }
 
