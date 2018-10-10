@@ -108,11 +108,7 @@ class P4000 extends Component {
                 </div>
             </Nav.Row>
             <EventForm type={activeItem} Component={Component} history={history} location={location}/>
-            {isEventPage ? <Nav.Row className='mb-4'>
-                <Nav.Column>
-                    <ClientAlert/>
-                </Nav.Column>
-            </Nav.Row> : null}
+            {isEventPage ? <ClientAlert/> : null}
         </TopContainer>
     }
 }

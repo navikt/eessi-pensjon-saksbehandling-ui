@@ -177,7 +177,7 @@ class New extends Component {
 
         const { t, events } = this.props;
 
-        return <Nav.Panel className='c-p4000-menu-new mt-4 p-0'>
+        return <Nav.Panel className='c-p4000-menu-new mt-4 mb-4 p-0'>
             <div>
                 <a className='hiddenFileInputOutput' ref={fileOutput => this.fileOutput = fileOutput}
                     href={this.state.fileOutput} download='p4000.json'>&nbsp;</a>

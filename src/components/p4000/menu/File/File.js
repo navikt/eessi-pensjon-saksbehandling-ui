@@ -295,7 +295,7 @@ class File extends Component {
 
         const { t, events, event } = this.props;
 
-        return <Nav.Panel className='c-p4000-menu-file mt-4 p-0'>
+        return <Nav.Panel className='c-p4000-menu-file mt-4 mb-4 p-0'>
             <Nav.Row style={{animationDelay: '-0.3s'}} className='fileButtons fieldset no-gutters'>
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('p4000:help-file-info')}</Nav.HjelpetekstBase>

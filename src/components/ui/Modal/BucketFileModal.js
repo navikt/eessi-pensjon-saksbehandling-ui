@@ -81,7 +81,7 @@ class BucketFileModal extends Component {
             closeButton={false}
             contentLabel='contentLabel'>
             <div className='m-3 text-center'><h4>{t('fileSelect')}</h4></div>
-            {loadingBucketFileList ? <div className={classNames('text-center p-5', className)}>
+            {loadingBucketFileList ? <div className={classNames('text-center', className)}>
                 <Nav.NavFrontendSpinner/>
                 <p>{t('ui:loading')}</p>
             </div> : (bucketFiles ? <div className={classNames('fileList', className)}>

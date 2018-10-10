@@ -123,8 +123,8 @@ class Work extends Component {
 
         const { t, event, editMode, actions, type, locale } = this.props;
 
-        return <Nav.Panel className='c-p4000-menu-event p-0'>
-            <div className='eventTitle m-4'>
+        return <Nav.Panel className={classNames('c-p4000-menu-event p-0 mb-4', {editMode : editMode})}>
+            <div className='eventTitle m-4 pl-4'>
                 <Icons size='3x' kind={type} className='float-left mr-4'/>
                 <h1 className='m-0'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('p4000:' + type + '-title')}</h1>
             </div>

@@ -151,12 +151,10 @@ class EditPDF extends Component {
         return <TopContainer className='p-pdf-editPdf'
             history={history} location={location}
             sideContent={<PdfDrawer/>}>
-            <div className='mt-4'>
-                <Nav.HjelpetekstBase>{t('pdf:help-edit-pdf')}</Nav.HjelpetekstBase>
-            </div>
+            <Nav.HjelpetekstBase>{t('pdf:help-edit-pdf')}</Nav.HjelpetekstBase>
             <h1 className='appTitle'>{t('pdf:app-editPdfTitle')}</h1>
             <ClientAlert/>
-            <div className='w-100'>
+            <div className='w-100 ml-2 mb-2'>
                 <PDFSizeSlider style={{width: '20%'}}/>
             </div>
             <Nav.Row className='m-0'>

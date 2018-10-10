@@ -111,17 +111,11 @@ class EventForm extends React.Component {
         let hideEventList = (type === 'view' || _.isEmpty(events));
 
         return <div className='c-p4000-eventForm'>
-            <Nav.Row className='no-gutters'>
-                <EventList className={classNames({'hiding' : hideEventList})}
-                    events={events} eventIndex={eventIndex}
-                    cancelEditRequest={this.handleCancelRequest.bind(this)}
-                    handleEditRequest={this.handleEditRequest.bind(this)}/>
-            </Nav.Row>
-            <Nav.Row className={classNames('row-component', 'no-gutters', 'mb-4', {'editMode' : editMode})}>
-                <Nav.Column>
-                    <Component history={history} location={location} type={type} provideController={(component) => {this.component = component}}/>
-                </Nav.Column>
-            </Nav.Row>
+            <EventList className={classNames({'hiding' : hideEventList})}
+                events={events} eventIndex={eventIndex}
+                cancelEditRequest={this.handleCancelRequest.bind(this)}
+                handleEditRequest={this.handleEditRequest.bind(this)}/>
+            <Component history={history} location={location} type={type} provideController={(component) => {this.component = component}}/>
             {isEventPage ? (!editMode ?
                 <Nav.Row className='row-buttons mb-4 ml-2 mr-2 text-center'>
                     <div className='col-md-6'>
