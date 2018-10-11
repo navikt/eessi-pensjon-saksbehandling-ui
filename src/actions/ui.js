@@ -42,14 +42,14 @@ export function closeModal () {
     }
 }
 
-export function openBucketFileModal(options) {
+export function openFileSelectModal(options) {
     return {
         type    : types.UI_BUCKET_MODAL_OPEN,
         payload : options
     }
 }
 
-export function closeBucketFileModal () {
+export function closeFileSelectModal () {
 
     return {
         type : types.UI_BUCKET_MODAL_CLOSE

@@ -9,7 +9,7 @@ import ServerAlert from '../Alert/ServerAlert';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import Drawer from '../Drawer/Drawer';
 import Modal from '../Modal/Modal';
-import BucketFileModal from '../Modal/BucketFileModal';
+import FileSelectModal from '../Modal/FileSelectModal';
 import { DragDropContext } from 'react-beautiful-dnd';
 
 import './TopContainer.css';
@@ -52,7 +52,7 @@ class TopContainer extends Component {
                     <TopHeader/>
                     <ServerAlert/>
                     <Modal/>
-                    <BucketFileModal/>
+                    <FileSelectModal/>
                     <Breadcrumbs history={history}/>
                     <Nav.Container fluid={true}>
                         {this.props.children}

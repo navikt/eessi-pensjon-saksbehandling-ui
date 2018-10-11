@@ -30,7 +30,9 @@ export default function (state = {}, action = {}) {
 
         return Object.assign({}, state, {
             modalBucketOpen    : false,
-            modalBucketOptions : undefined
+            modalBucketOptions : undefined,
+            bucketFiles        : undefined,
+            bucketFile         : undefined
         });
 
     case types.UI_LANGUAGE_CHANGED:

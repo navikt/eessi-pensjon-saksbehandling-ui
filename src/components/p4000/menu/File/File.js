@@ -72,7 +72,7 @@ class File extends Component {
         this.fileInput.click();
     }
 
-    fileSelected(file, fileContent) {
+    openFile(file, fileContent) {
 
         const { actions } = this.props;
 
@@ -88,8 +88,9 @@ class File extends Component {
 
         const { actions } = this.props;
 
-        actions.openBucketFileModal({
-            onFileSelected: this.fileSelected.bind(this)
+        actions.openFileSelectModal({
+            action         : 'open',
+            onFileSelected : this.openFile.bind(this)
         });
     }
 
@@ -211,19 +212,13 @@ class File extends Component {
 
     handleFileSaveToServer() {
 
-        const { t, actions } = this.props;
+        const { actions, events } = this.props;
 
-        actions.openModal({
-            modalTitle: t('soon'),
-            modalText: t('soon'),
-            modalButtons: [{
-                main: true,
-                text: t('yes') + ', ' + t('continue'),
-                onClick: this.closeModal.bind(this)
-            },{
-                text: t('no') + ', ' + t('cancel'),
-                onClick: this.closeModal.bind(this)
-            }]
+        let fileOutput = P4000Util.writeEventsToString(events);
+
+        actions.openFileSelectModal({
+            action : 'save',
+            file   : fileOutput
         });
     }
 
