@@ -15,7 +15,8 @@ export default function (state = initialState, action = {}) {
     case types.APP_USERINFO_SUCCESS:
 
         return Object.assign({}, state, {
-            userInfo : action.payload
+            username : action.payload.subject,
+            userrole : action.payload.role
         });
 
     case types.APP_DROPPABLE_REGISTER : {

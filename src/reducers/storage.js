@@ -24,12 +24,11 @@ export default function (state = {}, action = {}) {
 
         let content = action.payload;
 
-        try {
-            if (_.startsWith(content, 'data:text/json;charset=utf-8,')) {
-                content = content.substring('data:text/json;charset=utf-8,'.length)
-                content = JSON.parse(decodeURIComponent(content));
-            }
-        } catch (e) {}
+        if (_.startsWith(content, 'data:text/json;charset=utf-8,')) {
+            content = content.substring('data:text/json;charset=utf-8,'.length)
+            content = JSON.parse(decodeURIComponent(content));
+        }
+
         return Object.assign({}, state, {
             fileLoaded : content
         });
@@ -50,7 +49,7 @@ export default function (state = {}, action = {}) {
         });
     }
 
-     case types.STORAGE_TARGET_FILE_TO_DELETE_CANCEL : {
+    case types.STORAGE_TARGET_FILE_TO_DELETE_CANCEL : {
 
         return Object.assign({}, state, {
             fileToDelete : undefined

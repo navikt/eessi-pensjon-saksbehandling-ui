@@ -157,6 +157,16 @@ export default function (state = {}, action = {}) {
         message = 'p4000:alert-submitSuccess';
         break;
 
+   case types.STORAGE_GET_SUCCESS:
+
+        message = 'ui:loadSuccess';
+        break;
+
+    case types.STORAGE_POST_SUCCESS:
+
+        message = 'ui:saveSuccess';
+        break;
+
     default:
         break
     }

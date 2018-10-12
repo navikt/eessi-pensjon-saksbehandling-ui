@@ -87,7 +87,9 @@ PDFSpecialPage.propTypes = {
     text       : PT.string.isRequired,
     dndTarget  : PT.string,
     deleteLink : PT.bool,
-    actions    : PT.object
+    actions    : PT.object,
+    separatorTextColor : PT.string,
+    separatorText      : PT.string
 }
 
 export default connect(

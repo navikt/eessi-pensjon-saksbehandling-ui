@@ -27,6 +27,7 @@ class Icons extends Component {
         case 'view' : return <FontAwesomeIcon icon={icons.faEye} {...this.props}/>;
         case 'calendar' : return <FontAwesomeIcon icon={icons.faCalendarCheck} {...this.props}/>;
 
+        case 'user' :  return <FontAwesomeIcon icon={icons.faUser} {...this.props}/>;
         case 'file' :  return <FontAwesomeIcon icon={icons.faFile} {...this.props}/>;
         case 'folder' :  return <FontAwesomeIcon icon={icons.faFolderOpen} {...this.props}/>;
         case 'file-save' :  return <FontAwesomeIcon icon={icons.faSave} {...this.props}/>;
