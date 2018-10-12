@@ -268,7 +268,7 @@ class PSelv extends Component {
                         ]}/>
                 </Nav.Column>
             </Nav.Row>
-            <div className={classNames('fieldset','mb-4', {
+            <div className={classNames('fieldset','animate','mb-4', {
                 validationFail : this ? this.hasValidationErrors() : false
             })}>
                 <Nav.HjelpetekstBase>{t('pselv:help-step' + step )}</Nav.HjelpetekstBase>
@@ -437,7 +437,7 @@ class PSelv extends Component {
                         <Nav.Column className='mb-4'>
                             <h4>{t('pselv:form-step3-title')}</h4>
                             <h6>{t('pselv:form-step3-description')}</h6>
-                            <div><a href='#'>{t('pselv:form-step3-sed-anchor-text')}</a></div>
+                            <div><a href='#externalhref'>{t('pselv:form-step3-sed-anchor-text')}</a></div>
                         </Nav.Column>
                     </Nav.Row>
                     <Nav.Row>
@@ -482,10 +482,10 @@ class PSelv extends Component {
                     <h4 className='mb-4'>{t('pselv:form-step4-title')}</h4>
                     <div className='mb-4' dangerouslySetInnerHTML={{__html: t('pselv:form-step4-description-1')}}/>
                     <div className='mb-4'>{t('pselv:form-step4-description-2')}</div>
-                    <div className='mb-4'><a href='#'>{t('pselv:form-step4-anchor-text-1')}</a></div>
+                    <div className='mb-4'><a href='#externalhref'>{t('pselv:form-step4-anchor-text-1')}</a></div>
                     <hr/>
                     <div className='mb-4'>{t('pselv:form-step4-description-3')}</div>
-                    <div className='mb-4'><a href='#'>{t('pselv:form-step4-anchor-text-2')}</a></div>
+                    <div className='mb-4'><a href='#externalhref'>{t('pselv:form-step4-anchor-text-2')}</a></div>
                     <div className='mb-4'>{t('pselv:form-step4-description-4')}</div>
                     <div className='mb-4'>{t('pselv:form-step4-description-5')}</div>
                 </div> : null

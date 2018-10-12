@@ -133,7 +133,7 @@ class View extends Component {
         });
 
         return <Nav.Panel className='c-p4000-menu-view p-0 mb-4'>
-            <Nav.Ekspanderbartpanel className='row-timeline-view fieldset mb-5' apen={true} tittel={t('p4000:form-timeline')} tittelProps='undertittel'>
+            <Nav.Ekspanderbartpanel className='row-timeline-view fieldset animate mb-5' apen={true} tittel={t('p4000:form-timeline')} tittelProps='undertittel'>
                 <Timeline items={items}
                     options={{
                         width        : '100%',
@@ -149,7 +149,7 @@ class View extends Component {
                     }}/>
             </Nav.Ekspanderbartpanel>
 
-            <Nav.Ekspanderbartpanel className='row-advanced-view fieldset' apen={false} tittel={t('p4000:form-advancedView')} tittelProps='undertittel'>
+            <Nav.Ekspanderbartpanel style={{animationDelay: '0.3s'}} className='row-advanced-view fieldset animate' apen={false} tittel={t('p4000:form-advancedView')} tittelProps='undertittel'>
 
                 <Nav.Row className='fileButtons m-4'>
                     <Nav.Column>

@@ -19,20 +19,18 @@ export default function (state = {}, action = {}) {
             modal     : undefined
         });
 
-    case types.UI_BUCKET_MODAL_OPEN:
+    case types.UI_STORAGE_MODAL_OPEN:
 
         return Object.assign({}, state, {
-            modalBucketOpen    : true,
-            modalBucketOptions : action.payload
+            modalStorageOpen    : true,
+            modalStorageOptions : action.payload
         });
 
-    case types.UI_BUCKET_MODAL_CLOSE:
+    case types.UI_STORAGE_MODAL_CLOSE:
 
         return Object.assign({}, state, {
-            modalBucketOpen    : false,
-            modalBucketOptions : undefined,
-            bucketFiles        : undefined,
-            bucketFile         : undefined
+            modalStorageOpen    : false,
+            modalStorageOptions : undefined
         });
 
     case types.UI_LANGUAGE_CHANGED:
@@ -115,20 +113,6 @@ export default function (state = {}, action = {}) {
         return Object.assign({}, state, {
             drawerWidth : action.payload
         });
-
-    case types.UI_BUCKET_FILES_LIST_SUCCESS: {
-
-        return Object.assign({}, state, {
-            bucketFiles : action.payload
-        });
-    }
-
-    case types.UI_BUCKET_FILES_GET_SUCCESS: {
-
-        return Object.assign({}, state, {
-            bucketFile : action.payload
-        });
-    }
 
     default:
 

@@ -99,7 +99,7 @@ class SaveCase extends Component {
             stepIndicator={3}
             history={history}
             location={location}>
-            <div className='fieldset saveCase text-center'>
+            <div className='fieldset animate text-center'>
                 { rinaLoading ? <span>{t('case:loading-rinaUrl')}</span> :
                     (rinaUrl && dataSaved && dataSaved.euxcaseid ? <div>
                         <div className='m-4'><a href={rinaUrl + dataSaved.euxcaseid}>{t('case:form-caseLink')}</a></div>

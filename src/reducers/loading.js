@@ -275,33 +275,63 @@ export default function (state = {}, action = {}) {
             status: status
         });
 
-    case types.UI_BUCKET_FILES_LIST_REQUEST:
+    case types.STORAGE_LIST_REQUEST:
 
         return Object.assign({}, state, {
-            loadingBucketFileList : true,
+            loadingStorageFileList : true,
             status: status
         });
 
-    case types.UI_BUCKET_FILES_LIST_SUCCESS:
-    case types.UI_BUCKET_FILES_LIST_FAILURE:
+    case types.STORAGE_LIST_SUCCESS:
+    case types.STORAGE_LIST_FAILURE:
 
         return Object.assign({}, state, {
-            loadingBucketFileList : false,
+            loadingStorageFileList : false,
             status: status
         });
 
-    case types.UI_BUCKET_FILES_GET_REQUEST:
+    case types.STORAGE_GET_REQUEST:
 
         return Object.assign({}, state, {
-            loadingBucketFile : true,
+            loadingStorageFile : true,
             status: status
         });
 
-    case types.UI_BUCKET_FILES_GET_SUCCESS:
-    case types.UI_BUCKET_FILES_GET_FAILURE:
+    case types.STORAGE_GET_SUCCESS:
+    case types.STORAGE_GET_FAILURE:
 
         return Object.assign({}, state, {
-            loadingBucketFile : false,
+            loadingStorageFile : false,
+            status: status
+        });
+
+    case types.STORAGE_POST_REQUEST:
+
+        return Object.assign({}, state, {
+            savingStorageFile : true,
+            status: status
+        });
+
+    case types.STORAGE_POST_SUCCESS:
+    case types.STORAGE_POST_FAILURE:
+
+        return Object.assign({}, state, {
+            savingStorageFile : false,
+            status: status
+        });
+
+    case types.STORAGE_DELETE_REQUEST:
+
+        return Object.assign({}, state, {
+            deletingStorageFile : true,
+            status: status
+        });
+
+    case types.STORAGE_DELETE_SUCCESS:
+    case types.STORAGE_DELETE_FAILURE:
+
+        return Object.assign({}, state, {
+            deletingStorageFile : false,
             status: status
         });
 

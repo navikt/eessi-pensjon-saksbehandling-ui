@@ -88,7 +88,8 @@ class File extends Component {
 
         const { actions } = this.props;
 
-        actions.openFileSelectModal({
+        actions.closeModal();
+        actions.openStorageModal({
             action         : 'open',
             onFileSelected : this.openFile.bind(this)
         });
@@ -216,9 +217,9 @@ class File extends Component {
 
         let fileOutput = P4000Util.writeEventsToString(events);
 
-        actions.openFileSelectModal({
-            action : 'save',
-            file   : fileOutput
+        actions.openStorageModal({
+            action  : 'save',
+            content : fileOutput
         });
     }
 
@@ -291,7 +292,7 @@ class File extends Component {
         const { t, events, event } = this.props;
 
         return <Nav.Panel className='c-p4000-menu-file mt-4 mb-4 p-0'>
-            <Nav.Row style={{animationDelay: '-0.3s'}} className='fileButtons fieldset no-gutters'>
+            <Nav.Row className='fileButtons fieldset animate no-gutters'>
                 <Nav.Column>
                     <Nav.HjelpetekstBase>{t('p4000:help-file-info')}</Nav.HjelpetekstBase>
                     <h2 className='mb-4'>{t('p4000:file-title')}</h2>

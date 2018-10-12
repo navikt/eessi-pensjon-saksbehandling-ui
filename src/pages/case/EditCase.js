@@ -520,7 +520,7 @@ class EditCase extends Component {
             stepIndicator={0}
             history={history}
             location={location}>
-            <div className='fieldset'>
+            <div className='fieldset animate'>
                 <Nav.Row className='mb-3 align-middle text-left'>
                     <div className='col-md-6'>{this.renderSubjectArea()}</div>
                     <div className='col-md-6 selectBoxMessage'>

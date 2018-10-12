@@ -49,10 +49,12 @@ h4.appDescription {
   position: relative;
   background-color: whitesmoke;
   box-shadow: 3px 3px 3px lightgrey;
-  opacity: 0.01;
   margin: 0rem 1.5rem;
   padding: 1.5rem;
-  animation: fadeIn 0.3s forwards;
+  &.animate {
+    opacity: 0.01;
+    animation: fadeIn 0.3s forwards;
+  }
 }
 @keyframes fadeIn {
   0% {
@@ -60,6 +62,5 @@ h4.appDescription {
   }
   100% {
     opacity: 1;
-    z-index: 1;
   }
 }

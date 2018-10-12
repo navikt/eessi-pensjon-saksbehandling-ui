@@ -55,7 +55,7 @@ class FrontPage extends Component {
                 <LanguageSelector/>
             </div>
             <ClientAlert permanent={true}/>
-            <div className='fieldset mb-4'>
+            <div className='fieldset animate mb-4'>
                 {_.isEmpty(status.documents) ? ( gettingStatus || gettingRinaCase ? <div>
                     <h4 className='mb-4'>{t('status')}</h4>
                     <div className='w-100 text-center' style={{minHeight: '110px'}}>

@@ -65,7 +65,7 @@ class SendCase extends Component {
             stepIndicator={4}
             history={history}
             location={location}>
-            <div className='fieldset'>
+            <div className='fieldset animate'>
                 <Nav.Row>
                     <Nav.Column className='sendCase'>
                         <div>{t('case:form-caseSent')}</div>

@@ -15,7 +15,7 @@ export function call (options) {
             crossOrigin: true,
             json: true,
             headers: options.headers,
-            body: options.payload
+            body: options.body || options.payload
         }, function (error, response, body) {
             if (!response) {
                 return dispatch({

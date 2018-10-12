@@ -5,7 +5,6 @@ export const BASE_URL = window.location.protocol + '//' +
 let API_URL = BASE_URL + '/api';
 let FAG_URL = BASE_URL + '/fag';
 let PDF_URL = BASE_URL + '/pdf';
-let FIL_URL = BASE_URL + '/fil';
 
 // EuxController
 export const CASE_GET_RINA_URL                = API_URL + '/rinaurl';
@@ -24,9 +23,11 @@ export const CASE_GET_COUNTRY_LIST_URL       = API_URL + '/countrycode';
 export const CASE_GET_SUBJECT_AREA_LIST_URL  = API_URL + '/subjectarea';
 export const APP_GET_USERINFO_URL            = API_URL + '/userinfo';
 
-// FilController
-export const UI_BUCKET_FILES_LIST_URL = FIL_URL + '/list';
-export const UI_BUCKET_FILES_GET_URL  = FIL_URL + '/get';
+// StorageController
+export const STORAGE_LIST_URL   = API_URL + '/storage/%(userId)s';
+export const STORAGE_GET_URL    = API_URL + '/storage/%(file)s';
+export const STORAGE_POST_URL   = API_URL + '/storage/%(file)s';
+export const STORAGE_DELETE_URL = API_URL + '/storage/%(file)s';
 
 // FagmodulController
 export const CASE_CREATE_SED_URL    = FAG_URL + '/create';

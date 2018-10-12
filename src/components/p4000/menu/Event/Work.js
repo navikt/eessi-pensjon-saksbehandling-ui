@@ -134,7 +134,7 @@ class Work extends Component {
                     <Nav.Tekstomrade>{t('p4000:' + type + '-description')}</Nav.Tekstomrade>
                 </Nav.Column>
             </Nav.Row>
-            <Nav.Row className={classNames('eventDates','mb-4','fieldset', {
+            <Nav.Row  className={classNames('eventDates','mb-4','fieldset', {
                 validationFail : this.datepicker ? !this.datepicker.hasNoValidationErrors() : false
             })}>
                 <Nav.Column>

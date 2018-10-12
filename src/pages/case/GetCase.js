@@ -94,7 +94,7 @@ class GetCase extends Component {
             description='case:app-getCaseDescription'
             history={history}
             location={location}>
-            <div className='fieldset'>
+            <div className='fieldset animate'>
                 <Nav.Row>
                     <div className='col-md-6'>
                         <Nav.HjelpetekstBase id='caseId'>{t('case:help-caseId')}</Nav.HjelpetekstBase>

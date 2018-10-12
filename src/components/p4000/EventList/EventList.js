@@ -39,7 +39,7 @@ EventList.propTypes = {
     t                 : PT.func.isRequired,
     events            : PT.array.isRequired,
     eventIndex        : PT.number,
-    className         : PT.object,
+    className         : PT.string,
     handleEditRequest : PT.func.isRequired,
     cancelEditRequest : PT.func.isRequired
 };

@@ -134,7 +134,7 @@ class GeneratePDF extends Component {
             </div> : (generatedPDFs ? <div>
                 {Object.keys(generatedPDFs).map(key => {
                     let pdf = generatedPDFs[key];
-                    return <div key={key} className='fieldset'>
+                    return <div key={key} className='fieldset animate'>
                         <div className='row pdfrow'>
                             <div className='col-sm-4'>
                                 <File file={pdf}/>

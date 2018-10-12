@@ -99,7 +99,7 @@ class ConfirmCase extends Component {
             stepIndicator={1}
             history={history}
             location={location}>
-            <div className='fieldset'>
+            <div className='fieldset animate'>
                 <Nav.Row>
                     <Nav.Column>
                         <RenderConfirmData dataToConfirm={dataToConfirm}/>
