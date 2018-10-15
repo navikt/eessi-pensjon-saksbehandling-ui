@@ -13,6 +13,7 @@ import EventForm from '../../components/p4000/EventForm/EventForm';
 import * as Menu from '../../components/p4000/menu/';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';
 import FrontPageDrawer from '../../components/drawer/FrontPage';
+import StorageModal from '../../components/ui/Modal/StorageModal';
 
 import * as routes from '../../constants/routes';
 import * as p4000Actions from '../../actions/p4000';
@@ -95,6 +96,7 @@ class P4000 extends Component {
         return <TopContainer className='p-p4000'
             history={history} location={location}
             sideContent={<FrontPageDrawer t={t} status={status}/>}>
+            <StorageModal type='P4000'/>
             <Nav.Row className='no-gutters mb-2'>
                 <div className='col-md-5 col-lg-4'>
                     <h1 className='appTitle'>{t('p4000:app-title')}</h1>

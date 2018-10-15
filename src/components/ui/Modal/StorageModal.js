@@ -37,38 +37,42 @@ const mapDispatchToProps = (dispatch) => {
 class StorageModal extends Component {
 
     state = {
-        fileSelected       : undefined,
-        saveTargetFileName : undefined,
-        lastAction         : undefined,
-        status             : undefined
+        currentSelectedFile : undefined,
+        saveTargetFileName  : undefined,
+        lastAction          : undefined,
+        lastActionSubject   : undefined,
+        status              : undefined
     }
 
     static getDerivedStateFromProps(newProps, oldState) {
 
-        const { t } = newProps;
-
-        if (newProps.savingStorageFile && !oldState.lastAction) {
-            return {
-                lastAction : 'save',
-                status : t('saving')
+        if (!oldState.lastAction) {
+            if (newProps.savingStorageFile) {
+                return {
+                    lastAction : 'save',
+                    status : newProps.t('saving') + ' ' + oldState.saveTargetFileName + '...',
+                    lastActionSubject : oldState.saveTargetFileName
+                }
             }
-        }
-        if (newProps.loadingStorageFile && !oldState.lastAction) {
-            return {
-                lastAction : 'load',
-                status : t('loading')
+            if (newProps.loadingStorageFile) {
+                return {
+                    lastAction : 'load',
+                    status : newProps.t('loading') + ' ' + oldState.currentSelectedFile + '...',
+                    lastActionSubject : oldState.currentSelectedFile
+                }
             }
-        }
-        if (newProps.deletingStorageFile && !oldState.lastAction) {
-            return {
-                lastAction : 'delete',
-                status: t('deleting')
+            if (newProps.deletingStorageFile) {
+                return {
+                    lastAction : 'delete',
+                    status: newProps.t('deleting') + ' ' + newProps.fileToDelete + '...',
+                    lastActionSubject : newProps.fileToDelete
+                }
             }
-        }
-        if (newProps.loadingStorageFileList && !oldState.lastAction && !newProps.fileList) {
-            return {
-                lastAction : 'list',
-                status: t('loading')
+            if (newProps.loadingStorageFileList && !newProps.fileList) {
+                return {
+                    lastAction : 'list',
+                    status: newProps.t('listing') + '...'
+                }
             }
         }
     }
@@ -76,56 +80,60 @@ class StorageModal extends Component {
     componentDidUpdate() {
 
         const { t, username, modalStorageOpen, fileList, fileLoaded, savingStorageFile, deletingStorageFile, modalStorageOptions, loadingStatus, loadingStorageFileList, actions } = this.props;
-        const { fileSelected, lastAction} = this.state;
+        const { currentSelectedFile, lastAction} = this.state;
 
+        if (!modalStorageOpen) {
+            return;
+        }
 
-        if (modalStorageOpen) {
+        if (!fileList && !loadingStorageFileList && loadingStatus !== 'ERROR') {
+            actions.listStorageFiles(username);
+        }
 
-            if (!fileList && !loadingStorageFileList && loadingStatus !== 'ERROR') {
-                actions.listStorageFiles(username);
-            }
+        if (lastAction === 'delete' && !deletingStorageFile) {
 
-            if (lastAction === 'delete' && !deletingStorageFile) {
+            this.setState({
+                lastAction : undefined,
+                status : t('deleted') + ' ' + this.state.lastActionSubject,
+                lastActionSubject : undefined
+            });
+        }
 
-                this.setState({
-                    lastAction : undefined,
-                    status : t('deleted')
-                });
-            }
+        if (lastAction === 'save' && !savingStorageFile) {
 
-            if (lastAction === 'save' && !savingStorageFile) {
+            this.setState({
+                lastAction : undefined,
+                status : t('saved') + ' ' + this.state.lastActionSubject,
+                lastActionSubject : undefined,
+                saveTargetFileName : ''
+            }, () => {
+                actions.closeStorageModal();
+            });
+        }
 
-                this.setState({
-                    lastAction : undefined,
-                    status : t('saved')
-                }, () => {
-                    actions.closeStorageModal();
-                });
-            }
+        if (lastAction === 'list' && fileList) {
 
-            if (lastAction === 'list' && fileList) {
-                let newStatus = '';
-                if (!_.isEmpty(fileList)) {
-                    newStatus = t('found') + ' ' + fileList.length + ' ' + t(fileList.length === 1 ? 'file' : 'files').toLowerCase()
-                } else {
-                    newStatus = t('noFilesFound')
-                }
-                this.setState({
-                    lastAction : undefined,
-                    status     : newStatus,
-                });
-            }
+            let newStatus = _.isEmpty(fileList) ?
+                t('noFilesFound') :
+                t('found') + ' ' + fileList.length + ' ' + t(fileList.length === 1 ? 'file' : 'files').toLowerCase();
 
-            if (lastAction === 'load' && fileLoaded) {
+            this.setState({
+                lastAction : undefined,
+                status     : newStatus,
+            });
+        }
 
-                this.setState({
-                    lastAction : undefined,
-                    status : t('loaded')
-                }, () => {
-                    modalStorageOptions.onFileSelected(fileSelected, fileLoaded);
-                    actions.closeStorageModal();
-                });
-            }
+        if (lastAction === 'load' && fileLoaded) {
+
+            this.setState({
+                lastAction : undefined,
+                status : t('loaded') + ' ' + this.state.lastActionSubject,
+                lastActionSubject : undefined,
+                currentSelectedFile : undefined
+            }, () => {
+                modalStorageOptions.onFileSelected(currentSelectedFile, fileLoaded);
+                actions.closeStorageModal();
+            });
         }
     }
 
@@ -139,17 +147,17 @@ class StorageModal extends Component {
     onOkClick() {
 
         const { username, actions, modalStorageOptions } = this.props;
-        const { fileSelected, saveTargetFileName } = this.state;
+        const { currentSelectedFile, saveTargetFileName } = this.state;
 
         if (modalStorageOptions.action === 'open') {
-            actions.getStorageFile(username, fileSelected);
-            this.setState({
-                fileSelected : undefined
-            });
+            actions.getStorageFile(username, currentSelectedFile);
         }
         if (modalStorageOptions.action === 'save') {
-            let targetFile = fileSelected || saveTargetFileName;
-            actions.postStorageFile(username, targetFile, modalStorageOptions.content);
+
+            let targetFileName = saveTargetFileName.substring(saveTargetFileName.lastIndexOf('/') + 1);
+            targetFileName = username + '/' + targetFileName;
+
+            actions.postStorageFile(username, targetFileName, modalStorageOptions.content);
         }
     }
 
@@ -158,7 +166,8 @@ class StorageModal extends Component {
         e.preventDefault();
 
         this.setState({
-            fileSelected : file
+            currentSelectedFile : file,
+            saveTargetFileName  : file
         });
     }
 
@@ -195,8 +204,8 @@ class StorageModal extends Component {
     render() {
 
         const { t, className, loadingStorageFileList, loadingStorageFile, deletingStorageFile,
-            loadingStatus, fileList, fileToDelete, modalStorageOpen, modalStorageOptions } = this.props;
-        const { fileSelected, saveTargetFileName } = this.state;
+            loadingStatus, fileList, fileToDelete, modalStorageOpen, modalStorageOptions, username } = this.props;
+        const { currentSelectedFile, saveTargetFileName, status } = this.state;
 
         let enableButtons = (modalStorageOptions && modalStorageOptions.action !== undefined);
 
@@ -216,9 +225,9 @@ class StorageModal extends Component {
                             <Nav.NavFrontendSpinner/>
                             <p>{t('ui:loading')}</p>
                         </div> :
-                        (fileList ? (!_.isEmpty(fileList) ? fileList.map((file, index) => {
+                        (fileList && !_.isEmpty(fileList) ? fileList.map((file, index) => {
 
-                            let selected = fileSelected && fileSelected === file;
+                            let selected = currentSelectedFile && currentSelectedFile === file;
                             let loading = loadingStorageFile && selected;
                             let toDelete = fileToDelete === file;
 
@@ -245,23 +254,23 @@ class StorageModal extends Component {
                                     </a>
                                 }
                             </div>
-                        }) : null) : null)
+                        }) : null)
                     }
                 </div>
 
                 {modalStorageOptions && modalStorageOptions.action === 'save' ? <div>
-                    <Nav.Input label={t('filename')} value={saveTargetFileName || ''} onChange={this.setSaveTargetFileName.bind(this)}/>
+                    <label>{username + '/'}</label>
+                    <Nav.Input label={t('filename')} value={saveTargetFileName || ''}
+                        onChange={this.setSaveTargetFileName.bind(this)}/>
                 </div> : null}
 
-                <div className='statusArea'>
-                    {this.state.status}
-                </div>
+                <div className='statusArea'>{status}</div>
 
                 <div className='buttonArea'>
                     {enableButtons ? <React.Fragment>
                         <Nav.Hovedknapp
                             className='mr-3 mb-3 modal-main-button'
-                            disabled={modalStorageOptions.action === 'open' && fileSelected === undefined}
+                            disabled={modalStorageOptions.action === 'open' && currentSelectedFile === undefined}
                             onClick={this.onOkClick.bind(this)}>
                             {t(modalStorageOptions.action)}
                         </Nav.Hovedknapp>
@@ -283,7 +292,6 @@ class StorageModal extends Component {
                     {t('close')}
                 </Nav.Knapp>
             </div> : null }
-
         </Nav.Modal>
     }
 }
@@ -303,7 +311,8 @@ StorageModal.propTypes = {
     modalStorageOpen      : PT.bool,
     modalStorageOptions   : PT.object,
     username              : PT.string,
-    userrole              : PT.string
+    userrole              : PT.string,
+    type                  : PT.string.isRequired
 };
 
 export default connect(

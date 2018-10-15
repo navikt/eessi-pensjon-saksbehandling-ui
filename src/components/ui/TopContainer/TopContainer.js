@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PT from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 import * as Nav from '../Nav';
 import TopHeader from '../Header/TopHeader';
@@ -9,8 +10,6 @@ import ServerAlert from '../Alert/ServerAlert';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import Drawer from '../Drawer/Drawer';
 import Modal from '../Modal/Modal';
-import StorageModal from '../Modal/StorageModal';
-import { DragDropContext } from 'react-beautiful-dnd';
 
 import './TopContainer.css';
 
@@ -52,7 +51,6 @@ class TopContainer extends Component {
                     <TopHeader/>
                     <ServerAlert/>
                     <Modal/>
-                    <StorageModal/>
                     <Breadcrumbs history={history}/>
                     <Nav.Container fluid={true}>
                         {this.props.children}
