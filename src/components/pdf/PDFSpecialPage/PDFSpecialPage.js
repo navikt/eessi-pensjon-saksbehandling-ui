@@ -13,7 +13,7 @@ import './PDFSpecialPage.css';
 
 const mapStateToProps = (state) => {
     return {
-        pdfsize   : state.pdf.pdfsize,
+        pageScale : state.pdf.pageScale,
         recipe    : state.pdf.recipe,
         dndTarget : state.pdf.dndTarget
     };
@@ -61,7 +61,7 @@ class PDFSpecialPage extends Component {
 
     render () {
 
-        const { pdfsize, className, style, separatorText, separatorTextColor, deleteLink } = this.props;
+        const { pageScale, className, style, separatorText, separatorTextColor, deleteLink } = this.props;
 
         return <div style={style} className={classNames('c-pdf-PDFSpecialPage', className)}
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
@@ -70,7 +70,7 @@ class PDFSpecialPage extends Component {
             {this.state.isHovering && deleteLink ? <div onClick={this.onDeleteDocument.bind(this, separatorText)} className='link deleteLink'>
                 <Ikon size={15} kind='trashcan'/>
             </div> : null}
-            <div className='page' style={{width : 100 * pdfsize, height: 140 * pdfsize}}>
+            <div className='page' style={{width : 100 * pageScale, height: 140 * pageScale}}>
                 <div className='content' style={{
                     color: `rgba(${ separatorTextColor.r }, ${ separatorTextColor.g }, ${ separatorTextColor.b }, ${ separatorTextColor.a})`
                 }}>{separatorText}</div>
@@ -81,10 +81,9 @@ class PDFSpecialPage extends Component {
 
 PDFSpecialPage.propTypes = {
     recipe     : PT.object.isRequired,
-    pdfsize    : PT.number.isRequired,
+    pageScale  : PT.number.isRequired,
     className  : PT.string,
     style      : PT.object,
-    text       : PT.string.isRequired,
     dndTarget  : PT.string,
     deleteLink : PT.bool,
     actions    : PT.object,

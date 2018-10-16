@@ -12,14 +12,13 @@ import Icons from '../../../components/ui/Icons';
 import * as pdfActions from '../../../actions/pdf';
 import * as uiActions from '../../../actions/ui';
 
-import './PDFPageInDnD.css';
+import './PageInDnD.css';
 
 const mapStateToProps = (state) => {
     return {
         recipe    : state.pdf.recipe,
-        pdfsize   : state.pdf.pdfsize,
+        pageScale : state.pdf.pageScale,
         dndTarget : state.pdf.dndTarget,
-        pdfs      : state.pdf.pdfs
     };
 };
 
@@ -27,7 +26,7 @@ const mapDispatchToProps = (dispatch) => {
     return {actions: bindActionCreators(Object.assign({}, pdfActions, uiActions), dispatch)};
 };
 
-class PDFPageInDnD extends Component {
+class PageInDnD extends Component {
 
      state = {
          isHovering : false
@@ -40,20 +39,25 @@ class PDFPageInDnD extends Component {
          actions.closeModal();
      }
 
-     openPreview(pdf, pageNumber) {
+     openPreview(file, pageNumber) {
 
          const { actions } = this.props;
 
          actions.openModal({
              modalContent: <div style={{cursor: 'pointer'}} onClick={this.closePreview.bind(this)}>
-                 <Document className='documentPreview' file={{data: pdf.data }}>
-                     <Page className='bigpage' width={600} renderMode='svg' pageNumber={pageNumber}/>
-                 </Document>
+                 {file.mimetype === 'application/pdf' ?
+                     <Document className='documentPreview' file={{data: file.data }}>
+                         <Page className='bigpage' width={600} renderMode='svg' pageNumber={pageNumber}/>
+                     </Document> : null}
+                 {file.mimetype.startsWith('image/') ? <div className='documentPreview'>
+                     <img className='page' alt={file.name} style={{width: '600px'}}
+                         src={'data:' + file.type + ';base64,' + file.base64} />
+                 </div> : null}
              </div>
          })
      }
 
-     addPageToTargetPdf(name, pageNumber) {
+     addPageToTargetPdf(name, mimetype, pageNumber) {
 
          let { recipe, dndTarget, actions } = this.props;
 
@@ -61,16 +65,28 @@ class PDFPageInDnD extends Component {
          if (!newRecipe[dndTarget]) {
              newRecipe[dndTarget] = [];
          }
-         newRecipe[dndTarget].push({name: name, pageNumber: pageNumber, type: 'pickPage'});
+
+         if (mimetype === 'application/pdf') {
+             newRecipe[dndTarget].push({name: name, pageNumber: pageNumber, type: 'pickPage'});
+         } else {
+             newRecipe[dndTarget].push({name: name, type: 'pickImage'});
+         }
          actions.setRecipe(newRecipe);
      }
 
-     removePageFromTargetPdf(name, pageNumber) {
+     removePageFromTargetPdf(name, mimetype, pageNumber) {
 
          const { recipe, dndTarget, actions } = this.props;
          let newRecipe = _.clone(recipe);
 
-         let index = _.findIndex(recipe[dndTarget], {name: name, pageNumber : pageNumber});
+         let index = -1;
+
+         if (mimetype === 'application/pdf') {
+             index = _.findIndex(recipe[dndTarget], {name: name, pageNumber : pageNumber});
+         } else {
+             index = _.findIndex(recipe[dndTarget], {name: name});
+         }
+
          if (index >= 0) {
              newRecipe[dndTarget].splice(index, 1);
              actions.setRecipe(newRecipe);
@@ -94,7 +110,7 @@ class PDFPageInDnD extends Component {
 
      render () {
 
-         const { pdf, pageNumber, action, pdfsize, className, style } = this.props;
+         const { file, pageNumber, action, pageScale, className, style } = this.props;
 
          let iconFunction, iconKind, iconLink, iconSize;
          if (action === 'add') {
@@ -111,31 +127,42 @@ class PDFPageInDnD extends Component {
              iconLink = <Ikon style={{cursor: 'pointer'}} size={iconSize} kind={iconKind}/>
          }
 
-         return <div style={style} className={classNames('c-pdf-PDFPageInDnD', className)}
+         return <div style={style} className={classNames('c-pdf-PageInDnD', className)}
              onMouseEnter={this.onHandleMouseEnter.bind(this)}
              onMouseOver={this.onHandleMouseOver.bind(this)}
              onMouseLeave={this.onHandleMouseLeave.bind(this)}>
-             <Document className='document' file={{data: pdf.data}}>
-                 <div onClick={iconFunction.bind(this, pdf.name, pageNumber)} className='icon actionIcon'>{iconLink}</div>
-                 {this.state.isHovering ? <div className='icon previewIcon' onClick={this.openPreview.bind(this, pdf, pageNumber)}>
+
+             {file.mimetype.startsWith('image/') ? <div className='document'>
+                 <div onClick={iconFunction.bind(this, file.name, file.mimetype, pageNumber)} className='icon actionIcon'>{iconLink}</div>
+                 {this.state.isHovering ? <div className='icon previewIcon' onClick={this.openPreview.bind(this, file, pageNumber)}>
+                     <Icons style={{cursor: 'pointer'}}
+                         size={'20'} kind={'view'}/>
+                 </div> : null}
+                 <img className='page'
+                     alt={file.name} style={{maxWidth: (100 * pageScale) + 'px'}}
+                     src={'data:' + file.type + ';base64,' + file.base64} />
+             </div> : null}
+             {file.mimetype === 'application/pdf' ? <Document className='document' file={{data: file.data}}>
+                 <div onClick={iconFunction.bind(this, file.name, pageNumber)} className='icon actionIcon'>{iconLink}</div>
+                 {this.state.isHovering ? <div className='icon previewIcon' onClick={this.openPreview.bind(this, file, pageNumber)}>
                      <Icons style={{cursor: 'pointer'}}
                          size={'20'} kind={'view'}/>
                  </div> : null}
                  <Page className='page'
-                     width={100 * pdfsize} height={140 * pdfsize}
+                     width={100 * pageScale} height={140 * pageScale}
                      renderMode='svg' pageNumber={pageNumber}/>
                  <div className='pageNumber'>{pageNumber}</div>
-             </Document>
+             </Document> : null}
          </div>
      }
 }
 
-PDFPageInDnD.propTypes = {
+PageInDnD.propTypes = {
     recipe     : PT.object.isRequired,
     actions    : PT.object,
-    pdf        : PT.object.isRequired,
+    file       : PT.object.isRequired,
     pageNumber : PT.number.isRequired,
-    pdfsize    : PT.number.isRequired,
+    pageScale  : PT.number.isRequired,
     dndTarget  : PT.string,
     action     : PT.string.isRequired,
     className  : PT.string,
@@ -145,4 +172,4 @@ PDFPageInDnD.propTypes = {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(PDFPageInDnD);
+)(PageInDnD);

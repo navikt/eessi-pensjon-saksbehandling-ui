@@ -38,12 +38,12 @@ class Modal extends Component {
             {modal ? <div>
                 {modal.modalTitle ? <div className='m-3 text-center'><h4>{modal.modalTitle}</h4></div> : null}
                 {modal.modalContent ? modal.modalContent : <div className='m-4 text-center'>{modal.modalText}</div>}
-                <div className='text-center'>{modal.modalButtons.map(button => {
+                {modal.modalButtons ? <div className='text-center'>{modal.modalButtons.map(button => {
                     return button.main ?
                         <Nav.Hovedknapp disabled={button.disabled || false} className='mr-3 mb-3 modal-main-button' key={button.text} onClick={button.onClick.bind(this)}>{button.text}</Nav.Hovedknapp>
                         : <Nav.Knapp className='mr-3 mb-3 modal-other-button' key={button.text} onClick={button.onClick.bind(this)}>{button.text}</Nav.Knapp>
                 })}
-                </div>
+                </div> : null }
             </div> : null}
         </Nav.Modal>
     }

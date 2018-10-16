@@ -7,10 +7,12 @@ import Collapse from 'rc-collapse';
 import _ from 'lodash';
 
 import * as Nav from '../../../components/ui/Nav';
+import StepIndicator from '../../../components/pdf/StepIndicator';
 import TopContainer from '../../../components/ui/TopContainer/TopContainer';
 import ClientAlert from '../../../components/ui/Alert/ClientAlert';
 import DnDSource from '../../../components/pdf/DnDSource/DnDSource';
 import DnDSpecial from '../../../components/pdf/DnDSpecial/DnDSpecial';
+import DnDImages from '../../../components/pdf/DnDImages/DnDImages';
 import DnDTarget from '../../../components/pdf/DnDTarget/DnDTarget';
 import DnD from '../../../components/pdf/DnD';
 import PDFSizeSlider from '../../../components/pdf/PDFSizeSlider';
@@ -26,7 +28,7 @@ import * as uiActions from '../../../actions/ui';
 const mapStateToProps = (state) => {
     return {
         language     : state.ui.language,
-        pdfs         : state.pdf.pdfs,
+        files        : state.pdf.files,
         recipe       : state.pdf.recipe,
         dndTarget    : state.pdf.dndTarget
     }
@@ -38,15 +40,13 @@ const mapDispatchToProps = (dispatch) => {
 
 class EditPDF extends Component {
 
-    state = {
-        showSpecialPages : false
-    }
+    state = {}
 
     componentDidMount() {
 
-        const { history, actions, pdfs } = this.props;
+        const { history, actions, files } = this.props;
 
-        if (_.isEmpty(pdfs)) {
+        if (_.isEmpty(files)) {
             history.push(routes.PDF_SELECT);
         }
 
@@ -132,20 +132,48 @@ class EditPDF extends Component {
         actions.closeModal();
     }
 
-    toggleSpecialPages() {
+    getImageFiles (files) {
 
-        this.setState({
-            showSpecialPages : !this.state.showSpecialPages
-        });
+        return _.filter(files, (file) => { return file.mimetype.startsWith('image/')});
+    }
+
+    getPdfFiles (files) {
+
+        return _.filter(files, (file) => { return file.mimetype === 'application/pdf' });
+    }
+
+    imageCollapse (imageFiles) {
+
+        const { t } = this.props;
+
+        if (_.isEmpty(imageFiles)) {
+            return null;
+        }
+        return <Collapse.Panel key={'images'} header={t('images')} showArrow={true}>
+            <DnDImages files={imageFiles}/>
+        </Collapse.Panel>
+    }
+
+    pdfCollapse (pdfFiles) {
+        return pdfFiles.map((file, i) => {
+            return <Collapse.Panel key={'pdf-' + i} header={file.name} showArrow={true}>
+                <DnDSource pdf={file}/>
+            </Collapse.Panel>
+        })
     }
 
     render() {
 
-        const { t, history, pdfs, dndTarget, recipe, location } = this.props;
+        const { t, history, files, dndTarget, recipe, location } = this.props;
 
-        let openedPanels = Array(pdfs.length).fill().map((v, i) => {return '' + i});
-        if (this.state.showSpecialPages) {
-            openedPanels.push('special');
+        let imageFiles = this.getImageFiles(files);
+        let pdfFiles = this.getPdfFiles(files);
+        let imageCollapse = this.imageCollapse(imageFiles);
+        let pdfCollapse = this.pdfCollapse(pdfFiles);
+
+        let openedPanels = Array(files.length).fill().map((v, i) => {return 'pdf-' + i});
+        if (imageCollapse) {
+            openedPanels.push('images')
         }
 
         return <TopContainer className='p-pdf-editPdf'
@@ -154,6 +182,7 @@ class EditPDF extends Component {
             <Nav.HjelpetekstBase>{t('pdf:help-edit-pdf')}</Nav.HjelpetekstBase>
             <h1 className='appTitle'>{t('pdf:app-editPdfTitle')}</h1>
             <ClientAlert/>
+            <StepIndicator stepIndicator={1} history={history}/>
             <div className='w-100 ml-2 mb-2'>
                 <PDFSizeSlider style={{width: '20%'}}/>
             </div>
@@ -177,16 +206,13 @@ class EditPDF extends Component {
                     </Nav.Column>
                     <Nav.Column className='col-sm-10 mb-4'>
                         <div className='h-100'>
-                            {! pdfs ? null : <Collapse className='mb-4' defaultActiveKey={openedPanels}
+                            {! files ? null : <Collapse className='mb-4' defaultActiveKey={openedPanels}
                                 destroyInactivePanel={false} accordion={false}>
-                                <Collapse.Panel key={'special'} header={'Specials'} showArrow={true}>
+                                <Collapse.Panel key={'special'} header={t('pdf:specials')} showArrow={true}>
                                     <DnDSpecial/>
                                 </Collapse.Panel>
-                                {pdfs.map((pdf, i) => {
-                                    return <Collapse.Panel key={i} header={pdf.name} showArrow={true}>
-                                        <DnDSource pdf={pdf}/>
-                                    </Collapse.Panel>
-                                })}
+                                {imageCollapse}
+                                {pdfCollapse}
                             </Collapse>
                             }
                             <Nav.Row className='mb-4'>
@@ -213,7 +239,7 @@ EditPDF.propTypes = {
     actions      : PT.object,
     history      : PT.object,
     t            : PT.func,
-    pdfs         : PT.array.isRequired,
+    files        : PT.array.isRequired,
     recipe       : PT.object.isRequired,
     dndTarget    : PT.string,
     location     : PT.object.isRequired

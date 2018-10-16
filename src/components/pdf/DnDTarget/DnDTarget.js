@@ -5,7 +5,7 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import classNames from 'classnames';
 
-import PDFPageInDnD from '../PDFPageInDnD/PDFPageInDnD';
+import PageInDnD from '../PageInDnD/PageInDnD';
 import PDFSpecialPage from '../PDFSpecialPage/PDFSpecialPage';
 
 import './DnDTarget.css';
@@ -13,7 +13,7 @@ import './DnDTarget.css';
 const mapStateToProps = (state) => {
     return {
         recipe : state.pdf.recipe,
-        pdfs   : state.pdf.pdfs
+        files  : state.pdf.files
     };
 };
 
@@ -21,7 +21,7 @@ class DnDTarget extends Component {
 
     render () {
 
-        const { pdfs, recipe, targetId } = this.props;
+        const { files, recipe, targetId } = this.props;
 
         return <div className='c-pdf-dndTarget'>
 
@@ -34,7 +34,7 @@ class DnDTarget extends Component {
 
                         {recipe[targetId] ? recipe[targetId].map((recipeStep, index) => {
 
-                            let pdf = _.find(pdfs, {name: recipeStep.name});
+                            let file = _.find(files, {name: recipeStep.name});
 
                             return <Draggable key={index} draggableId={index} index={index}>
 
@@ -44,10 +44,10 @@ class DnDTarget extends Component {
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}>
-                                        { recipeStep.type === 'pickPage' ?
-                                            <PDFPageInDnD
+                                        { recipeStep.type === 'pickPage' || recipeStep.type === 'pickImage' ?
+                                            <PageInDnD
                                                 className={classNames({'c-pdf-dndTarget-draggable-active' : snapshot.isDragging})}
-                                                pdf={pdf}
+                                                file={file}
                                                 pageNumber={recipeStep.pageNumber}
                                                 action='remove'
                                             /> : (
@@ -68,7 +68,7 @@ class DnDTarget extends Component {
 
 DnDTarget.propTypes = {
     recipe   : PT.object.isRequired,
-    pdfs     : PT.array.isRequired,
+    files    : PT.array.isRequired,
     targetId : PT.string.isRequired
 }
 

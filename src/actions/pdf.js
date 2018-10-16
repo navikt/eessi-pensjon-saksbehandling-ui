@@ -3,11 +3,11 @@ import * as urls from '../constants/urls';
 import * as api from './api';
 import _ from 'lodash';
 
-export function selectPDF (pdfs) {
+export function selectPDF (files) {
 
     return {
         type    : types.PDF_SELECTED,
-        payload : pdfs
+        payload : files
     };
 }
 
@@ -88,10 +88,10 @@ export function generatePDF (payload) {
 
     let newPayload = Object.assign({}, payload);
 
-    newPayload.pdfs.map(pdf => {
-        let newPdf = _.clone(pdf);
-        delete newPdf.data;
-        return newPdf;
+    newPayload.files.map(file => {
+        let newFile = _.clone(file);
+        delete newFile.data;
+        return newFile;
     });
 
     return api.call({

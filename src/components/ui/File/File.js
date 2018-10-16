@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 import MiniatureOther from './MiniatureOther';
 import MiniaturePDF from './MiniaturePDF';
+import MiniatureImage from './MiniatureImage';
 
 const units = ['bytes', 'KB', 'MB', 'GB'];
 
@@ -26,9 +27,13 @@ class File extends Component {
         let _size = this.renderBytes(file.size);
         let _scale = scale || 1.0;
 
-        if (_.endsWith(file.name, '.pdf')) {
+        switch (file.mimetype) {
+        case 'application/pdf' :
             return <MiniaturePDF animate={_animate} size={_size} scale={_scale} {...this.props}/>
-        } else {
+        case 'image/png':
+        case 'image/jpeg':
+            return <MiniatureImage animate={_animate} size={_size} scale={_scale} {...this.props}/>
+        default:
             return <MiniatureOther animate={_animate} size={_size} scale={_scale} {...this.props}/>
         }
     }

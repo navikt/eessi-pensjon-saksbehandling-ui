@@ -6,7 +6,6 @@ import { bindActionCreators }  from 'redux';
 import { translate } from 'react-i18next';
 import classNames from 'classnames';
 
-
 import PDFSpecialPage from '../PDFSpecialPage/PDFSpecialPage';
 import * as Nav from '../../ui/Nav';
 import ColorPicker from '../../ui/ColorPicker';
@@ -15,12 +14,8 @@ import * as pdfActions from '../../../actions/pdf';
 
 import './DnDSpecial.css';
 
-const mapStateToProps = (state) => {
-    return {
-        recipe : state.pdf.recipe,
-        pdfsize: state.pdf.pdfsize,
-        dndTarget : state.pdf.dndTarget
-    };
+const mapStateToProps = () => {
+    return {};
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -158,11 +153,7 @@ class DnDSpecial extends Component {
 
 DnDSpecial.propTypes = {
     t         : PT.func.isRequired,
-    recipe    : PT.object.isRequired,
-    actions   : PT.object,
-    pdf       : PT.object.isRequired,
-    pdfsize   : PT.number,
-    dndTarget : PT.string
+    actions   : PT.object
 }
 
 export default connect(

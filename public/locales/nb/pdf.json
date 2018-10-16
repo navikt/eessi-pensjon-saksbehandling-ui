@@ -1,14 +1,17 @@
 {
     "app-createPdf"        : "Opprett ny PDF",
     "app-selectPdfTitle"   : "Velg til ny PDF",
-    "app-editPdfTitle"     : "Redigere ny PDF",
-    "app-generatePdfTitle" : "Generer ny PDF",
+    "app-selectPdfDescription" : "Velg fra eksisterende PDF-filer for å opprette ny dokumentpakke",
+    "app-editPdfTitle"     : "Redigere ny PDFs",
+    "app-generatePdfTitle" : "Generer ny PDFs",
+
+    "alert-invalidStep"    : "Last opp noe filer før du fortsette",
 
     "loading-loadingPDF"    : "Laster ny PDF...",
     "loading-loadingExtPDF" : "Laster eksterne PDF...",
     "loading-generatingPDF" : "Genererer ny PDF...",
 
-    "help-select-pdf"        : "Dra PDF filer inn i målområdet, eller klikk her for å åpne dialogboks for filvalg",
+    "help-select-pdf"        : "Her kan du skreddersy ny dokumentpakke av eksisterende PDF filer eller bilder. Du kan også opprette nytt PDF-dokument.",
     "help-edit-pdf"          : "Dra sider fra PDF på høyre siden til målområde på venstre side",
     "help-generate-pdf"      : "Du kan laste ned PDF filer du har generert",
     "help-sizeSliderTooltip" : "Skyv frem/tilbake for å øke/redusere PDFs størrelse",
@@ -21,6 +24,11 @@
     "alert-PDFGenerationFail"    : "Feil å generere PDF",
     "alert-PDFGenerationSuccess" : "Generert PDF",
 
+    "specials" : "Lage nytt brev",
+
+    "form-step0" : "Velg filer",
+    "form-step1" : "Rediger PDFs",
+    "form-step2" : "Genererer PDFs",
     "form-home"  : "Botid",
     "form-work"  : "Arbeid",
     "form-sick"  : "Sykdom",

@@ -38,8 +38,8 @@ class MiniatureOther extends Component {
         return <div className={classNames('c-ui-file', 'c-ui-miniatureOther', className, {'animate' : animate})}
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
             onMouseLeave={this.onHandleMouseLeave.bind(this)}>
-            <div className='deleteLink'> {deleteLink}</div>
-            <div className='downloadLink'> {downloadLink}</div>
+            <div className='link deleteLink'> {deleteLink}</div>
+            <div className='link downloadLink'> {downloadLink}</div>
             <div className='miniatureDocument'>
                 <div className='content'>{extension}</div>
             </div>

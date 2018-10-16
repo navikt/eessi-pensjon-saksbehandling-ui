@@ -7,7 +7,7 @@ import { bindActionCreators }  from 'redux';
 import { translate } from 'react-i18next';
 import classNames from 'classnames';
 
-import PDFPageInDnD from '../PDFPageInDnD/PDFPageInDnD';
+import PageInDnD from '../PageInDnD/PageInDnD';
 
 import * as pdfActions from '../../../actions/pdf';
 
@@ -15,8 +15,8 @@ import './DnDSource.css';
 
 const mapStateToProps = (state) => {
     return {
-        recipe : state.pdf.recipe,
-        pdfsize: state.pdf.pdfsize,
+        recipe    : state.pdf.recipe,
+        pageScale : state.pdf.pageScale,
         dndTarget : state.pdf.dndTarget
     };
 };
@@ -71,7 +71,7 @@ class DnDSource extends Component {
 
     render () {
 
-        const { t, pdf, pdfsize, recipe, dndTarget } = this.props;
+        const { t, pdf, pageScale, recipe, dndTarget } = this.props;
 
         let selectedPages = [];
 
@@ -91,7 +91,7 @@ class DnDSource extends Component {
 
                     <div ref={provided.innerRef}
                         className={classNames('c-pdf-dndSource-droppable', {'c-pdf-dndSource-droppable-active' : snapshot.isDraggingOver})}
-                        style={{minHeight: pdfsize * 140}}>
+                        style={{minHeight: pageScale * 140}}>
 
                         {_.range(1, pdf.numPages + 1).map(pageNumber => {
                             if (_.find(selectedPages, {pageNumber: pageNumber})) {
@@ -105,13 +105,13 @@ class DnDSource extends Component {
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}>
-                                        <PDFPageInDnD
+                                        <PageInDnD
                                             className={classNames({'c-pdf-dndSource-draggable-active' : snapshot.isDragging})}
                                             style={{
-                                                minWidth: 100 * pdfsize,
-                                                minHeight: 140 * pdfsize
+                                                minWidth: 100 * pageScale,
+                                                minHeight: 140 * pageScale
                                             }}
-                                            pdf={pdf}
+                                            file={pdf}
                                             pageNumber={pageNumber}
                                             action='add'/>
                                     </div>
@@ -131,7 +131,7 @@ DnDSource.propTypes = {
     recipe    : PT.object.isRequired,
     actions   : PT.object,
     pdf       : PT.object.isRequired,
-    pdfsize   : PT.number,
+    pageScale : PT.number,
     dndTarget : PT.string
 }
 

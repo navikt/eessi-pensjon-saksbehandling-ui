@@ -10,7 +10,7 @@ import * as pdfActions from '../../actions/pdf';
 
 const mapStateToProps = (state) => {
     return {
-        pdfsize : state.pdf.pdfsize
+        pageScale : state.pdf.pageScale
     };
 };
 
@@ -28,20 +28,20 @@ class PDFSizeSlider extends Component {
 
     render () {
 
-        const { t, pdfsize, style } = this.props;
+        const { t, pageScale, style } = this.props;
 
         return <div style={style} className='c-pdf-PDFSizeSlider' title={t('pdf:help-sizeSliderTooltip')}>
-            <Slider value={pdfsize} min={0.5} max={2.5} step={0.1} onChange={this.onChange.bind(this)}/>
+            <Slider value={pageScale} min={0.5} max={2.5} step={0.1} onChange={this.onChange.bind(this)}/>
         </div>
     }
 }
 
 PDFSizeSlider.propTypes = {
 
-    t       : PT.func.isRequired,
-    pdfsize : PT.number.isRequired,
-    actions : PT.object,
-    style   : PT.object
+    t         : PT.func.isRequired,
+    pageScale : PT.number.isRequired,
+    actions   : PT.object,
+    style     : PT.object
 };
 
 export default connect(

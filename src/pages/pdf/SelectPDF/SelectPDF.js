@@ -6,6 +6,7 @@ import { translate } from 'react-i18next';
 import _ from 'lodash';
 import classNames from 'classnames';
 
+import StepIndicator from '../../../components/pdf/StepIndicator';
 import ExternalFiles from '../../../components/pdf/ExternalFiles/ExternalFiles';
 import * as Nav from '../../../components/ui/Nav';
 import TopContainer from '../../../components/ui/TopContainer/TopContainer';
@@ -23,7 +24,7 @@ const mapStateToProps = (state) => {
     return {
         loadingPDF   : state.loading.loadingPDF,
         language     : state.ui.language,
-        pdfs         : state.pdf.pdfs,
+        files        : state.pdf.files,
         action       : state.ui.action
     }
 };
@@ -90,23 +91,24 @@ class SelectPDF extends Component {
 
     render() {
 
-        const { t, history, loadingPDF, pdfs, location } = this.props;
+        const { t, history, loadingPDF, files, location } = this.props;
 
         let buttonText = loadingPDF ? t('pdf:loading-loadingPDF') : t('ui:forward');
 
         return <TopContainer className='p-pdf-selectPdf'
             history={history} location={location}
             sideContent={<PdfDrawer/>}>
+            <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
             <h1 className='appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
+            <h4 className='appDescription'>{t('pdf:app-selectPdfDescription')}</h4>
+            <StepIndicator stepIndicator={0} history={history}/>
             <ExternalFiles style={{zIndex: 2}} addDocument={this.addDocument.bind(this)}/>
             <div style={{animation: 'none', opacity: 1}} className='fieldset mt-4'>
-
-                <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
                 <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
                 <FileUpload ref={f => this.fileUpload = f} fileUploadDroppableId={'selectPdf'}
                     className={classNames('fileUpload', 'mb-3')}
-                    accept='application/pdf'
-                    files={pdfs || []}
+                    accept={['application/pdf', 'image/jpeg', 'image/png']}
+                    files={files || []}
                     beforeDrop={this.handleBeforeDrop.bind(this)}
                     afterDrop={this.handleAfterDrop.bind(this)}
                     onFileChange={this.handleFileChange.bind(this)}/>
@@ -117,7 +119,7 @@ class SelectPDF extends Component {
                             className='forwardButton'
                             style={{width: '100%'}}
                             spinner={loadingPDF}
-                            disabled={_.isEmpty(pdfs)}
+                            disabled={_.isEmpty(files)}
                             onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
                     </Nav.Column>
                 </Nav.Row>
@@ -131,7 +133,7 @@ SelectPDF.propTypes = {
     actions      : PT.object,
     history      : PT.object,
     t            : PT.func,
-    pdfs         : PT.array.isRequired,
+    files        : PT.array.isRequired,
     location     : PT.object.isRequired
 };
 

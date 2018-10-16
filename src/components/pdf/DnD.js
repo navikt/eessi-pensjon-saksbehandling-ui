@@ -72,6 +72,27 @@ class DnD extends Component {
             modified = true;
         }
 
+        // dragged from a image source...
+        if (_.startsWith(result.source.droppableId, 'c-pdf-dndImages-droppable-')) {
+
+            // ...to same image source? skip it
+            if (_.startsWith(result.destination.droppableId, 'c-pdf-dndImages-droppable-')) {
+                return
+            }
+
+            // ...to DnD target? Add it
+            if (!newRecipe[targetId]) {
+                newRecipe[targetId] = [];
+            }
+
+            newRecipe[targetId].splice(result.destination.index, 0, {
+                name       : result.draggableId,
+                type       : 'pickImage'
+            });
+
+            modified = true;
+        }
+
         // dragged from a PDF target...
         if (_.startsWith(result.source.droppableId, 'c-pdf-dndTarget-droppable-')) {
 
@@ -84,6 +105,13 @@ class DnD extends Component {
 
             // ... to another PDF source: remove
             if (_.startsWith(result.destination.droppableId, 'c-pdf-dndSource-droppable-')) {
+
+                newRecipe[sourceId].splice(result.source.index, 1);
+                modified = true;
+            }
+
+            // ... to image source: remove
+            if (_.startsWith(result.destination.droppableId, 'c-pdf-dndImages-droppable-')) {
 
                 newRecipe[sourceId].splice(result.source.index, 1);
                 modified = true;

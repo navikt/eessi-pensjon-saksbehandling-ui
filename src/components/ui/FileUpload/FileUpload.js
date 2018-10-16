@@ -115,10 +115,11 @@ class FileUpload extends Component {
                     let newCurrentPages = _.clone(this.state.currentPages);
 
                     newFiles.push({
-                        'base64' : base64,
-                        'data'   : blob,
-                        'size'   : file.size,
-                        'name'   : file.name
+                        'base64'   : base64,
+                        'data'     : blob,
+                        'size'     : file.size,
+                        'name'     : file.name,
+                        'mimetype' : file.type
                     });
                     newCurrentPages[newCurrentPages.length] = 1;
 

@@ -5,10 +5,11 @@ import _ from 'lodash';
 
 let initialState =  {
     recipe: {},
-    pdfs: [],
-    pdfsize: 1.0,
+    files: [],
+    pageScale: 1.0,
     dndTarget: 'work',
-    watermark: {}
+    watermark: {},
+    step : 0
 };
 
 export default function (state = initialState, action = {}) {
@@ -27,7 +28,7 @@ export default function (state = initialState, action = {}) {
         }
 
         return Object.assign({}, state, {
-            pdfs   : action.payload,
+            files  : action.payload,
             recipe : newRecipe
         });
     }
@@ -35,19 +36,19 @@ export default function (state = initialState, action = {}) {
     case types.PDF_CLEAR: {
 
         return Object.assign({}, state, {
-            pdfs : undefined
+            files : undefined
         });
     }
 
     case types.PDF_GENERATE_SUCCESS: {
 
-        const pdfs = _.clone(action.payload);
-        for (var j in pdfs) {
-            pdfs[j].data =  Uint8Array.from(window.atob(pdfs[j].base64), c => c.charCodeAt(0))
+        const files = _.clone(action.payload);
+        for (var j in files) {
+            files[j].data =  Uint8Array.from(window.atob(files[j].base64), c => c.charCodeAt(0))
         }
 
         return Object.assign({}, state, {
-            generatedPDFs : pdfs
+            generatedPDFs : files
         });
     }
 
@@ -85,7 +86,7 @@ export default function (state = initialState, action = {}) {
     case types.PDF_SET_PAGE_SIZE:
 
         return Object.assign({}, state, {
-            pdfsize : action.payload
+            pageScale : action.payload
         });
 
     case types.APP_CLEAR_DATA:

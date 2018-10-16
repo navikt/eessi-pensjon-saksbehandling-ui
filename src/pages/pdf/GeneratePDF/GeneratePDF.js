@@ -6,6 +6,7 @@ import { translate } from 'react-i18next';
 import _ from 'lodash';
 
 import * as Nav from '../../../components/ui/Nav';
+import StepIndicator from '../../../components/pdf/StepIndicator';
 import TopContainer from '../../../components/ui/TopContainer/TopContainer';
 import ClientAlert from '../../../components/ui/Alert/ClientAlert';
 import File from '../../../components/ui/File/File';
@@ -22,7 +23,7 @@ const mapStateToProps = (state) => {
         generatingPDF : state.loading.generatingPDF,
         language      : state.ui.language,
         generatedPDFs : state.pdf.generatedPDFs,
-        pdfs          : state.pdf.pdfs,
+        files         : state.pdf.files,
         watermark     : state.pdf.watermark,
         recipe        : state.pdf.recipe
     }
@@ -58,9 +59,9 @@ class GeneratePDF extends Component {
 
     componentDidMount() {
 
-        const { history, actions, pdfs, recipe, watermark } = this.props;
+        const { history, actions, files, recipe, watermark } = this.props;
 
-        if (!pdfs || _.isEmpty(pdfs)) {
+        if (!files || _.isEmpty(files)) {
 
             history.push(routes.PDF_SELECT);
 
@@ -68,7 +69,7 @@ class GeneratePDF extends Component {
 
             actions.generatePDF({
                 recipe    : recipe,
-                pdfs      : pdfs,
+                files     : files,
                 watermark : watermark
             });
         }
@@ -128,6 +129,7 @@ class GeneratePDF extends Component {
             <Nav.HjelpetekstBase>{t('pdf:help-generate-pdf')}</Nav.HjelpetekstBase>
             <h1 className='appTitle'>{t('pdf:app-generatePdfTitle')}</h1>
             <ClientAlert permanent={true}/>
+            <StepIndicator stepIndicator={2} history={history}/>
             {generatingPDF ? <div className='w-100 text-center'>
                 <Nav.NavFrontendSpinner/>
                 <p>{t('pdf:loading-generatingPDF')}</p>
@@ -174,7 +176,7 @@ GeneratePDF.propTypes = {
     actions      : PT.object,
     history      : PT.object,
     t            : PT.func,
-    pdfs         : PT.array.isRequired,
+    files        : PT.array.isRequired,
     recipe       : PT.array.isRequired,
     generatedPDFs: PT.object,
     location     : PT.object.isRequired,
