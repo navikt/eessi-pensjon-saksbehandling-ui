@@ -8,7 +8,18 @@ let initialState =  {
     files: [],
     pageScale: 1.0,
     dndTarget: 'work',
-    watermark: {},
+    watermark: {
+        watermarkText : '',
+        watermarkTextColor : {
+            r : 255, g: 0, b: 0, a: 0.25
+        }
+    },
+    separator: {
+        separatorText: '',
+        separatorTextColor: {
+            r: 0, g: 0, b: 0, a: 1.0
+        }
+    },
     step : 0
 };
 
@@ -98,6 +109,13 @@ export default function (state = initialState, action = {}) {
 
         return Object.assign({}, state, {
             watermark : action.payload
+        });
+    }
+
+    case types.PDF_SEPARATOR_SET : {
+
+        return Object.assign({}, state, {
+            separator : action.payload
         });
     }
 

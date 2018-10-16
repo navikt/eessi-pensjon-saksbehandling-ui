@@ -181,10 +181,12 @@ class EditPDF extends Component {
             sideContent={<PdfDrawer/>}>
             <Nav.HjelpetekstBase>{t('pdf:help-edit-pdf')}</Nav.HjelpetekstBase>
             <h1 className='appTitle'>{t('pdf:app-editPdfTitle')}</h1>
+            <h4 className='appDescription'>{t('pdf:app-editPdfDescription')}</h4>
             <ClientAlert/>
             <StepIndicator stepIndicator={1} history={history}/>
-            <div className='w-100 ml-2 mb-2'>
-                <PDFSizeSlider style={{width: '20%'}}/>
+            <div className='documentbox m-2 mt-0'>
+                <h4>{t('pdf:documentBox')}</h4>
+                <PDFSizeSlider style={{width: '25%'}}/>
             </div>
             <Nav.Row className='m-0'>
                 <DnD>
@@ -208,7 +210,7 @@ class EditPDF extends Component {
                         <div className='h-100'>
                             {! files ? null : <Collapse className='mb-4' defaultActiveKey={openedPanels}
                                 destroyInactivePanel={false} accordion={false}>
-                                <Collapse.Panel key={'special'} header={t('pdf:specials')} showArrow={true}>
+                                <Collapse.Panel key={'special'} header={t('pdf:specials-title')} showArrow={true}>
                                     <DnDSpecial/>
                                 </Collapse.Panel>
                                 {imageCollapse}

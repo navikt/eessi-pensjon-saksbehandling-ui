@@ -139,7 +139,7 @@ class PageInDnD extends Component {
                          size={'20'} kind={'view'}/>
                  </div> : null}
                  <img className='page'
-                     alt={file.name} style={{maxWidth: (100 * pageScale) + 'px'}}
+                     alt={file.name} style={{maxWidth: '100%', width: (100 * pageScale) + 'px'}}
                      src={'data:' + file.type + ';base64,' + file.base64} />
              </div> : null}
              {file.mimetype === 'application/pdf' ? <Document className='document' file={{data: file.data}}>

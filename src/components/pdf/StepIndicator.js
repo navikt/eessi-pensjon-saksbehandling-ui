@@ -9,7 +9,8 @@ import * as routes from '../../constants/routes';
 
 const mapStateToProps = (state) => {
     return {
-        files : state.pdf.files
+        files : state.pdf.files,
+        recipe : state.pdf.recipe
     };
 };
 
@@ -19,17 +20,32 @@ class StepIndicator extends Component {
         message : undefined
     }
 
+    hasOnlyEmptyArrays(obj) {
+
+        var emptyArrayMembers = _.filter(obj, (it) => {
+            return !it || (_.isArray(it) && _.isEmpty(it))
+        });
+        return emptyArrayMembers.length === Object.keys(obj).length;
+    }
+
     onBeforeChange (nextStep) {
 
-        const { t, files, stepIndicator } = this.props;
+        const { t, files, recipe, stepIndicator } = this.props;
 
         if (nextStep === stepIndicator) {
             return false;
         }
 
-        if (nextStep > 0 && _.isEmpty(files)) {
+        if (nextStep === 1 && _.isEmpty(files)) {
             this.setState({
-                message: t('pdf:alert-invalidStep')
+                message: t('pdf:alert-invalidStep1')
+            });
+            return false;
+        }
+
+        if (nextStep === 2 && this.hasOnlyEmptyArrays(recipe)) {
+            this.setState({
+                message: t('pdf:alert-invalidStep2')
             });
             return false;
         }
@@ -74,7 +90,10 @@ class StepIndicator extends Component {
                 {label: t('pdf:form-step2'), aktiv: (stepIndicator === 2)},
             ]}/>
 
-        {this.state.message ? <div className='w-100 text-center mb-2'>{this.state.message}</div> : null}
+        {this.state.message ? <div className='w-100 text-center mb-2'>
+            <Nav.Ikon size={16} kind='advarsel-trekant'/>
+            <span className='ml-2'>{this.state.message}</span>
+        </div> : null}
         </div>
     }
 }
@@ -84,6 +103,7 @@ StepIndicator.propTypes = {
     t         : PT.func.isRequired,
     files     : PT.object,
     history   : PT.object,
+    recipe    : PT.object,
     stepIndicator : PT.number.isRequired
 };
 

@@ -17,6 +17,10 @@
         }
     };
 
+    .hjelpetekst {
+        bottom: 4rem;
+    }
+
     .dragging {
         opacity: 0.5;
     }
@@ -25,8 +29,17 @@
         font-size: 0.75rem !important;
     }
 
-    textarea--medMeta__wrapper {
+    .textarea--medMeta__wrapper {
         width: 100%;
+
+        textarea {
+
+            min-height: 6rem !important;
+
+            &::placeholder {
+                font-size: 0.75rem !important;
+            }
+        }
     }
 
     .textarea__container {

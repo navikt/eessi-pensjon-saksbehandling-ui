@@ -50,10 +50,13 @@ class DnDTarget extends Component {
                                                 file={file}
                                                 pageNumber={recipeStep.pageNumber}
                                                 action='remove'
-                                            /> : (
-                                                recipeStep.type === 'specialPage' ?
-                                                    <PDFSpecialPage separatorTextColor={recipeStep.separatorTextColor} separatorText={recipeStep.separatorText} deleteLink={true}/>
-                                                    : null )
+                                            /> :
+                                            recipeStep.type === 'specialPage' ?
+                                                <PDFSpecialPage separator={{
+                                                    separatorTextColor : recipeStep.separatorTextColor,
+                                                    separatorText      : recipeStep.separatorText
+                                                }} deleteLink={true}/>
+                                            : null
                                         }
                                     </div>
                                 )}

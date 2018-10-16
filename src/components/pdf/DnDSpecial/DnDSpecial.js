@@ -14,8 +14,11 @@ import * as pdfActions from '../../../actions/pdf';
 
 import './DnDSpecial.css';
 
-const mapStateToProps = () => {
-    return {};
+const mapStateToProps = (state) => {
+    return {
+        watermark : state.pdf.watermark,
+        separator : state.pdf.separator
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -25,16 +28,7 @@ const mapDispatchToProps = (dispatch) => {
 class DnDSpecial extends Component {
 
     state = {
-        isHovering : false,
-        watermarkEnabled : false,
-        watermarkText : '',
-        watermarkTextColor : {
-            r : 255, g: 0, b: 0, a: 0.25
-        },
-        separatorText: '',
-        separatorTextColor: {
-            r: 0, g: 0, b: 0, a: 1.0
-        }
+        isHovering : false
     }
 
     onHandleMouseEnter() {
@@ -51,55 +45,60 @@ class DnDSpecial extends Component {
             e.preventDefault();
             e.stopPropagation();
         }
-        this.setState({
-            separatorText : e.target ? e.target.value : e
+
+        const { actions, separator } = this.props;
+
+        actions.setSeparator({
+            separatorText      : e.target ? e.target.value : e,
+            separatorTextColor : separator.separatorTextColor
         });
     }
+
     setSeparatorTextColor(color) {
 
-        this.setState({
+        const { actions, separator } = this.props;
+
+        actions.setSeparator({
+            separatorText      : separator.separatorText,
             separatorTextColor : color.rgb
         });
     }
 
     setWatermarkText (e) {
 
-        const { actions } = this.props;
+        if (e.target) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
 
-        this.setState({
-            watermarkText: e.target.value
-        }, () => {
-            actions.setWatermark({
-                watermarkText : this.state.watermarkText,
-                watermarkTextColor : this.state.watermarkTextColor
-            });
-        })
+        const { actions, watermark } = this.props;
+
+        actions.setWatermark({
+            watermarkText : e.target.value,
+            watermarkTextColor : watermark.watermarkTextColor
+        });
     }
 
     setWatermarkTextColor (color) {
 
-        const { actions } = this.props;
+        const { actions, watermark } = this.props;
 
-        this.setState({
-            watermarkTextColor: color.rgb
-        }, () => {
-            actions.setWatermark({
-                watermarkText : this.state.watermarkText,
-                watermarkTextColor : this.state.watermarkTextColor
-            });
-        })
+        actions.setWatermark({
+            watermarkText : watermark.watermarkText,
+            watermarkTextColor : color.rgb
+        });
     }
 
     render () {
 
-        const { t } = this.props;
+        const { t, separator, watermark } = this.props;
 
-        let separatorEnabled = this.state.separatorText ? true : false;
+        let separatorEnabled = separator.separatorText ? true : false;
 
         return <div className='c-pdf-dndSpecial position-relative'
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
             onMouseLeave={this.onHandleMouseLeave.bind(this)}>
-
+            <Nav.HjelpetekstBase>{t('pdf:help-specials-pdf')}</Nav.HjelpetekstBase>
             <Droppable isDropDisabled={true} droppableId={'c-pdf-dndSpecial-droppable'} direction='horizontal'>
 
                 {(provided, snapshot) => (
@@ -107,9 +106,8 @@ class DnDSpecial extends Component {
                     <div ref={provided.innerRef}
                         className={classNames('c-pdf-dndSpecial-droppable', {'c-pdf-dndSpecial-droppable-active' : snapshot.isDraggingOver})}>
 
-                        <Draggable key={'dndspecial'} draggableId={encodeURIComponent(
-                            JSON.stringify({'separatorText': this.state.separatorText, 'separatorTextColor' : this.state.separatorTextColor})
-                        )} index={0} isDragDisabled={!separatorEnabled}>
+                        <Draggable key={'dndspecial'} draggableId={encodeURIComponent(JSON.stringify(separator))}
+                            index={0} isDragDisabled={!separatorEnabled}>
 
                             {(provided, snapshot) => (
                                 <React.Fragment>
@@ -117,7 +115,7 @@ class DnDSpecial extends Component {
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}>
-                                        <PDFSpecialPage separatorTextColor={this.state.separatorTextColor} separatorText={this.state.separatorText} deleteLink={false}
+                                        <PDFSpecialPage separator={separator} deleteLink={false}
                                             className={classNames({
                                                 'enabled' : separatorEnabled,
                                                 'disabled' : !separatorEnabled,
@@ -126,23 +124,20 @@ class DnDSpecial extends Component {
                                     </div>
                                     {snapshot.isDragging && (
                                         <div className='cloneStyle'>
-                                            <PDFSpecialPage separatorTextColor={this.state.separatorTextColor} separatorText={this.state.separatorText} deleteLink={false}/>
+                                            <PDFSpecialPage separator={separator} deleteLink={false}/>
                                         </div>
                                     )}
                                 </React.Fragment>
                             )}
                         </Draggable>
 
-                        <div className='ml-3'>
-
+                        <div className='ml-3 d-inline-block'>
+                            <Nav.Textarea maxLength={100} placeholder={t('pdf:specials-textPlaceholder')} value={separator.separatorText} onChange={this.setSeparatorText.bind(this)}/>
+                            <ColorPicker color={ separator.separatorTextColor } onChangeComplete={ this.setSeparatorTextColor.bind(this) }/>
                         </div>
                         <div className='ml-3'>
-                            <Nav.Textarea maxLength={100} className='d-inline-block' placeholder={t('ui:text')} value={this.state.separatorText} onChange={this.setSeparatorText.bind(this)}/>
-                            <ColorPicker color={ this.state.separatorTextColor } onChangeComplete={ this.setSeparatorTextColor.bind(this) }/>
-                        </div>
-                        <div className='ml-3'>
-                            <Nav.Textarea maxLength={100} className='d-inline-block' placeholder={t('ui:watermark')} value={this.state.watermarkText} onChange={this.setWatermarkText.bind(this)}/>
-                            <ColorPicker color={ this.state.watermarkTextColor } onChangeComplete={ this.setWatermarkTextColor.bind(this) } />
+                            <Nav.Textarea maxLength={100} placeholder={t('pdf:specials-watermarkPlaceholder')} value={watermark.watermarkText} onChange={this.setWatermarkText.bind(this)}/>
+                            <ColorPicker color={ watermark.watermarkTextColor } onChangeComplete={ this.setWatermarkTextColor.bind(this) } />
                         </div>
                     </div>
                 )}
@@ -153,7 +148,9 @@ class DnDSpecial extends Component {
 
 DnDSpecial.propTypes = {
     t         : PT.func.isRequired,
-    actions   : PT.object
+    actions   : PT.object,
+    separator : PT.object.isRequired,
+    watermark : PT.object.isRequired
 }
 
 export default connect(

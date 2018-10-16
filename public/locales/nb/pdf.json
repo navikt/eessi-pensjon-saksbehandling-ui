@@ -3,18 +3,21 @@
     "app-selectPdfTitle"   : "Velg til ny PDF",
     "app-selectPdfDescription" : "Velg fra eksisterende PDF-filer for å opprette ny dokumentpakke",
     "app-editPdfTitle"     : "Redigere ny PDFs",
+    "app-editPdfDescription" : "Rediger og opprett ny PDF dokumentpakke sammensatt av dokumenter fra valgte PDF eller bild filer",
     "app-generatePdfTitle" : "Generer ny PDFs",
 
-    "alert-invalidStep"    : "Last opp noe filer før du fortsette",
+    "alert-invalidStep1"    : "Last opp noe filer før du fortsette",
+    "alert-invalidStep2"    : "Velg noe sider/bilder før du fortsette",
 
     "loading-loadingPDF"    : "Laster ny PDF...",
     "loading-loadingExtPDF" : "Laster eksterne PDF...",
     "loading-generatingPDF" : "Genererer ny PDF...",
 
     "help-select-pdf"        : "Her kan du skreddersy ny dokumentpakke av eksisterende PDF filer eller bilder. Du kan også opprette nytt PDF-dokument.",
-    "help-edit-pdf"          : "Dra sider fra PDF på høyre siden til målområde på venstre side",
+    "help-edit-pdf"          : "Dra sider inn i boksen.  Husk å velge riktig kategori Arbeid, Botid, Sykdom eller Annet. Sider i boksen vil inngå i nyopprettet PDF dokumentpakke.",
     "help-generate-pdf"      : "Du kan laste ned PDF filer du har generert",
     "help-sizeSliderTooltip" : "Skyv frem/tilbake for å øke/redusere PDFs størrelse",
+    "help-specials-pdf"      : "Skriv inn fritekst til en ny side, max antall tegn er 100 bokstaver, og dra siden til dokumentboks. Du kan opprette flere sider med fritekst.",
 
     "recipe-empty-title" : "Tøm PDF",
     "recipe-empty-text"  : "Du har ikke valgt dokumenter og sider for generering av ny PDF",
@@ -24,7 +27,11 @@
     "alert-PDFGenerationFail"    : "Feil å generere PDF",
     "alert-PDFGenerationSuccess" : "Generert PDF",
 
-    "specials" : "Lage nytt brev",
+    "specials-title" : "Lage nytt brev",
+    "specials-textPlaceholder" : "Skriv tekst her, deretter dra siden til dokumentboks",
+    "specials-watermarkPlaceholder" : "Vannmerke",
+
+    "documentBox" : "Dokumentboks",
 
     "form-step0" : "Velg filer",
     "form-step1" : "Rediger PDFs",

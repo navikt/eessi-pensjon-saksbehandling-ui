@@ -2,10 +2,13 @@
     "app-createPdf"        : "Create PDF",
     "app-selectPdfTitle"   : "Select PDF",
     "app-selectPdfDescription" : "Choose from existing PDF or image files to create a new document",
-    "app-editPdfTitle"     : "Edit PDF",
+    "app-editPdfTitle"     : "Document box",
+    "app-editPdfDescription"   : "Edit or create new PDF document using the selected PDF or image documents",
     "app-generatePdfTitle" : "Generate PDF",
 
-    "alert-invalidStep"    : "Upload some files before you can step forward",
+    "alert-invalidStep1"    : "Upload some files before you can step forward",
+    "alert-invalidStep2"    : "Choose some pages / images before you can step forward",
+
     "alert-PDFGenerationFail"    : "Error generating PDF",
     "alert-PDFGenerationSuccess" : "Successfully generated PDF",
 
@@ -14,16 +17,21 @@
     "loading-generatingPDF" : "Generating PDF...",
 
     "help-select-pdf"        : "Here you can compose a new document from existing PDF or image files. You can also create a new PDF document.",
-    "help-edit-pdf"          : "Drag PDF pages from the right into the target area in the left",
-    "help-generate-pdf"      : "PDF files are generated, you can download them",
+    "help-edit-pdf"          : "Drag pages into the box. Remember to choose the right category Work, Home, Sick or Other. Pages in the box will be selected as pages for the new PDF documents",
+    "help-generate-pdf"      : "You can now download the generated PDF files",
     "help-sizeSliderTooltip" : "Slide to increase/decrease PDF page size",
+    "help-specials-pdf"      : "Write text no a new page, to a maximum of 100 characters, and then drag to the document box. You can create several pages with free text.",
 
     "recipe-empty-title" : "Empty PDF",
     "recipe-empty-text"  : "You haven't selected any pages for the new PDF",
     "recipe-valid-title" : "Generate PDF",
     "recipe-valid-text"  : "Are you sure you want to generate a PDF now?",
 
-    "specials" : "Specials",
+    "specials-title" : "Specials",
+    "specials-textPlaceholder" : "Write text here, then drag page to the document box",
+    "specials-watermarkPlaceholder" : "watermark",
+
+    "documentBox" : "Document box",
 
     "form-step0" : "Select files",
     "form-step1" : "Edit PDFs",
