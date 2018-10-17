@@ -15,8 +15,13 @@ export default function (state = {}, action = {}) {
 
     case types.STORAGE_LIST_SUCCESS: {
 
+        let parsedList = action.payload.map(file => {
+            let index = file.lastIndexOf('___');
+            return index >= 0 ? file.substring(index + 3) : file;
+        });
+
         return Object.assign({}, state, {
-            fileList : action.payload
+            fileList :parsedList
         });
     }
 

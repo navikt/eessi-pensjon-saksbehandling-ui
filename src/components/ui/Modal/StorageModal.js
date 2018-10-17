@@ -79,7 +79,9 @@ class StorageModal extends Component {
 
     componentDidUpdate() {
 
-        const { t, username, modalStorageOpen, fileList, fileLoaded, savingStorageFile, deletingStorageFile, modalStorageOptions, loadingStatus, loadingStorageFileList, actions } = this.props;
+        const { t, username, modalStorageOpen, fileList, fileLoaded,
+        savingStorageFile, deletingStorageFile, modalStorageOptions, loadingStatus,
+        loadingStorageFileList, actions, namespace } = this.props;
         const { currentSelectedFile, lastAction} = this.state;
 
         if (!modalStorageOpen) {
@@ -87,7 +89,7 @@ class StorageModal extends Component {
         }
 
         if (!fileList && !loadingStorageFileList && loadingStatus !== 'ERROR') {
-            actions.listStorageFiles(username);
+            actions.listStorageFiles(username, namespace);
         }
 
         if (lastAction === 'delete' && !deletingStorageFile) {
@@ -146,18 +148,15 @@ class StorageModal extends Component {
 
     onOkClick() {
 
-        const { username, actions, modalStorageOptions } = this.props;
+        const { username, actions, modalStorageOptions, namespace } = this.props;
         const { currentSelectedFile, saveTargetFileName } = this.state;
 
         if (modalStorageOptions.action === 'open') {
-            actions.getStorageFile(username, currentSelectedFile);
+            actions.getStorageFile(username, namespace, currentSelectedFile);
         }
+
         if (modalStorageOptions.action === 'save') {
-
-            let targetFileName = saveTargetFileName.substring(saveTargetFileName.lastIndexOf('/') + 1);
-            targetFileName = username + '/' + targetFileName;
-
-            actions.postStorageFile(username, targetFileName, modalStorageOptions.content);
+            actions.postStorageFile(username, namespace, saveTargetFileName, modalStorageOptions.content);
         }
     }
 
@@ -190,9 +189,9 @@ class StorageModal extends Component {
     onDeleteFile(e) {
 
         e.preventDefault();
-        const { username, actions, fileToDelete } = this.props;
+        const { username, actions, fileToDelete, namespace } = this.props;
 
-        actions.deleteStorageFile(username, fileToDelete);
+        actions.deleteStorageFile(username, namespace, fileToDelete);
     }
 
     setSaveTargetFileName(e) {
@@ -259,8 +258,8 @@ class StorageModal extends Component {
                 </div>
 
                 {modalStorageOptions && modalStorageOptions.action === 'save' ? <div>
-                    <label>{username + '/'}</label>
-                    <Nav.Input label={t('filename')} value={saveTargetFileName || ''}
+
+                    <Nav.Input placeholder={t('filename')} value={saveTargetFileName || ''}
                         onChange={this.setSaveTargetFileName.bind(this)}/>
                 </div> : null}
 
@@ -312,7 +311,7 @@ StorageModal.propTypes = {
     modalStorageOptions   : PT.object,
     username              : PT.string,
     userrole              : PT.string,
-    type                  : PT.string.isRequired
+    namespace             : PT.string.isRequired
 };
 
 export default connect(

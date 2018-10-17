@@ -96,7 +96,7 @@ class P4000 extends Component {
         return <TopContainer className='p-p4000'
             history={history} location={location}
             sideContent={<FrontPageDrawer t={t} status={status}/>}>
-            <StorageModal type='P4000'/>
+            <StorageModal namespace='P4000'/>
             <Nav.Row className='no-gutters mb-2'>
                 <div className='col-md-5 col-lg-4'>
                     <h1 className='appTitle'>{t('p4000:app-title')}</h1>

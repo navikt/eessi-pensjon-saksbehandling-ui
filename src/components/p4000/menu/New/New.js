@@ -3,24 +3,24 @@ import PT from 'prop-types';
 import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
-import _ from 'lodash';
 import classNames from 'classnames';
-
-import P4000Util from '../../Util';
-import * as routes from '../../../../constants/routes';
-import * as p4000Actions from '../../../../actions/p4000';
-import * as uiActions from '../../../../actions/ui';
 
 import * as Nav from '../../../ui/Nav';
 import Icons from '../../../ui/Icons';
+import SubmitButton from '../../Buttons/SubmitButton';
+import SaveToServerButton from '../../Buttons/SaveToServerButton';
+import SaveToFileButton from '../../Buttons/SaveToFileButton';
+import ViewButton from '../../Buttons/ViewButton';
+
+import * as routes from '../../../../constants/routes';
+import * as p4000Actions from '../../../../actions/p4000';
+import * as uiActions from '../../../../actions/ui';
 
 import './New.css';
 
 const mapStateToProps = (state) => {
     return {
-        events        : state.p4000.events,
-        dataToConfirm : state.case.dataToConfirm,
-        dataSaved     : state.case.dataSaved
+        events : state.p4000.events
     };
 };
 
@@ -89,53 +89,6 @@ class New extends Component {
         });
     }
 
-    handleFileSaveToFile() {
-
-        const { events } = this.props;
-
-        this.setState({
-            fileOutput : P4000Util.writeEventsToString(events)
-        }, () => {
-            this.fileOutput.click()
-        })
-    }
-
-    handleFileSaveToServer() {
-
-        const { t, actions } = this.props;
-
-        actions.openModal({
-            modalTitle: t('soon'),
-            modalText: t('soon'),
-            modalButtons: [{
-                main: true,
-                text: t('yes') + ', ' + t('continue'),
-                onClick: this.closeModal.bind(this)
-            },{
-                text: t('no') + ', ' + t('cancel'),
-                onClick: this.closeModal.bind(this)
-            }]
-        });
-    }
-
-    handleFileSubmit() {
-
-        const { t, actions } = this.props;
-
-        actions.openModal({
-            modalTitle: t('p4000:file-submit-confirm-title'),
-            modalText: t('p4000:file-submit-confirm-text'),
-            modalButtons: [{
-                main: true,
-                text: t('ui:yes') + ', ' + t('ui:submit'),
-                onClick: this.doSubmitP4000.bind(this)
-            },{
-                text: t('ui:no') + ', ' + t('ui:cancel'),
-                onClick: this.closeModal.bind(this)
-            }]
-        });
-    }
-
     closeModal() {
 
         const { actions } = this.props;
@@ -143,39 +96,9 @@ class New extends Component {
         actions.closeModal();
     }
 
-    doSubmitP4000() {
-
-        const { actions, events, dataToConfirm, dataSaved } = this.props;
-
-        let p4000 = P4000Util.convertEventsToP4000(events);
-        actions.closeModal();
-
-        let body = {
-            subjectArea   : dataToConfirm.subjectArea,
-            caseId        : dataToConfirm.caseId,
-            actorId       : dataToConfirm.actorId,
-            buc           : dataToConfirm.buc,
-            sed           : dataToConfirm.sed,
-            institutions  : dataToConfirm.institutions
-        }
-
-        body.sendsed = true;
-        body.payload = JSON.stringify(p4000.payload);
-        body.sed = 'P4000';
-        body.euxCaseId = dataSaved.euxcaseid
-
-        actions.navigateForward();
-
-        this.setState({
-            submitted: true
-        }, () => {
-            actions.submitP4000(body);
-        })
-    }
-
     render() {
 
-        const { t, events } = this.props;
+        const { t } = this.props;
 
         return <Nav.Panel className='c-p4000-menu-new mt-4 mb-4 p-0'>
             <div>
@@ -202,36 +125,10 @@ class New extends Component {
                 <Nav.HjelpetekstBase>{t('p4000:help-new-options')}</Nav.HjelpetekstBase>
                 <h1 className='m-0 mb-4'>{t('ui:options')}</h1>
                 <div style={{display: 'flex', flexWrap: 'wrap'}}>
-                    <Nav.Knapp style={{animationDelay: '0.34s'}} className='viewButton bigButton' onClick={this.handleEventSelect.bind(this, 'view')}>
-                        <div>
-                            <Icons size='4x' className='mr-3' kind='document'/>
-                            <Icons size='3x' kind={'view'}/>
-                        </div>
-                        <div className='mt-3'>{t('ui:view')}</div>
-                    </Nav.Knapp>
-                    <Nav.Knapp style={{animationDelay: '0.38s'}} className='saveToFileButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSaveToFile.bind(this)}>
-                        <div>
-                            <Icons size='4x' className='mr-3' kind='document'/>
-                            <Icons size='3x' kind={'download'}/>
-                        </div>
-                        <div className='mt-3'>{t('p4000:file-save-to-file')}</div>
-                    </Nav.Knapp>
-                    <Nav.Knapp style={{animationDelay: '0.42s'}} className='saveToServerButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSaveToServer.bind(this)}>
-                        <div>
-                            <Icons className='mr-3' size='4x' kind='document'/>
-                            <Icons className='mr-3' size='3x' kind='caretRight'/>
-                            <Icons size='3x' kind='server'/>
-                        </div>
-                        <div className='mt-3'>{t('p4000:file-save-to-server')}</div>
-                    </Nav.Knapp>
-                    <Nav.Knapp style={{animationDelay: '0.46s'}} className='sendButton bigButton' disabled={_.isEmpty(events)} onClick={this.handleFileSubmit.bind(this)}>
-                        <div>
-                            <Icons className='mr-3' size='4x' kind='document'/>
-                            <Icons className='mr-3' size='3x' kind='caretRight'/>
-                            <Icons size='3x' kind='server'/>
-                        </div>
-                        <div className='mt-3'>{t('p4000:file-submit')}</div>
-                    </Nav.Knapp>
+                    <ViewButton style={{animationDelay: '0.34s'}} />
+                    <SaveToFileButton style={{animationDelay: '0.38s'}} />
+                    <SaveToServerButton style={{animationDelay: '0.42s'}} />
+                    <SubmitButton style={{animationDelay: '0.46s'}} />
                 </div>
             </div>
         </Nav.Panel>

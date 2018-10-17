@@ -24,10 +24,10 @@ export const CASE_GET_SUBJECT_AREA_LIST_URL  = API_URL + '/subjectarea';
 export const APP_GET_USERINFO_URL            = API_URL + '/userinfo';
 
 // StorageController
-export const STORAGE_LIST_URL   = API_URL + '/storage/%(userId)s';
-export const STORAGE_GET_URL    = API_URL + '/storage/%(file)s';
-export const STORAGE_POST_URL   = API_URL + '/storage/%(file)s';
-export const STORAGE_DELETE_URL = API_URL + '/storage/%(file)s';
+export const STORAGE_LIST_URL   = API_URL + '/storage/list/%(userId)s___%(namespace)s';
+export const STORAGE_GET_URL    = API_URL + '/storage/get/%(userId)s___%(namespace)s___%(file)s';
+export const STORAGE_POST_URL   = API_URL + '/storage/%(userId)s___%(namespace)s___%(file)s';
+export const STORAGE_DELETE_URL = API_URL + '/storage/%(userId)s___%(namespace)s___%(file)s';
 
 // FagmodulController
 export const CASE_CREATE_SED_URL    = FAG_URL + '/create';
