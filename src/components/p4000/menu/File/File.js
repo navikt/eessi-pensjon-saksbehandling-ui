@@ -19,10 +19,11 @@ import './File.css';
 
 const mapStateToProps = (state) => {
     return {
-        events        : state.p4000.events,
-        event         : state.p4000.event,
-        dataToConfirm : state.case.dataToConfirm,
-        dataSaved     : state.case.dataSaved
+        events   : state.p4000.events,
+        event    : state.p4000.event,
+        rinaId   : state.status.rinaId,
+        sakId    : state.status.sakId,
+        aktoerId : state.status.aktoerId
     }
 };
 
@@ -48,11 +49,11 @@ class File extends Component {
 
     componentDidUpdate() {
 
-        const { history, dataSaved } = this.props;
+        const { history, rinaId } = this.props;
 
-        if (this.state.submitted && dataSaved ) {
+        if (this.state.submitted && rinaId ) {
 
-            history.push(routes.ROOT + '?rinaId=' + dataSaved.euxcaseid);
+            history.push(routes.ROOT + '?rinaId=' + rinaId);
         }
     }
 
@@ -97,24 +98,18 @@ class File extends Component {
 
     doSubmitP4000() {
 
-        const { actions, events, dataToConfirm, dataSaved } = this.props;
+        const { actions, events, sakId, aktoerId, rinaId } = this.props;
 
         let p4000 = P4000Util.convertEventsToP4000(events);
         actions.closeModal();
 
         let body = {
-            subjectArea   : dataToConfirm.subjectArea,
-            caseId        : dataToConfirm.caseId,
-            actorId       : dataToConfirm.actorId,
-            buc           : dataToConfirm.buc,
-            sed           : dataToConfirm.sed,
-            institutions  : dataToConfirm.institutions
+            caseId    : sakId,
+            actorId   : aktoerId,
+            payload   : JSON.stringify(p4000.payload),
+            sed       : 'P4000',
+            euxCaseId : rinaId
         }
-
-        body.sendsed = true;
-        body.payload = JSON.stringify(p4000.payload);
-        body.sed = 'P4000';
-        body.euxCaseId = dataSaved.euxcaseid
 
         actions.navigateForward();
 
@@ -478,9 +473,7 @@ File.propTypes = {
     events  : PT.array.isRequired,
     event   : PT.object,
     history : PT.object.isRequired,
-    location: PT.object.isRequired,
-    dataSaved     : PT.object,
-    dataToConfirm : PT.object
+    location: PT.object.isRequired
 };
 
 export default connect(

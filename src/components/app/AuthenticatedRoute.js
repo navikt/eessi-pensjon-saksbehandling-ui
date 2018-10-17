@@ -25,7 +25,17 @@ const mapDispatchToProps = (dispatch) => {
 class AuthenticatedRoute extends Component {
 
     state = {
-        loggedIn : false
+        loggedIn : false,
+        loggingIn : false
+    }
+
+    handleLoginRequest() {
+
+        this.setState({
+            loggingIn : true
+        });
+        let redirectUrl = urls.APP_LOGIN_URL + '?redirectTo=' + encodeURIComponent(window.location.href);
+        window.location.href = redirectUrl;
     }
 
     componentDidMount() {
@@ -34,49 +44,55 @@ class AuthenticatedRoute extends Component {
 
         let idtoken = cookies.get('eessipensjon-idtoken-public');
 
-        if (!idtoken) {
-
-            let redirectUrl = urls.APP_LOGIN_URL + '?redirectTo=' + encodeURIComponent(window.location.href);
-            window.location.href = redirectUrl;
-
-        } else {
-            this.setState({
-                loggedIn: true
-            });
-        }
+        this.setState({
+            loggedIn  : idtoken === 'logged',
+            loggingIn : false
+        });
 
         let params = new URLSearchParams(location.search);
-        const rinaIdFromParam = params.get('rinaId');
+
+        const rinaIdFromParam = this.getAndSaveParam(params, 'rinaId');
 
         if (rinaIdFromParam) {
-            actions.setStatusParam('rinaId', rinaIdFromParam);
             actions.getStatus(rinaIdFromParam);
             actions.getCase(rinaIdFromParam);
         }
 
-        const saksNrFromParam = params.get('saksNr');
+        this.getAndSaveParam(params, 'saksNr');
+        this.getAndSaveParam(params, 'fnr');
+        this.getAndSaveParam(params, 'aktoerId');
+        this.getAndSaveParam(params, 'sakId');
+        this.getAndSaveParam(params, 'kravId');
+        this.getAndSaveParam(params, 'vedtakId');
+    }
 
-        if (saksNrFromParam) {
-            actions.setStatusParam('saksNr', saksNrFromParam);
+    getAndSaveParam (params, key) {
+
+        const { actions } = this.props;
+        const value = params.get(key);
+
+        if (value) {
+            actions.setStatusParam(key, value);
         }
-
-        const fnrFromParam = params.get('fnr');
-
-        if (fnrFromParam) {
-            actions.setStatusParam('fnr', fnrFromParam);
-        }
+        return value;
     }
 
     render () {
 
         const { t, className } = this.props;
+        const { loggedIn, loggingIn } = this.state;
 
         return this.state.loggedIn ? <Route {...this.props}/> :
             <div style={{minHeight: '100vh', backgroundColor: 'white'}}>
                 <TopHeader/>
                 <div className={classNames('w-100 text-center p-5', className)}>
-                    <Nav.NavFrontendSpinner/>
-                    <p>{t('ui:authenticating')}</p>
+                    {loggingIn ? <React.Fragment>
+                        <Nav.NavFrontendSpinner/>
+                        <p>{t('ui:authenticating')}</p>
+                    </React.Fragment> : null}
+                    {!loggedIn ? <Nav.Hovedknapp onClick={this.handleLoginRequest.bind(this)}>
+                         {t('login')}
+                    </Nav.Hovedknapp> : null}
                 </div>
             </div>
     }
