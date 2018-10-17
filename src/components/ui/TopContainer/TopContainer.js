@@ -6,6 +6,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 
 import * as Nav from '../Nav';
 import TopHeader from '../Header/TopHeader';
+import Footer from '../Footer/Footer';
 import ServerAlert from '../Alert/ServerAlert';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import Drawer from '../Drawer/Drawer';
@@ -52,9 +53,10 @@ class TopContainer extends Component {
                     <ServerAlert/>
                     <Modal/>
                     <Breadcrumbs history={history}/>
-                    <Nav.Container fluid={true}>
+                    <Nav.Container className='_container' fluid={true}>
                         {this.props.children}
                     </Nav.Container>
+                    <Footer/>
                 </Drawer>
             </DragDropContext>
         </div>
