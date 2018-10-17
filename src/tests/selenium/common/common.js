@@ -9,9 +9,9 @@ const driver = new webdriver.Builder()
     .build();
 
 const urls = {
-    'test'        : 'localhost:8080',
-    'development' : 'localhost:3000',
-    'production'  : 'localhost:8080'
+    'test'        : 'https://eessi-pensjon-frontend-ui.nais.preprod.local',
+    'development' : 'https://eessi-pensjon-frontend-ui.nais.preprod.local',
+    'production'  : 'https://eessi-pensjon-frontend-ui.nais.preprod.local'
 };
 
 let elementLoads = async function (cssPattern) {
