@@ -8,6 +8,7 @@ import Timeline from 'react-visjs-timeline';
 import ReactJson from 'react-json-view';
 import classNames from 'classnames';
 
+import Icons from '../../../ui/Icons';
 import P4000Util from  '../../../p4000/Util';
 import * as Nav from '../../../ui/Nav';
 import TimelineEvent from '../../../ui/TimelineEvent/TimelineEvent';
@@ -117,6 +118,13 @@ class View extends Component {
         })
     }
 
+    onBackButtonClick() {
+
+        const { actions } = this.props;
+
+        actions.setPage('new');
+    }
+
     render() {
 
         const { t, events, actions } = this.props;
@@ -133,22 +141,24 @@ class View extends Component {
         });
 
         return <Nav.Panel className='c-p4000-menu-view p-0 mb-4'>
-            <Nav.Ekspanderbartpanel className='row-timeline-view fieldset animate mb-5' apen={true} tittel={t('p4000:form-timeline')} tittelProps='undertittel'>
-                <Timeline items={items}
-                    options={{
-                        width        : '100%',
-                        orientation  : 'top',
-                        showTooltips : true,
-                        template     : (item, element) => {
-                            if (!item) {return}
-                            ReactDOM.render(<TimelineEvent event={item}
-                                onClick={() => actions.editEvent(item.id)}
-                            />, element);
-                            return item.content;
-                        }
-                    }}/>
-            </Nav.Ekspanderbartpanel>
-
+            <div>
+                <Nav.Knapp className='backButton mr-4' onClick={this.onBackButtonClick.bind(this)}>
+                    <Icons className='mr-2' kind='back' size='1x'/>{t('ui:back')}
+                </Nav.Knapp>
+            </div>
+            <h1>{t('p4000:form-timeline')}</h1>
+            <Timeline items={items} options={{
+                width        : '100%',
+                orientation  : 'top',
+                showTooltips : true,
+                template     : (item, element) => {
+                    if (!item) {return}
+                    ReactDOM.render(<TimelineEvent event={item}
+                        onClick={() => actions.editEvent(item.id)}
+                    />, element);
+                    return item.content;
+                }
+            }}/>
             <Nav.Ekspanderbartpanel style={{animationDelay: '0.3s'}} className='row-advanced-view fieldset animate' apen={false} tittel={t('p4000:form-advancedView')} tittelProps='undertittel'>
 
                 <Nav.Row className='fileButtons m-4'>

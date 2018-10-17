@@ -4,9 +4,6 @@ import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 
-import './P4000.css';
-
-import Icons from '../../components/ui/Icons';
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer/TopContainer';
 import EventForm from '../../components/p4000/EventForm/EventForm';
@@ -18,6 +15,8 @@ import StorageModal from '../../components/ui/Modal/StorageModal';
 import * as routes from '../../constants/routes';
 import * as p4000Actions from '../../actions/p4000';
 import * as uiActions from '../../actions/ui';
+
+import './P4000.css';
 
 const mapStateToProps = (state) => {
     return {
@@ -35,7 +34,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const components = {
-    file: Menu.File,
     view: Menu.View,
     'new': Menu.New,
     work: Menu.Work,
@@ -63,22 +61,13 @@ class P4000 extends Component {
         this.setState({
             isLoaded : true
         });
-        actions.setPage('file');
+        actions.setPage('new');
 
         actions.addToBreadcrumbs({
             url  : routes.P4000,
             ns   : 'p4000',
             label: 'p4000:app-title'
         });
-    }
-
-    onFileButtonClick() {
-
-        const { actions, editMode, eventIndex } = this.props;
-        if (editMode) {
-            actions.cancelEditEvent(eventIndex);
-        }
-        actions.setPage('file');
     }
 
     render() {
@@ -91,19 +80,15 @@ class P4000 extends Component {
 
         let activeItem  = editMode && event ? event.type : page;
         let Component   = components[activeItem];
-        let isEventPage = activeItem !== 'view' && activeItem !== 'new' && activeItem !== 'file';
+        let isEventPage = activeItem !== 'view' && activeItem !== 'new';
 
         return <TopContainer className='p-p4000'
             history={history} location={location}
             sideContent={<FrontPageDrawer t={t} status={status}/>}>
             <StorageModal namespace='P4000'/>
-            <Nav.Row className='no-gutters mb-2'>
+            <Nav.Row className='no-gutters'>
                 <div className='col-md-5 col-lg-4'>
                     <h1 className='appTitle'>{t('p4000:app-title')}</h1>
-                    <Nav.Knapp className='fileButton ml-4' onClick={this.onFileButtonClick.bind(this)} disabled={activeItem === 'file'}>
-                        <Icons className='mr-2' kind='menu' size='1x'/>
-                        {t('ui:file')}
-                    </Nav.Knapp>
                 </div>
                 <div className='col-md-7 col-lg-8'>
                     <ClientAlert className='mt-3'/>

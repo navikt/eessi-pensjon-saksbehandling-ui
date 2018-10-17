@@ -58,7 +58,7 @@ class SubmitButton extends Component {
         actions.closeModal();
     }
 
-     handleFileSubmit() {
+    handleFileSubmit() {
 
         const { t, actions } = this.props;
 
@@ -80,7 +80,8 @@ class SubmitButton extends Component {
 
         const { t, events, style } = this.props;
 
-        return  <Nav.Knapp style={style} className='bigButton sendButton submitP4000Button' disabled={_.isEmpty(events)}
+        return  <Nav.Knapp title={t('p4000:file-submit-description-1') + '\n'+ t('p4000:file-submit-description-2')}
+            style={style} className='bigButton submitP4000Button' disabled={_.isEmpty(events)}
             onClick={this.handleFileSubmit.bind(this)}>
             <div>
                 <Icons className='mr-3' size='4x' kind='document'/>
@@ -89,13 +90,17 @@ class SubmitButton extends Component {
             </div>
             <div className='mt-3'>{t('p4000:file-submit')}</div>
         </Nav.Knapp>
-   }
+    }
 }
 
 SubmitButton.propTypes = {
     t       : PT.func.isRequired,
     events  : PT.array.isRequired,
-    style   : PT.object
+    style   : PT.object,
+    actions : PT.object,
+    aktoerId: PT.string,
+    sakId   : PT.string,
+    rinaId  : PT.string
 }
 
 export default connect(

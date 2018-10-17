@@ -57,7 +57,7 @@
     "event-delete-confirm-title": "Slett hendelse",
     "event-delete-confirm-text" : "Er du sikkert?",
 
-    "file-title"                : "Filmeny for P4000",
+    "file-menu"                 : "Filmeny",
     "file-new"                  : "Ny P4000",
     "file-open-from-file"       : "Åpen fra fil",
     "file-open-from-server"     : "Åpen fra server",

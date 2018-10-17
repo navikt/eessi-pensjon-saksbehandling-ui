@@ -34,20 +34,22 @@ class ViewButton extends Component {
 
         const { t, events, style } = this.props;
 
-        return  <Nav.Knapp style={style} className='bigButton viewP4000Button' onClick={this.handleFileView.bind(this)} disabled={_.isEmpty(events)}>
-           <div>
-               <Icons className='mr-3' size='4x' kind='file'/>
-               <Icons size='3x' kind='view'/>
-           </div>
-           <div className='mt-3'>{t('p4000:file-view')}</div>
-       </Nav.Knapp>
+        return  <Nav.Knapp title={t('p4000:file-view-description-1')}
+            style={style} className='bigButton viewP4000Button' onClick={this.handleFileView.bind(this)} disabled={_.isEmpty(events)}>
+            <div>
+                <Icons className='mr-3' size='4x' kind='file'/>
+                <Icons size='3x' kind='view'/>
+            </div>
+            <div className='mt-3'>{t('p4000:file-view')}</div>
+        </Nav.Knapp>
     }
 }
 
 ViewButton.propTypes = {
     t       : PT.func.isRequired,
     events  : PT.array.isRequired,
-    style   : PT.object
+    style   : PT.object,
+    actions : PT.object
 }
 
 export default connect(

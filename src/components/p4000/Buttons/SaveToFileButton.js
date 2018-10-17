@@ -44,17 +44,22 @@ class SaveToFileButton extends Component {
 
         return <React.Fragment>
             <a className='hiddenFileInputOutput' ref={fileOutput => this.fileOutput = fileOutput}
-               href={this.state.fileOutput} download='p4000.json'>&nbsp;</a>
-           <Nav.Knapp style={style} className='bigButton saveP4000ToFileButton' disabled={_.isEmpty(events)}
-               onClick={this.handleFileSaveToFile.bind(this)}>
-               <div>
-                   <Icons className='mr-3' size='4x' kind='document'/>
-                   <Icons size='3x' kind='download'/>
-               </div>
-               <div className='mt-3'>{t('p4000:file-save-to-file')}</div>
-           </Nav.Knapp>
+                href={this.state.fileOutput} download='p4000.json'>&nbsp;</a>
+            <Nav.Knapp title={t('p4000:file-save-to-file-description-1') + '\n' +
+               t('p4000:file-save-to-file-description-2') + '\n' +
+               t('p4000:file-save-to-file-description-3')}
+            style={style}
+            className='bigButton saveP4000ToFileButton'
+            disabled={_.isEmpty(events)}
+            onClick={this.handleFileSaveToFile.bind(this)}>
+                <div>
+                    <Icons className='mr-3' size='4x' kind='document'/>
+                    <Icons size='3x' kind='download'/>
+                </div>
+                <div className='mt-3'>{t('p4000:file-save-to-file')}</div>
+            </Nav.Knapp>
         </React.Fragment>
-   }
+    }
 }
 
 SaveToFileButton.propTypes = {

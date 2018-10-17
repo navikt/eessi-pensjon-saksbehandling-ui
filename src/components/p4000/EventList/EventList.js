@@ -17,19 +17,17 @@ class EventList extends Component {
             return null;
         }
 
-        return <div className={classNames('c-p4000-eventList', className)}>
+        return <div className={classNames('c-p4000-eventList', 'm-4', className)}>
             <div className='ml-2 mt-1'>{t('p4000:form-eventsSoFar')}</div>
-            <div className='flex-eventList'>
-                {(() => {
-                    return events.map((event, index) => {
-                        let selected = (eventIndex !== undefined && eventIndex === index);
-                        return <Event key={index}
-                            onClick={() => selected ? cancelEditRequest() : handleEditRequest(index)}
-                            event={event}
-                            eventIndex={index}
-                            selected={selected}/>
-                    });
-                })()}
+            <div className='eventList'>
+                {events.map((event, index) => {
+                    let selected = (eventIndex !== undefined && eventIndex === index);
+                    return <Event key={index}
+                        onClick={() => selected ? cancelEditRequest() : handleEditRequest(index)}
+                        event={event}
+                        eventIndex={index}
+                        selected={selected}/>
+                })}
             </div>
         </div>
     }

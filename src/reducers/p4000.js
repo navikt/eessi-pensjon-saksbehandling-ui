@@ -4,7 +4,7 @@ let initialState =  {
     events: [],
     event: undefined,
     editMode: false,
-    page: 'file'
+    page: 'new'
 };
 
 export default function (state = initialState, action = {}) {
@@ -16,7 +16,6 @@ export default function (state = initialState, action = {}) {
     case types.P4000_NEW:
 
         return Object.assign({}, state, {
-            page  : 'new',
             event : {},
             events: []
         });
@@ -24,7 +23,6 @@ export default function (state = initialState, action = {}) {
     case types.P4000_OPEN_SUCCESS:
 
         return Object.assign({}, state, {
-            page   : 'new',
             event  : {},
             events : action.payload.events
         });

@@ -80,8 +80,8 @@ class StorageModal extends Component {
     componentDidUpdate() {
 
         const { t, username, modalStorageOpen, fileList, fileLoaded,
-        savingStorageFile, deletingStorageFile, modalStorageOptions, loadingStatus,
-        loadingStorageFileList, actions, namespace } = this.props;
+            savingStorageFile, deletingStorageFile, modalStorageOptions, loadingStatus,
+            loadingStorageFileList, actions, namespace } = this.props;
         const { currentSelectedFile, lastAction} = this.state;
 
         if (!modalStorageOpen) {
@@ -110,6 +110,7 @@ class StorageModal extends Component {
                 saveTargetFileName : ''
             }, () => {
                 actions.closeStorageModal();
+                window.scrollTo(0,0);
             });
         }
 
@@ -135,6 +136,7 @@ class StorageModal extends Component {
             }, () => {
                 modalStorageOptions.onFileSelected(currentSelectedFile, fileLoaded);
                 actions.closeStorageModal();
+                window.scrollTo(0,0);
             });
         }
     }
@@ -144,6 +146,7 @@ class StorageModal extends Component {
         const { actions } = this.props;
 
         actions.closeStorageModal();
+        window.scrollTo(0,0);
     }
 
     onOkClick() {

@@ -3,15 +3,14 @@
     position: relative;
     background-color: aliceblue;
     box-shadow: 3px 3px 3px lightgrey;
-    margin: 1rem;
 
     &.hiding {
         height: 0px !important;
         padding: 0px !important;
-        opacity: 0;
+        left: -99999px;
     }
 
-    .flex-eventList {
+    .eventList {
         display: flex;
         flex-wrap: nowrap;
         overflow: auto;

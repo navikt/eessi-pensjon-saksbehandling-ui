@@ -109,12 +109,24 @@ class GenericEvent extends Component {
         actions.setEventProperty('files', files);
     }
 
+    onBackButtonClick() {
+
+        const { actions, editMode, eventIndex } = this.props;
+        if (editMode) {
+            actions.cancelEditEvent(eventIndex);
+        }
+        actions.setPage('new');
+    }
+
     render() {
 
         const { t, event, editMode, actions, type, locale } = this.props;
 
         return <Nav.Panel className={classNames('c-p4000-menu-event p-0 mb-4', {editMode : editMode})}>
-            <div className='eventTitle m-4 pl-4'>
+            <div className='eventTitle m-4'>
+                <Nav.Knapp className='backButton mr-4' onClick={this.onBackButtonClick.bind(this)}>
+                     <Icons className='mr-2' kind='back' size='1x'/>{t('ui:back')}
+                </Nav.Knapp>
                 <Icons size='3x' kind={type} className='float-left mr-4'/>
                 <h1 className='m-0'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('p4000:' + type + '-title')}</h1>
             </div>

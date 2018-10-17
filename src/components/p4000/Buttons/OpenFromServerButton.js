@@ -37,14 +37,14 @@ class OpenFromServerButton extends Component {
         }
     }
 
-     closeModal() {
+    closeModal() {
 
         const { actions } = this.props;
 
         actions.closeModal();
     }
 
-     handleFileOpenFromServer() {
+    handleFileOpenFromServer() {
 
         const { t, actions, event, events } = this.props;
 
@@ -82,7 +82,12 @@ class OpenFromServerButton extends Component {
 
         const { t, style } = this.props;
 
-        return <Nav.Knapp style={style} className='bigButton openP4000FromServerButton' onClick={this.handleFileOpenFromServer.bind(this)}>
+        return <Nav.Knapp title={t('p4000:file-open-from-server-description-1') + '\n' +
+            t('p4000:file-open-from-server-description-2')+ '\n' +
+            t('p4000:file-open-from-server-description-3')}
+        style={style}
+        className='bigButton openP4000FromServerButton'
+        onClick={this.handleFileOpenFromServer.bind(this)}>
             <div>
                 <Icons size='3x' className='mr-3' kind='server'/>
                 <Icons className='mr-3' size='3x' kind='caretRight'/>
@@ -90,13 +95,15 @@ class OpenFromServerButton extends Component {
             </div>
             <div className='mt-3'>{t('p4000:file-open-from-server')}</div>
         </Nav.Knapp>
-   }
+    }
 }
 
 OpenFromServerButton.propTypes = {
     t       : PT.func.isRequired,
     events  : PT.array.isRequired,
-    style   : PT.object
+    style   : PT.object,
+    actions : PT.object,
+    event   : PT.object
 }
 
 export default connect(

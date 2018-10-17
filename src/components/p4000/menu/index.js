@@ -1,4 +1,4 @@
-import File from './File/File';
+
 import View from './View/View';
 import Work from './Event/Work';
 import Learn from './Event/Learn';
@@ -7,7 +7,6 @@ import New from './New/New';
 import GenericEvent from './Event/GenericEvent';
 
 export {
-    File,
     View,
     Work,
     Learn,

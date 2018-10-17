@@ -56,7 +56,7 @@ class DnDTarget extends Component {
                                                     separatorTextColor : recipeStep.separatorTextColor,
                                                     separatorText      : recipeStep.separatorText
                                                 }} deleteLink={true}/>
-                                            : null
+                                                : null
                                         }
                                     </div>
                                 )}

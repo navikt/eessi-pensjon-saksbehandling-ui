@@ -91,7 +91,7 @@ class AuthenticatedRoute extends Component {
                         <p>{t('ui:authenticating')}</p>
                     </React.Fragment> : null}
                     {!loggedIn ? <Nav.Hovedknapp onClick={this.handleLoginRequest.bind(this)}>
-                         {t('login')}
+                        {t('login')}
                     </Nav.Hovedknapp> : null}
                 </div>
             </div>

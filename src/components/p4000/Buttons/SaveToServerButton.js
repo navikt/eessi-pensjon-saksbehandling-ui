@@ -41,7 +41,8 @@ class SaveToServerButton extends Component {
 
         const { t, events, style } = this.props;
 
-        return <Nav.Knapp style={style} className='bigButton saveToServerButton saveP4000toServerButton' disabled={_.isEmpty(events)}
+        return <Nav.Knapp title={t('p4000:file-save-to-server-description-1') + '\n' + t('p4000:file-save-to-server-description-2')}
+            style={style} className='bigButton saveP4000toServerButton' disabled={_.isEmpty(events)}
             onClick={this.handleFileSaveToServer.bind(this)}>
             <div>
                 <Icons className='mr-3' size='4x' kind='document'/>
@@ -50,13 +51,14 @@ class SaveToServerButton extends Component {
             </div>
             <div className='mt-3'>{t('p4000:file-save-to-server')}</div>
         </Nav.Knapp>
-   }
+    }
 }
 
 SaveToServerButton.propTypes = {
     t       : PT.func.isRequired,
     events  : PT.array.isRequired,
-    style   : PT.object
+    style   : PT.object,
+    actions : PT.object
 }
 
 export default connect(

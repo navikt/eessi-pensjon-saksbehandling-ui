@@ -57,7 +57,7 @@
     "event-delete-confirm-title": "Delete event",
     "event-delete-confirm-text" : "Are you sure?",
 
-    "file-title"                : "File menu for P4000",
+    "file-menu"                 : "File menu",
     "file-new"                  : "New P4000",
     "file-open-from-file"       : "Open from file",
     "file-open-from-server"     : "Open from server",
