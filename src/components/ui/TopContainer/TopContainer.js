@@ -63,7 +63,7 @@ TopContainer.propTypes = {
     className   : PT.string,
     style       : PT.object,
     droppables  : PT.object,
-    extPdfs     : PT.array,
+    file        : PT.object,
     sideContent : PT.object.isRequired,
     history     : PT.object.isRequired
 };

@@ -51,12 +51,12 @@ class DnDExternalFiles extends Component {
                     let selected = file && file.name === _file;
                     return <div className={classNames('fileRow', {selected : selected})} key={index}>
                         <a className={classNames('fileName')} href='#select'
-                        onClick={this.onSelectFile.bind(this, _file)}>{_file}</a>
+                            onClick={this.onSelectFile.bind(this, _file)}>{_file}</a>
                     </div>
                 })}
             </div> : null}
             {file ? <Droppable isDropDisabled={true} droppableId={'c-pdf-dndExternalFiles-droppable'} direction='horizontal'>
-                {(provided, snapshot) => (
+                {(provided) => (
                     <div ref={provided.innerRef}>
                         <Draggable className='draggable' draggableId={'storageFile'} index={0}>
                             {(provided, snapshot) => (

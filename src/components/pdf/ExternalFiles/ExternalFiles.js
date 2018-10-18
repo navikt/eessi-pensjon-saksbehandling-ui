@@ -51,6 +51,7 @@ class ExternalFiles extends Component {
 
 ExternalFiles.propTypes = {
     t               : PT.func.isRequired,
+    username        : PT.string.isRequired,
     loadingFileList : PT.bool,
     fileList        : PT.array,
     actions         : PT.object,

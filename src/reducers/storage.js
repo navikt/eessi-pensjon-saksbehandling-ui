@@ -1,3 +1,5 @@
+/*global Uint8Array*/
+
 import * as types from '../constants/actionTypes';
 import _ from 'lodash';
 

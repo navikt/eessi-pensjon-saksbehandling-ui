@@ -86,7 +86,7 @@ class StorageModal extends Component {
         const { t, username, modalOpen, fileList, file,
             savingStorageFile, deletingStorageFile, modalOptions, loadingStatus,
             loadingStorageFileList, actions, namespace } = this.props;
-        const { currentSelectedFile, lastAction} = this.state;
+        const { lastAction} = this.state;
 
         if (!modalOpen) {
             return;

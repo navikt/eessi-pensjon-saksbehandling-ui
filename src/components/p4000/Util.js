@@ -58,7 +58,6 @@ class Util {
         });
     }
 
-
     writeEventsToString(events) {
         return encodeURIComponent(JSON.stringify(this.writeEvents(events)));
     }

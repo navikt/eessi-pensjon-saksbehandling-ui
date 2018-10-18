@@ -219,6 +219,7 @@ class Work extends Component {
 Work.propTypes = {
     t                 : PT.func.isRequired,
     event             : PT.object.isRequired,
+    eventIndex        : PT.number,
     type              : PT.string.isRequired,
     editMode          : PT.bool.isRequired,
     actions           : PT.object.isRequired,
