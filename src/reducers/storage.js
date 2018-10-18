@@ -43,7 +43,7 @@ export default function (state = {}, action = {}) {
 
         // clean fileList so that component requests a list again
         return Object.assign({}, state, {
-            fileList  : undefined
+            fileList : undefined
         });
     }
 

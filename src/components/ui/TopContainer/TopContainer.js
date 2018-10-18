@@ -16,7 +16,7 @@ import './TopContainer.css';
 
 const mapStateToProps = (state) => {
     return {
-        extPdfs    : state.pdf.extPdfs,
+        fileList   : state.storage.fileList,
         droppables : state.app.droppables
     }
 };

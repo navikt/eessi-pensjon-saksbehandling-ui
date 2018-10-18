@@ -56,27 +56,6 @@ export function setPdfSize (size) {
     };
 }
 
-
-export function getExternalFileList () {
-
-    return api.call({
-        url     : urls.PDF_EXTERNAL_FILE_LIST_URL,
-        type    : {
-            request : types.PDF_EXTERNAL_FILE_LIST_REQUEST,
-            success : types.PDF_EXTERNAL_FILE_LIST_SUCCESS,
-            failure : types.PDF_EXTERNAL_FILE_LIST_FAILURE
-        }
-    });
-}
-
-export function setExternalFileList (files) {
-
-    return {
-        type    : types.PDF_EXTERNAL_FILE_LIST_SET,
-        payload : files
-    };
-}
-
 export function setWatermark(payload) {
     return {
         type    : types.PDF_WATERMARK_SET,

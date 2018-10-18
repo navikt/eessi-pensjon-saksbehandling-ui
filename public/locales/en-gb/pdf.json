@@ -12,9 +12,9 @@
     "alert-PDFGenerationFail"    : "Error generating PDF",
     "alert-PDFGenerationSuccess" : "Successfully generated PDF",
 
-    "loading-loadingPDF"    : "Loading PDF...",
-    "loading-loadingExtPDF" : "Loading External PDF...",
-    "loading-generatingPDF" : "Generating PDF...",
+    "loading-loadingPDF"      : "Loading PDF...",
+    "loading-loadingFileList" : "Loading file list...",
+    "loading-generatingPDF"   : "Generating PDF...",
 
     "help-select-pdf"        : "Here you can compose a new document from existing PDF or image files. You can also create a new PDF document.",
     "help-edit-pdf"          : "Drag pages into the box. Remember to choose the right category Work, Home, Sick or Other. Pages in the box will be selected as pages for the new PDF documents",

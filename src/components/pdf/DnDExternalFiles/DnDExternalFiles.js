@@ -1,101 +1,77 @@
 import React, { Component } from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import PT from 'prop-types';
-import _ from 'lodash';
 import { bindActionCreators }  from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 import File from '../../ui/File/File';
-import './DnDExternalFiles.css';
-import * as pdfActions from '../../../actions/pdf';
+import * as storageActions from '../../../actions/storage';
 
-const mapStateToProps = () => {
-    return {}
+import './DnDExternalFiles.css';
+
+const mapStateToProps = (state) => {
+    return {
+        fileList   : state.storage.fileList,
+        fileLoaded : state.storage.fileLoaded
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, pdfActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, storageActions), dispatch)};
 };
 
 class DnDExternalFiles extends Component {
 
-    state = {
-        files: []
-    };
+    addFile(file) {
 
-    static getDerivedStateFromProps(newProps) {
+        const { addFile } = this.props;
 
-        return {
-            files : newProps.extPdfs
-        }
-    }
-
-    addDocument(pdf) {
-
-        const { addDocument } = this.props;
-
-        if (typeof addDocument === 'function') {
-            addDocument(pdf);
-        }
-    }
-
-    onLoadSuccess(index, event) {
-
-        const { actions } = this.props;
-
-        if (index !== undefined && event && event.numPages) {
-
-            let newFiles = _.clone(this.state.files);
-            newFiles[index].numPages = event.numPages;
-
-            actions.setExternalFileList(newFiles);
+        if (typeof addFile === 'function') {
+            addFile(file);
         }
     }
 
     render () {
 
-        const { files } = this.state;
-
-        if (!files) {
-            return null;
-        }
+        const { fileList, fileLoaded } = this.props;
 
         return <div className='c-pdf-dndExternalFiles'>
-            <Droppable isDropDisabled={true} droppableId={'c-pdf-dndExternalFiles-droppable'} direction='horizontal'>
+            {fileList ? fileList.map((file, index) => {
+                return <span key={index}>{file}</span>
+            }) : null}
+            {fileLoaded ? <Droppable isDropDisabled={true} droppableId={'c-pdf-dndExternalFiles-droppable'} direction='horizontal'>
                 {(provided, snapshot) => (
                     <div ref={provided.innerRef}>
-                        {files.map((pdf, index) => {
-                            return <Draggable className='draggable' key={index} draggableId={index} index={index}>
-                                {(provided, snapshot) => (
-                                    <React.Fragment>
-                                        <div ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                            className={classNames({'dragging' : snapshot.isDragging})}
-                                        >
-                                            <File key={index} file={pdf} addLink={true} scale={1.0}
-                                                onAddDocument={this.addDocument.bind(this, pdf)}
-                                                onLoadSuccess={this.onLoadSuccess.bind(this, index)}/>
+                        <Draggable className='draggable' draggableId={'dndExternalFile'} index={0}>
+                            {(provided, snapshot) => (
+                                <React.Fragment>
+                                    <div ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        className={classNames({'dragging' : snapshot.isDragging})}>
+                                        <File file={fileLoaded} addLink={true} scale={1.0}
+                                            onAddFile={this.addFile.bind(this, fileLoaded)}/>
+                                    </div>
+                                    {snapshot.isDragging && (
+                                        <div className='cloneStyle'>
+                                            <File animate={false} file={fileLoaded} scale={1.0}/>
                                         </div>
-                                        {snapshot.isDragging && (
-                                            <div className='cloneStyle'>
-                                                <File animate={false} key={index} file={pdf} scale={1.0}/>
-                                            </div>
-                                        )}
-                                    </React.Fragment>
-                                )}
-                            </Draggable>
-                        })}
+                                    )}
+                                </React.Fragment>
+                            )}
+                        </Draggable>
+                    }
                     </div>
                 )}
-            </Droppable>
+            </Droppable> : null}
         </div>
     }
 }
 
 DnDExternalFiles.propTypes = {
-    extPdfs : PT.array.isRequired
+    fileList   : PT.array.isRequired,
+    fileLoaded : PT.object
 }
 
 export default connect(

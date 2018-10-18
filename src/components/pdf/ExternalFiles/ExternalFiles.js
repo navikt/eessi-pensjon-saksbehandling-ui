@@ -6,56 +6,55 @@ import { translate } from 'react-i18next';
 
 import * as Nav from '../../ui/Nav';
 import DnDExternalFiles from '../DnDExternalFiles/DnDExternalFiles';
-import * as pdfActions from '../../../actions/pdf';
+import * as storageActions from '../../../actions/storage';
 
 import './ExternalFiles.css';
 
 const mapStateToProps = (state) => {
     return {
-        loadingExtPDF: state.loading.loadingExtPDF,
-        extPdfs      : state.pdf.extPdfs
+        username        : state.app.username,
+        loadingFileList : state.loading.loadingStorageFileList,
+        fileList        : state.storage.fileList
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, pdfActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, storageActions), dispatch)};
 };
 
 class ExternalFiles extends Component {
 
     requestExternalFileList() {
 
-        const { actions, extPdfs } = this.props;
+        const { actions, username } = this.props;
 
-        if (!extPdfs) {
-            actions.getExternalFileList();
-        }
+        actions.listStorageFiles(username, 'files');
     }
 
     render () {
 
-        const { t, loadingExtPDF, extPdfs, addDocument, style } = this.props;
+        const { t, loadingFileList, fileList, addFile, style } = this.props;
 
         return <Nav.Ekspanderbartpanel style={style} className='c-pdf-externalFiles fieldset'
             apen={false} tittel={t('ui:fileSelect')} tittelProps='undertittel'
             onClick={this.requestExternalFileList.bind(this)}>
             <div className='fileArea'>
-                {loadingExtPDF ? <div className='w-100 text-center'>
+                {loadingFileList ? <div className='w-100 text-center'>
                     <Nav.NavFrontendSpinner/>
-                    <p>{t('pdf:loading-loadingExtPDF')}</p>
-                </div> : <DnDExternalFiles extPdfs={extPdfs || []} addDocument={addDocument}/>}
+                    <p>{t('pdf:loading-loadingFileList')}</p>
+                </div> : <DnDExternalFiles fileList={fileList || []} addFile={addFile}/>}
             </div>
         </Nav.Ekspanderbartpanel>
     }
 }
 
 ExternalFiles.propTypes = {
-    t             : PT.func.isRequired,
-    loadingExtPDF : PT.bool,
-    extPdfs       : PT.array,
-    actions       : PT.object,
-    addDocument   : PT.func,
-    style         : PT.object
+    t               : PT.func.isRequired,
+    loadingFileList : PT.bool,
+    fileList        : PT.array,
+    actions         : PT.object,
+    addFile         : PT.func,
+    style           : PT.object
 };
 
 export default connect(
@@ -64,4 +63,3 @@ export default connect(
 )(
     translate()(ExternalFiles)
 );
-

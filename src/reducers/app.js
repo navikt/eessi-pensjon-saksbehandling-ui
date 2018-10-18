@@ -16,7 +16,7 @@ export default function (state = initialState, action = {}) {
 
         return Object.assign({}, state, {
             username : action.payload.subject,
-            userrole : action.payload.role
+            userRole : action.payload.role
         });
 
     case types.APP_DROPPABLE_REGISTER : {

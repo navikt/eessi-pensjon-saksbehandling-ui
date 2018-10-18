@@ -9,9 +9,9 @@
     "alert-invalidStep1"    : "Last opp noe filer før du fortsette",
     "alert-invalidStep2"    : "Velg noe sider/bilder før du fortsette",
 
-    "loading-loadingPDF"    : "Laster ny PDF...",
-    "loading-loadingExtPDF" : "Laster eksterne PDF...",
-    "loading-generatingPDF" : "Genererer ny PDF...",
+    "loading-loadingPDF"      : "Laster ny PDF...",
+    "loading-loadingFileList" : "Laster fil list...",
+    "loading-generatingPDF"   : "Genererer ny PDF...",
 
     "help-select-pdf"        : "Her kan du skreddersy ny dokumentpakke av eksisterende PDF filer eller bilder. Du kan også opprette nytt PDF-dokument.",
     "help-edit-pdf"          : "Dra sider inn i boksen.  Husk å velge riktig kategori Arbeid, Botid, Sykdom eller Annet. Sider i boksen vil inngå i nyopprettet PDF dokumentpakke.",

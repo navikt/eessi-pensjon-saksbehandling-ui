@@ -16,7 +16,7 @@ import './TopHeader.css';
 const mapStateToProps = (state) => {
     return {
         username        : state.app.username,
-        userrole        : state.app.userrole,
+        userRole        : state.app.userRole,
         gettingUserInfo : state.loading.gettingUserInfo
     };
 };
@@ -45,7 +45,7 @@ class TopHeader extends Component {
 
     render () {
 
-        let { t, username, userrole, gettingUserInfo } = this.props;
+        let { t, username, userRole, gettingUserInfo } = this.props;
 
         return <header className="c-ui-topHeader">
             <div className="brand">
@@ -56,7 +56,7 @@ class TopHeader extends Component {
                 <div className="tittel"><span>{t('headerTitle')}</span></div>
             </div>
             <div className='user'>
-                {userrole ? <div title={userrole} className={userrole}><Icons kind='user'/></div> : null}
+                {userRole ? <div title={userRole} className={userRole}><Icons kind='user'/></div> : null}
                 <div className="mr-4 ml-2 name">{
                     gettingUserInfo ? t('case:loading-gettingUserInfo') :
                         username ? username : <div>
@@ -72,7 +72,7 @@ class TopHeader extends Component {
 TopHeader.propTypes = {
     t               : PT.func.isRequired,
     username        : PT.string,
-    userrole        : PT.string,
+    userRole        : PT.string,
     actions         : PT.object,
     gettingUserInfo : PT.bool
 };

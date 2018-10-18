@@ -63,25 +63,6 @@ export default function (state = initialState, action = {}) {
         });
     }
 
-    case types.PDF_EXTERNAL_FILE_LIST_SUCCESS: {
-
-        const extPdfs = _.clone(action.payload);
-        for (var k in extPdfs) {
-            extPdfs[k].data =  Uint8Array.from(window.atob(extPdfs[k].base64), c => c.charCodeAt(0))
-        }
-
-        return Object.assign({}, state, {
-            extPdfs : extPdfs
-        });
-    }
-
-    case types.PDF_EXTERNAL_FILE_LIST_SET : {
-
-        return Object.assign({}, state, {
-            extPdfs : action.payload
-        });
-    }
-
     case types.PDF_SET_RECIPE:
 
         return Object.assign({}, state, {

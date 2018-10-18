@@ -260,21 +260,6 @@ export default function (state = {}, action = {}) {
             status: status
         });
 
-    case types.PDF_EXTERNAL_FILE_LIST_REQUEST:
-
-        return Object.assign({}, state, {
-            loadingExtPDF : true,
-            status: status
-        });
-
-    case types.PDF_EXTERNAL_FILE_LIST_SUCCESS:
-    case types.PDF_EXTERNAL_FILE_LIST_FAILURE:
-
-        return Object.assign({}, state, {
-            loadingExtPDF : false,
-            status: status
-        });
-
     case types.STORAGE_LIST_REQUEST:
 
         return Object.assign({}, state, {

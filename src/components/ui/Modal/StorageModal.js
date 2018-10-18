@@ -16,7 +16,7 @@ import './StorageModal.css';
 const mapStateToProps = (state) => {
     return {
         username               : state.app.username,
-        userrole               : state.app.userrole,
+        userRole               : state.app.userRole,
         modalStorageOpen       : state.ui.modalStorageOpen,
         modalStorageOptions    : state.ui.modalStorageOptions,
         fileList               : state.storage.fileList,
@@ -313,7 +313,7 @@ StorageModal.propTypes = {
     modalStorageOpen      : PT.bool,
     modalStorageOptions   : PT.object,
     username              : PT.string,
-    userrole              : PT.string,
+    userRole              : PT.string,
     namespace             : PT.string.isRequired
 };
 

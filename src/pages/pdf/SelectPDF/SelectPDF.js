@@ -84,7 +84,7 @@ class SelectPDF extends Component {
         actions.loadingFilesEnd();
     }
 
-    addDocument(pdf) {
+    addFile(pdf) {
 
         this.fileUpload.getWrappedInstance().addFile(pdf);
     }
@@ -102,7 +102,9 @@ class SelectPDF extends Component {
             <h1 className='appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
             <h4 className='appDescription'>{t('pdf:app-selectPdfDescription')}</h4>
             <StepIndicator stepIndicator={0} history={history}/>
-            <ExternalFiles style={{zIndex: 2}} addDocument={this.addDocument.bind(this)}/>
+
+            <ExternalFiles style={{zIndex: 2}} addFile={this.addFile.bind(this)}/>
+
             <div style={{animation: 'none', opacity: 1}} className='fieldset mt-4'>
                 <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
                 <FileUpload ref={f => this.fileUpload = f} fileUploadDroppableId={'selectPdf'}

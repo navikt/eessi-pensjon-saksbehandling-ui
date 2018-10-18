@@ -87,14 +87,14 @@ class MiniaturePDF extends Component {
         });
     }
 
-    onAddDocument(e) {
+    onAddFile(e) {
 
         e.stopPropagation();
         e.preventDefault();
 
-        const { onAddDocument } = this.props;
+        const { onAddFile } = this.props;
 
-        onAddDocument();
+        onAddFile();
     }
 
     handlePreviousPageRequest(e) {
@@ -145,7 +145,7 @@ class MiniaturePDF extends Component {
                 { deleteLink && isHovering ? <div onClick={this.onDeleteDocument.bind(this)} className='link deleteLink'>
                     <Ikon size={15} kind='trashcan'/>
                 </div> : null}
-                { addLink && isHovering ? <div onClick={this.onAddDocument.bind(this)} className='link addLink'>
+                { addLink && isHovering ? <div onClick={this.onAddFile.bind(this)} className='link addLink'>
                     <Ikon size={20} kind='vedlegg'/>
                 </div> : null}
                 { downloadLink && isHovering ? <div className='link downloadLink'><a
@@ -172,7 +172,7 @@ MiniaturePDF.propTypes = {
     size             : PT.string,
     animate          : PT.boolean,
     onDeleteDocument : PT.func,
-    onAddDocument    : PT.func,
+    onAddFile        : PT.func,
     deleteLink       : PT.bool,
     downloadLink     : PT.bool,
     addLink          : PT.bool,
