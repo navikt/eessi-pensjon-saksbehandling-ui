@@ -3,19 +3,23 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import { withCookies, Cookies } from 'react-cookie';
-import { Route, withRouter } from 'react-router';
+import { Route, withRouter, Redirect } from 'react-router';
 import classNames from 'classnames';
 import { translate } from 'react-i18next';
+
 
 import * as Nav from '../ui/Nav';
 import TopHeader from '../ui/Header/TopHeader';
 
+import * as routes from '../../constants/routes';
 import * as urls from '../../constants/urls';
 import * as appActions from '../../actions/app';
 import * as statusActions from '../../actions/status';
 
-const mapStateToProps = () => {
-    return {}
+const mapStateToProps = (state) => {
+    return {
+        userRole : state.app.userRole
+    }
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -77,13 +81,25 @@ class AuthenticatedRoute extends Component {
         return value;
     }
 
+    hasApprovedRole() {
+
+        const { roles, userRole } = this.props;
+
+        return roles.indexOf(userRole) >= 0;
+    }
+
     render () {
 
-        const { t, className } = this.props;
+        const { t, className, userRole } = this.props;
         const { loggedIn, loggingIn } = this.state;
 
-        return this.state.loggedIn ? <Route {...this.props}/> :
-            <div style={{minHeight: '100vh', backgroundColor: 'white'}}>
+        let validRole = this.hasApprovedRole();
+
+        return this.state.loggedIn && userRole ?
+            validRole ?
+                <Route {...this.props}/>
+                : <Redirect to={routes.ROOT}/>
+            : <div style={{minHeight: '100vh', backgroundColor: 'white'}}>
                 <TopHeader/>
                 <div className={classNames('w-100 text-center p-5', className)}>
                     {loggingIn ? <React.Fragment>
@@ -102,7 +118,8 @@ AuthenticatedRoute.propTypes = {
     t         : PT.func.isRequired,
     className : PT.string,
     cookies   : PT.instanceOf(Cookies),
-    actions   : PT.object.isRequired
+    actions   : PT.object.isRequired,
+    roles     : PT.array.isRequired
 };
 
 export default withCookies(

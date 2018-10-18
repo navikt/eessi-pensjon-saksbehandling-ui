@@ -22,6 +22,7 @@ import * as routes from './constants/routes';
 import registerServiceWorker from './registerServiceWorker';
 import * as Pages from './pages';
 import AuthenticatedRoute from './components/app/AuthenticatedRoute';
+import * as constants from './constants/constants';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
@@ -63,24 +64,23 @@ ReactDOM.render(
             <Provider store={store}>
                 <ConnectedRouter history={history}>
                     <Switch>
-                        <AuthenticatedRoute exact path={routes.PSELV} component={Pages.PSelv}/>
-                        <AuthenticatedRoute exact path={routes.PINFO} component={Pages.PInfo}/>
-                        <AuthenticatedRoute exact path={routes.P4000} component={Pages.P4000}/>
+                        <AuthenticatedRoute exact path={routes.PSELV} component={Pages.PSelv} roles={[constants.SAKSBEHANDLER]}/>
+                        <AuthenticatedRoute exact path={routes.PINFO} component={Pages.PInfo} roles={[constants.SAKSBEHANDLER, constants.BRUKER]}/>
+                        <AuthenticatedRoute exact path={routes.P4000} component={Pages.P4000} roles={[constants.SAKSBEHANDLER, constants.BRUKER]}/>
 
-                        <AuthenticatedRoute exact path={routes.PDF_GENERATE} component={Pages.GeneratePDF}/>
-                        <AuthenticatedRoute exact path={routes.PDF_EDIT}     component={Pages.EditPDF}/>
-                        <AuthenticatedRoute exact path={routes.PDF_SELECT}   component={Pages.SelectPDF}/>
+                        <AuthenticatedRoute exact path={routes.PDF_GENERATE} component={Pages.GeneratePDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]}/>
+                        <AuthenticatedRoute exact path={routes.PDF_EDIT}     component={Pages.EditPDF}     roles={[constants.SAKSBEHANDLER, constants.BRUKER]}/>
+                        <AuthenticatedRoute exact path={routes.PDF_SELECT}   component={Pages.SelectPDF}   roles={[constants.SAKSBEHANDLER, constants.BRUKER]}/>
 
-                        <AuthenticatedRoute exact path={routes.CASE_GET}               component={Pages.GetCase}/>
-                        <AuthenticatedRoute exact path={routes.CASE_EDIT_WITHOUT_RINA} component={Pages.EditCase}/>
-                        <AuthenticatedRoute exact path={routes.CASE_EDIT_WITH_RINA}    component={Pages.EditCase}/>
+                        <AuthenticatedRoute exact path={routes.CASE_GET}               component={Pages.GetCase}  roles={[constants.SAKSBEHANDLER]}/>
+                        <AuthenticatedRoute exact path={routes.CASE_EDIT_WITHOUT_RINA} component={Pages.EditCase} roles={[constants.SAKSBEHANDLER]}/>
+                        <AuthenticatedRoute exact path={routes.CASE_EDIT_WITH_RINA}    component={Pages.EditCase} roles={[constants.SAKSBEHANDLER]}/>
+                        <AuthenticatedRoute exact path={routes.CASE_CONFIRM}  component={Pages.ConfirmCase} roles={[constants.SAKSBEHANDLER]}/>
+                        <AuthenticatedRoute exact path={routes.CASE_GENERATE} component={Pages.GenerateCase} roles={[constants.SAKSBEHANDLER]}/>
+                        <AuthenticatedRoute exact path={routes.CASE_SAVE}     component={Pages.SaveCase} roles={[constants.SAKSBEHANDLER]}/>
+                        <AuthenticatedRoute exact path={routes.CASE_SEND}     component={Pages.SendCase} roles={[constants.SAKSBEHANDLER]}/>
 
-                        <AuthenticatedRoute exact path={routes.CASE_CONFIRM}  component={Pages.ConfirmCase}/>
-                        <AuthenticatedRoute exact path={routes.CASE_GENERATE} component={Pages.GenerateCase}/>
-                        <AuthenticatedRoute exact path={routes.CASE_SAVE}     component={Pages.SaveCase}/>
-                        <AuthenticatedRoute exact path={routes.CASE_SEND}     component={Pages.SendCase}/>
-
-                        <AuthenticatedRoute path={routes.ROOT} component={Pages.FrontPage}/>
+                        <AuthenticatedRoute path={routes.ROOT} component={Pages.FrontPage} roles={[constants.SAKSBEHANDLER, constants.BRUKER]}/>
                         <Redirect from='/' to={{ pathname: routes.ROOT, search : window.location.search}}/>
                     </Switch>
                 </ConnectedRouter>

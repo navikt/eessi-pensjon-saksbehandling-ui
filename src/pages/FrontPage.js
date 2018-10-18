@@ -14,6 +14,7 @@ import DocumentStatus from '../components/ui/DocumentStatus/DocumentStatus';
 import ClientAlert from '../components/ui/Alert/ClientAlert';
 import EmptyDrawer from '../components/drawer/Empty';
 
+import * as constants from '../constants/constants';
 import * as routes from '../constants/routes';
 import * as statusActions from '../actions/status';
 import * as appActions from '../actions/app';
@@ -22,6 +23,7 @@ import './FrontPage.css';
 
 const mapStateToProps = (state) => {
     return {
+        userRole      : state.app.userRole,
         language      : state.ui.language,
         gettingStatus : state.loading.gettingStatus,
         status        : state.status
@@ -44,7 +46,7 @@ class FrontPage extends Component {
 
     render() {
 
-        const { t, language, gettingStatus, gettingRinaCase, history, status, location } = this.props;
+        const { t, language, gettingStatus, gettingRinaCase, history, status, location, userRole } = this.props;
 
         return <TopContainer className='frontPage'
             language={language} history={history} location={location}
@@ -67,18 +69,26 @@ class FrontPage extends Component {
                     <DocumentStatus history={history}/>
                 </div> }
                 <h4 className='mb-4'>{t('forms')}</h4>
-                <Nav.Lenkepanel style={{animationDelay: '0s'}} className='frontPageLink caseLink' linkCreator={(props) => (
-                    <Link to={
-                        status.saksNr ?
-                            routes.CASE_EDIT_WITHOUT_RINA
-                                .replace(':actorid', status.fnr)
-                                .replace(':caseid', status.saksNr)
-                            : routes.CASE_GET
-                    } {...props}/>)
-                } href="#">{t('case:app-createNewCase')}</Nav.Lenkepanel>
-                <Nav.Lenkepanel style={{animationDelay: '0.1s'}} className='frontPageLink pSelvLink' linkCreator={(props) => (
-                    <Link to={routes.PSELV} {...props}/>)
-                } href="#">{t('pselv:app-startPselv')}</Nav.Lenkepanel>
+
+                {userRole === constants.SAKSBEHANDLER ?
+                    <Nav.Lenkepanel style={{animationDelay: '0s'}}
+                        className='frontPageLink caseLink' linkCreator={(props) => (
+                        <Link to={
+                            status.saksNr ?
+                                routes.CASE_EDIT_WITHOUT_RINA
+                                    .replace(':actorid', status.fnr)
+                                    .replace(':caseid', status.saksNr)
+                                : routes.CASE_GET
+                        } {...props}/>)
+                    } href="#">{t('case:app-createNewCase')}</Nav.Lenkepanel>
+                : null}
+
+                {userRole === constants.SAKSBEHANDLER ?
+                    <Nav.Lenkepanel style={{animationDelay: '0.1s'}} className='frontPageLink pSelvLink' linkCreator={(props) => (
+                        <Link to={routes.PSELV} {...props}/>)
+                    } href="#">{t('pselv:app-startPselv')}</Nav.Lenkepanel>
+                : null}
+
                 <Nav.Lenkepanel style={{animationDelay: '0.2s'}} className='frontPageLink pInfoLink' linkCreator={(props) => (
                     <Link to={routes.PINFO} {...props}/>)
                 } href="#">{t('pinfo:app-startPinfo')}</Nav.Lenkepanel>
