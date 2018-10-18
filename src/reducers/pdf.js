@@ -55,7 +55,7 @@ export default function (state = initialState, action = {}) {
 
         const files = _.clone(action.payload);
         for (var j in files) {
-            files[j].data =  Uint8Array.from(window.atob(files[j].base64), c => c.charCodeAt(0))
+            files[j].content.data = Uint8Array.from(window.atob(files[j].content.base64), c => c.charCodeAt(0))
         }
 
         return Object.assign({}, state, {

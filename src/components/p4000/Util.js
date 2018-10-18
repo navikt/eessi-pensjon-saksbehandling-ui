@@ -17,14 +17,14 @@ class Util {
             if (event.birthDate) event.birthDate = new Date(event.birthDate);
             if (event.endDate)   event.endDate   = new Date(event.endDate);
             if (event.files) {
-                // can't save file.data on JSON, only base64, therefore reconstruct file.data from file.base64
+                // can't save file.data on JSON, only base64, therefore reconstruct file.content.data from file.content.base64
                 event.files.map(file => {
-                    var raw = window.atob(file.base64);
+                    var raw = window.atob(file.content.base64);
                     var array = new Uint8Array(new ArrayBuffer(raw.length));
                     for (var i = 0; i < raw.length; i++) {
                         array[i] = raw.charCodeAt(i);
                     }
-                    file.data = array;
+                    file.content.data = array;
                     return file;
                 });
             }
@@ -43,21 +43,24 @@ class Util {
         }
     }
 
-    // converting JSON Event object to string so it can be saved to a file
-    writeEventsToString(events) {
+    writeEvents (events) {
 
-        events.map(event => {
+        return events.map(event => {
             if (event.files) {
                 event.files.map(file => {
-                    if (file.data) {
-                        delete file.data;
+                    if (file.content.data) {
+                        delete file.content.data;
                     }
                     return file;
                 });
             }
             return event;
         });
-        return 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(events));
+    }
+
+
+    writeEventsToString(events) {
+        return encodeURIComponent(JSON.stringify(this.writeEvents(events)));
     }
 
     writeDate(date) {

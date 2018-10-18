@@ -25,11 +25,11 @@ const mapDispatchToProps = (dispatch) => {
 
 class OpenFromServerButton extends Component {
 
-    openFile(file, fileContent) {
+    openFile(file) {
 
         const { actions } = this.props;
 
-        let events = P4000Util.readEvents(fileContent);
+        let events = P4000Util.readEvents(file.content);
         if (typeof events === 'string') {
             actions.openP4000Failure(events);
         } else {

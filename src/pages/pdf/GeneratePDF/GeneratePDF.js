@@ -11,10 +11,13 @@ import TopContainer from '../../../components/ui/TopContainer/TopContainer';
 import ClientAlert from '../../../components/ui/Alert/ClientAlert';
 import File from '../../../components/ui/File/File';
 import PdfDrawer from '../../../components/drawer/Pdf';
+import StorageModal from '../../../components/ui/Modal/StorageModal';
 
 import * as routes from '../../../constants/routes';
+import * as storages from '../../../constants/storages';
 import * as pdfActions from '../../../actions/pdf';
 import * as uiActions from '../../../actions/ui';
+import * as storageActions from '../../../actions/storage';
 
 import './GeneratePDF.css';
 
@@ -30,7 +33,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, pdfActions, uiActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, pdfActions, uiActions, storageActions), dispatch)};
 };
 
 class GeneratePDF extends Component {
@@ -118,6 +121,21 @@ class GeneratePDF extends Component {
         });
     }
 
+    handleFileSaveToServer(pdf, fileName) {
+
+         const { actions } = this.props;
+
+         let _pdf = _.clone(pdf);
+         delete _pdf.content.data;
+
+         actions.openStorageModal({
+             action   : 'save',
+             blob     : _pdf,
+             mimetype : 'application/pdf',
+             name     : fileName
+         });
+    }
+
     render() {
 
         const { t, history, generatingPDF, generatedPDFs, location } = this.props;
@@ -129,6 +147,7 @@ class GeneratePDF extends Component {
             <Nav.HjelpetekstBase>{t('pdf:help-generate-pdf')}</Nav.HjelpetekstBase>
             <h1 className='appTitle'>{t('pdf:app-generatePdfTitle')}</h1>
             <ClientAlert permanent={true}/>
+            <StorageModal namespace={storages.FILES}/>
             <StepIndicator stepIndicator={2} history={history}/>
             {generatingPDF ? <div className='w-100 text-center'>
                 <Nav.NavFrontendSpinner/>
@@ -148,9 +167,16 @@ class GeneratePDF extends Component {
                             <div className='col-sm-4 text-right'>
                                 <a className='hiddenLink' ref={item => this[key] = item}
                                     onClick={(e) => e.stopPropagation()} title={t('ui:download')}
-                                    href={'data:application/octet-stream;base64,' + encodeURIComponent(pdf.base64)}
+                                    href={'data:application/octet-stream;base64,' + encodeURIComponent(pdf.content.base64)}
                                     download={this.state.fileNames[key]}>{t('ui:download')}</a>
-                                <Nav.Knapp className='downloadButton' onClick={() => this[key].click()}>{t('ui:download')}</Nav.Knapp>
+                                <Nav.Knapp className='downloadButton'
+                                    onClick={() => this[key].click()}>
+                                    {t('ui:download')}
+                                </Nav.Knapp>
+                                <Nav.Knapp className='saveToServerButton'
+                                    onClick={this.handleFileSaveToServer.bind(this, pdf, this.state.fileNames[key])}>
+                                    {t('ui:saveToServer')}
+                                </Nav.Knapp>
                             </div>
                         </div>
                     </div>

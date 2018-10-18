@@ -16,7 +16,7 @@ import './TopContainer.css';
 
 const mapStateToProps = (state) => {
     return {
-        fileList   : state.storage.fileList,
+        file       : state.storage.file,
         droppables : state.app.droppables
     }
 };
@@ -29,16 +29,11 @@ class TopContainer extends Component {
 
     onDragEnd(e) {
 
-        const { droppables, extPdfs } = this.props;
-        let sourcePdf;
+        const { droppables, file } = this.props;
 
-        if (e.source && e.source.droppableId === 'c-pdf-dndExternalFiles-droppable') {
-            sourcePdf = extPdfs[e.source.index];
-        }
-
-        if (sourcePdf && e.destination) {
+        if (e.source && e.source.droppableId === 'c-pdf-dndExternalFiles-droppable' && e.destination) {
             let droppableRef = droppables[e.destination.droppableId];
-            droppableRef.getWrappedInstance().addFile(sourcePdf);
+            droppableRef.getWrappedInstance().addFile(file);
         }
     }
 

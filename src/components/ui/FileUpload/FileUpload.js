@@ -115,11 +115,13 @@ class FileUpload extends Component {
                     let newCurrentPages = _.clone(this.state.currentPages);
 
                     newFiles.push({
-                        'base64'   : base64,
-                        'data'     : blob,
                         'size'     : file.size,
                         'name'     : file.name,
-                        'mimetype' : file.type
+                        'mimetype' : file.type,
+                        'content'  : {
+                            'base64'   : base64,
+                            'data'     : blob
+                        }
                     });
                     newCurrentPages[newCurrentPages.length] = 1;
 
@@ -246,7 +248,7 @@ FileUpload.propTypes = {
     onFileChange : PT.func.isRequired,
     files        : PT.array.isRequired,
     currentPages : PT.array,
-    accept       : PT.string,
+    accept       : PT.oneOfType([PT.string, PT.array]),
     className    : PT.string,
     beforeDrop   : PT.func,
     afterDrop    : PT.func,

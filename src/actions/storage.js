@@ -3,6 +3,21 @@ import * as urls  from '../constants/urls';
 import * as api   from './api';
 var sprintf = require('sprintf-js').sprintf;
 
+export function openStorageModal(options) {
+
+    return {
+        type    : types.STORAGE_MODAL_OPEN,
+        payload : options
+    }
+}
+
+export function closeStorageModal () {
+
+    return {
+        type : types.STORAGE_MODAL_CLOSE
+    }
+}
+
 export function listStorageFiles(userId, namespace) {
 
     return api.call({
@@ -29,12 +44,12 @@ export function getStorageFile(userId, namespace, file) {
     });
 }
 
-export function postStorageFile(userId, namespace, file, fileContent) {
+export function postStorageFile(userId, namespace, file, payload) {
 
     return api.call({
         url    : sprintf(urls.STORAGE_POST_URL, {userId: userId, namespace : namespace, file : file}),
         method : 'POST',
-        payload: fileContent,
+        payload: payload,
         type   : {
             request : types.STORAGE_POST_REQUEST,
             success : types.STORAGE_POST_SUCCESS,

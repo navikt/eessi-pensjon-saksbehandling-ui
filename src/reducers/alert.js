@@ -87,6 +87,16 @@ export default function (state = {}, action = {}) {
             message = 'p4000:alert-submitFailure';
             break;
 
+        case types.STORAGE_LIST_FAILURE:
+
+            message = 'ui:listFailure';
+            break;
+
+        case types.STORAGE_GET_FAILURE:
+
+            message = 'ui:loadFailure';
+            break;
+
         default:
 
             message = processError(action.payload);

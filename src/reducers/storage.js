@@ -5,14 +5,6 @@ export default function (state = {}, action = {}) {
 
     switch (action.type) {
 
-    case types.UI_STORAGE_MODAL_CLOSE:
-
-        return Object.assign({}, state, {
-            fileLoaded   : undefined,
-            fileList     : undefined,
-            fileToDelete : undefined,
-        });
-
     case types.STORAGE_LIST_SUCCESS: {
 
         let parsedList = action.payload.map(file => {
@@ -27,15 +19,14 @@ export default function (state = {}, action = {}) {
 
     case types.STORAGE_GET_SUCCESS: {
 
-        let content = action.payload;
+        let file = action.payload;
 
-        if (_.startsWith(content, 'data:text/json;charset=utf-8,')) {
-            content = content.substring('data:text/json;charset=utf-8,'.length)
-            content = JSON.parse(decodeURIComponent(content));
+        if (file.mimetype === 'application/pdf') {
+            file.content.data = Uint8Array.from(window.atob(file.content.base64), c => c.charCodeAt(0))
         }
 
         return Object.assign({}, state, {
-            fileLoaded : content
+            file : file
         });
     }
 
@@ -75,6 +66,23 @@ export default function (state = {}, action = {}) {
             fileToDelete : undefined
         });
     }
+
+    case types.STORAGE_MODAL_OPEN:
+
+        return Object.assign({}, state, {
+            modalOpen    : true,
+            modalOptions : action.payload
+        });
+
+    case types.STORAGE_MODAL_CLOSE:
+
+        return Object.assign({}, state, {
+            modalOpen    : false,
+            modalOptions : undefined,
+            file         : undefined,
+            fileList     : undefined,
+            fileToDelete : undefined,
+        });
 
     default:
 

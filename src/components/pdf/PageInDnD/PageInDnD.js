@@ -46,12 +46,12 @@ class PageInDnD extends Component {
          actions.openModal({
              modalContent: <div style={{cursor: 'pointer'}} onClick={this.closePreview.bind(this)}>
                  {file.mimetype === 'application/pdf' ?
-                     <Document className='documentPreview' file={{data: file.data }}>
+                     <Document className='documentPreview' file={{data: file.content.data }}>
                          <Page className='bigpage' width={600} renderMode='svg' pageNumber={pageNumber}/>
                      </Document> : null}
                  {file.mimetype.startsWith('image/') ? <div className='documentPreview'>
                      <img className='page' alt={file.name} style={{width: '600px'}}
-                         src={'data:' + file.type + ';base64,' + file.base64} />
+                         src={'data:' + file.mimetype + ';base64,' + file.content.base64} />
                  </div> : null}
              </div>
          })
@@ -140,9 +140,9 @@ class PageInDnD extends Component {
                  </div> : null}
                  <img className='page'
                      alt={file.name} style={{maxWidth: '100%', width: (100 * pageScale) + 'px'}}
-                     src={'data:' + file.type + ';base64,' + file.base64} />
+                     src={'data:' + file.mimetype + ';base64,' + file.content.base64} />
              </div> : null}
-             {file.mimetype === 'application/pdf' ? <Document className='document' file={{data: file.data}}>
+             {file.mimetype === 'application/pdf' ? <Document className='document' file={{data: file.content.data}}>
                  <div onClick={iconFunction.bind(this, file.name, pageNumber)} className='icon actionIcon'>{iconLink}</div>
                  {this.state.isHovering ? <div className='icon previewIcon' onClick={this.openPreview.bind(this, file, pageNumber)}>
                      <Icons style={{cursor: 'pointer'}}

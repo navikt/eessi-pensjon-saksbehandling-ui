@@ -7,6 +7,7 @@ import { translate } from 'react-i18next';
 import * as Nav from '../../ui/Nav';
 import DnDExternalFiles from '../DnDExternalFiles/DnDExternalFiles';
 import * as storageActions from '../../../actions/storage';
+import * as storages from '../../../constants/storages';
 
 import './ExternalFiles.css';
 
@@ -28,7 +29,7 @@ class ExternalFiles extends Component {
 
         const { actions, username } = this.props;
 
-        actions.listStorageFiles(username, 'files');
+        actions.listStorageFiles(username, storages.FILES);
     }
 
     render () {

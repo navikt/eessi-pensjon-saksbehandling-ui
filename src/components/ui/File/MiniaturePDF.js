@@ -140,7 +140,7 @@ class MiniaturePDF extends Component {
             onMouseEnter={this.onHandleMouseEnter.bind(this)}
             onMouseLeave={this.onHandleMouseLeave.bind(this)}
             style={{transform: 'scale(' + scale + ')'}}>
-            <Document className='position-relative' file={{data: file.data }}
+            <Document className='position-relative' file={{data: file.content.data }}
                 onLoadSuccess={this.handleOnLoadSuccess.bind(this)}>
                 { deleteLink && isHovering ? <div onClick={this.onDeleteDocument.bind(this)} className='link deleteLink'>
                     <Ikon size={15} kind='trashcan'/>
@@ -150,7 +150,7 @@ class MiniaturePDF extends Component {
                 </div> : null}
                 { downloadLink && isHovering ? <div className='link downloadLink'><a
                     onClick={(e) => e.stopPropagation()} title={t('ui:download')}
-                    href={'data:application/octet-stream;base64,' + encodeURIComponent(file.base64)}
+                    href={'data:application/octet-stream;base64,' + encodeURIComponent(file.content.base64)}
                     download={file.name}>
                     <Icons size={'sm'} kind='download'/>
                 </a></div> : null}

@@ -73,13 +73,11 @@ export function setSeparator(payload) {
 
 export function generatePDF (payload) {
 
-    let newPayload = Object.assign({}, payload);
+    let newPayload = _.cloneDeep(payload);
 
-    newPayload.files.map(file => {
-        let newFile = _.clone(file);
-        delete newFile.data;
-        return newFile;
-    });
+    for (var i in newPayload.files) {
+        delete newPayload.files[i].content.data;
+    }
 
     return api.call({
         url     : urls.PDF_GENERATE_URL,

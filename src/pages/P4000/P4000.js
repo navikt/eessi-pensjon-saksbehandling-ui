@@ -13,6 +13,7 @@ import FrontPageDrawer from '../../components/drawer/FrontPage';
 import StorageModal from '../../components/ui/Modal/StorageModal';
 
 import * as routes from '../../constants/routes';
+import * as storages from '../../constants/storages';
 import * as p4000Actions from '../../actions/p4000';
 import * as uiActions from '../../actions/ui';
 
@@ -85,7 +86,7 @@ class P4000 extends Component {
         return <TopContainer className='p-p4000'
             history={history} location={location}
             sideContent={<FrontPageDrawer t={t} status={status}/>}>
-            <StorageModal namespace='P4000'/>
+            <StorageModal namespace={storages.P4000}/>
             <Nav.Row>
                 <div className='col-md-5 col-lg-4'>
                     <h1 className='appTitle'>{t('p4000:app-title')}</h1>

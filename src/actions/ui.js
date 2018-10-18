@@ -40,21 +40,6 @@ export function closeModal () {
     }
 }
 
-export function openStorageModal(options) {
-
-    return {
-        type    : types.UI_STORAGE_MODAL_OPEN,
-        payload : options
-    }
-}
-
-export function closeStorageModal () {
-
-    return {
-        type : types.UI_STORAGE_MODAL_CLOSE
-    }
-}
-
 export function addToBreadcrumbs (breadcrumbs) {
 
     return {

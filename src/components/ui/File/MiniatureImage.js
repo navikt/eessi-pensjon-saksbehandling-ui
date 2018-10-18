@@ -50,11 +50,11 @@ class MiniatureImage extends Component {
                 </div> : null}
                 { downloadLink && isHovering ? <div className='link downloadLink'><a
                     onClick={(e) => e.stopPropagation()} title={t('ui:download')}
-                    href={'data:application/octet-stream;base64,' + encodeURIComponent(file.base64)}
+                    href={'data:application/octet-stream;base64,' + encodeURIComponent(file.content.base64)}
                     download={file.name}>
                     <Icons size={'sm'} kind='download'/>
                 </a></div> : null}
-                <img alt={file.name} style={{maxWidth: '100px'}} src={'data:' + file.type + ';base64,' + file.base64} />
+                <img alt={file.name} style={{maxWidth: '100px'}} src={'data:' + file.mimetype + ';base64,' + file.content.base64} />
             </div>
         </div>
     }

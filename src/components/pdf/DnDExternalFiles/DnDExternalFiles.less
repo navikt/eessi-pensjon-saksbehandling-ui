@@ -1,4 +1,8 @@
 .c-pdf-dndExternalFiles {
+
+    display: flex;
+    justify-content: space-between;
+
     .cloneStyle + div {
         display: none !important;
     }
@@ -8,5 +12,30 @@
 
     .dragging {
         opacity: 0.5;
+    }
+
+    .fileList {
+
+        padding: 0.5rem;
+        border: 1px solid lightgray;
+        overflow-y: auto;
+        height: 200px;
+        width: 50%;
+        text-align: left;
+        flex : 1;
+        margin-right: 1rem;
+
+        .fileRow {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem;
+            background-color: whitesmoke;
+            text-decoration: none;
+            border: 2px solid whitesmoke;
+
+            &.selected {
+                border: 2px solid orange;
+            }
+        }
     }
 }

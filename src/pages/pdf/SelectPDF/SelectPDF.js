@@ -9,6 +9,7 @@ import classNames from 'classnames';
 import StepIndicator from '../../../components/pdf/StepIndicator';
 import ExternalFiles from '../../../components/pdf/ExternalFiles/ExternalFiles';
 import * as Nav from '../../../components/ui/Nav';
+import ClientAlert from '../../../components/ui/Alert/ClientAlert';
 import TopContainer from '../../../components/ui/TopContainer/TopContainer';
 import FileUpload from '../../../components/ui/FileUpload/FileUpload';
 import PdfDrawer from '../../../components/drawer/Pdf';
@@ -22,10 +23,10 @@ import './SelectPDF.css';
 
 const mapStateToProps = (state) => {
     return {
-        loadingPDF   : state.loading.loadingPDF,
-        language     : state.ui.language,
-        files        : state.pdf.files,
-        action       : state.ui.action
+        loadingPDF : state.loading.loadingPDF,
+        language   : state.ui.language,
+        files      : state.pdf.files,
+        action     : state.ui.action
     }
 };
 
@@ -84,9 +85,9 @@ class SelectPDF extends Component {
         actions.loadingFilesEnd();
     }
 
-    addFile(pdf) {
+    addFile(file) {
 
-        this.fileUpload.getWrappedInstance().addFile(pdf);
+        this.fileUpload.getWrappedInstance().addFile(file);
     }
 
     render() {
@@ -101,11 +102,12 @@ class SelectPDF extends Component {
             <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
             <h1 className='appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
             <h4 className='appDescription'>{t('pdf:app-selectPdfDescription')}</h4>
+            <ClientAlert permanent={true}/>
             <StepIndicator stepIndicator={0} history={history}/>
 
             <ExternalFiles style={{zIndex: 2}} addFile={this.addFile.bind(this)}/>
 
-            <div style={{animation: 'none', opacity: 1}} className='fieldset mt-4'>
+            <div style={{animation: 'none', opacity: 1}} className='fieldset mt-4 mb-4'>
                 <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
                 <FileUpload ref={f => this.fileUpload = f} fileUploadDroppableId={'selectPdf'}
                     className={classNames('fileUpload', 'mb-3')}
@@ -115,7 +117,7 @@ class SelectPDF extends Component {
                     afterDrop={this.handleAfterDrop.bind(this)}
                     onFileChange={this.handleFileChange.bind(this)}/>
                 <Nav.Row>
-                    <Nav.Column></Nav.Column>
+                    <Nav.Column/>
                     <Nav.Column>
                         <Nav.Hovedknapp
                             className='forwardButton'

@@ -101,7 +101,7 @@ class StepIndicator extends Component {
 StepIndicator.propTypes = {
 
     t         : PT.func.isRequired,
-    files     : PT.object,
+    files     : PT.array,
     history   : PT.object,
     recipe    : PT.object,
     stepIndicator : PT.number.isRequired

@@ -19,20 +19,6 @@ export default function (state = {}, action = {}) {
             modal     : undefined
         });
 
-    case types.UI_STORAGE_MODAL_OPEN:
-
-        return Object.assign({}, state, {
-            modalStorageOpen    : true,
-            modalStorageOptions : action.payload
-        });
-
-    case types.UI_STORAGE_MODAL_CLOSE:
-
-        return Object.assign({}, state, {
-            modalStorageOpen    : false,
-            modalStorageOptions : undefined
-        });
-
     case types.UI_LANGUAGE_CHANGED:
 
         return Object.assign({}, state, {

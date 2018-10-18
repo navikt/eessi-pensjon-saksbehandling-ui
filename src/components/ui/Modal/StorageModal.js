@@ -9,18 +9,16 @@ import _ from 'lodash';
 import * as Nav from '../Nav';
 import ClientAlert from '../Alert/ClientAlert';
 import * as storageActions from '../../../actions/storage';
-import * as uiActions from '../../../actions/ui';
-
 import './StorageModal.css';
 
 const mapStateToProps = (state) => {
     return {
         username               : state.app.username,
         userRole               : state.app.userRole,
-        modalStorageOpen       : state.ui.modalStorageOpen,
-        modalStorageOptions    : state.ui.modalStorageOptions,
+        modalOpen              : state.storage.modalOpen,
+        modalOptions           : state.storage.modalOptions,
         fileList               : state.storage.fileList,
-        fileLoaded             : state.storage.fileLoaded,
+        file                   : state.storage.file,
         fileToDelete           : state.storage.fileToDelete,
         loadingStorageFileList : state.loading.loadingStorageFileList,
         loadingStorageFile     : state.loading.loadingStorageFile,
@@ -31,7 +29,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, uiActions, storageActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, storageActions), dispatch)};
 };
 
 class StorageModal extends Component {
@@ -47,6 +45,7 @@ class StorageModal extends Component {
     static getDerivedStateFromProps(newProps, oldState) {
 
         if (!oldState.lastAction) {
+
             if (newProps.savingStorageFile) {
                 return {
                     lastAction : 'save',
@@ -74,17 +73,22 @@ class StorageModal extends Component {
                     status: newProps.t('listing') + '...'
                 }
             }
+            if (newProps.modalOptions && newProps.modalOptions.name && !oldState.saveTargetFileName) {
+                return {
+                    saveTargetFileName : newProps.modalOptions.name
+                }
+            }
         }
     }
 
     componentDidUpdate() {
 
-        const { t, username, modalStorageOpen, fileList, fileLoaded,
-            savingStorageFile, deletingStorageFile, modalStorageOptions, loadingStatus,
+        const { t, username, modalOpen, fileList, file,
+            savingStorageFile, deletingStorageFile, modalOptions, loadingStatus,
             loadingStorageFileList, actions, namespace } = this.props;
         const { currentSelectedFile, lastAction} = this.state;
 
-        if (!modalStorageOpen) {
+        if (!modalOpen) {
             return;
         }
 
@@ -126,7 +130,7 @@ class StorageModal extends Component {
             });
         }
 
-        if (lastAction === 'load' && fileLoaded) {
+        if (lastAction === 'load' && file) {
 
             this.setState({
                 lastAction : undefined,
@@ -134,7 +138,7 @@ class StorageModal extends Component {
                 lastActionSubject : undefined,
                 currentSelectedFile : undefined
             }, () => {
-                modalStorageOptions.onFileSelected(currentSelectedFile, fileLoaded);
+                modalOptions.onFileSelected(file);
                 actions.closeStorageModal();
                 window.scrollTo(0,0);
             });
@@ -151,15 +155,15 @@ class StorageModal extends Component {
 
     onOkClick() {
 
-        const { username, actions, modalStorageOptions, namespace } = this.props;
+        const { username, actions, modalOptions, namespace } = this.props;
         const { currentSelectedFile, saveTargetFileName } = this.state;
 
-        if (modalStorageOptions.action === 'open') {
+        if (modalOptions.action === 'open') {
             actions.getStorageFile(username, namespace, currentSelectedFile);
         }
 
-        if (modalStorageOptions.action === 'save') {
-            actions.postStorageFile(username, namespace, saveTargetFileName, modalStorageOptions.content);
+        if (modalOptions.action === 'save') {
+            actions.postStorageFile(username, namespace, saveTargetFileName, modalOptions.blob);
         }
     }
 
@@ -206,13 +210,13 @@ class StorageModal extends Component {
     render() {
 
         const { t, className, loadingStorageFileList, loadingStorageFile, deletingStorageFile,
-            loadingStatus, fileList, fileToDelete, modalStorageOpen, modalStorageOptions, username } = this.props;
+            loadingStatus, fileList, fileToDelete, modalOpen, modalOptions } = this.props;
         const { currentSelectedFile, saveTargetFileName, status } = this.state;
 
-        let enableButtons = (modalStorageOptions && modalStorageOptions.action !== undefined);
+        let enableButtons = (modalOptions && modalOptions.action !== undefined);
 
         return <Nav.Modal className='c-ui-storageModal'
-            isOpen={modalStorageOpen}
+            isOpen={modalOpen}
             onRequestClose={this.onCancelClick.bind(this)}
             closeButton={false}
             contentLabel='contentLabel'>
@@ -260,7 +264,7 @@ class StorageModal extends Component {
                     }
                 </div>
 
-                {modalStorageOptions && modalStorageOptions.action === 'save' ? <div>
+                {modalOptions && modalOptions.action === 'save' ? <div>
 
                     <Nav.Input placeholder={t('filename')} value={saveTargetFileName || ''}
                         onChange={this.setSaveTargetFileName.bind(this)}/>
@@ -272,9 +276,9 @@ class StorageModal extends Component {
                     {enableButtons ? <React.Fragment>
                         <Nav.Hovedknapp
                             className='mr-3 mb-3 modal-main-button'
-                            disabled={modalStorageOptions.action === 'open' && currentSelectedFile === undefined}
+                            disabled={modalOptions.action === 'open' && currentSelectedFile === undefined}
                             onClick={this.onOkClick.bind(this)}>
-                            {t(modalStorageOptions.action)}
+                            {t(modalOptions.action)}
                         </Nav.Hovedknapp>
                         <Nav.Knapp
                             className='mr-3 mb-3 modal-other-button'
@@ -303,15 +307,15 @@ StorageModal.propTypes = {
     className             : PT.object,
     actions               : PT.object.isRequired,
     fileList              : PT.array,
-    fileLoaded            : PT.object,
+    file                 : PT.object,
     fileToDelete          : PT.object,
     savingStorageFile     : PT.bool,
     deletingStorageFile   : PT.bool,
     loadingStatus         : PT.string,
     loadingStorageFile    : PT.bool,
     loadingStorageFileList: PT.bool,
-    modalStorageOpen      : PT.bool,
-    modalStorageOptions   : PT.object,
+    modalOpen             : PT.bool,
+    modalOptions          : PT.object,
     username              : PT.string,
     userRole              : PT.string,
     namespace             : PT.string.isRequired

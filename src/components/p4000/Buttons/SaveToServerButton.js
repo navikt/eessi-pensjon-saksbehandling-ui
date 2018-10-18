@@ -9,18 +9,16 @@ import Icons from '../../ui/Icons';
 import * as Nav from '../../ui/Nav';
 import P4000Util from '../Util';
 
-import * as uiActions from '../../../actions/ui';
 import * as storageActions from '../../../actions/storage';
-import * as p4000Actions from '../../../actions/p4000';
 
 const mapStateToProps = (state) => {
     return {
-        events   : state.p4000.events
+        events : state.p4000.events
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, uiActions, storageActions, p4000Actions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, storageActions), dispatch)};
 };
 
 class SaveToServerButton extends Component {
@@ -29,11 +27,13 @@ class SaveToServerButton extends Component {
 
         const { actions, events } = this.props;
 
-        let fileOutput = P4000Util.writeEventsToString(events);
-
         actions.openStorageModal({
-            action  : 'save',
-            content : fileOutput
+            action   : 'save',
+            blob     : {
+                content  : P4000Util.writeEvents(events),
+                mimetype : 'application/json',
+                name     : 'p4000.json'
+            }
         });
     }
 
