@@ -1,29 +1,31 @@
 const {Given, When, Then} = require('cucumber');
-const { World } = require('../support/world');
+const _ = require('../support/world').instance;
 const { login } = require('../support/login');
 
-var _ = new World({
-   user: {
-       srvPensjon: {
-          'username' : 'srvPensjon',
-          'password' : 'Ash5SoxP'
-       },
-       Z990511: {
-         'username' : 'Z990511',
-         'password' : 'Password01'
-      }
-   },
-   caseId  : '123',
-   actorId : '1000060964183',
-   frontPageButtonClass: '.caseLink',
-   frontPageButtonText: {
-        en: 'Create new case',
-        nb: 'Opprett ny sak'
-   }
-});
 
-When(/^I navigate to the ([^\W]+) url$/, async function (env) {
-    await _.driver.navigate().to(_.urls[env]);
+
+Given('set up case params', function (next) {
+
+   _.setParams({
+       user: {
+           srvPensjon: {
+              'username' : 'srvPensjon',
+              'password' : 'Ash5SoxP'
+           },
+           Z990511: {
+             'username' : 'Z990511',
+             'password' : 'Password01'
+           }
+       },
+       caseId  : '123',
+       actorId : '1000060964183',
+       frontPageButtonClass: '.caseLink',
+       frontPageButtonText: {
+            en: 'Create new case',
+            nb: 'Opprett ny sak'
+       }
+   });
+   next();
 });
 
 When(/^I login as ([^\W]+)$/, async function (user) {
@@ -39,13 +41,4 @@ Then(/^I ([^\s]+) see the case menu option$/, async function (verb) {
     }
 });
 
-Given('I open a browser', function (next) {
-    _.openBrowser();
-    next();
-});
-
-Then('I quit the browser', function (next) {
-    _.closeBrowser();
-    next();
-});
 

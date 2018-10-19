@@ -6,9 +6,11 @@ chai.use(require('chai-string'));
 
 class World {
 
-    constructor(params) {
+    constructor() {
 
-        this.params = params;
+        this.setParams = function (params) {
+            this.params = params;
+        }
 
         this.driver = null;
 
@@ -45,6 +47,8 @@ class World {
     }
 }
 
+var instance = new World();
+
 module.exports = {
-   World
+   instance
 }
