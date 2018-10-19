@@ -13,7 +13,8 @@
     "build:js": "react-scripts build",
     "test": "cross-env NODE_ENV=test mocha -t 5000 --recursive --exit src/**/*.test.js",
     "eject": "react-scripts eject",
-    "start-json": "json-server --watch db.json --routes routes.json --port 8080"
+    "start-json": "json-server --watch db.json --routes routes.json --port 8080",
+    "cucumber": "cucumber-js src/tests/**/*.feature"
   },
   "proxy": "http://localhost:8080",
   "private": true,
@@ -27,6 +28,7 @@
     "classnames": "^2.2.6",
     "core-js": "^2.5.7",
     "cross-env": "^5.2.0",
+    "cucumber": "^5.0.2",
     "eslint-plugin-react": "^7.11.1",
     "history": "^4.7.2",
     "html2canvas": "^1.0.0-alpha.12",

@@ -1,0 +1,42 @@
+const webdriver = require('selenium-webdriver');
+const chai = require('chai');
+
+chai.use(require('chai-as-promised'));
+chai.use(require('chai-string'));
+
+class World {
+
+    constructor(params) {
+
+        this.params = params;
+
+        this.driver = new webdriver.Builder()
+            .forBrowser('chrome')
+            .build();
+
+        this.urls = {
+            'test'        : 'https://eessi-pensjon-frontend-ui.nais.preprod.local',
+            'development' : 'https://eessi-pensjon-frontend-ui.nais.preprod.local',
+            'production'  : 'https://eessi-pensjon-frontend-ui.nais.preprod.local'
+        };
+
+        this.elementLoads = async function (cssPattern) {
+            return await this.driver.wait(webdriver.until.elementLocated(webdriver.By.css(cssPattern)));
+        }
+
+        this.getElement = async function (cssPattern, parentEl) {
+            return await this.driver.findElement(webdriver.By.css(cssPattern, parentEl));
+        }
+
+        this.getElements = async function (cssPattern, parentEl) {
+            return await this.driver.findElements(webdriver.By.css(cssPattern, parentEl));
+        }
+
+        this.assert  = chai.assert;
+        this.expect  = chai.expect;
+    }
+}
+
+module.exports = {
+   World
+}

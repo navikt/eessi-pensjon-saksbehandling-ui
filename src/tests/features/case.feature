@@ -1,0 +1,10 @@
+Feature: Google Search Functionality
+
+  Scenario: Can find search results
+
+    Given I navigate to the test url
+    And I login as srvPensjon
+    
+    When I type query as "BrowserStack"
+    Then I submit
+    Then I should see title "BrowserStack - Google Search"
