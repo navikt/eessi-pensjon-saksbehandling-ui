@@ -7,6 +7,7 @@ import { translate } from 'react-i18next';
 import Icons from '../Icons';
 import { Ikon } from '../Nav';
 
+import * as constants from '../../../constants/constants';
 import * as navLogo from '../../../resources/images/nav.svg';
 import * as appActions from '../../../actions/app';
 import * as uiActions from '../../../actions/ui';
@@ -38,9 +39,11 @@ class TopHeader extends Component {
 
     onLogoClick () {
 
-        const { actions } = this.props;
+        const { actions, userRole } = this.props;
 
-        actions.toggleDrawerEnable();
+        if (userRole === constants.SAKSBEHANDLER) {
+            actions.toggleDrawerEnable();
+        }
     }
 
     render () {

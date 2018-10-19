@@ -53,7 +53,7 @@ MiniatureOther.propTypes = {
     t                : PT.func.isRequired,
     file             : PT.object.isRequired,
     size             : PT.string,
-    animate          : PT.boolean,
+    animate          : PT.bool,
     onDeleteDocument : PT.func,
     className        : PT.string
 }

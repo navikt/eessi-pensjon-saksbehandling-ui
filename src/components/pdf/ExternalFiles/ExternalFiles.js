@@ -3,6 +3,7 @@ import PT from 'prop-types';
 import { bindActionCreators }  from 'redux';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
+import classNames from 'classnames';
 
 import * as Nav from '../../ui/Nav';
 import DnDExternalFiles from '../DnDExternalFiles/DnDExternalFiles';
@@ -34,9 +35,9 @@ class ExternalFiles extends Component {
 
     render () {
 
-        const { t, loadingFileList, fileList, addFile, style } = this.props;
+        const { t, loadingFileList, fileList, addFile, style, className } = this.props;
 
-        return <Nav.Ekspanderbartpanel style={style} className='c-pdf-externalFiles fieldset'
+        return <Nav.Ekspanderbartpanel style={style} className={classNames('c-pdf-externalFiles', className)}
             apen={false} tittel={t('ui:fileSelect')} tittelProps='undertittel'
             onClick={this.requestExternalFileList.bind(this)}>
             <div className='fileArea'>
@@ -56,7 +57,8 @@ ExternalFiles.propTypes = {
     fileList        : PT.array,
     actions         : PT.object,
     addFile         : PT.func,
-    style           : PT.object
+    style           : PT.object,
+    className       : PT.string
 };
 
 export default connect(

@@ -26,7 +26,6 @@ class MiniaturePDF extends Component {
                 currentPage: props.currentPage
             }
         }
-
         return {};
     }
 
@@ -67,7 +66,7 @@ class MiniaturePDF extends Component {
         this.setState({
             numPages : e.numPages
         }, () => {
-            if (onLoadSuccess) {
+            if (typeof onLoadSuccess === 'function') {
                 onLoadSuccess(e);
             }
         });
@@ -83,8 +82,22 @@ class MiniaturePDF extends Component {
         this.setState({
             currentPage: 1
         }, () => {
-            onDeleteDocument();
+             if (typeof onDeleteDocument === 'function') {
+                onDeleteDocument();
+             }
         });
+    }
+
+    onPreviewDocument(e) {
+
+        e.stopPropagation();
+        e.preventDefault();
+
+        const { onPreviewDocument } = this.props;
+
+        if (typeof onPreviewDocument === 'function') {
+            onPreviewDocument();
+        };
     }
 
     onAddFile(e) {
@@ -94,7 +107,9 @@ class MiniaturePDF extends Component {
 
         const { onAddFile } = this.props;
 
-        onAddFile();
+        if (typeof onAddFile === 'function') {
+            onAddFile();
+        }
     }
 
     handlePreviousPageRequest(e) {
@@ -104,7 +119,7 @@ class MiniaturePDF extends Component {
 
         const { onPreviousPage } = this.props;
 
-        if (onPreviousPage) {
+        if (onPreviousPage && typeof onPreviousPage === 'function') {
             onPreviousPage();
         } else {
             this.setState({
@@ -120,7 +135,7 @@ class MiniaturePDF extends Component {
 
         const { onNextPage } = this.props;
 
-        if (onNextPage) {
+        if (onNextPage && typeof onNextPage === 'function') {
             onNextPage();
         } else {
             this.setState({
@@ -131,7 +146,7 @@ class MiniaturePDF extends Component {
 
     render () {
 
-        const { t, file, size, addLink, deleteLink, downloadLink, className, animate, scale } = this.props;
+        const { t, file, size, addLink, deleteLink, downloadLink, previewLink, className, animate, scale, width, height } = this.props;
         const { numPages, isHovering, currentPage } = this.state;
 
         const title = '' + file.name + '\n' + t('ui:pages') + ': ' + (numPages || '0') + '\n' + t('ui:size') + ': ' + size;
@@ -142,6 +157,9 @@ class MiniaturePDF extends Component {
             style={{transform: 'scale(' + scale + ')'}}>
             <Document className='position-relative' file={{data: file.content.data }}
                 onLoadSuccess={this.handleOnLoadSuccess.bind(this)}>
+                {previewLink && isHovering ? <div  onClick={this.onPreviewDocument.bind(this)} className='link previewLink'>
+                    <Icons style={{cursor: 'pointer'}} size={'20'} kind={'view'}/>
+                </div> : null}
                 { deleteLink && isHovering ? <div onClick={this.onDeleteDocument.bind(this)} className='link deleteLink'>
                     <Ikon size={15} kind='trashcan'/>
                 </div> : null}
@@ -158,7 +176,7 @@ class MiniaturePDF extends Component {
                 {currentPage < numPages && isHovering ? <a href='#nextPage' className='nextPage'  onClick={this.handleNextPageRequest.bind(this)}>{'▶'}</a> : null}
                 {isHovering ? <div className='pageNumber'>{currentPage}</div> : null}
                 <div className='page' onClick={(e) => e.stopPropagation()}>
-                    <Page width={100} height={140} renderMode='svg' pageNumber={currentPage}/>
+                    <Page width={width || 100} height={height || 140} renderMode='svg' pageNumber={currentPage}/>
                 </div>
             </Document>
         </div>
@@ -170,12 +188,16 @@ MiniaturePDF.propTypes = {
     onLoadSuccess    : PT.func,
     file             : PT.object.isRequired,
     size             : PT.string,
-    animate          : PT.boolean,
+    width            : PT.number,
+    height           : PT.number,
+    animate          : PT.bool,
     onDeleteDocument : PT.func,
+    onPreviewDocument: PT.func,
     onAddFile        : PT.func,
     deleteLink       : PT.bool,
     downloadLink     : PT.bool,
     addLink          : PT.bool,
+    previewLink      : PT.bool,
     className        : PT.string,
     currentPage      : PT.number,
     onPreviousPage   : PT.func,

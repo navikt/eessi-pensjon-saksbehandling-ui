@@ -64,7 +64,7 @@ MiniatureImage.propTypes = {
     t                : PT.func.isRequired,
     file             : PT.object.isRequired,
     size             : PT.string,
-    animate          : PT.boolean,
+    animate          : PT.bool,
     onDeleteDocument : PT.func,
     deleteLink       : PT.bool,
     downloadLink     : PT.bool,

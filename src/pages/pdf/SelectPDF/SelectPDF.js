@@ -87,7 +87,7 @@ class SelectPDF extends Component {
 
     addFile(file) {
 
-        this.fileUpload.getWrappedInstance().addFile(file);
+        this.fileUpload.getWrappedInstance().getWrappedInstance().addFile(file);
     }
 
     render() {
@@ -105,7 +105,7 @@ class SelectPDF extends Component {
             <ClientAlert permanent={true}/>
             <StepIndicator stepIndicator={0} history={history}/>
 
-            <ExternalFiles style={{zIndex: 2}} addFile={this.addFile.bind(this)}/>
+            <ExternalFiles className='fieldset' addFile={this.addFile.bind(this)}/>
 
             <div style={{animation: 'none', opacity: 1}} className='fieldset mt-4 mb-4'>
                 <h2 className='mb-3'>{t('ui:fileUpload')}</h2>

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 import File from '../../ui/File/File';
+import * as uiActions from '../../../actions/ui';
 import * as storageActions from '../../../actions/storage';
 import * as storages from '../../../constants/storages';
 
@@ -20,7 +21,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, storageActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, uiActions, storageActions), dispatch)};
 };
 
 class DnDExternalFiles extends Component {
@@ -32,6 +33,24 @@ class DnDExternalFiles extends Component {
         if (typeof addFile === 'function') {
             addFile(file);
         }
+    }
+
+    closePreview() {
+
+         const { actions } = this.props;
+
+         actions.closeModal();
+    }
+
+    openPreview(file) {
+
+         const { actions } = this.props;
+
+         actions.openModal({
+             modalContent: <div style={{cursor: 'pointer'}} onClick={this.closePreview.bind(this)}>
+                 <File file={file} width={400} height={600}/>
+             </div>
+         })
     }
 
     onSelectFile (file) {
@@ -57,7 +76,7 @@ class DnDExternalFiles extends Component {
             </div> : null}
             {file ? <Droppable isDropDisabled={true} droppableId={'c-pdf-dndExternalFiles-droppable'} direction='horizontal'>
                 {(provided) => (
-                    <div ref={provided.innerRef}>
+                    <div className='m-2' ref={provided.innerRef}>
                         <Draggable className='draggable' draggableId={'storageFile'} index={0}>
                             {(provided, snapshot) => (
                                 <React.Fragment>
@@ -65,12 +84,15 @@ class DnDExternalFiles extends Component {
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}
                                         className={classNames({'dragging' : snapshot.isDragging})}>
-                                        <File file={file} addLink={true} scale={1.0} animate={true}
-                                            onAddFile={this.addFile.bind(this, file)}/>
+                                        <File file={file} addLink={true} animate={true} previewLink={true} downloadLink={true}
+                                            width={141.4} height={200} scale={1.0}
+                                            onAddFile={this.addFile.bind(this, file)}
+                                            onPreviewDocument={this.openPreview.bind(this, file)}/>
                                     </div>
                                     {snapshot.isDragging && (
                                         <div className='cloneStyle'>
-                                            <File animate={false} file={file} scale={1.0}/>
+                                            <File file={file} addLink={false} animate={false}
+                                             width={141.4} height={200} scale={1.0}/>
                                         </div>
                                     )}
                                 </React.Fragment>

@@ -9,7 +9,7 @@ import TopContainer from '../../components/ui/TopContainer/TopContainer';
 import EventForm from '../../components/p4000/EventForm/EventForm';
 import * as Menu from '../../components/p4000/menu/';
 import ClientAlert from '../../components/ui/Alert/ClientAlert';
-import FrontPageDrawer from '../../components/drawer/FrontPage';
+import Pdf from '../../components/drawer/Pdf';
 import StorageModal from '../../components/ui/Modal/StorageModal';
 
 import * as routes from '../../constants/routes';
@@ -85,7 +85,7 @@ class P4000 extends Component {
 
         return <TopContainer className='p-p4000'
             history={history} location={location}
-            sideContent={<FrontPageDrawer t={t} status={status}/>}>
+            sideContent={<Pdf t={t} status={status}/>}>
             <StorageModal namespace={storages.P4000}/>
             <Nav.Row>
                 <div className='col-md-5 col-lg-4'>

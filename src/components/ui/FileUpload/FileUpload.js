@@ -7,9 +7,20 @@ import Dropzone from 'react-dropzone';
 import _ from 'lodash';
 import classNames from 'classnames';
 import { Droppable } from 'react-beautiful-dnd';
+import { connect } from 'react-redux';
+import { bindActionCreators }  from 'redux';
 
+import * as uiActions from '../../../actions/ui';
 import File from '../File/File';
 import './FileUpload.css';
+
+const mapStateToProps = () => {
+    return {}
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {actions: bindActionCreators(Object.assign({}, uiActions), dispatch)};
+};
 
 class FileUpload extends Component {
 
@@ -53,6 +64,24 @@ class FileUpload extends Component {
                 currentPages: currentPages
             });
         }
+    }
+
+    closePreview() {
+
+        const { actions } = this.props;
+
+        actions.closeModal();
+    }
+
+    openPreview(file, pageNumber) {
+
+        const { actions } = this.props;
+
+        actions.openModal({
+            modalContent: <div style={{cursor: 'pointer'}} onClick={this.closePreview.bind(this)}>
+                <File file={file} width={400} height={600}/>
+            </div>
+        })
     }
 
     updateFiles(newFiles, newCurrentPages, status) {
@@ -227,11 +256,12 @@ class FileUpload extends Component {
                                 { files ? files.map((file, i) => {
                                     return <File className='mr-2' key={i} file={file}
                                         currentPage={currentPages[i]}
-                                        deleteLink={true} downloadLink={true}
+                                        deleteLink={true} downloadLink={true} previewLink={true}
                                         onPreviousPage={this.onPreviousPageRequest.bind(this, i)}
                                         onNextPage={this.onNextPageRequest.bind(this, i)}
                                         onLoadSuccess={this.onLoadSuccess.bind(this, i)}
                                         onDeleteDocument={this.removeFile.bind(this, i)}
+                                        onPreviewDocument={this.openPreview.bind(this, file)}
                                     />
                                 }) : null }
                             </div>
@@ -259,4 +289,9 @@ FileUpload.propTypes = {
     fileUploadDroppableId : PT.string.isRequired
 };
 
-export default translate()(FileUpload);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+, null, { withRef: true })(
+    translate()(FileUpload)
+);

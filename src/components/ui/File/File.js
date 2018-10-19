@@ -11,7 +11,9 @@ const units = ['bytes', 'KB', 'MB', 'GB'];
 class File extends Component {
 
     renderBytes(bytes) {
-
+        if (!bytes) {
+            return '-';
+        }
         let level = 0;
         while(bytes >= 1024 && ++level) {
             bytes = bytes/1024;
@@ -21,7 +23,7 @@ class File extends Component {
 
     render () {
 
-        const { file, animate, scale } = this.props;
+        const { file, animate, scale, width, height } = this.props;
 
         let _animate = _.isBoolean(animate) ? animate : true;
         let _size = this.renderBytes(file.size);
@@ -41,7 +43,9 @@ class File extends Component {
 
 File.propTypes = {
     file    : PT.object.isRequired,
-    animate : PT.boolean
+    animate : PT.bool,
+    width   : PT.number,
+    height  : PT.number
 }
 
 export default File;
