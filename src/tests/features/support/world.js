@@ -10,9 +10,17 @@ class World {
 
         this.params = params;
 
-        this.driver = new webdriver.Builder()
-            .forBrowser('chrome')
-            .build();
+        this.driver = null;
+
+        this.openBrowser = function () {
+            this.driver = new webdriver.Builder()
+              .forBrowser('chrome')
+              .build();
+        }
+
+        this.closeBrowser = function () {
+            this.driver.quit();
+        }
 
         this.urls = {
             'test'        : 'https://eessi-pensjon-frontend-ui.nais.preprod.local',
