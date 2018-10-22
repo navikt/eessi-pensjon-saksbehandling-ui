@@ -1,32 +1,3 @@
-/* global describe, before, after, it */
-
-const _ = require('./common/common');
-const $ = require('./common/constants');
-const path = require('path');
-
-describe('Selenium P4000 page test', () => {
-
-    before(function(done) {
-
-        this.suiteContext = 'p4000';
-        _.driver.navigate().to(
-            _.urls[process.env.NODE_ENV] || 'test'
-        ).then(() => done())
-    });
-
-    ///////// LOGIN PAGE ////////////
-
-    describe('Login page', () => {
-        require('./common/loginPage');
-    });
-
-    ///////// FRONT PAGE ////////////
-    describe('Front page', () => {
-        require('./common/frontPage');
-    });
-
-    ///////// GET PAGE ////////////
-    describe('New P4000 page', () => {
 
         let fileButton, newP4000Button, openP4000FromFileButton, openP4000FromServerButton;
         let viewP4000Button, newEventButton, saveP4000ToFileButton, saveP4000ToServerButton, submitP4000Button;

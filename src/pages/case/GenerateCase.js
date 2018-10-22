@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
+import _ from 'lodash';
 
 import Case from './Case';
 import * as Nav from '../../components/ui/Nav';

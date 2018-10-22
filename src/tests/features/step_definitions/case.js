@@ -1,6 +1,5 @@
 const {Given, When, Then} = require('cucumber');
 const _ = require('../support/world').instance;
-const { login } = require('../support/login');
 
 Given('sett opp saks parametere', function (next) {
 
@@ -24,12 +23,6 @@ Given('sett opp saks parametere', function (next) {
        }
    });
    next();
-});
-
-Given(/^at jeg er på nettsiden med class '(.*)'$/, async function (_class) {
-    await _.elementLoads(_class);
-    let divs = await _.getElements(_class);
-    _.expect(divs).to.have.length(1);
 });
 
 Given(/^nettsiden '(.*)' er klar$/, async function (_class) {
@@ -62,19 +55,6 @@ When(/^jeg trykk fremover knapp$/, async function () {
     let forwardButton = await _.getElement('button.forwardButton');
     await forwardButton.click();
 })
-
-Then(/^jeg får nettsiden med advarsel '(.*)'$/, async function (advarsel) {
-    await _.elementLoads('.alertstripe__tekst');
-    let alertStripe = await _.getElement('.alertstripe__tekst');
-    let text = await alertStripe.getText();
-    _.expect(text).to.be.equal(advarsel);
-});
-
-Then(/^jeg får nettsiden med class '(.*)'$/, async function (_class) {
-    await _.elementLoads(_class);
-    let divs = await _.getElements(_class);
-    _.expect(divs).to.have.length(1);
-});
 
 When(/^jeg velger fagområde '(.*)'$/, async function (value) {
     await _.elementLoads('div.subjectAreaList select');

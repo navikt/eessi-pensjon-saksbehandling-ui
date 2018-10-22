@@ -18,23 +18,23 @@ Bakgrunn: Sett opp nettleser
 
 Scenario: Saksbehandler fyller ut ugyldig informasjon på 'Hent sak'
 
-    Gitt at jeg er på nettsiden med class '.p-case-getcase'
+    Gitt at jeg er på nettsiden med elementen '.p-case-getcase'
     Og nettsiden '.p-case-getcase' er klar
     Når jeg fyller ut ugyldig informasjon
     Og jeg trykk fremover knapp
     Så jeg får nettsiden med advarsel 'invalidCase'
-    Og jeg får nettsiden med class '.p-case-getcase'
+    Og jeg får nettsiden med elementen '.p-case-getcase'
     Og jeg lukker nettleseren
 
 Scenario: Saksbehandler fyller ut gyldig informasjon på 'Hent sak'
 
-    Gitt at jeg er på nettsiden med class '.p-case-getcase'
+    Gitt at jeg er på nettsiden med elementen '.p-case-getcase'
     Og nettsiden '.p-case-getcase' er klar
     Når jeg fyller ut gyldig informasjon
     Og jeg trykk fremover knapp
-    Så jeg får nettsiden med class '.p-case-editCase'
+    Så jeg får nettsiden med elementen '.p-case-editCase'
 
-    Gitt at jeg er på nettsiden med class '.p-case-editCase'
+    Gitt at jeg er på nettsiden med elementen '.p-case-editCase'
     Når jeg velger fagområde 'Pensjon'
     Og jeg velger BUC 'P_BUC_01'
     Og jeg velger SED 'P2000'
@@ -46,15 +46,15 @@ Scenario: Saksbehandler fyller ut gyldig informasjon på 'Hent sak'
     Så forvent at framover knapp er 'slått på'
 
     Når jeg trykk fremover knapp
-    Så jeg får nettsiden med class '.p-case-confirmCase'
+    Så jeg får nettsiden med elementen '.p-case-confirmCase'
 
-    Gitt at jeg er på nettsiden med class '.p-case-confirmCase'
+    Gitt at jeg er på nettsiden med elementen '.p-case-confirmCase'
     Og nettsiden 'Registrerer sak' er klar
     Når jeg trykk fremover knapp
-    Så jeg får nettsiden med class '.p-case-generateCase'
+    Så jeg får nettsiden med elementen '.p-case-generateCase'
 
-    Gitt at jeg er på nettsiden med class '.p-case-generateCase'
+    Gitt at jeg er på nettsiden med elementen '.p-case-generateCase'
     Og nettsiden 'Genererer sak' er klar
     #Når jeg trykk fremover knapp
-    #Så jeg får nettsiden med class '.p-case-sendCase'
+    #Så jeg får nettsiden med elementen '.p-case-sendCase'
 

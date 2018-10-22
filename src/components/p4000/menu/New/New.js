@@ -120,7 +120,7 @@ class New extends Component {
         return <Nav.Panel className='c-p4000-menu-new mb-4 p-0'>
 
             {event !== undefined ?
-                <div className='fieldset animate mb-4'>
+                <div className='fieldset animate mb-4 c-p4000-menu-new-events'>
                     <Nav.HjelpetekstBase>{t('p4000:help-new-event')}</Nav.HjelpetekstBase>
                     <h1 className='m-0 mb-4'>{t('ui:new')}{' '}{t('p4000:type-event')}</h1>
                     <div className='bigButtons'>
@@ -137,7 +137,7 @@ class New extends Component {
                     </div>
                 </div> : null}
 
-            <div style={{animationDelay: '0.3s'}} className='fieldset animate'>
+            <div style={{animationDelay: '0.3s'}} className='fieldset animate c-p4000-menu-new-menu'>
                 <Nav.HjelpetekstBase>{t('p4000:help-new-options')}</Nav.HjelpetekstBase>
                 <h1 className='m-0 mb-4'>{t('p4000:file-menu')}</h1>
                 <div style={{display: 'flex', flexWrap: 'wrap'}}>
