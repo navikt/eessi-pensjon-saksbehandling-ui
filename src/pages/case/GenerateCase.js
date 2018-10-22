@@ -65,15 +65,8 @@ class GenerateCase extends Component {
 
         const { actions, dataToConfirm } = this.props;
 
-        let payload = {
-            subjectArea   : dataToConfirm.subjectArea,
-            caseId        : dataToConfirm.caseId,
-            actorId       : dataToConfirm.actorId,
-            euxCaseId     : dataToConfirm.rinaId,
-            buc           : dataToConfirm.buc,
-            sed           : dataToConfirm.sed,
-            institutions  : dataToConfirm.institutions
-        }
+        let payload = _.cloneDeep(dataToConfirm);
+        payload.euxCaseId = payload.rinaId;
 
         actions.navigateForward();
 

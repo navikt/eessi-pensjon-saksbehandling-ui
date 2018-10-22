@@ -24,7 +24,8 @@ const mapStateToProps = (state) => {
         dataToConfirm   : state.case.dataToConfirm,
         locale          : state.ui.locale,
         action          : state.ui.action,
-        loading         : state.loading
+        loading         : state.loading,
+        vedtakId        : state.status.vedtakId
     };
 };
 
@@ -143,7 +144,7 @@ class EditCase extends Component {
 
     onForwardButtonClick() {
 
-        const { actions, currentCase } = this.props;
+        const { actions, currentCase, vedtakId } = this.props;
 
         this.performAllValidations();
 
@@ -157,7 +158,8 @@ class EditCase extends Component {
                 'subjectArea'  : this.state.subjectArea,
                 'caseId'       : currentCase.casenumber,
                 'actorId'      : currentCase.pinid,
-                'rinaId'       : currentCase.rinaid
+                'rinaId'       : currentCase.rinaid,
+                'vedtakId'     : vedtakId
             });
         }
     }

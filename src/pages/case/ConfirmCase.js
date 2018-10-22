@@ -14,6 +14,7 @@ import * as uiActions from '../../actions/ui';
 
 const mapStateToProps = (state) => {
     return {
+
         dataToConfirm  : state.case.dataToConfirm,
         dataToGenerate : state.case.dataToGenerate,
         action         : state.ui.action,
@@ -72,15 +73,7 @@ class ConfirmCase extends Component {
         const { actions, dataToConfirm } = this.props;
 
         actions.navigateForward();
-        actions.generateData({
-            subjectArea   : dataToConfirm.subjectArea,
-            caseId        : dataToConfirm.caseId,
-            actorId       : dataToConfirm.actorId,
-            rinaId        : dataToConfirm.rinaId,
-            buc           : dataToConfirm.buc,
-            sed           : dataToConfirm.sed,
-            institutions  : dataToConfirm.institutions
-        });
+        actions.generateData(dataToConfirm);
     }
 
     render() {
