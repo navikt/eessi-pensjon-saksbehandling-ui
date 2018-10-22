@@ -1,23 +1,25 @@
-Feature: Login and go into case
+# language: no
 
-Description:  As a user
-  I want to login
-  So i can start a case
+Egenskap: Saksbehandling
 
-Background: Staging the browser
+Beskrivelse: Som en bruker
+    Jeg vil logge inn og bruker nettsiden
+    Så jeg kan opprett og sende en ny sak
 
-    Given I open a browser
-    And set up case params
-    When I navigate to the test url
+Bakgrunn: Sett opp nettleser
 
-Scenario: Normal user can not create a user case
+    Gitt at jeg åpen nettleseren
+    Og sett opp saks parametere
+    Når jeg besøker test nettsiden
 
-      When I login as srvPensjon
-      Then I don't see the case menu option
-      Then I quit the browser
+Scenario: Vanlig bruker kan ikke opprett ny sak
 
-Scenario: Saksbehandler user can create a user case
+      Når jeg logg inn som srvPensjon
+      Så jeg ser ikke menyalternativ 'opprett ny sak'
+      Så jeg lukker nettleseren
 
-      When I login as Z990511
-      Then I do see the case menu option
-      Then I quit the browser
+Scenario: Saksbehandler bruker kan opprett ny sak
+
+      Når jeg logg inn som Z990511
+      Så jeg ser menyalternativ 'opprett ny sak'
+      Og klikk til menyalternativ 'opprett ny sak'

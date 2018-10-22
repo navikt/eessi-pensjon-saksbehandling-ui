@@ -1,16 +1,16 @@
 const {Given, When, Then} = require('cucumber');
 const _ = require('../support/world').instance;
 
-Given('I open a browser', function (next) {
+Given('at jeg åpen nettleseren', function (next) {
     _.openBrowser();
     next();
 });
 
-Then('I quit the browser', function (next) {
+Then('jeg lukker nettleseren', function (next) {
     _.closeBrowser();
     next();
 });
 
-When(/^I navigate to the ([^\W]+) url$/, async function (env) {
+When(/^jeg besøker ([^\W]+) nettsiden/, async function (env) {
     await _.driver.navigate().to(_.urls[env]);
 });

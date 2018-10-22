@@ -2,9 +2,7 @@ const {Given, When, Then} = require('cucumber');
 const _ = require('../support/world').instance;
 const { login } = require('../support/login');
 
-
-
-Given('set up case params', function (next) {
+Given('sett opp saks parametere', function (next) {
 
    _.setParams({
        user: {
@@ -28,17 +26,6 @@ Given('set up case params', function (next) {
    next();
 });
 
-When(/^I login as ([^\W]+)$/, async function (user) {
-    await login(_, user);
-});
 
-Then(/^I ([^\s]+) see the case menu option$/, async function (verb) {
-    let links = await _.getElements(_.params.frontPageButtonClass);
-    if (verb === 'do') {
-        _.expect(links).to.have.length(1);
-    } else {
-        _.expect(links).to.have.length(0);
-    }
-});
 
 
