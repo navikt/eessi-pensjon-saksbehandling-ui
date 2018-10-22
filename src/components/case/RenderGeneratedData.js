@@ -30,7 +30,7 @@ class RenderGeneratedData extends Component {
         let { t, dataToGenerate, dataToConfirm } = this.props;
 
 
-        return <div className='p-3 c-case-renderData'>
+        return <div className='p-3 c-case-renderData c-case-renderGeneratedData'>
             <dl className='row'>
                 <dt className='col-sm-4'><label>{t('case:form-caseId')}</label></dt>
                 <dd className='col-sm-8'>{dataToConfirm.caseId}</dd>

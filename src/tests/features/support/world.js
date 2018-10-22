@@ -30,8 +30,8 @@ class World {
             'production'  : 'https://eessi-pensjon-frontend-ui.nais.preprod.local'
         };
 
-        this.elementLoads = async function (cssPattern) {
-            return await this.driver.wait(webdriver.until.elementLocated(webdriver.By.css(cssPattern)));
+        this.elementLoads = async function (cssPattern, parentEl) {
+            return await this.driver.wait(webdriver.until.elementLocated(webdriver.By.css(cssPattern, parentEl)));
         }
 
         this.getElement = async function (cssPattern, parentEl) {
