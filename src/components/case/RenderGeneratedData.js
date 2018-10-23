@@ -10,12 +10,12 @@ class RenderGeneratedData extends Component {
     renderJson (json, level) {
 
         let res = [];
-
+        let counter = 0;
         for (var key in json) {
             let value = json[key];
             if (typeof value === 'string') {
                 if (value !== 'null' && value !== '') {
-                    res.push(<div style={{paddingLeft: level * 12 }}><b>{key}</b>{': '}{value}</div>);
+                    res.push(<div key={counter++} style={{paddingLeft: level * 12 }}><b>{key}</b>{': '}{value}</div>);
                 }
             } else {
                 res.push(this.renderJson(value, level++));

@@ -107,7 +107,7 @@ class GenerateCase extends Component {
             <div className='fieldset animate'>
                 <Nav.Row>
                     <Nav.Column>
-                        <RenderGeneratedData dataToGenerate={dataToGenerate} dataToConfirm={dataToConfirm}/>
+                        <RenderGeneratedData dataToGenerate={dataToGenerate || {}} dataToConfirm={dataToConfirm}/>
                     </Nav.Column>
                 </Nav.Row>
             </div>

@@ -9,7 +9,10 @@ i18next
     .use(reactI18nextModule)
     .init({
         lng: 'nb',
-        fallbackLng: 'nb',
+        fallbackLng: {
+            'default' : ['nb'],
+            'en-gb' : ['en']
+        },
         debug: true,
         ns: ['ui', 'case', 'pdf', 'pinfo', 'pselv', 'p4000'],
         defaultNS: 'ui',
@@ -26,7 +29,7 @@ i18next
             bindStore: 'added removed',
             nsMode: 'default'
         }
-    }).loadLanguages(['nb','en-gb']);
+    }).loadLanguages(['nb','en']);
 
 i18next.locale = 'nb';
 i18next.language = 'nb';

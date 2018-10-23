@@ -127,8 +127,8 @@ export default withCookies(
         mapStateToProps,
         mapDispatchToProps
     )(
-        translate()(
-            withRouter(AuthenticatedRoute)
+        withRouter(
+            translate()(AuthenticatedRoute)
         )
     )
 )
