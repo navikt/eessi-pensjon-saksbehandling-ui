@@ -6,6 +6,7 @@ import { translate } from 'react-i18next';
 import classNames from 'classnames';
 import moment from 'moment';
 import lifecycle from 'react-pure-lifecycle';
+import _ from 'lodash';
 
 import 'react-datepicker/dist/react-datepicker.min.css';
 
@@ -110,15 +111,13 @@ const PInfo = (props) => (
                     visLabel={true}
                     onBeforeChange={() => {return false}}
                     autoResponsiv={true}
-                    steg={[
-                        {label: props.t('pinfo:form-step0')},
-                        {label: props.t('pinfo:form-step1')},
-                        {label: props.t('pinfo:form-step2')},
-                        {label: props.t('pinfo:form-step3')},
-                        {label: props.t('pinfo:form-step4')},
-                        {label: props.t('pinfo:form-step5')},
-                        {label: props.t('pinfo:form-step6')}
-                    ]}/>
+                    steg={_.range(0,7).map(index=>(
+                        {
+                            label: props.t('pinfo:form-step'+index),
+                            ferdig: index < props.form.step? true: false,
+                            aktiv: index === props.form.step? true: false,
+                        }
+                    ))}/>
             </Nav.Column>
         </Nav.Row>
         <div className={classNames('fieldset animate','mb-4')}>
@@ -213,9 +212,9 @@ const PInfo = (props) => (
                         <dd className='col-sm-8'><pre>{props.form.bankAddress}</pre></dd>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-bankCountry')}</label></dt>
                         <dd className='col-sm-8'>
-                            <img src={'../../../../../flags/' + props.form.bankCountry.value + '.png'}
+                            <img src={'../../../../../flags/' + _.get(props, 'form.bankCountry.value', '') + '.png'}
                                 style={{width: 30, height: 20}}
-                                alt={props.form.bankCountry.label}/>&nbsp; {props.form.bankCountry.label}
+                                alt={_.get(props, 'form.bankCountry.label', '')}/>&nbsp; {_.get(props, 'form.bankCountry.label', '')}
                         </dd>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-bankBicSwift')}</label></dt>
                         <dd className='col-sm-8'>{props.form.bankBicSwift}</dd>
@@ -248,7 +247,7 @@ const PInfo = (props) => (
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-workHourPerWeek')}</label></dt>
                         <dd className='col-sm-8'>{props.form.workHourPerWeek}</dd>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-workIncome')}</label></dt>
-                        <dd className='col-sm-8'>{props.form.workIncome}{' '}{props.form.workIncomeCurrency.currency}</dd>
+                        <dd className='col-sm-8'>{props.form.workIncome}{' '}{_.get(props, 'form.workIncomeCurrency.currency', '')}</dd>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-workPaymentDate')}</label></dt>
                         <dd className='col-sm-8'>{moment(props.form.workPaymentDate).format('DD MM YYYY')/*P4000Util.writeDate(props.form.workPaymentDate)*/}</dd>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-workPaymentFrequency')}</label></dt>
@@ -276,9 +275,9 @@ const PInfo = (props) => (
                     <legend>{props.t('pinfo:form-retirement')}</legend>
                     <dl className='row'>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-retirementCountry')}</label></dt>
-                        <dd className='col-sm-8'><img src={'../../../../../flags/' + props.form.retirementCountry.value + '.png'}
+                        <dd className='col-sm-8'><img src={'../../../../../flags/' + _.get(props, 'form.retirementCountry.value', '') + '.png'}
                             style={{width: 30, height: 20}}
-                            alt={props.form.retirementCountry.label}/>&nbsp; {props.form.retirementCountry.label}
+                            alt={_.get(props, 'form.retirementCountry.label', '')}/>&nbsp; {_.get(props, 'form.retirementCountry.label', '')}
                         </dd>
                     </dl>
                 </fieldset>
