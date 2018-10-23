@@ -56,7 +56,7 @@ class TopHeader extends Component {
                     <img className="logo" src={navLogo} alt="To personer på NAV kontor"/>
                 </a>
                 <div className="skillelinje" />
-                <div className="tittel"><span>{t('headerTitle')}</span></div>
+                <div className="tittel"><span>{t('app-headerTitle')}</span></div>
             </div>
             <div className='user'>
                 {userRole ? <div title={userRole} className={userRole}><Icons kind='user'/></div> : null}

@@ -1,7 +1,12 @@
 {
-    "headerTitle"     : "EESSI Pensjon",
-    "pageTitle"       : "Opprett EU/EØS dokument (SED)",
-    "pageDescription" : "Opprett EU/EØS dokument beskrivelse",
+    "app-headerTitle"     : "EESSI Pensjon",
+    "app-pageTitle"       : "Opprett EU/EØS dokument (SED)",
+    "app-pageDescription" : "Opprett EU/EØS dokument beskrivelse",
+
+    "alert-noSuchUser" : "Ukjent bruker",
+
+    "loading-gettingRinaCase" : "Henter RINA sak...",
+    "loading-gettingStatus" : "Henter status...",
 
     "accepted" : "Akseptert",
     "add" : "Legg til",
@@ -10,7 +15,6 @@
     "address" : "Bostedsaddress",
     "areYouSure" : "Sikkert?",
     "authenticating" : "Autentisering...",
-    "alert-noSuchUser" : "Ukjent bruker",
     "back" : "Tilbake",
     "backTo" : "Tilbake til",
     "bytes" : "byter",
@@ -32,6 +36,8 @@
     "delete" : "Slett",
     "deleted" : "Slettet",
     "deleting" : "Sletting",
+    "documentId" : "Dokument ID",
+    "documentType" : "Dokument type",
     "download" : "Last ned",
     "downloadAll" : "Last ned alle",
     "dropFilesHere" : "Dra filer inn hit, eller klikk her for å åpne dialogboks for valg av filer",
@@ -47,8 +53,6 @@
     "found" : "Fant" ,
     "generate" : "generere",
     "getReceipt" : "Hent kvittering",
-    "gettingRinaCase" : "Henter RINA sak...",
-    "gettingStatus" : "Henter status...",
     "giveFeedback" : "Gi tilbakemelding",
     "go" : "Neste",
     "goToStart" : "Gå til hjem",

@@ -1,13 +1,15 @@
 {
-    "app-createPdf"        : "Opprett ny PDF",
-    "app-selectPdfTitle"   : "Velg til ny PDF",
+    "app-createPdf"            : "Opprett ny PDF",
+    "app-selectPdfTitle"       : "Velg til ny PDF",
     "app-selectPdfDescription" : "Velg fra eksisterende PDF-filer for å opprette ny dokumentpakke",
-    "app-editPdfTitle"     : "Redigere ny PDFs",
-    "app-editPdfDescription" : "Rediger og opprett ny PDF dokumentpakke sammensatt av dokumenter fra valgte PDF eller bild filer",
-    "app-generatePdfTitle" : "Generer ny PDFs",
+    "app-editPdfTitle"         : "Redigere ny PDFs",
+    "app-editPdfDescription"   : "Rediger og opprett ny PDF dokumentpakke sammensatt av dokumenter fra valgte PDF eller bild filer",
+    "app-generatePdfTitle"     : "Generer ny PDFs",
 
-    "alert-invalidStep1"    : "Last opp noe filer før du fortsette",
-    "alert-invalidStep2"    : "Velg noe sider/bilder før du fortsette",
+    "alert-invalidStep1"         : "Last opp noe filer før du fortsette",
+    "alert-invalidStep2"         : "Velg noe sider/bilder før du fortsette",
+    "alert-PDFGenerationFail"    : "Feil å generere PDF",
+    "alert-PDFGenerationSuccess" : "Generert PDF",
 
     "loading-loadingPDF"      : "Laster ny PDF...",
     "loading-loadingFileList" : "Laster fil list...",
@@ -23,9 +25,6 @@
     "recipe-empty-text"  : "Du har ikke valgt dokumenter og sider for generering av ny PDF",
     "recipe-valid-title" : "Generer ny PDF",
     "recipe-valid-text"  : "Er du sikker på du vil generere ny PDF nå?",
-
-    "alert-PDFGenerationFail"    : "Feil å generere PDF",
-    "alert-PDFGenerationSuccess" : "Generert PDF",
 
     "specials-title" : "Lage nytt brev",
     "specials-textPlaceholder" : "Skriv tekst her, deretter dra siden til dokumentboks",

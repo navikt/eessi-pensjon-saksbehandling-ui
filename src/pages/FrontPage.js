@@ -51,8 +51,8 @@ class FrontPage extends Component {
         return <TopContainer className='frontPage'
             language={language} history={history} location={location}
             sideContent={<EmptyDrawer/>}>
-            <h1 className='appTitle'>{t('pageTitle')}</h1>
-            <h4 className='appDescription'>{t('pageDescription')}</h4>
+            <h1 className='appTitle'>{t('app-pageTitle')}</h1>
+            <h4 className='appDescription'>{t('app-pageDescription')}</h4>
             <div className='text-center m-auto'>
                 <LanguageSelector/>
             </div>
@@ -62,7 +62,7 @@ class FrontPage extends Component {
                     <h4 className='mb-4'>{t('status')}</h4>
                     <div className='w-100 text-center' style={{minHeight: '110px'}}>
                         <Nav.NavFrontendSpinner/>
-                        <p>{gettingStatus ? t('ui:gettingStatus') : t('ui:gettingRinaCase')}</p>
+                        <p>{gettingStatus ? t('loading-gettingStatus') : t('loading-gettingRinaCase')}</p>
                     </div>
                 </div> : null) : <div className='mb-4'>
                     <h4 className='mb-4'>{t('status')}</h4>

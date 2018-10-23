@@ -1,14 +1,13 @@
 {
-    "app-createPdf"        : "Create PDF",
-    "app-selectPdfTitle"   : "Select PDF",
+    "app-createPdf"            : "Create PDF",
+    "app-selectPdfTitle"       : "Select PDF",
     "app-selectPdfDescription" : "Choose from existing PDF or image files to create a new document",
-    "app-editPdfTitle"     : "Document box",
+    "app-editPdfTitle"         : "Document box",
     "app-editPdfDescription"   : "Edit or create new PDF document using the selected PDF or image documents",
-    "app-generatePdfTitle" : "Generate PDF",
+    "app-generatePdfTitle"     : "Generate PDF",
 
-    "alert-invalidStep1"    : "Upload some files before you can step forward",
-    "alert-invalidStep2"    : "Choose some pages / images before you can step forward",
-
+    "alert-invalidStep1"         : "Upload some files before you can step forward",
+    "alert-invalidStep2"         : "Choose some pages / images before you can step forward",
     "alert-PDFGenerationFail"    : "Error generating PDF",
     "alert-PDFGenerationSuccess" : "Successfully generated PDF",
 
@@ -27,8 +26,8 @@
     "recipe-valid-title" : "Generate PDF",
     "recipe-valid-text"  : "Are you sure you want to generate a PDF now?",
 
-    "specials-title" : "Specials",
-    "specials-textPlaceholder" : "Write text here, then drag page to the document box",
+    "specials-title"                : "Specials",
+    "specials-textPlaceholder"      : "Write text here, then drag page to the document box",
     "specials-watermarkPlaceholder" : "watermark",
 
     "documentBox" : "Document box",

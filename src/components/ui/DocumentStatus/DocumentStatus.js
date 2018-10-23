@@ -151,6 +151,10 @@ class DocumentStatus extends Component {
         case 'Update':
         case 'Delete':
         case 'Create':
+
+            if (doc.dokumentType === P4000) {
+
+            }
             actions.getSed(rinaId, doc.dokumentId);
             break;
         default:
@@ -188,8 +192,10 @@ class DocumentStatus extends Component {
                 })}
             </div>
             {doc ? <div className='documentActions'>
-                <div>{t('documentType') + ': ' + doc.dokumentType}</div>
-                <div>{t('documentId') + ': ' + doc.dokumentId}</div>
+                <div className='documentProperties mb-4'>
+                    <div>{t('documentType') + ': ' + doc.dokumentType}</div>
+                    <div>{t('documentId') + ': ' + doc.dokumentId}</div>
+                </div>
                 {doc.aksjoner.map((aksjon, index) => {
                     return <Nav.Hovedknapp className='mr-2' key={index} onClick={this.handleDocumentClick.bind(this, doc, aksjon)}>
                         {t(aksjon.toLowerCase())}
