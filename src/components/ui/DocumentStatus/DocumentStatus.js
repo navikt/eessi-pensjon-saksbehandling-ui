@@ -9,6 +9,7 @@ import _ from 'lodash';
 import Icons from '../Icons';
 import * as Nav from '../Nav';
 
+import * as constants from '../../../constants/constants';
 import * as routes from '../../../constants/routes';
 import * as statusActions from '../../../actions/status';
 import * as p4000Actions from '../../../actions/p4000';
@@ -59,7 +60,7 @@ const sortStatusByDocs = (documents) => {
     });
 }
 
-const P4000 = 'P4000';
+
 
 class DocumentStatus extends Component {
 
@@ -95,7 +96,7 @@ class DocumentStatus extends Component {
 
         switch (sed.sed) {
 
-        case P4000: {
+        case constants.P4000: {
 
             let events = P4000Util.convertP4000SedToEvents(sed);
             actions.openP4000Success(events);
@@ -143,7 +144,7 @@ class DocumentStatus extends Component {
 
     handleDocumentClick(doc, aksjoner) {
 
-        const { rinaId, actions } = this.props;
+        const { rinaId, actions, history } = this.props;
 
         switch (aksjoner) {
 
@@ -152,8 +153,8 @@ class DocumentStatus extends Component {
         case 'Delete':
         case 'Create':
 
-            if (doc.dokumentType === P4000) {
-
+            if (doc.dokumentType === constants.P4000) {
+                history.push(routes.P4000);
             }
             actions.getSed(rinaId, doc.dokumentId);
             break;
@@ -176,9 +177,17 @@ class DocumentStatus extends Component {
             expanded : doc
         }, className)}>
             <div className='documentButtons'>
+
                 {docs.map((_doc, index) => {
+
                     let active = doc ? _doc.dokumentId === doc.dokumentId : false;
-                    return <div key={index} className='documentButton' style={{animationDelay: index * 0.05 + 's'}}>
+                    let label = _doc.dokumentType;
+                    let description = t('case:case-' + _doc.dokumentType);
+                    if (label !== 'case-' + _doc.dokumentType) {
+                        label += ' - ' + description;
+                    }
+
+                    return <div title={label} key={index} className='documentButton' style={{animationDelay: index * 0.05 + 's'}}>
                         <Nav.Hovedknapp key={index}
                             className={classNames('documentButtonContent', 'mr-2',
                                 {'active' : active },

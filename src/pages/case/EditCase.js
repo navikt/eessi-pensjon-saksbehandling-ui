@@ -61,7 +61,7 @@ class EditCase extends Component {
 
         if (_.isEmpty(currentCase)) {
 
-            let sakId    = match.params.sakId;
+            let sakId    = match.params.sakid;
             let aktoerId = match.params.aktoerid;
             let rinaId   = match.params.rinaid;
 
@@ -358,11 +358,23 @@ class EditCase extends Component {
         }
         return map.map(el => {
             if (typeof el === 'string') {
-                return <option value={el} key={el}>{el}</option>
+                return <option value={el} key={el}>{this.getOptionLabel(el)}</option>
             } else {
-                return <option value={el.key} key={el}>{el.value}</option>
+                return <option value={el.key} key={el}>{this.getOptionLabel(el.value)}</option>
             }
         });
+    }
+
+    getOptionLabel(value) {
+
+        const { t } = this.props;
+
+        let label = value;
+        let description = t('case:case-' + value);
+        if (description !== 'case-' + value) {
+            label += ' - ' + description;
+        }
+        return label;
     }
 
     renderSubjectArea() {
@@ -402,7 +414,7 @@ class EditCase extends Component {
 
         const { t, bucList } = this.props;
 
-        return <Nav.Select className='bucList' bredde='xxl' feil={this.state.validation.bucFail ? {feilmelding: this.state.validation.bucFail} : null}
+        return <Nav.Select className='bucList' bredde='xxxl' feil={this.state.validation.bucFail ? {feilmelding: this.state.validation.bucFail} : null}
             label={t('case:form-buc')} value={this.state.buc} onChange={this.onBucChange.bind(this)}>
             {this.renderOptions(bucList, 'buc')}
         </Nav.Select>
@@ -412,7 +424,7 @@ class EditCase extends Component {
 
         const { t, sedList, bucList } = this.props;
 
-        return <Nav.Select className='sedList' bredde='xxl' feil={this.state.validation.sedFail? {feilmelding: this.state.validation.sedFail} : null}
+        return <Nav.Select className='sedList' bredde='xxxl' feil={this.state.validation.sedFail? {feilmelding: this.state.validation.sedFail} : null}
             disabled={!bucList} label={t('case:form-sed')} value={this.state.sed} onChange={this.onSedChange.bind(this)}>
             {this.renderOptions(sedList, 'sed')}
         </Nav.Select>
@@ -525,22 +537,22 @@ class EditCase extends Component {
             location={location}>
             <div className='fieldset animate'>
                 <Nav.Row className='mb-3 align-middle text-left'>
-                    <div className='col-md-6'>{this.renderSubjectArea()}</div>
-                    <div className='col-md-6 selectBoxMessage'>
+                    <div className='col-md-8'>{this.renderSubjectArea()}</div>
+                    <div className='col-md-4 selectBoxMessage'>
                         <div className='d-inline-block'>{loading && loading.subjectAreaList ? this.getSpinner('case:loading-subjectArea'): null}</div>
                         <Nav.HjelpetekstBase id='subjectArea'>{t('case:help-subjectArea')}</Nav.HjelpetekstBase>
                     </div>
                 </Nav.Row>
                 <Nav.Row className='mb-3 align-middle text-left'>
-                    <div className='col-md-6'>{this.renderBuc()}</div>
-                    <div className='col-md-6 selectBoxMessage'>
+                    <div className='col-md-8'>{this.renderBuc()}</div>
+                    <div className='col-md-4 selectBoxMessage'>
                         <div className='d-inline-block'>{loading && loading.bucList ? this.getSpinner('case:loading-buc') : null}</div>
                         <Nav.HjelpetekstBase id='buc'>{t('case:help-buc')}</Nav.HjelpetekstBase>
                     </div>
                 </Nav.Row>
                 <Nav.Row className='align-middle text-left'>
-                    <div className='col-md-6'>{this.renderSed()}</div>
-                    <div className='col-md-6 selectBoxMessage'>
+                    <div className='col-md-8'>{this.renderSed()}</div>
+                    <div className='col-md-4 selectBoxMessage'>
                         <div className='d-inline-block'>{loading && loading.sedList ? this.getSpinner('case:loading-sed') : null}</div>
                         <Nav.HjelpetekstBase id='sed'>{t('case:help-sed')}</Nav.HjelpetekstBase>
                     </div>

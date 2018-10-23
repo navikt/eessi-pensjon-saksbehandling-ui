@@ -37,7 +37,7 @@
                    background-color: #0067c5 !important;
                 }
                 &.notsent {
-                    background-color: green !important;
+                    background-color: grey !important;
                 }
                 &:hover {
                     z-index: 2;
@@ -47,7 +47,9 @@
                     animation: c-ui-documentStatus-shrink 0.3s forwards ease-in-out;
                 }
                 &.active {
-                   background-color: lightgreen !important;
+                   filter: brightness(120%);
+                   transform: translateY(-10px);
+                   animation: unset;
                 }
                 &.error {
                     background-color: red !important;
