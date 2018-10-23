@@ -15,10 +15,10 @@ class FrontPage extends Component {
             <h4 className='mb-4'>{t('forms')}</h4>
             <Nav.Lenkepanel style={{animationDelay: '0s'}} className='frontPageLink caseLink' linkCreator={(props) => (
                 <Link to={
-                    status.saksNr ?
+                    status.sakId ?
                         routes.CASE_EDIT_WITHOUT_RINA
-                            .replace(':actorid', status.fnr)
-                            .replace(':caseid', status.saksNr)
+                            .replace(':aktoerid', status.fnr)
+                            .replace(':sakid', status.sakId)
                         : routes.CASE_GET
                 } {...props}/>)
             } href="#">{t('case:app-createNewCase')}</Nav.Lenkepanel>

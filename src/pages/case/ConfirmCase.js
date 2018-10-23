@@ -64,7 +64,7 @@ class ConfirmCase extends Component {
         const { history, actions, dataToConfirm } = this.props;
 
         actions.navigateBack();
-        history.push(routes.CASE_GET + '/' + dataToConfirm.caseId + '/' + dataToConfirm.actorId +
+        history.push(routes.CASE_GET + '/' + dataToConfirm.sakId + '/' + dataToConfirm.aktoerId +
             (dataToConfirm.rinaId ? '/' + dataToConfirm.rinaId : null));
     }
 

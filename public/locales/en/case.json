@@ -1,8 +1,6 @@
 {
-    "form-actorId" : "Actor ID",
-
+    "form-aktoerId" : "Actor ID",
     "form-buc" : "BUC",
-    "form-caseId" : "Case ID",
     "form-caseLink" : "Case link",
     "form-caseSent" : "Case sent",
     "form-chooseCountry" : "Choose country",
@@ -11,6 +9,7 @@
     "form-chooseSed": "Choose Sed",
     "form-chooseInstitution": "Choose Institution",
     "form-institution"  : "Institution",
+    "form-sakId" : "Case ID",
     "form-sed" : "SED",
     "form-step1" : "Edit case",
     "form-step2" : "Confirm case",
@@ -45,10 +44,10 @@
     "alert-noSedList"         : "No SED list",
     "alert-noSubjectAreaList" : "No subject area list",
 
-    "help-actorId"     : "Help for actorId",
+    "help-aktoerId"    : "Help for aktoerId",
     "help-rinaId"      : "Help for rinaId",
     "help-buc"         : "Help for buc",
-    "help-caseId"      : "Help for caseId",
+    "help-sakId"       : "Help for sakId",
     "help-country"     : "Help for country",
     "help-institution" : "Help for institution",
     "help-sed"         : "Help for sed",

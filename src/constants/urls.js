@@ -8,8 +8,8 @@ let PDF_URL = BASE_URL + '/pdf';
 
 // EuxController
 export const CASE_GET_RINA_URL                = API_URL + '/rinaurl';
-export const CASE_GET_CASE_WITH_RINAID_URL    = API_URL + '/case/%(caseId)s/%(actorId)s/%(rinaId)s';
-export const CASE_GET_CASE_WITHOUT_RINAID_URL = API_URL + '/case/%(caseId)s/%(actorId)s';
+export const CASE_GET_CASE_WITH_RINAID_URL    = API_URL + '/case/%(sakId)s/%(aktoerId)s/%(rinaId)s';
+export const CASE_GET_CASE_WITHOUT_RINAID_URL = API_URL + '/case/%(sakId)s/%(aktoerId)s';
 export const CASE_GET_BUC_LIST_URL            = API_URL + '/bucs';
 export const CASE_GET_SED_LIST_URL            = API_URL + '/seds';
 export const CASE_GET_SED_FOR_BUC_LIST_URL    = API_URL + '/seds/%(buc)s';

@@ -35,8 +35,8 @@ class SubmitButton extends Component {
         actions.closeModal();
 
         let body = {
-            caseId    : sakId,
-            actorId   : aktoerId,
+            sakId     : sakId,
+            aktoerId  : aktoerId,
             payload   : JSON.stringify(p4000.payload),
             sed       : 'P4000',
             euxCaseId : rinaId

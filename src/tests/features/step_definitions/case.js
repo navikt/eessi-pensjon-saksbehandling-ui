@@ -14,8 +14,8 @@ Given('sett opp saks parametere', function (next) {
              'password' : 'Password01'
            }
        },
-       caseId  : '123',
-       actorId : '1000060964183',
+       sakId  : '123',
+       aktoerId : '1000060964183',
        frontPageButtonClass: '.caseLink',
        frontPageButtonText: {
             en: 'Create new case',
@@ -26,29 +26,29 @@ Given('sett opp saks parametere', function (next) {
 });
 
 Given(/^nettsiden '(.*)' er klar$/, async function (_class) {
-    await _.elementLoads('.getCaseInputCaseId input[type="text"]');
-    await _.elementLoads('.getCaseInputActorId input[type="text"]');
+    await _.elementLoads('.getCaseInputSakId input[type="text"]');
+    await _.elementLoads('.getCaseInputAktoerId input[type="text"]');
     await _.elementLoads('.getCaseInputRinaId input[type="text"]');
     await _.elementLoads('button.forwardButton');
 });
 
 When(/^jeg fyller ut ugyldig informasjon$/, async function () {
-    caseId        = await _.getElement('.getCaseInputCaseId input[type="text"]');
-    actorId       = await _.getElement('.getCaseInputActorId input[type="text"]');
-    rinaId        = await _.getElement('.getCaseInputRinaId input[type="text"]');
-    await caseId.sendKeys('notvalid');
-    await actorId.sendKeys('notvalid');
+    sakId    = await _.getElement('.getCaseInputSakId input[type="text"]');
+    aktoerId = await _.getElement('.getCaseInputAktoerId input[type="text"]');
+    rinaId   = await _.getElement('.getCaseInputRinaId input[type="text"]');
+    await sakId.sendKeys('notvalid');
+    await aktoerId.sendKeys('notvalid');
     await rinaId.sendKeys('notvalid');
 });
 
 When(/^jeg fyller ut gyldig informasjon$/, async function () {
-    caseId        = await _.getElement('.getCaseInputCaseId input[type="text"]');
-    actorId       = await _.getElement('.getCaseInputActorId input[type="text"]');
-    rinaId        = await _.getElement('.getCaseInputRinaId input[type="text"]');
-    await caseId.clear();
-    await caseId.sendKeys(_.params.caseId);
-    await actorId.clear();
-    await actorId.sendKeys(_.params.actorId);
+    sakId    = await _.getElement('.getCaseInputSakId input[type="text"]');
+    aktoerId = await _.getElement('.getCaseInputAktoerId input[type="text"]');
+    rinaId   = await _.getElement('.getCaseInputRinaId input[type="text"]');
+    await sakId.clear();
+    await sakId.sendKeys(_.params.sakId);
+    await aktoerId.clear();
+    await aktoerId.sendKeys(_.params.aktoerId);
 });
 
 When(/^jeg trykk fremover knapp$/, async function () {

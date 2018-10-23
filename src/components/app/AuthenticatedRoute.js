@@ -62,21 +62,20 @@ class AuthenticatedRoute extends Component {
             actions.getCase(rinaIdFromParam);
         }
 
-        this.getAndSaveParam(params, 'saksNr');
         this.getAndSaveParam(params, 'fnr');
         this.getAndSaveParam(params, 'aktoerId');
-        this.getAndSaveParam(params, 'sakId');
+        this.getAndSaveParam(params, 'saksNr', 'sakId');
         this.getAndSaveParam(params, 'kravId');
         this.getAndSaveParam(params, 'vedtakId');
     }
 
-    getAndSaveParam (params, key) {
+    getAndSaveParam (params, key, renamedKey) {
 
         const { actions } = this.props;
         const value = params.get(key);
 
         if (value) {
-            actions.setStatusParam(key, value);
+            actions.setStatusParam(renamedKey || key, value);
         }
         return value;
     }

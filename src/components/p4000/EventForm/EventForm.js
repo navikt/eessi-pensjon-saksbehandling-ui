@@ -157,7 +157,7 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(
-    translate()(
-        withRouter(EventForm)
+    withRouter(
+        translate()(EventForm)
     )
 );

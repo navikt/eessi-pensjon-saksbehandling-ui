@@ -12,10 +12,10 @@ class RenderConfirmData extends Component {
 
         return <div className='p-3 c-case-renderData c-case-renderConfirmData'>
             <dl className='row'>
-                <dt className='col-sm-4'><label>{t('case:form-caseId')}</label></dt>
-                <dd className='col-sm-8'>{dataToConfirm.caseId}</dd>
-                <dt className='col-sm-4'><label>{t('case:form-actorId')}</label></dt>
-                <dd className='col-sm-8'>{dataToConfirm.actorId}</dd>
+                <dt className='col-sm-4'><label>{t('case:form-sakId')}</label></dt>
+                <dd className='col-sm-8'>{dataToConfirm.sakId}</dd>
+                <dt className='col-sm-4'><label>{t('case:form-aktoerId')}</label></dt>
+                <dd className='col-sm-8'>{dataToConfirm.aktoerId}</dd>
                 <dt className='col-sm-4'><label>{t('case:form-rinaId')}</label></dt>
                 <dd className='col-sm-8'>{dataToConfirm.rinaId}</dd>
                 <dt className='col-sm-4'><label>{t('case:form-subjectArea')}</label></dt>

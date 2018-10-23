@@ -74,8 +74,8 @@ class SaveCase extends Component {
 
         let payload = {
             subjectArea  : dataToConfirm.subjectArea,
-            caseId       : dataToConfirm.caseId,
-            actorId      : dataToConfirm.actorId,
+            sakId        : dataToConfirm.sakId,
+            aktoerId     : dataToConfirm.aktoerId,
             buc          : dataToConfirm.buc,
             sed          : dataToConfirm.sed,
             institutions : dataToConfirm.institutions,

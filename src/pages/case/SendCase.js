@@ -10,6 +10,7 @@ import * as Nav from '../../components/ui/Nav';
 import * as routes from '../../constants/routes';
 import * as caseActions from '../../actions/case';
 import * as uiActions from '../../actions/ui';
+import * as appActions from '../../actions/app';
 
 const mapStateToProps = (state) => {
     return {
@@ -20,7 +21,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, uiActions, caseActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, uiActions, appActions, caseActions), dispatch)};
 };
 
 class SendCase extends Component {
@@ -43,7 +44,7 @@ class SendCase extends Component {
 
         const { history, actions, dataToConfirm, dataSaved } = this.props;
 
-        history.push(routes.CASE_GET + '/' + dataToConfirm.caseId + '/' + dataToConfirm.actorId + '/' + dataSaved.euxcaseid);
+        history.push(routes.CASE_GET + '/' + dataToConfirm.sakId + '/' + dataToConfirm.aktoerId + '/' + dataSaved.euxcaseid);
         actions.clearData();
     }
 

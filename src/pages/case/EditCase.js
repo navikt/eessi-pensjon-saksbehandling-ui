@@ -12,6 +12,7 @@ import CountrySelect from '../../components/ui/CountrySelect/CountrySelect';
 import * as routes from '../../constants/routes';
 import * as caseActions from '../../actions/case';
 import * as uiActions from '../../actions/ui';
+import * as appActions from '../../actions/app';
 
 const mapStateToProps = (state) => {
     return {
@@ -30,7 +31,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, caseActions, uiActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, caseActions, appActions, uiActions), dispatch)};
 };
 
 class EditCase extends Component {
@@ -60,28 +61,28 @@ class EditCase extends Component {
 
         if (_.isEmpty(currentCase)) {
 
-            let caseId = match.params.caseid;
-            let actorId = match.params.actorid;
-            let rinaId = match.params.rinaid;
+            let sakId    = match.params.sakId;
+            let aktoerId = match.params.aktoerid;
+            let rinaId   = match.params.rinaid;
 
             await this.setState({
-                caseId  : caseId,
-                actorId : actorId,
-                rinaId  : rinaId
+                sakId    : sakId,
+                aktoerId : aktoerId,
+                rinaId   : rinaId
             });
 
             actions.getCaseFromCaseNumber({
-                caseId  : caseId,
-                actorId : actorId,
-                rinaId  : rinaId
+                sakId    : sakId,
+                aktoerId : aktoerId,
+                rinaId   : rinaId
             });
 
         } else {
 
             await this.setState({
-                caseId  : currentCase.caseId,
-                actorId : currentCase.actorId,
-                rinaId  : currentCase.rinaId
+                sakId    : currentCase.sakId,
+                aktoerId : currentCase.aktoerId,
+                rinaId   : currentCase.rinaId
             });
         }
 
@@ -116,15 +117,15 @@ class EditCase extends Component {
 
         const { history, loading, currentCase, dataToConfirm, action } = this.props;
 
-        if (currentCase && (!this.state.caseId || !this.state.actorId)) {
+        if (currentCase && (!this.state.sakId || !this.state.aktoerId)) {
             await this.setState({
-                caseId  : currentCase.casenumber,
-                actorId : currentCase.pinid,
-                rinaId  : currentCase.rinaid
+                sakId    : currentCase.casenumber,
+                aktoerId : currentCase.pinid,
+                rinaId   : currentCase.rinaid
             });
         }
 
-        if ( !loading.gettingCase && !this.state.caseId) {
+        if ( !loading.gettingCase && !this.state.sakId) {
             history.push(routes.CASE_GET);
         }
 
@@ -156,8 +157,8 @@ class EditCase extends Component {
                 'buc'          : this.state.buc,
                 'sed'          : this.state.sed,
                 'subjectArea'  : this.state.subjectArea,
-                'caseId'       : currentCase.casenumber,
-                'actorId'      : currentCase.pinid,
+                'sakId'        : currentCase.casenumber,
+                'aktoerId'     : currentCase.pinid,
                 'rinaId'       : currentCase.rinaid,
                 'vedtakId'     : vedtakId
             });

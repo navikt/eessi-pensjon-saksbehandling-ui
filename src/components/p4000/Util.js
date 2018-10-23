@@ -214,9 +214,9 @@ class Util {
     convertEventsToP4000 (events) {
 
         return {
-            sed: '4000',
-            actorId: 'actorId',
-            payload: this.convertEvents(events)
+            sed      : '4000',
+            aktoerId : 'aktoerId',
+            payload  : this.convertEvents(events)
         };
     }
 

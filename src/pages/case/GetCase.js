@@ -26,10 +26,10 @@ class GetCase extends Component {
 
     state = {};
 
-    onCaseIdChange (e) {
+    onSakIdChange (e) {
 
         this.setState({
-            caseId: e.target.value.trim()
+            sakId: e.target.value.trim()
         });
     }
 
@@ -40,10 +40,10 @@ class GetCase extends Component {
         });
     }
 
-    onActorIdChange (e) {
+    onAktoerIdChange (e) {
 
         this.setState({
-            actorId: e.target.value.trim()
+            aktoerId: e.target.value.trim()
         });
     }
 
@@ -80,7 +80,7 @@ class GetCase extends Component {
     }
 
     isButtonDisabled() {
-        return !this.state.caseId || !this.state.actorId || this.props.gettingCase;
+        return !this.state.sakId || !this.state.aktoerId || this.props.gettingCase;
     }
 
     render() {
@@ -97,12 +97,12 @@ class GetCase extends Component {
             <div className='fieldset animate'>
                 <Nav.Row>
                     <div className='col-md-6'>
-                        <Nav.HjelpetekstBase id='caseId'>{t('case:help-caseId')}</Nav.HjelpetekstBase>
-                        <Nav.Input className='getCaseInputCaseId' label={t('case:form-caseId') + ' *'} value={this.state.caseId} onChange={this.onCaseIdChange.bind(this)}/>
+                        <Nav.HjelpetekstBase id='sakId'>{t('case:help-sakId')}</Nav.HjelpetekstBase>
+                        <Nav.Input className='getCaseInputSakId' label={t('case:form-sakId') + ' *'} value={this.state.sakId} onChange={this.onSakIdChange.bind(this)}/>
                     </div>
                     <div className='col-md-6'>
-                        <Nav.HjelpetekstBase id='actorId'>{t('case:help-actorId')}</Nav.HjelpetekstBase>
-                        <Nav.Input className='getCaseInputActorId' label={t('case:form-actorId') + ' *'} value={this.state.actorId} onChange={this.onActorIdChange.bind(this)}/>
+                        <Nav.HjelpetekstBase id='aktoerId'>{t('case:help-aktoerId')}</Nav.HjelpetekstBase>
+                        <Nav.Input className='getCaseInputAktoerId' label={t('case:form-aktoerId') + ' *'} value={this.state.aktoerId} onChange={this.onAktoerIdChange.bind(this)}/>
                     </div>
                     <div className='col-md-6'>
                         <Nav.HjelpetekstBase id='rinaId'>{t('case:help-rinaId')}</Nav.HjelpetekstBase>
