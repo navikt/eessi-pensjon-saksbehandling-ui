@@ -195,6 +195,8 @@ class DocumentStatus extends Component {
                             onClick={this.toogleDocumentStatus.bind(this, _doc)}>
                             {gettingSED && active ? <Nav.NavFrontendSpinner style={{position: 'absolute', top: '1rem'}}/> : null}
                             <Icons className='mr-3' size='3x' kind='document'/>
+                            {}
+                            <Icons className='documentType' size='2x' kind={ _doc.dokumentType.startsWith('P') ? 'form' : 'tool'}/>
                             <div>{_doc.dokumentType}</div>
                         </Nav.Hovedknapp>
                     </div>
