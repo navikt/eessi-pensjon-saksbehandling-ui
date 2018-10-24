@@ -82,7 +82,7 @@ export class Bank extends React.Component{
                                     value={bank.bankCountry || null}
                                     onSelect={this.onSelect}
                                     customInputProps={{
-                                        required: (bank.bankCountry||inputStates.bankCountry.showError)? false: true,
+                                        required: (bank.bankCountry || inputStates.bankCountry.showError) ? false : true,
                                         onInvalid: this.onInvalid,
                                         id: nameToId['bankCountry']
                                     }}
