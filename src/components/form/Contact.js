@@ -45,20 +45,20 @@ export class Contact extends React.Component{
                     <div className='col-md-6'>
                         <Nav.Input label={t('pinfo:form-userEmail') + ' *'} defaultValue={contact.userEmail || ''}
                             onChange={this.onChange}
-                            required={!inputStates['userEmail'].showError}
+                            required={!inputStates.userEmail.showError}
                             type='email'
                             onInvalid={this.onInvalid}
-                            id={nameToId['userEmail']}
-                            feil={inputStates['userEmail'].showError? inputStates['userEmail'].error: null}
+                            id={nameToId.userEmail}
+                            feil={inputStates.userEmail.showError? inputStates.userEmail.error: null}
                         />
 
                         <Nav.Input label={t('pinfo:form-userPhone') + ' *'} defaultValue={contact.userPhone || ''}
                             onChange={this.onChange}
-                            required={!inputStates['userPhone'].showError}
-                            type="tel"
+                            required={!inputStates.userPhone.showError}
+                            type='tel'
                             onInvalid={this.onInvalid}
-                            id={nameToId['userPhone']}
-                            feil={inputStates['userPhone'].showError? inputStates['userPhone'].error: null}
+                            id={nameToId.userPhone}
+                            feil={inputStates.userPhone.showError? inputStates.userPhone.error: null}
                         />
                     </div>
                 </Nav.Row>
