@@ -44,9 +44,8 @@ export class Pension extends React.Component{
                         locale={locale}
                         value={pension.retirementCountry || null}
                         onSelect={onSelect.bind(this, 'retirementCountry')}
-                        required={true}
                         customInputProps={{
-                            required: pension.retirementCountry? false: true,
+                            required: pension.retirementCountry || inputStates.retirementCountry.showError? false: true,
                             onInvalid: this.onInvalid,
                             id: nameToId['retirementCountry']
                         }}

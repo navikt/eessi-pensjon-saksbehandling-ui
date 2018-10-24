@@ -98,10 +98,9 @@ class PdfUploadComponent extends React.Component {
             this.validate
         )
     }
-
     render(){
-        let requiredCheckbox = this.state.FileUpload.active && !this.state.Checkboxes.active;
-        let requiredFileUpload = this.state.Checkboxes.active;
+        let requiredCheckbox = (this.state.FileUpload.active && !this.state.Checkboxes.active) && !this.state.Checkboxes.showError;
+        let requiredFileUpload = this.state.Checkboxes.active && !this.state.FileUpload.showError;
         let checkboxError = this.state.Checkboxes.error? {feil: {feilmelding: this.state.Checkboxes.errorMessage}}: null;
         let fileUploadError = this.state.FileUpload.error? {feil: {feilmelding: this.state.FileUpload.errorMessage}}: null;
         return <Nav.SkjemaGruppe>

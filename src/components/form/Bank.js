@@ -53,7 +53,8 @@ export class Bank extends React.Component{
                 <Nav.Row>
                     <div className='col-md-6'>
                         <Nav.Input label={t('pinfo:form-bankName') + ' *'} defaultValue={bank.bankName || null}
-                            onChange={this.onChange} required={true}
+                            onChange={this.onChange}
+                            required={!inputStates['bankName'].showError}
                             onInvalid={this.onInvalid}
                             id={nameToId['bankName']}
                             feil={inputStates['bankName'].showError? inputStates['bankName'].error: null}
@@ -63,7 +64,8 @@ export class Bank extends React.Component{
                     <div className='col-md-6'>
                         <Nav.Textarea label={t('pinfo:form-bankAddress') + ' *'} value={bank.bankAddress || ''}
                             style={{minHeight:'200px'}}
-                            onChange={this.onChange} required={true}
+                            onChange={this.onChange}
+                            required={!inputStates['bankAddress'].showError}
                             onInvalid={this.onInvalid}
                             id={nameToId['bankAddress']}
                             feil={inputStates['bankAddress'].showError? inputStates['bankAddress'].error: null}
@@ -80,7 +82,7 @@ export class Bank extends React.Component{
                                     value={bank.bankCountry || null}
                                     onSelect={this.onSelect}
                                     customInputProps={{
-                                        required: bank.bankCountry? false: true,
+                                        required: (bank.bankCountry||inputStates.bankCountry.showError)? false: true,
                                         onInvalid: this.onInvalid,
                                         id: nameToId['bankCountry']
                                     }}
@@ -96,7 +98,7 @@ export class Bank extends React.Component{
                     </div>
                     <div className='col-md-6'>
                         <Nav.Input label={t('pinfo:form-bankBicSwift') + ' *'} defaultValue={bank.bankBicSwift || null}
-                            required={true}
+                            required={!inputStates['bankBicSwift'].showError}
                             onChange={this.onChange}
                             onInvalid={this.onInvalid}
                             id={nameToId['bankBicSwift']}
@@ -108,7 +110,8 @@ export class Bank extends React.Component{
                     <div className='col-md-6'>
                         <Nav.Input label={t('pinfo:form-bankIban') + ' *'}
                             defaultValue={bank.bankIban || null}
-                            onChange={this.onChange} required={true}
+                            onChange={this.onChange}
+                            required={!inputStates['bankIban'].showError}
                             onInvalid={this.onInvalid}
                             id={nameToId['bankIban']}
                             feil={inputStates['bankIban'].showError? inputStates['bankIban'].error: null}
@@ -118,7 +121,8 @@ export class Bank extends React.Component{
                         <Nav.Input
                             label={(t('pinfo:form-bankCode') + ' *')}
                             defaultValue={bank.bankCode || null}
-                            onChange={this.onChange} required={true}
+                            onChange={this.onChange}
+                            required={!inputStates['bankCode'].showError}
                             onInvalid={this.onInvalid}
                             id={nameToId['bankCode']}
                             feil={inputStates['bankCode'].showError? inputStates['bankCode'].error: null}

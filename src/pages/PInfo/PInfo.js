@@ -109,7 +109,7 @@ const PInfo = (props) => (
                 <Nav.Stegindikator
                     aktivtSteg={props.form.step}
                     visLabel={true}
-                    onBeforeChange={() => {return false}}
+                    onChange={(e)=> props.actions.setEventProperty( {step: e})}
                     autoResponsiv={true}
                     steg={_.range(0,7).map(index=>(
                         {
