@@ -320,6 +320,21 @@ export default function (state = {}, action = {}) {
             status: status
         });
 
+    case types.P4000_SUBMIT_REQUEST:
+
+        return Object.assign({}, state, {
+            submittingP4000 : true,
+            status: status
+        });
+
+    case types.P4000_SUBMIT_SUCCESS:
+    case types.P4000_SUBMIT_FAILURE:
+
+        return Object.assign({}, state, {
+            submittingP4000 : false,
+            status: status
+        });
+
     default:
 
         return state;

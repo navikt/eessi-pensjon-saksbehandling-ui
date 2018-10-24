@@ -4,7 +4,8 @@ let initialState =  {
     events: [],
     event: undefined,
     editMode: false,
-    page: 'new'
+    page: 'new',
+    submitted : undefined
 };
 
 export default function (state = initialState, action = {}) {
@@ -17,14 +18,16 @@ export default function (state = initialState, action = {}) {
 
         return Object.assign({}, state, {
             event : {},
-            events: []
+            events: [],
+            submitted : undefined
         });
 
     case types.P4000_OPEN_SUCCESS:
 
         return Object.assign({}, state, {
             event  : {},
-            events : action.payload.events
+            events : action.payload.events,
+            submitted : undefined
         });
 
     case types.P4000_PAGE_SET:
@@ -99,6 +102,18 @@ export default function (state = initialState, action = {}) {
             event : newEvent
         });
     }
+
+    case types.P4000_SUBMIT_SUCCESS:
+
+        return Object.assign({}, state, {
+            submitted : 'OK'
+        });
+
+    case types.P4000_SUBMIT_FAILURE:
+
+        return Object.assign({}, state, {
+            submitted : 'ERROR'
+        });
 
     case types.APP_CLEAR_DATA:
 
