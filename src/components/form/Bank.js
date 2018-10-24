@@ -57,7 +57,7 @@ export class Bank extends React.Component{
                             required={!inputStates.bankName..showError}
                             onInvalid={this.onInvalid}
                             id={nameToId['bankName']}
-                            feil={inputStates['bankName'].showError? inputStates['bankName'].error: null}
+                            feil={inputStates.bankName.showError? inputStates.bankName.error: null}
                         />
 
                     </div>
@@ -65,10 +65,10 @@ export class Bank extends React.Component{
                         <Nav.Textarea label={t('pinfo:form-bankAddress') + ' *'} value={bank.bankAddress || ''}
                             style={{minHeight:'200px'}}
                             onChange={this.onChange}
-                            required={!inputStates['bankAddress'].showError}
+                            required={!inputStates.bankAddress.showError}
                             onInvalid={this.onInvalid}
                             id={nameToId['bankAddress']}
-                            feil={inputStates['bankAddress'].showError? inputStates['bankAddress'].error: null}
+                            feil={inputStates.bankAddress.showError? inputStates.bankAddress.error: null}
                         />
                             
                     </div>
@@ -84,7 +84,7 @@ export class Bank extends React.Component{
                                     customInputProps={{
                                         required: (bank.bankCountry || inputStates.bankCountry.showError) ? false : true,
                                         onInvalid: this.onInvalid,
-                                        id: nameToId['bankCountry']
+                                        id: nameToId.bankCountry
                                     }}
                                     error={inputStates.bankCountry.showError}
                                     errorMessage={
@@ -98,11 +98,11 @@ export class Bank extends React.Component{
                     </div>
                     <div className='col-md-6'>
                         <Nav.Input label={t('pinfo:form-bankBicSwift') + ' *'} defaultValue={bank.bankBicSwift || null}
-                            required={!inputStates['bankBicSwift'].showError}
+                            required={!inputStates.bankBicSwift.showError}
                             onChange={this.onChange}
                             onInvalid={this.onInvalid}
                             id={nameToId['bankBicSwift']}
-                            feil={inputStates['bankBicSwift'].showError? inputStates['bankBicSwift'].error: null}
+                            feil={inputStates.bankBicSwift.showError? inputStates.bankBicSwift.error: null}
                         />
                     </div>
                 </Nav.Row>
@@ -111,10 +111,10 @@ export class Bank extends React.Component{
                         <Nav.Input label={t('pinfo:form-bankIban') + ' *'}
                             defaultValue={bank.bankIban || null}
                             onChange={this.onChange}
-                            required={!inputStates['bankIban'].showError}
+                            required={!inputStates.bankIban.showError}
                             onInvalid={this.onInvalid}
-                            id={nameToId['bankIban']}
-                            feil={inputStates['bankIban'].showError? inputStates['bankIban'].error: null}
+                            id={nameToId.bankIban}
+                            feil={inputStates.bankIban..showError? inputStates.bankIban.error: null}
                         />
                     </div>
                     <div className='col-md-6'>
@@ -122,10 +122,10 @@ export class Bank extends React.Component{
                             label={(t('pinfo:form-bankCode') + ' *')}
                             defaultValue={bank.bankCode || null}
                             onChange={this.onChange}
-                            required={!inputStates['bankCode'].showError}
+                            required={!inputStates.bankCode.showError}
                             onInvalid={this.onInvalid}
-                            id={nameToId['bankCode']}
-                            feil={inputStates['bankCode'].showError? inputStates['bankCode'].error: null}
+                            id={nameToId.bankCode}
+                            feil={inputStates.bankCode.showError? inputStates.bankCode.error: null}
                         />
                     </div>
                 </Nav.Row>
