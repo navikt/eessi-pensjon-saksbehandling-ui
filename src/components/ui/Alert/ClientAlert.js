@@ -30,74 +30,67 @@ class ClientAlert extends Component {
     }
 
     clear () {
+
         const { clientErrorStatus, actions } = this.props;
 
-        // after 5 seconds, if the client alert is still not an error, then clear it
-        if (clientErrorStatus !== 'ERROR') {
-            actions.clientClear();
-        }
+        actions.clientClear();
     }
 
-    handleTimeouts() {
+    static getDerivedStateFromProps(newProps, oldState) {
 
-        const { clientErrorStatus, clientErrorMessage } = this.props;
+         if (newProps.clientErrorStatus !== oldState.status || newProps.clientErrorMessage !== oldState.message) {
+             if (oldState.timeout) {
+                 clearTimeout(oldState.timeout);
+             }
 
-        if (clientErrorStatus !== this.state.status || clientErrorMessage !== this.state.message) {
-            if (this.state.timeout) {
-                clearTimeout(this.state.timeout);
-            }
+             let clientClear = newProps.actions.clientClear;
+             let timeout = setTimeout(() => {
+                 clientClear();
+             }, newProps.clientErrorStatus === 'OK' ? 5000 : 10000);
 
-            let timeout = undefined;
-            let self = this;
-
-            if (clientErrorStatus === 'OK') {
-                timeout = setTimeout(() => {
-                    self.clear();
-                }, 5000);
-            }
-
-            this.setState({
-                timeout: timeout,
-                status: clientErrorStatus,
-                message: clientErrorMessage
-            });
+            return {
+                timeout : timeout,
+                status  : newProps.clientErrorStatus,
+                message : newProps.clientErrorMessage
+            };
         }
     }
 
     render () {
 
-        let { t, clientErrorStatus, clientErrorMessage, permanent, className } = this.props;
+        let { t, className, fixed } = this.props;
+        let { status, message } = this.state;
 
-        if (!clientErrorMessage) {
-            return permanent ? <div style={{opacity: 0}}>
-                <Nav.AlertStripe className={classNames(className, 'clientAlert', 'm-4')} type='suksess'>&nbsp;</Nav.AlertStripe>
-            </div> : null
+        let _fixed = fixed || true;
+
+        if (!message) {
+            return null;
         }
 
-        this.handleTimeouts();
-
-        let message = undefined;
-        let separatorIndex = clientErrorMessage.lastIndexOf('|');
+        let separatorIndex = message.lastIndexOf('|');
+        let _message;
 
         if (separatorIndex >= 0) {
-            message = t(clientErrorMessage.substring(0, separatorIndex)) + ': ' + clientErrorMessage.substring(separatorIndex + 1);
+            _message = t(message.substring(0, separatorIndex)) + ': ' + message.substring(separatorIndex + 1);
         } else {
-            message = t(clientErrorMessage);
+            _message = t(message);
         }
-        return <Nav.AlertStripe className={classNames(className, 'c-ui-clientAlert', 'm-4', {'toFade' : clientErrorStatus === 'OK'})}
-            type={clientErrorStatus === 'OK' ? 'suksess' : 'advarsel'}>
-            {message}
+        return <Nav.AlertStripe solid={true}
+            className={classNames(className, 'c-ui-clientAlert', {
+                'toFade' : status === 'OK',
+                'fixed' : _fixed
+            })}
+            type={status === 'OK' ? 'suksess' : 'advarsel'}>
+            {_message}
         </Nav.AlertStripe>;
     }
 }
 
 ClientAlert.propTypes = {
-    t                  : PT.func.isRequired,
-    permanent          : PT.bool,
-    clientErrorStatus  : PT.string,
-    clientErrorMessage : PT.string,
-    actions            : PT.object.isRequired,
-    className          : PT.string
+    t         : PT.func.isRequired,
+    actions   : PT.object.isRequired,
+    className : PT.string,
+    fixed     : PT.bool
 }
 
 export default connect(

@@ -9,7 +9,6 @@ import classNames from 'classnames';
 import StepIndicator from '../../../components/pdf/StepIndicator';
 import ExternalFiles from '../../../components/pdf/ExternalFiles/ExternalFiles';
 import * as Nav from '../../../components/ui/Nav';
-import ClientAlert from '../../../components/ui/Alert/ClientAlert';
 import TopContainer from '../../../components/ui/TopContainer/TopContainer';
 import FileUpload from '../../../components/ui/FileUpload/FileUpload';
 import PdfDrawer from '../../../components/drawer/Pdf';
@@ -102,7 +101,6 @@ class SelectPDF extends Component {
             <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
             <h1 className='appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
             <h4 className='appDescription'>{t('pdf:app-selectPdfDescription')}</h4>
-            <ClientAlert permanent={true}/>
             <StepIndicator stepIndicator={0} history={history}/>
 
             <ExternalFiles className='fieldset' addFile={this.addFile.bind(this)}/>

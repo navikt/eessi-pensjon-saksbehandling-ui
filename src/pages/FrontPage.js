@@ -11,7 +11,6 @@ import LanguageSelector from '../components/ui/LanguageSelector';
 import TopContainer from '../components/ui/TopContainer/TopContainer';
 import * as Nav from '../components/ui/Nav';
 import DocumentStatus from '../components/ui/DocumentStatus/DocumentStatus';
-import ClientAlert from '../components/ui/Alert/ClientAlert';
 import EmptyDrawer from '../components/drawer/Empty';
 
 import * as constants from '../constants/constants';
@@ -56,7 +55,6 @@ class FrontPage extends Component {
             <div className='text-center m-auto'>
                 <LanguageSelector/>
             </div>
-            <ClientAlert permanent={true}/>
             <div className='fieldset animate mb-4'>
                 {_.isEmpty(status.documents) ? ( gettingStatus || gettingRinaCase ? <div>
                     <h4 className='mb-4'>{t('status')}</h4>

@@ -8,7 +8,6 @@ import _ from 'lodash';
 import * as Nav from '../../../components/ui/Nav';
 import StepIndicator from '../../../components/pdf/StepIndicator';
 import TopContainer from '../../../components/ui/TopContainer/TopContainer';
-import ClientAlert from '../../../components/ui/Alert/ClientAlert';
 import File from '../../../components/ui/File/File';
 import PdfDrawer from '../../../components/drawer/Pdf';
 import StorageModal from '../../../components/ui/Modal/StorageModal';
@@ -146,7 +145,6 @@ class GeneratePDF extends Component {
             sideContent={<PdfDrawer/>}>
             <Nav.HjelpetekstBase>{t('pdf:help-generate-pdf')}</Nav.HjelpetekstBase>
             <h1 className='appTitle'>{t('pdf:app-generatePdfTitle')}</h1>
-            <ClientAlert permanent={true}/>
             <StorageModal namespace={storages.FILES}/>
             <StepIndicator stepIndicator={2} history={history}/>
             {generatingPDF ? <div className='w-100 text-center'>

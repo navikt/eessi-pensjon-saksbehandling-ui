@@ -105,7 +105,6 @@ const PInfo = (props) => (
             <Nav.Column>
                 <h1 className='appTitle'>{props.t('pinfo:app-title')}</h1>
                 <h4 className='appDescription mb-4'>{props.t('pinfo:form-step' + props.form.step)}</h4>
-                <ClientAlert className='mb-4'/>
                 <Nav.Stegindikator
                     aktivtSteg={props.form.step}
                     visLabel={true}

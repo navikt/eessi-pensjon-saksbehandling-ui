@@ -11,7 +11,6 @@ import 'react-datepicker/dist/react-datepicker.min.css';
 
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer/TopContainer';
-import ClientAlert from '../../components/ui/Alert/ClientAlert';
 import CountrySelect from '../../components/ui/CountrySelect/CountrySelect';
 import FrontPageDrawer from '../../components/drawer/FrontPage';
 
@@ -252,7 +251,6 @@ class PSelv extends Component {
                 <Nav.Column>
                     <h1 className='appTitle'>{t('pselv:app-title')}</h1>
                     <h4 className='appDescription mb-4'>{t('pselv:form-step' + step)}</h4>
-                    <ClientAlert className='mb-4'/>
                     <Nav.Stegindikator
                         aktivtSteg={step}
                         visLabel={true}

@@ -5,6 +5,13 @@
     opacity: 0;
     animation: c-ui-clientAlert-fadeIn 0.3s forwards;
 
+    &.fixed {
+        position: fixed;
+        top: 3px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
     &.toFade {
       animation: c-ui-clientAlert-fadeOut 5s;
       opacity: 0;

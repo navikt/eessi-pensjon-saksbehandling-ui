@@ -6,7 +6,6 @@ import classNames from 'classnames';
 
 import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer/TopContainer';
-import ClientAlert from '../../components/ui/Alert/ClientAlert';
 import FrontPageDrawer from '../../components/drawer/FrontPage';
 
 import './Case.css';
@@ -32,7 +31,6 @@ class Case extends Component {
             sideContent={<FrontPageDrawer t={t} status={status}/>}>
             <h1 className='appTitle'>{t(title)}</h1>
             { description ? <h4 className='appDescription'>{t(description)}</h4> : null }
-            <ClientAlert permanent={true}/>
             { stepIndicator !== undefined ? <Nav.Stegindikator
                 visLabel={true}
                 onBeforeChange={() => {return false}}

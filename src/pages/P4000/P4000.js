@@ -8,7 +8,6 @@ import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer/TopContainer';
 import EventForm from '../../components/p4000/EventForm/EventForm';
 import * as Menu from '../../components/p4000/menu/';
-import ClientAlert from '../../components/ui/Alert/ClientAlert';
 import Pdf from '../../components/drawer/Pdf';
 import StorageModal from '../../components/ui/Modal/StorageModal';
 
@@ -81,22 +80,13 @@ class P4000 extends Component {
 
         let activeItem  = editMode && event ? event.type : page;
         let Component   = components[activeItem];
-        let isEventPage = activeItem !== 'view' && activeItem !== 'new';
 
         return <TopContainer className='p-p4000'
             history={history} location={location}
             sideContent={<Pdf t={t} status={status}/>}>
             <StorageModal namespace={storages.P4000}/>
-            <Nav.Row>
-                <div className='col-md-5 col-lg-4'>
-                    <h1 className='appTitle'>{t('p4000:app-title')}</h1>
-                </div>
-                <div className='col-md-7 col-lg-8'>
-                    <ClientAlert className='mt-3'/>
-                </div>
-            </Nav.Row>
+            <h1 className='appTitle'>{t('p4000:app-title')}</h1>
             <EventForm type={activeItem} Component={Component} history={history} location={location}/>
-            {isEventPage ? <ClientAlert/> : null}
         </TopContainer>
     }
 }
