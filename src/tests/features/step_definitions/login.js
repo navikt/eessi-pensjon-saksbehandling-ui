@@ -1,4 +1,4 @@
-const {Given, When, Then} = require('cucumber');
+const { When } = require('cucumber');
 const _ = require('../support/world').instance;
 const { login } = require('../support/login');
 

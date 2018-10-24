@@ -16,36 +16,52 @@
         }
 
         .fileRow {
+
             display: flex;
             justify-content: space-between;
             padding: 0.5rem;
             background-color: whitesmoke;
             text-decoration: none;
             border: 2px solid whitesmoke;
+            align-items: center;
 
             &.selected {
                 border: 2px solid orange;
             }
+
+            &:hover {
+                background-color: #EEE;
+            }
+
+            .fileName {
+                width: 100%;
+            }
         }
 
         .link {
+
             padding: 0.25rem 0.5rem;
             margin-left: 0.5rem;
             border-radius: 5px;
             box-shadow: 2px 2px 2px lightgrey;
             text-decoration: none;
+
             &.yesLink {
                  background: #f00;
             }
+
             &.noLink {
                  background: #ccc;
             }
+
             &.deleteLink {
                  background: #f55;
             }
+
             & svg {
                 margin-top: -5px;
             }
+
             &:hover {
                 filter: brightness(120%);
             }

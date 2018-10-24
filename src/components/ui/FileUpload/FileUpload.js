@@ -79,7 +79,7 @@ class FileUpload extends Component {
 
         actions.openModal({
             modalContent: <div style={{cursor: 'pointer'}} onClick={this.closePreview.bind(this)}>
-                <File file={file} width={400} height={600}/>
+                <File file={file} width={400} height={600} pageNumber={pageNumber}/>
             </div>
         })
     }
@@ -286,7 +286,8 @@ FileUpload.propTypes = {
     inactive     : PT.func,
     action       : PT.func,
     inputProps   : PT.object,
-    fileUploadDroppableId : PT.string.isRequired
+    fileUploadDroppableId : PT.string.isRequired,
+    actions      : PT.object
 };
 
 export default connect(

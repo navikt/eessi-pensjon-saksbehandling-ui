@@ -25,7 +25,7 @@ Given('sett opp saks parametere', function (next) {
    next();
 });
 
-Given(/^nettsiden '(.*)' er klar$/, async function (_class) {
+Given(/^nettsiden '(.*)' er klar$/, async function () {
     await _.elementLoads('.getCaseInputSakId input[type="text"]');
     await _.elementLoads('.getCaseInputAktoerId input[type="text"]');
     await _.elementLoads('.getCaseInputRinaId input[type="text"]');
@@ -33,18 +33,15 @@ Given(/^nettsiden '(.*)' er klar$/, async function (_class) {
 });
 
 When(/^jeg fyller ut ugyldig informasjon$/, async function () {
-    sakId    = await _.getElement('.getCaseInputSakId input[type="text"]');
-    aktoerId = await _.getElement('.getCaseInputAktoerId input[type="text"]');
-    rinaId   = await _.getElement('.getCaseInputRinaId input[type="text"]');
+    let sakId    = await _.getElement('.getCaseInputSakId input[type="text"]');
+    let aktoerId = await _.getElement('.getCaseInputAktoerId input[type="text"]');
     await sakId.sendKeys('notvalid');
     await aktoerId.sendKeys('notvalid');
-    await rinaId.sendKeys('notvalid');
 });
 
 When(/^jeg fyller ut gyldig informasjon$/, async function () {
-    sakId    = await _.getElement('.getCaseInputSakId input[type="text"]');
-    aktoerId = await _.getElement('.getCaseInputAktoerId input[type="text"]');
-    rinaId   = await _.getElement('.getCaseInputRinaId input[type="text"]');
+    let sakId    = await _.getElement('.getCaseInputSakId input[type="text"]');
+    let aktoerId = await _.getElement('.getCaseInputAktoerId input[type="text"]');
     await sakId.clear();
     await sakId.sendKeys(_.params.sakId);
     await aktoerId.clear();
@@ -125,19 +122,19 @@ Then(/^forvent at framover knapp er '(.*)'$/, async function (status) {
     }
 });
 
-Given(/^at nettsiden 'Registrerer sak' er klar$/, async function (status) {
+Given(/^at nettsiden 'Registrerer sak' er klar$/, async function () {
     await _.elementLoads('div.c-case-renderConfirmData');
     let confirmData = await _.getElement('div.c-case-renderConfirmData');
     _.expect(confirmData).to.not.equal(null);
 });
 
-Given(/^at nettsiden 'Genererer sak' er klar$/, async function (status) {
+Given(/^at nettsiden 'Genererer sak' er klar$/, async function () {
     await _.elementLoads('div.c-case-renderGeneratedData');
     let confirmData = await _.getElement('div.c-case-renderGeneratedData');
     _.expect(confirmData).to.not.equal(null);
 });
 
-Given(/^at nettsiden 'Lagre sak' er klar$/, async function (status) {
+Given(/^at nettsiden 'Lagre sak' er klar$/, async function () {
     await _.elementLoads('div.c-case-saveCase a');
     let alertStripe = await _.getElement('div.alertstripe .alertstripe__tekst');
     _.expect(await alertStripe.getText()).to.be.equal('Data sendt');
@@ -149,6 +146,6 @@ Given(/^at nettsiden 'Lagre sak' er klar$/, async function (status) {
     _.expect(href).to.startsWith('http://rina-oppl-utv004.adeo.no/portal/_/caseManagement/');
 });
 
-Given(/^at nettsiden 'Sendt sak' er klar$/, async function (status) {
+Given(/^at nettsiden 'Sendt sak' er klar$/, async function () {
     await _.elementLoads('div.c-case-sendCase');
 });

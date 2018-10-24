@@ -587,7 +587,8 @@ EditCase.propTypes = {
     sedList         : PT.array,
     bucList         : PT.array,
     dataToConfirm   : PT.object,
-    locale          : PT.string
+    locale          : PT.string,
+    vedtakId        : PT.string
 };
 
 export default connect(

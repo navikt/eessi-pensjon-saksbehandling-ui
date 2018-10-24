@@ -173,7 +173,8 @@ class StorageModal extends Component {
 
         this.setState({
             currentSelectedFile : file,
-            saveTargetFileName  : file
+            saveTargetFileName  : file,
+            status              : file
         });
     }
 
@@ -214,6 +215,7 @@ class StorageModal extends Component {
         const { currentSelectedFile, saveTargetFileName, status } = this.state;
 
         let enableButtons = (modalOptions && modalOptions.action !== undefined);
+        let action = modalOptions ? modalOptions.action : undefined;
 
         return <Nav.Modal className='c-ui-storageModal'
             isOpen={modalOpen}
@@ -223,7 +225,7 @@ class StorageModal extends Component {
 
             <div className='m-3 text-center'>
 
-                <h4>{t('fileSelect')}</h4>
+                <h4>{t(action + 'File')}</h4>
                 <div className={classNames('body', className)}>
 
                     {loadingStorageFileList ?

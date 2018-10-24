@@ -97,7 +97,7 @@ class MiniaturePDF extends Component {
 
         if (typeof onPreviewDocument === 'function') {
             onPreviewDocument();
-        };
+        }
     }
 
     onAddFile(e) {

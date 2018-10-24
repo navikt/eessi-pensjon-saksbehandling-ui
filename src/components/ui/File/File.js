@@ -23,7 +23,7 @@ class File extends Component {
 
     render () {
 
-        const { file, animate, scale, width, height } = this.props;
+        const { file, animate, scale } = this.props;
 
         let _animate = _.isBoolean(animate) ? animate : true;
         let _size = this.renderBytes(file.size);
@@ -43,9 +43,7 @@ class File extends Component {
 
 File.propTypes = {
     file    : PT.object.isRequired,
-    animate : PT.bool,
-    width   : PT.number,
-    height  : PT.number
+    animate : PT.bool
 }
 
 export default File;
