@@ -114,7 +114,7 @@ const PInfo = (props) => (
                     steg={_.range(0,7).map(index=>(
                         {
                             label: props.t('pinfo:form-step'+index),
-                            ferdig: index < props.form.step? true: false,
+                            ferdig: index < props.form.step,
                             aktiv: index === props.form.step? true: false,
                         }
                     ))}/>
