@@ -56,7 +56,7 @@ export class Bank extends React.Component{
                             onChange={this.onChange}
                             required={!inputStates.bankName.showError}
                             onInvalid={this.onInvalid}
-                            id={nameToId['bankName']}
+                            id={nameToId.bankName}
                             feil={inputStates.bankName.showError? inputStates.bankName.error: null}
                         />
 
@@ -67,7 +67,7 @@ export class Bank extends React.Component{
                             onChange={this.onChange}
                             required={!inputStates.bankAddress.showError}
                             onInvalid={this.onInvalid}
-                            id={nameToId['bankAddress']}
+                            id={nameToId.bankAddress}
                             feil={inputStates.bankAddress.showError? inputStates.bankAddress.error: null}
                         />
                             
@@ -101,7 +101,7 @@ export class Bank extends React.Component{
                             required={!inputStates.bankBicSwift.showError}
                             onChange={this.onChange}
                             onInvalid={this.onInvalid}
-                            id={nameToId['bankBicSwift']}
+                            id={nameToId.bankBicSwift}
                             feil={inputStates.bankBicSwift.showError? inputStates.bankBicSwift.error: null}
                         />
                     </div>
@@ -114,7 +114,7 @@ export class Bank extends React.Component{
                             required={!inputStates.bankIban.showError}
                             onInvalid={this.onInvalid}
                             id={nameToId.bankIban}
-                            feil={inputStates.bankIban..showError? inputStates.bankIban.error: null}
+                            feil={inputStates.bankIban.showError? inputStates.bankIban.error: null}
                         />
                     </div>
                     <div className='col-md-6'>
