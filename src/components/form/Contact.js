@@ -46,7 +46,7 @@ export class Contact extends React.Component{
                         <Nav.Input label={t('pinfo:form-userEmail') + ' *'} defaultValue={contact.userEmail || ''}
                             onChange={this.onChange}
                             required={!inputStates['userEmail'].showError}
-                            type="email"
+                            type='email'
                             onInvalid={this.onInvalid}
                             id={nameToId['userEmail']}
                             feil={inputStates['userEmail'].showError? inputStates['userEmail'].error: null}
