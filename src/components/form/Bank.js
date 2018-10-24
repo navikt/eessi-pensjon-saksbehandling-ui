@@ -54,7 +54,7 @@ export class Bank extends React.Component{
                     <div className='col-md-6'>
                         <Nav.Input label={t('pinfo:form-bankName') + ' *'} defaultValue={bank.bankName || null}
                             onChange={this.onChange}
-                            required={!inputStates['bankName'].showError}
+                            required={!inputStates.bankName..showError}
                             onInvalid={this.onInvalid}
                             id={nameToId['bankName']}
                             feil={inputStates['bankName'].showError? inputStates['bankName'].error: null}
