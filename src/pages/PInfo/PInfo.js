@@ -115,7 +115,7 @@ const PInfo = (props) => (
                         {
                             label: props.t('pinfo:form-step'+index),
                             ferdig: index < props.form.step,
-                            aktiv: index === props.form.step? true: false,
+                            aktiv: index === props.form.step,
                         }
                     ))}/>
             </Nav.Column>
