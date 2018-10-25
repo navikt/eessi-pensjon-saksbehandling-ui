@@ -259,7 +259,7 @@ class Child extends Component {
             <Nav.Row className={classNames('eventFileUpload','fieldset')}>
                 <Nav.Column>
                     <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
-                    <FileUpload ref={f => this.fileUpload = f} fileUploadDroppableId={'fileUpload'} className='fileUpload'
+                    <FileUpload t={t} ref={f => this.fileUpload = f} fileUploadDroppableId={'fileUpload'} className='fileUpload'
                         files={event.files || []}
                         onFileChange={this.handleFileChange.bind(this)}/>
                 </Nav.Column>

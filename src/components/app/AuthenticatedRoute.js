@@ -102,13 +102,16 @@ class AuthenticatedRoute extends Component {
             : <div style={{minHeight: '100vh', backgroundColor: 'white'}}>
                 <TopHeader/>
                 <div className={classNames('w-100 text-center p-5', className)}>
-                    {loggingIn ? <React.Fragment>
-                        <Nav.NavFrontendSpinner/>
-                        <p>{t('ui:authenticating')}</p>
-                    </React.Fragment> : null}
-                    {!loggedIn ? <Nav.Hovedknapp className='loginButton' onClick={this.handleLoginRequest.bind(this)}>
-                        {t('login')}
-                    </Nav.Hovedknapp> : null}
+                    {!loggedIn ? <div>
+                        <Nav.Hovedknapp
+                            style={{minHeight: '50px'}}
+                            className='loginButton'
+                            onClick={this.handleLoginRequest.bind(this)}
+                            disabled={loggingIn}
+                            spinner={loggingIn}>
+                            {loggingIn ? t('ui:authenticating') : t('login')}
+                        </Nav.Hovedknapp>
+                   </div>  : null}
                 </div>
             </div>
     }

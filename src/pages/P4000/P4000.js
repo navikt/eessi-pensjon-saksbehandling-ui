@@ -4,7 +4,6 @@ import { bindActionCreators }  from 'redux';
 import PT from 'prop-types';
 import { translate } from 'react-i18next';
 
-import * as Nav from '../../components/ui/Nav';
 import TopContainer from '../../components/ui/TopContainer/TopContainer';
 import EventForm from '../../components/p4000/EventForm/EventForm';
 import * as Menu from '../../components/p4000/menu/';

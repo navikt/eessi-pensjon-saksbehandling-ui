@@ -5,9 +5,11 @@ import { translate } from 'react-i18next';
 import classNames from 'classnames';
 import { bindActionCreators }  from 'redux';
 
+import Icons from '../Icons';
+import * as Nav from '../Nav';
+
 import * as alertActions from '../../../actions/alert';
 
-import * as Nav from '../Nav';
 import './ClientAlert.css'
 
 const mapStateToProps = (state) => {
@@ -29,13 +31,6 @@ class ClientAlert extends Component {
         timeout : undefined
     }
 
-    clear () {
-
-        const { clientErrorStatus, actions } = this.props;
-
-        actions.clientClear();
-    }
-
     static getDerivedStateFromProps(newProps, oldState) {
 
          if (newProps.clientErrorStatus !== oldState.status || newProps.clientErrorMessage !== oldState.message) {
@@ -54,6 +49,14 @@ class ClientAlert extends Component {
                 message : newProps.clientErrorMessage
             };
         }
+        return {}
+    }
+
+    clientClear() {
+
+        const { actions } = this.props;
+
+        actions.clientClear();
     }
 
     render () {
@@ -82,6 +85,7 @@ class ClientAlert extends Component {
             })}
             type={status === 'OK' ? 'suksess' : 'advarsel'}>
             {_message}
+            <Icons className='closeIcon' size='1x' kind='close' onClick={this.clientClear.bind(this)}/>
         </Nav.AlertStripe>;
     }
 }

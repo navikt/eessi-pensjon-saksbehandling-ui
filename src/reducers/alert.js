@@ -111,6 +111,13 @@ export default function (state = {}, action = {}) {
 
     switch (action.type) {
 
+    case types.ALERT_CLIENT_CLEAR:
+
+        return Object.assign({}, state, {
+            clientErrorStatus  : undefined,
+            clientErrorMessage : undefined
+        });
+
     case types.CASE_GET_CASE_NUMBER_SUCCESS:
 
         message = 'case:alert-caseFound';

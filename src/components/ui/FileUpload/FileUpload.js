@@ -28,12 +28,6 @@ class FileUpload extends Component {
         files: []
     }
 
-    constructor(props){
-
-        super(props);
-        this.validate = this.validate.bind(this)
-    }
-
     validate(e) {
 
         const { action , active, inactive } = this.props;
@@ -294,5 +288,5 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 , null, { withRef: true })(
-    translate()(FileUpload)
+    FileUpload
 );

@@ -3,7 +3,7 @@
     height: 60px;
     min-height: 60px;
     opacity: 0;
-    animation: c-ui-clientAlert-fadeIn 0.3s forwards;
+    animation: c-ui-clientAlert-fadeIn 0.5s forwards;
 
     &.fixed {
         position: fixed;
@@ -12,10 +12,11 @@
         transform: translateX(-50%);
     }
 
-    &.toFade {
-      animation: c-ui-clientAlert-fadeOut 5s;
-      opacity: 0;
-      animation-iteration-count: 1;
+    .closeIcon {
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        cursor: pointer;
     }
 }
 
@@ -25,16 +26,5 @@
   }
   100% {
     opacity: 1;
-  }
-}
-@keyframes c-ui-clientAlert-fadeOut {
-  0% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
   }
 }

@@ -34,7 +34,7 @@ class TopContainer extends Component {
 
         if (e.source && e.source.droppableId === 'c-pdf-dndExternalFiles-droppable' && e.destination) {
             let droppableRef = droppables[e.destination.droppableId];
-            droppableRef.getWrappedInstance().getWrappedInstance().addFile(file);
+            droppableRef.getWrappedInstance().addFile(file);
         }
     }
 

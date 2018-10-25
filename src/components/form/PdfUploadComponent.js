@@ -125,7 +125,7 @@ class PdfUploadComponent extends React.Component {
                 </div>
             </Nav.Row>
             <Nav.SkjemaGruppe {...fileUploadError}>
-                <FileUpload ref={f => this.fileUpload = f}
+                <FileUpload t={this.props.t} ref={f => this.fileUpload = f}
                     fileUploadDroppableId={'pdfUploadComponent'}
                     files={this.props.files || []}
                     active = {this.active.bind(this, 'FileUpload')}
