@@ -34,60 +34,6 @@ export class Contact extends React.Component{
         };
     }
 
-    /*onInvalid(event){
-        if(event && event.target && event.target.id){
-            let id = event.target.id;
-            let name = this.state.idToName[id];
-            let validity = event.target.validity;
-            let error = getError(validity);
-            this.setState(
-                (prevState, props)=>
-                {
-                    return {
-                        inputStates: {
-                            ...prevState.inputStates,
-                            [name]: {
-                                ...prevState.inputStates[name],
-                                errorType: error,
-                                error: {
-                                    feilmelding: errorMessages[name][error] || ''
-                                },
-                                showError: true
-                            }
-                        }
-                    }
-                },
-            )
-        }
-    }
-
-
-    onChangeHandler(event){
-        if(event && event.target && event.target.id){
-            let id = event.target.id;
-            let name = this.state.idToName[id];
-            let validity = event.target.validity;
-            let inputStates = this.state.inputStates;
-            let input = inputStates[name];
-            if(validity.valid){
-                this.setState({
-                    inputStates: {...inputStates, [name]: {...input, showError: false, error: null, errorType: null}}
-                });
-            }else if(input.showError && validity[input.errorType] === false){
-                let error = getError(validity);
-                this.setState({
-                    inputStates: {...inputStates, [name]: {
-                        ...input,
-                        error: {
-                            feilmelding: errorMessages[name][error] || ''
-                        },
-                        errorType: error}}
-                })
-            }
-            input.action(event)
-        }
-    }*/
-
     render(){
         const {t, contact} = this.props;
         const nameToId = this.state.nameToId;
@@ -98,17 +44,21 @@ export class Contact extends React.Component{
                 <Nav.Row>
                     <div className='col-md-6'>
                         <Nav.Input label={t('pinfo:form-userEmail') + ' *'} defaultValue={contact.userEmail || ''}
-                            onChange={this.onChange} required="true" type="email"
+                            onChange={this.onChange}
+                            required={!inputStates.userEmail.showError}
+                            type='email'
                             onInvalid={this.onInvalid}
-                            id={nameToId['userEmail']}
-                            feil={inputStates['userEmail'].showError? inputStates['userEmail'].error: null}
+                            id={nameToId.userEmail}
+                            feil={inputStates.userEmail.showError? inputStates.userEmail.error: null}
                         />
 
                         <Nav.Input label={t('pinfo:form-userPhone') + ' *'} defaultValue={contact.userPhone || ''}
-                            onChange={this.onChange} required="true" type="tel" pattern=".*\d.*"
+                            onChange={this.onChange}
+                            required={!inputStates.userPhone.showError}
+                            type='tel'
                             onInvalid={this.onInvalid}
-                            id={nameToId['userPhone']}
-                            feil={inputStates['userPhone'].showError? inputStates['userPhone'].error: null}
+                            id={nameToId.userPhone}
+                            feil={inputStates.userPhone.showError? inputStates.userPhone.error: null}
                         />
                     </div>
                 </Nav.Row>

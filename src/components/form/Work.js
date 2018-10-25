@@ -63,7 +63,7 @@ export class Work extends React.Component{
                             label={t('pinfo:form-workType') + ' *'}
                             defaultValue={work.workType || ''}
                             onChange={this.onChange}
-                            required={true}
+                            required={!inputStates.workType.showError}
                             id={nameToId['workType']}
                             onInvalid={this.onInvalid}
                             feil={inputStates.workType.error}                         
@@ -100,9 +100,13 @@ export class Work extends React.Component{
                             onMonthChange={this.onDateChange.bind(this, 'workStartDate')}
                             onYearChange={this.onDateChange.bind(this, 'workStartDate')}
                             onChange={this.onDateChange.bind(this, 'workStartDate')}
-                            required={true}
+                            required={!inputStates.workStartDate.showError}
                             id={nameToId['workStartDate']}
-                            customInput={<input onInvalid={this.onInvalid} pattern="\d\d\.\d\d\.\d\d\d\d" />}
+                            customInput={
+                                inputStates.workStartDate.showError?
+                                    <input onInvalid={this.onInvalid} />:
+                                    <input onInvalid={this.onInvalid} pattern="\d\d\.\d\d\.\d\d\d\d" />
+                            }
                         />
                         {inputStates.workStartDate.showError?
                             <div role="alert" aria-live="assertive">
@@ -129,9 +133,12 @@ export class Work extends React.Component{
                             onMonthChange={this.onDateChange.bind(this, 'workEndDate')}
                             onYearChange={this.onDateChange.bind(this, 'workEndDate')}
                             onChange={this.onDateChange.bind(this, 'workEndDate')}
-                            required={true}
+                            required={!inputStates.workEndDate.showError}
                             id={nameToId['workEndDate']}
-                            customInput={<input onInvalid={this.onInvalid} pattern="\d\d\.\d\d\.\d\d\d\d" />}
+                            customInput={inputStates.workEndDate.showError?
+                                <input onInvalid={this.onInvalid} />:
+                                <input onInvalid={this.onInvalid} pattern="\d\d\.\d\d\.\d\d\d\d" />
+                            }
                         />
                         {inputStates.workEndDate.showError?
                             <div role="alert" aria-live="assertive">
@@ -158,9 +165,12 @@ export class Work extends React.Component{
                             onMonthChange={this.onDateChange.bind(this, 'workEstimatedRetirementDate')}
                             onYearChange={this.onDateChange.bind(this, 'workEstimatedRetirementDate')}
                             onChange={this.onDateChange.bind(this, 'workEstimatedRetirementDate')}
-                            required={true}
+                            required={!inputStates.workEstimatedRetirementDate.showError}
                             id={nameToId['workEstimatedRetirementDate']}
-                            customInput={<input onInvalid={this.onInvalid} pattern="\d\d\.\d\d\.\d\d\d\d" />}
+                            customInput={inputStates.workEstimatedRetirementDate.showError?
+                                <input onInvalid={this.onInvalid} />:
+                                <input onInvalid={this.onInvalid} pattern="\d\d\.\d\d\.\d\d\d\d" />
+                            }
                         />
                         {inputStates.workEstimatedRetirementDate.showError?
                             <div role="alert" aria-live="assertive">
@@ -172,7 +182,8 @@ export class Work extends React.Component{
                 <Nav.Row className='mb-4'>
                     <div className='col-md-6'>
                         <Nav.Input label={t('pinfo:form-workHourPerWeek') + ' *'} value={work.workHourPerWeek || ''}
-                            onChange={this.onChange} required={true}
+                            onChange={this.onChange}
+                            required={!inputStates.workHourPerWeek.showError}
                             id={nameToId['workHourPerWeek']}
                             onInvalid={this.onInvalid}
                             feil={inputStates.workHourPerWeek.error}
@@ -183,7 +194,8 @@ export class Work extends React.Component{
                 <Nav.Row className='mb-4'>
                     <div className='col-md-6'>
                         <Nav.Input label={t('pinfo:form-workIncome') + ' *'} value={work.workIncome || ''}
-                            onChange={this.onChange} required={true}
+                            onChange={this.onChange}
+                            required={!inputStates.workIncome.showError}
                             onInvalid={this.onInvalid}
                             id={nameToId['workIncome']}
                             feil={inputStates.workIncome.error}
@@ -195,7 +207,7 @@ export class Work extends React.Component{
                             value={work.workIncomeCurrency || null}
                             onSelect={this.onSelect}
                             customInputProps={{
-                                required: work.workIncomeCurrency? false: true,
+                                required: work.workIncomeCurrency || inputStates.workIncomeCurrency.showError? false: true,
                                 onInvalid: this.onInvalid,
                                 id: nameToId['workIncomeCurrency']
                             }}
@@ -229,10 +241,13 @@ export class Work extends React.Component{
                             onMonthChange={this.onDateChange.bind(this, 'workPaymentDate')}
                             onYearChange={this.onDateChange.bind(this, 'workPaymentDate')}
                             onChange={this.onDateChange.bind(this, 'workPaymentDate')}
-                            required={true}
+                            required={!inputStates.workPaymentDate.showError}
                             style={{'background-color': 'red'}}
                             id={nameToId['workPaymentDate']}
-                            customInput={<input onInvalid={this.onInvalid} pattern="\d\d\.\d\d\.\d\d\d\d" />}
+                            customInput={inputStates.workPaymentDate.showError?
+                                <input onInvalid={this.onInvalid} />:
+                                <input onInvalid={this.onInvalid} pattern="\d\d\.\d\d\.\d\d\d\d" />
+                            }
                         />
                         {inputStates.workPaymentDate.showError?
                             <div role="alert" aria-live="assertive">
@@ -242,7 +257,8 @@ export class Work extends React.Component{
                     </div>
                     <div className='col-md-6'>
                         <Nav.Select label={t('pinfo:form-workPaymentFrequency') + ' *'} value={work.workPaymentFrequency || ''}
-                            onChange={this.onChange} required='true'
+                            onChange={this.onChange}
+                            required={!inputStates.workPaymentFrequency.showError}
                             id={nameToId['workPaymentFrequency']}
                             onInvalid={this.onInvalid}
                             feil={inputStates.workPaymentFrequency.error}
