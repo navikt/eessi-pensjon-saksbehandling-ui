@@ -50,11 +50,15 @@ class FrontPage extends Component {
         return <TopContainer className='frontPage'
             language={language} history={history} location={location}
             sideContent={<EmptyDrawer/>}>
-            <h1 className='appTitle'>{t('app-pageTitle')}</h1>
-            <h4 className='appDescription'>{t('app-pageDescription')}</h4>
-            <div className='text-center m-auto'>
-                <LanguageSelector/>
-            </div>
+            <Nav.Row>
+                <div className='col-md-8'>
+                    <h1 className='appTitle'>{t('app-pageTitle')}</h1>
+                    <h4 className='appDescription'>{t('app-pageDescription')}</h4>
+                </div>
+                <div className='col-md-4 text-right m-auto'>
+                  <LanguageSelector className='mr-4'/>
+                </div>
+            </Nav.Row>
             <div className='fieldset animate mb-4'>
                 {_.isEmpty(status.documents) ? ( gettingStatus || gettingRinaCase ? <div>
                     <h4 className='mb-4'>{t('status')}</h4>

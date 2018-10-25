@@ -79,6 +79,7 @@ class StorageModal extends Component {
                 }
             }
         }
+        return null
     }
 
     componentDidUpdate() {
@@ -218,6 +219,7 @@ class StorageModal extends Component {
         let action = modalOptions ? modalOptions.action : undefined;
 
         return <Nav.Modal className='c-ui-storageModal'
+            ariaHideApp={false}
             isOpen={modalOpen}
             onRequestClose={this.onCancelClick.bind(this)}
             closeButton={false}

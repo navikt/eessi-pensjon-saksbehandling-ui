@@ -132,11 +132,11 @@ class DnDSpecial extends Component {
                         </Draggable>
 
                         <div className='ml-3 d-inline-block'>
-                            <Nav.Textarea maxLength={100} placeholder={t('pdf:specials-textPlaceholder')} value={separator.separatorText} onChange={this.setSeparatorText.bind(this)}/>
+                            <Nav.Textarea label={t('content')} maxLength={100} placeholder={t('pdf:specials-textPlaceholder')} value={separator.separatorText} onChange={this.setSeparatorText.bind(this)}/>
                             <ColorPicker color={ separator.separatorTextColor } onChangeComplete={ this.setSeparatorTextColor.bind(this) }/>
                         </div>
                         <div className='ml-3'>
-                            <Nav.Textarea maxLength={100} placeholder={t('pdf:specials-watermarkPlaceholder')} value={watermark.watermarkText} onChange={this.setWatermarkText.bind(this)}/>
+                            <Nav.Textarea label={t('watermark')} maxLength={100} placeholder={t('pdf:specials-watermarkPlaceholder')} value={watermark.watermarkText} onChange={this.setWatermarkText.bind(this)}/>
                             <ColorPicker color={ watermark.watermarkTextColor } onChangeComplete={ this.setWatermarkTextColor.bind(this) } />
                         </div>
                     </div>

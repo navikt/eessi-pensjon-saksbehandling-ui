@@ -3,7 +3,11 @@
 import * as types from '../constants/actionTypes';
 import _ from 'lodash';
 
-export default function (state = {}, action = {}) {
+let initialState = {
+    modalOpen    : false
+};
+
+export default function (state = initialState, action = {}) {
 
     switch (action.type) {
 
@@ -77,14 +81,9 @@ export default function (state = {}, action = {}) {
         });
 
     case types.STORAGE_MODAL_CLOSE:
+    case types.APP_CLEAR_DATA:
 
-        return Object.assign({}, state, {
-            modalOpen    : false,
-            modalOptions : undefined,
-            file         : undefined,
-            fileList     : undefined,
-            fileToDelete : undefined,
-        });
+        return initialState;
 
     default:
 

@@ -201,7 +201,7 @@ GeneratePDF.propTypes = {
     history      : PT.object,
     t            : PT.func,
     files        : PT.array.isRequired,
-    recipe       : PT.array.isRequired,
+    recipe       : PT.object.isRequired,
     generatedPDFs: PT.object,
     location     : PT.object.isRequired,
     watermark    : PT.object

@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import PT from 'prop-types';
-import { translate } from 'react-i18next';
 import Dropzone from 'react-dropzone';
 import _ from 'lodash';
 import classNames from 'classnames';
@@ -80,7 +79,7 @@ class FileUpload extends Component {
 
     updateFiles(newFiles, newCurrentPages, status) {
 
-        const onFileChange = this.props.onFileChange? this.props.onFileChange: this.validate;
+        const onFileChange = this.props.onFileChange? this.props.onFileChange: this.validate.bind(this);
 
         return new Promise((resolve) => {
 

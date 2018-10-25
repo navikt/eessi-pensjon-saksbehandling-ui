@@ -158,7 +158,7 @@ class MiniaturePDF extends Component {
             <Document className='position-relative' file={{data: file.content.data }}
                 onLoadSuccess={this.handleOnLoadSuccess.bind(this)}>
                 {previewLink && isHovering ? <div  onClick={this.onPreviewDocument.bind(this)} className='link previewLink'>
-                    <Icons style={{cursor: 'pointer'}} size={'20'} kind={'view'}/>
+                    <Icons style={{cursor: 'pointer'}} size='1x' kind='view'/>
                 </div> : null}
                 { deleteLink && isHovering ? <div onClick={this.onDeleteDocument.bind(this)} className='link deleteLink'>
                     <Ikon size={15} kind='trashcan'/>

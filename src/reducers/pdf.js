@@ -85,7 +85,6 @@ export default function (state = initialState, action = {}) {
 
         return initialState;
 
-
     case types.PDF_WATERMARK_SET : {
 
         return Object.assign({}, state, {
