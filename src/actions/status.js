@@ -35,13 +35,14 @@ export function getCase (rinaId) {
   })
 }
 
-export function getSed (rinaId, dokumentId) {
+export function deleteSed (rinaId, dokumentId) {
   return api.call({
-    url: sprintf(urls.CASE_GET_SED_URL, { rinaId: rinaId, dokumentId: dokumentId }),
+    url: sprintf(urls.CASE_SED_URL, { rinaId: rinaId, dokumentId: dokumentId }),
+    method: 'DELETE',
     type: {
-      request: types.STATUS_GET_SED_REQUEST,
-      success: types.STATUS_GET_SED_SUCCESS,
-      failure: types.STATUS_GET_SED_FAILURE
+      request: types.STATUS_SED_DELETE_REQUEST,
+      success: types.STATUS_SED_DELETE_SUCCESS,
+      failure: types.STATUS_SED_DELETE_FAILURE
     }
   })
 }

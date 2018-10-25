@@ -101,7 +101,7 @@ export default function (state = {}, action = {}) {
         status: status
       })
 
-    case types.STATUS_GET_SED_REQUEST:
+    case types.STATUS_SED_GET_REQUEST:
 
       return Object.assign({}, state, {
         gettingSED: true,
@@ -213,8 +213,8 @@ export default function (state = {}, action = {}) {
         status: status
       })
 
-    case types.STATUS_GET_SED_SUCCESS:
-    case types.STATUS_GET_SED_FAILURE:
+    case types.STATUS_SED_GET_SUCCESS:
+    case types.STATUS_SED_GET_FAILURE:
 
       return Object.assign({}, state, {
         gettingSED: false,

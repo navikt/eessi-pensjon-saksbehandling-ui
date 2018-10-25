@@ -13,6 +13,7 @@ import Stegindikator from 'nav-frontend-stegindikator'
 import NavFrontendSpinner from 'nav-frontend-spinner'
 import Modal from 'nav-frontend-modal'
 import Tekstomrade from 'nav-frontend-tekstomrade'
+import EtikettBase from 'nav-frontend-etiketter'
 
 export {
   AlertStripe, AlertStripeAdvarsel,
@@ -27,5 +28,6 @@ export {
   Ikon,
   HjelpetekstBase,
   Modal,
-  Tekstomrade
+  Tekstomrade,
+  EtikettBase
 }

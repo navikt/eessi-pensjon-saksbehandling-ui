@@ -32,6 +32,7 @@ class Icons extends Component {
       case 'menu' : return <FontAwesomeIcon icon={icons.faBars} {...this.props} />
 
       case 'clip' : return <FontAwesomeIcon icon={icons.faPaperclip} {...this.props} />
+      case 'refresh' : return <FontAwesomeIcon icon={icons.faSyncAlt} {...this.props} />
       case 'form' : return <FontAwesomeIcon icon={icons.faBars} {...this.props} />
       case 'tool' : return <FontAwesomeIcon icon={icons.faWrench} {...this.props} />
       case 'plus' : return <FontAwesomeIcon icon={icons.faPlus} {...this.props} />

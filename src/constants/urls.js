@@ -34,8 +34,7 @@ export const CASE_CREATE_SED_URL = FAG_URL + '/create'
 export const CASE_GENERATE_DATA_URL = FAG_URL + '/confirm'
 export const CASE_ADD_TO_SED_URL = FAG_URL + '/addsed'
 export const CASE_SEND_SED_URL = FAG_URL + '/sendsed'
-export const CASE_GET_SED_URL = FAG_URL + '/sed/get/%(rinaId)s/%(dokumentId)s'
-export const CASE_DELETE_SED_URL = FAG_URL + '/sed/delete/%(rinaId)s/%(sed)s/%(dokumentId)s'
+export const CASE_SED_URL = FAG_URL + '/sed/%(rinaId)s/%(dokumentId)s'
 
 // Login
 export const APP_LOGIN_URL = window.location.protocol + '//' + window.location.hostname + '/login'

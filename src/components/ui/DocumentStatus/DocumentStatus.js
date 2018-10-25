@@ -11,6 +11,7 @@ import * as Nav from '../Nav'
 
 import * as constants from '../../../constants/constants'
 import * as routes from '../../../constants/routes'
+import * as uiActions from '../../../actions/ui'
 import * as statusActions from '../../../actions/status'
 import * as p4000Actions from '../../../actions/p4000'
 import P4000Util from '../../../components/p4000/Util'
@@ -19,16 +20,17 @@ import './DocumentStatus.css'
 
 const mapStateToProps = (state) => {
   return {
-    sed: state.status.sed,
-    rinaId: state.status.rinaId,
-    documents: state.status.documents,
-    gettingSED: state.loading.gettingSED,
-    loadingStatus: state.loading.status
+    sed           : state.status.sed,
+    rinaId        : state.status.rinaId,
+    documents     : state.status.documents,
+    gettingSED    : state.loading.gettingSED,
+    loadingStatus : state.loading.status,
+    gettingStatus : state.loading.gettingStatus
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, statusActions, p4000Actions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, uiActions, statusActions, p4000Actions), dispatch) }
 }
 
 const sortStatusByDocs = (documents) => {
@@ -51,23 +53,24 @@ const sortStatusByDocs = (documents) => {
 
   return Object.keys(res).sort().map(key => {
     return {
-      dokumentType: key,
-      aksjoner: res[key].aksjoner,
-      dokumentId: res[key].dokumentId
+      dokumentType : key,
+      aksjoner     : res[key].aksjoner,
+      dokumentId   : res[key].dokumentId
     }
   })
 }
 
 class DocumentStatus extends Component {
     state = {
-      docs: undefined,
-      sed: undefined
+      docs   : undefined,
+      sed    : undefined,
+      filter : 'all'
     }
 
     static getDerivedStateFromProps (nextProps, prevState) {
       return {
-        docs: nextProps.documents ? sortStatusByDocs(nextProps.documents) : undefined,
-        sed: !_.isEqual(nextProps.sed, prevState.sed) ? nextProps.sed : prevState.sed
+        docs : nextProps.documents ? sortStatusByDocs(nextProps.documents) : undefined,
+        sed  : !_.isEqual(nextProps.sed, prevState.sed) ? nextProps.sed : prevState.sed
       }
     }
 
@@ -99,20 +102,20 @@ class DocumentStatus extends Component {
       }
     }
 
-    getDocumentButtonClass (_doc) {
+    getDocumentButtonClass (doc) {
       const { loadingStatus } = this.props
       const { requestedDokumentId } = this.state
 
-      if (!_doc.aksjoner) {
+      if (!doc.aksjoner) {
         return null
       }
-      if (loadingStatus === 'ERROR' && requestedDokumentId === _doc.dokumentId) {
+      if (loadingStatus === 'ERROR' && requestedDokumentId === doc.dokumentId) {
         return 'error'
       }
-      return _doc.aksjoner.indexOf('Send') >= 0 ? 'sent' : 'notsent'
+      return doc.aksjoner.indexOf('Send') >= 0 ? 'sent' : 'notsent'
     }
 
-    toogleDocumentStatus (_doc) {
+    toggleDocumentStatus (_doc) {
       if (!this.state.doc) {
         this.setState({
           doc: _doc
@@ -130,13 +133,36 @@ class DocumentStatus extends Component {
       }
     }
 
+    deleteSed (doc) {
+
+      const { actions, rinaId } = this.props
+
+      actions.deleteSed(rinaId, doc.dokumentId)
+    }
+
     handleDocumentClick (doc, aksjoner) {
-      const { rinaId, actions, history } = this.props
+
+      const { t, rinaId, actions, history } = this.props
 
       switch (aksjoner) {
         case 'Read':
         case 'Update':
         case 'Delete':
+
+          actions.openModal({
+            modalTitle: t('deleteSed'),
+            modalText: t('areYouSure'),
+            modalButtons: [{
+              main: true,
+              text: t('yes') + ', ' + t('delete'),
+              onClick: this.deleteSed.bind(this, doc)
+            }, {
+              text: t('no') + ', ' + t('cancel'),
+              onClick: actions.closeModal
+            }]
+          })
+          break
+
         case 'Create':
 
           if (doc.dokumentType === constants.P4000) {
@@ -153,17 +179,60 @@ class DocumentStatus extends Component {
       })
     }
 
+    setFilter (filter) {
+      this.setState({
+        filter: filter
+      })
+    }
+
+    docMatchesFilter (doc) {
+      const { filter } = this.state
+
+      switch (filter) {
+        case 'all' :
+          return true
+        case 'sent' :
+          return doc.aksjoner.indexOf('Send') >= 0
+        case 'notsent' :
+          return doc.aksjoner.indexOf('Send') < 0
+        default :
+          break
+      }
+    }
+
+    refreshDocumentStatus() {
+
+        const { actions, rinaId } = this.props;
+
+        actions.getStatus(rinaId)
+    }
+
     render () {
-      const { t, className, gettingSED } = this.props
-      const { docs, doc } = this.state
+      const { t, className, gettingSED, gettingStatus } = this.props
+      const { docs, doc, filter } = this.state
 
       return <div className={classNames('c-ui-documentStatus', {
         collapsed: !doc,
         expanded: doc
       }, className)}>
-        <div className='documentButtons'>
 
-          {docs.map((_doc, index) => {
+        <div className='documentTags'>
+          <Nav.EtikettBase className={classNames('tags', { selected: filter === 'all' })}
+            type={filter === 'all' ? 'suksess' : 'info'}
+            onClick={this.setFilter.bind(this, 'all')}>{t('all')}</Nav.EtikettBase>
+          <Nav.EtikettBase className={classNames('tags', { selected: filter === 'sent' })}
+            type={filter === 'sent' ? 'suksess' : 'info'}
+            onClick={this.setFilter.bind(this, 'sent')}>{t('sent')}</Nav.EtikettBase>
+          <Nav.EtikettBase className={classNames('tags', { selected: filter === 'notsent' })}
+            type={filter === 'notsent' ? 'suksess' : 'info'}
+            onClick={this.setFilter.bind(this, 'notsent')}>{t('notSent')}</Nav.EtikettBase>
+          <div title={t('refresh')} className={classNames('refresh', {rotating: gettingStatus})}>
+            <Icons kind='refresh' onClick={this.refreshDocumentStatus.bind(this)}/>
+          </div>
+        </div>
+
+        <div className='documentButtons'>
+          {docs.filter(this.docMatchesFilter.bind(this)).map((_doc, index) => {
             let active = doc ? _doc.dokumentId === doc.dokumentId : false
             let label = _doc.dokumentType
             let description = t('case:case-' + _doc.dokumentType)
@@ -176,16 +245,16 @@ class DocumentStatus extends Component {
                 className={classNames('documentButtonContent', 'mr-2',
                   { 'active': active },
                   this.getDocumentButtonClass(_doc))}
-                onClick={this.toogleDocumentStatus.bind(this, _doc)}>
+                onClick={this.toggleDocumentStatus.bind(this, _doc)}>
                 {gettingSED && active ? <Nav.NavFrontendSpinner style={{ position: 'absolute', top: '1rem' }} /> : null}
                 <Icons className='mr-3' size='3x' kind='document' />
-                {}
                 <Icons className='documentType' size='2x' kind={_doc.dokumentType.startsWith('P') ? 'form' : 'tool'} />
                 <div>{_doc.dokumentType}</div>
               </Nav.Hovedknapp>
             </div>
           })}
         </div>
+
         {doc ? <div className='documentActions'>
           <div className='documentProperties mb-4'>
             <div>{t('documentType') + ': ' + doc.dokumentType}</div>
@@ -202,13 +271,14 @@ class DocumentStatus extends Component {
 }
 
 DocumentStatus.propTypes = {
-  t: PT.func.isRequired,
-  rinaId: PT.string,
-  className: PT.object,
-  history: PT.object.isRequired,
-  actions: PT.object.isRequired,
-  loadingStatus: PT.string,
-  gettingSED: PT.bool
+  t             : PT.func.isRequired,
+  rinaId        : PT.string,
+  className     : PT.object,
+  history       : PT.object.isRequired,
+  actions       : PT.object.isRequired,
+  loadingStatus : PT.string,
+  gettingSED    : PT.bool,
+  gettingStatus : PT.bool
 }
 
 export default connect(

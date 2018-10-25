@@ -24,7 +24,7 @@ export default function (state = initialState, action = {}) {
         rinaCase: action.payload
       })
 
-    case types.STATUS_GET_SED_SUCCESS:
+    case types.STATUS_SED_GET_SUCCESS:
 
       return Object.assign({}, state, {
         sed: action.payload

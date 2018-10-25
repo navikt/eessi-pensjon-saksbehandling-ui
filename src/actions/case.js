@@ -135,7 +135,7 @@ export function addToSed (payload) {
 
 export function sendSed (payload) {
   return api.call({
-    url: urls.CASE_SEND_SED_URL,
+    url: urls.CASE_SED_URL,
     method: 'POST',
     payload: payload,
     type: {
