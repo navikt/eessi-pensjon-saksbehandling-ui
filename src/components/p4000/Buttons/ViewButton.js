@@ -1,60 +1,56 @@
-import React, { Component } from 'react';
-import PT from 'prop-types';
-import { translate } from 'react-i18next';
-import _ from 'lodash';
-import { connect } from 'react-redux';
-import { bindActionCreators }  from 'redux';
+import React, { Component } from 'react'
+import PT from 'prop-types'
+import { translate } from 'react-i18next'
+import _ from 'lodash'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-import Icons from '../../ui/Icons';
-import * as Nav from '../../ui/Nav';
+import Icons from '../../ui/Icons'
+import * as Nav from '../../ui/Nav'
 
-import * as p4000Actions from '../../../actions/p4000';
+import * as p4000Actions from '../../../actions/p4000'
 
 const mapStateToProps = (state) => {
-    return {
-        events : state.p4000.events
-    }
-};
+  return {
+    events: state.p4000.events
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch)};
-};
+  return { actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch) }
+}
 
 class ViewButton extends Component {
+  handleFileView () {
+    const { actions } = this.props
 
+    actions.setPage('view')
+  }
 
-    handleFileView() {
+  render () {
+    const { t, events, style } = this.props
 
-        const { actions } = this.props;
-
-        actions.setPage('view');
-    }
-
-    render () {
-
-        const { t, events, style } = this.props;
-
-        return  <Nav.Knapp title={t('p4000:file-view-description-1')}
-            style={style} className='bigButton viewP4000Button' onClick={this.handleFileView.bind(this)} disabled={_.isEmpty(events)}>
-            <div>
-                <Icons className='mr-3' size='4x' kind='file'/>
-                <Icons size='3x' kind='view'/>
-            </div>
-            <div className='mt-3'>{t('p4000:file-view')}</div>
-        </Nav.Knapp>
-    }
+    return <Nav.Knapp title={t('p4000:file-view-description-1')}
+      style={style} className='bigButton viewP4000Button' onClick={this.handleFileView.bind(this)} disabled={_.isEmpty(events)}>
+      <div>
+        <Icons className='mr-3' size='4x' kind='file' />
+        <Icons size='3x' kind='view' />
+      </div>
+      <div className='mt-3'>{t('p4000:file-view')}</div>
+    </Nav.Knapp>
+  }
 }
 
 ViewButton.propTypes = {
-    t       : PT.func.isRequired,
-    events  : PT.array.isRequired,
-    style   : PT.object,
-    actions : PT.object
+  t: PT.func.isRequired,
+  events: PT.array.isRequired,
+  style: PT.object,
+  actions: PT.object
 }
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(
-    translate()(ViewButton)
-);
+  translate()(ViewButton)
+)

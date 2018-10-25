@@ -1,92 +1,83 @@
-import * as types from '../constants/actionTypes';
-import * as urls from '../constants/urls';
-import * as api from './api';
-import _ from 'lodash';
+import * as types from '../constants/actionTypes'
+import * as urls from '../constants/urls'
+import * as api from './api'
+import _ from 'lodash'
 
 export function selectPDF (files) {
-
-    return {
-        type    : types.PDF_SELECTED,
-        payload : files
-    };
+  return {
+    type: types.PDF_SELECTED,
+    payload: files
+  }
 }
 
 export function loadingFilesStart () {
-
-    return {
-        type : types.PDF_LOADING_FILES_STARTED
-    };
+  return {
+    type: types.PDF_LOADING_FILES_STARTED
+  }
 }
 
 export function loadingFilesEnd () {
-
-    return {
-        type : types.PDF_LOADING_FILES_FINISHED
-    };
+  return {
+    type: types.PDF_LOADING_FILES_FINISHED
+  }
 }
 
 export function clearPDF () {
-
-    return {
-        type : types.PDF_CLEAR
-    };
+  return {
+    type: types.PDF_CLEAR
+  }
 }
 
 export function setRecipe (recipe) {
-
-    return {
-        type    : types.PDF_SET_RECIPE,
-        payload : recipe
-    };
+  return {
+    type: types.PDF_SET_RECIPE,
+    payload: recipe
+  }
 }
 
 export function setActiveDnDTarget (target) {
-
-    return {
-        type    : types.PDF_SET_DND_TARGET,
-        payload : target
-    };
+  return {
+    type: types.PDF_SET_DND_TARGET,
+    payload: target
+  }
 }
 
 export function setPdfSize (size) {
-
-    return {
-        type    : types.PDF_SET_PAGE_SIZE,
-        payload : size
-    };
+  return {
+    type: types.PDF_SET_PAGE_SIZE,
+    payload: size
+  }
 }
 
-export function setWatermark(payload) {
-    return {
-        type    : types.PDF_WATERMARK_SET,
-        payload : payload
-    };
+export function setWatermark (payload) {
+  return {
+    type: types.PDF_WATERMARK_SET,
+    payload: payload
+  }
 }
 
-
-export function setSeparator(payload) {
-    return {
-        type    : types.PDF_SEPARATOR_SET,
-        payload : payload
-    };
+export function setSeparator (payload) {
+  return {
+    type: types.PDF_SEPARATOR_SET,
+    payload: payload
+  }
 }
 
 export function generatePDF (payload) {
+  let newPayload = _.cloneDeep(payload)
 
-    let newPayload = _.cloneDeep(payload);
+  for (var i in newPayload.files) {
+    delete newPayload.files[i].content.data
+  }
 
-    for (var i in newPayload.files) {
-        delete newPayload.files[i].content.data;
+  return api.call({
+    url: urls.PDF_GENERATE_URL,
+    method: 'POST',
+    payload: newPayload,
+    type: {
+      request: types.PDF_GENERATE_REQUEST,
+      success: types.PDF_GENERATE_SUCCESS,
+      failure: types.PDF_GENERATE_FAILURE
     }
-
-    return api.call({
-        url     : urls.PDF_GENERATE_URL,
-        method  : 'POST',
-        payload : newPayload,
-        type    : {
-            request : types.PDF_GENERATE_REQUEST,
-            success : types.PDF_GENERATE_SUCCESS,
-            failure : types.PDF_GENERATE_FAILURE
-        }
-    });
+  })
 }

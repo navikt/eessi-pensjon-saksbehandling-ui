@@ -3,8 +3,8 @@
   "version": "0.0.1-SNAPSHOT",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint --ext .js src",
-    "lint:fix": "eslint --ext .js --fix src",
+    "lint": "standard",
+    "lint:fix": "standard --fix",
     "start": "cross-env NODE_ENV=development npm-run-all -p start:*",
     "start:css": "less-watch-compiler --config less.json",
     "start:js": "react-scripts start",
@@ -22,7 +22,6 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.6",
     "@fortawesome/free-solid-svg-icons": "^5.4.1",
     "@fortawesome/react-fontawesome": "0.1.3",
-    "babel-eslint": "^9.0.0",
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.1.3",
     "classnames": "^2.2.6",
@@ -91,7 +90,7 @@
     "react-datepicker": "^1.7.0",
     "react-dom": "^16.6.0",
     "react-dropzone": "^6.2.4",
-    "react-i18next": "^8.1.0",
+    "react-i18next": "^8.1.2",
     "react-json-view": "^1.19.1",
     "react-modal": "^3.6.1",
     "react-pdf": "^3.0.5",
@@ -117,13 +116,20 @@
     "chai-as-promised": "^7.1.1",
     "chai-string": "^1.5.0",
     "cucumber-pretty": "^1.4.4",
-    "eslint": "^5.7.0",
     "json-server": "^0.14.0",
-    "selenium-webdriver": "^4.0.0-alpha.1"
+    "selenium-webdriver": "^4.0.0-alpha.1",
+    "standard": "^12.0.1"
   },
   "browserslist": [
     ">0.2%",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "standard": {
+      "parser": "babel-eslint",
+      "globals": [
+          "fetch",
+          "FileReader"
+      ]
+  }
 }

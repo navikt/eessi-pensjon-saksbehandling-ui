@@ -1,147 +1,138 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators }  from 'redux';
-import PT from 'prop-types';
-import { translate } from 'react-i18next';
-import _ from 'lodash';
-import classNames from 'classnames';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import PT from 'prop-types'
+import { translate } from 'react-i18next'
+import _ from 'lodash'
+import classNames from 'classnames'
 
-import StepIndicator from '../../../components/pdf/StepIndicator';
-import ExternalFiles from '../../../components/pdf/ExternalFiles/ExternalFiles';
-import * as Nav from '../../../components/ui/Nav';
-import TopContainer from '../../../components/ui/TopContainer/TopContainer';
-import FileUpload from '../../../components/ui/FileUpload/FileUpload';
-import PdfDrawer from '../../../components/drawer/Pdf';
+import StepIndicator from '../../../components/pdf/StepIndicator'
+import ExternalFiles from '../../../components/pdf/ExternalFiles/ExternalFiles'
+import * as Nav from '../../../components/ui/Nav'
+import TopContainer from '../../../components/ui/TopContainer/TopContainer'
+import FileUpload from '../../../components/ui/FileUpload/FileUpload'
+import PdfDrawer from '../../../components/drawer/Pdf'
 
-import * as routes from '../../../constants/routes';
-import * as pdfActions from '../../../actions/pdf';
-import * as uiActions from '../../../actions/ui';
-import * as appActions from '../../../actions/app';
+import * as routes from '../../../constants/routes'
+import * as pdfActions from '../../../actions/pdf'
+import * as uiActions from '../../../actions/ui'
+import * as appActions from '../../../actions/app'
 
-import './SelectPDF.css';
+import './SelectPDF.css'
 
 const mapStateToProps = (state) => {
-    return {
-        loadingPDF : state.loading.loadingPDF,
-        language   : state.ui.language,
-        files      : state.pdf.files,
-        action     : state.ui.action
-    }
-};
+  return {
+    loadingPDF: state.loading.loadingPDF,
+    language: state.ui.language,
+    files: state.pdf.files,
+    action: state.ui.action
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, appActions, uiActions, pdfActions), dispatch)};
-};
+  return { actions: bindActionCreators(Object.assign({}, appActions, uiActions, pdfActions), dispatch) }
+}
 
 class SelectPDF extends Component {
+  componentDidMount () {
+    const { actions } = this.props
 
-    componentDidMount() {
+    actions.addToBreadcrumbs({
+      url: routes.PDF_SELECT,
+      ns: 'pdf',
+      label: 'pdf:app-selectPdfTitle'
+    })
 
-        const { actions } = this.props;
+    actions.registerDroppable('selectPdf', this.fileUpload)
+  }
 
-        actions.addToBreadcrumbs({
-            url  : routes.PDF_SELECT,
-            ns   : 'pdf',
-            label: 'pdf:app-selectPdfTitle'
-        });
+  componentWillUnmount () {
+    const { actions } = this.props
 
-        actions.registerDroppable('selectPdf', this.fileUpload);
-    }
+    actions.unregisterDroppable('selectPdf')
+  }
 
-    componentWillUnmount() {
+  onForwardButtonClick () {
+    const { history, actions } = this.props
 
-        const { actions } = this.props;
+    actions.navigateForward()
+    history.push(routes.PDF_EDIT)
+  }
 
-        actions.unregisterDroppable('selectPdf');
-    }
+  handleFileChange (files) {
+    const { actions } = this.props
 
-    onForwardButtonClick() {
+    actions.selectPDF(files)
+  }
 
-        const { history, actions } = this.props;
+  handleBeforeDrop () {
+    const { actions } = this.props
 
-        actions.navigateForward();
-        history.push(routes.PDF_EDIT);
-    }
+    actions.loadingFilesStart()
+  }
 
-    handleFileChange(files) {
+  handleAfterDrop () {
+    const { actions } = this.props
 
-        const { actions } = this.props;
+    actions.loadingFilesEnd()
+  }
 
-        actions.selectPDF(files);
-    }
+  addFile (file) {
+    this.fileUpload.getWrappedInstance().addFile(file)
+  }
 
-    handleBeforeDrop() {
+  render () {
+    const { t, history, loadingPDF, files, location } = this.props
 
-        const { actions } = this.props;
+    let buttonText = loadingPDF ? t('pdf:loading-loadingPDF') : t('ui:forward')
 
-        actions.loadingFilesStart();
-    }
+    return <TopContainer className='p-pdf-selectPdf'
+      history={history} location={location}
+      sideContent={<PdfDrawer />}>
+      <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
+      <h1 className='appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
+      <h4 className='appDescription'>{t('pdf:app-selectPdfDescription')}</h4>
+      <StepIndicator stepIndicator={0} history={history} />
 
-    handleAfterDrop() {
+      <ExternalFiles className='fieldset' addFile={this.addFile.bind(this)} />
 
-        const { actions } = this.props;
-
-        actions.loadingFilesEnd();
-    }
-
-    addFile(file) {
-
-        this.fileUpload.getWrappedInstance().addFile(file);
-    }
-
-    render() {
-
-        const { t, history, loadingPDF, files, location } = this.props;
-
-        let buttonText = loadingPDF ? t('pdf:loading-loadingPDF') : t('ui:forward');
-
-        return <TopContainer className='p-pdf-selectPdf'
-            history={history} location={location}
-            sideContent={<PdfDrawer/>}>
-            <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
-            <h1 className='appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
-            <h4 className='appDescription'>{t('pdf:app-selectPdfDescription')}</h4>
-            <StepIndicator stepIndicator={0} history={history}/>
-
-            <ExternalFiles className='fieldset' addFile={this.addFile.bind(this)}/>
-
-            <div style={{animation: 'none', opacity: 1}} className='fieldset mt-4 mb-4'>
-                <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
-                <FileUpload t={t} ref={f => this.fileUpload = f} fileUploadDroppableId={'selectPdf'}
-                    className={classNames('fileUpload', 'mb-3')}
-                    accept={['application/pdf', 'image/jpeg', 'image/png']}
-                    files={files || []}
-                    beforeDrop={this.handleBeforeDrop.bind(this)}
-                    afterDrop={this.handleAfterDrop.bind(this)}
-                    onFileChange={this.handleFileChange.bind(this)}/>
-                <Nav.Row>
-                    <Nav.Column/>
-                    <Nav.Column>
-                        <Nav.Hovedknapp
-                            className='forwardButton'
-                            style={{width: '100%'}}
-                            spinner={loadingPDF}
-                            disabled={_.isEmpty(files)}
-                            onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
-                    </Nav.Column>
-                </Nav.Row>
-            </div>
-        </TopContainer>
-    }
+      <div style={{ animation: 'none', opacity: 1 }} className='fieldset mt-4 mb-4'>
+        <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
+        <FileUpload t={t} ref={f => { this.fileUpload = f }} fileUploadDroppableId={'selectPdf'}
+          className={classNames('fileUpload', 'mb-3')}
+          accept={['application/pdf', 'image/jpeg', 'image/png']}
+          files={files || []}
+          beforeDrop={this.handleBeforeDrop.bind(this)}
+          afterDrop={this.handleAfterDrop.bind(this)}
+          onFileChange={this.handleFileChange.bind(this)} />
+        <Nav.Row>
+          <Nav.Column />
+          <Nav.Column>
+            <Nav.Hovedknapp
+              className='forwardButton'
+              style={{ width: '100%' }}
+              spinner={loadingPDF}
+              disabled={_.isEmpty(files)}
+              onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+          </Nav.Column>
+        </Nav.Row>
+      </div>
+    </TopContainer>
+  }
 }
 
 SelectPDF.propTypes = {
-    loadingPDF   : PT.bool,
-    actions      : PT.object,
-    history      : PT.object,
-    t            : PT.func,
-    files        : PT.array.isRequired,
-    location     : PT.object.isRequired
-};
+  loadingPDF: PT.bool,
+  actions: PT.object,
+  history: PT.object,
+  t: PT.func,
+  files: PT.array.isRequired,
+  location: PT.object.isRequired
+}
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(
-    translate()(SelectPDF)
-);
+  translate()(SelectPDF)
+)

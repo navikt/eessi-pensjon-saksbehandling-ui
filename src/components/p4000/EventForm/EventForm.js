@@ -1,163 +1,154 @@
-import React from 'react';
-import PT from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators }  from 'redux';
-import { translate } from 'react-i18next';
-import { withRouter } from 'react-router';
-import classNames from 'classnames';
-import _ from 'lodash';
+import React from 'react'
+import PT from 'prop-types'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { translate } from 'react-i18next'
+import { withRouter } from 'react-router'
+import classNames from 'classnames'
+import _ from 'lodash'
 
-import * as p4000Actions from '../../../actions/p4000';
-import * as uiActions from '../../../actions/ui';
+import * as p4000Actions from '../../../actions/p4000'
+import * as uiActions from '../../../actions/ui'
 
-import * as Nav from '../../ui/Nav';
-import EventList from '../EventList/EventList';
+import * as Nav from '../../ui/Nav'
+import EventList from '../EventList/EventList'
 
-import './EventForm.css';
+import './EventForm.css'
 
 const mapStateToProps = (state) => {
-    return {
-        events     : state.p4000.events,
-        editMode   : state.p4000.editMode,
-        event      : state.p4000.event,
-        eventIndex : state.p4000.eventIndex
-    }
-};
+  return {
+    events: state.p4000.events,
+    editMode: state.p4000.editMode,
+    event: state.p4000.event,
+    eventIndex: state.p4000.eventIndex
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, p4000Actions, uiActions), dispatch)};
-};
+  return { actions: bindActionCreators(Object.assign({}, p4000Actions, uiActions), dispatch) }
+}
 
 class EventForm extends React.Component {
+  async handleSaveRequest () {
+    const { actions, event, type } = this.props
 
-    async handleSaveRequest () {
+    let valid = await this.component.passesValidation()
 
-        const { actions, event, type } = this.props;
-
-        let valid = await this.component.passesValidation();
-
-        if (valid) {
-            event.type = type;
-            actions.pushEventToP4000Form(event);
-        }
+    if (valid) {
+      event.type = type
+      actions.pushEventToP4000Form(event)
     }
+  }
 
-    async handleSaveEditRequest () {
+  async handleSaveEditRequest () {
+    const { actions, event, eventIndex } = this.props
 
-        const { actions, event, eventIndex } = this.props;
+    let valid = await this.component.passesValidation()
 
-        let valid = await this.component.passesValidation();
-
-        if (valid) {
-            actions.replaceEventOnP4000Form(event, eventIndex);
-        }
+    if (valid) {
+      actions.replaceEventOnP4000Form(event, eventIndex)
     }
+  }
 
-    async handleEditRequest(eventIndex) {
+  async handleEditRequest (eventIndex) {
+    const { actions } = this.props
 
-        const { actions } = this.props;
-
-        if (this.component) {
-            await this.component.resetValidation();
-        }
-        actions.editEvent(eventIndex);
+    if (this.component) {
+      await this.component.resetValidation()
     }
+    actions.editEvent(eventIndex)
+  }
 
-    handleDeleteRequest () {
+  handleDeleteRequest () {
+    const { t, actions } = this.props
 
-        const { t, actions } = this.props;
+    actions.openModal({
+      modalTitle: t('p4000:event-delete-confirm-title'),
+      modalText: t('p4000:event-delete-confirm-text'),
+      modalButtons: [{
+        main: true,
+        text: t('ui:yes') + ', ' + t('ui:delete'),
+        onClick: this.deleteEvent.bind(this)
+      }, {
+        text: t('ui:no') + ', ' + t('ui:cancel'),
+        onClick: this.closeModal.bind(this)
+      }]
+    })
+  }
 
-        actions.openModal({
-            modalTitle: t('p4000:event-delete-confirm-title'),
-            modalText: t('p4000:event-delete-confirm-text'),
-            modalButtons: [{
-                main: true,
-                text: t('ui:yes') + ', ' + t('ui:delete'),
-                onClick: this.deleteEvent.bind(this)
-            },{
-                text: t('ui:no') + ', ' + t('ui:cancel'),
-                onClick: this.closeModal.bind(this)
-            }]
-        });
-    }
+  deleteEvent () {
+    const { actions, eventIndex } = this.props
 
-    deleteEvent() {
+    actions.closeModal()
+    actions.deleteEventToP4000Form(eventIndex)
+  }
 
-        const { actions, eventIndex } = this.props;
+  closeModal () {
+    const { actions } = this.props
 
-        actions.closeModal();
-        actions.deleteEventToP4000Form(eventIndex);
-    }
+    actions.closeModal()
+  }
 
-    closeModal() {
+  async handleCancelRequest () {
+    const { actions, eventIndex } = this.props
 
-        const { actions } = this.props;
+    await this.component.resetValidation()
+    actions.cancelEditEvent(eventIndex)
+  }
 
-        actions.closeModal();
-    }
+  render () {
+    let { t, type, editMode, eventIndex, events, history, location, Component } = this.props
+    let isEventPage = !((type === 'view' || type === 'new' || type === 'file'))
+    let hideEventList = (type === 'view' || _.isEmpty(events))
 
-    async handleCancelRequest () {
-
-        const { actions, eventIndex } = this.props;
-
-        await this.component.resetValidation();
-        actions.cancelEditEvent(eventIndex);
-    }
-
-    render() {
-
-        let { t, type, editMode, eventIndex, events, history, location, Component } = this.props;
-        let isEventPage = ! ((type === 'view' || type === 'new' || type === 'file'));
-        let hideEventList = (type === 'view' || _.isEmpty(events));
-
-        return <div className='c-p4000-eventForm'>
-            <EventList className={classNames({'hiding' : hideEventList})}
-                events={events} eventIndex={eventIndex}
-                cancelEditRequest={this.handleCancelRequest.bind(this)}
-                handleEditRequest={this.handleEditRequest.bind(this)}/>
-            <Component history={history} location={location} type={type} provideController={(component) => {this.component = component}}/>
-            {isEventPage ? (!editMode ?
-                <Nav.Row className='row-buttons mb-4 ml-2 mr-2 text-center'>
-                    <div className='col-md-6'>
-                        <Nav.Hovedknapp className='saveButton' onClick={this.handleSaveRequest.bind(this)}>{t('ui:save')}</Nav.Hovedknapp>
-                    </div>
-                    <div className='col-md-6'>
-                        <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
-                    </div>
-                </Nav.Row> :
-                <Nav.Row className='row-buttons mb-4 ml-2 mr-2 text-center'>
-                    <div className='col-md-4'>
-                        <Nav.Hovedknapp className='editButton' onClick={this.handleSaveEditRequest.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp>
-                    </div>
-                    <div className='col-md-4'>
-                        <Nav.Knapp className='deleteButton' onClick={this.handleDeleteRequest.bind(this)}>{t('ui:delete')}</Nav.Knapp>
-                    </div>
-                    <div className='col-md-4'>
-                        <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
-                    </div>
-                </Nav.Row>) : null}
-        </div>
-    }
+    return <div className='c-p4000-eventForm'>
+      <EventList className={classNames({ 'hiding': hideEventList })}
+        events={events} eventIndex={eventIndex}
+        cancelEditRequest={this.handleCancelRequest.bind(this)}
+        handleEditRequest={this.handleEditRequest.bind(this)} />
+      <Component history={history} location={location} type={type} provideController={(component) => { this.component = component }} />
+      {isEventPage ? (!editMode
+        ? <Nav.Row className='row-buttons mb-4 ml-2 mr-2 text-center'>
+          <div className='col-md-6'>
+            <Nav.Hovedknapp className='saveButton' onClick={this.handleSaveRequest.bind(this)}>{t('ui:save')}</Nav.Hovedknapp>
+          </div>
+          <div className='col-md-6'>
+            <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
+          </div>
+        </Nav.Row>
+        : <Nav.Row className='row-buttons mb-4 ml-2 mr-2 text-center'>
+          <div className='col-md-4'>
+            <Nav.Hovedknapp className='editButton' onClick={this.handleSaveEditRequest.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp>
+          </div>
+          <div className='col-md-4'>
+            <Nav.Knapp className='deleteButton' onClick={this.handleDeleteRequest.bind(this)}>{t('ui:delete')}</Nav.Knapp>
+          </div>
+          <div className='col-md-4'>
+            <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
+          </div>
+        </Nav.Row>) : null}
+    </div>
+  }
 }
 
 EventForm.propTypes = {
-    t          : PT.func.isRequired,
-    type       : PT.string.isRequired,
-    events     : PT.array.isRequired,
-    event      : PT.object,
-    editMode   : PT.bool.isRequired,
-    eventIndex : PT.number,
-    actions    : PT.object,
-    Component  : PT.func,
-    history    : PT.object.isRequired,
-    location   : PT.object
-};
+  t: PT.func.isRequired,
+  type: PT.string.isRequired,
+  events: PT.array.isRequired,
+  event: PT.object,
+  editMode: PT.bool.isRequired,
+  eventIndex: PT.number,
+  actions: PT.object,
+  Component: PT.func,
+  history: PT.object.isRequired,
+  location: PT.object
+}
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(
-    withRouter(
-        translate()(EventForm)
-    )
-);
+  withRouter(
+    translate()(EventForm)
+  )
+)

@@ -1,33 +1,30 @@
-import * as types from '../constants/actionTypes';
+import * as types from '../constants/actionTypes'
 
-let initialState =  {
-    form: {
-        isLoaded : false,
-        step     : 0,
-        maxstep  : 6,
-        validationError: undefined
-    }
-};
+let initialState = {
+  form: {
+    isLoaded: false,
+    step: 0,
+    maxstep: 6,
+    validationError: undefined
+  }
+}
 
 export default function (state = initialState, action = {}) {
-
-    switch (action.type) {
-
+  switch (action.type) {
     case types.PINFO_EVENT_SET_PROPERTY:
 
-        return {...state, form: { ...state.form, ...action.payload }};
+      return { ...state, form: { ...state.form, ...action.payload } }
 
     case types.PINFO_NEW:
 
-        break;
+      break
 
     case types.APP_CLEAR_DATA:
 
-        return initialState;
+      return initialState
 
     default:
 
-        return state;
-
-    }
+      return state
+  }
 }

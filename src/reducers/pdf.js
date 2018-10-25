@@ -1,106 +1,99 @@
 /* global Uint8Array */
 
-import * as types from '../constants/actionTypes';
-import _ from 'lodash';
+import * as types from '../constants/actionTypes'
+import _ from 'lodash'
 
-let initialState =  {
-    recipe: {},
-    files: [],
-    pageScale: 1.0,
-    dndTarget: 'work',
-    watermark: {
-        watermarkText : '',
-        watermarkTextColor : {
-            r : 255, g: 0, b: 0, a: 0.25
-        }
-    },
-    separator: {
-        separatorText: '',
-        separatorTextColor: {
-            r: 0, g: 0, b: 0, a: 1.0
-        }
-    },
-    step : 0
-};
+let initialState = {
+  recipe: {},
+  files: [],
+  pageScale: 1.0,
+  dndTarget: 'work',
+  watermark: {
+    watermarkText: '',
+    watermarkTextColor: {
+      r: 255, g: 0, b: 0, a: 0.25
+    }
+  },
+  separator: {
+    separatorText: '',
+    separatorTextColor: {
+      r: 0, g: 0, b: 0, a: 1.0
+    }
+  },
+  step: 0
+}
 
 export default function (state = initialState, action = {}) {
-
-    switch (action.type) {
-
+  switch (action.type) {
     case types.PDF_SELECTED: {
+      let newRecipe = _.clone(state.recipe)
+      let existingPDF = action.payload.map(pdf => { return pdf.name })
 
-        let newRecipe   = _.clone(state.recipe);
-        let existingPDF = action.payload.map(pdf => {return pdf.name});
+      for (var i in newRecipe) {
+        newRecipe[i] = _.filter(newRecipe[i], (step) => {
+          return existingPDF.indexOf(step.name) >= 0
+        })
+      }
 
-        for (var i in newRecipe) {
-            newRecipe[i] = _.filter(newRecipe[i], (step) => {
-                return existingPDF.indexOf(step.name) >= 0;
-            });
-        }
-
-        return Object.assign({}, state, {
-            files  : action.payload,
-            recipe : newRecipe
-        });
+      return Object.assign({}, state, {
+        files: action.payload,
+        recipe: newRecipe
+      })
     }
 
     case types.PDF_CLEAR: {
-
-        return Object.assign({}, state, {
-            files : undefined
-        });
+      return Object.assign({}, state, {
+        files: undefined
+      })
     }
 
     case types.PDF_GENERATE_SUCCESS: {
+      const files = _.clone(action.payload)
+      for (var j in files) {
+        files[j].content.data = Uint8Array.from(window.atob(files[j].content.base64), c => c.charCodeAt(0))
+      }
 
-        const files = _.clone(action.payload);
-        for (var j in files) {
-            files[j].content.data = Uint8Array.from(window.atob(files[j].content.base64), c => c.charCodeAt(0))
-        }
-
-        return Object.assign({}, state, {
-            generatedPDFs : files
-        });
+      return Object.assign({}, state, {
+        generatedPDFs: files
+      })
     }
 
     case types.PDF_SET_RECIPE:
 
-        return Object.assign({}, state, {
-            recipe : action.payload
-        });
+      return Object.assign({}, state, {
+        recipe: action.payload
+      })
 
     case types.PDF_SET_DND_TARGET:
 
-        return Object.assign({}, state, {
-            dndTarget : action.payload
-        });
+      return Object.assign({}, state, {
+        dndTarget: action.payload
+      })
 
     case types.PDF_SET_PAGE_SIZE:
 
-        return Object.assign({}, state, {
-            pageScale : action.payload
-        });
+      return Object.assign({}, state, {
+        pageScale: action.payload
+      })
 
     case types.APP_CLEAR_DATA:
 
-        return initialState;
+      return initialState
 
     case types.PDF_WATERMARK_SET : {
-
-        return Object.assign({}, state, {
-            watermark : action.payload
-        });
+      return Object.assign({}, state, {
+        watermark: action.payload
+      })
     }
 
     case types.PDF_SEPARATOR_SET : {
-
-        return Object.assign({}, state, {
-            separator : action.payload
-        });
+      return Object.assign({}, state, {
+        separator: action.payload
+      })
     }
 
     default:
 
-        return state;
-    }
+      return state
+  }
 }

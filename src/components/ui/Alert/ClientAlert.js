@@ -1,105 +1,101 @@
-import React, { Component } from 'react';
-import PT from 'prop-types';
-import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
-import classNames from 'classnames';
-import { bindActionCreators }  from 'redux';
+import React, { Component } from 'react'
+import PT from 'prop-types'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
+import classNames from 'classnames'
+import { bindActionCreators } from 'redux'
 
-import Icons from '../Icons';
-import * as Nav from '../Nav';
+import Icons from '../Icons'
+import * as Nav from '../Nav'
 
-import * as alertActions from '../../../actions/alert';
+import * as alertActions from '../../../actions/alert'
 
 import './ClientAlert.css'
 
 const mapStateToProps = (state) => {
-    return {
-        clientErrorStatus  : state.alert.clientErrorStatus,
-        clientErrorMessage : state.alert.clientErrorMessage
-    }
-};
+  return {
+    clientErrorStatus: state.alert.clientErrorStatus,
+    clientErrorMessage: state.alert.clientErrorMessage
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, alertActions), dispatch)};
-};
+  return { actions: bindActionCreators(Object.assign({}, alertActions), dispatch) }
+}
 
 class ClientAlert extends Component {
-
     state = {
-        status  : undefined,
-        message : undefined,
-        timeout : undefined
+      status: undefined,
+      message: undefined,
+      timeout: undefined
     }
 
-    static getDerivedStateFromProps(newProps, oldState) {
-
-         if (newProps.clientErrorStatus !== oldState.status || newProps.clientErrorMessage !== oldState.message) {
-             if (oldState.timeout) {
-                 clearTimeout(oldState.timeout);
-             }
-
-             let clientClear = newProps.actions.clientClear;
-             let timeout = setTimeout(() => {
-                 clientClear();
-             }, newProps.clientErrorStatus === 'OK' ? 5000 : 10000);
-
-            return {
-                timeout : timeout,
-                status  : newProps.clientErrorStatus,
-                message : newProps.clientErrorMessage
-            };
+    static getDerivedStateFromProps (newProps, oldState) {
+      if (newProps.clientErrorStatus !== oldState.status || newProps.clientErrorMessage !== oldState.message) {
+        if (oldState.timeout) {
+          clearTimeout(oldState.timeout)
         }
-        return {}
+
+        let clientClear = newProps.actions.clientClear
+        let timeout = setTimeout(() => {
+          clientClear()
+        }, newProps.clientErrorStatus === 'OK' ? 5000 : 10000)
+
+        return {
+          timeout: timeout,
+          status: newProps.clientErrorStatus,
+          message: newProps.clientErrorMessage
+        }
+      }
+      return {}
     }
 
-    clientClear() {
+    clientClear () {
+      const { actions } = this.props
 
-        const { actions } = this.props;
-
-        actions.clientClear();
+      actions.clientClear()
     }
 
     render () {
+      let { t, className, fixed } = this.props
+      let { status, message } = this.state
 
-        let { t, className, fixed } = this.props;
-        let { status, message } = this.state;
+      let _fixed = fixed || true
 
-        let _fixed = fixed || true;
+      if (!message) {
+        return null
+      }
 
-        if (!message) {
-            return null;
-        }
+      let separatorIndex = message.lastIndexOf('|')
+      let _message
 
-        let separatorIndex = message.lastIndexOf('|');
-        let _message;
-
-        if (separatorIndex >= 0) {
-            _message = t(message.substring(0, separatorIndex)) + ': ' + message.substring(separatorIndex + 1);
-        } else {
-            _message = t(message);
-        }
-        return <Nav.AlertStripe solid={true}
-            className={classNames(className, 'c-ui-clientAlert', {
-                'toFade' : status === 'OK',
-                'fixed' : _fixed
-            })}
-            type={status === 'OK' ? 'suksess' : 'advarsel'}>
-            {_message}
-            <Icons className='closeIcon' size='1x' kind='close' onClick={this.clientClear.bind(this)}/>
-        </Nav.AlertStripe>;
+      if (separatorIndex >= 0) {
+        _message = t(message.substring(0, separatorIndex)) + ': ' + message.substring(separatorIndex + 1)
+      } else {
+        _message = t(message)
+      }
+      return <Nav.AlertStripe solid
+        className={classNames(className, 'c-ui-clientAlert', {
+          'toFade': status === 'OK',
+          'fixed': _fixed
+        })}
+        type={status === 'OK' ? 'suksess' : 'advarsel'}>
+        {_message}
+        <Icons className='closeIcon' size='1x' kind='close' onClick={this.clientClear.bind(this)} />
+      </Nav.AlertStripe>
     }
 }
 
 ClientAlert.propTypes = {
-    t         : PT.func.isRequired,
-    actions   : PT.object.isRequired,
-    className : PT.string,
-    fixed     : PT.bool
+  t: PT.func.isRequired,
+  actions: PT.object.isRequired,
+  className: PT.string,
+  fixed: PT.bool
 }
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(
-    translate()(ClientAlert)
-);
+  translate()(ClientAlert)
+)
