@@ -12,7 +12,6 @@ import 'react-datepicker/dist/react-datepicker.min.css'
 import * as Nav from '../../components/ui/Nav'
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
 import File from '../../components/ui/File/File'
-import ClientAlert from '../../components/ui/Alert/ClientAlert'
 import FrontPageDrawer from '../../components/drawer/FrontPage'
 
 import * as UrlValidator from '../../utils/UrlValidator'
@@ -117,9 +116,6 @@ class PInfo extends React.Component {
       sideContent={<FrontPageDrawer t={props.t} status={props.status} />}>
       <Nav.Row className='mb-4'>
         <Nav.Column>
-          <h1 className='appTitle'>{props.t('pinfo:app-title')}</h1>
-          <h4 className='appDescription mb-4'>{props.t('pinfo:form-step' + props.form.step)}</h4>
-          <ClientAlert className='mb-4' />
           <Nav.Tabs onChange={(e, i) => setStep(props, i)}
             defaultAktiv={props.form.step}
             tabs={_.range(0, 6).map(index => ({
@@ -131,8 +127,6 @@ class PInfo extends React.Component {
         </Nav.Column>
       </Nav.Row>
       <div className={classNames('fieldset animate', 'mb-4')}>
-        <Nav.HjelpetekstBase>{props.t('pinfo:help-step' + props.form.step)}</Nav.HjelpetekstBase>
-
         {props.form.step === 0
           ? <form id='pinfo-form'>
             <Bank
@@ -159,7 +153,6 @@ class PInfo extends React.Component {
           </form>
           : null
         }
-
         {props.form.step === 3 ? <form id='pinfo-form'><div>
           <PdfUploadComponent t={props.t} form={props.form}
             checkboxes={[
