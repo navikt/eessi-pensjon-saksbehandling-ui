@@ -1,6 +1,8 @@
 import React from 'react';
 import PT from 'prop-types';
 import uuidv4 from 'uuid/v4';
+import _ from 'lodash';
+import { connect } from 'react-redux';
 
 import * as Nav from '../ui/Nav';
 import CountrySelect from '../ui/CountrySelect/CountrySelect';
@@ -15,9 +17,25 @@ const errorMessages = {
     bankCode: {patternMismatch: 'patternMismatch', valueMissing: 'valueMissing'}
 }
 
+//TODO ADD OWNPROP PATH PROP FOR LODASH PICK?
+const mapStateToProps = (state) => {
+    return {
+        locale   :  state.ui.locale,
+        bank     :  _.pick(state.pinfo.form,
+                        [
+                            'bankName',
+                            'bankAddress',
+                            'bankCountry',
+                            'bankBicSwift',
+                            'bankIban',
+                            'bankCode'
+                        ]
+                    ),
+    }
+};
 
 
-export class Bank extends React.Component{
+class Bank extends React.Component{
     constructor(props){
         super(props);
 
@@ -26,9 +44,11 @@ export class Bank extends React.Component{
         this.onSelect = onSelect.bind(this, 'bankCountry');
 
         let uuid = uuidv4();
-        let nameToId = Object.keys(this.props.bank).reduce((acc, cur, i)=>({...acc, [cur]: uuid+'_'+i }) , {});
-        let idToName = Object.keys(this.props.bank).reduce((acc, cur)=>({...acc, [nameToId[cur]]: cur }) , {});
-        let inputStates = Object.keys(this.props.bank).reduce((acc, cur)=> ({...acc, [cur]: {
+
+        let keys = ['bankName', 'bankAddress', 'bankCountry', 'bankBicSwift', 'bankIban', 'bankCode'];
+        let nameToId = keys.reduce((acc, cur, i)=>({...acc, [cur]: uuid+'_'+i }), {});
+        let idToName = keys.reduce((acc, cur, i)=>({...acc, [uuid+'_'+i]: cur }), {});
+        let inputStates = keys.reduce((acc, cur)=> ({...acc, [cur]: {
             showError: false,
             error: null,
             errorType: null,
@@ -135,7 +155,11 @@ export class Bank extends React.Component{
     }
 }
 
-export default Bank;
+
+export default connect(
+    mapStateToProps,
+    {}
+)(Bank);
 
 Bank.propTypes = {
     bank: PT.object,

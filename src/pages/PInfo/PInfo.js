@@ -16,11 +16,15 @@ import ClientAlert from '../../components/ui/Alert/ClientAlert';
 import File from '../../components/ui/File/File';
 import FrontPageDrawer from '../../components/drawer/FrontPage';
 
+import StorageModal from '../../components/ui/Modal/StorageModal';
+
 import * as UrlValidator from '../../utils/UrlValidator';
 import * as routes from '../../constants/routes';
 import * as pinfoActions from '../../actions/pinfo';
 import * as uiActions from '../../actions/ui';
 import * as appActions from '../../actions/app';
+import * as storageActions from '../../actions/storage';
+import * as storages from '../../constants/storages';
 import Bank from '../../components/form/Bank';
 import Contact from '../../components/form/Contact';
 import Work from '../../components/form/Work';
@@ -29,31 +33,21 @@ import Pension from '../../components/form/Pension';
 
 import './PInfo.css';
 
+
 const mapStateToProps = (state) => {
     return {
         locale   : state.ui.locale,
         form     : state.pinfo.form,
         referrer : state.app.referrer,
-        status   : state.status
+        status   : state.status,
+        username        : state.app.username,
+        file            : state.storage.file
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, pinfoActions, uiActions, appActions), dispatch)};
+    return {actions: bindActionCreators(Object.assign({}, pinfoActions, uiActions, appActions, storageActions), dispatch)};
 };
-
-const componentDidMount = (props) => {
-
-    let referrer = new URLSearchParams(props.location.search).get('referrer')
-    if (referrer) {
-        props.actions.setReferrer(referrer);
-    }
-    props.actions.addToBreadcrumbs({
-        url  : routes.PINFO,
-        ns   : 'pinfo',
-        label: 'pinfo:app-title'
-    });
-}
 
 const onBackButtonClick = async (props) => (
     props.actions.setEventProperty( {step: props.form.step - 1, displayError: false} )
@@ -65,8 +59,13 @@ const onBackToReferrerButtonClick = async (props) => (
         null
 );
 
-const onSaveButtonClick = (props) => (
+const onSaveButtonClick = (props) => {
+    props.actions.postStorageFile(props.username, storages.PINFO, 'PINFO', JSON.stringify(props.form));
     props.history.push(routes.PSELV + '?referrer=pinfo')
+};
+
+const setStep = (props, index) => (
+    props.actions.setEventProperty( { step: index, displayError: false })
 );
 
 /*
@@ -93,12 +92,32 @@ const setValue = (props, key, e) =>{
 function isValid (e) {
     e.preventDefault();
     let validity = e.target.form.checkValidity();//reportValidity();
-    console.log(validity);
     return validity;
 }
 
-const PInfo = (props) => (
-    <TopContainer className='p-pInfo'
+class PInfo extends React.Component{
+    constructor(props){
+        super(props);
+        this.props.actions.getStorageFile(props.username, storages.PINFO, 'PINFO')
+    }
+
+
+    componentDidMount(){
+        let props = this.props;
+        let referrer = new URLSearchParams(props.location.search).get('referrer')
+        if (referrer) {
+            props.actions.setReferrer(referrer);
+        }
+        props.actions.addToBreadcrumbs({
+            url  : routes.PINFO,
+            ns   : 'pinfo',
+            label: 'pinfo:app-title'
+        });
+    }
+
+    render(){
+        let props = this.props;
+    return (<TopContainer className='p-pInfo'
         history={props.history} location={props.location}
         sideContent={<FrontPageDrawer t={props.t} status={props.status}/>}>
         <Nav.Row className='mb-4'>
@@ -106,18 +125,14 @@ const PInfo = (props) => (
                 <h1 className='appTitle'>{props.t('pinfo:app-title')}</h1>
                 <h4 className='appDescription mb-4'>{props.t('pinfo:form-step' + props.form.step)}</h4>
                 <ClientAlert className='mb-4'/>
-                <Nav.Stegindikator
-                    aktivtSteg={props.form.step}
-                    visLabel={true}
-                    onChange={(e)=> props.actions.setEventProperty( {step: e})}
-                    autoResponsiv={true}
-                    steg={_.range(0,7).map(index=>(
-                        {
+                <Nav.Tabs onChange={(e, i)=>setStep(props, i)}
+                    defaultAktiv = {props.form.step}
+                    tabs={_.range(0,6).map(index=>({
                             label: props.t('pinfo:form-step'+index),
-                            ferdig: index < props.form.step,
-                            aktiv: index === props.form.step,
-                        }
-                    ))}/>
+                        }))        
+                    }
+                    kompakt={false}
+                />
             </Nav.Column>
         </Nav.Row>
         <div className={classNames('fieldset animate','mb-4')}>
@@ -127,17 +142,7 @@ const PInfo = (props) => (
                 <form id='pinfo-form'>
                     <Bank
                         t={props.t}
-                        bank={{
-                            bankName: props.form.bankName,
-                            bankAddress: props.form.bankAddress,
-                            bankCountry: props.form.bankCountry,
-                            bankBicSwift: props.form.bankBicSwift,
-                            bankIban: props.form.bankIban,
-                            bankCode: props.form.bankCode
-                        }}
                         action={setValue.bind(null, props)}
-                        locale={props.locale}
-                        showError='true'
                     />
                 </form>
                 : null}
@@ -145,10 +150,6 @@ const PInfo = (props) => (
                 <form id='pinfo-form'>
                     <Contact
                         t={props.t}
-                        contact={{
-                            userEmail: props.form.userEmail,
-                            userPhone: props.form.userPhone,
-                        }}
                         action={setValue.bind(null, props)}
                     />
                 </ form>:
@@ -158,20 +159,7 @@ const PInfo = (props) => (
                 <form id='pinfo-form'>
                     <Work
                         t={props.t}
-                        work={{
-                            workType: props.form.workType,
-                            workStartDate: props.form.workStartDate,
-                            workEndDate: props.form.workEndDate,
-                            workEstimatedRetirementDate: props.form.workEstimatedRetirementDate,
-                            workHourPerWeek: props.form.workHourPerWeek,
-                            workIncome: props.form.workIncome,
-                            workIncomeCurrency: props.form.workIncomeCurrency,
-                            workPaymentDate: props.form.workPaymentDate,
-                            workPaymentFrequency: props.form.workPaymentFrequency
-                        }}
                         action={setValue.bind(null, props)}
-                        locale={props.locale}
-                        showError='true'
                     />
                 </ form>:
                 null
@@ -237,21 +225,21 @@ const PInfo = (props) => (
                     <legend>{props.t('pinfo:form-work')}</legend>
                     <dl className='row'>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-workType')}</label></dt>
-                        <dd className='col-sm-8'>{props.t('pinfo:form-workType-option-' + props.form.workType)}</dd>
+                        <dd className='col-sm-8'>{props.form.workType?props.t('pinfo:form-workType-option-' + props.form.workType):null}</dd>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-workStartDate')}</label></dt>
-                        <dd className='col-sm-8'>{moment(props.form.workStartDate).format('DD MM YYYY')/*P4000Util.writeDate(props.form.workStartDate)*/}</dd>
+                        <dd className='col-sm-8'>{props.form.workStartDate?moment(props.form.workStartDate).format('DD MM YYYY'):null/*P4000Util.writeDate(props.form.workStartDate)*/}</dd>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-workEndDate')}</label></dt>
-                        <dd className='col-sm-8'>{moment(props.form.workEndDate).format('DD MM YYYY')/*P4000Util.writeDate(props.form.workEndDate)*/}</dd>
+                        <dd className='col-sm-8'>{props.form.workEndDate?moment(props.form.workEndDate).format('DD MM YYYY'):null/*P4000Util.writeDate(props.form.workEndDate)*/}</dd>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-workEstimatedRetirementDate')}</label></dt>
-                        <dd className='col-sm-8'>{moment(props.form.workEstimatedRetirementDate).format('DD MM YYYY')/*P4000Util.writeDate(props.form.workEstimatedRetirementDate)*/}</dd>
+                        <dd className='col-sm-8'>{props.form.workEstimatedRetirementDate?moment(props.form.workEstimatedRetirementDate).format('DD MM YYYY'):null/*P4000Util.writeDate(props.form.workEstimatedRetirementDate)*/}</dd>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-workHourPerWeek')}</label></dt>
                         <dd className='col-sm-8'>{props.form.workHourPerWeek}</dd>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-workIncome')}</label></dt>
                         <dd className='col-sm-8'>{props.form.workIncome}{' '}{_.get(props, 'form.workIncomeCurrency.currency', '')}</dd>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-workPaymentDate')}</label></dt>
-                        <dd className='col-sm-8'>{moment(props.form.workPaymentDate).format('DD MM YYYY')/*P4000Util.writeDate(props.form.workPaymentDate)*/}</dd>
+                        <dd className='col-sm-8'>{props.form.workPaymentDate?moment(props.form.workPaymentDate).format('DD MM YYYY'):null/*P4000Util.writeDate(props.form.workPaymentDate)*/}</dd>
                         <dt className='col-sm-4'><label>{props.t('pinfo:form-workPaymentFrequency')}</label></dt>
-                        <dd className='col-sm-8'>{props.t('pinfo:form-workPaymentFrequency-option-' + props.form.workPaymentFrequency)}</dd>
+                        <dd className='col-sm-8'>{props.form.workPaymentFrequency?props.t('pinfo:form-workPaymentFrequency-option-' + props.form.workPaymentFrequency):null}</dd>
                     </dl>
                 </fieldset>
                 <fieldset>
@@ -297,9 +285,10 @@ const PInfo = (props) => (
             </Nav.Column>
         </Nav.Row>
 
-    </TopContainer>
+    </TopContainer>)
+    }
 
-);
+};
 
 PInfo.propTypes = {
     history : PT.object,
@@ -317,8 +306,6 @@ export default connect(
     mapDispatchToProps
 )(
     translate()(
-        lifecycle({
-            componentDidMount
-        })(PInfo)
+       (PInfo)
     )
 );

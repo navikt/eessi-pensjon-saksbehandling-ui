@@ -1,6 +1,8 @@
 import React from 'react';
 import uuidv4 from 'uuid/v4';
 import PT from 'prop-types';
+import _ from 'lodash';
+import { connect } from 'react-redux';
 import getError from './shared/getError';
 import * as Nav from '../ui/Nav';
 import {onChange, onInvalid} from './shared/eventFunctions'
@@ -10,7 +12,21 @@ const errorMessages = {
     userPhone: {patternMismatch: 'patternMismatch', valueMissing: 'valueMissing'}
 }
 
-export class Contact extends React.Component{
+
+//TODO ADD OWNPROP PATH PROP FOR LODASH PICK?
+const mapStateToProps = (state) => {
+    return {
+        locale   :  state.ui.locale,
+        contact  :  _.pick(state.pinfo.form,
+                        [
+                            'userEmail',
+                            'userPhone',
+                        ]
+                    ),
+    }
+};
+
+class Contact extends React.Component{
     constructor(props){
         super(props);
 
@@ -18,9 +34,11 @@ export class Contact extends React.Component{
         this.onChange = onChange.bind(this, errorMessages);
 
         let uuid = uuidv4();
-        let nameToId = Object.keys(this.props.contact).reduce((acc, cur, i)=>({...acc, [cur]: uuid+'_'+i }) , {});
-        let idToName = Object.keys(this.props.contact).reduce((acc, cur)=>({...acc, [nameToId[cur]]: cur }) , {});
-        let inputStates = Object.keys(this.props.contact).reduce((acc, cur)=> ({...acc, [cur]: {
+
+        let keys = ['userEmail', 'userPhone'];
+        let nameToId = keys.reduce((acc, cur, i)=>({...acc, [cur]: uuid+'_'+i }), {});
+        let idToName = keys.reduce((acc, cur, i)=>({...acc, [uuid+'_'+i]: cur }), {});
+        let inputStates = keys.reduce((acc, cur)=> ({...acc, [cur]: {
             showError: false,
             error: null,
             errorType: null,
@@ -72,5 +90,8 @@ Contact.propTypes = {
     t       : PT.func
 };
 
+export default connect(
+    mapStateToProps,
+    {}
+)(Contact);
 
-export default Contact;
