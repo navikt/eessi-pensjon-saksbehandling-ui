@@ -1,4 +1,4 @@
-
+/*
         let fileButton, newP4000Button, openP4000FromFileButton, openP4000FromServerButton;
         let viewP4000Button, newEventButton, saveP4000ToFileButton, saveP4000ToServerButton, submitP4000Button;
 
@@ -483,3 +483,4 @@
             .then(() => done());
     });
 });
+*/

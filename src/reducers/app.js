@@ -1,45 +1,41 @@
-import * as types from '../constants/actionTypes';
+import * as types from '../constants/actionTypes'
 
-let initialState =  {};
+let initialState = {}
 
 export default function (state = initialState, action = {}) {
-
-    switch (action.type) {
-
+  switch (action.type) {
     case types.APP_REFERRER_SET:
 
-        return Object.assign({}, state, {
-            referrer : action.payload.referrer
-        });
+      return Object.assign({}, state, {
+        referrer: action.payload.referrer
+      })
 
     case types.APP_USERINFO_SUCCESS:
 
-        return Object.assign({}, state, {
-            username : action.payload.subject,
-            userRole : action.payload.role
-        });
+      return Object.assign({}, state, {
+        username: action.payload.subject,
+        userRole: action.payload.role
+      })
 
     case types.APP_DROPPABLE_REGISTER : {
+      let droppables = state.droppables || {}
+      droppables[action.payload.id] = action.payload.ref
 
-        let droppables = state.droppables || {};
-        droppables[action.payload.id] = action.payload.ref;
-
-        return Object.assign({}, state, {
-            droppables : droppables
-        });
+      return Object.assign({}, state, {
+        droppables: droppables
+      })
     }
 
     case types.APP_DROPPABLE_UNREGISTER : {
+      let droppables = state.droppables || {}
+      delete droppables[action.payload.id]
 
-        let droppables = state.droppables || {};
-        delete droppables[action.payload.id];
-
-        return Object.assign({}, state, {
-            droppables : droppables
-        });
+      return Object.assign({}, state, {
+        droppables: droppables
+      })
     }
 
     default:
-        return state;
-    }
+      return state
+  }
 }

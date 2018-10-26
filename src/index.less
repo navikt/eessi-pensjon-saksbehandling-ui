@@ -13,6 +13,7 @@
 @import '~nav-frontend-grid-style/src/index';
 @import '~nav-frontend-stegindikator-style/src/index';
 @import '~nav-frontend-modal-style/src/index';
+@import '~nav-frontend-etiketter-style/src/index';
 
 //Disse må importeres separat siden de ikke inneholder src/index.less.
 @import '~nav-frontend-spinner-style/src/spinner-style';
@@ -36,7 +37,17 @@ body {
 
 h1.appTitle,
 h4.appDescription {
-    margin: 1rem 1.5rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+}
+
+h1.appTitle {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+h4.appDescription {
+    margin-bottom: 1.5rem;
 }
 
 .p-p4000 .hjelpetekst,
@@ -56,6 +67,11 @@ h4.appDescription {
     animation: fadeIn 0.3s forwards;
   }
 }
+
+.knapp--disabled {
+  cursor: unset;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0.01;

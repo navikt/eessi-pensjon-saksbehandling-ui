@@ -1,319 +1,298 @@
 /* global Uint8Array, ArrayBuffer */
 
-import _ from 'lodash';
-import moment from 'moment';
+import _ from 'lodash'
+import moment from 'moment'
 
 class Util {
+  readEvents (loadedObject) {
+    if (!loadedObject) {
+      return null
+    }
 
-    readEvents(loadedObject) {
+    return loadedObject.map(event => {
+      if (event.startDate) event.startDate = new Date(event.startDate)
+      if (event.birthDate) event.birthDate = new Date(event.birthDate)
+      if (event.endDate) event.endDate = new Date(event.endDate)
+      if (event.files) {
+        // can't save file.data on JSON, only base64, therefore reconstruct file.content.data from file.content.base64
+        event.files.map(file => {
+          var raw = window.atob(file.content.base64)
+          var array = new Uint8Array(new ArrayBuffer(raw.length))
+          for (var i = 0; i < raw.length; i++) {
+            array[i] = raw.charCodeAt(i)
+          }
+          file.content.data = array
+          return file
+        })
+      }
+      return event
+    })
+  }
 
-        if (!loadedObject) {
-            return null;
+  // converting string loaded from local file to JSON Event object
+  readEventsFromString (loadedString) {
+    try {
+      let loadedObject = JSON.parse(loadedString)
+      return this.readEvents(loadedObject)
+    } catch (error) {
+      return error.message
+    }
+  }
+
+  writeEvents (events) {
+    return events.map(event => {
+      if (event.files) {
+        event.files.map(file => {
+          if (file.content.data) {
+            delete file.content.data
+          }
+          return file
+        })
+      }
+      return event
+    })
+  }
+
+  writeEventsToString (events) {
+    return encodeURIComponent(JSON.stringify(this.writeEvents(events)))
+  }
+
+  writeDate (date) {
+    return date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2)
+  }
+
+  readDate (date) {
+    return moment(date, 'YYYY-MM-DD').toDate()
+  }
+
+  handleDate (event) {
+    switch (event.dateType) {
+      case 'both':
+        return {
+          lukketPeriode: {
+            fom: this.writeDate(event.startDate),
+            tom: this.writeDate(event.endDate)
+          }
+        }
+      case 'onlyStartDate01':
+        return {
+          openPeriode: {
+            extra: '01',
+            fom: this.writeDate(event.startDate)
+          }
+        }
+      case 'onlyStartDate98':
+        return {
+          openPeriode: {
+            extra: '98',
+            fom: this.writeDate(event.startDate)
+          }
         }
 
-        return loadedObject.map(event => {
-
-            if (event.startDate) event.startDate = new Date(event.startDate);
-            if (event.birthDate) event.birthDate = new Date(event.birthDate);
-            if (event.endDate)   event.endDate   = new Date(event.endDate);
-            if (event.files) {
-                // can't save file.data on JSON, only base64, therefore reconstruct file.content.data from file.content.base64
-                event.files.map(file => {
-                    var raw = window.atob(file.content.base64);
-                    var array = new Uint8Array(new ArrayBuffer(raw.length));
-                    for (var i = 0; i < raw.length; i++) {
-                        array[i] = raw.charCodeAt(i);
-                    }
-                    file.content.data = array;
-                    return file;
-                });
-            }
-            return event;
-        });
+      default:
+        return null
     }
+  }
 
-    // converting string loaded from local file to JSON Event object
-    readEventsFromString(loadedString) {
-
-        try {
-            let loadedObject = JSON.parse(loadedString);
-            return this.readEvents(loadedObject);
-        } catch (error) {
-            return error.message;
-        }
+  handleGenericEvent (event) {
+    return {
+      annenInformasjon: event.other,
+      land: event.country.value,
+      periode: this.handleDate(event),
+      usikkerDatoIndikator: event.uncertainDate
     }
+  }
 
-    writeEvents (events) {
-
-        return events.map(event => {
-            if (event.files) {
-                event.files.map(file => {
-                    if (file.content.data) {
-                        delete file.content.data;
-                    }
-                    return file;
-                });
-            }
-            return event;
-        });
+  handleWorkEvent (event) {
+    let newEvent = this.handleGenericEvent(event)
+    newEvent.addressFirma = {
+      by: event.city,
+      address: event.address,
+      region: event.region,
+      land: event.country
     }
+    delete newEvent.land
+    newEvent.forsikkringEllerRegistreringNr = event.id
+    newEvent.jobbUnderAnsattEllerSelvstendig = event.activity
+    newEvent.navnFirma = event.name
+    return newEvent
+  }
 
-    writeEventsToString(events) {
-        return encodeURIComponent(JSON.stringify(this.writeEvents(events)));
+  handleChildEvent (event) {
+    let newEvent = this.handleGenericEvent(event)
+    newEvent.informasjonBarn = {
+      etternavn: event.firstname,
+      foedseldato: this.writeDate(event.birthDate),
+      fornavn: event.firstname,
+      land: event.country
     }
+    delete newEvent.land
+    return newEvent
+  }
 
-    writeDate(date) {
-        return date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-    }
+  handleLearnEvent (event) {
+    let newEvent = this.handleGenericEvent(event)
+    newEvent.navnPaaInstitusjon = event.name
+    return newEvent
+  }
 
-    readDate(date) {
-        return moment(date, 'YYYY-MM-DD').toDate()
-    }
-
-    handleDate(event) {
-
-        switch(event.dateType) {
-
-        case 'both':
-            return {
-                lukketPeriode: {
-                    fom: this.writeDate(event.startDate),
-                    tom: this.writeDate(event.endDate)
-                }
-            }
-        case 'onlyStartDate01':
-            return {
-                openPeriode: {
-                    extra: '01',
-                    fom: this.writeDate(event.startDate)
-                }
-            }
-        case 'onlyStartDate98':
-            return {
-                openPeriode: {
-                    extra: '98',
-                    fom: this.writeDate(event.startDate)
-                }
-            }
-
+  convertEvents (events) {
+    let p4000 = {}
+    events.map(event => {
+      switch (event.type) {
+        case 'work':
+          !_.has(p4000, 'ansattSelvstendigPerioder')
+            ? p4000['ansattSelvstendigPerioder'] = [this.handleWorkEvent(event)]
+            : p4000['ansattSelvstendigPerioder'].push(this.handleWorkEvent(event))
+          break
+        case 'home':
+          !_.has(p4000, 'boPerioder')
+            ? p4000['boPerioder'] = [this.handleGenericEvent(event)]
+            : p4000['boPerioder'].push(this.handleGenericEvent(event))
+          break
+        case 'child':
+          !_.has(p4000, 'barnepassPerioder')
+            ? p4000['barnepassPerioder'] = [this.handleChildEvent(event)]
+            : p4000['barnepassPerioder'].push(this.handleChildEvent(event))
+          break
+        case 'voluntary':
+          !_.has(p4000, 'frivilligPerioder')
+            ? p4000['frivilligPerioder'] = [this.handleGenericEvent(event)]
+            : p4000['frivilligPerioder'].push(this.handleGenericEvent(event))
+          break
+        case 'military':
+          !_.has(p4000, 'forsvartjenestePerioder')
+            ? p4000['forsvartjenestePerioder'] = [this.handleGenericEvent(event)]
+            : p4000['forsvartjenestePerioder'].push(this.handleGenericEvent(event))
+          break
+        case 'birth':
+          !_.has(p4000, 'foedselspermisjonPerioder')
+            ? p4000['foedselspermisjonPerioder'] = [this.handleGenericEvent(event)]
+            : p4000['foedselspermisjonPerioder'].push(this.handleGenericEvent(event))
+          break
+        case 'learn':
+          !_.has(p4000, 'opplaeringPerioder')
+            ? p4000['opplaeringPerioder'] = [this.handleLearnEvent(event)]
+            : p4000['opplaeringPerioder'].push(this.handleLearnEvent(event))
+          break
+        case 'daily':
+          !_.has(p4000, 'arbeidsledigPerioder')
+            ? p4000['arbeidsledigPerioder'] = [this.handleGenericEvent(event)]
+            : p4000['arbeidsledigPerioder'].push(this.handleGenericEvent(event))
+          break
+        case 'sick':
+          !_.has(p4000, 'sykePerioder')
+            ? p4000['sykePerioder'] = [this.handleGenericEvent(event)]
+            : p4000['sykePerioder'].push(this.handleGenericEvent(event))
+          break
+        case 'other':
+          !_.has(p4000, 'andrePerioder')
+            ? p4000['andrePerioder'] = [this.handleGenericEvent(event)]
+            : p4000['andrePerioder'].push(this.handleGenericEvent(event))
+          break
         default:
-            return null;
-        }
+          return {}
+      }
+      return event
+    })
+
+    return p4000
+  }
+
+  convertEventsToP4000 (events) {
+    return {
+      sed: '4000',
+      aktoerId: 'aktoerId',
+      payload: this.convertEvents(events)
     }
+  }
 
-    handleGenericEvent(event) {
+  convertP4000SedToEvents (sed) {
+    let events = []
 
-        return {
-            annenInformasjon: event.other,
-            land : event.country.value,
-            periode: this.handleDate(event),
-            usikkerDatoIndikator: event.uncertainDate
-        }
-    }
+    if (sed.trygdetid) {
+      Object.keys(sed.trygdetid).map(key => {
+        sed.trygdetid[key].map(sourceEvent => {
+          let targetEvent = {}
+          targetEvent.country = { value: sourceEvent.land }
 
-    handleWorkEvent(event) {
+          if (!_.isEmpty(sourceEvent.periode.lukketPeriode)) {
+            targetEvent.dateType = 'both'
+            targetEvent.startDate = sourceEvent.periode.lukketPeriode.fom ? this.readDate(sourceEvent.periode.lukketPeriode.fom) : undefined
+            targetEvent.endDate = sourceEvent.periode.lukketPeriode.tom ? this.readDate(sourceEvent.periode.lukketPeriode.tom) : undefined
+          }
+          if (!_.isEmpty(sourceEvent.periode.openPeriode)) {
+            targetEvent.dateType = sourceEvent.periode.openPeriode.extra === '01' ? 'onlyStartDate01' : 'onlyStartDate98'
+            targetEvent.startDate = sourceEvent.periode.openPeriode.fom ? this.readDate(sourceEvent.periode.openPeriode.fom) : undefined
+            targetEvent.endDate = sourceEvent.periode.openPeriode.tom ? this.readDate(sourceEvent.periode.openPeriode.tom) : undefined
+          }
 
-        let newEvent = this.handleGenericEvent(event);
-        newEvent.addressFirma = {
-            by : event.city,
-            address: event.address,
-            region: event.region,
-            land: event.country
-        };
-        delete newEvent.land;
-        newEvent.forsikkringEllerRegistreringNr = event.id;
-        newEvent.jobbUnderAnsattEllerSelvstendig = event.activity;
-        newEvent.navnFirma = event.name;
-        return newEvent;
-    }
+          targetEvent.uncertainDate = sourceEvent.usikkerDatoIndikator === '1'
+          targetEvent.other = sourceEvent.annenInformasjon
 
-    handleChildEvent(event) {
-
-        let newEvent = this.handleGenericEvent(event);
-        newEvent.informasjonBarn = {
-            etternavn: event.firstname,
-            foedseldato: this.writeDate(event.birthDate),
-            fornavn: event.firstname,
-            land: event.country
-        };
-        delete newEvent.land;
-        return newEvent;
-    }
-
-    handleLearnEvent(event) {
-
-        let newEvent = this.handleGenericEvent(event);
-        newEvent.navnPaaInstitusjon = event.name;
-        return newEvent;
-    }
-
-    convertEvents(events) {
-
-        let p4000 = {};
-        events.map(event => {
-            switch (event.type) {
-            case 'work':
-                !_.has(p4000, 'ansattSelvstendigPerioder') ?
-                    p4000['ansattSelvstendigPerioder'] = [this.handleWorkEvent(event)] :
-                    p4000['ansattSelvstendigPerioder'].push(this.handleWorkEvent(event));
-                break;
-            case 'home':
-                !_.has(p4000, 'boPerioder') ?
-                    p4000['boPerioder'] = [this.handleGenericEvent(event)] :
-                    p4000['boPerioder'].push(this.handleGenericEvent(event));
-                break;
-            case 'child':
-                !_.has(p4000, 'barnepassPerioder') ?
-                    p4000['barnepassPerioder'] = [this.handleChildEvent(event)] :
-                    p4000['barnepassPerioder'].push(this.handleChildEvent(event));
-                break;
-            case 'voluntary':
-                !_.has(p4000, 'frivilligPerioder') ?
-                    p4000['frivilligPerioder'] = [this.handleGenericEvent(event)] :
-                    p4000['frivilligPerioder'].push(this.handleGenericEvent(event));
-                break;
-            case 'military':
-                !_.has(p4000, 'forsvartjenestePerioder') ?
-                    p4000['forsvartjenestePerioder'] = [this.handleGenericEvent(event)] :
-                    p4000['forsvartjenestePerioder'].push(this.handleGenericEvent(event));
-                break;
-            case 'birth':
-                !_.has(p4000, 'foedselspermisjonPerioder') ?
-                    p4000['foedselspermisjonPerioder'] = [this.handleGenericEvent(event)] :
-                    p4000['foedselspermisjonPerioder'].push(this.handleGenericEvent(event));
-                break;
-            case 'learn':
-                !_.has(p4000, 'opplaeringPerioder') ?
-                    p4000['opplaeringPerioder'] = [this.handleLearnEvent(event)] :
-                    p4000['opplaeringPerioder'].push(this.handleLearnEvent(event));
-                break;
-            case 'daily':
-                !_.has(p4000, 'arbeidsledigPerioder') ?
-                    p4000['arbeidsledigPerioder'] = [this.handleGenericEvent(event)] :
-                    p4000['arbeidsledigPerioder'].push(this.handleGenericEvent(event));
-                break;
-            case 'sick':
-                !_.has(p4000, 'sykePerioder') ?
-                    p4000['sykePerioder'] = [this.handleGenericEvent(event)] :
-                    p4000['sykePerioder'].push(this.handleGenericEvent(event));
-                break;
-            case 'other':
-                !_.has(p4000, 'andrePerioder') ?
-                    p4000['andrePerioder'] = [this.handleGenericEvent(event)] :
-                    p4000['andrePerioder'].push(this.handleGenericEvent(event));
-                break;
+          switch (key) {
+            case 'ansattSelvstendigPerioder' :
+              targetEvent.type = 'work'
+              targetEvent.id = sourceEvent.forsikkringEllerRegistreringNr
+              targetEvent.activity = sourceEvent.jobbUnderAnsattEllerSelvstendig
+              targetEvent.name = sourceEvent.navnFirma
+              if (sourceEvent.adresseFirma) {
+                targetEvent.city = sourceEvent.adresseFirma.by
+                targetEvent.address = sourceEvent.adresseFirma.address
+                targetEvent.region = sourceEvent.adresseFirma.region
+                targetEvent.country = { value: sourceEvent.adresseFirma.land }
+              }
+              break
+            case 'boPerioder' :
+              targetEvent.type = 'home'
+              break
+            case 'barnepassPerioder' :
+              targetEvent.type = 'child'
+              if (sourceEvent.informasjonBarn) {
+                targetEvent.firstname = sourceEvent.informasjonBarn.fornavn
+                targetEvent.lastname = sourceEvent.informasjonBarn.etternavn
+                targetEvent.birthDate = this.readDate(sourceEvent.informasjonBarn.foedseldato)
+                targetEvent.country = { value: sourceEvent.informasjonBarn.land }
+              }
+              break
+            case 'frivilligPerioder' :
+              targetEvent.type = 'voluntary'
+              break
+            case 'forsvartjenestePerioder' :
+              targetEvent.type = 'military'
+              break
+            case 'foedselspermisjonPerioder' :
+              targetEvent.type = 'birth'
+              break
+            case 'opplaeringPerioder' :
+              targetEvent.type = 'learn'
+              targetEvent.name = sourceEvent.navnPaaInstitusjon
+              break
+            case 'arbeidsledigPerioder' :
+              targetEvent.type = 'daily'
+              break
+            case 'sykePerioder' :
+              targetEvent.type = 'sick'
+              break
+            case 'andrePerioder' :
+              targetEvent.type = 'other'
+              break
             default:
-                return {}
-            }
-            return event
-        });
+              break
+          }
 
-        return p4000;
+          events.push(targetEvent)
+
+          return sourceEvent
+        })
+
+        return key
+      })
     }
-
-    convertEventsToP4000 (events) {
-
-        return {
-            sed      : '4000',
-            aktoerId : 'aktoerId',
-            payload  : this.convertEvents(events)
-        };
-    }
-
-    convertP4000SedToEvents (sed) {
-
-        let events = [];
-
-        if (sed.trygdetid) {
-
-            Object.keys(sed.trygdetid).map(key => {
-
-                sed.trygdetid[key].map(sourceEvent => {
-
-                    let targetEvent = {}
-                    targetEvent.country = { value : sourceEvent.land };
-
-                    if (!_.isEmpty(sourceEvent.periode.lukketPeriode)) {
-
-                        targetEvent.dateType = 'both';
-                        targetEvent.startDate = sourceEvent.periode.lukketPeriode.fom ? this.readDate(sourceEvent.periode.lukketPeriode.fom) : undefined;
-                        targetEvent.endDate = sourceEvent.periode.lukketPeriode.tom ? this.readDate(sourceEvent.periode.lukketPeriode.tom) : undefined;
-
-                    }
-                    if (!_.isEmpty(sourceEvent.periode.openPeriode)) {
-
-                        targetEvent.dateType = sourceEvent.periode.openPeriode.extra === '01' ? 'onlyStartDate01' : 'onlyStartDate98';
-                        targetEvent.startDate = sourceEvent.periode.openPeriode.fom ? this.readDate(sourceEvent.periode.openPeriode.fom) : undefined;
-                        targetEvent.endDate = sourceEvent.periode.openPeriode.tom ? this.readDate(sourceEvent.periode.openPeriode.tom) : undefined;
-                    }
-
-                    targetEvent.uncertainDate = sourceEvent.usikkerDatoIndikator === '1'
-                    targetEvent.other = sourceEvent.annenInformasjon;
-
-                    switch (key) {
-
-                    case 'ansattSelvstendigPerioder' :
-                        targetEvent.type = 'work';
-                        targetEvent.id = sourceEvent.forsikkringEllerRegistreringNr;
-                        targetEvent.activity = sourceEvent.jobbUnderAnsattEllerSelvstendig;
-                        targetEvent.name = sourceEvent.navnFirma;
-                        if (sourceEvent.adresseFirma) {
-                            targetEvent.city = sourceEvent.adresseFirma.by;
-                            targetEvent.address = sourceEvent.adresseFirma.address;
-                            targetEvent.region = sourceEvent.adresseFirma.region;
-                            targetEvent.country = { value : sourceEvent.adresseFirma.land };
-                        }
-                        break;
-                    case 'boPerioder' :
-                        targetEvent.type = 'home';
-                        break;
-                    case 'barnepassPerioder' :
-                        targetEvent.type = 'child';
-                        if (sourceEvent.informasjonBarn) {
-                            targetEvent.firstname = sourceEvent.informasjonBarn.fornavn;
-                            targetEvent.lastname = sourceEvent.informasjonBarn.etternavn;
-                            targetEvent.birthDate = this.readDate(sourceEvent.informasjonBarn.foedseldato);
-                            targetEvent.country = { value : sourceEvent.informasjonBarn.land };
-                        }
-                        break;
-                    case 'frivilligPerioder' :
-                        targetEvent.type = 'voluntary';
-                        break;
-                    case 'forsvartjenestePerioder' :
-                        targetEvent.type = 'military';
-                        break;
-                    case 'foedselspermisjonPerioder' :
-                        targetEvent.type = 'birth';
-                        break;
-                    case 'opplaeringPerioder' :
-                        targetEvent.type = 'learn';
-                        targetEvent.name = sourceEvent.navnPaaInstitusjon;
-                        break;
-                    case 'arbeidsledigPerioder' :
-                        targetEvent.type = 'daily';
-                        break;
-                    case 'sykePerioder' :
-                        targetEvent.type = 'sick';
-                        break;
-                    case 'andrePerioder' :
-                        targetEvent.type = 'other';
-                        break;
-                    default:
-                        break;
-                    }
-
-                    events.push(targetEvent);
-
-                    return sourceEvent ;
-                });
-
-                return key;
-            });
-        }
-        return events;
-    }
+    return events
+  }
 }
 
-const instance = new Util();
-Object.freeze(instance);
-export default instance;
+const instance = new Util()
+Object.freeze(instance)
+export default instance

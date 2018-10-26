@@ -19,7 +19,16 @@
         padding: 0px !important;
 
         &:not([disabled]):not(:hover) {
-             background-color: white !important;
+             background-color: white;
+        }
+
+        &.status-OK {
+            background-color: lightgreen !important;
+            color: white;
+        }
+        &.status-ERROR {
+            background-color: red !important;
+            color: white;
         }
     }
 

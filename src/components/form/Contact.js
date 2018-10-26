@@ -8,8 +8,8 @@ import * as Nav from '../ui/Nav';
 import {onChange, onInvalid} from './shared/eventFunctions'
 
 const errorMessages = {
-    userEmail: {patternMismatch: 'patternMismatch', valueMissing: 'valueMissing', typeMismatch: 'typeMismatch'},
-    userPhone: {patternMismatch: 'patternMismatch', valueMissing: 'valueMissing'}
+  userEmail: { patternMismatch: 'patternMismatch', valueMissing: 'valueMissing', typeMismatch: 'typeMismatch' },
+  userPhone: { patternMismatch: 'patternMismatch', valueMissing: 'valueMissing' }
 }
 
 
@@ -30,8 +30,8 @@ class Contact extends React.Component{
     constructor(props){
         super(props);
 
-        this.onInvalid = onInvalid.bind(this, errorMessages);
-        this.onChange = onChange.bind(this, errorMessages);
+    this.onInvalid = onInvalid.bind(this, errorMessages)
+    this.onChange = onChange.bind(this, errorMessages)
 
         let uuid = uuidv4();
 
@@ -51,38 +51,38 @@ class Contact extends React.Component{
             inputStates,
         };
     }
+  
 
-    render(){
-        const {t, contact} = this.props;
-        const nameToId = this.state.nameToId;
-        const idToName = this.state.idToName;
-        const inputStates = this.state.inputStates;
-        return(
-            <div className='mt-3'>
-                <Nav.Row>
-                    <div className='col-md-6'>
-                        <Nav.Input label={t('pinfo:form-userEmail') + ' *'} defaultValue={contact.userEmail || ''}
-                            onChange={this.onChange}
-                            required={!inputStates.userEmail.showError}
-                            type='email'
-                            onInvalid={this.onInvalid}
-                            id={nameToId.userEmail}
-                            feil={inputStates.userEmail.showError? inputStates.userEmail.error: null}
-                        />
+  render () {
+    const { t, contact } = this.props
+    const nameToId = this.state.nameToId
+    const inputStates = this.state.inputStates
+    return (
+      <div className='mt-3'>
+        <Nav.Row>
+          <div className='col-md-6'>
+            <Nav.Input label={t('pinfo:form-userEmail') + ' *'} defaultValue={contact.userEmail || ''}
+              onChange={this.onChange}
+              required={!inputStates.userEmail.showError}
+              type='email'
+              onInvalid={this.onInvalid}
+              id={nameToId.userEmail}
+              feil={inputStates.userEmail.showError ? inputStates.userEmail.error : null}
+            />
 
-                        <Nav.Input label={t('pinfo:form-userPhone') + ' *'} defaultValue={contact.userPhone || ''}
-                            onChange={this.onChange}
-                            required={!inputStates.userPhone.showError}
-                            type='tel'
-                            onInvalid={this.onInvalid}
-                            id={nameToId.userPhone}
-                            feil={inputStates.userPhone.showError? inputStates.userPhone.error: null}
-                        />
-                    </div>
-                </Nav.Row>
-            </div>
-        );
-    }
+            <Nav.Input label={t('pinfo:form-userPhone') + ' *'} defaultValue={contact.userPhone || ''}
+              onChange={this.onChange}
+              required={!inputStates.userPhone.showError}
+              type='tel'
+              onInvalid={this.onInvalid}
+              id={nameToId.userPhone}
+              feil={inputStates.userPhone.showError ? inputStates.userPhone.error : null}
+            />
+          </div>
+        </Nav.Row>
+      </div>
+    )
+  }
 }
 Contact.propTypes = {
     contact : PT.object,

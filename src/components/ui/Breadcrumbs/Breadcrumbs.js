@@ -1,76 +1,73 @@
-import React, { Component } from 'react';
-import PT from 'prop-types';
-import { connect } from 'react-redux';
-import { translate } from 'react-i18next';
-import classNames from 'classnames';
-import { bindActionCreators }  from 'redux';
+import React, { Component } from 'react'
+import PT from 'prop-types'
+import { connect } from 'react-redux'
+import { translate } from 'react-i18next'
+import classNames from 'classnames'
+import { bindActionCreators } from 'redux'
 
-import Icons from  '../Icons';
+import Icons from '../Icons'
 
-import * as appActions from '../../../actions/app';
-import * as uiActions from '../../../actions/ui';
-import * as alertActions from '../../../actions/alert';
+import * as appActions from '../../../actions/app'
+import * as uiActions from '../../../actions/ui'
+import * as alertActions from '../../../actions/alert'
 
-import './Breadcrumbs.css';
+import './Breadcrumbs.css'
 
 const mapStateToProps = (state) => {
-    return {
-        breadcrumbs : state.ui.breadcrumbs
-    }
-};
+  return {
+    breadcrumbs: state.ui.breadcrumbs
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
-    return {actions: bindActionCreators(Object.assign({}, alertActions, uiActions, appActions), dispatch)};
-};
+  return { actions: bindActionCreators(Object.assign({}, alertActions, uiActions, appActions), dispatch) }
+}
 
 class Breadcrumbs extends Component {
+  onBreadcrumbClick (breadcrumb, e) {
+    e.preventDefault()
 
-    onBreadcrumbClick (breadcrumb, e) {
+    const { history, actions } = this.props
 
-        e.preventDefault();
+    actions.clearData()
+    actions.clientClear()
+    actions.trimBreadcrumbsTo(breadcrumb)
 
-        const { history, actions } = this.props;
+    history.push(breadcrumb.url)
+  }
 
-        actions.clearData();
-        actions.clientClear();
-        actions.trimBreadcrumbsTo(breadcrumb);
+  render () {
+    let { t, className, breadcrumbs } = this.props
 
-        history.push(breadcrumb.url);
-    }
-
-    render () {
-
-        let { t, className, breadcrumbs } = this.props;
-
-        return <div className={classNames('c-ui-breadcrumbs', 'breadcrumb', className)}>
-            <div style={{position: 'absolute', right: '1rem'}}>
-                <a href='mailto:Nuno.Cardoso@nav.no'>{t('ui:giveFeedback')}</a>
-            </div>
-            {breadcrumbs ? breadcrumbs.map((b, index) => {
-                return index === (breadcrumbs.length - 1) ?
-                    <div key={b.label} className='_breadcrumb'>{t(b.label)}</div> :
-                    <div key={b.label} className='_breadcrumb'>
-                        <a href={'#' + b.ns} title={t(b.label)} onClick={this.onBreadcrumbClick.bind(this, b)}>{t(b.label)}</a>
-                        <span className='separator'>
-                            <Icons kind='caretRight' size='1x'/>
-                        </span>
-                    </div>;
-            }) : null}
-        </div>;
-    }
+    return <div className={classNames('c-ui-breadcrumbs', 'breadcrumb', className)}>
+      {breadcrumbs ? breadcrumbs.map((b, index) => {
+        return index === (breadcrumbs.length - 1)
+          ? <div key={b.label} className='_breadcrumb'>{t(b.label)}</div>
+          : <div key={b.label} className='_breadcrumb'>
+            <a href={'#' + b.ns} title={t(b.label)} onClick={this.onBreadcrumbClick.bind(this, b)}>{t(b.label)}</a>
+            <span className='separator'>
+              <Icons kind='caretRight' size='1x' />
+            </span>
+          </div>
+      }) : null}
+      <div style={{ position: 'absolute', right: '2rem' }}>
+        <a href='mailto:Nuno.Cardoso@nav.no'>{t('ui:giveFeedback')}</a>
+      </div>
+    </div>
+  }
 }
 
 Breadcrumbs.propTypes = {
-    t           : PT.func,
-    breadcrumbs : PT.array,
-    actions     : PT.object.isRequired,
-    history     : PT.object.isRequired,
-    className   : PT.string
+  t: PT.func,
+  breadcrumbs: PT.array,
+  actions: PT.object.isRequired,
+  history: PT.object.isRequired,
+  className: PT.string
 }
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(
-    translate()(Breadcrumbs)
-);
+  translate()(Breadcrumbs)
+)
