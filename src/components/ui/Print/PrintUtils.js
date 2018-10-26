@@ -15,31 +15,30 @@ const margins = {
     marginRight: 'auto'
 } */
 
+const specialElementHandlers = {
+    '#bypassme': function (element, renderer) {
+      return true
+    }
+}
+
 class PrintUtils {
   print (options) {
     var pdf = new JsPDF('p', 'pt', 'A4')
-    var source = options.nodeId ? document.getElementById(options.nodeId || 'divToPrint') : null
-    if (options.content) {
-      source = options.content
-    }
+    var source = options.nodeId ? document.getElementById(options.nodeId || 'divToPrint') : options.content
+    var fileName = options.fileName || 'kvittering.pdf'
 
     if (options.useCanvas) {
       html2canvas(source).then((canvas) => {
         const img = canvas.toDataURL('image/png')
         pdf.addImage(img, 'JPEG', 0, 0)
-        pdf.save(options.fileName || 'kvittering.pdf')
+        pdf.save(fileName)
       })
     } else {
-      var specialElementHandlers = {
-        '#bypassme': function (element, renderer) {
-          return true
-        }
-      }
       pdf.fromHTML(source, margins.left, margins.top, {
         'width': margins.width,
         'elementHandlers': specialElementHandlers
       }, function () {
-        pdf.save(options.fileName || 'kvittering.pdf')
+        pdf.save(fileName)
       })
     }
   }

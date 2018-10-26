@@ -15,7 +15,7 @@ import TimelineEvent from '../../../ui/TimelineEvent/TimelineEvent'
 
 import * as p4000Actions from '../../../../actions/p4000'
 
-import './View.css'
+import './Timeline.css'
 
 const mapStateToProps = (state) => {
   return {
@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch) }
 }
 
-class View extends Component {
+class _Timeline extends Component {
     state = {
       formData: undefined,
       p4000Data: undefined,
@@ -132,7 +132,7 @@ class View extends Component {
         }
       })
 
-      return <Nav.Panel className='c-p4000-menu-view p-0 mb-4'>
+      return <Nav.Panel className='c-p4000-menu-timeline p-0 mb-4'>
         <div>
           <Nav.Knapp className='backButton mr-4' onClick={this.onBackButtonClick.bind(this)}>
             <Icons className='mr-2' kind='back' size='1x' />{t('ui:back')}
@@ -185,7 +185,7 @@ class View extends Component {
     }
 }
 
-View.propTypes = {
+_Timeline.propTypes = {
   t: PT.func,
   events: PT.array.isRequired,
   actions: PT.object.isRequired,
@@ -196,5 +196,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(View)
+  translate()(_Timeline)
 )

@@ -7,9 +7,8 @@ import { bindActionCreators } from 'redux'
 
 import Icons from '../../ui/Icons'
 import * as Nav from '../../ui/Nav'
-import PrintUtils from '../../ui/Print/PrintUtils'
 
-import * as uiActions from '../../../actions/ui'
+import * as p4000Actions from '../../../actions/p4000'
 
 const mapStateToProps = (state) => {
   return {
@@ -18,19 +17,16 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, uiActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch) }
 }
 
 class PrintButton extends Component {
     state = {}
 
     onPrintRequest () {
-      const { events } = this.props
+      const { actions } = this.props
 
-      PrintUtils.print({
-        content: '<div>' + JSON.stringify(events) + '</div>',
-        useCanvas: false
-      })
+      actions.setPage('print')
     }
 
     render () {

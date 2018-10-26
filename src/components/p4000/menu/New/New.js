@@ -11,7 +11,8 @@ import SubmitButton from '../../Buttons/SubmitButton'
 import PrintButton from '../../Buttons/PrintButton'
 import OpenFromServerButton from '../../Buttons/OpenFromServerButton'
 import SaveToServerButton from '../../Buttons/SaveToServerButton'
-import ViewButton from '../../Buttons/ViewButton'
+import TimelineButton from '../../Buttons/TimelineButton'
+import SummaryButton from '../../Buttons/SummaryButton'
 import NewButton from '../../Buttons/NewButton'
 
 import * as UrlValidator from '../../../../utils/UrlValidator'
@@ -134,9 +135,10 @@ class New extends Component {
             <NewButton style={{ animationDelay: '0.33s' }} />
             <OpenFromServerButton style={{ animationDelay: '0.36s' }} />
             <SaveToServerButton style={{ animationDelay: '0.39s' }} />
-            <ViewButton style={{ animationDelay: '0.42s' }} />
-            <PrintButton style={{ animationDelay: '0.45s' }} />
-            <SubmitButton style={{ animationDelay: '0.48s' }} />
+            <TimelineButton style={{ animationDelay: '0.42s' }} />
+            <SummaryButton style={{ animationDelay: '0.45s' }} />
+            <PrintButton style={{ animationDelay: '0.48s' }} />
+            <SubmitButton style={{ animationDelay: '0.51s' }} />
           </div>
         </div>
         {this.state.referrer ? <Nav.Row>
