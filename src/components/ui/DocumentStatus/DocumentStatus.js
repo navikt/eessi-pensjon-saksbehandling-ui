@@ -20,12 +20,12 @@ import './DocumentStatus.css'
 
 const mapStateToProps = (state) => {
   return {
-    sed           : state.status.sed,
-    rinaId        : state.status.rinaId,
-    documents     : state.status.documents,
-    gettingSED    : state.loading.gettingSED,
-    loadingStatus : state.loading.status,
-    gettingStatus : state.loading.gettingStatus
+    sed: state.status.sed,
+    rinaId: state.status.rinaId,
+    documents: state.status.documents,
+    gettingSED: state.loading.gettingSED,
+    loadingStatus: state.loading.status,
+    gettingStatus: state.loading.gettingStatus
   }
 }
 
@@ -53,24 +53,24 @@ const sortStatusByDocs = (documents) => {
 
   return Object.keys(res).sort().map(key => {
     return {
-      dokumentType : key,
-      aksjoner     : res[key].aksjoner,
-      dokumentId   : res[key].dokumentId
+      dokumentType: key,
+      aksjoner: res[key].aksjoner,
+      dokumentId: res[key].dokumentId
     }
   })
 }
 
 class DocumentStatus extends Component {
     state = {
-      docs   : undefined,
-      sed    : undefined,
-      filter : 'all'
+      docs: undefined,
+      sed: undefined,
+      filter: 'all'
     }
 
     static getDerivedStateFromProps (nextProps, prevState) {
       return {
-        docs : nextProps.documents ? sortStatusByDocs(nextProps.documents) : undefined,
-        sed  : !_.isEqual(nextProps.sed, prevState.sed) ? nextProps.sed : prevState.sed
+        docs: nextProps.documents ? sortStatusByDocs(nextProps.documents) : undefined,
+        sed: !_.isEqual(nextProps.sed, prevState.sed) ? nextProps.sed : prevState.sed
       }
     }
 
@@ -134,14 +134,12 @@ class DocumentStatus extends Component {
     }
 
     deleteSed (doc) {
-
       const { actions, rinaId } = this.props
 
       actions.deleteSed(rinaId, doc.dokumentId)
     }
 
     handleDocumentClick (doc, aksjoner) {
-
       const { t, rinaId, actions, history } = this.props
 
       switch (aksjoner) {
@@ -200,11 +198,10 @@ class DocumentStatus extends Component {
       }
     }
 
-    refreshDocumentStatus() {
+    refreshDocumentStatus () {
+      const { actions, rinaId } = this.props
 
-        const { actions, rinaId } = this.props;
-
-        actions.getStatus(rinaId)
+      actions.getStatus(rinaId)
     }
 
     render () {
@@ -226,8 +223,8 @@ class DocumentStatus extends Component {
           <Nav.EtikettBase className={classNames('tags', { selected: filter === 'notsent' })}
             type={filter === 'notsent' ? 'suksess' : 'info'}
             onClick={this.setFilter.bind(this, 'notsent')}>{t('notSent')}</Nav.EtikettBase>
-          <div title={t('refresh')} className={classNames('refresh', {rotating: gettingStatus})}>
-            <Icons kind='refresh' onClick={this.refreshDocumentStatus.bind(this)}/>
+          <div title={t('refresh')} className={classNames('refresh', { rotating: gettingStatus })}>
+            <Icons kind='refresh' onClick={this.refreshDocumentStatus.bind(this)} />
           </div>
         </div>
 
@@ -271,14 +268,14 @@ class DocumentStatus extends Component {
 }
 
 DocumentStatus.propTypes = {
-  t             : PT.func.isRequired,
-  rinaId        : PT.string,
-  className     : PT.object,
-  history       : PT.object.isRequired,
-  actions       : PT.object.isRequired,
-  loadingStatus : PT.string,
-  gettingSED    : PT.bool,
-  gettingStatus : PT.bool
+  t: PT.func.isRequired,
+  rinaId: PT.string,
+  className: PT.object,
+  history: PT.object.isRequired,
+  actions: PT.object.isRequired,
+  loadingStatus: PT.string,
+  gettingSED: PT.bool,
+  gettingStatus: PT.bool
 }
 
 export default connect(

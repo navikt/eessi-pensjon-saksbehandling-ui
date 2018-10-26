@@ -82,6 +82,7 @@
     "file-open-from-server-description-2"   : "You will be prompted to select a P4000 form from the server",
     "file-open-from-server-description-3"   : "Any current unsaved P4000 forms will be discarded",
     "file-view-description-1"               : "Choose this button if you want to view the current P4000 form",
+    "file-print-description-1"              : "Choose this button if you want to print the current P4000 form",
     "file-new-events-description-1"         : "Choose this button if you want to add a new event for the current P4000 form",
     "file-save-to-file-description-1"       : "Choose this button if you want to save the current P4000 form into a local file",
     "file-save-to-file-description-2"       : "You can resume and finish your work later",

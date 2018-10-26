@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
-import Print from '../../components/ui/Print'
+import Print from '../../components/ui/Print/Print'
 import RenderPrintData from '../../components/case/RenderPrintData'
 
 import Case from './Case'

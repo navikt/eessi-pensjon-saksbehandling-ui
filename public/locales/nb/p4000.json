@@ -82,6 +82,7 @@
     "file-open-from-server-description-2"   : "Du vil bli bedt om å velg en P4000 skjema fra server",
     "file-open-from-server-description-3"   : "Enhver ikke-lagret P4000 skjema vil bli slettet",
     "file-view-description-1"               : "Oversikrt den nåværende P4000 skjema",
+    "file-print-description-1"              : "Utskrift den nåværende P4000 skjema",
     "file-new-events-description-1"         : "Legg til en ny hendelse til nåværende P4000 skjema",
     "file-save-to-file-description-1"       : "Lagre nåværende P4000 skjema i en fil",
     "file-save-to-file-description-2"       : "Du kan fortsette og fullføre skjemaen senere",
