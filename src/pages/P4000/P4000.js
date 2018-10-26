@@ -34,8 +34,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const components = {
   timeline: Menu.Timeline,
-  summary : Menu.Summary,
-  print : Menu.Print,
+  summary: Menu.Summary,
+  print: Menu.Print,
   'new': Menu.New,
   work: Menu.Work,
   home: Menu.GenericEvent,

@@ -16,9 +16,9 @@ const margins = {
 } */
 
 const specialElementHandlers = {
-    '#bypassme': function (element, renderer) {
-      return true
-    }
+  '#bypassme': function (element, renderer) {
+    return true
+  }
 }
 
 class PrintUtils {

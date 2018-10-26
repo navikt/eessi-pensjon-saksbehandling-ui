@@ -56,6 +56,7 @@
 
     "event-delete-confirm-title": "Slett hendelse",
     "event-delete-confirm-text" : "Er du sikkert?",
+    "event-edit"                : "Redigere hendelse",
 
     "file-menu"                 : "Filmeny",
     "file-new"                  : "Ny P4000",
@@ -63,6 +64,7 @@
     "file-open-from-server"     : "Åpen fra server",
     "file-timeline"             : "P4000 Tidslinje",
     "file-summary"              : "P4000 Sammendrag",
+    "file-print"                : "Utskrift P4000",
     "file-new-event"            : "Ny hendelse",
     "file-save-to-file"         : "Lagre til fil",
     "file-save-to-server"       : "Lagre til server",

@@ -16,6 +16,7 @@ import TimelineEvent from '../../../ui/TimelineEvent/TimelineEvent'
 import * as p4000Actions from '../../../../actions/p4000'
 
 import './Timeline.css'
+import '../Menu.css'
 
 const mapStateToProps = (state) => {
   return {
@@ -132,13 +133,14 @@ class _Timeline extends Component {
         }
       })
 
-      return <Nav.Panel className='c-p4000-menu-timeline p-0 mb-4'>
-        <div>
+      return <Nav.Panel className='c-p4000-menu c-p4000-menu-timeline p-0 mb-4'>
+        <div className='title m-4'>
           <Nav.Knapp className='backButton mr-4' onClick={this.onBackButtonClick.bind(this)}>
             <Icons className='mr-2' kind='back' size='1x' />{t('ui:back')}
           </Nav.Knapp>
+          <Icons size='3x' kind={'calendar'} className='float-left mr-4' />
+          <h1 className='m-0'>{t('p4000:form-timeline')}</h1>
         </div>
-        <h1>{t('p4000:form-timeline')}</h1>
         <Timeline items={items} options={{
           width: '100%',
           orientation: 'top',
@@ -151,7 +153,8 @@ class _Timeline extends Component {
             return item.content
           }
         }} />
-        <Nav.Ekspanderbartpanel style={{ animationDelay: '0.3s' }} className='row-advanced-view fieldset animate' apen={false} tittel={t('p4000:form-advancedView')} tittelProps='undertittel'>
+
+        <Nav.Ekspanderbartpanel style={{ animationDelay: '0.3s' }} className='mt-4 row-advanced-view fieldset animate' apen={false} tittel={t('p4000:form-advancedView')} tittelProps='undertittel'>
 
           <Nav.Row className='fileButtons m-4'>
             <Nav.Column>

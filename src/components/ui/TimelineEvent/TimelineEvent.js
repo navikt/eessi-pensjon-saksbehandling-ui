@@ -15,7 +15,7 @@ class TimelineEvent extends Component {
       </div>
       <span>{t('p4000:type-' + event.content.type)}</span>
       <div className='timeline-event-edit'>
-        <a href='#edit' onClick={onClick}>{t('p4000:editEvent')}</a>
+        <a href='#edit' onClick={onClick}>{t('p4000:event-edit')}</a>
       </div>
     </div>
   }
