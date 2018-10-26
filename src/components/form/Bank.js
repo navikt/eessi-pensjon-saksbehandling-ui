@@ -1,8 +1,8 @@
-import React from 'react';
-import PT from 'prop-types';
-import uuidv4 from 'uuid/v4';
-import _ from 'lodash';
-import { connect } from 'react-redux';
+import React from 'react'
+import PT from 'prop-types'
+import uuidv4 from 'uuid/v4'
+import _ from 'lodash'
+import { connect } from 'react-redux'
 
 import * as Nav from '../ui/Nav'
 import CountrySelect from '../ui/CountrySelect/CountrySelect'
@@ -17,51 +17,52 @@ const errorMessages = {
   bankCode: { patternMismatch: 'patternMismatch', valueMissing: 'valueMissing' }
 }
 
-//TODO ADD OWNPROP PATH PROP FOR LODASH PICK?
+// TODO ADD OWNPROP PATH PROP FOR LODASH PICK?
 const mapStateToProps = (state) => {
-    return {
-        locale   :  state.ui.locale,
-        bank     :  _.pick(state.pinfo.form,
-                        [
-                            'bankName',
-                            'bankAddress',
-                            'bankCountry',
-                            'bankBicSwift',
-                            'bankIban',
-                            'bankCode'
-                        ]
-                    ),
+  return {
+    locale: state.ui.locale,
+    bank: _.pick(state.pinfo.form,
+      [
+        'bankName',
+        'bankAddress',
+        'bankCountry',
+        'bankBicSwift',
+        'bankIban',
+        'bankCode'
+      ]
+    )
+  }
+}
+class Bank extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.onInvalid = onInvalid.bind(this, errorMessages)
+    this.onChange = onChange.bind(this, errorMessages)
+    this.onSelect = onSelect.bind(this, 'bankCountry')
+
+    let uuid = uuidv4()
+
+    let keys = ['bankName', 'bankAddress', 'bankCountry', 'bankBicSwift', 'bankIban', 'bankCode']
+    let nameToId = keys.reduce((acc, cur, i) => ({ ...acc, [cur]: uuid + '_' + i }), {})
+    let idToName = keys.reduce((acc, cur, i) => ({ ...acc, [uuid + '_' + i]: cur }), {})
+    let inputStates = keys.reduce((acc, cur) => ({ ...acc,
+      [cur]: {
+        showError: false,
+        error: null,
+        errorType: null,
+        action: this.props.action.bind(null, cur)
+      } }), {})
+    let countryRequired = !this.props.bank.bankCountry
+    this.state = {
+      ref: React.createRef(),
+      idToName,
+      nameToId,
+      inputStates,
+      customInputProps: { required: countryRequired, onInvalid: this.onInvalid, id: nameToId['bankCountry'] }
     }
-};
-class Bank extends React.Component{
-    constructor(props){
-        super(props);
-
-        this.onInvalid = onInvalid.bind(this, errorMessages);
-        this.onChange = onChange.bind(this, errorMessages);
-        this.onSelect = onSelect.bind(this, 'bankCountry');
-
-        let uuid = uuidv4();
-
-        let keys = ['bankName', 'bankAddress', 'bankCountry', 'bankBicSwift', 'bankIban', 'bankCode'];
-        let nameToId = keys.reduce((acc, cur, i)=>({...acc, [cur]: uuid+'_'+i }), {});
-        let idToName = keys.reduce((acc, cur, i)=>({...acc, [uuid+'_'+i]: cur }), {});
-        let inputStates = keys.reduce((acc, cur)=> ({...acc, [cur]: {
-            showError: false,
-            error: null,
-            errorType: null,
-            action: this.props.action.bind(null, cur)
-        }}), {});
-        let countryRequired = this.props.bank.bankCountry? false: true;
-        this.state = {
-            ref: React.createRef(),
-            idToName,
-            nameToId,
-            inputStates,
-            customInputProps : {required: countryRequired, onInvalid: this.onInvalid, id: nameToId['bankCountry']}
-        };
-    }
-  render (){
+  }
+  render () {
     const { t, bank, locale } = this.props
     const nameToId = this.state.nameToId
     const inputStates = this.state.inputStates
@@ -151,14 +152,10 @@ class Bank extends React.Component{
   }
 }
 
-
-
-
-
 export default connect(
-    mapStateToProps,
-    {}
-)(Bank);
+  mapStateToProps,
+  {}
+)(Bank)
 
 Bank.propTypes = {
   bank: PT.object,

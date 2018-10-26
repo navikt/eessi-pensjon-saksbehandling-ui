@@ -1,11 +1,11 @@
-import React from 'react';
-import uuidv4 from 'uuid/v4';
-import PT from 'prop-types';
-import moment from 'moment';
-import ReactDatePicker from 'react-datepicker';
-import classNames from 'classnames';
-import _ from 'lodash';
-import { connect } from 'react-redux';
+import React from 'react'
+import uuidv4 from 'uuid/v4'
+import PT from 'prop-types'
+import moment from 'moment'
+import ReactDatePicker from 'react-datepicker'
+import classNames from 'classnames'
+import _ from 'lodash'
+import { connect } from 'react-redux'
 
 import CountrySelect from '../ui/CountrySelect/CountrySelect'
 import { onDateChange, onChange, onSelect, onInvalid } from './shared/eventFunctions'
@@ -24,54 +24,52 @@ const errorMessages = {
 }
 
 const mapStateToProps = (state) => {
-    return {
-        locale   :  state.ui.locale,
-        work     :  _.pick(state.pinfo.form,
-                        [
-                            'workType',
-                            'workStartDate',
-                            'workEndDate',
-                            'workEstimatedRetirementDate',
-                            'workHourPerWeek',
-                            'workIncome',
-                            'workIncomeCurrency',
-                            'workPaymentDate',
-                            'workPaymentFrequency'
-                        ]
-                    ),
+  return {
+    locale: state.ui.locale,
+    work: _.pick(state.pinfo.form,
+      [
+        'workType',
+        'workStartDate',
+        'workEndDate',
+        'workEstimatedRetirementDate',
+        'workHourPerWeek',
+        'workIncome',
+        'workIncomeCurrency',
+        'workPaymentDate',
+        'workPaymentFrequency'
+      ]
+    )
+  }
+}
+
+class Work extends React.Component {
+  constructor (props) {
+    super(props)
+    this.onInvalid = onInvalid.bind(this, errorMessages)
+    this.onChange = onChange.bind(this, errorMessages)
+    this.onSelect = onSelect.bind(this, 'workIncomeCurrency')
+    this.onDateChange = onDateChange
+
+    let uuid = uuidv4()
+
+    let keys = ['workType', 'workStartDate', 'workEndDate', 'workEstimatedRetirementDate', 'workHourPerWeek',
+      'workIncome', 'workIncomeCurrency', 'workPaymentDate', 'workPaymentFrequency']
+    let nameToId = keys.reduce((acc, cur, i) => ({ ...acc, [cur]: uuid + '_' + i }), {})
+    let idToName = keys.reduce((acc, cur, i) => ({ ...acc, [uuid + '_' + i]: cur }), {})
+    let inputStates = keys.reduce((acc, cur) => ({ ...acc,
+      [cur]: {
+        showError: false,
+        error: null,
+        errorType: null,
+        action: this.props.action.bind(null, cur)
+      } }), {})
+    this.state = {
+      ref: React.createRef(),
+      idToName,
+      nameToId,
+      inputStates
     }
-};
-
-class Work extends React.Component{
-    constructor(props){
-        super(props);
-        this.onInvalid = onInvalid.bind(this, errorMessages);
-        this.onChange = onChange.bind(this, errorMessages);
-        this.onSelect = onSelect.bind(this, 'workIncomeCurrency');
-        this.onDateChange = onDateChange;
-
-       
-
-        let uuid = uuidv4();
-
-        let keys = ['workType', 'workStartDate', 'workEndDate', 'workEstimatedRetirementDate', 'workHourPerWeek',
-                    'workIncome', 'workIncomeCurrency','workPaymentDate', 'workPaymentFrequency'];
-        let nameToId = keys.reduce((acc, cur, i)=>({...acc, [cur]: uuid+'_'+i }), {});
-        let idToName = keys.reduce((acc, cur, i)=>({...acc, [uuid+'_'+i]: cur }), {});
-        let inputStates = keys.reduce((acc, cur)=> ({...acc, [cur]: {
-            showError: false,
-            error: null,
-            errorType: null,
-            action: this.props.action.bind(null, cur)
-        }}), {});
-        this.state = {
-            ref: React.createRef(),
-            idToName,
-            nameToId,
-            inputStates,
-        };
-    }
-  
+  }
 
   render () {
     const { t, work } = this.props
@@ -302,13 +300,13 @@ class Work extends React.Component{
   }
 }
 Work.propTypes = {
-    work    : PT.object,
-    action  : PT.func,
-    t       : PT.func,
-    locale  : PT.string
-};
+  work: PT.object,
+  action: PT.func,
+  t: PT.func,
+  locale: PT.string
+}
 
 export default connect(
-    mapStateToProps,
-    {}
-)(Work);
+  mapStateToProps,
+  {}
+)(Work)

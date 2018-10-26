@@ -34,9 +34,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class FrontPage extends Component {
-
   getCreateableDocuments (status) {
-
     return status.docs ? status.docs
       .filter(item => { return item.navn === 'Create' })
       .sort((a, b) => { return (a.dokumentType > b.dokumentType) ? 1 : ((a.dokumentType < b.dokumentType) ? -1 : 0) })
@@ -44,7 +42,6 @@ class FrontPage extends Component {
   }
 
   render () {
-
     const { t, language, gettingStatus, gettingRinaCase, history, status, location, userRole } = this.props
 
     return <TopContainer className='frontPage'
