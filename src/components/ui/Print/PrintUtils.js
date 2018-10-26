@@ -2,12 +2,12 @@
 import JsPDF from 'jspdf'
 import html2canvas from 'html2canvas'
 
-const margins = {
-  top: 50,
-  left: 60,
-  width: 545
-}
-
+margins = {
+    top: 80,
+    bottom: 60,
+    left: 40,
+    width: 522
+};
 /* const page = {
     width: '210mm',
     minHeight: '297mm',
@@ -23,7 +23,12 @@ const specialElementHandlers = {
 
 class PrintUtils {
   print (options) {
-    var pdf = new JsPDF('p', 'pt', 'A4')
+    var pdf = new JsPDF({
+        orientation: 'portrait',
+        unit: 'pt',
+        format: 'A4'
+     })
+
     var source = options.nodeId ? document.getElementById(options.nodeId || 'divToPrint') : options.content
     var fileName = options.fileName || 'kvittering.pdf'
 
@@ -39,7 +44,7 @@ class PrintUtils {
         'elementHandlers': specialElementHandlers
       }, function () {
         pdf.save(fileName)
-      })
+      }, margins)
     }
   }
 }

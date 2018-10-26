@@ -4,6 +4,7 @@ import PT from 'prop-types'
 import { translate } from 'react-i18next'
 import { bindActionCreators } from 'redux'
 
+import SummaryRender from './SummaryRender'
 import Icons from '../../../ui/Icons'
 
 import * as Nav from '../../../ui/Nav'
@@ -31,17 +32,21 @@ class Print extends Component {
     actions.setPage('new')
   }
 
+  componentDidMount() {
+    window.scrollTo(0,0)
+  }
+
   onPrintRequest () {
     const { events } = this.props
 
     PrintUtils.print({
-      content: '<div>' + JSON.stringify(events) + '</div>',
-      useCanvas: false
+      nodeId: 'divToPrint',
+      useCanvas: true
     })
   }
 
   render () {
-    const { t } = this.props
+    const { t, events } = this.props
 
     return <Nav.Panel className='c-p4000-menu c-p4000-menu-print p-0 mb-4'>
       <div className='title m-4'>
@@ -49,10 +54,15 @@ class Print extends Component {
           <Icons className='mr-2' kind='back' size='1x' />{t('ui:back')}
         </Nav.Knapp>
         <Icons size='3x' kind={'print'} className='float-left mr-4' />
-        <h1>{t('p4000:file-print')}</h1>
+        <h1 className='m-0'>{t('p4000:file-print')}</h1>
       </div>
-
-        Print
+      <div id='divToPrint'>
+        <SummaryRender t={t} events={events}/>
+      </div>
+      <Nav.Knapp className='printButton m-4' onClick={this.onPrintRequest.bind(this)}>
+         <Icons className='mr-2' kind='print' size='1x' />
+         {t('print')}
+      </Nav.Knapp>
     </Nav.Panel>
   }
 }
