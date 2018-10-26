@@ -3,7 +3,6 @@ import uuidv4 from 'uuid/v4'
 import PT from 'prop-types'
 import _ from 'lodash'
 import { connect } from 'react-redux'
-import getError from './shared/getError'
 import * as Nav from '../ui/Nav'
 import { onChange, onInvalid } from './shared/eventFunctions'
 

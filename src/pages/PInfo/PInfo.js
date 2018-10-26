@@ -5,7 +5,6 @@ import PT from 'prop-types'
 import { translate } from 'react-i18next'
 import classNames from 'classnames'
 import moment from 'moment'
-import lifecycle from 'react-pure-lifecycle'
 import _ from 'lodash'
 
 import 'react-datepicker/dist/react-datepicker.min.css'
