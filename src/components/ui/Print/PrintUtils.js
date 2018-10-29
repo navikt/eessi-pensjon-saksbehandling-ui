@@ -1,50 +1,70 @@
+import html2pdf from 'html2pdf.js'
+import _ from 'lodash'
 
-import JsPDF from 'jspdf'
-import html2canvas from 'html2canvas'
-
-margins = {
-    top: 80,
-    bottom: 60,
-    left: 40,
-    width: 522
-};
-/* const page = {
-    width: '210mm',
-    minHeight: '297mm',
-    marginLeft: 'auto',
-    marginRight: 'auto'
-} */
-
-const specialElementHandlers = {
-  '#bypassme': function (element, renderer) {
-    return true
+var defaultOptions = {
+  pagebreak: { mode: 'avoid-all', before: '.fieldset', after: '.fieldset' },
+  margin: [40, 40, 40, 40],
+  filename: 'kvittering.pdf',
+  enableLinks: true,
+  image: { type: 'jpeg', quality: 0.98 },
+  html2canvas: { scale: 2 },
+  jsPDF: {
+    orientation: 'portrait',
+    unit: 'pt',
+    format: 'A4'
   }
 }
 
 class PrintUtils {
-  print (options) {
-    var pdf = new JsPDF({
-        orientation: 'portrait',
-        unit: 'pt',
-        format: 'A4'
-     })
 
-    var source = options.nodeId ? document.getElementById(options.nodeId || 'divToPrint') : options.content
-    var fileName = options.fileName || 'kvittering.pdf'
+  async printPreview (params) {
+    let options = _.cloneDeep(defaultOptions)
 
-    if (options.useCanvas) {
-      html2canvas(source).then((canvas) => {
-        const img = canvas.toDataURL('image/png')
-        pdf.addImage(img, 'JPEG', 0, 0)
-        pdf.save(fileName)
-      })
-    } else {
-      pdf.fromHTML(source, margins.left, margins.top, {
-        'width': margins.width,
-        'elementHandlers': specialElementHandlers
-      }, function () {
-        pdf.save(fileName)
-      }, margins)
+    if (params.fileName) {
+      options.filename = params.fileName
+    }
+    var element = document.getElementById(params.nodeId || 'divToPrint')
+
+    if (options.includeAttachments) {
+    }
+
+    let pdf = await this.generate(options, element)
+
+    return this.processRaw(pdf)
+  }
+
+  async print (params) {
+    let options = _.cloneDeep(defaultOptions)
+
+    if (params.fileName) {
+      options.filename = params.fileName
+    }
+    var element = document.getElementById(params.nodeId || 'divToPrint')
+
+    let pdf = await this.generate(options, element)
+  }
+
+  download(opt, element) {
+      html2pdf().set(opt).from(element).save()
+  }
+
+  async generate (opt, element) {
+
+    return new Promise(async (resolve) => {
+        html2pdf().set(opt).from(element).outputPdf().then(pdf => {
+            resolve(pdf)
+        })
+    });
+
+  }
+
+  processRaw(pdf) {
+
+    let base64 = window.btoa(pdf)
+
+    return {
+        'base64' : base64,
+        'data' : Uint8Array.from(pdf, c => c.charCodeAt(0))
     }
   }
 }

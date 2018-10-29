@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
 import { translate } from 'react-i18next'
+import className from 'classnames'
 
 import Icons from '../../../ui/Icons'
 import File from '../../../ui/File/File'
@@ -10,22 +11,26 @@ import '../Menu.css'
 
 class SummaryRender extends Component {
   render () {
-    const { t, events } = this.props
+    const { t, events, animate, previewAttachments, blackAndWhite } = this.props
+
+    let _animate = animate !== undefined ? animate : true
 
     return <div>
       {events.map((event, index) => {
-        return <div key={index} style={{ animationDelay: (index * 0.03) + 's' }} className='event m-3 fieldset animate2'>
-          <div className='eventTitle'>
-            <Icons size='2x' kind={event.type} />
-            <span className='ml-3 eventTitleText'>
+        return <div key={index} style={{ animationDelay: (index * 0.03) + 's' }}
+          className={className('event m-3', { fieldset: !blackAndWhite, bwfieldset: blackAndWhite, slideAnimate: _animate })}>
+          <div className='eventTitle eventTitleText'>
+            <Icons size='2x' style={{ width: '16px', height: '16px' }} kind={event.type} />
+            <span className='ml-3'>
               {event.startDate ? event.startDate.toLocaleDateString() : t('unknown')}
               {' - '}
               {event.endDate ? event.endDate.toLocaleDateString() : t('unknown')}
               {event.uncertainDate ? '*' : ''}
             </span>
-            <img className='ml-3' title={event.country.label} alt={event.country.label}
+            { !blackAndWhite ? <img className='ml-3' title={event.country.label} alt={event.country.label}
               style={{ width: '30px', height: '20px' }} src={'../../../../flags/' + event.country.value + '.png'} />
-            <span className='ml-3 eventTitleText'>
+              : <span className='ml-3'>{event.country.label}</span> }
+            <span className='ml-3'>
               {t('p4000:type-' + event.type)}
             </span>
           </div>
@@ -46,12 +51,12 @@ class SummaryRender extends Component {
             {event.lastname}, {event.firstname} - {event.birthDate.toLocaleDateString()}
           </div> : null}
           {event.other ? <div><label>{t('comment')}</label>{': '}{event.other}</div> : null}
-          {event.files ? <div>
+          {previewAttachments && event.files ? <div>
             <label>{t('attachments')}: </label>
             <div>{event.files.map((file, i) => {
               return <File className='mr-2' key={i} file={file} deleteLink={false} downloadLink />
             })}</div>
-          </div> : null }
+          </div> : null}
         </div>
       })}
     </div>
@@ -60,7 +65,10 @@ class SummaryRender extends Component {
 
 SummaryRender.propTypes = {
   t: PT.func,
-  events: PT.array.isRequired
+  events: PT.array.isRequired,
+  animate: PT.bool.isRequired,
+  previewAttachments: PT.bool.isRequired,
+  blackAndWhite: PT.bool.isRequired
 }
 
 export default translate()(SummaryRender)

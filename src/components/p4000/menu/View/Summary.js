@@ -30,8 +30,8 @@ class Summary extends Component {
     actions.setPage('new')
   }
 
-  componentDidMount() {
-    window.scrollTo(0,0)
+  componentDidMount () {
+    window.scrollTo(0, 0)
   }
 
   render () {
@@ -45,7 +45,9 @@ class Summary extends Component {
         <Icons size='3x' kind={'view'} className='float-left mr-4' />
         <h1 className='m-0'>{t('p4000:file-summary')}</h1>
       </div>
-      <SummaryRender t={t} events={events} />
+      <SummaryRender t={t} events={events}
+        previewAttachments
+        blackAndWhite={false} />
     </Nav.Panel>
   }
 }
