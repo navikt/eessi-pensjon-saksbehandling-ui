@@ -7,6 +7,7 @@ import { translate } from 'react-i18next'
 import { bindActionCreators } from 'redux'
 import classNames from 'classnames'
 import print from 'print-js'
+import { withRouter } from 'react-router'
 
 import SummaryRender from './SummaryRender'
 import Icons from '../../../ui/Icons'
@@ -14,7 +15,9 @@ import Icons from '../../../ui/Icons'
 import * as Nav from '../../../ui/Nav'
 import PdfUtils from '../../../ui/Print/PdfUtils'
 
+import * as routes from '../../../../constants/routes'
 import * as p4000Actions from '../../../../actions/p4000'
+import * as pdfActions from '../../../../actions/pdf'
 
 import './Print.css'
 import '../Menu.css'
@@ -26,7 +29,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, pdfActions, p4000Actions), dispatch) }
 }
 
 class Print extends Component {
@@ -164,6 +167,15 @@ class Print extends Component {
     }
   }
 
+  onAdvancedEditRequest() {
+
+      const { history, actions } = this.props
+
+      actions.selectPDF([this.state.previewPdf])
+      history.push(routes.PDF_EDIT)
+  }
+
+
   setCheckbox (key, e) {
     this.setState({
       [key]: e.target.checked,
@@ -179,7 +191,7 @@ class Print extends Component {
 
   render () {
     const { t, events } = this.props
-    const { blackAndWhite, pdf, previewPdf, doingPreview, doingPrint, doingDownload } = this.state
+    const {includeAttachments, blackAndWhite, pdf, previewPdf, doingPreview, doingPrint, doingDownload } = this.state
 
     return <Nav.Panel className='c-p4000-menu c-p4000-menu-print p-0 mb-4'>
       <div className='title m-4'>
@@ -193,8 +205,12 @@ class Print extends Component {
 
         <div className='col-md-3'>
           <div style={{ marginTop: '6rem' }}>
-            <Nav.Checkbox label={t('includeAttachments')} onChange={this.setCheckbox.bind(this, 'includeAttachments')} />
-            <Nav.Checkbox label={t('blackAndWhite')} onChange={this.setCheckbox.bind(this, 'blackAndWhite')} />
+            <Nav.Checkbox label={t('includeAttachments')}
+              checked={includeAttachments}
+              onChange={this.setCheckbox.bind(this, 'includeAttachments')} />
+            <Nav.Checkbox label={t('blackAndWhite')}
+              checked={blackAndWhite}
+              onChange={this.setCheckbox.bind(this, 'blackAndWhite')} />
             <a className='hiddenLink' ref={item => { this.downloadLink = item }}
               onClick={(e) => e.stopPropagation()} title={t('ui:download')}
               href={pdf ? 'data:application/octet-stream;base64,' + encodeURIComponent(pdf.content.base64) : '#'}
@@ -212,6 +228,12 @@ class Print extends Component {
               spinner={doingPrint}>
               <Icons className='mr-2' kind='print' size='1x' />
               {doingPrint ? t('renderingPdf') : t('print')}
+            </Nav.Knapp>
+
+            <Nav.Knapp className='advancedEditButton' onClick={this.onAdvancedEditRequest.bind(this)}
+              disabled={previewPdf === undefined}>
+              <Icons className='mr-2' kind='tool' size='1x' />
+              {t('advancedEdit')}
             </Nav.Knapp>
           </div>
         </div>
@@ -252,12 +274,15 @@ class Print extends Component {
 Print.propTypes = {
   t: PT.func,
   events: PT.array.isRequired,
-  actions: PT.object.isRequired
+  actions: PT.object.isRequired,
+  history: PT.object
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(Print)
+  withRouter(
+    translate()(Print)
+  )
 )
