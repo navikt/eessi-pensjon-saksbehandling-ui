@@ -1,17 +1,14 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
 
-import PrintUtils from './PrintUtils'
+import PdfUtils from './PdfUtils'
 import * as Nav from '../../ui/Nav'
 
 class Print extends Component {
   onPdfRequest (fileName, nodeId) {
-    const { useCanvas } = this.props
-
-    PrintUtils.print({
+    PdfUtils.downloadPdf({
       fileName: fileName,
-      nodeId: nodeId,
-      useCanvas: useCanvas || false
+      nodeId: nodeId
     })
   }
 
@@ -25,7 +22,6 @@ class Print extends Component {
 Print.propTypes = {
   fileName: PT.string,
   nodeId: PT.string,
-  useCanvas: PT.bool,
   buttonLabel: PT.string.isRequired
 }
 
