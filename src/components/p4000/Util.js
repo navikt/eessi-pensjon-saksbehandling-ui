@@ -13,18 +13,6 @@ class Util {
       if (event.startDate) event.startDate = new Date(event.startDate)
       if (event.birthDate) event.birthDate = new Date(event.birthDate)
       if (event.endDate) event.endDate = new Date(event.endDate)
-      if (event.files) {
-        // can't save file.data on JSON, only base64, therefore reconstruct file.content.data from file.content.base64
-        event.files.map(file => {
-          var raw = window.atob(file.content.base64)
-          var array = new Uint8Array(new ArrayBuffer(raw.length))
-          for (var i = 0; i < raw.length; i++) {
-            array[i] = raw.charCodeAt(i)
-          }
-          file.content.data = array
-          return file
-        })
-      }
       return event
     })
 
@@ -43,14 +31,7 @@ class Util {
 
   writeP4000 (p4000) {
      p4000.events.map(event => {
-      if (event.files) {
-        event.files.map(file => {
-          if (file.content.data) {
-            delete file.content.data
-          }
-          return file
-        })
-      }
+
       return event
     })
     return p4000

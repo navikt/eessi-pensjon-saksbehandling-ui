@@ -1,7 +1,6 @@
 import * as types from '../constants/actionTypes'
 import * as urls from '../constants/urls'
 import * as api from './api'
-import _ from 'lodash'
 
 export function selectPDF (files) {
   return {
@@ -64,16 +63,11 @@ export function setSeparator (payload) {
 }
 
 export function generatePDF (payload) {
-  let newPayload = _.cloneDeep(payload)
-
-  for (var i in newPayload.files) {
-    delete newPayload.files[i].content.data
-  }
 
   return api.call({
     url: urls.PDF_GENERATE_URL,
     method: 'POST',
-    payload: newPayload,
+    payload: payload,
     type: {
       request: types.PDF_GENERATE_REQUEST,
       success: types.PDF_GENERATE_SUCCESS,

@@ -112,12 +112,9 @@ class GeneratePDF extends Component {
     handleFileSaveToServer (pdf, fileName) {
       const { actions } = this.props
 
-      let _pdf = _.clone(pdf)
-      delete _pdf.content.data
-
       actions.openStorageModal({
         action: 'save',
-        blob: _pdf,
+        blob: pdf,
         mimetype: 'application/pdf',
         name: fileName
       })

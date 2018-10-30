@@ -21,14 +21,9 @@ export default function (state = initialState, action = {}) {
     }
 
     case types.STORAGE_GET_SUCCESS: {
-      let file = action.payload
-
-      if (file.mimetype === 'application/pdf') {
-        file.content.data = Uint8Array.from(window.atob(file.content.base64), c => c.charCodeAt(0))
-      }
 
       return Object.assign({}, state, {
-        file: file
+        file: action.payload
       })
     }
 

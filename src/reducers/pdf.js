@@ -48,13 +48,9 @@ export default function (state = initialState, action = {}) {
     }
 
     case types.PDF_GENERATE_SUCCESS: {
-      const files = _.clone(action.payload)
-      for (var j in files) {
-        files[j].content.data = Uint8Array.from(window.atob(files[j].content.base64), c => c.charCodeAt(0))
-      }
 
       return Object.assign({}, state, {
-        generatedPDFs: files
+        generatedPDFs: action.payload
       })
     }
 

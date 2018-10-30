@@ -86,9 +86,6 @@ class PdfUtils {
                     reject(error)
                   } else {
                     let p4000 = body.p4000
-                    if (!p4000.content.data) {
-                      p4000.content.data = Uint8Array.from(window.atob(p4000.content.base64), c => c.charCodeAt(0))
-                    }
                     resolve(p4000)
                   }
                 })
@@ -99,6 +96,10 @@ class PdfUtils {
         })
       })
     })
+  }
+
+  base64toData(base64) {
+    return Uint8Array.from(window.atob(base64), c => c.charCodeAt(0))
   }
 
   processRaw (pdf) {
@@ -113,8 +114,7 @@ class PdfUtils {
           'size': pdf.length,
           'mimetype': 'application/pdf',
           'content': {
-            'base64': base64,
-            'data': data
+            'base64': base64
           }
         })
       })

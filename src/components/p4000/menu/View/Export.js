@@ -135,7 +135,9 @@ class Export extends Component {
       this.setState({
         pdf: this.state.previewPdf
       }, () => {
-        const pdfBlob = new Blob([this.state.pdf.content.data], { type: 'application/pdf' })
+        const pdfBlob = new Blob([
+            PdfUtils.base64toData(this.state.pdf.content.base64)
+        ], { type: 'application/pdf' })
         const url = URL.createObjectURL(pdfBlob)
         print(url)
       })
@@ -155,7 +157,9 @@ class Export extends Component {
         this.setState({
           pdf: pdf
         }, () => {
-          const pdfBlob = new Blob([pdf.content.data], { type: 'application/pdf' })
+          const pdfBlob = new Blob([
+              PdfUtils.base64toData(pdf.content.base64)
+          ], { type: 'application/pdf' })
           const url = URL.createObjectURL(pdfBlob)
           print(url)
         })

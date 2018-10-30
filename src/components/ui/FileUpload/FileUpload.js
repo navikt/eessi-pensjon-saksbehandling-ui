@@ -112,6 +112,7 @@ class FileUpload extends Component {
           const reader = new FileReader()
           reader.readAsArrayBuffer(file)
           reader.onloadend = async (e) => {
+
             let blob = new Uint8Array(e.target.result)
 
             var len = blob.byteLength
@@ -129,8 +130,7 @@ class FileUpload extends Component {
               'name': file.name,
               'mimetype': file.type,
               'content': {
-                'base64': base64,
-                'data': blob
+                'base64': base64
               }
             })
             newCurrentPages[newCurrentPages.length] = 1
