@@ -8,11 +8,11 @@ import classNames from 'classnames'
 import * as Nav from '../../../ui/Nav'
 import Icons from '../../../ui/Icons'
 import SubmitButton from '../../Buttons/SubmitButton'
-import OpenFromFileButton from '../../Buttons/OpenFromFileButton'
+import PrintButton from '../../Buttons/PrintButton'
 import OpenFromServerButton from '../../Buttons/OpenFromServerButton'
 import SaveToServerButton from '../../Buttons/SaveToServerButton'
-import SaveToFileButton from '../../Buttons/SaveToFileButton'
-import ViewButton from '../../Buttons/ViewButton'
+import TimelineButton from '../../Buttons/TimelineButton'
+import SummaryButton from '../../Buttons/SummaryButton'
 import NewButton from '../../Buttons/NewButton'
 
 import * as UrlValidator from '../../../../utils/UrlValidator'
@@ -133,11 +133,11 @@ class New extends Component {
           <h1 className='m-0 mb-4'>{t('p4000:file-menu')}</h1>
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
             <NewButton style={{ animationDelay: '0.33s' }} />
-            <OpenFromFileButton style={{ animationDelay: '0.36s' }} />
-            <OpenFromServerButton style={{ animationDelay: '0.39s' }} />
-            <ViewButton style={{ animationDelay: '0.42s' }} />
-            <SaveToFileButton style={{ animationDelay: '0.45s' }} />
-            <SaveToServerButton style={{ animationDelay: '0.48s' }} />
+            <OpenFromServerButton style={{ animationDelay: '0.36s' }} />
+            <SaveToServerButton style={{ animationDelay: '0.39s' }} />
+            <TimelineButton style={{ animationDelay: '0.42s' }} />
+            <SummaryButton style={{ animationDelay: '0.45s' }} />
+            <PrintButton style={{ animationDelay: '0.48s' }} />
             <SubmitButton style={{ animationDelay: '0.51s' }} />
           </div>
         </div>

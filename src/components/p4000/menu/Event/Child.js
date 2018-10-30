@@ -18,7 +18,7 @@ import Validation from '../../Validation'
 import * as Nav from '../../../ui/Nav'
 import Icons from '../../../ui/Icons'
 
-import './Event.css'
+import '../Menu.css'
 
 const mapStateToProps = (state) => {
   return {
@@ -167,8 +167,8 @@ class Child extends Component {
     render () {
       const { t, event, locale, editMode, actions, type } = this.props
 
-      return <Nav.Panel className={classNames('c-p4000-menu-event p-0 mb-4', { editMode: editMode })}>
-        <div className='eventTitle m-4'>
+      return <Nav.Panel className={classNames('c-p4000-menu p-0 mb-4', { editMode: editMode })}>
+        <div className='title m-4'>
           <Nav.Knapp className='backButton mr-4' onClick={this.onBackButtonClick.bind(this)}>
             <Icons className='mr-2' kind='back' size='1x' />{t('ui:back')}
           </Nav.Knapp>

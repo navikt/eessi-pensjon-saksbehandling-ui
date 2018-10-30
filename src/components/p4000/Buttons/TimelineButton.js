@@ -20,28 +20,28 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch) }
 }
 
-class ViewButton extends Component {
-  handleFileView () {
+class TimelineButton extends Component {
+  handleFileTimeline () {
     const { actions } = this.props
 
-    actions.setPage('view')
+    actions.setPage('timeline')
   }
 
   render () {
     const { t, events, style } = this.props
 
-    return <Nav.Knapp title={t('p4000:file-view-description-1')}
-      style={style} className='bigButton viewP4000Button' onClick={this.handleFileView.bind(this)} disabled={_.isEmpty(events)}>
+    return <Nav.Knapp title={t('p4000:file-timeline-description-1')}
+      style={style} className='bigButton timelineP4000Button' onClick={this.handleFileTimeline.bind(this)} disabled={_.isEmpty(events)}>
       <div>
         <Icons className='mr-3' size='4x' kind='file' />
-        <Icons size='3x' kind='view' />
+        <Icons size='3x' kind='calendar' />
       </div>
-      <div className='mt-3'>{t('p4000:file-view')}</div>
+      <div className='mt-3'>{t('p4000:file-timeline')}</div>
     </Nav.Knapp>
   }
 }
 
-ViewButton.propTypes = {
+TimelineButton.propTypes = {
   t: PT.func.isRequired,
   events: PT.array.isRequired,
   style: PT.object,
@@ -52,5 +52,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(ViewButton)
+  translate()(TimelineButton)
 )

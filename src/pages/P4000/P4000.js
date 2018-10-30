@@ -33,7 +33,9 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const components = {
-  view: Menu.View,
+  timeline: Menu.Timeline,
+  summary: Menu.Summary,
+  print: Menu.Print,
   'new': Menu.New,
   work: Menu.Work,
   home: Menu.GenericEvent,
@@ -80,7 +82,7 @@ class P4000 extends Component {
       return <TopContainer className='p-p4000'
         history={history} location={location}
         sideContent={<Pdf t={t} status={status} />}>
-        <StorageModal namespace={storages.P4000} />
+        <StorageModal namespace={activeItem !== 'print' ? storages.P4000 : storages.FILES} />
         <h1 className='appTitle'>{t('p4000:app-title')}</h1>
         <EventForm type={activeItem} Component={Component} history={history} location={location} />
       </TopContainer>
