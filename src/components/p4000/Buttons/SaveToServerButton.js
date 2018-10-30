@@ -30,8 +30,8 @@ class SaveToServerButton extends Component {
       action: 'save',
       blob: {
         content: P4000Util.writeP4000({
-          events : events,
-          comment : comment
+          events: events,
+          comment: comment
         }),
         mimetype: 'application/json',
         name: 'p4000.json'

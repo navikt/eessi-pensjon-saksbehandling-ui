@@ -25,7 +25,9 @@ import '../Menu.css'
 
 const mapStateToProps = (state) => {
   return {
-    events: state.p4000.events
+    events: state.p4000.events,
+    comment: state.p4000.comment,
+    username: state.app.username
   }
 }
 
@@ -136,7 +138,7 @@ class Export extends Component {
         pdf: this.state.previewPdf
       }, () => {
         const pdfBlob = new Blob([
-            PdfUtils.base64toData(this.state.pdf.content.base64)
+          PdfUtils.base64toData(this.state.pdf.content.base64)
         ], { type: 'application/pdf' })
         const url = URL.createObjectURL(pdfBlob)
         print(url)
@@ -158,7 +160,7 @@ class Export extends Component {
           pdf: pdf
         }, () => {
           const pdfBlob = new Blob([
-              PdfUtils.base64toData(pdf.content.base64)
+            PdfUtils.base64toData(pdf.content.base64)
           ], { type: 'application/pdf' })
           const url = URL.createObjectURL(pdfBlob)
           print(url)
@@ -204,7 +206,7 @@ class Export extends Component {
   }
 
   render () {
-    const { t, events } = this.props
+    const { t, events, comment, username } = this.props
     const { includeAttachments, blackAndWhite, pdf, previewPdf, doingPreview, doingPrint, doingDownload } = this.state
 
     return <Nav.Panel className='c-p4000-menu c-p4000-menu-export p-0 mb-4'>
@@ -232,35 +234,31 @@ class Export extends Component {
               href={pdf ? 'data:application/octet-stream;base64,' + encodeURIComponent(pdf.content.base64) : '#'}
               download={'p4000.pdf'}>{t('ui:download')}</a>
 
-            <Nav.Knapp className='downloadButton mb-2' onClick={this.onDownloadRequest.bind(this)}
-              style={{ minHeight: '50px' }}
+            <Nav.Knapp className='exportButton downloadButton mb-2' onClick={this.onDownloadRequest.bind(this)}
               disabled={doingDownload}
               spinner={doingDownload}>
-              <Icons className='mr-2' kind='download' size='1x' />
+              <Icons kind='download' size='1x' />
               {doingDownload ? t('renderingPdf') : t('download')}
             </Nav.Knapp>
 
-            <Nav.Knapp className='printButton' onClick={this.onPrintRequest.bind(this)}
-              style={{ minHeight: '50px' }}
+            <Nav.Knapp className='exportButton printButton' onClick={this.onPrintRequest.bind(this)}
               disabled={doingPrint}
               spinner={doingPrint}>
-              <Icons className='mr-2' kind='print' size='1x' />
+              <Icons kind='print' size='1x' />
               {doingPrint ? t('renderingPdf') : t('print')}
             </Nav.Knapp>
 
-            <Nav.Knapp className='saveButton'
-              style={{ whiteSpace: 'normal' }}
+            <Nav.Knapp className='exportButton saveButton'
               disabled={previewPdf === undefined}
               onClick={this.onSaveRequest.bind(this)}>
-              <Icons className='mr-2' kind='save' size='1x' />
+              <Icons kind='save' size='1x' />
               {t('saveToServer')}
             </Nav.Knapp>
 
-            <Nav.Knapp className='advancedEditButton'
-              style={{ whiteSpace: 'normal' }}
+            <Nav.Knapp className='exportButton advancedEditButton'
               onClick={this.onAdvancedEditRequest.bind(this)}
               disabled={previewPdf === undefined}>
-              <Icons className='mr-2' kind='tool' size='1x' />
+              <Icons kind='tool' size='1x' />
               {t('advancedEdit')}
             </Nav.Knapp>
           </div>
@@ -272,7 +270,10 @@ class Export extends Component {
           </Nav.Tabs>
           <div className={classNames('panel', { 'hidden': this.state.tab !== 'panel-1' })} role='tabpanel' id='panel-1'>
             <div id='divToPrint'>
-              <SummaryRender t={t} events={events}
+              <SummaryRender t={t}
+                events={events}
+                comment={comment}
+                username={username}
                 animate={false}
                 previewAttachments={false}
                 blackAndWhite={blackAndWhite}

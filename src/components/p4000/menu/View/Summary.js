@@ -15,7 +15,9 @@ import '../Menu.css'
 
 const mapStateToProps = (state) => {
   return {
-    events: state.p4000.events
+    events: state.p4000.events,
+    comment: state.p4000.comment,
+    username: state.app.username
   }
 }
 
@@ -35,7 +37,7 @@ class Summary extends Component {
   }
 
   render () {
-    const { t, events } = this.props
+    const { t, events, comment, username } = this.props
 
     return <Nav.Panel className='c-p4000-menu c-p4000-menu-summary p-0 mb-4'>
       <div className='title m-3'>
@@ -45,7 +47,10 @@ class Summary extends Component {
         <Icons size='3x' kind={'view'} className='float-left mr-4' />
         <h1 className='m-0'>{t('p4000:file-summary')}</h1>
       </div>
-      <SummaryRender t={t} events={events}
+      <SummaryRender t={t}
+        events={events}
+        comment={comment}
+        username={username}
         previewAttachments
         blackAndWhite={false} />
     </Nav.Panel>

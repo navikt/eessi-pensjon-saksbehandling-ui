@@ -7,7 +7,7 @@ import * as urls from '../../../constants/urls'
 
 var defaultOptions = {
   pagebreak: { mode: 'avoid-all', before: '.fieldset', after: '.fieldset' },
-  margin: [40, 40, 40, 40],
+  margin: [50, 50, 50, 50],
   filename: 'kvittering.pdf',
   enableLinks: true,
   image: { type: 'jpeg', quality: 0.98 },
@@ -40,65 +40,63 @@ class PdfUtils {
   async generate (params) {
     return new Promise(async (resolve, reject) => {
       html2pdf().set(params.options).from(params.element).outputPdf().then(rawPdf => {
-
         this.processRaw(rawPdf).then(processedPdf => {
-
-            if (!params.includeAttachments) {
-              resolve(processedPdf)
-            } else {
-              let body = {
-                watermark: {},
-                files: [processedPdf],
-                recipe: {
-                  'p4000': [{
-                    type: 'pickDocument',
-                    name: processedPdf.name
-                  }]
-                }
-              }
-
-              params.events.map((event, index) => {
-                if (event.files) {
-                  event.files.map((file, index2) => {
-                    let _file = _.cloneDeep(file)
-                    let newFileName = 'P4000-' + index + '-' + index2 + '.pdf'
-                    _file.name = newFileName
-                    body.files.push(_file)
-                    body.recipe.p4000.push({
-                      type: 'pickDocument',
-                      name: newFileName
-                    })
-                    return file
-                  })
-                }
-                return event
-              })
-
-              try {
-                request({
-                  url: urls.PDF_GENERATE_URL,
-                  method: 'POST',
-                  crossOrigin: true,
-                  json: true,
-                  body: body
-                }, function (error, response, body) {
-                  if (error || !response || response.statusCode >= 400) {
-                    reject(error)
-                  } else {
-                    let p4000 = body.p4000
-                    resolve(p4000)
-                  }
-                })
-              } catch (e) {
-                reject(e)
+          if (!params.includeAttachments) {
+            resolve(processedPdf)
+          } else {
+            let body = {
+              watermark: {},
+              files: [processedPdf],
+              recipe: {
+                'p4000': [{
+                  type: 'pickDocument',
+                  name: processedPdf.name
+                }]
               }
             }
+
+            params.events.map((event, index) => {
+              if (event.files) {
+                event.files.map((file, index2) => {
+                  let _file = _.cloneDeep(file)
+                  let newFileName = 'P4000-' + index + '-' + index2 + '.pdf'
+                  _file.name = newFileName
+                  body.files.push(_file)
+                  body.recipe.p4000.push({
+                    type: 'pickDocument',
+                    name: newFileName
+                  })
+                  return file
+                })
+              }
+              return event
+            })
+
+            try {
+              request({
+                url: urls.PDF_GENERATE_URL,
+                method: 'POST',
+                crossOrigin: true,
+                json: true,
+                body: body
+              }, function (error, response, body) {
+                if (error || !response || response.statusCode >= 400) {
+                  reject(error)
+                } else {
+                  let p4000 = body.p4000
+                  resolve(p4000)
+                }
+              })
+            } catch (e) {
+              reject(e)
+            }
+          }
         })
       })
     })
   }
 
-  base64toData(base64) {
+  base64toData (base64) {
     return Uint8Array.from(window.atob(base64), c => c.charCodeAt(0))
   }
 

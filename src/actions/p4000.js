@@ -22,7 +22,7 @@ export function openP4000Success (p4000) {
     type: types.P4000_OPEN_SUCCESS,
     payload: {
       events: p4000.events,
-      comment : p4000.comment
+      comment: p4000.comment
     }
   }
 }
@@ -99,11 +99,10 @@ export function setComment (comment) {
   return {
     type: types.P4000_COMMENT_SET,
     payload: {
-      comment : comment
+      comment: comment
     }
   }
 }
-
 
 export function submitP4000 (payload) {
   return api.call({

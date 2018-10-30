@@ -30,8 +30,7 @@ class Util {
   }
 
   writeP4000 (p4000) {
-     p4000.events.map(event => {
-
+    p4000.events.map(event => {
       return event
     })
     return p4000

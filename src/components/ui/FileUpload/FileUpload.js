@@ -112,7 +112,6 @@ class FileUpload extends Component {
           const reader = new FileReader()
           reader.readAsArrayBuffer(file)
           reader.onloadend = async (e) => {
-
             let blob = new Uint8Array(e.target.result)
 
             var len = blob.byteLength

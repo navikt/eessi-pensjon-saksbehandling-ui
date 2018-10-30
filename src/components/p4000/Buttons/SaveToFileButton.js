@@ -32,8 +32,8 @@ class SaveToFileButton extends Component {
 
       this.setState({
         fileOutput: 'data:text/json;charset=utf-8,' + P4000Util.writeP4000ToString({
-          events : events,
-          comment : comment
+          events: events,
+          comment: comment
         })
       }, () => {
         this.fileOutput.click()

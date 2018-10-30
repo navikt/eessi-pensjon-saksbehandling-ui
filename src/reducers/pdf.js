@@ -48,7 +48,6 @@ export default function (state = initialState, action = {}) {
     }
 
     case types.PDF_GENERATE_SUCCESS: {
-
       return Object.assign({}, state, {
         generatedPDFs: action.payload
       })

@@ -21,7 +21,6 @@ export default function (state = initialState, action = {}) {
     }
 
     case types.STORAGE_GET_SUCCESS: {
-
       return Object.assign({}, state, {
         file: action.payload
       })

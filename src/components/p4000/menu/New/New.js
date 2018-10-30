@@ -106,10 +106,9 @@ class New extends Component {
       })
     }
 
-    setComment(e) {
-
-        const { actions } = this.props
-        actions.setComment(e.target.value)
+    setComment (e) {
+      const { actions } = this.props
+      actions.setComment(e.target.value)
     }
 
     render () {
@@ -138,7 +137,7 @@ class New extends Component {
             <h1 className='m-0 mb-4'>{t('comment')}</h1>
             <Nav.Textarea label={t('comment')} value={comment || ''}
               style={{ minHeight: '150px' }}
-              onChange={this.setComment.bind(this)}/>
+              onChange={this.setComment.bind(this)} />
           </div>
         </React.Fragment> : null}
 
