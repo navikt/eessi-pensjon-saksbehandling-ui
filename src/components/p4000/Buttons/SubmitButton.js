@@ -91,7 +91,7 @@ class SubmitButton extends Component {
       <div>
         <Icons className='mr-3' size='4x' kind='document' />
         <Icons className='mr-3' size='3x' kind='caretRight' />
-        <Icons size='3x' kind='server' />
+        <Icons size='3x' kind='db' />
       </div>
       <div className='mt-3'>{label}</div>
     </Nav.Knapp>

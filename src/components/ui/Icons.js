@@ -43,6 +43,7 @@ class Icons extends Component {
       case 'caretLeft' : case 'back' : return <FontAwesomeIcon icon={icons.faCaretLeft} {...this.props} />
       case 'caretRight' : case 'next' : return <FontAwesomeIcon icon={icons.faCaretRight} {...this.props} />
       case 'server' : return <FontAwesomeIcon icon={icons.faServer} {...this.props} />
+      case 'db' : return <FontAwesomeIcon icon={icons.faDatabase} {...this.props} />
       case 'close' : return <FontAwesomeIcon icon={icons.faTimesCircle} {...this.props} />
       default: return null
     }
