@@ -4,6 +4,8 @@ import PT from 'prop-types'
 import moment from 'moment'
 import ReactDatePicker from 'react-datepicker'
 import classNames from 'classnames'
+import _ from 'lodash'
+import { connect } from 'react-redux'
 
 import CountrySelect from '../ui/CountrySelect/CountrySelect'
 import { onDateChange, onChange, onSelect, onInvalid } from './shared/eventFunctions'
@@ -21,7 +23,26 @@ const errorMessages = {
   workPaymentFrequency: { patternMismatch: 'patternMismatch', valueMissing: 'valueMissing', typeMismatch: 'typeMismatch' }
 }
 
-export class Work extends React.Component {
+const mapStateToProps = (state) => {
+  return {
+    locale: state.ui.locale,
+    work: _.pick(state.pinfo.form,
+      [
+        'workType',
+        'workStartDate',
+        'workEndDate',
+        'workEstimatedRetirementDate',
+        'workHourPerWeek',
+        'workIncome',
+        'workIncomeCurrency',
+        'workPaymentDate',
+        'workPaymentFrequency'
+      ]
+    )
+  }
+}
+
+class Work extends React.Component {
   constructor (props) {
     super(props)
     this.onInvalid = onInvalid.bind(this, errorMessages)
@@ -30,9 +51,12 @@ export class Work extends React.Component {
     this.onDateChange = onDateChange
 
     let uuid = uuidv4()
-    let nameToId = Object.keys(this.props.work).reduce((acc, cur, i) => ({ ...acc, [cur]: uuid + '_' + i }), {})
-    let idToName = Object.keys(this.props.work).reduce((acc, cur) => ({ ...acc, [nameToId[cur]]: cur }), {})
-    let inputStates = Object.keys(this.props.work).reduce((acc, cur) => ({ ...acc,
+
+    let keys = ['workType', 'workStartDate', 'workEndDate', 'workEstimatedRetirementDate', 'workHourPerWeek',
+      'workIncome', 'workIncomeCurrency', 'workPaymentDate', 'workPaymentFrequency']
+    let nameToId = keys.reduce((acc, cur, i) => ({ ...acc, [cur]: uuid + '_' + i }), {})
+    let idToName = keys.reduce((acc, cur, i) => ({ ...acc, [uuid + '_' + i]: cur }), {})
+    let inputStates = keys.reduce((acc, cur) => ({ ...acc,
       [cur]: {
         showError: false,
         error: null,
@@ -282,4 +306,7 @@ Work.propTypes = {
   locale: PT.string
 }
 
-export default Work
+export default connect(
+  mapStateToProps,
+  {}
+)(Work)

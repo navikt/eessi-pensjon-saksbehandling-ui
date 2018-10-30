@@ -9,6 +9,7 @@ import { translate } from 'react-i18next'
 
 import * as Nav from '../ui/Nav'
 import TopHeader from '../ui/Header/TopHeader'
+import { IS_DEVELOPMENT } from '../../constants/environment'
 
 import * as routes from '../../constants/routes'
 import * as urls from '../../constants/urls'
@@ -88,8 +89,8 @@ class AuthenticatedRoute extends Component {
 
       let validRole = this.hasApprovedRole()
 
-      return this.state.loggedIn && userRole
-        ? validRole
+      return IS_DEVELOPMENT || (this.state.loggedIn && userRole)
+        ? IS_DEVELOPMENT || validRole
           ? <Route {...this.props} />
           : <Redirect to={routes.ROOT} />
         : <div style={{ minHeight: '100vh', backgroundColor: 'white' }}>
