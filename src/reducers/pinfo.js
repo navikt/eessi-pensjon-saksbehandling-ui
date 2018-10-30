@@ -25,7 +25,10 @@ export default function (state = initialState, action = {}) {
       return { ...state, form: { ...state.form, ...action.payload } }
 
     case types.STORAGE_GET_SUCCESS:
-      return { ...state, form: JSON.parse(action.payload).form }
+      let form = JSON.parse(action.payload).form
+      return form
+        ? { ...state, form: form }
+        : state
 
     case types.PINFO_EVENT_SET_PHONE:
 
