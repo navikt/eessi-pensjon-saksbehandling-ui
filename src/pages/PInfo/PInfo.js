@@ -11,10 +11,8 @@ import 'react-datepicker/dist/react-datepicker.min.css'
 
 import * as Nav from '../../components/ui/Nav'
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
-import File from '../../components/ui/File/File'
 import FrontPageDrawer from '../../components/drawer/FrontPage'
 
-import * as UrlValidator from '../../utils/UrlValidator'
 import * as routes from '../../constants/routes'
 import * as pinfoActions from '../../actions/pinfo'
 import * as uiActions from '../../actions/ui'
@@ -22,7 +20,7 @@ import * as appActions from '../../actions/app'
 import * as storageActions from '../../actions/storage'
 import * as storages from '../../constants/storages'
 import Bank from '../../components/form/Bank'
-import Contact from '../../components/form/Contact'
+import Contact from '../../components/form/Contact/Contact'
 import Work from '../../components/form/Work'
 import PdfUploadComponent from '../../components/form/PdfUploadComponent'
 import Pension from '../../components/form/Pension'
@@ -44,16 +42,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, pinfoActions, uiActions, appActions, storageActions), dispatch) }
 }
-
-const onBackButtonClick = async (props) => (
-  props.actions.setEventProperty({ step: props.form.step - 1, displayError: false })
-)
-
-const onBackToReferrerButtonClick = async (props) => (
-  UrlValidator.validateReferrer(props.referrer)
-    ? props.actions.deleteLastBreadcrumb() && props.history.push(routes.ROOT + props.referrer)
-    : null
-)
 
 const onSaveButtonClick = (props) => {
   props.actions.postStorageFile(props.username, storages.PINFO, 'PINFO', JSON.stringify(props.form))
@@ -83,12 +71,6 @@ const setValue = (props, key, e) => {
   } else {
     props.actions.setEventProperty({ [key]: null })
   }
-}
-
-function isValid (e) {
-  e.preventDefault()
-  let validity = e.target.form.checkValidity()// reportValidity();
-  return validity
 }
 
 class PInfo extends React.Component {
@@ -140,7 +122,6 @@ class PInfo extends React.Component {
           ? <form id='pinfo-form'>
             <Contact
               t={props.t}
-              action={setValue.bind(null, props)}
             />
           </form>
           : null
@@ -178,12 +159,10 @@ class PInfo extends React.Component {
           />
         </div> </form> : null}
 
-        {props.form.step === 5 ?
-          <Summary t={props.t} onSave={onSaveButtonClick.bind(null, props)}/>
+        {props.form.step === 5
+          ? <Summary t={props.t} onSave={onSaveButtonClick.bind(null, props)} />
           : null}
       </div>
-
-
 
     </TopContainer>
 

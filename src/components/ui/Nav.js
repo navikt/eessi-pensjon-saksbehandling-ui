@@ -14,6 +14,7 @@ import NavFrontendSpinner from 'nav-frontend-spinner'
 import Modal from 'nav-frontend-modal'
 import Tekstomrade from 'nav-frontend-tekstomrade'
 import EtikettBase from 'nav-frontend-etiketter'
+import Lukknapp from 'nav-frontend-lukknapp'
 
 export {
   AlertStripe, AlertStripeAdvarsel,
@@ -29,5 +30,6 @@ export {
   HjelpetekstBase,
   Modal,
   Tekstomrade,
-  EtikettBase
+  EtikettBase,
+  Lukknapp
 }
