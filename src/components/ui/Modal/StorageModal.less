@@ -19,23 +19,23 @@
 
             display: flex;
             justify-content: space-between;
-            padding: 0.5rem;
             background-color: whitesmoke;
             text-decoration: none;
             border: 2px solid whitesmoke;
             align-items: center;
 
-            &.selected {
-                border: 2px solid orange;
-                background-color: aliceblue;
-            }
-
             &:hover {
                 background-color: #EEE;
             }
 
+            &.selected {
+                border: 2px solid orange;
+                background-color: aliceblue;
+                cursor: unset;
+            }
             .fileName {
                 width: 100%;
+                padding: 0.5rem;
             }
         }
 

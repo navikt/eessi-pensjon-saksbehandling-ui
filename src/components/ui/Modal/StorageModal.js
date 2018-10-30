@@ -9,6 +9,7 @@ import _ from 'lodash'
 import * as Nav from '../Nav'
 import ClientAlert from '../Alert/ClientAlert'
 import * as storageActions from '../../../actions/storage'
+import * as uiActions from '../../../actions/ui'
 import './StorageModal.css'
 
 const mapStateToProps = (state) => {
@@ -29,7 +30,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, storageActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, uiActions, storageActions), dispatch) }
 }
 
 class StorageModal extends Component {
@@ -145,8 +146,21 @@ class StorageModal extends Component {
       window.scrollTo(0, 0)
     }
 
+    saveStorageFile (username, namespace, saveTargetFileName, blob) {
+      const { actions } = this.props
+
+      actions.postStorageFile(username, namespace, saveTargetFileName, blob)
+      actions.closeModal()
+    }
+
+    closeModal () {
+      const { actions } = this.props
+
+      actions.closeModal()
+    }
+
     onOkClick () {
-      const { username, actions, modalOptions, namespace } = this.props
+      const { t, username, actions, modalOptions, namespace, fileList } = this.props
       const { currentSelectedFile, saveTargetFileName } = this.state
 
       if (modalOptions.action === 'open') {
@@ -154,7 +168,22 @@ class StorageModal extends Component {
       }
 
       if (modalOptions.action === 'save') {
-        actions.postStorageFile(username, namespace, saveTargetFileName, modalOptions.blob)
+        if (fileList.indexOf(saveTargetFileName) >= 0) {
+          actions.openModal({
+            modalTitle: t('overwriteFile'),
+            modalText: t('areYouSureOverwriteFile', { file: saveTargetFileName }),
+            modalButtons: [{
+              main: true,
+              text: t('ui:yes') + ', ' + t('overwrite').toLowerCase(),
+              onClick: this.saveStorageFile.bind(this, username, namespace, saveTargetFileName, modalOptions.blob)
+            }, {
+              text: t('ui:no') + ', ' + t('ui:cancel').toLowerCase(),
+              onClick: this.closeModal.bind(this)
+            }]
+          })
+        } else {
+          this.saveStorageFile(username, namespace, saveTargetFileName, modalOptions.blob)
+        }
       }
     }
 
@@ -226,8 +255,10 @@ class StorageModal extends Component {
                 let toDelete = fileToDelete === file
 
                 return <div key={index} className={classNames('fileRow', { selected: selected })}>
-                  <a className={classNames('fileName')}
-                    href='#select' onClick={this.onSelectFile.bind(this, file)}>{file} {loading ? <Nav.NavFrontendSpinner /> : null}</a>
+                  { selected
+                    ? <div className={classNames('fileName')}>{file} {loading ? <Nav.NavFrontendSpinner /> : null}</div>
+                    : <a className={classNames('fileName')}
+                      href='#select' onClick={this.onSelectFile.bind(this, file)}>{file} {loading ? <Nav.NavFrontendSpinner /> : null}</a>}
                   {toDelete
                     ? deletingStorageFile
                       ? <div>
