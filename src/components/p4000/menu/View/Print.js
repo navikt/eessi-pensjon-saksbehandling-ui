@@ -18,6 +18,7 @@ import PdfUtils from '../../../ui/Print/PdfUtils'
 import * as routes from '../../../../constants/routes'
 import * as p4000Actions from '../../../../actions/p4000'
 import * as pdfActions from '../../../../actions/pdf'
+import * as storageActions from '../../../../actions/storage'
 
 import './Print.css'
 import '../Menu.css'
@@ -29,7 +30,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, pdfActions, p4000Actions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, pdfActions, p4000Actions, storageActions), dispatch) }
 }
 
 class Print extends Component {
@@ -167,14 +168,12 @@ class Print extends Component {
     }
   }
 
-  onAdvancedEditRequest() {
+  onAdvancedEditRequest () {
+    const { history, actions } = this.props
 
-      const { history, actions } = this.props
-
-      actions.selectPDF([this.state.previewPdf])
-      history.push(routes.PDF_EDIT)
+    actions.selectPDF([this.state.previewPdf])
+    history.push(routes.PDF_EDIT)
   }
-
 
   setCheckbox (key, e) {
     this.setState({
@@ -189,9 +188,20 @@ class Print extends Component {
     })
   }
 
+  onSaveRequest (e) {
+    const { actions } = this.props
+
+    actions.openStorageModal({
+      action: 'save',
+      blob: this.state.previewPdf,
+      mimetype: 'application/pdf',
+      name: this.state.previewPdf.name
+    })
+  }
+
   render () {
     const { t, events } = this.props
-    const {includeAttachments, blackAndWhite, pdf, previewPdf, doingPreview, doingPrint, doingDownload } = this.state
+    const { includeAttachments, blackAndWhite, pdf, previewPdf, doingPreview, doingPrint, doingDownload } = this.state
 
     return <Nav.Panel className='c-p4000-menu c-p4000-menu-print p-0 mb-4'>
       <div className='title m-4'>
@@ -230,7 +240,17 @@ class Print extends Component {
               {doingPrint ? t('renderingPdf') : t('print')}
             </Nav.Knapp>
 
-            <Nav.Knapp className='advancedEditButton' onClick={this.onAdvancedEditRequest.bind(this)}
+            <Nav.Knapp className='saveButton'
+              style={{ whiteSpace: 'normal' }}
+              disabled={previewPdf === undefined}
+              onClick={this.onSaveRequest.bind(this)}>
+              <Icons className='mr-2' kind='save' size='1x' />
+              {t('saveToServer')}
+            </Nav.Knapp>
+
+            <Nav.Knapp className='advancedEditButton'
+              style={{ whiteSpace: 'normal' }}
+              onClick={this.onAdvancedEditRequest.bind(this)}
               disabled={previewPdf === undefined}>
               <Icons className='mr-2' kind='tool' size='1x' />
               {t('advancedEdit')}
