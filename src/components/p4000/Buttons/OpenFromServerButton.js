@@ -27,11 +27,11 @@ class OpenFromServerButton extends Component {
   openFile (file) {
     const { actions } = this.props
 
-    let events = P4000Util.readEvents(file.content)
+    let p4000 = P4000Util.readP4000(file.content)
     if (typeof events === 'string') {
-      actions.openP4000Failure(events)
+      actions.openP4000Failure(p4000)
     } else {
-      actions.openP4000Success(events)
+      actions.openP4000Success(p4000)
     }
   }
 

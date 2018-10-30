@@ -68,8 +68,10 @@ class PdfUtils {
                       type: 'pickDocument',
                       name: newFileName
                     })
+                    return file
                   })
                 }
+                return event
               })
 
               try {
@@ -102,7 +104,6 @@ class PdfUtils {
   processRaw (pdf) {
     let base64 = window.btoa(pdf)
     let data = Uint8Array.from(pdf, c => c.charCodeAt(0))
-    let numPages
 
     return new Promise(resolve => {
       PDFJS.getDocument(data).then(doc => {

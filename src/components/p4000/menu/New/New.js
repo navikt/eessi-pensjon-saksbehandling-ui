@@ -26,6 +26,7 @@ const mapStateToProps = (state) => {
   return {
     events: state.p4000.events,
     event: state.p4000.event,
+    comment: state.p4000.comment,
     rinaId: state.status.rinaId
   }
 }
@@ -105,15 +106,21 @@ class New extends Component {
       })
     }
 
+    setComment(e) {
+
+        const { actions } = this.props
+        actions.setComment(e.target.value)
+    }
+
     render () {
-      const { t, event } = this.props
+      const { t, event, comment } = this.props
 
       return <Nav.Panel className='c-p4000-menu-new mb-4 p-0'>
 
-        {event !== undefined
-          ? <div className='fieldset animate mb-4 c-p4000-menu-new-events'>
+        {event !== undefined ? <React.Fragment>
+          <div className='fieldset animate mb-4 c-p4000-menu-new-events'>
             <Nav.HjelpetekstBase>{t('p4000:help-new-event')}</Nav.HjelpetekstBase>
-            <h1 className='m-0 mb-4'>{t('ui:new')}{' '}{t('p4000:type-event')}</h1>
+            <h1 className='m-0 mb-4'>{t('ui:new') + ' ' + t('p4000:type-event')}</h1>
             <div className='bigButtons'>
               {eventList.map((e, index) => {
                 return <Nav.Knapp style={{ animationDelay: index * 0.03 + 's' }}
@@ -126,9 +133,16 @@ class New extends Component {
                 </Nav.Knapp>
               })}
             </div>
-          </div> : null}
+          </div>
+          <div style={{ animationDelay: '0.3s' }} className='fieldset animate mb-4 c-p4000-menu-new-comment'>
+            <h1 className='m-0 mb-4'>{t('comment')}</h1>
+            <Nav.Textarea label={t('comment')} value={comment || ''}
+              style={{ minHeight: '150px' }}
+              onChange={this.setComment.bind(this)}/>
+          </div>
+        </React.Fragment> : null}
 
-        <div style={{ animationDelay: '0.3s' }} className='fieldset animate c-p4000-menu-new-menu'>
+        <div style={{ animationDelay: '0.6s' }} className='fieldset animate c-p4000-menu-new-menu'>
           <Nav.HjelpetekstBase>{t('p4000:help-new-options')}</Nav.HjelpetekstBase>
           <h1 className='m-0 mb-4'>{t('p4000:file-menu')}</h1>
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>

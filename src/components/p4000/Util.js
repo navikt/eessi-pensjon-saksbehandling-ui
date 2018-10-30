@@ -4,12 +4,12 @@ import _ from 'lodash'
 import moment from 'moment'
 
 class Util {
-  readEvents (loadedObject) {
+  readP4000 (loadedObject) {
     if (!loadedObject) {
       return null
     }
 
-    return loadedObject.map(event => {
+    loadedObject.events.map(event => {
       if (event.startDate) event.startDate = new Date(event.startDate)
       if (event.birthDate) event.birthDate = new Date(event.birthDate)
       if (event.endDate) event.endDate = new Date(event.endDate)
@@ -27,20 +27,22 @@ class Util {
       }
       return event
     })
+
+    return loadedObject
   }
 
   // converting string loaded from local file to JSON Event object
-  readEventsFromString (loadedString) {
+  readP4000FromString (loadedString) {
     try {
       let loadedObject = JSON.parse(loadedString)
-      return this.readEvents(loadedObject)
+      return this.readP4000(loadedObject)
     } catch (error) {
       return error.message
     }
   }
 
-  writeEvents (events) {
-    return events.map(event => {
+  writeP4000 (p4000) {
+     p4000.events.map(event => {
       if (event.files) {
         event.files.map(file => {
           if (file.content.data) {
@@ -51,10 +53,11 @@ class Util {
       }
       return event
     })
+    return p4000
   }
 
-  writeEventsToString (events) {
-    return encodeURIComponent(JSON.stringify(this.writeEvents(events)))
+  writeP4000ToString (p4000) {
+    return encodeURIComponent(JSON.stringify(this.writeP4000(p4000)))
   }
 
   writeDate (date) {

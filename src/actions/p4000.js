@@ -17,11 +17,12 @@ export function newP4000 () {
   }
 }
 
-export function openP4000Success (events) {
+export function openP4000Success (p4000) {
   return {
     type: types.P4000_OPEN_SUCCESS,
     payload: {
-      events: events
+      events: p4000.events,
+      comment : p4000.comment
     }
   }
 }
@@ -93,6 +94,16 @@ export function setEventProperty (key, value) {
     }
   }
 }
+
+export function setComment (comment) {
+  return {
+    type: types.P4000_COMMENT_SET,
+    payload: {
+      comment : comment
+    }
+  }
+}
+
 
 export function submitP4000 (payload) {
   return api.call({
