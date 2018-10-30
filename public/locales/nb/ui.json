@@ -16,7 +16,7 @@
     "advancedEdit" : "Avansert redigering",
     "all" : "Alle",
     "areYouSure" : "Sikkert?",
-    "areYouSureOverwriteFile": "Er du sikkert at du vil overskrive fil {file}",
+    "areYouSureOverwriteFile": "Er du sikkert at du vil overskrive fil {{file}}",
     "attachments" : "Vedlegg",
     "authenticating" : "Autentisering...",
     "back" : "Tilbake",

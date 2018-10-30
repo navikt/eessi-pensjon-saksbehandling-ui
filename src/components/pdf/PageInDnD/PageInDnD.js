@@ -135,7 +135,7 @@ class PageInDnD extends Component {
          </div> : null}
          {file.mimetype === 'application/pdf' ? <Document className='document'
            file={'data:application/pdf;base64,' + file.content.base64}>
-           <div onClick={iconFunction.bind(this, file.name, pageNumber)} className='icon actionIcon'>{iconLink}</div>
+           <div onClick={iconFunction.bind(this, file.name, file.mimetype, pageNumber)} className='icon actionIcon'>{iconLink}</div>
            {this.state.isHovering ? <div className='icon previewIcon' onClick={this.openPreview.bind(this, file, pageNumber)}>
              <Icons style={{ cursor: 'pointer' }} size='1x' kind='view' />
            </div> : null}

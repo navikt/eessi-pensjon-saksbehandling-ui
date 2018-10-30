@@ -57,6 +57,7 @@
     "event-delete-confirm-title": "Delete event",
     "event-delete-confirm-text" : "Are you sure?",
     "event-edit"                : "Edit event",
+    "numberOfEvents"            : "Number of events",
 
     "file-menu"                 : "File menu",
     "file-new"                  : "New P4000",

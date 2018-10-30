@@ -16,7 +16,7 @@
     "advancedEdit" : "Advanced edit",
     "all" : "All",
     "areYouSure" : "Are you sure?",
-    "areYouSureOverwriteFile": "Are you sure you want to overwrite file {file}",
+    "areYouSureOverwriteFile": "Are you sure you want to overwrite file {{file}}",
     "attachments" : "Attachments",
     "authenticating" : "Authenticating...",
     "back" : "Back",

@@ -57,6 +57,7 @@
     "event-delete-confirm-title": "Slett hendelse",
     "event-delete-confirm-text" : "Er du sikkert?",
     "event-edit"                : "Redigere hendelse",
+    "numberOfEvents"            : "Antall hendelser",
 
     "file-menu"                 : "Filmeny",
     "file-new"                  : "Ny P4000",

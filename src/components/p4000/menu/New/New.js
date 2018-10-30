@@ -4,6 +4,7 @@ import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import classNames from 'classnames'
+import _ from 'lodash'
 
 import * as Nav from '../../../ui/Nav'
 import Icons from '../../../ui/Icons'
@@ -112,7 +113,7 @@ class New extends Component {
     }
 
     render () {
-      const { t, event, comment } = this.props
+      const { t, event, events, comment } = this.props
 
       return <Nav.Panel className='c-p4000-menu-new mb-4 p-0'>
 
@@ -122,6 +123,7 @@ class New extends Component {
             <h1 className='m-0 mb-4'>{t('ui:new') + ' ' + t('p4000:type-event')}</h1>
             <div className='bigButtons'>
               {eventList.map((e, index) => {
+                let count = _.filter(events, (event) => { return event.type === e.value }).length
                 return <Nav.Knapp style={{ animationDelay: index * 0.03 + 's' }}
                   title={t(e.description)} className={classNames('bigButton', e.value + 'Button')}
                   key={e.value} onClick={this.handleEventSelect.bind(this, e.value)}>
@@ -129,6 +131,7 @@ class New extends Component {
                     <Icons size='4x' kind={e.icon} />
                   </div>
                   <div className='mt-3'>{t(e.label)}</div>
+                  { count > 0 ? <div title={t('p4000:numberOfEvents')} className='notification'>{count}</div> : null }
                 </Nav.Knapp>
               })}
             </div>
