@@ -1,7 +1,7 @@
 
 import Timeline from './View/Timeline'
 import Summary from './View/Summary'
-import Print from './View/Print'
+import Export from './View/Export'
 import Work from './Event/Work'
 import Learn from './Event/Learn'
 import Child from './Event/Child'
@@ -11,7 +11,7 @@ import GenericEvent from './Event/GenericEvent'
 export {
   Timeline,
   Summary,
-  Print,
+  Export,
   Work,
   Learn,
   Child,

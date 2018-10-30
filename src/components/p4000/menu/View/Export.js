@@ -20,7 +20,7 @@ import * as p4000Actions from '../../../../actions/p4000'
 import * as pdfActions from '../../../../actions/pdf'
 import * as storageActions from '../../../../actions/storage'
 
-import './Print.css'
+import './Export.css'
 import '../Menu.css'
 
 const mapStateToProps = (state) => {
@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, pdfActions, p4000Actions, storageActions), dispatch) }
 }
 
-class Print extends Component {
+class Export extends Component {
   state = {
     blackAndWhite: false,
     includeAttachments: true,
@@ -203,13 +203,13 @@ class Print extends Component {
     const { t, events } = this.props
     const { includeAttachments, blackAndWhite, pdf, previewPdf, doingPreview, doingPrint, doingDownload } = this.state
 
-    return <Nav.Panel className='c-p4000-menu c-p4000-menu-print p-0 mb-4'>
+    return <Nav.Panel className='c-p4000-menu c-p4000-menu-export p-0 mb-4'>
       <div className='title m-4'>
         <Nav.Knapp className='backButton mr-4' onClick={this.onBackButtonClick.bind(this)}>
           <Icons className='mr-2' kind='back' size='1x' />{t('ui:back')}
         </Nav.Knapp>
-        <Icons size='3x' kind={'print'} className='float-left mr-4' />
-        <h1 className='m-0'>{t('p4000:file-print')}</h1>
+        <Icons size='3x' kind={'export'} className='float-left mr-4' />
+        <h1 className='m-0'>{t('p4000:file-export')}</h1>
       </div>
       <div className='row'>
 
@@ -218,15 +218,18 @@ class Print extends Component {
             <Nav.Checkbox label={t('includeAttachments')}
               checked={includeAttachments}
               onChange={this.setCheckbox.bind(this, 'includeAttachments')} />
+
             <Nav.Checkbox label={t('blackAndWhite')}
               checked={blackAndWhite}
               onChange={this.setCheckbox.bind(this, 'blackAndWhite')} />
+
             <a className='hiddenLink' ref={item => { this.downloadLink = item }}
               onClick={(e) => e.stopPropagation()} title={t('ui:download')}
               href={pdf ? 'data:application/octet-stream;base64,' + encodeURIComponent(pdf.content.base64) : '#'}
               download={'p4000.pdf'}>{t('ui:download')}</a>
 
             <Nav.Knapp className='downloadButton mb-2' onClick={this.onDownloadRequest.bind(this)}
+              style={{ minHeight: '50px' }}
               disabled={doingDownload}
               spinner={doingDownload}>
               <Icons className='mr-2' kind='download' size='1x' />
@@ -234,6 +237,7 @@ class Print extends Component {
             </Nav.Knapp>
 
             <Nav.Knapp className='printButton' onClick={this.onPrintRequest.bind(this)}
+              style={{ minHeight: '50px' }}
               disabled={doingPrint}
               spinner={doingPrint}>
               <Icons className='mr-2' kind='print' size='1x' />
@@ -272,7 +276,8 @@ class Print extends Component {
             </div>
           </div>
           <div className={classNames('panel', { 'hidden': this.state.tab !== 'panel-2' })} role='tabpanel' id='panel-2'>
-            <Nav.Knapp style={{ minHeight: '50px' }}
+            <Nav.Knapp
+              style={{ minHeight: '50px' }}
               className='pdfPreviewButton'
               onClick={this.onPdfPreviewRequest.bind(this)}
               disabled={doingPreview}
@@ -291,7 +296,7 @@ class Print extends Component {
   }
 }
 
-Print.propTypes = {
+Export.propTypes = {
   t: PT.func,
   events: PT.array.isRequired,
   actions: PT.object.isRequired,
@@ -303,6 +308,6 @@ export default connect(
   mapDispatchToProps
 )(
   withRouter(
-    translate()(Print)
+    translate()(Export)
   )
 )

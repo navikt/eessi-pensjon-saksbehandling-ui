@@ -8,7 +8,7 @@ import classNames from 'classnames'
 import * as Nav from '../../../ui/Nav'
 import Icons from '../../../ui/Icons'
 import SubmitButton from '../../Buttons/SubmitButton'
-import PrintButton from '../../Buttons/PrintButton'
+import ExportButton from '../../Buttons/ExportButton'
 import OpenFromServerButton from '../../Buttons/OpenFromServerButton'
 import SaveToServerButton from '../../Buttons/SaveToServerButton'
 import TimelineButton from '../../Buttons/TimelineButton'
@@ -137,7 +137,7 @@ class New extends Component {
             <SaveToServerButton style={{ animationDelay: '0.39s' }} />
             <TimelineButton style={{ animationDelay: '0.42s' }} />
             <SummaryButton style={{ animationDelay: '0.45s' }} />
-            <PrintButton style={{ animationDelay: '0.48s' }} />
+            <ExportButton style={{ animationDelay: '0.48s' }} />
             <SubmitButton style={{ animationDelay: '0.51s' }} />
           </div>
         </div>

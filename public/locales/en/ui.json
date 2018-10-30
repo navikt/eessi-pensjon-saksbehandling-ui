@@ -50,6 +50,7 @@
     "dropFilesHere" : "Drop files here, or click in the area to open the file select dialog",
     "edit" : "Edit",
     "endDate" : "End date",
+    "export": "Export",
     "file" : "File",
     "files" : "Files",
     "filename" : "Filename",

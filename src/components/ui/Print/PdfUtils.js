@@ -1,6 +1,7 @@
 import html2pdf from 'html2pdf.js'
 import _ from 'lodash'
 import request from 'request'
+import PDFJS from 'pdfjs-dist'
 
 import * as urls from '../../../constants/urls'
 
@@ -28,7 +29,7 @@ class PdfUtils {
 
     let pdf = await this.generate({
 
-      options: params.options,
+      options: options,
       element: document.getElementById(params.nodeId || 'divToPrint'),
       events: params.events,
       includeAttachments: params.includeAttachments
@@ -39,79 +40,84 @@ class PdfUtils {
   async generate (params) {
     return new Promise(async (resolve, reject) => {
       html2pdf().set(params.options).from(params.element).outputPdf().then(rawPdf => {
-        let processedPdf = this.processRaw(rawPdf)
 
-        if (!params.includeAttachments) {
-          resolve(processedPdf)
-        } else {
-          let body = {
-            watermark: {},
-            files: [],
-            recipe: {
-              'p4000': []
-            }
-          }
+        this.processRaw(rawPdf).then(processedPdf => {
 
-          body.files.push(processedPdf)
-          body.recipe.p4000.push({
-            type: 'pickDocument',
-            name: processedPdf.name
-          })
-
-          params.events.map((event, index) => {
-            if (event.files) {
-              event.files.map((file, index2) => {
-                let _file = _.cloneDeep(file)
-                let newFileName = 'P4000-' + index + '-' + index2 + '.pdf'
-                _file.name = newFileName
-                body.files.push(_file)
-                body.recipe.p4000.push({
-                  type: 'pickDocument',
-                  name: newFileName
-                })
-              })
-            }
-          })
-
-          try {
-            request({
-              url: urls.PDF_GENERATE_URL,
-              method: 'POST',
-              crossOrigin: true,
-              json: true,
-              body: body
-            }, function (error, response, body) {
-              if (error || !response || response.statusCode >= 400) {
-                reject(error)
-              } else {
-                let p4000 = body.p4000
-                if (!p4000.content.data) {
-                  p4000.content.data = Uint8Array.from(window.atob(p4000.content.base64), c => c.charCodeAt(0))
+            if (!params.includeAttachments) {
+              resolve(processedPdf)
+            } else {
+              let body = {
+                watermark: {},
+                files: [processedPdf],
+                recipe: {
+                  'p4000': [{
+                    type: 'pickDocument',
+                    name: processedPdf.name
+                  }]
                 }
-                resolve(p4000)
               }
-            })
-          } catch (e) {
-            reject(e)
-          }
-        }
+
+              params.events.map((event, index) => {
+                if (event.files) {
+                  event.files.map((file, index2) => {
+                    let _file = _.cloneDeep(file)
+                    let newFileName = 'P4000-' + index + '-' + index2 + '.pdf'
+                    _file.name = newFileName
+                    body.files.push(_file)
+                    body.recipe.p4000.push({
+                      type: 'pickDocument',
+                      name: newFileName
+                    })
+                  })
+                }
+              })
+
+              try {
+                request({
+                  url: urls.PDF_GENERATE_URL,
+                  method: 'POST',
+                  crossOrigin: true,
+                  json: true,
+                  body: body
+                }, function (error, response, body) {
+                  if (error || !response || response.statusCode >= 400) {
+                    reject(error)
+                  } else {
+                    let p4000 = body.p4000
+                    if (!p4000.content.data) {
+                      p4000.content.data = Uint8Array.from(window.atob(p4000.content.base64), c => c.charCodeAt(0))
+                    }
+                    resolve(p4000)
+                  }
+                })
+              } catch (e) {
+                reject(e)
+              }
+            }
+        })
       })
     })
   }
 
   processRaw (pdf) {
     let base64 = window.btoa(pdf)
+    let data = Uint8Array.from(pdf, c => c.charCodeAt(0))
+    let numPages
 
-    return {
-      'numPages': undefined,
-      'name': 'P4000.pdf',
-      'size': pdf.length,
-      'mimetype': 'application/pdf',
-      'content': {
-        'base64': base64,
-        'data': Uint8Array.from(pdf, c => c.charCodeAt(0))
-      }
-    }
+    return new Promise(resolve => {
+      PDFJS.getDocument(data).then(doc => {
+        resolve({
+          'numPages': doc.numPages,
+          'name': 'P4000.pdf',
+          'size': pdf.length,
+          'mimetype': 'application/pdf',
+          'content': {
+            'base64': base64,
+            'data': data
+          }
+        })
+      })
+    })
   }
 }
 
