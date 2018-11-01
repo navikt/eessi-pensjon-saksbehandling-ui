@@ -6,19 +6,19 @@ import { translate } from 'react-i18next'
 import { withRouter } from 'react-router'
 import classNames from 'classnames'
 import _ from 'lodash'
+import * as Nav from '../../ui/Nav'
+import EventList from '../EventList/EventList'
+
+import * as routes from '../../../constants/routes'
 
 import * as p4000Actions from '../../../actions/p4000'
 import * as uiActions from '../../../actions/ui'
-
-import * as Nav from '../../ui/Nav'
-import EventList from '../EventList/EventList'
 
 import './EventForm.css'
 
 const mapStateToProps = (state) => {
   return {
     events: state.p4000.events,
-    editMode: state.p4000.editMode,
     event: state.p4000.event,
     eventIndex: state.p4000.eventIndex
   }
@@ -30,33 +30,36 @@ const mapDispatchToProps = (dispatch) => {
 
 class EventForm extends React.Component {
   async handleSaveRequest () {
-    const { actions, event, type } = this.props
+    const { actions, history, event, type } = this.props
 
     let valid = await this.component.passesValidation()
 
     if (valid) {
       event.type = type
       actions.pushEventToP4000Form(event)
+      history.push(routes.P4000)
     }
   }
 
   async handleSaveEditRequest () {
-    const { actions, event, eventIndex } = this.props
+    const { actions, history, event, eventIndex } = this.props
 
     let valid = await this.component.passesValidation()
 
     if (valid) {
       actions.replaceEventOnP4000Form(event, eventIndex)
+      history.replace(routes.P4000 + '/' + event.type)
     }
   }
 
-  async handleEditRequest (eventIndex) {
-    const { actions } = this.props
+  async handleEditRequest (event, eventIndex) {
+    const { actions, history } = this.props
 
     if (this.component) {
       await this.component.resetValidation()
     }
     actions.editEvent(eventIndex)
+    history.replace(routes.P4000 + '/' + event.type + '/edit')
   }
 
   handleDeleteRequest () {
@@ -77,10 +80,11 @@ class EventForm extends React.Component {
   }
 
   deleteEvent () {
-    const { actions, eventIndex } = this.props
+    const { actions, history, eventIndex } = this.props
 
     actions.closeModal()
     actions.deleteEventToP4000Form(eventIndex)
+    history.push(routes.P4000)
   }
 
   closeModal () {
@@ -89,16 +93,19 @@ class EventForm extends React.Component {
     actions.closeModal()
   }
 
-  async handleCancelRequest () {
-    const { actions, eventIndex } = this.props
+  async handleCancelRequest (event, eventIndex) {
+    const { actions, history } = this.props
 
     await this.component.resetValidation()
-    actions.cancelEditEvent(eventIndex)
+    if (eventIndex) {
+      actions.cancelEditEvent(eventIndex)
+    }
+    history.push(routes.P4000)
   }
 
   render () {
-    let { t, type, editMode, eventIndex, events, history, location, Component } = this.props
-    let isEventPage = !((type === 'timeline' || type === 'new' || type === 'summary' || type === 'export'))
+    let { t, type, mode, eventIndex, events, history, location, Component } = this.props
+    let isEventPage = !((type === 'timeline' || type === 'index' || type === 'summary' || type === 'export'))
     let hideEventList = (type === 'timeline' || type === 'summary' || type === 'export' || _.isEmpty(events))
 
     return <div className='c-p4000-eventForm'>
@@ -106,8 +113,12 @@ class EventForm extends React.Component {
         events={events} eventIndex={eventIndex}
         cancelEditRequest={this.handleCancelRequest.bind(this)}
         handleEditRequest={this.handleEditRequest.bind(this)} />
-      <Component history={history} location={location} type={type} provideController={(component) => { this.component = component }} />
-      {isEventPage ? (!editMode
+      <Component history={history}
+        location={location}
+        type={type}
+        mode={mode}
+        provideController={(component) => { this.component = component }} />
+      {isEventPage ? (mode !== 'edit'
         ? <Nav.Row className='row-buttons mb-4 ml-2 mr-2 text-center'>
           <div className='col-md-6'>
             <Nav.Hovedknapp className='saveButton' onClick={this.handleSaveRequest.bind(this)}>{t('ui:save')}</Nav.Hovedknapp>
@@ -133,6 +144,7 @@ class EventForm extends React.Component {
 
 EventForm.propTypes = {
   t: PT.func.isRequired,
+  mode: PT.string,
   type: PT.string.isRequired,
   events: PT.array.isRequired,
   event: PT.object,

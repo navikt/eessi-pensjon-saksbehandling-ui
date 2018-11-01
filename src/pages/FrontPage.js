@@ -74,7 +74,7 @@ class FrontPage extends Component {
             className='frontPageLink caseLink' linkCreator={(props) => (
               <Link to={
                 status.saksNr
-                  ? routes.CASE_EDIT_WITHOUT_RINA
+                  ? routes.CASE_EDIT
                     .replace(':aktoerid', status.fnr)
                     .replace(':sakid', status.sakId)
                   : routes.CASE_GET

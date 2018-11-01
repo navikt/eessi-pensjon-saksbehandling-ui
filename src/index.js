@@ -66,15 +66,14 @@ ReactDOM.render(
           <Switch>
             <AuthenticatedRoute exact path={routes.PSELV} component={Pages.PSelv} roles={[constants.SAKSBEHANDLER]} />
             <AuthenticatedRoute exact path={routes.PINFO} component={Pages.PInfo} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-            <AuthenticatedRoute exact path={routes.P4000} component={Pages.P4000} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+            <AuthenticatedRoute exact path={routes.P4000_ROUTE} component={Pages.P4000} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
 
             <AuthenticatedRoute exact path={routes.PDF_GENERATE} component={Pages.GeneratePDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
             <AuthenticatedRoute exact path={routes.PDF_EDIT} component={Pages.EditPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
             <AuthenticatedRoute exact path={routes.PDF_SELECT} component={Pages.SelectPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
 
             <AuthenticatedRoute exact path={routes.CASE_GET} component={Pages.GetCase} roles={[constants.SAKSBEHANDLER]} />
-            <AuthenticatedRoute exact path={routes.CASE_EDIT_WITHOUT_RINA} component={Pages.EditCase} roles={[constants.SAKSBEHANDLER]} />
-            <AuthenticatedRoute exact path={routes.CASE_EDIT_WITH_RINA} component={Pages.EditCase} roles={[constants.SAKSBEHANDLER]} />
+            <AuthenticatedRoute exact path={routes.CASE_EDIT} component={Pages.EditCase} roles={[constants.SAKSBEHANDLER]} />
             <AuthenticatedRoute exact path={routes.CASE_CONFIRM} component={Pages.ConfirmCase} roles={[constants.SAKSBEHANDLER]} />
             <AuthenticatedRoute exact path={routes.CASE_GENERATE} component={Pages.GenerateCase} roles={[constants.SAKSBEHANDLER]} />
             <AuthenticatedRoute exact path={routes.CASE_SAVE} component={Pages.SaveCase} roles={[constants.SAKSBEHANDLER]} />

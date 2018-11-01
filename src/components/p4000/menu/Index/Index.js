@@ -21,7 +21,7 @@ import * as routes from '../../../../constants/routes'
 import * as p4000Actions from '../../../../actions/p4000'
 import * as uiActions from '../../../../actions/ui'
 
-import './New.css'
+import './Index.css'
 
 const mapStateToProps = (state) => {
   return {
@@ -56,8 +56,8 @@ class New extends Component {
     }
 
     handleEventSelect (newPage) {
-      const { actions } = this.props
-      actions.setPage(newPage)
+      const { history } = this.props
+      history.push(routes.P4000 + '/' + newPage)
     }
 
     componentDidMount () {
@@ -72,6 +72,7 @@ class New extends Component {
         passesValidation: this.passesValidation.bind(this),
         resetValidation: this.resetValidation.bind(this)
       })
+      window.scrollTo(0, 0)
     }
 
     componentDidUpdate () {
@@ -113,7 +114,7 @@ class New extends Component {
     }
 
     render () {
-      const { t, event, events, comment } = this.props
+      const { t, history, event, events, comment } = this.props
 
       return <Nav.Panel className='c-p4000-menu-new mb-4 p-0'>
 
@@ -151,9 +152,9 @@ class New extends Component {
             <NewButton style={{ animationDelay: '0.33s' }} />
             <OpenFromServerButton style={{ animationDelay: '0.36s' }} />
             <SaveToServerButton style={{ animationDelay: '0.39s' }} />
-            <TimelineButton style={{ animationDelay: '0.42s' }} />
-            <SummaryButton style={{ animationDelay: '0.45s' }} />
-            <ExportButton style={{ animationDelay: '0.48s' }} />
+            <TimelineButton history={history} style={{ animationDelay: '0.42s' }} />
+            <SummaryButton history={history} style={{ animationDelay: '0.45s' }} />
+            <ExportButton history={history} style={{ animationDelay: '0.48s' }} />
             <SubmitButton style={{ animationDelay: '0.51s' }} />
           </div>
         </div>

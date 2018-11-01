@@ -54,9 +54,8 @@ class Export extends Component {
   }
 
   onBackButtonClick () {
-    const { actions } = this.props
-
-    actions.setPage('new')
+    const { history } = this.props
+    history.goBack()
   }
 
   componentDidMount () {

@@ -93,7 +93,6 @@ class DocumentStatus extends Component {
         case constants.P4000: {
           let events = P4000Util.convertP4000SedToEvents(sed)
           actions.openP4000Success(events)
-          actions.setPage('new')
           history.push(routes.P4000)
           break
         }

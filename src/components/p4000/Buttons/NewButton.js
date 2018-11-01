@@ -57,12 +57,6 @@ class NewButton extends Component {
     }
   }
 
-  handleFileView () {
-    const { actions } = this.props
-
-    actions.setPage('view')
-  }
-
   render () {
     const { t, style } = this.props
 

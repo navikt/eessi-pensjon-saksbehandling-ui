@@ -27,9 +27,8 @@ const mapDispatchToProps = (dispatch) => {
 
 class Summary extends Component {
   onBackButtonClick () {
-    const { actions } = this.props
-
-    actions.setPage('new')
+    const { history } = this.props
+    history.goBack()
   }
 
   componentDidMount () {

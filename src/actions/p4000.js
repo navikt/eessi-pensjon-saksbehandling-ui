@@ -2,15 +2,6 @@ import * as types from '../constants/actionTypes'
 import * as urls from '../constants/urls'
 import * as api from './api'
 
-export function setPage (newPage) {
-  return {
-    type: types.P4000_PAGE_SET,
-    payload: {
-      page: newPage
-    }
-  }
-}
-
 export function newP4000 () {
   return {
     type: types.P4000_NEW
@@ -40,8 +31,7 @@ export function pushEventToP4000Form (event) {
   return {
     type: types.P4000_EVENT_ADD,
     payload: {
-      event: event,
-      page: 'new'
+      event: event
     }
   }
 }
@@ -60,8 +50,7 @@ export function deleteEventToP4000Form (eventIndex) {
   return {
     type: types.P4000_EVENT_DELETE,
     payload: {
-      eventIndex: eventIndex,
-      page: 'new'
+      eventIndex: eventIndex
     }
   }
 }
@@ -70,8 +59,7 @@ export function cancelEditEvent (eventIndex) {
   return {
     type: types.P4000_EVENT_CANCEL_EDIT,
     payload: {
-      eventIndex: eventIndex,
-      page: 'new'
+      eventIndex: eventIndex
     }
   }
 }
