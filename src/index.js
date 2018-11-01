@@ -51,7 +51,6 @@ const initialState = { ui: {
   drawerOldWidth: 250,
   breadcrumbs: [{
     label: 'ui:home',
-    ns: 'app',
     url: routes.ROOT
   }]
 } }
@@ -71,6 +70,7 @@ ReactDOM.render(
             <AuthenticatedRoute exact path={routes.PDF_GENERATE} component={Pages.GeneratePDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
             <AuthenticatedRoute exact path={routes.PDF_EDIT} component={Pages.EditPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
             <AuthenticatedRoute exact path={routes.PDF_SELECT} component={Pages.SelectPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+            <Redirect from={routes.PDF} to={{ pathname: routes.PDF_SELECT }} />
 
             <AuthenticatedRoute exact path={routes.CASE_GET} component={Pages.GetCase} roles={[constants.SAKSBEHANDLER]} />
             <AuthenticatedRoute exact path={routes.CASE_EDIT} component={Pages.EditCase} roles={[constants.SAKSBEHANDLER]} />

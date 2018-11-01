@@ -42,6 +42,13 @@ export function addToBreadcrumbs (breadcrumbs) {
   }
 }
 
+export function replaceLastBreadcrumbWith (breadcrumbs) {
+  return {
+    type: types.UI_BREADCRUMBS_REPLACE,
+    payload: breadcrumbs
+  }
+}
+
 export function trimBreadcrumbsTo (breadcrumb) {
   return {
     type: types.UI_BREADCRUMBS_TRIM,

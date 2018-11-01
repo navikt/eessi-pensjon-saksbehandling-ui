@@ -1,4 +1,5 @@
 {
+    "app-pdfTitle"             : "PDF",
     "app-createPdf"            : "Opprett ny PDF",
     "app-selectPdfTitle"       : "Velg til ny PDF",
     "app-selectPdfDescription" : "Velg fra eksisterende PDF-filer for å opprette ny dokumentpakke",

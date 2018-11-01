@@ -43,8 +43,6 @@ class SubmitButton extends Component {
       euxCaseId: rinaId
     }
 
-    actions.navigateForward()
-
     this.setState({
       submitted: true
     }, () => {
