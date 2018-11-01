@@ -58,7 +58,7 @@ class EditPDF extends Component {
       const { history, actions } = this.props
 
       actions.navigateBack()
-      history.push(routes.PDF_SELECT)
+      history.goBack()
     }
 
     hasOnlyEmptyArrays (obj) {
