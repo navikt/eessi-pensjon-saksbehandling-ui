@@ -66,7 +66,7 @@ export function cancelEditEvent (eventIndex) {
 
 export function editEvent (eventIndex) {
   return {
-    type: types.P4000_EVENT_EDIT_MODE,
+    type: types.P4000_EVENT_EDIT,
     payload: {
       eventIndex: eventIndex
     }
@@ -88,6 +88,15 @@ export function setComment (comment) {
     type: types.P4000_COMMENT_SET,
     payload: {
       comment: comment
+    }
+  }
+}
+
+export function setPdf (pdf) {
+  return {
+    type: types.P4000_PDF_SET,
+    payload: {
+      pdf: pdf
     }
   }
 }

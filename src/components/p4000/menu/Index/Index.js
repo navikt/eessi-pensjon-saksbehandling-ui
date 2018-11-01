@@ -116,6 +116,8 @@ class New extends Component {
     render () {
       const { t, history, event, events, comment } = this.props
 
+      let fileMenuDelay = event !== undefined ? 0.5 : 0
+
       return <Nav.Panel className='c-p4000-menu-new mb-4 p-0'>
 
         {event !== undefined ? <React.Fragment>
@@ -145,17 +147,18 @@ class New extends Component {
           </div>
         </React.Fragment> : null}
 
-        <div style={{ animationDelay: '0.6s' }} className='fieldset animate c-p4000-menu-new-menu'>
+        <div style={{ animationDelay: fileMenuDelay + 's' }}
+          className='fieldset animate c-p4000-menu-new-menu'>
           <Nav.HjelpetekstBase>{t('p4000:help-new-options')}</Nav.HjelpetekstBase>
           <h1 className='m-0 mb-4'>{t('p4000:file-menu')}</h1>
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-            <NewButton style={{ animationDelay: '0.33s' }} />
-            <OpenFromServerButton style={{ animationDelay: '0.36s' }} />
-            <SaveToServerButton style={{ animationDelay: '0.39s' }} />
-            <TimelineButton history={history} style={{ animationDelay: '0.42s' }} />
-            <SummaryButton history={history} style={{ animationDelay: '0.45s' }} />
-            <ExportButton history={history} style={{ animationDelay: '0.48s' }} />
-            <SubmitButton style={{ animationDelay: '0.51s' }} />
+            <NewButton style={{ animationDelay: (fileMenuDelay + 0.03) + 's' }} />
+            <OpenFromServerButton style={{ animationDelay: (fileMenuDelay + 0.06) + 's' }} />
+            <SaveToServerButton style={{ animationDelay: (fileMenuDelay + 0.09) + 's' }} />
+            <TimelineButton history={history} style={{ animationDelay: (fileMenuDelay + 0.12) + 's' }} />
+            <SummaryButton history={history} style={{ animationDelay: (fileMenuDelay + 0.15) + 's' }} />
+            <ExportButton history={history} style={{ animationDelay: (fileMenuDelay + 0.18) + 's' }} />
+            <SubmitButton style={{ animationDelay: (fileMenuDelay + 0.21) + 's' }} />
           </div>
         </div>
         {this.state.referrer ? <Nav.Row>

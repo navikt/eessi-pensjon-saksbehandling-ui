@@ -3,11 +3,13 @@ import { connect } from 'react-redux'
 import PT from 'prop-types'
 import { translate } from 'react-i18next'
 import { bindActionCreators } from 'redux'
+import _ from 'lodash'
 
 import SummaryRender from './SummaryRender'
 import Icons from '../../../ui/Icons'
 import * as Nav from '../../../ui/Nav'
 
+import * as routes from '../../../../constants/routes'
 import * as p4000Actions from '../../../../actions/p4000'
 
 import './Summary.css'
@@ -32,6 +34,10 @@ class Summary extends Component {
   }
 
   componentDidMount () {
+    const { events, history } = this.props
+    if (_.isEmpty(events)) {
+      history.replace(routes.P4000)
+    }
     window.scrollTo(0, 0)
   }
 

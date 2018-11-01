@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux'
 import Timeline from 'react-visjs-timeline'
 import ReactJson from 'react-json-view'
 import classNames from 'classnames'
+import _ from 'lodash'
 
 import Icons from '../../../ui/Icons'
 import P4000Util from '../../../p4000/Util'
@@ -42,6 +43,10 @@ class _Timeline extends Component {
     }
 
     componentDidMount () {
+      const { events, history } = this.props
+      if (_.isEmpty(events)) {
+        history.replace(routes.P4000)
+      }
       window.scrollTo(0, 0)
     }
 

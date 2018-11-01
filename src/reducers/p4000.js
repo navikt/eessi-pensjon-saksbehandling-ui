@@ -4,7 +4,8 @@ let initialState = {
   events: [],
   event: undefined,
   comment: undefined,
-  submitted: undefined
+  submitted: undefined,
+  pdf: undefined
 }
 
 export default function (state = initialState, action = {}) {
@@ -71,7 +72,7 @@ export default function (state = initialState, action = {}) {
         eventIndex: undefined
       })
 
-    case types.P4000_EVENT_EDIT_MODE:
+    case types.P4000_EVENT_EDIT:
 
       return Object.assign({}, state, {
         event: state.events[action.payload.eventIndex],
@@ -103,6 +104,12 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         comment: action.payload.comment
+      })
+
+    case types.P4000_PDF_SET:
+
+      return Object.assign({}, state, {
+        pdf: action.payload.pdf
       })
 
     case types.APP_CLEAR_DATA:

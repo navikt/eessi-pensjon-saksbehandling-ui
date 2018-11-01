@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux'
 import classNames from 'classnames'
 import print from 'print-js'
 import { withRouter } from 'react-router'
+import _ from 'lodash'
 
 import SummaryRender from './SummaryRender'
 import Icons from '../../../ui/Icons'
@@ -27,7 +28,8 @@ const mapStateToProps = (state) => {
   return {
     events: state.p4000.events,
     comment: state.p4000.comment,
-    username: state.app.username
+    username: state.app.username,
+    pdf: state.p4000.pdf
   }
 }
 
@@ -47,10 +49,15 @@ class Export extends Component {
     // if I generate a PDF for preview and then request to print/download, I do not need to generate again,
     // but if I tamper with print options before request print/download, then I do need to generate it
     needToGeneratePDF: true,
-    tab: 'panel-1',
+    tab: 'panel-content'
+  }
 
-    pdf: undefined,
-    previewPdf: undefined
+  componentDidMount () {
+    const { events, history } = this.props
+    if (_.isEmpty(events)) {
+      history.replace(routes.P4000)
+    }
+    window.scrollTo(0, 0)
   }
 
   onBackButtonClick () {
@@ -58,28 +65,31 @@ class Export extends Component {
     history.goBack()
   }
 
-  componentDidMount () {
-    window.scrollTo(0, 0)
+  async generatePdf () {
+    const { events, actions } = this.props
+    const { includeAttachments } = this.state
+
+    let pdf = await PdfUtils.createPdf({
+      nodeId: 'divToPrint',
+      includeAttachments: includeAttachments,
+      events: events
+    })
+    actions.setPdf(pdf)
+    this.setState({
+      needToGeneratePDF: false
+    })
+    return pdf
   }
 
   async onPdfPreviewRequest () {
-    const { events } = this.props
-    const { includeAttachments } = this.state
+    this.setTab('panel-pdf')
 
     this.setState({
       doingPreview: true
     })
     try {
       console.log('Generating a PDF for preview')
-      let pdf = await PdfUtils.createPdf({
-        nodeId: 'divToPrint',
-        includeAttachments: includeAttachments,
-        events: events
-      })
-      this.setState({
-        previewPdf: pdf,
-        needToGeneratePDF: false
-      })
+      await this.generatePdf()
     } catch (e) {
       console.log('Failure to generate PDF', e)
     }
@@ -89,35 +99,30 @@ class Export extends Component {
   }
 
   async onDownloadRequest () {
-    const { events } = this.props
-    const { includeAttachments } = this.state
+    const { pdf } = this.props
+    const { needToGeneratePDF } = this.state
 
-    if (this.state.needToGeneratePDF === false && this.state.previewPdf) {
-      console.log('Skipping generating PDF, reusing previewPdf')
-      this.setState({
-        pdf: this.state.previewPdf
-      }, () => {
-        this.downloadLink.click()
-      })
+    this.setTab('panel-pdf')
+
+    if (needToGeneratePDF === false && pdf) {
+      console.log('Skipping generating PDF, reusing pdf')
+      this.downloadLink.setAttribute('href',
+        'data:application/octet-stream;base64,' + encodeURIComponent(pdf.content.base64)
+      )
+      this.downloadLink.click()
     } else {
-      console.log('Generating PDF, previewPdf is old')
+      console.log('Generating PDF, pdf is old')
 
       this.setState({
         doingDownload: true
       })
 
       try {
-        let pdf = await PdfUtils.createPdf({
-          nodeId: 'divToPrint',
-          useCanvas: true,
-          includeAttachments: includeAttachments,
-          events: events
-        })
-        this.setState({
-          pdf: pdf
-        }, () => {
-          this.downloadLink.click()
-        })
+        let newPdf = await this.generatePdf()
+        this.downloadLink.setAttribute('href',
+          'data:application/octet-stream;base64,' + encodeURIComponent(newPdf.content.base64)
+        )
+        this.downloadLink.click()
       } catch (e) {
         console.log('Failure to generate PDF', e)
       }
@@ -128,44 +133,34 @@ class Export extends Component {
   }
 
   async onPrintRequest () {
-    const { events } = this.props
-    const { includeAttachments } = this.state
+    const { pdf } = this.props
+    const { needToGeneratePDF } = this.state
 
-    if (this.state.needToGeneratePDF === false && this.state.previewPdf) {
-      console.log('Skipping generating PDF, reusing previewPdf')
-      this.setState({
-        pdf: this.state.previewPdf
-      }, () => {
-        const pdfBlob = new Blob([
-          PdfUtils.base64toData(this.state.pdf.content.base64)
-        ], { type: 'application/pdf' })
-        const url = URL.createObjectURL(pdfBlob)
-        print(url)
-      })
+    this.setTab('panel-pdf')
+
+    if (needToGeneratePDF === false && pdf) {
+      console.log('Skipping generating PDF, reusing pdf')
+
+      const pdfBlob = new Blob([
+        PdfUtils.base64toData(pdf.content.base64)
+      ], { type: 'application/pdf' })
+      const url = URL.createObjectURL(pdfBlob)
+      print(url)
     } else {
       this.setState({
         doingPrint: true
       })
 
-      console.log('Generating PDF, previewPdf is old')
+      console.log('Generating PDF, pdf is old')
       try {
-        let pdf = await PdfUtils.createPdf({
-
-          nodeId: 'divToPrint',
-          includeAttachments: includeAttachments,
-          events: events
-        })
-        this.setState({
-          pdf: pdf
-        }, () => {
-          const pdfBlob = new Blob([
-            PdfUtils.base64toData(pdf.content.base64)
-          ], { type: 'application/pdf' })
-          const url = URL.createObjectURL(pdfBlob)
-          print(url)
-        })
+        let newPdf = await this.generatePdf()
+        const pdfBlob = new Blob([
+          PdfUtils.base64toData(newPdf.content.base64)
+        ], { type: 'application/pdf' })
+        const url = URL.createObjectURL(pdfBlob)
+        print(url)
       } catch (e) {
-        console.log('NO PDF FOR YOU')
+        console.log('Failure to generate PDF', e)
       }
       this.setState({
         doingPrint: false
@@ -174,9 +169,9 @@ class Export extends Component {
   }
 
   onAdvancedEditRequest () {
-    const { history, actions } = this.props
+    const { history, actions, pdf } = this.props
 
-    actions.selectPDF([this.state.previewPdf])
+    actions.selectPDF([pdf])
     history.push(routes.PDF_EDIT)
   }
 
@@ -193,20 +188,26 @@ class Export extends Component {
     })
   }
 
+  setTab (id) {
+    this.setState({
+      tab: id
+    })
+  }
+
   onSaveRequest (e) {
-    const { actions } = this.props
+    const { actions, pdf } = this.props
 
     actions.openStorageModal({
       action: 'save',
-      blob: this.state.previewPdf,
+      blob: pdf,
       mimetype: 'application/pdf',
-      name: this.state.previewPdf.name
+      name: pdf.name
     })
   }
 
   render () {
-    const { t, events, comment, username } = this.props
-    const { includeAttachments, blackAndWhite, pdf, previewPdf, doingPreview, doingPrint, doingDownload } = this.state
+    const { t, events, comment, username, pdf } = this.props
+    const { includeAttachments, blackAndWhite, doingPreview, doingPrint, doingDownload } = this.state
 
     return <Nav.Panel className='c-p4000-menu c-p4000-menu-export p-0 mb-4'>
       <div className='title m-4'>
@@ -230,44 +231,55 @@ class Export extends Component {
 
             <a className='hiddenLink' ref={item => { this.downloadLink = item }}
               onClick={(e) => e.stopPropagation()} title={t('ui:download')}
-              href={pdf ? 'data:application/octet-stream;base64,' + encodeURIComponent(pdf.content.base64) : '#'}
+              href='#download'
               download={'p4000.pdf'}>{t('ui:download')}</a>
 
-            <Nav.Knapp className='exportButton downloadButton mb-2' onClick={this.onDownloadRequest.bind(this)}
+            <Nav.Knapp
+              className='exportButton previewButton'
+              onClick={this.onPdfPreviewRequest.bind(this)}
+              disabled={doingPreview}
+              spinner={doingPreview}>
+              <Icons kind='view' size='2x' />
+              {doingPreview ? t('renderingPreview') : t('pdfPreview')}
+            </Nav.Knapp>
+
+            <Nav.Knapp className='exportButton downloadButton'
+              onClick={this.onDownloadRequest.bind(this)}
               disabled={doingDownload}
               spinner={doingDownload}>
-              <Icons kind='download' size='1x' />
+              <Icons kind='download' size='2x' />
               {doingDownload ? t('renderingPdf') : t('download')}
             </Nav.Knapp>
 
-            <Nav.Knapp className='exportButton printButton' onClick={this.onPrintRequest.bind(this)}
+            <Nav.Knapp className='exportButton printButton'
+              onClick={this.onPrintRequest.bind(this)}
               disabled={doingPrint}
               spinner={doingPrint}>
-              <Icons kind='print' size='1x' />
+              <Icons kind='print' size='2x' />
               {doingPrint ? t('renderingPdf') : t('print')}
             </Nav.Knapp>
 
             <Nav.Knapp className='exportButton saveButton'
-              disabled={previewPdf === undefined}
+              disabled={pdf === undefined}
               onClick={this.onSaveRequest.bind(this)}>
-              <Icons kind='save' size='1x' />
+              <Icons kind='save' size='2x' />
               {t('saveToServer')}
             </Nav.Knapp>
 
             <Nav.Knapp className='exportButton advancedEditButton'
               onClick={this.onAdvancedEditRequest.bind(this)}
-              disabled={previewPdf === undefined}>
-              <Icons kind='tool' size='1x' />
+              disabled={pdf === undefined}>
+              <Icons kind='tool' size='2x' />
               {t('advancedEdit')}
             </Nav.Knapp>
           </div>
         </div>
         <div className='col-md-9'>
           <Nav.Tabs onChange={this.onTabChange.bind(this)}>
-            <Nav.Tabs.Tab id='panel-1'>{t('content')}</Nav.Tabs.Tab>
-            <Nav.Tabs.Tab id='panel-2'>{t('preview')}</Nav.Tabs.Tab>
+            <Nav.Tabs.Tab id='panel-content'>{t('content')}</Nav.Tabs.Tab>
+            <Nav.Tabs.Tab id='panel-pdf'>{t('preview')}</Nav.Tabs.Tab>
           </Nav.Tabs>
-          <div className={classNames('panel', { 'hidden': this.state.tab !== 'panel-1' })} role='tabpanel' id='panel-1'>
+          <div className={classNames('panel', { 'hidden': this.state.tab !== 'panel-content' })} role='tabpanel' id='panel-content'>
             <div id='divToPrint'>
               <SummaryRender t={t}
                 events={events}
@@ -279,20 +291,19 @@ class Export extends Component {
               />
             </div>
           </div>
-          <div className={classNames('panel', { 'hidden': this.state.tab !== 'panel-2' })} role='tabpanel' id='panel-2'>
-            <Nav.Knapp
-              style={{ minHeight: '50px' }}
-              className='pdfPreviewButton'
-              onClick={this.onPdfPreviewRequest.bind(this)}
-              disabled={doingPreview}
-              spinner={doingPreview}>
-              <Icons className='mr-2' kind='print' size='1x' />
-              {doingPreview ? t('renderingPreview') : t('pdfPreview')}
-            </Nav.Knapp>
+          <div className={classNames('panel', { 'hidden': this.state.tab !== 'panel-pdf' })} role='tabpanel' id='panel-pdf'>
 
-            { previewPdf ? <embed style={{ width: '100%', height: '70vh' }}
-              type='application/pdf'
-              src={'data:application/pdf;base64,' + encodeURIComponent(previewPdf.content.base64)} /> : null}
+            { (doingPreview || doingDownload || doingPrint)
+              ? <div className='w-100 text-center'>
+                <Nav.NavFrontendSpinner />
+                <p>{t('generating')}</p>
+              </div>
+              : pdf
+                ? <embed style={{ width: '100%', height: '70vh' }}
+                  type='application/pdf'
+                  src={'data:application/pdf;base64,' + encodeURIComponent(pdf.content.base64)} />
+                : null
+            }
           </div>
         </div>
       </div>
