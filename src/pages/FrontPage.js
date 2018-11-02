@@ -36,7 +36,7 @@ const mapDispatchToProps = (dispatch) => {
 
 class FrontPage extends Component {
 
-  componentWillMount() {
+  componentDidMount() {
 
     const { actions } = this.props
 

@@ -74,7 +74,6 @@ export default function (state = {}, action = {}) {
       })
 
     case types.CASE_CREATE_SED_REQUEST:
-    case types.CASE_CREATE_SED_REQUEST:
     case types.CASE_ADD_TO_SED_REQUEST:
 
       return Object.assign({}, state, {
