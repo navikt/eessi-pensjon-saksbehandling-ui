@@ -24,8 +24,7 @@ const mapStateToProps = (state) => {
   return {
     loadingPDF: state.loading.loadingPDF,
     language: state.ui.language,
-    files: state.pdf.files,
-    action: state.ui.action
+    files: state.pdf.files
   }
 }
 

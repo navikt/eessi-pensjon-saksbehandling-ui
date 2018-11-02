@@ -78,6 +78,7 @@ ReactDOM.render(
             <AuthenticatedRoute exact path={routes.CASE_GENERATE} component={Pages.GenerateCase} roles={[constants.SAKSBEHANDLER]} />
             <AuthenticatedRoute exact path={routes.CASE_SAVE} component={Pages.SaveCase} roles={[constants.SAKSBEHANDLER]} />
             <AuthenticatedRoute exact path={routes.CASE_SEND} component={Pages.SendCase} roles={[constants.SAKSBEHANDLER]} />
+            <Redirect from={routes.CASE} to={{ pathname: routes.CASE_GET }} />
 
             <AuthenticatedRoute path={routes.ROOT} component={Pages.FrontPage} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
             <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />

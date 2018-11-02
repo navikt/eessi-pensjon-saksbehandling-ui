@@ -14,9 +14,7 @@ import * as appActions from '../../actions/app'
 
 const mapStateToProps = (state) => {
   return {
-    dataToConfirm: state.case.dataToConfirm,
-    dataSent: state.case.dataSent,
-    dataSaved: state.case.dataSaved
+    dataSent: state.case.dataSent
   }
 }
 
@@ -27,27 +25,41 @@ const mapDispatchToProps = (dispatch) => {
 class SendCase extends Component {
     state = {};
 
-    componentDidUpdate () {
-      const { actions } = this.props
+    componentDidMount () {
+      const { history, actions, dataSent } = this.props
 
-      actions.addToBreadcrumbs({
-        url: routes.CASE_SEND,
-        ns: 'case',
-        label: 'case:app-sendCaseTitle'
-      })
+       if (!dataSent) {
+          history.push(routes.CASE_GET)
+       } else {
+         actions.addToBreadcrumbs([{
+           url: routes.CASE,
+           label: 'case:app-caseTitle'
+         }, {
+          url: routes.CASE_SEND,
+          label: 'case:app-sendCaseTitle'
+         }])
+       }
+    }
+
+    componentDidUpdate () {
+      const { history, dataSent } = this.props
+
+      if (!dataSent) {
+        history.push(routes.CASE_GET)
+      }
     }
 
     onCreateNewButtonClick () {
-      const { history, actions, dataToConfirm, dataSaved } = this.props
+      const { history, actions, dataSent } = this.props
 
-      history.push(routes.CASE_GET + '/' + dataToConfirm.sakId + '/' + dataToConfirm.aktoerId + '/' + dataSaved.euxcaseid)
+      history.push(routes.CASE_GET + '/' + dataSent.sakId + '/' + dataSent.aktoerId + '/' + dataSent.euxcaseid)
       actions.clearData()
     }
 
     onGoToStartButtonClick () {
-      const { history, actions, dataSaved } = this.props
+      const { history, actions, dataSent } = this.props
 
-      history.push(routes.ROOT + '?rinaId=' + dataSaved.euxcaseid)
+      history.push(routes.ROOT + '?rinaId=' + dataSent.euxcaseid)
       actions.clearData()
     }
 
@@ -83,8 +95,7 @@ SendCase.propTypes = {
   actions: PT.object,
   history: PT.object,
   location: PT.object,
-  dataSaved: PT.object,
-  dataToConfirm: PT.object,
+  dataSent: PT.object,
   t: PT.func
 }
 

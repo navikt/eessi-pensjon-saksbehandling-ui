@@ -257,7 +257,6 @@ FileUpload.propTypes = {
   afterDrop: PT.func,
   active: PT.func,
   inactive: PT.func,
-  action: PT.func,
   inputProps: PT.object,
   fileUploadDroppableId: PT.string.isRequired,
   actions: PT.object

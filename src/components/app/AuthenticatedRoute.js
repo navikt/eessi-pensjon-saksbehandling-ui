@@ -61,6 +61,7 @@ class AuthenticatedRoute extends Component {
 
       this.getAndSaveParam(params, 'fnr')
       this.getAndSaveParam(params, 'aktoerId')
+      this.getAndSaveParam(params, 'rinaid', 'rinaId')
       this.getAndSaveParam(params, 'saksNr', 'sakId')
       this.getAndSaveParam(params, 'sakId')
       this.getAndSaveParam(params, 'kravId')

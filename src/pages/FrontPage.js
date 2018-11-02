@@ -76,7 +76,7 @@ class FrontPage extends Component {
                 status.saksNr
                   ? routes.CASE_EDIT
                     .replace(':aktoerid', status.fnr)
-                    .replace(':sakid', status.sakId)
+                    .replace(':sakid', status.saksNr)
                   : routes.CASE_GET
               } {...props} />)
             } href='#'>{t('case:app-createNewCase')}</Nav.Lenkepanel>

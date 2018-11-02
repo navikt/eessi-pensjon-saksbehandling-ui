@@ -24,24 +24,24 @@ class RenderPrintData extends Component {
   }
 
   render () {
-    let { t, dataToConfirm, dataToGenerate } = this.props
+    let { t, data } = this.props
 
     return <div id='divToPrint' style={{ display: 'none' }} className='p-3 c-case-printData'>
       <dl className='row'>
         <dt className='col-sm-4'><label>{t('case:form-sakId')}</label></dt>
-        <dd className='col-sm-8'>{dataToConfirm.sakId}</dd>
+        <dd className='col-sm-8'>{data.sakId}</dd>
         <dt className='col-sm-4'><label>{t('case:form-aktoerId')}</label></dt>
-        <dd className='col-sm-8'>{dataToConfirm.aktoerId}</dd>
+        <dd className='col-sm-8'>{data.aktoerId}</dd>
         <dt className='col-sm-4'><label>{t('case:form-rinaId')}</label></dt>
-        <dd className='col-sm-8'>{dataToConfirm.rinaId}</dd>
+        <dd className='col-sm-8'>{data.rinaId}</dd>
         <dt className='col-sm-4'><label>{t('case:form-subjectArea')}</label></dt>
-        <dd className='col-sm-8'>{dataToConfirm.subjectArea}</dd>
+        <dd className='col-sm-8'>{data.subjectArea}</dd>
         <dt className='col-sm-4'><label>{t('case:form-buc')}</label></dt>
-        <dd className='col-sm-8'>{dataToConfirm.buc}</dd>
+        <dd className='col-sm-8'>{data.buc}</dd>
         <dt className='col-sm-4'><label>{t('case:form-sed')}</label></dt>
-        <dd className='col-sm-8'>{dataToConfirm.sed}</dd>
+        <dd className='col-sm-8'>{data.sed}</dd>
         <dt className='col-sm-4'><label>{t('case:form-institution')}</label></dt>
-        <dd className='col-sm-8'>{dataToConfirm.institutions.map((inst, i) => {
+        <dd className='col-sm-8'>{data.institutions.map((inst, i) => {
           return <div key={i} className='d-inline-block'>
             <img src={'../../../../flags/' + inst.country + '.png'}
               style={{ width: 30, height: 20 }}
@@ -49,14 +49,13 @@ class RenderPrintData extends Component {
           </div>
         })}</dd>
       </dl>
-      {this.renderJson(dataToGenerate, 0).map(html => { return html })}
+      {this.renderJson(data, 0).map(html => { return html })}
     </div>
   }
 }
 
 RenderPrintData.propTypes = {
-  dataToGenerate: PT.object.isRequired,
-  dataToConfirm: PT.object.isRequired,
+  data: PT.object.isRequired,
   t: PT.func.isRequired
 }
 

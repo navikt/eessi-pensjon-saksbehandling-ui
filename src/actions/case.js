@@ -94,6 +94,30 @@ export function dataToConfirm (params) {
   }
 }
 
+export function cleanCaseNumber() {
+  return {
+    type: types.CASE_GET_CASE_NUMBER_CLEAN
+  }
+}
+
+export function cleanDataToConfirm() {
+  return {
+    type: types.CASE_CONFIRM_DATA_CLEAN
+  }
+}
+
+export function cleanDataToGenerate() {
+  return {
+    type: types.CASE_GENERATE_DATA_CLEAN
+  }
+}
+
+export function cleanDataSaved() {
+  return {
+    type: types.CASE_SAVE_DATA_CLEAN
+  }
+}
+
 export function generateData (params) {
   return api.call({
     url: urls.CASE_GENERATE_DATA_URL,

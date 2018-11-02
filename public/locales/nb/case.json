@@ -10,6 +10,7 @@
     "alert-noSedList"         : "Ingen SED liste",
     "alert-noSubjectAreaList" : "Ingen fagområde liste",
 
+    "app-caseTitle"              : "SED",
     "app-createNewCase"          : "Opprett ny sak",
     "app-confirmCaseTitle"       : "Opprett EU/EØS dokument (SED) - Registrerer sak",
     "app-confirmCaseDescription" : "Bekrefter opprettelse av sak",

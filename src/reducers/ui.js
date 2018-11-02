@@ -24,18 +24,6 @@ export default function (state = {}, action = {}) {
         locale: action.payload === 'nb' ? 'nb' : 'en-gb'
       })
 
-    case types.UI_NAVIGATION_FORWARD:
-
-      return Object.assign({}, state, {
-        action: 'forward'
-      })
-
-    case types.UI_NAVIGATION_BACK:
-
-      return Object.assign({}, state, {
-        action: 'back'
-      })
-
     case types.UI_BREADCRUMBS_ADD: {
       let _breadcrumbs = _.cloneDeep(state.breadcrumbs)
       let newBreadcrumbs = action.payload
