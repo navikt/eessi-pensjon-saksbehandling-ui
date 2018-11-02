@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
-import Print from '../../components/ui/Print/Print'
+import Export from '../../components/ui/Export/Export'
 import RenderPrintData from '../../components/case/RenderPrintData'
 
 import Case from './Case'
@@ -104,7 +104,7 @@ class SaveCase extends Component {
                 <h4>{t('case:form-rinaId') + ': ' + dataSaved.euxcaseid}</h4>
               </div>
               <RenderPrintData t={t} data={dataSaved} />
-              <Print fileName='kvittering.pdf' nodeId='divToPrint' buttonLabel={t('ui:getReceipt')} />
+              <Export fileName='kvittering.pdf' nodeId='divToPrint' buttonLabel={t('ui:getReceipt')} />
             </div> : null)}
         </div>
 

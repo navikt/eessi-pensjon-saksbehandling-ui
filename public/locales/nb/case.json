@@ -21,7 +21,7 @@
     "app-sendCaseTitle"          : "Opprett EU/EØS dokument (SED) - Sende sak",
     "app-sendCaseDescription"    : "Sende sak beskrivelse",
     "app-generateCaseTitle"      : "Opprett EU/EØS dokument (SED) - Vis innhold i SED",
-    "app-generateCaseDescription": "Viser innhold hentet til SEDe",
+    "app-generateCaseDescription": "Viser innhold hentet til SED",
     "app-getCaseTitle"           : "Opprett EU/EØS dokument (SED) - Hent sak",
     "app-getCaseDescription"     : "Hent sak beskrivelse",
 

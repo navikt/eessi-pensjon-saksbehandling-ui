@@ -14,7 +14,7 @@ import SummaryRender from './SummaryRender'
 import Icons from '../../../ui/Icons'
 
 import * as Nav from '../../../ui/Nav'
-import PdfUtils from '../../../ui/Print/PdfUtils'
+import PdfUtils from '../../../ui/Export/PdfUtils'
 
 import * as routes from '../../../../constants/routes'
 import * as p4000Actions from '../../../../actions/p4000'

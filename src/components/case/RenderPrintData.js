@@ -6,22 +6,24 @@ import _ from 'lodash'
 import './RenderData.css'
 
 class RenderPrintData extends Component {
-  renderJson (json, level) {
-    let res = []
-
-    for (var key in json) {
-      let value = json[key]
-      if (typeof value === 'string') {
-        if (value !== 'null' && value !== '') {
-          res.push(<div style={{ paddingLeft: level * 12 }}><b>{key}</b>{': '}{value}</div>)
+   renderJson (json, level, counter) {
+      let res = []
+      let _level = level || 0
+      let _counter = counter || 0
+      for (var key in json) {
+        let value = json[key]
+        if (typeof value === 'string') {
+          if (value !== 'null' && value !== '') {
+            _counter++
+            res.push(<div key={_level + '' + _counter} style={{ paddingLeft: _level * 12 }}><b>{key}</b>{': '}{value}</div>)
+          }
+        } else {
+          res.push(this.renderJson(value, _level++, _counter))
         }
-      } else {
-        res.push(this.renderJson(value, level++))
       }
-    }
 
-    return _.flatten(res)
-  }
+      return _.flatten(res)
+   }
 
   render () {
     let { t, data } = this.props
@@ -41,15 +43,15 @@ class RenderPrintData extends Component {
         <dt className='col-sm-4'><label>{t('case:form-sed')}</label></dt>
         <dd className='col-sm-8'>{data.sed}</dd>
         <dt className='col-sm-4'><label>{t('case:form-institution')}</label></dt>
-        <dd className='col-sm-8'>{data.institutions.map((inst, i) => {
+        {data.institutions ? <dd className='col-sm-8'>{data.institutions.map((inst, i) => {
           return <div key={i} className='d-inline-block'>
             <img src={'../../../../flags/' + inst.country + '.png'}
               style={{ width: 30, height: 20 }}
               alt={inst.country} />&nbsp; {inst.institution}
           </div>
-        })}</dd>
+        })}</dd> : null}
       </dl>
-      {this.renderJson(data, 0).map(html => { return html })}
+      {this.renderJson(data).map(html => { return html })}
     </div>
   }
 }

@@ -58,9 +58,14 @@ export default function (state = {}, action = {}) {
 
     case types.CASE_GENERATE_DATA_SUCCESS:
 
-      return Object.assign({}, state, {
-        dataToGenerate: action.payload
-      })
+      let dataToGenerate = Object.assign({},
+        state.dataToConfirm,
+        action.payload
+     );
+
+     return Object.assign({}, state, {
+        dataToGenerate: dataToGenerate
+     })
 
     case types.CASE_GENERATE_DATA_CLEAN:
 
@@ -68,6 +73,7 @@ export default function (state = {}, action = {}) {
         dataToGenerate: undefined
       })
 
+    case types.CASE_CREATE_SED_REQUEST:
     case types.CASE_CREATE_SED_REQUEST:
     case types.CASE_ADD_TO_SED_REQUEST:
 
