@@ -5,6 +5,7 @@ export const ROOT = BASE + '/'
 export const PSELV = BASE + '/pselv'
 export const PINFO = BASE + '/pinfo'
 export const P4000 = BASE + '/P4000'
+export const P6000 = BASE + '/P6000'
 
 export const PDF_GENERATE = BASE + '/pdf/generate'
 export const PDF_EDIT = BASE + '/pdf/edit'
