@@ -49,10 +49,7 @@ const initialState = { ui: {
   drawerOpen: false,
   drawerWidth: 10,
   drawerOldWidth: 250,
-  breadcrumbs: [{
-    label: 'ui:home',
-    url: routes.ROOT
-  }]
+  breadcrumbs: []
 } }
 
 const store = createStoreWithMiddleware(reducer, initialState)
