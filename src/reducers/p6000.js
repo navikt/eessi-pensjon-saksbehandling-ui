@@ -2,7 +2,7 @@ import * as types from '../constants/actionTypes'
 
 let initialState = {
   data: {
-      review: '0'
+    review: '0'
   }
 }
 
