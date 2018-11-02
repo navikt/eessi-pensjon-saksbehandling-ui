@@ -4,11 +4,12 @@ import { translate } from 'react-i18next'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import classNames from 'classnames'
+import _ from 'lodash'
 
 import * as Nav from '../../../ui/Nav'
 import Icons from '../../../ui/Icons'
 import SubmitButton from '../../Buttons/SubmitButton'
-import PrintButton from '../../Buttons/PrintButton'
+import ExportButton from '../../Buttons/ExportButton'
 import OpenFromServerButton from '../../Buttons/OpenFromServerButton'
 import SaveToServerButton from '../../Buttons/SaveToServerButton'
 import TimelineButton from '../../Buttons/TimelineButton'
@@ -26,6 +27,7 @@ const mapStateToProps = (state) => {
   return {
     events: state.p4000.events,
     event: state.p4000.event,
+    comment: state.p4000.comment,
     rinaId: state.status.rinaId
   }
 }
@@ -105,17 +107,23 @@ class New extends Component {
       })
     }
 
+    setComment (e) {
+      const { actions } = this.props
+      actions.setComment(e.target.value)
+    }
+
     render () {
-      const { t, event } = this.props
+      const { t, event, events, comment } = this.props
 
       return <Nav.Panel className='c-p4000-menu-new mb-4 p-0'>
 
-        {event !== undefined
-          ? <div className='fieldset animate mb-4 c-p4000-menu-new-events'>
+        {event !== undefined ? <React.Fragment>
+          <div className='fieldset animate mb-4 c-p4000-menu-new-events'>
             <Nav.HjelpetekstBase>{t('p4000:help-new-event')}</Nav.HjelpetekstBase>
-            <h1 className='m-0 mb-4'>{t('ui:new')}{' '}{t('p4000:type-event')}</h1>
+            <h1 className='m-0 mb-4'>{t('ui:new') + ' ' + t('p4000:type-event')}</h1>
             <div className='bigButtons'>
               {eventList.map((e, index) => {
+                let count = _.filter(events, (event) => { return event.type === e.value }).length
                 return <Nav.Knapp style={{ animationDelay: index * 0.03 + 's' }}
                   title={t(e.description)} className={classNames('bigButton', e.value + 'Button')}
                   key={e.value} onClick={this.handleEventSelect.bind(this, e.value)}>
@@ -123,12 +131,20 @@ class New extends Component {
                     <Icons size='4x' kind={e.icon} />
                   </div>
                   <div className='mt-3'>{t(e.label)}</div>
+                  { count > 0 ? <div title={t('p4000:numberOfEvents')} className='notification'>{count}</div> : null }
                 </Nav.Knapp>
               })}
             </div>
-          </div> : null}
+          </div>
+          <div style={{ animationDelay: '0.3s' }} className='fieldset animate mb-4 c-p4000-menu-new-comment'>
+            <h1 className='m-0 mb-4'>{t('comment')}</h1>
+            <Nav.Textarea label={t('comment')} value={comment || ''}
+              style={{ minHeight: '150px' }}
+              onChange={this.setComment.bind(this)} />
+          </div>
+        </React.Fragment> : null}
 
-        <div style={{ animationDelay: '0.3s' }} className='fieldset animate c-p4000-menu-new-menu'>
+        <div style={{ animationDelay: '0.6s' }} className='fieldset animate c-p4000-menu-new-menu'>
           <Nav.HjelpetekstBase>{t('p4000:help-new-options')}</Nav.HjelpetekstBase>
           <h1 className='m-0 mb-4'>{t('p4000:file-menu')}</h1>
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -137,7 +153,7 @@ class New extends Component {
             <SaveToServerButton style={{ animationDelay: '0.39s' }} />
             <TimelineButton style={{ animationDelay: '0.42s' }} />
             <SummaryButton style={{ animationDelay: '0.45s' }} />
-            <PrintButton style={{ animationDelay: '0.48s' }} />
+            <ExportButton style={{ animationDelay: '0.48s' }} />
             <SubmitButton style={{ animationDelay: '0.51s' }} />
           </div>
         </div>

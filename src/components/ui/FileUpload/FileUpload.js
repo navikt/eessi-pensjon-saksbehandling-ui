@@ -129,8 +129,7 @@ class FileUpload extends Component {
               'name': file.name,
               'mimetype': file.type,
               'content': {
-                'base64': base64,
-                'data': blob
+                'base64': base64
               }
             })
             newCurrentPages[newCurrentPages.length] = 1

@@ -20,12 +20,14 @@ import * as p4000Actions from '../../../../actions/p4000'
 import * as pdfActions from '../../../../actions/pdf'
 import * as storageActions from '../../../../actions/storage'
 
-import './Print.css'
+import './Export.css'
 import '../Menu.css'
 
 const mapStateToProps = (state) => {
   return {
-    events: state.p4000.events
+    events: state.p4000.events,
+    comment: state.p4000.comment,
+    username: state.app.username
   }
 }
 
@@ -33,7 +35,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, pdfActions, p4000Actions, storageActions), dispatch) }
 }
 
-class Print extends Component {
+class Export extends Component {
   state = {
     blackAndWhite: false,
     includeAttachments: true,
@@ -135,7 +137,9 @@ class Print extends Component {
       this.setState({
         pdf: this.state.previewPdf
       }, () => {
-        const pdfBlob = new Blob([this.state.pdf.content.data], { type: 'application/pdf' })
+        const pdfBlob = new Blob([
+          PdfUtils.base64toData(this.state.pdf.content.base64)
+        ], { type: 'application/pdf' })
         const url = URL.createObjectURL(pdfBlob)
         print(url)
       })
@@ -155,7 +159,9 @@ class Print extends Component {
         this.setState({
           pdf: pdf
         }, () => {
-          const pdfBlob = new Blob([pdf.content.data], { type: 'application/pdf' })
+          const pdfBlob = new Blob([
+            PdfUtils.base64toData(pdf.content.base64)
+          ], { type: 'application/pdf' })
           const url = URL.createObjectURL(pdfBlob)
           print(url)
         })
@@ -200,16 +206,16 @@ class Print extends Component {
   }
 
   render () {
-    const { t, events } = this.props
+    const { t, events, comment, username } = this.props
     const { includeAttachments, blackAndWhite, pdf, previewPdf, doingPreview, doingPrint, doingDownload } = this.state
 
-    return <Nav.Panel className='c-p4000-menu c-p4000-menu-print p-0 mb-4'>
+    return <Nav.Panel className='c-p4000-menu c-p4000-menu-export p-0 mb-4'>
       <div className='title m-4'>
         <Nav.Knapp className='backButton mr-4' onClick={this.onBackButtonClick.bind(this)}>
           <Icons className='mr-2' kind='back' size='1x' />{t('ui:back')}
         </Nav.Knapp>
-        <Icons size='3x' kind={'print'} className='float-left mr-4' />
-        <h1 className='m-0'>{t('p4000:file-print')}</h1>
+        <Icons size='3x' kind={'export'} className='float-left mr-4' />
+        <h1 className='m-0'>{t('p4000:file-export')}</h1>
       </div>
       <div className='row'>
 
@@ -218,41 +224,41 @@ class Print extends Component {
             <Nav.Checkbox label={t('includeAttachments')}
               checked={includeAttachments}
               onChange={this.setCheckbox.bind(this, 'includeAttachments')} />
+
             <Nav.Checkbox label={t('blackAndWhite')}
               checked={blackAndWhite}
               onChange={this.setCheckbox.bind(this, 'blackAndWhite')} />
+
             <a className='hiddenLink' ref={item => { this.downloadLink = item }}
               onClick={(e) => e.stopPropagation()} title={t('ui:download')}
               href={pdf ? 'data:application/octet-stream;base64,' + encodeURIComponent(pdf.content.base64) : '#'}
               download={'p4000.pdf'}>{t('ui:download')}</a>
 
-            <Nav.Knapp className='downloadButton mb-2' onClick={this.onDownloadRequest.bind(this)}
+            <Nav.Knapp className='exportButton downloadButton mb-2' onClick={this.onDownloadRequest.bind(this)}
               disabled={doingDownload}
               spinner={doingDownload}>
-              <Icons className='mr-2' kind='download' size='1x' />
+              <Icons kind='download' size='1x' />
               {doingDownload ? t('renderingPdf') : t('download')}
             </Nav.Knapp>
 
-            <Nav.Knapp className='printButton' onClick={this.onPrintRequest.bind(this)}
+            <Nav.Knapp className='exportButton printButton' onClick={this.onPrintRequest.bind(this)}
               disabled={doingPrint}
               spinner={doingPrint}>
-              <Icons className='mr-2' kind='print' size='1x' />
+              <Icons kind='print' size='1x' />
               {doingPrint ? t('renderingPdf') : t('print')}
             </Nav.Knapp>
 
-            <Nav.Knapp className='saveButton'
-              style={{ whiteSpace: 'normal' }}
+            <Nav.Knapp className='exportButton saveButton'
               disabled={previewPdf === undefined}
               onClick={this.onSaveRequest.bind(this)}>
-              <Icons className='mr-2' kind='save' size='1x' />
+              <Icons kind='save' size='1x' />
               {t('saveToServer')}
             </Nav.Knapp>
 
-            <Nav.Knapp className='advancedEditButton'
-              style={{ whiteSpace: 'normal' }}
+            <Nav.Knapp className='exportButton advancedEditButton'
               onClick={this.onAdvancedEditRequest.bind(this)}
               disabled={previewPdf === undefined}>
-              <Icons className='mr-2' kind='tool' size='1x' />
+              <Icons kind='tool' size='1x' />
               {t('advancedEdit')}
             </Nav.Knapp>
           </div>
@@ -264,7 +270,10 @@ class Print extends Component {
           </Nav.Tabs>
           <div className={classNames('panel', { 'hidden': this.state.tab !== 'panel-1' })} role='tabpanel' id='panel-1'>
             <div id='divToPrint'>
-              <SummaryRender t={t} events={events}
+              <SummaryRender t={t}
+                events={events}
+                comment={comment}
+                username={username}
                 animate={false}
                 previewAttachments={false}
                 blackAndWhite={blackAndWhite}
@@ -272,7 +281,8 @@ class Print extends Component {
             </div>
           </div>
           <div className={classNames('panel', { 'hidden': this.state.tab !== 'panel-2' })} role='tabpanel' id='panel-2'>
-            <Nav.Knapp style={{ minHeight: '50px' }}
+            <Nav.Knapp
+              style={{ minHeight: '50px' }}
               className='pdfPreviewButton'
               onClick={this.onPdfPreviewRequest.bind(this)}
               disabled={doingPreview}
@@ -291,7 +301,7 @@ class Print extends Component {
   }
 }
 
-Print.propTypes = {
+Export.propTypes = {
   t: PT.func,
   events: PT.array.isRequired,
   actions: PT.object.isRequired,
@@ -303,6 +313,6 @@ export default connect(
   mapDispatchToProps
 )(
   withRouter(
-    translate()(Print)
+    translate()(Export)
   )
 )

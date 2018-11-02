@@ -15,7 +15,8 @@ import * as p4000Actions from '../../../actions/p4000'
 
 const mapStateToProps = (state) => {
   return {
-    events: state.p4000.events
+    events: state.p4000.events,
+    comment: state.p4000.comment
   }
 }
 
@@ -27,10 +28,13 @@ class SaveToFileButton extends Component {
     state = {}
 
     handleFileSaveToFile () {
-      const { events } = this.props
+      const { events, comment } = this.props
 
       this.setState({
-        fileOutput: 'data:text/json;charset=utf-8,' + P4000Util.writeEventsToString(events)
+        fileOutput: 'data:text/json;charset=utf-8,' + P4000Util.writeP4000ToString({
+          events: events,
+          comment: comment
+        })
       }, () => {
         this.fileOutput.click()
       })

@@ -98,8 +98,8 @@ class EventForm extends React.Component {
 
   render () {
     let { t, type, editMode, eventIndex, events, history, location, Component } = this.props
-    let isEventPage = !((type === 'timeline' || type === 'new' || type === 'summary' || type === 'print'))
-    let hideEventList = (type === 'timeline' || type === 'summary' || type === 'print' || _.isEmpty(events))
+    let isEventPage = !((type === 'timeline' || type === 'new' || type === 'summary' || type === 'export'))
+    let hideEventList = (type === 'timeline' || type === 'summary' || type === 'export' || _.isEmpty(events))
 
     return <div className='c-p4000-eventForm'>
       <EventList className={classNames({ 'hiding': hideEventList })}

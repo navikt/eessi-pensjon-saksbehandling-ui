@@ -7,6 +7,24 @@
     .bigButton {
         opacity: 0;
         animation: menuNewFadeIn 0.2s forwards;
+        position: relative;
+
+        &:hover {
+            transition: all 250ms ease-out;
+            .notification {
+                border: 2px solid white;
+            }
+        }
+    }
+    .notification {
+       position: absolute;
+       top: 0.5rem;
+       right: 0.5rem;
+       padding: 0.5rem;
+       border-radius: 30px;
+       min-width: 2.5rem;
+       font-size: 1.3rem;
+       border: 2px solid rgb(0, 103, 197);
     }
 }
 

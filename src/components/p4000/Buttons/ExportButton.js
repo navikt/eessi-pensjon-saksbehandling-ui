@@ -20,34 +20,33 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch) }
 }
 
-class PrintButton extends Component {
+class ExportButton extends Component {
     state = {}
 
-    onPrintRequest () {
+    onExportRequest () {
       const { actions } = this.props
 
-      actions.setPage('print')
+      actions.setPage('export')
     }
 
     render () {
       const { t, events, style } = this.props
 
       return <Nav.Knapp
-        title={t('p4000:file-print-description-1')}
+        title={t('p4000:file-export-description-1')}
         style={style}
-        className='bigButton printP4000Button'
+        className='bigButton exportP4000Button'
         disabled={_.isEmpty(events)}
-        onClick={this.onPrintRequest.bind(this)}>
+        onClick={this.onExportRequest.bind(this)}>
         <div>
-          <Icons className='mr-3' size='4x' kind='document' />
-          <Icons size='3x' kind='print' />
+          <Icons className='mr-3' size='4x' kind='export' />
         </div>
-        <div className='mt-3'>{t('print')}</div>
+        <div className='mt-3'>{t('export')}</div>
       </Nav.Knapp>
     }
 }
 
-PrintButton.propTypes = {
+ExportButton.propTypes = {
   t: PT.func.isRequired,
   events: PT.array.isRequired,
   style: PT.object
@@ -57,5 +56,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(PrintButton)
+  translate()(ExportButton)
 )

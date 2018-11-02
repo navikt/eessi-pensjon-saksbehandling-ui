@@ -69,13 +69,13 @@ class OpenFromFileButton extends Component {
         reader.readAsArrayBuffer(e.target.files[0])
         reader.onloadend = (e) => {
           let string = String.fromCharCode.apply(null, new Uint8Array(e.target.result))
-          let events = P4000Util.readEventsFromString(string)
-          if (typeof events === 'string') {
-            actions.openP4000Failure(events)
-            reject(events)
+          let p4000 = P4000Util.readP4000FromString(string)
+          if (typeof p4000 === 'string') {
+            actions.openP4000Failure(p4000)
+            reject(p4000)
           } else {
-            actions.openP4000Success(events)
-            resolve(events)
+            actions.openP4000Success(p4000)
+            resolve(p4000)
           }
           window.scrollTo(0, 0)
           this.fileInput.value = ''

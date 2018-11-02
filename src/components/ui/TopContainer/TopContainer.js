@@ -45,11 +45,11 @@ class TopContainer extends Component {
           <TopHeader />
           <ClientAlert />
           <ServerAlert />
-          <Modal />
           <Breadcrumbs history={history} />
           <Nav.Container className='_container' fluid>
             {this.props.children}
           </Nav.Container>
+          <Modal />
           <Footer />
         </Drawer>
       </DragDropContext>

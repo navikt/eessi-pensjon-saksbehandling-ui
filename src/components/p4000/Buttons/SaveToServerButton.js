@@ -13,7 +13,8 @@ import * as storageActions from '../../../actions/storage'
 
 const mapStateToProps = (state) => {
   return {
-    events: state.p4000.events
+    events: state.p4000.events,
+    comment: state.p4000.comment
   }
 }
 
@@ -23,12 +24,15 @@ const mapDispatchToProps = (dispatch) => {
 
 class SaveToServerButton extends Component {
   handleFileSaveToServer () {
-    const { actions, events } = this.props
+    const { actions, events, comment } = this.props
 
     actions.openStorageModal({
       action: 'save',
       blob: {
-        content: P4000Util.writeEvents(events),
+        content: P4000Util.writeP4000({
+          events: events,
+          comment: comment
+        }),
         mimetype: 'application/json',
         name: 'p4000.json'
       }

@@ -143,7 +143,7 @@ class MiniaturePDF extends Component {
         onMouseEnter={this.onHandleMouseEnter.bind(this)}
         onMouseLeave={this.onHandleMouseLeave.bind(this)}
         style={{ transform: 'scale(' + scale + ')' }}>
-        <Document className='position-relative' file={{ data: file.content.data }}
+        <Document className='position-relative' file={'data:application/pdf;base64,' + file.content.base64}
           onLoadSuccess={this.handleOnLoadSuccess.bind(this)}>
           {previewLink && isHovering ? <div onClick={this.onPreviewDocument.bind(this)} className='link previewLink'>
             <Icons style={{ cursor: 'pointer' }} size='1x' kind='view' />

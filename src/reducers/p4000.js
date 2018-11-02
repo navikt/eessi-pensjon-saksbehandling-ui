@@ -5,6 +5,7 @@ let initialState = {
   event: undefined,
   editMode: false,
   page: 'new',
+  comment: undefined,
   submitted: undefined
 }
 
@@ -17,6 +18,7 @@ export default function (state = initialState, action = {}) {
       return Object.assign({}, state, {
         event: {},
         events: [],
+        comment: undefined,
         submitted: undefined
       })
 
@@ -25,6 +27,7 @@ export default function (state = initialState, action = {}) {
       return Object.assign({}, state, {
         event: {},
         events: action.payload.events,
+        comment: action.payload.comment,
         submitted: undefined
       })
 
@@ -110,6 +113,12 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         submitted: 'ERROR'
+      })
+
+    case types.P4000_COMMENT_SET:
+
+      return Object.assign({}, state, {
+        comment: action.payload.comment
       })
 
     case types.APP_CLEAR_DATA:
