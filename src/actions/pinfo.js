@@ -56,6 +56,6 @@ export function removeEmail (key) {
 export function setWorkIncome (payload) {
   return {
     type: types.PINFO_EVENT_SET_WORKINCOME,
-    payload: payload instanceof Object? payload: {}
+    payload: payload instanceof Object ? payload : {}
   }
 }

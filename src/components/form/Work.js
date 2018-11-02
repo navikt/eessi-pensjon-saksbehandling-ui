@@ -1,5 +1,4 @@
 import React from 'react'
-import uuidv4 from 'uuid/v4'
 import PT from 'prop-types'
 import moment from 'moment'
 import ReactDatePicker from 'react-datepicker'
@@ -32,9 +31,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    setWorkIncome: (key, payload) => { dispatch(setWorkIncome( {[key]: payload} )) },
-    setWorkIncomeEvent: (key, event) => { dispatch(setWorkIncome( {[key]: event.target.value} ))},
-    setWorkIncomeDate: (key, date) => { dispatch(setWorkIncome({[key]: date? date.valueOf(): null }))}
+    setWorkIncome: (key, payload) => { dispatch(setWorkIncome({ [key]: payload })) },
+    setWorkIncomeEvent: (key, event) => { dispatch(setWorkIncome({ [key]: event.target.value })) },
+    setWorkIncomeDate: (key, date) => { dispatch(setWorkIncome({ [key]: date ? date.valueOf() : null })) }
   }
 }
 class Work extends React.Component {
@@ -52,7 +51,7 @@ class Work extends React.Component {
   }
 
   render () {
-    const { t, work, workIncome } = this.props
+    const { t, workIncome } = this.props
     return (
       <div className='mt-3'>
         <Nav.Row className='mb-4'>
@@ -81,7 +80,7 @@ class Work extends React.Component {
             <ReactDatePicker
               className={
                 classNames(
-                  'skjemaelement__input input--fullbredde',
+                  'skjemaelement__input input--fullbredde'
                 )
               }
               selected={workIncome.workStartDate ? moment(workIncome.workStartDate) : undefined}
@@ -101,7 +100,7 @@ class Work extends React.Component {
             <ReactDatePicker
               className={
                 classNames(
-                  'skjemaelement__input input--fullbredde',
+                  'skjemaelement__input input--fullbredde'
                 )
               }
               selected={workIncome.workEndDate ? moment(workIncome.workEndDate) : undefined}
@@ -121,7 +120,7 @@ class Work extends React.Component {
             <ReactDatePicker
               className={
                 classNames(
-                  'skjemaelement__input input--fullbredde',
+                  'skjemaelement__input input--fullbredde'
                 )
               }
               selected={workIncome.workEstimatedRetirementDate ? moment(workIncome.workEstimatedRetirementDate) : undefined}
@@ -139,7 +138,7 @@ class Work extends React.Component {
         </Nav.Row>
         <Nav.Row className='mb-4'>
           <div className='col-md-6'>
-          <Nav.Input label={t('pinfo:form-workHourPerWeek') + ' *'} value={workIncome.workHourPerWeek || ''}
+            <Nav.Input label={t('pinfo:form-workHourPerWeek') + ' *'} value={workIncome.workHourPerWeek || ''}
               onChange={this.setWorkHourPerWeek}
             />
 
@@ -147,7 +146,7 @@ class Work extends React.Component {
         </Nav.Row>
         <Nav.Row className='mb-4'>
           <div className='col-md-6'>
-          <Nav.Input label={t('pinfo:form-workIncome') + ' *'} value={workIncome.workIncome || ''}
+            <Nav.Input label={t('pinfo:form-workIncome') + ' *'} value={workIncome.workIncome || ''}
               onChange={this.setWorkIncome}
             />
           </div>
@@ -166,7 +165,7 @@ class Work extends React.Component {
             <ReactDatePicker
               className={
                 classNames(
-                  'skjemaelement__input input--fullbredde',
+                  'skjemaelement__input input--fullbredde'
                 )
               }
               selected={workIncome.workPaymentDate ? moment(workIncome.workPaymentDate) : undefined}
@@ -182,7 +181,7 @@ class Work extends React.Component {
             />
           </div>
           <div className='col-md-6'>
-          <Nav.Select label={t('pinfo:form-workPaymentFrequency') + ' *'} value={workIncome.workPaymentFrequency || ''}
+            <Nav.Select label={t('pinfo:form-workPaymentFrequency') + ' *'} value={workIncome.workPaymentFrequency || ''}
               onChange={this.setWorkPaymentFrequency}
             >
               <option value=''>{t('pinfo:form-workPaymentFrequency-choose-option')}</option>

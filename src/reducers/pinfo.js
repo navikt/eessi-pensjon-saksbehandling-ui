@@ -88,7 +88,7 @@ export default function (state = initialState, action = {}) {
           workIncome: {
             ...state.form.workIncome,
             ...action.payload
-      } } }
+          } } }
 
     case types.PINFO_NEW:
 
