@@ -45,16 +45,6 @@ export default function (state = initialState, action = {}) {
                 ...action.payload
               } } } } }
 
-    case types.PINFO_EVENT_REMOVE_PHONE:
-      return {
-        ...state,
-        form: {
-          ...state.form,
-          contact: {
-            ...state.form.contact,
-            phone: omit(action.key, state.form.contact.phone)
-          } } }
-
     case types.PINFO_EVENT_SET_EMAIL:
 
       return {
@@ -70,6 +60,16 @@ export default function (state = initialState, action = {}) {
                 ...action.payload
               } } } } }
 
+    case types.PINFO_EVENT_REMOVE_PHONE:
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          contact: {
+            ...state.form.contact,
+            phone: omit(action.key, state.form.contact.phone)
+          } } }
+
     case types.PINFO_EVENT_REMOVE_EMAIL:
       return {
         ...state,
@@ -79,6 +79,16 @@ export default function (state = initialState, action = {}) {
             ...state.form.contact,
             email: omit(action.key, state.form.contact.email)
           } } }
+
+    case types.PINFO_EVENT_SET_WORKINCOME:
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          workIncome: {
+            ...state.form.workIncome,
+            ...action.payload
+      } } }
 
     case types.PINFO_NEW:
 
