@@ -24,25 +24,41 @@ export default function (state = {}, action = {}) {
         locale: action.payload === 'nb' ? 'nb' : 'en-gb'
       })
 
-    case types.UI_NAVIGATION_FORWARD:
-
-      return Object.assign({}, state, {
-        action: 'forward'
-      })
-
-    case types.UI_NAVIGATION_BACK:
-
-      return Object.assign({}, state, {
-        action: 'back'
-      })
-
     case types.UI_BREADCRUMBS_ADD: {
-      let _breadcrumbs = _.clone(state.breadcrumbs)
+      let _breadcrumbs = _.cloneDeep(state.breadcrumbs)
+      let newBreadcrumbs = action.payload
 
-      if (_breadcrumbs[_breadcrumbs.length - 1].ns === action.payload.ns) {
-        _breadcrumbs.splice(_breadcrumbs.length - 1, 1)
+      if (!_.isArray(newBreadcrumbs)) {
+        newBreadcrumbs = [newBreadcrumbs]
       }
-      _breadcrumbs.push(action.payload)
+
+      let index = _.findIndex(_breadcrumbs, { url: newBreadcrumbs[0].url })
+      if (index >= 0) {
+         _breadcrumbs.splice(index)
+      }
+
+      _.each(newBreadcrumbs, (breadcrumb) => {
+         _breadcrumbs.push(breadcrumb)
+      })
+
+      return Object.assign({}, state, {
+        breadcrumbs: _breadcrumbs
+      })
+    }
+
+    case types.UI_BREADCRUMBS_REPLACE: {
+      let _breadcrumbs = _.cloneDeep(state.breadcrumbs)
+
+      let newBreadcrumbs = action.payload
+      if (!_.isArray(newBreadcrumbs)) {
+         newBreadcrumbs = [newBreadcrumbs]
+      }
+
+      _breadcrumbs.splice(_breadcrumbs.length - 1, 1)
+
+      _.each(newBreadcrumbs, (breadcrumb) => {
+         _breadcrumbs.push(breadcrumb)
+      })
 
       return Object.assign({}, state, {
         breadcrumbs: _breadcrumbs
@@ -50,7 +66,7 @@ export default function (state = {}, action = {}) {
     }
 
     case types.UI_BREADCRUMBS_TRIM : {
-      let _breadcrumbs = _.clone(state.breadcrumbs)
+      let _breadcrumbs = _.cloneDeep(state.breadcrumbs)
 
       let index = _.findIndex(_breadcrumbs, { url: action.payload.url })
 
@@ -64,7 +80,7 @@ export default function (state = {}, action = {}) {
     }
 
     case types.UI_BREADCRUMBS_DELETE : {
-      let _breadcrumbs = _.clone(state.breadcrumbs)
+      let _breadcrumbs = _.cloneDeep(state.breadcrumbs)
 
       _breadcrumbs.splice(_breadcrumbs.length - 1, 1)
 

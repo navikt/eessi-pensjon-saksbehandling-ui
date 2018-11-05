@@ -96,41 +96,50 @@ class DatePicker extends Component {
 
     onStartDateBlur (e) {
       const { event, actions } = this.props
-      let date = e.target.value
+      let startDate
 
-      if (!/\d\d\.\d\d\.\d\d\d\d/.test(date)) {
-        if (!event.startDate || date !== event.startDate) {
-          this.setState({
-            validationError: 'p4000:validation-invalidDate'
-          }, () => {
-            actions.setEventProperty('startDate', undefined)
-          })
+      if (!e._isAMomentObject) {
+        let date = e.target.value
+        if (!/\d\d\.\d\d\.\d\d\d\d/.test(date)) {
+          if (!event.startDate || date !== event.startDate) {
+            this.setState({
+              validationError: 'p4000:validation-invalidDate'
+            }, () => {
+              actions.setEventProperty('startDate', undefined)
+            })
+          }
+        } else {
+          startDate = moment(date, 'DD.MM.YYYY').toDate()
         }
       } else {
-        let startDate = moment(date, 'DD.MM.YYYY').toDate()
-        if (!event.startDate || startDate.getTime() !== event.startDate.getTime()) {
-          this.onStartDateHandle(startDate)
-        }
+        startDate = e.toDate()
+      }
+      if (!event.startDate || startDate.getTime() !== event.startDate.getTime()) {
+        this.onStartDateHandle(startDate)
       }
     }
 
     onEndDateBlur (e) {
       const { event, actions } = this.props
-      let date = e.target.value
-
-      if (!/\d\d\.\d\d\.\d\d\d\d/.test(date)) {
-        if (!event.endDate || date !== event.endDate) {
-          this.setState({
-            validationError: 'p4000:validation-invalidDate'
-          }, () => {
-            actions.setEventProperty('endDate', undefined)
-          })
+      let endDate
+      if (!e._isAMomentObject) {
+        let date = e.target.value
+        if (!/\d\d\.\d\d\.\d\d\d\d/.test(date)) {
+          if (!event.endDate || date !== event.endDate) {
+            this.setState({
+              validationError: 'p4000:validation-invalidDate'
+            }, () => {
+              actions.setEventProperty('endDate', undefined)
+            })
+          }
+        } else {
+          endDate = moment(date, 'DD.MM.YYYY').toDate()
         }
       } else {
-        let endDate = moment(date, 'DD.MM.YYYY').toDate()
-        if (!event.endDate || endDate.getTime() !== event.endDate.getTime()) {
-          this.onEndDateHandle(endDate)
-        }
+        endDate = e.toDate()
+      }
+      if (!event.endDate || endDate.getTime() !== event.endDate.getTime()) {
+        this.onEndDateHandle(endDate)
       }
     }
 

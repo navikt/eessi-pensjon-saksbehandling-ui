@@ -69,24 +69,21 @@ class GeneratePDF extends Component {
         })
       }
 
-      actions.addToBreadcrumbs({
+      actions.replaceLastBreadcrumbWith({
         url: routes.PDF_GENERATE,
-        ns: 'pdf',
         label: 'pdf:app-generatePdfTitle'
       })
     }
 
     onBackButtonClick () {
-      const { history, actions } = this.props
+      const { history } = this.props
 
-      actions.navigateBack()
       history.push(routes.PDF_EDIT)
     }
 
     onForwardButtonClick () {
       const { history, actions } = this.props
 
-      actions.navigateForward()
       actions.clearPDF()
       history.push(routes.PDF_SELECT)
     }

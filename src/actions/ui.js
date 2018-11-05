@@ -10,18 +10,6 @@ export function changeLanguage (language) {
   }
 }
 
-export function navigateForward () {
-  return {
-    type: types.UI_NAVIGATION_FORWARD
-  }
-}
-
-export function navigateBack () {
-  return {
-    type: types.UI_NAVIGATION_BACK
-  }
-}
-
 export function openModal (modal) {
   return {
     type: types.UI_MODAL_OPEN,
@@ -38,6 +26,13 @@ export function closeModal () {
 export function addToBreadcrumbs (breadcrumbs) {
   return {
     type: types.UI_BREADCRUMBS_ADD,
+    payload: breadcrumbs
+  }
+}
+
+export function replaceLastBreadcrumbWith (breadcrumbs) {
+  return {
+    type: types.UI_BREADCRUMBS_REPLACE,
     payload: breadcrumbs
   }
 }

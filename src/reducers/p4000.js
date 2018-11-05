@@ -3,10 +3,9 @@ import * as types from '../constants/actionTypes'
 let initialState = {
   events: [],
   event: undefined,
-  editMode: false,
-  page: 'new',
   comment: undefined,
-  submitted: undefined
+  submitted: undefined,
+  pdf: undefined
 }
 
 export default function (state = initialState, action = {}) {
@@ -31,12 +30,6 @@ export default function (state = initialState, action = {}) {
         submitted: undefined
       })
 
-    case types.P4000_PAGE_SET:
-
-      return Object.assign({}, state, {
-        page: action.payload.page
-      })
-
     case types.P4000_EVENT_ADD:
 
       newEvents = state.events.slice()
@@ -46,9 +39,7 @@ export default function (state = initialState, action = {}) {
       return Object.assign({}, state, {
         events: newEvents,
         event: {},
-        eventIndex: undefined,
-        editMode: false,
-        page: action.payload.page || state.page
+        eventIndex: undefined
       })
 
     case types.P4000_EVENT_REPLACE:
@@ -60,8 +51,7 @@ export default function (state = initialState, action = {}) {
       return Object.assign({}, state, {
         events: newEvents,
         event: {},
-        eventIndex: undefined,
-        editMode: false
+        eventIndex: undefined
       })
 
     case types.P4000_EVENT_DELETE:
@@ -72,26 +62,21 @@ export default function (state = initialState, action = {}) {
       return Object.assign({}, state, {
         events: newEvents,
         event: {},
-        eventIndex: undefined,
-        editMode: false,
-        page: action.payload.page
+        eventIndex: undefined
       })
 
     case types.P4000_EVENT_CANCEL_EDIT:
 
       return Object.assign({}, state, {
         event: {},
-        eventIndex: undefined,
-        editMode: false,
-        page: action.payload.page
+        eventIndex: undefined
       })
 
-    case types.P4000_EVENT_EDIT_MODE:
+    case types.P4000_EVENT_EDIT:
 
       return Object.assign({}, state, {
         event: state.events[action.payload.eventIndex],
-        eventIndex: action.payload.eventIndex,
-        editMode: true
+        eventIndex: action.payload.eventIndex
       })
 
     case types.P4000_EVENT_SET_PROPERTY: {
@@ -119,6 +104,12 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         comment: action.payload.comment
+      })
+
+    case types.P4000_PDF_SET:
+
+      return Object.assign({}, state, {
+        pdf: action.payload.pdf
       })
 
     case types.APP_CLEAR_DATA:

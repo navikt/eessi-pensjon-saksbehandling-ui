@@ -15,12 +15,12 @@ import Validation from '../../Validation'
 import * as Nav from '../../../ui/Nav'
 import Icons from '../../../ui/Icons'
 
+import * as routes from '../../../../constants/routes'
 import '../Menu.css'
 
 const mapStateToProps = (state) => {
   return {
     event: state.p4000.event,
-    editMode: state.p4000.editMode,
     locale: state.ui.locale
   }
 }
@@ -33,7 +33,10 @@ class Learn extends Component {
     state = {}
 
     componentDidMount () {
-      const { actions, provideController } = this.props
+      const { actions, history, event, provideController } = this.props
+      if (!event) {
+        history.replace(routes.P4000)
+      }
 
       provideController({
         hasNoValidationErrors: this.hasNoValidationErrors.bind(this),
@@ -42,6 +45,7 @@ class Learn extends Component {
       })
 
       actions.registerDroppable('fileUpload', this.fileUpload)
+      window.scrollTo(0, 0)
     }
 
     componentWillUnmount () {
@@ -110,23 +114,25 @@ class Learn extends Component {
     }
 
     onBackButtonClick () {
-      const { actions, editMode, eventIndex } = this.props
-      if (editMode) {
+      const { actions, history, mode, eventIndex } = this.props
+      if (mode === 'edit') {
         actions.cancelEditEvent(eventIndex)
       }
-      actions.setPage('new')
+      history.goBack()
     }
 
     render () {
-      const { t, event, editMode, actions, type, locale } = this.props
-
-      return <Nav.Panel className={classNames('c-p4000-menu p-0 mb-4', { editMode: editMode })}>
+      const { t, event, mode, actions, type, locale } = this.props
+      if (!event) {
+        return null
+      }
+      return <Nav.Panel className={classNames('c-p4000-menu p-0 mb-4', { editMode: mode === 'edit' })}>
         <div className='title m-4'>
           <Nav.Knapp className='backButton mr-4' onClick={this.onBackButtonClick.bind(this)}>
             <Icons className='mr-2' kind='back' size='1x' />{t('ui:back')}
           </Nav.Knapp>
           <Icons size='3x' kind={type} className='float-left mr-4' />
-          <h1 className='m-0'>{ !editMode ? t('ui:new') : t('ui:edit')} {t('p4000:' + type + '-title')}</h1>
+          <h1 className='m-0'>{ mode !== 'edit' ? t('ui:new') : t('ui:edit')} {t('p4000:' + type + '-title')}</h1>
         </div>
         <Nav.Row className='eventDescription mb-4 fieldset'>
           <Nav.Column>
@@ -189,7 +195,7 @@ Learn.propTypes = {
   event: PT.object.isRequired,
   eventIndex: PT.number,
   type: PT.string.isRequired,
-  editMode: PT.bool.isRequired,
+  mode: PT.string.isRequired,
   actions: PT.object.isRequired,
   provideController: PT.func.isRequired,
   locale: PT.string.isRequired

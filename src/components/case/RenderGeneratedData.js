@@ -6,17 +6,19 @@ import _ from 'lodash'
 import './RenderData.css'
 
 class RenderGeneratedData extends Component {
-  renderJson (json, level) {
+  renderJson (json, level, counter) {
     let res = []
-    let counter = 0
+    let _level = level || 0
+    let _counter = counter || 0
     for (var key in json) {
       let value = json[key]
       if (typeof value === 'string') {
         if (value !== 'null' && value !== '') {
-          res.push(<div key={counter++} style={{ paddingLeft: level * 12 }}><b>{key}</b>{': '}{value}</div>)
+          _counter++
+          res.push(<div key={_level + '' + _counter} style={{ paddingLeft: _level * 12 }}><b>{key}</b>{': '}{value}</div>)
         }
       } else {
-        res.push(this.renderJson(value, level++))
+        res.push(this.renderJson(value, _level++, _counter))
       }
     }
 
@@ -24,39 +26,38 @@ class RenderGeneratedData extends Component {
   }
 
   render () {
-    let { t, dataToGenerate, dataToConfirm } = this.props
+    let { t, dataToGenerate } = this.props
 
     return <div className='p-3 c-case-renderData c-case-renderGeneratedData'>
       <dl className='row'>
         <dt className='col-sm-4'><label>{t('case:form-sakId')}</label></dt>
-        <dd className='col-sm-8'>{dataToConfirm.sakId}</dd>
+        <dd className='col-sm-8'>{dataToGenerate.sakId}</dd>
         <dt className='col-sm-4'><label>{t('case:form-aktoerId')}</label></dt>
-        <dd className='col-sm-8'>{dataToConfirm.aktoerId}</dd>
+        <dd className='col-sm-8'>{dataToGenerate.aktoerId}</dd>
         <dt className='col-sm-4'><label>{t('case:form-rinaId')}</label></dt>
-        <dd className='col-sm-8'>{dataToConfirm.rinaId}</dd>
+        <dd className='col-sm-8'>{dataToGenerate.rinaId}</dd>
         <dt className='col-sm-4'><label>{t('case:form-subjectArea')}</label></dt>
-        <dd className='col-sm-8'>{dataToConfirm.subjectArea}</dd>
+        <dd className='col-sm-8'>{dataToGenerate.subjectArea}</dd>
         <dt className='col-sm-4'><label>{t('case:form-buc')}</label></dt>
-        <dd className='col-sm-8'>{dataToConfirm.buc}</dd>
+        <dd className='col-sm-8'>{dataToGenerate.buc}</dd>
         <dt className='col-sm-4'><label>{t('case:form-sed')}</label></dt>
-        <dd className='col-sm-8'>{dataToConfirm.sed}</dd>
+        <dd className='col-sm-8'>{dataToGenerate.sed}</dd>
         <dt className='col-sm-4'><label>{t('case:form-institution')}</label></dt>
-        <dd className='col-sm-8'>{dataToConfirm.institutions.map((inst, i) => {
+        {dataToGenerate.institutions ? <dd className='col-sm-8'>{dataToGenerate.institutions.map((inst, i) => {
           return <div key={i} className='d-inline-block'>
             <img src={'../../../../flags/' + inst.country + '.png'}
               style={{ width: 30, height: 20 }}
               alt={inst.country} />&nbsp; {inst.institution}
           </div>
-        })}</dd>
+        })}</dd> : null}
       </dl>
-      {this.renderJson(dataToGenerate, 0).map(html => { return html })}
+      {this.renderJson(dataToGenerate).map(html => { return html })}
     </div>
   }
 }
 
 RenderGeneratedData.propTypes = {
   dataToGenerate: PT.object.isRequired,
-  dataToConfirm: PT.object.isRequired,
   t: PT.func.isRequired
 }
 

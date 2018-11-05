@@ -7,12 +7,14 @@ import { bindActionCreators } from 'redux'
 import Timeline from 'react-visjs-timeline'
 import ReactJson from 'react-json-view'
 import classNames from 'classnames'
+import _ from 'lodash'
 
 import Icons from '../../../ui/Icons'
 import P4000Util from '../../../p4000/Util'
 import * as Nav from '../../../ui/Nav'
 import TimelineEvent from '../../../ui/TimelineEvent/TimelineEvent'
 
+import * as routes from '../../../../constants/routes'
 import * as p4000Actions from '../../../../actions/p4000'
 
 import './Timeline.css'
@@ -38,6 +40,14 @@ class _Timeline extends Component {
       p4000DataButtonLabel: 'p4000:form-seeP4000Data',
       sedDataButtonLabel: 'p4000:form-seeSedData',
       tab: 'panel-1'
+    }
+
+    componentDidMount () {
+      const { events, history } = this.props
+      if (_.isEmpty(events)) {
+        history.replace(routes.P4000)
+      }
+      window.scrollTo(0, 0)
     }
 
     handleFormDataClick () {
@@ -114,13 +124,19 @@ class _Timeline extends Component {
     }
 
     onBackButtonClick () {
-      const { actions } = this.props
+      const { history } = this.props
 
-      actions.setPage('new')
+      history.goBack()
+    }
+
+    onEditRequest (id, event) {
+      const { history, actions } = this.props
+      actions.editEvent(id)
+      history.replace(routes.P4000 + '/' + event.type + '/edit')
     }
 
     render () {
-      const { t, events, actions } = this.props
+      const { t, events } = this.props
 
       let items = events.map((event, index) => {
         return {
@@ -148,7 +164,7 @@ class _Timeline extends Component {
           template: (item, element) => {
             if (!item) { return }
             ReactDOM.render(<TimelineEvent event={item}
-              onClick={() => actions.editEvent(item.id)}
+              onClick={this.onEditRequest.bind(this, item.id, item.content)}
             />, element)
             return item.content
           }

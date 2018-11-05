@@ -24,8 +24,7 @@ const mapStateToProps = (state) => {
   return {
     loadingPDF: state.loading.loadingPDF,
     language: state.ui.language,
-    files: state.pdf.files,
-    action: state.ui.action
+    files: state.pdf.files
   }
 }
 
@@ -37,11 +36,13 @@ class SelectPDF extends Component {
   componentDidMount () {
     const { actions } = this.props
 
-    actions.addToBreadcrumbs({
+    actions.addToBreadcrumbs([{
+      url: routes.PDF,
+      label: 'pdf:app-pdfTitle'
+    }, {
       url: routes.PDF_SELECT,
-      ns: 'pdf',
       label: 'pdf:app-selectPdfTitle'
-    })
+    }])
 
     actions.registerDroppable('selectPdf', this.fileUpload)
   }
@@ -53,9 +54,8 @@ class SelectPDF extends Component {
   }
 
   onForwardButtonClick () {
-    const { history, actions } = this.props
+    const { history } = this.props
 
-    actions.navigateForward()
     history.push(routes.PDF_EDIT)
   }
 

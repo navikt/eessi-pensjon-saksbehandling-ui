@@ -24,8 +24,10 @@ const mapStateToProps = (state) => {
     currentCase: state.case.currentCase,
     dataToConfirm: state.case.dataToConfirm,
     locale: state.ui.locale,
-    action: state.ui.action,
     loading: state.loading,
+    sakId: state.status.sakId,
+    rinaId: state.status.rinaId,
+    aktoerId: state.status.aktoerId,
     vedtakId: state.status.vedtakId
   }
 }
@@ -48,37 +50,28 @@ class EditCase extends Component {
     };
 
     async componentDidMount () {
-      const { actions, match, currentCase, institutionList, bucList, subjectAreaList, countryList, dataToConfirm, action } = this.props
-      const { rinaId } = this.state
-
-      actions.addToBreadcrumbs({
-        url: routes.CASE_GET,
-        ns: 'case',
-        label: 'case:app-editCaseTitle'
-      })
+      const { actions, match, currentCase, institutionList, bucList, subjectAreaList, countryList, dataToConfirm } = this.props
 
       if (_.isEmpty(currentCase)) {
-        let sakId = match.params.sakid
-        let aktoerId = match.params.aktoerid
-        let rinaId = match.params.rinaid
 
-        await this.setState({
-          sakId: sakId,
-          aktoerId: aktoerId,
-          rinaId: rinaId
-        })
+        let _sakId = match.params.sakid
+        let _aktoerId = match.params.aktoerid
+        let _rinaId = match.params.rinaid
 
         actions.getCaseFromCaseNumber({
-          sakId: sakId,
-          aktoerId: aktoerId,
-          rinaId: rinaId
+          sakId: _sakId,
+          aktoerId: _aktoerId,
+          rinaId: _rinaId
         })
       } else {
-        await this.setState({
-          sakId: currentCase.sakId,
-          aktoerId: currentCase.aktoerId,
-          rinaId: currentCase.rinaId
-        })
+         actions.addToBreadcrumbs([{
+            url: routes.CASE,
+            label: 'case:app-caseTitle'
+        }, {
+            url: routes.CASE_EDIT + '/' + currentCase.casenumber + '/' + currentCase.pinid +
+               (currentCase.rinaid ? '/' + currentCase.rinaid : ''),
+            label: 'case:app-editCaseTitle'
+        }])
       }
 
       if (_.isEmpty(subjectAreaList)) {
@@ -86,7 +79,7 @@ class EditCase extends Component {
       }
 
       if (_.isEmpty(bucList)) {
-        actions.getBucList(rinaId)
+        actions.getBucList(currentCase ? currentCase.rinaid : undefined)
       }
 
       if (_.isEmpty(institutionList)) {
@@ -97,69 +90,72 @@ class EditCase extends Component {
         actions.getCountryList()
       }
 
-      if (dataToConfirm && action === 'back') {
+      // come from a goBack() navigation
+      if (dataToConfirm) {
         this.setState({
           'institutions': dataToConfirm.institutions,
           'buc': dataToConfirm.buc,
           'sed': dataToConfirm.sed,
           'subjectArea': dataToConfirm.subjectArea
+        }, () => {
+          actions.cleanDataToConfirm();
         })
       }
     }
 
     async componentDidUpdate () {
-      const { history, loading, currentCase, dataToConfirm, action } = this.props
+      const { history, loading, currentCase, dataToConfirm, actions} = this.props
 
-      if (currentCase && (!this.state.sakId || !this.state.aktoerId)) {
-        await this.setState({
-          sakId: currentCase.casenumber,
-          aktoerId: currentCase.pinid,
-          rinaId: currentCase.rinaid
-        })
-      }
-
-      if (!loading.gettingCase && !this.state.sakId) {
+      if (!loading.gettingCase && !currentCase) {
         history.push(routes.CASE_GET)
+        return
       }
 
-      if (dataToConfirm && action === 'forward') {
+      if (dataToConfirm) {
         history.push(routes.CASE_CONFIRM)
+        return
       }
+
+      if (!loading.gettingCase && currentCase) {
+          actions.addToBreadcrumbs([{
+              url: routes.CASE,
+              label: 'case:app-caseTitle'
+          } , {
+              url: routes.CASE_EDIT + '/' + currentCase.casenumber + '/' + currentCase.pinid +
+                 (currentCase.rinaid ? '/' + currentCase.rinaid : ''),
+              label: 'case:app-editCaseTitle'
+          }])
+       }
     }
 
     onBackButtonClick () {
-      const { history, actions } = this.props
+      const { history } = this.props
 
-      actions.navigateBack()
-      actions.clearData()
-      history.push(routes.CASE_GET)
+      history.goBack()
     }
 
     onForwardButtonClick () {
       const { actions, currentCase, vedtakId } = this.props
+      const { institutions, buc, sed, subjectArea } = this.state
 
-      this.performAllValidations()
+      this.validateSubjectArea(subjectArea)
+      this.validateBuc(buc)
+      this.validateSed(sed)
+      this.validateInstitutions(institutions)
 
       if (this.noValidationErrors()) {
-        actions.navigateForward()
+
         actions.dataToConfirm({
-          'institutions': this.state.institutions,
-          'buc': this.state.buc,
-          'sed': this.state.sed,
-          'subjectArea': this.state.subjectArea,
+          'institutions': institutions,
+          'buc': buc,
+          'sed': sed,
+          'subjectArea': subjectArea,
           'sakId': currentCase.casenumber,
           'aktoerId': currentCase.pinid,
           'rinaId': currentCase.rinaid,
           'vedtakId': vedtakId
         })
       }
-    }
-
-    performAllValidations () {
-      this.validateSubjectArea(this.state.subjectArea)
-      this.validateBuc(this.state.buc)
-      this.validateSed(this.state.sed)
-      this.validateInstitutions(this.state.institutions)
     }
 
     validateSubjectArea (subjectArea) {
@@ -272,13 +268,13 @@ class EditCase extends Component {
     }
 
     onBucChange (e) {
-      const { actions } = this.props
+      const { actions, rinaId } = this.props
 
       let buc = e.target.value
       this.setState({ buc: buc })
       this.validateBuc(buc)
       if (!this.state.validation.bucFail) {
-        actions.getSedList(buc, this.state.rinaId)
+        actions.getSedList(buc, rinaId)
       }
     }
 
@@ -474,8 +470,7 @@ class EditCase extends Component {
     }
 
     render () {
-      const { t, history, location, currentCase, action, loading } = this.props
-      const { rinaId } = this.state
+      const { t, history, location, currentCase, action, loading, } = this.props
 
       if (!currentCase) {
         return <Case className='editCase'
@@ -520,7 +515,6 @@ class EditCase extends Component {
             </div>
           </Nav.Row>
           {this.renderInstitutions()}
-          <div>{rinaId ? t('case:form-rinaId') + ': ' + rinaId : null}</div>
         </div>
 
         <Nav.Row className='mb-4 p-4'>
@@ -541,8 +535,6 @@ EditCase.propTypes = {
   location: PT.object,
   loading: PT.object,
   t: PT.func,
-  match: PT.object,
-  action: PT.string,
   subjectAreaList: PT.array,
   institutionList: PT.array,
   countryList: PT.array,
