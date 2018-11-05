@@ -32,7 +32,6 @@ class GenerateCase extends Component {
     if (!dataToGenerate) {
       history.push(routes.CASE_GET)
     } else {
-
       actions.addToBreadcrumbs([{
         url: routes.CASE,
         label: 'case:app-caseTitle'
@@ -111,7 +110,7 @@ class GenerateCase extends Component {
       <div className='fieldset animate'>
         <Nav.Row>
           <Nav.Column>
-            <RenderGeneratedData dataToGenerate={dataToGenerate || {}}  />
+            <RenderGeneratedData dataToGenerate={dataToGenerate || {}} />
           </Nav.Column>
         </Nav.Row>
       </div>

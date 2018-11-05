@@ -35,9 +35,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class FrontPage extends Component {
-
-  componentDidMount() {
-
+  componentDidMount () {
     const { actions } = this.props
 
     actions.addToBreadcrumbs({
