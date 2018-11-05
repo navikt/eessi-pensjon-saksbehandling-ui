@@ -28,6 +28,7 @@ const mapStateToProps = (state) => {
     sakId: state.status.sakId,
     rinaId: state.status.rinaId,
     aktoerId: state.status.aktoerId,
+    fnr: state.status.fnr,
     vedtakId: state.status.vedtakId
   }
 }
@@ -53,7 +54,7 @@ class StartCase extends Component {
     };
 
     async componentDidMount () {
-      const { actions, currentCase, dataToConfirm, sakId, aktoerId, rinaId, vedtakId } = this.props
+      const { actions, currentCase, dataToConfirm, sakId, aktoerId, fnr, rinaId, vedtakId } = this.props
 
       actions.addToBreadcrumbs([{
         url: routes.CASE,
@@ -63,10 +64,10 @@ class StartCase extends Component {
         label: 'case:app-startCaseTitle'
       }])
 
-      if (_.isEmpty(currentCase) && sakId && aktoerId) {
+      if (_.isEmpty(currentCase) && sakId && (aktoerId || fnr)) {
         actions.getCaseFromCaseNumber({
           sakId: sakId,
-          aktoerId: aktoerId,
+          aktoerId: aktoerId || fnr,
           rinaId: rinaId
         })
       }

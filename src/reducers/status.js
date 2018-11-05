@@ -12,6 +12,12 @@ export default function (state = initialState, action = {}) {
         [action.payload.key]: action.payload.value
       })
 
+    case types.STATUS_PARAM_UNSET:
+
+      return Object.assign({}, state, {
+        [action.payload.key]: undefined
+      })
+
     case types.STATUS_GET_SUCCESS:
 
       return Object.assign({}, state, {

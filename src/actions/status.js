@@ -13,6 +13,15 @@ export function setStatusParam (key, value) {
   }
 }
 
+export function unsetStatusParam (key) {
+  return {
+    type: types.STATUS_PARAM_UNSET,
+    payload: {
+      key: key
+    }
+  }
+}
+
 export function getStatus (rinaId) {
   return api.call({
     url: sprintf(urls.STATUS_GET_URL, { rinaId: rinaId }),
