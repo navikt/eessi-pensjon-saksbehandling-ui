@@ -24,8 +24,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     setEventProperty: (key, payload) => { dispatch(setEventProperty({ [key]: payload })) },
-    setEventPropertyEvent: (key, event) => { dispatch(setEventProperty({ [key]: event.target.value })) },
-    setEventPropertyDate: (key, date) => { dispatch(setEventProperty({ [key]: date ? date.valueOf() : null })) }
+    setEventPropertyEvent: (key, event) => { dispatch(setEventProperty({ [key]: event.target.value })) }
   }
 }
 class Bank extends React.Component {
