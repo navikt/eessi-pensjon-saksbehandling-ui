@@ -41,14 +41,16 @@ class Breadcrumbs extends Component {
 
     return <div className={classNames('c-ui-breadcrumbs', 'breadcrumb', className)}>
       {breadcrumbs ? breadcrumbs.map((b, index) => {
-        return index === (breadcrumbs.length - 1)
-          ? <div key={b.label} className='_breadcrumb'>{t(b.label)}</div>
-          : <div key={b.label} className='_breadcrumb'>
-            <a href={'#' + b.ns} title={t(b.label)} onClick={this.onBreadcrumbClick.bind(this, b)}>{t(b.label)}</a>
-            <span className='separator'>
-              <Icons kind='caretRight' size='1x' />
-            </span>
-          </div>
+        return <div key={b.label} title={b.url} className='_breadcrumb'>
+          {index === (breadcrumbs.length - 1) ? t(b.label)
+            : <React.Fragment>
+              <button className='breadcrumbButton' title={t(b.label)} onClick={this.onBreadcrumbClick.bind(this, b)}>{t(b.label)}</button>
+              <span className='separator'>
+                <Icons kind='caretRight' size='1x' />
+              </span>
+            </React.Fragment>
+          }
+        </div>
       }) : null}
       <div style={{ position: 'absolute', right: '2rem' }}>
         <a href='mailto:Nuno.Cardoso@nav.no'>{t('ui:giveFeedback')}</a>

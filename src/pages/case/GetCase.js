@@ -74,7 +74,6 @@ class GetCase extends Component {
     onForwardButtonClick () {
       const { actions } = this.props
 
-      actions.navigateForward()
       actions.getCaseFromCaseNumber(this.state)
     }
 

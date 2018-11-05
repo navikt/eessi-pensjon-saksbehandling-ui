@@ -333,6 +333,18 @@ export default function (state = {}, action = {}) {
         status: status
       })
 
+    case types.APP_LOGIN_REQUEST: {
+      return Object.assign({}, state, {
+        isLoggingIn: true
+      })
+    }
+
+    case types.APP_LOGIN_RESULT: {
+      return Object.assign({}, state, {
+        isLoggingIn: false
+      })
+    }
+
     default:
 
       return state

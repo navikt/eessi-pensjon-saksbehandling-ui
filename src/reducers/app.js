@@ -1,6 +1,9 @@
 import * as types from '../constants/actionTypes'
 
-let initialState = {}
+let initialState = {
+  loggedIn: false,
+  loggingIn: false
+}
 
 export default function (state = initialState, action = {}) {
   switch (action.type) {
@@ -32,6 +35,20 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         droppables: droppables
+      })
+    }
+
+    case types.APP_LOGIN_RESULT: {
+      return Object.assign({}, state, {
+        loggedIn: action.payload.loggedIn
+      })
+    }
+
+    case types.APP_LOGOUT_REQUEST: {
+      return Object.assign({}, state, {
+        loggedIn: false,
+        username: undefined,
+        userRole: undefined
       })
     }
 

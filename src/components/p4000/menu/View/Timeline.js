@@ -15,6 +15,7 @@ import * as Nav from '../../../ui/Nav'
 import TimelineEvent from '../../../ui/TimelineEvent/TimelineEvent'
 
 import * as routes from '../../../../constants/routes'
+import * as uiActions from '../../../../actions/ui'
 import * as p4000Actions from '../../../../actions/p4000'
 
 import './Timeline.css'
@@ -28,7 +29,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, uiActions, p4000Actions), dispatch) }
 }
 
 class _Timeline extends Component {
@@ -43,10 +44,18 @@ class _Timeline extends Component {
     }
 
     componentDidMount () {
-      const { events, history } = this.props
+      const { events, history, actions } = this.props
       if (_.isEmpty(events)) {
         history.replace(routes.P4000)
+        return
       }
+      actions.addToBreadcrumbs([{
+        url: routes.P4000,
+        label: 'p4000:app'
+      }, {
+        url: routes.P4000 + '/timeline',
+        label: 'p4000:file-timeline'
+      }])
       window.scrollTo(0, 0)
     }
 

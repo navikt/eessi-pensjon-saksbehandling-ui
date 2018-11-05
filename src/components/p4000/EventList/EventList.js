@@ -9,7 +9,7 @@ import './EventList.css'
 
 class EventList extends Component {
   render () {
-    const { t, events, eventIndex, handleEditRequest, cancelEditRequest, className } = this.props
+    const { t, mode, events, eventIndex, handleEditRequest, cancelEditRequest, className } = this.props
 
     if (_.isEmpty(events)) {
       return null
@@ -23,6 +23,7 @@ class EventList extends Component {
           return <Event key={index}
             onClick={() => selected ? cancelEditRequest(event, index) : handleEditRequest(event, index)}
             event={event}
+            mode={mode}
             eventIndex={index}
             selected={selected} />
         })}
