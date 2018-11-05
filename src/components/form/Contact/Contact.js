@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { newPhone, newEmail } from '../../../actions/pinfo'
 import Email from './Email'
 import Phone from './Phone'
+import { Knapp } from '../../ui/Nav'
 
 const mapStateToProps = (state) => {
   return {
@@ -62,10 +63,11 @@ class Contact extends React.Component {
   render () {
     return (
       <div className='mt-3'>
-        <input type='button' value='new Phone' onClick={() => this.props.newPhone()} />
-        <input type='button' value='new Email' onClick={() => this.props.newEmail()} />
         <fieldset>
-          <legend>{this.props.t('Phone numbers')}</legend>
+          <legend>{this.props.t('pinfo:form-userPhoneLegend')}</legend>
+          <Knapp htmlType='button' onClick={() => this.props.newPhone()} mini={true}>
+            {this.props.t('pinfo:form-userPhoneNew')}
+          </Knapp>
           {Object.keys(this.props.phone).map(e => (
             <Phone
               uuid={e}
@@ -73,22 +75,25 @@ class Contact extends React.Component {
               t={this.props.t}
               numberError={this.state.displayErrorToggle && !checkPhoneNumber(this.props.phone[e])}
               typeError={this.state.displayErrorToggle && !checkPhoneType(this.props.phone[e])}
-              numberErrorMessage='beep bop'
-              typeErrorMessage='foo bar'
+              numberErrorMessage={this.props.t('pinfo:validation-noUserPhone')}
+              typeErrorMessage={this.props.t('pinfo:validation-noTypePhone')}
               displayErrorOn={this.displayErrorOn.bind(this)}
               displayErrorToggle={this.state.displayErrorToggle}
             />
           ))}
         </fieldset>
         <fieldset>
-          <legend>{this.props.t('Email Adresses')}</legend>
+          <legend>{this.props.t('pinfo:form-userEmailLegend')}</legend>
+          <Knapp htmlType='button' onClick={() => this.props.newEmail()} mini={true} >
+            {this.props.t('pinfo:form-userEmailNew')} 
+          </Knapp>
           {Object.keys(this.props.email).map((e) => (
             <Email
               uuid={e}
               key={e}
               t={this.props.t}
               error={this.state.displayErrorToggle && !checkAdresse(this.props.email[e])}
-              errorMessage='Fibbidy fob'
+              errorMessage={this.props.t('pinfo:validation-noUserEmail')}
               displayErrorOn={this.displayErrorOn.bind(this)}
               displayErrorToggle={this.state.displayErrorToggle}
             />

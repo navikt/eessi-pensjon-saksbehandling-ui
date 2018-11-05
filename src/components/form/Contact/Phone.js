@@ -16,7 +16,7 @@ const Phone = (props) => {
           value={props.nummer || ''}
           onChange={props.setPhoneNumber}
           type='tel'
-          feil={props.numberError ? { feilmelding: props.t(props.numberErrorMessage) } : null}
+          feil={props.numberError ? { feilmelding: props.numberErrorMessage } : null}
         />
       </div>
       <div className='col-md-4'>
@@ -26,7 +26,7 @@ const Phone = (props) => {
           label={props.t('pinfo:form-userPhoneType')}
           value={props.type || ''}
           onChange={props.setPhoneType}
-          feil={props.typeError ? { feilmelding: props.t(props.typeErrorMessage) } : null}
+          feil={props.typeError ? { feilmelding: props.typeErrorMessage } : null}
         >
           <option value=''>{props.t('pinfo:form-userPhoneTypeNone')}</option>
           <option value={'home'}>{props.t('pinfo:form-userPhoneTypeHome')}</option>

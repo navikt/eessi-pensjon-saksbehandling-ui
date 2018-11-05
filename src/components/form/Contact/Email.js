@@ -17,7 +17,7 @@ const Email = (props) => {
             value={props.address || ''}
             onChange={props.setEmail}
             onInvalid={() => { props.displayErrorOn() }}
-            feil={props.error ? { feilmelding: props.t(props.errorMessage) } : null}
+            feil={props.error ? { feilmelding: props.errorMessage } : null}
           />
         </div>
         <div className='col-md-2'>
