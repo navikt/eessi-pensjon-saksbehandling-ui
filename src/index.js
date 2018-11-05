@@ -49,11 +49,7 @@ const initialState = { ui: {
   drawerOpen: false,
   drawerWidth: 10,
   drawerOldWidth: 250,
-  breadcrumbs: [{
-    label: 'ui:home',
-    ns: 'app',
-    url: routes.ROOT
-  }]
+  breadcrumbs: []
 } }
 
 const store = createStoreWithMiddleware(reducer, initialState)
@@ -66,20 +62,21 @@ ReactDOM.render(
           <Switch>
             <AuthenticatedRoute exact path={routes.PSELV} component={Pages.PSelv} roles={[constants.SAKSBEHANDLER]} />
             <AuthenticatedRoute exact path={routes.PINFO} component={Pages.PInfo} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-            <AuthenticatedRoute exact path={routes.P4000} component={Pages.P4000} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-            <AuthenticatedRoute exact path={routes.P6000} component={Pages.P6000} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+            <AuthenticatedRoute exact path={routes.P4000_ROUTE} component={Pages.P4000} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+            <AuthenticatedRoute exact path={routes.P6000_ROUTE} component={Pages.P6000} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
 
             <AuthenticatedRoute exact path={routes.PDF_GENERATE} component={Pages.GeneratePDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
             <AuthenticatedRoute exact path={routes.PDF_EDIT} component={Pages.EditPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
             <AuthenticatedRoute exact path={routes.PDF_SELECT} component={Pages.SelectPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+            <Redirect from={routes.PDF} to={{ pathname: routes.PDF_SELECT }} />
 
             <AuthenticatedRoute exact path={routes.CASE_GET} component={Pages.GetCase} roles={[constants.SAKSBEHANDLER]} />
-            <AuthenticatedRoute exact path={routes.CASE_EDIT_WITHOUT_RINA} component={Pages.EditCase} roles={[constants.SAKSBEHANDLER]} />
-            <AuthenticatedRoute exact path={routes.CASE_EDIT_WITH_RINA} component={Pages.EditCase} roles={[constants.SAKSBEHANDLER]} />
+            <AuthenticatedRoute exact path={routes.CASE_EDIT} component={Pages.EditCase} roles={[constants.SAKSBEHANDLER]} />
             <AuthenticatedRoute exact path={routes.CASE_CONFIRM} component={Pages.ConfirmCase} roles={[constants.SAKSBEHANDLER]} />
             <AuthenticatedRoute exact path={routes.CASE_GENERATE} component={Pages.GenerateCase} roles={[constants.SAKSBEHANDLER]} />
             <AuthenticatedRoute exact path={routes.CASE_SAVE} component={Pages.SaveCase} roles={[constants.SAKSBEHANDLER]} />
             <AuthenticatedRoute exact path={routes.CASE_SEND} component={Pages.SendCase} roles={[constants.SAKSBEHANDLER]} />
+            <Redirect from={routes.CASE} to={{ pathname: routes.CASE_GET }} />
 
             <AuthenticatedRoute path={routes.ROOT} component={Pages.FrontPage} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
             <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />

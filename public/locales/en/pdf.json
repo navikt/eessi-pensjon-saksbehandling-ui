@@ -1,4 +1,5 @@
 {
+    "app-pdfTitle"             : "PDF",
     "app-createPdf"            : "Create PDF",
     "app-selectPdfTitle"       : "Select PDF",
     "app-selectPdfDescription" : "Choose from existing PDF or image files to create a new document",

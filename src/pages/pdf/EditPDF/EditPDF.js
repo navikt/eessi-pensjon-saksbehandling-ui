@@ -47,18 +47,16 @@ class EditPDF extends Component {
         history.push(routes.PDF_SELECT)
       }
 
-      actions.addToBreadcrumbs({
+      actions.replaceLastBreadcrumbWith({
         url: routes.PDF_EDIT,
-        ns: 'pdf',
         label: 'pdf:app-editPdfTitle'
       })
     }
 
     onBackButtonClick () {
-      const { history, actions } = this.props
+      const { history } = this.props
 
-      actions.navigateBack()
-      history.push(routes.PDF_SELECT)
+      history.goBack()
     }
 
     hasOnlyEmptyArrays (obj) {

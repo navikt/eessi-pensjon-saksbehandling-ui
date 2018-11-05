@@ -37,6 +37,14 @@ class PdfUtils {
     return pdf
   }
 
+  downloadPdf(params) {
+    let options = _.cloneDeep(defaultOptions)
+    if (params.fileName) {
+      options.filename = params.fileName
+    }
+    html2pdf().set(options).from(params.element).save()
+  }
+
   async generate (params) {
     return new Promise(async (resolve, reject) => {
       html2pdf().set(params.options).from(params.element).outputPdf().then(rawPdf => {

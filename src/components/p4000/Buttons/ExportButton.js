@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux'
 import Icons from '../../ui/Icons'
 import * as Nav from '../../ui/Nav'
 
+import * as routes from '../../../constants/routes'
 import * as p4000Actions from '../../../actions/p4000'
 
 const mapStateToProps = (state) => {
@@ -24,9 +25,8 @@ class ExportButton extends Component {
     state = {}
 
     onExportRequest () {
-      const { actions } = this.props
-
-      actions.setPage('export')
+      const { history } = this.props
+      history.push(routes.P4000 + '/export')
     }
 
     render () {
@@ -49,7 +49,8 @@ class ExportButton extends Component {
 ExportButton.propTypes = {
   t: PT.func.isRequired,
   events: PT.array.isRequired,
-  style: PT.object
+  style: PT.object,
+  history: PT.object.isRequired
 }
 
 export default connect(

@@ -25,6 +25,34 @@ const mapDispatchToProps = (dispatch) => {
 class GetCase extends Component {
     state = {};
 
+    componentDidMount () {
+      const { actions, currentCase } = this.props
+
+      if (currentCase) {
+         actions.cleanCaseNumber()
+      }
+
+      actions.addToBreadcrumbs([{
+        url: routes.CASE,
+        label: 'case:app-caseTitle'
+      },{
+        url: routes.CASE_GET,
+        label: 'case:app-getCaseTitle'
+      }])
+    }
+
+    componentDidUpdate () {
+      const { history, currentCase } = this.props
+
+      if (currentCase) {
+        history.push(routes.CASE_GET +
+          (currentCase.casenumber ? '/' + currentCase.casenumber : '') +
+          (currentCase.pinid ? '/' + currentCase.pinid : '') +
+          (currentCase.rinaid ? '/' + currentCase.rinaid : '')
+        )
+      }
+    }
+
     onSakIdChange (e) {
       this.setState({
         sakId: e.target.value.trim()
@@ -50,34 +78,13 @@ class GetCase extends Component {
       actions.getCaseFromCaseNumber(this.state)
     }
 
-    componentDidMount () {
-      const { actions } = this.props
-
-      actions.addToBreadcrumbs({
-        url: routes.CASE_GET,
-        ns: 'case',
-        label: 'case:app-getCaseTitle'
-      })
-    }
-
-    componentDidUpdate () {
-      const { history, currentCase } = this.props
-
-      if (currentCase) {
-        history.push(routes.CASE_GET +
-                (currentCase.casenumber ? '/' + currentCase.casenumber : '') +
-                (currentCase.pinid ? '/' + currentCase.pinid : '') +
-                (currentCase.rinaid ? '/' + currentCase.rinaid : '')
-        )
-      }
-    }
-
     isButtonDisabled () {
       return !this.state.sakId || !this.state.aktoerId || this.props.gettingCase
     }
 
     render () {
       const { t, gettingCase, history, location } = this.props
+      const { sakId, aktoerId, rinaId } = this.state
 
       let buttonText = gettingCase ? t('case:loading-gettingCase') : t('ui:search')
 
@@ -90,15 +97,15 @@ class GetCase extends Component {
           <Nav.Row>
             <div className='col-md-6'>
               <Nav.HjelpetekstBase id='sakId'>{t('case:help-sakId')}</Nav.HjelpetekstBase>
-              <Nav.Input className='getCaseInputSakId' label={t('case:form-sakId') + ' *'} value={this.state.sakId} onChange={this.onSakIdChange.bind(this)} />
+              <Nav.Input className='getCaseInputSakId' label={t('case:form-sakId') + ' *'} value={sakId || ''} onChange={this.onSakIdChange.bind(this)} />
             </div>
             <div className='col-md-6'>
               <Nav.HjelpetekstBase id='aktoerId'>{t('case:help-aktoerId')}</Nav.HjelpetekstBase>
-              <Nav.Input className='getCaseInputAktoerId' label={t('case:form-aktoerId') + ' *'} value={this.state.aktoerId} onChange={this.onAktoerIdChange.bind(this)} />
+              <Nav.Input className='getCaseInputAktoerId' label={t('case:form-aktoerId') + ' *'} value={aktoerId || ''} onChange={this.onAktoerIdChange.bind(this)} />
             </div>
             <div className='col-md-6'>
               <Nav.HjelpetekstBase id='rinaId'>{t('case:help-rinaId')}</Nav.HjelpetekstBase>
-              <Nav.Input className='getCaseInputRinaId' label={t('case:form-rinaId')} value={this.state.rinaId} onChange={this.onRinaIdChange.bind(this)} />
+              <Nav.Input className='getCaseInputRinaId' label={t('case:form-rinaId')} value={rinaId || ''} onChange={this.onRinaIdChange.bind(this)} />
             </div>
           </Nav.Row>
         </div>

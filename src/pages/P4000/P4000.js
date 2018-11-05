@@ -20,10 +20,8 @@ import './P4000.css'
 const mapStateToProps = (state) => {
   return {
     events: state.p4000.events,
-    editMode: state.p4000.editMode,
     event: state.p4000.event,
     eventIndex: state.p4000.eventIndex,
-    page: state.p4000.page,
     status: state.status
   }
 }
@@ -36,7 +34,7 @@ const components = {
   timeline: Menu.Timeline,
   summary: Menu.Summary,
   export: Menu.Export,
-  'new': Menu.New,
+  index: Menu.Index,
   work: Menu.Work,
   home: Menu.GenericEvent,
   child: Menu.Child,
@@ -51,16 +49,19 @@ const components = {
 
 class P4000 extends Component {
     state = {
-      isLoaded: false
+      isLoaded: false,
+      page: 'index',
+      pathname: undefined
     };
 
     componentDidMount () {
-      const { actions } = this.props
+      const { actions, match } = this.props
 
       this.setState({
-        isLoaded: true
+        isLoaded: true,
+        page: match.params.page || 'index',
+        mode: match.params.mode
       })
-      actions.setPage('new')
 
       actions.addToBreadcrumbs({
         url: routes.P4000,
@@ -69,22 +70,33 @@ class P4000 extends Component {
       })
     }
 
-    render () {
-      const { t, editMode, event, page, history, location, status } = this.props
+    static getDerivedStateFromProps (newProps, oldState) {
+      let newPathname = newProps.location.pathname
 
-      if (!this.state.isLoaded) {
+      if (newPathname && oldState.pathname !== newPathname) {
+        return {
+          page: newProps.match.params.page || 'index',
+          mode: newProps.match.params.mode,
+          pathname: newPathname
+        }
+      }
+      return {}
+    }
+
+    render () {
+      const { t, history, location, status } = this.props
+      const { isLoaded, page, mode } = this.state
+
+      if (!isLoaded) {
         return null
       }
-
-      let activeItem = editMode && event ? event.type : page
-      let Component = components[activeItem]
 
       return <TopContainer className='p-p4000'
         history={history} location={location}
         sideContent={<Pdf t={t} status={status} />}>
-        <StorageModal namespace={activeItem !== 'export' ? storages.P4000 : storages.FILES} />
+        <StorageModal namespace={page !== 'export' ? storages.P4000 : storages.FILES} />
         <h1 className='appTitle'>{t('p4000:app-title')}</h1>
-        <EventForm type={activeItem} Component={Component} history={history} location={location} />
+        <EventForm type={page} mode={mode} Component={components[page]} history={history} location={location} />
       </TopContainer>
     }
 }
@@ -93,8 +105,6 @@ P4000.propTypes = {
   history: PT.object,
   location: PT.object.isRequired,
   t: PT.func,
-  page: PT.string.isRequired,
-  editMode: PT.bool,
   event: PT.object,
   actions: PT.object.isRequired,
   status: PT.object

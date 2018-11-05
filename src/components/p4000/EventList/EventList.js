@@ -21,7 +21,7 @@ class EventList extends Component {
         {events.map((event, index) => {
           let selected = (eventIndex !== undefined && eventIndex === index)
           return <Event key={index}
-            onClick={() => selected ? cancelEditRequest() : handleEditRequest(index)}
+            onClick={() => selected ? cancelEditRequest(event, index) : handleEditRequest(event, index)}
             event={event}
             eventIndex={index}
             selected={selected} />

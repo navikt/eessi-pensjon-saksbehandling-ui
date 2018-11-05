@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux'
 import Icons from '../../ui/Icons'
 import * as Nav from '../../ui/Nav'
 
+import * as routes from '../../../constants/routes'
 import * as p4000Actions from '../../../actions/p4000'
 
 const mapStateToProps = (state) => {
@@ -22,9 +23,8 @@ const mapDispatchToProps = (dispatch) => {
 
 class SummaryButton extends Component {
   handleSummary () {
-    const { actions } = this.props
-
-    actions.setPage('summary')
+    const { history } = this.props
+    history.push(routes.P4000 + '/summary')
   }
 
   render () {
@@ -45,7 +45,8 @@ SummaryButton.propTypes = {
   t: PT.func.isRequired,
   events: PT.array.isRequired,
   style: PT.object,
-  actions: PT.object
+  actions: PT.object,
+  history: PT.object.isRequired
 }
 
 export default connect(

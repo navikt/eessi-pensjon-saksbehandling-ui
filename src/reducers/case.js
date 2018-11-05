@@ -50,10 +50,27 @@ export default function (state = {}, action = {}) {
         dataToConfirm: action.payload
       })
 
-    case types.CASE_GENERATE_DATA_SUCCESS:
+    case types.CASE_CONFIRM_DATA_CLEAN:
 
       return Object.assign({}, state, {
-        dataToGenerate: action.payload
+        dataToConfirm: undefined
+      })
+
+    case types.CASE_GENERATE_DATA_SUCCESS:
+
+      let dataToGenerate = Object.assign({},
+        state.dataToConfirm,
+        action.payload
+     );
+
+     return Object.assign({}, state, {
+        dataToGenerate: dataToGenerate
+     })
+
+    case types.CASE_GENERATE_DATA_CLEAN:
+
+      return Object.assign({}, state, {
+        dataToGenerate: undefined
       })
 
     case types.CASE_CREATE_SED_REQUEST:
@@ -69,6 +86,12 @@ export default function (state = {}, action = {}) {
       return Object.assign({}, state, {
         dataSaved: action.payload
       })
+
+    case types.CASE_SAVE_DATA_CLEAN: {
+      return Object.assign({}, state, {
+        dataSaved : undefined
+      })
+    }
 
     case types.CASE_SEND_SED_SUCCESS:
 
@@ -86,6 +109,12 @@ export default function (state = {}, action = {}) {
 
       return Object.assign({}, state, {
         currentCase: action.payload
+      })
+
+    case types.CASE_GET_CASE_NUMBER_CLEAN:
+
+      return Object.assign({}, state, {
+        currentCase: undefined
       })
 
     case types.RINA_GET_URL_SUCCESS:

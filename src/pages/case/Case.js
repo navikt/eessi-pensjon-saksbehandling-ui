@@ -16,10 +16,6 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = () => {
-  return {}
-}
-
 class Case extends Component {
   render () {
     const { t, children, title, description, stepIndicator, className, history, location, status } = this.props
@@ -59,8 +55,7 @@ Case.propTypes = {
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(
   translate()(Case)
 )

@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
 import { translate } from 'react-i18next'
-import _ from 'lodash'
 
 import Case from './Case'
 import * as Nav from '../../components/ui/Nav'
@@ -15,12 +14,10 @@ import * as uiActions from '../../actions/ui'
 
 const mapStateToProps = (state) => {
   return {
-    dataToConfirm: state.case.dataToConfirm,
     dataToGenerate: state.case.dataToGenerate,
     dataSaved: state.case.dataSaved,
     savingCase: state.loading.savingCase,
-    language: state.ui.language,
-    action: state.ui.action
+    language: state.ui.language
   }
 }
 
@@ -33,20 +30,27 @@ class GenerateCase extends Component {
     let { history, actions, dataToGenerate } = this.props
 
     if (!dataToGenerate) {
-      history.push(routes.ROOT)
-    }
+      history.push(routes.CASE_GET)
+    } else {
 
-    actions.addToBreadcrumbs({
-      url: routes.CASE_GET,
-      ns: 'case',
-      label: 'case:app-generateCaseTitle'
-    })
+      actions.addToBreadcrumbs([{
+        url: routes.CASE,
+        label: 'case:app-caseTitle'
+      }, {
+        url: routes.CASE_GENERATE,
+        label: 'case:app-generateCaseTitle'
+      }])
+    }
   }
 
   componentDidUpdate () {
-    const { history, dataSaved, action } = this.props
+    const { history, dataToGenerate, dataSaved } = this.props
 
-    if (dataSaved && action === 'forward') {
+    if (!dataToGenerate) {
+      history.push(routes.CASE_GET)
+    }
+
+    if (dataSaved) {
       history.push(routes.CASE_SAVE)
     }
   }
@@ -54,17 +58,25 @@ class GenerateCase extends Component {
   onBackButtonClick () {
     const { history, actions } = this.props
 
-    actions.navigateBack()
-    history.push(routes.CASE_CONFIRM)
+    actions.cleanDataToGenerate()
+    history.goBack()
   }
 
   onForwardButtonClick () {
-    const { actions, dataToConfirm } = this.props
+    const { actions, dataToGenerate } = this.props
 
-    let payload = _.cloneDeep(dataToConfirm)
+    let payload = {
+      'institutions': dataToGenerate.institutions,
+      'buc': dataToGenerate.buc,
+      'sed': dataToGenerate.sed,
+      'subjectArea': dataToGenerate.subjectArea,
+      'sakId': dataToGenerate.sakId,
+      'aktoerId': dataToGenerate.aktoerId,
+      'rinaId': dataToGenerate.rinaId,
+      'vedtakId': dataToGenerate.vedtakId
+    }
+
     payload.euxCaseId = payload.rinaId
-
-    actions.navigateForward()
 
     if (!payload.euxCaseId) {
       actions.createSed(payload)
@@ -74,7 +86,7 @@ class GenerateCase extends Component {
   }
 
   render () {
-    const { t, history, location, dataToGenerate, dataToConfirm, savingCase } = this.props
+    const { t, history, location, dataToGenerate, savingCase } = this.props
 
     if (!dataToGenerate) {
       return <Case className='generateCase'
@@ -90,8 +102,6 @@ class GenerateCase extends Component {
       </Case>
     }
 
-    let buttonText = savingCase ? t('case:loading-savingCase') : t('ui:confirmAndSave')
-
     return <Case className='p-case-generateCase'
       title='case:app-generateCaseTitle'
       description='case:app-generateCaseDescription'
@@ -101,7 +111,7 @@ class GenerateCase extends Component {
       <div className='fieldset animate'>
         <Nav.Row>
           <Nav.Column>
-            <RenderGeneratedData dataToGenerate={dataToGenerate || {}} dataToConfirm={dataToConfirm} />
+            <RenderGeneratedData dataToGenerate={dataToGenerate || {}}  />
           </Nav.Column>
         </Nav.Row>
       </div>
@@ -110,7 +120,9 @@ class GenerateCase extends Component {
           <Nav.Knapp className='w-100 backButton' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
         </div>
         <div className='col-md-6 mb-2'>
-          <Nav.Hovedknapp className='w-100 forwardButton' disabled={savingCase} spinner={savingCase} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+          <Nav.Hovedknapp className='w-100 forwardButton' disabled={savingCase} spinner={savingCase} onClick={this.onForwardButtonClick.bind(this)}>
+            {savingCase ? t('case:loading-savingCase') : t('ui:confirmAndSave')}
+          </Nav.Hovedknapp>
         </div>
       </Nav.Row>
     </Case>
@@ -123,10 +135,8 @@ GenerateCase.propTypes = {
   location: PT.object.isRequired,
   savingCase: PT.bool,
   t: PT.func.isRequired,
-  dataToConfirm: PT.object,
   dataToGenerate: PT.object.isRequired,
-  dataSaved: PT.object,
-  action: PT.string
+  dataSaved: PT.object
 }
 
 export default connect(

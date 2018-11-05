@@ -17,6 +17,7 @@ import * as constants from '../constants/constants'
 import * as routes from '../constants/routes'
 import * as statusActions from '../actions/status'
 import * as appActions from '../actions/app'
+import * as uiActions from '../actions/ui'
 
 import './FrontPage.css'
 
@@ -30,10 +31,21 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, appActions, statusActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, uiActions, appActions, statusActions), dispatch) }
 }
 
 class FrontPage extends Component {
+
+  componentDidMount() {
+
+    const { actions } = this.props
+
+    actions.addToBreadcrumbs({
+      label: 'ui:home',
+      url: routes.ROOT
+    })
+  }
+
   getCreateableDocuments (status) {
     return status.docs ? status.docs
       .filter(item => { return item.navn === 'Create' })
@@ -74,9 +86,9 @@ class FrontPage extends Component {
             className='frontPageLink caseLink' linkCreator={(props) => (
               <Link to={
                 status.saksNr
-                  ? routes.CASE_EDIT_WITHOUT_RINA
+                  ? routes.CASE_EDIT
                     .replace(':aktoerid', status.fnr)
-                    .replace(':sakid', status.sakId)
+                    .replace(':sakid', status.saksNr)
                   : routes.CASE_GET
               } {...props} />)
             } href='#'>{t('case:app-createNewCase')}</Nav.Lenkepanel>

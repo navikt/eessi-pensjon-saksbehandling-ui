@@ -14,10 +14,8 @@ import * as uiActions from '../../actions/ui'
 
 const mapStateToProps = (state) => {
   return {
-
     dataToConfirm: state.case.dataToConfirm,
     dataToGenerate: state.case.dataToGenerate,
-    action: state.ui.action,
     language: state.ui.language,
     generatingCase: state.loading.generatingCase
   }
@@ -32,40 +30,40 @@ class ConfirmCase extends Component {
     let { history, actions, dataToConfirm } = this.props
 
     if (!dataToConfirm) {
-      history.push(routes.ROOT)
+      history.push(routes.CASE_GET)
     } else {
-      actions.addToBreadcrumbs({
+      actions.addToBreadcrumbs([{
+        url: routes.CASE,
+        label: 'case:app-caseTitle'
+      }, {
         url: routes.CASE_CONFIRM,
-        ns: 'case',
         label: 'case:app-confirmCaseTitle'
-      })
+      }])
     }
   }
 
   componentDidUpdate () {
-    const { history, dataToGenerate, dataToConfirm, action } = this.props
+    const { history, dataToGenerate, dataToConfirm } = this.props
 
     if (!dataToConfirm) {
-      history.push(routes.ROOT)
+      history.push(routes.CASE_GET)
     }
 
-    if (dataToGenerate && action === 'forward') {
+    if (dataToGenerate) {
       history.push(routes.CASE_GENERATE)
     }
   }
 
   onBackButtonClick () {
-    const { history, actions, dataToConfirm } = this.props
+    const { history, actions } = this.props
 
-    actions.navigateBack()
-    history.push(routes.CASE_GET + '/' + dataToConfirm.sakId + '/' + dataToConfirm.aktoerId +
-            (dataToConfirm.rinaId ? '/' + dataToConfirm.rinaId : null))
+    actions.cleanDataToConfirm()
+    history.goBack()
   }
 
   onForwardButtonClick () {
     const { actions, dataToConfirm } = this.props
 
-    actions.navigateForward()
     actions.generateData(dataToConfirm)
   }
 
@@ -110,7 +108,6 @@ ConfirmCase.propTypes = {
   generatingCase: PT.bool,
   t: PT.func.isRequired,
   dataToConfirm: PT.object.isRequired,
-  action: PT.string,
   dataToGenerate: PT.object
 }
 

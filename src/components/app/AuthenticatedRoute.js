@@ -9,7 +9,7 @@ import { translate } from 'react-i18next'
 
 import * as Nav from '../ui/Nav'
 import TopHeader from '../ui/Header/TopHeader'
-import { IS_DEVELOPMENT } from '../../constants/environment'
+import { IS_DEVELOPMENT_WITH_NO_AUTH } from '../../constants/environment'
 
 import * as routes from '../../constants/routes'
 import * as urls from '../../constants/urls'
@@ -61,6 +61,7 @@ class AuthenticatedRoute extends Component {
 
       this.getAndSaveParam(params, 'fnr')
       this.getAndSaveParam(params, 'aktoerId')
+      this.getAndSaveParam(params, 'rinaid', 'rinaId')
       this.getAndSaveParam(params, 'saksNr', 'sakId')
       this.getAndSaveParam(params, 'sakId')
       this.getAndSaveParam(params, 'kravId')
@@ -89,8 +90,8 @@ class AuthenticatedRoute extends Component {
 
       let validRole = this.hasApprovedRole()
 
-      return IS_DEVELOPMENT || (this.state.loggedIn && userRole)
-        ? IS_DEVELOPMENT || validRole
+      return IS_DEVELOPMENT_WITH_NO_AUTH || (this.state.loggedIn && userRole)
+        ? IS_DEVELOPMENT_WITH_NO_AUTH || validRole
           ? <Route {...this.props} />
           : <Redirect to={routes.ROOT} />
         : <div style={{ minHeight: '100vh', backgroundColor: 'white' }}>

@@ -4,11 +4,11 @@ import PT from 'prop-types'
 import PdfUtils from './PdfUtils'
 import * as Nav from '../../ui/Nav'
 
-class Print extends Component {
+class Export extends Component {
   onPdfRequest (fileName, nodeId) {
     PdfUtils.downloadPdf({
       fileName: fileName,
-      nodeId: nodeId
+      element: nodeId
     })
   }
 
@@ -19,10 +19,10 @@ class Print extends Component {
   }
 }
 
-Print.propTypes = {
+Export.propTypes = {
   fileName: PT.string,
   nodeId: PT.string,
   buttonLabel: PT.string.isRequired
 }
 
-export default Print
+export default Export
