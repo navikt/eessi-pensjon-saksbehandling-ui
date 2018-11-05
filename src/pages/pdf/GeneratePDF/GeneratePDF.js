@@ -78,7 +78,7 @@ class GeneratePDF extends Component {
     onBackButtonClick () {
       const { history } = this.props
 
-      history.push(routes.PDF_EDIT)
+      history.goBack()
     }
 
     onForwardButtonClick () {

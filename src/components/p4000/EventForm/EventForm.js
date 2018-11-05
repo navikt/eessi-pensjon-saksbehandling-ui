@@ -110,7 +110,7 @@ class EventForm extends React.Component {
 
     return <div className='c-p4000-eventForm'>
       <EventList className={classNames({ 'hiding': hideEventList })}
-        events={events} eventIndex={eventIndex}
+        events={events} eventIndex={eventIndex} mode={mode}
         cancelEditRequest={this.handleCancelRequest.bind(this)}
         handleEditRequest={this.handleEditRequest.bind(this)} />
       <Component history={history}

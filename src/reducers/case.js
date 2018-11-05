@@ -61,11 +61,11 @@ export default function (state = {}, action = {}) {
       let dataToGenerate = Object.assign({},
         state.dataToConfirm,
         action.payload
-     );
+      )
 
-     return Object.assign({}, state, {
+      return Object.assign({}, state, {
         dataToGenerate: dataToGenerate
-     })
+      })
 
     case types.CASE_GENERATE_DATA_CLEAN:
 
@@ -89,7 +89,7 @@ export default function (state = {}, action = {}) {
 
     case types.CASE_SAVE_DATA_CLEAN: {
       return Object.assign({}, state, {
-        dataSaved : undefined
+        dataSaved: undefined
       })
     }
 

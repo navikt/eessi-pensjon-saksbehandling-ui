@@ -63,11 +63,13 @@ class P4000 extends Component {
         mode: match.params.mode
       })
 
-      actions.addToBreadcrumbs({
+      actions.addToBreadcrumbs([{
         url: routes.P4000,
-        ns: 'p4000',
+        label: 'p4000:app'
+      }, {
+        url: routes.P4000 + '/index',
         label: 'p4000:app-title'
-      })
+      }])
     }
 
     static getDerivedStateFromProps (newProps, oldState) {

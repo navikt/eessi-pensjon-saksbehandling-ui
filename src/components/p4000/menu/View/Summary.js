@@ -10,6 +10,7 @@ import Icons from '../../../ui/Icons'
 import * as Nav from '../../../ui/Nav'
 
 import * as routes from '../../../../constants/routes'
+import * as uiActions from '../../../../actions/ui'
 import * as p4000Actions from '../../../../actions/p4000'
 
 import './Summary.css'
@@ -24,7 +25,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, uiActions, p4000Actions), dispatch) }
 }
 
 class Summary extends Component {
@@ -34,10 +35,20 @@ class Summary extends Component {
   }
 
   componentDidMount () {
-    const { events, history } = this.props
+    const { events, history, actions } = this.props
     if (_.isEmpty(events)) {
       history.replace(routes.P4000)
+      return
     }
+
+    actions.addToBreadcrumbs([{
+      url: routes.P4000,
+      label: 'p4000:app'
+    }, {
+      url: routes.P4000 + '/summary',
+      label: 'p4000:file-summary'
+    }])
+
     window.scrollTo(0, 0)
   }
 
