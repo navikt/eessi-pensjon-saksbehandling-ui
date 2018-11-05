@@ -112,10 +112,6 @@ class FrontPage extends Component {
           className='frontPageLink p4000Link' linkCreator={(props) => (
             <Link to={routes.P4000} {...props} />)
           } href='#'>{t('p4000:app-startP4000')}</Nav.Lenkepanel>
-        <Nav.Lenkepanel style={{ animationDelay: '0.3s' }}
-          className='frontPageLink p6000Link' linkCreator={(props) => (
-            <Link to={routes.P6000} {...props} />)
-          } href='#'>{t('p4000:app-startP6000')}</Nav.Lenkepanel>
         <h4 className='mt-4 mb-4'>{t('tools')}</h4>
         <Nav.Lenkepanel style={{ animationDelay: '0.4s' }} className='frontPageLink pdfLink' linkCreator={(props) => (
           <Link to={routes.PDF_SELECT} {...props} />)

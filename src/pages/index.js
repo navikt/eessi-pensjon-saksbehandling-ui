@@ -14,7 +14,6 @@ import GeneratePDF from './pdf/GeneratePDF/GeneratePDF'
 import PSelv from './PSelv/PSelv'
 import PInfo from './PInfo/PInfo'
 import P4000 from './P4000/P4000'
-import P6000 from './P6000/P6000'
 
 export {
   FrontPage,
@@ -32,6 +31,5 @@ export {
 
   PSelv,
   PInfo,
-  P4000,
-  P6000
+  P4000
 }
