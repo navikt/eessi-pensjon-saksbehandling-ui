@@ -87,26 +87,17 @@ class GenerateCase extends Component {
   render () {
     const { t, history, location, dataToGenerate, savingCase } = this.props
 
-    if (!dataToGenerate) {
-      return <Case className='generateCase'
-        title='case:app-generateCaseTitle'
-        description='case:app-generateCaseDescription'
-        stepIndicator={2}
-        history={history}
-        location={location}>
-        <div className='w-100 text-center'>
-          <Nav.NavFrontendSpinner />
-          <p>{t('case:loading-generatingCase')}</p>
-        </div>
-      </Case>
-    }
-
     return <Case className='p-case-generateCase'
-      title='case:app-generateCaseTitle'
-      description='case:app-generateCaseDescription'
+      title={t('case:app-caseTitle') + ' - ' + t('case:app-generateCaseTitle')}
+      description={t('case:app-generateCaseDescription')}
       stepIndicator={2}
       history={history}
       location={location}>
+      { !dataToGenerate ? <div className='w-100 text-center'>
+          <Nav.NavFrontendSpinner />
+          <p>{t('case:loading-generatingCase')}</p>
+        </div>
+      : <React.Fragment>
       <div className='fieldset animate'>
         <Nav.Row>
           <Nav.Column>
@@ -124,6 +115,7 @@ class GenerateCase extends Component {
           </Nav.Hovedknapp>
         </div>
       </Nav.Row>
+    </React.Fragment> }
     </Case>
   }
 }

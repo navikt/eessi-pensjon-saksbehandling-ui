@@ -89,8 +89,8 @@ class SaveCase extends Component {
       let buttonText = sendingCase ? t('case:loading-sendingCase') : t('ui:confirmAndSend')
 
       return <Case className='p-case-saveCase'
-        title='case:app-saveCaseTitle'
-        description='case:app-saveCaseDescription'
+        title={t('case:app-caseTitle') + ' - ' + t('case:app-saveCaseTitle')}
+        description={t('case:app-saveCaseDescription')}
         stepIndicator={3}
         history={history}
         location={location}>

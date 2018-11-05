@@ -88,8 +88,8 @@ class GetCase extends Component {
       let buttonText = gettingCase ? t('case:loading-gettingCase') : t('ui:search')
 
       return <Case className='p-case-getcase'
-        title='case:app-getCaseTitle'
-        description='case:app-getCaseDescription'
+        title={t('case:app-caseTitle') + ' - ' + t('case:app-getCaseTitle')}
+        description={t('case:app-getCaseDescription')}
         history={history}
         location={location}>
         <div className='fieldset animate'>

@@ -472,8 +472,8 @@ class EditCase extends Component {
 
       if (!currentCase) {
         return <Case className='editCase'
-          title='case:app-editCaseTitle'
-          description='case:app-editCaseDescription'
+          title={t('case:app-caseTitle') + ' - ' + t('case:app-editCaseTitle')}
+          description={t('case:app-editCaseDescription')}
           stepIndicator={0}
           history={history}
           location={location}>

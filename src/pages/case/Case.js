@@ -23,8 +23,8 @@ class Case extends Component {
     return <TopContainer className={classNames('p-case-case', className)}
       history={history} location={location}
       sideContent={<FrontPageDrawer t={t} status={status} />}>
-      <h1 className='appTitle'>{t(title)}</h1>
-      { description ? <h4 className='appDescription'>{t(description)}</h4> : null }
+      <h1 className='appTitle'>{title}</h1>
+      { description ? <h4 className='appDescription'>{description}</h4> : null }
       { stepIndicator !== undefined ? <Nav.Stegindikator
         visLabel
         onBeforeChange={() => { return false }}

@@ -77,8 +77,8 @@ class ConfirmCase extends Component {
     }
 
     return <Case className='p-case-confirmCase'
-      title='case:app-confirmCaseTitle'
-      description='case:app-confirmCaseDescription'
+      title={t('case:app-caseTitle') + ' - ' + t('case:app-confirmCaseTitle')}
+      description={t('case:app-confirmCaseDescription')}
       stepIndicator={1}
       history={history}
       location={location}>
