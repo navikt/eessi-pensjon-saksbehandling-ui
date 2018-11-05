@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Select, { components } from 'react-select'
+import Select from 'react-select'
 import PT from 'prop-types'
 import { translate } from 'react-i18next'
 import { countries } from './CountrySelectData'
@@ -17,69 +17,59 @@ class CountrySelect extends Component {
     }
   }
 
-    // Feels a bit hacky, but it works.
-    // need to insert some props into the input component
-    // and react-select does not have any real built in
-    // mechanics to insert custom (nonstandard) props.
-    // Also there is some blur bug when binding the function.
-    Input = props => (
-      <components.Input {...props} {...this.props.customInputProps} />
-    );
-
-    onChange (val) {
-      this.setState({ tag: val }, () => {
-        if (typeof this.props.onSelect === 'function') {
-          this.props.onSelect(val)
-        }
-      })
-    }
-
-    filter (selectedCountries, allCountries) {
-      return _.filter(allCountries, country => {
-        return selectedCountries.indexOf(country.value) >= 0
-      })
-    }
-
-    render () {
-      const { t, value, locale, type, list, className, styles = {}, error = false } = this.props
-
-      let optionList = countries[locale]
-      let options = (list ? this.filter(list, optionList) : optionList)
-      let defValue = this.state.tag || value
-      if (defValue && !defValue.label) {
-        defValue = _.find(options, { value: defValue.value })
+  onChange (val) {
+    this.setState({ tag: val }, () => {
+      if (typeof this.props.onSelect === 'function') {
+        this.props.onSelect(val)
       }
-      return <div className={classNames('c-ui-countrySelect', className)}>
-        <Select placeholder={t('ui:searchCountry')}
-          value={defValue}
-          options={options}
-          id={this.props.id}
-          components={{
-            Option: CountryOption,
-            SingleValue: CountryValue,
-            Input: this.Input,
-            ...this.props.components }}
-          selectProps={{
-            type: type,
-            flagImagePath: '../../../../../flags/'
-          }}
-          className='CountrySelect'
-          classNamePrefix='CountrySelect'
-          onChange={this.onChange.bind(this)}
-          styles={{ ...styles, ...CountryErrorStyle(error) }}
-          tabSelectsValue={false}
-          multi={false}
-        />
-        {error
-          ? <div role='alert' aria-live='assertive'>
-            <div className='skjemaelement__feilmelding'>
-              {this.props.errorMessage}
-            </div>
-          </div>
-          : null
-        }
-      </div>
+    })
+  }
+
+  filter (selectedCountries, allCountries) {
+    return _.filter(allCountries, country => {
+      return selectedCountries.indexOf(country.value) >= 0
+    })
+  }
+
+  render () {
+    const { t, value, locale, type, list, className, styles = {}, error = false } = this.props
+
+    let optionList = countries[locale]
+    let options = (list ? this.filter(list, optionList) : optionList)
+    let defValue = this.state.tag || value
+    if (defValue && !defValue.label) {
+      defValue = _.find(options, { value: defValue.value })
     }
+    return <div className={classNames('c-ui-countrySelect', className)}>
+      <Select placeholder={t('ui:searchCountry')}
+        value={defValue}
+        options={options}
+        id={this.props.id}
+        components={{
+          Option: CountryOption,
+          SingleValue: CountryValue,
+          ...this.props.components }}
+        selectProps={{
+          type: type,
+          flagImagePath: '../../../../../flags/'
+        }}
+        className='CountrySelect'
+        classNamePrefix='CountrySelect'
+        onChange={this.onChange.bind(this)}
+        styles={{ ...styles, ...CountryErrorStyle(error) }}
+        tabSelectsValue={false}
+        multi={false}
+      />
+      {error
+        ? <div role='alert' aria-live='assertive'>
+          <div className='skjemaelement__feilmelding'>
+            {this.props.errorMessage}
+          </div>
+        </div>
+        : null
+      }
+    </div>
+  }
 }
 CountrySelect.propTypes = {
   onSelect: PT.func.isRequired,
