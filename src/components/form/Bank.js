@@ -1,21 +1,10 @@
 import React from 'react'
 import PT from 'prop-types'
-import uuidv4 from 'uuid/v4'
 import _ from 'lodash'
 import { connect } from 'react-redux'
-
 import * as Nav from '../ui/Nav'
 import CountrySelect from '../ui/CountrySelect/CountrySelect'
-import { onChange, onInvalid, onSelect } from './shared/eventFunctions'
-
-const errorMessages = {
-  bankName: { patternMismatch: 'patternMismatch', valueMissing: 'valueMissing' },
-  bankAddress: { patternMismatch: 'patternMismatch', valueMissing: 'valueMissing' },
-  bankCountry: { patternMismatch: 'patternMismatch', valueMissing: 'valueMissing' },
-  bankBicSwift: { patternMismatch: 'patternMismatch', valueMissing: 'valueMissing' },
-  bankIban: { patternMismatch: 'patternMismatch', valueMissing: 'valueMissing' },
-  bankCode: { patternMismatch: 'patternMismatch', valueMissing: 'valueMissing' }
-}
+import { setEventProperty } from '../../actions/pinfo'
 
 const mapStateToProps = (state) => {
   return {
@@ -32,60 +21,38 @@ const mapStateToProps = (state) => {
     )
   }
 }
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    setEventProperty: (key, payload) => { dispatch(setEventProperty({ [key]: payload })) },
+    setEventPropertyEvent: (key, event) => { dispatch(setEventProperty({ [key]: event.target.value })) },
+    setEventPropertyDate: (key, date) => { dispatch(setEventProperty({ [key]: date ? date.valueOf() : null })) }
+  }
+}
 class Bank extends React.Component {
   constructor (props) {
     super(props)
-
-    this.onInvalid = onInvalid.bind(this, errorMessages)
-    this.onChange = onChange.bind(this, errorMessages)
-    this.onSelect = onSelect.bind(this, 'bankCountry')
-
-    let uuid = uuidv4()
-
-    let keys = ['bankName', 'bankAddress', 'bankCountry', 'bankBicSwift', 'bankIban', 'bankCode']
-    let nameToId = keys.reduce((acc, cur, i) => ({ ...acc, [cur]: uuid + '_' + i }), {})
-    let idToName = keys.reduce((acc, cur, i) => ({ ...acc, [uuid + '_' + i]: cur }), {})
-    let inputStates = keys.reduce((acc, cur) => ({ ...acc,
-      [cur]: {
-        showError: false,
-        error: null,
-        errorType: null,
-        action: this.props.action.bind(null, cur)
-      } }), {})
-    let countryRequired = !this.props.bank.bankCountry
-    this.state = {
-      ref: React.createRef(),
-      idToName,
-      nameToId,
-      inputStates,
-      customInputProps: { required: countryRequired, onInvalid: this.onInvalid, id: nameToId['bankCountry'] }
-    }
+    this.setBankName = this.props.setEventPropertyEvent.bind(null, 'bankName')
+    this.setBankAddress = this.props.setEventPropertyEvent.bind(null, 'bankAddress')
+    this.setBankCountry = this.props.setEventProperty.bind(null, 'bankCountry')
+    this.setBankBicSwift = this.props.setEventPropertyEvent.bind(null, 'bankBicSwift')
+    this.setBankIban = this.props.setEventPropertyEvent.bind(null, 'bankIban')
+    this.setBankCode = this.props.setEventPropertyEvent.bind(null, 'bankCode')
   }
   render () {
     const { t, bank, locale } = this.props
-    const nameToId = this.state.nameToId
-    const inputStates = this.state.inputStates
     return (
-      <div className='mt-3' ref={this.state.ref}>
+      <div className='mt-3'>
         <Nav.Row>
           <div className='col-md-6'>
-            <Nav.Input label={t('pinfo:form-bankName') + ' *'} defaultValue={bank.bankName || null}
-              onChange={this.onChange}
-              required={!inputStates.bankName.showError}
-              onInvalid={this.onInvalid}
-              id={nameToId.bankName}
-              feil={inputStates.bankName.showError ? inputStates.bankName.error : null}
+            <Nav.Input label={t('pinfo:form-bankName') + ' *'} value={bank.bankName || ''}
+              onChange={this.setBankName}
             />
 
           </div>
           <div className='col-md-6'>
             <Nav.Textarea label={t('pinfo:form-bankAddress') + ' *'} value={bank.bankAddress || ''}
               style={{ minHeight: '200px' }}
-              onChange={this.onChange}
-              required={!inputStates.bankAddress.showError}
-              onInvalid={this.onInvalid}
-              id={nameToId.bankAddress}
-              feil={inputStates.bankAddress.showError ? inputStates.bankAddress.error : null}
+              onChange={this.setBankAddress}
             />
 
           </div>
@@ -97,52 +64,29 @@ class Bank extends React.Component {
               <div>
                 <CountrySelect locale={locale}
                   value={bank.bankCountry || null}
-                  onSelect={this.onSelect}
-                  customInputProps={{
-                    required: !((bank.bankCountry || inputStates.bankCountry.showError)),
-                    onInvalid: this.onInvalid,
-                    id: nameToId.bankCountry
-                  }}
-                  error={inputStates.bankCountry.showError}
-                  errorMessage={
-                    inputStates.bankCountry.error
-                      ? inputStates.bankCountry.error.feilmelding
-                      : null
-                  }
+                  onSelect={this.setBankCountry}
                 />
               </div>
             </div>
           </div>
           <div className='col-md-6'>
-            <Nav.Input label={t('pinfo:form-bankBicSwift') + ' *'} defaultValue={bank.bankBicSwift || null}
-              required={!inputStates.bankBicSwift.showError}
-              onChange={this.onChange}
-              onInvalid={this.onInvalid}
-              id={nameToId.bankBicSwift}
-              feil={inputStates.bankBicSwift.showError ? inputStates.bankBicSwift.error : null}
+            <Nav.Input label={t('pinfo:form-bankBicSwift') + ' *'} value={bank.bankBicSwift || ''}
+              onChange={this.setBankBicSwift}
             />
           </div>
         </Nav.Row>
         <Nav.Row>
           <div className='col-md-6'>
             <Nav.Input label={t('pinfo:form-bankIban') + ' *'}
-              defaultValue={bank.bankIban || null}
-              onChange={this.onChange}
-              required={!inputStates.bankIban.showError}
-              onInvalid={this.onInvalid}
-              id={nameToId.bankIban}
-              feil={inputStates.bankIban.showError ? inputStates.bankIban.error : null}
+              value={bank.bankIban || ''}
+              onChange={this.setBankIban}
             />
           </div>
           <div className='col-md-6'>
             <Nav.Input
               label={(t('pinfo:form-bankCode') + ' *')}
-              defaultValue={bank.bankCode || null}
-              onChange={this.onChange}
-              required={!inputStates.bankCode.showError}
-              onInvalid={this.onInvalid}
-              id={nameToId.bankCode}
-              feil={inputStates.bankCode.showError ? inputStates.bankCode.error : null}
+              value={bank.bankCode || ''}
+              onChange={this.setBankCode}
             />
           </div>
         </Nav.Row>
@@ -153,7 +97,7 @@ class Bank extends React.Component {
 
 export default connect(
   mapStateToProps,
-  {}
+  mapDispatchToProps
 )(Bank)
 
 Bank.propTypes = {
