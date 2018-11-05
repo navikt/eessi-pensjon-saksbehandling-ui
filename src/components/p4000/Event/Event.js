@@ -29,11 +29,11 @@ class Event extends Component {
   }
 
   render () {
-    const { t, event, selected, onClick } = this.props
+    const { t, event, selected, onClick, mode } = this.props
 
     return <div className='c-p4000-event' title={selected ? t('p4000:form-cancelEditEvent') : t('p4000:form-editEvent')}>
       <div className='badgeLine'>&nbsp;</div>
-      <Nav.Hovedknapp className={classNames('badge', { selected: selected })} onClick={onClick}>
+      <Nav.Hovedknapp className={classNames('badge', { selected: selected && mode === 'edit' })} onClick={onClick}>
         { !_.isEmpty(event.files) ? <div className='badgeHasAttachments'>
           <Icons size={'sm'} kind='clip' />
         </div> : null}

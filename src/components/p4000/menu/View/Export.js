@@ -17,6 +17,7 @@ import * as Nav from '../../../ui/Nav'
 import PdfUtils from '../../../ui/Export/PdfUtils'
 
 import * as routes from '../../../../constants/routes'
+import * as uiActions from '../../../../actions/ui'
 import * as p4000Actions from '../../../../actions/p4000'
 import * as pdfActions from '../../../../actions/pdf'
 import * as storageActions from '../../../../actions/storage'
@@ -34,7 +35,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, pdfActions, p4000Actions, storageActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, pdfActions, uiActions, p4000Actions, storageActions), dispatch) }
 }
 
 class Export extends Component {
@@ -53,10 +54,20 @@ class Export extends Component {
   }
 
   componentDidMount () {
-    const { events, history } = this.props
+    const { events, history, actions } = this.props
     if (_.isEmpty(events)) {
       history.replace(routes.P4000)
+      return
     }
+
+    actions.addToBreadcrumbs([{
+      url: routes.P4000,
+      label: 'p4000:app'
+    }, {
+      url: routes.P4000 + '/export',
+      label: 'p4000:file-export'
+    }])
+
     window.scrollTo(0, 0)
   }
 

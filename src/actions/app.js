@@ -2,6 +2,29 @@ import * as types from '../constants/actionTypes'
 import * as urls from '../constants/urls'
 import * as api from './api'
 
+export function login () {
+  let redirectUrl = urls.APP_LOGIN_URL + '?redirectTo=' + encodeURIComponent(window.location.href)
+  window.location.href = redirectUrl
+  return {
+    type: types.APP_LOGIN_REQUEST
+  }
+}
+
+export function logout () {
+  return {
+    type: types.APP_LOGOUT_REQUEST
+  }
+}
+
+export function setLoginState (loggedIn) {
+  return {
+    type: types.APP_LOGIN_RESULT,
+    payload: {
+      loggedIn: loggedIn
+    }
+  }
+}
+
 export function getUserInfo () {
   return api.call({
     url: urls.APP_GET_USERINFO_URL,

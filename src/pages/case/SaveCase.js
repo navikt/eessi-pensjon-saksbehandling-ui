@@ -69,8 +69,6 @@ class SaveCase extends Component {
     onForwardButtonClick () {
       const { actions, dataSaved } = this.props
 
-      actions.navigateForward()
-
       let payload = {
         subjectArea: dataSaved.subjectArea,
         sakId: dataSaved.sakId,

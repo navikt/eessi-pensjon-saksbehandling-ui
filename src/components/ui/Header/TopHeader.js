@@ -3,11 +3,14 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
 import { translate } from 'react-i18next'
+import { withCookies, Cookies } from 'react-cookie'
+import classNames from 'classnames'
 
 import Icons from '../Icons'
-import { Ikon } from '../Nav'
+import * as Nav from '../Nav'
 
 import * as constants from '../../../constants/constants'
+
 import * as navLogo from '../../../resources/images/nav.svg'
 import * as appActions from '../../../actions/app'
 import * as uiActions from '../../../actions/ui'
@@ -27,6 +30,10 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class TopHeader extends Component {
+  state = {
+    isHovering: false
+  }
+
   componentDidMount () {
     const { username, actions } = this.props
 
@@ -35,11 +42,30 @@ class TopHeader extends Component {
     }
   }
 
+  onHandleMouseEnter () {
+    this.setState({ isHovering: true })
+  }
+
+  onHandleMouseLeave () {
+    this.setState({ isHovering: false })
+  }
+
   onLogoClick () {
     const { actions, userRole } = this.props
 
     if (userRole === constants.SAKSBEHANDLER) {
       actions.toggleDrawerEnable()
+    }
+  }
+
+  onUsernameSelectRequest (e) {
+    const { actions, history, cookies } = this.props
+
+    if (e.target.value === 'logout') {
+      cookies.remove('eessipensjon-idtoken-public', { path: '/' })//= ;path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;"
+      actions.clearData()
+      actions.logout()
+      history.push('/')
     }
   }
 
@@ -55,14 +81,23 @@ class TopHeader extends Component {
         <div className='tittel'><span>{t('app-headerTitle')}</span></div>
       </div>
       <div className='user'>
-        {userRole ? <div title={userRole} className={userRole}><Icons kind='user' /></div> : null}
-        <div className='mr-4 ml-2 name'>{
-          gettingUserInfo ? t('case:loading-gettingUserInfo')
-            : username || <div>
-              <Ikon size={16} kind='advarsel-trekant' />
-              <span className='ml-2'>{t('unknown')}</span>
-            </div>
-        }</div>
+        {userRole ? <div title={userRole} className={classNames('mr-2', userRole)}><Icons kind='user' /></div> : null}
+        <div className='mr-4 name'
+          onMouseEnter={this.onHandleMouseEnter.bind(this)}
+          onMouseLeave={this.onHandleMouseLeave.bind(this)}>
+          {gettingUserInfo ? t('case:loading-gettingUserInfo')
+            : username ? this.state.isHovering
+              ? <Nav.Select className='username-select' value={username} onChange={this.onUsernameSelectRequest.bind(this)}>
+                <option value=''>{username}</option>
+                <option value='logout'>{t('logout')}</option>
+              </Nav.Select>
+              : <span className='username-span'>{username}</span>
+              : <React.Fragment>
+                <Nav.Ikon size={16} kind='advarsel-trekant' />
+                <span className='ml-2'>{t('unknown')}</span>
+              </React.Fragment>
+          }
+        </div>
       </div>
     </header>
   }
@@ -72,13 +107,17 @@ TopHeader.propTypes = {
   t: PT.func.isRequired,
   username: PT.string,
   userRole: PT.string,
+  cookies: PT.instanceOf(Cookies),
   actions: PT.object,
+  history: PT.object,
   gettingUserInfo: PT.bool
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(
-  translate()(TopHeader)
+export default withCookies(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(
+    translate()(TopHeader)
+  )
 )
