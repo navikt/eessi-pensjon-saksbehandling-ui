@@ -30,7 +30,7 @@ class ConfirmCase extends Component {
     let { history, actions, dataToConfirm } = this.props
 
     if (!dataToConfirm) {
-      history.push(routes.CASE_GET)
+      history.push(routes.CASE_START)
     } else {
       actions.addToBreadcrumbs([{
         url: routes.CASE,
@@ -46,7 +46,7 @@ class ConfirmCase extends Component {
     const { history, dataToGenerate, dataToConfirm } = this.props
 
     if (!dataToConfirm) {
-      history.push(routes.CASE_GET)
+      history.push(routes.CASE_START)
     }
 
     if (dataToGenerate) {

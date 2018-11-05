@@ -1,7 +1,6 @@
 import FrontPage from './FrontPage'
 
-import GetCase from './case/GetCase'
-import EditCase from './case/EditCase'
+import StartCase from './case/StartCase'
 import ConfirmCase from './case/ConfirmCase'
 import GenerateCase from './case/GenerateCase'
 import SaveCase from './case/SaveCase'
@@ -18,8 +17,7 @@ import P4000 from './P4000/P4000'
 export {
   FrontPage,
 
-  GetCase,
-  EditCase,
+  StartCase,
   ConfirmCase,
   GenerateCase,
   SaveCase,

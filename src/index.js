@@ -69,13 +69,12 @@ ReactDOM.render(
             <AuthenticatedRoute exact path={routes.PDF_SELECT} component={Pages.SelectPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
             <Redirect from={routes.PDF} to={{ pathname: routes.PDF_SELECT }} />
 
-            <AuthenticatedRoute exact path={routes.CASE_GET} component={Pages.GetCase} roles={[constants.SAKSBEHANDLER]} />
-            <AuthenticatedRoute exact path={routes.CASE_EDIT} component={Pages.EditCase} roles={[constants.SAKSBEHANDLER]} />
+            <AuthenticatedRoute exact path={routes.CASE_START} component={Pages.StartCase} roles={[constants.SAKSBEHANDLER]} />
             <AuthenticatedRoute exact path={routes.CASE_CONFIRM} component={Pages.ConfirmCase} roles={[constants.SAKSBEHANDLER]} />
             <AuthenticatedRoute exact path={routes.CASE_GENERATE} component={Pages.GenerateCase} roles={[constants.SAKSBEHANDLER]} />
             <AuthenticatedRoute exact path={routes.CASE_SAVE} component={Pages.SaveCase} roles={[constants.SAKSBEHANDLER]} />
             <AuthenticatedRoute exact path={routes.CASE_SEND} component={Pages.SendCase} roles={[constants.SAKSBEHANDLER]} />
-            <Redirect from={routes.CASE} to={{ pathname: routes.CASE_GET }} />
+            <Redirect from={routes.CASE} to={{ pathname: routes.CASE_START }} />
 
             <AuthenticatedRoute path={routes.ROOT} component={Pages.FrontPage} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
             <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />

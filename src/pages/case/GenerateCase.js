@@ -30,7 +30,7 @@ class GenerateCase extends Component {
     let { history, actions, dataToGenerate } = this.props
 
     if (!dataToGenerate) {
-      history.push(routes.CASE_GET)
+      history.push(routes.CASE_START)
     } else {
       actions.addToBreadcrumbs([{
         url: routes.CASE,
@@ -46,7 +46,7 @@ class GenerateCase extends Component {
     const { history, dataToGenerate, dataSaved } = this.props
 
     if (!dataToGenerate) {
-      history.push(routes.CASE_GET)
+      history.push(routes.CASE_START)
     }
 
     if (dataSaved) {
@@ -94,28 +94,28 @@ class GenerateCase extends Component {
       history={history}
       location={location}>
       { !dataToGenerate ? <div className='w-100 text-center'>
-          <Nav.NavFrontendSpinner />
-          <p>{t('case:loading-generatingCase')}</p>
-        </div>
-      : <React.Fragment>
-      <div className='fieldset animate'>
-        <Nav.Row>
-          <Nav.Column>
-            <RenderGeneratedData dataToGenerate={dataToGenerate || {}} />
-          </Nav.Column>
-        </Nav.Row>
+        <Nav.NavFrontendSpinner />
+        <p>{t('case:loading-generatingCase')}</p>
       </div>
-      <Nav.Row className='mb-4 p-4'>
-        <div className='col-md-6 mb-2'>
-          <Nav.Knapp className='w-100 backButton' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
-        </div>
-        <div className='col-md-6 mb-2'>
-          <Nav.Hovedknapp className='w-100 forwardButton' disabled={savingCase} spinner={savingCase} onClick={this.onForwardButtonClick.bind(this)}>
-            {savingCase ? t('case:loading-savingCase') : t('ui:confirmAndSave')}
-          </Nav.Hovedknapp>
-        </div>
-      </Nav.Row>
-    </React.Fragment> }
+        : <React.Fragment>
+          <div className='fieldset animate'>
+            <Nav.Row>
+              <Nav.Column>
+                <RenderGeneratedData dataToGenerate={dataToGenerate || {}} />
+              </Nav.Column>
+            </Nav.Row>
+          </div>
+          <Nav.Row className='mb-4 p-4'>
+            <div className='col-md-6 mb-2'>
+              <Nav.Knapp className='w-100 backButton' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
+            </div>
+            <div className='col-md-6 mb-2'>
+              <Nav.Hovedknapp className='w-100 forwardButton' disabled={savingCase} spinner={savingCase} onClick={this.onForwardButtonClick.bind(this)}>
+                {savingCase ? t('case:loading-savingCase') : t('ui:confirmAndSave')}
+              </Nav.Hovedknapp>
+            </div>
+          </Nav.Row>
+        </React.Fragment> }
     </Case>
   }
 }
