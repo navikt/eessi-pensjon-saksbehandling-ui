@@ -94,25 +94,25 @@ export function dataToConfirm (params) {
   }
 }
 
-export function cleanCaseNumber() {
+export function cleanCaseNumber () {
   return {
     type: types.CASE_GET_CASE_NUMBER_CLEAN
   }
 }
 
-export function cleanDataToConfirm() {
+export function cleanDataToConfirm () {
   return {
     type: types.CASE_CONFIRM_DATA_CLEAN
   }
 }
 
-export function cleanDataToGenerate() {
+export function cleanDataToGenerate () {
   return {
     type: types.CASE_GENERATE_DATA_CLEAN
   }
 }
 
-export function cleanDataSaved() {
+export function cleanDataSaved () {
   return {
     type: types.CASE_SAVE_DATA_CLEAN
   }

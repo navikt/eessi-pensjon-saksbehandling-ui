@@ -34,11 +34,11 @@ export default function (state = {}, action = {}) {
 
       let index = _.findIndex(_breadcrumbs, { url: newBreadcrumbs[0].url })
       if (index >= 0) {
-         _breadcrumbs.splice(index)
+        _breadcrumbs.splice(index)
       }
 
       _.each(newBreadcrumbs, (breadcrumb) => {
-         _breadcrumbs.push(breadcrumb)
+        _breadcrumbs.push(breadcrumb)
       })
 
       return Object.assign({}, state, {
@@ -51,13 +51,13 @@ export default function (state = {}, action = {}) {
 
       let newBreadcrumbs = action.payload
       if (!_.isArray(newBreadcrumbs)) {
-         newBreadcrumbs = [newBreadcrumbs]
+        newBreadcrumbs = [newBreadcrumbs]
       }
 
       _breadcrumbs.splice(_breadcrumbs.length - 1, 1)
 
       _.each(newBreadcrumbs, (breadcrumb) => {
-         _breadcrumbs.push(breadcrumb)
+        _breadcrumbs.push(breadcrumb)
       })
 
       return Object.assign({}, state, {

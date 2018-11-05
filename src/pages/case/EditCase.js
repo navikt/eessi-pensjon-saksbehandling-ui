@@ -53,7 +53,6 @@ class EditCase extends Component {
       const { actions, match, currentCase, institutionList, bucList, subjectAreaList, countryList, dataToConfirm } = this.props
 
       if (_.isEmpty(currentCase)) {
-
         let _sakId = match.params.sakid
         let _aktoerId = match.params.aktoerid
         let _rinaId = match.params.rinaid
@@ -64,13 +63,13 @@ class EditCase extends Component {
           rinaId: _rinaId
         })
       } else {
-         actions.addToBreadcrumbs([{
-            url: routes.CASE,
-            label: 'case:app-caseTitle'
+        actions.addToBreadcrumbs([{
+          url: routes.CASE,
+          label: 'case:app-caseTitle'
         }, {
-            url: routes.CASE_EDIT + '/' + currentCase.casenumber + '/' + currentCase.pinid +
+          url: routes.CASE_EDIT + '/' + currentCase.casenumber + '/' + currentCase.pinid +
                (currentCase.rinaid ? '/' + currentCase.rinaid : ''),
-            label: 'case:app-editCaseTitle'
+          label: 'case:app-editCaseTitle'
         }])
       }
 
@@ -98,13 +97,13 @@ class EditCase extends Component {
           'sed': dataToConfirm.sed,
           'subjectArea': dataToConfirm.subjectArea
         }, () => {
-          actions.cleanDataToConfirm();
+          actions.cleanDataToConfirm()
         })
       }
     }
 
     async componentDidUpdate () {
-      const { history, loading, currentCase, dataToConfirm, actions} = this.props
+      const { history, loading, currentCase, dataToConfirm, actions } = this.props
 
       if (!loading.gettingCase && !currentCase) {
         history.push(routes.CASE_GET)
@@ -117,15 +116,15 @@ class EditCase extends Component {
       }
 
       if (!loading.gettingCase && currentCase) {
-          actions.addToBreadcrumbs([{
-              url: routes.CASE,
-              label: 'case:app-caseTitle'
-          } , {
-              url: routes.CASE_EDIT + '/' + currentCase.casenumber + '/' + currentCase.pinid +
+        actions.addToBreadcrumbs([{
+          url: routes.CASE,
+          label: 'case:app-caseTitle'
+        }, {
+          url: routes.CASE_EDIT + '/' + currentCase.casenumber + '/' + currentCase.pinid +
                  (currentCase.rinaid ? '/' + currentCase.rinaid : ''),
-              label: 'case:app-editCaseTitle'
-          }])
-       }
+          label: 'case:app-editCaseTitle'
+        }])
+      }
     }
 
     onBackButtonClick () {
@@ -144,7 +143,6 @@ class EditCase extends Component {
       this.validateInstitutions(institutions)
 
       if (this.noValidationErrors()) {
-
         actions.dataToConfirm({
           'institutions': institutions,
           'buc': buc,
@@ -470,7 +468,7 @@ class EditCase extends Component {
     }
 
     render () {
-      const { t, history, location, currentCase, action, loading, } = this.props
+      const { t, history, location, currentCase, action, loading } = this.props
 
       if (!currentCase) {
         return <Case className='editCase'

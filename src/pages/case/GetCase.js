@@ -29,13 +29,13 @@ class GetCase extends Component {
       const { actions, currentCase } = this.props
 
       if (currentCase) {
-         actions.cleanCaseNumber()
+        actions.cleanCaseNumber()
       }
 
       actions.addToBreadcrumbs([{
         url: routes.CASE,
         label: 'case:app-caseTitle'
-      },{
+      }, {
         url: routes.CASE_GET,
         label: 'case:app-getCaseTitle'
       }])

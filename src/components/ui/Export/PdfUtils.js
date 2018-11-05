@@ -37,7 +37,7 @@ class PdfUtils {
     return pdf
   }
 
-  downloadPdf(params) {
+  downloadPdf (params) {
     let options = _.cloneDeep(defaultOptions)
     if (params.fileName) {
       options.filename = params.fileName

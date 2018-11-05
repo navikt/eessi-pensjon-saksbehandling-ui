@@ -38,11 +38,11 @@ class SaveCase extends Component {
       } else {
         actions.getRinaUrl()
         actions.addToBreadcrumbs([{
-           url: routes.CASE,
-           label: 'case:app-caseTitle'
+          url: routes.CASE,
+          label: 'case:app-caseTitle'
         }, {
-            url: routes.CASE_SAVE,
-            label: 'case:app-saveCaseTitle'
+          url: routes.CASE_SAVE,
+          label: 'case:app-saveCaseTitle'
         }])
       }
     }
