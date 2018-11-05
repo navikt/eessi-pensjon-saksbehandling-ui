@@ -52,7 +52,7 @@ class EditPDF extends Component {
       }
 
       // If we have PDF breadcrumbs, replace them; else, add a new one
-      if (_.some(breadcrumbs, ((b) => {return otherPdfRoutes.indexOf(b.url) >= 0}))) {
+      if (_.some(breadcrumbs, (b) => { return otherPdfRoutes.indexOf(b.url) >= 0 })) {
         actions.replaceLastBreadcrumbWith({
           url: routes.PDF_EDIT,
           label: 'pdf:app-editPdfTitle'

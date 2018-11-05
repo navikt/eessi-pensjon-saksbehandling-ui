@@ -42,7 +42,7 @@ class TopContainer extends Component {
     return <div style={style} className={classNames('c-ui-topContainer', className)}>
       <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
         <Drawer sideContent={sideContent}>
-          <TopHeader />
+          <TopHeader history={history} />
           <ClientAlert />
           <ServerAlert />
           <Breadcrumbs history={history} />
