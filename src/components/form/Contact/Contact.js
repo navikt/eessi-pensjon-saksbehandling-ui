@@ -65,7 +65,7 @@ class Contact extends React.Component {
       <div className='mt-3'>
         <fieldset>
           <legend>{this.props.t('pinfo:form-userPhoneLegend')}</legend>
-          <Knapp htmlType='button' onClick={() => this.props.newPhone()} mini={true}>
+          <Knapp htmlType='button' onClick={() => this.props.newPhone()} mini>
             {this.props.t('pinfo:form-userPhoneNew')}
           </Knapp>
           {Object.keys(this.props.phone).map(e => (
@@ -84,8 +84,8 @@ class Contact extends React.Component {
         </fieldset>
         <fieldset>
           <legend>{this.props.t('pinfo:form-userEmailLegend')}</legend>
-          <Knapp htmlType='button' onClick={() => this.props.newEmail()} mini={true} >
-            {this.props.t('pinfo:form-userEmailNew')} 
+          <Knapp htmlType='button' onClick={() => this.props.newEmail()} mini >
+            {this.props.t('pinfo:form-userEmailNew')}
           </Knapp>
           {Object.keys(this.props.email).map((e) => (
             <Email
