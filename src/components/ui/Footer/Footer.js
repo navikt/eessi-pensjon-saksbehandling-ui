@@ -4,7 +4,7 @@ import PT from 'prop-types'
 import { bindActionCreators } from 'redux'
 
 import * as statusActions from '../../../actions/status'
-import { Lukknapp } from '../Nav'
+import * as Nav from '../Nav'
 
 import './Footer.css'
 
@@ -27,6 +27,8 @@ const params = ['rinaId', 'sakId', 'aktoerId', 'vedtakId', 'kravId', 'fnr']
 
 class Footer extends Component {
 
+  state = {}
+
   onUnsetParam (key) {
 
     const { actions } = this.props
@@ -34,20 +36,56 @@ class Footer extends Component {
     actions.unsetStatusParam(key)
   }
 
+  onSetParam () {
+
+    const { actions } = this.props
+    const { paramName, paramValue } = this.state
+
+    actions.setStatusParam(paramName, paramValue)
+    this.setState({
+        paramName : undefined,
+        paramValue : undefined
+    })
+  }
+
+  onSetParamName(e) {
+     let name = e.target ? e.target.value : e
+     if (name !== '') {
+       this.setState({
+         paramName: name
+       })
+     }
+  }
+
+  onSetParamValue(e) {
+     let value = e.target.value
+     this.setState({
+       paramValue: value
+     })
+  }
+
   render () {
-    let { rinaId, sakId, aktoerId, vedtakId, kravId, fnr } = this.props
 
-    let footerEnabled = rinaId || sakId || aktoerId || vedtakId || kravId || fnr
-
-    if (!footerEnabled) {
-      return null
-    }
+    const { paramValue } = this.state
 
     return <footer className='c-ui-footer'>
+      <div className='newParam'>
+        <Nav.Select className='paramSelect' label='' onChange={this.onSetParamName.bind(this)}>
+          <option value=''>{'--'}</option>
+          {params.map(param => {
+            return this.props[param] ? null : <option key={param} value={param}>{param}</option>
+          })}
+        </Nav.Select>
+        <Nav.Input label='' className={'paramValue'} value={paramValue || ''}
+          onChange={this.onSetParamValue.bind(this)} />
+        <Nav.Knapp className='addParamButton' onClick={this.onSetParam.bind(this)}>&nbsp;+&nbsp;</Nav.Knapp>
+      </div>
+      <div className='params'>
       {params.map(param => {
          return this.props[param] ? <div key={param} className='param'><span>{param + ':'}</span>{this.props[param]}
-             <Lukknapp className='mini' bla={true} onClick={this.onUnsetParam.bind(this, param)}/></div> : null
+             <Nav.Lukknapp className='mini' bla={true} onClick={this.onUnsetParam.bind(this, param)}/></div> : null
       })}
+      </div>
     </footer>
   }
 }

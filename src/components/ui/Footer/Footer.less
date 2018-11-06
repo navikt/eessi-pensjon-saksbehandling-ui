@@ -3,15 +3,37 @@
     background: whitesmoke;
     padding: 0.25rem 0.5rem;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 50px;
 
-    div {
-        display: inline-block;
+    .newParam {
+      transform: scale(0.7);
+      transform-origin: left top;
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+    }
+    .paramSelect {
+       margin-right: 0.5rem;
+    }
+    .paramValue {
+       margin-right: 0.5rem;
+    }
+    .addParamButton {
+      padding: 0.5rem;
+    }
+    .params {
+      display: flex;
+      flex-direction: row-reverse;
+
+      div {
         margin-right: 1rem;
+      }
     }
 
     .mini {
-        transform: scale(0.5)
+        transform: scale(0.5);
     }
 
     .param {
