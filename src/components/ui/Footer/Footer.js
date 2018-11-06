@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PT from 'prop-types'
 import { bindActionCreators } from 'redux'
+import classNames from 'classnames'
 
 import * as statusActions from '../../../actions/status'
 import * as Nav from '../Nav'
@@ -27,7 +28,9 @@ const params = ['rinaId', 'sakId', 'aktoerId', 'vedtakId', 'kravId', 'fnr']
 
 class Footer extends Component {
 
-  state = {}
+  state = {
+    footerOpen: false
+  }
 
   onUnsetParam (key) {
 
@@ -64,28 +67,40 @@ class Footer extends Component {
      })
   }
 
+  toggleFooterOpen() {
+     this.setState({
+        footerOpen: !this.state.footerOpen
+     })
+  }
+
   render () {
 
-    const { paramValue } = this.state
+    const { paramValue, footerOpen } = this.state
 
-    return <footer className='c-ui-footer'>
-      <div className='newParam'>
-        <Nav.Select className='paramSelect' label='' onChange={this.onSetParamName.bind(this)}>
-          <option value=''>{'--'}</option>
-          {params.map(param => {
-            return this.props[param] ? null : <option key={param} value={param}>{param}</option>
-          })}
-        </Nav.Select>
-        <Nav.Input label='' className={'paramValue'} value={paramValue || ''}
-          onChange={this.onSetParamValue.bind(this)} />
-        <Nav.Knapp className='addParamButton' onClick={this.onSetParam.bind(this)}>&nbsp;+&nbsp;</Nav.Knapp>
+    return <footer className={classNames('c-ui-footer', { toggled: footerOpen })}>
+      <div className={classNames('contents', {fullWidth: !footerOpen})}>
+        <div className={classNames({footerButtonOpen : footerOpen, footerButtonClosed : !footerOpen})}
+           onClick={this.toggleFooterOpen.bind(this)}>
+           {footerOpen ? '▼' : null}
+        </div>
+        {footerOpen ? <div className='newParam'>
+          <Nav.Select className='paramSelect' label='' onChange={this.onSetParamName.bind(this)}>
+            <option value=''>{'--'}</option>
+            {params.map(param => {
+              return this.props[param] ? null : <option key={param} value={param}>{param}</option>
+            })}
+          </Nav.Select>
+          <Nav.Input label='' className={'paramValue'} value={paramValue || ''}
+            onChange={this.onSetParamValue.bind(this)} />
+          <Nav.Knapp className='addParamButton' onClick={this.onSetParam.bind(this)}>&nbsp;+&nbsp;</Nav.Knapp>
+        </div> : null}
       </div>
-      <div className='params'>
+      {footerOpen ? <div className='params'>
       {params.map(param => {
          return this.props[param] ? <div key={param} className='param'><span>{param + ':'}</span>{this.props[param]}
              <Nav.Lukknapp className='mini' bla={true} onClick={this.onUnsetParam.bind(this, param)}/></div> : null
       })}
-      </div>
+      </div> : null}
     </footer>
   }
 }

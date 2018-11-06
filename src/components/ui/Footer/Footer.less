@@ -1,12 +1,50 @@
 .c-ui-footer {
     flex-shrink: 0;
     background: whitesmoke;
-    padding: 0.25rem 0.5rem;
+    padding: 0rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 50px;
+    transition: width 0.2s ease-out;
 
+    &.toggled {
+      height: 45px;
+    }
+
+    &:not(.toggled) {
+      height: 10px;
+    }
+
+    .footerButtonClosed {
+       width: 100%;
+       margin: 0px;
+       display: block;
+       padding: 0px;
+       &:hover {
+         cursor: pointer;
+         background-color: lightgrey;
+       }
+    }
+
+    .footerButtonOpen {
+       width: 1.2rem;
+       margin-right: 0.5rem;
+       display: inline-block;
+       padding-top: 0.6rem;
+       padding-left: 0.5rem;
+       color: grey;
+       text-align: center;
+       &:hover {
+         cursor: pointer;
+         background-color: lightgrey;
+       }
+    }
+    .fullWidth {
+        width: 100%;
+    }
+    .contents {
+      display:flex;
+    }
     .newParam {
       transform: scale(0.7);
       transform-origin: left top;
@@ -16,6 +54,7 @@
     }
     .paramSelect {
        margin-right: 0.5rem;
+       margin-bottom: 0px;
     }
     .paramValue {
        margin-right: 0.5rem;
