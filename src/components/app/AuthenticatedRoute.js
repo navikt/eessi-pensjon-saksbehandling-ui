@@ -19,7 +19,8 @@ const mapStateToProps = (state) => {
   return {
     userRole: state.app.userRole,
     loggedIn: state.app.loggedIn,
-    isLoggingIn: state.loading.isLoggingIn
+    isLoggingIn: state.loading.isLoggingIn,
+    rinaId: state.status.rinaId
   }
 }
 
@@ -28,6 +29,9 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class AuthenticatedRoute extends Component {
+
+  state = {}
+
   handleLoginRequest () {
     const { actions } = this.props
     actions.login()
@@ -44,7 +48,7 @@ class AuthenticatedRoute extends Component {
 
     if (rinaIdFromParam) {
       actions.getStatus(rinaIdFromParam)
-      actions.getCase(rinaIdFromParam)
+      //actions.getCase(rinaIdFromParam)
     }
 
     this.getAndSaveParam(params, 'fnr')
@@ -56,12 +60,28 @@ class AuthenticatedRoute extends Component {
     this.getAndSaveParam(params, 'vedtakId')
   }
 
+  componentDidUpdate() {
+
+    const { actions, rinaId } = this.props
+
+    if (rinaId && rinaId !== this.state.rinaId) {
+
+      actions.getStatus(rinaId)
+      this.setState({
+        rinaId: rinaId
+      })
+    }
+  }
+
   getAndSaveParam (params, key, renamedKey) {
     const { actions } = this.props
     const value = params.get(key)
 
     if (value) {
       actions.setStatusParam(renamedKey || key, value)
+      this.setState({
+        [renamedKey || key] : value
+      })
     }
     return value
   }
