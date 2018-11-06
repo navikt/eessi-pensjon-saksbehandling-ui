@@ -35,7 +35,7 @@ const Phone = (props) => {
         </Nav.Select>
       </div>
       <div className='col-md-2'>
-        <Nav.Lukknapp onClick={props.removePhone}>
+        <Nav.Lukknapp type='button' onClick={props.numberOfSiblings === 0 ? props.clearPhone : props.removePhone} >
           {props.t('pinfo:form-userPhoneRemove')}
         </Nav.Lukknapp>
       </div>
@@ -55,7 +55,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     removePhone: () => { dispatch(removePhone(ownProps.uuid)) },
     setPhoneNumber: (e) => { dispatch(setPhone(ownProps.uuid, { nummer: e.target.value })) },
-    setPhoneType: (e) => { dispatch(setPhone(ownProps.uuid, { type: e.target.value })) }
+    setPhoneType: (e) => { dispatch(setPhone(ownProps.uuid, { type: e.target.value })) },
+    clearPhone: () => { dispatch(setPhone(ownProps.uuid, { type: null, nummer: null })) }
   }
 }
 

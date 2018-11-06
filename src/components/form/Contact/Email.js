@@ -21,7 +21,7 @@ const Email = (props) => {
           />
         </div>
         <div className='col-md-2'>
-          <Nav.Lukknapp onClick={props.removeEmail}>
+          <Nav.Lukknapp type='button' onClick={props.numberOfSiblings === 0 ? props.clearEmail : props.removeEmail}>
             {props.t('pinfo:form-userEmailRemove')}
           </Nav.Lukknapp>
         </div>
@@ -40,7 +40,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     removeEmail: () => { dispatch(removeEmail(ownProps.uuid)) },
-    setEmail: (e) => { dispatch(setEmail(ownProps.uuid, { adresse: e.target.value })) }
+    setEmail: (e) => { dispatch(setEmail(ownProps.uuid, { adresse: e.target.value })) },
+    clearEmail: () => { dispatch(setEmail(ownProps.uuid, { adresse: null })) }
   }
 }
 

@@ -72,6 +72,7 @@ class Contact extends React.Component {
             <Phone
               uuid={e}
               key={e}
+              numberOfSiblings={Object.keys(this.props.phone).length - 1}
               t={this.props.t}
               numberError={this.state.displayErrorToggle && !checkPhoneNumber(this.props.phone[e])}
               typeError={this.state.displayErrorToggle && !checkPhoneType(this.props.phone[e])}
@@ -91,6 +92,7 @@ class Contact extends React.Component {
             <Email
               uuid={e}
               key={e}
+              numberOfSiblings={Object.keys(this.props.email).length - 1}
               t={this.props.t}
               error={this.state.displayErrorToggle && !checkAdresse(this.props.email[e])}
               errorMessage={this.props.t('pinfo:validation-noUserEmail')}

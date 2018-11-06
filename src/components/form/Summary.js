@@ -16,7 +16,22 @@ const mapStateToProps = (state) => {
   }
 }
 
+const getPhoneType = (t, type) => {
+  switch (type) {
+    case 'home':
+      return `(${t('pinfo:form-userPhoneTypeHome')}) `
+    case 'mobile':
+      return `(${t('pinfo:form-userPhoneTypeMobile')}) `
+    case 'work':
+      return `(${t('pinfo:form-userPhoneTypeWork')}) `
+    default:
+      return ''
+  }
+}
+
 const Summary = (props) => {
+  let phone = _.get(props.form, 'contact.phone', {})
+  let email = _.get(props.form, 'contact.email', {})
   return (
     <form id='pinfo-form'>
       <div>
@@ -44,10 +59,16 @@ const Summary = (props) => {
         <fieldset>
           <legend>{props.t('pinfo:form-user')}</legend>
           <dl className='row'>
-            <dt className='col-sm-4'><label>{props.t('pinfo:form-userEmail')}</label></dt>
-            <dd className='col-sm-8'>{props.form.userEmail}</dd>
             <dt className='col-sm-4'><label>{props.t('pinfo:form-userPhone')}</label></dt>
-            <dd className='col-sm-8'>{props.form.userPhone}</dd>
+            <div className='col-sm-8'>
+              {Object.keys(phone).map(key => <dd key={key}
+                className='col-sm-12'>{`${getPhoneType(props.t, phone[key].type)} ${phone[key].nummer}`}
+              </dd>)}
+            </div>
+            <dt className='col-sm-4'><label>{props.t('pinfo:form-userEmail')}</label></dt>
+            <div className='col-sm-8'>
+              {Object.keys(email).map(key => <dd key={key} className='col-sm-12'>{email[key].adresse}</dd>)}
+            </div>
           </dl>
         </fieldset>
         <fieldset>
