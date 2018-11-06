@@ -30,7 +30,6 @@ const getPhoneType = (t, type) => {
 }
 
 const getPhoneDD = (key, t, phone) => {
-  console.log(key, t, phone)
   let nummer = _.get(phone, 'nummer', null)
   let type = _.get(phone, 'type', null)
   if (!(nummer && key)) { return null }
