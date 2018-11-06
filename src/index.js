@@ -47,6 +47,7 @@ const initialState = { ui: {
   modalBucketOpen: false,
   drawerEnabled: false,
   drawerOpen: false,
+  footerOpen: false,
   drawerWidth: 10,
   drawerOldWidth: 250,
   breadcrumbs: []

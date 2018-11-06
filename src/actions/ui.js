@@ -56,6 +56,12 @@ export function toggleDrawerOpen () {
   }
 }
 
+export function toggleFooterOpen () {
+  return {
+    type: types.UI_FOOTER_TOGGLE_OPEN
+  }
+}
+
 export function toggleDrawerEnable () {
   return {
     type: types.UI_DRAWER_TOGGLE_ENABLE

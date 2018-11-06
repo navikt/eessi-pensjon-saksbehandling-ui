@@ -4,6 +4,7 @@ import PT from 'prop-types'
 import { bindActionCreators } from 'redux'
 import classNames from 'classnames'
 
+import * as uiActions from '../../../actions/ui'
 import * as statusActions from '../../../actions/status'
 import * as Nav from '../Nav'
 
@@ -16,21 +17,20 @@ const mapStateToProps = (state) => {
     aktoerId: state.status.aktoerId,
     vedtakId: state.status.vedtakId,
     kravId: state.status.kravId,
-    fnr: state.status.fnr
+    fnr: state.status.fnr,
+    footerOpen: state.ui.footerOpen
   }
 }
 
 const mapDispatchToProps =  (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, statusActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, uiActions, statusActions), dispatch) }
 }
 
 const params = ['rinaId', 'sakId', 'aktoerId', 'vedtakId', 'kravId', 'fnr']
 
 class Footer extends Component {
 
-  state = {
-    footerOpen: false
-  }
+  state = {}
 
   onUnsetParam (key) {
 
@@ -68,14 +68,14 @@ class Footer extends Component {
   }
 
   toggleFooterOpen() {
-     this.setState({
-        footerOpen: !this.state.footerOpen
-     })
+     const { actions } = this.props
+     actions.toggleFooterOpen()
   }
 
   render () {
 
-    const { paramValue, footerOpen } = this.state
+    const { footerOpen } = this.props
+    const { paramValue } = this.state
 
     return <footer className={classNames('c-ui-footer', { toggled: footerOpen })}>
       <div className={classNames('contents', {fullWidth: !footerOpen})}>
