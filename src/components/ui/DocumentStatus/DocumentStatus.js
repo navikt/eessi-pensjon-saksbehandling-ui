@@ -141,9 +141,15 @@ class DocumentStatus extends Component {
     handleDocumentClick (doc, aksjoner) {
       const { t, rinaId, actions, history } = this.props
 
+      this.setState({
+        requestedDokumentId: doc.dokumentId
+      })
+
       switch (aksjoner) {
         case 'Read':
+        break
         case 'Update':
+        break
         case 'Delete':
 
           actions.openModal({
@@ -170,10 +176,6 @@ class DocumentStatus extends Component {
         default:
           break
       }
-
-      this.setState({
-        requestedDokumentId: doc.dokumentId
-      })
     }
 
     setFilter (filter) {

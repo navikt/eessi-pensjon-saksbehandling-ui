@@ -6,7 +6,7 @@ import PDFJS from 'pdfjs-dist'
 import * as urls from '../../../constants/urls'
 
 var defaultOptions = {
-  pagebreak: { mode: 'avoid-all', before: '.fieldset', after: '.fieldset' },
+  pagebreak: { },
   margin: [50, 50, 50, 50],
   filename: 'kvittering.pdf',
   enableLinks: true,

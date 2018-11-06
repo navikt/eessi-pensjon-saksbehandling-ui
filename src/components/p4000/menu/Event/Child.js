@@ -119,6 +119,9 @@ class Child extends Component {
     onBirthDateBlur (e) {
       const { event, actions } = this.props
       let birthDate
+      if (!e) {
+        return
+      }
       if (!e._isAMomentObject) {
         let date = e.target.value
         if (!/\d\d\.\d\d\.\d\d\d\d/.test(date)) {

@@ -45,7 +45,7 @@ class Footer extends Component {
 
     return <footer className='c-ui-footer'>
       {params.map(param => {
-         return this.props[param] ? <div className='param'><span>{param + ':'}</span>{this.props[param]}
+         return this.props[param] ? <div key={param} className='param'><span>{param + ':'}</span>{this.props[param]}
              <Lukknapp className='mini' bla={true} onClick={this.onUnsetParam.bind(this, param)}/></div> : null
       })}
     </footer>
