@@ -4,6 +4,7 @@ import PT from 'prop-types'
 import { bindActionCreators } from 'redux'
 
 import * as statusActions from '../../../actions/status'
+import { Lukknapp } from '../Nav'
 
 import './Footer.css'
 
@@ -21,6 +22,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps =  (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, statusActions), dispatch) }
 }
+
+const params = ['rinaId', 'sakId', 'aktoerId', 'vedtakId', 'kravId', 'fnr']
 
 class Footer extends Component {
 
@@ -41,18 +44,10 @@ class Footer extends Component {
     }
 
     return <footer className='c-ui-footer'>
-      {rinaId ? <div><span>{'rinaId:'}</span>{rinaId}
-      <a href='#' onClick={this.onUnsetParam.bind(this, 'rinaId')}>[X]</a></div> : null}
-      {sakId ? <div><span>{'sakId:'}</span>{sakId}
-      <a href='#' onClick={this.onUnsetParam.bind(this, 'sakId')}>[X]</a></div> : null}
-      {aktoerId ? <div><span>{'aktoerId:'}</span>{aktoerId}
-      <a href='#' onClick={this.onUnsetParam.bind(this, 'aktoerId')}>[X]</a></div> : null}
-      {vedtakId ? <div><span>{'vedtakId:'}</span>{vedtakId}
-      <a href='#' onClick={this.onUnsetParam.bind(this, 'vedtakId')}>[X]</a></div> : null}
-      {kravId ? <div><span>{'kravId:'}</span>{kravId}
-      <a href='#' onClick={this.onUnsetParam.bind(this, 'kravId')}>[X]</a></div> : null}
-      {fnr ? <div><span>{'fnr:'}</span>{fnr}
-      <a href='#' onClick={this.onUnsetParam.bind(this, 'fnr')}>[X]</a></div> : null}
+      {params.map(param => {
+         return this.props[param] ? <div className='param'><span>{param + ':'}</span>{this.props[param]}
+             <Lukknapp className='mini' bla={true} onClick={this.onUnsetParam.bind(this, param)}/></div> : null
+      })}
     </footer>
   }
 }
