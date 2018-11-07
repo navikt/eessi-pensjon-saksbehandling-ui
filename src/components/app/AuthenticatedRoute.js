@@ -49,9 +49,10 @@ class AuthenticatedRoute extends Component {
     let newParams = {}
     params.forEach((value, key) => {
       const _key = paramAliases.hasOwnProperty(key) ? paramAliases[key] : key
-      if (value && value !== this.state[_key]) {
-        actions.setStatusParam(_key, value)
-        newParams[_key] = value
+      const _value = value || undefined
+      if (_value !== this.state[_key]) {
+        actions.setStatusParam(_key, _value)
+        newParams[_key] = _value
       }
     })
     if (!_.isEmpty(newParams)) {
