@@ -128,7 +128,7 @@ class DatePicker extends Component {
       if (!e) {
         return
       }
-      if ( !e._isAMomentObject) {
+      if (!e._isAMomentObject) {
         let date = e.target.value
         if (!/\d\d\.\d\d\.\d\d\d\d/.test(date)) {
           if (!event.endDate || date !== event.endDate) {

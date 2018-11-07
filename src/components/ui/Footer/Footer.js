@@ -22,66 +22,62 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps =  (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, uiActions, statusActions), dispatch) }
 }
 
 const params = ['rinaId', 'sakId', 'aktoerId', 'vedtakId', 'kravId', 'fnr']
 
 class Footer extends Component {
-
   state = {}
 
   onUnsetParam (key) {
-
     const { actions } = this.props
 
     actions.unsetStatusParam(key)
   }
 
   onSetParam () {
-
     const { actions } = this.props
     const { paramName, paramValue } = this.state
 
     actions.setStatusParam(paramName, paramValue)
     this.setState({
-        paramName : undefined,
-        paramValue : undefined
+      paramName: undefined,
+      paramValue: undefined
     })
   }
 
-  onSetParamName(e) {
-     let name = e.target ? e.target.value : e
-     if (name !== '') {
-       this.setState({
-         paramName: name
-       })
-     }
+  onSetParamName (e) {
+    let name = e.target ? e.target.value : e
+    if (name !== '') {
+      this.setState({
+        paramName: name
+      })
+    }
   }
 
-  onSetParamValue(e) {
-     let value = e.target.value
-     this.setState({
-       paramValue: value
-     })
+  onSetParamValue (e) {
+    let value = e.target.value
+    this.setState({
+      paramValue: value
+    })
   }
 
-  toggleFooterOpen() {
-     const { actions } = this.props
-     actions.toggleFooterOpen()
+  toggleFooterOpen () {
+    const { actions } = this.props
+    actions.toggleFooterOpen()
   }
 
   render () {
-
     const { footerOpen } = this.props
     const { paramValue } = this.state
 
     return <footer className={classNames('c-ui-footer', { toggled: footerOpen })}>
-      <div className={classNames('contents', {fullWidth: !footerOpen})}>
-        <div className={classNames({footerButtonOpen : footerOpen, footerButtonClosed : !footerOpen})}
-           onClick={this.toggleFooterOpen.bind(this)}>
-           {footerOpen ? '▼' : null}
+      <div className={classNames('contents', { fullWidth: !footerOpen })}>
+        <div className={classNames({ footerButtonOpen: footerOpen, footerButtonClosed: !footerOpen })}
+          onClick={this.toggleFooterOpen.bind(this)}>
+          {footerOpen ? '▼' : null}
         </div>
         {footerOpen ? <div className='newParam'>
           <Nav.Select className='paramSelect' label='' onChange={this.onSetParamName.bind(this)}>
@@ -96,10 +92,10 @@ class Footer extends Component {
         </div> : null}
       </div>
       {footerOpen ? <div className='params'>
-      {params.map(param => {
-         return this.props[param] ? <div key={param} className='param'><span>{param + ':'}</span>{this.props[param]}
-             <Nav.Lukknapp className='mini' bla={true} onClick={this.onUnsetParam.bind(this, param)}/></div> : null
-      })}
+        {params.map(param => {
+          return this.props[param] ? <div key={param} className='param'><span>{param + ':'}</span>{this.props[param]}
+            <Nav.Lukknapp className='mini' bla onClick={this.onUnsetParam.bind(this, param)} /></div> : null
+        })}
       </div> : null}
     </footer>
   }

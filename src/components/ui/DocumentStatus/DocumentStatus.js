@@ -147,9 +147,9 @@ class DocumentStatus extends Component {
 
       switch (aksjoner) {
         case 'Read':
-        break
+          break
         case 'Update':
-        break
+          break
         case 'Delete':
 
           actions.openModal({
