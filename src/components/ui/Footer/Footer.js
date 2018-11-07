@@ -95,7 +95,8 @@ class Footer extends Component {
       </div>
       {footerOpen ? <div className='params'>
         {params.map(param => {
-          return this.props[param] ? <div key={param} className='param'><span>{param + ':'}</span>{this.props[param]}
+          return this.props[param] ? <div key={param} className='param'>
+            <Nav.EtikettBase type='info'><b>{param}</b> {this.props[param]}</Nav.EtikettBase>
             <Nav.Lukknapp className='mini' bla onClick={this.onUnsetParam.bind(this, param)} /></div> : null
         })}
       </div> : null}

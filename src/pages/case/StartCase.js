@@ -92,7 +92,8 @@ class StartCase extends Component {
     }
 
     async componentDidUpdate () {
-      const { history, loading, sed, currentCase, dataToConfirm, institutionList, bucList, subjectAreaList, countryList, actions } = this.props
+      const { history, loading, sed, currentCase, dataToConfirm, institutionList, bucList,
+        subjectAreaList, countryList, actions, sakId, aktoerId, fnr, rinaId } = this.props
 
       if (dataToConfirm) {
         history.push(routes.CASE_CONFIRM)
@@ -115,6 +116,14 @@ class StartCase extends Component {
         if (_.isEmpty(countryList) && !loading.countryList) {
           actions.getCountryList()
         }
+      }
+
+      if (!loading.gettingCase && _.isEmpty(currentCase) && sakId && (aktoerId || fnr)) {
+        actions.getCaseFromCaseNumber({
+          sakId: sakId,
+          aktoerId: aktoerId || fnr,
+          rinaId: rinaId
+        })
       }
     }
 

@@ -62,7 +62,7 @@ const sortStatusByDocs = (documents) => {
 
 class DocumentStatus extends Component {
     state = {
-      currentDocument : undefined,
+      currentDocument: undefined,
       documents: undefined,
       sed: undefined,
       filter: 'all'
@@ -106,11 +106,10 @@ class DocumentStatus extends Component {
     }
 
     toggleDocumentStatus (_doc) {
-
       const { currentDocument } = this.state
 
       this.setState({
-        currentDocument: currentDocument && currentDocument.dokumentType === _doc.dokumentType ? undefined : _doc 
+        currentDocument: currentDocument && currentDocument.dokumentType === _doc.dokumentType ? undefined : _doc
       })
     }
 
