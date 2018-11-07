@@ -29,7 +29,9 @@ const mapStateToProps = (state) => {
     rinaId: state.status.rinaId,
     aktoerId: state.status.aktoerId,
     fnr: state.status.fnr,
-    vedtakId: state.status.vedtakId
+    vedtakId: state.status.vedtakId,
+    sed: state.status.sed,
+    buc: state.status.buc
   }
 }
 
@@ -37,24 +39,28 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, caseActions, appActions, uiActions), dispatch) }
 }
 
+const defaultSelects = {
+  subjectArea: 'case:form-chooseSubjectArea',
+  buc: 'case:form-chooseBuc',
+  sed: 'case:form-chooseSed',
+  institution: 'case:form-chooseInstitution',
+  country: 'case:form-chooseCountry'
+}
+
 class StartCase extends Component {
     state = {
+      // these are only for the query form
       sakId: undefined,
       aktoerId: undefined,
       rinaId: undefined,
+
+      _subjectArea: 'Pensjon',
       institutions: [],
-      validation: {},
-      defaultSelects: {
-        subjectArea: 'case:form-chooseSubjectArea',
-        buc: 'case:form-chooseBuc',
-        sed: 'case:form-chooseSed',
-        institution: 'case:form-chooseInstitution',
-        country: 'case:form-chooseCountry'
-      }
+      validation: {}
     };
 
     async componentDidMount () {
-      const { actions, currentCase, dataToConfirm, sakId, aktoerId, fnr, rinaId, vedtakId } = this.props
+      const { actions, currentCase, dataToConfirm, sakId, aktoerId, fnr, rinaId } = this.props
 
       actions.addToBreadcrumbs([{
         url: routes.CASE,
@@ -75,10 +81,10 @@ class StartCase extends Component {
       // come from a goBack() navigation
       if (dataToConfirm) {
         this.setState({
-          'institutions': dataToConfirm.institutions,
-          'buc': dataToConfirm.buc,
-          'sed': dataToConfirm.sed,
-          'subjectArea': dataToConfirm.subjectArea
+          institutions: dataToConfirm.institutions,
+          _buc: dataToConfirm.buc,
+          _sed: dataToConfirm.sed,
+          _subjectArea: dataToConfirm.subjectArea
         }, () => {
           actions.cleanDataToConfirm()
         })
@@ -86,7 +92,7 @@ class StartCase extends Component {
     }
 
     async componentDidUpdate () {
-      const { history, loading, currentCase, dataToConfirm, institutionList, bucList, subjectAreaList, countryList, actions } = this.props
+      const { history, loading, sed, currentCase, dataToConfirm, institutionList, bucList, subjectAreaList, countryList, actions } = this.props
 
       if (dataToConfirm) {
         history.push(routes.CASE_CONFIRM)
@@ -94,11 +100,11 @@ class StartCase extends Component {
       }
 
       if (!loading.gettingCase && currentCase) {
-        if (_.isEmpty(subjectAreaList) && !loading.subjectAreaList) {
+        if (_.isEmpty(subjectAreaList) && !sed && !loading.subjectAreaList) {
           actions.getSubjectAreaList()
         }
 
-        if (_.isEmpty(bucList) && !loading.bucList) {
+        if (_.isEmpty(bucList) && !sed && !loading.bucList) {
           actions.getBucList(currentCase ? currentCase.rinaid : undefined)
         }
 
@@ -148,24 +154,30 @@ class StartCase extends Component {
     }
 
     onForwardButtonClick () {
-      const { actions, currentCase, vedtakId } = this.props
-      const { institutions, buc, sed, subjectArea } = this.state
+      const { actions, currentCase, buc, sed, vedtakId } = this.props
+      const { institutions, _buc, _sed, _subjectArea } = this.state
 
-      this.validateSubjectArea(subjectArea)
-      this.validateBuc(buc)
-      this.validateSed(sed)
+      if (_subjectArea) {
+        this.validateSubjectArea(_subjectArea)
+      }
+      if (!buc) {
+        this.validateBuc(_buc)
+      }
+      if (!sed) {
+        this.validateSed(_sed)
+      }
       this.validateInstitutions(institutions)
 
       if (this.noValidationErrors()) {
         actions.dataToConfirm({
-          'institutions': institutions,
-          'buc': buc,
-          'sed': sed,
-          'subjectArea': subjectArea,
-          'sakId': currentCase.casenumber,
-          'aktoerId': currentCase.pinid,
-          'rinaId': currentCase.rinaid,
-          'vedtakId': vedtakId
+          institutions: institutions,
+          buc: buc || _buc,
+          sed: sed || _sed,
+          subjectArea: _subjectArea,
+          sakId: currentCase.casenumber,
+          aktoerId: currentCase.pinid,
+          rinaId: currentCase.rinaid,
+          vedtakId: vedtakId
         })
       }
     }
@@ -173,7 +185,7 @@ class StartCase extends Component {
     validateSubjectArea (subjectArea) {
       const { t } = this.props
 
-      if (!subjectArea || subjectArea === this.state.defaultSelects.subjectArea) {
+      if (!subjectArea || subjectArea === defaultSelects.subjectArea) {
         this.setValidationState('subjectAreaFail', t('case:validation-chooseSubjectArea'))
       } else {
         this.resetValidationState('subjectAreaFail')
@@ -182,8 +194,7 @@ class StartCase extends Component {
 
     validateBuc (buc) {
       const { t } = this.props
-
-      if (!buc || buc === this.state.defaultSelects.buc) {
+      if (!buc || buc === defaultSelects.buc) {
         this.setValidationState('bucFail', t('case:validation-chooseBuc'))
       } else {
         this.resetValidationState('bucFail')
@@ -193,7 +204,7 @@ class StartCase extends Component {
     validateSed (sed) {
       const { t } = this.props
 
-      if (!sed || sed === this.state.defaultSelects.sed) {
+      if (!sed || sed === defaultSelects.sed) {
         this.setValidationState('sedFail', t('case:validation-chooseSed'))
       } else {
         this.resetValidationState('sedFail')
@@ -213,7 +224,7 @@ class StartCase extends Component {
     validateInstitution (institution) {
       const { t } = this.props
 
-      if (!institution || institution === this.state.defaultSelects.institution) {
+      if (!institution || institution === defaultSelects.institution) {
         this.setValidationState('institutionFail', t('case:validation-chooseInstitution'))
       } else {
         this.resetValidationState('institutionFail')
@@ -231,39 +242,38 @@ class StartCase extends Component {
     }
 
     onCreateInstitutionButtonClick () {
-      let institutions = this.state.institutions
-      institutions.push({
-        institution: this.state.institution,
-        country: this.state.country
+      const { institutions, institution, country } = this.state
+      let _institutions = _.cloneDeep(institutions)
+
+      _institutions.push({
+        institution: institution,
+        country: country
       })
       this.setState({
-        institutions: institutions,
+        institutions: _institutions,
         institution: undefined,
         country: undefined
       })
     }
 
     onRemoveInstitutionButtonClick (institution) {
-      let institutions = this.state.institutions
-      let newInstitutions = []
-
-      for (var i in institutions) {
-        if (institution.institution !== institutions[i].institution ||
-                institution.country !== institutions[i].country) {
-          newInstitutions.push(institutions[i])
-        }
-      }
-
+      const { institutions } = this.state
+      let _institutions = _.cloneDeep(institutions)
+      let newInstitutions = _.filter(_institutions, i => {
+        return institution.institution !== i.institution || institution.country !== i.country
+      })
       this.setState({
         institutions: newInstitutions
       })
     }
 
     resetValidationState (key) {
-      let validation = this.state.validation
-      if (validation.hasOwnProperty(key)) {
-        delete validation[key]
-        this.setState({ validation: validation })
+      const { validation } = this.state
+      let _validation = _.cloneDeep(validation)
+
+      if (_validation.hasOwnProperty(key)) {
+        delete _validation[key]
+        this.setState({ validation: _validation })
       }
     }
 
@@ -274,26 +284,31 @@ class StartCase extends Component {
     }
 
     onSubjectAreaChange (e) {
-      let subjectArea = e.target.value
-      this.setState({ subjectArea: subjectArea })
-      this.validateSubjectArea(subjectArea)
+      let _subjectArea = e.target.value
+      this.setState({
+        _subjectArea: _subjectArea
+      })
+      this.validateSubjectArea(_subjectArea)
     }
 
     onBucChange (e) {
       const { actions, rinaId } = this.props
+      const { validation } = this.state
 
-      let buc = e.target.value
-      this.setState({ buc: buc })
-      this.validateBuc(buc)
-      if (!this.state.validation.bucFail) {
-        actions.getSedList(buc, rinaId)
+      let _buc = e.target.value
+      this.setState({
+        _buc: _buc
+      })
+      this.validateBuc(_buc)
+      if (!validation.bucFail) {
+        actions.getSedList(_buc, rinaId)
       }
     }
 
     onSedChange (e) {
-      let sed = e.target.value
-      this.setState({ sed: sed })
-      this.validateSed(sed)
+      let _sed = e.target.value
+      this.setState({ _sed: _sed })
+      this.validateSed(_sed)
     }
 
     onInstitutionChange (e) {
@@ -304,12 +319,16 @@ class StartCase extends Component {
 
     onCountryChange (e) {
       const { actions } = this.props
+      const { validation } = this.state
 
       let country = e.value
-      this.setState({ country: country, institution: undefined })
+      this.setState({
+        country: country,
+        institution: undefined
+      })
       this.validateCountry(country)
-      if (!this.state.validation.countryFail) {
-        if (country !== this.state.defaultSelects.country) {
+      if (!validation.countryFail) {
+        if (country !== defaultSelects.country) {
           actions.getInstitutionListForCountry(country)
         } else {
           actions.getInstitutionList()
@@ -326,15 +345,15 @@ class StartCase extends Component {
 
       if (!map || Object.keys(map).length === 0) {
         map = [{
-          key: this.state.defaultSelects[type],
-          value: t(this.state.defaultSelects[type])
+          key: defaultSelects[type],
+          value: t(defaultSelects[type])
         }]
       }
 
-      if (!map[0].key || (map[0].key && map[0].key !== this.state.defaultSelects[type])) {
+      if (!map[0].key || (map[0].key && map[0].key !== defaultSelects[type])) {
         map.unshift({
-          key: this.state.defaultSelects[type],
-          value: t(this.state.defaultSelects[type])
+          key: defaultSelects[type],
+          value: t(defaultSelects[type])
         })
       }
       return map.map(el => {
@@ -359,48 +378,57 @@ class StartCase extends Component {
 
     renderSubjectArea () {
       const { t, subjectAreaList } = this.props
+      const { validation, _subjectArea } = this.state
 
-      return <Nav.Select className='subjectAreaList' bredde='xxl' feil={this.state.validation.subjectAreaFail ? { feilmelding: this.state.validation.subjectAreaFail } : null}
-        label={t('case:form-subjectArea')} value={this.state.subjectArea} onChange={this.onSubjectAreaChange.bind(this)}>
+      return <Nav.Select className='subjectAreaList' bredde='xxl'
+        feil={validation.subjectAreaFail ? { feilmelding: validation.subjectAreaFail } : null}
+        label={t('case:form-subjectArea')} value={_subjectArea}
+        onChange={this.onSubjectAreaChange.bind(this)}>
         {this.renderOptions(subjectAreaList, 'subjectArea')}
       </Nav.Select>
     }
 
-    renderCountry (currentValue) {
-      const { t, countryList, locale } = this.props
+    renderCountry () {
+      const { t, countryList, country, locale } = this.props
 
       return <div className='mb-3'>
         <label className='skjemaelement__label'>{t('ui:country')}</label>
         <CountrySelect className='countrySelect' locale={locale}
-          value={currentValue}
+          value={country || {}}
           onSelect={this.onCountryChange.bind(this)}
           list={countryList} />
       </div>
     }
 
-    renderInstitution (currentValue) {
+    renderInstitution () {
       const { t, institutionList } = this.props
+      const { validation, institution } = this.state
 
-      return <Nav.Select className='institutionList' bredde='xxl' feil={this.state.validation.institutionFail ? { feilmelding: this.state.validation.institutionFail } : null}
-        label={t('case:form-institution')} value={currentValue} onChange={this.onInstitutionChange.bind(this)}>
+      return <Nav.Select className='institutionList' bredde='xxl'
+        feil={validation.institutionFail ? { feilmelding: validation.institutionFail } : null}
+        label={t('case:form-institution')} value={institution} onChange={this.onInstitutionChange.bind(this)}>
         {this.renderOptions(institutionList, 'institution')}
       </Nav.Select>
     }
 
     renderBuc () {
       const { t, bucList } = this.props
+      const { _buc, validation } = this.state
 
-      return <Nav.Select className='bucList' bredde='xxxl' feil={this.state.validation.bucFail ? { feilmelding: this.state.validation.bucFail } : null}
-        label={t('case:form-buc')} value={this.state.buc} onChange={this.onBucChange.bind(this)}>
+      return <Nav.Select className='bucList' bredde='fullbredde'
+        feil={validation.bucFail ? { feilmelding: validation.bucFail } : null}
+        label={t('case:form-buc')} value={_buc} onChange={this.onBucChange.bind(this)}>
         {this.renderOptions(bucList, 'buc')}
       </Nav.Select>
     }
 
     renderSed () {
       const { t, sedList, bucList } = this.props
+      const { _sed, validation } = this.state
 
-      return <Nav.Select className='sedList' bredde='xxxl' feil={this.state.validation.sedFail ? { feilmelding: this.state.validation.sedFail } : null}
-        disabled={!bucList} label={t('case:form-sed')} value={this.state.sed} onChange={this.onSedChange.bind(this)}>
+      return <Nav.Select className='sedList' bredde='fullbredde'
+        feil={validation.sedFail ? { feilmelding: validation.sedFail } : null}
+        disabled={!bucList} label={t('case:form-sed')} value={_sed} onChange={this.onSedChange.bind(this)}>
         {this.renderOptions(sedList, 'sed')}
       </Nav.Select>
     }
@@ -417,7 +445,7 @@ class StartCase extends Component {
     renderChosenInstitution (institution) {
       const { t } = this.props
 
-      let renderedInstitution = (institution.country && institution.country !== this.state.defaultSelects.country ? institution.country + '/' : '') + institution.institution
+      let renderedInstitution = (institution.country && institution.country !== defaultSelects.country ? institution.country + '/' : '') + institution.institution
 
       return <Nav.Row key={renderedInstitution} className='mb-3 renderedInstitutions'>
         <Nav.Column style={{ lineHeight: '2rem' }}>
@@ -435,15 +463,16 @@ class StartCase extends Component {
 
     renderInstitutions () {
       const { t, loading } = this.props
+      const { institutions, institution, validation, country } = this.state
 
       let renderedInstitutions = []
 
-      for (var i in this.state.institutions) {
-        let institution = this.state.institutions[i]
+      for (var i in institutions) {
+        let institution = institutions[i]
         renderedInstitutions.push(this.renderChosenInstitution(institution))
       }
 
-      let validInstitution = (!this.state.validation.countryFail && !this.state.validation.institutionFail) && this.state.country && this.state.institution
+      let validInstitution = (!validation.countryFail && !validation.institutionFail) && country && institution
 
       renderedInstitutions.push(<Nav.Row key={'newInstitution'}>
         <div className='col-md-4'>
@@ -474,15 +503,19 @@ class StartCase extends Component {
     }
 
     noValidationErrors () {
-      return Object.keys(this.state.validation).length === 0 &&
-               Object.keys(this.state.institutions).length !== 0 &&
-               this.state.subjectArea &&
-               this.state.buc &&
-               this.state.sed
+      const { sed, buc } = this.props
+      const { institutions, validation, _subjectArea, _buc, _sed } = this.state
+
+      return sed ? Object.keys(validation).length === 0 &&
+        Object.keys(institutions).length !== 0 &&
+        buc && sed
+        : Object.keys(validation).length === 0 &&
+        Object.keys(institutions).length !== 0 &&
+        _subjectArea && _buc && _sed
     }
 
     render () {
-      const { t, history, location, currentCase, action, loading } = this.props
+      const { t, history, location, currentCase, loading, sed } = this.props
       const { sakId, aktoerId, rinaId } = this.state
 
       return <Case className='startCase'
@@ -524,36 +557,42 @@ class StartCase extends Component {
             </React.Fragment>
           : <React.Fragment>
             <div className='fieldset animate'>
-              <Nav.Row className='mb-3 align-middle text-left'>
-                <div className='col-md-8'>{this.renderSubjectArea()}</div>
-                <div className='col-md-4 selectBoxMessage'>
-                  <div className='d-inline-block'>{loading && loading.subjectAreaList ? this.getSpinner('case:loading-subjectArea') : null}</div>
-                  <Nav.HjelpetekstBase id='subjectArea'>{t('case:help-subjectArea')}</Nav.HjelpetekstBase>
+              { !sed ? <React.Fragment>
+                <Nav.Row className='mb-3 align-middle text-left'>
+                  <div className='col-md-8'>{this.renderSubjectArea()}</div>
+                  <div className='col-md-4 selectBoxMessage'>
+                    <div className='d-inline-block'>{loading && loading.subjectAreaList ? this.getSpinner('case:loading-subjectArea') : null}</div>
+                    <Nav.HjelpetekstBase id='subjectArea'>{t('case:help-subjectArea')}</Nav.HjelpetekstBase>
+                  </div>
+                </Nav.Row>
+                <Nav.Row className='mb-3 align-middle text-left'>
+                  <div className='col-md-8'>{this.renderBuc()}</div>
+                  <div className='col-md-4 selectBoxMessage'>
+                    <div className='d-inline-block'>{loading && loading.bucList ? this.getSpinner('case:loading-buc') : null}</div>
+                    <Nav.HjelpetekstBase id='buc'>{t('case:help-buc')}</Nav.HjelpetekstBase>
+                  </div>
+                </Nav.Row>
+                <Nav.Row className='align-middle text-left'>
+                  <div className='col-md-8'>{this.renderSed()}</div>
+                  <div className='col-md-4 selectBoxMessage'>
+                    <div className='d-inline-block'>{loading && loading.sedList ? this.getSpinner('case:loading-sed') : null}</div>
+                    <Nav.HjelpetekstBase id='sed'>{t('case:help-sed')}</Nav.HjelpetekstBase>
+                  </div>
+                </Nav.Row>
+              </React.Fragment> : <Nav.Row className='mb-3 align-middle text-left'>
+                <div className='col-md-12'>
+                  <h4>{t('sed')}{': '}{sed}</h4>
                 </div>
-              </Nav.Row>
-              <Nav.Row className='mb-3 align-middle text-left'>
-                <div className='col-md-8'>{this.renderBuc()}</div>
-                <div className='col-md-4 selectBoxMessage'>
-                  <div className='d-inline-block'>{loading && loading.bucList ? this.getSpinner('case:loading-buc') : null}</div>
-                  <Nav.HjelpetekstBase id='buc'>{t('case:help-buc')}</Nav.HjelpetekstBase>
-                </div>
-              </Nav.Row>
-              <Nav.Row className='align-middle text-left'>
-                <div className='col-md-8'>{this.renderSed()}</div>
-                <div className='col-md-4 selectBoxMessage'>
-                  <div className='d-inline-block'>{loading && loading.sedList ? this.getSpinner('case:loading-sed') : null}</div>
-                  <Nav.HjelpetekstBase id='sed'>{t('case:help-sed')}</Nav.HjelpetekstBase>
-                </div>
-              </Nav.Row>
+              </Nav.Row>}
               {this.renderInstitutions()}
             </div>
 
             <Nav.Row className='mb-4 p-4'>
+              <div className='col-md-6 mb-2' />
               <div className='col-md-6 mb-2'>
-                {action === 'forward' ? <Nav.Knapp className='backButton mr-4 w-100' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp> : null}
-              </div>
-              <div className='col-md-6 mb-2'>
-                <Nav.Hovedknapp className='forwardButton w-100' disabled={!this.noValidationErrors()} onClick={this.onForwardButtonClick.bind(this)}>{t('ui:go')}</Nav.Hovedknapp>
+                <Nav.Hovedknapp className='forwardButton w-100'
+                  disabled={!this.noValidationErrors()}
+                  onClick={this.onForwardButtonClick.bind(this)}>{t('ui:go')}</Nav.Hovedknapp>
               </div>
             </Nav.Row>
           </React.Fragment>
@@ -574,6 +613,8 @@ StartCase.propTypes = {
   countryList: PT.array,
   sedList: PT.array,
   bucList: PT.array,
+  sed: PT.string,
+  buc: PT.string,
   dataToConfirm: PT.object,
   locale: PT.string,
   vedtakId: PT.string

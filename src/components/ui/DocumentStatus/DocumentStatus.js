@@ -45,8 +45,10 @@ const sortStatusByDocs = (documents) => {
       ? res[item.dokumentType]['aksjoner'].push(item.navn) &&
             res[item.dokumentType]['aksjoner'].sort()
       : res[item.dokumentType] = {
-        'dokumentId': item.dokumentId,
-        'aksjoner': [item.navn]
+        dokumentId: item.dokumentId,
+        aksjoner: [item.navn],
+        kategori: item.kategori,
+        id: item.id
       }
     return item
   })
@@ -54,8 +56,7 @@ const sortStatusByDocs = (documents) => {
   return Object.keys(res).sort().map(key => {
     return {
       dokumentType: key,
-      aksjoner: res[key].aksjoner,
-      dokumentId: res[key].dokumentId
+      ...res[key]
     }
   })
 }
@@ -147,8 +148,8 @@ class DocumentStatus extends Component {
 
       switch (aksjoner) {
         case 'Read':
-          break
         case 'Update':
+          actions.getSed(rinaId, doc.dokumentId)
           break
         case 'Delete':
 
@@ -168,11 +169,20 @@ class DocumentStatus extends Component {
 
         case 'Create':
 
-          if (doc.dokumentType === constants.P4000) {
-            history.push(routes.P4000)
+          switch (doc.dokumentType) {
+            case constants.P4000:
+              history.push(routes.P4000)
+              break
+            case constants.P2000:
+            case constants.P6000:
+
+              history.push(routes.CASE_START + '?sed=' + doc.dokumentType + '&buc=' + doc.id)
+              break
+            default:
+              break
           }
-          actions.getSed(rinaId, doc.dokumentId)
           break
+
         default:
           break
       }

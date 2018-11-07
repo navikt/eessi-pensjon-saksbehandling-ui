@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { translate } from 'react-i18next'
 
 import * as Nav from '../Nav'
+import './ServerAlert.css'
 
 const mapStateToProps = (state) => {
   return {
@@ -15,9 +16,10 @@ class ServerAlert extends Component {
   render () {
     let { t, serverErrorMessage } = this.props
 
-    if (!serverErrorMessage) { return null }
-
-    return <Nav.AlertStripe className='c-ui-serverAlert' type='advarsel' solid>{t(serverErrorMessage)}</Nav.AlertStripe>
+    return serverErrorMessage ? <Nav.AlertStripe
+      className='c-ui-serverAlert' type='advarsel' solid>
+      {t(serverErrorMessage)}
+    </Nav.AlertStripe> : null
   }
 }
 
@@ -27,8 +29,7 @@ ServerAlert.propTypes = {
 }
 
 export default connect(
-  mapStateToProps,
-  {}
+  mapStateToProps
 )(
   translate()(ServerAlert)
 )

@@ -6,6 +6,7 @@ import { withCookies, Cookies } from 'react-cookie'
 import { Route, withRouter, Redirect } from 'react-router'
 import classNames from 'classnames'
 import { translate } from 'react-i18next'
+import _ from 'lodash'
 
 import * as Nav from '../ui/Nav'
 import TopHeader from '../ui/Header/TopHeader'
@@ -28,6 +29,11 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, appActions, statusActions), dispatch) }
 }
 
+const paramAliases = {
+  'rinaid': 'rinaId',
+  'saksNr': 'sakId'
+}
+
 class AuthenticatedRoute extends Component {
   state = {}
 
@@ -36,51 +42,45 @@ class AuthenticatedRoute extends Component {
     actions.login()
   }
 
+  parseSearchParams () {
+    const { actions, location } = this.props
+
+    let params = new URLSearchParams(location.search)
+    let newParams = {}
+    params.forEach((value, key) => {
+      const _key = paramAliases.hasOwnProperty(key) ? paramAliases[key] : key
+      if (value && value !== this.state[_key]) {
+        actions.setStatusParam(_key, value)
+        newParams[_key] = value
+      }
+    })
+    if (!_.isEmpty(newParams)) {
+      this.setState(newParams)
+    }
+    return newParams
+  }
+
   componentDidMount () {
-    const { cookies, actions, location } = this.props
+    const { cookies, actions } = this.props
 
     let idtoken = cookies.get('eessipensjon-idtoken-public')
     actions.setLoginState(idtoken === 'logged')
 
-    let params = new URLSearchParams(location.search)
-    const rinaIdFromParam = this.getAndSaveParam(params, 'rinaId')
+    let newParams = this.parseSearchParams()
 
-    if (rinaIdFromParam) {
-      actions.getStatus(rinaIdFromParam)
-      // actions.getCase(rinaIdFromParam)
-    }
-
-    this.getAndSaveParam(params, 'fnr')
-    this.getAndSaveParam(params, 'aktoerId')
-    this.getAndSaveParam(params, 'rinaid', 'rinaId')
-    this.getAndSaveParam(params, 'saksNr', 'sakId')
-    this.getAndSaveParam(params, 'sakId')
-    this.getAndSaveParam(params, 'kravId')
-    this.getAndSaveParam(params, 'vedtakId')
+    // trigger whether there is a rinaId or not
+    actions.getStatus(newParams.rinaId)
+    // actions.getCase(rinaIdFromParam)
   }
 
   componentDidUpdate () {
-    const { actions, rinaId } = this.props
-
-    if (rinaId && rinaId !== this.state.rinaId) {
-      actions.getStatus(rinaId)
-      this.setState({
-        rinaId: rinaId
-      })
-    }
-  }
-
-  getAndSaveParam (params, key, renamedKey) {
     const { actions } = this.props
-    const value = params.get(key)
 
-    if (value) {
-      actions.setStatusParam(renamedKey || key, value)
-      this.setState({
-        [renamedKey || key]: value
-      })
+    let newParams = this.parseSearchParams()
+
+    if (newParams.rinaId) {
+      actions.getStatus(newParams.rinaId)
     }
-    return value
   }
 
   hasApprovedRole () {
