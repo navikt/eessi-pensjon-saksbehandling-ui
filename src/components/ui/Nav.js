@@ -7,7 +7,7 @@ import { Container, Row, Column } from 'nav-frontend-grid'
 import { Checkbox, CheckboksPanelGruppe, Radio, RadioGruppe, SkjemaGruppe, Fieldset, Select, Input, Textarea, ToggleGruppe, ToggleKnapp, RadioPanelGruppe } from 'nav-frontend-skjema'
 import { Innholdstittel, Systemtittel, Undertittel, Element, Normaltekst, UndertekstBold } from 'nav-frontend-typografi'
 import { Knapp, Hovedknapp } from 'nav-frontend-knapper'
-import Tabs from 'nav-frontend-tabs'
+import Tabs, {TabsPure} from 'nav-frontend-tabs'
 import Ikon from 'nav-frontend-ikoner-assets'
 import Stegindikator from 'nav-frontend-stegindikator'
 import NavFrontendSpinner from 'nav-frontend-spinner'
@@ -25,7 +25,7 @@ export {
   NavFrontendSpinner,
   Knapp, Hovedknapp,
   Stegindikator,
-  Tabs,
+  Tabs, TabsPure,
   Ikon,
   HjelpetekstBase,
   Modal,

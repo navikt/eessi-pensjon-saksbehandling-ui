@@ -286,10 +286,10 @@ class Export extends Component {
           </div>
         </div>
         <div className='col-md-9'>
-          <Nav.Tabs defaultAktiv={_.indexOf(['panel-content', 'panel-pdf'], tab)} onChange={this.onTabChange.bind(this)}>
-            <Nav.Tabs.Tab id='panel-content' aktiv={tab === 'panel-content'}>{t('content')}</Nav.Tabs.Tab>
-            <Nav.Tabs.Tab id='panel-pdf' aktiv={tab === 'panel-pdf'}>{t('preview')}</Nav.Tabs.Tab>
-          </Nav.Tabs>
+          <Nav.TabsPure defaultAktiv={_.indexOf(['panel-content', 'panel-pdf'], tab)} onChange={this.onTabChange.bind(this)}>
+            <Nav.TabsPure.Tab id='panel-content' aktiv={tab === 'panel-content'}>{t('content')}</Nav.TabsPure.Tab>
+            <Nav.TabsPure.Tab id='panel-pdf' aktiv={tab === 'panel-pdf'}>{t('preview')}</Nav.TabsPure.Tab>
+          </Nav.TabsPure>
           <div className={classNames('panel', { 'hidden': tab !== 'panel-content' })} role='tabpanel' id='panel-content'>
             <div id='divToPrint'>
               <SummaryRender t={t}
