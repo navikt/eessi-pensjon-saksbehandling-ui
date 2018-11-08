@@ -32,9 +32,9 @@ Scenario: Saksbehandler fyller ut gyldig informasjon på 'Hent sak'
     Og nettsiden '.p-case-getcase' er klar
     Når jeg fyller ut gyldig informasjon
     Og jeg trykk fremover knapp
-    Så jeg får nettsiden med elementen '.p-case-editCase'
+    Så jeg får nettsiden med elementen '.p-case-startCase'
 
-    Gitt at jeg er på nettsiden med elementen '.p-case-editCase'
+    Gitt at jeg er på nettsiden med elementen '.p-case-startCase'
     Når jeg velger fagområde 'Pensjon'
     Og jeg velger BUC 'P_BUC_01'
     Og jeg velger SED 'P2000'

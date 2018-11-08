@@ -98,6 +98,9 @@ class DatePicker extends Component {
       const { event, actions } = this.props
       let startDate
 
+      if (!e) {
+        return
+      }
       if (!e._isAMomentObject) {
         let date = e.target.value
         if (!/\d\d\.\d\d\.\d\d\d\d/.test(date)) {
@@ -122,6 +125,9 @@ class DatePicker extends Component {
     onEndDateBlur (e) {
       const { event, actions } = this.props
       let endDate
+      if (!e) {
+        return
+      }
       if (!e._isAMomentObject) {
         let date = e.target.value
         if (!/\d\d\.\d\d\.\d\d\d\d/.test(date)) {

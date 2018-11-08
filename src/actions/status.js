@@ -13,9 +13,18 @@ export function setStatusParam (key, value) {
   }
 }
 
+export function unsetStatusParam (key) {
+  return {
+    type: types.STATUS_PARAM_UNSET,
+    payload: {
+      key: key
+    }
+  }
+}
+
 export function getStatus (rinaId) {
   return api.call({
-    url: sprintf(urls.STATUS_GET_URL, { rinaId: rinaId }),
+    url: sprintf(urls.STATUS_GET_URL, { rinaId: rinaId || '' }),
     type: {
       request: types.STATUS_GET_REQUEST,
       success: types.STATUS_GET_SUCCESS,
@@ -26,7 +35,7 @@ export function getStatus (rinaId) {
 
 export function getCase (rinaId) {
   return api.call({
-    url: sprintf(urls.STATUS_RINA_CASE_URL, { rinaId: rinaId }),
+    url: sprintf(urls.STATUS_RINA_CASE_URL, { rinaId: rinaId || '' }),
     type: {
       request: types.STATUS_RINA_CASE_REQUEST,
       success: types.STATUS_RINA_CASE_SUCCESS,

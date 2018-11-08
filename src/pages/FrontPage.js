@@ -82,13 +82,7 @@ class FrontPage extends Component {
         {userRole === constants.SAKSBEHANDLER
           ? <Nav.Lenkepanel style={{ animationDelay: '0s' }}
             className='frontPageLink caseLink' linkCreator={(props) => (
-              <Link to={
-                status.saksNr
-                  ? routes.CASE_EDIT
-                    .replace(':aktoerid', status.fnr)
-                    .replace(':sakid', status.saksNr)
-                  : routes.CASE_GET
-              } {...props} />)
+              <Link to={routes.CASE_START + '?sed=&buc='} {...props} />)
             } href='#'>{t('case:app-createNewCase')}</Nav.Lenkepanel>
           : null}
 

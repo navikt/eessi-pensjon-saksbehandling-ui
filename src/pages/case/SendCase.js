@@ -29,7 +29,7 @@ class SendCase extends Component {
       const { history, actions, dataSent } = this.props
 
       if (!dataSent) {
-        history.push(routes.CASE_GET)
+        history.push(routes.CASE_START)
       } else {
         actions.addToBreadcrumbs([{
           url: routes.CASE,
@@ -45,14 +45,22 @@ class SendCase extends Component {
       const { history, dataSent } = this.props
 
       if (!dataSent) {
-        history.push(routes.CASE_GET)
+        history.push(routes.CASE_START)
       }
     }
 
     onCreateNewButtonClick () {
       const { history, actions, dataSent } = this.props
 
-      history.push(routes.CASE_GET + '/' + dataSent.sakId + '/' + dataSent.aktoerId + '/' + dataSent.euxcaseid)
+      let searchParams = new URLSearchParams()
+      let search = {
+        sakId: dataSent.sakId,
+        aktoerId: dataSent.aktoerId,
+        rinaId: dataSent.euxcaseid
+      }
+      Object.keys(search).forEach(key => searchParams.append(key, search[key]))
+
+      history.push(routes.CASE_START + '?' + searchParams.toString())
       actions.clearData()
     }
 
@@ -67,8 +75,8 @@ class SendCase extends Component {
       let { t, history, location } = this.props
 
       return <Case className='p-case-sendCase'
-        title='case:app-sendCaseTitle'
-        description='case:app-sendCaseDescription'
+        title={t('case:app-caseTitle') + ' - ' + t('case:app-sendCaseTitle')}
+        description={t('case:app-sendCaseDescription')}
         stepIndicator={4}
         history={history}
         location={location}>

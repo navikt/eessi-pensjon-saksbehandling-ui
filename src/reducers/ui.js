@@ -109,6 +109,11 @@ export default function (state = {}, action = {}) {
         drawerWidth: action.payload
       })
 
+    case types.UI_FOOTER_TOGGLE_OPEN :
+      return Object.assign({}, state, {
+        footerOpen: !state.footerOpen
+      })
+
     default:
 
       return state
