@@ -18,8 +18,8 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-function setProperty(key, event){
-  this.props.setEventProperty({[key]: event.target.value})
+function setProperty (key, event) {
+  this.props.setEventProperty({ [key]: event.target.value })
 }
 
 class P6000 extends React.Component {
@@ -37,7 +37,7 @@ class P6000 extends React.Component {
       <div className='mt-3'>
         <Nav.Row>
           <div className='col-md-6'>
-          <Nav.HjelpetekstBase id='help-award'>
+            <Nav.HjelpetekstBase id='help-award'>
               {t('Trenger innspill fra fag om passende hjelpetekster (om noen)')}
             </Nav.HjelpetekstBase>
             <Nav.RadioPanelGruppe
@@ -73,7 +73,7 @@ class P6000 extends React.Component {
         </Nav.Row>
         <Nav.Row>
           <div className='col-md-6'>
-          <Nav.HjelpetekstBase id='help-award'>
+            <Nav.HjelpetekstBase id='help-award'>
               {t('Trenger innspill fra fag om passende hjelpetekster (om noen)')}
             </Nav.HjelpetekstBase>
             <Nav.RadioPanelGruppe
@@ -88,7 +88,7 @@ class P6000 extends React.Component {
             />
           </div>
           <div className='col-md-6'>
-          <Nav.HjelpetekstBase id='help-award'>
+            <Nav.HjelpetekstBase id='help-award'>
               {t('Trenger innspill fra fag om passende hjelpetekster (om noen)')}
             </Nav.HjelpetekstBase>
             <Nav.RadioPanelGruppe
