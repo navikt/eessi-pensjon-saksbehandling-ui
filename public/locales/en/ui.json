@@ -118,6 +118,7 @@
     "send" : "Send",
     "sending" : "Sending...",
     "sent" : "Sent",
+    "sentDate" : "Sent date",
     "sentSuccess" : "Sent OK",
     "sentFailure" : "Sent Fail",
     "serverOffline" : "Server offline",

@@ -68,7 +68,8 @@ class Summary extends Component {
         comment={comment}
         username={username}
         previewAttachments
-        blackAndWhite={false} />
+        blackAndWhite={false}
+        header={false} />
     </Nav.Panel>
   }
 }

@@ -299,6 +299,7 @@ class Export extends Component {
                 animate={false}
                 previewAttachments={false}
                 blackAndWhite={blackAndWhite}
+                header={true}
               />
             </div>
           </div>
