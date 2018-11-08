@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import _ from 'lodash'
 import 'url-search-params-polyfill'
 
@@ -129,5 +129,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(FrontPage)
+  withNamespaces()(FrontPage)
 )

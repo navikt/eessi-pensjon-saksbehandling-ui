@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import _ from 'lodash'
 
 import './RenderData.css'
@@ -42,6 +42,8 @@ class RenderGeneratedData extends Component {
         <dd className='col-sm-8'>{dataToGenerate.buc}</dd>
         <dt className='col-sm-4'><label>{t('case:form-sed')}</label></dt>
         <dd className='col-sm-8'>{dataToGenerate.sed}</dd>
+        {dataToGenerate.vedtakId ? <dt className='col-sm-4'><label>{t('case:form-vedtakId')}</label></dt>
+        <dd className='col-sm-8'>{dataToGenerate.vedtakId}</dd> : null}
         <dt className='col-sm-4'><label>{t('case:form-institution')}</label></dt>
         {dataToGenerate.institutions ? <dd className='col-sm-8'>{dataToGenerate.institutions.map((inst, i) => {
           return <div key={i} className='d-inline-block'>
@@ -61,4 +63,4 @@ RenderGeneratedData.propTypes = {
   t: PT.func.isRequired
 }
 
-export default translate()(RenderGeneratedData)
+export default withNamespaces()(RenderGeneratedData)

@@ -2,7 +2,7 @@ import React from 'react'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import { withRouter } from 'react-router'
 import classNames from 'classnames'
 import _ from 'lodash'
@@ -160,6 +160,6 @@ export default connect(
   mapDispatchToProps
 )(
   withRouter(
-    translate()(EventForm)
+    withNamespaces()(EventForm)
   )
 )

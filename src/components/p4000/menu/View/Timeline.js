@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import PT from 'prop-types'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import { bindActionCreators } from 'redux'
 import Timeline from 'react-visjs-timeline'
 import ReactJson from 'react-json-view'
@@ -224,5 +224,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(_Timeline)
+  withNamespaces()(_Timeline)
 )

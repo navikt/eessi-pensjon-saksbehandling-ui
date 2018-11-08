@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PT from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 
@@ -45,5 +45,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(PDFSizeSlider)
+  withNamespaces()(PDFSizeSlider)
 )

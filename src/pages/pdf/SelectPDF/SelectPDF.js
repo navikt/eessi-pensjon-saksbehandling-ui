@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import _ from 'lodash'
 import classNames from 'classnames'
 
@@ -134,5 +134,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(SelectPDF)
+  withNamespaces()(SelectPDF)
 )

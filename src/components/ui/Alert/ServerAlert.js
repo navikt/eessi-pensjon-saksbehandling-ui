@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 
 import * as Nav from '../Nav'
 import './ServerAlert.css'
@@ -31,5 +31,5 @@ ServerAlert.propTypes = {
 export default connect(
   mapStateToProps
 )(
-  translate()(ServerAlert)
+  withNamespaces()(ServerAlert)
 )

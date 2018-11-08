@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
 import { Document, Page } from 'react-pdf/dist/entry.noworker'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import classNames from 'classnames'
 
 import { Ikon } from '../Nav'
@@ -193,4 +193,4 @@ MiniaturePDF.propTypes = {
   scale: PT.number.isRequired
 }
 
-export default translate()(MiniaturePDF)
+export default withNamespaces()(MiniaturePDF)

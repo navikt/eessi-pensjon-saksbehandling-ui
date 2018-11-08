@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import classNames from 'classnames'
 
 import { Ikon } from '../Nav'
@@ -56,4 +56,4 @@ MiniatureOther.propTypes = {
   className: PT.string
 }
 
-export default translate()(MiniatureOther)
+export default withNamespaces()(MiniatureOther)

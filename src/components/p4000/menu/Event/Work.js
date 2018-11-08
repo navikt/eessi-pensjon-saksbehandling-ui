@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import classNames from 'classnames'
@@ -228,5 +228,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(Work)
+  withNamespaces()(Work)
 )

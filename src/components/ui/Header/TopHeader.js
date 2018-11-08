@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import { withCookies, Cookies } from 'react-cookie'
 import classNames from 'classnames'
 
@@ -118,6 +118,6 @@ export default withCookies(
     mapStateToProps,
     mapDispatchToProps
   )(
-    translate()(TopHeader)
+    withNamespaces()(TopHeader)
   )
 )
