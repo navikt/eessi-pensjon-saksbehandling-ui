@@ -42,8 +42,10 @@ class RenderGeneratedData extends Component {
         <dd className='col-sm-8'>{dataToGenerate.buc}</dd>
         <dt className='col-sm-4'><label>{t('case:form-sed')}</label></dt>
         <dd className='col-sm-8'>{dataToGenerate.sed}</dd>
-        {dataToGenerate.vedtakId ? <dt className='col-sm-4'><label>{t('case:form-vedtakId')}</label></dt>
-        <dd className='col-sm-8'>{dataToGenerate.vedtakId}</dd> : null}
+        {dataToGenerate.vedtakId ? <React.Fragment>
+          <dt className='col-sm-4'><label>{t('case:form-vedtakId')}</label></dt>
+          <dd className='col-sm-8'>{dataToGenerate.vedtakId}</dd>
+        </React.Fragment> : null}
         <dt className='col-sm-4'><label>{t('case:form-institution')}</label></dt>
         {dataToGenerate.institutions ? <dd className='col-sm-8'>{dataToGenerate.institutions.map((inst, i) => {
           return <div key={i} className='d-inline-block'>
