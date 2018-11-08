@@ -29,10 +29,8 @@ class Breadcrumbs extends Component {
 
     const { history, actions } = this.props
 
-    actions.clearData()
     actions.clientClear()
     actions.trimBreadcrumbsTo(breadcrumb)
-
     history.push(breadcrumb.url)
   }
 

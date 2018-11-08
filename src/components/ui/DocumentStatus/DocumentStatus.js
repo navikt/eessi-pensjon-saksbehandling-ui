@@ -4,7 +4,6 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { translate } from 'react-i18next'
-import _ from 'lodash'
 
 import Icons from '../Icons'
 import * as Nav from '../Nav'
@@ -45,8 +44,10 @@ const sortStatusByDocs = (documents) => {
       ? res[item.dokumentType]['aksjoner'].push(item.navn) &&
             res[item.dokumentType]['aksjoner'].sort()
       : res[item.dokumentType] = {
-        'dokumentId': item.dokumentId,
-        'aksjoner': [item.navn]
+        dokumentId: item.dokumentId,
+        aksjoner: [item.navn],
+        kategori: item.kategori,
+        id: item.id
       }
     return item
   })
@@ -54,50 +55,40 @@ const sortStatusByDocs = (documents) => {
   return Object.keys(res).sort().map(key => {
     return {
       dokumentType: key,
-      aksjoner: res[key].aksjoner,
-      dokumentId: res[key].dokumentId
+      ...res[key]
     }
   })
 }
 
 class DocumentStatus extends Component {
     state = {
-      docs: undefined,
+      currentDocument: undefined,
+      documents: undefined,
       sed: undefined,
       filter: 'all'
     }
 
     static getDerivedStateFromProps (nextProps, prevState) {
       return {
-        docs: nextProps.documents ? sortStatusByDocs(nextProps.documents) : undefined,
-        sed: !_.isEqual(nextProps.sed, prevState.sed) ? nextProps.sed : prevState.sed
+        documents: nextProps.documents ? sortStatusByDocs(nextProps.documents) : undefined
       }
     }
 
     componentDidUpdate () {
+      const { actions, history } = this.props
       const { sed } = this.state
 
-      if (sed) {
-        this.redirectToSed(sed)
-      }
-    }
-
-    redirectToSed (sed) {
-      const { actions, history } = this.props
-
-      this.setState({
-        doc: undefined
-      })
-
-      switch (sed.sed) {
-        case constants.P4000: {
-          let events = P4000Util.convertP4000SedToEvents(sed)
-          actions.openP4000Success(events)
-          history.push(routes.P4000)
-          break
+      if (sed && sed.sed) {
+        switch (sed.sed) {
+          case constants.P4000: {
+            let events = P4000Util.convertP4000SedToEvents(sed)
+            actions.openP4000Success(events)
+            history.push(routes.P4000)
+            break
+          }
+          default:
+            break
         }
-        default:
-          break
       }
     }
 
@@ -115,21 +106,11 @@ class DocumentStatus extends Component {
     }
 
     toggleDocumentStatus (_doc) {
-      if (!this.state.doc) {
-        this.setState({
-          doc: _doc
-        })
-      } else {
-        if (this.state.doc.dokumentId === _doc.dokumentId) {
-          this.setState({
-            doc: undefined
-          })
-        } else {
-          this.setState({
-            doc: _doc
-          })
-        }
-      }
+      const { currentDocument } = this.state
+
+      this.setState({
+        currentDocument: currentDocument && currentDocument.dokumentType === _doc.dokumentType ? undefined : _doc
+      })
     }
 
     deleteSed (doc) {
@@ -141,9 +122,15 @@ class DocumentStatus extends Component {
     handleDocumentClick (doc, aksjoner) {
       const { t, rinaId, actions, history } = this.props
 
+      this.setState({
+        requestedDokumentId: doc.dokumentId
+      })
+
       switch (aksjoner) {
         case 'Read':
         case 'Update':
+          actions.getSed(rinaId, doc.dokumentId)
+          break
         case 'Delete':
 
           actions.openModal({
@@ -162,18 +149,23 @@ class DocumentStatus extends Component {
 
         case 'Create':
 
-          if (doc.dokumentType === constants.P4000) {
-            history.push(routes.P4000)
+          switch (doc.dokumentType) {
+            case constants.P4000:
+              history.push(routes.P4000)
+              break
+            case constants.P2000:
+            case constants.P6000:
+
+              history.push(routes.CASE_START + '?sed=' + doc.dokumentType + '&buc=' + doc.id)
+              break
+            default:
+              break
           }
-          actions.getSed(rinaId, doc.dokumentId)
           break
+
         default:
           break
       }
-
-      this.setState({
-        requestedDokumentId: doc.dokumentId
-      })
     }
 
     setFilter (filter) {
@@ -205,11 +197,11 @@ class DocumentStatus extends Component {
 
     render () {
       const { t, className, gettingSED, gettingStatus } = this.props
-      const { docs, doc, filter } = this.state
+      const { documents, currentDocument, filter } = this.state
 
       return <div className={classNames('c-ui-documentStatus', {
-        collapsed: !doc,
-        expanded: doc
+        collapsed: !currentDocument,
+        expanded: currentDocument
       }, className)}>
 
         <div className='documentTags'>
@@ -228,8 +220,8 @@ class DocumentStatus extends Component {
         </div>
 
         <div className='documentButtons'>
-          {docs.filter(this.docMatchesFilter.bind(this)).map((_doc, index) => {
-            let active = doc ? _doc.dokumentId === doc.dokumentId : false
+          {documents.filter(this.docMatchesFilter.bind(this)).map((_doc, index) => {
+            let active = currentDocument ? _doc.dokumentType === currentDocument.dokumentType : false
             let label = _doc.dokumentType
             let description = t('case:case-' + _doc.dokumentType)
             if (label !== 'case-' + _doc.dokumentType) {
@@ -251,13 +243,13 @@ class DocumentStatus extends Component {
           })}
         </div>
 
-        {doc ? <div className='documentActions'>
+        {currentDocument ? <div className='documentActions'>
           <div className='documentProperties mb-4'>
-            <div>{t('documentType') + ': ' + doc.dokumentType}</div>
-            <div>{t('documentId') + ': ' + doc.dokumentId}</div>
+            <div>{t('documentType') + ': ' + currentDocument.dokumentType}</div>
+            {currentDocument.dokumentId ? <div>{t('documentId') + ': ' + currentDocument.dokumentId}</div> : null}
           </div>
-          {doc.aksjoner.map((aksjon, index) => {
-            return <Nav.Hovedknapp className='mr-2' key={index} onClick={this.handleDocumentClick.bind(this, doc, aksjon)}>
+          {currentDocument.aksjoner.map((aksjon, index) => {
+            return <Nav.Hovedknapp className='mr-2' key={index} onClick={this.handleDocumentClick.bind(this, currentDocument, aksjon)}>
               {t(aksjon.toLowerCase())}
             </Nav.Hovedknapp>
           })}

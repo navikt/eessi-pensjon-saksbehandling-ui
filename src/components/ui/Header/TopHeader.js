@@ -87,7 +87,7 @@ class TopHeader extends Component {
           onMouseLeave={this.onHandleMouseLeave.bind(this)}>
           {gettingUserInfo ? t('case:loading-gettingUserInfo')
             : username ? this.state.isHovering
-              ? <Nav.Select className='username-select' value={username} onChange={this.onUsernameSelectRequest.bind(this)}>
+              ? <Nav.Select className='username-select' label={''} value={username} onChange={this.onUsernameSelectRequest.bind(this)}>
                 <option value=''>{username}</option>
                 <option value='logout'>{t('logout')}</option>
               </Nav.Select>

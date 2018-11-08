@@ -75,6 +75,7 @@
     "loadSuccess" : "Load successfully",
     "loadFailure" : "Load failure",
     "login" : "Login",
+    "logout" : "Logout",
     "more" : "More",
     "name" : "Name",
     "new" : "New",

@@ -7,18 +7,12 @@ import * as Nav from '../ui/Nav'
 
 class FrontPage extends Component {
   render () {
-    let { t, status } = this.props
+    let { t } = this.props
 
     return <div style={{ transform: 'scale(0.8)' }}>
       <h4 className='mb-4'>{t('forms')}</h4>
       <Nav.Lenkepanel style={{ animationDelay: '0s' }} className='frontPageLink caseLink' linkCreator={(props) => (
-        <Link to={
-          status.sakId
-            ? routes.CASE_EDIT
-              .replace(':aktoerid', status.fnr)
-              .replace(':sakid', status.sakId)
-            : routes.CASE_GET
-        } {...props} />)
+        <Link to={routes.CASE_START} {...props} />)
       } href='#'>{t('case:app-createNewCase')}</Nav.Lenkepanel>
       <Nav.Lenkepanel style={{ animationDelay: '0.1s' }} className='frontPageLink pSelvLink' linkCreator={(props) => (
         <Link to={routes.PSELV} {...props} />)
