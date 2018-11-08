@@ -218,7 +218,7 @@ class Export extends Component {
 
   render () {
     const { t, events, comment, username, pdf } = this.props
-    const { includeAttachments, blackAndWhite, doingPreview, doingPrint, doingDownload } = this.state
+    const { tab, includeAttachments, blackAndWhite, doingPreview, doingPrint, doingDownload } = this.state
 
     return <Nav.Panel className='c-p4000-menu c-p4000-menu-export p-0 mb-4'>
       <div className='title m-4'>
@@ -286,11 +286,11 @@ class Export extends Component {
           </div>
         </div>
         <div className='col-md-9'>
-          <Nav.Tabs onChange={this.onTabChange.bind(this)}>
-            <Nav.Tabs.Tab id='panel-content'>{t('content')}</Nav.Tabs.Tab>
-            <Nav.Tabs.Tab id='panel-pdf'>{t('preview')}</Nav.Tabs.Tab>
+          <Nav.Tabs defaultAktiv={_.indexOf(['panel-content', 'panel-pdf'], tab)} onChange={this.onTabChange.bind(this)}>
+            <Nav.Tabs.Tab id='panel-content' aktiv={tab === 'panel-content'}>{t('content')}</Nav.Tabs.Tab>
+            <Nav.Tabs.Tab id='panel-pdf' aktiv={tab === 'panel-pdf'}>{t('preview')}</Nav.Tabs.Tab>
           </Nav.Tabs>
-          <div className={classNames('panel', { 'hidden': this.state.tab !== 'panel-content' })} role='tabpanel' id='panel-content'>
+          <div className={classNames('panel', { 'hidden': tab !== 'panel-content' })} role='tabpanel' id='panel-content'>
             <div id='divToPrint'>
               <SummaryRender t={t}
                 events={events}
@@ -302,7 +302,7 @@ class Export extends Component {
               />
             </div>
           </div>
-          <div className={classNames('panel', { 'hidden': this.state.tab !== 'panel-pdf' })} role='tabpanel' id='panel-pdf'>
+          <div className={classNames('panel', { 'hidden': tab !== 'panel-pdf' })} role='tabpanel' id='panel-pdf'>
 
             { (doingPreview || doingDownload || doingPrint)
               ? <div className='w-100 text-center'>
@@ -319,7 +319,7 @@ class Export extends Component {
         </div>
       </div>
     </Nav.Panel>
-  }
+  }q
 }
 
 Export.propTypes = {

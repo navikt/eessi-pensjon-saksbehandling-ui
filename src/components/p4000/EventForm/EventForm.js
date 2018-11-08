@@ -148,7 +148,6 @@ EventForm.propTypes = {
   type: PT.string.isRequired,
   events: PT.array.isRequired,
   event: PT.object,
-  editMode: PT.bool.isRequired,
   eventIndex: PT.number,
   actions: PT.object,
   Component: PT.func,
