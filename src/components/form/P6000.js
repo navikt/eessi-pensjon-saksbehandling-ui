@@ -12,19 +12,23 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    setEventProperty: (key, event) => { dispatch(p6000SetEventProperty({ [key]: event.target.value })) }
+    setEventProperty: (arg) => { dispatch(p6000SetEventProperty(arg)) }
   }
+}
+
+function setProperty(key, event){
+  this.props.setEventProperty({[key]: event.target.value})
 }
 
 class P6000 extends React.Component {
   constructor (props) {
     super(props)
-    this.setAward = this.props.setEventProperty.bind(null, 'award')
-    this.setVoluntary = this.props.setEventProperty.bind(null, 'voluntary')
-    this.setCredited = this.props.setEventProperty.bind(null, 'credited')
-    this.setReview = this.props.setEventProperty.bind(null, 'review')
+    this.setAward = setProperty.bind(this, 'award')
+    this.setVoluntary = setProperty.bind(this, 'voluntary')
+    this.setCredited = setProperty.bind(this, 'credited')
+    this.setReview = setProperty.bind(this, 'review')
   }
 
   render () {
@@ -33,6 +37,9 @@ class P6000 extends React.Component {
       <div className='mt-3'>
         <Nav.Row>
           <div className='col-md-6'>
+          <Nav.HjelpetekstBase id='help-award'>
+              {t('Trenger innspill fra fag om passende hjelpetekster (om noen)')}
+            </Nav.HjelpetekstBase>
             <Nav.RadioPanelGruppe
               name='awardBenefit'
               legend={t('p6000:label-award-benefit')}
@@ -48,6 +55,9 @@ class P6000 extends React.Component {
             />
           </div>
           <div className='col-md-6'>
+            <Nav.HjelpetekstBase id='help-award'>
+              {t('Trenger innspill fra fag om passende hjelpetekster (om noen)')}
+            </Nav.HjelpetekstBase>
             <Nav.RadioPanelGruppe
               name='voluntaryContributions'
               legend={t('p6000:label-voluntary-contributions')}
@@ -63,6 +73,9 @@ class P6000 extends React.Component {
         </Nav.Row>
         <Nav.Row>
           <div className='col-md-6'>
+          <Nav.HjelpetekstBase id='help-award'>
+              {t('Trenger innspill fra fag om passende hjelpetekster (om noen)')}
+            </Nav.HjelpetekstBase>
             <Nav.RadioPanelGruppe
               name='creditedPeriod'
               legend={t('p6000:label-credited-period')}
@@ -75,6 +88,9 @@ class P6000 extends React.Component {
             />
           </div>
           <div className='col-md-6'>
+          <Nav.HjelpetekstBase id='help-award'>
+              {t('Trenger innspill fra fag om passende hjelpetekster (om noen)')}
+            </Nav.HjelpetekstBase>
             <Nav.RadioPanelGruppe
               name='decisionReview'
               legend={t('p6000:label-review')}

@@ -1,24 +1,24 @@
 {
-    "app-title"      : "Create new P4000",
-    "label-award-benefit" : "Award benefit article",
-    "label-voluntary-contributions": "Based on voluntary contributions",
-    "label-credited-period": "Credited period",
-    "label-review": "The decision has been given as a result of the review according to the Art. 48(2) of Regulation 987/2009",
+    "app-title"      : "Lag ny P6000",
+    "label-award-benefit" : "Artikkel for innvilgelse av ytelse",
+    "label-voluntary-contributions": "Basert på frivillige perioder",
+    "label-credited-period": "Godskrevet periode",
+    "label-review": "Vedtaket er fattet som følge av gjennomgangen i henhold til artikkel 48 (2) i forordning 987/2009",
 
-    "select-option": "Please select an option",
-    "select-award-01": "883/2004: Art. 52(1)(a)",
-    "select-award-02": "0883/2004: Art. 52(1)(b)",
-    "select-award-03": "0883/2004: Art. 57(2)",
-    "select-award-04": "0883/2004: Art. 57(3)",
-    "select-award-05": "0883/2004: Art. 60(2)",
+    "select-option": "Vennligst velg et alternativ",
+    "select-award-01": "883/2004: artikkel 52 (1) (a)",
+    "select-award-02": "883/2004: artikkel 52 (1) (b)",
+    "select-award-03": "883/2004: Art. 57 (2)",
+    "select-award-04": "883/2004: Art. 57 (3)",
+    "select-award-05": "883/2004: Art. 60 (2)",
 
-    "select-voluntary-01": "No",
-    "select-voluntary-02": "Partly",
-    "select-voluntary-03": "Completely",
+    "select-voluntary-01": "Nei",
+    "select-voluntary-02": "Delvis",
+    "select-voluntary-03": "Fullstendig",
 
-    "select-credited-0": "No",
-    "select-credited-1": "Yes",
+    "select-credited-0": "Nei",
+    "select-credited-1": "Ja",
 
-    "select-review-0": "No",
-    "select-review-1": "Yes"
+    "select-review-0": "Nei",
+    "select-review-1": "Ja"
 }
