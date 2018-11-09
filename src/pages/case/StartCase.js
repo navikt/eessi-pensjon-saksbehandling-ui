@@ -543,16 +543,16 @@ class StartCase extends Component {
               <div className='fieldset animate'>
                 <Nav.Row>
                   <div className='col-md-6'>
-                    <Nav.HjelpetekstBase id='sakId'>{t('case:help-sakId')}</Nav.HjelpetekstBase>
-                    <Nav.Input className='getCaseInputSakId' label={t('case:form-sakId') + ' *'} value={sakId || ''} onChange={this.onSakIdChange.bind(this)} />
+                    <Nav.HjelpetekstBase tabIndex='2' id='sakId'>{t('case:help-sakId')}</Nav.HjelpetekstBase>
+                    <Nav.Input tabIndex='1' className='getCaseInputSakId' label={t('case:form-sakId') + ' *'} value={sakId || ''} onChange={this.onSakIdChange.bind(this)} />
                   </div>
                   <div className='col-md-6'>
-                    <Nav.HjelpetekstBase id='aktoerId'>{t('case:help-aktoerId')}</Nav.HjelpetekstBase>
-                    <Nav.Input className='getCaseInputAktoerId' label={t('case:form-aktoerId') + ' *'} value={aktoerId || ''} onChange={this.onAktoerIdChange.bind(this)} />
+                    <Nav.HjelpetekstBase tabIndex='2' id='aktoerId'>{t('case:help-aktoerId')}</Nav.HjelpetekstBase>
+                    <Nav.Input tabIndex='1' className='getCaseInputAktoerId' label={t('case:form-aktoerId') + ' *'} value={aktoerId || ''} onChange={this.onAktoerIdChange.bind(this)} />
                   </div>
                   <div className='col-md-6'>
-                    <Nav.HjelpetekstBase id='rinaId'>{t('case:help-rinaId')}</Nav.HjelpetekstBase>
-                    <Nav.Input className='getCaseInputRinaId' label={t('case:form-rinaId')} value={rinaId || ''} onChange={this.onRinaIdChange.bind(this)} />
+                    <Nav.HjelpetekstBase tabIndex='2' id='rinaId'>{t('case:help-rinaId')}</Nav.HjelpetekstBase>
+                    <Nav.Input tabIndex='1' className='getCaseInputRinaId' label={t('case:form-rinaId')} value={rinaId || ''} onChange={this.onRinaIdChange.bind(this)} />
                   </div>
                 </Nav.Row>
               </div>
