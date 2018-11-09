@@ -3,14 +3,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PT from 'prop-types'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import { bindActionCreators } from 'redux'
 import classNames from 'classnames'
 import print from 'print-js'
 import { withRouter } from 'react-router'
 import _ from 'lodash'
 
-import SummaryRender from './SummaryRender'
+import ExportRender from './ExportRender'
 import Icons from '../../../ui/Icons'
 
 import * as Nav from '../../../ui/Nav'
@@ -292,14 +292,14 @@ class Export extends Component {
           </Nav.TabsPure>
           <div className={classNames('panel', { 'hidden': tab !== 'panel-content' })} role='tabpanel' id='panel-content'>
             <div id='divToPrint'>
-              <SummaryRender t={t}
+              <ExportRender t={t}
                 events={events}
                 comment={comment}
                 username={username}
                 animate={false}
                 previewAttachments={false}
                 blackAndWhite={blackAndWhite}
-                header={true}
+                header
               />
             </div>
           </div>
@@ -335,6 +335,6 @@ export default connect(
   mapDispatchToProps
 )(
   withRouter(
-    translate()(Export)
+    withNamespaces()(Export)
   )
 )

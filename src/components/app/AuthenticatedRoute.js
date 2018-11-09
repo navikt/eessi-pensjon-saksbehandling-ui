@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { withCookies, Cookies } from 'react-cookie'
 import { Route, withRouter, Redirect } from 'react-router'
 import classNames from 'classnames'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import _ from 'lodash'
 
 import * as Nav from '../ui/Nav'
@@ -131,7 +131,7 @@ export default withCookies(
     mapDispatchToProps
   )(
     withRouter(
-      translate()(AuthenticatedRoute)
+      withNamespaces()(AuthenticatedRoute)
     )
   )
 )

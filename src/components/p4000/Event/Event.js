@@ -18,8 +18,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class Event extends Component {
-
-
   render () {
     const { t, event, selected, onClick, mode } = this.props
 

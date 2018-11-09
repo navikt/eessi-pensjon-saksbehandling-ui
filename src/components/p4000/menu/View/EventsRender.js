@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import classNames from 'classnames'
-
-import * as navLogo from '../../../../resources/images/nav-logo-red.png'
-import * as constants from '../../../../constants/constants'
-import { renderDate } from '../../../../utils/Date'
 
 import Icons from '../../../ui/Icons'
 import File from '../../../ui/File/File'
@@ -13,29 +9,13 @@ import File from '../../../ui/File/File'
 import './Summary.css'
 import '../Menu.css'
 
-class SummaryRender extends Component {
+class EventsRender extends Component {
   render () {
-    const { t, events, comment, animate, previewAttachments, blackAndWhite, username, header } = this.props
+    const { t, events, animate, previewAttachments, blackAndWhite } = this.props
 
     let _animate = animate !== undefined ? animate : true
 
-    return <div className='c-p4000-menu-summary'>
-      {header ? <header className='mb-4'>
-         <img alt='logo' src={navLogo} className={classNames(blackAndWhite ? 'blackAndWhite' : '')}/>
-         <div className='dots'/>
-      </header> : null}
-      <h4 className='text-left pt-4 pb-4'>{constants.P4000}</h4>
-      <div className='pb-4 pb-4 flexrow'>
-        <div>{t('case:form-sakId')}{': '}</div>
-        <div>{t('case:sentDate')}{': '}{renderDate(new Date())}</div>
-      </div>
-      <div className='pb-4 pb-4'>
-        <h5 className={classNames(blackAndWhite ? 'black' : 'red')}>Personsopplysning</h5>
-        <dl>
-          <dt>Navn</dt><dd>{username}</dd>
-        </dl>
-      </div>
-      <h5 className={classNames('pt-4', (blackAndWhite ? 'black' : 'red'))}>Hendelser</h5>
+    return <div className='c-p4000-events-render'>
       {events.map((event, index) => {
         return <div key={index} style={{ animationDelay: (index * 0.03) + 's' }}
           className={classNames('event m-3', { fieldset: !blackAndWhite, bwfieldset: blackAndWhite, slideAnimate: _animate })}>
@@ -79,23 +59,16 @@ class SummaryRender extends Component {
           </div> : null}
         </div>
       })}
-      <div>
-        <h5 className={classNames('pt-4', (blackAndWhite ? 'black' : 'red'))}>{t('comment')}</h5>
-        {comment}
-      </div>
     </div>
   }
 }
 
-SummaryRender.propTypes = {
+EventsRender.propTypes = {
   t: PT.func,
   events: PT.array.isRequired,
-  comment: PT.string,
-  username: PT.string.isRequired,
   animate: PT.bool.isRequired,
-  header: PT.bool.isRequired,
   previewAttachments: PT.bool.isRequired,
   blackAndWhite: PT.bool.isRequired
 }
 
-export default translate()(SummaryRender)
+export default withNamespaces()(EventsRender)
