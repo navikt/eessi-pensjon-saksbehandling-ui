@@ -57,9 +57,9 @@ class ConfirmCase extends Component {
   }
 
   onBackButtonClick () {
-    const { history, actions } = this.props
+    const { history } = this.props
 
-    actions.cleanDataToConfirm()
+    //actions.cleanDataToConfirm()
     history.goBack()
   }
 

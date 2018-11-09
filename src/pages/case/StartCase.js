@@ -55,6 +55,10 @@ class StartCase extends Component {
       rinaId: undefined,
 
       _subjectArea: 'Pensjon',
+      _buc: undefined,
+      _sed: undefined,
+      _vedtakId: undefined,
+
       institutions: [],
       validation: {}
     };
@@ -84,7 +88,8 @@ class StartCase extends Component {
           institutions: dataToConfirm.institutions,
           _buc: dataToConfirm.buc,
           _sed: dataToConfirm.sed,
-          _subjectArea: dataToConfirm.subjectArea
+          _subjectArea: dataToConfirm.subjectArea,
+          _vedtakId: dataToConfirm.vedtakId
         }, () => {
           actions.cleanDataToConfirm()
         })
@@ -151,6 +156,12 @@ class StartCase extends Component {
       })
     }
 
+    onVedtakIdChange (e) {
+      this.setState({
+        _vedtakId: e.target.value.trim()
+      })
+    }
+
     onFetchCaseButtonClick () {
       const { actions } = this.props
       const { sakId, aktoerId, rinaId } = this.state
@@ -164,7 +175,7 @@ class StartCase extends Component {
 
     onForwardButtonClick () {
       const { actions, currentCase, buc, sed, vedtakId } = this.props
-      const { institutions, _buc, _sed, _subjectArea } = this.state
+      const { institutions, _buc, _sed, _subjectArea, _vedtakId } = this.state
 
       if (_subjectArea) {
         this.validateSubjectArea(_subjectArea)
@@ -179,14 +190,14 @@ class StartCase extends Component {
 
       if (this.noValidationErrors()) {
         actions.dataToConfirm({
-          institutions: institutions,
-          buc: buc || _buc,
-          sed: sed || _sed,
-          subjectArea: _subjectArea,
           sakId: currentCase.casenumber,
           aktoerId: currentCase.pinid,
           rinaId: currentCase.rinaid,
-          vedtakId: vedtakId
+          subjectArea: _subjectArea,
+          buc: buc || _buc,
+          sed: sed || _sed,
+          vedtakId: vedtakId || _vedtakId,
+          institutions: institutions
         })
       }
     }
@@ -369,7 +380,7 @@ class StartCase extends Component {
         if (typeof el === 'string') {
           return <option value={el} key={el}>{this.getOptionLabel(el)}</option>
         } else {
-          return <option value={el.key} key={el}>{this.getOptionLabel(el.value)}</option>
+          return <option value={el.key} key={el.key}>{this.getOptionLabel(el.value)}</option>
         }
       })
     }
@@ -524,8 +535,8 @@ class StartCase extends Component {
     }
 
     render () {
-      const { t, history, location, currentCase, loading, sed } = this.props
-      const { sakId, aktoerId, rinaId } = this.state
+      const { t, history, location, currentCase, loading, sed, vedtakId } = this.props
+      const { sakId, aktoerId, rinaId, _sed, _vedtakId } = this.state
 
       return <Case className='startCase'
         title={t('case:app-caseTitle') + ' - ' + t('case:app-startCaseTitle')}
@@ -581,7 +592,7 @@ class StartCase extends Component {
                     <Nav.HjelpetekstBase id='buc'>{t('case:help-buc')}</Nav.HjelpetekstBase>
                   </div>
                 </Nav.Row>
-                <Nav.Row className='align-middle text-left'>
+                <Nav.Row className='mb-3 align-middle text-left'>
                   <div className='col-md-8'>{this.renderSed()}</div>
                   <div className='col-md-4 selectBoxMessage'>
                     <div className='d-inline-block'>{loading && loading.sedList ? this.getSpinner('case:loading-sed') : null}</div>
@@ -593,6 +604,16 @@ class StartCase extends Component {
                   <h4>{t('sed')}{': '}{sed}</h4>
                 </div>
               </Nav.Row>}
+              { (sed && sed === 'P6000') || (_sed && _sed === 'P6000') ?
+              <Nav.Row className='align-middle text-left'>
+                <div className='col-md-8'>
+                  <Nav.Input label={t('case:form-vedtakId')} value={_vedtakId || vedtakId} onChange={this.onVedtakIdChange.bind(this)}/>
+                </div>
+                <div className='col-md-4 selectBoxMessage'>
+                  <div/>
+                  <Nav.HjelpetekstBase id='vedtak'>{t('case:help-vedtakId')}</Nav.HjelpetekstBase>
+                </div>
+              </Nav.Row> : null}
               {this.renderInstitutions()}
             </div>
 

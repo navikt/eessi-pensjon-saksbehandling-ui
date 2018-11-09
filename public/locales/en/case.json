@@ -62,6 +62,7 @@
     "form-step5" : "Send case",
     "form-subjectArea": "Subject area",
     "form-rinaId" : "Rina ID",
+    "form-vedtakId" : "Vedtak ID",
 
     "help-aktoerId"    : "Help for aktoerId",
     "help-rinaId"      : "Help for rinaId",
@@ -71,6 +72,7 @@
     "help-institution" : "Help for institution",
     "help-sed"         : "Help for sed",
     "help-subjectArea" : "Help for subjectArea",
+    "help-vedtakId"    : "Help for Vedtak ID",
 
     "loading-buc"             : "Loading BUC...",
     "loading-country"         : "Loading countries...",
