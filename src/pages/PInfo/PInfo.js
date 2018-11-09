@@ -114,8 +114,8 @@ class PInfo extends React.Component {
     return (<TopContainer className='p-pInfo'
       history={props.history} location={props.location}
       sideContent={<FrontPageDrawer t={props.t} status={props.status} />}>
-      <Nav.Row className='mb-4'>
-        <Nav.Column>
+      <Nav.Row>
+        <Nav.Column className='pInfo-tab'>
           <Nav.Tabs onChange={(e, i) => setStep(props, i)}
             defaultAktiv={props.form.step}
             tabs={_.range(0, 6).map(index => ({

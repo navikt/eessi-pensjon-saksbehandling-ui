@@ -1,0 +1,24 @@
+{
+    "app-title"      : "Create new P6000",
+    "label-award-benefit" : "Award benefit article",
+    "label-voluntary-contributions": "Based on voluntary contributions",
+    "label-credited-period": "Credited period",
+    "label-review": "The decision has been given as a result of the review according to the Art. 48(2) of Regulation 987/2009",
+
+    "select-option": "Please select an option",
+    "select-award-01": "883/2004: Art. 52(1)(a)",
+    "select-award-02": "0883/2004: Art. 52(1)(b)",
+    "select-award-03": "0883/2004: Art. 57(2)",
+    "select-award-04": "0883/2004: Art. 57(3)",
+    "select-award-05": "0883/2004: Art. 60(2)",
+
+    "select-voluntary-01": "No",
+    "select-voluntary-02": "Partly",
+    "select-voluntary-03": "Completely",
+
+    "select-credited-0": "No",
+    "select-credited-1": "Yes",
+
+    "select-review-0": "No",
+    "select-review-1": "Yes"
+}
