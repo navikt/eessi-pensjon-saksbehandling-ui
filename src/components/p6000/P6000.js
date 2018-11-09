@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import PT from 'prop-types'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import * as Nav from '../ui/Nav'
 
 import { p6000SetEventProperty } from '../../actions/p6000'
@@ -110,10 +110,9 @@ class P6000 extends React.Component {
 
 P6000.propTypes = {
   data: PT.object
-
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(translate()(P6000))
+)(withNamespaces()(P6000))

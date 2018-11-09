@@ -5,6 +5,7 @@ import PT from 'prop-types'
 import { withNamespaces } from 'react-i18next'
 
 import * as Nav from '../../components/ui/Nav'
+import P6000 from '../../components/p6000/P6000'
 import RenderConfirmData from '../../components/case/RenderConfirmData'
 import Case from './Case'
 
@@ -17,7 +18,8 @@ const mapStateToProps = (state) => {
     dataToConfirm: state.case.dataToConfirm,
     dataToGenerate: state.case.dataToGenerate,
     language: state.ui.language,
-    generatingCase: state.loading.generatingCase
+    generatingCase: state.loading.generatingCase,
+    p6000data : state.p6000.data
   }
 }
 
@@ -62,9 +64,14 @@ class ConfirmCase extends Component {
   }
 
   onForwardButtonClick () {
-    const { actions, dataToConfirm } = this.props
+    const { actions, dataToConfirm, p6000data } = this.props
 
-    actions.generateData(dataToConfirm)
+    let data = Object.assign({}, dataToConfirm)
+
+    if (dataToConfirm.sed === 'P6000') {
+      data.P6000 = Object.assign({}, p6000data)
+    }
+    actions.generateData(data)
   }
 
   render () {
@@ -83,11 +90,8 @@ class ConfirmCase extends Component {
       history={history}
       location={location}>
       <div className='fieldset animate'>
-        <Nav.Row>
-          <Nav.Column>
-            <RenderConfirmData dataToConfirm={dataToConfirm} />
-          </Nav.Column>
-        </Nav.Row>
+        <RenderConfirmData dataToConfirm={dataToConfirm} />
+        { dataToConfirm.sed === 'P6000' ? <P6000/> : null }
       </div>
       <Nav.Row className='mb-4 p-4'>
         <div className='col-md-6 mb-2'>
