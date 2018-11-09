@@ -11,9 +11,14 @@ export function login () {
 }
 
 export function logout () {
-  return {
-    type: types.APP_LOGOUT_REQUEST
-  }
+  return api.call({
+    url: urls.APP_LOGOUT_URL,
+    type: {
+      request: types.APP_LOGOUT_REQUEST,
+      success: types.APP_LOGOUT_SUCCESS,
+      failure: types.APP_LOGOUT_FAILURE
+    }
+  })
 }
 
 export function setLoginState (loggedIn) {

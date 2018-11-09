@@ -44,7 +44,7 @@ export default function (state = initialState, action = {}) {
       })
     }
 
-    case types.APP_LOGOUT_REQUEST: {
+    case types.APP_LOGOUT_SUCCESS: {
       return Object.assign({}, state, {
         loggedIn: false,
         username: undefined,

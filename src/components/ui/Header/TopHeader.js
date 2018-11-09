@@ -21,7 +21,8 @@ const mapStateToProps = (state) => {
   return {
     username: state.app.username,
     userRole: state.app.userRole,
-    gettingUserInfo: state.loading.gettingUserInfo
+    gettingUserInfo: state.loading.gettingUserInfo,
+    isLoggingOut: state.loading.isLoggingOut
   }
 }
 
@@ -31,7 +32,8 @@ const mapDispatchToProps = (dispatch) => {
 
 class TopHeader extends Component {
   state = {
-    isHovering: false
+    divHovering: false,
+    selectHovering: false
   }
 
   componentDidMount () {
@@ -42,12 +44,24 @@ class TopHeader extends Component {
     }
   }
 
-  onHandleMouseEnter () {
-    this.setState({ isHovering: true })
+  onHandleMouseEnter (what, e) {
+    e.stopPropagation()
+    if (what === 'div') {
+      this.setState({ divHovering: true })
+    }
+    if (what === 'select') {
+      this.setState({ selectHovering: true })
+    }
   }
 
-  onHandleMouseLeave () {
-    this.setState({ isHovering: false })
+  onHandleMouseLeave (what, e) {
+    e.stopPropagation()
+    if (what === 'div') {
+      this.setState({ divHovering: false })
+    }
+    if (what === 'select') {
+      this.setState({ selectHovering: false })
+    }
   }
 
   onLogoClick () {
@@ -70,7 +84,8 @@ class TopHeader extends Component {
   }
 
   render () {
-    let { t, username, userRole, gettingUserInfo } = this.props
+    let { t, username, userRole, gettingUserInfo, isLoggingOut } = this.props
+    let { divHovering } = this.state
 
     return <header className='c-ui-topHeader'>
       <div className='brand'>
@@ -81,13 +96,18 @@ class TopHeader extends Component {
         <div className='tittel'><span>{t('app-headerTitle')}</span></div>
       </div>
       <div className='user'>
-        {userRole ? <div title={userRole} className={classNames('mr-2', userRole)}><Icons kind='user' /></div> : null}
+        {userRole ? <div title={userRole} className={classNames('mr-2', userRole)}><Icons kind='user' /></div> :
+        isLoggingOut ? <Nav.NavFrontendSpinner type='XS' /> : null}
         <div className='mr-4 name'
-          onMouseEnter={this.onHandleMouseEnter.bind(this)}
-          onMouseLeave={this.onHandleMouseLeave.bind(this)}>
+          onMouseEnter={this.onHandleMouseEnter.bind(this, 'div')}
+          onMouseLeave={this.onHandleMouseLeave.bind(this, 'div')}>
           {gettingUserInfo ? t('case:loading-gettingUserInfo')
-            : username ? this.state.isHovering
-              ? <Nav.Select className='username-select' label={''} value={username} onChange={this.onUsernameSelectRequest.bind(this)}>
+            : username ?
+              divHovering ?
+              <Nav.Select className='username-select' label={''} value={username}
+                onMouseEnter={this.onHandleMouseEnter.bind(this, 'select')}
+                onMouseLeave={this.onHandleMouseLeave.bind(this, 'select')}
+                onChange={this.onUsernameSelectRequest.bind(this)}>
                 <option value=''>{username}</option>
                 <option value='logout'>{t('logout')}</option>
               </Nav.Select>
