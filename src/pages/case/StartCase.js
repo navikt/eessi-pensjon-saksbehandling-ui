@@ -59,10 +59,19 @@ class StartCase extends Component {
       _sed: undefined,
       _vedtakId: undefined,
 
-      institutions: [],
+      institutions: undefined,
       country: undefined,
       validation: {}
     };
+
+    static getDerivedStateFromProps(newProps, oldState) {
+        return {
+            _subjectArea: oldState._subjectArea || (newProps.dataToConfirm ? newProps.dataToConfirm.subjectArea : undefined),
+            _buc: oldState._buc || (newProps.dataToConfirm ? newProps.dataToConfirm.buc : undefined),
+            _sed: oldState._sed || (newProps.dataToConfirm ? newProps.dataToConfirm.sed : undefined),
+            institutions: oldState.institutions || (newProps.dataToConfirm ? newProps.dataToConfirm.institutions : [])
+        }
+    }
 
     async componentDidMount () {
       const { actions, currentCase, dataToConfirm, sakId, aktoerId, fnr, rinaId } = this.props
@@ -85,15 +94,7 @@ class StartCase extends Component {
 
       // come from a goBack() navigation
       if (dataToConfirm) {
-        this.setState({
-          institutions: dataToConfirm.institutions,
-          _buc: dataToConfirm.buc,
-          _sed: dataToConfirm.sed,
-          _subjectArea: dataToConfirm.subjectArea,
-          _vedtakId: dataToConfirm.vedtakId
-        }, () => {
-          actions.cleanDataToConfirm()
-        })
+        actions.cleanDataToConfirm()
       }
     }
 
@@ -101,6 +102,7 @@ class StartCase extends Component {
       const { history, loading, sed, currentCase, dataToConfirm, institutionList, bucList,
         subjectAreaList, countryList, actions, sakId, aktoerId, fnr, rinaId } = this.props
 
+      // comes from a Forward
       if (dataToConfirm) {
         history.push(routes.CASE_CONFIRM)
         return
@@ -264,7 +266,8 @@ class StartCase extends Component {
 
     onCreateInstitutionButtonClick () {
       const { institutions, institution, country } = this.state
-      let _institutions = _.cloneDeep(institutions)
+
+      let _institutions = (!institutions? [] : _.cloneDeep(institutions))
 
       _institutions.push({
         institution: institution,
