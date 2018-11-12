@@ -31,7 +31,7 @@ class SaveCase extends Component {
     state = {};
 
     componentDidMount () {
-      let { history, actions, dataSaved } = this.props
+      let { history, actions, dataSaved, dataSent } = this.props
 
       if (!dataSaved) {
         history.push(routes.CASE_START)
@@ -62,7 +62,6 @@ class SaveCase extends Component {
     onBackButtonClick () {
       const { history, actions } = this.props
 
-      actions.cleanDataSaved()
       history.goBack()
     }
 

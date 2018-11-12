@@ -29,7 +29,7 @@ const mapDispatchToProps = (dispatch) => {
 
 class ConfirmCase extends Component {
   componentDidMount () {
-    let { history, actions, dataToConfirm } = this.props
+    let { history, actions, dataToConfirm, dataToGenerate } = this.props
 
     if (!dataToConfirm) {
       history.push(routes.CASE_START)
@@ -41,6 +41,10 @@ class ConfirmCase extends Component {
         url: routes.CASE_CONFIRM,
         label: 'case:app-confirmCaseTitle'
       }])
+    }
+
+    if (dataToGenerate) {
+      actions.cleanDataToGenerate()
     }
   }
 
@@ -59,7 +63,6 @@ class ConfirmCase extends Component {
   onBackButtonClick () {
     const { history } = this.props
 
-    //actions.cleanDataToConfirm()
     history.goBack()
   }
 

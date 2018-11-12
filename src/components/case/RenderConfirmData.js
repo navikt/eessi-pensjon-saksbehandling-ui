@@ -28,7 +28,7 @@ class RenderConfirmData extends Component {
         </React.Fragment> : null}
         <dt className='col-sm-4'><label>{t('case:form-institution')}</label></dt>
         <dd className='col-sm-8'>{dataToConfirm.institutions.map((inst, i) => {
-          return <div key={i} className='d-inline-block'>
+          return <div key={i}>
             <img src={'../../../../flags/' + inst.country + '.png'}
               style={{ width: 30, height: 20 }}
               alt={inst.country} />&nbsp; {inst.institution}
