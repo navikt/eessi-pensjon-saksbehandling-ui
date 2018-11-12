@@ -179,7 +179,7 @@ GenericEvent.propTypes = {
   event: PT.object.isRequired,
   eventIndex: PT.number,
   type: PT.string.isRequired,
-  mode: PT.string.isRequired,
+  mode: PT.string,
   actions: PT.object.isRequired,
   provideController: PT.func.isRequired,
   locale: PT.string.isRequired

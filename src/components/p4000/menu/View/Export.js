@@ -286,7 +286,7 @@ class Export extends Component {
           </div>
         </div>
         <div className='col-md-9'>
-          <Nav.TabsPure defaultAktiv={_.indexOf(['panel-content', 'panel-pdf'], tab)} onChange={this.onTabChange.bind(this)}>
+          <Nav.TabsPure onChange={this.onTabChange.bind(this)}>
             <Nav.TabsPure.Tab id='panel-content' aktiv={tab === 'panel-content'}>{t('content')}</Nav.TabsPure.Tab>
             <Nav.TabsPure.Tab id='panel-pdf' aktiv={tab === 'panel-pdf'}>{t('preview')}</Nav.TabsPure.Tab>
           </Nav.TabsPure>
