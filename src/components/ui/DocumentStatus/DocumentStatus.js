@@ -65,18 +65,38 @@ class DocumentStatus extends Component {
       currentDocument: undefined,
       documents: undefined,
       sed: undefined,
-      filter: 'all'
+      filter: 'all',
+      currentRinaId: null
     }
 
     static getDerivedStateFromProps (nextProps, prevState) {
       return {
-        documents: nextProps.documents ? sortStatusByDocs(nextProps.documents) : undefined
+        documents: nextProps.documents ? sortStatusByDocs(nextProps.documents) : undefined,
+
       }
     }
 
-    componentDidUpdate () {
-      const { actions, history } = this.props
-      const { sed } = this.state
+    componentDidMount() {
+
+       const { actions, rinaId } = this.props
+
+       // rinaId can be null
+       actions.getStatus(rinaId || '')
+       this.setState({
+         currentRinaId : rinaId
+       })
+    }
+
+    componentDidUpdate (nextProps) {
+      const { actions, history, rinaId } = this.props
+      const { sed, currentRinaId } = this.state
+
+      if (currentRinaId !== rinaId) {
+        actions.getStatus(rinaId)
+        this.setState({
+          currentRinaId : rinaId
+        })
+      }
 
       if (sed && sed.sed) {
         switch (sed.sed) {
@@ -198,6 +218,13 @@ class DocumentStatus extends Component {
     render () {
       const { t, className, gettingSED, gettingStatus } = this.props
       const { documents, currentDocument, filter } = this.state
+
+      if (gettingStatus) {
+        return <div className='w-100 text-center' style={{ minHeight: '110px' }}>
+            <Nav.NavFrontendSpinner />
+            <p>{gettingStatus ? t('loading-gettingStatus') : t('loading-gettingRinaCase')}</p>
+        </div>
+      }
 
       return <div className={classNames('c-ui-documentStatus', {
         collapsed: !currentDocument,

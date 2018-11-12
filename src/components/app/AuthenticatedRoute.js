@@ -67,21 +67,12 @@ class AuthenticatedRoute extends Component {
     let idtoken = cookies.get('eessipensjon-idtoken-public')
     actions.setLoginState(idtoken === 'logged')
 
-    let newParams = this.parseSearchParams()
+    this.parseSearchParams()
 
-    // trigger whether there is a rinaId or not
-    actions.getStatus(newParams.rinaId)
-    // actions.getCase(rinaIdFromParam)
   }
 
   componentDidUpdate () {
-    const { actions } = this.props
-
-    let newParams = this.parseSearchParams()
-
-    if (newParams.rinaId) {
-      actions.getStatus(newParams.rinaId)
-    }
+    this.parseSearchParams()
   }
 
   hasApprovedRole () {
