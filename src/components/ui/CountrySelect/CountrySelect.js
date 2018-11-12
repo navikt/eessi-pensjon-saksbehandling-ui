@@ -41,11 +41,11 @@ class CountrySelect extends Component {
       let options = (list ? this.filter(list, optionList) : optionList)
       let defValue = value
       if (defValue && !defValue.label) {
-        defValue = _.find(options, { value: defValue.value })
+        defValue = _.find(options, { value: defValue.value ? defValue.value : defValue })
       }
       return <div className={classNames('c-ui-countrySelect', className)}>
         <Select placeholder={t('ui:searchCountry')}
-          value={defValue}
+          value={defValue || null}
           options={options}
           id={this.props.id}
           components={{
@@ -77,7 +77,7 @@ class CountrySelect extends Component {
 }
 CountrySelect.propTypes = {
   onSelect: PT.func.isRequired,
-  value: PT.object.isRequired,
+  value: PT.oneOfType([PT.object, PT.string]).isRequired,
   t: PT.func.isRequired,
   locale: PT.string.isRequired,
   style: PT.object,

@@ -60,6 +60,7 @@ class StartCase extends Component {
       _vedtakId: undefined,
 
       institutions: [],
+      country: undefined,
       validation: {}
     };
 
@@ -409,7 +410,8 @@ class StartCase extends Component {
     }
 
     renderCountry () {
-      const { t, countryList, country, locale } = this.props
+      const { t, countryList, locale } = this.props
+      const { country } = this.state
 
       return <div className='mb-3'>
         <label className='skjemaelement__label'>{t('ui:country')}</label>
@@ -426,7 +428,7 @@ class StartCase extends Component {
 
       return <Nav.Select className='institutionList' bredde='xxl'
         feil={validation.institutionFail ? { feilmelding: validation.institutionFail } : null}
-        label={t('case:form-institution')} value={institution} onChange={this.onInstitutionChange.bind(this)}>
+        label={t('case:form-institution')} value={institution || defaultSelects.institution} onChange={this.onInstitutionChange.bind(this)}>
         {this.renderOptions(institutionList, 'institution')}
       </Nav.Select>
     }
@@ -437,7 +439,7 @@ class StartCase extends Component {
 
       return <Nav.Select className='bucList' bredde='fullbredde'
         feil={validation.bucFail ? { feilmelding: validation.bucFail } : null}
-        label={t('case:form-buc')} value={_buc} onChange={this.onBucChange.bind(this)}>
+        label={t('case:form-buc')} value={_buc || defaultSelects.buc} onChange={this.onBucChange.bind(this)}>
         {this.renderOptions(bucList, 'buc')}
       </Nav.Select>
     }
@@ -448,7 +450,7 @@ class StartCase extends Component {
 
       return <Nav.Select className='sedList' bredde='fullbredde'
         feil={validation.sedFail ? { feilmelding: validation.sedFail } : null}
-        disabled={!bucList} label={t('case:form-sed')} value={_sed} onChange={this.onSedChange.bind(this)}>
+        disabled={!bucList} label={t('case:form-sed')} value={_sed || defaultSelects.buc} onChange={this.onSedChange.bind(this)}>
         {this.renderOptions(sedList, 'sed')}
       </Nav.Select>
     }
