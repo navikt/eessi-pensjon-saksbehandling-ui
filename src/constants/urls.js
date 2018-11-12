@@ -38,7 +38,7 @@ export const CASE_SED_URL = FAG_URL + '/sed/%(rinaId)s/%(dokumentId)s'
 
 // Login
 export const APP_LOGIN_URL = window.location.protocol + '//' + window.location.hostname + '/login'
-export const APP_LOGOUT_URL = API_URL + '/logout'
+export const APP_LOGOUT_URL = window.location.protocol + '//' + window.location.hostname + '/logout'
 
 // PdfController
 export const PDF_GENERATE_URL = PDF_URL + '/generate'
