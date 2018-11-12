@@ -206,16 +206,19 @@ class DocumentStatus extends Component {
 
         <div className='documentTags'>
           <Nav.EtikettBase className={classNames('tags', { selected: filter === 'all' })}
-            type={filter === 'all' ? 'suksess' : 'info'}
-            onClick={this.setFilter.bind(this, 'all')}>{t('all')}</Nav.EtikettBase>
+            type={filter === 'all' ? 'suksess' : 'info'} onClick={this.setFilter.bind(this, 'all')}>
+            <a href='#all'>{t('all')}</a>
+          </Nav.EtikettBase>
           <Nav.EtikettBase className={classNames('tags', { selected: filter === 'sent' })}
-            type={filter === 'sent' ? 'suksess' : 'info'}
-            onClick={this.setFilter.bind(this, 'sent')}>{t('sent')}</Nav.EtikettBase>
+            type={filter === 'sent' ? 'suksess' : 'info'} onClick={this.setFilter.bind(this, 'sent')}>
+            <a href='#sent'>{t('sent')}</a></Nav.EtikettBase>
           <Nav.EtikettBase className={classNames('tags', { selected: filter === 'notsent' })}
-            type={filter === 'notsent' ? 'suksess' : 'info'}
-            onClick={this.setFilter.bind(this, 'notsent')}>{t('notSent')}</Nav.EtikettBase>
+            type={filter === 'notsent' ? 'suksess' : 'info'} onClick={this.setFilter.bind(this, 'notsent')}>
+            <a href='#notsent'>{t('notSent')}</a></Nav.EtikettBase>
           <div title={t('refresh')} className={classNames('refresh', { rotating: gettingStatus })}>
-            <Icons kind='refresh' onClick={this.refreshDocumentStatus.bind(this)} />
+            <a href='#refresh' onClick={this.refreshDocumentStatus.bind(this)}>
+              <Icons kind='refresh'/>
+            </a>
           </div>
         </div>
 
