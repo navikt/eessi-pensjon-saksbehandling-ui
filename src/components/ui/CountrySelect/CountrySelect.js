@@ -10,12 +10,7 @@ import CountryValue from './CountryValue'
 import CountryErrorStyle from './CountryErrorStyle'
 
 class CountrySelect extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      tag: this.props.value || null
-    }
-  }
+
 
     // Feels a bit hacky, but it works.
     // need to insert some props into the input component
@@ -27,11 +22,10 @@ class CountrySelect extends Component {
     );
 
     onChange (val) {
-      this.setState({ tag: val }, () => {
-        if (typeof this.props.onSelect === 'function') {
-          this.props.onSelect(val)
-        }
-      })
+      const { onSelect } = this.props
+      if (typeof onSelect === 'function') {
+        onSelect(val)
+      }
     }
 
     filter (selectedCountries, allCountries) {
@@ -45,7 +39,7 @@ class CountrySelect extends Component {
 
       let optionList = countries[locale]
       let options = (list ? this.filter(list, optionList) : optionList)
-      let defValue = this.state.tag || value
+      let defValue = value
       if (defValue && !defValue.label) {
         defValue = _.find(options, { value: defValue.value })
       }
@@ -83,7 +77,7 @@ class CountrySelect extends Component {
 }
 CountrySelect.propTypes = {
   onSelect: PT.func.isRequired,
-  value: PT.object,
+  value: PT.object.isRequired,
   t: PT.func.isRequired,
   locale: PT.string.isRequired,
   style: PT.object,
