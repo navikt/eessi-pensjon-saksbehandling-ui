@@ -23,7 +23,6 @@ docker:
 docker-push:
 	$(DOCKER) tag $(REGISTRY)/eessi-pensjon-frontend-ui $(REGISTRY)/eessi-pensjon-frontend-ui:$(VERSION)-fss
 	$(DOCKER) push $(REGISTRY)/eessi-pensjon-frontend-ui:$(VERSION)-fss
-
 	$(DOCKER) tag $(REGISTRY)/eessi-pensjon-frontend-ui $(REGISTRY)/eessi-pensjon-frontend-ui:$(VERSION)-sbs
 	$(DOCKER) push $(REGISTRY)/eessi-pensjon-frontend-ui:$(VERSION)-sbs
 
@@ -32,5 +31,5 @@ tag:
 	$(GIT) tag -a $(VERSION) -m "auto-tag from Makefile"
 
 manifest:
-	$(NAIS) upload --app eessi-pensjon-frontend-ui -v $(VERSION)-fss --file nais-fss.yaml
-	$(NAIS) upload --app eessi-pensjon-frontend-ui -v $(VERSION)-sbs --file nais-sbs.yaml
+	$(NAIS) upload --app eessi-pensjon-frontend-ui-fss -v $(VERSION)-fss --file nais-fss.yaml
+	$(NAIS) upload --app eessi-pensjon-frontend-ui-sbs -v $(VERSION)-sbs --file nais-sbs.yaml
