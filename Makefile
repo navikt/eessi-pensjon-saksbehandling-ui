@@ -23,8 +23,8 @@ docker-push:
 	$(DOCKER) tag $(REGISTRY)/eessi-pensjon-frontend-ui $(REGISTRY)/eessi-pensjon-frontend-ui:$(VERSION)-fss
 	$(DOCKER) push $(REGISTRY)/eessi-pensjon-frontend-ui:$(VERSION)-fss
 
-	$(DOCKER) tag $(REGISTRY)/eessi-pensjon-frontend-ui $(REGISTRY)/eessi-pensjon-frontend-ui:$(VERSION)-fss
-	$(DOCKER) push $(REGISTRY)/eessi-pensjon-frontend-ui:$(VERSION)-fss
+	$(DOCKER) tag $(REGISTRY)/eessi-pensjon-frontend-ui $(REGISTRY)/eessi-pensjon-frontend-ui:$(VERSION)-sbs
+	$(DOCKER) push $(REGISTRY)/eessi-pensjon-frontend-ui:$(VERSION)-sbs
 
 tag:
 	$(eval VERSION=$(shell echo $$(($(VERSION) + 1))))
