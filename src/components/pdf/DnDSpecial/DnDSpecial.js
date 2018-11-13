@@ -93,7 +93,7 @@ class DnDSpecial extends Component {
         onMouseEnter={this.onHandleMouseEnter.bind(this)}
         onMouseLeave={this.onHandleMouseLeave.bind(this)}>
         <Nav.HjelpetekstBase>{t('pdf:help-specials-pdf')}</Nav.HjelpetekstBase>
-        <Droppable isDropDisabled droppableId={'c-pdf-dndSpecial-droppable'} direction='horizontal'>
+        <Droppable droppableId={'c-pdf-dndSpecial-droppable'} direction='horizontal'>
 
           {(provided, snapshot) => (
 

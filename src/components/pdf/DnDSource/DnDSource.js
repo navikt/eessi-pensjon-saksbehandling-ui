@@ -27,7 +27,8 @@ const mapDispatchToProps = (dispatch) => {
 
 class DnDSource extends Component {
     state = {
-      isHovering: false
+      isHovering: false,
+      isFocused: false
     }
 
     onHandleMouseEnter () {
@@ -67,8 +68,17 @@ class DnDSource extends Component {
       }
     }
 
+     onHandleFocus (key) {
+       this.setState({ isFocused: key })
+     }
+
+     onHandleBlur (key) {
+       this.setState({ isFocused: undefined })
+     }
+
     render () {
       const { t, pdf, pageScale, recipe, dndTarget } = this.props
+      const { isHovering, isFocused } = this.state
 
       let selectedPages = []
 
@@ -76,13 +86,13 @@ class DnDSource extends Component {
         selectedPages = _.filter(recipe[dndTarget], { name: pdf.name })
       }
 
-      let addAllLink = this.state.isHovering ? <a href='#addAll' onClick={this.addAllPagesToTargetPdf.bind(this, pdf.name)}>{t('ui:addAll')}</a> : null
+      let addAllLink = isHovering ? <a href='#addAll' onClick={this.addAllPagesToTargetPdf.bind(this, pdf.name)}>{t('ui:addAll')}</a> : null
 
       return <div className='c-pdf-dndSource position-relative'
         onMouseEnter={this.onHandleMouseEnter.bind(this)}
         onMouseLeave={this.onHandleMouseLeave.bind(this)}>
 
-        <Droppable isDropDisabled droppableId={'c-pdf-dndSource-droppable-' + pdf.name} direction='horizontal'>
+        <Droppable  droppableId={'c-pdf-dndSource-droppable-' + pdf.name} direction='horizontal'>
 
           {(provided, snapshot) => (
 
@@ -96,12 +106,13 @@ class DnDSource extends Component {
                 }
                 let key = pdf.name + '-' + pageNumber
                 return <Draggable key={key} draggableId={key} index={pageNumber}>
-
                   {(provided, snapshot) => (
                     <div className={classNames('c-pdf-dndSource-draggable', { dragging: snapshot.isDragging })}
                       ref={provided.innerRef}
                       {...provided.draggableProps}
-                      {...provided.dragHandleProps}>
+                      {...provided.dragHandleProps}
+                      onFocus={this.onHandleFocus.bind(this, key)}
+                      onBlur={this.onHandleBlur.bind(this, key)}>
                       <PageInDnD
                         className={classNames({ 'c-pdf-dndSource-draggable-active': snapshot.isDragging })}
                         style={{
@@ -110,6 +121,7 @@ class DnDSource extends Component {
                         }}
                         file={pdf}
                         pageNumber={pageNumber}
+                        isFocused={isFocused === key}
                         action='add' />
                     </div>
                   )}
