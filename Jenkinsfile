@@ -45,8 +45,8 @@ node {
                     job       : 'nais-deploy-pipeline',
                     wait      : true,
                     parameters: [
-                            string(name: 'APP', value: "eessi-pensjon-frontend-ui"),
-                            string(name: 'REPO', value: "navikt/eessi-pensjon-frontend-ui"),
+                            string(name: 'APP', value: "eessi-pensjon-frontend-ui-fss"),
+                            string(name: 'REPO', value: "navikt/eessi-pensjon-frontend-ui-fss"),
                             string(name: 'VERSION', value: "${version}-fss"),
                             string(name: 'DEPLOY_REF', value: "${version}-fss"),
                             string(name: 'DEPLOY_ENV', value: 't8'),
@@ -62,8 +62,8 @@ node {
                 job       : 'nais-deploy-pipeline',
                 wait      : true,
                 parameters: [
-                    string(name: 'APP', value: "eessi-pensjon-frontend-ui"),
-                    string(name: 'REPO', value: "navikt/eessi-pensjon-frontend-ui"),
+                    string(name: 'APP', value: "eessi-pensjon-frontend-ui-sbs"),
+                    string(name: 'REPO', value: "navikt/eessi-pensjon-frontend-ui-sbs"),
                     string(name: 'VERSION', value: "${version}-sbs"),
                     string(name: 'DEPLOY_REF', value: "${version}-sbs"),
                     string(name: 'DEPLOY_ENV', value: 't8'),
