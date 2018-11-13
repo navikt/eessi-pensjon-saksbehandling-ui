@@ -1,0 +1,47 @@
+name: eessi-pensjon-frontend-ui
+image: repo.adeo.no:5443/eessi-pensjon-frontend-ui
+team: eessi-pensjon
+
+replicas:
+    min: 1
+    max: 1
+    cpuThresholdPercentage: 50
+
+prometheus:
+    enabled: false
+
+port: 8080
+
+healthcheck:
+    liveness:
+        initialDelay: 30
+        path: /internal/isalive
+    readiness:
+        initialDelay: 30
+        path: /internal/isready
+
+resources:
+    limits:
+        cpu: 1
+        memory: 512Mi
+    requests:
+        cpu: 100m
+        memory: 256Mi
+
+ingress:
+    enabled: true
+
+fasitResources:
+    used:
+
+    - alias: EessiPensjonFrontendApi_v1
+      resourceType: RestService
+
+    - alias: loadbalancer:pensjon-utland
+      resourceType: LoadBalancerConfig
+
+    exposed:
+
+    - alias: EessiPensjonFrontend
+      resourceType: RestService
+      path: /
