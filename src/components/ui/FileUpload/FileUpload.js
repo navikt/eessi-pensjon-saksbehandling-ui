@@ -207,6 +207,7 @@ class FileUpload extends Component {
     render () {
       const { t, accept, className, fileUploadDroppableId } = this.props
       const { files, currentPages, status } = this.state
+      const tabIndex = this.props.tabIndex ? { tabIndex: this.props.tabIndex } : {}
 
       return <div className='c-ui-fileUpload'>
         <Droppable droppableId={fileUploadDroppableId} direction='horizontal'>
@@ -214,7 +215,8 @@ class FileUpload extends Component {
           {(provided, snapshot) => (
 
             <Dropzone className={classNames('dropzone', 'p-2', className)} length={this.state.files.length}
-              activeClassName='dropzone-active' accept={accept} onDrop={this.onDrop.bind(this)} inputProps={{ ...this.props.inputProps }}>
+              activeClassName='dropzone-active' accept={accept} onDrop={this.onDrop.bind(this)} inputProps={{ ...this.props.inputProps }}
+              {...tabIndex}>
 
               <div ref={provided.innerRef} className={classNames('droppable-zone', { 'droppable-zone-active ': snapshot.isDraggingOver })}>
 

@@ -86,6 +86,7 @@
     "validation-noUserEmail" : "No user email",
     "validation-invalidUserEmail" : "Invalid user email",
     "validation-noUserPhone" : "No phone number",
+    "validation-invalidUserPhone": "Invalid phone number",
     "validation-noTypePhone" : "No phone type",
     "validation-noWorkType" : "No work type",
     "validation-noWorkStartDate" : "No work start date",

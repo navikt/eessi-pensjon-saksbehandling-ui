@@ -51,7 +51,7 @@ class Breadcrumbs extends Component {
         </div>
       }) : null}
       <div style={{ position: 'absolute', right: '2rem' }}>
-        <a href='mailto:Nuno.Cardoso@nav.no'>{t('ui:giveFeedback')}</a>
+        <a href='mailto:eessipensjon@nav.no'>{t('ui:giveFeedback')}</a>
       </div>
     </div>
   }

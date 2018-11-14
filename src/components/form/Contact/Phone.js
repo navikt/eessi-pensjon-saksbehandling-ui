@@ -1,69 +1,87 @@
 import React from 'react'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import * as Nav from '../../ui/Nav'
-import { removePhone, setPhone } from '../../../actions/pinfo'
-
-const Phone = (props) => {
-  return <div className='col-md-12'>
-    <Nav.Row className='col-md-12'>
-      <div className='col-md-6'>
-        <Nav.Input
-          onInvalid={() => { props.displayErrorOn() }}
-          required={!props.displayErrorToggle}
-          bredde='fullbredde'
-          label={props.t('pinfo:form-userPhone') + ' *'}
-          value={props.nummer || ''}
-          onChange={props.setPhoneNumber}
-          type='tel'
-          feil={props.numberError ? { feilmelding: props.numberErrorMessage } : null}
-        />
-      </div>
-      <div className='col-md-4'>
-
-        <Nav.Select
-          required={!props.displayErrorToggle}
-          label={props.t('pinfo:form-userPhoneType')}
-          value={props.type || ''}
-          onChange={props.setPhoneType}
-          feil={props.typeError ? { feilmelding: props.typeErrorMessage } : null}
-        >
-          <option value=''>{props.t('pinfo:form-userPhoneTypeNone')}</option>
-          <option value={'home'}>{props.t('pinfo:form-userPhoneTypeHome')}</option>
-          <option value={'mobile'}>{props.t('pinfo:form-userPhoneTypeMobile')}</option>
-          <option value={'work'}>{props.t('pinfo:form-userPhoneTypeWork')}</option>
-        </Nav.Select>
-      </div>
-      <div className='col-md-2'>
-        <Nav.Lukknapp type='button' onClick={props.numberOfSiblings === 0 ? props.clearPhone : props.removePhone} >
-          {props.t('pinfo:form-userPhoneRemove')}
-        </Nav.Lukknapp>
-      </div>
-    </Nav.Row>
-  </div>
-}
+import * as pinfoActions from '../../../actions/pinfo'
 
 const mapStateToProps = (state, ownProps) => {
   return {
     locale: state.ui.locale,
-    nummer: state.pinfo.form.contact.phone[ownProps.uuid].nummer,
-    type: state.pinfo.form.contact.phone[ownProps.uuid].type
+    phone: state.pinfo.form.contact.phone[ownProps.uuid]
   }
 }
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    removePhone: () => { dispatch(removePhone(ownProps.uuid)) },
-    setPhoneNumber: (e) => { dispatch(setPhone(ownProps.uuid, { nummer: e.target.value })) },
-    setPhoneType: (e) => { dispatch(setPhone(ownProps.uuid, { type: e.target.value })) },
-    clearPhone: () => { dispatch(setPhone(ownProps.uuid, { type: null, nummer: null })) }
-  }
+const mapDispatchToProps = (dispatch) => {
+  return { actions: bindActionCreators({ ...pinfoActions }, dispatch) }
+}
+function removePhone () {
+  this.props.actions.removePhone(this.props.uuid)
+}
+function setPhoneNumber (event) {
+  this.props.actions.setPhone(this.props.uuid, { number: event.target.value })
+}
+function setPhoneType (event) {
+  this.props.actions.setPhone(this.props.uuid, { type: event.target.value })
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Phone)
+class Phone extends React.Component {
+  constructor (props) {
+    super(props)
+    this.removePhone = removePhone.bind(this)
+    this.setPhoneNumber = setPhoneNumber.bind(this)
+    this.setPhoneType = setPhoneType.bind(this)
+  }
+  render () {
+    const props = this.props
+    const numberError = props.testPhoneNumber(props.phone, props.t)
+    const typeError = props.testPhoneType(props.phone, props.t)
+    return (
+      <Nav.Row className='col-md-12'>
+        <div className='col-md-7 col-xs-5'>
+          <Nav.Input
+            onInvalid={props.displayErrorSwitch.on}
+            required={props.required || false}
+            bredde='fullbredde'
+            label={props.t('pinfo:form-userPhone') + ' *'}
+            value={props.phone.number || ''}
+            onChange={this.setPhoneNumber}
+            type='tel'
+            feil={props.displayError && numberError ? { feilmelding: numberError } : null}
+          />
+        </div>
+        <div className='col-md-4 col-xs-5' >
+          <Nav.Select
+            required={props.required || false}
+            label={props.t('pinfo:form-userPhoneType')}
+            value={props.phone.type || ''}
+            onChange={this.setPhoneType}
+            feil={props.displayError && typeError ? { feilmelding: typeError } : null}
+          >
+            <option value=''>{props.t('pinfo:form-userPhoneTypeNone')}</option>
+            <option value={'home'}>{props.t('pinfo:form-userPhoneTypeHome')}</option>
+            <option value={'mobile'}>{props.t('pinfo:form-userPhoneTypeMobile')}</option>
+            <option value={'work'}>{props.t('pinfo:form-userPhoneTypeWork')}</option>
+          </Nav.Select>
+        </div>
+        <div className='col-md-1 col-xs-2'>
+          {props.numberOfSiblings > 0
+            ? <div className='row'>
+              <Nav.Lukknapp type='button' className='Contact-button' onClick={this.removePhone}>
+                {props.t('pinfo:form-userPhoneRemove')}
+              </Nav.Lukknapp>
+            </div>
+            : null
+          }
+        </div>
+      </Nav.Row>
+    )
+  }
+}
 
 Phone.propTypes = {
-  nummer: PT.string,
+  phone: PT.object,
   type: PT.string,
   t: PT.func
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Phone)

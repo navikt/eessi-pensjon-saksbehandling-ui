@@ -9,7 +9,10 @@ let initialState = {
     contact: {
       phone: {},
       email: {}
-    }
+    },
+    bank: {},
+    workIncome: {},
+    pension: {}
   }
 }
 
@@ -87,6 +90,26 @@ export default function (state = initialState, action = {}) {
           ...state.form,
           workIncome: {
             ...state.form.workIncome,
+            ...action.payload
+          } } }
+
+    case types.PINFO_EVENT_SET_BANK:
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          bank: {
+            ...state.form.bank,
+            ...action.payload
+          } } }
+
+    case types.PINFO_EVENT_SET_PENSION:
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          pension: {
+            ...state.form.pension,
             ...action.payload
           } } }
 

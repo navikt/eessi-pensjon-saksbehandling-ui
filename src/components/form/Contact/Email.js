@@ -1,53 +1,68 @@
 import React from 'react'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import * as Nav from '../../ui/Nav'
-import { removeEmail, setEmail } from '../../../actions/pinfo'
-
-const Email = (props) => {
-  return (
-    <div className='col-md-12'>
-      <Nav.Row className='col-md-12'>
-        <div className='col-md-6'>
-          <Nav.Input
-            type='email'
-            required={!props.displayErrorToggle}
-            bredde='fullbredde'
-            label={props.t('pinfo:form-userEmail') + ' *'}
-            value={props.address || ''}
-            onChange={props.setEmail}
-            onInvalid={() => { props.displayErrorOn() }}
-            feil={props.error ? { feilmelding: props.errorMessage } : null}
-          />
-        </div>
-        <div className='col-md-2'>
-          <Nav.Lukknapp type='button' onClick={props.numberOfSiblings === 0 ? props.clearEmail : props.removeEmail}>
-            {props.t('pinfo:form-userEmailRemove')}
-          </Nav.Lukknapp>
-        </div>
-      </Nav.Row>
-    </div>
-  )
-}
+import * as pinfoActions from '../../../actions/pinfo'
 
 const mapStateToProps = (state, ownProps) => {
   return {
     locale: state.ui.locale,
-    address: state.pinfo.form.contact.email[ownProps.uuid].adresse
+    email: state.pinfo.form.contact.email[ownProps.uuid],
+    address: state.pinfo.form.contact.email[ownProps.uuid].address
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    removeEmail: () => { dispatch(removeEmail(ownProps.uuid)) },
-    setEmail: (e) => { dispatch(setEmail(ownProps.uuid, { adresse: e.target.value })) },
-    clearEmail: () => { dispatch(setEmail(ownProps.uuid, { adresse: null })) }
-  }
+const mapDispatchToProps = (dispatch) => {
+  return { actions: bindActionCreators({ ...pinfoActions }, dispatch) }
+}
+function removeEmail () {
+  this.props.actions.removeEmail(this.props.uuid)
+}
+function setEmail (event) {
+  this.props.actions.setEmail(this.props.uuid, { address: event.target.value })
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Email)
+class Email extends React.Component {
+  constructor (props) {
+    super(props)
+    this.removeEmail = removeEmail.bind(this)
+    this.setEmail = setEmail.bind(this)
+  }
+
+  render () {
+    const props = this.props
+    const addressError = props.testEmail(props.email, props.t)
+    return (
+      <Nav.Row className='col-md-12'>
+        <div className='col-md-11 col-xs-10'>
+          <Nav.Input
+            type='email'
+            required={props.required || false}
+            bredde='fullbredde'
+            label={props.t('pinfo:form-userEmail') + ' *'}
+            value={props.address || ''}
+            onChange={this.setEmail}
+            onInvalid={props.displayErrorSwitch.on}
+            feil={props.displayError && addressError ? { feilmelding: addressError } : null}
+          />
+        </div>
+        <div className='col-md-1 col-xs-2'>
+          {props.numberOfSiblings > 0
+            ? <Nav.Lukknapp className='Contact-button' type='button' onClick={this.removeEmail}>
+              {props.t('pinfo:form-userEmailRemove')}
+            </Nav.Lukknapp>
+            : null
+          }
+        </div>
+      </Nav.Row>
+    )
+  }
+}
 
 Email.propTypes = {
   address: PT.string,
   t: PT.func
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Email)

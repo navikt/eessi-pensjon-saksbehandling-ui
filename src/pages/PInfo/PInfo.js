@@ -97,9 +97,9 @@ class PInfo extends React.Component {
     return (<TopContainer className='p-pInfo'
       history={props.history} location={props.location}
       sideContent={<FrontPageDrawer t={props.t} status={props.status} />}>
-      <Nav.Row className='mb-4'>
+      <Nav.Row className='mb-0'>
         <Nav.Column>
-          <Nav.Tabs onChange={(e, i) => setStep(props, i)}
+          <Nav.Tabs onChange={(e, i) => setStep(props, i)} className='mt-0 ml-3 mr-3 mb-0'
             defaultAktiv={props.form.step}
             tabs={_.range(0, 6).map(index => ({
               label: props.t('pinfo:form-step' + index)
@@ -112,17 +112,12 @@ class PInfo extends React.Component {
       <div className={classNames('fieldset animate', 'mb-4')}>
         {props.form.step === 0
           ? <form id='pinfo-form'>
-            <Bank
-              t={props.t}
-              action={setValue.bind(null, props)}
-            />
+            <Bank />
           </form>
           : null}
         {props.form.step === 1
           ? <form id='pinfo-form'>
-            <Contact
-              t={props.t}
-            />
+            <Contact />
           </form>
           : null
         }

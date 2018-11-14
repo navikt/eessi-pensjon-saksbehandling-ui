@@ -9,17 +9,19 @@ export function setEventProperty (payload) {
 }
 
 export function newPhone () {
+  let key = uuidv4()
   return {
     type: types.PINFO_EVENT_SET_PHONE,
-    key: uuidv4(),
-    payload: { nummer: null, type: null }
+    key: key,
+    payload: { key: key, number: null, type: null }
   }
 }
 export function newEmail () {
+  let key = uuidv4()
   return {
     type: types.PINFO_EVENT_SET_EMAIL,
-    key: uuidv4(),
-    payload: { adresse: null }
+    key: key,
+    payload: { key: key, address: null }
   }
 }
 
@@ -56,6 +58,20 @@ export function removeEmail (key) {
 export function setWorkIncome (payload) {
   return {
     type: types.PINFO_EVENT_SET_WORKINCOME,
+    payload: payload instanceof Object ? payload : {}
+  }
+}
+
+export function setBank (payload) {
+  return {
+    type: types.PINFO_EVENT_SET_BANK,
+    payload: payload instanceof Object ? payload : {}
+  }
+}
+
+export function setPension (payload) {
+  return {
+    type: types.PINFO_EVENT_SET_PENSION,
     payload: payload instanceof Object ? payload : {}
   }
 }

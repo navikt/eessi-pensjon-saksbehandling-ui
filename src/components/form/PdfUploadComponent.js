@@ -101,41 +101,50 @@ class PdfUploadComponent extends React.Component {
     let requiredFileUpload = this.state.Checkboxes.active && !this.state.FileUpload.showError
     let checkboxError = this.state.Checkboxes.error ? { feil: { feilmelding: this.state.Checkboxes.errorMessage } } : null
     let fileUploadError = this.state.FileUpload.error ? { feil: { feilmelding: this.state.FileUpload.errorMessage } } : null
-    return <Nav.SkjemaGruppe>
-      <Nav.Row>
-        <div className='col-md-6'>
-          <CheckboxesWithValidation legend={this.props.t('pinfo:form-attachmentTypes')}
-            checkboxes={this.props.checkboxes.map(e => (
-              {
-                ...e,
-                inputProps: {
-                  ...e.inputProps,
-                  required: requiredCheckbox,
-                  onInvalid: this.onInvalid.bind(this, 'Checkboxes')
-                }
-              }
-            ))}
-            active={this.active.bind(this, 'Checkboxes')}
-            inactive={this.inactive.bind(this, 'Checkboxes')}
-            action={this.props.checkboxAction}
-            {...checkboxError}
-          />
-        </div>
-      </Nav.Row>
-      <Nav.SkjemaGruppe {...fileUploadError}>
-        <FileUpload t={this.props.t} ref={f => { this.fileUpload = f }}
-          fileUploadDroppableId={'pdfUploadComponent'}
-          files={this.props.files || []}
-          active={this.active.bind(this, 'FileUpload')}
-          inactive={this.inactive.bind(this, 'FileUpload')}
-          inputProps={{
-            required: requiredFileUpload,
-            onInvalid: this.onInvalid.bind(this, 'FileUpload')
-          }}
-          action={this.props.fileUploadAction}
-        />
-      </Nav.SkjemaGruppe>
-    </Nav.SkjemaGruppe>
+    return (
+      <fieldset>
+        <legend>{this.props.t('pinfo:form-attachments')}</legend>
+        <Nav.SkjemaGruppe className='pinfo-fileupload-SkjemaGruppe'>
+          <Nav.Row>
+            <div className='col-md-12'>
+              <CheckboxesWithValidation legend={this.props.t('pinfo:form-attachmentTypes')}
+                checkboxes={this.props.checkboxes.map(e => (
+                  {
+                    ...e,
+                    inputProps: {
+                      ...e.inputProps,
+                      required: requiredCheckbox,
+                      onInvalid: this.onInvalid.bind(this, 'Checkboxes')
+                    }
+                  }
+                ))}
+                active={this.active.bind(this, 'Checkboxes')}
+                inactive={this.inactive.bind(this, 'Checkboxes')}
+                action={this.props.checkboxAction}
+                {...checkboxError}
+              />
+            </div>
+          </Nav.Row>
+          <Nav.SkjemaGruppe {...fileUploadError}>
+            <div className='pinfo-fileupload'>
+              <FileUpload
+                t={this.props.t} ref={f => { this.fileUpload = f }}
+                fileUploadDroppableId={'pdfUploadComponent'}
+                files={this.props.files || []}
+                active={this.active.bind(this, 'FileUpload')}
+                inactive={this.inactive.bind(this, 'FileUpload')}
+                inputProps={{
+                  required: requiredFileUpload,
+                  onInvalid: this.onInvalid.bind(this, 'FileUpload')
+                }}
+                action={this.props.fileUploadAction}
+                tabIndex='0'
+              />
+            </div>
+          </Nav.SkjemaGruppe>
+        </Nav.SkjemaGruppe>
+      </fieldset>
+    )
   }
 }
 
