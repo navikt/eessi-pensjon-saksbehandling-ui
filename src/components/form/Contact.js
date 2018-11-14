@@ -11,7 +11,6 @@ const errorMessages = {
   userPhone: { patternMismatch: 'patternMismatch', valueMissing: 'valueMissing' }
 }
 
-// TODO ADD OWNPROP PATH PROP FOR LODASH PICK?
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
