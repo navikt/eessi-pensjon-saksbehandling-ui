@@ -42,6 +42,6 @@ fasitResources:
 
     exposed:
 
-    - alias: EessiPensjonFrontend
+    - alias: EessiPensjonFrontendSbs
       resourceType: RestService
       path: /
