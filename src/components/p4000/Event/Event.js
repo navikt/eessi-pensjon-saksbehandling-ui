@@ -3,11 +3,11 @@ import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import classNames from 'classnames'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import _ from 'lodash'
 
 import * as p4000Actions from '../../../actions/p4000'
-
+import { renderDate } from '../../../utils/Date'
 import Icons from '../../ui/Icons'
 import * as Nav from '../../ui/Nav'
 
@@ -18,16 +18,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class Event extends Component {
-  renderDate (date) {
-    const { t } = this.props
-    if (!date) {
-      return t('ui:unknown')
-    }
-    let mm = date.getMonth() + 1 // getMonth() is zero-based
-    let dd = date.getDate()
-    return [date.getFullYear(), (mm > 9 ? '' : '0') + mm, (dd > 9 ? '' : '0') + dd].join('.')
-  }
-
   render () {
     const { t, event, selected, onClick, mode } = this.props
 
@@ -39,8 +29,8 @@ class Event extends Component {
         </div> : null}
         <Icons className='badgeIcon' size={'lg'} kind={event.type} />
         <div className='badgeDate'>
-          <div>{this.renderDate(event.startDate)}</div>
-          <div>{this.renderDate(event.endDate)}</div>
+          <div>{renderDate(event.startDate, t)}</div>
+          <div>{renderDate(event.endDate, t)}</div>
         </div>
       </Nav.Hovedknapp>
     </div>
@@ -58,5 +48,5 @@ export default connect(
   null,
   mapDispatchToProps
 )(
-  translate()(Event)
+  withNamespaces()(Event)
 )

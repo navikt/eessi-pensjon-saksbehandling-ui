@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -69,7 +69,13 @@ class OpenFromFileButton extends Component {
         reader.readAsArrayBuffer(e.target.files[0])
         reader.onloadend = (e) => {
           let string = String.fromCharCode.apply(null, new Uint8Array(e.target.result))
-          let p4000 = P4000Util.readP4000FromString(string)
+          let p4000
+          try {
+            p4000 = P4000Util.readP4000FromString(string)
+          } catch (e) {
+            actions.openP4000Failure(e.message)
+            reject(e.message)
+          }
           if (typeof p4000 === 'string') {
             actions.openP4000Failure(p4000)
             reject(p4000)
@@ -121,5 +127,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(OpenFromFileButton)
+  withNamespaces()(OpenFromFileButton)
 )

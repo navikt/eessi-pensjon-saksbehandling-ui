@@ -2,7 +2,7 @@ import React from 'react'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import * as Nav from '../ui/Nav'
 import CountrySelect from '../ui/CountrySelect/CountrySelect'
 import * as pinfoActions from '../../actions/pinfo'
@@ -45,7 +45,7 @@ class Bank extends React.Component {
     this.setBankIban = eventSetProperty.bind(this, 'bankIban')
     this.setBankCode = eventSetProperty.bind(this, 'bankCode')
     this.state = {
-      displayError: true
+      displayError: false
     }
     this.displayErrorSwitch = { on: displayErrorOn.bind(this), off: displayErrorOff.bind(this) }
   }
@@ -122,7 +122,7 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(Bank)
+  withNamespaces()(Bank)
 )
 Bank.propTypes = {
   bank: PT.object,

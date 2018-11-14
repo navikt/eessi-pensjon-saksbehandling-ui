@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 
 import Case from './Case'
 import * as Nav from '../../components/ui/Nav'
@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch) => {
 
 class GenerateCase extends Component {
   componentDidMount () {
-    let { history, actions, dataToGenerate } = this.props
+    let { history, actions, dataToGenerate, dataSaved } = this.props
 
     if (!dataToGenerate) {
       history.push(routes.CASE_START)
@@ -39,6 +39,10 @@ class GenerateCase extends Component {
         url: routes.CASE_GENERATE,
         label: 'case:app-generateCaseTitle'
       }])
+    }
+
+    if (dataSaved) {
+        actions.cleanDataSaved()
     }
   }
 
@@ -57,7 +61,6 @@ class GenerateCase extends Component {
   onBackButtonClick () {
     const { history, actions } = this.props
 
-    actions.cleanDataToGenerate()
     history.goBack()
   }
 
@@ -134,5 +137,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(GenerateCase)
+  withNamespaces()(GenerateCase)
 )

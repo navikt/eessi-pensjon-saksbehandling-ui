@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 
 import Case from './Case'
 import * as Nav from '../../components/ui/Nav'
@@ -55,9 +55,23 @@ class StartCase extends Component {
       rinaId: undefined,
 
       _subjectArea: 'Pensjon',
-      institutions: [],
+      _buc: undefined,
+      _sed: undefined,
+      _vedtakId: undefined,
+
+      institutions: undefined,
+      country: undefined,
       validation: {}
     };
+
+    static getDerivedStateFromProps(newProps, oldState) {
+        return {
+            _subjectArea: oldState._subjectArea || (newProps.dataToConfirm ? newProps.dataToConfirm.subjectArea : undefined),
+            _buc: oldState._buc || (newProps.dataToConfirm ? newProps.dataToConfirm.buc : undefined),
+            _sed: oldState._sed || (newProps.dataToConfirm ? newProps.dataToConfirm.sed : undefined),
+            institutions: oldState.institutions || (newProps.dataToConfirm ? newProps.dataToConfirm.institutions : [])
+        }
+    }
 
     async componentDidMount () {
       const { actions, currentCase, dataToConfirm, sakId, aktoerId, fnr, rinaId } = this.props
@@ -80,14 +94,7 @@ class StartCase extends Component {
 
       // come from a goBack() navigation
       if (dataToConfirm) {
-        this.setState({
-          institutions: dataToConfirm.institutions,
-          _buc: dataToConfirm.buc,
-          _sed: dataToConfirm.sed,
-          _subjectArea: dataToConfirm.subjectArea
-        }, () => {
-          actions.cleanDataToConfirm()
-        })
+        actions.cleanDataToConfirm()
       }
     }
 
@@ -95,6 +102,7 @@ class StartCase extends Component {
       const { history, loading, sed, currentCase, dataToConfirm, institutionList, bucList,
         subjectAreaList, countryList, actions, sakId, aktoerId, fnr, rinaId } = this.props
 
+      // comes from a Forward
       if (dataToConfirm) {
         history.push(routes.CASE_CONFIRM)
         return
@@ -151,6 +159,12 @@ class StartCase extends Component {
       })
     }
 
+    onVedtakIdChange (e) {
+      this.setState({
+        _vedtakId: e.target.value.trim()
+      })
+    }
+
     onFetchCaseButtonClick () {
       const { actions } = this.props
       const { sakId, aktoerId, rinaId } = this.state
@@ -164,7 +178,7 @@ class StartCase extends Component {
 
     onForwardButtonClick () {
       const { actions, currentCase, buc, sed, vedtakId } = this.props
-      const { institutions, _buc, _sed, _subjectArea } = this.state
+      const { institutions, _buc, _sed, _subjectArea, _vedtakId } = this.state
 
       if (_subjectArea) {
         this.validateSubjectArea(_subjectArea)
@@ -179,14 +193,14 @@ class StartCase extends Component {
 
       if (this.noValidationErrors()) {
         actions.dataToConfirm({
-          institutions: institutions,
-          buc: buc || _buc,
-          sed: sed || _sed,
-          subjectArea: _subjectArea,
           sakId: currentCase.casenumber,
           aktoerId: currentCase.pinid,
           rinaId: currentCase.rinaid,
-          vedtakId: vedtakId
+          subjectArea: _subjectArea,
+          buc: buc || _buc,
+          sed: sed || _sed,
+          vedtakId: vedtakId || _vedtakId,
+          institutions: institutions
         })
       }
     }
@@ -252,7 +266,8 @@ class StartCase extends Component {
 
     onCreateInstitutionButtonClick () {
       const { institutions, institution, country } = this.state
-      let _institutions = _.cloneDeep(institutions)
+
+      let _institutions = (!institutions? [] : _.cloneDeep(institutions))
 
       _institutions.push({
         institution: institution,
@@ -369,7 +384,7 @@ class StartCase extends Component {
         if (typeof el === 'string') {
           return <option value={el} key={el}>{this.getOptionLabel(el)}</option>
         } else {
-          return <option value={el.key} key={el}>{this.getOptionLabel(el.value)}</option>
+          return <option value={el.key} key={el.key}>{this.getOptionLabel(el.value)}</option>
         }
       })
     }
@@ -398,7 +413,8 @@ class StartCase extends Component {
     }
 
     renderCountry () {
-      const { t, countryList, country, locale } = this.props
+      const { t, countryList, locale } = this.props
+      const { country } = this.state
 
       return <div className='mb-3'>
         <label className='skjemaelement__label'>{t('ui:country')}</label>
@@ -415,7 +431,7 @@ class StartCase extends Component {
 
       return <Nav.Select className='institutionList' bredde='xxl'
         feil={validation.institutionFail ? { feilmelding: validation.institutionFail } : null}
-        label={t('case:form-institution')} value={institution} onChange={this.onInstitutionChange.bind(this)}>
+        label={t('case:form-institution')} value={institution || defaultSelects.institution} onChange={this.onInstitutionChange.bind(this)}>
         {this.renderOptions(institutionList, 'institution')}
       </Nav.Select>
     }
@@ -426,7 +442,7 @@ class StartCase extends Component {
 
       return <Nav.Select className='bucList' bredde='fullbredde'
         feil={validation.bucFail ? { feilmelding: validation.bucFail } : null}
-        label={t('case:form-buc')} value={_buc} onChange={this.onBucChange.bind(this)}>
+        label={t('case:form-buc')} value={_buc || defaultSelects.buc} onChange={this.onBucChange.bind(this)}>
         {this.renderOptions(bucList, 'buc')}
       </Nav.Select>
     }
@@ -437,7 +453,7 @@ class StartCase extends Component {
 
       return <Nav.Select className='sedList' bredde='fullbredde'
         feil={validation.sedFail ? { feilmelding: validation.sedFail } : null}
-        disabled={!bucList} label={t('case:form-sed')} value={_sed} onChange={this.onSedChange.bind(this)}>
+        disabled={!bucList} label={t('case:form-sed')} value={_sed || defaultSelects.buc} onChange={this.onSedChange.bind(this)}>
         {this.renderOptions(sedList, 'sed')}
       </Nav.Select>
     }
@@ -524,8 +540,8 @@ class StartCase extends Component {
     }
 
     render () {
-      const { t, history, location, currentCase, loading, sed } = this.props
-      const { sakId, aktoerId, rinaId } = this.state
+      const { t, history, location, currentCase, loading, sed, vedtakId } = this.props
+      const { sakId, aktoerId, rinaId, _sed, _vedtakId } = this.state
 
       return <Case className='startCase'
         title={t('case:app-caseTitle') + ' - ' + t('case:app-startCaseTitle')}
@@ -543,16 +559,16 @@ class StartCase extends Component {
               <div className='fieldset animate'>
                 <Nav.Row>
                   <div className='col-md-6'>
-                    <Nav.HjelpetekstBase id='sakId'>{t('case:help-sakId')}</Nav.HjelpetekstBase>
-                    <Nav.Input className='getCaseInputSakId' label={t('case:form-sakId') + ' *'} value={sakId || ''} onChange={this.onSakIdChange.bind(this)} />
+                    <Nav.HjelpetekstBase tabIndex='2' id='sakId'>{t('case:help-sakId')}</Nav.HjelpetekstBase>
+                    <Nav.Input tabIndex='1' className='getCaseInputSakId' label={t('case:form-sakId') + ' *'} value={sakId || ''} onChange={this.onSakIdChange.bind(this)} />
                   </div>
                   <div className='col-md-6'>
-                    <Nav.HjelpetekstBase id='aktoerId'>{t('case:help-aktoerId')}</Nav.HjelpetekstBase>
-                    <Nav.Input className='getCaseInputAktoerId' label={t('case:form-aktoerId') + ' *'} value={aktoerId || ''} onChange={this.onAktoerIdChange.bind(this)} />
+                    <Nav.HjelpetekstBase tabIndex='2' id='aktoerId'>{t('case:help-aktoerId')}</Nav.HjelpetekstBase>
+                    <Nav.Input tabIndex='1' className='getCaseInputAktoerId' label={t('case:form-aktoerId') + ' *'} value={aktoerId || ''} onChange={this.onAktoerIdChange.bind(this)} />
                   </div>
                   <div className='col-md-6'>
-                    <Nav.HjelpetekstBase id='rinaId'>{t('case:help-rinaId')}</Nav.HjelpetekstBase>
-                    <Nav.Input className='getCaseInputRinaId' label={t('case:form-rinaId')} value={rinaId || ''} onChange={this.onRinaIdChange.bind(this)} />
+                    <Nav.HjelpetekstBase tabIndex='2' id='rinaId'>{t('case:help-rinaId')}</Nav.HjelpetekstBase>
+                    <Nav.Input tabIndex='1' className='getCaseInputRinaId' label={t('case:form-rinaId')} value={rinaId || ''} onChange={this.onRinaIdChange.bind(this)} />
                   </div>
                 </Nav.Row>
               </div>
@@ -581,7 +597,7 @@ class StartCase extends Component {
                     <Nav.HjelpetekstBase id='buc'>{t('case:help-buc')}</Nav.HjelpetekstBase>
                   </div>
                 </Nav.Row>
-                <Nav.Row className='align-middle text-left'>
+                <Nav.Row className='mb-3 align-middle text-left'>
                   <div className='col-md-8'>{this.renderSed()}</div>
                   <div className='col-md-4 selectBoxMessage'>
                     <div className='d-inline-block'>{loading && loading.sedList ? this.getSpinner('case:loading-sed') : null}</div>
@@ -593,6 +609,16 @@ class StartCase extends Component {
                   <h4>{t('sed')}{': '}{sed}</h4>
                 </div>
               </Nav.Row>}
+              { (sed && sed === 'P6000') || (_sed && _sed === 'P6000') ?
+              <Nav.Row className='align-middle text-left'>
+                <div className='col-md-8'>
+                  <Nav.Input label={t('case:form-vedtakId')} value={_vedtakId || vedtakId} onChange={this.onVedtakIdChange.bind(this)}/>
+                </div>
+                <div className='col-md-4 selectBoxMessage'>
+                  <div/>
+                  <Nav.HjelpetekstBase id='vedtak'>{t('case:help-vedtakId')}</Nav.HjelpetekstBase>
+                </div>
+              </Nav.Row> : null}
               {this.renderInstitutions()}
             </div>
 
@@ -633,5 +659,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(StartCase)
+  withNamespaces()(StartCase)
 )

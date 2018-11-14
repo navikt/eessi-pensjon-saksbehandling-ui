@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import Export from '../../components/ui/Export/Export'
 import RenderPrintData from '../../components/case/RenderPrintData'
 
@@ -31,7 +31,7 @@ class SaveCase extends Component {
     state = {};
 
     componentDidMount () {
-      let { history, actions, dataSaved } = this.props
+      let { history, actions, dataSaved, dataSent } = this.props
 
       if (!dataSaved) {
         history.push(routes.CASE_START)
@@ -62,7 +62,6 @@ class SaveCase extends Component {
     onBackButtonClick () {
       const { history, actions } = this.props
 
-      actions.cleanDataSaved()
       history.goBack()
     }
 
@@ -134,5 +133,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(SaveCase)
+  withNamespaces()(SaveCase)
 )

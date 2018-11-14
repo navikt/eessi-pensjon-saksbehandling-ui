@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import classNames from 'classnames'
 import moment from 'moment'
 import _ from 'lodash'
@@ -180,7 +180,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(
-    (PInfo)
-  )
+  withNamespaces()(PInfo)
 )

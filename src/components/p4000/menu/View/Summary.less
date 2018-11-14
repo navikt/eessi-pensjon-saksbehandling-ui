@@ -1,9 +1,45 @@
-.bwfieldset {
+.c-p4000-menu-view-export-render {
 
-  position: relative;
-  background-color: white;
-  border: 1px solid black;
-  margin: 0rem 1rem;
-  padding: 1rem;
+  .bwfieldset {
 
+     position: relative;
+     background-color: white;
+     border: 1px solid black;
+     margin: 0rem 1rem;
+     padding: 1rem;
+  }
+
+  dl {
+    width: 100%;
+  }
+
+  img.blackAndWhite {
+    filter: grayscale(1);
+  }
+
+  dt, dd {
+    width: 50%;
+    float: left;
+
+    &:nth-child(4n + 1), &:nth-child(4n + 2) {
+      background-color: whitesmoke;
+    }
+  }
+
+  .flexrow {
+     display: flex;
+     flex-direction: row;
+     justify-content: space-between;
+  }
+
+  .red {
+    color: red
+  }
+
+  .dots {
+    border-bottom: 2px dashed grey;
+    margin-top: -1.35rem;
+    margin-bottom: 1.35rem;
+    width: 100%;
+  }
 }

@@ -3,7 +3,7 @@ import { Droppable, Draggable } from 'react-beautiful-dnd'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import classNames from 'classnames'
 
 import PDFSpecialPage from '../PDFSpecialPage/PDFSpecialPage'
@@ -93,7 +93,7 @@ class DnDSpecial extends Component {
         onMouseEnter={this.onHandleMouseEnter.bind(this)}
         onMouseLeave={this.onHandleMouseLeave.bind(this)}>
         <Nav.HjelpetekstBase>{t('pdf:help-specials-pdf')}</Nav.HjelpetekstBase>
-        <Droppable isDropDisabled droppableId={'c-pdf-dndSpecial-droppable'} direction='horizontal'>
+        <Droppable droppableId={'c-pdf-dndSpecial-droppable'} direction='horizontal'>
 
           {(provided, snapshot) => (
 
@@ -151,5 +151,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(DnDSpecial)
+  withNamespaces()(DnDSpecial)
 )

@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { translate } from 'react-i18next'
-import className from 'classnames'
-
-import * as constants from '../../../../constants/constants'
+import { withNamespaces } from 'react-i18next'
+import classNames from 'classnames'
 
 import Icons from '../../../ui/Icons'
 import File from '../../../ui/File/File'
@@ -11,20 +9,16 @@ import File from '../../../ui/File/File'
 import './Summary.css'
 import '../Menu.css'
 
-class SummaryRender extends Component {
+class EventsRender extends Component {
   render () {
-    const { t, events, comment, animate, previewAttachments, blackAndWhite, username } = this.props
+    const { t, events, animate, previewAttachments, blackAndWhite } = this.props
 
     let _animate = animate !== undefined ? animate : true
 
-    return <div>
-      <div>
-        <h4 className='text-center'>{constants.P4000}</h4>
-        <h5 className='text-center'>{username}</h5>
-      </div>
+    return <div className='c-p4000-events-render'>
       {events.map((event, index) => {
         return <div key={index} style={{ animationDelay: (index * 0.03) + 's' }}
-          className={className('event m-3', { fieldset: !blackAndWhite, bwfieldset: blackAndWhite, slideAnimate: _animate })}>
+          className={classNames('event m-3', { fieldset: !blackAndWhite, bwfieldset: blackAndWhite, slideAnimate: _animate })}>
           <div className='eventTitle eventTitleText'>
             <Icons size='2x' style={{ width: '16px', height: '16px' }} kind={event.type} />
             <span className='ml-3'>
@@ -65,21 +59,16 @@ class SummaryRender extends Component {
           </div> : null}
         </div>
       })}
-      <div>
-        <label>{t('comment')}</label>: {comment}
-      </div>
     </div>
   }
 }
 
-SummaryRender.propTypes = {
+EventsRender.propTypes = {
   t: PT.func,
   events: PT.array.isRequired,
-  comment: PT.string,
-  username: PT.string.isRequired,
   animate: PT.bool.isRequired,
   previewAttachments: PT.bool.isRequired,
   blackAndWhite: PT.bool.isRequired
 }
 
-export default translate()(SummaryRender)
+export default withNamespaces()(EventsRender)

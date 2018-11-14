@@ -101,7 +101,8 @@ class PageInDnD extends Component {
      }
 
      render () {
-       const { file, pageNumber, action, pageScale, className, style } = this.props
+       const { file, pageNumber, action, pageScale, className, style, isFocused } = this.props
+       const { isHovering } = this.state
 
        let iconFunction, iconKind, iconLink, iconSize
        if (action === 'add') {
@@ -114,7 +115,7 @@ class PageInDnD extends Component {
          iconSize = '15'
        }
 
-       if (this.state.isHovering) {
+       if (isHovering || isFocused) {
          iconLink = <Ikon style={{ cursor: 'pointer' }} size={iconSize} kind={iconKind} />
        }
 
@@ -125,7 +126,7 @@ class PageInDnD extends Component {
 
          {file.mimetype.startsWith('image/') ? <div className='document'>
            <div onClick={iconFunction.bind(this, file.name, file.mimetype, pageNumber)} className='icon actionIcon'>{iconLink}</div>
-           {this.state.isHovering ? <div className='icon previewIcon' onClick={this.openPreview.bind(this, file, pageNumber)}>
+           {isHovering || isFocused ? <div className='icon previewIcon' onClick={this.openPreview.bind(this, file, pageNumber)}>
              <Icons style={{ cursor: 'pointer' }}
                size={'20'} kind={'view'} />
            </div> : null}
@@ -136,7 +137,7 @@ class PageInDnD extends Component {
          {file.mimetype === 'application/pdf' ? <Document className='document'
            file={'data:application/pdf;base64,' + file.content.base64}>
            <div onClick={iconFunction.bind(this, file.name, file.mimetype, pageNumber)} className='icon actionIcon'>{iconLink}</div>
-           {this.state.isHovering ? <div className='icon previewIcon' onClick={this.openPreview.bind(this, file, pageNumber)}>
+           {isHovering || isFocused ? <div className='icon previewIcon' onClick={this.openPreview.bind(this, file, pageNumber)}>
              <Icons style={{ cursor: 'pointer' }} size='1x' kind='view' />
            </div> : null}
            <Page className='page'

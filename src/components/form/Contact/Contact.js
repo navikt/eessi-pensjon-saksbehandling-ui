@@ -2,7 +2,7 @@ import React from 'react'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import * as pinfoActions from '../../../actions/pinfo'
 import Email from './Email'
 import Phone from './Phone'
@@ -138,7 +138,7 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(Contact)
+  withNamespaces()(Contact)
 )
 
 Contact.propTypes = {

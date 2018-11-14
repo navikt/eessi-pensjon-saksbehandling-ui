@@ -28,7 +28,6 @@ class CreatableInputOnly extends Component {
   };
   handleChange = (value, actionMeta) => {
     if (actionMeta.action === 'clear') this.props.setStringBuffer('')
-    console.log(value, actionMeta)
     this.setState({ value })
   };
   handleInputChange = (inputValue, actionMeta) => {

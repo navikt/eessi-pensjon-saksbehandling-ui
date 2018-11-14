@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
-import { translate } from 'react-i18next'
-import _ from 'lodash'
+import { withNamespaces } from 'react-i18next'
 import 'url-search-params-polyfill'
 
 import LanguageSelector from '../components/ui/LanguageSelector'
@@ -25,7 +24,6 @@ const mapStateToProps = (state) => {
   return {
     userRole: state.app.userRole,
     language: state.ui.language,
-    gettingStatus: state.loading.gettingStatus,
     status: state.status
   }
 }
@@ -52,7 +50,7 @@ class FrontPage extends Component {
   }
 
   render () {
-    const { t, language, gettingStatus, gettingRinaCase, history, status, location, userRole } = this.props
+    const { t, language, history, status, location, userRole } = this.props
 
     return <TopContainer className='frontPage'
       language={language} history={history} location={location}
@@ -67,16 +65,12 @@ class FrontPage extends Component {
         </div>
       </Nav.Row>
       <div className='fieldset animate mb-4'>
-        {_.isEmpty(status.documents) ? (gettingStatus || gettingRinaCase ? <div>
-          <h4 className='mb-4'>{t('status')}</h4>
-          <div className='w-100 text-center' style={{ minHeight: '110px' }}>
-            <Nav.NavFrontendSpinner />
-            <p>{gettingStatus ? t('loading-gettingStatus') : t('loading-gettingRinaCase')}</p>
-          </div>
-        </div> : null) : <div className='mb-4'>
+
+        <div className='mb-4'>
           <h4 className='mb-4'>{t('status')}</h4>
           <DocumentStatus history={history} />
-        </div> }
+        </div>
+
         <h4 className='mb-4'>{t('forms')}</h4>
 
         {userRole === constants.SAKSBEHANDLER
@@ -129,5 +123,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(FrontPage)
+  withNamespaces()(FrontPage)
 )

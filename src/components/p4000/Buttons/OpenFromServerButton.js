@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -26,8 +26,15 @@ const mapDispatchToProps = (dispatch) => {
 class OpenFromServerButton extends Component {
   openFile (file) {
     const { actions } = this.props
+    let p4000
 
-    let p4000 = P4000Util.readP4000(file.content)
+    try {
+      p4000 = P4000Util.readP4000(file.content)
+    } catch (e) {
+      actions.openP4000Failure(e.message)
+      return
+    }
+
     if (typeof events === 'string') {
       actions.openP4000Failure(p4000)
     } else {
@@ -104,5 +111,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(OpenFromServerButton)
+  withNamespaces()(OpenFromServerButton)
 )

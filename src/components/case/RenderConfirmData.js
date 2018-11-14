@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 
 import './RenderData.css'
 
@@ -22,9 +22,13 @@ class RenderConfirmData extends Component {
         <dd className='col-sm-8'>{dataToConfirm.buc}</dd>
         <dt className='col-sm-4'><label>{t('case:form-sed')}</label></dt>
         <dd className='col-sm-8'>{dataToConfirm.sed}</dd>
+        {dataToConfirm.vedtakId ? <React.Fragment>
+          <dt className='col-sm-4'><label>{t('case:form-vedtakId')}</label></dt>
+          <dd className='col-sm-8'>{dataToConfirm.vedtakId}</dd>
+        </React.Fragment> : null}
         <dt className='col-sm-4'><label>{t('case:form-institution')}</label></dt>
         <dd className='col-sm-8'>{dataToConfirm.institutions.map((inst, i) => {
-          return <div key={i} className='d-inline-block'>
+          return <div key={i}>
             <img src={'../../../../flags/' + inst.country + '.png'}
               style={{ width: 30, height: 20 }}
               alt={inst.country} />&nbsp; {inst.institution}
@@ -40,4 +44,4 @@ RenderConfirmData.propTypes = {
   t: PT.func.isRequired
 }
 
-export default translate()(RenderConfirmData)
+export default withNamespaces()(RenderConfirmData)

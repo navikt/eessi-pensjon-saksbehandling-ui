@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { withCookies, Cookies } from 'react-cookie'
 import { Route, withRouter, Redirect } from 'react-router'
 import classNames from 'classnames'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import _ from 'lodash'
 
 import * as Nav from '../ui/Nav'
@@ -67,21 +67,12 @@ class AuthenticatedRoute extends Component {
     let idtoken = cookies.get('eessipensjon-idtoken-public')
     actions.setLoginState(idtoken === 'logged')
 
-    let newParams = this.parseSearchParams()
+    this.parseSearchParams()
 
-    // trigger whether there is a rinaId or not
-    actions.getStatus(newParams.rinaId)
-    // actions.getCase(rinaIdFromParam)
   }
 
   componentDidUpdate () {
-    const { actions } = this.props
-
-    let newParams = this.parseSearchParams()
-
-    if (newParams.rinaId) {
-      actions.getStatus(newParams.rinaId)
-    }
+    this.parseSearchParams()
   }
 
   hasApprovedRole () {
@@ -131,7 +122,7 @@ export default withCookies(
     mapDispatchToProps
   )(
     withRouter(
-      translate()(AuthenticatedRoute)
+      withNamespaces()(AuthenticatedRoute)
     )
   )
 )

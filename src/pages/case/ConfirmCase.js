@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 
 import * as Nav from '../../components/ui/Nav'
+import P6000 from '../../components/p6000/P6000'
 import RenderConfirmData from '../../components/case/RenderConfirmData'
 import Case from './Case'
 
@@ -17,7 +18,8 @@ const mapStateToProps = (state) => {
     dataToConfirm: state.case.dataToConfirm,
     dataToGenerate: state.case.dataToGenerate,
     language: state.ui.language,
-    generatingCase: state.loading.generatingCase
+    generatingCase: state.loading.generatingCase,
+    p6000data : state.p6000.data
   }
 }
 
@@ -27,7 +29,7 @@ const mapDispatchToProps = (dispatch) => {
 
 class ConfirmCase extends Component {
   componentDidMount () {
-    let { history, actions, dataToConfirm } = this.props
+    let { history, actions, dataToConfirm, dataToGenerate } = this.props
 
     if (!dataToConfirm) {
       history.push(routes.CASE_START)
@@ -39,6 +41,10 @@ class ConfirmCase extends Component {
         url: routes.CASE_CONFIRM,
         label: 'case:app-confirmCaseTitle'
       }])
+    }
+
+    if (dataToGenerate) {
+      actions.cleanDataToGenerate()
     }
   }
 
@@ -55,16 +61,20 @@ class ConfirmCase extends Component {
   }
 
   onBackButtonClick () {
-    const { history, actions } = this.props
+    const { history } = this.props
 
-    actions.cleanDataToConfirm()
     history.goBack()
   }
 
   onForwardButtonClick () {
-    const { actions, dataToConfirm } = this.props
+    const { actions, dataToConfirm, p6000data } = this.props
 
-    actions.generateData(dataToConfirm)
+    let data = Object.assign({}, dataToConfirm)
+
+    if (dataToConfirm.sed === 'P6000') {
+      data.P6000 = Object.assign({}, p6000data)
+    }
+    actions.generateData(data)
   }
 
   render () {
@@ -83,11 +93,8 @@ class ConfirmCase extends Component {
       history={history}
       location={location}>
       <div className='fieldset animate'>
-        <Nav.Row>
-          <Nav.Column>
-            <RenderConfirmData dataToConfirm={dataToConfirm} />
-          </Nav.Column>
-        </Nav.Row>
+        <RenderConfirmData dataToConfirm={dataToConfirm} />
+        { dataToConfirm.sed === 'P6000' ? <P6000/> : null }
       </div>
       <Nav.Row className='mb-4 p-4'>
         <div className='col-md-6 mb-2'>
@@ -115,5 +122,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(ConfirmCase)
+  withNamespaces()(ConfirmCase)
 )

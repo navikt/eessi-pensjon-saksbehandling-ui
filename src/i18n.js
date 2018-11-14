@@ -14,7 +14,7 @@ i18next
       'en-gb': ['en']
     },
     debug: true,
-    ns: ['ui', 'case', 'pdf', 'pinfo', 'pselv', 'p4000'],
+    ns: ['ui', 'case', 'pdf', 'pinfo', 'pselv', 'p4000', 'p6000'],
     defaultNS: 'ui',
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json'

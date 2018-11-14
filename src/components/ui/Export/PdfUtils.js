@@ -6,7 +6,7 @@ import PDFJS from 'pdfjs-dist'
 import * as urls from '../../../constants/urls'
 
 var defaultOptions = {
-  pagebreak: { },
+  pagebreak: { mode: 'avoid-all' },
   margin: [50, 50, 50, 50],
   filename: 'kvittering.pdf',
   enableLinks: true,
@@ -67,13 +67,37 @@ class PdfUtils {
               if (event.files) {
                 event.files.map((file, index2) => {
                   let _file = _.cloneDeep(file)
-                  let newFileName = 'P4000-' + index + '-' + index2 + '.pdf'
-                  _file.name = newFileName
-                  body.files.push(_file)
-                  body.recipe.p4000.push({
-                    type: 'pickDocument',
-                    name: newFileName
-                  })
+                  let newFileName
+                  let action
+
+                  switch (_file.mimetype) {
+
+                    case 'application/pdf' :
+                      newFileName = 'P4000-' + index + '-' + index2 + '.pdf'
+                      action = 'pickDocument'
+                      break
+                    case 'image/jpeg':
+                    case 'image/jpg':
+                      newFileName = 'P4000-' + index + '-' + index2 + '.jpg'
+                      action = 'pickImage'
+                      break
+                    case 'image/png':
+                      newFileName = 'P4000-' + index + '-' + index2 + '.png'
+                      action = 'pickImage'
+                      break
+                    default:
+                      break
+                  }
+
+                  if (action) {
+                    _file.name = newFileName
+                    body.files.push(_file)
+                    body.recipe.p4000.push({
+                      type: action,
+                      name: newFileName
+                    })
+                  }
+
                   return file
                 })
               }

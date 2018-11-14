@@ -345,6 +345,17 @@ export default function (state = {}, action = {}) {
       })
     }
 
+    case types.APP_LOGOUT_REQUEST:
+      return Object.assign({}, state, {
+        isLoggingOut: true
+      })
+
+    case types.APP_LOGOUT_SUCCESS:
+    case types.APP_LOGOUT_FAILURE:
+      return Object.assign({}, state, {
+        isLoggingOut: false
+      })
+
     default:
 
       return state

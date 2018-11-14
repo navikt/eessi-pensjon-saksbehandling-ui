@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import classNames from 'classnames'
@@ -218,7 +218,7 @@ Work.propTypes = {
   event: PT.object.isRequired,
   eventIndex: PT.number,
   type: PT.string.isRequired,
-  mode: PT.string.isRequired,
+  mode: PT.string,
   actions: PT.object.isRequired,
   provideController: PT.func.isRequired,
   locale: PT.string.isRequired
@@ -228,5 +228,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(Work)
+  withNamespaces()(Work)
 )

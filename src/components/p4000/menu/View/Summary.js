@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PT from 'prop-types'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import { bindActionCreators } from 'redux'
 import _ from 'lodash'
 
-import SummaryRender from './SummaryRender'
+import EventsRender from './EventsRender'
 import Icons from '../../../ui/Icons'
 import * as Nav from '../../../ui/Nav'
 
@@ -63,12 +63,13 @@ class Summary extends Component {
         <Icons size='3x' kind={'view'} className='float-left mr-4' />
         <h1 className='m-0'>{t('p4000:file-summary')}</h1>
       </div>
-      <SummaryRender t={t}
+      <EventsRender t={t}
         events={events}
         comment={comment}
         username={username}
         previewAttachments
-        blackAndWhite={false} />
+        blackAndWhite={false}
+        header={false} />
     </Nav.Panel>
   }
 }
@@ -83,5 +84,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(Summary)
+  withNamespaces()(Summary)
 )

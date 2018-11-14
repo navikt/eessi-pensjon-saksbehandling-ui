@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 
 import Icons from '../Icons'
 import * as Nav from '../Nav'
@@ -65,18 +65,38 @@ class DocumentStatus extends Component {
       currentDocument: undefined,
       documents: undefined,
       sed: undefined,
-      filter: 'all'
+      filter: 'all',
+      currentRinaId: null
     }
 
     static getDerivedStateFromProps (nextProps, prevState) {
       return {
-        documents: nextProps.documents ? sortStatusByDocs(nextProps.documents) : undefined
+        documents: nextProps.documents ? sortStatusByDocs(nextProps.documents) : undefined,
+
       }
     }
 
-    componentDidUpdate () {
-      const { actions, history } = this.props
-      const { sed } = this.state
+    componentDidMount() {
+
+       const { actions, rinaId } = this.props
+
+       // rinaId can be null
+       actions.getStatus(rinaId || '')
+       this.setState({
+         currentRinaId : rinaId
+       })
+    }
+
+    componentDidUpdate (nextProps) {
+      const { actions, history, rinaId } = this.props
+      const { sed, currentRinaId } = this.state
+
+      if (currentRinaId !== rinaId) {
+        actions.getStatus(rinaId)
+        this.setState({
+          currentRinaId : rinaId
+        })
+      }
 
       if (sed && sed.sed) {
         switch (sed.sed) {
@@ -199,6 +219,13 @@ class DocumentStatus extends Component {
       const { t, className, gettingSED, gettingStatus } = this.props
       const { documents, currentDocument, filter } = this.state
 
+      if (gettingStatus) {
+        return <div className='w-100 text-center' style={{ minHeight: '110px' }}>
+            <Nav.NavFrontendSpinner />
+            <p>{gettingStatus ? t('loading-gettingStatus') : t('loading-gettingRinaCase')}</p>
+        </div>
+      }
+
       return <div className={classNames('c-ui-documentStatus', {
         collapsed: !currentDocument,
         expanded: currentDocument
@@ -206,16 +233,19 @@ class DocumentStatus extends Component {
 
         <div className='documentTags'>
           <Nav.EtikettBase className={classNames('tags', { selected: filter === 'all' })}
-            type={filter === 'all' ? 'suksess' : 'info'}
-            onClick={this.setFilter.bind(this, 'all')}>{t('all')}</Nav.EtikettBase>
+            type={filter === 'all' ? 'suksess' : 'info'} onClick={this.setFilter.bind(this, 'all')}>
+            <a href='#all'>{t('all')}</a>
+          </Nav.EtikettBase>
           <Nav.EtikettBase className={classNames('tags', { selected: filter === 'sent' })}
-            type={filter === 'sent' ? 'suksess' : 'info'}
-            onClick={this.setFilter.bind(this, 'sent')}>{t('sent')}</Nav.EtikettBase>
+            type={filter === 'sent' ? 'suksess' : 'info'} onClick={this.setFilter.bind(this, 'sent')}>
+            <a href='#sent'>{t('sent')}</a></Nav.EtikettBase>
           <Nav.EtikettBase className={classNames('tags', { selected: filter === 'notsent' })}
-            type={filter === 'notsent' ? 'suksess' : 'info'}
-            onClick={this.setFilter.bind(this, 'notsent')}>{t('notSent')}</Nav.EtikettBase>
+            type={filter === 'notsent' ? 'suksess' : 'info'} onClick={this.setFilter.bind(this, 'notsent')}>
+            <a href='#notsent'>{t('notSent')}</a></Nav.EtikettBase>
           <div title={t('refresh')} className={classNames('refresh', { rotating: gettingStatus })}>
-            <Icons kind='refresh' onClick={this.refreshDocumentStatus.bind(this)} />
+            <a href='#refresh' onClick={this.refreshDocumentStatus.bind(this)}>
+              <Icons kind='refresh'/>
+            </a>
           </div>
         </div>
 
@@ -273,5 +303,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  translate()(DocumentStatus)
+  withNamespaces()(DocumentStatus)
 )

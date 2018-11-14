@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 
 import Event from '../Event/Event'
 import './EventList.css'
@@ -41,4 +41,4 @@ EventList.propTypes = {
   cancelEditRequest: PT.func.isRequired
 }
 
-export default translate()(EventList)
+export default withNamespaces()(EventList)
