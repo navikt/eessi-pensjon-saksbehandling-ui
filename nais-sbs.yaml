@@ -1,6 +1,6 @@
-name: eessi-pensjon-frontend-ui
-image: repo.adeo.no:5443/eessi-pensjon-frontend-ui
-team: eessi-pensjon
+name: eessi-pensjon-frontend-ui-sbs
+image: repo.adeo.no:5443/eessi-pensjon-frontend-ui-sbs
+team: eessipensjon
 
 replicas:
     min: 1
@@ -34,14 +34,19 @@ ingress:
 fasitResources:
     used:
 
+    - alias: loginservice
+      resourceType: RestService
+      propertyMap:
+          url: loginurl
+
     - alias: EessiPensjonFrontendApi_v1
       resourceType: RestService
 
-    # TODO: commented out until we move back to SBS
-    #    - alias: loadbalancer:pensjon-utland
-    #      resourceType: LoadBalancerConfig
+    - alias: loadbalancer:pensjon-utland
+      resourceType: LoadBalancerConfig
 
     exposed:
-    - alias: EessiPensjonFrontend
+
+    - alias: EessiPensjonFrontendSbs
       resourceType: RestService
       path: /
