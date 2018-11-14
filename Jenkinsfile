@@ -46,9 +46,9 @@ node {
                     wait      : true,
                     parameters: [
                             string(name: 'APP', value: "eessi-pensjon-frontend-ui-fss"),
-                            string(name: 'REPO', value: "navikt/eessi-pensjon-frontend-ui-fss"),
-                            string(name: 'VERSION', value: "${version}-fss"),
-                            string(name: 'DEPLOY_REF', value: "${version}-fss"),
+                            string(name: 'REPO', value: "navikt/eessi-pensjon-frontend-ui"),
+                            string(name: 'VERSION', value: "${version}"),
+                            string(name: 'DEPLOY_REF', value: "${version}"),
                             string(name: 'DEPLOY_ENV', value: 't8'),
                             string(name: 'NAMESPACE', value: 'default'),
                             string(name: 'CLUSTER', value: 'fss')
@@ -63,9 +63,9 @@ node {
                 wait      : true,
                 parameters: [
                     string(name: 'APP', value: "eessi-pensjon-frontend-ui-sbs"),
-                    string(name: 'REPO', value: "navikt/eessi-pensjon-frontend-ui-sbs"),
-                    string(name: 'VERSION', value: "${version}-sbs"),
-                    string(name: 'DEPLOY_REF', value: "${version}-sbs"),
+                    string(name: 'REPO', value: "navikt/eessi-pensjon-frontend-ui"),
+                    string(name: 'VERSION', value: "${version}"),
+                    string(name: 'DEPLOY_REF', value: "${version}"),
                     string(name: 'DEPLOY_ENV', value: 't8'),
                     string(name: 'NAMESPACE', value: 'default'),
                     string(name: 'CLUSTER', value: 'sbs')

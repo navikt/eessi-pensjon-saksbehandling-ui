@@ -1,6 +1,6 @@
 name: eessi-pensjon-frontend-ui-fss
 image: repo.adeo.no:5443/eessi-pensjon-frontend-ui-fss
-team: eessi-pensjon
+team: eessipensjon
 
 replicas:
     min: 1

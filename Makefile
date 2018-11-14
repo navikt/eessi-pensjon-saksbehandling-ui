@@ -21,15 +21,15 @@ docker:
 	$(DOCKER) build --pull -t $(REGISTRY)/eessi-pensjon-frontend-ui-sbs .
 
 docker-push:
-	$(DOCKER) tag $(REGISTRY)/eessi-pensjon-frontend-ui $(REGISTRY)/eessi-pensjon-frontend-ui:$(VERSION)-fss
-	$(DOCKER) push $(REGISTRY)/eessi-pensjon-frontend-ui:$(VERSION)-fss
-	$(DOCKER) tag $(REGISTRY)/eessi-pensjon-frontend-ui $(REGISTRY)/eessi-pensjon-frontend-ui:$(VERSION)-sbs
-	$(DOCKER) push $(REGISTRY)/eessi-pensjon-frontend-ui:$(VERSION)-sbs
+	$(DOCKER) tag $(REGISTRY)/eessi-pensjon-frontend-ui-fss $(REGISTRY)/eessi-pensjon-frontend-ui-fss:$(VERSION)
+	$(DOCKER) push $(REGISTRY)/eessi-pensjon-frontend-ui-fss:$(VERSION)
+	$(DOCKER) tag $(REGISTRY)/eessi-pensjon-frontend-ui-sbs $(REGISTRY)/eessi-pensjon-frontend-ui-sbs:$(VERSION)
+	$(DOCKER) push $(REGISTRY)/eessi-pensjon-frontend-ui-sbs:$(VERSION)
 
 tag:
 	$(eval VERSION=$(shell echo $$(($(VERSION) + 1))))
 	$(GIT) tag -a $(VERSION) -m "auto-tag from Makefile"
 
 manifest:
-	$(NAIS) upload --app eessi-pensjon-frontend-ui-fss -v $(VERSION)-fss --file nais-fss.yaml
-	$(NAIS) upload --app eessi-pensjon-frontend-ui-sbs -v $(VERSION)-sbs --file nais-sbs.yaml
+	$(NAIS) upload --app eessi-pensjon-frontend-ui-fss -v $(VERSION) --file nais-fss.yaml
+	$(NAIS) upload --app eessi-pensjon-frontend-ui-sbs -v $(VERSION) --file nais-sbs.yaml

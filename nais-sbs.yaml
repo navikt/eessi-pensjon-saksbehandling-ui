@@ -1,6 +1,6 @@
 name: eessi-pensjon-frontend-ui-sbs
 image: repo.adeo.no:5443/eessi-pensjon-frontend-ui-sbs
-team: eessi-pensjon
+team: eessipensjon
 
 replicas:
     min: 1
