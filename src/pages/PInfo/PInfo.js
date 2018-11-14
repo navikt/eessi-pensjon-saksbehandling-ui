@@ -55,7 +55,7 @@ const onBackToReferrerButtonClick = async (props) => (
 )
 
 const onSaveButtonClick = (props) => {
-  props.actions.postStorageFile(props.username, storages.PINFO, 'PINFO', JSON.stringify(props.form))
+  props.actions.postStorageFile(props.username, storages.PINFO, 'PINFO', JSON.stringify({ form: props.form }))
   props.history.push(routes.PSELV + '?referrer=pinfo')
 }
 
