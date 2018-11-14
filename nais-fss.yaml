@@ -37,6 +37,11 @@ fasitResources:
     - alias: EessiPensjonFrontendApi_v1
       resourceType: RestService
 
+    - alias: EessiPensjonFrontendApiLogin_v1
+      resourceType: RestService
+      propertyMap:
+          url: loginurl
+
     exposed:
 
     - alias: EessiPensjonFrontend
