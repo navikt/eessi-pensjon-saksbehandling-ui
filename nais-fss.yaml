@@ -32,6 +32,7 @@ ingress:
     enabled: true
 
 fasitResources:
+
     used:
 
     - alias: EessiPensjonFrontendApi_v1
