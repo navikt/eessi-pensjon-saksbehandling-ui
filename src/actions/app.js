@@ -3,7 +3,7 @@ import * as urls from '../constants/urls'
 import * as api from './api'
 
 export function login () {
-  let redirectUrl = urls.APP_LOGIN_URL + '?redirect=' + encodeURIComponent(window.location.href)
+  let redirectUrl = urls.APP_LOGIN_URL
   window.location.href = redirectUrl
   return {
     type: types.APP_LOGIN_REQUEST
@@ -11,7 +11,7 @@ export function login () {
 }
 
 export function logout () {
-  let redirectUrl = urls.APP_LOGOUT_URL + '?redirect=' + encodeURIComponent(window.location.href)
+  let redirectUrl = urls.APP_LOGOUT_URL
   window.location.href = redirectUrl
   return {
     type: types.APP_LOGOUT_REQUEST
