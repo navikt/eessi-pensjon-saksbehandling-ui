@@ -7,7 +7,7 @@ server {
     error_log /dev/stdout info;
     access_log /dev/stdout;
 
-    rewrite ^/login(.*)$ ${LOGINURL}?redirect=${LOADBALANCEURL} redirect;
+    rewrite ^/login(.*)$ ${LOGINURL}?redirect=https://${LOADBALANCEURL} redirect;
 
     location /api/ {
         proxy_pass ${EESSIPENSJONFRONTENDAPI_V1_URL}api/;
