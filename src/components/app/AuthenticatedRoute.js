@@ -86,7 +86,7 @@ class AuthenticatedRoute extends Component {
 
     let validRole = this.hasApprovedRole()
 
-    return IS_DEVELOPMENT_WITH_NO_AUTH || (loggedIn && userRole)
+    return IS_DEVELOPMENT_WITH_NO_AUTH || (userRole)
       ? IS_DEVELOPMENT_WITH_NO_AUTH || validRole
         ? <Route {...this.props} />
         : <Redirect to={routes.ROOT} />
