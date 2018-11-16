@@ -42,6 +42,9 @@ fasitResources:
       propertyMap:
           url: loginurl
 
+    - alias: loadbalancer:pensjon-utland
+      resourceType: LoadBalancerConfig
+
     exposed:
 
     - alias: EessiPensjonFrontend
