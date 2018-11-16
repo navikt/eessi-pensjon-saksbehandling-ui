@@ -44,6 +44,8 @@ fasitResources:
 
     - alias: loadbalancer:pensjon-utland
       resourceType: LoadBalancerConfig
+      propertyMap:
+          url: LOADBALANCEURL
 
     exposed:
 
