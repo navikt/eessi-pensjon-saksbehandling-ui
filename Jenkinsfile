@@ -39,13 +39,13 @@ node {
             }
         }
 
-        stage("deploy") {
+        stage("deploy FSS") {
             def version = sh(script: 'git describe --abbrev=0', returnStdout: true).trim()
             build([
                     job       : 'nais-deploy-pipeline',
                     wait      : true,
                     parameters: [
-                            string(name: 'APP', value: "eessi-pensjon-frontend-ui"),
+                            string(name: 'APP', value: "eessi-pensjon-frontend-ui-fss"),
                             string(name: 'REPO', value: "navikt/eessi-pensjon-frontend-ui"),
                             string(name: 'VERSION', value: version),
                             string(name: 'DEPLOY_REF', value: version),
@@ -53,6 +53,23 @@ node {
                             string(name: 'NAMESPACE', value: 'default'),
                             string(name: 'CLUSTER', value: 'fss')
                     ]
+            ])
+        }
+
+        stage("deploy SBS") {
+            def version = sh(script: 'git describe --abbrev=0', returnStdout: true).trim()
+            build([
+                job       : 'nais-deploy-pipeline',
+                wait      : true,
+                parameters: [
+                    string(name: 'APP', value: "eessi-pensjon-frontend-ui-sbs"),
+                    string(name: 'REPO', value: "navikt/eessi-pensjon-frontend-ui"),
+                    string(name: 'VERSION', value: version),
+                    string(name: 'DEPLOY_REF', value: version),
+                    string(name: 'DEPLOY_ENV', value: 't8'),
+                    string(name: 'NAMESPACE', value: 'default'),
+                    string(name: 'CLUSTER', value: 'sbs')
+                ]
             ])
         }
 
