@@ -1,8 +1,10 @@
+@import '~nav-frontend-core/less/core';
 div.c-ui-fileUpload{
     padding-left: 32px;
     padding-right: 32px;
 }
 div.pinfo-fileupload{
+    margin-top: 32px;
     div.c-ui-fileUpload{
         div.dropzone{
             border: 1px solid #C6C2BF;
@@ -21,9 +23,49 @@ div.pinfo-fileupload{
         }
     }
 }
+div.inputPanelGruppe{
+    fieldset.skjema__fieldset{
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+        label.inputPanel:not(.inputPanel--disabled):not(.bekreftCheckboksPanel){
+            &:hover{
+                border-color: #0067C5;
+                -webkit-transition: border-color 200ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+                -o-transition: border-color 200ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+                transition: border-color 200ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+            }
+            &.inputPanel--focused{
+                outline: 0;
+                -webkit-box-shadow: 0 0 0 3px #FFBD66;
+                box-shadow: 0 0 0 3px #FFBD66;
+            }
+        }
+    }
+}
 fieldset{
     div.pinfo-fileupload-SkjemaGruppe{
         margin-left: -24px;
         margin-right: -24px;
+    }
+}
+div.pinfo-fileupload-SkjemaGruppe{
+    div.skjema__feilomrade--harFeil{
+        background-color: transparent;
+        -webkit-box-shadow: 0 0 0 0px;
+        box-shadow: 0 0 0 0px;
+        div.skjemaelement__feilmelding{
+            margin-left:32px
+        }
+        div.dropzone{
+            background-color: @pinkErrorBg;
+            color: @redError;
+            &:hover{
+                background-color: @pinkErrorBg;
+            }
+        }
+        label.inputPanel{
+            background-color: @pinkErrorBg;
+            color: @redError;
+        }
     }
 }

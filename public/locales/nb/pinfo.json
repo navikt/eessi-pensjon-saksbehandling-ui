@@ -98,5 +98,6 @@
     "validation-noWorkPaymentDate" : "No work payment date",
     "validation-noWorkPaymentFrequency" : "No work payment frequency",
     "validation-noAttachmentTypes" : "No attachmentTypes",
+    "validation-noAttachments": "Ingen vedlegg",
     "validation-noRetirementCountry" : "No retirement country"
 }

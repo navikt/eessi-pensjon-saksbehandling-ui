@@ -10,6 +10,7 @@ let initialState = {
       phone: {},
       email: {}
     },
+    attachments: {},
     bank: {},
     workIncome: {},
     pension: {}
@@ -49,7 +50,6 @@ export default function (state = initialState, action = {}) {
               } } } } }
 
     case types.PINFO_EVENT_SET_EMAIL:
-
       return {
         ...state,
         form: {
@@ -112,6 +112,28 @@ export default function (state = initialState, action = {}) {
             ...state.form.pension,
             ...action.payload
           } } }
+
+    case types.PINFO_EVENT_SET_ATTACHMENT_TYPES:
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          attachments: {
+            ...state.form.attachments,
+            attachmentTypes: {
+              ...state.form.attachments.attachmentTypes,
+              ...action.payload
+      } } } }
+
+    case types.PINFO_EVENT_SET_ATTACHMENTS:
+      return {
+        ...state,
+        form: {
+          ...state.form,
+          attachments: {
+            ...state.form.attachments,
+            attachments: action.payload
+      } } }
 
     case types.PINFO_NEW:
 

@@ -169,6 +169,7 @@ class PSelv extends Component {
     }
 
     onDateBlur (key, e) {
+      if( !(e && e.target && e.target.value) ){return}
       let date = e.target.value
 
       if (!/\d\d\.\d\d\.\d\d\d\d/.test(date)) {

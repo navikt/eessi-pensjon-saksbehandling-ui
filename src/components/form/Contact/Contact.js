@@ -7,6 +7,7 @@ import * as pinfoActions from '../../../actions/pinfo'
 import Email from './Email'
 import Phone from './Phone'
 import { Knapp } from '../../ui/Nav'
+import { contactValidation } from '../../pinfo/tests'
 import './Contact.css'
 
 const mapStateToProps = (state) => {
@@ -35,37 +36,6 @@ function displayErrorOn () {
   this.setState({
     displayError: true
   })
-}
-
-function testPhoneNumber (phone, t) {
-  return (
-    !phone.number ? t('pinfo:validation-noUserPhone')
-      : !/\+?[\d]+[\d\s-]*/.test(phone.number) ? t('pinfo:validation-invalidUserPhone')
-        : false
-  )
-}
-function testPhoneType (phone, t) {
-  return (
-    !phone.type ? t('pinfo:validation-noTypePhone')
-      : false
-  )
-}
-function testEmail (email, t) {
-  return (
-    !email.address ? t('pinfo:validation-noUserEmail')
-      : !/.+@.+\..+/.test(email.address) ? t('pinfo:validation-invalidUserEmail')
-        : false
-  )
-}
-
-function validPhone (phone, t) {
-  return !(testPhoneNumber(phone, t) || testPhoneType(phone, t))
-}
-// Returns false if there is no errors.
-export function testPhones (KV, t) {
-  return Object.keys(KV).map(key => KV[key]).reduce((acc, phone) => (acc || validPhone(phone, t)), false)
-    ? false
-    : t('pinfo:validation-noValidPhones')
 }
 
 class Contact extends React.Component {
@@ -100,8 +70,8 @@ class Contact extends React.Component {
               required={false}
               displayErrorSwitch={this.displayErrorSwitch}
               displayError={this.state.displayError}
-              testPhoneNumber={testPhoneNumber}
-              testPhoneType={testPhoneType}
+              testPhoneNumber={contactValidation.phoneNumber}
+              testPhoneType={contactValidation.phoneType}
             />
           ))}
           <div className='col-xs-12'>
@@ -121,7 +91,7 @@ class Contact extends React.Component {
               required={false}
               displayErrorSwitch={this.displayErrorSwitch}
               displayError={this.state.displayError}
-              testEmail={testEmail}
+              testEmail={contactValidation.emailAddress}
             />
           ))}
           <div className='col-xs-12'>

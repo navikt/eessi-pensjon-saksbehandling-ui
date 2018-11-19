@@ -8,6 +8,7 @@ import CountrySelect from '../ui/CountrySelect/CountrySelect'
 import * as pinfoActions from '../../actions/pinfo'
 import { bankValidation } from '../pinfo/tests'
 
+
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
@@ -51,6 +52,14 @@ class Bank extends React.Component {
   }
   render () {
     const { t, bank, locale } = this.props
+    const error = {
+      bankName: bankValidation.bankName(bank, t),
+      bankAddress: bankValidation.bankAddress(bank, t),
+      bankCountry: bankValidation.bankCountry(bank, t),
+      bankBicSwift: bankValidation.bankBicSwift(bank, t),
+      bankIban: bankValidation.bankIban(bank, t),
+      bankCode: bankValidation.bankCode(bank, t)
+    }
     return (
       <fieldset>
         <legend>{t('pinfo:form-bank')}</legend>
@@ -60,7 +69,7 @@ class Bank extends React.Component {
               <div className='col-md-6'>
                 <Nav.Input label={t('pinfo:form-bankName') + ' *'} value={bank.bankName || ''}
                   onChange={this.setBankName} 
-                  feil={(this.state.displayError && bankValidation.bankName(bank, t)) ? { feilmelding: bankValidation.bankName(bank, t)} : null}
+                  feil={(this.state.displayError && error.bankName) ? { feilmelding: error.bankName} : null}
                 />
 
               </div>
@@ -68,7 +77,7 @@ class Bank extends React.Component {
                 <Nav.Textarea label={t('pinfo:form-bankAddress') + ' *'} value={bank.bankAddress || ''}
                   style={{ minHeight: '200px' }}
                   onChange={this.setBankAddress}
-                  feil={(this.state.displayError && bankValidation.bankAddress(bank, t)) ? { feilmelding: bankValidation.bankAddress(bank, t)} : null}
+                  feil={(this.state.displayError && error.bankAddress) ? { feilmelding: error.bankAddress} : null}
                 />
 
               </div>
@@ -81,8 +90,8 @@ class Bank extends React.Component {
                     <CountrySelect locale={locale}
                       value={bank.bankCountry || null}
                       onSelect={this.setBankCountry}
-                      error={(this.state.displayError && bankValidation.bankCountry(bank, t))}
-                      errorMessage={bankValidation.bankCountry(bank, t)}
+                      error={(this.state.displayError && error.bankCountry)}
+                      errorMessage={error.bankCountry}
                     />
                   </div>
                 </div>
@@ -90,7 +99,7 @@ class Bank extends React.Component {
               <div className='col-md-6'>
                 <Nav.Input label={t('pinfo:form-bankBicSwift') + ' *'} value={bank.bankBicSwift || ''}
                   onChange={this.setBankBicSwift}
-                  feil={(this.state.displayError && bankValidation.bankBicSwift(bank, t)) ? { feilmelding: bankValidation.bankBicSwift(bank, t)} : null}
+                  feil={(this.state.displayError && error.bankBicSwift) ? { feilmelding: error.bankBicSwift} : null}
                 />
               </div>
             </Nav.Row>
@@ -99,7 +108,7 @@ class Bank extends React.Component {
                 <Nav.Input label={t('pinfo:form-bankIban') + ' *'}
                   value={bank.bankIban || ''}
                   onChange={this.setBankIban}
-                  feil={(this.state.displayError && bankValidation.bankIban(bank, t)) ? { feilmelding: bankValidation.bankIban(bank, t)} : null}
+                  feil={(this.state.displayError && error.bankIban) ? { feilmelding: error.bankIban} : null}
                 />
               </div>
               <div className='col-md-6'>
@@ -107,7 +116,7 @@ class Bank extends React.Component {
                   label={(t('pinfo:form-bankCode') + ' *')}
                   value={bank.bankCode || ''}
                   onChange={this.setBankCode}
-                  feil={(this.state.displayError && bankValidation.bankCode(bank, t)) ? { feilmelding: bankValidation.bankCode(bank, t)} : null}
+                  feil={(this.state.displayError && error.bankCode) ? { feilmelding: error.bankCode} : null}
                 />
               </div>
             </Nav.Row>

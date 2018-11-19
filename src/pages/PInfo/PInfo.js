@@ -22,7 +22,7 @@ import * as storages from '../../constants/storages'
 import Bank from '../../components/form/Bank'
 import Contact from '../../components/form/Contact/Contact'
 import Work from '../../components/form/Work'
-import PdfUploadComponent from '../../components/form/PdfUploadComponent'
+import Attachments from '../../components/form/Attachments'
 import Pension from '../../components/form/Pension'
 import Summary from '../../components/form/Summary'
 
@@ -123,35 +123,15 @@ class PInfo extends React.Component {
         }
         {props.form.step === 2
           ? <form id='pinfo-form'>
-            <Work
-              t={props.t}
-              action={setValue.bind(null, props)}
-            />
+            <Work />
           </form>
           : null
         }
         {props.form.step === 3 ? <form id='pinfo-form'><div>
-          <PdfUploadComponent t={props.t} form={props.form}
-            checkboxes={[
-              { 'label': props.t('pinfo:form-attachmentTypes-01'), 'value': '01', 'id': '01', 'inputProps': { 'defaultChecked': (props.form.attachmentTypes ? props.form.attachmentTypes['01'] : false) } },
-              { 'label': props.t('pinfo:form-attachmentTypes-02'), 'value': '02', 'id': '02', 'inputProps': { 'defaultChecked': (props.form.attachmentTypes ? props.form.attachmentTypes['02'] : false) } },
-              { 'label': props.t('pinfo:form-attachmentTypes-03'), 'value': '03', 'id': '03', 'inputProps': { 'defaultChecked': (props.form.attachmentTypes ? props.form.attachmentTypes['03'] : false) } },
-              { 'label': props.t('pinfo:form-attachmentTypes-04'), 'value': '04', 'id': '04', 'inputProps': { 'defaultChecked': (props.form.attachmentTypes ? props.form.attachmentTypes['04'] : false) } }
-            ]}
-            files={props.form.attachments || []}
-            checkboxAction={setValue.bind(null, props, 'attachmentTypes')}
-            fileUploadAction={setValue.bind(null, props, 'attachments')}
-          />
+          <Attachments />
         </div></form> : null}
         {props.form.step === 4 ? <form id='pinfo-form'><div className='mb-3'>
-          <Pension
-            t={props.t}
-            pension={{
-              retirementCountry: props.form.retirementCountry
-            }}
-            action={setValue.bind(null, props)}
-            locale={props.locale}
-          />
+          <Pension />
         </div> </form> : null}
 
         {props.form.step === 5
