@@ -68,13 +68,13 @@ class DnDSource extends Component {
       }
     }
 
-     onHandleFocus (key) {
-       this.setState({ isFocused: key })
-     }
+    onHandleFocus (key) {
+      this.setState({ isFocused: key })
+    }
 
-     onHandleBlur (key) {
-       this.setState({ isFocused: undefined })
-     }
+    onHandleBlur (key) {
+      this.setState({ isFocused: undefined })
+    }
 
     render () {
       const { t, pdf, pageScale, recipe, dndTarget } = this.props
@@ -92,7 +92,7 @@ class DnDSource extends Component {
         onMouseEnter={this.onHandleMouseEnter.bind(this)}
         onMouseLeave={this.onHandleMouseLeave.bind(this)}>
 
-        <Droppable  droppableId={'c-pdf-dndSource-droppable-' + pdf.name} direction='horizontal'>
+        <Droppable droppableId={'c-pdf-dndSource-droppable-' + pdf.name} direction='horizontal'>
 
           {(provided, snapshot) => (
 

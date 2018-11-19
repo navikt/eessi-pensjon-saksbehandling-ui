@@ -71,20 +71,19 @@ class DocumentStatus extends Component {
 
     static getDerivedStateFromProps (nextProps, prevState) {
       return {
-        documents: nextProps.documents ? sortStatusByDocs(nextProps.documents) : undefined,
+        documents: nextProps.documents ? sortStatusByDocs(nextProps.documents) : undefined
 
       }
     }
 
-    componentDidMount() {
+    componentDidMount () {
+      const { actions, rinaId } = this.props
 
-       const { actions, rinaId } = this.props
-
-       // rinaId can be null
-       actions.getStatus(rinaId || '')
-       this.setState({
-         currentRinaId : rinaId
-       })
+      // rinaId can be null
+      actions.getStatus(rinaId || '')
+      this.setState({
+        currentRinaId: rinaId
+      })
     }
 
     componentDidUpdate (nextProps) {
@@ -94,7 +93,7 @@ class DocumentStatus extends Component {
       if (currentRinaId !== rinaId) {
         actions.getStatus(rinaId)
         this.setState({
-          currentRinaId : rinaId
+          currentRinaId: rinaId
         })
       }
 
@@ -221,8 +220,8 @@ class DocumentStatus extends Component {
 
       if (gettingStatus) {
         return <div className='w-100 text-center' style={{ minHeight: '110px' }}>
-            <Nav.NavFrontendSpinner />
-            <p>{gettingStatus ? t('loading-gettingStatus') : t('loading-gettingRinaCase')}</p>
+          <Nav.NavFrontendSpinner />
+          <p>{gettingStatus ? t('loading-gettingStatus') : t('loading-gettingRinaCase')}</p>
         </div>
       }
 
@@ -244,7 +243,7 @@ class DocumentStatus extends Component {
             <a href='#notsent'>{t('notSent')}</a></Nav.EtikettBase>
           <div title={t('refresh')} className={classNames('refresh', { rotating: gettingStatus })}>
             <a href='#refresh' onClick={this.refreshDocumentStatus.bind(this)}>
-              <Icons kind='refresh'/>
+              <Icons kind='refresh' />
             </a>
           </div>
         </div>

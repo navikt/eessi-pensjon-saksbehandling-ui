@@ -1,161 +1,137 @@
 import React from 'react'
 import PT from 'prop-types'
-import uuidv4 from 'uuid/v4'
-import _ from 'lodash'
 import { connect } from 'react-redux'
-
+import { bindActionCreators } from 'redux'
+import { withNamespaces } from 'react-i18next'
 import * as Nav from '../ui/Nav'
 import CountrySelect from '../ui/CountrySelect/CountrySelect'
-import { onChange, onInvalid, onSelect } from './shared/eventFunctions'
-
-const errorMessages = {
-  bankName: { patternMismatch: 'patternMismatch', valueMissing: 'valueMissing' },
-  bankAddress: { patternMismatch: 'patternMismatch', valueMissing: 'valueMissing' },
-  bankCountry: { patternMismatch: 'patternMismatch', valueMissing: 'valueMissing' },
-  bankBicSwift: { patternMismatch: 'patternMismatch', valueMissing: 'valueMissing' },
-  bankIban: { patternMismatch: 'patternMismatch', valueMissing: 'valueMissing' },
-  bankCode: { patternMismatch: 'patternMismatch', valueMissing: 'valueMissing' }
-}
+import * as pinfoActions from '../../actions/pinfo'
+import { bankValidation } from '../pinfo/tests'
 
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
-    bank: _.pick(state.pinfo.form,
-      [
-        'bankName',
-        'bankAddress',
-        'bankCountry',
-        'bankBicSwift',
-        'bankIban',
-        'bankCode'
-      ]
-    )
+    bank: state.pinfo.form.bank
   }
 }
+const mapDispatchToProps = (dispatch) => {
+  return { actions: bindActionCreators({ ...pinfoActions }, dispatch) }
+}
+function eventSetProperty (key, event) {
+  this.props.actions.setBank({ [key]: event.target.value })
+}
+function valueSetProperty (key, value) {
+  this.props.actions.setBank({ [key]: value })
+}
+
+function displayErrorOff () {
+  this.setState({
+    displayError: false
+  })
+}
+function displayErrorOn () {
+  this.setState({
+    displayError: true
+  })
+}
+
 class Bank extends React.Component {
   constructor (props) {
     super(props)
-
-    this.onInvalid = onInvalid.bind(this, errorMessages)
-    this.onChange = onChange.bind(this, errorMessages)
-    this.onSelect = onSelect.bind(this, 'bankCountry')
-
-    let uuid = uuidv4()
-
-    let keys = ['bankName', 'bankAddress', 'bankCountry', 'bankBicSwift', 'bankIban', 'bankCode']
-    let nameToId = keys.reduce((acc, cur, i) => ({ ...acc, [cur]: uuid + '_' + i }), {})
-    let idToName = keys.reduce((acc, cur, i) => ({ ...acc, [uuid + '_' + i]: cur }), {})
-    let inputStates = keys.reduce((acc, cur) => ({ ...acc,
-      [cur]: {
-        showError: false,
-        error: null,
-        errorType: null,
-        action: this.props.action.bind(null, cur)
-      } }), {})
-    let countryRequired = !this.props.bank.bankCountry
+    this.setBankName = eventSetProperty.bind(this, 'bankName')
+    this.setBankAddress = eventSetProperty.bind(this, 'bankAddress')
+    this.setBankCountry = valueSetProperty.bind(this, 'bankCountry')
+    this.setBankBicSwift = eventSetProperty.bind(this, 'bankBicSwift')
+    this.setBankIban = eventSetProperty.bind(this, 'bankIban')
+    this.setBankCode = eventSetProperty.bind(this, 'bankCode')
     this.state = {
-      ref: React.createRef(),
-      idToName,
-      nameToId,
-      inputStates,
-      customInputProps: { required: countryRequired, onInvalid: this.onInvalid, id: nameToId['bankCountry'] }
+      displayError: false
     }
+    this.displayErrorSwitch = { on: displayErrorOn.bind(this), off: displayErrorOff.bind(this) }
   }
   render () {
     const { t, bank, locale } = this.props
-    const nameToId = this.state.nameToId
-    const inputStates = this.state.inputStates
+    const error = {
+      bankName: bankValidation.bankName(bank, t),
+      bankAddress: bankValidation.bankAddress(bank, t),
+      bankCountry: bankValidation.bankCountry(bank, t),
+      bankBicSwift: bankValidation.bankBicSwift(bank, t),
+      bankIban: bankValidation.bankIban(bank, t),
+      bankCode: bankValidation.bankCode(bank, t)
+    }
     return (
-      <div className='mt-3' ref={this.state.ref}>
-        <Nav.Row>
-          <div className='col-md-6'>
-            <Nav.Input label={t('pinfo:form-bankName') + ' *'} defaultValue={bank.bankName || null}
-              onChange={this.onChange}
-              required={!inputStates.bankName.showError}
-              onInvalid={this.onInvalid}
-              id={nameToId.bankName}
-              feil={inputStates.bankName.showError ? inputStates.bankName.error : null}
-            />
+      <fieldset>
+        <legend>{t('pinfo:form-bank')}</legend>
+        <div className='mt-3'>
+          <div className='col-xs-12'>
+            <Nav.Row>
+              <div className='col-md-6'>
+                <Nav.Input label={t('pinfo:form-bankName') + ' *'} value={bank.bankName || ''}
+                  onChange={this.setBankName}
+                  feil={(this.state.displayError && error.bankName) ? { feilmelding: error.bankName } : null}
+                />
 
-          </div>
-          <div className='col-md-6'>
-            <Nav.Textarea label={t('pinfo:form-bankAddress') + ' *'} value={bank.bankAddress || ''}
-              style={{ minHeight: '200px' }}
-              onChange={this.onChange}
-              required={!inputStates.bankAddress.showError}
-              onInvalid={this.onInvalid}
-              id={nameToId.bankAddress}
-              feil={inputStates.bankAddress.showError ? inputStates.bankAddress.error : null}
-            />
+              </div>
+              <div className='col-md-6'>
+                <Nav.Textarea label={t('pinfo:form-bankAddress') + ' *'} value={bank.bankAddress || ''}
+                  style={{ minHeight: '200px' }}
+                  onChange={this.setBankAddress}
+                  feil={(this.state.displayError && error.bankAddress) ? { feilmelding: error.bankAddress } : null}
+                />
 
-          </div>
-        </Nav.Row>
-        <Nav.Row>
-          <div className='col-md-6'>
-            <div className='mb-3' >
-              <label>{t('pinfo:form-bankCountry') + ' *'}</label>
-              <div>
-                <CountrySelect locale={locale}
-                  value={bank.bankCountry || null}
-                  onSelect={this.onSelect}
-                  customInputProps={{
-                    required: !((bank.bankCountry || inputStates.bankCountry.showError)),
-                    onInvalid: this.onInvalid,
-                    id: nameToId.bankCountry
-                  }}
-                  error={inputStates.bankCountry.showError}
-                  errorMessage={
-                    inputStates.bankCountry.error
-                      ? inputStates.bankCountry.error.feilmelding
-                      : null
-                  }
+              </div>
+            </Nav.Row>
+            <Nav.Row>
+              <div className='col-md-6'>
+                <div className='mb-3' >
+                  <label>{t('pinfo:form-bankCountry') + ' *'}</label>
+                  <div>
+                    <CountrySelect locale={locale}
+                      value={bank.bankCountry || null}
+                      onSelect={this.setBankCountry}
+                      error={(this.state.displayError && error.bankCountry)}
+                      errorMessage={error.bankCountry}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className='col-md-6'>
+                <Nav.Input label={t('pinfo:form-bankBicSwift') + ' *'} value={bank.bankBicSwift || ''}
+                  onChange={this.setBankBicSwift}
+                  feil={(this.state.displayError && error.bankBicSwift) ? { feilmelding: error.bankBicSwift } : null}
                 />
               </div>
-            </div>
+            </Nav.Row>
+            <Nav.Row>
+              <div className='col-md-6'>
+                <Nav.Input label={t('pinfo:form-bankIban') + ' *'}
+                  value={bank.bankIban || ''}
+                  onChange={this.setBankIban}
+                  feil={(this.state.displayError && error.bankIban) ? { feilmelding: error.bankIban } : null}
+                />
+              </div>
+              <div className='col-md-6'>
+                <Nav.Input
+                  label={(t('pinfo:form-bankCode') + ' *')}
+                  value={bank.bankCode || ''}
+                  onChange={this.setBankCode}
+                  feil={(this.state.displayError && error.bankCode) ? { feilmelding: error.bankCode } : null}
+                />
+              </div>
+            </Nav.Row>
           </div>
-          <div className='col-md-6'>
-            <Nav.Input label={t('pinfo:form-bankBicSwift') + ' *'} defaultValue={bank.bankBicSwift || null}
-              required={!inputStates.bankBicSwift.showError}
-              onChange={this.onChange}
-              onInvalid={this.onInvalid}
-              id={nameToId.bankBicSwift}
-              feil={inputStates.bankBicSwift.showError ? inputStates.bankBicSwift.error : null}
-            />
-          </div>
-        </Nav.Row>
-        <Nav.Row>
-          <div className='col-md-6'>
-            <Nav.Input label={t('pinfo:form-bankIban') + ' *'}
-              defaultValue={bank.bankIban || null}
-              onChange={this.onChange}
-              required={!inputStates.bankIban.showError}
-              onInvalid={this.onInvalid}
-              id={nameToId.bankIban}
-              feil={inputStates.bankIban.showError ? inputStates.bankIban.error : null}
-            />
-          </div>
-          <div className='col-md-6'>
-            <Nav.Input
-              label={(t('pinfo:form-bankCode') + ' *')}
-              defaultValue={bank.bankCode || null}
-              onChange={this.onChange}
-              required={!inputStates.bankCode.showError}
-              onInvalid={this.onInvalid}
-              id={nameToId.bankCode}
-              feil={inputStates.bankCode.showError ? inputStates.bankCode.error : null}
-            />
-          </div>
-        </Nav.Row>
-      </div>
+        </div>
+      </fieldset>
     )
   }
 }
 
 export default connect(
   mapStateToProps,
-  {}
-)(Bank)
-
+  mapDispatchToProps
+)(
+  withNamespaces()(Bank)
+)
 Bank.propTypes = {
   bank: PT.object,
   action: PT.func,

@@ -1,0 +1,155 @@
+import React from 'react'
+import { connect } from 'react-redux'
+import moment from 'moment'
+import _ from 'lodash'
+import File from '../../components/ui/File/File'
+import * as Nav from '../ui/Nav'
+
+const mapStateToProps = (state) => {
+  return {
+    locale: state.ui.locale,
+    form: state.pinfo.form,
+    referrer: state.app.referrer,
+    status: state.status,
+    username: state.app.username,
+    file: state.storage.file
+  }
+}
+
+const getPhoneType = (t, type) => {
+  switch (type) {
+    case 'home':
+      return `(${t('pinfo:form-userPhoneTypeHome')}) `
+    case 'mobile':
+      return `(${t('pinfo:form-userPhoneTypeMobile')}) `
+    case 'work':
+      return `(${t('pinfo:form-userPhoneTypeWork')}) `
+    default:
+      return ''
+  }
+}
+
+const getPhoneDD = (key, t, phone) => {
+  let nummer = _.get(phone, 'nummer', null)
+  let type = _.get(phone, 'type', null)
+  if (!(nummer && key)) { return null }
+  if (!(_.isFunction(t) && type)) { return <dd key={key} className='col-sm-12'>{`${nummer}`}</dd> }
+  return <dd key={key} className='col-sm-12'>{`${getPhoneType(t, type)}${nummer}`}</dd>
+}
+const getEmailDD = (key, adresse) => {
+  if (!(key && adresse)) { return null }
+  return <dd key={key} className='col-sm-12'>{`${adresse}`}</dd>
+}
+
+const Summary = (props) => {
+  let phone = _.get(props.form, 'contact.phone', {})
+  let email = _.get(props.form, 'contact.email', {})
+  return (
+    <form id='pinfo-form'>
+      <div>
+        <fieldset>
+          <legend>{props.t('pinfo:form-bank')}</legend>
+          <div className='col-xs-12'>
+            <dl className='row'>
+              <dt className='col-sm-4'><label>{props.t('pinfo:form-bankName')}</label></dt>
+              <dd className='col-sm-8'>{props.form.bank.bankName}</dd>
+              <dt className='col-sm-4'><label>{props.t('pinfo:form-bankAddress')}</label></dt>
+              <dd className='col-sm-8'><pre>{props.form.bank.bankAddress}</pre></dd>
+              <dt className='col-sm-4'><label>{props.t('pinfo:form-bankCountry')}</label></dt>
+              <dd className='col-sm-8'>
+                <img src={'../../../../../flags/' + _.get(props, 'form.bank.bankCountry.value', '') + '.png'}
+                  style={{ width: 30, height: 20 }}
+                  alt={_.get(props, 'form.bank.bankCountry.label', '')} />&nbsp; {_.get(props, 'form.bank.bankCountry.label', '')}
+              </dd>
+              <dt className='col-sm-4'><label>{props.t('pinfo:form-bankBicSwift')}</label></dt>
+              <dd className='col-sm-8'>{props.form.bank.bankBicSwift}</dd>
+              <dt className='col-sm-4'><label>{props.t('pinfo:form-bankIban')}</label></dt>
+              <dd className='col-sm-8'>{props.form.bank.bankIban}</dd>
+              <dt className='col-sm-4'><label>{props.t('pinfo:form-bankCode')}</label></dt>
+              <dd className='col-sm-8'>{props.form.bank.bankCode}</dd>
+            </dl>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>{props.t('pinfo:form-user')}</legend>
+          <div className='col-xs-12'>
+            <dl className='row'>
+              <dt className='col-sm-4'><label>{props.t('pinfo:form-userPhone')}</label></dt>
+              <div className='col-sm-8'>
+                { Object.keys(phone).map(key => getPhoneDD(key, props.t, phone[key])) }
+              </div>
+              <dt className='col-sm-4'><label>{props.t('pinfo:form-userEmail')}</label></dt>
+              <div className='col-sm-8'>
+                {Object.keys(email).map(key => getEmailDD(key, email[key].adresse))}
+              </div>
+            </dl>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>{props.t('pinfo:form-work')}</legend>
+          <div className='col-xs-12'>
+            <dl className='row'>
+              <dt className='col-sm-4'><label>{props.t('pinfo:form-workType')}</label></dt>
+              <dd className='col-sm-8'>{props.form.workIncome.workType ? props.t('pinfo:form-workType-option-' + props.form.workIncome.workType) : null}</dd>
+              <dt className='col-sm-4'><label>{props.t('pinfo:form-workStartDate')}</label></dt>
+              <dd className='col-sm-8'>{props.form.workIncome.workStartDate ? moment(props.form.workIncome.workStartDate).format('DD MM YYYY') : null/* P4000Util.writeDate(props.form.workStartDate) */}</dd>
+              <dt className='col-sm-4'><label>{props.t('pinfo:form-workEndDate')}</label></dt>
+              <dd className='col-sm-8'>{props.form.workIncome.workEndDate ? moment(props.form.workIncome.workEndDate).format('DD MM YYYY') : null/* P4000Util.writeDate(props.form.workEndDate) */}</dd>
+              <dt className='col-sm-4'><label>{props.t('pinfo:form-workEstimatedRetirementDate')}</label></dt>
+              <dd className='col-sm-8'>{props.form.workIncome.workEstimatedRetirementDate ? moment(props.form.workIncome.workEstimatedRetirementDate).format('DD MM YYYY') : null/* P4000Util.writeDate(props.form.workEstimatedRetirementDate) */}</dd>
+              <dt className='col-sm-4'><label>{props.t('pinfo:form-workHourPerWeek')}</label></dt>
+              <dd className='col-sm-8'>{props.form.workIncome.workHourPerWeek}</dd>
+              <dt className='col-sm-4'><label>{props.t('pinfo:form-workIncome')}</label></dt>
+              <dd className='col-sm-8'>{props.form.workIncome.workIncome}{' '}{_.get(props, 'form.workIncome.workIncomeCurrency.currency', '')}</dd>
+              <dt className='col-sm-4'><label>{props.t('pinfo:form-workPaymentDate')}</label></dt>
+              <dd className='col-sm-8'>{props.form.workIncome.workPaymentDate ? moment(props.form.workIncome.workPaymentDate).format('DD MM YYYY') : null/* P4000Util.writeDate(props.form.workPaymentDate) */}</dd>
+              <dt className='col-sm-4'><label>{props.t('pinfo:form-workPaymentFrequency')}</label></dt>
+              <dd className='col-sm-8'>{props.form.workIncome.workPaymentFrequency ? props.t('pinfo:form-workPaymentFrequency-option-' + props.form.workIncome.workPaymentFrequency) : null}</dd>
+            </dl>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>{props.t('pinfo:form-attachments')}</legend>
+          <div className='col-xs-12'>
+            <dl className='row'>
+              <dt className='col-sm-4'><label>{props.t('pinfo:form-attachmentTypes')}</label></dt>
+              <dd className='col-sm-8'>{
+                Object.entries(props.form.attachmentTypes ? props.form.attachmentTypes : {})
+                  .filter(KV => KV[1])
+                  .map(type => { return props.t('pinfo:form-attachmentTypes-' + type[0]) }).join(', ')
+              }</dd>
+              <dt className='col-sm-4'><label>{props.t('pinfo:form-attachments')}</label></dt>
+              <dd className='col-sm-8'>{
+                props.form.attachments ? props.form.attachments.map((file, i) => {
+                  return <File className='mr-2' key={i} file={file} deleteLink={false} downloadLink={false} />
+                }) : null }
+              </dd>
+            </dl>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>{props.t('pinfo:form-retirement')}</legend>
+          <div className='col-xs-12'>
+            <dl className='row'>
+              <dt className='col-sm-4'><label>{props.t('pinfo:form-retirementCountry')}</label></dt>
+              <dd className='col-sm-8'><img src={'../../../../../flags/' + _.get(props, 'form.pension.retirementCountry.value', '') + '.png'}
+                style={{ width: 30, height: 20 }}
+                alt={_.get(props, 'form.pension.retirementCountry.label', '')} />&nbsp; {_.get(props, 'form.pension.retirementCountry.label', '')}
+              </dd>
+            </dl>
+          </div>
+        </fieldset>
+      </div>
+      <Nav.Row className='mb-4 p-2'>
+        <Nav.Knapp className='backButton m-3 w-100' type='hoved' onClick={(e) => { e.preventDefault(); props.onSave() }}>
+          {props.t('ui:confirmAndSend')}
+        </Nav.Knapp>
+      </Nav.Row>
+    </form>
+  )
+}
+
+export default connect(
+  mapStateToProps,
+  {}
+)(Summary)

@@ -19,7 +19,7 @@ const mapStateToProps = (state) => {
     dataToGenerate: state.case.dataToGenerate,
     language: state.ui.language,
     generatingCase: state.loading.generatingCase,
-    p6000data : state.p6000.data
+    p6000data: state.p6000.data
   }
 }
 
@@ -94,7 +94,7 @@ class ConfirmCase extends Component {
       location={location}>
       <div className='fieldset animate'>
         <RenderConfirmData dataToConfirm={dataToConfirm} />
-        { dataToConfirm.sed === 'P6000' ? <P6000/> : null }
+        { dataToConfirm.sed === 'P6000' ? <P6000 /> : null }
       </div>
       <Nav.Row className='mb-4 p-4'>
         <div className='col-md-6 mb-2'>

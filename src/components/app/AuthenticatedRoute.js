@@ -68,7 +68,6 @@ class AuthenticatedRoute extends Component {
     actions.setLoginState(idtoken === 'logged')
 
     this.parseSearchParams()
-
   }
 
   componentDidUpdate () {

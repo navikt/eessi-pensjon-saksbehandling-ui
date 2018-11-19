@@ -73,13 +73,13 @@ class TopHeader extends Component {
   }
 
   onUsernameSelectRequest (e) {
-    const { actions, history, cookies } = this.props
+    const { actions, /* history, */ cookies } = this.props
 
     if (e.target.value === 'logout') {
       cookies.remove('eessipensjon-idtoken-public', { path: '/' })//= ;path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;"
       actions.clearData()
       actions.logout()
-      //history.push('/')
+      // history.push('/')
     }
   }
 
@@ -96,22 +96,22 @@ class TopHeader extends Component {
         <div className='tittel'><span>{t('app-headerTitle')}</span></div>
       </div>
       <div className='user'>
-        {userRole ? <div title={userRole} className={classNames('mr-2', userRole)}><Icons kind='user' /></div> :
-        isLoggingOut ? <Nav.NavFrontendSpinner type='XS' /> : null}
+        {userRole ? <div title={userRole} className={classNames('mr-2', userRole)}><Icons kind='user' /></div>
+          : isLoggingOut ? <Nav.NavFrontendSpinner type='XS' /> : null}
         <div className='mr-4 name'
           onMouseEnter={this.onHandleMouseEnter.bind(this, 'div')}
           onMouseLeave={this.onHandleMouseLeave.bind(this, 'div')}>
           {gettingUserInfo ? t('case:loading-gettingUserInfo')
-            : username ?
-              divHovering ?
-              <Nav.Select className='username-select' label={''} value={username}
-                onMouseEnter={this.onHandleMouseEnter.bind(this, 'select')}
-                onMouseLeave={this.onHandleMouseLeave.bind(this, 'select')}
-                onChange={this.onUsernameSelectRequest.bind(this)}>
-                <option value=''>{username}</option>
-                <option value='logout'>{t('logout')}</option>
-              </Nav.Select>
-              : <span className='username-span'>{username}</span>
+            : username
+              ? divHovering
+                ? <Nav.Select className='username-select' label={''} value={username}
+                  onMouseEnter={this.onHandleMouseEnter.bind(this, 'select')}
+                  onMouseLeave={this.onHandleMouseLeave.bind(this, 'select')}
+                  onChange={this.onUsernameSelectRequest.bind(this)}>
+                  <option value=''>{username}</option>
+                  <option value='logout'>{t('logout')}</option>
+                </Nav.Select>
+                : <span className='username-span'>{username}</span>
               : <React.Fragment>
                 <Nav.Ikon size={16} kind='advarsel-trekant' />
                 <span className='ml-2'>{t('unknown')}</span>

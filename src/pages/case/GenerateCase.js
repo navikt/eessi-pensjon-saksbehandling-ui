@@ -42,7 +42,7 @@ class GenerateCase extends Component {
     }
 
     if (dataSaved) {
-        actions.cleanDataSaved()
+      actions.cleanDataSaved()
     }
   }
 
@@ -59,8 +59,8 @@ class GenerateCase extends Component {
   }
 
   onBackButtonClick () {
-    const { history, actions } = this.props
-
+    const { history } = this.props
+    // const { history, actions } = this.props
     history.goBack()
   }
 
