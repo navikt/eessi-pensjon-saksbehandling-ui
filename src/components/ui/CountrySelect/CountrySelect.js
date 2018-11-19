@@ -10,13 +10,12 @@ import CountryValue from './CountryValue'
 import CountryErrorStyle from './CountryErrorStyle'
 
 class CountrySelect extends Component {
-
-    onChange (val) {
-      const { onSelect } = this.props
-      if (typeof onSelect === 'function') {
-        onSelect(val)
-      }
+  onChange (val) {
+    const { onSelect } = this.props
+    if (typeof onSelect === 'function') {
+      onSelect(val)
     }
+  }
 
   filter (selectedCountries, allCountries) {
     return _.filter(allCountries, country => {
@@ -27,42 +26,42 @@ class CountrySelect extends Component {
   render () {
     const { t, value, locale, type, list, className, styles = {}, error = false } = this.props
 
-      let optionList = countries[locale]
-      let options = (list ? this.filter(list, optionList) : optionList)
-      let defValue = value
-      if (defValue && !defValue.label) {
-        defValue = _.find(options, { value: defValue.value ? defValue.value : defValue })
-      }
-      return <div className={classNames('c-ui-countrySelect', className)}>
-        <Select placeholder={t('ui:searchCountry')}
-          value={defValue || null}
-          options={options}
-          id={this.props.id}
-          components={{
-            Option: CountryOption,
-            SingleValue: CountryValue,
-            ...this.props.components }}
-          selectProps={{
-            type: type,
-            flagImagePath: '../../../../../flags/'
-          }}
-          className='CountrySelect'
-          classNamePrefix='CountrySelect'
-          onChange={this.onChange.bind(this)}
-          styles={{ ...styles, ...CountryErrorStyle(error) }}
-          tabSelectsValue={false}
-          multi={false}
-        />
-        {error
-          ? <div role='alert' aria-live='assertive'>
-            <div className='skjemaelement__feilmelding'>
-              {this.props.errorMessage}
-            </div>
-          </div>
-          : null
-        }
-      </div>
+    let optionList = countries[locale]
+    let options = (list ? this.filter(list, optionList) : optionList)
+    let defValue = value
+    if (defValue && !defValue.label) {
+      defValue = _.find(options, { value: defValue.value ? defValue.value : defValue })
     }
+    return <div className={classNames('c-ui-countrySelect', className)}>
+      <Select placeholder={t('ui:searchCountry')}
+        value={defValue || null}
+        options={options}
+        id={this.props.id}
+        components={{
+          Option: CountryOption,
+          SingleValue: CountryValue,
+          ...this.props.components }}
+        selectProps={{
+          type: type,
+          flagImagePath: '../../../../../flags/'
+        }}
+        className='CountrySelect'
+        classNamePrefix='CountrySelect'
+        onChange={this.onChange.bind(this)}
+        styles={{ ...styles, ...CountryErrorStyle(error) }}
+        tabSelectsValue={false}
+        multi={false}
+      />
+      {error
+        ? <div role='alert' aria-live='assertive'>
+          <div className='skjemaelement__feilmelding'>
+            {this.props.errorMessage}
+          </div>
+        </div>
+        : null
+      }
+    </div>
+  }
 }
 CountrySelect.propTypes = {
   onSelect: PT.func.isRequired,

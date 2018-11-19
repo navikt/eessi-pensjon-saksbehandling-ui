@@ -4,15 +4,11 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withNamespaces } from 'react-i18next'
 import _ from 'lodash'
-import classNames from 'classnames'
-
 import * as Nav from '../ui/Nav'
 import FileUpload from '../ui/FileUpload/FileUpload'
-import getError from './shared/getError'
-
 import * as appActions from '../../actions/app'
 import * as pinfoActions from '../../actions/pinfo'
-import {attachmentValidation} from '../pinfo/tests'
+import { attachmentValidation } from '../pinfo/tests'
 
 const mapStateToProps = (state) => {
   return {
@@ -25,7 +21,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 function setAttachmentTypes (payload, key) {
-  this.props.actions.setAttachmentTypes({ [key]: payload.target.checked } )
+  this.props.actions.setAttachmentTypes({ [key]: payload.target.checked })
 }
 function setAttachments (payload) {
   this.props.actions.setAttachments(payload)
@@ -73,11 +69,11 @@ class Attachments extends React.Component {
         <Nav.SkjemaGruppe className='pinfo-fileupload-SkjemaGruppe'>
           <Nav.Row>
             <div className='col-md-12'>
-                <Nav.CheckboksPanelGruppe
+              <Nav.CheckboksPanelGruppe
                 legend={this.props.t('pinfo:form-attachmentTypes')}
                 onChange={this.setAttachmentTypes}
-                feil={this.state.displayError && validType? {feilmelding: validType}: null}
-                checkboxes={ _.range(1, 5).map(i=>{
+                feil={this.state.displayError && validType ? { feilmelding: validType } : null}
+                checkboxes={_.range(1, 5).map(i => {
                   let index = i.toString(10).padStart(2, '0')
                   return {
                     label: this.props.t(`pinfo:form-attachmentTypes-${index}`),
@@ -85,30 +81,31 @@ class Attachments extends React.Component {
                     id: index,
                     inputProps: {
                       required: requiredCheckbox,
-                      defaultChecked: this.props.attachments.attachmentTypes ?
-                        this.props.attachments.attachmentTypes[index] || false:
-                        false
+                      defaultChecked: this.props.attachments.attachmentTypes
+                        ? this.props.attachments.attachmentTypes[index] || false
+                        : false
                     }
-              } } )
-            
-            }
-                />
+                  }
+                })
+
+                }
+              />
             </div>
           </Nav.Row>
-          <Nav.SkjemaGruppe 
-            feil={this.state.displayError && validAttachment? {feilmelding: validAttachment}: null}
+          <Nav.SkjemaGruppe
+            feil={this.state.displayError && validAttachment ? { feilmelding: validAttachment } : null}
           >
             <div className='pinfo-fileupload'>
               <FileUpload
                 t={this.props.t} ref={f => { this.fileUpload = f }}
                 fileUploadDroppableId={'pinfoAttachments'}
                 files={
-                  this.props.attachments.attachments
-                  && Array.isArray(this.props.attachments.attachments)?
-                  this.props.attachments.attachments : []
+                  this.props.attachments.attachments &&
+                  Array.isArray(this.props.attachments.attachments)
+                    ? this.props.attachments.attachments : []
                 }
                 inputProps={{
-                  required: requiredFileUpload,
+                  required: requiredFileUpload
                 }}
                 onFileChange={this.setAttachments}
                 tabIndex='0'
@@ -133,5 +130,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-    withNamespaces()(Attachments)
+  withNamespaces()(Attachments)
 )

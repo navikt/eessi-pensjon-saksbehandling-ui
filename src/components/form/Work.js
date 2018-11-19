@@ -40,11 +40,6 @@ function displayErrorOn () {
   })
 }
 
-let startdate = 0
-let enddate = 0
-let retirementdate = 0
-let paymentdate = 0
-
 class Work extends React.Component {
   constructor (props) {
     super(props)
@@ -87,7 +82,7 @@ class Work extends React.Component {
                   label={t('pinfo:form-workType') + ' *'}
                   value={workIncome.workType || ''}
                   onChange={this.setWorkType}
-                  feil={(this.state.displayError && error.workType) ? { feilmelding: error.workType} : null}
+                  feil={(this.state.displayError && error.workType) ? { feilmelding: error.workType } : null}
                 >
                   <option value=''>{t('pinfo:form-workType-select-option')}</option>
                   <option value='01'>{t('pinfo:form-workType-option-01')}</option>
@@ -108,7 +103,7 @@ class Work extends React.Component {
                   className={
                     classNames(
                       'skjemaelement__input input--fullbredde',
-                      {'skjemaelement__input--harFeil': this.state.displayError && error.workStartDate}
+                      { 'skjemaelement__input--harFeil': this.state.displayError && error.workStartDate }
                     )
                   }
                   selected={workIncome.workStartDate ? moment(workIncome.workStartDate) : undefined}
@@ -123,11 +118,11 @@ class Work extends React.Component {
                   onChange={this.setWorkStartDate}
                 />
                 {
-                  (this.state.displayError && error.workStartDate) ?
-                  (<div role="alert" aria-live="assertive">
-                    <div class="skjemaelement__feilmelding">{error.workStartDate}</div>
-                  </div>)
-                  : null
+                  (this.state.displayError && error.workStartDate)
+                    ? (<div role='alert' aria-live='assertive'>
+                      <div class='skjemaelement__feilmelding'>{error.workStartDate}</div>
+                    </div>)
+                    : null
                 }
               </div>
               <div className='col-md-4'>
@@ -136,7 +131,7 @@ class Work extends React.Component {
                   className={
                     classNames(
                       'skjemaelement__input input--fullbredde',
-                      {'skjemaelement__input--harFeil': this.state.displayError && error.workEndDate}
+                      { 'skjemaelement__input--harFeil': this.state.displayError && error.workEndDate }
                     )
                   }
                   selected={workIncome.workEndDate ? moment(workIncome.workEndDate) : undefined}
@@ -151,11 +146,11 @@ class Work extends React.Component {
                   onChange={this.setWorkEndDate}
                 />
                 {
-                  (this.state.displayError && error.workEndDate) ?
-                  (<div role="alert" aria-live="assertive">
-                    <div class="skjemaelement__feilmelding">{error.workEndDate}</div>
-                  </div>)
-                  : null
+                  (this.state.displayError && error.workEndDate)
+                    ? (<div role='alert' aria-live='assertive'>
+                      <div class='skjemaelement__feilmelding'>{error.workEndDate}</div>
+                    </div>)
+                    : null
                 }
               </div>
               <div className='col-md-4'>
@@ -164,7 +159,7 @@ class Work extends React.Component {
                   className={
                     classNames(
                       'skjemaelement__input input--fullbredde',
-                      {'skjemaelement__input--harFeil': this.state.displayError && error.workEstimatedRetirementDate}
+                      { 'skjemaelement__input--harFeil': this.state.displayError && error.workEstimatedRetirementDate }
                     )
                   }
                   selected={workIncome.workEstimatedRetirementDate ? moment(workIncome.workEstimatedRetirementDate) : undefined}
@@ -179,11 +174,11 @@ class Work extends React.Component {
                   onChange={this.setWorkEstimatedRetirementDate}
                 />
                 {
-                  (this.state.displayError && error.workEstimatedRetirementDate) ?
-                  (<div role="alert" aria-live="assertive">
-                    <div class="skjemaelement__feilmelding">{error.workEstimatedRetirementDate}</div>
-                  </div>)
-                  : null
+                  (this.state.displayError && error.workEstimatedRetirementDate)
+                    ? (<div role='alert' aria-live='assertive'>
+                      <div class='skjemaelement__feilmelding'>{error.workEstimatedRetirementDate}</div>
+                    </div>)
+                    : null
                 }
               </div>
             </Nav.Row>
@@ -191,7 +186,7 @@ class Work extends React.Component {
               <div className='col-md-6'>
                 <Nav.Input label={t('pinfo:form-workHourPerWeek') + ' *'} value={workIncome.workHourPerWeek || ''}
                   onChange={this.setWorkHourPerWeek}
-                  feil={(this.state.displayError && error.workHourPerWeek) ? { feilmelding: error.workHourPerWeek} : null}
+                  feil={(this.state.displayError && error.workHourPerWeek) ? { feilmelding: error.workHourPerWeek } : null}
                 />
 
               </div>
@@ -200,7 +195,7 @@ class Work extends React.Component {
               <div className='col-md-6'>
                 <Nav.Input label={t('pinfo:form-workIncome') + ' *'} value={workIncome.workIncome || ''}
                   onChange={this.setWorkIncome}
-                  feil={(this.state.displayError && error.workIncome) ? { feilmelding: error.workIncome} : null}
+                  feil={(this.state.displayError && error.workIncome) ? { feilmelding: error.workIncome } : null}
                 />
               </div>
               <div className='col-md-6'>
@@ -224,7 +219,7 @@ class Work extends React.Component {
                     className={
                       classNames(
                         'skjemaelement__input input--fullbredde',
-                        {'skjemaelement__input--harFeil': this.state.displayError && error.workPaymentDate}
+                        { 'skjemaelement__input--harFeil': this.state.displayError && error.workPaymentDate }
                       )
                     }
                     selected={workIncome.workPaymentDate ? moment(workIncome.workPaymentDate) : undefined}
@@ -239,18 +234,18 @@ class Work extends React.Component {
                     onChange={this.setWorkPaymentDate}
                   />
                   {
-                  (this.state.displayError && error.workPaymentDate) ?
-                    (<div role="alert" aria-live="assertive">
-                      <div class="skjemaelement__feilmelding">{error.workPaymentDate}</div>
-                    </div>)
-                    : null
+                    (this.state.displayError && error.workPaymentDate)
+                      ? (<div role='alert' aria-live='assertive'>
+                        <div class='skjemaelement__feilmelding'>{error.workPaymentDate}</div>
+                      </div>)
+                      : null
                   }
                 </div>
               </div>
               <div className='col-md-6'>
                 <Nav.Select label={t('pinfo:form-workPaymentFrequency') + ' *'} value={workIncome.workPaymentFrequency || ''}
                   onChange={this.setWorkPaymentFrequency}
-                  feil={(this.state.displayError && error.workPaymentFrequency) ? { feilmelding: error.workPaymentFrequency} : null}
+                  feil={(this.state.displayError && error.workPaymentFrequency) ? { feilmelding: error.workPaymentFrequency } : null}
                 >
                   <option value=''>{t('pinfo:form-workPaymentFrequency-choose-option')}</option>
                   <option value='01'>{t('pinfo:form-workPaymentFrequency-option-01')}</option>

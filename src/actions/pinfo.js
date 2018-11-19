@@ -79,13 +79,13 @@ export function setPension (payload) {
 export function setAttachments (payload) {
   return {
     type: types.PINFO_EVENT_SET_ATTACHMENTS,
-    payload: Array.isArray(payload)? payload: []
+    payload: Array.isArray(payload) ? payload : []
   }
 }
 
 export function setAttachmentTypes (payload) {
   return {
-  type: types.PINFO_EVENT_SET_ATTACHMENT_TYPES,
-  payload: payload instanceof Object ? payload : {}
+    type: types.PINFO_EVENT_SET_ATTACHMENT_TYPES,
+    payload: payload instanceof Object ? payload : {}
   }
 }

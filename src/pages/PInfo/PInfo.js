@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
 import { withNamespaces } from 'react-i18next'
 import classNames from 'classnames'
-import moment from 'moment'
 import _ from 'lodash'
 
 import 'react-datepicker/dist/react-datepicker.min.css'
@@ -51,27 +50,6 @@ const onSaveButtonClick = (props) => {
 const setStep = (props, index) => (
   props.actions.setEventProperty({ step: index, displayError: false })
 )
-
-/*
-if 'e' is an actual event, store e.target.value under [key]
-else if 'e' is an instance of moment (ie. a datetime object) store e as date format string under [key].
-else store the raw value of e under [key]
-*/
-const setValue = (props, key, e) => {
-  if (e) {
-    if (!e.target) {
-      if (e instanceof moment) {
-        props.actions.setEventProperty({ [key]: e.toDate() })
-      } else {
-        props.actions.setEventProperty({ [key]: e })
-      }
-    } else {
-      props.actions.setEventProperty({ [key]: e.target.value })
-    }
-  } else {
-    props.actions.setEventProperty({ [key]: null })
-  }
-}
 
 class PInfo extends React.Component {
   constructor (props) {

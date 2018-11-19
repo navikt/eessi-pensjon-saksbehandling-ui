@@ -6,7 +6,7 @@ import { withNamespaces } from 'react-i18next'
 import * as Nav from '../ui/Nav'
 import CountrySelect from '../ui/CountrySelect/CountrySelect'
 import * as pinfoActions from '../../actions/pinfo'
-import {pensionValidation} from '../pinfo/tests'
+import { pensionValidation } from '../pinfo/tests'
 
 const mapStateToProps = (state) => {
   return {
@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators({ ...pinfoActions }, dispatch) }
 }
 function valueSetProperty (key, value) {
-  let payload = Array.isArray(value)? {}: value
+  let payload = Array.isArray(value) ? {} : value
   this.props.actions.setPension({ [key]: payload })
 }
 
@@ -84,5 +84,3 @@ Pension.propTypes = {
   t: PT.func,
   locale: PT.string
 }
-
-

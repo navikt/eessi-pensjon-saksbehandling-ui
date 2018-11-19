@@ -45,7 +45,7 @@ class Contact extends React.Component {
     this.newEmail = newEmail.bind(this)
     this.displayErrorSwitch = { on: displayErrorOn.bind(this), off: displayErrorOff.bind(this) }
 
-    //ensure that there is always at least one input field for contact information.
+    // ensure that there is always at least one input field for contact information.
     if (Object.keys(this.props.phone).length === 0) {
       this.newPhone()
     }

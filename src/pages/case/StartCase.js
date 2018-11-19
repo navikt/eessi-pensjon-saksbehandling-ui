@@ -64,13 +64,13 @@ class StartCase extends Component {
       validation: {}
     };
 
-    static getDerivedStateFromProps(newProps, oldState) {
-        return {
-            _subjectArea: oldState._subjectArea || (newProps.dataToConfirm ? newProps.dataToConfirm.subjectArea : undefined),
-            _buc: oldState._buc || (newProps.dataToConfirm ? newProps.dataToConfirm.buc : undefined),
-            _sed: oldState._sed || (newProps.dataToConfirm ? newProps.dataToConfirm.sed : undefined),
-            institutions: oldState.institutions || (newProps.dataToConfirm ? newProps.dataToConfirm.institutions : [])
-        }
+    static getDerivedStateFromProps (newProps, oldState) {
+      return {
+        _subjectArea: oldState._subjectArea || (newProps.dataToConfirm ? newProps.dataToConfirm.subjectArea : undefined),
+        _buc: oldState._buc || (newProps.dataToConfirm ? newProps.dataToConfirm.buc : undefined),
+        _sed: oldState._sed || (newProps.dataToConfirm ? newProps.dataToConfirm.sed : undefined),
+        institutions: oldState.institutions || (newProps.dataToConfirm ? newProps.dataToConfirm.institutions : [])
+      }
     }
 
     async componentDidMount () {
@@ -267,7 +267,7 @@ class StartCase extends Component {
     onCreateInstitutionButtonClick () {
       const { institutions, institution, country } = this.state
 
-      let _institutions = (!institutions? [] : _.cloneDeep(institutions))
+      let _institutions = (!institutions ? [] : _.cloneDeep(institutions))
 
       _institutions.push({
         institution: institution,
@@ -609,16 +609,16 @@ class StartCase extends Component {
                   <h4>{t('sed')}{': '}{sed}</h4>
                 </div>
               </Nav.Row>}
-              { (sed && sed === 'P6000') || (_sed && _sed === 'P6000') ?
-              <Nav.Row className='align-middle text-left'>
-                <div className='col-md-8'>
-                  <Nav.Input label={t('case:form-vedtakId')} value={_vedtakId || vedtakId} onChange={this.onVedtakIdChange.bind(this)}/>
-                </div>
-                <div className='col-md-4 selectBoxMessage'>
-                  <div/>
-                  <Nav.HjelpetekstBase id='vedtak'>{t('case:help-vedtakId')}</Nav.HjelpetekstBase>
-                </div>
-              </Nav.Row> : null}
+              { (sed && sed === 'P6000') || (_sed && _sed === 'P6000')
+                ? <Nav.Row className='align-middle text-left'>
+                  <div className='col-md-8'>
+                    <Nav.Input label={t('case:form-vedtakId')} value={_vedtakId || vedtakId} onChange={this.onVedtakIdChange.bind(this)} />
+                  </div>
+                  <div className='col-md-4 selectBoxMessage'>
+                    <div />
+                    <Nav.HjelpetekstBase id='vedtak'>{t('case:help-vedtakId')}</Nav.HjelpetekstBase>
+                  </div>
+                </Nav.Row> : null}
               {this.renderInstitutions()}
             </div>
 

@@ -123,7 +123,7 @@ export default function (state = initialState, action = {}) {
             attachmentTypes: {
               ...state.form.attachments.attachmentTypes,
               ...action.payload
-      } } } }
+            } } } }
 
     case types.PINFO_EVENT_SET_ATTACHMENTS:
       return {
@@ -133,7 +133,7 @@ export default function (state = initialState, action = {}) {
           attachments: {
             ...state.form.attachments,
             attachments: action.payload
-      } } }
+          } } }
 
     case types.PINFO_NEW:
 

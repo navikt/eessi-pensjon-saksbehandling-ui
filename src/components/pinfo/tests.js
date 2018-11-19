@@ -1,47 +1,47 @@
 import moment from 'moment'
 
-//BANK
+// BANK
 export function bankName (bank, t) {
   return (
-    !bank.bankName ?
-      t('pinfo:validation-noBankName'):
-      ''
+    !bank.bankName
+      ? t('pinfo:validation-noBankName')
+      : ''
   )
 }
-export function bankAddress (bank, t){
-    return (
-      !bank.bankAddress ?
-      t('pinfo:validation-noBankAddress'):
-      ''
-    )
-  }
-export function bankCountry (bank, t){
-    return (
-      !bank.bankCountry || (Array.isArray(bank.bankCountry)&&bank.bankCountry.length === 0) ?
-      t('pinfo:validation-noBankCountry'):
-      ''
-    )
-  }
-export function bankBicSwift (bank, t){
-    return (
-      !bank.bankBicSwift ? t('pinfo:validation-noBankBicSwift')
-        : !(/[\d\w]+/.test(bank.bankBicSwift))? t('pinfo:validation-invalidBankBicSwift')
-          : ''
-    )
-  }
-export function bankIban (bank, t) {
-    return (
-      !bank.bankIban ? t('pinfo:validation-noBankIban')
-        : !(/[\d\w]+/.test(bank.bankIban)) ? t('pinfo:validation-invalidBankIban')
-          : ''
-    )
-  }
-export function bankCode (bank, t) {
-    return (
-      !bank.bankCode ? t('pinfo:validation-noBankCode')
+export function bankAddress (bank, t) {
+  return (
+    !bank.bankAddress
+      ? t('pinfo:validation-noBankAddress')
+      : ''
+  )
+}
+export function bankCountry (bank, t) {
+  return (
+    !bank.bankCountry || (Array.isArray(bank.bankCountry) && bank.bankCountry.length === 0)
+      ? t('pinfo:validation-noBankCountry')
+      : ''
+  )
+}
+export function bankBicSwift (bank, t) {
+  return (
+    !bank.bankBicSwift ? t('pinfo:validation-noBankBicSwift')
+      : !(/[\d\w]+/.test(bank.bankBicSwift)) ? t('pinfo:validation-invalidBankBicSwift')
         : ''
-    )
-  }
+  )
+}
+export function bankIban (bank, t) {
+  return (
+    !bank.bankIban ? t('pinfo:validation-noBankIban')
+      : !(/[\d\w]+/.test(bank.bankIban)) ? t('pinfo:validation-invalidBankIban')
+        : ''
+  )
+}
+export function bankCode (bank, t) {
+  return (
+    !bank.bankCode ? t('pinfo:validation-noBankCode')
+      : ''
+  )
+}
 
 export const bankValidation = {
   bankName,
@@ -49,10 +49,10 @@ export const bankValidation = {
   bankCountry,
   bankBicSwift,
   bankIban,
-  bankCode,
+  bankCode
 }
 
-//CONTACT
+// CONTACT
 
 export function phoneNumber (phone, t) {
   return (
@@ -89,8 +89,8 @@ export function oneValidPhone (KV, t) {
 export function oneValidEmail (KV, t) {
   // Statement before '.reduce' is essentially Object.values(obj) || obj(K V) => arr[V]
   return Object.keys(KV).map(key => KV[key]).reduce((acc, value) => (acc || !emailAddress(value, t)), false)
-  ? ''
-  : t('pinfo:validation-noValidEmails')
+    ? ''
+    : t('pinfo:validation-noValidEmails')
 }
 
 export const contactValidation = {
@@ -102,7 +102,7 @@ export const contactValidation = {
   oneValidEmail
 }
 
-//WORK AND INCOME
+// WORK AND INCOME
 
 export function workType (workIncome, t) {
   return (
@@ -113,16 +113,16 @@ export function workType (workIncome, t) {
 export function workStartDate (workIncome, t) {
   return (
     !workIncome.workStartDate ? t('pinfo:validation-noWorkStartDate')
-      : workIncome.workStartDate > moment().valueOf()? t('pinfo:validation-noFutureStartDate')
-      : (workIncome.workEndDate && (workIncome.workStartDate > workIncome.workEndDate))? t('pinfo:validation-workStartAfterEnd')
-      : ''
+      : workIncome.workStartDate > moment().valueOf() ? t('pinfo:validation-noFutureStartDate')
+        : (workIncome.workEndDate && (workIncome.workStartDate > workIncome.workEndDate)) ? t('pinfo:validation-workStartAfterEnd')
+          : ''
   )
 }
 export function workEndDate (workIncome, t) {
   return (
     !workIncome.workEndDate ? t('pinfo:validation-noWorkEndDate')
-      : (workIncome.workStartDate && (workIncome.workStartDate > workIncome.workEndDate))? t('pinfo:validation-workEndBeforeStart')
-      : ''
+      : (workIncome.workStartDate && (workIncome.workStartDate > workIncome.workEndDate)) ? t('pinfo:validation-workEndBeforeStart')
+        : ''
   )
 }
 export function workEstimatedRetirementDate (workIncome, t) {
@@ -174,33 +174,33 @@ export const workAndIncomeValidation = {
   workPaymentFrequency
 }
 
-//ATTACHMENTS
-function typesSelected(attachments){
+// ATTACHMENTS
+function typesSelected (attachments) {
   return (
-    attachments.attachmentTypes
-    && typeof attachments.attachmentTypes === 'object'
-    && Object.keys(attachments.attachmentTypes).reduce((acc, key)=> (acc||attachments.attachmentTypes[key]),false)
+    attachments.attachmentTypes &&
+    typeof attachments.attachmentTypes === 'object' &&
+    Object.keys(attachments.attachmentTypes).reduce((acc, key) => (acc || attachments.attachmentTypes[key]), false)
   )
 }
 
-function filesUploaded(attachments){
+function filesUploaded (attachments) {
   return (
-    attachments.attachments
-    && Array.isArray(attachments.attachments)
-    && attachments.attachments.length > 0
+    attachments.attachments &&
+    Array.isArray(attachments.attachments) &&
+    attachments.attachments.length > 0
   )
 }
 
-export function attachments(attachments, t){
-  return (typesSelected(attachments)&&!filesUploaded(attachments))?
-  t('pinfo:validation-noAttachments'):
-  ''
+export function attachments (attachments, t) {
+  return (typesSelected(attachments) && !filesUploaded(attachments))
+    ? t('pinfo:validation-noAttachments')
+    : ''
 }
 
-export function attachmentTypes(attachments, t){
-  return (!typesSelected(attachments)&&filesUploaded(attachments))?
-  t('pinfo:validation-noAttachmentTypes'):
-  ''
+export function attachmentTypes (attachments, t) {
+  return (!typesSelected(attachments) && filesUploaded(attachments))
+    ? t('pinfo:validation-noAttachmentTypes')
+    : ''
 }
 
 export const attachmentValidation = {
@@ -208,13 +208,13 @@ export const attachmentValidation = {
   attachmentTypes
 }
 
-//PENSION
+// PENSION
 
-export function retirementCountry (pension, t){
+export function retirementCountry (pension, t) {
   return (
-    !pension.retirementCountry || (Array.isArray(pension.retirementCountry)&&pension.retirementCountry.length === 0) ?
-    t('pinfo:validation-noRetirementCountry'):
-    ''
+    !pension.retirementCountry || (Array.isArray(pension.retirementCountry) && pension.retirementCountry.length === 0)
+      ? t('pinfo:validation-noRetirementCountry')
+      : ''
   )
 }
 

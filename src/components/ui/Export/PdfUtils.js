@@ -71,7 +71,6 @@ class PdfUtils {
                   let action
 
                   switch (_file.mimetype) {
-
                     case 'application/pdf' :
                       newFileName = 'P4000-' + index + '-' + index2 + '.pdf'
                       action = 'pickDocument'
