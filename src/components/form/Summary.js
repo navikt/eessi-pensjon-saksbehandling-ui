@@ -30,15 +30,16 @@ const getPhoneType = (t, type) => {
 }
 
 const getPhoneDD = (key, t, phone) => {
-  let nummer = _.get(phone, 'nummer', null)
+  let number = _.get(phone, 'number', null)
   let type = _.get(phone, 'type', null)
-  if (!(nummer && key)) { return null }
-  if (!(_.isFunction(t) && type)) { return <dd key={key} className='col-sm-12'>{`${nummer}`}</dd> }
-  return <dd key={key} className='col-sm-12'>{`${getPhoneType(t, type)}${nummer}`}</dd>
+  if (!(number && key)) { return null }
+  if (!(_.isFunction(t) && type)) { return <dd key={key} className='col-sm-12'>{`${number}`}</dd> }
+  return <dd key={key} className='col-sm-12'>{`${getPhoneType(t, type)}${number}`}</dd>
 }
-const getEmailDD = (key, adresse) => {
-  if (!(key && adresse)) { return null }
-  return <dd key={key} className='col-sm-12'>{`${adresse}`}</dd>
+const getEmailDD = (key, address) => {
+  console.log('getEmailDD', 'test: !(key && address) =',  !(key && address))
+  if (!(key && address)) { return null }
+  return <dd key={key} className='col-sm-12'>{`${address}`}</dd>
 }
 
 const Summary = (props) => {
@@ -84,7 +85,7 @@ const Summary = (props) => {
               </div>
               <dt className='col-sm-4'><label>{props.t('pinfo:form-userEmail')}</label></dt>
               <div className='col-sm-8'>
-                {Object.keys(email).map(key => getEmailDD(key, email[key].adresse))}
+                {Object.keys(email).map(key => getEmailDD(key, email[key].address))}
               </div>
             </dl>
           </div>
