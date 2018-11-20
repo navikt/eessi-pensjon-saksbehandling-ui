@@ -12,7 +12,6 @@ node {
                 sh "git pull https://${GITHUB_OAUTH_TOKEN}:x-oauth-basic@github.com/navikt/eessi-pensjon-frontend-ui.git"
                 sh "git fetch --tags https://${GITHUB_OAUTH_TOKEN}:x-oauth-basic@github.com/navikt/eessi-pensjon-frontend-ui.git"
             }
-
             commitHash = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
             github.commitStatus("navikt-ci-oauthtoken", "navikt/eessi-pensjon-frontend-ui", 'continuous-integration/jenkins', commitHash, 'pending', "Build #${env.BUILD_NUMBER} has started")
         }
