@@ -39,7 +39,7 @@ class Pension extends React.Component {
     super(props)
     this.setRetirementCountry = valueSetProperty.bind(this, 'retirementCountry')
     this.state = {
-      displayError: true
+      displayError: false
     }
     this.displayErrorSwitch = { on: displayErrorOn.bind(this), off: displayErrorOff.bind(this) }
   }

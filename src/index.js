@@ -19,7 +19,7 @@ import 'moment/locale/nb'
 import i18n from './i18n'
 import * as reducers from './reducers'
 import * as routes from './constants/routes'
-import registerServiceWorker from './registerServiceWorker'
+import { unregister } from './registerServiceWorker'
 import * as Pages from './pages'
 import AuthenticatedRoute from './components/app/AuthenticatedRoute'
 import * as constants from './constants/constants'
@@ -87,4 +87,5 @@ ReactDOM.render(
   document.getElementById('root')
 )
 
-registerServiceWorker()
+unregister()
+//registerServiceWorker()
