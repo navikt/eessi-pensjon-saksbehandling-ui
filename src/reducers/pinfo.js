@@ -29,9 +29,9 @@ export default function (state = initialState, action = {}) {
       return { ...state, form: { ...state.form, ...action.payload } }
 
     case types.STORAGE_GET_SUCCESS:
-      return action.fileName === 'PINFO'?
-      JSON.parse(action.payload):
-      state
+      return action.fileName === 'PINFO'
+        ? JSON.parse(action.payload)
+        : state
 
     case types.PINFO_EVENT_SET_PHONE:
 
