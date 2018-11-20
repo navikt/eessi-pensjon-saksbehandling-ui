@@ -42,8 +42,12 @@ const getEmailDD = (key, adresse) => {
 }
 
 const Summary = (props) => {
-  let phone = _.get(props.form, 'contact.phone', {})
-  let email = _.get(props.form, 'contact.email', {})
+  const bank = _.get(props.form, 'bank', {})
+  const phone = _.get(props.form, 'contact.phone', {})
+  const email = _.get(props.form, 'contact.email', {})
+  const workIncome = _.get(props.form, 'workIncome', {})
+  const attachments = _.get(props.form, 'attachments', {})
+  const pension = _.get(props.form, 'pension', {})
   return (
     <form id='pinfo-form'>
       <div>
@@ -52,21 +56,21 @@ const Summary = (props) => {
           <div className='col-xs-12'>
             <dl className='row'>
               <dt className='col-sm-4'><label>{props.t('pinfo:form-bankName')}</label></dt>
-              <dd className='col-sm-8'>{props.form.bank.bankName}</dd>
+              <dd className='col-sm-8'>{bank.bankName}</dd>
               <dt className='col-sm-4'><label>{props.t('pinfo:form-bankAddress')}</label></dt>
-              <dd className='col-sm-8'><pre>{props.form.bank.bankAddress}</pre></dd>
+              <dd className='col-sm-8'><pre>{bank.bankAddress}</pre></dd>
               <dt className='col-sm-4'><label>{props.t('pinfo:form-bankCountry')}</label></dt>
               <dd className='col-sm-8'>
-                <img src={'../../../../../flags/' + _.get(props, 'form.bank.bankCountry.value', '') + '.png'}
+                <img src={'../../../../../flags/' + _.get(bank, 'bankCountry.value', '') + '.png'}
                   style={{ width: 30, height: 20 }}
-                  alt={_.get(props, 'form.bank.bankCountry.label', '')} />&nbsp; {_.get(props, 'form.bank.bankCountry.label', '')}
+                  alt={_.get(bank, 'bankCountry.label', '')} />&nbsp; {_.get(bank, 'bankCountry.label', '')}
               </dd>
               <dt className='col-sm-4'><label>{props.t('pinfo:form-bankBicSwift')}</label></dt>
-              <dd className='col-sm-8'>{props.form.bank.bankBicSwift}</dd>
+              <dd className='col-sm-8'>{bank.bankBicSwift}</dd>
               <dt className='col-sm-4'><label>{props.t('pinfo:form-bankIban')}</label></dt>
-              <dd className='col-sm-8'>{props.form.bank.bankIban}</dd>
+              <dd className='col-sm-8'>{bank.bankIban}</dd>
               <dt className='col-sm-4'><label>{props.t('pinfo:form-bankCode')}</label></dt>
-              <dd className='col-sm-8'>{props.form.bank.bankCode}</dd>
+              <dd className='col-sm-8'>{bank.bankCode}</dd>
             </dl>
           </div>
         </fieldset>
@@ -90,21 +94,21 @@ const Summary = (props) => {
           <div className='col-xs-12'>
             <dl className='row'>
               <dt className='col-sm-4'><label>{props.t('pinfo:form-workType')}</label></dt>
-              <dd className='col-sm-8'>{props.form.workIncome.workType ? props.t('pinfo:form-workType-option-' + props.form.workIncome.workType) : null}</dd>
+              <dd className='col-sm-8'>{workIncome.workType ? props.t('pinfo:form-workType-option-' + workIncome.workType) : null}</dd>
               <dt className='col-sm-4'><label>{props.t('pinfo:form-workStartDate')}</label></dt>
-              <dd className='col-sm-8'>{props.form.workIncome.workStartDate ? moment(props.form.workIncome.workStartDate).format('DD MM YYYY') : null/* P4000Util.writeDate(props.form.workStartDate) */}</dd>
+              <dd className='col-sm-8'>{workIncome.workStartDate ? moment(workIncome.workStartDate).format('DD MM YYYY') : null/* P4000Util.writeDate(props.form.workStartDate) */}</dd>
               <dt className='col-sm-4'><label>{props.t('pinfo:form-workEndDate')}</label></dt>
-              <dd className='col-sm-8'>{props.form.workIncome.workEndDate ? moment(props.form.workIncome.workEndDate).format('DD MM YYYY') : null/* P4000Util.writeDate(props.form.workEndDate) */}</dd>
+              <dd className='col-sm-8'>{workIncome.workEndDate ? moment(workIncome.workEndDate).format('DD MM YYYY') : null/* P4000Util.writeDate(props.form.workEndDate) */}</dd>
               <dt className='col-sm-4'><label>{props.t('pinfo:form-workEstimatedRetirementDate')}</label></dt>
-              <dd className='col-sm-8'>{props.form.workIncome.workEstimatedRetirementDate ? moment(props.form.workIncome.workEstimatedRetirementDate).format('DD MM YYYY') : null/* P4000Util.writeDate(props.form.workEstimatedRetirementDate) */}</dd>
+              <dd className='col-sm-8'>{workIncome.workEstimatedRetirementDate ? moment(workIncome.workEstimatedRetirementDate).format('DD MM YYYY') : null/* P4000Util.writeDate(props.form.workEstimatedRetirementDate) */}</dd>
               <dt className='col-sm-4'><label>{props.t('pinfo:form-workHourPerWeek')}</label></dt>
-              <dd className='col-sm-8'>{props.form.workIncome.workHourPerWeek}</dd>
+              <dd className='col-sm-8'>{workIncome.workHourPerWeek}</dd>
               <dt className='col-sm-4'><label>{props.t('pinfo:form-workIncome')}</label></dt>
-              <dd className='col-sm-8'>{props.form.workIncome.workIncome}{' '}{_.get(props, 'form.workIncome.workIncomeCurrency.currency', '')}</dd>
+              <dd className='col-sm-8'>{workIncome.workIncome}{' '}{_.get(props, 'form.workIncome.workIncomeCurrency.currency', '')}</dd>
               <dt className='col-sm-4'><label>{props.t('pinfo:form-workPaymentDate')}</label></dt>
-              <dd className='col-sm-8'>{props.form.workIncome.workPaymentDate ? moment(props.form.workIncome.workPaymentDate).format('DD MM YYYY') : null/* P4000Util.writeDate(props.form.workPaymentDate) */}</dd>
+              <dd className='col-sm-8'>{workIncome.workPaymentDate ? moment(workIncome.workPaymentDate).format('DD MM YYYY') : null/* P4000Util.writeDate(props.form.workPaymentDate) */}</dd>
               <dt className='col-sm-4'><label>{props.t('pinfo:form-workPaymentFrequency')}</label></dt>
-              <dd className='col-sm-8'>{props.form.workIncome.workPaymentFrequency ? props.t('pinfo:form-workPaymentFrequency-option-' + props.form.workIncome.workPaymentFrequency) : null}</dd>
+              <dd className='col-sm-8'>{workIncome.workPaymentFrequency ? props.t('pinfo:form-workPaymentFrequency-option-' + workIncome.workPaymentFrequency) : null}</dd>
             </dl>
           </div>
         </fieldset>
@@ -114,13 +118,13 @@ const Summary = (props) => {
             <dl className='row'>
               <dt className='col-sm-4'><label>{props.t('pinfo:form-attachmentTypes')}</label></dt>
               <dd className='col-sm-8'>{
-                Object.entries(props.form.attachmentTypes ? props.form.attachmentTypes : {})
+                Object.entries(attachments.attachmentTypes ? attachments.attachmentTypes : {})
                   .filter(KV => KV[1])
                   .map(type => { return props.t('pinfo:form-attachmentTypes-' + type[0]) }).join(', ')
               }</dd>
               <dt className='col-sm-4'><label>{props.t('pinfo:form-attachments')}</label></dt>
               <dd className='col-sm-8'>{
-                props.form.attachments ? props.form.attachments.map((file, i) => {
+                attachments.attachments ? attachments.attachments.map((file, i) => {
                   return <File className='mr-2' key={i} file={file} deleteLink={false} downloadLink={false} />
                 }) : null }
               </dd>
@@ -132,9 +136,9 @@ const Summary = (props) => {
           <div className='col-xs-12'>
             <dl className='row'>
               <dt className='col-sm-4'><label>{props.t('pinfo:form-retirementCountry')}</label></dt>
-              <dd className='col-sm-8'><img src={'../../../../../flags/' + _.get(props, 'form.pension.retirementCountry.value', '') + '.png'}
+              <dd className='col-sm-8'><img src={'../../../../../flags/' + _.get(pension, 'retirementCountry.value', '') + '.png'}
                 style={{ width: 30, height: 20 }}
-                alt={_.get(props, 'form.pension.retirementCountry.label', '')} />&nbsp; {_.get(props, 'form.pension.retirementCountry.label', '')}
+                alt={_.get(pension, 'retirementCountry.label', '')} />&nbsp; {_.get(pension, 'retirementCountry.label', '')}
               </dd>
             </dl>
           </div>
