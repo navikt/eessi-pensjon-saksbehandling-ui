@@ -25,12 +25,14 @@ export function call (options) {
       if (statusCode >= 400) {
         dispatch({
           type: options.type.failure,
-          payload: body
+          payload: body,
+          fileName: options.fileName || null
         })
       } else {
         dispatch({
           type: options.type.success,
-          payload: body
+          payload: body,
+          fileName: options.fileName || null
         })
       }
     })

@@ -36,7 +36,8 @@ export function getStorageFile (userId, namespace, file) {
       request: types.STORAGE_GET_REQUEST,
       success: types.STORAGE_GET_SUCCESS,
       failure: types.STORAGE_GET_FAILURE
-    }
+    },
+    fileName: file
   })
 }
 
