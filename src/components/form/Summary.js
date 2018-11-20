@@ -37,7 +37,6 @@ const getPhoneDD = (key, t, phone) => {
   return <dd key={key} className='col-sm-12'>{`${getPhoneType(t, type)}${number}`}</dd>
 }
 const getEmailDD = (key, address) => {
-  console.log('getEmailDD', 'test: !(key && address) =',  !(key && address))
   if (!(key && address)) { return null }
   return <dd key={key} className='col-sm-12'>{`${address}`}</dd>
 }
