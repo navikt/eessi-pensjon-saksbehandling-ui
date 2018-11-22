@@ -101,7 +101,6 @@ class AuthenticatedRoute extends Component {
               spinner={isLoggingIn}>
               {isLoggingIn ? t('ui:authenticating') : t('login')}
             </Nav.Hovedknapp>
-            <input type='button' value='GetUserInfo' onClick={this.actions.getUserInfo} />
           </div> : null}
         </div>
       </div>
