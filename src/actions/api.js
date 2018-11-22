@@ -26,13 +26,15 @@ export function call (options) {
         dispatch({
           type: options.type.failure,
           payload: body,
-          fileName: options.fileName || null
+          fileName: options.fileName || null,
+          statusCode: statusCode
         })
       } else {
         dispatch({
           type: options.type.success,
           payload: body,
-          fileName: options.fileName || null
+          fileName: options.fileName || null,
+          statusCode: statusCode
         })
       }
     })

@@ -38,10 +38,10 @@ class TopHeader extends Component {
 
   componentDidMount () {
     const { username, actions } = this.props
-
+    /*
     if (!username) {
       actions.getUserInfo()
-    }
+    }*/
   }
 
   onHandleMouseEnter (what, e) {
