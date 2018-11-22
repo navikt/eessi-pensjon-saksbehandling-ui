@@ -65,13 +65,12 @@ class FrontPage extends Component {
         </div>
       </Nav.Row>
       <div className='fieldset animate mb-4'>
-        {userRole === constants.SAKSBEHANDLER
-          ? <div className='mb-4'>
-            <h4 className='mb-4'>{t('status')}</h4>
-            <DocumentStatus history={history} />
-          </div>
-          : null
-        }
+
+        <div className='mb-4'>
+          <h4 className='mb-4'>{t('status')}</h4>
+          <DocumentStatus history={history} />
+        </div>
+
         <h4 className='mb-4'>{t('forms')}</h4>
 
         {userRole === constants.SAKSBEHANDLER
@@ -101,13 +100,10 @@ class FrontPage extends Component {
           className='frontPageLink p4000Link' linkCreator={(props) => (
             <Link to={routes.P4000} {...props} />)
           } href='#'>{t('p4000:app-startP4000')}</Nav.Lenkepanel>
-        {userRole === constants.SAKSBEHANDLER
-          ? <div><h4 className='mt-4 mb-4'>{t('tools')}</h4>
-            <Nav.Lenkepanel style={{ animationDelay: '0.4s' }} className='frontPageLink pdfLink' linkCreator={(props) => (
-              <Link to={routes.PDF_SELECT} {...props} />)
-            } href='#'>{t('pdf:app-createPdf')}</Nav.Lenkepanel></div>
-          : null
-        }
+        <h4 className='mt-4 mb-4'>{t('tools')}</h4>
+        <Nav.Lenkepanel style={{ animationDelay: '0.4s' }} className='frontPageLink pdfLink' linkCreator={(props) => (
+          <Link to={routes.PDF_SELECT} {...props} />)
+        } href='#'>{t('pdf:app-createPdf')}</Nav.Lenkepanel>
       </div>
     </TopContainer>
   }

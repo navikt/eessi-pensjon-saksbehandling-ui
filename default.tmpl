@@ -9,8 +9,6 @@ server {
 
     rewrite ^/login(.*)$ ${LOGINURL}?redirect=https://${LOADBALANCEURL} redirect;
 
-    rewrite ^/logout(.*)$ ${LOGOUTURL}?redirect=https://${LOADBALANCEURL} redirect;
-
     location /api/ {
         proxy_pass ${EESSIPENSJONFRONTENDAPI_V1_URL}api/;
     }
