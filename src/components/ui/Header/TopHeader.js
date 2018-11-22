@@ -36,14 +36,6 @@ class TopHeader extends Component {
     selectHovering: false
   }
 
-  componentDidMount () {
-    const { username, actions } = this.props
-    /*
-    if (!username) {
-      actions.getUserInfo()
-    }*/
-  }
-
   onHandleMouseEnter (what, e) {
     e.stopPropagation()
     if (what === 'div') {
