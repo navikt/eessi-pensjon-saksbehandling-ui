@@ -63,8 +63,6 @@ class AuthenticatedRoute extends Component {
 
   componentDidMount () {
     const { cookies, actions } = this.props
-
-    let idtoken = cookies.get('eessipensjon-idtoken-public')
     actions.getUserInfo()
     this.parseSearchParams()
   }

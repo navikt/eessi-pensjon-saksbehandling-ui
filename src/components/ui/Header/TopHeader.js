@@ -103,15 +103,10 @@ class TopHeader extends Component {
           onMouseLeave={this.onHandleMouseLeave.bind(this, 'div')}>
           {gettingUserInfo ? t('case:loading-gettingUserInfo')
             : username
-              ? divHovering
-                ? <Nav.Select className='username-select' label={''} value={username}
-                  onMouseEnter={this.onHandleMouseEnter.bind(this, 'select')}
-                  onMouseLeave={this.onHandleMouseLeave.bind(this, 'select')}
-                  onChange={this.onUsernameSelectRequest.bind(this)}>
-                  <option value=''>{username}</option>
-                  <option value='logout'>{t('logout')}</option>
-                </Nav.Select>
-                : <span className='username-span'>{username}</span>
+              ? <React.Fragment>
+                  <span id='pensjon-utland-span-username' className='username-span'>{username}</span>
+                  <button id='pensjon-utland-logout-button'>{t('logout')}</button>
+                </React.Fragment>
               : <React.Fragment>
                 <Nav.Ikon size={16} kind='advarsel-trekant' />
                 <span className='ml-2'>{t('unknown')}</span>
