@@ -62,7 +62,7 @@ class AuthenticatedRoute extends Component {
   }
 
   componentDidMount () {
-    const { cookies, actions } = this.props
+    const { actions } = this.props
     actions.getUserInfo()
     this.parseSearchParams()
   }
