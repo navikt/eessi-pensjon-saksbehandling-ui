@@ -6,19 +6,19 @@ import PT from 'prop-types'
 import { withNamespaces } from 'react-i18next'
 import 'url-search-params-polyfill'
 
-import LanguageSelector from '../components/ui/LanguageSelector'
-import TopContainer from '../components/ui/TopContainer/TopContainer'
-import * as Nav from '../components/ui/Nav'
-import DocumentStatus from '../components/ui/DocumentStatus/DocumentStatus'
-import EmptyDrawer from '../components/drawer/Empty'
+import LanguageSelector from '../../components/ui/LanguageSelector'
+import TopContainer from '../../components/ui/TopContainer/TopContainer'
+import * as Nav from '../../components/ui/Nav'
+import DocumentStatus from '../../components/ui/DocumentStatus/DocumentStatus'
+import EmptyDrawer from '../../components/drawer/Empty'
 
-import * as constants from '../constants/constants'
-import * as routes from '../constants/routes'
-import * as statusActions from '../actions/status'
-import * as appActions from '../actions/app'
-import * as uiActions from '../actions/ui'
+import * as constants from '../../constants/constants'
+import * as routes from '../../constants/routes'
+import * as statusActions from '../../actions/status'
+import * as appActions from '../../actions/app'
+import * as uiActions from '../../actions/ui'
 
-import './FrontPage.css'
+import './IndexPage.css'
 
 const mapStateToProps = (state) => {
   return {
@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, uiActions, appActions, statusActions), dispatch) }
 }
 
-class FrontPage extends Component {
+class IndexPage extends Component {
   componentDidMount () {
     const { actions } = this.props
 
@@ -109,7 +109,7 @@ class FrontPage extends Component {
   }
 }
 
-FrontPage.propTypes = {
+IndexPage.propTypes = {
   language: PT.string,
   location: PT.object.isRequired,
   t: PT.func.isRequired,
@@ -123,5 +123,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(FrontPage)
+  withNamespaces()(IndexPage)
 )

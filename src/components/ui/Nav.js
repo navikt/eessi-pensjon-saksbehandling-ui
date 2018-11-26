@@ -15,6 +15,8 @@ import Modal from 'nav-frontend-modal'
 import Tekstomrade from 'nav-frontend-tekstomrade'
 import EtikettBase from 'nav-frontend-etiketter'
 import Lukknapp from 'nav-frontend-lukknapp'
+import Veileder from 'nav-frontend-veileder'
+import Veilederpanel from 'nav-frontend-veilederpanel'
 
 export {
   AlertStripe, AlertStripeAdvarsel,
@@ -31,5 +33,7 @@ export {
   Modal,
   Tekstomrade,
   EtikettBase,
-  Lukknapp
+  Lukknapp,
+  Veileder,
+  Veilederpanel
 }

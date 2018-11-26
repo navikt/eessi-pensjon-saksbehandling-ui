@@ -15,6 +15,8 @@ import * as navLogo from '../../../resources/images/nav.svg'
 import * as appActions from '../../../actions/app'
 import * as uiActions from '../../../actions/ui'
 
+import '../app-decorator-v4.css'
+import '../bundle.css'
 import './TopHeader.css'
 
 const mapStateToProps = (state) => {
@@ -31,61 +33,66 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class TopHeader extends Component {
-  state = {
-    divHovering: false,
-    selectHovering: false
+
+
+  onLogout () {
+    const { actions, cookies } = this.props
+
+    cookies.remove('eessipensjon-idtoken-public', { path: '/' })
+    actions.clearData()
+    actions.logout()
   }
 
-  onHandleMouseEnter (what, e) {
-    e.stopPropagation()
-    if (what === 'div') {
-      this.setState({ divHovering: true })
-    }
-    if (what === 'select') {
-      this.setState({ selectHovering: true })
-    }
+   render () {
+
+    let { username } = this.props
+
+    return <div className='hodefot'>
+      <header className='siteheader' role='banner'>
+        <div className='site-coltrols-toolbar site-controls-toolbar'>
+            <div className='navbar container'>
+              <div className='col-md-12'>
+                <div className='settings'>
+                  <ul className='nav' style={{justifyContent: 'center'}}>
+                  <li id='text-size-accessibility' tabIndex='0'>
+                  <span className='link-btn' aria-label='Hold Ctrl-tasten nede (Cmd-tasten på Mac). Trykk samtidig på + for å forstørre eller - for å forminske.'>Skriftstørrelse</span><div className='text-size-tooltip'><p>Hold Ctrl-tasten nede (Cmd-tasten på Mac). Trykk samtidig på + for å forstørre eller - for å forminske.</p><span className='arrow'></span></div></li>
+                  </ul>
+                </div>
+                <div className='login-container'>
+                  <div id='login-details' className=''>
+                    <span id='name-container'>
+                      <img id='idporten-ikon-innlogging' alt='Innlogget via ID-porten' src='https://appres.nav.no/_public/beta.nav.no/built-navno/img/navno/gfx/icons/idporten_ikon.png?_ts=164657e6e70'/>
+                      <span id='name'>{username}</span>
+                    </span>
+                  </div>
+                  <div id='auth-btns' className=' idporten'>
+                    <a id='logout' className='btn-auth knapp mini hoved btn-logout' href='https://loginservice-q.nav.no/slo' aria-hidden='false'>Logg ut</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div className='sitelogo sitelogo-large'>
+          <div>
+            <a href='https://www.nav.no' title='Hjem' data-ga='Header/Logo'>
+              <img src='https://appres.nav.no/_public/beta.nav.no/images/logo.png?_ts=1512923c9b0' alt='NAV-logo'/>
+            </a>
+          </div>
+        </div>
+        <div className='sitelogo sitelogo-small'>
+          <a href='https://www.nav.no' title='Hjem'>
+            <img src='https://appres.nav.no/_public/beta.nav.no/images/logo.png?_ts=1512923c9b0' alt='NAV-logo'/>
+          </a>
+        </div>
+      </header>
+    </div>
   }
 
-  onHandleMouseLeave (what, e) {
-    e.stopPropagation()
-    if (what === 'div') {
-      this.setState({ divHovering: false })
-    }
-    if (what === 'select') {
-      this.setState({ selectHovering: false })
-    }
-  }
-
-  onLogoClick () {
-    const { actions, userRole } = this.props
-
-    if (userRole === constants.SAKSBEHANDLER) {
-      actions.toggleDrawerEnable()
-    }
-  }
-
-  onUsernameSelectRequest (e) {
-    const { actions, /* history, */ cookies } = this.props
-
-    if (e.target.value === 'logout') {
-      cookies.remove('eessipensjon-idtoken-public', { path: '/' })//= ;path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;"
-      actions.clearData()
-      actions.logout()
-      // history.push('/')
-    }
-  }
-
-  render () {
+  render2 () {
     let { t, username, userRole, gettingUserInfo, isLoggingOut } = this.props
 
     return <header className='c-ui-topHeader'>
-      <div className='brand'>
-        <a href='#toggleDrawerEnable' onClick={this.onLogoClick.bind(this)}>
-          <img className='logo' src={navLogo} alt='To personer på NAV kontor' />
-        </a>
-        <div className='skillelinje' />
-        <div className='tittel'><span>{t('app-headerTitle')}</span></div>
-      </div>
+
       <div className='user'>
         {userRole ? <div title={userRole} className={classNames('mr-2', userRole)}><Icons kind='user' /></div>
           : isLoggingOut ? <Nav.NavFrontendSpinner type='XS' /> : null}

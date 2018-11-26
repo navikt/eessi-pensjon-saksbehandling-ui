@@ -5,7 +5,7 @@ import 'core-js/es6/set' // IE 11 compatibility
 import React from 'react'
 import ReactDOM from 'react-dom'
 import createBrowserHistory from 'history/createBrowserHistory'
-import { Switch, Redirect } from 'react-router'
+import { Switch, Redirect, Route } from 'react-router'
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux'
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import { Provider } from 'react-redux'
@@ -77,7 +77,8 @@ ReactDOM.render(
             <AuthenticatedRoute exact path={routes.CASE_SEND} component={Pages.SendCase} roles={[constants.SAKSBEHANDLER]} />
             <Redirect from={routes.CASE} to={{ pathname: routes.CASE_START }} />
 
-            <AuthenticatedRoute path={routes.ROOT} component={Pages.FrontPage} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+            <AuthenticatedRoute path={routes.INDEX} component={Pages.IndexPage} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+            <Route path={routes.ROOT} component={Pages.FirstPage}/>
             <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
           </Switch>
         </ConnectedRouter>

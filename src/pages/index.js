@@ -1,4 +1,5 @@
-import FrontPage from './FrontPage'
+import FirstPage from './FirstPage/FirstPage'
+import IndexPage from './IndexPage/IndexPage'
 
 import StartCase from './case/StartCase'
 import ConfirmCase from './case/ConfirmCase'
@@ -15,7 +16,8 @@ import PInfo from './PInfo/PInfo'
 import P4000 from './P4000/P4000'
 
 export {
-  FrontPage,
+  FirstPage,
+  IndexPage,
 
   StartCase,
   ConfirmCase,
