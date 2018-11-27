@@ -20,6 +20,15 @@ export default function (state = initialState, action = {}) {
         userRole: action.payload.role
       })
 
+    case types.APP_USERINFO_FAILURE:
+
+      return Object.assign({}, state, {
+        username: null,
+        userrole: null,
+        loggedIn: false,
+        loggingIn: false
+      })
+
     case types.APP_DROPPABLE_REGISTER : {
       let droppables = state.droppables || {}
       droppables[action.payload.id] = action.payload.ref

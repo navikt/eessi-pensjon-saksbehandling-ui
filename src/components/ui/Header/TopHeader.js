@@ -36,14 +36,6 @@ class TopHeader extends Component {
     selectHovering: false
   }
 
-  componentDidMount () {
-    const { username, actions } = this.props
-
-    if (!username) {
-      actions.getUserInfo()
-    }
-  }
-
   onHandleMouseEnter (what, e) {
     e.stopPropagation()
     if (what === 'div') {
@@ -85,7 +77,6 @@ class TopHeader extends Component {
 
   render () {
     let { t, username, userRole, gettingUserInfo, isLoggingOut } = this.props
-    let { divHovering } = this.state
 
     return <header className='c-ui-topHeader'>
       <div className='brand'>
@@ -103,15 +94,16 @@ class TopHeader extends Component {
           onMouseLeave={this.onHandleMouseLeave.bind(this, 'div')}>
           {gettingUserInfo ? t('case:loading-gettingUserInfo')
             : username
-              ? divHovering
-                ? <Nav.Select className='username-select' label={''} value={username}
-                  onMouseEnter={this.onHandleMouseEnter.bind(this, 'select')}
-                  onMouseLeave={this.onHandleMouseLeave.bind(this, 'select')}
-                  onChange={this.onUsernameSelectRequest.bind(this)}>
-                  <option value=''>{username}</option>
-                  <option value='logout'>{t('logout')}</option>
-                </Nav.Select>
-                : <span className='username-span'>{username}</span>
+              ? <React.Fragment>
+                <div>
+                  <div className='col-sm-6'>
+                    <span id='pensjon-utland-span-username' className='username-span'>{username}</span>
+                  </div>
+                  <div className='col-sm-6'>
+                    <a href='https://loginservice-q.nav.no/slo' class='btn btn-secondary btn-sm' role='button'>{t('logout')}</a>
+                  </div>
+                </div>
+              </React.Fragment>
               : <React.Fragment>
                 <Nav.Ikon size={16} kind='advarsel-trekant' />
                 <span className='ml-2'>{t('unknown')}</span>

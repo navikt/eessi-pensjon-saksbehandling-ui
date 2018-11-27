@@ -62,11 +62,8 @@ class AuthenticatedRoute extends Component {
   }
 
   componentDidMount () {
-    const { cookies, actions } = this.props
-
-    let idtoken = cookies.get('eessipensjon-idtoken-public')
-    actions.setLoginState(idtoken === 'logged')
-
+    const { actions } = this.props
+    actions.getUserInfo()
     this.parseSearchParams()
   }
 
@@ -76,7 +73,6 @@ class AuthenticatedRoute extends Component {
 
   hasApprovedRole () {
     const { roles, userRole } = this.props
-
     return roles.indexOf(userRole) >= 0
   }
 
