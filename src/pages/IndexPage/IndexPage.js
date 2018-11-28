@@ -56,9 +56,9 @@ class IndexPage extends Component {
       language={language} history={history} location={location}
       sideContent={<EmptyDrawer />}>
 
-      <h1 className='appTitle'>{t('app-pageTitle')}</h1>
-      <h4 className='appDescription'>{t('app-pageDescription')}</h4>
-      <div className='fieldset animate mb-4'>
+      <h1 className='ml-0 appTitle'>{t('app-pageTitle')}</h1>
+      <h4 className='ml-0 appDescription'>{t('app-pageDescription')}</h4>
+      <div className='animate mb-4'>
 
         <div className='mb-4'>
           <h4 className='mb-4'>{t('status')}</h4>

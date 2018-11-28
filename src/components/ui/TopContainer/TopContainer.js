@@ -51,7 +51,7 @@ class TopContainer extends Component {
           <ClientAlert />
           <ServerAlert />
           <Breadcrumbs history={history} />
-          <Nav.Container className='_container' fluid>
+          <Nav.Container className='_container'>
             {this.props.children}
           </Nav.Container>
           <Modal />
