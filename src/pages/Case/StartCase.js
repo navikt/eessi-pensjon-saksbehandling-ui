@@ -577,7 +577,7 @@ class StartCase extends Component {
                   </div>
                 </Nav.Row>
               </div>
-              <Nav.Row className='p-4 mb-2'>
+              <Nav.Row className='mt-4'>
                 <div className='col-md-12'>
                   <Nav.Hovedknapp className='forwardButton'
                     onClick={this.onFetchCaseButtonClick.bind(this)}>{t('ui:search')}</Nav.Hovedknapp>
@@ -630,10 +630,13 @@ class StartCase extends Component {
                 </Nav.Row> : null}
               {this.renderInstitutions()}
             </div>
-            <Nav.Hovedknapp className='forwardButton'
-              disabled={!this.noValidationErrors()}
-              onClick={this.onForwardButtonClick.bind(this)}>{t('ui:go')}</Nav.Hovedknapp>
-
+            <Nav.Row className='mb-4 mt-4'>
+              <div className='col-md-12'>
+                <Nav.Hovedknapp className='forwardButton'
+                  disabled={!this.noValidationErrors()}
+                  onClick={this.onForwardButtonClick.bind(this)}>{t('ui:go')}</Nav.Hovedknapp>
+              </div>
+            </Nav.Row>
           </React.Fragment>
         }
       </Case>

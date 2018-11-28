@@ -10,6 +10,7 @@ import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.min.css'
 
 import * as Nav from '../../components/ui/Nav'
+import VeilederPanel from '../../components/ui/Panel/VeilederPanel'
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
 import CountrySelect from '../../components/ui/CountrySelect/CountrySelect'
 import FrontPageDrawer from '../../components/drawer/FrontPage'
@@ -229,8 +230,7 @@ class PSelv extends Component {
         sideContent={<FrontPageDrawer t={t} status={status} />}>
         <Nav.Row className='mb-4'>
           <Nav.Column>
-            <h1 className='appTitle'>{t('pselv:app-title')}</h1>
-            <h4 className='appDescription mb-4'>{t('pselv:form-step' + step)}</h4>
+            <h1 className='ml-0 appTitle'>{t('pselv:app-title')}</h1>
             <Nav.Stegindikator
               aktivtSteg={step}
               visLabel
@@ -249,36 +249,32 @@ class PSelv extends Component {
         <div className={classNames('fieldset', 'animate', 'mb-4', {
           validationFail: this ? this.hasValidationErrors() : false
         })}>
-          <Nav.HjelpetekstBase>{t('pselv:help-step' + step)}</Nav.HjelpetekstBase>
           {this.hasValidationErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.validationError)}</Nav.AlertStripe> : null}
-          {step === 0 ? <div className='mt-3'>
-            <Nav.Row>
-              <div className='col'>
-                <div className='mb-4'>
-                  <h4>{t('pselv:form-step0-title')}</h4>
-                  <div>{t('pselv:form-step0-description')}</div>
-                </div>
-                <div className='mb-4'>
-                  <div>
-                    <label>{t('pselv:form-step0-radio-label') + ' *'}</label>
-                  </div>
-                  <Nav.Radio className='d-inline-block mr-4' label={t('yes')}
-                    checked={this.state.livedOrWorkedOutsideNorway === true}
-                    name='livedOrWorkedOutsideNorway'
-                    onChange={this.setValue.bind(this, 'livedOrWorkedOutsideNorway', true)} />
-                  <Nav.Radio className='d-inline-block' label={t('no')}
-                    checked={this.state.livedOrWorkedOutsideNorway === false}
-                    name='livedOrWorkedOutsideNorway'
-                    onChange={this.setValue.bind(this, 'livedOrWorkedOutsideNorway', false)} />
-                </div>
+          <div className='mb-4'>
+            <h2>{t('pselv:form-step' + step + '-title')}</h2>
+            <div className='mb-5 mt-5'>
+               <VeilederPanel>{t('pselv:form-step' + step + '-description')}
+               {step === 3 ? <div><a href='#externalhref'>{t('pselv:form-step3-sed-anchor-text')}</a></div> : null}
+               </VeilederPanel>
+            </div>
+          </div>
+          {step === 0 ? <div className='mb-4'>
+              <div>
+                <label>{t('pselv:form-step0-radio-label') + ' *'}</label>
               </div>
-            </Nav.Row>
-          </div> : null }
-          {step === 1 ? <div className='mt-3'>
-            <Nav.Row>
-              <div className='mb-4 col-md-6'>
-                <label>{t('pselv:form-step1-startPensionDate') + ' *'}</label>
-                <ReactDatePicker selected={this.state.startPensionDate ? moment(this.state.startPensionDate) : undefined}
+              <Nav.Radio className='d-inline-block mr-4' label={t('yes')}
+                checked={this.state.livedOrWorkedOutsideNorway === true}
+                name='livedOrWorkedOutsideNorway'
+                onChange={this.setValue.bind(this, 'livedOrWorkedOutsideNorway', true)} />
+              <Nav.Radio className='d-inline-block' label={t('no')}
+                checked={this.state.livedOrWorkedOutsideNorway === false}
+                name='livedOrWorkedOutsideNorway'
+                onChange={this.setValue.bind(this, 'livedOrWorkedOutsideNorway', false)} />
+            </div> : null }
+          {step === 1 ? <React.Fragment>
+            <div className='mb-4'>
+              <label>{t('pselv:form-step1-startPensionDate') + ' *'}</label>
+              <ReactDatePicker selected={this.state.startPensionDate ? moment(this.state.startPensionDate) : undefined}
                   dateFormat='DD.MM.YYYY'
                   placeholderText={t('ui:dateFormat')}
                   showYearDropdown
@@ -289,9 +285,9 @@ class PSelv extends Component {
                   onYearChange={this.onDateChange.bind(this, 'startPensionDate')}
                   onBlur={this.onDateBlur.bind(this, 'startPensionDate')}
                   onChange={this.onDateChange.bind(this, 'startPensionDate')} />
-              </div>
-              <div className='mb-4 col-md-6'>
-                <Nav.Select label={t('pselv:form-step1-grade') + ' *'} value={this.state.grade || ''}
+            </div>
+            <div className='mb-4'>
+              <Nav.Select label={t('pselv:form-step1-grade') + ' *'} value={this.state.grade || ''}
                   onChange={this.setValue.bind(this, 'grade')}>
                   <option value=''>{'--'}</option>
                   <option value='100%'>{'100 %'}</option>
@@ -301,27 +297,22 @@ class PSelv extends Component {
                   <option value='60%'>{'60 %'}</option>
                   <option value='50%'>{'50 %'}</option>
                 </Nav.Select>
+            </div>
+            <div className='mb-4'>
+              <div>
+                <label>{t('pselv:form-step1-afp') + ' *'}</label>
               </div>
-            </Nav.Row>
-            <Nav.Row>
-              <div className='col'>
-                <div className='mb-4'>
-                  <div>
-                    <label>{t('pselv:form-step1-afp') + ' *'}</label>
-                  </div>
-                  <Nav.Radio className='d-inline-block mr-4' label={t('yes')}
-                    checked={this.state.afp === true}
-                    name='afp'
-                    onChange={this.setValue.bind(this, 'afp', true)} />
-                  <Nav.Radio className='d-inline-block mr-4' label={t('no')}
-                    checked={this.state.afp === false}
-                    name='afp'
-                    onChange={this.setValue.bind(this, 'afp', false)} />
-                </div>
-              </div>
-            </Nav.Row>
-          </div> : null }
-          {step === 2 ? <div className='mt-3'>
+              <Nav.Radio className='d-inline-block mr-4' label={t('yes')}
+                checked={this.state.afp === true}
+                name='afp'
+                onChange={this.setValue.bind(this, 'afp', true)} />
+              <Nav.Radio className='d-inline-block mr-4' label={t('no')}
+                checked={this.state.afp === false}
+                name='afp'
+                onChange={this.setValue.bind(this, 'afp', false)} />
+            </div>
+          </React.Fragment> : null }
+          {step === 2 ? <React.Fragment>
             <Nav.Row>
               <div className='mb-4 col-md-6'>
                 <Nav.Input label={t('ui:name') + ' *'} value={this.state.name || ''}
@@ -408,16 +399,9 @@ class PSelv extends Component {
                   onChange={this.setValue.bind(this, 'phonework')} />
               </div>
             </Nav.Row>
-          </div> : null }
+          </React.Fragment> : null }
 
-          { step === 3 ? <div className='mt-3'>
-            <Nav.Row>
-              <Nav.Column className='mb-4'>
-                <h4>{t('pselv:form-step3-title')}</h4>
-                <h6>{t('pselv:form-step3-description')}</h6>
-                <div><a href='#externalhref'>{t('pselv:form-step3-sed-anchor-text')}</a></div>
-              </Nav.Column>
-            </Nav.Row>
+          { step === 3 ? <React.Fragment>
             <Nav.Row>
               <Nav.Column className='col-md-6 mb-4'>
                 <h4>{t('pselv:form-step3-civilstatus-title')}</h4>
@@ -453,10 +437,10 @@ class PSelv extends Component {
               </div>
             </Nav.Row> : null
             }
-          </div> : null
+          </React.Fragment> : null
           }
 
-          { step === 4 ? <div className='mt-3 mb-4'>
+          { step === 4 ? <React.Fragment>
             <h4 className='mb-4'>{t('pselv:form-step4-title')}</h4>
             <div className='mb-4' dangerouslySetInnerHTML={{ __html: t('pselv:form-step4-description-1') }} />
             <div className='mb-4'>{t('pselv:form-step4-description-2')}</div>
@@ -466,18 +450,16 @@ class PSelv extends Component {
             <div className='mb-4'><a href='#externalhref'>{t('pselv:form-step4-anchor-text-2')}</a></div>
             <div className='mb-4'>{t('pselv:form-step4-description-4')}</div>
             <div className='mb-4'>{t('pselv:form-step4-description-5')}</div>
-          </div> : null
+          </React.Fragment> : null
           }
         </div>
-        <Nav.Row className='mb-4 p-2'>
-          <Nav.Column>
-            {step !== 0 ? <Nav.Knapp className='backButton mr-4 w-100' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp> : null}
-          </Nav.Column>
-          <Nav.Column>
+        <Nav.Row className='mb-4 mt-4'>
+          <div className='col-md-12'>
             {step !== 4
-              ? <Nav.Hovedknapp className='forwardButton w-100' onClick={this.onForwardButtonClick.bind(this)}>{t('ui:forward')}</Nav.Hovedknapp>
-              : <Nav.Hovedknapp className='sendButton w-100' onClick={this.onSaveButtonClick.bind(this)}>{t('ui:confirmAndSave')}</Nav.Hovedknapp> }
-          </Nav.Column>
+            ? <Nav.Hovedknapp className='forwardButton' onClick={this.onForwardButtonClick.bind(this)}>{t('ui:forward')}</Nav.Hovedknapp>
+            : <Nav.Hovedknapp className='sendButton' onClick={this.onSaveButtonClick.bind(this)}>{t('ui:confirmAndSave')}</Nav.Hovedknapp> }
+            {step !== 0 ? <Nav.Knapp className='backButton ml-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp> : null}
+          </div>
         </Nav.Row>
       </TopContainer>
     }
