@@ -55,15 +55,9 @@ class IndexPage extends Component {
     return <TopContainer className='frontPage'
       language={language} history={history} location={location}
       sideContent={<EmptyDrawer />}>
-      <Nav.Row>
-        <div className='col-md-8'>
-          <h1 className='appTitle'>{t('app-pageTitle')}</h1>
-          <h4 className='appDescription'>{t('app-pageDescription')}</h4>
-        </div>
-        <div className='col-md-4 text-right m-auto'>
-          <LanguageSelector className='mr-4' />
-        </div>
-      </Nav.Row>
+
+      <h1 className='appTitle'>{t('app-pageTitle')}</h1>
+      <h4 className='appDescription'>{t('app-pageDescription')}</h4>
       <div className='fieldset animate mb-4'>
 
         <div className='mb-4'>

@@ -6,18 +6,16 @@ import { withNamespaces } from 'react-i18next'
 import { withCookies, Cookies } from 'react-cookie'
 import classNames from 'classnames'
 
+import LogoHeader from './LogoHeader'
 import Icons from '../Icons'
 import * as Nav from '../Nav'
 
-import * as constants from '../../../constants/constants'
-
-import * as navLogo from '../../../resources/images/nav.svg'
 import * as appActions from '../../../actions/app'
 import * as uiActions from '../../../actions/ui'
 
 import '../app-decorator-v4.css'
 import '../bundle.css'
-import './TopHeader.css'
+import './ExternalTopHeader.css'
 
 const mapStateToProps = (state) => {
   return {
@@ -32,7 +30,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, uiActions, appActions), dispatch) }
 }
 
-class TopHeader extends Component {
+class ExternalTopHeader extends Component {
 
 
   onLogout () {
@@ -72,57 +70,13 @@ class TopHeader extends Component {
               </div>
             </div>
         </div>
-        <div className='sitelogo sitelogo-large'>
-          <div>
-            <a href='https://www.nav.no' title='Hjem' data-ga='Header/Logo'>
-              <img src='https://appres.nav.no/_public/beta.nav.no/images/logo.png?_ts=1512923c9b0' alt='NAV-logo'/>
-            </a>
-          </div>
-        </div>
-        <div className='sitelogo sitelogo-small'>
-          <a href='https://www.nav.no' title='Hjem'>
-            <img src='https://appres.nav.no/_public/beta.nav.no/images/logo.png?_ts=1512923c9b0' alt='NAV-logo'/>
-          </a>
-        </div>
+        <LogoHeader/>
       </header>
     </div>
   }
-
-  render2 () {
-    let { t, username, userRole, gettingUserInfo, isLoggingOut } = this.props
-
-    return <header className='c-ui-topHeader'>
-
-      <div className='user'>
-        {userRole ? <div title={userRole} className={classNames('mr-2', userRole)}><Icons kind='user' /></div>
-          : isLoggingOut ? <Nav.NavFrontendSpinner type='XS' /> : null}
-        <div className='mr-4 name'
-          onMouseEnter={this.onHandleMouseEnter.bind(this, 'div')}
-          onMouseLeave={this.onHandleMouseLeave.bind(this, 'div')}>
-          {gettingUserInfo ? t('case:loading-gettingUserInfo')
-            : username
-              ? <React.Fragment>
-                <div>
-                  <div className='col-sm-6'>
-                    <span id='pensjon-utland-span-username' className='username-span'>{username}</span>
-                  </div>
-                  <div className='col-sm-6'>
-                    <a href='https://loginservice-q.nav.no/slo' class='btn btn-secondary btn-sm' role='button'>{t('logout')}</a>
-                  </div>
-                </div>
-              </React.Fragment>
-              : <React.Fragment>
-                <Nav.Ikon size={16} kind='advarsel-trekant' />
-                <span className='ml-2'>{t('unknown')}</span>
-              </React.Fragment>
-          }
-        </div>
-      </div>
-    </header>
-  }
 }
 
-TopHeader.propTypes = {
+ExternalTopHeader.propTypes = {
   t: PT.func.isRequired,
   username: PT.string,
   userRole: PT.string,
@@ -137,6 +91,6 @@ export default withCookies(
     mapStateToProps,
     mapDispatchToProps
   )(
-    withNamespaces()(TopHeader)
+    withNamespaces()(ExternalTopHeader)
   )
 )

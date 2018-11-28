@@ -1,21 +1,16 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
 import { withNamespaces } from 'react-i18next'
 import 'url-search-params-polyfill'
 
+import LogoHeader from '../../components/ui/Header/LogoHeader'
 import VeilederPanel from '../../components/ui/Panel/VeilederPanel'
 import LanguageSelector from '../../components/ui/LanguageSelector'
-import TopContainer from '../../components/ui/TopContainer/TopContainer'
-import TopHeader from '../../components/ui/Header/TopHeader'
 import Banner from '../../components/ui/Banner/Banner'
 import * as Nav from '../../components/ui/Nav'
-import DocumentStatus from '../../components/ui/DocumentStatus/DocumentStatus'
-import EmptyDrawer from '../../components/drawer/Empty'
 
-import * as constants from '../../constants/constants'
 import * as routes from '../../constants/routes'
 import * as statusActions from '../../actions/status'
 import * as appActions from '../../actions/app'
@@ -45,10 +40,10 @@ class FirstPage extends Component {
   }
 
   render () {
-    const { t, language, history, status, location, userRole, username} = this.props
+    const { language } = this.props
 
-    return <div className='p-firstPage'>
-      <TopHeader/>
+    return <div className='p-firstPage hodefot'>
+      <LogoHeader/>
       <Banner/>
       <div className='content'>
         <div className='container pt-4'>
@@ -61,6 +56,7 @@ class FirstPage extends Component {
             </ul>
             </div>
         </VeilederPanel>
+        <LanguageSelector className='mt-3' />
         <Nav.Knapp className='mt-3' onClick={this.onForwardButtonClick.bind(this)}>{'next'}</Nav.Knapp>
         </div>
       </div>
