@@ -60,10 +60,9 @@ class Bank extends React.Component {
       bankCode: bankValidation.bankCode(bank, t)
     }
     return (
-      <fieldset>
-        <legend>{t('pinfo:form-bank')}</legend>
+      <div>
+        <h2>{t('pinfo:form-bank')}</h2>
         <div className='mt-3'>
-          <div className='col-xs-12'>
             <Nav.Row>
               <div className='col-md-6'>
                 <Nav.Input label={t('pinfo:form-bankName') + ' *'} value={bank.bankName || ''}
@@ -119,9 +118,8 @@ class Bank extends React.Component {
                 />
               </div>
             </Nav.Row>
-          </div>
         </div>
-      </fieldset>
+      </div>
     )
   }
 }
