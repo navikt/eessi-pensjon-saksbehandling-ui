@@ -1,8 +1,7 @@
 import * as types from '../constants/actionTypes'
 
 let initialState = {
-  loggedIn: false,
-  loggingIn: false
+  loggedIn: false
 }
 
 export default function (state = initialState, action = {}) {
@@ -17,7 +16,8 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         username: action.payload.subject,
-        userRole: action.payload.role
+        userRole: action.payload.role,
+        loggedIn: true
       })
 
     case types.APP_USERINFO_FAILURE:
@@ -25,8 +25,7 @@ export default function (state = initialState, action = {}) {
       return Object.assign({}, state, {
         username: null,
         userrole: null,
-        loggedIn: false,
-        loggingIn: false
+        loggedIn: false
       })
 
     case types.APP_DROPPABLE_REGISTER : {

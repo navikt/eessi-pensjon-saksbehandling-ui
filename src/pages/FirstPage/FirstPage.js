@@ -23,7 +23,9 @@ const mapStateToProps = (state) => {
     username: state.app.username,
     userRole: state.app.userRole,
     language: state.ui.language,
-    status: state.status
+    loggedIn: state.app.loggedIn,
+    gettingUserInfo : state.loading.gettingUserInfo,
+    isLoggingIn: state.loading.isLoggingIn
   }
 }
 
@@ -33,20 +35,32 @@ const mapDispatchToProps = (dispatch) => {
 
 class FirstPage extends Component {
 
-  onForwardButtonClick () {
+  componentDidMount () {
+    const { actions, userRole } = this.props
+    if (!userRole) {
+      actions.getUserInfo()
+    }
+  }
+
+  handleLoginRequest () {
+    const { actions } = this.props
+    actions.login()
+  }
+
+  handleForwardButtonClick () {
     const { history } = this.props
 
     history.push(routes.INDEX)
   }
 
   render () {
-    const { language } = this.props
+    const { t, language, loggedIn, isLoggingIn, gettingUserInfo } = this.props
 
     return <div className='p-firstPage hodefot'>
       <LogoHeader/>
       <Banner/>
       <div className='content'>
-        <div className='container pt-4'>
+        <div className='container text-center pt-4'>
         <VeilederPanel>
             <div>Her du kan:
             <ul>
@@ -57,7 +71,18 @@ class FirstPage extends Component {
             </div>
         </VeilederPanel>
         <LanguageSelector className='mt-3' />
-        <Nav.Knapp className='mt-3' onClick={this.onForwardButtonClick.bind(this)}>{'next'}</Nav.Knapp>
+        {!loggedIn ? <Nav.Hovedknapp
+          className='mt-3 loginButton'
+          onClick={this.handleLoginRequest.bind(this)}
+          disabled={isLoggingIn || gettingUserInfo}
+          spinner={isLoggingIn || gettingUserInfo}>
+          {isLoggingIn ? t('ui:authenticating') :
+          gettingUserInfo ? t('loading') : t('login')}
+        </Nav.Hovedknapp> :
+        <Nav.Hovedknapp
+          className='mt-3 forwardButton'
+          onClick={this.handleForwardButtonClick.bind(this)}>{t('next')}
+        </Nav.Hovedknapp>}
         </div>
       </div>
     </div>

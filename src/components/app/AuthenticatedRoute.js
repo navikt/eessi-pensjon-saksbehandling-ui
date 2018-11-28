@@ -18,6 +18,7 @@ import * as statusActions from '../../actions/status'
 
 const mapStateToProps = (state) => {
   return {
+
     userRole: state.app.userRole,
     loggedIn: state.app.loggedIn,
     isLoggingIn: state.loading.isLoggingIn,
@@ -62,8 +63,10 @@ class AuthenticatedRoute extends Component {
   }
 
   componentDidMount () {
-    const { actions } = this.props
-    actions.getUserInfo()
+    const { actions, userRole } = this.props
+    if (!userRole) {
+      actions.getUserInfo()
+    }
     this.parseSearchParams()
   }
 
