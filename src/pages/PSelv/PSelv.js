@@ -253,50 +253,50 @@ class PSelv extends Component {
           <div className='mb-4'>
             <h2>{t('pselv:form-step' + step + '-title')}</h2>
             <div className='mb-5 mt-5'>
-               <VeilederPanel>{t('pselv:form-step' + step + '-description')}
-               {step === 3 ? <div><a href='#externalhref'>{t('pselv:form-step3-sed-anchor-text')}</a></div> : null}
-               </VeilederPanel>
+              <VeilederPanel>{t('pselv:form-step' + step + '-description')}
+                {step === 3 ? <div><a href='#externalhref'>{t('pselv:form-step3-sed-anchor-text')}</a></div> : null}
+              </VeilederPanel>
             </div>
           </div>
           {step === 0 ? <div className='mb-4'>
-              <div>
-                <label>{t('pselv:form-step0-radio-label') + ' *'}</label>
-              </div>
-              <Nav.Radio className='d-inline-block mr-4' label={t('yes')}
-                checked={this.state.livedOrWorkedOutsideNorway === true}
-                name='livedOrWorkedOutsideNorway'
-                onChange={this.setValue.bind(this, 'livedOrWorkedOutsideNorway', true)} />
-              <Nav.Radio className='d-inline-block' label={t('no')}
-                checked={this.state.livedOrWorkedOutsideNorway === false}
-                name='livedOrWorkedOutsideNorway'
-                onChange={this.setValue.bind(this, 'livedOrWorkedOutsideNorway', false)} />
-            </div> : null }
+            <div>
+              <label>{t('pselv:form-step0-radio-label') + ' *'}</label>
+            </div>
+            <Nav.Radio className='d-inline-block mr-4' label={t('yes')}
+              checked={this.state.livedOrWorkedOutsideNorway === true}
+              name='livedOrWorkedOutsideNorway'
+              onChange={this.setValue.bind(this, 'livedOrWorkedOutsideNorway', true)} />
+            <Nav.Radio className='d-inline-block' label={t('no')}
+              checked={this.state.livedOrWorkedOutsideNorway === false}
+              name='livedOrWorkedOutsideNorway'
+              onChange={this.setValue.bind(this, 'livedOrWorkedOutsideNorway', false)} />
+          </div> : null }
           {step === 1 ? <React.Fragment>
             <div className='mb-4'>
               <label>{t('pselv:form-step1-startPensionDate') + ' *'}</label>
               <ReactDatePicker selected={this.state.startPensionDate ? moment(this.state.startPensionDate) : undefined}
-                  dateFormat='DD.MM.YYYY'
-                  placeholderText={t('ui:dateFormat')}
-                  showYearDropdown
-                  showMonthDropdown
-                  dropdownMode='select'
-                  locale={locale}
-                  onMonthChange={this.onDateChange.bind(this, 'startPensionDate')}
-                  onYearChange={this.onDateChange.bind(this, 'startPensionDate')}
-                  onBlur={this.onDateBlur.bind(this, 'startPensionDate')}
-                  onChange={this.onDateChange.bind(this, 'startPensionDate')} />
+                dateFormat='DD.MM.YYYY'
+                placeholderText={t('ui:dateFormat')}
+                showYearDropdown
+                showMonthDropdown
+                dropdownMode='select'
+                locale={locale}
+                onMonthChange={this.onDateChange.bind(this, 'startPensionDate')}
+                onYearChange={this.onDateChange.bind(this, 'startPensionDate')}
+                onBlur={this.onDateBlur.bind(this, 'startPensionDate')}
+                onChange={this.onDateChange.bind(this, 'startPensionDate')} />
             </div>
             <div className='mb-4'>
               <Nav.Select label={t('pselv:form-step1-grade') + ' *'} value={this.state.grade || ''}
-                  onChange={this.setValue.bind(this, 'grade')}>
-                  <option value=''>{'--'}</option>
-                  <option value='100%'>{'100 %'}</option>
-                  <option value='90%'>{'90 %'}</option>
-                  <option value='80%'>{'80 %'}</option>
-                  <option value='70%'>{'70 %'}</option>
-                  <option value='60%'>{'60 %'}</option>
-                  <option value='50%'>{'50 %'}</option>
-                </Nav.Select>
+                onChange={this.setValue.bind(this, 'grade')}>
+                <option value=''>{'--'}</option>
+                <option value='100%'>{'100 %'}</option>
+                <option value='90%'>{'90 %'}</option>
+                <option value='80%'>{'80 %'}</option>
+                <option value='70%'>{'70 %'}</option>
+                <option value='60%'>{'60 %'}</option>
+                <option value='50%'>{'50 %'}</option>
+              </Nav.Select>
             </div>
             <div className='mb-4'>
               <div>
@@ -456,8 +456,8 @@ class PSelv extends Component {
         <Nav.Row className='mb-4 mt-4'>
           <div className='col-md-12'>
             {step !== 4
-            ? <Nav.Hovedknapp className='forwardButton' onClick={this.onForwardButtonClick.bind(this)}>{t('ui:forward')}</Nav.Hovedknapp>
-            : <Nav.Hovedknapp className='sendButton' onClick={this.onSaveButtonClick.bind(this)}>{t('ui:confirmAndSave')}</Nav.Hovedknapp> }
+              ? <Nav.Hovedknapp className='forwardButton' onClick={this.onForwardButtonClick.bind(this)}>{t('ui:forward')}</Nav.Hovedknapp>
+              : <Nav.Hovedknapp className='sendButton' onClick={this.onSaveButtonClick.bind(this)}>{t('ui:confirmAndSave')}</Nav.Hovedknapp> }
             {step !== 0 ? <Nav.Knapp className='backButton ml-4' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp> : null}
           </div>
         </Nav.Row>

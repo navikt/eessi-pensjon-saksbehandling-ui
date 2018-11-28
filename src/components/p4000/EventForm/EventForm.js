@@ -118,26 +118,21 @@ class EventForm extends React.Component {
         type={type}
         mode={mode}
         provideController={(component) => { this.component = component }} />
-      {isEventPage ? (mode !== 'edit'
-        ? <Nav.Row className='row-buttons mb-4 ml-2 mr-2 text-center'>
-          <div className='col-md-6'>
-            <Nav.Hovedknapp className='saveButton' onClick={this.handleSaveRequest.bind(this)}>{t('ui:save')}</Nav.Hovedknapp>
-          </div>
-          <div className='col-md-6'>
-            <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
-          </div>
-        </Nav.Row>
-        : <Nav.Row className='row-buttons mb-4 ml-2 mr-2 text-center'>
-          <div className='col-md-4'>
-            <Nav.Hovedknapp className='editButton' onClick={this.handleSaveEditRequest.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp>
-          </div>
-          <div className='col-md-4'>
-            <Nav.Knapp className='deleteButton' onClick={this.handleDeleteRequest.bind(this)}>{t('ui:delete')}</Nav.Knapp>
-          </div>
-          <div className='col-md-4'>
-            <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
-          </div>
-        </Nav.Row>) : null}
+      {isEventPage ? <Nav.Row className='row-buttons mb-4 mt-4'>
+        <div className='col-md-12'>
+          {mode !== 'edit'
+            ? <React.Fragment>
+              <Nav.Hovedknapp className='saveButton' onClick={this.handleSaveRequest.bind(this)}>{t('ui:save')}</Nav.Hovedknapp>
+              <Nav.Knapp className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.Knapp>
+            </React.Fragment>
+            : <React.Fragment>
+              <Nav.Hovedknapp className='editButton' onClick={this.handleSaveEditRequest.bind(this)}>{t('ui:edit')}</Nav.Hovedknapp>
+              <Nav.Knapp className='deleteButton' onClick={this.handleDeleteRequest.bind(this)}>{t('ui:delete')}</Nav.Knapp>
+              <Nav.KnappBase type='flat' className='cancelButton' onClick={this.handleCancelRequest.bind(this)}>{t('ui:cancel')}</Nav.KnappBase>
+            </React.Fragment>
+          }
+        </div>
+      </Nav.Row> : null}
     </div>
   }
 }

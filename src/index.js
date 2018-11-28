@@ -78,7 +78,7 @@ ReactDOM.render(
             <Redirect from={routes.CASE} to={{ pathname: routes.CASE_START }} />
 
             <AuthenticatedRoute path={routes.INDEX} component={Pages.IndexPage} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-            <Route path={routes.ROOT} component={Pages.FirstPage}/>
+            <Route path={routes.ROOT} component={Pages.FirstPage} />
             <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
           </Switch>
         </ConnectedRouter>

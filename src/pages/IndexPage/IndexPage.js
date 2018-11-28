@@ -37,7 +37,7 @@ class IndexPage extends Component {
 
     actions.addToBreadcrumbs({
       label: 'ui:home',
-      url: routes.ROOT
+      url: routes.INDEX
     })
   }
 

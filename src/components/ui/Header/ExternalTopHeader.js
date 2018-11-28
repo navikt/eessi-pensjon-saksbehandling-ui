@@ -28,8 +28,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class ExternalTopHeader extends Component {
-
-
   onLogout () {
     const { actions, cookies } = this.props
 
@@ -38,36 +36,35 @@ class ExternalTopHeader extends Component {
     actions.logout()
   }
 
-   render () {
-
+  render () {
     let { username } = this.props
 
     return <div className='hodefot'>
       <header className='siteheader' role='banner'>
         <div className='site-coltrols-toolbar site-controls-toolbar'>
-            <div className='navbar container'>
-              <div className='col-md-12'>
-                <div className='settings'>
-                  <ul className='nav' style={{justifyContent: 'center'}}>
+          <div className='navbar container'>
+            <div className='col-md-12'>
+              <div className='settings'>
+                <ul className='nav' style={{ justifyContent: 'center' }}>
                   <li id='text-size-accessibility'>
-                  <span className='link-btn' aria-label='Hold Ctrl-tasten nede (Cmd-tasten på Mac). Trykk samtidig på + for å forstørre eller - for å forminske.'>Skriftstørrelse</span><div className='text-size-tooltip'><p>Hold Ctrl-tasten nede (Cmd-tasten på Mac). Trykk samtidig på + for å forstørre eller - for å forminske.</p><span className='arrow'></span></div></li>
-                  </ul>
+                    <span className='link-btn' aria-label='Hold Ctrl-tasten nede (Cmd-tasten på Mac). Trykk samtidig på + for å forstørre eller - for å forminske.'>Skriftstørrelse</span><div className='text-size-tooltip'><p>Hold Ctrl-tasten nede (Cmd-tasten på Mac). Trykk samtidig på + for å forstørre eller - for å forminske.</p><span className='arrow' /></div></li>
+                </ul>
+              </div>
+              <div className='login-container'>
+                <div id='login-details' className=''>
+                  <span id='name-container'>
+                    <img id='idporten-ikon-innlogging' alt='Innlogget via ID-porten' src='https://appres.nav.no/_public/beta.nav.no/built-navno/img/navno/gfx/icons/idporten_ikon.png?_ts=164657e6e70' />
+                    <span id='name'>{username}</span>
+                  </span>
                 </div>
-                <div className='login-container'>
-                  <div id='login-details' className=''>
-                    <span id='name-container'>
-                      <img id='idporten-ikon-innlogging' alt='Innlogget via ID-porten' src='https://appres.nav.no/_public/beta.nav.no/built-navno/img/navno/gfx/icons/idporten_ikon.png?_ts=164657e6e70'/>
-                      <span id='name'>{username}</span>
-                    </span>
-                  </div>
-                  <div id='auth-btns' className=' idporten'>
-                    <a id='logout' className='btn-auth knapp mini hoved btn-logout' href='https://loginservice-q.nav.no/slo' aria-hidden='false'>Logg ut</a>
-                  </div>
+                <div id='auth-btns' className=' idporten'>
+                  <a id='logout' className='btn-auth knapp mini hoved btn-logout' href='https://loginservice-q.nav.no/slo' aria-hidden='false'>Logg ut</a>
                 </div>
               </div>
             </div>
+          </div>
         </div>
-        <LogoHeader/>
+        <LogoHeader />
       </header>
     </div>
   }

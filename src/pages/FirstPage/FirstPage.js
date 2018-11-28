@@ -23,7 +23,7 @@ const mapStateToProps = (state) => {
     username: state.app.username,
     userRole: state.app.userRole,
     loggedIn: state.app.loggedIn,
-    gettingUserInfo : state.loading.gettingUserInfo,
+    gettingUserInfo: state.loading.gettingUserInfo,
     isLoggingIn: state.loading.isLoggingIn
   }
 }
@@ -33,7 +33,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class FirstPage extends Component {
-
   componentDidMount () {
     const { actions, userRole } = this.props
     if (!userRole) {
@@ -56,32 +55,32 @@ class FirstPage extends Component {
     const { t, loggedIn, isLoggingIn, gettingUserInfo } = this.props
 
     return <div className='p-firstPage hodefot'>
-      <LogoHeader/>
-      <Banner/>
+      <LogoHeader />
+      <Banner />
       <div className='content'>
         <div className='container text-center pt-4'>
-        <VeilederPanel>
+          <VeilederPanel>
             <div>Her du kan:
-            <ul>
-            <li>a</li>
-            <li>a</li>
-            <li>a</li>
-            </ul>
+              <ul>
+                <li>a</li>
+                <li>a</li>
+                <li>a</li>
+              </ul>
             </div>
-        </VeilederPanel>
-        <LanguageSelector className='mt-3' />
-        {!loggedIn ? <Nav.Hovedknapp
-          className='mt-3 loginButton'
-          onClick={this.handleLoginRequest.bind(this)}
-          disabled={isLoggingIn || gettingUserInfo}
-          spinner={isLoggingIn || gettingUserInfo}>
-          {isLoggingIn ? t('ui:authenticating') :
-          gettingUserInfo ? t('loading') : t('login')}
-        </Nav.Hovedknapp> :
-        <Nav.Hovedknapp
-          className='mt-3 forwardButton'
-          onClick={this.handleForwardButtonClick.bind(this)}>{t('next')}
-        </Nav.Hovedknapp>}
+          </VeilederPanel>
+          <LanguageSelector className='mt-3' />
+          {!loggedIn ? <Nav.Hovedknapp
+            className='mt-3 loginButton'
+            onClick={this.handleLoginRequest.bind(this)}
+            disabled={isLoggingIn || gettingUserInfo}
+            spinner={isLoggingIn || gettingUserInfo}>
+            {isLoggingIn ? t('ui:authenticating')
+              : gettingUserInfo ? t('loading') : t('login')}
+          </Nav.Hovedknapp>
+            : <Nav.Hovedknapp
+              className='mt-3 forwardButton'
+              onClick={this.handleForwardButtonClick.bind(this)}>{t('next')}
+            </Nav.Hovedknapp>}
         </div>
       </div>
     </div>
