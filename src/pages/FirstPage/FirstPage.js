@@ -22,7 +22,6 @@ const mapStateToProps = (state) => {
   return {
     username: state.app.username,
     userRole: state.app.userRole,
-    language: state.ui.language,
     loggedIn: state.app.loggedIn,
     gettingUserInfo : state.loading.gettingUserInfo,
     isLoggingIn: state.loading.isLoggingIn
@@ -54,7 +53,7 @@ class FirstPage extends Component {
   }
 
   render () {
-    const { t, language, loggedIn, isLoggingIn, gettingUserInfo } = this.props
+    const { t, loggedIn, isLoggingIn, gettingUserInfo } = this.props
 
     return <div className='p-firstPage hodefot'>
       <LogoHeader/>

@@ -4,11 +4,8 @@ import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
 import { withNamespaces } from 'react-i18next'
 import { withCookies, Cookies } from 'react-cookie'
-import classNames from 'classnames'
 
 import LogoHeader from './LogoHeader'
-import Icons from '../Icons'
-import * as Nav from '../Nav'
 
 import * as appActions from '../../../actions/app'
 import * as uiActions from '../../../actions/ui'
@@ -52,7 +49,7 @@ class ExternalTopHeader extends Component {
               <div className='col-md-12'>
                 <div className='settings'>
                   <ul className='nav' style={{justifyContent: 'center'}}>
-                  <li id='text-size-accessibility' tabIndex='0'>
+                  <li id='text-size-accessibility'>
                   <span className='link-btn' aria-label='Hold Ctrl-tasten nede (Cmd-tasten på Mac). Trykk samtidig på + for å forstørre eller - for å forminske.'>Skriftstørrelse</span><div className='text-size-tooltip'><p>Hold Ctrl-tasten nede (Cmd-tasten på Mac). Trykk samtidig på + for å forstørre eller - for å forminske.</p><span className='arrow'></span></div></li>
                   </ul>
                 </div>

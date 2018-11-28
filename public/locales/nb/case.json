@@ -75,6 +75,8 @@
     "help-sed"         : "Hjelpe til SED",
     "help-vedtakId"    : "Hjelpe til Vedtak ID",
     "help-subjectArea" : "Hjelpe til fagområde",
+    "help-startCase"   : "Hjelpe til startCase",
+    "help-startCase2"  : "Hjelpe til startCase2",
 
     "loading-buc"             : "Laster BUC...",
     "loading-country"         : "Laster land...",

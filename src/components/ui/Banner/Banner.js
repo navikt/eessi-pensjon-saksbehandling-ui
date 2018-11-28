@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import PT from 'prop-types'
 import { withNamespaces } from 'react-i18next'
 
 import BannerIllustration from './BannerIllustration'
-import * as Nav from '../Nav'
 
 import './Banner.css'
 

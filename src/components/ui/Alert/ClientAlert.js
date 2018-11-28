@@ -65,7 +65,6 @@ class ClientAlert extends Component {
       }
       return <Nav.AlertStripe solid
         className={classNames(className, 'c-ui-clientAlert', {
-          'toFade': status === 'OK',
           'fixed': _fixed
         })}
         type={status === 'OK' ? 'suksess' : 'advarsel'}>

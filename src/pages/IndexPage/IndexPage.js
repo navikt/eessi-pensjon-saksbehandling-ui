@@ -6,7 +6,6 @@ import PT from 'prop-types'
 import { withNamespaces } from 'react-i18next'
 import 'url-search-params-polyfill'
 
-import LanguageSelector from '../../components/ui/LanguageSelector'
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
 import * as Nav from '../../components/ui/Nav'
 import DocumentStatus from '../../components/ui/DocumentStatus/DocumentStatus'
@@ -57,15 +56,15 @@ class IndexPage extends Component {
       sideContent={<EmptyDrawer />}>
 
       <h1 className='ml-0 appTitle'>{t('app-pageTitle')}</h1>
-      <h4 className='ml-0 appDescription'>{t('app-pageDescription')}</h4>
+      <h2 className='ml-0 appDescription'>{t('app-pageDescription')}</h2>
       <div className='animate mb-4'>
 
         <div className='mb-4'>
-          <h4 className='mb-4'>{t('status')}</h4>
+          <h3 className='mb-4'>{t('status')}</h3>
           <DocumentStatus history={history} />
         </div>
 
-        <h4 className='mb-4'>{t('forms')}</h4>
+        <h3 className='mb-4'>{t('forms')}</h3>
 
         {userRole === constants.SAKSBEHANDLER
           ? <Nav.Lenkepanel style={{ animationDelay: '0s' }}
@@ -94,7 +93,7 @@ class IndexPage extends Component {
           className='frontPageLink p4000Link' linkCreator={(props) => (
             <Link to={routes.P4000} {...props} />)
           } href='#'>{t('p4000:app-startP4000')}</Nav.Lenkepanel>
-        <h4 className='mt-4 mb-4'>{t('tools')}</h4>
+        <h3 className='mt-4 mb-4'>{t('tools')}</h3>
         <Nav.Lenkepanel style={{ animationDelay: '0.4s' }} className='frontPageLink pdfLink' linkCreator={(props) => (
           <Link to={routes.PDF_SELECT} {...props} />)
         } href='#'>{t('pdf:app-createPdf')}</Nav.Lenkepanel>
