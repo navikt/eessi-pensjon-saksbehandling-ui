@@ -106,7 +106,7 @@ class InternalTopHeader extends Component {
               </React.Fragment>
               : <React.Fragment>
                 <Nav.Ikon size={16} kind='advarsel-trekant' />
-                <span className='ml-2'>{t('unknown')}</span>
+                <span className='ml-2 username-span'>{t('unknown')}</span>
               </React.Fragment>
           }
         </div>

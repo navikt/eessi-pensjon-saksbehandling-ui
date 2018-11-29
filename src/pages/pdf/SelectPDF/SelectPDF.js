@@ -109,12 +109,11 @@ class SelectPDF extends Component {
           onFileChange={this.handleFileChange.bind(this)} />
       </div>
       <Nav.Hovedknapp
-          className='forwardButton'
-          spinner={loadingPDF}
-          disabled={_.isEmpty(files)}
-          onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+        className='forwardButton'
+        spinner={loadingPDF}
+        disabled={_.isEmpty(files)}
+        onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
     </TopContainer>
-
   }
 }
 
