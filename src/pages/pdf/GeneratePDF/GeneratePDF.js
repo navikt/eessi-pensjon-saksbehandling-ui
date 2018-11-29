@@ -7,6 +7,7 @@ import _ from 'lodash'
 
 import * as Nav from '../../../components/ui/Nav'
 import StepIndicator from '../../../components/pdf/StepIndicator'
+import VeilederPanel from '../../../components/ui/Panel/VeilederPanel'
 import TopContainer from '../../../components/ui/TopContainer/TopContainer'
 import File from '../../../components/ui/File/File'
 import PdfDrawer from '../../../components/drawer/Pdf'
@@ -124,7 +125,6 @@ class GeneratePDF extends Component {
       return <TopContainer className='p-pdf-generatePDF'
         history={history} location={location}
         sideContent={<PdfDrawer />}>
-        <Nav.HjelpetekstBase>{t('pdf:help-generate-pdf')}</Nav.HjelpetekstBase>
         <h1 className='appTitle'>{t('pdf:app-generatePdfTitle')}</h1>
         <StorageModal namespace={storages.FILES} />
         <StepIndicator stepIndicator={2} history={history} />
@@ -132,18 +132,17 @@ class GeneratePDF extends Component {
           <Nav.NavFrontendSpinner />
           <p>{t('pdf:loading-generatingPDF')}</p>
         </div> : (generatedPDFs ? <div>
+          <div className='fieldset animate mb-4 '>
+            <VeilederPanel>{t('pdf:help-generate-pdf')}</VeilederPanel>
+          </div>
           {Object.keys(generatedPDFs).map(key => {
             let pdf = generatedPDFs[key]
             return <div key={key} className='fieldset animate'>
-              <div className='row pdfrow'>
-                <div className='col-sm-4'>
-                  <File file={pdf} />
-                </div>
-                <div className='col-sm-4'>
+              <div className='pdfrow'>
+                <File file={pdf} />
+                <div className='ml-4'>
                   <Nav.Input label={t('ui:filename')} value={this.state.fileNames[key]}
                     onChange={this.setFileName.bind(this, key)} />
-                </div>
-                <div className='col-sm-4 text-right'>
                   <a className='hiddenLink' ref={item => { this[key] = item }}
                     onClick={(e) => e.stopPropagation()} title={t('ui:download')}
                     href={'data:application/octet-stream;base64,' + encodeURIComponent(pdf.content.base64)}
@@ -152,7 +151,7 @@ class GeneratePDF extends Component {
                     onClick={() => this[key].click()}>
                     {t('ui:download')}
                   </Nav.Knapp>
-                  <Nav.Knapp className='saveToServerButton'
+                  <Nav.Knapp className='ml-3 saveToServerButton'
                     onClick={this.handleFileSaveToServer.bind(this, pdf, this.state.fileNames[key])}>
                     {t('ui:saveToServer')}
                   </Nav.Knapp>
@@ -160,16 +159,12 @@ class GeneratePDF extends Component {
               </div>
             </div>
           })}
-          <div className='text-right m-4'>
-            <Nav.Knapp className='downloadAllButton' onClick={this.downloadAll.bind(this)}>{t('ui:downloadAll')}</Nav.Knapp>
-          </div>
         </div> : null)}
-        <Nav.Row className='p-4'>
+        <Nav.Row className='mt-4'>
           <Nav.Column>
-            <Nav.Knapp className='backButton w-100' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
-          </Nav.Column>
-          <Nav.Column>
-            <Nav.Hovedknapp disabled={generatingPDF} className='forwardButton w-100' onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+            <Nav.Hovedknapp className='downloadAllButton' onClick={this.downloadAll.bind(this)}>{t('ui:downloadAll')}</Nav.Hovedknapp>
+            <Nav.Knapp disabled={generatingPDF} className='ml-3 forwardButton' onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Knapp>
+            <Nav.KnappBase type='flat' className='backButton ml-3' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.KnappBase>
           </Nav.Column>
         </Nav.Row>
       </TopContainer>

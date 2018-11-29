@@ -6,6 +6,7 @@ import { withNamespaces } from 'react-i18next'
 import _ from 'lodash'
 import classNames from 'classnames'
 
+import VeilederPanel from '../../../components/ui/Panel/VeilederPanel'
 import StepIndicator from '../../../components/pdf/StepIndicator'
 import ExternalFiles from '../../../components/pdf/ExternalFiles/ExternalFiles'
 import * as Nav from '../../../components/ui/Nav'
@@ -89,12 +90,13 @@ class SelectPDF extends Component {
     return <TopContainer className='p-pdf-selectPdf'
       history={history} location={location}
       sideContent={<PdfDrawer />}>
-      <Nav.HjelpetekstBase>{t('pdf:help-select-pdf')}</Nav.HjelpetekstBase>
       <h1 className='appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
-      <h4 className='appDescription'>{t('pdf:app-selectPdfDescription')}</h4>
       <StepIndicator stepIndicator={0} history={history} />
+      <div className='fieldset animate mb-4 '>
+        <VeilederPanel>{t('pdf:app-selectPdfDescription')}</VeilederPanel>
+      </div>
 
-      <ExternalFiles className='fieldset' addFile={this.addFile.bind(this)} />
+      <ExternalFiles addFile={this.addFile.bind(this)} />
 
       <div style={{ animation: 'none', opacity: 1 }} className='fieldset mt-4 mb-4'>
         <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
@@ -105,19 +107,14 @@ class SelectPDF extends Component {
           beforeDrop={this.handleBeforeDrop.bind(this)}
           afterDrop={this.handleAfterDrop.bind(this)}
           onFileChange={this.handleFileChange.bind(this)} />
-        <Nav.Row>
-          <Nav.Column />
-          <Nav.Column>
-            <Nav.Hovedknapp
-              className='forwardButton'
-              style={{ width: '100%' }}
-              spinner={loadingPDF}
-              disabled={_.isEmpty(files)}
-              onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
-          </Nav.Column>
-        </Nav.Row>
       </div>
+      <Nav.Hovedknapp
+          className='forwardButton'
+          spinner={loadingPDF}
+          disabled={_.isEmpty(files)}
+          onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
     </TopContainer>
+
   }
 }
 

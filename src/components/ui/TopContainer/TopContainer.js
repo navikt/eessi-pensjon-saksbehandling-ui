@@ -41,7 +41,7 @@ class TopContainer extends Component {
 
   render () {
     const { className, style, history, sideContent, userRole } = this.props
-console.log(userRole === constants.SAKSBEHANDLER)
+
     return <div style={style} className={classNames('c-ui-topContainer', className)}>
       <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
         <Drawer sideContent={sideContent}>

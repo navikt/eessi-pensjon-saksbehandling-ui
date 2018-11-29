@@ -145,7 +145,7 @@ const Summary = (props) => {
         </fieldset>
       </div>
       <Nav.Row className='mb-4 p-2'>
-        <Nav.Knapp className='backButton m-3 w-100' type='hoved' onClick={(e) => { e.preventDefault(); props.onSave() }}>
+        <Nav.Knapp className='backButton m-3' type='hoved' onClick={(e) => { e.preventDefault(); props.onSave() }}>
           {props.t('ui:confirmAndSend')}
         </Nav.Knapp>
       </Nav.Row>
