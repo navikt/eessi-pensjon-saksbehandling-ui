@@ -7,9 +7,9 @@ import GenerateCase from './Case/GenerateCase'
 import SaveCase from './Case/SaveCase'
 import SendCase from './Case/SendCase'
 
-import SelectPDF from './Pdf/SelectPDF/SelectPDF'
-import EditPDF from './Pdf/EditPDF/EditPDF'
-import GeneratePDF from './Pdf/GeneratePDF/GeneratePDF'
+import SelectPDF from './PDF/SelectPDF/SelectPDF'
+import EditPDF from './PDF/EditPDF/EditPDF'
+import GeneratePDF from './PDF/GeneratePDF/GeneratePDF'
 
 import PSelv from './PSelv/PSelv'
 import PInfo from './PInfo/PInfo'
