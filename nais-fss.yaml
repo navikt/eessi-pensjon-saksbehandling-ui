@@ -38,11 +38,6 @@ fasitResources:
     - alias: eessi-pensjon-frontend-zone
       resourceType: ApplicationProperties
 
-    - alias: EessiPensjonFrontendApiLogin_v1
-      resourceType: RestService
-      propertyMap:
-          url: loginurl
-
     - alias: loadbalancer:pensjon-utland
       resourceType: LoadBalancerConfig
       propertyMap:
