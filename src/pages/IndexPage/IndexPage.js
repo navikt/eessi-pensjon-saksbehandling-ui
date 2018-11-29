@@ -6,19 +6,18 @@ import PT from 'prop-types'
 import { withNamespaces } from 'react-i18next'
 import 'url-search-params-polyfill'
 
-import LanguageSelector from '../components/ui/LanguageSelector'
-import TopContainer from '../components/ui/TopContainer/TopContainer'
-import * as Nav from '../components/ui/Nav'
-import DocumentStatus from '../components/ui/DocumentStatus/DocumentStatus'
-import EmptyDrawer from '../components/drawer/Empty'
+import TopContainer from '../../components/ui/TopContainer/TopContainer'
+import * as Nav from '../../components/ui/Nav'
+import DocumentStatus from '../../components/ui/DocumentStatus/DocumentStatus'
+import EmptyDrawer from '../../components/drawer/Empty'
 
-import * as constants from '../constants/constants'
-import * as routes from '../constants/routes'
-import * as statusActions from '../actions/status'
-import * as appActions from '../actions/app'
-import * as uiActions from '../actions/ui'
+import * as constants from '../../constants/constants'
+import * as routes from '../../constants/routes'
+import * as statusActions from '../../actions/status'
+import * as appActions from '../../actions/app'
+import * as uiActions from '../../actions/ui'
 
-import './FrontPage.css'
+import './IndexPage.css'
 
 const mapStateToProps = (state) => {
   return {
@@ -32,13 +31,13 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, uiActions, appActions, statusActions), dispatch) }
 }
 
-class FrontPage extends Component {
+class IndexPage extends Component {
   componentDidMount () {
     const { actions } = this.props
 
     actions.addToBreadcrumbs({
       label: 'ui:home',
-      url: routes.ROOT
+      url: routes.INDEX
     })
   }
 
@@ -55,23 +54,17 @@ class FrontPage extends Component {
     return <TopContainer className='frontPage'
       language={language} history={history} location={location}
       sideContent={<EmptyDrawer />}>
-      <Nav.Row>
-        <div className='col-md-8'>
-          <h1 className='appTitle'>{t('app-pageTitle')}</h1>
-          <h4 className='appDescription'>{t('app-pageDescription')}</h4>
-        </div>
-        <div className='col-md-4 text-right m-auto'>
-          <LanguageSelector className='mr-4' />
-        </div>
-      </Nav.Row>
-      <div className='fieldset animate mb-4'>
+
+      <h1 className='ml-0 appTitle'>{t('app-pageTitle')}</h1>
+      <h2 className='ml-0 appDescription'>{t('app-pageDescription')}</h2>
+      <div className='animate mb-4'>
 
         <div className='mb-4'>
-          <h4 className='mb-4'>{t('status')}</h4>
+          <h3 className='mb-4'>{t('status')}</h3>
           <DocumentStatus history={history} />
         </div>
 
-        <h4 className='mb-4'>{t('forms')}</h4>
+        <h3 className='mb-4'>{t('forms')}</h3>
 
         {userRole === constants.SAKSBEHANDLER
           ? <Nav.Lenkepanel style={{ animationDelay: '0s' }}
@@ -100,7 +93,7 @@ class FrontPage extends Component {
           className='frontPageLink p4000Link' linkCreator={(props) => (
             <Link to={routes.P4000} {...props} />)
           } href='#'>{t('p4000:app-startP4000')}</Nav.Lenkepanel>
-        <h4 className='mt-4 mb-4'>{t('tools')}</h4>
+        <h3 className='mt-4 mb-4'>{t('tools')}</h3>
         <Nav.Lenkepanel style={{ animationDelay: '0.4s' }} className='frontPageLink pdfLink' linkCreator={(props) => (
           <Link to={routes.PDF_SELECT} {...props} />)
         } href='#'>{t('pdf:app-createPdf')}</Nav.Lenkepanel>
@@ -109,7 +102,7 @@ class FrontPage extends Component {
   }
 }
 
-FrontPage.propTypes = {
+IndexPage.propTypes = {
   language: PT.string,
   location: PT.object.isRequired,
   t: PT.func.isRequired,
@@ -123,5 +116,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(FrontPage)
+  withNamespaces()(IndexPage)
 )

@@ -6,6 +6,7 @@ import _ from 'lodash'
 import { withNamespaces } from 'react-i18next'
 
 import Case from './Case'
+import VeilederPanel from '../../components/ui/Panel/VeilederPanel'
 import * as Nav from '../../components/ui/Nav'
 import CountrySelect from '../../components/ui/CountrySelect/CountrySelect'
 
@@ -404,7 +405,7 @@ class StartCase extends Component {
       const { t, subjectAreaList } = this.props
       const { validation, _subjectArea } = this.state
 
-      return <Nav.Select className='subjectAreaList' bredde='xxl'
+      return <Nav.Select aria-describedby='help-subjectArea' className='subjectAreaList' bredde='xxl'
         feil={validation.subjectAreaFail ? { feilmelding: validation.subjectAreaFail } : null}
         label={t('case:form-subjectArea')} value={_subjectArea}
         onChange={this.onSubjectAreaChange.bind(this)}>
@@ -418,7 +419,7 @@ class StartCase extends Component {
 
       return <div className='mb-3'>
         <label className='skjemaelement__label'>{t('ui:country')}</label>
-        <CountrySelect className='countrySelect' locale={locale}
+        <CountrySelect aria-describedby='help-country' className='countrySelect' locale={locale}
           value={country || {}}
           onSelect={this.onCountryChange.bind(this)}
           list={countryList} />
@@ -429,7 +430,7 @@ class StartCase extends Component {
       const { t, institutionList } = this.props
       const { validation, institution } = this.state
 
-      return <Nav.Select className='institutionList' bredde='xxl'
+      return <Nav.Select aria-describedby='help-institution' className='institutionList' bredde='xxl'
         feil={validation.institutionFail ? { feilmelding: validation.institutionFail } : null}
         label={t('case:form-institution')} value={institution || defaultSelects.institution} onChange={this.onInstitutionChange.bind(this)}>
         {this.renderOptions(institutionList, 'institution')}
@@ -440,7 +441,7 @@ class StartCase extends Component {
       const { t, bucList } = this.props
       const { _buc, validation } = this.state
 
-      return <Nav.Select className='bucList' bredde='fullbredde'
+      return <Nav.Select aria-describedby='help-buc' className='bucList' bredde='fullbredde'
         feil={validation.bucFail ? { feilmelding: validation.bucFail } : null}
         label={t('case:form-buc')} value={_buc || defaultSelects.buc} onChange={this.onBucChange.bind(this)}>
         {this.renderOptions(bucList, 'buc')}
@@ -451,7 +452,7 @@ class StartCase extends Component {
       const { t, sedList, bucList } = this.props
       const { _sed, validation } = this.state
 
-      return <Nav.Select className='sedList' bredde='fullbredde'
+      return <Nav.Select aria-describedby='help-sed' className='sedList' bredde='fullbredde'
         feil={validation.sedFail ? { feilmelding: validation.sedFail } : null}
         disabled={!bucList} label={t('case:form-sed')} value={_sed || defaultSelects.buc} onChange={this.onSedChange.bind(this)}>
         {this.renderOptions(sedList, 'sed')}
@@ -501,17 +502,19 @@ class StartCase extends Component {
 
       renderedInstitutions.push(<Nav.Row key={'newInstitution'}>
         <div className='col-md-4'>
-          <div>{this.renderCountry()}</div>
+          <div>{this.renderCountry()}
+            <span id='help-country'>{t('case:help-country')}</span>
+          </div>
           <div className='mb-3 selectBoxMessage'>
             <div>{loading && loading.countryList ? this.getSpinner('case:loading-country') : null}</div>
-            <Nav.HjelpetekstBase id='country'>{t('case:help-country')}</Nav.HjelpetekstBase>
           </div>
         </div>
         <div className='col-md-4'>
-          <div>{this.renderInstitution()}</div>
+          <div>{this.renderInstitution()}
+            <span id='help-institution'>{t('case:help-institution')}</span>
+          </div>
           <div className='mb-3 selectBoxMessage'>
             <div>{loading && loading.institutionList ? this.getSpinner('case:loading-institution') : null}</div>
-            <Nav.HjelpetekstBase id='institution'>{t('case:help-institution')}</Nav.HjelpetekstBase>
           </div>
         </div>
         <div className='col-md-4' style={{ lineHeight: '6rem' }}>
@@ -545,7 +548,6 @@ class StartCase extends Component {
 
       return <Case className='startCase'
         title={t('case:app-caseTitle') + ' - ' + t('case:app-startCaseTitle')}
-        description={t('case:app-startCaseDescription')}
         stepIndicator={currentCase !== undefined ? 0 : undefined}
         history={history}
         location={location}>
@@ -557,25 +559,27 @@ class StartCase extends Component {
             </div>
             : <React.Fragment>
               <div className='fieldset animate'>
+                <div className='mb-5'>
+                  <VeilederPanel>{t('help-startCase')}</VeilederPanel>
+                </div>
                 <Nav.Row>
-                  <div className='col-md-6'>
-                    <Nav.HjelpetekstBase tabIndex='2' id='sakId'>{t('case:help-sakId')}</Nav.HjelpetekstBase>
-                    <Nav.Input tabIndex='1' className='getCaseInputSakId' label={t('case:form-sakId') + ' *'} value={sakId || ''} onChange={this.onSakIdChange.bind(this)} />
+                  <div className='mt-4 col-md-6'>
+                    <Nav.Input aria-describedby='help-sakId' className='getCaseInputSakId' label={t('case:form-sakId') + ' *'} value={sakId || ''} onChange={this.onSakIdChange.bind(this)} />
+                    <span id='help-sakId'>{t('case:help-sakId')}</span>
                   </div>
-                  <div className='col-md-6'>
-                    <Nav.HjelpetekstBase tabIndex='2' id='aktoerId'>{t('case:help-aktoerId')}</Nav.HjelpetekstBase>
-                    <Nav.Input tabIndex='1' className='getCaseInputAktoerId' label={t('case:form-aktoerId') + ' *'} value={aktoerId || ''} onChange={this.onAktoerIdChange.bind(this)} />
+                  <div className='mt-4 col-md-6'>
+                    <Nav.Input className='getCaseInputAktoerId' label={t('case:form-aktoerId') + ' *'} value={aktoerId || ''} onChange={this.onAktoerIdChange.bind(this)} />
+                    <span id='help-aktoerId'>{t('case:help-aktoerId')}</span>
                   </div>
-                  <div className='col-md-6'>
-                    <Nav.HjelpetekstBase tabIndex='2' id='rinaId'>{t('case:help-rinaId')}</Nav.HjelpetekstBase>
-                    <Nav.Input tabIndex='1' className='getCaseInputRinaId' label={t('case:form-rinaId')} value={rinaId || ''} onChange={this.onRinaIdChange.bind(this)} />
+                  <div className='mt-4 col-md-6'>
+                    <Nav.Input className='getCaseInputRinaId' label={t('case:form-rinaId')} value={rinaId || ''} onChange={this.onRinaIdChange.bind(this)} />
+                    <span id='help-rinaId'>{t('case:help-rinaId')}</span>
                   </div>
                 </Nav.Row>
               </div>
-              <Nav.Row className='p-4'>
-                <div className='col-md-6 mb-2' />
-                <div className='col-md-6 mb-2'>
-                  <Nav.Hovedknapp className='forwardButton w-100'
+              <Nav.Row className='mt-4'>
+                <div className='col-md-12'>
+                  <Nav.Hovedknapp className='forwardButton'
                     onClick={this.onFetchCaseButtonClick.bind(this)}>{t('ui:search')}</Nav.Hovedknapp>
                 </div>
               </Nav.Row>
@@ -583,49 +587,52 @@ class StartCase extends Component {
           : <React.Fragment>
             <div className='fieldset animate'>
               { !sed ? <React.Fragment>
+                <h2 className='mb-4 appDescription'>{t('case:app-startCaseDescription')}</h2>
+                <div className='mb-5'>
+                  <VeilederPanel>{t('help-startCase2')}</VeilederPanel>
+                </div>
                 <Nav.Row className='mb-3 align-middle text-left'>
-                  <div className='col-md-8'>{this.renderSubjectArea()}</div>
+                  <div className='col-md-8'>{this.renderSubjectArea()}
+                    <span id='help-subjectArea'>{t('case:help-subjectArea')}</span>
+                  </div>
                   <div className='col-md-4 selectBoxMessage'>
                     <div className='d-inline-block'>{loading && loading.subjectAreaList ? this.getSpinner('case:loading-subjectArea') : null}</div>
-                    <Nav.HjelpetekstBase id='subjectArea'>{t('case:help-subjectArea')}</Nav.HjelpetekstBase>
                   </div>
                 </Nav.Row>
                 <Nav.Row className='mb-3 align-middle text-left'>
-                  <div className='col-md-8'>{this.renderBuc()}</div>
+                  <div className='col-md-8'>{this.renderBuc()}
+                    <span id='help-buc'>{t('case:help-buc')}</span>
+                  </div>
                   <div className='col-md-4 selectBoxMessage'>
                     <div className='d-inline-block'>{loading && loading.bucList ? this.getSpinner('case:loading-buc') : null}</div>
-                    <Nav.HjelpetekstBase id='buc'>{t('case:help-buc')}</Nav.HjelpetekstBase>
                   </div>
                 </Nav.Row>
                 <Nav.Row className='mb-3 align-middle text-left'>
-                  <div className='col-md-8'>{this.renderSed()}</div>
+                  <div className='col-md-8'>{this.renderSed()}
+                    <span id='help-sed'>{t('case:help-sed')}</span>
+                  </div>
                   <div className='col-md-4 selectBoxMessage'>
                     <div className='d-inline-block'>{loading && loading.sedList ? this.getSpinner('case:loading-sed') : null}</div>
-                    <Nav.HjelpetekstBase id='sed'>{t('case:help-sed')}</Nav.HjelpetekstBase>
                   </div>
                 </Nav.Row>
               </React.Fragment> : <Nav.Row className='mb-3 align-middle text-left'>
                 <div className='col-md-12'>
-                  <h4>{t('sed')}{': '}{sed}</h4>
+                  <h3>{t('sed')}{': '}{sed}</h3>
                 </div>
               </Nav.Row>}
               { (sed && sed === 'P6000') || (_sed && _sed === 'P6000')
                 ? <Nav.Row className='align-middle text-left'>
                   <div className='col-md-8'>
-                    <Nav.Input label={t('case:form-vedtakId')} value={_vedtakId || vedtakId} onChange={this.onVedtakIdChange.bind(this)} />
-                  </div>
-                  <div className='col-md-4 selectBoxMessage'>
-                    <div />
-                    <Nav.HjelpetekstBase id='vedtak'>{t('case:help-vedtakId')}</Nav.HjelpetekstBase>
+                    <Nav.Input aria-describedby='help-vedtak'
+                      label={t('case:form-vedtakId')} value={_vedtakId || vedtakId} onChange={this.onVedtakIdChange.bind(this)} />
+                    <span id='help-vedtak'>{t('case:help-vedtakId')}</span>
                   </div>
                 </Nav.Row> : null}
               {this.renderInstitutions()}
             </div>
-
-            <Nav.Row className='mb-4 p-4'>
-              <div className='col-md-6 mb-2' />
-              <div className='col-md-6 mb-2'>
-                <Nav.Hovedknapp className='forwardButton w-100'
+            <Nav.Row className='mb-4 mt-4'>
+              <div className='col-md-12'>
+                <Nav.Hovedknapp className='forwardButton'
                   disabled={!this.noValidationErrors()}
                   onClick={this.onForwardButtonClick.bind(this)}>{t('ui:go')}</Nav.Hovedknapp>
               </div>

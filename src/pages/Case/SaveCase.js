@@ -105,14 +105,10 @@ class SaveCase extends Component {
             </div> : null)}
         </div>
 
-        <Nav.Row className='mb-4 p-4'>
-          <div className='col-md-6 mb-2'>
-            <Nav.Knapp className='w-100 backButton' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
-          </div>
-          <div className='col-md-6 mb-2'>
-            <Nav.Hovedknapp className='w-100 forwardButton' disabled={sendingCase} spinner={sendingCase} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
-          </div>
-        </Nav.Row>
+        <div className='mb-4 p-4'>
+          <Nav.Hovedknapp className='forwardButton' disabled={sendingCase} spinner={sendingCase} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
+          <Nav.Knapp className='ml-3 backButton' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
+        </div>
       </Case>
     }
 }

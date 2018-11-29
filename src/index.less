@@ -14,6 +14,8 @@
 @import '~nav-frontend-stegindikator-style/src/index';
 @import '~nav-frontend-modal-style/src/index';
 @import '~nav-frontend-etiketter-style/src/index';
+@import '~nav-frontend-veileder-style/src/index';
+@import '~nav-frontend-veilederpanel-style/src/index';
 
 //Disse må importeres separat siden de ikke inneholder src/index.less.
 @import '~nav-frontend-spinner-style/src/spinner-style';
@@ -29,7 +31,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: @white;
+  background-color: @white-off;
   color: @font-color;
   .typo-normal-mixin();
   line-height: 1.42857143;
@@ -58,11 +60,10 @@ h4.appDescription {
 
 .fieldset {
   position: relative;
-  background-color: whitesmoke;
-  box-shadow: 3px 3px 3px lightgrey;
-  margin: 0rem 1.5rem;
-  padding: 1.5rem;
   page-break-inside: avoid;
+  padding: 1.5rem;
+  background: white;
+  border-left: 5px solid @pensiongreen;
 
   &.animate {
     opacity: 0.01;

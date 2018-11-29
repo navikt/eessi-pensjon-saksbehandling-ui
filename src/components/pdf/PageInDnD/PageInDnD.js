@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Document, Page } from 'react-pdf/dist/entry.noworker'
+import { Document, Page } from 'react-pdf'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'

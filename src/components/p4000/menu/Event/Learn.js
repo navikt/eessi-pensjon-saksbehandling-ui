@@ -127,12 +127,12 @@ class Learn extends Component {
         return null
       }
       return <Nav.Panel className={classNames('c-p4000-menu p-0 mb-4', { editMode: mode === 'edit' })}>
-        <div className='title m-4'>
+        <div className='title mt-4 mb-4'>
           <Nav.Knapp className='backButton mr-4' onClick={this.onBackButtonClick.bind(this)}>
             <Icons className='mr-2' kind='back' size='1x' />{t('ui:back')}
           </Nav.Knapp>
           <Icons size='3x' kind={type} className='float-left mr-4' />
-          <h1 className='m-0'>{ mode !== 'edit' ? t('ui:new') : t('ui:edit')} {t('p4000:' + type + '-title')}</h1>
+          <h2 className='m-0'>{ mode !== 'edit' ? t('ui:new') : t('ui:edit')} {t('p4000:' + type + '-title')}</h2>
         </div>
         <Nav.Row className='eventDescription mb-4 fieldset'>
           <Nav.Column>

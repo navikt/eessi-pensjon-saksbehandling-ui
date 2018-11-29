@@ -9,6 +9,7 @@ import _ from 'lodash'
 import * as Nav from '../../../components/ui/Nav'
 import StepIndicator from '../../../components/pdf/StepIndicator'
 import TopContainer from '../../../components/ui/TopContainer/TopContainer'
+import VeilederPanel from '../../../components/ui/Panel/VeilederPanel'
 import DnDSource from '../../../components/pdf/DnDSource/DnDSource'
 import DnDSpecial from '../../../components/pdf/DnDSpecial/DnDSpecial'
 import DnDImages from '../../../components/pdf/DnDImages/DnDImages'
@@ -143,16 +144,16 @@ class EditPDF extends Component {
       if (_.isEmpty(imageFiles)) {
         return null
       }
-      return <Collapse.Panel key={'images'} header={t('images')} showArrow>
+      return <Nav.Ekspanderbartpanel apen key={'images'} tittel={t('images')} tittelProps='undertittel'>
         <DnDImages files={imageFiles} />
-      </Collapse.Panel>
+      </Nav.Ekspanderbartpanel>
     }
 
     pdfCollapse (pdfFiles) {
       return pdfFiles.map((file, i) => {
-        return <Collapse.Panel key={'pdf-' + i} header={file.name} showArrow>
+        return <Nav.Ekspanderbartpanel apen key={'pdf-' + i} tittel={file.name} tittelProps='undertittel'>
           <DnDSource pdf={file} />
-        </Collapse.Panel>
+        </Nav.Ekspanderbartpanel>
       })
     }
 
@@ -172,59 +173,61 @@ class EditPDF extends Component {
       return <TopContainer className='p-pdf-editPdf'
         history={history} location={location}
         sideContent={<PdfDrawer />}>
-        <Nav.HjelpetekstBase>{t('pdf:help-edit-pdf')}</Nav.HjelpetekstBase>
+
         <h1 className='appTitle'>{t('pdf:app-editPdfTitle')}</h1>
-        <h4 className='appDescription'>{t('pdf:app-editPdfDescription')}</h4>
         <StepIndicator stepIndicator={1} history={history} />
-        <div className='documentbox m-2 mt-0'>
-          <h4>{t('pdf:documentBox')}</h4>
-          <PDFSizeSlider style={{ width: '25%' }} />
+        <div className='fieldset animate mb-4 '>
+          <VeilederPanel>{t('pdf:app-editPdfDescription')}</VeilederPanel>
         </div>
-        <Nav.Row className='m-0'>
+        <div className='documentbox fieldset m-0 mt-4'>
+          <div className='documentbox-header m-2'>
+            <h4>{t('pdf:documentBox')}</h4>
+            <PDFSizeSlider style={{ width: '25%' }} />
+          </div>
           <DnD>
-            <Nav.Column className='col-sm-2 mb-4'>
-              <Collapse className='dndtargets' destroyInactivePanel activeKey={dndTarget} accordion onChange={this.handleAccordionChange.bind(this)}>
-                <Collapse.Panel key='work' header={t('pdf:form-work') + ' (' + (recipe.work ? recipe.work.length : '0') + ')'} showArrow>
-                  <DnDTarget targetId='work' />
-                </Collapse.Panel>
-                <Collapse.Panel key='home' header={t('pdf:form-home') + ' (' + (recipe.home ? recipe.home.length : '0') + ')'} showArrow>
-                  <DnDTarget targetId='home' />
-                </Collapse.Panel>
-                <Collapse.Panel key='sick' header={t('pdf:form-sick') + ' (' + (recipe.sick ? recipe.sick.length : '0') + ')'} showArrow>
-                  <DnDTarget targetId='sick' />
-                </Collapse.Panel>
-                <Collapse.Panel key='other' header={t('pdf:form-other') + ' (' + (recipe.other ? recipe.other.length : '0') + ')'} showArrow>
-                  <DnDTarget targetId='other' />
-                </Collapse.Panel>
-              </Collapse>
-            </Nav.Column>
-            <Nav.Column className='col-sm-10 mb-4'>
-              <div className='h-100'>
-                {!files ? null : <Collapse className='mb-4' defaultActiveKey={openedPanels}
-                  destroyInactivePanel={false} accordion={false}>
-                  <Collapse.Panel key={'special'} header={t('pdf:specials-title')} showArrow>
-                    <DnDSpecial />
+            <Nav.Row>
+              <Nav.Column className='col-sm-2 mb-4'>
+                <Collapse className='dndtargets' destroyInactivePanel activeKey={dndTarget} accordion onChange={this.handleAccordionChange.bind(this)}>
+                  <Collapse.Panel key='work' header={t('pdf:form-work') + ' (' + (recipe.work ? recipe.work.length : '0') + ')'} showArrow>
+                    <DnDTarget targetId='work' />
                   </Collapse.Panel>
-                  {imageCollapse}
-                  {pdfCollapse}
+                  <Collapse.Panel key='home' header={t('pdf:form-home') + ' (' + (recipe.home ? recipe.home.length : '0') + ')'} showArrow>
+                    <DnDTarget targetId='home' />
+                  </Collapse.Panel>
+                  <Collapse.Panel key='sick' header={t('pdf:form-sick') + ' (' + (recipe.sick ? recipe.sick.length : '0') + ')'} showArrow>
+                    <DnDTarget targetId='sick' />
+                  </Collapse.Panel>
+                  <Collapse.Panel key='other' header={t('pdf:form-other') + ' (' + (recipe.other ? recipe.other.length : '0') + ')'} showArrow>
+                    <DnDTarget targetId='other' />
+                  </Collapse.Panel>
                 </Collapse>
-                }
-                <Nav.Row className='mb-4'>
-                  <Nav.Column>
-                    <Nav.Knapp className='backButton w-100' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
-                  </Nav.Column>
-                  <Nav.Column>
-                    <Nav.Hovedknapp className='forwardButton w-100'
-                      disabled={this.hasOnlyEmptyArrays(recipe)}
-                      onClick={this.onForwardButtonClick.bind(this)}>
-                      {t('ui:forward')}
-                    </Nav.Hovedknapp>
-                  </Nav.Column>
-                </Nav.Row>
-              </div>
-            </Nav.Column>
+              </Nav.Column>
+              <Nav.Column className='col-sm-10 mb-4'>
+                <div className='h-100'>
+                  {!files ? null : <Collapse className='mb-4' defaultActiveKey={openedPanels}
+                    destroyInactivePanel={false} accordion={false}>
+                    <Nav.Ekspanderbartpanel apen={false} key={'special'} tittel={t('pdf:specials-title')} tittelProps='undertittel'>
+                      <DnDSpecial />
+                    </Nav.Ekspanderbartpanel>
+                    {imageCollapse}
+                    {pdfCollapse}
+                  </Collapse>
+                  }
+                  <Nav.Row className='mb-4'>
+                    <Nav.Column>
+                      <Nav.Hovedknapp className='forwardButton'
+                        disabled={this.hasOnlyEmptyArrays(recipe)}
+                        onClick={this.onForwardButtonClick.bind(this)}>
+                        {t('ui:forward')}
+                      </Nav.Hovedknapp>
+                      <Nav.Knapp className='backButton ml-3' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
+                    </Nav.Column>
+                  </Nav.Row>
+                </div>
+              </Nav.Column>
+            </Nav.Row>
           </DnD>
-        </Nav.Row>
+        </div>
       </TopContainer>
     }
 }

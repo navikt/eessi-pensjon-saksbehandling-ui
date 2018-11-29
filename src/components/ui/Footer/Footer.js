@@ -5,13 +5,17 @@ import { bindActionCreators } from 'redux'
 import classNames from 'classnames'
 
 import * as uiActions from '../../../actions/ui'
+import * as appActions from '../../../actions/app'
 import * as statusActions from '../../../actions/status'
 import * as Nav from '../Nav'
+
+import * as constants from '../../../constants/constants'
 
 import './Footer.css'
 
 const mapStateToProps = (state) => {
   return {
+    userRole: state.app.userRole,
     rinaId: state.status.rinaId,
     sakId: state.status.sakId,
     aktoerId: state.status.aktoerId,
@@ -25,7 +29,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, uiActions, statusActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, appActions, uiActions, statusActions), dispatch) }
 }
 
 const params = ['buc', 'sed', 'rinaId', 'sakId', 'aktoerId', 'vedtakId', 'kravId', 'fnr']
@@ -37,6 +41,14 @@ class Footer extends Component {
     const { actions } = this.props
 
     actions.unsetStatusParam(key)
+  }
+
+  onLogoClick () {
+    const { actions, userRole } = this.props
+
+    if (userRole === constants.SAKSBEHANDLER) {
+      actions.toggleDrawerEnable()
+    }
   }
 
   onSetParam () {
@@ -91,6 +103,7 @@ class Footer extends Component {
           <Nav.Input label='' className={'paramValue'} value={paramValue || ''}
             onChange={this.onSetParamValue.bind(this)} />
           <Nav.Knapp className='addParamButton' onClick={this.onSetParam.bind(this)}>&nbsp;+&nbsp;</Nav.Knapp>
+          <Nav.Knapp className='toggleDrawerEnableButton' onClick={this.onLogoClick.bind(this)}>&nbsp;&lt;&lt;&nbsp;</Nav.Knapp>
         </div> : null}
       </div>
       {footerOpen ? <div className='params'>

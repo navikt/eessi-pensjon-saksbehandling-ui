@@ -87,14 +87,10 @@ class SendCase extends Component {
             </Nav.Column>
           </Nav.Row>
         </div>
-        <Nav.Row className='mb-4 p-4'>
-          <div className='col-md-6 mb-2'>
-            <Nav.Knapp className='w-100 createNewButton' onClick={this.onCreateNewButtonClick.bind(this)}>{t('ui:createNew')}</Nav.Knapp>
-          </div>
-          <div className='col-md-6 mb-2'>
-            <Nav.Hovedknapp className='w-100 goToStartButton' onClick={this.onGoToStartButtonClick.bind(this)}>{t('ui:goToStart')}</Nav.Hovedknapp>
-          </div>
-        </Nav.Row>
+        <div className='mb-4 p-4'>
+          <Nav.Hovedknapp className='goToStartButton' onClick={this.onGoToStartButtonClick.bind(this)}>{t('ui:goToStart')}</Nav.Hovedknapp>
+          <Nav.Knapp className='ml-3 createNewButton' onClick={this.onCreateNewButtonClick.bind(this)}>{t('ui:createNew')}</Nav.Knapp>
+        </div>
       </Case>
     }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { Document, Page } from 'react-pdf/dist/entry.noworker'
+import { Document, Page } from 'react-pdf'
 import { withNamespaces } from 'react-i18next'
 import classNames from 'classnames'
 

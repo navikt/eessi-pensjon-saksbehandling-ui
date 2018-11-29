@@ -15,7 +15,7 @@ import * as navLogo from '../../../resources/images/nav.svg'
 import * as appActions from '../../../actions/app'
 import * as uiActions from '../../../actions/ui'
 
-import './TopHeader.css'
+import './InternalTopHeader.css'
 
 const mapStateToProps = (state) => {
   return {
@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, uiActions, appActions), dispatch) }
 }
 
-class TopHeader extends Component {
+class InternalTopHeader extends Component {
   state = {
     divHovering: false,
     selectHovering: false
@@ -100,13 +100,13 @@ class TopHeader extends Component {
                     <span id='pensjon-utland-span-username' className='username-span'>{username}</span>
                   </div>
                   <div className='col-sm-6'>
-                    <a href='https://loginservice-q.nav.no/slo' class='btn btn-secondary btn-sm' role='button'>{t('logout')}</a>
+                    <a href='https://loginservice-q.nav.no/slo' className='btn btn-secondary btn-sm' role='button'>{t('logout')}</a>
                   </div>
                 </div>
               </React.Fragment>
               : <React.Fragment>
                 <Nav.Ikon size={16} kind='advarsel-trekant' />
-                <span className='ml-2'>{t('unknown')}</span>
+                <span className='ml-2 username-span'>{t('unknown')}</span>
               </React.Fragment>
           }
         </div>
@@ -115,7 +115,7 @@ class TopHeader extends Component {
   }
 }
 
-TopHeader.propTypes = {
+InternalTopHeader.propTypes = {
   t: PT.func.isRequired,
   username: PT.string,
   userRole: PT.string,
@@ -130,6 +130,6 @@ export default withCookies(
     mapStateToProps,
     mapDispatchToProps
   )(
-    withNamespaces()(TopHeader)
+    withNamespaces()(InternalTopHeader)
   )
 )

@@ -18,13 +18,12 @@ const mapStateToProps = (state) => {
 
 class Case extends Component {
   render () {
-    const { t, children, title, description, stepIndicator, className, history, location, status } = this.props
+    const { t, children, title, stepIndicator, className, history, location, status } = this.props
 
     return <TopContainer className={classNames('p-case-case', className)}
       history={history} location={location}
       sideContent={<FrontPageDrawer t={t} status={status} />}>
-      <h1 className='appTitle'>{title}</h1>
-      { description ? <h4 className='appDescription'>{description}</h4> : null }
+      <h1 className='ml-0 appTitle'>{title}</h1>
       { stepIndicator !== undefined ? <Nav.Stegindikator
         visLabel
         onBeforeChange={() => { return false }}

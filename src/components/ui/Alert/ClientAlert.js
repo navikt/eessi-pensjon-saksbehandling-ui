@@ -26,23 +26,12 @@ const mapDispatchToProps = (dispatch) => {
 class ClientAlert extends Component {
     state = {
       status: undefined,
-      message: undefined,
-      timeout: undefined
+      message: undefined
     }
 
     static getDerivedStateFromProps (newProps, oldState) {
       if (newProps.clientErrorStatus !== oldState.status || newProps.clientErrorMessage !== oldState.message) {
-        if (oldState.timeout) {
-          clearTimeout(oldState.timeout)
-        }
-
-        let clientClear = newProps.actions.clientClear
-        let timeout = setTimeout(() => {
-          clientClear()
-        }, newProps.clientErrorStatus === 'OK' ? 5000 : 10000)
-
         return {
-          timeout: timeout,
           status: newProps.clientErrorStatus,
           message: newProps.clientErrorMessage
         }
@@ -76,7 +65,6 @@ class ClientAlert extends Component {
       }
       return <Nav.AlertStripe solid
         className={classNames(className, 'c-ui-clientAlert', {
-          'toFade': status === 'OK',
           'fixed': _fixed
         })}
         type={status === 'OK' ? 'suksess' : 'advarsel'}>

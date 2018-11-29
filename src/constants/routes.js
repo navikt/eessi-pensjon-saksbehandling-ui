@@ -1,6 +1,7 @@
 let BASE = '/_'
 
 export const ROOT = BASE + '/'
+export const INDEX = BASE + '/index'
 
 export const PSELV = BASE + '/pselv'
 export const PINFO = BASE + '/pinfo'

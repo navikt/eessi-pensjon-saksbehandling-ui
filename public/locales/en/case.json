@@ -73,6 +73,8 @@
     "help-sed"         : "Help for sed",
     "help-subjectArea" : "Help for subjectArea",
     "help-vedtakId"    : "Help for Vedtak ID",
+    "help-startCase"   : "Help for startCase",
+    "help-startCase2"  : "Help for startCase2",
 
     "loading-buc"             : "Loading BUC...",
     "loading-country"         : "Loading countries...",

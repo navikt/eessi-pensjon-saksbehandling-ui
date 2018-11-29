@@ -9,7 +9,7 @@ import { withNamespaces } from 'react-i18next'
 import _ from 'lodash'
 
 import * as Nav from '../ui/Nav'
-import TopHeader from '../ui/Header/TopHeader'
+import InternalTopHeader from '../ui/Header/InternalTopHeader'
 import { IS_DEVELOPMENT_WITH_NO_AUTH } from '../../constants/environment'
 
 import * as routes from '../../constants/routes'
@@ -18,6 +18,7 @@ import * as statusActions from '../../actions/status'
 
 const mapStateToProps = (state) => {
   return {
+
     userRole: state.app.userRole,
     loggedIn: state.app.loggedIn,
     isLoggingIn: state.loading.isLoggingIn,
@@ -62,8 +63,10 @@ class AuthenticatedRoute extends Component {
   }
 
   componentDidMount () {
-    const { actions } = this.props
-    actions.getUserInfo()
+    const { actions, userRole } = this.props
+    if (!userRole) {
+      actions.getUserInfo()
+    }
     this.parseSearchParams()
   }
 
@@ -86,7 +89,7 @@ class AuthenticatedRoute extends Component {
         ? <Route {...this.props} />
         : <Redirect to={routes.ROOT} />
       : <div style={{ minHeight: '100vh', backgroundColor: 'white' }}>
-        <TopHeader />
+        <InternalTopHeader />
         <div className={classNames('w-100 text-center p-5', className)}>
           {!loggedIn ? <div>
             <Nav.Hovedknapp

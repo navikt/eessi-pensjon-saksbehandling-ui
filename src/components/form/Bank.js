@@ -60,68 +60,64 @@ class Bank extends React.Component {
       bankCode: bankValidation.bankCode(bank, t)
     }
     return (
-      <fieldset>
-        <legend>{t('pinfo:form-bank')}</legend>
+      <div>
+        <h2>{t('pinfo:form-bank')}</h2>
         <div className='mt-3'>
-          <div className='col-xs-12'>
-            <Nav.Row>
-              <div className='col-md-6'>
-                <Nav.Input label={t('pinfo:form-bankName') + ' *'} value={bank.bankName || ''}
-                  onChange={this.setBankName}
-                  feil={(this.state.displayError && error.bankName) ? { feilmelding: error.bankName } : null}
-                />
-
-              </div>
-              <div className='col-md-6'>
-                <Nav.Textarea label={t('pinfo:form-bankAddress') + ' *'} value={bank.bankAddress || ''}
-                  style={{ minHeight: '200px' }}
-                  onChange={this.setBankAddress}
-                  feil={(this.state.displayError && error.bankAddress) ? { feilmelding: error.bankAddress } : null}
-                />
-
-              </div>
-            </Nav.Row>
-            <Nav.Row>
-              <div className='col-md-6'>
-                <div className='mb-3' >
-                  <label>{t('pinfo:form-bankCountry') + ' *'}</label>
-                  <div>
-                    <CountrySelect locale={locale}
-                      value={bank.bankCountry || null}
-                      onSelect={this.setBankCountry}
-                      error={(this.state.displayError && error.bankCountry)}
-                      errorMessage={error.bankCountry}
-                    />
-                  </div>
+          <Nav.Row>
+            <div className='col-md-6'>
+              <Nav.Input label={t('pinfo:form-bankName') + ' *'} value={bank.bankName || ''}
+                onChange={this.setBankName}
+                feil={(this.state.displayError && error.bankName) ? { feilmelding: error.bankName } : null}
+              />
+            </div>
+            <div className='col-md-6'>
+              <Nav.Textarea label={t('pinfo:form-bankAddress') + ' *'} value={bank.bankAddress || ''}
+                style={{ minHeight: '200px' }}
+                onChange={this.setBankAddress}
+                feil={(this.state.displayError && error.bankAddress) ? { feilmelding: error.bankAddress } : null}
+              />
+            </div>
+          </Nav.Row>
+          <Nav.Row>
+            <div className='col-md-6'>
+              <div className='mb-3' >
+                <label>{t('pinfo:form-bankCountry') + ' *'}</label>
+                <div>
+                  <CountrySelect locale={locale}
+                    value={bank.bankCountry || null}
+                    onSelect={this.setBankCountry}
+                    error={(this.state.displayError && error.bankCountry)}
+                    errorMessage={error.bankCountry}
+                  />
                 </div>
               </div>
-              <div className='col-md-6'>
-                <Nav.Input label={t('pinfo:form-bankBicSwift') + ' *'} value={bank.bankBicSwift || ''}
-                  onChange={this.setBankBicSwift}
-                  feil={(this.state.displayError && error.bankBicSwift) ? { feilmelding: error.bankBicSwift } : null}
-                />
-              </div>
-            </Nav.Row>
-            <Nav.Row>
-              <div className='col-md-6'>
-                <Nav.Input label={t('pinfo:form-bankIban') + ' *'}
-                  value={bank.bankIban || ''}
-                  onChange={this.setBankIban}
-                  feil={(this.state.displayError && error.bankIban) ? { feilmelding: error.bankIban } : null}
-                />
-              </div>
-              <div className='col-md-6'>
-                <Nav.Input
-                  label={(t('pinfo:form-bankCode') + ' *')}
-                  value={bank.bankCode || ''}
-                  onChange={this.setBankCode}
-                  feil={(this.state.displayError && error.bankCode) ? { feilmelding: error.bankCode } : null}
-                />
-              </div>
-            </Nav.Row>
-          </div>
+            </div>
+            <div className='col-md-6'>
+              <Nav.Input label={t('pinfo:form-bankBicSwift') + ' *'} value={bank.bankBicSwift || ''}
+                onChange={this.setBankBicSwift}
+                feil={(this.state.displayError && error.bankBicSwift) ? { feilmelding: error.bankBicSwift } : null}
+              />
+            </div>
+          </Nav.Row>
+          <Nav.Row>
+            <div className='col-md-6'>
+              <Nav.Input label={t('pinfo:form-bankIban') + ' *'}
+                value={bank.bankIban || ''}
+                onChange={this.setBankIban}
+                feil={(this.state.displayError && error.bankIban) ? { feilmelding: error.bankIban } : null}
+              />
+            </div>
+            <div className='col-md-6'>
+              <Nav.Input
+                label={(t('pinfo:form-bankCode') + ' *')}
+                value={bank.bankCode || ''}
+                onChange={this.setBankCode}
+                feil={(this.state.displayError && error.bankCode) ? { feilmelding: error.bankCode } : null}
+              />
+            </div>
+          </Nav.Row>
         </div>
-      </fieldset>
+      </div>
     )
   }
 }

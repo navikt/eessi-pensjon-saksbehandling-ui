@@ -1,21 +1,23 @@
-import FrontPage from './FrontPage'
+import FirstPage from './FirstPage/FirstPage'
+import IndexPage from './IndexPage/IndexPage'
 
-import StartCase from './case/StartCase'
-import ConfirmCase from './case/ConfirmCase'
-import GenerateCase from './case/GenerateCase'
-import SaveCase from './case/SaveCase'
-import SendCase from './case/SendCase'
+import StartCase from './Case/StartCase'
+import ConfirmCase from './Case/ConfirmCase'
+import GenerateCase from './Case/GenerateCase'
+import SaveCase from './Case/SaveCase'
+import SendCase from './Case/SendCase'
 
-import SelectPDF from './pdf/SelectPDF/SelectPDF'
-import EditPDF from './pdf/EditPDF/EditPDF'
-import GeneratePDF from './pdf/GeneratePDF/GeneratePDF'
+import SelectPDF from './PDF_/SelectPDF/SelectPDF'
+import EditPDF from './PDF_/EditPDF/EditPDF'
+import GeneratePDF from './PDF_/GeneratePDF/GeneratePDF'
 
 import PSelv from './PSelv/PSelv'
 import PInfo from './PInfo/PInfo'
 import P4000 from './P4000/P4000'
 
 export {
-  FrontPage,
+  FirstPage,
+  IndexPage,
 
   StartCase,
   ConfirmCase,
