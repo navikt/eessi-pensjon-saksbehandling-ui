@@ -144,16 +144,16 @@ class EditPDF extends Component {
       if (_.isEmpty(imageFiles)) {
         return null
       }
-      return <Collapse.Panel key={'images'} header={t('images')} showArrow>
+      return <Nav.Ekspanderbartpanel apen={true} key={'images'} tittel={t('images')} tittelProps='undertittel'>
         <DnDImages files={imageFiles} />
-      </Collapse.Panel>
+      </Nav.Ekspanderbartpanel>
     }
 
     pdfCollapse (pdfFiles) {
       return pdfFiles.map((file, i) => {
-        return <Collapse.Panel key={'pdf-' + i} header={file.name} showArrow>
+        return <Nav.Ekspanderbartpanel apen={true} key={'pdf-' + i} tittel={file.name} tittelProps='undertittel'>
           <DnDSource pdf={file} />
-        </Collapse.Panel>
+        </Nav.Ekspanderbartpanel>
       })
     }
 
@@ -206,9 +206,9 @@ class EditPDF extends Component {
               <div className='h-100'>
                 {!files ? null : <Collapse className='mb-4' defaultActiveKey={openedPanels}
                   destroyInactivePanel={false} accordion={false}>
-                  <Collapse.Panel key={'special'} header={t('pdf:specials-title')} showArrow>
+                  <Nav.Ekspanderbartpanel apen={false} key={'special'} tittel={t('pdf:specials-title')} tittelProps='undertittel'>
                     <DnDSpecial />
-                  </Collapse.Panel>
+                  </Nav.Ekspanderbartpanel>
                   {imageCollapse}
                   {pdfCollapse}
                 </Collapse>
