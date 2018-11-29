@@ -34,13 +34,13 @@ ingress:
 fasitResources:
     used:
 
+    - alias: eessi-pensjon-frontend-zone
+      resourceType: ApplicationProperties
+
     - alias: loginservice
       resourceType: RestService
       propertyMap:
           url: LOGINURL
-
-    - alias: EessiPensjonFrontendApi_v1
-      resourceType: RestService
 
     - alias: loadbalancer:pensjon-utland
       resourceType: LoadBalancerConfig

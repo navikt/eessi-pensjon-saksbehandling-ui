@@ -35,8 +35,8 @@ fasitResources:
 
     used:
 
-    - alias: EessiPensjonFrontendApi_v1
-      resourceType: RestService
+    - alias: eessi-pensjon-frontend-zone
+      resourceType: ApplicationProperties
 
     - alias: EessiPensjonFrontendApiLogin_v1
       resourceType: RestService

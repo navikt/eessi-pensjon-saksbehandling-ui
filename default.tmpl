@@ -10,15 +10,15 @@ server {
     rewrite ^/login(.*)$ ${LOGINURL}?redirect=https://${LOADBALANCEURL} redirect;
 
     location /api/ {
-        proxy_pass ${EESSIPENSJONFRONTENDAPI_V1_URL}api/;
+        proxy_pass http://eessi-pensjon-frontend-api-${ZONE}/api/;
     }
 
     location /fag/ {
-        proxy_pass ${EESSIPENSJONFRONTENDAPI_V1_URL}fag/;
+        proxy_pass http://eessi-pensjon-frontend-api-${ZONE}/fag/;
     }
 
     location /pdf/ {
-        proxy_pass ${EESSIPENSJONFRONTENDAPI_V1_URL}pdf/;
+        proxy_pass http://eessi-pensjon-frontend-api-${ZONE}/pdf/;
     }
 
     location / {
