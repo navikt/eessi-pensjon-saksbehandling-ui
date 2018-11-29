@@ -7,10 +7,10 @@ server {
     error_log /dev/stdout info;
     access_log /dev/stdout;
 
-    if(${ZONE} = fss) {
+    if (${ZONE} = fss) {
         rewrite ^/login$ http://eessi-pensjon-frontend-api-${ZONE}.${APP_ENVIRONMENT}/login?redirect=https://${LOADBALANCEURL} redirect;
     }
-    if(${ZONE} = sbs) {
+    if (${ZONE} = sbs) {
         rewrite ^/login(.*)$ ${LOGINURL}?redirect=https://${LOADBALANCEURL} redirect;
     }
 
