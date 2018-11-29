@@ -100,7 +100,7 @@ class InternalTopHeader extends Component {
                     <span id='pensjon-utland-span-username' className='username-span'>{username}</span>
                   </div>
                   <div className='col-sm-6'>
-                    <a href='https://loginservice-q.nav.no/slo' class='btn btn-secondary btn-sm' role='button'>{t('logout')}</a>
+                    <a href='https://loginservice-q.nav.no/slo' className='btn btn-secondary btn-sm' role='button'>{t('logout')}</a>
                   </div>
                 </div>
               </React.Fragment>
