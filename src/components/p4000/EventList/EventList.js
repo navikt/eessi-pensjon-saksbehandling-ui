@@ -15,7 +15,7 @@ class EventList extends Component {
       return null
     }
 
-    return <div className={classNames('c-p4000-eventList', 'm-4', className)}>
+    return <div className={classNames('c-p4000-eventList', 'mb-4', className)}>
       <div className='ml-2 mt-1'>{t('p4000:form-eventsSoFar')}</div>
       <div className='eventList'>
         {events.map((event, index) => {

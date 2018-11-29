@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux'
 import classNames from 'classnames'
 import _ from 'lodash'
 
+import VeilederPanel from '../../../ui/Panel/VeilederPanel'
 import * as Nav from '../../../ui/Nav'
 import Icons from '../../../ui/Icons'
 import SubmitButton from '../../Buttons/SubmitButton'
@@ -122,8 +123,10 @@ class New extends Component {
 
         {event !== undefined ? <React.Fragment>
           <div className='fieldset animate mb-4 c-p4000-menu-new-events'>
-            <Nav.HjelpetekstBase>{t('p4000:help-new-event')}</Nav.HjelpetekstBase>
-            <h1 className='m-0 mb-4'>{t('ui:new') + ' ' + t('p4000:type-event')}</h1>
+            <h2 className='m-0 mb-4'>{t('ui:new') + ' ' + t('p4000:type-event')}</h2>
+            <div className='mt-5 mb-5'>
+              <VeilederPanel>{t('p4000:help-new-event')}</VeilederPanel>
+            </div>
             <div className='bigButtons'>
               {eventList.map((e, index) => {
                 let count = _.filter(events, (event) => { return event.type === e.value }).length
@@ -149,8 +152,10 @@ class New extends Component {
 
         <div style={{ animationDelay: fileMenuDelay + 's' }}
           className='fieldset animate c-p4000-menu-new-menu'>
-          <Nav.HjelpetekstBase>{t('p4000:help-new-options')}</Nav.HjelpetekstBase>
-          <h1 className='m-0 mb-4'>{t('p4000:file-menu')}</h1>
+          <h2>{t('p4000:file-menu')}</h2>
+          <div className='mt-5 mb-5'>
+            <VeilederPanel>{t('p4000:help-new-options')}</VeilederPanel>
+          </div>
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
             <NewButton style={{ animationDelay: (fileMenuDelay + 0.03) + 's' }} />
             <OpenFromServerButton style={{ animationDelay: (fileMenuDelay + 0.06) + 's' }} />
