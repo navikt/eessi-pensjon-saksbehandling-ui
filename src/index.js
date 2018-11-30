@@ -11,7 +11,6 @@ import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import { I18nextProvider } from 'react-i18next'
-import { CookiesProvider } from 'react-cookie'
 import 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/nb'
@@ -57,7 +56,6 @@ const store = createStoreWithMiddleware(reducer, initialState)
 
 ReactDOM.render(
   <I18nextProvider i18n={i18n}>
-    <CookiesProvider>
       <Provider store={store}>
         <ConnectedRouter history={history}>
           <Switch>
@@ -83,7 +81,6 @@ ReactDOM.render(
           </Switch>
         </ConnectedRouter>
       </Provider>
-    </CookiesProvider>
   </I18nextProvider>,
   document.getElementById('root')
 )

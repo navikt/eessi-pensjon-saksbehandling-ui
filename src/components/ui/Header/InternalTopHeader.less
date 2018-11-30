@@ -9,11 +9,17 @@
     justify-content: space-between;
     flex-shrink: 0;
 
+    .skillelinje {
+      border-left: 1px solid white;
+      display: flex;
+      height: 30px;
+      width: 1px;
+    }
+
     .brand {
       align-items: center;
       display: flex;
       flex-direction: row;
-
 
       .logo {
         display: flex;
@@ -21,12 +27,6 @@
         padding-left: 20px;
         padding-right: 15px;
         width: 85px;
-      }
-
-      .skillelinje {
-        border-left: 1px solid white;
-        display: flex;
-        height: 30px;
       }
 
       .tittel {
@@ -60,9 +60,27 @@
 
       .username-select {
 
+        .selectContainer:before,
+        .selectContainer:after {
+            background: white !important;
+        }
+
         position: relative;
         select {
            background: transparent !important;
+
+           &:not(:hover) {
+             border-color: transparent !important;
+           }
+           &:hover {
+             border-color: white !important;
+           }
+        }
+        color: white;
+
+        option {
+            background: @pensiongreen;
+            padding: 0.5rem;
         }
       }
 

@@ -226,8 +226,8 @@ class DocumentStatus extends Component {
         { gettingStatus ? <div className='w-100 text-center' style={{ minHeight: '110px' }}>
           <Nav.NavFrontendSpinner />
           <p>{gettingStatus ? t('loading-gettingStatus') : t('loading-gettingRinaCase')}</p>
-        </div> :
-          documents ? <React.Fragment>
+        </div>
+          : documents ? <React.Fragment>
             <div className='documentTags'>
               <Nav.EtikettBase className={classNames('tags', { selected: filter === 'all' })}
                 type={filter === 'all' ? 'suksess' : 'info'} onClick={this.setFilter.bind(this, 'all')}>
@@ -280,7 +280,7 @@ class DocumentStatus extends Component {
               })}
             </div> : null}
           </React.Fragment>
-        : null}
+            : null}
       </div>
     }
 }

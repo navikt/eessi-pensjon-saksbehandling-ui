@@ -58,12 +58,12 @@ class PInfo extends React.Component {
   }
 
   componentDidMount () {
-    let props = this.props
-    let referrer = new URLSearchParams(props.location.search).get('referrer')
+    const { location, actions } = this.props
+    let referrer = new URLSearchParams(location.search).get('referrer')
     if (referrer) {
-      props.actions.setReferrer(referrer)
+      actions.setReferrer(referrer)
     }
-    props.actions.addToBreadcrumbs({
+    actions.addToBreadcrumbs({
       url: routes.PINFO,
       ns: 'pinfo',
       label: 'pinfo:app-title'
@@ -77,13 +77,18 @@ class PInfo extends React.Component {
       sideContent={<FrontPageDrawer t={props.t} status={props.status} />}>
       <Nav.Row className='mb-0'>
         <Nav.Column>
-          <Nav.Tabs onChange={(e, i) => setStep(props, i)} className='mt-0 ml-3 mr-3 mb-0'
-            defaultAktiv={props.form.step}
-            tabs={_.range(0, 6).map(index => ({
-              label: props.t('pinfo:form-step' + index)
+        <Nav.Stegindikator
+           aktivtSteg={props.form.step}
+            visLabel={true}
+            onChange={(e)=> props.actions.setEventProperty( {step: e})}
+            autoResponsiv={true}
+            steg={_.range(0,7).map(index=>({
+              label: props.t('pinfo:form-step' + index),
+              ferdig: index < props.form.step,
+              aktiv: index === props.form.step,
             }))
             }
-            kompakt={false}
+
           />
         </Nav.Column>
       </Nav.Row>

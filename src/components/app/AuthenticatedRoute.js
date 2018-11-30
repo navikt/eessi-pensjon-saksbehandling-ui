@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { withCookies, Cookies } from 'react-cookie'
 import { Route, withRouter, Redirect } from 'react-router'
 import classNames from 'classnames'
 import { withNamespaces } from 'react-i18next'
@@ -109,18 +108,16 @@ class AuthenticatedRoute extends Component {
 AuthenticatedRoute.propTypes = {
   t: PT.func.isRequired,
   className: PT.string,
-  cookies: PT.instanceOf(Cookies),
   actions: PT.object.isRequired,
   roles: PT.array.isRequired
 }
 
-export default withCookies(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(
-    withRouter(
-      withNamespaces()(AuthenticatedRoute)
-    )
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  withRouter(
+    withNamespaces()(AuthenticatedRoute)
   )
 )
+

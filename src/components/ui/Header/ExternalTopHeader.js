@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
 import { withNamespaces } from 'react-i18next'
-import { withCookies, Cookies } from 'react-cookie'
 
 import LogoHeader from './LogoHeader'
 
@@ -29,9 +28,8 @@ const mapDispatchToProps = (dispatch) => {
 
 class ExternalTopHeader extends Component {
   onLogout () {
-    const { actions, cookies } = this.props
+    const { actions } = this.props
 
-    cookies.remove('eessipensjon-idtoken-public', { path: '/' })
     actions.clearData()
     actions.logout()
   }
@@ -74,17 +72,15 @@ ExternalTopHeader.propTypes = {
   t: PT.func.isRequired,
   username: PT.string,
   userRole: PT.string,
-  cookies: PT.instanceOf(Cookies),
   actions: PT.object,
   history: PT.object,
   gettingUserInfo: PT.bool
 }
 
-export default withCookies(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(
-    withNamespaces()(ExternalTopHeader)
-  )
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  withNamespaces()(ExternalTopHeader)
 )
+
