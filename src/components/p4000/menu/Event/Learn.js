@@ -132,7 +132,7 @@ class Learn extends Component {
             <Icons className='mr-2' kind='back' size='1x' />{t('ui:back')}
           </Nav.Knapp>
           <Icons size='3x' kind={type} className='float-left mr-4' />
-          <h2 className='m-0'>{ mode !== 'edit' ? t('ui:new') : t('ui:edit')} {t('p4000:' + type + '-title')}</h2>
+          <h2 className='typo-undertittel m-0'>{ mode !== 'edit' ? t('ui:new') : t('ui:edit')} {t('p4000:' + type + '-title')}</h2>
         </div>
         <Nav.Row className='eventDescription mb-4 fieldset'>
           <Nav.Column>
@@ -145,7 +145,7 @@ class Learn extends Component {
         })}>
           <Nav.Column>
             <Nav.HjelpetekstBase>{t('p4000:help-' + type + '-dates')}</Nav.HjelpetekstBase>
-            <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-1-dates-title')}</h2>
+            <h2 className='typo-undertittel mb-3'>{t('p4000:' + type + '-fieldset-1-dates-title')}</h2>
             <DatePicker provideController={(datepicker) => { this.datepicker = datepicker }} />
           </Nav.Column>
         </Nav.Row>
@@ -155,7 +155,7 @@ class Learn extends Component {
           <Nav.Column>
             {!this.hasNoInfoErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.infoValidationError)}</Nav.AlertStripe> : null}
             <Nav.HjelpetekstBase>{t('p4000:help-' + type + '-info')}</Nav.HjelpetekstBase>
-            <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-2-info-title')}</h2>
+            <h2 className='typo-undertittel mb-3'>{t('p4000:' + type + '-fieldset-2-info-title')}</h2>
 
             <Nav.Input className='name' label={t('p4000:' + type + '-fieldset-2_1-name')} value={event.name}
               onChange={(e) => { actions.setEventProperty('name', e.target.value) }} />
@@ -166,7 +166,7 @@ class Learn extends Component {
           validationFail: this ? !this.hasNoOtherErrors() : false
         })}>
           <Nav.Column>
-            <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-3-other-title')}</h2>
+            <h2 className='typo-undertittel mb-3'>{t('p4000:' + type + '-fieldset-3-other-title')}</h2>
             {!this.hasNoOtherErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.otherValidationError)}</Nav.AlertStripe> : null}
             <div className='mb-3'>
               <div>
@@ -181,7 +181,7 @@ class Learn extends Component {
         </Nav.Row>
         <Nav.Row className={classNames('eventFileUpload', 'mb-4', 'fieldset')}>
           <Nav.Column>
-            <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
+            <h2 className='typo-undertittel mb-3'>{t('ui:fileUpload')}</h2>
             <FileUpload t={t} ref={f => { this.fileUpload = f }} fileUploadDroppableId={'fileUpload'} className='fileUpload'
               files={event.files || []} onFileChange={this.handleFileChange.bind(this)} />
           </Nav.Column>

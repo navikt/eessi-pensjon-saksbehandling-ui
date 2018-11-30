@@ -555,7 +555,7 @@ class StartCase extends Component {
           ? loading && loading.gettingCase
             ? <div className='w-100 text-center'>
               <Nav.NavFrontendSpinner />
-              <p>{t('case:loading-gettingCase')}</p>
+              <p className='typo-normal'>{t('case:loading-gettingCase')}</p>
             </div>
             : <React.Fragment>
               <div className='fieldset animate'>

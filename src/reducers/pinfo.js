@@ -7,19 +7,14 @@ let initialState = {
     maxstep: 6,
     validationError: undefined,
     contact: {
-      phone: {},
-      email: {}
+      phones: [],
+      emails: []
     },
     attachments: {},
     bank: {},
     workIncome: {},
     pension: {}
   }
-}
-
-function omit (key, object) {
-  let { [key]: remove, ...rest } = object
-  return rest
 }
 
 export default function (state = initialState, action = {}) {
@@ -33,7 +28,7 @@ export default function (state = initialState, action = {}) {
         ? JSON.parse(action.payload)
         : state
 
-    case types.PINFO_EVENT_SET_PHONE:
+    case types.PINFO_EVENT_SET_PHONES:
 
       return {
         ...state,
@@ -41,46 +36,18 @@ export default function (state = initialState, action = {}) {
           ...state.form,
           contact: {
             ...state.form.contact,
-            phone: {
-              ...state.form.contact.phone,
-              [action.key]: {
-                ...state.form.contact.phone[action.key],
-                ...action.payload
-              } } } } }
+            phones: action.payload
+      } } }
 
-    case types.PINFO_EVENT_SET_EMAIL:
+    case types.PINFO_EVENT_SET_EMAILS:
       return {
         ...state,
         form: {
           ...state.form,
           contact: {
             ...state.form.contact,
-            email: {
-              ...state.form.contact.email,
-              [action.key]: {
-                ...state.form.contact.email[action.key],
-                ...action.payload
-              } } } } }
-
-    case types.PINFO_EVENT_REMOVE_PHONE:
-      return {
-        ...state,
-        form: {
-          ...state.form,
-          contact: {
-            ...state.form.contact,
-            phone: omit(action.key, state.form.contact.phone)
-          } } }
-
-    case types.PINFO_EVENT_REMOVE_EMAIL:
-      return {
-        ...state,
-        form: {
-          ...state.form,
-          contact: {
-            ...state.form.contact,
-            email: omit(action.key, state.form.contact.email)
-          } } }
+            emails: action.payload
+      } } }
 
     case types.PINFO_EVENT_SET_WORKINCOME:
       return {

@@ -6,7 +6,7 @@ import { withNamespaces } from 'react-i18next'
 import * as Nav from '../ui/Nav'
 import CountrySelect from '../ui/CountrySelect/CountrySelect'
 import * as pinfoActions from '../../actions/pinfo'
-import { pensionValidation } from '../pinfo/tests'
+import { pensionValidation } from './Validation/tests'
 
 const mapStateToProps = (state) => {
   return {

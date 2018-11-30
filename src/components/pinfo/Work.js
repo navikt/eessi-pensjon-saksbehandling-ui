@@ -9,7 +9,7 @@ import { withNamespaces } from 'react-i18next'
 import CountrySelect from '../ui/CountrySelect/CountrySelect'
 import * as pinfoActions from '../../actions/pinfo'
 import * as Nav from '../ui/Nav'
-import { workAndIncomeValidation } from '../pinfo/tests'
+import { workAndIncomeValidation } from './Validation/tests'
 import './form.css'
 
 const mapStateToProps = (state) => {

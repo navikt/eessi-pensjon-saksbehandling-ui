@@ -230,7 +230,7 @@ class PSelv extends Component {
         sideContent={<FrontPageDrawer t={t} status={status} />}>
         <Nav.Row className='mb-4'>
           <Nav.Column>
-            <h1 className='ml-0 appTitle'>{t('pselv:app-title')}</h1>
+            <h1 className='typo-sidetittel ml-0 appTitle'>{t('pselv:app-title')}</h1>
             <Nav.Stegindikator
               aktivtSteg={step}
               visLabel
@@ -251,7 +251,7 @@ class PSelv extends Component {
         })}>
           {this.hasValidationErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.validationError)}</Nav.AlertStripe> : null}
           <div className='mb-4'>
-            <h2>{t('pselv:form-step' + step + '-title')}</h2>
+            <h2 className='typo-undertittel'>{t('pselv:form-step' + step + '-title')}</h2>
             <div className='mb-5 mt-5'>
               <VeilederPanel>{t('pselv:form-step' + step + '-description')}
                 {step === 3 ? <div><a href='#externalhref'>{t('pselv:form-step3-sed-anchor-text')}</a></div> : null}

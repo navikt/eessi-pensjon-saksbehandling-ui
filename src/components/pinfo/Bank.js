@@ -6,7 +6,7 @@ import { withNamespaces } from 'react-i18next'
 import * as Nav from '../ui/Nav'
 import CountrySelect from '../ui/CountrySelect/CountrySelect'
 import * as pinfoActions from '../../actions/pinfo'
-import { bankValidation } from '../pinfo/tests'
+import { bankValidation } from './Validation/tests'
 
 const mapStateToProps = (state) => {
   return {
@@ -61,7 +61,7 @@ class Bank extends React.Component {
     }
     return (
       <div>
-        <h2>{t('pinfo:form-bank')}</h2>
+        <h2 className='typo-undertittel'>{t('pinfo:form-bank')}</h2>
         <div className='mt-3'>
           <Nav.Row>
             <div className='col-md-6'>

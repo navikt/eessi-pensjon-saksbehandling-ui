@@ -164,7 +164,7 @@ class _Timeline extends Component {
             <Icons className='mr-2' kind='back' size='1x' />{t('ui:back')}
           </Nav.Knapp>
           <Icons size='3x' kind={'calendar'} className='float-left mr-4' />
-          <h1 className='m-0'>{t('p4000:form-timeline')}</h1>
+          <h1 className='typo-sidetittel  m-0'>{t('p4000:form-timeline')}</h1>
         </div>
         <Timeline items={items} options={{
           width: '100%',

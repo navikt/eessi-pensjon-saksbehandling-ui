@@ -90,7 +90,7 @@ class SelectPDF extends Component {
     return <TopContainer className='p-pdf-selectPdf'
       history={history} location={location}
       sideContent={<PdfDrawer />}>
-      <h1 className='appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
+      <h1 className='typo-sidetittel appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
       <StepIndicator stepIndicator={0} history={history} />
       <div className='fieldset animate mb-4 '>
         <VeilederPanel>{t('pdf:app-selectPdfDescription')}</VeilederPanel>

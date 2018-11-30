@@ -20,7 +20,7 @@ class NotInvited extends Component {
     return <TopContainer className={classNames('p-app-notInvited')}
       history={history} location={location}
       sideContent={<FrontPageDrawer t={t} status={status} />}>
-      <h1 className='ml-0 appTitle'>{'not invited'}</h1>
+      <h1 className='typo-sidetittel ml-0 appTitle'>{'not invited'}</h1>
     </TopContainer>
   }
 }

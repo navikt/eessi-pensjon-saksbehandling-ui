@@ -97,7 +97,7 @@ class P4000 extends Component {
         history={history} location={location}
         sideContent={<Pdf t={t} status={status} />}>
         <StorageModal namespace={page !== 'export' ? storages.P4000 : storages.FILES} />
-        <h1 className='ml-0 appTitle'>{t('p4000:app-title')}</h1>
+        <h1 className='typo-sidetittel ml-0 appTitle'>{t('p4000:app-title')}</h1>
         <EventForm type={page} mode={mode} Component={components[page]} history={history} location={location} />
       </TopContainer>
     }

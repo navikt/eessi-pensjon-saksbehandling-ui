@@ -17,6 +17,7 @@ import Work from '../../components/pinfo/Work'
 import Attachments from '../../components/pinfo/Attachments'
 import Pension from '../../components/pinfo/Pension'
 import Summary from '../../components/pinfo/Summary'
+import Intro from '../../components/pinfo/Intro'
 
 import * as routes from '../../constants/routes'
 import * as pinfoActions from '../../actions/pinfo'
@@ -42,16 +43,8 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, pinfoActions, uiActions, appActions, storageActions), dispatch) }
 }
 
-const onSaveButtonClick = (props) => {
-  props.actions.postStorageFile(props.username, storages.PINFO, 'PINFO', JSON.stringify({ form: props.form }))
-  props.history.push(routes.PSELV + '?referrer=pinfo')
-}
-
-const setStep = (props, index) => (
-  props.actions.setEventProperty({ step: index, displayError: false })
-)
-
 class PInfo extends React.Component {
+
   constructor (props) {
     super(props)
     this.props.actions.getStorageFile(props.username, storages.PINFO, 'PINFO')
@@ -70,57 +63,63 @@ class PInfo extends React.Component {
     })
   }
 
+  onForwardButtonClick () {
+    const { actions, form } = this.props
+    actions.setEventProperty({ step: form.step + 1 })
+  }
+
+  onBackButtonClick () {
+    const { actions, form } = this.props
+    actions.setEventProperty({ step: form.step - 1 })
+  }
+
+  onSaveButtonClick () {
+
+    const { actions, history, username, form } = this.props
+
+    actions.postStorageFile(username, storages.PINFO, 'PINFO', JSON.stringify({ form: form }))
+    history.push(routes.PSELV + '?referrer=pinfo')
+  }
+
   render () {
-    let props = this.props
+    const { t, history, location, status, form, actions} = this.props
     return (<TopContainer className='p-pInfo'
-      history={props.history} location={props.location}
-      sideContent={<FrontPageDrawer t={props.t} status={props.status} />}>
-      <Nav.Row className='mb-0'>
-        <Nav.Column>
-          <Nav.Stegindikator
-            aktivtSteg={props.form.step}
-            visLabel
-            onChange={(e) => props.actions.setEventProperty({ step: e })}
-            autoResponsiv
-            steg={_.range(0, 7).map(index => ({
-              label: props.t('pinfo:form-step' + index),
-              ferdig: index < props.form.step,
-              aktiv: index === props.form.step
-            }))
-            }
+      history={history} location={location}
+      sideContent={<FrontPageDrawer t={t} status={status} />}>
+      <h1 className='typo-sidetittel mt-4'>{t('pinfo:app-title')}</h1>
+      <Nav.Stegindikator
+        className='mt-4 mb-4'
+        aktivtSteg={form.step}
+        visLabel
+        onChange={(e) => actions.setEventProperty({ step: e })}
+        autoResponsiv
+        steg={_.range(0, 8).map(index => ({
+          label: t('pinfo:form-step' + index),
+          ferdig: index < form.step,
+          aktiv: index === form.step
+        }))}
+      />
 
-          />
-        </Nav.Column>
-      </Nav.Row>
       <div className={classNames('fieldset animate', 'mb-4')}>
-        {props.form.step === 0
-          ? <form id='pinfo-form'>
-            <Bank />
-          </form>
-          : null}
-        {props.form.step === 1
-          ? <form id='pinfo-form'>
-            <Contact />
-          </form>
-          : null
-        }
-        {props.form.step === 2
-          ? <form id='pinfo-form'>
-            <Work />
-          </form>
-          : null
-        }
-        {props.form.step === 3 ? <form id='pinfo-form'><div>
-          <Attachments />
-        </div></form> : null}
-        {props.form.step === 4 ? <form id='pinfo-form'><div className='mb-3'>
-          <Pension />
-        </div> </form> : null}
-
-        {props.form.step === 5
-          ? <Summary t={props.t} onSave={onSaveButtonClick.bind(null, props)} />
-          : null}
+        {form.step === 0 ? <Intro /> : null}
+        {form.step === 1 ? <Contact /> : null}
+        {form.step === 2 ? <Bank /> : null}
+        {form.step === 3 ? <Work /> : null}
+        {form.step === 4 ? <Attachments /> : null}
+        {form.step === 5 ? <Pension /> : null}
+        {form.step === 6 ? <Summary t={t} onSave={this.onSaveButtonClick.bind(this)} /> : null}
       </div>
+
+      {form.step < 8 ? <Nav.Hovedknapp
+        className='forwardButton'
+        onClick={this.onForwardButtonClick.bind(this)}>
+        {t('next')}
+      </Nav.Hovedknapp> : null}
+      {form.step > 0 ? <Nav.Knapp
+        className='ml-3 backButton'
+        onClick={this.onBackButtonClick.bind(this)}>
+        {t('back')}
+      </Nav.Knapp> : null}
 
     </TopContainer>
 

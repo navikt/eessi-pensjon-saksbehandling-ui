@@ -54,29 +54,20 @@ export const bankValidation = {
 
 // CONTACT
 
-export function phoneNumber (phone, t) {
+export function phoneHasError (phone, t) {
   return (
-    !phone.number ? t('pinfo:validation-noUserPhone')
-      : !/\+?[\d]+[\d\s-]*/.test(phone.number) ? t('pinfo:validation-invalidUserPhone')
-        : ''
-  )
-}
-export function phoneType (phone, t) {
-  return (
-    !phone.type ? t('pinfo:validation-noTypePhone')
-      : ''
-  )
-}
-export function emailAddress (email, t) {
-  return (
-    !email.address ? t('pinfo:validation-noUserEmail')
-      : !/.+@.+\..+/.test(email.address) ? t('pinfo:validation-invalidUserEmail')
+    !phone ? t('pinfo:validation-noUserPhone')
+      : !/\+?[\d]+[\d\s-]*/.test(phone) ? t('pinfo:validation-invalidUserPhone')
         : ''
   )
 }
 
-export function phoneHasError (phone, t) {
-  return (phoneNumber(phone, t) || phoneType(phone, t))
+export function emailAddress (email, t) {
+  return (
+    !email ? t('pinfo:validation-noUserEmail')
+      : !/.+@.+\..+/.test(email) ? t('pinfo:validation-invalidUserEmail')
+        : ''
+  )
 }
 
 export function oneValidPhone (KV, t) {
@@ -94,8 +85,6 @@ export function oneValidEmail (KV, t) {
 }
 
 export const contactValidation = {
-  phoneNumber,
-  phoneType,
   phoneHasError,
   oneValidPhone,
   emailAddress,

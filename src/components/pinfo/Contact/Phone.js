@@ -1,80 +1,95 @@
 import React from 'react'
 import PT from 'prop-types'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as Nav from '../../ui/Nav'
-import * as pinfoActions from '../../../actions/pinfo'
+import _ from 'lodash'
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    locale: state.ui.locale,
-    phone: state.pinfo.form.contact.phone[ownProps.uuid]
-  }
-}
-const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators({ ...pinfoActions }, dispatch) }
-}
-function removePhone () {
-  this.props.actions.removePhone(this.props.uuid)
-}
-function setPhoneNumber (event) {
-  this.props.actions.setPhone(this.props.uuid, { number: event.target.value })
-}
-function setPhoneType (event) {
-  this.props.actions.setPhone(this.props.uuid, { type: event.target.value })
-}
+import * as Nav from '../../ui/Nav'
 
 class Phone extends React.Component {
-  constructor (props) {
-    super(props)
-    this.removePhone = removePhone.bind(this)
-    this.setPhoneNumber = setPhoneNumber.bind(this)
-    this.setPhoneType = setPhoneType.bind(this)
+
+  state = {
+    numberError: undefined,
+    phone: undefined,
+    email : undefined
   }
+
+  onPhoneChange (event) {
+
+    let phone = event.target.value
+
+    this.setState({
+      phone : phone
+    })
+  }
+
+  addPhone () {
+
+    const { t, phones, actions, testPhoneNumber } = this.props
+    const { phone } = this.state
+
+    let numberError = testPhoneNumber(phone, t)
+    if (numberError) {
+        this.setState({
+            numberError : numberError
+        })
+    } else {
+      if (phones.indexOf(phone) < 0) {
+        let newPhones = _.clone(phones)
+        newPhones.push(phone)
+        actions.setPhones(newPhones)
+        this.setState({
+                      phone: ''
+                  })
+      }
+    }
+  }
+
+ removePhone (phone) {
+
+   const { phones, actions } = this.props
+
+   let index = phones.indexOf(phone)
+
+   if (index >= 0) {
+     let newPhones = _.clone(phones)
+     newPhones.splice(index, 1)
+     actions.setPhones(newPhones)
+   }
+ }
+
   render () {
-    const props = this.props
-    const numberError = props.testPhoneNumber(props.phone, props.t)
-    const typeError = props.testPhoneType(props.phone, props.t)
-    return (
-      <Nav.Row className='col-md-12'>
-        <div className='col-md-7 col-xs-5'>
-          <Nav.Input
-            onInvalid={props.displayErrorSwitch.on}
-            required={props.required || false}
-            bredde='fullbredde'
-            label={props.t('pinfo:form-userPhone') + ' *'}
-            value={props.phone.number || ''}
-            onChange={this.setPhoneNumber}
-            type='tel'
-            feil={props.displayError && numberError ? { feilmelding: numberError } : null}
-          />
-        </div>
-        <div className='col-md-4 col-xs-5' >
-          <Nav.Select
-            required={props.required || false}
-            label={props.t('pinfo:form-userPhoneType')}
-            value={props.phone.type || ''}
-            onChange={this.setPhoneType}
-            feil={props.displayError && typeError ? { feilmelding: typeError } : null}
-          >
-            <option value=''>{props.t('pinfo:form-userPhoneTypeNone')}</option>
-            <option value={'home'}>{props.t('pinfo:form-userPhoneTypeHome')}</option>
-            <option value={'mobile'}>{props.t('pinfo:form-userPhoneTypeMobile')}</option>
-            <option value={'work'}>{props.t('pinfo:form-userPhoneTypeWork')}</option>
-          </Nav.Select>
-        </div>
-        <div className='col-md-1 col-xs-2'>
-          {props.numberOfSiblings > 0
-            ? <div className='row'>
-              <Nav.Lukknapp type='button' className='Contact-button' onClick={this.removePhone}>
-                {props.t('pinfo:form-userPhoneRemove')}
-              </Nav.Lukknapp>
-            </div>
-            : null
-          }
-        </div>
-      </Nav.Row>
-    )
+    const { value, t, displayErrorSwitch, required, displayError } = this.props
+    const { phone, numberError } = this.state
+
+    return value ? <Nav.Row style={{alignItems: 'baseline', padding: '2px'}}>
+      <div className='col-md-4'>
+        {value}
+      </div>
+      <div className='col-md-4'>
+        <Nav.Knapp style={{display: 'flex', alignItems: 'center'}} onClick={this.removePhone.bind(this, value)} mini>
+          <span className='mr-2' style={{fontSize: '1.5rem'}}>×</span>
+          {t('ui:remove')}
+        </Nav.Knapp>
+      </div>
+    </Nav.Row>
+    : <Nav.Row style={{alignItems: 'baseline', padding: '2px'}}>
+      <div className='col-md-4'>
+        <Nav.Input
+          onInvalid={displayErrorSwitch.on}
+          required={required || false}
+          label={''}
+          value={phone || ''}
+          onChange={this.onPhoneChange.bind(this)}
+          type='tel'
+          feil={displayError && numberError ? { feilmelding: numberError } : null}
+        />
+      </div>
+      <div className='col-md-4'>
+        <Nav.Knapp style={{display: 'flex', alignItems: 'center'}} onClick={this.addPhone.bind(this)} mini>
+          <span className='mr-2' style={{fontSize: '1.5rem'}}>+</span>
+          {t('ui:add')}
+        </Nav.Knapp>
+      </div>
+    </Nav.Row>
   }
 }
 
@@ -84,4 +99,4 @@ Phone.propTypes = {
   t: PT.func
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Phone)
+export default Phone

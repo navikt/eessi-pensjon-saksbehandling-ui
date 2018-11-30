@@ -226,7 +226,7 @@ class Export extends Component {
           <Icons className='mr-2' kind='back' size='1x' />{t('ui:back')}
         </Nav.Knapp>
         <Icons size='3x' kind={'export'} className='float-left mr-4' />
-        <h1 className='m-0'>{t('p4000:file-export')}</h1>
+        <h1 className='typo-sidetittel m-0'>{t('p4000:file-export')}</h1>
       </div>
       <div className='row'>
 
@@ -308,7 +308,7 @@ class Export extends Component {
             { (doingPreview || doingDownload || doingPrint)
               ? <div className='w-100 text-center'>
                 <Nav.NavFrontendSpinner />
-                <p>{t('generating')}</p>
+                <p className='typo-normal'>{t('generating')}</p>
               </div>
               : pdf
                 ? <embed style={{ width: '100%', height: '70vh' }}

@@ -1,68 +1,101 @@
 import React from 'react'
 import PT from 'prop-types'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import _ from 'lodash'
+
 import * as Nav from '../../ui/Nav'
-import * as pinfoActions from '../../../actions/pinfo'
-
-const mapStateToProps = (state, ownProps) => {
-  return {
-    locale: state.ui.locale,
-    email: state.pinfo.form.contact.email[ownProps.uuid],
-    address: state.pinfo.form.contact.email[ownProps.uuid].address
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators({ ...pinfoActions }, dispatch) }
-}
-function removeEmail () {
-  this.props.actions.removeEmail(this.props.uuid)
-}
-function setEmail (event) {
-  this.props.actions.setEmail(this.props.uuid, { address: event.target.value })
-}
 
 class Email extends React.Component {
-  constructor (props) {
-    super(props)
-    this.removeEmail = removeEmail.bind(this)
-    this.setEmail = setEmail.bind(this)
+
+  state = {
+    addressError: undefined,
+    email: undefined
   }
 
+  onEmailChange (event) {
+
+    let email = event.target.value
+
+    this.setState({
+      email : email
+    })
+  }
+
+  addEmail () {
+
+    const { t, emails, actions, testEmail } = this.props
+    const { email } = this.state
+
+    let addressError = testEmail(email, t)
+    if (addressError) {
+        this.setState({
+            addressError : addressError
+        })
+    } else {
+      if (emails.indexOf(email) < 0) {
+        let newEmails = _.clone(emails)
+        newEmails.push(email)
+        actions.setEmails(newEmails)
+        this.setState({
+          email: ''
+        })
+      }
+    }
+  }
+
+ removeEmail (email) {
+
+   const { emails, actions } = this.props
+
+   let index = emails.indexOf(email)
+
+   if (index >= 0) {
+     let newEmails = _.clone(emails)
+     newEmails.splice(index, 1)
+     actions.setEmails(newEmails)
+   }
+ }
+
   render () {
-    const props = this.props
-    const addressError = props.testEmail(props.email, props.t)
-    return (
-      <Nav.Row className='col-md-12'>
-        <div className='col-md-11 col-xs-10'>
-          <Nav.Input
-            type='email'
-            required={props.required || false}
-            bredde='fullbredde'
-            label={props.t('pinfo:form-userEmail') + ' *'}
-            value={props.address || ''}
-            onChange={this.setEmail}
-            onInvalid={props.displayErrorSwitch.on}
-            feil={props.displayError && addressError ? { feilmelding: addressError } : null}
-          />
-        </div>
-        <div className='col-md-1 col-xs-2'>
-          {props.numberOfSiblings > 0
-            ? <Nav.Lukknapp className='Contact-button' type='button' onClick={this.removeEmail}>
-              {props.t('pinfo:form-userEmailRemove')}
-            </Nav.Lukknapp>
-            : null
-          }
-        </div>
-      </Nav.Row>
-    )
+    const { value, t, displayErrorSwitch, required, displayError } = this.props
+    const { email, addressError } = this.state
+
+    return value ? <Nav.Row style={{alignItems: 'baseline', padding: '2px'}}>
+      <div className='col-md-4'>
+        {value}
+      </div>
+      <div className='col-md-4'>
+        <Nav.Knapp style={{display: 'flex', alignItems: 'center'}} onClick={this.removeEmail.bind(this, value)} mini>
+          <span className='mr-2' style={{fontSize: '1.5rem'}}>×</span>
+          {t('ui:remove')}
+        </Nav.Knapp>
+      </div>
+    </Nav.Row>
+    : <Nav.Row style={{alignItems: 'baseline', padding: '2px'}}>
+      <div className='col-md-4'>
+        <Nav.Input
+          onInvalid={displayErrorSwitch.on}
+          required={required || false}
+          label={''}
+          value={email || ''}
+          onChange={this.onEmailChange.bind(this)}
+          type='tel'
+          feil={displayError && addressError ? { feilmelding: addressError } : null}
+        />
+      </div>
+      <div className='col-md-4'>
+        <Nav.Knapp style={{display: 'flex', alignItems: 'center'}} onClick={this.addEmail.bind(this)} mini>
+          <span className='mr-2' style={{fontSize: '1.5rem'}}>+</span>
+          {t('ui:add')}
+        </Nav.Knapp>
+      </div>
+    </Nav.Row>
   }
 }
 
 Email.propTypes = {
-  address: PT.string,
+  email: PT.object,
+  type: PT.string,
   t: PT.func
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Email)
+export default Email

@@ -8,7 +8,7 @@ import * as Nav from '../ui/Nav'
 import FileUpload from '../ui/FileUpload/FileUpload'
 import * as appActions from '../../actions/app'
 import * as pinfoActions from '../../actions/pinfo'
-import { attachmentValidation } from '../pinfo/tests'
+import { attachmentValidation } from './Validation/tests'
 
 const mapStateToProps = (state) => {
   return {

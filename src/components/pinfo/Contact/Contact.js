@@ -3,113 +3,85 @@ import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withNamespaces } from 'react-i18next'
-import * as pinfoActions from '../../../actions/pinfo'
+
 import Email from './Email'
 import Phone from './Phone'
-import { Knapp } from '../../ui/Nav'
-import { contactValidation } from '../../pinfo/tests'
-import './Contact.css'
+
+import * as pinfoActions from '../../../actions/pinfo'
+import { contactValidation } from '../Validation/tests'
 
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
-    phone: state.pinfo.form.contact.phone,
-    email: state.pinfo.form.contact.email
+    phones: state.pinfo.form.contact.phones,
+    emails: state.pinfo.form.contact.emails
   }
 }
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators({ ...pinfoActions }, dispatch) }
-}
-function newPhone () {
-  this.props.actions.newPhone()
-}
-function newEmail () {
-  this.props.actions.newEmail()
-}
-
-function displayErrorOff () {
-  this.setState({
-    displayError: false
-  })
-}
-function displayErrorOn () {
-  this.setState({
-    displayError: true
-  })
+  return { actions: bindActionCreators(Object.assign({}, pinfoActions), dispatch) }
 }
 
 class Contact extends React.Component {
+
+  state = {
+    displayError: true
+  }
   constructor (props) {
     super(props)
-    this.newPhone = newPhone.bind(this)
-    this.newEmail = newEmail.bind(this)
-    this.displayErrorSwitch = { on: displayErrorOn.bind(this), off: displayErrorOff.bind(this) }
 
-    // ensure that there is always at least one input field for contact information.
-    if (Object.keys(this.props.phone).length === 0) {
-      this.newPhone()
-    }
-    if (Object.keys(this.props.email).length === 0) {
-      this.newEmail()
-    }
-    this.state = {
-      displayError: false
+    this.displayErrorSwitch = {
+      on: this.displayErrorOn.bind(this),
+      off: this.displayErrorOff.bind(this)
     }
   }
+
+  displayErrorOff () {
+    this.setState({
+      displayError: false
+    })
+  }
+
+  displayErrorOn () {
+    this.setState({
+      displayError: true
+    })
+  }
+
   render () {
-    return (
-      <div className='mt-3'>
-        <fieldset>
-          <legend>{this.props.t('pinfo:form-userPhoneLegend')}</legend>
-          {Object.keys(this.props.phone).map(e => (
-            <Phone
-              uuid={e}
-              key={e}
-              numberOfSiblings={Object.keys(this.props.phone).length - 1}
-              t={this.props.t}
-              required={false}
-              displayErrorSwitch={this.displayErrorSwitch}
-              displayError={this.state.displayError}
-              testPhoneNumber={contactValidation.phoneNumber}
-              testPhoneType={contactValidation.phoneType}
-            />
-          ))}
-          <div className='col-xs-12'>
-            <Knapp className='new-Contact' htmlType='button' onClick={this.newPhone} mini>
-              {this.props.t('pinfo:form-userPhoneNew')}
-            </Knapp>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>{this.props.t('pinfo:form-userEmailLegend')}</legend>
-          {Object.keys(this.props.email).map((e) => (
-            <Email
-              uuid={e}
-              key={e}
-              numberOfSiblings={Object.keys(this.props.email).length - 1}
-              t={this.props.t}
-              required={false}
-              displayErrorSwitch={this.displayErrorSwitch}
-              displayError={this.state.displayError}
-              testEmail={contactValidation.emailAddress}
-            />
-          ))}
-          <div className='col-xs-12'>
-            <Knapp className='new-Contact' htmlType='button' onClick={this.newEmail} mini >
-              {this.props.t('pinfo:form-userEmailNew')}
-            </Knapp>
-          </div>
-        </fieldset>
-      </div>
-    )
+
+    const { t, phones, emails, actions } = this.props
+
+    return <div>
+      <h2 className='typo-undertittel ml-0 mb-4 appDescription'>{t('pinfo:contact-title')}</h2>
+      <h3 className='typo-normal'>{t('pinfo:contact-phoneNumber')}</h3>
+      {phones.map(phone => {
+        return <Phone t={t} phones={phones}
+          actions={actions}
+          key={phone} value={phone}/>
+      })}
+      <Phone t={t} phones={phones}
+        required={false}
+        actions={actions}
+        displayErrorSwitch={this.displayErrorSwitch}
+        displayError={this.state.displayError}
+        testPhoneNumber={contactValidation.phoneHasError}
+      />
+      <h3 className='typo-normal'>{t('pinfo:contact-email')}</h3>
+      {emails.map(email => {
+        return <Email t={t} emails={emails}
+          actions={actions}
+          key={email} value={email}/>
+      })}
+      <Email t={t} emails={emails}
+        actions={actions}
+        required={false}
+        displayErrorSwitch={this.displayErrorSwitch}
+        displayError={this.state.displayError}
+        testEmail={contactValidation.emailAddress}
+      />
+    </div>
   }
 }
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(
-  withNamespaces()(Contact)
-)
 
 Contact.propTypes = {
   locale: PT.string,
@@ -117,3 +89,11 @@ Contact.propTypes = {
   email: PT.object,
   t: PT.func
 }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  withNamespaces()(Contact)
+)
+

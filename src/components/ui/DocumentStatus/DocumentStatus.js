@@ -223,9 +223,9 @@ class DocumentStatus extends Component {
         expanded: currentDocument
       }, className)}>
 
-        { gettingStatus ? <div className='w-100 text-center' style={{ minHeight: '110px' }}>
+        { gettingStatus ? <div className='w-100 pt-5 text-center'>
           <Nav.NavFrontendSpinner />
-          <p>{gettingStatus ? t('loading-gettingStatus') : t('loading-gettingRinaCase')}</p>
+          <p className='typo-normal'>{gettingStatus ? t('loading-gettingStatus') : t('loading-gettingRinaCase')}</p>
         </div>
           : documents ? <React.Fragment>
             <div className='documentTags'>
