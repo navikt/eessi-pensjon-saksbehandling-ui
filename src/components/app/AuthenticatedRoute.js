@@ -3,14 +3,11 @@ import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Route, withRouter, Redirect } from 'react-router'
-import classNames from 'classnames'
-import { withNamespaces } from 'react-i18next'
 import _ from 'lodash'
 
-import * as Nav from '../ui/Nav'
-import InternalTopHeader from '../ui/Header/InternalTopHeader'
-import { IS_DEVELOPMENT_WITH_NO_AUTH } from '../../constants/environment'
+import NotInvited from './NotInvited'
 
+import { IS_DEVELOPMENT_WITH_NO_AUTH } from '../../constants/environment'
 import * as routes from '../../constants/routes'
 import * as appActions from '../../actions/app'
 import * as statusActions from '../../actions/status'
@@ -20,6 +17,7 @@ const mapStateToProps = (state) => {
 
     userRole: state.app.userRole,
     loggedIn: state.app.loggedIn,
+    invited: state.app.invited,
     isLoggingIn: state.loading.isLoggingIn,
     rinaId: state.status.rinaId
   }
@@ -36,11 +34,6 @@ const paramAliases = {
 
 class AuthenticatedRoute extends Component {
   state = {}
-
-  handleLoginRequest () {
-    const { actions } = this.props
-    actions.login()
-  }
 
   parseSearchParams () {
     const { actions, location } = this.props
@@ -79,29 +72,13 @@ class AuthenticatedRoute extends Component {
   }
 
   render () {
-    const { t, className, userRole, loggedIn, isLoggingIn } = this.props
+    const { userRole, invited } = this.props
 
     let validRole = this.hasApprovedRole()
 
-    return IS_DEVELOPMENT_WITH_NO_AUTH || (userRole)
-      ? IS_DEVELOPMENT_WITH_NO_AUTH || validRole
-        ? <Route {...this.props} />
-        : <Redirect to={routes.ROOT} />
-      : <div style={{ minHeight: '100vh', backgroundColor: 'white' }}>
-        <InternalTopHeader />
-        <div className={classNames('w-100 text-center p-5', className)}>
-          {!loggedIn ? <div>
-            <Nav.Hovedknapp
-              style={{ minHeight: '50px' }}
-              className='loginButton'
-              onClick={this.handleLoginRequest.bind(this)}
-              disabled={isLoggingIn}
-              spinner={isLoggingIn}>
-              {isLoggingIn ? t('ui:authenticating') : t('login')}
-            </Nav.Hovedknapp>
-          </div> : null}
-        </div>
-      </div>
+    return IS_DEVELOPMENT_WITH_NO_AUTH || (userRole && validRole)
+      ? !invited ? <Route {...this.props} /> : <NotInvited />
+      : <Redirect to={routes.ROOT} />
   }
 }
 
@@ -116,8 +93,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withRouter(
-    withNamespaces()(AuthenticatedRoute)
-  )
+  withRouter(AuthenticatedRoute)
 )
-

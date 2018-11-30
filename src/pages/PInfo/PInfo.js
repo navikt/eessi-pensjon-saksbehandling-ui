@@ -77,15 +77,15 @@ class PInfo extends React.Component {
       sideContent={<FrontPageDrawer t={props.t} status={props.status} />}>
       <Nav.Row className='mb-0'>
         <Nav.Column>
-        <Nav.Stegindikator
-           aktivtSteg={props.form.step}
-            visLabel={true}
-            onChange={(e)=> props.actions.setEventProperty( {step: e})}
-            autoResponsiv={true}
-            steg={_.range(0,7).map(index=>({
+          <Nav.Stegindikator
+            aktivtSteg={props.form.step}
+            visLabel
+            onChange={(e) => props.actions.setEventProperty({ step: e })}
+            autoResponsiv
+            steg={_.range(0, 7).map(index => ({
               label: props.t('pinfo:form-step' + index),
               ferdig: index < props.form.step,
-              aktiv: index === props.form.step,
+              aktiv: index === props.form.step
             }))
             }
 

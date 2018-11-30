@@ -30,9 +30,8 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class InternalTopHeader extends Component {
-
   onLogoClick () {
-    const {history } = this.props
+    const { history } = this.props
     history.push(routes.INDEX)
   }
 
@@ -66,12 +65,12 @@ class InternalTopHeader extends Component {
           {gettingUserInfo ? t('case:loading-gettingUserInfo')
             : username
               ? <Nav.Select className='username-select'
-                  label={''} value={username} selected={username}
-                  onChange={this.handleUsernameSelectRequest.bind(this)}>
-                    <option value=''>{username}</option>
-                    <option value='feedback'>{t('ui:giveFeedback')}</option>
-                    <option value='logout'>{t('logout')}</option>
-                  </Nav.Select>
+                label={''} value={username} selected={username}
+                onChange={this.handleUsernameSelectRequest.bind(this)}>
+                <option value=''>{username}</option>
+                <option value='feedback'>{t('ui:giveFeedback')}</option>
+                <option value='logout'>{t('logout')}</option>
+              </Nav.Select>
               : <React.Fragment>
                 <Nav.Ikon size={16} kind='advarsel-trekant' />
                 <span className='ml-2 username-span'>{t('unknown')}</span>

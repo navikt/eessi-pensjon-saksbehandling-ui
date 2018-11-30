@@ -32,12 +32,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class IndexPage extends Component {
-
-  constructor(props) {
-    super(props)
-    props.actions.getUserSettings()
-  }
-
   componentDidMount () {
     const { actions } = this.props
 

@@ -339,12 +339,6 @@ export default function (state = {}, action = {}) {
       })
     }
 
-    case types.APP_LOGIN_RESULT: {
-      return Object.assign({}, state, {
-        isLoggingIn: false
-      })
-    }
-
     case types.APP_LOGOUT_REQUEST:
       return Object.assign({}, state, {
         isLoggingOut: true
