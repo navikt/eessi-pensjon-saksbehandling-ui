@@ -218,71 +218,69 @@ class DocumentStatus extends Component {
       const { t, className, gettingSED, gettingStatus } = this.props
       const { documents, currentDocument, filter } = this.state
 
-      if (gettingStatus) {
-        return <div className='w-100 text-center' style={{ minHeight: '110px' }}>
-          <Nav.NavFrontendSpinner />
-          <p>{gettingStatus ? t('loading-gettingStatus') : t('loading-gettingRinaCase')}</p>
-        </div>
-      }
-
       return <div className={classNames('c-ui-documentStatus', {
         collapsed: !currentDocument,
         expanded: currentDocument
       }, className)}>
 
-        <div className='documentTags'>
-          <Nav.EtikettBase className={classNames('tags', { selected: filter === 'all' })}
-            type={filter === 'all' ? 'suksess' : 'info'} onClick={this.setFilter.bind(this, 'all')}>
-            <a href='#all'>{t('all')}</a>
-          </Nav.EtikettBase>
-          <Nav.EtikettBase className={classNames('tags', { selected: filter === 'sent' })}
-            type={filter === 'sent' ? 'suksess' : 'info'} onClick={this.setFilter.bind(this, 'sent')}>
-            <a href='#sent'>{t('sent')}</a></Nav.EtikettBase>
-          <Nav.EtikettBase className={classNames('tags', { selected: filter === 'notsent' })}
-            type={filter === 'notsent' ? 'suksess' : 'info'} onClick={this.setFilter.bind(this, 'notsent')}>
-            <a href='#notsent'>{t('notSent')}</a></Nav.EtikettBase>
-          <div title={t('refresh')} className={classNames('refresh', { rotating: gettingStatus })}>
-            <a href='#refresh' onClick={this.refreshDocumentStatus.bind(this)}>
-              <Icons kind='refresh' />
-            </a>
-          </div>
-        </div>
-
-        <div className='documentButtons'>
-          {documents.filter(this.docMatchesFilter.bind(this)).map((_doc, index) => {
-            let active = currentDocument ? _doc.dokumentType === currentDocument.dokumentType : false
-            let label = _doc.dokumentType
-            let description = t('case:case-' + _doc.dokumentType)
-            if (label !== 'case-' + _doc.dokumentType) {
-              label += ' - ' + description
-            }
-
-            return <div title={label} key={index} className='documentButton' style={{ animationDelay: index * 0.05 + 's' }}>
-              <Nav.Hovedknapp key={index}
-                className={classNames('documentButtonContent', 'mr-2',
-                  { 'active': active },
-                  this.getDocumentButtonClass(_doc))}
-                onClick={this.toggleDocumentStatus.bind(this, _doc)}>
-                {gettingSED && active ? <Nav.NavFrontendSpinner style={{ position: 'absolute', top: '1rem' }} /> : null}
-                <Icons className='mr-3' size='3x' kind='document' />
-                <Icons className='documentType' size='2x' kind={_doc.dokumentType.startsWith('P') ? 'form' : 'tool'} />
-                <div>{_doc.dokumentType}</div>
-              </Nav.Hovedknapp>
+        { gettingStatus ? <div className='w-100 text-center' style={{ minHeight: '110px' }}>
+          <Nav.NavFrontendSpinner />
+          <p>{gettingStatus ? t('loading-gettingStatus') : t('loading-gettingRinaCase')}</p>
+        </div> :
+          documents ? <React.Fragment>
+            <div className='documentTags'>
+              <Nav.EtikettBase className={classNames('tags', { selected: filter === 'all' })}
+                type={filter === 'all' ? 'suksess' : 'info'} onClick={this.setFilter.bind(this, 'all')}>
+                <a href='#all'>{t('all')}</a>
+              </Nav.EtikettBase>
+              <Nav.EtikettBase className={classNames('tags', { selected: filter === 'sent' })}
+                type={filter === 'sent' ? 'suksess' : 'info'} onClick={this.setFilter.bind(this, 'sent')}>
+                <a href='#sent'>{t('sent')}</a></Nav.EtikettBase>
+              <Nav.EtikettBase className={classNames('tags', { selected: filter === 'notsent' })}
+                type={filter === 'notsent' ? 'suksess' : 'info'} onClick={this.setFilter.bind(this, 'notsent')}>
+                <a href='#notsent'>{t('notSent')}</a></Nav.EtikettBase>
+              <div title={t('refresh')} className={classNames('refresh', { rotating: gettingStatus })}>
+                <a href='#refresh' onClick={this.refreshDocumentStatus.bind(this)}>
+                  <Icons kind='refresh' />
+                </a>
+              </div>
             </div>
-          })}
-        </div>
+            <div className='documentButtons'>
+              {documents.filter(this.docMatchesFilter.bind(this)).map((_doc, index) => {
+                let active = currentDocument ? _doc.dokumentType === currentDocument.dokumentType : false
+                let label = _doc.dokumentType
+                let description = t('case:case-' + _doc.dokumentType)
+                if (label !== 'case-' + _doc.dokumentType) {
+                  label += ' - ' + description
+                }
 
-        {currentDocument ? <div className='documentActions'>
-          <div className='documentProperties mb-4'>
-            <div>{t('documentType') + ': ' + currentDocument.dokumentType}</div>
-            {currentDocument.dokumentId ? <div>{t('documentId') + ': ' + currentDocument.dokumentId}</div> : null}
-          </div>
-          {currentDocument.aksjoner.map((aksjon, index) => {
-            return <Nav.Hovedknapp className='mr-2' key={index} onClick={this.handleDocumentClick.bind(this, currentDocument, aksjon)}>
-              {t(aksjon.toLowerCase())}
-            </Nav.Hovedknapp>
-          })}
-        </div> : null}
+                return <div title={label} key={index} className='documentButton' style={{ animationDelay: index * 0.05 + 's' }}>
+                  <Nav.Hovedknapp key={index}
+                    className={classNames('documentButtonContent', 'mr-2',
+                      { 'active': active },
+                      this.getDocumentButtonClass(_doc))}
+                    onClick={this.toggleDocumentStatus.bind(this, _doc)}>
+                    {gettingSED && active ? <Nav.NavFrontendSpinner style={{ position: 'absolute', top: '1rem' }} /> : null}
+                    <Icons className='mr-3' size='3x' kind='document' />
+                    <Icons className='documentType' size='2x' kind={_doc.dokumentType.startsWith('P') ? 'form' : 'tool'} />
+                    <div>{_doc.dokumentType}</div>
+                  </Nav.Hovedknapp>
+                </div>
+              })}
+            </div>
+            {currentDocument ? <div className='documentActions'>
+              <div className='documentProperties mb-4'>
+                <div>{t('documentType') + ': ' + currentDocument.dokumentType}</div>
+                {currentDocument.dokumentId ? <div>{t('documentId') + ': ' + currentDocument.dokumentId}</div> : null}
+              </div>
+              {currentDocument.aksjoner.map((aksjon, index) => {
+                return <Nav.Hovedknapp className='mr-2' key={index} onClick={this.handleDocumentClick.bind(this, currentDocument, aksjon)}>
+                  {t(aksjon.toLowerCase())}
+                </Nav.Hovedknapp>
+              })}
+            </div> : null}
+          </React.Fragment>
+        : null}
       </div>
     }
 }
