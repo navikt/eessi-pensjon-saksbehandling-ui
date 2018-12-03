@@ -8,8 +8,7 @@ class Phone extends React.Component {
 
   state = {
     numberError: undefined,
-    phone: undefined,
-    email : undefined
+    phone: undefined
   }
 
   onPhoneChange (event) {
@@ -37,8 +36,8 @@ class Phone extends React.Component {
         newPhones.push(phone)
         actions.setPhones(newPhones)
         this.setState({
-                      phone: ''
-                  })
+          phone: ''
+        })
       }
     }
   }

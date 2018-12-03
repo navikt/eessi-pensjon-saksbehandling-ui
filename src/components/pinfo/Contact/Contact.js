@@ -26,6 +26,7 @@ class Contact extends React.Component {
   state = {
     displayError: true
   }
+
   constructor (props) {
     super(props)
 

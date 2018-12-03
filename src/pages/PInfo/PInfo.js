@@ -15,7 +15,7 @@ import Bank from '../../components/pinfo/Bank'
 import Contact from '../../components/pinfo/Contact/Contact'
 import Work from '../../components/pinfo/Work'
 import Attachments from '../../components/pinfo/Attachments'
-import Pension from '../../components/pinfo/Pension'
+import Pension from '../../components/pinfo/Pension/Pension'
 import Summary from '../../components/pinfo/Summary'
 import Intro from '../../components/pinfo/Intro'
 
@@ -105,15 +105,15 @@ class PInfo extends React.Component {
         {form.step === 1 ? <Contact /> : null}
         {form.step === 2 ? <Bank /> : null}
         {form.step === 3 ? <Work /> : null}
-        {form.step === 4 ? <Attachments /> : null}
-        {form.step === 5 ? <Pension /> : null}
+        {form.step === 4 ? <Pension /> : null}
+        {form.step === 5 ? <Attachments /> : null}
         {form.step === 6 ? <Summary t={t} onSave={this.onSaveButtonClick.bind(this)} /> : null}
       </div>
 
       {form.step < 8 ? <Nav.Hovedknapp
         className='forwardButton'
         onClick={this.onForwardButtonClick.bind(this)}>
-        {t('next')}
+        {t('confirmAndContinue')}
       </Nav.Hovedknapp> : null}
       {form.step > 0 ? <Nav.Knapp
         className='ml-3 backButton'

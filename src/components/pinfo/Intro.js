@@ -21,10 +21,10 @@ class Intro extends Component {
       <div className='mt-5 mb-5'>
         <VeilederPanel>
           <p className='typo-normal'>{t('pinfo:intro-p-1')}</p>
-          <p className='typo-normal'>{t('pinfo:intro-p-1')}</p>
+          <p className='typo-normal'>{t('pinfo:intro-p-2')}</p>
           <h3>{t('pinfo:intro-h-1')}</h3>
-          <p className='typo-normal'>{t('pinfo:intro-p-1')}</p>
-          <p className='typo-normal'>{t('pinfo:intro-p-1')}</p>
+          <p className='typo-normal'>{t('pinfo:intro-p-3')}</p>
+          <p className='typo-normal'>{t('pinfo:intro-p-4')}</p>
         </VeilederPanel>
       </div>
     </div>

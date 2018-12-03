@@ -13,7 +13,7 @@ let initialState = {
     attachments: {},
     bank: {},
     workIncome: {},
-    pension: {}
+    pension: []
   }
 }
 

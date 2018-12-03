@@ -59,62 +59,59 @@ class Attachments extends React.Component {
   }
 
   render () {
+
+    const { t } = this.props
+
     let validType = attachmentValidation.attachmentTypes(this.props.attachments, this.props.t)
     let validAttachment = attachmentValidation.attachments(this.props.attachments, this.props.t)
     let requiredCheckbox = this.props.requireCheckBox && validType
     let requiredFileUpload = this.props.requireUpload && validAttachment
-    return (
-      <fieldset>
-        <legend>{this.props.t('pinfo:form-attachments')}</legend>
-        <Nav.SkjemaGruppe className='pinfo-fileupload-SkjemaGruppe'>
-          <Nav.Row>
-            <div className='col-md-12'>
-              <Nav.CheckboksPanelGruppe
-                legend={this.props.t('pinfo:form-attachmentTypes')}
-                onChange={this.setAttachmentTypes}
-                feil={this.state.displayError && validType ? { feilmelding: validType } : null}
-                checkboxes={_.range(1, 5).map(i => {
-                  let index = i.toString(10).padStart(2, '0')
-                  return {
-                    label: this.props.t(`pinfo:form-attachmentTypes-${index}`),
-                    value: index,
-                    id: index,
-                    inputProps: {
-                      required: requiredCheckbox,
-                      defaultChecked: this.props.attachments.attachmentTypes
-                        ? this.props.attachments.attachmentTypes[index] || false
-                        : false
-                    }
-                  }
-                })
 
+    return <div>
+      <h2 className='typo-undertittel ml-0 mb-4 appDescription'>{t('pinfo:attachments-title')}</h2>
+      <Nav.SkjemaGruppe className='pinfo-fileupload-SkjemaGruppe'>
+        <div className='mt-3'>
+        <Nav.Row>
+          <div className='col-md-12'>
+            <Nav.CheckboksPanelGruppe
+              legend={this.props.t('pinfo:form-attachmentTypes')}
+              onChange={this.setAttachmentTypes}
+              feil={this.state.displayError && validType ? { feilmelding: validType } : null}
+              checkboxes={_.range(1, 5).map(i => {
+                let index = i.toString(10).padStart(2, '0')
+                return {
+                  label: this.props.t(`pinfo:form-attachmentTypes-${index}`),
+                  value: index,
+                  id: index,
+                  inputProps: {
+                    required: requiredCheckbox,
+                    defaultChecked: this.props.attachments.attachmentTypes
+                      ? this.props.attachments.attachmentTypes[index] || false
+                      : false
+                  }
                 }
-              />
-            </div>
-          </Nav.Row>
-          <Nav.SkjemaGruppe
-            feil={this.state.displayError && validAttachment ? { feilmelding: validAttachment } : null}
-          >
-            <div className='pinfo-fileupload'>
-              <FileUpload
-                t={this.props.t} ref={f => { this.fileUpload = f }}
-                fileUploadDroppableId={'pinfoAttachments'}
-                files={
-                  this.props.attachments.attachments &&
-                  Array.isArray(this.props.attachments.attachments)
-                    ? this.props.attachments.attachments : []
-                }
-                inputProps={{
-                  required: requiredFileUpload
-                }}
-                onFileChange={this.setAttachments}
-                tabIndex='0'
-              />
-            </div>
-          </Nav.SkjemaGruppe>
-        </Nav.SkjemaGruppe>
-      </fieldset>
-    )
+              })}
+            />
+          </div>
+        </Nav.Row>
+      </div>
+
+      <FileUpload
+        t={this.props.t} ref={f => { this.fileUpload = f }}
+        fileUploadDroppableId={'pinfoAttachments'}
+        files={
+          this.props.attachments.attachments &&
+          Array.isArray(this.props.attachments.attachments)
+            ? this.props.attachments.attachments : []
+        }
+        inputProps={{
+          required: requiredFileUpload
+        }}
+        onFileChange={this.setAttachments}
+        tabIndex='0'
+      />
+    </Nav.SkjemaGruppe>
+    </div>
   }
 }
 

@@ -15,11 +15,13 @@ const mapStateToProps = (state) => {
   }
 }
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators({ ...pinfoActions }, dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, pinfoActions), dispatch) }
 }
+
 function eventSetProperty (key, event) {
   this.props.actions.setBank({ [key]: event.target.value })
 }
+
 function valueSetProperty (key, value) {
   this.props.actions.setBank({ [key]: value })
 }
@@ -29,6 +31,7 @@ function displayErrorOff () {
     displayError: false
   })
 }
+
 function displayErrorOn () {
   this.setState({
     displayError: true
@@ -45,80 +48,91 @@ class Bank extends React.Component {
     this.setBankIban = eventSetProperty.bind(this, 'bankIban')
     this.setBankCode = eventSetProperty.bind(this, 'bankCode')
     this.state = {
-      displayError: false
+      displayError: true,
+      error: {}
     }
-    this.displayErrorSwitch = { on: displayErrorOn.bind(this), off: displayErrorOff.bind(this) }
+    this.displayErrorSwitch = {
+      on: displayErrorOn.bind(this),
+      off: displayErrorOff.bind(this)
+    }
   }
+
+  validate(bank) {
+
+    const { t } = this.props
+
+    this.setState({
+      error: {
+        bankName: bankValidation.bankName(bank, t),
+        bankAddress: bankValidation.bankAddress(bank, t),
+        bankCountry: bankValidation.bankCountry(bank, t),
+        bankBicSwift: bankValidation.bankBicSwift(bank, t),
+        bankIban: bankValidation.bankIban(bank, t),
+        bankCode: bankValidation.bankCode(bank, t)
+      }
+    })
+  }
+
   render () {
     const { t, bank, locale } = this.props
-    const error = {
-      bankName: bankValidation.bankName(bank, t),
-      bankAddress: bankValidation.bankAddress(bank, t),
-      bankCountry: bankValidation.bankCountry(bank, t),
-      bankBicSwift: bankValidation.bankBicSwift(bank, t),
-      bankIban: bankValidation.bankIban(bank, t),
-      bankCode: bankValidation.bankCode(bank, t)
-    }
-    return (
-      <div>
-        <h2 className='typo-undertittel'>{t('pinfo:form-bank')}</h2>
-        <div className='mt-3'>
-          <Nav.Row>
-            <div className='col-md-6'>
-              <Nav.Input label={t('pinfo:form-bankName') + ' *'} value={bank.bankName || ''}
+    const { error } = this.state
+
+    return <div>
+      <h2 className='typo-undertittel ml-0 mb-4 appDescription'>{t('pinfo:bank-title')}</h2>
+      <div className='mt-3'>
+        <Nav.Row>
+          <div className='col-md-6'>
+            <Nav.Input label={t('pinfo:bank-name')} value={bank.bankName || ''}
                 onChange={this.setBankName}
                 feil={(this.state.displayError && error.bankName) ? { feilmelding: error.bankName } : null}
               />
-            </div>
-            <div className='col-md-6'>
-              <Nav.Textarea label={t('pinfo:form-bankAddress') + ' *'} value={bank.bankAddress || ''}
-                style={{ minHeight: '200px' }}
-                onChange={this.setBankAddress}
-                feil={(this.state.displayError && error.bankAddress) ? { feilmelding: error.bankAddress } : null}
-              />
-            </div>
-          </Nav.Row>
-          <Nav.Row>
-            <div className='col-md-6'>
-              <div className='mb-3' >
-                <label>{t('pinfo:form-bankCountry') + ' *'}</label>
-                <div>
-                  <CountrySelect locale={locale}
-                    value={bank.bankCountry || null}
-                    onSelect={this.setBankCountry}
-                    error={(this.state.displayError && error.bankCountry)}
-                    errorMessage={error.bankCountry}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className='col-md-6'>
-              <Nav.Input label={t('pinfo:form-bankBicSwift') + ' *'} value={bank.bankBicSwift || ''}
-                onChange={this.setBankBicSwift}
-                feil={(this.state.displayError && error.bankBicSwift) ? { feilmelding: error.bankBicSwift } : null}
-              />
-            </div>
-          </Nav.Row>
-          <Nav.Row>
-            <div className='col-md-6'>
-              <Nav.Input label={t('pinfo:form-bankIban') + ' *'}
-                value={bank.bankIban || ''}
-                onChange={this.setBankIban}
-                feil={(this.state.displayError && error.bankIban) ? { feilmelding: error.bankIban } : null}
-              />
-            </div>
-            <div className='col-md-6'>
-              <Nav.Input
-                label={(t('pinfo:form-bankCode') + ' *')}
-                value={bank.bankCode || ''}
-                onChange={this.setBankCode}
-                feil={(this.state.displayError && error.bankCode) ? { feilmelding: error.bankCode } : null}
-              />
-            </div>
-          </Nav.Row>
-        </div>
+          </div>
+          <div className='col-md-6'>
+          <label>{t('pinfo:bank-country')}</label>
+          <CountrySelect locale={locale}
+            value={bank.bankCountry || null}
+            onSelect={this.setBankCountry}
+            error={(this.state.displayError && error.bankCountry)}
+            errorMessage={error.bankCountry}
+          />
+          </div>
+        </Nav.Row>
+        <Nav.Row>
+          <div className='col-md-12'>
+            <Nav.Textarea label={t('pinfo:bank-address')} value={bank.bankAddress || ''}
+              style={{ minHeight: '100px' }}
+              onChange={this.setBankAddress}
+              feil={(this.state.displayError && error.bankAddress) ? { feilmelding: error.bankAddress } : null}
+            />
+          </div>
+        </Nav.Row>
+        <Nav.Row>
+          <div className='col-md-6'>
+            <Nav.Input label={t('pinfo:bank-bicSwift')} value={bank.bankBicSwift || ''}
+              onChange={this.setBankBicSwift}
+              feil={(this.state.displayError && error.bankBicSwift) ? { feilmelding: error.bankBicSwift } : null}
+            />
+          </div>
+          <div className='col-md-6'>
+            <Nav.Input label={t('pinfo:bank-iban')}
+              value={bank.bankIban || ''}
+              onChange={this.setBankIban}
+              feil={(this.state.displayError && error.bankIban) ? { feilmelding: error.bankIban } : null}
+            />
+          </div>
+        </Nav.Row>
+        <Nav.Row>
+          <div className='col-md-6'>
+            <Nav.Input
+              label={(t('pinfo:bank-code'))}
+              value={bank.bankCode || ''}
+              onChange={this.setBankCode}
+              feil={(this.state.displayError && error.bankCode) ? { feilmelding: error.bankCode } : null}
+            />
+          </div>
+        </Nav.Row>
       </div>
-    )
+    </div>
   }
 }
 

@@ -16,29 +16,16 @@ const mapStateToProps = (state) => {
   }
 }
 
-const getPhoneType = (t, type) => {
-  switch (type) {
-    case 'home':
-      return `(${t('pinfo:form-userPhoneTypeHome')}) `
-    case 'mobile':
-      return `(${t('pinfo:form-userPhoneTypeMobile')}) `
-    case 'work':
-      return `(${t('pinfo:form-userPhoneTypeWork')}) `
-    default:
-      return ''
-  }
-}
-
 const getPhoneDD = (key, t, phone) => {
   let number = _.get(phone, 'number', null)
   let type = _.get(phone, 'type', null)
   if (!(number && key)) { return null }
   if (!(_.isFunction(t) && type)) { return <dd key={key} className='col-sm-12'>{`${number}`}</dd> }
-  return <dd key={key} className='col-sm-12'>{`${getPhoneType(t, type)}${number}`}</dd>
+  return <dd key={key} className='col-sm-12'>{number}</dd>
 }
 const getEmailDD = (key, address) => {
   if (!(key && address)) { return null }
-  return <dd key={key} className='col-sm-12'>{`${address}`}</dd>
+  return <dd key={key} className='col-sm-12'>{address}</dd>
 }
 
 const Summary = (props) => {
@@ -52,37 +39,37 @@ const Summary = (props) => {
     <form id='pinfo-form'>
       <div>
         <fieldset>
-          <legend>{props.t('pinfo:form-bank')}</legend>
+          <legend>{props.t('pinfo:bank-title')}</legend>
           <div className='col-xs-12'>
             <dl className='row'>
-              <dt className='col-sm-4'><label>{props.t('pinfo:form-bankName')}</label></dt>
+              <dt className='col-sm-4'><label>{props.t('pinfo:bank-name')}</label></dt>
               <dd className='col-sm-8'>{bank.bankName}</dd>
-              <dt className='col-sm-4'><label>{props.t('pinfo:form-bankAddress')}</label></dt>
+              <dt className='col-sm-4'><label>{props.t('pinfo:bank-address')}</label></dt>
               <dd className='col-sm-8'><pre>{bank.bankAddress}</pre></dd>
-              <dt className='col-sm-4'><label>{props.t('pinfo:form-bankCountry')}</label></dt>
+              <dt className='col-sm-4'><label>{props.t('pinfo:bank-country')}</label></dt>
               <dd className='col-sm-8'>
                 <img src={'../../../../../flags/' + _.get(bank, 'bankCountry.value', '') + '.png'}
                   style={{ width: 30, height: 20 }}
                   alt={_.get(bank, 'bankCountry.label', '')} />&nbsp; {_.get(bank, 'bankCountry.label', '')}
               </dd>
-              <dt className='col-sm-4'><label>{props.t('pinfo:form-bankBicSwift')}</label></dt>
+              <dt className='col-sm-4'><label>{props.t('pinfo:bank-bicSwift')}</label></dt>
               <dd className='col-sm-8'>{bank.bankBicSwift}</dd>
-              <dt className='col-sm-4'><label>{props.t('pinfo:form-bankIban')}</label></dt>
+              <dt className='col-sm-4'><label>{props.t('pinfo:bank-iban')}</label></dt>
               <dd className='col-sm-8'>{bank.bankIban}</dd>
-              <dt className='col-sm-4'><label>{props.t('pinfo:form-bankCode')}</label></dt>
+              <dt className='col-sm-4'><label>{props.t('pinfo:bank-code')}</label></dt>
               <dd className='col-sm-8'>{bank.bankCode}</dd>
             </dl>
           </div>
         </fieldset>
         <fieldset>
-          <legend>{props.t('pinfo:form-user')}</legend>
+          <legend>{props.t('pinfo:contact-title')}</legend>
           <div className='col-xs-12'>
             <dl className='row'>
-              <dt className='col-sm-4'><label>{props.t('pinfo:form-userPhone')}</label></dt>
+              <dt className='col-sm-4'><label>{props.t('pinfo:contact-phoneNumber')}</label></dt>
               <div className='col-sm-8'>
                 { Object.keys(phone).map(key => getPhoneDD(key, props.t, phone[key])) }
               </div>
-              <dt className='col-sm-4'><label>{props.t('pinfo:form-userEmail')}</label></dt>
+              <dt className='col-sm-4'><label>{props.t('pinfo:contact-email')}</label></dt>
               <div className='col-sm-8'>
                 {Object.keys(email).map(key => getEmailDD(key, email[key].address))}
               </div>
@@ -90,39 +77,39 @@ const Summary = (props) => {
           </div>
         </fieldset>
         <fieldset>
-          <legend>{props.t('pinfo:form-work')}</legend>
+          <legend>{props.t('pinfo:work-title')}</legend>
           <div className='col-xs-12'>
             <dl className='row'>
-              <dt className='col-sm-4'><label>{props.t('pinfo:form-workType')}</label></dt>
-              <dd className='col-sm-8'>{workIncome.workType ? props.t('pinfo:form-workType-option-' + workIncome.workType) : null}</dd>
-              <dt className='col-sm-4'><label>{props.t('pinfo:form-workStartDate')}</label></dt>
+              <dt className='col-sm-4'><label>{props.t('pinfo:work-type')}</label></dt>
+              <dd className='col-sm-8'>{workIncome.workType ? props.t('pinfo:work-type-option-' + workIncome.workType) : null}</dd>
+              <dt className='col-sm-4'><label>{props.t('pinfo:work-start-date')}</label></dt>
               <dd className='col-sm-8'>{workIncome.workStartDate ? moment(workIncome.workStartDate).format('DD MM YYYY') : null/* P4000Util.writeDate(props.form.workStartDate) */}</dd>
-              <dt className='col-sm-4'><label>{props.t('pinfo:form-workEndDate')}</label></dt>
+              <dt className='col-sm-4'><label>{props.t('pinfo:work-end-date')}</label></dt>
               <dd className='col-sm-8'>{workIncome.workEndDate ? moment(workIncome.workEndDate).format('DD MM YYYY') : null/* P4000Util.writeDate(props.form.workEndDate) */}</dd>
-              <dt className='col-sm-4'><label>{props.t('pinfo:form-workEstimatedRetirementDate')}</label></dt>
+              <dt className='col-sm-4'><label>{props.t('pinfo:work-estimated-retirement-date')}</label></dt>
               <dd className='col-sm-8'>{workIncome.workEstimatedRetirementDate ? moment(workIncome.workEstimatedRetirementDate).format('DD MM YYYY') : null/* P4000Util.writeDate(props.form.workEstimatedRetirementDate) */}</dd>
-              <dt className='col-sm-4'><label>{props.t('pinfo:form-workHourPerWeek')}</label></dt>
+              <dt className='col-sm-4'><label>{props.t('pinfo:work-hour-per-week')}</label></dt>
               <dd className='col-sm-8'>{workIncome.workHourPerWeek}</dd>
-              <dt className='col-sm-4'><label>{props.t('pinfo:form-workIncome')}</label></dt>
+              <dt className='col-sm-4'><label>{props.t('pinfo:work-income')}</label></dt>
               <dd className='col-sm-8'>{workIncome.workIncome}{' '}{_.get(props, 'form.workIncome.workIncomeCurrency.currency', '')}</dd>
-              <dt className='col-sm-4'><label>{props.t('pinfo:form-workPaymentDate')}</label></dt>
+              <dt className='col-sm-4'><label>{props.t('pinfo:work-payment-date')}</label></dt>
               <dd className='col-sm-8'>{workIncome.workPaymentDate ? moment(workIncome.workPaymentDate).format('DD MM YYYY') : null/* P4000Util.writeDate(props.form.workPaymentDate) */}</dd>
-              <dt className='col-sm-4'><label>{props.t('pinfo:form-workPaymentFrequency')}</label></dt>
-              <dd className='col-sm-8'>{workIncome.workPaymentFrequency ? props.t('pinfo:form-workPaymentFrequency-option-' + workIncome.workPaymentFrequency) : null}</dd>
+              <dt className='col-sm-4'><label>{props.t('pinfo:work-payment-frequency')}</label></dt>
+              <dd className='col-sm-8'>{workIncome.workPaymentFrequency ? props.t('pinfo:work-payment-frequency-option-' + workIncome.workPaymentFrequency) : null}</dd>
             </dl>
           </div>
         </fieldset>
         <fieldset>
-          <legend>{props.t('pinfo:form-attachments')}</legend>
+          <legend>{props.t('pinfo:attachments-title')}</legend>
           <div className='col-xs-12'>
             <dl className='row'>
-              <dt className='col-sm-4'><label>{props.t('pinfo:form-attachmentTypes')}</label></dt>
+              <dt className='col-sm-4'><label>{props.t('pinfo:attachment-types')}</label></dt>
               <dd className='col-sm-8'>{
                 Object.entries(attachments.attachmentTypes ? attachments.attachmentTypes : {})
                   .filter(KV => KV[1])
-                  .map(type => { return props.t('pinfo:form-attachmentTypes-' + type[0]) }).join(', ')
+                  .map(type => { return props.t('pinfo:attachments-types-' + type[0]) }).join(', ')
               }</dd>
-              <dt className='col-sm-4'><label>{props.t('pinfo:form-attachments')}</label></dt>
+              <dt className='col-sm-4'><label>{props.t('pinfo:attachments')}</label></dt>
               <dd className='col-sm-8'>{
                 attachments.attachments ? attachments.attachments.map((file, i) => {
                   return <File className='mr-2' key={i} file={file} deleteLink={false} downloadLink={false} />
@@ -132,10 +119,10 @@ const Summary = (props) => {
           </div>
         </fieldset>
         <fieldset>
-          <legend>{props.t('pinfo:form-retirement')}</legend>
+          <legend>{props.t('pinfo:pension-title')}</legend>
           <div className='col-xs-12'>
             <dl className='row'>
-              <dt className='col-sm-4'><label>{props.t('pinfo:form-retirementCountry')}</label></dt>
+              <dt className='col-sm-4'><label>{props.t('pinfo:pension-country')}</label></dt>
               <dd className='col-sm-8'><img src={'../../../../../flags/' + _.get(pension, 'retirementCountry.value', '') + '.png'}
                 style={{ width: 30, height: 20 }}
                 alt={_.get(pension, 'retirementCountry.label', '')} />&nbsp; {_.get(pension, 'retirementCountry.label', '')}
