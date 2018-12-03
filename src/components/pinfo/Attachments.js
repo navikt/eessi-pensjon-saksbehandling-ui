@@ -12,7 +12,7 @@ import { attachmentValidation } from './Validation/tests'
 
 const mapStateToProps = (state) => {
   return {
-    attachments: state.pinfo.form.attachments
+    attachments: state.pinfo.attachments
   }
 }
 

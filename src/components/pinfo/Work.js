@@ -15,7 +15,7 @@ import './form.css'
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
-    workIncome: state.pinfo.form.workIncome
+    workIncome: state.pinfo.workIncome
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -69,7 +69,6 @@ class Work extends React.Component {
       error: {
           workType: workAndIncomeValidation.workType(workIncome, t),
           workStartDate: workAndIncomeValidation.workStartDate(workIncome, t),
-          workEndDate: workAndIncomeValidation.workEndDate(workIncome, t),
           workEstimatedRetirementDate: workAndIncomeValidation.workEstimatedRetirementDate(workIncome, t),
           workHourPerWeek: workAndIncomeValidation.workHourPerWeek(workIncome, t),
           workIncome: workAndIncomeValidation.workIncome(workIncome, t),
@@ -124,15 +123,13 @@ class Work extends React.Component {
                   { 'skjemaelement__input--harFeil': this.state.displayError && error.workStartDate }
                 )
               }
-              selected={workIncome.workStartDate ? moment(workIncome.workStartDate) : undefined}
+              selected={workIncome.workStartDate}
               dateFormat='DDMMYYYY'
               placeholderText={t('ui:dateFormat')}
               showYearDropdown
               showMonthDropdown
               dropdownMode='select'
               locale={this.props.locale}
-              onMonthChange={this.setWorkStartDate}
-              onYearChange={this.setWorkStartDate}
               onChange={this.setWorkStartDate}
             />
             {
@@ -152,15 +149,13 @@ class Work extends React.Component {
                   { 'skjemaelement__input--harFeil': this.state.displayError && error.workEndDate }
                 )
               }
-              selected={workIncome.workEndDate ? moment(workIncome.workEndDate) : undefined}
+              selected={workIncome.workEndDate}
               dateFormat='DD.MM.YYYY'
               placeholderText={t('ui:dateFormat')}
               showYearDropdown
               showMonthDropdown
               dropdownMode='select'
               locale={this.props.locale}
-              onMonthChange={this.setWorkEndDate}
-              onYearChange={this.setWorkEndDate}
               onChange={this.setWorkEndDate}
             />
             {
@@ -180,15 +175,13 @@ class Work extends React.Component {
                   { 'skjemaelement__input--harFeil': this.state.displayError && error.workEstimatedRetirementDate }
                 )
               }
-              selected={workIncome.workEstimatedRetirementDate ? moment(workIncome.workEstimatedRetirementDate) : undefined}
+              selected={workIncome.workEstimatedRetirementDate}
               dateFormat='DD.MM.YYYY'
               placeholderText={t('ui:dateFormat')}
               showYearDropdown
               showMonthDropdown
               dropdownMode='select'
               locale={this.props.locale}
-              onMonthChange={this.setWorkEstimatedRetirementDate}
-              onYearChange={this.setWorkEstimatedRetirementDate}
               onChange={this.setWorkEstimatedRetirementDate}
             />
             {

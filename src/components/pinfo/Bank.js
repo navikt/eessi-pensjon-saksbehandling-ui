@@ -11,7 +11,7 @@ import { bankValidation } from './Validation/tests'
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
-    bank: state.pinfo.form.bank
+    bank: state.pinfo.bank
   }
 }
 const mapDispatchToProps = (dispatch) => {

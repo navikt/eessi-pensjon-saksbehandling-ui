@@ -5,7 +5,6 @@ import PT from 'prop-types'
 import { withNamespaces } from 'react-i18next'
 import classNames from 'classnames'
 import _ from 'lodash'
-import moment from 'moment'
 import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.min.css'
 
@@ -169,27 +168,8 @@ class PSelv extends Component {
       })
     }
 
-    onDateBlur (key, e) {
-      if (!(e && e.target && e.target.value)) { return }
-      let date = e.target.value
+    onDateChange (key, date) {
 
-      if (!/\d\d\.\d\d\.\d\d\d\d/.test(date)) {
-        if (!this.state[key] || date !== this.state[key]) {
-          this.setState({
-            [key]: undefined,
-            infoValidationError: 'pselv:validation-invalidDate'
-          })
-        }
-      } else {
-        let thisDate = moment(date, 'DD.MM.YYYY').toDate()
-        if (!this.state[key] || thisDate.getTime() !== this.state[key].getTime()) {
-          this.onDateHandle(key, thisDate)
-        }
-      }
-    }
-
-    onDateChange (key, moment) {
-      let date = moment.toDate()
       if (!this.state[key] || date.getTime() !== this.state[key].getTime()) {
         this.onDateHandle(key, date)
       }
@@ -274,16 +254,13 @@ class PSelv extends Component {
           {step === 1 ? <React.Fragment>
             <div className='mb-4'>
               <label>{t('pselv:form-step1-startPensionDate') + ' *'}</label>
-              <ReactDatePicker selected={this.state.startPensionDate ? moment(this.state.startPensionDate) : undefined}
-                dateFormat='DD.MM.YYYY'
+              <ReactDatePicker selected={this.state.startPensionDate}
+                dateFormat='dd.MM.yyyy'
                 placeholderText={t('ui:dateFormat')}
                 showYearDropdown
                 showMonthDropdown
                 dropdownMode='select'
                 locale={locale}
-                onMonthChange={this.onDateChange.bind(this, 'startPensionDate')}
-                onYearChange={this.onDateChange.bind(this, 'startPensionDate')}
-                onBlur={this.onDateBlur.bind(this, 'startPensionDate')}
                 onChange={this.onDateChange.bind(this, 'startPensionDate')} />
             </div>
             <div className='mb-4'>

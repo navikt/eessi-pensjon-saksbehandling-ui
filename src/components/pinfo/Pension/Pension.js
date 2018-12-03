@@ -11,7 +11,7 @@ import { pensionValidation } from '../Validation/tests'
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
-    pension: state.pinfo.form.pension
+    pension: state.pinfo.pension
   }
 }
 

@@ -4,7 +4,6 @@ import { withNamespaces } from 'react-i18next'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import classNames from 'classnames'
-import moment from 'moment'
 import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.min.css'
 
@@ -116,37 +115,11 @@ class Child extends Component {
       actions.setEventProperty('files', files)
     }
 
-    onBirthDateBlur (e) {
-      const { event, actions } = this.props
-      let birthDate
-      if (!e) {
-        return
-      }
-      if (!e._isAMomentObject) {
-        let date = e.target.value
-        if (!/\d\d\.\d\d\.\d\d\d\d/.test(date)) {
-          if (!event.birthDate || date !== event.birthDate) {
-            this.setState({
-              infoValidationError: 'p4000:validation-invalidDate'
-            }, () => {
-              actions.setEventProperty('birthDate', undefined)
-            })
-          }
-        } else {
-          birthDate = moment(date, 'DD.MM.YYYY').toDate()
-        }
-      } else {
-        birthDate = e.toDate()
-      }
-      if (!event.birthDate || birthDate.getTime() !== event.birthDate.getTime()) {
-        this.onBirthDateHandle(birthDate)
-      }
-    }
 
-    onBirthDateChange (moment) {
+
+    onBirthDateChange (date) {
       const { event } = this.props
 
-      let date = moment.toDate()
       if (!event.birthDate || date.getTime() !== event.birthDate.getTime()) {
         this.onBirthDateHandle(date)
       }
@@ -221,17 +194,14 @@ class Child extends Component {
               <label>{t('p4000:' + type + '-fieldset-2_3-birthdate')}</label>
             </div>
             <div>
-              <ReactDatePicker selected={event.birthDate ? moment(event.birthDate) : undefined}
+              <ReactDatePicker selected={event.birthDate}
                 className='birthDate'
-                dateFormat='DD.MM.YYYY'
+                dateFormat='dd.MM.yyyy'
                 placeholderText={t('ui:dateFormat')}
                 showYearDropdown
                 showMonthDropdown
                 dropdownMode='select'
                 locale={locale}
-                onMonthChange={this.onBirthDateChange.bind(this)}
-                onYearChange={this.onBirthDateChange.bind(this)}
-                onBlur={this.onBirthDateBlur.bind(this)}
                 onChange={this.onBirthDateChange.bind(this)} />
             </div>
           </Nav.Column>

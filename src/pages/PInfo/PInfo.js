@@ -31,7 +31,8 @@ import './PInfo.css'
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
-    form: state.pinfo.form,
+    pinfo: state.pinfo,
+    step: state.pinfo.step,
     referrer: state.app.referrer,
     status: state.status,
     username: state.app.username,
@@ -64,58 +65,58 @@ class PInfo extends React.Component {
   }
 
   onForwardButtonClick () {
-    const { actions, form } = this.props
-    actions.setEventProperty({ step: form.step + 1 })
+    const { actions, step } = this.props
+    actions.setEventProperty({ step: step + 1 })
   }
 
   onBackButtonClick () {
-    const { actions, form } = this.props
-    actions.setEventProperty({ step: form.step - 1 })
+    const { actions, step } = this.props
+    actions.setEventProperty({ step: step - 1 })
   }
 
   onSaveButtonClick () {
 
-    const { actions, history, username, form } = this.props
+    const { actions, history, username, pinfo } = this.props
 
-    actions.postStorageFile(username, storages.PINFO, 'PINFO', JSON.stringify({ form: form }))
+    actions.postStorageFile(username, storages.PINFO, 'PINFO', JSON.stringify(pinfo))
     history.push(routes.PSELV + '?referrer=pinfo')
   }
 
   render () {
-    const { t, history, location, status, form, actions} = this.props
+    const { t, history, location, status, step, actions} = this.props
     return (<TopContainer className='p-pInfo'
       history={history} location={location}
       sideContent={<FrontPageDrawer t={t} status={status} />}>
       <h1 className='typo-sidetittel mt-4'>{t('pinfo:app-title')}</h1>
       <Nav.Stegindikator
         className='mt-4 mb-4'
-        aktivtSteg={form.step}
+        aktivtSteg={step}
         visLabel
         onChange={(e) => actions.setEventProperty({ step: e })}
         autoResponsiv
         steg={_.range(0, 8).map(index => ({
           label: t('pinfo:form-step' + index),
-          ferdig: index < form.step,
-          aktiv: index === form.step
+          ferdig: index < step,
+          aktiv: index === step
         }))}
       />
 
       <div className={classNames('fieldset animate', 'mb-4')}>
-        {form.step === 0 ? <Intro /> : null}
-        {form.step === 1 ? <Contact /> : null}
-        {form.step === 2 ? <Bank /> : null}
-        {form.step === 3 ? <Work /> : null}
-        {form.step === 4 ? <Pension /> : null}
-        {form.step === 5 ? <Attachments /> : null}
-        {form.step === 6 ? <Summary t={t} onSave={this.onSaveButtonClick.bind(this)} /> : null}
+        {step === 0 ? <Intro /> : null}
+        {step === 1 ? <Contact /> : null}
+        {step === 2 ? <Bank /> : null}
+        {step === 3 ? <Work /> : null}
+        {step === 4 ? <Pension /> : null}
+        {step === 5 ? <Attachments /> : null}
+        {step === 6 ? <Summary t={t} onSave={this.onSaveButtonClick.bind(this)} /> : null}
       </div>
 
-      {form.step < 8 ? <Nav.Hovedknapp
+      {step < 8 ? <Nav.Hovedknapp
         className='forwardButton'
         onClick={this.onForwardButtonClick.bind(this)}>
         {t('confirmAndContinue')}
       </Nav.Hovedknapp> : null}
-      {form.step > 0 ? <Nav.Knapp
+      {step > 0 ? <Nav.Knapp
         className='ml-3 backButton'
         onClick={this.onBackButtonClick.bind(this)}>
         {t('back')}
@@ -131,7 +132,8 @@ PInfo.propTypes = {
   history: PT.object,
   t: PT.func,
   locale: PT.string,
-  form: PT.object,
+  pinfo: PT.object,
+  step: PT.number,
   referrer: PT.string,
   actions: PT.object,
   location: PT.object.isRequired,

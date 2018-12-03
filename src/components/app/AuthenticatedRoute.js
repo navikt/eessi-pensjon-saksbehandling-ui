@@ -83,7 +83,6 @@ class AuthenticatedRoute extends Component {
 }
 
 AuthenticatedRoute.propTypes = {
-  t: PT.func.isRequired,
   className: PT.string,
   actions: PT.object.isRequired,
   roles: PT.array.isRequired

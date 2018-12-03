@@ -13,8 +13,8 @@ import { contactValidation } from '../Validation/tests'
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
-    phones: state.pinfo.form.contact.phones,
-    emails: state.pinfo.form.contact.emails
+    phones: state.pinfo.contact.phones,
+    emails: state.pinfo.contact.emails
   }
 }
 const mapDispatchToProps = (dispatch) => {

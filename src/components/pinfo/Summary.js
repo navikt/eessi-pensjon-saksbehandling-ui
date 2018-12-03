@@ -8,7 +8,7 @@ import * as Nav from '../ui/Nav'
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
-    form: state.pinfo.form,
+    pinfo: state.pinfo,
     referrer: state.app.referrer,
     status: state.status,
     username: state.app.username,
@@ -29,12 +29,12 @@ const getEmailDD = (key, address) => {
 }
 
 const Summary = (props) => {
-  const bank = _.get(props.form, 'bank', {})
-  const phone = _.get(props.form, 'contact.phone', {})
-  const email = _.get(props.form, 'contact.email', {})
-  const workIncome = _.get(props.form, 'workIncome', {})
-  const attachments = _.get(props.form, 'attachments', {})
-  const pension = _.get(props.form, 'pension', {})
+  const bank = _.get(props.pinfo, 'bank', {})
+  const phone = _.get(props.pinfo, 'contact.phone', {})
+  const email = _.get(props.pinfo, 'contact.email', {})
+  const workIncome = _.get(props.pinfo, 'workIncome', {})
+  const attachments = _.get(props.pinfo, 'attachments', {})
+  const pension = _.get(props.pinfo, 'pension', {})
   return (
     <form id='pinfo-form'>
       <div>
