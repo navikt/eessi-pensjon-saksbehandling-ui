@@ -6,7 +6,7 @@ import { withNamespaces } from 'react-i18next'
 import * as Nav from '../ui/Nav'
 import CountrySelect from '../ui/CountrySelect/CountrySelect'
 import * as pinfoActions from '../../actions/pinfo'
-import { bankValidation } from './Validation/tests'
+import { bankValidation } from './Validation/singleTests'
 
 const mapStateToProps = (state) => {
   return {
@@ -18,57 +18,31 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, pinfoActions), dispatch) }
 }
 
-function eventSetProperty (key, event) {
-  this.props.actions.setBank({ [key]: event.target.value })
-}
-
-function valueSetProperty (key, value) {
-  this.props.actions.setBank({ [key]: value })
-}
-
-function displayErrorOff () {
-  this.setState({
-    displayError: false
-  })
-}
-
-function displayErrorOn () {
-  this.setState({
-    displayError: true
-  })
-}
-
 class Bank extends React.Component {
-  constructor (props) {
-    super(props)
-    this.setBankName = eventSetProperty.bind(this, 'bankName')
-    this.setBankAddress = eventSetProperty.bind(this, 'bankAddress')
-    this.setBankCountry = valueSetProperty.bind(this, 'bankCountry')
-    this.setBankBicSwift = eventSetProperty.bind(this, 'bankBicSwift')
-    this.setBankIban = eventSetProperty.bind(this, 'bankIban')
-    this.setBankCode = eventSetProperty.bind(this, 'bankCode')
-    this.state = {
-      displayError: true,
-      error: {}
-    }
-    this.displayErrorSwitch = {
-      on: displayErrorOn.bind(this),
-      off: displayErrorOff.bind(this)
-    }
+  state = {
+    error: {}
   }
 
-  validate(bank) {
+  constructor (props) {
+    super(props)
+    this.setBankName = this.eventSetProperty.bind(this, 'bankName', bankValidation.bankName)
+    this.setBankAddress = this.eventSetProperty.bind(this, 'bankAddress', bankValidation.bankAddress)
+    this.setBankCountry = this.valueSetProperty.bind(this, 'bankCountry', bankValidation.bankCountry)
+    this.setBankBicSwift = this.eventSetProperty.bind(this, 'bankBicSwift', bankValidation.bankBicSwift)
+    this.setBankIban = this.eventSetProperty.bind(this, 'bankIban', bankValidation.bankIban)
+  }
 
-    const { t } = this.props
+  eventSetProperty (key, validateFunction, event) {
+    this.valueSetProperty(key, validateFunction, event.target.value)
+  }
 
+  valueSetProperty (key, validateFunction, value) {
+    const { actions } = this.props
+    actions.setBank({ [key]: value })
     this.setState({
       error: {
-        bankName: bankValidation.bankName(bank, t),
-        bankAddress: bankValidation.bankAddress(bank, t),
-        bankCountry: bankValidation.bankCountry(bank, t),
-        bankBicSwift: bankValidation.bankBicSwift(bank, t),
-        bankIban: bankValidation.bankIban(bank, t),
-        bankCode: bankValidation.bankCode(bank, t)
+        ...this.state.error,
+        [key]: validateFunction(value)
       }
     })
   }
@@ -83,18 +57,18 @@ class Bank extends React.Component {
         <Nav.Row>
           <div className='col-md-6'>
             <Nav.Input label={t('pinfo:bank-name')} value={bank.bankName || ''}
-                onChange={this.setBankName}
-                feil={(this.state.displayError && error.bankName) ? { feilmelding: error.bankName } : null}
-              />
+              onChange={this.setBankName}
+              feil={error.bankName ? { feilmelding: t(error.bankName) } : null}
+            />
           </div>
           <div className='col-md-6'>
-          <label>{t('pinfo:bank-country')}</label>
-          <CountrySelect locale={locale}
-            value={bank.bankCountry || null}
-            onSelect={this.setBankCountry}
-            error={(this.state.displayError && error.bankCountry)}
-            errorMessage={error.bankCountry}
-          />
+            <label>{t('pinfo:bank-country')}</label>
+            <CountrySelect locale={locale}
+              value={bank.bankCountry || null}
+              onSelect={this.setBankCountry}
+              error={error.bankCountry}
+              errorMessage={error.bankCountry}
+            />
           </div>
         </Nav.Row>
         <Nav.Row>
@@ -102,7 +76,7 @@ class Bank extends React.Component {
             <Nav.Textarea label={t('pinfo:bank-address')} value={bank.bankAddress || ''}
               style={{ minHeight: '100px' }}
               onChange={this.setBankAddress}
-              feil={(this.state.displayError && error.bankAddress) ? { feilmelding: error.bankAddress } : null}
+              feil={error.bankAddress ? { feilmelding: t(error.bankAddress) } : null}
             />
           </div>
         </Nav.Row>
@@ -110,24 +84,14 @@ class Bank extends React.Component {
           <div className='col-md-6'>
             <Nav.Input label={t('pinfo:bank-bicSwift')} value={bank.bankBicSwift || ''}
               onChange={this.setBankBicSwift}
-              feil={(this.state.displayError && error.bankBicSwift) ? { feilmelding: error.bankBicSwift } : null}
+              feil={error.bankBicSwift ? { feilmelding: t(error.bankBicSwift) } : null}
             />
           </div>
           <div className='col-md-6'>
             <Nav.Input label={t('pinfo:bank-iban')}
               value={bank.bankIban || ''}
               onChange={this.setBankIban}
-              feil={(this.state.displayError && error.bankIban) ? { feilmelding: error.bankIban } : null}
-            />
-          </div>
-        </Nav.Row>
-        <Nav.Row>
-          <div className='col-md-6'>
-            <Nav.Input
-              label={(t('pinfo:bank-code'))}
-              value={bank.bankCode || ''}
-              onChange={this.setBankCode}
-              feil={(this.state.displayError && error.bankCode) ? { feilmelding: error.bankCode } : null}
+              feil={error.bankIban ? { feilmelding: t(error.bankIban) } : null}
             />
           </div>
         </Nav.Row>

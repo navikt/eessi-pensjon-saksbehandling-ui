@@ -1,18 +1,18 @@
 import * as types from '../constants/actionTypes'
 
 let initialState = {
-    isLoaded: false,
-    step: 0,
-    maxstep: 6,
-    validationError: undefined,
-    contact: {
-      phones: [],
-      emails: []
-    },
-    attachments: {},
-    bank: {},
-    workIncome: {},
-    pension: []
+  isLoaded: false,
+  step: 0,
+  maxstep: 6,
+  validationError: undefined,
+  contact: {
+    phones: [],
+    emails: []
+  },
+  attachments: {},
+  bank: {},
+  work: {},
+  pension: []
 }
 
 export default function (state = initialState, action = {}) {
@@ -31,23 +31,23 @@ export default function (state = initialState, action = {}) {
       return {
         ...state,
         contact: {
-          ...state.form.contact,
+          ...state.contact,
           phones: action.payload
-      } }
+        } }
 
     case types.PINFO_EVENT_SET_EMAILS:
       return {
         ...state,
         contact: {
-          ...state.form.contact,
+          ...state.contact,
           emails: action.payload
-      } }
+        } }
 
-    case types.PINFO_EVENT_SET_WORKINCOME:
+    case types.PINFO_EVENT_SET_WORK:
       return {
         ...state,
-        workIncome: {
-          ...state.form.workIncome,
+        work: {
+          ...state.work,
           ...action.payload
         } }
 
@@ -55,7 +55,7 @@ export default function (state = initialState, action = {}) {
       return {
         ...state,
         bank: {
-          ...state.form.bank,
+          ...state.bank,
           ...action.payload
         } }
 
@@ -63,7 +63,7 @@ export default function (state = initialState, action = {}) {
       return {
         ...state,
         pension: {
-          ...state.form.pension,
+          ...state.pension,
           ...action.payload
         } }
 
@@ -71,9 +71,9 @@ export default function (state = initialState, action = {}) {
       return {
         ...state,
         attachments: {
-          ...state.form.attachments,
+          ...state.attachments,
           attachmentTypes: {
-            ...state.form.attachments.attachmentTypes,
+            ...state.attachments.attachmentTypes,
             ...action.payload
           } } }
 
@@ -81,7 +81,7 @@ export default function (state = initialState, action = {}) {
       return {
         ...state,
         attachments: {
-          ...state.form.attachments,
+          ...state.attachments,
           attachments: action.payload
         } }
 

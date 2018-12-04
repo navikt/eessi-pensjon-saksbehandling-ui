@@ -12,7 +12,6 @@ const mapStateToProps = (state) => {
 }
 
 class Intro extends Component {
-
   render () {
     const { t } = this.props
 
@@ -32,7 +31,7 @@ class Intro extends Component {
 }
 
 Intro.propTypes = {
-  t : PT.func.isRequired
+  t: PT.func.isRequired
 }
 
 export default connect(

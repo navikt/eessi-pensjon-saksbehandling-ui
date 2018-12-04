@@ -115,8 +115,6 @@ class Child extends Component {
       actions.setEventProperty('files', files)
     }
 
-
-
     onBirthDateChange (date) {
       const { event } = this.props
 

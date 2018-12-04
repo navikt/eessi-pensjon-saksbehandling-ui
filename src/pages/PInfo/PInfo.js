@@ -19,6 +19,7 @@ import Pension from '../../components/pinfo/Pension/Pension'
 import Summary from '../../components/pinfo/Summary'
 import Intro from '../../components/pinfo/Intro'
 
+import * as stepTests from '../../components/pinfo/Validation/stepTests'
 import * as routes from '../../constants/routes'
 import * as pinfoActions from '../../actions/pinfo'
 import * as uiActions from '../../actions/ui'
@@ -45,6 +46,9 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class PInfo extends React.Component {
+  state = {
+    erorr: undefined
+  }
 
   constructor (props) {
     super(props)
@@ -64,18 +68,50 @@ class PInfo extends React.Component {
     })
   }
 
+  validatePage (step) {
+    const { pinfo } = this.props
+
+    switch (step) {
+      case 0:
+        return undefined
+      case 1:
+        return stepTests.contactStep(pinfo.contact)
+      case 2:
+        return stepTests.bankStep(pinfo.bank)
+      case 3:
+        return stepTests.workStep(pinfo.work)
+
+      default:
+        return ''
+    }
+  }
+
   onForwardButtonClick () {
     const { actions, step } = this.props
+
+    let validatePageError = this.validatePage(step)
+    if (validatePageError) {
+      return this.setState({
+        error: validatePageError
+      })
+    }
+
     actions.setEventProperty({ step: step + 1 })
+    this.setState({
+      error: undefined
+    })
   }
 
   onBackButtonClick () {
     const { actions, step } = this.props
+
     actions.setEventProperty({ step: step - 1 })
+    this.setState({
+      error: undefined
+    })
   }
 
   onSaveButtonClick () {
-
     const { actions, history, username, pinfo } = this.props
 
     actions.postStorageFile(username, storages.PINFO, 'PINFO', JSON.stringify(pinfo))
@@ -83,8 +119,10 @@ class PInfo extends React.Component {
   }
 
   render () {
-    const { t, history, location, status, step, actions} = this.props
-    return (<TopContainer className='p-pInfo'
+    const { t, history, location, status, step, actions } = this.props
+    const { error } = this.state
+
+    return <TopContainer className='p-pInfo'
       history={history} location={location}
       sideContent={<FrontPageDrawer t={t} status={status} />}>
       <h1 className='typo-sidetittel mt-4'>{t('pinfo:app-title')}</h1>
@@ -100,6 +138,8 @@ class PInfo extends React.Component {
           aktiv: index === step
         }))}
       />
+
+      {error ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(error)}</Nav.AlertStripe> : null}
 
       <div className={classNames('fieldset animate', 'mb-4')}>
         {step === 0 ? <Intro /> : null}
@@ -121,10 +161,7 @@ class PInfo extends React.Component {
         onClick={this.onBackButtonClick.bind(this)}>
         {t('back')}
       </Nav.Knapp> : null}
-
     </TopContainer>
-
-    )
   }
 }
 

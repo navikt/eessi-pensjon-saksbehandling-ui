@@ -9,79 +9,60 @@ import { withNamespaces } from 'react-i18next'
 import CountrySelect from '../ui/CountrySelect/CountrySelect'
 import * as pinfoActions from '../../actions/pinfo'
 import * as Nav from '../ui/Nav'
-import { workAndIncomeValidation } from './Validation/tests'
+import { workValidation } from './Validation/singleTests'
+
 import './form.css'
 
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
-    workIncome: state.pinfo.workIncome
+    work: state.pinfo.work
   }
 }
 const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, pinfoActions), dispatch) }
 }
 
-function valueSetWorkIncome (key, value) {
-  this.props.actions.setWorkIncome({ [key]: value })
-}
-function eventSetWorkIncome (key, event) {
-  this.props.actions.setWorkIncome({ [key]: event.target.value })
-}
-function dateSetWorkIncome (key, date) {
-  this.props.actions.setWorkIncome({ [key]: date ? date.valueOf() : null })
-}
-function displayErrorOff () {
-  this.setState({
-    displayError: false
-  })
-}
-function displayErrorOn () {
-  this.setState({
-    displayError: true
-  })
-}
-
 class Work extends React.Component {
-  constructor (props) {
-    super(props)
-    this.setWorkType = eventSetWorkIncome.bind(this, 'workType')
-    this.setWorkStartDate = dateSetWorkIncome.bind(this, 'workStartDate')
-    this.setWorkEndDate = dateSetWorkIncome.bind(this, 'workEndDate')
-    this.setWorkEstimatedRetirementDate = dateSetWorkIncome.bind(this, 'workEstimatedRetirementDate')
-    this.setWorkHourPerWeek = eventSetWorkIncome.bind(this, 'workHourPerWeek')
-    this.setWorkIncome = eventSetWorkIncome.bind(this, 'workIncome')
-    this.setWorkIncomeCurrency = valueSetWorkIncome.bind(this, 'workIncomeCurrency')
-    this.setWorkPaymentDate = dateSetWorkIncome.bind(this, 'workPaymentDate')
-    this.setWorkPaymentFrequency = eventSetWorkIncome.bind(this, 'workPaymentFrequency')
-    this.state = {
-      displayError: true,
-      error: {}
-    }
-    this.displayErrorSwitch = { on: displayErrorOn.bind(this), off: displayErrorOff.bind(this) }
+
+  state = {
+    error: {}
   }
 
-  validate() {
+  constructor (props) {
+    super(props)
+    this.setWorkType = this.eventSetProperty.bind(this, 'workType', workValidation.workType)
+    this.setWorkStartDate = this.dateSetProperty.bind(this, 'workStartDate', workValidation.workStartDate)
+    this.setWorkEndDate = this.dateSetProperty.bind(this, 'workEndDate', workValidation.workEndDate)
+    this.setWorkEstimatedRetirementDate = this.dateSetProperty.bind(this, 'workEstimatedRetirementDate', workValidation.workEstimatedRetirementDate)
+    this.setWorkHourPerWeek = this.eventSetProperty.bind(this, 'workHourPerWeek', workValidation.setWorkHourPerWeek)
+    this.setWorkIncome = this.eventSetProperty.bind(this, 'workIncome', workValidation.setWorkIncome)
+    this.setWorkIncomeCurrency = this.valueSetProperty.bind(this, 'workIncomeCurrency', workValidation.setWorkIncomeCurrency)
+    this.setWorkPaymentDate = this.dateSetProperty.bind(this, 'workPaymentDate', workValidation.setWorkPaymentDate)
+    this.setWorkPaymentFrequency = this.eventSetProperty.bind(this, 'workPaymentFrequency', workValidation.setWorkPaymentFrequency)
+  }
 
-    const { t, workIncome } = this.props
+  eventSetProperty (key, validateFunction, event) {
+    this.valueSetProperty(key, validateFunction, event.target.value)
+  }
 
+  dateSetProperty (key, validateFunction, date) {
+    this.valueSetProperty(key, validateFunction, date ? date.valueOf() : null)
+  }
+
+  valueSetProperty (key, validateFunction, value) {
+    const { actions } = this.props
+    actions.setWork({ [key]: value })
     this.setState({
       error: {
-          workType: workAndIncomeValidation.workType(workIncome, t),
-          workStartDate: workAndIncomeValidation.workStartDate(workIncome, t),
-          workEstimatedRetirementDate: workAndIncomeValidation.workEstimatedRetirementDate(workIncome, t),
-          workHourPerWeek: workAndIncomeValidation.workHourPerWeek(workIncome, t),
-          workIncome: workAndIncomeValidation.workIncome(workIncome, t),
-          workIncomeCurrency: workAndIncomeValidation.workIncomeCurrency(workIncome, t),
-          workPaymentDate: workAndIncomeValidation.workPaymentDate(workIncome, t),
-          workPaymentFrequency: workAndIncomeValidation.workPaymentFrequency(workIncome, t)
-        }
-
+        ...this.state.error,
+        [key]: validateFunction(value)
+      }
     })
   }
 
   render () {
-    const { t, workIncome } = this.props
+    const { t, work, locale } = this.props
     const { error } = this.state
 
     return <div>
@@ -91,10 +72,9 @@ class Work extends React.Component {
           <div className='col-md-8'>
             <Nav.Select
               label={t('pinfo:work-type')}
-              value={workIncome.workType || ''}
+              value={work.workType || ''}
               onChange={this.setWorkType}
-              feil={(this.state.displayError && error.workType) ? { feilmelding: error.workType } : null}
-            >
+              feil={error.workType ? { feilmelding: t(error.workType) } : null}>
               <option value=''>{t('ui:choose')}</option>
               <option value='01'>{t('pinfo:work-type-option-01')}</option>
               <option value='02'>{t('pinfo:work-type-option-02')}</option>
@@ -107,9 +87,9 @@ class Work extends React.Component {
             </Nav.Select>
           </div>
           <div className='col-md-4'>
-            <Nav.Input label={t('pinfo:work-hour-per-week')} value={workIncome.workHourPerWeek || ''}
+            <Nav.Input label={t('pinfo:work-hour-per-week')} value={work.workHourPerWeek || ''}
               onChange={this.setWorkHourPerWeek}
-              feil={(this.state.displayError && error.workHourPerWeek) ? { feilmelding: error.workHourPerWeek } : null}
+              feil={error.workHourPerWeek ? { feilmelding: t(error.workHourPerWeek) } : null}
             />
           </div>
         </Nav.Row>
@@ -117,96 +97,75 @@ class Work extends React.Component {
           <div className='col-md-4'>
             <label>{t('pinfo:work-start-date')}</label>
             <ReactDatePicker
-              className={
-                classNames(
-                  'skjemaelement__input input--fullbredde',
-                  { 'skjemaelement__input--harFeil': this.state.displayError && error.workStartDate }
-                )
-              }
-              selected={workIncome.workStartDate}
-              dateFormat='DDMMYYYY'
+              className={classNames(
+                'skjemaelement__input input--fullbredde',
+                { 'skjemaelement__input--harFeil': error.workStartDate })}
+              selected={work.workStartDate}
+              dateFormat='dd.MM.yyyy'
               placeholderText={t('ui:dateFormat')}
               showYearDropdown
               showMonthDropdown
               dropdownMode='select'
-              locale={this.props.locale}
+              locale={locale}
               onChange={this.setWorkStartDate}
             />
-            {
-              (this.state.displayError && error.workStartDate)
-                ? (<div role='alert' aria-live='assertive'>
-                  <div class='skjemaelement__feilmelding'>{error.workStartDate}</div>
-                </div>)
-                : null
-            }
+            {error.workStartDate ? <div role='alert' aria-live='assertive'>
+              <div class='skjemaelement__feilmelding'>{t(error.workStartDate)}</div>
+            </div> : null}
           </div>
           <div className='col-md-4'>
             <label>{t('pinfo:work-end-date')}</label>
             <ReactDatePicker
-              className={
-                classNames(
+              className={classNames(
                   'skjemaelement__input input--fullbredde',
-                  { 'skjemaelement__input--harFeil': this.state.displayError && error.workEndDate }
-                )
-              }
-              selected={workIncome.workEndDate}
-              dateFormat='DD.MM.YYYY'
+                  { 'skjemaelement__input--harFeil': error.workEndDate })}
+              selected={work.workEndDate}
+              dateFormat='dd.MM.yyyy'
               placeholderText={t('ui:dateFormat')}
               showYearDropdown
               showMonthDropdown
               dropdownMode='select'
-              locale={this.props.locale}
+              locale={locale}
               onChange={this.setWorkEndDate}
             />
-            {
-              (this.state.displayError && error.workEndDate)
-                ? (<div role='alert' aria-live='assertive'>
-                  <div class='skjemaelement__feilmelding'>{error.workEndDate}</div>
-                </div>)
-                : null
-            }
+            { error.workEndDate ? <div role='alert' aria-live='assertive'>
+              <div class='skjemaelement__feilmelding'>{t(error.workEndDate)}</div>
+            </div> : null }
           </div>
           <div className='col-md-4'>
             <label>{t('pinfo:work-estimated-retirement-date')}</label>
             <ReactDatePicker
-              className={
-                classNames(
-                  'skjemaelement__input input--fullbredde',
-                  { 'skjemaelement__input--harFeil': this.state.displayError && error.workEstimatedRetirementDate }
-                )
-              }
-              selected={workIncome.workEstimatedRetirementDate}
-              dateFormat='DD.MM.YYYY'
+              className={classNames(
+                'skjemaelement__input input--fullbredde',
+                { 'skjemaelement__input--harFeil': error.workEstimatedRetirementDate })}
+              selected={work.workEstimatedRetirementDate}
+              dateFormat='dd.MM.yyyy'
               placeholderText={t('ui:dateFormat')}
               showYearDropdown
               showMonthDropdown
               dropdownMode='select'
-              locale={this.props.locale}
+              locale={locale}
               onChange={this.setWorkEstimatedRetirementDate}
             />
-            {
-              (this.state.displayError && error.workEstimatedRetirementDate)
-                ? (<div role='alert' aria-live='assertive'>
-                  <div class='skjemaelement__feilmelding'>{error.workEstimatedRetirementDate}</div>
-                </div>)
-                : null
-            }
+            { error.workEstimatedRetirementDate ? <div role='alert' aria-live='assertive'>
+              <div class='skjemaelement__feilmelding'>{t(error.workEstimatedRetirementDate)}</div>
+            </div> : null }
           </div>
         </Nav.Row>
 
         <Nav.Row className='mb-4'>
           <div className='col-md-6'>
-            <Nav.Input label={t('pinfo:work-income')} value={workIncome.workIncome || ''}
+            <Nav.Input label={t('pinfo:work-income')} value={work.workIncome || ''}
               onChange={this.setWorkIncome}
-              feil={(this.state.displayError && error.workIncome) ? { feilmelding: error.workIncome } : null}
+              feil={error.workIncome ? { feilmelding: t(error.workIncome) } : null}
             />
           </div>
           <div className='col-md-6'>
             <label>{t('pinfo:work-income-currency')}</label>
-            <CountrySelect locale={this.props.locale} type={'currency'}
-              value={workIncome.workIncomeCurrency || null}
+            <CountrySelect locale={locale} type={'currency'}
+              value={work.workIncomeCurrency || null}
               onSelect={this.setWorkIncomeCurrency}
-              error={(this.state.displayError && error.workIncomeCurrency)}
+              error={error.workIncomeCurrency}
               errorMessage={error.workIncomeCurrency}
             />
           </div>
@@ -217,34 +176,26 @@ class Work extends React.Component {
             <label>{t('pinfo:work-payment-date')}</label>
 
             <ReactDatePicker
-                className={classNames(
-                    'skjemaelement__input input--fullbredde',
-                    { 'skjemaelement__input--harFeil': this.state.displayError && error.workPaymentDate }
-                  )
-                }
-                selected={workIncome.workPaymentDate ? moment(workIncome.workPaymentDate) : undefined}
-                dateFormat='DD.MM.YYYY'
-                placeholderText={t('ui:dateFormat')}
-                showYearDropdown
-                showMonthDropdown
-                dropdownMode='select'
-                locale={this.props.locale}
-                onMonthChange={this.setWorkPaymentDate}
-                onYearChange={this.setWorkPaymentDate}
-                onChange={this.setWorkPaymentDate}
-              />
-              {
-                (this.state.displayError && error.workPaymentDate)
-                  ? (<div role='alert' aria-live='assertive'>
-                    <div class='skjemaelement__feilmelding'>{error.workPaymentDate}</div>
-                  </div>)
-                  : null
-              }
+              className={classNames(
+                'skjemaelement__input input--fullbredde',
+                { 'skjemaelement__input--harFeil': error.workPaymentDate })}
+              selected={work.workPaymentDate ? moment(work.workPaymentDate) : undefined}
+              dateFormat='dd.MM.yyyy'
+              placeholderText={t('ui:dateFormat')}
+              showYearDropdown
+              showMonthDropdown
+              dropdownMode='select'
+              locale={locale}
+              onChange={this.setWorkPaymentDate}
+            />
+            { error.workPaymentDate ? <div role='alert' aria-live='assertive'>
+              <div class='skjemaelement__feilmelding'>{t(error.workPaymentDate)}</div>
+            </div> : null }
           </div>
           <div className='col-md-6'>
-            <Nav.Select label={t('pinfo:work-payment-frequency')} value={workIncome.workPaymentFrequency || ''}
+            <Nav.Select label={t('pinfo:work-payment-frequency')} value={work.workPaymentFrequency || ''}
               onChange={this.setWorkPaymentFrequency}
-              feil={(this.state.displayError && error.workPaymentFrequency) ? { feilmelding: error.workPaymentFrequency } : null}
+              feil={error.workPaymentFrequency ? { feilmelding: t(error.workPaymentFrequency) } : null}
             >
               <option value=''>{t('ui:choose')}</option>
               <option value='01'>{t('pinfo:workPayment-frequency-option-01')}</option>

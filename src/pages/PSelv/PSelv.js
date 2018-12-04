@@ -169,7 +169,6 @@ class PSelv extends Component {
     }
 
     onDateChange (key, date) {
-
       if (!this.state[key] || date.getTime() !== this.state[key].getTime()) {
         this.onDateHandle(key, date)
       }

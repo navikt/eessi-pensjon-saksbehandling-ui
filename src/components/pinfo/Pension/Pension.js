@@ -6,7 +6,7 @@ import { withNamespaces } from 'react-i18next'
 import Country from './Country'
 
 import * as pinfoActions from '../../../actions/pinfo'
-import { pensionValidation } from '../Validation/tests'
+import { pensionValidation } from '../Validation/singleTests'
 
 const mapStateToProps = (state) => {
   return {
@@ -56,7 +56,7 @@ class Pension extends React.Component {
         {pension.map(country => {
           return <Country t={t} countries={pension} locale={locale}
             actions={actions}
-            key={country} value={country}/>
+            key={country} value={country} />
         })}
         <Country t={t} countries={pension} locale={locale}
           required={false}

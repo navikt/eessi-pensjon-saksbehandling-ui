@@ -21,9 +21,9 @@ export function setEmails (emails) {
   }
 }
 
-export function setWorkIncome (payload) {
+export function setWork (payload) {
   return {
-    type: types.PINFO_EVENT_SET_WORKINCOME,
+    type: types.PINFO_EVENT_SET_WORK,
     payload: payload instanceof Object ? payload : {}
   }
 }

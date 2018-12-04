@@ -8,7 +8,6 @@ import Email from './Email'
 import Phone from './Phone'
 
 import * as pinfoActions from '../../../actions/pinfo'
-import { contactValidation } from '../Validation/tests'
 
 const mapStateToProps = (state) => {
   return {
@@ -22,34 +21,11 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class Contact extends React.Component {
-
   state = {
-    displayError: true
-  }
-
-  constructor (props) {
-    super(props)
-
-    this.displayErrorSwitch = {
-      on: this.displayErrorOn.bind(this),
-      off: this.displayErrorOff.bind(this)
-    }
-  }
-
-  displayErrorOff () {
-    this.setState({
-      displayError: false
-    })
-  }
-
-  displayErrorOn () {
-    this.setState({
-      displayError: true
-    })
+    error: undefined
   }
 
   render () {
-
     const { t, phones, emails, actions } = this.props
 
     return <div>
@@ -57,28 +33,22 @@ class Contact extends React.Component {
       <h3 className='typo-normal'>{t('pinfo:contact-phoneNumber')}</h3>
       {phones.map(phone => {
         return <Phone t={t} phones={phones}
-          actions={actions}
-          key={phone} value={phone}/>
+          setPhones={actions.setPhones}
+          key={phone} value={phone} />
       })}
       <Phone t={t} phones={phones}
         required={false}
-        actions={actions}
-        displayErrorSwitch={this.displayErrorSwitch}
-        displayError={this.state.displayError}
-        testPhoneNumber={contactValidation.phoneHasError}
+        setPhones={actions.setPhones}
       />
       <h3 className='typo-normal'>{t('pinfo:contact-email')}</h3>
       {emails.map(email => {
         return <Email t={t} emails={emails}
-          actions={actions}
-          key={email} value={email}/>
+          setEmails={actions.setEmails}
+          key={email} value={email} />
       })}
       <Email t={t} emails={emails}
-        actions={actions}
+        setEmails={actions.setEmails}
         required={false}
-        displayErrorSwitch={this.displayErrorSwitch}
-        displayError={this.state.displayError}
-        testEmail={contactValidation.emailAddress}
       />
     </div>
   }
@@ -97,4 +67,3 @@ export default connect(
 )(
   withNamespaces()(Contact)
 )
-
