@@ -20,21 +20,21 @@ const mapStateToProps = (state) => {
 class Summary extends React.Component {
   render () {
     const { t } = this.props
-    const { contact, bank, work, attachments, pension, onSave } = this.props.pinfo
+    const { person, bank, work, attachments, pension, onSave } = this.props.pinfo
 
     return <React.Fragment>
       <div>
         <fieldset>
-          <legend>{t('pinfo:contact-title')}</legend>
+          <legend>{t('pinfo:person-title')}</legend>
           <div className='col-xs-12'>
             <dl className='row'>
-              <dt className='col-sm-4'><label>{t('pinfo:contact-phoneNumber')}</label></dt>
+              <dt className='col-sm-4'><label>{t('pinfo:person-phoneNumber')}</label></dt>
               <div className='col-sm-8'>
-                {contact.phones.join(', ')}
+                {person.phones.join(', ')}
               </div>
-              <dt className='col-sm-4'><label>{t('pinfo:contact-email')}</label></dt>
+              <dt className='col-sm-4'><label>{t('pinfo:person-email')}</label></dt>
               <div className='col-sm-8'>
-                {contact.emails.join(', ')}
+                {person.emails.join(', ')}
               </div>
             </dl>
           </div>

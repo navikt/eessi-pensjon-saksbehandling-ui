@@ -1,30 +1,48 @@
 import moment from 'moment'
 
-// CONTACT
+// PERSON
+
+export function noValidLastName (lastNameAfterBirth) {
+  return !lastNameAfterBirth ? 'pinfo:validation-noLastName' : ''
+}
+
+export function personName (name) {
+  return !name ? 'pinfo:validation-noName'
+    : /\d/.test(name) ? 'pinfo:validation-invalidName'
+      : ''
+}
 
 export function phoneNumber (phone) {
-  return !phone ? 'pinfo:validation-noUserPhone'
-    : !/\+?[\d]+[\d\s-]*/.test(phone) ? 'pinfo:validation-invalidUserPhone'
+  return !phone ? 'pinfo:validation-noPhone'
+    : !/\+?[\d]+[\d\s-]*/.test(phone) ? 'pinfo:validation-invalidPhone'
       : ''
 }
 
 export function emailAddress (email) {
   return !email ? 'pinfo:validation-noUserEmail'
-    : !/.+@.+\..+/.test(email) ? 'pinfo:validation-invalidUserEmail'
+    : !/.+@.+\..+/.test(email) ? 'pinfo:validation-invalidEmail'
       : ''
+}
+
+export function noValidPersonName (names) {
+  return !names || (Array.isArray(names) && names.length === 0)
+    ? 'pinfo:validation-noName' : ''
 }
 
 export function noValidPhone (phones) {
   return !phones || (Array.isArray(phones) && phones.length === 0)
-    ? 'pinfo:validation-noPhones' : ''
+    ? 'pinfo:validation-noPhone' : ''
 }
 
 export function noValidEmail (emails) {
   return !emails || (Array.isArray(emails) && emails.length === 0)
-    ? 'pinfo:validation-noEmails' : ''
+    ? 'pinfo:validation-noEmail' : ''
 }
 
-export const contactValidation = {
+export const personValidation = {
+  noValidLastName,
+  noValidPersonName,
+  personName,
   phoneNumber,
   noValidPhone,
   emailAddress,
@@ -75,16 +93,16 @@ export function workType (workType) {
 export function workStartDate (workStartDate, workEndDate) {
   return !workStartDate ? 'pinfo:validation-noWorkStartDate'
     : workStartDate > moment().valueOf() ? 'pinfo:validation-noFutureStartDate'
-      : workEndDate && workStartDate > workEndDate  ? 'pinfo:validation-workStartAfterEnd' : ''
+      : workEndDate && workStartDate > workEndDate ? 'pinfo:validation-workStartAfterEnd' : ''
 }
 
 export function workEndDate (workEndDate, workStartDate) {
-  return  !workEndDate ? 'pinfo:validation-noWorkEndDate'
+  return !workEndDate ? 'pinfo:validation-noWorkEndDate'
     : workStartDate && workStartDate > workEndDate ? 'pinfo:validation-workEndBeforeStart' : ''
 }
 
 export function workEstimatedRetirementDate (workEstimatedRetirementDate) {
-  return  !workEstimatedRetirementDate ? 'pinfo:validation-noWorkEstimatedRetirementDate' : ''
+  return !workEstimatedRetirementDate ? 'pinfo:validation-noWorkEstimatedRetirementDate' : ''
 }
 
 export function workHourPerWeek (workHourPerWeek) {

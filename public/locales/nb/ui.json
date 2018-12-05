@@ -81,6 +81,7 @@
     "more" : "Mer",
     "name" : "Navn",
     "new" : "Ny",
+    "next" : "Neste",
     "no" : "Nei",
     "noFilesFound": "Filer ikke funnet",
     "notEnoughPermissions" : "Ikke nok tillatelser",
@@ -141,5 +142,6 @@
     "uploaded" : "Lastet opp",
     "view" : "Oversikt",
     "watermark" : "Vannmerke",
+    "write" : "Skriv inn",
     "yes" : "Ja"
 }

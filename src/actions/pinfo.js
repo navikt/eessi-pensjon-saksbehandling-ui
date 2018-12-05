@@ -7,6 +7,20 @@ export function setEventProperty (payload) {
   }
 }
 
+export function setLastNameAfterBirth (lastNameAfterBirth) {
+  return {
+    type: types.PINFO_EVENT_SET_LASTNAME,
+    payload: lastNameAfterBirth
+  }
+}
+
+export function setNames (names) {
+  return {
+    type: types.PINFO_EVENT_SET_NAMES,
+    payload: names
+  }
+}
+
 export function setPhones (phones) {
   return {
     type: types.PINFO_EVENT_SET_PHONES,
@@ -41,4 +55,3 @@ export function setP4000 (payload) {
     payload: payload
   }
 }
-

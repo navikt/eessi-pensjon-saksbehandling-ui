@@ -11,7 +11,7 @@ class Banner extends Component {
 
     return <div className='c-ui-banner'>
       <h1 className='typo-sidetittel'>{t('app-headerTitle')}</h1>
-      <FirstPanel/>
+      <FirstPanel />
     </div>
   }
 }

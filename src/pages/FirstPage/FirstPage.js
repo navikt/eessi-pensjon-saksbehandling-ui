@@ -48,7 +48,7 @@ class FirstPage extends Component {
   handleForwardButtonClick () {
     const { history } = this.props
 
-    history.push(routes.INDEX)
+    history.push(routes.PINFO)
   }
 
   render () {

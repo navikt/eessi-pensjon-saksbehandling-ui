@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import _ from 'lodash'
 
 import * as Nav from '../../ui/Nav'
-import { contactValidation } from '../Validation/singleTests'
+import { personValidation } from '../Validation/singleTests'
 
 class Email extends React.Component {
   state = {
@@ -24,7 +24,7 @@ class Email extends React.Component {
     const { emails, setEmails } = this.props
     const { email } = this.state
 
-    let error = contactValidation.emailAddress(email)
+    let error = personValidation.emailAddress(email)
     if (error) {
       return this.setState({
         error: error
@@ -73,6 +73,7 @@ class Email extends React.Component {
         <div className='col-md-4'>
           <Nav.Input
             required={required || false}
+            placeholder={t('ui:write')}
             label={''}
             value={email || ''}
             onChange={this.onEmailChange.bind(this)}

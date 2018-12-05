@@ -3,16 +3,16 @@ import * as types from '../constants/actionTypes'
 let initialState = {
   isLoaded: false,
   step: 0,
-  maxstep: 6,
   validationError: undefined,
-  contact: {
+  person: {
+    lastNameAfterBirth: undefined,
+    names: [],
     phones: [],
     emails: []
   },
-  attachments: {},
   bank: {},
-  work: {},
-  pension: []
+  p4000: {},
+  work: {}
 }
 
 export default function (state = initialState, action = {}) {
@@ -26,20 +26,38 @@ export default function (state = initialState, action = {}) {
         ? JSON.parse(action.payload)
         : state
 
+   case types.PINFO_EVENT_SET_LASTNAME:
+
+      return {
+        ...state,
+        person: {
+          ...state.person,
+          lastNameAfterBirth: action.payload
+        } }
+
     case types.PINFO_EVENT_SET_PHONES:
 
       return {
         ...state,
-        contact: {
-          ...state.contact,
+        person: {
+          ...state.person,
           phones: action.payload
+        } }
+
+    case types.PINFO_EVENT_SET_NAMES:
+
+      return {
+        ...state,
+        person: {
+          ...state.person,
+          names: action.payload
         } }
 
     case types.PINFO_EVENT_SET_EMAILS:
       return {
         ...state,
-        contact: {
-          ...state.contact,
+        person: {
+          ...state.person,
           emails: action.payload
         } }
 

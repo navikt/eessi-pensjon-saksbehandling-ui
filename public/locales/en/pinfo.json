@@ -9,9 +9,12 @@
     "intro-p-3": "Opplysninger viser at du har bodd og/eller arbidet i et eller flere land som Norge har trygdeavtale med. Du kan dermed ha rett til ytelse fra utlandet. NAV kan sende søknad om alderspensjon til utlandet dersom du har eller ønsker å undersøke om du har rett til alderspensjon fra utlandet.",
     "intro-p-4": "Ved tilfeller NAV må innhente medlemskapsopplysninger fra utenlandske trygdemyndigheter, vil du motta et foreløpig vedtak i påvente av opplysninger fra utlandet.",
 
-    "contact-title": "Contact information",
-    "contact-phoneNumber": "Phone number",
-    "contact-email": "Email address",
+    "person-title": "Personal information",
+    "person-description": "Personal information description",
+    "person-lastNameAfterBirth": "Last name after birth",
+    "person-name": "Previous names",
+    "person-phoneNumber": "Phone number",
+    "person-email": "Email address",
 
     "bank-title" : "Foreign bank and account information",
     "bank-name" : "Bank name",
@@ -64,6 +67,14 @@
     "form-step5": "Attachments",
     "form-step6": "Confirm",
 
+    "validation-noLastName" : "No lastname",
+    "validation-noName" : "No name",
+    "validation-noEmail" : "No user email",
+    "validation-noPhone" : "No phone number",
+    "validation-invalidName" : "Invalid name",
+    "validation-invalidEmail" : "Invalid email",
+    "validation-invalidPhone": "Invalid phone number",
+
     "validation-noBankName"  : "No bank name",
     "validation-noBankAddress" : "No bank address",
     "validation-noBankCountry" : "No bank country",
@@ -72,10 +83,7 @@
     "validation-noBankBicSwift" : "No bank BIC/Swift",
     "validation-invalidBankBicSwift" : "Invalid bank BIC/Swift",
     "validation-noBankCode" : "No bank code",
-    "validation-noEmails" : "No user email",
-    "validation-invalidUserEmail" : "Invalid user email",
-    "validation-noPhones" : "No phone number",
-    "validation-invalidUserPhone": "Invalid phone number",
+
     "validation-noWorkType" : "No work type",
     "validation-noWorkStartDate" : "No work start date",
     "validation-noWorkEndDate" : "No work end date",

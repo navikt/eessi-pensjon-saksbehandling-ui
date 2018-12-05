@@ -81,6 +81,7 @@
     "more" : "More",
     "name" : "Name",
     "new" : "New",
+    "next" : "Next",
     "no" : "No",
     "noFilesFound" : "No files found",
     "notEnoughPermissions" : "Not enough permissions",
@@ -140,6 +141,7 @@
     "update" : "Update",
     "uploaded" : "Uploaded",
     "view" : "View",
-    "watermark" : "Vannmerke",
+    "watermark" : "Watermark",
+    "write" : "Write in",
     "yes" : "Yes"
 }

@@ -1,8 +1,10 @@
 import * as tests from './singleTests'
 
-export function contactStep (contact) {
-  return tests.contactValidation.noValidPhone(contact.phones) ||
-         tests.contactValidation.noValidEmail(contact.emails) ||
+export function personStep (person) {
+  return tests.personValidation.noValidLastName(person.lastNameAfterBirth) ||
+         tests.personValidation.noValidPersonName(person.names) ||
+         tests.personValidation.noValidPhone(person.phones) ||
+         tests.personValidation.noValidEmail(person.emails) ||
   ''
 }
 
@@ -28,6 +30,6 @@ export function workStep (work) {
   ''
 }
 
-export function p4000step(p4000) {
-   return null
+export function p4000step (p4000) {
+  return null
 }

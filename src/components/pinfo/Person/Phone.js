@@ -2,7 +2,7 @@ import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 
-import { contactValidation } from '../Validation/singleTests'
+import { personValidation } from '../Validation/singleTests'
 import * as Nav from '../../ui/Nav'
 
 class Phone extends React.Component {
@@ -23,7 +23,7 @@ class Phone extends React.Component {
     const { phones, setPhones } = this.props
     const { phone } = this.state
 
-    let error = contactValidation.phoneNumber(phone)
+    let error = personValidation.phoneNumber(phone)
     if (error) {
       return this.setState({
         error: error
@@ -72,6 +72,7 @@ class Phone extends React.Component {
         <div className='col-md-4'>
           <Nav.Input
             required={required || false}
+            placeholder={t('ui:write')}
             label={''}
             value={phone || ''}
             onChange={this.onPhoneChange.bind(this)}

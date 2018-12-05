@@ -12,7 +12,7 @@ import * as Nav from '../../components/ui/Nav'
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
 import FrontPageDrawer from '../../components/drawer/FrontPage'
 import Bank from '../../components/pinfo/Bank'
-import Contact from '../../components/pinfo/Contact/Contact'
+import Person from '../../components/pinfo/Person/Person'
 import P4000 from '../../components/pinfo/P4000/P4000'
 import Receipt from '../../components/pinfo/Receipt'
 import Summary from '../../components/pinfo/Summary'
@@ -72,7 +72,7 @@ class PInfo extends React.Component {
 
     switch (step) {
       case 1:
-        return stepTests.contactStep(pinfo.contact)
+        return stepTests.personStep(pinfo.person)
       case 2:
         return stepTests.bankStep(pinfo.bank)
       case 3:
@@ -139,13 +139,13 @@ class PInfo extends React.Component {
 
       <div className={classNames('fieldset animate', 'mb-4')}>
         {step === 0 ? <Intro /> : null}
-        {step === 1 ? <Contact /> : null}
+        {step === 1 ? <Person /> : null}
         {step === 2 ? <Bank /> : null}
         {step === 3 ? <P4000 /> : null}
         {step === 4 ? <Summary t={t} onSave={this.onSaveButtonClick.bind(this)} /> : null}
-        {step === 5 ? <Receipt/> : null}
+        {step === 5 ? <Receipt /> : null}
       </div>
-
+      <div className='mb-4'>
       {step < 5 ? <Nav.Hovedknapp
         className='forwardButton'
         onClick={this.onForwardButtonClick.bind(this)}>
@@ -156,6 +156,7 @@ class PInfo extends React.Component {
         onClick={this.onBackButtonClick.bind(this)}>
         {t('back')}
       </Nav.Knapp> : null}
+      </div>
     </TopContainer>
   }
 }
