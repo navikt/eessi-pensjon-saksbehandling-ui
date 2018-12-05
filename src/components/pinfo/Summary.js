@@ -19,7 +19,8 @@ const mapStateToProps = (state) => {
 
 class Summary extends React.Component {
   render () {
-    const { t, contact, bank, work, attachments, pension, onSave } = this.props.pinfo
+    const { t } = this.props
+    const { contact, bank, work, attachments, pension, onSave } = this.props.pinfo
 
     return <React.Fragment>
       <div>

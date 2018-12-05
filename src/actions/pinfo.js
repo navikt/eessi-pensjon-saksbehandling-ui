@@ -35,23 +35,10 @@ export function setBank (payload) {
   }
 }
 
-export function setPension (payload) {
+export function setP4000 (payload) {
   return {
-    type: types.PINFO_EVENT_SET_PENSION,
-    payload: payload instanceof Object ? payload : {}
+    type: types.PINFO_EVENT_SET_P4000,
+    payload: payload
   }
 }
 
-export function setAttachments (payload) {
-  return {
-    type: types.PINFO_EVENT_SET_ATTACHMENTS,
-    payload: Array.isArray(payload) ? payload : []
-  }
-}
-
-export function setAttachmentTypes (payload) {
-  return {
-    type: types.PINFO_EVENT_SET_ATTACHMENT_TYPES,
-    payload: payload instanceof Object ? payload : {}
-  }
-}

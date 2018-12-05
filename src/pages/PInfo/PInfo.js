@@ -13,9 +13,8 @@ import TopContainer from '../../components/ui/TopContainer/TopContainer'
 import FrontPageDrawer from '../../components/drawer/FrontPage'
 import Bank from '../../components/pinfo/Bank'
 import Contact from '../../components/pinfo/Contact/Contact'
-import Work from '../../components/pinfo/Work'
-import Attachments from '../../components/pinfo/Attachments'
-import Pension from '../../components/pinfo/Pension/Pension'
+import P4000 from '../../components/pinfo/P4000/P4000'
+import Receipt from '../../components/pinfo/Receipt'
 import Summary from '../../components/pinfo/Summary'
 import Intro from '../../components/pinfo/Intro'
 
@@ -72,15 +71,12 @@ class PInfo extends React.Component {
     const { pinfo } = this.props
 
     switch (step) {
-      case 0:
-        return undefined
       case 1:
         return stepTests.contactStep(pinfo.contact)
       case 2:
         return stepTests.bankStep(pinfo.bank)
       case 3:
-        return stepTests.workStep(pinfo.work)
-
+        return stepTests.p4000Step(pinfo.p4000)
       default:
         return ''
     }
@@ -145,13 +141,12 @@ class PInfo extends React.Component {
         {step === 0 ? <Intro /> : null}
         {step === 1 ? <Contact /> : null}
         {step === 2 ? <Bank /> : null}
-        {step === 3 ? <Work /> : null}
-        {step === 4 ? <Pension /> : null}
-        {step === 5 ? <Attachments /> : null}
-        {step === 6 ? <Summary t={t} onSave={this.onSaveButtonClick.bind(this)} /> : null}
+        {step === 3 ? <P4000 /> : null}
+        {step === 4 ? <Summary t={t} onSave={this.onSaveButtonClick.bind(this)} /> : null}
+        {step === 5 ? <Receipt/> : null}
       </div>
 
-      {step < 8 ? <Nav.Hovedknapp
+      {step < 5 ? <Nav.Hovedknapp
         className='forwardButton'
         onClick={this.onForwardButtonClick.bind(this)}>
         {t('confirmAndContinue')}

@@ -9,9 +9,7 @@ import { withNamespaces } from 'react-i18next'
 import CountrySelect from '../ui/CountrySelect/CountrySelect'
 import * as pinfoActions from '../../actions/pinfo'
 import * as Nav from '../ui/Nav'
-import { workValidation } from './Validation/singleTests'
-
-import './form.css'
+import { workValidation } from './Validation/singleTests'|
 
 const mapStateToProps = (state) => {
   return {
@@ -62,7 +60,8 @@ class Work extends React.Component {
   }
 
   render () {
-    const { t, work, locale } = this.props
+    const { t, work, locale } =
+     this.props
     const { error } = this.state
 
     return <div>
