@@ -76,7 +76,7 @@ class PInfo extends React.Component {
       case 2:
         return stepTests.bankStep(pinfo.bank)
       case 3:
-        return stepTests.p4000Step(pinfo.p4000)
+        return stepTests.p4000step(pinfo.p4000)
       default:
         return ''
     }

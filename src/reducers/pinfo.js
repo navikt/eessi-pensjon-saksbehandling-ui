@@ -59,30 +59,12 @@ export default function (state = initialState, action = {}) {
           ...action.payload
         } }
 
-    case types.PINFO_EVENT_SET_PENSION:
+    case types.PINFO_EVENT_SET_P4000:
       return {
         ...state,
-        pension: {
-          ...state.pension,
+        p4000: {
+          ...state.p4000,
           ...action.payload
-        } }
-
-    case types.PINFO_EVENT_SET_ATTACHMENT_TYPES:
-      return {
-        ...state,
-        attachments: {
-          ...state.attachments,
-          attachmentTypes: {
-            ...state.attachments.attachmentTypes,
-            ...action.payload
-          } } }
-
-    case types.PINFO_EVENT_SET_ATTACHMENTS:
-      return {
-        ...state,
-        attachments: {
-          ...state.attachments,
-          attachments: action.payload
         } }
 
     case types.PINFO_NEW:

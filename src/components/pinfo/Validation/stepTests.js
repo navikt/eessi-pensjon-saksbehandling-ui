@@ -1,4 +1,3 @@
-import moment from 'moment'
 import * as tests from './singleTests'
 
 export function contactStep (contact) {
@@ -27,4 +26,8 @@ export function workStep (work) {
          tests.workValidation.workPaymentDate(work.workPaymentDate) ||
          tests.workValidation.workPaymentFrequency(work.workPaymentFrequency) ||
   ''
+}
+
+export function p4000step(p4000) {
+   return null
 }
