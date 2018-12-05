@@ -174,7 +174,7 @@ class EditPDF extends Component {
         history={history} location={location}
         sideContent={<PdfDrawer />}>
 
-        <h1 className='appTitle'>{t('pdf:app-editPdfTitle')}</h1>
+        <h1 className='typo-sidetittel appTitle'>{t('pdf:app-editPdfTitle')}</h1>
         <StepIndicator stepIndicator={1} history={history} />
         <div className='fieldset animate mb-4 '>
           <VeilederPanel>{t('pdf:app-editPdfDescription')}</VeilederPanel>

@@ -247,7 +247,7 @@ class StorageModal extends Component {
             {loadingStorageFileList
               ? <div className={classNames('text-center', className)}>
                 <Nav.NavFrontendSpinner />
-                <p>{t('ui:loading')}</p>
+                <p className='typo-normal'>{t('ui:loading')}</p>
               </div>
               : (fileList && !_.isEmpty(fileList) ? fileList.map((file, index) => {
                 let selected = currentSelectedFile && currentSelectedFile === file

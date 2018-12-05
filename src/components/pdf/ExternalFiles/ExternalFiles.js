@@ -40,7 +40,7 @@ class ExternalFiles extends Component {
       <div className='fileArea'>
         {loadingFileList ? <div className='w-100 text-center'>
           <Nav.NavFrontendSpinner />
-          <p>{t('pdf:loading-loadingFileList')}</p>
+          <p className='typo-normal'>{t('pdf:loading-loadingFileList')}</p>
         </div> : <DnDExternalFiles fileList={fileList || []} addFile={addFile} />}
       </div>
     </Nav.Ekspanderbartpanel>

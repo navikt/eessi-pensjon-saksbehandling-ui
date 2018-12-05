@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux'
 import classNames from 'classnames'
 import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.min.css'
-import moment from 'moment'
 
 import Validation from '../Validation'
 import * as Nav from '../../ui/Nav'
@@ -94,74 +93,17 @@ class DatePicker extends Component {
       }
     }
 
-    onStartDateBlur (e) {
-      const { event, actions } = this.props
-      let startDate
-
-      if (!e) {
-        return
-      }
-      if (!e._isAMomentObject) {
-        let date = e.target.value
-        if (!/\d\d\.\d\d\.\d\d\d\d/.test(date)) {
-          if (!event.startDate || date !== event.startDate) {
-            this.setState({
-              validationError: 'p4000:validation-invalidDate'
-            }, () => {
-              actions.setEventProperty('startDate', undefined)
-            })
-          }
-        } else {
-          startDate = moment(date, 'DD.MM.YYYY').toDate()
-        }
-      } else {
-        startDate = e.toDate()
-      }
-      if (!event.startDate || startDate.getTime() !== event.startDate.getTime()) {
-        this.onStartDateHandle(startDate)
-      }
-    }
-
-    onEndDateBlur (e) {
-      const { event, actions } = this.props
-      let endDate
-      if (!e) {
-        return
-      }
-      if (!e._isAMomentObject) {
-        let date = e.target.value
-        if (!/\d\d\.\d\d\.\d\d\d\d/.test(date)) {
-          if (!event.endDate || date !== event.endDate) {
-            this.setState({
-              validationError: 'p4000:validation-invalidDate'
-            }, () => {
-              actions.setEventProperty('endDate', undefined)
-            })
-          }
-        } else {
-          endDate = moment(date, 'DD.MM.YYYY').toDate()
-        }
-      } else {
-        endDate = e.toDate()
-      }
-      if (!event.endDate || endDate.getTime() !== event.endDate.getTime()) {
-        this.onEndDateHandle(endDate)
-      }
-    }
-
-    onStartDateChange (moment) {
+    onStartDateChange (date) {
       const { event } = this.props
 
-      let date = moment.toDate()
       if (!event.startDate || date.getTime() !== event.startDate.getTime()) {
         this.onStartDateHandle(date)
       }
     }
 
-    onEndDateChange (moment) {
+    onEndDateChange (date) {
       const { event } = this.props
 
-      let date = moment.toDate()
       if (!event.endDate || date.getTime() !== event.endDate.getTime()) {
         this.onEndDateHandle(date)
       }
@@ -239,34 +181,28 @@ class DatePicker extends Component {
         <Nav.Row className='row-datepickers no-gutters'>
           <Nav.Column className='text-center'>
             <label className='mr-3'>{t('ui:startDate') + ' *'}</label>
-            <ReactDatePicker selected={event.startDate ? moment(event.startDate) : undefined}
+            <ReactDatePicker selected={event.startDate ? event.startDate : undefined}
               className='startDate'
-              dateFormat='DD.MM.YYYY'
+              dateFormat='dd.MM.yyyy'
               placeholderText={t('ui:dateFormat')}
               showYearDropdown
               showMonthDropdown
               dropdownMode='select'
               locale={locale}
-              onMonthChange={this.onStartDateChange.bind(this)}
-              onYearChange={this.onStartDateChange.bind(this)}
-              // onBlur={this.onStartDateBlur.bind(this)}
               onChange={this.onStartDateChange.bind(this)} />
             <div>{this.state.onStartDateFail}</div>
           </Nav.Column>
           <Nav.Column className='text-center'>
             <label className='mr-3'>{t('ui:endDate')}</label>
-            <ReactDatePicker selected={event.endDate ? moment(event.endDate) : undefined}
+            <ReactDatePicker selected={event.endDate ? event.endDate : undefined}
               disabled={event.dateType !== 'both'}
               className='endDate'
-              dateFormat='DD.MM.YYYY'
+              dateFormat='dd.MM.yyyy'
               placeholderText={t('ui:dateFormat')}
               showYearDropdown
               showMonthDropdown
               dropdownMode='select'
               locale={locale}
-              onMonthChange={this.onEndDateChange.bind(this)}
-              onYearChange={this.onEndDateChange.bind(this)}
-              // onBlur={this.onEndDateBlur.bind(this)}
               onChange={this.onEndDateChange.bind(this)} />
             <div>{this.state.onEndDateFail}</div>
           </Nav.Column>

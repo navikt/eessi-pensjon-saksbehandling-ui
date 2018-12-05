@@ -4,7 +4,6 @@ import { withNamespaces } from 'react-i18next'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import classNames from 'classnames'
-import moment from 'moment'
 import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.min.css'
 
@@ -116,37 +115,9 @@ class Child extends Component {
       actions.setEventProperty('files', files)
     }
 
-    onBirthDateBlur (e) {
-      const { event, actions } = this.props
-      let birthDate
-      if (!e) {
-        return
-      }
-      if (!e._isAMomentObject) {
-        let date = e.target.value
-        if (!/\d\d\.\d\d\.\d\d\d\d/.test(date)) {
-          if (!event.birthDate || date !== event.birthDate) {
-            this.setState({
-              infoValidationError: 'p4000:validation-invalidDate'
-            }, () => {
-              actions.setEventProperty('birthDate', undefined)
-            })
-          }
-        } else {
-          birthDate = moment(date, 'DD.MM.YYYY').toDate()
-        }
-      } else {
-        birthDate = e.toDate()
-      }
-      if (!event.birthDate || birthDate.getTime() !== event.birthDate.getTime()) {
-        this.onBirthDateHandle(birthDate)
-      }
-    }
-
-    onBirthDateChange (moment) {
+    onBirthDateChange (date) {
       const { event } = this.props
 
-      let date = moment.toDate()
       if (!event.birthDate || date.getTime() !== event.birthDate.getTime()) {
         this.onBirthDateHandle(date)
       }
@@ -186,7 +157,7 @@ class Child extends Component {
             <Icons className='mr-2' kind='back' size='1x' />{t('ui:back')}
           </Nav.Knapp>
           <Icons size='3x' kind={type} className='float-left mr-4' />
-          <h1 className='m-0'>{ mode !== 'edit' ? t('ui:new') : t('ui:edit')} {t('p4000:' + type + '-title')}</h1>
+          <h1 className='typo-sidetittel m-0'>{ mode !== 'edit' ? t('ui:new') : t('ui:edit')} {t('p4000:' + type + '-title')}</h1>
         </div>
         <Nav.Row className='eventDescription mb-4 fieldset'>
           <Nav.Column>
@@ -199,7 +170,7 @@ class Child extends Component {
         })}>
           <Nav.Column>
             <Nav.HjelpetekstBase>{t('p4000:help-' + type + '-dates')}</Nav.HjelpetekstBase>
-            <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-1-dates-title')}</h2>
+            <h2 className='typo-undertittel mb-3'>{t('p4000:' + type + '-fieldset-1-dates-title')}</h2>
             <DatePicker provideController={(datepicker) => { this.datepicker = datepicker }} />
           </Nav.Column>
         </Nav.Row>
@@ -209,7 +180,7 @@ class Child extends Component {
           <Nav.Column>
             {!this.hasNoInfoErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.infoValidationError)}</Nav.AlertStripe> : null}
             <Nav.HjelpetekstBase>{t('p4000:help-' + type + '-info')}</Nav.HjelpetekstBase>
-            <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-2-info-title')}</h2>
+            <h2 className='typo-undertittel mb-3'>{t('p4000:' + type + '-fieldset-2-info-title')}</h2>
 
             <Nav.Input className='lastname' label={t('p4000:' + type + '-fieldset-2_1-lastname')} value={event.lastname}
               onChange={(e) => { actions.setEventProperty('lastname', e.target.value) }} />
@@ -221,17 +192,14 @@ class Child extends Component {
               <label>{t('p4000:' + type + '-fieldset-2_3-birthdate')}</label>
             </div>
             <div>
-              <ReactDatePicker selected={event.birthDate ? moment(event.birthDate) : undefined}
+              <ReactDatePicker selected={event.birthDate}
                 className='birthDate'
-                dateFormat='DD.MM.YYYY'
+                dateFormat='dd.MM.yyyy'
                 placeholderText={t('ui:dateFormat')}
                 showYearDropdown
                 showMonthDropdown
                 dropdownMode='select'
                 locale={locale}
-                onMonthChange={this.onBirthDateChange.bind(this)}
-                onYearChange={this.onBirthDateChange.bind(this)}
-                onBlur={this.onBirthDateBlur.bind(this)}
                 onChange={this.onBirthDateChange.bind(this)} />
             </div>
           </Nav.Column>
@@ -240,7 +208,7 @@ class Child extends Component {
           validationFail: this ? !this.hasNoOtherErrors() : false
         })}>
           <Nav.Column>
-            <h2 className='mb-3'>{t('p4000:' + type + '-fieldset-3-other-title')}</h2>
+            <h2 className='typo-undertittel mb-3'>{t('p4000:' + type + '-fieldset-3-other-title')}</h2>
             {!this.hasNoOtherErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.otherValidationError)}</Nav.AlertStripe> : null}
             <div className='mb-3'>
               <div>
@@ -255,7 +223,7 @@ class Child extends Component {
         </Nav.Row>
         <Nav.Row className={classNames('eventFileUpload', 'fieldset')}>
           <Nav.Column>
-            <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
+            <h2 className='typo-undertittel mb-3'>{t('ui:fileUpload')}</h2>
             <FileUpload t={t} ref={f => { this.fileUpload = f }} fileUploadDroppableId={'fileUpload'} className='fileUpload'
               files={event.files || []}
               onFileChange={this.handleFileChange.bind(this)} />

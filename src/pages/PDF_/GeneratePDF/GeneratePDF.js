@@ -125,12 +125,12 @@ class GeneratePDF extends Component {
       return <TopContainer className='p-pdf-generatePDF'
         history={history} location={location}
         sideContent={<PdfDrawer />}>
-        <h1 className='appTitle'>{t('pdf:app-generatePdfTitle')}</h1>
+        <h1 className='typo-sidetittel appTitle'>{t('pdf:app-generatePdfTitle')}</h1>
         <StorageModal namespace={storages.FILES} />
         <StepIndicator stepIndicator={2} history={history} />
         {generatingPDF ? <div className='w-100 text-center'>
           <Nav.NavFrontendSpinner />
-          <p>{t('pdf:loading-generatingPDF')}</p>
+          <p className='typo-normal'>{t('pdf:loading-generatingPDF')}</p>
         </div> : (generatedPDFs ? <div>
           <div className='fieldset animate mb-4 '>
             <VeilederPanel>{t('pdf:help-generate-pdf')}</VeilederPanel>

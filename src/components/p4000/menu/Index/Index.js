@@ -143,7 +143,7 @@ class New extends Component {
             </div>
           </div>
           <div style={{ animationDelay: '0.3s' }} className='fieldset animate mb-4 c-p4000-menu-new-comment'>
-            <h1 className='m-0 mb-4'>{t('comment')}</h1>
+            <h1 className='typo-sidetittel m-0 mb-4'>{t('comment')}</h1>
             <Nav.Textarea label={t('comment')} value={comment || ''}
               style={{ minHeight: '150px' }}
               onChange={this.setComment.bind(this)} />

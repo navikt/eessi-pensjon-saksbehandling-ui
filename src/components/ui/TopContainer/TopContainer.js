@@ -10,7 +10,6 @@ import ExternalTopHeader from '../Header/ExternalTopHeader'
 import Footer from '../Footer/Footer'
 import ClientAlert from '../Alert/ClientAlert'
 import ServerAlert from '../Alert/ServerAlert'
-import Breadcrumbs from '../Breadcrumbs/Breadcrumbs'
 import Drawer from '../Drawer/Drawer'
 import Modal from '../Modal/Modal'
 import * as constants from '../../../constants/constants'
@@ -45,12 +44,11 @@ class TopContainer extends Component {
     return <div style={style} className={classNames('c-ui-topContainer', className)}>
       <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
         <Drawer sideContent={sideContent}>
-          {userRole === constants.SAKSBEHANDLER
+          { userRole === constants.SAKSBEHANDLER
             ? <InternalTopHeader history={history} />
             : <ExternalTopHeader history={history} /> }
           <ClientAlert />
           <ServerAlert />
-          <Breadcrumbs history={history} />
           <Nav.Container className='_container'>
             {this.props.children}
           </Nav.Container>

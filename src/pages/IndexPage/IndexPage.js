@@ -55,16 +55,15 @@ class IndexPage extends Component {
       language={language} history={history} location={location}
       sideContent={<EmptyDrawer />}>
 
-      <h1 className='ml-0 appTitle'>{t('app-pageTitle')}</h1>
-      <h2 className='ml-0 appDescription'>{t('app-pageDescription')}</h2>
+      <h1 className='typo-sidetittel ml-0 appTitle'>{t('app-pageTitle')}</h1>
+      <h2 className='typo-undertittel ml-0 appDescription'>{t('app-pageDescription')}</h2>
       <div className='animate mb-4'>
 
         <div className='mb-4'>
-          <h3 className='mb-4'>{t('status')}</h3>
           <DocumentStatus history={history} />
         </div>
 
-        <h3 className='mb-4'>{t('forms')}</h3>
+        <h3 className='typo-undertittel mb-4'>{t('forms')}</h3>
 
         {userRole === constants.SAKSBEHANDLER
           ? <Nav.Lenkepanel style={{ animationDelay: '0s' }}
@@ -93,7 +92,7 @@ class IndexPage extends Component {
           className='frontPageLink p4000Link' linkCreator={(props) => (
             <Link to={routes.P4000} {...props} />)
           } href='#'>{t('p4000:app-startP4000')}</Nav.Lenkepanel>
-        <h3 className='mt-4 mb-4'>{t('tools')}</h3>
+        <h3 className='typo-undertittel mt-4 mb-4'>{t('tools')}</h3>
         <Nav.Lenkepanel style={{ animationDelay: '0.4s' }} className='frontPageLink pdfLink' linkCreator={(props) => (
           <Link to={routes.PDF_SELECT} {...props} />)
         } href='#'>{t('pdf:app-createPdf')}</Nav.Lenkepanel>

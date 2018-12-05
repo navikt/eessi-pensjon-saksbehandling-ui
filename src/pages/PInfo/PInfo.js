@@ -11,26 +11,28 @@ import 'react-datepicker/dist/react-datepicker.min.css'
 import * as Nav from '../../components/ui/Nav'
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
 import FrontPageDrawer from '../../components/drawer/FrontPage'
+import Bank from '../../components/pinfo/Bank'
+import Contact from '../../components/pinfo/Contact/Contact'
+import P4000 from '../../components/pinfo/P4000/P4000'
+import Receipt from '../../components/pinfo/Receipt'
+import Summary from '../../components/pinfo/Summary'
+import Intro from '../../components/pinfo/Intro'
 
+import * as stepTests from '../../components/pinfo/Validation/stepTests'
 import * as routes from '../../constants/routes'
 import * as pinfoActions from '../../actions/pinfo'
 import * as uiActions from '../../actions/ui'
 import * as appActions from '../../actions/app'
 import * as storageActions from '../../actions/storage'
 import * as storages from '../../constants/storages'
-import Bank from '../../components/form/Bank'
-import Contact from '../../components/form/Contact/Contact'
-import Work from '../../components/form/Work'
-import Attachments from '../../components/form/Attachments'
-import Pension from '../../components/form/Pension'
-import Summary from '../../components/form/Summary'
 
 import './PInfo.css'
 
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
-    form: state.pinfo.form,
+    pinfo: state.pinfo,
+    step: state.pinfo.step,
     referrer: state.app.referrer,
     status: state.status,
     username: state.app.username,
@@ -42,84 +44,119 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, pinfoActions, uiActions, appActions, storageActions), dispatch) }
 }
 
-const onSaveButtonClick = (props) => {
-  props.actions.postStorageFile(props.username, storages.PINFO, 'PINFO', JSON.stringify({ form: props.form }))
-  props.history.push(routes.PSELV + '?referrer=pinfo')
-}
-
-const setStep = (props, index) => (
-  props.actions.setEventProperty({ step: index, displayError: false })
-)
-
 class PInfo extends React.Component {
+  state = {
+    erorr: undefined
+  }
+
   constructor (props) {
     super(props)
     this.props.actions.getStorageFile(props.username, storages.PINFO, 'PINFO')
   }
 
   componentDidMount () {
-    let props = this.props
-    let referrer = new URLSearchParams(props.location.search).get('referrer')
+    const { location, actions } = this.props
+    let referrer = new URLSearchParams(location.search).get('referrer')
     if (referrer) {
-      props.actions.setReferrer(referrer)
+      actions.setReferrer(referrer)
     }
-    props.actions.addToBreadcrumbs({
+    actions.addToBreadcrumbs({
       url: routes.PINFO,
       ns: 'pinfo',
       label: 'pinfo:app-title'
     })
   }
 
-  render () {
-    let props = this.props
-    return (<TopContainer className='p-pInfo'
-      history={props.history} location={props.location}
-      sideContent={<FrontPageDrawer t={props.t} status={props.status} />}>
-      <Nav.Row className='mb-0'>
-        <Nav.Column>
-          <Nav.Tabs onChange={(e, i) => setStep(props, i)} className='mt-0 ml-3 mr-3 mb-0'
-            defaultAktiv={props.form.step}
-            tabs={_.range(0, 6).map(index => ({
-              label: props.t('pinfo:form-step' + index)
-            }))
-            }
-            kompakt={false}
-          />
-        </Nav.Column>
-      </Nav.Row>
-      <div className={classNames('fieldset animate', 'mb-4')}>
-        {props.form.step === 0
-          ? <form id='pinfo-form'>
-            <Bank />
-          </form>
-          : null}
-        {props.form.step === 1
-          ? <form id='pinfo-form'>
-            <Contact />
-          </form>
-          : null
-        }
-        {props.form.step === 2
-          ? <form id='pinfo-form'>
-            <Work />
-          </form>
-          : null
-        }
-        {props.form.step === 3 ? <form id='pinfo-form'><div>
-          <Attachments />
-        </div></form> : null}
-        {props.form.step === 4 ? <form id='pinfo-form'><div className='mb-3'>
-          <Pension />
-        </div> </form> : null}
+  validatePage (step) {
+    const { pinfo } = this.props
 
-        {props.form.step === 5
-          ? <Summary t={props.t} onSave={onSaveButtonClick.bind(null, props)} />
-          : null}
+    switch (step) {
+      case 1:
+        return stepTests.contactStep(pinfo.contact)
+      case 2:
+        return stepTests.bankStep(pinfo.bank)
+      case 3:
+        return stepTests.p4000Step(pinfo.p4000)
+      default:
+        return ''
+    }
+  }
+
+  onForwardButtonClick () {
+    const { actions, step } = this.props
+
+    let validatePageError = this.validatePage(step)
+    if (validatePageError) {
+      return this.setState({
+        error: validatePageError
+      })
+    }
+
+    actions.setEventProperty({ step: step + 1 })
+    this.setState({
+      error: undefined
+    })
+  }
+
+  onBackButtonClick () {
+    const { actions, step } = this.props
+
+    actions.setEventProperty({ step: step - 1 })
+    this.setState({
+      error: undefined
+    })
+  }
+
+  onSaveButtonClick () {
+    const { actions, history, username, pinfo } = this.props
+
+    actions.postStorageFile(username, storages.PINFO, 'PINFO', JSON.stringify(pinfo))
+    history.push(routes.PSELV + '?referrer=pinfo')
+  }
+
+  render () {
+    const { t, history, location, status, step, actions } = this.props
+    const { error } = this.state
+
+    return <TopContainer className='p-pInfo'
+      history={history} location={location}
+      sideContent={<FrontPageDrawer t={t} status={status} />}>
+      <h1 className='typo-sidetittel mt-4'>{t('pinfo:app-title')}</h1>
+      <Nav.Stegindikator
+        className='mt-4 mb-4'
+        aktivtSteg={step}
+        visLabel
+        onChange={(e) => actions.setEventProperty({ step: e })}
+        autoResponsiv
+        steg={_.range(0, 8).map(index => ({
+          label: t('pinfo:form-step' + index),
+          ferdig: index < step,
+          aktiv: index === step
+        }))}
+      />
+
+      {error ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(error)}</Nav.AlertStripe> : null}
+
+      <div className={classNames('fieldset animate', 'mb-4')}>
+        {step === 0 ? <Intro /> : null}
+        {step === 1 ? <Contact /> : null}
+        {step === 2 ? <Bank /> : null}
+        {step === 3 ? <P4000 /> : null}
+        {step === 4 ? <Summary t={t} onSave={this.onSaveButtonClick.bind(this)} /> : null}
+        {step === 5 ? <Receipt/> : null}
       </div>
 
+      {step < 5 ? <Nav.Hovedknapp
+        className='forwardButton'
+        onClick={this.onForwardButtonClick.bind(this)}>
+        {t('confirmAndContinue')}
+      </Nav.Hovedknapp> : null}
+      {step > 0 ? <Nav.Knapp
+        className='ml-3 backButton'
+        onClick={this.onBackButtonClick.bind(this)}>
+        {t('back')}
+      </Nav.Knapp> : null}
     </TopContainer>
-
-    )
   }
 }
 
@@ -127,7 +164,8 @@ PInfo.propTypes = {
   history: PT.object,
   t: PT.func,
   locale: PT.string,
-  form: PT.object,
+  pinfo: PT.object,
+  step: PT.number,
   referrer: PT.string,
   actions: PT.object,
   location: PT.object.isRequired,

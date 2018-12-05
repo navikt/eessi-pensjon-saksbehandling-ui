@@ -1,138 +1,89 @@
 import * as types from '../constants/actionTypes'
 
 let initialState = {
-  form: {
-    isLoaded: false,
-    step: 0,
-    maxstep: 6,
-    validationError: undefined,
-    contact: {
-      phone: {},
-      email: {}
-    },
-    attachments: {},
-    bank: {},
-    workIncome: {},
-    pension: {}
-  }
-}
-
-function omit (key, object) {
-  let { [key]: remove, ...rest } = object
-  return rest
+  isLoaded: false,
+  step: 0,
+  maxstep: 6,
+  validationError: undefined,
+  contact: {
+    phones: [],
+    emails: []
+  },
+  attachments: {},
+  bank: {},
+  work: {},
+  pension: []
 }
 
 export default function (state = initialState, action = {}) {
   switch (action.type) {
     case types.PINFO_EVENT_SET_PROPERTY:
 
-      return { ...state, form: { ...state.form, ...action.payload } }
+      return { ...state, ...action.payload }
 
     case types.STORAGE_GET_SUCCESS:
       return action.fileName === 'PINFO'
         ? JSON.parse(action.payload)
         : state
 
-    case types.PINFO_EVENT_SET_PHONE:
+    case types.PINFO_EVENT_SET_PHONES:
 
       return {
         ...state,
-        form: {
-          ...state.form,
-          contact: {
-            ...state.form.contact,
-            phone: {
-              ...state.form.contact.phone,
-              [action.key]: {
-                ...state.form.contact.phone[action.key],
-                ...action.payload
-              } } } } }
+        contact: {
+          ...state.contact,
+          phones: action.payload
+        } }
 
-    case types.PINFO_EVENT_SET_EMAIL:
+    case types.PINFO_EVENT_SET_EMAILS:
       return {
         ...state,
-        form: {
-          ...state.form,
-          contact: {
-            ...state.form.contact,
-            email: {
-              ...state.form.contact.email,
-              [action.key]: {
-                ...state.form.contact.email[action.key],
-                ...action.payload
-              } } } } }
+        contact: {
+          ...state.contact,
+          emails: action.payload
+        } }
 
-    case types.PINFO_EVENT_REMOVE_PHONE:
+    case types.PINFO_EVENT_SET_WORK:
       return {
         ...state,
-        form: {
-          ...state.form,
-          contact: {
-            ...state.form.contact,
-            phone: omit(action.key, state.form.contact.phone)
-          } } }
-
-    case types.PINFO_EVENT_REMOVE_EMAIL:
-      return {
-        ...state,
-        form: {
-          ...state.form,
-          contact: {
-            ...state.form.contact,
-            email: omit(action.key, state.form.contact.email)
-          } } }
-
-    case types.PINFO_EVENT_SET_WORKINCOME:
-      return {
-        ...state,
-        form: {
-          ...state.form,
-          workIncome: {
-            ...state.form.workIncome,
-            ...action.payload
-          } } }
+        work: {
+          ...state.work,
+          ...action.payload
+        } }
 
     case types.PINFO_EVENT_SET_BANK:
       return {
         ...state,
-        form: {
-          ...state.form,
-          bank: {
-            ...state.form.bank,
-            ...action.payload
-          } } }
+        bank: {
+          ...state.bank,
+          ...action.payload
+        } }
 
     case types.PINFO_EVENT_SET_PENSION:
       return {
         ...state,
-        form: {
-          ...state.form,
-          pension: {
-            ...state.form.pension,
-            ...action.payload
-          } } }
+        pension: {
+          ...state.pension,
+          ...action.payload
+        } }
 
     case types.PINFO_EVENT_SET_ATTACHMENT_TYPES:
       return {
         ...state,
-        form: {
-          ...state.form,
-          attachments: {
-            ...state.form.attachments,
-            attachmentTypes: {
-              ...state.form.attachments.attachmentTypes,
-              ...action.payload
-            } } } }
+        attachments: {
+          ...state.attachments,
+          attachmentTypes: {
+            ...state.attachments.attachmentTypes,
+            ...action.payload
+          } } }
 
     case types.PINFO_EVENT_SET_ATTACHMENTS:
       return {
         ...state,
-        form: {
-          ...state.form,
-          attachments: {
-            ...state.form.attachments,
-            attachments: action.payload
-          } } }
+        attachments: {
+          ...state.attachments,
+          attachments: action.payload
+        } }
 
     case types.PINFO_NEW:
 

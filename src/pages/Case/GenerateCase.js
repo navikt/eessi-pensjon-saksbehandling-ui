@@ -98,7 +98,7 @@ class GenerateCase extends Component {
       location={location}>
       { !dataToGenerate ? <div className='w-100 text-center'>
         <Nav.NavFrontendSpinner />
-        <p>{t('case:loading-generatingCase')}</p>
+        <p className='typo-normal'>{t('case:loading-generatingCase')}</p>
       </div>
         : <React.Fragment>
           <div className='fieldset animate'>
