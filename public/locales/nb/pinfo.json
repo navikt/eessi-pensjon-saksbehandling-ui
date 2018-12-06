@@ -38,7 +38,7 @@
     "stayAbroad-category-daily"     : "Dagpenger",
     "stayAbroad-category-sick"      : "Sykepenger",
     "stayAbroad-category-other"     : "Annet",
-
+    "stayAbroad-period" : "Periode",
     "stayAbroad-period-title" : "Periode/Tidsrom",
     "stayAbroad-period-start-date" : "Startdato",
     "stayAbroad-period-end-date" : "Sluttdato",
@@ -56,7 +56,8 @@
     "stayAbroad-child-birthdate" : "Fødselsdato",
     "stayAbroad-learn-title" : "Informasjon om utdanningsinstitusjon",
     "stayAbroad-learn-institution" : "Navn på utdanningsinstitusjon",
-    "stayAbroad-attachment-title" : "Attachments",
+    "stayAbroad-attachments" : "Vedlegg",
+    "stayAbroad-attachment-title" : "Vedlegg",
 
     "work-title" : "Dagens arbeids- og inntekstssituasjon",
     "work-type": "Ansettelsesforhold",

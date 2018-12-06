@@ -1,6 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
+import moment from 'moment'
 
 import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.min.css'
@@ -10,6 +11,7 @@ import FileUpload from '../../ui/FileUpload/FileUpload'
 
 import { stayAbroadValidation } from '../Validation/singleTests'
 import * as Nav from '../../ui/Nav'
+import Icons from '../../ui/Icons'
 
 class Period extends React.Component {
   state = {
@@ -78,7 +80,7 @@ class Period extends React.Component {
     setStayAbroad(newPeriods)
     this.setState({
       error: {},
-      period: {}
+      _period: {}
     })
   }
 
@@ -105,7 +107,7 @@ class Period extends React.Component {
       setStayAbroad(newPeriods)
       this.setState({
         error: {},
-        period: {}
+        _period: {}
       })
     }
   }
@@ -128,13 +130,33 @@ class Period extends React.Component {
 
     switch (mode) {
       case 'view':
-        return <Nav.Row style={{ alignItems: 'baseline', padding: '2px' }}>
-          <div className='col-md-4'>
-            {period.id}
+        return <Nav.Row style={{ alignItems: 'baseline' }}>
+          <div className='col-md-6'>
+            <div id={period.id} style={{display: 'flex', borderLeft: '1px solid black', marginLeft: '16px'}}>
+              <div className='mr-4' style={{minWidth: '32px', marginLeft: '-16px',
+                display: 'flex', flexDirection: 'column',
+                alignItems: 'center', justifyContent: 'center'
+                }}>
+                <Icons kind={'nav-' + period.type} />
+              </div>
+              <div className='pt-2 pb-2'>
+                <span style={{fontWeight: 'bold'}}>{t('pinfo:stayAbroad-category-' + period.type)}</span>
+                <br/>
+                <span>{t('pinfo:stayAbroad-period')}{': '}
+                  {moment(period.startDate).format('DD.MM.YYYY')}{' - '}
+                  {period.endDate ? moment(period.endDate).format('DD.MM.YYYY') : null}
+                </span>
+                <br/>
+                {period.attachments && !_.isEmpty(period.attachments) ? <span>
+                  {t('pinfo:stayAbroad-attachments')}{': '}
+                  {period.attachments.map(att => { return att.name}).join(', ')}
+                </span> : null}
+              </div>
+            </div>
           </div>
-          <div className='col-md-4'>
-            <Nav.Knapp style={{ display: 'flex', alignItems: 'center' }} onClick={this.requestEditPeriod.bind(this, period)} mini>
-              {t('ui:edit')}
+          <div className='col-md-4' style={{display: 'flex'}}>
+            <Nav.Knapp className='mr-3' style={{ display: 'flex', alignItems: 'center' }} onClick={this.requestEditPeriod.bind(this, period)}>
+              {t('ui:change')}
             </Nav.Knapp>
             <Nav.Knapp style={{ display: 'flex', alignItems: 'center' }} onClick={this.removePeriod.bind(this, period)} mini>
               <span className='mr-2' style={{ fontSize: '1.5rem' }}>×</span>
@@ -305,7 +327,7 @@ class Period extends React.Component {
           </Nav.Row>
           <Nav.Row>
             <div className='mt-4 mb-4 col-md-12'>
-              <Nav.Knapp style={{ display: 'flex', alignItems: 'center' }} onClick={this.addPeriod.bind(this)} mini>
+              <Nav.Knapp style={{ display: 'flex', alignItems: 'center' }} onClick={this.addPeriod.bind(this)}>
                 {t('ui:savePeriod')}
               </Nav.Knapp>
             </div>

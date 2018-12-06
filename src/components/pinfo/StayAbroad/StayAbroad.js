@@ -38,7 +38,7 @@ class StayAbroad extends React.Component {
 
     return <div>
       <h2 className='typo-undertittel ml-0 mb-4 appDescription'>{t('pinfo:stayAbroad-title')}</h2>
-      {!_.isEmpty(stayAbroad) ? <h3 className='typo-normal'>{t('pinfo:stayAbroad-previousPeriods')}</h3> : null}
+      {!_.isEmpty(stayAbroad) ? <h3 className='typo-undertittel mb-3'>{t('pinfo:stayAbroad-previousPeriods')}</h3> : null}
       {stayAbroad.map(period => {
         return <Period t={t}
           mode='view'

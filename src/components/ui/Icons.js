@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
 
+import * as books from '../../resources/images/filled-version-books-library.svg'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as icons from '@fortawesome/free-solid-svg-icons'
 
@@ -19,6 +21,17 @@ class Icons extends Component {
       case 'daily' : return <FontAwesomeIcon icon={icons.faMoneyBillWave} {...this.props} />
       case 'sick' : return <FontAwesomeIcon icon={icons.faHSquare} {...this.props} />
       case 'other' : return <FontAwesomeIcon icon={icons.faCalendar} {...this.props} />
+
+      case 'nav-work' : return <div {...this.props}><img className='logo' src={books}/></div>
+      case 'nav-home' : return <div {...this.props}><img className='logo' src={books}/></div>
+      case 'nav-child' : return <div {...this.props}><img className='logo' src={books}/></div>
+      case 'nav-voluntary' : return <div {...this.props}><img className='logo' src={books}/></div>
+      case 'nav-military' : return <div {...this.props}><img className='logo' src={books}/></div>
+      case 'nav-birth' : return <div {...this.props}><img className='logo' src={books}/></div>
+      case 'nav-learn' : return <div {...this.props}><img className='logo' src={books}/></div>
+      case 'nav-daily' : return <div {...this.props}><img className='logo' src={books}/></div>
+      case 'nav-sick' : return <div {...this.props}><img className='logo' src={books}/></div>
+      case 'nav-other' : return <div {...this.props}><img className='logo' src={books}/></div>
 
       case 'document' : return <FontAwesomeIcon icon={icons.faFile} {...this.props} />
       case 'view' : return <FontAwesomeIcon icon={icons.faEye} {...this.props} />

@@ -38,6 +38,7 @@
     "stayAbroad-category-daily"     : "Daily",
     "stayAbroad-category-sick"      : "Sick",
     "stayAbroad-category-other"     : "Other",
+    "stayAbroad-period" : "Period",
     "stayAbroad-period-title" : "Period/Interval",
     "stayAbroad-period-start-date" : "Start date",
     "stayAbroad-period-end-date" : "End date",
@@ -55,6 +56,7 @@
     "stayAbroad-child-birthdate" : "Birthdate",
     "stayAbroad-learn-title" : "Learning institution",
     "stayAbroad-learn-institution" : "Learning institution name",
+    "stayAbroad-attachments" : "Attachments",
     "stayAbroad-attachment-title" : "Attachments",
 
     "work-title" : "Current Work and income status",
