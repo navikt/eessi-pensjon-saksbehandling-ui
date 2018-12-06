@@ -2,6 +2,7 @@ import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import moment from 'moment'
+import classNames from 'classnames'
 
 import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.min.css'
@@ -12,6 +13,8 @@ import FileUpload from '../../ui/FileUpload/FileUpload'
 import { stayAbroadValidation } from '../Validation/singleTests'
 import * as Nav from '../../ui/Nav'
 import Icons from '../../ui/Icons'
+
+import './Period.css'
 
 class Period extends React.Component {
   state = {
@@ -99,7 +102,7 @@ class Period extends React.Component {
     let newPeriod = _.clone(_period)
     newPeriod.id = new Date().getTime()
 
-    let index = _.find(periods, { id: _period.id })
+    let index = _.findIndex(periods, { id: _period.id })
 
     if (index >= 0) {
       newPeriods.splice(index, 1)
@@ -115,7 +118,7 @@ class Period extends React.Component {
   removePeriod (period) {
     const { periods, setStayAbroad } = this.props
 
-    let index = _.find(periods, { id: period.id })
+    let index = _.findIndex(periods, { id: period.id })
 
     if (index >= 0) {
       let newPeriods = _.clone(periods)
@@ -125,40 +128,37 @@ class Period extends React.Component {
   }
 
   render () {
-    const { value, t, mode, period, editPeriod, locale } = this.props
+    const { value, t, mode, period, editPeriod, locale, current } = this.props
     const { error, _period } = this.state
 
     switch (mode) {
       case 'view':
-        return <Nav.Row style={{ alignItems: 'baseline' }}>
+        return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode, {'current': current})}>
           <div className='col-md-6'>
-            <div id={period.id} style={{display: 'flex', borderLeft: '1px solid black', marginLeft: '16px'}}>
-              <div className='mr-4' style={{minWidth: '32px', marginLeft: '-16px',
-                display: 'flex', flexDirection: 'column',
-                alignItems: 'center', justifyContent: 'center'
-                }}>
+            <div id={period.id} className='existingPeriod'>
+              <div className='icon mr-4'>
                 <Icons kind={'nav-' + period.type} />
               </div>
-              <div className='pt-2 pb-2'>
-                <span style={{fontWeight: 'bold'}}>{t('pinfo:stayAbroad-category-' + period.type)}</span>
+              <div className='pt-2 pb-2 existingPeriodDescription'>
+                <span className='bold existingPeriodType'>{t('pinfo:stayAbroad-category-' + period.type)}</span>
                 <br/>
-                <span>{t('pinfo:stayAbroad-period')}{': '}
+                <span className='existingPeriodDates'>{t('pinfo:stayAbroad-period')}{': '}
                   {moment(period.startDate).format('DD.MM.YYYY')}{' - '}
-                  {period.endDate ? moment(period.endDate).format('DD.MM.YYYY') : null}
+                  {period.endDate ? moment(period.endDate).format('DD.MM.YYYY') : t('ui:unknown')}
                 </span>
                 <br/>
-                {period.attachments && !_.isEmpty(period.attachments) ? <span>
+                {period.attachments && !_.isEmpty(period.attachments) ? <span className='existingPeriodAttachments'>
                   {t('pinfo:stayAbroad-attachments')}{': '}
                   {period.attachments.map(att => { return att.name}).join(', ')}
                 </span> : null}
               </div>
             </div>
           </div>
-          <div className='col-md-4' style={{display: 'flex'}}>
-            <Nav.Knapp className='mr-3' style={{ display: 'flex', alignItems: 'center' }} onClick={this.requestEditPeriod.bind(this, period)}>
+          <div className='col-md-4 existingPeriodButtons'>
+            <Nav.Knapp className='mr-3 existingPeriodButton' onClick={this.requestEditPeriod.bind(this, period)}>
               {t('ui:change')}
             </Nav.Knapp>
-            <Nav.Knapp style={{ display: 'flex', alignItems: 'center' }} onClick={this.removePeriod.bind(this, period)} mini>
+            <Nav.Knapp className='existingPeriodButton' onClick={this.removePeriod.bind(this, period)} mini>
               <span className='mr-2' style={{ fontSize: '1.5rem' }}>×</span>
               {t('ui:remove')}
             </Nav.Knapp>
@@ -168,7 +168,7 @@ class Period extends React.Component {
       case 'edit':
       case 'new':
         return <React.Fragment>
-          <Nav.Row style={{ alignItems: 'baseline', padding: '2px' }}>
+          <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode)}>
             <div className='col-md-4'>
               <Nav.Select label={t('pinfo:stayAbroad-category')}
                 value={_period.type || ''}
@@ -327,9 +327,12 @@ class Period extends React.Component {
           </Nav.Row>
           <Nav.Row>
             <div className='mt-4 mb-4 col-md-12'>
-              <Nav.Knapp style={{ display: 'flex', alignItems: 'center' }} onClick={this.addPeriod.bind(this)}>
+              {mode === 'edit' ? <Nav.Knapp className='editPeriodButton' onClick={this.saveEditPeriod.bind(this)}>
+                {t('ui:changePeriod')}
+              </Nav.Knapp> : null}
+              {mode === 'new' ? <Nav.Knapp className='addPeriodButton' onClick={this.addPeriod.bind(this)}>
                 {t('ui:savePeriod')}
-              </Nav.Knapp>
+              </Nav.Knapp> : null}
             </div>
           </Nav.Row>
         </React.Fragment> : null}
