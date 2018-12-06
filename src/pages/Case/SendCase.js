@@ -30,14 +30,6 @@ class SendCase extends Component {
 
       if (!dataSent) {
         history.push(routes.CASE_START)
-      } else {
-        actions.addToBreadcrumbs([{
-          url: routes.CASE,
-          label: 'case:app-caseTitle'
-        }, {
-          url: routes.CASE_SEND,
-          label: 'case:app-sendCaseTitle'
-        }])
       }
     }
 

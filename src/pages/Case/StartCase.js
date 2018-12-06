@@ -77,14 +77,6 @@ class StartCase extends Component {
     async componentDidMount () {
       const { actions, currentCase, dataToConfirm, sakId, aktoerId, fnr, rinaId } = this.props
 
-      actions.addToBreadcrumbs([{
-        url: routes.CASE,
-        label: 'case:app-caseTitle'
-      }, {
-        url: routes.CASE_START,
-        label: 'case:app-startCaseTitle'
-      }])
-
       if (_.isEmpty(currentCase) && sakId && (aktoerId || fnr)) {
         actions.getCaseFromCaseNumber({
           sakId: sakId,

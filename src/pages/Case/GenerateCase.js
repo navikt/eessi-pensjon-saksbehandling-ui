@@ -31,14 +31,6 @@ class GenerateCase extends Component {
 
     if (!dataToGenerate) {
       history.push(routes.CASE_START)
-    } else {
-      actions.addToBreadcrumbs([{
-        url: routes.CASE,
-        label: 'case:app-caseTitle'
-      }, {
-        url: routes.CASE_GENERATE,
-        label: 'case:app-generateCaseTitle'
-      }])
     }
 
     if (dataSaved) {

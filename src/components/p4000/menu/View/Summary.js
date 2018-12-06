@@ -41,14 +41,6 @@ class Summary extends Component {
       return
     }
 
-    actions.addToBreadcrumbs([{
-      url: routes.P4000,
-      label: 'p4000:app'
-    }, {
-      url: routes.P4000 + '/summary',
-      label: 'p4000:file-summary'
-    }])
-
     window.scrollTo(0, 0)
   }
 

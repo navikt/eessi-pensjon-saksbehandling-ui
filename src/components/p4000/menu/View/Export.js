@@ -60,14 +60,6 @@ class Export extends Component {
       return
     }
 
-    actions.addToBreadcrumbs([{
-      url: routes.P4000,
-      label: 'p4000:app'
-    }, {
-      url: routes.P4000 + '/export',
-      label: 'p4000:file-export'
-    }])
-
     window.scrollTo(0, 0)
   }
 

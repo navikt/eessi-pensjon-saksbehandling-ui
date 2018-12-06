@@ -49,13 +49,6 @@ class _Timeline extends Component {
         history.replace(routes.P4000)
         return
       }
-      actions.addToBreadcrumbs([{
-        url: routes.P4000,
-        label: 'p4000:app'
-      }, {
-        url: routes.P4000 + '/timeline',
-        label: 'p4000:file-timeline'
-      }])
       window.scrollTo(0, 0)
     }
 

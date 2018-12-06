@@ -37,14 +37,6 @@ class SelectPDF extends Component {
   componentDidMount () {
     const { actions } = this.props
 
-    actions.addToBreadcrumbs([{
-      url: routes.PDF,
-      label: 'pdf:app-pdfTitle'
-    }, {
-      url: routes.PDF_SELECT,
-      label: 'pdf:app-selectPdfTitle'
-    }])
-
     actions.registerDroppable('selectPdf', this.fileUpload)
   }
 

@@ -69,11 +69,6 @@ class GeneratePDF extends Component {
           watermark: watermark
         })
       }
-
-      actions.replaceLastBreadcrumbWith({
-        url: routes.PDF_GENERATE,
-        label: 'pdf:app-generatePdfTitle'
-      })
     }
 
     onBackButtonClick () {

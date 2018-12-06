@@ -23,33 +23,6 @@ export function closeModal () {
   }
 }
 
-export function addToBreadcrumbs (breadcrumbs) {
-  return {
-    type: types.UI_BREADCRUMBS_ADD,
-    payload: breadcrumbs
-  }
-}
-
-export function replaceLastBreadcrumbWith (breadcrumbs) {
-  return {
-    type: types.UI_BREADCRUMBS_REPLACE,
-    payload: breadcrumbs
-  }
-}
-
-export function trimBreadcrumbsTo (breadcrumb) {
-  return {
-    type: types.UI_BREADCRUMBS_TRIM,
-    payload: breadcrumb
-  }
-}
-
-export function deleteLastBreadcrumb () {
-  return {
-    type: types.UI_BREADCRUMBS_DELETE
-  }
-}
-
 export function toggleDrawerOpen () {
   return {
     type: types.UI_DRAWER_TOGGLE_OPEN

@@ -30,8 +30,7 @@ const mapStateToProps = (state) => {
     language: state.ui.language,
     files: state.pdf.files,
     recipe: state.pdf.recipe,
-    dndTarget: state.pdf.dndTarget,
-    breadcrumbs: state.ui.breadcrumbs
+    dndTarget: state.pdf.dndTarget
   }
 }
 
@@ -50,19 +49,6 @@ class EditPDF extends Component {
       if (_.isEmpty(files)) {
         history.push(routes.PDF_SELECT)
         return
-      }
-
-      // If we have PDF breadcrumbs, replace them; else, add a new one
-      if (_.some(breadcrumbs, (b) => { return otherPdfRoutes.indexOf(b.url) >= 0 })) {
-        actions.replaceLastBreadcrumbWith({
-          url: routes.PDF_EDIT,
-          label: 'pdf:app-editPdfTitle'
-        })
-      } else {
-        actions.addToBreadcrumbs({
-          url: routes.PDF_EDIT,
-          label: 'pdf:app-editPdfTitle'
-        })
       }
     }
 

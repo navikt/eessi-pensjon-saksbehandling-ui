@@ -35,6 +35,7 @@ const mapStateToProps = (state) => {
     referrer: state.app.referrer,
     status: state.status,
     username: state.app.username,
+    userRole: state.app.userRole,
     file: state.storage.file
   }
 }
@@ -59,11 +60,6 @@ class PInfo extends React.Component {
     if (referrer) {
       actions.setReferrer(referrer)
     }
-    actions.addToBreadcrumbs({
-      url: routes.PINFO,
-      ns: 'pinfo',
-      label: 'pinfo:app-title'
-    })
   }
 
   validatePage (step) {

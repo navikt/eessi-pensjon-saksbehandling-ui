@@ -52,12 +52,6 @@ class PSelv extends Component {
           history.push(routes.PSELV)
         }
       })
-
-      actions.addToBreadcrumbs({
-        url: routes.PSELV,
-        ns: 'pselv',
-        label: 'pselv:app-title'
-      })
     }
 
     async onBackButtonClick () {
