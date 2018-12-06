@@ -4,7 +4,7 @@ let initialState = {
   isLoaded: false,
   step: 0,
   validationError: undefined,
-  contact: {},
+  person: {},
   bank: {},
   stayAbroad: [],
   work: {}
@@ -21,11 +21,11 @@ export default function (state = initialState, action = {}) {
         ? JSON.parse(action.payload)
         : state
 
-    case types.PINFO_EVENT_SET_CONTACT:
+    case types.PINFO_EVENT_SET_PERSON:
         return {
           ...state,
-          contact: {
-            ...state.contact,
+          person: {
+            ...state.person,
             ...action.payload
         } }
 

@@ -7,9 +7,9 @@ export function setEventProperty (payload) {
   }
 }
 
-export function setContact (payload) {
+export function setPerson (payload) {
   return {
-    type: types.PINFO_EVENT_SET_CONTACT,
+    type: types.PINFO_EVENT_SET_PERSON,
     payload: payload instanceof Object ? payload : {}
   }
 }

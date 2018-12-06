@@ -27,41 +27,66 @@ const mapDispatchToProps = (dispatch) => {
 class Confirm extends React.Component {
   render () {
     const { t, locale, actions } = this.props
-    const { contact, bank, work, attachments, pension, onSave } = this.props.pinfo
+    const { person, bank, work, attachments, pension, onSave } = this.props.pinfo
 
     return (
       <div>
         <Nav.Row>
           <Nav.Column xs='12'>
-            <Veilederpanel>
+            <Veilederpanel className='mb-4'>
               <p>Bork bork bork bork!</p>
             </Veilederpanel>
           </Nav.Column>
         </Nav.Row>
         <Nav.Row>
           <Nav.Column xs='12'>
-            <h2 className='typo-Innholdstittel ml-0 mt-4 mb-2 appDescription'>{t('pinfo:Undertittel')}</h2>
+            <h2 className='typo-Innholdstittel ml-0 mb-4 appDescription'>{t('pinfo:Undertittel')}</h2>
           </Nav.Column>
         </Nav.Row>
         <Nav.Row>
           <Nav.Column xs='12'>
-            <h3 className='typo-undertittel mt-2 mb-2'>{t('pinfo:Kontaktinformasjon')}</h3>
+            <h3 className='typo-undertittel mb-4'>{t('pinfo:person-title')}</h3>
           </Nav.Column>
         </Nav.Row>
+
         <Nav.Row>
           <Nav.Column md='4' sm='6' xs='12'>
             <Nav.Input
-              label={t('pinfo:contact-phoneNumber')}
-              value={contact.phone || ''}
-              onChange={e => actions.setContact({ phone: e.target.value })}
+              label={t('pinfo:person-lastNameAfterBirth')}
+              value={person.phone || ''}
+              onChange={e => actions.setPerson({ phone: e.target.value })}
+              type='text'
+            />
+          </Nav.Column>
+        </Nav.Row>
+
+
+        <Nav.Row>
+          <Nav.Column md='4' sm='6' xs='12'>
+            <Nav.Input
+              label={t('pinfo:person-name')}
+              value={person.phone || ''}
+              onChange={e => actions.setPerson({ phone: e.target.value })}
+              type='text'
+            />
+          </Nav.Column>
+        </Nav.Row>
+
+
+        <Nav.Row>
+          <Nav.Column md='4' sm='6' xs='12'>
+            <Nav.Input
+              label={t('pinfo:person-phoneNumber')}
+              value={person.phone || ''}
+              onChange={e => actions.setPerson({ phone: e.target.value })}
               type='tel'
             />
           </Nav.Column>
           <Nav.Column md='4' sm='6' xs='12'>
             <Nav.Input
-              label={t('pinfo:contact-email')}
-              value={contact.phone || ''}
-              onChange={e => actions.setContact({ phone: e.target.value })}
+              label={t('pinfo:person-email')}
+              value={person.email || ''}
+              onChange={e => actions.setPerson({ email: e.target.value })}
               type='email'
             />
           </Nav.Column>

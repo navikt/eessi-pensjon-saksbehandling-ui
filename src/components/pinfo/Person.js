@@ -5,16 +5,17 @@ import { bindActionCreators } from 'redux'
 import { withNamespaces } from 'react-i18next'
 
 import * as Nav from '../ui/Nav'
+import Veilederpanel from '../ui/Panel/VeilederPanel'
 
 import * as pinfoActions from '../../actions/pinfo'
 
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
-    phone: state.pinfo.contact.phone,
-    email: state.pinfo.contact.email,
-    previousName: state.pinfo.contact.previousName,
-    nameAtBirth: state.pinfo.contact.nameAtBirth
+    phone: state.pinfo.person.phone,
+    email: state.pinfo.person.email,
+    previousName: state.pinfo.person.previousName,
+    nameAtBirth: state.pinfo.person.nameAtBirth
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -30,43 +31,50 @@ class Person extends React.Component {
     const { t, phone, email, previousName, nameAtBirth, actions } = this.props
 
     return <div>
-      <h2 className='typo-undertittel ml-0 mb-4 appDescription'>{t('pinfo:contact-title')}</h2>
-      <Nav.Row style={{ alignItems: 'baseline', padding: '2px' }}>
-        <div className='col-xs-6'>
+      <Nav.Row>
+        <Nav.Column xs='12'>
+          <Veilederpanel className= 'mb-4'>
+            <p>Bork bork bork bork!</p>
+          </Veilederpanel>
+        </Nav.Column>
+      </Nav.Row>
+      <h2 className='typo-undertittel ml-0 mb-4 appDescription'>{t('pinfo:person-title')}</h2>
+      <Nav.Row className='mt-3' style={{ alignItems: 'baseline', padding: '2px' }}>
+        <div className='col-sm-9'>
           <Nav.Input
-            label={t('pinfo:contact-lastNameAtbirth')}
+            label={t('pinfo:person-lastNameAfterBirth')}
             value={nameAtBirth || ''}
-            onChange={e=>actions.setContact({nameAtBirth: e.target.value})}
+            onChange={e=>actions.setPerson({nameAtBirth: e.target.value})}
             type='text'
           />
         </div>
       </Nav.Row>
       <Nav.Row style={{ alignItems: 'baseline', padding: '2px' }}>
-        <div className='col-xs-6'>
+        <div className='col-sm-9'>
           <Nav.Input
-            label={t('pinfo:contact-previousName')}
+            label={t('pinfo:person-name')}
             value={previousName || ''}
-            onChange={e=>actions.setContact({previousName: e.target.value})}
+            onChange={e=>actions.setPerson({previousName: e.target.value})}
             type='text'
           />
         </div>
       </Nav.Row>
       <Nav.Row style={{ alignItems: 'baseline', padding: '2px' }}>
-        <div className='col-md-2'>
+        <div className='col-sm-4'>
           <Nav.Input
-            label={t('pinfo:contact-phoneNumber')}
+            label={t('pinfo:person-phoneNumber')}
             value={phone || ''}
-            onChange={e=>actions.setContact({phone: e.target.value})}
+            onChange={e=>actions.setPerson({phone: e.target.value})}
             type='tel'
           />
         </div>
       </Nav.Row>
       <Nav.Row style={{ alignItems: 'baseline', padding: '2px' }}>
-        <div className='col-md-4'>
+        <div className='col-sm-6'>
           <Nav.Input
-            label={t('pinfo:contact-email')}
+            label={t('pinfo:person-email')}
             value={email || ''}
-            onChange={e=>actions.setContact({email: e.target.value})}
+            onChange={e=>actions.setPerson({email: e.target.value})}
             type='email'
           />
         </div>
