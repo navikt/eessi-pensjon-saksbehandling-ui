@@ -6,6 +6,7 @@ import { withNamespaces } from 'react-i18next'
 
 import * as Nav from '../ui/Nav'
 import Veilederpanel from '../ui/Panel/VeilederPanel'
+import { personValidation } from './Validation/singleTests'
 
 import * as pinfoActions from '../../actions/pinfo'
 
@@ -24,11 +25,35 @@ const mapDispatchToProps = (dispatch) => {
 
 class Person extends React.Component {
   state = {
-    error: undefined
+    error: {}
+  }
+
+  constructor(props){
+    super(props)
+    this.setNameAtBirth = this.eventSetProperty.bind(this, 'nameAtBirth', personValidation.nameAtBirth)
+    this.setPreviousName = this.eventSetProperty.bind(this, 'previousName', personValidation.previousName)
+    this.setPhone = this.eventSetProperty.bind(this, 'phone', personValidation.phone)
+    this.setEmail = this.eventSetProperty.bind(this, 'email', personValidation.email)
+  }
+
+  eventSetProperty (key, validateFunction, event) {
+    this.valueSetProperty(key, validateFunction, event.target.value)
+  }
+
+  valueSetProperty (key, validateFunction, value) {
+    const { actions } = this.props
+    actions.setPerson({ [key]: value })
+    this.setState({
+      error: {
+        ...this.state.error,
+        [key]: validateFunction(value)
+      }
+    })
   }
 
   render () {
-    const { t, phone, email, previousName, nameAtBirth, actions } = this.props
+    const { pageError, t, phone, email, previousName, nameAtBirth, actions } = this.props
+    const { error } = this.state
 
     return <div>
       <Nav.Row>
@@ -44,7 +69,8 @@ class Person extends React.Component {
           <Nav.Input
             label={t('pinfo:person-lastNameAfterBirth')}
             value={nameAtBirth || ''}
-            onChange={e=>actions.setPerson({nameAtBirth: e.target.value})}
+            onChange={this.setNameAtBirth}
+            feil={error.nameAtBirth&&pageError ? { feilmelding: t(error.nameAtBirth) } : null}
             type='text'
           />
         </div>
@@ -54,7 +80,8 @@ class Person extends React.Component {
           <Nav.Input
             label={t('pinfo:person-name')}
             value={previousName || ''}
-            onChange={e=>actions.setPerson({previousName: e.target.value})}
+            onChange={this.setPreviousName}
+            feil={error.previousName&&pageError ? { feilmelding: t(error.previousName) } : null}
             type='text'
           />
         </div>
@@ -64,7 +91,8 @@ class Person extends React.Component {
           <Nav.Input
             label={t('pinfo:person-phoneNumber')}
             value={phone || ''}
-            onChange={e=>actions.setPerson({phone: e.target.value})}
+            onChange={this.setPhone}
+            feil={error.phone&&pageError ? { feilmelding: t(error.phone) } : null}
             type='tel'
           />
         </div>
@@ -74,7 +102,8 @@ class Person extends React.Component {
           <Nav.Input
             label={t('pinfo:person-email')}
             value={email || ''}
-            onChange={e=>actions.setPerson({email: e.target.value})}
+            onChange={this.setEmail}
+            feil={error.email&&pageError ? { feilmelding: t(error.email) } : null}
             type='email'
           />
         </div>

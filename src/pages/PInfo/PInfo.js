@@ -137,11 +137,11 @@ class PInfo extends React.Component {
       {error ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(error)}</Nav.AlertStripe> : null}
 
       <div className={classNames('fieldset animate', 'mb-4')}>
-        {step === 0 ? <Person /> : null}
-        {step === 1 ? <Bank /> : null}
-        {step === 2 ? <StayAbroad /> : null}
-        {step === 3 ? <Confirm t={t} onSave={this.onSaveButtonClick.bind(this)} /> : null}
-        {step === 4 ? <Receipt /> : null}
+        {step === 0 ? <Person pageError={this.state.error}/> : null}
+        {step === 1 ? <Bank pageError={this.state.error}/> : null}
+        {step === 2 ? <StayAbroad pageError={this.state.error}/> : null}
+        {step === 3 ? <Confirm t={t} onSave={this.onSaveButtonClick.bind(this)} pageError={this.state.error} /> : null}
+        {step === 4 ? <Receipt pageError={this.state.error} /> : null}
       </div>
       <div className='mb-4'>
         {step < 4 ? <Nav.Hovedknapp
