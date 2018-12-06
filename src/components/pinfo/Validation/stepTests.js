@@ -28,3 +28,5 @@ export function workStep (work) {
          tests.workValidation.workPaymentFrequency(work.workPaymentFrequency) ||
   ''
 }
+
+export function p4000Step(p4000) { return '' }

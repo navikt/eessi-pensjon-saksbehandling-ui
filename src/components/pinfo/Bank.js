@@ -62,7 +62,7 @@ class Bank extends React.Component {
             />
           </div>
           <div className='col-md-6'>
-            <label>{t('pinfo:bank-country')}</label>
+            <label className='skjemaelement__label'>{t('pinfo:bank-country')}</label>
             <CountrySelect locale={locale}
               value={bank.bankCountry || null}
               onSelect={this.setBankCountry}

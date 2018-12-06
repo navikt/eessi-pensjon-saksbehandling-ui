@@ -5,10 +5,7 @@ let initialState = {
   step: 0,
   maxstep: 6,
   validationError: undefined,
-  contact: {
-    phones: [],
-    emails: []
-  },
+  contact: {},
   attachments: {},
   bank: {},
   work: {},
@@ -26,21 +23,12 @@ export default function (state = initialState, action = {}) {
         ? JSON.parse(action.payload)
         : state
 
-    case types.PINFO_EVENT_SET_PHONES:
-
-      return {
-        ...state,
-        contact: {
-          ...state.contact,
-          phones: action.payload
-        } }
-
-    case types.PINFO_EVENT_SET_EMAILS:
-      return {
-        ...state,
-        contact: {
-          ...state.contact,
-          emails: action.payload
+    case types.PINFO_EVENT_SET_CONTACT:
+        return {
+          ...state,
+          contact: {
+            ...state.contact,
+            ...action.payload
         } }
 
     case types.PINFO_EVENT_SET_WORK:

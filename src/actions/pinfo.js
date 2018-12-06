@@ -7,17 +7,10 @@ export function setEventProperty (payload) {
   }
 }
 
-export function setPhones (phones) {
+export function setContact (payload) {
   return {
-    type: types.PINFO_EVENT_SET_PHONES,
-    payload: phones
-  }
-}
-
-export function setEmails (emails) {
-  return {
-    type: types.PINFO_EVENT_SET_EMAILS,
-    payload: emails
+    type: types.PINFO_EVENT_SET_CONTACT,
+    payload: payload instanceof Object ? payload : {}
   }
 }
 

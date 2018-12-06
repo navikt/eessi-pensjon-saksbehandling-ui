@@ -14,6 +14,11 @@ export function emailAddress (email) {
       : ''
 }
 
+export function previousName (name) {
+  return !name ? 'pinfo:validation-noUserPreviousName'
+    : ''
+}
+
 export function noValidPhone (phones) {
   return !phones || (Array.isArray(phones) && phones.length === 0)
     ? 'pinfo:validation-noPhones' : ''
@@ -28,7 +33,8 @@ export const contactValidation = {
   phoneNumber,
   noValidPhone,
   emailAddress,
-  noValidEmail
+  noValidEmail,
+  previousName
 }
 // BANK
 

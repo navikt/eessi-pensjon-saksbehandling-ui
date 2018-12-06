@@ -1,10 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import moment from 'moment'
 import { withNamespaces } from 'react-i18next'
 
+import * as pinfoActions from '../../actions/pinfo'
 import File from '../../components/ui/File/File'
 import * as Nav from '../ui/Nav'
+import Veilederpanel from '../ui/Panel/VeilederPanel'
+import CountrySelect from '../ui/CountrySelect/CountrySelect'
 
 const mapStateToProps = (state) => {
   return {
@@ -16,116 +20,113 @@ const mapStateToProps = (state) => {
     file: state.storage.file
   }
 }
+const mapDispatchToProps = (dispatch) => {
+  return { actions: bindActionCreators(Object.assign({}, pinfoActions), dispatch) }
+}
 
 class Summary extends React.Component {
   render () {
-    const { t } = this.props
+    const { t, locale, actions } = this.props
     const { contact, bank, work, attachments, pension, onSave } = this.props.pinfo
 
-    return <React.Fragment>
+    return (
       <div>
-        <fieldset>
-          <legend>{t('pinfo:contact-title')}</legend>
-          <div className='col-xs-12'>
-            <dl className='row'>
-              <dt className='col-sm-4'><label>{t('pinfo:contact-phoneNumber')}</label></dt>
-              <div className='col-sm-8'>
-                {contact.phones.join(', ')}
-              </div>
-              <dt className='col-sm-4'><label>{t('pinfo:contact-email')}</label></dt>
-              <div className='col-sm-8'>
-                {contact.emails.join(', ')}
-              </div>
-            </dl>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>{t('pinfo:bank-title')}</legend>
-          <div className='col-xs-12'>
-            <dl className='row'>
-              <dt className='col-sm-4'><label>{t('pinfo:bank-name')}</label></dt>
-              <dd className='col-sm-8'>{bank.bankName}</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:bank-address')}</label></dt>
-              <dd className='col-sm-8'><pre>{bank.bankAddress}</pre></dd>
-              <dt className='col-sm-4'><label>{t('pinfo:bank-country')}</label></dt>
-              <dd className='col-sm-8'>
-                <img src={'../../../../../flags/' + bank.bankCountry.value + '.png'}
-                  style={{ width: 30, height: 20 }}
-                  alt={bank.bankCountry.label} />&nbsp; {bank.bankCountry.label}/>
-              </dd>
-              <dt className='col-sm-4'><label>{t('pinfo:bank-bicSwift')}</label></dt>
-              <dd className='col-sm-8'>{bank.bankBicSwift}</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:bank-iban')}</label></dt>
-              <dd className='col-sm-8'>{bank.bankIban}</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:bank-code')}</label></dt>
-              <dd className='col-sm-8'>{bank.bankCode}</dd>
-            </dl>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>{t('pinfo:work-title')}</legend>
-          <div className='col-xs-12'>
-            <dl className='row'>
-              <dt className='col-sm-4'><label>{t('pinfo:work-type')}</label></dt>
-              <dd className='col-sm-8'>{work.workType ? t('pinfo:work-type-option-' + work.workType) : null}</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:work-start-date')}</label></dt>
-              <dd className='col-sm-8'>{work.workStartDate ? moment(work.workStartDate).format('DD MM YYYY') : null}</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:work-end-date')}</label></dt>
-              <dd className='col-sm-8'>{work.workEndDate ? moment(work.workEndDate).format('DD MM YYYY') : null}</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:work-estimated-retirement-date')}</label></dt>
-              <dd className='col-sm-8'>{work.workEstimatedRetirementDate ? moment(work.workEstimatedRetirementDate).format('DD MM YYYY') : null}</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:work-hour-per-week')}</label></dt>
-              <dd className='col-sm-8'>{work.workHourPerWeek}</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:work-income')}</label></dt>
-              <dd className='col-sm-8'>{work.workIncome}{' '}{work.workIncomeCurrency.currency}</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:work-payment-date')}</label></dt>
-              <dd className='col-sm-8'>{work.workPaymentDate ? moment(work.workPaymentDate).format('DD MM YYYY') : null}</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:work-payment-frequency')}</label></dt>
-              <dd className='col-sm-8'>{work.workPaymentFrequency ? t('pinfo:work-payment-frequency-option-' + work.workPaymentFrequency) : null}</dd>
-            </dl>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>{t('pinfo:attachments-title')}</legend>
-          <div className='col-xs-12'>
-            <dl className='row'>
-              <dt className='col-sm-4'><label>{t('pinfo:attachment-types')}</label></dt>
-              <dd className='col-sm-8'>{
-                Object.entries(attachments.attachmentTypes ? attachments.attachmentTypes : {})
-                  .filter(KV => KV[1])
-                  .map(type => { return t('pinfo:attachments-types-' + type[0]) }).join(', ')
-              }</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:attachments')}</label></dt>
-              <dd className='col-sm-8'>{
-                attachments.attachments ? attachments.attachments.map((file, i) => {
-                  return <File className='mr-2' key={i} file={file} deleteLink={false} downloadLink={false} />
-                }) : null }
-              </dd>
-            </dl>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>{t('pinfo:pension-title')}</legend>
-          <div className='col-xs-12'>
-            <dl className='row'>
-              <dt className='col-sm-4'><label>{t('pinfo:pension-country')}</label></dt>
-              <dd className='col-sm-8'><img src={'../../../../../flags/' + pension.retirementCountry.value + '.png'}
-                style={{ width: 30, height: 20 }}
-                alt={pension.retirementCountry.label} />&nbsp; {pension.retirementCountry.label}
-              </dd>
-            </dl>
-          </div>
-        </fieldset>
+        <Nav.Row>
+          <Nav.Column xs='12'>
+            <Veilederpanel>
+              <p>Bork bork bork bork!</p>
+            </Veilederpanel>
+          </Nav.Column>
+        </Nav.Row>
+        <Nav.Row>
+          <Nav.Column xs='12'>
+            <h2 className='typo-Innholdstittel ml-0 mt-4 mb-2 appDescription'>{t('pinfo:Undertittel')}</h2>
+          </Nav.Column>
+        </Nav.Row>
+        <Nav.Row>
+          <Nav.Column xs='12'>
+            <h3 className='typo-undertittel mt-2 mb-2'>{t('pinfo:Kontaktinformasjon')}</h3>
+          </Nav.Column>
+        </Nav.Row>
+        <Nav.Row>
+          <Nav.Column md='4' sm='6' xs='12'>
+            <Nav.Input
+              label={t('pinfo:contact-phoneNumber')}
+              value={contact.phone || ''}
+              onChange={e => actions.setContact({ phone: e.target.value })}
+              type='tel'
+            />
+          </Nav.Column>
+          <Nav.Column md='4' sm='6' xs='12'>
+            <Nav.Input
+              label={t('pinfo:contact-email')}
+              value={contact.phone || ''}
+              onChange={e => actions.setContact({ phone: e.target.value })}
+              type='email'
+            />
+          </Nav.Column>
+        </Nav.Row>
+        <Nav.Row>
+          <Nav.Column xs='12'>
+            <h3 className='typo-undertittel mt-2 mb-2'>{t('pinfo:BankInformasjon')}</h3>
+          </Nav.Column>
+        </Nav.Row>
+        <div>
+            <Nav.Row>
+              <Nav.Column md='6'>
+                <Nav.Input label={t('pinfo:bank-name')} value={bank.bankName || ''}
+                //onChange={this.setBankName}
+                //feil={error.bankName ? { feilmelding: t(error.bankName) } : null}
+                />
+              </Nav.Column>
+              <Nav.Column md='6'>
+                <label className='skjemaelement__label'>{t('pinfo:bank-country')}</label>
+                <CountrySelect locale={locale}
+                  value={bank.bankCountry || null}
+                //onSelect={this.setBankCountry}
+                //error={error.bankCountry}
+                //errorMessage={error.bankCountry}
+                />
+              </Nav.Column>
+            </Nav.Row>
+            <Nav.Row>
+              <Nav.Column md='12'>
+                <Nav.Textarea label={t('pinfo:bank-address')} value={bank.bankAddress || ''}
+                  style={{ minHeight: '100px' }}
+                //onChange={this.setBankAddress}
+                //feil={error.bankAddress ? { feilmelding: t(error.bankAddress) } : null}
+                />
+              </Nav.Column>
+            </Nav.Row>
+            <Nav.Row>
+              <Nav.Column md='6'>
+                <Nav.Input label={t('pinfo:bank-bicSwift')} value={bank.bankBicSwift || ''}
+                //onChange={this.setBankBicSwift}
+                //feil={error.bankBicSwift ? { feilmelding: t(error.bankBicSwift) } : null}
+                />
+              </Nav.Column>
+              <Nav.Column md='6'>
+                <Nav.Input label={t('pinfo:bank-iban')}
+                  value={bank.bankIban || ''}
+                //onChange={this.setBankIban}
+                //feil={error.bankIban ? { feilmelding: t(error.bankIban) } : null}
+                />
+              </Nav.Column>
+            </Nav.Row>
+        </div>
+        <Nav.Row>
+          <Nav.Column xs='12'>
+            <h3 className='typo-undertittel mt-2 mb-2'>{t('pinfo:OppholdIUtland')}</h3>
+          </Nav.Column>
+        </Nav.Row>
       </div>
-      <Nav.Row className='mb-4 p-2'>
-        <Nav.Knapp className='backButton m-3' type='hoved' onClick={(e) => { e.preventDefault(); onSave() }}>
-          {t('ui:confirmAndSend')}
-        </Nav.Knapp>
-      </Nav.Row>
-    </React.Fragment>
+    )
   }
 }
 
 export default connect(
-  mapStateToProps
-)(withNamespaces(Summary))
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  withNamespaces()(Summary)
+)

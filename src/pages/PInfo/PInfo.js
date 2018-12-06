@@ -12,7 +12,7 @@ import * as Nav from '../../components/ui/Nav'
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
 import FrontPageDrawer from '../../components/drawer/FrontPage'
 import Bank from '../../components/pinfo/Bank'
-import Contact from '../../components/pinfo/Contact/Contact'
+import Contact from '../../components/pinfo/Contact'
 import P4000 from '../../components/pinfo/P4000/P4000'
 import Receipt from '../../components/pinfo/Receipt'
 import Summary from '../../components/pinfo/Summary'
@@ -46,7 +46,7 @@ const mapDispatchToProps = (dispatch) => {
 
 class PInfo extends React.Component {
   state = {
-    erorr: undefined
+    error: undefined
   }
 
   constructor (props) {
@@ -128,7 +128,7 @@ class PInfo extends React.Component {
         visLabel
         onChange={(e) => actions.setEventProperty({ step: e })}
         autoResponsiv
-        steg={_.range(0, 8).map(index => ({
+        steg={_.range(0, 6).map(index => ({
           label: t('pinfo:form-step' + index),
           ferdig: index < step,
           aktiv: index === step
