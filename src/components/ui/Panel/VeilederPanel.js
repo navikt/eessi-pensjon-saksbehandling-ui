@@ -3,22 +3,20 @@ import React, { Component } from 'react'
 import * as Nav from '../Nav'
 
 class VeilederPanel extends Component {
-
   state = {
     hidden: false
   }
 
-  handleClose(e) {
+  handleClose (e) {
     e.preventDefault()
     e.stopPropagation()
 
     this.setState({
-       hidden: true
+      hidden: true
     })
   }
 
   render () {
-
     if (this.state.hidden) {
       return null
     }

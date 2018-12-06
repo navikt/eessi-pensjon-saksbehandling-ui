@@ -23,7 +23,8 @@ class CountryOption extends Component {
         alt={label}
         style={{
           width: 50,
-          height: 30
+          height: 30,
+          marginRight: '0.7rem'
         }}
         onError={selectProps.selectProps.onImageError}
       />

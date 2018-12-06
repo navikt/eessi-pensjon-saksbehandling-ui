@@ -38,6 +38,26 @@
     "stayAbroad-category-daily"     : "Daily",
     "stayAbroad-category-sick"      : "Sick",
     "stayAbroad-category-other"     : "Other",
+    "stayAbroad-period" : "Period",
+    "stayAbroad-period-title" : "Period/Interval",
+    "stayAbroad-period-start-date" : "Start date",
+    "stayAbroad-period-end-date" : "End date",
+    "stayAbroad-country" : "Country",
+    "stayAbroad-work-title" : "Work activity",
+    "stayAbroad-work-activity" : "Write down work activity",
+    "stayAbroad-work-id" : "Insurance / ID number",
+    "stayAbroad-work-name" : "Employer name",
+    "stayAbroad-work-address" : "Employer address",
+    "stayAbroad-work-city" : "City",
+    "stayAbroad-work-region" : "Region",
+    "stayAbroad-child-title" : "Child information",
+    "stayAbroad-child-firstname" : "First name",
+    "stayAbroad-child-lastname" : "Last name",
+    "stayAbroad-child-birthdate" : "Birthdate",
+    "stayAbroad-learn-title" : "Learning institution",
+    "stayAbroad-learn-institution" : "Learning institution name",
+    "stayAbroad-attachments" : "Attachments",
+    "stayAbroad-attachment-title" : "Attachments",
 
     "work-title" : "Current Work and income status",
     "work-type": "Work situation",
@@ -64,16 +84,6 @@
     "work-payment-frequency-option-05" : "Monthly 14/year",
     "work-payment-frequency-option-06" : "Weekly",
     "work-payment-frequency-option-99" : "Other",
-
-    "pension" : "Pension",
-    "pension-country": "Choose which country you choose to get the pension from",
-
-    "attachments-title" : "Attachments",
-    "attachments-types" : "Choose attachment type(s)",
-    "attachments-types-01" : "Work",
-    "attachments-types-02" : "Medication documentation",
-    "attachments-types-03" : "Certificates",
-    "attachments-types-04" : "Other",
 
     "form-step0": "Personal information",
     "form-step1": "Bank and account",
@@ -106,8 +116,5 @@
     "validation-noWorkIncome" : "No work income",
     "validation-noWorkIncomeCurrency" : "No work income currency",
     "validation-noWorkPaymentDate" : "No work payment date",
-    "validation-noWorkPaymentFrequency" : "No work payment frequency",
-    "validation-noAttachmentTypes" : "No attachmentTypes",
-    "validation-noAttachments": "No attachments",
-    "validation-noRetirementCountry" : "No retirement country"
+    "validation-noWorkPaymentFrequency" : "No work payment frequency"
 }

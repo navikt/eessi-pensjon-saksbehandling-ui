@@ -38,6 +38,26 @@
     "stayAbroad-category-daily"     : "Dagpenger",
     "stayAbroad-category-sick"      : "Sykepenger",
     "stayAbroad-category-other"     : "Annet",
+    "stayAbroad-period" : "Periode",
+    "stayAbroad-period-title" : "Periode/Tidsrom",
+    "stayAbroad-period-start-date" : "Startdato",
+    "stayAbroad-period-end-date" : "Sluttdato",
+    "stayAbroad-country" : "Land",
+    "stayAbroad-work-title" : "Yrkesaktivitet",
+    "stayAbroad-work-activity" : "Oppgi yrkesaktivitet",
+    "stayAbroad-work-id" : "Forsikrings- / id-nummer",
+    "stayAbroad-work-name" : "Arbeidsgivers navn",
+    "stayAbroad-work-address" : "Arbeidsgivers addresse",
+    "stayAbroad-work-city" : "By",
+    "stayAbroad-work-region" : "Region",
+    "stayAbroad-child-title" : "Informasjon om barnet",
+    "stayAbroad-child-firstname" : "Fornavn",
+    "stayAbroad-child-lastname" : "Etternavn",
+    "stayAbroad-child-birthdate" : "Fødselsdato",
+    "stayAbroad-learn-title" : "Utdanningsinstitusjon",
+    "stayAbroad-learn-institution" : "Navn på utdanningsinstitusjon",
+    "stayAbroad-attachments" : "Vedlegg",
+    "stayAbroad-attachment-title" : "Vedlegg",
 
     "work-title" : "Dagens arbeids- og inntekstssituasjon",
     "work-type": "Ansettelsesforhold",
@@ -64,16 +84,6 @@
     "work-payment-frequency-option-05" : "Måned 14/year",
     "work-payment-frequency-option-06" : "Ukentlig",
     "work-payment-frequency-option-99" : "Andre",
-
-    "pension" : "Pensjon",
-    "pension-country": "Velg hvilke(t) land du ønsker å søke pensjon fra",
-
-    "attachments" : "Vedlegg",
-    "attachments-types" : "Velg vedleggstype",
-    "attachments-types-01" : "Arbeidsattester",
-    "attachments-types-02" : "Medisinsk dokumentasjon",
-    "attachments-types-03" : "Bekreftelse på utdanning",
-    "attachments-types-04" : "Annet",
 
     "form-step0": "Personopplysninger",
     "form-step1": "Bank og konto",
@@ -105,8 +115,5 @@
     "validation-noWorkIncome" : "No work income",
     "validation-noWorkIncomeCurrency" : "No work income currency",
     "validation-noWorkPaymentDate" : "No work payment date",
-    "validation-noWorkPaymentFrequency" : "No work payment frequency",
-    "validation-noAttachmentTypes" : "No attachmentTypes",
-    "validation-noAttachments": "Ingen vedlegg",
-    "validation-noRetirementCountry" : "No retirement country"
+    "validation-noWorkPaymentFrequency" : "No work payment frequency"
 }

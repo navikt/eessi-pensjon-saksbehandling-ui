@@ -34,4 +34,7 @@ export function workStep (work) {
 
 export function stayAbroadStep (stayAbroad) {
   return ''
+
+  // 'p4000:validation-endDateEarlierThanStartDate'
+  // 'p4000:validation-startDateCantBeInFuture'
 }

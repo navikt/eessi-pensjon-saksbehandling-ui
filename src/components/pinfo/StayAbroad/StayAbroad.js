@@ -33,16 +33,18 @@ class StayAbroad extends React.Component {
   }
 
   render () {
-    const { t, stayAbroad, actions } = this.props
+    const { t, stayAbroad, actions, locale } = this.props
     const { editPeriod } = this.state
 
     return <div>
       <h2 className='typo-undertittel ml-0 mb-4 appDescription'>{t('pinfo:stayAbroad-title')}</h2>
-      {!_.isEmpty(stayAbroad) ? <h3 className='typo-normal'>{t('pinfo:stayAbroad-previousPeriods')}</h3> : null}
-      {stayAbroad.map(period => {
+      {!_.isEmpty(stayAbroad) ? <h3 className='typo-undertittel mb-3'>{t('pinfo:stayAbroad-previousPeriods')}</h3> : null}
+      {stayAbroad.map((period, index) => {
         return <Period t={t}
           mode='view'
+          current={editPeriod && editPeriod.id === period.id}
           period={period}
+          locale={locale}
           periods={stayAbroad}
           setStayAbroad={actions.setStayAbroad}
           editPeriod={this.setEditPeriod.bind(this)}
@@ -51,6 +53,7 @@ class StayAbroad extends React.Component {
       <Period t={t} periods={stayAbroad}
         mode={editPeriod ? 'edit' : 'new'}
         period={editPeriod}
+        locale={locale}
         setStayAbroad={actions.setStayAbroad}
       />
     </div>

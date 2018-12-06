@@ -46,9 +46,13 @@ export default function (state = initialState, action = {}) {
         } }
 
     case types.PINFO_EVENT_SET_STAY_ABROAD:
+
+      let sortedStayAbroad = action.payload.slice()
+      sortedStayAbroad.sort((a, b) => { return a.startDate - b.startDate })
+
       return {
         ...state,
-        stayAbroad: action.payload
+        stayAbroad: sortedStayAbroad
       }
 
     case types.PINFO_NEW:
