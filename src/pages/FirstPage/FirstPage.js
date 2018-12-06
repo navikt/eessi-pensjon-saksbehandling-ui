@@ -6,9 +6,9 @@ import { withNamespaces } from 'react-i18next'
 import 'url-search-params-polyfill'
 
 import LogoHeader from '../../components/ui/Header/LogoHeader'
-import VeilederPanel from '../../components/ui/Panel/VeilederPanel'
+
 import LanguageSelector from '../../components/ui/LanguageSelector'
-import Banner from '../../components/ui/Banner/Banner'
+import FirstBanner from '../../components/ui/Banner/FirstBanner'
 import * as Nav from '../../components/ui/Nav'
 
 import * as routes from '../../constants/routes'
@@ -48,7 +48,7 @@ class FirstPage extends Component {
   handleForwardButtonClick () {
     const { history } = this.props
 
-    history.push(routes.INDEX)
+    history.push(routes.PINFO)
   }
 
   render () {
@@ -56,18 +56,9 @@ class FirstPage extends Component {
 
     return <div className='p-firstPage hodefot'>
       <LogoHeader />
-      <Banner />
+      <FirstBanner />
       <div className='content'>
         <div className='container text-center pt-4'>
-          <VeilederPanel>
-            <div>Her du kan:
-              <ul>
-                <li>a</li>
-                <li>a</li>
-                <li>a</li>
-              </ul>
-            </div>
-          </VeilederPanel>
           <LanguageSelector className='mt-3' />
           {!loggedIn ? <Nav.Hovedknapp
             className='mt-3 loginButton'

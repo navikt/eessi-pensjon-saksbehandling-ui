@@ -9,7 +9,7 @@ import { withNamespaces } from 'react-i18next'
 import CountrySelect from '../ui/CountrySelect/CountrySelect'
 import * as pinfoActions from '../../actions/pinfo'
 import * as Nav from '../ui/Nav'
-import { workValidation } from './Validation/singleTests'|
+import { workValidation } from './Validation/singleTests'
 
 const mapStateToProps = (state) => {
   return {
@@ -22,7 +22,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class Work extends React.Component {
-
   state = {
     error: {}
   }
@@ -116,8 +115,8 @@ class Work extends React.Component {
             <label>{t('pinfo:work-end-date')}</label>
             <ReactDatePicker
               className={classNames(
-                  'skjemaelement__input input--fullbredde',
-                  { 'skjemaelement__input--harFeil': error.workEndDate })}
+                'skjemaelement__input input--fullbredde',
+                { 'skjemaelement__input--harFeil': error.workEndDate })}
               selected={work.workEndDate}
               dateFormat='dd.MM.yyyy'
               placeholderText={t('ui:dateFormat')}

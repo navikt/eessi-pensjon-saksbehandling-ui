@@ -3,13 +3,11 @@ import * as types from '../constants/actionTypes'
 let initialState = {
   isLoaded: false,
   step: 0,
-  maxstep: 6,
   validationError: undefined,
   contact: {},
-  attachments: {},
   bank: {},
-  work: {},
-  pension: []
+  stayAbroad: [],
+  work: {}
 }
 
 export default function (state = initialState, action = {}) {
@@ -47,31 +45,11 @@ export default function (state = initialState, action = {}) {
           ...action.payload
         } }
 
-    case types.PINFO_EVENT_SET_PENSION:
+    case types.PINFO_EVENT_SET_STAY_ABROAD:
       return {
         ...state,
-        pension: {
-          ...state.pension,
-          ...action.payload
-        } }
-
-    case types.PINFO_EVENT_SET_ATTACHMENT_TYPES:
-      return {
-        ...state,
-        attachments: {
-          ...state.attachments,
-          attachmentTypes: {
-            ...state.attachments.attachmentTypes,
-            ...action.payload
-          } } }
-
-    case types.PINFO_EVENT_SET_ATTACHMENTS:
-      return {
-        ...state,
-        attachments: {
-          ...state.attachments,
-          attachments: action.payload
-        } }
+        stayAbroad: action.payload
+      }
 
     case types.PINFO_NEW:
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withNamespaces } from 'react-i18next'
 
-import BannerIllustration from './BannerIllustration'
+import FirstPanel from '../Panel/FirstPanel'
 
 import './Banner.css'
 
@@ -10,12 +10,8 @@ class Banner extends Component {
     const { t } = this.props
 
     return <div className='c-ui-banner'>
-      <div className='container'>
-        <div>
-          <h1 className='typo-sidetittel'>{t('app-headerTitle')}</h1>
-        </div>
-        <BannerIllustration />
-      </div>
+      <h1 className='typo-sidetittel'>{t('app-headerTitle')}</h1>
+      <FirstPanel />
     </div>
   }
 }

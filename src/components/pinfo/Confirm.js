@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, pinfoActions), dispatch) }
 }
 
-class Summary extends React.Component {
+class Confirm extends React.Component {
   render () {
     const { t, locale, actions } = this.props
     const { contact, bank, work, attachments, pension, onSave } = this.props.pinfo
@@ -128,5 +128,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(Summary)
+  withNamespaces()(Confirm)
 )

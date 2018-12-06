@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, pinfoActions), dispatch) }
 }
 
-class Contact extends React.Component {
+class Person extends React.Component {
   state = {
     error: undefined
   }
@@ -75,7 +75,7 @@ class Contact extends React.Component {
   }
 }
 
-Contact.propTypes = {
+Person.propTypes = {
   locale: PT.string,
   phone: PT.string,
   email: PT.string,
@@ -88,5 +88,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(Contact)
+  withNamespaces()(Person)
 )

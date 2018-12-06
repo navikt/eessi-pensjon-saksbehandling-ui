@@ -81,6 +81,7 @@
     "more" : "More",
     "name" : "Name",
     "new" : "New",
+    "next" : "Next",
     "no" : "No",
     "noFilesFound" : "No files found",
     "notEnoughPermissions" : "Not enough permissions",
@@ -112,6 +113,7 @@
     "saved" : "Saved",
     "saving" : "Saving",
     "savedSuccess" : "Saved successfully",
+    "savePeriod" : "Save period",
     "saveAndBack" : "Save and back to the form",
     "search" : "Search",
     "searchCountry" : "Search country...",
@@ -140,6 +142,7 @@
     "update" : "Update",
     "uploaded" : "Uploaded",
     "view" : "View",
-    "watermark" : "Vannmerke",
+    "watermark" : "Watermark",
+    "write" : "Write in",
     "yes" : "Yes"
 }

@@ -12,11 +12,10 @@ import * as Nav from '../../components/ui/Nav'
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
 import FrontPageDrawer from '../../components/drawer/FrontPage'
 import Bank from '../../components/pinfo/Bank'
-import Contact from '../../components/pinfo/Contact'
-import P4000 from '../../components/pinfo/P4000/P4000'
+import Person from '../../components/pinfo/Person'
+import StayAbroad from '../../components/pinfo/StayAbroad/StayAbroad'
 import Receipt from '../../components/pinfo/Receipt'
-import Summary from '../../components/pinfo/Summary'
-import Intro from '../../components/pinfo/Intro'
+import Confirm from '../../components/pinfo/Confirm'
 
 import * as stepTests from '../../components/pinfo/Validation/stepTests'
 import * as routes from '../../constants/routes'
@@ -71,12 +70,12 @@ class PInfo extends React.Component {
     const { pinfo } = this.props
 
     switch (step) {
+      case 0:
+        return stepTests.personStep(pinfo.person)
       case 1:
-        return stepTests.contactStep(pinfo.contact)
-      case 2:
         return stepTests.bankStep(pinfo.bank)
-      case 3:
-        return stepTests.p4000Step(pinfo.p4000)
+      case 2:
+        return stepTests.stayAbroadStep(pinfo.stayAbroad)
       default:
         return ''
     }
@@ -128,7 +127,7 @@ class PInfo extends React.Component {
         visLabel
         onChange={(e) => actions.setEventProperty({ step: e })}
         autoResponsiv
-        steg={_.range(0, 6).map(index => ({
+        steg={_.range(0, 5).map(index => ({
           label: t('pinfo:form-step' + index),
           ferdig: index < step,
           aktiv: index === step
@@ -138,24 +137,24 @@ class PInfo extends React.Component {
       {error ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(error)}</Nav.AlertStripe> : null}
 
       <div className={classNames('fieldset animate', 'mb-4')}>
-        {step === 0 ? <Intro /> : null}
-        {step === 1 ? <Contact /> : null}
-        {step === 2 ? <Bank /> : null}
-        {step === 3 ? <P4000 /> : null}
-        {step === 4 ? <Summary t={t} onSave={this.onSaveButtonClick.bind(this)} /> : null}
-        {step === 5 ? <Receipt/> : null}
+        {step === 0 ? <Person /> : null}
+        {step === 1 ? <Bank /> : null}
+        {step === 2 ? <StayAbroad /> : null}
+        {step === 3 ? <Confirm t={t} onSave={this.onSaveButtonClick.bind(this)} /> : null}
+        {step === 4 ? <Receipt /> : null}
       </div>
-
-      {step < 5 ? <Nav.Hovedknapp
-        className='forwardButton'
-        onClick={this.onForwardButtonClick.bind(this)}>
-        {t('confirmAndContinue')}
-      </Nav.Hovedknapp> : null}
-      {step > 0 ? <Nav.Knapp
-        className='ml-3 backButton'
-        onClick={this.onBackButtonClick.bind(this)}>
-        {t('back')}
-      </Nav.Knapp> : null}
+      <div className='mb-4'>
+        {step < 4 ? <Nav.Hovedknapp
+          className='forwardButton'
+          onClick={this.onForwardButtonClick.bind(this)}>
+          {t('confirmAndContinue')}
+        </Nav.Hovedknapp> : null}
+        {step > 0 ? <Nav.Knapp
+          className='ml-3 backButton'
+          onClick={this.onBackButtonClick.bind(this)}>
+          {t('back')}
+        </Nav.Knapp> : null}
+      </div>
     </TopContainer>
   }
 }
