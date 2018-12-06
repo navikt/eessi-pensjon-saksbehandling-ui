@@ -33,7 +33,7 @@ class StayAbroad extends React.Component {
   }
 
   render () {
-    const { t, stayAbroad, actions } = this.props
+    const { t, stayAbroad, actions, locale } = this.props
     const { editPeriod } = this.state
 
     return <div>
@@ -43,6 +43,7 @@ class StayAbroad extends React.Component {
         return <Period t={t}
           mode='view'
           period={period}
+          locale={locale}
           periods={stayAbroad}
           setStayAbroad={actions.setStayAbroad}
           editPeriod={this.setEditPeriod.bind(this)}
@@ -51,6 +52,7 @@ class StayAbroad extends React.Component {
       <Period t={t} periods={stayAbroad}
         mode={editPeriod ? 'edit' : 'new'}
         period={editPeriod}
+        locale={locale}
         setStayAbroad={actions.setStayAbroad}
       />
     </div>

@@ -114,7 +114,7 @@ class PInfo extends React.Component {
   }
 
   render () {
-    const { t, history, location, status, step, actions } = this.props
+    const { t, history, location, status, step, actions, locale } = this.props
     const { error } = this.state
 
     return <TopContainer className='p-pInfo'
@@ -139,7 +139,7 @@ class PInfo extends React.Component {
       <div className={classNames('fieldset animate', 'mb-4')}>
         {step === 0 ? <Person /> : null}
         {step === 1 ? <Bank /> : null}
-        {step === 2 ? <StayAbroad /> : null}
+        {step === 2 ? <StayAbroad locale={locale} /> : null}
         {step === 3 ? <Confirm t={t} onSave={this.onSaveButtonClick.bind(this)} /> : null}
         {step === 4 ? <Receipt /> : null}
       </div>
