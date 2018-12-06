@@ -17,7 +17,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-class Summary extends React.Component {
+class Confirm extends React.Component {
   render () {
     const { t } = this.props
     const { person, bank, work, attachments, pension, onSave } = this.props.pinfo
@@ -128,4 +128,4 @@ class Summary extends React.Component {
 
 export default connect(
   mapStateToProps
-)(withNamespaces(Summary))
+)(withNamespaces(Confirm))

@@ -35,6 +35,13 @@ export function setEmails (emails) {
   }
 }
 
+export function setStayAbroad (payload) {
+  return {
+    type: types.PINFO_EVENT_SET_STAY_ABROAD,
+    payload: payload
+  }
+}
+
 export function setWork (payload) {
   return {
     type: types.PINFO_EVENT_SET_WORK,
@@ -46,12 +53,5 @@ export function setBank (payload) {
   return {
     type: types.PINFO_EVENT_SET_BANK,
     payload: payload instanceof Object ? payload : {}
-  }
-}
-
-export function setP4000 (payload) {
-  return {
-    type: types.PINFO_EVENT_SET_P4000,
-    payload: payload
   }
 }

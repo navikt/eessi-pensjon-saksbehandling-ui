@@ -1,20 +1,22 @@
 import * as tests from './singleTests'
 
 export function personStep (person) {
-  return tests.personValidation.noValidLastName(person.lastNameAfterBirth) ||
+  return ''
+/*  return tests.personValidation.noValidLastName(person.lastNameAfterBirth) ||
          tests.personValidation.noValidPersonName(person.names) ||
          tests.personValidation.noValidPhone(person.phones) ||
          tests.personValidation.noValidEmail(person.emails) ||
-  ''
+  '' */
 }
 
 export function bankStep (bank) {
-  return tests.bankValidation.bankName(bank.bankName) ||
+  return ''
+/*  return tests.bankValidation.bankName(bank.bankName) ||
          tests.bankValidation.bankAddress(bank.bankAddress) ||
          tests.bankValidation.bankCountry(bank.bankCountry) ||
          tests.bankValidation.bankBicSwift(bank.bankBicSwift) ||
          tests.bankValidation.bankIban(bank.bankIban) ||
-  ''
+  '' */
 }
 
 export function workStep (work) {
@@ -30,6 +32,6 @@ export function workStep (work) {
   ''
 }
 
-export function p4000step (p4000) {
-  return null
+export function stayAbroadStep (stayAbroad) {
+  return ''
 }

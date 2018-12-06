@@ -84,6 +84,12 @@ export const bankValidation = {
   bankIban
 }
 
+// STAY ABROAD
+
+export const stayAbroadValidation = {
+
+}
+
 // WORK AND INCOME
 
 export function workType (workType) {

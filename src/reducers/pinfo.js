@@ -11,7 +11,7 @@ let initialState = {
     emails: []
   },
   bank: {},
-  p4000: {},
+  stayAbroad: [],
   work: {}
 }
 
@@ -26,7 +26,7 @@ export default function (state = initialState, action = {}) {
         ? JSON.parse(action.payload)
         : state
 
-   case types.PINFO_EVENT_SET_LASTNAME:
+    case types.PINFO_EVENT_SET_LASTNAME:
 
       return {
         ...state,
@@ -77,13 +77,11 @@ export default function (state = initialState, action = {}) {
           ...action.payload
         } }
 
-    case types.PINFO_EVENT_SET_P4000:
+    case types.PINFO_EVENT_SET_STAY_ABROAD:
       return {
         ...state,
-        p4000: {
-          ...state.p4000,
-          ...action.payload
-        } }
+        stayAbroad: action.payload
+      }
 
     case types.PINFO_NEW:
 
