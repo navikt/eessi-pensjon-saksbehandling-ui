@@ -13,7 +13,7 @@ import CountrySelect from '../ui/CountrySelect/CountrySelect'
 import { personValidation, bankValidation, stayAbroadValidation } from './Validation/singleTests'
 import Period from './StayAbroad/Period'
 
-const validation = {...personValidation, ...bankValidation, ...stayAbroadValidation}
+const validation = { ...personValidation, ...bankValidation, ...stayAbroadValidation }
 
 const mapStateToProps = (state) => {
   return {
@@ -31,7 +31,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class Confirm extends React.Component {
-
   state = {
     error: {},
     editPeriod: undefined
@@ -107,7 +106,6 @@ class Confirm extends React.Component {
           </Nav.Column>
         </Nav.Row>
 
-
         <Nav.Row>
           <Nav.Column md='4' sm='6' xs='12'>
             <Nav.Input
@@ -118,7 +116,6 @@ class Confirm extends React.Component {
             />
           </Nav.Column>
         </Nav.Row>
-
 
         <Nav.Row>
           <Nav.Column md='4' sm='6' xs='12'>
@@ -144,60 +141,60 @@ class Confirm extends React.Component {
           </Nav.Column>
         </Nav.Row>
         <div>
-            <Nav.Row>
-              <Nav.Column md='6'>
-                <Nav.Input label={t('pinfo:bank-name')} value={bank.bankName || ''}
+          <Nav.Row>
+            <Nav.Column md='6'>
+              <Nav.Input label={t('pinfo:bank-name')} value={bank.bankName || ''}
                 onChange={this.setBankName}
                 feil={error.bankName && pageError ? { feilmelding: t(error.bankName) } : null}
-                />
-              </Nav.Column>
-              <Nav.Column md='6'>
-                <label className='skjemaelement__label'>{t('pinfo:bank-country')}</label>
-                <CountrySelect locale={locale}
-                  value={bank.bankCountry || null}
+              />
+            </Nav.Column>
+            <Nav.Column md='6'>
+              <label className='skjemaelement__label'>{t('pinfo:bank-country')}</label>
+              <CountrySelect locale={locale}
+                value={bank.bankCountry || null}
                 onSelect={this.setBankCountry}
                 error={error.bankCountry && pageError}
                 errorMessage={error.bankCountry}
-                />
-              </Nav.Column>
-            </Nav.Row>
-            <Nav.Row>
-              <Nav.Column md='12'>
-                <Nav.Textarea label={t('pinfo:bank-address')} value={bank.bankAddress || ''}
-                  style={{ minHeight: '100px' }}
+              />
+            </Nav.Column>
+          </Nav.Row>
+          <Nav.Row>
+            <Nav.Column md='12'>
+              <Nav.Textarea label={t('pinfo:bank-address')} value={bank.bankAddress || ''}
+                style={{ minHeight: '100px' }}
                 onChange={this.setBankAddress}
                 feil={error.bankAddress && pageError ? { feilmelding: t(error.bankAddress) } : null}
-                />
-              </Nav.Column>
-            </Nav.Row>
-            <Nav.Row>
-              <Nav.Column md='6'>
-                <Nav.Input label={t('pinfo:bank-bicSwift')} value={bank.bankBicSwift || ''}
+              />
+            </Nav.Column>
+          </Nav.Row>
+          <Nav.Row>
+            <Nav.Column md='6'>
+              <Nav.Input label={t('pinfo:bank-bicSwift')} value={bank.bankBicSwift || ''}
                 onChange={this.setBankBicSwift}
                 feil={error.bankBicSwift && pageError ? { feilmelding: t(error.bankBicSwift) } : null}
-                />
-              </Nav.Column>
-              <Nav.Column md='6'>
-                <Nav.Input label={t('pinfo:bank-iban')}
-                  value={bank.bankIban || ''}
-                  onChange={this.setBankIban}
-                  feil={error.bankIban && pageError ? { feilmelding: t(error.bankIban) } : null}
-                />
-              </Nav.Column>
-            </Nav.Row>
+              />
+            </Nav.Column>
+            <Nav.Column md='6'>
+              <Nav.Input label={t('pinfo:bank-iban')}
+                value={bank.bankIban || ''}
+                onChange={this.setBankIban}
+                feil={error.bankIban && pageError ? { feilmelding: t(error.bankIban) } : null}
+              />
+            </Nav.Column>
+          </Nav.Row>
         </div>
         <Nav.Row>
           <h3 className='typo-undertittel mt-2 mb-2'>{t('pinfo:stayAbroad-previousPeriods')}</h3>
           {stayAbroad.map((period, index) => {
-          return <Period t={t}
-            mode='view'
-            current={editPeriod && editPeriod.id === period.id}
-            period={period}
-            locale={locale}
-            periods={stayAbroad}
-            setStayAbroad={actions.setStayAbroad}
-            editPeriod={this.setEditPeriod.bind(this)}
-            key={period.id} />
+            return <Period t={t}
+              mode='view'
+              current={editPeriod && editPeriod.id === period.id}
+              period={period}
+              locale={locale}
+              periods={stayAbroad}
+              setStayAbroad={actions.setStayAbroad}
+              editPeriod={this.setEditPeriod.bind(this)}
+              key={period.id} />
           })}
         </Nav.Row>
       </div>

@@ -76,7 +76,7 @@ class Bank extends React.Component {
             <Nav.Textarea label={t('pinfo:bank-address')} value={bank.bankAddress || ''}
               style={{ minHeight: '100px' }}
               onChange={this.setBankAddress}
-              feil={error.bankAddress && pageError? { feilmelding: t(error.bankAddress) } : null}
+              feil={error.bankAddress && pageError ? { feilmelding: t(error.bankAddress) } : null}
             />
           </div>
         </Nav.Row>
@@ -84,14 +84,14 @@ class Bank extends React.Component {
           <div className='col-md-6'>
             <Nav.Input label={t('pinfo:bank-bicSwift')} value={bank.bankBicSwift || ''}
               onChange={this.setBankBicSwift}
-              feil={error.bankBicSwift && pageError? { feilmelding: t(error.bankBicSwift) } : null}
+              feil={error.bankBicSwift && pageError ? { feilmelding: t(error.bankBicSwift) } : null}
             />
           </div>
           <div className='col-md-6'>
             <Nav.Input label={t('pinfo:bank-iban')}
               value={bank.bankIban || ''}
               onChange={this.setBankIban}
-              feil={error.bankIban && pageError? { feilmelding: t(error.bankIban) } : null}
+              feil={error.bankIban && pageError ? { feilmelding: t(error.bankIban) } : null}
             />
           </div>
         </Nav.Row>

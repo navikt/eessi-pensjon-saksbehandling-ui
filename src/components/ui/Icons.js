@@ -22,16 +22,16 @@ class Icons extends Component {
       case 'sick' : return <FontAwesomeIcon icon={icons.faHSquare} {...this.props} />
       case 'other' : return <FontAwesomeIcon icon={icons.faCalendar} {...this.props} />
 
-      case 'nav-work' : return <div {...this.props}><img className='logo' src={books} alt={kind}/></div>
-      case 'nav-home' : return <div {...this.props}><img className='logo' src={books} alt={kind}/></div>
-      case 'nav-child' : return <div {...this.props}><img className='logo' src={books} alt={kind}/></div>
-      case 'nav-voluntary' : return <div {...this.props}><img className='logo' src={books} alt={kind}/></div>
-      case 'nav-military' : return <div {...this.props}><img className='logo' src={books} alt={kind}/></div>
-      case 'nav-birth' : return <div {...this.props}><img className='logo' src={books} alt={kind}/></div>
-      case 'nav-learn' : return <div {...this.props}><img className='logo' src={books} alt={kind}/></div>
-      case 'nav-daily' : return <div {...this.props}><img className='logo' src={books} alt={kind}/></div>
-      case 'nav-sick' : return <div {...this.props}><img className='logo' src={books} alt={kind}/></div>
-      case 'nav-other' : return <div {...this.props}><img className='logo' src={books} alt={kind}/></div>
+      case 'nav-work' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
+      case 'nav-home' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
+      case 'nav-child' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
+      case 'nav-voluntary' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
+      case 'nav-military' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
+      case 'nav-birth' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
+      case 'nav-learn' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
+      case 'nav-daily' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
+      case 'nav-sick' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
+      case 'nav-other' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
 
       case 'document' : return <FontAwesomeIcon icon={icons.faFile} {...this.props} />
       case 'view' : return <FontAwesomeIcon icon={icons.faEye} {...this.props} />

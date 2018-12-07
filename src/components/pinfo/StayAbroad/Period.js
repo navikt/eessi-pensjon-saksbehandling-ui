@@ -88,7 +88,6 @@ class Period extends React.Component {
   }
 
   requestEditPeriod (period) {
-
     const { editPeriod } = this.props
 
     editPeriod(period)
@@ -133,7 +132,7 @@ class Period extends React.Component {
 
     switch (mode) {
       case 'view':
-        return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode, {'current': current})}>
+        return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode, { 'current': current })}>
           <div className='col-md-6'>
             <div id={period.id} className='existingPeriod'>
               <div className='icon mr-4'>
@@ -141,15 +140,15 @@ class Period extends React.Component {
               </div>
               <div className='pt-2 pb-2 existingPeriodDescription'>
                 <span className='bold existingPeriodType'>{t('pinfo:stayAbroad-category-' + period.type)}</span>
-                <br/>
+                <br />
                 <span className='existingPeriodDates'>{t('pinfo:stayAbroad-period')}{': '}
                   {moment(period.startDate).format('DD.MM.YYYY')}{' - '}
                   {period.endDate ? moment(period.endDate).format('DD.MM.YYYY') : t('ui:unknown')}
                 </span>
-                <br/>
+                <br />
                 {period.attachments && !_.isEmpty(period.attachments) ? <span className='existingPeriodAttachments'>
                   {t('pinfo:stayAbroad-attachments')}{': '}
-                  {period.attachments.map(att => { return att.name}).join(', ')}
+                  {period.attachments.map(att => { return att.name }).join(', ')}
                 </span> : null}
               </div>
             </div>
@@ -188,155 +187,155 @@ class Period extends React.Component {
             </div>
           </Nav.Row>
           { _period.type ? <React.Fragment>
-          <Nav.Row>
-            <div className='col-md-12'>
-               <h3 className='mt-3 mb-3 typo-undertittel'>{t('pinfo:stayAbroad-period-title')}</h3>
-            </div>
-            <div className='col-md-4'>
-              <label className='mr-3'>{t('pinfo:stayAbroad-period-start-date')}</label>
-              <br/>
-              <ReactDatePicker selected={_period.startDate}
-                className='startDate'
-                dateFormat='dd.MM.yyyy'
-                placeholderText={t('ui:dateFormat')}
-                showYearDropdown
-                showMonthDropdown
-                dropdownMode='select'
-                locale={locale}
-                onChange={this.setStartDate} />
-              <div>{error.startDateFail}</div>
-            </div>
-            <div className='col-md-4'>
-              <label>{t('pinfo:stayAbroad-period-end-date')}</label>
-              <br/>
-              <ReactDatePicker selected={_period.endDate}
-                className='endDate'
-                dateFormat='dd.MM.yyyy'
-                placeholderText={t('ui:dateFormat')}
-                showYearDropdown
-                showMonthDropdown
-                dropdownMode='select'
-                locale={locale}
-                onChange={this.setEndDate} />
-              <div>{error.endDateFail}</div>
-            </div>
-          </Nav.Row>
-          <Nav.Row>
-            <div className='mt-3 col-md-6'>
-              <label>{t('pinfo:stayAbroad-country')}</label>
-              <CountrySelect locale={locale}
-                value={_period.country || null}
-                onSelect={this.setCountry}
-                error={error.country}
-                errorMessage={error.country}
-              />
-            </div>
-          </Nav.Row>
-          {_period.type === 'work' ? <Nav.Row>
-            <div className='col-md-12'>
-              <h3 className='mt-4 mb-4 typo-undertittel'>{t('pinfo:stayAbroad-work-title')}</h3>
-            </div>
-            <div className='col-md-4'>
-              <Nav.Input label={t('pinfo:stayAbroad-work-activity')} value={_period.workActivity || ''}
-                onChange={this.setWorkActivity}
-                feil={error.workActivity ? { feilmelding: t(error.workActivity) } : null}
-              />
-            </div>
-            <div className='col-md-6'>
-              <Nav.Input label={t('pinfo:stayAbroad-work-id')} value={_period.workId || ''}
-                onChange={this.setWorkId}
-                feil={error.workId ? { feilmelding: t(error.workId) } : null}
-              />
-            </div>
-            <div className='col-md-4'>
-              <Nav.Input label={t('pinfo:stayAbroad-work-name')} value={_period.workName || ''}
-                 onChange={this.setWorkName}
-                 feil={error.workName ? { feilmelding: t(error.workName) } : null}
-               />
-            </div>
-            <div className='col-md-6'>
-              <Nav.Input label={t('pinfo:stayAbroad-work-address')} value={_period.workAddress || ''}
-                 onChange={this.setWorkAddress}
-                 feil={error.workAddress ? { feilmelding: t(error.workAddress) } : null}
-               />
-            </div>
-            <div className='col-md-4'>
-              <Nav.Input label={t('pinfo:stayAbroad-work-city')} value={_period.workCity || ''}
-                onChange={this.setWorkCity}
-                feil={error.workCity ? { feilmelding: t(error.workCity) } : null}
-              />
-            </div>
-            <div className='col-md-6'>
-              <Nav.Input label={t('pinfo:stayAbroad-work-region')} value={_period.workRegion || ''}
-                onChange={this.setWorkRegion}
-                feil={error.workRegion ? { feilmelding: t(error.workRegion) } : null}
-              />
-            </div>
-          </Nav.Row> : null}
-          {_period.type === 'child' ? <Nav.Row>
-            <div className='col-md-12'>
-              <h3 className='mt-4 mb-4 typo-undertittel'>{t('pinfo:stayAbroad-child-title')}</h3>
-            </div>
-            <div className='col-md-4'>
-              <Nav.Input label={t('pinfo:stayAbroad-child-firstname')} value={_period.childFirstName || ''}
-                onChange={this.setChildFirstName}
-                feil={error.childFirstName ? { feilmelding: t(error.childFirstName) } : null}
-               />
-            </div>
-            <div className='col-md-6'>
-              <Nav.Input label={t('pinfo:stayAbroad-child-lastname')} value={_period.childLastName || ''}
-                onChange={this.setChildLastName}
-                feil={error.childLastName ? { feilmelding: t(error.childLastName) } : null}
-              />
-            </div>
-            <div className='col-md-4'>
-              <label>{t('pinfo:stayAbroad-child-birthdate')}</label>
-              <br/>
-              <ReactDatePicker selected={_period.childBirthDate}
-                className='childBirthDate'
-                dateFormat='dd.MM.yyyy'
-                placeholderText={t('ui:dateFormat')}
-                showYearDropdown
-                showMonthDropdown
-                dropdownMode='select'
-                locale={locale}
-                onChange={this.setChildBirthDate} />
-              <div>{error.childBirthDate}</div>
-            </div>
-          </Nav.Row>  : null}
-          {_period.type === 'learn' ? <Nav.Row>
-            <div className='col-md-12'>
-              <h3 className='mt-4 mb-4 typo-undertittel'>{t('pinfo:stayAbroad-learn-title')}</h3>
-            </div>
-            <div className='col-md-6'>
-              <Nav.Input label={t('pinfo:stayAbroad-learn-institution')} value={_period.learnInstitution || ''}
-                onChange={this.setLearnInstitution}
-                feil={error.learnInstitution ? { feilmelding: t(error.learnInstitution) } : null}
-              />
-            </div>
-          </Nav.Row> : null}
-          <Nav.Row>
-            <div className='col-md-12'>
-              <h3 className='mt-4 mb-4 typo-undertittel'>{t('pinfo:stayAbroad-attachment-title')}</h3>
-            </div>
-            <div className='col-md-12'>
-              <FileUpload t={t} ref={f => { this.fileUpload = f }} fileUploadDroppableId={'fileUpload'} className='fileUpload'
-                files={_period.attachments || []}
-                onFileChange={this.setAttachments} />
-            </div>
-          </Nav.Row>
-          <Nav.Row>
-            <div className='mt-4 mb-4 col-md-12'>
-              {mode === 'edit' ? <Nav.Knapp className='editPeriodButton' onClick={this.saveEditPeriod.bind(this)}>
-                {t('ui:changePeriod')}
-              </Nav.Knapp> : null}
-              {mode === 'new' ? <Nav.Knapp className='addPeriodButton' onClick={this.addPeriod.bind(this)}>
-                {t('ui:savePeriod')}
-              </Nav.Knapp> : null}
-            </div>
-          </Nav.Row>
-        </React.Fragment> : null}
-      </React.Fragment>
+            <Nav.Row>
+              <div className='col-md-12'>
+                <h3 className='mt-3 mb-3 typo-undertittel'>{t('pinfo:stayAbroad-period-title')}</h3>
+              </div>
+              <div className='col-md-4'>
+                <label className='mr-3'>{t('pinfo:stayAbroad-period-start-date')}</label>
+                <br />
+                <ReactDatePicker selected={_period.startDate}
+                  className='startDate'
+                  dateFormat='dd.MM.yyyy'
+                  placeholderText={t('ui:dateFormat')}
+                  showYearDropdown
+                  showMonthDropdown
+                  dropdownMode='select'
+                  locale={locale}
+                  onChange={this.setStartDate} />
+                <div>{error.startDateFail}</div>
+              </div>
+              <div className='col-md-4'>
+                <label>{t('pinfo:stayAbroad-period-end-date')}</label>
+                <br />
+                <ReactDatePicker selected={_period.endDate}
+                  className='endDate'
+                  dateFormat='dd.MM.yyyy'
+                  placeholderText={t('ui:dateFormat')}
+                  showYearDropdown
+                  showMonthDropdown
+                  dropdownMode='select'
+                  locale={locale}
+                  onChange={this.setEndDate} />
+                <div>{error.endDateFail}</div>
+              </div>
+            </Nav.Row>
+            <Nav.Row>
+              <div className='mt-3 col-md-6'>
+                <label>{t('pinfo:stayAbroad-country')}</label>
+                <CountrySelect locale={locale}
+                  value={_period.country || null}
+                  onSelect={this.setCountry}
+                  error={error.country}
+                  errorMessage={error.country}
+                />
+              </div>
+            </Nav.Row>
+            {_period.type === 'work' ? <Nav.Row>
+              <div className='col-md-12'>
+                <h3 className='mt-4 mb-4 typo-undertittel'>{t('pinfo:stayAbroad-work-title')}</h3>
+              </div>
+              <div className='col-md-4'>
+                <Nav.Input label={t('pinfo:stayAbroad-work-activity')} value={_period.workActivity || ''}
+                  onChange={this.setWorkActivity}
+                  feil={error.workActivity ? { feilmelding: t(error.workActivity) } : null}
+                />
+              </div>
+              <div className='col-md-6'>
+                <Nav.Input label={t('pinfo:stayAbroad-work-id')} value={_period.workId || ''}
+                  onChange={this.setWorkId}
+                  feil={error.workId ? { feilmelding: t(error.workId) } : null}
+                />
+              </div>
+              <div className='col-md-4'>
+                <Nav.Input label={t('pinfo:stayAbroad-work-name')} value={_period.workName || ''}
+                  onChange={this.setWorkName}
+                  feil={error.workName ? { feilmelding: t(error.workName) } : null}
+                />
+              </div>
+              <div className='col-md-6'>
+                <Nav.Input label={t('pinfo:stayAbroad-work-address')} value={_period.workAddress || ''}
+                  onChange={this.setWorkAddress}
+                  feil={error.workAddress ? { feilmelding: t(error.workAddress) } : null}
+                />
+              </div>
+              <div className='col-md-4'>
+                <Nav.Input label={t('pinfo:stayAbroad-work-city')} value={_period.workCity || ''}
+                  onChange={this.setWorkCity}
+                  feil={error.workCity ? { feilmelding: t(error.workCity) } : null}
+                />
+              </div>
+              <div className='col-md-6'>
+                <Nav.Input label={t('pinfo:stayAbroad-work-region')} value={_period.workRegion || ''}
+                  onChange={this.setWorkRegion}
+                  feil={error.workRegion ? { feilmelding: t(error.workRegion) } : null}
+                />
+              </div>
+            </Nav.Row> : null}
+            {_period.type === 'child' ? <Nav.Row>
+              <div className='col-md-12'>
+                <h3 className='mt-4 mb-4 typo-undertittel'>{t('pinfo:stayAbroad-child-title')}</h3>
+              </div>
+              <div className='col-md-4'>
+                <Nav.Input label={t('pinfo:stayAbroad-child-firstname')} value={_period.childFirstName || ''}
+                  onChange={this.setChildFirstName}
+                  feil={error.childFirstName ? { feilmelding: t(error.childFirstName) } : null}
+                />
+              </div>
+              <div className='col-md-6'>
+                <Nav.Input label={t('pinfo:stayAbroad-child-lastname')} value={_period.childLastName || ''}
+                  onChange={this.setChildLastName}
+                  feil={error.childLastName ? { feilmelding: t(error.childLastName) } : null}
+                />
+              </div>
+              <div className='col-md-4'>
+                <label>{t('pinfo:stayAbroad-child-birthdate')}</label>
+                <br />
+                <ReactDatePicker selected={_period.childBirthDate}
+                  className='childBirthDate'
+                  dateFormat='dd.MM.yyyy'
+                  placeholderText={t('ui:dateFormat')}
+                  showYearDropdown
+                  showMonthDropdown
+                  dropdownMode='select'
+                  locale={locale}
+                  onChange={this.setChildBirthDate} />
+                <div>{error.childBirthDate}</div>
+              </div>
+            </Nav.Row> : null}
+            {_period.type === 'learn' ? <Nav.Row>
+              <div className='col-md-12'>
+                <h3 className='mt-4 mb-4 typo-undertittel'>{t('pinfo:stayAbroad-learn-title')}</h3>
+              </div>
+              <div className='col-md-6'>
+                <Nav.Input label={t('pinfo:stayAbroad-learn-institution')} value={_period.learnInstitution || ''}
+                  onChange={this.setLearnInstitution}
+                  feil={error.learnInstitution ? { feilmelding: t(error.learnInstitution) } : null}
+                />
+              </div>
+            </Nav.Row> : null}
+            <Nav.Row>
+              <div className='col-md-12'>
+                <h3 className='mt-4 mb-4 typo-undertittel'>{t('pinfo:stayAbroad-attachment-title')}</h3>
+              </div>
+              <div className='col-md-12'>
+                <FileUpload t={t} ref={f => { this.fileUpload = f }} fileUploadDroppableId={'fileUpload'} className='fileUpload'
+                  files={_period.attachments || []}
+                  onFileChange={this.setAttachments} />
+              </div>
+            </Nav.Row>
+            <Nav.Row>
+              <div className='mt-4 mb-4 col-md-12'>
+                {mode === 'edit' ? <Nav.Knapp className='editPeriodButton' onClick={this.saveEditPeriod.bind(this)}>
+                  {t('ui:changePeriod')}
+                </Nav.Knapp> : null}
+                {mode === 'new' ? <Nav.Knapp className='addPeriodButton' onClick={this.addPeriod.bind(this)}>
+                  {t('ui:savePeriod')}
+                </Nav.Knapp> : null}
+              </div>
+            </Nav.Row>
+          </React.Fragment> : null}
+        </React.Fragment>
     }
   }
 }

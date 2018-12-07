@@ -22,11 +22,11 @@ export default function (state = initialState, action = {}) {
         : state
 
     case types.PINFO_EVENT_SET_PERSON:
-        return {
-          ...state,
-          person: {
-            ...state.person,
-            ...action.payload
+      return {
+        ...state,
+        person: {
+          ...state.person,
+          ...action.payload
         } }
 
     case types.PINFO_EVENT_SET_WORK:

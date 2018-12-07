@@ -28,7 +28,7 @@ class Person extends React.Component {
     error: {}
   }
 
-  constructor(props){
+  constructor (props) {
     super(props)
     this.setNameAtBirth = this.eventSetProperty.bind(this, 'nameAtBirth', personValidation.nameAtBirth)
     this.setPreviousName = this.eventSetProperty.bind(this, 'previousName', personValidation.previousName)
@@ -58,7 +58,7 @@ class Person extends React.Component {
     return <div>
       <Nav.Row>
         <Nav.Column xs='12'>
-          <Veilederpanel className= 'mb-4'>
+          <Veilederpanel className='mb-4'>
             <p>Bork bork bork bork!</p>
           </Veilederpanel>
         </Nav.Column>
@@ -70,7 +70,7 @@ class Person extends React.Component {
             label={t('pinfo:person-lastNameAfterBirth')}
             value={nameAtBirth || ''}
             onChange={this.setNameAtBirth}
-            feil={error.nameAtBirth&&pageError ? { feilmelding: t(error.nameAtBirth) } : null}
+            feil={error.nameAtBirth && pageError ? { feilmelding: t(error.nameAtBirth) } : null}
             type='text'
           />
         </div>
@@ -81,7 +81,7 @@ class Person extends React.Component {
             label={t('pinfo:person-name')}
             value={previousName || ''}
             onChange={this.setPreviousName}
-            feil={error.previousName&&pageError ? { feilmelding: t(error.previousName) } : null}
+            feil={error.previousName && pageError ? { feilmelding: t(error.previousName) } : null}
             type='text'
           />
         </div>
@@ -92,7 +92,7 @@ class Person extends React.Component {
             label={t('pinfo:person-phoneNumber')}
             value={phone || ''}
             onChange={this.setPhone}
-            feil={error.phone&&pageError ? { feilmelding: t(error.phone) } : null}
+            feil={error.phone && pageError ? { feilmelding: t(error.phone) } : null}
             type='tel'
           />
         </div>
@@ -103,7 +103,7 @@ class Person extends React.Component {
             label={t('pinfo:person-email')}
             value={email || ''}
             onChange={this.setEmail}
-            feil={error.email&&pageError ? { feilmelding: t(error.email) } : null}
+            feil={error.email && pageError ? { feilmelding: t(error.email) } : null}
             type='email'
           />
         </div>
