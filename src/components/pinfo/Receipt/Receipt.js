@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import moment from 'moment'
 import { withNamespaces } from 'react-i18next'
 
-import File from '../../components/ui/File/File'
-import * as Nav from '../ui/Nav'
-import PsychoPanel from '../../components/ui/Psycho/PsychoPanel'
-import Period from './StayAbroad/Period'
+import File from '../../../components/ui/File/File'
+import * as Nav from '../../ui/Nav'
+import PsychoPanel from '../../../components/ui/Psycho/PsychoPanel'
+import Period from '../StayAbroad/Period'
 
 import './Receipt.css'
 

@@ -29,7 +29,7 @@ class PsychoPanel extends Component {
       <Nav.Veilederpanel type='normal' svg={<Psycho />} kompakt>
         {children}
         <div className='closeButton'>
-          <a href='#' onClick={this.handleClose.bind(this)}
+          <a href='#close' onClick={this.handleClose.bind(this)}
             style={{ position: 'absolute', top: '5px', right: '5px' }}>
             <Icons kind='nav-close' />
           </a>

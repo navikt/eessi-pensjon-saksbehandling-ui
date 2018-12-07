@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
 
-import * as books from '../../resources/images/filled-version-books-library.svg'
+import * as bookmark from '../../resources/images/line-version-bookmark-article.svg'
 import * as home from '../../resources/images/line-version-home-3.svg'
 import * as handbag from '../../resources/images/line-version-hand-bag-3.svg'
 import * as rankarmy from '../../resources/images/line-version-rank-army-2.svg'
@@ -10,6 +10,7 @@ import * as coinreceive from '../../resources/images/line-version-coin-receive.s
 import * as ecoglobe from '../../resources/images/line-version-eco-globe.svg'
 import * as stethoscope from '../../resources/images/line-version-stethoscope.svg'
 import * as birthdaycake from '../../resources/images/line-version-birthday-cake.svg'
+import * as helpcircle from '../../resources/images/line-version-help-circle.svg'
 import * as removecircle from '../../resources/images/filled-version-remove-circle.svg'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -37,10 +38,10 @@ class Icons extends Component {
       case 'nav-voluntary' : return <div {...this.props}><img className='logo' src={ecoglobe} alt={kind} /></div>
       case 'nav-military' : return <div {...this.props}><img className='logo' src={rankarmy} alt={kind} /></div>
       case 'nav-birth' : return <div {...this.props}><img className='logo' src={birthdaycake} alt={kind} /></div>
-      case 'nav-learn' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
+      case 'nav-learn' : return <div {...this.props}><img className='logo' src={bookmark} alt={kind} /></div>
       case 'nav-daily' : return <div {...this.props}><img className='logo' src={coinreceive} alt={kind} /></div>
       case 'nav-sick' : return <div {...this.props}><img className='logo' src={stethoscope} alt={kind} /></div>
-      case 'nav-other' : return <div {...this.props}><img className='logo' src={ecoglobe} alt={kind} /></div>
+      case 'nav-other' : return <div {...this.props}><img className='logo' src={helpcircle} alt={kind} /></div>
 
       case 'nav-close' : return <div {...this.props}><img className='logo' src={removecircle} alt={kind} /></div>
 

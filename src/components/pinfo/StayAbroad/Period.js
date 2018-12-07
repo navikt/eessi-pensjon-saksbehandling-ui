@@ -90,12 +90,11 @@ class Period extends React.Component {
 
   requestEditPeriod (period) {
     const { editPeriod } = this.props
-
     editPeriod(period)
   }
 
   saveEditPeriod () {
-    const { periods, setStayAbroad } = this.props
+    const { periods, editPeriod, setStayAbroad } = this.props
     const { _period } = this.state
 
     let newPeriods = _.clone(periods)
@@ -112,6 +111,7 @@ class Period extends React.Component {
         error: {},
         _period: {}
       })
+      editPeriod({})
     }
   }
 
@@ -128,7 +128,7 @@ class Period extends React.Component {
   }
 
   render () {
-    const { value, t, mode, period, editPeriod, locale, current } = this.props
+    const { value, t, mode, period, editPeriod, locale, current, first, last } = this.props
     const { error, _period } = this.state
 
     switch (mode) {
@@ -137,7 +137,9 @@ class Period extends React.Component {
           <div className='col-md-6'>
             <div id={period.id} className='existingPeriod'>
               <div className='icon mr-4'>
-                <Icons kind={'nav-' + period.type} />
+                <div className={classNames('topHalf', {line : !first})}/>
+                <div className={classNames('bottomHalf', {line : !last})}/>
+                <Icons className='iconsvg' kind={'nav-' + period.type} />
               </div>
               <div className='pt-2 pb-2 existingPeriodDescription'>
                 <span className='bold existingPeriodType'>{t('pinfo:stayAbroad-category-' + period.type)}</span>

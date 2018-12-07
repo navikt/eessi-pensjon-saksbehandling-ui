@@ -14,7 +14,7 @@ import FrontPageDrawer from '../../components/drawer/FrontPage'
 import Bank from '../../components/pinfo/Bank'
 import Person from '../../components/pinfo/Person'
 import StayAbroad from '../../components/pinfo/StayAbroad/StayAbroad'
-import Receipt from '../../components/pinfo/Receipt'
+import Receipt from '../../components/pinfo/Receipt/Receipt'
 import Confirm from '../../components/pinfo/Confirm'
 
 import * as stepTests from '../../components/pinfo/Validation/stepTests'

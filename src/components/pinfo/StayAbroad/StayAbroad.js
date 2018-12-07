@@ -24,27 +24,29 @@ const mapDispatchToProps = (dispatch) => {
 class StayAbroad extends React.Component {
   state = {
     error: {},
-    editPeriod: undefined
+    _period: {}
   }
 
   setEditPeriod (period) {
     this.setState({
-      editPeriod: period
+      _period: period
     })
   }
 
   render () {
     const { t, stayAbroad, actions, locale } = this.props
-    const { editPeriod } = this.state
+    const { _period } = this.state
 
     return <div>
       <Nav.Undertittel>{t('pinfo:stayAbroad-title')}</Nav.Undertittel>
       <Nav.Undertekst className='mb-4'>{t('pinfo:stayAbroad-description')}</Nav.Undertekst>
       {!_.isEmpty(stayAbroad) ? <Nav.Undertittel className='mb-3'>{t('pinfo:stayAbroad-previousPeriods')}</Nav.Undertittel> : null}
-      {stayAbroad.map(period => {
+      {stayAbroad.map((period, index) => {
         return <Period t={t}
           mode='view'
-          current={editPeriod && editPeriod.id === period.id}
+          current={_period.id === period.id}
+          first={index === 0}
+          last={index === stayAbroad.length - 1}
           period={period}
           locale={locale}
           periods={stayAbroad}
@@ -53,9 +55,10 @@ class StayAbroad extends React.Component {
           key={period.id} />
       })}
       <Period t={t} periods={stayAbroad}
-        mode={editPeriod ? 'edit' : 'new'}
-        period={editPeriod}
+        mode={_.isEmpty(_period) ? 'new' : 'edit'}
+        period={_period}
         locale={locale}
+        editPeriod={this.setEditPeriod.bind(this)}
         setStayAbroad={actions.setStayAbroad}
       />
     </div>
