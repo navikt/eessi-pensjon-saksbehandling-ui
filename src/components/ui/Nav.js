@@ -5,7 +5,7 @@ import HjelpetekstBase from 'nav-frontend-hjelpetekst'
 import AlertStripe, { AlertStripeAdvarsel } from 'nav-frontend-alertstriper'
 import { Container, Row, Column } from 'nav-frontend-grid'
 import { Checkbox, CheckboksPanelGruppe, Radio, RadioGruppe, SkjemaGruppe, Fieldset, Select, Input, Textarea, ToggleGruppe, ToggleKnapp, RadioPanelGruppe } from 'nav-frontend-skjema'
-import { Innholdstittel, Systemtittel, Undertittel, Element, Normaltekst, UndertekstBold } from 'nav-frontend-typografi'
+import { Sidetittel, Innholdstittel, Systemtittel, Undertittel, Element, Normaltekst, EtikettLiten, Undertekst, UndertekstBold } from 'nav-frontend-typografi'
 import KnappBase, { Knapp, Hovedknapp, Flatknapp } from 'nav-frontend-knapper'
 import Tabs, { TabsPure } from 'nav-frontend-tabs'
 import Ikon from 'nav-frontend-ikoner-assets'
@@ -23,7 +23,7 @@ export {
   Container, Row, Column,
   Checkbox, CheckboksPanelGruppe, Radio, RadioGruppe, RadioPanelGruppe, SkjemaGruppe, Fieldset, Select, Input, Textarea, ToggleGruppe, ToggleKnapp,
   Ekspanderbartpanel, EkspanderbartpanelBase, Panel, Lenkepanel,
-  Innholdstittel, Systemtittel, Undertittel, Element, Normaltekst, UndertekstBold,
+  Sidetittel, Innholdstittel, Systemtittel, Undertittel, Element, Normaltekst, EtikettLiten, Undertekst, UndertekstBold,
   NavFrontendSpinner,
   Knapp, Hovedknapp, Flatknapp, KnappBase,
   Stegindikator,

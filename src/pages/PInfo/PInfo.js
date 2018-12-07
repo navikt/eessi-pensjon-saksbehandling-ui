@@ -101,6 +101,12 @@ class PInfo extends React.Component {
     })
   }
 
+  onCancelButtonClick () {
+     const { actions, history } = this.props
+
+     history.push(routes.ROOT)
+  }
+
   onSaveButtonClick () {
     const { actions, history, username, pinfo } = this.props
 
@@ -150,6 +156,11 @@ class PInfo extends React.Component {
           onClick={this.onBackButtonClick.bind(this)}>
           {t('back')}
         </Nav.Knapp> : null}
+        <Nav.KnappBase type='flat'
+          className='ml-3 cancelButton'
+          onClick={this.onCancelButtonClick.bind(this)}>
+          {t('cancel')}
+        </Nav.KnappBase>
       </div>
     </TopContainer>
   }
