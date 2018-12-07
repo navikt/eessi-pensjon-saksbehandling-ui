@@ -9,7 +9,7 @@ import _ from 'lodash'
 import * as Nav from '../../../components/ui/Nav'
 import StepIndicator from '../../../components/pdf/StepIndicator'
 import TopContainer from '../../../components/ui/TopContainer/TopContainer'
-import VeilederPanel from '../../../components/ui/Panel/VeilederPanel'
+import PsychoPanel from '../../../components/ui/Psycho/PsychoPanel'
 import DnDSource from '../../../components/pdf/DnDSource/DnDSource'
 import DnDSpecial from '../../../components/pdf/DnDSpecial/DnDSpecial'
 import DnDImages from '../../../components/pdf/DnDImages/DnDImages'
@@ -160,7 +160,7 @@ class EditPDF extends Component {
         <h1 className='typo-sidetittel appTitle'>{t('pdf:app-editPdfTitle')}</h1>
         <StepIndicator stepIndicator={1} history={history} />
         <div className='fieldset animate mb-4 '>
-          <VeilederPanel>{t('pdf:app-editPdfDescription')}</VeilederPanel>
+          <PsychoPanel>{t('pdf:app-editPdfDescription')}</PsychoPanel>
         </div>
         <div className='documentbox fieldset m-0 mt-4'>
           <div className='documentbox-header m-2'>

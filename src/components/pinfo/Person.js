@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { withNamespaces } from 'react-i18next'
 
 import * as Nav from '../ui/Nav'
-import Veilederpanel from '../ui/Panel/VeilederPanel'
+import PsychoPanel from '../ui/Psycho/PsychoPanel'
 import { personValidation } from './Validation/singleTests'
 
 import * as pinfoActions from '../../actions/pinfo'
@@ -58,9 +58,9 @@ class Person extends React.Component {
     return <div>
       <Nav.Row>
         <Nav.Column xs='12'>
-          <Veilederpanel className='mb-4'>
+          <PsychoPanel className='mb-4'>
             <p>Bork bork bork bork!</p>
-          </Veilederpanel>
+          </PsychoPanel>
         </Nav.Column>
       </Nav.Row>
       <h2 className='typo-undertittel ml-0 mb-4 appDescription'>{t('pinfo:person-title')}</h2>

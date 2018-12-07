@@ -50,7 +50,7 @@ class PInfo extends React.Component {
 
   constructor (props) {
     super(props)
-    this.props.actions.getStorageFile(props.username, storages.PINFO, 'PINFO')
+    //this.props.actions.getStorageFile(props.username, storages.PINFO, 'PINFO')
   }
 
   componentDidMount () {
@@ -122,7 +122,7 @@ class PInfo extends React.Component {
       history={history} location={location}
       sideContent={<FrontPageDrawer t={t} status={status} />}
       header={t('pinfo:app-title')}>
-      { step !== 4 ? 
+      { step !== 4 ?
       <Nav.Stegindikator
         className='mt-4 mb-4'
         aktivtSteg={step}
@@ -133,8 +133,8 @@ class PInfo extends React.Component {
           label: t('pinfo:form-step' + index),
           ferdig: index < step,
           aktiv: index === step
-        }))} : null}
-      />
+        }))}
+      />: null}
 
       {error ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(error)}</Nav.AlertStripe> : null}
 

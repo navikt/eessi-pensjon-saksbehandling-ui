@@ -4,7 +4,7 @@ import PT from 'prop-types'
 import * as smilende_orange_veileder from '../../../resources/images/nav-pensjon-smilende-orange-veileder.svg'
 import * as trist_orange_veileder from '../../../resources/images/nav-pensjon-trist-orange-veileder.svg'
 
-class Veileder extends Component {
+class Psycho extends Component {
 
   getSvg () {
 
@@ -27,8 +27,8 @@ class Veileder extends Component {
   }
 }
 
-Veileder.propTypes = {
+Psycho.propTypes = {
   type: PT.string
 }
 
-export default Veileder
+export default Psycho

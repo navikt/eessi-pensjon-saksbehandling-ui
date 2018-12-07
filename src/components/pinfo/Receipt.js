@@ -5,7 +5,7 @@ import { withNamespaces } from 'react-i18next'
 
 import File from '../../components/ui/File/File'
 import * as Nav from '../ui/Nav'
-import Veileder from '../ui/Panel/VeilederPanel'
+import PsychoPanel from '../../components/ui/Psycho/PsychoPanel'
 import Period from './StayAbroad/Period'
 
 import './Receipt.css'
@@ -28,9 +28,9 @@ class Receipt extends React.Component {
 
     return <React.Fragment>
       <div>
-        <Veileder>
+        <PsychoPanel>
           <p>{t('pinfo:receipt-veileder')}</p>
-        </Veileder>
+        </PsychoPanel>
         <h2 className='typo-Innholdstittel'>{t('pinfo:form-step4')}</h2>
 
         <h3>{t('pinfo:person-title')}</h3>

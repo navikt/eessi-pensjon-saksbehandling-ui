@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import PT from 'prop-types'
 import * as Nav from '../Nav'
 import Icons from '../Icons'
-import Veileder from './Veileder'
+import Psycho from './Psycho'
 
-class VeilederPanel extends Component {
+class PsychoPanel extends Component {
   state = {
     hidden: false
   }
@@ -19,13 +19,16 @@ class VeilederPanel extends Component {
   }
 
   render () {
+
+    const { className, children } = this.props
+
     if (this.state.hidden) {
       return null
     }
 
-    return <div className={this.props.className}>
-       <Nav.Veilederpanel type='normal' svg={<Veileder/>} kompakt>
-      {this.props.children}
+    return <div className={className}>
+      <Nav.Veilederpanel type='normal' svg={<Psycho/>} kompakt>
+      {children}
       <div className='closeButton'>
         <a href='#' onClick={this.handleClose.bind(this)}
           style={{ position: 'absolute', top: '5px', right: '5px' }}>
@@ -37,4 +40,9 @@ class VeilederPanel extends Component {
   }
 }
 
-export default VeilederPanel
+PsychoPanel.propTypes = {
+  children: PT.node.isRequired,
+  className: PT.string
+}
+
+export default PsychoPanel

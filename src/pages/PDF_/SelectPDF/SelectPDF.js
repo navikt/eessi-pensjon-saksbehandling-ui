@@ -6,7 +6,7 @@ import { withNamespaces } from 'react-i18next'
 import _ from 'lodash'
 import classNames from 'classnames'
 
-import VeilederPanel from '../../../components/ui/Panel/VeilederPanel'
+import PsychoPanel from '../../../components/ui/Psycho/PsychoPanel'
 import StepIndicator from '../../../components/pdf/StepIndicator'
 import ExternalFiles from '../../../components/pdf/ExternalFiles/ExternalFiles'
 import * as Nav from '../../../components/ui/Nav'
@@ -85,7 +85,7 @@ class SelectPDF extends Component {
       <h1 className='typo-sidetittel appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
       <StepIndicator stepIndicator={0} history={history} />
       <div className='fieldset animate mb-4 '>
-        <VeilederPanel>{t('pdf:app-selectPdfDescription')}</VeilederPanel>
+        <PsychoPanel>{t('pdf:app-selectPdfDescription')}</PsychoPanel>
       </div>
 
       <ExternalFiles addFile={this.addFile.bind(this)} />

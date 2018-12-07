@@ -8,7 +8,7 @@ import _ from 'lodash'
 import * as pinfoActions from '../../actions/pinfo'
 import File from '../../components/ui/File/File'
 import * as Nav from '../ui/Nav'
-import Veilederpanel from '../ui/Panel/VeilederPanel'
+import PsychoPanel from '../ui/Psycho/PsychoPanel'
 import CountrySelect from '../ui/CountrySelect/CountrySelect'
 import { personValidation, bankValidation, stayAbroadValidation } from './Validation/singleTests'
 import Period from './StayAbroad/Period'
@@ -79,9 +79,9 @@ class Confirm extends React.Component {
       <div>
         <Nav.Row>
           <Nav.Column xs='12'>
-            <Veilederpanel className='mb-4'>
+            <PsychoPanel className='mb-4'>
               <p>Bork bork bork bork!</p>
-            </Veilederpanel>
+            </PsychoPanel>
           </Nav.Column>
         </Nav.Row>
         <Nav.Row>
