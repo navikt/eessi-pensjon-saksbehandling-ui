@@ -7,11 +7,12 @@ import './Banner.css'
 
 class Banner extends Component {
   render () {
-    const { t } = this.props
-
+    const { t, i18Key, veilI18Key } = this.props
+    let key = i18Key? i18Key: 'app-headerTitle'
+    let veilText = veilI18Key? t(veilI18Key): ''
     return <div className='c-ui-banner'>
-      <h1 className='typo-sidetittel'>{t('app-headerTitle')}</h1>
-      <FirstPanel />
+      <h1 className='typo-sidetittel'>{t(key)}</h1>
+      <FirstPanel text={veilText}/>
     </div>
   }
 }

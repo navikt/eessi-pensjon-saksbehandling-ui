@@ -15,6 +15,8 @@ import PSelv from './PSelv/PSelv'
 import PInfo from './PInfo/PInfo'
 import P4000 from './P4000/P4000'
 
+import ErrorPage from './ErrorPage/ErrorPage'
+
 export {
   FirstPage,
   IndexPage,
@@ -31,5 +33,7 @@ export {
 
   PSelv,
   PInfo,
-  P4000
+  P4000,
+
+  ErrorPage
 }
