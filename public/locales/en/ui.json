@@ -8,6 +8,7 @@
     "loading-gettingRinaCase" : "Getting RINA case...",
     "loading-gettingStatus" : "Getting status...",
 
+    "8numbers" : "8 numbers",
     "accepted" : "Accepted",
     "add" : "Add",
     "added" : "Added",
@@ -145,6 +146,6 @@
     "uploaded" : "Uploaded",
     "view" : "View",
     "watermark" : "Watermark",
-    "write" : "Write in",
+    "writeIn" : "Write in",
     "yes" : "Yes"
 }

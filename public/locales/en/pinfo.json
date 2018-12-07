@@ -10,13 +10,14 @@
     "intro-p-4": "Ved tilfeller NAV må innhente medlemskapsopplysninger fra utenlandske trygdemyndigheter, vil du motta et foreløpig vedtak i påvente av opplysninger fra utlandet.",
 
     "person-title": "Personal information",
-    "person-description": "Personal information description",
+    "person-description": "This page is for those who had previously stayed in EU countries. Here you can send more information that NAV needs to proceed with your application",
+
     "person-lastNameAfterBirth": "Last name after birth",
     "person-name": "Previous names",
     "person-phoneNumber": "Phone number",
     "person-email": "Email address",
 
-    "bank-title" : "Foreign bank and account information",
+    "bank-title" : "Bank and account information",
     "bank-name" : "Bank name",
     "bank-country" : "Country",
     "bank-address" : "Bank address",
@@ -24,7 +25,7 @@
     "bank-iban" : "IBAN / Account number",
 
     "stayAbroad-title" : "Information on stay abroad",
-    "stayAbroad-description" : "GIve more information related to your staying time abroad",
+    "stayAbroad-description" : "Give more information related to your staying time abroad",
     "stayAbroad-choose-category" : "Choose category",
     "stayAbroad-previousPeriods" : "Previously added periods",
     "stayAbroad-category" : "Category",
@@ -39,7 +40,7 @@
     "stayAbroad-category-sick"      : "Sick",
     "stayAbroad-category-other"     : "Other",
     "stayAbroad-period" : "Period",
-    "stayAbroad-period-title" : "Period/Interval",
+    "stayAbroad-period-title" : "Period",
     "stayAbroad-period-start-date" : "Start date",
     "stayAbroad-period-end-date" : "End date",
     "stayAbroad-country" : "Country",

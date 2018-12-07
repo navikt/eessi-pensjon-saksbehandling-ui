@@ -63,7 +63,8 @@ class Period extends React.Component {
   }
 
   static getDerivedStateFromProps (newProps, oldState) {
-    if (_.isEmpty(oldState._period) && newProps.mode === 'edit') {
+    if (newProps.mode === 'edit' &&
+      (_.isEmpty(oldState._period) || oldState._period.id !== newProps.period.id)) {
       return {
         _period: newProps.period
       }
@@ -169,16 +170,18 @@ class Period extends React.Component {
         return <React.Fragment>
           <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode)}>
             <div className='col-md-4'>
-              <Nav.Select label={t('pinfo:stayAbroad-category')}
+              <Nav.Select
+                id='pinfo-stayabroad-category-select'
+                label={t('pinfo:stayAbroad-category')}
                 value={_period.type || ''}
                 onChange={this.setType}>
                 <option value=''>{t('ui:choose')}</option>
                 <option value='work'>{t('pinfo:stayAbroad-category-work')}</option>
                 <option value='home'>{t('pinfo:stayAbroad-category-home')}</option>
-                <option value='child'>{t('pinfo:stayAbroad-category-child')}</option>
+                {/*<option value='child'>{t('pinfo:stayAbroad-category-child')}</option>*/}
                 <option value='voluntary'>{t('pinfo:stayAbroad-category-voluntary')}</option>
                 <option value='military'>{t('pinfo:stayAbroad-category-military')}</option>
-                <option value='child'>{t('pinfo:stayAbroad-category-child')}</option>
+                <option value='birth'>{t('pinfo:stayAbroad-category-birth')}</option>
                 <option value='learn'>{t('pinfo:stayAbroad-category-learn')}</option>
                 <option value='daily'>{t('pinfo:stayAbroad-category-daily')}</option>
                 <option value='sick'>{t('pinfo:stayAbroad-category-sick')}</option>
@@ -189,12 +192,14 @@ class Period extends React.Component {
           { _period.type ? <React.Fragment>
             <Nav.Row>
               <div className='col-md-12'>
-                <h3 className='mt-3 mb-3 typo-undertittel'>{t('pinfo:stayAbroad-period-title')}</h3>
+                <Nav.Undertittel className='mt-3 mb-3'>{t('pinfo:stayAbroad-period-title')}</Nav.Undertittel>
               </div>
               <div className='col-md-4'>
                 <label className='mr-3'>{t('pinfo:stayAbroad-period-start-date')}</label>
                 <br />
-                <ReactDatePicker selected={_period.startDate}
+                <ReactDatePicker
+                  id='pinfo-stayabroad-startdate-date'
+                  selected={_period.startDate}
                   className='startDate'
                   dateFormat='dd.MM.yyyy'
                   placeholderText={t('ui:dateFormat')}
@@ -208,7 +213,9 @@ class Period extends React.Component {
               <div className='col-md-4'>
                 <label>{t('pinfo:stayAbroad-period-end-date')}</label>
                 <br />
-                <ReactDatePicker selected={_period.endDate}
+                <ReactDatePicker
+                  id='pinfo-stayabroad-enddate-date'
+                  selected={_period.endDate}
                   className='endDate'
                   dateFormat='dd.MM.yyyy'
                   placeholderText={t('ui:dateFormat')}
@@ -223,7 +230,9 @@ class Period extends React.Component {
             <Nav.Row>
               <div className='mt-3 col-md-6'>
                 <label>{t('pinfo:stayAbroad-country')}</label>
-                <CountrySelect locale={locale}
+                <CountrySelect
+                  id='pinfo-stayabroad-country-select'
+                  locale={locale}
                   value={_period.country || null}
                   onSelect={this.setCountry}
                   error={error.country}
@@ -233,40 +242,64 @@ class Period extends React.Component {
             </Nav.Row>
             {_period.type === 'work' ? <Nav.Row>
               <div className='col-md-12'>
-                <h3 className='mt-4 mb-4 typo-undertittel'>{t('pinfo:stayAbroad-work-title')}</h3>
+                <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-work-title')}</Nav.Undertittel>
               </div>
               <div className='col-md-4'>
-                <Nav.Input label={t('pinfo:stayAbroad-work-activity')} value={_period.workActivity || ''}
+                <Nav.Input
+                  id='pinfo-stayabroad-workactivity-input'
+                  label={t('pinfo:stayAbroad-work-activity')}
+                  placeholder={t('ui:writeIn')}
+                  value={_period.workActivity || ''}
                   onChange={this.setWorkActivity}
                   feil={error.workActivity ? { feilmelding: t(error.workActivity) } : null}
                 />
               </div>
               <div className='col-md-6'>
-                <Nav.Input label={t('pinfo:stayAbroad-work-id')} value={_period.workId || ''}
+                <Nav.Input
+                  id='pinfo-stayabroad-workid-input'
+                  label={t('pinfo:stayAbroad-work-id')}
+                  value={_period.workId || ''}
+                  placeholder={t('ui:writeIn')}
                   onChange={this.setWorkId}
                   feil={error.workId ? { feilmelding: t(error.workId) } : null}
                 />
               </div>
               <div className='col-md-4'>
-                <Nav.Input label={t('pinfo:stayAbroad-work-name')} value={_period.workName || ''}
+                <Nav.Input
+                  id='pinfo-stayabroad-workname-input'
+                  label={t('pinfo:stayAbroad-work-name')}
+                  placeholder={t('ui:writeIn')}
+                  value={_period.workName || ''}
                   onChange={this.setWorkName}
                   feil={error.workName ? { feilmelding: t(error.workName) } : null}
                 />
               </div>
               <div className='col-md-6'>
-                <Nav.Input label={t('pinfo:stayAbroad-work-address')} value={_period.workAddress || ''}
+                <Nav.Input
+                  id='pinfo-stayabroad-workaddress-input'
+                  label={t('pinfo:stayAbroad-work-address')}
+                  value={_period.workAddress || ''}
+                  placeholder={t('ui:writeIn')}
                   onChange={this.setWorkAddress}
                   feil={error.workAddress ? { feilmelding: t(error.workAddress) } : null}
                 />
               </div>
               <div className='col-md-4'>
-                <Nav.Input label={t('pinfo:stayAbroad-work-city')} value={_period.workCity || ''}
+                <Nav.Input
+                  id='pinfo-stayabroad-workcity-input'
+                  label={t('pinfo:stayAbroad-work-city')}
+                  value={_period.workCity || ''}
+                  placeholder={t('ui:writeIn')}
                   onChange={this.setWorkCity}
                   feil={error.workCity ? { feilmelding: t(error.workCity) } : null}
                 />
               </div>
               <div className='col-md-6'>
-                <Nav.Input label={t('pinfo:stayAbroad-work-region')} value={_period.workRegion || ''}
+                <Nav.Input
+                  id='pinfo-stayabroad-workregion-input'
+                  label={t('pinfo:stayAbroad-work-region')}
+                  value={_period.workRegion || ''}
+                  placeholder={t('ui:writeIn')}
                   onChange={this.setWorkRegion}
                   feil={error.workRegion ? { feilmelding: t(error.workRegion) } : null}
                 />
@@ -274,16 +307,24 @@ class Period extends React.Component {
             </Nav.Row> : null}
             {_period.type === 'child' ? <Nav.Row>
               <div className='col-md-12'>
-                <h3 className='mt-4 mb-4 typo-undertittel'>{t('pinfo:stayAbroad-child-title')}</h3>
+                <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-child-title')}</Nav.Undertittel>
               </div>
               <div className='col-md-4'>
-                <Nav.Input label={t('pinfo:stayAbroad-child-firstname')} value={_period.childFirstName || ''}
+                <Nav.Input
+                  id='pinfo-stayabroad-childfirstname-input'
+                  label={t('pinfo:stayAbroad-child-firstname')}
+                  placeholder={t('ui:writeIn')}
+                  value={_period.childFirstName || ''}
                   onChange={this.setChildFirstName}
                   feil={error.childFirstName ? { feilmelding: t(error.childFirstName) } : null}
                 />
               </div>
               <div className='col-md-6'>
-                <Nav.Input label={t('pinfo:stayAbroad-child-lastname')} value={_period.childLastName || ''}
+                <Nav.Input
+                  id='pinfo-stayabroad-childlastname-input'
+                  label={t('pinfo:stayAbroad-child-lastname')}
+                  value={_period.childLastName || ''}
+                  placeholder={t('ui:writeIn')}
                   onChange={this.setChildLastName}
                   feil={error.childLastName ? { feilmelding: t(error.childLastName) } : null}
                 />
@@ -291,7 +332,9 @@ class Period extends React.Component {
               <div className='col-md-4'>
                 <label>{t('pinfo:stayAbroad-child-birthdate')}</label>
                 <br />
-                <ReactDatePicker selected={_period.childBirthDate}
+                <ReactDatePicker
+                  id='pinfo-stayabroad-childbirthdate-date'
+                  selected={_period.childBirthDate}
                   className='childBirthDate'
                   dateFormat='dd.MM.yyyy'
                   placeholderText={t('ui:dateFormat')}
@@ -305,10 +348,14 @@ class Period extends React.Component {
             </Nav.Row> : null}
             {_period.type === 'learn' ? <Nav.Row>
               <div className='col-md-12'>
-                <h3 className='mt-4 mb-4 typo-undertittel'>{t('pinfo:stayAbroad-learn-title')}</h3>
+                <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-learn-title')}</Nav.Undertittel>
               </div>
               <div className='col-md-6'>
-                <Nav.Input label={t('pinfo:stayAbroad-learn-institution')} value={_period.learnInstitution || ''}
+                <Nav.Input
+                  id='pinfo-stayabroad-institution-input'
+                  label={t('pinfo:stayAbroad-learn-institution')}
+                  value={_period.learnInstitution || ''}
+                  placeholder={t('ui:writeIn')}
                   onChange={this.setLearnInstitution}
                   feil={error.learnInstitution ? { feilmelding: t(error.learnInstitution) } : null}
                 />
@@ -316,20 +363,31 @@ class Period extends React.Component {
             </Nav.Row> : null}
             <Nav.Row>
               <div className='col-md-12'>
-                <h3 className='mt-4 mb-4 typo-undertittel'>{t('pinfo:stayAbroad-attachment-title')}</h3>
+                <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-attachment-title')}</Nav.Undertittel>
               </div>
               <div className='col-md-12'>
-                <FileUpload t={t} ref={f => { this.fileUpload = f }} fileUploadDroppableId={'fileUpload'} className='fileUpload'
+                <FileUpload
+                  id='pinfo-stayabroad-attachments-fileupload'
+                  className='fileUpload'
+                  t={t}
+                  ref={f => { this.fileUpload = f }}
+                  fileUploadDroppableId={'fileUpload'}
                   files={_period.attachments || []}
                   onFileChange={this.setAttachments} />
               </div>
             </Nav.Row>
             <Nav.Row>
               <div className='mt-4 mb-4 col-md-12'>
-                {mode === 'edit' ? <Nav.Knapp className='editPeriodButton' onClick={this.saveEditPeriod.bind(this)}>
+                {mode === 'edit' ? <Nav.Knapp
+                  id='pinfo-stayabroad-edit-button'
+                  className='editPeriodButton'
+                  onClick={this.saveEditPeriod.bind(this)}>
                   {t('ui:changePeriod')}
                 </Nav.Knapp> : null}
-                {mode === 'new' ? <Nav.Knapp className='addPeriodButton' onClick={this.addPeriod.bind(this)}>
+                {mode === 'new' ? <Nav.Knapp
+                  id='pinfo-stayabroad-add-button'
+                  className='addPeriodButton'
+                  onClick={this.addPeriod.bind(this)}>
                   {t('ui:savePeriod')}
                 </Nav.Knapp> : null}
               </div>

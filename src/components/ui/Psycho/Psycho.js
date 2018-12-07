@@ -5,25 +5,20 @@ import * as smilende_orange_veileder from '../../../resources/images/nav-pensjon
 import * as trist_orange_veileder from '../../../resources/images/nav-pensjon-trist-orange-veileder.svg'
 
 class Psycho extends Component {
-
   getSvg () {
+    const { type } = this.props
 
-     const { type } = this.props
-
-     switch (type) {
-
-        case 'trist':
+    switch (type) {
+      case 'trist':
         return trist_orange_veileder
-        default:
+      default:
         return smilende_orange_veileder
-
-     }
+    }
   }
 
   render () {
-
     let svg = this.getSvg()
-    return <img style={{height: '100%'}} src={svg} alt='NAV-veideder' />
+    return <img style={{ height: '100%' }} src={svg} alt='NAV-veideder' />
   }
 }
 

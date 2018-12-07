@@ -5,17 +5,16 @@ import * as Nav from '../Nav'
 
 class PsychoBanner extends Component {
   render () {
-
     const { children } = this.props
 
     return <Nav.Veileder tekst={children}>
-      <Psycho/>
+      <Psycho />
     </Nav.Veileder>
   }
 }
 
 PsychoBanner.propTypes = {
-    children: PT.node.isRequired
+  children: PT.node.isRequired
 }
 
 export default PsychoBanner

@@ -50,7 +50,7 @@ class PInfo extends React.Component {
 
   constructor (props) {
     super(props)
-    //this.props.actions.getStorageFile(props.username, storages.PINFO, 'PINFO')
+    // this.props.actions.getStorageFile(props.username, storages.PINFO, 'PINFO')
   }
 
   componentDidMount () {
@@ -102,9 +102,9 @@ class PInfo extends React.Component {
   }
 
   onCancelButtonClick () {
-     const { actions, history } = this.props
+    const { actions, history } = this.props
 
-     history.push(routes.ROOT)
+    history.push(routes.ROOT)
   }
 
   onSaveButtonClick () {
@@ -122,28 +122,28 @@ class PInfo extends React.Component {
       history={history} location={location}
       sideContent={<FrontPageDrawer t={t} status={status} />}
       header={t('pinfo:app-title')}>
-      { step !== 4 ?
-      <Nav.Stegindikator
-        className='mt-4 mb-4'
-        aktivtSteg={step}
-        visLabel
-        onChange={(e) => actions.setEventProperty({ step: e })}
-        autoResponsiv
-        steg={_.range(0, 5).map(index => ({
-          label: t('pinfo:form-step' + index),
-          ferdig: index < step,
-          aktiv: index === step
-        }))}
-      />: null}
+      { step !== 4
+        ? <Nav.Stegindikator
+          className='mt-4 mb-4'
+          aktivtSteg={step}
+          visLabel
+          onChange={(e) => actions.setEventProperty({ step: e })}
+          autoResponsiv
+          steg={_.range(0, 5).map(index => ({
+            label: t('pinfo:form-step' + index),
+            ferdig: index < step,
+            aktiv: index === step
+          }))}
+        /> : null}
 
       {error ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(error)}</Nav.AlertStripe> : null}
 
       <div className={classNames('fieldset animate', 'mb-4')}>
-        {step === 0 ? <Person pageError={this.state.error} /> : null}
-        {step === 1 ? <Bank pageError={this.state.error} /> : null}
-        {step === 2 ? <StayAbroad locale={locale} pageError={this.state.error} /> : null}
-        {step === 3 ? <Confirm t={t} onSave={this.onSaveButtonClick.bind(this)} pageError={this.state.error} /> : null}
-        {step === 4 ? <Receipt pageError={this.state.error} /> : null}
+        {step === 0 ? <Person pageError={error} /> : null}
+        {step === 1 ? <Bank pageError={error} /> : null}
+        {step === 2 ? <StayAbroad locale={locale} pageError={error} /> : null}
+        {step === 3 ? <Confirm t={t} onSave={this.onSaveButtonClick.bind(this)} pageError={error} /> : null}
+        {step === 4 ? <Receipt pageError={error} /> : null}
       </div>
       <div className='mb-4'>
         {step < 4 ? <Nav.Hovedknapp

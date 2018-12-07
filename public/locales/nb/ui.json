@@ -8,6 +8,7 @@
     "loading-gettingRinaCase" : "Henter RINA sak...",
     "loading-gettingStatus" : "Henter status...",
 
+    "8numbers" : "8 siffer",
     "accepted" : "Akseptert",
     "add" : "Legg til",
     "added" : "La til",
@@ -145,6 +146,6 @@
     "uploaded" : "Lastet opp",
     "view" : "Oversikt",
     "watermark" : "Vannmerke",
-    "write" : "Skriv inn",
+    "writeIn" : "Skriv inn",
     "yes" : "Ja"
 }

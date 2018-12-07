@@ -52,59 +52,68 @@ class Person extends React.Component {
   }
 
   render () {
-    const { pageError, t, phone, email, previousName, nameAtBirth, actions } = this.props
+    const { pageError, t, phone, email, previousName, nameAtBirth } = this.props
     const { error } = this.state
 
     return <div>
       <Nav.Row>
         <Nav.Column xs='12'>
-          <PsychoPanel className='mb-4'>
-            <p>Bork bork bork bork!</p>
+          <PsychoPanel id='pinfo-person-psycho-panel' className='mb-4'>
+            <span>{t('pinfo:person-description')}</span>
           </PsychoPanel>
         </Nav.Column>
       </Nav.Row>
-      <h2 className='typo-undertittel ml-0 mb-4 appDescription'>{t('pinfo:person-title')}</h2>
-      <Nav.Row className='mt-3' style={{ alignItems: 'baseline', padding: '2px' }}>
+      <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-title')}</Nav.Undertittel>
+      <Nav.Row>
         <div className='col-sm-9'>
           <Nav.Input
+            id='pinfo-person-lastname-input'
+            type='text'
             label={t('pinfo:person-lastNameAfterBirth')}
+            placeholder={t('ui:writeIn')}
             value={nameAtBirth || ''}
             onChange={this.setNameAtBirth}
             feil={error.nameAtBirth && pageError ? { feilmelding: t(error.nameAtBirth) } : null}
-            type='text'
           />
         </div>
       </Nav.Row>
-      <Nav.Row style={{ alignItems: 'baseline', padding: '2px' }}>
+      <Nav.Row>
         <div className='col-sm-9'>
           <Nav.Input
+            id='pinfo-person-name-input'
+            type='text'
             label={t('pinfo:person-name')}
+            placeholder={t('ui:writeIn')}
             value={previousName || ''}
             onChange={this.setPreviousName}
             feil={error.previousName && pageError ? { feilmelding: t(error.previousName) } : null}
-            type='text'
+
           />
         </div>
       </Nav.Row>
-      <Nav.Row style={{ alignItems: 'baseline', padding: '2px' }}>
+      <Nav.Row>
         <div className='col-sm-4'>
           <Nav.Input
+            id='pinfo-person-phonenumber-input'
+            type='tel'
             label={t('pinfo:person-phoneNumber')}
+            placeholder={t('ui:8numbers')}
             value={phone || ''}
             onChange={this.setPhone}
             feil={error.phone && pageError ? { feilmelding: t(error.phone) } : null}
-            type='tel'
           />
         </div>
       </Nav.Row>
-      <Nav.Row style={{ alignItems: 'baseline', padding: '2px' }}>
+      <Nav.Row>
         <div className='col-sm-6'>
           <Nav.Input
+            id='pinfo-person-email-input'
+            type='email'
             label={t('pinfo:person-email')}
+            placeholder={t('ui:writeIn')}
             value={email || ''}
             onChange={this.setEmail}
             feil={error.email && pageError ? { feilmelding: t(error.email) } : null}
-            type='email'
           />
         </div>
       </Nav.Row>

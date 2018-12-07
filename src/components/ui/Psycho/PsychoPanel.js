@@ -19,7 +19,6 @@ class PsychoPanel extends Component {
   }
 
   render () {
-
     const { className, children } = this.props
 
     if (this.state.hidden) {
@@ -27,16 +26,16 @@ class PsychoPanel extends Component {
     }
 
     return <div className={className}>
-      <Nav.Veilederpanel type='normal' svg={<Psycho/>} kompakt>
-      {children}
-      <div className='closeButton'>
-        <a href='#' onClick={this.handleClose.bind(this)}
-          style={{ position: 'absolute', top: '5px', right: '5px' }}>
-          <Icons kind='nav-close' />
-        </a>
-      </div>
-    </Nav.Veilederpanel>
-  </div>
+      <Nav.Veilederpanel type='normal' svg={<Psycho />} kompakt>
+        {children}
+        <div className='closeButton'>
+          <a href='#' onClick={this.handleClose.bind(this)}
+            style={{ position: 'absolute', top: '5px', right: '5px' }}>
+            <Icons kind='nav-close' />
+          </a>
+        </div>
+      </Nav.Veilederpanel>
+    </div>
   }
 }
 

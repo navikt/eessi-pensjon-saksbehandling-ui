@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { withNamespaces } from 'react-i18next'
 import _ from 'lodash'
 
+import * as Nav from '../../ui/Nav'
 import Period from './Period'
 
 import { stayAbroadValidation } from '../Validation/singleTests'
@@ -37,9 +38,10 @@ class StayAbroad extends React.Component {
     const { editPeriod } = this.state
 
     return <div>
-      <h2 className='typo-undertittel ml-0 mb-4 appDescription'>{t('pinfo:stayAbroad-title')}</h2>
-      {!_.isEmpty(stayAbroad) ? <h3 className='typo-undertittel mb-3'>{t('pinfo:stayAbroad-previousPeriods')}</h3> : null}
-      {stayAbroad.map((period, index) => {
+      <Nav.Undertittel>{t('pinfo:stayAbroad-title')}</Nav.Undertittel>
+      <Nav.Undertekst className='mb-4'>{t('pinfo:stayAbroad-description')}</Nav.Undertekst>
+      {!_.isEmpty(stayAbroad) ? <Nav.Undertittel className='mb-3'>{t('pinfo:stayAbroad-previousPeriods')}</Nav.Undertittel> : null}
+      {stayAbroad.map(period => {
         return <Period t={t}
           mode='view'
           current={editPeriod && editPeriod.id === period.id}
