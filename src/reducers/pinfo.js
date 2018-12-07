@@ -4,12 +4,7 @@ let initialState = {
   isLoaded: false,
   step: 0,
   validationError: undefined,
-  person: {
-    lastNameAfterBirth: undefined,
-    names: [],
-    phones: [],
-    emails: []
-  },
+  person: {},
   bank: {},
   stayAbroad: [],
   work: {}
@@ -26,39 +21,12 @@ export default function (state = initialState, action = {}) {
         ? JSON.parse(action.payload)
         : state
 
-    case types.PINFO_EVENT_SET_LASTNAME:
-
+    case types.PINFO_EVENT_SET_PERSON:
       return {
         ...state,
         person: {
           ...state.person,
-          lastNameAfterBirth: action.payload
-        } }
-
-    case types.PINFO_EVENT_SET_PHONES:
-
-      return {
-        ...state,
-        person: {
-          ...state.person,
-          phones: action.payload
-        } }
-
-    case types.PINFO_EVENT_SET_NAMES:
-
-      return {
-        ...state,
-        person: {
-          ...state.person,
-          names: action.payload
-        } }
-
-    case types.PINFO_EVENT_SET_EMAILS:
-      return {
-        ...state,
-        person: {
-          ...state.person,
-          emails: action.payload
+          ...action.payload
         } }
 
     case types.PINFO_EVENT_SET_WORK:

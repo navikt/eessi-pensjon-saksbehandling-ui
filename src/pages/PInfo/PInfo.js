@@ -12,7 +12,7 @@ import * as Nav from '../../components/ui/Nav'
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
 import FrontPageDrawer from '../../components/drawer/FrontPage'
 import Bank from '../../components/pinfo/Bank'
-import Person from '../../components/pinfo/Person/Person'
+import Person from '../../components/pinfo/Person'
 import StayAbroad from '../../components/pinfo/StayAbroad/StayAbroad'
 import Receipt from '../../components/pinfo/Receipt'
 import Confirm from '../../components/pinfo/Confirm'
@@ -45,7 +45,7 @@ const mapDispatchToProps = (dispatch) => {
 
 class PInfo extends React.Component {
   state = {
-    erorr: undefined
+    error: undefined
   }
 
   constructor (props) {
@@ -121,27 +121,28 @@ class PInfo extends React.Component {
       history={history} location={location}
       sideContent={<FrontPageDrawer t={t} status={status} />}>
       <h1 className='typo-sidetittel mt-4'>{t('pinfo:app-title')}</h1>
-      <Nav.Stegindikator
-        className='mt-4 mb-4'
-        aktivtSteg={step}
-        visLabel
-        onChange={(e) => actions.setEventProperty({ step: e })}
-        autoResponsiv
-        steg={_.range(0, 5).map(index => ({
-          label: t('pinfo:form-step' + index),
-          ferdig: index < step,
-          aktiv: index === step
-        }))}
-      />
+      {step !== 4
+        ? <Nav.Stegindikator
+          className='mt-4 mb-4'
+          aktivtSteg={step}
+          visLabel
+          onChange={(e) => actions.setEventProperty({ step: e })}
+          autoResponsiv
+          steg={_.range(0, 5).map(index => ({
+            label: t('pinfo:form-step' + index),
+            ferdig: index < step,
+            aktiv: index === step
+          }))}
+        /> : null}
 
       {error ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(error)}</Nav.AlertStripe> : null}
 
       <div className={classNames('fieldset animate', 'mb-4')}>
-        {step === 0 ? <Person /> : null}
-        {step === 1 ? <Bank /> : null}
-        {step === 2 ? <StayAbroad locale={locale} /> : null}
-        {step === 3 ? <Confirm t={t} onSave={this.onSaveButtonClick.bind(this)} /> : null}
-        {step === 4 ? <Receipt /> : null}
+        {step === 0 ? <Person pageError={this.state.error} /> : null}
+        {step === 1 ? <Bank pageError={this.state.error} /> : null}
+        {step === 2 ? <StayAbroad locale={locale} pageError={this.state.error} /> : null}
+        {step === 3 ? <Confirm t={t} onSave={this.onSaveButtonClick.bind(this)} pageError={this.state.error} /> : null}
+        {step === 4 ? <Receipt pageError={this.state.error} /> : null}
       </div>
       <div className='mb-4'>
         {step < 4 ? <Nav.Hovedknapp

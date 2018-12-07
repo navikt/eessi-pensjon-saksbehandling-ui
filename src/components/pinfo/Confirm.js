@@ -1,10 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import moment from 'moment'
 import { withNamespaces } from 'react-i18next'
+import _ from 'lodash'
 
+import * as pinfoActions from '../../actions/pinfo'
 import File from '../../components/ui/File/File'
 import * as Nav from '../ui/Nav'
+import Veilederpanel from '../ui/Panel/VeilederPanel'
+import CountrySelect from '../ui/CountrySelect/CountrySelect'
+import { personValidation, bankValidation, stayAbroadValidation } from './Validation/singleTests'
+import Period from './StayAbroad/Period'
+
+const validation = { ...personValidation, ...bankValidation, ...stayAbroadValidation }
 
 const mapStateToProps = (state) => {
   return {
@@ -13,119 +22,189 @@ const mapStateToProps = (state) => {
     referrer: state.app.referrer,
     status: state.status,
     username: state.app.username,
-    file: state.storage.file
+    file: state.storage.file,
+    stayAbroad: state.pinfo.stayAbroad
   }
+}
+const mapDispatchToProps = (dispatch) => {
+  return { actions: bindActionCreators(Object.assign({}, pinfoActions), dispatch) }
 }
 
 class Confirm extends React.Component {
-  render () {
-    const { t } = this.props
-    const { person, bank, work, attachments, pension, onSave } = this.props.pinfo
+  state = {
+    error: {},
+    editPeriod: undefined
+  }
 
-    return <React.Fragment>
+  constructor (props) {
+    super(props)
+    this.setNameAtBirth = this.eventSetProperty.bind(this, 'nameAtBirth', validation.nameAtBirth, this.props.actions.setPerson)
+    this.setPreviousName = this.eventSetProperty.bind(this, 'previousName', validation.previousName, this.props.actions.setPerson)
+    this.setPhone = this.eventSetProperty.bind(this, 'phone', validation.phone, this.props.actions.setPerson)
+    this.setEmail = this.eventSetProperty.bind(this, 'email', validation.email, this.props.actions.setPerson)
+    this.setBankName = this.eventSetProperty.bind(this, 'bankName', validation.bankName, this.props.actions.setBank)
+    this.setBankAddress = this.eventSetProperty.bind(this, 'bankAddress', validation.bankAddress, this.props.actions.setBank)
+    this.setBankCountry = this.valueSetProperty.bind(this, 'bankCountry', validation.bankCountry, this.props.actions.setBank)
+    this.setBankBicSwift = this.eventSetProperty.bind(this, 'bankBicSwift', validation.bankBicSwift, this.props.actions.setBank)
+    this.setBankIban = this.eventSetProperty.bind(this, 'bankIban', validation.bankIban, this.props.actions.setBank)
+  }
+
+  eventSetProperty (key, validateFunction, action, event) {
+    this.valueSetProperty(key, validateFunction, action, event.target.value)
+  }
+
+  valueSetProperty (key, validateFunction, action, value) {
+    const { actions } = this.props
+    action({ [key]: value })
+    this.setState({
+      error: {
+        ...this.state.error,
+        [key]: validateFunction(value)
+      }
+    })
+  }
+
+  setEditPeriod (period) {
+    this.setState({
+      editPeriod: period
+    })
+  }
+
+  render () {
+    const { error, editPeriod } = this.state
+    const { pageError, t, locale, actions } = this.props
+    const { stayAbroad, person, bank, work, attachments, pension, onSave } = this.props.pinfo
+
+    return (
       <div>
-        <fieldset>
-          <legend>{t('pinfo:person-title')}</legend>
-          <div className='col-xs-12'>
-            <dl className='row'>
-              <dt className='col-sm-4'><label>{t('pinfo:person-phoneNumber')}</label></dt>
-              <div className='col-sm-8'>
-                {person.phones.join(', ')}
-              </div>
-              <dt className='col-sm-4'><label>{t('pinfo:person-email')}</label></dt>
-              <div className='col-sm-8'>
-                {person.emails.join(', ')}
-              </div>
-            </dl>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>{t('pinfo:bank-title')}</legend>
-          <div className='col-xs-12'>
-            <dl className='row'>
-              <dt className='col-sm-4'><label>{t('pinfo:bank-name')}</label></dt>
-              <dd className='col-sm-8'>{bank.bankName}</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:bank-address')}</label></dt>
-              <dd className='col-sm-8'><pre>{bank.bankAddress}</pre></dd>
-              <dt className='col-sm-4'><label>{t('pinfo:bank-country')}</label></dt>
-              <dd className='col-sm-8'>
-                <img src={'../../../../../flags/' + bank.bankCountry.value + '.png'}
-                  style={{ width: 30, height: 20 }}
-                  alt={bank.bankCountry.label} />&nbsp; {bank.bankCountry.label}/>
-              </dd>
-              <dt className='col-sm-4'><label>{t('pinfo:bank-bicSwift')}</label></dt>
-              <dd className='col-sm-8'>{bank.bankBicSwift}</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:bank-iban')}</label></dt>
-              <dd className='col-sm-8'>{bank.bankIban}</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:bank-code')}</label></dt>
-              <dd className='col-sm-8'>{bank.bankCode}</dd>
-            </dl>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>{t('pinfo:work-title')}</legend>
-          <div className='col-xs-12'>
-            <dl className='row'>
-              <dt className='col-sm-4'><label>{t('pinfo:work-type')}</label></dt>
-              <dd className='col-sm-8'>{work.workType ? t('pinfo:work-type-option-' + work.workType) : null}</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:work-start-date')}</label></dt>
-              <dd className='col-sm-8'>{work.workStartDate ? moment(work.workStartDate).format('DD MM YYYY') : null}</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:work-end-date')}</label></dt>
-              <dd className='col-sm-8'>{work.workEndDate ? moment(work.workEndDate).format('DD MM YYYY') : null}</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:work-estimated-retirement-date')}</label></dt>
-              <dd className='col-sm-8'>{work.workEstimatedRetirementDate ? moment(work.workEstimatedRetirementDate).format('DD MM YYYY') : null}</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:work-hour-per-week')}</label></dt>
-              <dd className='col-sm-8'>{work.workHourPerWeek}</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:work-income')}</label></dt>
-              <dd className='col-sm-8'>{work.workIncome}{' '}{work.workIncomeCurrency.currency}</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:work-payment-date')}</label></dt>
-              <dd className='col-sm-8'>{work.workPaymentDate ? moment(work.workPaymentDate).format('DD MM YYYY') : null}</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:work-payment-frequency')}</label></dt>
-              <dd className='col-sm-8'>{work.workPaymentFrequency ? t('pinfo:work-payment-frequency-option-' + work.workPaymentFrequency) : null}</dd>
-            </dl>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>{t('pinfo:attachments-title')}</legend>
-          <div className='col-xs-12'>
-            <dl className='row'>
-              <dt className='col-sm-4'><label>{t('pinfo:attachment-types')}</label></dt>
-              <dd className='col-sm-8'>{
-                Object.entries(attachments.attachmentTypes ? attachments.attachmentTypes : {})
-                  .filter(KV => KV[1])
-                  .map(type => { return t('pinfo:attachments-types-' + type[0]) }).join(', ')
-              }</dd>
-              <dt className='col-sm-4'><label>{t('pinfo:attachments')}</label></dt>
-              <dd className='col-sm-8'>{
-                attachments.attachments ? attachments.attachments.map((file, i) => {
-                  return <File className='mr-2' key={i} file={file} deleteLink={false} downloadLink={false} />
-                }) : null }
-              </dd>
-            </dl>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>{t('pinfo:pension-title')}</legend>
-          <div className='col-xs-12'>
-            <dl className='row'>
-              <dt className='col-sm-4'><label>{t('pinfo:pension-country')}</label></dt>
-              <dd className='col-sm-8'><img src={'../../../../../flags/' + pension.retirementCountry.value + '.png'}
-                style={{ width: 30, height: 20 }}
-                alt={pension.retirementCountry.label} />&nbsp; {pension.retirementCountry.label}
-              </dd>
-            </dl>
-          </div>
-        </fieldset>
+        <Nav.Row>
+          <Nav.Column xs='12'>
+            <Veilederpanel className='mb-4'>
+              <p>Bork bork bork bork!</p>
+            </Veilederpanel>
+          </Nav.Column>
+        </Nav.Row>
+        <Nav.Row>
+          <Nav.Column xs='12'>
+            <h2 className='typo-Innholdstittel ml-0 mb-4 appDescription'>{t('pinfo:Undertittel')}</h2>
+          </Nav.Column>
+        </Nav.Row>
+        <Nav.Row>
+          <Nav.Column xs='12'>
+            <h3 className='typo-undertittel mb-4'>{t('pinfo:person-title')}</h3>
+          </Nav.Column>
+        </Nav.Row>
+
+        <Nav.Row>
+          <Nav.Column md='4' sm='6' xs='12'>
+            <Nav.Input
+              label={t('pinfo:person-lastNameAfterBirth')}
+              value={person.nameAtBirth || ''}
+              onChange={this.setNameAtBirth}
+              type='text'
+            />
+          </Nav.Column>
+        </Nav.Row>
+
+        <Nav.Row>
+          <Nav.Column md='4' sm='6' xs='12'>
+            <Nav.Input
+              label={t('pinfo:person-name')}
+              value={person.previousName || ''}
+              onChange={this.setPreviousName}
+              type='text'
+            />
+          </Nav.Column>
+        </Nav.Row>
+
+        <Nav.Row>
+          <Nav.Column md='4' sm='6' xs='12'>
+            <Nav.Input
+              label={t('pinfo:person-phoneNumber')}
+              value={person.phone || ''}
+              onChange={this.setPhone}
+              type='tel'
+            />
+          </Nav.Column>
+          <Nav.Column md='4' sm='6' xs='12'>
+            <Nav.Input
+              label={t('pinfo:person-email')}
+              value={person.email || ''}
+              onChange={this.setEmail}
+              type='email'
+            />
+          </Nav.Column>
+        </Nav.Row>
+        <Nav.Row>
+          <Nav.Column xs='12'>
+            <h3 className='typo-undertittel mt-2 mb-2'>{t('pinfo:BankInformasjon')}</h3>
+          </Nav.Column>
+        </Nav.Row>
+        <div>
+          <Nav.Row>
+            <Nav.Column md='6'>
+              <Nav.Input label={t('pinfo:bank-name')} value={bank.bankName || ''}
+                onChange={this.setBankName}
+                feil={error.bankName && pageError ? { feilmelding: t(error.bankName) } : null}
+              />
+            </Nav.Column>
+            <Nav.Column md='6'>
+              <label className='skjemaelement__label'>{t('pinfo:bank-country')}</label>
+              <CountrySelect locale={locale}
+                value={bank.bankCountry || null}
+                onSelect={this.setBankCountry}
+                error={error.bankCountry && pageError}
+                errorMessage={error.bankCountry}
+              />
+            </Nav.Column>
+          </Nav.Row>
+          <Nav.Row>
+            <Nav.Column md='12'>
+              <Nav.Textarea label={t('pinfo:bank-address')} value={bank.bankAddress || ''}
+                style={{ minHeight: '100px' }}
+                onChange={this.setBankAddress}
+                feil={error.bankAddress && pageError ? { feilmelding: t(error.bankAddress) } : null}
+              />
+            </Nav.Column>
+          </Nav.Row>
+          <Nav.Row>
+            <Nav.Column md='6'>
+              <Nav.Input label={t('pinfo:bank-bicSwift')} value={bank.bankBicSwift || ''}
+                onChange={this.setBankBicSwift}
+                feil={error.bankBicSwift && pageError ? { feilmelding: t(error.bankBicSwift) } : null}
+              />
+            </Nav.Column>
+            <Nav.Column md='6'>
+              <Nav.Input label={t('pinfo:bank-iban')}
+                value={bank.bankIban || ''}
+                onChange={this.setBankIban}
+                feil={error.bankIban && pageError ? { feilmelding: t(error.bankIban) } : null}
+              />
+            </Nav.Column>
+          </Nav.Row>
+        </div>
+        <Nav.Row>
+          <h3 className='typo-undertittel mt-2 mb-2'>{t('pinfo:stayAbroad-previousPeriods')}</h3>
+          {stayAbroad.map((period, index) => {
+            return <Period t={t}
+              mode='view'
+              current={editPeriod && editPeriod.id === period.id}
+              period={period}
+              locale={locale}
+              periods={stayAbroad}
+              setStayAbroad={actions.setStayAbroad}
+              editPeriod={this.setEditPeriod.bind(this)}
+              key={period.id} />
+          })}
+        </Nav.Row>
       </div>
-      <Nav.Row className='mb-4 p-2'>
-        <Nav.Knapp className='backButton m-3' type='hoved' onClick={(e) => { e.preventDefault(); onSave() }}>
-          {t('ui:confirmAndSend')}
-        </Nav.Knapp>
-      </Nav.Row>
-    </React.Fragment>
+    )
   }
 }
 
 export default connect(
-  mapStateToProps
-)(withNamespaces(Confirm))
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  withNamespaces()(Confirm)
+)

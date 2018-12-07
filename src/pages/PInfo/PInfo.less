@@ -1,5 +1,27 @@
 .p-pInfo {
 
+    ol.stegindikator__liste li.stegindikator__steg::after{
+        width: 1em;
+        height: 1px;
+        content: '';
+        display: block;
+        background-color: #00000000;
+        position: absolute;
+        top: 1rem;
+        border-top: 4px dotted #979797;
+        right: -1.125rem;
+    }
+
+    ol.stegindikator__liste li.stegindikator__steg--labelled:after {
+        width: 9rem;
+        left: 6.1rem;
+        right: auto;
+    }
+
+    ol.stegindikator__liste li.stegindikator__steg:last-child:after{
+        display: none;
+    }
+
     .hjelpetekst {
         position: absolute;
         right: 1rem;
@@ -32,6 +54,12 @@
         }
         padding-left: 6px
     }
+    label.skjemaelement__label{
+        font-family: 'Source Sans Pro', Arial, sans-serif;
+        font-weight: bold;
+        letter-spacing: normal;
+        color: #3e3832;
+    }
 }
 
 
@@ -39,3 +67,4 @@ div.pInfo-tab {
     padding-left: 32px;
     padding-right: 32px;
 }
+

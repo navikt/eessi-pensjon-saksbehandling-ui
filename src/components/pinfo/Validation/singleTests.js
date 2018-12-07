@@ -2,51 +2,32 @@ import moment from 'moment'
 
 // PERSON
 
-export function noValidLastName (lastNameAfterBirth) {
+export function nameAtBirth (lastNameAfterBirth) {
   return !lastNameAfterBirth ? 'pinfo:validation-noLastName' : ''
 }
 
-export function personName (name) {
-  return !name ? 'pinfo:validation-noName'
-    : /\d/.test(name) ? 'pinfo:validation-invalidName'
-      : ''
-}
-
-export function phoneNumber (phone) {
+export function phone (phone) {
   return !phone ? 'pinfo:validation-noPhone'
     : !/\+?[\d]+[\d\s-]*/.test(phone) ? 'pinfo:validation-invalidPhone'
       : ''
 }
 
-export function emailAddress (email) {
+export function email (email) {
   return !email ? 'pinfo:validation-noUserEmail'
     : !/.+@.+\..+/.test(email) ? 'pinfo:validation-invalidEmail'
       : ''
 }
 
-export function noValidPersonName (names) {
-  return !names || (Array.isArray(names) && names.length === 0)
-    ? 'pinfo:validation-noName' : ''
-}
-
-export function noValidPhone (phones) {
-  return !phones || (Array.isArray(phones) && phones.length === 0)
-    ? 'pinfo:validation-noPhone' : ''
-}
-
-export function noValidEmail (emails) {
-  return !emails || (Array.isArray(emails) && emails.length === 0)
-    ? 'pinfo:validation-noEmail' : ''
+export function previousName (name) {
+  return !name ? 'pinfo:validation-noUserPreviousName'
+    : ''
 }
 
 export const personValidation = {
-  noValidLastName,
-  noValidPersonName,
-  personName,
-  phoneNumber,
-  noValidPhone,
-  emailAddress,
-  noValidEmail
+  nameAtBirth,
+  phone,
+  email,
+  previousName
 }
 // BANK
 

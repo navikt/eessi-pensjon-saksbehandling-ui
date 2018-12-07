@@ -85,6 +85,8 @@
     "work-payment-frequency-option-06" : "Ukentlig",
     "work-payment-frequency-option-99" : "Andre",
 
+    "receipt-veileder": "Takk for søknaden",
+
     "form-step0": "Personopplysninger",
     "form-step1": "Bank og konto",
     "form-step2": "Opphold i utlandet",

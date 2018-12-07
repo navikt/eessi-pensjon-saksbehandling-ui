@@ -85,6 +85,8 @@
     "work-payment-frequency-option-06" : "Weekly",
     "work-payment-frequency-option-99" : "Other",
 
+    "receipt-veileder": "Thank you for your application",
+
     "form-step0": "Personal information",
     "form-step1": "Bank and account",
     "form-step2": "Situation abroad",
