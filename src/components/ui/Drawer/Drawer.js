@@ -76,10 +76,10 @@ class Drawer extends Component {
    }
 
    render () {
-     const { children, sideContent, drawerOpen, drawerWidth, drawerEnabled } = this.props
+     const { children, sideContent, drawerOpen, drawerWidth, drawerEnabled, className } = this.props
      const { draggable } = this.state
 
-     return <div className={classNames('c-ui-drawer', { toggled: drawerOpen, draggable: draggable })}
+     return <div className={classNames('c-ui-drawer', className, { toggled: drawerOpen, draggable: draggable })}
        onMouseMove={this.onMouseMove.bind(this)}
        onMouseUp={this.onMouseUp.bind(this)}>
        <div id='drawer' style={{ width: drawerEnabled ? drawerWidth : 0 }}>
@@ -100,6 +100,7 @@ class Drawer extends Component {
 
 Drawer.propTypes = {
   children: PT.node.isRequired,
+  className: PT.string,
   sideContent: PT.object,
   actions: PT.object.isRequired,
   drawerOpen: PT.bool,

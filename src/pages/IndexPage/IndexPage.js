@@ -32,7 +32,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class IndexPage extends Component {
-
   getCreateableDocuments (status) {
     return status.docs ? status.docs
       .filter(item => { return item.navn === 'Create' })

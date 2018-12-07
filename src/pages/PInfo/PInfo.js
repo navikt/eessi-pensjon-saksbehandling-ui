@@ -35,7 +35,6 @@ const mapStateToProps = (state) => {
     referrer: state.app.referrer,
     status: state.status,
     username: state.app.username,
-    userRole: state.app.userRole,
     file: state.storage.file
   }
 }
@@ -115,21 +114,21 @@ class PInfo extends React.Component {
 
     return <TopContainer className='p-pInfo'
       history={history} location={location}
-      sideContent={<FrontPageDrawer t={t} status={status} />}>
-      <h1 className='typo-sidetittel mt-4'>{t('pinfo:app-title')}</h1>
-      {step !== 4
-        ? <Nav.Stegindikator
-          className='mt-4 mb-4'
-          aktivtSteg={step}
-          visLabel
-          onChange={(e) => actions.setEventProperty({ step: e })}
-          autoResponsiv
-          steg={_.range(0, 5).map(index => ({
-            label: t('pinfo:form-step' + index),
-            ferdig: index < step,
-            aktiv: index === step
-          }))}
-        /> : null}
+      sideContent={<FrontPageDrawer t={t} status={status} />}
+      header={t('pinfo:app-title')}>
+      { step !== 4 ? 
+      <Nav.Stegindikator
+        className='mt-4 mb-4'
+        aktivtSteg={step}
+        visLabel
+        onChange={(e) => actions.setEventProperty({ step: e })}
+        autoResponsiv
+        steg={_.range(0, 5).map(index => ({
+          label: t('pinfo:form-step' + index),
+          ferdig: index < step,
+          aktiv: index === step
+        }))} : null}
+      />
 
       {error ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(error)}</Nav.AlertStripe> : null}
 

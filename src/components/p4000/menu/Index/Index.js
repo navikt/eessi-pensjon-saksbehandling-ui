@@ -85,7 +85,7 @@ class New extends Component {
     }
 
     handleBackToReferrerRequest () {
-      const { history, actions } = this.props
+      const { history } = this.props
 
       if (UrlValidator.validateReferrer(this.state.referrer)) {
         history.push(routes.ROOT + this.state.referrer)

@@ -10,7 +10,6 @@ import * as Menu from '../../components/p4000/menu/'
 import Pdf from '../../components/drawer/Pdf'
 import StorageModal from '../../components/ui/Modal/StorageModal'
 
-import * as routes from '../../constants/routes'
 import * as storages from '../../constants/storages'
 import * as p4000Actions from '../../actions/p4000'
 import * as uiActions from '../../actions/ui'
@@ -55,7 +54,7 @@ class P4000 extends Component {
     };
 
     componentDidMount () {
-      const { actions, match } = this.props
+      const { match } = this.props
 
       this.setState({
         isLoaded: true,
@@ -87,9 +86,9 @@ class P4000 extends Component {
 
       return <TopContainer className='p-p4000'
         history={history} location={location}
-        sideContent={<Pdf t={t} status={status} />}>
+        sideContent={<Pdf t={t} status={status} />}
+        header={t('p4000:app-title')}>
         <StorageModal namespace={page !== 'export' ? storages.P4000 : storages.FILES} />
-        <h1 className='typo-sidetittel ml-0 appTitle'>{t('p4000:app-title')}</h1>
         <EventForm type={page} mode={mode} Component={components[page]} history={history} location={location} />
       </TopContainer>
     }

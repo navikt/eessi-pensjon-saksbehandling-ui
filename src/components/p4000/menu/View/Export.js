@@ -54,7 +54,7 @@ class Export extends Component {
   }
 
   componentDidMount () {
-    const { events, history, actions } = this.props
+    const { events, history } = this.props
     if (_.isEmpty(events)) {
       history.replace(routes.P4000)
       return

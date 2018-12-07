@@ -38,17 +38,14 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, pdfActions, uiActions), dispatch) }
 }
 
-const otherPdfRoutes = [routes.PDF, routes.PDF_GENERATE]
-
 class EditPDF extends Component {
     state = {}
 
     componentDidMount () {
-      const { history, actions, files, breadcrumbs } = this.props
+      const { history, files } = this.props
 
       if (_.isEmpty(files)) {
         history.push(routes.PDF_SELECT)
-        return
       }
     }
 

@@ -35,7 +35,7 @@ class ExternalTopHeader extends Component {
   }
 
   render () {
-    let { username } = this.props
+    let { username, header } = this.props
 
     return <div className='hodefot'>
       <header className='siteheader' role='banner'>
@@ -63,6 +63,9 @@ class ExternalTopHeader extends Component {
           </div>
         </div>
         <LogoHeader />
+        <div style={{ background: 'rgba(255, 167, 51, 0.8)' }}>
+          <h1 className='typo-undertittel m-0 pt-4 pb-4 text-center appTitle'>{header}</h1>
+        </div>
       </header>
     </div>
   }

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PT from 'prop-types'
 
 import * as books from '../../resources/images/filled-version-books-library.svg'
+import * as removecircle from '../../resources/images/filled-version-remove-circle.svg'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as icons from '@fortawesome/free-solid-svg-icons'
@@ -32,6 +33,8 @@ class Icons extends Component {
       case 'nav-daily' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
       case 'nav-sick' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
       case 'nav-other' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
+
+      case 'nav-close' : return <div {...this.props}><img className='logo' src={removecircle} alt={kind} /></div>
 
       case 'document' : return <FontAwesomeIcon icon={icons.faFile} {...this.props} />
       case 'view' : return <FontAwesomeIcon icon={icons.faEye} {...this.props} />
