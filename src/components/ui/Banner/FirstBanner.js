@@ -11,7 +11,7 @@ class Banner extends Component {
     const { t } = this.props
 
     return <div className='c-ui-banner'>
-      <Nav.Sidetittel>{t('app-headerTitle')}</Nav.Sidetittel>
+      <Nav.Sidetittel className='pt-5 pb-5 pl-5'>{t('app-headerTitle')}</Nav.Sidetittel>
       <FirstPanel />
     </div>
   }
