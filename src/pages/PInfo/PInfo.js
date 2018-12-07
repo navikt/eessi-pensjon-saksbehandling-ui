@@ -54,6 +54,8 @@ class PInfo extends React.Component {
   }
 
   componentDidMount () {
+    window.hj('trigger', 'e207-heatmap')
+    window.hj('trigger', 'e207-feedback-no')
     const { location, actions } = this.props
     let referrer = new URLSearchParams(location.search).get('referrer')
     if (referrer) {
