@@ -121,6 +121,7 @@ class PInfo extends React.Component {
       history={history} location={location}
       sideContent={<FrontPageDrawer t={t} status={status} />}>
       <h1 className='typo-sidetittel mt-4'>{t('pinfo:app-title')}</h1>
+      {step !== 4 ? 
       <Nav.Stegindikator
         className='mt-4 mb-4'
         aktivtSteg={step}
@@ -132,7 +133,7 @@ class PInfo extends React.Component {
           ferdig: index < step,
           aktiv: index === step
         }))}
-      />
+      />: null}
 
       {error ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(error)}</Nav.AlertStripe> : null}
 
