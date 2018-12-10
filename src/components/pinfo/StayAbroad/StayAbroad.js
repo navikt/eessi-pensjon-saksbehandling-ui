@@ -8,7 +8,6 @@ import _ from 'lodash'
 import * as Nav from '../../ui/Nav'
 import Period from './Period'
 
-import { stayAbroadValidation } from '../Validation/singleTests'
 import * as pinfoActions from '../../../actions/pinfo'
 
 const mapStateToProps = (state) => {
@@ -51,17 +50,16 @@ class StayAbroad extends React.Component {
           locale={locale}
           periods={stayAbroad}
           onPageError={onPageError}
-          setStayAbroad={actions.setStayAbroad}
           editPeriod={this.setEditPeriod.bind(this)}
           key={period.id} />
       })}
-      <Period t={t} periods={stayAbroad}
+      <Period t={t}
+        periods={stayAbroad}
         mode={_.isEmpty(_period) ? 'new' : 'edit'}
         period={_period}
         locale={locale}
         onPageError={onPageError}
         editPeriod={this.setEditPeriod.bind(this)}
-        setStayAbroad={actions.setStayAbroad}
       />
     </div>
   }

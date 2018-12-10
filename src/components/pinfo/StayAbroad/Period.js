@@ -1,5 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import _ from 'lodash'
 import moment from 'moment'
 import classNames from 'classnames'
@@ -10,34 +12,48 @@ import 'react-datepicker/dist/react-datepicker.min.css'
 import CountrySelect from '../../ui/CountrySelect/CountrySelect'
 import FileUpload from '../../ui/FileUpload/FileUpload'
 
-import { stayAbroadValidation } from '../Validation/singleTests'
+import { periodValidation } from '../Validation/singleTests'
+import * as stepTests from '../Validation/stepTests'
+
 import * as Nav from '../../ui/Nav'
 import Icons from '../../ui/Icons'
 
+import * as uiActions from '../../../actions/ui'
+import * as pinfoActions from '../../../actions/pinfo'
+
 import './Period.css'
+
+const mapStateToProps = (state) => {
+  return {
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return { actions: bindActionCreators(Object.assign({}, pinfoActions, uiActions), dispatch) }
+}
 
 class Period extends React.Component {
   state = {
+    _error: undefined,
     error: {},
     _period: {}
   }
 
   constructor (props) {
     super(props)
-    this.setType = this.eventSetProperty.bind(this, 'type', null)
-    this.setStartDate = this.dateSetProperty.bind(this, 'startDate', null)
-    this.setEndDate = this.dateSetProperty.bind(this, 'endDate', null)
+    this.setType = this.eventSetProperty.bind(this, 'type', periodValidation.periodType)
+    this.setStartDate = this.dateSetProperty.bind(this, 'startDate', periodValidation.startDate)
+    this.setEndDate = this.dateSetProperty.bind(this, 'endDate', periodValidation.endDate)
     this.setCountry = this.valueSetProperty.bind(this, 'country', null)
-    this.setWorkActivity = this.eventSetProperty.bind(this, 'workActivity', null)
-    this.setWorkId = this.eventSetProperty.bind(this, 'workId', null)
-    this.setWorkName = this.eventSetProperty.bind(this, 'workName', null)
-    this.setWorkAddress = this.eventSetProperty.bind(this, 'workAddress', null)
-    this.setWorkCity = this.eventSetProperty.bind(this, 'workCity', null)
-    this.setWorkRegion = this.eventSetProperty.bind(this, 'workRegion', null)
-    this.setChildFirstName = this.eventSetProperty.bind(this, 'childFirstName', null)
-    this.setChildLastName = this.eventSetProperty.bind(this, 'childLastName', null)
-    this.setChildBirthDate = this.dateSetProperty.bind(this, 'childBirthDate', null)
-    this.setLearnInstitution = this.eventSetProperty.bind(this, 'learnInstitution', null)
+    this.setWorkActivity = this.eventSetProperty.bind(this, 'workActivity', periodValidation.workActivity)
+    this.setWorkId = this.eventSetProperty.bind(this, 'workId', periodValidation.workId)
+    this.setWorkName = this.eventSetProperty.bind(this, 'workName', periodValidation.workName)
+    this.setWorkAddress = this.eventSetProperty.bind(this, 'workAddress', periodValidation.workAddress)
+    this.setWorkCity = this.eventSetProperty.bind(this, 'workCity', periodValidation.workCity)
+    this.setWorkRegion = this.eventSetProperty.bind(this, 'workRegion', periodValidation.workRegion)
+    this.setChildFirstName = this.eventSetProperty.bind(this, 'childFirstName', periodValidation.childFirstName)
+    this.setChildLastName = this.eventSetProperty.bind(this, 'childLastName', periodValidation.childLastName)
+    this.setChildBirthDate = this.dateSetProperty.bind(this, 'childBirthDate', periodValidation.childBirthDate)
+    this.setLearnInstitution = this.eventSetProperty.bind(this, 'learnInstitution', periodValidation.learnInstitution)
     this.setAttachments = this.valueSetProperty.bind(this, 'attachments', null)
   }
 
@@ -50,7 +66,6 @@ class Period extends React.Component {
   }
 
   valueSetProperty (key, validateFunction, value) {
-
     const { onPageError } = this.props
     let error = validateFunction ? validateFunction(value) : ''
 
@@ -62,11 +77,12 @@ class Period extends React.Component {
       error: {
         ...this.state.error,
         [key]: error
-      }
+      },
+      _error : error
     })
 
     if (error) {
-        onPageError(error)
+      onPageError(error)
     }
   }
 
@@ -80,17 +96,33 @@ class Period extends React.Component {
     return null
   }
 
-  addPeriod () {
-    const { periods, setStayAbroad } = this.props
+  validatePeriod() {
     const { _period } = this.state
+
+    return stepTests.periodStep(_period)
+  }
+
+  addPeriod () {
+    const { periods, actions, onPageError } = this.props
+    const { _period } = this.state
+
+    let validateError = this.validatePeriod()
+    if (validateError) {
+       onPageError(validateError)
+
+       return this.setState({
+         _error : validateError
+       })
+    }
 
     let newPeriods = _.clone(periods)
     let newPeriod = _.clone(_period)
 
     newPeriod.id = new Date().getTime()
     newPeriods.push(newPeriod)
-    setStayAbroad(newPeriods)
+    actions.setStayAbroad(newPeriods)
     this.setState({
+      _error : undefined,
       error: {},
       _period: {}
     })
@@ -102,8 +134,16 @@ class Period extends React.Component {
   }
 
   saveEditPeriod () {
-    const { periods, editPeriod, setStayAbroad } = this.props
+    const { periods, editPeriod, actions, onPageError } = this.props
     const { _period } = this.state
+
+    let validateError = this.validatePeriod()
+    if (validateError) {
+        onPageError(validateError)
+        return this.setState({
+            _error : validateError
+        })
+    }
 
     let newPeriods = _.clone(periods)
     let newPeriod = _.clone(_period)
@@ -114,7 +154,7 @@ class Period extends React.Component {
     if (index >= 0) {
       newPeriods.splice(index, 1)
       newPeriods.push(newPeriod)
-      setStayAbroad(newPeriods)
+      actions.setStayAbroad(newPeriods)
       this.setState({
         error: {},
         _period: {}
@@ -123,20 +163,45 @@ class Period extends React.Component {
     }
   }
 
-  removePeriod (period) {
-    const { periods, setStayAbroad } = this.props
+  closeModal () {
+    const { actions } = this.props
+    actions.closeModal()
+  }
+
+  removePeriodRequest (period) {
+
+    const { t, actions } = this.props
+
+    actions.openModal({
+      modalTitle: t('pinfo:alert-deletePeriod'),
+      modalText: t('pinfo:alert-areYouSureDeletePeriod'),
+      modalButtons: [{
+        main: true,
+        text: t('ui:yes') + ', ' + t('ui:delete').toLowerCase(),
+        onClick: this.doRemovePeriod.bind(this, period)
+      }, {
+        text: t('ui:no') + ', ' + t('ui:cancel').toLowerCase(),
+        onClick: this.closeModal.bind(this)
+      }]
+    })
+  }
+
+  doRemovePeriod(period) {
+
+    const { periods, actions } = this.props
 
     let index = _.findIndex(periods, { id: period.id })
 
     if (index >= 0) {
       let newPeriods = _.clone(periods)
       newPeriods.splice(index, 1)
-      setStayAbroad(newPeriods)
+      actions.setStayAbroad(newPeriods)
     }
+    actions.closeModal()
   }
 
   render () {
-    const { value, t, mode, period, editPeriod, locale, current, first, last } = this.props
+    const { t, mode, period, locale, current, first, last } = this.props
     const { error, _period } = this.state
 
     switch (mode) {
@@ -168,7 +233,7 @@ class Period extends React.Component {
             <Nav.Knapp className='mr-3 existingPeriodButton' onClick={this.requestEditPeriod.bind(this, period)}>
               {t('ui:change')}
             </Nav.Knapp>
-            <Nav.Knapp className='existingPeriodButton' onClick={this.removePeriod.bind(this, period)} mini>
+            <Nav.Knapp className='existingPeriodButton' onClick={this.removePeriodRequest.bind(this, period)} mini>
               <span className='mr-2' style={{ fontSize: '1.5rem' }}>×</span>
               {t('ui:remove')}
             </Nav.Knapp>
@@ -225,7 +290,7 @@ class Period extends React.Component {
                 <br />
                 <ReactDatePicker
                   id='pinfo-stayabroad-enddate-date'
-                  selected={_period.endDate ?  new Date(_period.endDate) : null}
+                  selected={_period.endDate ? new Date(_period.endDate) : null}
                   className='endDate'
                   dateFormat='dd.MM.yyyy'
                   placeholderText={t('ui:dateFormat')}
@@ -404,6 +469,8 @@ class Period extends React.Component {
             </Nav.Row>
           </React.Fragment> : null}
         </React.Fragment>
+      default:
+        return null
     }
   }
 }
@@ -411,9 +478,12 @@ class Period extends React.Component {
 Period.propTypes = {
   period: PT.object,
   periods: PT.array,
-  setStayAbroad: PT.func.isRequired,
+  actions: PT.object.isRequired,
   editPeriod: PT.func.isRequired,
   t: PT.func
 }
 
-export default Period
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Period)

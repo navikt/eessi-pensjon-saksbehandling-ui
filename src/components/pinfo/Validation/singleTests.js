@@ -1,29 +1,38 @@
 import moment from 'moment'
 
+
+let isEmpty = function (value, error) {
+  return !value ? error : ''
+}
+
+let isEmptyOrPatternMatch = function (value, error, pattern, patternError) {
+  return !value ? error : !pattern.test(value) ? patternError : ''
+}
+
+let isEmptyArray = function (value, error) {
+  return !value || (Array.isArray(value) && value.length === 0) ? error : ''
+}
+
 // PERSON
 
 let nameAtBirth = function (nameAtBirth) {
-  return !nameAtBirth ? 'pinfo:validation-noNameAtBirth' :
-    /\d/.test(nameAtBirth) ? 'pinfo:validation-invalidName'
-     : ''
+  return isEmptyOrPatternMatch(nameAtBirth, 'pinfo:validation-noNameAtBirth',
+    /^[^\d]+$/, 'pinfo:validation-invalidName')
 }
 
 let phone = function (phone) {
-  return !phone ? 'pinfo:validation-noPhone'
-    : !/\+?[\d]+[\d\s-]*/.test(phone) ? 'pinfo:validation-invalidPhone'
-      : ''
+  return isEmptyOrPatternMatch(phone, 'pinfo:validation-noPhone',
+    /\+?[\d]+[\d\s-]*/, 'pinfo:validation-invalidPhone')
 }
 
 let email = function (email) {
-  return !email ? 'pinfo:validation-noEmail'
-    : !/.+@.+\..+/.test(email) ? 'pinfo:validation-invalidEmail'
-      : ''
+  return isEmptyOrPatternMatch(email, 'pinfo:validation-noEmail',
+    /.+@.+\..+/, 'pinfo:validation-invalidEmail')
 }
 
 let previousName = function (previousName) {
-  return !previousName ? 'pinfo:validation-noPreviousName' :
-    /\d/.test(previousName) ? 'pinfo:validation-invalidName'
-      : ''
+  return isEmptyOrPatternMatch(previousName, 'pinfo:validation-noPreviousName',
+    /^[^\d]+$/, 'pinfo:validation-invalidName')
 }
 
 export const personValidation = {
@@ -35,29 +44,25 @@ export const personValidation = {
 // BANK
 
 let bankName = function (bankName) {
-  return !bankName ? 'pinfo:validation-noBankName' : ''
+  return isEmpty(bankName, 'pinfo:validation-noBankName')
 }
 
 let bankAddress = function (bankAddress) {
-  return !bankAddress ? 'pinfo:validation-noBankAddress' : ''
+  return isEmpty(bankAddress, 'pinfo:validation-noBankAddress')
 }
 
 let bankCountry = function (bankCountry) {
-  return !bankCountry || (Array.isArray(bankCountry) && bankCountry.length === 0)
-    ? 'pinfo:validation-noBankCountry'
-    : ''
+  return isEmptyArray(bankCountry, 'pinfo:validation-noBankCountry')
 }
 
 let bankBicSwift = function (bankBicSwift) {
-  return !bankBicSwift ? 'pinfo:validation-noBankBicSwift'
-    : !(/[\d\w]+/.test(bankBicSwift)) ? 'pinfo:validation-invalidBankBicSwift'
-      : ''
+  return isEmptyOrPatternMatch(bankBicSwift, 'pinfo:validation-noBankBicSwift',
+    /[\d\w]+/, 'pinfo:validation-invalidBankBicSwift')
 }
 
 let bankIban = function (bankIban) {
-  return !bankIban ? 'pinfo:validation-noBankIban'
-    : !(/[\d\w]+/.test(bankIban)) ? 'pinfo:validation-invalidBankIban'
-      : ''
+  return isEmptyOrPatternMatch(bankIban, 'pinfo:validation-noBankIban',
+     /[\d\w]+/,  'pinfo:validation-invalidBankIban')
 }
 
 export const bankValidation = {
@@ -71,14 +76,87 @@ export const bankValidation = {
 // STAY ABROAD
 
 let atLeastOnePeriod = function (stayAbroad) {
-  return !stayAbroad || (Array.isArray(stayAbroad) && stayAbroad.length === 0) ? 'pinfo:validation-atLeastOnePeriod'
-      : ''
+  return isEmptyArray(stayAbroad, 'pinfo:validation-atLeastOnePeriod')
 }
-
-
 
 export const stayAbroadValidation = {
   atLeastOnePeriod
+}
+
+let periodType = function (type) {
+    return !type ? 'pinfo:validation-noPeriodType'
+    : ['work','home','child','voluntary','military','birth','learn','daily','sick','other']
+      .indexOf(type) < 0 ? 'pinfo:validation-invalidPeriodType' : ''
+}
+
+let startDate = function (startDate) {
+ return !startDate ? 'pinfo:validation-noStartDate'
+    : (startDate > new Date().getTime()) ? 'pinfo:validation-invalidStartDate' : ''
+}
+
+let endDate = function (endDate) {
+  return endDate && endDate > new Date().getTime() ? 'pinfo:validation-invalidEndDate' : ''
+}
+
+let workActivity = function (workActivity) {
+  return isEmpty(workActivity, 'pinfo:validation-noWorkActivity')
+}
+
+let workId = function (workId) {
+  return isEmpty(workId, 'pinfo:validation-noWorkId')
+}
+
+let workName = function (workName) {
+  return isEmpty(workName, 'pinfo:validation-noWorkName')
+}
+
+let workAddress = function (workAddress) {
+  return isEmpty(workAddress, 'pinfo:validation-noWorkAddress')
+}
+
+let workCity = function (workCity) {
+  return isEmpty(workCity, 'pinfo:validation-noWorkCity')
+}
+
+let workRegion = function (workRegion) {
+  return isEmpty(workRegion, 'pinfo:validation-noWorkRegion')
+}
+
+let childFirstName = function (childFirstName) {
+  return isEmptyOrPatternMatch(childFirstName, 'pinfo:validation-noChildFirstName',
+    /^[^\d]+$/, 'pinfo:validation-invalidName')
+}
+
+let childLastName = function (childLastName) {
+  return isEmptyOrPatternMatch(childLastName, 'pinfo:validation-noChildLastName',
+    /^[^\d]+$/, 'pinfo:validation-invalidName')
+}
+
+let childBirthDate = function (childBirthDate) {
+ return !childBirthDate ? 'pinfo:validation-noChildBirthDate'
+    : (childBirthDate < new Date().getTime()) ? 'pinfo:validation-invalidChildBirthDate' : ''
+}
+
+let learnInstitution = function (learnInstitution) {
+  return isEmpty(learnInstitution, 'pinfo:validation-noLearnInstitution')
+}
+
+// PERIOD
+
+export const periodValidation = {
+    periodType,
+    startDate,
+    endDate,
+    workActivity,
+    workId,
+    workName,
+    workAddress,
+    workCity,
+    workRegion,
+    childFirstName,
+    childLastName,
+    childBirthDate,
+    learnInstitution
 }
 
 // WORK AND INCOME

@@ -100,7 +100,6 @@
     "validation-invalidName" : "Ugyldig navn",
     "validation-invalidEmail" : "Ugyldig epostadresse",
     "validation-invalidPhone": "Ugyldig telefonnummer",
-
     "validation-noBankName"  : "No bank name",
     "validation-noBankAddress" : "No bank address",
     "validation-noBankCountry" : "No bank country",
@@ -108,7 +107,6 @@
     "validation-invalidBankIban" : "Invalid bank IBAN",
     "validation-noBankBicSwift" : "No bank BIC/Swift",
     "validation-invalidBankBicSwift" : "Ugyldig bank BIC/Swift",
-
     "validation-noWorkType" : "No work type",
     "validation-noWorkStartDate" : "No work start date",
     "validation-noWorkEndDate" : "No work end date",
@@ -118,6 +116,27 @@
     "validation-noWorkIncomeCurrency" : "No work income currency",
     "validation-noWorkPaymentDate" : "No work payment date",
     "validation-noWorkPaymentFrequency" : "No work payment frequency",
+    "validation-atLeastOnePeriod" : "Legg til minst en oppholdsperiod i utland",
+    "validation-noPeriodType": "Ingen periode type",
+    "validation-invalidPeriodType": "Ugyldig periode type",
+    "validation-noStartDate": "Ingen startsddato",
+    "validation-invalidStartDate": "Ugyldig startsdato",
+    "validation-noEndDate": "Ingen sluttsdato",
+    "validation-invalidEndDate": "Ugyldig sluttsdato",
+    "validation-noWorkActivity": "Ingen yrkesaktivitet",
+    "validation-noWorkId": "Ingen forsikrings ID",
+    "validation-noWorkName": "Ingen arbeidgivers navn",
+    "validation-noWorkAddress": "Ingen arbeidgivers addresse",
+    "validation-noWorkCity": "Ingen arbeidgivers by",
+    "validation-noWorkRegion" :"Ingen arbeidgivers region",
+    "validation-noChildFirstName" : "Ingen barnas fornavn",
+    "validation-noChildLastName": "Ingen barnas etternavn",
+    "validation-noChildBirthDate": "Ingen barnas fødselsdato",
+    "validation-invalidChildBirthDate": "Ugyldid barnas fødselsdato",
+    "validation-noLearnInstitution": "Ingen opplæringsinstitusjons navn",
 
-    "validation-atLeastOnePeriod" : "Legg til minst en oppholdsperiod i utland"
+    "alert-leavePInfo": "Avbryt søknad",
+    "alert-areYouSureLeavePInfo" : "Er du sikkert at du vil avbryt med ubehandlede endringer?",
+    "alert-deletePeriod" : "Slett periode",
+    "alert-areYouSureDeletePeriod" : "Er du sikkert at du vil slett periode?"
 }

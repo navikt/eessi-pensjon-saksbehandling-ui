@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
 
-import * as smilende_orange_veileder from '../../../resources/images/nav-pensjon-smilende-orange-veileder.svg'
-import * as trist_orange_veileder from '../../../resources/images/nav-pensjon-trist-orange-veileder.svg'
+import * as smilendeOrangeVeileder from '../../../resources/images/nav-pensjon-smilende-orange-veileder.svg'
+import * as tristOrangeVeileder from '../../../resources/images/nav-pensjon-trist-orange-veileder.svg'
 
 class Psycho extends Component {
   getSvg () {
@@ -10,9 +10,9 @@ class Psycho extends Component {
 
     switch (type) {
       case 'trist':
-        return trist_orange_veileder
+        return tristOrangeVeileder
       default:
-        return smilende_orange_veileder
+        return smilendeOrangeVeileder
     }
   }
 

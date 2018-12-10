@@ -51,7 +51,7 @@ class Person extends React.Component {
       }
     })
     if (error) {
-       onPageError(error)
+      onPageError(error)
     }
   }
 

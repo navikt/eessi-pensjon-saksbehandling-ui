@@ -18,6 +18,7 @@ import Receipt from '../../components/pinfo/Receipt/Receipt'
 import Confirm from '../../components/pinfo/Confirm'
 
 import * as stepTests from '../../components/pinfo/Validation/stepTests'
+import * as globalTests from '../../components/pinfo/Validation/globalTests'
 import * as routes from '../../constants/routes'
 import * as pinfoActions from '../../actions/pinfo'
 import * as uiActions from '../../actions/ui'
@@ -46,13 +47,8 @@ const mapDispatchToProps = (dispatch) => {
 class PInfo extends React.Component {
   state = {
     doPageValidationOnForwardButton: true,
-    doPageValidationOnStepIndicator : false,
+    doPageValidationOnStepIndicator: false,
     pageError: undefined
-  }
-
-  constructor (props) {
-    super(props)
-    // this.props.actions.getStorageFile(props.username, storages.PINFO, 'PINFO')
   }
 
   componentDidMount () {
@@ -85,7 +81,7 @@ class PInfo extends React.Component {
 
     let validatePageError
     if (this.state.doPageValidationOnForwardButton) {
-        validatePageError = this.validatePage(step)
+      validatePageError = this.validatePage(step)
     }
     if (validatePageError) {
       return this.setState({
@@ -100,7 +96,6 @@ class PInfo extends React.Component {
   }
 
   onStepIndicatorClick (newStep) {
-
     const { actions, step } = this.props
 
     let validatePageError
@@ -128,27 +123,56 @@ class PInfo extends React.Component {
     })
   }
 
-  onPageError( pageError ) {
+  onPageError (pageError) {
     this.setState({
-       pageError: pageError
+      pageError: pageError
     })
   }
 
-  onCancelButtonClick () {
+  doCancel() {
     const { actions, history } = this.props
-
+    actions.closeModal()
+    actions.clearData()
     history.push(routes.ROOT)
   }
 
-  onSaveButtonClick () {
-    const { actions, history, username, pinfo } = this.props
+  closeModal () {
+    const { actions } = this.props
+    actions.closeModal()
+  }
 
-    actions.postStorageFile(username, storages.PINFO, 'PINFO', JSON.stringify(pinfo))
+  onCancelButtonClick () {
+    const { t, actions, history, pinfo } = this.props
+
+    let isPInfoEmpty = globalTests.isPInfoEmpty(pinfo)
+
+    if (!isPInfoEmpty) {
+      actions.openModal({
+        modalTitle: t('pinfo:alert-leavePInfo'),
+        modalText: t('pinfo:alert-areYouSureLeavePInfo'),
+        modalButtons: [{
+          main: true,
+          text: t('ui:yes') + ', ' + t('ui:cancel').toLowerCase(),
+          onClick: this.doCancel.bind(this)
+        }, {
+          text: t('ui:no') + ', ' + t('ui:continue').toLowerCase(),
+          onClick: this.closeModal.bind(this)
+        }]
+      })
+    } else {
+      this.doCancel()
+    }
+  }
+
+  onSaveButtonClick () {
+    const { history, username, pinfo } = this.props
+
+    // actions.postStorageFile(username, storages.PINFO, 'PINFO', JSON.stringify(pinfo))
     history.push(routes.PSELV + '?referrer=pinfo')
   }
 
   render () {
-    const { t, history, location, status, step, actions, locale } = this.props
+    const { t, history, location, status, step } = this.props
     const { pageError } = this.state
 
     return <TopContainer className='p-pInfo'
