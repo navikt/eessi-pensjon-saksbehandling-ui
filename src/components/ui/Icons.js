@@ -11,6 +11,7 @@ import * as ecoglobe from '../../resources/images/line-version-eco-globe.svg'
 import * as stethoscope from '../../resources/images/line-version-expanded-stethoscope.svg'
 import * as birthdaycake from '../../resources/images/line-version-birthday-cake.svg'
 import * as helpcircle from '../../resources/images/line-version-help-circle.svg'
+import * as piggybank from '../../resources/images/line-version-piggy-bank.svg'
 import * as removecircle from '../../resources/images/filled-version-remove-circle.svg'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -39,7 +40,7 @@ class Icons extends Component {
       case 'nav-military' : return <div {...this.props}><img className='logo' src={rankarmy} alt={kind} /></div>
       case 'nav-birth' : return <div {...this.props}><img className='logo' src={birthdaycake} alt={kind} /></div>
       case 'nav-learn' : return <div {...this.props}><img className='logo' src={bookmark} alt={kind} /></div>
-      case 'nav-daily' : return <div {...this.props}><img className='logo' src={coinreceive} alt={kind} /></div>
+      case 'nav-daily' : return <div {...this.props}><img className='logo' src={piggybank} alt={kind} /></div>
       case 'nav-sick' : return <div {...this.props}><img className='logo' src={stethoscope} alt={kind} /></div>
       case 'nav-other' : return <div {...this.props}><img className='logo' src={helpcircle} alt={kind} /></div>
 

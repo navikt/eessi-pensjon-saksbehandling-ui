@@ -243,10 +243,10 @@ class Period extends React.Component {
       case 'edit':
       case 'new':
         return <React.Fragment>
-          <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode)}>
+          <Nav.Row className={classNames('c-pinfo-opphold-period', mode)}>
             <div className='col-md-4'>
               <Nav.Select
-                id='pinfo-stayabroad-category-select'
+                id='pinfo-opphold-kategori-select'
                 label={t('pinfo:stayAbroad-category')}
                 value={_period.type || ''}
                 onChange={this.setType}>
@@ -273,7 +273,7 @@ class Period extends React.Component {
                 <label className='mr-3'>{t('pinfo:stayAbroad-period-start-date')}</label>
                 <br />
                 <ReactDatePicker
-                  id='pinfo-stayabroad-startdate-date'
+                  id='pinfo-opphold-startdato-date'
                   selected={_period.startDate ? new Date(_period.startDate) : null}
                   className='startDate'
                   dateFormat='dd.MM.yyyy'
@@ -289,7 +289,7 @@ class Period extends React.Component {
                 <label>{t('pinfo:stayAbroad-period-end-date')}</label>
                 <br />
                 <ReactDatePicker
-                  id='pinfo-stayabroad-enddate-date'
+                  id='pinfo-opphold-sluttdato-date'
                   selected={_period.endDate ? new Date(_period.endDate) : null}
                   className='endDate'
                   dateFormat='dd.MM.yyyy'
@@ -306,7 +306,7 @@ class Period extends React.Component {
               <div className='mt-3 col-md-6'>
                 <label>{t('pinfo:stayAbroad-country')}</label>
                 <CountrySelect
-                  id='pinfo-stayabroad-country-select'
+                  id='pinfo-opphold-land-select'
                   locale={locale}
                   value={_period.country || null}
                   onSelect={this.setCountry}
@@ -321,7 +321,7 @@ class Period extends React.Component {
               </div>
               <div className='col-md-4'>
                 <Nav.Input
-                  id='pinfo-stayabroad-workactivity-input'
+                  id='pinfo-opphold-yrkesaktivitet-input'
                   label={t('pinfo:stayAbroad-work-activity')}
                   placeholder={t('ui:writeIn')}
                   value={_period.workActivity || ''}
@@ -331,7 +331,7 @@ class Period extends React.Component {
               </div>
               <div className='col-md-6'>
                 <Nav.Input
-                  id='pinfo-stayabroad-workid-input'
+                  id='pinfo-opphold-yrkesforsikringid-input'
                   label={t('pinfo:stayAbroad-work-id')}
                   value={_period.workId || ''}
                   placeholder={t('ui:writeIn')}
@@ -341,7 +341,7 @@ class Period extends React.Component {
               </div>
               <div className='col-md-4'>
                 <Nav.Input
-                  id='pinfo-stayabroad-workname-input'
+                  id='pinfo-opphold-arbeidgiversnavn-input'
                   label={t('pinfo:stayAbroad-work-name')}
                   placeholder={t('ui:writeIn')}
                   value={_period.workName || ''}
@@ -351,7 +351,7 @@ class Period extends React.Component {
               </div>
               <div className='col-md-6'>
                 <Nav.Input
-                  id='pinfo-stayabroad-workaddress-input'
+                  id='pinfo-opphold-arbeidgiversaddress-input'
                   label={t('pinfo:stayAbroad-work-address')}
                   value={_period.workAddress || ''}
                   placeholder={t('ui:writeIn')}
@@ -361,7 +361,7 @@ class Period extends React.Component {
               </div>
               <div className='col-md-4'>
                 <Nav.Input
-                  id='pinfo-stayabroad-workcity-input'
+                  id='pinfo-opphold-arbeidgiversby-input'
                   label={t('pinfo:stayAbroad-work-city')}
                   value={_period.workCity || ''}
                   placeholder={t('ui:writeIn')}
@@ -371,7 +371,7 @@ class Period extends React.Component {
               </div>
               <div className='col-md-6'>
                 <Nav.Input
-                  id='pinfo-stayabroad-workregion-input'
+                  id='pinfo-opphold-arbeidgiversregion-input'
                   label={t('pinfo:stayAbroad-work-region')}
                   value={_period.workRegion || ''}
                   placeholder={t('ui:writeIn')}
@@ -386,7 +386,7 @@ class Period extends React.Component {
               </div>
               <div className='col-md-4'>
                 <Nav.Input
-                  id='pinfo-stayabroad-childfirstname-input'
+                  id='pinfo-opphold-barnasfornavn-input'
                   label={t('pinfo:stayAbroad-child-firstname')}
                   placeholder={t('ui:writeIn')}
                   value={_period.childFirstName || ''}
@@ -396,7 +396,7 @@ class Period extends React.Component {
               </div>
               <div className='col-md-6'>
                 <Nav.Input
-                  id='pinfo-stayabroad-childlastname-input'
+                  id='pinfo-opphold-barnasetternavn-input'
                   label={t('pinfo:stayAbroad-child-lastname')}
                   value={_period.childLastName || ''}
                   placeholder={t('ui:writeIn')}
@@ -408,7 +408,7 @@ class Period extends React.Component {
                 <label>{t('pinfo:stayAbroad-child-birthdate')}</label>
                 <br />
                 <ReactDatePicker
-                  id='pinfo-stayabroad-childbirthdate-date'
+                  id='pinfo-opphold-barnasfodselsdato-date'
                   selected={_period.childBirthDate ? new Date(_period.childBirthDate) : null}
                   className='childBirthDate'
                   dateFormat='dd.MM.yyyy'
@@ -427,7 +427,7 @@ class Period extends React.Component {
               </div>
               <div className='col-md-6'>
                 <Nav.Input
-                  id='pinfo-stayabroad-institution-input'
+                  id='pinfo-opphold-opplaeringsinstitusjonsnavn-input'
                   label={t('pinfo:stayAbroad-learn-institution')}
                   value={_period.learnInstitution || ''}
                   placeholder={t('ui:writeIn')}
@@ -442,7 +442,7 @@ class Period extends React.Component {
               </div>
               <div className='col-md-12'>
                 <FileUpload
-                  id='pinfo-stayabroad-attachments-fileupload'
+                  id='pinfo-opphold-vedlegg-fileupload'
                   className='fileUpload'
                   t={t}
                   ref={f => { this.fileUpload = f }}
@@ -454,13 +454,13 @@ class Period extends React.Component {
             <Nav.Row>
               <div className='mt-4 mb-4 col-md-12'>
                 {mode === 'edit' ? <Nav.Knapp
-                  id='pinfo-stayabroad-edit-button'
+                  id='pinfo-opphold-endre-button'
                   className='editPeriodButton'
                   onClick={this.saveEditPeriod.bind(this)}>
                   {t('ui:changePeriod')}
                 </Nav.Knapp> : null}
                 {mode === 'new' ? <Nav.Knapp
-                  id='pinfo-stayabroad-add-button'
+                  id='pinfo-opphold-leggtil-button'
                   className='addPeriodButton'
                   onClick={this.addPeriod.bind(this)}>
                   {t('ui:savePeriod')}

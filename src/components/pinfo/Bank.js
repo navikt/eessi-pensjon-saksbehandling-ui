@@ -3,8 +3,10 @@ import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withNamespaces } from 'react-i18next'
+
 import * as Nav from '../ui/Nav'
 import CountrySelect from '../ui/CountrySelect/CountrySelect'
+
 import * as pinfoActions from '../../actions/pinfo'
 import { bankValidation } from './Validation/singleTests'
 

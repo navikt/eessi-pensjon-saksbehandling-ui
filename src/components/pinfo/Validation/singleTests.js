@@ -1,6 +1,5 @@
 import moment from 'moment'
 
-
 let isEmpty = function (value, error) {
   return !value ? error : ''
 }
@@ -11,6 +10,10 @@ let isEmptyOrPatternMatch = function (value, error, pattern, patternError) {
 
 let isEmptyArray = function (value, error) {
   return !value || (Array.isArray(value) && value.length === 0) ? error : ''
+}
+
+let patternMatchIfNotEmpty = function (value, pattern, patternError) {
+   return value && !pattern.test(value) ? patternError : ''
 }
 
 // PERSON
@@ -35,12 +38,38 @@ let previousName = function (previousName) {
     /^[^\d]+$/, 'pinfo:validation-invalidName')
 }
 
+let fatherName = function (fatherName) {
+  return patternMatchIfNotEmpty(fatherName, /^[^\d]+$/, 'pinfo:validation-invalidFatherName')
+}
+
+let motherName = function (motherName) {
+  return patternMatchIfNotEmpty(motherName, /^[^\d]+$/, 'pinfo:validation-invalidMotherName')
+}
+
+let country = function (country) {
+  return isEmpty(country, 'pinfo:validation-noCountry')
+}
+
+let city = function (city) {
+  return isEmpty(city, 'pinfo:validation-noCity')
+}
+
+let region = function (region) {
+  return isEmpty(region, 'pinfo:validation-noRegion')
+}
+
 export const personValidation = {
   nameAtBirth,
   phone,
   email,
-  previousName
+  previousName,
+  fatherName,
+  motherName,
+  country,
+  city,
+  region
 }
+
 // BANK
 
 let bankName = function (bankName) {
