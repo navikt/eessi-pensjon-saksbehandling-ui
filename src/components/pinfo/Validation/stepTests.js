@@ -1,22 +1,20 @@
 import * as tests from './singleTests'
 
 export function personStep (person) {
-  return ''
-/*  return tests.personValidation.noValidLastName(person.lastNameAfterBirth) ||
-         tests.personValidation.noValidPersonName(person.names) ||
-         tests.personValidation.noValidPhone(person.phones) ||
-         tests.personValidation.noValidEmail(person.emails) ||
-  '' */
+  return tests.personValidation.nameAtBirth(person.nameAtBirth) ||
+         tests.personValidation.previousName(person.previousName) ||
+         tests.personValidation.phone(person.phone) ||
+         tests.personValidation.email(person.email) ||
+  ''
 }
 
 export function bankStep (bank) {
-  return ''
-/*  return tests.bankValidation.bankName(bank.bankName) ||
+  return tests.bankValidation.bankName(bank.bankName) ||
          tests.bankValidation.bankAddress(bank.bankAddress) ||
          tests.bankValidation.bankCountry(bank.bankCountry) ||
          tests.bankValidation.bankBicSwift(bank.bankBicSwift) ||
          tests.bankValidation.bankIban(bank.bankIban) ||
-  '' */
+  ''
 }
 
 export function workStep (work) {
@@ -33,7 +31,7 @@ export function workStep (work) {
 }
 
 export function stayAbroadStep (stayAbroad) {
-  return ''
+  return tests.stayAbroadValidation.atLeastOnePeriod(stayAbroad) || ''
 
   // 'p4000:validation-endDateEarlierThanStartDate'
   // 'p4000:validation-startDateCantBeInFuture'

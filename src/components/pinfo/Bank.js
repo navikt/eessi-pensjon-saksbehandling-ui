@@ -37,14 +37,18 @@ class Bank extends React.Component {
   }
 
   valueSetProperty (key, validateFunction, value) {
-    const { actions } = this.props
+    const { actions, onPageError } = this.props
     actions.setBank({ [key]: value })
+    let error = validateFunction(value)
     this.setState({
       error: {
         ...this.state.error,
-        [key]: validateFunction(value)
+        [key]: error
       }
     })
+    if (error) {
+      onPageError(error)
+    }
   }
 
   render () {

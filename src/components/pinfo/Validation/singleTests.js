@@ -2,25 +2,28 @@ import moment from 'moment'
 
 // PERSON
 
-export function nameAtBirth (lastNameAfterBirth) {
-  return !lastNameAfterBirth ? 'pinfo:validation-noLastName' : ''
+let nameAtBirth = function (nameAtBirth) {
+  return !nameAtBirth ? 'pinfo:validation-noNameAtBirth' :
+    /\d/.test(nameAtBirth) ? 'pinfo:validation-invalidName'
+     : ''
 }
 
-export function phone (phone) {
+let phone = function (phone) {
   return !phone ? 'pinfo:validation-noPhone'
     : !/\+?[\d]+[\d\s-]*/.test(phone) ? 'pinfo:validation-invalidPhone'
       : ''
 }
 
-export function email (email) {
-  return !email ? 'pinfo:validation-noUserEmail'
+let email = function (email) {
+  return !email ? 'pinfo:validation-noEmail'
     : !/.+@.+\..+/.test(email) ? 'pinfo:validation-invalidEmail'
       : ''
 }
 
-export function previousName (name) {
-  return !name ? 'pinfo:validation-noUserPreviousName'
-    : ''
+let previousName = function (previousName) {
+  return !previousName ? 'pinfo:validation-noPreviousName' :
+    /\d/.test(previousName) ? 'pinfo:validation-invalidName'
+      : ''
 }
 
 export const personValidation = {
@@ -31,27 +34,27 @@ export const personValidation = {
 }
 // BANK
 
-export function bankName (bankName) {
+let bankName = function (bankName) {
   return !bankName ? 'pinfo:validation-noBankName' : ''
 }
 
-export function bankAddress (bankAddress) {
+let bankAddress = function (bankAddress) {
   return !bankAddress ? 'pinfo:validation-noBankAddress' : ''
 }
 
-export function bankCountry (bankCountry) {
+let bankCountry = function (bankCountry) {
   return !bankCountry || (Array.isArray(bankCountry) && bankCountry.length === 0)
     ? 'pinfo:validation-noBankCountry'
     : ''
 }
 
-export function bankBicSwift (bankBicSwift) {
+let bankBicSwift = function (bankBicSwift) {
   return !bankBicSwift ? 'pinfo:validation-noBankBicSwift'
     : !(/[\d\w]+/.test(bankBicSwift)) ? 'pinfo:validation-invalidBankBicSwift'
       : ''
 }
 
-export function bankIban (bankIban) {
+let bankIban = function (bankIban) {
   return !bankIban ? 'pinfo:validation-noBankIban'
     : !(/[\d\w]+/.test(bankIban)) ? 'pinfo:validation-invalidBankIban'
       : ''
@@ -67,8 +70,15 @@ export const bankValidation = {
 
 // STAY ABROAD
 
-export const stayAbroadValidation = {
+let atLeastOnePeriod = function (stayAbroad) {
+  return !stayAbroad || (Array.isArray(stayAbroad) && stayAbroad.length === 0) ? 'pinfo:validation-atLeastOnePeriod'
+      : ''
+}
 
+
+
+export const stayAbroadValidation = {
+  atLeastOnePeriod
 }
 
 // WORK AND INCOME

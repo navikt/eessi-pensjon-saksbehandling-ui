@@ -45,7 +45,9 @@ const mapDispatchToProps = (dispatch) => {
 
 class PInfo extends React.Component {
   state = {
-    error: undefined
+    doPageValidationOnForwardButton: true,
+    doPageValidationOnStepIndicator : false,
+    pageError: undefined
   }
 
   constructor (props) {
@@ -62,15 +64,17 @@ class PInfo extends React.Component {
   }
 
   validatePage (step) {
-    const { pinfo } = this.props
+    const { person, bank, stayAbroad } = this.props.pinfo
 
     switch (step) {
       case 0:
-        return stepTests.personStep(pinfo.person)
+        return stepTests.personStep(person)
       case 1:
-        return stepTests.bankStep(pinfo.bank)
+        return stepTests.bankStep(bank)
       case 2:
-        return stepTests.stayAbroadStep(pinfo.stayAbroad)
+        return stepTests.stayAbroadStep(stayAbroad)
+      case 3:
+        return stepTests.personStep(person) || stepTests.bankStep(bank) || stepTests.stayAbroadStep(stayAbroad)
       default:
         return ''
     }
@@ -79,16 +83,39 @@ class PInfo extends React.Component {
   onForwardButtonClick () {
     const { actions, step } = this.props
 
-    let validatePageError = this.validatePage(step)
+    let validatePageError
+    if (this.state.doPageValidationOnForwardButton) {
+        validatePageError = this.validatePage(step)
+    }
     if (validatePageError) {
       return this.setState({
-        error: validatePageError
+        pageError: validatePageError
       })
     }
 
     actions.setEventProperty({ step: step + 1 })
     this.setState({
-      error: undefined
+      pageError: undefined
+    })
+  }
+
+  onStepIndicatorClick (newStep) {
+
+    const { actions, step } = this.props
+
+    let validatePageError
+    if (this.state.doPageValidationOnStepIndicator) {
+      validatePageError = this.validatePage(step)
+    }
+    if (validatePageError) {
+      return this.setState({
+        pageError: validatePageError
+      })
+    }
+
+    actions.setEventProperty({ step: newStep })
+    this.setState({
+      pageError: undefined
     })
   }
 
@@ -97,7 +124,13 @@ class PInfo extends React.Component {
 
     actions.setEventProperty({ step: step - 1 })
     this.setState({
-      error: undefined
+      pageError: undefined
+    })
+  }
+
+  onPageError( pageError ) {
+    this.setState({
+       pageError: pageError
     })
   }
 
@@ -116,7 +149,7 @@ class PInfo extends React.Component {
 
   render () {
     const { t, history, location, status, step, actions, locale } = this.props
-    const { error } = this.state
+    const { pageError } = this.state
 
     return <TopContainer className='p-pInfo'
       history={history} location={location}
@@ -127,7 +160,7 @@ class PInfo extends React.Component {
           className='mt-4 mb-4'
           aktivtSteg={step}
           visLabel
-          onChange={(e) => actions.setEventProperty({ step: e })}
+          onChange={this.onStepIndicatorClick.bind(this)}
           autoResponsiv
           steg={_.range(0, 5).map(index => ({
             label: t('pinfo:form-step' + index),
@@ -136,14 +169,14 @@ class PInfo extends React.Component {
           }))}
         /> : null}
 
-      {error ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(error)}</Nav.AlertStripe> : null}
+      {pageError ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(pageError)}</Nav.AlertStripe> : null}
 
       <div className={classNames('fieldset animate', 'mb-4')}>
-        {step === 0 ? <Person pageError={error} /> : null}
-        {step === 1 ? <Bank pageError={error} /> : null}
-        {step === 2 ? <StayAbroad locale={locale} pageError={error} /> : null}
-        {step === 3 ? <Confirm t={t} onSave={this.onSaveButtonClick.bind(this)} pageError={error} /> : null}
-        {step === 4 ? <Receipt pageError={error} /> : null}
+        {step === 0 ? <Person onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
+        {step === 1 ? <Bank onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
+        {step === 2 ? <StayAbroad onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
+        {step === 3 ? <Confirm onPageError={this.onPageError.bind(this)} onSave={this.onSaveButtonClick.bind(this)} pageError={pageError} /> : null}
+        {step === 4 ? <Receipt onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
       </div>
       <div className='mb-4'>
         {step < 4 ? <Nav.Hovedknapp

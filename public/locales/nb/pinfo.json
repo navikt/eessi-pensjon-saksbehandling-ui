@@ -93,8 +93,8 @@
     "form-step3": "Godkjenn",
     "form-step4": "Kvittering",
 
-    "validation-noLastName" : "Ingen etternavn",
-    "validation-noName" : "Ingen navn",
+    "validation-noNameAtBirth" : "Ingen etternavn",
+    "validation-noPreviousName" : "Ingen tidligere navn",
     "validation-noEmail" : "Ingen epostadresse",
     "validation-noPhone" : "Ingen telefonnummer",
     "validation-invalidName" : "Ugyldig navn",
@@ -117,5 +117,7 @@
     "validation-noWorkIncome" : "No work income",
     "validation-noWorkIncomeCurrency" : "No work income currency",
     "validation-noWorkPaymentDate" : "No work payment date",
-    "validation-noWorkPaymentFrequency" : "No work payment frequency"
+    "validation-noWorkPaymentFrequency" : "No work payment frequency",
+
+    "validation-atLeastOnePeriod" : "Legg til minst en oppholdsperiod i utland"
 }

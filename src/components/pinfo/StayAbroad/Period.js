@@ -50,6 +50,10 @@ class Period extends React.Component {
   }
 
   valueSetProperty (key, validateFunction, value) {
+
+    const { onPageError } = this.props
+    let error = validateFunction ? validateFunction(value) : ''
+
     this.setState({
       _period: {
         ...this.state._period,
@@ -57,9 +61,13 @@ class Period extends React.Component {
       },
       error: {
         ...this.state.error,
-        [key]: validateFunction ? validateFunction(value) : ''
+        [key]: error
       }
     })
+
+    if (error) {
+        onPageError(error)
+    }
   }
 
   static getDerivedStateFromProps (newProps, oldState) {
@@ -137,8 +145,8 @@ class Period extends React.Component {
           <div className='col-md-6'>
             <div id={period.id} className='existingPeriod'>
               <div className='icon mr-4'>
-                <div className={classNames('topHalf', {line : !first})}/>
-                <div className={classNames('bottomHalf', {line : !last})}/>
+                <div className={classNames('topHalf', { line: !first })} />
+                <div className={classNames('bottomHalf', { line: !last })} />
                 <Icons className='iconsvg' kind={'nav-' + period.type} />
               </div>
               <div className='pt-2 pb-2 existingPeriodDescription'>
@@ -180,7 +188,7 @@ class Period extends React.Component {
                 <option value=''>{t('ui:choose')}</option>
                 <option value='work'>{t('pinfo:stayAbroad-category-work')}</option>
                 <option value='home'>{t('pinfo:stayAbroad-category-home')}</option>
-                {/*<option value='child'>{t('pinfo:stayAbroad-category-child')}</option>*/}
+                {/* <option value='child'>{t('pinfo:stayAbroad-category-child')}</option> */}
                 <option value='voluntary'>{t('pinfo:stayAbroad-category-voluntary')}</option>
                 <option value='military'>{t('pinfo:stayAbroad-category-military')}</option>
                 <option value='birth'>{t('pinfo:stayAbroad-category-birth')}</option>
@@ -201,7 +209,7 @@ class Period extends React.Component {
                 <br />
                 <ReactDatePicker
                   id='pinfo-stayabroad-startdate-date'
-                  selected={_period.startDate}
+                  selected={_period.startDate ? new Date(_period.startDate) : null}
                   className='startDate'
                   dateFormat='dd.MM.yyyy'
                   placeholderText={t('ui:dateFormat')}
@@ -217,7 +225,7 @@ class Period extends React.Component {
                 <br />
                 <ReactDatePicker
                   id='pinfo-stayabroad-enddate-date'
-                  selected={_period.endDate}
+                  selected={_period.endDate ?  new Date(_period.endDate) : null}
                   className='endDate'
                   dateFormat='dd.MM.yyyy'
                   placeholderText={t('ui:dateFormat')}
@@ -336,7 +344,7 @@ class Period extends React.Component {
                 <br />
                 <ReactDatePicker
                   id='pinfo-stayabroad-childbirthdate-date'
-                  selected={_period.childBirthDate}
+                  selected={_period.childBirthDate ? new Date(_period.childBirthDate) : null}
                   className='childBirthDate'
                   dateFormat='dd.MM.yyyy'
                   placeholderText={t('ui:dateFormat')}

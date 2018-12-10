@@ -94,8 +94,8 @@
     "form-step3": "Confirm",
     "form-step4": "Receipt",
 
-    "validation-noLastName" : "No lastname",
-    "validation-noName" : "No name",
+    "validation-noNameAtBirth" : "No lastname",
+    "validation-noPreviousName" : "No previous name",
     "validation-noEmail" : "No user email",
     "validation-noPhone" : "No phone number",
     "validation-invalidName" : "Invalid name",
@@ -119,5 +119,7 @@
     "validation-noWorkIncome" : "No work income",
     "validation-noWorkIncomeCurrency" : "No work income currency",
     "validation-noWorkPaymentDate" : "No work payment date",
-    "validation-noWorkPaymentFrequency" : "No work payment frequency"
+    "validation-noWorkPaymentFrequency" : "No work payment frequency",
+
+    "validation-atLeastOnePeriod" : "Add at least one period abroad"
 }
