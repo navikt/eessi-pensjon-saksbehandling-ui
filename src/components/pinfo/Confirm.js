@@ -1,12 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import moment from 'moment'
 import { withNamespaces } from 'react-i18next'
-import _ from 'lodash'
 
 import * as pinfoActions from '../../actions/pinfo'
-import File from '../../components/ui/File/File'
 import * as Nav from '../ui/Nav'
 import Veilederpanel from '../ui/Panel/VeilederPanel'
 import CountrySelect from '../ui/CountrySelect/CountrySelect'
@@ -54,7 +51,6 @@ class Confirm extends React.Component {
   }
 
   valueSetProperty (key, validateFunction, action, value) {
-    const { actions } = this.props
     action({ [key]: value })
     this.setState({
       error: {
@@ -73,7 +69,7 @@ class Confirm extends React.Component {
   render () {
     const { error, editPeriod } = this.state
     const { pageError, t, locale, actions } = this.props
-    const { stayAbroad, person, bank, work, attachments, pension, onSave } = this.props.pinfo
+    const { stayAbroad, person, bank } = this.props.pinfo
 
     return (
       <div>

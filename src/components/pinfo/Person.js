@@ -52,7 +52,7 @@ class Person extends React.Component {
   }
 
   render () {
-    const { pageError, t, phone, email, previousName, nameAtBirth, actions } = this.props
+    const { pageError, t, phone, email, previousName, nameAtBirth } = this.props
     const { error } = this.state
 
     return <div>

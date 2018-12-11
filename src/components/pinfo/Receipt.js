@@ -1,10 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import moment from 'moment'
 import { withNamespaces } from 'react-i18next'
 
-import File from '../../components/ui/File/File'
-import * as Nav from '../ui/Nav'
 import Veileder from '../ui/Panel/VeilederPanel'
 import Period from './StayAbroad/Period'
 
@@ -24,7 +21,7 @@ const mapStateToProps = (state) => {
 class Receipt extends React.Component {
   render () {
     const { t, locale } = this.props
-    const { stayAbroad, person, bank, work, attachments, pension, onSave } = this.props.pinfo
+    const { stayAbroad, person, bank } = this.props.pinfo
 
     return <React.Fragment>
       <div>

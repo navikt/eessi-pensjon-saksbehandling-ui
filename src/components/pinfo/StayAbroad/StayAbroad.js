@@ -7,7 +7,6 @@ import _ from 'lodash'
 
 import Period from './Period'
 
-import { stayAbroadValidation } from '../Validation/singleTests'
 import * as pinfoActions from '../../../actions/pinfo'
 
 const mapStateToProps = (state) => {

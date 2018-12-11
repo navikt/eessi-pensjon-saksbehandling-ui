@@ -10,7 +10,6 @@ import 'react-datepicker/dist/react-datepicker.min.css'
 import CountrySelect from '../../ui/CountrySelect/CountrySelect'
 import FileUpload from '../../ui/FileUpload/FileUpload'
 
-import { stayAbroadValidation } from '../Validation/singleTests'
 import * as Nav from '../../ui/Nav'
 import Icons from '../../ui/Icons'
 
@@ -127,7 +126,7 @@ class Period extends React.Component {
   }
 
   render () {
-    const { value, t, mode, period, editPeriod, locale, current } = this.props
+    const { t, mode, period, locale, current } = this.props
     const { error, _period } = this.state
 
     switch (mode) {

@@ -4,7 +4,6 @@ import { withNamespaces } from 'react-i18next'
 
 import LogoHeader from '../../components/ui/Header/LogoHeader'
 import FirstBanner from '../../components/ui/Banner/FirstBanner'
-import * as Nav from '../../components/ui/Nav'
 
 class ErrorPage extends Component {
   render () {
@@ -17,6 +16,10 @@ class ErrorPage extends Component {
       </div>
     </div>
   }
+}
+
+ErrorPage.propTypes = {
+  t: PT.func
 }
 
 export default withNamespaces()(ErrorPage)
