@@ -12,9 +12,6 @@ import TopContainer from '../../components/ui/TopContainer/TopContainer'
 import FrontPageDrawer from '../../components/drawer/FrontPage'
 
 import * as routes from '../../constants/routes'
-import * as pinfoActions from '../../actions/pinfo'
-import * as uiActions from '../../actions/ui'
-import * as appActions from '../../actions/app'
 import * as storageActions from '../../actions/storage'
 
 import './PInfo.css'
@@ -23,7 +20,8 @@ const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
     pinfo: state.pinfo,
-    status: state.status,
+    sakId: state.status.sakId,
+    aktoerId : state.status.aktoerId,
     username: state.app.username,
     fileList: state.storage.fileList,
     isSendingPinfo: state.loading.isSendingPinfo
@@ -31,13 +29,27 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, pinfoActions, uiActions, appActions, storageActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, storageActions), dispatch) }
 }
 
 class PInfoSaksbehandler extends React.Component {
-  componentDidMount () {
-    let { actions, username } = this.props
-    actions.listStorageFiles(username, 'varsler')
+
+  state = {
+     isReady : false
+  }
+
+  componentDidUpdate() {
+    let { actions, history, aktoerId, fileList } = this.props
+
+    if (aktoerId && fileList === undefined) {
+       actions.listStorageFiles(aktoerId, 'varsler')
+    }
+
+    if (fileList !== undefined && !this.state.isReady) {
+        this.setState({
+            isReady: true
+        })
+    }
   }
 
   onForwardButtonClick () {
@@ -50,16 +62,20 @@ class PInfoSaksbehandler extends React.Component {
   }
 
   render () {
-    const { t, history, location, status, fileList } = this.props
 
-    return <TopContainer className='p-pInfo'
-      history={history} location={location}
-      sideContent={<FrontPageDrawer t={t} status={status} />}
-      header={t('pinfo:app-title')}>
+    const { t, history, location, status, sakId, aktoerId, fileList } = this.props
+    const { isReady } = this.state
 
-      <div className={classNames('fieldset animate', 'mb-4')}>
-        button to invite user
-      </div>
+    if (!isReady) {
+     return <TopContainer className='p-pInfo' history={history} location={location} header={t('pinfo:app-title')}>
+       <div className='text-center'>
+            <Nav.NavFrontendSpinner />
+            <p className='typo-normal'>{t('ui:loading')}</p>
+       </div>
+     </TopContainer>
+    }
+
+    return <TopContainer className='p-pInfo' history={history} location={location} header={t('pinfo:app-title')}>
 
       <div className={classNames('fieldset animate', 'mb-4')}>
         Notifications:
