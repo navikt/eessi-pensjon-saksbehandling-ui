@@ -33,7 +33,7 @@ class StayAbroad extends React.Component {
   }
 
   render () {
-    const { t, stayAbroad, actions, locale, onPageError } = this.props
+    const { t, stayAbroad, locale, onPageError } = this.props
     const { _period } = this.state
 
     return <div>
