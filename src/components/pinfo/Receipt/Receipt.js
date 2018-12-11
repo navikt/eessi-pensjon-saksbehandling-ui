@@ -24,14 +24,12 @@ class Receipt extends React.Component {
 
     return <React.Fragment>
       <div>
-        <PsychoPanel>
+        <PsychoPanel closeButton={true}>
           <p>{t('pinfo:receipt-veileder')}</p>
         </PsychoPanel>
-        <Nav.Innholdstittel>{t('pinfo:receipt-title')}</Nav.Innholdstittel>
-
-        <Nav.Undertittel>{t('pinfo:person-info-title')}</Nav.Undertittel>
-
-        <dl className='row'>
+        <Nav.Innholdstittel className='m-4'>{t('pinfo:receipt-title')}</Nav.Innholdstittel>
+        <Nav.Undertittel className='m-4'>{t('pinfo:person-info-title')}</Nav.Undertittel>
+        <dl className='row ml-2'>
           <dt className='col-6'> {t('pinfo:person-info-lastNameAtBirth')} </dt>
           <dd className='col-6'> {person.nameAtBirth || ''} </dd>
           <dt className='col-6'> {t('pinfo:person-info-previousName')} </dt>
@@ -53,10 +51,8 @@ class Receipt extends React.Component {
           <dt className='col-6'> {t('pinfo:person-contact-email')} </dt>
           <dd className='col-6'> {person.email || ''} </dd>
         </dl>
-
-        <Nav.Undertittel>{t('pinfo:bank-title')}</Nav.Undertittel>
-
-        <dl className='row'>
+        <Nav.Undertittel className='m-4'>{t('pinfo:bank-title')}</Nav.Undertittel>
+        <dl className='row ml-2'>
           <dt className='col-6'> {t('pinfo:bank-name')} </dt>
           <dd className='col-6'> {bank.bankName || ''} </dd>
           <dt className='col-6'> {t('pinfo:bank-address')} </dt>
@@ -73,9 +69,7 @@ class Receipt extends React.Component {
           <dt className='col-6'>  {t('pinfo:bank-iban')} </dt>
           <dd className='col-6'>  {bank.bankIban || ''}</dd>
         </dl>
-
-        <Nav.Undertittel>{t('pinfo:stayAbroad-title')}</Nav.Undertittel>
-
+        <Nav.Undertittel className='m-4'>{t('pinfo:stayAbroad-title')}</Nav.Undertittel>
         {stayAbroad.map((period, index) => {
           return <Period t={t}
             mode='view'
@@ -84,7 +78,6 @@ class Receipt extends React.Component {
             periods={stayAbroad}
             key={period.id} />
         })}
-
       </div>
     </React.Fragment>
   }

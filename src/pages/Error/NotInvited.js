@@ -20,7 +20,7 @@ class NotInvited extends Component {
     return <TopContainer className={classNames('p-error-notInvited')}
       history={history} location={location}>
       <h1 className='typo-sidetittel ml-0 appTitle'>{t('ui:notInvited')}</h1>
-      <PsychoPanel id='-psycho-panel' className='mb-4'>
+      <PsychoPanel type='trist' id='-psycho-panel' className='mb-4'>
         <span>{t('ui:notInvited')}</span>
       </PsychoPanel>
     </TopContainer>

@@ -128,7 +128,7 @@ class GeneratePDF extends Component {
           <p className='typo-normal'>{t('pdf:loading-generatingPDF')}</p>
         </div> : (generatedPDFs ? <div>
           <div className='fieldset animate mb-4 '>
-            <PsychoPanel>{t('pdf:help-generate-pdf')}</PsychoPanel>
+            <PsychoPanel closeButton={true}>{t('pdf:help-generate-pdf')}</PsychoPanel>
           </div>
           {Object.keys(generatedPDFs).map(key => {
             let pdf = generatedPDFs[key]

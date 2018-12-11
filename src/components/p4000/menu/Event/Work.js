@@ -139,7 +139,7 @@ class Work extends Component {
         </div>
         <Nav.Row className='eventDescription mb-4 fieldset'>
           <Nav.Column>
-            <PsychoPanel>{t('p4000:' + type + '-description')}</PsychoPanel>
+            <PsychoPanel closeButton={true}>{t('p4000:' + type + '-description')}</PsychoPanel>
           </Nav.Column>
         </Nav.Row>
         <Nav.Row className={classNames('eventDates', 'mb-4', 'fieldset', {

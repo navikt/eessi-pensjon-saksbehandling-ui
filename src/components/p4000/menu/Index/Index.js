@@ -124,7 +124,7 @@ class New extends Component {
           <div className='fieldset animate mb-4 c-p4000-menu-new-events'>
             <h2 className='m-0 mb-4'>{t('ui:new') + ' ' + t('p4000:type-event')}</h2>
             <div className='mt-5 mb-5'>
-              <PsychoPanel>{t('p4000:help-new-event')}</PsychoPanel>
+              <PsychoPanel closeButton={true}>{t('p4000:help-new-event')}</PsychoPanel>
             </div>
             <div className='bigButtons'>
               {eventList.map((e, index) => {
@@ -153,7 +153,7 @@ class New extends Component {
           className='fieldset animate c-p4000-menu-new-menu'>
           <h2>{t('p4000:file-menu')}</h2>
           <div className='mt-5 mb-5'>
-            <PsychoPanel>{t('p4000:help-new-options')}</PsychoPanel>
+            <PsychoPanel closeButton={true}>{t('p4000:help-new-options')}</PsychoPanel>
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
             <NewButton style={{ animationDelay: (fileMenuDelay + 0.03) + 's' }} />

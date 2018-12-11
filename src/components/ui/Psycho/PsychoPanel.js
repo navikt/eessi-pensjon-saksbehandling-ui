@@ -19,21 +19,21 @@ class PsychoPanel extends Component {
   }
 
   render () {
-    const { className, children } = this.props
+    const { className, children, closeButton, type } = this.props
 
     if (this.state.hidden) {
       return null
     }
 
     return <div className={className}>
-      <Nav.Veilederpanel type='normal' svg={<Psycho />} kompakt>
+      <Nav.Veilederpanel type='normal' svg={<Psycho type={type}/>} kompakt>
         {children}
-        <div className='closeButton'>
+        {closeButton ? <div className='closeButton'>
           <a href='#close' onClick={this.handleClose.bind(this)}
             style={{ position: 'absolute', top: '5px', right: '5px' }}>
             <Icons kind='nav-close' />
           </a>
-        </div>
+        </div> : null}
       </Nav.Veilederpanel>
     </div>
   }
@@ -41,7 +41,8 @@ class PsychoPanel extends Component {
 
 PsychoPanel.propTypes = {
   children: PT.node.isRequired,
-  className: PT.string
+  className: PT.string,
+  type : PT.string
 }
 
 export default PsychoPanel
