@@ -76,10 +76,11 @@ ReactDOM.render(
           <Redirect from={routes.CASE} to={{ pathname: routes.CASE_START }} />
 
           <AuthenticatedRoute path={routes.INDEX} component={Pages.IndexPage} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-
           <Route path={routes.NOT_INVITED} component={Pages.NotInvited} />
           <Route path={routes.FORBIDDEN} component={Pages.Forbidden} />
+          <Route path={routes.ROOT + ':PATH+'} component={Pages.ErrorPage} />
           <Route path={routes.ROOT} component={Pages.FirstPage} />
+          <Route path={'/:PATH+'} component={Pages.ErrorPage} />
           <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
         </Switch>
       </ConnectedRouter>

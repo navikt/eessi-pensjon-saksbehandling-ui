@@ -60,7 +60,7 @@ class Util {
       etternavn: period.childLastName,
       foedseldato: this.writeDate(period.childBirthDate),
       fornavn: period.childFirstName,
-      land:  this.handleCountry(period.country)
+      land: this.handleCountry(period.country)
     }
     delete newPeriod.land
     return newPeriod
@@ -88,7 +88,7 @@ class Util {
       'farsNavn': person.fatherName,
       'mornNavn': person.motherName,
       'fodestedBy': person.city,
-      'fodestedLand':  this.handleCountry(person.country),
+      'fodestedLand': this.handleCountry(person.country),
       'provinsEllerDepartement': person.region,
       'telefonnummer': person.phone,
       'epost': person.email
@@ -98,7 +98,7 @@ class Util {
   generateBank (bank) {
     return {
       'navn': bank.bankName,
-      'land':  this.handleCountry(bank.bankCountry),
+      'land': this.handleCountry(bank.bankCountry),
       'adresse': bank.bankAddress,
       'bicEllerSwift': bank.bankBicSwift,
       'kontonummerEllerIban': bank.bankIban

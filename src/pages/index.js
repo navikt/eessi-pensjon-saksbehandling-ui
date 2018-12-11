@@ -20,6 +20,8 @@ import NotInvited from './Error/NotInvited'
 
 import P4000 from './P4000/P4000'
 
+import ErrorPage from './ErrorPage/ErrorPage'
+
 export {
   FirstPage,
   IndexPage,
@@ -36,8 +38,10 @@ export {
 
   PSelv,
   PInfo,
-  PInfoSaksbehandler,
   P4000,
+
+  ErrorPage,
+  PInfoSaksbehandler,
 
   Forbidden,
   NotInvited

@@ -4,28 +4,18 @@ import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
 import { withNamespaces } from 'react-i18next'
 import classNames from 'classnames'
-import _ from 'lodash'
 
 import 'react-datepicker/dist/react-datepicker.min.css'
 
 import * as Nav from '../../components/ui/Nav'
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
 import FrontPageDrawer from '../../components/drawer/FrontPage'
-import Bank from '../../components/pinfo/Bank'
-import Person from '../../components/pinfo/Person'
-import StayAbroad from '../../components/pinfo/StayAbroad/StayAbroad'
-import Receipt from '../../components/pinfo/Receipt/Receipt'
-import Confirm from '../../components/pinfo/Confirm'
 
-import * as stepTests from '../../components/pinfo/Validation/stepTests'
-import * as globalTests from '../../components/pinfo/Validation/globalTests'
-import PInfoUtil from '../../components/pinfo/Util'
 import * as routes from '../../constants/routes'
 import * as pinfoActions from '../../actions/pinfo'
 import * as uiActions from '../../actions/ui'
 import * as appActions from '../../actions/app'
 import * as storageActions from '../../actions/storage'
-import * as storages from '../../constants/storages'
 
 import './PInfo.css'
 
@@ -45,9 +35,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class PInfoSaksbehandler extends React.Component {
-
-
-  componentDidMount() {
+  componentDidMount () {
     let { actions, username } = this.props
     actions.listStorageFiles(username, 'varsler')
   }
@@ -82,13 +70,13 @@ class PInfoSaksbehandler extends React.Component {
         </ul> : null}
       </div>
       <Nav.Hovedknapp
-          id='pinfo-forward-button'
-          className='forwardButton mb-2 mr-3'
-          onClick={this.onInviteButtonClick.bind(this)}>
-          {t('Invite')}
+        id='pinfo-forward-button'
+        className='forwardButton mb-2 mr-3'
+        onClick={this.onInviteButtonClick.bind(this)}>
+        {t('Invite')}
       </Nav.Hovedknapp>
 
-       <Nav.Hovedknapp
+      <Nav.Hovedknapp
         id='pinfo-forward-button'
         className='forwardButton mb-2 mr-3'
         onClick={this.onForwardButtonClick.bind(this)}>

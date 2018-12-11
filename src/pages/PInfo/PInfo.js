@@ -25,7 +25,6 @@ import * as pinfoActions from '../../actions/pinfo'
 import * as uiActions from '../../actions/ui'
 import * as appActions from '../../actions/app'
 import * as storageActions from '../../actions/storage'
-import * as storages from '../../constants/storages'
 
 import './PInfo.css'
 
@@ -55,6 +54,7 @@ class PInfo extends React.Component {
   }
 
   componentDidMount () {
+    window.hj('trigger', 'e207-feedback-no')
     const { location, actions } = this.props
     let referrer = new URLSearchParams(location.search).get('referrer')
     if (referrer) {

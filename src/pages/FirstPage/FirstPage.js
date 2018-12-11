@@ -49,14 +49,13 @@ class FirstPage extends Component {
   handleForwardButtonClick () {
     const { history, userRole } = this.props
 
-    switch(userRole) {
-
+    switch (userRole) {
       case constants.SAKSBEHANDLER:
-      history.push(routes.PINFO_SAKSBEHANDLER)
-      break
+        history.push(routes.PINFO_SAKSBEHANDLER)
+        break
       default:
-      history.push(routes.PINFO)
-      break
+        history.push(routes.PINFO)
+        break
     }
   }
 

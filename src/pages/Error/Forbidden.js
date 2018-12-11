@@ -20,9 +20,9 @@ class Forbidden extends Component {
     return <TopContainer className={classNames('p-error-forbidden')}
       history={history} location={location}>
       <h1 className='typo-sidetittel ml-0 appTitle'>{t('ui:forbidden')}</h1>
-       <PsychoPanel id='-psycho-panel' className='mb-4'>
-          <span>{t('ui:forbidden')}</span>
-       </PsychoPanel>
+      <PsychoPanel id='-psycho-panel' className='mb-4'>
+        <span>{t('ui:forbidden')}</span>
+      </PsychoPanel>
     </TopContainer>
   }
 }

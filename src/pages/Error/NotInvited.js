@@ -15,14 +15,14 @@ const mapStateToProps = (state) => {
 
 class NotInvited extends Component {
   render () {
-    const { t, history, location, status } = this.props
+    const { t, history, location } = this.props
 
     return <TopContainer className={classNames('p-error-notInvited')}
       history={history} location={location}>
       <h1 className='typo-sidetittel ml-0 appTitle'>{t('ui:notInvited')}</h1>
-       <PsychoPanel id='-psycho-panel' className='mb-4'>
-         <span>{t('ui:notInvited')}</span>
-       </PsychoPanel>
+      <PsychoPanel id='-psycho-panel' className='mb-4'>
+        <span>{t('ui:notInvited')}</span>
+      </PsychoPanel>
     </TopContainer>
   }
 }

@@ -23,4 +23,3 @@ export const CASE_CONFIRM = CASE + '/confirm'
 export const CASE_GENERATE = CASE + '/generate'
 export const CASE_SAVE = CASE + '/save'
 export const CASE_SEND = CASE + '/send'
-

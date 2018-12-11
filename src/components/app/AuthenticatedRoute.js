@@ -75,10 +75,9 @@ class AuthenticatedRoute extends Component {
     let validRole = this.hasApprovedRole()
 
     return IS_DEVELOPMENT_WITH_NO_AUTH || (userRole && validRole)
-      ?
-        !invited ?
-           <Route {...this.props} /> :
-           <Redirect to={routes.NOT_INVITED} />
+      ? !invited
+        ? <Route {...this.props} />
+        : <Redirect to={routes.NOT_INVITED} />
       : <Redirect to={routes.ROOT} />
   }
 }

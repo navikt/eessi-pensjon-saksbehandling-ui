@@ -5,14 +5,12 @@ import { connect } from 'react-redux'
 import { DragDropContext } from 'react-beautiful-dnd'
 
 import * as Nav from '../Nav'
-import InternalTopHeader from '../Header/InternalTopHeader'
-import ExternalTopHeader from '../Header/ExternalTopHeader'
-import Footer from '../Footer/Footer'
 import ClientAlert from '../Alert/ClientAlert'
 import ServerAlert from '../Alert/ServerAlert'
 import Drawer from '../Drawer/Drawer'
 import Modal from '../Modal/Modal'
-import * as constants from '../../../constants/constants'
+import NavHeader from '../Header/NavHeader'
+import NavFooter from '../Footer/NavFooter'
 
 import './TopContainer.css'
 
@@ -39,21 +37,19 @@ class TopContainer extends Component {
   }
 
   render () {
-    const { className, style, history, sideContent, userRole, header } = this.props
+    const { className, style, sideContent, userRole } = this.props
 
     return <div style={style} className={classNames('c-ui-topContainer', userRole, className)}>
       <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
-        <Drawer sideContent={sideContent || null}>
-          { userRole === constants.SAKSBEHANDLER
-            ? <InternalTopHeader history={history} header={header} />
-            : <ExternalTopHeader history={history} header={header} />}
+        <Drawer sideContent={sideContent}>
+          <NavHeader />
           <ClientAlert />
           <ServerAlert />
           <Nav.Container className={classNames('_container')}>
             {this.props.children}
           </Nav.Container>
           <Modal />
-          <Footer />
+          <NavFooter />
         </Drawer>
       </DragDropContext>
     </div>
