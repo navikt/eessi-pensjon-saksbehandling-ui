@@ -72,7 +72,7 @@ class Bank extends React.Component {
             feil={error.bankName && pageError ? { feilmelding: t(error.bankName) } : null}
           />
         </div>
-        <div className='col-md-6'>
+        <div className='col-md-6 mb-3'>
           <label className='skjemaelement__label'>{t('pinfo:bank-country')}</label>
           <CountrySelect
             id='pinfo-bank-country-select'

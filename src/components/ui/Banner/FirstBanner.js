@@ -10,7 +10,7 @@ class FirstBanner extends Component {
   render () {
     const { t } = this.props
     return <div className='c-ui-banner'>
-      <Nav.Sidetittel className='pt-5 pb-5 pl-5'>{t('app-headerTitle')}</Nav.Sidetittel>
+      <Nav.Sidetittel className='pt-4 pb-4 text-center'>{t('app-headerTitle')}</Nav.Sidetittel>
       <PsychoBanner>
         <span>{t('Sample text')}</span>
       </PsychoBanner>

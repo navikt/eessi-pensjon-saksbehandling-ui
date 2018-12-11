@@ -12,6 +12,7 @@ import FirstBanner from '../../components/ui/Banner/FirstBanner'
 import * as Nav from '../../components/ui/Nav'
 
 import * as routes from '../../constants/routes'
+import * as constants from '../../constants/constants'
 import * as statusActions from '../../actions/status'
 import * as appActions from '../../actions/app'
 import * as uiActions from '../../actions/ui'
@@ -46,9 +47,16 @@ class FirstPage extends Component {
   }
 
   handleForwardButtonClick () {
-    const { history } = this.props
+    const { history, userRole } = this.props
 
-    history.push(routes.PINFO)
+    switch (userRole) {
+      case constants.SAKSBEHANDLER:
+        history.push(routes.PINFO_SAKSBEHANDLER)
+        break
+      default:
+        history.push(routes.PINFO)
+        break
+    }
   }
 
   render () {

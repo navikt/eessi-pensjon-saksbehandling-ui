@@ -225,16 +225,16 @@ class PInfo extends React.Component {
         {step === 3 ? <Confirm onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
         {step === 4 ? <Receipt onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
       </div>
-      <div className='mb-4'>
+      <div className='mb-4 pl-4 pr-4'>
         {step < 3 ? <Nav.Hovedknapp
           id='pinfo-forward-button'
-          className='forwardButton'
+          className='forwardButton mb-2 mr-3'
           onClick={this.onForwardButtonClick.bind(this)}>
           {t('confirmAndContinue')}
         </Nav.Hovedknapp> : null}
         {step === 3 ? <Nav.Hovedknapp
           id='pinfo-send-button'
-          className='sendButton'
+          className='sendButton mb-2 mr-3'
           disabled={isSendingPinfo}
           spinner={isSendingPinfo}
           onClick={this.onSendButtonClick.bind(this)}>
@@ -242,14 +242,14 @@ class PInfo extends React.Component {
         </Nav.Hovedknapp> : null}
         {step > 0 ? <Nav.Knapp
           id='pinfo-back-button'
-          className='ml-3 backButton'
+          className='backButton mb-2 mr-3'
           onClick={this.onBackButtonClick.bind(this)}>
           {t('back')}
         </Nav.Knapp> : null}
         <Nav.KnappBase
           id='pinfo-cancel-button'
           type='flat'
-          className='ml-3 cancelButton'
+          className='cancelButton mb-2 mr-3'
           onClick={this.onCancelButtonClick.bind(this)}>
           {t('cancel')}
         </Nav.KnappBase>

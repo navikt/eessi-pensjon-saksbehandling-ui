@@ -5,7 +5,7 @@ import { withNamespaces } from 'react-i18next'
 import classNames from 'classnames'
 
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
-import FrontPageDrawer from '../../components/drawer/FrontPage'
+import PsychoPanel from '../../components/ui/Psycho/PsychoPanel'
 
 const mapStateToProps = (state) => {
   return {
@@ -15,12 +15,14 @@ const mapStateToProps = (state) => {
 
 class NotInvited extends Component {
   render () {
-    const { t, history, location, status } = this.props
+    const { t, history, location } = this.props
 
-    return <TopContainer className={classNames('p-app-notInvited')}
-      history={history} location={location}
-      sideContent={<FrontPageDrawer t={t} status={status} />}>
-      <h1 className='typo-sidetittel ml-0 appTitle'>{'not invited'}</h1>
+    return <TopContainer className={classNames('p-error-notInvited')}
+      history={history} location={location}>
+      <h1 className='typo-sidetittel ml-0 appTitle'>{t('ui:notInvited')}</h1>
+      <PsychoPanel id='-psycho-panel' className='mb-4'>
+        <span>{t('ui:notInvited')}</span>
+      </PsychoPanel>
     </TopContainer>
   }
 }
