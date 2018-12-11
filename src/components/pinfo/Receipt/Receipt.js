@@ -29,7 +29,7 @@ class Receipt extends React.Component {
         </PsychoPanel>
         <Nav.Innholdstittel>{t('pinfo:receipt-title')}</Nav.Innholdstittel>
 
-        <Nav.Undertittel>{t('pinfo:person-title')}</Nav.Undertittel>
+        <Nav.Undertittel>{t('pinfo:person-info-title')}</Nav.Undertittel>
 
         <dl className='row'>
           <dt className='col-6'> {t('pinfo:person-info-lastNameAtBirth')} </dt>

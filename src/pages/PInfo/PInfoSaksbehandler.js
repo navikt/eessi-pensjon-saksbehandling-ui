@@ -9,7 +9,6 @@ import 'react-datepicker/dist/react-datepicker.min.css'
 
 import * as Nav from '../../components/ui/Nav'
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
-import FrontPageDrawer from '../../components/drawer/FrontPage'
 
 import * as routes from '../../constants/routes'
 import * as storageActions from '../../actions/storage'
@@ -21,7 +20,7 @@ const mapStateToProps = (state) => {
     locale: state.ui.locale,
     pinfo: state.pinfo,
     sakId: state.status.sakId,
-    aktoerId : state.status.aktoerId,
+    aktoerId: state.status.aktoerId,
     username: state.app.username,
     fileList: state.storage.fileList,
     isSendingPinfo: state.loading.isSendingPinfo
@@ -33,22 +32,21 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class PInfoSaksbehandler extends React.Component {
-
   state = {
-     isReady : false
+    isReady: false
   }
 
-  componentDidUpdate() {
-    let { actions, history, aktoerId, fileList } = this.props
+  componentDidUpdate () {
+    let { actions, aktoerId, fileList } = this.props
 
     if (aktoerId && fileList === undefined) {
-       actions.listStorageFiles(aktoerId, 'varsler')
+      actions.listStorageFiles(aktoerId, 'varsler')
     }
 
     if (fileList !== undefined && !this.state.isReady) {
-        this.setState({
-            isReady: true
-        })
+      this.setState({
+        isReady: true
+      })
     }
   }
 
@@ -62,17 +60,16 @@ class PInfoSaksbehandler extends React.Component {
   }
 
   render () {
-
-    const { t, history, location, status, sakId, aktoerId, fileList } = this.props
+    const { t, location, history, fileList } = this.props
     const { isReady } = this.state
 
     if (!isReady) {
-     return <TopContainer className='p-pInfo' history={history} location={location} header={t('pinfo:app-title')}>
-       <div className='text-center'>
-            <Nav.NavFrontendSpinner />
-            <p className='typo-normal'>{t('ui:loading')}</p>
-       </div>
-     </TopContainer>
+      return <TopContainer className='p-pInfo' history={history} location={location} header={t('pinfo:app-title')}>
+        <div className='text-center'>
+          <Nav.NavFrontendSpinner />
+          <p className='typo-normal'>{t('ui:loading')}</p>
+        </div>
+      </TopContainer>
     }
 
     return <TopContainer className='p-pInfo' history={history} location={location} header={t('pinfo:app-title')}>

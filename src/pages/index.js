@@ -17,10 +17,9 @@ import PInfoSaksbehandler from './PInfo/PInfoSaksbehandler'
 
 import Forbidden from './Error/Forbidden'
 import NotInvited from './Error/NotInvited'
+import ErrorPage from './Error/ErrorPage'
 
 import P4000 from './P4000/P4000'
-
-import ErrorPage from './ErrorPage/ErrorPage'
 
 export {
   FirstPage,
@@ -36,13 +35,13 @@ export {
   EditPDF,
   GeneratePDF,
 
-  PSelv,
+  PInfoSaksbehandler,
   PInfo,
+
+  PSelv,
   P4000,
 
   ErrorPage,
-  PInfoSaksbehandler,
-
   Forbidden,
   NotInvited
 }

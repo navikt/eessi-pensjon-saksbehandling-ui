@@ -51,11 +51,11 @@ class FirstPage extends Component {
 
     switch (userRole) {
       case constants.SAKSBEHANDLER:
-      history.push({
-        pathname: routes.PINFO_SAKSBEHANDLER,
-        search: window.location.search
-      })
-      break
+        history.push({
+          pathname: routes.PINFO_SAKSBEHANDLER,
+          search: window.location.search
+        })
+        break
       default:
         history.push(routes.PINFO)
         break
