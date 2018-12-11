@@ -6,9 +6,7 @@ import _ from 'lodash'
 import moment from 'moment'
 import classNames from 'classnames'
 
-import ReactDatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.min.css'
-
+import DatePicker from '../../ui/DatePicker/DatePicker'
 import CountrySelect from '../../ui/CountrySelect/CountrySelect'
 import FileUpload from '../../ui/FileUpload/FileUpload'
 
@@ -254,10 +252,10 @@ class Period extends React.Component {
                 {/* <option value='child'>{t('pinfo:stayAbroad-category-child')}</option> */}
                 <option value='voluntary'>{t('pinfo:stayAbroad-category-voluntary')}</option>
                 <option value='military'>{t('pinfo:stayAbroad-category-military')}</option>
-                {/*<option value='birth'>{t('pinfo:stayAbroad-category-birth')}</option>*/}
+                {/* <option value='birth'>{t('pinfo:stayAbroad-category-birth')}</option> */}
                 <option value='learn'>{t('pinfo:stayAbroad-category-learn')}</option>
-                {/*<option value='daily'>{t('pinfo:stayAbroad-category-daily')}</option>*/}
-                {/*<option value='sick'>{t('pinfo:stayAbroad-category-sick')}</option>*/}
+                {/* <option value='daily'>{t('pinfo:stayAbroad-category-daily')}</option> */}
+                {/* <option value='sick'>{t('pinfo:stayAbroad-category-sick')}</option> */}
                 <option value='other'>{t('pinfo:stayAbroad-category-other')}</option>
               </Nav.Select>
             </div>
@@ -270,34 +268,26 @@ class Period extends React.Component {
               <div className='col-md-4'>
                 <label className='mr-3'>{t('pinfo:stayAbroad-period-start-date')}</label>
                 <br />
-                <ReactDatePicker
+                <DatePicker
                   id='pinfo-opphold-startdato-date'
                   selected={_period.startDate ? new Date(_period.startDate) : null}
                   className='startDate'
-                  dateFormat='dd.MM.yyyy'
-                  placeholderText={t('ui:dateFormat')}
-                  showYearDropdown
-                  showMonthDropdown
-                  dropdownMode='select'
                   locale={locale}
-                  onChange={this.setStartDate} />
-                <div>{error.startDateFail}</div>
+                  placeholder={t('ui:dateFormat')}
+                  onChange={this.setStartDate}
+                  error={error.startDateFail} />
               </div>
               <div className='col-md-4'>
                 <label>{t('pinfo:stayAbroad-period-end-date')}</label>
                 <br />
-                <ReactDatePicker
+                <DatePicker
                   id='pinfo-opphold-sluttdato-date'
                   selected={_period.endDate ? new Date(_period.endDate) : null}
                   className='endDate'
-                  dateFormat='dd.MM.yyyy'
-                  placeholderText={t('ui:dateFormat')}
-                  showYearDropdown
-                  showMonthDropdown
-                  dropdownMode='select'
                   locale={locale}
-                  onChange={this.setEndDate} />
-                <div>{error.endDateFail}</div>
+                  placeholder={t('ui:dateFormat')}
+                  onChange={this.setEndDate}
+                  error={error.endDateFail} />
               </div>
             </Nav.Row>
             <Nav.Row>
@@ -405,18 +395,14 @@ class Period extends React.Component {
               <div className='col-md-4'>
                 <label>{t('pinfo:stayAbroad-child-birthdate')}</label>
                 <br />
-                <ReactDatePicker
+                <DatePicker
                   id='pinfo-opphold-barnasfodselsdato-date'
                   selected={_period.childBirthDate ? new Date(_period.childBirthDate) : null}
                   className='childBirthDate'
-                  dateFormat='dd.MM.yyyy'
-                  placeholderText={t('ui:dateFormat')}
-                  showYearDropdown
-                  showMonthDropdown
-                  dropdownMode='select'
                   locale={locale}
-                  onChange={this.setChildBirthDate} />
-                <div>{error.childBirthDate}</div>
+                  placeholder={t('ui:dateFormat')}
+                  onChange={this.setChildBirthDate}
+                  error={error.childBirthDate} />
               </div>
             </Nav.Row> : null}
             {_period.type === 'learn' ? <Nav.Row>

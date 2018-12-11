@@ -68,8 +68,8 @@ class Receipt extends React.Component {
       </Nav.Knapp>
       <div id='divToPrint'>
         <header className='mb-4'>
-           <img alt='logo' src={navLogo}/>
-           <div className='dots' />
+          <img alt='logo' src={navLogo} />
+          <div className='dots' />
         </header>
         <Nav.Innholdstittel className='m-4'>{t('pinfo:receipt-title')}</Nav.Innholdstittel>
         <Nav.Undertittel className='m-4'>{t('pinfo:person-info-title')}</Nav.Undertittel>
