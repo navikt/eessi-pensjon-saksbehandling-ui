@@ -13,7 +13,7 @@ let isEmptyArray = function (value, error) {
 }
 
 let patternMatchIfNotEmpty = function (value, pattern, patternError) {
-   return value && !pattern.test(value) ? patternError : ''
+  return value && !pattern.test(value) ? patternError : ''
 }
 
 // PERSON
@@ -91,7 +91,7 @@ let bankBicSwift = function (bankBicSwift) {
 
 let bankIban = function (bankIban) {
   return isEmptyOrPatternMatch(bankIban, 'pinfo:validation-noBankIban',
-     /[\d\w]+/,  'pinfo:validation-invalidBankIban')
+    /[\d\w]+/, 'pinfo:validation-invalidBankIban')
 }
 
 export const bankValidation = {
@@ -113,13 +113,13 @@ export const stayAbroadValidation = {
 }
 
 let periodType = function (type) {
-    return !type ? 'pinfo:validation-noPeriodType'
-    : ['work','home','child','voluntary','military','birth','learn','daily','sick','other']
+  return !type ? 'pinfo:validation-noPeriodType'
+    : ['work', 'home', 'child', 'voluntary', 'military', 'birth', 'learn', 'daily', 'sick', 'other']
       .indexOf(type) < 0 ? 'pinfo:validation-invalidPeriodType' : ''
 }
 
 let startDate = function (startDate) {
- return !startDate ? 'pinfo:validation-noStartDate'
+  return !startDate ? 'pinfo:validation-noStartDate'
     : (startDate > new Date().getTime()) ? 'pinfo:validation-invalidStartDate' : ''
 }
 
@@ -162,7 +162,7 @@ let childLastName = function (childLastName) {
 }
 
 let childBirthDate = function (childBirthDate) {
- return !childBirthDate ? 'pinfo:validation-noChildBirthDate'
+  return !childBirthDate ? 'pinfo:validation-noChildBirthDate'
     : (childBirthDate < new Date().getTime()) ? 'pinfo:validation-invalidChildBirthDate' : ''
 }
 
@@ -173,19 +173,19 @@ let learnInstitution = function (learnInstitution) {
 // PERIOD
 
 export const periodValidation = {
-    periodType,
-    startDate,
-    endDate,
-    workActivity,
-    workId,
-    workName,
-    workAddress,
-    workCity,
-    workRegion,
-    childFirstName,
-    childLastName,
-    childBirthDate,
-    learnInstitution
+  periodType,
+  startDate,
+  endDate,
+  workActivity,
+  workId,
+  workName,
+  workAddress,
+  workCity,
+  workRegion,
+  childFirstName,
+  childLastName,
+  childBirthDate,
+  learnInstitution
 }
 
 // WORK AND INCOME

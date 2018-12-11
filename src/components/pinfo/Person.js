@@ -119,7 +119,7 @@ class Person extends React.Component {
       </Nav.Row>
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-birthplace-title')}</Nav.Undertittel>
       <Nav.Row>
-       <div className='col-md-6 mb-4'>
+        <div className='col-md-6 mb-4'>
           <label className='skjemaelement__label'>{t('pinfo:person-birthplace-country')}</label>
           <CountrySelect
             id='pinfo-person-land-select'

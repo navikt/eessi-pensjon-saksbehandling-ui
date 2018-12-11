@@ -15,7 +15,7 @@ export default function (state = initialState, action = {}) {
     case types.PINFO_STEP_SET:
 
       return Object.assign({}, state, {
-          step: action.payload
+        step: action.payload
       })
 
     case types.STORAGE_GET_SUCCESS:
@@ -59,15 +59,15 @@ export default function (state = initialState, action = {}) {
 
     case types.PINFO_SEND_SUCCESS:
 
-     return Object.assign({}, state, {
+      return Object.assign({}, state, {
         receipt: action.payload
-     })
+      })
 
     case types.PINFO_SEND_FAILURE:
 
-     return Object.assign({}, state, {
+      return Object.assign({}, state, {
         receipt: undefined
-     })
+      })
 
     case types.APP_CLEAR_DATA:
 

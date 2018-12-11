@@ -358,9 +358,9 @@ export default function (state = {}, action = {}) {
 
     case types.PINFO_SEND_REQUEST:
 
-     return Object.assign({}, state, {
+      return Object.assign({}, state, {
         isSendingPinfo: true
-     })
+      })
 
     default:
 

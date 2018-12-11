@@ -39,7 +39,7 @@ const mapStateToProps = (state) => {
     status: state.status,
     username: state.app.username,
     file: state.storage.file,
-    isSendingPinfo : state.loading.isSendingPinfo
+    isSendingPinfo: state.loading.isSendingPinfo
   }
 }
 
@@ -62,11 +62,10 @@ class PInfo extends React.Component {
     }
   }
 
-  componentDidUpdate() {
-
+  componentDidUpdate () {
     const { receipt, actions, step } = this.props
     if (receipt) {
-       actions.setStep(step + 1 )
+      actions.setStep(step + 1)
     }
   }
 
@@ -140,7 +139,7 @@ class PInfo extends React.Component {
     })
   }
 
-  doCancel() {
+  doCancel () {
     const { actions, history } = this.props
     actions.closeModal()
     actions.clearData()
@@ -176,7 +175,7 @@ class PInfo extends React.Component {
   }
 
   onSendButtonClick () {
-    const {  actions, step, pinfo } = this.props
+    const { actions, step, pinfo } = this.props
 
     let validatePageError
     if (this.state.doPageValidationOnForwardButton) {
@@ -234,12 +233,12 @@ class PInfo extends React.Component {
           {t('confirmAndContinue')}
         </Nav.Hovedknapp> : null}
         {step === 3 ? <Nav.Hovedknapp
-           id='pinfo-send-button'
-           className='sendButton'
-           disabled={isSendingPinfo}
-           spinner={isSendingPinfo}
-           onClick={this.onSendButtonClick.bind(this)}>
-           {isSendingPinfo ? t('sending') : t('confirmAndSend')}
+          id='pinfo-send-button'
+          className='sendButton'
+          disabled={isSendingPinfo}
+          spinner={isSendingPinfo}
+          onClick={this.onSendButtonClick.bind(this)}>
+          {isSendingPinfo ? t('sending') : t('confirmAndSend')}
         </Nav.Hovedknapp> : null}
         {step > 0 ? <Nav.Knapp
           id='pinfo-back-button'

@@ -78,7 +78,7 @@ class Period extends React.Component {
         ...this.state.error,
         [key]: error
       },
-      _error : error
+      _error: error
     })
 
     if (error) {
@@ -96,7 +96,7 @@ class Period extends React.Component {
     return null
   }
 
-  validatePeriod() {
+  validatePeriod () {
     const { _period } = this.state
 
     return stepTests.periodStep(_period)
@@ -108,11 +108,11 @@ class Period extends React.Component {
 
     let validateError = this.validatePeriod()
     if (validateError) {
-       onPageError(validateError)
+      onPageError(validateError)
 
-       return this.setState({
-         _error : validateError
-       })
+      return this.setState({
+        _error: validateError
+      })
     }
 
     let newPeriods = _.clone(periods)
@@ -122,7 +122,7 @@ class Period extends React.Component {
     newPeriods.push(newPeriod)
     actions.setStayAbroad(newPeriods)
     this.setState({
-      _error : undefined,
+      _error: undefined,
       error: {},
       _period: {}
     })
@@ -139,10 +139,10 @@ class Period extends React.Component {
 
     let validateError = this.validatePeriod()
     if (validateError) {
-        onPageError(validateError)
-        return this.setState({
-            _error : validateError
-        })
+      onPageError(validateError)
+      return this.setState({
+        _error: validateError
+      })
     }
 
     let newPeriods = _.clone(periods)
@@ -169,7 +169,6 @@ class Period extends React.Component {
   }
 
   removePeriodRequest (period) {
-
     const { t, actions } = this.props
 
     actions.openModal({
@@ -186,8 +185,7 @@ class Period extends React.Component {
     })
   }
 
-  doRemovePeriod(period) {
-
+  doRemovePeriod (period) {
     const { periods, actions } = this.props
 
     let index = _.findIndex(periods, { id: period.id })

@@ -201,5 +201,3 @@ export default function (state = {}, action = {}) {
     clientErrorMessage: message
   })
 }
-
-

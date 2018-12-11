@@ -64,9 +64,9 @@ class Receipt extends React.Component {
           <dt className='col-6'> {t('pinfo:bank-country')} </dt>
           <dd className='col-6'> {bank.bankCountry ? <React.Fragment>
             <img src={'../../../../../flags/' + bank.bankCountry.value + '.png'}
-             style={{ width: 30, height: 20, marginRight: '1rem' }}
-             alt={bank.bankCountry.label} />
-             {bank.bankCountry.label}
+              style={{ width: 30, height: 20, marginRight: '1rem' }}
+              alt={bank.bankCountry.label} />
+            {bank.bankCountry.label}
           </React.Fragment> : '' }</dd>
           <dt className='col-6'> {t('pinfo:bank-bicSwift')} </dt>
           <dd className='col-6'> {bank.bankBicSwift || ''} </dd>
@@ -83,8 +83,7 @@ class Receipt extends React.Component {
             locale={locale}
             periods={stayAbroad}
             key={period.id} />
-          })}
-
+        })}
 
       </div>
     </React.Fragment>

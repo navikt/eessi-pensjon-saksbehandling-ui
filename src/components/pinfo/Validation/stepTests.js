@@ -35,12 +35,10 @@ export function stayAbroadStep (stayAbroad) {
 }
 
 export function periodStep (period) {
-
   let result = ''
-  switch(period.type) {
-
-   case 'work':
-    result = result ||
+  switch (period.type) {
+    case 'work':
+      result = result ||
     tests.periodValidation.startDate(period.startDate) ||
     tests.periodValidation.endDate(period.endDate) ||
     tests.periodValidation.workActivity(period.workActivity) ||
@@ -49,23 +47,23 @@ export function periodStep (period) {
     tests.periodValidation.workAddress(period.workAddress) ||
     tests.periodValidation.workCity(period.workCity) ||
     tests.periodValidation.workRegion(period.workRegion)
-    break
-  case 'child':
-    result = result ||
+      break
+    case 'child':
+      result = result ||
     tests.periodValidation.startDate(period.startDate) ||
     tests.periodValidation.endDate(period.endDate) ||
     tests.periodValidation.childFirstName(period.childFirstName) ||
     tests.periodValidation.childLastName(period.childLastName) ||
     tests.periodValidation.childBirthDate(period.childBirthDate)
-    break
-   case 'learn':
-    result = result ||
+      break
+    case 'learn':
+      result = result ||
     tests.periodValidation.startDate(period.startDate) ||
     tests.periodValidation.endDate(period.endDate) ||
     tests.periodValidation.learnInstitution(period.learnInstitution)
-    break
-  default:
-    result = result ||
+      break
+    default:
+      result = result ||
     tests.periodValidation.startDate(period.startDate) ||
     tests.periodValidation.endDate(period.endDate)
   }

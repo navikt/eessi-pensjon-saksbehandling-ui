@@ -2,16 +2,14 @@ import _ from 'lodash'
 import moment from 'moment'
 
 class Util {
-
-  writeDate(date) {
+  writeDate (date) {
     return moment(date).format('DD.MM.YYYY')
   }
 
   handleDate (period) {
-
     let result = {
-       lukketPeriode : null,
-       openPeriode : null
+      lukketPeriode: null,
+      openPeriode: null
     }
     if (period.endDate) {
       result.lukketPeriode = {
@@ -32,7 +30,8 @@ class Util {
   handleGenericPeriod (period) {
     return {
       land: period.country.value,
-      periode: this.handleDate(period)
+      periode: this.handleDate(period),
+      vedlegg: period.attachments
     }
   }
 
