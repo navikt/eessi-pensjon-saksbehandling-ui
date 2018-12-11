@@ -254,10 +254,10 @@ class Period extends React.Component {
                 {/* <option value='child'>{t('pinfo:stayAbroad-category-child')}</option> */}
                 <option value='voluntary'>{t('pinfo:stayAbroad-category-voluntary')}</option>
                 <option value='military'>{t('pinfo:stayAbroad-category-military')}</option>
-                <option value='birth'>{t('pinfo:stayAbroad-category-birth')}</option>
+                {/*<option value='birth'>{t('pinfo:stayAbroad-category-birth')}</option>*/}
                 <option value='learn'>{t('pinfo:stayAbroad-category-learn')}</option>
-                <option value='daily'>{t('pinfo:stayAbroad-category-daily')}</option>
-                <option value='sick'>{t('pinfo:stayAbroad-category-sick')}</option>
+                {/*<option value='daily'>{t('pinfo:stayAbroad-category-daily')}</option>*/}
+                {/*<option value='sick'>{t('pinfo:stayAbroad-category-sick')}</option>*/}
                 <option value='other'>{t('pinfo:stayAbroad-category-other')}</option>
               </Nav.Select>
             </div>
