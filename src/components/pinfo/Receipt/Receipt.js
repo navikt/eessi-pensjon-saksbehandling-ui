@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withNamespaces } from 'react-i18next'
 
+import * as navLogo from '../../../resources/images/nav-logo-red.png'
+
 import * as Nav from '../../ui/Nav'
 import PsychoPanel from '../../../components/ui/Psycho/PsychoPanel'
 import PdfUtils from '../../../components/ui/Export/PdfUtils'
@@ -65,6 +67,10 @@ class Receipt extends React.Component {
         {generatingPDF ? t('ui:generating') : t('ui:getReceipt')}
       </Nav.Knapp>
       <div id='divToPrint'>
+        <header className='mb-4'>
+           <img alt='logo' src={navLogo}/>
+           <div className='dots' />
+        </header>
         <Nav.Innholdstittel className='m-4'>{t('pinfo:receipt-title')}</Nav.Innholdstittel>
         <Nav.Undertittel className='m-4'>{t('pinfo:person-info-title')}</Nav.Undertittel>
         <dl className='row ml-2'>
@@ -80,12 +86,12 @@ class Receipt extends React.Component {
           <dd className='col-8'> {person.motherName || ''} </dd>
           <dt className='col-4'> {t('pinfo:person-birthplace-country')} </dt>
           <dd className='col-8'>
-            <React.Fragment>
+            {person.country ? <React.Fragment>
               <img src={'../../../../../flags/' + person.country.value + '.png'}
                 style={{ width: 30, height: 20, marginRight: '1rem' }}
                 alt={person.country.label} />
               {person.country.label}
-            </React.Fragment>
+            </React.Fragment> : null}
           </dd>
           <dt className='col-4'> {t('pinfo:person-birthplace-city')} </dt>
           <dd className='col-8'> {person.city || ''} </dd>

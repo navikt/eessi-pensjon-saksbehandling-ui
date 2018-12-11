@@ -11,10 +11,16 @@ import '../Menu.css'
 
 class ExportRender extends Component {
   render () {
-    const { t, comment, blackAndWhite } = this.props
+    const { t, comment, blackAndWhite, username } = this.props
 
     return <div className='c-p4000-menu-view-export-render'>
       <ExportHeader {...this.props} />
+      <div className='pb-4 pb-4'>
+        <h5 className={classNames(blackAndWhite ? 'black' : 'red')}>Personsopplysning</h5>
+        <dl>
+          <dt>{t('ui:name')}</dt><dd>{username}</dd>
+        </dl>
+      </div>
       <h5 className={classNames('pt-4', (blackAndWhite ? 'black' : 'red'))}>Hendelser</h5>
       <EventsRender {...this.props} />
       <div>

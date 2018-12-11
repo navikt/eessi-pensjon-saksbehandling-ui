@@ -12,7 +12,7 @@ import '../Menu.css'
 
 class ExportHeader extends Component {
   render () {
-    const { t, blackAndWhite, username, header } = this.props
+    const { t, blackAndWhite, header } = this.props
 
     return <div>
       {header ? <header className='mb-4'>
@@ -23,12 +23,6 @@ class ExportHeader extends Component {
       <div className='pb-4 pb-4 flexrow'>
         <div>{t('case:form-sakId')}{': '}</div>
         <div>{t('ui:sentDate')}{': '}{renderDate(new Date())}</div>
-      </div>
-      <div className='pb-4 pb-4'>
-        <h5 className={classNames(blackAndWhite ? 'black' : 'red')}>Personsopplysning</h5>
-        <dl>
-          <dt>Navn</dt><dd>{username}</dd>
-        </dl>
       </div>
     </div>
   }
