@@ -5,6 +5,7 @@ export const INDEX = BASE + '/index'
 
 export const PSELV = BASE + '/pselv'
 export const PINFO = BASE + '/pinfo'
+export const PINFO_SAKSBEHANDLER = BASE + '/pinfo_saksbehandler'
 export const PDF = BASE + '/pdf'
 export const P4000 = BASE + '/p4000'
 export const CASE = BASE + '/case'

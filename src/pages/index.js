@@ -13,6 +13,8 @@ import GeneratePDF from './PDF_/GeneratePDF/GeneratePDF'
 
 import PSelv from './PSelv/PSelv'
 import PInfo from './PInfo/PInfo'
+import PInfoSaksbehandler from './PInfo/PInfoSaksbehandler'
+
 import P4000 from './P4000/P4000'
 
 export {
@@ -31,5 +33,6 @@ export {
 
   PSelv,
   PInfo,
+  PInfoSaksbehandler,
   P4000
 }
