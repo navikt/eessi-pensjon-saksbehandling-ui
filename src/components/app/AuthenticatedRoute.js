@@ -5,8 +5,6 @@ import { bindActionCreators } from 'redux'
 import { Route, withRouter, Redirect } from 'react-router'
 import _ from 'lodash'
 
-import NotInvited from './NotInvited'
-
 import { IS_DEVELOPMENT_WITH_NO_AUTH } from '../../constants/environment'
 import * as routes from '../../constants/routes'
 import * as appActions from '../../actions/app'
@@ -77,7 +75,10 @@ class AuthenticatedRoute extends Component {
     let validRole = this.hasApprovedRole()
 
     return IS_DEVELOPMENT_WITH_NO_AUTH || (userRole && validRole)
-      ? !invited ? <Route {...this.props} /> : <NotInvited />
+      ?
+        !invited ?
+           <Route {...this.props} /> :
+           <Redirect to={routes.NOT_INVITED} />
       : <Redirect to={routes.ROOT} />
   }
 }

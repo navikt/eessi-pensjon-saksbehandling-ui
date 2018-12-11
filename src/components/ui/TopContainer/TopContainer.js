@@ -43,7 +43,7 @@ class TopContainer extends Component {
 
     return <div style={style} className={classNames('c-ui-topContainer', userRole, className)}>
       <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
-        <Drawer sideContent={sideContent}>
+        <Drawer sideContent={sideContent || null}>
           { userRole === constants.SAKSBEHANDLER
             ? <InternalTopHeader history={history} header={header} />
             : <ExternalTopHeader history={history} header={header} />}

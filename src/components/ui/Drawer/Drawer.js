@@ -84,7 +84,7 @@ class Drawer extends Component {
        onMouseUp={this.onMouseUp.bind(this)}>
        <div id='drawer' style={{ width: drawerEnabled ? drawerWidth : 0 }}>
          <div id='drawer-content'>
-           {drawerOpen ? sideContent : null}
+           {drawerOpen && sideContent ? sideContent : null}
          </div>
          { drawerEnabled ? <div className={classNames({ toggled: drawerOpen })}
            id='drawer-button' onMouseDown={this.onMouseDown.bind(this)} onClick={this.onMouseClick.bind(this)}>
