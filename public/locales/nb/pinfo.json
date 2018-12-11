@@ -149,6 +149,8 @@
     "validation-invalidChildBirthDate": "Ugyldid barnas fødselsdato",
     "validation-noLearnInstitution": "Ingen opplæringsinstitusjons navn",
 
+    "alert-sendFailure" : "Feil til å sende",
+    "alert-sendSuccess" : "Sendt",
     "alert-leavePInfo": "Avbryt søknad",
     "alert-areYouSureLeavePInfo" : "Er du sikkert at du vil avbryt med ubehandlede endringer?",
     "alert-deletePeriod" : "Slett periode",

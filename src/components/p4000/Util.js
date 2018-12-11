@@ -104,7 +104,7 @@ class Util {
   handleChildEvent (event) {
     let newEvent = this.handleGenericEvent(event)
     newEvent.informasjonBarn = {
-      etternavn: event.firstname,
+      etternavn: event.lastname,
       foedseldato: this.writeDate(event.birthDate),
       fornavn: event.firstname,
       land: event.country

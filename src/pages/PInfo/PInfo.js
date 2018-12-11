@@ -19,6 +19,7 @@ import Confirm from '../../components/pinfo/Confirm'
 
 import * as stepTests from '../../components/pinfo/Validation/stepTests'
 import * as globalTests from '../../components/pinfo/Validation/globalTests'
+import PInfoUtil from '../../components/pinfo/Util'
 import * as routes from '../../constants/routes'
 import * as pinfoActions from '../../actions/pinfo'
 import * as uiActions from '../../actions/ui'
@@ -33,10 +34,12 @@ const mapStateToProps = (state) => {
     locale: state.ui.locale,
     pinfo: state.pinfo,
     step: state.pinfo.step,
+    receipt: state.pinfo.receipt,
     referrer: state.app.referrer,
     status: state.status,
     username: state.app.username,
-    file: state.storage.file
+    file: state.storage.file,
+    isSendingPinfo : state.loading.isSendingPinfo
   }
 }
 
@@ -56,6 +59,14 @@ class PInfo extends React.Component {
     let referrer = new URLSearchParams(location.search).get('referrer')
     if (referrer) {
       actions.setReferrer(referrer)
+    }
+  }
+
+  componentDidUpdate() {
+
+    const { receipt, actions, step } = this.props
+    if (receipt) {
+       actions.setStep(step + 1 )
     }
   }
 
@@ -89,7 +100,7 @@ class PInfo extends React.Component {
       })
     }
 
-    actions.setEventProperty({ step: step + 1 })
+    actions.setStep(step + 1)
     this.setState({
       pageError: undefined
     })
@@ -108,7 +119,7 @@ class PInfo extends React.Component {
       })
     }
 
-    actions.setEventProperty({ step: newStep })
+    actions.setStep(newStep)
     this.setState({
       pageError: undefined
     })
@@ -117,7 +128,7 @@ class PInfo extends React.Component {
   onBackButtonClick () {
     const { actions, step } = this.props
 
-    actions.setEventProperty({ step: step - 1 })
+    actions.setStep(step - 1)
     this.setState({
       pageError: undefined
     })
@@ -142,7 +153,7 @@ class PInfo extends React.Component {
   }
 
   onCancelButtonClick () {
-    const { t, actions, history, pinfo } = this.props
+    const { t, actions, pinfo } = this.props
 
     let isPInfoEmpty = globalTests.isPInfoEmpty(pinfo)
 
@@ -164,15 +175,28 @@ class PInfo extends React.Component {
     }
   }
 
-  onSaveButtonClick () {
-    const { history, username, pinfo } = this.props
+  onSendButtonClick () {
+    const {  actions, step, pinfo } = this.props
 
-    // actions.postStorageFile(username, storages.PINFO, 'PINFO', JSON.stringify(pinfo))
-    history.push(routes.PSELV + '?referrer=pinfo')
+    let validatePageError
+    if (this.state.doPageValidationOnForwardButton) {
+      validatePageError = this.validatePage(step)
+    }
+    if (validatePageError) {
+      return this.setState({
+        pageError: validatePageError
+      })
+    }
+    this.setState({
+      pageError: undefined
+    })
+
+    let payload = PInfoUtil.generatePayload(pinfo)
+    actions.sendPInfo(payload)
   }
 
   render () {
-    const { t, history, location, status, step } = this.props
+    const { t, history, location, status, step, isSendingPinfo } = this.props
     const { pageError } = this.state
 
     return <TopContainer className='p-pInfo'
@@ -199,21 +223,33 @@ class PInfo extends React.Component {
         {step === 0 ? <Person onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
         {step === 1 ? <Bank onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
         {step === 2 ? <StayAbroad onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
-        {step === 3 ? <Confirm onPageError={this.onPageError.bind(this)} onSave={this.onSaveButtonClick.bind(this)} pageError={pageError} /> : null}
+        {step === 3 ? <Confirm onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
         {step === 4 ? <Receipt onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
       </div>
       <div className='mb-4'>
-        {step < 4 ? <Nav.Hovedknapp
+        {step < 3 ? <Nav.Hovedknapp
+          id='pinfo-forward-button'
           className='forwardButton'
           onClick={this.onForwardButtonClick.bind(this)}>
           {t('confirmAndContinue')}
         </Nav.Hovedknapp> : null}
+        {step === 3 ? <Nav.Hovedknapp
+           id='pinfo-send-button'
+           className='sendButton'
+           disabled={isSendingPinfo}
+           spinner={isSendingPinfo}
+           onClick={this.onSendButtonClick.bind(this)}>
+           {isSendingPinfo ? t('sending') : t('confirmAndSend')}
+        </Nav.Hovedknapp> : null}
         {step > 0 ? <Nav.Knapp
+          id='pinfo-back-button'
           className='ml-3 backButton'
           onClick={this.onBackButtonClick.bind(this)}>
           {t('back')}
         </Nav.Knapp> : null}
-        <Nav.KnappBase type='flat'
+        <Nav.KnappBase
+          id='pinfo-cancel-button'
+          type='flat'
           className='ml-3 cancelButton'
           onClick={this.onCancelButtonClick.bind(this)}>
           {t('cancel')}

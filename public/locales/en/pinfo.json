@@ -152,6 +152,8 @@
     "validation-invalidChildBirthDate": "Invalid child birth date",
     "validation-noLearnInstitution": "No institution name",
 
+    "alert-sendFailure" : "Failure to send",
+    "alert-sendSuccess" : "Sent successfully",
     "alert-leavePInfo": "Leaving application unsaved",
     "alert-areYouSureLeavePInfo" : "Are you sure you want to leave the application unsaved?",
     "alert-deletePeriod" : "Delete period",

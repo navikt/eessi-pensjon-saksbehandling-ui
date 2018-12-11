@@ -92,6 +92,11 @@ export default function (state = {}, action = {}) {
         message = 'ui:loadFailure'
         break
 
+      case types.PINFO_SEND_FAILURE:
+
+        message = 'pinfo:alert-sendFailure'
+        break
+
       default:
 
         message = processError(action.payload)
@@ -178,6 +183,11 @@ export default function (state = {}, action = {}) {
       message = 'ui:saveSuccess'
       break
 
+    case types.PINFO_SEND_SUCCESS:
+
+      message = 'pinfo:alert-sendSuccess'
+      break
+
     default:
       break
   }
@@ -191,3 +201,5 @@ export default function (state = {}, action = {}) {
     clientErrorMessage: message
   })
 }
+
+

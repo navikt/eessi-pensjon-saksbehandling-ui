@@ -3,25 +3,27 @@ import * as types from '../constants/actionTypes'
 let initialState = {
   isLoaded: false,
   step: 0,
-  validationError: undefined,
   person: {},
   bank: {},
   stayAbroad: [],
-  work: {}
+  work: {},
+  receipt: undefined
 }
 
 export default function (state = initialState, action = {}) {
   switch (action.type) {
-    case types.PINFO_EVENT_SET_PROPERTY:
+    case types.PINFO_STEP_SET:
 
-      return { ...state, ...action.payload }
+      return Object.assign({}, state, {
+          step: action.payload
+      })
 
     case types.STORAGE_GET_SUCCESS:
       return action.fileName === 'PINFO'
         ? JSON.parse(action.payload)
         : state
 
-    case types.PINFO_EVENT_SET_PERSON:
+    case types.PINFO_PERSON_SET:
       return {
         ...state,
         person: {
@@ -29,7 +31,7 @@ export default function (state = initialState, action = {}) {
           ...action.payload
         } }
 
-    case types.PINFO_EVENT_SET_WORK:
+    case types.PINFO_WORK_SET:
       return {
         ...state,
         work: {
@@ -37,7 +39,7 @@ export default function (state = initialState, action = {}) {
           ...action.payload
         } }
 
-    case types.PINFO_EVENT_SET_BANK:
+    case types.PINFO_BANK_SET:
       return {
         ...state,
         bank: {
@@ -45,7 +47,7 @@ export default function (state = initialState, action = {}) {
           ...action.payload
         } }
 
-    case types.PINFO_EVENT_SET_STAY_ABROAD:
+    case types.PINFO_STAY_ABROAD_SET:
 
       let sortedStayAbroad = action.payload.slice()
       sortedStayAbroad.sort((a, b) => { return a.startDate - b.startDate })
@@ -55,9 +57,17 @@ export default function (state = initialState, action = {}) {
         stayAbroad: sortedStayAbroad
       }
 
-    case types.PINFO_NEW:
+    case types.PINFO_SEND_SUCCESS:
 
-      break
+     return Object.assign({}, state, {
+        receipt: action.payload
+     })
+
+    case types.PINFO_SEND_FAILURE:
+
+     return Object.assign({}, state, {
+        receipt: undefined
+     })
 
     case types.APP_CLEAR_DATA:
 
