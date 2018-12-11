@@ -1,13 +1,6 @@
 {
-    "app-title" : "Application",
-    "app-startPinfo" : "Application",
-
-    "intro-title" : "Søknad om alderspenskjon",
-    "intro-p-1": "Vi viser til din søknad om alderspensjon fra folketrygden mottat 12. oktober 2018.",
-    "intro-p-2": "Saksbehandlingstiden er tre måneder fra mottatt søknad. Hvis søknaden ikke blir avgjort i løpet av denne tiden, vil du høre mærmere fra oss.",
-    "intro-h-1": "Rett til alderspensjon fra avtaleland",
-    "intro-p-3": "Opplysninger viser at du har bodd og/eller arbidet i et eller flere land som Norge har trygdeavtale med. Du kan dermed ha rett til ytelse fra utlandet. NAV kan sende søknad om alderspensjon til utlandet dersom du har eller ønsker å undersøke om du har rett til alderspensjon fra utlandet.",
-    "intro-p-4": "Ved tilfeller NAV må innhente medlemskapsopplysninger fra utenlandske trygdemyndigheter, vil du motta et foreløpig vedtak i påvente av opplysninger fra utlandet.",
+    "app-title" : "Information about your staying abroad",
+    "app-startPinfo" : "Information about your staying abroad",
 
     "psycho-description": "This page is for those who had previously stayed in EU countries. Here you can send more information that NAV needs to proceed with your application",
 

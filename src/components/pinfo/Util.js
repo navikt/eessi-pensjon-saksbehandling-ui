@@ -27,9 +27,13 @@ class Util {
     return result
   }
 
+  handleCountry (country) {
+    return country.value
+  }
+
   handleGenericPeriod (period) {
     return {
-      land: period.country.value,
+      land: this.handleCountry(period.country),
       periode: this.handleDate(period),
       vedlegg: period.attachments
     }
@@ -41,7 +45,7 @@ class Util {
       by: period.workCity,
       address: period.workAddress,
       region: period.workRegion,
-      land: period.country
+      land: this.handleCountry(period.country)
     }
     delete newPeriod.land
     newPeriod.forsikkringEllerRegistreringNr = period.workId
@@ -56,7 +60,7 @@ class Util {
       etternavn: period.childLastName,
       foedseldato: this.writeDate(period.childBirthDate),
       fornavn: period.childFirstName,
-      land: period.country
+      land:  this.handleCountry(period.country)
     }
     delete newPeriod.land
     return newPeriod
@@ -68,7 +72,40 @@ class Util {
     return newPeriod
   }
 
-  generatePayload (periods) {
+  generatePayload (pinfo) {
+    let result = {}
+    result.periodeInfo = this.generatePeriods(pinfo.stayAbroad)
+    result.personInfo = this.generatePerson(pinfo.person)
+    result.bankinfo = this.generateBank(pinfo.bank)
+    return result
+  }
+
+  generatePerson (person) {
+    return {
+      'etternavnVedFodsel': person.lastNameAtBirth,
+      'tidligereNavn': person.previousName,
+      'utenlandskPersonnummer': person.idAbroad,
+      'farsNavn': person.fatherName,
+      'mornNavn': person.motherName,
+      'fodestedBy': person.city,
+      'fodestedLand':  this.handleCountry(person.country),
+      'provinsEllerDepartement': person.region,
+      'telefonnummer': person.phone,
+      'epost': person.email
+    }
+  }
+
+  generateBank (bank) {
+    return {
+      'navn': bank.bankName,
+      'land':  this.handleCountry(bank.bankCountry),
+      'adresse': bank.bankAddress,
+      'bicEllerSwift': bank.bankBicSwift,
+      'kontonummerEllerIban': bank.bankIban
+    }
+  }
+
+  generatePeriods (periods) {
     let payload = {}
     periods.map(period => {
       switch (period.type) {

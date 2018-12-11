@@ -33,7 +33,7 @@ class Person extends React.Component {
     this.setFatherName = this.eventSetProperty.bind(this, 'fatherName', personValidation.fatherName)
     this.setMotherName = this.eventSetProperty.bind(this, 'motherName', personValidation.motherName)
     this.setIdAbroad = this.eventSetProperty.bind(this, 'idAbroad', null)
-    this.setCountry = this.eventSetProperty.bind(this, 'country', personValidation.country)
+    this.setCountry = this.valueSetProperty.bind(this, 'country', personValidation.country)
     this.setCity = this.eventSetProperty.bind(this, 'city', personValidation.city)
     this.setRegion = this.eventSetProperty.bind(this, 'region', personValidation.region)
     this.setPhone = this.eventSetProperty.bind(this, 'phone', personValidation.phone)
@@ -82,6 +82,19 @@ class Person extends React.Component {
             value={person.nameAtBirth || ''}
             onChange={this.setNameAtBirth}
             feil={error.nameAtBirth && pageError ? { feilmelding: t(error.nameAtBirth) } : null}
+          />
+        </div>
+      </Nav.Row>
+      <Nav.Row>
+        <div className='col-sm-9'>
+          <Nav.Input
+            id='pinfo-person-tidligerenavn-input'
+            type='text'
+            label={t('pinfo:person-info-previousName')}
+            placeholder={t('ui:writeIn')}
+            value={person.previousName || ''}
+            onChange={this.setPreviousName}
+            feil={error.previousName && pageError ? { feilmelding: t(error.previousName) } : null}
           />
         </div>
       </Nav.Row>
