@@ -45,40 +45,43 @@ class InternalTopHeader extends Component {
   }
 
   render () {
-    let { t, username, userRole, gettingUserInfo, isLoggingOut } = this.props
+    let { t, username, userRole, gettingUserInfo, isLoggingOut, header } = this.props
 
-    return <header className='c-ui-topHeader'>
-      <div className='brand'>
-        <a href='#index' onClick={this.onLogoClick.bind(this)}>
-          <img className='logo' src={navLogo} alt='Hjem' />
-        </a>
-        <div className='skillelinje' />
-        <div className='tittel'><span>{t('app-headerTitle')}</span></div>
-      </div>
-      <div className='user'>
-        {userRole ? <div title={userRole} className={classNames('mr-2', userRole)}>
-          <Icons kind='user' />
+    return <React.Fragment>
+      <header className='c-ui-topHeader'>
+        <div className='brand'>
+          <a href='#index' onClick={this.onLogoClick.bind(this)}>
+            <img className='logo' src={navLogo} alt='Hjem' />
+          </a>
+          <div className='skillelinje' />
+          <div className='tittel'><span>{t('app-headerTitle')}</span></div>
         </div>
-          : isLoggingOut ? <Nav.NavFrontendSpinner type='XS' /> : null}
-        <div className='skillelinje' />
-        <div className='mr-4 name'>
-          {gettingUserInfo ? t('case:loading-gettingUserInfo')
-            : username
-              ? <Nav.Select className='username-select'
-                label={''} value={username} selected={username}
-                onChange={this.handleUsernameSelectRequest.bind(this)}>
-                <option value=''>{username}</option>
-                <option value='feedback'>{t('ui:giveFeedback')}</option>
-                <option value='logout'>{t('logout')}</option>
-              </Nav.Select>
-              : <React.Fragment>
-                <Nav.Ikon size={16} kind='advarsel-trekant' />
-                <span className='ml-2 username-span'>{t('unknown')}</span>
-              </React.Fragment>
-          }
+        <div className='user'>
+          {userRole ? <div title={userRole} className={classNames('mr-2', userRole)}>
+            <Icons kind='user' />
+          </div>
+            : isLoggingOut ? <Nav.NavFrontendSpinner type='XS' /> : null}
+          <div className='skillelinje' />
+          <div className='mr-4 name'>
+            {gettingUserInfo ? t('case:loading-gettingUserInfo')
+              : username
+                ? <Nav.Select className='username-select'
+                  label={''} value={username} selected={username}
+                  onChange={this.handleUsernameSelectRequest.bind(this)}>
+                  <option value=''>{username}</option>
+                  <option value='feedback'>{t('ui:giveFeedback')}</option>
+                  <option value='logout'>{t('logout')}</option>
+                </Nav.Select>
+                : <React.Fragment>
+                  <Nav.Ikon size={16} kind='advarsel-trekant' />
+                  <span className='ml-2 username-span'>{t('unknown')}</span>
+                </React.Fragment>
+            }
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+      <h1 className='typo-sidetittel mt-4 appTitle'>{header}</h1>
+    </React.Fragment>
   }
 }
 

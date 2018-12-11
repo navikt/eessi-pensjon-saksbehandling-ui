@@ -33,14 +33,6 @@ class ConfirmCase extends Component {
 
     if (!dataToConfirm) {
       history.push(routes.CASE_START)
-    } else {
-      actions.addToBreadcrumbs([{
-        url: routes.CASE,
-        label: 'case:app-caseTitle'
-      }, {
-        url: routes.CASE_CONFIRM,
-        label: 'case:app-confirmCaseTitle'
-      }])
     }
 
     if (dataToGenerate) {

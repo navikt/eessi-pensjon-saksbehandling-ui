@@ -3,8 +3,10 @@ import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withNamespaces } from 'react-i18next'
+
 import * as Nav from '../ui/Nav'
 import CountrySelect from '../ui/CountrySelect/CountrySelect'
+
 import * as pinfoActions from '../../actions/pinfo'
 import { bankValidation } from './Validation/singleTests'
 
@@ -37,14 +39,18 @@ class Bank extends React.Component {
   }
 
   valueSetProperty (key, validateFunction, value) {
-    const { actions } = this.props
+    const { actions, onPageError } = this.props
     actions.setBank({ [key]: value })
+    let error = validateFunction(value)
     this.setState({
       error: {
         ...this.state.error,
-        [key]: validateFunction(value)
+        [key]: error
       }
     })
+    if (error) {
+      onPageError(error)
+    }
   }
 
   render () {
@@ -52,50 +58,68 @@ class Bank extends React.Component {
     const { error } = this.state
 
     return <div>
-      <h2 className='typo-undertittel ml-0 mb-4 appDescription'>{t('pinfo:bank-title')}</h2>
-      <div className='mt-3'>
-        <Nav.Row>
-          <div className='col-md-6'>
-            <Nav.Input label={t('pinfo:bank-name')} value={bank.bankName || ''}
-              onChange={this.setBankName}
-              feil={error.bankName && pageError ? { feilmelding: t(error.bankName) } : null}
-            />
-          </div>
-          <div className='col-md-6'>
-            <label className='skjemaelement__label'>{t('pinfo:bank-country')}</label>
-            <CountrySelect locale={locale}
-              value={bank.bankCountry || null}
-              onSelect={this.setBankCountry}
-              error={error.bankCountry && pageError}
-              errorMessage={error.bankCountry}
-            />
-          </div>
-        </Nav.Row>
-        <Nav.Row>
-          <div className='col-md-12'>
-            <Nav.Textarea label={t('pinfo:bank-address')} value={bank.bankAddress || ''}
-              style={{ minHeight: '100px' }}
-              onChange={this.setBankAddress}
-              feil={error.bankAddress && pageError ? { feilmelding: t(error.bankAddress) } : null}
-            />
-          </div>
-        </Nav.Row>
-        <Nav.Row>
-          <div className='col-md-6'>
-            <Nav.Input label={t('pinfo:bank-bicSwift')} value={bank.bankBicSwift || ''}
-              onChange={this.setBankBicSwift}
-              feil={error.bankBicSwift && pageError ? { feilmelding: t(error.bankBicSwift) } : null}
-            />
-          </div>
-          <div className='col-md-6'>
-            <Nav.Input label={t('pinfo:bank-iban')}
-              value={bank.bankIban || ''}
-              onChange={this.setBankIban}
-              feil={error.bankIban && pageError ? { feilmelding: t(error.bankIban) } : null}
-            />
-          </div>
-        </Nav.Row>
-      </div>
+      <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:bank-title')}</Nav.Undertittel>
+
+      <Nav.Row>
+        <div className='col-md-6'>
+          <Nav.Input
+            id='pinfo-bank-name-input'
+            type='text'
+            label={t('pinfo:bank-name')}
+            placeholder={t('ui:writeIn')}
+            value={bank.bankName || ''}
+            onChange={this.setBankName}
+            feil={error.bankName && pageError ? { feilmelding: t(error.bankName) } : null}
+          />
+        </div>
+        <div className='col-md-6'>
+          <label className='skjemaelement__label'>{t('pinfo:bank-country')}</label>
+          <CountrySelect
+            id='pinfo-bank-country-select'
+            locale={locale}
+            value={bank.bankCountry || null}
+            onSelect={this.setBankCountry}
+            error={error.bankCountry && pageError}
+            errorMessage={error.bankCountry}
+          />
+        </div>
+      </Nav.Row>
+      <Nav.Row>
+        <div className='col-md-6'>
+          <Nav.Input
+            id='pinfo-bank-bicswift-input'
+            label={t('pinfo:bank-bicSwift')}
+            placeholder={t('ui:writeIn')}
+            value={bank.bankBicSwift || ''}
+            onChange={this.setBankBicSwift}
+            feil={error.bankBicSwift && pageError ? { feilmelding: t(error.bankBicSwift) } : null}
+          />
+        </div>
+        <div className='col-md-6'>
+          <Nav.Input
+            id='pinfo-bank-iban-input'
+            label={t('pinfo:bank-iban')}
+            placeholder={t('ui:writeIn')}
+            value={bank.bankIban || ''}
+            onChange={this.setBankIban}
+            feil={error.bankIban && pageError ? { feilmelding: t(error.bankIban) } : null}
+          />
+        </div>
+      </Nav.Row>
+      <Nav.Row>
+        <div className='col-md-12'>
+          <Nav.Textarea
+            id='pinfo-bank-address-textarea'
+            label={t('pinfo:bank-address')}
+            placeholder={t('ui:writeIn')}
+            value={bank.bankAddress || ''}
+            style={{ minHeight: '100px' }}
+            maxLength={100}
+            onChange={this.setBankAddress}
+            feil={error.bankAddress && pageError ? { feilmelding: t(error.bankAddress) } : null}
+          />
+        </div>
+      </Nav.Row>
     </div>
   }
 }

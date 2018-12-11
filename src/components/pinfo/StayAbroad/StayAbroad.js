@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { withNamespaces } from 'react-i18next'
 import _ from 'lodash'
 
+import * as Nav from '../../ui/Nav'
 import Period from './Period'
 
 import * as pinfoActions from '../../../actions/pinfo'
@@ -22,38 +23,43 @@ const mapDispatchToProps = (dispatch) => {
 class StayAbroad extends React.Component {
   state = {
     error: {},
-    editPeriod: undefined
+    _period: {}
   }
 
   setEditPeriod (period) {
     this.setState({
-      editPeriod: period
+      _period: period
     })
   }
 
   render () {
-    const { t, stayAbroad, actions, locale } = this.props
-    const { editPeriod } = this.state
+    const { t, stayAbroad, locale, onPageError } = this.props
+    const { _period } = this.state
 
     return <div>
-      <h2 className='typo-undertittel ml-0 mb-4 appDescription'>{t('pinfo:stayAbroad-title')}</h2>
-      {!_.isEmpty(stayAbroad) ? <h3 className='typo-undertittel mb-3'>{t('pinfo:stayAbroad-previousPeriods')}</h3> : null}
+      <Nav.Undertittel>{t('pinfo:stayAbroad-title')}</Nav.Undertittel>
+      <Nav.Undertekst className='mb-4'>{t('pinfo:stayAbroad-description')}</Nav.Undertekst>
+      {!_.isEmpty(stayAbroad) ? <Nav.Undertittel className='mb-3'>{t('pinfo:stayAbroad-previousPeriods')}</Nav.Undertittel> : null}
       {stayAbroad.map((period, index) => {
         return <Period t={t}
           mode='view'
-          current={editPeriod && editPeriod.id === period.id}
+          current={_period.id === period.id}
+          first={index === 0}
+          last={index === stayAbroad.length - 1}
           period={period}
           locale={locale}
           periods={stayAbroad}
-          setStayAbroad={actions.setStayAbroad}
+          onPageError={onPageError}
           editPeriod={this.setEditPeriod.bind(this)}
           key={period.id} />
       })}
-      <Period t={t} periods={stayAbroad}
-        mode={editPeriod ? 'edit' : 'new'}
-        period={editPeriod}
+      <Period t={t}
+        periods={stayAbroad}
+        mode={_.isEmpty(_period) ? 'new' : 'edit'}
+        period={_period}
         locale={locale}
-        setStayAbroad={actions.setStayAbroad}
+        onPageError={onPageError}
+        editPeriod={this.setEditPeriod.bind(this)}
       />
     </div>
   }

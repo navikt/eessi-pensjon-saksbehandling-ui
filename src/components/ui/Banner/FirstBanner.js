@@ -1,20 +1,21 @@
 import React, { Component } from 'react'
 import { withNamespaces } from 'react-i18next'
 
-import FirstPanel from '../Panel/FirstPanel'
+import PsychoBanner from '../Banner/PsychoBanner'
+import * as Nav from '../Nav'
 
 import './Banner.css'
 
-class Banner extends Component {
+class FirstBanner extends Component {
   render () {
-    const { t, i18Key, veilI18Key } = this.props
-    let key = i18Key || 'app-headerTitle'
-    let veilText = veilI18Key ? t(veilI18Key) : ''
+    const { t } = this.props
     return <div className='c-ui-banner'>
-      <h1 className='typo-sidetittel'>{t(key)}</h1>
-      <FirstPanel text={veilText} />
+      <Nav.Sidetittel className='pt-5 pb-5 pl-5'>{t('app-headerTitle')}</Nav.Sidetittel>
+      <PsychoBanner>
+        <span>{t('Sample text')}</span>
+      </PsychoBanner>
     </div>
   }
 }
 
-export default withNamespaces()(Banner)
+export default withNamespaces()(FirstBanner)

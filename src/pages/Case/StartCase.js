@@ -6,7 +6,7 @@ import _ from 'lodash'
 import { withNamespaces } from 'react-i18next'
 
 import Case from './Case'
-import VeilederPanel from '../../components/ui/Panel/VeilederPanel'
+import PsychoPanel from '../../components/ui/Psycho/PsychoPanel'
 import * as Nav from '../../components/ui/Nav'
 import CountrySelect from '../../components/ui/CountrySelect/CountrySelect'
 
@@ -76,14 +76,6 @@ class StartCase extends Component {
 
     async componentDidMount () {
       const { actions, currentCase, dataToConfirm, sakId, aktoerId, fnr, rinaId } = this.props
-
-      actions.addToBreadcrumbs([{
-        url: routes.CASE,
-        label: 'case:app-caseTitle'
-      }, {
-        url: routes.CASE_START,
-        label: 'case:app-startCaseTitle'
-      }])
 
       if (_.isEmpty(currentCase) && sakId && (aktoerId || fnr)) {
         actions.getCaseFromCaseNumber({
@@ -560,7 +552,7 @@ class StartCase extends Component {
             : <React.Fragment>
               <div className='fieldset animate'>
                 <div className='mb-5'>
-                  <VeilederPanel>{t('help-startCase')}</VeilederPanel>
+                  <PsychoPanel>{t('help-startCase')}</PsychoPanel>
                 </div>
                 <Nav.Row>
                   <div className='mt-4 col-md-6'>
@@ -589,7 +581,7 @@ class StartCase extends Component {
               { !sed ? <React.Fragment>
                 <h2 className='mb-4 appDescription'>{t('case:app-startCaseDescription')}</h2>
                 <div className='mb-5'>
-                  <VeilederPanel>{t('help-startCase2')}</VeilederPanel>
+                  <PsychoPanel>{t('help-startCase2')}</PsychoPanel>
                 </div>
                 <Nav.Row className='mb-3 align-middle text-left'>
                   <div className='col-md-8'>{this.renderSubjectArea()}

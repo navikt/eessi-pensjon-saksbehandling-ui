@@ -54,19 +54,11 @@ class Export extends Component {
   }
 
   componentDidMount () {
-    const { events, history, actions } = this.props
+    const { events, history } = this.props
     if (_.isEmpty(events)) {
       history.replace(routes.P4000)
       return
     }
-
-    actions.addToBreadcrumbs([{
-      url: routes.P4000,
-      label: 'p4000:app'
-    }, {
-      url: routes.P4000 + '/export',
-      label: 'p4000:file-export'
-    }])
 
     window.scrollTo(0, 0)
   }

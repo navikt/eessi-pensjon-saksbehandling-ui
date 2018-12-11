@@ -9,7 +9,7 @@ import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.min.css'
 
 import * as Nav from '../../components/ui/Nav'
-import VeilederPanel from '../../components/ui/Panel/VeilederPanel'
+import PsychoPanel from '../../components/ui/Psycho/PsychoPanel'
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
 import CountrySelect from '../../components/ui/CountrySelect/CountrySelect'
 import FrontPageDrawer from '../../components/drawer/FrontPage'
@@ -51,12 +51,6 @@ class PSelv extends Component {
           // clean the referrer param. ComponentDidMount will run again
           history.push(routes.PSELV)
         }
-      })
-
-      actions.addToBreadcrumbs({
-        url: routes.PSELV,
-        ns: 'pselv',
-        label: 'pselv:app-title'
       })
     }
 
@@ -232,9 +226,9 @@ class PSelv extends Component {
           <div className='mb-4'>
             <h2 className='typo-undertittel'>{t('pselv:form-step' + step + '-title')}</h2>
             <div className='mb-5 mt-5'>
-              <VeilederPanel>{t('pselv:form-step' + step + '-description')}
+              <PsychoPanel>{t('pselv:form-step' + step + '-description')}
                 {step === 3 ? <div><a href='#externalhref'>{t('pselv:form-step3-sed-anchor-text')}</a></div> : null}
-              </VeilederPanel>
+              </PsychoPanel>
             </div>
           </div>
           {step === 0 ? <div className='mb-4'>

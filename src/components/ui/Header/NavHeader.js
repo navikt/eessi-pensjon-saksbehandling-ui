@@ -24,7 +24,7 @@ export default () => <div id='header'>
                     <span id='name' />
                   </span>
                   <div class='logout-tooltip hidden'>
-                    <a href='javascript:void(0)' class='lukk hidden' aria-label='Lukk informasjon om logg ut'> × </a>
+                    <a href='' onClick={e => e.preventDefault()} class='lukk hidden' aria-label='Lukk informasjon om logg ut'> × </a>
                     <p>Du er logget inn på alle offentlige tjenester med ID-porten.</p>
                     <p> Husk å <strong>logge ut</strong> når du er ferdig.</p>
                     <span class='arrow' />

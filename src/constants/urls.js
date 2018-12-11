@@ -22,6 +22,7 @@ export const CASE_GET_INSTITUTION_FOR_COUNTRY_LIST_URL = API_URL + '/institution
 export const CASE_GET_COUNTRY_LIST_URL = API_URL + '/countrycode'
 export const CASE_GET_SUBJECT_AREA_LIST_URL = API_URL + '/subjectarea'
 export const APP_GET_USERINFO_URL = API_URL + '/userinfo'
+export const PINFO_SEND_URL = API_URL + '/pinfo'
 
 // StorageController
 export const STORAGE_LIST_URL = API_URL + '/storage/list/%(userId)s___%(namespace)s'

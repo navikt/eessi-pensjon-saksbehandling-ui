@@ -1,7 +1,17 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
 
-import * as books from '../../resources/images/filled-version-books-library.svg'
+import * as bookmark from '../../resources/images/line-version-bookmark-article.svg'
+import * as home from '../../resources/images/line-version-home-3.svg'
+import * as handbag from '../../resources/images/line-version-hand-bag-3.svg'
+import * as rankarmy from '../../resources/images/line-version-rank-army-2.svg'
+import * as heart from '../../resources/images/line-version-heart-circle.svg'
+import * as ecoglobe from '../../resources/images/line-version-eco-globe.svg'
+import * as stethoscope from '../../resources/images/line-version-expanded-stethoscope.svg'
+import * as birthdaycake from '../../resources/images/line-version-birthday-cake.svg'
+import * as helpcircle from '../../resources/images/line-version-help-circle.svg'
+import * as piggybank from '../../resources/images/line-version-piggy-bank.svg'
+import * as removecircle from '../../resources/images/filled-version-remove-circle.svg'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as icons from '@fortawesome/free-solid-svg-icons'
@@ -22,16 +32,18 @@ class Icons extends Component {
       case 'sick' : return <FontAwesomeIcon icon={icons.faHSquare} {...this.props} />
       case 'other' : return <FontAwesomeIcon icon={icons.faCalendar} {...this.props} />
 
-      case 'nav-work' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
-      case 'nav-home' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
-      case 'nav-child' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
-      case 'nav-voluntary' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
-      case 'nav-military' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
-      case 'nav-birth' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
-      case 'nav-learn' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
-      case 'nav-daily' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
-      case 'nav-sick' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
-      case 'nav-other' : return <div {...this.props}><img className='logo' src={books} alt={kind} /></div>
+      case 'nav-work' : return <div {...this.props}><img className='logo' src={handbag} alt={kind} /></div>
+      case 'nav-home' : return <div {...this.props}><img className='logo' src={home} alt={kind} /></div>
+      case 'nav-child' : return <div {...this.props}><img className='logo' src={heart} alt={kind} /></div>
+      case 'nav-voluntary' : return <div {...this.props}><img className='logo' src={ecoglobe} alt={kind} /></div>
+      case 'nav-military' : return <div {...this.props}><img className='logo' src={rankarmy} alt={kind} /></div>
+      case 'nav-birth' : return <div {...this.props}><img className='logo' src={birthdaycake} alt={kind} /></div>
+      case 'nav-learn' : return <div {...this.props}><img className='logo' src={bookmark} alt={kind} /></div>
+      case 'nav-daily' : return <div {...this.props}><img className='logo' src={piggybank} alt={kind} /></div>
+      case 'nav-sick' : return <div {...this.props}><img className='logo' src={stethoscope} alt={kind} /></div>
+      case 'nav-other' : return <div {...this.props}><img className='logo' src={helpcircle} alt={kind} /></div>
+
+      case 'nav-close' : return <div {...this.props}><img className='logo' src={removecircle} alt={kind} /></div>
 
       case 'document' : return <FontAwesomeIcon icon={icons.faFile} {...this.props} />
       case 'view' : return <FontAwesomeIcon icon={icons.faEye} {...this.props} />

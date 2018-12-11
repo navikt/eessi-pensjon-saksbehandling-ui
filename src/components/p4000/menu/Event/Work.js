@@ -8,7 +8,7 @@ import classNames from 'classnames'
 import * as p4000Actions from '../../../../actions/p4000'
 import * as appActions from '../../../../actions/app'
 
-import VeilederPanel from '../../../ui/Panel/VeilederPanel'
+import PsychoPanel from '../../../ui/Psycho/PsychoPanel'
 import FileUpload from '../../../ui/FileUpload/FileUpload'
 import CountrySelect from '../../../ui/CountrySelect/CountrySelect'
 import DatePicker from '../../DatePicker/DatePicker'
@@ -139,7 +139,7 @@ class Work extends Component {
         </div>
         <Nav.Row className='eventDescription mb-4 fieldset'>
           <Nav.Column>
-            <VeilederPanel>{t('p4000:' + type + '-description')}</VeilederPanel>
+            <PsychoPanel>{t('p4000:' + type + '-description')}</PsychoPanel>
           </Nav.Column>
         </Nav.Row>
         <Nav.Row className={classNames('eventDates', 'mb-4', 'fieldset', {

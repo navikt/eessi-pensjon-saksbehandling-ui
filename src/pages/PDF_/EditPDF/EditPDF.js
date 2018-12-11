@@ -9,7 +9,7 @@ import _ from 'lodash'
 import * as Nav from '../../../components/ui/Nav'
 import StepIndicator from '../../../components/pdf/StepIndicator'
 import TopContainer from '../../../components/ui/TopContainer/TopContainer'
-import VeilederPanel from '../../../components/ui/Panel/VeilederPanel'
+import PsychoPanel from '../../../components/ui/Psycho/PsychoPanel'
 import DnDSource from '../../../components/pdf/DnDSource/DnDSource'
 import DnDSpecial from '../../../components/pdf/DnDSpecial/DnDSpecial'
 import DnDImages from '../../../components/pdf/DnDImages/DnDImages'
@@ -30,8 +30,7 @@ const mapStateToProps = (state) => {
     language: state.ui.language,
     files: state.pdf.files,
     recipe: state.pdf.recipe,
-    dndTarget: state.pdf.dndTarget,
-    breadcrumbs: state.ui.breadcrumbs
+    dndTarget: state.pdf.dndTarget
   }
 }
 
@@ -39,30 +38,14 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, pdfActions, uiActions), dispatch) }
 }
 
-const otherPdfRoutes = [routes.PDF, routes.PDF_GENERATE]
-
 class EditPDF extends Component {
     state = {}
 
     componentDidMount () {
-      const { history, actions, files, breadcrumbs } = this.props
+      const { history, files } = this.props
 
       if (_.isEmpty(files)) {
         history.push(routes.PDF_SELECT)
-        return
-      }
-
-      // If we have PDF breadcrumbs, replace them; else, add a new one
-      if (_.some(breadcrumbs, (b) => { return otherPdfRoutes.indexOf(b.url) >= 0 })) {
-        actions.replaceLastBreadcrumbWith({
-          url: routes.PDF_EDIT,
-          label: 'pdf:app-editPdfTitle'
-        })
-      } else {
-        actions.addToBreadcrumbs({
-          url: routes.PDF_EDIT,
-          label: 'pdf:app-editPdfTitle'
-        })
       }
     }
 
@@ -177,7 +160,7 @@ class EditPDF extends Component {
         <h1 className='typo-sidetittel appTitle'>{t('pdf:app-editPdfTitle')}</h1>
         <StepIndicator stepIndicator={1} history={history} />
         <div className='fieldset animate mb-4 '>
-          <VeilederPanel>{t('pdf:app-editPdfDescription')}</VeilederPanel>
+          <PsychoPanel>{t('pdf:app-editPdfDescription')}</PsychoPanel>
         </div>
         <div className='documentbox fieldset m-0 mt-4'>
           <div className='documentbox-header m-2'>

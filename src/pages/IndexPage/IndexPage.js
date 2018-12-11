@@ -32,15 +32,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class IndexPage extends Component {
-  componentDidMount () {
-    const { actions } = this.props
-
-    actions.addToBreadcrumbs({
-      label: 'ui:home',
-      url: routes.INDEX
-    })
-  }
-
   getCreateableDocuments (status) {
     return status.docs ? status.docs
       .filter(item => { return item.navn === 'Create' })

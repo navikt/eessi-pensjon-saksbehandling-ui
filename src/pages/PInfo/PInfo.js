@@ -14,16 +14,17 @@ import FrontPageDrawer from '../../components/drawer/FrontPage'
 import Bank from '../../components/pinfo/Bank'
 import Person from '../../components/pinfo/Person'
 import StayAbroad from '../../components/pinfo/StayAbroad/StayAbroad'
-import Receipt from '../../components/pinfo/Receipt'
+import Receipt from '../../components/pinfo/Receipt/Receipt'
 import Confirm from '../../components/pinfo/Confirm'
 
 import * as stepTests from '../../components/pinfo/Validation/stepTests'
+import * as globalTests from '../../components/pinfo/Validation/globalTests'
+import PInfoUtil from '../../components/pinfo/Util'
 import * as routes from '../../constants/routes'
 import * as pinfoActions from '../../actions/pinfo'
 import * as uiActions from '../../actions/ui'
 import * as appActions from '../../actions/app'
 import * as storageActions from '../../actions/storage'
-import * as storages from '../../constants/storages'
 
 import './PInfo.css'
 
@@ -32,10 +33,12 @@ const mapStateToProps = (state) => {
     locale: state.ui.locale,
     pinfo: state.pinfo,
     step: state.pinfo.step,
+    receipt: state.pinfo.receipt,
     referrer: state.app.referrer,
     status: state.status,
     username: state.app.username,
-    file: state.storage.file
+    file: state.storage.file,
+    isSendingPinfo: state.loading.isSendingPinfo
   }
 }
 
@@ -45,12 +48,9 @@ const mapDispatchToProps = (dispatch) => {
 
 class PInfo extends React.Component {
   state = {
-    error: undefined
-  }
-
-  constructor (props) {
-    super(props)
-    this.props.actions.getStorageFile(props.username, storages.PINFO, 'PINFO')
+    doPageValidationOnForwardButton: true,
+    doPageValidationOnStepIndicator: false,
+    pageError: undefined
   }
 
   componentDidMount () {
@@ -60,23 +60,27 @@ class PInfo extends React.Component {
     if (referrer) {
       actions.setReferrer(referrer)
     }
-    actions.addToBreadcrumbs({
-      url: routes.PINFO,
-      ns: 'pinfo',
-      label: 'pinfo:app-title'
-    })
+  }
+
+  componentDidUpdate () {
+    const { receipt, actions, step } = this.props
+    if (receipt) {
+      actions.setStep(step + 1)
+    }
   }
 
   validatePage (step) {
-    const { pinfo } = this.props
+    const { person, bank, stayAbroad } = this.props.pinfo
 
     switch (step) {
       case 0:
-        return stepTests.personStep(pinfo.person)
+        return stepTests.personStep(person)
       case 1:
-        return stepTests.bankStep(pinfo.bank)
+        return stepTests.bankStep(bank)
       case 2:
-        return stepTests.stayAbroadStep(pinfo.stayAbroad)
+        return stepTests.stayAbroadStep(stayAbroad)
+      case 3:
+        return stepTests.personStep(person) || stepTests.bankStep(bank) || stepTests.stayAbroadStep(stayAbroad)
       default:
         return ''
     }
@@ -85,49 +89,125 @@ class PInfo extends React.Component {
   onForwardButtonClick () {
     const { actions, step } = this.props
 
-    let validatePageError = this.validatePage(step)
+    let validatePageError
+    if (this.state.doPageValidationOnForwardButton) {
+      validatePageError = this.validatePage(step)
+    }
     if (validatePageError) {
       return this.setState({
-        error: validatePageError
+        pageError: validatePageError
       })
     }
 
-    actions.setEventProperty({ step: step + 1 })
+    actions.setStep(step + 1)
     this.setState({
-      error: undefined
+      pageError: undefined
+    })
+  }
+
+  onStepIndicatorClick (newStep) {
+    const { actions, step } = this.props
+
+    let validatePageError
+    if (this.state.doPageValidationOnStepIndicator) {
+      validatePageError = this.validatePage(step)
+    }
+    if (validatePageError) {
+      return this.setState({
+        pageError: validatePageError
+      })
+    }
+
+    actions.setStep(newStep)
+    this.setState({
+      pageError: undefined
     })
   }
 
   onBackButtonClick () {
     const { actions, step } = this.props
 
-    actions.setEventProperty({ step: step - 1 })
+    actions.setStep(step - 1)
     this.setState({
-      error: undefined
+      pageError: undefined
     })
   }
 
-  onSaveButtonClick () {
-    const { actions, history, username, pinfo } = this.props
+  onPageError (pageError) {
+    this.setState({
+      pageError: pageError
+    })
+  }
 
-    actions.postStorageFile(username, storages.PINFO, 'PINFO', JSON.stringify(pinfo))
-    history.push(routes.PSELV + '?referrer=pinfo')
+  doCancel () {
+    const { actions, history } = this.props
+    actions.closeModal()
+    actions.clearData()
+    history.push(routes.ROOT)
+  }
+
+  closeModal () {
+    const { actions } = this.props
+    actions.closeModal()
+  }
+
+  onCancelButtonClick () {
+    const { t, actions, pinfo } = this.props
+
+    let isPInfoEmpty = globalTests.isPInfoEmpty(pinfo)
+
+    if (!isPInfoEmpty) {
+      actions.openModal({
+        modalTitle: t('pinfo:alert-leavePInfo'),
+        modalText: t('pinfo:alert-areYouSureLeavePInfo'),
+        modalButtons: [{
+          main: true,
+          text: t('ui:yes') + ', ' + t('ui:cancel').toLowerCase(),
+          onClick: this.doCancel.bind(this)
+        }, {
+          text: t('ui:no') + ', ' + t('ui:continue').toLowerCase(),
+          onClick: this.closeModal.bind(this)
+        }]
+      })
+    } else {
+      this.doCancel()
+    }
+  }
+
+  onSendButtonClick () {
+    const { actions, step, pinfo } = this.props
+
+    let validatePageError
+    if (this.state.doPageValidationOnForwardButton) {
+      validatePageError = this.validatePage(step)
+    }
+    if (validatePageError) {
+      return this.setState({
+        pageError: validatePageError
+      })
+    }
+    this.setState({
+      pageError: undefined
+    })
+
+    let payload = PInfoUtil.generatePayload(pinfo)
+    actions.sendPInfo(payload)
   }
 
   render () {
-    const { t, history, location, status, step, actions, locale } = this.props
-    const { error } = this.state
+    const { t, history, location, status, step, isSendingPinfo } = this.props
+    const { pageError } = this.state
 
     return <TopContainer className='p-pInfo'
       history={history} location={location}
-      sideContent={<FrontPageDrawer t={t} status={status} />}>
-      <h1 className='typo-sidetittel mt-4'>{t('pinfo:app-title')}</h1>
-      {step !== 4
+      sideContent={<FrontPageDrawer t={t} status={status} />}
+      header={t('pinfo:app-title')}>
+      { step !== 4
         ? <Nav.Stegindikator
           className='mt-4 mb-4'
           aktivtSteg={step}
           visLabel
-          onChange={(e) => actions.setEventProperty({ step: e })}
+          onChange={this.onStepIndicatorClick.bind(this)}
           autoResponsiv
           steg={_.range(0, 5).map(index => ({
             label: t('pinfo:form-step' + index),
@@ -136,26 +216,43 @@ class PInfo extends React.Component {
           }))}
         /> : null}
 
-      {error ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(error)}</Nav.AlertStripe> : null}
+      {pageError ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(pageError)}</Nav.AlertStripe> : null}
 
       <div className={classNames('fieldset animate', 'mb-4')}>
-        {step === 0 ? <Person pageError={this.state.error} /> : null}
-        {step === 1 ? <Bank pageError={this.state.error} /> : null}
-        {step === 2 ? <StayAbroad locale={locale} pageError={this.state.error} /> : null}
-        {step === 3 ? <Confirm t={t} onSave={this.onSaveButtonClick.bind(this)} pageError={this.state.error} /> : null}
-        {step === 4 ? <Receipt pageError={this.state.error} /> : null}
+        {step === 0 ? <Person onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
+        {step === 1 ? <Bank onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
+        {step === 2 ? <StayAbroad onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
+        {step === 3 ? <Confirm onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
+        {step === 4 ? <Receipt onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
       </div>
       <div className='mb-4'>
-        {step < 4 ? <Nav.Hovedknapp
+        {step < 3 ? <Nav.Hovedknapp
+          id='pinfo-forward-button'
           className='forwardButton'
           onClick={this.onForwardButtonClick.bind(this)}>
           {t('confirmAndContinue')}
         </Nav.Hovedknapp> : null}
+        {step === 3 ? <Nav.Hovedknapp
+          id='pinfo-send-button'
+          className='sendButton'
+          disabled={isSendingPinfo}
+          spinner={isSendingPinfo}
+          onClick={this.onSendButtonClick.bind(this)}>
+          {isSendingPinfo ? t('sending') : t('confirmAndSend')}
+        </Nav.Hovedknapp> : null}
         {step > 0 ? <Nav.Knapp
+          id='pinfo-back-button'
           className='ml-3 backButton'
           onClick={this.onBackButtonClick.bind(this)}>
           {t('back')}
         </Nav.Knapp> : null}
+        <Nav.KnappBase
+          id='pinfo-cancel-button'
+          type='flat'
+          className='ml-3 cancelButton'
+          onClick={this.onCancelButtonClick.bind(this)}>
+          {t('cancel')}
+        </Nav.KnappBase>
       </div>
     </TopContainer>
   }

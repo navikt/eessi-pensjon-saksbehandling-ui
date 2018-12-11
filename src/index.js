@@ -48,8 +48,7 @@ const initialState = { ui: {
   drawerOpen: false,
   footerOpen: false,
   drawerWidth: 10,
-  drawerOldWidth: 250,
-  breadcrumbs: []
+  drawerOldWidth: 250
 } }
 
 const store = createStoreWithMiddleware(reducer, initialState)

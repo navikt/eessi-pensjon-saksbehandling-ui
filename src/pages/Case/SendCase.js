@@ -26,18 +26,10 @@ class SendCase extends Component {
     state = {};
 
     componentDidMount () {
-      const { history, actions, dataSent } = this.props
+      const { history, dataSent } = this.props
 
       if (!dataSent) {
         history.push(routes.CASE_START)
-      } else {
-        actions.addToBreadcrumbs([{
-          url: routes.CASE,
-          label: 'case:app-caseTitle'
-        }, {
-          url: routes.CASE_SEND,
-          label: 'case:app-sendCaseTitle'
-        }])
       }
     }
 

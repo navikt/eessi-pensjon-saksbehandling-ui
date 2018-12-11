@@ -7,7 +7,7 @@ import _ from 'lodash'
 
 import * as Nav from '../../../components/ui/Nav'
 import StepIndicator from '../../../components/pdf/StepIndicator'
-import VeilederPanel from '../../../components/ui/Panel/VeilederPanel'
+import PsychoPanel from '../../../components/ui/Psycho/PsychoPanel'
 import TopContainer from '../../../components/ui/TopContainer/TopContainer'
 import File from '../../../components/ui/File/File'
 import PdfDrawer from '../../../components/drawer/Pdf'
@@ -69,11 +69,6 @@ class GeneratePDF extends Component {
           watermark: watermark
         })
       }
-
-      actions.replaceLastBreadcrumbWith({
-        url: routes.PDF_GENERATE,
-        label: 'pdf:app-generatePdfTitle'
-      })
     }
 
     onBackButtonClick () {
@@ -133,7 +128,7 @@ class GeneratePDF extends Component {
           <p className='typo-normal'>{t('pdf:loading-generatingPDF')}</p>
         </div> : (generatedPDFs ? <div>
           <div className='fieldset animate mb-4 '>
-            <VeilederPanel>{t('pdf:help-generate-pdf')}</VeilederPanel>
+            <PsychoPanel>{t('pdf:help-generate-pdf')}</PsychoPanel>
           </div>
           {Object.keys(generatedPDFs).map(key => {
             let pdf = generatedPDFs[key]

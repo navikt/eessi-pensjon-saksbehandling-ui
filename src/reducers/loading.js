@@ -350,6 +350,18 @@ export default function (state = {}, action = {}) {
         isLoggingOut: false
       })
 
+    case types.PINFO_SEND_SUCCESS:
+    case types.PINFO_SEND_FAILURE:
+      return Object.assign({}, state, {
+        isSendingPinfo: false
+      })
+
+    case types.PINFO_SEND_REQUEST:
+
+      return Object.assign({}, state, {
+        isSendingPinfo: true
+      })
+
     default:
 
       return state
