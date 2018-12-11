@@ -2,6 +2,7 @@
     "app-headerTitle"     : "Pensjon utland",
     "app-pageTitle"       : "Opprett EU/EØS dokument (SED)",
     "app-pageDescription" : "Opprett EU/EØS dokument beskrivelse",
+    "app-errorPageTitle"  : "Du har dessverre ikke tilgang til NAV sin nye tjeneste for forenklet behandling av søknad om uføretrygd i EØS-land.",
 
     "alert-noSuchUser" : "Ukjent bruker",
 

@@ -2,6 +2,7 @@
     "app-headerTitle"     : "Pension abroad",
     "app-pageTitle"       : "Create EU Documents (SED)",
     "app-pageDescription" : "Page Description",
+    "app-errorPageTitle"  : "Unfortunatly you can't access NAV's new service for simplified processing of disability benefits in the EEA region.",
 
     "alert-noSuchUser" : "No such user",
 
