@@ -67,6 +67,7 @@
     "forward" : "Neste",
     "found" : "Fant" ,
     "generate" : "generere",
+    "generating" : "genererer...",
     "getReceipt" : "Hent kvittering",
     "giveFeedback" : "Gi tilbakemelding",
     "go" : "Neste",

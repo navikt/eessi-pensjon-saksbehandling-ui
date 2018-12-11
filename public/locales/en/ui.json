@@ -67,6 +67,7 @@
     "forward" : "Forward",
     "found" : "Found",
     "generate" : "generate",
+    "generating" : "generating...",
     "getReceipt" : "Get receipt",
     "giveFeedback" : "Give feedback",
     "go" : "Go",

@@ -226,7 +226,7 @@ class PSelv extends Component {
           <div className='mb-4'>
             <h2 className='typo-undertittel'>{t('pselv:form-step' + step + '-title')}</h2>
             <div className='mb-5 mt-5'>
-              <PsychoPanel closeButton={true}>{t('pselv:form-step' + step + '-description')}
+              <PsychoPanel closeButton>{t('pselv:form-step' + step + '-description')}
                 {step === 3 ? <div><a href='#externalhref'>{t('pselv:form-step3-sed-anchor-text')}</a></div> : null}
               </PsychoPanel>
             </div>

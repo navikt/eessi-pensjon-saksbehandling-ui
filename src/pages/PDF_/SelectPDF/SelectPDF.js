@@ -85,7 +85,7 @@ class SelectPDF extends Component {
       <h1 className='typo-sidetittel appTitle'>{t('pdf:app-selectPdfTitle')}</h1>
       <StepIndicator stepIndicator={0} history={history} />
       <div className='fieldset animate mb-4 '>
-        <PsychoPanel closeButton={true}>{t('pdf:app-selectPdfDescription')}</PsychoPanel>
+        <PsychoPanel closeButton>{t('pdf:app-selectPdfDescription')}</PsychoPanel>
       </div>
 
       <ExternalFiles addFile={this.addFile.bind(this)} />

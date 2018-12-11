@@ -66,7 +66,7 @@ class Person extends React.Component {
     return <div>
       <Nav.Row>
         <Nav.Column xs='12'>
-          <PsychoPanel id='pinfo-person-psycho-panel' className='mb-4' closeButton={true}>
+          <PsychoPanel id='pinfo-person-psycho-panel' className='mb-4' closeButton>
             <span>{t('pinfo:psycho-description')}</span>
           </PsychoPanel>
         </Nav.Column>

@@ -160,7 +160,7 @@ class EditPDF extends Component {
         <h1 className='typo-sidetittel appTitle'>{t('pdf:app-editPdfTitle')}</h1>
         <StepIndicator stepIndicator={1} history={history} />
         <div className='fieldset animate mb-4 '>
-          <PsychoPanel closeButton={true}>{t('pdf:app-editPdfDescription')}</PsychoPanel>
+          <PsychoPanel closeButton>{t('pdf:app-editPdfDescription')}</PsychoPanel>
         </div>
         <div className='documentbox fieldset m-0 mt-4'>
           <div className='documentbox-header m-2'>

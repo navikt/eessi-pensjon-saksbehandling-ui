@@ -552,7 +552,7 @@ class StartCase extends Component {
             : <React.Fragment>
               <div className='fieldset animate'>
                 <div className='mb-5'>
-                  <PsychoPanel closeButton={true}>{t('help-startCase')}</PsychoPanel>
+                  <PsychoPanel closeButton>{t('help-startCase')}</PsychoPanel>
                 </div>
                 <Nav.Row>
                   <div className='mt-4 col-md-6'>
@@ -581,7 +581,7 @@ class StartCase extends Component {
               { !sed ? <React.Fragment>
                 <h2 className='mb-4 appDescription'>{t('case:app-startCaseDescription')}</h2>
                 <div className='mb-5'>
-                  <PsychoPanel closeButton={true}>{t('help-startCase2')}</PsychoPanel>
+                  <PsychoPanel closeButton>{t('help-startCase2')}</PsychoPanel>
                 </div>
                 <Nav.Row className='mb-3 align-middle text-left'>
                   <div className='col-md-8'>{this.renderSubjectArea()}

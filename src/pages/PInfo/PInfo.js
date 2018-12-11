@@ -64,8 +64,8 @@ class PInfo extends React.Component {
 
   componentDidUpdate () {
     const { receipt, actions, step } = this.props
-    if (receipt) {
-      actions.setStep(step + 1)
+    if (receipt && step === 3) {
+      actions.setStep(4)
     }
   }
 
