@@ -15,9 +15,7 @@ import PSelv from './PSelv/PSelv'
 import PInfo from './PInfo/PInfo'
 import PInfoSaksbehandler from './PInfo/PInfoSaksbehandler'
 
-import Forbidden from './Error/Forbidden'
-import NotInvited from './Error/NotInvited'
-import ErrorPage from './Error/ErrorPage'
+import Error from './Error/Error'
 
 import P4000 from './P4000/P4000'
 
@@ -41,7 +39,5 @@ export {
   PSelv,
   P4000,
 
-  ErrorPage,
-  Forbidden,
-  NotInvited
+  Error
 }
