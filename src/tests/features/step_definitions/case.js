@@ -13,7 +13,7 @@ Given('sett opp saks parametere', function (next) {
         'password': 'Password01'
       }
     },
-    sakId: '123',
+    saksId: '123',
     aktoerId: '1000060964183',
     frontPageButtonClass: '.caseLink',
     frontPageButtonText: {
@@ -25,24 +25,24 @@ Given('sett opp saks parametere', function (next) {
 })
 
 Given(/^nettsiden '(.*)' er klar$/, async function () {
-  await _.elementLoads('.getCaseInputSakId input[type="text"]')
+  await _.elementLoads('.getCaseInputSaksId input[type="text"]')
   await _.elementLoads('.getCaseInputAktoerId input[type="text"]')
   await _.elementLoads('.getCaseInputRinaId input[type="text"]')
   await _.elementLoads('button.forwardButton')
 })
 
 When(/^jeg fyller ut ugyldig informasjon$/, async function () {
-  let sakId = await _.getElement('.getCaseInputSakId input[type="text"]')
+  let saksId = await _.getElement('.getCaseInputSaksId input[type="text"]')
   let aktoerId = await _.getElement('.getCaseInputAktoerId input[type="text"]')
-  await sakId.sendKeys('notvalid')
+  await saksId.sendKeys('notvalid')
   await aktoerId.sendKeys('notvalid')
 })
 
 When(/^jeg fyller ut gyldig informasjon$/, async function () {
-  let sakId = await _.getElement('.getCaseInputSakId input[type="text"]')
+  let saksId = await _.getElement('.getCaseInputSaksId input[type="text"]')
   let aktoerId = await _.getElement('.getCaseInputAktoerId input[type="text"]')
-  await sakId.clear()
-  await sakId.sendKeys(_.params.sakId)
+  await saksId.clear()
+  await saksId.sendKeys(_.params.saksId)
   await aktoerId.clear()
   await aktoerId.sendKeys(_.params.aktoerId)
 })

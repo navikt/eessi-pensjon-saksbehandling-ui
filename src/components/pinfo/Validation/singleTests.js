@@ -69,6 +69,7 @@ export const personValidation = {
   previousName,
   fatherName,
   motherName,
+  id,
   country,
   city,
   region

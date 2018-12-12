@@ -46,7 +46,7 @@ class SendCase extends Component {
 
       let searchParams = new URLSearchParams()
       let search = {
-        sakId: dataSent.sakId,
+        saksId: dataSent.saksId,
         aktoerId: dataSent.aktoerId,
         rinaId: dataSent.euxcaseid
       }

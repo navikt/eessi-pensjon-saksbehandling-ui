@@ -362,6 +362,18 @@ export default function (state = {}, action = {}) {
         isSendingPinfo: true
       })
 
+    case types.PINFO_INVITE_SUCCESS:
+    case types.PINFO_INVITE_FAILURE:
+      return Object.assign({}, state, {
+        isInvitingPinfo: false
+      })
+
+    case types.PINFO_INVITE_REQUEST:
+       return Object.assign({}, state, {
+          isInvitingPinfo: true
+       })
+
+
     default:
 
       return state

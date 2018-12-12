@@ -97,6 +97,11 @@ export default function (state = {}, action = {}) {
         message = 'pinfo:alert-sendFailure'
         break
 
+      case types.PINFO_INVITE_FAILURE:
+
+        message = 'pinfo:alert-inviteFailure'
+        break
+
       default:
 
         message = processError(action.payload)
@@ -186,6 +191,11 @@ export default function (state = {}, action = {}) {
     case types.PINFO_SEND_SUCCESS:
 
       message = 'pinfo:alert-sendSuccess'
+      break
+
+    case types.PINFO_INVITE_SUCCESS:
+
+      message = 'pinfo:alert-inviteSuccess'
       break
 
     default:

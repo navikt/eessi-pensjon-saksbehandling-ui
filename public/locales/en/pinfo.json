@@ -159,6 +159,8 @@
     "validation-invalidChildBirthDate": "Invalid child birth date",
     "validation-noLearnInstitution": "No institution name",
 
+    "alert-inviteFailure" : "Failure on invitation sending",
+    "alert-inviteSuccess" : "Invitation sent successfully",
     "alert-sendFailure" : "Failure to send",
     "alert-sendSuccess" : "Sent successfully",
     "alert-leavePInfo": "Leaving application unsaved",

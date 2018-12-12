@@ -157,6 +157,8 @@
     "validation-invalidChildBirthDate": "Ugyldid barnas fødselsdato",
     "validation-noLearnInstitution": "Ingen opplæringsinstitusjons navn",
 
+    "alert-inviteFailure" : "Feil til å invitere",
+    "alert-inviteSuccess" : "Invitert",
     "alert-sendFailure" : "Feil til å sende",
     "alert-sendSuccess" : "Sendt",
     "alert-leavePInfo": "Avbryt søknad",

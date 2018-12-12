@@ -10,8 +10,8 @@ import 'react-datepicker/dist/react-datepicker.min.css'
 import * as Nav from '../../components/ui/Nav'
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
 
-import * as routes from '../../constants/routes'
 import * as storageActions from '../../actions/storage'
+import * as pinfoActions from '../../actions/pinfo'
 
 import './PInfo.css'
 
@@ -19,16 +19,17 @@ const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
     pinfo: state.pinfo,
-    sakId: state.status.sakId,
+    saksId: state.status.saksId,
     aktoerId: state.status.aktoerId,
     username: state.app.username,
     fileList: state.storage.fileList,
-    isSendingPinfo: state.loading.isSendingPinfo
+    isSendingPinfo: state.loading.isSendingPinfo,
+    isInvitingPinfo: state.loading.isInvitingPinfo,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, storageActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, pinfoActions, storageActions), dispatch) }
 }
 
 class PInfoSaksbehandler extends React.Component {
@@ -36,12 +37,16 @@ class PInfoSaksbehandler extends React.Component {
     isReady: false
   }
 
-  componentDidUpdate () {
+  componentDidMount () {
     let { actions, aktoerId, fileList } = this.props
 
     if (aktoerId && fileList === undefined) {
       actions.listStorageFiles(aktoerId, 'varsler')
     }
+  }
+
+  componentDidUpdate () {
+    let { fileList } = this.props
 
     if (fileList !== undefined && !this.state.isReady) {
       this.setState({
@@ -50,13 +55,13 @@ class PInfoSaksbehandler extends React.Component {
     }
   }
 
-  onForwardButtonClick () {
-    const { history } = this.props
-    history.push(routes.PINFO)
-  }
-
   onInviteButtonClick () {
 
+    let { actions, aktoerId, saksId } = this.props
+    actions.sendInvite({
+        aktoerId: aktoerId,
+        saksId : saksId
+    })
   }
 
   render () {
@@ -74,8 +79,8 @@ class PInfoSaksbehandler extends React.Component {
 
     return <TopContainer className='p-pInfo' history={history} location={location} header={t('pinfo:app-title')}>
 
-      <div className={classNames('fieldset animate', 'mb-4')}>
-        Notifications:
+      <div className={classNames('fieldset','animate', 'mt-4','mb-4')}>
+        <Nav.Undertittel>{t('ui:notifications')}</Nav.Undertittel>
         {fileList ? <ul>
           {fileList.map(file => {
             return <li>{file}</li>
@@ -86,14 +91,7 @@ class PInfoSaksbehandler extends React.Component {
         id='pinfo-forward-button'
         className='forwardButton mb-2 mr-3'
         onClick={this.onInviteButtonClick.bind(this)}>
-        {t('Invite')}
-      </Nav.Hovedknapp>
-
-      <Nav.Hovedknapp
-        id='pinfo-forward-button'
-        className='forwardButton mb-2 mr-3'
-        onClick={this.onForwardButtonClick.bind(this)}>
-        {t('PInfo')}
+        {t('invite')}
       </Nav.Hovedknapp>
     </TopContainer>
   }

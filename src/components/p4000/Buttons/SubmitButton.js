@@ -17,7 +17,7 @@ const mapStateToProps = (state) => {
   return {
     events: state.p4000.events,
     rinaId: state.status.rinaId,
-    sakId: state.status.sakId,
+    saksId: state.status.saksId,
     aktoerId: state.status.aktoerId,
     submitting: state.loading.submittingP4000,
     submitted: state.p4000.submitted
@@ -30,13 +30,13 @@ const mapDispatchToProps = (dispatch) => {
 
 class SubmitButton extends Component {
   doSubmitP4000 () {
-    const { actions, events, sakId, aktoerId, rinaId } = this.props
+    const { actions, events, saksId, aktoerId, rinaId } = this.props
 
     let p4000 = P4000Util.convertEventsToP4000(events)
     actions.closeModal()
 
     let body = {
-      sakId: sakId,
+      saksId: saksId,
       aktoerId: aktoerId,
       payload: JSON.stringify(p4000.payload),
       sed: 'P4000',
@@ -102,7 +102,7 @@ SubmitButton.propTypes = {
   style: PT.object,
   actions: PT.object,
   aktoerId: PT.string,
-  sakId: PT.string,
+  saksId: PT.string,
   rinaId: PT.string,
   submitting: PT.bool,
   submitted: PT.string

@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { Route, withRouter, Redirect } from 'react-router'
 import _ from 'lodash'
 
-import { IS_DEVELOPMENT_WITH_NO_AUTH } from '../../constants/environment'
+import WaitingPanel from './WaitingPanel'
 import * as routes from '../../constants/routes'
 import * as appActions from '../../actions/app'
 import * as statusActions from '../../actions/status'
@@ -17,6 +17,7 @@ const mapStateToProps = (state) => {
     loggedIn: state.app.loggedIn,
     invited: state.app.invited,
     isLoggingIn: state.loading.isLoggingIn,
+    gettingUserInfo : state.loading.gettingUserInfo,
     rinaId: state.status.rinaId
   }
 }
@@ -27,11 +28,14 @@ const mapDispatchToProps = (dispatch) => {
 
 const paramAliases = {
   'rinaid': 'rinaId',
-  'saksNr': 'sakId'
+  'saksNr': 'saksId'
 }
 
 class AuthenticatedRoute extends Component {
-  state = {}
+
+  state = {
+     isReady: false
+  }
 
   parseSearchParams () {
     const { actions, location } = this.props
@@ -58,6 +62,9 @@ class AuthenticatedRoute extends Component {
       actions.getUserInfo()
     }
     this.parseSearchParams()
+    this.setState({
+       isReady: true
+    })
   }
 
   componentDidUpdate () {
@@ -70,12 +77,17 @@ class AuthenticatedRoute extends Component {
   }
 
   render () {
-    const { userRole, invited } = this.props
+    const { userRole, invited, gettingUserInfo } = this.props
+    const {isReady } = this.state
+
+    if (!isReady || gettingUserInfo) {
+        return <WaitingPanel message='authenticating'/>
+    }
 
     let validRole = this.hasApprovedRole()
 
-    return IS_DEVELOPMENT_WITH_NO_AUTH || (userRole && validRole)
-      ? !invited
+    return userRole && validRole ?
+      !invited
         ? <Route {...this.props} />
         : <Redirect to={routes.NOT_INVITED} />
       : <Redirect to={routes.ROOT} />

@@ -26,7 +26,7 @@ const mapStateToProps = (state) => {
     dataToConfirm: state.case.dataToConfirm,
     locale: state.ui.locale,
     loading: state.loading,
-    sakId: state.status.sakId,
+    saksId: state.status.saksId,
     rinaId: state.status.rinaId,
     aktoerId: state.status.aktoerId,
     fnr: state.status.fnr,
@@ -51,7 +51,7 @@ const defaultSelects = {
 class StartCase extends Component {
     state = {
       // these are only for the query form
-      sakId: undefined,
+      saksId: undefined,
       aktoerId: undefined,
       rinaId: undefined,
 
@@ -75,11 +75,11 @@ class StartCase extends Component {
     }
 
     async componentDidMount () {
-      const { actions, currentCase, dataToConfirm, sakId, aktoerId, fnr, rinaId } = this.props
+      const { actions, currentCase, dataToConfirm, saksId, aktoerId, fnr, rinaId } = this.props
 
-      if (_.isEmpty(currentCase) && sakId && (aktoerId || fnr)) {
+      if (_.isEmpty(currentCase) && saksId && (aktoerId || fnr)) {
         actions.getCaseFromCaseNumber({
-          sakId: sakId,
+          saksId: saksId,
           aktoerId: aktoerId || fnr,
           rinaId: rinaId
         })
@@ -93,7 +93,7 @@ class StartCase extends Component {
 
     async componentDidUpdate () {
       const { history, loading, sed, currentCase, dataToConfirm, institutionList, bucList,
-        subjectAreaList, countryList, actions, sakId, aktoerId, fnr, rinaId } = this.props
+        subjectAreaList, countryList, actions, saksId, aktoerId, fnr, rinaId } = this.props
 
       // comes from a Forward
       if (dataToConfirm) {
@@ -119,9 +119,9 @@ class StartCase extends Component {
         }
       }
 
-      if (!loading.gettingCase && _.isEmpty(currentCase) && sakId && (aktoerId || fnr)) {
+      if (!loading.gettingCase && _.isEmpty(currentCase) && saksId && (aktoerId || fnr)) {
         actions.getCaseFromCaseNumber({
-          sakId: sakId,
+          saksId: saksId,
           aktoerId: aktoerId || fnr,
           rinaId: rinaId
         })
@@ -134,9 +134,9 @@ class StartCase extends Component {
       history.goBack()
     }
 
-    onSakIdChange (e) {
+    onSaksIdChange (e) {
       this.setState({
-        sakId: e.target.value.trim()
+        saksId: e.target.value.trim()
       })
     }
 
@@ -160,10 +160,10 @@ class StartCase extends Component {
 
     onFetchCaseButtonClick () {
       const { actions } = this.props
-      const { sakId, aktoerId, rinaId } = this.state
+      const { saksId, aktoerId, rinaId } = this.state
 
       actions.getCaseFromCaseNumber({
-        sakId: sakId,
+        saksId: saksId,
         aktoerId: aktoerId,
         rinaId: rinaId
       })
@@ -186,7 +186,7 @@ class StartCase extends Component {
 
       if (this.noValidationErrors()) {
         actions.dataToConfirm({
-          sakId: currentCase.casenumber,
+          saksId: currentCase.casenumber,
           aktoerId: currentCase.pinid,
           rinaId: currentCase.rinaid,
           subjectArea: _subjectArea,
@@ -536,7 +536,7 @@ class StartCase extends Component {
 
     render () {
       const { t, history, location, currentCase, loading, sed, vedtakId } = this.props
-      const { sakId, aktoerId, rinaId, _sed, _vedtakId } = this.state
+      const { saksId, aktoerId, rinaId, _sed, _vedtakId } = this.state
 
       return <Case className='startCase'
         title={t('case:app-caseTitle') + ' - ' + t('case:app-startCaseTitle')}
@@ -556,8 +556,8 @@ class StartCase extends Component {
                 </div>
                 <Nav.Row>
                   <div className='mt-4 col-md-6'>
-                    <Nav.Input aria-describedby='help-sakId' className='getCaseInputSakId' label={t('case:form-sakId') + ' *'} value={sakId || ''} onChange={this.onSakIdChange.bind(this)} />
-                    <span id='help-sakId'>{t('case:help-sakId')}</span>
+                    <Nav.Input aria-describedby='help-saksId' className='getCaseInputSaksId' label={t('case:form-saksId') + ' *'} value={saksId || ''} onChange={this.onSaksIdChange.bind(this)} />
+                    <span id='help-saksId'>{t('case:help-saksId')}</span>
                   </div>
                   <div className='mt-4 col-md-6'>
                     <Nav.Input className='getCaseInputAktoerId' label={t('case:form-aktoerId') + ' *'} value={aktoerId || ''} onChange={this.onAktoerIdChange.bind(this)} />
