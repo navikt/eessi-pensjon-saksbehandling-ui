@@ -3,9 +3,10 @@ import PT from 'prop-types'
 
 class CustomInput extends Component {
   render () {
-    const { onClick, onChange, value, placeholder } = this.props
+    const { onClick, onChange, value, placeholder, id } = this.props
     return <div className='input-group' onClick={onClick}>
       <input
+        id={id}
         type='text'
         className='form-control'
         placeholder={placeholder}

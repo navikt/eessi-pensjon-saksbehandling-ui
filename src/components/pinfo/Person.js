@@ -32,12 +32,17 @@ class Person extends React.Component {
     this.setPreviousName = this.eventSetProperty.bind(this, 'previousName', personValidation.previousName)
     this.setFatherName = this.eventSetProperty.bind(this, 'fatherName', personValidation.fatherName)
     this.setMotherName = this.eventSetProperty.bind(this, 'motherName', personValidation.motherName)
-    this.setIdAbroad = this.eventSetProperty.bind(this, 'idAbroad', null)
+    this.setIdAbroad = this.checkboxSetProperty.bind(this, 'idAbroad', null)
+    this.setId = this.eventSetProperty.bind(this, 'id', personValidation.id)
     this.setCountry = this.valueSetProperty.bind(this, 'country', personValidation.country)
     this.setCity = this.eventSetProperty.bind(this, 'city', personValidation.city)
     this.setRegion = this.eventSetProperty.bind(this, 'region', personValidation.region)
     this.setPhone = this.eventSetProperty.bind(this, 'phone', personValidation.phone)
     this.setEmail = this.eventSetProperty.bind(this, 'email', personValidation.email)
+  }
+
+  checkboxSetProperty (key, validateFunction, event) {
+    this.valueSetProperty(key, validateFunction, event.target.checked)
   }
 
   eventSetProperty (key, validateFunction, event) {
@@ -104,6 +109,22 @@ class Person extends React.Component {
         checked={person.idAbroad}
         name='setIdAbroad'
         onChange={this.setIdAbroad} />
+      {person.idAbroad ? <React.Fragment>
+        <Nav.Row>
+          <div className='col-md-12'>
+            <Nav.Input
+              id='pinfo-person-utenlandskpersonnummer-input'
+              type='text'
+              label=''
+              placeholder={t('ui:writeIn')}
+              value={person.id || ''}
+              onChange={this.setId}
+              feil={error.id && pageError ? { feilmelding: t(error.id) } : null}
+            />
+          </div>
+        </Nav.Row>
+      </React.Fragment>
+      : <React.Fragment>
       <Nav.Row>
         <div className='col-sm-9'>
           <Nav.Input
@@ -171,6 +192,7 @@ class Person extends React.Component {
           />
         </div>
       </Nav.Row>
+      </React.Fragment>}
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-contact-title')}</Nav.Undertittel>
       <Nav.Row>
         <div className='col-sm-4'>

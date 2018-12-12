@@ -3,9 +3,16 @@ import * as tests from './singleTests'
 export function personStep (person) {
   return tests.personValidation.nameAtBirth(person.nameAtBirth) ||
          tests.personValidation.previousName(person.previousName) ||
+         (person.idAbroad ? tests.periodValidation.id(person.id) :
+            tests.periodValidation.fatherName(person.fatherName) ||
+            tests.periodValidation.motherName(person.motherName) ||
+            tests.periodValidation.country(person.country) ||
+            tests.periodValidation.city(person.cvity) ||
+            tests.periodValidation.region(person.region)
+         ) ||
          tests.personValidation.phone(person.phone) ||
          tests.personValidation.email(person.email) ||
-  ''
+         ''
 }
 
 export function bankStep (bank) {
@@ -14,7 +21,7 @@ export function bankStep (bank) {
          tests.bankValidation.bankCountry(bank.bankCountry) ||
          tests.bankValidation.bankBicSwift(bank.bankBicSwift) ||
          tests.bankValidation.bankIban(bank.bankIban) ||
-  ''
+         ''
 }
 
 export function workStep (work) {
@@ -27,7 +34,7 @@ export function workStep (work) {
          tests.workValidation.workIncomeCurrency(work.workIncomeCurrency) ||
          tests.workValidation.workPaymentDate(work.workPaymentDate) ||
          tests.workValidation.workPaymentFrequency(work.workPaymentFrequency) ||
-  ''
+         ''
 }
 
 export function stayAbroadStep (stayAbroad) {

@@ -46,6 +46,10 @@ let motherName = function (motherName) {
   return patternMatchIfNotEmpty(motherName, /^[^\d]+$/, 'pinfo:validation-invalidMotherName')
 }
 
+let id = function (id) {
+  return isEmpty(id, 'pinfo:validation-noId')
+}
+
 let country = function (country) {
   return isEmpty(country, 'pinfo:validation-noCountry')
 }
@@ -127,6 +131,14 @@ let endDate = function (endDate) {
   return endDate && endDate > new Date().getTime() ? 'pinfo:validation-invalidEndDate' : ''
 }
 
+let insuranceName = function (insuranceName) {
+  return isEmpty(insuranceName, 'pinfo:validation-noInsuranceName')
+}
+
+let insuranceType = function (insuranceType) {
+  return isEmpty(insuranceType, 'pinfo:validation-noInsuranceType')
+}
+
 let workActivity = function (workActivity) {
   return isEmpty(workActivity, 'pinfo:validation-noWorkActivity')
 }
@@ -176,6 +188,11 @@ export const periodValidation = {
   periodType,
   startDate,
   endDate,
+  country,
+  city,
+  region,
+  insuranceName,
+  insuranceType,
   workActivity,
   workId,
   workName,

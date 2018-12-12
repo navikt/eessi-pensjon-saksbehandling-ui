@@ -9,10 +9,11 @@ import 'react-datepicker/dist/react-datepicker.min.css'
 
 class DatePicker extends Component {
   render () {
-    const { selected, className, locale, error, onChange, placeholder } = this.props
+    const { selected, className, locale, error, onChange, placeholder, id} = this.props
 
     return <React.Fragment>
       <ReactDatePicker
+        id={id}
         customInput={<CustomInput {...this.props} />}
         selected={selected}
         className={classNames('input-group', className)}
