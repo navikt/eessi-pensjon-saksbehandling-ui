@@ -42,6 +42,11 @@ class Period extends React.Component {
     this.setStartDate = this.dateSetProperty.bind(this, 'startDate', periodValidation.startDate)
     this.setEndDate = this.dateSetProperty.bind(this, 'endDate', periodValidation.endDate)
     this.setCountry = this.valueSetProperty.bind(this, 'country', null)
+    this.setInsuranceName = this.eventSetProperty.bind(this, 'insuranceName', null)
+    this.setInsuranceType = this.eventSetProperty.bind(this, 'insuranceType', null)
+    this.setAddress = this.eventSetProperty.bind(this, 'address', null)
+    this.setCity = this.eventSetProperty.bind(this, 'city', null)
+    this.setRegion = this.eventSetProperty.bind(this, 'region', null)
     this.setWorkActivity = this.eventSetProperty.bind(this, 'workActivity', periodValidation.workActivity)
     this.setWorkId = this.eventSetProperty.bind(this, 'workId', periodValidation.workId)
     this.setWorkName = this.eventSetProperty.bind(this, 'workName', periodValidation.workName)
@@ -225,7 +230,7 @@ class Period extends React.Component {
               </div>
             </div>
           </div>
-          <div className='col-md-4 existingPeriodButtons'>
+          <div className='col-md-6 existingPeriodButtons'>
             <Nav.Knapp className='mr-3 existingPeriodButton' onClick={this.requestEditPeriod.bind(this, period)}>
               {t('ui:change')}
             </Nav.Knapp>
@@ -240,7 +245,7 @@ class Period extends React.Component {
       case 'new':
         return <React.Fragment>
           <Nav.Row className={classNames('c-pinfo-opphold-period', mode)}>
-            <div className='col-md-4'>
+            <div className='col-md-6'>
               <Nav.Select
                 id='pinfo-opphold-kategori-select'
                 label={t('pinfo:stayAbroad-category')}
@@ -265,7 +270,7 @@ class Period extends React.Component {
               <div className='col-md-12'>
                 <Nav.Undertittel className='mt-3 mb-3'>{t('pinfo:stayAbroad-period-title')}</Nav.Undertittel>
               </div>
-              <div className='col-md-4'>
+              <div className='col-md-6'>
                 <label className='mr-3'>{t('pinfo:stayAbroad-period-start-date')}</label>
                 <br />
                 <DatePicker
@@ -277,7 +282,7 @@ class Period extends React.Component {
                   onChange={this.setStartDate}
                   error={error.startDateFail} />
               </div>
-              <div className='col-md-4'>
+              <div className='col-md-6'>
                 <label>{t('pinfo:stayAbroad-period-end-date')}</label>
                 <br />
                 <DatePicker
@@ -291,7 +296,7 @@ class Period extends React.Component {
               </div>
             </Nav.Row>
             <Nav.Row>
-              <div className='mt-3 col-md-6'>
+              <div className='mt-3 col-md-12'>
                 <label>{t('pinfo:stayAbroad-country')}</label>
                 <CountrySelect
                   id='pinfo-opphold-land-select'
@@ -302,12 +307,75 @@ class Period extends React.Component {
                   errorMessage={error.country}
                 />
               </div>
+
+              <div className='col-md-12'>
+                <Nav.Undertittel className='mt-3 mb-3'>{t('pinfo:stayAbroad-insurance-title')}</Nav.Undertittel>
+              </div>
+              <div className='col-md-12'>
+                <Nav.Input
+                  id='pinfo-opphold-trygdeordning-navn'
+                  label={t('pinfo:stayAbroad-insurance-name')}
+                  placeholder={t('ui:writeIn')}
+                  value={_period.insuranceName || ''}
+                  onChange={this.setInsuranceName}
+                  feil={error.insuranceName ? { feilmelding: t(error.insuranceName) } : null}
+                />
+              </div>
+              <div className='col-md-12'>
+                <Nav.Select
+                  id='pinfo-opphold-trygdeordning-type'
+                  label={t('pinfo:stayAbroad-insurance-type')}
+                  value={_period.insuranceType || ''}
+                  onChange={this.setInsuranceType}>
+                  <option value=''>{t('ui:choose')}</option>
+                  <option value='01'>{t('pinfo:stayAbroad-insurance-type-01')}</option>
+                  <option value='02'>{t('pinfo:stayAbroad-insurance-type-02')}</option>
+                  <option value='03'>{t('pinfo:stayAbroad-insurance-type-03')}</option>
+                </Nav.Select>
+              </div>
+              <div className='col-md-12'>
+                <Nav.Undertittel className='mt-3 mb-3'>{t('pinfo:stayAbroad-home-title')}</Nav.Undertittel>
+              </div>
+              <div className='col-md-12'>
+                <Nav.Textarea
+                  id='pinfo-opphold-bosted-address-textarea'
+                  label={t('pinfo:stayAbroad-address')}
+                  placeholder={t('ui:writeIn')}
+                  value={_period.address || ''}
+                  style={{ minHeight: '100px' }}
+                  maxLength={100}
+                  onChange={this.setAddress}
+                  feil={error.address ? { feilmelding: t(error.address) } : null}
+
+                />
+              </div>
+              <div className='col-md-6'>
+                <Nav.Input
+                  id='pinfo-opphold-bosted-by-input'
+                  label={t('pinfo:stayAbroad-city')}
+                  value={_period.city || ''}
+                  placeholder={t('ui:writeIn')}
+                  onChange={this.setCity}
+                  feil={error.city ? { feilmelding: t(error.city) } : null}
+                />
+              </div>
+              <div className='col-md-6'>
+                <Nav.Input
+                  id='pinfo-opphold-bosted-region-input'
+                  label={t('pinfo:stayAbroad-region')}
+                  value={_period.region || ''}
+                  placeholder={t('ui:writeIn')}
+                  onChange={this.setRegion}
+                  feil={error.region ? { feilmelding: t(error.region) } : null}
+                />
+              </div>
+
             </Nav.Row>
             {_period.type === 'work' ? <Nav.Row>
               <div className='col-md-12'>
                 <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-work-title')}</Nav.Undertittel>
               </div>
-              <div className='col-md-4'>
+              <div className='col-md-6'>
                 <Nav.Input
                   id='pinfo-opphold-yrkesaktivitet-input'
                   label={t('pinfo:stayAbroad-work-activity')}
@@ -327,7 +395,7 @@ class Period extends React.Component {
                   feil={error.workId ? { feilmelding: t(error.workId) } : null}
                 />
               </div>
-              <div className='col-md-4'>
+              <div className='col-md-6'>
                 <Nav.Input
                   id='pinfo-opphold-arbeidgiversnavn-input'
                   label={t('pinfo:stayAbroad-work-name')}
@@ -347,7 +415,7 @@ class Period extends React.Component {
                   feil={error.workAddress ? { feilmelding: t(error.workAddress) } : null}
                 />
               </div>
-              <div className='col-md-4'>
+              <div className='col-md-6'>
                 <Nav.Input
                   id='pinfo-opphold-arbeidgiversby-input'
                   label={t('pinfo:stayAbroad-work-city')}
@@ -372,7 +440,7 @@ class Period extends React.Component {
               <div className='col-md-12'>
                 <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-child-title')}</Nav.Undertittel>
               </div>
-              <div className='col-md-4'>
+              <div className='col-md-6'>
                 <Nav.Input
                   id='pinfo-opphold-barnasfornavn-input'
                   label={t('pinfo:stayAbroad-child-firstname')}
@@ -392,7 +460,7 @@ class Period extends React.Component {
                   feil={error.childLastName ? { feilmelding: t(error.childLastName) } : null}
                 />
               </div>
-              <div className='col-md-4'>
+              <div className='col-md-6'>
                 <label>{t('pinfo:stayAbroad-child-birthdate')}</label>
                 <br />
                 <DatePicker

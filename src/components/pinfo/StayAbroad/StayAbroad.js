@@ -36,7 +36,7 @@ class StayAbroad extends React.Component {
     const { t, stayAbroad, locale, onPageError } = this.props
     const { _period } = this.state
 
-    return <div>
+    return <React.Fragment>
       <Nav.Undertittel>{t('pinfo:stayAbroad-title')}</Nav.Undertittel>
       <Nav.Undertekst className='mb-4'>{t('pinfo:stayAbroad-description')}</Nav.Undertekst>
       {!_.isEmpty(stayAbroad) ? <Nav.Undertittel className='mb-3'>{t('pinfo:stayAbroad-previousPeriods')}</Nav.Undertittel> : null}
@@ -61,7 +61,7 @@ class StayAbroad extends React.Component {
         onPageError={onPageError}
         editPeriod={this.setEditPeriod.bind(this)}
       />
-    </div>
+    </React.Fragment>
   }
 }
 

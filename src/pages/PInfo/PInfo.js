@@ -217,43 +217,44 @@ class PInfo extends React.Component {
         /> : null}
 
       {pageError ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(pageError)}</Nav.AlertStripe> : null}
-
-      <div className={classNames('fieldset animate', 'mb-4')}>
+      <div className='col-md-2' />
+      <div className={classNames('fieldset animate', 'mb-4', 'col-md-8')}>
         {step === 0 ? <Person onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
         {step === 1 ? <Bank onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
         {step === 2 ? <StayAbroad onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
         {step === 3 ? <Confirm onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
         {step === 4 ? <Receipt onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
+        <div className='mb-4 mt-4'>
+          {step < 3 ? <Nav.Hovedknapp
+            id='pinfo-forward-button'
+            className='forwardButton mb-2 mr-3'
+            onClick={this.onForwardButtonClick.bind(this)}>
+            {t('confirmAndContinue')}
+          </Nav.Hovedknapp> : null}
+          {step === 3 ? <Nav.Hovedknapp
+            id='pinfo-send-button'
+            className='sendButton mb-2 mr-3'
+            disabled={isSendingPinfo}
+            spinner={isSendingPinfo}
+            onClick={this.onSendButtonClick.bind(this)}>
+            {isSendingPinfo ? t('sending') : t('confirmAndSend')}
+          </Nav.Hovedknapp> : null}
+          {step > 0 ? <Nav.Knapp
+            id='pinfo-back-button'
+            className='backButton mb-2 mr-3'
+            onClick={this.onBackButtonClick.bind(this)}>
+            {t('back')}
+          </Nav.Knapp> : null}
+          <Nav.KnappBase
+            id='pinfo-cancel-button'
+            type='flat'
+            className='cancelButton mb-2 mr-3'
+            onClick={this.onCancelButtonClick.bind(this)}>
+            {t('cancel')}
+          </Nav.KnappBase>
+        </div>
       </div>
-      <div className='mb-4 pl-4 pr-4'>
-        {step < 3 ? <Nav.Hovedknapp
-          id='pinfo-forward-button'
-          className='forwardButton mb-2 mr-3'
-          onClick={this.onForwardButtonClick.bind(this)}>
-          {t('confirmAndContinue')}
-        </Nav.Hovedknapp> : null}
-        {step === 3 ? <Nav.Hovedknapp
-          id='pinfo-send-button'
-          className='sendButton mb-2 mr-3'
-          disabled={isSendingPinfo}
-          spinner={isSendingPinfo}
-          onClick={this.onSendButtonClick.bind(this)}>
-          {isSendingPinfo ? t('sending') : t('confirmAndSend')}
-        </Nav.Hovedknapp> : null}
-        {step > 0 ? <Nav.Knapp
-          id='pinfo-back-button'
-          className='backButton mb-2 mr-3'
-          onClick={this.onBackButtonClick.bind(this)}>
-          {t('back')}
-        </Nav.Knapp> : null}
-        <Nav.KnappBase
-          id='pinfo-cancel-button'
-          type='flat'
-          className='cancelButton mb-2 mr-3'
-          onClick={this.onCancelButtonClick.bind(this)}>
-          {t('cancel')}
-        </Nav.KnappBase>
-      </div>
+
     </TopContainer>
   }
 }

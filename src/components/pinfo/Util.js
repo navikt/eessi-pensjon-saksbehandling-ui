@@ -35,7 +35,12 @@ class Util {
     return {
       land: this.handleCountry(period.country),
       periode: this.handleDate(period),
-      vedlegg: period.attachments
+      vedlegg: period.attachments,
+      addresse: period.address,
+      by: period.city,
+      region: period.region,
+      trygdeordningnavn: period.insuranceName,
+      medlemskap: period.insuranceType
     }
   }
 
