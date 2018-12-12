@@ -3,12 +3,12 @@ import * as tests from './singleTests'
 export function personStep (person) {
   return tests.personValidation.nameAtBirth(person.nameAtBirth) ||
          tests.personValidation.previousName(person.previousName) ||
-         (person.idAbroad ? tests.periodValidation.id(person.id) :
-            tests.periodValidation.fatherName(person.fatherName) ||
-            tests.periodValidation.motherName(person.motherName) ||
-            tests.periodValidation.country(person.country) ||
-            tests.periodValidation.city(person.cvity) ||
-            tests.periodValidation.region(person.region)
+         (person.idAbroad ? tests.personValidation.id(person.id) :
+            tests.personValidation.fatherName(person.fatherName) ||
+            tests.personValidation.motherName(person.motherName) ||
+            tests.personValidation.country(person.country) ||
+            tests.personValidation.city(person.cvity) ||
+            tests.personValidation.region(person.region)
          ) ||
          tests.personValidation.phone(person.phone) ||
          tests.personValidation.email(person.email) ||

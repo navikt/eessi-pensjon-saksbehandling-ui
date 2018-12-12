@@ -91,7 +91,7 @@ class Util {
       'tidligereNavn': person.previousName,
       'utenlandskPersonnummer': person.idAbroad,
       'farsNavn': person.fatherName,
-      'mornNavn': person.motherName,
+      'morsNavn': person.motherName,
       'fodestedBy': person.city,
       'fodestedLand': this.handleCountry(person.country),
       'provinsEllerDepartement': person.region,

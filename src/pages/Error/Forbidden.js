@@ -22,12 +22,14 @@ class Forbidden extends Component {
 
     return <TopContainer className={classNames('p-error p-error-forbidden')}
       history={history} location={location} header={t('app-headerTitle')}>
-      <div className='col-md-12'>
-        <Psycho style={{width: '70%', height: '70%'}} type='trist' id='psycho' className='mb-4'/>
-      </div>
       <div className='col-md-12 text-center'>
-        <Nav.Undertittel >{t('ui:forbidden')}</Nav.Undertittel>
-        <Nav.Normaltekst>{t('ui:forbidden-description')}</Nav.Normaltekst>
+        <div style={{height: '100px'}} className='mt-3 mb-4'>
+          <Psycho type='trist' id='psycho'/>
+        </div>
+        <Nav.Undertittel className='m-4'>{t('ui:forbidden')}</Nav.Undertittel>
+        <Nav.Normaltekst className='mb-4'>{t('ui:forbidden-description')}</Nav.Normaltekst>
+        <div style={{width: '60%',  margin: 'auto', borderBottom: '1px solid grey'}}/>
+        <Nav.Normaltekst className='mt-2 mb-4'>{t('ui:forbidden-footer')}</Nav.Normaltekst>
       </div>
     </TopContainer>
   }
