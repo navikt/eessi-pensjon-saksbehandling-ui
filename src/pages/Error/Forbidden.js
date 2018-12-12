@@ -5,7 +5,10 @@ import { withNamespaces } from 'react-i18next'
 import classNames from 'classnames'
 
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
-import PsychoPanel from '../../components/ui/Psycho/PsychoPanel'
+import Psycho from '../../components/ui/Psycho/Psycho'
+import * as Nav from '../../components/ui/Nav'
+
+import './Error.css'
 
 const mapStateToProps = (state) => {
   return {
@@ -17,12 +20,15 @@ class Forbidden extends Component {
   render () {
     const { t, history, location } = this.props
 
-    return <TopContainer className={classNames('p-error-forbidden')}
-      history={history} location={location}>
-      <h1 className='typo-sidetittel ml-0 appTitle'>{t('ui:forbidden')}</h1>
-      <PsychoPanel type='trist' id='-psycho-panel' className='mb-4'>
-        <span>{t('ui:forbidden')}</span>
-      </PsychoPanel>
+    return <TopContainer className={classNames('p-error p-error-forbidden')}
+      history={history} location={location} header={t('app-headerTitle')}>
+      <div className='col-md-12'>
+        <Psycho style={{width: '70%', height: '70%'}} type='trist' id='psycho' className='mb-4'/>
+      </div>
+      <div className='col-md-12 text-center'>
+        <Nav.Undertittel >{t('ui:forbidden')}</Nav.Undertittel>
+        <Nav.Normaltekst>{t('ui:forbidden-description')}</Nav.Normaltekst>
+      </div>
     </TopContainer>
   }
 }

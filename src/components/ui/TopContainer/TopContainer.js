@@ -9,8 +9,12 @@ import ClientAlert from '../Alert/ClientAlert'
 import ServerAlert from '../Alert/ServerAlert'
 import Drawer from '../Drawer/Drawer'
 import Modal from '../Modal/Modal'
-import NavHeader from '../Header/NavHeader'
+import InternalTopHeader from '../Header/InternalTopHeader'
+import ExternalTopHeader from '../Header/ExternalTopHeader'
 import NavFooter from '../Footer/NavFooter'
+import Footer from '../Footer/Footer'
+
+import * as constants from '../../../constants/constants'
 
 import './TopContainer.css'
 
@@ -37,12 +41,14 @@ class TopContainer extends Component {
   }
 
   render () {
-    const { className, style, sideContent, userRole } = this.props
+    const { className, style, history, sideContent, userRole, header } = this.props
 
     return <div style={style} className={classNames('c-ui-topContainer', userRole, className)}>
       <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
-        <Drawer sideContent={sideContent}>
-          <NavHeader />
+        <Drawer className={userRole} sideContent={sideContent}>
+          {userRole === constants.SAKSBEHANDLER
+          ? <InternalTopHeader history={history} header={header}/>
+          : <ExternalTopHeader history={history} header={header}/>}
           <ClientAlert />
           <ServerAlert />
           <Nav.Container className={classNames('_container')}>
@@ -50,6 +56,7 @@ class TopContainer extends Component {
           </Nav.Container>
           <Modal />
           <NavFooter />
+          <Footer/>
         </Drawer>
       </DragDropContext>
     </div>
