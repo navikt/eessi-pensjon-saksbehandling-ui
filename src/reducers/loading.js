@@ -369,10 +369,9 @@ export default function (state = {}, action = {}) {
       })
 
     case types.PINFO_INVITE_REQUEST:
-       return Object.assign({}, state, {
-          isInvitingPinfo: true
-       })
-
+      return Object.assign({}, state, {
+        isInvitingPinfo: true
+      })
 
     default:
 

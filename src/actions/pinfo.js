@@ -3,7 +3,6 @@ import * as urls from '../constants/urls'
 import * as api from './api'
 var sprintf = require('sprintf-js').sprintf
 
-
 export function setStep (step) {
   return {
     type: types.PINFO_STEP_SET,

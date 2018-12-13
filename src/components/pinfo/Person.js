@@ -124,75 +124,75 @@ class Person extends React.Component {
           </div>
         </Nav.Row>
       </React.Fragment>
-      : <React.Fragment>
-      <Nav.Row>
-        <div className='col-sm-9'>
-          <Nav.Input
-            id='pinfo-person-farsnavn-input'
-            type='text'
-            label={t('pinfo:person-info-fathername')}
-            placeholder={t('ui:writeIn')}
-            value={person.fatherName || ''}
-            onChange={this.setFatherName}
-            feil={error.fatherName && pageError ? { feilmelding: t(error.fatherName) } : null}
-          />
-        </div>
-      </Nav.Row>
-      <Nav.Row>
-        <div className='col-sm-9'>
-          <Nav.Input
-            id='pinfo-person-morsnavn-input'
-            type='text'
-            label={t('pinfo:person-info-mothername')}
-            placeholder={t('ui:writeIn')}
-            value={person.motherName || ''}
-            onChange={this.setMotherName}
-            feil={error.motherName && pageError ? { feilmelding: t(error.motherName) } : null}
-          />
-        </div>
-      </Nav.Row>
-      <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-birthplace-title')}</Nav.Undertittel>
-      <Nav.Row>
-        <div className='col-md-6 mb-4'>
-          <label className='skjemaelement__label'>{t('pinfo:person-birthplace-country')}</label>
-          <CountrySelect
-            id='pinfo-person-land-select'
-            locale={locale}
-            value={person.country || null}
-            onSelect={this.setCountry}
-            error={error.country && pageError}
-            errorMessage={error.country}
-          />
-        </div>
-      </Nav.Row>
-      <Nav.Row>
-        <div className='col-sm-9'>
-          <Nav.Input
-            id='pinfo-person-by-input'
-            type='text'
-            label={t('pinfo:person-birthplace-city')}
-            placeholder={t('ui:writeIn')}
-            value={person.city || ''}
-            onChange={this.setCity}
-            feil={error.city && pageError ? { feilmelding: t(error.city) } : null}
+        : <React.Fragment>
+          <Nav.Row>
+            <div className='col-sm-9'>
+              <Nav.Input
+                id='pinfo-person-farsnavn-input'
+                type='text'
+                label={t('pinfo:person-info-fathername')}
+                placeholder={t('ui:writeIn')}
+                value={person.fatherName || ''}
+                onChange={this.setFatherName}
+                feil={error.fatherName && pageError ? { feilmelding: t(error.fatherName) } : null}
+              />
+            </div>
+          </Nav.Row>
+          <Nav.Row>
+            <div className='col-sm-9'>
+              <Nav.Input
+                id='pinfo-person-morsnavn-input'
+                type='text'
+                label={t('pinfo:person-info-mothername')}
+                placeholder={t('ui:writeIn')}
+                value={person.motherName || ''}
+                onChange={this.setMotherName}
+                feil={error.motherName && pageError ? { feilmelding: t(error.motherName) } : null}
+              />
+            </div>
+          </Nav.Row>
+          <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-birthplace-title')}</Nav.Undertittel>
+          <Nav.Row>
+            <div className='col-md-6 mb-4'>
+              <label className='skjemaelement__label'>{t('pinfo:person-birthplace-country')}</label>
+              <CountrySelect
+                id='pinfo-person-land-select'
+                locale={locale}
+                value={person.country || null}
+                onSelect={this.setCountry}
+                error={error.country && pageError}
+                errorMessage={error.country}
+              />
+            </div>
+          </Nav.Row>
+          <Nav.Row>
+            <div className='col-sm-9'>
+              <Nav.Input
+                id='pinfo-person-by-input'
+                type='text'
+                label={t('pinfo:person-birthplace-city')}
+                placeholder={t('ui:writeIn')}
+                value={person.city || ''}
+                onChange={this.setCity}
+                feil={error.city && pageError ? { feilmelding: t(error.city) } : null}
 
-          />
-        </div>
-      </Nav.Row>
-      <Nav.Row>
-        <div className='col-sm-9'>
-          <Nav.Input
-            id='pinfo-person-region-input'
-            type='text'
-            label={t('pinfo:person-birthplace-area')}
-            placeholder={t('pinfo:person-birthplace-area-placeholder')}
-            value={person.region || ''}
-            onChange={this.setRegion}
-            feil={error.region && pageError ? { feilmelding: t(error.region) } : null}
-          />
-        </div>
-      </Nav.Row>
-      </React.Fragment>}
+              />
+            </div>
+          </Nav.Row>
+          <Nav.Row>
+            <div className='col-sm-9'>
+              <Nav.Input
+                id='pinfo-person-region-input'
+                type='text'
+                label={t('pinfo:person-birthplace-area')}
+                placeholder={t('pinfo:person-birthplace-area-placeholder')}
+                value={person.region || ''}
+                onChange={this.setRegion}
+                feil={error.region && pageError ? { feilmelding: t(error.region) } : null}
+              />
+            </div>
+          </Nav.Row>
+        </React.Fragment>}
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-contact-title')}</Nav.Undertittel>
       <Nav.Row>
         <div className='col-sm-4'>

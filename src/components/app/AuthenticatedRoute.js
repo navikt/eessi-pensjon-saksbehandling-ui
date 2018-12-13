@@ -17,7 +17,7 @@ const mapStateToProps = (state) => {
     loggedIn: state.app.loggedIn,
     invited: state.app.invited,
     isLoggingIn: state.loading.isLoggingIn,
-    gettingUserInfo : state.loading.gettingUserInfo,
+    gettingUserInfo: state.loading.gettingUserInfo,
     rinaId: state.status.rinaId
   }
 }
@@ -32,9 +32,8 @@ const paramAliases = {
 }
 
 class AuthenticatedRoute extends Component {
-
   state = {
-     isReady: false
+    isReady: false
   }
 
   parseSearchParams () {
@@ -63,7 +62,7 @@ class AuthenticatedRoute extends Component {
     }
     this.parseSearchParams()
     this.setState({
-       isReady: true
+      isReady: true
     })
   }
 
@@ -78,16 +77,16 @@ class AuthenticatedRoute extends Component {
 
   render () {
     const { userRole, invited, gettingUserInfo } = this.props
-    const {isReady } = this.state
+    const { isReady } = this.state
 
     if (!isReady || gettingUserInfo) {
-        return <WaitingPanel message='authenticating'/>
+      return <WaitingPanel message='authenticating' />
     }
 
     let validRole = this.hasApprovedRole()
 
-    return userRole && validRole ?
-      !invited
+    return userRole && validRole
+      ? !invited
         ? <Route {...this.props} />
         : <Redirect to={routes.NOT_INVITED} />
       : <Redirect to={routes.ROOT} />

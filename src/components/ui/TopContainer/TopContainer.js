@@ -47,8 +47,8 @@ class TopContainer extends Component {
       <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
         <Drawer className={userRole} sideContent={sideContent}>
           {userRole === constants.SAKSBEHANDLER
-          ? <InternalTopHeader history={history} header={header}/>
-          : <ExternalTopHeader history={history} header={header}/>}
+            ? <InternalTopHeader history={history} header={header} />
+            : <ExternalTopHeader history={history} header={header} />}
           <ClientAlert />
           <ServerAlert />
           <Nav.Container className={classNames('_container')}>
@@ -56,7 +56,7 @@ class TopContainer extends Component {
           </Nav.Container>
           <Modal />
           <NavFooter />
-          <Footer/>
+          <Footer />
         </Drawer>
       </DragDropContext>
     </div>

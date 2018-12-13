@@ -9,7 +9,7 @@ import 'react-datepicker/dist/react-datepicker.min.css'
 
 class DatePicker extends Component {
   render () {
-    const { selected, className, locale, error, onChange, id} = this.props
+    const { selected, className, locale, error, onChange, id } = this.props
 
     return <React.Fragment>
       <ReactDatePicker
@@ -29,12 +29,12 @@ class DatePicker extends Component {
 }
 
 DatePicker.propTypes = {
- selected: PT.object,
- className: PT.string,
- locale: PT.string,
- error: PT.string,
- onChange: PT.func.isRequired,
- id: PT.string
+  selected: PT.object,
+  className: PT.string,
+  locale: PT.string,
+  error: PT.string,
+  onChange: PT.func.isRequired,
+  id: PT.string
 }
 
 export default DatePicker

@@ -24,7 +24,7 @@ const mapStateToProps = (state) => {
     username: state.app.username,
     fileList: state.storage.fileList,
     isSendingPinfo: state.loading.isSendingPinfo,
-    isInvitingPinfo: state.loading.isInvitingPinfo,
+    isInvitingPinfo: state.loading.isInvitingPinfo
   }
 }
 
@@ -56,11 +56,10 @@ class PInfoSaksbehandler extends React.Component {
   }
 
   onInviteButtonClick () {
-
     let { actions, aktoerId, saksId } = this.props
     actions.sendInvite({
-        aktoerId: aktoerId,
-        saksId : saksId
+      aktoerId: aktoerId,
+      saksId: saksId
     })
   }
 
@@ -79,7 +78,7 @@ class PInfoSaksbehandler extends React.Component {
 
     return <TopContainer className='p-pInfo' history={history} location={location} header={t('pinfo:app-title')}>
 
-      <div className={classNames('fieldset','animate', 'mt-4','mb-4')}>
+      <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
         <Nav.Undertittel>{t('ui:notifications')}</Nav.Undertittel>
         {fileList ? <ul>
           {fileList.map(file => {

@@ -16,32 +16,32 @@ class Error extends Component {
     let title, description, footer
     footer = t('ui:error-footer')
 
-    switch(type) {
-       case 'forbidden':
-          title = t('ui:error-forbidden-title')
-          description = t('ui:error-forbidden-description')
-          break
-       case 'notInvited':
-          title = t('ui:error-notInvited-title')
-          description = t('ui:error-notInvited-description')
-          break
-       default:
-          title = t('ui:error-404-title')
-          description = t('ui:error-404-description')
-          break
+    switch (type) {
+      case 'forbidden':
+        title = t('ui:error-forbidden-title')
+        description = t('ui:error-forbidden-description')
+        break
+      case 'notInvited':
+        title = t('ui:error-notInvited-title')
+        description = t('ui:error-notInvited-description')
+        break
+      default:
+        title = t('ui:error-404-title')
+        description = t('ui:error-404-description')
+        break
     }
 
     return <TopContainer className={classNames('p-error')}
       history={history} location={location} header={t('app-headerTitle')}>
       <div className='col-md-12 text-center'>
         <div className='psycho mt-3 mb-4'>
-          <Psycho type='trist' id='psycho'/>
+          <Psycho type='trist' id='psycho' />
         </div>
         <Nav.Undertittel className='m-4'>{title}</Nav.Undertittel>
         <Nav.Normaltekst className='mb-4'>
-          <div dangerouslySetInnerHTML={{ __html: description }}/>
+          <div dangerouslySetInnerHTML={{ __html: description }} />
         </Nav.Normaltekst>
-        <div className='line'/>
+        <div className='line' />
         <Nav.Normaltekst className='mt-2 mb-4'>{t('ui:error-footer')}</Nav.Normaltekst>
       </div>
     </TopContainer>

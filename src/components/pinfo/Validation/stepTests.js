@@ -3,8 +3,8 @@ import * as tests from './singleTests'
 export function personStep (person) {
   return tests.personValidation.nameAtBirth(person.nameAtBirth) ||
          tests.personValidation.previousName(person.previousName) ||
-         (person.idAbroad ? tests.personValidation.id(person.id) :
-            tests.personValidation.fatherName(person.fatherName) ||
+         (person.idAbroad ? tests.personValidation.id(person.id)
+           : tests.personValidation.fatherName(person.fatherName) ||
             tests.personValidation.motherName(person.motherName) ||
             tests.personValidation.country(person.country) ||
             tests.personValidation.city(person.cvity) ||
