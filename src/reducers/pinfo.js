@@ -1,7 +1,7 @@
 import * as types from '../constants/actionTypes'
 
 let initialState = {
-  isLoaded: false,
+  isReady: false,
   step: 0,
   person: {},
   bank: {},
@@ -17,11 +17,6 @@ export default function (state = initialState, action = {}) {
       return Object.assign({}, state, {
         step: action.payload
       })
-
-    case types.STORAGE_GET_SUCCESS:
-      return action.fileName === 'PINFO'
-        ? JSON.parse(action.payload)
-        : state
 
     case types.PINFO_PERSON_SET:
       return {
@@ -63,11 +58,21 @@ export default function (state = initialState, action = {}) {
         receipt: action.payload
       })
 
+    case types.PINFO_SET_READY:
+
+      return Object.assign({}, state, {
+         isReady: true
+      })
+
     case types.PINFO_SEND_FAILURE:
 
       return Object.assign({}, state, {
         receipt: undefined
       })
+
+    case types.PINFO_STATE_RESTORE: {
+       return Object.assign({}, initialState, {isReady: true}, action.payload)
+    }
 
     case types.APP_CLEAR_DATA:
 

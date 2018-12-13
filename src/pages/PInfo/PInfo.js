@@ -15,11 +15,15 @@ import Person from '../../components/pinfo/Person'
 import StayAbroad from '../../components/pinfo/StayAbroad/StayAbroad'
 import Receipt from '../../components/pinfo/Receipt/Receipt'
 import Confirm from '../../components/pinfo/Confirm'
+import WaitingPanel from '../../components/app/WaitingPanel'
 
 import * as stepTests from '../../components/pinfo/Validation/stepTests'
 import * as globalTests from '../../components/pinfo/Validation/globalTests'
 import PInfoUtil from '../../components/pinfo/Util'
 import * as routes from '../../constants/routes'
+
+
+import * as storageActions from '../../actions/storage'
 import * as pinfoActions from '../../actions/pinfo'
 import * as uiActions from '../../actions/ui'
 import * as appActions from '../../actions/app'
@@ -32,29 +36,61 @@ const mapStateToProps = (state) => {
     pinfo: state.pinfo,
     step: state.pinfo.step,
     receipt: state.pinfo.receipt,
-    isSendingPinfo: state.loading.isSendingPinfo
+    isReady: state.pinfo.isReady,
+    isSendingPinfo: state.loading.isSendingPinfo,
+    fileList: state.storage.fileList,
+    file: state.storage.file,
+    username :state.app.username,
+
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, pinfoActions, uiActions, appActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, storageActions, pinfoActions, uiActions, appActions), dispatch) }
 }
 
 class PInfo extends React.Component {
   state = {
     doPageValidationOnForwardButton: true,
     doPageValidationOnStepIndicator: false,
-    pageErrors: {}
+    pageErrors: {},
+    fileList: undefined,
+    file: undefined
   }
 
   componentDidMount () {
+
+    const { actions, username } = this.props
+
     window.hj('trigger', 'e207-feedback-no')
+    actions.listStorageFiles(username, 'PINFO')
   }
 
   componentDidUpdate () {
-    const { receipt, actions, step } = this.props
+    const { receipt, actions, username, step, fileList, file } = this.props
     if (receipt && step === 3) {
       actions.setStep(4)
+    }
+    if (fileList !== undefined && this.state.fileList === undefined) {
+      if (!_.isEmpty(fileList)) {
+        actions.getStorageFile(username, 'PINFO', fileList[0])
+      } else {
+        actions.setReady()
+      }
+      this.setState({
+        fileList : fileList
+      })
+    }
+    if (file !== undefined && this.state.file === undefined) {
+       if (!_.isEmpty(file)) {
+          let _file = JSON.parse(file)
+          actions.restoreState(_file)
+       } else {
+         actions.setReady()
+       }
+       this.setState({
+         file : file
+       })
     }
   }
 
@@ -120,8 +156,10 @@ class PInfo extends React.Component {
   }
 
   doCancel () {
-    const { actions, history } = this.props
+    const { actions, history, pinfo, username,  } = this.props
+    this.state
     actions.closeModal()
+    actions.postStorageFile (username, 'PINFO', 'PINFO', JSON.stringify(pinfo))
     actions.clearData()
     history.push(routes.ROOT)
   }
@@ -178,10 +216,18 @@ class PInfo extends React.Component {
   }
 
   render () {
-    const { t, history, location, step, isSendingPinfo } = this.props
+    const { t, history, location, step, isSendingPinfo, isReady } = this.props
     const { pageErrors, errorTimestamp } = this.state
 
     let errorMessage = this.errorMessage()
+
+    if (!isReady) {
+      return <TopContainer className='p-pInfo'
+        history={history} location={location}
+        header={t('pinfo:app-title')}>
+        <WaitingPanel message='loading' />
+      </TopContainer>
+    }
 
     return <TopContainer className='p-pInfo'
       history={history} location={location}

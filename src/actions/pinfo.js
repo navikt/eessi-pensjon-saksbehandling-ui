@@ -63,3 +63,17 @@ export function sendInvite (params) {
     }
   })
 }
+
+export function setReady() {
+  return {
+     type: types.PINFO_SET_READY
+  }
+}
+
+export function restoreState(content) {
+
+    return {
+        type: types.PINFO_STATE_RESTORE,
+        payload: content
+    }
+}

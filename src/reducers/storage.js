@@ -4,7 +4,9 @@ import * as types from '../constants/actionTypes'
 import _ from 'lodash'
 
 let initialState = {
-  modalOpen: false
+  modalOpen: false,
+  fileList: undefined,
+  file: undefined
 }
 
 export default function (state = initialState, action = {}) {
@@ -17,6 +19,12 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         fileList: parsedList
+      })
+    }
+
+    case types.STORAGE_LIST_FAILURE: {
+      return Object.assign({}, state, {
+         fileList: []
       })
     }
 
