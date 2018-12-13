@@ -82,7 +82,8 @@ class PInfo extends React.Component {
     if (this.state.doPageValidationOnForwardButton) {
       errors = this.validatePage(step)
       this.setState({
-        pageErrors: errors
+        pageErrors: errors,
+        errorTimestamp: new Date().getTime()
       })
     }
 
@@ -98,7 +99,8 @@ class PInfo extends React.Component {
     if (this.state.doPageValidationOnStepIndicator) {
       errors = this.validatePage(step)
       return this.setState({
-        pageErrors: errors
+        pageErrors: errors,
+        errorTimestamp: new Date().getTime()
       })
     }
 
@@ -111,7 +113,8 @@ class PInfo extends React.Component {
     const { actions, step } = this.props
 
     this.setState({
-      pageErrors: {}
+      pageErrors: {},
+      errorTimestamp: new Date().getTime()
     })
     actions.setStep(step - 1)
   }
@@ -158,7 +161,8 @@ class PInfo extends React.Component {
     if (this.state.doPageValidationOnForwardButton) {
       errors = this.validatePage(step)
       this.setState({
-        errors: errors
+        pageErrors: errors,
+        errorTimestamp: new Date().getTime()
       })
     }
     if (_.isEmpty(errors)) {
@@ -175,7 +179,7 @@ class PInfo extends React.Component {
 
   render () {
     const { t, history, location, step, isSendingPinfo } = this.props
-    const { pageErrors } = this.state
+    const { pageErrors, errorTimestamp } = this.state
 
     let errorMessage = this.errorMessage()
 
@@ -199,11 +203,11 @@ class PInfo extends React.Component {
       {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
       <div className='col-md-2' />
       <div className={classNames('fieldset animate', 'mb-4', 'col-md-8')}>
-        {step === 0 ? <Person pageErrors={pageErrors} /> : null}
-        {step === 1 ? <Bank pageErrors={pageErrors} /> : null}
-        {step === 2 ? <StayAbroad pageErrors={pageErrors} /> : null}
-        {step === 3 ? <Confirm pageErrors={pageErrors} /> : null}
-        {step === 4 ? <Receipt pageErrors={pageErrors} /> : null}
+        {step === 0 ? <Person pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
+        {step === 1 ? <Bank pageErrors={pageErrors} errorTimestamp={errorTimestamp}/> : null}
+        {step === 2 ? <StayAbroad pageErrors={pageErrors} errorTimestamp={errorTimestamp}/> : null}
+        {step === 3 ? <Confirm pageErrors={pageErrors} errorTimestamp={errorTimestamp}/> : null}
+        {step === 4 ? <Receipt pageErrors={pageErrors} errorTimestamp={errorTimestamp}/> : null}
         <div className='mb-4 mt-4'>
           {step < 3 ? <Nav.Hovedknapp
             id='pinfo-forward-button'

@@ -41,8 +41,8 @@ class Util {
   handleWorkPeriod (period) {
     let newPeriod = this.handleGenericPeriod(period)
     newPeriod.firmaBy = period.workCity
-    newPeriod.firmaAdresse = period.workAddress,
-    newPeriod.firmaRegion = period.workRegion,
+    newPeriod.firmaAdresse = period.workAddress
+    newPeriod.firmaRegion = period.workRegion
     newPeriod.firmaLand = this.handleCountry(period.country)
     newPeriod.forsikringEllerRegistreringNr = period.workId
     newPeriod.jobbUnderAnsattEllerSelvstendig = period.workActivity

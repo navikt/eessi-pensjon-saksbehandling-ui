@@ -24,13 +24,18 @@ const mapDispatchToProps = (dispatch) => {
 
 class Person extends React.Component {
   state = {
-    localErrors: {}
+    localErrors: {},
+    errorTimestamp: new Date().getTime()
   }
 
   static getDerivedStateFromProps (newProps, oldState) {
-    return {
-      localErrors: newProps.pageErrors
+    if (newProps.errorTimestamp > oldState.errorTimestamp) {
+      return {
+        localErrors: newProps.pageErrors,
+        errorTimestamp : newProps.errorTimestamp
+      }
     }
+    return null
   }
 
   constructor (props) {
