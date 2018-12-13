@@ -28,7 +28,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const paramAliases = {
   'rinaid': 'rinaId',
-  'saksNr': 'saksId'
+  'saksNr': 'saksId',
+  'fnr' : 'aktoerId'
 }
 
 class AuthenticatedRoute extends Component {
