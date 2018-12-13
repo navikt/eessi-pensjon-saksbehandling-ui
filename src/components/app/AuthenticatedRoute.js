@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
 
     userRole: state.app.userRole,
     loggedIn: state.app.loggedIn,
-    invited: state.app.invited,
+    allowed: state.app.allowed,
     isLoggingIn: state.loading.isLoggingIn,
     gettingUserInfo: state.loading.gettingUserInfo,
     rinaId: state.status.rinaId
@@ -76,7 +76,7 @@ class AuthenticatedRoute extends Component {
   }
 
   render () {
-    const { userRole, invited, gettingUserInfo } = this.props
+    const { userRole, allowed, gettingUserInfo } = this.props
     const { isReady } = this.state
 
     if (!isReady || gettingUserInfo) {
@@ -86,7 +86,7 @@ class AuthenticatedRoute extends Component {
     let validRole = this.hasApprovedRole()
 
     return userRole && validRole
-      ? !invited
+      ? !allowed
         ? <Route {...this.props} />
         : <Redirect to={routes.NOT_INVITED} />
       : <Redirect to={routes.ROOT} />

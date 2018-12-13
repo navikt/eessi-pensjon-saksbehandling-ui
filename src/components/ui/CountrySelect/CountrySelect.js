@@ -17,17 +17,25 @@ class CountrySelect extends Component {
     }
   }
 
-  filter (selectedCountries, allCountries) {
+  include (selectedCountries, allCountries) {
     return _.filter(allCountries, country => {
       return selectedCountries.indexOf(country.value) >= 0
     })
   }
 
+  exclude (selectedCountries, allCountries) {
+    return _.filter(allCountries, country => {
+      return selectedCountries.indexOf(country.value) < 0
+    })
+  }
+
   render () {
-    const { t, value, locale, type, list, className, styles = {}, error = false } = this.props
+    const { t, value, locale, type, includeList, excludeList, className, styles = {}, error = false } = this.props
 
     let optionList = countries[locale]
-    let options = (list ? this.filter(list, optionList) : optionList)
+    let options = (includeList ? this.include(includeList, optionList) : optionList)
+    options = (excludeList ? this.exclude(excludeList, options) : options)
+
     let defValue = value
     if (defValue && !defValue.label) {
       defValue = _.find(options, { value: defValue.value ? defValue.value : defValue })
@@ -69,7 +77,8 @@ CountrySelect.propTypes = {
   t: PT.func.isRequired,
   locale: PT.string.isRequired,
   style: PT.object,
-  list: PT.array,
+  includeList: PT.array,
+  excludeList: PT.array,
   type: PT.string,
   className: PT.string,
   required: PT.string,

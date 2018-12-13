@@ -249,13 +249,13 @@ class Period extends React.Component {
                 <option value='work'>{t('pinfo:stayAbroad-category-work')}</option>
                 <option value='home'>{t('pinfo:stayAbroad-category-home')}</option>
                 {/* <option value='child'>{t('pinfo:stayAbroad-category-child')}</option> */}
-                <option value='voluntary'>{t('pinfo:stayAbroad-category-voluntary')}</option>
+                {/* <option value='voluntary'>{t('pinfo:stayAbroad-category-voluntary')}</option> */}
                 <option value='military'>{t('pinfo:stayAbroad-category-military')}</option>
                 {/* <option value='birth'>{t('pinfo:stayAbroad-category-birth')}</option> */}
                 <option value='learn'>{t('pinfo:stayAbroad-category-learn')}</option>
                 {/* <option value='daily'>{t('pinfo:stayAbroad-category-daily')}</option> */}
                 {/* <option value='sick'>{t('pinfo:stayAbroad-category-sick')}</option> */}
-                <option value='other'>{t('pinfo:stayAbroad-category-other')}</option>
+                {/* <option value='other'>{t('pinfo:stayAbroad-category-other')}</option> */}
               </Nav.Select>
             </div>
           </Nav.Row>
@@ -295,6 +295,7 @@ class Period extends React.Component {
                 <CountrySelect
                   id='pinfo-opphold-land-select'
                   locale={locale}
+                  excludeList={['NO']}
                   value={_period.country || null}
                   onSelect={this.setCountry}
                   error={error.country}
@@ -322,9 +323,9 @@ class Period extends React.Component {
                   value={_period.insuranceType || ''}
                   onChange={this.setInsuranceType}>
                   <option value=''>{t('ui:choose')}</option>
-                  <option value='01'>{t('pinfo:stayAbroad-insurance-type-01')}</option>
-                  <option value='02'>{t('pinfo:stayAbroad-insurance-type-02')}</option>
-                  <option value='03'>{t('pinfo:stayAbroad-insurance-type-03')}</option>
+                  <option value={t('pinfo:stayAbroad-insurance-type-01')}>{t('pinfo:stayAbroad-insurance-type-01')}</option>
+                  <option value={t('pinfo:stayAbroad-insurance-type-02')}>{t('pinfo:stayAbroad-insurance-type-02')}</option>
+                  <option value={t('pinfo:stayAbroad-insurance-type-03')}>{t('pinfo:stayAbroad-insurance-type-03')}</option>
                 </Nav.Select>
               </div>
               <div className='col-md-12'>

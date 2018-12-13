@@ -7,24 +7,10 @@ class Util {
   }
 
   handleDate (period) {
-    let result = {
-      lukketPeriode: null,
-      openPeriode: null
+    return {
+     fom: period.startDate ? this.writeDate(period.startDate) : null,
+     tom: period.endDate ? this.writeDate(period.endDate) : null
     }
-    if (period.endDate) {
-      result.lukketPeriode = {
-        fom: this.writeDate(period.startDate),
-        tom: this.writeDate(period.endDate),
-        extra: null
-      }
-    } else {
-      result.openPeriode = {
-        extra: '01',
-        fom: this.writeDate(period.startDate),
-        tom: null
-      }
-    }
-    return result
   }
 
   handleCountry (country) {
@@ -36,24 +22,29 @@ class Util {
       land: this.handleCountry(period.country),
       periode: this.handleDate(period),
       vedlegg: period.attachments,
-      addresse: period.address,
+      adresse: period.address,
       by: period.city,
       region: period.region,
       trygdeordningnavn: period.insuranceName,
-      medlemskap: period.insuranceType
+      medlemskap: period.insuranceType,
+      firmaBy : null,
+      firmaAddress: null,
+      firmaRegion : null,
+      firmaLand: null,
+      navnFirma: null,
+      jobbUnderAnsattEllerSelvstendig : null,
+      forsikringEllerRegistreringNr : null,
+      navnPaaInstitusjon : null
     }
   }
 
   handleWorkPeriod (period) {
     let newPeriod = this.handleGenericPeriod(period)
-    newPeriod.addressFirma = {
-      by: period.workCity,
-      address: period.workAddress,
-      region: period.workRegion,
-      land: this.handleCountry(period.country)
-    }
-    delete newPeriod.land
-    newPeriod.forsikkringEllerRegistreringNr = period.workId
+    newPeriod.firmaBy = period.workCity
+    newPeriod.firmaAdresse = period.workAddress,
+    newPeriod.firmaRegion = period.workRegion,
+    newPeriod.firmaLand = this.handleCountry(period.country)
+    newPeriod.forsikringEllerRegistreringNr = period.workId
     newPeriod.jobbUnderAnsattEllerSelvstendig = period.workActivity
     newPeriod.navnFirma = period.workName
     return newPeriod
@@ -61,13 +52,9 @@ class Util {
 
   handleChildPeriod (period) {
     let newPeriod = this.handleGenericPeriod(period)
-    newPeriod.informasjonBarn = {
-      etternavn: period.childLastName,
-      foedseldato: this.writeDate(period.childBirthDate),
-      fornavn: period.childFirstName,
-      land: this.handleCountry(period.country)
-    }
-    delete newPeriod.land
+    newPeriod.barnEtternavn = period.childLastName
+    newPeriod.barnFoedseldato = this.writeDate(period.childBirthDate)
+    newPeriod.barnFornavn = period.childFirstName
     return newPeriod
   }
 

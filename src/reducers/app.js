@@ -2,7 +2,7 @@ import * as types from '../constants/actionTypes'
 
 let initialState = {
   loggedIn: false,
-  invited: false,
+  allowed: false,
   username: undefined,
   userRole: undefined
 }
@@ -20,7 +20,7 @@ export default function (state = initialState, action = {}) {
       return Object.assign({}, state, {
         username: action.payload.subject,
         userRole: action.payload.role,
-        invited: action.payload.invited === 'true',
+        allowed: action.payload.allowed === 'true',
         loggedIn: true
       })
 

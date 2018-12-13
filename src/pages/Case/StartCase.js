@@ -414,7 +414,7 @@ class StartCase extends Component {
         <CountrySelect aria-describedby='help-country' className='countrySelect' locale={locale}
           value={country || {}}
           onSelect={this.onCountryChange.bind(this)}
-          list={countryList} />
+          includeList={countryList} />
       </div>
     }
 
