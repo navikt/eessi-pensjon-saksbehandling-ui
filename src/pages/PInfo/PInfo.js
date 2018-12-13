@@ -24,7 +24,6 @@ import * as routes from '../../constants/routes'
 import * as pinfoActions from '../../actions/pinfo'
 import * as uiActions from '../../actions/ui'
 import * as appActions from '../../actions/app'
-import * as storageActions from '../../actions/storage'
 
 import './PInfo.css'
 
@@ -34,16 +33,12 @@ const mapStateToProps = (state) => {
     pinfo: state.pinfo,
     step: state.pinfo.step,
     receipt: state.pinfo.receipt,
-    referrer: state.app.referrer,
-    status: state.status,
-    username: state.app.username,
-    file: state.storage.file,
     isSendingPinfo: state.loading.isSendingPinfo
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, pinfoActions, uiActions, appActions, storageActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, pinfoActions, uiActions, appActions), dispatch) }
 }
 
 class PInfo extends React.Component {
@@ -55,11 +50,6 @@ class PInfo extends React.Component {
 
   componentDidMount () {
     window.hj('trigger', 'e207-feedback-no')
-    const { location, actions } = this.props
-    let referrer = new URLSearchParams(location.search).get('referrer')
-    if (referrer) {
-      actions.setReferrer(referrer)
-    }
   }
 
   componentDidUpdate () {
@@ -195,12 +185,11 @@ class PInfo extends React.Component {
   }
 
   render () {
-    const { t, history, location, status, step, isSendingPinfo } = this.props
+    const { t, history, location, step, isSendingPinfo } = this.props
     const { pageError } = this.state
 
     return <TopContainer className='p-pInfo'
       history={history} location={location}
-      sideContent={<FrontPageDrawer t={t} status={status} />}
       header={t('pinfo:app-title')}>
       { step !== 4
         ? <Nav.Stegindikator
@@ -267,8 +256,7 @@ PInfo.propTypes = {
   step: PT.number,
   referrer: PT.string,
   actions: PT.object,
-  location: PT.object.isRequired,
-  status: PT.object
+  location: PT.object.isRequired
 }
 
 export default connect(

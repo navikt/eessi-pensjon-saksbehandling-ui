@@ -1,19 +1,19 @@
 import moment from 'moment'
 
 let isEmpty = function (value, error) {
-  return !value ? error : ''
+  return !value ? error : undefined
 }
 
 let isEmptyOrPatternMatch = function (value, error, pattern, patternError) {
-  return !value ? error : !pattern.test(value) ? patternError : ''
+  return !value ? error : !pattern.test(value) ? patternError : undefined
 }
 
 let isEmptyArray = function (value, error) {
-  return !value || (Array.isArray(value) && value.length === 0) ? error : ''
+  return !value || (Array.isArray(value) && value.length === 0) ? error : undefined
 }
 
 let patternMatchIfNotEmpty = function (value, pattern, patternError) {
-  return value && !pattern.test(value) ? patternError : ''
+  return value && !pattern.test(value) ? patternError : undefined
 }
 
 // PERSON
@@ -120,16 +120,16 @@ export const stayAbroadValidation = {
 let periodType = function (type) {
   return !type ? 'pinfo:validation-noPeriodType'
     : ['work', 'home', 'child', 'voluntary', 'military', 'birth', 'learn', 'daily', 'sick', 'other']
-      .indexOf(type) < 0 ? 'pinfo:validation-invalidPeriodType' : ''
+      .indexOf(type) < 0 ? 'pinfo:validation-invalidPeriodType' : undefined
 }
 
 let startDate = function (startDate) {
   return !startDate ? 'pinfo:validation-noStartDate'
-    : (startDate > new Date().getTime()) ? 'pinfo:validation-invalidStartDate' : ''
+    : (startDate > new Date().getTime()) ? 'pinfo:validation-invalidStartDate' : undefined
 }
 
 let endDate = function (endDate) {
-  return endDate && endDate > new Date().getTime() ? 'pinfo:validation-invalidEndDate' : ''
+  return endDate && endDate > new Date().getTime() ? 'pinfo:validation-invalidEndDate' : undefined
 }
 
 let insuranceName = function (insuranceName) {
@@ -176,7 +176,7 @@ let childLastName = function (childLastName) {
 
 let childBirthDate = function (childBirthDate) {
   return !childBirthDate ? 'pinfo:validation-noChildBirthDate'
-    : (childBirthDate < new Date().getTime()) ? 'pinfo:validation-invalidChildBirthDate' : ''
+    : (childBirthDate < new Date().getTime()) ? 'pinfo:validation-invalidChildBirthDate' : undefined
 }
 
 let learnInstitution = function (learnInstitution) {
@@ -209,42 +209,42 @@ export const periodValidation = {
 // WORK AND INCOME
 
 export function workType (workType) {
-  return !workType ? 'pinfo:validation-noWorkType' : ''
+  return !workType ? 'pinfo:validation-noWorkType' : undefined
 }
 
 export function workStartDate (workStartDate, workEndDate) {
   return !workStartDate ? 'pinfo:validation-noWorkStartDate'
     : workStartDate > moment().valueOf() ? 'pinfo:validation-noFutureStartDate'
-      : workEndDate && workStartDate > workEndDate ? 'pinfo:validation-workStartAfterEnd' : ''
+      : workEndDate && workStartDate > workEndDate ? 'pinfo:validation-workStartAfterEnd' : undefined
 }
 
 export function workEndDate (workEndDate, workStartDate) {
   return !workEndDate ? 'pinfo:validation-noWorkEndDate'
-    : workStartDate && workStartDate > workEndDate ? 'pinfo:validation-workEndBeforeStart' : ''
+    : workStartDate && workStartDate > workEndDate ? 'pinfo:validation-workEndBeforeStart' : undefined
 }
 
 export function workEstimatedRetirementDate (workEstimatedRetirementDate) {
-  return !workEstimatedRetirementDate ? 'pinfo:validation-noWorkEstimatedRetirementDate' : ''
+  return !workEstimatedRetirementDate ? 'pinfo:validation-noWorkEstimatedRetirementDate' : undefined
 }
 
 export function workHourPerWeek (workHourPerWeek) {
-  return !workHourPerWeek ? 'pinfo:validation-noWorkHourPerWeek' : ''
+  return !workHourPerWeek ? 'pinfo:validation-noWorkHourPerWeek' : undefined
 }
 
 export function workIncome (workIncome) {
-  return !workIncome ? 'pinfo:validation-noWorkIncome' : ''
+  return !workIncome ? 'pinfo:validation-noWorkIncome' : undefined
 }
 
 export function workIncomeCurrency (workIncomeCurrency) {
-  return !workIncomeCurrency ? 'pinfo:validation-noWorkIncomeCurrency' : ''
+  return !workIncomeCurrency ? 'pinfo:validation-noWorkIncomeCurrency' : undefined
 }
 
 export function workPaymentDate (workPaymentDate) {
-  return !workPaymentDate ? 'pinfo:validation-noWorkPaymentDate' : ''
+  return !workPaymentDate ? 'pinfo:validation-noWorkPaymentDate' : undefined
 }
 
 export function workPaymentFrequency (workPaymentFrequency) {
-  return !workPaymentFrequency ? 'pinfo:validation-noWorkPaymentFrequency' : ''
+  return !workPaymentFrequency ? 'pinfo:validation-noWorkPaymentFrequency' : undefined
 }
 
 export const workValidation = {
