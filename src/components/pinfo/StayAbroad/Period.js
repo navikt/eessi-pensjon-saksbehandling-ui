@@ -69,7 +69,7 @@ class Period extends React.Component {
   }
 
   valueSetProperty (key, validateFunction, value) {
-    const { onPageError } = this.props
+
     let error = validateFunction ? validateFunction(value) : ''
 
     this.setState({
@@ -83,10 +83,6 @@ class Period extends React.Component {
       },
       _error: error
     })
-
-    if (error) {
-      onPageError(error)
-    }
   }
 
   static getDerivedStateFromProps (newProps, oldState) {
@@ -106,12 +102,11 @@ class Period extends React.Component {
   }
 
   addPeriod () {
-    const { periods, actions, onPageError } = this.props
+    const { periods, actions } = this.props
     const { _period } = this.state
 
     let validateError = this.validatePeriod()
     if (validateError) {
-      onPageError(validateError)
 
       return this.setState({
         _error: validateError
@@ -137,12 +132,11 @@ class Period extends React.Component {
   }
 
   saveEditPeriod () {
-    const { periods, editPeriod, actions, onPageError } = this.props
+    const { periods, editPeriod, actions, errors } = this.props
     const { _period } = this.state
 
     let validateError = this.validatePeriod()
     if (validateError) {
-      onPageError(validateError)
       return this.setState({
         _error: validateError
       })

@@ -10,7 +10,6 @@ import 'react-datepicker/dist/react-datepicker.min.css'
 
 import * as Nav from '../../components/ui/Nav'
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
-import FrontPageDrawer from '../../components/drawer/FrontPage'
 import Bank from '../../components/pinfo/Bank'
 import Person from '../../components/pinfo/Person'
 import StayAbroad from '../../components/pinfo/StayAbroad/StayAbroad'
@@ -45,7 +44,7 @@ class PInfo extends React.Component {
   state = {
     doPageValidationOnForwardButton: true,
     doPageValidationOnStepIndicator: false,
-    pageError: undefined
+    pageErrors: {}
   }
 
   componentDidMount () {
@@ -70,63 +69,51 @@ class PInfo extends React.Component {
       case 2:
         return stepTests.stayAbroadStep(stayAbroad)
       case 3:
-        return stepTests.personStep(person) || stepTests.bankStep(bank) || stepTests.stayAbroadStep(stayAbroad)
+        return Object.assign({}, stepTests.personStep(person), stepTests.bankStep(bank), stepTests.stayAbroadStep(stayAbroad))
       default:
-        return ''
+        return {}
     }
   }
 
   onForwardButtonClick () {
     const { actions, step } = this.props
 
-    let validatePageError
+    let errors = {}
     if (this.state.doPageValidationOnForwardButton) {
-      validatePageError = this.validatePage(step)
-    }
-    if (validatePageError) {
-      return this.setState({
-        pageError: validatePageError
+      errors = this.validatePage(step)
+      this.setState({
+        pageErrors: errors
       })
     }
 
-    actions.setStep(step + 1)
-    this.setState({
-      pageError: undefined
-    })
+    if (_.isEmpty(errors)) {
+        actions.setStep(step + 1)
+    }
   }
 
   onStepIndicatorClick (newStep) {
     const { actions, step } = this.props
 
-    let validatePageError
+    let errors = {}
     if (this.state.doPageValidationOnStepIndicator) {
-      validatePageError = this.validatePage(step)
-    }
-    if (validatePageError) {
+      errors = this.validatePage(step)
       return this.setState({
-        pageError: validatePageError
+        pageErrors: errors
       })
     }
 
-    actions.setStep(newStep)
-    this.setState({
-      pageError: undefined
-    })
+    if (_.isEmpty(errors)) {
+      actions.setStep(newStep)
+    }
   }
 
   onBackButtonClick () {
     const { actions, step } = this.props
 
+    this.setState({
+      pageErrors: {}
+    })
     actions.setStep(step - 1)
-    this.setState({
-      pageError: undefined
-    })
-  }
-
-  onPageError (pageError) {
-    this.setState({
-      pageError: pageError
-    })
   }
 
   doCancel () {
@@ -167,26 +154,30 @@ class PInfo extends React.Component {
   onSendButtonClick () {
     const { actions, step, pinfo } = this.props
 
-    let validatePageError
+    let errors = {}
     if (this.state.doPageValidationOnForwardButton) {
-      validatePageError = this.validatePage(step)
-    }
-    if (validatePageError) {
-      return this.setState({
-        pageError: validatePageError
+      errors = this.validatePage(step)
+      this.setState({
+         errors: errors
       })
     }
-    this.setState({
-      pageError: undefined
-    })
+    if (_.isEmpty(errors)) {
+      let payload = PInfoUtil.generatePayload(pinfo)
+      actions.sendPInfo(payload)
+    }
+  }
 
-    let payload = PInfoUtil.generatePayload(pinfo)
-    actions.sendPInfo(payload)
+  errorMessage () {
+     const { pageErrors } = this.state
+     let errorValues = _.values(pageErrors)
+     return !_.isEmpty(errorValues) ? errorValues[0] : undefined
   }
 
   render () {
     const { t, history, location, step, isSendingPinfo } = this.props
-    const { pageError } = this.state
+    const { pageErrors } = this.state
+
+    let errorMessage = this.errorMessage()
 
     return <TopContainer className='p-pInfo'
       history={history} location={location}
@@ -205,14 +196,14 @@ class PInfo extends React.Component {
           }))}
         /> : null}
 
-      {pageError ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(pageError)}</Nav.AlertStripe> : null}
+      {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
       <div className='col-md-2' />
       <div className={classNames('fieldset animate', 'mb-4', 'col-md-8')}>
-        {step === 0 ? <Person onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
-        {step === 1 ? <Bank onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
-        {step === 2 ? <StayAbroad onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
-        {step === 3 ? <Confirm onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
-        {step === 4 ? <Receipt onPageError={this.onPageError.bind(this)} pageError={pageError} /> : null}
+        {step === 0 ? <Person pageErrors={pageErrors} /> : null}
+        {step === 1 ? <Bank pageErrors={pageErrors} /> : null}
+        {step === 2 ? <StayAbroad pageErrors={pageErrors} /> : null}
+        {step === 3 ? <Confirm pageErrors={pageErrors} /> : null}
+        {step === 4 ? <Receipt pageErrors={pageErrors} /> : null}
         <div className='mb-4 mt-4'>
           {step < 3 ? <Nav.Hovedknapp
             id='pinfo-forward-button'

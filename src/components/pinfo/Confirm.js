@@ -6,12 +6,12 @@ import StayAbroad from './StayAbroad/StayAbroad'
 
 class Confirm extends React.Component {
   render () {
-    const { pageError, onPageError } = this.props
+    const { pageErrors } = this.props
 
     return <React.Fragment>
-      <Person pageError={pageError} onPageError={onPageError} />
-      <Bank pageError={pageError} onPageError={onPageError} />
-      <StayAbroad pageError={pageError} onPageError={onPageError} />
+      <Person pageErrors={pageErrors} />
+      <Bank pageErrors={pageErrors} />
+      <StayAbroad pageErrors={pageErrors} />
     </React.Fragment>
   }
 }

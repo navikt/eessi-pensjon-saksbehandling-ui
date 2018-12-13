@@ -3,6 +3,7 @@ import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withNamespaces } from 'react-i18next'
+import _ from 'lodash'
 
 import * as Nav from '../ui/Nav'
 import PsychoPanel from '../ui/Psycho/PsychoPanel'
@@ -23,7 +24,14 @@ const mapDispatchToProps = (dispatch) => {
 
 class Person extends React.Component {
   state = {
-    error: {}
+    localErrors: {}
+  }
+
+
+  static getDerivedStateFromProps (newProps, oldState) {
+    return {
+      localErrors: newProps.pageErrors
+    }
   }
 
   constructor (props) {
@@ -50,23 +58,28 @@ class Person extends React.Component {
   }
 
   valueSetProperty (key, validateFunction, value) {
-    const { actions, onPageError } = this.props
+    const { actions } = this.props
+
+    let _localErrors = _.cloneDeep(this.state.localErrors)
+
     actions.setPerson({ [key]: value })
-    let error = validateFunction ? validateFunction(value) : ''
-    this.setState({
-      error: {
-        ...this.state.error,
-        [key]: error
-      }
-    })
-    if (error) {
-      onPageError(error)
+    let error = validateFunction ? validateFunction(value) : undefined
+
+    if (!error && _localErrors.hasOwnProperty(key)) {
+        delete _localErrors[key]
     }
+    if (error) {
+        _localErrors[key] = error
+    }
+
+    this.setState({
+      localErrors: _localErrors
+    })
   }
 
   render () {
-    const { pageError, t, person, locale } = this.props
-    const { error } = this.state
+    const { t, person, locale } = this.props
+    const { localErrors } = this.state
 
     return <div>
       <Nav.Row>
@@ -86,7 +99,7 @@ class Person extends React.Component {
             placeholder={t('ui:writeIn')}
             value={person.nameAtBirth || ''}
             onChange={this.setNameAtBirth}
-            feil={error.nameAtBirth && pageError ? { feilmelding: t(error.nameAtBirth) } : null}
+            feil={localErrors.nameAtBirth ? { feilmelding: t(localErrors.nameAtBirth) } : null}
           />
         </div>
       </Nav.Row>
@@ -99,7 +112,7 @@ class Person extends React.Component {
             placeholder={t('ui:writeIn')}
             value={person.previousName || ''}
             onChange={this.setPreviousName}
-            feil={error.previousName && pageError ? { feilmelding: t(error.previousName) } : null}
+            feil={localErrors.previousName ? { feilmelding: t(localErrors.previousName ) } : null}
           />
         </div>
       </Nav.Row>
@@ -119,7 +132,7 @@ class Person extends React.Component {
               placeholder={t('ui:writeIn')}
               value={person.id || ''}
               onChange={this.setId}
-              feil={error.id && pageError ? { feilmelding: t(error.id) } : null}
+              feil={localErrors.id ? { feilmelding: t(localErrors.id) } : null}
             />
           </div>
         </Nav.Row>
@@ -134,7 +147,7 @@ class Person extends React.Component {
                 placeholder={t('ui:writeIn')}
                 value={person.fatherName || ''}
                 onChange={this.setFatherName}
-                feil={error.fatherName && pageError ? { feilmelding: t(error.fatherName) } : null}
+                feil={localErrors.fatherName ? { feilmelding: t(localErrors.fatherName) } : null}
               />
             </div>
           </Nav.Row>
@@ -147,7 +160,7 @@ class Person extends React.Component {
                 placeholder={t('ui:writeIn')}
                 value={person.motherName || ''}
                 onChange={this.setMotherName}
-                feil={error.motherName && pageError ? { feilmelding: t(error.motherName) } : null}
+                feil={localErrors.motherName ? { feilmelding: t(localErrors.motherName) } : null}
               />
             </div>
           </Nav.Row>
@@ -160,8 +173,8 @@ class Person extends React.Component {
                 locale={locale}
                 value={person.country || null}
                 onSelect={this.setCountry}
-                error={error.country && pageError}
-                errorMessage={error.country}
+                error={localErrors.country}
+                errorMessage={t(localErrors.country)}
               />
             </div>
           </Nav.Row>
@@ -174,8 +187,7 @@ class Person extends React.Component {
                 placeholder={t('ui:writeIn')}
                 value={person.city || ''}
                 onChange={this.setCity}
-                feil={error.city && pageError ? { feilmelding: t(error.city) } : null}
-
+                feil={localErrors.city ? { feilmelding: t(localErrors.city) } : null}
               />
             </div>
           </Nav.Row>
@@ -188,7 +200,7 @@ class Person extends React.Component {
                 placeholder={t('pinfo:person-birthplace-area-placeholder')}
                 value={person.region || ''}
                 onChange={this.setRegion}
-                feil={error.region && pageError ? { feilmelding: t(error.region) } : null}
+                feil={localErrors.region ? { feilmelding: t(localErrors.region) } : null}
               />
             </div>
           </Nav.Row>
@@ -203,7 +215,7 @@ class Person extends React.Component {
             placeholder={t('ui:8numbers')}
             value={person.phone || ''}
             onChange={this.setPhone}
-            feil={error.phone && pageError ? { feilmelding: t(error.phone) } : null}
+            feil={localErrors.phone ? { feilmelding: t(localErrors.phone) } : null}
           />
         </div>
       </Nav.Row>
@@ -216,7 +228,7 @@ class Person extends React.Component {
             placeholder={t('ui:writeIn')}
             value={person.email || ''}
             onChange={this.setEmail}
-            feil={error.email && pageError ? { feilmelding: t(error.email) } : null}
+            feil={localErrors.email ? { feilmelding: t(localErrors.email) } : null}
           />
         </div>
       </Nav.Row>
@@ -226,10 +238,8 @@ class Person extends React.Component {
 
 Person.propTypes = {
   locale: PT.string,
-  phone: PT.string,
-  email: PT.string,
-  previousName: PT.string,
-  nameAtBirth: PT.string,
+  person: PT.object,
+  pageErrors: PT.object,
   t: PT.func
 }
 

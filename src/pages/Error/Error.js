@@ -13,8 +13,7 @@ class Error extends Component {
   render () {
     const { t, history, location, type } = this.props
 
-    let title, description, footer
-    footer = t('ui:error-footer')
+    let title, description
 
     switch (type) {
       case 'forbidden':

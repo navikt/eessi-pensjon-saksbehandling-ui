@@ -33,7 +33,7 @@ class StayAbroad extends React.Component {
   }
 
   render () {
-    const { t, stayAbroad, locale, onPageError } = this.props
+    const { t, stayAbroad, locale } = this.props
     const { _period } = this.state
 
     return <React.Fragment>
@@ -49,7 +49,6 @@ class StayAbroad extends React.Component {
           period={period}
           locale={locale}
           periods={stayAbroad}
-          onPageError={onPageError}
           editPeriod={this.setEditPeriod.bind(this)}
           key={period.id} />
       })}
@@ -58,7 +57,6 @@ class StayAbroad extends React.Component {
         mode={_.isEmpty(_period) ? 'new' : 'edit'}
         period={_period}
         locale={locale}
-        onPageError={onPageError}
         editPeriod={this.setEditPeriod.bind(this)}
       />
     </React.Fragment>

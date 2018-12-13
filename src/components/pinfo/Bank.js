@@ -39,7 +39,7 @@ class Bank extends React.Component {
   }
 
   valueSetProperty (key, validateFunction, value) {
-    const { actions, onPageError } = this.props
+    const { actions } = this.props
     actions.setBank({ [key]: value })
     let error = validateFunction(value)
     this.setState({
@@ -48,13 +48,10 @@ class Bank extends React.Component {
         [key]: error
       }
     })
-    if (error) {
-      onPageError(error)
-    }
   }
 
   render () {
-    const { pageError, t, bank, locale } = this.props
+    const { pageErrors, t, bank, locale } = this.props
     const { error } = this.state
 
     return <div>
@@ -69,7 +66,7 @@ class Bank extends React.Component {
             placeholder={t('ui:writeIn')}
             value={bank.bankName || ''}
             onChange={this.setBankName}
-            feil={error.bankName && pageError ? { feilmelding: t(error.bankName) } : null}
+            feil={error.bankName && pageErrors ? { feilmelding: t(error.bankName) } : null}
           />
         </div>
         <div className='col-md-6 mb-3'>
@@ -79,7 +76,7 @@ class Bank extends React.Component {
             locale={locale}
             value={bank.bankCountry || null}
             onSelect={this.setBankCountry}
-            error={error.bankCountry && pageError}
+            error={error.bankCountry && pageErrors}
             errorMessage={error.bankCountry}
           />
         </div>
@@ -92,7 +89,7 @@ class Bank extends React.Component {
             placeholder={t('ui:writeIn')}
             value={bank.bankBicSwift || ''}
             onChange={this.setBankBicSwift}
-            feil={error.bankBicSwift && pageError ? { feilmelding: t(error.bankBicSwift) } : null}
+            feil={error.bankBicSwift && pageErrors ? { feilmelding: t(error.bankBicSwift) } : null}
           />
         </div>
         <div className='col-md-6'>
@@ -102,7 +99,7 @@ class Bank extends React.Component {
             placeholder={t('ui:writeIn')}
             value={bank.bankIban || ''}
             onChange={this.setBankIban}
-            feil={error.bankIban && pageError ? { feilmelding: t(error.bankIban) } : null}
+            feil={error.bankIban && pageErrors ? { feilmelding: t(error.bankIban) } : null}
           />
         </div>
       </Nav.Row>
@@ -116,7 +113,7 @@ class Bank extends React.Component {
             style={{ minHeight: '100px' }}
             maxLength={100}
             onChange={this.setBankAddress}
-            feil={error.bankAddress && pageError ? { feilmelding: t(error.bankAddress) } : null}
+            feil={error.bankAddress && pageErrors ? { feilmelding: t(error.bankAddress) } : null}
           />
         </div>
       </Nav.Row>
