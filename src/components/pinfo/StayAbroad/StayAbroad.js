@@ -22,7 +22,6 @@ const mapDispatchToProps = (dispatch) => {
 
 class StayAbroad extends React.Component {
   state = {
-    error: {},
     _period: {}
   }
 

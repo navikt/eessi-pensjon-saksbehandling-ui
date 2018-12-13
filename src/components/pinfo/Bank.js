@@ -3,6 +3,7 @@ import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withNamespaces } from 'react-i18next'
+import _ from 'lodash'
 
 import * as Nav from '../ui/Nav'
 import CountrySelect from '../ui/CountrySelect/CountrySelect'
@@ -22,7 +23,18 @@ const mapDispatchToProps = (dispatch) => {
 
 class Bank extends React.Component {
   state = {
-    error: {}
+    localErrors: {},
+    errorTimestamp: new Date().getTime()
+  }
+
+  static getDerivedStateFromProps (newProps, oldState) {
+    if (newProps.errorTimestamp > oldState.errorTimestamp) {
+      return {
+        localErrors: newProps.pageErrors,
+        errorTimestamp : newProps.errorTimestamp
+      }
+    }
+    return null
   }
 
   constructor (props) {
@@ -40,19 +52,27 @@ class Bank extends React.Component {
 
   valueSetProperty (key, validateFunction, value) {
     const { actions } = this.props
+
+    let _localErrors = _.cloneDeep(this.state.localErrors)
+
     actions.setBank({ [key]: value })
-    let error = validateFunction(value)
+    let error = validateFunction ? validateFunction(value) : undefined
+
+    if (!error && _localErrors.hasOwnProperty(key)) {
+      delete _localErrors[key]
+    }
+    if (error) {
+      _localErrors[key] = error
+    }
+
     this.setState({
-      error: {
-        ...this.state.error,
-        [key]: error
-      }
+      localErrors: _localErrors
     })
   }
 
   render () {
-    const { pageErrors, t, bank, locale } = this.props
-    const { error } = this.state
+    const { t, bank, locale } = this.props
+    const { localErrors } = this.state
 
     return <div>
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:bank-title')}</Nav.Undertittel>
@@ -66,7 +86,7 @@ class Bank extends React.Component {
             placeholder={t('ui:writeIn')}
             value={bank.bankName || ''}
             onChange={this.setBankName}
-            feil={error.bankName && pageErrors ? { feilmelding: t(error.bankName) } : null}
+            feil={localErrors.bankName ? { feilmelding: t(localErrors.bankName) } : null}
           />
         </div>
         <div className='col-md-6 mb-3'>
@@ -76,8 +96,8 @@ class Bank extends React.Component {
             locale={locale}
             value={bank.bankCountry || null}
             onSelect={this.setBankCountry}
-            error={error.bankCountry && pageErrors}
-            errorMessage={error.bankCountry}
+            error={localErrors.bankCountry}
+            errorMessage={t(localErrors.bankCountry)}
           />
         </div>
       </Nav.Row>
@@ -89,7 +109,7 @@ class Bank extends React.Component {
             placeholder={t('ui:writeIn')}
             value={bank.bankBicSwift || ''}
             onChange={this.setBankBicSwift}
-            feil={error.bankBicSwift && pageErrors ? { feilmelding: t(error.bankBicSwift) } : null}
+            feil={localErrors.bankBicSwift ? { feilmelding: t(localErrors.bankBicSwift) } : null}
           />
         </div>
         <div className='col-md-6'>
@@ -99,7 +119,7 @@ class Bank extends React.Component {
             placeholder={t('ui:writeIn')}
             value={bank.bankIban || ''}
             onChange={this.setBankIban}
-            feil={error.bankIban && pageErrors ? { feilmelding: t(error.bankIban) } : null}
+            feil={localErrors.bankIban ? { feilmelding: t(localErrors.bankIban) } : null}
           />
         </div>
       </Nav.Row>
@@ -113,7 +133,7 @@ class Bank extends React.Component {
             style={{ minHeight: '100px' }}
             maxLength={100}
             onChange={this.setBankAddress}
-            feil={error.bankAddress && pageErrors ? { feilmelding: t(error.bankAddress) } : null}
+            feil={localErrors.bankAddress ? { feilmelding: t(localErrors.bankAddress) } : null}
           />
         </div>
       </Nav.Row>

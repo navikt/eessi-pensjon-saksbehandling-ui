@@ -31,8 +31,8 @@ const mapDispatchToProps = (dispatch) => {
 
 class Period extends React.Component {
   state = {
-    _error: undefined,
-    error: {},
+    localErrors: {},
+    errorTimestamp: new Date().getTime(),
     _period: {}
   }
 
@@ -69,18 +69,24 @@ class Period extends React.Component {
   }
 
   valueSetProperty (key, validateFunction, value) {
-    let error = validateFunction ? validateFunction(value) : ''
+
+    let _localErrors = _.cloneDeep(this.state.localErrors)
+
+    let error = validateFunction ? validateFunction(value) : undefined
+
+    if (!error && _localErrors.hasOwnProperty(key)) {
+      delete _localErrors[key]
+    }
+    if (error) {
+      _localErrors[key] = error
+    }
 
     this.setState({
       _period: {
         ...this.state._period,
         [key]: value
       },
-      error: {
-        ...this.state.error,
-        [key]: error
-      },
-      _error: error
+      localErrors: _localErrors
     })
   }
 
@@ -104,24 +110,24 @@ class Period extends React.Component {
     const { periods, actions } = this.props
     const { _period } = this.state
 
-    let validateError = this.validatePeriod()
-    if (validateError) {
-      return this.setState({
-        _error: validateError
+    let errors = this.validatePeriod()
+    this.setState({
+       localErrors: errors,
+       errorTimestamp: new Date().getTime()
+    })
+
+    if (_.isEmpty(errors)) {
+
+      let newPeriods = _.clone(periods)
+      let newPeriod = _.clone(_period)
+
+      newPeriod.id = new Date().getTime()
+      newPeriods.push(newPeriod)
+      actions.setStayAbroad(newPeriods)
+      this.setState({
+        _period: {}
       })
     }
-
-    let newPeriods = _.clone(periods)
-    let newPeriod = _.clone(_period)
-
-    newPeriod.id = new Date().getTime()
-    newPeriods.push(newPeriod)
-    actions.setStayAbroad(newPeriods)
-    this.setState({
-      _error: undefined,
-      error: {},
-      _period: {}
-    })
   }
 
   requestEditPeriod (period) {
@@ -130,32 +136,44 @@ class Period extends React.Component {
   }
 
   saveEditPeriod () {
-    const { periods, editPeriod, actions, errors } = this.props
+    const { periods, editPeriod, actions } = this.props
     const { _period } = this.state
 
-    let validateError = this.validatePeriod()
-    if (validateError) {
-      return this.setState({
-        _error: validateError
-      })
+    let errors = this.validatePeriod()
+    this.setState({
+      localErrors: errors,
+      errorTimestamp: new Date().getTime()
+    })
+
+    if (_.isEmpty(errors)) {
+
+      let newPeriods = _.clone(periods)
+      let newPeriod = _.clone(_period)
+      newPeriod.id = new Date().getTime()
+
+      let index = _.findIndex(periods, { id: _period.id })
+
+      if (index >= 0) {
+        newPeriods.splice(index, 1)
+        newPeriods.push(newPeriod)
+        actions.setStayAbroad(newPeriods)
+        this.setState({
+          _period: {}
+        })
+        editPeriod({})
+      }
     }
+  }
 
-    let newPeriods = _.clone(periods)
-    let newPeriod = _.clone(_period)
-    newPeriod.id = new Date().getTime()
+  cancelPeriod () {
+    const { editPeriod } = this.props
 
-    let index = _.findIndex(periods, { id: _period.id })
-
-    if (index >= 0) {
-      newPeriods.splice(index, 1)
-      newPeriods.push(newPeriod)
-      actions.setStayAbroad(newPeriods)
-      this.setState({
-        error: {},
-        _period: {}
-      })
-      editPeriod({})
-    }
+    this.setState({
+      localErrors: {},
+      _period: {},
+      errorTimestamp: new Date().getTime()
+    })
+    editPeriod({})
   }
 
   closeModal () {
@@ -193,9 +211,17 @@ class Period extends React.Component {
     actions.closeModal()
   }
 
+  errorMessage () {
+    const { localErrors } = this.state
+    let errorValues = _.values(localErrors)
+    return !_.isEmpty(errorValues) ? errorValues[0] : undefined
+  }
+
   render () {
     const { t, mode, period, locale, current, first, last } = this.props
-    const { error, _period } = this.state
+    const { localErrors, _period } = this.state
+
+    let errorMessage = this.errorMessage()
 
     switch (mode) {
       case 'view':
@@ -236,6 +262,7 @@ class Period extends React.Component {
       case 'edit':
       case 'new':
         return <React.Fragment>
+          {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
           <Nav.Row className={classNames('c-pinfo-opphold-period', mode)}>
             <div className='col-md-6'>
               <Nav.Select
@@ -272,7 +299,8 @@ class Period extends React.Component {
                   locale={locale}
                   placeholder={t('ui:dateFormat')}
                   onChange={this.setStartDate}
-                  error={error.startDateFail} />
+                  error={localErrors.startDate}
+                  errorMessage={t(localErrors.startDate)} />
               </div>
               <div className='col-md-6'>
                 <label>{t('pinfo:stayAbroad-period-end-date')}</label>
@@ -284,7 +312,8 @@ class Period extends React.Component {
                   locale={locale}
                   placeholder={t('ui:dateFormat')}
                   onChange={this.setEndDate}
-                  error={error.endDateFail} />
+                  error={localErrors.endDate}
+                  errorMessage={t(localErrors.endDate)} />
               </div>
             </Nav.Row>
             <Nav.Row>
@@ -296,8 +325,8 @@ class Period extends React.Component {
                   excludeList={['NO']}
                   value={_period.country || null}
                   onSelect={this.setCountry}
-                  error={error.country}
-                  errorMessage={error.country}
+                  error={localErrors.country}
+                  errorMessage={t(localErrors.country)}
                 />
               </div>
 
@@ -311,7 +340,7 @@ class Period extends React.Component {
                   placeholder={t('ui:writeIn')}
                   value={_period.insuranceName || ''}
                   onChange={this.setInsuranceName}
-                  feil={error.insuranceName ? { feilmelding: t(error.insuranceName) } : null}
+                  feil={localErrors.insuranceName ? { feilmelding: t(localErrors.insuranceName) } : null}
                 />
               </div>
               <div className='col-md-12'>
@@ -319,12 +348,14 @@ class Period extends React.Component {
                   id='pinfo-opphold-trygdeordning-type'
                   label={t('pinfo:stayAbroad-insurance-type')}
                   value={_period.insuranceType || ''}
-                  onChange={this.setInsuranceType}>
+                  onChange={this.setInsuranceType}
+                  feil={localErrors.insuranceType ? { feilmelding: t(localErrors.insuranceType) } : null}>
                   <option value=''>{t('ui:choose')}</option>
                   <option value={t('pinfo:stayAbroad-insurance-type-01')}>{t('pinfo:stayAbroad-insurance-type-01')}</option>
                   <option value={t('pinfo:stayAbroad-insurance-type-02')}>{t('pinfo:stayAbroad-insurance-type-02')}</option>
                   <option value={t('pinfo:stayAbroad-insurance-type-03')}>{t('pinfo:stayAbroad-insurance-type-03')}</option>
                 </Nav.Select>
+
               </div>
               <div className='col-md-12'>
                 <Nav.Undertittel className='mt-3 mb-3'>{t('pinfo:stayAbroad-home-title')}</Nav.Undertittel>
@@ -338,7 +369,7 @@ class Period extends React.Component {
                   style={{ minHeight: '100px' }}
                   maxLength={100}
                   onChange={this.setAddress}
-                  feil={error.address ? { feilmelding: t(error.address) } : null}
+                  feil={localErrors.address ? { feilmelding: t(localErrors.address) } : null}
 
                 />
               </div>
@@ -349,7 +380,7 @@ class Period extends React.Component {
                   value={_period.city || ''}
                   placeholder={t('ui:writeIn')}
                   onChange={this.setCity}
-                  feil={error.city ? { feilmelding: t(error.city) } : null}
+                  feil={localErrors.city ? { feilmelding: t(localErrors.city) } : null}
                 />
               </div>
               <div className='col-md-6'>
@@ -359,7 +390,7 @@ class Period extends React.Component {
                   value={_period.region || ''}
                   placeholder={t('ui:writeIn')}
                   onChange={this.setRegion}
-                  feil={error.region ? { feilmelding: t(error.region) } : null}
+                  feil={localErrors.region ? { feilmelding: t(localErrors.region) } : null}
                 />
               </div>
 
@@ -375,7 +406,7 @@ class Period extends React.Component {
                   placeholder={t('ui:writeIn')}
                   value={_period.workActivity || ''}
                   onChange={this.setWorkActivity}
-                  feil={error.workActivity ? { feilmelding: t(error.workActivity) } : null}
+                  feil={localErrors.workActivity ? { feilmelding: t(localErrors.workActivity) } : null}
                 />
               </div>
               <div className='col-md-6'>
@@ -385,7 +416,7 @@ class Period extends React.Component {
                   value={_period.workId || ''}
                   placeholder={t('ui:writeIn')}
                   onChange={this.setWorkId}
-                  feil={error.workId ? { feilmelding: t(error.workId) } : null}
+                  feil={localErrors.workId ? { feilmelding: t(localErrors.workId) } : null}
                 />
               </div>
               <div className='col-md-6'>
@@ -395,7 +426,7 @@ class Period extends React.Component {
                   placeholder={t('ui:writeIn')}
                   value={_period.workName || ''}
                   onChange={this.setWorkName}
-                  feil={error.workName ? { feilmelding: t(error.workName) } : null}
+                  feil={localErrors.workName ? { feilmelding: t(localErrors.workName) } : null}
                 />
               </div>
               <div className='col-md-6'>
@@ -405,7 +436,7 @@ class Period extends React.Component {
                   value={_period.workAddress || ''}
                   placeholder={t('ui:writeIn')}
                   onChange={this.setWorkAddress}
-                  feil={error.workAddress ? { feilmelding: t(error.workAddress) } : null}
+                  feil={localErrors.workAddress ? { feilmelding: t(localErrors.workAddress) } : null}
                 />
               </div>
               <div className='col-md-6'>
@@ -415,7 +446,7 @@ class Period extends React.Component {
                   value={_period.workCity || ''}
                   placeholder={t('ui:writeIn')}
                   onChange={this.setWorkCity}
-                  feil={error.workCity ? { feilmelding: t(error.workCity) } : null}
+                  feil={localErrors.workCity ? { feilmelding: t(localErrors.workCity) } : null}
                 />
               </div>
               <div className='col-md-6'>
@@ -425,7 +456,7 @@ class Period extends React.Component {
                   value={_period.workRegion || ''}
                   placeholder={t('ui:writeIn')}
                   onChange={this.setWorkRegion}
-                  feil={error.workRegion ? { feilmelding: t(error.workRegion) } : null}
+                  feil={localErrors.workRegion ? { feilmelding: t(localErrors.workRegion) } : null}
                 />
               </div>
             </Nav.Row> : null}
@@ -440,7 +471,7 @@ class Period extends React.Component {
                   placeholder={t('ui:writeIn')}
                   value={_period.childFirstName || ''}
                   onChange={this.setChildFirstName}
-                  feil={error.childFirstName ? { feilmelding: t(error.childFirstName) } : null}
+                  feil={localErrors.childFirstName ? { feilmelding: t(localErrors.childFirstName) } : null}
                 />
               </div>
               <div className='col-md-6'>
@@ -450,7 +481,7 @@ class Period extends React.Component {
                   value={_period.childLastName || ''}
                   placeholder={t('ui:writeIn')}
                   onChange={this.setChildLastName}
-                  feil={error.childLastName ? { feilmelding: t(error.childLastName) } : null}
+                  feil={localErrors.childLastName ? { feilmelding: t(localErrors.childLastName) } : null}
                 />
               </div>
               <div className='col-md-6'>
@@ -463,7 +494,8 @@ class Period extends React.Component {
                   locale={locale}
                   placeholder={t('ui:dateFormat')}
                   onChange={this.setChildBirthDate}
-                  error={error.childBirthDate} />
+                  error={localErrors.childBirthDate}
+                  errorMessage={t(localErrors.childBirthDate)} />
               </div>
             </Nav.Row> : null}
             {_period.type === 'learn' ? <Nav.Row>
@@ -477,7 +509,7 @@ class Period extends React.Component {
                   value={_period.learnInstitution || ''}
                   placeholder={t('ui:writeIn')}
                   onChange={this.setLearnInstitution}
-                  feil={error.learnInstitution ? { feilmelding: t(error.learnInstitution) } : null}
+                  feil={localErrors.learnInstitution ? { feilmelding: t(localErrors.learnInstitution) } : null}
                 />
               </div>
             </Nav.Row> : null}
@@ -510,6 +542,12 @@ class Period extends React.Component {
                   onClick={this.addPeriod.bind(this)}>
                   {t('ui:savePeriod')}
                 </Nav.Knapp> : null}
+                <Nav.Knapp
+                  id='pinfo-opphold-avbryt-button'
+                  className='ml-4 cancelPeriodButton'
+                  onClick={this.cancelPeriod.bind(this)}>
+                  {t('ui:cancel')}
+                </Nav.Knapp>
               </div>
             </Nav.Row>
           </React.Fragment> : null}

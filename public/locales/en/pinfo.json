@@ -115,6 +115,7 @@
     "validation-noId" : "No id",
     "validation-noCountry" : "No country",
     "validation-noCity" : "No city",
+    "validation-noAddress" : "No Address",
     "validation-noRegion" : "No region",
     "validation-noEmail" : "No user email",
     "validation-noPhone" : "No phone number",

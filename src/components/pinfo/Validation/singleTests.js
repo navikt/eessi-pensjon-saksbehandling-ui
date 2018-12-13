@@ -1,11 +1,11 @@
 import moment from 'moment'
 
 let isEmpty = function (value, error) {
-  return !value ? error : undefined
+  return !value || value === '' ? error : undefined
 }
 
 let isEmptyOrPatternMatch = function (value, error, pattern, patternError) {
-  return !value ? error : !pattern.test(value) ? patternError : undefined
+  return !value || value === '' ? error : !pattern.test(value) ? patternError : undefined
 }
 
 let isEmptyArray = function (value, error) {
@@ -52,6 +52,10 @@ let id = function (id) {
 
 let country = function (country) {
   return isEmpty(country, 'pinfo:validation-noCountry')
+}
+
+let address = function (address) {
+  return isEmpty(address, 'pinfo:validation-noAddress')
 }
 
 let city = function (city) {
@@ -190,6 +194,7 @@ export const periodValidation = {
   startDate,
   endDate,
   country,
+  address,
   city,
   region,
   insuranceName,

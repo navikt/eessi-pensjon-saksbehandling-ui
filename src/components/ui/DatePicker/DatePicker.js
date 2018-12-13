@@ -9,12 +9,12 @@ import 'react-datepicker/dist/react-datepicker.min.css'
 
 class DatePicker extends Component {
   render () {
-    const { selected, className, locale, error, onChange, id } = this.props
+    const { selected, className, locale, error, errorMessage, onChange, id } = this.props
 
     return <React.Fragment>
       <ReactDatePicker
         id={id}
-        customInput={<CustomInput {...this.props} />}
+        customInput={<CustomInput error={error !== undefined} {...this.props} />}
         selected={selected}
         className={classNames('input-group', className)}
         dateFormat='dd.MM.yyyy'
@@ -23,7 +23,7 @@ class DatePicker extends Component {
         dropdownMode='select'
         locale={locale}
         onChange={onChange} />
-      {error ? <div>{error}</div> : null}
+      {error ? <div className='skjemaelement__feilmelding'>{errorMessage}</div> : null}
     </React.Fragment>
   }
 }
@@ -33,6 +33,7 @@ DatePicker.propTypes = {
   className: PT.string,
   locale: PT.string,
   error: PT.string,
+  errorMessage : PT.string,
   onChange: PT.func.isRequired,
   id: PT.string
 }
