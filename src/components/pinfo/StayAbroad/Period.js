@@ -69,7 +69,6 @@ class Period extends React.Component {
   }
 
   valueSetProperty (key, validateFunction, value) {
-
     let error = validateFunction ? validateFunction(value) : ''
 
     this.setState({
@@ -107,7 +106,6 @@ class Period extends React.Component {
 
     let validateError = this.validatePeriod()
     if (validateError) {
-
       return this.setState({
         _error: validateError
       })

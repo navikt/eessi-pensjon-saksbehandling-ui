@@ -73,40 +73,40 @@ export function periodStep (period) {
   switch (period.type) {
     case 'work':
 
-    let workActivity = tests.periodValidation.workActivity(period.workActivity)
-    let workId = tests.periodValidation.workId(period.workId)
-    let workName = tests.periodValidation.workName(period.workName)
-    let workAddress = tests.periodValidation.workAddress(period.workAddress)
-    let workCity = tests.periodValidation.workCity(period.workCity)
-    let workRegion = tests.periodValidation.workRegion(period.workRegion)
+      let workActivity = tests.periodValidation.workActivity(period.workActivity)
+      let workId = tests.periodValidation.workId(period.workId)
+      let workName = tests.periodValidation.workName(period.workName)
+      let workAddress = tests.periodValidation.workAddress(period.workAddress)
+      let workCity = tests.periodValidation.workCity(period.workCity)
+      let workRegion = tests.periodValidation.workRegion(period.workRegion)
 
-    if (workActivity) errors.workActivity = workActivity
-    if (workId) errors.workId = workId
-    if (workName) errors.workName = workName
-    if (workAddress) errors.workAddress = workAddress
-    if (workCity) errors.workCity = workCity
-    if (workRegion) errors.workRegion = workRegion
-    break
+      if (workActivity) errors.workActivity = workActivity
+      if (workId) errors.workId = workId
+      if (workName) errors.workName = workName
+      if (workAddress) errors.workAddress = workAddress
+      if (workCity) errors.workCity = workCity
+      if (workRegion) errors.workRegion = workRegion
+      break
 
     case 'child':
 
-    let childFirstName = tests.periodValidation.childFirstName(period.childFirstName)
-    let childLastName = tests.periodValidation.childLastName(period.childLastName)
-    let childBirthDate = tests.periodValidation.childBirthDate(period.childBirthDate)
+      let childFirstName = tests.periodValidation.childFirstName(period.childFirstName)
+      let childLastName = tests.periodValidation.childLastName(period.childLastName)
+      let childBirthDate = tests.periodValidation.childBirthDate(period.childBirthDate)
 
-    if (childFirstName) errors.childFirstName = childFirstName
-    if (childLastName) errors.childLastName = childLastName
-    if (childBirthDate) errors.childBirthDate = childBirthDate
-    break
+      if (childFirstName) errors.childFirstName = childFirstName
+      if (childLastName) errors.childLastName = childLastName
+      if (childBirthDate) errors.childBirthDate = childBirthDate
+      break
 
     case 'learn':
 
-    let learnInstitution = tests.periodValidation.learnInstitution(period.learnInstitution)
-    if (learnInstitution) errors.learnInstitution = learnInstitution
-    break
+      let learnInstitution = tests.periodValidation.learnInstitution(period.learnInstitution)
+      if (learnInstitution) errors.learnInstitution = learnInstitution
+      break
 
     default:
-    break
+      break
   }
   return errors
 }

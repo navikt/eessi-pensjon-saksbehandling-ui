@@ -87,7 +87,7 @@ class PInfo extends React.Component {
     }
 
     if (_.isEmpty(errors)) {
-        actions.setStep(step + 1)
+      actions.setStep(step + 1)
     }
   }
 
@@ -158,7 +158,7 @@ class PInfo extends React.Component {
     if (this.state.doPageValidationOnForwardButton) {
       errors = this.validatePage(step)
       this.setState({
-         errors: errors
+        errors: errors
       })
     }
     if (_.isEmpty(errors)) {
@@ -168,9 +168,9 @@ class PInfo extends React.Component {
   }
 
   errorMessage () {
-     const { pageErrors } = this.state
-     let errorValues = _.values(pageErrors)
-     return !_.isEmpty(errorValues) ? errorValues[0] : undefined
+    const { pageErrors } = this.state
+    let errorValues = _.values(pageErrors)
+    return !_.isEmpty(errorValues) ? errorValues[0] : undefined
   }
 
   render () {

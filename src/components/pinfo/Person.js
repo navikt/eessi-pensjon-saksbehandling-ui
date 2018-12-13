@@ -27,7 +27,6 @@ class Person extends React.Component {
     localErrors: {}
   }
 
-
   static getDerivedStateFromProps (newProps, oldState) {
     return {
       localErrors: newProps.pageErrors
@@ -66,10 +65,10 @@ class Person extends React.Component {
     let error = validateFunction ? validateFunction(value) : undefined
 
     if (!error && _localErrors.hasOwnProperty(key)) {
-        delete _localErrors[key]
+      delete _localErrors[key]
     }
     if (error) {
-        _localErrors[key] = error
+      _localErrors[key] = error
     }
 
     this.setState({
@@ -112,7 +111,7 @@ class Person extends React.Component {
             placeholder={t('ui:writeIn')}
             value={person.previousName || ''}
             onChange={this.setPreviousName}
-            feil={localErrors.previousName ? { feilmelding: t(localErrors.previousName ) } : null}
+            feil={localErrors.previousName ? { feilmelding: t(localErrors.previousName) } : null}
           />
         </div>
       </Nav.Row>

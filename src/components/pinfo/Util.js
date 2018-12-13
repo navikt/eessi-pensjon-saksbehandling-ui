@@ -8,8 +8,8 @@ class Util {
 
   handleDate (period) {
     return {
-     fom: period.startDate ? this.writeDate(period.startDate) : null,
-     tom: period.endDate ? this.writeDate(period.endDate) : null
+      fom: period.startDate ? this.writeDate(period.startDate) : null,
+      tom: period.endDate ? this.writeDate(period.endDate) : null
     }
   }
 
@@ -27,14 +27,14 @@ class Util {
       region: period.region,
       trygdeordningnavn: period.insuranceName,
       medlemskap: period.insuranceType,
-      firmaBy : null,
+      firmaBy: null,
       firmaAddress: null,
-      firmaRegion : null,
+      firmaRegion: null,
       firmaLand: null,
       navnFirma: null,
-      jobbUnderAnsattEllerSelvstendig : null,
-      forsikringEllerRegistreringNr : null,
-      navnPaaInstitusjon : null
+      jobbUnderAnsattEllerSelvstendig: null,
+      forsikringEllerRegistreringNr: null,
+      navnPaaInstitusjon: null
     }
   }
 
