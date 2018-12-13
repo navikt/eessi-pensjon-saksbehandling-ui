@@ -6,6 +6,14 @@
 
     "alert-noSuchUser" : "No such user",
 
+    "error-notInvited-title" : "Not allowed",
+    "error-notInvited-description" : "Unfortunately, you do not have access to NAV's new service for simplified application processing for disability insurance in EEA countries.",
+    "error-forbidden-title" : "You are not allowed to visit this page",
+    "error-forbidden-description" : "EESSI pension is an application that will simplify work on foreign affairs for the pension area. From this application you can send and receive SED (structured electronic documents) to and from social security authorities in the EEA.<br/><br/>EESSI pension is only available as a trial version and all case handlers from abroad will be able to access this during this fall.",
+    "error-404-title" : "",
+    "error-404-description" : "To visit EESSI-pension, you have to login first",
+    "error-footer" : "If you have questions contact us",
+
     "loading-gettingRinaCase" : "Getting RINA case...",
     "loading-gettingStatus" : "Getting status...",
 

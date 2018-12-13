@@ -14,23 +14,20 @@ class Error extends Component {
     const { t, history, location, type } = this.props
 
     let title, description, footer
+    footer = t('ui:error-footer')
 
     switch(type) {
-
        case 'forbidden':
-          title = t('ui:forbidden')
-          description = t('ui:forbidden-description')
-          footer = t('ui:forbidden-footer')
+          title = t('ui:error-forbidden-title')
+          description = t('ui:error-forbidden-description')
           break
        case 'notInvited':
-          title = t('ui:notInvited')
-          description = t('ui:notInvited-description')
-          footer = t('ui:notInvited-footer')
+          title = t('ui:error-notInvited-title')
+          description = t('ui:error-notInvited-description')
           break
        default:
-          title = t('ui:error')
-          description = t('ui:error-description')
-          footer = t('ui:error-footer')
+          title = t('ui:error-404-title')
+          description = t('ui:error-404-description')
           break
     }
 
@@ -41,9 +38,11 @@ class Error extends Component {
           <Psycho type='trist' id='psycho'/>
         </div>
         <Nav.Undertittel className='m-4'>{title}</Nav.Undertittel>
-        <Nav.Normaltekst className='mb-4'>{description}</Nav.Normaltekst>
+        <Nav.Normaltekst className='mb-4'>
+          <div dangerouslySetInnerHTML={{ __html: description }}/>
+        </Nav.Normaltekst>
         <div className='line'/>
-        <Nav.Normaltekst className='mt-2 mb-4'>{footer}</Nav.Normaltekst>
+        <Nav.Normaltekst className='mt-2 mb-4'>{t('ui:error-footer')}</Nav.Normaltekst>
       </div>
     </TopContainer>
   }
