@@ -248,7 +248,7 @@ class PInfo extends React.Component {
       return <TopContainer className='p-pInfo'
         history={history} location={location}
         header={t('pinfo:app-title')}>
-        <WaitingPanel message='loading' />
+        <WaitingPanel className='mt-5' message='loading' />
       </TopContainer>
     }
 
@@ -288,7 +288,7 @@ class PInfo extends React.Component {
             id='pinfo-forward-button'
             className='forwardButton mb-2 mr-3'
             onClick={this.onForwardButtonClick.bind(this)}>
-            {t('confirmAndContinue')}
+            {t('saveAndContinue')}
           </Nav.Hovedknapp> : null}
           {step === 3 ? <Nav.Hovedknapp
             id='pinfo-send-button'

@@ -41,10 +41,6 @@ class Person extends React.Component {
     super(props)
     this.setNameAtBirth = this.eventSetProperty.bind(this, 'nameAtBirth', personValidation.nameAtBirth)
     this.setPreviousName = this.eventSetProperty.bind(this, 'previousName', personValidation.previousName)
-    this.setFatherName = this.eventSetProperty.bind(this, 'fatherName', personValidation.fatherName)
-    this.setMotherName = this.eventSetProperty.bind(this, 'motherName', personValidation.motherName)
-    this.setIdAbroad = this.checkboxSetProperty.bind(this, 'idAbroad', null)
-    this.setId = this.eventSetProperty.bind(this, 'id', personValidation.id)
     this.setCountry = this.valueSetProperty.bind(this, 'country', personValidation.country)
     this.setCity = this.eventSetProperty.bind(this, 'city', personValidation.city)
     this.setRegion = this.eventSetProperty.bind(this, 'region', personValidation.region)
@@ -113,95 +109,47 @@ class Person extends React.Component {
           />
         </div>
       </Nav.Row>
-      <Nav.Checkbox
-        id='pinfo-person-utenlandskpersonnummer-checkbox'
-        label={t('pinfo:person-info-idAbroad')}
-        checked={person.idAbroad}
-        name='setIdAbroad'
-        onChange={this.setIdAbroad} />
-      {person.idAbroad ? <React.Fragment>
-        <Nav.Row>
-          <div className='col-md-12'>
-            <Nav.Input
-              id='pinfo-person-utenlandskpersonnummer-input'
-              type='text'
-              label=''
-              placeholder={t('ui:writeIn')}
-              value={person.id || ''}
-              onChange={this.setId}
-              feil={localErrors.id ? { feilmelding: t(localErrors.id) } : null}
-            />
-          </div>
-        </Nav.Row>
-      </React.Fragment>
-        : <React.Fragment>
-          <Nav.Row>
-            <div className='col-sm-9'>
-              <Nav.Input
-                id='pinfo-person-farsnavn-input'
-                type='text'
-                label={t('pinfo:person-info-fathername')}
-                placeholder={t('ui:writeIn')}
-                value={person.fatherName || ''}
-                onChange={this.setFatherName}
-                feil={localErrors.fatherName ? { feilmelding: t(localErrors.fatherName) } : null}
-              />
-            </div>
-          </Nav.Row>
-          <Nav.Row>
-            <div className='col-sm-9'>
-              <Nav.Input
-                id='pinfo-person-morsnavn-input'
-                type='text'
-                label={t('pinfo:person-info-mothername')}
-                placeholder={t('ui:writeIn')}
-                value={person.motherName || ''}
-                onChange={this.setMotherName}
-                feil={localErrors.motherName ? { feilmelding: t(localErrors.motherName) } : null}
-              />
-            </div>
-          </Nav.Row>
-          <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-birthplace-title')}</Nav.Undertittel>
-          <Nav.Row>
-            <div className='col-md-6 mb-4'>
-              <label className='skjemaelement__label'>{t('pinfo:person-birthplace-country')}</label>
-              <CountrySelect
-                id='pinfo-person-land-select'
-                locale={locale}
-                value={person.country || null}
-                onSelect={this.setCountry}
-                error={localErrors.country}
-                errorMessage={t(localErrors.country)}
-              />
-            </div>
-          </Nav.Row>
-          <Nav.Row>
-            <div className='col-sm-9'>
-              <Nav.Input
-                id='pinfo-person-by-input'
-                type='text'
-                label={t('pinfo:person-birthplace-city')}
-                placeholder={t('ui:writeIn')}
-                value={person.city || ''}
-                onChange={this.setCity}
-                feil={localErrors.city ? { feilmelding: t(localErrors.city) } : null}
-              />
-            </div>
-          </Nav.Row>
-          <Nav.Row>
-            <div className='col-sm-9'>
-              <Nav.Input
-                id='pinfo-person-region-input'
-                type='text'
-                label={t('pinfo:person-birthplace-area')}
-                placeholder={t('pinfo:person-birthplace-area-placeholder')}
-                value={person.region || ''}
-                onChange={this.setRegion}
-                feil={localErrors.region ? { feilmelding: t(localErrors.region) } : null}
-              />
-            </div>
-          </Nav.Row>
-        </React.Fragment>}
+
+      <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-birthplace-title')}</Nav.Undertittel>
+      <Nav.Row>
+        <div className='col-md-6 mb-4'>
+          <label className='skjemaelement__label'>{t('pinfo:person-birthplace-country')}</label>
+          <CountrySelect
+            id='pinfo-person-land-select'
+            locale={locale}
+            value={person.country || null}
+            onSelect={this.setCountry}
+            error={localErrors.country}
+            errorMessage={t(localErrors.country)}
+          />
+        </div>
+      </Nav.Row>
+      <Nav.Row>
+        <div className='col-sm-9'>
+          <Nav.Input
+            id='pinfo-person-by-input'
+            type='text'
+            label={t('pinfo:person-birthplace-city')}
+            placeholder={t('ui:writeIn')}
+            value={person.city || ''}
+            onChange={this.setCity}
+            feil={localErrors.city ? { feilmelding: t(localErrors.city) } : null}
+          />
+        </div>
+      </Nav.Row>
+      <Nav.Row>
+        <div className='col-sm-9'>
+          <Nav.Input
+            id='pinfo-person-region-input'
+            type='text'
+            label={t('pinfo:person-birthplace-area')}
+            placeholder={t('pinfo:person-birthplace-area-placeholder')}
+            value={person.region || ''}
+            onChange={this.setRegion}
+            feil={localErrors.region ? { feilmelding: t(localErrors.region) } : null}
+          />
+        </div>
+      </Nav.Row>
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-contact-title')}</Nav.Undertittel>
       <Nav.Row>
         <div className='col-sm-4'>

@@ -4,9 +4,7 @@ let initialState = {
   isReady: false,
   step: 0,
   maxStep: 0,
-  person: {
-    idAbroad: true
-  },
+  person: {},
   bank: {},
   stayAbroad: [],
   work: {},

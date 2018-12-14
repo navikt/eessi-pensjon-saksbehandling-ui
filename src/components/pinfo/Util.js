@@ -27,27 +27,22 @@ class Util {
       region: period.region,
       trygdeordningnavn: period.insuranceName,
       medlemskap: period.insuranceType,
-      firmaBy: null,
-      firmaAddress: null,
-      firmaRegion: null,
-      firmaLand: null,
-      navnFirma: null,
-      jobbUnderAnsattEllerSelvstendig: null,
-      forsikringEllerRegistreringNr: null,
-      navnPaaInstitusjon: null
+      forsikringId: period.insuranceId,
+      firmaBy: period.workCity,
+      firmaAddress: period.workAddress,
+      firmaRegion: period.workRegion,
+      firmaLand: this.handleCountry(period.country),
+      navnFirma: period.workName,
+      jobbUnderAnsattEllerSelvstendig: period.workActivity,
+      forsikringEllerRegistreringNr: period.workId,
+      navnPaaInstitusjon: period.learnInstitution,
+      farsNavn: period.fatherName,
+      morsNavn: period.motherName
     }
   }
 
   handleWorkPeriod (period) {
-    let newPeriod = this.handleGenericPeriod(period)
-    newPeriod.firmaBy = period.workCity
-    newPeriod.firmaAdresse = period.workAddress
-    newPeriod.firmaRegion = period.workRegion
-    newPeriod.firmaLand = this.handleCountry(period.country)
-    newPeriod.forsikringEllerRegistreringNr = period.workId
-    newPeriod.jobbUnderAnsattEllerSelvstendig = period.workActivity
-    newPeriod.navnFirma = period.workName
-    return newPeriod
+    return this.handleGenericPeriod(period)
   }
 
   handleChildPeriod (period) {
@@ -59,9 +54,7 @@ class Util {
   }
 
   handleLearnPeriod (period) {
-    let newPeriod = this.handleGenericPeriod(period)
-    newPeriod.navnPaaInstitusjon = period.learnInstitution
-    return newPeriod
+    return this.handleGenericPeriod(period)
   }
 
   generatePayload (pinfo) {
@@ -76,10 +69,6 @@ class Util {
     return {
       'etternavnVedFodsel': person.lastNameAtBirth,
       'tidligereNavn': person.previousName,
-      'utenlandskPersonnummer': person.idAbroad,
-      'personnummer': person.id,
-      'farsNavn': person.fatherName,
-      'morsNavn': person.motherName,
       'fodestedBy': person.city,
       'fodestedLand': person.country ? this.handleCountry(person.country) : null,
       'provinsEllerDepartement': person.region,

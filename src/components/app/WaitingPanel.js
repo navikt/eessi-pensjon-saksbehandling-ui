@@ -7,9 +7,9 @@ import * as Nav from '../ui/Nav'
 
 class WaitingPanel extends Component {
   render () {
-    const { t, message } = this.props
+    const { t, message, className } = this.props
 
-    return <div className={classNames('text-center')}>
+    return <div className={classNames('text-center', className)}>
       <Nav.NavFrontendSpinner />
       <p className='typo-normal'>{t(message)}</p>
     </div>
@@ -17,7 +17,8 @@ class WaitingPanel extends Component {
 }
 
 WaitingPanel.propTypes = {
-  message: PT.string.isRequired
+  message: PT.string.isRequired,
+  className: PT.string
 }
 
 export default withNamespaces()(WaitingPanel)

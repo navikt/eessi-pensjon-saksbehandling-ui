@@ -38,18 +38,6 @@ let previousName = function (previousName) {
     /^[^\d]+$/, 'pinfo:validation-invalidName')
 }
 
-let fatherName = function (fatherName) {
-  return patternMatchIfNotEmpty(fatherName, /^[^\d]+$/, 'pinfo:validation-invalidFatherName')
-}
-
-let motherName = function (motherName) {
-  return patternMatchIfNotEmpty(motherName, /^[^\d]+$/, 'pinfo:validation-invalidMotherName')
-}
-
-let id = function (id) {
-  return isEmpty(id, 'pinfo:validation-noId')
-}
-
 let country = function (country) {
   return isEmpty(country, 'pinfo:validation-noCountry')
 }
@@ -71,9 +59,6 @@ export const personValidation = {
   phone,
   email,
   previousName,
-  fatherName,
-  motherName,
-  id,
   country,
   city,
   region
@@ -136,12 +121,24 @@ let endDate = function (endDate) {
   return endDate && endDate > new Date().getTime() ? 'pinfo:validation-invalidEndDate' : undefined
 }
 
+let fatherName = function (fatherName) {
+  return patternMatchIfNotEmpty(fatherName, /^[^\d]+$/, 'pinfo:validation-invalidFatherName')
+}
+
+let motherName = function (motherName) {
+  return patternMatchIfNotEmpty(motherName, /^[^\d]+$/, 'pinfo:validation-invalidMotherName')
+}
+
 let insuranceName = function (insuranceName) {
   return isEmpty(insuranceName, 'pinfo:validation-noInsuranceName')
 }
 
 let insuranceType = function (insuranceType) {
   return isEmpty(insuranceType, 'pinfo:validation-noInsuranceType')
+}
+
+let insuranceId = function (insuranceId) {
+  return isEmpty(insuranceId, 'pinfo:validation-noInsuranceId')
 }
 
 let workActivity = function (workActivity) {
@@ -199,6 +196,7 @@ export const periodValidation = {
   region,
   insuranceName,
   insuranceType,
+  insuranceId,
   workActivity,
   workId,
   workName,
@@ -208,7 +206,9 @@ export const periodValidation = {
   childFirstName,
   childLastName,
   childBirthDate,
-  learnInstitution
+  learnInstitution,
+  fatherName,
+  motherName
 }
 
 // WORK AND INCOME

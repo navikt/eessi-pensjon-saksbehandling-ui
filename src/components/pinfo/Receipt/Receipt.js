@@ -66,30 +66,19 @@ class Receipt extends React.Component {
           <dd className='col-8'> {person.nameAtBirth || ''} </dd>
           <dt className='col-4'> {t('pinfo:person-info-previousName')} </dt>
           <dd className='col-8'> {person.previousName || ''} </dd>
-          <dt className='col-4'> {t('pinfo:person-info-idAbroad')} </dt>
-          <dd className='col-8'> {person.idAbroad ? '✓' : '✗'} </dd>
-          {person.idAbroad ? <React.Fragment>
-            <dt className='col-4'> {t('pinfo:person-info-id')} </dt>
-            <dd className='col-8'> {person.id || ''} </dd>
-          </React.Fragment> : <React.Fragment>
-            <dt className='col-4'> {t('pinfo:person-info-fathername')} </dt>
-            <dd className='col-8'> {person.fatherName || ''} </dd>
-            <dt className='col-4'> {t('pinfo:person-info-mothername')} </dt>
-            <dd className='col-8'> {person.motherName || ''} </dd>
-            <dt className='col-4'> {t('pinfo:person-birthplace-country')} </dt>
-            <dd className='col-8'>
-              {person.country ? <React.Fragment>
-                <img src={'../../../../../flags/' + person.country.value + '.png'}
-                  style={{ width: 20, height: 15, marginRight: '0.5rem' }}
-                  alt={person.country.label} />
-                {person.country.label}
-              </React.Fragment> : null}
-            </dd>
-            <dt className='col-4'> {t('pinfo:person-birthplace-city')} </dt>
-            <dd className='col-8'> {person.city || ''} </dd>
-            <dt className='col-4'> {t('pinfo:person-birthplace-area')} </dt>
-            <dd className='col-8'> {person.region || ''} </dd>
-          </React.Fragment>}
+          <dt className='col-4'> {t('pinfo:person-birthplace-country')} </dt>
+          <dd className='col-8'>
+            {person.country ? <React.Fragment>
+              <img src={'../../../../../flags/' + person.country.value + '.png'}
+                style={{ width: 20, height: 15, marginRight: '0.5rem' }}
+                alt={person.country.label} />
+              {person.country.label}
+            </React.Fragment> : null}
+          </dd>
+          <dt className='col-4'> {t('pinfo:person-birthplace-city')} </dt>
+          <dd className='col-8'> {person.city || ''} </dd>
+          <dt className='col-4'> {t('pinfo:person-birthplace-area')} </dt>
+          <dd className='col-8'> {person.region || ''} </dd>
           <dt className='col-4'> {t('pinfo:person-contact-phoneNumber')} </dt>
           <dd className='col-8'> {person.phone || ''} </dd>
           <dt className='col-4'> {t('pinfo:person-contact-email')} </dt>

@@ -112,6 +112,7 @@ class Bank extends React.Component {
             onChange={this.setBankBicSwift}
             feil={localErrors.bankBicSwift ? { feilmelding: t(localErrors.bankBicSwift) } : null}
           />
+          <div className='mb-4 italic'>{t('pinfo:bank-bicSwift-help')}</div>
         </div>
         <div className='col-md-6'>
           <Nav.Input
@@ -122,6 +123,7 @@ class Bank extends React.Component {
             onChange={this.setBankIban}
             feil={localErrors.bankIban ? { feilmelding: t(localErrors.bankIban) } : null}
           />
+          <div className='mb-4 italic'>{t('pinfo:bank-iban-help')}</div>
         </div>
       </Nav.Row>
       <Nav.Row>

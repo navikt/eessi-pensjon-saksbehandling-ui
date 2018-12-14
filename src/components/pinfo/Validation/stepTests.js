@@ -4,9 +4,6 @@ export function personStep (person) {
   let errors = {}
   let nameAtBirth = tests.personValidation.nameAtBirth(person.nameAtBirth)
   let previousName = tests.personValidation.previousName(person.previousName)
-  let id = tests.personValidation.id(person.id)
-  let fatherName = tests.personValidation.fatherName(person.fatherName)
-  let motherName = tests.personValidation.motherName(person.motherName)
   let country = tests.personValidation.country(person.country)
   let city = tests.personValidation.city(person.city)
   let region = tests.personValidation.region(person.region)
@@ -15,15 +12,9 @@ export function personStep (person) {
 
   if (nameAtBirth) errors.nameAtBirth = nameAtBirth
   if (previousName) errors.previousName = previousName
-  if (person.idAbroad) {
-    if (id) errors.id = id
-  } else {
-    if (fatherName) errors.fatherName = fatherName
-    if (motherName) errors.motherName = motherName
-    if (country) errors.country = country
-    if (city) errors.city = city
-    if (region) errors.region = region
-  }
+  if (country) errors.country = country
+  if (city) errors.city = city
+  if (region) errors.region = region
   if (phone) errors.phone = phone
   if (email) errors.email = email
   return errors
@@ -58,19 +49,25 @@ export function periodStep (period) {
   let endDate = tests.periodValidation.endDate(period.endDate)
   let insuranceName = tests.periodValidation.insuranceName(period.insuranceName)
   let insuranceType = tests.periodValidation.insuranceType(period.insuranceType)
+  let insuranceId = tests.periodValidation.insuranceId(period.insuranceId)
   let address = tests.periodValidation.address(period.address)
   let city = tests.periodValidation.city(period.city)
   let region = tests.periodValidation.region(period.region)
   let country = tests.periodValidation.country(period.country)
+  let fatherName = tests.periodValidation.fatherName(period.fatherName)
+  let motherName = tests.periodValidation.motherName(period.motherName)
 
   if (startDate) errors.startDate = startDate
   if (endDate) errors.endDate = endDate
   if (insuranceName) errors.insuranceName = insuranceName
   if (insuranceType) errors.insuranceType = insuranceType
+  if (insuranceId) errors.insuranceId = insuranceId
   if (address) errors.address = address
   if (city) errors.city = city
   if (region) errors.region = region
   if (country) errors.country = country
+  if (fatherName) errors.fatherName = fatherName
+  if (motherName) errors.motherName = motherName
 
   switch (period.type) {
     case 'work':
