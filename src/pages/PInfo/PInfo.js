@@ -52,7 +52,7 @@ const mapDispatchToProps = (dispatch) => {
 class PInfo extends React.Component {
   state = {
     doPageValidationOnForwardButton: true,
-    doPageValidationOnStepIndicator: true,
+    doPageValidationOnStepIndicator: false,
     pageErrors: {},
     fileList: undefined,
     file: undefined,
@@ -136,7 +136,7 @@ class PInfo extends React.Component {
       return false
     }
 
-    if (nextStep > maxStep) {
+    if (this.state.doPageValidationOnStepIndicator && nextStep > maxStep) {
       this.setState({
         stepIndicatorError: 'pinfo:alert-stepTooHigh'
       })

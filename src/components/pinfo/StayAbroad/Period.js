@@ -23,8 +23,8 @@ import './Period.css'
 
 const mapStateToProps = (state) => {
   return {
-     pinfo: state.pinfo,
-     username : state.app.username
+    pinfo: state.pinfo,
+    username: state.app.username
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -245,8 +245,8 @@ class Period extends React.Component {
                 <span className='bold existingPeriodType'>{t('pinfo:stayAbroad-category-' + period.type)}</span>
                 <span>
                   <img src={'../../../../../flags/' + period.country.value + '.png'}
-                     style={{ width: 20, height: 15, marginLeft: '0.7rem' }}
-                     alt={period.country.label} />
+                    style={{ width: 20, height: 15, marginLeft: '0.7rem' }}
+                    alt={period.country.label} />
                 </span>
                 <br />
                 <span className='existingPeriodDates'>
@@ -310,9 +310,9 @@ class Period extends React.Component {
                 <span>
                   <span className='bold'>{t('pinfo:stayAbroad-country')}</span>{': '}
                   <img src={'../../../../../flags/' + period.country.value + '.png'}
-                   style={{ width: 30, height: 20, marginRight: '1rem' }}
-                   alt={period.country.label} />
-                 {period.country.label}
+                    style={{ width: 30, height: 20, marginRight: '1rem' }}
+                    alt={period.country.label} />
+                  {period.country.label}
                 </span>
                 <br />
 
@@ -324,7 +324,7 @@ class Period extends React.Component {
 
                 <span>
                   <span className='bold'>{t('pinfo:stayAbroad-home-title')}</span>{': '}
-                  {period.address}<br/>
+                  {period.address}<br />
                   {period.region}{' - '}{period.region}
                 </span>
                 <br />
@@ -334,21 +334,21 @@ class Period extends React.Component {
                   {period.workActivity}
                   <br />
                   <span className='bold'>{t('pinfo:stayAbroad-work-id')}</span>{': '}
-                    {period.workId}
-                    <br />
+                  {period.workId}
+                  <br />
                   <span className='bold'>{t('pinfo:stayAbroad-work-name')}</span>{': '}
-                    {period.workName}
-                    <br />
+                  {period.workName}
+                  <br />
                   <span className='bold'>{t('pinfo:stayAbroad-work-address')}</span>{': '}
-                    {period.workAddress}
-                    <br />
-                   <span className='bold'>{t('pinfo:stayAbroad-work-city')}</span>{': '}
-                     {period.workCity}
-                     <br />
-                   <span className='bold'>{t('pinfo:stayAbroad-work-region')}</span>{': '}
-                     {period.workRegion}
-                     <br />
-                 </React.Fragment> : null }
+                  {period.workAddress}
+                  <br />
+                  <span className='bold'>{t('pinfo:stayAbroad-work-city')}</span>{': '}
+                  {period.workCity}
+                  <br />
+                  <span className='bold'>{t('pinfo:stayAbroad-work-region')}</span>{': '}
+                  {period.workRegion}
+                  <br />
+                </React.Fragment> : null }
 
                 {period.type === 'learn' ? <React.Fragment>
                   <span className='bold'>{t('pinfo:stayAbroad-learn-institution')}</span>{': '}
@@ -356,7 +356,7 @@ class Period extends React.Component {
                   <br />
                 </React.Fragment> : null }
                 {period.attachments && !_.isEmpty(period.attachments) ? <span className='existingPeriodAttachments'>
-                  {t('pinfo:stayAbroad-attachments')}{': '}
+                  <span className='bold'>{t('pinfo:stayAbroad-attachments')}</span>{': '}
                   {period.attachments.map(att => { return att.name }).join(', ')}
                 </span> : null}
               </div>

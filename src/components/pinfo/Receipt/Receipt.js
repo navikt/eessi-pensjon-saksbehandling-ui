@@ -54,7 +54,7 @@ class Receipt extends React.Component {
       <PsychoPanel closeButton>
         <p>{t('pinfo:receipt-veileder')}</p>
       </PsychoPanel>
-      <div id='divToPrint'>
+      <div className='mt-4' id='divToPrint'>
         <header className='mb-4'>
           <img alt='logo' src={navLogo} />
           <div className='dots' />
@@ -68,23 +68,28 @@ class Receipt extends React.Component {
           <dd className='col-8'> {person.previousName || ''} </dd>
           <dt className='col-4'> {t('pinfo:person-info-idAbroad')} </dt>
           <dd className='col-8'> {person.idAbroad ? '✓' : '✗'} </dd>
-          <dt className='col-4'> {t('pinfo:person-info-fathername')} </dt>
-          <dd className='col-8'> {person.fatherName || ''} </dd>
-          <dt className='col-4'> {t('pinfo:person-info-mothername')} </dt>
-          <dd className='col-8'> {person.motherName || ''} </dd>
-          <dt className='col-4'> {t('pinfo:person-birthplace-country')} </dt>
-          <dd className='col-8'>
-            {person.country ? <React.Fragment>
-              <img src={'../../../../../flags/' + person.country.value + '.png'}
-                style={{ width: 30, height: 20, marginRight: '1rem' }}
-                alt={person.country.label} />
-              {person.country.label}
-            </React.Fragment> : null}
-          </dd>
-          <dt className='col-4'> {t('pinfo:person-birthplace-city')} </dt>
-          <dd className='col-8'> {person.city || ''} </dd>
-          <dt className='col-4'> {t('pinfo:person-birthplace-area')} </dt>
-          <dd className='col-8'> {person.region || ''} </dd>
+          {person.idAbroad ? <React.Fragment>
+            <dt className='col-4'> {t('pinfo:person-info-id')} </dt>
+            <dd className='col-8'> {person.id || ''} </dd>
+          </React.Fragment> : <React.Fragment>
+            <dt className='col-4'> {t('pinfo:person-info-fathername')} </dt>
+            <dd className='col-8'> {person.fatherName || ''} </dd>
+            <dt className='col-4'> {t('pinfo:person-info-mothername')} </dt>
+            <dd className='col-8'> {person.motherName || ''} </dd>
+            <dt className='col-4'> {t('pinfo:person-birthplace-country')} </dt>
+            <dd className='col-8'>
+              {person.country ? <React.Fragment>
+                <img src={'../../../../../flags/' + person.country.value + '.png'}
+                  style={{ width: 20, height: 15, marginRight: '0.5rem' }}
+                  alt={person.country.label} />
+                {person.country.label}
+              </React.Fragment> : null}
+            </dd>
+            <dt className='col-4'> {t('pinfo:person-birthplace-city')} </dt>
+            <dd className='col-8'> {person.city || ''} </dd>
+            <dt className='col-4'> {t('pinfo:person-birthplace-area')} </dt>
+            <dd className='col-8'> {person.region || ''} </dd>
+          </React.Fragment>}
           <dt className='col-4'> {t('pinfo:person-contact-phoneNumber')} </dt>
           <dd className='col-8'> {person.phone || ''} </dd>
           <dt className='col-4'> {t('pinfo:person-contact-email')} </dt>
@@ -121,19 +126,20 @@ class Receipt extends React.Component {
               key={period.id} />
           })}
         </div>
-        <a className='hiddenLink' ref={item => { this.downloadLink = item }}
-          onClick={(e) => e.stopPropagation()} title={t('ui:download')}
-          href='#download'
-          download={'kvittering.pdf'}>{t('ui:download')}</a>
-        <Nav.Knapp
-          id='pinfo-receipt-generate-button'
-          className='generateButton m-4'
-          disabled={generatingPDF}
-          spinner={generatingPDF}
-          onClick={this.onReceiptRequest.bind(this)}>
-          {generatingPDF ? t('ui:generating') : t('ui:getReceipt')}
-        </Nav.Knapp>
       </div>
+
+      <a className='hiddenLink' ref={item => { this.downloadLink = item }}
+        onClick={(e) => e.stopPropagation()} title={t('ui:download')}
+        href='#download'
+        download={'kvittering.pdf'}>{t('ui:download')}</a>
+      <Nav.Knapp
+        id='pinfo-receipt-generate-button'
+        className='generateButton m-4'
+        disabled={generatingPDF}
+        spinner={generatingPDF}
+        onClick={this.onReceiptRequest.bind(this)}>
+        {generatingPDF ? t('ui:generating') : t('ui:getReceipt')}
+      </Nav.Knapp>
     </div>
   }
 }

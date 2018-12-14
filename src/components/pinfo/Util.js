@@ -77,7 +77,7 @@ class Util {
       'etternavnVedFodsel': person.lastNameAtBirth,
       'tidligereNavn': person.previousName,
       'utenlandskPersonnummer': person.idAbroad,
-      'personnummer' : person.id,
+      'personnummer': person.id,
       'farsNavn': person.fatherName,
       'morsNavn': person.motherName,
       'fodestedBy': person.city,

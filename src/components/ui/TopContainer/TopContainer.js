@@ -68,7 +68,7 @@ TopContainer.propTypes = {
   className: PT.string,
   style: PT.object,
   droppables: PT.object,
-  file: PT.oneOfType([PT.object,PT.string]),
+  file: PT.oneOfType([PT.object, PT.string]),
   sideContent: PT.object,
   history: PT.object.isRequired
 }
