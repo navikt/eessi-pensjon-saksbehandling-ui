@@ -24,7 +24,7 @@ export default function (state = initialState, action = {}) {
 
     case types.STORAGE_LIST_FAILURE: {
       return Object.assign({}, state, {
-         fileList: []
+        fileList: []
       })
     }
 

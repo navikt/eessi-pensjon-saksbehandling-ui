@@ -9,7 +9,7 @@ class CustomInput extends Component {
       <input
         id={id}
         type='text'
-        className={classNames('form-control', {'skjemaelement__input--harFeil' : error})}
+        className={classNames('form-control', { 'skjemaelement__input--harFeil': error })}
         placeholder={placeholder}
         onChange={onChange}
         value={value} />

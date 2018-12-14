@@ -6,7 +6,6 @@ import { withNamespaces } from 'react-i18next'
 import _ from 'lodash'
 
 import * as Nav from '../ui/Nav'
-import PsychoPanel from '../ui/Psycho/PsychoPanel'
 import CountrySelect from '../ui/CountrySelect/CountrySelect'
 
 import { personValidation } from './Validation/singleTests'
@@ -32,7 +31,7 @@ class Person extends React.Component {
     if (newProps.errorTimestamp > oldState.errorTimestamp) {
       return {
         localErrors: newProps.pageErrors,
-        errorTimestamp : newProps.errorTimestamp
+        errorTimestamp: newProps.errorTimestamp
       }
     }
     return null
@@ -86,13 +85,6 @@ class Person extends React.Component {
     const { localErrors } = this.state
 
     return <div>
-      <Nav.Row>
-        <Nav.Column xs='12'>
-          <PsychoPanel id='pinfo-person-psycho-panel' className='mb-4' closeButton>
-            <span>{t('pinfo:psycho-description')}</span>
-          </PsychoPanel>
-        </Nav.Column>
-      </Nav.Row>
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-info-title')}</Nav.Undertittel>
       <Nav.Row>
         <div className='col-sm-9'>
@@ -216,7 +208,7 @@ class Person extends React.Component {
             id='pinfo-person-telefonnummer-input'
             type='tel'
             label={t('pinfo:person-contact-phoneNumber')}
-            placeholder={t('ui:8numbers')}
+            placeholder={t('ui:writeIn')}
             value={person.phone || ''}
             onChange={this.setPhone}
             feil={localErrors.phone ? { feilmelding: t(localErrors.phone) } : null}
@@ -231,7 +223,7 @@ class Person extends React.Component {
             label={t('pinfo:person-contact-email')}
             placeholder={t('ui:writeIn')}
             value={person.email || ''}
-            onChange={this.setEmail}
+            onBlur={this.setEmail}
             feil={localErrors.email ? { feilmelding: t(localErrors.email) } : null}
           />
         </div>

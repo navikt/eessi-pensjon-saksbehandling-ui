@@ -33,7 +33,7 @@ DatePicker.propTypes = {
   className: PT.string,
   locale: PT.string,
   error: PT.string,
-  errorMessage : PT.string,
+  errorMessage: PT.string,
   onChange: PT.func.isRequired,
   id: PT.string
 }

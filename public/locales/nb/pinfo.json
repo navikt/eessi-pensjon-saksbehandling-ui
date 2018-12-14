@@ -165,5 +165,6 @@
     "alert-leavePInfo": "Avbryt søknad",
     "alert-areYouSureLeavePInfo" : "Er du sikkert at du vil avbryt med ubehandlede endringer?",
     "alert-deletePeriod" : "Slett periode",
-    "alert-areYouSureDeletePeriod" : "Er du sikkert at du vil slett periode?"
+    "alert-areYouSureDeletePeriod" : "Er du sikkert at du vil slett periode?",
+    "alert-stepTooHigh" : "Du kan bare bruke disse linkene til å navigere på tidligere sett steg (max steg: {{maxStep}})"
 }

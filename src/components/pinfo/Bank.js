@@ -31,7 +31,7 @@ class Bank extends React.Component {
     if (newProps.errorTimestamp > oldState.errorTimestamp) {
       return {
         localErrors: newProps.pageErrors,
-        errorTimestamp : newProps.errorTimestamp
+        errorTimestamp: newProps.errorTimestamp
       }
     }
     return null
@@ -92,6 +92,7 @@ class Bank extends React.Component {
         <div className='col-md-6 mb-3'>
           <label className='skjemaelement__label'>{t('pinfo:bank-country')}</label>
           <CountrySelect
+            placeholder={t('ui:writeIn')}
             id='pinfo-bank-country-select'
             locale={locale}
             value={bank.bankCountry || null}

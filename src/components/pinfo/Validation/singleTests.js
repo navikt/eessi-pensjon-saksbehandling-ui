@@ -25,7 +25,7 @@ let nameAtBirth = function (nameAtBirth) {
 
 let phone = function (phone) {
   return isEmptyOrPatternMatch(phone, 'pinfo:validation-noPhone',
-    /\+?[\d]+[\d\s-]*/, 'pinfo:validation-invalidPhone')
+    /^[\w]+$/, 'pinfo:validation-invalidPhone')
 }
 
 let email = function (email) {

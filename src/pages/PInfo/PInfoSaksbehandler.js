@@ -34,14 +34,20 @@ const mapDispatchToProps = (dispatch) => {
 
 class PInfoSaksbehandler extends React.Component {
   state = {
-    isReady: false
+    isReady: false,
+    noParams: false
   }
 
   componentDidMount () {
-    let { actions, aktoerId, fileList } = this.props
+    let { actions, aktoerId, saksId, fileList } = this.props
 
     if (aktoerId && fileList === undefined) {
       actions.listStorageFiles(aktoerId, 'varsler')
+    }
+    if (!aktoerId || !saksId) {
+      this.setState({
+        noParams: true
+      })
     }
   }
 
@@ -65,7 +71,15 @@ class PInfoSaksbehandler extends React.Component {
 
   render () {
     const { t, location, history, fileList } = this.props
-    const { isReady } = this.state
+    const { isReady, noParams } = this.state
+
+    if (noParams) {
+      return <TopContainer className='p-pInfo' history={history} location={location} header={t('pinfo:app-title')}>
+        <div className='text-center'>
+          <p className='typo-normal'>{'Please provide saksId/saksNr or fnr/aktoerId'}</p>
+        </div>
+      </TopContainer>
+    }
 
     if (!isReady) {
       return <TopContainer className='p-pInfo' history={history} location={location} header={t('pinfo:app-title')}>

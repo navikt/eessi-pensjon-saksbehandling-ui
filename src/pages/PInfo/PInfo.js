@@ -22,7 +22,6 @@ import * as globalTests from '../../components/pinfo/Validation/globalTests'
 import PInfoUtil from '../../components/pinfo/Util'
 import * as routes from '../../constants/routes'
 
-
 import * as storageActions from '../../actions/storage'
 import * as pinfoActions from '../../actions/pinfo'
 import * as uiActions from '../../actions/ui'
@@ -40,7 +39,7 @@ const mapStateToProps = (state) => {
     isSendingPinfo: state.loading.isSendingPinfo,
     fileList: state.storage.fileList,
     file: state.storage.file,
-    username :state.app.username,
+    username: state.app.username
 
   }
 }
@@ -52,14 +51,15 @@ const mapDispatchToProps = (dispatch) => {
 class PInfo extends React.Component {
   state = {
     doPageValidationOnForwardButton: true,
-    doPageValidationOnStepIndicator: false,
+    doPageValidationOnStepIndicator: true,
     pageErrors: {},
     fileList: undefined,
-    file: undefined
+    file: undefined,
+    stepIndicatorError: undefined,
+    maxStep: 0
   }
 
   componentDidMount () {
-
     const { actions, username } = this.props
 
     window.hj('trigger', 'e207-feedback-no')
@@ -70,6 +70,9 @@ class PInfo extends React.Component {
     const { receipt, actions, username, step, fileList, file } = this.props
     if (receipt && step === 3) {
       actions.setStep(4)
+      this.setState({
+        maxStep: 4
+      })
     }
     if (fileList !== undefined && this.state.fileList === undefined) {
       if (!_.isEmpty(fileList)) {
@@ -78,19 +81,19 @@ class PInfo extends React.Component {
         actions.setReady()
       }
       this.setState({
-        fileList : fileList
+        fileList: fileList
       })
     }
     if (file !== undefined && this.state.file === undefined) {
-       if (!_.isEmpty(file)) {
-          let _file = JSON.parse(file)
-          actions.restoreState(_file)
-       } else {
-         actions.setReady()
-       }
-       this.setState({
-         file : file
-       })
+      if (!_.isEmpty(file)) {
+        let _file = JSON.parse(file)
+        actions.restoreState(_file)
+      } else {
+        actions.setReady()
+      }
+      this.setState({
+        file: file
+      })
     }
   }
 
@@ -113,6 +116,7 @@ class PInfo extends React.Component {
 
   onForwardButtonClick () {
     const { actions, step } = this.props
+    const { maxStep } = this.state
 
     let errors = {}
     if (this.state.doPageValidationOnForwardButton) {
@@ -125,14 +129,42 @@ class PInfo extends React.Component {
 
     if (_.isEmpty(errors)) {
       actions.setStep(step + 1)
+      if (step + 1 > maxStep) {
+        this.setState({
+          maxStep: step + 1
+        })
+      }
     }
   }
 
-  onStepIndicatorClick (newStep) {
+  onStepIndicatorBeforeChange (nextStep) {
+    const { step, actions } = this.props
+    const { maxStep } = this.state
+
+    if (nextStep === step) {
+      return false
+    }
+
+    if (nextStep > maxStep) {
+      this.setState({
+        stepIndicatorError: 'pinfo:alert-stepTooHigh'
+      })
+      return false
+    }
+
+    this.setState({
+      stepIndicatorError: undefined
+    })
+    actions.setStep(nextStep)
+    return true
+  }
+
+  onStepIndicatorChange (newStep) {
     const { actions, step } = this.props
+    const { maxStep } = this.state
 
     let errors = {}
-    if (this.state.doPageValidationOnStepIndicator) {
+    if (newStep > step && this.state.doPageValidationOnStepIndicator) {
       errors = this.validatePage(step)
       return this.setState({
         pageErrors: errors,
@@ -142,6 +174,11 @@ class PInfo extends React.Component {
 
     if (_.isEmpty(errors)) {
       actions.setStep(newStep)
+    }
+    if (newStep > maxStep) {
+      this.setState({
+        maxStep: newStep
+      })
     }
   }
 
@@ -156,10 +193,10 @@ class PInfo extends React.Component {
   }
 
   doCancel () {
-    const { actions, history, pinfo, username,  } = this.props
-    this.state
+    const { actions, history, pinfo, username } = this.props
+
     actions.closeModal()
-    actions.postStorageFile (username, 'PINFO', 'PINFO', JSON.stringify(pinfo))
+    actions.postStorageFile(username, 'PINFO', 'PINFO', JSON.stringify(pinfo))
     actions.clearData()
     history.push(routes.ROOT)
   }
@@ -217,7 +254,7 @@ class PInfo extends React.Component {
 
   render () {
     const { t, history, location, step, isSendingPinfo, isReady } = this.props
-    const { pageErrors, errorTimestamp } = this.state
+    const { pageErrors, maxStep, errorTimestamp, stepIndicatorError } = this.state
 
     let errorMessage = this.errorMessage()
 
@@ -233,27 +270,33 @@ class PInfo extends React.Component {
       history={history} location={location}
       header={t('pinfo:app-title')}>
       { step !== 4
-        ? <Nav.Stegindikator
-          className='mt-4 mb-4'
-          aktivtSteg={step}
-          visLabel
-          onChange={this.onStepIndicatorClick.bind(this)}
-          autoResponsiv
-          steg={_.range(0, 5).map(index => ({
-            label: t('pinfo:form-step' + index),
-            ferdig: index < step,
-            aktiv: index === step
-          }))}
-        /> : null}
-
+        ? <React.Fragment>
+          <Nav.Stegindikator
+            className='mt-4 mb-4'
+            aktivtSteg={step}
+            visLabel
+            onBeforeChange={this.onStepIndicatorBeforeChange.bind(this)}
+            onChange={this.onStepIndicatorChange.bind(this)}
+            autoResponsiv
+            steg={_.range(0, 5).map(index => ({
+              label: t('pinfo:form-step' + index),
+              ferdig: index < step,
+              aktiv: index === step
+            }))}
+          />
+          {stepIndicatorError ? <div className='w-100 text-center mb-2'>
+            <Nav.Ikon size={16} kind='advarsel-trekant' />
+            <span className='ml-2'>{t(stepIndicatorError, {maxStep: (maxStep + 1)})}</span>
+          </div> : null}
+        </React.Fragment> : null}
       {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
       <div className='col-md-2' />
       <div className={classNames('fieldset animate', 'mb-4', 'col-md-8')}>
         {step === 0 ? <Person pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
-        {step === 1 ? <Bank pageErrors={pageErrors} errorTimestamp={errorTimestamp}/> : null}
-        {step === 2 ? <StayAbroad pageErrors={pageErrors} errorTimestamp={errorTimestamp}/> : null}
-        {step === 3 ? <Confirm pageErrors={pageErrors} errorTimestamp={errorTimestamp}/> : null}
-        {step === 4 ? <Receipt pageErrors={pageErrors} errorTimestamp={errorTimestamp}/> : null}
+        {step === 1 ? <Bank pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
+        {step === 2 ? <StayAbroad pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
+        {step === 3 ? <Confirm pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
+        {step === 4 ? <Receipt pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
         <div className='mb-4 mt-4'>
           {step < 3 ? <Nav.Hovedknapp
             id='pinfo-forward-button'
@@ -269,20 +312,21 @@ class PInfo extends React.Component {
             onClick={this.onSendButtonClick.bind(this)}>
             {isSendingPinfo ? t('sending') : t('confirmAndSend')}
           </Nav.Hovedknapp> : null}
-          {step > 0 ? <Nav.Knapp
+          {step > 0 && step < 4 ? <Nav.Knapp
             id='pinfo-back-button'
             className='backButton mb-2 mr-3'
             onClick={this.onBackButtonClick.bind(this)}>
             {t('back')}
           </Nav.Knapp> : null}
-          <Nav.KnappBase
+          { step < 4 ? <Nav.KnappBase
             id='pinfo-cancel-button'
             type='flat'
             className='cancelButton mb-2 mr-3'
             onClick={this.onCancelButtonClick.bind(this)}>
             {t('cancel')}
-          </Nav.KnappBase>
+          </Nav.KnappBase> : null}
         </div>
+        {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
       </div>
 
     </TopContainer>

@@ -54,18 +54,6 @@ class Receipt extends React.Component {
       <PsychoPanel closeButton>
         <p>{t('pinfo:receipt-veileder')}</p>
       </PsychoPanel>
-      <a className='hiddenLink' ref={item => { this.downloadLink = item }}
-        onClick={(e) => e.stopPropagation()} title={t('ui:download')}
-        href='#download'
-        download={'kvittering.pdf'}>{t('ui:download')}</a>
-      <Nav.Knapp
-        id='pinfo-receipt-generate-button'
-        className='generateButton m-4'
-        disabled={generatingPDF}
-        spinner={generatingPDF}
-        onClick={this.onReceiptRequest.bind(this)}>
-        {generatingPDF ? t('ui:generating') : t('ui:getReceipt')}
-      </Nav.Knapp>
       <div id='divToPrint'>
         <header className='mb-4'>
           <img alt='logo' src={navLogo} />
@@ -133,6 +121,18 @@ class Receipt extends React.Component {
               key={period.id} />
           })}
         </div>
+        <a className='hiddenLink' ref={item => { this.downloadLink = item }}
+          onClick={(e) => e.stopPropagation()} title={t('ui:download')}
+          href='#download'
+          download={'kvittering.pdf'}>{t('ui:download')}</a>
+        <Nav.Knapp
+          id='pinfo-receipt-generate-button'
+          className='generateButton m-4'
+          disabled={generatingPDF}
+          spinner={generatingPDF}
+          onClick={this.onReceiptRequest.bind(this)}>
+          {generatingPDF ? t('ui:generating') : t('ui:getReceipt')}
+        </Nav.Knapp>
       </div>
     </div>
   }

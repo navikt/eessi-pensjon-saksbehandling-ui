@@ -21,17 +21,26 @@ export default function (state = initialState, action = {}) {
 
     case types.PINFO_PERSON_SET:
       return Object.assign({}, state, {
-        person: action.payload
+        person: {
+          ...state.person,
+          ...action.payload
+        }
       })
 
     case types.PINFO_WORK_SET:
       return Object.assign({}, state, {
-        work: action.payload
+        work: {
+          ...state.work,
+          ...action.payload
+        }
       })
 
     case types.PINFO_BANK_SET:
       return Object.assign({}, state, {
-        bank: action.payload
+        bank: {
+          ...state.bank,
+          ...action.payload
+        }
       })
 
     case types.PINFO_STAY_ABROAD_SET:
@@ -52,7 +61,7 @@ export default function (state = initialState, action = {}) {
     case types.PINFO_SET_READY:
 
       return Object.assign({}, state, {
-         isReady: true
+        isReady: true
       })
 
     case types.PINFO_SEND_FAILURE:
@@ -62,7 +71,7 @@ export default function (state = initialState, action = {}) {
       })
 
     case types.PINFO_STATE_RESTORE: {
-       return Object.assign({}, initialState, {isReady: true}, action.payload)
+      return Object.assign({}, initialState, { isReady: true }, action.payload)
     }
 
     case types.APP_CLEAR_DATA:

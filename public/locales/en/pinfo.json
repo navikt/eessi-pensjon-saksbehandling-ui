@@ -167,5 +167,6 @@
     "alert-leavePInfo": "Leaving application unsaved",
     "alert-areYouSureLeavePInfo" : "Are you sure you want to leave the application unsaved?",
     "alert-deletePeriod" : "Delete period",
-    "alert-areYouSureDeletePeriod" : "Are you sure you want to delete this period?"
+    "alert-areYouSureDeletePeriod" : "Are you sure you want to delete this period?",
+    "alert-stepTooHigh" : "You can only use these links to navigate on previously seen steps (max step: {{maxStep}})"
 }

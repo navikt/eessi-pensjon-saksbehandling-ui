@@ -69,7 +69,6 @@ class Period extends React.Component {
   }
 
   valueSetProperty (key, validateFunction, value) {
-
     let _localErrors = _.cloneDeep(this.state.localErrors)
 
     let error = validateFunction ? validateFunction(value) : undefined
@@ -112,12 +111,11 @@ class Period extends React.Component {
 
     let errors = this.validatePeriod()
     this.setState({
-       localErrors: errors,
-       errorTimestamp: new Date().getTime()
+      localErrors: errors,
+      errorTimestamp: new Date().getTime()
     })
 
     if (_.isEmpty(errors)) {
-
       let newPeriods = _.clone(periods)
       let newPeriod = _.clone(_period)
 
@@ -146,7 +144,6 @@ class Period extends React.Component {
     })
 
     if (_.isEmpty(errors)) {
-
       let newPeriods = _.clone(periods)
       let newPeriod = _.clone(_period)
       newPeriod.id = new Date().getTime()

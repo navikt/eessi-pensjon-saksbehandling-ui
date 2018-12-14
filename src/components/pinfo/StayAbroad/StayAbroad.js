@@ -32,7 +32,7 @@ class StayAbroad extends React.Component {
   }
 
   render () {
-    const { t, stayAbroad, locale } = this.props
+    const { t, stayAbroad, locale, mode } = this.props
     const { _period } = this.state
 
     return <React.Fragment>
@@ -51,20 +51,21 @@ class StayAbroad extends React.Component {
           editPeriod={this.setEditPeriod.bind(this)}
           key={period.id} />
       })}
-      <Period t={t}
+      {mode !== 'view' ? <Period t={t}
         periods={stayAbroad}
         mode={_.isEmpty(_period) ? 'new' : 'edit'}
         period={_period}
         locale={locale}
         editPeriod={this.setEditPeriod.bind(this)}
-      />
+      /> : null}
     </React.Fragment>
   }
 }
 
 StayAbroad.propTypes = {
   locale: PT.string,
-  t: PT.func
+  t: PT.func,
+  mode: PT.string
 }
 
 export default connect(
