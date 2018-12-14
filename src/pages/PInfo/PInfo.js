@@ -22,6 +22,7 @@ import * as globalTests from '../../components/pinfo/Validation/globalTests'
 import PInfoUtil from '../../components/pinfo/Util'
 import * as routes from '../../constants/routes'
 
+import * as constants from '../../constants/constants'
 import * as storageActions from '../../actions/storage'
 import * as pinfoActions from '../../actions/pinfo'
 import * as uiActions from '../../actions/ui'
@@ -71,8 +72,8 @@ class PInfo extends React.Component {
       actions.setStep(4)
     }
     if (fileList !== undefined && this.state.fileList === undefined) {
-      if (!_.isEmpty(fileList)) {
-        actions.getStorageFile(username, 'PINFO', 'PINFO.json')
+      if (!_.isEmpty(fileList) && fileList.indexOf('PINFO.json') >= 0) {
+        actions.getStorageFile(username, constants.PINFO, constants.PINFO_FILE)
       } else {
         actions.setReady()
       }
@@ -123,7 +124,7 @@ class PInfo extends React.Component {
     }
 
     if (_.isEmpty(errors)) {
-      actions.postStorageFile(username, 'PINFO', 'PINFO.json', JSON.stringify(pinfo))
+      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
       actions.setStep(step + 1)
     }
   }
@@ -146,7 +147,7 @@ class PInfo extends React.Component {
       stepIndicatorError: undefined
     })
     actions.setStep(nextStep)
-    actions.postStorageFile(username, 'PINFO', 'PINFO.json', JSON.stringify(pinfo))
+    actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
     return true
   }
 
@@ -181,7 +182,7 @@ class PInfo extends React.Component {
     const { actions, history, pinfo, username } = this.props
 
     actions.closeModal()
-    actions.postStorageFile(username, 'PINFO', 'PINFO.json', JSON.stringify(pinfo))
+    actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
     actions.clearData()
     history.push(routes.ROOT)
   }

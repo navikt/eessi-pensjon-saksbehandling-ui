@@ -14,6 +14,7 @@ import * as stepTests from '../Validation/stepTests'
 import * as Nav from '../../ui/Nav'
 import Icons from '../../ui/Icons'
 
+import * as constants from '../../../constants/constants'
 import * as uiActions from '../../../actions/ui'
 import * as pinfoActions from '../../../actions/pinfo'
 import * as storageActions from '../../../actions/storage'
@@ -128,7 +129,7 @@ class Period extends React.Component {
       })
       let _pinfo = _.cloneDeep(pinfo)
       _pinfo.stayAbroad = newPeriods
-      actions.postStorageFile(username, 'PINFO', 'PINFO', JSON.stringify(_pinfo))
+      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
     }
   }
 
@@ -164,7 +165,7 @@ class Period extends React.Component {
         editPeriod({})
         let _pinfo = _.cloneDeep(pinfo)
         _pinfo.stayAbroad = newPeriods
-        actions.postStorageFile(username, 'PINFO', 'PINFO', JSON.stringify(_pinfo))
+        actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
       }
     }
   }
@@ -213,7 +214,7 @@ class Period extends React.Component {
       actions.setStayAbroad(newPeriods)
       let _pinfo = _.cloneDeep(pinfo)
       _pinfo.stayAbroad = newPeriods
-      actions.postStorageFile(username, 'PINFO', 'PINFO', JSON.stringify(_pinfo))
+      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
     }
     actions.closeModal()
   }

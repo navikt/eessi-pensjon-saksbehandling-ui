@@ -4,7 +4,8 @@ import * as api from './api'
 
 export function login () {
   let redirectUrl = urls.APP_LOGIN_URL
-  window.location.href = redirectUrl
+  window.location.href = redirectUrl + '&context=' +
+    encodeURIComponent(window.location.pathname + window.location.search)
   return {
     type: types.APP_LOGIN_REQUEST
   }
