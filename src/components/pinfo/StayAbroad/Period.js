@@ -8,6 +8,7 @@ import classNames from 'classnames'
 
 import DatePicker from '../../ui/DatePicker/DatePicker'
 import CountrySelect from '../../ui/CountrySelect/CountrySelect'
+import * as CountryFilter from '../../ui/CountrySelect/CountryFilter'
 import FileUpload from '../../ui/FileUpload/FileUpload'
 import { periodValidation } from '../Validation/singleTests'
 import * as stepTests from '../Validation/stepTests'
@@ -430,7 +431,8 @@ class Period extends React.Component {
                   <CountrySelect
                     id='pinfo-opphold-land-select'
                     locale={locale}
-                    excludeList={['NO']}
+                    excludeList={CountryFilter.NO}
+                    includeList={CountryFilter.EEA}
                     value={_period.country || null}
                     onSelect={this.setCountry}
                     error={localErrors.country}

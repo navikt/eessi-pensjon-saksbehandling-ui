@@ -1,6 +1,6 @@
 {
-    "app-title" : "Information about your staying abroad",
-    "app-startPinfo" : "Information about your staying abroad",
+    "app-title" : "Information about your staying in EEA countries",
+    "app-startPinfo" : "Information about your staying in EEA countries",
 
     "psycho-description": "This page is for those who had previously stayed in EU countries. Here you can send more information that NAV needs to proceed with your application",
 
@@ -25,8 +25,8 @@
     "bank-iban" : "IBAN / Account number",
     "bank-iban-help": "Visit your bank\'s website to find your IBAN number",
 
-    "stayAbroad-title" : "Information on stay abroad",
-    "stayAbroad-description" : "Give more information related to your staying time abroad",
+    "stayAbroad-title" : "Information on stay in EEA countries",
+    "stayAbroad-description" : "Give more information related to your staying time in EEA countries",
     "stayAbroad-choose-category" : "Choose category",
     "stayAbroad-previousPeriods" : "Previously added periods",
     "stayAbroad-category" : "Category",
@@ -105,7 +105,7 @@
 
     "form-step0": "Personal information",
     "form-step1": "Bank and account",
-    "form-step2": "Situation abroad",
+    "form-step2": "Situation in EEA countries",
     "form-step3": "Confirm",
     "form-step4": "Receipt",
 
@@ -139,7 +139,7 @@
     "validation-noWorkIncomeCurrency" : "No work income currency",
     "validation-noWorkPaymentDate" : "No work payment date",
     "validation-noWorkPaymentFrequency" : "No work payment frequency",
-    "validation-atLeastOnePeriod" : "Add at least one period abroad",
+    "validation-atLeastOnePeriod" : "Add at least one period in EEA countries",
     "validation-noPeriodType": "No period type",
     "validation-invalidPeriodType": "Invalid period type",
     "validation-noStartDate": "No start date",

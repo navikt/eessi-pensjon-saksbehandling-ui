@@ -1,6 +1,6 @@
 {
-    "app-title" : "Opplysninger om opphold i utland",
-    "app-startPinfo" : "Opplysninger om opphold i utland",
+    "app-title" : "Opplysninger om opphold i EØS-land",
+    "app-startPinfo" : "Opplysninger om opphold i EØS-land",
 
     "psycho-description": "Denne siden er for deg som har hatt opphold i EØS-land. Her kan du sende inn opplysninger som NAV trenger for å videresende din søknad",
     "person-info-title": "Personopplysninger",
@@ -24,8 +24,8 @@
     "bank-iban" : "Kontonummer / IBAN",
     "bank-iban-help": "Gå til din banks hjemmeside for å finne ditt IBAN-nummer",
 
-    "stayAbroad-title" : "Opplysninger om opphold i utlandet",
-    "stayAbroad-description" : "Angi opplysninger relatert til tilbakelagte perioder i utlandet",
+    "stayAbroad-title" : "Opplysninger om opphold i EØS-land",
+    "stayAbroad-description" : "Angi opplysninger relatert til tilbakelagte perioder i EØS-land",
     "stayAbroad-choose-category" : "Velg kategori/arbeidets art",
     "stayAbroad-previousPeriods" : "Tilbakelagte perioder",
     "stayAbroad-category" : "Kategori",
@@ -104,7 +104,7 @@
 
     "form-step0": "Personopplysninger",
     "form-step1": "Bank og konto",
-    "form-step2": "Opphold i utlandet",
+    "form-step2": "Opphold i EØS-land",
     "form-step3": "Godkjenn",
     "form-step4": "Kvittering",
 
@@ -137,7 +137,7 @@
     "validation-noWorkIncomeCurrency" : "No work income currency",
     "validation-noWorkPaymentDate" : "No work payment date",
     "validation-noWorkPaymentFrequency" : "No work payment frequency",
-    "validation-atLeastOnePeriod" : "Legg til minst en oppholdsperiod i utland",
+    "validation-atLeastOnePeriod" : "Legg til minst en oppholdsperiod i EØS-land",
     "validation-noPeriodType": "Ingen periode type",
     "validation-invalidPeriodType": "Ugyldig periode type",
     "validation-noStartDate": "Ingen startsddato",
