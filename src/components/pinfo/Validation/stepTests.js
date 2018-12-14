@@ -49,7 +49,10 @@ export function periodStep (period) {
   let endDate = tests.periodValidation.endDate(period.endDate)
   let insuranceName = tests.periodValidation.insuranceName(period.insuranceName)
   let insuranceType = tests.periodValidation.insuranceType(period.insuranceType)
-  let insuranceId = tests.periodValidation.insuranceId(period.insuranceId)
+  let insuranceId
+  if (period.type !== 'work') {
+    insuranceId = tests.periodValidation.insuranceId(period.insuranceId)
+  }
   let address = tests.periodValidation.address(period.address)
   let city = tests.periodValidation.city(period.city)
   let region = tests.periodValidation.region(period.region)

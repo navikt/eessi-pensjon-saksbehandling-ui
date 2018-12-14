@@ -49,6 +49,7 @@
     "stayAbroad-period-mothername": "Mors etternavn og fornavn",
     "stayAbroad-insurance-title" : "Institusjon eller trygdeordning",
     "stayAbroad-insurance-name" : "Navn",
+    "stayAbroad-insurance-id" : "Trygdenummer/ID-nummer",
     "stayAbroad-insurance-type" : "Medlemskap i trygdeordning",
     "stayAbroad-insurance-type-01" : "Pliktig medlemskap",
     "stayAbroad-insurance-type-02" : "Frivilig medlemskap",
