@@ -16,15 +16,18 @@ import Icons from '../../ui/Icons'
 
 import * as uiActions from '../../../actions/ui'
 import * as pinfoActions from '../../../actions/pinfo'
+import * as storageActions from '../../../actions/storage'
 
 import './Period.css'
 
 const mapStateToProps = (state) => {
   return {
+     pinfo: state.pinfo,
+     username : state.app.username
   }
 }
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, pinfoActions, uiActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, storageActions, pinfoActions, uiActions), dispatch) }
 }
 
 class Period extends React.Component {
@@ -104,7 +107,7 @@ class Period extends React.Component {
   }
 
   addPeriod () {
-    const { periods, actions } = this.props
+    const { periods, actions, pinfo, username } = this.props
     const { _period } = this.state
 
     let errors = this.validatePeriod()
@@ -123,6 +126,9 @@ class Period extends React.Component {
       this.setState({
         _period: {}
       })
+      let _pinfo = _.cloneDeep(pinfo)
+      _pinfo.stayAbroad = newPeriods
+      actions.postStorageFile(username, 'PINFO', 'PINFO', JSON.stringify(_pinfo))
     }
   }
 
@@ -132,7 +138,7 @@ class Period extends React.Component {
   }
 
   saveEditPeriod () {
-    const { periods, editPeriod, actions } = this.props
+    const { periods, editPeriod, actions, pinfo, username } = this.props
     const { _period } = this.state
 
     let errors = this.validatePeriod()
@@ -156,6 +162,9 @@ class Period extends React.Component {
           _period: {}
         })
         editPeriod({})
+        let _pinfo = _.cloneDeep(pinfo)
+        _pinfo.stayAbroad = newPeriods
+        actions.postStorageFile(username, 'PINFO', 'PINFO', JSON.stringify(_pinfo))
       }
     }
   }
@@ -194,7 +203,7 @@ class Period extends React.Component {
   }
 
   doRemovePeriod (period) {
-    const { periods, actions } = this.props
+    const { periods, actions, pinfo, username } = this.props
 
     let index = _.findIndex(periods, { id: period.id })
 
@@ -202,6 +211,9 @@ class Period extends React.Component {
       let newPeriods = _.clone(periods)
       newPeriods.splice(index, 1)
       actions.setStayAbroad(newPeriods)
+      let _pinfo = _.cloneDeep(pinfo)
+      _pinfo.stayAbroad = newPeriods
+      actions.postStorageFile(username, 'PINFO', 'PINFO', JSON.stringify(_pinfo))
     }
     actions.closeModal()
   }
@@ -221,7 +233,7 @@ class Period extends React.Component {
     switch (mode) {
       case 'view':
         return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode, { 'current': current })}>
-          <div className='col-md-6'>
+          <div className='col-md-8'>
             <div id={period.id} className='existingPeriod'>
               <div className='icon mr-4'>
                 <div className={classNames('topHalf', { line: !first })} />
@@ -230,20 +242,41 @@ class Period extends React.Component {
               </div>
               <div className='pt-2 pb-2 existingPeriodDescription'>
                 <span className='bold existingPeriodType'>{t('pinfo:stayAbroad-category-' + period.type)}</span>
+                <span>
+                  <img src={'../../../../../flags/' + period.country.value + '.png'}
+                     style={{ width: 20, height: 15, marginLeft: '0.7rem' }}
+                     alt={period.country.label} />
+                </span>
                 <br />
-                <span className='existingPeriodDates'>{t('pinfo:stayAbroad-period')}{': '}
+                <span className='existingPeriodDates'>
+                  <span className='bold'>{t('pinfo:stayAbroad-period')}</span>{': '}
                   {moment(period.startDate).format('DD.MM.YYYY')}{' - '}
                   {period.endDate ? moment(period.endDate).format('DD.MM.YYYY') : t('ui:unknown')}
                 </span>
                 <br />
+                {period.type === 'work' ? <React.Fragment>
+                  <span className='bold'>{t('pinfo:stayAbroad-work-name')}</span>{': '}
+                  {period.workName}
+                  <br />
+                </React.Fragment> : null }
+                {period.type === 'home' || period.type === 'military' ? <React.Fragment>
+                  <span className='bold'>{t('pinfo:stayAbroad-address')}</span>{': '}
+                  {period.address}
+                  <br />
+                </React.Fragment> : null }
+                {period.type === 'learn' ? <React.Fragment>
+                  <span className='bold'>{t('pinfo:stayAbroad-learn-institution')}</span>{': '}
+                  {period.learnInstitution}
+                  <br />
+                </React.Fragment> : null }
                 {period.attachments && !_.isEmpty(period.attachments) ? <span className='existingPeriodAttachments'>
-                  {t('pinfo:stayAbroad-attachments')}{': '}
+                  <span className='bold'>{t('pinfo:stayAbroad-attachments')}</span>{': '}
                   {period.attachments.map(att => { return att.name }).join(', ')}
                 </span> : null}
               </div>
             </div>
           </div>
-          <div className='col-md-6 existingPeriodButtons'>
+          <div className='col-md-4 existingPeriodButtons'>
             <Nav.Knapp className='mr-3 existingPeriodButton' onClick={this.requestEditPeriod.bind(this, period)}>
               {t('ui:change')}
             </Nav.Knapp>
@@ -256,7 +289,7 @@ class Period extends React.Component {
 
       case 'detail':
         return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode, { 'current': current })}>
-          <div className='col-md-6'>
+          <div className='col-md-12'>
             <div id={period.id} className='existingPeriod'>
               <div className='icon mr-4'>
                 <div className={classNames('topHalf', { line: !first })} />
@@ -266,11 +299,61 @@ class Period extends React.Component {
               <div className='pt-2 pb-2 existingPeriodDescription'>
                 <span className='bold existingPeriodType'>{t('pinfo:stayAbroad-category-' + period.type)}</span>
                 <br />
-                <span className='existingPeriodDates'>{t('pinfo:stayAbroad-period')}{': '}
+                <span className='existingPeriodDates'>
+                  <span className='bold'>{t('pinfo:stayAbroad-period')}</span>{': '}
                   {moment(period.startDate).format('DD.MM.YYYY')}{' - '}
                   {period.endDate ? moment(period.endDate).format('DD.MM.YYYY') : t('ui:unknown')}
                 </span>
                 <br />
+
+                <span>
+                  <span className='bold'>{t('pinfo:stayAbroad-country')}</span>{': '}
+                  <img src={'../../../../../flags/' + period.country.value + '.png'}
+                   style={{ width: 30, height: 20, marginRight: '1rem' }}
+                   alt={period.country.label} />
+                 {period.country.label}
+                </span>
+                <br />
+
+                <span>
+                  <span className='bold'>{t('pinfo:stayAbroad-insurance-title')}</span>{': '}
+                  {period.insuranceName}{' - '}{period.insuranceType}
+                </span>
+                <br />
+
+                <span>
+                  <span className='bold'>{t('pinfo:stayAbroad-home-title')}</span>{': '}
+                  {period.address}<br/>
+                  {period.region}{' - '}{period.region}
+                </span>
+                <br />
+
+                {period.type === 'work' ? <React.Fragment>
+                  <span className='bold'>{t('pinfo:stayAbroad-work-activity')}</span>{': '}
+                  {period.workActivity}
+                  <br />
+                  <span className='bold'>{t('pinfo:stayAbroad-work-id')}</span>{': '}
+                    {period.workId}
+                    <br />
+                  <span className='bold'>{t('pinfo:stayAbroad-work-name')}</span>{': '}
+                    {period.workName}
+                    <br />
+                  <span className='bold'>{t('pinfo:stayAbroad-work-address')}</span>{': '}
+                    {period.workAddress}
+                    <br />
+                   <span className='bold'>{t('pinfo:stayAbroad-work-city')}</span>{': '}
+                     {period.workCity}
+                     <br />
+                   <span className='bold'>{t('pinfo:stayAbroad-work-region')}</span>{': '}
+                     {period.workRegion}
+                     <br />
+                 </React.Fragment> : null }
+
+                {period.type === 'learn' ? <React.Fragment>
+                  <span className='bold'>{t('pinfo:stayAbroad-learn-institution')}</span>{': '}
+                  {period.learnInstitution}
+                  <br />
+                </React.Fragment> : null }
                 {period.attachments && !_.isEmpty(period.attachments) ? <span className='existingPeriodAttachments'>
                   {t('pinfo:stayAbroad-attachments')}{': '}
                   {period.attachments.map(att => { return att.name }).join(', ')}

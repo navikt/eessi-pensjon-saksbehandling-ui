@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import { withNamespaces } from 'react-i18next'
+
 import * as Nav from '../ui/Nav'
 
 class WaitingPanel extends Component {
@@ -19,4 +20,4 @@ WaitingPanel.propTypes = {
   message: PT.string.isRequired
 }
 
-export default withNamespaces(WaitingPanel)
+export default withNamespaces()(WaitingPanel)

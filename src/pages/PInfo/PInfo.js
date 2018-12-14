@@ -41,7 +41,6 @@ const mapStateToProps = (state) => {
     fileList: state.storage.fileList,
     file: state.storage.file,
     username: state.app.username
-
   }
 }
 
@@ -73,7 +72,7 @@ class PInfo extends React.Component {
     }
     if (fileList !== undefined && this.state.fileList === undefined) {
       if (!_.isEmpty(fileList)) {
-        actions.getStorageFile(username, 'PINFO', fileList[0])
+        actions.getStorageFile(username, 'PINFO', 'PINFO.json')
       } else {
         actions.setReady()
       }
@@ -112,7 +111,7 @@ class PInfo extends React.Component {
   }
 
   onForwardButtonClick () {
-    const { actions, step } = this.props
+    const { actions, step, pinfo, username } = this.props
 
     let errors = {}
     if (this.state.doPageValidationOnForwardButton) {
@@ -124,12 +123,13 @@ class PInfo extends React.Component {
     }
 
     if (_.isEmpty(errors)) {
+      actions.postStorageFile(username, 'PINFO', 'PINFO.json', JSON.stringify(pinfo))
       actions.setStep(step + 1)
     }
   }
 
   onStepIndicatorBeforeChange (nextStep) {
-    const { step, actions, maxStep } = this.props
+    const { step, actions, maxStep, pinfo, username } = this.props
 
     if (nextStep === step) {
       return false
@@ -146,6 +146,7 @@ class PInfo extends React.Component {
       stepIndicatorError: undefined
     })
     actions.setStep(nextStep)
+    actions.postStorageFile(username, 'PINFO', 'PINFO.json', JSON.stringify(pinfo))
     return true
   }
 
@@ -180,7 +181,7 @@ class PInfo extends React.Component {
     const { actions, history, pinfo, username } = this.props
 
     actions.closeModal()
-    actions.postStorageFile(username, 'PINFO', 'PINFO', JSON.stringify(pinfo))
+    actions.postStorageFile(username, 'PINFO', 'PINFO.json', JSON.stringify(pinfo))
     actions.clearData()
     history.push(routes.ROOT)
   }

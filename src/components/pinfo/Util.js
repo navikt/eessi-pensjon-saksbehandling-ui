@@ -77,10 +77,11 @@ class Util {
       'etternavnVedFodsel': person.lastNameAtBirth,
       'tidligereNavn': person.previousName,
       'utenlandskPersonnummer': person.idAbroad,
+      'personnummer' : person.id,
       'farsNavn': person.fatherName,
       'morsNavn': person.motherName,
       'fodestedBy': person.city,
-      'fodestedLand': this.handleCountry(person.country),
+      'fodestedLand': person.country ? this.handleCountry(person.country) : null,
       'provinsEllerDepartement': person.region,
       'telefonnummer': person.phone,
       'epost': person.email
