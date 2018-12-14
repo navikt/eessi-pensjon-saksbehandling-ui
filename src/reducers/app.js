@@ -20,7 +20,7 @@ export default function (state = initialState, action = {}) {
       return Object.assign({}, state, {
         username: action.payload.subject,
         userRole: action.payload.role,
-        allowed: action.payload.allowed === 'true',
+        allowed: action.payload.allowed,
         loggedIn: true
       })
 

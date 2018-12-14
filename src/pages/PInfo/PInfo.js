@@ -52,7 +52,7 @@ const mapDispatchToProps = (dispatch) => {
 class PInfo extends React.Component {
   state = {
     doPageValidationOnForwardButton: true,
-    doPageValidationOnStepIndicator: false,
+    doPageValidationOnStepIndicator: true,
     pageErrors: {},
     fileList: undefined,
     file: undefined,
