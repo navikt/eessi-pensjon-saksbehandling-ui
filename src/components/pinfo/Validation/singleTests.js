@@ -25,12 +25,12 @@ let nameAtBirth = function (nameAtBirth) {
 
 let phone = function (phone) {
   return isEmptyOrPatternMatch(phone, 'pinfo:validation-noPhone',
-    /^[\w]+$/, 'pinfo:validation-invalidPhone')
+    /^[(^0-9-+\s())]+$/, 'pinfo:validation-invalidPhone')
 }
 
 let email = function (email) {
   return isEmptyOrPatternMatch(email, 'pinfo:validation-noEmail',
-    /.+@.+\..+/, 'pinfo:validation-invalidEmail')
+    /^(([^<>()[\].,;:\s@"]+(.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+.)+[^<>()[\].,;:\s@"]{2,})$/, 'pinfo:validation-invalidEmail')
 }
 
 let previousName = function (previousName) {

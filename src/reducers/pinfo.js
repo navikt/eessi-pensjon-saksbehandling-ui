@@ -3,6 +3,7 @@ import * as types from '../constants/actionTypes'
 let initialState = {
   isReady: false,
   step: 0,
+  maxStep: 0,
   person: {
     idAbroad: true
   },
@@ -15,8 +16,15 @@ let initialState = {
 export default function (state = initialState, action = {}) {
   switch (action.type) {
     case types.PINFO_STEP_SET:
+
+      let step = action.payload
+      let maxStep = state.maxStep
+      if (step > maxStep) {
+        maxStep = step
+      }
       return Object.assign({}, state, {
-        step: action.payload
+        step: step,
+        maxStep: maxStep
       })
 
     case types.PINFO_PERSON_SET:

@@ -9,10 +9,8 @@ import classNames from 'classnames'
 import DatePicker from '../../ui/DatePicker/DatePicker'
 import CountrySelect from '../../ui/CountrySelect/CountrySelect'
 import FileUpload from '../../ui/FileUpload/FileUpload'
-
 import { periodValidation } from '../Validation/singleTests'
 import * as stepTests from '../Validation/stepTests'
-
 import * as Nav from '../../ui/Nav'
 import Icons from '../../ui/Icons'
 
@@ -253,6 +251,32 @@ class Period extends React.Component {
               <span className='mr-2' style={{ fontSize: '1.5rem' }}>×</span>
               {t('ui:remove')}
             </Nav.Knapp>
+          </div>
+        </Nav.Row>
+
+      case 'detail':
+        return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode, { 'current': current })}>
+          <div className='col-md-6'>
+            <div id={period.id} className='existingPeriod'>
+              <div className='icon mr-4'>
+                <div className={classNames('topHalf', { line: !first })} />
+                <div className={classNames('bottomHalf', { line: !last })} />
+                <Icons className='iconsvg' kind={'nav-' + period.type} />
+              </div>
+              <div className='pt-2 pb-2 existingPeriodDescription'>
+                <span className='bold existingPeriodType'>{t('pinfo:stayAbroad-category-' + period.type)}</span>
+                <br />
+                <span className='existingPeriodDates'>{t('pinfo:stayAbroad-period')}{': '}
+                  {moment(period.startDate).format('DD.MM.YYYY')}{' - '}
+                  {period.endDate ? moment(period.endDate).format('DD.MM.YYYY') : t('ui:unknown')}
+                </span>
+                <br />
+                {period.attachments && !_.isEmpty(period.attachments) ? <span className='existingPeriodAttachments'>
+                  {t('pinfo:stayAbroad-attachments')}{': '}
+                  {period.attachments.map(att => { return att.name }).join(', ')}
+                </span> : null}
+              </div>
+            </div>
           </div>
         </Nav.Row>
 

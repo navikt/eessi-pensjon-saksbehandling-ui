@@ -49,7 +49,8 @@ class Person extends React.Component {
     this.setCity = this.eventSetProperty.bind(this, 'city', personValidation.city)
     this.setRegion = this.eventSetProperty.bind(this, 'region', personValidation.region)
     this.setPhone = this.eventSetProperty.bind(this, 'phone', personValidation.phone)
-    this.setEmail = this.eventSetProperty.bind(this, 'email', personValidation.email)
+    this.setEmail = this.eventSetProperty.bind(this, 'email', null)
+    this.setEmailAndValidate = this.eventSetProperty.bind(this, 'email', personValidation.email)
   }
 
   checkboxSetProperty (key, validateFunction, event) {
@@ -223,7 +224,8 @@ class Person extends React.Component {
             label={t('pinfo:person-contact-email')}
             placeholder={t('ui:writeIn')}
             value={person.email || ''}
-            onBlur={this.setEmail}
+            onChange={this.setEmail}
+            onBlur={this.setEmailAndValidate}
             feil={localErrors.email ? { feilmelding: t(localErrors.email) } : null}
           />
         </div>

@@ -34,6 +34,7 @@ const mapStateToProps = (state) => {
     locale: state.ui.locale,
     pinfo: state.pinfo,
     step: state.pinfo.step,
+    maxStep: state.pinfo.maxStep,
     receipt: state.pinfo.receipt,
     isReady: state.pinfo.isReady,
     isSendingPinfo: state.loading.isSendingPinfo,
@@ -55,8 +56,7 @@ class PInfo extends React.Component {
     pageErrors: {},
     fileList: undefined,
     file: undefined,
-    stepIndicatorError: undefined,
-    maxStep: 0
+    stepIndicatorError: undefined
   }
 
   componentDidMount () {
@@ -70,9 +70,6 @@ class PInfo extends React.Component {
     const { receipt, actions, username, step, fileList, file } = this.props
     if (receipt && step === 3) {
       actions.setStep(4)
-      this.setState({
-        maxStep: 4
-      })
     }
     if (fileList !== undefined && this.state.fileList === undefined) {
       if (!_.isEmpty(fileList)) {
@@ -116,7 +113,6 @@ class PInfo extends React.Component {
 
   onForwardButtonClick () {
     const { actions, step } = this.props
-    const { maxStep } = this.state
 
     let errors = {}
     if (this.state.doPageValidationOnForwardButton) {
@@ -129,17 +125,11 @@ class PInfo extends React.Component {
 
     if (_.isEmpty(errors)) {
       actions.setStep(step + 1)
-      if (step + 1 > maxStep) {
-        this.setState({
-          maxStep: step + 1
-        })
-      }
     }
   }
 
   onStepIndicatorBeforeChange (nextStep) {
-    const { step, actions } = this.props
-    const { maxStep } = this.state
+    const { step, actions, maxStep } = this.props
 
     if (nextStep === step) {
       return false
@@ -161,7 +151,6 @@ class PInfo extends React.Component {
 
   onStepIndicatorChange (newStep) {
     const { actions, step } = this.props
-    const { maxStep } = this.state
 
     let errors = {}
     if (newStep > step && this.state.doPageValidationOnStepIndicator) {
@@ -174,11 +163,6 @@ class PInfo extends React.Component {
 
     if (_.isEmpty(errors)) {
       actions.setStep(newStep)
-    }
-    if (newStep > maxStep) {
-      this.setState({
-        maxStep: newStep
-      })
     }
   }
 
@@ -253,8 +237,8 @@ class PInfo extends React.Component {
   }
 
   render () {
-    const { t, history, location, step, isSendingPinfo, isReady } = this.props
-    const { pageErrors, maxStep, errorTimestamp, stepIndicatorError } = this.state
+    const { t, history, location, step, maxStep, isSendingPinfo, isReady } = this.props
+    const { pageErrors, errorTimestamp, stepIndicatorError } = this.state
 
     let errorMessage = this.errorMessage()
 
@@ -286,12 +270,12 @@ class PInfo extends React.Component {
           />
           {stepIndicatorError ? <div className='w-100 text-center mb-2'>
             <Nav.Ikon size={16} kind='advarsel-trekant' />
-            <span className='ml-2'>{t(stepIndicatorError, {maxStep: (maxStep + 1)})}</span>
+            <span className='ml-2'>{t(stepIndicatorError, { maxStep: (maxStep + 1) })}</span>
           </div> : null}
         </React.Fragment> : null}
-      {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
       <div className='col-md-2' />
       <div className={classNames('fieldset animate', 'mb-4', 'col-md-8')}>
+        {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
         {step === 0 ? <Person pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
         {step === 1 ? <Bank pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
         {step === 2 ? <StayAbroad pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
@@ -328,7 +312,6 @@ class PInfo extends React.Component {
         </div>
         {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
       </div>
-
     </TopContainer>
   }
 }

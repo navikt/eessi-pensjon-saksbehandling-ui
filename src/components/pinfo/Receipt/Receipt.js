@@ -112,7 +112,7 @@ class Receipt extends React.Component {
         <div className='ml-4'>
           {stayAbroad.map((period, index) => {
             return <Period t={t}
-              mode='view'
+              mode='detail'
               first={index === 0}
               last={index === stayAbroad.length - 1}
               period={period}
