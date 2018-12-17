@@ -8,11 +8,11 @@ import './Banner.css'
 
 class FirstBanner extends Component {
   render () {
-    const { t } = this.props
+    const { t, text } = this.props
     return <div className='c-ui-banner'>
       <Nav.Sidetittel className='pt-4 pb-4 text-center'>{t('app-headerTitle')}</Nav.Sidetittel>
       <PsychoBanner>
-        <span>{t('Sample text')}</span>
+        {text ? <span>{t(text)}</span> : null}
       </PsychoBanner>
     </div>
   }

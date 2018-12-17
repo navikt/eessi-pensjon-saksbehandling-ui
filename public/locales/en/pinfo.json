@@ -2,8 +2,7 @@
     "app-title" : "Information about your staying in EEA countries",
     "app-startPinfo" : "Information about your staying in EEA countries",
 
-    "psycho-description": "This page is for those who had previously stayed in EU countries. Here you can send more information that NAV needs to proceed with your application",
-
+    "psycho-description": "Hi, You were chosen to try the new website to send in information in connection to your application.<br/><br/>You can also upload attachments that document your stay in EEA countries, for example a working permit. It can be handy to find those documents before you begiin, Du kan også laste opp vedlegg som dokumenterer dine opphold i EØS-land, for eksamepel arbeidsattester. Det kan være lurt å finne frem aktuelle dokumenter før du begynner. Blir du ikke ferdig kan du lagre og fullføre utfyllingen senere.<br/><br/>Vi vil videresende søknaden din til de aktuelle landene når vi har mottatt opplysningene fra deg.<br/><br/>Kontakt oss gjerne på eessipensjon@nav.no eller på telefon 21&nbps;07&nbps;37&nbps;00 hvis du har spørsmål.",
     "person-info-title": "Personal information",
     "person-info-lastNameAtBirth": "Last name at birth",
     "person-info-previousName": "Previous names",
@@ -21,9 +20,9 @@
     "bank-country" : "Country",
     "bank-address" : "Bank address",
     "bank-bicSwift" : "BIC / Swift",
-    "bank-bicSwift-help": "Visit your bank\'s website to get your bank\'s BIC/SWIFT",
+    "bank-bicSwift-help": "Visit your bank website to get your bank BIC/SWIFT",
     "bank-iban" : "IBAN / Account number",
-    "bank-iban-help": "Visit your bank\'s website to find your IBAN number",
+    "bank-iban-help": "Visit your bank website to find your IBAN number",
 
     "stayAbroad-title" : "Information on stay in EEA countries",
     "stayAbroad-description" : "Give more information related to your staying time in EEA countries",

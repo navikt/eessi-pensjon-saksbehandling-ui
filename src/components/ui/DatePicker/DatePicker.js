@@ -8,7 +8,6 @@ import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.min.css'
 
 class DatePicker extends Component {
-
   render () {
     const { placeholder, selected, className, locale, error, errorMessage, onChange, onBlur, id } = this.props
 
@@ -25,7 +24,7 @@ class DatePicker extends Component {
         dropdownMode='select'
         locale={locale}
         onChange={onChange}
-        />
+      />
       {error ? <div className='skjemaelement__feilmelding'>{errorMessage}</div> : null}
     </React.Fragment>
   }

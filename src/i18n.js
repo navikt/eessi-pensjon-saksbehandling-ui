@@ -10,8 +10,7 @@ i18next
   .init({
     lng: 'nb',
     fallbackLng: {
-      'default': ['nb'],
-      'en-gb': ['en']
+      'default': ['nb']
     },
     debug: true,
     ns: ['ui', 'case', 'pdf', 'pinfo', 'pselv', 'p4000', 'p6000'],

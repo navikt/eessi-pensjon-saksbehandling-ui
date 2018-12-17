@@ -25,7 +25,8 @@ const mapStateToProps = (state) => {
     userRole: state.app.userRole,
     loggedIn: state.app.loggedIn,
     gettingUserInfo: state.loading.gettingUserInfo,
-    isLoggingIn: state.loading.isLoggingIn
+    isLoggingIn: state.loading.isLoggingIn,
+    language: state.ui.language
   }
 }
 
@@ -70,20 +71,25 @@ class FirstPage extends Component {
       <FirstBanner />
       <div className='content'>
         <div className='container text-center pt-4'>
-          <LanguageSelector className='mt-3' />
-          {!loggedIn ? <Nav.Hovedknapp
-            className='mt-3 loginButton'
-            onClick={this.handleLoginRequest.bind(this)}
-            disabled={isLoggingIn || gettingUserInfo}
-            spinner={isLoggingIn || gettingUserInfo}>
-            {isLoggingIn ? t('ui:authenticating')
-              : gettingUserInfo ? t('loading') : t('login')}
-          </Nav.Hovedknapp>
-            : <Nav.Hovedknapp
-              className='mt-3 forwardButton'
-              onClick={this.handleForwardButtonClick.bind(this)}>{t('next')}
-            </Nav.Hovedknapp>}
+          <div className='col-md-2' />
+          <div className='col-md-8'>
+            <div className='text-justify' dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description') }} />
+            <LanguageSelector className='mt-3' />
+            {!loggedIn ? <Nav.Hovedknapp
+              className='mt-3 loginButton'
+              onClick={this.handleLoginRequest.bind(this)}
+              disabled={isLoggingIn || gettingUserInfo}
+              spinner={isLoggingIn || gettingUserInfo}>
+              {isLoggingIn ? t('ui:authenticating')
+                : gettingUserInfo ? t('loading') : t('login')}
+            </Nav.Hovedknapp>
+              : <Nav.Hovedknapp
+                className='mt-3 forwardButton'
+                onClick={this.handleForwardButtonClick.bind(this)}>{t('next')}
+              </Nav.Hovedknapp>}
+          </div>
         </div>
+        <div className='col-md-2' />
       </div>
     </div>
   }

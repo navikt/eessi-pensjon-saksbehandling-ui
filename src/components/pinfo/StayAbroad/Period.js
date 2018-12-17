@@ -74,7 +74,6 @@ class Period extends React.Component {
     this.valueSetProperty(key, validateFunction, date ? date.valueOf() : null)
   }
 
-
   valueSetProperty (key, validateFunction, value) {
     let _localErrors = _.cloneDeep(this.state.localErrors)
 
@@ -428,45 +427,45 @@ class Period extends React.Component {
             </Nav.Row>
             <Nav.Row>
               <div className='mt-3 col-md-12'>
-                  <label>{t('pinfo:stayAbroad-country')}</label>
-                  <CountrySelect
-                    id='pinfo-opphold-land-select'
-                    locale={locale}
-                    excludeList={CountryFilter.NO}
-                    includeList={CountryFilter.EEA}
-                    value={_period.country || null}
-                    onSelect={this.setCountry}
-                    error={localErrors.country}
-                    errorMessage={t(localErrors.country)}
-                  />
-                </div>
+                <label>{t('pinfo:stayAbroad-country')}</label>
+                <CountrySelect
+                  id='pinfo-opphold-land-select'
+                  locale={locale}
+                  excludeList={CountryFilter.NO}
+                  includeList={CountryFilter.EEA}
+                  value={_period.country || null}
+                  onSelect={this.setCountry}
+                  error={localErrors.country}
+                  errorMessage={t(localErrors.country)}
+                />
+              </div>
 
               {_period.country && (_period.country.value === 'ES' || _period.country.value === 'FR') ? <React.Fragment>
-              <div className='col-md-12 mt-4 mb-2'>
-                  <span>{t('pinfo:stayAbroad-spain-france-warning', {country: _period.country.label})}</span>
-              </div>
-              <div className='col-md-12'>
-                <Nav.Input
-                  id='pinfo-opphold-farsnavn-input'
-                  type='text'
-                  label={t('pinfo:stayAbroad-period-fathername')}
-                  placeholder={t('ui:writeIn')}
-                  value={_period.fatherName || ''}
-                  onChange={this.setFatherName}
-                  feil={localErrors.fatherName ? { feilmelding: t(localErrors.fatherName) } : null}
-                />
-              </div>
-              <div className='col-md-12'>
-                <Nav.Input
-                  id='pinfo-opphold-morsnavn-input'
-                  type='text'
-                  label={t('pinfo:stayAbroad-period-mothername')}
-                  placeholder={t('ui:writeIn')}
-                  value={_period.motherName || ''}
-                  onChange={this.setMotherName}
-                  feil={localErrors.motherName ? { feilmelding: t(localErrors.motherName) } : null}
-                />
-              </div>
+                <div className='col-md-12 mt-4 mb-2'>
+                  <span>{t('pinfo:stayAbroad-spain-france-warning', { country: _period.country.label })}</span>
+                </div>
+                <div className='col-md-12'>
+                  <Nav.Input
+                    id='pinfo-opphold-farsnavn-input'
+                    type='text'
+                    label={t('pinfo:stayAbroad-period-fathername')}
+                    placeholder={t('ui:writeIn')}
+                    value={_period.fatherName || ''}
+                    onChange={this.setFatherName}
+                    feil={localErrors.fatherName ? { feilmelding: t(localErrors.fatherName) } : null}
+                  />
+                </div>
+                <div className='col-md-12'>
+                  <Nav.Input
+                    id='pinfo-opphold-morsnavn-input'
+                    type='text'
+                    label={t('pinfo:stayAbroad-period-mothername')}
+                    placeholder={t('ui:writeIn')}
+                    value={_period.motherName || ''}
+                    onChange={this.setMotherName}
+                    feil={localErrors.motherName ? { feilmelding: t(localErrors.motherName) } : null}
+                  />
+                </div>
               </React.Fragment> : null }
               <div className='col-md-12'>
                 <Nav.Undertittel className='mt-3 mb-3'>{t('pinfo:stayAbroad-insurance-title')}</Nav.Undertittel>
@@ -483,13 +482,13 @@ class Period extends React.Component {
               </div>
               {_period.type !== 'work' ? <div className='col-md-12'>
                 <Nav.Input
-                   id='pinfo-opphold-trygdeordning-id'
-                   label={t('pinfo:stayAbroad-insurance-id')}
-                   placeholder={t('ui:writeIn')}
-                   value={_period.insuranceId || ''}
-                   onChange={this.setInsuranceId}
-                   feil={localErrors.insuranceId ? { feilmelding: t(localErrors.insuranceId) } : null}
-                 />
+                  id='pinfo-opphold-trygdeordning-id'
+                  label={t('pinfo:stayAbroad-insurance-id')}
+                  placeholder={t('ui:writeIn')}
+                  value={_period.insuranceId || ''}
+                  onChange={this.setInsuranceId}
+                  feil={localErrors.insuranceId ? { feilmelding: t(localErrors.insuranceId) } : null}
+                />
               </div> : null}
               <div className='col-md-12'>
                 <Nav.Select
@@ -639,7 +638,7 @@ class Period extends React.Component {
                   id='pinfo-opphold-barnasfodselsdato-date'
                   selected={_period.childBirthDate ? new Date(_period.childBirthDate) : null}
                   className='childBirthDate'
-                   locale={locale}
+                  locale={locale}
                   placeholder={t('ui:dateFormat')}
                   onChange={this.setChildBirthDate}
                   error={localErrors.childBirthDate}

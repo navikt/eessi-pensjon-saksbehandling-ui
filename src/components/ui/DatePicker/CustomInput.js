@@ -13,7 +13,7 @@ class CustomInput extends Component {
         placeholder={placeholder}
         onChange={onChange}
         value={value} />
-      <div style={{cursor: 'pointer'}} className='input-group-append' onClick={onClick}>
+      <div style={{ cursor: 'pointer' }} className='input-group-append' onClick={onClick}>
         <span role='img' aria-label='date' className='input-group-text'>📅</span>
       </div>
     </div>

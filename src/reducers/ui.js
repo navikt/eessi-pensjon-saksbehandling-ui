@@ -20,7 +20,7 @@ export default function (state = {}, action = {}) {
 
       return Object.assign({}, state, {
         language: action.payload,
-        locale: action.payload === 'nb' ? 'nb' : 'en-gb'
+        locale: action.payload === 'nb' ? 'nb' : 'en'
       })
 
     case types.UI_DRAWER_TOGGLE_OPEN : {

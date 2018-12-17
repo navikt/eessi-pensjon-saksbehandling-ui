@@ -34,7 +34,7 @@ class LanguageSelector extends Component {
       className={classNames('c-ui-languageSelector', className)}
       label={'Velg språk / Choose language'}
       value={_language} onChange={this.changeLanguage.bind(this)}>
-      <option value='en-gb'>{'English'}</option>
+      <option value='en'>{'English'}</option>
       <option value='nb'>{'Norsk Bokmål'}</option>
     </Nav.Select>
   }

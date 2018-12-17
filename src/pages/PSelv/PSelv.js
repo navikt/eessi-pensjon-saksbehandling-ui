@@ -350,7 +350,7 @@ class PSelv extends Component {
                   <option value=''>{'--'}</option>
                   <option value='nb'>{'Norsk Bokmål'}</option>
                   <option value='nn'>{'Nynorsk'}</option>
-                  <option value='en-gb'>{'English'}</option>
+                  <option value='en'>{'English'}</option>
                 </Nav.Select>
               </div>
             </Nav.Row>
