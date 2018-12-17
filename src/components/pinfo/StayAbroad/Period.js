@@ -329,7 +329,7 @@ class Period extends React.Component {
                 <span>
                   <span className='bold'>{t('pinfo:stayAbroad-home-title')}</span>{': '}
                   {period.address}<br />
-                  {period.region}{' - '}{period.region}
+                  {period.city}{' - '}{period.region}
                 </span>
                 <br />
 
@@ -344,13 +344,7 @@ class Period extends React.Component {
                   {period.workName}
                   <br />
                   <span className='bold'>{t('pinfo:stayAbroad-work-address')}</span>{': '}
-                  {period.workAddress}
-                  <br />
-                  <span className='bold'>{t('pinfo:stayAbroad-work-city')}</span>{': '}
-                  {period.workCity}
-                  <br />
-                  <span className='bold'>{t('pinfo:stayAbroad-work-region')}</span>{': '}
-                  {period.workRegion}
+                  {period.workAddress}{' - '}{period.workCity}{' - '}{period.workRegion}
                   <br />
                 </React.Fragment> : null }
 

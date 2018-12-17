@@ -74,7 +74,7 @@ class FirstPage extends Component {
           <div className='col-md-2' />
           <div className='col-md-8'>
             <div className='text-justify' dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description') }} />
-            <LanguageSelector className='mt-3' />
+
             {!loggedIn ? <Nav.Hovedknapp
               className='mt-3 loginButton'
               onClick={this.handleLoginRequest.bind(this)}
