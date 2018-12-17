@@ -38,6 +38,13 @@ export function setBank (payload) {
   }
 }
 
+export function setMainButtonsVisibility(value) {
+ return {
+    type: types.PINFO_BUTTONS_VISIBLE,
+    payload: value
+  }
+}
+
 export function sendPInfo (payload) {
   return api.call({
     url: urls.PINFO_SEND_URL,

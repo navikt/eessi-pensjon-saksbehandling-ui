@@ -75,6 +75,9 @@ class Period extends React.Component {
   }
 
   valueSetProperty (key, validateFunction, value) {
+
+    const { actions } = this.props
+
     let _localErrors = _.cloneDeep(this.state.localErrors)
 
     let error = validateFunction ? validateFunction(value) : undefined
@@ -86,6 +89,9 @@ class Period extends React.Component {
       _localErrors[key] = error
     }
 
+    if (key === 'type' && value) {
+      actions.setMainButtonsVisibility(false)
+    }
     this.setState({
       _period: {
         ...this.state._period,
@@ -133,6 +139,8 @@ class Period extends React.Component {
       })
       let _pinfo = _.cloneDeep(pinfo)
       _pinfo.stayAbroad = newPeriods
+
+      actions.setMainButtonsVisibility(true)
       actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
     }
   }
@@ -167,6 +175,7 @@ class Period extends React.Component {
           _period: {}
         })
         editPeriod({})
+        actions.setMainButtonsVisibility(true)
         let _pinfo = _.cloneDeep(pinfo)
         _pinfo.stayAbroad = newPeriods
         actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
@@ -175,7 +184,7 @@ class Period extends React.Component {
   }
 
   cancelPeriod () {
-    const { editPeriod } = this.props
+    const { editPeriod, actions } = this.props
 
     this.setState({
       localErrors: {},
@@ -183,6 +192,7 @@ class Period extends React.Component {
       errorTimestamp: new Date().getTime()
     })
     editPeriod({})
+    actions.setMainButtonsVisibility(true)
   }
 
   closeModal () {

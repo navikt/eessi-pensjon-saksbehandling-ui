@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { Route, withRouter, Redirect } from 'react-router'
 import _ from 'lodash'
 
+import { IS_DEVELOPMENT } from '../../constants/environment'
 import WaitingPanel from './WaitingPanel'
 import * as constants from '../../constants/constants'
 import * as routes from '../../constants/routes'
@@ -86,7 +87,7 @@ class AuthenticatedRoute extends Component {
     }
 
     let validRole = this.hasApprovedRole()
-    let authorized = (userRole === constants.BRUKER && allowed) || userRole === constants.SAKSBEHANDLER
+    let authorized = (userRole === constants.BRUKER && allowed) || userRole === constants.SAKSBEHANDLER || IS_DEVELOPMENT
 
     return userRole && validRole
       ? authorized

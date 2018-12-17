@@ -41,7 +41,8 @@ const mapStateToProps = (state) => {
     isSendingPinfo: state.loading.isSendingPinfo,
     fileList: state.storage.fileList,
     file: state.storage.file,
-    username: state.app.username
+    username: state.app.username,
+    buttonsVisible: state.pinfo.buttonsVisible
   }
 }
 
@@ -239,7 +240,7 @@ class PInfo extends React.Component {
   }
 
   render () {
-    const { t, history, location, step, maxStep, isSendingPinfo, isReady } = this.props
+    const { t, history, location, step, maxStep, isSendingPinfo, isReady, buttonsVisible } = this.props
     const { pageErrors, errorTimestamp, stepIndicatorError } = this.state
 
     let errorMessage = this.errorMessage()
@@ -283,7 +284,7 @@ class PInfo extends React.Component {
         {step === 2 ? <StayAbroad pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
         {step === 3 ? <Confirm pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
         {step === 4 ? <Receipt pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
-        <div className='mb-4 mt-4'>
+        {buttonsVisible ? <div className='mb-4 mt-4'>
           {step < 3 ? <Nav.Hovedknapp
             id='pinfo-forward-button'
             className='forwardButton mb-2 mr-3'
@@ -311,7 +312,7 @@ class PInfo extends React.Component {
             onClick={this.onCancelButtonClick.bind(this)}>
             {t('cancel')}
           </Nav.KnappBase> : null}
-        </div>
+        </div> : null}
         {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
       </div>
     </TopContainer>

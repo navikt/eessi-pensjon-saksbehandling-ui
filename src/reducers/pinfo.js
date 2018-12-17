@@ -8,7 +8,8 @@ let initialState = {
   bank: {},
   stayAbroad: [],
   work: {},
-  receipt: undefined
+  receipt: undefined,
+  buttonsVisible: true
 }
 
 export default function (state = initialState, action = {}) {
@@ -78,6 +79,12 @@ export default function (state = initialState, action = {}) {
 
     case types.PINFO_STATE_RESTORE: {
       return Object.assign({}, initialState, { isReady: true }, action.payload)
+    }
+
+    case types.PINFO_BUTTONS_VISIBLE: {
+      return Object.assign({}, state, {
+        buttonsVisible: action.payload
+      })
     }
 
     case types.APP_CLEAR_DATA:
