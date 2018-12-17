@@ -8,21 +8,24 @@ import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.min.css'
 
 class DatePicker extends Component {
+
   render () {
-    const { selected, className, locale, error, errorMessage, onChange, id } = this.props
+    const { placeholder, selected, className, locale, error, errorMessage, onChange, onBlur, id } = this.props
 
     return <React.Fragment>
       <ReactDatePicker
         id={id}
+        placeholderText={placeholder}
         customInput={<CustomInput error={error !== undefined} {...this.props} />}
         selected={selected}
-        className={classNames('input-group', className)}
         dateFormat='dd.MM.yyyy'
+        className={classNames('input-group', className)}
         showYearDropdown
         showMonthDropdown
         dropdownMode='select'
         locale={locale}
-        onChange={onChange} />
+        onChange={onChange}
+        />
       {error ? <div className='skjemaelement__feilmelding'>{errorMessage}</div> : null}
     </React.Fragment>
   }

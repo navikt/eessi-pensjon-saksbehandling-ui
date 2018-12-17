@@ -74,6 +74,7 @@ class Period extends React.Component {
     this.valueSetProperty(key, validateFunction, date ? date.valueOf() : null)
   }
 
+
   valueSetProperty (key, validateFunction, value) {
     let _localErrors = _.cloneDeep(this.state.localErrors)
 
@@ -638,7 +639,7 @@ class Period extends React.Component {
                   id='pinfo-opphold-barnasfodselsdato-date'
                   selected={_period.childBirthDate ? new Date(_period.childBirthDate) : null}
                   className='childBirthDate'
-                  locale={locale}
+                   locale={locale}
                   placeholder={t('ui:dateFormat')}
                   onChange={this.setChildBirthDate}
                   error={localErrors.childBirthDate}

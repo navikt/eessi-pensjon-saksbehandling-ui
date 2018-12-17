@@ -5,7 +5,7 @@ import classNames from 'classnames'
 class CustomInput extends Component {
   render () {
     const { onClick, onChange, value, placeholder, error, id } = this.props
-    return <div className='input-group' onClick={onClick}>
+    return <div className='input-group'>
       <input
         id={id}
         type='text'
@@ -13,7 +13,7 @@ class CustomInput extends Component {
         placeholder={placeholder}
         onChange={onChange}
         value={value} />
-      <div className='input-group-append'>
+      <div style={{cursor: 'pointer'}} className='input-group-append' onClick={onClick}>
         <span role='img' aria-label='date' className='input-group-text'>📅</span>
       </div>
     </div>
