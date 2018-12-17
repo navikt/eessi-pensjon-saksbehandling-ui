@@ -5,10 +5,8 @@ import PT from 'prop-types'
 import { withNamespaces } from 'react-i18next'
 import 'url-search-params-polyfill'
 
-import LogoHeader from '../../components/ui/Header/LogoHeader'
-
-import LanguageSelector from '../../components/ui/LanguageSelector'
-import FirstBanner from '../../components/ui/Banner/FirstBanner'
+import Psycho from '../../components/ui/Psycho/Psycho'
+import TopContainer from '../../components/ui/TopContainer/TopContainer'
 import * as Nav from '../../components/ui/Nav'
 
 import * as routes from '../../constants/routes'
@@ -64,18 +62,21 @@ class FirstPage extends Component {
   }
 
   render () {
-    const { t, loggedIn, isLoggingIn, gettingUserInfo } = this.props
+    const { t, loggedIn, isLoggingIn, gettingUserInfo, history, location, userRole } = this.props
 
-    return <div className='p-firstPage hodefot'>
-      <LogoHeader />
-      <FirstBanner />
-      <div className='content'>
-        <div className='container text-center pt-4'>
-          <div className='col-md-2' />
-          <div className='col-md-8'>
-            <div className='text-justify' dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description') }} />
+    return <TopContainer className='p-firstPage'
+      history={history} location={location}
+      header={t('pinfo:app-title')}>
 
-            {!loggedIn ? <Nav.Hovedknapp
+      <div className='content container text-center pt-4'>
+        <div className='col-md-2' />
+        <div className='col-md-8'>
+          <div className='psycho mt-3 mb-4'>
+            <Psycho id='psycho' />
+          </div>
+          { userRole === constants.BRUKER ? <div className='text-justify' dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description') }} /> : null }
+          <div className='psycho mt-3 mb-4'>
+            { !loggedIn ? <Nav.Hovedknapp
               className='mt-3 loginButton'
               onClick={this.handleLoginRequest.bind(this)}
               disabled={isLoggingIn || gettingUserInfo}
@@ -85,13 +86,13 @@ class FirstPage extends Component {
             </Nav.Hovedknapp>
               : <Nav.Hovedknapp
                 className='mt-3 forwardButton'
-                onClick={this.handleForwardButtonClick.bind(this)}>{t('next')}
+                onClick={this.handleForwardButtonClick.bind(this)}>{t('continue')}
               </Nav.Hovedknapp>}
           </div>
         </div>
         <div className='col-md-2' />
       </div>
-    </div>
+    </TopContainer>
   }
 }
 

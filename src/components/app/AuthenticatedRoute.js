@@ -6,6 +6,7 @@ import { Route, withRouter, Redirect } from 'react-router'
 import _ from 'lodash'
 
 import WaitingPanel from './WaitingPanel'
+import * as constants from '../../constants/constants'
 import * as routes from '../../constants/routes'
 import * as appActions from '../../actions/app'
 import * as statusActions from '../../actions/status'
@@ -85,9 +86,10 @@ class AuthenticatedRoute extends Component {
     }
 
     let validRole = this.hasApprovedRole()
+    let authorized = (userRole === constants.BRUKER && allowed) || userRole === constants.SAKSBEHANDLER
 
     return userRole && validRole
-      ? allowed
+      ? authorized
         ? <Route {...this.props} />
         : <Redirect to={routes.NOT_INVITED} />
       : <Redirect to={routes.ROOT} />

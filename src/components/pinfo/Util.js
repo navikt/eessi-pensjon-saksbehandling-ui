@@ -67,7 +67,7 @@ class Util {
 
   generatePerson (person) {
     return {
-      'etternavnVedFodsel': person.lastNameAtBirth,
+      'etternavnVedFodsel': person.nameAtBirth,
       'tidligereNavn': person.previousName,
       'fodestedBy': person.city,
       'fodestedLand': person.country ? this.handleCountry(person.country) : null,

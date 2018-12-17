@@ -9,7 +9,7 @@ import 'react-datepicker/dist/react-datepicker.min.css'
 
 class DatePicker extends Component {
   render () {
-    const { placeholder, selected, className, locale, error, errorMessage, onChange, onBlur, id } = this.props
+    const { placeholder, selected, className, locale, error, errorMessage, onChange, id } = this.props
 
     return <React.Fragment>
       <ReactDatePicker
