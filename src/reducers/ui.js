@@ -48,7 +48,12 @@ export default function (state = {}, action = {}) {
         footerOpen: !state.footerOpen
       })
 
-    default:
+    case types.UI_HIGHCONTRAST_TOGGLE :
+      return Object.assign({}, state, {
+        highContrast: !state.highContrast
+      })
+
+      default:
 
       return state
   }

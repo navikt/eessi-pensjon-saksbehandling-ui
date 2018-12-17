@@ -35,6 +35,12 @@ export function toggleFooterOpen () {
   }
 }
 
+export function toggleHighContrast () {
+  return {
+    type: types.UI_HIGHCONTRAST_TOGGLE
+  }
+}
+
 export function toggleDrawerEnable () {
   return {
     type: types.UI_DRAWER_TOGGLE_ENABLE

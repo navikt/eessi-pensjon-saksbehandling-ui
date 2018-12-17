@@ -27,6 +27,22 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class ExternalTopHeader extends Component {
+
+   changeLanguage (lang, e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      let { actions } = this.props
+
+      actions.changeLanguage(lang)
+    }
+
+  changeContrast() {
+    let { actions } = this.props
+    actions.toggleHighContrast()
+  }
+
   onLogout () {
     const { actions } = this.props
 
@@ -35,7 +51,7 @@ class ExternalTopHeader extends Component {
   }
 
   render () {
-    let { username, header } = this.props
+    let { t, username, header } = this.props
 
     return <div className='c-ui-topheader hodefot'>
       <header className='siteheader' role='banner'>
@@ -44,6 +60,25 @@ class ExternalTopHeader extends Component {
             <div className='col-md-12'>
               <div className='settings'>
                 <ul className='nav' style={{ justifyContent: 'center' }}>
+                  <li className='dropdown'>
+                    <button type='button' className='link-btn dropdown-toggle' data-toggle='dropdown'>
+                      {t('language')}
+                      <span className='caret'></span>
+                    </button>
+                    <ul className='dropdown-menu hidden'>
+                      <li className='active'>
+                        <a href='#language' title={'Norsk (Globalt språkvalg)'}
+                        onClick={this.changeLanguage.bind(this, 'no')}>{'Norsk'}</a>
+                      </li>
+                      <li>
+                        <a href='#language' title={'English (Globalt språkvalg)'}
+                        onClick={this.changeLanguage.bind(this, 'en')}>{'English'}</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li id='high-contrast'>
+                    <button type='button' class='link-btn' onClick={this.changeContrast.bind(this)}>{t('highContrast')}</button>
+                  </li>
                   <li id='text-size-accessibility'>
                     <span className='link-btn' aria-label='Hold Ctrl-tasten nede (Cmd-tasten på Mac). Trykk samtidig på + for å forstørre eller - for å forminske.'>Skriftstørrelse</span><div className='text-size-tooltip'><p>Hold Ctrl-tasten nede (Cmd-tasten på Mac). Trykk samtidig på + for å forstørre eller - for å forminske.</p><span className='arrow' /></div></li>
                 </ul>
