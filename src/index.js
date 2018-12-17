@@ -5,8 +5,7 @@ import 'core-js/es6/set' // IE 11 compatibility
 import React from 'react'
 import ReactDOM from 'react-dom'
 import createBrowserHistory from 'history/createBrowserHistory'
-import { Switch, Redirect, Route } from 'react-router'
-import { ConnectedRouter, routerMiddleware } from 'react-router-redux'
+import { Switch, Redirect, Route, Router } from 'react-router'
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
@@ -27,11 +26,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
 
 const history = createBrowserHistory()
-const routeMiddleware = routerMiddleware(history)
 
 const createStoreWithMiddleware = compose(
   applyMiddleware(thunk),
-  applyMiddleware(routeMiddleware),
   window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore)
 
@@ -56,7 +53,7 @@ const store = createStoreWithMiddleware(reducer, initialState)
 ReactDOM.render(
   <I18nextProvider i18n={i18n}>
     <Provider store={store}>
-      <ConnectedRouter history={history}>
+      <Router history={history}>
         <Switch>
           <AuthenticatedRoute exact path={routes.PSELV} component={Pages.PSelv} roles={[constants.SAKSBEHANDLER]} />
           <AuthenticatedRoute exact path={routes.PINFO} component={Pages.PInfo} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
@@ -83,7 +80,7 @@ ReactDOM.render(
           <Route path={'/:PATH+'} render={() => <Pages.Error type='Error' />} />
           <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
         </Switch>
-      </ConnectedRouter>
+      </Router>
     </Provider>
   </I18nextProvider>,
   document.getElementById('root')

@@ -213,35 +213,42 @@ class FileUpload extends Component {
         <Droppable droppableId={fileUploadDroppableId} direction='horizontal'>
 
           {(provided, snapshot) => (
+            <div className={classNames('dropzone', 'p-2', className)}>
+              <Dropzone
+                length={this.state.files.length}
+                activeClassName='dropzone-active'
+                accept={accept}
+                onDrop={this.onDrop.bind(this)}
+                inputProps={{ ...this.props.inputProps }}
+                {...tabIndex}>
+                {({ getRootProps, getInputProps }) => <div
+                  {...getRootProps()}
+                  ref={provided.innerRef}
+                  className={classNames('droppable-zone', { 'droppable-zone-active ': snapshot.isDraggingOver })}>
+                  <input {...getInputProps()} />
+                  <div className='dropzone-placeholder'>
+                    <div className='dropzone-placeholder-message'>{t('ui:dropFilesHere')}</div>
+                    <div className='dropzone-placeholder-status'>{status}</div>
+                  </div>
 
-            <Dropzone className={classNames('dropzone', 'p-2', className)} length={this.state.files.length}
-              activeClassName='dropzone-active' accept={accept} onDrop={this.onDrop.bind(this)} inputProps={{ ...this.props.inputProps }}
-              {...tabIndex}>
+                  {provided.placeholder}
 
-              <div ref={provided.innerRef} className={classNames('droppable-zone', { 'droppable-zone-active ': snapshot.isDraggingOver })}>
-
-                <div className='dropzone-placeholder'>
-                  <div className='dropzone-placeholder-message'>{t('ui:dropFilesHere')}</div>
-                  <div className='dropzone-placeholder-status'>{status}</div>
-                </div>
-
-                {provided.placeholder}
-
-                <div className='dropzone-files scrollable'>
-                  { files ? files.map((file, i) => {
-                    return <File className='mr-2' key={i} file={file}
-                      currentPage={currentPages[i]}
-                      deleteLink downloadLink previewLink
-                      onPreviousPage={this.onPreviousPageRequest.bind(this, i)}
-                      onNextPage={this.onNextPageRequest.bind(this, i)}
-                      onLoadSuccess={this.onLoadSuccess.bind(this, i)}
-                      onDeleteDocument={this.removeFile.bind(this, i)}
-                      onPreviewDocument={this.openPreview.bind(this, file)}
-                    />
-                  }) : null }
-                </div>
-              </div>
-            </Dropzone>
+                  <div className='dropzone-files scrollable'>
+                    { files ? files.map((file, i) => {
+                      return <File className='mr-2' key={i} file={file}
+                        currentPage={currentPages[i]}
+                        deleteLink downloadLink previewLink
+                        onPreviousPage={this.onPreviousPageRequest.bind(this, i)}
+                        onNextPage={this.onNextPageRequest.bind(this, i)}
+                        onLoadSuccess={this.onLoadSuccess.bind(this, i)}
+                        onDeleteDocument={this.removeFile.bind(this, i)}
+                        onPreviewDocument={this.openPreview.bind(this, file)}
+                      />
+                    }) : null }
+                  </div>
+                </div>}
+              </Dropzone>
+            </div>
           )}
         </Droppable>
       </div>
@@ -267,6 +274,6 @@ FileUpload.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-  , null, { withRef: true })(
+  , null, { forwardRef: true })(
   FileUpload
 )
