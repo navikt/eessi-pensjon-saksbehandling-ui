@@ -72,8 +72,8 @@ class Util {
       'provinsEllerDepartement': person.region,
       'telefonnummer': person.phone,
       'epost': person.email,
-      'farsNavn': person.farsNavn,
-      'morsnavn': person.morsNavn
+      'farsNavn': person.fatherName,
+      'morsnavn': person.motherName
     }
   }
 

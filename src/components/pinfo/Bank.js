@@ -113,7 +113,9 @@ class Bank extends React.Component {
             feil={localErrors.bankBicSwift ? { feilmelding: t(localErrors.bankBicSwift) } : null}
           />
           {disableHelpText? null:
-            <div className='mb-4 italic'>{t('pinfo:bank-bicSwift-help')}</div>
+            <Nav.HjelpetekstBase id='pinfo-bank-bicswift-input-help'>
+              {t('pinfo:bank-bicSwift-help')}
+            </Nav.HjelpetekstBase>
           }
         </div>
         <div className='col-md-6'>
@@ -126,7 +128,9 @@ class Bank extends React.Component {
             feil={localErrors.bankIban ? { feilmelding: t(localErrors.bankIban) } : null}
           />
           {disableHelpText? null:
-            <div className='mb-4 italic'>{t('pinfo:bank-iban-help')}</div>
+            <Nav.HjelpetekstBase id='pinfo-bank-iban-input-help'>
+              {t('pinfo:bank-iban-help')}
+            </Nav.HjelpetekstBase>
           }
         </div>
       </Nav.Row>
