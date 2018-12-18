@@ -400,7 +400,7 @@ class Period extends React.Component {
           { _period.type ? <React.Fragment>
             <Nav.Row>
               <div className='col-md-12'>
-                <Nav.Undertittel className='mt-3 mb-3'>{t('pinfo:stayAbroad-period-title')}</Nav.Undertittel>
+                <Nav.Undertittel className='mt-3 mb-3'>{t(`pinfo:stayAbroad-period-title-${_period.type}`)}</Nav.Undertittel>
               </div>
               <div className='col-md-6'>
                 <label className='mr-3'>{t('pinfo:stayAbroad-period-start-date')}</label>
