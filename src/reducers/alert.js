@@ -21,6 +21,13 @@ function processError (error) {
 
 export default function (state = {}, action = {}) {
   let message
+  //The alerts were annoying fag.
+  if(action.alert !== true){
+    return Object.assign({}, state, {
+      clientErrorMessage: undefined,
+      clientErrorStatus: undefined
+    })
+  }
 
   if (_.endsWith(action.type, '/REQUEST')) {
     return Object.assign({}, state, {
