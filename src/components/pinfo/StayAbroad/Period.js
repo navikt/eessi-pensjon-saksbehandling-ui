@@ -155,8 +155,9 @@ class Period extends React.Component {
   }
 
   requestEditPeriod (period) {
-    const { editPeriod } = this.props
+    const { editPeriod, actions } = this.props
     editPeriod(period)
+    actions.setMainButtonsVisibility(false)
   }
 
   saveEditPeriod () {
