@@ -180,6 +180,7 @@ class Period extends React.Component {
       if (index >= 0) {
         newPeriods.splice(index, 1)
         newPeriods.push(newPeriod)
+        if(!this.specialCases(newPeriods)) actions.setPerson({fatherName: '', motherName: ''})
         actions.setStayAbroad(newPeriods)
         this.setState({
           _period: {}
