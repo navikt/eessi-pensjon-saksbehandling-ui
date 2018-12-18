@@ -64,14 +64,18 @@ class Period extends React.Component {
     this.setChildBirthDate = this.dateSetProperty.bind(this, 'childBirthDate', periodValidation.childBirthDate)
     this.setLearnInstitution = this.eventSetProperty.bind(this, 'learnInstitution', periodValidation.learnInstitution)
     this.setAttachments = this.valueSetProperty.bind(this, 'attachments', null)
-    this.setFatherName = this.eventSetProperty.bind(this, 'fatherName', periodValidation.fatherName)
-    this.setMotherName = this.eventSetProperty.bind(this, 'motherName', periodValidation.motherName)
+    this.setFatherName = this.eventSetPerson.bind(this, 'fatherName')
+    this.setMotherName = this.eventSetPerson.bind(this, 'motherName')
   }
 
   specialCases (periods) {
     return periods.reduce((acc, period)=>(
       acc ||period.country.value === 'ES' || period.country.value === 'FR'
     ),false)
+  }
+
+  eventSetPerson (key, e){
+    this.props.actions.setPerson({[key]: e.target.value})
   }
 
   eventSetProperty (key, validateFunction, event) {
@@ -137,10 +141,7 @@ class Period extends React.Component {
 
     if (_.isEmpty(errors)) {
       let newPeriods = _.clone(periods)
-      let {fatherName, motherName, ...newPeriod} = _.clone(_period)
-      console.log(fatherName, this.state.fatherName, motherName, this.state.motherName)
-      if(fatherName !== undefined && fatherName !== this.state.fatherName) this.setState((s, p)=>{fatherName}, actions.setPerson({ fatherName: this.state.fatherName }))
-      if(motherName !== undefined && motherName !== this.state.motherName) this.setState((s, p)=>{motherName}, actions.setPerson({ motherName: this.state.motherName }))
+      let newPeriod = _.clone(_period)
       newPeriod.id = new Date().getTime()
       newPeriods.push(newPeriod)
       actions.setStayAbroad(newPeriods)
@@ -172,10 +173,7 @@ class Period extends React.Component {
 
     if (_.isEmpty(errors)) {
       let newPeriods = _.clone(periods)
-      let {fatherName, motherName, ...newPeriod} = _.clone(_period)
-      console.log(fatherName, this.state.fatherName, motherName, this.state.motherName)
-      if(fatherName !== undefined && fatherName !== this.state.fatherName) this.setState((s, p)=>{fatherName}, actions.setPerson({ fatherName: this.state.fatherName }))
-      if(motherName !== undefined && motherName !== this.state.motherName) this.setState((s, p)=>{motherName}, actions.setPerson({ motherName: this.state.motherName }))
+      let newPeriod = _.clone(_period)
 
       newPeriod.id = new Date().getTime()
 
@@ -185,7 +183,6 @@ class Period extends React.Component {
         newPeriods.splice(index, 1)
         newPeriods.push(newPeriod)
         actions.setStayAbroad(newPeriods)
-        actions.setPerson({fatherName: this.state.fatherName, motherName: this.state.motherName})
         this.setState({
           _period: {}
         })
@@ -240,7 +237,7 @@ class Period extends React.Component {
     if (index >= 0) {
       let newPeriods = _.clone(periods)
       newPeriods.splice(index, 1)
-      if(!this.specialCases(newPeriods)) this.setState((s,p)=> ({fatherName: '', motherName: ''}), actions.setPerson({ fatherName: this.state.fatherName, motherName: this.state.motherName}))
+      if(!this.specialCases(newPeriods)) actions.setPerson({ fatherName: '', motherName: ''})
       actions.setStayAbroad(newPeriods)
       actions.setPerson({fatherName: this.state.fatherName, motherName: this.state.motherName})
       let _pinfo = _.cloneDeep(pinfo)
