@@ -139,8 +139,8 @@ class Period extends React.Component {
       let newPeriods = _.clone(periods)
       let {fatherName, motherName, ...newPeriod} = _.clone(_period)
       console.log(fatherName, this.state.fatherName, motherName, this.state.motherName)
-      if(fatherName !== undefined && fatherName !== this.state.fatherName) this.setState((s, p)=>{fatherName}, actions.setPerson({ fatherName }))
-      if(motherName !== undefined && motherName !== this.state.motherName) this.setState((s, p)=>{motherName}, actions.setPerson({ motherName }))
+      if(fatherName !== undefined && fatherName !== this.state.fatherName) this.setState((s, p)=>{fatherName}, actions.setPerson({ fatherName: this.state.fatherName }))
+      if(motherName !== undefined && motherName !== this.state.motherName) this.setState((s, p)=>{motherName}, actions.setPerson({ motherName: this.state.motherName }))
       newPeriod.id = new Date().getTime()
       newPeriods.push(newPeriod)
       actions.setStayAbroad(newPeriods)
@@ -174,8 +174,8 @@ class Period extends React.Component {
       let newPeriods = _.clone(periods)
       let {fatherName, motherName, ...newPeriod} = _.clone(_period)
       console.log(fatherName, this.state.fatherName, motherName, this.state.motherName)
-      if(fatherName !== undefined && fatherName !== this.state.fatherName) this.setState((s, p)=>{fatherName}, actions.setPerson({ fatherName }))
-      if(motherName !== undefined && motherName !== this.state.motherName) this.setState((s, p)=>{motherName}, actions.setPerson({ motherName }))
+      if(fatherName !== undefined && fatherName !== this.state.fatherName) this.setState((s, p)=>{fatherName}, actions.setPerson({ fatherName: this.state.fatherName }))
+      if(motherName !== undefined && motherName !== this.state.motherName) this.setState((s, p)=>{motherName}, actions.setPerson({ motherName: this.state.motherName }))
 
       newPeriod.id = new Date().getTime()
 
