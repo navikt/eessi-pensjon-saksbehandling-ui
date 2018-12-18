@@ -36,8 +36,6 @@ class Util {
       jobbUnderAnsattEllerSelvstendig: period.workActivity,
       forsikringEllerRegistreringNr: period.workId,
       navnPaaInstitusjon: period.learnInstitution,
-      farsNavn: period.fatherName,
-      morsNavn: period.motherName
     }
   }
 
@@ -73,7 +71,9 @@ class Util {
       'fodestedLand': person.country ? this.handleCountry(person.country) : null,
       'provinsEllerDepartement': person.region,
       'telefonnummer': person.phone,
-      'epost': person.email
+      'epost': person.email,
+      'farsNavn': person.farsNavn,
+      'morsnavn': person.morsNavn
     }
   }
 

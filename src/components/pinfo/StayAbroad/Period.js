@@ -36,7 +36,9 @@ class Period extends React.Component {
   state = {
     localErrors: {},
     errorTimestamp: new Date().getTime(),
-    _period: {}
+    _period: {},
+    fatherName: '',
+    motherName: ''
   }
 
   constructor (props) {
@@ -64,6 +66,12 @@ class Period extends React.Component {
     this.setAttachments = this.valueSetProperty.bind(this, 'attachments', null)
     this.setFatherName = this.eventSetProperty.bind(this, 'fatherName', periodValidation.fatherName)
     this.setMotherName = this.eventSetProperty.bind(this, 'motherName', periodValidation.motherName)
+  }
+
+  specialCases (periods) {
+    return periods.reduce((acc, period)=>(
+      acc ||period.country.value === 'ES' || period.country.value === 'FR'
+    ),false)
   }
 
   eventSetProperty (key, validateFunction, event) {
@@ -129,11 +137,13 @@ class Period extends React.Component {
 
     if (_.isEmpty(errors)) {
       let newPeriods = _.clone(periods)
-      let newPeriod = _.clone(_period)
-
+      let {fatherName, motherName, ...newPeriod} = _.clone(_period)
+      if(fatherName !== undefined && fatherName !== this.state.fatherName) this.setState((s, p)=>{fatherName})
+      if(motherName !== undefined && motherName !== this.state.motherName) this.setState((s, p)=>{motherName})
       newPeriod.id = new Date().getTime()
       newPeriods.push(newPeriod)
       actions.setStayAbroad(newPeriods)
+      actions.setPerson({fatherName: this.state.fatherName, motherName: this.state.motherName})
       this.setState({
         _period: {}
       })
@@ -162,7 +172,10 @@ class Period extends React.Component {
 
     if (_.isEmpty(errors)) {
       let newPeriods = _.clone(periods)
-      let newPeriod = _.clone(_period)
+      let {fatherName, motherName, ...newPeriod} = _.clone(_period)
+      if(fatherName !== undefined && fatherName !== this.state.fatherName) this.setState((s, p)=>{fatherName})
+      if(motherName !== undefined && motherName !== this.state.motherName) this.setState((s, p)=>{motherName})
+
       newPeriod.id = new Date().getTime()
 
       let index = _.findIndex(periods, { id: _period.id })
@@ -171,6 +184,7 @@ class Period extends React.Component {
         newPeriods.splice(index, 1)
         newPeriods.push(newPeriod)
         actions.setStayAbroad(newPeriods)
+        actions.setPerson({fatherName: this.state.fatherName, motherName: this.state.motherName})
         this.setState({
           _period: {}
         })
@@ -225,7 +239,9 @@ class Period extends React.Component {
     if (index >= 0) {
       let newPeriods = _.clone(periods)
       newPeriods.splice(index, 1)
+      if(!this.specialCases(newPeriods)) this.setState((s,p)=> ({fatherName: '', motherName: ''}))
       actions.setStayAbroad(newPeriods)
+      actions.setPerson({fatherName: this.state.fatherName, motherName: this.state.motherName})
       let _pinfo = _.cloneDeep(pinfo)
       _pinfo.stayAbroad = newPeriods
       actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
@@ -240,7 +256,7 @@ class Period extends React.Component {
   }
 
   render () {
-    const { t, mode, period, locale, current, first, last } = this.props
+    const { t, mode, period, locale, current, first, last, pinfo } = this.props
     const { localErrors, _period } = this.state
 
     let errorMessage = this.errorMessage()
@@ -454,7 +470,7 @@ class Period extends React.Component {
                     type='text'
                     label={t('pinfo:stayAbroad-period-fathername')}
                     placeholder={t('ui:writeIn')}
-                    value={_period.fatherName || ''}
+                    value={_period.fatherName || this.state.fatherName}
                     onChange={this.setFatherName}
                     feil={localErrors.fatherName ? { feilmelding: t(localErrors.fatherName) } : null}
                   />
@@ -465,7 +481,7 @@ class Period extends React.Component {
                     type='text'
                     label={t('pinfo:stayAbroad-period-mothername')}
                     placeholder={t('ui:writeIn')}
-                    value={_period.motherName || ''}
+                    value={_period.motherName || this.state.motherName}
                     onChange={this.setMotherName}
                     feil={localErrors.motherName ? { feilmelding: t(localErrors.motherName) } : null}
                   />

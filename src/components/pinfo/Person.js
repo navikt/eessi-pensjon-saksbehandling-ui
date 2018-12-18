@@ -47,6 +47,8 @@ class Person extends React.Component {
     this.setPhone = this.eventSetProperty.bind(this, 'phone', personValidation.phone)
     this.setEmail = this.eventSetProperty.bind(this, 'email', null)
     this.setEmailAndValidate = this.eventSetProperty.bind(this, 'email', personValidation.email)
+    this.setMotherName = this.eventSetProperty.bind(this, 'motherName', personValidation.motherName)
+    this.setFatherName = this.eventSetProperty.bind(this, 'fatherName', personValidation.fatherName)
   }
 
   checkboxSetProperty (key, validateFunction, event) {
@@ -109,6 +111,38 @@ class Person extends React.Component {
           />
         </div>
       </Nav.Row>
+
+      {person.fatherName || person.motherName?
+        <React.Fragment>
+          <Nav.Row>
+            <div className='col-sm-9'>
+              <Nav.Input
+                id='pinfo-opphold-farsnavn-input'
+                type='text'
+                label={t('pinfo:stayAbroad-period-fathername')}
+                placeholder={t('ui:writeIn')}
+                value={person.fatherName || ''}
+                onChange={this.setFatherName}
+                feil={localErrors.fatherName ? { feilmelding: t(localErrors.fatherName) } : null}
+              />
+            </div>
+          </Nav.Row>
+          <Nav.Row>
+            <div className='col-sm-9'>
+              <Nav.Input
+                id='pinfo-opphold-morsnavn-input'
+                type='text'
+                label={t('pinfo:stayAbroad-period-mothername')}
+                placeholder={t('ui:writeIn')}
+                value={person.motherName || ''}
+                onChange={this.setMotherName}
+                feil={localErrors.motherName ? { feilmelding: t(localErrors.motherName) } : null}
+              />
+            </div>
+          </Nav.Row>
+        </React.Fragment>
+        :null
+      }
 
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-birthplace-title')}</Nav.Undertittel>
       <Nav.Row>
