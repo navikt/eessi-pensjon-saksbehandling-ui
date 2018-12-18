@@ -47,7 +47,7 @@ class Period extends React.Component {
     this.setCountry = this.valueSetProperty.bind(this, 'country', periodValidation.country)
     this.setInsuranceName = this.eventSetProperty.bind(this, 'insuranceName', periodValidation.insuranceName)
     this.setInsuranceType = this.eventSetProperty.bind(this, 'insuranceType', periodValidation.insuranceType)
-    this.setInsuranceId = this.eventSetProperty.bind(this, 'insuranceId', periodValidation.insuranceId)
+    this.setInsuranceId = this.eventSetProperty.bind(this, 'insuranceId', null)
     this.setAddress = this.eventSetProperty.bind(this, 'address', periodValidation.address)
     this.setCity = this.eventSetProperty.bind(this, 'city', periodValidation.city)
     this.setRegion = this.eventSetProperty.bind(this, 'region', periodValidation.region)
@@ -712,7 +712,7 @@ class Period extends React.Component {
                   id='pinfo-opphold-avbryt-button'
                   className='ml-4 cancelPeriodButton'
                   onClick={this.cancelPeriod.bind(this)}>
-                  {t('ui:cancel')}
+                  {t('ui:cancel-period')}
                 </Nav.Knapp>
               </div>
             </Nav.Row>

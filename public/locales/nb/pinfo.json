@@ -18,7 +18,7 @@
     "bank-title" : "Bank- og kontoinformasjon",
     "bank-name" : "Bankens navn",
     "bank-country" : "Land",
-    "bank-address" : "Adresse",
+    "bank-address" : "Bankens adresse",
     "bank-bicSwift" : "BIC / SWIFT",
     "bank-bicSwift-help": "Gå til din banks hjemmeside for å finne bankens BIC/SWIFT",
     "bank-iban" : "Kontonummer / IBAN",

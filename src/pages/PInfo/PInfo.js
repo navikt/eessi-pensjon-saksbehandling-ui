@@ -310,7 +310,7 @@ class PInfo extends React.Component {
             type='flat'
             className='cancelButton mb-2 mr-3'
             onClick={this.onCancelButtonClick.bind(this)}>
-            {t('cancel')}
+            {t('cancel-main')}
           </Nav.KnappBase> : null}
         </div> : null}
         {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
