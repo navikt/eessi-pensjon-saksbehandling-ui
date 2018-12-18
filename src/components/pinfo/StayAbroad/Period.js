@@ -36,9 +36,7 @@ class Period extends React.Component {
   state = {
     localErrors: {},
     errorTimestamp: new Date().getTime(),
-    _period: {},
-    fatherName: '',
-    motherName: ''
+    _period: {}
   }
 
   constructor (props) {
@@ -196,7 +194,7 @@ class Period extends React.Component {
   }
 
   cancelPeriod () {
-    const { editPeriod, actions } = this.props
+    const { periods, editPeriod, actions } = this.props
 
     this.setState({
       localErrors: {},
@@ -204,6 +202,7 @@ class Period extends React.Component {
       errorTimestamp: new Date().getTime()
     })
     editPeriod({})
+    if(!this.specialCases(periods)) actions.setPerson({fatherName: '', motherName: ''})
     actions.setMainButtonsVisibility(true)
   }
 
@@ -239,7 +238,6 @@ class Period extends React.Component {
       newPeriods.splice(index, 1)
       if(!this.specialCases(newPeriods)) actions.setPerson({ fatherName: '', motherName: ''})
       actions.setStayAbroad(newPeriods)
-      actions.setPerson({fatherName: this.state.fatherName, motherName: this.state.motherName})
       let _pinfo = _.cloneDeep(pinfo)
       _pinfo.stayAbroad = newPeriods
       actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
@@ -468,7 +466,7 @@ class Period extends React.Component {
                     type='text'
                     label={t('pinfo:stayAbroad-period-fathername')}
                     placeholder={t('ui:writeIn')}
-                    value={_period.fatherName || this.state.fatherName}
+                    value={this.props.pinfo.person.fatherName || ''}
                     onChange={this.setFatherName}
                     feil={localErrors.fatherName ? { feilmelding: t(localErrors.fatherName) } : null}
                   />
@@ -479,7 +477,7 @@ class Period extends React.Component {
                     type='text'
                     label={t('pinfo:stayAbroad-period-mothername')}
                     placeholder={t('ui:writeIn')}
-                    value={_period.motherName || this.state.motherName}
+                    value={this.props.pinfo.person.motherName || ''}
                     onChange={this.setMotherName}
                     feil={localErrors.motherName ? { feilmelding: t(localErrors.motherName) } : null}
                   />
