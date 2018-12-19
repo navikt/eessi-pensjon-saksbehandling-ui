@@ -66,13 +66,20 @@ class Period extends React.Component {
     this.setMotherName = this.eventSetPerson.bind(this, 'motherName')
   }
 
-  specialCases (periods) {
-    return periods.reduce((acc, period)=>(
-      acc ||period.country.value === 'ES' || period.country.value === 'FR'
-    ),false)
+  hasSpecialCases(periods) {
+    if (!periods || _.isEmpty(periods)) {
+      return false
+    }
+    return periods.some(period => {
+      return this.isASpecialCase(period)
+    })
   }
 
-  eventSetPerson (key, e){
+  isASpecialCase(period) {
+    return period.country && (period.country.value === 'ES' || period.country.value === 'FR')
+  }
+
+  eventSetPerson (key, e) {
     this.props.actions.setPerson({[key]: e.target.value})
   }
 
@@ -181,7 +188,12 @@ class Period extends React.Component {
       if (index >= 0) {
         newPeriods.splice(index, 1)
         newPeriods.push(newPeriod)
-        if(!this.specialCases(newPeriods)) actions.setPerson({fatherName: '', motherName: ''})
+        if(!this.hasSpecialCases(newPeriods)) {
+          actions.setPerson({
+            fatherName: '',
+            motherName: ''
+          })
+        }
         actions.setStayAbroad(newPeriods)
         this.setState({
           _period: {}
@@ -204,7 +216,12 @@ class Period extends React.Component {
       errorTimestamp: new Date().getTime()
     })
     editPeriod({})
-    if(!this.specialCases(periods)) actions.setPerson({fatherName: '', motherName: ''})
+    if(!this.hasSpecialCases(periods)) {
+      actions.setPerson({
+        fatherName: '',
+        motherName: ''
+      })
+    }
     actions.setMainButtonsVisibility(true)
   }
 
@@ -238,7 +255,12 @@ class Period extends React.Component {
     if (index >= 0) {
       let newPeriods = _.clone(periods)
       newPeriods.splice(index, 1)
-      if(!this.specialCases(newPeriods)) actions.setPerson({ fatherName: '', motherName: ''})
+      if(!this.hasSpecialCases(newPeriods)) {
+        actions.setPerson({
+          fatherName: '',
+          motherName: ''
+        })
+      }
       actions.setStayAbroad(newPeriods)
       let _pinfo = _.cloneDeep(pinfo)
       _pinfo.stayAbroad = newPeriods
@@ -458,7 +480,7 @@ class Period extends React.Component {
                 />
               </div>
 
-              {_period.country && (_period.country.value === 'ES' || _period.country.value === 'FR') ? <React.Fragment>
+              {this.isASpecialCase(_period) ? <React.Fragment>
                 <div className='col-md-12 mt-4 mb-2'>
                   <span>{t('pinfo:stayAbroad-spain-france-warning', { country: _period.country.label })}</span>
                 </div>
