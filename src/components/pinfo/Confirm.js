@@ -11,7 +11,7 @@ class Confirm extends React.Component {
 
     return <React.Fragment>
       <Person pageErrors={pageErrors} errorTimestamp={errorTimestamp} />
-      <Bank pageErrors={pageErrors} errorTimestamp={errorTimestamp} disableHelpText={true}/>
+      <Bank pageErrors={pageErrors} errorTimestamp={errorTimestamp} disableHelpText />
       <StayAbroad pageErrors={pageErrors} errorTimestamp={errorTimestamp} mode='view' />
     </React.Fragment>
   }

@@ -35,7 +35,7 @@ class Util {
       navnFirma: period.workName,
       jobbUnderAnsattEllerSelvstendig: period.workActivity,
       forsikringEllerRegistreringNr: period.workId,
-      navnPaaInstitusjon: period.learnInstitution,
+      navnPaaInstitusjon: period.learnInstitution
     }
   }
 

@@ -25,6 +25,7 @@ import './Period.css'
 const mapStateToProps = (state) => {
   return {
     pinfo: state.pinfo,
+    person: state.pinfo.person,
     username: state.app.username
   }
 }
@@ -66,7 +67,7 @@ class Period extends React.Component {
     this.setMotherName = this.eventSetPerson.bind(this, 'motherName')
   }
 
-  hasSpecialCases(periods) {
+  hasSpecialCases (periods) {
     if (!periods || _.isEmpty(periods)) {
       return false
     }
@@ -75,12 +76,12 @@ class Period extends React.Component {
     })
   }
 
-  isASpecialCase(period) {
+  isASpecialCase (period) {
     return period.country && (period.country.value === 'ES' || period.country.value === 'FR')
   }
 
   eventSetPerson (key, e) {
-    this.props.actions.setPerson({[key]: e.target.value})
+    this.props.actions.setPerson({ [key]: e.target.value })
   }
 
   eventSetProperty (key, validateFunction, event) {
@@ -92,7 +93,6 @@ class Period extends React.Component {
   }
 
   valueSetProperty (key, validateFunction, value) {
-
     const { actions } = this.props
 
     let _localErrors = _.cloneDeep(this.state.localErrors)
@@ -188,7 +188,7 @@ class Period extends React.Component {
       if (index >= 0) {
         newPeriods.splice(index, 1)
         newPeriods.push(newPeriod)
-        if(!this.hasSpecialCases(newPeriods)) {
+        if (!this.hasSpecialCases(newPeriods)) {
           actions.setPerson({
             fatherName: '',
             motherName: ''
@@ -216,7 +216,7 @@ class Period extends React.Component {
       errorTimestamp: new Date().getTime()
     })
     editPeriod({})
-    if(!this.hasSpecialCases(periods)) {
+    if (!this.hasSpecialCases(periods)) {
       actions.setPerson({
         fatherName: '',
         motherName: ''
@@ -255,7 +255,7 @@ class Period extends React.Component {
     if (index >= 0) {
       let newPeriods = _.clone(periods)
       newPeriods.splice(index, 1)
-      if(!this.hasSpecialCases(newPeriods)) {
+      if (!this.hasSpecialCases(newPeriods)) {
         actions.setPerson({
           fatherName: '',
           motherName: ''
@@ -276,7 +276,7 @@ class Period extends React.Component {
   }
 
   render () {
-    const { t, mode, period, locale, current, first, last, pinfo } = this.props
+    const { t, mode, period, locale, current, first, last, person } = this.props
     const { localErrors, _period } = this.state
 
     let errorMessage = this.errorMessage()
@@ -490,7 +490,7 @@ class Period extends React.Component {
                     type='text'
                     label={t('pinfo:stayAbroad-period-fathername')}
                     placeholder={t('ui:writeIn')}
-                    value={this.props.pinfo.person.fatherName || ''}
+                    value={person.fatherName || ''}
                     onChange={this.setFatherName}
                     feil={localErrors.fatherName ? { feilmelding: t(localErrors.fatherName) } : null}
                   />
@@ -501,7 +501,7 @@ class Period extends React.Component {
                     type='text'
                     label={t('pinfo:stayAbroad-period-mothername')}
                     placeholder={t('ui:writeIn')}
-                    value={this.props.pinfo.person.motherName || ''}
+                    value={person.motherName || ''}
                     onChange={this.setMotherName}
                     feil={localErrors.motherName ? { feilmelding: t(localErrors.motherName) } : null}
                   />

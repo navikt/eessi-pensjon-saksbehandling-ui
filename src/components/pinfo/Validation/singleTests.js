@@ -54,6 +54,14 @@ let region = function (region) {
   return isEmpty(region, 'pinfo:validation-noRegion')
 }
 
+let fatherName = function (fatherName) {
+  return patternMatchIfNotEmpty(fatherName, /^[^\d]+$/, 'pinfo:validation-invalidFatherName')
+}
+
+let motherName = function (motherName) {
+  return patternMatchIfNotEmpty(motherName, /^[^\d]+$/, 'pinfo:validation-invalidMotherName')
+}
+
 export const personValidation = {
   nameAtBirth,
   phone,
@@ -121,14 +129,6 @@ let startDate = function (startDate) {
 
 let endDate = function (endDate) {
   return endDate && endDate > new Date().getTime() ? 'pinfo:validation-invalidEndDate' : undefined
-}
-
-let fatherName = function (fatherName) {
-  return patternMatchIfNotEmpty(fatherName, /^[^\d]+$/, 'pinfo:validation-invalidFatherName')
-}
-
-let motherName = function (motherName) {
-  return patternMatchIfNotEmpty(motherName, /^[^\d]+$/, 'pinfo:validation-invalidMotherName')
 }
 
 let insuranceName = function (insuranceName) {

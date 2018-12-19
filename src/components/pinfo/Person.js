@@ -112,8 +112,8 @@ class Person extends React.Component {
         </div>
       </Nav.Row>
 
-      {person.fatherName || person.motherName?
-        <React.Fragment>
+      {person.fatherName || person.motherName
+        ? <React.Fragment>
           <Nav.Row>
             <div className='col-sm-9'>
               <Nav.Input
@@ -141,7 +141,7 @@ class Person extends React.Component {
             </div>
           </Nav.Row>
         </React.Fragment>
-        :null
+        : null
       }
 
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-birthplace-title')}</Nav.Undertittel>
