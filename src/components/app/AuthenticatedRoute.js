@@ -87,7 +87,7 @@ class AuthenticatedRoute extends Component {
     }
 
     let validRole = this.hasApprovedRole()
-    let authorized = (userRole === constants.BRUKER && allowed) || userRole === constants.SAKSBEHANDLER || IS_DEVELOPMENT
+    let authorized = (userRole === constants.BRUKER && allowed) || (userRole === constants.SAKSBEHANDLER && allowed) || IS_DEVELOPMENT
 
     return userRole && validRole
       ? authorized
