@@ -147,10 +147,6 @@ let workActivity = function (workActivity) {
   return isEmpty(workActivity, 'pinfo:validation-noWorkActivity')
 }
 
-let workId = function (workId) {
-  return isEmpty(workId, 'pinfo:validation-noWorkId')
-}
-
 let workName = function (workName) {
   return isEmpty(workName, 'pinfo:validation-noWorkName')
 }
@@ -200,7 +196,6 @@ export const periodValidation = {
   insuranceType,
   insuranceId,
   workActivity,
-  workId,
   workName,
   workAddress,
   workCity,
@@ -208,9 +203,7 @@ export const periodValidation = {
   childFirstName,
   childLastName,
   childBirthDate,
-  learnInstitution,
-  fatherName,
-  motherName
+  learnInstitution
 }
 
 // WORK AND INCOME

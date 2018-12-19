@@ -519,16 +519,6 @@ class Period extends React.Component {
                   feil={localErrors.insuranceName ? { feilmelding: t(localErrors.insuranceName) } : null}
                 />
               </div>
-              {_period.type !== 'work' ? <div className='col-md-12'>
-                <Nav.Input
-                  id='pinfo-opphold-trygdeordning-id'
-                  label={t('pinfo:stayAbroad-insurance-id')}
-                  placeholder={t('ui:writeIn')}
-                  value={_period.insuranceId || ''}
-                  onChange={this.setInsuranceId}
-                  feil={localErrors.insuranceId ? { feilmelding: t(localErrors.insuranceId) } : null}
-                />
-              </div> : null}
               <div className='col-md-12'>
                 <Nav.Select
                   id='pinfo-opphold-trygdeordning-type'
@@ -541,7 +531,16 @@ class Period extends React.Component {
                   <option value={t('pinfo:stayAbroad-insurance-type-02')}>{t('pinfo:stayAbroad-insurance-type-02')}</option>
                   <option value={t('pinfo:stayAbroad-insurance-type-03')}>{t('pinfo:stayAbroad-insurance-type-03')}</option>
                 </Nav.Select>
-
+              </div>
+              <div className='col-md-12'>
+                <Nav.Input
+                  id='pinfo-opphold-trygdeordning-id'
+                  label={t('pinfo:stayAbroad-insurance-id')}
+                  placeholder={t('ui:writeIn')}
+                  value={_period.insuranceId || ''}
+                  onChange={this.setInsuranceId}
+                  feil={localErrors.insuranceId ? { feilmelding: t(localErrors.insuranceId) } : null}
+                />
               </div>
               <div className='col-md-12'>
                 <Nav.Undertittel className='mt-3 mb-3'>{t('pinfo:stayAbroad-home-title')}</Nav.Undertittel>
