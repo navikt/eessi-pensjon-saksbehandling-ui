@@ -6,6 +6,7 @@ import CustomInput from './CustomInput'
 
 import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.min.css'
+import './DatePicker.css'
 
 class DatePicker extends Component {
   render () {
@@ -18,7 +19,7 @@ class DatePicker extends Component {
         customInput={<CustomInput error={error !== undefined} {...this.props} />}
         selected={selected}
         dateFormat='dd.MM.yyyy'
-        className={classNames('input-group', className)}
+        className={classNames('input-group', 'c-ui-datePicker', className)}
         showYearDropdown
         showMonthDropdown
         dropdownMode='select'

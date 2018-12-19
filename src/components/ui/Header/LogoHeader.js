@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import * as navLogo from '../../../resources/images/nav-logo-red.png'
 import '../app-decorator-v4.css'
 import '../bundle.css'
+import './LogoHeader.css'
 
 class LogoHeader extends Component {
   render () {

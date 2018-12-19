@@ -1,70 +1,41 @@
+@import '../../constants';
+
 .p-pInfo {
-
-    ol.stegindikator__liste li.stegindikator__steg::after{
-        width: 1em;
-        height: 1px;
-        content: '';
-        display: block;
-        background-color: #00000000;
-        position: absolute;
-        top: 1rem;
-        border-top: 4px dotted #979797;
-        right: -1.125rem;
-    }
-
-    ol.stegindikator__liste li.stegindikator__steg--labelled:after {
-        width: 9rem;
-        left: 6.1rem;
-        right: auto;
-    }
-
-    ol.stegindikator__liste li.stegindikator__steg:last-child:after{
-        display: none;
-    }
 
     .hjelpetekst {
         position: absolute;
         right: 1rem;
     }
-    .nav-frontend-tabs {
-        border-bottom: 0px;
-    }
-    
-
-    fieldset {
-        padding: 1rem;
-        margin: 1rem;
-    }
-
-    legend {
-        padding-left: 1rem;
-        padding-right: 1rem;
-        width: auto;
-    }
     dt {
         float: left;
         display: inline-block;
     }
+
     dd {
         display: inline-block;
     }
-    legend {
-        &.skjema__legend{
-            padding-left: 0
-        }
-        padding-left: 6px
-    }
-    label.skjemaelement__label{
-        font-family: 'Source Sans Pro', Arial, sans-serif;
-        font-weight: bold;
-        letter-spacing: normal;
-        color: #3e3832;
-    }
 }
 
+.highContrast.p-pInfo {
 
-div.pInfo-tab {
-    padding-left: 32px;
-    padding-right: 32px;
+  .stegindikator__steg-num {
+     background: @black !important;
+     font-weight: bold;
+  }
+
+  .stegindikator__steg-inner--ferdig {
+    .stegindikator__steg-num {
+       background: @white !important;
+       color: @black !important;
+       font-weight: bold;
+    }
+  }
+  .stegindikator__steg-inner--aktiv {
+
+    .stegindikator__steg-num {
+       background: @high-contrast-orange !important;
+       color: @black !important;
+       font-weight: bold;
+    }
+  }
 }
-

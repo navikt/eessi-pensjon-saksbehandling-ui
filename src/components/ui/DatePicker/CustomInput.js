@@ -4,8 +4,8 @@ import classNames from 'classnames'
 
 class CustomInput extends Component {
   render () {
-    const { onClick, onChange, value, placeholder, error, id } = this.props
-    return <div className='input-group'>
+    const { onClick, onChange, value, placeholder, error, id, className } = this.props
+    return <div className={className}>
       <input
         id={id}
         type='text'

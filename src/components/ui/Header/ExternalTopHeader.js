@@ -63,7 +63,6 @@ class ExternalTopHeader extends Component {
                   <li className='dropdown'>
                     <button type='button' className='link-btn dropdown-toggle' data-toggle='dropdown'>
                       {t('language')}
-                      <span className='caret'></span>
                     </button>
                     <ul className='dropdown-menu hidden'>
                       <li className='active'>

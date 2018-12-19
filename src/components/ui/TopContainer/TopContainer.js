@@ -22,7 +22,8 @@ const mapStateToProps = (state) => {
   return {
     userRole: state.app.userRole,
     file: state.storage.file,
-    droppables: state.app.droppables
+    droppables: state.app.droppables,
+    highContrast: state.ui.highContrast
   }
 }
 
@@ -41,9 +42,10 @@ class TopContainer extends Component {
   }
 
   render () {
-    const { className, style, history, sideContent, userRole, header } = this.props
+    const { className, style, history, sideContent, userRole, header, highContrast } = this.props
 
-    return <div style={style} className={classNames('c-ui-topContainer', userRole, className)}>
+    return <div style={style} className={classNames('c-ui-topContainer', userRole, className,
+     {'highContrast' : highContrast})}>
       <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
         <Drawer className={userRole} sideContent={sideContent}>
           {userRole === constants.SAKSBEHANDLER

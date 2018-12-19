@@ -1,0 +1,44 @@
+@import '../../../constants';
+
+.c-ui-countrySelect {
+
+  .c-ui-countryOption {
+    padding: 5px;
+    &.selected {
+       background: lightblue;
+    }
+    &.focused {
+       background: aliceblue;
+    }
+  }
+}
+
+.highContrast .c-ui-countrySelect {
+
+  .CountrySelect__control {
+    background: black !important;
+  }
+
+  .c-ui-countryOption {
+
+    background: @black;
+
+    &.selected {
+       background: @blue;
+       color: @black !important;
+       font-weight: bold;
+    }
+    &.focused {
+       background: @high-contrast-orange;
+       color: @black !important;
+       font-weight: bold;
+    }
+  }
+}
+
+.c-ui-countryOption img,
+.c-ui-countryValue img {
+  width: 50px;
+  height: 30px;
+  margin-right: 0.7rem;
+}

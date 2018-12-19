@@ -9,6 +9,8 @@ import CountryOption from './CountryOption'
 import CountryValue from './CountryValue'
 import CountryErrorStyle from './CountryErrorStyle'
 
+import './CountrySelect.css'
+
 class CountrySelect extends Component {
   onChange (val) {
     const { onSelect } = this.props

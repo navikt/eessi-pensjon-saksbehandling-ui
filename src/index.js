@@ -25,6 +25,7 @@ import * as constants from './constants/constants'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
+import './index_highContrast.css'
 
 const history = createBrowserHistory()
 

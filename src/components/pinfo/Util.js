@@ -29,7 +29,7 @@ class Util {
       medlemskap: period.insuranceType,
       forsikringId: period.insuranceId,
       firmaBy: period.workCity,
-      firmaAddress: period.workAddress,
+      firmaAdresse: period.workAddress,
       firmaRegion: period.workRegion,
       firmaLand: this.handleCountry(period.country),
       navnFirma: period.workName,
