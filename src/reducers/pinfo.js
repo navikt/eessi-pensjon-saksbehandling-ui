@@ -62,7 +62,7 @@ export default function (state = initialState, action = {}) {
     case types.PINFO_SEND_SUCCESS:
 
       return Object.assign({}, state, {
-        receipt: action.payload
+        send: action.payload
       })
 
     case types.PINFO_SET_READY:
@@ -72,6 +72,18 @@ export default function (state = initialState, action = {}) {
       })
 
     case types.PINFO_SEND_FAILURE:
+
+      return Object.assign({}, state, {
+        send: undefined
+      })
+
+    case types.PINFO_RECEIPT_SUCCESS:
+
+      return Object.assign({}, state, {
+        receipt: action.payload
+      })
+
+    case types.PINFO_RECEIPT_FAILURE:
 
       return Object.assign({}, state, {
         receipt: undefined

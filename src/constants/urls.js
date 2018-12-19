@@ -24,6 +24,7 @@ export const CASE_GET_SUBJECT_AREA_LIST_URL = API_URL + '/subjectarea'
 export const APP_GET_USERINFO_URL = API_URL + '/userinfo'
 export const PINFO_SEND_URL = API_URL + '/submission/submit'
 export const PINFO_INVITE_URL = API_URL + '/varsel?saksId=%(saksId)s&aktoerId=%(aktoerId)s'
+export const PINFO_RECEIPT_URL = API_URL + '/submission/receipt'
 
 // StorageController
 export const STORAGE_LIST_URL = API_URL + '/storage/list/%(userId)s___%(namespace)s'

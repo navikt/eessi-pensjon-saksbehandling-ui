@@ -8,6 +8,7 @@ import * as Nav from '../../ui/Nav'
 import PsychoPanel from '../../../components/ui/Psycho/PsychoPanel'
 import PdfUtils from '../../../components/ui/Export/PdfUtils'
 import Period from '../StayAbroad/Period'
+import WaitingPanel from '../../../components/app/WaitingPanel'
 
 import './Receipt.css'
 
@@ -20,10 +21,22 @@ const mapStateToProps = (state) => {
 
 class Receipt extends React.Component {
   state = {
-    generatingPDF: false
+    generatingPDF: false,
+    isReady: false
   }
 
-  async onReceiptRequest () {
+  componentDidMount() {
+    this.generateReceipt()
+  }
+
+  async onDownloadRequest () {
+      this.downloadLink.click()
+  }
+
+  async generateReceipt () {
+
+    const { actions } = this.props
+
     this.setState({
       generatingPDF: true
     })
@@ -36,7 +49,9 @@ class Receipt extends React.Component {
       this.downloadLink.setAttribute('href',
         'data:application/octet-stream;base64,' + encodeURIComponent(newPdf.content.base64)
       )
-      this.downloadLink.click()
+
+      actions.sendReceipt(newPdf)
+
     } catch (e) {
       console.log('Failure to generate PDF', e)
     }
@@ -48,7 +63,11 @@ class Receipt extends React.Component {
   render () {
     const { t, locale } = this.props
     const { stayAbroad, person, bank } = this.props.pinfo
-    const { generatingPDF } = this.state
+    const { generatingPDF, isReady } = this.state
+
+  //  if (!isReady) {
+  //     return <WaitingPanel className='mt-5' message='loading' />
+  //  }
 
     return <div className='c-pinfo-receipt'>
       <PsychoPanel closeButton>
@@ -124,9 +143,9 @@ class Receipt extends React.Component {
       <Nav.Knapp
         id='pinfo-receipt-generate-button'
         className='generateButton m-4'
-        disabled={generatingPDF}
-        spinner={generatingPDF}
-        onClick={this.onReceiptRequest.bind(this)}>
+        disabled={generatingPDF || !isReady}
+        spinner={generatingPDF || !isReady}
+        onClick={this.onDownloadRequest.bind(this)}>
         {generatingPDF ? t('ui:generating') : t('ui:getReceipt')}
       </Nav.Knapp>
     </div>

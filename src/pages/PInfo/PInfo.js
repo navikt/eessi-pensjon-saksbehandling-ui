@@ -36,7 +36,7 @@ const mapStateToProps = (state) => {
     pinfo: state.pinfo,
     step: state.pinfo.step,
     maxStep: state.pinfo.maxStep,
-    receipt: state.pinfo.receipt,
+    send: state.pinfo.send,
     isReady: state.pinfo.isReady,
     isSendingPinfo: state.loading.isSendingPinfo,
     fileList: state.storage.fileList,
@@ -68,8 +68,8 @@ class PInfo extends React.Component {
   }
 
   componentDidUpdate () {
-    const { receipt, actions, username, step, fileList, file } = this.props
-    if (receipt && step === 3) {
+    const { send, actions, username, step, fileList, file } = this.props
+    if (send && step === 3) {
       actions.setStep(4)
     }
     if (fileList !== undefined && this.state.fileList === undefined) {
