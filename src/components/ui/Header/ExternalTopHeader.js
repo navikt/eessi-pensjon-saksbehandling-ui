@@ -27,18 +27,17 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class ExternalTopHeader extends Component {
-
-   changeLanguage (lang, e) {
-      if (e) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-      let { actions } = this.props
-
-      actions.changeLanguage(lang)
+  changeLanguage (lang, e) {
+    if (e) {
+      e.preventDefault()
+      e.stopPropagation()
     }
+    let { actions } = this.props
 
-  changeContrast() {
+    actions.changeLanguage(lang)
+  }
+
+  changeContrast () {
     let { actions } = this.props
     actions.toggleHighContrast()
   }
@@ -67,11 +66,11 @@ class ExternalTopHeader extends Component {
                     <ul className='dropdown-menu hidden'>
                       <li className='active'>
                         <a href='#language' title={'Norsk (Globalt språkvalg)'}
-                        onClick={this.changeLanguage.bind(this, 'no')}>{'Norsk'}</a>
+                          onClick={this.changeLanguage.bind(this, 'no')}>{'Norsk'}</a>
                       </li>
                       <li>
                         <a href='#language' title={'English (Globalt språkvalg)'}
-                        onClick={this.changeLanguage.bind(this, 'en')}>{'English'}</a>
+                          onClick={this.changeLanguage.bind(this, 'en')}>{'English'}</a>
                       </li>
                     </ul>
                   </li>

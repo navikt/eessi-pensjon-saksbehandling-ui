@@ -36,7 +36,6 @@ export default function (state = {}, action = {}) {
   }
 
   if (_.endsWith(action.type, '/FAILURE')) {
-
     if (action.context && action.context.failureAlert === false) {
       return Object.assign({}, state, {
         clientErrorMessage: undefined,

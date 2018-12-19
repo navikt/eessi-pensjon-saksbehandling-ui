@@ -22,7 +22,7 @@ export function call (options) {
       return dispatch({
         type: response.statusCode >= 400 ? options.type.failure : options.type.success,
         payload: body,
-        context: options.context,
+        context: options.context
       })
     })
   }

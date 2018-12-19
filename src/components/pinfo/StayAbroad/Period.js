@@ -156,7 +156,7 @@ class Period extends React.Component {
       _pinfo.stayAbroad = newPeriods
 
       actions.setMainButtonsVisibility(true)
-      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), {successAlert: false})
+      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
     }
   }
 
@@ -201,7 +201,7 @@ class Period extends React.Component {
         actions.setMainButtonsVisibility(true)
         let _pinfo = _.cloneDeep(pinfo)
         _pinfo.stayAbroad = newPeriods
-        actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), {successAlert: false})
+        actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
       }
     }
   }
@@ -263,7 +263,7 @@ class Period extends React.Component {
       actions.setStayAbroad(newPeriods)
       let _pinfo = _.cloneDeep(pinfo)
       _pinfo.stayAbroad = newPeriods
-      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), {successAlert: false})
+      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
     }
     actions.closeModal()
   }
@@ -581,69 +581,71 @@ class Period extends React.Component {
               </div>
 
             </Nav.Row>
-            {_period.type === 'work' ? <Nav.Row>
-              <div className='col-md-12'>
-                <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-work-title')}</Nav.Undertittel>
-              </div>
+            {_period.type === 'work' ? <React.Fragment>
               <Nav.Row>
-              <div className='col-md-12'>
-                <Nav.Input
-                  id='pinfo-opphold-yrkesaktivitet-input'
-                  label={t('pinfo:stayAbroad-work-activity')}
-                  placeholder={t('ui:writeIn')}
-                  value={_period.workActivity || ''}
-                  onChange={this.setWorkActivity}
-                  feil={localErrors.workActivity ? { feilmelding: t(localErrors.workActivity) } : null}
-                />
-              </div>
+                <div className='col-md-12'>
+                  <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-work-title')}</Nav.Undertittel>
+                </div>
               </Nav.Row>
               <Nav.Row>
-              <div className='col-md-12'>
-                <Nav.Input
-                  id='pinfo-opphold-arbeidgiversnavn-input'
-                  label={t('pinfo:stayAbroad-work-name')}
-                  placeholder={t('ui:writeIn')}
-                  value={_period.workName || ''}
-                  onChange={this.setWorkName}
-                  feil={localErrors.workName ? { feilmelding: t(localErrors.workName) } : null}
-                />
-              </div>
+                <div className='col-md-12 col-xs-12'>
+                  <Nav.Input
+                    id='pinfo-opphold-yrkesaktivitet-input'
+                    label={t('pinfo:stayAbroad-work-activity')}
+                    placeholder={t('ui:writeIn')}
+                    value={_period.workActivity || ''}
+                    onChange={this.setWorkActivity}
+                    feil={localErrors.workActivity ? { feilmelding: t(localErrors.workActivity) } : null}
+                  />
+                </div>
               </Nav.Row>
               <Nav.Row>
-              <div className='col-md-12'>
-                <Nav.Input
-                  id='pinfo-opphold-arbeidgiversaddress-input'
-                  label={t('pinfo:stayAbroad-work-address')}
-                  value={_period.workAddress || ''}
-                  placeholder={t('ui:writeIn')}
-                  onChange={this.setWorkAddress}
-                  feil={localErrors.workAddress ? { feilmelding: t(localErrors.workAddress) } : null}
-                />
-              </div>
+                <div className='col-md-12 col-xs-12'>
+                  <Nav.Input
+                    id='pinfo-opphold-arbeidgiversnavn-input'
+                    label={t('pinfo:stayAbroad-work-name')}
+                    placeholder={t('ui:writeIn')}
+                    value={_period.workName || ''}
+                    onChange={this.setWorkName}
+                    feil={localErrors.workName ? { feilmelding: t(localErrors.workName) } : null}
+                  />
+                </div>
+              </Nav.Row>
+              <Nav.Row >
+                <div className='col-md-12 col-xs-12'>
+                  <Nav.Input
+                    id='pinfo-opphold-arbeidgiversaddress-input'
+                    label={t('pinfo:stayAbroad-work-address')}
+                    value={_period.workAddress || ''}
+                    placeholder={t('ui:writeIn')}
+                    onChange={this.setWorkAddress}
+                    feil={localErrors.workAddress ? { feilmelding: t(localErrors.workAddress) } : null}
+                  />
+                </div>
               </Nav.Row>
               <Nav.Row>
-              <div className='col-md-6'>
-                <Nav.Input
-                  id='pinfo-opphold-arbeidgiversby-input'
-                  label={t('pinfo:stayAbroad-work-city')}
-                  value={_period.workCity || ''}
-                  placeholder={t('ui:writeIn')}
-                  onChange={this.setWorkCity}
-                  feil={localErrors.workCity ? { feilmelding: t(localErrors.workCity) } : null}
-                />
-              </div>
-              <div className='col-md-6'>
-                <Nav.Input
-                  id='pinfo-opphold-arbeidgiversregion-input'
-                  label={t('pinfo:stayAbroad-work-region')}
-                  value={_period.workRegion || ''}
-                  placeholder={t('ui:writeIn')}
-                  onChange={this.setWorkRegion}
-                  feil={localErrors.workRegion ? { feilmelding: t(localErrors.workRegion) } : null}
-                />
-              </div>
+                <div className='col-md-6'>
+                  <Nav.Input
+                    id='pinfo-opphold-arbeidgiversby-input'
+                    label={t('pinfo:stayAbroad-work-city')}
+                    value={_period.workCity || ''}
+                    placeholder={t('ui:writeIn')}
+                    onChange={this.setWorkCity}
+                    feil={localErrors.workCity ? { feilmelding: t(localErrors.workCity) } : null}
+                  />
+                </div>
+                <div className='col-md-6'>
+                  <Nav.Input
+                    id='pinfo-opphold-arbeidgiversregion-input'
+                    label={t('pinfo:stayAbroad-work-region')}
+                    value={_period.workRegion || ''}
+                    placeholder={t('ui:writeIn')}
+                    onChange={this.setWorkRegion}
+                    feil={localErrors.workRegion ? { feilmelding: t(localErrors.workRegion) } : null}
+                  />
+                </div>
               </Nav.Row>
-            </Nav.Row> : null}
+            </React.Fragment> : null}
             {_period.type === 'child' ? <Nav.Row>
               <div className='col-md-12'>
                 <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-child-title')}</Nav.Undertittel>

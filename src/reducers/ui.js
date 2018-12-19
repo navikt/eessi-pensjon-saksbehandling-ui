@@ -53,7 +53,7 @@ export default function (state = {}, action = {}) {
         highContrast: !state.highContrast
       })
 
-      default:
+    default:
 
       return state
   }

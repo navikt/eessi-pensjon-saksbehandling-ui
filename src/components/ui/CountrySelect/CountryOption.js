@@ -12,7 +12,7 @@ class CountryOption extends Component {
     return <div className={classNames('c-ui-countryOption', {
       selected: isSelected,
       focused: isFocused
-      })} {...innerProps}>
+    })} {...innerProps}>
       <img src={flagImageUrl}
         alt={label}
         onError={selectProps.selectProps.onImageError}

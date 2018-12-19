@@ -64,7 +64,7 @@ class PInfo extends React.Component {
     const { actions, username } = this.props
 
     window.hj('trigger', 'e207-feedback-no')
-    actions.listStorageFiles(username, 'PINFO', {successAlert: false})
+    actions.listStorageFiles(username, 'PINFO', { successAlert: false })
   }
 
   componentDidUpdate () {
@@ -74,7 +74,7 @@ class PInfo extends React.Component {
     }
     if (fileList !== undefined && this.state.fileList === undefined) {
       if (!_.isEmpty(fileList) && fileList.indexOf('PINFO.json') >= 0) {
-        actions.getStorageFile(username, constants.PINFO, constants.PINFO_FILE, {successAlert: false})
+        actions.getStorageFile(username, constants.PINFO, constants.PINFO_FILE, { successAlert: false })
       } else {
         actions.setReady()
       }
@@ -125,7 +125,7 @@ class PInfo extends React.Component {
     }
 
     if (_.isEmpty(errors)) {
-      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), {successAlert: false})
+      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
       actions.setStep(step + 1)
     }
   }
@@ -148,7 +148,7 @@ class PInfo extends React.Component {
       stepIndicatorError: undefined
     })
     actions.setStep(nextStep)
-    actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), {successAlert: false})
+    actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
     return true
   }
 
@@ -183,7 +183,7 @@ class PInfo extends React.Component {
     const { actions, history, pinfo, username } = this.props
 
     actions.closeModal()
-    actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), {successAlert: false})
+    actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
     actions.clearData()
     history.push(routes.ROOT)
   }
