@@ -53,7 +53,6 @@ class Period extends React.Component {
     this.setCity = this.eventSetProperty.bind(this, 'city', periodValidation.city)
     this.setRegion = this.eventSetProperty.bind(this, 'region', periodValidation.region)
     this.setWorkActivity = this.eventSetProperty.bind(this, 'workActivity', periodValidation.workActivity)
-    this.setWorkId = this.eventSetProperty.bind(this, 'workId', periodValidation.workId)
     this.setWorkName = this.eventSetProperty.bind(this, 'workName', periodValidation.workName)
     this.setWorkAddress = this.eventSetProperty.bind(this, 'workAddress', periodValidation.workAddress)
     this.setWorkCity = this.eventSetProperty.bind(this, 'workCity', periodValidation.workCity)
@@ -586,7 +585,8 @@ class Period extends React.Component {
               <div className='col-md-12'>
                 <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-work-title')}</Nav.Undertittel>
               </div>
-              <div className='col-md-6'>
+              <Nav.Row>
+              <div className='col-md-12'>
                 <Nav.Input
                   id='pinfo-opphold-yrkesaktivitet-input'
                   label={t('pinfo:stayAbroad-work-activity')}
@@ -596,17 +596,9 @@ class Period extends React.Component {
                   feil={localErrors.workActivity ? { feilmelding: t(localErrors.workActivity) } : null}
                 />
               </div>
-              <div className='col-md-6'>
-                <Nav.Input
-                  id='pinfo-opphold-yrkesforsikringid-input'
-                  label={t('pinfo:stayAbroad-work-id')}
-                  value={_period.workId || ''}
-                  placeholder={t('ui:writeIn')}
-                  onChange={this.setWorkId}
-                  feil={localErrors.workId ? { feilmelding: t(localErrors.workId) } : null}
-                />
-              </div>
-              <div className='col-md-6'>
+              </Nav.Row>
+              <Nav.Row>
+              <div className='col-md-12'>
                 <Nav.Input
                   id='pinfo-opphold-arbeidgiversnavn-input'
                   label={t('pinfo:stayAbroad-work-name')}
@@ -616,7 +608,9 @@ class Period extends React.Component {
                   feil={localErrors.workName ? { feilmelding: t(localErrors.workName) } : null}
                 />
               </div>
-              <div className='col-md-6'>
+              </Nav.Row>
+              <Nav.Row>
+              <div className='col-md-12'>
                 <Nav.Input
                   id='pinfo-opphold-arbeidgiversaddress-input'
                   label={t('pinfo:stayAbroad-work-address')}
@@ -626,6 +620,8 @@ class Period extends React.Component {
                   feil={localErrors.workAddress ? { feilmelding: t(localErrors.workAddress) } : null}
                 />
               </div>
+              </Nav.Row>
+              <Nav.Row>
               <div className='col-md-6'>
                 <Nav.Input
                   id='pinfo-opphold-arbeidgiversby-input'
@@ -646,6 +642,7 @@ class Period extends React.Component {
                   feil={localErrors.workRegion ? { feilmelding: t(localErrors.workRegion) } : null}
                 />
               </div>
+              </Nav.Row>
             </Nav.Row> : null}
             {_period.type === 'child' ? <Nav.Row>
               <div className='col-md-12'>
