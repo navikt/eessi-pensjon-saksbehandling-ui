@@ -57,8 +57,6 @@ export function periodStep (period) {
   let city = tests.periodValidation.city(period.city)
   let region = tests.periodValidation.region(period.region)
   let country = tests.periodValidation.country(period.country)
-  let fatherName = tests.periodValidation.fatherName(period.fatherName)
-  let motherName = tests.periodValidation.motherName(period.motherName)
 
   if (startDate) errors.startDate = startDate
   if (endDate) errors.endDate = endDate
@@ -69,8 +67,6 @@ export function periodStep (period) {
   if (city) errors.city = city
   if (region) errors.region = region
   if (country) errors.country = country
-  if (fatherName) errors.fatherName = fatherName
-  if (motherName) errors.motherName = motherName
 
   switch (period.type) {
     case 'work':

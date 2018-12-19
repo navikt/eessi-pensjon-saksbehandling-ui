@@ -54,14 +54,6 @@ let region = function (region) {
   return isEmpty(region, 'pinfo:validation-noRegion')
 }
 
-let fatherName = function (fatherName) {
-  return patternMatchIfNotEmpty(fatherName, /^[^\d]+$/, 'pinfo:validation-invalidFatherName')
-}
-
-let motherName = function (motherName) {
-  return patternMatchIfNotEmpty(motherName, /^[^\d]+$/, 'pinfo:validation-invalidMotherName')
-}
-
 export const personValidation = {
   nameAtBirth,
   phone,
@@ -69,9 +61,7 @@ export const personValidation = {
   previousName,
   country,
   city,
-  region,
-  motherName,
-  fatherName
+  region
 }
 
 // BANK
