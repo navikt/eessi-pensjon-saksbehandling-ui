@@ -21,13 +21,6 @@ function processError (error) {
 
 export default function (state = {}, action = {}) {
   let message
-  //The alerts were annoying fag.
-  if(action.alert !== true){
-    return Object.assign({}, state, {
-      clientErrorMessage: undefined,
-      clientErrorStatus: undefined
-    })
-  }
 
   if (_.endsWith(action.type, '/REQUEST')) {
     return Object.assign({}, state, {
@@ -43,6 +36,14 @@ export default function (state = {}, action = {}) {
   }
 
   if (_.endsWith(action.type, '/FAILURE')) {
+
+    if (action.context && action.context.failureAlert === false) {
+      return Object.assign({}, state, {
+        clientErrorMessage: undefined,
+        clientErrorStatus: undefined
+      })
+    }
+
     switch (action.type) {
       case types.CASE_GET_SUBJECT_AREA_LIST_FAILURE:
 
@@ -118,6 +119,13 @@ export default function (state = {}, action = {}) {
     return Object.assign({}, state, {
       clientErrorStatus: 'ERROR',
       clientErrorMessage: message
+    })
+  }
+
+  if (action.context && action.context.successAlert === false) {
+    return Object.assign({}, state, {
+      clientErrorMessage: undefined,
+      clientErrorStatus: undefined
     })
   }
 

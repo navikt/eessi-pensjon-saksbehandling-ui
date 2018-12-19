@@ -157,7 +157,7 @@ class Period extends React.Component {
       _pinfo.stayAbroad = newPeriods
 
       actions.setMainButtonsVisibility(true)
-      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
+      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), {successAlert: false})
     }
   }
 
@@ -202,7 +202,7 @@ class Period extends React.Component {
         actions.setMainButtonsVisibility(true)
         let _pinfo = _.cloneDeep(pinfo)
         _pinfo.stayAbroad = newPeriods
-        actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
+        actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), {successAlert: false})
       }
     }
   }
@@ -264,7 +264,7 @@ class Period extends React.Component {
       actions.setStayAbroad(newPeriods)
       let _pinfo = _.cloneDeep(pinfo)
       _pinfo.stayAbroad = newPeriods
-      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
+      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), {successAlert: false})
     }
     actions.closeModal()
   }

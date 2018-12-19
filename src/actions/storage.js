@@ -16,10 +16,11 @@ export function closeStorageModal () {
   }
 }
 
-export function listStorageFiles (userId, namespace) {
+export function listStorageFiles (userId, namespace, context) {
   return api.call({
     url: sprintf(urls.STORAGE_LIST_URL, { userId: userId, namespace: namespace }),
     method: 'GET',
+    context: context,
     type: {
       request: types.STORAGE_LIST_REQUEST,
       success: types.STORAGE_LIST_SUCCESS,
@@ -28,24 +29,25 @@ export function listStorageFiles (userId, namespace) {
   })
 }
 
-export function getStorageFile (userId, namespace, file) {
+export function getStorageFile (userId, namespace, file, context) {
   return api.call({
     url: sprintf(urls.STORAGE_GET_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'GET',
+    context: context,
     type: {
       request: types.STORAGE_GET_REQUEST,
       success: types.STORAGE_GET_SUCCESS,
       failure: types.STORAGE_GET_FAILURE
-    },
-    fileName: file
+    }
   })
 }
 
-export function postStorageFile (userId, namespace, file, payload) {
+export function postStorageFile (userId, namespace, file, payload, context) {
   return api.call({
     url: sprintf(urls.STORAGE_POST_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'POST',
     payload: payload,
+    context: context,
     type: {
       request: types.STORAGE_POST_REQUEST,
       success: types.STORAGE_POST_SUCCESS,

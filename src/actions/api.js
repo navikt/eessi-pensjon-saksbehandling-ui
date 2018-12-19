@@ -6,7 +6,6 @@ export function call (options) {
     dispatch({
       type: options.type.request
     })
-
     request({
       url: options.url,
       method: options.method || 'GET',
@@ -20,23 +19,11 @@ export function call (options) {
           type: types.SERVER_OFFLINE
         })
       }
-      let statusCode = response.statusCode
-
-      if (statusCode >= 400) {
-        dispatch({
-          type: options.type.failure,
-          payload: body,
-          fileName: options.fileName || null,
-          statusCode: statusCode
-        })
-      } else {
-        dispatch({
-          type: options.type.success,
-          payload: body,
-          fileName: options.fileName || null,
-          statusCode: statusCode
-        })
-      }
+      return dispatch({
+        type: response.statusCode >= 400 ? options.type.failure : options.type.success,
+        payload: body,
+        context: options.context,
+      })
     })
   }
 }
