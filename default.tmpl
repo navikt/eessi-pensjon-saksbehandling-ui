@@ -9,8 +9,8 @@ server {
 
     # rewrite ^/login$ http://eessi-pensjon-frontend-api-${ZONE}.${APP_ENVIRONMENT}/login?redirect=https://${LOADBALANCEURL} redirect;
 
-    location /login {
-        proxy_pass http://eessi-pensjon-frontend-api-${ZONE}.${APP_ENVIRONMENT}/login?redirect=https://${LOADBALANCEURL};
+    location /login?(.*)$ {
+        proxy_pass http://eessi-pensjon-frontend-api-${ZONE}.${APP_ENVIRONMENT}/login?redirect=https://${LOADBALANCEURL}&$1;
     }
 
     location /api/ {
