@@ -80,7 +80,6 @@ ReactDOM.render(
           <Route path={routes.FORBIDDEN} render={() => <Pages.Error type='forbidden' />} />
           <Route path={routes.ROOT + ':PATH+'} render={() => <Pages.Error type='error' />} />
           <Route path={routes.ROOT} component={Pages.FirstPage} />
-          <Route path={'/:PATH+'} render={() => <Pages.Error type='Error' />} />
           <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
         </Switch>
       </Router>
