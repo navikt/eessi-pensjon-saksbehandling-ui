@@ -1,22 +1,27 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withNamespaces } from 'react-i18next'
-
-import * as navLogo from '../../../resources/images/nav-logo-red.png'
+import { bindActionCreators } from 'redux'
 
 import * as Nav from '../../ui/Nav'
 import PsychoPanel from '../../../components/ui/Psycho/PsychoPanel'
 import PdfUtils from '../../../components/ui/Export/PdfUtils'
 import Period from '../StayAbroad/Period'
-import WaitingPanel from '../../../components/app/WaitingPanel'
 
+import * as navLogo from '../../../resources/images/nav-logo-red.png'
+import * as pinfoActions from '../../../actions/pinfo'
 import './Receipt.css'
 
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
-    pinfo: state.pinfo
+    pinfo: state.pinfo,
+    receipt: state.pinfo.receipt
   }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return { actions: bindActionCreators(Object.assign({}, pinfoActions), dispatch) }
 }
 
 class Receipt extends React.Component {
@@ -25,16 +30,25 @@ class Receipt extends React.Component {
     isReady: false
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.generateReceipt()
   }
 
+  componentDidUpdate () {
+    const { receipt } = this.props
+    const { isReady } = this.state
+    if (receipt && !isReady) {
+      this.setState({
+        isReady: true
+      })
+    }
+  }
+
   async onDownloadRequest () {
-      this.downloadLink.click()
+    this.downloadLink.click()
   }
 
   async generateReceipt () {
-
     const { actions } = this.props
 
     this.setState({
@@ -51,7 +65,6 @@ class Receipt extends React.Component {
       )
 
       actions.sendReceipt(newPdf)
-
     } catch (e) {
       console.log('Failure to generate PDF', e)
     }
@@ -64,10 +77,6 @@ class Receipt extends React.Component {
     const { t, locale } = this.props
     const { stayAbroad, person, bank } = this.props.pinfo
     const { generatingPDF, isReady } = this.state
-
-  //  if (!isReady) {
-  //     return <WaitingPanel className='mt-5' message='loading' />
-  //  }
 
     return <div className='c-pinfo-receipt'>
       <PsychoPanel closeButton>
@@ -146,14 +155,15 @@ class Receipt extends React.Component {
         disabled={generatingPDF || !isReady}
         spinner={generatingPDF || !isReady}
         onClick={this.onDownloadRequest.bind(this)}>
-        {generatingPDF ? t('ui:generating') : t('ui:getReceipt')}
+        {generatingPDF || !isReady ? t('ui:generating') : ('ui:getReceipt')}
       </Nav.Knapp>
     </div>
   }
 }
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(
   withNamespaces()(Receipt)
 )

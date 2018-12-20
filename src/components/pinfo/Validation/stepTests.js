@@ -72,14 +72,12 @@ export function periodStep (period) {
     case 'work':
 
       let workActivity = tests.periodValidation.workActivity(period.workActivity)
-      let workId = tests.periodValidation.workId(period.workId)
       let workName = tests.periodValidation.workName(period.workName)
       let workAddress = tests.periodValidation.workAddress(period.workAddress)
       let workCity = tests.periodValidation.workCity(period.workCity)
       let workRegion = tests.periodValidation.workRegion(period.workRegion)
 
       if (workActivity) errors.workActivity = workActivity
-      if (workId) errors.workId = workId
       if (workName) errors.workName = workName
       if (workAddress) errors.workAddress = workAddress
       if (workCity) errors.workCity = workCity

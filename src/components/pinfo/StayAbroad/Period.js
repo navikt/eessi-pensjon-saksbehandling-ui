@@ -382,9 +382,6 @@ class Period extends React.Component {
                   <span className='bold'>{t('pinfo:stayAbroad-work-activity')}</span>{': '}
                   {period.workActivity}
                   <br />
-                  <span className='bold'>{t('pinfo:stayAbroad-work-id')}</span>{': '}
-                  {period.workId}
-                  <br />
                   <span className='bold'>{t('pinfo:stayAbroad-work-name')}</span>{': '}
                   {period.workName}
                   <br />

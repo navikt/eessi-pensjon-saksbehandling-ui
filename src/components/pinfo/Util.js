@@ -34,7 +34,6 @@ class Util {
       firmaLand: this.handleCountry(period.country),
       navnFirma: period.workName,
       jobbUnderAnsattEllerSelvstendig: period.workActivity,
-      forsikringEllerRegistreringNr: period.workId,
       navnPaaInstitusjon: period.learnInstitution
     }
   }

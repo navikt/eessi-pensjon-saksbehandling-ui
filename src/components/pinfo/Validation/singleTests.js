@@ -12,10 +12,6 @@ let isEmptyArray = function (value, error) {
   return !value || (Array.isArray(value) && value.length === 0) ? error : undefined
 }
 
-let patternMatchIfNotEmpty = function (value, pattern, patternError) {
-  return value && !pattern.test(value) ? patternError : undefined
-}
-
 // PERSON
 
 let nameAtBirth = function (nameAtBirth) {
