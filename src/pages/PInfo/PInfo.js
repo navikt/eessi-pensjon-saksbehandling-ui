@@ -84,8 +84,7 @@ class PInfo extends React.Component {
     }
     if (file !== undefined && this.state.file === undefined) {
       if (!_.isEmpty(file)) {
-        let _file = JSON.parse(file)
-        actions.restoreState(_file)
+        actions.restoreState(file)
       } else {
         actions.setReady()
       }

@@ -1,28 +1,37 @@
-import request from 'request'
-import * as types from '../constants/actionTypes'
+import fetch from 'cross-fetch'
+import 'cross-fetch/polyfill'
 
 export function call (options) {
   return (dispatch) => {
     dispatch({
       type: options.type.request
     })
-    request({
-      url: options.url,
+    return fetch(options.url, {
       method: options.method || 'GET',
       crossOrigin: true,
       json: true,
       headers: options.headers,
       body: options.body || options.payload
-    }, function (error, response, body) {
-      if (error || !response) {
-        return dispatch({
-          type: types.SERVER_OFFLINE
-        })
+    }).then(response => {
+      if (response.status >= 400) {
+        var error = new Error(response.statusText)
+        error.response = response
+        throw error
+      } else {
+        return response
       }
+    }).then(response => {
+      return response.json()
+    }).then(payload => {
       return dispatch({
-        type: response.statusCode >= 400 ? options.type.failure : options.type.success,
-        payload: body,
+        type: options.type.success,
+        payload: payload,
         context: options.context
+      })
+    }).catch(error => {
+      return dispatch({
+        type: options.type.failure,
+        payload: error.message
       })
     })
   }
