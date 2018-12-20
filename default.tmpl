@@ -7,9 +7,10 @@ server {
     error_log /dev/stdout info;
     access_log /dev/stdout;
 
-    location ~ /login {
-        rewrite ^/login\?(.*)$ /login?redirect=https://${LOADBALANCEURL}&$1 break;
-        add_header X-uri "$uri"
+    location /login {
+	    rewrite_log on;
+	    rewrite ^/login\?(.*)$ /login?redirect=https://${LOADBALANCEURL}&$1 break;
+        add_header X-uri "$uri";
         proxy_pass http://eessi-pensjon-frontend-api-${ZONE}.${APP_ENVIRONMENT};
     }
 
