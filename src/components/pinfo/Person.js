@@ -163,7 +163,7 @@ class Person extends React.Component {
           <Nav.Input
             id='pinfo-person-by-input'
             type='text'
-            label={t('pinfo:person-birthplace-city')}
+            label={t('pinfo:person-birthplace-place')}
             placeholder={t('ui:writeIn')}
             value={person.city || ''}
             onChange={this.setCity}

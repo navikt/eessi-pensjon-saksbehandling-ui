@@ -103,7 +103,7 @@ class Receipt extends React.Component {
               {person.country.label}
             </React.Fragment> : null}
           </dd>
-          <dt className='col-4'> {t('pinfo:person-birthplace-city')} </dt>
+          <dt className='col-4'> {t('pinfo:person-birthplace-place')} </dt>
           <dd className='col-8'> {person.city || ''} </dd>
           <dt className='col-4'> {t('pinfo:person-birthplace-area')} </dt>
           <dd className='col-8'> {person.region || ''} </dd>
