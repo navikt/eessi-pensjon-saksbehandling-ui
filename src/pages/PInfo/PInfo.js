@@ -181,13 +181,20 @@ class PInfo extends React.Component {
   }
 
   onBackButtonClick () {
-    const { actions, step } = this.props
+    const { actions, history, step } = this.props
 
     this.setState({
       pageErrors: {},
       errorTimestamp: new Date().getTime()
     })
-    actions.setStep(step - 1)
+    if (step === 0) {
+       history.push({
+         pathname: routes.ROOT,
+         search: window.location.search
+       })
+    } else {
+        actions.setStep(step - 1)
+    }
   }
 
   doCancel () {
@@ -310,7 +317,7 @@ class PInfo extends React.Component {
             onClick={this.onSendButtonClick.bind(this)}>
             {isSendingPinfo ? t('sending') : t('confirmAndSend')}
           </Nav.Hovedknapp> : null}
-          {step > 0 && step < 4 ? <Nav.Knapp
+          {step < 4 ? <Nav.Knapp
             id='pinfo-back-button'
             className='backButton mb-2 mr-3'
             onClick={this.onBackButtonClick.bind(this)}>
