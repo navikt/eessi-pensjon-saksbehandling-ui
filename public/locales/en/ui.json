@@ -147,7 +147,7 @@
     "sentDate" : "Sent date",
     "sentSuccess" : "Sent OK",
     "sentFailure" : "Sent Fail",
-    "serverOffline" : "Server offline",
+    "serverError" : "Server error",
     "size" : "Size",
     "start" : "Start",
     "startAgain" : "Start again",

@@ -29,9 +29,9 @@ export default function (state = {}, action = {}) {
     })
   }
 
-  if (action.type === types.SERVER_OFFLINE) {
+  if (action.type === types.SERVER_ERROR) {
     return Object.assign({}, state, {
-      serverErrorMessage: 'ui:serverOffline'
+      serverErrorMessage: 'ui:serverError'
     })
   }
 
@@ -67,11 +67,6 @@ export default function (state = {}, action = {}) {
       case types.CASE_GET_COUNTRY_LIST_FAILURE:
 
         message = 'case:alert-noCountryList'
-        break
-
-      case types.APP_USERINFO_FAILURE:
-
-        message = 'ui:alert-noSuchUser'
         break
 
       case types.PDF_GENERATE_FAILURE:
@@ -116,7 +111,7 @@ export default function (state = {}, action = {}) {
     }
 
     return Object.assign({}, state, {
-      clientErrorStatus: 'ERROR',
+      clientErrorStatus: message ? 'ERROR' : undefined,
       clientErrorMessage: message
     })
   }
