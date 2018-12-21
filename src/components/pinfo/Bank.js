@@ -104,11 +104,6 @@ class Bank extends React.Component {
       </Nav.Row>
       <Nav.Row>
         <div className='col-md-6'>
-          {disableHelpText ? null
-            : <Nav.HjelpetekstBase id='pinfo-bank-iban-input-help'>
-              {t('pinfo:bank-iban-help')}
-            </Nav.HjelpetekstBase>
-          }
           <Nav.Input
             id='pinfo-bank-iban-input'
             label={t('pinfo:bank-iban')}
@@ -119,14 +114,16 @@ class Bank extends React.Component {
           />
 
         </div>
+        <div className='col-md-6 d-flex align-items-center'>
+          {disableHelpText ? null
+            : <Nav.HjelpetekstBase id='pinfo-bank-iban-input-help'>
+              {t('pinfo:bank-iban-help')}
+            </Nav.HjelpetekstBase>
+          }
+         </div>
       </Nav.Row>
       <Nav.Row>
         <div className='col-md-6'>
-          {disableHelpText ? null
-            : <Nav.HjelpetekstBase id='pinfo-bank-bicswift-input-help'>
-              {t('pinfo:bank-bicSwift-help')}
-            </Nav.HjelpetekstBase>
-          }
           <Nav.Input
             id='pinfo-bank-bicswift-input'
             label={t('pinfo:bank-bicSwift')}
@@ -135,7 +132,13 @@ class Bank extends React.Component {
             onChange={this.setBankBicSwift}
             feil={localErrors.bankBicSwift ? { feilmelding: t(localErrors.bankBicSwift) } : null}
           />
-
+        </div>
+        <div className='col-md-6 d-flex align-items-center'>
+         {disableHelpText ? null
+            : <Nav.HjelpetekstBase id='pinfo-bank-bicswift-input-help'>
+              {t('pinfo:bank-bicSwift-help')}
+            </Nav.HjelpetekstBase>
+          }
         </div>
       </Nav.Row>
       <Nav.Row>

@@ -503,8 +503,11 @@ class Period extends React.Component {
                   />
                 </div>
               </React.Fragment> : null }
-              <div className='col-md-12'>
+              <div className='col-md-12 d-flex align-items-center'>
                 <Nav.Undertittel className='mt-3 mb-3'>{t('pinfo:stayAbroad-insurance-title')}</Nav.Undertittel>
+                {mode !== 'view' ? <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-help'>
+                  {t('pinfo:stayAbroad-insurance-title-help')}
+                </Nav.HjelpetekstBase> : null}
               </div>
               <div className='col-md-12'>
                 <Nav.Input

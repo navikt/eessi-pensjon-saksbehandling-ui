@@ -52,6 +52,7 @@
     "stayAbroad-country" : "Country",
     "stayAbroad-spain-france-warning" : "You said that you stayed in {{country}}; Authorities in {{country}} request also your father name and mother name",
     "stayAbroad-insurance-title" : "Insurance institution",
+    "stayAbroad-insurance-title-help" : "Name on the institution or the insurance",
     "stayAbroad-insurance-name" : "Name",
     "stayAbroad-insurance-id" : "Insurance / ID number",
     "stayAbroad-insurance-type" : "Insurance membership type",
