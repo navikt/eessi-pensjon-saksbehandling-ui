@@ -27,6 +27,11 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class ExternalTopHeader extends Component {
+
+  state = {
+    showLanguageOption: false
+  }
+
   changeLanguage (lang, e) {
     if (e) {
       e.preventDefault()
@@ -51,6 +56,7 @@ class ExternalTopHeader extends Component {
 
   render () {
     let { t, username, header } = this.props
+    let { showLanguageOption } = this.state
 
     return <div className='c-ui-topheader hodefot'>
       <header className='siteheader' role='banner'>
@@ -59,7 +65,7 @@ class ExternalTopHeader extends Component {
             <div className='col-md-12'>
               <div className='settings'>
                 <ul className='nav' style={{ justifyContent: 'center' }}>
-                  <li className='dropdown'>
+                  {showLanguageOption ? <li className='dropdown'>
                     <button type='button' className='link-btn dropdown-toggle' data-toggle='dropdown'>
                       {t('language')}
                     </button>
@@ -73,7 +79,7 @@ class ExternalTopHeader extends Component {
                           onClick={this.changeLanguage.bind(this, 'en')}>{'English'}</a>
                       </li>
                     </ul>
-                  </li>
+                  </li> : null}
                   <li id='high-contrast'>
                     <button type='button' class='link-btn' onClick={this.changeContrast.bind(this)}>{t('highContrast')}</button>
                   </li>
