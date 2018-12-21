@@ -282,8 +282,8 @@ class Period extends React.Component {
 
     switch (mode) {
       case 'view':
-        return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode, { 'current': current })}>
-          <div className='col-md-8'>
+        return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode)}>
+          <div className={classNames('col-md-8', { 'current': current })}>
             <div id={period.id} className='existingPeriod'>
               <div className='icon mr-4'>
                 <div className={classNames('topHalf', { line: !first })} />
@@ -408,7 +408,7 @@ class Period extends React.Component {
       case 'new':
         return <React.Fragment>
           {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
-          <Nav.Row className={classNames('c-pinfo-opphold-period', mode)}>
+          <Nav.Row className={classNames('c-pinfo-opphold-period', 'mt-4', mode)}>
             <div className='col-md-6'>
               <Nav.Select
                 id='pinfo-opphold-kategori-select'
