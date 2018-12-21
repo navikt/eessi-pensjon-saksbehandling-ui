@@ -9,8 +9,7 @@ server {
 
     location /login {
 	    rewrite_log on;
-	    rewrite /login /login?redirect=https://${LOADBALANCEURL}&${query_string} break;
-        add_header X-uri "$uri";
+	    rewrite /login /login?redirect=https://${LOADBALANCEURL}& break;
         proxy_pass http://eessi-pensjon-frontend-api-${ZONE}.${APP_ENVIRONMENT};
     }
 
