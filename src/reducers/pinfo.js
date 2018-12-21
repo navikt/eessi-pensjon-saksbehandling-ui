@@ -95,7 +95,10 @@ export default function (state = initialState, action = {}) {
       })
 
     case types.PINFO_STATE_RESTORE: {
-      return Object.assign({}, initialState, { isReady: true }, JSON.parse(action.payload))
+      let pinfo = JSON.parse(action.payload)
+      pinfo.buttonsVisible = true
+      pinfo.isReady = true
+      return Object.assign({}, initialState, pinfo)
     }
 
     case types.PINFO_BUTTONS_VISIBLE: {
