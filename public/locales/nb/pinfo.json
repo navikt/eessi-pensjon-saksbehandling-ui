@@ -121,7 +121,7 @@
     "validation-noAddress" : "Ingen adresse",
     "validation-noCity" : "Ingen by",
     "validation-noRegion" : "Ingen region",
-    "validation-noEmail" : "Ingen epostadresse",
+    "validation-noEmail" : "Ingen e-postadresse",
     "validation-noPhone" : "Ingen telefonnummer",
     "validation-invalidName" : "Ugyldig navn",
     "validation-invalidEmail" : "ugyldig e-postadresse",
