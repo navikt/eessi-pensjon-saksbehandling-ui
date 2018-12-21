@@ -7,12 +7,16 @@ export function call (options) {
     dispatch({
       type: options.type.request
     })
+    let body = options.body || options.payload
     return fetch(options.url, {
       method: options.method || 'GET',
       crossOrigin: true,
       json: true,
-      headers: options.headers,
-      body: options.body || options.payload
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        ...options.headers
+      },
+      body: body ? JSON.stringify(body) : undefined,
     }).then(response => {
       if (response.status >= 400) {
         var error = new Error(response.statusText)
