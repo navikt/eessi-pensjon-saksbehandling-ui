@@ -90,7 +90,7 @@ export default function (state = initialState, action = {}) {
       })
 
     case types.PINFO_STATE_RESTORE: {
-      return Object.assign({}, initialState, { isReady: true }, action.payload)
+      return Object.assign({}, initialState, { isReady: true }, JSON.parse(action.payload))
     }
 
     case types.PINFO_BUTTONS_VISIBLE: {
