@@ -188,12 +188,12 @@ class PInfo extends React.Component {
       errorTimestamp: new Date().getTime()
     })
     if (step === 0) {
-       history.push({
-         pathname: routes.ROOT,
-         search: window.location.search
-       })
+      history.push({
+        pathname: routes.ROOT,
+        search: window.location.search
+      })
     } else {
-        actions.setStep(step - 1)
+      actions.setStep(step - 1)
     }
   }
 

@@ -2,7 +2,7 @@
     "app-title" : "Information about your staying in EEA countries",
     "app-startPinfo" : "Information about your staying in EEA countries",
 
-    "psycho-description": "Hi, You were chosen to try the new website to send in information in connection to your application.<br/><br/>You can also upload attachments that document your stay in EEA countries, for example a working permit. It can be handy to find those documents before you begiin, Du kan også laste opp vedlegg som dokumenterer dine opphold i EØS-land, for eksamepel arbeidsattester. Det kan være lurt å finne frem aktuelle dokumenter før du begynner. Blir du ikke ferdig kan du lagre og fullføre utfyllingen senere.<br/><br/>Vi vil videresende søknaden din til de aktuelle landene når vi har mottatt opplysningene fra deg.<br/><br/>Kontakt oss gjerne på eessipensjon@nav.no eller på telefon 21&nbps;07&nbps;37&nbps;00 hvis du har spørsmål.",
+    "psycho-description": "Hi, You were chosen to try the new website to send in information in connection to your application.<br/><br/>You can also upload attachments that document your stay in EEA countries, for example a working permit. It can be handy to find those documents before you begiin, Du kan også laste opp vedlegg som dokumenterer dine opphold i EØS-land, for eksamepel arbeidsattester. Det kan være lurt å finne frem aktuelle dokumenter før du begynner. Blir du ikke ferdig kan du lagre og fullføre utfyllingen senere.<br/><br/>Vi vil videresende søknaden din til de aktuelle landene når vi har mottatt opplysningene fra deg.<br/><br/>Kontakt oss gjerne på <a href='mailto:eessipensjon@nav.no'>eessipensjon@nav.no</a> eller på telefon 21&nbps;07&nbps;37&nbps;00 hvis du har spørsmål.",
     "person-info-title": "Personal information",
     "person-info-lastNameAtBirth": "Last name at birth",
     "person-info-previousName": "Previous names",
@@ -80,6 +80,20 @@
     "stayAbroad-attachments" : "Attachments",
     "stayAbroad-attachment-title" : "Attachments",
 
+    "receipt-title" : "Receipt",
+    "receipt-veileder": "Thank you for your application",
+
+    "form-step0": "Personal information",
+    "form-step1": "Bank and account",
+    "form-step2": "Situation in EEA countries",
+    "form-step3": "Confirm",
+    "form-step4": "Receipt",
+
+    "sb-send-notification-title" : "Send notifications and invite users",
+    "sb-send-notification-description" : "This application is now available for users. Send a notification and invite {{user}} to try it out",
+    "sb-send-notification-button" : "Send notification",
+    "sb-sent-notifications-title" : "Sent notifications",
+
     "work-title" : "Current Work and income status",
     "work-type": "Work situation",
     "work-type-option-01" : "Work type option 01",
@@ -105,15 +119,6 @@
     "work-payment-frequency-option-05" : "Monthly 14/year",
     "work-payment-frequency-option-06" : "Weekly",
     "work-payment-frequency-option-99" : "Other",
-
-    "receipt-title" : "Receipt",
-    "receipt-veileder": "Thank you for your application",
-
-    "form-step0": "Personal information",
-    "form-step1": "Bank and account",
-    "form-step2": "Situation in EEA countries",
-    "form-step3": "Confirm",
-    "form-step4": "Receipt",
 
     "validation-noNameAtBirth" : "No lastname",
     "validation-noPreviousName" : "No previous name",

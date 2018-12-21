@@ -80,6 +80,20 @@
     "stayAbroad-attachments" : "Vedlegg",
     "stayAbroad-attachment-title" : "Vedlegg",
 
+    "receipt-title" : "Kvittering",
+    "receipt-veileder": "Takk for søknaden",
+
+    "form-step0": "Personopplysninger",
+    "form-step1": "Bank og konto",
+    "form-step2": "Opphold i EØS-land",
+    "form-step3": "Godkjenn",
+    "form-step4": "Kvittering",
+
+    "sb-send-notification-title" : "Send varsel og inviter bruker",
+    "sb-send-notification-description" : "Den nye løsningen for elektronisk utfylling av utenlandsopplysninger er nå tilgjengelig for utvalgte brukere. Send varsel og inviter {{user}} til å prøve ut løsningen.",
+    "sb-send-notification-button" : "Send varsel",
+    "sb-sent-notifications-title" : "Utsendte varsler",
+
     "work-title" : "Dagens arbeids- og inntekstssituasjon",
     "work-type": "Ansettelsesforhold",
     "work-type-option-01" : "Har fortsatt inntektsgivende arbeid",
@@ -105,15 +119,6 @@
     "work-payment-frequency-option-05" : "Måned 14/year",
     "work-payment-frequency-option-06" : "Ukentlig",
     "work-payment-frequency-option-99" : "Andre",
-
-    "receipt-title" : "Kvittering",
-    "receipt-veileder": "Takk for søknaden",
-
-    "form-step0": "Personopplysninger",
-    "form-step1": "Bank og konto",
-    "form-step2": "Opphold i EØS-land",
-    "form-step3": "Godkjenn",
-    "form-step4": "Kvittering",
 
     "validation-noNameAtBirth" : "Ingen etternavn",
     "validation-noPreviousName" : "Ingen tidligere navn",

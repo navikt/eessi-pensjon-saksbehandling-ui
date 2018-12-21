@@ -70,7 +70,7 @@ class PInfoSaksbehandler extends React.Component {
   }
 
   render () {
-    const { t, location, history, fileList } = this.props
+    const { t, location, history, fileList, username } = this.props
     const { isReady, noParams } = this.state
 
     if (noParams) {
@@ -91,21 +91,31 @@ class PInfoSaksbehandler extends React.Component {
     }
 
     return <TopContainer className='p-pInfo' history={history} location={location} header={t('pinfo:app-title')}>
-
-      <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
-        <Nav.Undertittel>{t('ui:notifications')}</Nav.Undertittel>
-        {fileList ? <ul>
-          {fileList.map(file => {
-            return <li>{file}</li>
-          })}
-        </ul> : null}
-      </div>
-      <Nav.Hovedknapp
-        id='pinfo-forward-button'
-        className='forwardButton mb-2 mr-3'
-        onClick={this.onInviteButtonClick.bind(this)}>
-        {t('invite')}
-      </Nav.Hovedknapp>
+      <Nav.Row>
+        <div className='col-md-6'>
+          <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
+            <Nav.Undertittel>{t('pinfo:sb-send-notification-title')}</Nav.Undertittel>
+            <Nav.Undertekst className='mt-3 mb-3'>{t('pinfo:sb-send-notification-description', { user: username })}</Nav.Undertekst>
+            <Nav.Hovedknapp
+              id='pinfo-forward-button'
+              className='forwardButton mb-2 mr-3'
+              onClick={this.onInviteButtonClick.bind(this)}>
+              {t('pinfo:sb-send-notification-button')}
+            </Nav.Hovedknapp>
+          </div>
+        </div>
+        <div className='col-md-6'>
+          <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
+            <Nav.Undertittel>{t('pinfo:sb-sent-notifications-title')}</Nav.Undertittel>
+            <hr/>
+            {fileList ? <ul>
+              {fileList.map(file => {
+                return <li>{file}</li>
+              })}
+            </ul> : null}
+          </div>
+        </div>
+      </Nav.Row>
     </TopContainer>
   }
 }
