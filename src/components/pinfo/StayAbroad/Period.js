@@ -330,7 +330,7 @@ class Period extends React.Component {
             <Nav.Knapp className='mr-3 existingPeriodButton' onClick={this.requestEditPeriod.bind(this, period)}>
               {t('ui:change')}
             </Nav.Knapp>
-            <Nav.Knapp className='existingPeriodButton' onClick={this.removePeriodRequest.bind(this, period)} mini>
+            <Nav.Knapp className='existingPeriodButton' onClick={this.removePeriodRequest.bind(this, period)}>
               <span className='mr-2' style={{ fontSize: '1.5rem' }}>×</span>
               {t('ui:remove')}
             </Nav.Knapp>
