@@ -1,4 +1,4 @@
-export const SERVER_OFFLINE = 'SERVER/OFFLINE'
+export const SERVER_ERROR = 'SERVER/ERROR'
 
 export const ALERT_CLIENT_CLEAR = 'ALERT/CLIENT/CLEAR'
 

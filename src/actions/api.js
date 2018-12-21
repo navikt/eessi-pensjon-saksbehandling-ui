@@ -1,3 +1,4 @@
+import * as types from '../constants/actionTypes'
 import fetch from 'cross-fetch'
 import 'cross-fetch/polyfill'
 
@@ -16,6 +17,7 @@ export function call (options) {
       if (response.status >= 400) {
         var error = new Error(response.statusText)
         error.response = response
+        error.status = response.status
         throw error
       } else {
         return response
@@ -30,7 +32,7 @@ export function call (options) {
       })
     }).catch(error => {
       return dispatch({
-        type: options.type.failure,
+        type: error.status >= 500 ? types.SERVER_ERROR : options.type.failure,
         payload: error.message
       })
     })
