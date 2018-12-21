@@ -37,7 +37,6 @@ class StayAbroad extends React.Component {
 
     return <React.Fragment>
       <Nav.Undertittel>{t('pinfo:stayAbroad-title')}</Nav.Undertittel>
-      <Nav.Undertekst className='mb-4'>{t('pinfo:stayAbroad-description')}</Nav.Undertekst>
       {!_.isEmpty(stayAbroad) ? <Nav.Undertittel className='mb-3'>{t('pinfo:stayAbroad-previousPeriods')}</Nav.Undertittel> : null}
       {stayAbroad.map((period, index) => {
         return <Period t={t}
