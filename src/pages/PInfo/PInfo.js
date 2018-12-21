@@ -71,6 +71,11 @@ class PInfo extends React.Component {
     const { send, actions, username, step, fileList, file } = this.props
     if (send && step === 3) {
       actions.setStep(4)
+      if (this.state.stepIndicatorError) {
+        this.setState({
+          stepIndicatorError : undefined
+        })
+      }
     }
     if (fileList !== undefined && this.state.fileList === undefined) {
       if (!_.isEmpty(fileList) && fileList.indexOf('PINFO.json') >= 0) {
@@ -126,6 +131,11 @@ class PInfo extends React.Component {
     if (_.isEmpty(errors)) {
       actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
       actions.setStep(step + 1)
+      if (this.state.stepIndicatorError) {
+        this.setState({
+           stepIndicatorError : undefined
+        })
+      }
     }
   }
 
@@ -143,10 +153,12 @@ class PInfo extends React.Component {
       return false
     }
 
-    this.setState({
-      stepIndicatorError: undefined
-    })
     actions.setStep(nextStep)
+    if (this.state.stepIndicatorError) {
+      this.setState({
+        stepIndicatorError: undefined
+      })
+    }
     actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
     return true
   }
