@@ -120,7 +120,7 @@ class Bank extends React.Component {
               {t('pinfo:bank-iban-help')}
             </Nav.HjelpetekstBase>
           }
-         </div>
+        </div>
       </Nav.Row>
       <Nav.Row>
         <div className='col-md-6'>
@@ -134,7 +134,7 @@ class Bank extends React.Component {
           />
         </div>
         <div className='col-md-6 d-flex align-items-center'>
-         {disableHelpText ? null
+          {disableHelpText ? null
             : <Nav.HjelpetekstBase id='pinfo-bank-bicswift-input-help'>
               {t('pinfo:bank-bicSwift-help')}
             </Nav.HjelpetekstBase>

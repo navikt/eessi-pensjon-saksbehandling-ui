@@ -73,7 +73,7 @@ class PInfo extends React.Component {
       actions.setStep(4)
       if (this.state.stepIndicatorError) {
         this.setState({
-          stepIndicatorError : undefined
+          stepIndicatorError: undefined
         })
       }
     }
@@ -133,7 +133,7 @@ class PInfo extends React.Component {
       actions.setStep(step + 1)
       if (this.state.stepIndicatorError) {
         this.setState({
-           stepIndicatorError : undefined
+          stepIndicatorError: undefined
         })
       }
     }

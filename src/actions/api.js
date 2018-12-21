@@ -16,7 +16,7 @@ export function call (options) {
         'Content-Type': 'application/json; charset=utf-8',
         ...options.headers
       },
-      body: body ? JSON.stringify(body) : undefined,
+      body: body ? JSON.stringify(body) : undefined
     }).then(response => {
       if (response.status >= 400) {
         var error = new Error(response.statusText)

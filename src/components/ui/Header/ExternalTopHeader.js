@@ -27,7 +27,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class ExternalTopHeader extends Component {
-
   state = {
     showLanguageOption: false
   }
