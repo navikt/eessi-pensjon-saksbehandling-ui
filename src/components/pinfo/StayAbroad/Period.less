@@ -2,6 +2,11 @@
 
   align-items: baseline;
 
+  &.view, &.detail {
+     flex-direction: row;
+     align-items: center;
+  }
+
   .current {
     background-color: whitesmoke;
     border: 2px dashed grey;
@@ -14,25 +19,27 @@
 
     .icon {
       min-width: 32px;
-      margin-left: -16px;
+      margin-left: -17px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
 
       .topHalf {
-        height: 50%;
+        height: 10%;
         top: 0;
         position: absolute;
         left: 24px;
       }
       .bottomHalf {
-        height: 50%;
+        height: 90%;
         bottom: 0;
         position: absolute;
         left: 24px;
       }
       .iconsvg {
+        position: absolute;
+        top: 10%;
         padding: 5px;
         background: white;
         border-radius: 30px;
