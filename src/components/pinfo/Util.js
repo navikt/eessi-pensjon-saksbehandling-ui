@@ -59,6 +59,7 @@ class Util {
     result.periodeInfo = this.generatePeriods(pinfo.stayAbroad)
     result.personInfo = this.generatePerson(pinfo.person)
     result.bankinfo = this.generateBank(pinfo.bank)
+    result.comment = pinfo.comment
     return result
   }
 

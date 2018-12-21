@@ -13,7 +13,8 @@ import * as pinfoActions from '../../../actions/pinfo'
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
-    stayAbroad: state.pinfo.stayAbroad
+    stayAbroad: state.pinfo.stayAbroad,
+    comment: state.pinfo.comment
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -25,6 +26,11 @@ class StayAbroad extends React.Component {
     _period: {}
   }
 
+  setComment (e) {
+    const { actions } = this.props
+    actions.setComment(e.target.value)
+  }
+
   setEditPeriod (period) {
     this.setState({
       _period: period
@@ -32,7 +38,7 @@ class StayAbroad extends React.Component {
   }
 
   render () {
-    const { t, stayAbroad, locale, mode } = this.props
+    const { t, stayAbroad, locale, mode, comment } = this.props
     const { _period } = this.state
 
     return <React.Fragment>
@@ -57,7 +63,18 @@ class StayAbroad extends React.Component {
         period={_period}
         locale={locale}
         editPeriod={this.setEditPeriod.bind(this)}
-      /> : null}
+      /> : <div className='mt-4'>
+        <Nav.Textarea id='pinfo-comment'
+          label={t('pinfo:stayAbroad-comment')}
+          placeholder={t('ui:writeIn')}
+          value={comment || ''}
+          style={{ minHeight: '100px' }}
+          maxLength={200}
+          onChange={this.setComment.bind(this)}
+        />
+      </div>
+      }
+
     </React.Fragment>
   }
 }

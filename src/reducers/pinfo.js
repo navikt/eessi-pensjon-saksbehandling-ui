@@ -50,6 +50,11 @@ export default function (state = initialState, action = {}) {
         }
       })
 
+    case types.PINFO_COMMENT_SET:
+      return Object.assign({}, state, {
+        comment: action.payload
+      })
+
     case types.PINFO_STAY_ABROAD_SET:
 
       let sortedStayAbroad = action.payload.slice()

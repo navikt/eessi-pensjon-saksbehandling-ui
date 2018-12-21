@@ -38,6 +38,13 @@ export function setBank (payload) {
   }
 }
 
+export function setComment (payload) {
+  return {
+    type: types.PINFO_COMMENT_SET,
+    payload: payload
+  }
+}
+
 export function setMainButtonsVisibility (value) {
   return {
     type: types.PINFO_BUTTONS_VISIBLE,
