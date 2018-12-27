@@ -288,7 +288,7 @@ class Period extends React.Component {
   }
 
   render () {
-    const { t, mode, period, locale, current, first, last, person } = this.props
+    const { t, mode, period, locale, current, first, last, person, showButtons } = this.props
     const { localErrors, _period } = this.state
 
     let errorMessage = this.errorMessage()
@@ -339,7 +339,7 @@ class Period extends React.Component {
               </div>
             </div>
           </div>
-          <div className='col-md-4 existingPeriodButtons'>
+          {showButtons !== false ? <div className='col-md-4 existingPeriodButtons'>
             <Nav.Knapp className='mr-3 existingPeriodButton' onClick={this.requestEditPeriod.bind(this, period)}>
               {t('ui:change')}
             </Nav.Knapp>
@@ -347,7 +347,7 @@ class Period extends React.Component {
               <span className='mr-2' style={{ fontSize: '1.5rem' }}>×</span>
               {t('ui:remove')}
             </Nav.Knapp>
-          </div>
+          </div> : null }
         </Nav.Row>
 
       case 'detail':
@@ -769,6 +769,7 @@ Period.propTypes = {
   periods: PT.array,
   actions: PT.object.isRequired,
   editPeriod: PT.func.isRequired,
+  showButtons: PT.boolean,
   t: PT.func
 }
 

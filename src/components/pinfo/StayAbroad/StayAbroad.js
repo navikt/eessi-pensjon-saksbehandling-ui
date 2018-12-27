@@ -55,7 +55,8 @@ class StayAbroad extends React.Component {
           locale={locale}
           periods={stayAbroad}
           editPeriod={this.setEditPeriod.bind(this)}
-          key={period.id} />
+          key={period.id}
+          showButtons={mode !== 'view'}/>
       })}
       {mode !== 'view' ? <Period t={t}
         periods={stayAbroad}
@@ -63,7 +64,8 @@ class StayAbroad extends React.Component {
         period={_period}
         locale={locale}
         editPeriod={this.setEditPeriod.bind(this)}
-      /> : <div className='mt-4'>
+      /> : null}
+       {mode === 'view' ? <div className='mt-4'>
         <Nav.Textarea id='pinfo-comment'
           label={t('pinfo:stayAbroad-comment')}
           placeholder={t('ui:writeIn')}
@@ -71,8 +73,7 @@ class StayAbroad extends React.Component {
           style={{ minHeight: '100px' }}
           onChange={this.setComment.bind(this)}
         />
-      </div>
-      }
+      </div> : null}
 
     </React.Fragment>
   }
