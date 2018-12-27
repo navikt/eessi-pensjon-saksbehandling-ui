@@ -467,7 +467,6 @@ class Period extends React.Component {
                 <CountrySelect
                   id='pinfo-opphold-land-select'
                   locale={locale}
-                  excludeList={CountryFilter.NO}
                   includeList={CountryFilter.EEA}
                   value={_period.country || null}
                   onSelect={this.setCountry}
