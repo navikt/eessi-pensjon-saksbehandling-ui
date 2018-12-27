@@ -107,7 +107,7 @@ class PInfoSaksbehandler extends React.Component {
         <div className='col-md-6'>
           <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
             <Nav.Undertittel>{t('pinfo:sb-sent-notifications-title')}</Nav.Undertittel>
-            <hr/>
+            <hr />
             {fileList ? <ul>
               {fileList.map(file => {
                 return <li>{file}</li>

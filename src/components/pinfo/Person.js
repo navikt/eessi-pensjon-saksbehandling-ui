@@ -80,7 +80,7 @@ class Person extends React.Component {
   }
 
   render () {
-    const { t, person, locale } = this.props
+    const { t, person, locale, mode } = this.props
     const { localErrors } = this.state
 
     return <div>
@@ -112,10 +112,16 @@ class Person extends React.Component {
         </div>
       </Nav.Row>
 
-      {person.fatherName || person.motherName
+      {mode === 'view' && (person.fatherName || person.motherName)
         ? <React.Fragment>
+
           <Nav.Row>
-            <div className='col-sm-9'>
+            <div className='col-sm-9 mt-3'>
+              <div className='float-right'>
+                <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-help'>
+                  <span>{t('pinfo:stayAbroad-spain-france-warning-2')}</span>
+                </Nav.HjelpetekstBase>
+              </div>
               <Nav.Input
                 id='pinfo-opphold-farsnavn-input'
                 type='text'
@@ -128,7 +134,12 @@ class Person extends React.Component {
             </div>
           </Nav.Row>
           <Nav.Row>
-            <div className='col-sm-9'>
+            <div className='col-sm-9 mt-3'>
+              <div className='float-right'>
+                <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-help'>
+                  <span>{t('pinfo:stayAbroad-spain-france-warning-2')}</span>
+                </Nav.HjelpetekstBase>
+              </div>
               <Nav.Input
                 id='pinfo-opphold-morsnavn-input'
                 type='text'

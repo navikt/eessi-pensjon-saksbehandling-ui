@@ -10,7 +10,7 @@ import DatePicker from '../../ui/DatePicker/DatePicker'
 import CountrySelect from '../../ui/CountrySelect/CountrySelect'
 import * as CountryFilter from '../../ui/CountrySelect/CountryFilter'
 import FileUpload from '../../ui/FileUpload/FileUpload'
-import { periodValidation } from '../Validation/singleTests'
+import { periodValidation, personValidation } from '../Validation/singleTests'
 import * as stepTests from '../Validation/stepTests'
 import * as Nav from '../../ui/Nav'
 import Icons from '../../ui/Icons'
@@ -62,8 +62,8 @@ class Period extends React.Component {
     this.setChildBirthDate = this.dateSetProperty.bind(this, 'childBirthDate', periodValidation.childBirthDate)
     this.setLearnInstitution = this.eventSetProperty.bind(this, 'learnInstitution', periodValidation.learnInstitution)
     this.setAttachments = this.valueSetProperty.bind(this, 'attachments', null)
-    this.setFatherName = this.eventSetPerson.bind(this, 'fatherName')
-    this.setMotherName = this.eventSetPerson.bind(this, 'motherName')
+    this.setFatherName = this.eventSetPerson.bind(this, 'fatherName', personValidation.fatherName)
+    this.setMotherName = this.eventSetPerson.bind(this, 'motherName', personValidation.motherName)
   }
 
   hasSpecialCases (periods) {
@@ -79,8 +79,20 @@ class Period extends React.Component {
     return period.country && (period.country.value === 'ES' || period.country.value === 'FR')
   }
 
-  eventSetPerson (key, e) {
-    this.props.actions.setPerson({ [key]: e.target.value })
+  eventSetPerson (key, validateFunction, e) {
+    let _localErrors = _.cloneDeep(this.state.localErrors)
+    let value = e.target.value
+    let error = validateFunction ? validateFunction(value) : undefined
+    if (!error && _localErrors.hasOwnProperty(key)) {
+      delete _localErrors[key]
+    }
+    if (error) {
+      _localErrors[key] = error
+    }
+    this.props.actions.setPerson({ [key]: value })
+    this.setState({
+      localErrors: _localErrors
+    })
   }
 
   eventSetProperty (key, validateFunction, event) {
@@ -128,9 +140,10 @@ class Period extends React.Component {
   }
 
   validatePeriod () {
+    const { pinfo } = this.props
     const { _period } = this.state
 
-    return stepTests.periodStep(_period)
+    return stepTests.periodStep(_period, pinfo.person)
   }
 
   addPeriod () {
@@ -476,10 +489,13 @@ class Period extends React.Component {
               </div>
 
               {this.isASpecialCase(_period) ? <React.Fragment>
-                <div className='col-md-12 mt-4 mb-2'>
-                  <span>{t('pinfo:stayAbroad-spain-france-warning', { country: _period.country.label })}</span>
-                </div>
-                <div className='col-md-12'>
+
+                <div className='col-md-12 mt-3'>
+                  <div className='float-right'>
+                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-help'>
+                      <span>{t('pinfo:stayAbroad-spain-france-warning', { country: _period.country.label })}</span>
+                    </Nav.HjelpetekstBase>
+                  </div>
                   <Nav.Input
                     id='pinfo-opphold-farsnavn-input'
                     type='text'
@@ -490,7 +506,12 @@ class Period extends React.Component {
                     feil={localErrors.fatherName ? { feilmelding: t(localErrors.fatherName) } : null}
                   />
                 </div>
-                <div className='col-md-12'>
+                <div className='col-md-12 mt-3'>
+                  <div className='float-right'>
+                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-help'>
+                      <span>{t('pinfo:stayAbroad-spain-france-warning', { country: _period.country.label })}</span>
+                    </Nav.HjelpetekstBase>
+                  </div>
                   <Nav.Input
                     id='pinfo-opphold-morsnavn-input'
                     type='text'

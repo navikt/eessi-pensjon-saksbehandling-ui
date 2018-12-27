@@ -43,7 +43,7 @@ export function stayAbroadStep (stayAbroad) {
   return errors
 }
 
-export function periodStep (period) {
+export function periodStep (period, person) {
   let errors = {}
   let startDate = tests.periodValidation.startDate(period.startDate)
   let endDate = tests.periodValidation.endDate(period.endDate)
@@ -58,6 +58,11 @@ export function periodStep (period) {
   let region = tests.periodValidation.region(period.region)
   let country = tests.periodValidation.country(period.country)
 
+  let fatherName, motherName
+  if (period.country && (period.country.value === 'ES' || period.country.value === 'FR')) {
+    fatherName = tests.personValidation.fatherName(person.fatherName)
+    motherName = tests.personValidation.motherName(person.motherName)
+  }
   if (startDate) errors.startDate = startDate
   if (endDate) errors.endDate = endDate
   if (insuranceName) errors.insuranceName = insuranceName
@@ -67,6 +72,8 @@ export function periodStep (period) {
   if (city) errors.city = city
   if (region) errors.region = region
   if (country) errors.country = country
+  if (fatherName) errors.fatherName = fatherName
+  if (motherName) errors.motherName = motherName
 
   switch (period.type) {
     case 'work':

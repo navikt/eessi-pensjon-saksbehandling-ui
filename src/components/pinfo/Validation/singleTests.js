@@ -50,6 +50,14 @@ let region = function (region) {
   return isEmpty(region, 'pinfo:validation-noRegion')
 }
 
+let fatherName = function (fatherName) {
+  return isEmpty(fatherName, 'pinfo:validation-noFatherName')
+}
+
+let motherName = function (motherName) {
+  return isEmpty(motherName, 'pinfo:validation-noMotherName')
+}
+
 export const personValidation = {
   nameAtBirth,
   phone,
@@ -57,7 +65,9 @@ export const personValidation = {
   previousName,
   country,
   city,
-  region
+  region,
+  fatherName,
+  motherName
 }
 
 // BANK
