@@ -40,7 +40,7 @@ class Person extends React.Component {
   constructor (props) {
     super(props)
     this.setNameAtBirth = this.eventSetProperty.bind(this, 'nameAtBirth', personValidation.nameAtBirth)
-    this.setPreviousName = this.eventSetProperty.bind(this, 'previousName', null)
+    this.setPreviousName = this.eventSetProperty.bind(this, 'previousName', personValidation.previousName)
     this.setCountry = this.valueSetProperty.bind(this, 'country', personValidation.country)
     this.setCity = this.eventSetProperty.bind(this, 'city', personValidation.city)
     this.setRegion = this.eventSetProperty.bind(this, 'region', personValidation.region)
