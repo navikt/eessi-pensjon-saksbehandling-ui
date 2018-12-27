@@ -69,7 +69,6 @@ class StayAbroad extends React.Component {
           placeholder={t('ui:writeIn')}
           value={comment || ''}
           style={{ minHeight: '100px' }}
-          maxLength={200}
           onChange={this.setComment.bind(this)}
         />
       </div>
