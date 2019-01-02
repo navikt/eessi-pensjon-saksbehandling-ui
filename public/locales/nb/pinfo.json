@@ -168,7 +168,7 @@
     "validation-noLearnInstitution": "Ingen opplæringsinstitusjons navn",
 
     "alert-inviteFailure" : "Invitasjon feilet",
-    "alert-inviteSuccess" : "Invitert",
+    "alert-inviteSuccess" : "Varselen er nå sendt og vil straks vises under listen over dine utsendte varsler.",
     "alert-sendFailure" : "Feil til å sende",
     "alert-sendSuccess" : "Sendt",
     "alert-leavePInfo": "Avbryt søknad",

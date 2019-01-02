@@ -80,7 +80,7 @@ class InternalTopHeader extends Component {
           </div>
         </div>
       </header>
-      <h1 className='typo-sidetittel mt-4 appTitle'>{header}</h1>
+      {header ? <h1 className='typo-sidetittel mt-4 appTitle'>{header}</h1> : null}
     </React.Fragment>
   }
 }
@@ -91,7 +91,8 @@ InternalTopHeader.propTypes = {
   userRole: PT.string,
   actions: PT.object,
   history: PT.object,
-  gettingUserInfo: PT.bool
+  gettingUserInfo: PT.bool,
+  header: PT.oneOfType([PT.node, PT.string])
 }
 
 export default connect(

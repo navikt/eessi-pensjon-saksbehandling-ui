@@ -264,7 +264,7 @@ class PInfo extends React.Component {
     const { pageErrors } = this.state
     for (var key in pageErrors) {
       if (pageErrors[key]) {
-          return pageErrors[key]
+        return pageErrors[key]
       }
     }
     return undefined
@@ -290,7 +290,7 @@ class PInfo extends React.Component {
         <Nav.HjelpetekstBase id='pinfo-title-help' type='under'>
           {t('pinfo:eea-countries')}
         </Nav.HjelpetekstBase>
-       </span>}>
+      </span>}>
       { step !== 4
         ? <React.Fragment>
           <Nav.Stegindikator

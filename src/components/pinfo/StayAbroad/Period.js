@@ -294,7 +294,7 @@ class Period extends React.Component {
     const { localErrors } = this.state
     for (var key in localErrors) {
       if (localErrors[key]) {
-          return localErrors[key]
+        return localErrors[key]
       }
     }
     return undefined

@@ -8,6 +8,7 @@ import classNames from 'classnames'
 import 'react-datepicker/dist/react-datepicker.min.css'
 
 import * as Nav from '../../components/ui/Nav'
+import Icons from '../../components/ui/Icons'
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
 
 import * as storageActions from '../../actions/storage'
@@ -18,13 +19,14 @@ import './PInfo.css'
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
-    pinfo: state.pinfo,
     saksId: state.status.saksId,
     aktoerId: state.status.aktoerId,
     username: state.app.username,
     fileList: state.storage.fileList,
     isSendingPinfo: state.loading.isSendingPinfo,
-    isInvitingPinfo: state.loading.isInvitingPinfo
+    isInvitingPinfo: state.loading.isInvitingPinfo,
+    message: state.pinfoSaksbehandler.message,
+    status: state.pinfoSaksbehandler.status
   }
 }
 
@@ -70,7 +72,7 @@ class PInfoSaksbehandler extends React.Component {
   }
 
   render () {
-    const { t, location, history, fileList, username } = this.props
+    const { t, location, history, fileList, username, isInvitingPinfo, message, status } = this.props
     const { isReady, noParams } = this.state
 
     if (noParams) {
@@ -90,7 +92,7 @@ class PInfoSaksbehandler extends React.Component {
       </TopContainer>
     }
 
-    return <TopContainer className='p-pInfo' history={history} location={location} header={t('pinfo:app-title')}>
+    return <TopContainer className='p-pInfo' history={history} location={location}>
       <Nav.Row>
         <div className='col-md-6'>
           <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
@@ -99,20 +101,39 @@ class PInfoSaksbehandler extends React.Component {
             <Nav.Hovedknapp
               id='pinfo-forward-button'
               className='forwardButton mb-2 mr-3'
+              disabled={isInvitingPinfo}
+              spinner={isInvitingPinfo}
               onClick={this.onInviteButtonClick.bind(this)}>
-              {t('pinfo:sb-send-notification-button')}
+              {isInvitingPinfo ? t('sending') : t('pinfo:sb-send-notification-button')}
             </Nav.Hovedknapp>
+            { message ? <Nav.AlertStripe className='mt-4 mb-4' type={status === 'ERROR' ? 'advarsel' : 'suksess'}>
+              {t(message)}
+            </Nav.AlertStripe> : null}
           </div>
         </div>
         <div className='col-md-6'>
           <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
             <Nav.Undertittel>{t('pinfo:sb-sent-notifications-title')}</Nav.Undertittel>
-            <hr />
-            {fileList ? <ul>
-              {fileList.map(file => {
-                return <li>{file}</li>
-              })}
-            </ul> : null}
+            <table className='w-100 mt-4'>
+              <thead>
+                <tr style={{ borderBottom: '1px solid lightgrey' }}>
+                  <th />
+                  <th>{t('document')}</th>
+                  <th>{t('sender')}</th>
+                  <th>{t('date')}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {fileList ? fileList.map(file => {
+                  return <tr key={file}>
+                    <td><Icons kind='nav-message-sent' /></td>
+                    <td><a href='#'>{file}</a></td>
+                    <td>{t('unknown')}</td>
+                    <td>{t('unknown')}</td>
+                  </tr>
+                }) : null}
+              </tbody>
+            </table>
           </div>
         </div>
       </Nav.Row>
@@ -124,7 +145,6 @@ PInfoSaksbehandler.propTypes = {
   history: PT.object,
   t: PT.func,
   locale: PT.string,
-  pinfo: PT.object,
   step: PT.number,
   referrer: PT.string,
   actions: PT.object,

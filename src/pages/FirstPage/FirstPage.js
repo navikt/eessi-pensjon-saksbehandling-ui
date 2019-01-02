@@ -70,7 +70,7 @@ class FirstPage extends Component {
         <Nav.HjelpetekstBase id='pinfo-title-help' type='under'>
           {t('pinfo:eea-countries')}
         </Nav.HjelpetekstBase>
-       </span>}>
+      </span>}>
       <div className='content container text-center pt-4'>
         <div className='col-md-2' />
         <div className='col-md-8'>

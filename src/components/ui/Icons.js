@@ -12,6 +12,7 @@ import * as birthdaycake from '../../resources/images/line-version-birthday-cake
 import * as helpcircle from '../../resources/images/line-version-help-circle.svg'
 import * as piggybank from '../../resources/images/line-version-piggy-bank.svg'
 import * as removecircle from '../../resources/images/filled-version-remove-circle.svg'
+import * as messagesent from '../../resources/images/line-version-expanded-email-send-3.svg'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as icons from '@fortawesome/free-solid-svg-icons'
@@ -42,9 +43,8 @@ class Icons extends Component {
       case 'nav-daily' : return <div {...this.props}><img className='logo' src={piggybank} alt={kind} /></div>
       case 'nav-sick' : return <div {...this.props}><img className='logo' src={stethoscope} alt={kind} /></div>
       case 'nav-other' : return <div {...this.props}><img className='logo' src={helpcircle} alt={kind} /></div>
-
       case 'nav-close' : return <div {...this.props}><img className='logo' src={removecircle} alt={kind} /></div>
-
+      case 'nav-message-sent' : return <div {...this.props}><img className='logo' src={messagesent} alt={kind} /></div>
       case 'document' : return <FontAwesomeIcon icon={icons.faFile} {...this.props} />
       case 'view' : return <FontAwesomeIcon icon={icons.faEye} {...this.props} />
       case 'calendar' : return <FontAwesomeIcon icon={icons.faCalendarCheck} {...this.props} />

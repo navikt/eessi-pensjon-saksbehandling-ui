@@ -101,9 +101,9 @@ class ExternalTopHeader extends Component {
           </div>
         </div>
         <LogoHeader />
-        <div className='banner'>
+        {header ? <div className='banner'>
           <h1 className='typo-undertittel m-0 pt-4 pb-4 text-center appTitle'>{header}</h1>
-        </div>
+        </div> : null}
       </header>
     </div>
   }

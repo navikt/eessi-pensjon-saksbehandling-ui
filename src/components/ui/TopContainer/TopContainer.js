@@ -72,7 +72,8 @@ TopContainer.propTypes = {
   droppables: PT.object,
   file: PT.oneOfType([PT.object, PT.string]),
   sideContent: PT.object,
-  history: PT.object.isRequired
+  history: PT.object.isRequired,
+  header: PT.oneOfType([PT.node, PT.string])
 }
 
 export default connect(
