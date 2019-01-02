@@ -2,7 +2,10 @@
     "app-title" : "Information about your staying in EEA countries",
     "app-startPinfo" : "Information about your staying in EEA countries",
 
-    "psycho-description": "Hi, You were chosen to try the new website to send in information in connection to your application.<br/><br/>You can also upload attachments that document your stay in EEA countries, for example a working permit. It can be handy to find those documents before you begiin, Du kan også laste opp vedlegg som dokumenterer dine opphold i EØS-land, for eksamepel arbeidsattester. Det kan være lurt å finne frem aktuelle dokumenter før du begynner. Blir du ikke ferdig kan du lagre og fullføre utfyllingen senere.<br/><br/>Vi vil videresende søknaden din til de aktuelle landene når vi har mottatt opplysningene fra deg.<br/><br/>Kontakt oss gjerne på <a href='mailto:eessipensjon@nav.no'>eessipensjon@nav.no</a> eller på telefon 21&nbps;07&nbps;37&nbps;00 hvis du har spørsmål.",
+    "psycho-description": "Hi, You were chosen to try the new website to send in information in connection to your application.<br/><br/>You can also upload attachments that document your stay in EEA countries, for example a working permit. It can be handy to find those documents before you begin. If you are not able to finish, you can save your progress and complete the forms later.<br/></br/>Please contact us through <a href='mailto:eessipensjon@nav.no'>eessipensjon@nav.no</a> or call us at 21&nbps;07&nbps;37&nbps;00 if you have questions.",
+
+    "eea-countries" : "Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech rep., Denmark, Estonia, Faroe islands, Finland, France, Germany, Greece, Greenland, Hungary, Iceland, Ireland, Italy, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Romania, Slovenia, Slovakia, Spain, Sweden, Switzerland, United Kingdom",
+
     "person-info-title": "Personal information",
     "person-info-lastNameAtBirth": "Last name at birth",
     "person-info-previousName": "Previous names",

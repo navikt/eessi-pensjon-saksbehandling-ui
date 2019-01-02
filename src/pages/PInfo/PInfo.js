@@ -286,7 +286,11 @@ class PInfo extends React.Component {
 
     return <TopContainer className='p-pInfo'
       history={history} location={location}
-      header={t('pinfo:app-title')}>
+      header={<span>{t('pinfo:app-title')}
+        <Nav.HjelpetekstBase id='pinfo-title-help' type='under'>
+          {t('pinfo:eea-countries')}
+        </Nav.HjelpetekstBase>
+       </span>}>
       { step !== 4
         ? <React.Fragment>
           <Nav.Stegindikator

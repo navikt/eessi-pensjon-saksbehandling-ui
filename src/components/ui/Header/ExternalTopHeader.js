@@ -80,7 +80,7 @@ class ExternalTopHeader extends Component {
                     </ul>
                   </li> : null}
                   <li id='high-contrast'>
-                    <button type='button' class='link-btn' onClick={this.changeContrast.bind(this)}>{t('highContrast')}</button>
+                    <button type='button' className='link-btn' onClick={this.changeContrast.bind(this)}>{t('highContrast')}</button>
                   </li>
                   <li id='text-size-accessibility'>
                     <span className='link-btn' aria-label='Hold Ctrl-tasten nede (Cmd-tasten på Mac). Trykk samtidig på + for å forstørre eller - for å forminske.'>Skriftstørrelse</span><div className='text-size-tooltip'><p>Hold Ctrl-tasten nede (Cmd-tasten på Mac). Trykk samtidig på + for å forstørre eller - for å forminske.</p><span className='arrow' /></div></li>

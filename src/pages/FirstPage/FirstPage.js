@@ -66,8 +66,11 @@ class FirstPage extends Component {
 
     return <TopContainer className='p-firstPage'
       history={history} location={location}
-      header={t('pinfo:app-title')}>
-
+      header={<span>{t('pinfo:app-title')}
+        <Nav.HjelpetekstBase id='pinfo-title-help' type='under'>
+          {t('pinfo:eea-countries')}
+        </Nav.HjelpetekstBase>
+       </span>}>
       <div className='content container text-center pt-4'>
         <div className='col-md-2' />
         <div className='col-md-8'>
