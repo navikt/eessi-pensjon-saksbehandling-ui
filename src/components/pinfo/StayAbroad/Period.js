@@ -43,15 +43,15 @@ class Period extends React.Component {
   constructor (props) {
     super(props)
     this.setType = this.eventSetProperty.bind(this, 'type', periodValidation.periodType)
-    this.setStartDate = this.dateSetProperty.bind(this, 'startDate', periodValidation.startDate)
-    this.setEndDate = this.dateSetProperty.bind(this, 'endDate', periodValidation.endDate)
-    this.setCountry = this.valueSetProperty.bind(this, 'country', periodValidation.country)
+    this.setStartDate = this.dateSetProperty.bind(this, 'startDate', periodValidation.periodStartDate)
+    this.setEndDate = this.dateSetProperty.bind(this, 'endDate', periodValidation.periodEndDate)
+    this.setCountry = this.valueSetProperty.bind(this, 'country', periodValidation.periodCountry)
     this.setInsuranceName = this.eventSetProperty.bind(this, 'insuranceName', periodValidation.insuranceName)
     this.setInsuranceType = this.eventSetProperty.bind(this, 'insuranceType', periodValidation.insuranceType)
     this.setInsuranceId = this.eventSetProperty.bind(this, 'insuranceId', null)
-    this.setAddress = this.eventSetProperty.bind(this, 'address', periodValidation.address)
-    this.setCity = this.eventSetProperty.bind(this, 'city', periodValidation.city)
-    this.setRegion = this.eventSetProperty.bind(this, 'region', periodValidation.region)
+    this.setAddress = this.eventSetProperty.bind(this, 'address', periodValidation.periodAddress)
+    this.setCity = this.eventSetProperty.bind(this, 'city', periodValidation.periodCity)
+    this.setRegion = this.eventSetProperty.bind(this, 'region', periodValidation.periodRegion)
     this.setWorkActivity = this.eventSetProperty.bind(this, 'workActivity', periodValidation.workActivity)
     this.setWorkName = this.eventSetProperty.bind(this, 'workName', periodValidation.workName)
     this.setWorkAddress = this.eventSetProperty.bind(this, 'workAddress', periodValidation.workAddress)
@@ -64,6 +64,15 @@ class Period extends React.Component {
     this.setAttachments = this.valueSetProperty.bind(this, 'attachments', null)
     this.setFatherName = this.eventSetPerson.bind(this, 'fatherName', personValidation.fatherName)
     this.setMotherName = this.eventSetPerson.bind(this, 'motherName', personValidation.motherName)
+  }
+
+  hasNoErrors (errors) {
+    for (var key in errors) {
+      if (errors[key]) {
+        return false
+      }
+    }
+    return true
   }
 
   hasSpecialCases (periods) {
@@ -156,7 +165,7 @@ class Period extends React.Component {
       errorTimestamp: new Date().getTime()
     })
 
-    if (_.isEmpty(errors)) {
+    if (this.hasNoErrors(errors)) {
       let newPeriods = _.clone(periods)
       let newPeriod = _.clone(_period)
       newPeriod.id = new Date().getTime()
@@ -189,7 +198,7 @@ class Period extends React.Component {
       errorTimestamp: new Date().getTime()
     })
 
-    if (_.isEmpty(errors)) {
+    if (this.hasNoErrors(errors)) {
       let newPeriods = _.clone(periods)
       let newPeriod = _.clone(_period)
 
@@ -283,8 +292,12 @@ class Period extends React.Component {
 
   errorMessage () {
     const { localErrors } = this.state
-    let errorValues = _.values(localErrors)
-    return !_.isEmpty(errorValues) ? errorValues[0] : undefined
+    for (var key in localErrors) {
+      if (localErrors[key]) {
+          return localErrors[key]
+      }
+    }
+    return undefined
   }
 
   render () {

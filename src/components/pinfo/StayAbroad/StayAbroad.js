@@ -56,7 +56,7 @@ class StayAbroad extends React.Component {
           periods={stayAbroad}
           editPeriod={this.setEditPeriod.bind(this)}
           key={period.id}
-          showButtons={mode !== 'view'}/>
+          showButtons={mode !== 'view'} />
       })}
       {mode !== 'view' ? <Period t={t}
         periods={stayAbroad}
@@ -65,7 +65,7 @@ class StayAbroad extends React.Component {
         locale={locale}
         editPeriod={this.setEditPeriod.bind(this)}
       /> : null}
-       {mode === 'view' ? <div className='mt-4'>
+      {mode === 'view' ? <div className='mt-4'>
         <Nav.Textarea id='pinfo-comment'
           label={t('pinfo:stayAbroad-comment')}
           placeholder={t('ui:writeIn')}

@@ -99,6 +99,15 @@ class PInfo extends React.Component {
     }
   }
 
+  hasNoErrors (errors) {
+    for (var key in errors) {
+      if (errors[key]) {
+        return false
+      }
+    }
+    return true
+  }
+
   validatePage (step) {
     const { person, bank, stayAbroad } = this.props.pinfo
 
@@ -128,7 +137,7 @@ class PInfo extends React.Component {
       })
     }
 
-    if (_.isEmpty(errors)) {
+    if (this.hasNoErrors(errors)) {
       actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
       actions.setStep(step + 1)
       if (this.state.stepIndicatorError) {
@@ -175,7 +184,7 @@ class PInfo extends React.Component {
       })
     }
 
-    if (_.isEmpty(errors)) {
+    if (this.hasNoErrors(errors)) {
       actions.setStep(newStep)
     }
   }
@@ -245,7 +254,7 @@ class PInfo extends React.Component {
         errorTimestamp: new Date().getTime()
       })
     }
-    if (_.isEmpty(errors)) {
+    if (this.hasNoErrors(errors)) {
       let payload = PInfoUtil.generatePayload(pinfo)
       actions.sendPInfo(payload)
     }
@@ -253,8 +262,12 @@ class PInfo extends React.Component {
 
   errorMessage () {
     const { pageErrors } = this.state
-    let errorValues = _.values(pageErrors)
-    return !_.isEmpty(errorValues) ? errorValues[0] : undefined
+    for (var key in pageErrors) {
+      if (pageErrors[key]) {
+          return pageErrors[key]
+      }
+    }
+    return undefined
   }
 
   render () {

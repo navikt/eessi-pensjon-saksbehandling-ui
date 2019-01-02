@@ -1,128 +1,72 @@
 import * as tests from './singleTests'
 
 export function personStep (person) {
-  let errors = {}
-  let nameAtBirth = tests.personValidation.nameAtBirth(person.nameAtBirth)
-  let previousName = tests.personValidation.previousName(person.previousName)
-  let country = tests.personValidation.country(person.country)
-  let city = tests.personValidation.city(person.city)
-  let region = tests.personValidation.region(person.region)
-  let phone = tests.personValidation.phone(person.phone)
-  let email = tests.personValidation.email(person.email)
-
-  if (nameAtBirth) errors.nameAtBirth = nameAtBirth
-  if (previousName) errors.previousName = previousName
-  if (country) errors.country = country
-  if (city) errors.city = city
-  if (region) errors.region = region
-  if (phone) errors.phone = phone
-  if (email) errors.email = email
-  return errors
+  return {
+    nameAtBirth: tests.personValidation.nameAtBirth(person.nameAtBirth),
+    previousName: tests.personValidation.previousName(person.previousName),
+    country: tests.personValidation.country(person.country),
+    city: tests.personValidation.city(person.city),
+    region: tests.personValidation.region(person.region),
+    phone: tests.personValidation.phone(person.phone),
+    email: tests.personValidation.email(person.email)
+  }
 }
 
 export function bankStep (bank) {
-  let errors = {}
-  let bankName = tests.bankValidation.bankName(bank.bankName)
-  let bankAddress = tests.bankValidation.bankAddress(bank.bankAddress)
-  let bankCountry = tests.bankValidation.bankCountry(bank.bankCountry)
-  let bankBicSwift = tests.bankValidation.bankBicSwift(bank.bankBicSwift)
-  let bankIban = tests.bankValidation.bankIban(bank.bankIban)
-
-  if (bankName) errors.bankName = bankName
-  if (bankAddress) errors.bankAddress = bankAddress
-  if (bankCountry) errors.bankCountry = bankCountry
-  if (bankBicSwift) errors.bankBicSwift = bankBicSwift
-  if (bankIban) errors.bankIban = bankIban
-  return errors
+  return {
+    bankName: tests.bankValidation.bankName(bank.bankName),
+    bankAddress: tests.bankValidation.bankAddress(bank.bankAddress),
+    bankCountry: tests.bankValidation.bankCountry(bank.bankCountry),
+    bankBicSwift: tests.bankValidation.bankBicSwift(bank.bankBicSwift),
+    bankIban: tests.bankValidation.bankIban(bank.bankIban)
+  }
 }
 
 export function stayAbroadStep (stayAbroad) {
-  let errors = {}
-  let onePeriod = tests.stayAbroadValidation.atLeastOnePeriod(stayAbroad)
-  if (onePeriod) errors.onePeriod = onePeriod
-  return errors
+  return {
+    onePeriod: tests.stayAbroadValidation.atLeastOnePeriod(stayAbroad)
+  }
 }
 
 export function periodStep (period, person) {
-  let errors = {}
-  let startDate = tests.periodValidation.startDate(period.startDate)
-  let endDate = tests.periodValidation.endDate(period.endDate)
-  let insuranceName = tests.periodValidation.insuranceName(period.insuranceName)
-  let insuranceType = tests.periodValidation.insuranceType(period.insuranceType)
-  let insuranceId
-  if (period.type !== 'work') {
-    insuranceId = tests.periodValidation.insuranceId(period.insuranceId)
+  let errors = {
+    startDate: tests.periodValidation.periodStartDate(period.startDate),
+    endDate: tests.periodValidation.periodEndDate(period.endDate),
+    insuranceName: tests.periodValidation.insuranceName(period.insuranceName),
+    insuranceType: tests.periodValidation.insuranceType(period.insuranceType),
+    insuranceId: (period.type !== 'work') ? tests.periodValidation.insuranceId(period.insuranceId) : undefined,
+    address: tests.periodValidation.periodAddress(period.address),
+    city: tests.periodValidation.periodCity(period.city),
+    region: tests.periodValidation.periodRegion(period.region),
+    country: tests.periodValidation.periodCountry(period.country)
   }
-  let address = tests.periodValidation.address(period.address)
-  let city = tests.periodValidation.city(period.city)
-  let region = tests.periodValidation.region(period.region)
-  let country = tests.periodValidation.country(period.country)
 
-  let fatherName, motherName
   if (period.country && (period.country.value === 'ES' || period.country.value === 'FR')) {
-    fatherName = tests.personValidation.fatherName(person.fatherName)
-    motherName = tests.personValidation.motherName(person.motherName)
+    errors.fatherName = tests.personValidation.fatherName(person.fatherName)
+    errors.motherName = tests.personValidation.motherName(person.motherName)
   }
-  if (startDate) errors.startDate = startDate
-  if (endDate) errors.endDate = endDate
-  if (insuranceName) errors.insuranceName = insuranceName
-  if (insuranceType) errors.insuranceType = insuranceType
-  if (insuranceId) errors.insuranceId = insuranceId
-  if (address) errors.address = address
-  if (city) errors.city = city
-  if (region) errors.region = region
-  if (country) errors.country = country
-  if (fatherName) errors.fatherName = fatherName
-  if (motherName) errors.motherName = motherName
 
   switch (period.type) {
     case 'work':
-
-      let workActivity = tests.periodValidation.workActivity(period.workActivity)
-      let workName = tests.periodValidation.workName(period.workName)
-      let workAddress = tests.periodValidation.workAddress(period.workAddress)
-      let workCity = tests.periodValidation.workCity(period.workCity)
-      let workRegion = tests.periodValidation.workRegion(period.workRegion)
-
-      if (workActivity) errors.workActivity = workActivity
-      if (workName) errors.workName = workName
-      if (workAddress) errors.workAddress = workAddress
-      if (workCity) errors.workCity = workCity
-      if (workRegion) errors.workRegion = workRegion
+      errors.workActivity = tests.periodValidation.workActivity(period.workActivity)
+      errors.workName = tests.periodValidation.workName(period.workName)
+      errors.workAddress = tests.periodValidation.workAddress(period.workAddress)
+      errors.workCity = tests.periodValidation.workCity(period.workCity)
+      errors.workRegion = tests.periodValidation.workRegion(period.workRegion)
       break
 
     case 'child':
-
-      let childFirstName = tests.periodValidation.childFirstName(period.childFirstName)
-      let childLastName = tests.periodValidation.childLastName(period.childLastName)
-      let childBirthDate = tests.periodValidation.childBirthDate(period.childBirthDate)
-
-      if (childFirstName) errors.childFirstName = childFirstName
-      if (childLastName) errors.childLastName = childLastName
-      if (childBirthDate) errors.childBirthDate = childBirthDate
+      errors.childFirstName = tests.periodValidation.childFirstName(period.childFirstName)
+      errors.childLastName = tests.periodValidation.childLastName(period.childLastName)
+      errors.childBirthDate = tests.periodValidation.childBirthDate(period.childBirthDate)
       break
 
     case 'learn':
-
-      let learnInstitution = tests.periodValidation.learnInstitution(period.learnInstitution)
-      if (learnInstitution) errors.learnInstitution = learnInstitution
+      errors.learnInstitution = tests.periodValidation.learnInstitution(period.learnInstitution)
       break
 
     default:
       break
   }
   return errors
-}
-
-export function workStep (work) {
-  return tests.workValidation.workType(work.workType) ||
-         tests.workValidation.workStartDate(work.workStartDate, work.workEndDate) ||
-         tests.workValidation.workEndDate(work.workEndDate, work.workStartDate) ||
-         tests.workValidation.workEstimatedRetirementDate(work.workEstimatedRetirementDate) ||
-         tests.workValidation.workHourPerWeek(work.workHourPerWeek) ||
-         tests.workValidation.workIncome(work.workIncome) ||
-         tests.workValidation.workIncomeCurrency(work.workIncomeCurrency) ||
-         tests.workValidation.workPaymentDate(work.workPaymentDate) ||
-         tests.workValidation.workPaymentFrequency(work.workPaymentFrequency) ||
-         ''
 }
