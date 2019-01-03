@@ -1,9 +1,9 @@
-import i18next from 'i18next'
+import i18n from 'i18next'
 import Backend from 'i18next-xhr-backend'
 import { reactI18nextModule } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
-i18next
+i18n
   .use(Backend)
   .use(LanguageDetector)
   .use(reactI18nextModule)
@@ -12,7 +12,7 @@ i18next
     fallbackLng: {
       'default': ['nb']
     },
-    debug: true,
+    debug: false,
     ns: ['ui', 'case', 'pdf', 'pinfo', 'pselv', 'p4000', 'p6000'],
     defaultNS: 'ui',
     backend: {
@@ -28,8 +28,12 @@ i18next
       bindStore: 'added removed',
       nsMode: 'default'
     }
-  }).loadLanguages(['nb'])
+  }, (err, t) => {
+     if (err) return console.log('Loading i18n error', err)
+     i18n.changeLanguage('nb')
+  })
 
-i18next.locale = 'nb'
-i18next.language = 'nb'
-export default i18next
+i18n.loadLanguages(['nb'], () => {})
+i18n.locale = 'nb'
+i18n.language = 'nb'
+export default i18n
