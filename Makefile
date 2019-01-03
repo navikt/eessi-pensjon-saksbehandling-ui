@@ -17,8 +17,8 @@ build:
 docker:
 	$(NAIS) validate --file nais-fss.yaml
 	$(NAIS) validate --file nais-sbs.yaml
-	$(DOCKER) build --pull -t $(REGISTRY)/eessi-pensjon-frontend-ui-fss -f Dockerfile_Fss .
-	$(DOCKER) build --pull -t $(REGISTRY)/eessi-pensjon-frontend-ui-sbs -f Dockerfile_Sbs .
+	$(DOCKER) build --pull -t $(REGISTRY)/eessi-pensjon-frontend-ui-fss .
+	$(DOCKER) build --pull -t $(REGISTRY)/eessi-pensjon-frontend-ui-sbs .
 
 docker-push:
 	$(DOCKER) tag $(REGISTRY)/eessi-pensjon-frontend-ui-fss $(REGISTRY)/eessi-pensjon-frontend-ui-fss:$(VERSION)

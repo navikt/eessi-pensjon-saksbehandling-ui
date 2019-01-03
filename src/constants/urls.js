@@ -1,10 +1,10 @@
-let HOST = window.location.protocol + '//' + window.location.hostname
-export const BASE_URL = HOST + (window.location.port ? ':' + window.location.port : '')
+export const BASE_URL = window.location.protocol + '//' +
+                        window.location.hostname +
+                        (window.location.port ? ':' + window.location.port : '')
 
-let BACKEND_URL = BASE_URL + '/backend'
-let API_URL = BACKEND_URL + '/api'
-let FAG_URL = BACKEND_URL + '/fag'
-let PDF_URL = BACKEND_URL + '/pdf'
+let API_URL = BASE_URL + '/api'
+let FAG_URL = BASE_URL + '/fag'
+let PDF_URL = BASE_URL + '/pdf'
 
 // EuxController
 export const CASE_GET_RINA_URL = API_URL + '/rinaurl'
@@ -40,7 +40,7 @@ export const CASE_SEND_SED_URL = FAG_URL + '/sed/send'
 export const CASE_SED_URL = FAG_URL + '/sed/%(rinaId)s/%(dokumentId)s'
 
 // Login
-export const APP_LOGIN_URL = BACKEND_URL + '/login'
+export const APP_LOGIN_URL = window.location.protocol + '//' + window.location.hostname + '/login'
 export const APP_LOGOUT_URL = 'https://loginservice-q.nav.no/slo'
 
 // PdfController

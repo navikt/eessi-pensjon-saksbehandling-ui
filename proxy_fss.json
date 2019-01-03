@@ -1,8 +1,0 @@
-[
-    {
-      "contextPath": "/backend",
-      "baseUrl": "http://eessi-pensjon-frontend-api-fss",
-      "requestRewrite": "REMOVE_CONTEXT_PATH",
-      "pingRequestPath": "/internal/isalive" 
-    }
-]
