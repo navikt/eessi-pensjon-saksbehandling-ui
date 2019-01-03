@@ -10,11 +10,7 @@ import ServerAlert from '../Alert/ServerAlert'
 import Drawer from '../Drawer/Drawer'
 import Modal from '../Modal/Modal'
 import InternalTopHeader from '../Header/InternalTopHeader'
-import ExternalTopHeader from '../Header/ExternalTopHeader'
-import NavFooter from '../Footer/NavFooter'
 import Footer from '../Footer/Footer'
-
-import * as constants from '../../../constants/constants'
 
 import './TopContainer.css'
 
@@ -48,16 +44,17 @@ class TopContainer extends Component {
       { 'highContrast': highContrast })}>
       <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
         <Drawer className={userRole} sideContent={sideContent}>
-          {userRole === constants.SAKSBEHANDLER
-            ? <InternalTopHeader history={history} header={header} />
-            : <ExternalTopHeader history={history} header={header} />}
+          {
+            (window.eessipen && window.eessipen.ZONE === 'sbs')
+              ? null
+              : <InternalTopHeader history={history} header={header} />
+          }
           <ClientAlert />
           <ServerAlert />
           <Nav.Container className={classNames('_container')}>
             {this.props.children}
           </Nav.Container>
           <Modal />
-          <NavFooter />
           <Footer />
         </Drawer>
       </DragDropContext>
