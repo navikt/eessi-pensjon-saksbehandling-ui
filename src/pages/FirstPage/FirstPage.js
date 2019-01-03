@@ -85,7 +85,7 @@ class FirstPage extends Component {
               disabled={isLoggingIn || gettingUserInfo}
               spinner={isLoggingIn || gettingUserInfo}>
               {isLoggingIn ? t('ui:authenticating')
-                : gettingUserInfo ? t('loading') : t('login')}
+                : gettingUserInfo ? t('loading') : t('continue')}
             </Nav.Hovedknapp>
               : <Nav.Hovedknapp
                 className='mt-3 forwardButton'
