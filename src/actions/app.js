@@ -20,7 +20,7 @@ export function login () {
 */
 
 export function login () {
-  window.location.href = encodeURI(urls.APP_LOGIN_URL + '?redirect=' + window.location.href)
+  window.location.href = encodeURI(urls.APP_LOGIN_URL + '?redirect=' + window.location.href.replace('/_/', ''))
   return {
     type: types.APP_LOGIN_REQUEST
   }
