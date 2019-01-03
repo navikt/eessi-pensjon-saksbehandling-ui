@@ -90,7 +90,7 @@ class Person extends React.Component {
           <Nav.Input
             id='pinfo-person-etternavn-input'
             type='text'
-            label={t('pinfo:person-info-lastNameAtBirth')}
+            label={t('pinfo:person-info-lastNameAtBirth') + ' *'}
             placeholder={t('ui:writeIn')}
             value={person.nameAtBirth || ''}
             onChange={this.setNameAtBirth}
@@ -100,7 +100,6 @@ class Person extends React.Component {
       </Nav.Row>
       <Nav.Row>
         <div className='col-sm-9'>
-          <div className='valgfri'>{t('optional')}</div>
           <Nav.Input
             id='pinfo-person-tidligerenavn-input'
             type='text'
@@ -115,7 +114,6 @@ class Person extends React.Component {
 
       {mode === 'view' && (person.fatherName || person.motherName)
         ? <React.Fragment>
-
           <Nav.Row>
             <div className='col-sm-9 mt-3'>
               <div className='float-right'>
@@ -126,7 +124,7 @@ class Person extends React.Component {
               <Nav.Input
                 id='pinfo-opphold-farsnavn-input'
                 type='text'
-                label={t('pinfo:stayAbroad-period-fathername')}
+                label={t('pinfo:stayAbroad-period-fathername') + ' *'}
                 placeholder={t('ui:writeIn')}
                 value={person.fatherName || ''}
                 onChange={this.setFatherName}
@@ -144,7 +142,7 @@ class Person extends React.Component {
               <Nav.Input
                 id='pinfo-opphold-morsnavn-input'
                 type='text'
-                label={t('pinfo:stayAbroad-period-mothername')}
+                label={t('pinfo:stayAbroad-period-mothername') + ' *'}
                 placeholder={t('ui:writeIn')}
                 value={person.motherName || ''}
                 onChange={this.setMotherName}
@@ -155,11 +153,12 @@ class Person extends React.Component {
         </React.Fragment>
         : null
       }
-
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-birthplace-title')}</Nav.Undertittel>
       <Nav.Row>
         <div className='col-md-6 mb-4'>
-          <label className='skjemaelement__label'>{t('pinfo:person-birthplace-country')}</label>
+          <label className='skjemaelement__label'>
+            {t('pinfo:person-birthplace-country') + ' *'}
+          </label>
           <CountrySelect
             id='pinfo-person-land-select'
             locale={locale}
@@ -173,9 +172,9 @@ class Person extends React.Component {
       <Nav.Row>
         <div className='col-sm-9'>
           <Nav.Input
-            id='pinfo-person-by-input'
+            id='pinfo-person-sted-input'
             type='text'
-            label={t('pinfo:person-birthplace-place')}
+            label={t('pinfo:person-birthplace-place') + ' *'}
             placeholder={t('ui:writeIn')}
             value={person.city || ''}
             onChange={this.setCity}
@@ -222,6 +221,11 @@ class Person extends React.Component {
             onBlur={this.setEmailAndValidate}
             feil={localErrors.email ? { feilmelding: t(localErrors.email) } : null}
           />
+        </div>
+      </Nav.Row>
+      <Nav.Row>
+        <div className='col-sm-6'>
+           {'* ' + t('mandatoryField')}
         </div>
       </Nav.Row>
     </div>

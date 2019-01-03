@@ -456,8 +456,7 @@ class Period extends React.Component {
                 <Nav.Undertittel className='mt-3 mb-3'>{t(`pinfo:stayAbroad-period-title-${_period.type}`)}</Nav.Undertittel>
               </div>
               <div className='col-md-6'>
-                <label className='mr-3'>{t('pinfo:stayAbroad-period-start-date')}</label>
-                <br />
+                <label className='mr-3 skjemaelement__label'>{t('pinfo:stayAbroad-period-start-date') + ' *'}</label>
                 <DatePicker
                   id='pinfo-opphold-startdato-date'
                   selected={_period.startDate ? new Date(_period.startDate) : null}
@@ -469,8 +468,7 @@ class Period extends React.Component {
                   errorMessage={t(localErrors.startDate)} />
               </div>
               <div className='col-md-6'>
-                <label>{t('pinfo:stayAbroad-period-end-date')}</label>
-                <br />
+                <label className='skjemaelement__label'>{t('pinfo:stayAbroad-period-end-date') + ' *'}</label>
                 <DatePicker
                   id='pinfo-opphold-sluttdato-date'
                   selected={_period.endDate ? new Date(_period.endDate) : null}
@@ -484,7 +482,7 @@ class Period extends React.Component {
             </Nav.Row>
             <Nav.Row>
               <div className='mt-3 col-md-8'>
-                <label>{t('pinfo:stayAbroad-country')}</label>
+                <label className='skjemaelement__label'>{t('pinfo:stayAbroad-country') + ' *'}</label>
                 <CountrySelect
                   id='pinfo-opphold-land-select'
                   locale={locale}
@@ -576,7 +574,7 @@ class Period extends React.Component {
               <div className='col-md-12'>
                 <Nav.Textarea
                   id='pinfo-opphold-bosted-place-textarea'
-                  label={t('pinfo:stayAbroad-place')}
+                  label={t('pinfo:stayAbroad-place') + ' *'}
                   placeholder={t('ui:writeIn')}
                   value={_period.place || ''}
                   style={{ minHeight: '100px' }}
@@ -597,7 +595,7 @@ class Period extends React.Component {
                 <div className='col-md-12 col-xs-12'>
                   <Nav.Input
                     id='pinfo-opphold-yrkesaktivitet-input'
-                    label={t('pinfo:stayAbroad-work-activity')}
+                    label={t('pinfo:stayAbroad-work-activity') + ' *'}
                     placeholder={t('ui:writeIn')}
                     value={_period.workActivity || ''}
                     onChange={this.setWorkActivity}
@@ -657,8 +655,7 @@ class Period extends React.Component {
                 />
               </div>
               <div className='col-md-6'>
-                <label>{t('pinfo:stayAbroad-child-birthdate')}</label>
-                <br />
+                <label className='skjemaelement__label'>{t('pinfo:stayAbroad-child-birthdate')}</label>
                 <DatePicker
                   id='pinfo-opphold-barnasfodselsdato-date'
                   selected={_period.childBirthDate ? new Date(_period.childBirthDate) : null}
@@ -698,6 +695,11 @@ class Period extends React.Component {
                   fileUploadDroppableId={'fileUpload'}
                   files={_period.attachments || []}
                   onFileChange={this.setAttachments} />
+              </div>
+            </Nav.Row>
+             <Nav.Row>
+              <div className='mt-4 mb-4 col-md-12'>
+                 {'* ' + t('mandatoryField')}
               </div>
             </Nav.Row>
             <Nav.Row>

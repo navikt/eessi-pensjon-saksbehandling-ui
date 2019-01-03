@@ -82,7 +82,7 @@ class Bank extends React.Component {
           <Nav.Input
             id='pinfo-bank-name-input'
             type='text'
-            label={t('pinfo:bank-name')}
+            label={t('pinfo:bank-name') + ' *'}
             placeholder={t('ui:writeIn')}
             value={bank.bankName || ''}
             onChange={this.setBankName}
@@ -90,7 +90,7 @@ class Bank extends React.Component {
           />
         </div>
         <div className='col-md-6 mb-3'>
-          <label className='skjemaelement__label'>{t('pinfo:bank-country')}</label>
+          <label className='skjemaelement__label'>{t('pinfo:bank-country') + ' *'}</label>
           <CountrySelect
             placeholder={t('ui:writeIn')}
             id='pinfo-bank-country-select'
@@ -106,7 +106,7 @@ class Bank extends React.Component {
         <div className='col-md-6'>
           <Nav.Input
             id='pinfo-bank-iban-input'
-            label={t('pinfo:bank-iban')}
+            label={t('pinfo:bank-iban') + ' *'}
             placeholder={t('ui:writeIn')}
             value={bank.bankIban || ''}
             onChange={this.setBankIban}
@@ -126,7 +126,7 @@ class Bank extends React.Component {
         <div className='col-md-6'>
           <Nav.Input
             id='pinfo-bank-bicswift-input'
-            label={t('pinfo:bank-bicSwift')}
+            label={t('pinfo:bank-bicSwift') + ' *'}
             placeholder={t('ui:writeIn')}
             value={bank.bankBicSwift || ''}
             onChange={this.setBankBicSwift}
@@ -145,7 +145,7 @@ class Bank extends React.Component {
         <div className='col-md-12'>
           <Nav.Textarea
             id='pinfo-bank-address-textarea'
-            label={t('pinfo:bank-address')}
+            label={t('pinfo:bank-address') + ' *'}
             placeholder={t('ui:writeIn')}
             value={bank.bankAddress || ''}
             style={{ minHeight: '100px' }}
@@ -155,6 +155,11 @@ class Bank extends React.Component {
           />
         </div>
       </Nav.Row>
+      <Nav.Row>
+              <div className='col-sm-6'>
+                 {'* ' + t('mandatoryField')}
+              </div>
+            </Nav.Row>
     </div>
   }
 }

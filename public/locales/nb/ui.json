@@ -99,6 +99,7 @@
     "loadFailure" : "Feil lasting",
     "login" : "Logg inn",
     "logout" : "Logg ut",
+    "mandatoryField": "Påkrevde felt",
     "more" : "Mer",
     "name" : "Navn",
     "new" : "Ny",

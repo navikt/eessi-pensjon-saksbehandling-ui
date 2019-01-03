@@ -99,6 +99,7 @@
     "loadFailure" : "Load failure",
     "login" : "Login",
     "logout" : "Logout",
+    "mandatoryField" : "Mandatory field",
     "more" : "More",
     "name" : "Name",
     "new" : "New",
