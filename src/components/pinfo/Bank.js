@@ -74,7 +74,7 @@ class Bank extends React.Component {
     const { t, bank, locale, disableHelpText } = this.props
     const { localErrors } = this.state
 
-    return <div>
+    return <div className='c-pinfo-bank'>
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:bank-title')}</Nav.Undertittel>
 
       <Nav.Row>
@@ -117,8 +117,8 @@ class Bank extends React.Component {
         <div className='col-md-6 d-flex align-items-center'>
           {disableHelpText ? null
             : <Nav.HjelpetekstBase id='pinfo-bank-iban-input-help'>
-              {t('pinfo:bank-iban-help')}
-            </Nav.HjelpetekstBase>
+                {t('pinfo:bank-iban-help')}
+              </Nav.HjelpetekstBase>
           }
         </div>
       </Nav.Row>

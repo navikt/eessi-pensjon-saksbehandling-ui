@@ -319,7 +319,9 @@ class PInfo extends React.Component {
         {step === 2 ? <StayAbroad pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
         {step === 3 ? <Confirm pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
         {step === 4 ? <Receipt pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
-        {buttonsVisible ? <div className='mb-4 mt-4'>
+      </div>
+      <div className='col-md-2' />
+        {buttonsVisible ? <div className='col-md-12 text-center mb-4 mt-4'>
           {step < 3 ? <Nav.Hovedknapp
             id='pinfo-forward-button'
             className='forwardButton mb-2 mr-3'
@@ -349,7 +351,6 @@ class PInfo extends React.Component {
           </Nav.KnappBase> : null}
         </div> : null}
         {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
-      </div>
     </TopContainer>
   }
 }

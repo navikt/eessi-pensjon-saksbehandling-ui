@@ -309,7 +309,7 @@ class Period extends React.Component {
     switch (mode) {
       case 'view':
         return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode)}>
-          <div className={classNames('col-md-8', { 'current': current })}>
+          <div className={classNames('col-md-6', { 'current': current })}>
             <div id={period.id} className='existingPeriod'>
               <div className='icon mr-4'>
                 <div className={classNames('topHalf', { line: !first })} />
@@ -331,8 +331,8 @@ class Period extends React.Component {
                 </span>
                 <br />
                 {period.type === 'work' ? <React.Fragment>
-                  <span className='bold'>{t('pinfo:stayAbroad-work-name')}</span>{': '}
-                  {period.workName}
+                  <span className='bold'>{t('pinfo:stayAbroad-work-activity')}</span>{': '}
+                  {period.workActivity}
                   <br />
                 </React.Fragment> : null }
                 {period.type === 'home' || period.type === 'military' ? <React.Fragment>
@@ -352,7 +352,7 @@ class Period extends React.Component {
               </div>
             </div>
           </div>
-          {showButtons !== false ? <div className='col-md-4 existingPeriodButtons'>
+          {showButtons !== false ? <div className='col-md-6 existingPeriodButtons'>
             <Nav.Knapp className='mr-3 existingPeriodButton' onClick={this.requestEditPeriod.bind(this, period)}>
               {t('ui:change')}
             </Nav.Knapp>
@@ -488,7 +488,7 @@ class Period extends React.Component {
               </div>
             </Nav.Row>
             <Nav.Row>
-              <div className='mt-3 col-md-12'>
+              <div className='mt-3 col-md-8'>
                 <label>{t('pinfo:stayAbroad-country')}</label>
                 <CountrySelect
                   id='pinfo-opphold-land-select'
@@ -537,7 +537,7 @@ class Period extends React.Component {
                 </div>
               </React.Fragment> : null }
               <div className='col-md-12 d-flex align-items-center'>
-                <Nav.Undertittel className='mt-3 mb-3'>{t('pinfo:stayAbroad-insurance-title')}</Nav.Undertittel>
+                <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-insurance-title')}</Nav.Undertittel>
                 {mode !== 'view' ? <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-help'>
                   {t('pinfo:stayAbroad-insurance-title-help')}
                 </Nav.HjelpetekstBase> : null}
@@ -720,7 +720,7 @@ class Period extends React.Component {
               <div className='col-md-12'>
                 <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-learn-title')}</Nav.Undertittel>
               </div>
-              <div className='col-md-6'>
+              <div className='col-md-12'>
                 <Nav.Input
                   id='pinfo-opphold-opplaeringsinstitusjonsnavn-input'
                   label={t('pinfo:stayAbroad-learn-institution')}

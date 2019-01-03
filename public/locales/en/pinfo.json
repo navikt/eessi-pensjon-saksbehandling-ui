@@ -84,6 +84,9 @@
     "stayAbroad-attachments" : "Attachments",
     "stayAbroad-attachment-title" : "Attachments",
 
+    "confirm-title" : "Confirm information",
+    "confirm-psycho-description" : "Please read the form before you send the application. You can edit the information here.",
+
     "receipt-title" : "Receipt",
     "receipt-veileder": "Thank you for your application",
 

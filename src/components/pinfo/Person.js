@@ -83,7 +83,7 @@ class Person extends React.Component {
     const { t, person, locale, mode } = this.props
     const { localErrors } = this.state
 
-    return <div>
+    return <div className='c-pinfo-person'>
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-info-title')}</Nav.Undertittel>
       <Nav.Row>
         <div className='col-sm-9'>
@@ -100,6 +100,7 @@ class Person extends React.Component {
       </Nav.Row>
       <Nav.Row>
         <div className='col-sm-9'>
+          <div className='valgfri'>{t('optional')}</div>
           <Nav.Input
             id='pinfo-person-tidligerenavn-input'
             type='text'

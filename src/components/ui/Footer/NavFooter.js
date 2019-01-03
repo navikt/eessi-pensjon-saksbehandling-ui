@@ -3,7 +3,7 @@ export default () => <div className='hodefot'>
   <footer className='sitefooter no-menu' role='contentinfo'>
     <div className='container about-site'>
       <a href='https://www-t1.nav.no' data-ga='Footer/Link til NAV' className='decorated'>NAV</a>
-      <ul class='nav'>
+      <ul className='nav'>
         <li>
           <a href='https://www-t1.nav.no/no/NAV+og+samfunn/Kontakt+NAV/Kontakt+oss' data-ga='Footer'>Kontakt oss</a>
         </li>

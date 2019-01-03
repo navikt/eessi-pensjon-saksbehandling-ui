@@ -69,7 +69,7 @@
     "stayAbroad-region" : "Region",
     "stayAbroad-city" : "By",
     "stayAbroad-work-title" : "Yrkesaktivitet",
-    "stayAbroad-work-activity" : "Oppgi yrkesaktivitet",
+    "stayAbroad-work-activity" : "Yrkesaktivitet",
     "stayAbroad-work-id" : "Trygdenummer/ID-nummer",
     "stayAbroad-work-name" : "Arbeidsgivers navn",
     "stayAbroad-work-address" : "Arbeidsgivers adresse",
@@ -83,6 +83,9 @@
     "stayAbroad-learn-institution" : "Navn på utdanningsinstitusjon",
     "stayAbroad-attachments" : "Vedlegg",
     "stayAbroad-attachment-title" : "Vedlegg",
+
+    "confirm-title" : "Bekreft oppgitt informasjon",
+    "confirm-psycho-description" : "Les gjennom oppsummeringen før du sender inn søknaden. Hvis du trenger å gjøre endringer kan du gjøre de direkte.",
 
     "receipt-title" : "Kvittering",
     "receipt-veileder": "Takk for søknaden",
