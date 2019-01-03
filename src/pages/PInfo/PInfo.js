@@ -161,7 +161,7 @@ class PInfo extends React.Component {
       })
       return false
     }
-
+    actions.setMainButtonsVisibility(true)
     actions.setStep(nextStep)
     if (this.state.stepIndicatorError) {
       this.setState({
