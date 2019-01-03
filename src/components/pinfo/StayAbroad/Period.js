@@ -49,14 +49,10 @@ class Period extends React.Component {
     this.setInsuranceName = this.eventSetProperty.bind(this, 'insuranceName', periodValidation.insuranceName)
     this.setInsuranceType = this.eventSetProperty.bind(this, 'insuranceType', periodValidation.insuranceType)
     this.setInsuranceId = this.eventSetProperty.bind(this, 'insuranceId', null)
-    this.setAddress = this.eventSetProperty.bind(this, 'address', periodValidation.periodAddress)
-    this.setCity = this.eventSetProperty.bind(this, 'city', periodValidation.periodCity)
-    this.setRegion = this.eventSetProperty.bind(this, 'region', periodValidation.periodRegion)
+    this.setPlace = this.eventSetProperty.bind(this, 'place', periodValidation.periodPlace)
     this.setWorkActivity = this.eventSetProperty.bind(this, 'workActivity', periodValidation.workActivity)
     this.setWorkName = this.eventSetProperty.bind(this, 'workName', periodValidation.workName)
-    this.setWorkAddress = this.eventSetProperty.bind(this, 'workAddress', periodValidation.workAddress)
-    this.setWorkCity = this.eventSetProperty.bind(this, 'workCity', periodValidation.workCity)
-    this.setWorkRegion = this.eventSetProperty.bind(this, 'workRegion', periodValidation.workRegion)
+    this.setWorkPlace = this.eventSetProperty.bind(this, 'workPlace', periodValidation.workPlace)
     this.setChildFirstName = this.eventSetProperty.bind(this, 'childFirstName', periodValidation.childFirstName)
     this.setChildLastName = this.eventSetProperty.bind(this, 'childLastName', periodValidation.childLastName)
     this.setChildBirthDate = this.dateSetProperty.bind(this, 'childBirthDate', periodValidation.childBirthDate)
@@ -331,13 +327,13 @@ class Period extends React.Component {
                 </span>
                 <br />
                 {period.type === 'work' ? <React.Fragment>
-                  <span className='bold'>{t('pinfo:stayAbroad-work-activity')}</span>{': '}
+                  <span className='bold'>{t('pinfo:stayAbroad-work-title')}</span>{': '}
                   {period.workActivity}
                   <br />
                 </React.Fragment> : null }
                 {period.type === 'home' || period.type === 'military' ? <React.Fragment>
-                  <span className='bold'>{t('pinfo:stayAbroad-address')}</span>{': '}
-                  {period.address}
+                  <span className='bold'>{t('pinfo:stayAbroad-place')}</span>{': '}
+                  {period.place}
                   <br />
                 </React.Fragment> : null }
                 {period.type === 'learn' ? <React.Fragment>
@@ -399,8 +395,7 @@ class Period extends React.Component {
 
                 <span>
                   <span className='bold'>{t('pinfo:stayAbroad-home-title')}</span>{': '}
-                  {period.address}<br />
-                  {period.city}{' - '}{period.region}
+                  {period.place}
                 </span>
                 <br />
 
@@ -411,8 +406,8 @@ class Period extends React.Component {
                   <span className='bold'>{t('pinfo:stayAbroad-work-name')}</span>{': '}
                   {period.workName}
                   <br />
-                  <span className='bold'>{t('pinfo:stayAbroad-work-address')}</span>{': '}
-                  {period.workAddress}{' - '}{period.workCity}{' - '}{period.workRegion}
+                  <span className='bold'>{t('pinfo:stayAbroad-work-place')}</span>{': '}
+                  {period.workPlace}
                   <br />
                 </React.Fragment> : null }
 
@@ -580,35 +575,14 @@ class Period extends React.Component {
               </div>
               <div className='col-md-12'>
                 <Nav.Textarea
-                  id='pinfo-opphold-bosted-address-textarea'
-                  label={t('pinfo:stayAbroad-address')}
+                  id='pinfo-opphold-bosted-place-textarea'
+                  label={t('pinfo:stayAbroad-place')}
                   placeholder={t('ui:writeIn')}
-                  value={_period.address || ''}
+                  value={_period.place || ''}
                   style={{ minHeight: '100px' }}
                   maxLength={100}
-                  onChange={this.setAddress}
-                  feil={localErrors.address ? { feilmelding: t(localErrors.address) } : null}
-
-                />
-              </div>
-              <div className='col-md-6'>
-                <Nav.Input
-                  id='pinfo-opphold-bosted-by-input'
-                  label={t('pinfo:stayAbroad-city')}
-                  value={_period.city || ''}
-                  placeholder={t('ui:writeIn')}
-                  onChange={this.setCity}
-                  feil={localErrors.city ? { feilmelding: t(localErrors.city) } : null}
-                />
-              </div>
-              <div className='col-md-6'>
-                <Nav.Input
-                  id='pinfo-opphold-bosted-region-input'
-                  label={t('pinfo:stayAbroad-region')}
-                  value={_period.region || ''}
-                  placeholder={t('ui:writeIn')}
-                  onChange={this.setRegion}
-                  feil={localErrors.region ? { feilmelding: t(localErrors.region) } : null}
+                  onChange={this.setPlace}
+                  feil={localErrors.place ? { feilmelding: t(localErrors.place) } : null}
                 />
               </div>
 
@@ -645,36 +619,16 @@ class Period extends React.Component {
               </Nav.Row>
               <Nav.Row >
                 <div className='col-md-12 col-xs-12'>
-                  <Nav.Input
-                    id='pinfo-opphold-arbeidgiversaddress-input'
-                    label={t('pinfo:stayAbroad-work-address')}
-                    value={_period.workAddress || ''}
-                    placeholder={t('ui:writeIn')}
-                    onChange={this.setWorkAddress}
-                    feil={localErrors.workAddress ? { feilmelding: t(localErrors.workAddress) } : null}
-                  />
-                </div>
-              </Nav.Row>
-              <Nav.Row>
-                <div className='col-md-6'>
-                  <Nav.Input
-                    id='pinfo-opphold-arbeidgiversby-input'
-                    label={t('pinfo:stayAbroad-work-city')}
-                    value={_period.workCity || ''}
-                    placeholder={t('ui:writeIn')}
-                    onChange={this.setWorkCity}
-                    feil={localErrors.workCity ? { feilmelding: t(localErrors.workCity) } : null}
-                  />
-                </div>
-                <div className='col-md-6'>
-                  <Nav.Input
-                    id='pinfo-opphold-arbeidgiversregion-input'
-                    label={t('pinfo:stayAbroad-work-region')}
-                    value={_period.workRegion || ''}
-                    placeholder={t('ui:writeIn')}
-                    onChange={this.setWorkRegion}
-                    feil={localErrors.workRegion ? { feilmelding: t(localErrors.workRegion) } : null}
-                  />
+                <Nav.Textarea
+                  id='pinfo-opphold-arbeidgiverssted-textarea'
+                  label={t('pinfo:stayAbroad-work-place')}
+                  placeholder={t('ui:writeIn')}
+                  value={_period.workPlace || ''}
+                  style={{ minHeight: '100px' }}
+                  maxLength={100}
+                  onChange={this.setWorkPlace}
+                  feil={localErrors.workPlace ? { feilmelding: t(localErrors.workPlace) } : null}
+                />
                 </div>
               </Nav.Row>
             </React.Fragment> : null}

@@ -35,9 +35,7 @@ export function periodStep (period, person) {
     insuranceName: tests.periodValidation.insuranceName(period.insuranceName),
     insuranceType: tests.periodValidation.insuranceType(period.insuranceType),
     insuranceId: (period.type !== 'work') ? tests.periodValidation.insuranceId(period.insuranceId) : undefined,
-    address: tests.periodValidation.periodAddress(period.address),
-    city: tests.periodValidation.periodCity(period.city),
-    region: tests.periodValidation.periodRegion(period.region),
+    place: tests.periodValidation.periodPlace(period.place),
     country: tests.periodValidation.periodCountry(period.country)
   }
 
@@ -50,9 +48,7 @@ export function periodStep (period, person) {
     case 'work':
       errors.workActivity = tests.periodValidation.workActivity(period.workActivity)
       errors.workName = tests.periodValidation.workName(period.workName)
-      errors.workAddress = tests.periodValidation.workAddress(period.workAddress)
-      errors.workCity = tests.periodValidation.workCity(period.workCity)
-      errors.workRegion = tests.periodValidation.workRegion(period.workRegion)
+      errors.workPlace = tests.periodValidation.workPlace(period.workPlace)
       break
 
     case 'child':

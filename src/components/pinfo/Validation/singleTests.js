@@ -148,16 +148,8 @@ let periodCountry = function (country) {
   return mandatory(country, 'pinfo:validation-noCountry')
 }
 
-let periodAddress = function (address) {
-  return mandatory(address, 'pinfo:validation-noAddress')
-}
-
-let periodCity = function (city) {
-  return mandatory(city, 'pinfo:validation-noCity')
-}
-
-let periodRegion = function (region) {
-  return notMandatory(region)
+let periodPlace = function (place) {
+  return mandatory(place, 'pinfo:validation-noPlace')
 }
 
 let workActivity = function (workActivity) {
@@ -168,16 +160,8 @@ let workName = function (workName) {
   return notMandatory(workName)
 }
 
-let workAddress = function (workAddress) {
-  return notMandatory(workAddress)
-}
-
-let workCity = function (workCity) {
-  return notMandatory(workCity)
-}
-
-let workRegion = function (workRegion) {
-  return notMandatory(workRegion)
+let workPlace = function (workPlace) {
+  return notMandatory(workPlace)
 }
 
 let childFirstName = function (childFirstName) {
@@ -206,17 +190,13 @@ export const periodValidation = {
   periodStartDate,
   periodEndDate,
   periodCountry,
-  periodAddress,
-  periodCity,
-  periodRegion,
+  periodPlace,
   insuranceName,
   insuranceType,
   insuranceId,
   workActivity,
   workName,
-  workAddress,
-  workCity,
-  workRegion,
+  workPlace,
   childFirstName,
   childLastName,
   childBirthDate,
