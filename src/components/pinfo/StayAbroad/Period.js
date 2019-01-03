@@ -691,7 +691,7 @@ class Period extends React.Component {
               </div>
               <div className='col-md-12'>
                 <FileUpload
-                  id='pinfo-opphold-vedlegg-fileupload'
+                  id={'pinfo-opphold-vedlegg-fileupload-' + period.id}
                   className='fileUpload'
                   t={t}
                   ref={f => { this.fileUpload = f }}

@@ -23,7 +23,10 @@ const mapDispatchToProps = (dispatch) => {
 
 class FileUpload extends Component {
     state = {
-      files: []
+      files: [],
+      currentPages: [],
+      id : undefined,
+      status: undefined
     }
 
     validate (e) {
@@ -32,6 +35,17 @@ class FileUpload extends Component {
 
       action(e)
       files.length > 0 ? active() : inactive()
+    }
+
+    static getDerivedStateFromProps (newProps, oldState) {
+      if (newProps.id !== oldState.id) {
+        return {
+          id: newProps.id,
+          files: newProps.files,
+          currentPages: newProps.files && newProps.files.length > 0 ? Array(newProps.files.length).fill().map(() => { return 1}) : []
+        }
+      }
+      return null
     }
 
     componentDidMount () {
@@ -257,6 +271,7 @@ class FileUpload extends Component {
 
 FileUpload.propTypes = {
   t: PT.func.isRequired,
+  id: PT.string.isRequired,
   onFileChange: PT.func.isRequired,
   files: PT.array.isRequired,
   currentPages: PT.array,
