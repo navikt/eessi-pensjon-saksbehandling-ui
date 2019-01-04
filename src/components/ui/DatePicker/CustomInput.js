@@ -4,15 +4,9 @@ import classNames from 'classnames'
 
 class CustomInput extends Component {
   render () {
-    const { onClick, onChange, value, placeholder, error, id, className } = this.props
+    const { onClick, error, className } = this.props
     return <div className={className}>
-      <input
-        id={id}
-        type='text'
-        className={classNames('form-control', { 'skjemaelement__input--harFeil': error })}
-        placeholder={placeholder}
-        onChange={onChange}
-        value={value} />
+      <input {...this.props} autocomplete='off' className={classNames(className, 'form-control')} />
       <div style={{ cursor: 'pointer' }} className='input-group-append' onClick={onClick}>
         <span role='img' aria-label='date' className='input-group-text'>📅</span>
       </div>

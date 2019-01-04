@@ -9,6 +9,7 @@ import 'react-datepicker/dist/react-datepicker.min.css'
 import './DatePicker.css'
 
 class DatePicker extends Component {
+
   render () {
     const { placeholder, selected, className, locale, error, errorMessage, onChange, id } = this.props
 
@@ -16,10 +17,10 @@ class DatePicker extends Component {
       <ReactDatePicker
         id={id}
         placeholderText={placeholder}
-        customInput={<CustomInput error={error !== undefined} {...this.props} />}
+        customInput={<CustomInput />}
         selected={selected}
         dateFormat='dd.MM.yyyy'
-        className={classNames('input-group', 'c-ui-datePicker', className)}
+        className={classNames(className, 'input-group', 'c-ui-datePicker', { 'skjemaelement__input--harFeil': error })}
         showYearDropdown
         showMonthDropdown
         dropdownMode='select'
