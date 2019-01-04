@@ -317,6 +317,7 @@ class PInfo extends React.Component {
             <span className='ml-2'>{t(stepIndicatorError, { maxStep: (maxStep + 1) })}</span>
           </div> : null}
         </React.Fragment> : null}
+      <Nav.Row>
       <div className='col-md-2' />
       <div className={classNames('fieldset animate', 'mb-4', 'col-md-8')}>
         {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
@@ -327,7 +328,8 @@ class PInfo extends React.Component {
         {step === 4 ? <Receipt pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
       </div>
       <div className='col-md-2' />
-        {buttonsVisible ? <div className='col-md-12 text-center mb-4 mt-4'>
+      </Nav.Row>
+        {buttonsVisible ? <Nav.Row><div className='col-md-12 text-center mb-4 mt-4'>
           {step < 3 ? <Nav.Hovedknapp
             id='pinfo-forward-button'
             className='forwardButton mb-2 mr-3'
@@ -355,8 +357,14 @@ class PInfo extends React.Component {
             onClick={this.onCancelButtonClick.bind(this)}>
             {t('cancel-main')}
           </Nav.KnappBase> : null}
-        </div> : null}
-        {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
+        </div></Nav.Row> : null}
+        {errorMessage ? <Nav.Row>
+         <div className='col-md-2'/>
+         <div className='col-md-8 mb-4'>
+           <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe>
+         </div>
+         <div className='col-md-2'/>
+         </Nav.Row>: null}
     </TopContainer>
   }
 }
