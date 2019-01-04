@@ -1,7 +1,7 @@
 let HOST = window.location.protocol + '//' + window.location.hostname
 export const BASE_URL = HOST + (window.location.port ? ':' + window.location.port : '')
 
-let BACKEND_URL = BASE_URL + '/backend'
+let BACKEND_URL = window.location.hostname === 'localhost' ? BASE_URL : BASE_URL + '/backend'
 let API_URL = BACKEND_URL + '/api'
 let FAG_URL = BACKEND_URL + '/fag'
 let PDF_URL = BACKEND_URL + '/pdf'
