@@ -1,5 +1,6 @@
 import * as types from '../constants/actionTypes'
 import fetch from 'cross-fetch'
+import cookies from 'browser-cookies'
 import 'cross-fetch/polyfill'
 
 export function call (options) {
@@ -8,12 +9,16 @@ export function call (options) {
       type: options.type.request
     })
     let body = options.body || options.payload
+    let CSRF_PROTECTION = cookies.get('NAV_CSRF_PROTECTION')
+      ? {'NAV_CSRF_PROTECTION' : cookies.get('NAV_CSRF_PROTECTION')}
+      : {}
     return fetch(options.url, {
       method: options.method || 'GET',
       crossOrigin: true,
       json: true,
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
+        ...CSRF_PROTECTION,
         ...options.headers
       },
       body: body ? JSON.stringify(body) : undefined
