@@ -11,7 +11,6 @@ import * as uiActions from '../../../actions/ui'
 
 import '../app-decorator-v4.css'
 import '../bundle.css'
-import './ExternalTopHeader.css'
 
 const mapStateToProps = (state) => {
   return {

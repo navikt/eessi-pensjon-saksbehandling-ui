@@ -62,7 +62,7 @@ class InternalTopHeader extends Component {
           </div>
             : isLoggingOut ? <Nav.NavFrontendSpinner type='XS' /> : null}
           <div className='skillelinje' />
-          <div className='mr-4 name'>
+          <div className='mr-4 ml-2 align-middle name'>
             {gettingUserInfo ? t('case:loading-gettingUserInfo')
               : username
                 ? <Nav.Select className='username-select'
@@ -74,7 +74,7 @@ class InternalTopHeader extends Component {
                 </Nav.Select>
                 : <React.Fragment>
                   <Nav.Ikon size={16} kind='advarsel-trekant' />
-                  <span className='ml-2 username-span'>{t('unknown')}</span>
+                  <span className='username-span'>{t('unknown')}</span>
                 </React.Fragment>
             }
           </div>

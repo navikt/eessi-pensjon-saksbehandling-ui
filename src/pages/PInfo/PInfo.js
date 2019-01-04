@@ -63,7 +63,9 @@ class PInfo extends React.Component {
   componentDidMount () {
     const { actions, username } = this.props
 
-    window.hj('trigger', 'e207-feedback-no')
+    if (window.hj) {
+       window.hj('trigger', 'e207-feedback-no')
+    }
     actions.listStorageFiles(username, 'PINFO', { successAlert: false })
   }
 
