@@ -6,6 +6,8 @@ import { bindActionCreators } from 'redux'
 import * as Nav from '../Nav'
 import * as uiActions from '../../../actions/ui'
 
+import './Modal.css'
+
 const mapStateToProps = (state) => {
   return {
     modalOpen: state.ui.modalOpen,
