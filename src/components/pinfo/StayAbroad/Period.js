@@ -429,6 +429,7 @@ class Period extends React.Component {
       case 'new':
         return <React.Fragment>
           {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
+          <Nav.Undertittel className='mt-3 mb-3'>{t('pinfo:stayAbroad-period-' + mode)}</Nav.Undertittel>
           <Nav.Row className={classNames('c-pinfo-opphold-period', 'mt-4', mode)}>
             <div className='col-md-6'>
               <Nav.Select

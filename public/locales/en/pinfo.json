@@ -45,6 +45,8 @@
     "stayAbroad-category-other"     : "Other",
     "stayAbroad-period" : "Period",
     "stayAbroad-period-title" : "Period",
+    "stayAbroad-period-new" : "Add new period",
+    "stayAbroad-period-edit" : "Edit period",
     "stayAbroad-period-title-work" : "Work period",
     "stayAbroad-period-title-home" : "Residence period",
     "stayAbroad-period-title-military" : "Service period",

@@ -45,6 +45,8 @@
     "stayAbroad-category-other"     : "Annet",
     "stayAbroad-period" : "Periode",
     "stayAbroad-period-title" : "Periode",
+    "stayAbroad-period-new" : "Legg til ny periode",
+    "stayAbroad-period-edit" : "Rediger periode",
     "stayAbroad-period-title-work" : "Arbeidsperiode",
     "stayAbroad-period-title-home" : "Botidsperiode",
     "stayAbroad-period-title-military" : "Tjenesteperiode",
