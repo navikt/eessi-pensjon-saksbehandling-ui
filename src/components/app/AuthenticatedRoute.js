@@ -93,7 +93,7 @@ class AuthenticatedRoute extends Component {
       ? authorized
         ? <Route {...this.props} />
         : <Redirect to={routes.NOT_INVITED} />
-      : <Redirect to={routes.ROOT} />
+      : <Redirect to={routes.FORBIDDEN} />
   }
 }
 
