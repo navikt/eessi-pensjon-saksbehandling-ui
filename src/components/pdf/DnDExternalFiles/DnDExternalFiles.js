@@ -52,7 +52,11 @@ class DnDExternalFiles extends Component {
   onSelectFile (file) {
     const { actions, username } = this.props
 
-    actions.getStorageFile(username, storages.FILES, file)
+    actions.getStorageFile({
+       userId: username,
+       namespace: storages.FILES,
+       file: file
+    })
   }
 
   render () {

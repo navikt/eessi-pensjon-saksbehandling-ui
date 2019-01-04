@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
 import { withNamespaces } from 'react-i18next'
 import classNames from 'classnames'
+import _ from 'lodash'
 
 import 'react-datepicker/dist/react-datepicker.min.css'
 
@@ -21,8 +22,8 @@ const mapStateToProps = (state) => {
     locale: state.ui.locale,
     saksId: state.status.saksId,
     aktoerId: state.status.aktoerId,
-    username: state.app.username,
     fileList: state.storage.fileList,
+    file: state.storage.file,
     isSendingPinfo: state.loading.isSendingPinfo,
     isInvitingPinfo: state.loading.isInvitingPinfo,
     message: state.pinfoSaksbehandler.message,
@@ -37,7 +38,9 @@ const mapDispatchToProps = (dispatch) => {
 class PInfoSaksbehandler extends React.Component {
   state = {
     isReady: false,
-    noParams: false
+    noParams: false,
+    fileList: undefined,
+    files: {}
   }
 
   componentDidMount () {
@@ -46,6 +49,7 @@ class PInfoSaksbehandler extends React.Component {
     if (aktoerId && fileList === undefined) {
       actions.listStorageFiles(aktoerId, 'varsler')
     }
+
     if (!aktoerId || !saksId) {
       this.setState({
         noParams: true
@@ -54,12 +58,39 @@ class PInfoSaksbehandler extends React.Component {
   }
 
   componentDidUpdate () {
-    let { fileList } = this.props
 
-    if (fileList !== undefined && !this.state.isReady) {
+    let { fileList, actions, file, aktoerId, saksId } = this.props
+
+    if (fileList !== undefined && this.state.fileList === undefined) {
+      if (!_.isEmpty(fileList)) {
+         fileList.map(file => {
+            actions.getStorageFile({
+               userId: aktoerId,
+               namespace: 'varsler',
+               file: saksId + '___' + file,
+               context: { successAlert: false }
+            })
+         })
+      } else {
+        actions.setReady()
+      }
       this.setState({
-        isReady: true
+        fileList: fileList
       })
+    }
+
+    if (file !== undefined && !this.state.isReady) {
+
+      let files = _.cloneDeep(this.state.files)
+      let key = file.timestamp + '.json'
+      if (!files.hasOwnProperty(key)) {
+        files[key] = file
+        let allFilesDone = Object.keys(files).length === fileList.length
+        this.setState({
+          files : files,
+          isReady: allFilesDone
+        })
+      }
     }
   }
 
@@ -72,8 +103,8 @@ class PInfoSaksbehandler extends React.Component {
   }
 
   render () {
-    const { t, location, history, fileList, username, isInvitingPinfo, message, status } = this.props
-    const { isReady, noParams } = this.state
+    const { t, location, history, fileList, aktoerId, isInvitingPinfo, message, status } = this.props
+    const { isReady, noParams, files } = this.state
 
     if (noParams) {
       return <TopContainer className='p-pInfo' history={history} location={location} header={t('pinfo:app-title')}>
@@ -94,10 +125,10 @@ class PInfoSaksbehandler extends React.Component {
 
     return <TopContainer className='p-pInfo' history={history} location={location}>
       <Nav.Row>
-        <div className='col-md-6'>
+        <div className='col-md-12'>
           <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
             <Nav.Undertittel>{t('pinfo:sb-send-notification-title')}</Nav.Undertittel>
-            <Nav.Undertekst className='mt-3 mb-3'>{t('pinfo:sb-send-notification-description', { user: username })}</Nav.Undertekst>
+            <Nav.Undertekst className='mt-3 mb-3'>{t('pinfo:sb-send-notification-description', { user: aktoerId })}</Nav.Undertekst>
             <Nav.Hovedknapp
               id='pinfo-forward-button'
               className='forwardButton mb-2 mr-3'
@@ -111,7 +142,7 @@ class PInfoSaksbehandler extends React.Component {
             </Nav.AlertStripe> : null}
           </div>
         </div>
-        <div className='col-md-6'>
+        <div className='col-md-12'>
           <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
             <Nav.Undertittel>{t('pinfo:sb-sent-notifications-title')}</Nav.Undertittel>
             <table className='w-100 mt-4'>
@@ -124,12 +155,13 @@ class PInfoSaksbehandler extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {fileList ? fileList.map(file => {
+                {files ? Object.keys(files).map(file => {
+                  let content = files[file]
                   return <tr key={file}>
                     <td><Icons kind='nav-message-sent' /></td>
-                    <td><a href='#'>{file}</a></td>
-                    <td>{t('unknown')}</td>
-                    <td>{t('unknown')}</td>
+                    <td><a href='#'>{content.navn || file}</a></td>
+                    <td>{content.mottaker || t('unknown')}</td>
+                    <td>{content.timestamp ? new Date(content.timestamp).toDateString() : t('unknown')}</td>
                   </tr>
                 }) : null}
               </tbody>

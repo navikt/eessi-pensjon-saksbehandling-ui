@@ -79,7 +79,12 @@ class PInfo extends React.Component {
     }
     if (fileList !== undefined && this.state.fileList === undefined) {
       if (!_.isEmpty(fileList) && fileList.indexOf('PINFO.json') >= 0) {
-        actions.getStorageFile(username, constants.PINFO, constants.PINFO_FILE, { successAlert: false })
+        actions.getStorageFile({
+           userId: username,
+           namespace: constants.PINFO,
+           file: constants.PINFO_FILE,
+           context: { successAlert: false }
+        })
       } else {
         actions.setReady()
       }

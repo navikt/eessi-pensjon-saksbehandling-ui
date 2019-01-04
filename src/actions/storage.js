@@ -29,11 +29,12 @@ export function listStorageFiles (userId, namespace, context) {
   })
 }
 
-export function getStorageFile (userId, namespace, file, context) {
+export function getStorageFile (params) {
+
   return api.call({
-    url: sprintf(urls.STORAGE_GET_URL, { userId: userId, namespace: namespace, file: file }),
+    url: sprintf(urls.STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
     method: 'GET',
-    context: context,
+    context: params.context,
     type: {
       request: types.STORAGE_GET_REQUEST,
       success: types.STORAGE_GET_SUCCESS,

@@ -164,7 +164,11 @@ class StorageModal extends Component {
       const { currentSelectedFile, saveTargetFileName } = this.state
 
       if (modalOptions.action === 'open') {
-        actions.getStorageFile(username, namespace, currentSelectedFile)
+        actions.getStorageFile({
+           userId: username,
+           namespace: namespace,
+           file: currentSelectedFile
+        })
       }
 
       if (modalOptions.action === 'save') {
