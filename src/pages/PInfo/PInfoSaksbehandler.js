@@ -11,6 +11,7 @@ import 'react-datepicker/dist/react-datepicker.min.css'
 import * as Nav from '../../components/ui/Nav'
 import Icons from '../../components/ui/Icons'
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
+import Psycho from '../../components/ui/Psycho/Psycho'
 
 import * as storageActions from '../../actions/storage'
 import * as pinfoActions from '../../actions/pinfo'
@@ -108,9 +109,14 @@ class PInfoSaksbehandler extends React.Component {
 
     if (noParams) {
       return <TopContainer className='p-pInfo' history={history} location={location} header={t('pinfo:app-title')}>
-        <div className='text-center'>
-          <p className='typo-normal'>{'Please provide saksId/saksNr or fnr/aktoerId'}</p>
-        </div>
+       <div className='content container text-center pt-4'>
+            <div className='psycho mt-3 mb-4' style={{height: '110px'}}>
+              <Psycho type='trist' id='psycho'/>
+            </div>
+            <div className='text-center'>
+              <Nav.Normaltekst>{t('pinfo:error-noParams')}</Nav.Normaltekst>
+            </div>
+       </div>
       </TopContainer>
     }
 

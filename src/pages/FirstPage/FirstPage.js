@@ -77,7 +77,8 @@ class FirstPage extends Component {
           <div className='psycho mt-3 mb-4'>
             <Psycho id='psycho' />
           </div>
-          { userRole === constants.BRUKER ? <div className='text-justify' dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description') }} /> : null }
+          { userRole === constants.BRUKER ? <div className='text-justify' dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-bruker') }} /> : null }
+          { userRole === constants.SAKSBEHANDLER ? <div className='text-justify' dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-saksbehandler') }} /> : null }
           <div className='psycho mt-3 mb-4'>
             { !loggedIn ? <Nav.Hovedknapp
               className='mt-3 loginButton'
