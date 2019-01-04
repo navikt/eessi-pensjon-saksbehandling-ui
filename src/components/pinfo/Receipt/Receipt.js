@@ -75,7 +75,7 @@ class Receipt extends React.Component {
 
   render () {
     const { t, locale } = this.props
-    const { stayAbroad, person, bank } = this.props.pinfo
+    const { stayAbroad, person, bank, comment } = this.props.pinfo
     const { generatingPDF, isReady } = this.state
 
     return <div className='c-pinfo-receipt'>
@@ -143,6 +143,8 @@ class Receipt extends React.Component {
               key={period.id} />
           })}
         </div>
+        <Nav.Undertittel className='m-4'>{t('pinfo:stayAbroad-comment')}</Nav.Undertittel>
+        <div>{comment}</div>
       </div>
 
       <a className='hiddenLink' ref={item => { this.downloadLink = item }}
