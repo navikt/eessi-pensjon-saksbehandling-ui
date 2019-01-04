@@ -2,6 +2,7 @@ import * as types from '../constants/actionTypes'
 import * as urls from '../constants/urls'
 import * as api from './api'
 
+/*
 export function login () {
   let redirectUrl = urls.APP_LOGIN_URL
   window.location.href = redirectUrl + '?context=' +
@@ -12,6 +13,14 @@ export function login () {
           : encodeURIComponent(window.location.search)
         )
         : '')
+  return {
+    type: types.APP_LOGIN_REQUEST
+  }
+}
+*/
+
+export function login () {
+  window.location.href = encodeURI(urls.APP_LOGIN_URL + '?redirect=' + window.location.href)
   return {
     type: types.APP_LOGIN_REQUEST
   }

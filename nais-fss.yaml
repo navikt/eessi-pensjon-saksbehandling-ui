@@ -3,22 +3,22 @@ image: repo.adeo.no:5443/eessi-pensjon-frontend-ui-fss
 team: eessipensjon
 
 replicas:
-    min: 1
-    max: 1
+    min: 2
+    max: 2
     cpuThresholdPercentage: 50
 
 prometheus:
-    enabled: false
+    enabled: true
 
 port: 8080
 
 healthcheck:
     liveness:
-        initialDelay: 30
-        path: /internal/isalive
+        initialDelay: 120
+        path: internal/isAlive
     readiness:
-        initialDelay: 30
-        path: /internal/isready
+        initialDelay: 120
+        path: internal/isReady
 
 resources:
     limits:
@@ -34,6 +34,9 @@ ingress:
 fasitResources:
 
     used:
+
+    - alias: appres.cms
+      resourceType: baseurl
 
     - alias: eessi-pensjon-frontend-zone
       resourceType: ApplicationProperties
