@@ -15,6 +15,7 @@ import * as statusActions from '../../actions/status'
 const mapStateToProps = (state) => {
   return {
     userRole: state.app.userRole,
+    userStatus : state.app.userStatus,
     loggedIn: state.app.loggedIn,
     allowed: state.app.allowed,
     isLoggingIn: state.loading.isLoggingIn,
@@ -58,27 +59,28 @@ class AuthenticatedRoute extends Component {
   }
 
   componentDidMount () {
-    const { actions, userRole } = this.props
-    if (!userRole) {
+    const { actions, userStatus } = this.props
+    if (!userStatus) {
       actions.getUserInfo()
     } else {
       this.setState({
-       isReady: true
-    })
+        isReady: true
+      })
     }
     this.parseSearchParams()
   }
 
   componentDidUpdate () {
 
-   const { userRole } = this.props
+   const { userRole, userStatus } = this.props
    const { isReady } = this.state
 
-   if (userRole && !isReady) {
+   if (!isReady && userStatus !== undefined) {
       this.setState({
          isReady: true
       })
    }
+
    this.parseSearchParams()
   }
 
@@ -88,11 +90,15 @@ class AuthenticatedRoute extends Component {
   }
 
   render () {
-    const { userRole, allowed, gettingUserInfo } = this.props
+    const { userRole, userStatus, allowed, gettingUserInfo } = this.props
     const { isReady } = this.state
 
     if (!isReady || gettingUserInfo) {
       return <WaitingPanel message='authenticating' />
+    }
+
+    if (userStatus && userStatus === 'ERROR') {
+        return <Redirect to={routes.FORBIDDEN} />
     }
 
     let validRole = this.hasApprovedRole()

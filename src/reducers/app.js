@@ -4,7 +4,8 @@ let initialState = {
   loggedIn: false,
   allowed: false,
   username: undefined,
-  userRole: undefined
+  userRole: undefined,
+  userStatus: undefined
 }
 
 export default function (state = initialState, action = {}) {
@@ -21,11 +22,14 @@ export default function (state = initialState, action = {}) {
         username: action.payload.subject,
         userRole: action.payload.role,
         allowed: action.payload.allowed,
-        loggedIn: true
+        loggedIn: true,
+        userStatus: 'OK'
       })
 
     case types.APP_USERINFO_FAILURE:
-      return initialState
+      return Object.assign({}, initialState, {
+         userStatus: 'ERROR'
+      })
 
     case types.APP_DROPPABLE_REGISTER : {
       let droppables = state.droppables || {}
