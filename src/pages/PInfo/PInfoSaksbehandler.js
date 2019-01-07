@@ -99,7 +99,7 @@ class PInfoSaksbehandler extends React.Component {
   }
 
   render () {
-    const { t, location, history, fileList, aktoerId, isInvitingPinfo, message, status } = this.props
+    const { t, location, history, aktoerId, isInvitingPinfo, message, status } = this.props
     const { isReady, noParams, files } = this.state
 
     if (noParams) {

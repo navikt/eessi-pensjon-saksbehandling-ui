@@ -5,7 +5,6 @@ import { withNamespaces } from 'react-i18next'
 
 import * as Nav from '../Nav'
 
-
 const mapStateToProps = (state) => {
   return {
     serverErrorMessage: state.alert.serverErrorMessage

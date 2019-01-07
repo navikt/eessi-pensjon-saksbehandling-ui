@@ -31,7 +31,7 @@ class Login extends Component {
   }
 
   render () {
-    const { t, history, location, type, isLoggingIn, gettingUserInfo } = this.props
+    const { t, history, location, isLoggingIn, gettingUserInfo } = this.props
 
     return <TopContainer className={classNames('p-login')}
       history={history} location={location} header={t('app-headerTitle')}>

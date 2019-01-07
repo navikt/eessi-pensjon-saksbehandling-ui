@@ -21,9 +21,9 @@ class Error extends Component {
         description = t('ui:error-forbidden-description')
         break
       case 'notLogged':
-          title = t('ui:error-notLogged-title')
-          description = t('ui:error-notLogged-description')
-          break
+        title = t('ui:error-notLogged-title')
+        description = t('ui:error-notLogged-description')
+        break
       case 'notInvited':
         title = t('ui:error-notInvited-title')
         description = t('ui:error-notInvited-description')
