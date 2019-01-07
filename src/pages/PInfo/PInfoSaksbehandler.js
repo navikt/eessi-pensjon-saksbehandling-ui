@@ -62,19 +62,16 @@ class PInfoSaksbehandler extends React.Component {
     let { fileList, actions, file, aktoerId, saksId } = this.props
 
     if (fileList !== undefined && this.state.fileList === undefined) {
-      if (!_.isEmpty(fileList)) {
-        fileList.map(file => {
+      fileList.map(file => {
           actions.getStorageFile({
             userId: aktoerId,
             namespace: 'varsler',
             file: saksId + '___' + file,
             context: { successAlert: false }
           })
-        })
-      } else {
-        actions.setReady()
-      }
+      })
       this.setState({
+        isReady: _.isEmpty(fileList),
         fileList: fileList
       })
     }
