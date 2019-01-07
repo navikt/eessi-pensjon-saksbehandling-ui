@@ -102,7 +102,7 @@ class AuthenticatedRoute extends Component {
 
     let probablySaksbehandler = this.comesFromPesys()
 
-    if (userStatus && userStatus === 'ERROR' && !probablySaksbehandler) {
+    if (userStatus === 'ERROR' && !probablySaksbehandler) {
       return <Redirect to={routes.NOT_LOGGED} />
     }
 
