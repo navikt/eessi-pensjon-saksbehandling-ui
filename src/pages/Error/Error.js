@@ -24,6 +24,7 @@ class Error extends Component {
         title = t('ui:error-notInvited-title')
         description = t('ui:error-notInvited-description')
         break
+
       default:
         title = t('ui:error-404-title')
         description = t('ui:error-404-description')

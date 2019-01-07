@@ -88,6 +88,10 @@ class AuthenticatedRoute extends Component {
     return roles.indexOf(userRole) >= 0
   }
 
+  comesFromPesys () {
+     return this.state.hasOwnProperty('saksId') &&  this.state.hasOwnProperty('aktoerId')
+  }
+
   render () {
     const { userRole, userStatus, allowed, gettingUserInfo } = this.props
     const { isReady } = this.state
@@ -96,18 +100,27 @@ class AuthenticatedRoute extends Component {
       return <WaitingPanel message='authenticating' />
     }
 
-    if (userStatus && userStatus === 'ERROR') {
+    let probablySaksbehandler = this.comesFromPesys()
+
+    if (userStatus && userStatus === 'ERROR' && !probablySaksbehandler) {
       return <Redirect to={routes.FORBIDDEN} />
     }
 
     let validRole = this.hasApprovedRole()
-    let authorized = (userRole === constants.BRUKER && allowed) || (userRole === constants.SAKSBEHANDLER && allowed) || IS_DEVELOPMENT
 
-    return userRole && validRole
-      ? authorized
-        ? <Route {...this.props} />
+    let authorized = (userRole === constants.BRUKER && allowed) ||
+       (userRole === constants.SAKSBEHANDLER && allowed) || IS_DEVELOPMENT
+
+    return userRole && validRole ?
+      authorized ?
+        <Route {...this.props} />
         : <Redirect to={routes.NOT_INVITED} />
-      : <Redirect to={routes.FORBIDDEN} />
+      : probablySaksbehandler ?
+        <Redirect to={{
+          pathname: routes.LOGIN,
+          search: 'context=' + encodeURIComponent(window.location.pathname + window.location.search)
+        }} />
+        : <Redirect to={routes.FORBIDDEN} />
   }
 }
 
