@@ -225,7 +225,7 @@ class Person extends React.Component {
       </Nav.Row>
       <Nav.Row>
         <div className='col-sm-6'>
-           {'* ' + t('mandatoryField')}
+          {'* ' + t('mandatoryField')}
         </div>
       </Nav.Row>
     </div>

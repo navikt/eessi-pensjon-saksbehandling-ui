@@ -50,7 +50,7 @@ class TopContainer extends Component {
               : <InternalTopHeader history={history} />
           }
           {header ? <div className='banner'>
-             <h1 className='typo-undertittel m-0 pt-4 pb-4 text-center appTitle'>{header}</h1>
+            <h1 className='typo-undertittel m-0 pt-4 pb-4 text-center appTitle'>{header}</h1>
           </div> : null}
 
           <ClientAlert />

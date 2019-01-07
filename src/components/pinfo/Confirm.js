@@ -13,10 +13,10 @@ class Confirm extends React.Component {
     const { t, pageErrors, errorTimestamp } = this.props
 
     return <React.Fragment>
-     <PsychoPanel id='pinfo-confirm-psycho-panel' className='mb-4' closeButton>
+      <PsychoPanel id='pinfo-confirm-psycho-panel' className='mb-4' closeButton>
         <span>{t('pinfo:confirm-psycho-description')}</span>
       </PsychoPanel>
-       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:confirm-title')}</Nav.Undertittel>
+      <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:confirm-title')}</Nav.Undertittel>
       <Person pageErrors={pageErrors} errorTimestamp={errorTimestamp} mode='view' />
       <Bank pageErrors={pageErrors} errorTimestamp={errorTimestamp} disableHelpText />
       <StayAbroad pageErrors={pageErrors} errorTimestamp={errorTimestamp} mode='view' />
@@ -29,4 +29,4 @@ Confirm.propTypes = {
   errorTimestamp: PT.number
 }
 
-export default  withNamespaces()(Confirm)
+export default withNamespaces()(Confirm)

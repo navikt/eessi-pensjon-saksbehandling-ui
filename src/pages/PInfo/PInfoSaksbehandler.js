@@ -59,19 +59,18 @@ class PInfoSaksbehandler extends React.Component {
   }
 
   componentDidUpdate () {
-
     let { fileList, actions, file, aktoerId, saksId } = this.props
 
     if (fileList !== undefined && this.state.fileList === undefined) {
       if (!_.isEmpty(fileList)) {
-         fileList.map(file => {
-            actions.getStorageFile({
-               userId: aktoerId,
-               namespace: 'varsler',
-               file: saksId + '___' + file,
-               context: { successAlert: false }
-            })
-         })
+        fileList.map(file => {
+          actions.getStorageFile({
+            userId: aktoerId,
+            namespace: 'varsler',
+            file: saksId + '___' + file,
+            context: { successAlert: false }
+          })
+        })
       } else {
         actions.setReady()
       }
@@ -81,14 +80,13 @@ class PInfoSaksbehandler extends React.Component {
     }
 
     if (file !== undefined && !this.state.isReady) {
-
       let files = _.cloneDeep(this.state.files)
       let key = file.timestamp + '.json'
       if (!files.hasOwnProperty(key)) {
         files[key] = file
         let allFilesDone = Object.keys(files).length === fileList.length
         this.setState({
-          files : files,
+          files: files,
           isReady: allFilesDone
         })
       }
@@ -109,14 +107,14 @@ class PInfoSaksbehandler extends React.Component {
 
     if (noParams) {
       return <TopContainer className='p-pInfo' history={history} location={location} header={t('pinfo:app-title')}>
-       <div className='content container text-center pt-4'>
-            <div className='psycho mt-3 mb-4' style={{height: '110px'}}>
-              <Psycho type='trist' id='psycho'/>
-            </div>
-            <div className='text-center'>
-              <Nav.Normaltekst>{t('pinfo:error-noParams')}</Nav.Normaltekst>
-            </div>
-       </div>
+        <div className='content container text-center pt-4'>
+          <div className='psycho mt-3 mb-4' style={{ height: '110px' }}>
+            <Psycho type='trist' id='psycho' />
+          </div>
+          <div className='text-center'>
+            <Nav.Normaltekst>{t('pinfo:error-noParams')}</Nav.Normaltekst>
+          </div>
+        </div>
       </TopContainer>
     }
 

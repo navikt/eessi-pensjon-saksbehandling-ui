@@ -25,7 +25,7 @@ class FileUpload extends Component {
     state = {
       files: [],
       currentPages: [],
-      id : undefined,
+      id: undefined,
       status: undefined
     }
 
@@ -42,7 +42,7 @@ class FileUpload extends Component {
         return {
           id: newProps.id,
           files: newProps.files,
-          currentPages: newProps.files && newProps.files.length > 0 ? Array(newProps.files.length).fill().map(() => { return 1}) : []
+          currentPages: newProps.files && newProps.files.length > 0 ? Array(newProps.files.length).fill().map(() => { return 1 }) : []
         }
       }
       return null

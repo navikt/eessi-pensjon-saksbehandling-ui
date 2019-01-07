@@ -64,7 +64,7 @@ class PInfo extends React.Component {
     const { actions, username } = this.props
 
     if (window.hj) {
-       window.hj('trigger', 'e207-feedback-no')
+      window.hj('trigger', 'e207-feedback-no')
     }
     actions.listStorageFiles(username, 'PINFO', { successAlert: false })
   }
@@ -82,10 +82,10 @@ class PInfo extends React.Component {
     if (fileList !== undefined && this.state.fileList === undefined) {
       if (!_.isEmpty(fileList) && fileList.indexOf('PINFO.json') >= 0) {
         actions.getStorageFile({
-           userId: username,
-           namespace: constants.PINFO,
-           file: constants.PINFO_FILE,
-           context: { successAlert: false }
+          userId: username,
+          namespace: constants.PINFO,
+          file: constants.PINFO_FILE,
+          context: { successAlert: false }
         })
       } else {
         actions.setReady()
@@ -316,53 +316,53 @@ class PInfo extends React.Component {
           </div> : null}
         </React.Fragment> : null}
       <Nav.Row>
-      <div className='col-md-2' />
-      <div className={classNames('fieldset animate', 'mb-4', 'col-md-8')}>
-        {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
-        {step === 0 ? <Person pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
-        {step === 1 ? <Bank pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
-        {step === 2 ? <StayAbroad pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
-        {step === 3 ? <Confirm pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
-        {step === 4 ? <Receipt pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
-      </div>
-      <div className='col-md-2' />
+        <div className='col-md-2' />
+        <div className={classNames('fieldset animate', 'mb-4', 'col-md-8')}>
+          {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
+          {step === 0 ? <Person pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
+          {step === 1 ? <Bank pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
+          {step === 2 ? <StayAbroad pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
+          {step === 3 ? <Confirm pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
+          {step === 4 ? <Receipt pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
+        </div>
+        <div className='col-md-2' />
       </Nav.Row>
-        {buttonsVisible ? <Nav.Row><div className='col-md-12 text-center mb-4 mt-4'>
-          {step < 3 ? <Nav.Hovedknapp
-            id='pinfo-forward-button'
-            className='forwardButton mb-2 mr-3'
-            onClick={this.onForwardButtonClick.bind(this)}>
-            {t('saveAndContinue')}
-          </Nav.Hovedknapp> : null}
-          {step === 3 ? <Nav.Hovedknapp
-            id='pinfo-send-button'
-            className='sendButton mb-2 mr-3'
-            disabled={isSendingPinfo}
-            spinner={isSendingPinfo}
-            onClick={this.onSendButtonClick.bind(this)}>
-            {isSendingPinfo ? t('sending') : t('confirmAndSend')}
-          </Nav.Hovedknapp> : null}
-          {step < 4 ? <Nav.Knapp
-            id='pinfo-back-button'
-            className='backButton mb-2 mr-3'
-            onClick={this.onBackButtonClick.bind(this)}>
-            {t('back')}
-          </Nav.Knapp> : null}
-          { step < 4 ? <Nav.KnappBase
-            id='pinfo-cancel-button'
-            type='flat'
-            className='cancelButton mb-2 mr-3'
-            onClick={this.onCancelButtonClick.bind(this)}>
-            {t('cancel-main')}
-          </Nav.KnappBase> : null}
-        </div></Nav.Row> : null}
-        {errorMessage ? <Nav.Row>
-         <div className='col-md-2'/>
-         <div className='col-md-8 mb-4'>
-           <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe>
-         </div>
-         <div className='col-md-2'/>
-         </Nav.Row>: null}
+      {buttonsVisible ? <Nav.Row><div className='col-md-12 text-center mb-4 mt-4'>
+        {step < 3 ? <Nav.Hovedknapp
+          id='pinfo-forward-button'
+          className='forwardButton mb-2 mr-3'
+          onClick={this.onForwardButtonClick.bind(this)}>
+          {t('saveAndContinue')}
+        </Nav.Hovedknapp> : null}
+        {step === 3 ? <Nav.Hovedknapp
+          id='pinfo-send-button'
+          className='sendButton mb-2 mr-3'
+          disabled={isSendingPinfo}
+          spinner={isSendingPinfo}
+          onClick={this.onSendButtonClick.bind(this)}>
+          {isSendingPinfo ? t('sending') : t('confirmAndSend')}
+        </Nav.Hovedknapp> : null}
+        {step < 4 ? <Nav.Knapp
+          id='pinfo-back-button'
+          className='backButton mb-2 mr-3'
+          onClick={this.onBackButtonClick.bind(this)}>
+          {t('back')}
+        </Nav.Knapp> : null}
+        { step < 4 ? <Nav.KnappBase
+          id='pinfo-cancel-button'
+          type='flat'
+          className='cancelButton mb-2 mr-3'
+          onClick={this.onCancelButtonClick.bind(this)}>
+          {t('cancel-main')}
+        </Nav.KnappBase> : null}
+      </div></Nav.Row> : null}
+      {errorMessage ? <Nav.Row>
+        <div className='col-md-2' />
+        <div className='col-md-8 mb-4'>
+          <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe>
+        </div>
+        <div className='col-md-2' />
+      </Nav.Row> : null}
     </TopContainer>
   }
 }

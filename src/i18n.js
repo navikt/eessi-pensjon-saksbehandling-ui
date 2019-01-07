@@ -29,8 +29,8 @@ i18n
       nsMode: 'default'
     }
   }, (err, t) => {
-     if (err) return console.log('Loading i18n error', err)
-     i18n.changeLanguage('nb')
+    if (err) return console.log('Loading i18n error', err)
+    i18n.changeLanguage('nb')
   })
 
 i18n.loadLanguages(['nb'], () => {})

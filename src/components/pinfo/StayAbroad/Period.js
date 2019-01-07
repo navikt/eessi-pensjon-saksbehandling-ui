@@ -618,16 +618,16 @@ class Period extends React.Component {
               </Nav.Row>
               <Nav.Row >
                 <div className='col-md-12 col-xs-12'>
-                <Nav.Textarea
-                  id='pinfo-opphold-arbeidgiverssted-textarea'
-                  label={t('pinfo:stayAbroad-work-place')}
-                  placeholder={t('ui:writeIn')}
-                  value={_period.workPlace || ''}
-                  style={{ minHeight: '100px' }}
-                  maxLength={100}
-                  onChange={this.setWorkPlace}
-                  feil={localErrors.workPlace ? { feilmelding: t(localErrors.workPlace) } : null}
-                />
+                  <Nav.Textarea
+                    id='pinfo-opphold-arbeidgiverssted-textarea'
+                    label={t('pinfo:stayAbroad-work-place')}
+                    placeholder={t('ui:writeIn')}
+                    value={_period.workPlace || ''}
+                    style={{ minHeight: '100px' }}
+                    maxLength={100}
+                    onChange={this.setWorkPlace}
+                    feil={localErrors.workPlace ? { feilmelding: t(localErrors.workPlace) } : null}
+                  />
                 </div>
               </Nav.Row>
             </React.Fragment> : null}
@@ -698,9 +698,9 @@ class Period extends React.Component {
                   onFileChange={this.setAttachments} />
               </div>
             </Nav.Row>
-             <Nav.Row>
+            <Nav.Row>
               <div className='mt-4 mb-4 col-md-12'>
-                 {'* ' + t('mandatoryField')}
+                {'* ' + t('mandatoryField')}
               </div>
             </Nav.Row>
             <Nav.Row>

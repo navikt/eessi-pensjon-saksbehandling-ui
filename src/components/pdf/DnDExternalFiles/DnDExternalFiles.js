@@ -53,9 +53,9 @@ class DnDExternalFiles extends Component {
     const { actions, username } = this.props
 
     actions.getStorageFile({
-       userId: username,
-       namespace: storages.FILES,
-       file: file
+      userId: username,
+      namespace: storages.FILES,
+      file: file
     })
   }
 
