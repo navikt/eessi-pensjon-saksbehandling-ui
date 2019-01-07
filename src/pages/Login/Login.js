@@ -25,8 +25,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class Login extends Component {
-
-
   handleLoginRequest () {
     const { actions } = this.props
     actions.login()
@@ -42,13 +40,13 @@ class Login extends Component {
           <Psycho id='psycho' />
         </div>
         <Nav.Hovedknapp
-              className='mt-3 loginButton'
-              onClick={this.handleLoginRequest.bind(this)}
-              disabled={isLoggingIn || gettingUserInfo}
-              spinner={isLoggingIn || gettingUserInfo}>
-              {isLoggingIn ? t('ui:authenticating')
-                : gettingUserInfo ? t('loading') : t('login')}
-            </Nav.Hovedknapp>
+          className='mt-3 loginButton'
+          onClick={this.handleLoginRequest.bind(this)}
+          disabled={isLoggingIn || gettingUserInfo}
+          spinner={isLoggingIn || gettingUserInfo}>
+          {isLoggingIn ? t('ui:authenticating')
+            : gettingUserInfo ? t('loading') : t('login')}
+        </Nav.Hovedknapp>
 
       </div>
     </TopContainer>

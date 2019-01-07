@@ -10,6 +10,7 @@ export const PDF = BASE + '/pdf'
 export const P4000 = BASE + '/p4000'
 export const CASE = BASE + '/case'
 export const NOT_INVITED = BASE + '/notinvited'
+export const NOT_LOGGED = BASE + '/notlogged'
 export const FORBIDDEN = BASE + '/forbidden'
 export const LOGIN = BASE + '/login'
 

@@ -2,13 +2,11 @@ import * as types from '../constants/actionTypes'
 import * as urls from '../constants/urls'
 import * as api from './api'
 
-
 export function login () {
-
   let currentHost = window.location.origin // http://hostname
   let redirect = currentHost
-  let context = window.location.search ?
-    (window.location.search.startsWith('?')
+  let context = window.location.search
+    ? (window.location.search.startsWith('?')
       ? window.location.search.substring(1)
       : window.location.search
     )

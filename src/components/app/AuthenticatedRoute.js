@@ -89,7 +89,7 @@ class AuthenticatedRoute extends Component {
   }
 
   comesFromPesys () {
-     return this.state.hasOwnProperty('saksId') && this.state.hasOwnProperty('aktoerId')
+    return this.state.hasOwnProperty('saksId') && this.state.hasOwnProperty('aktoerId')
   }
 
   render () {
@@ -103,7 +103,7 @@ class AuthenticatedRoute extends Component {
     let probablySaksbehandler = this.comesFromPesys()
 
     if (userStatus && userStatus === 'ERROR' && !probablySaksbehandler) {
-      return <Redirect to={routes.FORBIDDEN} />
+      return <Redirect to={routes.NOT_LOGGED} />
     }
 
     let validRole = this.hasApprovedRole()
@@ -111,16 +111,21 @@ class AuthenticatedRoute extends Component {
     let authorized = (userRole === constants.BRUKER && allowed) ||
        (userRole === constants.SAKSBEHANDLER && allowed) || IS_DEVELOPMENT
 
-    return userRole && validRole ?
-      authorized ?
-        <Route {...this.props} />
-        : <Redirect to={routes.NOT_INVITED} />
-      : probablySaksbehandler ?
-        <Redirect to={{
-          pathname: routes.LOGIN,
-          search: 'context=' + encodeURIComponent(window.location.pathname + window.location.search)
-        }} />
-        : <Redirect to={routes.FORBIDDEN} />
+    if (userRole && validRole && authorized) {
+      return <Route {...this.props} />
+    }
+
+    if (userRole && validRole && !authorized) {
+      return <Redirect to={routes.NOT_INVITED} />
+    }
+
+    if ((!userRole || !validRole) && probablySaksbehandler) {
+      return <Redirect to={{
+        pathname: routes.LOGIN,
+        search: 'context=' + encodeURIComponent(window.location.pathname + window.location.search)
+      }} />
+    }
+    return <Redirect to={routes.FORBIDDEN} />
   }
 }
 
