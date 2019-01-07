@@ -47,8 +47,8 @@ class PInfoSaksbehandler extends React.Component {
   componentDidMount () {
     let { actions, aktoerId, saksId, fileList } = this.props
 
-    if (aktoerId && fileList === undefined) {
-      actions.listStorageFiles(aktoerId, 'varsler')
+    if (aktoerId && saksId && fileList === undefined) {
+      actions.listStorageFiles(aktoerId, 'varsler___' + saksId)
     }
 
     if (!aktoerId || !saksId) {
@@ -163,8 +163,8 @@ class PInfoSaksbehandler extends React.Component {
                   let content = files[file]
                   return <tr key={file}>
                     <td><Icons kind='nav-message-sent' /></td>
-                    <td><a href='#'>{content.navn || file}</a></td>
-                    <td>{content.mottaker || t('unknown')}</td>
+                    <td>{content.tittel || file}</td>
+                    <td>{content.fulltNavn || t('unknown')}</td>
                     <td>{content.timestamp ? new Date(content.timestamp).toDateString() : t('unknown')}</td>
                   </tr>
                 }) : null}

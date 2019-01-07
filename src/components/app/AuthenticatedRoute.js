@@ -89,7 +89,7 @@ class AuthenticatedRoute extends Component {
   }
 
   comesFromPesys () {
-     return this.state.hasOwnProperty('saksId') &&  this.state.hasOwnProperty('aktoerId')
+     return this.state.hasOwnProperty('saksId') && this.state.hasOwnProperty('aktoerId')
   }
 
   render () {
