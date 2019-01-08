@@ -73,7 +73,7 @@ class AuthenticatedRoute extends Component {
   }
 
   componentDidUpdate () {
-    const { userStatus } = this.props
+    const { actions, userStatus } = this.props
     const { isReady } = this.state
 
     if (!isReady && userStatus !== undefined) {
