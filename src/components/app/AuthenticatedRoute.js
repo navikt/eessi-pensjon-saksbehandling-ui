@@ -62,6 +62,8 @@ class AuthenticatedRoute extends Component {
     const { actions, userStatus } = this.props
     if (!userStatus) {
       actions.getUserInfo()
+    } else if (userStatus === 'ERROR' && !this.comesFromPesys()){
+      actions.login()
     } else {
       this.setState({
         isReady: true
@@ -79,7 +81,9 @@ class AuthenticatedRoute extends Component {
         isReady: true
       })
     }
-
+    if (userStatus === 'ERROR' && !this.comesFromPesys()){
+      actions.login()
+    }
     this.parseSearchParams()
   }
 
