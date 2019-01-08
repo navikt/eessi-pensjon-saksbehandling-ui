@@ -70,6 +70,7 @@ class PInfoSaksbehandler extends React.Component {
           context: { successAlert: false }
         })
       })
+
       this.setState({
         isReady: _.isEmpty(fileList),
         fileList: fileList
@@ -87,6 +88,19 @@ class PInfoSaksbehandler extends React.Component {
           isReady: allFilesDone
         })
       }
+    }
+  }
+
+  refresh () {
+    let { actions, aktoerId, saksId } = this.props
+
+    if (aktoerId && saksId) {
+      this.setState({
+        fileList: undefined,
+        files: {}
+      }, () => {
+        actions.listStorageFiles(aktoerId, 'varsler___' + saksId)
+      })
     }
   }
 
@@ -115,15 +129,6 @@ class PInfoSaksbehandler extends React.Component {
       </TopContainer>
     }
 
-    if (!isReady) {
-      return <TopContainer className='p-pInfo' history={history} location={location} header={t('pinfo:app-title')}>
-        <div className='text-center'>
-          <Nav.NavFrontendSpinner />
-          <p className='typo-normal'>{t('ui:loading')}</p>
-        </div>
-      </TopContainer>
-    }
-
     return <TopContainer className='p-pInfo' history={history} location={location}>
       <Nav.Row>
         <div className='col-md-12'>
@@ -145,28 +150,40 @@ class PInfoSaksbehandler extends React.Component {
         </div>
         <div className='col-md-12'>
           <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
-            <Nav.Undertittel>{t('pinfo:sb-sent-notifications-title')}</Nav.Undertittel>
-            <table className='w-100 mt-4'>
-              <thead>
-                <tr style={{ borderBottom: '1px solid lightgrey' }}>
-                  <th />
-                  <th>{t('document')}</th>
-                  <th>{t('sender')}</th>
-                  <th>{t('date')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {files ? Object.keys(files).map(file => {
-                  let content = files[file]
-                  return <tr key={file}>
-                    <td><Icons kind='nav-message-sent' /></td>
-                    <td>{content.tittel || file}</td>
-                    <td>{content.fulltNavn || t('unknown')}</td>
-                    <td>{content.timestamp ? new Date(content.timestamp).toDateString() : t('unknown')}</td>
+            <div className='notification-title'>
+              <Nav.Undertittel>{t('pinfo:sb-sent-notifications-title')}</Nav.Undertittel>
+              <div title={t('refresh')} className={classNames('refresh', { rotating: !isReady })}>
+                {isReady ? <a href='#refresh' onClick={this.refresh.bind(this)}>
+                  <Icons kind='refresh' />
+                </a> : <Icons kind='refresh' />}
+              </div>
+            </div>
+
+            {!isReady ? <div className='text-center' style={{ paddingTop: '3rem' }}>
+              <Nav.NavFrontendSpinner />
+              <p className='typo-normal'>{t('ui:loading')}</p>
+            </div>
+              : <table className='w-100 mt-4'>
+                <thead>
+                  <tr style={{ borderBottom: '1px solid lightgrey' }}>
+                    <th />
+                    <th>{t('document')}</th>
+                    <th>{t('sender')}</th>
+                    <th>{t('date')}</th>
                   </tr>
-                }) : null}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {files ? Object.keys(files).map((file, index) => {
+                    let content = files[file]
+                    return <tr className='slideAnimate' style={{ animationDelay: index * 0.03 + 's' }} key={file}>
+                      <td><Icons kind='nav-message-sent' /></td>
+                      <td>{content.tittel || file}</td>
+                      <td>{content.fulltNavn || t('unknown')}</td>
+                      <td>{content.timestamp ? new Date(content.timestamp).toDateString() : t('unknown')}</td>
+                    </tr>
+                  }) : null}
+                </tbody>
+              </table>}
           </div>
         </div>
       </Nav.Row>
