@@ -62,8 +62,6 @@ class AuthenticatedRoute extends Component {
     const { actions, userStatus } = this.props
     if (!userStatus) {
       actions.getUserInfo()
-    } else if (userStatus === 'ERROR' && !this.comesFromPesys()){
-      actions.login()
     } else {
       this.setState({
         isReady: true
@@ -73,16 +71,13 @@ class AuthenticatedRoute extends Component {
   }
 
   componentDidUpdate () {
-    const { actions, userStatus } = this.props
+    const { userStatus } = this.props
     const { isReady } = this.state
 
     if (!isReady && userStatus !== undefined) {
       this.setState({
         isReady: true
       })
-    }
-    if (userStatus === 'ERROR' && !this.comesFromPesys()){
-      actions.login()
     }
     this.parseSearchParams()
   }
@@ -106,10 +101,6 @@ class AuthenticatedRoute extends Component {
 
     let probablySaksbehandler = this.comesFromPesys()
 
-    if (userStatus === 'ERROR' && !probablySaksbehandler) {
-      return <Redirect to={routes.NOT_LOGGED} />
-    }
-
     let validRole = this.hasApprovedRole()
 
     let authorized = (userRole === constants.BRUKER && allowed) ||
@@ -123,7 +114,7 @@ class AuthenticatedRoute extends Component {
       return <Redirect to={routes.NOT_INVITED} />
     }
 
-    if ((!userRole || !validRole) && probablySaksbehandler) {
+    if (!userRole || !validRole) {
       return <Redirect to={{
         pathname: routes.LOGIN,
         search: 'context=' + encodeURIComponent(window.location.pathname + window.location.search)
