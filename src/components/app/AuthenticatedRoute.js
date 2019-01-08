@@ -92,14 +92,12 @@ class AuthenticatedRoute extends Component {
   }
 
   render () {
-    const { userRole, userStatus, allowed, gettingUserInfo } = this.props
+    const { userRole, allowed, gettingUserInfo } = this.props
     const { isReady } = this.state
 
     if (!isReady || gettingUserInfo) {
       return <WaitingPanel message='authenticating' />
     }
-
-    let probablySaksbehandler = this.comesFromPesys()
 
     let validRole = this.hasApprovedRole()
 
