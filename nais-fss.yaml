@@ -9,6 +9,7 @@ replicas:
 
 prometheus:
     enabled: true
+    path: internal/metrics
 
 port: 8080
 
