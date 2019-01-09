@@ -57,7 +57,9 @@ class Receipt extends React.Component {
 
     try {
       let newPdf = await PdfUtils.createPdf({
-        nodeId: 'divToPrint'
+        nodeId: 'divToPrint',
+        fileName: 'kvittering.pdf'
+
       })
 
       this.downloadLink.setAttribute('href',
