@@ -24,6 +24,7 @@ import './Period.css'
 
 const mapStateToProps = (state) => {
   return {
+    locale: state.ui.locale,
     pinfo: state.pinfo,
     person: state.pinfo.person,
     username: state.app.username
@@ -453,8 +454,9 @@ class Period extends React.Component {
           </Nav.Row>
           { _period.type ? <React.Fragment>
             <Nav.Row>
-              <div className='col-md-12'>
-                <Nav.Undertittel className='mt-3 mb-3'>{t(`pinfo:stayAbroad-period-title-${_period.type}`)}</Nav.Undertittel>
+              <div className='col-md-12 mt-3 mb-3'>
+                <Nav.Undertittel className='mb-3'>{t(`pinfo:stayAbroad-period-title-${_period.type}`)}</Nav.Undertittel>
+                <Nav.Normaltekst>{t('pinfo:stayAbroad-period-date-description')}</Nav.Normaltekst>
               </div>
               <div className='col-md-6'>
                 <label className='mr-3 skjemaelement__label'>{t('pinfo:stayAbroad-period-start-date') + ' *'}</label>
