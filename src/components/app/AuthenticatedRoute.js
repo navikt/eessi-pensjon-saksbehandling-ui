@@ -112,13 +112,14 @@ class AuthenticatedRoute extends Component {
       return <Redirect to={routes.NOT_INVITED} />
     }
 
-    if (!userRole || !validRole) {
-      return <Redirect to={{
-        pathname: routes.LOGIN,
-        search: 'context=' + encodeURIComponent(window.location.pathname + window.location.search)
-      }} />
+    if (userRole && !validRole) {
+      return <Redirect to={routes.FORBIDDEN} />
     }
-    return <Redirect to={routes.FORBIDDEN} />
+
+    return <Redirect to={{
+      pathname: routes.LOGIN,
+      search: 'context=' + encodeURIComponent(window.location.pathname + window.location.search)
+    }} />
   }
 }
 
