@@ -7,7 +7,7 @@ import _ from 'lodash'
 
 import { IS_DEVELOPMENT } from '../../constants/environment'
 import WaitingPanel from './WaitingPanel'
-import * as constants from '../../constants/constants'
+
 import * as routes from '../../constants/routes'
 import * as appActions from '../../actions/app'
 import * as statusActions from '../../actions/status'
@@ -99,27 +99,26 @@ class AuthenticatedRoute extends Component {
       return <WaitingPanel message='authenticating' />
     }
 
+    if (!userRole) {
+      return <Redirect to={{
+        pathname: routes.LOGIN,
+        search: 'context=' + encodeURIComponent(window.location.pathname + window.location.search)
+      }} />
+    }
+
     let validRole = this.hasApprovedRole()
 
-    let authorized = (userRole === constants.BRUKER && allowed) ||
-       (userRole === constants.SAKSBEHANDLER && allowed) || IS_DEVELOPMENT
-
-    if (userRole && validRole && authorized) {
-      return <Route {...this.props} />
-    }
-
-    if (userRole && validRole && !authorized) {
-      return <Redirect to={routes.NOT_INVITED} />
-    }
-
-    if (userRole && !validRole) {
+    if (!validRole) {
       return <Redirect to={routes.FORBIDDEN} />
     }
 
-    return <Redirect to={{
-      pathname: routes.LOGIN,
-      search: 'context=' + encodeURIComponent(window.location.pathname + window.location.search)
-    }} />
+    let authorized = allowed || IS_DEVELOPMENT
+
+    if (!authorized) {
+      return <Redirect to={routes.NOT_INVITED} />
+    }
+
+    return <Route {...this.props} />
   }
 }
 
