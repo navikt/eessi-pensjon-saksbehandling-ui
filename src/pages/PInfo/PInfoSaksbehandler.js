@@ -178,7 +178,7 @@ class PInfoSaksbehandler extends React.Component {
                     return <tr className='slideAnimate' style={{ animationDelay: index * 0.03 + 's' }} key={file}>
                       <td><Icons kind='nav-message-sent' /></td>
                       <td>{content.tittel || file}</td>
-                      <td>{content.fulltNavn || t('unknown')}</td>
+                      <td>{content.fulltnavn || t('unknown')}</td>
                       <td>{content.timestamp ? new Date(content.timestamp).toDateString() : t('unknown')}</td>
                     </tr>
                   }) : null}
