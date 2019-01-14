@@ -29,35 +29,39 @@ node {
         }
     }
 
-    stage("deploy fss") {
-        build([
-                job       : 'nais-deploy-pipeline',
-                wait      : true,
-                parameters: [
-                        string(name: 'APP', value: "eessi-pensjon-frontend-ui-fss"),
+    stage("deploy") {
+        parallel(
+            deploy_to_fss:{
+                build([
+                    job       : 'nais-deploy-pipeline',
+                    wait      : true,
+                    parameters: [
+                            string(name: 'APP', value: "eessi-pensjon-frontend-ui-fss"),
+                            string(name: 'REPO', value: "navikt/eessi-pensjon-frontend-ui"),
+                            string(name: 'VERSION', value: commitHash),
+                            string(name: 'DEPLOY_REF', value: commitHash),
+                            string(name: 'DEPLOY_ENV', value: 't10'),
+                            string(name: 'NAMESPACE', value: 't10'),
+                            string(name: 'CLUSTER', value: 'fss')
+                    ]
+                ])
+            },
+            deploy_to_sbs:{
+                build([
+                    job       : 'nais-deploy-pipeline',
+                    wait      : true,
+                    parameters: [
+                        string(name: 'APP', value: "eessi-pensjon-frontend-ui-sbs"),
                         string(name: 'REPO', value: "navikt/eessi-pensjon-frontend-ui"),
                         string(name: 'VERSION', value: commitHash),
                         string(name: 'DEPLOY_REF', value: commitHash),
                         string(name: 'DEPLOY_ENV', value: 't10'),
                         string(name: 'NAMESPACE', value: 't10'),
-                        string(name: 'CLUSTER', value: 'fss')
-                ]
-        ])
-    }
-
-    stage("deploy sbs") {
-        build([
-            job       : 'nais-deploy-pipeline',
-            wait      : true,
-            parameters: [
-                string(name: 'APP', value: "eessi-pensjon-frontend-ui-sbs"),
-                string(name: 'REPO', value: "navikt/eessi-pensjon-frontend-ui"),
-                string(name: 'VERSION', value: commitHash),
-                string(name: 'DEPLOY_REF', value: commitHash),
-                string(name: 'DEPLOY_ENV', value: 't10'),
-                string(name: 'NAMESPACE', value: 't10'),
-                string(name: 'CLUSTER', value: 'sbs')
-            ]
-        ])
+                        string(name: 'CLUSTER', value: 'sbs')
+                    ]
+                ])
+            },
+            failFast: true
+        )
     }
 }

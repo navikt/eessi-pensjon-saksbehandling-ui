@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
-
 import CustomInput from './CustomInput'
-
 import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.min.css'
+
 import './DatePicker.css'
 
 class DatePicker extends Component {
-
   render () {
     const { placeholder, selected, className, locale, error, errorMessage, onChange, id } = this.props
 

@@ -2,25 +2,18 @@ import * as types from '../constants/actionTypes'
 import * as urls from '../constants/urls'
 import * as api from './api'
 
-/*
 export function login () {
-  let redirectUrl = urls.APP_LOGIN_URL
-  window.location.href = redirectUrl + '?context=' +
-    encodeURIComponent(window.location.pathname.replace('/_/', '')) +
-      (window.location.search
-        ? (window.location.search.startsWith('?')
-          ? encodeURIComponent('&' + window.location.search.substring(1))
-          : encodeURIComponent(window.location.search)
-        )
-        : '')
-  return {
-    type: types.APP_LOGIN_REQUEST
-  }
-}
-*/
+  let currentHost = window.location.origin // http://hostname
+  let redirect = currentHost
+  let context = window.location.search
+    ? (window.location.search.startsWith('?')
+      ? window.location.search.substring(1)
+      : window.location.search
+    )
+    : ''
+  let newUrl = urls.APP_LOGIN_URL + '?redirect=' + redirect + '&' + context
+  window.location.href = newUrl
 
-export function login () {
-  window.location.href = encodeURI(urls.APP_LOGIN_URL + '?redirect=' + window.location.href.replace('/_/', ''))
   return {
     type: types.APP_LOGIN_REQUEST
   }

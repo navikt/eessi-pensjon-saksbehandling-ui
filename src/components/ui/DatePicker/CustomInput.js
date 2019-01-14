@@ -4,7 +4,7 @@ import classNames from 'classnames'
 
 class CustomInput extends Component {
   render () {
-    const { onClick, error, className } = this.props
+    const { onClick, className } = this.props
     return <div className={className}>
       <input {...this.props} autocomplete='off' className={classNames(className, 'form-control')} />
       <div style={{ cursor: 'pointer' }} className='input-group-append' onClick={onClick}>

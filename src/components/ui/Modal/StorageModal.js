@@ -165,9 +165,9 @@ class StorageModal extends Component {
 
       if (modalOptions.action === 'open') {
         actions.getStorageFile({
-           userId: username,
-           namespace: namespace,
-           file: currentSelectedFile
+          userId: username,
+          namespace: namespace,
+          file: currentSelectedFile
         })
       }
 

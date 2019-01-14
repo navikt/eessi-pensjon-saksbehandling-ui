@@ -67,7 +67,7 @@ class Util {
       'telefonnummer': person.phone,
       'epost': person.email,
       'farsNavn': person.fatherName,
-      'morsnavn': person.motherName
+      'morsNavn': person.motherName
     }
   }
 

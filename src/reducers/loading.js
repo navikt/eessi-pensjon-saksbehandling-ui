@@ -1,8 +1,14 @@
 import * as types from '../constants/actionTypes'
 import _ from 'lodash'
 
-export default function (state = {}, action = {}) {
+let initialState = {}
+
+export default function (state = initialState, action = {}) {
   let status
+
+  if (action.type === types.SERVER_ERROR) {
+    return initialState
+  }
 
   if (_.endsWith(action.type, '/REQUEST')) {
     status = undefined

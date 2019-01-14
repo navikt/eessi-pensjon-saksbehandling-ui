@@ -16,6 +16,7 @@ import PInfo from './PInfo/PInfo'
 import PInfoSaksbehandler from './PInfo/PInfoSaksbehandler'
 
 import Error from './Error/Error'
+import Login from './Login/Login'
 
 import P4000 from './P4000/P4000'
 
@@ -39,5 +40,6 @@ export {
   PSelv,
   P4000,
 
-  Error
+  Error,
+  Login
 }

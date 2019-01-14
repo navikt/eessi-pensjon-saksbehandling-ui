@@ -28,7 +28,7 @@ export default function (state = initialState, action = {}) {
 
     case types.APP_USERINFO_FAILURE:
       return Object.assign({}, initialState, {
-         userStatus: 'ERROR'
+        userStatus: 'ERROR'
       })
 
     case types.APP_DROPPABLE_REGISTER : {

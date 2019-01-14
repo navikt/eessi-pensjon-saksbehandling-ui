@@ -14,6 +14,22 @@
     .textarea--medMeta__teller {
        visibility: hidden;
     }
+
+    .notification-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .rotating {
+         animation: p-pinfo-rotating 2s linear infinite;
+    }
+
+   .slideAnimate {
+      opacity: 0;
+      transform: translateX(-20px);
+      animation: slideInFromLeft 0.3s forwards;
+   }
 }
 
 .c-pinfo-bank {
@@ -23,7 +39,25 @@
   }
 }
 
+@keyframes p-pinfo-rotating {
+    from{
+        -webkit-transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+    }
+}
 
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
 
 .highContrast.p-pInfo {
 

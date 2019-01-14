@@ -74,12 +74,12 @@ class FirstPage extends Component {
             <Psycho id='psycho' />
           </div>
           { userRole === constants.BRUKER ? <div className='text-justify'>
-             <span className='text-justify' dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-bruker-1') }} />
-              <Nav.HjelpetekstBase  id='pinfo-title-help' type='under'>
-                {t('pinfo:eea-countries')}
-              </Nav.HjelpetekstBase>
-              <span className='text-justify' dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-bruker-2') }} />
-               </div>: null }
+            <span className='text-justify' dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-bruker-1') }} />
+            <Nav.HjelpetekstBase id='pinfo-title-help' type='under'>
+              {t('pinfo:eea-countries')}
+            </Nav.HjelpetekstBase>
+            <span className='text-justify' dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-bruker-2') }} />
+          </div> : null }
           { userRole === constants.SAKSBEHANDLER ? <div className='text-justify' dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-saksbehandler') }} /> : null }
           <div className='psycho mt-3 mb-4'>
             { !loggedIn ? <Nav.Hovedknapp

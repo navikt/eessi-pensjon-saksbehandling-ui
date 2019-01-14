@@ -7,7 +7,7 @@ import _ from 'lodash'
 
 import { IS_DEVELOPMENT } from '../../constants/environment'
 import WaitingPanel from './WaitingPanel'
-import * as constants from '../../constants/constants'
+
 import * as routes from '../../constants/routes'
 import * as appActions from '../../actions/app'
 import * as statusActions from '../../actions/status'
@@ -15,7 +15,7 @@ import * as statusActions from '../../actions/status'
 const mapStateToProps = (state) => {
   return {
     userRole: state.app.userRole,
-    userStatus : state.app.userStatus,
+    userStatus: state.app.userStatus,
     loggedIn: state.app.loggedIn,
     allowed: state.app.allowed,
     isLoggingIn: state.loading.isLoggingIn,
@@ -71,17 +71,15 @@ class AuthenticatedRoute extends Component {
   }
 
   componentDidUpdate () {
+    const { userStatus } = this.props
+    const { isReady } = this.state
 
-   const { userRole, userStatus } = this.props
-   const { isReady } = this.state
-
-   if (!isReady && userStatus !== undefined) {
+    if (!isReady && userStatus !== undefined) {
       this.setState({
-         isReady: true
+        isReady: true
       })
-   }
-
-   this.parseSearchParams()
+    }
+    this.parseSearchParams()
   }
 
   hasApprovedRole () {
@@ -89,26 +87,38 @@ class AuthenticatedRoute extends Component {
     return roles.indexOf(userRole) >= 0
   }
 
+  comesFromPesys () {
+    return this.state.hasOwnProperty('saksId') && this.state.hasOwnProperty('aktoerId')
+  }
+
   render () {
-    const { userRole, userStatus, allowed, gettingUserInfo } = this.props
+    const { userRole, allowed, gettingUserInfo } = this.props
     const { isReady } = this.state
 
     if (!isReady || gettingUserInfo) {
       return <WaitingPanel message='authenticating' />
     }
 
-    if (userStatus && userStatus === 'ERROR') {
-        return <Redirect to={routes.FORBIDDEN} />
+    if (!userRole) {
+      return <Redirect to={{
+        pathname: routes.LOGIN,
+        search: 'context=' + encodeURIComponent(window.location.pathname + window.location.search)
+      }} />
     }
 
     let validRole = this.hasApprovedRole()
-    let authorized = (userRole === constants.BRUKER && allowed) || (userRole === constants.SAKSBEHANDLER && allowed) || IS_DEVELOPMENT
 
-    return userRole && validRole
-      ? authorized
-        ? <Route {...this.props} />
-        : <Redirect to={routes.NOT_INVITED} />
-      : <Redirect to={routes.FORBIDDEN} />
+    if (!validRole) {
+      return <Redirect to={routes.FORBIDDEN} />
+    }
+
+    let authorized = allowed || IS_DEVELOPMENT
+
+    if (!authorized) {
+      return <Redirect to={routes.NOT_INVITED} />
+    }
+
+    return <Route {...this.props} />
   }
 }
 

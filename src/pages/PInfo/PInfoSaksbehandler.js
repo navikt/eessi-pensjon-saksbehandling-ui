@@ -47,8 +47,8 @@ class PInfoSaksbehandler extends React.Component {
   componentDidMount () {
     let { actions, aktoerId, saksId, fileList } = this.props
 
-    if (aktoerId && fileList === undefined) {
-      actions.listStorageFiles(aktoerId, 'varsler')
+    if (aktoerId && saksId && fileList === undefined) {
+      actions.listStorageFiles(aktoerId, 'varsler___' + saksId)
     }
 
     if (!aktoerId || !saksId) {
@@ -59,39 +59,48 @@ class PInfoSaksbehandler extends React.Component {
   }
 
   componentDidUpdate () {
-
     let { fileList, actions, file, aktoerId, saksId } = this.props
 
     if (fileList !== undefined && this.state.fileList === undefined) {
-      if (!_.isEmpty(fileList)) {
-         fileList.map(file => {
-            actions.getStorageFile({
-               userId: aktoerId,
-               namespace: 'varsler',
-               file: saksId + '___' + file,
-               context: { successAlert: false }
-            })
-         })
-      } else {
-        actions.setReady()
-      }
+      fileList.map(file => {
+        actions.getStorageFile({
+          userId: aktoerId,
+          namespace: 'varsler',
+          file: saksId + '___' + file,
+          context: { successAlert: false }
+        })
+      })
+
       this.setState({
+        isReady: _.isEmpty(fileList),
         fileList: fileList
       })
     }
 
     if (file !== undefined && !this.state.isReady) {
-
       let files = _.cloneDeep(this.state.files)
       let key = file.timestamp + '.json'
       if (!files.hasOwnProperty(key)) {
         files[key] = file
         let allFilesDone = Object.keys(files).length === fileList.length
         this.setState({
-          files : files,
+          files: files,
           isReady: allFilesDone
         })
       }
+    }
+  }
+
+  refresh () {
+    let { actions, aktoerId, saksId } = this.props
+
+    if (aktoerId && saksId) {
+      this.setState({
+        fileList: undefined,
+        files: {}
+      }, () => {
+        actions.listStorageFiles(aktoerId, 'varsler___' + saksId)
+      })
     }
   }
 
@@ -104,27 +113,18 @@ class PInfoSaksbehandler extends React.Component {
   }
 
   render () {
-    const { t, location, history, fileList, aktoerId, isInvitingPinfo, message, status } = this.props
+    const { t, location, history, aktoerId, isInvitingPinfo, message, status } = this.props
     const { isReady, noParams, files } = this.state
 
     if (noParams) {
       return <TopContainer className='p-pInfo' history={history} location={location} header={t('pinfo:app-title')}>
-       <div className='content container text-center pt-4'>
-            <div className='psycho mt-3 mb-4' style={{height: '110px'}}>
-              <Psycho type='trist' id='psycho'/>
-            </div>
-            <div className='text-center'>
-              <Nav.Normaltekst>{t('pinfo:error-noParams')}</Nav.Normaltekst>
-            </div>
-       </div>
-      </TopContainer>
-    }
-
-    if (!isReady) {
-      return <TopContainer className='p-pInfo' history={history} location={location} header={t('pinfo:app-title')}>
-        <div className='text-center'>
-          <Nav.NavFrontendSpinner />
-          <p className='typo-normal'>{t('ui:loading')}</p>
+        <div className='content container text-center pt-4'>
+          <div className='psycho mt-3 mb-4' style={{ height: '110px' }}>
+            <Psycho type='trist' id='psycho' />
+          </div>
+          <div className='text-center'>
+            <Nav.Normaltekst>{t('pinfo:error-noParams')}</Nav.Normaltekst>
+          </div>
         </div>
       </TopContainer>
     }
@@ -150,28 +150,40 @@ class PInfoSaksbehandler extends React.Component {
         </div>
         <div className='col-md-12'>
           <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
-            <Nav.Undertittel>{t('pinfo:sb-sent-notifications-title')}</Nav.Undertittel>
-            <table className='w-100 mt-4'>
-              <thead>
-                <tr style={{ borderBottom: '1px solid lightgrey' }}>
-                  <th />
-                  <th>{t('document')}</th>
-                  <th>{t('sender')}</th>
-                  <th>{t('date')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {files ? Object.keys(files).map(file => {
-                  let content = files[file]
-                  return <tr key={file}>
-                    <td><Icons kind='nav-message-sent' /></td>
-                    <td><a href='#'>{content.navn || file}</a></td>
-                    <td>{content.mottaker || t('unknown')}</td>
-                    <td>{content.timestamp ? new Date(content.timestamp).toDateString() : t('unknown')}</td>
+            <div className='notification-title'>
+              <Nav.Undertittel>{t('pinfo:sb-sent-notifications-title')}</Nav.Undertittel>
+              <div title={t('refresh')} className={classNames('refresh', { rotating: !isReady })}>
+                {isReady ? <a href='#refresh' onClick={this.refresh.bind(this)}>
+                  <Icons kind='refresh' />
+                </a> : <Icons kind='refresh' />}
+              </div>
+            </div>
+
+            {!isReady ? <div className='text-center' style={{ paddingTop: '3rem' }}>
+              <Nav.NavFrontendSpinner />
+              <p className='typo-normal'>{t('ui:loading')}</p>
+            </div>
+              : <table className='w-100 mt-4'>
+                <thead>
+                  <tr style={{ borderBottom: '1px solid lightgrey' }}>
+                    <th />
+                    <th>{t('document')}</th>
+                    <th>{t('sender')}</th>
+                    <th>{t('date')}</th>
                   </tr>
-                }) : null}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {files ? Object.keys(files).map((file, index) => {
+                    let content = files[file]
+                    return <tr className='slideAnimate' style={{ animationDelay: index * 0.03 + 's' }} key={file}>
+                      <td><Icons kind='nav-message-sent' /></td>
+                      <td>{content.tittel || file}</td>
+                      <td>{content.fulltnavn || t('unknown')}</td>
+                      <td>{content.timestamp ? new Date(content.timestamp).toDateString() : t('unknown')}</td>
+                    </tr>
+                  }) : null}
+                </tbody>
+              </table>}
           </div>
         </div>
       </Nav.Row>

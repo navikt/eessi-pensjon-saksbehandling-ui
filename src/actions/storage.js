@@ -30,7 +30,6 @@ export function listStorageFiles (userId, namespace, context) {
 }
 
 export function getStorageFile (params) {
-
   return api.call({
     url: sprintf(urls.STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
     method: 'GET',

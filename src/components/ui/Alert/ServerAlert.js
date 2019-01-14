@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { withNamespaces } from 'react-i18next'
 
 import * as Nav from '../Nav'
-import './ServerAlert.css'
 
 const mapStateToProps = (state) => {
   return {

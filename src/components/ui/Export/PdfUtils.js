@@ -28,7 +28,6 @@ class PdfUtils {
     }
 
     let pdf = await this.generate({
-
       options: options,
       element: document.getElementById(params.nodeId || 'divToPrint'),
       events: params.events,
@@ -48,7 +47,7 @@ class PdfUtils {
   async generate (params) {
     return new Promise(async (resolve, reject) => {
       html2pdf().set(params.options).from(params.element).outputPdf().then(rawPdf => {
-        this.processRaw(rawPdf).then(processedPdf => {
+        this.processRaw(rawPdf, params.options).then(processedPdf => {
           if (!params.includeAttachments) {
             resolve(processedPdf)
           } else {
@@ -131,7 +130,7 @@ class PdfUtils {
     return Uint8Array.from(window.atob(base64), c => c.charCodeAt(0))
   }
 
-  processRaw (pdf) {
+  processRaw (pdf, options) {
     let base64 = window.btoa(pdf)
     let data = Uint8Array.from(pdf, c => c.charCodeAt(0))
 
@@ -139,7 +138,7 @@ class PdfUtils {
       PDFJS.getDocument(data).then(doc => {
         resolve({
           'numPages': doc.numPages,
-          'name': 'P4000.pdf',
+          'name': options.filename || 'kvittering.pdf',
           'size': pdf.length,
           'mimetype': 'application/pdf',
           'content': {

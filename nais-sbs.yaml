@@ -4,29 +4,30 @@ team: eessipensjon
 
 replicas:
     min: 2
-    max: 2
+    max: 4
     cpuThresholdPercentage: 50
 
 prometheus:
     enabled: true
+    path: internal/metrics
 
 port: 8080
 
 healthcheck:
     liveness:
-        initialDelay: 120
+        initialDelay: 45
         path: internal/isAlive
     readiness:
-        initialDelay: 120
+        initialDelay: 45
         path: internal/isReady
 
 resources:
     limits:
-        cpu: 1
-        memory: 512Mi
+        cpu: 3
+        memory: 1024Mi
     requests:
-        cpu: 100m
-        memory: 256Mi
+        cpu: 200m
+        memory: 512Mi
 
 ingress:
     enabled: true
