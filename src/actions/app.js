@@ -5,13 +5,9 @@ import * as api from './api'
 export function login () {
   let currentHost = window.location.origin // http://hostname
   let redirect = currentHost
-  let context = window.location.search
-    ? (window.location.search.startsWith('?')
-      ? window.location.search.substring(1)
-      : window.location.search
-    )
-    : ''
-  let newUrl = urls.APP_LOGIN_URL + '?redirect=' + redirect + '&' + context
+  let context = encodeURIComponent(window.location.pathname + window.location.search)
+
+  let newUrl = urls.APP_LOGIN_URL + '?redirect=' + redirect + '&context=' + context
   window.location.href = newUrl
 
   return {

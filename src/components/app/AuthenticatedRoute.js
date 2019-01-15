@@ -91,6 +91,13 @@ class AuthenticatedRoute extends Component {
     return this.state.hasOwnProperty('saksId') && this.state.hasOwnProperty('aktoerId')
   }
 
+  forceLogin () {
+    const { actions } = this.props
+
+    console.log("No oidc-token, force login.")
+    actions.login()
+  }
+
   render () {
     const { userRole, allowed, gettingUserInfo } = this.props
     const { isReady } = this.state
@@ -100,10 +107,8 @@ class AuthenticatedRoute extends Component {
     }
 
     if (!userRole) {
-      return <Redirect to={{
-        pathname: routes.LOGIN,
-        search: 'context=' + encodeURIComponent(window.location.pathname + window.location.search)
-      }} />
+      this.forceLogin()
+      return null
     }
 
     let validRole = this.hasApprovedRole()
