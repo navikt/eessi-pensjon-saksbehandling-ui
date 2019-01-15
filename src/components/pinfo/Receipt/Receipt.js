@@ -159,7 +159,7 @@ class Receipt extends React.Component {
         disabled={generatingPDF || !isReady}
         spinner={generatingPDF || !isReady}
         onClick={this.onDownloadRequest.bind(this)}>
-        {generatingPDF || !isReady ? t('ui:generating') : ('ui:getReceipt')}
+        {generatingPDF || !isReady ? t('ui:generating') : t('ui:getReceipt')}
       </Nav.Knapp>
     </div>
   }
