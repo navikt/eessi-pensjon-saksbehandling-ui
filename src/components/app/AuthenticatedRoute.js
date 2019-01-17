@@ -31,6 +31,7 @@ const mapDispatchToProps = (dispatch) => {
 const paramAliases = {
   'rinaid': 'rinaId',
   'saksNr': 'saksId',
+  'sakId' : 'saksId',
   'fnr': 'aktoerId'
 }
 
