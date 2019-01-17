@@ -117,7 +117,7 @@ class PInfoSaksbehandler extends React.Component {
     const { isReady, noParams, files } = this.state
 
     if (noParams) {
-      return <TopContainer className='p-pInfo' history={history} location={location} header={t('pinfo:app-title')}>
+      return <TopContainer className='p-pInfo p-pInfoSaksbehandler' history={history} location={location} header={t('pinfo:app-title')}>
         <div className='content container text-center pt-4'>
           <div className='psycho mt-3 mb-4' style={{ height: '110px' }}>
             <Psycho type='trist' id='psycho' />
