@@ -27,7 +27,8 @@ const mapStateToProps = (state) => {
     locale: state.ui.locale,
     pinfo: state.pinfo,
     person: state.pinfo.person,
-    username: state.app.username
+    username: state.app.username,
+    dirtyForm: state.app.dirtyForm
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -153,7 +154,7 @@ class Period extends React.Component {
   }
 
   addPeriod () {
-    const { periods, actions, pinfo, username } = this.props
+    const { periods, actions, pinfo, username , dirtyForm} = this.props
     const { _period } = this.state
 
     let errors = this.validatePeriod()
@@ -175,7 +176,9 @@ class Period extends React.Component {
       _pinfo.stayAbroad = newPeriods
 
       actions.setMainButtonsVisibility(true)
-      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
+      if(dirtyForm){
+        actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
+      }
     }
   }
 
@@ -186,7 +189,7 @@ class Period extends React.Component {
   }
 
   saveEditPeriod () {
-    const { periods, editPeriod, actions, pinfo, username } = this.props
+    const { periods, editPeriod, actions, pinfo, username, dirtyForm} = this.props
     const { _period } = this.state
 
     let errors = this.validatePeriod()
@@ -220,7 +223,9 @@ class Period extends React.Component {
         actions.setMainButtonsVisibility(true)
         let _pinfo = _.cloneDeep(pinfo)
         _pinfo.stayAbroad = newPeriods
-        actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
+        if(dirtyForm){
+          actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
+        }
       }
     }
   }
@@ -266,7 +271,7 @@ class Period extends React.Component {
   }
 
   doRemovePeriod (period) {
-    const { periods, actions, pinfo, username } = this.props
+    const { periods, actions, pinfo, username, dirtyForm } = this.props
 
     let index = _.findIndex(periods, { id: period.id })
 
@@ -282,7 +287,9 @@ class Period extends React.Component {
       actions.setStayAbroad(newPeriods)
       let _pinfo = _.cloneDeep(pinfo)
       _pinfo.stayAbroad = newPeriods
-      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
+      if(dirtyForm){
+        actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
+      }
     }
     actions.closeModal()
   }

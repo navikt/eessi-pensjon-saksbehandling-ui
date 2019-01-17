@@ -5,7 +5,8 @@ let initialState = {
   allowed: false,
   username: undefined,
   userRole: undefined,
-  userStatus: undefined
+  userStatus: undefined,
+  dirtyForm: false
 }
 
 export default function (state = initialState, action = {}) {
@@ -52,6 +53,20 @@ export default function (state = initialState, action = {}) {
     case types.APP_LOGOUT_SUCCESS: {
       return initialState
     }
+
+    case types.PINFO_PERSON_SET:
+    case types.PINFO_WORK_SET:
+    case types.PINFO_BANK_SET:
+    case types.PINFO_STAY_ABROAD_SET:
+    case types.PINFO_COMMENT_SET:
+      return Object.assign({}, state, {
+        dirtyForm: true
+      })
+
+    case types.STORAGE_POST_SUCCESS:
+      return Object.assign({}, state, {
+        dirtyForm: false
+      })
 
     default:
       return state

@@ -42,6 +42,7 @@ const mapStateToProps = (state) => {
     fileList: state.storage.fileList,
     file: state.storage.file,
     username: state.app.username,
+    dirtyForm: state.app.dirtyForm,
     buttonsVisible: state.pinfo.buttonsVisible
   }
 }
@@ -133,7 +134,7 @@ class PInfo extends React.Component {
   }
 
   onForwardButtonClick () {
-    const { actions, step, pinfo, username } = this.props
+    const { actions, step, pinfo, username, dirtyForm } = this.props
 
     let errors = {}
     if (this.state.doPageValidationOnForwardButton) {
@@ -145,7 +146,9 @@ class PInfo extends React.Component {
     }
 
     if (this.hasNoErrors(errors)) {
-      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
+      if(dirtyForm){
+        actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
+      }
       actions.setStep(step + 1)
       if (this.state.stepIndicatorError) {
         this.setState({
@@ -156,7 +159,7 @@ class PInfo extends React.Component {
   }
 
   onStepIndicatorBeforeChange (nextStep) {
-    const { step, actions, maxStep, pinfo, username } = this.props
+    const { step, actions, maxStep, pinfo, username, dirtyForm } = this.props
 
     if (nextStep === step) {
       return false
@@ -175,7 +178,9 @@ class PInfo extends React.Component {
         stepIndicatorError: undefined
       })
     }
-    actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
+    if(dirtyForm){
+      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
+    }
     return true
   }
 
@@ -215,10 +220,12 @@ class PInfo extends React.Component {
   }
 
   doCancel () {
-    const { actions, history, pinfo, username } = this.props
+    const { actions, history, pinfo, username, dirtyForm } = this.props
 
     actions.closeModal()
-    actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
+    if(dirtyForm){
+      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
+    }
     history.push(routes.ROOT)
   }
 
