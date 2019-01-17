@@ -219,7 +219,6 @@ class PInfo extends React.Component {
 
     actions.closeModal()
     actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
-    actions.clearData()
     history.push(routes.ROOT)
   }
 
