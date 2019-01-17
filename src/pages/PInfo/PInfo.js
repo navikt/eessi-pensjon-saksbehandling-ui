@@ -79,7 +79,7 @@ class PInfo extends React.Component {
         })
       }
     }
-    if (fileList !== undefined && this.state.fileList === undefined) {
+    if (file === undefined && fileList !== undefined && this.state.fileList === undefined) {
       if (!_.isEmpty(fileList) && fileList.indexOf('PINFO.json') >= 0) {
         actions.getStorageFile({
           userId: username,
