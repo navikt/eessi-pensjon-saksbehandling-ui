@@ -111,7 +111,7 @@ class AuthenticatedRoute extends Component {
       this.forceLogin()
       return null
     }
-
+    /*
     let validRole = this.hasApprovedRole()
 
     if (!validRole) {
@@ -123,7 +123,7 @@ class AuthenticatedRoute extends Component {
     if (!authorized) {
       return <Redirect to={routes.NOT_INVITED} />
     }
-
+    */
     return <Route {...this.props} />
   }
 }
