@@ -32,7 +32,7 @@ export const STORAGE_POST_URL = API_URL + '/storage/%(userId)s___%(namespace)s__
 export const STORAGE_DELETE_URL = API_URL + '/storage/%(userId)s___%(namespace)s___%(file)s'
 
 // FagmodulController
-export const CASE_CREATE_SED_URL = FAG_URL + '/buc/create'
+export const CASE_CREATE_SED_URL = FAG_URL + '/sed/buc/create'
 export const CASE_GENERATE_DATA_URL = FAG_URL + '/sed/confirm'
 export const CASE_ADD_TO_SED_URL = FAG_URL + '/sed/add'
 export const CASE_SEND_SED_URL = FAG_URL + '/sed/send'
