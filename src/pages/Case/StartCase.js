@@ -19,7 +19,6 @@ const mapStateToProps = (state) => {
   return {
     subjectAreaList: state.case.subjectAreaList,
     institutionList: state.case.institutionList,
-    institutionListError: state.case.institutionListError,
     bucList: state.case.bucList,
     sedList: state.case.sedList,
     countryList: state.case.countryList,
@@ -94,8 +93,7 @@ class StartCase extends Component {
 
     async componentDidUpdate () {
       const { history, loading, sed, currentCase, dataToConfirm, institutionList, bucList,
-        subjectAreaList, countryList, actions, saksId, aktoerId, fnr, rinaId, 
-        institutionListError } = this.props
+        subjectAreaList, countryList, actions, saksId, aktoerId, fnr, rinaId } = this.props
 
       // comes from a Forward
       if (dataToConfirm) {
@@ -112,7 +110,7 @@ class StartCase extends Component {
           actions.getBucList(currentCase ? currentCase.rinaid : undefined)
         }
 
-        if (_.isEmpty(institutionList) && !loading.institutionList && !institutionListError) {
+        if (_.isEmpty(institutionList) && !loading.institutionList) {
           actions.getInstitutionList()
         }
 
@@ -337,7 +335,7 @@ class StartCase extends Component {
     }
 
     onCountryChange (e) {
-      const { actions, institutionListError } = this.props
+      const { actions } = this.props
       const { validation } = this.state
 
       let country = e.value
@@ -346,7 +344,7 @@ class StartCase extends Component {
         institution: undefined
       })
       this.validateCountry(country)
-      if (!validation.countryFail && !institutionListError) {
+      if (!validation.countryFail) {
         if (country !== defaultSelects.country) {
           actions.getInstitutionListForCountry(country)
         } else {
