@@ -62,7 +62,6 @@ ReactDOM.render(
           <AuthenticatedRoute exact path={routes.PINFO} component={Pages.PInfo} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
           <AuthenticatedRoute exact path={routes.PINFO_SAKSBEHANDLER} component={Pages.PInfoSaksbehandler} roles={[constants.SAKSBEHANDLER]} />
           <AuthenticatedRoute exact path={routes.P4000_ROUTE} component={Pages.P4000} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-{ /*
           <AuthenticatedRoute exact path={routes.PDF_GENERATE} component={Pages.GeneratePDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
           <AuthenticatedRoute exact path={routes.PDF_EDIT} component={Pages.EditPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
           <AuthenticatedRoute exact path={routes.PDF_SELECT} component={Pages.SelectPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
@@ -74,7 +73,7 @@ ReactDOM.render(
           <AuthenticatedRoute exact path={routes.CASE_SAVE} component={Pages.SaveCase} roles={[constants.SAKSBEHANDLER]} />
           <AuthenticatedRoute exact path={routes.CASE_SEND} component={Pages.SendCase} roles={[constants.SAKSBEHANDLER]} />
           <Redirect from={routes.CASE} to={{ pathname: routes.CASE_START }} />
-*/ }
+
           <AuthenticatedRoute path={routes.INDEX} component={Pages.IndexPage} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
           <Route path={routes.NOT_LOGGED} render={() => <Pages.Error type='notLogged' />} />
           <Route path={routes.NOT_INVITED} render={() => <Pages.Error type='notInvited' />} />

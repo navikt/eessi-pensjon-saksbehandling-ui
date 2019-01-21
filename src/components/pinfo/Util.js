@@ -64,6 +64,8 @@ class Util {
       'etternavnVedFodsel': person.nameAtBirth,
       'tidligereNavn': person.previousName,
       'fodestedLand': person.country ? this.handleCountry(person.country) : null,
+      'fodestedBy': person.place,
+      'provinsEllerDepartement': person.region,
       'telefonnummer': person.phone,
       'epost': person.email,
       'farsNavn': person.fatherName,
