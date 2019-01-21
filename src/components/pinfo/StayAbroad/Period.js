@@ -492,6 +492,7 @@ class Period extends React.Component {
             </div>
           </Nav.Row>
           { _period.type ? <React.Fragment>
+             {_period.type === 'home' ? <Nav.AlertStripe className='mt-4 mb-4' type='info'>{t('pinfo:warning-home-period')}</Nav.AlertStripe> : null}
             <Nav.Row>
               <div className='col-md-12 mt-3 mb-3'>
                 <Nav.Undertittel className='mb-3'>{t(`pinfo:stayAbroad-period-title-${_period.type}`)}</Nav.Undertittel>
