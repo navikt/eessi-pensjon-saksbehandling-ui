@@ -367,6 +367,38 @@ class Period extends React.Component {
           </div> : null }
         </Nav.Row>
 
+      case 'receipt':
+        return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode, { 'current': current })}>
+          <div className='col-md-12'>
+            <div id={period.id} className='existingPeriod'>
+              <div className='icon mr-4'>
+                <div className={classNames('topHalf', { line: !first })} />
+                <div className={classNames('bottomHalf', { line: !last })} />
+                <Icons className='iconsvg' kind={'nav-' + period.type} />
+              </div>
+              <div className='pt-2 pb-2 existingPeriodDescription'>
+                <div className='col-6'>
+                  <span className='bold existingPeriodType'>{t('pinfo:stayAbroad-category-' + period.type)}</span>
+                </div>
+                <div className='col-6'>
+                  <span>{period.country.label}</span>
+                </div>
+                <br />
+                <span className='existingPeriodDates'>
+                  <span className='bold'>{t('pinfo:stayAbroad-period')}</span>{': '}
+                  {moment(period.startDate).format('DD.MM.YYYY')}{' - '}
+                  {period.endDate ? moment(period.endDate).format('DD.MM.YYYY') : t('ui:unknown')}
+                </span>
+                <br />
+                {period.attachments && !_.isEmpty(period.attachments) ? <span className='existingPeriodAttachments'>
+                  <span className='bold'>{t('pinfo:stayAbroad-attachments')}</span>{': '}
+                  {period.attachments.map(att => { return att.name }).join(', ')}
+                </span> : null}
+              </div>
+            </div>
+          </div>
+        </Nav.Row>
+
       case 'detail':
         return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode, { 'current': current })}>
           <div className='col-md-12'>

@@ -143,7 +143,7 @@ class Receipt extends React.Component {
         <div className='ml-4'>
           {stayAbroad.map((period, index) => {
             return <Period t={t}
-              mode='detail'
+              mode='receipt'
               first={index === 0}
               last={index === stayAbroad.length - 1}
               period={period}
