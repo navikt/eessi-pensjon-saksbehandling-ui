@@ -94,11 +94,11 @@ class Receipt extends React.Component {
         <Nav.Undertittel className='m-4'>{t('pinfo:person-info-title')}</Nav.Undertittel>
         <dl className='row ml-2'>
           <dt className='col-4'> {t('pinfo:person-info-currentName')} </dt>
-          <dt className='col-8 text-capitalize'>  
+          <dd className='col-8 text-capitalize'>  
             {document.getElementById('name')? document.getElementById('name').textContent : ''} 
-          </dt>
+          </dd>
           <dt className='col-4'> {t('pinfo:person-info-fnr')} </dt>
-          <dt className='col-8'> {username} </dt>
+          <dd className='col-8'> {username} </dd>
           <dt className='col-4'> {t('pinfo:person-info-lastNameAtBirth')} </dt>
           <dd className='col-8'> {person.nameAtBirth || ''} </dd>
           <dt className='col-4'> {t('pinfo:person-info-previousName')} </dt>
