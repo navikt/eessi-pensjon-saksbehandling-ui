@@ -378,41 +378,28 @@ class Period extends React.Component {
               </div>
               <div className='pt-2 pb-2 existingPeriodDescription'>
                 <div className='col-xs-12 p-0'>
-                  <div className='col-xs-4 p-0'>
+                  <div className='col-xs-6 p-0'>
                     <span className='bold existingPeriodType'>{t('pinfo:stayAbroad-category-' + period.type)}</span>
                   </div>
-                  <div className='col-xs-8 p-0'>
+                  <div className='col-xs-6 p-0'>
                     <span className='bold existingPeriodType'>{period.country.label}</span>
                   </div>
                 </div>
                 <br />
                 <div className='col-xs-12 p-0'>
-                  <div className='col-xs-3 p-0'>
-                    <span className='existingPeriodDates'>
-                      {`${t('pinfo:stayAbroad-period')}:`}
-                    </span>
-                  </div>
-                  <div className='col-xs-9 pl-1'>
-                    <span className='existingPeriodDates'>
-                      {`${moment(period.startDate).format('DD.MM.YYYY')} - ${period.endDate ?
-                        moment(period.endDate).format('DD.MM.YYYY')
-                        : t('ui:unknown')}`}
-                    </span>
-                  </div>
+                  <span className='existingPeriodDates'>
+                    {`${t('pinfo:stayAbroad-period')}: `}
+                    {`${moment(period.startDate).format('DD.MM.YYYY')} - `}
+                    {period.endDate ? moment(period.endDate).format('DD.MM.YYYY') : t('ui:unknown')}
+                  </span>
                 </div>
                 <br />
                 {period.attachments && !_.isEmpty(period.attachments) ?
                 <div className='col-xs-12 p-0'>
-                  <div className='col-xs-3 p-0'>
-                    <span className='existingPeriodAttachments'>
-                      {`${t('pinfo:stayAbroad-attachments')}:`}
-                    </span>
-                  </div>
-                  <div className='col-xs-9 pl-1'>
-                    <span className='existingPeriodAttachments'>
-                      {period.attachments.map(att => { return att.name }).join(', ')}
-                    </span>
-                  </div>
+                  <span className='existingPeriodAttachments'>
+                    {`${t('pinfo:stayAbroad-attachments')}: `}
+                    {period.attachments.map(att => { return att.name }).join(', ')}
+                  </span>
                 </div>
                 : null}
               </div>
