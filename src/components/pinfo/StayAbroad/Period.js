@@ -699,6 +699,7 @@ class Period extends React.Component {
               <div className='col-md-12'>
                 <FileUpload
                   id={'pinfo-opphold-vedlegg-fileupload-' + period.id}
+                  accept={['application/pdf','image/jpeg','image/png']}
                   className='fileUpload'
                   t={t}
                   ref={f => { this.fileUpload = f }}
