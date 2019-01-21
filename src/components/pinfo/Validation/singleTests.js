@@ -36,8 +36,8 @@ let country = function (country) {
   return mandatory(country, 'pinfo:validation-noCountry')
 }
 
-let city = function (city) {
-  return mandatory(city, 'pinfo:validation-noCity')
+let place = function (place) {
+  return mandatory(place, 'pinfo:validation-noPlave')
 }
 
 let region = function (region) {
@@ -68,7 +68,7 @@ export const personValidation = {
   email,
   previousName,
   country,
-  city,
+  place,
   region,
   fatherName,
   motherName

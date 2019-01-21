@@ -5,7 +5,7 @@ export function personStep (person) {
     nameAtBirth: tests.personValidation.nameAtBirth(person.nameAtBirth),
     previousName: tests.personValidation.previousName(person.previousName),
     country: tests.personValidation.country(person.country),
-    city: tests.personValidation.city(person.city),
+    place: tests.personValidation.place(person.place),
     region: tests.personValidation.region(person.region),
     phone: tests.personValidation.phone(person.phone),
     email: tests.personValidation.email(person.email)

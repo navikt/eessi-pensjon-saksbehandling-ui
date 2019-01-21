@@ -42,7 +42,7 @@ class Person extends React.Component {
     this.setNameAtBirth = this.eventSetProperty.bind(this, 'nameAtBirth', personValidation.nameAtBirth)
     this.setPreviousName = this.eventSetProperty.bind(this, 'previousName', personValidation.previousName)
     this.setCountry = this.valueSetProperty.bind(this, 'country', personValidation.country)
-    this.setCity = this.eventSetProperty.bind(this, 'city', personValidation.city)
+    this.setPlace = this.eventSetProperty.bind(this, 'place', personValidation.place)
     this.setRegion = this.eventSetProperty.bind(this, 'region', personValidation.region)
     this.setPhone = this.eventSetProperty.bind(this, 'phone', personValidation.phone)
     this.setEmail = this.eventSetProperty.bind(this, 'email', null)
@@ -176,9 +176,9 @@ class Person extends React.Component {
             type='text'
             label={t('pinfo:person-birthplace-place') + ' *'}
             placeholder={t('ui:writeIn')}
-            value={person.city || ''}
-            onChange={this.setCity}
-            feil={localErrors.city ? { feilmelding: t(localErrors.city) } : null}
+            value={person.place || ''}
+            onChange={this.setPlace}
+            feil={localErrors.place ? { feilmelding: t(localErrors.place) } : null}
           />
         </div>
       </Nav.Row>
