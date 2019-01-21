@@ -552,7 +552,7 @@ class StartCase extends Component {
             : <React.Fragment>
               <div className='fieldset animate'>
                 <div className='mb-5'>
-                  <PsychoPanel closeButton>{t('help-startCase')}</PsychoPanel>
+                  <PsychoPanel closeButton>{t('case:help-startCase')}</PsychoPanel>
                 </div>
                 <Nav.Row>
                   <div className='mt-4 col-md-6'>

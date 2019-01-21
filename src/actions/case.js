@@ -4,7 +4,15 @@ import * as api from './api'
 var sprintf = require('sprintf-js').sprintf
 
 export function getCaseFromCaseNumber (obj) {
-  let url = obj.rinaId ? sprintf(urls.CASE_GET_CASE_WITH_RINAID_URL, obj) : sprintf(urls.CASE_GET_CASE_WITHOUT_RINAID_URL, obj)
+  return {
+    type: types.CASE_GET_CASE_NUMBER_SUCCESS,
+    payload: {
+      casenumber: obj.saksId,
+      pinid : obj.aktoerId,
+      rinaid : obj.rinaId
+    }
+  }
+  /*let url = obj.rinaId ? sprintf(urls.CASE_GET_CASE_WITH_RINAID_URL, obj) : sprintf(urls.CASE_GET_CASE_WITHOUT_RINAID_URL, obj)
   return api.call({
     url: url,
     type: {
@@ -13,6 +21,7 @@ export function getCaseFromCaseNumber (obj) {
       failure: types.CASE_GET_CASE_NUMBER_FAILURE
     }
   })
+  */
 }
 
 export function getSubjectAreaList () {
@@ -27,36 +36,48 @@ export function getSubjectAreaList () {
 }
 
 export function getCountryList () {
-  return api.call({
+  return {
+    type: types.CASE_GET_COUNTRY_LIST_SUCCESS,
+    payload: ["NO"]
+  }
+   /*return api.call({
     url: urls.CASE_GET_COUNTRY_LIST_URL,
     type: {
       request: types.CASE_GET_COUNTRY_LIST_REQUEST,
       success: types.CASE_GET_COUNTRY_LIST_SUCCESS,
       failure: types.CASE_GET_COUNTRY_LIST_FAILURE
     }
-  })
+  })*/
 }
 
 export function getInstitutionList () {
-  return api.call({
+  return {
+    type: types.CASE_GET_INSTITUTION_LIST_SUCCESS,
+    payload: ["NAVT003"]
+  }
+  /*return api.call({
     url: urls.CASE_GET_INSTITUTION_LIST_URL,
     type: {
       request: types.CASE_GET_INSTITUTION_LIST_REQUEST,
       success: types.CASE_GET_INSTITUTION_LIST_SUCCESS,
       failure: types.CASE_GET_INSTITUTION_LIST_FAILURE
     }
-  })
+  })*/
 }
 
 export function getInstitutionListForCountry (country) {
-  return api.call({
+  return {
+    type: types.CASE_GET_INSTITUTION_LIST_SUCCESS,
+    payload: ["NAVT003"]
+  }
+  /*return api.call({
     url: sprintf(urls.CASE_GET_INSTITUTION_FOR_COUNTRY_LIST_URL, { country: country }),
     type: {
       request: types.CASE_GET_INSTITUTION_LIST_REQUEST,
       success: types.CASE_GET_INSTITUTION_LIST_SUCCESS,
       failure: types.CASE_GET_INSTITUTION_LIST_FAILURE
     }
-  })
+  })*/
 }
 
 export function getBucList (rinaId) {
