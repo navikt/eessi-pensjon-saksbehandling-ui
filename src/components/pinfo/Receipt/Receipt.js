@@ -146,7 +146,7 @@ class Receipt extends React.Component {
           })}
         </div>
         <Nav.Undertittel className='m-4'>{t('pinfo:stayAbroad-comment')}</Nav.Undertittel>
-        <div>{comment}</div>
+        <div className='receipt-comment'>{comment}</div>
       </div>
 
       <a className='hiddenLink' ref={item => { this.downloadLink = item }}

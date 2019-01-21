@@ -72,6 +72,7 @@ class StayAbroad extends React.Component {
           value={comment || ''}
           style={{ minHeight: '100px' }}
           onChange={this.setComment.bind(this)}
+          maxLength={2300}
         />
       </div> : null}
 
