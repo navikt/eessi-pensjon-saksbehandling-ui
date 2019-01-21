@@ -16,7 +16,8 @@ const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
     pinfo: state.pinfo,
-    receipt: state.pinfo.receipt
+    receipt: state.pinfo.receipt,
+    username: state.app.username
   }
 }
 
@@ -76,7 +77,7 @@ class Receipt extends React.Component {
   }
 
   render () {
-    const { t, locale } = this.props
+    const { t, locale, username } = this.props
     const { stayAbroad, person, bank, comment } = this.props.pinfo
     const { generatingPDF, isReady } = this.state
 
@@ -92,6 +93,12 @@ class Receipt extends React.Component {
         <Nav.Innholdstittel className='m-4'>{t('pinfo:receipt-title')}</Nav.Innholdstittel>
         <Nav.Undertittel className='m-4'>{t('pinfo:person-info-title')}</Nav.Undertittel>
         <dl className='row ml-2'>
+          <dt className='col-4'> {t('pinfo:person-info-currentName')} </dt>
+          <dt className='col-8 text-capitalize'>  
+            {document.getElementById('name')? document.getElementById('name').textContent : ''} 
+          </dt>
+          <dt className='col-4'> {t('pinfo:person-info-fnr')} </dt>
+          <dt className='col-8'> {username} </dt>
           <dt className='col-4'> {t('pinfo:person-info-lastNameAtBirth')} </dt>
           <dd className='col-8'> {person.nameAtBirth || ''} </dd>
           <dt className='col-4'> {t('pinfo:person-info-previousName')} </dt>

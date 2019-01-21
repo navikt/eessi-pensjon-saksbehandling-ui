@@ -9,6 +9,8 @@
 
     "eea-countries" : "EØS-land: Belgia, Bulgaria, Danmark, Den Tsjekkiske Rep., Estland, Finland, Frankrike, Færøyene, Grønland, Hellas, Kroatia, Kypros, Irland, Island, Italia, Latvia, Liechtenstein, Litauen, Luxembourg, Malta, Nederland, Norge, Polen, Portugal, Romania, Slovenia, Slovakia, Spania, Storbritannia, Sveits, Sverige, Tyskland, Ungarn, Østerrike",
 
+    "person-info-currentName": "Navn",
+    "person-info-fnr": "Fødselsnummer",
     "person-info-title": "Personopplysninger",
     "person-info-lastNameAtBirth": "Etternavn ved fødsel",
     "person-info-previousName": "Tidligere navn",
