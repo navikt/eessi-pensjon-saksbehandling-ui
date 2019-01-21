@@ -11,13 +11,21 @@ export default function (state = {}, action = {}) {
     case types.CASE_GET_INSTITUTION_LIST_REQUEST:
 
       return Object.assign({}, state, {
-        institutionList: undefined
+        institutionList: undefined,
+        institutionListError: undefined
       })
 
     case types.CASE_GET_INSTITUTION_LIST_SUCCESS:
 
       return Object.assign({}, state, {
-        institutionList: action.payload
+        institutionList: action.payload,
+        institutionListError: false
+      })
+
+    case types.CASE_GET_INSTITUTION_LIST_FAILURE:
+
+      return Object.assign({}, state, {
+        institutionListError: true
       })
 
     case types.CASE_GET_SED_LIST_SUCCESS:
