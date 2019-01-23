@@ -20,7 +20,7 @@ export function listStorageFiles (userId, namespace, context) {
   return api.call({
     url: sprintf(urls.STORAGE_LIST_URL, { userId: userId, namespace: namespace }),
     method: 'GET',
-    context: context,
+    context: {...context, functionName: 'listStorageFiles', args: {userId, namespace, context}},
     type: {
       request: types.STORAGE_LIST_REQUEST,
       success: types.STORAGE_LIST_SUCCESS,
@@ -33,7 +33,7 @@ export function getStorageFile (params) {
   return api.call({
     url: sprintf(urls.STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
     method: 'GET',
-    context: params.context,
+    context: {...params.context, functionName: 'getStorageFile', args: {params}},
     type: {
       request: types.STORAGE_GET_REQUEST,
       success: types.STORAGE_GET_SUCCESS,
@@ -47,7 +47,7 @@ export function postStorageFile (userId, namespace, file, payload, context) {
     url: sprintf(urls.STORAGE_POST_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'POST',
     payload: payload,
-    context: context,
+    context: {...context, functionName: 'postStorageFile', args: {userId, namespace, file, payload, context}},
     type: {
       request: types.STORAGE_POST_REQUEST,
       success: types.STORAGE_POST_SUCCESS,
@@ -64,7 +64,8 @@ export function deleteStorageFile (userId, namespace, file) {
       request: types.STORAGE_DELETE_REQUEST,
       success: types.STORAGE_DELETE_SUCCESS,
       failure: types.STORAGE_DELETE_FAILURE
-    }
+    },
+    context: {functionName: 'deleteStorageFile', args: {userId, namespace, file}}
   })
 }
 

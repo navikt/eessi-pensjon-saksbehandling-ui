@@ -30,7 +30,8 @@ export function getUserInfo () {
       request: types.APP_USERINFO_REQUEST,
       success: types.APP_USERINFO_SUCCESS,
       failure: types.APP_USERINFO_FAILURE
-    }
+    },
+    context: {functionName: 'getUserInfo'}
   })
 }
 

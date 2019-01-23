@@ -61,7 +61,8 @@ export function sendPInfo (payload) {
       request: types.PINFO_SEND_REQUEST,
       success: types.PINFO_SEND_SUCCESS,
       failure: types.PINFO_SEND_FAILURE
-    }
+    },
+    context: {functionName: 'sendPInfo', args: {payload}}
   })
 }
 
@@ -74,7 +75,8 @@ export function sendInvite (params) {
       request: types.PINFO_INVITE_REQUEST,
       success: types.PINFO_INVITE_SUCCESS,
       failure: types.PINFO_INVITE_FAILURE
-    }
+    },
+    context: {functionName: 'sendInvite', args:{params}}
   })
 }
 
@@ -87,7 +89,8 @@ export function sendReceipt (payload) {
       request: types.PINFO_RECEIPT_REQUEST,
       success: types.PINFO_RECEIPT_SUCCESS,
       failure: types.PINFO_RECEIPT_FAILURE
-    }
+    },
+    context: {functionName: 'sendReceipt', args: {payload}}
   })
 }
 

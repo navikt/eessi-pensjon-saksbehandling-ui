@@ -1,13 +1,32 @@
 import * as types from '../constants/actionTypes'
 import _ from 'lodash'
 
-let initialState = {}
+let initialState = {
+  ERRORS: {},
+}
 
 export default function (state = initialState, action = {}) {
   let status
+  let ERRORS = _.cloneDeep(state.ERRORS)
 
+  //Preserve errors, calling function and arguments.
   if (action.type === types.SERVER_ERROR) {
-    return {...initialState, SERVER_ERROR: { error: action.error, requestOptions: action.options }}
+    if( !action.context || !action.context.functionName ){
+      return {...initialState, ERRORS}
+    }
+    else {
+      return {
+        ...initialState,
+        ERRORS: {
+          ...ERRORS,
+          [action.context.functionName]: {
+            message: action.payload,
+            code: action.code,
+            args: action.context.args
+          }  
+        }
+      }
+    }
   }
 
   if (_.endsWith(action.type, '/REQUEST')) {
@@ -16,59 +35,80 @@ export default function (state = initialState, action = {}) {
 
   if (_.endsWith(action.type, '/FAILURE')) {
     status = 'ERROR'
+    if( action.context || action.context.functionName ){
+      ERRORS = {
+        ...ERRORS,
+        [action.context.functionName]: {
+          message: action.payload,
+          code: action.code,
+          args: action.context.args
+        }
+      }
+    }
   }
 
   if (_.endsWith(action.type, '/SUCCESS')) {
     status = 'OK'
+    if( action.context || action.context.functionName ){
+      let {[action.context.functionName]: omit, ...newErrors} = ERRORS
+      ERRORS = newErrors
+    }
   }
   switch (action.type) {
     case types.CASE_GET_CASE_NUMBER_REQUEST:
 
       return Object.assign({}, state, {
         gettingCase: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.CASE_GET_SUBJECT_AREA_LIST_REQUEST:
 
       return Object.assign({}, state, {
         subjectAreaList: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.CASE_GET_INSTITUTION_LIST_REQUEST:
 
       return Object.assign({}, state, {
         institutionList: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.CASE_GET_SED_LIST_REQUEST:
 
       return Object.assign({}, state, {
         sedList: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.CASE_GET_BUC_LIST_REQUEST:
 
       return Object.assign({}, state, {
         bucList: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.CASE_GET_COUNTRY_LIST_REQUEST:
 
       return Object.assign({}, state, {
         countryList: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.RINA_GET_URL_REQUEST:
 
       return Object.assign({}, state, {
         rinaUrl: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.CASE_CREATE_SED_REQUEST:
@@ -76,49 +116,56 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         savingCase: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.CASE_SEND_SED_REQUEST:
 
       return Object.assign({}, state, {
         sendingCase: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.CASE_GENERATE_DATA_REQUEST:
 
       return Object.assign({}, state, {
         generatingCase: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.APP_USERINFO_REQUEST:
 
       return Object.assign({}, state, {
         gettingUserInfo: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.STATUS_GET_REQUEST:
 
       return Object.assign({}, state, {
         gettingStatus: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.STATUS_SED_GET_REQUEST:
 
       return Object.assign({}, state, {
         gettingSED: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.STATUS_RINA_CASE_REQUEST:
 
       return Object.assign({}, state, {
         gettingRinaCase: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.CASE_GET_CASE_NUMBER_SUCCESS:
@@ -126,7 +173,8 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         gettingCase: false,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.CASE_GET_SUBJECT_AREA_LIST_SUCCESS:
@@ -134,7 +182,8 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         subjectAreaList: false,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.CASE_GET_INSTITUTION_LIST_SUCCESS:
@@ -142,7 +191,8 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         institutionList: false,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.CASE_GET_SED_LIST_SUCCESS:
@@ -150,7 +200,8 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         sedList: false,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.CASE_GET_BUC_LIST_SUCCESS:
@@ -158,7 +209,8 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         bucList: false,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.CASE_GET_COUNTRY_LIST_SUCCESS:
@@ -166,7 +218,8 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         countryList: false,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.CASE_CREATE_SED_SUCCESS:
@@ -176,7 +229,8 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         savingCase: false,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.CASE_SEND_SED_SUCCESS:
@@ -184,7 +238,8 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         sendingCase: false,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.CASE_GENERATE_DATA_SUCCESS:
@@ -192,7 +247,8 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         generatingCase: false,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.RINA_GET_URL_SUCCESS:
@@ -200,7 +256,8 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         rinaUrl: false,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.APP_USERINFO_SUCCESS:
@@ -208,7 +265,8 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         gettingUserInfo: false,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.STATUS_GET_SUCCESS:
@@ -216,7 +274,8 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         gettingStatus: false,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.STATUS_SED_GET_SUCCESS:
@@ -224,7 +283,8 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         gettingSED: false,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.STATUS_RINA_CASE_SUCCESS:
@@ -232,14 +292,16 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         gettingRinaCase: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.PDF_GENERATE_REQUEST:
 
       return Object.assign({}, state, {
         generatingPDF: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.PDF_GENERATE_SUCCESS:
@@ -247,28 +309,32 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         generatingPDF: false,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.PDF_LOADING_FILES_STARTED:
 
       return Object.assign({}, state, {
         loadingPDF: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.PDF_LOADING_FILES_FINISHED:
 
       return Object.assign({}, state, {
         loadingPDF: false,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.STORAGE_LIST_REQUEST:
 
       return Object.assign({}, state, {
         loadingStorageFileList: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.STORAGE_LIST_SUCCESS:
@@ -276,14 +342,16 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         loadingStorageFileList: false,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.STORAGE_GET_REQUEST:
 
       return Object.assign({}, state, {
         loadingStorageFile: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.STORAGE_GET_SUCCESS:
@@ -291,14 +359,16 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         loadingStorageFile: false,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.STORAGE_POST_REQUEST:
 
       return Object.assign({}, state, {
         savingStorageFile: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.STORAGE_POST_SUCCESS:
@@ -306,14 +376,16 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         savingStorageFile: false,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.STORAGE_DELETE_REQUEST:
 
       return Object.assign({}, state, {
         deletingStorageFile: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.STORAGE_DELETE_SUCCESS:
@@ -321,14 +393,16 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         deletingStorageFile: false,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.P4000_SUBMIT_REQUEST:
 
       return Object.assign({}, state, {
         submittingP4000: true,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.P4000_SUBMIT_SUCCESS:
@@ -336,47 +410,55 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         submittingP4000: false,
-        status: status
+        status: status,
+        ERRORS
       })
 
     case types.APP_LOGIN_REQUEST: {
       return Object.assign({}, state, {
-        isLoggingIn: true
+        isLoggingIn: true,
+        ERRORS
       })
     }
 
     case types.APP_LOGOUT_REQUEST:
       return Object.assign({}, state, {
-        isLoggingOut: true
+        isLoggingOut: true,
+        ERRORS
       })
 
     case types.APP_LOGOUT_SUCCESS:
     case types.APP_LOGOUT_FAILURE:
       return Object.assign({}, state, {
-        isLoggingOut: false
+        isLoggingOut: false,
+        ERRORS
       })
 
     case types.PINFO_SEND_SUCCESS:
     case types.PINFO_SEND_FAILURE:
       return Object.assign({}, state, {
-        isSendingPinfo: false
+        isSendingPinfo: false,
+        ERRORS
       })
 
     case types.PINFO_SEND_REQUEST:
 
       return Object.assign({}, state, {
-        isSendingPinfo: true
+        isSendingPinfo: true,
+        ERRORS
       })
 
     case types.PINFO_INVITE_SUCCESS:
     case types.PINFO_INVITE_FAILURE:
       return Object.assign({}, state, {
-        isInvitingPinfo: false
+        isInvitingPinfo: false,
+        ERRORS
       })
 
     case types.PINFO_INVITE_REQUEST:
       return Object.assign({}, state, {
-        isInvitingPinfo: true
+        isInvitingPinfo: true,
+        ERRORS
       })
 
     default:

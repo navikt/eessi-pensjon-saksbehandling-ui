@@ -110,6 +110,7 @@ export function submitP4000 (payload) {
       request: types.P4000_SUBMIT_REQUEST,
       success: types.P4000_SUBMIT_SUCCESS,
       failure: types.P4000_SUBMIT_FAILURE
-    }
+    },
+    context: {functionName: 'submitP4000', args: {payload}}
   })
 }
