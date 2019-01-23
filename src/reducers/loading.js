@@ -35,7 +35,7 @@ export default function (state = initialState, action = {}) {
 
   if (_.endsWith(action.type, '/FAILURE')) {
     status = 'ERROR'
-    if( action.context || action.context.functionName ){
+    if( action.context && action.context.functionName ){
       ERRORS = {
         ...ERRORS,
         [action.context.functionName]: {
@@ -49,7 +49,7 @@ export default function (state = initialState, action = {}) {
 
   if (_.endsWith(action.type, '/SUCCESS')) {
     status = 'OK'
-    if( action.context || action.context.functionName ){
+    if( action.context && action.context.functionName ){
       let {[action.context.functionName]: omit, ...newErrors} = ERRORS
       ERRORS = newErrors
     }
