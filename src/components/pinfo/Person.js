@@ -47,8 +47,6 @@ class Person extends React.Component {
     this.setPhone = this.eventSetProperty.bind(this, 'phone', personValidation.phone)
     this.setEmail = this.eventSetProperty.bind(this, 'email', null)
     this.setEmailAndValidate = this.eventSetProperty.bind(this, 'email', personValidation.email)
-    this.setMotherName = this.eventSetProperty.bind(this, 'motherName', personValidation.motherName)
-    this.setFatherName = this.eventSetProperty.bind(this, 'fatherName', personValidation.fatherName)
   }
 
   checkboxSetProperty (key, validateFunction, event) {
@@ -87,7 +85,10 @@ class Person extends React.Component {
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-info-title')}</Nav.Undertittel>
       <Nav.Row>
         <div className='col-sm-9'>
-          <Nav.Input
+          {mode === 'view' ? <div id='pinfo-person-etternavn-label'>
+            <label className='skjemaelement__label'>{t('pinfo:person-info-lastNameAtBirth')}</label>
+            <p>{person.nameAtBirth}</p>
+          </div> : <Nav.Input
             id='pinfo-person-etternavn-input'
             type='text'
             label={t('pinfo:person-info-lastNameAtBirth') + ' *'}
@@ -95,12 +96,15 @@ class Person extends React.Component {
             value={person.nameAtBirth || ''}
             onChange={this.setNameAtBirth}
             feil={localErrors.nameAtBirth ? { feilmelding: t(localErrors.nameAtBirth) } : null}
-          />
+          />}
         </div>
       </Nav.Row>
       <Nav.Row>
         <div className='col-sm-9'>
-          <Nav.Input
+          {mode === 'view' ? <div id='pinfo-person-tidligerenavn-label'>
+            <label className='skjemaelement__label'>{t('pinfo:person-info-previousName')}</label>
+            <p>{person.previousName}</p>
+          </div> : <Nav.Input
             id='pinfo-person-tidligerenavn-input'
             type='text'
             label={t('pinfo:person-info-previousName')}
@@ -108,12 +112,11 @@ class Person extends React.Component {
             value={person.previousName || ''}
             onChange={this.setPreviousName}
             feil={localErrors.previousName ? { feilmelding: t(localErrors.previousName) } : null}
-          />
+          />}
         </div>
       </Nav.Row>
-
-      {mode === 'view' && (person.fatherName || person.motherName)
-        ? <React.Fragment>
+      {mode === 'view' && (person.fatherName || person.motherName) ?
+        <React.Fragment>
           <Nav.Row>
             <div className='col-sm-9 mt-3'>
               <div className='float-right'>
@@ -121,15 +124,10 @@ class Person extends React.Component {
                   <span>{t('pinfo:stayAbroad-spain-france-warning-2')}</span>
                 </Nav.HjelpetekstBase>
               </div>
-              <Nav.Input
-                id='pinfo-opphold-farsnavn-input'
-                type='text'
-                label={t('pinfo:stayAbroad-period-fathername') + ' *'}
-                placeholder={t('ui:writeIn')}
-                value={person.fatherName || ''}
-                onChange={this.setFatherName}
-                feil={localErrors.fatherName ? { feilmelding: t(localErrors.fatherName) } : null}
-              />
+              <div id='pinfo-opphold-farsnavn-label'>
+                <label className='skjemaelement__label'>{t('pinfo:person-period-fathername')}</label>
+                <p>{person.fatherName}</p>
+              </div>
             </div>
           </Nav.Row>
           <Nav.Row>
@@ -139,39 +137,39 @@ class Person extends React.Component {
                   <span>{t('pinfo:stayAbroad-spain-france-warning-2')}</span>
                 </Nav.HjelpetekstBase>
               </div>
-              <Nav.Input
-                id='pinfo-opphold-morsnavn-input'
-                type='text'
-                label={t('pinfo:stayAbroad-period-mothername') + ' *'}
-                placeholder={t('ui:writeIn')}
-                value={person.motherName || ''}
-                onChange={this.setMotherName}
-                feil={localErrors.motherName ? { feilmelding: t(localErrors.motherName) } : null}
-              />
+              <div id='pinfo-opphold-morsnavn-label'>
+                <label className='skjemaelement__label'>{t('pinfo:person-period-mothername')}</label>
+                <p>{person.motherName}</p>
+              </div>
             </div>
           </Nav.Row>
-        </React.Fragment>
-        : null
-      }
+        </React.Fragment> : null}
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-birthplace-title')}</Nav.Undertittel>
       <Nav.Row>
         <div className='col-md-6 mb-4'>
           <label className='skjemaelement__label'>
             {t('pinfo:person-birthplace-country') + ' *'}
           </label>
-          <CountrySelect
+          {mode === 'view' ? <div id='pinfo-person-land-label'>
+            <img className='flagImg' src={'../../../../../flags/' + person.country.value + '.png'}
+              alt={person.country.label} />
+            {person.country.label}
+          </div> : <CountrySelect
             id='pinfo-person-land-select'
             locale={locale}
             value={person.country || null}
             onSelect={this.setCountry}
             error={localErrors.country}
             errorMessage={t(localErrors.country)}
-          />
+          />}
         </div>
       </Nav.Row>
       <Nav.Row>
         <div className='col-sm-9'>
-          <Nav.Input
+          {mode === 'view' ? <div id='pinfo-person-sted-label'>
+            <label className='skjemaelement__label'>{t('pinfo:person-birthplace-place')}</label>
+            <p>{person.place}</p>
+          </div> : <Nav.Input
             id='pinfo-person-sted-input'
             type='text'
             label={t('pinfo:person-birthplace-place') + ' *'}
@@ -179,12 +177,15 @@ class Person extends React.Component {
             value={person.place || ''}
             onChange={this.setPlace}
             feil={localErrors.place ? { feilmelding: t(localErrors.place) } : null}
-          />
+          />}
         </div>
       </Nav.Row>
       <Nav.Row>
         <div className='col-sm-9'>
-          <Nav.Input
+          {mode === 'view' ? <div id='pinfo-person-region-label'>
+            <label className='skjemaelement__label'>{t('pinfo:person-birthplace-area')}</label>
+            <p>{person.region}</p>
+          </div> : <Nav.Input
             id='pinfo-person-region-input'
             type='text'
             label={t('pinfo:person-birthplace-area')}
@@ -192,13 +193,16 @@ class Person extends React.Component {
             value={person.region || ''}
             onChange={this.setRegion}
             feil={localErrors.region ? { feilmelding: t(localErrors.region) } : null}
-          />
+          />}
         </div>
       </Nav.Row>
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-contact-title')}</Nav.Undertittel>
       <Nav.Row>
         <div className='col-sm-4'>
-          <Nav.Input
+          {mode === 'view' ? <div id='pinfo-person-telefonnummer-label'>
+            <label className='skjemaelement__label'>{t('pinfo:person-contact-phoneNumber')}</label>
+            <p>{person.phone}</p>
+          </div> : <Nav.Input
             id='pinfo-person-telefonnummer-input'
             type='tel'
             label={t('pinfo:person-contact-phoneNumber')}
@@ -206,12 +210,15 @@ class Person extends React.Component {
             value={person.phone || ''}
             onChange={this.setPhone}
             feil={localErrors.phone ? { feilmelding: t(localErrors.phone) } : null}
-          />
+          />}
         </div>
       </Nav.Row>
       <Nav.Row>
         <div className='col-sm-6'>
-          <Nav.Input
+          {mode === 'view' ? <div id='pinfo-person-epost-label'>
+            <label className='skjemaelement__label'>{t('pinfo:person-contact-email')}</label>
+            <p>{person.email}</p>
+          </div> : <Nav.Input
             id='pinfo-person-epost-input'
             type='email'
             label={t('pinfo:person-contact-email')}
@@ -220,14 +227,14 @@ class Person extends React.Component {
             onChange={this.setEmail}
             onBlur={this.setEmailAndValidate}
             feil={localErrors.email ? { feilmelding: t(localErrors.email) } : null}
-          />
+          />}
         </div>
       </Nav.Row>
-      <Nav.Row>
+      {mode === 'view' ? null : <Nav.Row>
         <div className='col-sm-6'>
           {'* ' + t('mandatoryField')}
         </div>
-      </Nav.Row>
+      </Nav.Row>}
     </div>
   }
 }

@@ -18,7 +18,7 @@ class Confirm extends React.Component {
       </PsychoPanel>
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:confirm-title')}</Nav.Undertittel>
       <Person pageErrors={pageErrors} errorTimestamp={errorTimestamp} mode='view' />
-      <Bank pageErrors={pageErrors} errorTimestamp={errorTimestamp} disableHelpText />
+      <Bank pageErrors={pageErrors} errorTimestamp={errorTimestamp} mode='view' />
       <StayAbroad pageErrors={pageErrors} errorTimestamp={errorTimestamp} mode='view' />
     </React.Fragment>
   }

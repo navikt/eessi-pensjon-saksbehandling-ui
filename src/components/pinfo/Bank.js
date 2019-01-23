@@ -71,7 +71,7 @@ class Bank extends React.Component {
   }
 
   render () {
-    const { t, bank, locale, disableHelpText } = this.props
+    const { t, bank, locale, mode } = this.props
     const { localErrors } = this.state
 
     return <div className='c-pinfo-bank'>
@@ -79,7 +79,10 @@ class Bank extends React.Component {
 
       <Nav.Row>
         <div className='col-md-6'>
-          <Nav.Input
+          {mode === 'view' ? <div id='pinfo-bank-name-label'>
+            <label className='skjemaelement__label'>{t('pinfo:bank-name')}</label>
+            <p>{bank.bankName}</p>
+          </div> : <Nav.Input
             id='pinfo-bank-name-input'
             type='text'
             label={t('pinfo:bank-name') + ' *'}
@@ -87,11 +90,15 @@ class Bank extends React.Component {
             value={bank.bankName || ''}
             onChange={this.setBankName}
             feil={localErrors.bankName ? { feilmelding: t(localErrors.bankName) } : null}
-          />
+          />}
         </div>
         <div className='col-md-6 mb-3'>
           <label className='skjemaelement__label'>{t('pinfo:bank-country') + ' *'}</label>
-          <CountrySelect
+          {mode === 'view' ? <div id='pinfo-bank-country-label'>
+            <img className='flagImg' src={'../../../../../flags/' + bank.bankCountry.value + '.png'}
+              alt={bank.bankCountry.label} />
+            {bank.bankCountry.label}
+          </div> : <CountrySelect
             placeholder={t('ui:writeIn')}
             id='pinfo-bank-country-select'
             locale={locale}
@@ -99,23 +106,25 @@ class Bank extends React.Component {
             onSelect={this.setBankCountry}
             error={localErrors.bankCountry}
             errorMessage={t(localErrors.bankCountry)}
-          />
+          />}
         </div>
       </Nav.Row>
       <Nav.Row>
         <div className='col-md-6'>
-          <Nav.Input
+          {mode === 'view' ? <div id='pinfo-bank-iban-label'>
+            <label className='skjemaelement__label'>{t('pinfo:bank-iban')}</label>
+            <p>{bank.bankIban}</p>
+          </div> : <Nav.Input
             id='pinfo-bank-iban-input'
             label={t('pinfo:bank-iban') + ' *'}
             placeholder={t('ui:writeIn')}
             value={bank.bankIban || ''}
             onChange={this.setBankIban}
             feil={localErrors.bankIban ? { feilmelding: t(localErrors.bankIban) } : null}
-          />
-
+          />}
         </div>
         <div className='col-md-6 d-flex align-items-center'>
-          {disableHelpText ? null
+          {mode === 'view' ? null
             : <Nav.HjelpetekstBase id='pinfo-bank-iban-input-help'>
               {t('pinfo:bank-iban-help')}
             </Nav.HjelpetekstBase>
@@ -124,17 +133,20 @@ class Bank extends React.Component {
       </Nav.Row>
       <Nav.Row>
         <div className='col-md-6'>
-          <Nav.Input
+          {mode === 'view' ? <div id='pinfo-bank-bicswift-label'>
+            <label className='skjemaelement__label'>{t('pinfo:bank-bicSwift')}</label>
+            <p>{bank.bankBicSwift}</p>
+          </div> : <Nav.Input
             id='pinfo-bank-bicswift-input'
             label={t('pinfo:bank-bicSwift') + ' *'}
             placeholder={t('ui:writeIn')}
             value={bank.bankBicSwift || ''}
             onChange={this.setBankBicSwift}
             feil={localErrors.bankBicSwift ? { feilmelding: t(localErrors.bankBicSwift) } : null}
-          />
+          />}
         </div>
         <div className='col-md-6 d-flex align-items-center'>
-          {disableHelpText ? null
+          {mode === 'view' ? null
             : <Nav.HjelpetekstBase id='pinfo-bank-bicswift-input-help'>
               {t('pinfo:bank-bicSwift-help')}
             </Nav.HjelpetekstBase>
@@ -143,7 +155,10 @@ class Bank extends React.Component {
       </Nav.Row>
       <Nav.Row>
         <div className='col-md-12'>
-          <Nav.Textarea
+          {mode === 'view' ? <div id='pinfo-bank-address-label'>
+            <label className='skjemaelement__label'>{t('pinfo:bank-address')}</label>
+            <pre>{bank.bankAddress}</pre>
+          </div> : <Nav.Textarea
             id='pinfo-bank-address-textarea'
             label={t('pinfo:bank-address') + ' *'}
             placeholder={t('ui:writeIn')}
@@ -152,14 +167,14 @@ class Bank extends React.Component {
             maxLength={100}
             onChange={this.setBankAddress}
             feil={localErrors.bankAddress ? { feilmelding: t(localErrors.bankAddress) } : null}
-          />
+          />}
         </div>
       </Nav.Row>
-      <Nav.Row>
+      {mode === 'view' ? null : <Nav.Row>
         <div className='col-sm-6'>
           {'* ' + t('mandatoryField')}
         </div>
-      </Nav.Row>
+      </Nav.Row>}
     </div>
   }
 }

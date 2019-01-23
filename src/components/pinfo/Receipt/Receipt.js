@@ -94,8 +94,8 @@ class Receipt extends React.Component {
         <Nav.Undertittel className='m-4'>{t('pinfo:person-info-title')}</Nav.Undertittel>
         <dl className='row ml-2'>
           <dt className='col-4'> {t('pinfo:person-info-currentName')} </dt>
-          <dd className='col-8 text-capitalize'>  
-            {document.getElementById('name')? document.getElementById('name').textContent : ''} 
+          <dd className='col-8 text-capitalize'>
+            {document.getElementById('name')? document.getElementById('name').textContent : ''}
           </dd>
           <dt className='col-4'> {t('pinfo:person-info-fnr')} </dt>
           <dd className='col-8'> {username} </dd>
@@ -106,8 +106,7 @@ class Receipt extends React.Component {
           <dt className='col-4'> {t('pinfo:person-birthplace-country')} </dt>
           <dd className='col-8'>
             {person.country ? <React.Fragment>
-              <img src={'../../../../../flags/' + person.country.value + '.png'}
-                style={{ width: 20, height: 15, marginRight: '0.5rem' }}
+              <img className='flagImg' src={'../../../../../flags/' + person.country.value + '.png'}
                 alt={person.country.label} />
               {person.country.label}
             </React.Fragment> : null}

@@ -323,8 +323,7 @@ class Period extends React.Component {
               <div className='pt-2 pb-2 existingPeriodDescription'>
                 <span className='bold existingPeriodType'>{t('pinfo:stayAbroad-category-' + period.type)}</span>
                 <span>
-                  <img src={'../../../../../flags/' + period.country.value + '.png'}
-                    style={{ width: 20, height: 15, marginLeft: '0.7rem' }}
+                  <img className='flagImg ml-2' src={'../../../../../flags/' + period.country.value + '.png'}
                     alt={period.country.label} />
                 </span>
                 <br />
@@ -379,7 +378,7 @@ class Period extends React.Component {
               <div className='pt-2 pb-2 existingPeriodDescription'>
                 <div className='col-xs-12 p-0'>
                   <div className='col-xs-6 p-0'>
-                    <span className='bold existingPeriodType'>{t('pinfo:stayAbroad-category-' + period.type)}</span>
+                    <span className='bold existingPeriodType ml-2'>{t('pinfo:stayAbroad-category-' + period.type)}</span>
                   </div>
                   <div className='col-xs-6 p-0'>
                     <span className='bold existingPeriodType'>{period.country.label}</span>
