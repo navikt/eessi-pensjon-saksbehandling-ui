@@ -150,7 +150,7 @@ class StorageModal extends Component {
     saveStorageFile (username, namespace, saveTargetFileName, blob) {
       const { actions, dirtyForm } = this.props
 
-      if(dirtyForm){
+      if (dirtyForm) {
         actions.postStorageFile(username, namespace, saveTargetFileName, blob)
       }
       actions.closeModal()

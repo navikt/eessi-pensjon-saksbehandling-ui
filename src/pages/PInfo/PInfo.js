@@ -146,7 +146,7 @@ class PInfo extends React.Component {
     }
 
     if (this.hasNoErrors(errors)) {
-      if(dirtyForm){
+      if (dirtyForm) {
         actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
       }
       actions.setStep(step + 1)
@@ -178,7 +178,7 @@ class PInfo extends React.Component {
         stepIndicatorError: undefined
       })
     }
-    if(dirtyForm){
+    if (dirtyForm) {
       actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
     }
     return true
@@ -223,7 +223,7 @@ class PInfo extends React.Component {
     const { actions, history, pinfo, username, dirtyForm } = this.props
 
     actions.closeModal()
-    if(dirtyForm){
+    if (dirtyForm) {
       actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
     }
     history.push(routes.ROOT)

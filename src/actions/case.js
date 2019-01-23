@@ -8,11 +8,11 @@ export function getCaseFromCaseNumber (obj) {
     type: types.CASE_GET_CASE_NUMBER_SUCCESS,
     payload: {
       casenumber: obj.sakId,
-      pinid : obj.aktoerId,
-      rinaid : obj.rinaId
+      pinid: obj.aktoerId,
+      rinaid: obj.rinaId
     }
   }
-  /*let url = obj.rinaId ? sprintf(urls.CASE_GET_CASE_WITH_RINAID_URL, obj) : sprintf(urls.CASE_GET_CASE_WITHOUT_RINAID_URL, obj)
+  /* let url = obj.rinaId ? sprintf(urls.CASE_GET_CASE_WITH_RINAID_URL, obj) : sprintf(urls.CASE_GET_CASE_WITHOUT_RINAID_URL, obj)
   return api.call({
     url: url,
     type: {
@@ -39,46 +39,46 @@ export function getSubjectAreaList () {
 export function getCountryList () {
   return {
     type: types.CASE_GET_COUNTRY_LIST_SUCCESS,
-    payload: ["NO"]
+    payload: ['NO']
   }
-   /*return api.call({
+  /* return api.call({
     url: urls.CASE_GET_COUNTRY_LIST_URL,
     type: {
       request: types.CASE_GET_COUNTRY_LIST_REQUEST,
       success: types.CASE_GET_COUNTRY_LIST_SUCCESS,
       failure: types.CASE_GET_COUNTRY_LIST_FAILURE
     }
-  })*/
+  }) */
 }
 
 export function getInstitutionList () {
   return {
     type: types.CASE_GET_INSTITUTION_LIST_SUCCESS,
-    payload: ["NAVT003"]
+    payload: ['NAVT003']
   }
-  /*return api.call({
+  /* return api.call({
     url: urls.CASE_GET_INSTITUTION_LIST_URL,
     type: {
       request: types.CASE_GET_INSTITUTION_LIST_REQUEST,
       success: types.CASE_GET_INSTITUTION_LIST_SUCCESS,
       failure: types.CASE_GET_INSTITUTION_LIST_FAILURE
     }
-  })*/
+  }) */
 }
 
 export function getInstitutionListForCountry (country) {
   return {
     type: types.CASE_GET_INSTITUTION_LIST_SUCCESS,
-    payload: ["NAVT003"]
+    payload: ['NAVT003']
   }
-  /*return api.call({
+  /* return api.call({
     url: sprintf(urls.CASE_GET_INSTITUTION_FOR_COUNTRY_LIST_URL, { country: country }),
     type: {
       request: types.CASE_GET_INSTITUTION_LIST_REQUEST,
       success: types.CASE_GET_INSTITUTION_LIST_SUCCESS,
       failure: types.CASE_GET_INSTITUTION_LIST_FAILURE
     }
-  })*/
+  }) */
 }
 
 export function getBucList (rinaId) {

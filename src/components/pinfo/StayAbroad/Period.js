@@ -154,7 +154,7 @@ class Period extends React.Component {
   }
 
   addPeriod () {
-    const { periods, actions, pinfo, username , dirtyForm} = this.props
+    const { periods, actions, pinfo, username, dirtyForm } = this.props
     const { _period } = this.state
 
     let errors = this.validatePeriod()
@@ -176,7 +176,7 @@ class Period extends React.Component {
       _pinfo.stayAbroad = newPeriods
 
       actions.setMainButtonsVisibility(true)
-      if(dirtyForm){
+      if (dirtyForm) {
         actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
       }
     }
@@ -189,7 +189,7 @@ class Period extends React.Component {
   }
 
   saveEditPeriod () {
-    const { periods, editPeriod, actions, pinfo, username, dirtyForm} = this.props
+    const { periods, editPeriod, actions, pinfo, username, dirtyForm } = this.props
     const { _period } = this.state
 
     let errors = this.validatePeriod()
@@ -223,7 +223,7 @@ class Period extends React.Component {
         actions.setMainButtonsVisibility(true)
         let _pinfo = _.cloneDeep(pinfo)
         _pinfo.stayAbroad = newPeriods
-        if(dirtyForm){
+        if (dirtyForm) {
           actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
         }
       }
@@ -287,7 +287,7 @@ class Period extends React.Component {
       actions.setStayAbroad(newPeriods)
       let _pinfo = _.cloneDeep(pinfo)
       _pinfo.stayAbroad = newPeriods
-      if(dirtyForm){
+      if (dirtyForm) {
         actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
       }
     }
@@ -393,14 +393,14 @@ class Period extends React.Component {
                   </span>
                 </div>
                 <br />
-                {period.attachments && !_.isEmpty(period.attachments) ?
-                <div className='col-xs-12 p-0'>
-                  <span className='existingPeriodAttachments'>
-                    {`${t('pinfo:stayAbroad-attachments')}: `}
-                    {period.attachments.map(att => { return att.name }).join(', ')}
-                  </span>
-                </div>
-                : null}
+                {period.attachments && !_.isEmpty(period.attachments)
+                  ? <div className='col-xs-12 p-0'>
+                    <span className='existingPeriodAttachments'>
+                      {`${t('pinfo:stayAbroad-attachments')}: `}
+                      {period.attachments.map(att => { return att.name }).join(', ')}
+                    </span>
+                  </div>
+                  : null}
               </div>
             </div>
           </div>
@@ -433,7 +433,7 @@ class Period extends React.Component {
             </div>
           </Nav.Row>
           { _period.type ? <React.Fragment>
-             {_period.type === 'home' ? <Nav.AlertStripe className='mt-4 mb-4' type='info'>{t('pinfo:warning-home-period')}</Nav.AlertStripe> : null}
+            {_period.type === 'home' ? <Nav.AlertStripe className='mt-4 mb-4' type='info'>{t('pinfo:warning-home-period')}</Nav.AlertStripe> : null}
             <Nav.Row>
               <div className='col-md-12 mt-3 mb-3'>
                 <Nav.Undertittel className='mb-3'>{t(`pinfo:stayAbroad-period-title-${_period.type}`)}</Nav.Undertittel>
@@ -673,7 +673,7 @@ class Period extends React.Component {
               <div className='col-md-12'>
                 <FileUpload
                   id={'pinfo-opphold-vedlegg-fileupload-' + period.id}
-                  accept={['application/pdf','image/jpeg','image/png']}
+                  accept={['application/pdf', 'image/jpeg', 'image/png']}
                   className='fileUpload'
                   t={t}
                   ref={f => { this.fileUpload = f }}

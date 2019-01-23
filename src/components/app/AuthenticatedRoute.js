@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch) => {
 const paramAliases = {
   'rinaid': 'rinaId',
   'saksNr': 'sakId',
-  'saksId' : 'sakId',
+  'saksId': 'sakId',
   'fnr': 'aktoerId'
 }
 
@@ -95,7 +95,7 @@ class AuthenticatedRoute extends Component {
   forceLogin () {
     const { actions } = this.props
 
-    console.log("No oidc-token, force login.")
+    console.log('No oidc-token, force login.')
     actions.login()
   }
 

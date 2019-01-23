@@ -115,8 +115,8 @@ class Person extends React.Component {
           />}
         </div>
       </Nav.Row>
-      {mode === 'view' && (person.fatherName || person.motherName) ?
-        <React.Fragment>
+      {mode === 'view' && (person.fatherName || person.motherName)
+        ? <React.Fragment>
           <Nav.Row>
             <div className='col-sm-9 mt-3'>
               <div className='float-right'>

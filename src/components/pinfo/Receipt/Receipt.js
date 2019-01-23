@@ -95,7 +95,7 @@ class Receipt extends React.Component {
         <dl className='row ml-2'>
           <dt className='col-4'> {t('pinfo:person-info-currentName')} </dt>
           <dd className='col-8 text-capitalize'>
-            {document.getElementById('name')? document.getElementById('name').textContent : ''}
+            {document.getElementById('name') ? document.getElementById('name').textContent : ''}
           </dd>
           <dt className='col-4'> {t('pinfo:person-info-fnr')} </dt>
           <dd className='col-8'> {username} </dd>
