@@ -90,7 +90,8 @@ export function getBucList (rinaId) {
       request: types.CASE_GET_BUC_LIST_REQUEST,
       success: types.CASE_GET_BUC_LIST_SUCCESS,
       failure: types.CASE_GET_BUC_LIST_FAILURE
-    }
+    },
+    context: {rinaId}
   })
 }
 
@@ -104,7 +105,8 @@ export function getSedList (buc, rinaId) {
       request: types.CASE_GET_SED_LIST_REQUEST,
       success: types.CASE_GET_SED_LIST_SUCCESS,
       failure: types.CASE_GET_SED_LIST_FAILURE
-    }
+    },
+    context: {buc, rinaId}
   })
 }
 
@@ -148,7 +150,8 @@ export function generateData (params) {
       request: types.CASE_GENERATE_DATA_REQUEST,
       success: types.CASE_GENERATE_DATA_SUCCESS,
       failure: types.CASE_GENERATE_DATA_FAILURE
-    }
+    },
+    context: {params}
   })
 }
 
@@ -161,7 +164,8 @@ export function createSed (params) {
       request: types.CASE_CREATE_SED_REQUEST,
       success: types.CASE_CREATE_SED_SUCCESS,
       failure: types.CASE_CREATE_SED_FAILURE
-    }
+    },
+    context:{params}
   })
 }
 
@@ -174,7 +178,8 @@ export function addToSed (payload) {
       request: types.CASE_ADD_TO_SED_REQUEST,
       success: types.CASE_ADD_TO_SED_SUCCESS,
       failure: types.CASE_ADD_TO_SED_FAILURE
-    }
+    },
+    context:{payload}
   })
 }
 
@@ -187,7 +192,8 @@ export function sendSed (payload) {
       request: types.CASE_SEND_SED_REQUEST,
       success: types.CASE_SEND_SED_SUCCESS,
       failure: types.CASE_SEND_SED_FAILURE
-    }
+    },
+    context: {payload}
   })
 }
 
