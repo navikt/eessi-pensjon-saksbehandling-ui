@@ -173,6 +173,8 @@ class DocumentStatus extends Component {
               history.push(routes.P4000)
               break
             case constants.P2000:
+            case constants.P2100:
+            case constants.P2200:
             case constants.P6000:
 
               history.push(routes.CASE_START + '?sed=' + doc.dokumentType + '&buc=' + doc.id)
