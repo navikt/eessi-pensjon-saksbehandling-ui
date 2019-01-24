@@ -35,7 +35,7 @@ export default function (state = {}, action = {}) {
     case types.CASE_GET_BUC_LIST_REQUEST:
 
       return Object.assign({}, state, {
-        bucList: undefined
+        bucList: []
       })
 
     case types.CASE_GET_BUC_LIST_SUCCESS:
