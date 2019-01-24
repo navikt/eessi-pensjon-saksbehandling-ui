@@ -63,7 +63,7 @@ class SaveCase extends Component {
 
       let payload = {
         subjectArea: dataSaved.subjectArea,
-        saksd: dataSaved.saksId,
+        sakId: dataSaved.sakId,
         aktoerId: dataSaved.aktoerId,
         buc: dataSaved.buc,
         sed: dataSaved.sed,

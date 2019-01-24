@@ -21,7 +21,7 @@ import './PInfo.css'
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
-    saksId: state.status.saksId,
+    sakId: state.status.sakId,
     aktoerId: state.status.aktoerId,
     fileList: state.storage.fileList,
     file: state.storage.file,
@@ -45,13 +45,13 @@ class PInfoSaksbehandler extends React.Component {
   }
 
   componentDidMount () {
-    let { actions, aktoerId, saksId, fileList } = this.props
+    let { actions, aktoerId, sakId, fileList } = this.props
 
-    if (aktoerId && saksId && fileList === undefined) {
-      actions.listStorageFiles(aktoerId, 'varsler___' + saksId)
+    if (aktoerId && sakId && fileList === undefined) {
+      actions.listStorageFiles(aktoerId, 'varsler___' + sakId)
     }
 
-    if (!aktoerId || !saksId) {
+    if (!aktoerId || !sakId) {
       this.setState({
         noParams: true
       })
@@ -59,14 +59,14 @@ class PInfoSaksbehandler extends React.Component {
   }
 
   componentDidUpdate () {
-    let { fileList, actions, file, aktoerId, saksId } = this.props
+    let { fileList, actions, file, aktoerId, sakId } = this.props
 
     if (fileList !== undefined && this.state.fileList === undefined) {
       fileList.map(file => {
         actions.getStorageFile({
           userId: aktoerId,
           namespace: 'varsler',
-          file: saksId + '___' + file,
+          file: sakId + '___' + file,
           context: { successAlert: false }
         })
       })
@@ -92,23 +92,23 @@ class PInfoSaksbehandler extends React.Component {
   }
 
   refresh () {
-    let { actions, aktoerId, saksId } = this.props
+    let { actions, aktoerId, sakId } = this.props
 
-    if (aktoerId && saksId) {
+    if (aktoerId && sakId) {
       this.setState({
         fileList: undefined,
         files: {}
       }, () => {
-        actions.listStorageFiles(aktoerId, 'varsler___' + saksId)
+        actions.listStorageFiles(aktoerId, 'varsler___' + sakId)
       })
     }
   }
 
   onInviteButtonClick () {
-    let { actions, aktoerId, saksId } = this.props
+    let { actions, aktoerId, sakId } = this.props
     actions.sendInvite({
       aktoerId: aktoerId,
-      saksId: saksId
+      sakId: sakId
     })
   }
 

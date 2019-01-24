@@ -68,7 +68,7 @@ export function sendPInfo (payload) {
 
 export function sendInvite (params) {
   return api.call({
-    url: sprintf(urls.PINFO_INVITE_URL, { saksId: params.saksId, aktoerId: params.aktoerId }),
+    url: sprintf(urls.PINFO_INVITE_URL, { sakId: params.sakId, aktoerId: params.aktoerId }),
     method: 'POST',
     payload: {},
     type: {

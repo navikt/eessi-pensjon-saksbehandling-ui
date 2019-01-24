@@ -7,7 +7,7 @@ export function getCaseFromCaseNumber (obj) {
   return {
     type: types.CASE_GET_CASE_NUMBER_SUCCESS,
     payload: {
-      casenumber: obj.saksId,
+      casenumber: obj.sakId,
       pinid : obj.aktoerId,
       rinaid : obj.rinaId
     }

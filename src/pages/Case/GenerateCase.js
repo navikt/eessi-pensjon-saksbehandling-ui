@@ -64,7 +64,7 @@ class GenerateCase extends Component {
       'buc': dataToGenerate.buc,
       'sed': dataToGenerate.sed,
       'subjectArea': dataToGenerate.subjectArea,
-      'saksId': dataToGenerate.saksId,
+      'sakId': dataToGenerate.sakId,
       'aktoerId': dataToGenerate.aktoerId,
       'rinaId': dataToGenerate.rinaId,
       'vedtakId': dataToGenerate.vedtakId

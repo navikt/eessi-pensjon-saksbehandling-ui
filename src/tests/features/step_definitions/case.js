@@ -13,7 +13,7 @@ Given('sett opp saks parametere', function (next) {
         'password': 'Password01'
       }
     },
-    saksId: '123',
+    sakId: '123',
     aktoerId: '1000060964183',
     frontPageButtonClass: '.caseLink',
     frontPageButtonText: {
