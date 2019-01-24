@@ -91,7 +91,7 @@ class StartCase extends Component {
       }
     }
 
-    async componentDidUpdate (prevProps) {
+    async componentDidUpdate () {
       const { history, loading, sed, currentCase, dataToConfirm, institutionList, bucList,
         subjectAreaList, countryList, actions, sakId, aktoerId, fnr, rinaId } = this.props
 
@@ -107,7 +107,6 @@ class StartCase extends Component {
         }
 
         if (_.isEmpty(bucList) && !sed && !loading.bucList) {
-          console.log('componentDidUpdate#getBucList', this.props, prevProps)
           actions.getBucList(currentCase ? currentCase.rinaid : undefined)
         }
 
