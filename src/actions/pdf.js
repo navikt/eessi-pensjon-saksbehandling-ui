@@ -71,7 +71,6 @@ export function generatePDF (payload) {
       request: types.PDF_GENERATE_REQUEST,
       success: types.PDF_GENERATE_SUCCESS,
       failure: types.PDF_GENERATE_FAILURE
-    },
-    context: {functionName: 'generatePDF', args: {payload}}
+    }
   })
 }

@@ -31,8 +31,7 @@ export function getSubjectAreaList () {
       request: types.CASE_GET_SUBJECT_AREA_LIST_REQUEST,
       success: types.CASE_GET_SUBJECT_AREA_LIST_SUCCESS,
       failure: types.CASE_GET_SUBJECT_AREA_LIST_FAILURE
-    },
-    context: {functionName: 'getSubjectAreaList'}
+    }
   })
 }
 
@@ -92,7 +91,7 @@ export function getBucList (rinaId) {
       success: types.CASE_GET_BUC_LIST_SUCCESS,
       failure: types.CASE_GET_BUC_LIST_FAILURE
     },
-    context: {functionName: 'getBucList', args: {rinaId}}
+    context: {rinaId}
   })
 }
 
@@ -107,7 +106,7 @@ export function getSedList (buc, rinaId) {
       success: types.CASE_GET_SED_LIST_SUCCESS,
       failure: types.CASE_GET_SED_LIST_FAILURE
     },
-    context: {functionName: 'getSedList', args: {buc, rinaId}}
+    context: {buc, rinaId}
   })
 }
 
@@ -152,7 +151,7 @@ export function generateData (params) {
       success: types.CASE_GENERATE_DATA_SUCCESS,
       failure: types.CASE_GENERATE_DATA_FAILURE
     },
-    context: {functionName: 'generateData', args: {params}}
+    context: {params}
   })
 }
 
@@ -166,7 +165,7 @@ export function createSed (params) {
       success: types.CASE_CREATE_SED_SUCCESS,
       failure: types.CASE_CREATE_SED_FAILURE
     },
-    context:{functionName: 'createSed', args: {params}}
+    context:{params}
   })
 }
 
@@ -180,7 +179,7 @@ export function addToSed (payload) {
       success: types.CASE_ADD_TO_SED_SUCCESS,
       failure: types.CASE_ADD_TO_SED_FAILURE
     },
-    context:{functionName: 'addToSed', args: {payload}}
+    context:{payload}
   })
 }
 
@@ -194,7 +193,7 @@ export function sendSed (payload) {
       success: types.CASE_SEND_SED_SUCCESS,
       failure: types.CASE_SEND_SED_FAILURE
     },
-    context: {functionName: 'sendSed', args: {payload}}
+    context: {payload}
   })
 }
 
@@ -205,7 +204,6 @@ export function getRinaUrl () {
       request: types.RINA_GET_URL_REQUEST,
       success: types.RINA_GET_URL_SUCCESS,
       failure: types.RINA_GET_URL_FAILURE
-    },
-    context: {functionName: 'getRinaUrl'}
+    }
   })
 }

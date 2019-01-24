@@ -29,8 +29,7 @@ export function getStatus (rinaId) {
       request: types.STATUS_GET_REQUEST,
       success: types.STATUS_GET_SUCCESS,
       failure: types.STATUS_GET_FAILURE
-    },
-    context: {functionName: 'getStatus', args: {rinaId}}
+    }
   })
 }
 
@@ -41,8 +40,7 @@ export function getCase (rinaId) {
       request: types.STATUS_RINA_CASE_REQUEST,
       success: types.STATUS_RINA_CASE_SUCCESS,
       failure: types.STATUS_RINA_CASE_FAILURE
-    },
-    context: {functionName: 'getCase', args: {rinaId}}
+    }
   })
 }
 
@@ -54,7 +52,6 @@ export function deleteSed (rinaId, dokumentId) {
       request: types.STATUS_SED_DELETE_REQUEST,
       success: types.STATUS_SED_DELETE_SUCCESS,
       failure: types.STATUS_SED_DELETE_FAILURE
-    },
-    context: {functionName: 'deleteSed', args: {rinaId, dokumentId}}
+    }
   })
 }

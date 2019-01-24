@@ -43,8 +43,8 @@ export function call (options) {
       return dispatch({
         type: error.status >= 500 ? types.SERVER_ERROR : options.type.failure,
         payload: error.message,
-        code: error.status,
-        context: options.context
+        error: error,
+        options: options
       })
     })
   }

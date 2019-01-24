@@ -103,28 +103,20 @@ class StartCase extends Component {
 
       if (!loading.gettingCase && currentCase) {
         if (_.isEmpty(subjectAreaList) && !sed && !loading.subjectAreaList) {
-          if(!loading.ERRORS.getSubjectAreaList){
-            actions.getSubjectAreaList()
-          }
+          actions.getSubjectAreaList()
         }
 
         if (_.isEmpty(bucList) && !sed && !loading.bucList) {
-          let rinaId = currentCase? currentCase.rinaid : undefined
-          if(!loading.ERRORS.getBucList || rinaId !== _.get(loading.ERRORS, 'getBucList.args.rinaId', undefined)){
-            actions.getBucList(currentCase ? currentCase.rinaid : undefined)
-          }
+          console.log('componentDidUpdate#getBucList', this.props, prevProps)
+          actions.getBucList(currentCase ? currentCase.rinaid : undefined)
         }
 
         if (_.isEmpty(institutionList) && !loading.institutionList) {
-          if(!loading.ERRORS.getInstitutionList){
-            actions.getInstitutionList()
-          }
+          actions.getInstitutionList()
         }
 
         if (_.isEmpty(countryList) && !loading.countryList) {
-          if(!loading.ERRORS.getCountryList){
-            actions.getCountryList()
-          }
+          actions.getCountryList()
         }
       }
 
