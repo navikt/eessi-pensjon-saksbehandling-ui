@@ -42,9 +42,7 @@ export function call (options) {
     }).catch(error => {
       return dispatch({
         type: error.status >= 500 ? types.SERVER_ERROR : options.type.failure,
-        payload: error.message,
-        error: error,
-        options: options
+        payload: error.message
       })
     })
   }

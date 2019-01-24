@@ -7,7 +7,7 @@ export default function (state = initialState, action = {}) {
   let status
 
   if (action.type === types.SERVER_ERROR) {
-    return {...initialState, SERVER_ERROR: { error: action.error, requestOptions: action.options }}
+    return {...initialState, SERVER_ERROR: action.payload}
   }
 
   if (_.endsWith(action.type, '/REQUEST')) {
