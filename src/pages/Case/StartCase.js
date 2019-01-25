@@ -102,11 +102,11 @@ class StartCase extends Component {
       }
 
       if (!loading.gettingCase && currentCase) {
-        if (subjectAreaList===undefined && !sed && !loading.subjectAreaList) {
+        if (subjectAreaList === undefined && !sed && !loading.subjectAreaList) {
           actions.getSubjectAreaList()
         }
 
-        if (bucList===undefined && !sed && !loading.bucList) {
+        if (bucList === undefined && !sed && !loading.bucList) {
           actions.getBucList(currentCase ? currentCase.rinaid : undefined)
         }
 
