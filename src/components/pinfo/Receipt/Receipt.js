@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withNamespaces } from 'react-i18next'
 import { bindActionCreators } from 'redux'
+import saveAs from 'file-saver'
 
 import * as Nav from '../../ui/Nav'
 import PsychoPanel from '../../../components/ui/Psycho/PsychoPanel'
@@ -46,32 +47,9 @@ class Receipt extends React.Component {
     }
   }
 
-  // this is what you get when supporting IE...
-  makeFileDownload(content, fileName, mimeType) {
-
-    if (window.navigator && window.navigator.msSaveBlob) {
-       if (Object.prototype.toString.call(content) === '[object Blob]') {
-          window.navigator.msSaveBlob(content, fileName);
-       } else if (Object.prototype.toString.call(content) === '[object String]') {
-          var blob = new Blob([PdfUtils.base64toData(content)], { type: 'application/pdf' })
-          window.navigator.msSaveBlob(blob, fileName);
-       }
-       return
-    }
-
-    var downloadLink = document.createElement('a');
-    downloadLink.download = fileName;
-    downloadLink.href = typeof content === 'string'
-        ? 'data:' + mimeType + ';base64,' + content
-        : window.URL.createObjectURL(content);
-    downloadLink.onclick = function(e) { document.body.removeChild(e.target); };
-    downloadLink.style.display = 'none';
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-  }
-
   onDownloadRequest () {
-    this.makeFileDownload(this.state.base64pdf, 'kvittering.pdf', 'application/pdf')
+    var blob = new Blob([PdfUtils.base64toData(this.state.base64pdf)], { type: 'application/pdf' })
+    saveAs(blob, 'kvittering.pdf')
   }
 
   async generateReceipt () {

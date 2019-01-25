@@ -30,6 +30,7 @@
     "cross-fetch": "^3.0.0",
     "date-fns": "^2.0.0-alpha.26",
     "eslint-plugin-react": "^7.12.4",
+    "file-saver": "^2.0.0",
     "history": "^4.7.2",
     "html2pdf.js": "^0.9.1",
     "i18next": "^14.0.1",
