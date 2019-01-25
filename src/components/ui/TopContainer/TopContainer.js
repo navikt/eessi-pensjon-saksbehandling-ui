@@ -12,6 +12,7 @@ import Modal from '../Modal/Modal'
 import InternalTopHeader from '../Header/InternalTopHeader'
 import Footer from '../Footer/Footer'
 
+import * as constants from '../../../constants/constants'
 import './TopContainer.css'
 
 const mapStateToProps = (state) => {
@@ -60,7 +61,7 @@ class TopContainer extends Component {
             {this.props.children}
           </Nav.Container>
           <Modal />
-          <Footer />
+          {userRole === constants.SAKSBEHANDLER ? <Footer /> : null}
         </Drawer>
       </DragDropContext>
     </div>
