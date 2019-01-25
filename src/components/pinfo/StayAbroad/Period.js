@@ -376,25 +376,17 @@ class Period extends React.Component {
                 <Icons className='iconsvg' kind={'nav-' + period.type} />
               </div>
               <div className='pt-2 pb-2 existingPeriodDescription'>
-                <div className='col-xs-12 p-0'>
-                  <div className='col-xs-6 p-0'>
-                    <span className='bold existingPeriodType ml-2'>{t('pinfo:stayAbroad-category-' + period.type)}</span>
-                  </div>
-                  <div className='col-xs-6 p-0'>
+                    <span className='bold existingPeriodType mr-4'>{t('pinfo:stayAbroad-category-' + period.type)}</span>
                     <span className='bold existingPeriodType'>{period.country.label}</span>
-                  </div>
-                </div>
                 <br />
-                <div className='col-xs-12 p-0'>
                   <span className='existingPeriodDates'>
                     {`${t('pinfo:stayAbroad-period')}: `}
                     {`${moment(period.startDate).format('DD.MM.YYYY')} - `}
                     {period.endDate ? moment(period.endDate).format('DD.MM.YYYY') : t('ui:unknown')}
                   </span>
-                </div>
                 <br />
                 {period.attachments && !_.isEmpty(period.attachments)
-                  ? <div className='col-xs-12 p-0'>
+                  ? <div className='existingPeriodAttachmentsContainer'>
                     <span className='existingPeriodAttachments'>
                       {`${t('pinfo:stayAbroad-attachments')}: `}
                       {period.attachments.map(att => { return att.name }).join(', ')}
