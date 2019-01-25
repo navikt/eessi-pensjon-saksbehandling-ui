@@ -28,7 +28,8 @@ const mapDispatchToProps = (dispatch) => {
 class Receipt extends React.Component {
   state = {
     generatingPDF: false,
-    isReady: false
+    isReady: false,
+    base64pdf: undefined
   }
 
   componentDidMount () {
@@ -45,8 +46,32 @@ class Receipt extends React.Component {
     }
   }
 
-  async onDownloadRequest () {
-    this.downloadLink.click()
+  // this is what you get when supporting IE...
+  makeFileDownload(content, fileName, mimeType) {
+
+    if (window.navigator && window.navigator.msSaveBlob) {
+       if (Object.prototype.toString.call(content) === '[object Blob]') {
+          window.navigator.msSaveBlob(content, fileName);
+       } else if (Object.prototype.toString.call(content) === '[object String]') {
+          var blob = new Blob([PdfUtils.base64toData(content)], { type: 'application/pdf' })
+          window.navigator.msSaveBlob(blob, fileName);
+       }
+       return
+    }
+
+    var downloadLink = document.createElement('a');
+    downloadLink.download = fileName;
+    downloadLink.href = typeof content === 'string'
+        ? 'data:' + mimeType + ';base64,' + content
+        : window.URL.createObjectURL(content);
+    downloadLink.onclick = function(e) { document.body.removeChild(e.target); };
+    downloadLink.style.display = 'none';
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+  }
+
+  onDownloadRequest () {
+    this.makeFileDownload(this.state.base64pdf, 'kvittering.pdf', 'application/pdf')
   }
 
   async generateReceipt () {
@@ -60,12 +85,11 @@ class Receipt extends React.Component {
       let newPdf = await PdfUtils.createPdf({
         nodeId: 'divToPrint',
         fileName: 'kvittering.pdf'
-
       })
 
-      this.downloadLink.setAttribute('href',
-        'data:application/octet-stream;base64,' + encodeURIComponent(newPdf.content.base64)
-      )
+      this.setState({
+        base64pdf: newPdf.content.base64
+      })
 
       actions.sendReceipt(newPdf)
     } catch (e) {
@@ -106,7 +130,8 @@ class Receipt extends React.Component {
           <dt className='col-4'> {t('pinfo:person-birthplace-country')} </dt>
           <dd className='col-8'>
             {person.country ? <React.Fragment>
-              <img className='flagImg' src={'../../../../../flags/' + person.country.value + '.png'}
+              <img src={'../../../../../flags/' + person.country.value + '.png'}
+                style={{ width: 30, height: 20, marginRight: '0.7rem' }}
                 alt={person.country.label} />
               {person.country.label}
             </React.Fragment> : null}
@@ -129,7 +154,7 @@ class Receipt extends React.Component {
           <dt className='col-4'> {t('pinfo:bank-country')} </dt>
           <dd className='col-8'> {bank.bankCountry ? <React.Fragment>
             <img src={'../../../../../flags/' + bank.bankCountry.value + '.png'}
-              style={{ width: 30, height: 20, marginRight: '1rem' }}
+              style={{ width: 30, height: 20, marginRight: '0.7rem' }}
               alt={bank.bankCountry.label} />
             {bank.bankCountry.label}
           </React.Fragment> : '' }</dd>
@@ -154,11 +179,6 @@ class Receipt extends React.Component {
         <Nav.Undertittel className='m-4'>{t('pinfo:stayAbroad-comment')}</Nav.Undertittel>
         <div className='receipt-comment'>{comment}</div>
       </div>
-
-      <a className='hiddenLink' ref={item => { this.downloadLink = item }}
-        onClick={(e) => e.stopPropagation()} title={t('ui:download')}
-        href='#download'
-        download={'kvittering.pdf'}>{t('ui:download')}</a>
       <Nav.Knapp
         id='pinfo-receipt-generate-button'
         className='generateButton m-4'
