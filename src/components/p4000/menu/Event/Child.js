@@ -161,7 +161,7 @@ class Child extends Component {
         </div>
         <Nav.Row className='eventDescription mb-4 fieldset'>
           <Nav.Column>
-            <Nav.Ikon className='float-left mr-4' kind='info-sirkel' />
+            <Nav.Ikon className='float-left mr-4' kind='info-sirkel-fyll' />
             <Nav.Tekstomrade>{t('p4000:' + type + '-description')}</Nav.Tekstomrade>
           </Nav.Column>
         </Nav.Row>

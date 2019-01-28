@@ -16,6 +16,7 @@ import StayAbroad from '../../components/pinfo/StayAbroad/StayAbroad'
 import Receipt from '../../components/pinfo/Receipt/Receipt'
 import Confirm from '../../components/pinfo/Confirm'
 import WaitingPanel from '../../components/app/WaitingPanel'
+import AdvarselTrekant from '../../resources/images/AdvarselTrekant'
 
 import * as stepTests from '../../components/pinfo/Validation/stepTests'
 import * as globalTests from '../../components/pinfo/Validation/globalTests'
@@ -317,7 +318,7 @@ class PInfo extends React.Component {
             }))}
           />
           {stepIndicatorError ? <div className='w-100 text-center mb-2'>
-            <Nav.Ikon size={16} kind='advarsel-trekant' />
+            <AdvarselTrekant size={16} />
             <span className='ml-2'>{t(stepIndicatorError, { maxStep: (maxStep + 1) })}</span>
           </div> : null}
         </React.Fragment> : null}

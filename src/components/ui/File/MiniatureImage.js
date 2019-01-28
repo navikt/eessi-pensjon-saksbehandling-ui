@@ -3,8 +3,8 @@ import PT from 'prop-types'
 import { withNamespaces } from 'react-i18next'
 import classNames from 'classnames'
 
-import { Ikon } from '../Nav'
 import Icons from '../Icons'
+import Trashcan from '../../../resources/images/Trashcan'
 
 import './File.css'
 import './MiniatureImage.css'
@@ -43,7 +43,7 @@ class MiniatureImage extends Component {
         style={{ transform: 'scale(' + scale + ')' }}>
         <div>
           { deleteLink && isHovering ? <div onClick={this.onDeleteDocument.bind(this)} className='link deleteLink'>
-            <Ikon size={15} kind='trashcan' />
+            <Trashcan size={15} />
           </div> : null}
           { downloadLink && isHovering ? <div className='link downloadLink'><a
             onClick={(e) => e.stopPropagation()} title={t('ui:download')}

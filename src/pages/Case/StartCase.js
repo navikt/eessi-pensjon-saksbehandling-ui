@@ -9,6 +9,7 @@ import Case from './Case'
 import PsychoPanel from '../../components/ui/Psycho/PsychoPanel'
 import * as Nav from '../../components/ui/Nav'
 import CountrySelect from '../../components/ui/CountrySelect/CountrySelect'
+import Tilsette from '../../resources/images/Tilsette'
 
 import * as routes from '../../constants/routes'
 import * as caseActions from '../../actions/case'
@@ -513,7 +514,7 @@ class StartCase extends Component {
           <Nav.Knapp className='w-100 createInstitutionButton'
             disabled={!validInstitution}
             onClick={this.onCreateInstitutionButtonClick.bind(this)}>
-            {validInstitution ? <Nav.Ikon size={20} className='mr-2' kind='tilsette' /> : null}
+            {validInstitution ? <Tilsette size={20} className='mr-2' /> : null}
             {t('ui:add')}
           </Nav.Knapp>
         </div>

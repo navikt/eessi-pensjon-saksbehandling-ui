@@ -5,6 +5,7 @@ import PT from 'prop-types'
 import { withNamespaces } from 'react-i18next'
 import classNames from 'classnames'
 
+import AdvarselTrekant from '../../../resources/images/AdvarselTrekant'
 import Icons from '../Icons'
 import * as Nav from '../Nav'
 
@@ -73,7 +74,7 @@ class InternalTopHeader extends Component {
                   <option value='logout'>{t('logout')}</option>
                 </Nav.Select>
                 : <React.Fragment>
-                  <Nav.Ikon size={16} kind='advarsel-trekant' />
+                  <AdvarselTrekant size={16} />
                   <span className='username-span'>{t('unknown')}</span>
                 </React.Fragment>
             }

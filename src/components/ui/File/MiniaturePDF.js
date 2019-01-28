@@ -4,7 +4,8 @@ import { Document, Page } from 'react-pdf'
 import { withNamespaces } from 'react-i18next'
 import classNames from 'classnames'
 
-import { Ikon } from '../Nav'
+import Vedlegg from '../../../resources/images/Vedlegg'
+import Trashcan from '../../../resources/images/Trashcan'
 import Icons from '../Icons'
 
 import './File.css'
@@ -149,10 +150,10 @@ class MiniaturePDF extends Component {
             <Icons style={{ cursor: 'pointer' }} size='1x' kind='view' />
           </div> : null}
           { deleteLink && isHovering ? <div onClick={this.onDeleteDocument.bind(this)} className='link deleteLink'>
-            <Ikon size={15} kind='trashcan' />
+            <Trashcan size={15} />
           </div> : null}
           { addLink && isHovering ? <div onClick={this.onAddFile.bind(this)} className='link addLink'>
-            <Ikon size={20} kind='vedlegg' />
+            <Vedlegg size={20}/>
           </div> : null}
           { downloadLink && isHovering ? <div className='link downloadLink'><a
             onClick={(e) => e.stopPropagation()} title={t('ui:download')}
