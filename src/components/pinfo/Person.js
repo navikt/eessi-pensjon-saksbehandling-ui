@@ -125,7 +125,7 @@ class Person extends React.Component {
                 </Nav.HjelpetekstBase>
               </div>
               <div id='pinfo-opphold-farsnavn-label'>
-                <label className='skjemaelement__label'>{t('pinfo:person-period-fathername')}</label>
+                <label className='skjemaelement__label'>{t('pinfo:stayAbroad-period-fathername')}</label>
                 <p>{person.fatherName}</p>
               </div>
             </div>
@@ -138,7 +138,7 @@ class Person extends React.Component {
                 </Nav.HjelpetekstBase>
               </div>
               <div id='pinfo-opphold-morsnavn-label'>
-                <label className='skjemaelement__label'>{t('pinfo:person-period-mothername')}</label>
+                <label className='skjemaelement__label'>{t('pinfo:stayAbroad-period-mothername')}</label>
                 <p>{person.motherName}</p>
               </div>
             </div>
