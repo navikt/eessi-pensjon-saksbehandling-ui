@@ -25,6 +25,7 @@
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.2.1",
     "browser-cookies": "^1.2.0",
+    "bytes": "^3.1.0",
     "classnames": "^2.2.6",
     "core-js": "^2.6.3",
     "cross-fetch": "^3.0.0",

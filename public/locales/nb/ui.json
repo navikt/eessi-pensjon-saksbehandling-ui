@@ -73,6 +73,7 @@
     "endDate" : "Sluttdato",
     "export" : "Eksport",
     "file" : "Fil",
+    "fileIsTooBigLimitIs" : "filen {{file}} ({{size}}) er for stor, grensen er {{maxSize}}",
     "files" : "Filer",
     "filename" : "Filnavn",
     "fileSelect" : "Filvalg",

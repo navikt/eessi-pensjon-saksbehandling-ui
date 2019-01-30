@@ -8,6 +8,7 @@ import classNames from 'classnames'
 import { Droppable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import bytes from 'bytes'
 
 import * as uiActions from '../../../actions/ui'
 import File from '../File/File'
@@ -116,6 +117,20 @@ class FileUpload extends Component {
       }
     }
 
+    onDropRejected(rejectedFiles) {
+
+      const { t, maxSize } = this.props
+
+      if (maxSize && rejectedFiles[0].size > maxSize)
+      this.setState({
+        status: t('ui:fileIsTooBigLimitIs', {
+          maxSize: bytes(maxSize),
+          size: bytes(rejectedFiles[0].size),
+          file: rejectedFiles[0].name
+        })
+      })
+    }
+
     processFiles (acceptedFiles, rejectedFiles) {
       const { t } = this.props
 
@@ -219,7 +234,7 @@ class FileUpload extends Component {
     }
 
     render () {
-      const { t, accept, className, fileUploadDroppableId } = this.props
+      const { t, accept, maxSize, className, fileUploadDroppableId } = this.props
       const { files, currentPages, status } = this.state
       const tabIndex = this.props.tabIndex ? { tabIndex: this.props.tabIndex } : {}
 
@@ -233,6 +248,8 @@ class FileUpload extends Component {
                 activeClassName='dropzone-active'
                 accept={accept}
                 onDrop={this.onDrop.bind(this)}
+                maxSize={maxSize}
+                onDropRejected={this.onDropRejected.bind(this)}
                 inputProps={{ ...this.props.inputProps }}
                 {...tabIndex}>
                 {({ getRootProps, getInputProps }) => <div
