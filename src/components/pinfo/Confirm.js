@@ -10,23 +10,22 @@ import * as Nav from '../ui/Nav'
 
 class Confirm extends React.Component {
   render () {
-    const { t, pageErrors, errorTimestamp } = this.props
+    const { t } = this.props
 
     return <React.Fragment>
       <PsychoPanel id='pinfo-confirm-psycho-panel' className='mb-4' closeButton>
         <span>{t('pinfo:confirm-psycho-description')}</span>
       </PsychoPanel>
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:confirm-title')}</Nav.Undertittel>
-      <Person pageErrors={pageErrors} errorTimestamp={errorTimestamp} mode='view' />
-      <Bank pageErrors={pageErrors} errorTimestamp={errorTimestamp} mode='view' />
-      <StayAbroad pageErrors={pageErrors} errorTimestamp={errorTimestamp} mode='view' />
+      <Person mode='view' />
+      <Bank mode='view' />
+      <StayAbroad mode='view' />
     </React.Fragment>
   }
 }
 
 Confirm.propTypes = {
-  pageErrors: PT.object,
-  errorTimestamp: PT.number
+  t: PT.func.isRequired
 }
 
 export default withNamespaces()(Confirm)

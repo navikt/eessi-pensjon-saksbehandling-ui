@@ -14,7 +14,9 @@ import * as pinfoActions from '../../actions/pinfo'
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
-    person: state.pinfo.person
+    person: state.pinfo.person,
+    pageErrors: state.pinfo.pageErrors,
+    errorTimestamp : state.pinfo.errorTimestamp
   }
 }
 const mapDispatchToProps = (dispatch) => {

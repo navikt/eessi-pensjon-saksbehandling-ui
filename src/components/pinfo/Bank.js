@@ -14,9 +14,12 @@ import { bankValidation } from './Validation/singleTests'
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
-    bank: state.pinfo.bank
+    bank: state.pinfo.bank,
+    pageErrors: state.pinfo.pageErrors,
+    errorTimestamp : state.pinfo.errorTimestamp
   }
 }
+
 const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, pinfoActions), dispatch) }
 }

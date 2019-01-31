@@ -37,7 +37,7 @@ let country = function (country) {
 }
 
 let place = function (place) {
-  return mandatory(place, 'pinfo:validation-noPlave')
+  return mandatory(place, 'pinfo:validation-noPlace')
 }
 
 let region = function (region) {

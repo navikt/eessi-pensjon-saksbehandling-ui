@@ -28,7 +28,8 @@ const mapStateToProps = (state) => {
     pinfo: state.pinfo,
     person: state.pinfo.person,
     username: state.app.username,
-    dirtyForm: state.app.dirtyForm
+    dirtyForm: state.app.dirtyForm,
+    pageErrors: state.pinfo.pageErrors
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -44,7 +45,7 @@ class Period extends React.Component {
 
   constructor (props) {
     super(props)
-    this.setType = this.eventSetProperty.bind(this, 'type', periodValidation.periodType)
+    this.setType = this.eventSetType.bind(this, periodValidation.periodType)
     this.setStartDate = this.dateSetProperty.bind(this, 'startDate', periodValidation.periodStartDate)
     this.setEndDate = this.dateSetProperty.bind(this, 'endDate', periodValidation.periodEndDate)
     this.setCountry = this.valueSetProperty.bind(this, 'country', periodValidation.periodCountry)
@@ -84,6 +85,19 @@ class Period extends React.Component {
 
   isASpecialCase (period) {
     return period.country && (period.country.value === 'ES' || period.country.value === 'FR')
+  }
+
+  eventSetType(validateFunction, e) {
+
+    const { actions, pageErrors } = this.props
+
+    // clean up the onePeriod error message, as the user is trying to fix it
+    if (pageErrors.onePeriod) {
+        let _pageErrors = _.cloneDeep(pageErrors)
+        delete _pageErrors.onePeriod
+        actions.setPageErrors(_pageErrors)
+    }
+    this.eventSetProperty('type', periodValidation.periodType, e)
   }
 
   eventSetPerson (key, validateFunction, e) {

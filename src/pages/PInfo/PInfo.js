@@ -34,17 +34,18 @@ import './PInfo.css'
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
+    isSendingPinfo: state.loading.isSendingPinfo,
     pinfo: state.pinfo,
     step: state.pinfo.step,
     maxStep: state.pinfo.maxStep,
     send: state.pinfo.send,
     isReady: state.pinfo.isReady,
-    isSendingPinfo: state.loading.isSendingPinfo,
+    buttonsVisible: state.pinfo.buttonsVisible,
+    pageErrors : state.pinfo.pageErrors,
     fileList: state.storage.fileList,
     file: state.storage.file,
     username: state.app.username,
-    dirtyForm: state.app.dirtyForm,
-    buttonsVisible: state.pinfo.buttonsVisible
+    dirtyForm: state.app.dirtyForm
   }
 }
 
@@ -56,7 +57,6 @@ class PInfo extends React.Component {
   state = {
     doPageValidationOnForwardButton: true,
     doPageValidationOnStepIndicator: true,
-    pageErrors: {},
     fileList: undefined,
     file: undefined,
     stepIndicatorError: undefined
@@ -140,10 +140,7 @@ class PInfo extends React.Component {
     let errors = {}
     if (this.state.doPageValidationOnForwardButton) {
       errors = this.validatePage(step)
-      this.setState({
-        pageErrors: errors,
-        errorTimestamp: new Date().getTime()
-      })
+      actions.setPageErrors(errors)
     }
 
     if (this.hasNoErrors(errors)) {
@@ -191,10 +188,7 @@ class PInfo extends React.Component {
     let errors = {}
     if (newStep > step && this.state.doPageValidationOnStepIndicator) {
       errors = this.validatePage(step)
-      return this.setState({
-        pageErrors: errors,
-        errorTimestamp: new Date().getTime()
-      })
+      actions.setPageErrors(errors)
     }
 
     if (this.hasNoErrors(errors)) {
@@ -206,10 +200,8 @@ class PInfo extends React.Component {
   onBackButtonClick () {
     const { actions, history, step } = this.props
 
-    this.setState({
-      pageErrors: {},
-      errorTimestamp: new Date().getTime()
-    })
+    actions.setPageErrors({})
+
     if (step === 0) {
       history.push({
         pathname: routes.ROOT,
@@ -264,10 +256,7 @@ class PInfo extends React.Component {
     let errors = {}
     if (this.state.doPageValidationOnForwardButton) {
       errors = this.validatePage(step)
-      this.setState({
-        pageErrors: errors,
-        errorTimestamp: new Date().getTime()
-      })
+      actions.setPageErrors(errors)
     }
     if (this.hasNoErrors(errors)) {
       let payload = PInfoUtil.generatePayload(pinfo)
@@ -276,7 +265,7 @@ class PInfo extends React.Component {
   }
 
   errorMessage () {
-    const { pageErrors } = this.state
+    const { pageErrors } = this.props
     for (var key in pageErrors) {
       if (pageErrors[key]) {
         return pageErrors[key]
@@ -287,7 +276,7 @@ class PInfo extends React.Component {
 
   render () {
     const { t, history, location, step, maxStep, isSendingPinfo, isReady, buttonsVisible } = this.props
-    const { pageErrors, errorTimestamp, stepIndicatorError } = this.state
+    const { stepIndicatorError } = this.state
 
     let errorMessage = this.errorMessage()
 
@@ -326,11 +315,11 @@ class PInfo extends React.Component {
         <div className='col-md-2' />
         <div className={classNames('fieldset animate', 'mb-4', 'col-md-8')}>
           {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
-          {step === 0 ? <Person pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
-          {step === 1 ? <Bank pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
-          {step === 2 ? <StayAbroad pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
-          {step === 3 ? <Confirm pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
-          {step === 4 ? <Receipt pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
+          {step === 0 ? <Person/> : null}
+          {step === 1 ? <Bank/> : null}
+          {step === 2 ? <StayAbroad/> : null}
+          {step === 3 ? <Confirm/> : null}
+          {step === 4 ? <Receipt/> : null}
         </div>
         <div className='col-md-2' />
       </Nav.Row>

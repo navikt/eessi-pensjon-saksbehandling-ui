@@ -17,6 +17,7 @@ const mapStateToProps = (state) => {
     comment: state.pinfo.comment
   }
 }
+
 const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, pinfoActions), dispatch) }
 }
