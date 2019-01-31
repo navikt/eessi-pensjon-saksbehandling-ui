@@ -242,7 +242,7 @@ class FileUpload extends Component {
         <Droppable droppableId={fileUploadDroppableId} direction='horizontal'>
 
           {(provided, snapshot) => (
-            <div className={classNames('dropzone', 'p-2', className)}>
+            <div className={classNames('dropzone', 'p-4', className)}>
               <Dropzone
                 length={this.state.files.length}
                 activeClassName='dropzone-active'
