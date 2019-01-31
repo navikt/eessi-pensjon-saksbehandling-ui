@@ -387,7 +387,7 @@ class Period extends React.Component {
               <div className='icon mr-4'>
                 <div className={classNames('topHalf', { line: !first })} />
                 <div className={classNames('bottomHalf', { line: !last })} />
-                <Icons className='iconsvg' kind={'nav-' + period.type} />
+                <Icons className='iconsvg' kind={'nav-' + period.type} type='png'/>
               </div>
               <div className='pt-2 pb-2 existingPeriodDescription'>
                 <span className='bold existingPeriodType mr-4'>{t('pinfo:stayAbroad-category-' + period.type)}</span>

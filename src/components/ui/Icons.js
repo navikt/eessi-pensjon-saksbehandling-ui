@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
+import canvg from 'canvg'
 
 import * as bookmark from '../../resources/images/line-version-bookmark-article.svg'
 import * as home from '../../resources/images/line-version-home-3.svg'
@@ -18,6 +19,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as icons from '@fortawesome/free-solid-svg-icons'
 
 class Icons extends Component {
+
+  constructor() {
+    super()
+    this.canvas = document.getElementById('canvas')
+  }
+
+  generateImage(src) {
+
+    const { kind, type } = this.props
+
+    if (type === 'png') {
+       canvg('canvas', src)
+       return <img className='logo' src={this.canvas.toDataURL('image/png')} alt={kind} />
+    }
+    return <img className='logo' src={src} alt={kind} />
+  }
+
   render () {
     const { kind } = this.props
 
@@ -33,18 +51,18 @@ class Icons extends Component {
       case 'sick' : return <FontAwesomeIcon icon={icons.faHSquare} {...this.props} />
       case 'other' : return <FontAwesomeIcon icon={icons.faCalendar} {...this.props} />
 
-      case 'nav-work' : return <div {...this.props}><img className='logo' src={handbag} alt={kind} /></div>
-      case 'nav-home' : return <div {...this.props}><img className='logo' src={home} alt={kind} /></div>
-      case 'nav-child' : return <div {...this.props}><img className='logo' src={heart} alt={kind} /></div>
-      case 'nav-voluntary' : return <div {...this.props}><img className='logo' src={ecoglobe} alt={kind} /></div>
-      case 'nav-military' : return <div {...this.props}><img className='logo' src={rankarmy} alt={kind} /></div>
-      case 'nav-birth' : return <div {...this.props}><img className='logo' src={birthdaycake} alt={kind} /></div>
-      case 'nav-learn' : return <div {...this.props}><img className='logo' src={bookmark} alt={kind} /></div>
-      case 'nav-daily' : return <div {...this.props}><img className='logo' src={piggybank} alt={kind} /></div>
-      case 'nav-sick' : return <div {...this.props}><img className='logo' src={stethoscope} alt={kind} /></div>
-      case 'nav-other' : return <div {...this.props}><img className='logo' src={helpcircle} alt={kind} /></div>
-      case 'nav-close' : return <div {...this.props}><img className='logo' src={removecircle} alt={kind} /></div>
-      case 'nav-message-sent' : return <div {...this.props}><img className='logo' src={messagesent} alt={kind} /></div>
+      case 'nav-work' : return <div {...this.props}>{this.generateImage(handbag)}</div>
+      case 'nav-home' : return <div {...this.props}>{this.generateImage(home)}</div>
+      case 'nav-child' : return <div {...this.props}>{this.generateImage(heart)}</div>
+      case 'nav-voluntary' : return <div {...this.props}>{this.generateImage(ecoglobe)}</div>
+      case 'nav-military' : return <div {...this.props}>{this.generateImage(rankarmy)}</div>
+      case 'nav-birth' : return <div {...this.props}>{this.generateImage(birthdaycake)}</div>
+      case 'nav-learn' : return <div {...this.props}>{this.generateImage(bookmark)}</div>
+      case 'nav-daily' : return <div {...this.props}>{this.generateImage(piggybank)}</div>
+      case 'nav-sick' : return <div {...this.props}>{this.generateImage(stethoscope)}</div>
+      case 'nav-other' : return <div {...this.props}>{this.generateImage(helpcircle)}</div>
+      case 'nav-close' : return <div {...this.props}>{this.generateImage(removecircle)}></div>
+      case 'nav-message-sent' : return <div {...this.props}>{this.generateImage(messagesent)}</div>
       case 'document' : return <FontAwesomeIcon icon={icons.faFile} {...this.props} />
       case 'view' : return <FontAwesomeIcon icon={icons.faEye} {...this.props} />
       case 'calendar' : return <FontAwesomeIcon icon={icons.faCalendarCheck} {...this.props} />
