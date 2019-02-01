@@ -24,18 +24,14 @@ export function logout () {
 }
 
 export function getUserInfo () {
-  return {
-    type: types.APP_USERINFO_SUCCESS,
-    payload: { 'subject': 'Z990166', 'allowed': true, 'role': 'BRUKER' }
-  }
-  /* return api.call({
+  return api.call({
     url: urls.APP_GET_USERINFO_URL,
     type: {
       request: types.APP_USERINFO_REQUEST,
       success: types.APP_USERINFO_SUCCESS,
       failure: types.APP_USERINFO_FAILURE
     }
-  })*/
+  })
 }
 
 export function clearData () {
