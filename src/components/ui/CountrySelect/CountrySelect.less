@@ -11,9 +11,28 @@
        background: aliceblue;
     }
   }
+
+  .CountrySelect__control {
+    border: 1px solid @form-dark-gray;
+  }
+
+  .CountrySelect__indicator-separator {
+    background-color: @form-dark-gray;
+  }
+}
+
+.c-ui-countrySelect.skjemaelement__feilmelding {
+  .CountrySelect__control {
+    border: 1px solid #BA3A26;
+  }
 }
 
 .highContrast .c-ui-countrySelect {
+
+  .CountrySelect__control {
+     border-width: 2px;
+     border-color: @white;
+  }
 
   .CountrySelect__control {
     background: black !important;
@@ -33,6 +52,14 @@
        color: @black !important;
        font-weight: bold;
     }
+  }
+}
+
+
+.highContrast .c-ui-countrySelect.skjemaelement__feilmelding {
+  .CountrySelect__control {
+     border-width: 2px;
+     border-color: #BA3A26;
   }
 }
 

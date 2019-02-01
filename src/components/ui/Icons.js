@@ -61,7 +61,7 @@ class Icons extends Component {
       case 'nav-daily' : return <div {...this.props}>{this.generateImage(piggybank)}</div>
       case 'nav-sick' : return <div {...this.props}>{this.generateImage(stethoscope)}</div>
       case 'nav-other' : return <div {...this.props}>{this.generateImage(helpcircle)}</div>
-      case 'nav-close' : return <div {...this.props}>{this.generateImage(removecircle)}></div>
+      case 'nav-close' : return <div {...this.props}>{this.generateImage(removecircle)}</div>
       case 'nav-message-sent' : return <div {...this.props}>{this.generateImage(messagesent)}</div>
       case 'document' : return <FontAwesomeIcon icon={icons.faFile} {...this.props} />
       case 'view' : return <FontAwesomeIcon icon={icons.faEye} {...this.props} />

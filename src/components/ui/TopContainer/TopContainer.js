@@ -8,6 +8,7 @@ import * as Nav from '../Nav'
 import ClientAlert from '../Alert/ClientAlert'
 import ServerAlert from '../Alert/ServerAlert'
 import Drawer from '../Drawer/Drawer'
+import Banner from '../Banner/Banner'
 import Modal from '../Modal/Modal'
 import InternalTopHeader from '../Header/InternalTopHeader'
 import Footer from '../Footer/Footer'
@@ -50,13 +51,9 @@ class TopContainer extends Component {
               ? null
               : <InternalTopHeader history={history} />
           }
-          {header ? <div className='banner'>
-            <h1 className='typo-undertittel m-0 pt-4 pb-4 text-center appTitle'>{header}</h1>
-          </div> : null}
-
+          {header ? <Banner header={header}/> : null}
           <ClientAlert />
           <ServerAlert />
-
           <Nav.Container className={classNames('_container')}>
             {this.props.children}
           </Nav.Container>
