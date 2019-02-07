@@ -356,6 +356,18 @@ export default function (state = initialState, action = {}) {
         isLoggingOut: false
       })
 
+    case types.PINFO_RECEIPT_SUCCESS:
+    case types.PINFO_RECEIPT_FAILURE:
+      return Object.assign({}, state, {
+        isGeneratingReceipt: false
+      })
+
+    case types.PINFO_RECEIPT_REQUEST:
+
+      return Object.assign({}, state, {
+        isGeneratingReceipt: true
+      })
+
     case types.PINFO_SEND_SUCCESS:
     case types.PINFO_SEND_FAILURE:
       return Object.assign({}, state, {
@@ -378,6 +390,7 @@ export default function (state = initialState, action = {}) {
       return Object.assign({}, state, {
         isInvitingPinfo: true
       })
+
 
     default:
 

@@ -88,11 +88,10 @@ export function sendInvite (params) {
   })
 }
 
-export function sendReceipt (payload) {
+export function generateReceipt () {
   return api.call({
     url: urls.PINFO_RECEIPT_URL,
-    method: 'POST',
-    payload: payload,
+    method: 'GET',
     type: {
       request: types.PINFO_RECEIPT_REQUEST,
       success: types.PINFO_RECEIPT_SUCCESS,

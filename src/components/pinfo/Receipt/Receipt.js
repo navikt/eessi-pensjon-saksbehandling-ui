@@ -18,7 +18,8 @@ const mapStateToProps = (state) => {
     locale: state.ui.locale,
     pinfo: state.pinfo,
     receipt: state.pinfo.receipt,
-    username: state.app.username
+    username: state.app.username,
+    isGeneratingReceipt : state.loading.isGeneratingReceipt
   }
 }
 
@@ -27,61 +28,43 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class Receipt extends React.Component {
-  state = {
-    generatingPDF: false,
-    isReady: false,
-    base64pdf: undefined
-  }
 
-  componentDidMount () {
-    this.generateReceipt()
+  state = {
+    downloaded: false
   }
 
   componentDidUpdate () {
     const { receipt } = this.props
-    const { isReady } = this.state
-    if (receipt && !isReady) {
+    const { downloaded } = this.state
+    if (receipt && !downloaded) {
       this.setState({
-        isReady: true
+        downloaded: true
       })
+      this.onDownloadRequest()
     }
+  }
+
+  generateReceiptRequest() {
+     const { actions, receipt } = this.props
+     const { downloaded } = this.state
+
+     if (downloaded && receipt) {
+        this.onDownloadRequest()
+     } else {
+        actions.generateReceipt()
+     }
   }
 
   onDownloadRequest () {
-    var blob = new Blob([PdfUtils.base64toData(this.state.base64pdf)], { type: 'application/pdf' })
-    saveAs(blob, 'kvittering.pdf')
-  }
-
-  async generateReceipt () {
-    const { actions } = this.props
-
-    this.setState({
-      generatingPDF: true
-    })
-
-    try {
-      let newPdf = await PdfUtils.createPdf({
-        nodeId: 'divToPrint',
-        fileName: 'kvittering.pdf'
-      })
-
-      this.setState({
-        base64pdf: newPdf.content.base64
-      })
-
-      actions.sendReceipt(newPdf)
-    } catch (e) {
-      console.log('Failure to generate PDF', e)
-    }
-    this.setState({
-      generatingPDF: false
-    })
+    const { receipt } = this.props
+    var blob = new Blob([PdfUtils.base64toData(receipt.content.base64)], { type: receipt.type })
+    saveAs(blob, receipt.name)
   }
 
   render () {
-    const { t, locale, username } = this.props
+    const { t, locale, username, isGeneratingReceipt } = this.props
     const { stayAbroad, person, bank, comment } = this.props.pinfo
-    const { generatingPDF, isReady } = this.state
+    const { isReady } = this.state
 
     return <div className='c-pinfo-receipt'>
       <PsychoPanel closeButton>
@@ -160,10 +143,10 @@ class Receipt extends React.Component {
       <Nav.Knapp
         id='pinfo-receipt-generate-button'
         className='generateButton m-4'
-        disabled={generatingPDF || !isReady}
-        spinner={generatingPDF || !isReady}
-        onClick={this.onDownloadRequest.bind(this)}>
-        {generatingPDF || !isReady ? t('ui:generating') : t('ui:getReceipt')}
+        disabled={isGeneratingReceipt}
+        spinner={isGeneratingReceipt}
+        onClick={this.generateReceiptRequest.bind(this)}>
+        {isGeneratingReceipt ? t('ui:generating') : t('ui:getReceipt')}
       </Nav.Knapp>
     </div>
   }
