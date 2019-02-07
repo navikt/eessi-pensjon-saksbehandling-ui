@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import Export from '../../components/ui/Export/Export'
 import RenderPrintData from '../../components/case/RenderPrintData'
 
@@ -122,5 +122,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(SaveCase)
+  withTranslation()(SaveCase)
 )

@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import { bindActionCreators } from 'redux'
 import classNames from 'classnames'
 import print from 'print-js'
@@ -327,6 +327,6 @@ export default connect(
   mapDispatchToProps
 )(
   withRouter(
-    withNamespaces()(Export)
+    withTranslation()(Export)
   )
 )

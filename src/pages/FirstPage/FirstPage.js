@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import 'url-search-params-polyfill'
 
 import Psycho from '../../components/ui/Psycho/Psycho'
@@ -116,5 +116,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(FirstPage)
+  withTranslation()(FirstPage)
 )

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import 'url-search-params-polyfill'
 
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
@@ -106,5 +106,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(IndexPage)
+  withTranslation()(IndexPage)
 )

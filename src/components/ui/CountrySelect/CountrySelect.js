@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import { countries } from './CountrySelectData'
 import _ from 'lodash'
 import classNames from 'classnames'
@@ -93,4 +93,4 @@ CountrySelect.propTypes = {
   components: PT.object
 }
 
-export default withNamespaces()(CountrySelect)
+export default withTranslation()(CountrySelect)

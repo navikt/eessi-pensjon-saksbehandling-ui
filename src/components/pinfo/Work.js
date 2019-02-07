@@ -5,7 +5,7 @@ import ReactDatePicker from 'react-datepicker'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import CountrySelect from '../ui/CountrySelect/CountrySelect'
 import * as pinfoActions from '../../actions/pinfo'
 import * as Nav from '../ui/Nav'
@@ -215,7 +215,7 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(Work)
+  withTranslation()(Work)
 )
 
 Work.propTypes = {

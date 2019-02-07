@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -34,5 +34,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-withNamespaces()(Banner)
+withTranslation()(Banner)
 )

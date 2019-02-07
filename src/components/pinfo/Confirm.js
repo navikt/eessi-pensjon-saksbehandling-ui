@@ -1,6 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 import Person from './Person'
 import Bank from './Bank'
@@ -28,4 +28,4 @@ Confirm.propTypes = {
   t: PT.func.isRequired
 }
 
-export default withNamespaces()(Confirm)
+export default withTranslation()(Confirm)

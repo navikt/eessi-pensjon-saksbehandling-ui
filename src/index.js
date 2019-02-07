@@ -3,7 +3,7 @@ import 'core-js/es6/map' // IE 11 compatibility
 import 'core-js/es6/set' // IE 11 compatibility
 import 'es6-promise/auto' // IE 11 compatibility
 
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import createBrowserHistory from 'history/createBrowserHistory'
 import { Switch, Redirect, Route, Router } from 'react-router'
@@ -22,6 +22,7 @@ import { unregister } from './registerServiceWorker'
 import * as Pages from './pages'
 import AuthenticatedRoute from './components/app/AuthenticatedRoute'
 import * as constants from './constants/constants'
+import WaitingPanel from './components/app/WaitingPanel'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
@@ -54,8 +55,10 @@ const initialState = { ui: {
 const store = createStoreWithMiddleware(reducer, initialState)
 
 ReactDOM.render(
+
   <I18nextProvider i18n={i18n}>
     <Provider store={store}>
+      <Suspense fallback={<WaitingPanel/>}>
       <Router history={history}>
         <Switch>
           <AuthenticatedRoute exact path={routes.PSELV} component={Pages.PSelv} roles={[constants.SAKSBEHANDLER]} />
@@ -83,6 +86,7 @@ ReactDOM.render(
           <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
         </Switch>
       </Router>
+      </Suspense>
     </Provider>
   </I18nextProvider>,
   document.getElementById('root')

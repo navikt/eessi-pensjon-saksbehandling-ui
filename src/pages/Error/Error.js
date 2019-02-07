@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
@@ -57,4 +57,4 @@ Error.propTypes = {
   type: PT.string.isRequired
 }
 
-export default withNamespaces()(Error)
+export default withTranslation()(Error)

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import Icons from '../Icons'
@@ -69,4 +69,4 @@ MiniatureImage.propTypes = {
   scale: PT.number.isRequired
 }
 
-export default withNamespaces()(MiniatureImage)
+export default withTranslation()(MiniatureImage)

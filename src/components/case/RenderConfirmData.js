@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 import './RenderData.css'
 
@@ -44,4 +44,4 @@ RenderConfirmData.propTypes = {
   t: PT.func.isRequired
 }
 
-export default withNamespaces()(RenderConfirmData)
+export default withTranslation()(RenderConfirmData)

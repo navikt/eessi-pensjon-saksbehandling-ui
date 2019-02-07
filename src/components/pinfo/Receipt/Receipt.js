@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import { bindActionCreators } from 'redux'
 import saveAs from 'file-saver'
 
@@ -156,5 +156,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(Receipt)
+  withTranslation()(Receipt)
 )

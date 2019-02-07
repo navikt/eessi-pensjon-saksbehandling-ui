@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import _ from 'lodash'
 
 import * as Nav from '../../components/ui/Nav'
@@ -107,5 +107,5 @@ StepIndicator.propTypes = {
 export default connect(
   mapStateToProps
 )(
-  withNamespaces()(StepIndicator)
+  withTranslation()(StepIndicator)
 )

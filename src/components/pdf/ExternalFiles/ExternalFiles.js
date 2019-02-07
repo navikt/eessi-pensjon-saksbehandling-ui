@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PT from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import * as Nav from '../../ui/Nav'
@@ -62,5 +62,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(ExternalFiles)
+  withTranslation()(ExternalFiles)
 )

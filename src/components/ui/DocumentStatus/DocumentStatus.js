@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 import Icons from '../Icons'
 import * as Nav from '../Nav'
@@ -302,5 +302,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(DocumentStatus)
+  withTranslation()(DocumentStatus)
 )

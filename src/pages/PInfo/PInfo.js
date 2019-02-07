@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import _ from 'lodash'
 
@@ -284,7 +284,7 @@ class PInfo extends React.Component {
       return <TopContainer className='p-pInfo'
         history={history} location={location}
         header={t('pinfo:app-title')}>
-        <WaitingPanel className='mt-5' message='loading' />
+        <WaitingPanel className='mt-5' message={t('loading')} />
       </TopContainer>
     }
 
@@ -378,5 +378,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(PInfo)
+  withTranslation()(PInfo)
 )
