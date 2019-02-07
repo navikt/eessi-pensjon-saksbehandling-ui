@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import Icons from '../../../ui/Icons'
@@ -71,4 +71,4 @@ EventsRender.propTypes = {
   blackAndWhite: PT.bool.isRequired
 }
 
-export default withNamespaces()(EventsRender)
+export default withTranslation()(EventsRender)

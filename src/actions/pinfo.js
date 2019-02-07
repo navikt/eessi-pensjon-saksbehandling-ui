@@ -52,7 +52,7 @@ export function setMainButtonsVisibility (value) {
   }
 }
 
-export function setPageErrors(pageErrors) {
+export function setPageErrors (pageErrors) {
   return {
     type: types.PINFO_PAGE_ERRORS_SET,
     payload: {

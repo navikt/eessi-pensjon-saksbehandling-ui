@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 import Case from './Case'
 import PsychoPanel from '../../components/ui/Psycho/PsychoPanel'
@@ -659,5 +659,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(StartCase)
+  withTranslation()(StartCase)
 )

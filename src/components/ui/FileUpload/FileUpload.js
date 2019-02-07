@@ -117,18 +117,18 @@ class FileUpload extends Component {
       }
     }
 
-    onDropRejected(rejectedFiles) {
-
+    onDropRejected (rejectedFiles) {
       const { t, maxSize } = this.props
 
-      if (maxSize && rejectedFiles[0].size > maxSize)
-      this.setState({
-        status: t('ui:fileIsTooBigLimitIs', {
-          maxSize: bytes(maxSize),
-          size: bytes(rejectedFiles[0].size),
-          file: rejectedFiles[0].name
+      if (maxSize && rejectedFiles[0].size > maxSize) {
+        this.setState({
+          status: t('ui:fileIsTooBigLimitIs', {
+            maxSize: bytes(maxSize),
+            size: bytes(rejectedFiles[0].size),
+            file: rejectedFiles[0].name
+          })
         })
-      })
+      }
     }
 
     processFiles (acceptedFiles, rejectedFiles) {

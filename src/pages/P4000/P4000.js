@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
 import EventForm from '../../components/p4000/EventForm/EventForm'
@@ -107,5 +107,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(P4000)
+  withTranslation()(P4000)
 )

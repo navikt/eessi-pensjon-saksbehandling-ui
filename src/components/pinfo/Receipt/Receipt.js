@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import { bindActionCreators } from 'redux'
 import saveAs from 'file-saver'
 
@@ -19,7 +19,7 @@ const mapStateToProps = (state) => {
     pinfo: state.pinfo,
     receipt: state.pinfo.receipt,
     username: state.app.username,
-    isGeneratingReceipt : state.loading.isGeneratingReceipt
+    isGeneratingReceipt: state.loading.isGeneratingReceipt
   }
 }
 
@@ -28,7 +28,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class Receipt extends React.Component {
-
   state = {
     downloaded: false
   }
@@ -44,15 +43,15 @@ class Receipt extends React.Component {
     }
   }
 
-  generateReceiptRequest() {
-     const { actions, receipt } = this.props
-     const { downloaded } = this.state
+  generateReceiptRequest () {
+    const { actions, receipt } = this.props
+    const { downloaded } = this.state
 
-     if (downloaded && receipt) {
-        this.onDownloadRequest()
-     } else {
-        actions.generateReceipt()
-     }
+    if (downloaded && receipt) {
+      this.onDownloadRequest()
+    } else {
+      actions.generateReceipt()
+    }
   }
 
   onDownloadRequest () {
@@ -156,5 +155,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(Receipt)
+  withTranslation()(Receipt)
 )

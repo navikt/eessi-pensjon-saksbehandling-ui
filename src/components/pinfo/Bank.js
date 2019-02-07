@@ -2,7 +2,7 @@ import React from 'react'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import _ from 'lodash'
 
 import * as Nav from '../ui/Nav'
@@ -16,7 +16,7 @@ const mapStateToProps = (state) => {
     locale: state.ui.locale,
     bank: state.pinfo.bank,
     pageErrors: state.pinfo.pageErrors,
-    errorTimestamp : state.pinfo.errorTimestamp
+    errorTimestamp: state.pinfo.errorTimestamp
   }
 }
 
@@ -186,7 +186,7 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(Bank)
+  withTranslation()(Bank)
 )
 Bank.propTypes = {
   bank: PT.object,

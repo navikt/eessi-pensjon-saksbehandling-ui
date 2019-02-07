@@ -2,7 +2,7 @@ import React from 'react'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import _ from 'lodash'
 
 import * as Nav from '../ui/Nav'
@@ -16,7 +16,7 @@ const mapStateToProps = (state) => {
     locale: state.ui.locale,
     person: state.pinfo.person,
     pageErrors: state.pinfo.pageErrors,
-    errorTimestamp : state.pinfo.errorTimestamp
+    errorTimestamp: state.pinfo.errorTimestamp
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -252,5 +252,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(Person)
+  withTranslation()(Person)
 )

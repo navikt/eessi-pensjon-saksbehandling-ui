@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { withTranslation } from 'react-i18next'
 import { Route, withRouter, Redirect } from 'react-router'
 import _ from 'lodash'
 
@@ -100,11 +101,11 @@ class AuthenticatedRoute extends Component {
   }
 
   render () {
-    const { userRole, allowed, gettingUserInfo } = this.props
+    const { t, userRole, allowed, gettingUserInfo } = this.props
     const { isReady } = this.state
 
     if (!isReady || gettingUserInfo) {
-      return <WaitingPanel message='authenticating' />
+      return <WaitingPanel message={t('authenticating')} />
     }
 
     if (!userRole) {
@@ -138,5 +139,7 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withRouter(AuthenticatedRoute)
+  withRouter(
+    withTranslation()(AuthenticatedRoute)
+  )
 )

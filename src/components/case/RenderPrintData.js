@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import _ from 'lodash'
 
 import './RenderData.css'
@@ -61,4 +61,4 @@ RenderPrintData.propTypes = {
   t: PT.func.isRequired
 }
 
-export default withNamespaces()(RenderPrintData)
+export default withTranslation()(RenderPrintData)

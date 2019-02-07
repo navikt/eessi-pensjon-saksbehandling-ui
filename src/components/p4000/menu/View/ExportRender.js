@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import EventsRender from './EventsRender'
@@ -37,4 +37,4 @@ ExportRender.propTypes = {
   blackAndWhite: PT.bool.isRequired
 }
 
-export default withNamespaces()(ExportRender)
+export default withTranslation()(ExportRender)

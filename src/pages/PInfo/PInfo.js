@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import _ from 'lodash'
 
@@ -41,7 +41,7 @@ const mapStateToProps = (state) => {
     send: state.pinfo.send,
     isReady: state.pinfo.isReady,
     buttonsVisible: state.pinfo.buttonsVisible,
-    pageErrors : state.pinfo.pageErrors,
+    pageErrors: state.pinfo.pageErrors,
     fileList: state.storage.fileList,
     file: state.storage.file,
     username: state.app.username,
@@ -284,7 +284,7 @@ class PInfo extends React.Component {
       return <TopContainer className='p-pInfo'
         history={history} location={location}
         header={t('pinfo:app-title')}>
-        <WaitingPanel className='mt-5' message='loading' />
+        <WaitingPanel className='mt-5' message={t('loading')} />
       </TopContainer>
     }
 
@@ -315,11 +315,11 @@ class PInfo extends React.Component {
         <div className='col-md-2' />
         <div className={classNames('fieldset animate', 'mb-4', 'col-md-8')}>
           {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
-          {step === 0 ? <Person/> : null}
-          {step === 1 ? <Bank/> : null}
-          {step === 2 ? <StayAbroad/> : null}
-          {step === 3 ? <Confirm/> : null}
-          {step === 4 ? <Receipt/> : null}
+          {step === 0 ? <Person /> : null}
+          {step === 1 ? <Bank /> : null}
+          {step === 2 ? <StayAbroad /> : null}
+          {step === 3 ? <Confirm /> : null}
+          {step === 4 ? <Receipt /> : null}
         </div>
         <div className='col-md-2' />
       </Nav.Row>
@@ -378,5 +378,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(PInfo)
+  withTranslation()(PInfo)
 )

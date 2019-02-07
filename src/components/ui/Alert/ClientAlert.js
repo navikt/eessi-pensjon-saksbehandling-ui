@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import { bindActionCreators } from 'redux'
 
@@ -85,5 +85,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(ClientAlert)
+  withTranslation()(ClientAlert)
 )

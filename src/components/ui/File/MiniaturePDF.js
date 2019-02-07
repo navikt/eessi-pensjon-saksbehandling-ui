@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
 import { Document, Page } from 'react-pdf'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import Vedlegg from '../../../resources/images/Vedlegg'
@@ -153,7 +153,7 @@ class MiniaturePDF extends Component {
             <Trashcan size={15} />
           </div> : null}
           { addLink && isHovering ? <div onClick={this.onAddFile.bind(this)} className='link addLink'>
-            <Vedlegg size={20}/>
+            <Vedlegg size={20} />
           </div> : null}
           { downloadLink && isHovering ? <div className='link downloadLink'><a
             onClick={(e) => e.stopPropagation()} title={t('ui:download')}
@@ -194,4 +194,4 @@ MiniaturePDF.propTypes = {
   scale: PT.number.isRequired
 }
 
-export default withNamespaces()(MiniaturePDF)
+export default withTranslation()(MiniaturePDF)

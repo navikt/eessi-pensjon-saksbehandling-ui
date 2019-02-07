@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import Trashcan from '../../../resources/images/Trashcan'
@@ -58,4 +58,4 @@ MiniatureOther.propTypes = {
   className: PT.string
 }
 
-export default withNamespaces()(MiniatureOther)
+export default withTranslation()(MiniatureOther)

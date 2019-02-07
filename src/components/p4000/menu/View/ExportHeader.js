@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import * as navLogo from '../../../../resources/images/nav-logo-red.png'
@@ -35,4 +35,4 @@ ExportHeader.propTypes = {
   blackAndWhite: PT.bool.isRequired
 }
 
-export default withNamespaces()(ExportHeader)
+export default withTranslation()(ExportHeader)

@@ -77,7 +77,7 @@ export default function (state = initialState, action = {}) {
       })
 
     case types.PINFO_PAGE_ERRORS_SET: {
-      return  Object.assign({}, state, {
+      return Object.assign({}, state, {
         pageErrors: action.payload.pageErrors,
         errorTimestamp: action.payload.errorTimestamp
       })
