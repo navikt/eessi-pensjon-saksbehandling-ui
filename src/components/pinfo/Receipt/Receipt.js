@@ -19,7 +19,7 @@ const mapStateToProps = (state) => {
     pinfo: state.pinfo,
     receipt: state.pinfo.receipt,
     username: state.app.username,
-    isGeneratingReceipt : state.loading.isGeneratingReceipt
+    isGeneratingReceipt: state.loading.isGeneratingReceipt
   }
 }
 
@@ -28,7 +28,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class Receipt extends React.Component {
-
   state = {
     downloaded: false
   }
@@ -44,15 +43,15 @@ class Receipt extends React.Component {
     }
   }
 
-  generateReceiptRequest() {
-     const { actions, receipt } = this.props
-     const { downloaded } = this.state
+  generateReceiptRequest () {
+    const { actions, receipt } = this.props
+    const { downloaded } = this.state
 
-     if (downloaded && receipt) {
-        this.onDownloadRequest()
-     } else {
-        actions.generateReceipt()
-     }
+    if (downloaded && receipt) {
+      this.onDownloadRequest()
+    } else {
+      actions.generateReceipt()
+    }
   }
 
   onDownloadRequest () {

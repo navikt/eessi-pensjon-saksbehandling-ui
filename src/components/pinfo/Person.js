@@ -16,7 +16,7 @@ const mapStateToProps = (state) => {
     locale: state.ui.locale,
     person: state.pinfo.person,
     pageErrors: state.pinfo.pageErrors,
-    errorTimestamp : state.pinfo.errorTimestamp
+    errorTimestamp: state.pinfo.errorTimestamp
   }
 }
 const mapDispatchToProps = (dispatch) => {

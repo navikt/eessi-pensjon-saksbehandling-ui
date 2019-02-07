@@ -51,7 +51,7 @@ class TopContainer extends Component {
               ? null
               : <InternalTopHeader history={history} />
           }
-          {header ? <Banner header={header}/> : null}
+          {header ? <Banner header={header} /> : null}
           <ClientAlert />
           <ServerAlert />
           <Nav.Container className={classNames('_container')}>

@@ -58,34 +58,34 @@ ReactDOM.render(
 
   <I18nextProvider i18n={i18n}>
     <Provider store={store}>
-      <Suspense fallback={<WaitingPanel/>}>
-      <Router history={history}>
-        <Switch>
-          <AuthenticatedRoute exact path={routes.PSELV} component={Pages.PSelv} roles={[constants.SAKSBEHANDLER]} />
-          <AuthenticatedRoute exact path={routes.PINFO} component={Pages.PInfo} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-          <AuthenticatedRoute exact path={routes.PINFO_SAKSBEHANDLER} component={Pages.PInfoSaksbehandler} roles={[constants.SAKSBEHANDLER]} />
-          <AuthenticatedRoute exact path={routes.P4000_ROUTE} component={Pages.P4000} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-          <AuthenticatedRoute exact path={routes.PDF_GENERATE} component={Pages.GeneratePDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-          <AuthenticatedRoute exact path={routes.PDF_EDIT} component={Pages.EditPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-          <AuthenticatedRoute exact path={routes.PDF_SELECT} component={Pages.SelectPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-          <Redirect from={routes.PDF} to={{ pathname: routes.PDF_SELECT }} />
+      <Suspense fallback={<WaitingPanel />}>
+        <Router history={history}>
+          <Switch>
+            <AuthenticatedRoute exact path={routes.PSELV} component={Pages.PSelv} roles={[constants.SAKSBEHANDLER]} />
+            <AuthenticatedRoute exact path={routes.PINFO} component={Pages.PInfo} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+            <AuthenticatedRoute exact path={routes.PINFO_SAKSBEHANDLER} component={Pages.PInfoSaksbehandler} roles={[constants.SAKSBEHANDLER]} />
+            <AuthenticatedRoute exact path={routes.P4000_ROUTE} component={Pages.P4000} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+            <AuthenticatedRoute exact path={routes.PDF_GENERATE} component={Pages.GeneratePDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+            <AuthenticatedRoute exact path={routes.PDF_EDIT} component={Pages.EditPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+            <AuthenticatedRoute exact path={routes.PDF_SELECT} component={Pages.SelectPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+            <Redirect from={routes.PDF} to={{ pathname: routes.PDF_SELECT }} />
 
-          <AuthenticatedRoute exact path={routes.CASE_START} component={Pages.StartCase} roles={[constants.SAKSBEHANDLER]} />
-          <AuthenticatedRoute exact path={routes.CASE_CONFIRM} component={Pages.ConfirmCase} roles={[constants.SAKSBEHANDLER]} />
-          <AuthenticatedRoute exact path={routes.CASE_GENERATE} component={Pages.GenerateCase} roles={[constants.SAKSBEHANDLER]} />
-          <AuthenticatedRoute exact path={routes.CASE_SAVE} component={Pages.SaveCase} roles={[constants.SAKSBEHANDLER]} />
-          <AuthenticatedRoute exact path={routes.CASE_SEND} component={Pages.SendCase} roles={[constants.SAKSBEHANDLER]} />
-          <Redirect from={routes.CASE} to={{ pathname: routes.CASE_START }} />
+            <AuthenticatedRoute exact path={routes.CASE_START} component={Pages.StartCase} roles={[constants.SAKSBEHANDLER]} />
+            <AuthenticatedRoute exact path={routes.CASE_CONFIRM} component={Pages.ConfirmCase} roles={[constants.SAKSBEHANDLER]} />
+            <AuthenticatedRoute exact path={routes.CASE_GENERATE} component={Pages.GenerateCase} roles={[constants.SAKSBEHANDLER]} />
+            <AuthenticatedRoute exact path={routes.CASE_SAVE} component={Pages.SaveCase} roles={[constants.SAKSBEHANDLER]} />
+            <AuthenticatedRoute exact path={routes.CASE_SEND} component={Pages.SendCase} roles={[constants.SAKSBEHANDLER]} />
+            <Redirect from={routes.CASE} to={{ pathname: routes.CASE_START }} />
 
-          <AuthenticatedRoute path={routes.INDEX} component={Pages.IndexPage} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-          <Route path={routes.NOT_LOGGED} render={() => <Pages.Error type='notLogged' />} />
-          <Route path={routes.NOT_INVITED} render={() => <Pages.Error type='notInvited' />} />
-          <Route path={routes.FORBIDDEN} render={() => <Pages.Error type='forbidden' />} />
-          <Route path={routes.ROOT + ':PATH+'} render={() => <Pages.Error type='error' />} />
-          <AuthenticatedRoute path={routes.ROOT} component={Pages.FirstPage} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-          <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
-        </Switch>
-      </Router>
+            <AuthenticatedRoute path={routes.INDEX} component={Pages.IndexPage} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+            <Route path={routes.NOT_LOGGED} render={() => <Pages.Error type='notLogged' />} />
+            <Route path={routes.NOT_INVITED} render={() => <Pages.Error type='notInvited' />} />
+            <Route path={routes.FORBIDDEN} render={() => <Pages.Error type='forbidden' />} />
+            <Route path={routes.ROOT + ':PATH+'} render={() => <Pages.Error type='error' />} />
+            <AuthenticatedRoute path={routes.ROOT} component={Pages.FirstPage} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+            <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
+          </Switch>
+        </Router>
       </Suspense>
     </Provider>
   </I18nextProvider>,

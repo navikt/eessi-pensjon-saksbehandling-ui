@@ -140,6 +140,6 @@ export default connect(
   mapDispatchToProps
 )(
   withRouter(
-     withTranslation()(AuthenticatedRoute)
+    withTranslation()(AuthenticatedRoute)
   )
 )

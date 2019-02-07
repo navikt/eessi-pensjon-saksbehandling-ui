@@ -153,7 +153,7 @@ class MiniaturePDF extends Component {
             <Trashcan size={15} />
           </div> : null}
           { addLink && isHovering ? <div onClick={this.onAddFile.bind(this)} className='link addLink'>
-            <Vedlegg size={20}/>
+            <Vedlegg size={20} />
           </div> : null}
           { downloadLink && isHovering ? <div className='link downloadLink'><a
             onClick={(e) => e.stopPropagation()} title={t('ui:download')}

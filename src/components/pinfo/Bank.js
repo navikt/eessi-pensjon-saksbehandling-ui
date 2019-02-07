@@ -16,7 +16,7 @@ const mapStateToProps = (state) => {
     locale: state.ui.locale,
     bank: state.pinfo.bank,
     pageErrors: state.pinfo.pageErrors,
-    errorTimestamp : state.pinfo.errorTimestamp
+    errorTimestamp: state.pinfo.errorTimestamp
   }
 }
 

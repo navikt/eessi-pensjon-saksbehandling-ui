@@ -15,8 +15,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class Banner extends Component {
-
-  toggleHighContrast() {
+  toggleHighContrast () {
     const { actions } = this.props
     actions.toggleHighContrast()
   }
@@ -34,5 +33,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-withTranslation()(Banner)
+  withTranslation()(Banner)
 )

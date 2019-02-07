@@ -19,19 +19,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as icons from '@fortawesome/free-solid-svg-icons'
 
 class Icons extends Component {
-
-  constructor() {
+  constructor () {
     super()
     this.canvas = document.getElementById('canvas')
   }
 
-  generateImage(src) {
-
+  generateImage (src) {
     const { kind, type } = this.props
 
     if (type === 'png') {
-       canvg('canvas', src)
-       return <img className='logo' src={this.canvas.toDataURL('image/png')} alt={kind} />
+      canvg('canvas', src)
+      return <img className='logo' src={this.canvas.toDataURL('image/png')} alt={kind} />
     }
     return <img className='logo' src={src} alt={kind} />
   }

@@ -41,7 +41,7 @@ const mapStateToProps = (state) => {
     send: state.pinfo.send,
     isReady: state.pinfo.isReady,
     buttonsVisible: state.pinfo.buttonsVisible,
-    pageErrors : state.pinfo.pageErrors,
+    pageErrors: state.pinfo.pageErrors,
     fileList: state.storage.fileList,
     file: state.storage.file,
     username: state.app.username,
@@ -315,11 +315,11 @@ class PInfo extends React.Component {
         <div className='col-md-2' />
         <div className={classNames('fieldset animate', 'mb-4', 'col-md-8')}>
           {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
-          {step === 0 ? <Person/> : null}
-          {step === 1 ? <Bank/> : null}
-          {step === 2 ? <StayAbroad/> : null}
-          {step === 3 ? <Confirm/> : null}
-          {step === 4 ? <Receipt/> : null}
+          {step === 0 ? <Person /> : null}
+          {step === 1 ? <Bank /> : null}
+          {step === 2 ? <StayAbroad /> : null}
+          {step === 3 ? <Confirm /> : null}
+          {step === 4 ? <Receipt /> : null}
         </div>
         <div className='col-md-2' />
       </Nav.Row>

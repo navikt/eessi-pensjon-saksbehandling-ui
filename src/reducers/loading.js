@@ -391,7 +391,6 @@ export default function (state = initialState, action = {}) {
         isInvitingPinfo: true
       })
 
-
     default:
 
       return state

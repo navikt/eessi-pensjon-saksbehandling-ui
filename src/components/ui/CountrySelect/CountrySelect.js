@@ -42,7 +42,7 @@ class CountrySelect extends Component {
     if (defValue && !defValue.label) {
       defValue = _.find(options, { value: defValue.value ? defValue.value : defValue })
     }
-    return <div className={classNames('c-ui-countrySelect', className, {'skjemaelement__feilmelding' : error})}>
+    return <div className={classNames('c-ui-countrySelect', className, { 'skjemaelement__feilmelding': error })}>
       <Select placeholder={placeholder || t('ui:searchCountry')}
         value={defValue || null}
         options={options}
