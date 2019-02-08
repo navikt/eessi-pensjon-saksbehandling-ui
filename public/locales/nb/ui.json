@@ -6,7 +6,7 @@
     "alert-noSuchUser" : "Ukjent bruker",
 
     "error-notInvited-title" : "ikke tilgang",
-    "error-notInvited-description" : "Du har ikke tilgang dennee tjenesten.",
+    "error-notInvited-description" : "Du har ikke tilgang denne tjenesten.",
     "error-forbidden-title" : "Du har ikke tilgang til denne siden",
     "error-forbidden-description" : "EESSI-pensjon er en applikasjon som skal forenkle arbeidet med utenlandssaker for pensjonsområdet. Fra denne applikasjonen kan du sende og motta SED (strukturerte elektroniske dokumenter) til og fra trygdemyndigheter i EØS-området.<br/><br/>EESSI-pensjon er kun i drift som en prøveversjon og alle saksbehandlere med utlandsrolle vil få tilgang til denne i løpet av høsten.",
     "error-notLogged-title" : "",
