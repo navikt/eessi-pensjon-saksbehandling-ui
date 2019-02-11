@@ -224,8 +224,8 @@ class Period extends React.Component {
         newPeriods.push(newPeriod)
         if (!this.hasSpecialCases(newPeriods)) {
           actions.setPerson({
-            fatherName: '',
-            motherName: ''
+            fatherName: undefined,
+            motherName: undefined
           })
         }
         actions.setStayAbroad(newPeriods)
@@ -254,8 +254,8 @@ class Period extends React.Component {
     editPeriod({})
     if (!this.hasSpecialCases(periods)) {
       actions.setPerson({
-        fatherName: '',
-        motherName: ''
+        fatherName: undefined,
+        motherName: undefined
       })
     }
     actions.setMainButtonsVisibility(true)
@@ -293,8 +293,8 @@ class Period extends React.Component {
       newPeriods.splice(index, 1)
       if (!this.hasSpecialCases(newPeriods)) {
         actions.setPerson({
-          fatherName: '',
-          motherName: ''
+          fatherName: undefined,
+          motherName: undefined
         })
       }
       actions.setStayAbroad(newPeriods)
