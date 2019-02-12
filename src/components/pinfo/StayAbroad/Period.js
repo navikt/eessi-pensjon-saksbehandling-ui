@@ -192,6 +192,7 @@ class Period extends React.Component {
       if (dirtyForm) {
         actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
       }
+      window.scrollTo(0,0)
     }
   }
 
@@ -240,6 +241,7 @@ class Period extends React.Component {
           actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
         }
       }
+      window.scrollTo(0,0)
     }
   }
 
@@ -259,6 +261,7 @@ class Period extends React.Component {
       })
     }
     actions.setMainButtonsVisibility(true)
+    window.scrollTo(0,0)
   }
 
   closeModal () {

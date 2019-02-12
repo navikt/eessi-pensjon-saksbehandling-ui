@@ -153,6 +153,7 @@ class PInfo extends React.Component {
           stepIndicatorError: undefined
         })
       }
+      window.scrollTo(0,0)
     }
   }
 
@@ -210,6 +211,7 @@ class PInfo extends React.Component {
     } else {
       actions.setStep(step - 1)
     }
+    window.scrollTo(0,0)
   }
 
   doCancel () {
@@ -262,6 +264,7 @@ class PInfo extends React.Component {
       let payload = PInfoUtil.generatePayload(pinfo)
       actions.sendPInfo(payload)
     }
+    window.scrollTo(0,0)
   }
 
   errorMessage () {
