@@ -332,7 +332,7 @@ class Period extends React.Component {
         return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode)}>
           <div className={classNames('col-md-6', { 'current': current })}>
             <div id={period.id} className='existingPeriod'>
-              <div className='icon mr-4'>
+              <div className='icon mr-3 ml-3'>
                 <div className={classNames('topHalf', { line: !first })} />
                 <div className={classNames('bottomHalf', { line: !last })} />
                 <Icons className='iconsvg' kind={'nav-' + period.type} />
