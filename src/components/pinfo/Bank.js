@@ -81,11 +81,13 @@ class Bank extends React.Component {
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:bank-title')}</Nav.Undertittel>
 
       <Nav.Row>
-        <div className='col-md-6'>
-          {mode === 'view' ? <div id='pinfo-bank-name-label'>
+        {mode === 'view' ? <div className='col-md-12'>
+          <div id='pinfo-bank-name-label'>
             <label className='skjemaelement__label'>{t('pinfo:bank-name')}</label>
             <p>{bank.bankName}</p>
-          </div> : <Nav.Input
+          </div>
+        </div> : <div className='col-md-6'>
+          <Nav.Input
             id='pinfo-bank-name-input'
             type='text'
             label={t('pinfo:bank-name') + (mode !== 'view' ? ' *' : '')}
@@ -93,15 +95,19 @@ class Bank extends React.Component {
             value={bank.bankName || ''}
             onChange={this.setBankName}
             feil={localErrors.bankName ? { feilmelding: t(localErrors.bankName) } : null}
-          />}
-        </div>
-        <div className='col-md-6 mb-3'>
-          <label className='skjemaelement__label'>{t('pinfo:bank-country') + (mode !== 'view' ? ' *' : '')}</label>
-          {mode === 'view' ? <div id='pinfo-bank-country-label'>
-            <img className='flagImg' src={'../../../../../flags/' + bank.bankCountry.value + '.png'}
+          />
+        </div>}
+        {mode === 'view' ? <div className='col-md-12 mb-3'>
+          <label className='skjemaelement__label'>{t('pinfo:bank-country')}</label>
+          <div id='pinfo-bank-country-label'>
+            <img className='flagImg'
+              src={'../../../../../flags/' + bank.bankCountry.value + '.png'}
               alt={bank.bankCountry.label} />
             {bank.bankCountry.label}
-          </div> : <CountrySelect
+          </div>
+        </div> :  <div className='col-md-6 mb-3'>
+          <label className='skjemaelement__label'>{t('pinfo:bank-country') + ' *'}</label>
+          <CountrySelect
             placeholder={t('ui:writeIn')}
             id='pinfo-bank-country-select'
             locale={locale}
@@ -109,8 +115,8 @@ class Bank extends React.Component {
             onSelect={this.setBankCountry}
             error={localErrors.bankCountry}
             errorMessage={t(localErrors.bankCountry)}
-          />}
-        </div>
+          />
+        </div>}
       </Nav.Row>
       <Nav.Row>
         <div className='col-md-6'>
