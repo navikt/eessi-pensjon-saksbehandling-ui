@@ -17,7 +17,7 @@ class CountryOption extends Component {
         alt={label}
         onError={selectProps.selectProps.onImageError}
       />
-      {_label}
+      <span className='c-ui-countryOption-label'>{_label}</span>
     </div>
   }
 }
