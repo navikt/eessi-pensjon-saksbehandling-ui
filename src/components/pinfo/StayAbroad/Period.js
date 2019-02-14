@@ -246,7 +246,7 @@ class Period extends React.Component {
     }
   }
 
-  cancelPeriod () {
+  doCancelPeriod () {
     const { periods, editPeriod, actions } = this.props
 
     this.setState({
@@ -262,6 +262,7 @@ class Period extends React.Component {
       })
     }
     actions.setMainButtonsVisibility(true)
+    actions.closeModal()
     window.scrollTo(0,0)
   }
 
@@ -282,6 +283,23 @@ class Period extends React.Component {
         onClick: this.doRemovePeriod.bind(this, period)
       }, {
         text: t('ui:no') + ', ' + t('ui:cancel').toLowerCase(),
+        onClick: this.closeModal.bind(this)
+      }]
+    })
+  }
+
+  cancelPeriodRequest () {
+    const { t, actions } = this.props
+
+    actions.openModal({
+      modalTitle: t('pinfo:alert-cancelPeriod'),
+      modalText: t('pinfo:alert-areYouSureCancelPeriod'),
+      modalButtons: [{
+        main: true,
+        text: t('ui:yes') + ', ' + t('ui:continue').toLowerCase(),
+        onClick: this.doCancelPeriod.bind(this)
+      }, {
+        text: t('ui:no').toLowerCase(),
         onClick: this.closeModal.bind(this)
       }]
     })
@@ -717,7 +735,7 @@ class Period extends React.Component {
                 <Nav.Knapp
                   id='pinfo-opphold-avbryt-button'
                   className='ml-4 cancelPeriodButton'
-                  onClick={this.cancelPeriod.bind(this)}>
+                  onClick={this.cancelPeriodRequest.bind(this)}>
                   {t('ui:cancel-period')}
                 </Nav.Knapp>
               </div>

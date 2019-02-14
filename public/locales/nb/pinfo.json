@@ -179,6 +179,8 @@
     "alert-receiptSuccess" : "Opplysningene er bekreftet mottattsendt",
     "alert-leavePInfo": "Avbryt utfylling",
     "alert-areYouSureLeavePInfo" : "Opplysningene du har registrert blir lagret. Ønsker du å avbryte utfyllingen?",
+    "alert-cancelPeriod" : "Avbryt periode",
+    "alert-areYouSureCancelPeriod" : "Er du sikkert på at du vil ikke lagre endringer i perioden?",
     "alert-deletePeriod" : "Slett periode",
     "alert-areYouSureDeletePeriod" : "Er du sikkert på at du vil slette perioden?",
     "alert-stepTooHigh" : "Du kan bare gå videre når du har fylt ut alle påkrevde felt",
