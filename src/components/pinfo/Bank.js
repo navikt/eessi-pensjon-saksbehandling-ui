@@ -88,7 +88,7 @@ class Bank extends React.Component {
           </div> : <Nav.Input
             id='pinfo-bank-name-input'
             type='text'
-            label={t('pinfo:bank-name') + ' *'}
+            label={t('pinfo:bank-name') + (mode !== 'view' ? ' *' : '')}
             placeholder={t('ui:writeIn')}
             value={bank.bankName || ''}
             onChange={this.setBankName}
@@ -96,7 +96,7 @@ class Bank extends React.Component {
           />}
         </div>
         <div className='col-md-6 mb-3'>
-          <label className='skjemaelement__label'>{t('pinfo:bank-country') + ' *'}</label>
+          <label className='skjemaelement__label'>{t('pinfo:bank-country') + (mode !== 'view' ? ' *' : '')}</label>
           {mode === 'view' ? <div id='pinfo-bank-country-label'>
             <img className='flagImg' src={'../../../../../flags/' + bank.bankCountry.value + '.png'}
               alt={bank.bankCountry.label} />
@@ -119,7 +119,7 @@ class Bank extends React.Component {
             <p>{bank.bankIban}</p>
           </div> : <Nav.Input
             id='pinfo-bank-iban-input'
-            label={t('pinfo:bank-iban') + ' *'}
+            label={t('pinfo:bank-iban') + (mode !== 'view' ? ' *' : '')}
             placeholder={t('ui:writeIn')}
             value={bank.bankIban || ''}
             onChange={this.setBankIban}
@@ -141,7 +141,7 @@ class Bank extends React.Component {
             <p>{bank.bankBicSwift}</p>
           </div> : <Nav.Input
             id='pinfo-bank-bicswift-input'
-            label={t('pinfo:bank-bicSwift') + ' *'}
+            label={t('pinfo:bank-bicSwift') + (mode !== 'view' ? ' *' : '')}
             placeholder={t('ui:writeIn')}
             value={bank.bankBicSwift || ''}
             onChange={this.setBankBicSwift}
@@ -163,7 +163,7 @@ class Bank extends React.Component {
             <pre>{bank.bankAddress}</pre>
           </div> : <Nav.Textarea
             id='pinfo-bank-address-textarea'
-            label={t('pinfo:bank-address') + ' *'}
+            label={t('pinfo:bank-address') + (mode !== 'view' ? ' *' : '')}
             placeholder={t('ui:writeIn')}
             value={bank.bankAddress || ''}
             style={{ minHeight: '100px' }}

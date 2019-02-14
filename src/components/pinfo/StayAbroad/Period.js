@@ -734,7 +734,7 @@ Period.propTypes = {
   periods: PT.array,
   actions: PT.object.isRequired,
   editPeriod: PT.func.isRequired,
-  showButtons: PT.boolean,
+  showButtons: PT.bool,
   t: PT.func
 }
 

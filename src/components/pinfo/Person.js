@@ -93,7 +93,7 @@ class Person extends React.Component {
           </div> : <Nav.Input
             id='pinfo-person-etternavn-input'
             type='text'
-            label={t('pinfo:person-info-lastNameAtBirth') + ' *'}
+            label={t('pinfo:person-info-lastNameAtBirth') + (mode !== 'view' ? ' *' : '')}
             placeholder={t('ui:writeIn')}
             value={person.nameAtBirth || ''}
             onChange={this.setNameAtBirth}
@@ -150,7 +150,7 @@ class Person extends React.Component {
       <Nav.Row>
         <div className='col-md-6 mb-4'>
           <label className='skjemaelement__label'>
-            {t('pinfo:person-birthplace-country') + ' *'}
+            {t('pinfo:person-birthplace-country') + (mode !== 'view' ? ' *' : '')}
           </label>
           {mode === 'view' ? <div id='pinfo-person-land-label'>
             <img className='flagImg' src={'../../../../../flags/' + person.country.value + '.png'}
@@ -174,7 +174,7 @@ class Person extends React.Component {
           </div> : <Nav.Input
             id='pinfo-person-sted-input'
             type='text'
-            label={t('pinfo:person-birthplace-place') + ' *'}
+            label={t('pinfo:person-birthplace-place') + (mode !== 'view' ? ' *' : '')}
             placeholder={t('ui:writeIn')}
             value={person.place || ''}
             onChange={this.setPlace}
