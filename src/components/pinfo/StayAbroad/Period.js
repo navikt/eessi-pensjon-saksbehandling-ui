@@ -166,6 +166,10 @@ class Period extends React.Component {
     return stepTests.periodStep(_period, pinfo.person)
   }
 
+  addId(id) {
+     this.valueSetProperty('insuranceId', null, id)
+  }
+
   addPeriod () {
     const { periods, actions, pinfo, username, dirtyForm } = this.props
     const { _period } = this.state
@@ -340,7 +344,7 @@ class Period extends React.Component {
   }
 
   render () {
-    const { t, mode, period, locale, current, first, last, person, showButtons } = this.props
+    const { t, mode, period, periods, locale, current, first, last, person, showButtons } = this.props
     const { localErrors, _period } = this.state
 
     let errorMessage = this.errorMessage()
@@ -568,6 +572,15 @@ class Period extends React.Component {
                   onChange={this.setInsuranceId}
                   feil={localErrors.insuranceId ? { feilmelding: t(localErrors.insuranceId) } : null}
                 />
+                <div className='id-suggestions mb-4'>
+                  {periods.map(period => {
+                    return period.insuranceId
+                  }).filter((id, index, self) => {
+                    return id && _period.insuranceId !== id && self.indexOf(id) === index
+                  }).map(id => {
+                     return <Nav.EtikettBase className='mr-3' type='fokus' onClick={this.addId.bind(this, id)}><b>{id}</b></Nav.EtikettBase>
+                  })}
+                </div>
               </div>
               <div className='col-md-12'>
                 <Nav.Select
