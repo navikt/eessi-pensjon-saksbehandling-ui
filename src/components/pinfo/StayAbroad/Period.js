@@ -420,8 +420,8 @@ class Period extends React.Component {
       case 'edit':
       case 'new':
         return <React.Fragment>
-          {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
-          <Nav.Undertittel className='mt-3 mb-3'>{t('pinfo:stayAbroad-period-' + mode)}</Nav.Undertittel>
+          {errorMessage ? <Nav.AlertStripe className='mt-4 mb-4' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
+          <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-period-' + mode)}</Nav.Undertittel>
           <Nav.Row className={classNames('c-pinfo-opphold-period', 'mt-4', mode)}>
             <div className='col-md-6'>
               <Nav.Select
@@ -446,9 +446,9 @@ class Period extends React.Component {
           { _period.type ? <React.Fragment>
             {_period.type === 'home' ? <Nav.AlertStripe className='mt-4 mb-4' type='info'>{t('pinfo:warning-home-period')}</Nav.AlertStripe> : null}
             <Nav.Row>
-              <div className='col-md-12 mt-3 mb-3'>
-                <Nav.Undertittel className='mb-3'>{t(`pinfo:stayAbroad-period-title-${_period.type}`)}</Nav.Undertittel>
-                <Nav.Normaltekst>{t('pinfo:stayAbroad-period-date-description')}</Nav.Normaltekst>
+              <div className='col-md-12'>
+                <Nav.Undertittel className='mt-4 mb-4'>{t(`pinfo:stayAbroad-period-title-${_period.type}`)}</Nav.Undertittel>
+                <Nav.Normaltekst className='mb-4'>{t('pinfo:stayAbroad-period-date-description')}</Nav.Normaltekst>
               </div>
               <div className='col-md-6'>
                 <label className='mr-3 skjemaelement__label'>{t('pinfo:stayAbroad-period-start-date') + ' *'}</label>
@@ -476,7 +476,7 @@ class Period extends React.Component {
               </div>
             </Nav.Row>
             <Nav.Row>
-              <div className='mt-3 col-md-8'>
+              <div className='mt-3 mb-3 col-md-8'>
                 <label className='skjemaelement__label'>{t('pinfo:stayAbroad-country') + ' *'}</label>
                 <CountrySelect
                   id='pinfo-opphold-land-select'
@@ -564,7 +564,7 @@ class Period extends React.Component {
                 </Nav.Select>
               </div>
               <div className='col-md-12'>
-                <Nav.Undertittel className='mt-3 mb-3'>{t('pinfo:stayAbroad-home-title')}</Nav.Undertittel>
+                <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-home-title')}</Nav.Undertittel>
               </div>
               <div className='col-md-12'>
                 <Nav.Textarea

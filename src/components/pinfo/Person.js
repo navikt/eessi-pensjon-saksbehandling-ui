@@ -146,7 +146,7 @@ class Person extends React.Component {
             </div>
           </Nav.Row>
         </React.Fragment> : null}
-      <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-birthplace-title')}</Nav.Undertittel>
+      <Nav.Undertittel className='ml-0 mt-4 mb-4 appDescription'>{t('pinfo:person-birthplace-title')}</Nav.Undertittel>
       <Nav.Row>
         <div className='col-md-6 mb-4'>
           <label className='skjemaelement__label'>
@@ -198,7 +198,7 @@ class Person extends React.Component {
           />}
         </div>
       </Nav.Row>
-      <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-contact-title')}</Nav.Undertittel>
+      <Nav.Undertittel className='ml-0 mt-4 mb-4 appDescription'>{t('pinfo:person-contact-title')}</Nav.Undertittel>
       <Nav.Row>
         <div className='col-sm-4'>
           {mode === 'view' ? <div id='pinfo-person-telefonnummer-label'>
