@@ -669,7 +669,7 @@ class Period extends React.Component {
               <div className='col-md-12'>
                 <Nav.Input
                   id='pinfo-opphold-opplaeringsinstitusjonsnavn-input'
-                  label={t('pinfo:stayAbroad-learn-institution')}
+                  label={t('pinfo:stayAbroad-learn-institution') + ' *'}
                   value={_period.learnInstitution || ''}
                   placeholder={t('ui:writeIn')}
                   onChange={this.setLearnInstitution}
