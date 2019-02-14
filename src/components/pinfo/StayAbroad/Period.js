@@ -189,6 +189,7 @@ class Period extends React.Component {
       _pinfo.stayAbroad = newPeriods
 
       actions.setMainButtonsVisibility(true)
+      actions.setStepError(undefined)
       if (dirtyForm) {
         actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
       }

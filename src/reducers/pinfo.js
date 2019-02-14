@@ -4,6 +4,7 @@ let initialState = {
   isReady: false,
   step: 0,
   maxStep: 0,
+  stepError: undefined,
   person: {},
   bank: {},
   stayAbroad: [],
@@ -23,8 +24,15 @@ export default function (state = initialState, action = {}) {
       }
       return Object.assign({}, state, {
         step: step,
-        maxStep: maxStep
+        maxStep: maxStep,
+        stepError: undefined
       })
+
+    case types.PINFO_STEP_ERROR: {
+      return Object.assign({}, state, {
+        stepError: action.payload
+      })
+    }
 
     case types.PINFO_PERSON_SET:
       return Object.assign({}, state, {
@@ -110,6 +118,7 @@ export default function (state = initialState, action = {}) {
       }
       pinfo.buttonsVisible = true
       pinfo.isReady = true
+      pinfo.stepError = undefined
       return Object.assign({}, initialState, pinfo)
     }
 
