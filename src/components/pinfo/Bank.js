@@ -76,6 +76,7 @@ class Bank extends React.Component {
   render () {
     const { t, bank, locale, mode } = this.props
     const { localErrors } = this.state
+    const mandatory = mode !== 'view' ? ' *' : ''
 
     return <div className='c-pinfo-bank'>
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:bank-title')}</Nav.Undertittel>
@@ -90,7 +91,7 @@ class Bank extends React.Component {
           <Nav.Input
             id='pinfo-bank-name-input'
             type='text'
-            label={t('pinfo:bank-name') + (mode !== 'view' ? ' *' : '')}
+            label={t('pinfo:bank-name') + mandatory}
             placeholder={t('ui:writeIn')}
             value={bank.bankName || ''}
             onChange={this.setBankName}
@@ -106,7 +107,7 @@ class Bank extends React.Component {
             {bank.bankCountry.label}
           </div>
         </div> :  <div className='col-md-6 mb-3'>
-          <label className='skjemaelement__label'>{t('pinfo:bank-country') + ' *'}</label>
+          <label className='skjemaelement__label'>{t('pinfo:bank-country') + mandatory}</label>
           <CountrySelect
             placeholder={t('ui:writeIn')}
             id='pinfo-bank-country-select'
@@ -125,7 +126,7 @@ class Bank extends React.Component {
             <p>{bank.bankIban}</p>
           </div> : <Nav.Input
             id='pinfo-bank-iban-input'
-            label={t('pinfo:bank-iban') + (mode !== 'view' ? ' *' : '')}
+            label={t('pinfo:bank-iban') + mandatory}
             placeholder={t('ui:writeIn')}
             value={bank.bankIban || ''}
             onChange={this.setBankIban}
@@ -147,7 +148,7 @@ class Bank extends React.Component {
             <p>{bank.bankBicSwift}</p>
           </div> : <Nav.Input
             id='pinfo-bank-bicswift-input'
-            label={t('pinfo:bank-bicSwift') + (mode !== 'view' ? ' *' : '')}
+            label={t('pinfo:bank-bicSwift') + mandatory}
             placeholder={t('ui:writeIn')}
             value={bank.bankBicSwift || ''}
             onChange={this.setBankBicSwift}
@@ -169,7 +170,7 @@ class Bank extends React.Component {
             <pre>{bank.bankAddress}</pre>
           </div> : <Nav.Textarea
             id='pinfo-bank-address-textarea'
-            label={t('pinfo:bank-address') + (mode !== 'view' ? ' *' : '')}
+            label={t('pinfo:bank-address') + mandatory}
             placeholder={t('ui:writeIn')}
             value={bank.bankAddress || ''}
             style={{ minHeight: '100px' }}

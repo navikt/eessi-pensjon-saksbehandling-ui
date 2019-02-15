@@ -82,6 +82,7 @@ class Person extends React.Component {
   render () {
     const { t, person, locale, mode } = this.props
     const { localErrors } = this.state
+    const mandatory = mode !== 'view' ? ' *' : ''
 
     return <div className='c-pinfo-person'>
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-info-title')}</Nav.Undertittel>
@@ -93,7 +94,7 @@ class Person extends React.Component {
           </div> : <Nav.Input
             id='pinfo-person-etternavn-input'
             type='text'
-            label={t('pinfo:person-info-lastNameAtBirth') + (mode !== 'view' ? ' *' : '')}
+            label={t('pinfo:person-info-lastNameAtBirth') + mandatory}
             placeholder={t('ui:writeIn')}
             value={person.nameAtBirth || ''}
             onChange={this.setNameAtBirth}
@@ -150,7 +151,7 @@ class Person extends React.Component {
       <Nav.Row>
         <div className='col-md-6 mb-4'>
           <label className='skjemaelement__label'>
-            {t('pinfo:person-birthplace-country') + (mode !== 'view' ? ' *' : '')}
+            {t('pinfo:person-birthplace-country') + mandatory}
           </label>
           {mode === 'view' ? <div id='pinfo-person-land-label'>
             <img className='flagImg' src={'../../../../../flags/' + person.country.value + '.png'}
@@ -174,7 +175,7 @@ class Person extends React.Component {
           </div> : <Nav.Input
             id='pinfo-person-sted-input'
             type='text'
-            label={t('pinfo:person-birthplace-place') + (mode !== 'view' ? ' *' : '')}
+            label={t('pinfo:person-birthplace-place') + mandatory}
             placeholder={t('ui:writeIn')}
             value={person.place || ''}
             onChange={this.setPlace}
