@@ -38,6 +38,7 @@ const mapStateToProps = (state) => {
     pinfo: state.pinfo,
     step: state.pinfo.step,
     maxStep: state.pinfo.maxStep,
+    stepError: state.pinfo.stepError,
     send: state.pinfo.send,
     isReady: state.pinfo.isReady,
     buttonsVisible: state.pinfo.buttonsVisible,
@@ -58,8 +59,7 @@ class PInfo extends React.Component {
     doPageValidationOnForwardButton: true,
     doPageValidationOnStepIndicator: true,
     fileList: undefined,
-    file: undefined,
-    stepIndicatorError: undefined
+    file: undefined
   }
 
   componentDidMount () {
@@ -72,14 +72,9 @@ class PInfo extends React.Component {
   }
 
   componentDidUpdate () {
-    const { send, actions, username, step, fileList, file } = this.props
+    const { send, actions, username, step, stepError, fileList, file } = this.props
     if (send && step === 3) {
       actions.setStep(4)
-      if (this.state.stepIndicatorError) {
-        this.setState({
-          stepIndicatorError: undefined
-        })
-      }
     }
     if (file === undefined && fileList !== undefined && this.state.fileList === undefined) {
       if (!_.isEmpty(fileList) && fileList.indexOf('PINFO.json') >= 0) {
@@ -148,11 +143,6 @@ class PInfo extends React.Component {
         actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
       }
       actions.setStep(step + 1)
-      if (this.state.stepIndicatorError) {
-        this.setState({
-          stepIndicatorError: undefined
-        })
-      }
       window.scrollTo(0,0)
     }
   }
@@ -165,18 +155,12 @@ class PInfo extends React.Component {
     }
 
     if (this.state.doPageValidationOnStepIndicator && nextStep > maxStep) {
-      this.setState({
-        stepIndicatorError: 'pinfo:alert-stepTooHigh'
-      })
+      actions.setStepError('pinfo:alert-stepTooHigh')
       return false
     }
     actions.setMainButtonsVisibility(true)
     actions.setStep(nextStep)
-    if (this.state.stepIndicatorError) {
-      this.setState({
-        stepIndicatorError: undefined
-      })
-    }
+
     if (dirtyForm) {
       actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
     }
@@ -278,8 +262,7 @@ class PInfo extends React.Component {
   }
 
   render () {
-    const { t, history, location, step, maxStep, isSendingPinfo, isReady, buttonsVisible } = this.props
-    const { stepIndicatorError } = this.state
+    const { t, history, location, step, maxStep, stepError, isSendingPinfo, isReady, buttonsVisible } = this.props
 
     let errorMessage = this.errorMessage()
 
@@ -309,9 +292,9 @@ class PInfo extends React.Component {
               aktiv: index === step
             }))}
           />
-          {stepIndicatorError ? <div className='w-100 text-center mb-2'>
+          {stepError ? <div className='w-100 text-center mb-2'>
             <AdvarselTrekant size={16} />
-            <span className='ml-2'>{t(stepIndicatorError, { maxStep: (maxStep + 1) })}</span>
+            <span className='ml-2'>{t(stepError, { maxStep: (maxStep + 1) })}</span>
           </div> : null}
         </React.Fragment> : null}
       <Nav.Row>

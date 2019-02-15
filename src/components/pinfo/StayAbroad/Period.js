@@ -166,6 +166,10 @@ class Period extends React.Component {
     return stepTests.periodStep(_period, pinfo.person)
   }
 
+  addId(id) {
+     this.valueSetProperty('insuranceId', null, id)
+  }
+
   addPeriod () {
     const { periods, actions, pinfo, username, dirtyForm } = this.props
     const { _period } = this.state
@@ -189,6 +193,7 @@ class Period extends React.Component {
       _pinfo.stayAbroad = newPeriods
 
       actions.setMainButtonsVisibility(true)
+      actions.setStepError(undefined)
       if (dirtyForm) {
         actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
       }
@@ -245,7 +250,7 @@ class Period extends React.Component {
     }
   }
 
-  cancelPeriod () {
+  doCancelPeriod () {
     const { periods, editPeriod, actions } = this.props
 
     this.setState({
@@ -261,6 +266,7 @@ class Period extends React.Component {
       })
     }
     actions.setMainButtonsVisibility(true)
+    actions.closeModal()
     window.scrollTo(0,0)
   }
 
@@ -281,6 +287,23 @@ class Period extends React.Component {
         onClick: this.doRemovePeriod.bind(this, period)
       }, {
         text: t('ui:no') + ', ' + t('ui:cancel').toLowerCase(),
+        onClick: this.closeModal.bind(this)
+      }]
+    })
+  }
+
+  cancelPeriodRequest () {
+    const { t, actions } = this.props
+
+    actions.openModal({
+      modalTitle: t('pinfo:alert-cancelPeriod'),
+      modalText: t('pinfo:alert-areYouSureCancelPeriod'),
+      modalButtons: [{
+        main: true,
+        text: t('ui:yes') + ', ' + t('ui:continue').toLowerCase(),
+        onClick: this.doCancelPeriod.bind(this)
+      }, {
+        text: t('ui:no').toLowerCase(),
         onClick: this.closeModal.bind(this)
       }]
     })
@@ -321,7 +344,7 @@ class Period extends React.Component {
   }
 
   render () {
-    const { t, mode, period, locale, current, first, last, person, showButtons } = this.props
+    const { t, mode, period, periods, locale, current, first, last, person, showButtons } = this.props
     const { localErrors, _period } = this.state
 
     let errorMessage = this.errorMessage()
@@ -331,7 +354,7 @@ class Period extends React.Component {
         return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode)}>
           <div className={classNames('col-md-6', { 'current': current })}>
             <div id={period.id} className='existingPeriod'>
-              <div className='icon mr-4'>
+              <div className='icon mr-3 ml-3'>
                 <div className={classNames('topHalf', { line: !first })} />
                 <div className={classNames('bottomHalf', { line: !last })} />
                 <Icons className='iconsvg' kind={'nav-' + period.type} />
@@ -420,8 +443,8 @@ class Period extends React.Component {
       case 'edit':
       case 'new':
         return <React.Fragment>
-          {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
-          <Nav.Undertittel className='mt-3 mb-3'>{t('pinfo:stayAbroad-period-' + mode)}</Nav.Undertittel>
+          {errorMessage ? <Nav.AlertStripe className='mt-4 mb-4' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
+          <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-period-' + mode)}</Nav.Undertittel>
           <Nav.Row className={classNames('c-pinfo-opphold-period', 'mt-4', mode)}>
             <div className='col-md-6'>
               <Nav.Select
@@ -446,9 +469,9 @@ class Period extends React.Component {
           { _period.type ? <React.Fragment>
             {_period.type === 'home' ? <Nav.AlertStripe className='mt-4 mb-4' type='info'>{t('pinfo:warning-home-period')}</Nav.AlertStripe> : null}
             <Nav.Row>
-              <div className='col-md-12 mt-3 mb-3'>
-                <Nav.Undertittel className='mb-3'>{t(`pinfo:stayAbroad-period-title-${_period.type}`)}</Nav.Undertittel>
-                <Nav.Normaltekst>{t('pinfo:stayAbroad-period-date-description')}</Nav.Normaltekst>
+              <div className='col-md-12'>
+                <Nav.Undertittel className='mt-4 mb-4'>{t(`pinfo:stayAbroad-period-title-${_period.type}`)}</Nav.Undertittel>
+                <Nav.Normaltekst className='mb-4'>{t('pinfo:stayAbroad-period-date-description')}</Nav.Normaltekst>
               </div>
               <div className='col-md-6'>
                 <label className='mr-3 skjemaelement__label'>{t('pinfo:stayAbroad-period-start-date') + ' *'}</label>
@@ -476,7 +499,7 @@ class Period extends React.Component {
               </div>
             </Nav.Row>
             <Nav.Row>
-              <div className='mt-3 col-md-8'>
+              <div className='mt-3 mb-3 col-md-8'>
                 <label className='skjemaelement__label'>{t('pinfo:stayAbroad-country') + ' *'}</label>
                 <CountrySelect
                   id='pinfo-opphold-land-select'
@@ -549,6 +572,15 @@ class Period extends React.Component {
                   onChange={this.setInsuranceId}
                   feil={localErrors.insuranceId ? { feilmelding: t(localErrors.insuranceId) } : null}
                 />
+                <div className='id-suggestions mb-4'>
+                  {periods.map(period => {
+                    return period.insuranceId
+                  }).filter((id, index, self) => {
+                    return id && _period.insuranceId !== id && self.indexOf(id) === index
+                  }).map(id => {
+                     return <Nav.EtikettBase className='mr-3' type='fokus' onClick={this.addId.bind(this, id)}><b>{id}</b></Nav.EtikettBase>
+                  })}
+                </div>
               </div>
               <div className='col-md-12'>
                 <Nav.Select
@@ -564,7 +596,7 @@ class Period extends React.Component {
                 </Nav.Select>
               </div>
               <div className='col-md-12'>
-                <Nav.Undertittel className='mt-3 mb-3'>{t('pinfo:stayAbroad-home-title')}</Nav.Undertittel>
+                <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-home-title')}</Nav.Undertittel>
               </div>
               <div className='col-md-12'>
                 <Nav.Textarea
@@ -669,7 +701,7 @@ class Period extends React.Component {
               <div className='col-md-12'>
                 <Nav.Input
                   id='pinfo-opphold-opplaeringsinstitusjonsnavn-input'
-                  label={t('pinfo:stayAbroad-learn-institution')}
+                  label={t('pinfo:stayAbroad-learn-institution') + ' *'}
                   value={_period.learnInstitution || ''}
                   placeholder={t('ui:writeIn')}
                   onChange={this.setLearnInstitution}
@@ -716,7 +748,7 @@ class Period extends React.Component {
                 <Nav.Knapp
                   id='pinfo-opphold-avbryt-button'
                   className='ml-4 cancelPeriodButton'
-                  onClick={this.cancelPeriod.bind(this)}>
+                  onClick={this.cancelPeriodRequest.bind(this)}>
                   {t('ui:cancel-period')}
                 </Nav.Knapp>
               </div>
@@ -734,7 +766,7 @@ Period.propTypes = {
   periods: PT.array,
   actions: PT.object.isRequired,
   editPeriod: PT.func.isRequired,
-  showButtons: PT.boolean,
+  showButtons: PT.bool,
   t: PT.func
 }
 
