@@ -63,11 +63,10 @@ class PInfoSaksbehandler extends React.Component {
 
     if (fileList !== undefined && this.state.fileList === undefined) {
       fileList.map(file => {
-        actions.getStorageFile({
+        actions.getStorageFileWithNoNotification({
           userId: aktoerId,
           namespace: 'varsler',
-          file: sakId + '___' + file,
-          context: { successAlert: false }
+          file: sakId + '___' + file
         })
       })
 

@@ -11,7 +11,8 @@ let initialState = {
 
 export default function (state = initialState, action = {}) {
   switch (action.type) {
-    case types.STORAGE_LIST_SUCCESS: {
+    case types.STORAGE_LIST_SUCCESS:
+    case types.STORAGE_LIST_NO_NOTIF_SUCCESS:
       let parsedList = action.payload.map(file => {
         let index = file.lastIndexOf('___')
         return index >= 0 ? file.substring(index + 3) : file
@@ -20,26 +21,25 @@ export default function (state = initialState, action = {}) {
       return Object.assign({}, state, {
         fileList: parsedList
       })
-    }
 
-    case types.STORAGE_LIST_FAILURE: {
+    case types.STORAGE_LIST_FAILURE:
+    case types.STORAGE_LIST_NO_NOTIF_FAILURE:
       return Object.assign({}, state, {
         fileList: []
       })
-    }
 
-    case types.STORAGE_GET_SUCCESS: {
+    case types.STORAGE_GET_SUCCESS:
+    case types.STORAGE_GET_NO_NOTIF_SUCCESS:
       return Object.assign({}, state, {
         file: action.payload
       })
-    }
 
-    case types.STORAGE_POST_SUCCESS: {
+    case types.STORAGE_POST_SUCCESS:
+    case types.STORAGE_POST_NO_NOTIF_SUCCESS:
       // clean fileList so that component requests a list again
       return Object.assign({}, state, {
         fileList: undefined
       })
-    }
 
     case types.STORAGE_TARGET_FILE_TO_DELETE_SET : {
       return Object.assign({}, state, {

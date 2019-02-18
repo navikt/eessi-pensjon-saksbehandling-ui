@@ -89,6 +89,7 @@ class Period extends React.Component {
 
   eventSetType (validateFunction, e) {
     const { actions, pageErrors } = this.props
+    const { _period } = this.state
 
     // clean up the onePeriod error message, as the user is trying to fix it
     if (pageErrors.onePeriod) {
@@ -96,6 +97,7 @@ class Period extends React.Component {
       delete _pageErrors.onePeriod
       actions.setPageErrors(_pageErrors)
     }
+
     this.eventSetProperty('type', periodValidation.periodType, e)
   }
 
@@ -181,8 +183,22 @@ class Period extends React.Component {
     })
 
     if (this.hasNoErrors(errors)) {
+
       let newPeriods = _.clone(periods)
       let newPeriod = _.clone(_period)
+
+      // remove properties that do not belong to this type
+      switch (newPeriod) {
+      case 'work':
+        delete newPeriod.learnInstitution
+        break
+      case 'learn':
+        delete newPeriod.workActivity
+        delete newPeriod.workName
+        delete newPeriod.workPlace
+        break
+      }
+
       newPeriod.id = new Date().getTime()
       newPeriods.push(newPeriod)
       actions.setStayAbroad(newPeriods)
@@ -195,7 +211,7 @@ class Period extends React.Component {
       actions.setMainButtonsVisibility(true)
       actions.setStepError(undefined)
       if (dirtyForm) {
-        actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
+        actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
       }
       window.scrollTo(0,0)
     }
@@ -243,7 +259,7 @@ class Period extends React.Component {
         let _pinfo = _.cloneDeep(pinfo)
         _pinfo.stayAbroad = newPeriods
         if (dirtyForm) {
-          actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
+          actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
         }
       }
       window.scrollTo(0,0)
@@ -327,7 +343,7 @@ class Period extends React.Component {
       let _pinfo = _.cloneDeep(pinfo)
       _pinfo.stayAbroad = newPeriods
       if (dirtyForm) {
-        actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
+        actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
       }
     }
     actions.closeModal()
