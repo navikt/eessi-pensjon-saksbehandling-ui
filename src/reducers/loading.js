@@ -265,6 +265,7 @@ export default function (state = initialState, action = {}) {
       })
 
     case types.STORAGE_LIST_REQUEST:
+    case types.STORAGE_LIST_NO_NOTIF_REQUEST:
 
       return Object.assign({}, state, {
         loadingStorageFileList: true,
@@ -272,7 +273,9 @@ export default function (state = initialState, action = {}) {
       })
 
     case types.STORAGE_LIST_SUCCESS:
+    case types.STORAGE_LIST_NO_NOTIF_SUCCESS:
     case types.STORAGE_LIST_FAILURE:
+    case types.STORAGE_LIST_NO_NOTIF_FAILURE:
 
       return Object.assign({}, state, {
         loadingStorageFileList: false,
@@ -280,6 +283,7 @@ export default function (state = initialState, action = {}) {
       })
 
     case types.STORAGE_GET_REQUEST:
+    case types.STORAGE_GET_NO_NOTIF_REQUEST:
 
       return Object.assign({}, state, {
         loadingStorageFile: true,
@@ -287,7 +291,9 @@ export default function (state = initialState, action = {}) {
       })
 
     case types.STORAGE_GET_SUCCESS:
+    case types.STORAGE_GET_NO_NOTIF_SUCCESS:
     case types.STORAGE_GET_FAILURE:
+    case types.STORAGE_GET_NO_NOTIF_FAILURE:
 
       return Object.assign({}, state, {
         loadingStorageFile: false,
@@ -295,6 +301,7 @@ export default function (state = initialState, action = {}) {
       })
 
     case types.STORAGE_POST_REQUEST:
+    case types.STORAGE_POST_NO_NOTIF_REQUEST:
 
       return Object.assign({}, state, {
         savingStorageFile: true,
@@ -302,7 +309,9 @@ export default function (state = initialState, action = {}) {
       })
 
     case types.STORAGE_POST_SUCCESS:
+    case types.STORAGE_POST_NO_NOTIF_SUCCESS:
     case types.STORAGE_POST_FAILURE:
+    case types.STORAGE_POST_NO_NOTIF_FAILURE:
 
       return Object.assign({}, state, {
         savingStorageFile: false,

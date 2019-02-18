@@ -68,7 +68,7 @@ class PInfo extends React.Component {
     if (window.hj) {
       window.hj('trigger', 'e207-feedback-no')
     }
-    actions.listStorageFiles(username, 'PINFO', { successAlert: false })
+    actions.listStorageFilesWithNoNotification(username, 'PINFO')
   }
 
   componentDidUpdate () {
@@ -78,11 +78,10 @@ class PInfo extends React.Component {
     }
     if (file === undefined && fileList !== undefined && this.state.fileList === undefined) {
       if (!_.isEmpty(fileList) && fileList.indexOf('PINFO.json') >= 0) {
-        actions.getStorageFile({
+        actions.getStorageFileWithNoNotification({
           userId: username,
           namespace: constants.PINFO,
-          file: constants.PINFO_FILE,
-          context: { successAlert: false }
+          file: constants.PINFO_FILE
         })
       } else {
         actions.setReady()
@@ -140,7 +139,7 @@ class PInfo extends React.Component {
 
     if (this.hasNoErrors(errors)) {
       if (dirtyForm) {
-        actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
+        actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
       }
       actions.setStep(step + 1)
       window.scrollTo(0,0)
@@ -162,7 +161,7 @@ class PInfo extends React.Component {
     actions.setStep(nextStep)
 
     if (dirtyForm) {
-      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
+      actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
     }
     return true
   }
@@ -203,7 +202,7 @@ class PInfo extends React.Component {
 
     actions.closeModal()
     if (dirtyForm) {
-      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
+      actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
     }
     history.push(routes.ROOT)
   }
