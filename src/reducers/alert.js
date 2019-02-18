@@ -36,13 +36,7 @@ export default function (state = {}, action = {}) {
   }
 
   if (_.endsWith(action.type, '/FAILURE')) {
-    if (action.payload && action.payload.failureAlert === false) {
-      return Object.assign({}, state, {
-        clientErrorMessage: undefined,
-        clientErrorStatus: undefined
-      })
-    }
-
+      
     switch (action.type) {
       case types.CASE_GET_SUBJECT_AREA_LIST_FAILURE:
 
