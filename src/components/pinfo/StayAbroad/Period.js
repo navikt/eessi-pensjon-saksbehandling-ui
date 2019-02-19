@@ -367,8 +367,9 @@ class Period extends React.Component {
 
     switch (mode) {
       case 'view':
+      case 'confirm':
         return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode)}>
-          <div className={classNames('col-md-6', { 'current': current })}>
+          <div className={classNames({'col-md-6': mode === 'view', 'col-md-12': mode === 'confirm', 'current': current })}>
             <div id={period.id} className='existingPeriod'>
               <div className='icon mr-3 ml-3'>
                 <div className={classNames('topHalf', { line: !first })} />
@@ -388,14 +389,14 @@ class Period extends React.Component {
                   {period.endDate ? moment(period.endDate).format('DD.MM.YYYY') : t('ui:unknown')}
                 </span>
                 <br />
+                <React.Fragment>
+                  <span className='bold'>{t('pinfo:stayAbroad-place')}</span>{': '}
+                  {period.place}
+                  <br />
+                </React.Fragment>
                 {period.type === 'work' ? <React.Fragment>
                   <span className='bold'>{t('pinfo:stayAbroad-work-title')}</span>{': '}
                   {period.workActivity}
-                  <br />
-                </React.Fragment> : null }
-                {period.type === 'home' || period.type === 'military' ? <React.Fragment>
-                  <span className='bold'>{t('pinfo:stayAbroad-place')}</span>{': '}
-                  {period.place}
                   <br />
                 </React.Fragment> : null }
                 {period.type === 'learn' ? <React.Fragment>
@@ -410,7 +411,7 @@ class Period extends React.Component {
               </div>
             </div>
           </div>
-          {showButtons !== false ? <div className='col-md-6 existingPeriodButtons'>
+          {showButtons !== false && mode === 'view'? <div className='col-md-6 existingPeriodButtons'>
             <Nav.Knapp className='mr-3 existingPeriodButton' onClick={this.requestEditPeriod.bind(this, period)}>
               {t('ui:change')}
             </Nav.Knapp>
@@ -419,41 +420,6 @@ class Period extends React.Component {
               {t('ui:remove')}
             </Nav.Knapp>
           </div> : null }
-        </Nav.Row>
-
-      case 'receipt':
-        return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode, { 'current': current })}>
-          <div className='col-md-12'>
-            <div id={period.id} className='existingPeriod'>
-              <div className='icon mr-4'>
-                <div className={classNames('topHalf', { line: !first })} />
-                <div className={classNames('bottomHalf', { line: !last })} />
-                <Icons className='iconsvg' kind={'nav-' + period.type} type='png' />
-              </div>
-              <div className='pt-2 pb-2 existingPeriodDescription'>
-                <span className='bold existingPeriodType mr-4'>{t('pinfo:stayAbroad-category-' + period.type)}</span>
-                <span className='bold existingPeriodType'>
-                  <img src={'../../../../../flags/' + period.country.value + '.png'} alt='' style={{ width: '30px', height: '20px', marginRight: '0.7rem' }} />
-                  {period.country.label}
-                </span>
-                <br />
-                <span className='existingPeriodDates'>
-                  {`${t('pinfo:stayAbroad-period')}: `}
-                  {`${moment(period.startDate).format('DD.MM.YYYY')} - `}
-                  {period.endDate ? moment(period.endDate).format('DD.MM.YYYY') : t('ui:unknown')}
-                </span>
-                <br />
-                {period.attachments && !_.isEmpty(period.attachments)
-                  ? <div className='existingPeriodAttachmentsContainer'>
-                    <span className='existingPeriodAttachments'>
-                      {`${t('pinfo:stayAbroad-attachments')}: `}
-                      {period.attachments.map(att => { return att.name }).join(', ')}
-                    </span>
-                  </div>
-                  : null}
-              </div>
-            </div>
-          </div>
         </Nav.Row>
 
       case 'edit':

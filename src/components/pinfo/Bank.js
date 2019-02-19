@@ -74,20 +74,15 @@ class Bank extends React.Component {
   }
 
   render () {
-    const { t, bank, locale, mode } = this.props
+    const { t, bank, locale } = this.props
     const { localErrors } = this.state
-    const mandatory = mode !== 'view' ? ' *' : ''
+    const mandatory = ' *'
 
     return <div className='c-pinfo-bank'>
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:bank-title')}</Nav.Undertittel>
 
       <Nav.Row>
-        {mode === 'view' ? <div className='col-md-12'>
-          <div id='pinfo-bank-name-label'>
-            <label className='skjemaelement__label'>{t('pinfo:bank-name')}</label>
-            <p>{bank.bankName}</p>
-          </div>
-        </div> : <div className='col-md-6'>
+        <div className='col-md-6'>
           <Nav.Input
             id='pinfo-bank-name-input'
             type='text'
@@ -97,16 +92,8 @@ class Bank extends React.Component {
             onChange={this.setBankName}
             feil={localErrors.bankName ? { feilmelding: t(localErrors.bankName) } : null}
           />
-        </div>}
-        {mode === 'view' ? <div className='col-md-12 mb-3'>
-          <label className='skjemaelement__label'>{t('pinfo:bank-country')}</label>
-          <div id='pinfo-bank-country-label'>
-            <img className='flagImg'
-              src={'../../../../../flags/' + bank.bankCountry.value + '.png'}
-              alt={bank.bankCountry.label} />
-            {bank.bankCountry.label}
-          </div>
-        </div> :  <div className='col-md-6 mb-3'>
+        </div>
+        <div className='col-md-6 mb-3'>
           <label className='skjemaelement__label'>{t('pinfo:bank-country') + mandatory}</label>
           <CountrySelect
             placeholder={t('ui:writeIn')}
@@ -117,58 +104,45 @@ class Bank extends React.Component {
             error={localErrors.bankCountry}
             errorMessage={t(localErrors.bankCountry)}
           />
-        </div>}
+        </div>
       </Nav.Row>
       <Nav.Row>
         <div className='col-md-6'>
-          {mode === 'view' ? <div id='pinfo-bank-iban-label'>
-            <label className='skjemaelement__label'>{t('pinfo:bank-iban')}</label>
-            <p>{bank.bankIban}</p>
-          </div> : <Nav.Input
+          <Nav.Input
             id='pinfo-bank-iban-input'
             label={t('pinfo:bank-iban') + mandatory}
             placeholder={t('ui:writeIn')}
             value={bank.bankIban || ''}
             onChange={this.setBankIban}
             feil={localErrors.bankIban ? { feilmelding: t(localErrors.bankIban) } : null}
-          />}
+          />
         </div>
         <div className='col-md-6 d-flex align-items-center'>
-          {mode === 'view' ? null
-            : <Nav.HjelpetekstBase id='pinfo-bank-iban-input-help'>
-              {t('pinfo:bank-iban-help')}
-            </Nav.HjelpetekstBase>
-          }
+          <Nav.HjelpetekstBase id='pinfo-bank-iban-input-help'>
+            {t('pinfo:bank-iban-help')}
+          </Nav.HjelpetekstBase>
         </div>
       </Nav.Row>
       <Nav.Row>
         <div className='col-md-6'>
-          {mode === 'view' ? <div id='pinfo-bank-bicswift-label'>
-            <label className='skjemaelement__label'>{t('pinfo:bank-bicSwift')}</label>
-            <p>{bank.bankBicSwift}</p>
-          </div> : <Nav.Input
+          <Nav.Input
             id='pinfo-bank-bicswift-input'
             label={t('pinfo:bank-bicSwift') + mandatory}
             placeholder={t('ui:writeIn')}
             value={bank.bankBicSwift || ''}
             onChange={this.setBankBicSwift}
             feil={localErrors.bankBicSwift ? { feilmelding: t(localErrors.bankBicSwift) } : null}
-          />}
+          />
         </div>
         <div className='col-md-6 d-flex align-items-center'>
-          {mode === 'view' ? null
-            : <Nav.HjelpetekstBase id='pinfo-bank-bicswift-input-help'>
-              {t('pinfo:bank-bicSwift-help')}
-            </Nav.HjelpetekstBase>
-          }
+          <Nav.HjelpetekstBase id='pinfo-bank-bicswift-input-help'>
+            {t('pinfo:bank-bicSwift-help')}
+          </Nav.HjelpetekstBase>
         </div>
       </Nav.Row>
       <Nav.Row>
         <div className='col-md-12'>
-          {mode === 'view' ? <div id='pinfo-bank-address-label'>
-            <label className='skjemaelement__label'>{t('pinfo:bank-address')}</label>
-            <pre>{bank.bankAddress}</pre>
-          </div> : <Nav.Textarea
+          <Nav.Textarea
             id='pinfo-bank-address-textarea'
             label={t('pinfo:bank-address') + mandatory}
             placeholder={t('ui:writeIn')}
@@ -177,14 +151,14 @@ class Bank extends React.Component {
             maxLength={100}
             onChange={this.setBankAddress}
             feil={localErrors.bankAddress ? { feilmelding: t(localErrors.bankAddress) } : null}
-          />}
+          />
         </div>
       </Nav.Row>
-      {mode === 'view' ? null : <Nav.Row>
+      <Nav.Row>
         <div className='col-sm-6'>
           {'* ' + t('mandatoryField')}
         </div>
-      </Nav.Row>}
+      </Nav.Row>
     </div>
   }
 }

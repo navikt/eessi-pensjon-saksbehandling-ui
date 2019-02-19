@@ -13,7 +13,7 @@ import TopContainer from '../../components/ui/TopContainer/TopContainer'
 import Bank from '../../components/pinfo/Bank'
 import Person from '../../components/pinfo/Person'
 import StayAbroad from '../../components/pinfo/StayAbroad/StayAbroad'
-import Receipt from '../../components/pinfo/Receipt/Receipt'
+import Receipt from '../../components/pinfo/Receipt'
 import Confirm from '../../components/pinfo/Confirm'
 import WaitingPanel from '../../components/app/WaitingPanel'
 import AdvarselTrekant from '../../resources/images/AdvarselTrekant'
@@ -308,7 +308,8 @@ class PInfo extends React.Component {
         </div>
         <div className='col-md-2' />
       </Nav.Row>
-      {buttonsVisible ? <Nav.Row><div className='col-md-12 text-center mb-4 mt-4'>
+      {buttonsVisible && step < 5? <Nav.Row>
+        <div className='col-md-12 text-center mb-4 mt-4'>
         {step < 3 ? <Nav.Hovedknapp
           id='pinfo-forward-button'
           className='forwardButton mb-2 mr-3'
