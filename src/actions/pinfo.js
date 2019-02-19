@@ -1,6 +1,9 @@
 import * as types from '../constants/actionTypes'
 import * as urls from '../constants/urls'
+import * as constants from '../constants/constants'
 import * as api from './api'
+import * as storageActions from './storage'
+
 var sprintf = require('sprintf-js').sprintf
 
 export function setStep (step) {
@@ -105,6 +108,35 @@ export function generateReceipt () {
       failure: types.PINFO_RECEIPT_FAILURE
     }
   })
+}
+
+export function clearPInfoData () {
+  return {
+    type: types.PINFO_CLEAR_DATA
+  }
+}
+
+export function saveStateAndLeave(pinfo, username) {
+  return (dispatch) => {
+    return dispatch(
+      storageActions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
+    ).then(() => {
+        dispatch(clearPInfoData())
+        window.location.href = urls.NAV_URL
+    })
+  }
+}
+
+export function deleteStateAndLeave(username) {
+
+  return (dispatch) => {
+    return dispatch(
+      storageActions.deleteAllStorageFilesFromUser(username, constants.PINFO)
+    ).then(() => {
+      dispatch(clearPInfoData())
+      window.location.href = urls.NAV_URL
+    })
+  }
 }
 
 export function setReady () {

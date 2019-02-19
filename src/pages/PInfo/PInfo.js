@@ -171,12 +171,18 @@ class PInfo extends React.Component {
     window.scrollTo(0, 0)
   }
 
-  doCancel () {
-    const { actions, history, pinfo, username } = this.props
+  saveStateAndLeave () {
+    const { actions, pinfo, username } = this.props
 
     actions.closeModal()
-    actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
-    history.push(routes.ROOT)
+    actions.saveStateAndLeave(pinfo, username)
+  }
+
+  deleteStateAndLeave () {
+    const { actions, username } = this.props
+
+    actions.closeModal()
+    actions.deleteStateAndLeave(username)
   }
 
   closeModal () {
@@ -185,26 +191,31 @@ class PInfo extends React.Component {
   }
 
   onCancelButtonClick () {
-    const { t, actions, pinfo } = this.props
+    const { t, actions, history, pinfo } = this.props
 
     let isPInfoEmpty = globalTests.isPInfoEmpty(pinfo)
 
-    if (!isPInfoEmpty) {
-      actions.openModal({
-        modalTitle: t('pinfo:alert-leavePInfo'),
-        modalText: t('pinfo:alert-areYouSureLeavePInfo'),
-        modalButtons: [{
-          main: true,
-          text: t('ui:yes') + ', ' + t('ui:cancel').toLowerCase(),
-          onClick: this.doCancel.bind(this)
-        }, {
-          text: t('ui:no') + ', ' + t('ui:continue').toLowerCase(),
-          onClick: this.closeModal.bind(this)
-        }]
-      })
-    } else {
-      this.doCancel()
+    if (isPInfoEmpty) {
+      actions.closeModal()
+      history.push(routes.ROOT)
     }
+
+    actions.openModal({
+      modalTitle: t('pinfo:alert-leavePInfo'),
+      modalText: t('pinfo:alert-areYouSureLeavePInfo'),
+      modalButtons: [{
+        main: true,
+        text: t('ui:yes') + ', ' + t('ui:saveAndLeave').toLowerCase(),
+        onClick: this.saveStateAndLeave.bind(this)
+      }, {
+        main: true,
+        text: t('ui:yes') + ', ' + t('ui:deleteAndLeave').toLowerCase(),
+        onClick: this.deleteStateAndLeave.bind(this)
+      }, {
+        text: t('ui:no') + ', ' + t('ui:continue').toLowerCase(),
+        onClick: this.closeModal.bind(this)
+      }]
+    })
   }
 
   onSendButtonClick () {

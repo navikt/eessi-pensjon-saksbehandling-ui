@@ -6,6 +6,8 @@ let API_URL = BACKEND_URL + '/api'
 let FAG_URL = BACKEND_URL + '/fag'
 let PDF_URL = BACKEND_URL + '/pdf'
 
+export const NAV_URL = 'http://www.nav.no'
+
 // EuxController
 export const CASE_GET_RINA_URL = API_URL + '/rinaurl'
 export const CASE_GET_CASE_WITH_RINAID_URL = API_URL + '/case/%(sakId)s/%(aktoerId)s/%(rinaId)s'
@@ -30,6 +32,7 @@ export const STORAGE_LIST_URL = API_URL + '/storage/list/%(userId)s___%(namespac
 export const STORAGE_GET_URL = API_URL + '/storage/get/%(userId)s___%(namespace)s___%(file)s'
 export const STORAGE_POST_URL = API_URL + '/storage/%(userId)s___%(namespace)s___%(file)s'
 export const STORAGE_DELETE_URL = API_URL + '/storage/%(userId)s___%(namespace)s___%(file)s'
+export const STORAGE_MULTIPLE_DELETE_URL = API_URL + '/storage/multiple/%(userId)s___%(namespace)s'
 
 // FagmodulController
 export const CASE_CREATE_SED_URL = FAG_URL + '/sed/buc/create'

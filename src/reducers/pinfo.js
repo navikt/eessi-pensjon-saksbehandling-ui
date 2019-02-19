@@ -140,6 +140,7 @@ export default function (state = initialState, action = {}) {
       })
     }
 
+    case types.PINFO_CLEAR_DATA:
     case types.APP_CLEAR_DATA:
 
       return initialState
