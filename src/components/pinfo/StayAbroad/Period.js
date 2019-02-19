@@ -757,6 +757,7 @@ class Period extends React.Component {
               </div>
             </Nav.Row>
           </React.Fragment> : null}
+          {errorMessage ? <Nav.AlertStripe className='mt-4 mb-4' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
         </React.Fragment>
       default:
         return null
