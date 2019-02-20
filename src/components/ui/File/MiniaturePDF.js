@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { Document, Page } from 'react-pdf'
+import { pdfjs, Document, Page } from 'react-pdf'
 import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
@@ -10,6 +10,8 @@ import Icons from '../Icons'
 
 import './File.css'
 import './MiniaturePDF.css'
+
+pdfjs.GlobalWorkerOptions.workerSrc = process.env.PUBLIC_URL + '/pdf.worker.js'
 
 class MiniaturePDF extends Component {
     state = {

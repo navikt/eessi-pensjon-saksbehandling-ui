@@ -1,39 +1,24 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import canvg from 'canvg'
 
-import * as bookmark from '../../resources/images/line-version-bookmark-article.svg'
-import * as home from '../../resources/images/line-version-home-3.svg'
-import * as handbag from '../../resources/images/line-version-hand-bag-3.svg'
-import * as rankarmy from '../../resources/images/line-version-rank-army-2.svg'
-import * as heart from '../../resources/images/line-version-heart-circle.svg'
-import * as ecoglobe from '../../resources/images/line-version-eco-globe.svg'
-import * as stethoscope from '../../resources/images/line-version-expanded-stethoscope.svg'
-import * as birthdaycake from '../../resources/images/line-version-birthday-cake.svg'
-import * as helpcircle from '../../resources/images/line-version-help-circle.svg'
-import * as piggybank from '../../resources/images/line-version-piggy-bank.svg'
-import * as removecircle from '../../resources/images/filled-version-remove-circle.svg'
-import * as messagesent from '../../resources/images/line-version-expanded-email-send-3.svg'
+import BookmarkArticleSVG from '../../resources/images/LineVersionBookmarkArticle.js'
+import HomeSVG from '../../resources/images/LineVersionHome3.js'
+import HandbagSVG from '../../resources/images/LineVersionHandbag3.js'
+import RankArmySVG from '../../resources/images/LineVersionRankArmy2.js'
+import RemoveCircleSVG from '../../resources/images/FilledVersionRemoveCircle.js'
+import MessageSentSVG from '../../resources/images/LineVersionExpandedEmailSend3.js'
+
+// import * as heart from '../../resources/images/line-version-heart-circle.svg'
+// import * as ecoglobe from '../../resources/images/line-version-eco-globe.svg'
+// import * as stethoscope from '../../resources/images/line-version-expanded-stethoscope.svg'
+// import * as birthdaycake from '../../resources/images/line-version-birthday-cake.svg'
+// import * as helpcircle from '../../resources/images/line-version-help-circle.svg'
+// import * as piggybank from '../../resources/images/line-version-piggy-bank.svg'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as icons from '@fortawesome/free-solid-svg-icons'
 
 class Icons extends Component {
-  constructor () {
-    super()
-    this.canvas = document.getElementById('canvas')
-  }
-
-  generateImage (src) {
-    const { kind, type } = this.props
-
-    if (type === 'png') {
-      canvg('canvas', src)
-      return <img className='logo' src={this.canvas.toDataURL('image/png')} alt={kind} />
-    }
-    return <img className='logo' src={src} alt={kind} />
-  }
-
   render () {
     const { kind } = this.props
 
@@ -49,18 +34,19 @@ class Icons extends Component {
       case 'sick' : return <FontAwesomeIcon icon={icons.faHSquare} {...this.props} />
       case 'other' : return <FontAwesomeIcon icon={icons.faCalendar} {...this.props} />
 
-      case 'nav-work' : return <div {...this.props}>{this.generateImage(handbag)}</div>
-      case 'nav-home' : return <div {...this.props}>{this.generateImage(home)}</div>
-      case 'nav-child' : return <div {...this.props}>{this.generateImage(heart)}</div>
-      case 'nav-voluntary' : return <div {...this.props}>{this.generateImage(ecoglobe)}</div>
-      case 'nav-military' : return <div {...this.props}>{this.generateImage(rankarmy)}</div>
-      case 'nav-birth' : return <div {...this.props}>{this.generateImage(birthdaycake)}</div>
-      case 'nav-learn' : return <div {...this.props}>{this.generateImage(bookmark)}</div>
-      case 'nav-daily' : return <div {...this.props}>{this.generateImage(piggybank)}</div>
-      case 'nav-sick' : return <div {...this.props}>{this.generateImage(stethoscope)}</div>
-      case 'nav-other' : return <div {...this.props}>{this.generateImage(helpcircle)}</div>
-      case 'nav-close' : return <div {...this.props}>{this.generateImage(removecircle)}</div>
-      case 'nav-message-sent' : return <div {...this.props}>{this.generateImage(messagesent)}</div>
+      case 'nav-work' : return <HandbagSVG {...this.props} />
+      case 'nav-home' : return <HomeSVG {...this.props} />
+      case 'nav-military' : return <RankArmySVG {...this.props} />
+      case 'nav-learn' : return <BookmarkArticleSVG {...this.props} />
+        //    case 'nav-child' : return <div {...this.props}>{this.generateImage(heart)}</div>
+        //    case 'nav-voluntary' : return <div {...this.props}>{this.generateImage(ecoglobe)}</div>
+        //    case 'nav-birth' : return <div {...this.props}>{this.generateImage(birthdaycake)}</div>
+        //    case 'nav-daily' : return <div {...this.props}>{this.generateImage(piggybank)}</div>
+        //    case 'nav-sick' : return <div {...this.props}>{this.generateImage(stethoscope)}</div>
+        //    case 'nav-other' : return <div {...this.props}>{this.generateImage(helpcircle)}</div>
+      case 'nav-close' : return <RemoveCircleSVG {...this.props} />
+      case 'nav-message-sent' : return <MessageSentSVG {...this.props} />
+
       case 'document' : return <FontAwesomeIcon icon={icons.faFile} {...this.props} />
       case 'view' : return <FontAwesomeIcon icon={icons.faEye} {...this.props} />
       case 'calendar' : return <FontAwesomeIcon icon={icons.faCalendarCheck} {...this.props} />

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Document, Page } from 'react-pdf'
+import { pdfjs, Document, Page } from 'react-pdf'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
@@ -13,6 +13,8 @@ import * as pdfActions from '../../../actions/pdf'
 import * as uiActions from '../../../actions/ui'
 
 import './PageInDnD.css'
+
+pdfjs.GlobalWorkerOptions.workerSrc = process.env.PUBLIC_URL + '/pdf.worker.js'
 
 const mapStateToProps = (state) => {
   return {

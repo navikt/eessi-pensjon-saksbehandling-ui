@@ -75,7 +75,7 @@ class CountrySelect extends Component {
 }
 CountrySelect.propTypes = {
   onSelect: PT.func.isRequired,
-  value: PT.oneOfType([PT.object, PT.string]).isRequired,
+  value: PT.oneOfType([PT.object, PT.string]),
   t: PT.func.isRequired,
   locale: PT.string.isRequired,
   style: PT.object,

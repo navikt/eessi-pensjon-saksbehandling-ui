@@ -3,6 +3,9 @@ import PT from 'prop-types'
 import * as Nav from '../Nav'
 import Icons from '../Icons'
 import Psycho from './Psycho'
+import classNames from 'classnames'
+
+import './Psycho.css'
 
 class PsychoPanel extends Component {
   state = {
@@ -25,7 +28,7 @@ class PsychoPanel extends Component {
       return null
     }
 
-    return <div className={className}>
+    return <div className={classNames('c-psychoPanel', className)}>
       <Nav.Veilederpanel type='normal' svg={<Psycho type={type} />} kompakt>
         {children}
         {closeButton ? <div className='closeButton'>
