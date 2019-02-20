@@ -1,7 +1,7 @@
 import React from 'react'
 export default (props) => (
   <div {...props} >
-    <svg width={(props.width || props.size || 23)} height={(props.width || props.size || 23)} viewBox='0 0 23 23' xmlns='http://www.w3.org/2000/svg'>
+    <svg width={(props.width || props.size || 23)} height={(props.width || props.size || 23)} viewBox='0 0 23 23' xmlns='http://www.w3.org/2000/svg'>
       <title>Advarsel</title>
       <g stroke='#BA3A26' fill='none' fill-rule='evenodd' stroke-linejoin='round'>
         <path d='M11.5 15.805V8.154M22.5 22.5H.5l11-22z' stroke-linecap='round' />

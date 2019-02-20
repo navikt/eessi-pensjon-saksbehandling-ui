@@ -6,7 +6,7 @@ import * as Nav from '../ui/Nav'
 
 class WaitingPanel extends Component {
   render () {
-    const { t, message, className } = this.props
+    const { message, className } = this.props
 
     return <div className={classNames('text-center', className)}>
       <Nav.NavFrontendSpinner />

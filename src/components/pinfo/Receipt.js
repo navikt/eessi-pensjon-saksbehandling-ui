@@ -56,7 +56,6 @@ class Receipt extends React.Component {
 
   render () {
     const { t, isGeneratingReceipt, receipt } = this.props
-    const { isReady } = this.state
 
     return <div className='c-pinfo-receipt'>
       <PsychoPanel closeButton>
@@ -64,12 +63,12 @@ class Receipt extends React.Component {
       </PsychoPanel>
       <div className='text-center'>
         <Nav.Knapp
-        id='pinfo-receipt-generate-button'
-            className='generateButton m-4'
-            disabled={isGeneratingReceipt}
-            spinner={isGeneratingReceipt}
-            onClick={this.generateReceiptRequest.bind(this)}>
-            {isGeneratingReceipt ? t('ui:generating') : t('ui:getReceipt')}
+          id='pinfo-receipt-generate-button'
+          className='generateButton m-4'
+          disabled={isGeneratingReceipt}
+          spinner={isGeneratingReceipt}
+          onClick={this.generateReceiptRequest.bind(this)}>
+          {isGeneratingReceipt ? t('ui:generating') : t('ui:getReceipt')}
         </Nav.Knapp>
       </div>
       {receipt ? <embed style={{ width: '100%', height: '100vh' }}

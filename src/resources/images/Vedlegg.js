@@ -2,7 +2,7 @@ import React from 'react'
 
 export default (props) => (
   <div {...props}>
-    <svg width={(props.width || props.size || 21)} height={(props.width || props.size || 20)} viewBox='0 0 21 20' version='1.1' xmlns='http://www.w3.org/2000/svg'>
+    <svg width={(props.width || props.size || 21)} height={(props.width || props.size || 20)} viewBox='0 0 21 20' version='1.1' xmlns='http://www.w3.org/2000/svg'>
       <title>Vedlegg</title>
       <g stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'>
         <g transform='translate(-185.000000, -659.000000)' fill='#0067C5'>

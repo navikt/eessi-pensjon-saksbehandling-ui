@@ -68,6 +68,7 @@ class PInfoSaksbehandler extends React.Component {
           namespace: 'varsler',
           file: sakId + '___' + file
         })
+        return file
       })
 
       this.setState({

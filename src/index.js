@@ -58,7 +58,7 @@ ReactDOM.render(
 
   <I18nextProvider i18n={i18n}>
     <Provider store={store}>
-      <Suspense fallback={<WaitingPanel />}>
+      <Suspense fallback={<WaitingPanel message='...' />}>
         <Router history={history}>
           <Switch>
             <AuthenticatedRoute exact path={routes.PSELV} component={Pages.PSelv} roles={[constants.SAKSBEHANDLER]} />

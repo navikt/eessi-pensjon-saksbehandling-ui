@@ -36,7 +36,6 @@ export default function (state = {}, action = {}) {
   }
 
   if (_.endsWith(action.type, '/FAILURE')) {
-      
     switch (action.type) {
       case types.CASE_GET_SUBJECT_AREA_LIST_FAILURE:
 

@@ -139,6 +139,7 @@
   "standard": {
     "parser": "babel-eslint",
     "globals": [
+      "Blob",
       "fetch",
       "FileReader"
     ]

@@ -89,7 +89,6 @@ class Period extends React.Component {
 
   eventSetType (validateFunction, e) {
     const { actions, pageErrors } = this.props
-    const { _period } = this.state
 
     // clean up the onePeriod error message, as the user is trying to fix it
     if (pageErrors.onePeriod) {
@@ -168,8 +167,8 @@ class Period extends React.Component {
     return stepTests.periodStep(_period, pinfo.person)
   }
 
-  addId(id) {
-     this.valueSetProperty('insuranceId', null, id)
+  addId (id) {
+    this.valueSetProperty('insuranceId', null, id)
   }
 
   addPeriod () {
@@ -183,20 +182,21 @@ class Period extends React.Component {
     })
 
     if (this.hasNoErrors(errors)) {
-
       let newPeriods = _.clone(periods)
       let newPeriod = _.clone(_period)
 
       // remove properties that do not belong to this type
       switch (newPeriod) {
-      case 'work':
-        delete newPeriod.learnInstitution
-        break
-      case 'learn':
-        delete newPeriod.workActivity
-        delete newPeriod.workName
-        delete newPeriod.workPlace
-        break
+        case 'work':
+          delete newPeriod.learnInstitution
+          break
+        case 'learn':
+          delete newPeriod.workActivity
+          delete newPeriod.workName
+          delete newPeriod.workPlace
+          break
+        default:
+          break
       }
 
       newPeriod.id = new Date().getTime()
@@ -213,7 +213,7 @@ class Period extends React.Component {
       if (dirtyForm) {
         actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
       }
-      window.scrollTo(0,0)
+      window.scrollTo(0, 0)
     }
   }
 
@@ -262,7 +262,7 @@ class Period extends React.Component {
           actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
         }
       }
-      window.scrollTo(0,0)
+      window.scrollTo(0, 0)
     }
   }
 
@@ -283,7 +283,7 @@ class Period extends React.Component {
     }
     actions.setMainButtonsVisibility(true)
     actions.closeModal()
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0)
   }
 
   closeModal () {
@@ -369,7 +369,7 @@ class Period extends React.Component {
       case 'view':
       case 'confirm':
         return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode)}>
-          <div className={classNames({'col-md-6': mode === 'view', 'col-md-12': mode === 'confirm', 'current': current })}>
+          <div className={classNames({ 'col-md-6': mode === 'view', 'col-md-12': mode === 'confirm', 'current': current })}>
             <div id={period.id} className='existingPeriod'>
               <div className='icon mr-3 ml-3'>
                 <div className={classNames('topHalf', { line: !first })} />
@@ -411,7 +411,7 @@ class Period extends React.Component {
               </div>
             </div>
           </div>
-          {showButtons !== false && mode === 'view'? <div className='col-md-6 existingPeriodButtons'>
+          {showButtons !== false && mode === 'view' ? <div className='col-md-6 existingPeriodButtons'>
             <Nav.Knapp className='mr-3 existingPeriodButton' onClick={this.requestEditPeriod.bind(this, period)}>
               {t('ui:change')}
             </Nav.Knapp>
@@ -560,7 +560,7 @@ class Period extends React.Component {
                   }).filter((id, index, self) => {
                     return id && _period.insuranceId !== id && self.indexOf(id) === index
                   }).map(id => {
-                     return <Nav.EtikettBase className='mr-3' type='fokus' onClick={this.addId.bind(this, id)}><b>{id}</b></Nav.EtikettBase>
+                    return <Nav.EtikettBase key={id} className='mr-3' type='fokus' onClick={this.addId.bind(this, id)}><b>{id}</b></Nav.EtikettBase>
                   })}
                 </div>
               </div>

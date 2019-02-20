@@ -3,9 +3,6 @@ import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { withTranslation } from 'react-i18next'
 
-import Person from './Person'
-import Bank from './Bank'
-import StayAbroad from './StayAbroad/StayAbroad'
 import Period from './StayAbroad/Period'
 import PsychoPanel from '../ui/Psycho/PsychoPanel'
 import * as Nav from '../ui/Nav'
@@ -19,7 +16,6 @@ const mapStateToProps = (state) => {
 }
 
 class Confirm extends React.Component {
-
   render () {
     const { t, locale, username } = this.props
     const { stayAbroad, person, bank, comment } = this.props.pinfo
@@ -93,6 +89,7 @@ class Confirm extends React.Component {
               last={index === stayAbroad.length - 1}
               period={period}
               locale={locale}
+              editPeriod={() => {}}
               periods={stayAbroad}
               key={period.id} />
           })}
@@ -109,8 +106,8 @@ Confirm.propTypes = {
 }
 
 export default connect(
- mapStateToProps,
- null
+  mapStateToProps,
+  null
 )(
   withTranslation()(Confirm)
 )

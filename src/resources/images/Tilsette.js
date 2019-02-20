@@ -1,7 +1,7 @@
 import React from 'react'
 export default (props) => (
   <div {...props} >
-    <svg width={(props.width || props.size || 24)} height={(props.height || props.size || 24)} viewBox='0 0 24 24' version='1.1' xmlns='http://www.w3.org/2000/svg'>
+    <svg width={(props.width || props.size || 24)} height={(props.height || props.size || 24)} viewBox='0 0 24 24' version='1.1' xmlns='http://www.w3.org/2000/svg'>
       <title>Tilsette</title>
       <g stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'>
         <path stroke='#0067C5' d='M20.146852,3.88403947 L20.146771,3.88395809 C17.976089,1.70435546 15.0928534,0.505997541 11.9994782,0.5 C5.67074719,0.5 0.512021923,5.64860101 0.500022608,11.9769766 C0.494020029,15.0501691 1.68354863,17.9384927 3.85210448,20.1159605 C6.02125562,22.2930255 8.90491868,23.494 11.9775643,23.5 C18.3251119,23.5 23.4879722,18.3534487 23.4999774,12.0209361 C23.5059792,8.94917357 22.3156837,6.06078388 20.146852,3.88403947 Z' />

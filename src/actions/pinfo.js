@@ -52,7 +52,6 @@ export function setMainButtonsVisibility (value) {
   }
 }
 
-
 export function setStepError (stepError) {
   return {
     type: types.PINFO_STEP_ERROR,

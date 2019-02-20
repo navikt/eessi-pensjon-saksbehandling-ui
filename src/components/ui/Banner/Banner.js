@@ -23,7 +23,7 @@ class Banner extends Component {
   render () {
     const { t, header } = this.props
     return <div className='c-ui-banner'>
-      <a className='c-ui-highcontrast-link mt-1' href='#' onClick={this.toggleHighContrast.bind(this)}>{t('highContrast')}</a>
+      <a className='c-ui-highcontrast-link mt-1' href='#highContrast' onClick={this.toggleHighContrast.bind(this)}>{t('highContrast')}</a>
       <h1 className='typo-undertittel m-0 pt-4 pb-4 text-center appTitle'>{header}</h1>
     </div>
   }
