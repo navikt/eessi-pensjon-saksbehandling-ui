@@ -17,13 +17,13 @@ import Receipt from '../../components/pinfo/Receipt'
 import Confirm from '../../components/pinfo/Confirm'
 import WaitingPanel from '../../components/app/WaitingPanel'
 import AdvarselTrekant from '../../resources/images/AdvarselTrekant'
-
 import * as stepTests from '../../components/pinfo/Validation/stepTests'
 import * as globalTests from '../../components/pinfo/Validation/globalTests'
 import PInfoUtil from '../../components/pinfo/Util'
-import * as routes from '../../constants/routes'
 
+import * as routes from '../../constants/routes'
 import * as constants from '../../constants/constants'
+
 import * as storageActions from '../../actions/storage'
 import * as pinfoActions from '../../actions/pinfo'
 import * as uiActions from '../../actions/ui'

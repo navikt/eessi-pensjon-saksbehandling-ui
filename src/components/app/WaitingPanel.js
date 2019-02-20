@@ -8,9 +8,9 @@ class WaitingPanel extends Component {
   render () {
     const { message, className } = this.props
 
-    return <div className={classNames('text-center', className)}>
+    return <div className={classNames('c-waitingPanel', 'text-center', className)}>
       <Nav.NavFrontendSpinner />
-      <p className='typo-normal'>{message}</p>
+      <p className='c-waitingPanel-message typo-normal'>{message}</p>
     </div>
   }
 }
