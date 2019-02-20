@@ -193,7 +193,6 @@ class FileUpload extends Component {
       newCurrentPages.push(file.numPages)
 
       let status = t('ui:added') + ' ' + file.name
-
       await this.updateFiles(newFiles, newCurrentPages, status)
     }
 
@@ -208,7 +207,6 @@ class FileUpload extends Component {
 
       let filename = this.state.files[fileIndex].name
       let status = t('ui:removed') + ' ' + filename
-
       await this.updateFiles(newFiles, newCurrentPages, status)
     }
 
@@ -216,7 +214,6 @@ class FileUpload extends Component {
       if (index !== undefined && event && event.numPages) {
         let newFiles = _.clone(this.state.files)
         newFiles[index].numPages = event.numPages
-
         await this.updateFiles(newFiles, this.state.currentPages)
       }
     }

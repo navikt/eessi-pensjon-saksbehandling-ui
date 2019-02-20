@@ -6,12 +6,12 @@ import { withTranslation } from 'react-i18next'
 import { Route, withRouter, Redirect } from 'react-router'
 import _ from 'lodash'
 
-import { IS_DEVELOPMENT } from '../../constants/environment'
 import WaitingPanel from './WaitingPanel'
 
 import * as routes from '../../constants/routes'
 import * as appActions from '../../actions/app'
 import * as statusActions from '../../actions/status'
+import * as attachmentActions from '../../actions/attachment'
 
 const mapStateToProps = (state) => {
   return {
@@ -26,7 +26,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, appActions, statusActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, appActions, statusActions, attachmentActions), dispatch) }
 }
 
 const paramAliases = {
@@ -37,9 +37,7 @@ const paramAliases = {
 }
 
 class AuthenticatedRoute extends Component {
-  state = {
-    isReady: false
-  }
+  state = {}
 
   parseSearchParams () {
     const { actions, location } = this.props
@@ -61,27 +59,18 @@ class AuthenticatedRoute extends Component {
   }
 
   componentDidMount () {
-    const { actions, userStatus } = this.props
-    if (!userStatus) {
+    const { actions, loggedIn, gettingUserInfo } = this.props
+    if (loggedIn === undefined && !gettingUserInfo) {
       actions.getUserInfo()
-    } else {
-      this.setState({
-        isReady: true
-      })
     }
     this.parseSearchParams()
   }
 
   componentDidUpdate () {
-    const { userStatus } = this.props
-    const { isReady } = this.state
-
-    if (!isReady && userStatus !== undefined) {
-      this.setState({
-        isReady: true
-      })
+    const { actions, loggedIn } = this.props
+    if (loggedIn === false) {
+      actions.login()
     }
-    this.parseSearchParams()
   }
 
   hasApprovedRole () {
@@ -89,37 +78,19 @@ class AuthenticatedRoute extends Component {
     return roles.indexOf(userRole) >= 0
   }
 
-  comesFromPesys () {
-    return this.state.hasOwnProperty('saksId') && this.state.hasOwnProperty('aktoerId')
-  }
-
-  forceLogin () {
-    const { actions } = this.props
-
-    console.log('No oidc-token, force login.')
-    actions.login()
-  }
-
   render () {
-    const { t, userRole, allowed, gettingUserInfo } = this.props
-    const { isReady } = this.state
+    const { t, allowed, loggedIn } = this.props
 
-    if (!isReady || gettingUserInfo) {
+    if (!loggedIn) {
       return <WaitingPanel message={t('authenticating')} />
     }
-
-    if (!userRole) {
-      this.forceLogin()
-      return null
-    }
-
     let validRole = this.hasApprovedRole()
 
     if (!validRole) {
       return <Redirect to={routes.FORBIDDEN} />
     }
 
-    let authorized = allowed || IS_DEVELOPMENT
+    let authorized = allowed
 
     if (!authorized) {
       return <Redirect to={routes.NOT_INVITED} />

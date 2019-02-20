@@ -46,7 +46,6 @@ class PInfoSaksbehandler extends React.Component {
 
   componentDidMount () {
     let { actions, aktoerId, sakId, fileList } = this.props
-
     if (aktoerId && sakId && fileList === undefined) {
       actions.listStorageFiles(aktoerId, 'varsler___' + sakId)
     }

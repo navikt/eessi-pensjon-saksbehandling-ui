@@ -28,11 +28,13 @@ import * as storageActions from '../../actions/storage'
 import * as pinfoActions from '../../actions/pinfo'
 import * as uiActions from '../../actions/ui'
 import * as appActions from '../../actions/app'
+import * as attachmentActions from '../../actions/attachment'
 
 import './PInfo.css'
 
 const mapStateToProps = (state) => {
   return {
+    username: state.app.username,
     locale: state.ui.locale,
     isSendingPinfo: state.loading.isSendingPinfo,
     pinfo: state.pinfo,
@@ -45,13 +47,12 @@ const mapStateToProps = (state) => {
     pageErrors: state.pinfo.pageErrors,
     fileList: state.storage.fileList,
     file: state.storage.file,
-    username: state.app.username,
-    dirtyForm: state.app.dirtyForm
+    attachments: state.attachment
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, storageActions, pinfoActions, uiActions, appActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, storageActions, pinfoActions, uiActions, appActions, attachmentActions), dispatch) }
 }
 
 class PInfo extends React.Component {
@@ -64,41 +65,18 @@ class PInfo extends React.Component {
 
   componentDidMount () {
     const { actions, username } = this.props
-
     if (window.hj) {
       window.hj('trigger', 'e207-feedback-no')
     }
-    actions.listStorageFilesWithNoNotification(username, 'PINFO')
+    if (username) {
+      actions.getAllStateFromStorage()
+    }
   }
 
   componentDidUpdate () {
-    const { send, actions, username, step, fileList, file } = this.props
+    const { send, actions, step } = this.props
     if (send && step === 3) {
       actions.setStep(4)
-    }
-    if (file === undefined && fileList !== undefined && this.state.fileList === undefined) {
-      if (!_.isEmpty(fileList) && fileList.indexOf('PINFO.json') >= 0) {
-        actions.getStorageFileWithNoNotification({
-          userId: username,
-          namespace: constants.PINFO,
-          file: constants.PINFO_FILE
-        })
-      } else {
-        actions.setReady()
-      }
-      this.setState({
-        fileList: fileList
-      })
-    }
-    if (file !== undefined && this.state.file === undefined) {
-      if (!_.isEmpty(file)) {
-        actions.restoreState(file)
-      } else {
-        actions.setReady()
-      }
-      this.setState({
-        file: file
-      })
     }
   }
 
@@ -129,7 +107,7 @@ class PInfo extends React.Component {
   }
 
   onForwardButtonClick () {
-    const { actions, step, pinfo, username, dirtyForm } = this.props
+    const { actions, step, pinfo, username } = this.props
 
     let errors = {}
     if (this.state.doPageValidationOnForwardButton) {
@@ -138,16 +116,14 @@ class PInfo extends React.Component {
     }
 
     if (this.hasNoErrors(errors)) {
-      if (dirtyForm) {
-        actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
-      }
+      actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
       actions.setStep(step + 1)
       window.scrollTo(0, 0)
     }
   }
 
   onStepIndicatorBeforeChange (nextStep) {
-    const { step, actions, maxStep, pinfo, username, dirtyForm } = this.props
+    const { step, actions, maxStep, pinfo, username } = this.props
 
     if (nextStep === step) {
       return false
@@ -160,9 +136,7 @@ class PInfo extends React.Component {
     actions.setMainButtonsVisibility(true)
     actions.setStep(nextStep)
 
-    if (dirtyForm) {
-      actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
-    }
+    actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
     return true
   }
 
@@ -198,12 +172,10 @@ class PInfo extends React.Component {
   }
 
   doCancel () {
-    const { actions, history, pinfo, username, dirtyForm } = this.props
+    const { actions, history, pinfo, username } = this.props
 
     actions.closeModal()
-    if (dirtyForm) {
-      actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
-    }
+    actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
     history.push(routes.ROOT)
   }
 
@@ -236,7 +208,7 @@ class PInfo extends React.Component {
   }
 
   onSendButtonClick () {
-    const { actions, step, pinfo } = this.props
+    const { actions, step, pinfo, attachments } = this.props
 
     let errors = {}
     if (this.state.doPageValidationOnForwardButton) {
@@ -244,7 +216,7 @@ class PInfo extends React.Component {
       actions.setPageErrors(errors)
     }
     if (this.hasNoErrors(errors)) {
-      let payload = PInfoUtil.generatePayload(pinfo)
+      let payload = new PInfoUtil(pinfo, attachments).generatePayload()
       actions.sendPInfo(payload)
     }
     window.scrollTo(0, 0)

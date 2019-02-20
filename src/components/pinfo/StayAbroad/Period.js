@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import _ from 'lodash'
 import moment from 'moment'
 import classNames from 'classnames'
+import MD5 from 'md5.js'
 
 import DatePicker from '../../ui/DatePicker/DatePicker'
 import CountrySelect from '../../ui/CountrySelect/CountrySelect'
@@ -19,6 +20,7 @@ import * as constants from '../../../constants/constants'
 import * as uiActions from '../../../actions/ui'
 import * as pinfoActions from '../../../actions/pinfo'
 import * as storageActions from '../../../actions/storage'
+import * as attachmentActions from '../../../actions/attachment'
 
 import './Period.css'
 
@@ -28,12 +30,13 @@ const mapStateToProps = (state) => {
     pinfo: state.pinfo,
     person: state.pinfo.person,
     username: state.app.username,
-    dirtyForm: state.app.dirtyForm,
-    pageErrors: state.pinfo.pageErrors
+    attachments: state.attachment,
+    pageErrors: state.pinfo.pageErrors,
+    fileList: state.storage.fileList
   }
 }
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, storageActions, pinfoActions, uiActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, storageActions, pinfoActions, uiActions, attachmentActions), dispatch) }
 }
 
 class Period extends React.Component {
@@ -60,9 +63,9 @@ class Period extends React.Component {
     this.setChildLastName = this.eventSetProperty.bind(this, 'childLastName', periodValidation.childLastName)
     this.setChildBirthDate = this.dateSetProperty.bind(this, 'childBirthDate', periodValidation.childBirthDate)
     this.setLearnInstitution = this.eventSetProperty.bind(this, 'learnInstitution', periodValidation.learnInstitution)
-    this.setAttachments = this.valueSetProperty.bind(this, 'attachments', null)
     this.setFatherName = this.eventSetPerson.bind(this, 'fatherName', personValidation.fatherName)
     this.setMotherName = this.eventSetPerson.bind(this, 'motherName', personValidation.motherName)
+    this.setAttachments = this.setAttachments.bind(this, 'attachments', null)
   }
 
   hasNoErrors (errors) {
@@ -87,20 +90,31 @@ class Period extends React.Component {
     return period.country && (period.country.value === 'ES' || period.country.value === 'FR')
   }
 
+  setAttachments (key, validateFunction, newFiles) {
+    const { attachments, actions } = this.props
+    let hashedFiles = newFiles.map(file => {
+      let hash = new MD5().update(file.content.base64).digest('hex')
+      if (!attachments[hash]) {
+        actions.addFileToState({ key: hash, file: file })
+      }
+      return { ...file, content: { md5: hash } }
+    })
+    this.valueSetProperty(key, validateFunction, hashedFiles)
+  }
+
   eventSetType (validateFunction, e) {
     const { actions, pageErrors } = this.props
-
     // clean up the onePeriod error message, as the user is trying to fix it
     if (pageErrors.onePeriod) {
       let _pageErrors = _.cloneDeep(pageErrors)
       delete _pageErrors.onePeriod
       actions.setPageErrors(_pageErrors)
     }
-
     this.eventSetProperty('type', periodValidation.periodType, e)
   }
 
   eventSetPerson (key, validateFunction, e) {
+    const { actions } = this.props
     let _localErrors = _.cloneDeep(this.state.localErrors)
     let value = e.target.value
     let error = validateFunction ? validateFunction(value) : undefined
@@ -110,7 +124,7 @@ class Period extends React.Component {
     if (error) {
       _localErrors[key] = error
     }
-    this.props.actions.setPerson({ [key]: value })
+    actions.setPerson({ [key]: value })
     this.setState({
       localErrors: _localErrors
     })
@@ -172,7 +186,7 @@ class Period extends React.Component {
   }
 
   addPeriod () {
-    const { periods, actions, pinfo, username, dirtyForm } = this.props
+    const { periods, actions, pinfo, username } = this.props
     const { _period } = this.state
 
     let errors = this.validatePeriod()
@@ -210,9 +224,8 @@ class Period extends React.Component {
 
       actions.setMainButtonsVisibility(true)
       actions.setStepError(undefined)
-      if (dirtyForm) {
-        actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
-      }
+      actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
+      actions.syncLocalStateWithStorage()
       window.scrollTo(0, 0)
     }
   }
@@ -224,7 +237,7 @@ class Period extends React.Component {
   }
 
   saveEditPeriod () {
-    const { periods, editPeriod, actions, pinfo, username, dirtyForm } = this.props
+    const { periods, editPeriod, actions, pinfo, username } = this.props
     const { _period } = this.state
 
     let errors = this.validatePeriod()
@@ -258,9 +271,8 @@ class Period extends React.Component {
         actions.setMainButtonsVisibility(true)
         let _pinfo = _.cloneDeep(pinfo)
         _pinfo.stayAbroad = newPeriods
-        if (dirtyForm) {
-          actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
-        }
+        actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
+        actions.syncLocalStateWithStorage()
       }
       window.scrollTo(0, 0)
     }
@@ -326,7 +338,7 @@ class Period extends React.Component {
   }
 
   doRemovePeriod (period) {
-    const { periods, actions, pinfo, username, dirtyForm } = this.props
+    const { periods, actions, pinfo, username } = this.props
 
     let index = _.findIndex(periods, { id: period.id })
 
@@ -342,9 +354,8 @@ class Period extends React.Component {
       actions.setStayAbroad(newPeriods)
       let _pinfo = _.cloneDeep(pinfo)
       _pinfo.stayAbroad = newPeriods
-      if (dirtyForm) {
-        actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
-      }
+      actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
+      actions.syncLocalStateWithStorage()
     }
     actions.closeModal()
   }
@@ -357,6 +368,16 @@ class Period extends React.Component {
       }
     }
     return undefined
+  }
+
+  getPeriodAttachments (period) {
+    let { attachments } = this.props
+    if (!period.attachments) {
+      return []
+    }
+    return period.attachments.map(element => (
+      attachments[element.content.md5]
+    )).filter(element => element)
   }
 
   render () {
@@ -703,7 +724,7 @@ class Period extends React.Component {
                   t={t}
                   ref={f => { this.fileUpload = f }}
                   fileUploadDroppableId={'fileUpload'}
-                  files={_period.attachments || []}
+                  files={this.getPeriodAttachments(_period)}
                   onFileChange={this.setAttachments} />
               </div>
             </Nav.Row>

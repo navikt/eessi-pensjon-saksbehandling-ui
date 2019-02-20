@@ -91,7 +91,8 @@ class Confirm extends React.Component {
               locale={locale}
               editPeriod={() => {}}
               periods={stayAbroad}
-              key={period.id} />
+              key={period.id}
+            />
           })}
         </div>
         <Nav.Undertittel className='m-4'>{t('pinfo:stayAbroad-comment')}</Nav.Undertittel>

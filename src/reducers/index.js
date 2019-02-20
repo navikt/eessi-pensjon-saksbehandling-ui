@@ -12,7 +12,21 @@ import pselv from './pselv'
 import p4000 from './p4000'
 import p6000 from './p6000'
 import storage from './storage'
+import attachment from './attachment'
 
 export {
-  _case as case, app, ui, status, loading, alert, pdf, pinfo, pinfoSaksbehandler, pselv, p4000, p6000, storage
+  _case as case,
+  app,
+  ui,
+  status,
+  loading,
+  alert,
+  pdf,
+  pinfo,
+  pinfoSaksbehandler,
+  pselv,
+  p4000,
+  p6000,
+  storage,
+  attachment
 }

@@ -112,10 +112,3 @@ export function setReady () {
     type: types.PINFO_SET_READY
   }
 }
-
-export function restoreState (content) {
-  return {
-    type: types.PINFO_STATE_RESTORE,
-    payload: content
-  }
-}

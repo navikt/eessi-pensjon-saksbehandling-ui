@@ -53,7 +53,6 @@ class StayAbroad extends React.Component {
           first={index === 0}
           last={index === stayAbroad.length - 1}
           period={period}
-          locale={locale}
           periods={stayAbroad}
           editPeriod={this.setEditPeriod.bind(this)}
           key={period.id}

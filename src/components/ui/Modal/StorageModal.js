@@ -16,7 +16,6 @@ const mapStateToProps = (state) => {
   return {
     username: state.app.username,
     userRole: state.app.userRole,
-    dirtyForm: state.app.dirtyForm,
     modalOpen: state.storage.modalOpen,
     modalOptions: state.storage.modalOptions,
     fileList: state.storage.fileList,
@@ -148,11 +147,9 @@ class StorageModal extends Component {
     }
 
     saveStorageFile (username, namespace, saveTargetFileName, blob) {
-      const { actions, dirtyForm } = this.props
+      const { actions } = this.props
 
-      if (dirtyForm) {
-        actions.postStorageFile(username, namespace, saveTargetFileName, blob)
-      }
+      actions.postStorageFile(username, namespace, saveTargetFileName, blob)
       actions.closeModal()
     }
 

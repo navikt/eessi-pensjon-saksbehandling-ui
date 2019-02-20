@@ -109,7 +109,19 @@ export default function (state = initialState, action = {}) {
         receipt: undefined
       })
 
-    case types.PINFO_STATE_RESTORE: {
+    case types.STORAGE_GET_SUCCESS: {
+      let pinfo
+      try {
+        pinfo = JSON.parse(action.payload)
+      } catch (e) {
+        pinfo = action.payload
+      }
+      pinfo.buttonsVisible = true
+      pinfo.isReady = true
+      return Object.assign({}, initialState, pinfo)
+    }
+
+    case types.STORAGE_GET_PINFO_SUCCESS: {
       let pinfo
       try {
         pinfo = JSON.parse(action.payload)
