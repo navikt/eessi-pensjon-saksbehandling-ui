@@ -67,6 +67,7 @@
     "documentId" : "Dokument ID",
     "documentType" : "Dokument type",
     "download" : "Last ned",
+    "downloadReceipt" : "Last ned kvittering",
     "downloadAll" : "Last ned alle",
     "dropFilesHere" : "Dra filer inn hit, eller klikk her for å velge filer. Filformat er JPG, PNG og PDF",
     "edit" : "Redigere",

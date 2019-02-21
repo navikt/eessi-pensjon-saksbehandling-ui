@@ -21,27 +21,30 @@ class File extends Component {
   }
 
   render () {
-    const { file, animate, scale } = this.props
+    const { file, animate, scale, ui } = this.props
 
     let _animate = _.isBoolean(animate) ? animate : true
     let _size = this.renderBytes(file.size)
     let _scale = scale || 1.0
+    let _ui = ui || 'paper'
 
     switch (file.mimetype) {
       case 'application/pdf' :
-        return <MiniaturePDF animate={_animate} size={_size} scale={_scale} {...this.props} />
+        return <MiniaturePDF animate={_animate} size={_size} scale={_scale} ui={_ui} {...this.props} />
       case 'image/png':
       case 'image/jpeg':
-        return <MiniatureImage animate={_animate} size={_size} scale={_scale} {...this.props} />
+        return <MiniatureImage animate={_animate} size={_size} scale={_scale} ui={_ui} {...this.props} />
       default:
-        return <MiniatureOther animate={_animate} size={_size} scale={_scale} {...this.props} />
+        return <MiniatureOther animate={_animate} size={_size} scale={_scale} ui={_ui} {...this.props} />
     }
   }
 }
 
 File.propTypes = {
   file: PT.object.isRequired,
-  animate: PT.bool
+  animate: PT.bool,
+  scale: PT.number,
+  ui: PT.string
 }
 
 export default File

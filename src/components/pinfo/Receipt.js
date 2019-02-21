@@ -7,6 +7,7 @@ import saveAs from 'file-saver'
 import * as Nav from '../ui/Nav'
 import PsychoPanel from '../../components/ui/Psycho/PsychoPanel'
 import PdfUtils from '../../components/ui/Export/PdfUtils'
+import File from '../../components/ui/File/File'
 
 import * as pinfoActions from '../../actions/pinfo'
 
@@ -22,33 +23,21 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class Receipt extends React.Component {
-  state = {
-    downloaded: false
-  }
-
-  componentDidUpdate () {
-    const { receipt } = this.props
-    const { downloaded } = this.state
-    if (receipt && !downloaded) {
-      this.setState({
-        downloaded: true
-      })
-      this.onDownloadRequest()
+  constructor () {
+    super()
+    this.state = {
+      downloaded: false
     }
+    this.generateReceiptRequest = this.generateReceiptRequest.bind(this)
+    this.downloadReceiptRequest = this.downloadReceiptRequest.bind(this)
   }
 
   generateReceiptRequest () {
-    const { actions, receipt } = this.props
-    const { downloaded } = this.state
-
-    if (downloaded && receipt) {
-      this.onDownloadRequest()
-    } else {
-      actions.generateReceipt()
-    }
+    const { actions } = this.props
+    actions.generateReceipt()
   }
 
-  onDownloadRequest () {
+  downloadReceiptRequest () {
     const { receipt } = this.props
     var blob = new Blob([PdfUtils.base64toData(receipt.content.base64)], { type: receipt.type })
     saveAs(blob, receipt.name)
@@ -56,6 +45,15 @@ class Receipt extends React.Component {
 
   render () {
     const { t, isGeneratingReceipt, receipt } = this.props
+
+    const onClick = receipt ? this.downloadReceiptRequest : this.generateReceiptRequest
+    const buttonLabel = t('ui:getReceipt')
+    if (isGeneratingReceipt) {
+        buttonLabel = t('ui:generating')
+    }
+    if (receipt) {
+        buttonLabel = t('ui:downloadReceipt')
+    }
 
     return <div className='c-pinfo-receipt'>
       <PsychoPanel closeButton>
@@ -67,13 +65,13 @@ class Receipt extends React.Component {
           className='generateButton m-4'
           disabled={isGeneratingReceipt}
           spinner={isGeneratingReceipt}
-          onClick={this.generateReceiptRequest.bind(this)}>
-          {isGeneratingReceipt ? t('ui:generating') : t('ui:getReceipt')}
+          onClick={onClick}>
+          {buttonLabel}
         </Nav.Knapp>
       </div>
-      {receipt ? <embed style={{ width: '100%', height: '100vh' }}
-        type='application/pdf'
-        src={'data:application/pdf;base64,' + encodeURIComponent(receipt.content.base64)} /> : null}
+      {receipt ? <div className='text-center'>
+        <File ui='simple' file={receipt} width={400} height={600} pageNumber={1} />
+      </div> : null}
     </div>
   }
 }

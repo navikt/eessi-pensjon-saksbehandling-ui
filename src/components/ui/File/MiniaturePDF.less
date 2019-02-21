@@ -10,25 +10,29 @@
     .page {
         border: none;
         box-shadow: 3px 3px 3px lightgray;
-        background: linear-gradient(-45deg, rgba(255,255,255,1), rgba(255,255,255,1)), linear-gradient(45deg, rgba(255,255,255,1), rgba(255,255,255,1)), linear-gradient(135deg, transparent 7%, rgba(255,255,255,1) 7%);
-        background-size: 50% 0%, 50% 100%, 100% 100%;
-        background-position: 0 0, 100% 100%, 100% 0;
-        background-repeat: no-repeat;
 
-         &:after {
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 16%;
-                height: 11%;
-                box-shadow: 1px 1px 1px rgba(128,128,128,0.3), 2px 2px 2px rgba(128,128,128,0.2);
-                background: linear-gradient(135deg, transparent 50%, rgba(255,255,255,1) 50%);
-         }
+        &.paper {
+            background: linear-gradient(-45deg, rgba(255,255,255,1), rgba(255,255,255,1)), linear-gradient(45deg, rgba(255,255,255,1), rgba(255,255,255,1)), linear-gradient(135deg, transparent 7%, rgba(255,255,255,1) 7%);
 
-         .react-pdf__Page__svg  {
-                 background: transparent !important;
-         }
+            background-size: 50% 0%, 50% 100%, 100% 100%;
+            background-position: 0 0, 100% 100%, 100% 0;
+            background-repeat: no-repeat;
+
+            &:after {
+                 content: "";
+                 position: absolute;
+                 top: 0;
+                 left: 0;
+                 width: 16%;
+                 height: 11%;
+                 box-shadow: 1px 1px 1px rgba(128,128,128,0.3), 2px 2px 2px rgba(128,128,128,0.2);
+                 background: linear-gradient(135deg, transparent 50%, rgba(255,255,255,1) 50%);
+            }
+        }
+
+        .react-pdf__Page__svg  {
+           background: transparent !important;
+        }
     }
 
     *, :after, :before {

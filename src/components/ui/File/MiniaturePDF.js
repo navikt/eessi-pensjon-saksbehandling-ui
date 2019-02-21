@@ -135,7 +135,7 @@ class MiniaturePDF extends Component {
     }
 
     render () {
-      const { t, file, size, addLink, deleteLink, downloadLink, previewLink, className, animate, scale, width, height } = this.props
+      const { t, file, size, ui, addLink, deleteLink, downloadLink, previewLink, className, animate, scale, width, height } = this.props
       const { numPages, isHovering, currentPage } = this.state
 
       const title = '' + file.name + '\n' + t('ui:pages') + ': ' + (numPages || '0') + '\n' + t('ui:size') + ': ' + size
@@ -164,7 +164,7 @@ class MiniaturePDF extends Component {
           {currentPage > 1 && isHovering ? <a href='#previousPage' className='previousPage' onClick={this.handlePreviousPageRequest.bind(this)}>{'◀'}</a> : null}
           {currentPage < numPages && isHovering ? <a href='#nextPage' className='nextPage' onClick={this.handleNextPageRequest.bind(this)}>{'▶'}</a> : null}
           {isHovering ? <div className='pageNumber'>{currentPage}</div> : null}
-          <div className='page' onClick={(e) => e.stopPropagation()}>
+          <div className={classNames('page', ui)} onClick={(e) => e.stopPropagation()}>
             <Page width={width || 100} height={height || 140} renderMode='svg' pageNumber={currentPage} />
           </div>
         </Document>
