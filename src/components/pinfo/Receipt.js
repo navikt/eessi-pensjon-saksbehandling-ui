@@ -47,7 +47,7 @@ class Receipt extends React.Component {
     const { t, isGeneratingReceipt, receipt } = this.props
 
     const onClick = receipt ? this.downloadReceiptRequest : this.generateReceiptRequest
-    const buttonLabel = t('ui:getReceipt')
+    let buttonLabel = t('ui:getReceipt')
     if (isGeneratingReceipt) {
         buttonLabel = t('ui:generating')
     }
