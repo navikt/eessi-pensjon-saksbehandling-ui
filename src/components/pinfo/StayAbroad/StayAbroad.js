@@ -1,35 +1,22 @@
 import React from 'react'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { withTranslation } from 'react-i18next'
 import _ from 'lodash'
 
 import * as Nav from '../../ui/Nav'
 import Period from './Period'
 
-import * as pinfoActions from '../../../actions/pinfo'
-
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
-    stayAbroad: state.pinfo.stayAbroad,
-    comment: state.pinfo.comment
+    stayAbroad: state.pinfo.stayAbroad
   }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, pinfoActions), dispatch) }
 }
 
 class StayAbroad extends React.Component {
   state = {
     _period: {}
-  }
-
-  setComment (e) {
-    const { actions } = this.props
-    actions.setComment(e.target.value)
   }
 
   setEditPeriod (period) {
@@ -39,7 +26,7 @@ class StayAbroad extends React.Component {
   }
 
   render () {
-    const { t, stayAbroad, locale, mode, comment } = this.props
+    const { t, stayAbroad, locale, mode } = this.props
     const { _period } = this.state
 
     return <React.Fragment>
@@ -65,16 +52,6 @@ class StayAbroad extends React.Component {
         locale={locale}
         editPeriod={this.setEditPeriod.bind(this)}
       /> : null}
-      {mode === 'view' ? <div className='mt-4'>
-        <Nav.Textarea id='pinfo-comment'
-          label={t('pinfo:stayAbroad-comment')}
-          placeholder={t('ui:writeIn')}
-          value={comment || ''}
-          style={{ minHeight: '100px' }}
-          onChange={this.setComment.bind(this)}
-          maxLength={2300}
-        />
-      </div> : null}
 
     </React.Fragment>
   }
@@ -88,7 +65,7 @@ StayAbroad.propTypes = {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(
   withTranslation()(StayAbroad)
 )

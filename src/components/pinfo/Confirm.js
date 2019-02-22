@@ -2,23 +2,37 @@ import React from 'react'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { withTranslation } from 'react-i18next'
+import { bindActionCreators } from 'redux'
 
 import Period from './StayAbroad/Period'
 import PsychoPanel from '../ui/Psycho/PsychoPanel'
 import * as Nav from '../ui/Nav'
 
+import * as pinfoActions from '../../actions/pinfo'
+
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
     pinfo: state.pinfo,
-    username: state.app.username
+    username: state.app.username,
+    comment: state.pinfo.comment
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return { actions: bindActionCreators(Object.assign({}, pinfoActions), dispatch) }
+}
+
 class Confirm extends React.Component {
+
+  setComment (e) {
+    const { actions } = this.props
+    actions.setComment(e.target.value)
+  }
+
   render () {
-    const { t, locale, username } = this.props
-    const { stayAbroad, person, bank, comment } = this.props.pinfo
+    const { t, locale, username, comment } = this.props
+    const { stayAbroad, person, bank } = this.props.pinfo
 
     return <React.Fragment>
       <PsychoPanel id='pinfo-confirm-psycho-panel' className='mb-4' closeButton>
@@ -96,7 +110,14 @@ class Confirm extends React.Component {
           })}
         </div>
         <Nav.Undertittel className='m-4'>{t('pinfo:stayAbroad-comment')}</Nav.Undertittel>
-        <div className='confirm-comment'>{comment || '-'}</div>
+        <Nav.Textarea id='pinfo-comment'
+          label={t('pinfo:stayAbroad-comment')}
+          placeholder={t('ui:writeIn')}
+          value={comment || ''}
+          style={{ minHeight: '100px' }}
+          onChange={this.setComment.bind(this)}
+          maxLength={2300}
+        />
       </div>
     </React.Fragment>
   }
@@ -108,7 +129,7 @@ Confirm.propTypes = {
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(
   withTranslation()(Confirm)
 )
