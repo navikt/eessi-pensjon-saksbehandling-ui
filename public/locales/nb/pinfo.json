@@ -15,7 +15,7 @@
     "person-info-lastNameAtBirth" : "Etternavn ved fødsel",
     "person-info-lastNameAtBirth-help" : "Legg inn etternavnet du hadde ved fødsel.",
     "person-info-previousName" : "Tidligere navn",
-    "person-info-previousName-help" : "Her kan du legge inn eventuelle andre fornavn og etternavn du har hatt dersom de er annerledes enn det du har nå eller hadde ved fødsel."
+    "person-info-previousName-help" : "Her kan du legge inn eventuelle andre fornavn og etternavn du har hatt dersom de er annerledes enn det du har nå eller hadde ved fødsel.",
     "person-birthplace-title" : "Fødested",
     "person-birthplace-country" : "Land",
     "person-birthplace-place" : "Sted/by",
@@ -32,7 +32,7 @@
     "bank-country" : "Land",
     "bank-country-help" : "Du kan få utbetalt eventuell utenlandsk ytelse til det landet du ønsker",
     "bank-address" : "Bankens postadresse",
-    "bank-address-help" : "For utenlandske bankoverføringer kreves bankens adresse. Gå til din banks hjemmeside for å finne bankens postadresse."
+    "bank-address-help" : "For utenlandske bankoverføringer kreves bankens adresse. Gå til din banks hjemmeside for å finne bankens postadresse.",
     "bank-bicSwift" : "BIC / SWIFT",
     "bank-bicSwift-help": "Gå til din banks hjemmeside for å finne bankens BIC/SWIFT",
     "bank-iban" : "Kontonummer/IBAN",
