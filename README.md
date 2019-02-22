@@ -38,7 +38,13 @@ Any changes made to JS, CSS and LESS files will trigger a page reload.
 
 ### Production
 
-Run  `run-build.bat` (Windows) or `./run-build.sh` (Mac/Linux). It will compile less and JS code, and build a minimized package ready for production deployment. 
+Run  `run-build.bat` (Windows) or `./run-build.sh` (Mac/Linux). It will compile less and JS code, and build a minimized package ready for production deployment.
+
+### Docker
+
+The apps docker image builds on [pus-decorator](https://github.com/navikt/pus-decorator). Use Dockerfile_sbs and Dockerfile_fss to build images for sbs and fss respectively. The dockerfiles sets some options as defined in [pus-decorator-README](https://github.com/navikt/pus-decorator/blob/master/README.md).
+The image uses the proxy_[fss/sbs].json files to define proxy paths to eessi-pensjon-frontend-api-[fss/sbs].
+
 
 ## Troubleshoot
 
