@@ -1,52 +1,50 @@
 EESSI Pensjon Frontend UI
 ===============================
 
-This is the web application module for the EESSI Penjson, developed in [ReactJS](https://reactjs.org).
+This is the frontend part of the EESSI Penjson web application, developed in [ReactJS](//reactjs.org).
 
 ## INSTALL 
 
-run `npm install` if it's the first time you run this app, or everytime there is some code changes.
+run `npm install` if you just cloned this repo, or everytime there is some code changes.
 
 ## TEST
 
-There are only Selenium tests for now.
+Cucumber/Selenium tests are [on a separate repository, EESSI-Pensjon aotomatic tests](//github.com/navikt/eessi-pensjon-automatic-tests)
 
-Make sure you have the latest chromedriver.exe on the PATH so that Selenium can launch Chrome.
+Run tests with `./run-test.sh` (Mac/Linux) or `run-test.bat` (Windows).
 
-You run tests with `./run-test.sh [testName]` (Mac/Linux), where `testName` is the js filename (without .js) under the tests folder.
+For coverage report, add a '--coverage' argument.
 
 ## LINT
 
-Run `run-lint.bat` (Windows) or `./run-lint.sh` (Mac/Linux) to lint the code.
+Run `./run-lint.sh` (Mac/Linux) or `run-lint.bat` (Windows) to lint the code.
 
 ## RUN 
 
-Make sure you have the eessi-pensjon-frontend-api application running on port 8080.
+First, make sure you have an [instance of EESSI-Pensjon frontend API](//github.com/navikt/eessi-pensjon-frontend-api) running on port 8080. If you want to use another port, change the `"proxy": "http://localhost:8080"` directive on package.json.
 
-Note: The `"proxy": "http://localhost:8080"` directive on package.json proxy-passes AJAX calls to this server at port 8080.
-If you change the eessi-pensjon-frontend-api application port, thne change this line in package.json.
+In order to browse the webapp, you need a valid authentication token. 
 
-### Development with Hot reloading
+### Run in development environment, with hot reloading
 
-Run `run-dev.sh` or `run-dev.bat`. This command will run 'npm run start:*' scripts, 
-and start the app on port 3000
-(to change, do `set PORT={wantedPort}` before in Windows, or `export PORT={wantedPort}` in Linux/Mac).
+Run `run-dev.sh` (Mac/Linux) or `run-dev.bat` (Windows). This will launch a webpack server on port 3000 and launch a brower window/tab. *Note*: To change default port, do `set PORT={wantedPort}` (Windows) or `export PORT={wantedPort}` (Linux/Mac). 
 
-Open `http://localhost:3000/` in a browser, if it didn't open one already.
+Any changes made to code files will trigger a page reload.
 
-Any changes made to JS, CSS and LESS files will trigger a page reload.
+### Run in production environment
 
-### Production
+Run `./run-build.sh` (Mac/Linux) or `run-build.bat` (Windows). It will process LESS, compact JS code and build a minimized package ready for production.
 
-Run  `run-build.bat` (Windows) or `./run-build.sh` (Mac/Linux). It will compile less and JS code, and build a minimized package ready for production deployment.
+Now, point your browser to the build/ folder, it should load the index.html page.
 
 ### Docker
 
 The apps docker image builds on [pus-decorator](https://github.com/navikt/pus-decorator). Use Dockerfile_sbs and Dockerfile_fss to build images for sbs and fss respectively. The dockerfiles sets some options as defined in [pus-decorator-README](https://github.com/navikt/pus-decorator/blob/master/README.md).
 The image uses the proxy_[fss/sbs].json files to define proxy paths to eessi-pensjon-frontend-api-[fss/sbs].
 
-
 ## Troubleshoot
+
+None at the moment
 
 ---
 
