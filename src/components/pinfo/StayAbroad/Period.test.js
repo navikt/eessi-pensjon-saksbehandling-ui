@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import renderer from 'react-test-renderer'
 import { createStore, combineReducers } from 'redux'
-import { Provider } from 'react-redux'
 import Period from './Period'
 import _ from 'lodash'
 import MD5 from 'md5.js'
@@ -26,7 +25,6 @@ describe('Period', () => {
   beforeEach(() => {
     store = createStore(reducer, initialState)
     wrapper = shallow( <Period editPeriod={() => {}} store={store}/>).dive()
-
   })
 
   it('renders successfully', () => {
@@ -99,146 +97,95 @@ describe('Period', () => {
 
    it('eventSetType function', () => {
 
-     let mockType = 'mockType'
-     wrapper.instance().eventSetType({ target: {value: mockType}})
-     expect(wrapper.instance().state._period.type).toEqual(mockType)
+     let mockValue = 'mockValue'
+     wrapper.instance().eventSetType(null, { target: {value: mockValue}})
+     expect(wrapper.instance().state._period.type).toEqual(mockValue)
    })
-})
 
+   it('eventSetPerson function', () => {
+
+     let mockKey = 'mockKey'
+     let mockValue = 'mockValue'
+     wrapper.instance().eventSetPerson(mockKey, null, { target: {value: mockValue}})
+     expect(wrapper.prop('person')).toEqual(mockValue)
+   })
+
+   it('eventSetProperty function', () => {
+
+     let mockKey = 'mockKey'
+     let mockValue = 'mockValue'
+     wrapper.instance().eventSetProperty(mockKey, null, { target: {value: mockValue}})
+     expect(wrapper.instance().state._period[mockKey]).toEqual(mockValue)
+   })
+
+    it('dateSetProperty function', () => {
+
+      let mockKey = 'mockKey'
+      let mockValue = new Date()
+      wrapper.instance().dateSetProperty(mockKey, null, mockValue)
+      expect(wrapper.instance().state._period[mockKey]).toEqual(mockValue.valueOf())
+    })
+
+    it('valueSetProperty function', () => {
+
+      let mockKey = 'mockKey'
+      let mockValue = 'mockValue'
+      wrapper.instance().dateSetProperty(mockKey, null, mockValue)
+      expect(wrapper.instance().state._period[mockKey]).toEqual(mockValue)
+    })
+
+    it('validatePeriod function', async () => {
+
+      let mockKey = 'mockKey'
+      let mockValue = 'mockValue'
+      await wrapper.setProps({
+         person: {}
+      })
+      await wrapper.instance().setState({
+         _period: {
+            type: 'work'
+         }
+      })
+      let errors = wrapper.instance().validatePeriod()
+
+      expect(errors).toHaveProperty('country', 'pinfo:validation-noCountry')
+      expect(errors).toHaveProperty('startDate', 'pinfo:validation-noStartDate')
+      expect(errors).toHaveProperty('endDate', 'pinfo:validation-noEndDate')
+      expect(errors).toHaveProperty('place', 'pinfo:validation-noPlace')
+      expect(errors).toHaveProperty('workActivity', 'pinfo:validation-noWorkActivity')
+    })
+
+    it('addId function', () => {
+      let mockId = '123'
+      wrapper.instance().addId(mockId)
+      expect(wrapper.instance().state._period.insuranceId).toEqual(mockId)
+    })
+
+    it('saveNewPeriod function', async () => {
+
+      let mockPeriod = {
+        type: 'work',
+        startDate : new Date('January 01, 1970 00:00:00').valueOf(),
+        endDate : new Date('December 31, 1979 23:59:59').valueOf(),
+        place: 'Oslo',
+        country: 'NO',
+        workActivity: 'Lærer'
+      }
+      await wrapper.setProps({
+        periods: []
+      })
+      await wrapper.instance().setState({
+         _period: mockPeriod
+      })
+      wrapper.instance().saveNewPeriod()
+      expect(wrapper.instance().state.pinfo.stayAbroad).toStrictEqual([mockPeriod])
+
+    })
+})
 
 
 /**
 
-  class Period extends React.Component {
-
-
-
-    eventSetType (validateFunction, e) {
-      const { actions, pageErrors } = this.props
-      // clean up the onePeriod error message, as the user is trying to fix it
-      if (pageErrors.onePeriod) {
-        let _pageErrors = _.cloneDeep(pageErrors)
-        delete _pageErrors.onePeriod
-        actions.setPageErrors(_pageErrors)
-      }
-      this.eventSetProperty('type', periodValidation.periodType, e)
-    }
-
-    eventSetPerson (key, validateFunction, e) {
-      const { actions } = this.props
-      let _localErrors = _.cloneDeep(this.state.localErrors)
-      let value = e.target.value
-      let error = validateFunction ? validateFunction(value) : undefined
-      if (!error && _localErrors.hasOwnProperty(key)) {
-        delete _localErrors[key]
-      }
-      if (error) {
-        _localErrors[key] = error
-      }
-      actions.setPerson({ [key]: value })
-      this.setState({
-        localErrors: _localErrors
-      })
-    }
-
-    eventSetProperty (key, validateFunction, event) {
-      this.valueSetProperty(key, validateFunction, event.target.value)
-    }
-
-    dateSetProperty (key, validateFunction, date) {
-      this.valueSetProperty(key, validateFunction, date ? date.valueOf() : null)
-    }
-
-    valueSetProperty (key, validateFunction, value) {
-      const { actions } = this.props
-
-      let _localErrors = _.cloneDeep(this.state.localErrors)
-
-      let error = validateFunction ? validateFunction(value) : undefined
-
-      if (!error && _localErrors.hasOwnProperty(key)) {
-        delete _localErrors[key]
-      }
-      if (error) {
-        _localErrors[key] = error
-      }
-
-      if (key === 'type' && value) {
-        actions.setMainButtonsVisibility(false)
-      }
-      this.setState({
-        _period: {
-          ...this.state._period,
-          [key]: value
-        },
-        localErrors: _localErrors
-      })
-    }
-
-    static getDerivedStateFromProps (newProps, oldState) {
-      if (newProps.mode === 'edit' &&
-        (_.isEmpty(oldState._period) || oldState._period.id !== newProps.period.id)) {
-        return {
-          _period: newProps.period
-        }
-      }
-      return null
-    }
-
-    validatePeriod () {
-      const { pinfo } = this.props
-      const { _period } = this.state
-
-      return stepTests.periodStep(_period, pinfo.person)
-    }
-
-    addId (id) {
-      this.valueSetProperty('insuranceId', null, id)
-    }
-
-    saveNewPeriod () {
-      const { periods, actions, pinfo, username } = this.props
-      const { _period } = this.state
-
-      let errors = this.validatePeriod()
-      this.setState({
-        localErrors: errors,
-        errorTimestamp: new Date().getTime()
-      })
-
-      if (this.hasNoErrors(errors)) {
-        let newPeriods = _.clone(periods)
-        let newPeriod = _.clone(_period)
-
-        // remove properties that do not belong to this type
-        switch (newPeriod) {
-          case 'work':
-            delete newPeriod.learnInstitution
-            break
-          case 'learn':
-            delete newPeriod.workActivity
-            delete newPeriod.workName
-            delete newPeriod.workPlace
-            break
-          default:
-            break
-        }
-
-        newPeriod.id = new Date().getTime()
-        newPeriods.push(newPeriod)
-        actions.setStayAbroad(newPeriods)
-        this.setState({
-          _period: {}
-        })
-        let _pinfo = _.cloneDeep(pinfo)
-        _pinfo.stayAbroad = newPeriods
-
-        actions.setMainButtonsVisibility(true)
-        actions.setStepError(undefined)
-        actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
-        actions.syncLocalStateWithStorage()
-        window.scrollTo(0, 0)
-      }
     }
 
     requestEditPeriod (period) {

@@ -9,7 +9,7 @@ class CountryOption extends Component {
     const _type = selectProps.selectProps.type || 'country'
     const _label = _type === 'country' ? label : (data.currency ? data.currency + ' - ' : '') + data.currencyLabel
 
-    return <div className={classNames('c-ui-countryOption', {
+    return <div id={value} className={classNames('c-ui-countryOption', {
       selected: isSelected,
       focused: isFocused
     })} {...innerProps}>
