@@ -381,7 +381,7 @@ class Period extends React.Component {
   }
 
   render () {
-    const { t, mode, period, periods, locale, current, first, last, person, showButtons } = this.props
+    const { t, mode, period, periods, locale, first, last, person, showButtons } = this.props
     const { localErrors, _period } = this.state
 
     let errorMessage = this.errorMessage()
@@ -390,7 +390,7 @@ class Period extends React.Component {
       case 'view':
       case 'confirm':
         return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode)}>
-          <div className={classNames({ 'col-md-6': mode === 'view', 'col-md-12': mode === 'confirm', 'current': current })}>
+          <div className={classNames({ 'col-md-6': mode === 'view', 'col-md-12': mode === 'confirm'})}>
             <div id={period.id} className='existingPeriod'>
               <div className='icon mr-3 ml-3'>
                 <div className={classNames('topHalf', { line: !first })} />
@@ -748,7 +748,6 @@ class Period extends React.Component {
                   {t('pinfo:form-saveNewPeriod')}
                 </Nav.Hovedknapp> : null}
                 <Nav.KnappBase
-                  type='flat'
                   id='pinfo-opphold-avbryt-button'
                   className='ml-4 cancelPeriodButton'
                   onClick={this.cancelPeriodRequest.bind(this)}>

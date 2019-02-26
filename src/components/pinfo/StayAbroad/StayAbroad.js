@@ -26,41 +26,44 @@ class StayAbroad extends React.Component {
   }
 
   render () {
-    const { t, stayAbroad, locale, mode } = this.props
+    const { t, stayAbroad, locale } = this.props
     const { _period } = this.state
 
+    const editMode = _period && _period.id
     return <React.Fragment>
-      <Nav.Undertittel>{t('pinfo:stayAbroad-title')}</Nav.Undertittel>
-      {mode !== 'view' ? <Nav.Undertekst>{t('pinfo:stayAbroad-description')}</Nav.Undertekst> : null}
-      {!_.isEmpty(stayAbroad) ? <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-previousPeriods')}</Nav.Undertittel> : null}
-      {stayAbroad.map((period, index) => {
-        return <Period t={t}
+      {!editMode ? <React.Fragment>
+        <Nav.Undertittel>{t('pinfo:stayAbroad-title')}</Nav.Undertittel>
+        <Nav.Undertekst>{t('pinfo:stayAbroad-description')}</Nav.Undertekst>
+      </React.Fragment> : null}
+      {!_.isEmpty(stayAbroad) && !editMode ? <React.Fragment>
+        <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-previousPeriods')}</Nav.Undertittel>
+        {stayAbroad.map((period, index) => {
+          return <Period t={t}
           mode='view'
-          current={_period.id === period.id}
           first={index === 0}
           last={index === stayAbroad.length - 1}
           period={period}
           periods={stayAbroad}
           editPeriod={this.setEditPeriod.bind(this)}
           key={period.id}
-          showButtons={mode !== 'view'} />
-      })}
-      {mode !== 'view' ? <Period t={t}
+          showButtons/>
+        })}
+        </React.Fragment>
+      : null}
+      <Period t={t}
         periods={stayAbroad}
-        mode={_.isEmpty(_period) ? 'new' : 'edit'}
+        mode={editMode ? 'edit' : 'new'}
         period={_period}
         locale={locale}
         editPeriod={this.setEditPeriod.bind(this)}
-      /> : null}
-
+      />
     </React.Fragment>
   }
 }
 
 StayAbroad.propTypes = {
   locale: PT.string,
-  t: PT.func,
-  mode: PT.string
+  t: PT.func
 }
 
 export default connect(
