@@ -1,26 +1,46 @@
 @import '../../../constants';
 
-.react-datepicker-popper {
-  z-index: 2 !important;
-}
-
-input.c-ui-datePicker {
-  border: 1px solid #78706A;
-}
-
-.highContrast .c-ui-datePicker {
-  input {
-    background: @black;
-  }
-  .input-group-append span {
-    background: @black;
-  }
-}
-.highContrast .react-datepicker-popper {
-  .react-datepicker,
-  .react-datepicker__header,
-  .react-datepicker__month-select,
-  .react-datepicker__year-select {
+.highContrast div.datePicker {
+  input{
     background-color: @black;
+    border: 2px solid #ffffff
   }
 }
+
+div.datePicker {
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type=number] {
+      -moz-appearance:textfield;
+  }
+  input {
+    border: 1px solid #78706A;
+    padding-left: 8px;
+    padding-right: 8px;
+    &:hover{
+      border-color: #0067C5;
+      transition: border-color 200ms cubic-bezier(0.465, 0.183, 0.153, 0.946);
+    }
+    &:focus{
+      outline: 0;
+      box-shadow: 0 0 0 3px #FFBD66;
+    }
+  }
+}
+
+.DatePickerDayInput,
+.DatePickerMonthInput {
+  width: 60px;
+  height: 40px;
+  border-radius: 3px;
+}
+
+.DatePickerYearInput {
+  width: 70px;
+  height: 40px;
+  border-radius: 3px;
+}
+

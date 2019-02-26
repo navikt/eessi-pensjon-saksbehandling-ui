@@ -15,6 +15,7 @@ import { periodValidation, personValidation } from '../Validation/singleTests'
 import * as stepTests from '../Validation/stepTests'
 import * as Nav from '../../ui/Nav'
 import Icons from '../../ui/Icons'
+import { pinfoDateToDate } from '../../../utils/Date'
 
 import * as constants from '../../../constants/constants'
 import * as uiActions from '../../../actions/ui'
@@ -43,14 +44,15 @@ class Period extends React.Component {
   state = {
     localErrors: {},
     errorTimestamp: new Date().getTime(),
+    displayError: false,
     _period: {}
   }
 
   constructor (props) {
     super(props)
     this.setType = this.eventSetProperty.bind(this, 'type', periodValidation.periodType)
-    this.setStartDate = this.dateSetProperty.bind(this, 'startDate', periodValidation.periodStartDate)
-    this.setEndDate = this.dateSetProperty.bind(this, 'endDate', periodValidation.periodEndDate)
+    this.setStartDate = this.dateSetProperty.bind(this, 'startDate', periodValidation.validPeriodStartDate)
+    this.setEndDate = this.dateSetProperty.bind(this, 'endDate', periodValidation.validPeriodEndDate)
     this.setCountry = this.valueSetProperty.bind(this, 'country', periodValidation.periodCountry)
     this.setInsuranceName = this.eventSetProperty.bind(this, 'insuranceName', periodValidation.insuranceName)
     this.setInsuranceType = this.eventSetProperty.bind(this, 'insuranceType', periodValidation.insuranceType)
@@ -124,7 +126,41 @@ class Period extends React.Component {
   }
 
   dateSetProperty (key, validateFunction, date) {
-    this.valueSetProperty(key, validateFunction, date ? date.valueOf() : null)
+    const { startDate, endDate } = this.state._period
+
+    let _localErrors = _.cloneDeep(this.state.localErrors)
+
+    let error = validateFunction ? validateFunction(date) : undefined
+    let timeSpanError
+
+    if (key === 'startDate' && endDate) {
+      timeSpanError = periodValidation.periodTimeSpan(date, endDate)
+    }
+    if (key === 'endDate' && startDate) {
+      timeSpanError = periodValidation.periodTimeSpan(startDate, date)
+    }
+
+    if (!error && _localErrors.hasOwnProperty(key)) {
+      delete _localErrors[key]
+    }
+    if (!timeSpanError && _localErrors.hasOwnProperty('timeSpan')) {
+      delete _localErrors.timeSpan
+    }
+
+    if (error) {
+      _localErrors[key] = error
+    }
+    if (timeSpanError) {
+      _localErrors.timeSpan = timeSpanError
+    }
+
+    this.setState({
+      _period: {
+        ...this.state._period,
+        [key]: date
+      },
+      localErrors: _localErrors
+    })
   }
 
   valueSetProperty (key, validateFunction, value) {
@@ -185,7 +221,8 @@ class Period extends React.Component {
     let errors = this.validatePeriod()
     this.setState({
       localErrors: errors,
-      errorTimestamp: new Date().getTime()
+      errorTimestamp: new Date().getTime(),
+      displayError: true
     })
 
     if (this.hasNoErrors(errors)) {
@@ -210,7 +247,8 @@ class Period extends React.Component {
       newPeriods.push(newPeriod)
       actions.setStayAbroad(newPeriods)
       this.setState({
-        _period: {}
+        _period: {},
+        displayError: false
       })
       let _pinfo = _.cloneDeep(pinfo)
       _pinfo.stayAbroad = newPeriods
@@ -236,7 +274,8 @@ class Period extends React.Component {
     let errors = this.validatePeriod()
     this.setState({
       localErrors: errors,
-      errorTimestamp: new Date().getTime()
+      errorTimestamp: new Date().getTime(),
+      displayError: true
     })
 
     if (this.hasNoErrors(errors)) {
@@ -258,7 +297,8 @@ class Period extends React.Component {
         }
         actions.setStayAbroad(newPeriods)
         this.setState({
-          _period: {}
+          _period: {},
+          displayError: false
         })
         editPeriod({})
         actions.setMainButtonsVisibility(true)
@@ -354,7 +394,8 @@ class Period extends React.Component {
   }
 
   errorMessage () {
-    const { localErrors } = this.state
+    const { localErrors, displayError } = this.state
+    if (!displayError) { return undefined }
     for (var key in localErrors) {
       if (localErrors[key]) {
         return localErrors[key]
@@ -436,8 +477,8 @@ class Period extends React.Component {
                 <br />
                 <span className='existingPeriodDates'>
                   <span className='bold'>{t('pinfo:stayAbroad-period')}</span>{': '}
-                  {moment(period.startDate).format('DD.MM.YYYY')}{' - '}
-                  {period.endDate ? moment(period.endDate).format('DD.MM.YYYY') : t('ui:unknown')}
+                  {moment(pinfoDateToDate(period.startDate)).format('DD.MM.YYYY')}{' - '}
+                  {period.endDate ? moment(pinfoDateToDate(period.endDate)).format('DD.MM.YYYY') : t('ui:unknown')}
                 </span>
                 <br />
                 <React.Fragment>
@@ -515,29 +556,35 @@ class Period extends React.Component {
                 <Nav.Undertittel className='mt-4 mb-4'>{t(`pinfo:stayAbroad-period-title-${_period.type}`)}</Nav.Undertittel>
                 <Nav.Normaltekst className='mb-4'>{t('pinfo:stayAbroad-period-date-description')}</Nav.Normaltekst>
               </div>
-              <div className='col-md-6'>
-                <label className='mr-3 skjemaelement__label'>{t('pinfo:stayAbroad-period-start-date')}</label>
-                <DatePicker
-                  id='pinfo-opphold-startdato-date'
-                  selected={_period.startDate ? new Date(_period.startDate) : null}
-                  className='startDate'
-                  locale={locale}
-                  placeholder={t('ui:dateFormat')}
-                  onChange={this.setStartDate}
-                  error={localErrors.startDate}
-                  errorMessage={t(localErrors.startDate)} />
-              </div>
-              <div className='col-md-6'>
-                <label className='skjemaelement__label'>{t('pinfo:stayAbroad-period-end-date')}</label>
-                <DatePicker
-                  id='pinfo-opphold-sluttdato-date'
-                  selected={_period.endDate ? new Date(_period.endDate) : null}
-                  className='endDate'
-                  locale={locale}
-                  placeholder={t('ui:dateFormat')}
-                  onChange={this.setEndDate}
-                  error={localErrors.endDate}
-                  errorMessage={t(localErrors.endDate)} />
+              <div className='row no-gutters'>
+                <div className='col-auto'>
+                  <label className='datepickerLabel skjemaelement__label'>{t('pinfo:stayAbroad-period-start-date') + ' *'}</label>
+                  {<DatePicker
+                    id='pinfo-opphold-startdato-date'
+                    labels={{ day: t('pinfo:stayAbroad-period-day'), month: t('pinfo:stayAbroad-period-month'), year: t('pinfo:stayAbroad-period-year') }}
+                    ids={{ day: 'pinfo-opphold-startdato-day', month: 'pinfo-opphold-startdato-month', year: 'pinfo-opphold-startdato-date' }}
+                    placeholders={{ day: t('pinfo:stayAbroad-period-placeholder-day'), month: t('pinfo:stayAbroad-period-placeholder-month'), year: t('pinfo:stayAbroad-period-placeholder-year') }}
+                    className='startDate pr-4'
+                    values={_period.startDate}
+                    onChange={this.setStartDate}
+                    feil={localErrors.startDate || localErrors.timeSpan ? { feilmelding: t(localErrors.startDate || localErrors.timeSpan) } : undefined}
+                  />
+                  }
+                </div>
+                <div className='seperator' />
+                <div className='col-auto'>
+                  <label className='datepickerLabel skjemaelement__label'>{t('pinfo:stayAbroad-period-end-date') + ' *'}</label>
+                  {<DatePicker
+                    labels={{ day: t('pinfo:stayAbroad-period-day'), month: t('pinfo:stayAbroad-period-month'), year: t('pinfo:stayAbroad-period-year') }}
+                    ids={{ day: 'pinfo-opphold-sluttdato-day', month: 'pinfo-opphold-sluttdato-month', year: 'pinfo-opphold-sluttdato-year' }}
+                    placeholders={{ day: t('pinfo:stayAbroad-period-placeholder-day'), month: t('pinfo:stayAbroad-period-placeholder-month'), year: t('pinfo:stayAbroad-period-placeholder-year') }}
+                    className='endDate pr-4'
+                    values={_period.endDate}
+                    onChange={this.setEndDate}
+                    feil={localErrors.endDate || localErrors.timeSpan ? { feilmelding: t(localErrors.endDate || localErrors.timeSpan) } : undefined}
+                  />
+                  }
+                </div>
               </div>
             </Nav.Row>
 

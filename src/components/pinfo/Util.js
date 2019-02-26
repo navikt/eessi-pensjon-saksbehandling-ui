@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import moment from 'moment'
+import { pinfoDateToDate } from '../../utils/Date'
 
 export default class Util {
   constructor (pinfo, attachments = {}) {
@@ -8,7 +9,7 @@ export default class Util {
   }
 
   writeDate (date) {
-    return moment(date).format('DD.MM.YYYY')
+    return moment(pinfoDateToDate(date)).format('DD.MM.YYYY')
   }
 
   handleDate (period) {

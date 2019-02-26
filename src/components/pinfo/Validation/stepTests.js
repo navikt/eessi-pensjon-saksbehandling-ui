@@ -34,7 +34,8 @@ export function periodStep (period, person) {
     insuranceType: tests.periodValidation.insuranceType(period.insuranceType),
     insuranceId: (period.type !== 'work') ? tests.periodValidation.insuranceId(period.insuranceId) : undefined,
     place: tests.periodValidation.periodPlace(period.place),
-    country: tests.periodValidation.periodCountry(period.country)
+    country: tests.periodValidation.periodCountry(period.country),
+    timeSpan: tests.periodValidation.periodTimeSpan(period.startDate, period.endDate)
   }
 
   if (period.country && (period.country.value === 'ES' || period.country.value === 'FR')) {
