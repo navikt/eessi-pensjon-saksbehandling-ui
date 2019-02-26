@@ -185,7 +185,7 @@ class Period extends React.Component {
     this.valueSetProperty('insuranceId', null, id)
   }
 
-  addPeriod () {
+  saveNewPeriod () {
     const { periods, actions, pinfo, username } = this.props
     const { _period } = this.state
 
@@ -739,21 +739,21 @@ class Period extends React.Component {
                   id='pinfo-opphold-endre-button'
                   className='editPeriodButton'
                   onClick={this.saveEditPeriod.bind(this)}>
-                  {t('ui:changePeriod')}
+                  {t('pinfo:form-saveEditPeriod')}
                 </Nav.Knapp> : null}
-                {mode === 'new' ? <Nav.Knapp
-                  id='pinfo-opphold-leggtil-button'
+                {mode === 'new' ? <Nav.Hovedknapp
+                  id='pinfo-opphold-lagre-button'
                   className='addPeriodButton'
-                  onClick={this.addPeriod.bind(this)}>
-                  <span className='mr-2'>+</span>
-                  {t('ui:addPeriod')}
-                </Nav.Knapp> : null}
-                <Nav.Knapp
+                  onClick={this.saveNewPeriod.bind(this)}>
+                  {t('pinfo:form-saveNewPeriod')}
+                </Nav.Hovedknapp> : null}
+                <Nav.KnappBase
+                  type='flat'
                   id='pinfo-opphold-avbryt-button'
                   className='ml-4 cancelPeriodButton'
                   onClick={this.cancelPeriodRequest.bind(this)}>
-                  {t('ui:cancel-period')}
-                </Nav.Knapp>
+                  {t('pinfo:form-cancelPeriod')}
+                </Nav.KnappBase>
               </div>
             </Nav.Row>
           </React.Fragment> : null}

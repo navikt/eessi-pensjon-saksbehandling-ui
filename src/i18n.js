@@ -5,7 +5,7 @@ import LanguageDetector from 'i18next-browser-languagedetector'
 
 // datepicker localization
 import { registerLocale, setDefaultLocale } from 'react-datepicker'
-import { nb } from 'date-fns/esm/locale'
+import nb from 'date-fns/locale/nb'
 registerLocale('nb', nb)
 setDefaultLocale('nb')
 
