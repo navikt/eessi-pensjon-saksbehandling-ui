@@ -116,7 +116,7 @@ export function clearPInfoData () {
   }
 }
 
-export function saveStateAndLeave(pinfo, username) {
+export function saveStateAndExit(pinfo, username) {
   return (dispatch) => {
     return dispatch(
       storageActions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
@@ -127,7 +127,7 @@ export function saveStateAndLeave(pinfo, username) {
   }
 }
 
-export function deleteStateAndLeave(username) {
+export function deleteStateAndExit(username) {
 
   return (dispatch) => {
     return dispatch(

@@ -171,18 +171,18 @@ class PInfo extends React.Component {
     window.scrollTo(0, 0)
   }
 
-  saveStateAndLeave () {
+  saveStateAndExit () {
     const { actions, pinfo, username } = this.props
 
     actions.closeModal()
-    actions.saveStateAndLeave(pinfo, username)
+    actions.saveStateAndExit(pinfo, username)
   }
 
-  deleteStateAndLeave () {
+  deleteStateAndExit () {
     const { actions, username } = this.props
 
     actions.closeModal()
-    actions.deleteStateAndLeave(username)
+    actions.deleteStateAndExit(username)
   }
 
   closeModal () {
@@ -190,7 +190,7 @@ class PInfo extends React.Component {
     actions.closeModal()
   }
 
-  onCancelButtonClick () {
+  onSaveAndExitButtonClick () {
     const { t, actions, history, pinfo } = this.props
 
     let isPInfoEmpty = globalTests.isPInfoEmpty(pinfo)
@@ -201,18 +201,40 @@ class PInfo extends React.Component {
     }
 
     actions.openModal({
-      modalTitle: t('pinfo:alert-leavePInfo'),
-      modalText: t('pinfo:alert-areYouSureLeavePInfo'),
+      modalTitle: t('pinfo:alert-saveAndExitPInfo'),
+      modalText: t('pinfo:alert-areYouSureSaveAndExitPInfo'),
       modalButtons: [{
         main: true,
-        text: t('ui:yes') + ', ' + t('ui:saveAndLeave').toLowerCase(),
-        onClick: this.saveStateAndLeave.bind(this)
-      }, {
-        main: true,
-        text: t('ui:yes') + ', ' + t('ui:deleteAndLeave').toLowerCase(),
-        onClick: this.deleteStateAndLeave.bind(this)
+        text: t('ui:yes') + ', ' + t('ui:exit').toLowerCase(),
+        onClick: this.saveStateAndExit.bind(this)
       }, {
         text: t('ui:no') + ', ' + t('ui:continue').toLowerCase(),
+        onClick: this.closeModal.bind(this)
+      }]
+    })
+  }
+
+
+  onDeleteAndExitButtonClick () {
+
+    const { t, actions, history, pinfo } = this.props
+
+    let isPInfoEmpty = globalTests.isPInfoEmpty(pinfo)
+
+    if (isPInfoEmpty) {
+      actions.closeModal()
+      history.push(routes.ROOT)
+    }
+
+    actions.openModal({
+      modalTitle: t('pinfo:alert-deleteAndExitPInfo'),
+      modalText: t('pinfo:alert-areYouSureDeleteAndExitPInfo'),
+      modalButtons: [{
+        main: true,
+        text: t('ui:yes') + ', ' + t('ui:reset').toLowerCase(),
+        onClick: this.deleteStateAndExit.bind(this)
+      }, {
+        text: t('ui:no') + ', ' + t('ui:cancel').toLowerCase(),
         onClick: this.closeModal.bind(this)
       }]
     })
@@ -244,9 +266,10 @@ class PInfo extends React.Component {
   }
 
   render () {
-    const { t, history, location, step, maxStep, stepError, isSendingPinfo, isReady, buttonsVisible } = this.props
+    const { t, history, location, step, maxStep, stepError, isSendingPinfo, isReady, buttonsVisible, pinfo } = this.props
 
     let errorMessage = this.errorMessage()
+    let isPInfoEmpty = globalTests.isPInfoEmpty(pinfo)
 
     if (!isReady) {
       return <TopContainer className='p-pInfo'
@@ -314,11 +337,11 @@ class PInfo extends React.Component {
             {t('back')}
           </Nav.Knapp> : null}
           { step < 4 ? <Nav.KnappBase
-            id='pinfo-cancel-button'
+            id='pinfo-saveandexit-button'
             type='flat'
             className='cancelButton mb-2 mr-3'
-            onClick={this.onCancelButtonClick.bind(this)}>
-            {t('cancel-main')}
+            onClick={this.onSaveAndExitButtonClick.bind(this)}>
+            {t('pinfo:form-saveAndExit')}
           </Nav.KnappBase> : null}
         </div></Nav.Row> : null}
       {errorMessage ? <Nav.Row>
@@ -328,6 +351,15 @@ class PInfo extends React.Component {
         </div>
         <div className='col-md-2' />
       </Nav.Row> : null}
+      {isPInfoEmpty || step === 4 ? null : <Nav.Row>
+        <div className='col-md-12 mb-4 text-right'>
+          <Nav.Fareknapp
+            id='pinfo-deleteAndExit-button'
+            onClick={this.onDeleteAndExitButtonClick.bind(this)}>
+            {t('pinfo:form-deleteAndExit')}
+          </Nav.Fareknapp>
+        </div>
+      </Nav.Row>}
     </TopContainer>
   }
 }
