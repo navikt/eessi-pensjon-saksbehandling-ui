@@ -39,14 +39,8 @@ class Receipt extends React.Component {
 
   downloadReceiptRequest () {
     const { receipt } = this.props
-    var blob = new Blob([PdfUtils.base64toData(receipt.content.base64)], { type: receipt.type })
-    if (navigator && navigator.userAgent && navigator.userAgent.match(/Safari/i) &&
-      (navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPhone/i))) {
-      var url = window.URL.createObjectURL(blob)
-      window.open(url, '_blank')
-    } else {
-      saveAs(blob, receipt.name)
-    }
+    var blob = new Blob([PdfUtils.base64toData(receipt.content.base64)], { type: receipt.mimetype })
+    saveAs(blob, receipt.name)
   }
 
   render () {
