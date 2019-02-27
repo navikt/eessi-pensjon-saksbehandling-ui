@@ -35,12 +35,12 @@ class Confirm extends React.Component {
     const { stayAbroad, person, bank } = this.props.pinfo
 
     return <React.Fragment>
+      <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:confirm-title')}</Nav.Undertittel>
       <PsychoPanel id='pinfo-confirm-psycho-panel' className='mb-4' closeButton>
         <span>{t('pinfo:confirm-psycho-description')}</span>
       </PsychoPanel>
-      <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:confirm-title')}</Nav.Undertittel>
       <div className='mt-4' id='divToPrint'>
-        <Nav.Undertittel className='m-4'>{t('pinfo:person-info-title')}</Nav.Undertittel>
+        <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:person-info-title')}</Nav.Undertittel>
         <dl className='row ml-2'>
           <dt className='col-4'> {t('pinfo:person-info-currentName')} </dt>
           <dd className='col-8 text-capitalize'>
@@ -76,7 +76,7 @@ class Confirm extends React.Component {
           <dt className='col-4'> {t('pinfo:person-contact-email')} </dt>
           <dd className='col-8'> {person.email || '-'} </dd>
         </dl>
-        <Nav.Undertittel className='m-4'>{t('pinfo:bank-title')}</Nav.Undertittel>
+        <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:bank-title')}</Nav.Undertittel>
         <dl className='row ml-2'>
           <dt className='col-4'> {t('pinfo:bank-name')} </dt>
           <dd className='col-8'> {bank.bankName || '-'} </dd>
@@ -94,7 +94,7 @@ class Confirm extends React.Component {
           <dt className='col-4'>  {t('pinfo:bank-iban')} </dt>
           <dd className='col-8'>  {bank.bankIban || '-'}</dd>
         </dl>
-        <Nav.Undertittel className='m-4'>{t('pinfo:stayAbroad-title')}</Nav.Undertittel>
+        <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-title')}</Nav.Undertittel>
         <div className='ml-4'>
           {stayAbroad.map((period, index) => {
             return <Period t={t}
@@ -109,9 +109,15 @@ class Confirm extends React.Component {
             />
           })}
         </div>
-        <Nav.Undertittel className='m-4'>{t('pinfo:stayAbroad-comment')}</Nav.Undertittel>
+        <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-comment')}</Nav.Undertittel>
         <Nav.Textarea id='pinfo-comment'
-          label={t('pinfo:stayAbroad-comment')}
+          label={<div>
+            <span>{t('pinfo:stayAbroad-comment')}</span>
+            <Nav.HjelpetekstBase id='pinfo-stayAbroad-comment-help'>
+              {t('pinfo:stayAbroad-comment-help')}
+            </Nav.HjelpetekstBase>
+            <span className='optional'>{t('ui:optional')}</span>
+          </div>}
           placeholder={t('ui:writeIn')}
           value={comment || ''}
           style={{ minHeight: '100px' }}

@@ -181,8 +181,12 @@ class Period extends React.Component {
     return stepTests.periodStep(_period, pinfo.person)
   }
 
-  addId (id) {
-    this.valueSetProperty('insuranceId', null, id)
+  addInsuranceId (insuranceId) {
+    this.valueSetProperty('insuranceId', null, insuranceId)
+  }
+
+  addInsuranceName (insuranceName) {
+    this.valueSetProperty('insuranceName', null, insuranceName)
   }
 
   saveNewPeriod () {
@@ -453,7 +457,12 @@ class Period extends React.Component {
             <div className='col-md-6'>
               <Nav.Select
                 id='pinfo-opphold-kategori-select'
-                label={t('pinfo:stayAbroad-category')}
+                label={<div>
+                  <span>{t('pinfo:stayAbroad-category')}</span>
+                  <Nav.HjelpetekstBase id='pinfo-stayAbroad-category-select-help'>
+                    {t('pinfo:stayAbroad-category-help')}
+                  </Nav.HjelpetekstBase>
+                </div>}
                 value={_period.type || ''}
                 onChange={this.setType}>
                 <option value=''>{t('ui:choose')}</option>
@@ -480,7 +489,7 @@ class Period extends React.Component {
                 <Nav.Normaltekst className='mb-4'>{t('pinfo:stayAbroad-period-date-description')}</Nav.Normaltekst>
               </div>
               <div className='col-md-6'>
-                <label className='mr-3 skjemaelement__label'>{t('pinfo:stayAbroad-period-start-date') + ' *'}</label>
+                <label className='mr-3 skjemaelement__label'>{t('pinfo:stayAbroad-period-start-date')}</label>
                 <DatePicker
                   id='pinfo-opphold-startdato-date'
                   selected={_period.startDate ? new Date(_period.startDate) : null}
@@ -492,7 +501,7 @@ class Period extends React.Component {
                   errorMessage={t(localErrors.startDate)} />
               </div>
               <div className='col-md-6'>
-                <label className='skjemaelement__label'>{t('pinfo:stayAbroad-period-end-date') + ' *'}</label>
+                <label className='skjemaelement__label'>{t('pinfo:stayAbroad-period-end-date')}</label>
                 <DatePicker
                   id='pinfo-opphold-sluttdato-date'
                   selected={_period.endDate ? new Date(_period.endDate) : null}
@@ -507,7 +516,7 @@ class Period extends React.Component {
 
             <Nav.Row>
               <div className='col-md-12 mt-3 mb-3'>
-                <label className='skjemaelement__label'>{t('pinfo:stayAbroad-country') + ' *'}</label>
+                <label className='skjemaelement__label'>{t('pinfo:stayAbroad-country')}</label>
                 <CountrySelect
                   id='pinfo-opphold-land-select'
                   locale={locale}
@@ -559,7 +568,13 @@ class Period extends React.Component {
               <div className='col-md-12 col-xs-12'>
                 <Nav.Textarea
                   id='pinfo-opphold-arbeidgiverssted-textarea'
-                  label={t('pinfo:stayAbroad-work-place')}
+                  label={<div>
+                    <span>{t('pinfo:stayAbroad-work-place')}</span>
+                     <Nav.HjelpetekstBase id='pinfo-stayAbroad-work-place-help'>
+                       <span>{t('pinfo:stayAbroad-work-place-help')}</span>
+                     </Nav.HjelpetekstBase>
+                    <span className='optional'>{t('ui:optional')}</span>
+                  </div>}
                   placeholder={t('ui:writeIn')}
                   value={_period.workPlace || ''}
                   style={{ minHeight: '100px' }}
@@ -571,7 +586,12 @@ class Period extends React.Component {
               <div className='col-md-12 col-xs-12'>
                 <Nav.Input
                   id='pinfo-opphold-yrkesaktivitet-input'
-                  label={t('pinfo:stayAbroad-work-activity') + ' *'}
+                  label={<div>
+                    <span>{t('pinfo:stayAbroad-work-activity')}</span>
+                     <Nav.HjelpetekstBase id='pinfo-stayAbroad-work-activity-help'>
+                       <span>{t('pinfo:stayAbroad-work-activity-help')}</span>
+                     </Nav.HjelpetekstBase>
+                  </div>}
                   placeholder={t('ui:writeIn')}
                   value={_period.workActivity || ''}
                   onChange={this.setWorkActivity}
@@ -581,7 +601,13 @@ class Period extends React.Component {
               <div className='col-md-12 col-xs-12'>
                 <Nav.Input
                   id='pinfo-opphold-arbeidgiversnavn-input'
-                  label={t('pinfo:stayAbroad-work-name')}
+                  label={<div>
+                    <span>{t('pinfo:stayAbroad-work-name')}</span>
+                     <Nav.HjelpetekstBase id='pinfo-stayAbroad-work-name-help'>
+                       <span>{t('pinfo:stayAbroad-work-name-help')}</span>
+                     </Nav.HjelpetekstBase>
+                    <span className='optional'>{t('ui:optional')}</span>
+                  </div>}
                   placeholder={t('ui:writeIn')}
                   value={_period.workName || ''}
                   onChange={this.setWorkName}
@@ -594,7 +620,12 @@ class Period extends React.Component {
               <div className='col-md-12'>
                 <Nav.Input
                   id='pinfo-opphold-opplaeringsinstitusjonsnavn-input'
-                  label={t('pinfo:stayAbroad-learn-institution') + ' *'}
+                  label={<div>
+                    <span>{t('pinfo:stayAbroad-learn-institution')}</span>
+                     <Nav.HjelpetekstBase id='pinfo-stayAbroad-learn-institution-help'>
+                       <span>{t('pinfo:stayAbroad-learn-institution-help')}</span>
+                     </Nav.HjelpetekstBase>
+                  </div>}
                   value={_period.learnInstitution || ''}
                   placeholder={t('ui:writeIn')}
                   onChange={this.setLearnInstitution}
@@ -610,7 +641,9 @@ class Period extends React.Component {
               <div className='col-md-12'>
                 <Nav.Textarea
                   id='pinfo-opphold-bosted-place-textarea'
-                  label={t('pinfo:stayAbroad-place-and-country') + ' *'}
+                  label={<div>
+                    <span>{t('pinfo:stayAbroad-place-and-country')}</span>
+                  </div>}
                   placeholder={t('ui:writeIn')}
                   value={_period.place || ''}
                   style={{ minHeight: '100px' }}
@@ -623,7 +656,7 @@ class Period extends React.Component {
               <div className='col-md-12'>
                 <Nav.Textarea
                   id='pinfo-opphold-bosted-place-textarea'
-                  label={t('pinfo:stayAbroad-place') + ' *'}
+                  label={t('pinfo:stayAbroad-place')}
                   placeholder={t('ui:writeIn')}
                   value={_period.place || ''}
                   style={{ minHeight: '100px' }}
@@ -634,27 +667,49 @@ class Period extends React.Component {
               </div>
             </Nav.Row>}
 
+            <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-insurance-title')}</Nav.Undertittel>
+
             <Nav.Row>
-              <div className='col-md-12 d-flex align-items-center'>
-                <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-insurance-title')}</Nav.Undertittel>
-                {mode !== 'view' ? <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-help'>
-                  {t('pinfo:stayAbroad-insurance-title-help')}
-                </Nav.HjelpetekstBase> : null}
-              </div>
               <div className='col-md-12'>
                 <Nav.Input
                   id='pinfo-opphold-trygdeordning-navn'
-                  label={t('pinfo:stayAbroad-insurance-name')}
+                  label={<div>
+                    <span>{t('pinfo:stayAbroad-insurance-name')}</span>
+                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-name-help'>
+                      {t('pinfo:stayAbroad-insurance-name-help')}
+                    </Nav.HjelpetekstBase>
+                    <span className='optional'>{t('ui:optional')}</span>
+                  </div>}
                   placeholder={t('ui:writeIn')}
                   value={_period.insuranceName || ''}
                   onChange={this.setInsuranceName}
                   feil={localErrors.insuranceName ? { feilmelding: t(localErrors.insuranceName) } : null}
                 />
+                <div className='id-suggestions mb-4'>
+                  {periods.map(period => {
+                    return period.insuranceName
+                  }).filter((insuranceName, index, self) => {
+                    return insuranceName && _period.insuranceName !== insuranceName &&
+                      self.indexOf(insuranceName) === index
+                  }).map(insuranceName => {
+                    return <Nav.EtikettBase
+                      key={insuranceName} className='mr-3' type='fokus'
+                      onClick={this.addInsuranceName.bind(this, insuranceName)}>
+                        <b>{insuranceName}</b>
+                    </Nav.EtikettBase>
+                  })}
+                </div>
               </div>
               <div className='col-md-12'>
                 <Nav.Input
                   id='pinfo-opphold-trygdeordning-id'
-                  label={t('pinfo:stayAbroad-insurance-id')}
+                  label={<div>
+                    <span>{t('pinfo:stayAbroad-insurance-id')}</span>
+                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-id-help'>
+                      {t('pinfo:stayAbroad-insurance-id-help')}
+                    </Nav.HjelpetekstBase>
+                    <span className='optional'>{t('ui:optional')}</span>
+                  </div>}
                   placeholder={t('ui:writeIn')}
                   value={_period.insuranceId || ''}
                   onChange={this.setInsuranceId}
@@ -663,17 +718,28 @@ class Period extends React.Component {
                 <div className='id-suggestions mb-4'>
                   {periods.map(period => {
                     return period.insuranceId
-                  }).filter((id, index, self) => {
-                    return id && _period.insuranceId !== id && self.indexOf(id) === index
-                  }).map(id => {
-                    return <Nav.EtikettBase key={id} className='mr-3' type='fokus' onClick={this.addId.bind(this, id)}><b>{id}</b></Nav.EtikettBase>
+                  }).filter((insuranceId, index, self) => {
+                    return insuranceId && _period.insuranceId !== insuranceId &&
+                    self.indexOf(insuranceId) === index
+                  }).map(insuranceId => {
+                    return <Nav.EtikettBase
+                    key={insuranceId} className='mr-3' type='fokus'
+                    onClick={this.addInsuranceId.bind(this, insuranceId)}>
+                      <b>{insuranceId}</b>
+                    </Nav.EtikettBase>
                   })}
                 </div>
               </div>
               <div className='col-md-12'>
                 <Nav.Select
                   id='pinfo-opphold-trygdeordning-type'
-                  label={t('pinfo:stayAbroad-insurance-type')}
+                  label={<div>
+                    <span>{t('pinfo:stayAbroad-insurance-type')}</span>
+                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-type-help'>
+                      {t('pinfo:stayAbroad-insurance-type-help')}
+                    </Nav.HjelpetekstBase>
+                    <span className='optional'>{t('ui:optional')}</span>
+                  </div>}
                   value={_period.insuranceType || ''}
                   onChange={this.setInsuranceType}
                   feil={localErrors.insuranceType ? { feilmelding: t(localErrors.insuranceType) } : null}>
@@ -689,6 +755,8 @@ class Period extends React.Component {
             <Nav.Row>
               <div className='col-md-12'>
                 <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-attachment-title')}</Nav.Undertittel>
+                <Nav.Undertekst className='mt-4 mb-4'>{t('pinfo:stayAbroad-attachment-title-help')}</Nav.Undertekst>
+                <span className='optional mb-2'>{t('ui:optional')}</span>
               </div>
               <div className='col-md-12'>
                 <FileUpload
@@ -700,12 +768,6 @@ class Period extends React.Component {
                   fileUploadDroppableId={'fileUpload'}
                   files={this.getPeriodAttachments(_period)}
                   onFileChange={this.setAttachments} />
-              </div>
-            </Nav.Row>
-
-            <Nav.Row>
-              <div className='mt-4 mb-4 col-md-12'>
-                {'* ' + t('mandatoryField')}
               </div>
             </Nav.Row>
 

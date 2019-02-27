@@ -82,16 +82,21 @@ class Person extends React.Component {
   render () {
     const { t, person, locale } = this.props
     const { localErrors } = this.state
-    const mandatory = ' *'
 
     return <div className='c-pinfo-person'>
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-info-title')}</Nav.Undertittel>
+
       <Nav.Row>
         <div className='col-sm-9'>
           <Nav.Input
             id='pinfo-person-etternavn-input'
             type='text'
-            label={t('pinfo:person-info-lastNameAtBirth') + mandatory}
+            label={<div>
+              <span>{t('pinfo:person-info-lastNameAtBirth')}</span>
+              <Nav.HjelpetekstBase id='pinfo-person-lastNameAtBirth-help'>
+                {t('pinfo:person-info-lastNameAtBirth-help')}
+              </Nav.HjelpetekstBase>
+            </div>}
             placeholder={t('ui:writeIn')}
             value={person.nameAtBirth || ''}
             onChange={this.setNameAtBirth}
@@ -99,12 +104,19 @@ class Person extends React.Component {
           />
         </div>
       </Nav.Row>
+
       <Nav.Row>
         <div className='col-sm-9'>
           <Nav.Input
             id='pinfo-person-tidligerenavn-input'
             type='text'
-            label={t('pinfo:person-info-previousName')}
+             label={<div>
+              <span>{t('pinfo:person-info-previousName')}</span>
+              <Nav.HjelpetekstBase id='pinfo-person-previousName-help'>
+                {t('pinfo:person-info-previousName-help')}
+              </Nav.HjelpetekstBase>
+              <span className='optional'>{t('ui:optional')}</span>
+            </div>}
             placeholder={t('ui:writeIn')}
             value={person.previousName || ''}
             onChange={this.setPreviousName}
@@ -112,11 +124,13 @@ class Person extends React.Component {
           />
         </div>
       </Nav.Row>
+
       <Nav.Undertittel className='ml-0 mt-4 mb-4 appDescription'>{t('pinfo:person-birthplace-title')}</Nav.Undertittel>
+
       <Nav.Row>
         <div className='col-md-6 mb-4'>
           <label className='skjemaelement__label'>
-            {t('pinfo:person-birthplace-country') + mandatory}
+            {t('pinfo:person-birthplace-country')}
           </label>
           <CountrySelect
             id='pinfo-person-land-select'
@@ -128,12 +142,15 @@ class Person extends React.Component {
           />
         </div>
       </Nav.Row>
+
       <Nav.Row>
         <div className='col-sm-9'>
           <Nav.Input
             id='pinfo-person-sted-input'
             type='text'
-            label={t('pinfo:person-birthplace-place') + mandatory}
+            label={<div>
+              <span>{t('pinfo:person-birthplace-place')}</span>
+            </div>}
             placeholder={t('ui:writeIn')}
             value={person.place || ''}
             onChange={this.setPlace}
@@ -141,12 +158,16 @@ class Person extends React.Component {
           />
         </div>
       </Nav.Row>
+
       <Nav.Row>
         <div className='col-sm-9'>
           <Nav.Input
             id='pinfo-person-region-input'
             type='text'
-            label={t('pinfo:person-birthplace-area')}
+            label={<div>
+              <span>{t('pinfo:person-birthplace-area')}</span>
+              <span className='optional'>{t('ui:optional')}</span>
+            </div>}
             placeholder={t('pinfo:person-birthplace-area-placeholder')}
             value={person.region || ''}
             onChange={this.setRegion}
@@ -154,13 +175,19 @@ class Person extends React.Component {
           />
         </div>
       </Nav.Row>
-      <Nav.Undertittel className='ml-0 mt-4 mb-4 appDescription'>{t('pinfo:person-contact-title')}</Nav.Undertittel>
+
+      <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:person-contact-title')}</Nav.Undertittel>
+      <Nav.Undertekst className='mt-4 mb-4'>{t('pinfo:person-contact-title-help')}</Nav.Undertekst>
+
       <Nav.Row>
-        <div className='col-sm-4'>
+        <div className='col-sm-9'>
           <Nav.Input
             id='pinfo-person-telefonnummer-input'
             type='tel'
-            label={t('pinfo:person-contact-phoneNumber')}
+            label={<div>
+              <span>{t('pinfo:person-contact-phoneNumber')}</span>
+              <span className='optional'>{t('ui:optional')}</span>
+            </div>}
             placeholder={t('ui:writeIn')}
             value={person.phone || ''}
             onChange={this.setPhone}
@@ -168,23 +195,22 @@ class Person extends React.Component {
           />
         </div>
       </Nav.Row>
+
       <Nav.Row>
-        <div className='col-sm-6'>
+        <div className='col-sm-9'>
           <Nav.Input
             id='pinfo-person-epost-input'
             type='email'
-            label={t('pinfo:person-contact-email')}
+            label={<div>
+              <span>{t('pinfo:person-contact-email')}</span>
+              <span className='optional'>{t('ui:optional')}</span>
+            </div>}
             placeholder={t('ui:writeIn')}
             value={person.email || ''}
             onChange={this.setEmail}
             onBlur={this.setEmailAndValidate}
             feil={localErrors.email ? { feilmelding: t(localErrors.email) } : null}
           />
-        </div>
-      </Nav.Row>
-      <Nav.Row>
-        <div className='col-sm-6'>
-          {'* ' + t('mandatoryField')}
         </div>
       </Nav.Row>
     </div>
