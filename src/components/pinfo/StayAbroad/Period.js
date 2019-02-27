@@ -384,8 +384,44 @@ class Period extends React.Component {
     )).filter(element => element)
   }
 
+  renderTagsForInsuranceName () {
+    const { periods } = this.props
+    const { _period } = this.state
+
+    return periods.map(period => {
+      return period.insuranceName
+    }).filter((insuranceName, index, self) => {
+      return insuranceName && _period.insuranceName !== insuranceName &&
+        self.indexOf(insuranceName) === index
+    }).map(insuranceName => {
+      return <Nav.EtikettBase
+        key={insuranceName} className='mr-3' type='fokus'
+        onClick={this.addInsuranceName.bind(this, insuranceName)}>
+        <b>{insuranceName}</b>
+      </Nav.EtikettBase>
+    })
+  }
+
+  renderTagsForInsuranceId () {
+    const { periods } = this.props
+    const { _period } = this.state
+
+    return periods.map(period => {
+      return period.insuranceId
+    }).filter((insuranceId, index, self) => {
+      return insuranceId && _period.insuranceId !== insuranceId &&
+      self.indexOf(insuranceId) === index
+    }).map(insuranceId => {
+      return <Nav.EtikettBase
+        key={insuranceId} className='mr-3' type='fokus'
+        onClick={this.addInsuranceId.bind(this, insuranceId)}>
+        <b>{insuranceId}</b>
+      </Nav.EtikettBase>
+    })
+  }
+
   render () {
-    const { t, mode, period, periods, locale, first, last, person, showButtons } = this.props
+    const { t, mode, period, locale, first, last, person, showButtons } = this.props
     const { localErrors, _period } = this.state
 
     let errorMessage = this.errorMessage()
@@ -394,7 +430,7 @@ class Period extends React.Component {
       case 'view':
       case 'confirm':
         return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode)}>
-          <div className={classNames({ 'col-md-6': mode === 'view', 'col-md-12': mode === 'confirm'})}>
+          <div className={classNames({ 'col-md-6': mode === 'view', 'col-md-12': mode === 'confirm' })}>
             <div id={period.id} className='existingPeriod'>
               <div className='icon mr-3 ml-3'>
                 <div className={classNames('topHalf', { line: !first })} />
@@ -570,9 +606,9 @@ class Period extends React.Component {
                   id='pinfo-opphold-arbeidgiverssted-textarea'
                   label={<div>
                     <span>{t('pinfo:stayAbroad-work-place')}</span>
-                     <Nav.HjelpetekstBase id='pinfo-stayAbroad-work-place-help'>
-                       <span>{t('pinfo:stayAbroad-work-place-help')}</span>
-                     </Nav.HjelpetekstBase>
+                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-work-place-help'>
+                      <span>{t('pinfo:stayAbroad-work-place-help')}</span>
+                    </Nav.HjelpetekstBase>
                     <span className='optional'>{t('ui:optional')}</span>
                   </div>}
                   placeholder={t('ui:writeIn')}
@@ -588,9 +624,9 @@ class Period extends React.Component {
                   id='pinfo-opphold-yrkesaktivitet-input'
                   label={<div>
                     <span>{t('pinfo:stayAbroad-work-activity')}</span>
-                     <Nav.HjelpetekstBase id='pinfo-stayAbroad-work-activity-help'>
-                       <span>{t('pinfo:stayAbroad-work-activity-help')}</span>
-                     </Nav.HjelpetekstBase>
+                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-work-activity-help'>
+                      <span>{t('pinfo:stayAbroad-work-activity-help')}</span>
+                    </Nav.HjelpetekstBase>
                   </div>}
                   placeholder={t('ui:writeIn')}
                   value={_period.workActivity || ''}
@@ -603,9 +639,9 @@ class Period extends React.Component {
                   id='pinfo-opphold-arbeidgiversnavn-input'
                   label={<div>
                     <span>{t('pinfo:stayAbroad-work-name')}</span>
-                     <Nav.HjelpetekstBase id='pinfo-stayAbroad-work-name-help'>
-                       <span>{t('pinfo:stayAbroad-work-name-help')}</span>
-                     </Nav.HjelpetekstBase>
+                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-work-name-help'>
+                      <span>{t('pinfo:stayAbroad-work-name-help')}</span>
+                    </Nav.HjelpetekstBase>
                     <span className='optional'>{t('ui:optional')}</span>
                   </div>}
                   placeholder={t('ui:writeIn')}
@@ -622,9 +658,9 @@ class Period extends React.Component {
                   id='pinfo-opphold-opplaeringsinstitusjonsnavn-input'
                   label={<div>
                     <span>{t('pinfo:stayAbroad-learn-institution')}</span>
-                     <Nav.HjelpetekstBase id='pinfo-stayAbroad-learn-institution-help'>
-                       <span>{t('pinfo:stayAbroad-learn-institution-help')}</span>
-                     </Nav.HjelpetekstBase>
+                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-learn-institution-help'>
+                      <span>{t('pinfo:stayAbroad-learn-institution-help')}</span>
+                    </Nav.HjelpetekstBase>
                   </div>}
                   value={_period.learnInstitution || ''}
                   placeholder={t('ui:writeIn')}
@@ -686,18 +722,7 @@ class Period extends React.Component {
                   feil={localErrors.insuranceName ? { feilmelding: t(localErrors.insuranceName) } : null}
                 />
                 <div className='id-suggestions mb-4'>
-                  {periods.map(period => {
-                    return period.insuranceName
-                  }).filter((insuranceName, index, self) => {
-                    return insuranceName && _period.insuranceName !== insuranceName &&
-                      self.indexOf(insuranceName) === index
-                  }).map(insuranceName => {
-                    return <Nav.EtikettBase
-                      key={insuranceName} className='mr-3' type='fokus'
-                      onClick={this.addInsuranceName.bind(this, insuranceName)}>
-                        <b>{insuranceName}</b>
-                    </Nav.EtikettBase>
-                  })}
+                  {this.renderTagsForInsuranceName()}
                 </div>
               </div>
               <div className='col-md-12'>
@@ -716,18 +741,7 @@ class Period extends React.Component {
                   feil={localErrors.insuranceId ? { feilmelding: t(localErrors.insuranceId) } : null}
                 />
                 <div className='id-suggestions mb-4'>
-                  {periods.map(period => {
-                    return period.insuranceId
-                  }).filter((insuranceId, index, self) => {
-                    return insuranceId && _period.insuranceId !== insuranceId &&
-                    self.indexOf(insuranceId) === index
-                  }).map(insuranceId => {
-                    return <Nav.EtikettBase
-                    key={insuranceId} className='mr-3' type='fokus'
-                    onClick={this.addInsuranceId.bind(this, insuranceId)}>
-                      <b>{insuranceId}</b>
-                    </Nav.EtikettBase>
-                  })}
+                  {this.renderTagsForInsurancId()}
                 </div>
               </div>
               <div className='col-md-12'>
