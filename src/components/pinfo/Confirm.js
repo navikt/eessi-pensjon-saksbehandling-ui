@@ -67,7 +67,7 @@ class Confirm extends React.Component {
             </React.Fragment> : null}
           </dd>
           <dt className='col-4'> {t('pinfo:person-birthplace-place')} </dt>
-          <dd className='col-8'> {person.city || '-'} </dd>
+          <dd className='col-8'> {person.place || '-'} </dd>
           <dt className='col-4'> {t('pinfo:person-birthplace-area')} </dt>
           <dd className='col-8'> {person.region || '-'} </dd>
           <dt className='col-4'> {t('pinfo:person-contact-phoneNumber')} </dt>
