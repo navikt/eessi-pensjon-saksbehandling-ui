@@ -116,19 +116,18 @@ export function clearPInfoData () {
   }
 }
 
-export function saveStateAndExit(pinfo, username) {
+export function saveStateAndExit (pinfo, username) {
   return (dispatch) => {
     return dispatch(
       storageActions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
     ).then(() => {
-        dispatch(clearPInfoData())
-        window.location.href = urls.NAV_URL
+      dispatch(clearPInfoData())
+      window.location.href = urls.NAV_URL
     })
   }
 }
 
-export function deleteStateAndExit(username) {
-
+export function deleteStateAndExit (username) {
   return (dispatch) => {
     return dispatch(
       storageActions.deleteAllStorageFilesFromUser(username, constants.PINFO)

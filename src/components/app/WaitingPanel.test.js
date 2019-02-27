@@ -1,11 +1,9 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-
 import WaitingPanel from './WaitingPanel'
 
 describe('WaitingPanel', () => {
   it('renders without crashing', () => {
-    const wrapper = shallow(<WaitingPanel message=''/>)
+    const wrapper = shallow(<WaitingPanel message='' />)
     expect(wrapper).toMatchSnapshot()
   })
 

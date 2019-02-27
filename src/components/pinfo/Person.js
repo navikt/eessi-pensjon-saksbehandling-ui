@@ -110,7 +110,7 @@ class Person extends React.Component {
           <Nav.Input
             id='pinfo-person-tidligerenavn-input'
             type='text'
-             label={<div>
+            label={<div>
               <span>{t('pinfo:person-info-previousName')}</span>
               <Nav.HjelpetekstBase id='pinfo-person-previousName-help'>
                 {t('pinfo:person-info-previousName-help')}

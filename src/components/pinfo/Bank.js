@@ -154,12 +154,12 @@ class Bank extends React.Component {
         <div className='col-md-12'>
           <Nav.Textarea
             id='pinfo-bank-address-textarea'
-             label={<div>
-               <span>{t('pinfo:bank-address')}</span>
-               <Nav.HjelpetekstBase id='pinfo-bank-address-input-help'>
-                 {t('pinfo:bank-address-help')}
-               </Nav.HjelpetekstBase>
-             </div>}
+            label={<div>
+              <span>{t('pinfo:bank-address')}</span>
+              <Nav.HjelpetekstBase id='pinfo-bank-address-input-help'>
+                {t('pinfo:bank-address-help')}
+              </Nav.HjelpetekstBase>
+            </div>}
             placeholder={t('ui:writeIn')}
             value={bank.bankAddress || ''}
             style={{ minHeight: '100px' }}

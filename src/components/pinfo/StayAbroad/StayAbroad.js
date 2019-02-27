@@ -41,17 +41,17 @@ class StayAbroad extends React.Component {
           return a.startDate - b.startDate
         }).map((period, index) => {
           return <Period t={t}
-          mode='view'
-          first={index === 0}
-          last={index === stayAbroad.length - 1}
-          period={period}
-          periods={stayAbroad}
-          editPeriod={this.setEditPeriod.bind(this)}
-          key={period.id}
-          showButtons/>
+            mode='view'
+            first={index === 0}
+            last={index === stayAbroad.length - 1}
+            period={period}
+            periods={stayAbroad}
+            editPeriod={this.setEditPeriod.bind(this)}
+            key={period.id}
+            showButtons />
         })}
-        </React.Fragment>
-      : null}
+      </React.Fragment>
+        : null}
       <Period t={t}
         periods={stayAbroad}
         mode={editMode ? 'edit' : 'new'}

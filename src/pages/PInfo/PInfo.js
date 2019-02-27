@@ -214,9 +214,7 @@ class PInfo extends React.Component {
     })
   }
 
-
   onDeleteAndExitButtonClick () {
-
     const { t, actions, history, pinfo } = this.props
 
     let isPInfoEmpty = globalTests.isPInfoEmpty(pinfo)

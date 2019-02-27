@@ -49,10 +49,10 @@ class Receipt extends React.Component {
     const onClick = receipt ? this.downloadReceiptRequest : this.generateReceiptRequest
     let buttonLabel = t('ui:getReceipt')
     if (isGeneratingReceipt) {
-        buttonLabel = t('ui:generating')
+      buttonLabel = t('ui:generating')
     }
     if (receipt) {
-        buttonLabel = t('ui:downloadReceipt')
+      buttonLabel = t('ui:downloadReceipt')
     }
 
     return <div className='c-pinfo-receipt'>

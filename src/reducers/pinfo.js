@@ -13,7 +13,7 @@ let initialState = {
   buttonsVisible: true
 }
 
-export default function reducer(state = initialState, action = {}) {
+export default function reducer (state = initialState, action = {}) {
   switch (action.type) {
     case types.PINFO_STEP_SET:
 

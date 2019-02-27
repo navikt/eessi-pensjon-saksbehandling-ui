@@ -1,6 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import renderer from 'react-test-renderer'
 import { createStore, combineReducers } from 'redux'
 import Period from './Period'
 import _ from 'lodash'
@@ -19,12 +17,11 @@ const reducer = combineReducers({
 })
 
 describe('Period', () => {
-
   let store, wrapper
 
   beforeEach(() => {
     store = createStore(reducer, initialState)
-    wrapper = shallow( <Period editPeriod={() => {}} store={store}/>).dive()
+    wrapper = shallow(<Period editPeriod={() => {}} store={store} />).dive()
   })
 
   it('renders successfully', () => {
@@ -32,157 +29,145 @@ describe('Period', () => {
   })
 
   it('hasNoErrors() function', () => {
-    expect(wrapper.instance().hasNoErrors({ foo : 'bar' })).toEqual(false)
+    expect(wrapper.instance().hasNoErrors({ foo: 'bar' })).toEqual(false)
     expect(wrapper.instance().hasNoErrors({})).toEqual(true)
   })
 
   it('hasSpecialCases function', () => {
     let francePeriods = [{
       type: 'foo',
-      country: {value: 'FR', label: 'Frankrike'}
+      country: { value: 'FR', label: 'Frankrike' }
     }]
     let norwayPeriods = [{
       type: 'foo',
-      country: {value: 'NO', label: 'Norge'}
+      country: { value: 'NO', label: 'Norge' }
     }]
     expect(wrapper.instance().hasSpecialCases(francePeriods)).toEqual(true)
     expect(wrapper.instance().hasSpecialCases(norwayPeriods)).toEqual(false)
   })
 
-   it('isASpecialCase function', () => {
-      let francePeriod = {
-         type: 'foo',
-         country: {value: 'FR', label: 'Frankrike'}
+  it('isASpecialCase function', () => {
+    let francePeriod = {
+      type: 'foo',
+      country: { value: 'FR', label: 'Frankrike' }
+    }
+    let spainPeriod = {
+      type: 'foo',
+      country: { value: 'ES', label: 'Spania' }
+    }
+    let norwayPeriod = {
+      type: 'foo',
+      country: { value: 'NO', label: 'Norge' }
+    }
+    expect(wrapper.instance().isASpecialCase(francePeriod)).toEqual(true)
+    expect(wrapper.instance().isASpecialCase(spainPeriod)).toEqual(true)
+    expect(wrapper.instance().isASpecialCase(norwayPeriod)).toEqual(false)
+  })
+
+  it('setAttachments function', () => {
+    let file = {
+      type: 'application/pdf',
+      name: 'test.pdf',
+      size: 123,
+      content: {
+        base64: 'base64,qwerty'
       }
-      let spainPeriod = {
-         type: 'foo',
-         country: {value: 'ES', label: 'Spania'}
+    }
+
+    let mockFiles = [_.cloneDeep(file)]
+
+    let md5Hash = new MD5().update('base64,qwerty').digest('hex')
+
+    let mockLocalFile = [{
+      ...file,
+      content: {
+        md5: md5Hash
       }
-      let norwayPeriod = {
-         type: 'foo',
-         country: {value: 'NO', label: 'Norge'}
+    }]
+
+    wrapper.instance().setAttachments(mockFiles)
+
+    expect(wrapper.instance().state._period.attachments).toEqual(mockLocalFile)
+    expect(store.getState().attachment[md5Hash]).toEqual(file)
+  })
+
+  it('eventSetType function', () => {
+    let mockValue = 'mockValue'
+    wrapper.instance().eventSetType(null, { target: { value: mockValue } })
+    expect(wrapper.instance().state._period.type).toEqual(mockValue)
+  })
+
+  it('eventSetPerson function', () => {
+    let mockKey = 'mockKey'
+    let mockValue = 'mockValue'
+    wrapper.instance().eventSetPerson(mockKey, null, { target: { value: mockValue } })
+    expect(wrapper.prop('person')).toEqual(mockValue)
+  })
+
+  it('eventSetProperty function', () => {
+    let mockKey = 'mockKey'
+    let mockValue = 'mockValue'
+    wrapper.instance().eventSetProperty(mockKey, null, { target: { value: mockValue } })
+    expect(wrapper.instance().state._period[mockKey]).toEqual(mockValue)
+  })
+
+  it('dateSetProperty function', () => {
+    let mockKey = 'mockKey'
+    let mockValue = new Date()
+    wrapper.instance().dateSetProperty(mockKey, null, mockValue)
+    expect(wrapper.instance().state._period[mockKey]).toEqual(mockValue.valueOf())
+  })
+
+  it('valueSetProperty function', () => {
+    let mockKey = 'mockKey'
+    let mockValue = 'mockValue'
+    wrapper.instance().dateSetProperty(mockKey, null, mockValue)
+    expect(wrapper.instance().state._period[mockKey]).toEqual(mockValue)
+  })
+
+  it('validatePeriod function', async () => {
+    await wrapper.setProps({
+      person: {}
+    })
+    await wrapper.instance().setState({
+      _period: {
+        type: 'work'
       }
-      expect(wrapper.instance().isASpecialCase(francePeriod)).toEqual(true)
-      expect(wrapper.instance().isASpecialCase(spainPeriod)).toEqual(true)
-      expect(wrapper.instance().isASpecialCase(norwayPeriod)).toEqual(false)
-   })
-
-   it('setAttachments function', () => {
-
-      let file = {
-         type: 'application/pdf',
-         name: 'test.pdf',
-         size: 123,
-         content: {
-            base64: 'base64,qwerty'
-         }
-      }
-
-      let mockFiles = [_.cloneDeep(file)]
-
-      let md5Hash = new MD5().update('base64,qwerty').digest('hex')
-
-      let mockLocalFile = [{
-        ...file,
-        content: {
-           md5: md5Hash
-        }
-      }]
-
-      wrapper.instance().setAttachments(mockFiles)
-
-      expect(wrapper.instance().state._period.attachments).toEqual(mockLocalFile)
-      expect(store.getState().attachment[md5Hash]).toEqual(file)
-   })
-
-   it('eventSetType function', () => {
-
-     let mockValue = 'mockValue'
-     wrapper.instance().eventSetType(null, { target: {value: mockValue}})
-     expect(wrapper.instance().state._period.type).toEqual(mockValue)
-   })
-
-   it('eventSetPerson function', () => {
-
-     let mockKey = 'mockKey'
-     let mockValue = 'mockValue'
-     wrapper.instance().eventSetPerson(mockKey, null, { target: {value: mockValue}})
-     expect(wrapper.prop('person')).toEqual(mockValue)
-   })
-
-   it('eventSetProperty function', () => {
-
-     let mockKey = 'mockKey'
-     let mockValue = 'mockValue'
-     wrapper.instance().eventSetProperty(mockKey, null, { target: {value: mockValue}})
-     expect(wrapper.instance().state._period[mockKey]).toEqual(mockValue)
-   })
-
-    it('dateSetProperty function', () => {
-
-      let mockKey = 'mockKey'
-      let mockValue = new Date()
-      wrapper.instance().dateSetProperty(mockKey, null, mockValue)
-      expect(wrapper.instance().state._period[mockKey]).toEqual(mockValue.valueOf())
     })
+    let errors = wrapper.instance().validatePeriod()
 
-    it('valueSetProperty function', () => {
+    expect(errors).toHaveProperty('country', 'pinfo:validation-noCountry')
+    expect(errors).toHaveProperty('startDate', 'pinfo:validation-noStartDate')
+    expect(errors).toHaveProperty('endDate', 'pinfo:validation-noEndDate')
+    expect(errors).toHaveProperty('place', 'pinfo:validation-noPlace')
+    expect(errors).toHaveProperty('workActivity', 'pinfo:validation-noWorkActivity')
+  })
 
-      let mockKey = 'mockKey'
-      let mockValue = 'mockValue'
-      wrapper.instance().dateSetProperty(mockKey, null, mockValue)
-      expect(wrapper.instance().state._period[mockKey]).toEqual(mockValue)
+  it('addId function', () => {
+    let mockId = '123'
+    wrapper.instance().addId(mockId)
+    expect(wrapper.instance().state._period.insuranceId).toEqual(mockId)
+  })
+
+  it('saveNewPeriod function', async () => {
+    let mockPeriod = {
+      type: 'work',
+      startDate: new Date('January 01, 1970 00:00:00').valueOf(),
+      endDate: new Date('December 31, 1979 23:59:59').valueOf(),
+      place: 'Oslo',
+      country: 'NO',
+      workActivity: 'Lærer'
+    }
+    await wrapper.setProps({
+      periods: []
     })
-
-    it('validatePeriod function', async () => {
-
-      let mockKey = 'mockKey'
-      let mockValue = 'mockValue'
-      await wrapper.setProps({
-         person: {}
-      })
-      await wrapper.instance().setState({
-         _period: {
-            type: 'work'
-         }
-      })
-      let errors = wrapper.instance().validatePeriod()
-
-      expect(errors).toHaveProperty('country', 'pinfo:validation-noCountry')
-      expect(errors).toHaveProperty('startDate', 'pinfo:validation-noStartDate')
-      expect(errors).toHaveProperty('endDate', 'pinfo:validation-noEndDate')
-      expect(errors).toHaveProperty('place', 'pinfo:validation-noPlace')
-      expect(errors).toHaveProperty('workActivity', 'pinfo:validation-noWorkActivity')
+    await wrapper.instance().setState({
+      _period: mockPeriod
     })
-
-    it('addId function', () => {
-      let mockId = '123'
-      wrapper.instance().addId(mockId)
-      expect(wrapper.instance().state._period.insuranceId).toEqual(mockId)
-    })
-
-    it('saveNewPeriod function', async () => {
-
-      let mockPeriod = {
-        type: 'work',
-        startDate : new Date('January 01, 1970 00:00:00').valueOf(),
-        endDate : new Date('December 31, 1979 23:59:59').valueOf(),
-        place: 'Oslo',
-        country: 'NO',
-        workActivity: 'Lærer'
-      }
-      await wrapper.setProps({
-        periods: []
-      })
-      await wrapper.instance().setState({
-         _period: mockPeriod
-      })
-      wrapper.instance().saveNewPeriod()
-      expect(wrapper.instance().state.pinfo.stayAbroad).toStrictEqual([mockPeriod])
-
-    })
+    wrapper.instance().saveNewPeriod()
+    expect(wrapper.instance().state.pinfo.stayAbroad).toStrictEqual([mockPeriod])
+  })
 })
-
 
 /**
 

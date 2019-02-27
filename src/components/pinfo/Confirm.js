@@ -24,7 +24,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class Confirm extends React.Component {
-
   setComment (e) {
     const { actions } = this.props
     actions.setComment(e.target.value)
