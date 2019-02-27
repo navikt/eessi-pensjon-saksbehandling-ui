@@ -741,7 +741,7 @@ class Period extends React.Component {
                   feil={localErrors.insuranceId ? { feilmelding: t(localErrors.insuranceId) } : null}
                 />
                 <div className='id-suggestions mb-4'>
-                  {this.renderTagsForInsurancId()}
+                  {this.renderTagsForInsuranceId()}
                 </div>
               </div>
               <div className='col-md-12'>
