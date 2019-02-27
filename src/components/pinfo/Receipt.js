@@ -42,7 +42,8 @@ class Receipt extends React.Component {
     var blob = new Blob([PdfUtils.base64toData(receipt.content.base64)], { type: receipt.type })
     if (navigator && navigator.userAgent && navigator.userAgent.match(/Safari/i) &&
       (navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPhone/i))) {
-      window.open(blob, '_blank')
+      var url = window.URL.createObjectURL(blob)
+      window.open(url, '_blank')
     } else {
       saveAs(blob, receipt.name)
     }
