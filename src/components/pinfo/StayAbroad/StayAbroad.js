@@ -37,7 +37,9 @@ class StayAbroad extends React.Component {
       </React.Fragment> : null}
       {!_.isEmpty(stayAbroad) && !editMode ? <React.Fragment>
         <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-previousPeriods')}</Nav.Undertittel>
-        {stayAbroad.map((period, index) => {
+        {stayAbroad.sort((a, b) => {
+          return a.startDate - b.startDate
+        }).map((period, index) => {
           return <Period t={t}
           mode='view'
           first={index === 0}
