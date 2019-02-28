@@ -93,7 +93,7 @@ class DatePicker extends Component {
     const { className, labels = {}, ids = {}, placeholders = {}, values = {}, feil } = this.props
     const { errors } = this.state
     return (
-      <div className={classNames('datePicker', 'mb-4', 'ml-1', className)}>
+      <div className={classNames('datePicker', 'mb-4', className)}>
         <div className={'row'}>
           <div className={'col pl-2 pr-1 mb-4'}>
             <Input
