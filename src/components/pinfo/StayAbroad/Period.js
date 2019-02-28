@@ -775,8 +775,9 @@ class Period extends React.Component {
               <div className='col-md-12'>
                 <FileUpload
                   id={'pinfo-opphold-vedlegg-fileupload-' + period.id}
-                  accept={['application/pdf', 'image/jpeg', 'image/png']}
-                  className='fileUpload'
+                  acceptedMimetypes={['application/pdf', 'image/jpeg', 'image/png']}
+                  maxFileSize={2*1024*1024}
+                  maxFiles={5}
                   t={t}
                   ref={f => { this.fileUpload = f }}
                   fileUploadDroppableId={'fileUpload'}
@@ -799,12 +800,12 @@ class Period extends React.Component {
                   onClick={this.saveNewPeriod.bind(this)}>
                   {t('pinfo:form-saveNewPeriod')}
                 </Nav.Hovedknapp> : null}
-                <Nav.KnappBase
+                <Nav.Knapp
                   id='pinfo-opphold-avbryt-button'
                   className='cancelPeriodButton mb-2'
                   onClick={this.cancelPeriodRequest.bind(this)}>
                   {t('pinfo:form-cancelPeriod')}
-                </Nav.KnappBase>
+                </Nav.Knapp>
               </div>
             </Nav.Row>
 

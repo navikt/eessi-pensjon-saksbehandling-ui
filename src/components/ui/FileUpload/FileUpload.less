@@ -25,7 +25,7 @@
             width: 100%;
 
             &-message {
-               top: 5%;
+               top: 0.25rem;
                position: absolute;
                text-align: center;
                width: 90%;
@@ -33,12 +33,18 @@
 
             &-status {
                 right: 12px;
-                bottom: 1.5rem;
+                bottom: 0.25rem;
                 position: absolute;
                 font-style: italic;
-                color: #78706A;
                 font-size: 1rem;
                 text-align: right;
+
+                &-OK {
+                    color: #78706A;
+                }
+                &-ERROR {
+                    color: red;
+                }
             }
          }
 
