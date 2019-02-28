@@ -16,7 +16,8 @@ const mapStateToProps = (state) => {
 
 class StayAbroad extends React.Component {
   state = {
-    _period: {}
+    _period: {},
+    maxPeriods: 8
   }
 
   setEditPeriod (period) {
@@ -27,7 +28,7 @@ class StayAbroad extends React.Component {
 
   render () {
     const { t, stayAbroad, locale } = this.props
-    const { _period } = this.state
+    const { _period, maxPeriods } = this.state
 
     const editMode = _period && _period.id
     return <React.Fragment>
@@ -52,13 +53,13 @@ class StayAbroad extends React.Component {
         })}
       </React.Fragment>
         : null}
-      <Period t={t}
+      { stayAbroad.length < maxPeriods ? <Period t={t}
         periods={stayAbroad}
         mode={editMode ? 'edit' : 'new'}
         period={_period}
         locale={locale}
         editPeriod={this.setEditPeriod.bind(this)}
-      />
+      /> : t('pinfo:alert-maxPeriods', {maxPeriods : maxPeriods})}
     </React.Fragment>
   }
 }

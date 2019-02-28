@@ -208,6 +208,7 @@
     "alert-deletePeriod" : "Slett periode",
     "alert-areYouSureDeletePeriod" : "Er du sikker på at du vil slette perioden?",
     "alert-stepTooHigh" : "Du kan bare gå videre når du har fylt ut alle påkrevde felt",
+    "alert-maxPeriods" : "Oppnådd maksimalt antall ({{maxPeriods}}) av oppholdsperioder",
 
     "error-noParams" : "Vennligst oppgi saksId/saksNr og fnr/aktoerId",
 
