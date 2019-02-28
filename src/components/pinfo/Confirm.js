@@ -41,10 +41,6 @@ class Confirm extends React.Component {
       <div className='mt-4' id='divToPrint'>
         <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:person-info-title')}</Nav.Undertittel>
         <dl className='row ml-2'>
-          <dt className='col-4'> {t('pinfo:person-info-currentName')} </dt>
-          <dd className='col-8 text-capitalize'>
-            {document.getElementById('name') ? document.getElementById('name').textContent : ''}
-          </dd>
           <dt className='col-4'> {t('pinfo:person-info-fnr')} </dt>
           <dd className='col-8'> {username} </dd>
           <dt className='col-4'> {t('pinfo:person-info-lastNameAtBirth')} </dt>
@@ -60,8 +56,7 @@ class Confirm extends React.Component {
           <dt className='col-4'> {t('pinfo:person-birthplace-country')} </dt>
           <dd className='col-8'>
             {person.country ? <React.Fragment>
-              <img src={'../../../../../flags/' + person.country.value + '.png'}
-                style={{ width: 30, height: 20, marginRight: '0.7rem' }}
+              <img className='flagImg' src={'../../../../../flags/' + person.country.value + '.png'}
                 alt={person.country.label} />
               {person.country.label}
             </React.Fragment> : null}
@@ -83,15 +78,14 @@ class Confirm extends React.Component {
           <dd className='col-8'><pre>{bank.bankAddress || '-'}</pre></dd>
           <dt className='col-4'> {t('pinfo:bank-country')} </dt>
           <dd className='col-8'> {bank.bankCountry ? <React.Fragment>
-            <img src={'../../../../../flags/' + bank.bankCountry.value + '.png'}
-              style={{ width: 30, height: 20, marginRight: '0.7rem' }}
+            <img className='flagImg' src={'../../../../../flags/' + bank.bankCountry.value + '.png'}
               alt={bank.bankCountry.label} />
             {bank.bankCountry.label}
           </React.Fragment> : '-' }</dd>
           <dt className='col-4'> {t('pinfo:bank-bicSwift')} </dt>
           <dd className='col-8'> {bank.bankBicSwift || '-'} </dd>
-          <dt className='col-4'>  {t('pinfo:bank-iban')} </dt>
-          <dd className='col-8'>  {bank.bankIban || '-'}</dd>
+          <dt className='col-4'> {t('pinfo:bank-iban')} </dt>
+          <dd className='col-8'> {bank.bankIban || '-'}</dd>
         </dl>
         <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-title')}</Nav.Undertittel>
         <div className='ml-4'>
