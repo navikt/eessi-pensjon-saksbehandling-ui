@@ -31,6 +31,7 @@ class StayAbroad extends React.Component {
     const { _period, maxPeriods } = this.state
 
     const editMode = _period && _period.id
+
     return <React.Fragment>
       {!editMode ? <React.Fragment>
         <Nav.Undertittel>{t('pinfo:stayAbroad-title')}</Nav.Undertittel>
@@ -57,6 +58,7 @@ class StayAbroad extends React.Component {
         periods={stayAbroad}
         mode={editMode ? 'edit' : 'new'}
         period={_period}
+        periods={stayAbroad}
         locale={locale}
         editPeriod={this.setEditPeriod.bind(this)}
       /> : t('pinfo:alert-maxPeriods', {maxPeriods : maxPeriods})}

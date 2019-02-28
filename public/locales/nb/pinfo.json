@@ -212,5 +212,6 @@
 
     "error-noParams" : "Vennligst oppgi saksId/saksNr og fnr/aktoerId",
 
-    "warning-home-period" : "Legg inn boperioder hvis du ikke har hatt arbeids-, utdannings-, militær- eller siviltjenesteperioder i samme tidsrom."
+    "warning-home-period" : "Legg inn boperioder hvis du ikke har hatt arbeids-, utdannings-, militær- eller siviltjenesteperioder i samme tidsrom.",
+    "warning-one-period" : "Du må legge til minst en periode med tilhørende opplysninger om opphold i EØS-land."
 }

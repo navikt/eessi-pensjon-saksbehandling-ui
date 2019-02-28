@@ -8,6 +8,10 @@ import RankArmySVG from '../../resources/images/LineVersionRankArmy2.js'
 import RemoveCircleSVG from '../../resources/images/FilledVersionRemoveCircle.js'
 import MessageSentSVG from '../../resources/images/LineVersionExpandedEmailSend3.js'
 
+import Vedlegg from '../../resources/images/Vedlegg'
+import Trashcan from '../../resources/images/Trashcan'
+import LineVersionClose from '../../resources/images/LineVersionClose'
+
 // import * as heart from '../../resources/images/line-version-heart-circle.svg'
 // import * as ecoglobe from '../../resources/images/line-version-eco-globe.svg'
 // import * as stethoscope from '../../resources/images/line-version-expanded-stethoscope.svg'
@@ -71,7 +75,11 @@ class Icons extends Component {
       case 'caretRight' : case 'next' : return <FontAwesomeIcon icon={icons.faCaretRight} {...this.props} />
       case 'server' : return <FontAwesomeIcon icon={icons.faServer} {...this.props} />
       case 'db' : return <FontAwesomeIcon icon={icons.faDatabase} {...this.props} />
+
       case 'close' : return <FontAwesomeIcon icon={icons.faTimesCircle} {...this.props} />
+      case 'bigclose' : return <LineVersionClose {...this.props} />
+      case 'vedlegg' : return <Vedlegg {...this.props} />
+      case 'trashcan' : return <Trashcan {...this.props} />
       default: return null
     }
   }

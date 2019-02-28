@@ -4,8 +4,6 @@ import { pdfjs, Document, Page } from 'react-pdf'
 import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
-import Vedlegg from '../../../resources/images/Vedlegg'
-import Trashcan from '../../../resources/images/Trashcan'
 import Icons from '../Icons'
 
 import './File.css'
@@ -152,10 +150,10 @@ class MiniaturePDF extends Component {
             <Icons style={{ cursor: 'pointer' }} size='1x' kind='view' />
           </div> : null}
           { deleteLink && isHovering ? <div onClick={this.onDeleteDocument.bind(this)} className='link deleteLink'>
-            <Trashcan size={15} />
+            <Icons kind='trashcan' size={15} />
           </div> : null}
           { addLink && isHovering ? <div onClick={this.onAddFile.bind(this)} className='link addLink'>
-            <Vedlegg size={20} />
+            <Icons kind='vedlegg' size={20} />
           </div> : null}
           { downloadLink && isHovering ? <div className='link downloadLink'><a
             onClick={(e) => e.stopPropagation()} title={t('ui:download')}

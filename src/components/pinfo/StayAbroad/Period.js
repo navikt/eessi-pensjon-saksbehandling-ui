@@ -48,7 +48,7 @@ class Period extends React.Component {
 
   constructor (props) {
     super(props)
-    this.setType = this.eventSetType.bind(this, periodValidation.periodType)
+    this.setType = this.eventSetProperty.bind(this, 'type', periodValidation.periodType)
     this.setStartDate = this.dateSetProperty.bind(this, 'startDate', periodValidation.periodStartDate)
     this.setEndDate = this.dateSetProperty.bind(this, 'endDate', periodValidation.periodEndDate)
     this.setCountry = this.valueSetProperty.bind(this, 'country', periodValidation.periodCountry)
@@ -100,17 +100,6 @@ class Period extends React.Component {
       return { ...file, content: { md5: hash } }
     })
     this.valueSetProperty(key, validateFunction, hashedFiles)
-  }
-
-  eventSetType (validateFunction, e) {
-    const { actions, pageErrors } = this.props
-    // clean up the onePeriod error message, as the user is trying to fix it
-    if (pageErrors && pageErrors.onePeriod) {
-      let _pageErrors = _.cloneDeep(pageErrors)
-      delete _pageErrors.onePeriod
-      actions.setPageErrors(_pageErrors)
-    }
-    this.eventSetProperty('type', periodValidation.periodType, e)
   }
 
   eventSetPerson (key, validateFunction, e) {
@@ -395,7 +384,7 @@ class Period extends React.Component {
         self.indexOf(insuranceName) === index
     }).map(insuranceName => {
       return <Nav.EtikettBase
-        key={insuranceName} className='mr-3' type='fokus'
+        key={insuranceName} className='mr-3 mb-2' type='fokus'
         onClick={this.addInsuranceName.bind(this, insuranceName)}>
         <b>{insuranceName}</b>
       </Nav.EtikettBase>
@@ -413,7 +402,7 @@ class Period extends React.Component {
       self.indexOf(insuranceId) === index
     }).map(insuranceId => {
       return <Nav.EtikettBase
-        key={insuranceId} className='mr-3' type='fokus'
+        key={insuranceId} className='mr-3 mb-2' type='fokus'
         onClick={this.addInsuranceId.bind(this, insuranceId)}>
         <b>{insuranceId}</b>
       </Nav.EtikettBase>
@@ -421,7 +410,7 @@ class Period extends React.Component {
   }
 
   render () {
-    const { t, mode, period, locale, first, last, person, showButtons } = this.props
+    const { t, mode, period, periods, locale, first, last, person, showButtons } = this.props
     const { localErrors, _period } = this.state
 
     let errorMessage = this.errorMessage()
@@ -477,7 +466,7 @@ class Period extends React.Component {
               {t('ui:change')}
             </Nav.Knapp>
             <Nav.Knapp className='existingPeriodButton' onClick={this.removePeriodRequest.bind(this, period)}>
-              <span className='mr-2' style={{ fontSize: '1.5rem' }}>×</span>
+              <Icons className='mr-3' kind='bigclose' size={18} color='#0067C5'/>
               {t('ui:remove')}
             </Nav.Knapp>
           </div> : null }
@@ -517,6 +506,7 @@ class Period extends React.Component {
           </Nav.Row>
 
           { _period.type ? <React.Fragment>
+
             {_period.type === 'home' ? <Nav.AlertStripe className='mt-4 mb-4' type='info'>{t('pinfo:warning-home-period')}</Nav.AlertStripe> : null}
 
             <Nav.Row>
@@ -551,7 +541,7 @@ class Period extends React.Component {
             </Nav.Row>
 
             <Nav.Row>
-              <div className='col-md-12 mt-3 mb-3'>
+              <div className='col-md-8 mt-3 mb-3'>
                 <label className='skjemaelement__label'>{t('pinfo:stayAbroad-country')}</label>
                 <CountrySelect
                   id='pinfo-opphold-land-select'
@@ -567,15 +557,16 @@ class Period extends React.Component {
 
             {this.isASpecialCase(_period) ? <Nav.Row>
               <div className='col-md-12 mt-3'>
-                <div className='float-right'>
-                  <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-help'>
-                    <span>{t('pinfo:stayAbroad-spain-france-warning', { country: _period.country.label })}</span>
-                  </Nav.HjelpetekstBase>
-                </div>
+
                 <Nav.Input
                   id='pinfo-opphold-farsnavn-input'
                   type='text'
-                  label={t('pinfo:stayAbroad-period-fathername')}
+                  label={<div>
+                    <span>{t('pinfo:stayAbroad-period-fathername')}</span>
+                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-period-fathername-help'>
+                      <span>{t('pinfo:stayAbroad-spain-france-warning', { country: _period.country.label })}</span>
+                    </Nav.HjelpetekstBase>
+                  </div>}
                   placeholder={t('ui:writeIn')}
                   value={person.fatherName || ''}
                   onChange={this.setFatherName}
@@ -583,15 +574,15 @@ class Period extends React.Component {
                 />
               </div>
               <div className='col-md-12 mt-3'>
-                <div className='float-right'>
-                  <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-help'>
-                    <span>{t('pinfo:stayAbroad-spain-france-warning', { country: _period.country.label })}</span>
-                  </Nav.HjelpetekstBase>
-                </div>
                 <Nav.Input
                   id='pinfo-opphold-morsnavn-input'
                   type='text'
-                  label={t('pinfo:stayAbroad-period-mothername')}
+                  label={<div>
+                    <span>{t('pinfo:stayAbroad-period-mothername')}</span>
+                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-period-mothername-help'>
+                      <span>{t('pinfo:stayAbroad-spain-france-warning', { country: _period.country.label })}</span>
+                    </Nav.HjelpetekstBase>
+                  </div>}
                   placeholder={t('ui:writeIn')}
                   value={person.motherName || ''}
                   onChange={this.setMotherName}
@@ -810,6 +801,13 @@ class Period extends React.Component {
             </Nav.Row>
 
           </React.Fragment> : null}
+
+          { !_period.type && _.isEmpty(periods) ? <Nav.AlertStripe
+            className='mt-4 mb-4' type='info'>
+              {t('pinfo:warning-one-period')}
+           </Nav.AlertStripe>
+          : null}
+
           {errorMessage ? <Nav.AlertStripe className='mt-4 mb-4' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
         </React.Fragment>
       default:

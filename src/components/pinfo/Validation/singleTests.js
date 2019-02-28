@@ -108,13 +108,7 @@ export const bankValidation = {
 
 // STAY ABROAD
 
-let atLeastOnePeriod = function (stayAbroad) {
-  return mandatory(stayAbroad, 'pinfo:validation-atLeastOnePeriod')
-}
-
-export const stayAbroadValidation = {
-  atLeastOnePeriod
-}
+export const stayAbroadValidation = {}
 
 let periodType = function (type) {
   return !type ? 'pinfo:validation-noPeriodType'

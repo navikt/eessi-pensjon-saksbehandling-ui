@@ -23,9 +23,7 @@ export function bankStep (bank) {
 }
 
 export function stayAbroadStep (stayAbroad) {
-  return {
-    onePeriod: tests.stayAbroadValidation.atLeastOnePeriod(stayAbroad)
-  }
+  return {}
 }
 
 export function periodStep (period, person) {

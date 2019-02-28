@@ -6,7 +6,6 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
 
-import { Ikon } from '../../../components/ui/Nav'
 import Icons from '../../../components/ui/Icons'
 
 import * as pdfActions from '../../../actions/pdf'
@@ -118,7 +117,7 @@ class PageInDnD extends Component {
        }
 
        if (isHovering || isFocused) {
-         iconLink = <Ikon style={{ cursor: 'pointer' }} size={iconSize} kind={iconKind} />
+         iconLink = <Icons style={{ cursor: 'pointer' }} size={iconSize} kind={iconKind} />
        }
 
        return <div style={style} className={classNames('c-pdf-PageInDnD', className)}

@@ -266,9 +266,6 @@ class PInfo extends React.Component {
   render () {
     const { t, history, location, step, maxStep, stepError, isSendingPinfo, isReady, buttonsVisible, pinfo } = this.props
 
-    let errorMessage = this.errorMessage()
-    let isPInfoEmpty = globalTests.isPInfoEmpty(pinfo)
-
     if (!isReady) {
       return <TopContainer className='p-pInfo'
         history={history} location={location}
@@ -276,6 +273,10 @@ class PInfo extends React.Component {
         <WaitingPanel className='mt-5' message={t('loading')} />
       </TopContainer>
     }
+
+    let errorMessage = this.errorMessage()
+    let isPInfoEmpty = globalTests.isPInfoEmpty(pinfo)
+    let noPeriods = step === 2 && _.isEmpty(pinfo.stayAbroad)
 
     return <TopContainer className='p-pInfo'
       history={history} location={location}
@@ -302,7 +303,7 @@ class PInfo extends React.Component {
         </React.Fragment> : null}
       <Nav.Row>
         <div className='col-md-2' />
-        <div className={classNames('fieldset animate', 'mb-4', 'col-md-8')}>
+        <div className={classNames('fieldset animate', 'col-md-8')}>
           {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
           {step === 0 ? <Person /> : null}
           {step === 1 ? <Bank /> : null}
@@ -316,6 +317,7 @@ class PInfo extends React.Component {
         <div className='col-md-12 text-center mb-4 mt-4'>
           {step < 3 ? <Nav.Hovedknapp
             id='pinfo-forward-button'
+            disabled={noPeriods}
             className='forwardButton mb-2 mr-3'
             onClick={this.onForwardButtonClick.bind(this)}>
             {t('saveAndContinue')}
