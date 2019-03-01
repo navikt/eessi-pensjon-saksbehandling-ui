@@ -562,7 +562,7 @@ class Period extends React.Component {
                   {<DatePicker
                     id='pinfo-opphold-startdato-date'
                     labels={{ day: t('pinfo:stayAbroad-period-day'), month: t('pinfo:stayAbroad-period-month'), year: t('pinfo:stayAbroad-period-year') }}
-                    ids={{ day: 'pinfo-opphold-startdato-day', month: 'pinfo-opphold-startdato-month', year: 'pinfo-opphold-startdato-date' }}
+                    ids={{ day: 'pinfo-opphold-startdato-day', month: 'pinfo-opphold-startdato-month', year: 'pinfo-opphold-startdato-year' }}
                     placeholders={{ day: t('pinfo:stayAbroad-period-placeholder-day'), month: t('pinfo:stayAbroad-period-placeholder-month'), year: t('pinfo:stayAbroad-period-placeholder-year') }}
                     className='startDate pr-2'
                     values={_period.startDate}
