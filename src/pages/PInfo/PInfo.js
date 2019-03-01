@@ -302,8 +302,8 @@ class PInfo extends React.Component {
           </div> : null}
         </React.Fragment> : null}
       <Nav.Row>
-        <div className='col-md-2' />
-        <div className={classNames('fieldset animate', 'mb-4', 'ml-auto', 'mr-auto', 'col-8')}>
+        <div className='col-sm-2' />
+        <div className={classNames('fieldset animate', 'mb-4', 'ml-auto', 'mr-auto', 'col-sm-8')}>
           {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
           {step === 0 ? <Person /> : null}
           {step === 1 ? <Bank /> : null}
@@ -311,20 +311,20 @@ class PInfo extends React.Component {
           {step === 3 ? <Confirm /> : null}
           {step === 4 ? <Receipt /> : null}
         </div>
-        <div className='col-md-2' />
+        <div className='col-sm-2' />
       </Nav.Row>
       {buttonsVisible && step < 5 ? <Nav.Row>
-        <div className='col-md-12 text-center mb-4 mt-4'>
+        <div className='col-sm-12 text-center mb-4 mt-4'>
           {step < 3 ? <Nav.Hovedknapp
             id='pinfo-forward-button'
             disabled={noPeriods}
-            className='forwardButton mb-2 mr-3'
+            className='forwardButton mb-2 mr-3 w-sm-100'
             onClick={this.onForwardButtonClick.bind(this)}>
             {t('saveAndContinue')}
           </Nav.Hovedknapp> : null}
           {step === 3 ? <Nav.Hovedknapp
             id='pinfo-send-button'
-            className='sendButton mb-2 mr-3'
+            className='sendButton mb-2 mr-3 w-sm-100'
             disabled={isSendingPinfo}
             spinner={isSendingPinfo}
             onClick={this.onSendButtonClick.bind(this)}>
@@ -332,27 +332,27 @@ class PInfo extends React.Component {
           </Nav.Hovedknapp> : null}
           {step < 4 ? <Nav.Knapp
             id='pinfo-back-button'
-            className='backButton mb-2 mr-3'
+            className='backButton mb-2 mr-3 w-sm-100'
             onClick={this.onBackButtonClick.bind(this)}>
             {t('back')}
           </Nav.Knapp> : null}
           { step < 4 ? <Nav.KnappBase
             id='pinfo-saveandexit-button'
             type='flat'
-            className='cancelButton mb-2 mr-3'
+            className='cancelButton mb-2 mr-3 w-sm-100'
             onClick={this.onSaveAndExitButtonClick.bind(this)}>
             {t('pinfo:form-saveAndExit')}
           </Nav.KnappBase> : null}
         </div></Nav.Row> : null}
       {errorMessage ? <Nav.Row>
-        <div className='col-md-2' />
-        <div className='col-md-8 mb-4'>
+        <div className='col-sm-2' />
+        <div className='col-sm-8 mb-4'>
           <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe>
         </div>
-        <div className='col-md-2' />
+        <div className='col-sm-2' />
       </Nav.Row> : null}
       {isPInfoEmpty || step === 4 ? null : <Nav.Row>
-        <div className='col-md-12 mb-4 text-right'>
+        <div className='col-sm-12 mb-4 text-right'>
           <Nav.Fareknapp
             id='pinfo-deleteAndExit-button'
             onClick={this.onDeleteAndExitButtonClick.bind(this)}>

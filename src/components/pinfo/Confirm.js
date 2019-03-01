@@ -40,55 +40,55 @@ class Confirm extends React.Component {
       </PsychoPanel>
       <div className='mt-4' id='divToPrint'>
         <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:person-info-title')}</Nav.Undertittel>
-        <dl className='row ml-2'>
-          <dt className='col-4'> {t('pinfo:person-info-fnr')} </dt>
-          <dd className='col-8'> {username} </dd>
-          <dt className='col-4'> {t('pinfo:person-info-lastNameAtBirth')} </dt>
-          <dd className='col-8'> {person.nameAtBirth || '-'} </dd>
-          <dt className='col-4'> {t('pinfo:person-info-previousName')} </dt>
-          <dd className='col-8'> {person.previousName || '-'} </dd>
+        <dl className='row'>
+          <dt className='col-sm-4 col-6'> {t('pinfo:person-info-fnr')} </dt>
+          <dd className='col-sm-8 col-6'> {username} </dd>
+          <dt className='col-sm-4 col-6'> {t('pinfo:person-info-lastNameAtBirth')} </dt>
+          <dd className='col-sm-8 col-6'> {person.nameAtBirth || '-'} </dd>
+          <dt className='col-sm-4 col-6'> {t('pinfo:person-info-previousName')} </dt>
+          <dd className='col-sm-8 col-6'> {person.previousName || '-'} </dd>
           {person.fatherName || person.motherName ? <React.Fragment>
-            <dt className='col-4'> {t('pinfo:stayAbroad-period-fathername')} </dt>
-            <dd className='col-8'> {person.fatherName || '-'} </dd>
-            <dt className='col-4'> {t('pinfo:stayAbroad-period-mothername')} </dt>
-            <dd className='col-8'> {person.motherName || '-'} </dd>
+            <dt className='col-sm-4 col-6'> {t('pinfo:stayAbroad-period-fathername')} </dt>
+            <dd className='col-sm-8 col-6'> {person.fatherName || '-'} </dd>
+            <dt className='col-sm-4 col-6'> {t('pinfo:stayAbroad-period-mothername')} </dt>
+            <dd className='col-sm-8 col-6'> {person.motherName || '-'} </dd>
           </React.Fragment> : null}
-          <dt className='col-4'> {t('pinfo:person-birthplace-country')} </dt>
-          <dd className='col-8'>
+          <dt className='col-sm-4 col-6'> {t('pinfo:person-birthplace-country')} </dt>
+          <dd className='col-sm-8 col-6'>
             {person.country ? <React.Fragment>
               <img className='flagImg' src={'../../../../../flags/' + person.country.value + '.png'}
                 alt={person.country.label} />
               {person.country.label}
             </React.Fragment> : null}
           </dd>
-          <dt className='col-4'> {t('pinfo:person-birthplace-place')} </dt>
-          <dd className='col-8'> {person.place || '-'} </dd>
-          <dt className='col-4'> {t('pinfo:person-birthplace-area')} </dt>
-          <dd className='col-8'> {person.region || '-'} </dd>
-          <dt className='col-4'> {t('pinfo:person-contact-phoneNumber')} </dt>
-          <dd className='col-8'> {person.phone || '-'} </dd>
-          <dt className='col-4'> {t('pinfo:person-contact-email')} </dt>
-          <dd className='col-8'> {person.email || '-'} </dd>
+          <dt className='col-sm-4 col-6'> {t('pinfo:person-birthplace-place')} </dt>
+          <dd className='col-sm-8 col-6'> {person.place || '-'} </dd>
+          <dt className='col-sm-4 col-6'> {t('pinfo:person-birthplace-area')} </dt>
+          <dd className='col-sm-8 col-6'> {person.region || '-'} </dd>
+          <dt className='col-sm-4 col-6'> {t('pinfo:person-contact-phoneNumber')} </dt>
+          <dd className='col-sm-8 col-6'> {person.phone || '-'} </dd>
+          <dt className='col-sm-4 col-6'> {t('pinfo:person-contact-email')} </dt>
+          <dd className='col-sm-8 col-6'> {person.email || '-'} </dd>
         </dl>
         <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:bank-title')}</Nav.Undertittel>
-        <dl className='row ml-2'>
-          <dt className='col-4'> {t('pinfo:bank-name')} </dt>
-          <dd className='col-8'> {bank.bankName || '-'} </dd>
-          <dt className='col-4'> {t('pinfo:bank-address')} </dt>
-          <dd className='col-8'><pre>{bank.bankAddress || '-'}</pre></dd>
-          <dt className='col-4'> {t('pinfo:bank-country')} </dt>
-          <dd className='col-8'> {bank.bankCountry ? <React.Fragment>
+        <dl className='row'>
+          <dt className='col-sm-4 col-6'> {t('pinfo:bank-name')} </dt>
+          <dd className='col-sm-8 col-6'> {bank.bankName || '-'} </dd>
+          <dt className='col-sm-4 col-6'> {t('pinfo:bank-address')} </dt>
+          <dd className='col-sm-8 col-6'><pre>{bank.bankAddress || '-'}</pre></dd>
+          <dt className='col-sm-4 col-6'> {t('pinfo:bank-country')} </dt>
+          <dd className='col-sm-8 col-6'> {bank.bankCountry ? <React.Fragment>
             <img className='flagImg' src={'../../../../../flags/' + bank.bankCountry.value + '.png'}
               alt={bank.bankCountry.label} />
             {bank.bankCountry.label}
           </React.Fragment> : '-' }</dd>
-          <dt className='col-4'> {t('pinfo:bank-bicSwift')} </dt>
-          <dd className='col-8'> {bank.bankBicSwift || '-'} </dd>
-          <dt className='col-4'> {t('pinfo:bank-iban')} </dt>
-          <dd className='col-8'> {bank.bankIban || '-'}</dd>
+          <dt className='col-sm-4 col-6'> {t('pinfo:bank-bicSwift')} </dt>
+          <dd className='col-sm-8 col-6'> {bank.bankBicSwift || '-'} </dd>
+          <dt className='col-sm-4 col-6'> {t('pinfo:bank-iban')} </dt>
+          <dd className='col-sm-8 col-6'> {bank.bankIban || '-'}</dd>
         </dl>
         <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-title')}</Nav.Undertittel>
-        <div className='ml-4'>
+        <div>
           {stayAbroad.map((period, index) => {
             return <Period t={t}
               mode='confirm'

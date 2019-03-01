@@ -35,7 +35,7 @@
     "bank-address-help" : "For utenlandske bankoverføringer kreves bankens adresse. Gå til din banks hjemmeside for å finne bankens postadresse.",
     "bank-bicSwift" : "BIC / SWIFT",
     "bank-bicSwift-help": "Gå til din banks hjemmeside for å finne bankens BIC/SWIFT",
-    "bank-iban" : "Kontonummer/IBAN",
+    "bank-iban" : "Kontonummer / IBAN",
     "bank-iban-help": "Gå til din banks hjemmeside for å finne ditt IBAN-nummer",
 
     "stayAbroad-title" : "Opplysninger om opphold i EØS-land",

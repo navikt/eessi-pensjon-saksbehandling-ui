@@ -87,7 +87,7 @@ class Person extends React.Component {
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-info-title')}</Nav.Undertittel>
 
       <Nav.Row>
-        <div className='col-sm-9'>
+        <div className='col-sm-12'>
           <Nav.Input
             id='pinfo-person-etternavn-input'
             type='text'
@@ -106,7 +106,7 @@ class Person extends React.Component {
       </Nav.Row>
 
       <Nav.Row>
-        <div className='col-sm-9'>
+        <div className='col-sm-12'>
           <Nav.Input
             id='pinfo-person-tidligerenavn-input'
             type='text'
@@ -128,7 +128,7 @@ class Person extends React.Component {
       <Nav.Undertittel className='ml-0 mt-4 mb-4 appDescription'>{t('pinfo:person-birthplace-title')}</Nav.Undertittel>
 
       <Nav.Row>
-        <div className='col-md-6 mb-4'>
+        <div className='col-sm-8 mb-4'>
           <label className='skjemaelement__label'>
             {t('pinfo:person-birthplace-country')}
           </label>
@@ -144,7 +144,7 @@ class Person extends React.Component {
       </Nav.Row>
 
       <Nav.Row>
-        <div className='col-sm-9'>
+        <div className='col-sm-12'>
           <Nav.Input
             id='pinfo-person-sted-input'
             type='text'
@@ -160,7 +160,7 @@ class Person extends React.Component {
       </Nav.Row>
 
       <Nav.Row>
-        <div className='col-sm-9'>
+        <div className='col-sm-12'>
           <Nav.Input
             id='pinfo-person-region-input'
             type='text'
@@ -180,7 +180,7 @@ class Person extends React.Component {
       <Nav.Undertekst className='mt-4 mb-4'>{t('pinfo:person-contact-title-help')}</Nav.Undertekst>
 
       <Nav.Row>
-        <div className='col-sm-9'>
+        <div className='col-sm-12'>
           <Nav.Input
             id='pinfo-person-telefonnummer-input'
             type='tel'
@@ -197,7 +197,7 @@ class Person extends React.Component {
       </Nav.Row>
 
       <Nav.Row>
-        <div className='col-sm-9'>
+        <div className='col-sm-12'>
           <Nav.Input
             id='pinfo-person-epost-input'
             type='email'

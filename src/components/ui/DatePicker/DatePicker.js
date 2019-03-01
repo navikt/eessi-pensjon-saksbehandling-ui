@@ -93,9 +93,9 @@ class DatePicker extends Component {
     const { className, labels = {}, ids = {}, placeholders = {}, values = {}, feil } = this.props
     const { errors } = this.state
     return (
-      <div className={classNames('datePicker', 'mb-4', className)}>
-        <div className={'row'}>
-          <div className={'col pl-2 pr-1 mb-4'}>
+      <div className={classNames('datePicker', className)}>
+        <div className={'row pr-2 mb-3'}>
+          <div className={'col pl-2 pr-1'}>
             <Input
               className={'DatePickerDayInput'}
               label={labels.day || 'dag'}
@@ -110,7 +110,7 @@ class DatePicker extends Component {
               feil={(errors.day || feil) ? { feilmelding: '' } : null}
             />
           </div>
-          <div className={'col pl-1 pr-1 mb-4'}>
+          <div className={'col pl-1 pr-1'}>
             <Input
               className={'DatePickerMonthInput'}
               label={labels.month || 'måned'}
@@ -125,7 +125,7 @@ class DatePicker extends Component {
               feil={errors.month || feil ? { feilmelding: '' } : null}
             />
           </div>
-          <div className={'col col pl-1 pr-0 mb-4'}>
+          <div className={'col col pl-1 pr-0'}>
             <Input
               className={'DatePickerYearInput'}
               label={labels.year || 'år'}

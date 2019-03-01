@@ -460,7 +460,10 @@ class Period extends React.Component {
       case 'view':
       case 'confirm':
         return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode)}>
-          <div className={classNames({ 'col-md-6': mode === 'view', 'col-md-12': mode === 'confirm' })}>
+          <div className={classNames({
+            'col-md-8': mode === 'view',
+            'col-md-12': mode === 'confirm'
+          })}>
             <div id={period.id} className='existingPeriod'>
               <div className='icon mr-3 ml-3'>
                 <div className={classNames('topHalf', { line: !first })} />
@@ -503,7 +506,7 @@ class Period extends React.Component {
               </div>
             </div>
           </div>
-          {showButtons !== false && mode === 'view' ? <div className='col-md-6 existingPeriodButtons'>
+          {showButtons !== false && mode === 'view' ? <div className='col-sm-4 existingPeriodButtons'>
             <Nav.Knapp className='mr-3 existingPeriodButton' onClick={this.requestEditPeriod.bind(this, period)}>
               {t('ui:change')}
             </Nav.Knapp>
@@ -521,7 +524,7 @@ class Period extends React.Component {
           <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-period-' + mode)}</Nav.Undertittel>
 
           <Nav.Row className={classNames('c-pinfo-opphold-period', 'mt-4', mode)}>
-            <div className='col-md-6'>
+            <div className='col-sm-8'>
               <Nav.Select
                 id='pinfo-opphold-kategori-select'
                 label={<div>
@@ -550,15 +553,12 @@ class Period extends React.Component {
           { _period.type ? <React.Fragment>
 
             {_period.type === 'home' ? <Nav.AlertStripe className='mt-4 mb-4' type='info'>{t('pinfo:warning-home-period')}</Nav.AlertStripe> : null}
+            <Nav.Undertittel className='mt-4 mb-4'>{t(`pinfo:stayAbroad-period-title-${_period.type}`)}</Nav.Undertittel>
+            <Nav.Normaltekst className='mb-4'>{t('pinfo:stayAbroad-period-date-description')}</Nav.Normaltekst>
 
             <Nav.Row>
-              <div className='col-md-8'>
-                <Nav.Undertittel className='mt-4 mb-4'>{t(`pinfo:stayAbroad-period-title-${_period.type}`)}</Nav.Undertittel>
-                <Nav.Normaltekst className='mb-4'>{t('pinfo:stayAbroad-period-date-description')}</Nav.Normaltekst>
-              </div>
-              <div className='row ml-2 no-gutters'>
-                <div className='col-auto'>
-                  <label className='datepickerLabel skjemaelement__label'>{t('pinfo:stayAbroad-period-start-date') + ' *'}</label>
+                <div className='col-sm-6 col-12'>
+                  <label className='datepickerLabel skjemaelement__label'>{t('pinfo:stayAbroad-period-start-date')}</label>
                   {<DatePicker
                     id='pinfo-opphold-startdato-date'
                     labels={{ day: t('pinfo:stayAbroad-period-day'), month: t('pinfo:stayAbroad-period-month'), year: t('pinfo:stayAbroad-period-year') }}
@@ -571,9 +571,8 @@ class Period extends React.Component {
                   />
                   }
                 </div>
-                <div className='col-1 datePicker__seperator' />
-                <div className='col-auto'>
-                  <label className='datepickerLabel skjemaelement__label'>{t('pinfo:stayAbroad-period-end-date') + ' *'}</label>
+                <div className='col-sm-6 col-12'>
+                  <label className='datepickerLabel skjemaelement__label'>{t('pinfo:stayAbroad-period-end-date')}</label>
                   {<DatePicker
                     labels={{ day: t('pinfo:stayAbroad-period-day'), month: t('pinfo:stayAbroad-period-month'), year: t('pinfo:stayAbroad-period-year') }}
                     ids={{ day: 'pinfo-opphold-sluttdato-day', month: 'pinfo-opphold-sluttdato-month', year: 'pinfo-opphold-sluttdato-year' }}
@@ -585,11 +584,11 @@ class Period extends React.Component {
                   />
                   }
                 </div>
-              </div>
+
             </Nav.Row>
 
             <Nav.Row>
-              <div className='col-md-8 mt-3 mb-3'>
+              <div className='col-sm-8 mt-3 mb-3'>
                 <label className='skjemaelement__label'>{t('pinfo:stayAbroad-country')}</label>
                 <CountrySelect
                   id='pinfo-opphold-land-select'
@@ -605,7 +604,7 @@ class Period extends React.Component {
 
             {this.isASpecialCase(_period) ? <Nav.Row>
 
-              <div className='col-md-8 mt-3'>
+              <div className='col-sm-12 mt-3'>
                 <Nav.Input
                   id='pinfo-opphold-farsnavn-input'
                   type='text'
@@ -621,7 +620,7 @@ class Period extends React.Component {
                   feil={localErrors.fatherName ? { feilmelding: t(localErrors.fatherName) } : null}
                 />
               </div>
-              <div className='col-md-8 mt-3'>
+              <div className='col-sm-12 mt-3'>
                 <Nav.Input
                   id='pinfo-opphold-morsnavn-input'
                   type='text'
@@ -640,7 +639,7 @@ class Period extends React.Component {
             </Nav.Row> : null}
 
             {_period.type === 'work' ? <Nav.Row>
-              <div className='col-md-8 col-12'>
+              <div className='col-sm-12'>
                 <Nav.Textarea
                   id='pinfo-opphold-arbeidgiverssted-textarea'
                   label={<div>
@@ -658,7 +657,7 @@ class Period extends React.Component {
                   feil={localErrors.workPlace ? { feilmelding: t(localErrors.workPlace) } : null}
                 />
               </div>
-              <div className='col-md-8 col-12'>
+              <div className='col-sm-12'>
                 <Nav.Input
                   id='pinfo-opphold-yrkesaktivitet-input'
                   label={<div>
@@ -673,7 +672,7 @@ class Period extends React.Component {
                   feil={localErrors.workActivity ? { feilmelding: t(localErrors.workActivity) } : null}
                 />
               </div>
-              <div className='col-md-8 col-12'>
+              <div className='col-sm-12'>
                 <Nav.Input
                   id='pinfo-opphold-arbeidgiversnavn-input'
                   label={<div>
@@ -692,7 +691,7 @@ class Period extends React.Component {
             </Nav.Row> : null}
 
             {_period.type === 'learn' ? <Nav.Row>
-              <div className='col-md-8'>
+              <div className='col-sm-12'>
                 <Nav.Input
                   id='pinfo-opphold-opplaeringsinstitusjonsnavn-input'
                   label={<div>
@@ -710,10 +709,10 @@ class Period extends React.Component {
             </Nav.Row> : null}
 
             {_period.type !== 'home' ? <Nav.Row>
-              <div className='col-md-8'>
+              <div className='col-sm-12'>
                 <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-home-title')}</Nav.Undertittel>
               </div>
-              <div className='col-md-8'>
+              <div className='col-sm-12'>
                 <Nav.Textarea
                   id='pinfo-opphold-bosted-place-textarea'
                   label={<div>
@@ -728,7 +727,7 @@ class Period extends React.Component {
                 />
               </div>
             </Nav.Row> : <Nav.Row>
-              <div className='col-md-8'>
+              <div className='col-sm-12'>
                 <Nav.Textarea
                   id='pinfo-opphold-bosted-place-textarea'
                   label={t('pinfo:stayAbroad-place')}
@@ -745,7 +744,7 @@ class Period extends React.Component {
             <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-insurance-title')}</Nav.Undertittel>
 
             <Nav.Row>
-              <div className='col-md-8'>
+              <div className='col-sm-12'>
                 <Nav.Input
                   id='pinfo-opphold-trygdeordning-navn'
                   label={<div>
@@ -764,7 +763,7 @@ class Period extends React.Component {
                   {this.renderTagsForInsuranceName()}
                 </div>
               </div>
-              <div className='col-md-8'>
+              <div className='col-sm-12'>
                 <Nav.Input
                   id='pinfo-opphold-trygdeordning-id'
                   label={<div>
@@ -783,7 +782,7 @@ class Period extends React.Component {
                   {this.renderTagsForInsuranceId()}
                 </div>
               </div>
-              <div className='col-md-8'>
+              <div className='col-sm-12'>
                 <Nav.Select
                   id='pinfo-opphold-trygdeordning-type'
                   label={<div>
@@ -806,12 +805,12 @@ class Period extends React.Component {
             </Nav.Row>
 
             <Nav.Row>
-              <div className='col-md-8'>
+              <div className='col-sm-12'>
                 <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-attachment-title')}</Nav.Undertittel>
                 <Nav.Undertekst className='mt-4 mb-4'>{t('pinfo:stayAbroad-attachment-title-help')}</Nav.Undertekst>
                 <span className='optional mb-2'>{t('ui:optional')}</span>
               </div>
-              <div className='col-md-8'>
+              <div className='col-sm-12'>
                 <FileUpload
                   id={'pinfo-opphold-vedlegg-fileupload-' + period.id}
                   acceptedMimetypes={['application/pdf', 'image/jpeg', 'image/png']}
@@ -826,22 +825,22 @@ class Period extends React.Component {
             </Nav.Row>
 
             <Nav.Row>
-              <div className='mt-4 mb-4 col-md-8'>
+              <div className='mt-4 mb-4 col-sm-12'>
                 {mode === 'edit' ? <Nav.Knapp
                   id='pinfo-opphold-endre-button'
-                  className='editPeriodButton mb-2 mr-4'
+                  className='editPeriodButton mb-2 mr-4 w-sm-100'
                   onClick={this.saveEditPeriod.bind(this)}>
                   {t('pinfo:form-saveEditPeriod')}
                 </Nav.Knapp> : null}
                 {mode === 'new' ? <Nav.Hovedknapp
                   id='pinfo-opphold-lagre-button'
-                  className='addPeriodButton mb-2 mr-4'
+                  className='addPeriodButton mb-2 mr-4 w-sm-100'
                   onClick={this.saveNewPeriod.bind(this)}>
                   {t('pinfo:form-saveNewPeriod')}
                 </Nav.Hovedknapp> : null}
                 <Nav.Knapp
                   id='pinfo-opphold-avbryt-button'
-                  className='cancelPeriodButton mb-2'
+                  className='cancelPeriodButton mb-2 w-sm-100'
                   onClick={this.cancelPeriodRequest.bind(this)}>
                   {t('pinfo:form-cancelPeriod')}
                 </Nav.Knapp>

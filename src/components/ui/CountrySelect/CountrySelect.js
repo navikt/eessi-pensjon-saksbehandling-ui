@@ -32,7 +32,7 @@ class CountrySelect extends Component {
   }
 
   render () {
-    const { t, placeholder, value, locale, type, includeList, excludeList, className, styles = {}, error = false } = this.props
+    const { t, id, placeholder, value, locale, type, includeList, excludeList, className, styles = {}, error = false } = this.props
 
     let optionList = countries[locale]
     let options = (includeList ? this.include(includeList, optionList) : optionList)
@@ -42,7 +42,7 @@ class CountrySelect extends Component {
     if (defValue && !defValue.label) {
       defValue = _.find(options, { value: defValue.value ? defValue.value : defValue })
     }
-    return <div className={classNames('c-ui-countrySelect', className, { 'skjemaelement__feilmelding': error })}>
+    return <div id={id} className={classNames('c-ui-countrySelect', className, { 'skjemaelement__feilmelding': error })}>
       <Select placeholder={placeholder || t('ui:searchCountry')}
         value={defValue || null}
         options={options}
