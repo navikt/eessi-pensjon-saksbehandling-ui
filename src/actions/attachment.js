@@ -39,7 +39,7 @@ export function getAllStateFromStorage () {
     return dispatch(getFileListFromStorage())
       .then(() => dispatch(getPinfoFileFromStorage()))
       .then(() => dispatch(getAttachmentFilesFromStorage()))
-      .then(() => dispatch(suggestPersonNameFromUsernameIfNotInState()))
+      //.then(() => dispatch(suggestPersonNameFromUsernameIfNotInState()))
       .catch((error) => dispatch({ type: types.ATTACHMENT_GET_ALL_STATE_FAILURE, payload: error }))
   }
 }
