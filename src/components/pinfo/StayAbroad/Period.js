@@ -674,9 +674,6 @@ class Period extends React.Component {
                   id='pinfo-opphold-arbeidgiversnavn-input'
                   label={<div>
                     <span>{t('pinfo:stayAbroad-work-name')}</span>
-                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-work-name-help'>
-                      <span>{t('pinfo:stayAbroad-work-name-help')}</span>
-                    </Nav.HjelpetekstBase>
                     <span className='optional'>{t('ui:optional')}</span>
                   </div>}
                   placeholder={t('ui:writeIn')}
