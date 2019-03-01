@@ -126,6 +126,9 @@ let periodStartDate = function (startDate) {
   if (!startDate.year) {
     return 'pinfo:validation-noYear'
   }
+  if (startDate.year.length < 4) {
+    return 'pinfo:validation-inValidYear'
+  }
   if (!startDate.month) {
     return 'pinfo:validation-noMonth'
   }
@@ -138,6 +141,9 @@ let periodEndDate = function (endDate) {
   }
   if (!endDate.year) {
     return 'pinfo:validation-noYear'
+  }
+  if (endDate.year.length < 4) {
+    return 'pinfo:validation-inValidYear'
   }
   if (!endDate.month) {
     return 'pinfo:validation-noMonth'

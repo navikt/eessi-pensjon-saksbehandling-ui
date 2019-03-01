@@ -46,9 +46,18 @@ class DatePicker extends Component {
     }
 
     this.setState({
-      errors: Object.assign({}, this.inValidDay(newDate), this.inValidMonth(newDate), this.inValidYear(newDate))
+      errors: this.checkValidity(newDate)
     })
     onChange(newDate)
+  }
+
+  checkValidity(newDate){
+    return Object.assign(
+      {},
+      this.inValidDay(newDate),
+      this.inValidMonth(newDate),
+      this.inValidYear(newDate)
+    )
   }
 
   inValidDay (date) {
