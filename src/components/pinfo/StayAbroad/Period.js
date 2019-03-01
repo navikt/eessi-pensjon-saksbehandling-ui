@@ -460,10 +460,7 @@ class Period extends React.Component {
       case 'view':
       case 'confirm':
         return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode)}>
-          <div className={classNames({
-            'col-md-8': mode === 'view',
-            'col-md-12': mode === 'confirm'
-          })}>
+          <div className={classNames('col-12', {'col-md-6': mode === 'view'})}>
             <div id={period.id} className='existingPeriod'>
               <div className='icon mr-3 ml-3'>
                 <div className={classNames('topHalf', { line: !first })} />
@@ -506,7 +503,7 @@ class Period extends React.Component {
               </div>
             </div>
           </div>
-          {showButtons !== false && mode === 'view' ? <div className='col-sm-4 existingPeriodButtons'>
+          {showButtons !== false && mode === 'view' ? <div className='col-md-6 col-12 existingPeriodButtons'>
             <Nav.Knapp className='mr-3 existingPeriodButton' onClick={this.requestEditPeriod.bind(this, period)}>
               {t('ui:change')}
             </Nav.Knapp>

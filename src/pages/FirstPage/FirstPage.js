@@ -47,28 +47,28 @@ class FirstPage extends Component {
     return <TopContainer className='p-firstPage'
       history={history} location={location}
       header={<span>{t('pinfo:app-title')}</span>}>
-      <div className='content container text-center pt-4'>
-        <div className='col-md-2' />
-        <div className='col-md-8'>
-          <div className='psycho mt-3 mb-4'>
+      <div className='content container pt-4'>
+        <div className='col-sm-3 col-12' />
+        <div className='col-12'>
+          <div className='psycho text-center mt-3 mb-4'>
             <Psycho id='psycho' />
           </div>
-          { userRole === constants.BRUKER ? <div className='text-justify'>
-            <span className='text-justify' dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-bruker-1') }} />
+          { userRole === constants.BRUKER ? <div>
+            <span dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-bruker-1') }} />
             <Nav.HjelpetekstBase id='pinfo-title-help' type='under'>
               {t('pinfo:eea-countries')}
             </Nav.HjelpetekstBase>
-            <span className='text-justify' dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-bruker-2') }} />
+            <span dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-bruker-2') }} />
           </div> : null }
-          { userRole === constants.SAKSBEHANDLER ? <div className='text-justify' dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-saksbehandler') }} /> : null }
-          <div className='psycho mt-3 mb-4'>
+          { userRole === constants.SAKSBEHANDLER ? <div dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-saksbehandler') }} /> : null }
+          <div className='text-center mt-3 mb-4'>
             <Nav.Hovedknapp
               className='mt-3 forwardButton'
               onClick={this.handleForwardButtonClick.bind(this)}>{t('continue')}
             </Nav.Hovedknapp>
           </div>
         </div>
-        <div className='col-md-2' />
+        <div className='col-sm-3 col-12' />
       </div>
     </TopContainer>
   }
