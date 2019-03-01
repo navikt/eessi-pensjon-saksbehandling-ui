@@ -9,6 +9,7 @@ import _ from 'lodash'
 import 'react-datepicker/dist/react-datepicker.min.css'
 
 import * as Nav from '../../components/ui/Nav'
+import Icons from '../../components/ui/Icons'
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
 import Bank from '../../components/pinfo/Bank'
 import Person from '../../components/pinfo/Person'
@@ -214,7 +215,12 @@ class PInfo extends React.Component {
     })
   }
 
-  onDeleteAndExitButtonClick () {
+  onDeleteAndExitLinkClick (e) {
+    if (e) {
+       e.preventDefault()
+       e.stopPropagation()
+    }
+
     const { t, actions, history, pinfo } = this.props
 
     let isPInfoEmpty = globalTests.isPInfoEmpty(pinfo)
@@ -226,13 +232,13 @@ class PInfo extends React.Component {
 
     actions.openModal({
       modalTitle: t('pinfo:alert-deleteAndExitPInfo'),
-      modalText: t('pinfo:alert-areYouSureDeleteAndExitPInfo'),
+      modalContent: <div className='m-4 text-center' dangerouslySetInnerHTML={{ __html: t('pinfo:alert-areYouSureDeleteAndExitPInfo') }}/>,
       modalButtons: [{
         main: true,
-        text: t('ui:yes') + ', ' + t('ui:reset').toLowerCase(),
+        text: t('ui:yes') + ', ' + t('ui:delete').toLowerCase(),
         onClick: this.deleteStateAndExit.bind(this)
       }, {
-        text: t('ui:no') + ', ' + t('ui:cancel').toLowerCase(),
+        text: t('ui:no'),
         onClick: this.closeModal.bind(this)
       }]
     })
@@ -283,6 +289,18 @@ class PInfo extends React.Component {
       header={<span>{t('pinfo:app-title')}</span>}>
       { step !== 4
         ? <React.Fragment>
+          {!isPInfoEmpty ? <Nav.Row>
+            <div className='col-sm-12 mb-4 delete-form-div'>
+              <Nav.Lenke
+                className='delete-form-link mt-3'
+                id='pinfo-deleteAndExit-button'
+                href='#reset'
+                onClick={this.onDeleteAndExitLinkClick.bind(this)}>
+                <Icons kind='trashcan' className='mr-2' size={16}/>
+                <span>{t('pinfo:form-deleteAndExit')}</span>
+              </Nav.Lenke>
+            </div>
+          </Nav.Row> : null}
           <Nav.Stegindikator
             className='mt-4 mb-4'
             aktivtSteg={step}
@@ -351,15 +369,6 @@ class PInfo extends React.Component {
         </div>
         <div className='col-sm-2' />
       </Nav.Row> : null}
-      {isPInfoEmpty || step === 4 ? null : <Nav.Row>
-        <div className='col-sm-12 mb-4 text-right'>
-          <Nav.Fareknapp
-            id='pinfo-deleteAndExit-button'
-            onClick={this.onDeleteAndExitButtonClick.bind(this)}>
-            {t('pinfo:form-deleteAndExit')}
-          </Nav.Fareknapp>
-        </div>
-      </Nav.Row>}
     </TopContainer>
   }
 }

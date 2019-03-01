@@ -17,6 +17,7 @@ import EtikettBase from 'nav-frontend-etiketter'
 import Lukknapp from 'nav-frontend-lukknapp'
 import Veileder from 'nav-frontend-veileder'
 import Veilederpanel from 'nav-frontend-veilederpanel'
+import Lenke from 'nav-frontend-lenker'
 
 export {
   AlertStripe, AlertStripeAdvarsel,
@@ -35,5 +36,6 @@ export {
   EtikettBase,
   Lukknapp,
   Veileder,
-  Veilederpanel
+  Veilederpanel,
+  Lenke
 }
