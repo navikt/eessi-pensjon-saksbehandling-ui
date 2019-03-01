@@ -361,7 +361,7 @@ class Period extends React.Component {
       modalText: t('pinfo:alert-areYouSureCancelPeriod'),
       modalButtons: [{
         main: true,
-        text: t('ui:yes') + ', ' + t('ui:continue').toLowerCase(),
+        text: t('ui:yes') + ', ' + t('ui:cancel').toLowerCase(),
         onClick: this.doCancelPeriod.bind(this)
       }, {
         text: t('ui:no').toLowerCase(),
