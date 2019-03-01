@@ -36,6 +36,8 @@ class StayAbroad extends React.Component {
       {!editMode ? <React.Fragment>
         <Nav.Undertittel>{t('pinfo:stayAbroad-title')}</Nav.Undertittel>
         <Nav.Undertekst>{t('pinfo:stayAbroad-description')}</Nav.Undertekst>
+        <Nav.Undertekst className='mt-4 mb-4'>{t('pinfo:app-info-on-help-icon')}</Nav.Undertekst>
+
       </React.Fragment> : null}
       {!_.isEmpty(stayAbroad) && !editMode ? <React.Fragment>
         <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-previousPeriods')}</Nav.Undertittel>

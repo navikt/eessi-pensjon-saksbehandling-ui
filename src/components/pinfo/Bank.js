@@ -80,6 +80,7 @@ class Bank extends React.Component {
     return <div className='c-pinfo-bank'>
       <Nav.Undertittel className='ml-0 mb-4'>{t('pinfo:bank-title')}</Nav.Undertittel>
       <Nav.Undertekst className='mt-4 mb-4'>{t('pinfo:bank-title-description')}</Nav.Undertekst>
+      <Nav.Undertekst className='mt-4 mb-4'>{t('pinfo:app-info-on-help-icon')}</Nav.Undertekst>
 
       <Nav.Row>
         <div className='col-md-6'>

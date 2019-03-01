@@ -85,6 +85,7 @@ class Person extends React.Component {
 
     return <div className='c-pinfo-person'>
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-info-title')}</Nav.Undertittel>
+      <Nav.Undertekst className='mt-4 mb-4'>{t('pinfo:app-info-on-help-icon')}</Nav.Undertekst>
 
       <Nav.Row>
         <div className='col-sm-12'>
