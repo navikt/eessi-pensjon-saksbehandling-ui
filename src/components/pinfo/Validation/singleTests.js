@@ -136,7 +136,7 @@ let periodStartDate = function (startDate) {
 }
 
 let periodEndDate = function (endDate) {
-  if (!endDate || _.isEmpty(endDate)) {
+  if (!endDate || _.isEmpty(endDate)) {
     return 'pinfo:validation-noEndDate'
   }
   if (!endDate.year) {

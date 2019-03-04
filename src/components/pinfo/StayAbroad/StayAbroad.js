@@ -30,16 +30,16 @@ class StayAbroad extends React.Component {
     const { t, stayAbroad, locale } = this.props
     const { _period, maxPeriods } = this.state
 
-    const editMode = _period && _period.id
+    const mode = _period && _period.id ? 'edit' : 'new'
 
     return <React.Fragment>
-      {!editMode ? <React.Fragment>
+      {mode === 'new' ? <React.Fragment>
         <Nav.Undertittel>{t('pinfo:stayAbroad-title')}</Nav.Undertittel>
         <Nav.Undertekst>{t('pinfo:stayAbroad-description')}</Nav.Undertekst>
         <Nav.Undertekst className='mt-4 mb-4'>{t('pinfo:app-info-on-help-icon')}</Nav.Undertekst>
 
       </React.Fragment> : null}
-      {!_.isEmpty(stayAbroad) && !editMode ? <React.Fragment>
+      {!_.isEmpty(stayAbroad) && mode === 'new' ? <React.Fragment>
         <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-previousPeriods')}</Nav.Undertittel>
         {stayAbroad.sort((a, b) => {
           return a.startDate - b.startDate
@@ -57,13 +57,12 @@ class StayAbroad extends React.Component {
       </React.Fragment>
         : null}
       { stayAbroad.length < maxPeriods ? <Period t={t}
-        periods={stayAbroad}
-        mode={editMode ? 'edit' : 'new'}
+        mode={mode}
         period={_period}
         periods={stayAbroad}
         locale={locale}
         editPeriod={this.setEditPeriod.bind(this)}
-      /> : t('pinfo:alert-maxPeriods', {maxPeriods : maxPeriods})}
+      /> : t('pinfo:alert-maxPeriods', { maxPeriods: maxPeriods })}
     </React.Fragment>
   }
 }

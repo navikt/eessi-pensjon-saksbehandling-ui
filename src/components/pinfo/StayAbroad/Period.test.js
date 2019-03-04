@@ -115,7 +115,7 @@ describe('Period', () => {
     let mockKey = 'mockKey'
     let mockValue = new Date()
     wrapper.instance().dateSetProperty(mockKey, null, mockValue)
-    expect(wrapper.instance().state._period[mockKey]).toEqual(mockValue.valueOf())
+    expect(wrapper.instance().state._period[mockKey]).toEqual(mockValue)
   })
 
   it('valueSetProperty function', () => {
@@ -143,9 +143,9 @@ describe('Period', () => {
     expect(errors).toHaveProperty('workActivity', 'pinfo:validation-noWorkActivity')
   })
 
-  it('addId function', () => {
+  it('addInsuranceIdp function', () => {
     let mockId = '123'
-    wrapper.instance().addId(mockId)
+    wrapper.instance().addInsuranceId(mockId)
     expect(wrapper.instance().state._period.insuranceId).toEqual(mockId)
   })
 

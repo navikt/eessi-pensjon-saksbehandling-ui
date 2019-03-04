@@ -23,7 +23,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class FileUpload extends Component {
-
     state = {
       files: [],
       currentPages: [],
@@ -43,7 +42,6 @@ class FileUpload extends Component {
     }
 
     componentDidMount () {
-
       this.setState({
         files: this.props.files || [],
         currentPages: this.props.currentPages || []
@@ -86,8 +84,8 @@ class FileUpload extends Component {
           files: newFiles,
           currentPages: newCurrentPages,
           status: {
-             message: (statusMessage || this.state.status.message),
-             type: 'OK'
+            message: (statusMessage || this.state.status.message),
+            type: 'OK'
           }
         }, () => {
           if (onFileChange) {
@@ -109,7 +107,7 @@ class FileUpload extends Component {
       if (maxFiles && (files.length + acceptedFiles.length > maxFiles)) {
         return this.setState({
           status: {
-            message: t('ui:maxFilesExceeded', {maxFiles: maxFiles}),
+            message: t('ui:maxFilesExceeded', { maxFiles: maxFiles }),
             type: 'ERROR'
           }
         })
@@ -263,7 +261,7 @@ class FileUpload extends Component {
                   className={classNames('droppable-zone', { 'droppable-zone-active ': snapshot.isDraggingOver })}>
                   <input {...getInputProps()} />
                   <div className='dropzone-placeholder'>
-                    <div className='dropzone-placeholder-message'>{t('ui:dropFilesHere', {maxFiles: maxFiles})}</div>
+                    <div className='dropzone-placeholder-message'>{t('ui:dropFilesHere', { maxFiles: maxFiles })}</div>
                     <div className={classNames('dropzone-placeholder-status', 'dropzone-placeholder-status-' + status.type)}>{status.message}</div>
                   </div>
 

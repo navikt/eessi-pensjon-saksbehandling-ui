@@ -395,7 +395,7 @@ class Period extends React.Component {
 
   errorMessage () {
     const { localErrors, displayError } = this.state
-    if (!displayError) { return undefined }
+    if (!displayError) { return undefined }
     for (var key in localErrors) {
       if (localErrors[key]) {
         return localErrors[key]
@@ -460,12 +460,12 @@ class Period extends React.Component {
       case 'view':
       case 'confirm':
         return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode)}>
-          <div className={classNames('col-12', {'col-md-6': mode === 'view'})}>
+          <div className={classNames('col-12', { 'col-md-6': mode === 'view' })}>
             <div id={period.id} className='existingPeriod'>
               <div className='icon mr-3 ml-3'>
                 <div className={classNames('topHalf', { line: !first })} />
                 <div className={classNames('bottomHalf', { line: !last })} />
-                <Icons className='iconsvg' kind={'nav-' + period.type} size={32}/>
+                <Icons className='iconsvg' kind={'nav-' + period.type} size={32} />
               </div>
               <div className='pt-2 pb-2 existingPeriodDescription'>
                 <span className='bold existingPeriodType'>{t('pinfo:stayAbroad-category-' + period.type)}</span>
@@ -508,7 +508,7 @@ class Period extends React.Component {
               {t('ui:change')}
             </Nav.Knapp>
             <Nav.Knapp className='existingPeriodButton' onClick={this.removePeriodRequest.bind(this, period)}>
-              <Icons className='mr-3' kind='bigclose' size={18} color='#0067C5'/>
+              <Icons className='mr-3' kind='bigclose' size={18} color='#0067C5' />
               {t('ui:remove')}
             </Nav.Knapp>
           </div> : null }
@@ -554,33 +554,33 @@ class Period extends React.Component {
             <Nav.Normaltekst className='mb-4'>{t('pinfo:stayAbroad-period-date-description')}</Nav.Normaltekst>
 
             <Nav.Row>
-                <div className='col-sm-6 col-12'>
-                  <label className='datepickerLabel skjemaelement__label'>{t('pinfo:stayAbroad-period-start-date')}</label>
-                  {<DatePicker
-                    id='pinfo-opphold-startdato-date'
-                    labels={{ day: t('pinfo:stayAbroad-period-day'), month: t('pinfo:stayAbroad-period-month'), year: t('pinfo:stayAbroad-period-year') }}
-                    ids={{ day: 'pinfo-opphold-startdato-day', month: 'pinfo-opphold-startdato-month', year: 'pinfo-opphold-startdato-year' }}
-                    placeholders={{ day: t('pinfo:stayAbroad-period-placeholder-day'), month: t('pinfo:stayAbroad-period-placeholder-month'), year: t('pinfo:stayAbroad-period-placeholder-year') }}
-                    className='startDate pr-2'
-                    values={_period.startDate}
-                    onChange={this.setStartDate}
-                    feil={localErrors.startDate || localErrors.timeSpan ? { feilmelding: t(localErrors.startDate || localErrors.timeSpan) } : undefined}
-                  />
-                  }
-                </div>
-                <div className='col-sm-6 col-12'>
-                  <label className='datepickerLabel skjemaelement__label'>{t('pinfo:stayAbroad-period-end-date')}</label>
-                  {<DatePicker
-                    labels={{ day: t('pinfo:stayAbroad-period-day'), month: t('pinfo:stayAbroad-period-month'), year: t('pinfo:stayAbroad-period-year') }}
-                    ids={{ day: 'pinfo-opphold-sluttdato-day', month: 'pinfo-opphold-sluttdato-month', year: 'pinfo-opphold-sluttdato-year' }}
-                    placeholders={{ day: t('pinfo:stayAbroad-period-placeholder-day'), month: t('pinfo:stayAbroad-period-placeholder-month'), year: t('pinfo:stayAbroad-period-placeholder-year') }}
-                    className='endDate pr-2'
-                    values={_period.endDate}
-                    onChange={this.setEndDate}
-                    feil={localErrors.endDate || localErrors.timeSpan ? { feilmelding: t(localErrors.endDate || localErrors.timeSpan) } : undefined}
-                  />
-                  }
-                </div>
+              <div className='col-sm-6 col-12'>
+                <label className='datepickerLabel skjemaelement__label'>{t('pinfo:stayAbroad-period-start-date')}</label>
+                {<DatePicker
+                  id='pinfo-opphold-startdato-date'
+                  labels={{ day: t('pinfo:stayAbroad-period-day'), month: t('pinfo:stayAbroad-period-month'), year: t('pinfo:stayAbroad-period-year') }}
+                  ids={{ day: 'pinfo-opphold-startdato-day', month: 'pinfo-opphold-startdato-month', year: 'pinfo-opphold-startdato-year' }}
+                  placeholders={{ day: t('pinfo:stayAbroad-period-placeholder-day'), month: t('pinfo:stayAbroad-period-placeholder-month'), year: t('pinfo:stayAbroad-period-placeholder-year') }}
+                  className='startDate pr-2'
+                  values={_period.startDate}
+                  onChange={this.setStartDate}
+                  feil={localErrors.startDate || localErrors.timeSpan ? { feilmelding: t(localErrors.startDate || localErrors.timeSpan) } : undefined}
+                />
+                }
+              </div>
+              <div className='col-sm-6 col-12'>
+                <label className='datepickerLabel skjemaelement__label'>{t('pinfo:stayAbroad-period-end-date')}</label>
+                {<DatePicker
+                  labels={{ day: t('pinfo:stayAbroad-period-day'), month: t('pinfo:stayAbroad-period-month'), year: t('pinfo:stayAbroad-period-year') }}
+                  ids={{ day: 'pinfo-opphold-sluttdato-day', month: 'pinfo-opphold-sluttdato-month', year: 'pinfo-opphold-sluttdato-year' }}
+                  placeholders={{ day: t('pinfo:stayAbroad-period-placeholder-day'), month: t('pinfo:stayAbroad-period-placeholder-month'), year: t('pinfo:stayAbroad-period-placeholder-year') }}
+                  className='endDate pr-2'
+                  values={_period.endDate}
+                  onChange={this.setEndDate}
+                  feil={localErrors.endDate || localErrors.timeSpan ? { feilmelding: t(localErrors.endDate || localErrors.timeSpan) } : undefined}
+                />
+                }
+              </div>
 
             </Nav.Row>
 
@@ -845,9 +845,9 @@ class Period extends React.Component {
 
           { !_period.type && _.isEmpty(periods) ? <Nav.AlertStripe
             className='mt-4 mb-4' type='info'>
-              {t('pinfo:warning-one-period')}
-           </Nav.AlertStripe>
-          : null}
+            {t('pinfo:warning-one-period')}
+          </Nav.AlertStripe>
+            : null}
 
           {errorMessage ? <Nav.AlertStripe className='mt-4 mb-4' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
         </React.Fragment>

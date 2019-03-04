@@ -51,7 +51,7 @@ class DatePicker extends Component {
     onChange(newDate)
   }
 
-  checkValidity(newDate){
+  checkValidity (newDate) {
     return Object.assign(
       {},
       this.inValidDay(newDate),

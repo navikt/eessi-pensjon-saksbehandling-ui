@@ -217,8 +217,8 @@ class PInfo extends React.Component {
 
   onDeleteAndExitLinkClick (e) {
     if (e) {
-       e.preventDefault()
-       e.stopPropagation()
+      e.preventDefault()
+      e.stopPropagation()
     }
 
     const { t, actions, history, pinfo } = this.props
@@ -232,7 +232,7 @@ class PInfo extends React.Component {
 
     actions.openModal({
       modalTitle: t('pinfo:alert-deleteAndExitPInfo'),
-      modalContent: <div className='m-4 text-center' dangerouslySetInnerHTML={{ __html: t('pinfo:alert-areYouSureDeleteAndExitPInfo') }}/>,
+      modalContent: <div className='m-4 text-center' dangerouslySetInnerHTML={{ __html: t('pinfo:alert-areYouSureDeleteAndExitPInfo') }} />,
       modalButtons: [{
         main: true,
         text: t('ui:yes') + ', ' + t('ui:delete').toLowerCase(),
@@ -296,7 +296,7 @@ class PInfo extends React.Component {
                 id='pinfo-deleteAndExit-button'
                 href='#reset'
                 onClick={this.onDeleteAndExitLinkClick.bind(this)}>
-                <Icons kind='trashcan' className='mr-2' size={16}/>
+                <Icons kind='trashcan' className='mr-2' size={16} />
                 <span>{t('pinfo:form-deleteAndExit')}</span>
               </Nav.Lenke>
             </div>

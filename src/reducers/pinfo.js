@@ -8,7 +8,6 @@ let initialState = {
   person: {},
   bank: {},
   stayAbroad: [],
-  work: {},
   receipt: undefined,
   buttonsVisible: true
 }
@@ -38,14 +37,6 @@ export default function reducer (state = initialState, action = {}) {
       return Object.assign({}, state, {
         person: {
           ...state.person,
-          ...action.payload
-        }
-      })
-
-    case types.PINFO_WORK_SET:
-      return Object.assign({}, state, {
-        work: {
-          ...state.work,
           ...action.payload
         }
       })

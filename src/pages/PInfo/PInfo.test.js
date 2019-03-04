@@ -16,9 +16,9 @@ const reducer = combineReducers({
 describe('PInfo', () => {
   let store, wrapper
 
-  beforeEach(async () => {
+  beforeEach(() => {
     store = createStore(reducer, initialState)
-    wrapper = await shallow(<PInfo store={store} />).dive()
+    wrapper = shallow(<PInfo store={store} />).dive()
   })
 
   it('renders without crashing', () => {

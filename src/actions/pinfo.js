@@ -13,6 +13,13 @@ export function setStep (step) {
   }
 }
 
+export function setStepError (stepError) {
+  return {
+    type: types.PINFO_STEP_ERROR,
+    payload: stepError
+  }
+}
+
 export function setPerson (payload) {
   return {
     type: types.PINFO_PERSON_SET,
@@ -20,23 +27,16 @@ export function setPerson (payload) {
   }
 }
 
-export function setStayAbroad (payload) {
-  return {
-    type: types.PINFO_STAY_ABROAD_SET,
-    payload: payload
-  }
-}
-
-export function setWork (payload) {
-  return {
-    type: types.PINFO_WORK_SET,
-    payload: payload
-  }
-}
-
 export function setBank (payload) {
   return {
     type: types.PINFO_BANK_SET,
+    payload: payload
+  }
+}
+
+export function setStayAbroad (payload) {
+  return {
+    type: types.PINFO_STAY_ABROAD_SET,
     payload: payload
   }
 }
@@ -52,13 +52,6 @@ export function setMainButtonsVisibility (value) {
   return {
     type: types.PINFO_BUTTONS_VISIBLE,
     payload: value
-  }
-}
-
-export function setStepError (stepError) {
-  return {
-    type: types.PINFO_STEP_ERROR,
-    payload: stepError
   }
 }
 
