@@ -808,7 +808,7 @@ class Period extends React.Component {
                 <FileUpload
                   id={'pinfo-opphold-vedlegg-fileupload-' + period.id}
                   acceptedMimetypes={['application/pdf', 'image/jpeg', 'image/png']}
-                  maxFileSize={2*1024*1024}
+                  maxFileSize={10*1024*1024}
                   maxFiles={5}
                   t={t}
                   ref={f => { this.fileUpload = f }}
