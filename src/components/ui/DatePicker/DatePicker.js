@@ -164,7 +164,7 @@ DatePicker.propTypes = {
   required: PT.object,
   ids: PT.object,
   values: PT.object,
-  error: PT.object,
+  feil: PT.object,
   labels: PT.object,
   onChange: PT.func.isRequired
 }
