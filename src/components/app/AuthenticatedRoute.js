@@ -79,7 +79,7 @@ class AuthenticatedRoute extends Component {
   }
 
   render () {
-    const { t, allowed, loggedIn } = this.props
+    const { t, allowed, loggedIn, userRole } = this.props
 
     if (!loggedIn) {
       return <WaitingPanel message={t('authenticating')} />
@@ -87,13 +87,19 @@ class AuthenticatedRoute extends Component {
     let validRole = this.hasApprovedRole()
 
     if (!validRole) {
-      return <Redirect to={routes.FORBIDDEN} />
+      return <Redirect to={{
+        pathname: routes.FORBIDDEN,
+        state: { role : userRole}
+      }} />
     }
 
     let authorized = allowed
 
     if (!authorized) {
-      return <Redirect to={routes.NOT_INVITED} />
+      return <Redirect to={{
+        pathname: routes.NOT_INVITED,
+        state: {role : userRole}
+      }}/>
     }
 
     return <Route {...this.props} />

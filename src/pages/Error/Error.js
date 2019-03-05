@@ -9,24 +9,31 @@ import * as Nav from '../../components/ui/Nav'
 
 import './Error.css'
 
-class Error extends Component {
-  render () {
-    const { t, history, location, type } = this.props
+const roleLabel = {
+ 'BRUKER' : 'user',
+ 'SAKSBEHANDLER' : 'saksbehandler'
+}
 
+class Error extends Component {
+
+  render () {
+
+    const { t, history, location, role, type } = this.props
     let title, description
+    let _role = roleLabel[role] || 'user'
 
     switch (type) {
       case 'forbidden':
-        title = t('ui:error-forbidden-title')
-        description = t('ui:error-forbidden-description')
+        title = t('ui:error-' + _role + '-forbidden-title')
+        description = t('ui:error-' + _role + '-forbidden-description')
         break
       case 'notLogged':
         title = t('ui:error-notLogged-title')
         description = t('ui:error-notLogged-description')
         break
       case 'notInvited':
-        title = t('ui:error-notInvited-title')
-        description = t('ui:error-notInvited-description')
+        title = t('ui:error-' + _role + '-notInvited-title')
+        description = t('ui:error-' + _role + '-notInvited-description')
         break
 
       default:
