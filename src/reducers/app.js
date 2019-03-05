@@ -5,7 +5,10 @@ let initialState = {
   allowed: false,
   username: undefined,
   userRole: undefined,
-  userStatus: undefined
+  userStatus: undefined,
+  firstName: undefined,
+  middleName: undefined,
+  lastname: undefined
 }
 
 export default function (state = initialState, action = {}) {
@@ -23,7 +26,10 @@ export default function (state = initialState, action = {}) {
         userRole: action.payload.role,
         allowed: action.payload.subject === '12345678910' ? true : action.payload.allowed,
         loggedIn: true,
-        userStatus: 'OK'
+        userStatus: 'OK',
+        firstName: action.payload.fornavn,
+        middleName: action.payload.mellomnavn,
+        lastName: action.payload.etternavn
       })
 
     case types.APP_USERINFO_FAILURE:

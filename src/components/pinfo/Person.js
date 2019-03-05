@@ -16,7 +16,10 @@ const mapStateToProps = (state) => {
     locale: state.ui.locale,
     person: state.pinfo.person,
     pageErrors: state.pinfo.pageErrors,
-    errorTimestamp: state.pinfo.errorTimestamp
+    errorTimestamp: state.pinfo.errorTimestamp,
+    firstName: state.app.firstName,
+    middleName: state.app.middleName,
+    lastName: state.app.lastName
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -80,13 +83,25 @@ class Person extends React.Component {
   }
 
   render () {
-    const { t, person, locale } = this.props
+    const { t, person, locale, firstName, middleName, lastName } = this.props
     const { localErrors } = this.state
 
     return <div className='c-pinfo-person'>
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-info-title')}</Nav.Undertittel>
       <Nav.Undertekst className='mt-4 mb-4'>{t('pinfo:app-info-on-help-icon')}</Nav.Undertekst>
-
+      {(firstName || middleName || lastName)
+      ? <Nav.Row>
+        <div className='col-sm-12 mb-2'>
+          <label className='skjemaelement__label'>
+          {t('pinfo:person-info-currentName')}
+          </label>
+          {firstName? `${firstName}`: null}
+          {middleName? ` ${middleName}`: null}
+          {lastName? ` ${lastName}`: null}
+        </div>
+      </Nav.Row>
+      : null
+      }
       <Nav.Row>
         <div className='col-sm-12'>
           <Nav.Input

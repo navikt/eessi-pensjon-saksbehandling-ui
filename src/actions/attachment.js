@@ -39,7 +39,7 @@ export function getAllStateFromStorage () {
     return dispatch(getFileListFromStorage())
       .then(() => dispatch(getPinfoFileFromStorage()))
       .then(() => dispatch(getAttachmentFilesFromStorage()))
-      //.then(() => dispatch(suggestPersonNameFromUsernameIfNotInState()))
+      .then(() => dispatch(suggestPersonNameFromUsernameIfNotInState()))
       .catch((error) => dispatch({ type: types.ATTACHMENT_GET_ALL_STATE_FAILURE, payload: error }))
   }
 }
@@ -67,11 +67,11 @@ function getFileListFromStorage () {
 function suggestPersonNameFromUsernameIfNotInState () {
   return function (dispatch, getState) {
     if (!getState().pinfo.person.nameAtBirth) {
-      let username = getState().app.username
+      let lastName = getState().app.lastName
       return dispatch({
         type: types.PINFO_PERSON_SET,
         payload: {
-          nameAtBirth: username
+          nameAtBirth: lastName
         }
       })
     }
