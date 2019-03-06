@@ -36,7 +36,7 @@ const paramAliases = {
   'fnr': 'aktoerId'
 }
 
-class AuthenticatedRoute extends Component {
+export class AuthenticatedRoute extends Component {
   state = {}
 
   parseSearchParams () {
