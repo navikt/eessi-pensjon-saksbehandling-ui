@@ -25,7 +25,7 @@ import * as attachmentActions from '../../../actions/attachment'
 
 import './Period.css'
 
-const mapStateToProps = (state) => {
+export const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
     pinfo: state.pinfo,
@@ -36,11 +36,11 @@ const mapStateToProps = (state) => {
     fileList: state.storage.fileList
   }
 }
-const mapDispatchToProps = (dispatch) => {
+export const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, storageActions, pinfoActions, uiActions, attachmentActions), dispatch) }
 }
 
-class Period extends React.Component {
+export class Period extends React.Component {
   state = {
     localErrors: {},
     errorTimestamp: new Date().getTime(),
