@@ -14,7 +14,7 @@ describe('pinfoSaksbehandler reducer', () => {
       type: types.PINFO_INVITE_FAILURE,
     })
     expect(state.message).toBe('pinfo:alert-inviteFailure')
-    expect(state.stsatus).toBe('ERROR')
+    expect(state.status).toBe('ERROR')
   })
 
   it('handles PINFO_INVITE_SUCCESS action', () => {
@@ -23,6 +23,6 @@ describe('pinfoSaksbehandler reducer', () => {
       type: types.PINFO_INVITE_SUCCESS,
     })
     expect(state.message).toBe('pinfo:alert-inviteSuccess')
-    expect(state.stsatus).toBe('OK')
+    expect(state.status).toBe('OK')
   })
 })
