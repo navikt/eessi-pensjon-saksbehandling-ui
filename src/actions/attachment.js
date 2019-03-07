@@ -84,7 +84,7 @@ function getPinfoFileFromStorage () {
 
     const { app, storage } = getState()
     if (storage.fileList && storage.fileList.includes(constants.PINFO_FILE)) {
-      return dispatch(storageActions.getPinfoFromStorage({
+      return dispatch(pinfoActions.getPinfoFromStorage({
         userId: app.username,
         namespace: constants.PINFO,
         file: constants.PINFO_FILE

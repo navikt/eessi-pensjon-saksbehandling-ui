@@ -77,18 +77,6 @@ export function postStorageFileWithNoNotification (userId, namespace, file, payl
   })
 }
 
-export function getPinfoFromStorage (params) {
-  return api.call({
-    url: sprintf(urls.STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
-    method: 'GET',
-    type: {
-      request: types.STORAGE_GET_PINFO_REQUEST,
-      success: types.STORAGE_GET_PINFO_SUCCESS,
-      failure: types.STORAGE_GET_PINFO_FAILURE
-    }
-  })
-}
-
 export function getAttachmentFromStorage (params) {
   return api.call({
     url: sprintf(urls.STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),

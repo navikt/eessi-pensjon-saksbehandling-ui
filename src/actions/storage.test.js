@@ -140,24 +140,6 @@ describe('storage actions', () => {
     })
   })
 
-  it('call getPinfoFromStorage()', () => {
-    const mockParams = {
-      userId: 'userId',
-      namespace: 'namespace',
-      file: 'pinfoFile'
-    }
-    storageActions.getPinfoFromStorage(mockParams)
-    expect(api.call).toBeCalledWith({
-      type: {
-        request: types.STORAGE_GET_PINFO_REQUEST,
-        success: types.STORAGE_GET_PINFO_SUCCESS,
-        failure: types.STORAGE_GET_PINFO_FAILURE
-      },
-      method: 'GET',
-      url: 'http://localhost/api/storage/get/userId___namespace___pinfoFile'
-    })
-  })
-
   it('call getAttachmentFromStorage()', () => {
     const mockParams = {
       userId: 'userId',

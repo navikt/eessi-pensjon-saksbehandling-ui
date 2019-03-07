@@ -100,19 +100,7 @@ export default function reducer (state = initialState, action = {}) {
         receipt: undefined
       })
 
-    case types.STORAGE_GET_SUCCESS: {
-      let pinfo
-      try {
-        pinfo = JSON.parse(action.payload)
-      } catch (e) {
-        pinfo = action.payload
-      }
-      pinfo.buttonsVisible = true
-      pinfo.isReady = true
-      return Object.assign({}, initialState, pinfo)
-    }
-
-    case types.STORAGE_GET_PINFO_SUCCESS: {
+    case types.PINFO_GET_FROM_STORAGE_SUCCESS: {
       let pinfo
       try {
         pinfo = JSON.parse(action.payload)

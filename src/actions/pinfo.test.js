@@ -109,6 +109,24 @@ describe('pinfo actions', () => {
     expect(generatedResult.payload.errorTimestamp).toBeCloseTo(expectedDate, 100)
   })
 
+  it('call getPinfoFromStorage()', () => {
+    const mockParams = {
+      userId : 'userId',
+      namespace: 'namespace',
+      file: 'pinfoFile'
+    }
+    pinfoActions.getPinfoFromStorage(mockParams)
+    expect(api.call).toBeCalledWith({
+      type: {
+        request: types.PINFO_GET_FROM_STORAGE_REQUEST,
+        success: types.PINFO_GET_FROM_STORAGE_SUCCESS,
+        failure: types.PINFO_GET_FROM_STORAGE_FAILURE
+      },
+      method: 'GET',
+      url: 'http://localhost/api/storage/get/userId___namespace___pinfoFile'
+    })
+  })
+
   it('call sendPInfo()', () => {
     const sendPInfo = { pinfo: 'pinfo' }
     pinfoActions.sendPInfo(sendPInfo)

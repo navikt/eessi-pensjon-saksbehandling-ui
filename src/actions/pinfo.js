@@ -65,6 +65,18 @@ export function setPageErrors (pageErrors) {
   }
 }
 
+export function getPinfoFromStorage (params) {
+  return api.call({
+    url: sprintf(urls.STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
+    method: 'GET',
+    type: {
+      request: types.PINFO_GET_FROM_STORAGE_REQUEST,
+      success: types.PINFO_GET_FROM_STORAGE_SUCCESS,
+      failure: types.PINFO_GET_FROM_STORAGE_FAILURE
+    }
+  })
+}
+
 export function sendPInfo (payload) {
   return api.call({
     url: urls.PINFO_SEND_URL,
