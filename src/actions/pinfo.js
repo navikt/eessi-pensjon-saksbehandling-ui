@@ -1,12 +1,22 @@
 import * as types from '../constants/actionTypes'
 import * as urls from '../constants/urls'
+import * as constants from '../constants/constants'
 import * as api from './api'
+import * as storageActions from './storage'
+
 var sprintf = require('sprintf-js').sprintf
 
 export function setStep (step) {
   return {
     type: types.PINFO_STEP_SET,
     payload: step
+  }
+}
+
+export function setStepError (stepError) {
+  return {
+    type: types.PINFO_STEP_ERROR,
+    payload: stepError
   }
 }
 
@@ -17,23 +27,16 @@ export function setPerson (payload) {
   }
 }
 
-export function setStayAbroad (payload) {
-  return {
-    type: types.PINFO_STAY_ABROAD_SET,
-    payload: payload
-  }
-}
-
-export function setWork (payload) {
-  return {
-    type: types.PINFO_WORK_SET,
-    payload: payload
-  }
-}
-
 export function setBank (payload) {
   return {
     type: types.PINFO_BANK_SET,
+    payload: payload
+  }
+}
+
+export function setStayAbroad (payload) {
+  return {
+    type: types.PINFO_STAY_ABROAD_SET,
     payload: payload
   }
 }
@@ -52,6 +55,16 @@ export function setMainButtonsVisibility (value) {
   }
 }
 
+export function setPageErrors (pageErrors) {
+  return {
+    type: types.PINFO_PAGE_ERRORS_SET,
+    payload: {
+      pageErrors: pageErrors,
+      errorTimestamp: new Date().getTime()
+    }
+  }
+}
+
 export function sendPInfo (payload) {
   return api.call({
     url: urls.PINFO_SEND_URL,
@@ -67,7 +80,7 @@ export function sendPInfo (payload) {
 
 export function sendInvite (params) {
   return api.call({
-    url: sprintf(urls.PINFO_INVITE_URL, { saksId: params.saksId, aktoerId: params.aktoerId }),
+    url: sprintf(urls.PINFO_INVITE_URL, { sakId: params.sakId, aktoerId: params.aktoerId }),
     method: 'POST',
     payload: {},
     type: {
@@ -78,11 +91,10 @@ export function sendInvite (params) {
   })
 }
 
-export function sendReceipt (payload) {
+export function generateReceipt () {
   return api.call({
     url: urls.PINFO_RECEIPT_URL,
-    method: 'POST',
-    payload: payload,
+    method: 'GET',
     type: {
       request: types.PINFO_RECEIPT_REQUEST,
       success: types.PINFO_RECEIPT_SUCCESS,
@@ -91,15 +103,36 @@ export function sendReceipt (payload) {
   })
 }
 
-export function setReady () {
+export function clearPInfoData () {
   return {
-    type: types.PINFO_SET_READY
+    type: types.PINFO_CLEAR_DATA
   }
 }
 
-export function restoreState (content) {
+export function saveStateAndExit (pinfo, username) {
+  return (dispatch) => {
+    return dispatch(
+      storageActions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
+    ).then(() => {
+      dispatch(clearPInfoData())
+      window.location.href = urls.NAV_URL
+    })
+  }
+}
+
+export function deleteStateAndExit (username) {
+  return (dispatch) => {
+    return dispatch(
+      storageActions.deleteAllStorageFilesFromUser(username, constants.PINFO)
+    ).then(() => {
+      dispatch(clearPInfoData())
+      window.location.href = urls.NAV_URL
+    })
+  }
+}
+
+export function setReady () {
   return {
-    type: types.PINFO_STATE_RESTORE,
-    payload: content
+    type: types.PINFO_SET_READY
   }
 }

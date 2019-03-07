@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 import Icons from '../Icons'
 import * as Nav from '../Nav'
@@ -173,6 +173,8 @@ class DocumentStatus extends Component {
               history.push(routes.P4000)
               break
             case constants.P2000:
+            case constants.P2100:
+            case constants.P2200:
             case constants.P6000:
 
               history.push(routes.CASE_START + '?sed=' + doc.dokumentType + '&buc=' + doc.id)
@@ -300,5 +302,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(DocumentStatus)
+  withTranslation()(DocumentStatus)
 )

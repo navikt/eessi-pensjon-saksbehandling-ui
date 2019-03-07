@@ -1,13 +1,21 @@
 @import '../../../constants';
 
 .c-ui-banner {
-  align-self: stretch;
   background-color: @pension-orange-alpha-80;
-  border-bottom: 4px solid @pension-orange;
-  margin-bottom: 50px;
+}
 
-  .nav-veileder {
-    margin-bottom: -50px;
-    margin-top: 60px;
-  }
+.highContrast .c-ui-banner {
+  background-color: @black;
+  color: @white;
+}
+
+.c-ui-highcontrast-link {
+    position: absolute;
+    right: 1rem;
+    color: @black;
+    text-decoration: none;
+}
+
+.highContrast .c-ui-highcontrast-link {
+  color: @white;
 }

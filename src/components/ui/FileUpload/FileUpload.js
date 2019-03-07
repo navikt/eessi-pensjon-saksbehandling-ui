@@ -8,6 +8,7 @@ import classNames from 'classnames'
 import { Droppable } from 'react-beautiful-dnd'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import bytes from 'bytes'
 
 import * as uiActions from '../../../actions/ui'
 import File from '../File/File'
@@ -26,15 +27,7 @@ class FileUpload extends Component {
       files: [],
       currentPages: [],
       id: undefined,
-      status: undefined
-    }
-
-    validate (e) {
-      const { action, active, inactive } = this.props
-      const { files } = this.state
-
-      action(e)
-      files.length > 0 ? active() : inactive()
+      status: {}
     }
 
     static getDerivedStateFromProps (newProps, oldState) {
@@ -51,8 +44,7 @@ class FileUpload extends Component {
     componentDidMount () {
       this.setState({
         files: this.props.files || [],
-        currentPages: this.props.currentPages || [],
-        status: undefined
+        currentPages: this.props.currentPages || []
       })
     }
 
@@ -62,7 +54,6 @@ class FileUpload extends Component {
         for (var i in this.props.files) {
           currentPages[i] = 1
         }
-
         this.setState({
           currentPages: currentPages
         })
@@ -85,14 +76,17 @@ class FileUpload extends Component {
       })
     }
 
-    updateFiles (newFiles, newCurrentPages, status) {
-      const onFileChange = this.props.onFileChange ? this.props.onFileChange : this.validate.bind(this)
+    updateFiles (newFiles, newCurrentPages, statusMessage) {
+      const { onFileChange } = this.props
 
       return new Promise((resolve) => {
         this.setState({
           files: newFiles,
           currentPages: newCurrentPages,
-          status: (status || this.state.status)
+          status: {
+            message: (statusMessage || this.state.status.message),
+            type: 'OK'
+          }
         }, () => {
           if (onFileChange) {
             onFileChange(newFiles)
@@ -103,16 +97,43 @@ class FileUpload extends Component {
     }
 
     async onDrop (acceptedFiles, rejectedFiles) {
-      const { beforeDrop, afterDrop } = this.props
+      const { t, beforeDrop, afterDrop, maxFiles } = this.props
+      const { files } = this.state
 
       if (beforeDrop) {
         beforeDrop()
+      }
+
+      if (maxFiles && (files.length + acceptedFiles.length > maxFiles)) {
+        return this.setState({
+          status: {
+            message: t('ui:maxFilesExceeded', { maxFiles: maxFiles }),
+            type: 'ERROR'
+          }
+        })
       }
 
       await this.processFiles(acceptedFiles, rejectedFiles)
 
       if (afterDrop) {
         afterDrop()
+      }
+    }
+
+    onDropRejected (rejectedFiles) {
+      const { t, maxFileSize } = this.props
+
+      if (maxFileSize && rejectedFiles[0].size > maxFileSize) {
+        this.setState({
+          status: {
+            message: t('ui:fileIsTooBigLimitIs', {
+              maxFileSize: bytes(maxFileSize),
+              size: bytes(rejectedFiles[0].size),
+              file: rejectedFiles[0].name
+            }),
+            type: 'ERROR'
+          }
+        })
       }
     }
 
@@ -148,11 +169,11 @@ class FileUpload extends Component {
             })
             newCurrentPages[newCurrentPages.length] = 1
 
-            let status = t('ui:accepted') + ': ' + acceptedFiles.length + ', '
-            status += t('ui:rejected') + ': ' + rejectedFiles.length + ', '
-            status += t('ui:total') + ': ' + newFiles.length
+            let statusMessage = t('ui:accepted') + ': ' + acceptedFiles.length + ', '
+            statusMessage += t('ui:rejected') + ': ' + rejectedFiles.length + ', '
+            statusMessage += t('ui:total') + ': ' + newFiles.length
 
-            await this.updateFiles(newFiles, newCurrentPages, status)
+            await this.updateFiles(newFiles, newCurrentPages, statusMessage)
 
             loadingStatus[index] = true
             let ok = true
@@ -177,9 +198,8 @@ class FileUpload extends Component {
       newFiles.push(file)
       newCurrentPages.push(file.numPages)
 
-      let status = t('ui:added') + ' ' + file.name
-
-      await this.updateFiles(newFiles, newCurrentPages, status)
+      let statusMessage = t('ui:added') + ' ' + file.name
+      await this.updateFiles(newFiles, newCurrentPages, statusMessage)
     }
 
     async removeFile (fileIndex) {
@@ -192,16 +212,14 @@ class FileUpload extends Component {
       newCurrentPages.splice(fileIndex, 1)
 
       let filename = this.state.files[fileIndex].name
-      let status = t('ui:removed') + ' ' + filename
-
-      await this.updateFiles(newFiles, newCurrentPages, status)
+      let statusMessage = t('ui:removed') + ' ' + filename
+      await this.updateFiles(newFiles, newCurrentPages, statusMessage)
     }
 
     async onLoadSuccess (index, event) {
       if (index !== undefined && event && event.numPages) {
         let newFiles = _.clone(this.state.files)
         newFiles[index].numPages = event.numPages
-
         await this.updateFiles(newFiles, this.state.currentPages)
       }
     }
@@ -219,7 +237,7 @@ class FileUpload extends Component {
     }
 
     render () {
-      const { t, accept, className, fileUploadDroppableId } = this.props
+      const { t, acceptedMimetypes, maxFileSize, className, fileUploadDroppableId, maxFiles } = this.props
       const { files, currentPages, status } = this.state
       const tabIndex = this.props.tabIndex ? { tabIndex: this.props.tabIndex } : {}
 
@@ -227,12 +245,14 @@ class FileUpload extends Component {
         <Droppable droppableId={fileUploadDroppableId} direction='horizontal'>
 
           {(provided, snapshot) => (
-            <div className={classNames('dropzone', 'p-2', className)}>
+            <div className={classNames('dropzone', 'p-4', className)}>
               <Dropzone
-                length={this.state.files.length}
+                length={files.length}
                 activeClassName='dropzone-active'
-                accept={accept}
+                accept={acceptedMimetypes}
                 onDrop={this.onDrop.bind(this)}
+                maxSize={maxFileSize}
+                onDropRejected={this.onDropRejected.bind(this)}
                 inputProps={{ ...this.props.inputProps }}
                 {...tabIndex}>
                 {({ getRootProps, getInputProps }) => <div
@@ -241,8 +261,8 @@ class FileUpload extends Component {
                   className={classNames('droppable-zone', { 'droppable-zone-active ': snapshot.isDraggingOver })}>
                   <input {...getInputProps()} />
                   <div className='dropzone-placeholder'>
-                    <div className='dropzone-placeholder-message'>{t('ui:dropFilesHere')}</div>
-                    <div className='dropzone-placeholder-status'>{status}</div>
+                    <div className='dropzone-placeholder-message'>{t('ui:dropFilesHere', { maxFiles: maxFiles })}</div>
+                    <div className={classNames('dropzone-placeholder-status', 'dropzone-placeholder-status-' + status.type)}>{status.message}</div>
                   </div>
 
                   {provided.placeholder}
@@ -275,7 +295,7 @@ FileUpload.propTypes = {
   onFileChange: PT.func.isRequired,
   files: PT.array.isRequired,
   currentPages: PT.array,
-  accept: PT.oneOfType([PT.string, PT.array]),
+  acceptedMimetypes: PT.oneOfType([PT.string, PT.array]),
   className: PT.string,
   beforeDrop: PT.func,
   afterDrop: PT.func,
@@ -283,7 +303,9 @@ FileUpload.propTypes = {
   inactive: PT.func,
   inputProps: PT.object,
   fileUploadDroppableId: PT.string.isRequired,
-  actions: PT.object
+  actions: PT.object,
+  maxFiles: PT.number,
+  maxFileSize: PT.number
 }
 
 export default connect(

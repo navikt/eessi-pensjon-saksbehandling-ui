@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import * as Nav from '../../components/ui/Nav'
@@ -56,5 +56,5 @@ Case.propTypes = {
 export default connect(
   mapStateToProps
 )(
-  withNamespaces()(Case)
+  withTranslation()(Case)
 )

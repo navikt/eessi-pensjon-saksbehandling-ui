@@ -36,8 +36,7 @@ export function call (options) {
     }).then(payload => {
       return dispatch({
         type: options.type.success,
-        payload: payload,
-        context: options.context
+        payload: payload
       })
     }).catch(error => {
       return dispatch({

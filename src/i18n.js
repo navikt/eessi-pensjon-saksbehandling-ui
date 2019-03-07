@@ -1,18 +1,18 @@
 import i18n from 'i18next'
 import Backend from 'i18next-xhr-backend'
-import { reactI18nextModule } from 'react-i18next'
+import { initReactI18next } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
 // datepicker localization
-import { registerLocale, setDefaultLocale  } from 'react-datepicker'
-import { nb } from 'date-fns/esm/locale'
+import { registerLocale, setDefaultLocale } from 'react-datepicker'
+import nb from 'date-fns/locale/nb'
 registerLocale('nb', nb)
 setDefaultLocale('nb')
 
 i18n
   .use(Backend)
   .use(LanguageDetector)
-  .use(reactI18nextModule)
+  .use(initReactI18next)
   .init({
     lng: 'nb',
     fallbackLng: {

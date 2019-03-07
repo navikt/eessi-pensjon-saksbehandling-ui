@@ -7,58 +7,57 @@
      align-items: center;
   }
 
-  .current {
-    background-color: whitesmoke;
-    border: 2px dashed grey;
-    margin-left: -2px;
-  }
-
   .existingPeriod {
     display: flex;
-    margin-left: 16px;
 
     .icon {
       min-width: 32px;
-      margin-left: -17px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
 
       .topHalf {
-        height: 10%;
-        top: 0;
+        height: 60%;
+        top: -50px;
+        left: 0;
         position: absolute;
-        left: 24px;
+        left: 26px;
       }
       .bottomHalf {
         height: 90%;
         bottom: 0;
+        left: 0;
         position: absolute;
-        left: 24px;
+        left: 26px;
       }
       .iconsvg {
         position: absolute;
         top: 10%;
-        padding: 5px;
+        left: 10px;
         background: white;
-        border-radius: 30px;
         z-index: 2;
-        border: 1px solid black;
+        text-align: center;
       }
+    }
+    .existingPeriodAttachmentsContainer {
+      word-break: break-all;
     }
   }
 
   .line {
-     border-left: 1px solid grey;
+     border-left: 1px solid black;
   }
 
   .existingPeriodButtons {
     display: flex;
+    justify-content: center;
 
     .existingPeriodButton {
        display: flex;
        align-items: center;
+       padding-left: 1rem !important;
+       padding-right: 1rem !important;
     }
   }
 
@@ -66,5 +65,34 @@
   .addPeriodButton {
     display: flex;
     align-items: center;
+  }
+}
+
+.id-suggestions {
+
+  .etikett {
+     cursor: pointer;
+     &:hover {
+       filter: brightness(110%);
+     }
+  }
+}
+
+.highContrast .c-pinfo-stayabroad-period {
+  .line {
+     border-left: 2px solid white;
+  }
+}
+
+label.datepickerLabel {
+  border-bottom: 1px solid #979797;
+}
+
+@media (min-width: 768px) {
+  div.datePicker__seperator {
+    height: 23px;
+    display: block;
+    width: 45px;
+    border-bottom: 1px solid #979797;
   }
 }

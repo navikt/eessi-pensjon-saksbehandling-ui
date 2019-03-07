@@ -6,10 +6,12 @@ let API_URL = BACKEND_URL + '/api'
 let FAG_URL = BACKEND_URL + '/fag'
 let PDF_URL = BACKEND_URL + '/pdf'
 
+export const NAV_URL = 'http://www.nav.no'
+
 // EuxController
 export const CASE_GET_RINA_URL = API_URL + '/rinaurl'
-export const CASE_GET_CASE_WITH_RINAID_URL = API_URL + '/case/%(saksId)s/%(aktoerId)s/%(rinaId)s'
-export const CASE_GET_CASE_WITHOUT_RINAID_URL = API_URL + '/case/%(saksId)s/%(aktoerId)s'
+export const CASE_GET_CASE_WITH_RINAID_URL = API_URL + '/case/%(sakId)s/%(aktoerId)s/%(rinaId)s'
+export const CASE_GET_CASE_WITHOUT_RINAID_URL = API_URL + '/case/%(sakId)s/%(aktoerId)s'
 export const CASE_GET_BUC_LIST_URL = API_URL + '/bucs'
 export const CASE_GET_SED_FOR_BUC_LIST_URL = API_URL + '/seds/%(buc)s'
 export const CASE_GET_SED_FROM_RINA_LIST_URL = API_URL + '/sedfromrina/%(rinaId)s'
@@ -22,7 +24,7 @@ export const CASE_GET_COUNTRY_LIST_URL = API_URL + '/countrycode'
 export const CASE_GET_SUBJECT_AREA_LIST_URL = API_URL + '/subjectarea'
 export const APP_GET_USERINFO_URL = API_URL + '/userinfo'
 export const PINFO_SEND_URL = API_URL + '/submission/submit'
-export const PINFO_INVITE_URL = API_URL + '/varsel?saksId=%(saksId)s&aktoerId=%(aktoerId)s'
+export const PINFO_INVITE_URL = API_URL + '/varsel?saksId=%(sakId)s&aktoerId=%(aktoerId)s'
 export const PINFO_RECEIPT_URL = API_URL + '/submission/receipt'
 
 // StorageController
@@ -30,9 +32,10 @@ export const STORAGE_LIST_URL = API_URL + '/storage/list/%(userId)s___%(namespac
 export const STORAGE_GET_URL = API_URL + '/storage/get/%(userId)s___%(namespace)s___%(file)s'
 export const STORAGE_POST_URL = API_URL + '/storage/%(userId)s___%(namespace)s___%(file)s'
 export const STORAGE_DELETE_URL = API_URL + '/storage/%(userId)s___%(namespace)s___%(file)s'
+export const STORAGE_MULTIPLE_DELETE_URL = API_URL + '/storage/multiple/%(userId)s___%(namespace)s'
 
 // FagmodulController
-export const CASE_CREATE_SED_URL = FAG_URL + '/buc/create'
+export const CASE_CREATE_SED_URL = FAG_URL + '/sed/buc/create'
 export const CASE_GENERATE_DATA_URL = FAG_URL + '/sed/confirm'
 export const CASE_ADD_TO_SED_URL = FAG_URL + '/sed/add'
 export const CASE_SEND_SED_URL = FAG_URL + '/sed/send'

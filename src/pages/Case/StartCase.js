@@ -3,12 +3,13 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 import Case from './Case'
 import PsychoPanel from '../../components/ui/Psycho/PsychoPanel'
 import * as Nav from '../../components/ui/Nav'
 import CountrySelect from '../../components/ui/CountrySelect/CountrySelect'
+import Tilsette from '../../resources/images/Tilsette'
 
 import * as routes from '../../constants/routes'
 import * as caseActions from '../../actions/case'
@@ -26,7 +27,7 @@ const mapStateToProps = (state) => {
     dataToConfirm: state.case.dataToConfirm,
     locale: state.ui.locale,
     loading: state.loading,
-    saksId: state.status.saksId,
+    sakId: state.status.sakId,
     rinaId: state.status.rinaId,
     aktoerId: state.status.aktoerId,
     fnr: state.status.fnr,
@@ -51,7 +52,7 @@ const defaultSelects = {
 class StartCase extends Component {
     state = {
       // these are only for the query form
-      saksId: undefined,
+      sakId: undefined,
       aktoerId: undefined,
       rinaId: undefined,
 
@@ -75,11 +76,11 @@ class StartCase extends Component {
     }
 
     async componentDidMount () {
-      const { actions, currentCase, dataToConfirm, saksId, aktoerId, fnr, rinaId } = this.props
+      const { actions, currentCase, dataToConfirm, sakId, aktoerId, fnr, rinaId } = this.props
 
-      if (_.isEmpty(currentCase) && saksId && (aktoerId || fnr)) {
+      if (_.isEmpty(currentCase) && sakId && (aktoerId || fnr)) {
         actions.getCaseFromCaseNumber({
-          saksId: saksId,
+          sakId: sakId,
           aktoerId: aktoerId || fnr,
           rinaId: rinaId
         })
@@ -93,7 +94,7 @@ class StartCase extends Component {
 
     async componentDidUpdate () {
       const { history, loading, sed, currentCase, dataToConfirm, institutionList, bucList,
-        subjectAreaList, countryList, actions, saksId, aktoerId, fnr, rinaId } = this.props
+        subjectAreaList, countryList, actions, sakId, aktoerId, fnr, rinaId } = this.props
 
       // comes from a Forward
       if (dataToConfirm) {
@@ -102,11 +103,11 @@ class StartCase extends Component {
       }
 
       if (!loading.gettingCase && currentCase) {
-        if (_.isEmpty(subjectAreaList) && !sed && !loading.subjectAreaList) {
+        if (subjectAreaList === undefined && !sed && !loading.subjectAreaList) {
           actions.getSubjectAreaList()
         }
 
-        if (_.isEmpty(bucList) && !sed && !loading.bucList) {
+        if (bucList === undefined && !sed && !loading.bucList) {
           actions.getBucList(currentCase ? currentCase.rinaid : undefined)
         }
 
@@ -119,9 +120,9 @@ class StartCase extends Component {
         }
       }
 
-      if (!loading.gettingCase && _.isEmpty(currentCase) && saksId && (aktoerId || fnr)) {
+      if (!loading.gettingCase && _.isEmpty(currentCase) && sakId && (aktoerId || fnr)) {
         actions.getCaseFromCaseNumber({
-          saksId: saksId,
+          sakId: sakId,
           aktoerId: aktoerId || fnr,
           rinaId: rinaId
         })
@@ -134,9 +135,9 @@ class StartCase extends Component {
       history.goBack()
     }
 
-    onSaksIdChange (e) {
+    onSakIdChange (e) {
       this.setState({
-        saksId: e.target.value.trim()
+        sakId: e.target.value.trim()
       })
     }
 
@@ -160,10 +161,10 @@ class StartCase extends Component {
 
     onFetchCaseButtonClick () {
       const { actions } = this.props
-      const { saksId, aktoerId, rinaId } = this.state
+      const { sakId, aktoerId, rinaId } = this.state
 
       actions.getCaseFromCaseNumber({
-        saksId: saksId,
+        sakId: sakId,
         aktoerId: aktoerId,
         rinaId: rinaId
       })
@@ -186,7 +187,7 @@ class StartCase extends Component {
 
       if (this.noValidationErrors()) {
         actions.dataToConfirm({
-          saksId: currentCase.casenumber,
+          sakId: currentCase.casenumber,
           aktoerId: currentCase.pinid,
           rinaId: currentCase.rinaid,
           subjectArea: _subjectArea,
@@ -513,7 +514,7 @@ class StartCase extends Component {
           <Nav.Knapp className='w-100 createInstitutionButton'
             disabled={!validInstitution}
             onClick={this.onCreateInstitutionButtonClick.bind(this)}>
-            {validInstitution ? <Nav.Ikon size={20} className='mr-2' kind='tilsette' /> : null}
+            {validInstitution ? <Tilsette size={20} className='mr-2' /> : null}
             {t('ui:add')}
           </Nav.Knapp>
         </div>
@@ -536,7 +537,7 @@ class StartCase extends Component {
 
     render () {
       const { t, history, location, currentCase, loading, sed, vedtakId } = this.props
-      const { saksId, aktoerId, rinaId, _sed, _vedtakId } = this.state
+      const { sakId, aktoerId, rinaId, _sed, _vedtakId } = this.state
 
       return <Case className='startCase'
         title={t('case:app-caseTitle') + ' - ' + t('case:app-startCaseTitle')}
@@ -552,12 +553,12 @@ class StartCase extends Component {
             : <React.Fragment>
               <div className='fieldset animate'>
                 <div className='mb-5'>
-                  <PsychoPanel closeButton>{t('help-startCase')}</PsychoPanel>
+                  <PsychoPanel closeButton>{t('case:help-startCase')}</PsychoPanel>
                 </div>
                 <Nav.Row>
                   <div className='mt-4 col-md-6'>
-                    <Nav.Input aria-describedby='help-saksId' className='getCaseInputSaksId' label={t('case:form-saksId') + ' *'} value={saksId || ''} onChange={this.onSaksIdChange.bind(this)} />
-                    <span id='help-saksId'>{t('case:help-saksId')}</span>
+                    <Nav.Input aria-describedby='help-sakId' className='getCaseInputSakId' label={t('case:form-sakId') + ' *'} value={sakId || ''} onChange={this.onSakIdChange.bind(this)} />
+                    <span id='help-sakId'>{t('case:help-sakId')}</span>
                   </div>
                   <div className='mt-4 col-md-6'>
                     <Nav.Input className='getCaseInputAktoerId' label={t('case:form-aktoerId') + ' *'} value={aktoerId || ''} onChange={this.onAktoerIdChange.bind(this)} />
@@ -658,5 +659,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(StartCase)
+  withTranslation()(StartCase)
 )

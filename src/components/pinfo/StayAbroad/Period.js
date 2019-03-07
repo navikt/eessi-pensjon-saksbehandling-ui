@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import _ from 'lodash'
 import moment from 'moment'
 import classNames from 'classnames'
+import MD5 from 'md5.js'
 
 import DatePicker from '../../ui/DatePicker/DatePicker'
 import CountrySelect from '../../ui/CountrySelect/CountrySelect'
@@ -14,11 +15,13 @@ import { periodValidation, personValidation } from '../Validation/singleTests'
 import * as stepTests from '../Validation/stepTests'
 import * as Nav from '../../ui/Nav'
 import Icons from '../../ui/Icons'
+import { pinfoDateToDate } from '../../../utils/Date'
 
 import * as constants from '../../../constants/constants'
 import * as uiActions from '../../../actions/ui'
 import * as pinfoActions from '../../../actions/pinfo'
 import * as storageActions from '../../../actions/storage'
+import * as attachmentActions from '../../../actions/attachment'
 
 import './Period.css'
 
@@ -27,25 +30,29 @@ const mapStateToProps = (state) => {
     locale: state.ui.locale,
     pinfo: state.pinfo,
     person: state.pinfo.person,
-    username: state.app.username
+    username: state.app.username,
+    attachments: state.attachment,
+    pageErrors: state.pinfo.pageErrors,
+    fileList: state.storage.fileList
   }
 }
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, storageActions, pinfoActions, uiActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, storageActions, pinfoActions, uiActions, attachmentActions), dispatch) }
 }
 
 class Period extends React.Component {
   state = {
     localErrors: {},
     errorTimestamp: new Date().getTime(),
+    displayError: false,
     _period: {}
   }
 
   constructor (props) {
     super(props)
     this.setType = this.eventSetProperty.bind(this, 'type', periodValidation.periodType)
-    this.setStartDate = this.dateSetProperty.bind(this, 'startDate', periodValidation.periodStartDate)
-    this.setEndDate = this.dateSetProperty.bind(this, 'endDate', periodValidation.periodEndDate)
+    this.setStartDate = this.dateSetProperty.bind(this, 'startDate', periodValidation.periodStartDateOnChange)
+    this.setEndDate = this.dateSetProperty.bind(this, 'endDate', periodValidation.periodEndDateOnChange)
     this.setCountry = this.valueSetProperty.bind(this, 'country', periodValidation.periodCountry)
     this.setInsuranceName = this.eventSetProperty.bind(this, 'insuranceName', periodValidation.insuranceName)
     this.setInsuranceType = this.eventSetProperty.bind(this, 'insuranceType', periodValidation.insuranceType)
@@ -58,9 +65,11 @@ class Period extends React.Component {
     this.setChildLastName = this.eventSetProperty.bind(this, 'childLastName', periodValidation.childLastName)
     this.setChildBirthDate = this.dateSetProperty.bind(this, 'childBirthDate', periodValidation.childBirthDate)
     this.setLearnInstitution = this.eventSetProperty.bind(this, 'learnInstitution', periodValidation.learnInstitution)
-    this.setAttachments = this.valueSetProperty.bind(this, 'attachments', null)
     this.setFatherName = this.eventSetPerson.bind(this, 'fatherName', personValidation.fatherName)
     this.setMotherName = this.eventSetPerson.bind(this, 'motherName', personValidation.motherName)
+    this.setAttachments = this.setAttachments.bind(this, 'attachments', null)
+    this.blurStartDate = this.dateBlur.bind(this, 'startDate', periodValidation.periodStartDateOnBlur)
+    this.blurEndDate = this.dateBlur.bind(this, 'endDate', periodValidation.periodEndDateOnBlur)
   }
 
   hasNoErrors (errors) {
@@ -85,7 +94,20 @@ class Period extends React.Component {
     return period.country && (period.country.value === 'ES' || period.country.value === 'FR')
   }
 
+  setAttachments (key, validateFunction, newFiles) {
+    const { attachments, actions } = this.props
+    let hashedFiles = newFiles.map(file => {
+      let hash = new MD5().update(file.content.base64).digest('hex')
+      if (!attachments[hash]) {
+        actions.addFileToState({ key: hash, file: file })
+      }
+      return { ...file, content: { md5: hash } }
+    })
+    this.valueSetProperty(key, validateFunction, hashedFiles)
+  }
+
   eventSetPerson (key, validateFunction, e) {
+    const { actions } = this.props
     let _localErrors = _.cloneDeep(this.state.localErrors)
     let value = e.target.value
     let error = validateFunction ? validateFunction(value) : undefined
@@ -95,7 +117,7 @@ class Period extends React.Component {
     if (error) {
       _localErrors[key] = error
     }
-    this.props.actions.setPerson({ [key]: value })
+    actions.setPerson({ [key]: value })
     this.setState({
       localErrors: _localErrors
     })
@@ -105,8 +127,58 @@ class Period extends React.Component {
     this.valueSetProperty(key, validateFunction, event.target.value)
   }
 
+  dateBlur (key, validateFunction, date) {
+    let _localErrors = _.cloneDeep(this.state.localErrors)
+
+    let error = validateFunction ? validateFunction(date) : undefined
+
+    if (!error && _localErrors.hasOwnProperty(key)) {
+      delete _localErrors[key]
+    }
+    if (error) {
+      _localErrors[key] = error
+    }
+    this.setState({
+      localErrors: _localErrors
+    })
+  }
+
   dateSetProperty (key, validateFunction, date) {
-    this.valueSetProperty(key, validateFunction, date ? date.valueOf() : null)
+    const { startDate, endDate } = this.state._period
+
+    let _localErrors = _.cloneDeep(this.state.localErrors)
+
+    let error = validateFunction ? validateFunction(date) : undefined
+    let timeSpanError
+
+    if (key === 'startDate' && endDate) {
+      timeSpanError = periodValidation.periodTimeSpan(date, endDate)
+    }
+    if (key === 'endDate' && startDate) {
+      timeSpanError = periodValidation.periodTimeSpan(startDate, date)
+    }
+
+    if (!error && _localErrors.hasOwnProperty(key)) {
+      delete _localErrors[key]
+    }
+    if (!timeSpanError && _localErrors.hasOwnProperty('timeSpan')) {
+      delete _localErrors.timeSpan
+    }
+
+    if (error) {
+      _localErrors[key] = error
+    }
+    if (timeSpanError) {
+      _localErrors.timeSpan = timeSpanError
+    }
+
+    this.setState({
+      _period: {
+        ...this.state._period,
+        [key]: date
+      },
+      localErrors: _localErrors
+    })
   }
 
   valueSetProperty (key, validateFunction, value) {
@@ -152,30 +224,58 @@ class Period extends React.Component {
     return stepTests.periodStep(_period, pinfo.person)
   }
 
-  addPeriod () {
+  addInsuranceId (insuranceId) {
+    this.valueSetProperty('insuranceId', null, insuranceId)
+  }
+
+  addInsuranceName (insuranceName) {
+    this.valueSetProperty('insuranceName', null, insuranceName)
+  }
+
+  saveNewPeriod () {
     const { periods, actions, pinfo, username } = this.props
     const { _period } = this.state
 
     let errors = this.validatePeriod()
     this.setState({
       localErrors: errors,
-      errorTimestamp: new Date().getTime()
+      errorTimestamp: new Date().getTime(),
+      displayError: true
     })
 
     if (this.hasNoErrors(errors)) {
       let newPeriods = _.clone(periods)
       let newPeriod = _.clone(_period)
+
+      // remove properties that do not belong to this type
+      switch (newPeriod) {
+        case 'work':
+          delete newPeriod.learnInstitution
+          break
+        case 'learn':
+          delete newPeriod.workActivity
+          delete newPeriod.workName
+          delete newPeriod.workPlace
+          break
+        default:
+          break
+      }
+
       newPeriod.id = new Date().getTime()
       newPeriods.push(newPeriod)
       actions.setStayAbroad(newPeriods)
       this.setState({
-        _period: {}
+        _period: {},
+        displayError: false
       })
       let _pinfo = _.cloneDeep(pinfo)
       _pinfo.stayAbroad = newPeriods
 
       actions.setMainButtonsVisibility(true)
-      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
+      actions.setStepError(undefined)
+      actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
+      actions.syncLocalStateWithStorage()
+      window.scrollTo(0, 0)
     }
   }
 
@@ -192,7 +292,8 @@ class Period extends React.Component {
     let errors = this.validatePeriod()
     this.setState({
       localErrors: errors,
-      errorTimestamp: new Date().getTime()
+      errorTimestamp: new Date().getTime(),
+      displayError: true
     })
 
     if (this.hasNoErrors(errors)) {
@@ -208,24 +309,27 @@ class Period extends React.Component {
         newPeriods.push(newPeriod)
         if (!this.hasSpecialCases(newPeriods)) {
           actions.setPerson({
-            fatherName: '',
-            motherName: ''
+            fatherName: undefined,
+            motherName: undefined
           })
         }
         actions.setStayAbroad(newPeriods)
         this.setState({
-          _period: {}
+          _period: {},
+          displayError: false
         })
         editPeriod({})
         actions.setMainButtonsVisibility(true)
         let _pinfo = _.cloneDeep(pinfo)
         _pinfo.stayAbroad = newPeriods
-        actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
+        actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
+        actions.syncLocalStateWithStorage()
       }
+      window.scrollTo(0, 0)
     }
   }
 
-  cancelPeriod () {
+  doCancelPeriod () {
     const { periods, editPeriod, actions } = this.props
 
     this.setState({
@@ -236,11 +340,13 @@ class Period extends React.Component {
     editPeriod({})
     if (!this.hasSpecialCases(periods)) {
       actions.setPerson({
-        fatherName: '',
-        motherName: ''
+        fatherName: undefined,
+        motherName: undefined
       })
     }
     actions.setMainButtonsVisibility(true)
+    actions.closeModal()
+    window.scrollTo(0, 0)
   }
 
   closeModal () {
@@ -265,6 +371,23 @@ class Period extends React.Component {
     })
   }
 
+  cancelPeriodRequest () {
+    const { t, actions } = this.props
+
+    actions.openModal({
+      modalTitle: t('pinfo:alert-cancelPeriod'),
+      modalText: t('pinfo:alert-areYouSureCancelPeriod'),
+      modalButtons: [{
+        main: true,
+        text: t('ui:yes') + ', ' + t('ui:cancel').toLowerCase(),
+        onClick: this.doCancelPeriod.bind(this)
+      }, {
+        text: t('ui:no').toLowerCase(),
+        onClick: this.closeModal.bind(this)
+      }]
+    })
+  }
+
   doRemovePeriod (period) {
     const { periods, actions, pinfo, username } = this.props
 
@@ -275,20 +398,22 @@ class Period extends React.Component {
       newPeriods.splice(index, 1)
       if (!this.hasSpecialCases(newPeriods)) {
         actions.setPerson({
-          fatherName: '',
-          motherName: ''
+          fatherName: undefined,
+          motherName: undefined
         })
       }
       actions.setStayAbroad(newPeriods)
       let _pinfo = _.cloneDeep(pinfo)
       _pinfo.stayAbroad = newPeriods
-      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo), { successAlert: false })
+      actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(_pinfo))
+      actions.syncLocalStateWithStorage()
     }
     actions.closeModal()
   }
 
   errorMessage () {
-    const { localErrors } = this.state
+    const { localErrors, displayError } = this.state
+    if (!displayError) { return undefined }
     for (var key in localErrors) {
       if (localErrors[key]) {
         return localErrors[key]
@@ -297,46 +422,93 @@ class Period extends React.Component {
     return undefined
   }
 
+  getPeriodAttachments (period) {
+    let { attachments } = this.props
+    if (!period.attachments) {
+      return []
+    }
+    return period.attachments.map(element => (
+      attachments[element.content.md5]
+    )).filter(element => element)
+  }
+
+  renderTagsForInsuranceName () {
+    const { periods } = this.props
+    const { _period } = this.state
+
+    return periods.map(period => {
+      return period.insuranceName
+    }).filter((insuranceName, index, self) => {
+      return insuranceName && _period.insuranceName !== insuranceName &&
+        self.indexOf(insuranceName) === index
+    }).map(insuranceName => {
+      return <Nav.EtikettBase
+        key={insuranceName} className='mr-3 mb-2' type='fokus'
+        onClick={this.addInsuranceName.bind(this, insuranceName)}>
+        <b>{insuranceName}</b>
+      </Nav.EtikettBase>
+    })
+  }
+
+  renderTagsForInsuranceId () {
+    const { periods } = this.props
+    const { _period } = this.state
+
+    return periods.map(period => {
+      return period.insuranceId
+    }).filter((insuranceId, index, self) => {
+      return insuranceId && _period.insuranceId !== insuranceId &&
+      self.indexOf(insuranceId) === index
+    }).map(insuranceId => {
+      return <Nav.EtikettBase
+        key={insuranceId} className='mr-3 mb-2' type='fokus'
+        onClick={this.addInsuranceId.bind(this, insuranceId)}>
+        <b>{insuranceId}</b>
+      </Nav.EtikettBase>
+    })
+  }
+
   render () {
-    const { t, mode, period, locale, current, first, last, person, showButtons } = this.props
+    const { t, mode, period, periods, locale, first, last, person, showButtons } = this.props
     const { localErrors, _period } = this.state
 
     let errorMessage = this.errorMessage()
 
     switch (mode) {
       case 'view':
+      case 'confirm':
         return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode)}>
-          <div className={classNames('col-md-6', { 'current': current })}>
+          <div className={classNames('col-12', { 'col-md-6': mode === 'view' })}>
             <div id={period.id} className='existingPeriod'>
-              <div className='icon mr-4'>
+              <div className='icon mr-3 ml-3'>
                 <div className={classNames('topHalf', { line: !first })} />
                 <div className={classNames('bottomHalf', { line: !last })} />
-                <Icons className='iconsvg' kind={'nav-' + period.type} />
+                <Icons className='iconsvg' kind={'nav-' + period.type} size={32} />
               </div>
               <div className='pt-2 pb-2 existingPeriodDescription'>
                 <span className='bold existingPeriodType'>{t('pinfo:stayAbroad-category-' + period.type)}</span>
                 <span>
-                  <img src={'../../../../../flags/' + period.country.value + '.png'}
-                    style={{ width: 20, height: 15, marginLeft: '0.7rem' }}
+                  <img className='flagImg ml-2 mr-2' src={'../../../../../flags/' + period.country.value + '.png'}
                     alt={period.country.label} />
+                  {period.country.label}
                 </span>
                 <br />
                 <span className='existingPeriodDates'>
                   <span className='bold'>{t('pinfo:stayAbroad-period')}</span>{': '}
-                  {moment(period.startDate).format('DD.MM.YYYY')}{' - '}
-                  {period.endDate ? moment(period.endDate).format('DD.MM.YYYY') : t('ui:unknown')}
+                  {moment(pinfoDateToDate(period.startDate)).format('DD.MM.YYYY')}{' - '}
+                  {period.endDate ? moment(pinfoDateToDate(period.endDate)).format('DD.MM.YYYY') : t('ui:unknown')}
                 </span>
                 <br />
+                <React.Fragment>
+                  <span className='bold'>{t('pinfo:stayAbroad-place')}</span>{': '}
+                  {period.place}
+                  <br />
+                </React.Fragment>
                 {period.type === 'work' ? <React.Fragment>
                   <span className='bold'>{t('pinfo:stayAbroad-work-title')}</span>{': '}
                   {period.workActivity}
                   <br />
                 </React.Fragment> : null }
-                {period.type === 'home' || period.type === 'military' ? <React.Fragment>
-                  <span className='bold'>{t('pinfo:stayAbroad-place')}</span>{': '}
-                  {period.place}
-                  <br />
-                </React.Fragment> : null }
                 {period.type === 'learn' ? <React.Fragment>
                   <span className='bold'>{t('pinfo:stayAbroad-learn-institution')}</span>{': '}
                   {period.learnInstitution}
@@ -349,93 +521,33 @@ class Period extends React.Component {
               </div>
             </div>
           </div>
-          {showButtons !== false ? <div className='col-md-6 existingPeriodButtons'>
+          {showButtons !== false && mode === 'view' ? <div className='col-md-6 col-12 existingPeriodButtons'>
             <Nav.Knapp className='mr-3 existingPeriodButton' onClick={this.requestEditPeriod.bind(this, period)}>
               {t('ui:change')}
             </Nav.Knapp>
             <Nav.Knapp className='existingPeriodButton' onClick={this.removePeriodRequest.bind(this, period)}>
-              <span className='mr-2' style={{ fontSize: '1.5rem' }}>×</span>
+              <Icons className='mr-3' kind='bigclose' size={18} color='#0067C5' />
               {t('ui:remove')}
             </Nav.Knapp>
           </div> : null }
         </Nav.Row>
 
-      case 'detail':
-        return <Nav.Row className={classNames('c-pinfo-stayabroad-period', mode, { 'current': current })}>
-          <div className='col-md-12'>
-            <div id={period.id} className='existingPeriod'>
-              <div className='icon mr-4'>
-                <div className={classNames('topHalf', { line: !first })} />
-                <div className={classNames('bottomHalf', { line: !last })} />
-                <Icons className='iconsvg' kind={'nav-' + period.type} />
-              </div>
-              <div className='pt-2 pb-2 existingPeriodDescription'>
-                <span className='bold existingPeriodType'>{t('pinfo:stayAbroad-category-' + period.type)}</span>
-                <br />
-                <span className='existingPeriodDates'>
-                  <span className='bold'>{t('pinfo:stayAbroad-period')}</span>{': '}
-                  {moment(period.startDate).format('DD.MM.YYYY')}{' - '}
-                  {period.endDate ? moment(period.endDate).format('DD.MM.YYYY') : t('ui:unknown')}
-                </span>
-                <br />
-
-                <span>
-                  <span className='bold'>{t('pinfo:stayAbroad-country')}</span>{': '}
-                  <img src={'../../../../../flags/' + period.country.value + '.png'}
-                    style={{ width: 30, height: 20, marginRight: '1rem' }}
-                    alt={period.country.label} />
-                  {period.country.label}
-                </span>
-                <br />
-
-                <span>
-                  <span className='bold'>{t('pinfo:stayAbroad-insurance-title')}</span>{': '}
-                  {period.insuranceId}{' - '}{period.insuranceName}{' - '}{period.insuranceType}
-                </span>
-                <br />
-
-                <span>
-                  <span className='bold'>{t('pinfo:stayAbroad-home-title')}</span>{': '}
-                  {period.place}
-                </span>
-                <br />
-
-                {period.type === 'work' ? <React.Fragment>
-                  <span className='bold'>{t('pinfo:stayAbroad-work-activity')}</span>{': '}
-                  {period.workActivity}
-                  <br />
-                  <span className='bold'>{t('pinfo:stayAbroad-work-name')}</span>{': '}
-                  {period.workName}
-                  <br />
-                  <span className='bold'>{t('pinfo:stayAbroad-work-place')}</span>{': '}
-                  {period.workPlace}
-                  <br />
-                </React.Fragment> : null }
-
-                {period.type === 'learn' ? <React.Fragment>
-                  <span className='bold'>{t('pinfo:stayAbroad-learn-institution')}</span>{': '}
-                  {period.learnInstitution}
-                  <br />
-                </React.Fragment> : null }
-                {period.attachments && !_.isEmpty(period.attachments) ? <span className='existingPeriodAttachments'>
-                  <span className='bold'>{t('pinfo:stayAbroad-attachments')}</span>{': '}
-                  {period.attachments.map(att => { return att.name }).join(', ')}
-                </span> : null}
-              </div>
-            </div>
-          </div>
-        </Nav.Row>
-
       case 'edit':
       case 'new':
         return <React.Fragment>
-          {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
-          <Nav.Undertittel className='mt-3 mb-3'>{t('pinfo:stayAbroad-period-' + mode)}</Nav.Undertittel>
+          {errorMessage ? <Nav.AlertStripe className='mt-4 mb-4' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
+          <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-period-' + mode)}</Nav.Undertittel>
+
           <Nav.Row className={classNames('c-pinfo-opphold-period', 'mt-4', mode)}>
-            <div className='col-md-6'>
+            <div className='col-sm-8'>
               <Nav.Select
                 id='pinfo-opphold-kategori-select'
-                label={t('pinfo:stayAbroad-category')}
+                label={<div>
+                  <span>{t('pinfo:stayAbroad-category')}</span>
+                  <Nav.HjelpetekstBase id='pinfo-stayAbroad-category-select-help'>
+                    {t('pinfo:stayAbroad-category-help')}
+                  </Nav.HjelpetekstBase>
+                </div>}
                 value={_period.type || ''}
                 onChange={this.setType}>
                 <option value=''>{t('ui:choose')}</option>
@@ -452,40 +564,49 @@ class Period extends React.Component {
               </Nav.Select>
             </div>
           </Nav.Row>
+
           { _period.type ? <React.Fragment>
+
+            {_period.type === 'home' ? <Nav.AlertStripe className='mt-4 mb-4' type='info'>{t('pinfo:warning-home-period')}</Nav.AlertStripe> : null}
+            <Nav.Undertittel className='mt-4 mb-4'>{t(`pinfo:stayAbroad-period-title-${_period.type}`)}</Nav.Undertittel>
+            <Nav.Normaltekst className='mb-4'>{t('pinfo:stayAbroad-period-date-description')}</Nav.Normaltekst>
+
             <Nav.Row>
-              <div className='col-md-12 mt-3 mb-3'>
-                <Nav.Undertittel className='mb-3'>{t(`pinfo:stayAbroad-period-title-${_period.type}`)}</Nav.Undertittel>
-                <Nav.Normaltekst>{t('pinfo:stayAbroad-period-date-description')}</Nav.Normaltekst>
-              </div>
-              <div className='col-md-6'>
-                <label className='mr-3 skjemaelement__label'>{t('pinfo:stayAbroad-period-start-date') + ' *'}</label>
-                <DatePicker
+              <div className='col-sm-6 col-12'>
+                <label className='datepickerLabel skjemaelement__label'>{t('pinfo:stayAbroad-period-start-date')}</label>
+                {<DatePicker
                   id='pinfo-opphold-startdato-date'
-                  selected={_period.startDate ? new Date(_period.startDate) : null}
-                  className='startDate'
-                  locale={locale}
-                  placeholder={t('ui:dateFormat')}
+                  labels={{ day: t('pinfo:stayAbroad-period-day'), month: t('pinfo:stayAbroad-period-month'), year: t('pinfo:stayAbroad-period-year') }}
+                  ids={{ day: 'pinfo-opphold-startdato-day', month: 'pinfo-opphold-startdato-month', year: 'pinfo-opphold-startdato-year' }}
+                  placeholders={{ day: t('pinfo:stayAbroad-period-placeholder-day'), month: t('pinfo:stayAbroad-period-placeholder-month'), year: t('pinfo:stayAbroad-period-placeholder-year') }}
+                  className='startDate pr-2'
+                  values={_period.startDate}
                   onChange={this.setStartDate}
-                  error={localErrors.startDate}
-                  errorMessage={t(localErrors.startDate)} />
+                  onBlur={this.blurStartDate}
+                  feil={localErrors.startDate || localErrors.timeSpan ? { feilmelding: t(localErrors.startDate || localErrors.timeSpan) } : undefined}
+                />
+                }
               </div>
-              <div className='col-md-6'>
-                <label className='skjemaelement__label'>{t('pinfo:stayAbroad-period-end-date') + ' *'}</label>
-                <DatePicker
-                  id='pinfo-opphold-sluttdato-date'
-                  selected={_period.endDate ? new Date(_period.endDate) : null}
-                  className='endDate'
-                  locale={locale}
-                  placeholder={t('ui:dateFormat')}
+              <div className='col-sm-6 col-12'>
+                <label className='datepickerLabel skjemaelement__label'>{t('pinfo:stayAbroad-period-end-date')}</label>
+                {<DatePicker
+                  labels={{ day: t('pinfo:stayAbroad-period-day'), month: t('pinfo:stayAbroad-period-month'), year: t('pinfo:stayAbroad-period-year') }}
+                  ids={{ day: 'pinfo-opphold-sluttdato-day', month: 'pinfo-opphold-sluttdato-month', year: 'pinfo-opphold-sluttdato-year' }}
+                  placeholders={{ day: t('pinfo:stayAbroad-period-placeholder-day'), month: t('pinfo:stayAbroad-period-placeholder-month'), year: t('pinfo:stayAbroad-period-placeholder-year') }}
+                  className='endDate pr-2'
+                  values={_period.endDate}
                   onChange={this.setEndDate}
-                  error={localErrors.endDate}
-                  errorMessage={t(localErrors.endDate)} />
+                  onBlur={this.blurEndDate}
+                  feil={localErrors.endDate || localErrors.timeSpan ? { feilmelding: t(localErrors.endDate || localErrors.timeSpan) } : undefined}
+                />
+                }
               </div>
+
             </Nav.Row>
+
             <Nav.Row>
-              <div className='mt-3 col-md-8'>
-                <label className='skjemaelement__label'>{t('pinfo:stayAbroad-country') + ' *'}</label>
+              <div className='col-sm-8 mt-3 mb-3'>
+                <label className='skjemaelement__label'>{t('pinfo:stayAbroad-country')}</label>
                 <CountrySelect
                   id='pinfo-opphold-land-select'
                   locale={locale}
@@ -496,88 +617,121 @@ class Period extends React.Component {
                   errorMessage={t(localErrors.country)}
                 />
               </div>
+            </Nav.Row>
 
-              {this.isASpecialCase(_period) ? <React.Fragment>
+            {this.isASpecialCase(_period) ? <Nav.Row>
 
-                <div className='col-md-12 mt-3'>
-                  <div className='float-right'>
-                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-help'>
+              <div className='col-sm-12 mt-3'>
+                <Nav.Input
+                  id='pinfo-opphold-farsnavn-input'
+                  type='text'
+                  label={<div>
+                    <span>{t('pinfo:stayAbroad-period-fathername')}</span>
+                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-period-fathername-help'>
                       <span>{t('pinfo:stayAbroad-spain-france-warning', { country: _period.country.label })}</span>
                     </Nav.HjelpetekstBase>
-                  </div>
-                  <Nav.Input
-                    id='pinfo-opphold-farsnavn-input'
-                    type='text'
-                    label={t('pinfo:stayAbroad-period-fathername')}
-                    placeholder={t('ui:writeIn')}
-                    value={person.fatherName || ''}
-                    onChange={this.setFatherName}
-                    feil={localErrors.fatherName ? { feilmelding: t(localErrors.fatherName) } : null}
-                  />
-                </div>
-                <div className='col-md-12 mt-3'>
-                  <div className='float-right'>
-                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-help'>
+                  </div>}
+                  placeholder={t('ui:writeIn')}
+                  value={person.fatherName || ''}
+                  onChange={this.setFatherName}
+                  feil={localErrors.fatherName ? { feilmelding: t(localErrors.fatherName) } : null}
+                />
+              </div>
+              <div className='col-sm-12 mt-3'>
+                <Nav.Input
+                  id='pinfo-opphold-morsnavn-input'
+                  type='text'
+                  label={<div>
+                    <span>{t('pinfo:stayAbroad-period-mothername')}</span>
+                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-period-mothername-help'>
                       <span>{t('pinfo:stayAbroad-spain-france-warning', { country: _period.country.label })}</span>
                     </Nav.HjelpetekstBase>
-                  </div>
-                  <Nav.Input
-                    id='pinfo-opphold-morsnavn-input'
-                    type='text'
-                    label={t('pinfo:stayAbroad-period-mothername')}
-                    placeholder={t('ui:writeIn')}
-                    value={person.motherName || ''}
-                    onChange={this.setMotherName}
-                    feil={localErrors.motherName ? { feilmelding: t(localErrors.motherName) } : null}
-                  />
-                </div>
-              </React.Fragment> : null }
-              <div className='col-md-12 d-flex align-items-center'>
-                <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-insurance-title')}</Nav.Undertittel>
-                {mode !== 'view' ? <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-help'>
-                  {t('pinfo:stayAbroad-insurance-title-help')}
-                </Nav.HjelpetekstBase> : null}
-              </div>
-              <div className='col-md-12'>
-                <Nav.Input
-                  id='pinfo-opphold-trygdeordning-navn'
-                  label={t('pinfo:stayAbroad-insurance-name')}
+                  </div>}
                   placeholder={t('ui:writeIn')}
-                  value={_period.insuranceName || ''}
-                  onChange={this.setInsuranceName}
-                  feil={localErrors.insuranceName ? { feilmelding: t(localErrors.insuranceName) } : null}
+                  value={person.motherName || ''}
+                  onChange={this.setMotherName}
+                  feil={localErrors.motherName ? { feilmelding: t(localErrors.motherName) } : null}
                 />
               </div>
-              <div className='col-md-12'>
-                <Nav.Select
-                  id='pinfo-opphold-trygdeordning-type'
-                  label={t('pinfo:stayAbroad-insurance-type')}
-                  value={_period.insuranceType || ''}
-                  onChange={this.setInsuranceType}
-                  feil={localErrors.insuranceType ? { feilmelding: t(localErrors.insuranceType) } : null}>
-                  <option value=''>{t('ui:choose')}</option>
-                  <option value={t('pinfo:stayAbroad-insurance-type-01')}>{t('pinfo:stayAbroad-insurance-type-01')}</option>
-                  <option value={t('pinfo:stayAbroad-insurance-type-02')}>{t('pinfo:stayAbroad-insurance-type-02')}</option>
-                  <option value={t('pinfo:stayAbroad-insurance-type-03')}>{t('pinfo:stayAbroad-insurance-type-03')}</option>
-                </Nav.Select>
-              </div>
-              <div className='col-md-12'>
-                <Nav.Input
-                  id='pinfo-opphold-trygdeordning-id'
-                  label={t('pinfo:stayAbroad-insurance-id')}
+            </Nav.Row> : null}
+
+            {_period.type === 'work' ? <Nav.Row>
+              <div className='col-sm-12'>
+                <Nav.Textarea
+                  id='pinfo-opphold-arbeidgiverssted-textarea'
+                  label={<div>
+                    <span>{t('pinfo:stayAbroad-work-place')}</span>
+                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-work-place-help'>
+                      <span>{t('pinfo:stayAbroad-work-place-help')}</span>
+                    </Nav.HjelpetekstBase>
+                    <span className='optional'>{t('ui:optional')}</span>
+                  </div>}
                   placeholder={t('ui:writeIn')}
-                  value={_period.insuranceId || ''}
-                  onChange={this.setInsuranceId}
-                  feil={localErrors.insuranceId ? { feilmelding: t(localErrors.insuranceId) } : null}
+                  value={_period.workPlace || ''}
+                  style={{ minHeight: '100px' }}
+                  maxLength={100}
+                  onChange={this.setWorkPlace}
+                  feil={localErrors.workPlace ? { feilmelding: t(localErrors.workPlace) } : null}
                 />
               </div>
-              <div className='col-md-12'>
-                <Nav.Undertittel className='mt-3 mb-3'>{t('pinfo:stayAbroad-home-title')}</Nav.Undertittel>
+              <div className='col-sm-12'>
+                <Nav.Input
+                  id='pinfo-opphold-yrkesaktivitet-input'
+                  label={<div>
+                    <span>{t('pinfo:stayAbroad-work-activity')}</span>
+                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-work-activity-help'>
+                      <span>{t('pinfo:stayAbroad-work-activity-help')}</span>
+                    </Nav.HjelpetekstBase>
+                  </div>}
+                  placeholder={t('ui:writeIn')}
+                  value={_period.workActivity || ''}
+                  onChange={this.setWorkActivity}
+                  feil={localErrors.workActivity ? { feilmelding: t(localErrors.workActivity) } : null}
+                />
               </div>
-              <div className='col-md-12'>
+              <div className='col-sm-12'>
+                <Nav.Input
+                  id='pinfo-opphold-arbeidgiversnavn-input'
+                  label={<div>
+                    <span>{t('pinfo:stayAbroad-work-name')}</span>
+                    <span className='optional'>{t('ui:optional')}</span>
+                  </div>}
+                  placeholder={t('ui:writeIn')}
+                  value={_period.workName || ''}
+                  onChange={this.setWorkName}
+                  feil={localErrors.workName ? { feilmelding: t(localErrors.workName) } : null}
+                />
+              </div>
+            </Nav.Row> : null}
+
+            {_period.type === 'learn' ? <Nav.Row>
+              <div className='col-sm-12'>
+                <Nav.Input
+                  id='pinfo-opphold-opplaeringsinstitusjonsnavn-input'
+                  label={<div>
+                    <span>{t('pinfo:stayAbroad-learn-institution')}</span>
+                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-learn-institution-help'>
+                      <span>{t('pinfo:stayAbroad-learn-institution-help')}</span>
+                    </Nav.HjelpetekstBase>
+                  </div>}
+                  value={_period.learnInstitution || ''}
+                  placeholder={t('ui:writeIn')}
+                  onChange={this.setLearnInstitution}
+                  feil={localErrors.learnInstitution ? { feilmelding: t(localErrors.learnInstitution) } : null}
+                />
+              </div>
+            </Nav.Row> : null}
+
+            {_period.type !== 'home' ? <Nav.Row>
+              <div className='col-sm-12'>
+                <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-home-title')}</Nav.Undertittel>
+              </div>
+              <div className='col-sm-12'>
                 <Nav.Textarea
                   id='pinfo-opphold-bosted-place-textarea'
-                  label={t('pinfo:stayAbroad-place') + ' *'}
+                  label={<div>
+                    <span>{t('pinfo:stayAbroad-place-and-country')}</span>
+                  </div>}
                   placeholder={t('ui:writeIn')}
                   value={_period.place || ''}
                   style={{ minHeight: '100px' }}
@@ -586,149 +740,136 @@ class Period extends React.Component {
                   feil={localErrors.place ? { feilmelding: t(localErrors.place) } : null}
                 />
               </div>
+            </Nav.Row> : <Nav.Row>
+              <div className='col-sm-12'>
+                <Nav.Textarea
+                  id='pinfo-opphold-bosted-place-textarea'
+                  label={t('pinfo:stayAbroad-place')}
+                  placeholder={t('ui:writeIn')}
+                  value={_period.place || ''}
+                  style={{ minHeight: '100px' }}
+                  maxLength={100}
+                  onChange={this.setPlace}
+                  feil={localErrors.place ? { feilmelding: t(localErrors.place) } : null}
+                />
+              </div>
+            </Nav.Row>}
 
-            </Nav.Row>
-            {_period.type === 'work' ? <React.Fragment>
-              <Nav.Row>
-                <div className='col-md-12'>
-                  <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-work-title')}</Nav.Undertittel>
-                </div>
-              </Nav.Row>
-              <Nav.Row>
-                <div className='col-md-12 col-xs-12'>
-                  <Nav.Input
-                    id='pinfo-opphold-yrkesaktivitet-input'
-                    label={t('pinfo:stayAbroad-work-activity') + ' *'}
-                    placeholder={t('ui:writeIn')}
-                    value={_period.workActivity || ''}
-                    onChange={this.setWorkActivity}
-                    feil={localErrors.workActivity ? { feilmelding: t(localErrors.workActivity) } : null}
-                  />
-                </div>
-              </Nav.Row>
-              <Nav.Row>
-                <div className='col-md-12 col-xs-12'>
-                  <Nav.Input
-                    id='pinfo-opphold-arbeidgiversnavn-input'
-                    label={t('pinfo:stayAbroad-work-name')}
-                    placeholder={t('ui:writeIn')}
-                    value={_period.workName || ''}
-                    onChange={this.setWorkName}
-                    feil={localErrors.workName ? { feilmelding: t(localErrors.workName) } : null}
-                  />
-                </div>
-              </Nav.Row>
-              <Nav.Row >
-                <div className='col-md-12 col-xs-12'>
-                  <Nav.Textarea
-                    id='pinfo-opphold-arbeidgiverssted-textarea'
-                    label={t('pinfo:stayAbroad-work-place')}
-                    placeholder={t('ui:writeIn')}
-                    value={_period.workPlace || ''}
-                    style={{ minHeight: '100px' }}
-                    maxLength={100}
-                    onChange={this.setWorkPlace}
-                    feil={localErrors.workPlace ? { feilmelding: t(localErrors.workPlace) } : null}
-                  />
-                </div>
-              </Nav.Row>
-            </React.Fragment> : null}
-            {_period.type === 'child' ? <Nav.Row>
-              <div className='col-md-12'>
-                <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-child-title')}</Nav.Undertittel>
-              </div>
-              <div className='col-md-6'>
-                <Nav.Input
-                  id='pinfo-opphold-barnasfornavn-input'
-                  label={t('pinfo:stayAbroad-child-firstname')}
-                  placeholder={t('ui:writeIn')}
-                  value={_period.childFirstName || ''}
-                  onChange={this.setChildFirstName}
-                  feil={localErrors.childFirstName ? { feilmelding: t(localErrors.childFirstName) } : null}
-                />
-              </div>
-              <div className='col-md-6'>
-                <Nav.Input
-                  id='pinfo-opphold-barnasetternavn-input'
-                  label={t('pinfo:stayAbroad-child-lastname')}
-                  value={_period.childLastName || ''}
-                  placeholder={t('ui:writeIn')}
-                  onChange={this.setChildLastName}
-                  feil={localErrors.childLastName ? { feilmelding: t(localErrors.childLastName) } : null}
-                />
-              </div>
-              <div className='col-md-6'>
-                <label className='skjemaelement__label'>{t('pinfo:stayAbroad-child-birthdate')}</label>
-                <DatePicker
-                  id='pinfo-opphold-barnasfodselsdato-date'
-                  selected={_period.childBirthDate ? new Date(_period.childBirthDate) : null}
-                  className='childBirthDate'
-                  locale={locale}
-                  placeholder={t('ui:dateFormat')}
-                  onChange={this.setChildBirthDate}
-                  error={localErrors.childBirthDate}
-                  errorMessage={t(localErrors.childBirthDate)} />
-              </div>
-            </Nav.Row> : null}
-            {_period.type === 'learn' ? <Nav.Row>
-              <div className='col-md-12'>
-                <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-learn-title')}</Nav.Undertittel>
-              </div>
-              <div className='col-md-12'>
-                <Nav.Input
-                  id='pinfo-opphold-opplaeringsinstitusjonsnavn-input'
-                  label={t('pinfo:stayAbroad-learn-institution')}
-                  value={_period.learnInstitution || ''}
-                  placeholder={t('ui:writeIn')}
-                  onChange={this.setLearnInstitution}
-                  feil={localErrors.learnInstitution ? { feilmelding: t(localErrors.learnInstitution) } : null}
-                />
-              </div>
-            </Nav.Row> : null}
+            <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-insurance-title')}</Nav.Undertittel>
+
             <Nav.Row>
-              <div className='col-md-12'>
-                <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-attachment-title')}</Nav.Undertittel>
+              <div className='col-sm-12'>
+                <Nav.Input
+                  id='pinfo-opphold-trygdeordning-navn'
+                  label={<div>
+                    <span>{t('pinfo:stayAbroad-insurance-name')}</span>
+                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-name-help'>
+                      {t('pinfo:stayAbroad-insurance-name-help')}
+                    </Nav.HjelpetekstBase>
+                    <span className='optional'>{t('ui:optional')}</span>
+                  </div>}
+                  placeholder={t('ui:writeIn')}
+                  value={_period.insuranceName || ''}
+                  onChange={this.setInsuranceName}
+                  feil={localErrors.insuranceName ? { feilmelding: t(localErrors.insuranceName) } : null}
+                />
+                <div className='id-suggestions mb-4'>
+                  {this.renderTagsForInsuranceName()}
+                </div>
               </div>
-              <div className='col-md-12'>
+              <div className='col-sm-12'>
+                <Nav.Input
+                  id='pinfo-opphold-trygdeordning-id'
+                  label={<div>
+                    <span>{t('pinfo:stayAbroad-insurance-id')}</span>
+                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-id-help'>
+                      {t('pinfo:stayAbroad-insurance-id-help')}
+                    </Nav.HjelpetekstBase>
+                    <span className='optional'>{t('ui:optional')}</span>
+                  </div>}
+                  placeholder={t('ui:writeIn')}
+                  value={_period.insuranceId || ''}
+                  onChange={this.setInsuranceId}
+                  feil={localErrors.insuranceId ? { feilmelding: t(localErrors.insuranceId) } : null}
+                />
+                <div className='id-suggestions mb-4'>
+                  {this.renderTagsForInsuranceId()}
+                </div>
+              </div>
+              <div className='col-sm-12'>
+                <Nav.Select
+                  id='pinfo-opphold-trygdeordning-type'
+                  label={<div>
+                    <span>{t('pinfo:stayAbroad-insurance-type')}</span>
+                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-type-help'>
+                      {t('pinfo:stayAbroad-insurance-type-help')}
+                    </Nav.HjelpetekstBase>
+                    <span className='optional'>{t('ui:optional')}</span>
+                  </div>}
+                  value={_period.insuranceType || ''}
+                  onChange={this.setInsuranceType}
+                  feil={localErrors.insuranceType ? { feilmelding: t(localErrors.insuranceType) } : null}>
+                  <option value=''>{t('ui:choose')}</option>
+                  <option value={t('pinfo:stayAbroad-insurance-type-01')}>{t('pinfo:stayAbroad-insurance-type-01')}</option>
+                  <option value={t('pinfo:stayAbroad-insurance-type-02')}>{t('pinfo:stayAbroad-insurance-type-02')}</option>
+                  <option value={t('pinfo:stayAbroad-insurance-type-03')}>{t('pinfo:stayAbroad-insurance-type-03')}</option>
+                  <option value={t('pinfo:stayAbroad-insurance-type-04')}>{t('pinfo:stayAbroad-insurance-type-04')}</option>
+                </Nav.Select>
+              </div>
+            </Nav.Row>
+
+            <Nav.Row>
+              <div className='col-sm-12'>
+                <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-attachment-title')}</Nav.Undertittel>
+                <Nav.Undertekst className='mt-4 mb-4'>{t('pinfo:stayAbroad-attachment-title-help')}</Nav.Undertekst>
+                <span className='optional mb-2'>{t('ui:optional')}</span>
+              </div>
+              <div className='col-sm-12'>
                 <FileUpload
                   id={'pinfo-opphold-vedlegg-fileupload-' + period.id}
-                  className='fileUpload'
+                  acceptedMimetypes={['application/pdf', 'image/jpeg', 'image/png']}
+                  maxFileSize={10 * 1024 * 1024}
+                  maxFiles={5}
                   t={t}
                   ref={f => { this.fileUpload = f }}
                   fileUploadDroppableId={'fileUpload'}
-                  files={_period.attachments || []}
+                  files={this.getPeriodAttachments(_period)}
                   onFileChange={this.setAttachments} />
               </div>
             </Nav.Row>
+
             <Nav.Row>
-              <div className='mt-4 mb-4 col-md-12'>
-                {'* ' + t('mandatoryField')}
-              </div>
-            </Nav.Row>
-            <Nav.Row>
-              <div className='mt-4 mb-4 col-md-12'>
+              <div className='mt-4 mb-4 col-sm-12'>
                 {mode === 'edit' ? <Nav.Knapp
                   id='pinfo-opphold-endre-button'
-                  className='editPeriodButton'
+                  className='editPeriodButton mb-2 mr-4 w-sm-100'
                   onClick={this.saveEditPeriod.bind(this)}>
-                  {t('ui:changePeriod')}
+                  {t('pinfo:form-saveEditPeriod')}
                 </Nav.Knapp> : null}
-                {mode === 'new' ? <Nav.Knapp
-                  id='pinfo-opphold-leggtil-button'
-                  className='addPeriodButton'
-                  onClick={this.addPeriod.bind(this)}>
-                  <span className='mr-2'>+</span>
-                  {t('ui:addPeriod')}
-                </Nav.Knapp> : null}
+                {mode === 'new' ? <Nav.Hovedknapp
+                  id='pinfo-opphold-lagre-button'
+                  className='addPeriodButton mb-2 mr-4 w-sm-100'
+                  onClick={this.saveNewPeriod.bind(this)}>
+                  {t('pinfo:form-saveNewPeriod')}
+                </Nav.Hovedknapp> : null}
                 <Nav.Knapp
                   id='pinfo-opphold-avbryt-button'
-                  className='ml-4 cancelPeriodButton'
-                  onClick={this.cancelPeriod.bind(this)}>
-                  {t('ui:cancel-period')}
+                  className='cancelPeriodButton mb-2 w-sm-100'
+                  onClick={this.cancelPeriodRequest.bind(this)}>
+                  {t('pinfo:form-cancelPeriod')}
                 </Nav.Knapp>
               </div>
             </Nav.Row>
+
           </React.Fragment> : null}
+
+          { !_period.type && _.isEmpty(periods) ? <Nav.AlertStripe
+            className='mt-4 mb-4' type='info'>
+            {t('pinfo:warning-one-period')}
+          </Nav.AlertStripe>
+            : null}
+
+          {errorMessage ? <Nav.AlertStripe className='mt-4 mb-4' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
         </React.Fragment>
       default:
         return null
@@ -741,7 +882,7 @@ Period.propTypes = {
   periods: PT.array,
   actions: PT.object.isRequired,
   editPeriod: PT.func.isRequired,
-  showButtons: PT.boolean,
+  showButtons: PT.bool,
   t: PT.func
 }
 

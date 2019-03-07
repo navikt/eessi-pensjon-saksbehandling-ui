@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import { countries } from './CountrySelectData'
 import _ from 'lodash'
 import classNames from 'classnames'
@@ -32,7 +32,7 @@ class CountrySelect extends Component {
   }
 
   render () {
-    const { t, placeholder, value, locale, type, includeList, excludeList, className, styles = {}, error = false } = this.props
+    const { t, id, placeholder, value, locale, type, includeList, excludeList, className, styles = {}, error = false } = this.props
 
     let optionList = countries[locale]
     let options = (includeList ? this.include(includeList, optionList) : optionList)
@@ -42,7 +42,7 @@ class CountrySelect extends Component {
     if (defValue && !defValue.label) {
       defValue = _.find(options, { value: defValue.value ? defValue.value : defValue })
     }
-    return <div className={classNames('c-ui-countrySelect', className)}>
+    return <div id={id} className={classNames('c-ui-countrySelect', className, { 'skjemaelement__feilmelding': error })}>
       <Select placeholder={placeholder || t('ui:searchCountry')}
         value={defValue || null}
         options={options}
@@ -75,7 +75,7 @@ class CountrySelect extends Component {
 }
 CountrySelect.propTypes = {
   onSelect: PT.func.isRequired,
-  value: PT.oneOfType([PT.object, PT.string]).isRequired,
+  value: PT.oneOfType([PT.object, PT.string]),
   t: PT.func.isRequired,
   locale: PT.string.isRequired,
   style: PT.object,
@@ -93,4 +93,4 @@ CountrySelect.propTypes = {
   components: PT.object
 }
 
-export default withNamespaces()(CountrySelect)
+export default withTranslation()(CountrySelect)

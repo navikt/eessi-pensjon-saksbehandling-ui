@@ -40,8 +40,8 @@ class Modal extends Component {
         {modal.modalContent ? modal.modalContent : <div className='m-4 text-center'>{modal.modalText}</div>}
         {modal.modalButtons ? <div className='text-center'>{modal.modalButtons.map(button => {
           return button.main
-            ? <Nav.Hovedknapp disabled={button.disabled || false} className='mr-3 mb-3 modal-main-button' key={button.text} onClick={button.onClick.bind(this)}>{button.text}</Nav.Hovedknapp>
-            : <Nav.Knapp className='mr-3 mb-3 modal-other-button' key={button.text} onClick={button.onClick.bind(this)}>{button.text}</Nav.Knapp>
+            ? <Nav.Hovedknapp id='c-ui-modal-main-button' disabled={button.disabled || false} className='mr-3 mb-3 modal-main-button' key={button.text} onClick={button.onClick.bind(this)}>{button.text}</Nav.Hovedknapp>
+            : <Nav.Knapp id='c-ui-modal-other-button' className='mr-3 mb-3 modal-other-button' key={button.text} onClick={button.onClick.bind(this)}>{button.text}</Nav.Knapp>
         })}
         </div> : null }
       </div> : null}

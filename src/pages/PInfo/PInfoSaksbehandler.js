@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import _ from 'lodash'
 
@@ -21,7 +21,7 @@ import './PInfo.css'
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
-    saksId: state.status.saksId,
+    sakId: state.status.sakId,
     aktoerId: state.status.aktoerId,
     fileList: state.storage.fileList,
     file: state.storage.file,
@@ -45,13 +45,12 @@ class PInfoSaksbehandler extends React.Component {
   }
 
   componentDidMount () {
-    let { actions, aktoerId, saksId, fileList } = this.props
-
-    if (aktoerId && saksId && fileList === undefined) {
-      actions.listStorageFiles(aktoerId, 'varsler___' + saksId)
+    let { actions, aktoerId, sakId, fileList } = this.props
+    if (aktoerId && sakId && fileList === undefined) {
+      actions.listStorageFiles(aktoerId, 'varsler___' + sakId)
     }
 
-    if (!aktoerId || !saksId) {
+    if (!aktoerId || !sakId) {
       this.setState({
         noParams: true
       })
@@ -59,16 +58,16 @@ class PInfoSaksbehandler extends React.Component {
   }
 
   componentDidUpdate () {
-    let { fileList, actions, file, aktoerId, saksId } = this.props
+    let { fileList, actions, file, aktoerId, sakId } = this.props
 
     if (fileList !== undefined && this.state.fileList === undefined) {
       fileList.map(file => {
-        actions.getStorageFile({
+        actions.getStorageFileWithNoNotification({
           userId: aktoerId,
           namespace: 'varsler',
-          file: saksId + '___' + file,
-          context: { successAlert: false }
+          file: sakId + '___' + file
         })
+        return file
       })
 
       this.setState({
@@ -92,23 +91,23 @@ class PInfoSaksbehandler extends React.Component {
   }
 
   refresh () {
-    let { actions, aktoerId, saksId } = this.props
+    let { actions, aktoerId, sakId } = this.props
 
-    if (aktoerId && saksId) {
+    if (aktoerId && sakId) {
       this.setState({
         fileList: undefined,
         files: {}
       }, () => {
-        actions.listStorageFiles(aktoerId, 'varsler___' + saksId)
+        actions.listStorageFiles(aktoerId, 'varsler___' + sakId)
       })
     }
   }
 
   onInviteButtonClick () {
-    let { actions, aktoerId, saksId } = this.props
+    let { actions, aktoerId, sakId } = this.props
     actions.sendInvite({
       aktoerId: aktoerId,
-      saksId: saksId
+      sakId: sakId
     })
   }
 
@@ -117,7 +116,7 @@ class PInfoSaksbehandler extends React.Component {
     const { isReady, noParams, files } = this.state
 
     if (noParams) {
-      return <TopContainer className='p-pInfo' history={history} location={location} header={t('pinfo:app-title')}>
+      return <TopContainer className='p-pInfo p-pInfoSaksbehandler' history={history} location={location} header={t('pinfo:app-title')}>
         <div className='content container text-center pt-4'>
           <div className='psycho mt-3 mb-4' style={{ height: '110px' }}>
             <Psycho type='trist' id='psycho' />
@@ -206,5 +205,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(PInfoSaksbehandler)
+  withTranslation()(PInfoSaksbehandler)
 )

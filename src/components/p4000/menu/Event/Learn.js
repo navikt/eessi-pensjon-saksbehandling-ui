@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import classNames from 'classnames'
@@ -136,7 +136,7 @@ class Learn extends Component {
         </div>
         <Nav.Row className='eventDescription mb-4 fieldset'>
           <Nav.Column>
-            <Nav.Ikon className='float-left mr-4' kind='info-sirkel' />
+            <Nav.Ikon className='float-left mr-4' kind='info-sirkel-fyll' />
             <Nav.Tekstomrade>{t('p4000:' + type + '-description')}</Nav.Tekstomrade>
           </Nav.Column>
         </Nav.Row>
@@ -205,5 +205,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(Learn)
+  withTranslation()(Learn)
 )

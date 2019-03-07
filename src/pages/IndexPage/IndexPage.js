@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import 'url-search-params-polyfill'
 
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
@@ -42,13 +42,13 @@ class IndexPage extends Component {
   render () {
     const { t, language, history, status, location, userRole } = this.props
 
-    return <TopContainer className='frontPage'
+    return <TopContainer className='p-indexPage'
       language={language} history={history} location={location}
       sideContent={<EmptyDrawer />}>
 
       <h1 className='typo-sidetittel ml-0 appTitle'>{t('app-pageTitle')}</h1>
-      <h2 className='typo-undertittel ml-0 appDescription'>{t('app-pageDescription')}</h2>
-      <div className='animate mb-4'>
+      <h2 className='typo-undertittel ml-0 mb-4 appDescription'>{t('app-pageDescription')}</h2>
+      <div className='fieldset animate mb-4'>
 
         <div className='mb-4'>
           <DocumentStatus history={history} />
@@ -106,5 +106,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(IndexPage)
+  withTranslation()(IndexPage)
 )

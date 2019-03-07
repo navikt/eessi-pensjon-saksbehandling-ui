@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
-import { withNamespaces } from 'react-i18next'
 
 import * as Nav from '../ui/Nav'
 
 class WaitingPanel extends Component {
   render () {
-    const { t, message, className } = this.props
+    const { message, className } = this.props
 
-    return <div className={classNames('text-center', className)}>
+    return <div className={classNames('c-waitingPanel', 'text-center', className)}>
       <Nav.NavFrontendSpinner />
-      <p className='typo-normal'>{t(message)}</p>
+      <p className='c-waitingPanel-message typo-normal'>{message}</p>
     </div>
   }
 }
@@ -21,4 +20,4 @@ WaitingPanel.propTypes = {
   className: PT.string
 }
 
-export default withNamespaces()(WaitingPanel)
+export default WaitingPanel

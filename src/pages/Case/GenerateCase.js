@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 import Case from './Case'
 import * as Nav from '../../components/ui/Nav'
@@ -64,7 +64,7 @@ class GenerateCase extends Component {
       'buc': dataToGenerate.buc,
       'sed': dataToGenerate.sed,
       'subjectArea': dataToGenerate.subjectArea,
-      'saksId': dataToGenerate.saksId,
+      'sakId': dataToGenerate.sakId,
       'aktoerId': dataToGenerate.aktoerId,
       'rinaId': dataToGenerate.rinaId,
       'vedtakId': dataToGenerate.vedtakId
@@ -125,5 +125,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(GenerateCase)
+  withTranslation()(GenerateCase)
 )

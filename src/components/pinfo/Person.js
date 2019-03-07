@@ -2,7 +2,7 @@ import React from 'react'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import _ from 'lodash'
 
 import * as Nav from '../ui/Nav'
@@ -14,7 +14,12 @@ import * as pinfoActions from '../../actions/pinfo'
 const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
-    person: state.pinfo.person
+    person: state.pinfo.person,
+    pageErrors: state.pinfo.pageErrors,
+    errorTimestamp: state.pinfo.errorTimestamp,
+    firstName: state.app.firstName,
+    middleName: state.app.middleName,
+    lastName: state.app.lastName
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -42,13 +47,11 @@ class Person extends React.Component {
     this.setNameAtBirth = this.eventSetProperty.bind(this, 'nameAtBirth', personValidation.nameAtBirth)
     this.setPreviousName = this.eventSetProperty.bind(this, 'previousName', personValidation.previousName)
     this.setCountry = this.valueSetProperty.bind(this, 'country', personValidation.country)
-    this.setCity = this.eventSetProperty.bind(this, 'city', personValidation.city)
+    this.setPlace = this.eventSetProperty.bind(this, 'place', personValidation.place)
     this.setRegion = this.eventSetProperty.bind(this, 'region', personValidation.region)
     this.setPhone = this.eventSetProperty.bind(this, 'phone', personValidation.phone)
     this.setEmail = this.eventSetProperty.bind(this, 'email', null)
     this.setEmailAndValidate = this.eventSetProperty.bind(this, 'email', personValidation.email)
-    this.setMotherName = this.eventSetProperty.bind(this, 'motherName', personValidation.motherName)
-    this.setFatherName = this.eventSetProperty.bind(this, 'fatherName', personValidation.fatherName)
   }
 
   checkboxSetProperty (key, validateFunction, event) {
@@ -80,17 +83,36 @@ class Person extends React.Component {
   }
 
   render () {
-    const { t, person, locale, mode } = this.props
+    const { t, person, locale, firstName, middleName, lastName } = this.props
     const { localErrors } = this.state
 
     return <div className='c-pinfo-person'>
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-info-title')}</Nav.Undertittel>
+      <Nav.Undertekst className='mt-4 mb-4'>{t('pinfo:app-info-on-help-icon')}</Nav.Undertekst>
+      {(firstName || middleName || lastName)
+        ? <Nav.Row>
+          <div className='col-sm-12 mb-2'>
+            <label className='skjemaelement__label'>
+              {t('pinfo:person-info-currentName')}
+            </label>
+            {firstName ? `${firstName}` : null}
+            {middleName ? ` ${middleName}` : null}
+            {lastName ? ` ${lastName}` : null}
+          </div>
+        </Nav.Row>
+        : null
+      }
       <Nav.Row>
-        <div className='col-sm-9'>
+        <div className='col-sm-12'>
           <Nav.Input
             id='pinfo-person-etternavn-input'
             type='text'
-            label={t('pinfo:person-info-lastNameAtBirth') + ' *'}
+            label={<div>
+              <span>{t('pinfo:person-info-lastNameAtBirth')}</span>
+              <Nav.HjelpetekstBase id='pinfo-person-lastNameAtBirth-help'>
+                {t('pinfo:person-info-lastNameAtBirth-help')}
+              </Nav.HjelpetekstBase>
+            </div>}
             placeholder={t('ui:writeIn')}
             value={person.nameAtBirth || ''}
             onChange={this.setNameAtBirth}
@@ -98,12 +120,19 @@ class Person extends React.Component {
           />
         </div>
       </Nav.Row>
+
       <Nav.Row>
-        <div className='col-sm-9'>
+        <div className='col-sm-12'>
           <Nav.Input
             id='pinfo-person-tidligerenavn-input'
             type='text'
-            label={t('pinfo:person-info-previousName')}
+            label={<div>
+              <span>{t('pinfo:person-info-previousName')}</span>
+              <Nav.HjelpetekstBase id='pinfo-person-previousName-help'>
+                {t('pinfo:person-info-previousName-help')}
+              </Nav.HjelpetekstBase>
+              <span className='optional'>{t('ui:optional')}</span>
+            </div>}
             placeholder={t('ui:writeIn')}
             value={person.previousName || ''}
             onChange={this.setPreviousName}
@@ -112,52 +141,12 @@ class Person extends React.Component {
         </div>
       </Nav.Row>
 
-      {mode === 'view' && (person.fatherName || person.motherName)
-        ? <React.Fragment>
-          <Nav.Row>
-            <div className='col-sm-9 mt-3'>
-              <div className='float-right'>
-                <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-help'>
-                  <span>{t('pinfo:stayAbroad-spain-france-warning-2')}</span>
-                </Nav.HjelpetekstBase>
-              </div>
-              <Nav.Input
-                id='pinfo-opphold-farsnavn-input'
-                type='text'
-                label={t('pinfo:stayAbroad-period-fathername') + ' *'}
-                placeholder={t('ui:writeIn')}
-                value={person.fatherName || ''}
-                onChange={this.setFatherName}
-                feil={localErrors.fatherName ? { feilmelding: t(localErrors.fatherName) } : null}
-              />
-            </div>
-          </Nav.Row>
-          <Nav.Row>
-            <div className='col-sm-9 mt-3'>
-              <div className='float-right'>
-                <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-help'>
-                  <span>{t('pinfo:stayAbroad-spain-france-warning-2')}</span>
-                </Nav.HjelpetekstBase>
-              </div>
-              <Nav.Input
-                id='pinfo-opphold-morsnavn-input'
-                type='text'
-                label={t('pinfo:stayAbroad-period-mothername') + ' *'}
-                placeholder={t('ui:writeIn')}
-                value={person.motherName || ''}
-                onChange={this.setMotherName}
-                feil={localErrors.motherName ? { feilmelding: t(localErrors.motherName) } : null}
-              />
-            </div>
-          </Nav.Row>
-        </React.Fragment>
-        : null
-      }
-      <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-birthplace-title')}</Nav.Undertittel>
+      <Nav.Undertittel className='ml-0 mt-4 mb-4 appDescription'>{t('pinfo:person-birthplace-title')}</Nav.Undertittel>
+
       <Nav.Row>
-        <div className='col-md-6 mb-4'>
+        <div className='col-sm-8 mb-4'>
           <label className='skjemaelement__label'>
-            {t('pinfo:person-birthplace-country') + ' *'}
+            {t('pinfo:person-birthplace-country')}
           </label>
           <CountrySelect
             id='pinfo-person-land-select'
@@ -169,25 +158,32 @@ class Person extends React.Component {
           />
         </div>
       </Nav.Row>
+
       <Nav.Row>
-        <div className='col-sm-9'>
+        <div className='col-sm-12'>
           <Nav.Input
             id='pinfo-person-sted-input'
             type='text'
-            label={t('pinfo:person-birthplace-place') + ' *'}
+            label={<div>
+              <span>{t('pinfo:person-birthplace-place')}</span>
+            </div>}
             placeholder={t('ui:writeIn')}
-            value={person.city || ''}
-            onChange={this.setCity}
-            feil={localErrors.city ? { feilmelding: t(localErrors.city) } : null}
+            value={person.place || ''}
+            onChange={this.setPlace}
+            feil={localErrors.place ? { feilmelding: t(localErrors.place) } : null}
           />
         </div>
       </Nav.Row>
+
       <Nav.Row>
-        <div className='col-sm-9'>
+        <div className='col-sm-12'>
           <Nav.Input
             id='pinfo-person-region-input'
             type='text'
-            label={t('pinfo:person-birthplace-area')}
+            label={<div>
+              <span>{t('pinfo:person-birthplace-area')}</span>
+              <span className='optional'>{t('ui:optional')}</span>
+            </div>}
             placeholder={t('pinfo:person-birthplace-area-placeholder')}
             value={person.region || ''}
             onChange={this.setRegion}
@@ -195,13 +191,19 @@ class Person extends React.Component {
           />
         </div>
       </Nav.Row>
-      <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-contact-title')}</Nav.Undertittel>
+
+      <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:person-contact-title')}</Nav.Undertittel>
+      <Nav.Undertekst className='mt-4 mb-4'>{t('pinfo:person-contact-title-help')}</Nav.Undertekst>
+
       <Nav.Row>
-        <div className='col-sm-4'>
+        <div className='col-sm-12'>
           <Nav.Input
             id='pinfo-person-telefonnummer-input'
             type='tel'
-            label={t('pinfo:person-contact-phoneNumber')}
+            label={<div>
+              <span>{t('pinfo:person-contact-phoneNumber')}</span>
+              <span className='optional'>{t('ui:optional')}</span>
+            </div>}
             placeholder={t('ui:writeIn')}
             value={person.phone || ''}
             onChange={this.setPhone}
@@ -209,23 +211,22 @@ class Person extends React.Component {
           />
         </div>
       </Nav.Row>
+
       <Nav.Row>
-        <div className='col-sm-6'>
+        <div className='col-sm-12'>
           <Nav.Input
             id='pinfo-person-epost-input'
             type='email'
-            label={t('pinfo:person-contact-email')}
+            label={<div>
+              <span>{t('pinfo:person-contact-email')}</span>
+              <span className='optional'>{t('ui:optional')}</span>
+            </div>}
             placeholder={t('ui:writeIn')}
             value={person.email || ''}
             onChange={this.setEmail}
             onBlur={this.setEmailAndValidate}
             feil={localErrors.email ? { feilmelding: t(localErrors.email) } : null}
           />
-        </div>
-      </Nav.Row>
-      <Nav.Row>
-        <div className='col-sm-6'>
-          {'* ' + t('mandatoryField')}
         </div>
       </Nav.Row>
     </div>
@@ -243,5 +244,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(Person)
+  withTranslation()(Person)
 )

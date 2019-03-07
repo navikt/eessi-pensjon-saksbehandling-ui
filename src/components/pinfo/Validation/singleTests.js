@@ -1,3 +1,6 @@
+import _ from 'lodash'
+import moment from 'moment'
+import { pinfoDateToDate } from '../../../utils/Date'
 
 let mandatory = function (value, error) {
   if (!value) return error
@@ -36,8 +39,8 @@ let country = function (country) {
   return mandatory(country, 'pinfo:validation-noCountry')
 }
 
-let city = function (city) {
-  return mandatory(city, 'pinfo:validation-noCity')
+let place = function (place) {
+  return mandatory(place, 'pinfo:validation-noPlace')
 }
 
 let region = function (region) {
@@ -68,7 +71,7 @@ export const personValidation = {
   email,
   previousName,
   country,
-  city,
+  place,
   region,
   fatherName,
   motherName
@@ -108,13 +111,7 @@ export const bankValidation = {
 
 // STAY ABROAD
 
-let atLeastOnePeriod = function (stayAbroad) {
-  return mandatory(stayAbroad, 'pinfo:validation-atLeastOnePeriod')
-}
-
-export const stayAbroadValidation = {
-  atLeastOnePeriod
-}
+export const stayAbroadValidation = {}
 
 let periodType = function (type) {
   return !type ? 'pinfo:validation-noPeriodType'
@@ -123,13 +120,99 @@ let periodType = function (type) {
 }
 
 let periodStartDate = function (startDate) {
-  return !startDate ? 'pinfo:validation-noStartDate'
-    : (startDate > new Date().getTime()) ? 'pinfo:validation-invalidStartDate' : undefined
+  if (!startDate || _.isEmpty(startDate)) {
+    return 'pinfo:validation-noStartDate'
+  }
+  if (!startDate.year) {
+    return 'pinfo:validation-noYear'
+  }
+  if (!startDate.month) {
+    return 'pinfo:validation-noMonth'
+  }
+  return periodStartDateOnBlur(startDate)
 }
 
 let periodEndDate = function (endDate) {
-  return !endDate ? 'pinfo:validation-noEndDate'
-    : (endDate > new Date().getTime()) ? 'pinfo:validation-invalidEndDate' : undefined
+  if (!endDate || _.isEmpty(endDate)) {
+    return 'pinfo:validation-noEndDate'
+  }
+  if (!endDate.year) {
+    return 'pinfo:validation-noYear'
+  }
+  if (!endDate.month) {
+    return 'pinfo:validation-noMonth'
+  }
+  return periodEndDateOnBlur(endDate)
+}
+
+let periodStartDateOnBlur = function (startDate) {
+  if (startDate && startDate.year && startDate.year.length < 4) {
+    return 'pinfo:validation-inValidYear'
+  }
+  return periodStartDateOnChange(startDate)
+}
+
+let periodEndDateOnBlur = function (endDate) {
+  if (endDate && endDate.year && endDate.year.length < 4) {
+    return 'pinfo:validation-inValidYear'
+  }
+  return periodEndDateOnChange(endDate)
+}
+
+// tests if startDate is a valid date.
+// The validation for whether startdate exists is another test to avoid
+// Overeager validation.
+let periodStartDateOnChange = function (startDate) {
+  if (!startDate || !startDate.month || !startDate.year) {
+    return undefined
+  }
+
+  const monthInteger = parseInt(startDate.month, 10) - 1
+  const startMoment = moment([startDate.year, monthInteger, (startDate.day || 1)])
+
+  if (!startMoment.isValid()) {
+    return 'pinfo:validation-invalidStartDate'
+  }
+  if (startMoment.toDate().getTime() > new Date().getTime()) {
+    return 'pinfo:validation-futureDate'
+  }
+  return undefined
+}
+
+let periodEndDateOnChange = function (endDate) {
+  if (!endDate || !endDate.month || !endDate.year) {
+    return undefined
+  }
+
+  const monthInteger = parseInt(endDate.month, 10) - 1
+  const endMoment = moment([endDate.year, monthInteger, (endDate.day || 1)])
+
+  if (!endMoment.isValid()) {
+    return 'pinfo:validation-invalidEndDate'
+  }
+  if (endMoment.toDate().getTime() > new Date().getTime()) {
+    return 'pinfo:validation-futureDate'
+  }
+  return undefined
+}
+
+let periodTimeSpan = function (startDate, endDate) {
+  if (!startDate || !endDate) { return undefined }
+
+  if (!startDate.month || !endDate.month) { return undefined }
+  if (!startDate.year || !endDate.year) { return undefined }
+  // makes sure both dates have 4 digit years before verifying that they are in the correct sequence.
+  if (startDate.year.length < 4 || endDate.year.length < 4) { return undefined }
+
+  const _startDate = moment(pinfoDateToDate(startDate))
+  const _endDate = moment(pinfoDateToDate(endDate))
+
+  if (!_startDate.isValid() || !_endDate.isValid()) { return undefined }
+
+  if (_startDate.valueOf() > _endDate.valueOf()) {
+    return 'pinfo:validation-startAfterEnd'
+  }
+  return undefined
 }
 
 let insuranceName = function (insuranceName) {
@@ -189,6 +272,11 @@ export const periodValidation = {
   periodType,
   periodStartDate,
   periodEndDate,
+  periodStartDateOnBlur,
+  periodEndDateOnBlur,
+  periodStartDateOnChange,
+  periodEndDateOnChange,
+  periodTimeSpan,
   periodCountry,
   periodPlace,
   insuranceName,

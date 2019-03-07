@@ -3,7 +3,7 @@ import { Droppable, Draggable } from 'react-beautiful-dnd'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import PDFSpecialPage from '../PDFSpecialPage/PDFSpecialPage'
@@ -151,5 +151,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(DnDSpecial)
+  withTranslation()(DnDSpecial)
 )

@@ -5,7 +5,7 @@ export function personStep (person) {
     nameAtBirth: tests.personValidation.nameAtBirth(person.nameAtBirth),
     previousName: tests.personValidation.previousName(person.previousName),
     country: tests.personValidation.country(person.country),
-    city: tests.personValidation.city(person.city),
+    place: tests.personValidation.place(person.place),
     region: tests.personValidation.region(person.region),
     phone: tests.personValidation.phone(person.phone),
     email: tests.personValidation.email(person.email)
@@ -23,9 +23,7 @@ export function bankStep (bank) {
 }
 
 export function stayAbroadStep (stayAbroad) {
-  return {
-    onePeriod: tests.stayAbroadValidation.atLeastOnePeriod(stayAbroad)
-  }
+  return {}
 }
 
 export function periodStep (period, person) {
@@ -36,7 +34,8 @@ export function periodStep (period, person) {
     insuranceType: tests.periodValidation.insuranceType(period.insuranceType),
     insuranceId: (period.type !== 'work') ? tests.periodValidation.insuranceId(period.insuranceId) : undefined,
     place: tests.periodValidation.periodPlace(period.place),
-    country: tests.periodValidation.periodCountry(period.country)
+    country: tests.periodValidation.periodCountry(period.country),
+    timeSpan: tests.periodValidation.periodTimeSpan(period.startDate, period.endDate)
   }
 
   if (period.country && (period.country.value === 'ES' || period.country.value === 'FR')) {

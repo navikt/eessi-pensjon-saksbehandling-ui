@@ -2,107 +2,82 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import _ from 'lodash'
 
 import 'react-datepicker/dist/react-datepicker.min.css'
 
 import * as Nav from '../../components/ui/Nav'
+import Icons from '../../components/ui/Icons'
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
 import Bank from '../../components/pinfo/Bank'
 import Person from '../../components/pinfo/Person'
 import StayAbroad from '../../components/pinfo/StayAbroad/StayAbroad'
-import Receipt from '../../components/pinfo/Receipt/Receipt'
+import Receipt from '../../components/pinfo/Receipt'
 import Confirm from '../../components/pinfo/Confirm'
 import WaitingPanel from '../../components/app/WaitingPanel'
-
+import AdvarselTrekant from '../../resources/images/AdvarselTrekant'
 import * as stepTests from '../../components/pinfo/Validation/stepTests'
 import * as globalTests from '../../components/pinfo/Validation/globalTests'
 import PInfoUtil from '../../components/pinfo/Util'
-import * as routes from '../../constants/routes'
 
+import * as routes from '../../constants/routes'
 import * as constants from '../../constants/constants'
+
 import * as storageActions from '../../actions/storage'
 import * as pinfoActions from '../../actions/pinfo'
 import * as uiActions from '../../actions/ui'
 import * as appActions from '../../actions/app'
+import * as attachmentActions from '../../actions/attachment'
 
 import './PInfo.css'
 
 const mapStateToProps = (state) => {
   return {
+    username: state.app.username,
     locale: state.ui.locale,
+    isSendingPinfo: state.loading.isSendingPinfo,
     pinfo: state.pinfo,
     step: state.pinfo.step,
     maxStep: state.pinfo.maxStep,
+    stepError: state.pinfo.stepError,
     send: state.pinfo.send,
     isReady: state.pinfo.isReady,
-    isSendingPinfo: state.loading.isSendingPinfo,
+    buttonsVisible: state.pinfo.buttonsVisible,
+    pageErrors: state.pinfo.pageErrors,
     fileList: state.storage.fileList,
     file: state.storage.file,
-    username: state.app.username,
-    buttonsVisible: state.pinfo.buttonsVisible
+    attachments: state.attachment
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, storageActions, pinfoActions, uiActions, appActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, storageActions, pinfoActions, uiActions, appActions, attachmentActions), dispatch) }
 }
 
 class PInfo extends React.Component {
   state = {
     doPageValidationOnForwardButton: true,
     doPageValidationOnStepIndicator: true,
-    pageErrors: {},
     fileList: undefined,
-    file: undefined,
-    stepIndicatorError: undefined
+    file: undefined
   }
 
   componentDidMount () {
     const { actions, username } = this.props
-
     if (window.hj) {
       window.hj('trigger', 'e207-feedback-no')
     }
-    actions.listStorageFiles(username, 'PINFO', { successAlert: false })
+    if (username) {
+      actions.getAllStateFromStorage()
+    }
   }
 
   componentDidUpdate () {
-    const { send, actions, username, step, fileList, file } = this.props
+    const { send, actions, step } = this.props
     if (send && step === 3) {
       actions.setStep(4)
-      if (this.state.stepIndicatorError) {
-        this.setState({
-          stepIndicatorError: undefined
-        })
-      }
-    }
-    if (fileList !== undefined && this.state.fileList === undefined) {
-      if (!_.isEmpty(fileList) && fileList.indexOf('PINFO.json') >= 0) {
-        actions.getStorageFile({
-          userId: username,
-          namespace: constants.PINFO,
-          file: constants.PINFO_FILE,
-          context: { successAlert: false }
-        })
-      } else {
-        actions.setReady()
-      }
-      this.setState({
-        fileList: fileList
-      })
-    }
-    if (file !== undefined && this.state.file === undefined) {
-      if (!_.isEmpty(file)) {
-        actions.restoreState(file)
-      } else {
-        actions.setReady()
-      }
-      this.setState({
-        file: file
-      })
     }
   }
 
@@ -138,20 +113,13 @@ class PInfo extends React.Component {
     let errors = {}
     if (this.state.doPageValidationOnForwardButton) {
       errors = this.validatePage(step)
-      this.setState({
-        pageErrors: errors,
-        errorTimestamp: new Date().getTime()
-      })
+      actions.setPageErrors(errors)
     }
 
     if (this.hasNoErrors(errors)) {
-      actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
+      actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
       actions.setStep(step + 1)
-      if (this.state.stepIndicatorError) {
-        this.setState({
-          stepIndicatorError: undefined
-        })
-      }
+      window.scrollTo(0, 0)
     }
   }
 
@@ -163,19 +131,13 @@ class PInfo extends React.Component {
     }
 
     if (this.state.doPageValidationOnStepIndicator && nextStep > maxStep) {
-      this.setState({
-        stepIndicatorError: 'pinfo:alert-stepTooHigh'
-      })
+      actions.setStepError('pinfo:alert-stepTooHigh')
       return false
     }
     actions.setMainButtonsVisibility(true)
     actions.setStep(nextStep)
-    if (this.state.stepIndicatorError) {
-      this.setState({
-        stepIndicatorError: undefined
-      })
-    }
-    actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
+
+    actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
     return true
   }
 
@@ -185,10 +147,7 @@ class PInfo extends React.Component {
     let errors = {}
     if (newStep > step && this.state.doPageValidationOnStepIndicator) {
       errors = this.validatePage(step)
-      return this.setState({
-        pageErrors: errors,
-        errorTimestamp: new Date().getTime()
-      })
+      actions.setPageErrors(errors)
     }
 
     if (this.hasNoErrors(errors)) {
@@ -200,10 +159,8 @@ class PInfo extends React.Component {
   onBackButtonClick () {
     const { actions, history, step } = this.props
 
-    this.setState({
-      pageErrors: {},
-      errorTimestamp: new Date().getTime()
-    })
+    actions.setPageErrors({})
+
     if (step === 0) {
       history.push({
         pathname: routes.ROOT,
@@ -212,15 +169,21 @@ class PInfo extends React.Component {
     } else {
       actions.setStep(step - 1)
     }
+    window.scrollTo(0, 0)
   }
 
-  doCancel () {
-    const { actions, history, pinfo, username } = this.props
+  saveStateAndExit () {
+    const { actions, pinfo, username } = this.props
 
     actions.closeModal()
-    actions.postStorageFile(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo), { successAlert: false })
-    actions.clearData()
-    history.push(routes.ROOT)
+    actions.saveStateAndExit(pinfo, username)
+  }
+
+  deleteStateAndExit () {
+    const { actions, username } = this.props
+
+    actions.closeModal()
+    actions.deleteStateAndExit(username)
   }
 
   closeModal () {
@@ -228,48 +191,76 @@ class PInfo extends React.Component {
     actions.closeModal()
   }
 
-  onCancelButtonClick () {
-    const { t, actions, pinfo } = this.props
+  onSaveAndExitButtonClick () {
+    const { t, actions, history, pinfo } = this.props
 
     let isPInfoEmpty = globalTests.isPInfoEmpty(pinfo)
 
-    if (!isPInfoEmpty) {
-      actions.openModal({
-        modalTitle: t('pinfo:alert-leavePInfo'),
-        modalText: t('pinfo:alert-areYouSureLeavePInfo'),
-        modalButtons: [{
-          main: true,
-          text: t('ui:yes') + ', ' + t('ui:cancel').toLowerCase(),
-          onClick: this.doCancel.bind(this)
-        }, {
-          text: t('ui:no') + ', ' + t('ui:continue').toLowerCase(),
-          onClick: this.closeModal.bind(this)
-        }]
-      })
-    } else {
-      this.doCancel()
+    if (isPInfoEmpty) {
+      actions.closeModal()
+      history.push(routes.ROOT)
     }
+
+    actions.openModal({
+      modalTitle: t('pinfo:alert-saveAndExitPInfo'),
+      modalText: t('pinfo:alert-areYouSureSaveAndExitPInfo'),
+      modalButtons: [{
+        main: true,
+        text: t('ui:yes') + ', ' + t('ui:exit').toLowerCase(),
+        onClick: this.saveStateAndExit.bind(this)
+      }, {
+        text: t('ui:no') + ', ' + t('ui:continue').toLowerCase(),
+        onClick: this.closeModal.bind(this)
+      }]
+    })
+  }
+
+  onDeleteAndExitLinkClick (e) {
+    if (e) {
+      e.preventDefault()
+      e.stopPropagation()
+    }
+
+    const { t, actions, history, pinfo } = this.props
+
+    let isPInfoEmpty = globalTests.isPInfoEmpty(pinfo)
+
+    if (isPInfoEmpty) {
+      actions.closeModal()
+      history.push(routes.ROOT)
+    }
+
+    actions.openModal({
+      modalTitle: t('pinfo:alert-deleteAndExitPInfo'),
+      modalContent: <div className='m-4 text-center' dangerouslySetInnerHTML={{ __html: t('pinfo:alert-areYouSureDeleteAndExitPInfo') }} />,
+      modalButtons: [{
+        main: true,
+        text: t('ui:yes') + ', ' + t('ui:delete').toLowerCase(),
+        onClick: this.deleteStateAndExit.bind(this)
+      }, {
+        text: t('ui:no'),
+        onClick: this.closeModal.bind(this)
+      }]
+    })
   }
 
   onSendButtonClick () {
-    const { actions, step, pinfo } = this.props
+    const { actions, step, pinfo, attachments } = this.props
 
     let errors = {}
     if (this.state.doPageValidationOnForwardButton) {
       errors = this.validatePage(step)
-      this.setState({
-        pageErrors: errors,
-        errorTimestamp: new Date().getTime()
-      })
+      actions.setPageErrors(errors)
     }
     if (this.hasNoErrors(errors)) {
-      let payload = PInfoUtil.generatePayload(pinfo)
+      let payload = new PInfoUtil(pinfo, attachments).generatePayload()
       actions.sendPInfo(payload)
     }
+    window.scrollTo(0, 0)
   }
 
   errorMessage () {
-    const { pageErrors } = this.state
+    const { pageErrors } = this.props
     for (var key in pageErrors) {
       if (pageErrors[key]) {
         return pageErrors[key]
@@ -279,24 +270,37 @@ class PInfo extends React.Component {
   }
 
   render () {
-    const { t, history, location, step, maxStep, isSendingPinfo, isReady, buttonsVisible } = this.props
-    const { pageErrors, errorTimestamp, stepIndicatorError } = this.state
-
-    let errorMessage = this.errorMessage()
+    const { t, history, location, step, maxStep, stepError, isSendingPinfo, isReady, buttonsVisible, pinfo } = this.props
 
     if (!isReady) {
       return <TopContainer className='p-pInfo'
         history={history} location={location}
         header={t('pinfo:app-title')}>
-        <WaitingPanel className='mt-5' message='loading' />
+        <WaitingPanel className='mt-5' message={t('loading')} />
       </TopContainer>
     }
+
+    let errorMessage = this.errorMessage()
+    let isPInfoEmpty = globalTests.isPInfoEmpty(pinfo)
+    let noPeriods = step === 2 && _.isEmpty(pinfo.stayAbroad)
 
     return <TopContainer className='p-pInfo'
       history={history} location={location}
       header={<span>{t('pinfo:app-title')}</span>}>
       { step !== 4
         ? <React.Fragment>
+          {!isPInfoEmpty ? <Nav.Row>
+            <div className='col-sm-12 mb-4 delete-form-div'>
+              <Nav.Lenke
+                className='delete-form-link mt-3'
+                id='pinfo-deleteAndExit-button'
+                href='#reset'
+                onClick={this.onDeleteAndExitLinkClick.bind(this)}>
+                <Icons kind='trashcan' className='mr-2' size={16} />
+                <span>{t('pinfo:form-deleteAndExit')}</span>
+              </Nav.Lenke>
+            </div>
+          </Nav.Row> : null}
           <Nav.Stegindikator
             className='mt-4 mb-4'
             aktivtSteg={step}
@@ -310,58 +314,60 @@ class PInfo extends React.Component {
               aktiv: index === step
             }))}
           />
-          {stepIndicatorError ? <div className='w-100 text-center mb-2'>
-            <Nav.Ikon size={16} kind='advarsel-trekant' />
-            <span className='ml-2'>{t(stepIndicatorError, { maxStep: (maxStep + 1) })}</span>
+          {stepError ? <div className='w-100 text-center mb-2'>
+            <AdvarselTrekant size={16} />
+            <span className='ml-2'>{t(stepError, { maxStep: (maxStep + 1) })}</span>
           </div> : null}
         </React.Fragment> : null}
       <Nav.Row>
-        <div className='col-md-2' />
-        <div className={classNames('fieldset animate', 'mb-4', 'col-md-8')}>
+        <div className='col-sm-2' />
+        <div className={classNames('fieldset animate', 'mb-4', 'ml-auto', 'mr-auto', 'col-sm-8')}>
           {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
-          {step === 0 ? <Person pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
-          {step === 1 ? <Bank pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
-          {step === 2 ? <StayAbroad pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
-          {step === 3 ? <Confirm pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
-          {step === 4 ? <Receipt pageErrors={pageErrors} errorTimestamp={errorTimestamp} /> : null}
+          {step === 0 ? <Person /> : null}
+          {step === 1 ? <Bank /> : null}
+          {step === 2 ? <StayAbroad /> : null}
+          {step === 3 ? <Confirm /> : null}
+          {step === 4 ? <Receipt /> : null}
         </div>
-        <div className='col-md-2' />
+        <div className='col-sm-2' />
       </Nav.Row>
-      {buttonsVisible ? <Nav.Row><div className='col-md-12 text-center mb-4 mt-4'>
-        {step < 3 ? <Nav.Hovedknapp
-          id='pinfo-forward-button'
-          className='forwardButton mb-2 mr-3'
-          onClick={this.onForwardButtonClick.bind(this)}>
-          {t('saveAndContinue')}
-        </Nav.Hovedknapp> : null}
-        {step === 3 ? <Nav.Hovedknapp
-          id='pinfo-send-button'
-          className='sendButton mb-2 mr-3'
-          disabled={isSendingPinfo}
-          spinner={isSendingPinfo}
-          onClick={this.onSendButtonClick.bind(this)}>
-          {isSendingPinfo ? t('sending') : t('confirmAndSend')}
-        </Nav.Hovedknapp> : null}
-        {step < 4 ? <Nav.Knapp
-          id='pinfo-back-button'
-          className='backButton mb-2 mr-3'
-          onClick={this.onBackButtonClick.bind(this)}>
-          {t('back')}
-        </Nav.Knapp> : null}
-        { step < 4 ? <Nav.KnappBase
-          id='pinfo-cancel-button'
-          type='flat'
-          className='cancelButton mb-2 mr-3'
-          onClick={this.onCancelButtonClick.bind(this)}>
-          {t('cancel-main')}
-        </Nav.KnappBase> : null}
-      </div></Nav.Row> : null}
+      {buttonsVisible && step < 5 ? <Nav.Row>
+        <div className='col-sm-12 text-center mb-4 mt-4'>
+          {step < 3 ? <Nav.Hovedknapp
+            id='pinfo-forward-button'
+            disabled={noPeriods}
+            className='forwardButton mb-2 mr-3 w-sm-100'
+            onClick={this.onForwardButtonClick.bind(this)}>
+            {t('saveAndContinue')}
+          </Nav.Hovedknapp> : null}
+          {step === 3 ? <Nav.Hovedknapp
+            id='pinfo-send-button'
+            className='sendButton mb-2 mr-3 w-sm-100'
+            disabled={isSendingPinfo}
+            spinner={isSendingPinfo}
+            onClick={this.onSendButtonClick.bind(this)}>
+            {isSendingPinfo ? t('sending') : t('confirmAndSend')}
+          </Nav.Hovedknapp> : null}
+          {step < 4 ? <Nav.Knapp
+            id='pinfo-back-button'
+            className='backButton mb-2 mr-3 w-sm-100'
+            onClick={this.onBackButtonClick.bind(this)}>
+            {t('back')}
+          </Nav.Knapp> : null}
+          { step < 4 ? <Nav.KnappBase
+            id='pinfo-saveandexit-button'
+            type='flat'
+            className='cancelButton mb-2 mr-3 w-sm-100'
+            onClick={this.onSaveAndExitButtonClick.bind(this)}>
+            {t('pinfo:form-saveAndExit')}
+          </Nav.KnappBase> : null}
+        </div></Nav.Row> : null}
       {errorMessage ? <Nav.Row>
-        <div className='col-md-2' />
-        <div className='col-md-8 mb-4'>
+        <div className='col-sm-2' />
+        <div className='col-sm-8 mb-4'>
           <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe>
         </div>
-        <div className='col-md-2' />
+        <div className='col-sm-2' />
       </Nav.Row> : null}
     </TopContainer>
   }
@@ -382,5 +388,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(PInfo)
+  withTranslation()(PInfo)
 )

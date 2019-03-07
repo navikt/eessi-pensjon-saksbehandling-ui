@@ -9,16 +9,28 @@
 
     dd {
         display: inline-block;
+        margin-bottom: 0.25rem;
+        padding-left: 1.5rem;
     }
 
+    pre {
+        margin-bottom: 0.25rem;
+    }
     .textarea--medMeta__teller {
-       visibility: hidden;
+      visibility: hidden;
     }
 
     .notification-title {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .flagImg {
+      width: 20px;
+      height: 15px;
+      margin-right: 0.5rem;
+      border: 1px solid lightgrey;
     }
 
     .rotating {
@@ -30,12 +42,32 @@
       transform: translateX(-20px);
       animation: slideInFromLeft 0.3s forwards;
    }
+
+   .optional {
+      float: right;
+      font-weight: normal;
+      font-style: italic;
+   }
+
+   .delete-form-div {
+
+       display: flex;
+       flex-direction: row-reverse;
+
+       .delete-form-link {
+          display: flex;
+       }
+   }
 }
 
-.c-pinfo-bank {
-  .hjelpetekst {
-     padding-left: 0px;
-     padding-top: 0.5rem;
+.hiddenLink {
+  position: absolute;
+  left: -9999px;
+}
+
+.p-pInfoSaksbehandler {
+  .fieldset {
+    border: 3px solid lightgrey;
   }
 }
 

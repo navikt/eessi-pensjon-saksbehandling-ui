@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
-import { Ikon } from '../Nav'
 import Icons from '../Icons'
 
 import './File.css'
@@ -43,7 +42,7 @@ class MiniatureImage extends Component {
         style={{ transform: 'scale(' + scale + ')' }}>
         <div>
           { deleteLink && isHovering ? <div onClick={this.onDeleteDocument.bind(this)} className='link deleteLink'>
-            <Ikon size={15} kind='trashcan' />
+            <Icons kind='trashcan' size={15} />
           </div> : null}
           { downloadLink && isHovering ? <div className='link downloadLink'><a
             onClick={(e) => e.stopPropagation()} title={t('ui:download')}
@@ -69,4 +68,4 @@ MiniatureImage.propTypes = {
   scale: PT.number.isRequired
 }
 
-export default withNamespaces()(MiniatureImage)
+export default withTranslation()(MiniatureImage)

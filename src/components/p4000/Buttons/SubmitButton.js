@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -17,7 +17,7 @@ const mapStateToProps = (state) => {
   return {
     events: state.p4000.events,
     rinaId: state.status.rinaId,
-    saksId: state.status.saksId,
+    sakId: state.status.sakId,
     aktoerId: state.status.aktoerId,
     submitting: state.loading.submittingP4000,
     submitted: state.p4000.submitted
@@ -30,13 +30,13 @@ const mapDispatchToProps = (dispatch) => {
 
 class SubmitButton extends Component {
   doSubmitP4000 () {
-    const { actions, events, saksId, aktoerId, rinaId } = this.props
+    const { actions, events, sakId, aktoerId, rinaId } = this.props
 
     let p4000 = P4000Util.convertEventsToP4000(events)
     actions.closeModal()
 
     let body = {
-      saksId: saksId,
+      sakId: sakId,
       aktoerId: aktoerId,
       payload: JSON.stringify(p4000.payload),
       sed: 'P4000',
@@ -102,7 +102,7 @@ SubmitButton.propTypes = {
   style: PT.object,
   actions: PT.object,
   aktoerId: PT.string,
-  saksId: PT.string,
+  sakId: PT.string,
   rinaId: PT.string,
   submitting: PT.bool,
   submitted: PT.string
@@ -112,5 +112,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(SubmitButton)
+  withTranslation()(SubmitButton)
 )

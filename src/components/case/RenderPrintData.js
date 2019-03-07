@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import _ from 'lodash'
 
 import './RenderData.css'
@@ -30,8 +30,8 @@ class RenderPrintData extends Component {
 
     return <div id='divToPrint' style={{ display: 'none' }} className='p-3 c-case-printData'>
       <dl className='row'>
-        <dt className='col-sm-4'><label>{t('case:form-saksId')}</label></dt>
-        <dd className='col-sm-8'>{data.saksId}</dd>
+        <dt className='col-sm-4'><label>{t('case:form-sakId')}</label></dt>
+        <dd className='col-sm-8'>{data.sakId}</dd>
         <dt className='col-sm-4'><label>{t('case:form-aktoerId')}</label></dt>
         <dd className='col-sm-8'>{data.aktoerId}</dd>
         <dt className='col-sm-4'><label>{t('case:form-rinaId')}</label></dt>
@@ -61,4 +61,4 @@ RenderPrintData.propTypes = {
   t: PT.func.isRequired
 }
 
-export default withNamespaces()(RenderPrintData)
+export default withTranslation()(RenderPrintData)

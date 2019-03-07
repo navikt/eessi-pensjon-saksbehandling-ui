@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
-import { Ikon } from '../Nav'
 import Icons from '../Icons'
 
 import './File.css'
@@ -32,7 +31,7 @@ class MiniatureOther extends Component {
         onMouseEnter={this.onHandleMouseEnter.bind(this)}
         onMouseLeave={this.onHandleMouseLeave.bind(this)}>
         { this.state.isHovering ? <div className='link deleteLink'>
-          <Ikon size={15} kind='trashcan' onClick={onDeleteDocument} />
+          <Icons kind='trashcan' size={15} onClick={onDeleteDocument} />
         </div> : null }
         { this.state.isHovering ? <div className='link downloadLink'>
           <a onClick={(e) => e.stopPropagation()} title={t('ui:download')}
@@ -58,4 +57,4 @@ MiniatureOther.propTypes = {
   className: PT.string
 }
 
-export default withNamespaces()(MiniatureOther)
+export default withTranslation()(MiniatureOther)

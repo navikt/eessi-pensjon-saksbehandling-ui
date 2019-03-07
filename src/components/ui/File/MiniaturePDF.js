@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { Document, Page } from 'react-pdf'
-import { withNamespaces } from 'react-i18next'
+import { pdfjs, Document, Page } from 'react-pdf'
+import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
-import { Ikon } from '../Nav'
 import Icons from '../Icons'
 
 import './File.css'
 import './MiniaturePDF.css'
+
+pdfjs.GlobalWorkerOptions.workerSrc = process.env.PUBLIC_URL + '/pdf.worker.js'
 
 class MiniaturePDF extends Component {
     state = {
@@ -134,7 +135,7 @@ class MiniaturePDF extends Component {
     }
 
     render () {
-      const { t, file, size, addLink, deleteLink, downloadLink, previewLink, className, animate, scale, width, height } = this.props
+      const { t, file, size, ui, addLink, deleteLink, downloadLink, previewLink, className, animate, scale, width, height } = this.props
       const { numPages, isHovering, currentPage } = this.state
 
       const title = '' + file.name + '\n' + t('ui:pages') + ': ' + (numPages || '0') + '\n' + t('ui:size') + ': ' + size
@@ -149,10 +150,10 @@ class MiniaturePDF extends Component {
             <Icons style={{ cursor: 'pointer' }} size='1x' kind='view' />
           </div> : null}
           { deleteLink && isHovering ? <div onClick={this.onDeleteDocument.bind(this)} className='link deleteLink'>
-            <Ikon size={15} kind='trashcan' />
+            <Icons kind='trashcan' size={15} />
           </div> : null}
           { addLink && isHovering ? <div onClick={this.onAddFile.bind(this)} className='link addLink'>
-            <Ikon size={20} kind='vedlegg' />
+            <Icons kind='vedlegg' size={20} />
           </div> : null}
           { downloadLink && isHovering ? <div className='link downloadLink'><a
             onClick={(e) => e.stopPropagation()} title={t('ui:download')}
@@ -163,7 +164,7 @@ class MiniaturePDF extends Component {
           {currentPage > 1 && isHovering ? <a href='#previousPage' className='previousPage' onClick={this.handlePreviousPageRequest.bind(this)}>{'◀'}</a> : null}
           {currentPage < numPages && isHovering ? <a href='#nextPage' className='nextPage' onClick={this.handleNextPageRequest.bind(this)}>{'▶'}</a> : null}
           {isHovering ? <div className='pageNumber'>{currentPage}</div> : null}
-          <div className='page' onClick={(e) => e.stopPropagation()}>
+          <div className={classNames('page', ui)} onClick={(e) => e.stopPropagation()}>
             <Page width={width || 100} height={height || 140} renderMode='svg' pageNumber={currentPage} />
           </div>
         </Document>
@@ -193,4 +194,4 @@ MiniaturePDF.propTypes = {
   scale: PT.number.isRequired
 }
 
-export default withNamespaces()(MiniaturePDF)
+export default withTranslation()(MiniaturePDF)

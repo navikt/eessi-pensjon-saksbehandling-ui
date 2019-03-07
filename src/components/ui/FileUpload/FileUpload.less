@@ -10,8 +10,8 @@
     .dropzone {
 
          position: relative;
-         min-height: 160px;
-         border: 1px solid #B7B1A9;
+         min-height: 200px;
+         border: 1px solid #78706A;
          border-radius: 4px;
          background-color: whitesmoke;
          cursor: pointer;
@@ -25,7 +25,7 @@
             width: 100%;
 
             &-message {
-               top: 45%;
+               top: 0.25rem;
                position: absolute;
                text-align: center;
                width: 90%;
@@ -33,12 +33,18 @@
 
             &-status {
                 right: 12px;
-                bottom: 10px;
+                bottom: 0.25rem;
                 position: absolute;
                 font-style: italic;
-                color: #78706A;
                 font-size: 1rem;
                 text-align: right;
+
+                &-OK {
+                    color: #78706A;
+                }
+                &-ERROR {
+                    color: red;
+                }
             }
          }
 

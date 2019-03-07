@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 import Icons from '../Icons'
 import './TimelineEvent.css'
@@ -27,4 +27,4 @@ TimelineEvent.propTypes = {
   onClick: PT.func.isRequired
 }
 
-export default withNamespaces()(TimelineEvent)
+export default withTranslation()(TimelineEvent)

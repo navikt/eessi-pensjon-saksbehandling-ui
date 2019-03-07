@@ -82,12 +82,16 @@ h4.appDescription {
    font-weight: bold
 }
 
-.c-ui-topContainer.SAKSBEHANDLER .fieldset {
-  border: 3px solid lightgrey;
-}
-
 .knapp--disabled {
   cursor: unset;
+}
+
+@media(max-width: 576px) {
+    button.w-sm-100 {
+        width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
 }
 
 .bold {
@@ -116,5 +120,9 @@ h4.appDescription {
     opacity: 1;
     transform: translateX(0);
   }
+}
+
+li.stegindikator__steg {
+  z-index: 0;
 }
 

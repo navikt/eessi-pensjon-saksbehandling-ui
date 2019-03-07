@@ -17,7 +17,7 @@ const mapStateToProps = (state) => {
   return {
     userRole: state.app.userRole,
     rinaId: state.status.rinaId,
-    saksId: state.status.saksId,
+    sakId: state.status.sakId,
     aktoerId: state.status.aktoerId,
     vedtakId: state.status.vedtakId,
     kravId: state.status.kravId,
@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, appActions, uiActions, statusActions), dispatch) }
 }
 
-const params = ['buc', 'sed', 'rinaId', 'saksId', 'aktoerId', 'vedtakId', 'kravId', 'fnr']
+const params = ['buc', 'sed', 'rinaId', 'sakId', 'aktoerId', 'vedtakId', 'kravId', 'fnr']
 
 class Footer extends Component {
   state = {}
@@ -121,7 +121,7 @@ Footer.propTypes = {
   sed: PT.string,
   buc: PT.string,
   rinaId: PT.string,
-  saksId: PT.string,
+  sakId: PT.string,
   aktoerId: PT.string,
   vedtakId: PT.string,
   kravId: PT.string,

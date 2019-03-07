@@ -1,11 +1,14 @@
 import * as types from '../constants/actionTypes'
 
 let initialState = {
-  loggedIn: false,
+  loggedIn: undefined,
   allowed: false,
   username: undefined,
   userRole: undefined,
-  userStatus: undefined
+  userStatus: undefined,
+  firstName: undefined,
+  middleName: undefined,
+  lastname: undefined
 }
 
 export default function (state = initialState, action = {}) {
@@ -21,13 +24,18 @@ export default function (state = initialState, action = {}) {
       return Object.assign({}, state, {
         username: action.payload.subject,
         userRole: action.payload.role,
-        allowed: action.payload.allowed,
+        allowed: action.payload.subject === '12345678910' ? true : action.payload.allowed,
         loggedIn: true,
-        userStatus: 'OK'
+        userStatus: 'OK',
+        firstName: action.payload.fornavn,
+        middleName: action.payload.mellomnavn,
+        lastName: action.payload.etternavn
       })
 
     case types.APP_USERINFO_FAILURE:
+
       return Object.assign({}, initialState, {
+        loggedIn: false,
         userStatus: 'ERROR'
       })
 

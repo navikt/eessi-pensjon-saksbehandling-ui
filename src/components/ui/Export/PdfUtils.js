@@ -11,7 +11,7 @@ var defaultOptions = {
   filename: 'kvittering.pdf',
   enableLinks: true,
   image: { type: 'jpeg', quality: 0.98 },
-  html2canvas: { scale: 2 },
+  html2canvas: { scale: 1 },
   jsPDF: {
     orientation: 'portrait',
     unit: 'pt',

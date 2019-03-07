@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 import * as Nav from '../../components/ui/Nav'
 import P6000 from '../../components/p6000/P6000'
@@ -110,5 +110,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(ConfirmCase)
+  withTranslation()(ConfirmCase)
 )

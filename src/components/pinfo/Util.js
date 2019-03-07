@@ -1,9 +1,15 @@
 import _ from 'lodash'
 import moment from 'moment'
+import { pinfoDateToDate } from '../../utils/Date'
 
-class Util {
+export default class Util {
+  constructor (pinfo, attachments = {}) {
+    this.pinfo = pinfo
+    this.attachments = attachments
+  }
+
   writeDate (date) {
-    return moment(date).format('DD.MM.YYYY')
+    return moment(pinfoDateToDate(date)).format('DD.MM.YYYY')
   }
 
   handleDate (period) {
@@ -17,11 +23,20 @@ class Util {
     return country.value
   }
 
+  mapAttachmentsToContent (periodAttachments) {
+    if (!periodAttachments) {
+      return null
+    }
+    return periodAttachments.map(file => {
+      return this.attachments[file.content.md5]
+    })
+  }
+
   handleGenericPeriod (period) {
     return {
       land: this.handleCountry(period.country),
       periode: this.handleDate(period),
-      vedlegg: period.attachments,
+      vedlegg: this.mapAttachmentsToContent(period.attachments),
       sted: period.place,
       trygdeordningnavn: period.insuranceName,
       medlemskap: period.insuranceType,
@@ -50,20 +65,23 @@ class Util {
     return this.handleGenericPeriod(period)
   }
 
-  generatePayload (pinfo) {
+  generatePayload () {
     let result = {}
-    result.periodeInfo = this.generatePeriods(pinfo.stayAbroad)
-    result.personInfo = this.generatePerson(pinfo.person)
-    result.bankinfo = this.generateBank(pinfo.bank)
-    result.comment = pinfo.comment
+    result.periodeInfo = this.generatePeriods()
+    result.personInfo = this.generatePerson()
+    result.bankinfo = this.generateBank()
+    result.comment = this.pinfo.comment
     return result
   }
 
-  generatePerson (person) {
+  generatePerson () {
+    let { person } = this.pinfo
     return {
       'etternavnVedFodsel': person.nameAtBirth,
       'tidligereNavn': person.previousName,
       'fodestedLand': person.country ? this.handleCountry(person.country) : null,
+      'fodestedBy': person.place,
+      'provinsEllerDepartement': person.region,
       'telefonnummer': person.phone,
       'epost': person.email,
       'farsNavn': person.fatherName,
@@ -71,7 +89,8 @@ class Util {
     }
   }
 
-  generateBank (bank) {
+  generateBank () {
+    let { bank } = this.pinfo
     return {
       'navn': bank.bankName,
       'land': this.handleCountry(bank.bankCountry),
@@ -81,7 +100,8 @@ class Util {
     }
   }
 
-  generatePeriods (periods) {
+  generatePeriods () {
+    let { stayAbroad: periods } = this.pinfo
     let payload = {}
     periods.map(period => {
       switch (period.type) {
@@ -143,7 +163,3 @@ class Util {
     return payload
   }
 }
-
-const instance = new Util()
-Object.freeze(instance)
-export default instance

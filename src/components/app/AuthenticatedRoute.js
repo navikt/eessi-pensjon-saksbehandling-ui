@@ -2,15 +2,16 @@ import React, { Component } from 'react'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { withTranslation } from 'react-i18next'
 import { Route, withRouter, Redirect } from 'react-router'
 import _ from 'lodash'
 
-import { IS_DEVELOPMENT } from '../../constants/environment'
 import WaitingPanel from './WaitingPanel'
 
 import * as routes from '../../constants/routes'
 import * as appActions from '../../actions/app'
 import * as statusActions from '../../actions/status'
+import * as attachmentActions from '../../actions/attachment'
 
 const mapStateToProps = (state) => {
   return {
@@ -25,19 +26,18 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, appActions, statusActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, appActions, statusActions, attachmentActions), dispatch) }
 }
 
 const paramAliases = {
   'rinaid': 'rinaId',
-  'saksNr': 'saksId',
+  'saksNr': 'sakId',
+  'saksId': 'sakId',
   'fnr': 'aktoerId'
 }
 
-class AuthenticatedRoute extends Component {
-  state = {
-    isReady: false
-  }
+export class AuthenticatedRoute extends Component {
+  state = {}
 
   parseSearchParams () {
     const { actions, location } = this.props
@@ -59,27 +59,18 @@ class AuthenticatedRoute extends Component {
   }
 
   componentDidMount () {
-    const { actions, userStatus } = this.props
-    if (!userStatus) {
+    const { actions, loggedIn, gettingUserInfo } = this.props
+    if (loggedIn === undefined && !gettingUserInfo) {
       actions.getUserInfo()
-    } else {
-      this.setState({
-        isReady: true
-      })
     }
     this.parseSearchParams()
   }
 
   componentDidUpdate () {
-    const { userStatus } = this.props
-    const { isReady } = this.state
-
-    if (!isReady && userStatus !== undefined) {
-      this.setState({
-        isReady: true
-      })
+    const { actions, loggedIn } = this.props
+    if (loggedIn === false) {
+      actions.login()
     }
-    this.parseSearchParams()
   }
 
   hasApprovedRole () {
@@ -87,35 +78,28 @@ class AuthenticatedRoute extends Component {
     return roles.indexOf(userRole) >= 0
   }
 
-  comesFromPesys () {
-    return this.state.hasOwnProperty('saksId') && this.state.hasOwnProperty('aktoerId')
-  }
-
   render () {
-    const { userRole, allowed, gettingUserInfo } = this.props
-    const { isReady } = this.state
+    const { t, allowed, loggedIn, userRole } = this.props
 
-    if (!isReady || gettingUserInfo) {
-      return <WaitingPanel message='authenticating' />
+    if (!loggedIn) {
+      return <WaitingPanel message={t('authenticating')} />
     }
-
-    if (!userRole) {
-      return <Redirect to={{
-        pathname: routes.LOGIN,
-        search: 'context=' + encodeURIComponent(window.location.pathname + window.location.search)
-      }} />
-    }
-
     let validRole = this.hasApprovedRole()
 
     if (!validRole) {
-      return <Redirect to={routes.FORBIDDEN} />
+      return <Redirect to={{
+        pathname: routes.FORBIDDEN,
+        state: { role: userRole }
+      }} />
     }
 
-    let authorized = allowed || IS_DEVELOPMENT
+    let authorized = allowed
 
     if (!authorized) {
-      return <Redirect to={routes.NOT_INVITED} />
+      return <Redirect to={{
+        pathname: routes.NOT_INVITED,
+        state: { role: userRole }
+      }} />
     }
 
     return <Route {...this.props} />
@@ -132,5 +116,7 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withRouter(AuthenticatedRoute)
+  withRouter(
+    withTranslation()(AuthenticatedRoute)
+  )
 )

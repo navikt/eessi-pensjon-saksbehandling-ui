@@ -4,7 +4,7 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import PageInDnD from '../PageInDnD/PageInDnD'
@@ -148,5 +148,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(DnDSource)
+  withTranslation()(DnDSource)
 )

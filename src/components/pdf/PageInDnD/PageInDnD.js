@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
-import { Document, Page } from 'react-pdf'
+import { pdfjs, Document, Page } from 'react-pdf'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
 
-import { Ikon } from '../../../components/ui/Nav'
 import Icons from '../../../components/ui/Icons'
 
 import * as pdfActions from '../../../actions/pdf'
 import * as uiActions from '../../../actions/ui'
 
 import './PageInDnD.css'
+
+pdfjs.GlobalWorkerOptions.workerSrc = process.env.PUBLIC_URL + '/pdf.worker.js'
 
 const mapStateToProps = (state) => {
   return {
@@ -116,7 +117,7 @@ class PageInDnD extends Component {
        }
 
        if (isHovering || isFocused) {
-         iconLink = <Ikon style={{ cursor: 'pointer' }} size={iconSize} kind={iconKind} />
+         iconLink = <Icons style={{ cursor: 'pointer' }} size={iconSize} kind={iconKind} />
        }
 
        return <div style={style} className={classNames('c-pdf-PageInDnD', className)}

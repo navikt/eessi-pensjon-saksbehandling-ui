@@ -14,6 +14,12 @@ export default function (state = {}, action = {}) {
         institutionList: undefined
       })
 
+    case types.CASE_GET_SUBJECT_AREA_LIST_FAILURE:
+
+      return Object.assign({}, state, {
+        institutionList: []
+      })
+
     case types.CASE_GET_INSTITUTION_LIST_SUCCESS:
 
       return Object.assign({}, state, {
@@ -29,13 +35,19 @@ export default function (state = {}, action = {}) {
     case types.CASE_GET_BUC_LIST_REQUEST:
 
       return Object.assign({}, state, {
-        bucList: undefined
+        bucList: []
       })
 
     case types.CASE_GET_BUC_LIST_SUCCESS:
 
       return Object.assign({}, state, {
         bucList: action.payload
+      })
+
+    case types.CASE_GET_BUC_LIST_FAILURE:
+
+      return Object.assign({}, state, {
+        bucList: []
       })
 
     case types.CASE_GET_COUNTRY_LIST_SUCCESS:

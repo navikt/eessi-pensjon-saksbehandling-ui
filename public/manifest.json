@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Pensjon-Utland",
+  "name": "eessi-pensjon-frontend-ui",
   "icons": [
     {
       "src": "favicon.ico",

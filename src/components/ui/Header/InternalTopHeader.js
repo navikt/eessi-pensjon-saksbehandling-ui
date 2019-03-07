@@ -2,15 +2,16 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
-import { withNamespaces } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
+import AdvarselTrekant from '../../../resources/images/AdvarselTrekant'
 import Icons from '../Icons'
 import * as Nav from '../Nav'
 
 import * as routes from '../../../constants/routes'
 
-import * as navLogo from '../../../resources/images/nav.svg'
+import NavLogoWhiteTransparent from '../../../resources/images/NavLogoWhiteTransparent'
 import * as appActions from '../../../actions/app'
 import * as uiActions from '../../../actions/ui'
 
@@ -51,7 +52,7 @@ class InternalTopHeader extends Component {
       <header className='c-ui-topHeader'>
         <div className='brand'>
           <a href='#index' onClick={this.onLogoClick.bind(this)}>
-            <img className='logo' src={navLogo} alt='Hjem' />
+            <NavLogoWhiteTransparent width='100' height='45' />
           </a>
           <div className='skillelinje' />
           <div className='tittel'><span>{t('app-headerTitle')}</span></div>
@@ -73,7 +74,7 @@ class InternalTopHeader extends Component {
                   <option value='logout'>{t('logout')}</option>
                 </Nav.Select>
                 : <React.Fragment>
-                  <Nav.Ikon size={16} kind='advarsel-trekant' />
+                  <AdvarselTrekant size={16} />
                   <span className='username-span'>{t('unknown')}</span>
                 </React.Fragment>
             }
@@ -99,5 +100,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withNamespaces()(InternalTopHeader)
+  withTranslation()(InternalTopHeader)
 )
