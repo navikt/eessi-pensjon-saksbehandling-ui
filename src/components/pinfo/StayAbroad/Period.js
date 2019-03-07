@@ -51,8 +51,8 @@ class Period extends React.Component {
   constructor (props) {
     super(props)
     this.setType = this.eventSetProperty.bind(this, 'type', periodValidation.periodType)
-    this.setStartDate = this.dateSetProperty.bind(this, 'startDate', periodValidation.validPeriodStartDate)
-    this.setEndDate = this.dateSetProperty.bind(this, 'endDate', periodValidation.validPeriodEndDate)
+    this.setStartDate = this.dateSetProperty.bind(this, 'startDate', periodValidation.periodStartDateOnChange)
+    this.setEndDate = this.dateSetProperty.bind(this, 'endDate', periodValidation.periodEndDateOnChange)
     this.setCountry = this.valueSetProperty.bind(this, 'country', periodValidation.periodCountry)
     this.setInsuranceName = this.eventSetProperty.bind(this, 'insuranceName', periodValidation.insuranceName)
     this.setInsuranceType = this.eventSetProperty.bind(this, 'insuranceType', periodValidation.insuranceType)
@@ -68,6 +68,8 @@ class Period extends React.Component {
     this.setFatherName = this.eventSetPerson.bind(this, 'fatherName', personValidation.fatherName)
     this.setMotherName = this.eventSetPerson.bind(this, 'motherName', personValidation.motherName)
     this.setAttachments = this.setAttachments.bind(this, 'attachments', null)
+    this.blurStartDate = this.dateBlur.bind(this, 'startDate', periodValidation.periodStartDateOnBlur)
+    this.blurEndDate = this.dateBlur.bind(this, 'endDate', periodValidation.periodEndDateOnBlur)
   }
 
   hasNoErrors (errors) {
@@ -123,6 +125,22 @@ class Period extends React.Component {
 
   eventSetProperty (key, validateFunction, event) {
     this.valueSetProperty(key, validateFunction, event.target.value)
+  }
+
+  dateBlur (key, validateFunction, date) {
+    let _localErrors = _.cloneDeep(this.state.localErrors)
+
+    let error = validateFunction ? validateFunction(date) : undefined
+
+    if (!error && _localErrors.hasOwnProperty(key)) {
+      delete _localErrors[key]
+    }
+    if (error) {
+      _localErrors[key] = error
+    }
+    this.setState({
+      localErrors: _localErrors
+    })
   }
 
   dateSetProperty (key, validateFunction, date) {
@@ -564,6 +582,7 @@ class Period extends React.Component {
                   className='startDate pr-2'
                   values={_period.startDate}
                   onChange={this.setStartDate}
+                  onBlur={this.blurStartDate}
                   feil={localErrors.startDate || localErrors.timeSpan ? { feilmelding: t(localErrors.startDate || localErrors.timeSpan) } : undefined}
                 />
                 }
@@ -577,6 +596,7 @@ class Period extends React.Component {
                   className='endDate pr-2'
                   values={_period.endDate}
                   onChange={this.setEndDate}
+                  onBlur={this.blurEndDate}
                   feil={localErrors.endDate || localErrors.timeSpan ? { feilmelding: t(localErrors.endDate || localErrors.timeSpan) } : undefined}
                 />
                 }
@@ -808,7 +828,7 @@ class Period extends React.Component {
                 <FileUpload
                   id={'pinfo-opphold-vedlegg-fileupload-' + period.id}
                   acceptedMimetypes={['application/pdf', 'image/jpeg', 'image/png']}
-                  maxFileSize={10*1024*1024}
+                  maxFileSize={10 * 1024 * 1024}
                   maxFiles={5}
                   t={t}
                   ref={f => { this.fileUpload = f }}

@@ -5,25 +5,24 @@ import * as constants from '../constants/constants'
 import * as api from './api'
 import * as storageActions from './storage'
 
-import configureMockStore  from 'redux-mock-store'
+import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
 const initialState = {
-   app: {
-      username: '123456789210',
-      lastName: 'LastName'
-   },
-   storage: {},
-   pinfo: {
-     person: {},
-     stayAbroad: []
-   }
+  app: {
+    username: '123456789210',
+    lastName: 'LastName'
+  },
+  storage: {},
+  pinfo: {
+    person: {},
+    stayAbroad: []
+  }
 }
 
-const mockStore = configureMockStore ([thunk])
+const mockStore = configureMockStore([thunk])
 
 describe('pinfo actions', () => {
-
   let store
 
   beforeAll(() => {
@@ -111,7 +110,6 @@ describe('pinfo actions', () => {
   })
 
   it('call sendPInfo()', () => {
-
     const sendPInfo = { pinfo: 'pinfo' }
     pinfoActions.sendPInfo(sendPInfo)
     expect(api.call).toBeCalledWith({
@@ -172,15 +170,15 @@ describe('pinfo actions', () => {
 
     storageActions.postStorageFileWithNoNotification = jest.fn()
     storageActions.postStorageFileWithNoNotification.mockReturnValue(() => {
-       return Promise.resolve({
+      return Promise.resolve({
         type: types.STORAGE_POST_NO_NOTIF_SUCCESS,
-        payload: {success: 'true'}
+        payload: { success: 'true' }
       })
     })
 
     Object.defineProperty(window, 'location', {
-     writable: true,
-     value: {}
+      writable: true,
+      value: {}
     })
 
     store.dispatch(pinfoActions.saveStateAndExit(mockPinfo, mockUsername)).then(() => {
@@ -190,7 +188,7 @@ describe('pinfo actions', () => {
         constants.PINFO_FILE,
         JSON.stringify(mockPinfo)
       )
-      expect(window.location.href).toEqual("dsds")
+      expect(window.location.href).toEqual('dsds')
     })
     storageActions.postStorageFileWithNoNotification.mockRestore()
   })
@@ -202,22 +200,21 @@ describe('pinfo actions', () => {
     storageActions.deleteAllStorageFilesFromUser.mockReturnValue(() => {
       return Promise.resolve({
         type: types.STORAGE_MULTIPLE_DELETE_SUCCESS,
-        payload: {success: 'true'}
+        payload: { success: 'true' }
       })
     })
 
     Object.defineProperty(window, 'location', {
-     writable: true,
-     value: {}
+      writable: true,
+      value: {}
     })
 
     store.dispatch(pinfoActions.deleteStateAndExit(mockUsername)).then(() => {
-       expect(storageActions.deleteAllStorageFilesFromUser).toBeCalledWith(
+      expect(storageActions.deleteAllStorageFilesFromUser).toBeCalledWith(
         mockUsername,
         constants.PINFO
       )
-      expect(window.location.href).toEqual("dsds")
-
+      expect(window.location.href).toEqual('dsds')
     })
 
     storageActions.deleteAllStorageFilesFromUser.mockRestore()

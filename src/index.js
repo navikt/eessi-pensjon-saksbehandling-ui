@@ -79,8 +79,8 @@ ReactDOM.render(
 
             <AuthenticatedRoute path={routes.INDEX} component={Pages.IndexPage} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
             <Route path={routes.NOT_LOGGED} render={() => <Pages.Error type='notLogged' />} />
-            <Route path={routes.NOT_INVITED} render={(props) => <Pages.Error type='notInvited' role={props.location.state.role}/>} />
-            <Route path={routes.FORBIDDEN} render={(props) => <Pages.Error type='forbidden' role={props.location.state.role}/>} />
+            <Route path={routes.NOT_INVITED} render={(props) => <Pages.Error type='notInvited' role={props.location.state.role} />} />
+            <Route path={routes.FORBIDDEN} render={(props) => <Pages.Error type='forbidden' role={props.location.state.role} />} />
             <Route path={routes.ROOT + ':PATH+'} render={() => <Pages.Error type='error' />} />
             <AuthenticatedRoute path={routes.ROOT} component={Pages.FirstPage} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
             <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />

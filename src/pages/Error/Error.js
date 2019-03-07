@@ -10,14 +10,12 @@ import * as Nav from '../../components/ui/Nav'
 import './Error.css'
 
 const roleLabel = {
- 'BRUKER' : 'user',
- 'SAKSBEHANDLER' : 'saksbehandler'
+  'BRUKER': 'user',
+  'SAKSBEHANDLER': 'saksbehandler'
 }
 
 class Error extends Component {
-
   render () {
-
     const { t, history, location, role, type } = this.props
     let title, description
     let _role = roleLabel[role] || 'user'

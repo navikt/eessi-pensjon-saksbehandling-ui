@@ -3,7 +3,6 @@ import * as types from '../constants/actionTypes'
 import * as storageActions from './storage'
 
 describe('storage actions', () => {
-
   beforeAll(() => {
     api.call = jest.fn()
   })
@@ -17,7 +16,7 @@ describe('storage actions', () => {
   })
 
   it('call openStorageModal()', () => {
-    const options = {foo: 'bar'}
+    const options = { foo: 'bar' }
     const generatedResult = storageActions.openStorageModal(options)
     expect(generatedResult).toMatchObject({
       type: types.STORAGE_MODAL_OPEN,
@@ -64,7 +63,7 @@ describe('storage actions', () => {
 
   it('call getStorageFileWithNoNotification()', () => {
     const mockParams = {
-      userId : 'userId',
+      userId: 'userId',
       namespace: 'namespace',
       file: 'file'
     }
@@ -83,7 +82,7 @@ describe('storage actions', () => {
 
   it('call listStorageFiles()', () => {
     const mockParams = {
-      userId : 'userId',
+      userId: 'userId',
       namespace: 'namespace',
       file: 'file'
     }
@@ -100,10 +99,13 @@ describe('storage actions', () => {
   })
 
   it('call postStorageFileWithNoNotification()', () => {
-    let userId = 'userId',
-      namespace = 'namespace',
-      file = 'file',
-      payload= {foo: 'bar'}
+    let userId = 'userId'
+
+    let namespace = 'namespace'
+
+    let file = 'file'
+
+    let payload = { foo: 'bar' }
     storageActions.postStorageFileWithNoNotification(userId, namespace, file, payload)
     expect(api.call).toBeCalledWith({
       type: {
@@ -118,10 +120,13 @@ describe('storage actions', () => {
   })
 
   it('call postStorageFile()', () => {
-    let userId = 'userId',
-      namespace = 'namespace',
-      file = 'file',
-      payload= {foo: 'bar'}
+    let userId = 'userId'
+
+    let namespace = 'namespace'
+
+    let file = 'file'
+
+    let payload = { foo: 'bar' }
     storageActions.postStorageFile(userId, namespace, file, payload)
     expect(api.call).toBeCalledWith({
       type: {
@@ -137,7 +142,7 @@ describe('storage actions', () => {
 
   it('call getPinfoFromStorage()', () => {
     const mockParams = {
-      userId : 'userId',
+      userId: 'userId',
       namespace: 'namespace',
       file: 'pinfoFile'
     }
@@ -155,7 +160,7 @@ describe('storage actions', () => {
 
   it('call getAttachmentFromStorage()', () => {
     const mockParams = {
-      userId : 'userId',
+      userId: 'userId',
       namespace: 'namespace',
       file: 'attachmentFile'
     }
@@ -172,9 +177,11 @@ describe('storage actions', () => {
   })
 
   it('call deleteStorageFile()', () => {
-    const userId = 'userId',
-      namespace = 'namespace',
-      file = 'file'
+    const userId = 'userId'
+
+    const namespace = 'namespace'
+
+    const file = 'file'
 
     storageActions.deleteStorageFile(userId, namespace, file)
     expect(api.call).toBeCalledWith({
@@ -189,8 +196,9 @@ describe('storage actions', () => {
   })
 
   it('call deleteAllStorageFilesFromUser()', () => {
-    const userId = 'userId',
-      namespace = 'namespace'
+    const userId = 'userId'
+
+    const namespace = 'namespace'
 
     storageActions.deleteAllStorageFilesFromUser(userId, namespace)
     expect(api.call).toBeCalledWith({
@@ -205,7 +213,7 @@ describe('storage actions', () => {
   })
 
   it('call setTargetFileToDelete()', () => {
-    const mockPayload = { foo : 'bar' }
+    const mockPayload = { foo: 'bar' }
     const generatedResult = storageActions.setTargetFileToDelete(mockPayload)
     expect(generatedResult).toMatchObject({
       type: types.STORAGE_TARGET_FILE_TO_DELETE_SET,

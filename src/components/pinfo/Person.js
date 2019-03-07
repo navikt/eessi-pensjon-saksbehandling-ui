@@ -90,17 +90,17 @@ class Person extends React.Component {
       <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-info-title')}</Nav.Undertittel>
       <Nav.Undertekst className='mt-4 mb-4'>{t('pinfo:app-info-on-help-icon')}</Nav.Undertekst>
       {(firstName || middleName || lastName)
-      ? <Nav.Row>
-        <div className='col-sm-12 mb-2'>
-          <label className='skjemaelement__label'>
-          {t('pinfo:person-info-currentName')}
-          </label>
-          {firstName? `${firstName}`: null}
-          {middleName? ` ${middleName}`: null}
-          {lastName? ` ${lastName}`: null}
-        </div>
-      </Nav.Row>
-      : null
+        ? <Nav.Row>
+          <div className='col-sm-12 mb-2'>
+            <label className='skjemaelement__label'>
+              {t('pinfo:person-info-currentName')}
+            </label>
+            {firstName ? `${firstName}` : null}
+            {middleName ? ` ${middleName}` : null}
+            {lastName ? ` ${lastName}` : null}
+          </div>
+        </Nav.Row>
+        : null
       }
       <Nav.Row>
         <div className='col-sm-12'>

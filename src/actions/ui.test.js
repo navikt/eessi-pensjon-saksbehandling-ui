@@ -4,7 +4,6 @@ import * as uiActions from './ui'
 import i18n from '../i18n'
 
 describe('ui actions', () => {
-
   it('call changeLanguage()', () => {
     i18n.changeLanguage = jest.fn()
     const mockLanguage = 'zz'
@@ -17,7 +16,7 @@ describe('ui actions', () => {
   })
 
   it('call openModal()', () => {
-    const mockModal = {foo: 'bar'}
+    const mockModal = { foo: 'bar' }
     const generatedResult = uiActions.openModal(mockModal)
     expect(generatedResult).toMatchObject({
       type: types.UI_MODAL_OPEN,

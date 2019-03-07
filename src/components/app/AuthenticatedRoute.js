@@ -89,7 +89,7 @@ export class AuthenticatedRoute extends Component {
     if (!validRole) {
       return <Redirect to={{
         pathname: routes.FORBIDDEN,
-        state: { role : userRole}
+        state: { role: userRole }
       }} />
     }
 
@@ -98,8 +98,8 @@ export class AuthenticatedRoute extends Component {
     if (!authorized) {
       return <Redirect to={{
         pathname: routes.NOT_INVITED,
-        state: {role : userRole}
-      }}/>
+        state: { role: userRole }
+      }} />
     }
 
     return <Route {...this.props} />

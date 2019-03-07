@@ -126,13 +126,10 @@ let periodStartDate = function (startDate) {
   if (!startDate.year) {
     return 'pinfo:validation-noYear'
   }
-  if (startDate.year.length < 4) {
-    return 'pinfo:validation-inValidYear'
-  }
   if (!startDate.month) {
     return 'pinfo:validation-noMonth'
   }
-  return validPeriodStartDate(startDate)
+  return periodStartDateOnBlur(startDate)
 }
 
 let periodEndDate = function (endDate) {
@@ -142,19 +139,30 @@ let periodEndDate = function (endDate) {
   if (!endDate.year) {
     return 'pinfo:validation-noYear'
   }
-  if (endDate.year.length < 4) {
-    return 'pinfo:validation-inValidYear'
-  }
   if (!endDate.month) {
     return 'pinfo:validation-noMonth'
   }
-  validPeriodEndDate(endDate)
+  return periodEndDateOnBlur(endDate)
+}
+
+let periodStartDateOnBlur = function (startDate) {
+  if (startDate && startDate.year && startDate.year.length < 4) {
+    return 'pinfo:validation-inValidYear'
+  }
+  return periodStartDateOnChange(startDate)
+}
+
+let periodEndDateOnBlur = function (endDate) {
+  if (endDate && endDate.year && endDate.year.length < 4) {
+    return 'pinfo:validation-inValidYear'
+  }
+  return periodEndDateOnChange(endDate)
 }
 
 // tests if startDate is a valid date.
 // The validation for whether startdate exists is another test to avoid
 // Overeager validation.
-let validPeriodStartDate = function (startDate) {
+let periodStartDateOnChange = function (startDate) {
   if (!startDate || !startDate.month || !startDate.year) {
     return undefined
   }
@@ -171,7 +179,7 @@ let validPeriodStartDate = function (startDate) {
   return undefined
 }
 
-let validPeriodEndDate = function (endDate) {
+let periodEndDateOnChange = function (endDate) {
   if (!endDate || !endDate.month || !endDate.year) {
     return undefined
   }
@@ -264,8 +272,10 @@ export const periodValidation = {
   periodType,
   periodStartDate,
   periodEndDate,
-  validPeriodStartDate,
-  validPeriodEndDate,
+  periodStartDateOnBlur,
+  periodEndDateOnBlur,
+  periodStartDateOnChange,
+  periodEndDateOnChange,
   periodTimeSpan,
   periodCountry,
   periodPlace,

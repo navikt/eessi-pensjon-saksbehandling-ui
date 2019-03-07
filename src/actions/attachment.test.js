@@ -4,25 +4,24 @@ import * as types from '../constants/actionTypes'
 import * as storageActions from './storage'
 
 import { APP_LOGOUT_URL, APP_GET_USERINFO_URL } from '../constants/urls'
-import configureMockStore  from 'redux-mock-store'
+import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
 const initialState = {
-   app: {
-      username: '123456789210',
-      lastName: 'LastName'
-   },
-   storage: {},
-   pinfo: {
-     person: {},
-     stayAbroad: []
-   }
+  app: {
+    username: '123456789210',
+    lastName: 'LastName'
+  },
+  storage: {},
+  pinfo: {
+    person: {},
+    stayAbroad: []
+  }
 }
 
-const mockStore = configureMockStore ([thunk])
+const mockStore = configureMockStore([thunk])
 
 describe('attachment actions', () => {
-
   let store
 
   beforeAll(() => {
@@ -30,7 +29,7 @@ describe('attachment actions', () => {
   })
 
   it('call addFileToState()', () => {
-    const mockFile = {mockfile: 'mockFile'}
+    const mockFile = { mockfile: 'mockFile' }
     const generatedResult = attachmentActions.addFileToState(mockFile)
     expect(generatedResult).toMatchObject({
       type: types.ATTACHMENT_ADD_FILE_TO_STATE,
@@ -64,7 +63,6 @@ describe('attachment actions', () => {
   })
 
   it('call getAllStateFromStorage()', () => {
-
     storageActions.listStorageFiles = jest.fn()
     storageActions.listStorageFiles.mockReturnValue(() => {
       return Promise.resolve({
@@ -83,14 +81,13 @@ describe('attachment actions', () => {
         { type: 'ATTACHMENT/GET/PINFO/FILE' },
         { type: 'PINFO/SET/READY' },
         { type: 'ATTACHMENT/GET/STORAGE/FILES' },
-        { type: 'PINFO/PERSON/SET', payload: { nameAtBirth: 'LastName'} }
+        { type: 'PINFO/PERSON/SET', payload: { nameAtBirth: 'LastName' } }
       ]
       expect(generatedActions).toEqual(expectedActions)
     })
   })
 
   it('call syncLocalStateWithStorage()', () => {
-
     store.dispatch(
       attachmentActions.syncLocalStateWithStorage()
     ).then(() => {
@@ -101,14 +98,14 @@ describe('attachment actions', () => {
         { type: 'ATTACHMENT/GET/PINFO/FILE' },
         { type: 'PINFO/SET/READY' },
         { type: 'ATTACHMENT/GET/STORAGE/FILES' },
-        { type: 'PINFO/PERSON/SET', payload: { nameAtBirth: 'LastName'} },
+        { type: 'PINFO/PERSON/SET', payload: { nameAtBirth: 'LastName' } },
         { type: 'ATTACHMENT/SYNCRONIZE/STATE' },
         { type: 'ATTACHMENT/GET/STORAGE/LIST' },
         { type: 'ATTACHMENT/DELETE/STORAGE/FILES' },
         { type: 'ATTACHMENT/GET/STORAGE/FILES' },
         { type: 'ATTACHMENT/POST/STORAGE/FILES' },
         { type: 'ATTACHMENT/DELETE/LOCAL/ATTACHMENTS' },
-        { type: 'ATTACHMENT/STATE/ARRAY/REMOVE', payload: []}
+        { type: 'ATTACHMENT/STATE/ARRAY/REMOVE', payload: [] }
       ]
       expect(generatedActions).toEqual(expectedActions)
     })

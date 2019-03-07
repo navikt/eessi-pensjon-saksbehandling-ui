@@ -21,6 +21,21 @@ class DatePicker extends Component {
     this.onChangeday = this.dateChange.bind(this, 'day')
     this.onChangeMonth = this.dateChange.bind(this, 'month')
     this.onChangeYear = this.dateChange.bind(this, 'year')
+    this._onBlur = this._onBlur.bind(this)
+    this._onFocus = this._onFocus.bind(this)
+    this._timeoutID = null
+  }
+
+  _onBlur (event) {
+    const { values, onBlur = function () {} } = this.props
+    this._timeoutID = setTimeout(() => {
+      onBlur(values)
+    }, 0)
+  }
+  _onFocus (event) {
+    const { values, onFocus = function () {} } = this.props
+    clearTimeout(this._timeoutID)
+    onFocus(values)
   }
 
   maxLength (limit, event) {
@@ -102,7 +117,7 @@ class DatePicker extends Component {
     const { className, labels = {}, ids = {}, placeholders = {}, values = {}, feil } = this.props
     const { errors } = this.state
     return (
-      <div className={classNames('datePicker', className)}>
+      <div className={classNames('datePicker', className)} onBlur={this._onBlur} onFocus={this._onFocus}>
         <div className={'row pr-2 mb-3'}>
           <div className={'col pl-2 pr-1'}>
             <Input

@@ -4,7 +4,6 @@ import * as types from '../constants/actionTypes'
 import { APP_LOGOUT_URL, APP_GET_USERINFO_URL } from '../constants/urls'
 
 describe('api actions', () => {
-
   it('call login()', () => {
     Object.defineProperty(window, 'location', {
       writable: true,
@@ -16,7 +15,7 @@ describe('api actions', () => {
       }
     })
     const generatedResult = appActions.login()
-    expect(window.location.href).toEqual("http://localhost/login?redirect=http://fake-url.nav.no/&context=%2Fpath%3Fvar%3Dparam")
+    expect(window.location.href).toEqual('http://localhost/login?redirect=http://fake-url.nav.no/&context=%2Fpath%3Fvar%3Dparam')
     expect(generatedResult).toMatchObject({
       type: types.APP_LOGIN_REQUEST
     })
