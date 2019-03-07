@@ -123,8 +123,8 @@ class PInfo extends React.Component {
     }
 
     if (this.hasNoErrors(errors)) {
-      actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
       actions.setStep(step + 1)
+      actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
       window.scrollTo(0, 0)
     }
   }
