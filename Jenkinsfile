@@ -39,7 +39,7 @@ node {
             }
         }
 
-        stage("deploy") {
+        stage("deploy T8") {
             parallel(
                 deploy_to_fss: {
                     def version = sh(script: 'git describe --abbrev=0', returnStdout: true).trim()
@@ -76,6 +76,59 @@ node {
                 failFast: true
             )
         }
+
+        stage("Cucumber tests") {
+                         build([
+                             job       : 'Automatiske tester',
+                             wait      : true,
+                             parameters: [
+                                 string(name: 'environment', value: "autotest_env_T"),
+                                 booleanParam(name: 'testsaksbehandler', value: false),
+                                 booleanParam(name: 'testBorger', value: true),
+                                 booleanParam(name: 'testKravAlder', value: false)
+                             ]
+                          ])
+                }
+
+        stage("deploy Q1") {
+                parallel (
+                    deploy_to_fss: {
+                        def version = sh(script: 'git describe --abbrev=0', returnStdout: true).trim()
+                        build([
+                            job       : 'nais-deploy-pipeline',
+                            wait      : true,
+                            parameters: [
+                                string(name: 'APP', value: "eessi-pensjon-frontend-ui-fss"),
+                                string(name: 'REPO', value: "navikt/eessi-pensjon-frontend-ui-fss"),
+                                string(name: 'VERSION', value: "${version}"),
+                                string(name: 'DEPLOY_REF', value: "${version}"),
+                                string(name: 'DEPLOY_ENV', value: 'q1'),
+                                string(name: 'NAMESPACE', value: 'q1'),
+                                string(name: 'CLUSTER', value: 'fss'),
+                                string(name: 'CONTEXT_ROOTS', value: '/callback')
+                            ]
+                        ])
+                    },
+                    deploy_to_sbs: {
+                        def version = sh(script: 'git describe --abbrev=0', returnStdout: true).trim()
+                        build([
+                            job       : 'nais-deploy-pipeline',
+                            wait      : true,
+                            parameters: [
+                                string(name: 'APP', value: "eessi-pensjon-frontend-ui-sbs"),
+                                string(name: 'REPO', value: "navikt/eessi-pensjon-frontend-ui-sbs"),
+                                string(name: 'VERSION', value: "${version}"),
+                                string(name: 'DEPLOY_REF', value: "${version}"),
+                                string(name: 'DEPLOY_ENV', value: 'q1'),
+                                string(name: 'NAMESPACE', value: 'q1'),
+                                string(name: 'CLUSTER', value: 'sbs'),
+                                string(name: 'CONTEXT_ROOTS', value: '/callback')
+                            ]
+                        ])
+                    },
+                    failFast: true
+                )
+            }
 
         github.commitStatus("success", "navikt/eessi-pensjon-frontend-ui", appToken, commitHash)
     } catch (err) {
