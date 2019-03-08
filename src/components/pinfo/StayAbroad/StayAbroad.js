@@ -3,18 +3,19 @@ import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { withTranslation } from 'react-i18next'
 import _ from 'lodash'
+import classNames from 'classnames'
 
 import * as Nav from '../../ui/Nav'
 import Period from './Period'
 
-const mapStateToProps = (state) => {
+export const mapStateToProps = (state) => {
   return {
     locale: state.ui.locale,
     stayAbroad: state.pinfo.stayAbroad
   }
 }
 
-class StayAbroad extends React.Component {
+export class StayAbroad extends React.Component {
   state = {
     _period: {},
     maxPeriods: 8
@@ -32,12 +33,11 @@ class StayAbroad extends React.Component {
 
     const mode = _period && _period.id ? 'edit' : 'new'
 
-    return <React.Fragment>
+    return <div className={classNames('c-pinfo-stayAbroad', mode)}>
       {mode === 'new' ? <React.Fragment>
         <Nav.Undertittel>{t('pinfo:stayAbroad-title')}</Nav.Undertittel>
         <Nav.Undertekst>{t('pinfo:stayAbroad-description')}</Nav.Undertekst>
         <Nav.Undertekst className='mt-4 mb-4'>{t('pinfo:app-info-on-help-icon')}</Nav.Undertekst>
-
       </React.Fragment> : null}
       {!_.isEmpty(stayAbroad) && mode === 'new' ? <React.Fragment>
         <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-previousPeriods')}</Nav.Undertittel>
@@ -62,8 +62,10 @@ class StayAbroad extends React.Component {
         periods={stayAbroad}
         locale={locale}
         editPeriod={this.setEditPeriod.bind(this)}
-      /> : t('pinfo:alert-maxPeriods', { maxPeriods: maxPeriods })}
-    </React.Fragment>
+      /> : <span className='c-pinfo-stayAbroad-maxPeriods'>
+        {t('pinfo:alert-maxPeriods', { maxPeriods: maxPeriods })}
+      </span> }
+    </div>
   }
 }
 
