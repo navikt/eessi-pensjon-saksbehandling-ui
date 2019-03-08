@@ -4,7 +4,6 @@ import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { withTranslation } from 'react-i18next'
 
-import Case from './Case'
 import * as Nav from '../../components/ui/Nav'
 
 import * as routes from '../../constants/routes'
@@ -29,7 +28,7 @@ class SendCase extends Component {
       const { history, dataSent } = this.props
 
       if (!dataSent) {
-        history.push(routes.CASE_START)
+        history.push(routes.CASE)
       }
     }
 
@@ -37,7 +36,7 @@ class SendCase extends Component {
       const { history, dataSent } = this.props
 
       if (!dataSent) {
-        history.push(routes.CASE_START)
+        history.push(routes.CASE)
       }
     }
 
@@ -52,7 +51,7 @@ class SendCase extends Component {
       }
       Object.keys(search).forEach(key => searchParams.append(key, search[key]))
 
-      history.push(routes.CASE_START + '?' + searchParams.toString())
+      history.push(routes.CASE + '?' + searchParams.toString())
       actions.clearData()
     }
 
@@ -66,12 +65,7 @@ class SendCase extends Component {
     render () {
       let { t, history, location } = this.props
 
-      return <Case className='p-case-sendCase'
-        title={t('case:app-caseTitle') + ' - ' + t('case:app-sendCaseTitle')}
-        description={t('case:app-sendCaseDescription')}
-        stepIndicator={4}
-        history={history}
-        location={location}>
+      return <div>
         <div className='fieldset animate'>
           <Nav.Row>
             <Nav.Column className='sendCase'>
@@ -83,7 +77,7 @@ class SendCase extends Component {
           <Nav.Hovedknapp className='goToStartButton' onClick={this.onGoToStartButtonClick.bind(this)}>{t('ui:goToStart')}</Nav.Hovedknapp>
           <Nav.Knapp className='ml-3 createNewButton' onClick={this.onCreateNewButtonClick.bind(this)}>{t('ui:createNew')}</Nav.Knapp>
         </div>
-      </Case>
+      </div>
     }
 }
 

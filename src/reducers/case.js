@@ -1,6 +1,11 @@
 import * as types from '../constants/actionTypes'
 
-export default function (state = {}, action = {}) {
+let initialState = {
+  step: 0,
+  maxStep: 0
+}
+
+export default function (state = initialState, action = {}) {
   switch (action.type) {
     case types.CASE_GET_SUBJECT_AREA_LIST_SUCCESS:
 
@@ -56,10 +61,11 @@ export default function (state = {}, action = {}) {
         countryList: action.payload
       })
 
-    case types.CASE_CONFIRM_DATA_SUCCESS:
+    case types.CASE_DATA_PREVIEW_SUCCESS:
 
       return Object.assign({}, state, {
-        dataToConfirm: action.payload
+        dataPreview: action.payload,
+        step: 1
       })
 
     case types.CASE_CONFIRM_DATA_CLEAN:

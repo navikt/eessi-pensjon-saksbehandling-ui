@@ -10,6 +10,7 @@ import MessageSentSVG from '../../resources/images/LineVersionExpandedEmailSend3
 
 import Vedlegg from '../../resources/images/Vedlegg'
 import Trashcan from '../../resources/images/Trashcan'
+import Tilsette from '../../resources/images/Tilsette'
 import LineVersionClose from '../../resources/images/LineVersionClose'
 
 // import * as heart from '../../resources/images/line-version-heart-circle.svg'
@@ -80,6 +81,7 @@ class Icons extends Component {
       case 'bigclose' : return <LineVersionClose {...this.props} />
       case 'vedlegg' : return <Vedlegg {...this.props} />
       case 'trashcan' : return <Trashcan {...this.props} />
+      case 'tilsette' : return <Tilsette {...this.props} />
       default: return null
     }
   }

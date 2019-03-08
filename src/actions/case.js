@@ -3,16 +3,8 @@ import * as urls from '../constants/urls'
 import * as api from './api'
 var sprintf = require('sprintf-js').sprintf
 
-export function getCaseFromCaseNumber (obj) {
-  return {
-    type: types.CASE_GET_CASE_NUMBER_SUCCESS,
-    payload: {
-      casenumber: obj.sakId,
-      pinid: obj.aktoerId,
-      rinaid: obj.rinaId
-    }
-  }
-  /* let url = obj.rinaId ? sprintf(urls.API_CASE_WITH_RINAID_URL, obj) : sprintf(urls.API_CASE_WITHOUT_RINAID_URL, obj)
+export function getCaseFromCaseNumber (params) {
+  let url = params.rinaId ? sprintf(urls.API_CASE_WITH_RINAID_URL, params) : sprintf(urls.API_CASE_WITHOUT_RINAID_URL, params)
   return api.call({
     url: url,
     type: {
@@ -21,7 +13,6 @@ export function getCaseFromCaseNumber (obj) {
       failure: types.CASE_GET_CASE_NUMBER_FAILURE
     }
   })
-  */
 }
 
 export function getSubjectAreaList () {
@@ -108,9 +99,9 @@ export function getSedList (buc, rinaId) {
   })
 }
 
-export function dataToConfirm (params) {
+export function dataPreview (params) {
   return {
-    type: types.CASE_CONFIRM_DATA_SUCCESS,
+    type: types.CASE_DATA_PREVIEW_SUCCESS,
     payload: params
   }
 }
@@ -180,7 +171,7 @@ export function addToSed (payload) {
 
 export function sendSed (payload) {
   return api.call({
-    url: urls.SED_URL,
+    url: urls.SED_SEND_URL,
     method: 'POST',
     payload: payload,
     type: {

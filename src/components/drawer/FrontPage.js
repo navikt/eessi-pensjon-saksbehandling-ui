@@ -12,7 +12,7 @@ class FrontPage extends Component {
     return <div style={{ transform: 'scale(0.8)' }}>
       <h4 className='mb-4'>{t('forms')}</h4>
       <Nav.Lenkepanel style={{ animationDelay: '0s' }} className='frontPageLink caseLink' linkCreator={(props) => (
-        <Link to={routes.CASE_START} {...props} />)
+        <Link to={routes.CASE} {...props} />)
       } href='#'>{t('case:app-createNewCase')}</Nav.Lenkepanel>
       <Nav.Lenkepanel style={{ animationDelay: '0.1s' }} className='frontPageLink pSelvLink' linkCreator={(props) => (
         <Link to={routes.PSELV} {...props} />)

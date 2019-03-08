@@ -6,7 +6,6 @@ import { withTranslation } from 'react-i18next'
 import Export from '../../components/ui/Export/Export'
 import RenderPrintData from '../../components/case/RenderPrintData'
 
-import Case from './Case'
 import * as Nav from '../../components/ui/Nav'
 
 import * as routes from '../../constants/routes'
@@ -34,7 +33,7 @@ class SaveCase extends Component {
       let { history, actions, dataSaved } = this.props
       // let { history, actions, dataSaved, dataSent } = this.props
       if (!dataSaved) {
-        history.push(routes.CASE_START)
+        history.push(routes.CASE)
       } else {
         actions.getRinaUrl()
       }
@@ -44,11 +43,11 @@ class SaveCase extends Component {
       const { history, dataSaved, dataSent } = this.props
 
       if (!dataSaved) {
-        history.push(routes.CASE_START)
+        history.push(routes.CASE)
       }
 
       if (dataSent) {
-        history.push(routes.CASE_SEND)
+        history.push(routes.CASE)
       }
     }
 
@@ -80,12 +79,7 @@ class SaveCase extends Component {
 
       let buttonText = sendingCase ? t('case:loading-sendingCase') : t('ui:confirmAndSend')
 
-      return <Case className='p-case-saveCase'
-        title={t('case:app-caseTitle') + ' - ' + t('case:app-saveCaseTitle')}
-        description={t('case:app-saveCaseDescription')}
-        stepIndicator={3}
-        history={history}
-        location={location}>
+      return <div>
         <div className='fieldset animate text-center'>
           { rinaLoading ? <span>{t('case:loading-rinaUrl')}</span>
             : (rinaUrl && dataSaved && dataSaved.euxcaseid ? <div>
@@ -102,7 +96,7 @@ class SaveCase extends Component {
           <Nav.Hovedknapp className='forwardButton' disabled={sendingCase} spinner={sendingCase} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
           <Nav.Knapp className='ml-3 backButton' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
         </div>
-      </Case>
+      </div>
     }
 }
 

@@ -72,7 +72,6 @@ class DocumentStatus extends Component {
     static getDerivedStateFromProps (nextProps, prevState) {
       return {
         documents: nextProps.documents ? sortStatusByDocs(nextProps.documents) : undefined
-
       }
     }
 
@@ -177,7 +176,7 @@ class DocumentStatus extends Component {
             case constants.P2200:
             case constants.P6000:
 
-              history.push(routes.CASE_START + '?sed=' + doc.dokumentType + '&buc=' + doc.id)
+              history.push(routes.CASE + '?sed=' + doc.dokumentType + '&buc=' + doc.id)
               break
             default:
               break

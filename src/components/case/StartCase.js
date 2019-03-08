@@ -5,11 +5,10 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import { withTranslation } from 'react-i18next'
 
-import Case from './Case'
 import PsychoPanel from '../../components/ui/Psycho/PsychoPanel'
 import * as Nav from '../../components/ui/Nav'
+import Icons from '../../components/ui/Icons'
 import CountrySelect from '../../components/ui/CountrySelect/CountrySelect'
-import Tilsette from '../../resources/images/Tilsette'
 
 import * as routes from '../../constants/routes'
 import * as caseActions from '../../actions/case'
@@ -24,13 +23,12 @@ const mapStateToProps = (state) => {
     sedList: state.case.sedList,
     countryList: state.case.countryList,
     currentCase: state.case.currentCase,
-    dataToConfirm: state.case.dataToConfirm,
     locale: state.ui.locale,
     loading: state.loading,
+
     sakId: state.status.sakId,
     rinaId: state.status.rinaId,
     aktoerId: state.status.aktoerId,
-    fnr: state.status.fnr,
     vedtakId: state.status.vedtakId,
     sed: state.status.sed,
     buc: state.status.buc
@@ -51,10 +49,10 @@ const defaultSelects = {
 
 class StartCase extends Component {
     state = {
-      // these are only for the query form
-      sakId: undefined,
-      aktoerId: undefined,
-      rinaId: undefined,
+      // these are only used for when we are collecting them through a form
+      _sakId: undefined,
+      _aktoerId: undefined,
+      _rinaId: undefined,
 
       _subjectArea: 'Pensjon',
       _buc: undefined,
@@ -64,43 +62,33 @@ class StartCase extends Component {
       institutions: undefined,
       country: undefined,
       validation: {}
-    };
+    }
 
     static getDerivedStateFromProps (newProps, oldState) {
+      // make sure select options are always fresh, if someone decides to go back in steps
       return {
-        _subjectArea: oldState._subjectArea || (newProps.dataToConfirm ? newProps.dataToConfirm.subjectArea : undefined),
-        _buc: oldState._buc || (newProps.dataToConfirm ? newProps.dataToConfirm.buc : undefined),
-        _sed: oldState._sed || (newProps.dataToConfirm ? newProps.dataToConfirm.sed : undefined),
-        institutions: oldState.institutions || (newProps.dataToConfirm ? newProps.dataToConfirm.institutions : [])
+        _subjectArea: oldState._subjectArea || (newProps.dataPreview ? newProps.dataPreview.subjectArea : undefined),
+        _buc: oldState._buc || (newProps.dataPreview ? newProps.dataPreview.buc : undefined),
+        _sed: oldState._sed || (newProps.dataPreview ? newProps.dataPreview.sed : undefined),
+        institutions: oldState.institutions || (newProps.dataPreview ? newProps.dataPreview.institutions : [])
       }
     }
 
     async componentDidMount () {
-      const { actions, currentCase, dataToConfirm, sakId, aktoerId, fnr, rinaId } = this.props
+      const { actions, currentCase, sakId, aktoerId, rinaId } = this.props
 
-      if (_.isEmpty(currentCase) && sakId && (aktoerId || fnr)) {
+      if (_.isEmpty(currentCase) && sakId && aktoerId) {
         actions.getCaseFromCaseNumber({
           sakId: sakId,
-          aktoerId: aktoerId || fnr,
+          aktoerId: aktoerId,
           rinaId: rinaId
         })
-      }
-
-      // come from a goBack() navigation
-      if (dataToConfirm) {
-        actions.cleanDataToConfirm()
       }
     }
 
     async componentDidUpdate () {
-      const { history, loading, sed, currentCase, dataToConfirm, institutionList, bucList,
-        subjectAreaList, countryList, actions, sakId, aktoerId, fnr, rinaId } = this.props
-
-      // comes from a Forward
-      if (dataToConfirm) {
-        history.push(routes.CASE_CONFIRM)
-        return
-      }
+      const { history, loading, sed, currentCase, institutionList, bucList,
+        subjectAreaList, countryList, actions, sakId, aktoerId, rinaId } = this.props
 
       if (!loading.gettingCase && currentCase) {
         if (subjectAreaList === undefined && !sed && !loading.subjectAreaList) {
@@ -120,10 +108,10 @@ class StartCase extends Component {
         }
       }
 
-      if (!loading.gettingCase && _.isEmpty(currentCase) && sakId && (aktoerId || fnr)) {
+      if (!loading.gettingCase && _.isEmpty(currentCase) && sakId && aktoerId) {
         actions.getCaseFromCaseNumber({
           sakId: sakId,
-          aktoerId: aktoerId || fnr,
+          aktoerId: aktoerId,
           rinaId: rinaId
         })
       }
@@ -136,20 +124,22 @@ class StartCase extends Component {
     }
 
     onSakIdChange (e) {
+      this.resetValidationState('sakId')
       this.setState({
-        sakId: e.target.value.trim()
+        _sakId: e.target.value.trim()
       })
     }
 
     onRinaIdChange (e) {
       this.setState({
-        rinaId: e.target.value.trim()
+        _rinaId: e.target.value.trim()
       })
     }
 
     onAktoerIdChange (e) {
+      this.resetValidationState('aktoerId')
       this.setState({
-        aktoerId: e.target.value.trim()
+        _aktoerId: e.target.value.trim()
       })
     }
 
@@ -160,14 +150,21 @@ class StartCase extends Component {
     }
 
     onFetchCaseButtonClick () {
-      const { actions } = this.props
-      const { sakId, aktoerId, rinaId } = this.state
-
-      actions.getCaseFromCaseNumber({
-        sakId: sakId,
-        aktoerId: aktoerId,
-        rinaId: rinaId
-      })
+      const { t, actions } = this.props
+      const { _sakId, _aktoerId, _rinaId } = this.state
+      if (!_sakId) {
+         this.setValidationState('sakId', t('case:validation-noSakId'))
+      }
+      if (!_aktoerId) {
+         this.setValidationState('aktoerId', t('case:validation-noAktoerId'))
+      }
+      if (this.hasNoValidationErrors()) {
+        actions.getCaseFromCaseNumber({
+          sakId: _sakId,
+          aktoerId: _aktoerId,
+          rinaId: _rinaId
+        })
+      }
     }
 
     onForwardButtonClick () {
@@ -177,16 +174,16 @@ class StartCase extends Component {
       if (_subjectArea) {
         this.validateSubjectArea(_subjectArea)
       }
-      if (!buc) {
+      if (_buc) {
         this.validateBuc(_buc)
       }
-      if (!sed) {
+      if (_sed) {
         this.validateSed(_sed)
       }
       this.validateInstitutions(institutions)
 
-      if (this.noValidationErrors()) {
-        actions.dataToConfirm({
+      if (this.hasNoValidationErrors()) {
+        actions.dataPreview({
           sakId: currentCase.casenumber,
           aktoerId: currentCase.pinid,
           rinaId: currentCase.rinaid,
@@ -293,6 +290,10 @@ class StartCase extends Component {
         delete _validation[key]
         this.setState({ validation: _validation })
       }
+    }
+
+    hasNoValidationErrors () {
+        return _.isEmpty(this.state.validation)
     }
 
     setValidationState (key, value) {
@@ -473,8 +474,10 @@ class StartCase extends Component {
         <Nav.Column className='text-right'>
           <Nav.Knapp type='standard'
             onClick={this.onRemoveInstitutionButtonClick.bind(this, institution)}>
-            <Nav.Ikon className='mr-2' size={20} kind='trashcan' />
-            {t('ui:remove')}
+            <div className='d-flex'>
+              <Icons className='mr-2' size={20} kind='trashcan' color='#0067C5'/>
+              <span>{t('ui:remove')}</span>
+            </div>
           </Nav.Knapp>
         </Nav.Column>
       </Nav.Row>
@@ -514,8 +517,10 @@ class StartCase extends Component {
           <Nav.Knapp className='w-100 createInstitutionButton'
             disabled={!validInstitution}
             onClick={this.onCreateInstitutionButtonClick.bind(this)}>
-            {validInstitution ? <Tilsette size={20} className='mr-2' /> : null}
-            {t('ui:add')}
+            <div className='d-flex'>
+              <Icons kind='tilsette' size={20} color={!validInstitution ? 'white' : undefined} className='mr-2' />
+              <span>{t('ui:add')}</span>
+            </div>
           </Nav.Knapp>
         </div>
       </Nav.Row>)
@@ -523,116 +528,117 @@ class StartCase extends Component {
       return <div className='mt-4'>{renderedInstitutions.map(i => { return i })}</div>
     }
 
-    noValidationErrors () {
+    allowedToForward () {
       const { sed, buc } = this.props
-      const { institutions, validation, _subjectArea, _buc, _sed } = this.state
+      const { institutions, _subjectArea, _buc, _sed } = this.state
 
-      return sed ? Object.keys(validation).length === 0 &&
-        Object.keys(institutions).length !== 0 &&
-        buc && sed
-        : Object.keys(validation).length === 0 &&
-        Object.keys(institutions).length !== 0 &&
-        _subjectArea && _buc && _sed
+      return sed ? buc && sed && this.hasNoValidationErrors() && !_.isEmpty(institutions)
+        : _buc && _sed && _subjectArea && this.hasNoValidationErrors() && !_.isEmpty(institutions)
     }
 
     render () {
-      const { t, history, location, currentCase, loading, sed, vedtakId } = this.props
-      const { sakId, aktoerId, rinaId, _sed, _vedtakId } = this.state
+      const { t, currentCase, loading, sed, vedtakId } = this.props
+      const { _sakId, _aktoerId, _rinaId, _sed, _vedtakId, validation } = this.state
 
-      return <Case className='startCase'
-        title={t('case:app-caseTitle') + ' - ' + t('case:app-startCaseTitle')}
-        stepIndicator={currentCase !== undefined ? 0 : undefined}
-        history={history}
-        location={location}>
-        { !currentCase
-          ? loading && loading.gettingCase
-            ? <div className='w-100 text-center'>
-              <Nav.NavFrontendSpinner />
-              <p className='typo-normal'>{t('case:loading-gettingCase')}</p>
+      if (!currentCase) {
+        return <React.Fragment>
+          <div className='fieldset animate'>
+            <div className='mb-5'>
+              <PsychoPanel closeButton>{t('case:help-startCase')}</PsychoPanel>
             </div>
-            : <React.Fragment>
-              <div className='fieldset animate'>
-                <div className='mb-5'>
-                  <PsychoPanel closeButton>{t('case:help-startCase')}</PsychoPanel>
-                </div>
-                <Nav.Row>
-                  <div className='mt-4 col-md-6'>
-                    <Nav.Input aria-describedby='help-sakId' className='getCaseInputSakId' label={t('case:form-sakId') + ' *'} value={sakId || ''} onChange={this.onSakIdChange.bind(this)} />
-                    <span id='help-sakId'>{t('case:help-sakId')}</span>
-                  </div>
-                  <div className='mt-4 col-md-6'>
-                    <Nav.Input className='getCaseInputAktoerId' label={t('case:form-aktoerId') + ' *'} value={aktoerId || ''} onChange={this.onAktoerIdChange.bind(this)} />
-                    <span id='help-aktoerId'>{t('case:help-aktoerId')}</span>
-                  </div>
-                  <div className='mt-4 col-md-6'>
-                    <Nav.Input className='getCaseInputRinaId' label={t('case:form-rinaId')} value={rinaId || ''} onChange={this.onRinaIdChange.bind(this)} />
-                    <span id='help-rinaId'>{t('case:help-rinaId')}</span>
-                  </div>
-                </Nav.Row>
+            <Nav.Row>
+              <div className='mt-4 col-md-6'>
+                <Nav.Input aria-describedby='help-sakId'
+                  className='getCaseInputSakId'
+                  label={t('case:form-sakId')}
+                  value={_sakId || ''}
+                  onChange={this.onSakIdChange.bind(this)}
+                  feil={validation.sakId ? { feilmelding: t(validation.sakId) } : null}/>
+                <span id='help-sakId'>{t('case:help-sakId')}</span>
               </div>
-              <Nav.Row className='mt-4'>
-                <div className='col-md-12'>
-                  <Nav.Hovedknapp className='forwardButton'
-                    onClick={this.onFetchCaseButtonClick.bind(this)}>{t('ui:search')}</Nav.Hovedknapp>
-                </div>
-              </Nav.Row>
-            </React.Fragment>
-          : <React.Fragment>
-            <div className='fieldset animate'>
-              { !sed ? <React.Fragment>
-                <h2 className='mb-4 appDescription'>{t('case:app-startCaseDescription')}</h2>
-                <div className='mb-5'>
-                  <PsychoPanel closeButton>{t('help-startCase2')}</PsychoPanel>
-                </div>
-                <Nav.Row className='mb-3 align-middle text-left'>
-                  <div className='col-md-8'>{this.renderSubjectArea()}
-                    <span id='help-subjectArea'>{t('case:help-subjectArea')}</span>
-                  </div>
-                  <div className='col-md-4 selectBoxMessage'>
-                    <div className='d-inline-block'>{loading && loading.subjectAreaList ? this.getSpinner('case:loading-subjectArea') : null}</div>
-                  </div>
-                </Nav.Row>
-                <Nav.Row className='mb-3 align-middle text-left'>
-                  <div className='col-md-8'>{this.renderBuc()}
-                    <span id='help-buc'>{t('case:help-buc')}</span>
-                  </div>
-                  <div className='col-md-4 selectBoxMessage'>
-                    <div className='d-inline-block'>{loading && loading.bucList ? this.getSpinner('case:loading-buc') : null}</div>
-                  </div>
-                </Nav.Row>
-                <Nav.Row className='mb-3 align-middle text-left'>
-                  <div className='col-md-8'>{this.renderSed()}
-                    <span id='help-sed'>{t('case:help-sed')}</span>
-                  </div>
-                  <div className='col-md-4 selectBoxMessage'>
-                    <div className='d-inline-block'>{loading && loading.sedList ? this.getSpinner('case:loading-sed') : null}</div>
-                  </div>
-                </Nav.Row>
-              </React.Fragment> : <Nav.Row className='mb-3 align-middle text-left'>
-                <div className='col-md-12'>
-                  <h3>{t('sed')}{': '}{sed}</h3>
-                </div>
-              </Nav.Row>}
-              { (sed && sed === 'P6000') || (_sed && _sed === 'P6000')
-                ? <Nav.Row className='align-middle text-left'>
-                  <div className='col-md-8'>
-                    <Nav.Input aria-describedby='help-vedtak'
-                      label={t('case:form-vedtakId')} value={_vedtakId || vedtakId} onChange={this.onVedtakIdChange.bind(this)} />
-                    <span id='help-vedtak'>{t('case:help-vedtakId')}</span>
-                  </div>
-                </Nav.Row> : null}
-              {this.renderInstitutions()}
-            </div>
-            <Nav.Row className='mb-4 mt-4'>
-              <div className='col-md-12'>
-                <Nav.Hovedknapp className='forwardButton'
-                  disabled={!this.noValidationErrors()}
-                  onClick={this.onForwardButtonClick.bind(this)}>{t('ui:go')}</Nav.Hovedknapp>
+              <div className='mt-4 col-md-6'>
+                <Nav.Input
+                  className='getCaseInputAktoerId'
+                  label={t('case:form-aktoerId')}
+                  value={_aktoerId || ''}
+                  onChange={this.onAktoerIdChange.bind(this)}
+                  feil={validation.aktoerId ? { feilmelding: t(validation.aktoerId) } : null}/>
+                <span id='help-aktoerId'>{t('case:help-aktoerId')}</span>
+              </div>
+              <div className='mt-4 col-md-6'>
+                <Nav.Input className='getCaseInputRinaId' label={<div>
+                  <span>{t('case:form-rinaId')}</span>
+                  <span className='optional'>{t('ui:optional')}</span>
+                </div>}
+                value={_rinaId || ''} onChange={this.onRinaIdChange.bind(this)} />
+                <span id='help-rinaId'>{t('case:help-rinaId')}</span>
               </div>
             </Nav.Row>
-          </React.Fragment>
-        }
-      </Case>
+          </div>
+          <Nav.Row className='mt-4'>
+            <div className='col-md-12'>
+              <Nav.Hovedknapp className='forwardButton'
+                disabled={loading && loading.gettingCase}
+                spinner={loading && loading.gettingCase}
+                onClick={this.onFetchCaseButtonClick.bind(this)}>
+                  {loading && loading.gettingCase ? t('case:loading-gettingCase') : t('ui:search')}
+                </Nav.Hovedknapp>
+            </div>
+          </Nav.Row>
+        </React.Fragment>
+      }
+
+      return <React.Fragment>
+        <div className='fieldset animate'>
+          {sed ? <h2 className='mb-4 appDescription'>{t('case:app-startCaseDescription') + ': ' + sed}</h2> :
+          <React.Fragment>
+            <h2 className='mb-4 appDescription'>{t('case:app-startCaseDescription')}</h2>
+            <div className='mb-5'>
+              <PsychoPanel closeButton>{t('help-startCase2')}</PsychoPanel>
+            </div>
+            <Nav.Row className='mb-3 align-middle text-left'>
+              <div className='col-md-8'>{this.renderSubjectArea()}
+                <span id='help-subjectArea'>{t('case:help-subjectArea')}</span>
+              </div>
+              <div className='col-md-4 selectBoxMessage'>
+                <div className='d-inline-block'>{loading && loading.subjectAreaList ? this.getSpinner('case:loading-subjectArea') : null}</div>
+              </div>
+            </Nav.Row>
+            <Nav.Row className='mb-3 align-middle text-left'>
+              <div className='col-md-8'>{this.renderBuc()}
+                <span id='help-buc'>{t('case:help-buc')}</span>
+              </div>
+              <div className='col-md-4 selectBoxMessage'>
+                <div className='d-inline-block'>{loading && loading.bucList ? this.getSpinner('case:loading-buc') : null}</div>
+              </div>
+            </Nav.Row>
+            <Nav.Row className='mb-3 align-middle text-left'>
+              <div className='col-md-8'>{this.renderSed()}
+                <span id='help-sed'>{t('case:help-sed')}</span>
+              </div>
+              <div className='col-md-4 selectBoxMessage'>
+                <div className='d-inline-block'>{loading && loading.sedList ? this.getSpinner('case:loading-sed') : null}</div>
+              </div>
+            </Nav.Row>
+          </React.Fragment>}
+          { (sed && sed === 'P6000') || (_sed && _sed === 'P6000')
+            ? <Nav.Row className='align-middle text-left'>
+              <div className='col-md-8'>
+                <Nav.Input aria-describedby='help-vedtak'
+                  label={t('case:form-vedtakId')} value={_vedtakId || vedtakId} onChange={this.onVedtakIdChange.bind(this)} />
+                <span id='help-vedtak'>{t('case:help-vedtakId')}</span>
+              </div>
+            </Nav.Row> : null}
+          {this.renderInstitutions()}
+        </div>
+        <Nav.Row className='mb-4 mt-4'>
+          <div className='col-md-12'>
+            <Nav.Hovedknapp className='forwardButton'
+              disabled={!this.allowedToForward()}
+              onClick={this.onForwardButtonClick.bind(this)}>{t('ui:go')}</Nav.Hovedknapp>
+          </div>
+        </Nav.Row>
+      </React.Fragment>
     }
 }
 
@@ -650,7 +656,7 @@ StartCase.propTypes = {
   bucList: PT.array,
   sed: PT.string,
   buc: PT.string,
-  dataToConfirm: PT.object,
+  dataPreview: PT.object,
   locale: PT.string,
   vedtakId: PT.string
 }

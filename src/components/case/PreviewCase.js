@@ -7,7 +7,6 @@ import { withTranslation } from 'react-i18next'
 import * as Nav from '../../components/ui/Nav'
 import P6000 from '../../components/p6000/P6000'
 import RenderConfirmData from '../../components/case/RenderConfirmData'
-import Case from './Case'
 
 import * as routes from '../../constants/routes'
 import * as caseActions from '../../actions/case'
@@ -27,12 +26,12 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, caseActions, uiActions), dispatch) }
 }
 
-class ConfirmCase extends Component {
+class PreviewCase extends Component {
   componentDidMount () {
     let { history, actions, dataToConfirm, dataToGenerate } = this.props
 
     if (!dataToConfirm) {
-      history.push(routes.CASE_START)
+      history.push(routes.CASE)
     }
 
     if (dataToGenerate) {
@@ -44,11 +43,11 @@ class ConfirmCase extends Component {
     const { history, dataToGenerate, dataToConfirm } = this.props
 
     if (!dataToConfirm) {
-      history.push(routes.CASE_START)
+      history.push(routes.CASE)
     }
 
     if (dataToGenerate) {
-      history.push(routes.CASE_GENERATE)
+      history.push(routes.CASE)
     }
   }
 
@@ -78,12 +77,7 @@ class ConfirmCase extends Component {
       return null
     }
 
-    return <Case className='p-case-confirmCase'
-      title={t('case:app-caseTitle') + ' - ' + t('case:app-confirmCaseTitle')}
-      description={t('case:app-confirmCaseDescription')}
-      stepIndicator={1}
-      history={history}
-      location={location}>
+    return <div>
       <div className='fieldset animate'>
         <RenderConfirmData dataToConfirm={dataToConfirm} />
         { dataToConfirm.sed === 'P6000' ? <P6000 /> : null }
@@ -92,11 +86,11 @@ class ConfirmCase extends Component {
         <Nav.Hovedknapp className='forwardButton' disabled={generatingCase} spinner={generatingCase} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
         <Nav.Knapp className='ml-3 backButton' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
       </div>
-    </Case>
+    </div>
   }
 }
 
-ConfirmCase.propTypes = {
+PreviewCase.propTypes = {
   actions: PT.object.isRequired,
   history: PT.object.isRequired,
   location: PT.object.isRequired,
@@ -110,5 +104,5 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(
-  withTranslation()(ConfirmCase)
+  withTranslation()(PreviewCase)
 )

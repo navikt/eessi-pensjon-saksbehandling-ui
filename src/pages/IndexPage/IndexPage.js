@@ -59,7 +59,7 @@ class IndexPage extends Component {
         {userRole === constants.SAKSBEHANDLER
           ? <Nav.Lenkepanel style={{ animationDelay: '0s' }}
             className='frontPageLink caseLink' linkCreator={(props) => (
-              <Link to={routes.CASE_START + '?sed=&buc='} {...props} />)
+              <Link to={routes.CASE + '?sed=&buc='} {...props} />)
             } href='#'>{t('case:app-createNewCase')}</Nav.Lenkepanel>
           : null}
 

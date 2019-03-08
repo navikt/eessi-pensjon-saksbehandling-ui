@@ -30,7 +30,7 @@ class GenerateCase extends Component {
     let { history, actions, dataToGenerate, dataSaved } = this.props
 
     if (!dataToGenerate) {
-      history.push(routes.CASE_START)
+      history.push(routes.CASE)
     }
 
     if (dataSaved) {
@@ -42,11 +42,11 @@ class GenerateCase extends Component {
     const { history, dataToGenerate, dataSaved } = this.props
 
     if (!dataToGenerate) {
-      history.push(routes.CASE_START)
+      history.push(routes.CASE)
     }
 
     if (dataSaved) {
-      history.push(routes.CASE_SAVE)
+      history.push(routes.CASE)
     }
   }
 

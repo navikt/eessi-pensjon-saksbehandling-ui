@@ -18,6 +18,12 @@ export default function (state = initialState, action = {}) {
         [action.payload.key]: undefined
       })
 
+    case types.CASE_GET_CASE_NUMBER_SUCCESS:
+       return Object.assign({}, state, {
+          sakId: action.payload.casenumber,
+          aktoerId: action.payload.pinid
+       })
+
     case types.STATUS_GET_SUCCESS:
 
       return Object.assign({}, state, {
