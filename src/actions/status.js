@@ -24,7 +24,7 @@ export function unsetStatusParam (key) {
 
 export function getStatus (rinaId) {
   return api.call({
-    url: sprintf(urls.STATUS_GET_URL, { rinaId: rinaId || '' }),
+    url: sprintf(urls.API_ACTIONS_FOR_RINAID_URL, { rinaId: rinaId || '' }),
     type: {
       request: types.STATUS_GET_REQUEST,
       success: types.STATUS_GET_SUCCESS,
@@ -35,7 +35,7 @@ export function getStatus (rinaId) {
 
 export function getCase (rinaId) {
   return api.call({
-    url: sprintf(urls.STATUS_RINA_CASE_URL, { rinaId: rinaId || '' }),
+    url: sprintf(urls.API_CASE_FOR_RINAID_URL, { rinaId: rinaId || '' }),
     type: {
       request: types.STATUS_RINA_CASE_REQUEST,
       success: types.STATUS_RINA_CASE_SUCCESS,
@@ -46,7 +46,7 @@ export function getCase (rinaId) {
 
 export function deleteSed (rinaId, dokumentId) {
   return api.call({
-    url: sprintf(urls.CASE_SED_URL, { rinaId: rinaId, dokumentId: dokumentId }),
+    url: sprintf(urls.SED_WITH_RINAID_AND_DOCUMENTID_URL, { rinaId: rinaId, dokumentId: dokumentId }),
     method: 'DELETE',
     type: {
       request: types.STATUS_SED_DELETE_REQUEST,

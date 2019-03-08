@@ -79,7 +79,7 @@ export function getPinfoFromStorage (params) {
 
 export function sendPInfo (payload) {
   return api.call({
-    url: urls.PINFO_SEND_URL,
+    url: urls.API_SUBMISSION_SUBMIT_URL,
     method: 'POST',
     payload: payload,
     type: {
@@ -92,7 +92,7 @@ export function sendPInfo (payload) {
 
 export function sendInvite (params) {
   return api.call({
-    url: sprintf(urls.PINFO_INVITE_URL, { sakId: params.sakId, aktoerId: params.aktoerId }),
+    url: sprintf(urls.API_VARSEL_URL, { sakId: params.sakId, aktoerId: params.aktoerId }),
     method: 'POST',
     payload: {},
     type: {
@@ -105,7 +105,7 @@ export function sendInvite (params) {
 
 export function generateReceipt () {
   return api.call({
-    url: urls.PINFO_RECEIPT_URL,
+    url: urls.API_SUBMISSION_RECEIPT_URL,
     method: 'GET',
     type: {
       request: types.PINFO_RECEIPT_REQUEST,

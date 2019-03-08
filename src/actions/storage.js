@@ -18,7 +18,7 @@ export function closeStorageModal () {
 
 export function listStorageFilesWithNoNotification (userId, namespace) {
   return api.call({
-    url: sprintf(urls.STORAGE_LIST_URL, { userId: userId, namespace: namespace }),
+    url: sprintf(urls.API_STORAGE_LIST_URL, { userId: userId, namespace: namespace }),
     method: 'GET',
     type: {
       request: types.STORAGE_LIST_NO_NOTIF_REQUEST,
@@ -30,7 +30,7 @@ export function listStorageFilesWithNoNotification (userId, namespace) {
 
 export function listStorageFiles (userId, namespace) {
   return api.call({
-    url: sprintf(urls.STORAGE_LIST_URL, { userId: userId, namespace: namespace }),
+    url: sprintf(urls.API_STORAGE_LIST_URL, { userId: userId, namespace: namespace }),
     method: 'GET',
     type: {
       request: types.STORAGE_LIST_REQUEST,
@@ -42,7 +42,7 @@ export function listStorageFiles (userId, namespace) {
 
 export function getStorageFileWithNoNotification (params) {
   return api.call({
-    url: sprintf(urls.STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
+    url: sprintf(urls.API_STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
     method: 'GET',
     type: {
       request: types.STORAGE_GET_NO_NOTIF_REQUEST,
@@ -54,7 +54,7 @@ export function getStorageFileWithNoNotification (params) {
 
 export function getStorageFile (params) {
   return api.call({
-    url: sprintf(urls.STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
+    url: sprintf(urls.API_STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
     method: 'GET',
     type: {
       request: types.STORAGE_GET_REQUEST,
@@ -66,7 +66,7 @@ export function getStorageFile (params) {
 
 export function postStorageFileWithNoNotification (userId, namespace, file, payload) {
   return api.call({
-    url: sprintf(urls.STORAGE_POST_URL, { userId: userId, namespace: namespace, file: file }),
+    url: sprintf(urls.API_STORAGE_POST_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'POST',
     payload: payload,
     type: {
@@ -79,7 +79,7 @@ export function postStorageFileWithNoNotification (userId, namespace, file, payl
 
 export function getAttachmentFromStorage (params) {
   return api.call({
-    url: sprintf(urls.STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
+    url: sprintf(urls.API_STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
     method: 'GET',
     type: {
       request: types.STORAGE_GET_ATTACHMENT_REQUEST,
@@ -91,7 +91,7 @@ export function getAttachmentFromStorage (params) {
 
 export function postStorageFile (userId, namespace, file, payload) {
   return api.call({
-    url: sprintf(urls.STORAGE_POST_URL, { userId: userId, namespace: namespace, file: file }),
+    url: sprintf(urls.API_STORAGE_POST_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'POST',
     payload: payload,
     type: {
@@ -104,7 +104,7 @@ export function postStorageFile (userId, namespace, file, payload) {
 
 export function deleteStorageFile (userId, namespace, file) {
   return api.call({
-    url: sprintf(urls.STORAGE_DELETE_URL, { userId: userId, namespace: namespace, file: file }),
+    url: sprintf(urls.API_STORAGE_DELETE_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'DELETE',
     type: {
       request: types.STORAGE_DELETE_REQUEST,
@@ -116,7 +116,7 @@ export function deleteStorageFile (userId, namespace, file) {
 
 export function deleteAllStorageFilesFromUser (userId, namespace) {
   return api.call({
-    url: sprintf(urls.STORAGE_MULTIPLE_DELETE_URL, { userId: userId, namespace: namespace }),
+    url: sprintf(urls.API_STORAGE_MULTIPLE_DELETE_URL, { userId: userId, namespace: namespace }),
     method: 'DELETE',
     type: {
       request: types.STORAGE_MULTIPLE_DELETE_REQUEST,

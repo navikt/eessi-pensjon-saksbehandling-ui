@@ -7,7 +7,7 @@ export function login () {
   let redirect = currentHost
   let context = encodeURIComponent(window.location.pathname + window.location.search)
 
-  let newUrl = urls.APP_LOGIN_URL + '?redirect=' + redirect + '&context=' + context
+  let newUrl = urls.LOGIN_URL + '?redirect=' + redirect + '&context=' + context
   window.location.href = newUrl
 
   return {
@@ -16,7 +16,7 @@ export function login () {
 }
 
 export function logout () {
-  let redirectUrl = urls.APP_LOGOUT_URL
+  let redirectUrl = urls.LOGOUT_URL
   window.location.href = redirectUrl
   return {
     type: types.APP_LOGOUT_REQUEST
@@ -25,7 +25,7 @@ export function logout () {
 
 export function getUserInfo () {
   return api.call({
-    url: urls.APP_GET_USERINFO_URL,
+    url: urls.API_USERINFO_URL,
     type: {
       request: types.APP_USERINFO_REQUEST,
       success: types.APP_USERINFO_SUCCESS,
