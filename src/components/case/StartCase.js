@@ -10,7 +10,6 @@ import * as Nav from '../../components/ui/Nav'
 import Icons from '../../components/ui/Icons'
 import CountrySelect from '../../components/ui/CountrySelect/CountrySelect'
 
-import * as routes from '../../constants/routes'
 import * as caseActions from '../../actions/case'
 import * as uiActions from '../../actions/ui'
 import * as appActions from '../../actions/app'
@@ -23,6 +22,8 @@ const mapStateToProps = (state) => {
     sedList: state.case.sedList,
     countryList: state.case.countryList,
     currentCase: state.case.currentCase,
+    previewData: state.case.previewData,
+
     locale: state.ui.locale,
     loading: state.loading,
 
@@ -67,14 +68,14 @@ class StartCase extends Component {
     static getDerivedStateFromProps (newProps, oldState) {
       // make sure select options are always fresh, if someone decides to go back in steps
       return {
-        _subjectArea: oldState._subjectArea || (newProps.dataPreview ? newProps.dataPreview.subjectArea : undefined),
-        _buc: oldState._buc || (newProps.dataPreview ? newProps.dataPreview.buc : undefined),
-        _sed: oldState._sed || (newProps.dataPreview ? newProps.dataPreview.sed : undefined),
-        institutions: oldState.institutions || (newProps.dataPreview ? newProps.dataPreview.institutions : [])
+        _subjectArea: oldState._subjectArea || (newProps.previewData ? newProps.previewData.subjectArea : undefined),
+        _buc: oldState._buc || (newProps.previewData ? newProps.previewData.buc : undefined),
+        _sed: oldState._sed || (newProps.previewData ? newProps.previewData.sed : undefined),
+        institutions: oldState.institutions || (newProps.previewData ? newProps.previewData.institutions : [])
       }
     }
 
-    async componentDidMount () {
+    componentDidMount () {
       const { actions, currentCase, sakId, aktoerId, rinaId } = this.props
 
       if (_.isEmpty(currentCase) && sakId && aktoerId) {
@@ -86,8 +87,8 @@ class StartCase extends Component {
       }
     }
 
-    async componentDidUpdate () {
-      const { history, loading, sed, currentCase, institutionList, bucList,
+    componentDidUpdate () {
+      const { loading, sed, currentCase, institutionList, bucList,
         subjectAreaList, countryList, actions, sakId, aktoerId, rinaId } = this.props
 
       if (!loading.gettingCase && currentCase) {
@@ -115,12 +116,6 @@ class StartCase extends Component {
           rinaId: rinaId
         })
       }
-    }
-
-    onBackButtonClick () {
-      const { history } = this.props
-
-      history.goBack()
     }
 
     onSakIdChange (e) {
@@ -474,7 +469,7 @@ class StartCase extends Component {
         <Nav.Column className='text-right'>
           <Nav.Knapp type='standard'
             onClick={this.onRemoveInstitutionButtonClick.bind(this, institution)}>
-            <div className='d-flex'>
+            <div className='d-flex justify-content-center'>
               <Icons className='mr-2' size={20} kind='trashcan' color='#0067C5'/>
               <span>{t('ui:remove')}</span>
             </div>
@@ -517,7 +512,7 @@ class StartCase extends Component {
           <Nav.Knapp className='w-100 createInstitutionButton'
             disabled={!validInstitution}
             onClick={this.onCreateInstitutionButtonClick.bind(this)}>
-            <div className='d-flex'>
+            <div className='d-flex justify-content-center'>
               <Icons kind='tilsette' size={20} color={!validInstitution ? 'white' : undefined} className='mr-2' />
               <span>{t('ui:add')}</span>
             </div>
@@ -645,8 +640,6 @@ class StartCase extends Component {
 StartCase.propTypes = {
   currentCase: PT.object,
   actions: PT.object,
-  history: PT.object,
-  location: PT.object,
   loading: PT.object,
   t: PT.func,
   subjectAreaList: PT.array,
@@ -656,7 +649,7 @@ StartCase.propTypes = {
   bucList: PT.array,
   sed: PT.string,
   buc: PT.string,
-  dataPreview: PT.object,
+  previewData: PT.object,
   locale: PT.string,
   vedtakId: PT.string
 }

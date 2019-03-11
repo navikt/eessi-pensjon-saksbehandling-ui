@@ -86,10 +86,10 @@ export default function (state = initialState, action = {}) {
         status: status
       })
 
-    case types.CASE_GENERATE_DATA_REQUEST:
+    case types.CASE_GET_MORE_PREVIEW_DATA_REQUEST:
 
       return Object.assign({}, state, {
-        generatingCase: true,
+        previewingCase: true,
         status: status
       })
 
@@ -187,11 +187,11 @@ export default function (state = initialState, action = {}) {
         status: status
       })
 
-    case types.CASE_GENERATE_DATA_SUCCESS:
-    case types.CASE_GENERATE_DATA_FAILURE:
+    case types.CASE_GET_MORE_PREVIEW_DATA_SUCCESS:
+    case types.CASE_GET_MORE_PREVIEW_DATA_FAILURE:
 
       return Object.assign({}, state, {
-        generatingCase: false,
+        previewingCase: false,
         status: status
       })
 

@@ -10,8 +10,7 @@ import TopContainer from '../../components/ui/TopContainer/TopContainer'
 import FrontPageDrawer from '../../components/drawer/FrontPage'
 import StartCase from '../../components/case/StartCase'
 import PreviewCase from '../../components/case/PreviewCase'
-import SaveCase from '../../components/case/SaveCase'
-import SendCase from '../../components/case/SendCase'
+import SaveSendCase from '../../components/case/SaveSendCase'
 
 import './Case.css'
 
@@ -21,9 +20,8 @@ const mapStateToProps = (state) => {
     step: state.case.step
   }
 }
-
-const caseTitles = ['case:app-startCaseTitle']
-const caseDescriptions = ['', 'case:app-startCaseDescription']
+const caseTitles = ['case:app-startCaseTitle', 'case:app-previewCaseTitle', 'case:app-saveSendCaseTitle']
+const caseDescriptions = [undefined, 'case:app-previewCaseDescription','case:app-saveSendCaseDescription']
 
 export class Case extends Component {
 
@@ -36,19 +34,20 @@ export class Case extends Component {
       header={t('case:app-caseTitle') + ' - ' + t(caseTitles[step])}>
       <div className='mt-4'>
        <Nav.Stegindikator
+        className='mb-4'
+        aktivtSteg={step}
         visLabel
         onBeforeChange={() => { return false }}
         autoResponsiv
-        className='mb-4'
-        steg={_.range(0, 4).map(index => ({
-          label: t('case:form-step' + (index + 1)),
+        steg={_.range(0, 3).map(index => ({
+          label: t('case:form-step' + index),
           ferdig: index < step,
           aktiv: index === step
         }))}/>
+      {caseDescriptions[step] ? <h2 className='mb-4 appDescription'>{t(caseDescriptions[step])}</h2> : null}
       {step === 0 ? <StartCase /> : null}
       {step === 1 ? <PreviewCase /> : null}
-      {step === 2 ? <SaveCase /> : null}
-      {step === 3 ? <SendCase /> : null}
+      {step === 2 ? <SaveSendCase /> : null}
       </div>
     </TopContainer>
   }

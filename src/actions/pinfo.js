@@ -67,7 +67,7 @@ export function setPageErrors (pageErrors) {
 
 export function getPinfoFromStorage (params) {
   return api.call({
-    url: sprintf(urls.STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
+    url: sprintf(urls.API_STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
     method: 'GET',
     type: {
       request: types.PINFO_GET_FROM_STORAGE_REQUEST,

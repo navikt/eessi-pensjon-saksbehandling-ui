@@ -1,7 +1,7 @@
 import * as appActions from './app'
 import * as api from './api'
 import * as types from '../constants/actionTypes'
-import { APP_LOGOUT_URL, APP_GET_USERINFO_URL } from '../constants/urls'
+import { LOGOUT_URL, API_USERINFO_URL } from '../constants/urls'
 
 describe('api actions', () => {
   it('call login()', () => {
@@ -27,7 +27,7 @@ describe('api actions', () => {
       value: {}
     })
     const generatedResult = appActions.logout()
-    expect(window.location.href).toEqual(APP_LOGOUT_URL)
+    expect(window.location.href).toEqual(LOGOUT_URL)
     expect(generatedResult).toMatchObject({
       type: types.APP_LOGOUT_REQUEST
     })
@@ -42,7 +42,7 @@ describe('api actions', () => {
         success: types.APP_USERINFO_SUCCESS,
         failure: types.APP_USERINFO_FAILURE
       },
-      url: APP_GET_USERINFO_URL
+      url: API_USERINFO_URL
     })
     api.call.mockRestore()
   })

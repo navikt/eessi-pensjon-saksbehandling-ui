@@ -13,7 +13,7 @@ describe('Case', () => {
     store = createStore(state => state)
     ConnectedCase = connect(null, null)(Case)
     wrapper = shallow(<ConnectedCase
-      t={t} store={store}
+      t={t} store={store} step={0}
       title='mockTitle' history={{}} location={{}}>
        <div/>
     </ConnectedCase>).dive()

@@ -122,9 +122,9 @@ export default function (state = {}, action = {}) {
       message = 'case:alert-caseFound'
       break
 
-    case types.CASE_GENERATE_DATA_SUCCESS:
+    case types.CASE_GET_MORE_PREVIEW_DATA_SUCCESS:
 
-      message = 'case:alert-generatedData'
+      message = 'case:alert-getMorePreviewData'
       break
 
     case types.CASE_CREATE_SED_SUCCESS:

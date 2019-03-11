@@ -21,6 +21,15 @@ describe('case actions', () => {
     api.call.mockRestore()
   })
 
+  it('stepSet()', () => {
+    const mockStep = 999
+    const generatedResult = caseActions.setStep(mockStep)
+    expect(generatedResult).toEqual({
+      type: types.CASE_STEP_SET,
+      payload: mockStep
+    })
+  })
+
   it('getCaseFromCaseNumber without RinaId()', () => {
     const mockParams = {foo: 'bar'}
     const generatedResult = caseActions.getCaseFromCaseNumber(mockParams)
@@ -151,35 +160,14 @@ describe('case actions', () => {
     })
   })
 
-  it('call cleanDataToConfirm()', () => {
-    const generatedResult = caseActions.cleanDataToConfirm()
-    expect(generatedResult).toEqual({
-      type: types.CASE_CONFIRM_DATA_CLEAN,
-    })
-  })
-
-  it('call cleanDataToGenerate()', () => {
-    const generatedResult = caseActions.cleanDataToGenerate()
-    expect(generatedResult).toEqual({
-      type: types.CASE_GENERATE_DATA_CLEAN,
-    })
-  })
-
-  it('call cleanDataSaved()', () => {
-    const generatedResult = caseActions.cleanDataSaved()
-    expect(generatedResult).toEqual({
-      type: types.CASE_SAVE_DATA_CLEAN,
-    })
-  })
-
-  it('call generateData()', () => {
+  it('call getMorePreviewData()', () => {
     const mockParams = {foo: 'bar'}
-    const generatedResult = caseActions.generateData(mockParams)
+    const generatedResult = caseActions.getMorePreviewData(mockParams)
     expect(api.call).toBeCalledWith({
       type: {
-        request: types.CASE_GENERATE_DATA_REQUEST,
-        success: types.CASE_GENERATE_DATA_SUCCESS,
-        failure: types.CASE_GENERATE_DATA_FAILURE
+        request: types.CASE_GET_MORE_PREVIEW_DATA_REQUEST,
+        success: types.CASE_GET_MORE_PREVIEW_DATA_SUCCESS,
+        failure: types.CASE_GET_MORE_PREVIEW_DATA_FAILURE
       },
       method: 'POST',
       payload: mockParams,

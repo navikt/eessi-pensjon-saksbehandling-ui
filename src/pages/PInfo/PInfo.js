@@ -56,7 +56,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, storageActions, pinfoActions, uiActions, appActions, attachmentActions), dispatch) }
 }
 
-class PInfo extends React.Component {
+export class PInfo extends React.Component {
   state = {
     doPageValidationOnForwardButton: true,
     doPageValidationOnStepIndicator: true,

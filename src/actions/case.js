@@ -3,6 +3,13 @@ import * as urls from '../constants/urls'
 import * as api from './api'
 var sprintf = require('sprintf-js').sprintf
 
+export function setStep (step) {
+  return {
+    type: types.CASE_STEP_SET,
+    payload: step
+  }
+}
+
 export function getCaseFromCaseNumber (params) {
   let url = params.rinaId ? sprintf(urls.API_CASE_WITH_RINAID_URL, params) : sprintf(urls.API_CASE_WITHOUT_RINAID_URL, params)
   return api.call({
@@ -112,33 +119,15 @@ export function cleanCaseNumber () {
   }
 }
 
-export function cleanDataToConfirm () {
-  return {
-    type: types.CASE_CONFIRM_DATA_CLEAN
-  }
-}
-
-export function cleanDataToGenerate () {
-  return {
-    type: types.CASE_GENERATE_DATA_CLEAN
-  }
-}
-
-export function cleanDataSaved () {
-  return {
-    type: types.CASE_SAVE_DATA_CLEAN
-  }
-}
-
-export function generateData (params) {
+export function getMorePreviewData (payload) {
   return api.call({
     url: urls.SED_PREVIEW_URL,
     method: 'POST',
-    payload: params,
+    payload: payload,
     type: {
-      request: types.CASE_GENERATE_DATA_REQUEST,
-      success: types.CASE_GENERATE_DATA_SUCCESS,
-      failure: types.CASE_GENERATE_DATA_FAILURE
+      request: types.CASE_GET_MORE_PREVIEW_DATA_REQUEST,
+      success: types.CASE_GET_MORE_PREVIEW_DATA_SUCCESS,
+      failure: types.CASE_GET_MORE_PREVIEW_DATA_FAILURE
     }
   })
 }

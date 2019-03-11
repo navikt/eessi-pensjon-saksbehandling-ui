@@ -6,18 +6,18 @@ import { withTranslation } from 'react-i18next'
 
 import * as Nav from '../../components/ui/Nav'
 import P6000 from '../../components/p6000/P6000'
-import RenderConfirmData from '../../components/case/RenderConfirmData'
+import RenderData from '../../components/case/RenderData'
 
-import * as routes from '../../constants/routes'
 import * as caseActions from '../../actions/case'
 import * as uiActions from '../../actions/ui'
 
 const mapStateToProps = (state) => {
   return {
-    dataToConfirm: state.case.dataToConfirm,
-    dataToGenerate: state.case.dataToGenerate,
+    step: state.case.step,
+    previewData: state.case.previewData,
     language: state.ui.language,
-    generatingCase: state.loading.generatingCase,
+    previewingCase: state.loading.previewingCase,
+    savingCase: state.loading.savingCase,
     p6000data: state.p6000.data
   }
 }
@@ -27,64 +27,52 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class PreviewCase extends Component {
-  componentDidMount () {
-    let { history, actions, dataToConfirm, dataToGenerate } = this.props
-
-    if (!dataToConfirm) {
-      history.push(routes.CASE)
-    }
-
-    if (dataToGenerate) {
-      actions.cleanDataToGenerate()
-    }
-  }
-
-  componentDidUpdate () {
-    const { history, dataToGenerate, dataToConfirm } = this.props
-
-    if (!dataToConfirm) {
-      history.push(routes.CASE)
-    }
-
-    if (dataToGenerate) {
-      history.push(routes.CASE)
-    }
-  }
 
   onBackButtonClick () {
-    const { history } = this.props
+    const { actions, step } = this.props
+    actions.setStep(step - 1)
+  }
 
-    history.goBack()
+  onPreviewButtonClick() {
+    const { actions, previewData } = this.props
+    actions.getMorePreviewData(previewData)
   }
 
   onForwardButtonClick () {
-    const { actions, dataToConfirm, p6000data } = this.props
+    const { actions, previewData, p6000data } = this.props
 
-    let data = Object.assign({}, dataToConfirm)
+    let data = Object.assign({}, previewData)
 
-    if (dataToConfirm.sed === 'P6000') {
+    if (previewData.sed === 'P6000') {
       data.P6000 = Object.assign({}, p6000data)
     }
-    actions.generateData(data)
+
+    data.euxCaseId = data.rinaId
+
+    if (!data.euxCaseId) {
+      actions.createSed(data)
+    } else {
+      actions.addToSed(data)
+    }
   }
 
   render () {
-    const { t, history, location, dataToConfirm, generatingCase } = this.props
-
-    let buttonText = generatingCase ? t('case:loading-generatingCase') : t('ui:confirmAndGenerate')
-
-    if (!dataToConfirm) {
-      return null
-    }
+    const { t, previewData, previewingCase, savingCase } = this.props
 
     return <div>
       <div className='fieldset animate'>
-        <RenderConfirmData dataToConfirm={dataToConfirm} />
-        { dataToConfirm.sed === 'P6000' ? <P6000 /> : null }
+        { previewData.sed === 'P2000' ? <React.Fragment>
+          <RenderData previewData={previewData} />
+          <Nav.Hovedknapp className='fetchButton' disabled={previewingCase} spinner={previewingCase} onClick={this.onPreviewButtonClick.bind(this)}>
+            {previewingCase ? t('case:loading-previewingCase') : t('ui:preview')}
+          </Nav.Hovedknapp>
+        </React.Fragment> : null}
+        { previewData.sed === 'P6000' ? <P6000 /> : null }
       </div>
       <div className='mb-4 p-4'>
-        <Nav.Hovedknapp className='forwardButton' disabled={generatingCase} spinner={generatingCase} onClick={this.onForwardButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
-        <Nav.Knapp className='ml-3 backButton' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Knapp>
+        <Nav.Knapp className='forwardButton' disabled={savingCase} spinner={savingCase} onClick={this.onForwardButtonClick.bind(this)}>
+          {savingCase ? t('case:loading-savingCase') : t('ui:confirmAndSave')}</Nav.Knapp>
+        <Nav.Flatknapp className='ml-3 backButton' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Flatknapp>
       </div>
     </div>
   }
@@ -92,12 +80,10 @@ class PreviewCase extends Component {
 
 PreviewCase.propTypes = {
   actions: PT.object.isRequired,
-  history: PT.object.isRequired,
-  location: PT.object.isRequired,
-  generatingCase: PT.bool,
+  previewingCase: PT.bool,
+  savingCase: PT.bool,
   t: PT.func.isRequired,
-  dataToConfirm: PT.object.isRequired,
-  dataToGenerate: PT.object
+  previewData: PT.object.isRequired
 }
 
 export default connect(

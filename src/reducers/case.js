@@ -1,12 +1,18 @@
 import * as types from '../constants/actionTypes'
 
 let initialState = {
-  step: 0,
-  maxStep: 0
+  step: 0
 }
 
 export default function (state = initialState, action = {}) {
   switch (action.type) {
+
+    case types.CASE_STEP_SET:
+
+      return Object.assign({}, state, {
+        step: action.payload
+      })
+
     case types.CASE_GET_SUBJECT_AREA_LIST_SUCCESS:
 
       return Object.assign({}, state, {
@@ -64,52 +70,35 @@ export default function (state = initialState, action = {}) {
     case types.CASE_DATA_PREVIEW_SUCCESS:
 
       return Object.assign({}, state, {
-        dataPreview: action.payload,
+        previewData: action.payload,
         step: 1
       })
 
-    case types.CASE_CONFIRM_DATA_CLEAN:
+    case types.CASE_GET_MORE_PREVIEW_DATA_SUCCESS:
 
-      return Object.assign({}, state, {
-        dataToConfirm: undefined
-      })
-
-    case types.CASE_GENERATE_DATA_SUCCESS:
-
-      let dataToGenerate = Object.assign({},
-        state.dataToConfirm,
+      let previewData = Object.assign({},
+        state.previewData,
         action.payload
       )
 
       return Object.assign({}, state, {
-        dataToGenerate: dataToGenerate
-      })
-
-    case types.CASE_GENERATE_DATA_CLEAN:
-
-      return Object.assign({}, state, {
-        dataToGenerate: undefined
+        previewData: previewData
       })
 
     case types.CASE_CREATE_SED_REQUEST:
     case types.CASE_ADD_TO_SED_REQUEST:
 
       return Object.assign({}, state, {
-        dataSaved: undefined
+        savedData: undefined
       })
 
     case types.CASE_CREATE_SED_SUCCESS:
     case types.CASE_ADD_TO_SED_SUCCESS:
 
       return Object.assign({}, state, {
-        dataSaved: action.payload
+        savedData: action.payload,
+        step: 2
       })
-
-    case types.CASE_SAVE_DATA_CLEAN: {
-      return Object.assign({}, state, {
-        dataSaved: undefined
-      })
-    }
 
     case types.CASE_SEND_SED_SUCCESS:
 
@@ -138,16 +127,17 @@ export default function (state = initialState, action = {}) {
     case types.RINA_GET_URL_SUCCESS:
 
       return Object.assign({}, state, {
-        rinaUrl: action.payload
+        rinaUrl: action.payload.rinaUrl
       })
 
     case types.APP_CLEAR_DATA:
 
       return Object.assign({}, state, {
         currentCase: undefined,
-        dataToGenerate: undefined,
-        dataToConfirm: undefined,
-        dataSaved: undefined
+        previewData: undefined,
+        savedData: undefined,
+        sentData: undefined,
+        step: 0
       })
 
     default:
