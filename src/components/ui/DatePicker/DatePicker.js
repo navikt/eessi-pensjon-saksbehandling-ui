@@ -21,21 +21,6 @@ class DatePicker extends Component {
     this.onChangeday = this.dateChange.bind(this, 'day')
     this.onChangeMonth = this.dateChange.bind(this, 'month')
     this.onChangeYear = this.dateChange.bind(this, 'year')
-    this._onBlur = this._onBlur.bind(this)
-    this._onFocus = this._onFocus.bind(this)
-    this._timeoutID = null
-  }
-
-  _onBlur (event) {
-    const { values, onBlur = function () {} } = this.props
-    this._timeoutID = setTimeout(() => {
-      onBlur(values)
-    }, 0)
-  }
-  _onFocus (event) {
-    const { values, onFocus = function () {} } = this.props
-    clearTimeout(this._timeoutID)
-    onFocus(values)
   }
 
   maxLength (limit, event) {

@@ -16,6 +16,7 @@ import * as stepTests from '../Validation/stepTests'
 import * as Nav from '../../ui/Nav'
 import Icons from '../../ui/Icons'
 import { pinfoDateToDate } from '../../../utils/Date'
+import FocusGroup from '../../ui/FocusGroup'
 
 import * as constants from '../../../constants/constants'
 import * as uiActions from '../../../actions/ui'
@@ -127,7 +128,10 @@ export class Period extends React.Component {
     this.valueSetProperty(key, validateFunction, event.target.value)
   }
 
-  dateBlur (key, validateFunction, date) {
+  dateBlur (key, validateFunction) {
+
+    const date = this.state._period[key]
+
     let _localErrors = _.cloneDeep(this.state.localErrors)
 
     let error = validateFunction ? validateFunction(date) : undefined
@@ -574,32 +578,32 @@ export class Period extends React.Component {
             <Nav.Row>
               <div className='col-sm-6 col-12'>
                 <label className='datepickerLabel skjemaelement__label'>{t('pinfo:stayAbroad-period-start-date')}</label>
-                {<DatePicker
-                  id='pinfo-opphold-startdato-date'
-                  labels={{ day: t('pinfo:stayAbroad-period-day'), month: t('pinfo:stayAbroad-period-month'), year: t('pinfo:stayAbroad-period-year') }}
-                  ids={{ day: 'pinfo-opphold-startdato-day', month: 'pinfo-opphold-startdato-month', year: 'pinfo-opphold-startdato-year' }}
-                  placeholders={{ day: t('pinfo:stayAbroad-period-placeholder-day'), month: t('pinfo:stayAbroad-period-placeholder-month'), year: t('pinfo:stayAbroad-period-placeholder-year') }}
-                  className='startDate pr-2'
-                  values={_period.startDate}
-                  onChange={this.setStartDate}
-                  onBlur={this.blurStartDate}
-                  feil={localErrors.startDate || localErrors.timeSpan ? { feilmelding: t(localErrors.startDate || localErrors.timeSpan) } : undefined}
-                />
-                }
+                {<FocusGroup onBlur={this.blurStartDate}>
+                  <DatePicker
+                    id='pinfo-opphold-startdato-date'
+                    labels={{ day: t('pinfo:stayAbroad-period-day'), month: t('pinfo:stayAbroad-period-month'), year: t('pinfo:stayAbroad-period-year') }}
+                    ids={{ day: 'pinfo-opphold-startdato-day', month: 'pinfo-opphold-startdato-month', year: 'pinfo-opphold-startdato-year' }}
+                    placeholders={{ day: t('pinfo:stayAbroad-period-placeholder-day'), month: t('pinfo:stayAbroad-period-placeholder-month'), year: t('pinfo:stayAbroad-period-placeholder-year') }}
+                    className='startDate pr-2'
+                    values={_period.startDate}
+                    onChange={this.setStartDate}
+                    feil={localErrors.startDate || localErrors.timeSpan ? { feilmelding: t(localErrors.startDate || localErrors.timeSpan) } : undefined}
+                  />
+                </FocusGroup>}
               </div>
               <div className='col-sm-6 col-12'>
                 <label className='datepickerLabel skjemaelement__label'>{t('pinfo:stayAbroad-period-end-date')}</label>
-                {<DatePicker
-                  labels={{ day: t('pinfo:stayAbroad-period-day'), month: t('pinfo:stayAbroad-period-month'), year: t('pinfo:stayAbroad-period-year') }}
-                  ids={{ day: 'pinfo-opphold-sluttdato-day', month: 'pinfo-opphold-sluttdato-month', year: 'pinfo-opphold-sluttdato-year' }}
-                  placeholders={{ day: t('pinfo:stayAbroad-period-placeholder-day'), month: t('pinfo:stayAbroad-period-placeholder-month'), year: t('pinfo:stayAbroad-period-placeholder-year') }}
-                  className='endDate pr-2'
-                  values={_period.endDate}
-                  onChange={this.setEndDate}
-                  onBlur={this.blurEndDate}
-                  feil={localErrors.endDate || localErrors.timeSpan ? { feilmelding: t(localErrors.endDate || localErrors.timeSpan) } : undefined}
-                />
-                }
+                {<FocusGroup onBlur={this.blurEndDate}>
+                  <DatePicker
+                    labels={{ day: t('pinfo:stayAbroad-period-day'), month: t('pinfo:stayAbroad-period-month'), year: t('pinfo:stayAbroad-period-year') }}
+                    ids={{ day: 'pinfo-opphold-sluttdato-day', month: 'pinfo-opphold-sluttdato-month', year: 'pinfo-opphold-sluttdato-year' }}
+                    placeholders={{ day: t('pinfo:stayAbroad-period-placeholder-day'), month: t('pinfo:stayAbroad-period-placeholder-month'), year: t('pinfo:stayAbroad-period-placeholder-year') }}
+                    className='endDate pr-2'
+                    values={_period.endDate}
+                    onChange={this.setEndDate}
+                    feil={localErrors.endDate || localErrors.timeSpan ? { feilmelding: t(localErrors.endDate || localErrors.timeSpan) } : undefined}
+                  />
+                </FocusGroup>}
               </div>
 
             </Nav.Row>
