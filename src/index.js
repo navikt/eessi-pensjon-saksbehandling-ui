@@ -62,7 +62,7 @@ ReactDOM.render(
         <Router history={history}>
           <Switch>
             <AuthenticatedRoute exact path={routes.PSELV} component={Pages.PSelv} roles={[constants.SAKSBEHANDLER]} />
-            <AuthenticatedRoute exact path={routes.PINFO} component={Pages.PInfo} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+            <AuthenticatedRoute exact path={`${routes.PINFO}/:step?`} component={Pages.PInfo} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
             <AuthenticatedRoute exact path={routes.PINFO_SAKSBEHANDLER} component={Pages.PInfoSaksbehandler} roles={[constants.SAKSBEHANDLER]} />
             <AuthenticatedRoute exact path={routes.P4000_ROUTE} component={Pages.P4000} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
             <AuthenticatedRoute exact path={routes.PDF_GENERATE} component={Pages.GeneratePDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />

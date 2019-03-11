@@ -75,9 +75,15 @@ class PInfo extends React.Component {
   }
 
   componentDidUpdate () {
-    const { send, actions, step } = this.props
+    const { send, actions, step, match, history } = this.props
     if (send && step === 3) {
       actions.setStep(4)
+    }
+    if(_.has(match, 'params.step') && String(step+1) !== match.params.step){
+      history.push({
+        pathname: `${routes.PINFO}/${step+1}`,
+        search: window.location.search
+      })
     }
   }
 
