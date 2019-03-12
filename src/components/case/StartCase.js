@@ -14,7 +14,7 @@ import * as caseActions from '../../actions/case'
 import * as uiActions from '../../actions/ui'
 import * as appActions from '../../actions/app'
 
-const mapStateToProps = (state) => {
+export const mapStateToProps = (state) => {
   return {
     subjectAreaList: state.case.subjectAreaList,
     institutionList: state.case.institutionList,
@@ -48,7 +48,7 @@ const defaultSelects = {
   country: 'case:form-chooseCountry'
 }
 
-class StartCase extends Component {
+export class StartCase extends Component {
     state = {
       // these are only used for when we are collecting them through a form
       _sakId: undefined,

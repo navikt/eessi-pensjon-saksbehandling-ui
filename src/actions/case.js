@@ -132,11 +132,11 @@ export function getMorePreviewData (payload) {
   })
 }
 
-export function createSed (params) {
+export function createSed (payload) {
   return api.call({
     url: urls.SED_BUC_CREATE_URL,
     method: 'POST',
-    payload: params,
+    payload: payload,
     type: {
       request: types.CASE_CREATE_SED_REQUEST,
       success: types.CASE_CREATE_SED_SUCCESS,
@@ -158,11 +158,9 @@ export function addToSed (payload) {
   })
 }
 
-export function sendSed (payload) {
+export function sendSed (params) {
   return api.call({
-    url: urls.SED_SEND_URL,
-    method: 'POST',
-    payload: payload,
+    url: sprintf(urls.SED_SEND_URL, { caseId: params.caseId, documentId: params.documentId }),
     type: {
       request: types.CASE_SEND_SED_REQUEST,
       success: types.CASE_SEND_SED_SUCCESS,

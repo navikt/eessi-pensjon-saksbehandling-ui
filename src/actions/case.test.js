@@ -206,7 +206,9 @@ describe('case actions', () => {
   })
 
   it('call sendSed()', () => {
-    const mockParams = { foo: 'bar' }
+    const caseId = '123'
+    const documentId = '456'
+    const mockParams = {caseId: caseId, documentId: documentId}
     const generatedResult = caseActions.sendSed(mockParams)
     expect(api.call).toBeCalledWith({
       type: {
@@ -214,9 +216,7 @@ describe('case actions', () => {
         success: types.CASE_SEND_SED_SUCCESS,
         failure: types.CASE_SEND_SED_FAILURE
       },
-      method: 'POST',
-      payload: mockParams,
-      url: urls.SED_SEND_URL
+      url: sprintf(urls.SED_SEND_URL, {caseId: caseId, documentId: documentId})
     })
   })
 

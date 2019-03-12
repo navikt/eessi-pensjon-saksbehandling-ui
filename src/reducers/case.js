@@ -99,12 +99,6 @@ export default function (state = initialState, action = {}) {
         step: 2
       })
 
-    case types.CASE_SEND_SED_SUCCESS:
-
-      return Object.assign({}, state, {
-        dataSent: action.payload
-      })
-
     case types.CASE_GET_CASE_NUMBER_REQUEST:
 
       return Object.assign({}, state, {
@@ -135,7 +129,6 @@ export default function (state = initialState, action = {}) {
         currentCase: undefined,
         previewData: undefined,
         savedData: undefined,
-        sentData: undefined,
         step: 0
       })
 

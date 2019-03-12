@@ -11,7 +11,7 @@ import RenderData from '../../components/case/RenderData'
 import * as caseActions from '../../actions/case'
 import * as uiActions from '../../actions/ui'
 
-const mapStateToProps = (state) => {
+export const mapStateToProps = (state) => {
   return {
     step: state.case.step,
     previewData: state.case.previewData,
@@ -22,11 +22,12 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+export const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, caseActions, uiActions), dispatch) }
 }
 
-class PreviewCase extends Component {
+export class PreviewCase extends Component {
+
   onBackButtonClick () {
     const { actions, step } = this.props
     actions.setStep(step - 1)

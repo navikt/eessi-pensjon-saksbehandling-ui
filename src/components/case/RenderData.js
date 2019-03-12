@@ -4,7 +4,8 @@ import { withTranslation } from 'react-i18next'
 import _ from 'lodash'
 import './RenderData.css'
 
-class RenderData extends Component {
+export class RenderData extends Component {
+
   renderJson (json, level, counter) {
     let res = []
     let _level = level || 0
@@ -27,7 +28,7 @@ class RenderData extends Component {
   render () {
     let { t, previewData } = this.props
 
-    return <div className='p-3 c-case-renderPreviewData'>
+    return <div id='divToPrint' className='p-3 c-case-renderPreviewData'>
       <dl className='row'>
         <dt className='col-sm-4'><label>{t('case:form-sakId')}</label></dt>
         <dd className='col-sm-8'>{previewData.sakId}</dd>

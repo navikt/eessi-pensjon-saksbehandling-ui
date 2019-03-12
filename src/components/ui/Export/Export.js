@@ -6,9 +6,10 @@ import * as Nav from '../../ui/Nav'
 
 class Export extends Component {
   onPdfRequest (fileName, nodeId) {
+
     PdfUtils.downloadPdf({
       fileName: fileName,
-      element: nodeId
+      element: document.getElementById(nodeId)
     })
   }
 

@@ -11,6 +11,7 @@ import FrontPageDrawer from '../../components/drawer/FrontPage'
 import StartCase from '../../components/case/StartCase'
 import PreviewCase from '../../components/case/PreviewCase'
 import SaveSendCase from '../../components/case/SaveSendCase'
+import * as routes from '../../constants/routes'
 
 import './Case.css'
 
@@ -24,6 +25,19 @@ const caseTitles = ['case:app-startCaseTitle', 'case:app-previewCaseTitle', 'cas
 const caseDescriptions = [undefined, 'case:app-previewCaseDescription', 'case:app-saveSendCaseDescription']
 
 export class Case extends Component {
+
+  componentDidUpdate() {
+
+    const { step, match, history } = this.props
+
+    if(_.has(match, 'params.step') && String(step+1) !== match.params.step) {
+      history.push({
+        pathname: `${routes.CASE}/${step+1}`,
+        search: window.location.search
+      })
+    }
+  }
+
   render () {
     const { t, step, className, history, location, status } = this.props
 

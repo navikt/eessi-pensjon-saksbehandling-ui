@@ -53,7 +53,7 @@ export const BUC_ALL_DOCUMENTS_URL = BUC_URL + '/%(rinaId)s/allDocuments'
 export const SED_BUC_CREATE_URL = SED_URL + '/buc/create'
 export const SED_PREVIEW_URL = SED_URL + '/preview'
 export const SED_ADD_URL = SED_URL + '/add'
-export const SED_SEND_URL = SED_URL + '/send'
+export const SED_SEND_URL = SED_URL + '/send/%(caseId)s/%(documentId)s/'
 export const SED_WITH_RINAID_AND_DOCUMENTID_URL = '/%(rinaId)s/%(documentId)s/'
 
 // PdfController

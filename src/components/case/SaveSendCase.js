@@ -3,19 +3,19 @@ import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { withTranslation } from 'react-i18next'
-import Export from '../../components/ui/Export/Export'
-import RenderPrintData from '../../components/case/RenderPrintData'
 
+import Export from '../../components/ui/Export/Export'
+import RenderData from '../../components/case/RenderData'
 import * as Nav from '../../components/ui/Nav'
 
 import * as caseActions from '../../actions/case'
 import * as statusActions from '../../actions/status'
 import * as appActions from '../../actions/app'
 
-const mapStateToProps = (state) => {
+export const mapStateToProps = (state) => {
   return {
     savedData: state.case.savedData,
-    sentData: state.case.sentData,
+    previewData: state.case.previewData,
     rinaUrl: state.case.rinaUrl,
     step: state.case.step,
     sendingCase: state.loading.sendingCase,
@@ -27,7 +27,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, statusActions, caseActions, appActions), dispatch) }
 }
 
-class SaveSendCase extends Component {
+export class SaveSendCase extends Component {
     state = {}
 
     componentDidMount () {
@@ -39,24 +39,16 @@ class SaveSendCase extends Component {
 
     onSendButtonClick () {
       const { actions, savedData } = this.props
-
       let payload = {
-        subjectArea: savedData.subjectArea,
-        sakId: savedData.sakId,
-        aktoerId: savedData.aktoerId,
-        buc: savedData.buc,
-        sed: savedData.sed,
-        institutions: savedData.institutions,
         sendsed: true,
         caseId: savedData.caseId,
         documentId: savedData.documentId
       }
-
       actions.sendSed(payload)
     }
 
     onCreateNewUnsetRinaIdButtonClick () {
-      const { actions, sentData } = this.props
+      const { actions } = this.props
       actions.unsetStatusParam('rinaId')
       actions.clearData()
     }
@@ -69,7 +61,7 @@ class SaveSendCase extends Component {
     }
 
     render () {
-      let { t, sendingCase, savedData, rinaLoading, rinaUrl } = this.props
+      let { t, sendingCase, previewData, savedData, rinaLoading, rinaUrl } = this.props
 
       let buttonText = sendingCase ? t('case:loading-sendingCase') : t('ui:confirmAndSend')
 
@@ -81,7 +73,9 @@ class SaveSendCase extends Component {
               <div className='m-4'>
                 <h4>{t('case:form-rinaId') + ': ' + savedData.caseId}</h4>
               </div>
-              <RenderPrintData t={t} data={savedData} />
+              <div style={{display: 'none'}}>
+                 <RenderData t={t} previewData={Object.assign({}, previewData, savedData)} />
+              </div>
               <Export fileName='kvittering.pdf' nodeId='divToPrint' buttonLabel={t('ui:getReceipt')} />
             </div> : null)}
         </div>
@@ -100,7 +94,6 @@ SaveSendCase.propTypes = {
   history: PT.object,
   location: PT.object,
   savedData: PT.object,
-  sentData: PT.bool,
   sendingCase: PT.bool,
   t: PT.func,
   rinaLoading: PT.bool,

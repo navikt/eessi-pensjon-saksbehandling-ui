@@ -22,7 +22,7 @@ export function unsetStatusParam (key) {
   }
 }
 
-export function getStatus (rinaId) {
+export function getPossibleActions (rinaId) {
   return api.call({
     url: sprintf(urls.API_ACTIONS_FOR_RINAID_URL, { rinaId: rinaId || '' }),
     type: {

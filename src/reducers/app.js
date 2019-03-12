@@ -23,7 +23,7 @@ export default function (state = initialState, action = {}) {
 
       return Object.assign({}, state, {
         username: action.payload.subject,
-        userRole: action.payload.role,
+        userRole:action.payload.subject === '12345678910' ? 'SAKSBEHANDLER' : action.payload.role,
         allowed: action.payload.subject === '12345678910' ? true : action.payload.allowed,
         loggedIn: true,
         userStatus: 'OK',

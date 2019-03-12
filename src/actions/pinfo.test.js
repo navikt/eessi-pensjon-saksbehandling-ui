@@ -106,7 +106,7 @@ describe('pinfo actions', () => {
     expect(generatedResult).toHaveProperty('type', types.PINFO_PAGE_ERRORS_SET)
     expect(generatedResult).toHaveProperty('payload.pageErrors', errors)
     expect(generatedResult).toHaveProperty('payload.errorTimestamp')
-    expect(generatedResult.payload.errorTimestamp).toBeCloseTo(expectedDate, 100)
+    expect(Math.abs(generatedResult.payload.errorTimestamp - expectedDate)).toBeLessThan(10)
   })
 
   it('call getPinfoFromStorage()', () => {

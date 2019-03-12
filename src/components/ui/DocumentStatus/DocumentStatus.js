@@ -79,7 +79,7 @@ class DocumentStatus extends Component {
       const { actions, rinaId } = this.props
 
       // rinaId can be null
-      actions.getStatus(rinaId || '')
+      actions.getPossibleActions(rinaId || '')
       this.setState({
         currentRinaId: rinaId
       })
@@ -90,7 +90,7 @@ class DocumentStatus extends Component {
       const { sed, currentRinaId } = this.state
 
       if (currentRinaId !== rinaId) {
-        actions.getStatus(rinaId)
+        actions.getPossibleActions(rinaId)
         this.setState({
           currentRinaId: rinaId
         })
@@ -212,7 +212,7 @@ class DocumentStatus extends Component {
     refreshDocumentStatus () {
       const { actions, rinaId } = this.props
 
-      actions.getStatus(rinaId)
+      actions.getPossibleActions(rinaId)
     }
 
     render () {
