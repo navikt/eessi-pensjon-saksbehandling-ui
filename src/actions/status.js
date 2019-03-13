@@ -24,7 +24,7 @@ export function unsetStatusParam (key) {
 
 export function getPossibleActions (rinaId) {
   return api.call({
-    url: sprintf(urls.API_ACTIONS_FOR_RINAID_URL, { rinaId: rinaId || '' }),
+    url: sprintf(urls.BUC_ACTIONS_FOR_RINAID_URL, { rinaId: rinaId || '' }),
     type: {
       request: types.STATUS_GET_REQUEST,
       success: types.STATUS_GET_SUCCESS,
@@ -35,7 +35,7 @@ export function getPossibleActions (rinaId) {
 
 export function getCase (rinaId) {
   return api.call({
-    url: sprintf(urls.API_CASE_FOR_RINAID_URL, { rinaId: rinaId || '' }),
+    url: sprintf(urls.EUX_CASE_FOR_RINAID_URL, { rinaId: rinaId || '' }),
     type: {
       request: types.STATUS_RINA_CASE_REQUEST,
       success: types.STATUS_RINA_CASE_SUCCESS,

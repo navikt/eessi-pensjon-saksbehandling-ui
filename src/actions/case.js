@@ -11,7 +11,7 @@ export function setStep (step) {
 }
 
 export function getCaseFromCaseNumber (params) {
-  let url = params.rinaId ? sprintf(urls.API_CASE_WITH_RINAID_URL, params) : sprintf(urls.API_CASE_WITHOUT_RINAID_URL, params)
+  let url = params.rinaId ? sprintf(urls.EUX_CASE_WITH_RINAID_URL, params) : sprintf(urls.EUX_CASE_WITHOUT_RINAID_URL, params)
   return api.call({
     url: url,
     type: {
@@ -24,7 +24,7 @@ export function getCaseFromCaseNumber (params) {
 
 export function getSubjectAreaList () {
   return api.call({
-    url: urls.API_SUBJECT_AREA_URL,
+    url: urls.EUX_SUBJECT_AREA_URL,
     type: {
       request: types.CASE_GET_SUBJECT_AREA_LIST_REQUEST,
       success: types.CASE_GET_SUBJECT_AREA_LIST_SUCCESS,
@@ -34,53 +34,41 @@ export function getSubjectAreaList () {
 }
 
 export function getCountryList () {
-  return {
-    type: types.CASE_GET_COUNTRY_LIST_SUCCESS,
-    payload: ['NO']
-  }
-  /* return api.call({
-    url: urls.API_COUNTRY_URL,
+  return api.call({
+    url: urls.EUX_COUNTRY_URL,
     type: {
       request: types.CASE_GET_COUNTRY_LIST_REQUEST,
       success: types.CASE_GET_COUNTRY_LIST_SUCCESS,
       failure: types.CASE_GET_COUNTRY_LIST_FAILURE
     }
-  }) */
+  })
 }
 
-export function getInstitutionList () {
-  return {
-    type: types.CASE_GET_INSTITUTION_LIST_SUCCESS,
-    payload: ['NAVT003']
-  }
-  /* return api.call({
-    url: urls.API_INSTITUTIONS_URL,
+export function getInstitutionListForBucAndCountry (buc, country) {
+  return api.call({
+    url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, {buc: buc, country: country}),
     type: {
       request: types.CASE_GET_INSTITUTION_LIST_REQUEST,
       success: types.CASE_GET_INSTITUTION_LIST_SUCCESS,
       failure: types.CASE_GET_INSTITUTION_LIST_FAILURE
     }
-  }) */
+  })
 }
 
 export function getInstitutionListForCountry (country) {
-  return {
-    type: types.CASE_GET_INSTITUTION_LIST_SUCCESS,
-    payload: ['NAVT003']
-  }
-  /* return api.call({
-    url: sprintf(urls.API_INSTITUTIONS_FOR_COUNTRY_URL, { country: country }),
+  return api.call({
+    url: sprintf(urls.EUX_INSTITUTIONS_FOR_COUNTRY_URL, { country: country }),
     type: {
       request: types.CASE_GET_INSTITUTION_LIST_REQUEST,
       success: types.CASE_GET_INSTITUTION_LIST_SUCCESS,
       failure: types.CASE_GET_INSTITUTION_LIST_FAILURE
     }
-  }) */
+  })
 }
 
 export function getBucList (rinaId) {
-  let url = rinaId ? sprintf(urls.API_BUC_FROM_RINA_URL, { rinaId: rinaId })
-    : urls.API_BUCS_URL
+  let url = rinaId ? sprintf(urls.BUC_WITH_RINAID_NAME_URL, { rinaId: rinaId })
+    : urls.EUX_BUCS_URL
 
   return api.call({
     url: url,
@@ -93,8 +81,8 @@ export function getBucList (rinaId) {
 }
 
 export function getSedList (buc, rinaId) {
-  let url = rinaId ? sprintf(urls.API_SED_FROM_RINA_URL, { rinaId: rinaId })
-    : sprintf(urls.API_SED_FOR_BUCS_URL, { buc: buc })
+  let url = rinaId ? sprintf(urls.EUX_SED_FROM_RINA_URL, { rinaId: rinaId })
+    : sprintf(urls.EUX_SED_FOR_BUCS_URL, { buc: buc })
 
   return api.call({
     url: url,
@@ -171,7 +159,7 @@ export function sendSed (params) {
 
 export function getRinaUrl () {
   return api.call({
-    url: urls.API_RINA_URL,
+    url: urls.EUX_RINA_URL,
     type: {
       request: types.RINA_GET_URL_REQUEST,
       success: types.RINA_GET_URL_SUCCESS,

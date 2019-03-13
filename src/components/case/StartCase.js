@@ -100,10 +100,6 @@ export class StartCase extends Component {
           actions.getBucList(currentCase ? currentCase.rinaid : undefined)
         }
 
-        if (_.isEmpty(institutionList) && !loading.institutionList) {
-          actions.getInstitutionList()
-        }
-
         if (_.isEmpty(countryList) && !loading.countryList) {
           actions.getCountryList()
         }
@@ -147,6 +143,7 @@ export class StartCase extends Component {
     onFetchCaseButtonClick () {
       const { t, actions } = this.props
       const { _sakId, _aktoerId, _rinaId } = this.state
+
       if (!_sakId) {
         this.setValidationState('sakId', t('case:validation-noSakId'))
       }
@@ -178,6 +175,7 @@ export class StartCase extends Component {
       this.validateInstitutions(institutions)
 
       if (this.hasNoValidationErrors()) {
+
         actions.dataPreview({
           sakId: currentCase.casenumber,
           aktoerId: currentCase.pinid,
@@ -333,7 +331,7 @@ export class StartCase extends Component {
 
     onCountryChange (e) {
       const { actions } = this.props
-      const { validation } = this.state
+      const { validation, _buc } = this.state
 
       let country = e.value
       this.setState({
@@ -343,9 +341,11 @@ export class StartCase extends Component {
       this.validateCountry(country)
       if (!validation.countryFail) {
         if (country !== defaultSelects.country) {
-          actions.getInstitutionListForCountry(country)
-        } else {
-          actions.getInstitutionList()
+          if (_buc) {
+             actions.getInstitutionListForBucAndCountry(_buc, country)
+          } else {
+             actions.getInstitutionListForCountry(country)
+          }
         }
       }
     }
@@ -451,7 +451,7 @@ export class StartCase extends Component {
     getSpinner (text) {
       const { t } = this.props
 
-      return <div className='ml-2'>
+      return <div className='spinner ml-2'>
         <Nav.NavFrontendSpinner type='S' />
         <div className='float-right ml-2'>{t(text)}</div>
       </div>
@@ -467,7 +467,7 @@ export class StartCase extends Component {
           <div className='renderedInstitution'><b>{renderedInstitution}</b></div>
         </Nav.Column>
         <Nav.Column className='text-right'>
-          <Nav.Knapp type='standard'
+          <Nav.Knapp className='removeInstitutionButton' type='standard'
             onClick={this.onRemoveInstitutionButtonClick.bind(this, institution)}>
             <div className='d-flex justify-content-center'>
               <Icons className='mr-2' size={20} kind='trashcan' color='#0067C5' />

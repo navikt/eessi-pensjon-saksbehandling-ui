@@ -39,7 +39,7 @@ describe('case actions', () => {
         success: types.CASE_GET_CASE_NUMBER_SUCCESS,
         failure: types.CASE_GET_CASE_NUMBER_FAILURE
       },
-      url: sprintf(urls.API_CASE_WITHOUT_RINAID_URL, mockParams)
+      url: sprintf(urls.EUX_CASE_WITHOUT_RINAID_URL, mockParams)
     })
   })
 
@@ -52,7 +52,7 @@ describe('case actions', () => {
         success: types.CASE_GET_CASE_NUMBER_SUCCESS,
         failure: types.CASE_GET_CASE_NUMBER_FAILURE
       },
-      url: sprintf(urls.API_CASE_WITH_RINAID_URL, mockParams)
+      url: sprintf(urls.EUX_CASE_WITH_RINAID_URL, mockParams)
     })
   })
 
@@ -64,31 +64,46 @@ describe('case actions', () => {
         success: types.CASE_GET_SUBJECT_AREA_LIST_SUCCESS,
         failure: types.CASE_GET_SUBJECT_AREA_LIST_FAILURE
       },
-      url: urls.API_SUBJECT_AREA_URL
+      url: urls.EUX_SUBJECT_AREA_URL
     })
   })
 
   it('call getCountryList()', () => {
     const generatedResult = caseActions.getCountryList()
-    expect(generatedResult).toEqual({
-      type: types.CASE_GET_COUNTRY_LIST_SUCCESS,
-      payload: ['NO']
+    expect(api.call).toBeCalledWith({
+      type: {
+        request: types.CASE_GET_COUNTRY_LIST_REQUEST,
+        success: types.CASE_GET_COUNTRY_LIST_SUCCESS,
+        failure: types.CASE_GET_COUNTRY_LIST_FAILURE
+      },
+      url: urls.EUX_COUNTRY_URL
     })
   })
 
-  it('call getInstitutionList()', () => {
-    const generatedResult = caseActions.getInstitutionList()
-    expect(generatedResult).toEqual({
-      type: types.CASE_GET_INSTITUTION_LIST_SUCCESS,
-      payload: ['NAVT003']
+  it('call getInstitutionListForBucAndCountry()', () => {
+    let mockBuc = 'P_BUC_01'
+    let mockCountry = 'NO'
+    const generatedResult = caseActions.getInstitutionListForBucAndCountry(mockBuc, mockCountry)
+    expect(api.call).toBeCalledWith({
+      type: {
+        request: types.CASE_GET_INSTITUTION_LIST_REQUEST,
+        success: types.CASE_GET_INSTITUTION_LIST_SUCCESS,
+        failure: types.CASE_GET_INSTITUTION_LIST_FAILURE
+      },
+      url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, {buc: mockBuc, country: mockCountry})
     })
   })
 
   it('call getInstitutionListForCountry()', () => {
-    const generatedResult = caseActions.getInstitutionListForCountry('NO')
-    expect(generatedResult).toEqual({
-      type: types.CASE_GET_INSTITUTION_LIST_SUCCESS,
-      payload: ['NAVT003']
+    let mockCountry = 'NO'
+    const generatedResult = caseActions.getInstitutionListForCountry(mockCountry)
+    expect(api.call).toBeCalledWith({
+      type: {
+        request: types.CASE_GET_INSTITUTION_LIST_REQUEST,
+        success: types.CASE_GET_INSTITUTION_LIST_SUCCESS,
+        failure: types.CASE_GET_INSTITUTION_LIST_FAILURE
+      },
+      url: sprintf(urls.EUX_INSTITUTIONS_FOR_COUNTRY_URL, {country: mockCountry})
     })
   })
 
@@ -100,7 +115,7 @@ describe('case actions', () => {
         success: types.CASE_GET_BUC_LIST_SUCCESS,
         failure: types.CASE_GET_BUC_LIST_FAILURE
       },
-      url: urls.API_BUCS_URL
+      url: urls.EUX_BUCS_URL
     })
   })
 
@@ -113,7 +128,7 @@ describe('case actions', () => {
         success: types.CASE_GET_BUC_LIST_SUCCESS,
         failure: types.CASE_GET_BUC_LIST_FAILURE
       },
-      url: sprintf(urls.API_BUC_FROM_RINA_URL, { rinaId: mockRinaId })
+      url: sprintf(urls.BUC_WITH_RINAID_NAME_URL, { rinaId: mockRinaId })
     })
   })
 
@@ -126,7 +141,7 @@ describe('case actions', () => {
         success: types.CASE_GET_SED_LIST_SUCCESS,
         failure: types.CASE_GET_SED_LIST_FAILURE
       },
-      url: sprintf(urls.API_SED_FOR_BUCS_URL, { buc: mockBuc })
+      url: sprintf(urls.EUX_SED_FOR_BUCS_URL, { buc: mockBuc })
     })
   })
 
@@ -140,7 +155,7 @@ describe('case actions', () => {
         success: types.CASE_GET_SED_LIST_SUCCESS,
         failure: types.CASE_GET_SED_LIST_FAILURE
       },
-      url: sprintf(urls.API_SED_FROM_RINA_URL, { rinaId: mockRinaId })
+      url: sprintf(urls.EUX_SED_FROM_RINA_URL, { rinaId: mockRinaId })
     })
   })
 
@@ -228,7 +243,7 @@ describe('case actions', () => {
         success: types.RINA_GET_URL_SUCCESS,
         failure: types.RINA_GET_URL_FAILURE
       },
-      url: urls.API_RINA_URL
+      url: urls.EUX_RINA_URL
     })
   })
 })

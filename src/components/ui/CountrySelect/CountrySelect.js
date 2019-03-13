@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
 import PT from 'prop-types'
-import { withTranslation } from 'react-i18next'
 import { countries } from './CountrySelectData'
 import _ from 'lodash'
 import classNames from 'classnames'
@@ -43,7 +42,7 @@ class CountrySelect extends Component {
       defValue = _.find(options, { value: defValue.value ? defValue.value : defValue })
     }
     return <div id={id} className={classNames('c-ui-countrySelect', className, { 'skjemaelement__feilmelding': error })}>
-      <Select placeholder={placeholder || t('ui:searchCountry')}
+      <Select placeholder={placeholder}
         value={defValue || null}
         options={options}
         id={this.props.id}
@@ -76,7 +75,6 @@ class CountrySelect extends Component {
 CountrySelect.propTypes = {
   onSelect: PT.func.isRequired,
   value: PT.oneOfType([PT.object, PT.string]),
-  t: PT.func.isRequired,
   locale: PT.string.isRequired,
   style: PT.object,
   includeList: PT.array,
@@ -93,4 +91,4 @@ CountrySelect.propTypes = {
   components: PT.object
 }
 
-export default withTranslation()(CountrySelect)
+export default CountrySelect

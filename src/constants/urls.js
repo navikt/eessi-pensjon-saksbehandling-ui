@@ -5,24 +5,24 @@ let BACKEND_URL = window.location.hostname === 'localhost' ? BASE_URL : BASE_URL
 let API_URL = BACKEND_URL + '/api'
 let SED_URL = BACKEND_URL + '/sed'
 let BUC_URL = BACKEND_URL + '/buc'
+let EUX_URL = BACKEND_URL + '/eux'
 let PDF_URL = BACKEND_URL + '/pdf'
 
 export const NAV_URL = 'http://www.nav.no'
 
 // EuxController
-export const API_RINA_URL = API_URL + '/rinaurl'
-export const API_CASE_WITH_RINAID_URL = API_URL + '/case/%(sakId)s/%(aktoerId)s/%(rinaId)s'
-export const API_CASE_WITHOUT_RINAID_URL = API_URL + '/case/%(sakId)s/%(aktoerId)s'
-export const API_BUCS_URL = API_URL + '/bucs'
-export const API_SED_FOR_BUCS_URL = API_URL + '/seds/%(buc)s'
-export const API_SED_FROM_RINA_URL = API_URL + '/sedfromrina/%(rinaId)s'
-export const API_BUC_FROM_RINA_URL = API_URL + '/bucfromrina/%(rinaId)s'
-export const API_ACTIONS_FOR_RINAID_URL = API_URL + '/aksjoner/%(rinaId)s'
-export const API_CASE_FOR_RINAID_URL = API_URL + '/rinasaker/%(rinaId)s'
-export const API_INSTITUTIONS_URL = API_URL + '/institutions'
-export const API_INSTITUTIONS_FOR_COUNTRY_URL = API_URL + '/institutions/%(country)s'
-export const API_COUNTRY_URL = API_URL + '/countrycode'
-export const API_SUBJECT_AREA_URL = API_URL + '/subjectarea'
+export const EUX_RINA_URL = EUX_URL + '/rinaurl'
+export const EUX_CASE_WITH_RINAID_URL = EUX_URL + '/case/%(sakId)s/%(aktoerId)s/%(rinaId)s'
+export const EUX_CASE_WITHOUT_RINAID_URL = EUX_URL + '/case/%(sakId)s/%(aktoerId)s'
+export const EUX_BUCS_URL = EUX_URL + '/bucs'
+export const EUX_SED_FOR_BUCS_URL = EUX_URL + '/seds/%(buc)s'
+export const EUX_SED_FROM_RINA_URL = EUX_URL + '/sedfromrina/%(rinaId)s'
+export const EUX_CASE_FOR_RINAID_URL = EUX_URL + '/rinasaker/%(rinaId)s'
+export const EUX_INSTITUTIONS_FOR_COUNTRY_URL = EUX_URL + '/institutions/%(country)s'
+export const EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL = EUX_URL + '/institutions/%(buc)s/%(country)s'
+export const EUX_COUNTRY_URL = EUX_URL + '/countrycode'
+export const EUX_SUBJECT_AREA_URL = EUX_URL + '/subjectarea'
+
 
 // UserInfoController
 export const API_USERINFO_URL = API_URL + '/userinfo'
@@ -45,8 +45,8 @@ export const API_STORAGE_MULTIPLE_DELETE_URL = API_URL + '/storage/multiple/%(us
 export const BUC_WITH_RINAID_URL = BUC_URL + '/%(rinaId)s'
 export const BUC_WITH_RINAID_NAME_URL = BUC_URL + '/%(rinaId)s/name'
 export const BUC_ACTIONS_URL = BUC_URL + '/aksjoner'
-export const BUC_ACTIONS_WITH_RINA_URL = BUC_URL + '/%(rinaId)s/aksjoner'
-export const BUC_ACTIONS_WITH_RINA_AND_FILTER_URL = BUC_URL + '/%(rinaId)s/aksjoner/%(filter)s'
+export const BUC_ACTIONS_FOR_RINAID_URL = BUC_URL + '/%(rinaId)s/aksjoner'
+export const BUC_ACTIONS_FOR_RINAID_AND_FILTER_URL = BUC_URL + '/%(rinaId)s/aksjoner/%(filter)s'
 export const BUC_ALL_DOCUMENTS_URL = BUC_URL + '/%(rinaId)s/allDocuments'
 
 // SedController

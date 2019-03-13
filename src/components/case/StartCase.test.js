@@ -1,8 +1,9 @@
 import React from 'react'
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as reducers from '../../reducers'
 import * as api from '../../actions/api'
+import * as types from '../../constants/actionTypes'
 
 import { StartCase, mapStateToProps } from './StartCase'
 
@@ -15,6 +16,8 @@ jest.mock('../../actions/api', () => ({
   }))
 }))
 
+jest.mock('../../i18n')
+
 // mock actions that will be connected to the component
 jest.mock('../../actions/case', () => ({
   ...jest.requireActual('../../actions/case'),
@@ -22,14 +25,23 @@ jest.mock('../../actions/case', () => ({
     type: 'CASE/GET_CASE_NUMBER/SUCCESS',
     payload: {casenumber: '123', pinid: '456'}
   })),
-  getSubjectAreaList: jest.fn()
+  getSubjectAreaList: jest.fn(() => ({
+    type: 'CASE/GET_SUBJECT_AREA_LIST/SUCCESS',
+    payload: ['mockSubjectArea']
+  })),
+  getSedList: jest.fn((buc) => ({
+    type: 'CASE/GET_SED_LIST/SUCCESS',
+    payload: [`mockSedFor${buc}1`, `mockSedFor${buc}2`]
+  })),
+  getInstitutionListForCountry: jest.fn((country) => ({
+    type: 'CASE/GET_INSTITUTION_LIST/SUCCESS',
+    payload: [`mockInstitutionFor${country}1`, `mockInstitutionFor${country}2`]
+  }))
 }))
 
-
-import * as statusActions from '../../actions/status'
+import * as uiActions from '../../actions/ui'
 import * as appActions from '../../actions/app'
 import * as caseActions from '../../actions/case'
-
 
 Object.defineProperty(window, 'location', {
   writable: true,
@@ -41,16 +53,6 @@ Object.defineProperty(window, 'location', {
   }
 })
 
-const initialState = {
-  case: {
-    step: 0
-  },
-  status: {
-    sakId: '123',
-    aktoerId: '456'
-  }
-}
-
 const reducer = combineReducers({
   ...reducers
 })
@@ -59,8 +61,63 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, caseActions, appActions, uiActions), dispatch) }
 }
 
-describe('StartCase', () => {
+describe('StartCase: mount without sakId and AktoerId', () => {
+
   let store, wrapper, ConnectedStartCase
+  const initialState = {
+    case: {
+      step: 0
+    },
+    status: {}
+  }
+
+  beforeEach(() => {
+    store = createStore(reducer, initialState)
+    ConnectedStartCase = connect(mapStateToProps, mapDispatchToProps)(StartCase)
+    wrapper = shallow(<ConnectedStartCase t={t} store={store}/>).dive()
+  })
+
+  it('renders successfully', () => {
+    expect(wrapper).toMatchSnapshot()
+  })
+
+  it('onFetchCaseButtonClick() with state values triggers getCaseFromCaseNumber ', async (done) => {
+    wrapper.instance().onFetchCaseButtonClick()
+    expect(store.getState().case.currentCase).toEqual(undefined)
+    expect(wrapper.instance().state.validation).toEqual({
+      sakId: 'case:validation-noSakId',
+      aktoerId: 'case:validation-noAktoerId'
+    })
+
+    wrapper.instance().setState({
+      _sakId: '123',
+      _aktoerId: '456',
+      _rinaId: '789',
+      validation: {}
+    })
+
+    wrapper.instance().onFetchCaseButtonClick()
+    await new Promise(resolve => {
+       setTimeout(() => {
+         expect(store.getState().case.currentCase).toEqual({casenumber: '123', pinid: '456'})
+         done()
+       }, 500)
+    })
+  })
+})
+
+describe('StartCase: mount with sakId and AktoerId', () => {
+
+  let store, wrapper, ConnectedStartCase
+  const initialState = {
+    case: {
+      step: 0
+    },
+    status: {
+      sakId: '123',
+      aktoerId: '456'
+    }
+  }
 
   beforeEach(() => {
     store = createStore(reducer, initialState)
@@ -75,589 +132,421 @@ describe('StartCase', () => {
   it('Fetches currentCase when given sakId and aktoerId', () => {
     expect(store.getState().case.currentCase).toEqual({casenumber: '123', pinid: '456'})
   })
-
-  it('renders successfully and triggers subjectAreaList ', () => {
-    expect(wrapper).toMatchSnapshot()
-    console.log(wrapper.props())
-    expect(wrapper.props().actions.getSubjectAreaList).toHaveBeCalled()
-  })
-
-
 })
 
-/*
-
-      componentDidUpdate () {
-        const { loading, sed, currentCase, institutionList, bucList,
-          subjectAreaList, countryList, actions, sakId, aktoerId, rinaId } = this.props
-
-        if (!loading.gettingCase && currentCase) {
-          if (subjectAreaList === undefined && !sed && !loading.subjectAreaList) {
-            actions.getSubjectAreaList()
-          }
-
-          if (bucList === undefined && !sed && !loading.bucList) {
-            actions.getBucList(currentCase ? currentCase.rinaid : undefined)
-          }
-
-          if (_.isEmpty(institutionList) && !loading.institutionList) {
-            actions.getInstitutionList()
-          }
-
-          if (_.isEmpty(countryList) && !loading.countryList) {
-            actions.getCountryList()
-          }
-        }
-
-        if (!loading.gettingCase && _.isEmpty(currentCase) && sakId && aktoerId) {
-          actions.getCaseFromCaseNumber({
-            sakId: sakId,
-            aktoerId: aktoerId,
-            rinaId: rinaId
-          })
-        }
-      }
-
-      onSakIdChange (e) {
-        this.resetValidationState('sakId')
-        this.setState({
-          _sakId: e.target.value.trim()
-        })
-      }
-
-      onRinaIdChange (e) {
-        this.setState({
-          _rinaId: e.target.value.trim()
-        })
-      }
-
-      onAktoerIdChange (e) {
-        this.resetValidationState('aktoerId')
-        this.setState({
-          _aktoerId: e.target.value.trim()
-        })
-      }
-
-      onVedtakIdChange (e) {
-        this.setState({
-          _vedtakId: e.target.value.trim()
-        })
-      }
-
-      onFetchCaseButtonClick () {
-        const { t, actions } = this.props
-        const { _sakId, _aktoerId, _rinaId } = this.state
-        if (!_sakId) {
-          this.setValidationState('sakId', t('case:validation-noSakId'))
-        }
-        if (!_aktoerId) {
-          this.setValidationState('aktoerId', t('case:validation-noAktoerId'))
-        }
-        if (this.hasNoValidationErrors()) {
-          actions.getCaseFromCaseNumber({
-            sakId: _sakId,
-            aktoerId: _aktoerId,
-            rinaId: _rinaId
-          })
-        }
-      }
-
-      onForwardButtonClick () {
-        const { actions, currentCase, buc, sed, vedtakId } = this.props
-        const { institutions, _buc, _sed, _subjectArea, _vedtakId } = this.state
-
-        if (_subjectArea) {
-          this.validateSubjectArea(_subjectArea)
-        }
-        if (_buc) {
-          this.validateBuc(_buc)
-        }
-        if (_sed) {
-          this.validateSed(_sed)
-        }
-        this.validateInstitutions(institutions)
-
-        if (this.hasNoValidationErrors()) {
-          actions.dataPreview({
-            sakId: currentCase.casenumber,
-            aktoerId: currentCase.pinid,
-            rinaId: currentCase.rinaid,
-            subjectArea: _subjectArea,
-            buc: buc || _buc,
-            sed: sed || _sed,
-            vedtakId: vedtakId || _vedtakId,
-            institutions: institutions
-          })
-        }
-      }
-
-      validateSubjectArea (subjectArea) {
-        const { t } = this.props
-
-        if (!subjectArea || subjectArea === defaultSelects.subjectArea) {
-          this.setValidationState('subjectAreaFail', t('case:validation-chooseSubjectArea'))
-        } else {
-          this.resetValidationState('subjectAreaFail')
-        }
-      }
-
-      validateBuc (buc) {
-        const { t } = this.props
-        if (!buc || buc === defaultSelects.buc) {
-          this.setValidationState('bucFail', t('case:validation-chooseBuc'))
-        } else {
-          this.resetValidationState('bucFail')
-        }
-      }
-
-      validateSed (sed) {
-        const { t } = this.props
-
-        if (!sed || sed === defaultSelects.sed) {
-          this.setValidationState('sedFail', t('case:validation-chooseSed'))
-        } else {
-          this.resetValidationState('sedFail')
-        }
-      }
-
-      validateInstitutions (institutions) {
-        const { t } = this.props
-
-        if (!institutions || Object.keys(institutions).length === 0) {
-          this.setValidationState('institutionsFail', t('case:validation-chooseInstitutions'))
-        } else {
-          this.resetValidationState('institutionsFail')
-        }
-      }
-
-      validateInstitution (institution) {
-        const { t } = this.props
-
-        if (!institution || institution === defaultSelects.institution) {
-          this.setValidationState('institutionFail', t('case:validation-chooseInstitution'))
-        } else {
-          this.resetValidationState('institutionFail')
-        }
-      }
-
-      validateCountry (country) {
-        const { t } = this.props
-
-        if (!country) {
-          this.setValidationState('countryFail', t('case:validation-chooseCountry'))
-        } else {
-          this.resetValidationState('countryFail')
-        }
-      }
-
-      onCreateInstitutionButtonClick () {
-        const { institutions, institution, country } = this.state
-
-        let _institutions = (!institutions ? [] : _.cloneDeep(institutions))
-
-        _institutions.push({
-          institution: institution,
-          country: country
-        })
-        this.setState({
-          institutions: _institutions,
-          institution: undefined,
-          country: undefined
-        })
-      }
-
-      onRemoveInstitutionButtonClick (institution) {
-        const { institutions } = this.state
-        let _institutions = _.cloneDeep(institutions)
-        let newInstitutions = _.filter(_institutions, i => {
-          return institution.institution !== i.institution || institution.country !== i.country
-        })
-        this.setState({
-          institutions: newInstitutions
-        })
-      }
-
-      resetValidationState (key) {
-        const { validation } = this.state
-        let _validation = _.cloneDeep(validation)
-
-        if (_validation.hasOwnProperty(key)) {
-          delete _validation[key]
-          this.setState({ validation: _validation })
-        }
-      }
-
-      hasNoValidationErrors () {
-        return _.isEmpty(this.state.validation)
-      }
-
-      setValidationState (key, value) {
-        this.setState({
-          validation: Object.assign(this.state.validation, { [key]: value })
-        })
-      }
-
-      onSubjectAreaChange (e) {
-        let _subjectArea = e.target.value
-        this.setState({
-          _subjectArea: _subjectArea
-        })
-        this.validateSubjectArea(_subjectArea)
-      }
-
-      onBucChange (e) {
-        const { actions, rinaId } = this.props
-        const { validation } = this.state
-
-        let _buc = e.target.value
-        this.setState({
-          _buc: _buc
-        })
-        this.validateBuc(_buc)
-        if (!validation.bucFail) {
-          actions.getSedList(_buc, rinaId)
-        }
-      }
-
-      onSedChange (e) {
-        let _sed = e.target.value
-        this.setState({ _sed: _sed })
-        this.validateSed(_sed)
-      }
-
-      onInstitutionChange (e) {
-        let institution = e.target.value
-        this.setState({ institution: institution })
-        this.validateInstitution(institution)
-      }
-
-      onCountryChange (e) {
-        const { actions } = this.props
-        const { validation } = this.state
-
-        let country = e.value
-        this.setState({
-          country: country,
-          institution: undefined
-        })
-        this.validateCountry(country)
-        if (!validation.countryFail) {
-          if (country !== defaultSelects.country) {
-            actions.getInstitutionListForCountry(country)
-          } else {
-            actions.getInstitutionList()
-          }
-        }
-      }
-
-      renderOptions (map, type) {
-        const { t } = this.props
-
-        if (typeof map === 'string') {
-          map = [map]
-        }
-
-        if (!map || Object.keys(map).length === 0) {
-          map = [{
-            key: defaultSelects[type],
-            value: t(defaultSelects[type])
-          }]
-        }
-
-        if (!map[0].key || (map[0].key && map[0].key !== defaultSelects[type])) {
-          map.unshift({
-            key: defaultSelects[type],
-            value: t(defaultSelects[type])
-          })
-        }
-        return map.map(el => {
-          if (typeof el === 'string') {
-            return <option value={el} key={el}>{this.getOptionLabel(el)}</option>
-          } else {
-            return <option value={el.key} key={el.key}>{this.getOptionLabel(el.value)}</option>
-          }
-        })
-      }
-
-      getOptionLabel (value) {
-        const { t } = this.props
-
-        let label = value
-        let description = t('case:case-' + value)
-        if (description !== 'case-' + value) {
-          label += ' - ' + description
-        }
-        return label
-      }
-
-      renderSubjectArea () {
-        const { t, subjectAreaList } = this.props
-        const { validation, _subjectArea } = this.state
-
-        return <Nav.Select aria-describedby='help-subjectArea' className='subjectAreaList' bredde='xxl'
-          feil={validation.subjectAreaFail ? { feilmelding: validation.subjectAreaFail } : null}
-          label={t('case:form-subjectArea')} value={_subjectArea}
-          onChange={this.onSubjectAreaChange.bind(this)}>
-          {this.renderOptions(subjectAreaList, 'subjectArea')}
-        </Nav.Select>
-      }
-
-      renderCountry () {
-        const { t, countryList, locale } = this.props
-        const { country } = this.state
-
-        return <div className='mb-3'>
-          <label className='skjemaelement__label'>{t('ui:country')}</label>
-          <CountrySelect aria-describedby='help-country' className='countrySelect' locale={locale}
-            value={country || {}}
-            onSelect={this.onCountryChange.bind(this)}
-            includeList={countryList} />
-        </div>
-      }
-
-      renderInstitution () {
-        const { t, institutionList } = this.props
-        const { validation, institution } = this.state
-
-        return <Nav.Select aria-describedby='help-institution' className='institutionList' bredde='xxl'
-          feil={validation.institutionFail ? { feilmelding: validation.institutionFail } : null}
-          label={t('case:form-institution')} value={institution || defaultSelects.institution} onChange={this.onInstitutionChange.bind(this)}>
-          {this.renderOptions(institutionList, 'institution')}
-        </Nav.Select>
-      }
-
-      renderBuc () {
-        const { t, bucList } = this.props
-        const { _buc, validation } = this.state
-
-        return <Nav.Select aria-describedby='help-buc' className='bucList' bredde='fullbredde'
-          feil={validation.bucFail ? { feilmelding: validation.bucFail } : null}
-          label={t('case:form-buc')} value={_buc || defaultSelects.buc} onChange={this.onBucChange.bind(this)}>
-          {this.renderOptions(bucList, 'buc')}
-        </Nav.Select>
-      }
-
-      renderSed () {
-        const { t, sedList, bucList } = this.props
-        const { _sed, validation } = this.state
-
-        return <Nav.Select aria-describedby='help-sed' className='sedList' bredde='fullbredde'
-          feil={validation.sedFail ? { feilmelding: validation.sedFail } : null}
-          disabled={!bucList} label={t('case:form-sed')} value={_sed || defaultSelects.buc} onChange={this.onSedChange.bind(this)}>
-          {this.renderOptions(sedList, 'sed')}
-        </Nav.Select>
-      }
-
-      getSpinner (text) {
-        const { t } = this.props
-
-        return <div className='ml-2'>
-          <Nav.NavFrontendSpinner type='S' />
-          <div className='float-right ml-2'>{t(text)}</div>
-        </div>
-      }
-
-      renderChosenInstitution (institution) {
-        const { t } = this.props
-
-        let renderedInstitution = (institution.country && institution.country !== defaultSelects.country ? institution.country + '/' : '') + institution.institution
-
-        return <Nav.Row key={renderedInstitution} className='mb-3 renderedInstitutions'>
-          <Nav.Column style={{ lineHeight: '2rem' }}>
-            <div className='renderedInstitution'><b>{renderedInstitution}</b></div>
-          </Nav.Column>
-          <Nav.Column className='text-right'>
-            <Nav.Knapp type='standard'
-              onClick={this.onRemoveInstitutionButtonClick.bind(this, institution)}>
-              <div className='d-flex justify-content-center'>
-                <Icons className='mr-2' size={20} kind='trashcan' color='#0067C5' />
-                <span>{t('ui:remove')}</span>
-              </div>
-            </Nav.Knapp>
-          </Nav.Column>
-        </Nav.Row>
-      }
-
-      renderInstitutions () {
-        const { t, loading } = this.props
-        const { institutions, institution, validation, country } = this.state
-
-        let renderedInstitutions = []
-
-        for (var i in institutions) {
-          let institution = institutions[i]
-          renderedInstitutions.push(this.renderChosenInstitution(institution))
-        }
-
-        let validInstitution = (!validation.countryFail && !validation.institutionFail) && country && institution
-
-        renderedInstitutions.push(<Nav.Row key={'newInstitution'}>
-          <div className='col-md-4'>
-            <div>{this.renderCountry()}
-              <span id='help-country'>{t('case:help-country')}</span>
-            </div>
-            <div className='mb-3 selectBoxMessage'>
-              <div>{loading && loading.countryList ? this.getSpinner('case:loading-country') : null}</div>
-            </div>
-          </div>
-          <div className='col-md-4'>
-            <div>{this.renderInstitution()}
-              <span id='help-institution'>{t('case:help-institution')}</span>
-            </div>
-            <div className='mb-3 selectBoxMessage'>
-              <div>{loading && loading.institutionList ? this.getSpinner('case:loading-institution') : null}</div>
-            </div>
-          </div>
-          <div className='col-md-4' style={{ lineHeight: '6rem' }}>
-            <Nav.Knapp className='w-100 createInstitutionButton'
-              disabled={!validInstitution}
-              onClick={this.onCreateInstitutionButtonClick.bind(this)}>
-              <div className='d-flex justify-content-center'>
-                <Icons kind='tilsette' size={20} color={!validInstitution ? 'white' : undefined} className='mr-2' />
-                <span>{t('ui:add')}</span>
-              </div>
-            </Nav.Knapp>
-          </div>
-        </Nav.Row>)
-
-        return <div className='mt-4'>{renderedInstitutions.map(i => { return i })}</div>
-      }
-
-      allowedToForward () {
-        const { sed, buc } = this.props
-        const { institutions, _subjectArea, _buc, _sed } = this.state
-
-        return sed ? buc && sed && this.hasNoValidationErrors() && !_.isEmpty(institutions)
-          : _buc && _sed && _subjectArea && this.hasNoValidationErrors() && !_.isEmpty(institutions)
-      }
-
-      render () {
-        const { t, currentCase, loading, sed, vedtakId } = this.props
-        const { _sakId, _aktoerId, _rinaId, _sed, _vedtakId, validation } = this.state
-
-        if (!currentCase) {
-          return <React.Fragment>
-            <div className='fieldset animate'>
-              <div className='mb-5'>
-                <PsychoPanel closeButton>{t('case:help-startCase')}</PsychoPanel>
-              </div>
-              <Nav.Row>
-                <div className='mt-4 col-md-6'>
-                  <Nav.Input aria-describedby='help-sakId'
-                    className='getCaseInputSakId'
-                    label={t('case:form-sakId')}
-                    value={_sakId || ''}
-                    onChange={this.onSakIdChange.bind(this)}
-                    feil={validation.sakId ? { feilmelding: t(validation.sakId) } : null} />
-                  <span id='help-sakId'>{t('case:help-sakId')}</span>
-                </div>
-                <div className='mt-4 col-md-6'>
-                  <Nav.Input
-                    className='getCaseInputAktoerId'
-                    label={t('case:form-aktoerId')}
-                    value={_aktoerId || ''}
-                    onChange={this.onAktoerIdChange.bind(this)}
-                    feil={validation.aktoerId ? { feilmelding: t(validation.aktoerId) } : null} />
-                  <span id='help-aktoerId'>{t('case:help-aktoerId')}</span>
-                </div>
-                <div className='mt-4 col-md-6'>
-                  <Nav.Input className='getCaseInputRinaId' label={<div>
-                    <span>{t('case:form-rinaId')}</span>
-                    <span className='optional'>{t('ui:optional')}</span>
-                  </div>}
-                  value={_rinaId || ''} onChange={this.onRinaIdChange.bind(this)} />
-                  <span id='help-rinaId'>{t('case:help-rinaId')}</span>
-                </div>
-              </Nav.Row>
-            </div>
-            <Nav.Row className='mt-4'>
-              <div className='col-md-12'>
-                <Nav.Hovedknapp className='forwardButton'
-                  disabled={loading && loading.gettingCase}
-                  spinner={loading && loading.gettingCase}
-                  onClick={this.onFetchCaseButtonClick.bind(this)}>
-                  {loading && loading.gettingCase ? t('case:loading-gettingCase') : t('ui:search')}
-                </Nav.Hovedknapp>
-              </div>
-            </Nav.Row>
-          </React.Fragment>
-        }
-
-        return <React.Fragment>
-          <div className='fieldset animate'>
-            {sed ? <h2 className='mb-4 appDescription'>{t('case:app-startCaseDescription') + ': ' + sed}</h2>
-              : <React.Fragment>
-                <h2 className='mb-4 appDescription'>{t('case:app-startCaseDescription')}</h2>
-                <div className='mb-5'>
-                  <PsychoPanel closeButton>{t('help-startCase2')}</PsychoPanel>
-                </div>
-                <Nav.Row className='mb-3 align-middle text-left'>
-                  <div className='col-md-8'>{this.renderSubjectArea()}
-                    <span id='help-subjectArea'>{t('case:help-subjectArea')}</span>
-                  </div>
-                  <div className='col-md-4 selectBoxMessage'>
-                    <div className='d-inline-block'>{loading && loading.subjectAreaList ? this.getSpinner('case:loading-subjectArea') : null}</div>
-                  </div>
-                </Nav.Row>
-                <Nav.Row className='mb-3 align-middle text-left'>
-                  <div className='col-md-8'>{this.renderBuc()}
-                    <span id='help-buc'>{t('case:help-buc')}</span>
-                  </div>
-                  <div className='col-md-4 selectBoxMessage'>
-                    <div className='d-inline-block'>{loading && loading.bucList ? this.getSpinner('case:loading-buc') : null}</div>
-                  </div>
-                </Nav.Row>
-                <Nav.Row className='mb-3 align-middle text-left'>
-                  <div className='col-md-8'>{this.renderSed()}
-                    <span id='help-sed'>{t('case:help-sed')}</span>
-                  </div>
-                  <div className='col-md-4 selectBoxMessage'>
-                    <div className='d-inline-block'>{loading && loading.sedList ? this.getSpinner('case:loading-sed') : null}</div>
-                  </div>
-                </Nav.Row>
-              </React.Fragment>}
-            { (sed && sed === 'P6000') || (_sed && _sed === 'P6000')
-              ? <Nav.Row className='align-middle text-left'>
-                <div className='col-md-8'>
-                  <Nav.Input aria-describedby='help-vedtak'
-                    label={t('case:form-vedtakId')} value={_vedtakId || vedtakId} onChange={this.onVedtakIdChange.bind(this)} />
-                  <span id='help-vedtak'>{t('case:help-vedtakId')}</span>
-                </div>
-              </Nav.Row> : null}
-            {this.renderInstitutions()}
-          </div>
-          <Nav.Row className='mb-4 mt-4'>
-            <div className='col-md-12'>
-              <Nav.Hovedknapp className='forwardButton'
-                disabled={!this.allowedToForward()}
-                onClick={this.onForwardButtonClick.bind(this)}>{t('ui:go')}</Nav.Hovedknapp>
-            </div>
-          </Nav.Row>
-        </React.Fragment>
-      }
+describe('StartCase: rest of functions', () => {
+
+  let store, wrapper, ConnectedStartCase
+  const initialState = {
+    case: {
+      step: 0
+    },
+    status: {
+      sakId: '123',
+      aktoerId: '456'
+    },
+    ui: {
+      locale: 'nb'
+    }
   }
 
-  StartCase.propTypes = {
-    currentCase: PT.object,
-    actions: PT.object,
-    loading: PT.object,
-    t: PT.func,
-    subjectAreaList: PT.array,
-    institutionList: PT.array,
-    countryList: PT.array,
-    sedList: PT.array,
-    bucList: PT.array,
-    sed: PT.string,
-    buc: PT.string,
-    previewData: PT.object,
-    locale: PT.string,
-    vedtakId: PT.string
-  }
+  beforeEach(() => {
+    store = createStore(reducer, initialState)
+    ConnectedStartCase = connect(mapStateToProps, mapDispatchToProps)(StartCase)
+    wrapper = shallow(<ConnectedStartCase t={t} store={store}/>).dive()
+  })
 
-  export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(
-    withTranslation()(StartCase)
-  )
-*/
+  it('onSakIdChange()', () => {
+    let mockSakId = 'mockSakId'
+    let mockEvent = {target: {value: mockSakId}}
+    wrapper.instance().onSakIdChange(mockEvent)
+    expect(wrapper.instance().state._sakId).toEqual(mockSakId)
+  })
+
+  it('onRinaIdChange()', () => {
+    let mockRinaId = 'mockRinaId'
+    let mockEvent = {target: {value: mockRinaId}}
+    wrapper.instance().onRinaIdChange(mockEvent)
+    expect(wrapper.instance().state._rinaId).toEqual(mockRinaId)
+  })
+
+  it('onAktoerIdChange()', () => {
+    let mockAktoerId = 'mockAktoerId'
+    let mockEvent = {target: {value: mockAktoerId}}
+    wrapper.instance().onAktoerIdChange(mockEvent)
+    expect(wrapper.instance().state._aktoerId).toEqual(mockAktoerId)
+  })
+
+  it('onVedtakIdChange()', () => {
+    let mockVedtakId = 'mockVedtakId'
+    let mockEvent = {target: {value: mockVedtakId}}
+    wrapper.instance().onVedtakIdChange(mockEvent)
+    expect(wrapper.instance().state._vedtakId).toEqual(mockVedtakId)
+  })
+
+  it('onForwardButtonClick() triggers dataPreview and moves to next step ', () => {
+    expect(store.getState().case.step).toEqual(0)
+    expect(store.getState().case.previewData).toEqual(undefined)
+    wrapper.instance().setState({
+      _subjectArea: 'mockSubjectArea',
+      _buc: 'mockBuc',
+      _sed: 'mockSed',
+      institutions: [{institution: 'mockInstitution', country: 'mockCountry'}]
+    })
+    wrapper.setProps({
+      currentCase: {
+        casenumber: '123',
+        pinid: '456'
+      }
+    })
+    wrapper.instance().onForwardButtonClick()
+    expect(store.getState().case.step).toEqual(1)
+    expect(store.getState().case.previewData).not.toEqual(undefined)
+  })
+
+  it('validateSubjectArea() with invalid subjectArea', () => {
+    let invalidSubjectArea = ''
+    wrapper.instance().validateSubjectArea(invalidSubjectArea)
+    expect(wrapper.instance().state.validation).toEqual({
+       'subjectAreaFail': 'case:validation-chooseSubjectArea'
+    })
+  })
+
+  it('validateSubjectArea() with valid subjectArea', () => {
+    let validSubjectArea = 'Pensjon'
+    wrapper.instance().validateSubjectArea(validSubjectArea)
+    expect(wrapper.instance().state.validation).toEqual({})
+  })
+
+  it('validateBuc() with invalid buc', () => {
+    let invalidBuc = ''
+    wrapper.instance().validateBuc(invalidBuc)
+    expect(wrapper.instance().state.validation).toEqual({
+       'bucFail': 'case:validation-chooseBuc'
+    })
+  })
+
+  it('validateBuc() with valid buc', () => {
+    let validBuc = 'P_BUC_01'
+    wrapper.instance().validateBuc(validBuc)
+    expect(wrapper.instance().state.validation).toEqual({})
+  })
+
+  it('validateSed() with invalid sed', () => {
+    let invalidSed = ''
+    wrapper.instance().validateSed(invalidSed)
+    expect(wrapper.instance().state.validation).toEqual({
+       'sedFail': 'case:validation-chooseSed'
+    })
+  })
+
+  it('validateSed() with valid sed', () => {
+    let validSed = 'P2000'
+    wrapper.instance().validateSed(validSed)
+    expect(wrapper.instance().state.validation).toEqual({})
+  })
+
+  it('validateInstitutions() with invalid institutions', () => {
+    let invalidInstitutions = []
+    wrapper.instance().validateInstitutions(invalidInstitutions)
+    expect(wrapper.instance().state.validation).toEqual({
+       'institutionsFail': 'case:validation-chooseInstitutions'
+    })
+  })
+
+  it('validateInstitutions() with valid institutions', () => {
+    let validInstitutions = ['NAVT003']
+    wrapper.instance().validateInstitutions(validInstitutions)
+    expect(wrapper.instance().state.validation).toEqual({})
+  })
+
+  it('validateInstitution() with invalid institution', () => {
+    let invalidInstitution = ''
+    wrapper.instance().validateInstitution(invalidInstitution)
+    expect(wrapper.instance().state.validation).toEqual({
+       'institutionFail': 'case:validation-chooseInstitution'
+    })
+  })
+
+  it('validateInstitution() with valid institution', () => {
+    let validInstitution = 'NAVT003'
+    wrapper.instance().validateInstitution(validInstitution)
+    expect(wrapper.instance().state.validation).toEqual({})
+  })
+
+  it('validateCountry() with invalid country', () => {
+    let invalidCountry = ''
+    wrapper.instance().validateCountry(invalidCountry)
+    expect(wrapper.instance().state.validation).toEqual({
+       'countryFail': 'case:validation-chooseCountry'
+    })
+  })
+
+  it('validateCountry() with valid institution', () => {
+    let validCountry = 'NO'
+    wrapper.instance().validateCountry(validCountry)
+    expect(wrapper.instance().state.validation).toEqual({})
+  })
+
+  it('onCreateInstitutionButtonClick()', () => {
+    expect(wrapper.instance().state.institutions).toEqual([])
+    wrapper.instance().setState({
+      institution: 'abc',
+      country: 'AA'
+    })
+    wrapper.instance().onCreateInstitutionButtonClick()
+    expect(wrapper.instance().state.institutions).toEqual([{institution: 'abc', country: 'AA'}])
+
+    wrapper.instance().setState({
+      institution: 'def',
+      country: 'BB'
+    })
+    wrapper.instance().onCreateInstitutionButtonClick()
+    expect(wrapper.instance().state.institutions).toEqual([{institution: 'abc', country: 'AA'}, {institution: 'def', country: 'BB'}])
+  })
+
+  it('onRemoveInstitutionButtonClick()', () => {
+    expect(wrapper.instance().state.institutions).toEqual([])
+    wrapper.instance().setState({
+      institutions: [{ institution: 'abc', country: 'AA' }]
+    })
+
+    let institution = { institution: 'abc', country: 'AA' }
+    wrapper.instance().onRemoveInstitutionButtonClick(institution)
+    expect(wrapper.instance().state.institutions).toEqual([])
+
+    wrapper.instance().onRemoveInstitutionButtonClick(institution)
+    expect(wrapper.instance().state.institutions).toEqual([])
+  })
+
+  it('resetValidationState()', () => {
+     expect(wrapper.instance().state.validation).toEqual({})
+     wrapper.instance().setState({
+       validation: { foo : 'bar', foo2: 'bar2' }
+     })
+     wrapper.instance().resetValidationState('foo')
+     expect(wrapper.instance().state.validation).toEqual({foo2: 'bar2'})
+  })
+
+  it('hasNoValidationErrors()', () => {
+     expect(wrapper.instance().state.validation).toEqual({})
+     expect(wrapper.instance().hasNoValidationErrors()).toEqual(true)
+     wrapper.instance().setState({
+       validation: { foo : 'bar' }
+     })
+     expect(wrapper.instance().hasNoValidationErrors()).toEqual(false)
+  })
+
+  it('setValidationState()', () => {
+     expect(wrapper.instance().state.validation).toEqual({})
+     wrapper.instance().setValidationState('mockKey', 'mockValue')
+     expect(wrapper.instance().state.validation).toEqual({mockKey: 'mockValue'})
+  })
+
+  it('onSubjectAreaChange()', () => {
+     let mockSubjectArea = 'mockSubjectArea'
+     let mockEvent = {target: {value: mockSubjectArea}}
+     wrapper.instance().onSubjectAreaChange(mockEvent)
+     expect(wrapper.instance().state._subjectArea).toEqual(mockSubjectArea)
+     expect(wrapper.instance().state.validation).toEqual({})
+  })
+
+  it('onBucChange()', () => {
+     let mockBuc = 'MockBuc'
+     let mockEvent = {target: {value: mockBuc}}
+     wrapper.instance().onBucChange(mockEvent)
+     expect(wrapper.instance().state._buc).toEqual(mockBuc)
+     expect(wrapper.instance().state.validation).toEqual({})
+     expect(store.getState().case.sedList).toEqual(['mockSedForMockBuc1', 'mockSedForMockBuc2'])
+  })
+
+  it('onSedChange()', () => {
+     let mockSed = 'MockSed'
+     let mockEvent = {target: {value: mockSed}}
+     wrapper.instance().onSedChange(mockEvent)
+     expect(wrapper.instance().state._sed).toEqual(mockSed)
+     expect(wrapper.instance().state.validation).toEqual({})
+  })
+
+  it('onInstitutionChange()', () => {
+     let mockInstitution = 'MockInstitution'
+     let mockEvent = {target: {value: mockInstitution}}
+     wrapper.instance().onInstitutionChange(mockEvent)
+     expect(wrapper.instance().state.institution).toEqual(mockInstitution)
+     expect(wrapper.instance().state.validation).toEqual({})
+  })
+
+  it('onCountryChange()', () => {
+     let mockCountry = 'MockCountry'
+     let mockEvent = {value: mockCountry}
+     wrapper.instance().onCountryChange(mockEvent)
+     expect(wrapper.instance().state.country).toEqual(mockCountry)
+     expect(wrapper.instance().state.institution).toEqual(undefined)
+     expect(store.getState().case.institutionList).toEqual(['mockInstitutionForMockCountry1', 'mockInstitutionForMockCountry2'])
+  })
+
+  it('renderOptions()', () => {
+     let mockMap = [
+       {key: 'NO', value: 'Norge'},
+       {key: 'SE', value: 'Sverige'},
+       {key: 'DK', value: 'Danmark'},
+       {key: 'FI', value: 'Finland'},
+       {key: 'IS', value: 'Island'}
+     ]
+     let mockType = 'country'
+
+     let result = wrapper.instance().renderOptions(mockMap, mockType)
+     expect(result.length).toEqual(mockMap.length) // note: it is 6, not 5
+     let html = result.map(res => { return mount(res).html()})
+     expect(html).toEqual([ '<option value="case:form-chooseCountry">case:form-chooseCountry - case:case-case:form-chooseCountry</option>',
+     '<option value="NO">Norge - case:case-Norge</option>',
+     '<option value="SE">Sverige - case:case-Sverige</option>',
+     '<option value="DK">Danmark - case:case-Danmark</option>',
+     '<option value="FI">Finland - case:case-Finland</option>',
+     '<option value="IS">Island - case:case-Island</option>' ])
+  })
+
+  it('getOptionLabel()', () => {
+    let mockValue = 'mockValue'
+    let label = wrapper.instance().getOptionLabel(mockValue)
+    expect(label).toEqual('mockValue - case:case-mockValue')
+  })
+
+  it('renderSubjectArea', () => {
+    let mockSubjectAreaList= ['mockSubjectArea1', 'mockSubjectArea2']
+    wrapper.setProps({
+       subjectAreaList: mockSubjectAreaList
+    })
+    let result = mount(wrapper.instance().renderSubjectArea())
+    expect(result.find('div.subjectAreaList').length).toEqual(1)
+    expect(result.find('select.skjemaelement__input').length).toEqual(1)
+    expect(result.find('select option').length).toEqual(mockSubjectAreaList.length)
+    expect(result.find('select option').map(it => {return it.text()})).toEqual([
+      'case:form-chooseSubjectArea - case:case-case:form-chooseSubjectArea',
+      'mockSubjectArea1 - case:case-mockSubjectArea1',
+      'mockSubjectArea2 - case:case-mockSubjectArea2'
+    ])
+  })
+
+  it('renderCountry', async (done) => {
+    let mockCountryList= ['NO', 'SE']
+    wrapper.setProps({
+       countryList: mockCountryList
+    })
+    let result = mount(wrapper.instance().renderCountry())
+    expect(result.find('div.c-ui-countrySelect').length).toEqual(1)
+    result.find('Select').simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
+
+    await new Promise(resolve => {
+      setTimeout(() => {
+        expect(result.find('div.c-ui-countryOption').length).toEqual(2)
+        expect(result.find('div.c-ui-countryOption').map(it => {return it.text()})).toEqual(['Norge', 'Sverige'])
+        done()
+      }, 500)
+    })
+  })
+
+  it('renderInstitution', () => {
+    let mockInstitutionList= ['mockInstitution1', 'mockInstitution2']
+    wrapper.setProps({
+       institutionList: mockInstitutionList
+    })
+    let result = mount(wrapper.instance().renderInstitution())
+    expect(result.find('div.institutionList').length).toEqual(1)
+    expect(result.find('select.skjemaelement__input').length).toEqual(1)
+    expect(result.find('select option').length).toEqual(mockInstitutionList.length)
+    expect(result.find('select option').map(it => {return it.text()})).toEqual([
+     'case:form-chooseInstitution - case:case-case:form-chooseInstitution',
+     'mockInstitution1 - case:case-mockInstitution1',
+     'mockInstitution2 - case:case-mockInstitution2'
+    ])
+  })
+
+  it('renderBuc', () => {
+    let mockBucList= ['mockBuc1', 'mockBuc2']
+    wrapper.setProps({
+       bucList: mockBucList
+    })
+    let result = mount(wrapper.instance().renderBuc())
+    expect(result.find('div.bucList').length).toEqual(1)
+    expect(result.find('select.skjemaelement__input').length).toEqual(1)
+    expect(result.find('select option').length).toEqual(mockBucList.length)
+    expect(result.find('select option').map(it => {return it.text()})).toEqual([
+     'case:form-chooseBuc - case:case-case:form-chooseBuc',
+     'mockBuc1 - case:case-mockBuc1',
+     'mockBuc2 - case:case-mockBuc2'
+    ])
+  })
+
+  it('renderSed', () => {
+    let mockSedList= ['mockSed1', 'mockSed2']
+    wrapper.setProps({
+       sedList: mockSedList
+    })
+    let result = mount(wrapper.instance().renderSed())
+    expect(result.find('div.sedList').length).toEqual(1)
+    expect(result.find('select.skjemaelement__input').length).toEqual(1)
+    expect(result.find('select option').length).toEqual(mockSedList.length)
+    expect(result.find('select option').map(it => {return it.text()})).toEqual([
+     'case:form-chooseSed - case:case-case:form-chooseSed',
+     'mockSed1 - case:case-mockSed1',
+     'mockSed2 - case:case-mockSed2'
+    ])
+  })
+
+  it('getSpinner', () => {
+    let mockText = 'mockText'
+    let result = mount(wrapper.instance().getSpinner(mockText))
+    expect(result.find('div.spinner').length).toEqual(1)
+    expect(result.find('div.spinner').text()).toEqual('Venter...' + mockText)
+  })
+
+  it('renderChosenInstitution', () => {
+    let mockInstitution = {institution: 'mockInstitution', country: 'mockCountry'}
+    let result = render(wrapper.instance().renderChosenInstitution(mockInstitution))
+    expect(result.find('div.renderedInstitution').length).toEqual(1)
+    expect(result.find('div.renderedInstitution').text()).toEqual('mockCountry/mockInstitution')
+    expect(result.find('button.removeInstitutionButton').length).toEqual(1)
+  })
+
+  it('renderInstitutions()', () => {
+    let mockInstitutions = [
+      {institution: 'mockInstitution1', country: 'mockCountry1'},
+      {institution: 'mockInstitution2', country: 'mockCountry2'}
+    ]
+    wrapper.instance().setState({
+      institutions: mockInstitutions
+    })
+    let result = render(wrapper.instance().renderInstitutions())
+    expect(result.find('div.renderedInstitutions').length).toEqual(mockInstitutions.length)
+    expect(result.find('button.removeInstitutionButton').length).toEqual(mockInstitutions.length)
+    expect(result.find('button.createInstitutionButton').length).toEqual(1)
+  })
+
+  it('allowedToForward() with a predefined sed and buc', () => {
+    wrapper.setProps({
+      sed: 'mockSed',
+      buc: 'mockBuc'
+    })
+    expect(wrapper.instance().allowedToForward()).toEqual(false)
+    wrapper.instance().setState({
+       institutions: [{institution: 'mockInstitution', country: 'mockCountry'}]
+    })
+    expect(wrapper.instance().allowedToForward()).toEqual(true)
+  })
+
+  it('allowedToForward() with unknown sed and buc', () => {
+    wrapper.instance().setState({
+      _subjectArea: 'mockSubjectArea',
+      _sed: 'mockSed',
+      _buc: 'mockBuc',
+      institutions: [{institution: 'mockInstitution', country: 'mockCountry'}],
+      validation: {foo: 'bar'}
+    })
+    expect(wrapper.instance().allowedToForward()).toEqual(false)
+    wrapper.instance().setState({
+       validation: {}
+    })
+    expect(wrapper.instance().allowedToForward()).toEqual(true)
+  })
+})

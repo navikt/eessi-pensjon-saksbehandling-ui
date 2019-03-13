@@ -42,7 +42,7 @@ describe('status actions', () => {
         success: types.STATUS_GET_SUCCESS,
         failure: types.STATUS_GET_FAILURE
       },
-      url: sprintf(urls.API_ACTIONS_FOR_RINAID_URL, { rinaId: rinaId}),
+      url: sprintf(urls.BUC_ACTIONS_FOR_RINAID_URL, { rinaId: rinaId}),
     })
   })
 
@@ -55,7 +55,7 @@ describe('status actions', () => {
         success: types.STATUS_RINA_CASE_SUCCESS,
         failure: types.STATUS_RINA_CASE_FAILURE
       },
-      url: sprintf(urls.API_CASE_FOR_RINAID_URL, { rinaId: rinaId})
+      url: sprintf(urls.EUX_CASE_FOR_RINAID_URL, { rinaId: rinaId})
     })
   })
 
