@@ -27,13 +27,12 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class PreviewCase extends Component {
-
   onBackButtonClick () {
     const { actions, step } = this.props
     actions.setStep(step - 1)
   }
 
-  onPreviewButtonClick() {
+  onPreviewButtonClick () {
     const { actions, previewData } = this.props
     actions.getMorePreviewData(previewData)
   }

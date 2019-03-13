@@ -148,10 +148,10 @@ class StartCase extends Component {
       const { t, actions } = this.props
       const { _sakId, _aktoerId, _rinaId } = this.state
       if (!_sakId) {
-         this.setValidationState('sakId', t('case:validation-noSakId'))
+        this.setValidationState('sakId', t('case:validation-noSakId'))
       }
       if (!_aktoerId) {
-         this.setValidationState('aktoerId', t('case:validation-noAktoerId'))
+        this.setValidationState('aktoerId', t('case:validation-noAktoerId'))
       }
       if (this.hasNoValidationErrors()) {
         actions.getCaseFromCaseNumber({
@@ -288,7 +288,7 @@ class StartCase extends Component {
     }
 
     hasNoValidationErrors () {
-        return _.isEmpty(this.state.validation)
+      return _.isEmpty(this.state.validation)
     }
 
     setValidationState (key, value) {
@@ -470,7 +470,7 @@ class StartCase extends Component {
           <Nav.Knapp type='standard'
             onClick={this.onRemoveInstitutionButtonClick.bind(this, institution)}>
             <div className='d-flex justify-content-center'>
-              <Icons className='mr-2' size={20} kind='trashcan' color='#0067C5'/>
+              <Icons className='mr-2' size={20} kind='trashcan' color='#0067C5' />
               <span>{t('ui:remove')}</span>
             </div>
           </Nav.Knapp>
@@ -548,7 +548,7 @@ class StartCase extends Component {
                   label={t('case:form-sakId')}
                   value={_sakId || ''}
                   onChange={this.onSakIdChange.bind(this)}
-                  feil={validation.sakId ? { feilmelding: t(validation.sakId) } : null}/>
+                  feil={validation.sakId ? { feilmelding: t(validation.sakId) } : null} />
                 <span id='help-sakId'>{t('case:help-sakId')}</span>
               </div>
               <div className='mt-4 col-md-6'>
@@ -557,7 +557,7 @@ class StartCase extends Component {
                   label={t('case:form-aktoerId')}
                   value={_aktoerId || ''}
                   onChange={this.onAktoerIdChange.bind(this)}
-                  feil={validation.aktoerId ? { feilmelding: t(validation.aktoerId) } : null}/>
+                  feil={validation.aktoerId ? { feilmelding: t(validation.aktoerId) } : null} />
                 <span id='help-aktoerId'>{t('case:help-aktoerId')}</span>
               </div>
               <div className='mt-4 col-md-6'>
@@ -576,8 +576,8 @@ class StartCase extends Component {
                 disabled={loading && loading.gettingCase}
                 spinner={loading && loading.gettingCase}
                 onClick={this.onFetchCaseButtonClick.bind(this)}>
-                  {loading && loading.gettingCase ? t('case:loading-gettingCase') : t('ui:search')}
-                </Nav.Hovedknapp>
+                {loading && loading.gettingCase ? t('case:loading-gettingCase') : t('ui:search')}
+              </Nav.Hovedknapp>
             </div>
           </Nav.Row>
         </React.Fragment>
@@ -585,37 +585,37 @@ class StartCase extends Component {
 
       return <React.Fragment>
         <div className='fieldset animate'>
-          {sed ? <h2 className='mb-4 appDescription'>{t('case:app-startCaseDescription') + ': ' + sed}</h2> :
-          <React.Fragment>
-            <h2 className='mb-4 appDescription'>{t('case:app-startCaseDescription')}</h2>
-            <div className='mb-5'>
-              <PsychoPanel closeButton>{t('help-startCase2')}</PsychoPanel>
-            </div>
-            <Nav.Row className='mb-3 align-middle text-left'>
-              <div className='col-md-8'>{this.renderSubjectArea()}
-                <span id='help-subjectArea'>{t('case:help-subjectArea')}</span>
+          {sed ? <h2 className='mb-4 appDescription'>{t('case:app-startCaseDescription') + ': ' + sed}</h2>
+            : <React.Fragment>
+              <h2 className='mb-4 appDescription'>{t('case:app-startCaseDescription')}</h2>
+              <div className='mb-5'>
+                <PsychoPanel closeButton>{t('help-startCase2')}</PsychoPanel>
               </div>
-              <div className='col-md-4 selectBoxMessage'>
-                <div className='d-inline-block'>{loading && loading.subjectAreaList ? this.getSpinner('case:loading-subjectArea') : null}</div>
-              </div>
-            </Nav.Row>
-            <Nav.Row className='mb-3 align-middle text-left'>
-              <div className='col-md-8'>{this.renderBuc()}
-                <span id='help-buc'>{t('case:help-buc')}</span>
-              </div>
-              <div className='col-md-4 selectBoxMessage'>
-                <div className='d-inline-block'>{loading && loading.bucList ? this.getSpinner('case:loading-buc') : null}</div>
-              </div>
-            </Nav.Row>
-            <Nav.Row className='mb-3 align-middle text-left'>
-              <div className='col-md-8'>{this.renderSed()}
-                <span id='help-sed'>{t('case:help-sed')}</span>
-              </div>
-              <div className='col-md-4 selectBoxMessage'>
-                <div className='d-inline-block'>{loading && loading.sedList ? this.getSpinner('case:loading-sed') : null}</div>
-              </div>
-            </Nav.Row>
-          </React.Fragment>}
+              <Nav.Row className='mb-3 align-middle text-left'>
+                <div className='col-md-8'>{this.renderSubjectArea()}
+                  <span id='help-subjectArea'>{t('case:help-subjectArea')}</span>
+                </div>
+                <div className='col-md-4 selectBoxMessage'>
+                  <div className='d-inline-block'>{loading && loading.subjectAreaList ? this.getSpinner('case:loading-subjectArea') : null}</div>
+                </div>
+              </Nav.Row>
+              <Nav.Row className='mb-3 align-middle text-left'>
+                <div className='col-md-8'>{this.renderBuc()}
+                  <span id='help-buc'>{t('case:help-buc')}</span>
+                </div>
+                <div className='col-md-4 selectBoxMessage'>
+                  <div className='d-inline-block'>{loading && loading.bucList ? this.getSpinner('case:loading-buc') : null}</div>
+                </div>
+              </Nav.Row>
+              <Nav.Row className='mb-3 align-middle text-left'>
+                <div className='col-md-8'>{this.renderSed()}
+                  <span id='help-sed'>{t('case:help-sed')}</span>
+                </div>
+                <div className='col-md-4 selectBoxMessage'>
+                  <div className='d-inline-block'>{loading && loading.sedList ? this.getSpinner('case:loading-sed') : null}</div>
+                </div>
+              </Nav.Row>
+            </React.Fragment>}
           { (sed && sed === 'P6000') || (_sed && _sed === 'P6000')
             ? <Nav.Row className='align-middle text-left'>
               <div className='col-md-8'>

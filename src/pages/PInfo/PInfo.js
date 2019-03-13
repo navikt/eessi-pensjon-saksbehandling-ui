@@ -79,11 +79,14 @@ export class PInfo extends React.Component {
     if (send && step === 3) {
       actions.setStep(4)
     }
-    if(_.has(match, 'params.step') && String(step+1) !== match.params.step){
+    if (_.has(match, 'params.step') && String(step + 1) !== match.params.step) {
       history.push({
-        pathname: `${routes.PINFO}/${step+1}`,
+        pathname: `${routes.PINFO}/${step + 1}`,
         search: window.location.search
       })
+      if (window.hj) {
+        window.hj('vpv', `/_/pinfo/${step + 1}`)
+      }
     }
   }
 

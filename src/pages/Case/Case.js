@@ -21,10 +21,9 @@ const mapStateToProps = (state) => {
   }
 }
 const caseTitles = ['case:app-startCaseTitle', 'case:app-previewCaseTitle', 'case:app-saveSendCaseTitle']
-const caseDescriptions = [undefined, 'case:app-previewCaseDescription','case:app-saveSendCaseDescription']
+const caseDescriptions = [undefined, 'case:app-previewCaseDescription', 'case:app-saveSendCaseDescription']
 
 export class Case extends Component {
-
   render () {
     const { t, step, className, history, location, status } = this.props
 
@@ -33,21 +32,21 @@ export class Case extends Component {
       sideContent={<FrontPageDrawer t={t} status={status} />}
       header={t('case:app-caseTitle') + ' - ' + t(caseTitles[step])}>
       <div className='mt-4'>
-       <Nav.Stegindikator
-        className='mb-4'
-        aktivtSteg={step}
-        visLabel
-        onBeforeChange={() => { return false }}
-        autoResponsiv
-        steg={_.range(0, 3).map(index => ({
-          label: t('case:form-step' + index),
-          ferdig: index < step,
-          aktiv: index === step
-        }))}/>
-      {caseDescriptions[step] ? <h2 className='mb-4 appDescription'>{t(caseDescriptions[step])}</h2> : null}
-      {step === 0 ? <StartCase /> : null}
-      {step === 1 ? <PreviewCase /> : null}
-      {step === 2 ? <SaveSendCase /> : null}
+        <Nav.Stegindikator
+          className='mb-4'
+          aktivtSteg={step}
+          visLabel
+          onBeforeChange={() => { return false }}
+          autoResponsiv
+          steg={_.range(0, 3).map(index => ({
+            label: t('case:form-step' + index),
+            ferdig: index < step,
+            aktiv: index === step
+          }))} />
+        {caseDescriptions[step] ? <h2 className='mb-4 appDescription'>{t(caseDescriptions[step])}</h2> : null}
+        {step === 0 ? <StartCase /> : null}
+        {step === 1 ? <PreviewCase /> : null}
+        {step === 2 ? <SaveSendCase /> : null}
       </div>
     </TopContainer>
   }

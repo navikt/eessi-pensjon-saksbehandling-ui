@@ -5,27 +5,26 @@ import _ from 'lodash'
 import './RenderData.css'
 
 class RenderData extends Component {
-
   renderJson (json, level, counter) {
-      let res = []
-      let _level = level || 0
-      let _counter = counter || 0
-      for (var key in json) {
-        let value = json[key]
-        if (typeof value === 'string') {
-          if (value !== 'null' && value !== '') {
-            _counter++
-            res.push(<div key={_level + '' + _counter} style={{ paddingLeft: _level * 12 }}><b>{key}</b>{': '}{value}</div>)
-          }
-        } else {
-          res.push(this.renderJson(value, _level++, _counter))
+    let res = []
+    let _level = level || 0
+    let _counter = counter || 0
+    for (var key in json) {
+      let value = json[key]
+      if (typeof value === 'string') {
+        if (value !== 'null' && value !== '') {
+          _counter++
+          res.push(<div key={_level + '' + _counter} style={{ paddingLeft: _level * 12 }}><b>{key}</b>{': '}{value}</div>)
         }
+      } else {
+        res.push(this.renderJson(value, _level++, _counter))
       }
-
-      return _.flatten(res)
     }
 
-    render () {
+    return _.flatten(res)
+  }
+
+  render () {
     let { t, previewData } = this.props
 
     return <div className='p-3 c-case-renderPreviewData'>

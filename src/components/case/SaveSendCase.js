@@ -49,7 +49,7 @@ class SaveSendCase extends Component {
         institutions: savedData.institutions,
         sendsed: true,
         caseId: savedData.caseId,
-        documentId : savedData.documentId
+        documentId: savedData.documentId
       }
 
       actions.sendSed(payload)

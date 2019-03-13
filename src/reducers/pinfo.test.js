@@ -2,7 +2,6 @@ import pinfoReducer from './pinfo.js'
 import * as types from '../constants/actionTypes'
 
 describe('pinfo reducer', () => {
-
   let initialState = {
     isReady: false,
     step: 0,
@@ -51,7 +50,7 @@ describe('pinfo reducer', () => {
   })
 
   it('handles PINFO_PERSON_SET action', () => {
-    let mockPersonValues = {foo: 'bar'}
+    let mockPersonValues = { foo: 'bar' }
     let state = pinfoReducer(initialState, {
       type: types.PINFO_PERSON_SET,
       payload: mockPersonValues
@@ -60,7 +59,7 @@ describe('pinfo reducer', () => {
   })
 
   it('handles PINFO_BANK_SET action', () => {
-    let mockBankValues = {foo: 'bar'}
+    let mockBankValues = { foo: 'bar' }
     let state = pinfoReducer(initialState, {
       type: types.PINFO_BANK_SET,
       payload: mockBankValues
@@ -69,12 +68,12 @@ describe('pinfo reducer', () => {
   })
 
   it('handles PINFO_STAY_ABROAD_SET action', () => {
-    let mockStayAbroadValues = [{id: 1, startDate: 10}, {id: 2, startDate: 20}, {id: 3, startDate: 15}]
+    let mockStayAbroadValues = [{ id: 1, startDate: 10 }, { id: 2, startDate: 20 }, { id: 3, startDate: 15 }]
     let state = pinfoReducer(initialState, {
       type: types.PINFO_STAY_ABROAD_SET,
       payload: mockStayAbroadValues
     })
-    expect(state.stayAbroad).toEqual([{id: 1, startDate: 10}, {id: 3, startDate: 15}, {id: 2, startDate: 20}])
+    expect(state.stayAbroad).toEqual([{ id: 1, startDate: 10 }, { id: 3, startDate: 15 }, { id: 2, startDate: 20 }])
   })
 
   it('handles PINFO_COMMENT_SET action', () => {
@@ -87,7 +86,7 @@ describe('pinfo reducer', () => {
   })
 
   it('handles PINFO_SEND_SUCCESS action', () => {
-    let mockSend = {foo: 'bar'}
+    let mockSend = { foo: 'bar' }
     let state = pinfoReducer(initialState, {
       type: types.PINFO_SEND_SUCCESS,
       payload: mockSend
@@ -97,10 +96,10 @@ describe('pinfo reducer', () => {
 
   it('handles PINFO_SEND_FAILURE action', () => {
     let state = Object.assign({}, initialState, {
-       send: {foo: 'bar'}
+      send: { foo: 'bar' }
     })
     state = pinfoReducer(initialState, {
-      type: types.PINFO_SEND_FAILURE,
+      type: types.PINFO_SEND_FAILURE
     })
     expect(state.send).toBe(undefined)
   })
@@ -114,8 +113,8 @@ describe('pinfo reducer', () => {
 
   it('handles PINFO_PAGE_ERRORS_SET action', () => {
     let mockPageError = {
-       pageErrors: 'mockPageErrors',
-       errorTimestamp: new Date().getTime()
+      pageErrors: 'mockPageErrors',
+      errorTimestamp: new Date().getTime()
     }
     let state = pinfoReducer(initialState, {
       type: types.PINFO_PAGE_ERRORS_SET,
@@ -123,11 +122,10 @@ describe('pinfo reducer', () => {
     })
     expect(state.pageErrors).toEqual(mockPageError.pageErrors)
     expect(state.errorTimestamp).toEqual(mockPageError.errorTimestamp)
-
   })
 
   it('handles PINFO_RECEIPT_SUCCESS action', () => {
-    let mockReceipt = {foo: 'bar'}
+    let mockReceipt = { foo: 'bar' }
     let state = pinfoReducer(initialState, {
       type: types.PINFO_RECEIPT_SUCCESS,
       payload: mockReceipt
@@ -137,16 +135,16 @@ describe('pinfo reducer', () => {
 
   it('handles PINFO_RECEIPT_FAILURE action', () => {
     let state = Object.assign({}, initialState, {
-       receipt: {foo: 'bar'}
+      receipt: { foo: 'bar' }
     })
     state = pinfoReducer(initialState, {
-      type: types.PINFO_RECEIPT_FAILURE,
+      type: types.PINFO_RECEIPT_FAILURE
     })
     expect(state.receipt).toBe(undefined)
   })
 
   it('handles PINFO_GET_FROM_STORAGE_SUCCESS action', () => {
-    let extraState = {foo: 'bar'}
+    let extraState = { foo: 'bar' }
     let state = pinfoReducer({}, {
       type: types.PINFO_GET_FROM_STORAGE_SUCCESS,
       payload: extraState
@@ -165,7 +163,7 @@ describe('pinfo reducer', () => {
   })
 
   it('handles PINFO_CLEAR_DATA action', () => {
-    let state = Object.assign({}, initialState, {foo: 'bar'})
+    let state = Object.assign({}, initialState, { foo: 'bar' })
     state = pinfoReducer(state, {
       type: types.PINFO_CLEAR_DATA,
       payload: false
@@ -174,7 +172,7 @@ describe('pinfo reducer', () => {
   })
 
   it('handles APP_CLEAR_DATA action', () => {
-    let state = Object.assign({}, initialState, {foo: 'bar'})
+    let state = Object.assign({}, initialState, { foo: 'bar' })
     state = pinfoReducer(state, {
       type: types.APP_CLEAR_DATA,
       payload: false

@@ -1,11 +1,11 @@
 import * as caseActions from './case'
 import * as api from './api'
 import * as types from '../constants/actionTypes'
-var sprintf = require('sprintf-js').sprintf
 
-import * as urls  from '../constants/urls'
+import * as urls from '../constants/urls'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
+var sprintf = require('sprintf-js').sprintf
 
 const mockStore = configureMockStore([thunk])
 
@@ -31,7 +31,7 @@ describe('case actions', () => {
   })
 
   it('getCaseFromCaseNumber without RinaId()', () => {
-    const mockParams = {foo: 'bar'}
+    const mockParams = { foo: 'bar' }
     const generatedResult = caseActions.getCaseFromCaseNumber(mockParams)
     expect(api.call).toBeCalledWith({
       type: {
@@ -44,7 +44,7 @@ describe('case actions', () => {
   })
 
   it('getCaseFromCaseNumber with RinaId()', () => {
-    const mockParams = {foo: 'bar', rinaId: '123'}
+    const mockParams = { foo: 'bar', rinaId: '123' }
     const generatedResult = caseActions.getCaseFromCaseNumber(mockParams)
     expect(api.call).toBeCalledWith({
       type: {
@@ -113,7 +113,7 @@ describe('case actions', () => {
         success: types.CASE_GET_BUC_LIST_SUCCESS,
         failure: types.CASE_GET_BUC_LIST_FAILURE
       },
-      url: sprintf(urls.API_BUC_FROM_RINA_URL, {rinaId: mockRinaId})
+      url: sprintf(urls.API_BUC_FROM_RINA_URL, { rinaId: mockRinaId })
     })
   })
 
@@ -140,12 +140,12 @@ describe('case actions', () => {
         success: types.CASE_GET_SED_LIST_SUCCESS,
         failure: types.CASE_GET_SED_LIST_FAILURE
       },
-      url: sprintf(urls.API_SED_FROM_RINA_URL, {rinaId: mockRinaId})
+      url: sprintf(urls.API_SED_FROM_RINA_URL, { rinaId: mockRinaId })
     })
   })
 
   it('call dataPreview()', () => {
-    const mockParams = {foo : 'bar'}
+    const mockParams = { foo: 'bar' }
     const generatedResult = caseActions.dataPreview(mockParams)
     expect(generatedResult).toEqual({
       type: types.CASE_DATA_PREVIEW_SUCCESS,
@@ -156,12 +156,12 @@ describe('case actions', () => {
   it('call cleanCaseNumber()', () => {
     const generatedResult = caseActions.cleanCaseNumber()
     expect(generatedResult).toEqual({
-      type: types.CASE_GET_CASE_NUMBER_CLEAN,
+      type: types.CASE_GET_CASE_NUMBER_CLEAN
     })
   })
 
   it('call getMorePreviewData()', () => {
-    const mockParams = {foo: 'bar'}
+    const mockParams = { foo: 'bar' }
     const generatedResult = caseActions.getMorePreviewData(mockParams)
     expect(api.call).toBeCalledWith({
       type: {
@@ -176,7 +176,7 @@ describe('case actions', () => {
   })
 
   it('call createSed() ', () => {
-    const mockParams = {foo: 'bar'}
+    const mockParams = { foo: 'bar' }
     const generatedResult = caseActions.createSed(mockParams)
     expect(api.call).toBeCalledWith({
       type: {
@@ -191,7 +191,7 @@ describe('case actions', () => {
   })
 
   it('call addToSed()', () => {
-    const mockParams = {foo: 'bar'}
+    const mockParams = { foo: 'bar' }
     const generatedResult = caseActions.addToSed(mockParams)
     expect(api.call).toBeCalledWith({
       type: {
@@ -206,7 +206,7 @@ describe('case actions', () => {
   })
 
   it('call sendSed()', () => {
-    const mockParams = {foo: 'bar'}
+    const mockParams = { foo: 'bar' }
     const generatedResult = caseActions.sendSed(mockParams)
     expect(api.call).toBeCalledWith({
       type: {

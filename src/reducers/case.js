@@ -6,7 +6,6 @@ let initialState = {
 
 export default function (state = initialState, action = {}) {
   switch (action.type) {
-
     case types.CASE_STEP_SET:
 
       return Object.assign({}, state, {

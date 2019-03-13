@@ -111,7 +111,7 @@ describe('pinfo actions', () => {
 
   it('call getPinfoFromStorage()', () => {
     const mockParams = {
-      userId : 'userId',
+      userId: 'userId',
       namespace: 'namespace',
       file: 'pinfoFile'
     }

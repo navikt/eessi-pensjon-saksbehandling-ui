@@ -129,7 +129,6 @@ export class Period extends React.Component {
   }
 
   dateBlur (key, validateFunction) {
-
     const date = this.state._period[key]
 
     let _localErrors = _.cloneDeep(this.state.localErrors)

@@ -6,12 +6,18 @@ import { Period, mapStateToProps } from './Period'
 import _ from 'lodash'
 import MD5 from 'md5.js'
 
+import * as uiActions from '../../../actions/ui'
+import * as pinfoActions from '../../../actions/pinfo'
+import * as storageActions from '../../../actions/storage'
+import * as attachmentActions from '../../../actions/attachment'
+import * as reducers from '../../../reducers'
+
 // mock actions that will be connected to the component
 jest.mock('../../../actions/storage', () => ({
   ...jest.requireActual('../../../actions/storage'),
   postStorageFileWithNoNotification: jest.fn(() => ({
     type: 'STORAGE/POST/NO_NOTIF/SUCCESS',
-    payload: {success: 'true'}
+    payload: { success: 'true' }
   }))
 }))
 jest.mock('../../../actions/attachment', () => ({
@@ -23,15 +29,9 @@ jest.mock('../../../actions/attachment', () => ({
 jest.mock('../../../actions/ui', () => ({
   ...jest.requireActual('../../../actions/ui'),
   openModal: jest.fn(() => ({
-     type: 'MOCK_NULL_ACTION'
+    type: 'MOCK_NULL_ACTION'
   }))
 }))
-
-import * as uiActions from '../../../actions/ui'
-import * as pinfoActions from '../../../actions/pinfo'
-import * as storageActions from '../../../actions/storage'
-import * as attachmentActions from '../../../actions/attachment'
-import * as reducers from '../../../reducers'
 
 const initialState = {
   app: {
@@ -58,8 +58,8 @@ describe('Period', () => {
     store = createStore(reducer, initialState)
     editPeriod = jest.fn()
     let ConnectedPeriod = connect(
-       mapStateToProps,
-       mapDispatchToProps
+      mapStateToProps,
+      mapDispatchToProps
     )(Period)
     wrapper = shallow(<ConnectedPeriod t={t} editPeriod={editPeriod} store={store} />).dive()
   })
@@ -143,7 +143,7 @@ describe('Period', () => {
   it('dateBlur() function with an invalid date', () => {
     let mockKey = 'mockKey'
     let mockValue = new Date()
-    let mockDateValidationFn = () => { return 'pinfo:mockErrorMessage'}
+    let mockDateValidationFn = () => { return 'pinfo:mockErrorMessage' }
     wrapper.instance().dateBlur(mockKey, mockDateValidationFn, mockValue)
     expect(wrapper.instance().state.localErrors).toHaveProperty(mockKey, 'pinfo:mockErrorMessage')
   })
@@ -151,7 +151,7 @@ describe('Period', () => {
   it('dateBlur() function with an valid date', () => {
     let mockKey = 'mockKey'
     let mockValue = new Date()
-    let mockDateValidationFn = () => { return undefined}
+    let mockDateValidationFn = () => { return undefined }
     wrapper.instance().dateBlur(mockKey, mockDateValidationFn, mockValue)
     expect(wrapper.instance().state.localErrors).toHaveProperty(mockKey, undefined)
   })
@@ -200,11 +200,11 @@ describe('Period', () => {
     expect(wrapper.instance().state._period.insuranceName).toEqual(mockName)
   })
 
-  it('saveNewPeriod() function',  () => {
+  it('saveNewPeriod() function', () => {
     let mockPeriod = {
       type: 'work',
-      startDate: {day: '01', month: '01', year: '1970'},
-      endDate: {day: '31', month: '12', year: '1979'},
+      startDate: { day: '01', month: '01', year: '1970' },
+      endDate: { day: '31', month: '12', year: '1979' },
       place: 'Oslo',
       country: 'NO',
       workActivity: 'Lærer'
@@ -223,11 +223,11 @@ describe('Period', () => {
     expect(store.getState().pinfo.stayAbroad).toStrictEqual([mockPeriod])
   })
 
-  it('requestEditPeriod() function',  () => {
+  it('requestEditPeriod() function', () => {
     let mockPeriod = {
       type: 'work',
-      startDate: {day: '01', month: '01', year: '1970'},
-      endDate: {day: '31', month: '12', year: '1979'},
+      startDate: { day: '01', month: '01', year: '1970' },
+      endDate: { day: '31', month: '12', year: '1979' },
       place: 'Oslo',
       country: 'NO',
       workActivity: 'Lærer',
@@ -240,11 +240,11 @@ describe('Period', () => {
     expect(editPeriod.mock.calls.length).toBe(1)
   })
 
-  it('saveEditPeriod() function',  () => {
+  it('saveEditPeriod() function', () => {
     let mockPeriod = {
       type: 'work',
-      startDate: {day: '01', month: '01', year: '1970'},
-      endDate: {day: '31', month: '12', year: '1979'},
+      startDate: { day: '01', month: '01', year: '1970' },
+      endDate: { day: '31', month: '12', year: '1979' },
       place: 'Oslo',
       country: 'NO',
       workActivity: 'Lærer',
@@ -255,7 +255,7 @@ describe('Period', () => {
     })
     // I have changes to save
     wrapper.instance().setState({
-      _period: Object.assign({}, mockPeriod, {country: 'SE'})
+      _period: Object.assign({}, mockPeriod, { country: 'SE' })
     })
     wrapper.instance().saveEditPeriod()
     expect(wrapper.instance().state._period).toEqual({})
@@ -265,37 +265,37 @@ describe('Period', () => {
     expect(store.getState().pinfo.stayAbroad).toStrictEqual([mockPeriod])
   })
 
-  it('doCancelPeriod() function',  () => {
+  it('doCancelPeriod() function', () => {
     wrapper.instance().setState({
-      _period: {foo: 'bar'}
+      _period: { foo: 'bar' }
     })
     wrapper.instance().doCancelPeriod()
     expect(wrapper.instance().state._period).toEqual({})
   })
 
-  it('removePeriodRequest() function',  () => {
+  it('removePeriodRequest() function', () => {
     wrapper.instance().removePeriodRequest()
     expect(uiActions.openModal).toHaveBeenCalledWith(
       expect.objectContaining({
-         modalTitle: 'pinfo:alert-deletePeriod'
+        modalTitle: 'pinfo:alert-deletePeriod'
       })
     )
   })
 
-  it('cancelPeriodRequest() function',  () => {
+  it('cancelPeriodRequest() function', () => {
     wrapper.instance().cancelPeriodRequest()
     expect(uiActions.openModal).toHaveBeenCalledWith(
       expect.objectContaining({
-         modalTitle: 'pinfo:alert-cancelPeriod'
+        modalTitle: 'pinfo:alert-cancelPeriod'
       })
     )
   })
 
-  it('doRemovePeriod() function',  () => {
+  it('doRemovePeriod() function', () => {
     let mockPeriod = {
       type: 'work',
-      startDate: {day: '01', month: '01', year: '1970'},
-      endDate: {day: '31', month: '12', year: '1979'},
+      startDate: { day: '01', month: '01', year: '1970' },
+      endDate: { day: '31', month: '12', year: '1979' },
       place: 'Oslo',
       country: 'NO',
       workActivity: 'Lærer',
@@ -310,57 +310,57 @@ describe('Period', () => {
     expect(store.getState().pinfo.stayAbroad).toStrictEqual([])
   })
 
-  it('errorMessage() function',  () => {
+  it('errorMessage() function', () => {
     wrapper.instance().setState({})
     expect(wrapper.instance().errorMessage()).toBe(undefined)
 
     wrapper.instance().setState({
-      localErrors: {a: 'b'},
+      localErrors: { a: 'b' },
       displayError: false
     })
     expect(wrapper.instance().errorMessage()).toBe(undefined)
 
     wrapper.instance().setState({
-      localErrors: {a: 'b'},
+      localErrors: { a: 'b' },
       displayError: true
     })
     expect(wrapper.instance().errorMessage()).toBe('b')
   })
 
-  it('getPeriodAttachments() function',  () => {
+  it('getPeriodAttachments() function', () => {
     let mockPeriod = {
       type: 'work',
       attachments: [{
-        content: {md5: 'md5_1'}
+        content: { md5: 'md5_1' }
       }, {
-        content: {md5: 'md5_3'}
+        content: { md5: 'md5_3' }
       }]
     }
     wrapper.setProps({
       attachments: {
-         md5_1: { name: 'attachment_1'},
-         md5_2: { name: 'attachment_2'},
-         md5_3: { name: 'attachment_3'},
-         md5_4: { name: 'attachment_4'},
+        md5_1: { name: 'attachment_1' },
+        md5_2: { name: 'attachment_2' },
+        md5_3: { name: 'attachment_3' },
+        md5_4: { name: 'attachment_4' }
       }
     })
     let attachments = wrapper.instance().getPeriodAttachments(mockPeriod)
     expect(attachments).toEqual([{ name: 'attachment_1' }, { name: 'attachment_3' }])
   })
 
-  it('renderTagsForInsuranceName() function',  () => {
+  it('renderTagsForInsuranceName() function', () => {
     wrapper.setProps({
       periods: [{
         insuranceName: 'mockInsuranceName1'
       }, {
         insuranceName: 'mockInsuranceName2'
-      },{
+      }, {
         insuranceName: 'mockInsuranceName3'
       }]
     })
     wrapper.instance().setState({
       _period: {
-         insuranceName: 'mockInsuranceName2'
+        insuranceName: 'mockInsuranceName2'
       }
     })
     let result = wrapper.instance().renderTagsForInsuranceName()
@@ -371,19 +371,19 @@ describe('Period', () => {
     expect(content).toEqual(['mockInsuranceName1', 'mockInsuranceName3'])
   })
 
-  it('renderTagsForInsuranceId() function',  () => {
+  it('renderTagsForInsuranceId() function', () => {
     wrapper.setProps({
       periods: [{
         insuranceId: 'mockInsuranceId1'
       }, {
         insuranceId: 'mockInsuranceId2'
-      },{
+      }, {
         insuranceId: 'mockInsuranceId3'
       }]
     })
     wrapper.instance().setState({
       _period: {
-         insuranceId: 'mockInsuranceId2'
+        insuranceId: 'mockInsuranceId2'
       }
     })
     let result = wrapper.instance().renderTagsForInsuranceId()

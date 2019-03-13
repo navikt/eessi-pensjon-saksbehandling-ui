@@ -23,7 +23,7 @@ describe('StayAbroad', () => {
   })
 
   it('setEditPeriod()', () => {
-    let mockPeriod = {foo: 'bar'}
+    let mockPeriod = { foo: 'bar' }
     wrapper.instance().setEditPeriod(mockPeriod)
     expect(wrapper.instance().state._period).toStrictEqual(mockPeriod)
   })
@@ -33,7 +33,7 @@ describe('StayAbroad', () => {
   })
 
   it('renders in edit mode with _period', () => {
-    let mockPeriod = {foo: 'bar', id: '123'}
+    let mockPeriod = { foo: 'bar', id: '123' }
     wrapper.instance().setEditPeriod(mockPeriod)
     expect(wrapper.find('.c-pinfo-stayAbroad.edit').length).toEqual(1)
   })
