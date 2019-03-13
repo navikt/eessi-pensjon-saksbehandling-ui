@@ -35,7 +35,7 @@ describe('PsychoPanel Rendering', () => {
 
     wrapper.setProps({ closeButton: true })
     child = wrapper.find('Veilederpanel')
-
+    
     expect(child.exists('a[href="#close"]')).toEqual(true)
   })
 })
@@ -43,12 +43,12 @@ describe('PsychoPanel Rendering', () => {
 describe('PsychoPanel button', () => {
   it('Renders null when button is clicked', () => {
     let wrapper = shallow(
-      <PsychoPanel closeButton >
+      <PsychoPanel closeButton={true} >
         <div id='1' />
       </PsychoPanel>
     )
 
-    let mockEvent = { preventDefault: () => {}, stopPropagation: () => {} }
+    let mockEvent = {preventDefault: ()=>{}, stopPropagation: ()=>{}}
 
     expect(wrapper.isEmptyRender()).toEqual(false)
 
