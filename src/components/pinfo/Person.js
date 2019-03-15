@@ -107,11 +107,13 @@ class Person extends React.Component {
           <Nav.Input
             id='pinfo-person-etternavn-input'
             type='text'
-            label={<div>
-              <span>{t('pinfo:person-info-lastNameAtBirth')}</span>
-              <Nav.HjelpetekstBase id='pinfo-person-lastNameAtBirth-help'>
-                {t('pinfo:person-info-lastNameAtBirth-help')}
-              </Nav.HjelpetekstBase>
+            label={<div className='pinfo-label'>
+              <div className='pinfo-label'>
+                <span>{t('pinfo:person-info-lastNameAtBirth')}</span>
+                <Nav.HjelpetekstBase id='pinfo-person-lastNameAtBirth-help'>
+                  {t('pinfo:person-info-lastNameAtBirth-help')}
+                </Nav.HjelpetekstBase>
+              </div>
             </div>}
             placeholder={t('ui:writeIn')}
             value={person.nameAtBirth || ''}
@@ -126,11 +128,13 @@ class Person extends React.Component {
           <Nav.Input
             id='pinfo-person-tidligerenavn-input'
             type='text'
-            label={<div>
-              <span>{t('pinfo:person-info-previousName')}</span>
-              <Nav.HjelpetekstBase id='pinfo-person-previousName-help'>
-                {t('pinfo:person-info-previousName-help')}
-              </Nav.HjelpetekstBase>
+            label={<div className='pinfo-label'>
+              <div className='pinfo-label'>
+                <span>{t('pinfo:person-info-previousName')}</span>
+                <Nav.HjelpetekstBase id='pinfo-person-previousName-help'>
+                  {t('pinfo:person-info-previousName-help')}
+                </Nav.HjelpetekstBase>
+              </div>
               <span className='optional'>{t('ui:optional')}</span>
             </div>}
             placeholder={t('ui:writeIn')}
@@ -146,7 +150,7 @@ class Person extends React.Component {
       <Nav.Row>
         <div className='col-sm-8 mb-4'>
           <label className='skjemaelement__label'>
-            {t('pinfo:person-birthplace-country')}
+            <div className='pinfo-label'>{t('pinfo:person-birthplace-country')}</div>
           </label>
           <CountrySelect
             id='pinfo-person-land-select'
@@ -164,7 +168,7 @@ class Person extends React.Component {
           <Nav.Input
             id='pinfo-person-sted-input'
             type='text'
-            label={<div>
+            label={<div className='pinfo-label'>
               <span>{t('pinfo:person-birthplace-place')}</span>
             </div>}
             placeholder={t('ui:writeIn')}
@@ -180,7 +184,7 @@ class Person extends React.Component {
           <Nav.Input
             id='pinfo-person-region-input'
             type='text'
-            label={<div>
+            label={<div className='pinfo-label'>
               <span>{t('pinfo:person-birthplace-area')}</span>
               <span className='optional'>{t('ui:optional')}</span>
             </div>}
@@ -200,7 +204,7 @@ class Person extends React.Component {
           <Nav.Input
             id='pinfo-person-telefonnummer-input'
             type='tel'
-            label={<div>
+            label={<div className='pinfo-label'>
               <span>{t('pinfo:person-contact-phoneNumber')}</span>
               <span className='optional'>{t('ui:optional')}</span>
             </div>}
@@ -217,7 +221,7 @@ class Person extends React.Component {
           <Nav.Input
             id='pinfo-person-epost-input'
             type='email'
-            label={<div>
+            label={<div className='pinfo-label'>
               <span>{t('pinfo:person-contact-email')}</span>
               <span className='optional'>{t('ui:optional')}</span>
             </div>}

@@ -104,11 +104,13 @@ class Confirm extends React.Component {
         </div>
         <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-comment')}</Nav.Undertittel>
         <Nav.Textarea id='pinfo-comment'
-          label={<div>
-            <span>{t('pinfo:stayAbroad-comment')}</span>
-            <Nav.HjelpetekstBase id='pinfo-stayAbroad-comment-help'>
-              {t('pinfo:stayAbroad-comment-help')}
-            </Nav.HjelpetekstBase>
+          label={<div className='pinfo-label'>
+            <div className='pinfo-label'>
+              <span>{t('pinfo:stayAbroad-comment')}</span>
+              <Nav.HjelpetekstBase id='pinfo-stayAbroad-comment-help'>
+                {t('pinfo:stayAbroad-comment-help')}
+              </Nav.HjelpetekstBase>
+            </div>
             <span className='optional'>{t('ui:optional')}</span>
           </div>}
           placeholder={t('ui:writeIn')}

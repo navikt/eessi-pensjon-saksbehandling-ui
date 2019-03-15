@@ -97,10 +97,14 @@ class Bank extends React.Component {
         <div className='col-md-6 mb-3'>
           <div>
             <label className='skjemaelement__label'>
-              <span>{t('pinfo:bank-country')}</span>
-              <Nav.HjelpetekstBase id='pinfo-bank-country-help'>
-                {t('pinfo:bank-country-help')}
-              </Nav.HjelpetekstBase>
+              <div className='pinfo-label'>
+                <div className='pinfo-label'>
+                  <span>{t('pinfo:bank-country')}</span>
+                  <Nav.HjelpetekstBase id='pinfo-bank-country-help'>
+                    {t('pinfo:bank-country-help')}
+                  </Nav.HjelpetekstBase>
+                </div>
+              </div>
             </label>
           </div>
           <CountrySelect
@@ -119,11 +123,13 @@ class Bank extends React.Component {
         <div className='col-md-6'>
           <Nav.Input
             id='pinfo-bank-iban-input'
-            label={<div>
-              <span>{t('pinfo:bank-iban')}</span>
-              <Nav.HjelpetekstBase id='pinfo-bank-iban-input-help'>
-                {t('pinfo:bank-iban-help')}
-              </Nav.HjelpetekstBase>
+            label={<div className='pinfo-label'>
+              <div className='pinfo-label'>
+                <span>{t('pinfo:bank-iban')}</span>
+                <Nav.HjelpetekstBase id='pinfo-bank-iban-input-help'>
+                  {t('pinfo:bank-iban-help')}
+                </Nav.HjelpetekstBase>
+              </div>
             </div>}
             placeholder={t('ui:writeIn')}
             value={bank.bankIban || ''}
@@ -137,11 +143,13 @@ class Bank extends React.Component {
         <div className='col-md-6'>
           <Nav.Input
             id='pinfo-bank-bicswift-input'
-            label={<div>
-              <span>{t('pinfo:bank-bicSwift')}</span>
-              <Nav.HjelpetekstBase id='pinfo-bank-bicSwift-input-help'>
-                {t('pinfo:bank-bicSwift-help')}
-              </Nav.HjelpetekstBase>
+            label={<div className='pinfo-label'>
+              <div className='pinfo-label'>
+                <span>{t('pinfo:bank-bicSwift')}</span>
+                <Nav.HjelpetekstBase id='pinfo-bank-bicSwift-input-help'>
+                  {t('pinfo:bank-bicSwift-help')}
+                </Nav.HjelpetekstBase>
+              </div>
             </div>}
             placeholder={t('ui:writeIn')}
             value={bank.bankBicSwift || ''}
@@ -155,11 +163,13 @@ class Bank extends React.Component {
         <div className='col-md-12'>
           <Nav.Textarea
             id='pinfo-bank-address-textarea'
-            label={<div>
-              <span>{t('pinfo:bank-address')}</span>
-              <Nav.HjelpetekstBase id='pinfo-bank-address-input-help'>
-                {t('pinfo:bank-address-help')}
-              </Nav.HjelpetekstBase>
+            label={<div className='pinfo-label'>
+              <div className='pinfo-label'>
+                <span>{t('pinfo:bank-address')}</span>
+                <Nav.HjelpetekstBase id='pinfo-bank-address-input-help'>
+                  {t('pinfo:bank-address-help')}
+                </Nav.HjelpetekstBase>
+              </div>
             </div>}
             placeholder={t('ui:writeIn')}
             value={bank.bankAddress || ''}

@@ -11,7 +11,7 @@ import * as Nav from '../Nav'
 
 import * as routes from '../../../constants/routes'
 
-import NavLogoWhiteTransparent from '../../../resources/images/NavLogoWhiteTransparent'
+import NavLogoTransparent from '../../../resources/images/NavLogoTransparent'
 import * as appActions from '../../../actions/app'
 import * as uiActions from '../../../actions/ui'
 
@@ -21,6 +21,7 @@ const mapStateToProps = (state) => {
   return {
     username: state.app.username,
     userRole: state.app.userRole,
+    highContrast: state.ui.highContrast,
     gettingUserInfo: state.loading.gettingUserInfo,
     isLoggingOut: state.loading.isLoggingOut
   }
@@ -46,13 +47,13 @@ class InternalTopHeader extends Component {
   }
 
   render () {
-    let { t, username, userRole, gettingUserInfo, isLoggingOut, header } = this.props
+    let { t, username, userRole, gettingUserInfo, isLoggingOut, highContrast, header } = this.props
 
     return <React.Fragment>
       <header className='c-ui-topHeader'>
         <div className='brand'>
           <a href='#index' onClick={this.onLogoClick.bind(this)}>
-            <NavLogoWhiteTransparent width='100' height='45' />
+            <NavLogoTransparent width='100' height='45' color={highContrast ? 'white' : 'black'} />
           </a>
           <div className='skillelinje' />
           <div className='tittel'><span>{t('app-headerTitle')}</span></div>
