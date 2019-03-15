@@ -88,8 +88,8 @@ export class StartCase extends Component {
     }
 
     componentDidUpdate () {
-      const { loading, sed, currentCase, institutionList, bucList,
-        subjectAreaList, countryList, actions, sakId, aktoerId, rinaId } = this.props
+      const { loading, sed, currentCase, bucList, subjectAreaList, countryList,
+        actions, sakId, aktoerId, rinaId } = this.props
 
       if (!loading.gettingCase && currentCase) {
         if (subjectAreaList === undefined && !sed && !loading.subjectAreaList) {
@@ -175,7 +175,6 @@ export class StartCase extends Component {
       this.validateInstitutions(institutions)
 
       if (this.hasNoValidationErrors()) {
-
         actions.dataPreview({
           sakId: currentCase.casenumber,
           aktoerId: currentCase.pinid,
@@ -342,9 +341,9 @@ export class StartCase extends Component {
       if (!validation.countryFail) {
         if (country !== defaultSelects.country) {
           if (_buc) {
-             actions.getInstitutionListForBucAndCountry(_buc, country)
+            actions.getInstitutionListForBucAndCountry(_buc, country)
           } else {
-             actions.getInstitutionListForCountry(country)
+            actions.getInstitutionListForCountry(country)
           }
         }
       }
@@ -561,11 +560,14 @@ export class StartCase extends Component {
                 <span id='help-aktoerId'>{t('case:help-aktoerId')}</span>
               </div>
               <div className='mt-4 col-md-6'>
-                <Nav.Input className='getCaseInputRinaId' label={<div>
-                  <span>{t('case:form-rinaId')}</span>
-                  <span className='optional'>{t('ui:optional')}</span>
-                </div>}
-                value={_rinaId || ''} onChange={this.onRinaIdChange.bind(this)} />
+                <Nav.Input className='getCaseInputRinaId'
+                  label={<div>
+                    <span>{t('case:form-rinaId')}</span>
+                    <span className='optional'>{t('ui:optional')}</span>
+                  </div>}
+                  value={_rinaId || ''}
+                  onChange={this.onRinaIdChange.bind(this)}
+                />
                 <span id='help-rinaId'>{t('case:help-rinaId')}</span>
               </div>
             </Nav.Row>

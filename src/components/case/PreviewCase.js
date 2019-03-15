@@ -27,7 +27,6 @@ export const mapDispatchToProps = (dispatch) => {
 }
 
 export class PreviewCase extends Component {
-
   onBackButtonClick () {
     const { actions, step } = this.props
     actions.setStep(step - 1)

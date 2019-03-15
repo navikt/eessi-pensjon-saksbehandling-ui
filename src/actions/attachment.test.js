@@ -1,9 +1,7 @@
 import * as attachmentActions from './attachment'
-import * as api from './api'
 import * as types from '../constants/actionTypes'
 import * as storageActions from './storage'
 
-import { APP_LOGOUT_URL, APP_GET_USERINFO_URL } from '../constants/urls'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 

@@ -1,4 +1,3 @@
-import * as api from './api'
 import * as types from '../constants/actionTypes'
 import * as uiActions from './ui'
 import i18n from '../i18n'

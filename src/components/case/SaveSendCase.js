@@ -73,8 +73,8 @@ export class SaveSendCase extends Component {
               <div className='m-4'>
                 <h4>{t('case:form-rinaId') + ': ' + savedData.caseId}</h4>
               </div>
-              <div style={{display: 'none'}}>
-                 <RenderData t={t} previewData={Object.assign({}, previewData, savedData)} />
+              <div style={{ display: 'none' }}>
+                <RenderData t={t} previewData={Object.assign({}, previewData, savedData)} />
               </div>
               <Export fileName='kvittering.pdf' nodeId='divToPrint' buttonLabel={t('ui:getReceipt')} />
             </div> : null)}

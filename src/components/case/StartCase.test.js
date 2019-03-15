@@ -2,17 +2,19 @@ import React from 'react'
 import { createStore, combineReducers, bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as reducers from '../../reducers'
-import * as api from '../../actions/api'
-import * as types from '../../constants/actionTypes'
 
 import { StartCase, mapStateToProps } from './StartCase'
+
+import * as uiActions from '../../actions/ui'
+import * as appActions from '../../actions/app'
+import * as caseActions from '../../actions/case'
 
 const t = jest.fn((translationString) => { return translationString })
 
 jest.mock('../../actions/api', () => ({
   call: jest.fn((options) => ({
     type: options.type.success,
-    payload: {foo: 'bar'}
+    payload: { foo: 'bar' }
   }))
 }))
 
@@ -23,7 +25,7 @@ jest.mock('../../actions/case', () => ({
   ...jest.requireActual('../../actions/case'),
   getCaseFromCaseNumber: jest.fn(() => ({
     type: 'CASE/GET_CASE_NUMBER/SUCCESS',
-    payload: {casenumber: '123', pinid: '456'}
+    payload: { casenumber: '123', pinid: '456' }
   })),
   getSubjectAreaList: jest.fn(() => ({
     type: 'CASE/GET_SUBJECT_AREA_LIST/SUCCESS',
@@ -38,10 +40,6 @@ jest.mock('../../actions/case', () => ({
     payload: [`mockInstitutionFor${country}1`, `mockInstitutionFor${country}2`]
   }))
 }))
-
-import * as uiActions from '../../actions/ui'
-import * as appActions from '../../actions/app'
-import * as caseActions from '../../actions/case'
 
 Object.defineProperty(window, 'location', {
   writable: true,
@@ -62,7 +60,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 describe('StartCase: mount without sakId and AktoerId', () => {
-
   let store, wrapper, ConnectedStartCase
   const initialState = {
     case: {
@@ -74,7 +71,7 @@ describe('StartCase: mount without sakId and AktoerId', () => {
   beforeEach(() => {
     store = createStore(reducer, initialState)
     ConnectedStartCase = connect(mapStateToProps, mapDispatchToProps)(StartCase)
-    wrapper = shallow(<ConnectedStartCase t={t} store={store}/>).dive()
+    wrapper = shallow(<ConnectedStartCase t={t} store={store} />).dive()
   })
 
   it('renders successfully', () => {
@@ -98,16 +95,15 @@ describe('StartCase: mount without sakId and AktoerId', () => {
 
     wrapper.instance().onFetchCaseButtonClick()
     await new Promise(resolve => {
-       setTimeout(() => {
-         expect(store.getState().case.currentCase).toEqual({casenumber: '123', pinid: '456'})
-         done()
-       }, 500)
+      setTimeout(() => {
+        expect(store.getState().case.currentCase).toEqual({ casenumber: '123', pinid: '456' })
+        done()
+      }, 500)
     })
   })
 })
 
 describe('StartCase: mount with sakId and AktoerId', () => {
-
   let store, wrapper, ConnectedStartCase
   const initialState = {
     case: {
@@ -122,7 +118,7 @@ describe('StartCase: mount with sakId and AktoerId', () => {
   beforeEach(() => {
     store = createStore(reducer, initialState)
     ConnectedStartCase = connect(mapStateToProps, mapDispatchToProps)(StartCase)
-    wrapper = shallow(<ConnectedStartCase t={t} store={store}/>).dive()
+    wrapper = shallow(<ConnectedStartCase t={t} store={store} />).dive()
   })
 
   it('renders successfully', () => {
@@ -130,12 +126,11 @@ describe('StartCase: mount with sakId and AktoerId', () => {
   })
 
   it('Fetches currentCase when given sakId and aktoerId', () => {
-    expect(store.getState().case.currentCase).toEqual({casenumber: '123', pinid: '456'})
+    expect(store.getState().case.currentCase).toEqual({ casenumber: '123', pinid: '456' })
   })
 })
 
 describe('StartCase: rest of functions', () => {
-
   let store, wrapper, ConnectedStartCase
   const initialState = {
     case: {
@@ -153,33 +148,33 @@ describe('StartCase: rest of functions', () => {
   beforeEach(() => {
     store = createStore(reducer, initialState)
     ConnectedStartCase = connect(mapStateToProps, mapDispatchToProps)(StartCase)
-    wrapper = shallow(<ConnectedStartCase t={t} store={store}/>).dive()
+    wrapper = shallow(<ConnectedStartCase t={t} store={store} />).dive()
   })
 
   it('onSakIdChange()', () => {
     let mockSakId = 'mockSakId'
-    let mockEvent = {target: {value: mockSakId}}
+    let mockEvent = { target: { value: mockSakId } }
     wrapper.instance().onSakIdChange(mockEvent)
     expect(wrapper.instance().state._sakId).toEqual(mockSakId)
   })
 
   it('onRinaIdChange()', () => {
     let mockRinaId = 'mockRinaId'
-    let mockEvent = {target: {value: mockRinaId}}
+    let mockEvent = { target: { value: mockRinaId } }
     wrapper.instance().onRinaIdChange(mockEvent)
     expect(wrapper.instance().state._rinaId).toEqual(mockRinaId)
   })
 
   it('onAktoerIdChange()', () => {
     let mockAktoerId = 'mockAktoerId'
-    let mockEvent = {target: {value: mockAktoerId}}
+    let mockEvent = { target: { value: mockAktoerId } }
     wrapper.instance().onAktoerIdChange(mockEvent)
     expect(wrapper.instance().state._aktoerId).toEqual(mockAktoerId)
   })
 
   it('onVedtakIdChange()', () => {
     let mockVedtakId = 'mockVedtakId'
-    let mockEvent = {target: {value: mockVedtakId}}
+    let mockEvent = { target: { value: mockVedtakId } }
     wrapper.instance().onVedtakIdChange(mockEvent)
     expect(wrapper.instance().state._vedtakId).toEqual(mockVedtakId)
   })
@@ -191,7 +186,7 @@ describe('StartCase: rest of functions', () => {
       _subjectArea: 'mockSubjectArea',
       _buc: 'mockBuc',
       _sed: 'mockSed',
-      institutions: [{institution: 'mockInstitution', country: 'mockCountry'}]
+      institutions: [{ institution: 'mockInstitution', country: 'mockCountry' }]
     })
     wrapper.setProps({
       currentCase: {
@@ -208,7 +203,7 @@ describe('StartCase: rest of functions', () => {
     let invalidSubjectArea = ''
     wrapper.instance().validateSubjectArea(invalidSubjectArea)
     expect(wrapper.instance().state.validation).toEqual({
-       'subjectAreaFail': 'case:validation-chooseSubjectArea'
+      'subjectAreaFail': 'case:validation-chooseSubjectArea'
     })
   })
 
@@ -222,7 +217,7 @@ describe('StartCase: rest of functions', () => {
     let invalidBuc = ''
     wrapper.instance().validateBuc(invalidBuc)
     expect(wrapper.instance().state.validation).toEqual({
-       'bucFail': 'case:validation-chooseBuc'
+      'bucFail': 'case:validation-chooseBuc'
     })
   })
 
@@ -236,7 +231,7 @@ describe('StartCase: rest of functions', () => {
     let invalidSed = ''
     wrapper.instance().validateSed(invalidSed)
     expect(wrapper.instance().state.validation).toEqual({
-       'sedFail': 'case:validation-chooseSed'
+      'sedFail': 'case:validation-chooseSed'
     })
   })
 
@@ -250,7 +245,7 @@ describe('StartCase: rest of functions', () => {
     let invalidInstitutions = []
     wrapper.instance().validateInstitutions(invalidInstitutions)
     expect(wrapper.instance().state.validation).toEqual({
-       'institutionsFail': 'case:validation-chooseInstitutions'
+      'institutionsFail': 'case:validation-chooseInstitutions'
     })
   })
 
@@ -264,7 +259,7 @@ describe('StartCase: rest of functions', () => {
     let invalidInstitution = ''
     wrapper.instance().validateInstitution(invalidInstitution)
     expect(wrapper.instance().state.validation).toEqual({
-       'institutionFail': 'case:validation-chooseInstitution'
+      'institutionFail': 'case:validation-chooseInstitution'
     })
   })
 
@@ -278,7 +273,7 @@ describe('StartCase: rest of functions', () => {
     let invalidCountry = ''
     wrapper.instance().validateCountry(invalidCountry)
     expect(wrapper.instance().state.validation).toEqual({
-       'countryFail': 'case:validation-chooseCountry'
+      'countryFail': 'case:validation-chooseCountry'
     })
   })
 
@@ -295,14 +290,14 @@ describe('StartCase: rest of functions', () => {
       country: 'AA'
     })
     wrapper.instance().onCreateInstitutionButtonClick()
-    expect(wrapper.instance().state.institutions).toEqual([{institution: 'abc', country: 'AA'}])
+    expect(wrapper.instance().state.institutions).toEqual([{ institution: 'abc', country: 'AA' }])
 
     wrapper.instance().setState({
       institution: 'def',
       country: 'BB'
     })
     wrapper.instance().onCreateInstitutionButtonClick()
-    expect(wrapper.instance().state.institutions).toEqual([{institution: 'abc', country: 'AA'}, {institution: 'def', country: 'BB'}])
+    expect(wrapper.instance().state.institutions).toEqual([{ institution: 'abc', country: 'AA' }, { institution: 'def', country: 'BB' }])
   })
 
   it('onRemoveInstitutionButtonClick()', () => {
@@ -320,90 +315,90 @@ describe('StartCase: rest of functions', () => {
   })
 
   it('resetValidationState()', () => {
-     expect(wrapper.instance().state.validation).toEqual({})
-     wrapper.instance().setState({
-       validation: { foo : 'bar', foo2: 'bar2' }
-     })
-     wrapper.instance().resetValidationState('foo')
-     expect(wrapper.instance().state.validation).toEqual({foo2: 'bar2'})
+    expect(wrapper.instance().state.validation).toEqual({})
+    wrapper.instance().setState({
+      validation: { foo: 'bar', foo2: 'bar2' }
+    })
+    wrapper.instance().resetValidationState('foo')
+    expect(wrapper.instance().state.validation).toEqual({ foo2: 'bar2' })
   })
 
   it('hasNoValidationErrors()', () => {
-     expect(wrapper.instance().state.validation).toEqual({})
-     expect(wrapper.instance().hasNoValidationErrors()).toEqual(true)
-     wrapper.instance().setState({
-       validation: { foo : 'bar' }
-     })
-     expect(wrapper.instance().hasNoValidationErrors()).toEqual(false)
+    expect(wrapper.instance().state.validation).toEqual({})
+    expect(wrapper.instance().hasNoValidationErrors()).toEqual(true)
+    wrapper.instance().setState({
+      validation: { foo: 'bar' }
+    })
+    expect(wrapper.instance().hasNoValidationErrors()).toEqual(false)
   })
 
   it('setValidationState()', () => {
-     expect(wrapper.instance().state.validation).toEqual({})
-     wrapper.instance().setValidationState('mockKey', 'mockValue')
-     expect(wrapper.instance().state.validation).toEqual({mockKey: 'mockValue'})
+    expect(wrapper.instance().state.validation).toEqual({})
+    wrapper.instance().setValidationState('mockKey', 'mockValue')
+    expect(wrapper.instance().state.validation).toEqual({ mockKey: 'mockValue' })
   })
 
   it('onSubjectAreaChange()', () => {
-     let mockSubjectArea = 'mockSubjectArea'
-     let mockEvent = {target: {value: mockSubjectArea}}
-     wrapper.instance().onSubjectAreaChange(mockEvent)
-     expect(wrapper.instance().state._subjectArea).toEqual(mockSubjectArea)
-     expect(wrapper.instance().state.validation).toEqual({})
+    let mockSubjectArea = 'mockSubjectArea'
+    let mockEvent = { target: { value: mockSubjectArea } }
+    wrapper.instance().onSubjectAreaChange(mockEvent)
+    expect(wrapper.instance().state._subjectArea).toEqual(mockSubjectArea)
+    expect(wrapper.instance().state.validation).toEqual({})
   })
 
   it('onBucChange()', () => {
-     let mockBuc = 'MockBuc'
-     let mockEvent = {target: {value: mockBuc}}
-     wrapper.instance().onBucChange(mockEvent)
-     expect(wrapper.instance().state._buc).toEqual(mockBuc)
-     expect(wrapper.instance().state.validation).toEqual({})
-     expect(store.getState().case.sedList).toEqual(['mockSedForMockBuc1', 'mockSedForMockBuc2'])
+    let mockBuc = 'MockBuc'
+    let mockEvent = { target: { value: mockBuc } }
+    wrapper.instance().onBucChange(mockEvent)
+    expect(wrapper.instance().state._buc).toEqual(mockBuc)
+    expect(wrapper.instance().state.validation).toEqual({})
+    expect(store.getState().case.sedList).toEqual(['mockSedForMockBuc1', 'mockSedForMockBuc2'])
   })
 
   it('onSedChange()', () => {
-     let mockSed = 'MockSed'
-     let mockEvent = {target: {value: mockSed}}
-     wrapper.instance().onSedChange(mockEvent)
-     expect(wrapper.instance().state._sed).toEqual(mockSed)
-     expect(wrapper.instance().state.validation).toEqual({})
+    let mockSed = 'MockSed'
+    let mockEvent = { target: { value: mockSed } }
+    wrapper.instance().onSedChange(mockEvent)
+    expect(wrapper.instance().state._sed).toEqual(mockSed)
+    expect(wrapper.instance().state.validation).toEqual({})
   })
 
   it('onInstitutionChange()', () => {
-     let mockInstitution = 'MockInstitution'
-     let mockEvent = {target: {value: mockInstitution}}
-     wrapper.instance().onInstitutionChange(mockEvent)
-     expect(wrapper.instance().state.institution).toEqual(mockInstitution)
-     expect(wrapper.instance().state.validation).toEqual({})
+    let mockInstitution = 'MockInstitution'
+    let mockEvent = { target: { value: mockInstitution } }
+    wrapper.instance().onInstitutionChange(mockEvent)
+    expect(wrapper.instance().state.institution).toEqual(mockInstitution)
+    expect(wrapper.instance().state.validation).toEqual({})
   })
 
   it('onCountryChange()', () => {
-     let mockCountry = 'MockCountry'
-     let mockEvent = {value: mockCountry}
-     wrapper.instance().onCountryChange(mockEvent)
-     expect(wrapper.instance().state.country).toEqual(mockCountry)
-     expect(wrapper.instance().state.institution).toEqual(undefined)
-     expect(store.getState().case.institutionList).toEqual(['mockInstitutionForMockCountry1', 'mockInstitutionForMockCountry2'])
+    let mockCountry = 'MockCountry'
+    let mockEvent = { value: mockCountry }
+    wrapper.instance().onCountryChange(mockEvent)
+    expect(wrapper.instance().state.country).toEqual(mockCountry)
+    expect(wrapper.instance().state.institution).toEqual(undefined)
+    expect(store.getState().case.institutionList).toEqual(['mockInstitutionForMockCountry1', 'mockInstitutionForMockCountry2'])
   })
 
   it('renderOptions()', () => {
-     let mockMap = [
-       {key: 'NO', value: 'Norge'},
-       {key: 'SE', value: 'Sverige'},
-       {key: 'DK', value: 'Danmark'},
-       {key: 'FI', value: 'Finland'},
-       {key: 'IS', value: 'Island'}
-     ]
-     let mockType = 'country'
+    let mockMap = [
+      { key: 'NO', value: 'Norge' },
+      { key: 'SE', value: 'Sverige' },
+      { key: 'DK', value: 'Danmark' },
+      { key: 'FI', value: 'Finland' },
+      { key: 'IS', value: 'Island' }
+    ]
+    let mockType = 'country'
 
-     let result = wrapper.instance().renderOptions(mockMap, mockType)
-     expect(result.length).toEqual(mockMap.length) // note: it is 6, not 5
-     let html = result.map(res => { return mount(res).html()})
-     expect(html).toEqual([ '<option value="case:form-chooseCountry">case:form-chooseCountry - case:case-case:form-chooseCountry</option>',
-     '<option value="NO">Norge - case:case-Norge</option>',
-     '<option value="SE">Sverige - case:case-Sverige</option>',
-     '<option value="DK">Danmark - case:case-Danmark</option>',
-     '<option value="FI">Finland - case:case-Finland</option>',
-     '<option value="IS">Island - case:case-Island</option>' ])
+    let result = wrapper.instance().renderOptions(mockMap, mockType)
+    expect(result.length).toEqual(mockMap.length) // note: it is 6, not 5
+    let html = result.map(res => { return mount(res).html() })
+    expect(html).toEqual([ '<option value="case:form-chooseCountry">case:form-chooseCountry - case:case-case:form-chooseCountry</option>',
+      '<option value="NO">Norge - case:case-Norge</option>',
+      '<option value="SE">Sverige - case:case-Sverige</option>',
+      '<option value="DK">Danmark - case:case-Danmark</option>',
+      '<option value="FI">Finland - case:case-Finland</option>',
+      '<option value="IS">Island - case:case-Island</option>' ])
   })
 
   it('getOptionLabel()', () => {
@@ -413,15 +408,15 @@ describe('StartCase: rest of functions', () => {
   })
 
   it('renderSubjectArea', () => {
-    let mockSubjectAreaList= ['mockSubjectArea1', 'mockSubjectArea2']
+    let mockSubjectAreaList = ['mockSubjectArea1', 'mockSubjectArea2']
     wrapper.setProps({
-       subjectAreaList: mockSubjectAreaList
+      subjectAreaList: mockSubjectAreaList
     })
     let result = mount(wrapper.instance().renderSubjectArea())
     expect(result.find('div.subjectAreaList').length).toEqual(1)
     expect(result.find('select.skjemaelement__input').length).toEqual(1)
     expect(result.find('select option').length).toEqual(mockSubjectAreaList.length)
-    expect(result.find('select option').map(it => {return it.text()})).toEqual([
+    expect(result.find('select option').map(it => { return it.text() })).toEqual([
       'case:form-chooseSubjectArea - case:case-case:form-chooseSubjectArea',
       'mockSubjectArea1 - case:case-mockSubjectArea1',
       'mockSubjectArea2 - case:case-mockSubjectArea2'
@@ -429,9 +424,9 @@ describe('StartCase: rest of functions', () => {
   })
 
   it('renderCountry', async (done) => {
-    let mockCountryList= ['NO', 'SE']
+    let mockCountryList = ['NO', 'SE']
     wrapper.setProps({
-       countryList: mockCountryList
+      countryList: mockCountryList
     })
     let result = mount(wrapper.instance().renderCountry())
     expect(result.find('div.c-ui-countrySelect').length).toEqual(1)
@@ -440,57 +435,57 @@ describe('StartCase: rest of functions', () => {
     await new Promise(resolve => {
       setTimeout(() => {
         expect(result.find('div.c-ui-countryOption').length).toEqual(2)
-        expect(result.find('div.c-ui-countryOption').map(it => {return it.text()})).toEqual(['Norge', 'Sverige'])
+        expect(result.find('div.c-ui-countryOption').map(it => { return it.text() })).toEqual(['Norge', 'Sverige'])
         done()
       }, 500)
     })
   })
 
   it('renderInstitution', () => {
-    let mockInstitutionList= ['mockInstitution1', 'mockInstitution2']
+    let mockInstitutionList = ['mockInstitution1', 'mockInstitution2']
     wrapper.setProps({
-       institutionList: mockInstitutionList
+      institutionList: mockInstitutionList
     })
     let result = mount(wrapper.instance().renderInstitution())
     expect(result.find('div.institutionList').length).toEqual(1)
     expect(result.find('select.skjemaelement__input').length).toEqual(1)
     expect(result.find('select option').length).toEqual(mockInstitutionList.length)
-    expect(result.find('select option').map(it => {return it.text()})).toEqual([
-     'case:form-chooseInstitution - case:case-case:form-chooseInstitution',
-     'mockInstitution1 - case:case-mockInstitution1',
-     'mockInstitution2 - case:case-mockInstitution2'
+    expect(result.find('select option').map(it => { return it.text() })).toEqual([
+      'case:form-chooseInstitution - case:case-case:form-chooseInstitution',
+      'mockInstitution1 - case:case-mockInstitution1',
+      'mockInstitution2 - case:case-mockInstitution2'
     ])
   })
 
   it('renderBuc', () => {
-    let mockBucList= ['mockBuc1', 'mockBuc2']
+    let mockBucList = ['mockBuc1', 'mockBuc2']
     wrapper.setProps({
-       bucList: mockBucList
+      bucList: mockBucList
     })
     let result = mount(wrapper.instance().renderBuc())
     expect(result.find('div.bucList').length).toEqual(1)
     expect(result.find('select.skjemaelement__input').length).toEqual(1)
     expect(result.find('select option').length).toEqual(mockBucList.length)
-    expect(result.find('select option').map(it => {return it.text()})).toEqual([
-     'case:form-chooseBuc - case:case-case:form-chooseBuc',
-     'mockBuc1 - case:case-mockBuc1',
-     'mockBuc2 - case:case-mockBuc2'
+    expect(result.find('select option').map(it => { return it.text() })).toEqual([
+      'case:form-chooseBuc - case:case-case:form-chooseBuc',
+      'mockBuc1 - case:case-mockBuc1',
+      'mockBuc2 - case:case-mockBuc2'
     ])
   })
 
   it('renderSed', () => {
-    let mockSedList= ['mockSed1', 'mockSed2']
+    let mockSedList = ['mockSed1', 'mockSed2']
     wrapper.setProps({
-       sedList: mockSedList
+      sedList: mockSedList
     })
     let result = mount(wrapper.instance().renderSed())
     expect(result.find('div.sedList').length).toEqual(1)
     expect(result.find('select.skjemaelement__input').length).toEqual(1)
     expect(result.find('select option').length).toEqual(mockSedList.length)
-    expect(result.find('select option').map(it => {return it.text()})).toEqual([
-     'case:form-chooseSed - case:case-case:form-chooseSed',
-     'mockSed1 - case:case-mockSed1',
-     'mockSed2 - case:case-mockSed2'
+    expect(result.find('select option').map(it => { return it.text() })).toEqual([
+      'case:form-chooseSed - case:case-case:form-chooseSed',
+      'mockSed1 - case:case-mockSed1',
+      'mockSed2 - case:case-mockSed2'
     ])
   })
 
@@ -502,7 +497,7 @@ describe('StartCase: rest of functions', () => {
   })
 
   it('renderChosenInstitution', () => {
-    let mockInstitution = {institution: 'mockInstitution', country: 'mockCountry'}
+    let mockInstitution = { institution: 'mockInstitution', country: 'mockCountry' }
     let result = render(wrapper.instance().renderChosenInstitution(mockInstitution))
     expect(result.find('div.renderedInstitution').length).toEqual(1)
     expect(result.find('div.renderedInstitution').text()).toEqual('mockCountry/mockInstitution')
@@ -511,8 +506,8 @@ describe('StartCase: rest of functions', () => {
 
   it('renderInstitutions()', () => {
     let mockInstitutions = [
-      {institution: 'mockInstitution1', country: 'mockCountry1'},
-      {institution: 'mockInstitution2', country: 'mockCountry2'}
+      { institution: 'mockInstitution1', country: 'mockCountry1' },
+      { institution: 'mockInstitution2', country: 'mockCountry2' }
     ]
     wrapper.instance().setState({
       institutions: mockInstitutions
@@ -530,7 +525,7 @@ describe('StartCase: rest of functions', () => {
     })
     expect(wrapper.instance().allowedToForward()).toEqual(false)
     wrapper.instance().setState({
-       institutions: [{institution: 'mockInstitution', country: 'mockCountry'}]
+      institutions: [{ institution: 'mockInstitution', country: 'mockCountry' }]
     })
     expect(wrapper.instance().allowedToForward()).toEqual(true)
   })
@@ -540,12 +535,12 @@ describe('StartCase: rest of functions', () => {
       _subjectArea: 'mockSubjectArea',
       _sed: 'mockSed',
       _buc: 'mockBuc',
-      institutions: [{institution: 'mockInstitution', country: 'mockCountry'}],
-      validation: {foo: 'bar'}
+      institutions: [{ institution: 'mockInstitution', country: 'mockCountry' }],
+      validation: { foo: 'bar' }
     })
     expect(wrapper.instance().allowedToForward()).toEqual(false)
     wrapper.instance().setState({
-       validation: {}
+      validation: {}
     })
     expect(wrapper.instance().allowedToForward()).toEqual(true)
   })

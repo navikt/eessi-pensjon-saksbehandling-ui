@@ -25,7 +25,7 @@ describe('RenderData', () => {
   let wrapper
 
   beforeEach(() => {
-    wrapper = shallow(<RenderData t={t} previewData={mockPreviewData}/>)
+    wrapper = shallow(<RenderData t={t} previewData={mockPreviewData} />)
   })
 
   it('renders successfully', () => {
@@ -34,7 +34,6 @@ describe('RenderData', () => {
   })
 
   it('renderJson()', () => {
-
     let generatedContent = wrapper.instance().renderJson(mockPreviewData).map(html => {
       return mount(html).html()
     })

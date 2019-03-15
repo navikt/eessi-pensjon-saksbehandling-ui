@@ -1,7 +1,6 @@
 import React from 'react'
 import { createStore } from 'redux'
 import { connect } from 'react-redux'
-import { PINFO_STEP_SET } from '../../constants/actionTypes'
 
 import { Case } from './Case'
 
@@ -12,9 +11,9 @@ const mockHistory = {
 }
 
 const mockMatch = {
-   params: {
-      step: 99
-   }
+  params: {
+    step: 99
+  }
 }
 
 Object.defineProperty(window, 'location', {
@@ -36,7 +35,7 @@ describe('Case', () => {
     wrapper = shallow(<ConnectedCase
       t={t} store={store} step={9}
       title='mockTitle' history={mockHistory} match={mockMatch} location={{}}>
-       <div/>
+      <div />
     </ConnectedCase>).dive()
   })
 
@@ -45,12 +44,12 @@ describe('Case', () => {
   })
 
   it('renders and it changes URL to reflect the new step ', () => {
-     wrapper.setProps({
-        step: 90
-     })
-     expect(wrapper.instance().props.history.push).toBeCalledWith({
-        pathname: '/_/case/91',
-        search:  '?sakId=123'
-     })
+    wrapper.setProps({
+      step: 90
+    })
+    expect(wrapper.instance().props.history.push).toBeCalledWith({
+      pathname: '/_/case/91',
+      search: '?sakId=123'
+    })
   })
 })

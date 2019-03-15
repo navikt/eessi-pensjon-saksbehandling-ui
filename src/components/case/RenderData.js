@@ -5,7 +5,6 @@ import _ from 'lodash'
 import './RenderData.css'
 
 export class RenderData extends Component {
-
   renderJson (json, level, counter) {
     let res = []
     let _level = level || 0

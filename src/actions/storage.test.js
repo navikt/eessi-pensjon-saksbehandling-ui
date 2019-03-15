@@ -67,7 +67,6 @@ describe('storage actions', () => {
       namespace: 'namespace',
       file: 'file'
     }
-    const mockNamespace = 'mockNamespace'
     storageActions.getStorageFileWithNoNotification(mockParams)
     expect(api.call).toBeCalledWith({
       type: {

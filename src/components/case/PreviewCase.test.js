@@ -2,7 +2,6 @@ import React from 'react'
 import { createStore, combineReducers } from 'redux'
 import { connect } from 'react-redux'
 import * as reducers from '../../reducers'
-import * as api from '../../actions/api'
 
 import { PreviewCase, mapStateToProps, mapDispatchToProps } from './PreviewCase'
 
@@ -11,7 +10,7 @@ const t = jest.fn((translationString) => { return translationString })
 jest.mock('../../actions/api', () => ({
   call: jest.fn((options) => ({
     type: options.type.success,
-    payload: {foo: 'bar'}
+    payload: { foo: 'bar' }
   }))
 }))
 
@@ -42,26 +41,26 @@ describe('PreviewCase', () => {
   beforeEach(() => {
     store = createStore(reducer, initialState)
     ConnectedPreviewCase = connect(mapStateToProps, mapDispatchToProps)(PreviewCase)
-    wrapper = shallow(<ConnectedPreviewCase t={t} store={store}/>).dive()
+    wrapper = shallow(<ConnectedPreviewCase t={t} store={store} />).dive()
   })
 
   it('renders successfully', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
- it('onBackButtonClick(), back button reduces one step', () => {
+  it('onBackButtonClick(), back button reduces one step', () => {
     let currentStep = wrapper.instance().props.step
     wrapper.instance().onBackButtonClick()
     expect(store.getState().case.step).toEqual(currentStep - 1)
   })
 
- it('onPreviewButtonClick(), fetches more data', () => {
+  it('onPreviewButtonClick(), fetches more data', () => {
     wrapper.instance().onPreviewButtonClick()
-    expect(store.getState().case.previewData).toEqual({foo: 'bar'})
- })
+    expect(store.getState().case.previewData).toEqual({ foo: 'bar' })
+  })
 
- it('onForwardButtonClick(), sends data', () => {
+  it('onForwardButtonClick(), sends data', () => {
     wrapper.instance().onForwardButtonClick()
-    expect(store.getState().case.savedData).toEqual({foo: 'bar'})
+    expect(store.getState().case.savedData).toEqual({ foo: 'bar' })
   })
 })

@@ -31,7 +31,7 @@ class CountrySelect extends Component {
   }
 
   render () {
-    const { t, id, placeholder, value, locale, type, includeList, excludeList, className, styles = {}, error = false } = this.props
+    const { id, placeholder, value, locale, type, includeList, excludeList, className, styles = {}, error = false } = this.props
 
     let optionList = countries[locale]
     let options = (includeList ? this.include(includeList, optionList) : optionList)

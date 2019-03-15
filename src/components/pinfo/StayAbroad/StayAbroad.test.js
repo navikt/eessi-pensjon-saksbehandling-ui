@@ -1,7 +1,6 @@
 import React from 'react'
-import { createStore, combineReducers } from 'redux'
+import { createStore } from 'redux'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { StayAbroad } from './StayAbroad'
 
 const t = jest.fn((translationString) => { return translationString })
@@ -10,6 +9,7 @@ describe('StayAbroad', () => {
   let store,
     wrapper,
     ConnectedStayAbroad
+
   beforeEach(() => {
     store = createStore(state => state)
     ConnectedStayAbroad = connect(null, null)(StayAbroad)

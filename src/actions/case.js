@@ -46,7 +46,7 @@ export function getCountryList () {
 
 export function getInstitutionListForBucAndCountry (buc, country) {
   return api.call({
-    url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, {buc: buc, country: country}),
+    url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: buc, country: country }),
     type: {
       request: types.CASE_GET_INSTITUTION_LIST_REQUEST,
       success: types.CASE_GET_INSTITUTION_LIST_SUCCESS,

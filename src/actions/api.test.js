@@ -1,5 +1,4 @@
 import * as api from './api'
-import * as types from '../constants/actionTypes'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import nock from 'nock'
@@ -14,7 +13,7 @@ describe('api actions', () => {
   })
 
   it('call call() with fake url', () => {
-    let scope = nock('http://mockedurl')
+    nock('http://mockedurl')
       .get('/')
       .reply(404, 'nope')
 
@@ -35,9 +34,7 @@ describe('api actions', () => {
   })
 
   it('call call() with fake url', () => {
-    const expectedActions = store.getActions()
-
-    let scope = nock('http://mockedurl')
+    nock('http://mockedurl')
       .get('/')
       .reply(200, { foo: 'bar' })
 

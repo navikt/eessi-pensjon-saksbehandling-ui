@@ -25,14 +25,12 @@ const caseTitles = ['case:app-startCaseTitle', 'case:app-previewCaseTitle', 'cas
 const caseDescriptions = [undefined, 'case:app-previewCaseDescription', 'case:app-saveSendCaseDescription']
 
 export class Case extends Component {
-
-  componentDidUpdate() {
-
+  componentDidUpdate () {
     const { step, match, history } = this.props
 
-    if(_.has(match, 'params.step') && String(step+1) !== match.params.step) {
+    if (_.has(match, 'params.step') && String(step + 1) !== match.params.step) {
       history.push({
-        pathname: `${routes.CASE}/${step+1}`,
+        pathname: `${routes.CASE}/${step + 1}`,
         search: window.location.search
       })
     }

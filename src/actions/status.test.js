@@ -35,34 +35,34 @@ describe('status actions', () => {
 
   it('call getPossibleActions()', () => {
     const rinaId = '123456'
-    const generatedResult = statusActions.getPossibleActions(rinaId)
+    statusActions.getPossibleActions(rinaId)
     expect(api.call).toBeCalledWith({
       type: {
         request: types.STATUS_GET_REQUEST,
         success: types.STATUS_GET_SUCCESS,
         failure: types.STATUS_GET_FAILURE
       },
-      url: sprintf(urls.BUC_ACTIONS_FOR_RINAID_URL, { rinaId: rinaId}),
+      url: sprintf(urls.BUC_ACTIONS_FOR_RINAID_URL, { rinaId: rinaId })
     })
   })
 
   it('call getCase()', () => {
     const rinaId = '123456'
-    const generatedResult = statusActions.getCase(rinaId)
+    statusActions.getCase(rinaId)
     expect(api.call).toBeCalledWith({
       type: {
         request: types.STATUS_RINA_CASE_REQUEST,
         success: types.STATUS_RINA_CASE_SUCCESS,
         failure: types.STATUS_RINA_CASE_FAILURE
       },
-      url: sprintf(urls.EUX_CASE_FOR_RINAID_URL, { rinaId: rinaId})
+      url: sprintf(urls.EUX_CASE_FOR_RINAID_URL, { rinaId: rinaId })
     })
   })
 
   it('call deleteSed()', () => {
     const rinaId = '123456'
     const dokumentId = '602854986582356'
-    const generatedResult = statusActions.deleteSed(rinaId, dokumentId)
+    statusActions.deleteSed(rinaId, dokumentId)
     expect(api.call).toBeCalledWith({
       type: {
         request: types.STATUS_SED_DELETE_REQUEST,

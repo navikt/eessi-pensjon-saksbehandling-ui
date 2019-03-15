@@ -1,7 +1,6 @@
 import React from 'react'
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { Period, mapStateToProps } from './Period'
 import _ from 'lodash'
 import MD5 from 'md5.js'

@@ -2,16 +2,19 @@ import React from 'react'
 import { createStore, combineReducers, bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as reducers from '../../reducers'
-import * as api from '../../actions/api'
 
 import { SaveSendCase, mapStateToProps } from './SaveSendCase'
+
+import * as statusActions from '../../actions/status'
+import * as appActions from '../../actions/app'
+import * as caseActions from '../../actions/case'
 
 const t = jest.fn((translationString) => { return translationString })
 
 jest.mock('../../actions/api', () => ({
   call: jest.fn((options) => ({
     type: options.type.success,
-    payload: {foo: 'bar'}
+    payload: { foo: 'bar' }
   }))
 }))
 
@@ -20,22 +23,18 @@ jest.mock('../../actions/case', () => ({
   ...jest.requireActual('../../actions/case'),
   getRinaUrl: jest.fn(() => ({
     type: 'RINA/GET_URL/SUCCESS',
-    payload: {rinaUrl: 'http://mock-url.nav.no/rinaUrl'}
+    payload: { rinaUrl: 'http://mock-url.nav.no/rinaUrl' }
   })),
   sendSed: jest.fn(() => ({
     type: 'CASE/SEND_SED/SUCCESS'
-  })),
+  }))
 }))
-
-import * as statusActions from '../../actions/status'
-import * as appActions from '../../actions/app'
-import * as caseActions from '../../actions/case'
 
 const initialState = {
   case: {
     step: 2,
     savedData: {
-       foo: 'bar'
+      foo: 'bar'
     }
   },
   status: {
@@ -59,7 +58,7 @@ describe('PreviewCase', () => {
   beforeEach(() => {
     store = createStore(reducer, initialState)
     ConnectedSaveSendCase = connect(mapStateToProps, mapDispatchToProps)(SaveSendCase)
-    wrapper = shallow(<ConnectedSaveSendCase t={t} store={store}/>).dive()
+    wrapper = shallow(<ConnectedSaveSendCase t={t} store={store} />).dive()
   })
 
   it('renders successfully', () => {
@@ -70,8 +69,7 @@ describe('PreviewCase', () => {
     expect(store.getState().case.rinaUrl).toEqual('http://mock-url.nav.no/rinaUrl')
   })
 
- it('onSendButtonClick(), back button reduces one step', () => {
-    let currentStep = wrapper.instance().props.step
+  it('onSendButtonClick(), back button reduces one step', () => {
     wrapper.instance().onSendButtonClick()
     expect(store.getState().alert).toEqual({
       clientErrorStatus: 'OK',
@@ -79,33 +77,33 @@ describe('PreviewCase', () => {
     })
   })
 
- it('onCreateNewUnsetRinaIdButtonClick()', () => {
-   expect(store.getState().status).toEqual({
-     sakId: '123',
-     aktoerId: '456',
-     rinaId: '789'
-   })
-   expect(store.getState().case.savedData).toEqual({
-     foo: 'bar'
-   })
-   wrapper.instance().onCreateNewUnsetRinaIdButtonClick()
-   expect(store.getState().status).toEqual({
-     sakId: '123',
-     aktoerId: '456',
-   })
-   expect(store.getState().case.savedData).toEqual(undefined)
- })
+  it('onCreateNewUnsetRinaIdButtonClick()', () => {
+    expect(store.getState().status).toEqual({
+      sakId: '123',
+      aktoerId: '456',
+      rinaId: '789'
+    })
+    expect(store.getState().case.savedData).toEqual({
+      foo: 'bar'
+    })
+    wrapper.instance().onCreateNewUnsetRinaIdButtonClick()
+    expect(store.getState().status).toEqual({
+      sakId: '123',
+      aktoerId: '456'
+    })
+    expect(store.getState().case.savedData).toEqual(undefined)
+  })
 
- it('onCreateNewUnsetSakIdAktoerIdButtonClick()', () => {
-   expect(store.getState().status).toEqual({
-     sakId: '123',
-       aktoerId: '456',
-       rinaId: '789'
-     })
-     expect(store.getState().case.savedData).toEqual({
-       foo: 'bar'
-     })
-     wrapper.instance().onCreateNewUnsetSakIdAktoerIdButtonClick()
+  it('onCreateNewUnsetSakIdAktoerIdButtonClick()', () => {
+    expect(store.getState().status).toEqual({
+      sakId: '123',
+      aktoerId: '456',
+      rinaId: '789'
+    })
+    expect(store.getState().case.savedData).toEqual({
+      foo: 'bar'
+    })
+    wrapper.instance().onCreateNewUnsetSakIdAktoerIdButtonClick()
     expect(store.getState().status).toEqual({
       rinaId: '789'
     })

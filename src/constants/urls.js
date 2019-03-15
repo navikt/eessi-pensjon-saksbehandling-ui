@@ -23,7 +23,6 @@ export const EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL = EUX_URL + '/institutions
 export const EUX_COUNTRY_URL = EUX_URL + '/countrycode'
 export const EUX_SUBJECT_AREA_URL = EUX_URL + '/subjectarea'
 
-
 // UserInfoController
 export const API_USERINFO_URL = API_URL + '/userinfo'
 
