@@ -875,12 +875,12 @@ export class Period extends React.Component {
                   onClick={this.saveNewPeriod.bind(this)}>
                   {t('pinfo:form-saveNewPeriod')}
                 </Nav.Hovedknapp> : null}
-                <Nav.Knapp
+                <Nav.Flatknapp
                   id='pinfo-opphold-avbryt-button'
                   className='cancelPeriodButton mb-2 w-sm-100'
                   onClick={this.cancelPeriodRequest.bind(this)}>
                   {t('pinfo:form-cancelPeriod')}
-                </Nav.Knapp>
+                </Nav.Flatknapp>
               </div>
             </Nav.Row>
 
