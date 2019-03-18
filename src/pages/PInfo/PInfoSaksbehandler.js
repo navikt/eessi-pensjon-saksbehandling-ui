@@ -172,7 +172,9 @@ class PInfoSaksbehandler extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {files ? Object.keys(files).map((file, index) => {
+                  {files ? Object.keys(files)
+                    .sort((a, b) => files[b].timestamp.localeCompare(files[a].timestamp))
+                    .map((file, index) => {
                     let content = files[file]
                     return <tr className='slideAnimate' style={{ animationDelay: index * 0.03 + 's' }} key={file}>
                       <td><Icons kind='nav-message-sent' /></td>
