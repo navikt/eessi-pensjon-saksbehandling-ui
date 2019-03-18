@@ -40,7 +40,7 @@ class Receipt extends React.Component {
   downloadReceiptRequest () {
     const { receipt } = this.props
     var blob = new Blob([PdfUtils.base64toData(receipt.content.base64)], { type: receipt.mimetype })
-    saveAs(blob, "Kvittering for innsending av opplysninger for opphold i EØS-land.pdf")
+    saveAs(blob, 'Kvittering på mottatt E207 - attest om trygdetid.pdf')
   }
 
   render () {
