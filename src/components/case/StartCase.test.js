@@ -492,8 +492,8 @@ describe('StartCase: rest of functions', () => {
   it('getSpinner', () => {
     let mockText = 'mockText'
     let result = mount(wrapper.instance().getSpinner(mockText))
-    expect(result.find('div.spinner').length).toEqual(1)
-    expect(result.find('div.spinner').text()).toEqual('Venter...' + mockText)
+    expect(result.find('div.p-case-spinner').length).toEqual(1)
+    expect(result.find('div.p-case-spinner').text()).toEqual('Venter...' + mockText)
   })
 
   it('renderChosenInstitution', () => {

@@ -450,7 +450,7 @@ export class StartCase extends Component {
     getSpinner (text) {
       const { t } = this.props
 
-      return <div className='spinner ml-2'>
+      return <div className='p-case-spinner ml-2'>
         <Nav.NavFrontendSpinner type='S' />
         <div className='float-right ml-2'>{t(text)}</div>
       </div>
