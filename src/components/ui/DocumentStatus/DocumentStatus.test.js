@@ -1,7 +1,7 @@
 import React from 'react'
 import { DocumentStatus } from './DocumentStatus'
 
-// Mock objects used in multiple tests
+//Mock objects used in multiple tests
 const t = arg => arg
 const mockHistory = { push: () => { } }
 const mockActions = { getPossibleActions: () => { } }
@@ -40,7 +40,7 @@ const mockDocuments = [
     navn: 'MockDocument',
     kategori: 'Pensjon',
     id: '5'
-  }
+  },
 ]
 
 const mockSentDocuments = mockDocuments.map((document) => {
@@ -49,10 +49,11 @@ const mockSentDocuments = mockDocuments.map((document) => {
 
 describe('DocumentStatus Rendering', () => {
   it('Renders without crashing', () => {
+
     let wrapper = shallow(
       <DocumentStatus
         actions={mockActions}
-        t={t}
+        t={ t }
         history={mockHistory}
         documents={mockDocuments}
       />
@@ -64,10 +65,10 @@ describe('DocumentStatus Rendering', () => {
     let wrapper = shallow(
       <DocumentStatus
         actions={mockActions}
-        t={t}
+        t={ t }
         history={mockHistory}
         documents={undefined}
-        gettingStatus
+        gettingStatus={true}
       />
     )
     expect(wrapper.exists('NavFrontendSpinner')).toEqual(true)
@@ -81,7 +82,7 @@ describe('DocumentStatus Rendering', () => {
     let wrapper = shallow(
       <DocumentStatus
         actions={mockActions}
-        t={t}
+        t={ t }
         history={mockHistory}
         documents={mockDocuments}
       />
@@ -95,7 +96,7 @@ describe('DocumentStatus Rendering', () => {
   })
 
   it('Sets correct filter when filter labels are clicked', () => {
-    let wrapper = shallow(<DocumentStatus actions={mockActions} t={t} history={mockHistory}
+    let wrapper = shallow(<DocumentStatus actions={mockActions} t={ t } history={mockHistory}
       documents={[]}
     />
     )
@@ -105,7 +106,7 @@ describe('DocumentStatus Rendering', () => {
     wrapper.find('#documentStatusEtikettBaseSent').simulate('click')
 
     expect(wrapper.state().filter).toEqual('sent')
-
+    
     wrapper.find('#documentStatusEtikettBaseNotSent').simulate('click')
 
     expect(wrapper.state().filter).toEqual('notsent')
@@ -119,7 +120,7 @@ describe('DocumentStatus Rendering', () => {
     let wrapper = shallow(
       <DocumentStatus
         actions={mockActions}
-        t={t}
+        t={ t }
         history={mockHistory}
         documents={mockDocuments}
       />
@@ -135,7 +136,9 @@ describe('DocumentStatus Rendering', () => {
 
     expect(wrapper.find('.documentButtons').children().length).toEqual(5)
 
+
     wrapper.setProps({ documents: mockSentDocuments })
+
 
     wrapper.instance().setFilter('all')
 
@@ -154,7 +157,7 @@ describe('DocumentStatus Rendering', () => {
     let wrapper = shallow(
       <DocumentStatus
         actions={mockActions}
-        t={t}
+        t={ t }
         history={mockHistory}
         documents={mockDocuments}
       />
@@ -170,7 +173,7 @@ describe('DocumentStatus Rendering', () => {
       expect(updatedNode.hasClass('active')).toEqual(true)
 
       expect(node.children().hostNodes().html())
-        .toEqual(updatedNode.children().hostNodes().html())
+      .toEqual(updatedNode.children().hostNodes().html())
 
       node.simulate('click')
 
@@ -180,37 +183,38 @@ describe('DocumentStatus Rendering', () => {
     })
   })
 
-  it('Renders spinner when gettingSED', () => {
+  it('Renders spinner when gettingSED', () =>{
     let wrapper = shallow(
       <DocumentStatus
         actions={mockActions}
-        t={t}
+        t={ t }
         history={mockHistory}
         documents={mockDocuments}
-        gettingSED={false}
+        gettingSED = {false}
       />
     )
     wrapper.find('.documentButtonContent').at(0).simulate('click')
     expect(wrapper.exists('.documentButtonContent > NavFrontendSpinner')).toEqual(false)
-    wrapper.setProps({ gettingSED: true })
+    wrapper.setProps({gettingSED: true})
     expect(wrapper.exists('.documentButtonContent > NavFrontendSpinner')).toEqual(true)
   })
 })
 
 describe('DocumentStatus logic', () => {
+
   it('Calls getPossibleActions on mount', () => {
     const getPossibleActions = jest.fn()
 
-    shallow(
+    let wrapper = shallow(
       <DocumentStatus
-        actions={{ getPossibleActions }}
-        t={t}
+        actions={{ getPossibleActions }}
+        t={ t }
         rinaId='123'
         history={mockHistory}
         documents={mockDocuments}
       />
     )
-
+    
     expect(getPossibleActions).toHaveBeenCalledWith('123')
   })
 
@@ -220,7 +224,7 @@ describe('DocumentStatus logic', () => {
     let wrapper = mount(
       <DocumentStatus
         actions={{ getPossibleActions }}
-        t={t}
+        t={ t }
         rinaId='not 123'
         history={mockHistory}
         documents={mockDocuments}
@@ -239,26 +243,28 @@ describe('DocumentStatus logic', () => {
     let count = 0
     let wrapper = shallow(
       <DocumentStatus
-        actions={{ getPossibleActions: () => {
+        actions={{  getPossibleActions: () => {
           count++
-          if (count === 2) {
+          if(count === 2){
             done()
           }
         } }}
-        t={t}
+        t={ t }
         rinaId='123'
         history={mockHistory}
         documents={mockDocuments}
       />
     )
     wrapper.find('div.refresh > a').simulate('click')
+
   })
 
-  it('Calls document actions when clicked', () => {
+  it('Calls document actions when clicked', ()=>{
+
     const docType = 'P2000'
     const docID = 'DOCID'
     const bucID = 'BUCID'
-    const rinaID = 'RINAID'
+    const rinaID = 'RINAID' 
 
     const mockDocumentTemplate = {
       dokumentType: docType,
@@ -267,21 +273,22 @@ describe('DocumentStatus logic', () => {
       id: bucID
     }
 
-    let mockActionDocuments =
+    let mockActionDocuments = 
     ['Create', 'Read', 'Update', 'Delete'].map((action) => {
-      return Object.assign({}, mockDocumentTemplate, { navn: action })
+      return Object.assign({}, mockDocumentTemplate, { navn: action } )
     })
 
-    const getSed = (_rinaID, _docID) => { expect(_rinaID === rinaID && _docID === docID).toEqual(true) }
+    const getPossibleActions = () => { }
+    const getSed = (_rinaID, _docID) => { expect(_rinaID === rinaID && _docID === docID ).toEqual(true) }
     const openModal = (modal) => { expect(modal.modalTitle === 'deleteSed').toEqual(true) }
     const push = (path) => { expect(path.includes('sed=' + docType) && path.includes('buc=' + bucID)).toEqual(true) }
 
     let wrapper = shallow(<DocumentStatus
-      actions={Object.assign({}, mockActions, { getSed, openModal })}
+      actions={ Object.assign({}, mockActions, { getSed, openModal } ) }
       history={{ push }}
-      t={t}
+      t={ t }
       documents={mockActionDocuments}
-      rinaId={rinaID}
+      rinaId= {rinaID}
     />)
 
     wrapper.find('.documentButtonContent').first().simulate('click')
