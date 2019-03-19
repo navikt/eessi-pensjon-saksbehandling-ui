@@ -103,7 +103,7 @@ node {
                                 string(name: 'VERSION', value: "${version}"),
                                 string(name: 'DEPLOY_REF', value: "${version}"),
                                 string(name: 'DEPLOY_ENV', value: 'q1'),
-                                string(name: 'NAMESPACE', value: 'q1'),
+                                string(name: 'NAMESPACE', value: 'default'),
                                 string(name: 'CLUSTER', value: 'fss'),
                                 string(name: 'CONTEXT_ROOTS', value: '/callback')
                             ]
@@ -120,7 +120,7 @@ node {
                                 string(name: 'VERSION', value: "${version}"),
                                 string(name: 'DEPLOY_REF', value: "${version}"),
                                 string(name: 'DEPLOY_ENV', value: 'q1'),
-                                string(name: 'NAMESPACE', value: 'q1'),
+                                string(name: 'NAMESPACE', value: 'default'),
                                 string(name: 'CLUSTER', value: 'sbs'),
                                 string(name: 'CONTEXT_ROOTS', value: '/callback')
                             ]
