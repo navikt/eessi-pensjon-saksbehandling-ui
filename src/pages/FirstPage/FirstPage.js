@@ -63,6 +63,7 @@ class FirstPage extends Component {
           { userRole === constants.SAKSBEHANDLER ? <div dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-saksbehandler') }} /> : null }
           <div className='text-center mt-3 mb-4'>
             <Nav.Hovedknapp
+              id='pinfo-firstPage-forwardButton'
               className='mt-3 forwardButton'
               onClick={this.handleForwardButtonClick.bind(this)}>{t('continue')}
             </Nav.Hovedknapp>
