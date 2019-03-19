@@ -9,7 +9,7 @@
     "start:css": "less-watch-compiler --config less.json",
     "start:js": "react-scripts start",
     "build": "npm run build:css && npm run build:js && npm run build:git",
-    "build:git" : "run-git.sh",
+    "build:git" : "export GIT_VERSION=`git describe --tags` && sed -i -- \"s/%GIT_VERSION%/$GIT_VERSION/g\" build/index.html",
     "build:css": "less-watch-compiler --run-once --config less.json",
     "build:js": "cross-env NODE_OPTIONS=--max-old-space-size=4096 react-scripts build",
     "test": "react-scripts test --verbose=false",
