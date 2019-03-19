@@ -186,7 +186,7 @@ describe('StartCase: rest of functions', () => {
       _subjectArea: 'mockSubjectArea',
       _buc: 'mockBuc',
       _sed: 'mockSed',
-      institutions: [{ institution: 'mockInstitution', country: 'mockCountry' }]
+      _institutions: [{ institution: 'mockInstitution', country: 'mockCountry' }]
     })
     wrapper.setProps({
       currentCase: {
@@ -284,34 +284,34 @@ describe('StartCase: rest of functions', () => {
   })
 
   it('onCreateInstitutionButtonClick()', () => {
-    expect(wrapper.instance().state.institutions).toEqual([])
+    expect(wrapper.instance().state._institutions).toEqual([])
     wrapper.instance().setState({
-      institution: 'abc',
-      country: 'AA'
+      _institution: 'abc',
+      _country: 'AA'
     })
     wrapper.instance().onCreateInstitutionButtonClick()
-    expect(wrapper.instance().state.institutions).toEqual([{ institution: 'abc', country: 'AA' }])
+    expect(wrapper.instance().state._institutions).toEqual([{ institution: 'abc', country: 'AA' }])
 
     wrapper.instance().setState({
-      institution: 'def',
-      country: 'BB'
+      _institution: 'def',
+      _country: 'BB'
     })
     wrapper.instance().onCreateInstitutionButtonClick()
-    expect(wrapper.instance().state.institutions).toEqual([{ institution: 'abc', country: 'AA' }, { institution: 'def', country: 'BB' }])
+    expect(wrapper.instance().state._institutions).toEqual([{ institution: 'abc', country: 'AA' }, { institution: 'def', country: 'BB' }])
   })
 
   it('onRemoveInstitutionButtonClick()', () => {
-    expect(wrapper.instance().state.institutions).toEqual([])
+    expect(wrapper.instance().state._institutions).toEqual([])
     wrapper.instance().setState({
-      institutions: [{ institution: 'abc', country: 'AA' }]
+      _institutions: [{ institution: 'abc', country: 'AA' }]
     })
 
     let institution = { institution: 'abc', country: 'AA' }
     wrapper.instance().onRemoveInstitutionButtonClick(institution)
-    expect(wrapper.instance().state.institutions).toEqual([])
+    expect(wrapper.instance().state._institutions).toEqual([])
 
     wrapper.instance().onRemoveInstitutionButtonClick(institution)
-    expect(wrapper.instance().state.institutions).toEqual([])
+    expect(wrapper.instance().state._institutions).toEqual([])
   })
 
   it('resetValidationState()', () => {
@@ -367,7 +367,7 @@ describe('StartCase: rest of functions', () => {
     let mockInstitution = 'MockInstitution'
     let mockEvent = { target: { value: mockInstitution } }
     wrapper.instance().onInstitutionChange(mockEvent)
-    expect(wrapper.instance().state.institution).toEqual(mockInstitution)
+    expect(wrapper.instance().state._institution).toEqual(mockInstitution)
     expect(wrapper.instance().state.validation).toEqual({})
   })
 
@@ -375,8 +375,8 @@ describe('StartCase: rest of functions', () => {
     let mockCountry = 'MockCountry'
     let mockEvent = { value: mockCountry }
     wrapper.instance().onCountryChange(mockEvent)
-    expect(wrapper.instance().state.country).toEqual(mockCountry)
-    expect(wrapper.instance().state.institution).toEqual(undefined)
+    expect(wrapper.instance().state._country).toEqual(mockCountry)
+    expect(wrapper.instance().state._institution).toEqual(undefined)
     expect(store.getState().case.institutionList).toEqual(['mockInstitutionForMockCountry1', 'mockInstitutionForMockCountry2'])
   })
 
@@ -510,7 +510,7 @@ describe('StartCase: rest of functions', () => {
       { institution: 'mockInstitution2', country: 'mockCountry2' }
     ]
     wrapper.instance().setState({
-      institutions: mockInstitutions
+      _institutions: mockInstitutions
     })
     let result = render(wrapper.instance().renderInstitutions())
     expect(result.find('div.renderedInstitutions').length).toEqual(mockInstitutions.length)
@@ -525,7 +525,7 @@ describe('StartCase: rest of functions', () => {
     })
     expect(wrapper.instance().allowedToForward()).toEqual(false)
     wrapper.instance().setState({
-      institutions: [{ institution: 'mockInstitution', country: 'mockCountry' }]
+      _institutions: [{ institution: 'mockInstitution', country: 'mockCountry' }]
     })
     expect(wrapper.instance().allowedToForward()).toEqual(true)
   })
@@ -535,7 +535,7 @@ describe('StartCase: rest of functions', () => {
       _subjectArea: 'mockSubjectArea',
       _sed: 'mockSed',
       _buc: 'mockBuc',
-      institutions: [{ institution: 'mockInstitution', country: 'mockCountry' }],
+      _institutions: [{ institution: 'mockInstitution', country: 'mockCountry' }],
       validation: { foo: 'bar' }
     })
     expect(wrapper.instance().allowedToForward()).toEqual(false)

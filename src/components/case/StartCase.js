@@ -32,7 +32,8 @@ export const mapStateToProps = (state) => {
     aktoerId: state.status.aktoerId,
     vedtakId: state.status.vedtakId,
     sed: state.status.sed,
-    buc: state.status.buc
+    buc: state.status.buc,
+    mottak: state.status.mottak
   }
 }
 
@@ -60,8 +61,9 @@ export class StartCase extends Component {
       _sed: undefined,
       _vedtakId: undefined,
 
-      institutions: undefined,
-      country: undefined,
+      _country: undefined,
+      _institution: undefined,
+      _institutions: undefined,
       validation: {}
     }
 
@@ -71,7 +73,7 @@ export class StartCase extends Component {
         _subjectArea: oldState._subjectArea || (newProps.previewData ? newProps.previewData.subjectArea : undefined),
         _buc: oldState._buc || (newProps.previewData ? newProps.previewData.buc : undefined),
         _sed: oldState._sed || (newProps.previewData ? newProps.previewData.sed : undefined),
-        institutions: oldState.institutions || (newProps.previewData ? newProps.previewData.institutions : [])
+        _institutions: oldState._institutions || (newProps.previewData ? newProps.previewData.institutions : [])
       }
     }
 
@@ -161,7 +163,7 @@ export class StartCase extends Component {
 
     onForwardButtonClick () {
       const { actions, currentCase, buc, sed, vedtakId } = this.props
-      const { institutions, _buc, _sed, _subjectArea, _vedtakId } = this.state
+      const { _institutions, _buc, _sed, _subjectArea, _vedtakId } = this.state
 
       if (_subjectArea) {
         this.validateSubjectArea(_subjectArea)
@@ -172,7 +174,7 @@ export class StartCase extends Component {
       if (_sed) {
         this.validateSed(_sed)
       }
-      this.validateInstitutions(institutions)
+      this.validateInstitutions(_institutions)
 
       if (this.hasNoValidationErrors()) {
         actions.dataPreview({
@@ -183,7 +185,7 @@ export class StartCase extends Component {
           buc: buc || _buc,
           sed: sed || _sed,
           vedtakId: vedtakId || _vedtakId,
-          institutions: institutions
+          institutions: _institutions
         })
       }
     }
@@ -248,29 +250,29 @@ export class StartCase extends Component {
     }
 
     onCreateInstitutionButtonClick () {
-      const { institutions, institution, country } = this.state
+      const { _institutions, _institution, _country } = this.state
 
-      let _institutions = (!institutions ? [] : _.cloneDeep(institutions))
+      let institutions = (!_institutions ? [] : _.cloneDeep(_institutions))
 
-      _institutions.push({
-        institution: institution,
-        country: country
+      institutions.push({
+        institution: _institution,
+        country: _country
       })
       this.setState({
-        institutions: _institutions,
-        institution: undefined,
-        country: undefined
+        _institutions: institutions,
+        _institution: undefined,
+        _country: undefined
       })
     }
 
     onRemoveInstitutionButtonClick (institution) {
-      const { institutions } = this.state
-      let _institutions = _.cloneDeep(institutions)
-      let newInstitutions = _.filter(_institutions, i => {
+      const { _institutions } = this.state
+      let institutions = _.cloneDeep(_institutions)
+      let newInstitutions = _.filter(institutions, i => {
         return institution.institution !== i.institution || institution.country !== i.country
       })
       this.setState({
-        institutions: newInstitutions
+        _institutions: newInstitutions
       })
     }
 
@@ -324,7 +326,7 @@ export class StartCase extends Component {
 
     onInstitutionChange (e) {
       let institution = e.target.value
-      this.setState({ institution: institution })
+      this.setState({ _institution: institution })
       this.validateInstitution(institution)
     }
 
@@ -334,8 +336,8 @@ export class StartCase extends Component {
 
       let country = e.value
       this.setState({
-        country: country,
-        institution: undefined
+        _country: country,
+        _institution: undefined
       })
       this.validateCountry(country)
       if (!validation.countryFail) {
@@ -403,12 +405,12 @@ export class StartCase extends Component {
 
     renderCountry () {
       const { t, countryList, locale } = this.props
-      const { country } = this.state
+      const { _country } = this.state
 
       return <div className='mb-3'>
         <label className='skjemaelement__label'>{t('ui:country')}</label>
         <CountrySelect aria-describedby='help-country' className='countrySelect' locale={locale}
-          value={country || {}}
+          value={_country || {}}
           onSelect={this.onCountryChange.bind(this)}
           includeList={countryList} />
       </div>
@@ -416,11 +418,11 @@ export class StartCase extends Component {
 
     renderInstitution () {
       const { t, institutionList } = this.props
-      const { validation, institution } = this.state
+      const { validation, _institution } = this.state
 
       return <Nav.Select aria-describedby='help-institution' className='institutionList' bredde='xxl'
         feil={validation.institutionFail ? { feilmelding: validation.institutionFail } : null}
-        label={t('case:form-institution')} value={institution || defaultSelects.institution} onChange={this.onInstitutionChange.bind(this)}>
+        label={t('case:form-institution')} value={_institution || defaultSelects.institution} onChange={this.onInstitutionChange.bind(this)}>
         {this.renderOptions(institutionList, 'institution')}
       </Nav.Select>
     }
@@ -479,16 +481,15 @@ export class StartCase extends Component {
 
     renderInstitutions () {
       const { t, loading } = this.props
-      const { institutions, institution, validation, country } = this.state
+      const { _institutions, _institution, validation, _country } = this.state
 
       let renderedInstitutions = []
 
-      for (var i in institutions) {
-        let institution = institutions[i]
-        renderedInstitutions.push(this.renderChosenInstitution(institution))
+      for (var i in _institutions) {
+        renderedInstitutions.push(this.renderChosenInstitution(_institutions[i]))
       }
 
-      let validInstitution = (!validation.countryFail && !validation.institutionFail) && country && institution
+      let validInstitution = (!validation.countryFail && !validation.institutionFail) && _country && _institution
 
       renderedInstitutions.push(<Nav.Row key={'newInstitution'}>
         <div className='col-md-4'>
@@ -524,15 +525,15 @@ export class StartCase extends Component {
 
     allowedToForward () {
       const { sed, buc } = this.props
-      const { institutions, _subjectArea, _buc, _sed } = this.state
+      const { _institutions, _subjectArea, _buc, _sed } = this.state
 
-      return sed ? buc && sed && this.hasNoValidationErrors() && !_.isEmpty(institutions)
-        : _buc && _sed && _subjectArea && this.hasNoValidationErrors() && !_.isEmpty(institutions)
+      return sed ? buc && sed && this.hasNoValidationErrors() && !_.isEmpty(_institutions)
+        : _buc && _sed && _subjectArea && this.hasNoValidationErrors() && !_.isEmpty(_institutions)
     }
 
     render () {
       const { t, currentCase, loading, sed, vedtakId } = this.props
-      const { _sakId, _aktoerId, _rinaId, _sed, _vedtakId, validation } = this.state
+      const { _sakId, _aktoerId, _rinaId, _subjectArea, _buc, _sed, _vedtakId, validation } = this.state
 
       if (!currentCase) {
         return <React.Fragment>
