@@ -615,7 +615,7 @@ export class Period extends React.Component {
                   <div className='pinfo-label'>{t('pinfo:stayAbroad-country')}</div>
                 </label>
                 <CountrySelect
-                  id='pinfo-opphold-land-select'
+                  id='pinfo-opphold-land'
                   locale={locale}
                   includeList={CountryFilter.EEA}
                   value={_period.country || null}

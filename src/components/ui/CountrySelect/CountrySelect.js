@@ -31,7 +31,20 @@ class CountrySelect extends Component {
   }
 
   render () {
-    const { id, placeholder, value, locale, type, includeList, excludeList, className, styles = {}, error = false } = this.props
+    const {
+      id,
+      placeholder,
+      value,
+      locale,
+      type,
+      includeList,
+      excludeList,
+      className,
+      styles = {},
+      error = false,
+      components,
+      errorMessage
+    } = this.props
 
     let optionList = countries[locale]
     let options = (includeList ? this.include(includeList, optionList) : optionList)
@@ -45,11 +58,11 @@ class CountrySelect extends Component {
       <Select placeholder={placeholder}
         value={defValue || null}
         options={options}
-        id={this.props.id}
+        id={id? id+'-select': null}
         components={{
           Option: CountryOption,
           SingleValue: CountryValue,
-          ...this.props.components }}
+          ...components }}
         selectProps={{
           type: type,
           flagImagePath: '../../../../../flags/'
@@ -64,7 +77,7 @@ class CountrySelect extends Component {
       {error
         ? <div role='alert' aria-live='assertive'>
           <div className='skjemaelement__feilmelding'>
-            {this.props.errorMessage}
+            {errorMessage}
           </div>
         </div>
         : null

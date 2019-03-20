@@ -109,7 +109,7 @@ class Bank extends React.Component {
           </div>
           <CountrySelect
             placeholder={t('ui:writeIn')}
-            id='pinfo-bank-country-select'
+            id='pinfo-bank-land'
             locale={locale}
             value={bank.bankCountry || null}
             onSelect={this.setBankCountry}

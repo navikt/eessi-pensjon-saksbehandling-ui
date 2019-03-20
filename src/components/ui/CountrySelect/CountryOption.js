@@ -8,16 +8,17 @@ class CountryOption extends Component {
     const flagImageUrl = selectProps.selectProps.flagImagePath + value + '.png'
     const _type = selectProps.selectProps.type || 'country'
     const _label = _type === 'country' ? label : (data.currency ? data.currency + ' - ' : '') + data.currencyLabel
-
-    return <div id={value} className={classNames('c-ui-countryOption', {
-      selected: isSelected,
-      focused: isFocused
-    })} {...innerProps}>
-      <img src={flagImageUrl}
-        alt={label}
-        onError={selectProps.selectProps.onImageError}
-      />
-      <span className='c-ui-countryOption-label'>{_label}</span>
+    return <div id={selectProps.id+'-'+data.value}>
+      <div className={classNames('c-ui-countryOption', {
+        selected: isSelected,
+        focused: isFocused
+      })} {...innerProps}>
+        <img src={flagImageUrl}
+          alt={label}
+          onError={selectProps.selectProps.onImageError}
+        />
+        <span className='c-ui-countryOption-label'>{_label}</span>
+      </div>
     </div>
   }
 }

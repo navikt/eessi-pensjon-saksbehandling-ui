@@ -153,7 +153,7 @@ class Person extends React.Component {
             <div className='pinfo-label'>{t('pinfo:person-birthplace-country')}</div>
           </label>
           <CountrySelect
-            id='pinfo-person-land-select'
+            id='pinfo-person-land'
             locale={locale}
             value={person.country || null}
             onSelect={this.setCountry}
