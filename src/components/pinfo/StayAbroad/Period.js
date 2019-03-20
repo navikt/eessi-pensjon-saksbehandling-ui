@@ -572,7 +572,7 @@ export class Period extends React.Component {
 
           { _period.type ? <React.Fragment>
 
-            {_period.type === 'home' ? <Nav.AlertStripe className='mt-4 mb-4' type='info'>{t('pinfo:warning-home-period')}</Nav.AlertStripe> : null}
+            {_period.type === 'home' ? <Nav.AlertStripe className='mt-4 mb-4' type='advarsel'>{t('pinfo:warning-home-period')}</Nav.AlertStripe> : null}
             <Nav.Undertittel className='mt-4 mb-4'>{t(`pinfo:stayAbroad-period-title-${_period.type}`)}</Nav.Undertittel>
             <Nav.Normaltekst className='mb-4'>{t('pinfo:stayAbroad-period-date-description')}</Nav.Normaltekst>
 
@@ -887,7 +887,7 @@ export class Period extends React.Component {
           </React.Fragment> : null}
 
           { !_period.type && _.isEmpty(periods) ? <Nav.AlertStripe
-            className='mt-4 mb-4' type='info'>
+            className='mt-4 mb-4' type='advarsel'>
             {t('pinfo:warning-one-period')}
           </Nav.AlertStripe>
             : null}
