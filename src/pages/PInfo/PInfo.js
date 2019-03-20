@@ -330,7 +330,7 @@ export class PInfo extends React.Component {
         </React.Fragment> : null}
       <Nav.Row>
         <div className='col-sm-2' />
-        <div className={classNames('fieldset animate', 'mb-4', 'ml-auto', 'mr-auto', 'col-sm-8')}>
+        <div className={classNames('fieldset animate', 'ml-auto', 'mr-auto', 'col-sm-8')}>
           {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
           {step === 0 ? <Person /> : null}
           {step === 1 ? <Bank /> : null}

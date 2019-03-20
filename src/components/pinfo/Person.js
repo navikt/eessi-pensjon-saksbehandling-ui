@@ -87,8 +87,8 @@ class Person extends React.Component {
     const { localErrors } = this.state
 
     return <div className='c-pinfo-person'>
-      <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:person-info-title')}</Nav.Undertittel>
-      <Nav.Undertekst className='mt-4 mb-4'>{t('pinfo:app-info-on-help-icon')}</Nav.Undertekst>
+      <Nav.Undertittel className='mb-2 appDescription'>{t('pinfo:person-info-title')}</Nav.Undertittel>
+      <Nav.Undertekst className='mb-3'>{t('pinfo:app-info-on-help-icon')}</Nav.Undertekst>
       {(firstName || middleName || lastName)
         ? <Nav.Row>
           <div className='col-sm-12 mb-2'>
@@ -145,10 +145,10 @@ class Person extends React.Component {
         </div>
       </Nav.Row>
 
-      <Nav.Undertittel className='ml-0 mt-4 mb-4 appDescription'>{t('pinfo:person-birthplace-title')}</Nav.Undertittel>
+      <Nav.Undertittel className='ml-0 mt-5 mb-2 appDescription'>{t('pinfo:person-birthplace-title')}</Nav.Undertittel>
 
       <Nav.Row>
-        <div className='col-sm-8 mb-4'>
+        <div className='col-sm-8 mb-2'>
           <label className='skjemaelement__label'>
             <div className='pinfo-label'>{t('pinfo:person-birthplace-country')}</div>
           </label>
@@ -196,8 +196,8 @@ class Person extends React.Component {
         </div>
       </Nav.Row>
 
-      <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:person-contact-title')}</Nav.Undertittel>
-      <Nav.Undertekst className='mt-4 mb-4'>{t('pinfo:person-contact-title-help')}</Nav.Undertekst>
+      <Nav.Undertittel className='mt-5 mb-2'>{t('pinfo:person-contact-title')}</Nav.Undertittel>
+      <Nav.Undertekst className='mb-3'>{t('pinfo:person-contact-title-help')}</Nav.Undertekst>
 
       <Nav.Row>
         <div className='col-sm-12'>

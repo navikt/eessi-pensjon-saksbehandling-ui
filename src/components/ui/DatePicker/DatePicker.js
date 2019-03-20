@@ -103,7 +103,7 @@ class DatePicker extends Component {
     const { errors } = this.state
     return (
       <div className={classNames('datePicker', className)} onBlur={this._onBlur} onFocus={this._onFocus}>
-        <div className={'row pr-2 mb-3'}>
+        <div className={'row pr-2'}>
           <div className={'col pl-2 pr-1'}>
             <Input
               className={'DatePickerDayInput'}

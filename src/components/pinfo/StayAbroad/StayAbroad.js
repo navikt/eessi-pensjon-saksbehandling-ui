@@ -35,12 +35,12 @@ export class StayAbroad extends React.Component {
 
     return <div className={classNames('c-pinfo-stayAbroad', mode)}>
       {mode === 'new' ? <React.Fragment>
-        <Nav.Undertittel>{t('pinfo:stayAbroad-title')}</Nav.Undertittel>
-        <Nav.Undertekst>{t('pinfo:stayAbroad-description')}</Nav.Undertekst>
-        <Nav.Undertekst className='mt-4 mb-4'>{t('pinfo:app-info-on-help-icon')}</Nav.Undertekst>
+        <Nav.Undertittel className='mb-3'>{t('pinfo:stayAbroad-title')}</Nav.Undertittel>
+        <Nav.Undertekst className='mb-2'>{t('pinfo:stayAbroad-description')}</Nav.Undertekst>
+        <Nav.Undertekst className='mb-3'>{t('pinfo:app-info-on-help-icon')}</Nav.Undertekst>
       </React.Fragment> : null}
       {!_.isEmpty(stayAbroad) && mode === 'new' ? <React.Fragment>
-        <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-previousPeriods')}</Nav.Undertittel>
+        <Nav.Undertittel className='mt-5 mb-2'>{t('pinfo:stayAbroad-previousPeriods')}</Nav.Undertittel>
         {stayAbroad.sort((a, b) => {
           return a.startDate - b.startDate
         }).map((period, index) => {

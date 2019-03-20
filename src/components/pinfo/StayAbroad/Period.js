@@ -488,7 +488,7 @@ export class Period extends React.Component {
                 <div className={classNames('bottomHalf', { line: !last })} />
                 <Icons className='iconsvg' kind={'nav-' + period.type} size={32} />
               </div>
-              <div className='pt-2 pb-2 existingPeriodDescription'>
+              <div className='pb-2 existingPeriodDescription'>
                 <span className='bold existingPeriodType'>{t('pinfo:stayAbroad-category-' + period.type)}</span>
                 <span>
                   <img className='flagImg ml-2 mr-2' src={'../../../../../flags/' + period.country.value + '.png'}
@@ -539,9 +539,9 @@ export class Period extends React.Component {
       case 'new':
         return <React.Fragment>
           {errorMessage ? <Nav.AlertStripe className='mt-4 mb-4' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
-          <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-period-' + mode)}</Nav.Undertittel>
+          <Nav.Undertittel className='mt-5 mb-2'>{t('pinfo:stayAbroad-period-' + mode)}</Nav.Undertittel>
 
-          <Nav.Row className={classNames('c-pinfo-opphold-period', 'mt-4', mode)}>
+          <Nav.Row className={classNames('c-pinfo-opphold-period', mode)}>
             <div className='col-sm-8'>
               <Nav.Select
                 id='pinfo-opphold-kategori-select'
@@ -573,11 +573,11 @@ export class Period extends React.Component {
           { _period.type ? <React.Fragment>
 
             {_period.type === 'home' ? <Nav.AlertStripe className='mt-4 mb-4' type='advarsel'>{t('pinfo:warning-home-period')}</Nav.AlertStripe> : null}
-            <Nav.Undertittel className='mt-4 mb-4'>{t(`pinfo:stayAbroad-period-title-${_period.type}`)}</Nav.Undertittel>
-            <Nav.Normaltekst className='mb-4'>{t('pinfo:stayAbroad-period-date-description')}</Nav.Normaltekst>
+            <Nav.Undertittel className='mt-5 mb-2'>{t(`pinfo:stayAbroad-period-title-${_period.type}`)}</Nav.Undertittel>
+            <Nav.Normaltekst className='mb-3'>{t('pinfo:stayAbroad-period-date-description')}</Nav.Normaltekst>
 
             <Nav.Row>
-              <div className='col-sm-6 col-12'>
+              <div className='col-sm-6 col-12 mb-2'>
                 <label className='datepickerLabel skjemaelement__label'>{t('pinfo:stayAbroad-period-start-date')}</label>
                 {<FocusGroup onBlur={this.blurStartDate}>
                   <DatePicker
@@ -592,7 +592,7 @@ export class Period extends React.Component {
                   />
                 </FocusGroup>}
               </div>
-              <div className='col-sm-6 col-12'>
+              <div className='col-sm-6 col-12 mb-2'>
                 <label className='datepickerLabel skjemaelement__label'>{t('pinfo:stayAbroad-period-end-date')}</label>
                 {<FocusGroup onBlur={this.blurEndDate}>
                   <DatePicker
@@ -610,7 +610,7 @@ export class Period extends React.Component {
             </Nav.Row>
 
             <Nav.Row>
-              <div className='col-sm-8 mt-3 mb-3'>
+              <div className='col-sm-8 mb-2'>
                 <label className='skjemaelement__label'>
                   <div className='pinfo-label'>{t('pinfo:stayAbroad-country')}</div>
                 </label>
@@ -646,7 +646,7 @@ export class Period extends React.Component {
                   feil={localErrors.fatherName ? { feilmelding: t(localErrors.fatherName) } : null}
                 />
               </div>
-              <div className='col-sm-12 mt-3'>
+              <div className='col-sm-12'>
                 <Nav.Input
                   id='pinfo-opphold-morsnavn-input'
                   type='text'
@@ -741,7 +741,7 @@ export class Period extends React.Component {
 
             {_period.type !== 'home' ? <Nav.Row>
               <div className='col-sm-12'>
-                <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-home-title')}</Nav.Undertittel>
+                <Nav.Undertittel className='mt-5 mb-2'>{t('pinfo:stayAbroad-home-title')}</Nav.Undertittel>
               </div>
               <div className='col-sm-12'>
                 <Nav.Textarea
@@ -772,7 +772,7 @@ export class Period extends React.Component {
               </div>
             </Nav.Row>}
 
-            <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-insurance-title')}</Nav.Undertittel>
+            <Nav.Undertittel className='mt-5 mb-2'>{t('pinfo:stayAbroad-insurance-title')}</Nav.Undertittel>
 
             <Nav.Row>
               <div className='col-sm-12'>
@@ -792,7 +792,7 @@ export class Period extends React.Component {
                   onChange={this.setInsuranceName}
                   feil={localErrors.insuranceName ? { feilmelding: t(localErrors.insuranceName) } : null}
                 />
-                <div className='id-suggestions mb-4'>
+                <div className='id-suggestions'>
                   {this.renderTagsForInsuranceName()}
                 </div>
               </div>
@@ -813,7 +813,7 @@ export class Period extends React.Component {
                   onChange={this.setInsuranceId}
                   feil={localErrors.insuranceId ? { feilmelding: t(localErrors.insuranceId) } : null}
                 />
-                <div className='id-suggestions mb-4'>
+                <div className='id-suggestions'>
                   {this.renderTagsForInsuranceId()}
                 </div>
               </div>
@@ -843,8 +843,8 @@ export class Period extends React.Component {
 
             <Nav.Row>
               <div className='col-sm-12'>
-                <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-attachment-title')}</Nav.Undertittel>
-                <Nav.Undertekst className='mt-4 mb-4'>{t('pinfo:stayAbroad-attachment-title-help')}</Nav.Undertekst>
+                <Nav.Undertittel className='mt-5 mb-2'>{t('pinfo:stayAbroad-attachment-title')}</Nav.Undertittel>
+                <Nav.Undertekst>{t('pinfo:stayAbroad-attachment-title-help')}</Nav.Undertekst>
                 <span className='optional mb-1'>{t('ui:optional')}</span>
               </div>
               <div className='col-sm-12'>

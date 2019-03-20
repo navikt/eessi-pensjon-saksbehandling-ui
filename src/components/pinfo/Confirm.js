@@ -34,12 +34,12 @@ class Confirm extends React.Component {
     const { stayAbroad, person, bank } = this.props.pinfo
 
     return <React.Fragment>
-      <Nav.Undertittel className='ml-0 mb-4 appDescription'>{t('pinfo:confirm-title')}</Nav.Undertittel>
+      <Nav.Undertittel className='mb-3 appDescription'>{t('pinfo:confirm-title')}</Nav.Undertittel>
       <PsychoPanel id='pinfo-confirm-psycho-panel' className='mb-4' closeButton>
         <span>{t('pinfo:confirm-psycho-description')}</span>
       </PsychoPanel>
-      <div className='mt-4' id='divToPrint'>
-        <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:person-info-title')}</Nav.Undertittel>
+      <div id='divToPrint'>
+        <Nav.Undertittel className='mt-5 mb-2'>{t('pinfo:person-info-title')}</Nav.Undertittel>
         <dl className='row'>
           <dt className='col-sm-4 col-6'> {t('pinfo:person-info-fnr')} </dt>
           <dd className='col-sm-8 col-6'> {username} </dd>
@@ -70,7 +70,7 @@ class Confirm extends React.Component {
           <dt className='col-sm-4 col-6'> {t('pinfo:person-contact-email')} </dt>
           <dd className='col-sm-8 col-6'> {person.email || '-'} </dd>
         </dl>
-        <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:bank-title')}</Nav.Undertittel>
+        <Nav.Undertittel className='mt-5 mb-2'>{t('pinfo:bank-title')}</Nav.Undertittel>
         <dl className='row'>
           <dt className='col-sm-4 col-6'> {t('pinfo:bank-name')} </dt>
           <dd className='col-sm-8 col-6'> {bank.bankName || '-'} </dd>
@@ -87,7 +87,7 @@ class Confirm extends React.Component {
           <dt className='col-sm-4 col-6'> {t('pinfo:bank-iban')} </dt>
           <dd className='col-sm-8 col-6'> {bank.bankIban || '-'}</dd>
         </dl>
-        <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-title')}</Nav.Undertittel>
+        <Nav.Undertittel className='mt-5 mb-2'>{t('pinfo:stayAbroad-title')}</Nav.Undertittel>
         <div>
           {stayAbroad.map((period, index) => {
             return <Period t={t}
@@ -102,7 +102,7 @@ class Confirm extends React.Component {
             />
           })}
         </div>
-        <Nav.Undertittel className='mt-4 mb-4'>{t('pinfo:stayAbroad-comment')}</Nav.Undertittel>
+        <Nav.Undertittel className='mt-5 mb-2'>{t('pinfo:stayAbroad-comment')}</Nav.Undertittel>
         <Nav.Textarea id='pinfo-comment'
           label={<div className='pinfo-label'>
             <div className='pinfo-label'>
