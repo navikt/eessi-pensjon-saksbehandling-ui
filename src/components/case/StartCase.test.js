@@ -179,6 +179,15 @@ describe('StartCase: rest of functions', () => {
     expect(wrapper.instance().state._vedtakId).toEqual(mockVedtakId)
   })
 
+  it('parseMottak()', () => {
+    expect(wrapper.instance().parseMottak(undefined)).toEqual(undefined)
+    expect(wrapper.instance().parseMottak('invalid')).toEqual(undefined)
+    expect(wrapper.instance().parseMottak('mockCountry/mockInstitution')).toEqual({
+      institution: 'mockInstitution',
+      country: 'mockCountry'
+    })
+  })
+
   it('onForwardButtonClick() triggers dataPreview and moves to next step ', () => {
     expect(store.getState().case.step).toEqual(0)
     expect(store.getState().case.previewData).toEqual(undefined)

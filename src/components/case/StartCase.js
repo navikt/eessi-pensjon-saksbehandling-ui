@@ -161,29 +161,32 @@ export class StartCase extends Component {
       }
     }
 
+    parseMottak (mottak) {
+      if (!mottak || mottak.indexOf('/') < 0) {
+        return undefined
+      }
+      let pieces = mottak.split('/')
+      return { institution: pieces[1], country: pieces[0] }
+    }
+
     onForwardButtonClick () {
-      const { actions, currentCase, buc, sed, vedtakId } = this.props
+      const { actions, currentCase, buc, sed, mottak, vedtakId } = this.props
       const { _institutions, _buc, _sed, _subjectArea, _vedtakId } = this.state
 
       if (_subjectArea) {
         this.validateSubjectArea(_subjectArea)
       }
-      if (_buc) {
-        this.validateBuc(_buc)
-      }
-      if (_sed) {
-        this.validateSed(_sed)
-      }
-      this.validateInstitutions(_institutions)
-
+      this.validateBuc(_buc || buc)
+      this.validateSed(_sed || sed)
+      this.validateInstitutions(_institutions || this.parseMottak(mottak))
       if (this.hasNoValidationErrors()) {
         actions.dataPreview({
           sakId: currentCase.casenumber,
           aktoerId: currentCase.pinid,
           rinaId: currentCase.rinaid,
           subjectArea: _subjectArea,
-          buc: buc || _buc,
-          sed: sed || _sed,
+          buc: _buc || buc,
+          sed: _sed || sed,
           vedtakId: vedtakId || _vedtakId,
           institutions: _institutions
         })
@@ -395,9 +398,14 @@ export class StartCase extends Component {
       const { t, subjectAreaList } = this.props
       const { validation, _subjectArea } = this.state
 
-      return <Nav.Select aria-describedby='help-subjectArea' className='subjectAreaList' bredde='xxl'
+      return <Nav.Select
+        id='c-startcase-subjectarea-select'
+        className='subjectAreaList'
+        aria-describedby='help-subjectArea'
+        bredde='xxl'
         feil={validation.subjectAreaFail ? { feilmelding: validation.subjectAreaFail } : null}
-        label={t('case:form-subjectArea')} value={_subjectArea}
+        label={t('case:form-subjectArea')}
+        value={_subjectArea}
         onChange={this.onSubjectAreaChange.bind(this)}>
         {this.renderOptions(subjectAreaList, 'subjectArea')}
       </Nav.Select>
@@ -409,7 +417,11 @@ export class StartCase extends Component {
 
       return <div className='mb-3'>
         <label className='skjemaelement__label'>{t('ui:country')}</label>
-        <CountrySelect aria-describedby='help-country' className='countrySelect' locale={locale}
+        <CountrySelect
+          id='c-startcase-country-select'
+          className='countrySelect'
+          aria-describedby='help-country'
+          locale={locale}
           value={_country || {}}
           onSelect={this.onCountryChange.bind(this)}
           includeList={countryList} />
@@ -420,9 +432,15 @@ export class StartCase extends Component {
       const { t, institutionList } = this.props
       const { validation, _institution } = this.state
 
-      return <Nav.Select aria-describedby='help-institution' className='institutionList' bredde='xxl'
+      return <Nav.Select
+        id='c-startcase-institution-select'
+        className='institutionList'
+        aria-describedby='help-institution'
+        bredde='xxl'
         feil={validation.institutionFail ? { feilmelding: validation.institutionFail } : null}
-        label={t('case:form-institution')} value={_institution || defaultSelects.institution} onChange={this.onInstitutionChange.bind(this)}>
+        label={t('case:form-institution')}
+        value={_institution || defaultSelects.institution}
+        onChange={this.onInstitutionChange.bind(this)}>
         {this.renderOptions(institutionList, 'institution')}
       </Nav.Select>
     }
@@ -431,9 +449,15 @@ export class StartCase extends Component {
       const { t, bucList } = this.props
       const { _buc, validation } = this.state
 
-      return <Nav.Select aria-describedby='help-buc' className='bucList' bredde='fullbredde'
+      return <Nav.Select
+        id='c-startcase-buc-select'
+        className='bucList'
+        aria-describedby='help-buc'
+        bredde='fullbredde'
         feil={validation.bucFail ? { feilmelding: validation.bucFail } : null}
-        label={t('case:form-buc')} value={_buc || defaultSelects.buc} onChange={this.onBucChange.bind(this)}>
+        label={t('case:form-buc')}
+        value={_buc || defaultSelects.buc}
+        onChange={this.onBucChange.bind(this)}>
         {this.renderOptions(bucList, 'buc')}
       </Nav.Select>
     }
@@ -442,9 +466,16 @@ export class StartCase extends Component {
       const { t, sedList, bucList } = this.props
       const { _sed, validation } = this.state
 
-      return <Nav.Select aria-describedby='help-sed' className='sedList' bredde='fullbredde'
+      return <Nav.Select
+        id='c-startcase-sed-select'
+        className='sedList'
+        aria-describedby='help-sed'
+        bredde='fullbredde'
         feil={validation.sedFail ? { feilmelding: validation.sedFail } : null}
-        disabled={!bucList} label={t('case:form-sed')} value={_sed || defaultSelects.buc} onChange={this.onSedChange.bind(this)}>
+        disabled={!bucList}
+        label={t('case:form-sed')}
+        value={_sed || defaultSelects.buc}
+        onChange={this.onSedChange.bind(this)}>
         {this.renderOptions(sedList, 'sed')}
       </Nav.Select>
     }
@@ -468,7 +499,10 @@ export class StartCase extends Component {
           <div className='renderedInstitution'><b>{renderedInstitution}</b></div>
         </Nav.Column>
         <Nav.Column className='text-right'>
-          <Nav.Knapp className='removeInstitutionButton' type='standard'
+          <Nav.Knapp
+            id='c-startcase-removeinstitution-button'
+            className='removeInstitutionButton'
+            type='standard'
             onClick={this.onRemoveInstitutionButtonClick.bind(this, institution)}>
             <div className='d-flex justify-content-center'>
               <Icons className='mr-2' size={20} kind='trashcan' color='#0067C5' />
@@ -509,7 +543,9 @@ export class StartCase extends Component {
           </div>
         </div>
         <div className='col-md-4' style={{ lineHeight: '6rem' }}>
-          <Nav.Knapp className='w-100 createInstitutionButton'
+          <Nav.Knapp
+            id='c-startcase-createinstitution-button'
+            className='w-100 createInstitutionButton'
             disabled={!validInstitution}
             onClick={this.onCreateInstitutionButtonClick.bind(this)}>
             <div className='d-flex justify-content-center'>
@@ -547,6 +583,7 @@ export class StartCase extends Component {
                   className='getCaseInputSakId'
                   label={t('case:form-sakId')}
                   value={_sakId || ''}
+                  id='c-startcase-sakid-input'
                   onChange={this.onSakIdChange.bind(this)}
                   feil={validation.sakId ? { feilmelding: t(validation.sakId) } : null} />
                 <span id='help-sakId'>{t('case:help-sakId')}</span>
@@ -556,6 +593,7 @@ export class StartCase extends Component {
                   className='getCaseInputAktoerId'
                   label={t('case:form-aktoerId')}
                   value={_aktoerId || ''}
+                  id='c-startcase-aktoerid-input'
                   onChange={this.onAktoerIdChange.bind(this)}
                   feil={validation.aktoerId ? { feilmelding: t(validation.aktoerId) } : null} />
                 <span id='help-aktoerId'>{t('case:help-aktoerId')}</span>
@@ -567,6 +605,7 @@ export class StartCase extends Component {
                     <span className='optional'>{t('ui:optional')}</span>
                   </div>}
                   value={_rinaId || ''}
+                  id='c-startcase-rinaid-input'
                   onChange={this.onRinaIdChange.bind(this)}
                 />
                 <span id='help-rinaId'>{t('case:help-rinaId')}</span>
@@ -575,7 +614,9 @@ export class StartCase extends Component {
           </div>
           <Nav.Row className='mt-4'>
             <div className='col-md-12'>
-              <Nav.Hovedknapp className='forwardButton'
+              <Nav.Hovedknapp
+                id='c-startcase-forward-button'
+                className='forwardButton'
                 disabled={loading && loading.gettingCase}
                 spinner={loading && loading.gettingCase}
                 onClick={this.onFetchCaseButtonClick.bind(this)}>
@@ -623,7 +664,10 @@ export class StartCase extends Component {
             ? <Nav.Row className='align-middle text-left'>
               <div className='col-md-8'>
                 <Nav.Input aria-describedby='help-vedtak'
-                  label={t('case:form-vedtakId')} value={_vedtakId || vedtakId} onChange={this.onVedtakIdChange.bind(this)} />
+                  label={t('case:form-vedtakId')}
+                  value={_vedtakId || vedtakId}
+                  id='c-startcase-vedtakid-input'
+                  onChange={this.onVedtakIdChange.bind(this)} />
                 <span id='help-vedtak'>{t('case:help-vedtakId')}</span>
               </div>
             </Nav.Row> : null}
@@ -631,7 +675,9 @@ export class StartCase extends Component {
         </div>
         <Nav.Row className='mb-4 mt-4'>
           <div className='col-md-12'>
-            <Nav.Hovedknapp className='forwardButton'
+            <Nav.Hovedknapp
+              id='c-startcase-forward-button'
+              className='forwardButton'
               disabled={!this.allowedToForward()}
               onClick={this.onForwardButtonClick.bind(this)}>{t('ui:go')}</Nav.Hovedknapp>
           </div>
