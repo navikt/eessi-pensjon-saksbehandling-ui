@@ -90,19 +90,6 @@ export function sendPInfo (payload) {
   })
 }
 
-export function sendInvite (params) {
-  return api.call({
-    url: sprintf(urls.API_VARSEL_URL, { sakId: params.sakId, aktoerId: params.aktoerId }),
-    method: 'POST',
-    payload: {},
-    type: {
-      request: types.PINFO_INVITE_REQUEST,
-      success: types.PINFO_INVITE_SUCCESS,
-      failure: types.PINFO_INVITE_FAILURE
-    }
-  })
-}
-
 export function generateReceipt () {
   return api.call({
     url: urls.API_SUBMISSION_RECEIPT_URL,

@@ -14,7 +14,7 @@ import TopContainer from '../../components/ui/TopContainer/TopContainer'
 import Psycho from '../../components/ui/Psycho/Psycho'
 
 import * as storageActions from '../../actions/storage'
-import * as pinfoActions from '../../actions/pinfo'
+import * as pinfoActions from '../../actions/pinfo_saksbehandler'
 
 import './PInfo.css'
 
@@ -27,8 +27,9 @@ const mapStateToProps = (state) => {
     file: state.storage.file,
     isSendingPinfo: state.loading.isSendingPinfo,
     isInvitingPinfo: state.loading.isInvitingPinfo,
-    message: state.pinfoSaksbehandler.message,
-    status: state.pinfoSaksbehandler.status
+    gettingPinfoSaktype: state.loading.gettingPinfoSaktype,
+    invite: state.pinfoSaksbehandler.invite,
+    sakType: state.pinfoSaksbehandler.sakType
   }
 }
 
@@ -48,8 +49,8 @@ class PInfoSaksbehandler extends React.Component {
     let { actions, aktoerId, sakId, fileList } = this.props
     if (aktoerId && sakId && fileList === undefined) {
       actions.listStorageFiles(aktoerId, 'varsler___' + sakId)
+      actions.getSakType({ sakId: sakId, aktoerId: aktoerId })
     }
-
     if (!aktoerId || !sakId) {
       this.setState({
         noParams: true
@@ -112,7 +113,7 @@ class PInfoSaksbehandler extends React.Component {
   }
 
   render () {
-    const { t, location, history, aktoerId, isInvitingPinfo, message, status } = this.props
+    const { t, location, history, aktoerId, isInvitingPinfo, gettingPinfoSaktype, invite, sakType } = this.props
     const { isReady, noParams, files } = this.state
 
     if (noParams) {
@@ -128,11 +129,16 @@ class PInfoSaksbehandler extends React.Component {
       </TopContainer>
     }
 
-    return <TopContainer className='p-pInfo' history={history} location={location}>
+    return <TopContainer className='p-pInfo p-pInfoSaksbehandler' history={history} location={location}>
       <Nav.Row>
         <div className='col-md-12'>
           <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
             <Nav.Undertittel>{t('pinfo:sb-send-notification-title')}</Nav.Undertittel>
+            {!_.isEmpty(sakType) ? <Nav.Undertittel>{t('pinfo:sb-saktype', sakType)}</Nav.Undertittel> : null}
+            {gettingPinfoSaktype ? <div>
+              <Nav.NavFrontendSpinner />
+              <p className='typo-normal'>{t('ui:loading')}</p>
+            </div> : null}
             <Nav.Undertekst className='mt-3 mb-3'>{t('pinfo:sb-send-notification-description', { user: aktoerId })}</Nav.Undertekst>
             <Nav.Hovedknapp
               id='pinfo-forward-button'
@@ -142,8 +148,9 @@ class PInfoSaksbehandler extends React.Component {
               onClick={this.onInviteButtonClick.bind(this)}>
               {isInvitingPinfo ? t('sending') : t('pinfo:sb-send-notification-button')}
             </Nav.Hovedknapp>
-            { message ? <Nav.AlertStripe className='mt-4 mb-4' type={status === 'ERROR' ? 'advarsel' : 'suksess'}>
-              {t(message)}
+            { !_.isEmpty(invite) ? <Nav.AlertStripe
+              className='mt-4 mb-4' type={invite.status === 'ERROR' ? 'advarsel' : 'suksess'}>
+              {t(invite.message)}
             </Nav.AlertStripe> : null}
           </div>
         </div>
@@ -175,14 +182,14 @@ class PInfoSaksbehandler extends React.Component {
                   {files ? Object.keys(files)
                     .sort((a, b) => files[b].timestamp.localeCompare(files[a].timestamp))
                     .map((file, index) => {
-                    let content = files[file]
-                    return <tr className='slideAnimate' style={{ animationDelay: index * 0.03 + 's' }} key={file}>
-                      <td><Icons kind='nav-message-sent' /></td>
-                      <td>{content.tittel || file}</td>
-                      <td>{content.fulltnavn || t('unknown')}</td>
-                      <td>{content.timestamp ? new Date(content.timestamp).toDateString() : t('unknown')}</td>
-                    </tr>
-                  }) : null}
+                      let content = files[file]
+                      return <tr className='slideAnimate' style={{ animationDelay: index * 0.03 + 's' }} key={file}>
+                        <td><Icons kind='nav-message-sent' /></td>
+                        <td>{content.tittel || file}</td>
+                        <td>{content.fulltnavn || t('unknown')}</td>
+                        <td>{content.timestamp ? new Date(content.timestamp).toDateString() : t('unknown')}</td>
+                      </tr>
+                    }) : null}
                 </tbody>
               </table>}
           </div>

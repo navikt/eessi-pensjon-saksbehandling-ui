@@ -3,23 +3,32 @@ import * as types from '../constants/actionTypes'
 
 describe('pinfoSaksbehandler reducer', () => {
   let initialState = {
-    message: undefined,
-    status: undefined
+    invite: undefined,
+    sakType: undefined
   }
 
   it('handles PINFO_INVITE_FAILURE action', () => {
     let state = pinfoSaksbehandlerReducer(initialState, {
       type: types.PINFO_INVITE_FAILURE
     })
-    expect(state.message).toBe('pinfo:alert-inviteFailure')
-    expect(state.status).toBe('ERROR')
+    expect(state.invite.message).toEqual('pinfo:alert-inviteFailure')
+    expect(state.invite.status).toEqual('ERROR')
   })
 
   it('handles PINFO_INVITE_SUCCESS action', () => {
     let state = pinfoSaksbehandlerReducer(initialState, {
       type: types.PINFO_INVITE_SUCCESS
     })
-    expect(state.message).toBe('pinfo:alert-inviteSuccess')
-    expect(state.status).toBe('OK')
+    expect(state.invite.message).toEqual('pinfo:alert-inviteSuccess')
+    expect(state.invite.status).toEqual('OK')
+  })
+
+  it('handles PINFO_SAKTYPE_SUCCESS action', () => {
+    let state = pinfoSaksbehandlerReducer(initialState, {
+      type: types.PINFO_SAKTYPE_SUCCESS,
+      payload: { sakId: '123', aktoerId: '456' }
+    })
+    expect(state.sakType.sakId).toEqual('123')
+    expect(state.sakType.aktoerId).toEqual('456')
   })
 })

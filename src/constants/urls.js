@@ -7,6 +7,7 @@ let SED_URL = BACKEND_URL + '/sed'
 let BUC_URL = BACKEND_URL + '/buc'
 let EUX_URL = BACKEND_URL + '/eux'
 let PDF_URL = BACKEND_URL + '/pdf'
+let PEN_URL = BACKEND_URL + '/pensjon'
 
 export const NAV_URL = 'http://www.nav.no'
 
@@ -30,7 +31,7 @@ export const API_USERINFO_URL = API_URL + '/userinfo'
 export const API_SUBMISSION_SUBMIT_URL = API_URL + '/submission/submit'
 export const API_SUBMISSION_RECEIPT_URL = API_URL + '/submission/receipt'
 
-// VarselControllre
+// VarselController
 export const API_VARSEL_URL = API_URL + '/varsel?saksId=%(sakId)s&aktoerId=%(aktoerId)s'
 
 // StorageController
@@ -39,6 +40,9 @@ export const API_STORAGE_GET_URL = API_URL + '/storage/get/%(userId)s___%(namesp
 export const API_STORAGE_POST_URL = API_URL + '/storage/%(userId)s___%(namespace)s___%(file)s'
 export const API_STORAGE_DELETE_URL = API_URL + '/storage/%(userId)s___%(namespace)s___%(file)s'
 export const API_STORAGE_MULTIPLE_DELETE_URL = API_URL + '/storage/multiple/%(userId)s___%(namespace)s'
+
+// PensjonController
+export const PEN_SAKTYPE_URL = PEN_URL + '/saktype/%(sakId)s/%(aktoerId)s'
 
 // BucController
 export const BUC_WITH_RINAID_URL = BUC_URL + '/%(rinaId)s'

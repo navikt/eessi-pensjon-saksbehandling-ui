@@ -142,23 +142,6 @@ describe('pinfo actions', () => {
     })
   })
 
-  it('call sendInvite()', () => {
-    pinfoActions.sendInvite({
-      sakId: '123',
-      aktoerId: '456'
-    })
-    expect(api.call).toBeCalledWith({
-      method: 'POST',
-      payload: {},
-      type: {
-        request: types.PINFO_INVITE_REQUEST,
-        success: types.PINFO_INVITE_SUCCESS,
-        failure: types.PINFO_INVITE_FAILURE
-      },
-      url: 'http://localhost/api/varsel?saksId=123&aktoerId=456'
-    })
-  })
-
   it('call generateReceipt()', () => {
     pinfoActions.generateReceipt({
       sakId: '123',

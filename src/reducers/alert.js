@@ -87,6 +87,11 @@ export default function (state = {}, action = {}) {
         message = 'ui:loadFailure'
         break
 
+      case types.PINFO_SAKTYPE_FAILURE:
+
+        message = 'pinfo:alert-sakTypeFailure'
+        break
+
       case types.PINFO_SEND_FAILURE:
 
         message = 'pinfo:alert-sendFailure'
