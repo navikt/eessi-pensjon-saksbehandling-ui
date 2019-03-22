@@ -134,7 +134,10 @@ class PInfoSaksbehandler extends React.Component {
         <div className='col-md-12'>
           <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
             <Nav.Undertittel>{t('pinfo:sb-send-notification-title')}</Nav.Undertittel>
-            {!_.isEmpty(sakType) ? <Nav.Undertittel>{t('pinfo:sb-saktype', sakType)}</Nav.Undertittel> : null}
+            {!_.isEmpty(sakType) ? <div className='mt-2 mb-2'>
+              <div><label>{t('pinfo:sb-sakId')}</label>: {sakType.sakId}</div>
+              <div><label>{t('pinfo:sb-sakType')}</label>: {sakType.sakType}</div>
+            </div> : null}
             {gettingPinfoSaktype ? <div>
               <Nav.NavFrontendSpinner />
               <p className='typo-normal'>{t('ui:loading')}</p>

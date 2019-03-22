@@ -132,7 +132,8 @@
     "sb-send-notification-description" : "Den nye løsningen for elektronisk utfylling av utenlandsopplysninger er nå tilgjengelig for utvalgte brukere. Send varsel og inviter {{user}} til å prøve ut løsningen.",
     "sb-send-notification-button" : "Send varsel",
     "sb-sent-notifications-title" : "Utsendte varsler",
-    "sb-saktype": "SakID: {{sakId}} Type: {{sakType}}",
+    "sb-sakId": "Saksnummer",
+    "sb-sakType": "Sakstype",
 
     "work-title" : "Dagens arbeids- og inntektssituasjon",
     "work-type": "Ansettelsesforhold",
