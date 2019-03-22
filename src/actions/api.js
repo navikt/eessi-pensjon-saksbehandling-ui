@@ -39,8 +39,20 @@ export function call (options) {
         payload: payload
       })
     }).catch(error => {
+      if (error.status === 401) {
+        dispatch({
+          type: types.SERVER_UNAUTHORIZED_ERROR,
+          payload: error.message
+        })
+      }
+      if (error.status >= 500) {
+        dispatch({
+          type: types.SERVER_INTERNAL_ERROR,
+          payload: error.message
+        })
+      }
       return dispatch({
-        type: error.status >= 500 ? types.SERVER_ERROR : options.type.failure,
+        type: options.type.failure,
         payload: error.message
       })
     })

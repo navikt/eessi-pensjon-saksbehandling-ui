@@ -67,7 +67,7 @@ class ClientAlert extends Component {
         className={classNames(className, 'c-ui-clientAlert', {
           'fixed': _fixed
         })}
-        type={status === 'OK' ? 'suksess' : 'advarsel'}>
+        type={status === 'OK' ? 'suksess' : 'feil'}>
         {_message}
         <Icons className='closeIcon' size='1x' kind='close' onClick={this.clientClear.bind(this)} />
       </Nav.AlertStripe>

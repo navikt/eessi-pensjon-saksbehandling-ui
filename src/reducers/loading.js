@@ -6,7 +6,7 @@ let initialState = {}
 export default function (state = initialState, action = {}) {
   let status
 
-  if (action.type === types.SERVER_ERROR) {
+  if (_.startsWith(action.type, 'SERVER_')) {
     return initialState
   }
 

@@ -25,13 +25,20 @@ export default function (state = {}, action = {}) {
   if (_.endsWith(action.type, '/REQUEST')) {
     return Object.assign({}, state, {
       clientErrorMessage: undefined,
-      clientErrorStatus: undefined
+      clientErrorStatus: undefined,
+      serverErrorMessage: undefined
     })
   }
 
-  if (action.type === types.SERVER_ERROR) {
+  if (action.type === types.SERVER_INTERNAL_ERROR) {
     return Object.assign({}, state, {
-      serverErrorMessage: 'ui:serverError'
+      serverErrorMessage: 'ui:serverInternalError'
+    })
+  }
+
+  if (action.type === types.SERVER_UNAUTHORIZED_ERROR) {
+    return Object.assign({}, state, {
+      serverErrorMessage: 'ui:serverAuthenticationError'
     })
   }
 
@@ -119,7 +126,9 @@ export default function (state = {}, action = {}) {
 
       return Object.assign({}, state, {
         clientErrorStatus: undefined,
-        clientErrorMessage: undefined
+        clientErrorMessage: undefined,
+        serverErrorMessage: undefined
+
       })
 
     case types.CASE_GET_CASE_NUMBER_SUCCESS:
