@@ -354,27 +354,27 @@ export class StartCase extends Component {
       }
     }
 
-    renderOptions (map, type) {
+    renderOptions (options, type) {
       const { t } = this.props
 
-      if (typeof map === 'string') {
-        map = [map]
+      if (typeof options === 'string') {
+        options = [options]
       }
 
-      if (!map || Object.keys(map).length === 0) {
-        map = [{
+      if (!options || Object.keys(options).length === 0) {
+        options = [{
           key: defaultSelects[type],
           value: t(defaultSelects[type])
         }]
       }
 
-      if (!map[0].key || (map[0].key && map[0].key !== defaultSelects[type])) {
-        map.unshift({
+      if (!options[0].key || (options[0].key && options[0].key !== defaultSelects[type])) {
+        options.unshift({
           key: defaultSelects[type],
           value: t(defaultSelects[type])
         })
       }
-      return map.map(el => {
+      return options.map(el => {
         let key, value
         if (typeof el === 'string') {
           key = el
