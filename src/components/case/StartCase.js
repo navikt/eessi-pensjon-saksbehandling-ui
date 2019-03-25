@@ -375,11 +375,15 @@ export class StartCase extends Component {
         })
       }
       return map.map(el => {
+        let key, value
         if (typeof el === 'string') {
-          return <option value={el} key={el}>{this.getOptionLabel(el)}</option>
+          key = el
+          value = el
         } else {
-          return <option value={el.key} key={el.key}>{this.getOptionLabel(el.value)}</option>
+          key = el.key || el.navn
+          value = el.value || el.navn
         }
+        return <option value={key} key={key}>{this.getOptionLabel(value)}</option>
       })
     }
 
@@ -387,7 +391,7 @@ export class StartCase extends Component {
       const { t } = this.props
 
       let label = value
-      let description = t('case:case-' + value)
+      let description = t('case:case-' + value.replace(':','.'))
       if (description !== 'case-' + value) {
         label += ' - ' + description
       }
