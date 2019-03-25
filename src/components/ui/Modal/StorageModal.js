@@ -7,7 +7,7 @@ import { withTranslation } from 'react-i18next'
 import _ from 'lodash'
 
 import * as Nav from '../Nav'
-import ClientAlert from '../Alert/ClientAlert'
+import Alert from '../Alert/Alert'
 import * as storageActions from '../../../actions/storage'
 import * as uiActions from '../../../actions/ui'
 import './StorageModal.css'
@@ -312,7 +312,7 @@ class StorageModal extends Component {
         </div>
 
         { loadingStatus === 'ERROR' ? <div className={classNames('text-center', className)}>
-          <ClientAlert fixed={false} />
+          <Alert type='client' fixed={false} />
           <Nav.Knapp
             className='mr-3 mb-3 modal-other-button'
             onClick={this.onCancelClick.bind(this)}>

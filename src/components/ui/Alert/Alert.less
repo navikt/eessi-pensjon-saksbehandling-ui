@@ -1,10 +1,10 @@
-.c-ui-clientAlert {
+.c-ui-alert {
 
     height: 56px;
     min-height: 56px;
     min-width: 300px;
     opacity: 0;
-    animation: c-ui-clientAlert-fadeIn 0.5s forwards;
+    animation: c-ui-alert-fadeIn 0.5s forwards;
 
     &.fixed {
         position: fixed;
@@ -20,10 +20,18 @@
         right: 3px;
         cursor: pointer;
     }
+
+    &.server {
+
+      .alertstripe__tekst {
+        display: flex !important;
+        justify-content: space-between;
+        max-width: none !important;
+      }
+    }
 }
 
-
-@keyframes c-ui-clientAlert-fadeIn {
+@keyframes c-ui-alert-fadeIn {
   0% {
     opacity: 0;
   }

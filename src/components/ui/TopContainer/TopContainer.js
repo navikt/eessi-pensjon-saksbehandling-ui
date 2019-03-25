@@ -5,8 +5,7 @@ import { connect } from 'react-redux'
 import { DragDropContext } from 'react-beautiful-dnd'
 
 import * as Nav from '../Nav'
-import ClientAlert from '../Alert/ClientAlert'
-import ServerAlert from '../Alert/ServerAlert'
+import Alert from '../Alert/Alert'
 import Drawer from '../Drawer/Drawer'
 import Banner from '../Banner/Banner'
 import Modal from '../Modal/Modal'
@@ -52,8 +51,8 @@ class TopContainer extends Component {
               : <InternalTopHeader history={history} />
           }
           {header ? <Banner header={header} /> : null}
-          <ClientAlert />
-          <ServerAlert />
+          <Alert type='client'/>
+          <Alert type='server'/>
           <Nav.Container className={classNames('_container')}>
             {this.props.children}
           </Nav.Container>

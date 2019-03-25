@@ -1,7 +1,7 @@
 import * as types from '../constants/actionTypes'
 import _ from 'lodash'
 
-function processError (error) {
+function printError (error) {
   let errorMessage = []
   if (error.status) {
     errorMessage.push(error.status)
@@ -16,29 +16,43 @@ function processError (error) {
   if (error.serverMessage) {
     errorMessage.push(error.serverMessage)
   }
+
+  if (error.uuid) {
+    errorMessage.push(error.uuid)
+  }
   return errorMessage.join(' ')
 }
 
 export default function (state = {}, action = {}) {
   let message
 
-  if (_.endsWith(action.type, '/REQUEST')) {
+  if (_.endsWith(action.type, '/REQUEST') || action.type === types.ALERT_CLIENT_CLEAR) {
     return Object.assign({}, state, {
       clientErrorMessage: undefined,
       clientErrorStatus: undefined,
-      serverErrorMessage: undefined
+      serverErrorMessage: undefined,
+      uuid: undefined
     })
   }
 
-  if (action.type === types.SERVER_INTERNAL_ERROR) {
-    return Object.assign({}, state, {
-      serverErrorMessage: 'ui:serverInternalError'
-    })
-  }
+  if (_.endsWith(action.type, '/ERROR')) {
+    switch (action.type) {
+      case types.SERVER_INTERNAL_ERROR:
+        message = 'ui:serverInternalError'
+        break
 
-  if (action.type === types.SERVER_UNAUTHORIZED_ERROR) {
+      case types.SERVER_UNAUTHORIZED_ERROR:
+        message = 'ui:serverAuthenticationError'
+        break
+
+      default:
+         message = 'ui:serverInternalError'
+         break
+    }
+
     return Object.assign({}, state, {
-      serverErrorMessage: 'ui:serverAuthenticationError'
+      serverErrorMessage: message,
+      uuid: action.payload.uuid
     })
   }
 
@@ -111,25 +125,18 @@ export default function (state = {}, action = {}) {
 
       default:
 
-        message = processError(action.payload)
+        message = printError(action.payload)
         break
     }
 
     return Object.assign({}, state, {
       clientErrorStatus: message ? 'ERROR' : undefined,
-      clientErrorMessage: message
+      clientErrorMessage: message,
+      uuid: action.payload.uuid
     })
   }
 
   switch (action.type) {
-    case types.ALERT_CLIENT_CLEAR:
-
-      return Object.assign({}, state, {
-        clientErrorStatus: undefined,
-        clientErrorMessage: undefined,
-        serverErrorMessage: undefined
-
-      })
 
     case types.CASE_GET_CASE_NUMBER_SUCCESS:
 
@@ -217,6 +224,7 @@ export default function (state = {}, action = {}) {
 
   return Object.assign({}, state, {
     clientErrorStatus: 'OK',
-    clientErrorMessage: message
+    clientErrorMessage: message,
+    uuid: undefined
   })
 }
