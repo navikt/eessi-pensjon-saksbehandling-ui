@@ -131,12 +131,13 @@ class PInfoSaksbehandler extends React.Component {
 
     return <TopContainer className='p-pInfo p-pInfoSaksbehandler' history={history} location={location}>
       <Nav.Row>
-        <div className='col-md-12'>
+        <div className='col-md-2'/>
+        <div className='col-md-8'>
           <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
             <Nav.Undertittel>{t('pinfo:sb-send-notification-title')}</Nav.Undertittel>
-            {!_.isEmpty(sakType) ? <div className='mt-2 mb-2'>
-              <div><label>{t('pinfo:sb-sakId')}</label>: {sakType.sakId}</div>
-              <div><label>{t('pinfo:sb-sakType')}</label>: {sakType.sakType}</div>
+            {!_.isEmpty(sakType) ? <div className='mt-3 mb-3'>
+              <div><label class='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakId')}</label>: {sakType.sakId}</div>
+              <div><label class='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakType')}</label>: {sakType.sakType}</div>
             </div> : null}
             {gettingPinfoSaktype ? <div>
               <Nav.NavFrontendSpinner />
@@ -157,6 +158,7 @@ class PInfoSaksbehandler extends React.Component {
             </Nav.AlertStripe> : null}
           </div>
         </div>
+        <div className='col-md-2'/>
         <div className='col-md-12'>
           <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
             <div className='notification-title'>
