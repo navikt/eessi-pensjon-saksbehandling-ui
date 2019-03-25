@@ -58,7 +58,7 @@ class CountrySelect extends Component {
       <Select placeholder={placeholder}
         value={defValue || null}
         options={options}
-        id={id? id+'-select': null}
+        id={id ? id + '-select' : null}
         components={{
           Option: CountryOption,
           SingleValue: CountryValue,

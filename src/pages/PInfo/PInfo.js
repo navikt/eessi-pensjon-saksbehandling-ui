@@ -70,6 +70,7 @@ export class PInfo extends React.Component {
       window.hj('trigger', 'e207-feedback-no')
     }
     if (username) {
+      actions.getPersonData()
       actions.getAllStateFromStorage()
     }
   }

@@ -26,6 +26,7 @@ export const EUX_SUBJECT_AREA_URL = EUX_URL + '/subjectarea'
 
 // UserInfoController
 export const API_USERINFO_URL = API_URL + '/userinfo'
+export const API_PERSONDATA_URL = API_URL + '/persondata'
 
 // SubmitController
 export const API_SUBMISSION_SUBMIT_URL = API_URL + '/submission/submit'

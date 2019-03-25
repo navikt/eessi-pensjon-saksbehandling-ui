@@ -26,10 +26,7 @@ export default function (state = initialState, action = {}) {
         userRole: action.payload.subject === '12345678910' ? 'SAKSBEHANDLER' : action.payload.role,
         allowed: action.payload.subject === '12345678910' ? true : action.payload.allowed,
         loggedIn: true,
-        userStatus: 'OK',
-        firstName: action.payload.fornavn,
-        middleName: action.payload.mellomnavn,
-        lastName: action.payload.etternavn
+        userStatus: 'OK'
       })
 
     case types.APP_USERINFO_FAILURE:
@@ -37,6 +34,14 @@ export default function (state = initialState, action = {}) {
       return Object.assign({}, initialState, {
         loggedIn: false,
         userStatus: 'ERROR'
+      })
+
+    case types.APP_PERSONDATA_SUCCESS:
+
+      return Object.assign({}, state, {
+        firstName: action.payload.fornavn,
+        middleName: action.payload.mellomnavn,
+        lastName: action.payload.etternavn
       })
 
     case types.APP_DROPPABLE_REGISTER : {

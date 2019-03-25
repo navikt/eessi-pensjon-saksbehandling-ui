@@ -34,6 +34,17 @@ export function getUserInfo () {
   })
 }
 
+export function getPersonData () {
+  return api.call({
+    url: urls.API_PERSONDATA_URL,
+    type: {
+      request: types.APP_PERSONDATA_REQUEST,
+      success: types.APP_PERSONDATA_SUCCESS,
+      failure: types.APP_PERSONDATA_FAILURE
+    }
+  })
+}
+
 export function clearData () {
   return {
     type: types.APP_CLEAR_DATA
