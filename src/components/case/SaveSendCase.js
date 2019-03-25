@@ -63,13 +63,13 @@ export class SaveSendCase extends Component {
     render () {
       let { t, sendingCase, previewData, savedData, rinaLoading, rinaUrl } = this.props
 
-      let buttonText = sendingCase ? t('case:loading-sendingCase') : t('ui:confirmAndSend')
+      let buttonText = sendingCase ? t('case:loading-sendingCase') : t('ui:send')
 
       return <div>
         <div className='fieldset animate text-center'>
           { rinaLoading ? <span>{t('case:loading-rinaUrl')}</span>
             : (rinaUrl && savedData && savedData.caseId ? <div>
-              <div className='m-4'><a href={rinaUrl + savedData.caseId}>{t('case:form-caseLink')}</a></div>
+              <div className='m-4'><a target='_blank' href={rinaUrl + savedData.caseId}>{t('case:form-caseLink')}</a></div>
               <div className='m-4'>
                 <h4>{t('case:form-rinaId') + ': ' + savedData.caseId}</h4>
               </div>
