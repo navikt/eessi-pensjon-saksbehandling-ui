@@ -181,5 +181,8 @@
     "view" : "Oversikt",
     "watermark" : "Vannmerke",
     "writeIn" : "Skriv inn",
-    "yes" : "Ja"
+    "yes" : "Ja",
+
+    "session-expire-title" : "Du vil snart bli logget ut",
+    "session-expire-text" : "Du vil automatisk bli logget ut om 5 minutter. Vennligst last inn siden på nytt før du utfører flere oppgaver"
 }
