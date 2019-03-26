@@ -13,3 +13,4 @@ global.cheerio = cheerio
 // mock canvas function, as jsdom throws error if not here
 HTMLCanvasElement.prototype.getContext = jest.fn()
 window.scrollTo = jest.fn()
+window.location.reload = jest.fn()

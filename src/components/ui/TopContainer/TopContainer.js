@@ -60,8 +60,9 @@ class TopContainer extends Component {
           </Nav.Container>
           <Modal />
           {userRole === constants.SAKSBEHANDLER ? <SessionMonitor
-            sessionLength={ 1000 * 60 * 55 } /* 55 minutes */
+            sessionExpiringWarning={ 1000 * 60 * 55 } /* 55 minutes */
             checkInterval={ 1000 * 60 } /* check every minute */
+            sessionExpiredReload={1000 * 60 * 61} /* At 61st minute */
           /> : null}
           {userRole === constants.SAKSBEHANDLER ? <Footer /> : null}
         </Drawer>

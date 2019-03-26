@@ -29,13 +29,13 @@ export class SessionMonitor extends Component {
 
   checkTimeout() {
      let self = this
-     const { t, actions, loggedTime, sessionLength, checkInterval } = this.props
-     if (!loggedTime || !sessionLength || !checkInterval) {
+     const { t, actions, loggedTime, sessionExpiringWarning, sessionExpiredReload, checkInterval } = this.props
+     if (!loggedTime || !sessionExpiringWarning || !sessionExpiredReload || !checkInterval) {
        return
      }
      return setTimeout(() => {
         let diff = new Date().getTime() - loggedTime.getTime()
-        if (diff > sessionLength) {
+        if (diff > sessionExpiringWarning) {
            console.log('Session will expire')
            actions.openModal({
               modalTitle: t('ui:session-expire-title'),
@@ -45,11 +45,13 @@ export class SessionMonitor extends Component {
                 text: t('ui:ok-got-it'),
                 onClick: this.closeModal.bind(this)
               }]
-            })
-        } else {
-           self.checkTimeout(loggedTime)
+           })
         }
-     }, checkInterval) // every minute
+        if (diff > sessionExpiredReload) {
+          window.location.reload()
+        }
+        self.checkTimeout()
+     }, checkInterval)
   }
 
   render () {
@@ -58,7 +60,10 @@ export class SessionMonitor extends Component {
 }
 
 SessionMonitor.propTypes = {
-  loggedTime: PT.object
+  loggedTime: PT.object,
+  sessionExpiringWarning: PT.number,
+  sessionExpiredReload: PT.number,
+  checkInterval: PT.number
 }
 
 export default connect(

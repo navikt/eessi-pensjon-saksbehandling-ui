@@ -15,18 +15,39 @@ describe('components/app/SessionMonitor', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('SessionMonitor will trigger a openModal', async (done) => {
+  it('SessionMonitor will trigger a openModal when session is almost expiring', async (done) => {
 
     const wrapper = shallow(<SessionMonitor
       loggedTime={new Date()}
-      sessionLength={1}
+      sessionExpiringWarning={1}
       checkInterval={500}
+      sessionExpiredReload={9999999}
       {...initialMockProps}
     />)
-    expect(wrapper.instance().props.actions.openModal.mock.calls.length).toBe(0)
+    expect(wrapper.instance().props.actions.openModal).not.toHaveBeenCalled()
     await new Promise(resolve => {
       setTimeout(() => {
-        expect(wrapper.instance().props.actions.openModal.mock.calls.length).toBe(1)
+        expect(wrapper.instance().props.actions.openModal).toHaveBeenCalled()
+        done()
+      }, 1000)
+    })
+  })
+
+  it('SessionMonitor will trigger a openModal when session expired', async (done) => {
+
+    const wrapper = shallow(<SessionMonitor
+      loggedTime={new Date()}
+      sessionExpiringWarning={1}
+      checkInterval={500}
+      sessionExpiredReload={499}
+      {...initialMockProps}
+    />)
+
+    expect(window.location.reload).not.toHaveBeenCalled()
+    await new Promise(resolve => {
+      setTimeout(() => {
+        expect(window.location.reload).toHaveBeenCalled()
+        window.location.reload.mockRestore()
         done()
       }, 1000)
     })
