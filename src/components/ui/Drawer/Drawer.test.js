@@ -2,7 +2,7 @@ import React from 'react'
 
 import ConnectedDrawer, { Drawer } from './Drawer'
 
-import { connect, Provider } from 'react-redux'
+import { connect } from 'react-redux'
 import { createStore, combineReducers } from 'redux'
 import * as reducers from '../../../reducers'
 
