@@ -2,6 +2,7 @@ import * as types from '../constants/actionTypes'
 
 let initialState = {
   loggedIn: undefined,
+  loggedTime: undefined,
   allowed: false,
   username: undefined,
   userRole: undefined,
@@ -26,7 +27,8 @@ export default function (state = initialState, action = {}) {
         userRole: action.payload.subject === '12345678910' ? 'SAKSBEHANDLER' : action.payload.role,
         allowed: action.payload.subject === '12345678910' ? true : action.payload.allowed,
         loggedIn: true,
-        userStatus: 'OK'
+        userStatus: 'OK',
+        loggedTime: new Date()
       })
 
     case types.APP_USERINFO_FAILURE:

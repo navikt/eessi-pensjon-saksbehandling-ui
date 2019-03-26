@@ -11,6 +11,7 @@ import Banner from '../Banner/Banner'
 import Modal from '../Modal/Modal'
 import InternalTopHeader from '../Header/InternalTopHeader'
 import Footer from '../Footer/Footer'
+import SessionMonitor from '../../app/SessionMonitor'
 
 import * as constants from '../../../constants/constants'
 import './TopContainer.css'
@@ -29,6 +30,7 @@ const mapDispatchToProps = () => {
 }
 
 class TopContainer extends Component {
+
   onDragEnd (e) {
     const { droppables, file } = this.props
 
@@ -57,6 +59,10 @@ class TopContainer extends Component {
             {this.props.children}
           </Nav.Container>
           <Modal />
+          {userRole === constants.SAKSBEHANDLER ? <SessionMonitor
+            sessionLength={ 1000 * 60 * 55 } /* 55 minutes */
+            checkInterval={ 1000 * 60 } /* check every minute */
+          /> : null}
           {userRole === constants.SAKSBEHANDLER ? <Footer /> : null}
         </Drawer>
       </DragDropContext>
