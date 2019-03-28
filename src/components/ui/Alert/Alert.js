@@ -25,6 +25,12 @@ export const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, alertActions), dispatch) }
 }
 
+export const errorTypes = {
+  OK: 'suksess',
+  ERROR : 'feil',
+  WARNING: 'advarsel'
+}
+
 export class Alert extends Component {
 
     clientClear () {
@@ -60,7 +66,7 @@ export class Alert extends Component {
       }
       return <Nav.AlertStripe solid
         className={classNames(className, 'c-ui-alert', {fixed : _fixed})}
-        type={clientErrorStatus === 'OK' ? 'suksess' : 'feil'}>
+        type={errorTypes[clientErrorStatus]}>
         {_message}
         {uuid}
         <Icons className='closeIcon' size='1x' kind='close' onClick={this.clientClear.bind(this)} />

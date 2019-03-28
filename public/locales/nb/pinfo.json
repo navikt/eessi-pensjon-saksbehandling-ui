@@ -222,7 +222,7 @@
     "alert-areYouSureDeletePeriod" : "Er du sikker på at du vil slette perioden?",
     "alert-stepTooHigh" : "Du kan bare gå videre når du har fylt ut alle påkrevde felt",
     "alert-maxPeriods" : "Oppnådd maksimalt antall ({{maxPeriods}}) av oppholdsperioder",
-    "alert-sakTypeFailure" : "Saktype feilet",
+    "alert-sakTypeFailure" : "Kunne ikke returnere sakstype, men du kan fremdeles sende varsel",
 
     "error-noParams" : "Vennligst oppgi saksId/saksNr og fnr/aktoerId",
 

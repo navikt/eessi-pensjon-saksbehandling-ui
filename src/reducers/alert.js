@@ -24,7 +24,7 @@ function printError (error) {
 }
 
 export default function (state = {}, action = {}) {
-  let message
+  let clientErrorMessage, serverErrorMessage, clientErrorStatus
 
   if (_.endsWith(action.type, '/REQUEST') || action.type === types.ALERT_CLIENT_CLEAR) {
     return Object.assign({}, state, {
@@ -38,100 +38,104 @@ export default function (state = {}, action = {}) {
   if (_.endsWith(action.type, '/ERROR')) {
     switch (action.type) {
       case types.SERVER_INTERNAL_ERROR:
-        message = 'ui:serverInternalError'
+        serverErrorMessage = 'ui:serverInternalError'
         break
 
       case types.SERVER_UNAUTHORIZED_ERROR:
-        message = 'ui:serverAuthenticationError'
+        serverErrorMessage = 'ui:serverAuthenticationError'
         break
 
       default:
-         message = 'ui:serverInternalError'
+         serverErrorMessage = 'ui:serverInternalError'
          break
     }
 
     return Object.assign({}, state, {
-      serverErrorMessage: message,
+      serverErrorMessage: serverErrorMessage,
       uuid: action.payload.uuid
     })
   }
 
   if (_.endsWith(action.type, '/FAILURE')) {
+
+    clientErrorStatus = 'ERROR'
+
     switch (action.type) {
       case types.CASE_GET_SUBJECT_AREA_LIST_FAILURE:
 
-        message = 'case:alert-noSubjectAreaList'
+        clientErrorMessage = 'case:alert-noSubjectAreaList'
         break
 
       case types.CASE_GET_INSTITUTION_LIST_FAILURE:
 
-        message = 'case:alert-noInstitutionList'
+        clientErrorMessage = 'case:alert-noInstitutionList'
         break
 
       case types.CASE_GET_SED_LIST_FAILURE:
 
-        message = 'case:alert-noSedList'
+        clientErrorMessage = 'case:alert-noSedList'
         break
 
       case types.CASE_GET_BUC_LIST_FAILURE:
 
-        message = 'case:alert-noBucList'
+        clientErrorMessage = 'case:alert-noBucList'
         break
 
       case types.CASE_GET_COUNTRY_LIST_FAILURE:
 
-        message = 'case:alert-noCountryList'
+        clientErrorMessage = 'case:alert-noCountryList'
         break
 
       case types.PDF_GENERATE_FAILURE:
 
-        message = 'pdf:alert-PDFGenerationFail'
+        clientErrorMessage = 'pdf:alert-PDFGenerationFail'
         break
 
       case types.P4000_OPEN_FAILURE:
 
-        message = 'p4000:alert-openP4000error|' + action.payload.error
+        clientErrorMessage = 'p4000:alert-openP4000error|' + action.payload.error
         break
 
       case types.P4000_SUBMIT_FAILURE:
 
-        message = 'p4000:alert-submitFailure'
+        clientErrorMessage = 'p4000:alert-submitFailure'
         break
 
       case types.STORAGE_LIST_FAILURE:
 
-        message = 'ui:listFailure'
+        clientErrorMessage = 'ui:listFailure'
         break
 
       case types.STORAGE_GET_FAILURE:
 
-        message = 'ui:loadFailure'
+        clientErrorMessage = 'ui:loadFailure'
         break
 
       case types.PINFO_SAKTYPE_FAILURE:
 
-        message = 'pinfo:alert-sakTypeFailure'
+        clientErrorMessage = 'pinfo:alert-sakTypeFailure'
+        clientErrorStatus = 'WARNING'
         break
 
       case types.PINFO_SEND_FAILURE:
 
-        message = 'pinfo:alert-sendFailure'
+        clientErrorMessage = 'pinfo:alert-sendFailure'
         break
 
       case types.PINFO_RECEIPT_FAILURE:
 
-        message = 'pinfo:alert-receiptFailure'
+        clientErrorMessage = 'pinfo:alert-receiptFailure'
         break
 
       default:
 
-        message = printError(action.payload)
+        clientErrorMessage = printError(action.payload)
         break
     }
 
     return Object.assign({}, state, {
-      clientErrorStatus: message ? 'ERROR' : undefined,
-      clientErrorMessage: message,
+      clientErrorStatus: clientErrorMessage ? clientErrorStatus : undefined,
+      clientErrorMessage: clientErrorMessage,
       uuid: action.payload.uuid
     })
   }
@@ -140,91 +144,91 @@ export default function (state = {}, action = {}) {
 
     case types.CASE_GET_CASE_NUMBER_SUCCESS:
 
-      message = 'case:alert-caseFound'
+      clientErrorMessage = 'case:alert-caseFound'
       break
 
     case types.CASE_GET_MORE_PREVIEW_DATA_SUCCESS:
 
-      message = 'case:alert-getMorePreviewData'
+      clientErrorMessage = 'case:alert-getMorePreviewData'
       break
 
     case types.CASE_CREATE_SED_SUCCESS:
     case types.CASE_ADD_TO_SED_SUCCESS:
 
-      message = 'case:alert-savedData'
+      clientErrorMessage = 'case:alert-savedData'
       break
 
     case types.CASE_SEND_SED_SUCCESS:
 
-      message = 'case:alert-sentData'
+      clientErrorMessage = 'case:alert-sentData'
       break
 
     case types.PDF_GENERATE_SUCCESS:
 
-      message = 'pdf:alert-PDFGenerationSuccess'
+      clientErrorMessage = 'pdf:alert-PDFGenerationSuccess'
       break
 
     case types.P4000_NEW:
 
-      message = 'p4000:alert-newP4000Form'
+      clientErrorMessage = 'p4000:alert-newP4000Form'
       break
 
     case types.P4000_OPEN_SUCCESS:
 
-      message = 'p4000:alert-openP4000Form'
+      clientErrorMessage = 'p4000:alert-openP4000Form'
       break
 
     case types.P4000_EVENT_ADD:
 
-      message = 'p4000:alert-addedP4000Event'
+      clientErrorMessage = 'p4000:alert-addedP4000Event'
       break
 
     case types.P4000_EVENT_REPLACE:
 
-      message = 'p4000:alert-replacedP4000Event'
+      clientErrorMessage = 'p4000:alert-replacedP4000Event'
       break
 
     case types.P4000_EVENT_DELETE:
 
-      message = 'p4000:alert-deletedP4000Event'
+      clientErrorMessage = 'p4000:alert-deletedP4000Event'
       break
 
     case types.P4000_SUBMIT_SUCCESS:
 
-      message = 'p4000:alert-submitSuccess'
+      clientErrorMessage = 'p4000:alert-submitSuccess'
       break
 
     case types.STORAGE_GET_SUCCESS:
 
-      message = 'ui:loadSuccess'
+      clientErrorMessage = 'ui:loadSuccess'
       break
 
     case types.STORAGE_POST_SUCCESS:
 
-      message = 'ui:saveSuccess'
+      clientErrorMessage = 'ui:saveSuccess'
       break
 
     case types.PINFO_SEND_SUCCESS:
 
-      message = 'pinfo:alert-sendSuccess'
+      clientErrorMessage = 'pinfo:alert-sendSuccess'
       break
 
     case types.PINFO_RECEIPT_SUCCESS:
 
-      message = 'pinfo:alert-receiptSuccess'
+      clientErrorMessage = 'pinfo:alert-receiptSuccess'
       break
 
     default:
       break
   }
 
-  if (!message) {
+  if (!clientErrorMessage) {
     return state
   }
 
   return Object.assign({}, state, {
     clientErrorStatus: 'OK',
-    clientErrorMessage: message,
+    clientErrorMessage: clientErrorMessage,
     uuid: undefined
   })
 }
