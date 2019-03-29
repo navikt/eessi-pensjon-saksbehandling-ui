@@ -3,7 +3,6 @@ import * as types from '../constants/actionTypes'
 import * as constants from '../constants/constants'
 import * as storageActions from './storage'
 import * as pinfoActions from './pinfo'
-
 import * as utility from '../utils/attachmentUtility'
 
 export function addFileToState (file) {
@@ -39,7 +38,6 @@ export function getAllStateFromStorage () {
     return dispatch(getFileListFromStorage())
       .then(() => dispatch(getPinfoFileFromStorage()))
       .then(() => dispatch(getAttachmentFilesFromStorage()))
-      .then(() => dispatch(suggestPersonNameFromUsernameIfNotInState()))
       .catch((error) => dispatch({ type: types.ATTACHMENT_GET_ALL_STATE_FAILURE, payload: error }))
   }
 }
@@ -61,20 +59,6 @@ function getFileListFromStorage () {
     dispatch({ type: types.ATTACHMENT_GET_STORAGE_LIST })
     const { app } = getState()
     return dispatch(storageActions.listStorageFiles(app.username, constants.PINFO))
-  }
-}
-
-function suggestPersonNameFromUsernameIfNotInState () {
-  return function (dispatch, getState) {
-    if (!getState().pinfo.person.nameAtBirth) {
-      let lastName = getState().app.lastName
-      return dispatch({
-        type: types.PINFO_PERSON_SET,
-        payload: {
-          nameAtBirth: lastName
-        }
-      })
-    }
   }
 }
 

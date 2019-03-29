@@ -391,7 +391,7 @@ export class StartCase extends Component {
       const { t } = this.props
 
       let label = value
-      let description = t('case:case-' + value.replace(':','.'))
+      let description = t('case:case-' + value.replace(':', '.'))
       if (description !== 'case-' + value) {
         label += ' - ' + description
       }

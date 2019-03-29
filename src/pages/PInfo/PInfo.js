@@ -28,8 +28,8 @@ import * as constants from '../../constants/constants'
 import * as storageActions from '../../actions/storage'
 import * as pinfoActions from '../../actions/pinfo'
 import * as uiActions from '../../actions/ui'
-import * as appActions from '../../actions/app'
 import * as attachmentActions from '../../actions/attachment'
+import * as appActions from '../../actions/app'
 
 import './PInfo.css'
 
@@ -53,7 +53,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, storageActions, pinfoActions, uiActions, appActions, attachmentActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, storageActions, pinfoActions, appActions, uiActions, attachmentActions), dispatch) }
 }
 
 export class PInfo extends React.Component {
@@ -70,7 +70,7 @@ export class PInfo extends React.Component {
       window.hj('trigger', 'e207-feedback-no')
     }
     if (username) {
-      actions.getPersonData()
+      actions.getAndPrefillPersonName()
       actions.getAllStateFromStorage()
     }
   }

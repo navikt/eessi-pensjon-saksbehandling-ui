@@ -27,51 +27,49 @@ export const mapDispatchToProps = (dispatch) => {
 
 export const errorTypes = {
   OK: 'suksess',
-  ERROR : 'feil',
+  ERROR: 'feil',
   WARNING: 'advarsel'
 }
 
 export class Alert extends Component {
+  clientClear () {
+    const { actions } = this.props
+    actions.clientClear()
+  }
 
-    clientClear () {
-      const { actions } = this.props
-      actions.clientClear()
-    }
+  render () {
+    let { t, className, type, clientErrorStatus, clientErrorMessage, serverErrorMessage, uuid, fixed } = this.props
 
-    render () {
-      let { t, className, type, clientErrorStatus, clientErrorMessage, serverErrorMessage, uuid, fixed } = this.props
-
-      if (type === 'server') {
-
-        return serverErrorMessage ? <Nav.AlertStripe
-          className={classNames('c-ui-alert', 'server', className)} type='feil' solid>
-          {t(serverErrorMessage)}
-          {uuid}
-          <Icons className='closeIcon' size='1x' kind='close' onClick={this.clientClear.bind(this)} />
-        </Nav.AlertStripe> : null
-      }
-
-      if (!clientErrorMessage) {
-        return null
-      }
-
-      let separatorIndex = clientErrorMessage.lastIndexOf('|')
-      let _message
-      let _fixed = fixed || true
-
-      if (separatorIndex >= 0) {
-        _message = t(clientErrorMessage.substring(0, separatorIndex)) + ': ' + clientErrorMessage.substring(separatorIndex + 1)
-      } else {
-        _message = t(clientErrorMessage)
-      }
-      return <Nav.AlertStripe solid
-        className={classNames(className, 'c-ui-alert', {fixed : _fixed})}
-        type={errorTypes[clientErrorStatus]}>
-        {_message}
+    if (type === 'server') {
+      return serverErrorMessage ? <Nav.AlertStripe
+        className={classNames('c-ui-alert', 'server', className)} type='feil' solid>
+        {t(serverErrorMessage)}
         {uuid}
         <Icons className='closeIcon' size='1x' kind='close' onClick={this.clientClear.bind(this)} />
-      </Nav.AlertStripe>
+      </Nav.AlertStripe> : null
     }
+
+    if (!clientErrorMessage) {
+      return null
+    }
+
+    let separatorIndex = clientErrorMessage.lastIndexOf('|')
+    let _message
+    let _fixed = fixed || true
+
+    if (separatorIndex >= 0) {
+      _message = t(clientErrorMessage.substring(0, separatorIndex)) + ': ' + clientErrorMessage.substring(separatorIndex + 1)
+    } else {
+      _message = t(clientErrorMessage)
+    }
+    return <Nav.AlertStripe solid
+      className={classNames(className, 'c-ui-alert', { fixed: _fixed })}
+      type={errorTypes[clientErrorStatus]}>
+      {_message}
+      {uuid}
+      <Icons className='closeIcon' size='1x' kind='close' onClick={this.clientClear.bind(this)} />
+    </Nav.AlertStripe>
+  }
 }
 
 Alert.propTypes = {

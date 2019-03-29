@@ -30,7 +30,6 @@ const mapDispatchToProps = () => {
 }
 
 class TopContainer extends Component {
-
   onDragEnd (e) {
     const { droppables, file } = this.props
 
@@ -53,15 +52,15 @@ class TopContainer extends Component {
               : <InternalTopHeader history={history} />
           }
           {header ? <Banner header={header} /> : null}
-          <Alert type='client'/>
-          <Alert type='server'/>
+          <Alert type='client' />
+          <Alert type='server' />
           <Nav.Container className={classNames('_container')}>
             {this.props.children}
           </Nav.Container>
           <Modal />
           {userRole === constants.SAKSBEHANDLER ? <SessionMonitor
-            sessionExpiringWarning={ 1000 * 60 * 55 } /* 55 minutes */
-            checkInterval={ 1000 * 60 } /* check every minute */
+            sessionExpiringWarning={1000 * 60 * 55} /* 55 minutes */
+            checkInterval={1000 * 60} /* check every minute */
             sessionExpiredReload={1000 * 60 * 61} /* At 61st minute */
           /> : null}
           {userRole === constants.SAKSBEHANDLER ? <Footer /> : null}

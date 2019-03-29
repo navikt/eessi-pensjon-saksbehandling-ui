@@ -17,7 +17,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 describe('components/ui/Alert/Alert', () => {
-
   let store, wrapper, ConnectedAlert
   const initialState = {
     alert: {
@@ -38,22 +37,22 @@ describe('components/ui/Alert/Alert', () => {
   })
 
   it('Alert renders as server', () => {
-    wrapper = shallow(<ConnectedAlert t={t} store={store} type='server'/>).dive()
-    expect( wrapper.render().text()).toEqual('mockServerErrorMessageMockUuid')
+    wrapper = shallow(<ConnectedAlert t={t} store={store} type='server' />).dive()
+    expect(wrapper.render().text()).toEqual('mockServerErrorMessageMockUuid')
   })
 
   it('Alert renders as client', () => {
-    wrapper = shallow(<ConnectedAlert t={t} store={store} type='client'/>).dive()
-    expect( wrapper.render().text()).toEqual('mockClientErrorMessageMockUuid')
+    wrapper = shallow(<ConnectedAlert t={t} store={store} type='client' />).dive()
+    expect(wrapper.render().text()).toEqual('mockClientErrorMessageMockUuid')
   })
 
   it('Alert close button works', async (done) => {
-    wrapper = shallow(<ConnectedAlert t={t} store={store} type='client'/>).dive()
-    expect( wrapper.render().text()).toEqual('mockClientErrorMessageMockUuid')
+    wrapper = shallow(<ConnectedAlert t={t} store={store} type='client' />).dive()
+    expect(wrapper.render().text()).toEqual('mockClientErrorMessageMockUuid')
     wrapper.instance().clientClear()
     await new Promise(resolve => {
       setTimeout(() => {
-        expect( wrapper.render().text()).toEqual('')
+        expect(wrapper.render().text()).toEqual('')
         done()
       }, 500)
     })

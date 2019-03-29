@@ -34,6 +34,15 @@ export function getUserInfo () {
   })
 }
 
+export function getAndPrefillPersonName () {
+  return function (dispatch) {
+    dispatch({ type: types.APP_GET_AND_PREFILL_PERSON_NAME })
+    return dispatch(getPersonData())
+      .then(() => dispatch(suggestPersonNameFromUsernameIfNotInState()))
+      .catch((error) => dispatch({ type: types.APP_GET_AND_PREFILL_PERSON_NAME_FAILURE, payload: error }))
+  }
+}
+
 export function getPersonData () {
   return api.call({
     url: urls.API_PERSONDATA_URL,
@@ -43,6 +52,20 @@ export function getPersonData () {
       failure: types.APP_PERSONDATA_FAILURE
     }
   })
+}
+
+export function suggestPersonNameFromUsernameIfNotInState () {
+  return function (dispatch, getState) {
+    if (!getState().pinfo.person.nameAtBirth) {
+      let lastName = getState().app.lastName
+      return dispatch({
+        type: types.PINFO_PERSON_SET,
+        payload: {
+          nameAtBirth: lastName
+        }
+      })
+    }
+  }
 }
 
 export function clearData () {

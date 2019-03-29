@@ -46,8 +46,8 @@ export default function (state = {}, action = {}) {
         break
 
       default:
-         serverErrorMessage = 'ui:serverInternalError'
-         break
+        serverErrorMessage = 'ui:serverInternalError'
+        break
     }
 
     return Object.assign({}, state, {
@@ -57,7 +57,6 @@ export default function (state = {}, action = {}) {
   }
 
   if (_.endsWith(action.type, '/FAILURE')) {
-
     clientErrorStatus = 'ERROR'
 
     switch (action.type) {
@@ -141,7 +140,6 @@ export default function (state = {}, action = {}) {
   }
 
   switch (action.type) {
-
     case types.CASE_GET_CASE_NUMBER_SUCCESS:
 
       clientErrorMessage = 'case:alert-caseFound'

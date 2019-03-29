@@ -1,7 +1,12 @@
 import * as appActions from './app'
 import * as api from './api'
 import * as types from '../constants/actionTypes'
-import { LOGOUT_URL, API_USERINFO_URL } from '../constants/urls'
+import { LOGOUT_URL, API_USERINFO_URL, API_PERSONDATA_URL } from '../constants/urls'
+
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+
+const mockStore = configureMockStore([thunk])
 
 describe('api actions', () => {
   it('call login()', () => {
@@ -86,6 +91,81 @@ describe('api actions', () => {
       payload: {
         id: id
       }
+    })
+  })
+
+  it('call getPersondata()', () => {
+    api.call = jest.fn()
+    appActions.getPersonData()
+    expect(api.call).toBeCalledWith({
+      type: {
+        request: types.APP_PERSONDATA_REQUEST,
+        success: types.APP_PERSONDATA_SUCCESS,
+        failure: types.APP_PERSONDATA_FAILURE
+      },
+      url: API_PERSONDATA_URL
+    })
+    api.call.mockRestore()
+  })
+})
+
+describe('Thunk Actions', () => {
+  const app = { lastName: 'LastName' }
+  const pinfo = { person: { } }
+  const pinfoWithName = { person: { nameAtBirth: 'LastName' } }
+
+  it('call suggestPersonNameFromUsernameIfNotInState() when pinfo.person.lastName is empty', () => {
+    const initialState = {
+      app: app,
+      pinfo: pinfo
+    }
+
+    let store = mockStore(initialState)
+    const generatedResult = store.dispatch(appActions.suggestPersonNameFromUsernameIfNotInState())
+    expect(generatedResult).toMatchObject(
+      {
+        type: 'PINFO/PERSON/SET',
+        payload: { nameAtBirth: initialState.app.lastName }
+      }
+    )
+  })
+
+  it('call suggestPersonNameFromUsernameIfNotInState() when pinfo.person.lastName is NOT empty', () => {
+    const initialState = {
+      app: app,
+      pinfo: pinfoWithName
+    }
+
+    let store = mockStore(initialState)
+    const generatedResult = store.dispatch(appActions.suggestPersonNameFromUsernameIfNotInState())
+    expect(generatedResult).toEqual(undefined)
+  })
+
+  it('call getAndPrefillPersonName()', () => {
+    const initialState = {
+      app: app,
+      pinfo: pinfo
+    }
+
+    let store = mockStore(initialState)
+
+    api.call = jest.fn()
+    api.call.mockReturnValue(() => {
+      return Promise.resolve({
+        type: types.APP_PERSONDATA_SUCCESS,
+        payload: { fornavn: 'firstName', mellomnavn: 'middleName', etternavn: 'LastName' }
+      })
+    })
+
+    store.dispatch(
+      appActions.getAndPrefillPersonName()
+    ).then(() => {
+      const generatedActions = store.getActions()
+      const expectedActions = [
+        { type: 'APP/GET_AND_PREFILL/PERSON_NAME' },
+        { type: 'PINFO/PERSON/SET', payload: { nameAtBirth: 'LastName' } }
+      ]
+      expect(generatedActions).toEqual(expectedActions)
     })
   })
 })

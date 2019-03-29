@@ -78,14 +78,21 @@ describe('attachment actions', () => {
         { type: 'ATTACHMENT/GET/STORAGE/LIST' },
         { type: 'ATTACHMENT/GET/PINFO/FILE' },
         { type: 'PINFO/SET/READY' },
-        { type: 'ATTACHMENT/GET/STORAGE/FILES' },
-        { type: 'PINFO/PERSON/SET', payload: { nameAtBirth: 'LastName' } }
+        { type: 'ATTACHMENT/GET/STORAGE/FILES' }
       ]
       expect(generatedActions).toEqual(expectedActions)
     })
   })
 
   it('call syncLocalStateWithStorage()', () => {
+    storageActions.listStorageFiles = jest.fn()
+    storageActions.listStorageFiles.mockReturnValue(() => {
+      return Promise.resolve({
+        type: types.STORAGE_LIST_SUCCESS,
+        payload: ['12354678910___PINFO___PINFO.json', '12345678910___PINFO___attachment1.json']
+      })
+    })
+
     store.dispatch(
       attachmentActions.syncLocalStateWithStorage()
     ).then(() => {
@@ -96,7 +103,6 @@ describe('attachment actions', () => {
         { type: 'ATTACHMENT/GET/PINFO/FILE' },
         { type: 'PINFO/SET/READY' },
         { type: 'ATTACHMENT/GET/STORAGE/FILES' },
-        { type: 'PINFO/PERSON/SET', payload: { nameAtBirth: 'LastName' } },
         { type: 'ATTACHMENT/SYNCRONIZE/STATE' },
         { type: 'ATTACHMENT/GET/STORAGE/LIST' },
         { type: 'ATTACHMENT/DELETE/STORAGE/FILES' },

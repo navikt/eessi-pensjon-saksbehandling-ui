@@ -1,8 +1,7 @@
 import React from 'react'
-import { SessionMonitor} from './SessionMonitor'
+import { SessionMonitor } from './SessionMonitor'
 
 describe('components/app/SessionMonitor', () => {
-
   let initialMockProps = {
     t: jest.fn((translationString) => { return translationString }),
     actions: {
@@ -11,12 +10,11 @@ describe('components/app/SessionMonitor', () => {
   }
 
   it('SessionMonitor renders without crashing', () => {
-    const wrapper = shallow(<SessionMonitor/>)
+    const wrapper = shallow(<SessionMonitor />)
     expect(wrapper).toMatchSnapshot()
   })
 
   it('SessionMonitor will trigger a openModal when session is almost expiring', async (done) => {
-
     const wrapper = shallow(<SessionMonitor
       loggedTime={new Date()}
       sessionExpiringWarning={1}
@@ -34,7 +32,6 @@ describe('components/app/SessionMonitor', () => {
   })
 
   it('SessionMonitor will trigger a openModal when session expired', async (done) => {
-
     const wrapper = shallow(<SessionMonitor
       loggedTime={new Date()}
       sessionExpiringWarning={1}

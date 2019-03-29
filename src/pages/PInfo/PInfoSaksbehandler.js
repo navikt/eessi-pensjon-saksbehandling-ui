@@ -131,7 +131,7 @@ class PInfoSaksbehandler extends React.Component {
 
     return <TopContainer className='p-pInfo p-pInfoSaksbehandler' history={history} location={location}>
       <Nav.Row>
-        <div className='col-md-2'/>
+        <div className='col-md-2' />
         <div className='col-md-8'>
           <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
             <Nav.Undertittel>{t('pinfo:sb-send-notification-title')}</Nav.Undertittel>
@@ -158,7 +158,7 @@ class PInfoSaksbehandler extends React.Component {
             </Nav.AlertStripe> : null}
           </div>
         </div>
-        <div className='col-md-2'/>
+        <div className='col-md-2' />
         <div className='col-md-12'>
           <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
             <div className='notification-title'>

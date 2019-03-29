@@ -13,12 +13,11 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-   return { actions: bindActionCreators(Object.assign({}, uiActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, uiActions), dispatch) }
 }
 
 export class SessionMonitor extends Component {
-
-  componentDidMount() {
+  componentDidMount () {
     this.checkTimeout()
   }
 
@@ -27,35 +26,35 @@ export class SessionMonitor extends Component {
     actions.closeModal()
   }
 
-  checkTimeout() {
-     let self = this
-     const { t, actions, loggedTime, sessionExpiringWarning, sessionExpiredReload, checkInterval } = this.props
-     if (!loggedTime || !sessionExpiringWarning || !sessionExpiredReload || !checkInterval) {
-       return
-     }
-     return setTimeout(() => {
-        let diff = new Date().getTime() - loggedTime.getTime()
-        if (diff > sessionExpiringWarning) {
-           console.log('Session will expire')
-           actions.openModal({
-              modalTitle: t('ui:session-expire-title'),
-              modalText: t('ui:session-expire-text'),
-              modalButtons: [{
-                main: true,
-                text: t('ui:ok-got-it'),
-                onClick: this.closeModal.bind(this)
-              }]
-           })
-        }
-        if (diff > sessionExpiredReload) {
-          window.location.reload()
-        }
-        self.checkTimeout()
-     }, checkInterval)
+  checkTimeout () {
+    let self = this
+    const { t, actions, loggedTime, sessionExpiringWarning, sessionExpiredReload, checkInterval } = this.props
+    if (!loggedTime || !sessionExpiringWarning || !sessionExpiredReload || !checkInterval) {
+      return
+    }
+    return setTimeout(() => {
+      let diff = new Date().getTime() - loggedTime.getTime()
+      if (diff > sessionExpiringWarning) {
+        console.log('Session will expire')
+        actions.openModal({
+          modalTitle: t('ui:session-expire-title'),
+          modalText: t('ui:session-expire-text'),
+          modalButtons: [{
+            main: true,
+            text: t('ui:ok-got-it'),
+            onClick: this.closeModal.bind(this)
+          }]
+        })
+      }
+      if (diff > sessionExpiredReload) {
+        window.location.reload()
+      }
+      self.checkTimeout()
+    }, checkInterval)
   }
 
   render () {
-    return <div/>
+    return <div />
   }
 }
 
