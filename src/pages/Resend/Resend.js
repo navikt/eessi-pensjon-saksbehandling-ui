@@ -11,7 +11,7 @@ const CSRF_PROTECTION = cookies.get('NAV_CSRF_PROTECTION')
 
 const submitHandler = (e) => {
   e.preventDefault()
-  let fileName = document.getElementById('fileName').value
+  let fileName = document.getElementById('resend-fileName').value
   fetch(urls.API_SUBMISSION_RESUBMIT_URL, {
     method: 'POST',
     crossOrigin: true,
