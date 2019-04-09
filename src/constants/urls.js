@@ -31,6 +31,7 @@ export const API_PERSONDATA_URL = API_URL + '/persondata'
 // SubmitController
 export const API_SUBMISSION_SUBMIT_URL = API_URL + '/submission/submit'
 export const API_SUBMISSION_RECEIPT_URL = API_URL + '/submission/receipt'
+export const API_SUBMISSION_RESUBMIT_URL = API_URL + '/submission/resubmit'
 
 // VarselController
 export const API_VARSEL_URL = API_URL + '/varsel?saksId=%(sakId)s&aktoerId=%(aktoerId)s'

@@ -12,6 +12,8 @@ import PInfoSaksbehandler from './PInfo/PInfoSaksbehandler'
 import P4000 from './P4000/P4000'
 import Error from './Error/Error'
 
+import Resend from './Resend/Resend'
+
 export {
   FirstPage,
   IndexPage,
@@ -25,5 +27,7 @@ export {
   PInfoSaksbehandler,
   PInfo,
   P4000,
-  Error
+  Error,
+
+  Resend
 }

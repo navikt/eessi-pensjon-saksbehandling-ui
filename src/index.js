@@ -72,6 +72,7 @@ ReactDOM.render(
             <Redirect from={routes.PDF} to={{ pathname: routes.PDF_SELECT }} />
             <AuthenticatedRoute exact path={`${routes.CASE}/:step?`} component={Pages.Case} roles={[constants.SAKSBEHANDLER]} />
             <AuthenticatedRoute path={routes.INDEX} component={Pages.IndexPage} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+            <AuthenticatedRoute path={routes.RESEND} component={Pages.Resend} roles={[constants.SAKSBEHANDLER]} />
             <Route path={routes.NOT_LOGGED} render={() => <Pages.Error type='notLogged' />} />
             <Route path={routes.NOT_INVITED} render={(props) => <Pages.Error type='notInvited' role={_.get(props, 'location.state.role')} />} />
             <Route path={routes.FORBIDDEN} render={(props) => <Pages.Error type='forbidden' role={_.get(props, 'location.state.role')} />} />
