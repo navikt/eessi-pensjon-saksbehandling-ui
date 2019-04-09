@@ -27,8 +27,8 @@ const submitHandler = (e) => {
 export default class Resend extends React.Component {
   render() {
     return (
-      <form onSubmit={submitHandler}>
-        <span>Filnavn <input id='fileName' type='text' /> <input type='submit' /></span>
+      <form id='resend-form' onSubmit={submitHandler}>
+        <span>Filnavn <input id='resend-fileName' type='text' /> <input id='resend-submit' type='submit' /></span>
       </form>
     )
   }
