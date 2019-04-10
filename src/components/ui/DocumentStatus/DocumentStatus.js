@@ -60,7 +60,7 @@ const sortStatusByDocs = (documents) => {
   })
 }
 
-class DocumentStatus extends Component {
+export class DocumentStatus extends Component {
     state = {
       currentDocument: undefined,
       documents: undefined,
@@ -230,14 +230,14 @@ class DocumentStatus extends Component {
         </div>
           : documents ? <React.Fragment>
             <div className='documentTags'>
-              <Nav.EtikettBase className={classNames('tags', { selected: filter === 'all' })}
+              <Nav.EtikettBase id='documentStatusEtikettBaseAll' className={classNames('tags', { selected: filter === 'all' })}
                 type={filter === 'all' ? 'suksess' : 'info'} onClick={this.setFilter.bind(this, 'all')}>
                 <a href='#all'>{t('all')}</a>
               </Nav.EtikettBase>
-              <Nav.EtikettBase className={classNames('tags', { selected: filter === 'sent' })}
+              <Nav.EtikettBase id='documentStatusEtikettBaseSent' className={classNames('tags', { selected: filter === 'sent' })}
                 type={filter === 'sent' ? 'suksess' : 'info'} onClick={this.setFilter.bind(this, 'sent')}>
                 <a href='#sent'>{t('sent')}</a></Nav.EtikettBase>
-              <Nav.EtikettBase className={classNames('tags', { selected: filter === 'notsent' })}
+              <Nav.EtikettBase id='documentStatusEtikettBaseNotSent' className={classNames('tags', { selected: filter === 'notsent' })}
                 type={filter === 'notsent' ? 'suksess' : 'info'} onClick={this.setFilter.bind(this, 'notsent')}>
                 <a href='#notsent'>{t('notSent')}</a></Nav.EtikettBase>
               <div title={t('refresh')} className={classNames('refresh', { rotating: gettingStatus })}>

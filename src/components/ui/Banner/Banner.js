@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, uiActions), dispatch) }
 }
 
-class Banner extends Component {
+export class Banner extends Component {
   toggleHighContrast () {
     const { actions } = this.props
     actions.toggleHighContrast()

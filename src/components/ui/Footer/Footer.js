@@ -35,7 +35,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const params = ['buc', 'sed', 'rinaId', 'sakId', 'aktoerId', 'vedtakId', 'kravId', 'fnr', 'mottaker']
 
-class Footer extends Component {
+export class Footer extends Component {
   state = {}
 
   onUnsetParam (key) {

@@ -6,8 +6,8 @@ import fetch from 'cross-fetch'
 import 'cross-fetch/polyfill'
 
 const CSRF_PROTECTION = cookies.get('NAV_CSRF_PROTECTION')
-? {'NAV_CSRF_PROTECTION': cookies.get('NAV_CSRF_PROTECTION') }
-: {}
+  ? { 'NAV_CSRF_PROTECTION': cookies.get('NAV_CSRF_PROTECTION') }
+  : {}
 
 const submitHandler = (e) => {
   e.preventDefault()
@@ -25,7 +25,7 @@ const submitHandler = (e) => {
 }
 
 export default class Resend extends React.Component {
-  render() {
+  render () {
     return (
       <form id='resend-form' onSubmit={submitHandler}>
         <span>Filnavn <input id='resend-fileName' type='text' /> <input id='resend-submit' type='submit' /></span>

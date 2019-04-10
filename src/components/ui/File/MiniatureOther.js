@@ -8,7 +8,7 @@ import Icons from '../Icons'
 import './File.css'
 import './MiniatureOther.css'
 
-class MiniatureOther extends Component {
+export class MiniatureOther extends Component {
     state = {
       isHovering: false
     }

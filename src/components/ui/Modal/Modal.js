@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, uiActions), dispatch) }
 }
 
-class Modal extends Component {
+export class Modal extends Component {
   closeModal () {
     const { actions } = this.props
 
@@ -36,8 +36,8 @@ class Modal extends Component {
       closeButton={false}
       contentLabel='contentLabel'>
       {modal ? <div>
-        {modal.modalTitle ? <div className='m-3 text-center'><h4>{modal.modalTitle}</h4></div> : null}
-        {modal.modalContent ? modal.modalContent : <div className='m-4 text-center'>{modal.modalText}</div>}
+        {modal.modalTitle ? <div className='m-3 text-center'><h4 id='modalTitle'>{modal.modalTitle}</h4></div> : null}
+        {modal.modalContent ? modal.modalContent : <div id='modalText' className='m-4 text-center'>{modal.modalText}</div>}
         {modal.modalButtons ? <div className='text-center'>{modal.modalButtons.map(button => {
           return button.main
             ? <Nav.Hovedknapp id='c-ui-modal-main-button' disabled={button.disabled || false} className='mr-3 mb-3 modal-main-button' key={button.text} onClick={button.onClick.bind(this)}>{button.text}</Nav.Hovedknapp>

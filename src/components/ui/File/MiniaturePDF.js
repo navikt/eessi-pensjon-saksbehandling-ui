@@ -11,7 +11,7 @@ import './MiniaturePDF.css'
 
 pdfjs.GlobalWorkerOptions.workerSrc = process.env.PUBLIC_URL + '/pdf.worker.js'
 
-class MiniaturePDF extends Component {
+export class MiniaturePDF extends Component {
     state = {
       currentPage: 1
     }

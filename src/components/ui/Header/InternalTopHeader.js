@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, uiActions, appActions), dispatch) }
 }
 
-class InternalTopHeader extends Component {
+export class InternalTopHeader extends Component {
   onLogoClick () {
     const { history } = this.props
     history.push(routes.INDEX)

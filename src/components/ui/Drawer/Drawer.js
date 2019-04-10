@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, uiActions), dispatch) }
 }
 
-class Drawer extends Component {
+export class Drawer extends Component {
    state = {
      draggable: false
    }
