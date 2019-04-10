@@ -12,12 +12,12 @@ describe('Psycho Rendering', () => {
   it('Render veileder correctly', () => {
     let wrapper = shallow(<Psycho />)
 
-    expect(wrapper.containsMatchingElement(<SmilendeOrangeVeileder/>)).toEqual(true)
-    expect(wrapper.containsMatchingElement(<TristOrangeVeileder/>)).toEqual(false)
-    
+    expect(wrapper.containsMatchingElement(<SmilendeOrangeVeileder />)).toEqual(true)
+    expect(wrapper.containsMatchingElement(<TristOrangeVeileder />)).toEqual(false)
+
     wrapper.setProps({ type: 'trist' })
 
-    expect(wrapper.containsMatchingElement(<SmilendeOrangeVeileder/>)).toEqual(false)
-    expect(wrapper.containsMatchingElement(<TristOrangeVeileder/>)).toEqual(true)
+    expect(wrapper.containsMatchingElement(<SmilendeOrangeVeileder />)).toEqual(false)
+    expect(wrapper.containsMatchingElement(<TristOrangeVeileder />)).toEqual(true)
   })
 })

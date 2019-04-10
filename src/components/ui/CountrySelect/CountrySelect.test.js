@@ -1,6 +1,6 @@
 import React from 'react'
 import CountrySelect from './CountrySelect'
-import {EEA} from './CountryFilter'
+import { EEA } from './CountryFilter'
 
 const testData = {
   'value': 'NO',
@@ -9,18 +9,15 @@ const testData = {
   'currencyLabel': 'Norwegian Kroner'
 }
 
-const selectProps = {selectProps: {type: 'country'}}
-
 describe('CountrySelect Rendering', () => {
   it('Renders correctly', () => {
-
     let wrapper = shallow(<CountrySelect
       id='react-select-test'
       classNamePrefix='test'
       locale='nb'
       includeList={EEA}
       value={testData}
-      onSelect={()=>{}}
+      onSelect={() => {}}
       error={undefined}
       errorMessage={undefined}
     />)
@@ -29,14 +26,14 @@ describe('CountrySelect Rendering', () => {
   })
 })
 
-describe('Countryselect Behaviour', ()=>{
-  it('Opens and closes', ()=>{
+describe('Countryselect Behaviour', () => {
+  it('Opens and closes', () => {
     let wrapper = mount(<CountrySelect
       id='react-select-test'
       locale='nb'
       includeList={EEA}
       value={testData}
-      onSelect={()=>{}}
+      onSelect={() => {}}
       error={undefined}
       errorMessage={undefined}
     />)

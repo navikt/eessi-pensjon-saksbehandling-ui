@@ -3,7 +3,7 @@ import { Banner } from './Banner'
 
 describe('Banner Rendering', () => {
   it('Renders correctly', () => {
-    let wrapper = shallow(<Banner header='BANNER' t={arg=>arg}/>)
+    let wrapper = shallow(<Banner header='BANNER' t={arg => arg} />)
     expect(wrapper).toMatchSnapshot()
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper.find('h1').text()).toEqual('BANNER')
@@ -12,12 +12,12 @@ describe('Banner Rendering', () => {
 })
 
 describe('Banner logic', () => {
-  it('HighContrast triggers action', (done)=>{
-    let mockActions = { toggleHighContrast: ()=>{
+  it('HighContrast triggers action', (done) => {
+    let mockActions = { toggleHighContrast: () => {
       done()
-    }}
-    
-    let wrapper = shallow(<Banner header='BANNER' t={arg=>arg} actions={mockActions}/>)
+    } }
+
+    let wrapper = shallow(<Banner header='BANNER' t={arg => arg} actions={mockActions} />)
 
     wrapper.find('a').simulate('click')
   })

@@ -2,7 +2,6 @@ import React from 'react'
 
 import ConnectedDrawer, { Drawer } from './Drawer'
 
-import { connect } from 'react-redux'
 import { createStore, combineReducers } from 'redux'
 import * as reducers from '../../../reducers'
 
@@ -12,17 +11,15 @@ const reducer = combineReducers({
 const mockActions = {}
 
 describe('Drawer Rendering', () => {
-
   it('Renders without crashing', () => {
-
-    const Child = <div id='Child'></div>
-    const SideContent = <div id='SideContent'></div>
+    const Child = <div id='Child' />
+    const SideContent = <div id='SideContent' />
 
     let wrapper = shallow(
       <Drawer
         sideContent={SideContent}
-        drawerOpen={true}
-        drawerEnabled={true}
+        drawerOpen
+        drawerEnabled
         actions={mockActions}
       >
         {Child}
@@ -35,8 +32,7 @@ describe('Drawer Rendering', () => {
   })
 
   it('Toggles with drawerEnabled prop', () => {
-
-    const Child = <div id='Child'></div>
+    const Child = <div id='Child' />
 
     let wrapper = shallow(
       <Drawer actions={mockActions} drawerEnabled={false} >
@@ -48,14 +44,13 @@ describe('Drawer Rendering', () => {
     expect(wrapper.exists('#drawer-button')).toEqual(true)
   })
   it('Toggles with drawerOpen prop', () => {
-
-    const Child = <div id='Child'> </div>
-    const SideContent = <div id='SideContent'></div>
+    const Child = <div id='Child' />
+    const SideContent = <div id='SideContent' />
 
     let wrapper = shallow(
       <Drawer
         actions={mockActions}
-        drawerEnabled={true}
+        drawerEnabled
         drawerOpen={false}
         sideContent={SideContent}
       >
@@ -71,9 +66,7 @@ describe('Drawer Rendering', () => {
 })
 
 describe('Drawer logic', () => {
-
   it('Toggles drawer button', () => {
-
     let initialState = {
       ui: {
         drawerOpen: false,
@@ -84,7 +77,7 @@ describe('Drawer logic', () => {
     }
 
     let store = createStore(reducer, initialState)
-    const Child = <div id='Child'></div>
+    const Child = <div id='Child' />
 
     let wrapper = shallow(
       <ConnectedDrawer>
@@ -97,9 +90,7 @@ describe('Drawer logic', () => {
     expect(wrapper.render().hasClass('toggled')).toEqual(true)
   })
 
-
   it('Changes width onMouseMove', () => {
-
     let style = {}
 
     let initialState = {
@@ -113,7 +104,7 @@ describe('Drawer logic', () => {
 
     let store = createStore(reducer, initialState)
 
-    const Child = <div id='Child'></div>
+    const Child = <div id='Child' />
 
     const wrapper = mount(
       <ConnectedDrawer>

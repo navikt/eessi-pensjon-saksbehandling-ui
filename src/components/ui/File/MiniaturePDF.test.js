@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 import { MiniaturePDF } from './MiniaturePDF'
 
@@ -17,15 +17,15 @@ jest.mock('react-pdf', () => {
   return {
     pdfjs: { GlobalWorkerOptions: { workerSrc: '' } },
     Document: class Document extends React.Component {
-      onLoadSuccess() {
+      onLoadSuccess () {
         this.props.onLoadSuccess({ numPages: 5 })
       }
-      render() {
+      render () {
         return this.props.children ? this.props.children : null
       }
     },
     Page: class Page extends React.Component {
-      render() {
+      render () {
         return 'Page: ' + this.props.pageNumber
       }
     }
@@ -33,9 +33,7 @@ jest.mock('react-pdf', () => {
 })
 
 describe('Render MiniaturePDF', () => {
-
   it('Renders without crashing', () => {
-
     let wrapper = mount(<MiniaturePDF
       size='Large'
       currentPage={1}
@@ -59,10 +57,10 @@ describe('Render MiniaturePDF', () => {
       file={mockPdf}
       scale={1}
       onLoadSuccess={() => { }}
-      previewLink={true}
-      deleteLink={true}
-      downloadLink={true}
-      addLink={true}
+      previewLink
+      deleteLink
+      downloadLink
+      addLink
     />)
 
     wrapper.find('Document').instance().onLoadSuccess()
@@ -90,9 +88,7 @@ describe('Render MiniaturePDF', () => {
 })
 
 describe('MiniaturePDF functions', () => {
-
   it('Change current page on click', () => {
-
     let wrapper = mount(<MiniaturePDF
       size='Large'
       t={arg => arg}
@@ -260,7 +256,5 @@ describe('MiniaturePDF functions', () => {
 
     expect(wrapper.find('div.downloadLink > a').props().href)
       .toEqual('data:application/octet-stream;base64,' + encodeURIComponent(mockPdf.content.base64))
-
   })
-
 })
