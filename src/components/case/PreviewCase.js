@@ -69,7 +69,7 @@ export class PreviewCase extends Component {
         { previewData.sed === 'P6000' ? <P6000 /> : null }
       </div>
       <div className='mb-4 p-4'>
-        <Nav.Knapp className='forwardButton' disabled={savingCase} spinner={savingCase} onClick={this.onForwardButtonClick.bind(this)}>
+        <Nav.Knapp className='forwardButton' disabled={savingCase || !previewData} spinner={savingCase} onClick={this.onForwardButtonClick.bind(this)}>
           {savingCase ? t('case:loading-savingCase') : t('ui:confirmAndSave')}</Nav.Knapp>
         <Nav.Flatknapp className='ml-3 backButton' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Flatknapp>
       </div>

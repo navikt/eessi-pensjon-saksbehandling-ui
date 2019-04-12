@@ -402,7 +402,7 @@ describe('StartCase: rest of functions', () => {
     let result = wrapper.instance().renderOptions(mockMap, mockType)
     expect(result.length).toEqual(mockMap.length) // note: it is 6, not 5
     let html = result.map(res => { return mount(res).html() })
-    expect(html).toEqual([ '<option value="case:form-chooseCountry">case:form-chooseCountry - case:case-case:form-chooseCountry</option>',
+    expect(html).toEqual([ '<option value="case:form-chooseCountry">case:form-chooseCountry - case:case-case.form-chooseCountry</option>',
       '<option value="NO">Norge - case:case-Norge</option>',
       '<option value="SE">Sverige - case:case-Sverige</option>',
       '<option value="DK">Danmark - case:case-Danmark</option>',
@@ -426,7 +426,7 @@ describe('StartCase: rest of functions', () => {
     expect(result.find('select.skjemaelement__input').length).toEqual(1)
     expect(result.find('select option').length).toEqual(mockSubjectAreaList.length)
     expect(result.find('select option').map(it => { return it.text() })).toEqual([
-      'case:form-chooseSubjectArea - case:case-case:form-chooseSubjectArea',
+      'case:form-chooseSubjectArea - case:case-case.form-chooseSubjectArea',
       'mockSubjectArea1 - case:case-mockSubjectArea1',
       'mockSubjectArea2 - case:case-mockSubjectArea2'
     ])
@@ -460,7 +460,7 @@ describe('StartCase: rest of functions', () => {
     expect(result.find('select.skjemaelement__input').length).toEqual(1)
     expect(result.find('select option').length).toEqual(mockInstitutionList.length)
     expect(result.find('select option').map(it => { return it.text() })).toEqual([
-      'case:form-chooseInstitution - case:case-case:form-chooseInstitution',
+      'case:form-chooseInstitution - case:case-case.form-chooseInstitution',
       'mockInstitution1 - case:case-mockInstitution1',
       'mockInstitution2 - case:case-mockInstitution2'
     ])
@@ -476,7 +476,7 @@ describe('StartCase: rest of functions', () => {
     expect(result.find('select.skjemaelement__input').length).toEqual(1)
     expect(result.find('select option').length).toEqual(mockBucList.length)
     expect(result.find('select option').map(it => { return it.text() })).toEqual([
-      'case:form-chooseBuc - case:case-case:form-chooseBuc',
+      'case:form-chooseBuc - case:case-case.form-chooseBuc',
       'mockBuc1 - case:case-mockBuc1',
       'mockBuc2 - case:case-mockBuc2'
     ])
@@ -492,7 +492,7 @@ describe('StartCase: rest of functions', () => {
     expect(result.find('select.skjemaelement__input').length).toEqual(1)
     expect(result.find('select option').length).toEqual(mockSedList.length)
     expect(result.find('select option').map(it => { return it.text() })).toEqual([
-      'case:form-chooseSed - case:case-case:form-chooseSed',
+      'case:form-chooseSed - case:case-case.form-chooseSed',
       'mockSed1 - case:case-mockSed1',
       'mockSed2 - case:case-mockSed2'
     ])

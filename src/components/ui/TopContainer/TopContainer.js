@@ -29,7 +29,7 @@ const mapDispatchToProps = () => {
   return {}
 }
 
-class TopContainer extends Component {
+export class TopContainer extends Component {
   onDragEnd (e) {
     const { droppables, file } = this.props
 
