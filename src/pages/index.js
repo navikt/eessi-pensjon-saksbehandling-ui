@@ -14,6 +14,8 @@ import Error from './Error/Error'
 
 import Resend from './Resend/Resend'
 
+import NewFeatures from './NewFeatures/NewFeatures'
+
 export {
   FirstPage,
   IndexPage,
@@ -29,5 +31,7 @@ export {
   P4000,
   Error,
 
-  Resend
+  Resend,
+
+  NewFeatures
 }

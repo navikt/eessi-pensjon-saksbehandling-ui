@@ -62,6 +62,7 @@ ReactDOM.render(
       <Suspense fallback={<WaitingPanel message='...' />}>
         <Router history={history}>
           <Switch>
+            <Route path='/newfeatures' component={Pages.NewFeatures} />
             <AuthenticatedRoute exact path={routes.PSELV} component={Pages.PSelv} roles={[constants.SAKSBEHANDLER]} />
             <AuthenticatedRoute exact path={`${routes.PINFO}/:step?`} component={Pages.PInfo} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
             <AuthenticatedRoute exact path={routes.PINFO_SAKSBEHANDLER} component={Pages.PInfoSaksbehandler} roles={[constants.SAKSBEHANDLER]} />
