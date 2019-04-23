@@ -27,10 +27,10 @@ export default [{
   options: {}
 }, {
   i: 'w3',
-  type: 'ekspandertbart',
-  title: 'Ekspandertbart widget - Messages',
+  type: 'note',
+  title: 'My notes',
   options: {
-    collapsed: false,
-    content: 'No messages'
+    backgroundColor: 'yellow',
+    content: '<ul><li>fill out time report</li><li>Send form</li></ul>'
   }
 }]

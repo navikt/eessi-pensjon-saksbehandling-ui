@@ -11,6 +11,7 @@ import * as DashboardAPI from './API/DashboardAPI'
 
 import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
+
 import './Dashboard.css'
 
 const Dashboard = () => {
