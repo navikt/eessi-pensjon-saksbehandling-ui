@@ -5,15 +5,15 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { withTranslation } from 'react-i18next'
 
-import Icons from '../Icons'
-import * as Nav from '../Nav'
+import Icons from '../../components/ui/Icons'
+import * as Nav from '../../components/ui/Nav'
 
-import * as constants from '../../../constants/constants'
-import * as routes from '../../../constants/routes'
-import * as uiActions from '../../../actions/ui'
-import * as statusActions from '../../../actions/status'
-import * as p4000Actions from '../../../actions/p4000'
-import P4000Util from '../../../components/p4000/Util'
+import * as constants from '../../constants/constants'
+import * as routes from '../../constants/routes'
+import * as uiActions from '../../actions/ui'
+import * as statusActions from '../../actions/status'
+import * as p4000Actions from '../../actions/p4000'
+import P4000Util from '../../components/p4000/Util'
 
 import './DocumentStatus.css'
 

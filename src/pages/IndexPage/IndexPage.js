@@ -1,93 +1,20 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
-import { withTranslation } from 'react-i18next'
-import 'url-search-params-polyfill'
 
 import TopContainer from '../../components/ui/TopContainer/TopContainer'
-import * as Nav from '../../components/ui/Nav'
-import DocumentStatus from '../../components/ui/DocumentStatus/DocumentStatus'
 import EmptyDrawer from '../../components/drawer/Empty'
-
-import * as constants from '../../constants/constants'
-import * as routes from '../../constants/routes'
-import * as statusActions from '../../actions/status'
-import * as appActions from '../../actions/app'
-import * as uiActions from '../../actions/ui'
-
+import Dashboard from '../../components/ui/Dashboard/Dashboard'
 import './IndexPage.css'
 
-const mapStateToProps = (state) => {
-  return {
-    userRole: state.app.userRole,
-    language: state.ui.language,
-    status: state.status
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, uiActions, appActions, statusActions), dispatch) }
-}
-
 class IndexPage extends Component {
-  getCreateableDocuments (status) {
-    return status.docs ? status.docs
-      .filter(item => { return item.navn === 'Create' })
-      .sort((a, b) => { return (a.dokumentType > b.dokumentType) ? 1 : ((a.dokumentType < b.dokumentType) ? -1 : 0) })
-      : []
-  }
 
   render () {
-    const { t, language, history, status, location, userRole } = this.props
+    const {  language, history, location } = this.props
 
     return <TopContainer className='p-indexPage'
       language={language} history={history} location={location}
       sideContent={<EmptyDrawer />}>
-
-      <h1 className='typo-sidetittel ml-0 appTitle'>{t('app-pageTitle')}</h1>
-      <h2 className='typo-undertittel ml-0 mb-4 appDescription'>{t('app-pageDescription')}</h2>
-      <div className='fieldset animate mb-4'>
-
-        <div className='mb-4'>
-          <DocumentStatus history={history} />
-        </div>
-
-        <h3 className='typo-undertittel mb-4'>{t('forms')}</h3>
-
-        {userRole === constants.SAKSBEHANDLER
-          ? <Nav.Lenkepanel style={{ animationDelay: '0s' }}
-            className='frontPageLink caseLink' linkCreator={(props) => (
-              <Link to={routes.CASE + '?sed=&buc='} {...props} />)
-            } href='#'>{t('case:app-createNewCase')}</Nav.Lenkepanel>
-          : null}
-
-        {userRole === constants.SAKSBEHANDLER
-          ? <Nav.Lenkepanel style={{ animationDelay: '0.1s' }} className='frontPageLink pSelvLink' linkCreator={(props) => (
-            <Link to={routes.PSELV} {...props} />)
-          } href='#'>{t('pselv:app-startPselv')}</Nav.Lenkepanel>
-          : null}
-
-        <Nav.Lenkepanel style={{ animationDelay: '0.2s' }} className='frontPageLink pInfoLink' linkCreator={(props) => (
-          <Link to={routes.PINFO} {...props} />)
-        } href='#'>{t('pinfo:app-startPinfo')}</Nav.Lenkepanel>
-        {status ? this.getCreateableDocuments(status).map(item => <Nav.Lenkepanel
-          className={'frontPageLink ' + item.dokumentType + 'Link'}
-          key={item.dokumentType}
-          linkCreator={(props) => (
-            <Link to={routes.ROOT + item.dokumentType} {...props} />)
-          } href='#'>{t(item.dokumentType + ':app-start' + item.dokumentType)}
-        </Nav.Lenkepanel>) : null}
-        <Nav.Lenkepanel style={{ animationDelay: '0.3s' }}
-          className='frontPageLink p4000Link' linkCreator={(props) => (
-            <Link to={routes.P4000} {...props} />)
-          } href='#'>{t('p4000:app-startP4000')}</Nav.Lenkepanel>
-        <h3 className='typo-undertittel mt-4 mb-4'>{t('tools')}</h3>
-        <Nav.Lenkepanel style={{ animationDelay: '0.4s' }} className='frontPageLink pdfLink' linkCreator={(props) => (
-          <Link to={routes.PDF_SELECT} {...props} />)
-        } href='#'>{t('pdf:app-createPdf')}</Nav.Lenkepanel>
-      </div>
+      <Dashboard/>
     </TopContainer>
   }
 }
@@ -95,16 +22,7 @@ class IndexPage extends Component {
 IndexPage.propTypes = {
   language: PT.string,
   location: PT.object.isRequired,
-  t: PT.func.isRequired,
-  actions: PT.object.isRequired,
-  gettingStatus: PT.bool,
-  status: PT.object,
   history: PT.object.isRequired
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(
-  withTranslation()(IndexPage)
-)
+export default IndexPage
