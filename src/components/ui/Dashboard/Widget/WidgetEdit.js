@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import KnappBase from 'nav-frontend-knapper'
+import WidgetEditOptions from './WidgetEditOptions'
+
 import './Widget.css'
 
 const WidgetEdit = (props) => {
@@ -43,6 +45,7 @@ const WidgetEdit = (props) => {
         </div>
       </div>
     </div>
+    <WidgetEditOptions {...props}/>
   </div>
 }
 

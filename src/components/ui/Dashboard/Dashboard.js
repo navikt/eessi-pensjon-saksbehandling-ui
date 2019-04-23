@@ -59,6 +59,7 @@ const Dashboard = () => {
   }
 
   const onWidgetUpdate = (update, layout) => {
+    console.log("UPDATING ", update, layout)
     const newWidgets = _.cloneDeep(widgets)
     setWidgets(newWidgets.map((widget) => {
       return (widget.i === layout.i) ? update : widget
@@ -141,6 +142,7 @@ const Dashboard = () => {
         onWidgetUpdate={onWidgetUpdate}
         onWidgetResize={onWidgetResize}
         onWidgetDelete={onWidgetDelete}
+        availableWidgets={availableWidgets}
       />
 
   </div>

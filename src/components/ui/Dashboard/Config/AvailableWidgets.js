@@ -51,6 +51,6 @@ export default [{
    },
    options: {
      backgroundColor: 'yellow',
-     availableColors: ['white', 'yellow', 'orange', 'pink', 'limegreen']
+     availableColors: ['white', 'yellow', 'orange', 'pink', 'lightgreen']
    }
 }]

@@ -41,6 +41,7 @@ const DashboardGrid = (props) => {
             onWidgetUpdate={props.onWidgetUpdate}
             onWidgetDelete={props.onWidgetDelete}
             rowHeight={props.rowHeight}
+            availableWidgets={props.availableWidgets}
           /></div>
       })}
     </ResponsiveReactGridLayout>
