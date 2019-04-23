@@ -13,7 +13,8 @@ class IndexPage extends Component {
 
     return <TopContainer className='p-indexPage'
       language={language} history={history} location={location}
-      sideContent={<EmptyDrawer />}>
+      sideContent={<EmptyDrawer />}
+      fluid={true}>
       <Dashboard/>
     </TopContainer>
   }

@@ -7,12 +7,23 @@
   animation: pulse 1s infinite alternate;
 }
 
-@keyframes pulse {
- 0% {background-color: #eee;}
- 50% {background-color: #fee;}
- 100% {background-color: #eee;}
+.c-ui-d-dashboardGrid {
+   .react-grid-layout {
+      background-color: whitesmoke;
+   }
 }
 
+.c-ui-d-dashboard {
+  .c-ui-d-dashboardControlPanel {
+     background-color: whitesmoke;
+  }
+}
+
+@keyframes pulse {
+ 0% {background-color: whitesmoke;}
+ 50% {background-color: #fdd;}
+ 100% {background-color: whitesmoke;}
+}
 
 .columns {
   columns: 120px;

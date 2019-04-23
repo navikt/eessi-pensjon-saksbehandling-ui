@@ -14,9 +14,11 @@ const NoteWidget = (props) => {
     setContent(props.widget.options.content)
   }, [])
 
+  const id = 'widget-note-' + (props.layout !== undefined ? props.layout.i : '' + new Date().getTime())
+
   const onBlur = (e) => {
-    const width = document.getElementById('widget-note-' + props.layout.i).offsetWidth
-    const height = document.getElementById('widget-note-' + props.layout.i).offsetHeight
+    const width = document.getElementById(id).offsetWidth
+    const height = document.getElementById(id).offsetHeight
     props.onResize(width, height)
     saveContent(e)
   }
@@ -30,7 +32,8 @@ const NoteWidget = (props) => {
   }
 
   const backgroundColor = props.widget.options.backgroundColor || 'white'
-  return <div className='p-3 c-ui-d-NoteWidget' id={'widget-note-' + props.layout.i} style={{
+
+  return <div className='p-3 c-ui-d-NoteWidget' id={id} style={{
     backgroundColor: backgroundColor
     }}>
     <ReactResizeDetector

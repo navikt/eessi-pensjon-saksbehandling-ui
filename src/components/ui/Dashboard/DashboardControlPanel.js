@@ -2,11 +2,11 @@ import React from 'react'
 import DashboardConfig from './Config/DashboardConfig'
 
 const DashboardControlPanel = (props) => {
-  return <div className='c-ui-d-dashboardControlPanel m-2'>
+  return <div className='c-ui-d-dashboardControlPanel p-2'>
     <div className='d-inline-block'>
-      Current Breakpoint: {props.currentBreakpoint} ({
-        props.cols[props.currentBreakpoint]
-      } columns)
+      {props.editMode ?
+        props.addMode ? 'Drag new widgets to dashboard.' : 'Arrange widgets, then save or cancel. '
+        : null}
     </div>
     <div className='c-ui-d-dashboardControlPanel-buttons'>
       {props.editMode ? <button className='mr-2 c-ui-d-dashboardControlPanel-button'
