@@ -59,7 +59,7 @@ const WidgetWrapper = (props) => {
     backgroundColor = 'white'
   }
 
-  return <div className='c-ui-d-Widget' style={{backgroundColor}}
+  return <div className='c-ui-d-Widget' style={{ backgroundColor }}
     onMouseEnter={() => setMouseOver(true)}
     onMouseLeave={() => setMouseOver(false)}>
     { props.editMode && mouseOver

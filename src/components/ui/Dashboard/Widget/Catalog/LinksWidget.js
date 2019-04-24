@@ -4,6 +4,8 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
 import ReactResizeDetector from 'react-resize-detector'
 import Links from './Links/Links'
 
+import './LinksWidget.css'
+
 const LinksWidget = (props) => {
   const onClick = () => {
     let newWidget = _.cloneDeep(props.widget)
@@ -13,8 +15,8 @@ const LinksWidget = (props) => {
 
   const _onResize = (w, h) => {
     if (props.onResize) {
-      // give more 50 for the panel header
-      props.onResize(w, h + 60)
+      // give more 70 for the panel header
+      props.onResize(w, h + 70)
     }
   }
 
@@ -30,7 +32,7 @@ const LinksWidget = (props) => {
           onResize={_onResize} />
         {props.widget.options.collapsed === true
           ? null
-          : <Links/>
+          : <Links />
         }
       </div>
     </Ekspanderbartpanel>

@@ -3,7 +3,7 @@ export default [{
   type: 'documentstatus',
   title: 'Document status',
   options: {
-     collapse: false
+    collapse: false
   }
 }, {
   i: 'w-1-panel',
@@ -41,8 +41,8 @@ export default [{
     'Task 8: Buy beer.<br />'
   }
 }, {
-   i: 'w-5-links',
-   type: 'links',
-   title: 'Links widget',
-   options: {}
- }]
+  i: 'w-5-links',
+  type: 'links',
+  title: 'Links widget',
+  options: {}
+}]

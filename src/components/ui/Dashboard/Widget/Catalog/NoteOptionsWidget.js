@@ -3,7 +3,6 @@ import _ from 'lodash'
 import * as Nav from '../../../Nav'
 
 const NoteOptionsWidget = (props) => {
-
   const [backgroundColor, setBackgroundColor] = useState(null)
 
   useEffect(() => {
@@ -18,12 +17,12 @@ const NoteOptionsWidget = (props) => {
     props.onWidgetUpdate(newWidget, props.layout)
   }
 
-  let widgetTemplate = _.find(props.availableWidgets, {type: 'note'})
+  let widgetTemplate = _.find(props.availableWidgets, { type: 'note' })
   return <div>
     <Nav.Select label={'color'} value={backgroundColor}
       onChange={chooseColor}>
       {widgetTemplate.options.availableColors.map(color => {
-         return <option value={color} selected={color === backgroundColor}>{color}</option>
+        return <option value={color} selected={color === backgroundColor}>{color}</option>
       })}
     </Nav.Select>
   </div>

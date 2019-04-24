@@ -6,7 +6,7 @@ const WidgetEditOptions = (props) => {
   switch (props.widget.type) {
     case 'note':
       return <NoteOptionsWidget {...props} />
-        default:
+    default:
       return null
   }
 }

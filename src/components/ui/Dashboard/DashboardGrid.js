@@ -59,7 +59,7 @@ export default DropTarget(
       return true
     },
     drop: (props, monitor, component) => {
-      //console.log('Something good dropped')
+      // console.log('Something good dropped')
       let droppedItem = monitor.getItem()
       // let droppedItemType = monitor.getItemType()
       // console.log('A good ' + droppedItemType + ' dropped')

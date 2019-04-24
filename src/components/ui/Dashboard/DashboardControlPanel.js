@@ -4,8 +4,8 @@ import DashboardConfig from './Config/DashboardConfig'
 const DashboardControlPanel = (props) => {
   return <div className='c-ui-d-dashboardControlPanel p-2'>
     <div className='d-inline-block'>
-      {props.editMode ?
-        props.addMode ? props.t('ui:dashboard-dragNewWidgets') : props.t('ui:dashboard-arrangeWidgets')
+      {props.editMode
+        ? props.addMode ? props.t('ui:dashboard-dragNewWidgets') : props.t('ui:dashboard-arrangeWidgets')
         : null}
     </div>
     <div className='c-ui-d-dashboardControlPanel-buttons'>
@@ -14,15 +14,15 @@ const DashboardControlPanel = (props) => {
         {!props.addMode ? props.t('ui:dashboard-addNewWidgets') : props.t('ui:dashboard-hideNewWidgets')}
       </button> : null}
       {!props.editMode ? <button onClick={props.onEditModeOn}>
-          {props.t('ui:dashboard-editDashboard')}
-        </button> : <React.Fragment>
-          <button className='mr-2' onClick={props.onSaveEdit}>
-            {props.t('ui:dashboard-saveChanges')}
-          </button>
-          <button className='mr-2' onClick={props.onCancelEdit}>
-            {props.t('ui:dashboard-cancelChanges')}
-          </button>
-        </React.Fragment>
+        {props.t('ui:dashboard-editDashboard')}
+      </button> : <React.Fragment>
+        <button className='mr-2' onClick={props.onSaveEdit}>
+          {props.t('ui:dashboard-saveChanges')}
+        </button>
+        <button className='mr-2' onClick={props.onCancelEdit}>
+          {props.t('ui:dashboard-cancelChanges')}
+        </button>
+      </React.Fragment>
       }
     </div>
   </div>

@@ -25,7 +25,7 @@ const Dashboard = (props) => {
   const [availableWidgets, setAvailableWidgets] = useState([])
 
   useEffect(() => {
-     const loadData = async () => {
+    const loadData = async () => {
       setAvailableWidgets(require('./Config/AvailableWidgets').default)
       const [_widgets, _layouts] = await DashboardAPI.loadDashboard()
       setWidgets(_widgets)
@@ -123,32 +123,32 @@ const Dashboard = (props) => {
       onCancelEdit={onCancelEdit}
       onSaveEdit={onSaveEdit}
       onAddChange={onAddChange}
-      t={props.t}/>
+      t={props.t} />
     {addMode ? <WidgetAddArea
       currentBreakpoint={currentBreakpoint}
       availableWidgets={availableWidgets}
-      t={props.t}/>
+      t={props.t} />
       : null}
-      <DashboardGrid
-        editMode={editMode}
-        layouts={layouts}
-        widgets={widgets}
-        mounted={mounted}
-        currentBreakpoint={currentBreakpoint}
-        onBreakpointChange={onBreakpointChange}
-        onLayoutChange={onLayoutChange}
-        onWidgetAdd={onWidgetAdd}
-        onWidgetUpdate={onWidgetUpdate}
-        onWidgetResize={onWidgetResize}
-        onWidgetDelete={onWidgetDelete}
-        availableWidgets={availableWidgets}
-        t={props.t}
-      />
+    <DashboardGrid
+      editMode={editMode}
+      layouts={layouts}
+      widgets={widgets}
+      mounted={mounted}
+      currentBreakpoint={currentBreakpoint}
+      onBreakpointChange={onBreakpointChange}
+      onLayoutChange={onLayoutChange}
+      onWidgetAdd={onWidgetAdd}
+      onWidgetUpdate={onWidgetUpdate}
+      onWidgetResize={onWidgetResize}
+      onWidgetDelete={onWidgetDelete}
+      availableWidgets={availableWidgets}
+      t={props.t}
+    />
   </div>
 }
 
 Dashboard.defaultProps = DashboardConfig
 
 export default DragDropContext(HTML5Backend)(
-   withTranslation()(Dashboard)
+  withTranslation()(Dashboard)
 )

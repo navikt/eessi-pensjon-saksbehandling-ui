@@ -5,6 +5,8 @@ import ReactResizeDetector from 'react-resize-detector'
 import DocumentStatus from './DocumentStatus/DocumentStatus'
 import { withRouter } from 'react-router-dom'
 
+import './DocumentStatusWidget.css'
+
 const EkspandertBartWidget = (props) => {
   const onClick = () => {
     let newWidget = _.cloneDeep(props.widget)
@@ -14,8 +16,8 @@ const EkspandertBartWidget = (props) => {
 
   const _onResize = (w, h) => {
     if (props.onResize) {
-      // give more 50 for the panel header
-      props.onResize(w, h + 60)
+      // give more 25 + 16*2 padding for the panel header
+      props.onResize(w, h + 62)
     }
   }
 
@@ -31,7 +33,7 @@ const EkspandertBartWidget = (props) => {
           onResize={_onResize} />
         {props.widget.options.collapsed === true
           ? null
-          : <DocumentStatus history={props.history}/>
+          : <DocumentStatus history={props.history} />
         }
       </div>
     </Ekspanderbartpanel>

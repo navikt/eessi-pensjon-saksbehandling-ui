@@ -11,7 +11,7 @@ const SmileyWidget = (props) => {
     }
   }, [])
 
-  return <div className='m-3 c-ui-d-SmileyWidget text-center'>
+  return <div className='p-3 c-ui-d-SmileyWidget text-center'>
     <ReactResizeDetector
       handleWidth
       handleHeight

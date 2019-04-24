@@ -40,7 +40,7 @@ export class TopContainer extends Component {
   }
 
   render () {
-    const { className, style, history, sideContent, userRole, header, highContrast, fluid } = this.props
+    const { className, containerClassName, style, history, sideContent, userRole, header, highContrast, fluid } = this.props
 
     return <div style={style} className={classNames('c-ui-topContainer', userRole, className,
       { 'highContrast': highContrast })}>
@@ -54,7 +54,7 @@ export class TopContainer extends Component {
           {header ? <Banner header={header} /> : null}
           <Alert type='client' />
           <Alert type='server' />
-          <Nav.Container fluid={fluid || false} className={classNames('_container')}>
+          <Nav.Container fluid={fluid || false} className={classNames('_container', containerClassName)}>
             {this.props.children}
           </Nav.Container>
           <Modal />

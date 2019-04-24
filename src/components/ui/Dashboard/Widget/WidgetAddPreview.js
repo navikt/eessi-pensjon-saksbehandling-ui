@@ -36,7 +36,7 @@ const gridSizeToPixelSize = (w, h, breakpoint) => {
   let gridUnitWidth = Math.ceil(gridWidth / DashboardConfig.cols[breakpoint])
   const dimension = {
     height: (h * (DashboardConfig.rowHeight + 10) - 10) + 'px',
-    width: (w * gridUnitWidth - 10) + 'px',
+    width: (w * gridUnitWidth - 10) + 'px'
   }
   console.log(gridWidth, gridUnitWidth, w, h, dimension)
   return dimension

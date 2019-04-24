@@ -7,15 +7,16 @@ import Dashboard from '../../components/ui/Dashboard/Dashboard'
 import './IndexPage.css'
 
 class IndexPage extends Component {
-
   render () {
-    const {  language, history, location } = this.props
+    const { language, history, location } = this.props
 
-    return <TopContainer className='p-indexPage'
+    return <TopContainer
+      className='p-indexPage'
+      containerClassName='p-0'
       language={language} history={history} location={location}
       sideContent={<EmptyDrawer />}
-      fluid={true}>
-      <Dashboard id='dashboard'/>
+      fluid>
+      <Dashboard id='dashboard' />
     </TopContainer>
   }
 }

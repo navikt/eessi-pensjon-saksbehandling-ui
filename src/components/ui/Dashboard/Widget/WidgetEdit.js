@@ -8,7 +8,7 @@ const WidgetEdit = (props) => {
   const [deleteMode, setDeleteMode] = useState(false)
 
   const onWidgetEditClick = (e) => {
-    //console.log(e)
+    // console.log(e)
   }
 
   const onWidgetDeleteClick = (e) => {
@@ -48,7 +48,7 @@ const WidgetEdit = (props) => {
         </div>
       </div>
     </div>
-    <WidgetEditOptions {...props}/>
+    <WidgetEditOptions {...props} />
   </div>
 }
 

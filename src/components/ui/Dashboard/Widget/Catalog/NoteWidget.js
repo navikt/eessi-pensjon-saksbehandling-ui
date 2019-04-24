@@ -40,7 +40,7 @@ const NoteWidget = (props) => {
       handleHeight
       onResize={props.onResize} />
     <h4>{props.widget.title}</h4>
-    <div contentEditable='true' onBlur={onBlur} dangerouslySetInnerHTML={{ __html: content }}/>
+    <div contentEditable='true' onBlur={onBlur} dangerouslySetInnerHTML={{ __html: content }} />
   </div>
 }
 
