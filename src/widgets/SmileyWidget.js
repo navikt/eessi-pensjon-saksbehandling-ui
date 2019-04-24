@@ -19,20 +19,30 @@ const SmileyWidget = (props) => {
     <h4>{props.widget.title}</h4>
     <p style={{
       fontSize: '100px'
-    }}><span role='img' aria-label='smiley'>&#128512;</span></p>
+    }}><span role='img' aria-label='smiley'>{props.widget.options.mood}</span></p>
   </div>
 }
 
 SmileyWidget.properties = {
   type: 'smiley',
   title: 'Smiley widget',
-  description: 'Widget with a 😀',
+  description: 'Widget with a 😁',
   layout: {
     lg: { minW: 2, maxW: 4, defaultW: 2, minH: 6, defaultH: 6, maxH: Infinity },
     md: { minW: 1, maxW: 3, defaultW: 1, minH: 6, defaultH: 6, maxH: Infinity },
     sm: { minW: 1, maxW: 1, defaultW: 1, minH: 6, defaultH: 6, maxH: Infinity }
   },
-  options: {}
+  options: {
+     mood: '😁',
+     availableMoods: [
+       {label: 'grin', value: '😁'},
+       {label: 'happy', value: '😃'},
+       {label: 'smiling', value: '😊'},
+       {label: 'unamused', value: '😒'},
+       {label: 'angry', value: '😠'},
+       {label: 'pouting', value: '😡'}
+     ]
+  }
 }
 
 export default SmileyWidget

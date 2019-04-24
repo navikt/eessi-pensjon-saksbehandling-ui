@@ -2,6 +2,7 @@ import EkspandertBartWidget from './EkspandertBartWidget'
 import PanelWidget from './PanelWidget'
 import PdfWidget from './PdfWidget'
 import SmileyWidget from './SmileyWidget'
+import SmileyOptionsWidget from './SmileyOptionsWidget'
 import CatWidget from './CatWidget'
 import NoteWidget from './NoteWidget'
 import NoteOptionsWidget from './NoteOptionsWidget'
@@ -14,6 +15,7 @@ export {
   EkspandertBartWidget,
   PanelWidget,
   SmileyWidget,
+  SmileyOptionsWidget,
   CatWidget,
   NoteWidget,
   NoteOptionsWidget,
