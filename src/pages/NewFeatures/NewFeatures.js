@@ -4,6 +4,8 @@ import { ToggleGruppe, ToggleKnapp } from 'nav-frontend-toggle'
 import Tekstomrade from 'nav-frontend-tekstomrade'
 import * as Typografi from 'nav-frontend-typografi';
 
+import { withTranslation } from 'react-i18next'
+
 import PersonHeader from '../../components/newFeatures/PersonHeader'
 import BucHeader from '../../components/newFeatures/BucHeader'
 import SedHeader from '../../components/newFeatures/SedHeader'
@@ -41,7 +43,23 @@ const BUCLIST = [
         name: 'UførePensjon',
         dateCreated: 'dd.mm.åå',
         countries: ['SE', 'DK', 'CZ'],
-    }
+        merknader: ['foo', 'bar', 'baz']
+    },
+    {
+        type: 'P_BUC_01',
+        name: 'AldersPensjon',
+        dateCreated: 'dd.mm.åå',
+        countries: ['ZW', 'KR', 'SE', 'DK', 'CZ'],
+        comments: ['foo', 'bar', 'baz']
+    },
+    {
+        type: 'P_BUC_01',
+        name: 'AldersPensjon',
+        dateCreated: 'dd.mm.åå',
+        countries: ['ZW', 'KR', 'SE', 'DK', 'CZ'],
+        merknader: ['foo', 'bar', 'baz'],
+        comments: ['foo', 'bar', 'baz']
+    },
 ]
 
 const ANDRELIST = [
@@ -69,14 +87,14 @@ let SEDS = [
     },
     {
         name: 'P3000SE',
-        status: 'utkast',
+        status: 'draft',
         date: 'dd.mm.åå',
         country: 'Sverige',
         institution: 'Försäkringskassan'
     },
     {
         name: 'P4000',
-        status: 'mottatt',
+        status: 'received',
         date: 'dd.mm.åå',
         country: 'Sverige',
         institution: 'Försäkringskassan'
@@ -90,32 +108,33 @@ let SEDS = [
     }
 ]
 
-export default ()=>{
+export function NewFeatures(props){
 
-    const [tab, setTab] = useState('ONGOING');
+    const [tab, setTab] = useState('ONGOING')
+    const { t } = props
 
     return(
         <div className='newFeatureBackground'>
             <div className='newFeatureContainer pr-5 pl-5'>
-                <EkspanderbartpanelBase className='mb-5' ariaTittel='foo' heading={<PersonHeader {...person}/>}>
+                <EkspanderbartpanelBase className='mb-5' ariaTittel='foo' heading={<PersonHeader t={t} {...person}/>}>
                     {[0,1,2,3,4,5,6,7,8,9].map(i=><div key={i}><span><b>{'someOtherParam'+i}</b>{person['someOtherParam'+i]}</span><br /></div>)}
                 </EkspanderbartpanelBase>
                 
                 <div className= 'mb-3'>
                     <ToggleGruppe
                         defaultToggles={[
-                            {children: 'Pågående', pressed: true , onClick: ()=>setTab('ONGOING')},
-                            {children: 'Andre', onClick: ()=>setTab('OTHER')}
+                            {children: t('ongoing'), pressed: true , onClick: ()=>setTab('ONGOING')},
+                            {children: t('other'), onClick: ()=>setTab('OTHER')}
                         ]}
                     />
                 </div>
                 {
                     tab === 'ONGOING'
                     ? BUCLIST.map((buc, index) => (
-                        <EkspanderbartpanelBase key={index} className='mb-3' ariaTittel='foo' heading={<BucHeader {...buc} />}>
-                            <SedHeader />
+                        <EkspanderbartpanelBase key={index} className='mb-3' ariaTittel='foo' heading={<BucHeader t={t} {...buc} />}>
+                            <SedHeader t={t} />
                             {SEDS.map((sed, index )=> (
-                                <SedLabel key={index} sed={sed} />
+                                <SedLabel t={t} key={index} sed={sed} />
                             ))}
                         </EkspanderbartpanelBase>
                     ))
@@ -123,8 +142,11 @@ export default ()=>{
                 {
                     tab === 'OTHER'
                     ? ANDRELIST.map((buc, index) => (
-                        <EkspanderbartpanelBase key={index} className='mb-3' ariaTittel='foo' heading={<BucHeader {...buc} />}>
-                            foo
+                        <EkspanderbartpanelBase key={index} className='mb-3' ariaTittel='foo' heading={<BucHeader t={t} {...buc} />}>
+                            <SedHeader t={t} />
+                            {SEDS.map((sed, index )=> (
+                                <SedLabel t={t} key={index} sed={sed} />
+                            ))}
                         </EkspanderbartpanelBase>
                     ))
                     : null }
@@ -132,3 +154,5 @@ export default ()=>{
         </div>
     )
 }
+
+export default withTranslation('newFeatures')(NewFeatures)

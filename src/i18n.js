@@ -19,7 +19,7 @@ i18n
       'default': ['nb']
     },
     debug: false,
-    ns: ['ui', 'case', 'pdf', 'pinfo', 'pselv', 'p4000', 'p6000'],
+    ns: ['ui', 'case', 'pdf', 'pinfo', 'pselv', 'p4000', 'p6000', 'newFeatures'],
     defaultNS: 'ui',
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json'

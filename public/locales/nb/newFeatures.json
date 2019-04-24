@@ -1,0 +1,16 @@
+{
+    "ongoing" : "Pågående",
+    "other" : "Andre",
+    "country" : "Land",
+    "marital-status" : "Sivilstand",
+    "created" : "Opprettet",
+    "processing" : "GÅ TIL BEHANDLING",
+    "sed-name" : "Navn på sed",
+    "sed-status" : "Status",
+    "sender-receiver" : "Mottaker/Avsender",
+    "draft" : "utkast",
+    "sendt" : "sendt",
+    "received" : "mottatt",
+    "unknown" : "ukjent"
+}
+

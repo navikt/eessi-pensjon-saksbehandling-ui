@@ -8,10 +8,10 @@ function FlagList(props) {
             {props.countries.map((country, index)=>(
                 (index > props.overflowLimit-1)
                 ? null
-                : <Flag className='m-1' key={index} flagPath={props.flagPath} country={country} extention={props.extention} />
+                : <Flag data-qa='FlagList-Flag' className='m-1' key={index} flagPath={props.flagPath} country={country} extention={props.extention} />
             ))}
             {props.countries.length > props.overflowLimit
-            ?   <span className='ml-1 pt-2'>+{props.countries.length-2}</span>
+            ?   <span data-qa='FlagList-overflow' className='ml-1 pt-2'>+{props.countries.length-2}</span>
             :   null
             }
         </div>
@@ -20,7 +20,7 @@ function FlagList(props) {
 
 FlagList.defaultProps = {
     countries: [],
-    overflowLimit: 0,
+    overflowLimit: 2,
     flagPath: '',
     extention: ''
 }

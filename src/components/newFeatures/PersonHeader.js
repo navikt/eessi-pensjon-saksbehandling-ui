@@ -3,25 +3,38 @@ import { Systemtittel , Undertekst} from 'nav-frontend-typografi';
 
 import { ReactComponent as MannIcon } from '../../resources/images/mann.svg'
 
-export default (props) => {
+
+function PersonHeader(props) {
+    const {t} = props
     return (
         <div className='d-flex w-100'>
             <div>
-                <MannIcon />
+                <MannIcon data-qa='PersonHeader-Mann'/>
             </div>
             <div className='w-100'>
                 <div className='col-12'>
-                    <Systemtittel>{props.fullName} ({props.age}) - {props.personID}</Systemtittel>
+                    <Systemtittel data-qa='PersonHeader-nameAgeID'>{props.fullName} ({props.age}) - {props.personID}</Systemtittel>
                 </div>
                 <div className='col-12 d-flex'>
                     <div className='pr-5 mr-5'>
-                        <Undertekst>Land: {props.country} </Undertekst>
+                        <Undertekst data-qa='PersonHeader-country'>{t('country')}: {props.country}</Undertekst>
                     </div>
                     <div>
-                        <Undertekst className='pl-2'>Sivilstand: {props.maritalStatus}</Undertekst>
+                        <Undertekst data-qa='PersonHeader-maritalStatus' className='pl-2'>{t('marital-status')}: {props.maritalStatus}</Undertekst>
                     </div>
                 </div>
             </div>
         </div>
     )
 }
+
+PersonHeader.defaultProps = {
+    fullName: '',
+    age: '',
+    personID: '',
+    country: '',
+    maritalStatus: '',
+    t: arg=>arg
+}
+
+export default PersonHeader
