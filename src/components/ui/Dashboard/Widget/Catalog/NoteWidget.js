@@ -34,11 +34,7 @@ const NoteWidget = (props) => {
     props.onWidgetUpdate(newWidget, props.layout)
   }
 
-  const backgroundColor = props.widget.options.backgroundColor || 'white'
-
-  return <div className='p-3 c-ui-d-NoteWidget' id={id} style={{
-    backgroundColor: backgroundColor
-    }}>
+  return <div className='p-3 c-ui-d-NoteWidget' id={id}>
     <ReactResizeDetector
       handleWidth
       handleHeight

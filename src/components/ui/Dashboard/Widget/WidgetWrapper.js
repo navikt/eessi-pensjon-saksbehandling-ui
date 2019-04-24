@@ -26,7 +26,11 @@ const WidgetWrapper = (props) => {
     if (props.onWidgetResize && !props.editMode) {
       let newLayout = _.cloneDeep(props.layout)
       // these 10 are padding/margin added to each h
+
       newLayout.h = Math.ceil((height + 10) / (props.rowHeight + 10))
+      if (newLayout.h < newLayout.minH) {
+        newLayout.h = newLayout.minH
+      }
       props.onWidgetResize(newLayout)
     }
   }
@@ -51,7 +55,12 @@ const WidgetWrapper = (props) => {
     }
   }
 
-  return <div className='c-ui-d-Widget'
+  let backgroundColor = props.widget.options.backgroundColor || 'white'
+  if (props.editMode) {
+    backgroundColor = 'white'
+  }
+
+  return <div className='c-ui-d-Widget' style={{backgroundColor}}
     onMouseEnter={() => setMouseOver(true)}
     onMouseLeave={() => setMouseOver(false)}>
     { props.editMode && mouseOver
