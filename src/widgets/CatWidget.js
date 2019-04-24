@@ -21,4 +21,16 @@ const CatWidget = (props) => {
   </div>
 }
 
+CatWidget.properties = {
+  type: 'cat',
+  title: 'Cat widget',
+  description: 'A 🐈 in a widget',
+  layout: {
+    lg: { minW: 4, maxW: 6, defaultW: 4, minH: 5, defaultH: 5, maxH: Infinity },
+    md: { minW: 2, maxW: 3, defaultW: 2, minH: 5, defaultH: 5, maxH: Infinity },
+    sm: { minW: 1, maxW: 1, defaultW: 1, minH: 5, defaultH: 5, maxH: Infinity }
+  },
+  options: {}
+}
+
 export default CatWidget

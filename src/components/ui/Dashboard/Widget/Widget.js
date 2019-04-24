@@ -20,6 +20,8 @@ const Widget = (props) => {
       return <Widgets.LinksWidget {...props} />
     case 'person':
       return <Widgets.PersonWidget {...props} />
+    case 'pdf':
+      return <Widgets.PdfWidget {...props} />
     case 'sedlist':
       return <Widgets.SedListWidget {...props} />
     default:

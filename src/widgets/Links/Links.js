@@ -40,19 +40,19 @@ class Links extends Component {
       <h3 className='typo-undertittel mb-4'>{t('forms')}</h3>
 
       {userRole === constants.SAKSBEHANDLER
-        ? <Nav.Lenkepanel style={{ animationDelay: '0s' }}
+        ? <Nav.Lenkepanel  border style={{ animationDelay: '0s' }}
           className='frontPageLink caseLink' linkCreator={(props) => (
             <Link to={routes.CASE + '?sed=&buc='} {...props} />)
           } href='#'>{t('case:app-createNewCase')}</Nav.Lenkepanel>
         : null}
 
       {userRole === constants.SAKSBEHANDLER
-        ? <Nav.Lenkepanel style={{ animationDelay: '0.1s' }} className='frontPageLink pSelvLink' linkCreator={(props) => (
+        ? <Nav.Lenkepanel  border style={{ animationDelay: '0.1s' }} className='frontPageLink pSelvLink' linkCreator={(props) => (
           <Link to={routes.PSELV} {...props} />)
         } href='#'>{t('pselv:app-startPselv')}</Nav.Lenkepanel>
         : null}
 
-      <Nav.Lenkepanel style={{ animationDelay: '0.2s' }} className='frontPageLink pInfoLink' linkCreator={(props) => (
+      <Nav.Lenkepanel  border style={{ animationDelay: '0.2s' }} className='frontPageLink pInfoLink' linkCreator={(props) => (
         <Link to={routes.PINFO} {...props} />)
       } href='#'>{t('pinfo:app-startPinfo')}</Nav.Lenkepanel>
       {status ? this.getCreateableDocuments(status).map(item => <Nav.Lenkepanel
@@ -62,15 +62,10 @@ class Links extends Component {
           <Link to={routes.ROOT + item.dokumentType} {...props} />)
         } href='#'>{t(item.dokumentType + ':app-start' + item.dokumentType)}
       </Nav.Lenkepanel>) : null}
-      <Nav.Lenkepanel style={{ animationDelay: '0.3s' }}
+      <Nav.Lenkepanel border style={{ animationDelay: '0.3s' }}
         className='frontPageLink p4000Link' linkCreator={(props) => (
           <Link to={routes.P4000} {...props} />)
         } href='#'>{t('p4000:app-startP4000')}</Nav.Lenkepanel>
-      <h3 className='typo-undertittel mt-4 mb-4'>{t('tools')}</h3>
-      <Nav.Lenkepanel style={{ animationDelay: '0.4s' }} className='frontPageLink pdfLink' linkCreator={(props) => (
-        <Link to={routes.PDF_SELECT} {...props} />)
-      } href='#'>{t('pdf:app-createPdf')}</Nav.Lenkepanel>
-
     </div>
   }
 }

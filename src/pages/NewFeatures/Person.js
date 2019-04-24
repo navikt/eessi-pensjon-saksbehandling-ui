@@ -22,8 +22,8 @@ const person = {
 
 const PersonWidget = (props) => {
   return <EkspanderbartpanelBase className='mb-5' ariaTittel='foo' heading={<PersonHeader t={props.t} {...person} />}>
-     {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => <div key={i}><span><b>{'someOtherParam' + i}</b>{person['someOtherParam' + i]}</span><br /></div>)}
-   </EkspanderbartpanelBase>
+    {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => <div key={i}><span><b>{'someOtherParam' + i}</b>{person['someOtherParam' + i]}</span><br /></div>)}
+  </EkspanderbartpanelBase>
 }
 
 export default PersonWidget

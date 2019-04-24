@@ -21,7 +21,7 @@ function preventDefault (onClick) {
 function BucHeader (props) {
   const { t } = props
   return (
-    <div className='p-0 w-100 d-flex justify-content-between'>
+    <div className='p-0 w-100 d-flex c-ui-bucHeader justify-content-between'>
       <div className='col-3'>
         <Typografi.Ingress data-qa='BucHeader-type-name' className='font-weight-bold'>{props.type + ' - ' + props.name}</Typografi.Ingress>
         <Typografi.Normaltekst data-qa='BucHeader-dateCreated'>{t('created')}: {props.dateCreated}</Typografi.Normaltekst>

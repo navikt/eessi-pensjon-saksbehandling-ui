@@ -39,4 +39,16 @@ const LinksWidget = (props) => {
   </div>
 }
 
+LinksWidget.properties = {
+  type: 'links',
+  title: 'Links widget',
+  description: 'Widget with links',
+  layout: {
+    lg: { minW: 6, maxW: 12, defaultW: 6, minH: 2, defaultH: 4, maxH: Infinity },
+    md: { minW: 3, maxW: 3, defaultW: 1, minH: 2, defaultH: 4, maxH: Infinity },
+    sm: { minW: 1, maxW: 1, defaultW: 1, minH: 2, defaultH: 4, maxH: Infinity }
+  },
+  options: {}
+}
+
 export default LinksWidget

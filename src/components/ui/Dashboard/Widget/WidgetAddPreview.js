@@ -38,11 +38,10 @@ const gridSizeToPixelSize = (w, h, breakpoint) => {
     height: (h * (DashboardConfig.rowHeight + 10) - 10) + 'px',
     width: (w * gridUnitWidth - 10) + 'px'
   }
-  console.log(gridWidth, gridUnitWidth, w, h, dimension)
   return dimension
 }
 
-const WidgetAddPreview = props => {
+const WidgetAddPreview = (props) => {
   if (!props.isDragging) {
     return null
   }
@@ -54,7 +53,7 @@ const WidgetAddPreview = props => {
   )
   return <div style={layerStyles}>
     <div style={getItemStyles(props, dimensions)}>
-      <Widget widget={widget} />
+      <Widget widget={widget} t={props.t} />
     </div>
   </div>
 }

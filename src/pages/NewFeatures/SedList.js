@@ -85,7 +85,6 @@ let SEDS = [
 ]
 
 const SedList = (props) => {
-
   const [tab, setTab] = useState('ONGOING')
   const { t } = props
 
