@@ -2,7 +2,7 @@ import React from 'react'
 import _ from 'lodash'
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
 import ReactResizeDetector from 'react-resize-detector'
-import DocumentStatus from './DocumentStatus/DocumentStatus'
+import DocumentStatus from './DocumentStatus'
 import { withRouter } from 'react-router-dom'
 
 import './DocumentStatusWidget.css'

@@ -2,7 +2,7 @@ import React from 'react'
 import _ from 'lodash'
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
 import ReactResizeDetector from 'react-resize-detector'
-import Links from './Links/Links'
+import Links from './Links'
 
 import './LinksWidget.css'
 

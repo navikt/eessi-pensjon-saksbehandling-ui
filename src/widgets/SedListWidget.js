@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
-import Person from '../../../../../pages/NewFeatures/Person'
+import SedList from '../pages/NewFeatures/SedList'
 
-const PersonWidget = (props) => {
+const SedListWidget = (props) => {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -12,13 +12,13 @@ const PersonWidget = (props) => {
     }
   }, [])
 
-  return <div className='c-ui-d-PersonWidget'>
+  return <div className='c-ui-d-SedListWidget'>
     <ReactResizeDetector
       handleWidth
       handleHeight
       onResize={props.onResize} />
-    <Person t={props.t}/>
+    <SedList t={props.t}/>
   </div>
 }
 
-export default PersonWidget
+export default SedListWidget

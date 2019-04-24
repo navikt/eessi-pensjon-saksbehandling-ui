@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import _ from 'lodash'
-import * as Nav from '../../../Nav'
+import * as Nav from '../components/ui/Nav'
 
 const NoteOptionsWidget = (props) => {
   const [backgroundColor, setBackgroundColor] = useState(null)

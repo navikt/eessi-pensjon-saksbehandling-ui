@@ -1,11 +1,11 @@
 import React from 'react'
 
-import NoteOptionsWidget from './Catalog/NoteOptionsWidget'
+import * as Widgets from '../../../../widgets'
 
 const WidgetEditOptions = (props) => {
   switch (props.widget.type) {
     case 'note':
-      return <NoteOptionsWidget {...props} />
+      return <Widgets.NoteOptionsWidget {...props} />
     default:
       return null
   }

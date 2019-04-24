@@ -1,35 +1,27 @@
 import React from 'react'
 
-import EkspandertBartWidget from './Catalog/EkspandertBartWidget'
-import PanelWidget from './Catalog/PanelWidget'
-import SmileyWidget from './Catalog/SmileyWidget'
-import CatWidget from './Catalog/CatWidget'
-import NoteWidget from './Catalog/NoteWidget'
-import DocumentStatusWidget from './Catalog/DocumentStatusWidget'
-import LinksWidget from './Catalog/LinksWidget'
-import PersonWidget from './Catalog/PersonWidget'
-import SedListWidget from './Catalog/SedListWidget'
+import * as Widgets from '../../../../widgets'
 
 const Widget = (props) => {
   switch (props.widget.type) {
     case 'ekspandertbart':
-      return <EkspandertBartWidget {...props} />
+      return <Widgets.EkspandertBartWidget {...props} />
     case 'panel':
-      return <PanelWidget {...props} />
+      return <Widgets.PanelWidget {...props} />
     case 'smiley':
-      return <SmileyWidget {...props} />
+      return <Widgets.SmileyWidget {...props} />
     case 'cat':
-      return <CatWidget {...props} />
+      return <Widgets.CatWidget {...props} />
     case 'note':
-      return <NoteWidget {...props} />
+      return <Widgets.NoteWidget {...props} />
     case 'documentstatus':
-      return <DocumentStatusWidget {...props} />
+      return <Widgets.DocumentStatusWidget {...props} />
     case 'links':
-      return <LinksWidget {...props} />
+      return <Widgets.LinksWidget {...props} />
     case 'person':
-      return <PersonWidget {...props} />
+      return <Widgets.PersonWidget {...props} />
     case 'sedlist':
-      return <SedListWidget {...props} />
+      return <Widgets.SedListWidget {...props} />
     default:
       return <div>{props.t('ui:dashboard-noWidgetForType', { type: props.widget.type })}</div>
   }
