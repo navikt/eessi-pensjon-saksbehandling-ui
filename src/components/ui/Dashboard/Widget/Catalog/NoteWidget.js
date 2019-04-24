@@ -8,7 +8,6 @@ const NoteWidget = (props) => {
 
   useEffect(() => {
     if (!mounted && props.onResize) {
-      props.onResize()
       setMounted(true)
     }
     setContent(props.widget.options.content)
@@ -16,10 +15,14 @@ const NoteWidget = (props) => {
 
   const id = 'widget-note-' + (props.layout !== undefined ? props.layout.i : '' + new Date().getTime())
 
-  const onBlur = (e) => {
+  const resize = () => {
     const width = document.getElementById(id).offsetWidth
     const height = document.getElementById(id).offsetHeight
     props.onResize(width, height)
+  }
+
+  const onBlur = (e) => {
+    resize()
     saveContent(e)
   }
 
@@ -41,7 +44,7 @@ const NoteWidget = (props) => {
       handleHeight
       onResize={props.onResize} />
     <h4>{props.widget.title}</h4>
-    <div contenteditable='true' onBlur={onBlur} dangerouslySetInnerHTML={{ __html: content }}/>
+    <div contentEditable='true' onBlur={onBlur} dangerouslySetInnerHTML={{ __html: content }}/>
   </div>
 }
 

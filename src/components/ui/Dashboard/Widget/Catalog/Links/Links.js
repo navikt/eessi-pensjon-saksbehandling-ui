@@ -6,17 +6,15 @@ import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
 import 'url-search-params-polyfill'
 
-import * as Nav from '../../components/ui/Nav'
+import * as Nav from '../../../../Nav'
 
-import EmptyDrawer from '../../components/drawer/Empty'
+import EmptyDrawer from '../../../../../drawer/Empty'
 
-import * as constants from '../../constants/constants'
-import * as routes from '../../constants/routes'
-import * as statusActions from '../../actions/status'
-import * as appActions from '../../actions/app'
-import * as uiActions from '../../actions/ui'
-
-import Dashboard from '../../components/ui/Dashboard/Dashboard'
+import * as constants from '../../../../../../constants/constants'
+import * as routes from '../../../../../../constants/routes'
+import * as statusActions from '../../../../../../actions/status'
+import * as appActions from '../../../../../../actions/app'
+import * as uiActions from '../../../../../../actions/ui'
 
 const mapStateToProps = (state) => {
   return {

@@ -2,10 +2,9 @@ import React from 'react'
 import _ from 'lodash'
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
 import ReactResizeDetector from 'react-resize-detector'
-import DocumentStatus from './DocumentStatus/DocumentStatus'
-import { withRouter } from 'react-router-dom'
+import Links from './Links/Links'
 
-const EkspandertBartWidget = (props) => {
+const LinksWidget = (props) => {
   const onClick = () => {
     let newWidget = _.cloneDeep(props.widget)
     newWidget.options.collapsed = !newWidget.options.collapsed
@@ -19,7 +18,7 @@ const EkspandertBartWidget = (props) => {
     }
   }
 
-  return <div className='c-ui-d-DocumentStatusWidget'>
+  return <div className='c-ui-d-LinksWidget'>
     <Ekspanderbartpanel
       apen={!props.widget.options.collapsed}
       tittel={props.widget.title}
@@ -31,11 +30,11 @@ const EkspandertBartWidget = (props) => {
           onResize={_onResize} />
         {props.widget.options.collapsed === true
           ? null
-          : <DocumentStatus history={props.history}/>
+          : <Links/>
         }
       </div>
     </Ekspanderbartpanel>
   </div>
 }
 
-export default withRouter(EkspandertBartWidget)
+export default LinksWidget

@@ -6,6 +6,7 @@ import SmileyWidget from './Catalog/SmileyWidget'
 import CatWidget from './Catalog/CatWidget'
 import NoteWidget from './Catalog/NoteWidget'
 import DocumentStatusWidget from './Catalog/DocumentStatusWidget'
+import LinksWidget from './Catalog/LinksWidget'
 
 const Widget = (props) => {
   switch (props.widget.type) {
@@ -21,6 +22,8 @@ const Widget = (props) => {
       return <NoteWidget {...props} />
     case 'documentstatus':
       return <DocumentStatusWidget {...props} />
+    case 'links':
+      return <LinksWidget {...props} />
         default:
       return <div>No Widget of type {props.widget.type}</div>
   }

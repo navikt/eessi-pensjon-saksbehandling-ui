@@ -1,24 +1,24 @@
 export default [{
-  i: 'w0',
+  i: 'w-0-documentstatus',
   type: 'documentstatus',
   title: 'Document status',
   options: {
      collapse: false
   }
 }, {
-  i: 'w1',
+  i: 'w-1-panel',
   type: 'panel',
   title: 'Panel widget - things to do',
   options: {
     content: 'Work on the dashboard'
   }
 }, {
-  i: 'w2',
+  i: 'w-2-smiley',
   type: 'smiley',
   title: 'Smiley widget - Mood today',
   options: {}
 }, {
-  i: 'w3',
+  i: 'w-3-notes',
   type: 'note',
   title: 'My notes',
   options: {
@@ -26,7 +26,7 @@ export default [{
     content: '<ul><li>fill out time report</li><li>Send form</li></ul>'
   }
 }, {
-  i: 'w4',
+  i: 'w-4-ekspandertbart',
   type: 'ekspandertbart',
   title: 'Expandable widget - Pending tasks',
   options: {
@@ -40,4 +40,9 @@ export default [{
     'Task 7: Buy toilet paper.<br />\n' +
     'Task 8: Buy beer.<br />'
   }
-}]
+}, {
+   i: 'w-5-links',
+   type: 'links',
+   title: 'Links widget',
+   options: {}
+ }]

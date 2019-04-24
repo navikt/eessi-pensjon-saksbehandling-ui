@@ -8,8 +8,30 @@ export default [{
     sm: {minW: 1, maxW: 1,  defaultW: 1, minH: 3, maxH: Infinity, defaultH: 3}
   },
   options: {
-    collapsed: false,
+    collapsed: false
   }
+}, {
+   type: 'documentstatus',
+   title: 'Document Status widget',
+   description: 'Widget with document status',
+   layout: {
+     lg: {minW: 6, maxW: 12, defaultW: 6, minH: 3, maxH: Infinity, defaultH: 6},
+     md: {minW: 3, maxW: 3,  defaultW: 3, minH: 3, maxH: Infinity, defaultH: 3},
+     sm: {minW: 1, maxW: 1,  defaultW: 1, minH: 3, maxH: Infinity, defaultH: 3}
+   },
+   options: {
+     collapsed: false
+   }
+},  {
+   type: 'links',
+   title: 'Links widget',
+   description: 'Widget with links',
+   layout: {
+     lg: {minW: 6, maxW: 12, defaultW: 6, minH: 4, defaultH: 4, maxH: Infinity},
+     md: {minW: 3, maxW: 3,  defaultW: 1, minH: 4, defaultH: 4, maxH: Infinity},
+     sm: {minW: 1, maxW: 1,  defaultW: 1, minH: 4, defaultH: 4, maxH: Infinity}
+   },
+   options: {}
 }, {
   type: 'panel',
   title: 'Panel widget',
@@ -25,7 +47,7 @@ export default [{
   title: 'Smiley widget',
   description: 'Widget with a 😀',
   layout: {
-    lg: {minW: 2, maxW: 3, defaultW: 2, minH: 6, defaultH: 6, maxH: Infinity},
+    lg: {minW: 2, maxW: 4, defaultW: 2, minH: 6, defaultH: 6, maxH: Infinity},
     md: {minW: 1, maxW: 3, defaultW: 1, minH: 6, defaultH: 6, maxH: Infinity},
     sm: {minW: 1, maxW: 1, defaultW: 1, minH: 6, defaultH: 6, maxH: Infinity},
   },
