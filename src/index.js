@@ -5,7 +5,7 @@ import 'es6-promise/auto' // IE 11 compatibility
 
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
-import createBrowserHistory from 'history/createBrowserHistory'
+import { createBrowserHistory } from 'history'
 import { Switch, Redirect, Route, Router } from 'react-router'
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import { Provider } from 'react-redux'

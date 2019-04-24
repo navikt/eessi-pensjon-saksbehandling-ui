@@ -5,22 +5,22 @@ const DashboardControlPanel = (props) => {
   return <div className='c-ui-d-dashboardControlPanel p-2'>
     <div className='d-inline-block'>
       {props.editMode ?
-        props.addMode ? 'Drag new widgets to dashboard.' : 'Arrange widgets, then save or cancel. '
+        props.addMode ? props.t('ui:dashboard-dragNewWidgets') : props.t('ui:dashboard-arrangeWidgets')
         : null}
     </div>
     <div className='c-ui-d-dashboardControlPanel-buttons'>
-      {props.editMode ? <button className='mr-2 c-ui-d-dashboardControlPanel-button'
+      {props.editMode ? <button className='c-ui-d-dashboardControlPanel-button mr-2'
         onClick={props.onAddChange}>
-        {!props.addMode ? 'Add new widget' : 'Hide new widgets'}
+        {!props.addMode ? props.t('ui:dashboard-addNewWidgets') : props.t('ui:dashboard-hideNewWidgets')}
       </button> : null}
       {!props.editMode ? <button onClick={props.onEditModeOn}>
-         Edit dashboard
+          {props.t('ui:dashboard-editDashboard')}
         </button> : <React.Fragment>
           <button className='mr-2' onClick={props.onSaveEdit}>
-          Save dashboard
+            {props.t('ui:dashboard-saveChanges')}
           </button>
           <button className='mr-2' onClick={props.onCancelEdit}>
-          Cancel dashboard
+            {props.t('ui:dashboard-cancelChanges')}
           </button>
         </React.Fragment>
       }

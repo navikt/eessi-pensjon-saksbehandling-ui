@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import _ from 'lodash'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
+import { withTranslation } from 'react-i18next'
 
 import WidgetAddArea from './Widget/WidgetAddArea'
 import DashboardGrid from './DashboardGrid'
@@ -11,10 +12,9 @@ import * as DashboardAPI from './API/DashboardAPI'
 
 import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
-
 import './Dashboard.css'
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   const [editMode, setEditMode] = useState(false)
   const [addMode, setAddMode] = useState(false)
   const [mounted, setMounted] = useState(false)
@@ -24,18 +24,20 @@ const Dashboard = () => {
   const [currentBreakpoint, setCurrentBreakpoint] = useState('lg')
   const [availableWidgets, setAvailableWidgets] = useState([])
 
-  useEffect(async () => {
-    setAvailableWidgets(require('./Config/AvailableWidgets').default)
-    const [_widgets, _layouts] = await DashboardAPI.loadDashboard()
-    setWidgets(_widgets)
-    setLayouts(_layouts)
-    setMounted(true)
+  useEffect(() => {
+     const loadData = async () => {
+      setAvailableWidgets(require('./Config/AvailableWidgets').default)
+      const [_widgets, _layouts] = await DashboardAPI.loadDashboard()
+      setWidgets(_widgets)
+      setLayouts(_layouts)
+      setMounted(true)
+    }
+    loadData()
   }, [])
 
   const onWidgetAdd = (widget) => {
-    const newWidgets = _.cloneDeep(widgets)
-    const newId = 'w' + new Date().getTime()
-    setWidgets(newWidgets.concat({
+    const newId = 'w-' + new Date().getTime() + '-' + widget.type
+    setWidgets(widgets.concat({
       i: newId,
       type: widget.type,
       title: widget.title,
@@ -46,7 +48,7 @@ const Dashboard = () => {
       newLayouts[breakpoint] = newLayouts[breakpoint].concat({
         i: newId,
         x: 0,
-        y: Infinity, // puts it at the bottom
+        y: Infinity,
         w: widget.layout[breakpoint].defaultW,
         h: widget.layout[breakpoint].defaultH,
         minW: widget.layout[breakpoint].minW,
@@ -59,9 +61,7 @@ const Dashboard = () => {
   }
 
   const onWidgetUpdate = (update, layout) => {
-    console.log("UPDATING ", update, layout)
-    const newWidgets = _.cloneDeep(widgets)
-    setWidgets(newWidgets.map((widget) => {
+    setWidgets(widgets.map((widget) => {
       return (widget.i === layout.i) ? update : widget
     }))
   }
@@ -74,10 +74,7 @@ const Dashboard = () => {
   }
 
   const onWidgetDelete = layout => {
-    let newWidgets = _.cloneDeep(widgets)
-    newWidgets = _.reject(newWidgets, { 'i': layout.i })
-    setWidgets(newWidgets)
-
+    setWidgets(_.reject(widgets, { 'i': layout.i }))
     let newLayout = _.cloneDeep(layouts)
     Object.keys(newLayout).forEach(breakpoint => {
       newLayout[breakpoint] = _.reject(newLayout[breakpoint], { 'i': layout.i })
@@ -119,16 +116,18 @@ const Dashboard = () => {
 
   return <div className='c-ui-d-dashboard'>
     <DashboardControlPanel
-      addMode={addMode}
       currentBreakpoint={currentBreakpoint}
+      addMode={addMode}
       editMode={editMode}
       onEditModeOn={onEditModeOn}
       onCancelEdit={onCancelEdit}
       onSaveEdit={onSaveEdit}
-      onAddChange={onAddChange} />
+      onAddChange={onAddChange}
+      t={props.t}/>
     {addMode ? <WidgetAddArea
       currentBreakpoint={currentBreakpoint}
-      availableWidgets={availableWidgets} />
+      availableWidgets={availableWidgets}
+      t={props.t}/>
       : null}
       <DashboardGrid
         editMode={editMode}
@@ -143,11 +142,13 @@ const Dashboard = () => {
         onWidgetResize={onWidgetResize}
         onWidgetDelete={onWidgetDelete}
         availableWidgets={availableWidgets}
+        t={props.t}
       />
-
   </div>
 }
 
 Dashboard.defaultProps = DashboardConfig
 
-export default DragDropContext(HTML5Backend)(Dashboard)
+export default DragDropContext(HTML5Backend)(
+   withTranslation()(Dashboard)
+)

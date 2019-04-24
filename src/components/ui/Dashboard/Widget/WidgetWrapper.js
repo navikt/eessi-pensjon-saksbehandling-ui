@@ -26,7 +26,6 @@ const WidgetWrapper = (props) => {
     if (props.onWidgetResize && !props.editMode) {
       let newLayout = _.cloneDeep(props.layout)
       // these 10 are padding/margin added to each h
-
       newLayout.h = Math.ceil((height + 10) / (props.rowHeight + 10))
       if (newLayout.h < newLayout.minH) {
         newLayout.h = newLayout.minH

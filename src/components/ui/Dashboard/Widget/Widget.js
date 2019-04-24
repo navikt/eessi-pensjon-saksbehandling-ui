@@ -24,8 +24,8 @@ const Widget = (props) => {
       return <DocumentStatusWidget {...props} />
     case 'links':
       return <LinksWidget {...props} />
-        default:
-      return <div>No Widget of type {props.widget.type}</div>
+    default:
+      return <div>{props.t('ui:dashboard-noWidgetForType', {type: props.widget.type})}</div>
   }
 }
 

@@ -37,7 +37,7 @@ const WidgetAdd = (props) => {
 }
 
 export default DragSource(
-  'widgetAdd', {
+  'newWidget', {
     beginDrag: (props) => {
       console.log('Begin dragging widgetAdd')
       // return the object I want to send to dropTarged when dropped

@@ -42,6 +42,7 @@ const DashboardGrid = (props) => {
             onWidgetDelete={props.onWidgetDelete}
             rowHeight={props.rowHeight}
             availableWidgets={props.availableWidgets}
+            t={props.t}
           /></div>
       })}
     </ResponsiveReactGridLayout>
@@ -51,17 +52,17 @@ const DashboardGrid = (props) => {
 DashboardGrid.defaultProps = DashboardConfig
 
 export default DropTarget(
-  ['widgetAdd'],
+  ['newWidget'],
   {
     canDrop: props => {
       // console.log('I am DashboardGrid, you can drop here')
       return true
     },
     drop: (props, monitor, component) => {
-      console.log('Something good dropped')
+      //console.log('Something good dropped')
       let droppedItem = monitor.getItem()
-      let droppedItemType = monitor.getItemType()
-      console.log('A good ' + droppedItemType + ' dropped')
+      // let droppedItemType = monitor.getItemType()
+      // console.log('A good ' + droppedItemType + ' dropped')
       props.onWidgetAdd(droppedItem.widgetTemplate)
     },
     hover: props => {

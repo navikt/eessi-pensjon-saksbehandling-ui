@@ -15,7 +15,7 @@ class IndexPage extends Component {
       language={language} history={history} location={location}
       sideContent={<EmptyDrawer />}
       fluid={true}>
-      <Dashboard/>
+      <Dashboard id='dashboard'/>
     </TopContainer>
   }
 }
