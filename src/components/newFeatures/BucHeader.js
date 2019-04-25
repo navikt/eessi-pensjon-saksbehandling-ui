@@ -24,7 +24,7 @@ function BucHeader (props) {
     <div className='p-0 w-100 d-flex c-ui-bucHeader justify-content-between'>
       <div className='col-3'>
         <Typografi.Ingress data-qa='BucHeader-type-name' className='font-weight-bold'>{props.type + ' - ' + props.name}</Typografi.Ingress>
-        <Typografi.Normaltekst data-qa='BucHeader-dateCreated'>{t('created')}: {props.dateCreated}</Typografi.Normaltekst>
+        <Typografi.Normaltekst data-qa='BucHeader-dateCreated'>{t('newFeatures:created')}: {props.dateCreated}</Typografi.Normaltekst>
       </div>
       <div className='col-3 mr-auto d-flex align-items-center pl-0 pr-0'>
         <FlagList data-qa='BucHeader-FlagList' countries={props.countries} overflowLimit={2} flagPath='../../../../flags/' extention='.png' />
@@ -32,7 +32,7 @@ function BucHeader (props) {
       <div className='col-3 d-flex justify-content-end align-items-center pl-0 pr-0'>
         <LenkepanelBase data-qa='BucHeader-LinkButton' onClick={preventDefault(props.behandlingOnClick)} className='knapp knapp--mini pl-3 pr-3 pt-2 pb-2 m-0' href={props.href} border>
           <div>
-            {t('processing')}
+            {t('newFeatures:processing')}
           </div>
         </LenkepanelBase>
       </div>

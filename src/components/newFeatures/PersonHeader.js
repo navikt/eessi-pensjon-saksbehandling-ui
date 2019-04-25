@@ -16,10 +16,10 @@ function PersonHeader (props) {
         </div>
         <div className='col-12 d-flex'>
           <div className='pr-5 mr-5'>
-            <Undertekst data-qa='PersonHeader-country'>{t('country')}: {props.country}</Undertekst>
+            <Undertekst data-qa='PersonHeader-country'>{t('newFeatures:country')}: {props.country}</Undertekst>
           </div>
           <div>
-            <Undertekst data-qa='PersonHeader-maritalStatus' className='pl-2'>{t('marital-status')}: {props.maritalStatus}</Undertekst>
+            <Undertekst data-qa='PersonHeader-maritalStatus' className='pl-2'>{t('newFeatures:marital-status')}: {props.maritalStatus}</Undertekst>
           </div>
         </div>
       </div>

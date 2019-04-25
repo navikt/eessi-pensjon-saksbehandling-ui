@@ -92,8 +92,8 @@ const SedList = (props) => {
     <div className='mb-3'>
       <ToggleGruppe
         defaultToggles={[
-          { children: t('ongoing'), pressed: true, onClick: () => setTab('ONGOING') },
-          { children: t('other'), onClick: () => setTab('OTHER') }
+          { children: t('newFeatures:ongoing'), pressed: true, onClick: () => setTab('ONGOING') },
+          { children: t('newFeatures:other'), onClick: () => setTab('OTHER') }
         ]}
       />
     </div>

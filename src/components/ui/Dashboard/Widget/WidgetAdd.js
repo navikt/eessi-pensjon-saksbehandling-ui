@@ -20,10 +20,11 @@ const WidgetAdd = (props) => {
   }, [])
 
   return <div>
-    <div className={classNames('c-ui-d-widgetAdd', {
-      'selected': props.isDragging,
-      'hover': mouseOver
-    })}
+    <div
+      className={classNames('c-ui-d-widgetAdd', {
+        'selected': props.isDragging,
+        'hover': mouseOver
+      })}
       onMouseEnter={() => setMouseOver(true)}
       onMouseLeave={() => setMouseOver(false)}
       title={props.widget.description}
