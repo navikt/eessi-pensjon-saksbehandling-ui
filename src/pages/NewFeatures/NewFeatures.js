@@ -11,8 +11,8 @@ export function NewFeatures (props) {
 
   return <div className='newFeatureBackground'>
     <div className='newFeatureContainer pr-5 pl-5'>
-      <Person t={t}/>
-      <SedList t={t}/>
+      <Person t={t} />
+      <SedList t={t} />
     </div>
   </div>
 }

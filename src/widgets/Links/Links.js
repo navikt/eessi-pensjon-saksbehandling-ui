@@ -7,7 +7,6 @@ import * as Nav from '../../components/ui/Nav'
 import * as routes from '../../constants/routes'
 
 const Links = (props) => {
-
   const { t } = props
 
   return <div className='w-links-links'>
@@ -20,8 +19,8 @@ const Links = (props) => {
     } href='#'>{t('pinfo:app-startPinfo')}</Nav.Lenkepanel>
 
     <Nav.Lenkepanel border className='frontPageLink p4000Link' linkCreator={(props) => (
-        <Link to={routes.P4000} {...props} />)
-      } href='#'>{t('p4000:app-startP4000')}</Nav.Lenkepanel>
+      <Link to={routes.P4000} {...props} />)
+    } href='#'>{t('p4000:app-startP4000')}</Nav.Lenkepanel>
   </div>
 }
 

@@ -1,22 +1,21 @@
-import React, { useState } from 'react'
+import React from 'react'
 import KnappBase from 'nav-frontend-knapper'
 import ReactResizeDetector from 'react-resize-detector'
 
 import './Widget.css'
 
 const WidgetDelete = (props) => {
-
   const onWidgetDeleteClick = (e) => {
     e.stopPropagation()
     e.preventDefault()
     props.onWidgetDelete(props.layout)
   }
 
-  return <div className='c-ui-d-WidgetDelete' style={{height: '300px'}}>
-   <ReactResizeDetector
-        handleWidth
-        handleHeight
-        onResize={props.onResize} />
+  return <div className='c-ui-d-WidgetDelete' style={{ height: '300px' }}>
+    <ReactResizeDetector
+      handleWidth
+      handleHeight
+      onResize={props.onResize} />
     <div className='deleteText'>
       <p>{props.t('dashboard-deleteWidgetAreYouSure1')}</p>
       <p>{props.t('dashboard-deleteWidgetAreYouSure2')}</p>

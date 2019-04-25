@@ -22,7 +22,7 @@ const WidgetContainer = (props) => {
       setMode('edit')
     }
     if (mode === 'edit' && !mouseOver) {
-       setMode('view')
+      setMode('view')
     }
   }, [mouseOver])
 
@@ -31,8 +31,7 @@ const WidgetContainer = (props) => {
   }
 
   const onResize = (width, height) => {
-    console.log("ON RESIZE", width, height)
-    console.log(props)
+    // console.log("ON RESIZE", width, height)
     if (!height || !width) { return }
     if (props.onWidgetResize) {
       let newLayout = _.cloneDeep(props.layout)
@@ -48,7 +47,7 @@ const WidgetContainer = (props) => {
       if (mode === 'edit' && newH < newLayout.h) {
         newH = newLayout.h
       }
-      if (newH != newLayout.h) {
+      if (newH !== newLayout.h) {
         newLayout.h = newH
         props.onWidgetResize(newLayout)
       }
@@ -83,12 +82,12 @@ const WidgetContainer = (props) => {
   return <div className='c-ui-d-Widget' style={{ backgroundColor }}
     onMouseEnter={() => setMouseOver(true)}
     onMouseLeave={() => setMouseOver(false)}>
-      <Widget {...props}
-        mode={mode}
-        setMode={setMode}
-        onUpdate={onUpdate}
-        onResize={onResize}
-      />
+    <Widget {...props}
+      mode={mode}
+      setMode={setMode}
+      onUpdate={onUpdate}
+      onResize={onResize}
+    />
   </div>
 }
 

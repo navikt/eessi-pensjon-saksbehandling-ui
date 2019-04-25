@@ -33,15 +33,15 @@ SmileyWidget.properties = {
     sm: { minW: 1, maxW: 1, defaultW: 1, minH: 6, defaultH: 6, maxH: Infinity }
   },
   options: {
-     mood: '😁',
-     availableMoods: [
-       {label: 'grin', value: '😁'},
-       {label: 'happy', value: '😃'},
-       {label: 'smiling', value: '😊'},
-       {label: 'unamused', value: '😒'},
-       {label: 'angry', value: '😠'},
-       {label: 'pouting', value: '😡'}
-     ]
+    mood: '😁',
+    availableMoods: [
+      { label: 'grin', value: '😁' },
+      { label: 'happy', value: '😃' },
+      { label: 'smiling', value: '😊' },
+      { label: 'unamused', value: '😒' },
+      { label: 'angry', value: '😠' },
+      { label: 'pouting', value: '😡' }
+    ]
   }
 }
 
