@@ -504,7 +504,7 @@ export class StartCase extends Component {
         </Nav.Column>
         <Nav.Column className='text-right'>
           <Nav.Knapp
-            id='c-startcase-removeinstitution-button'
+            id={'c-startcase-removeinstitution-' + institution.country + '_' + institution.institution + '-button'}
             className='removeInstitutionButton'
             type='standard'
             onClick={this.onRemoveInstitutionButtonClick.bind(this, institution)}>
