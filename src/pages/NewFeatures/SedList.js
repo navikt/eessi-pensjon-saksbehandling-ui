@@ -7,6 +7,8 @@ import BucHeader from '../../components/newFeatures/BucHeader'
 import SedHeader from '../../components/newFeatures/SedHeader'
 import SedLabel from '../../components/newFeatures/SedLabel'
 
+import './SedList.css'
+
 const BUCLIST = [
   {
     type: 'P_BUC_01',
