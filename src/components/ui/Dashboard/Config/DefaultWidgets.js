@@ -16,7 +16,9 @@ export default [{
   i: 'w-2-smiley',
   type: 'smiley',
   title: 'Smiley widget - Mood today',
-  options: {}
+  options: {
+     mood: '😁',
+  }
 }, {
   i: 'w-3-notes',
   type: 'note',

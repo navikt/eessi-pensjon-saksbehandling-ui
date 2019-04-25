@@ -16,7 +16,7 @@ const SmileyWidget = (props) => {
       handleWidth
       handleHeight
       onResize={props.onResize} />
-    <h4>{props.widget.title}</h4>
+    <h4>Today's mood</h4>
     <p style={{
       fontSize: '100px'
     }}><span role='img' aria-label='smiley'>{props.widget.options.mood}</span></p>

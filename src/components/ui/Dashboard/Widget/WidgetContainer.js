@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import _ from 'lodash'
-import WidgetEdit from './WidgetEdit'
 import Widget from './Widget'
 
 import './Widget.css'
 
-const WidgetWrapper = (props) => {
+const WidgetContainer = (props) => {
   const [sizes, setSizes] = useState({ lg: {}, md: {}, sm: {} })
   const [mouseOver, setMouseOver] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [mode, setMode] = useState('view')
 
   useEffect(() => {
     if (!mounted) {
@@ -17,20 +17,41 @@ const WidgetWrapper = (props) => {
     }
   }, [])
 
+  useEffect(() => {
+    if (mode === 'view' && props.editMode && mouseOver) {
+      setMode('edit')
+    }
+    if (mode === 'edit' && !mouseOver) {
+       setMode('view')
+    }
+  }, [mouseOver])
+
   const onUpdate = (update) => {
     props.onWidgetUpdate(update, props.layout)
   }
 
   const onResize = (width, height) => {
+    console.log("ON RESIZE", width, height)
+    console.log(props)
     if (!height || !width) { return }
-    if (props.onWidgetResize && !props.editMode) {
+    if (props.onWidgetResize) {
       let newLayout = _.cloneDeep(props.layout)
       // these 10 are padding/margin added to each h
-      newLayout.h = Math.ceil((height + 10) / (props.rowHeight + 10))
-      if (newLayout.h < newLayout.minH) {
-        newLayout.h = newLayout.minH
+      let newH = Math.ceil((height + 10) / (props.rowHeight + 10))
+
+      // do not shrink below minimum H
+      if (newH < newLayout.minH) {
+        newH = newLayout.minH
       }
-      props.onWidgetResize(newLayout)
+
+      // in edit mode, don't make it smaller than view mode
+      if (mode === 'edit' && newH < newLayout.h) {
+        newH = newLayout.h
+      }
+      if (newH != newLayout.h) {
+        newLayout.h = newH
+        props.onWidgetResize(newLayout)
+      }
     }
   }
 
@@ -62,14 +83,13 @@ const WidgetWrapper = (props) => {
   return <div className='c-ui-d-Widget' style={{ backgroundColor }}
     onMouseEnter={() => setMouseOver(true)}
     onMouseLeave={() => setMouseOver(false)}>
-    { props.editMode && mouseOver
-      ? <WidgetEdit {...props} />
-      : <Widget {...props}
+      <Widget {...props}
+        mode={mode}
+        setMode={setMode}
         onUpdate={onUpdate}
         onResize={onResize}
       />
-    }
   </div>
 }
 
-export default WidgetWrapper
+export default WidgetContainer

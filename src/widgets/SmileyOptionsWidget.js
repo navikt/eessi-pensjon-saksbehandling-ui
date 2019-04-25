@@ -17,7 +17,7 @@ const SmileyOptionsWidget = (props) => {
   }
 
   let widgetTemplate = _.find(props.availableWidgets, { type: 'smiley' })
-  return <div>
+  return <div className='p-3'>
     <Nav.Select label={'mood'} value={mood}
       onChange={chooseMood}>
       {widgetTemplate.options.availableMoods.map(_mood => {

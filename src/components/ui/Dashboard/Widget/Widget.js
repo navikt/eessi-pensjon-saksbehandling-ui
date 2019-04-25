@@ -1,8 +1,19 @@
 import React from 'react'
+import WidgetEdit from './WidgetEdit'
+import WidgetDelete from './WidgetDelete'
 
 import * as Widgets from '../../../../widgets'
 
 const Widget = (props) => {
+
+  if (props.mode === 'edit') {
+    return <WidgetEdit {...props} />
+  }
+
+  if (props.mode === 'delete') {
+    return <WidgetDelete {...props} />
+  }
+
   switch (props.widget.type) {
     case 'ekspandertbart':
       return <Widgets.EkspandertBartWidget {...props} />
