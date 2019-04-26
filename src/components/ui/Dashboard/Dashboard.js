@@ -26,7 +26,8 @@ const Dashboard = (props) => {
 
   useEffect(() => {
     const loadData = async () => {
-      setAvailableWidgets(require('./Config/AvailableWidgets').default)
+      const _availableWidgets = await DashboardAPI.loadAvailableWidgets()
+      setAvailableWidgets(_availableWidgets)
       const [_widgets, _layouts] = await DashboardAPI.loadDashboard()
       setWidgets(_widgets)
       setLayouts(_layouts)

@@ -15,3 +15,7 @@ export async function saveDashboard (widgets, layouts) {
   await localStorage.setItem('c-ui-d-widgets', JSON.stringify(widgets))
   await localStorage.setItem('c-ui-d-layouts', JSON.stringify(layouts))
 }
+
+export async function loadAvailableWidgets () {
+   return await require('../Config/AvailableWidgets').default
+}
