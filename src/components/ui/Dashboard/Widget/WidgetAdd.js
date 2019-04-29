@@ -42,9 +42,9 @@ const WidgetAdd = (props) => {
 export default DragSource(
   'newWidget', {
     beginDrag: (props) => {
-      console.log('Begin dragging widgetAdd')
-      // create an Id
+      // console.log('WidgetAdd: BeginDrag')
       const newId = 'w-' + new Date().getTime() + '-' + props.widget.type
+      // create new Widget from template
       props.setWidgets(props.widgets.concat({
         i: newId,
         type: props.widget.type,
@@ -53,19 +53,16 @@ export default DragSource(
       }))
       // return the object I want to send to dropTarget when dropped
       return {
-        widgetTemplate: props.widget,
+        widget: props.widget,
         newId: newId
       }
     },
     endDrag: (props, monitor) => {
-      console.log('End dragging widgetAdd')
+      // console.log('WidgetAdd: EndDrag')
       const item = monitor.getItem()
       const dropResult = monitor.getDropResult()
-      console.log(props, item, dropResult)
-      if (dropResult) {
-        console.log('Dropped successfully a widgetAdd')
-      } else {
-        console.log('Dropped failed for a widgetAdd')
+      // if drag was not successful, clean up
+      if (!dropResult) {
         props.setWidgets(_.reject(props.widgets, {'i': item.newId}))
       }
     },

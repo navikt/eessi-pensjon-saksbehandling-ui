@@ -8,8 +8,6 @@ import DashboardConfig from './Config/DashboardConfig'
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive)
 
-const dragApi = createDragApiRef()
-
 const DashboardGrid = (props) => {
 
   return props.connectDropTarget(<div
@@ -32,7 +30,7 @@ const DashboardGrid = (props) => {
       useCSSTransforms={props.mounted}
       preventCollision={false}
       draggableHandle={'.draggableHandle'}
-      dragApiRef={dragApi}
+      dragApiRef={props.dragApi}
     >
       {_.map(props.layouts[props.currentBreakpoint], (layout) => {
         return <div id={'widget-' + layout.i} key={layout.i}>
@@ -59,36 +57,48 @@ export default DropTarget(
   ['newWidget'],
   {
     canDrop: props => {
-      // console.log('I am DashboardGrid, you can drop here')
+      //console.log('DashboardGrid, canDrop')
       return true
     },
     drop: (props, monitor, component) => {
-      const {x, y} = monitor.getClientOffset()
-      let droppedItem = monitor.getItem()
-      let droppedItemType = monitor.getItemType()
-      console.log('A good ' + droppedItemType + ' dropped')
-      dragApi.value.stop({
+      //console.log('DashboardGrid: drop')
+      const position = monitor.getSourceClientOffset()
+      // this removes placeholder, dragApi will add widget to layout
+      props.dragApi.value.stop({
         position: {
-          left: x,
-          top: y
+           left: position.x,
+           top: position.y
         }
       })
     },
     hover: (props, monitor, component) => {
+      //console.log('DashboardGrid: hover')
+      const hoverItem = monitor.getItem()
+      const position = monitor.getSourceClientOffset()
+      const dashboardPosition = {
+         x: document.getElementById('dashboardGrid').offsetLeft,
+         y: document.getElementById('dashboardGrid').offsetTop
+      }
 
-      let hoverItem = monitor.getItem()
-      let hoverItemType = monitor.getItemType()
-      if (dragApi.value) {
-        const {x, y} = monitor.getClientOffset()
-        dragApi.value.dragIn({
-           i: hoverItem.newId,
-           w: hoverItem.widgetTemplate.layout[props.currentBreakpoint].defaultW,
-           h: hoverItem.widgetTemplate.layout[props.currentBreakpoint].defaultH,
-           position: {
-              left: x,
-              top: y
-           }
-        })
+      if (props.dragApi.value) {
+        if (dashboardPosition.x < position.x && dashboardPosition.y < position.y) {
+          props.dragApi.value.dragIn({
+             i: hoverItem.newId,
+             w: hoverItem.widget.layout[props.currentBreakpoint].defaultW,
+             h: hoverItem.widget.layout[props.currentBreakpoint].defaultH,
+             position: {
+                left: position.x,
+                top: position.y
+             }
+          })
+        } else {
+          props.dragApi.value.dragOut({
+            position: {
+                left: position.x,
+                top: position.y
+            }
+          })
+        }
       }
     }
   },

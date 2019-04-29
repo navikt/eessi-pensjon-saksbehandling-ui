@@ -10,7 +10,8 @@ const WidgetAddArea = (props) => {
       return <WidgetAdd key={i}
         widgets={props.widgets}
         setWidgets={props.setWidgets}
-        widget={widget} />
+        widget={widget}
+        dragApi={props.dragApi}/>
     })}
   </div>
 }

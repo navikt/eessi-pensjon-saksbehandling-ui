@@ -3,7 +3,7 @@ import _ from 'lodash'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { withTranslation } from 'react-i18next'
-
+import { Responsive, WidthProvider, createDragApiRef } from 'react-grid-layout'
 import WidgetAddArea from './Widget/WidgetAddArea'
 import DashboardGrid from './DashboardGrid'
 import DashboardControlPanel from './DashboardControlPanel'
@@ -13,6 +13,8 @@ import * as DashboardAPI from './API/DashboardAPI'
 import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
 import './Dashboard.css'
+
+const dragApi = createDragApiRef()
 
 const Dashboard = (props) => {
   const [editMode, setEditMode] = useState(false)
@@ -83,6 +85,7 @@ const Dashboard = (props) => {
 
   const onSaveEdit = async () => {
     await DashboardAPI.saveDashboard(widgets, layouts)
+    setAddMode(false)
     setEditMode(false)
   }
 
@@ -105,7 +108,8 @@ const Dashboard = (props) => {
       availableWidgets={availableWidgets}
       widgets={widgets}
       setWidgets={setWidgets}
-      t={props.t} />
+      t={props.t}
+      dragApi={dragApi}/>
       : null}
     <DashboardGrid
       editMode={editMode}
@@ -120,6 +124,7 @@ const Dashboard = (props) => {
       onWidgetDelete={onWidgetDelete}
       availableWidgets={availableWidgets}
       t={props.t}
+      dragApi={dragApi}
     />
   </div>
 }

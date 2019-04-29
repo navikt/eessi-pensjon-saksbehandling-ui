@@ -45,7 +45,7 @@ const WidgetAddPreview = (props) => {
   if (!props.isDragging) {
     return null
   }
-  let widget = props.item.widgetTemplate
+  let widget = props.item.widget
   let dimensions = gridSizeToPixelSize(
     widget.layout[props.currentBreakpoint].defaultW,
     widget.layout[props.currentBreakpoint].defaultH,
