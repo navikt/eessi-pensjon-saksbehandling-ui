@@ -22,7 +22,7 @@ const NoteOptionsWidget = (props) => {
     <Nav.Select label={'color'} value={backgroundColor}
       onChange={chooseColor}>
       {widgetTemplate.options.availableColors.map(color => {
-        return <option value={color} selected={color === backgroundColor}>{color}</option>
+        return <option key={color} value={color}>{color}</option>
       })}
     </Nav.Select>
   </div>

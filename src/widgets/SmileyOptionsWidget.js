@@ -21,7 +21,7 @@ const SmileyOptionsWidget = (props) => {
     <Nav.Select label={'mood'} value={mood}
       onChange={chooseMood}>
       {widgetTemplate.options.availableMoods.map(_mood => {
-        return <option value={_mood.value} selected={mood === _mood.value}>{_mood.label}{' - '}{_mood.value}</option>
+        return <option value={_mood.value}>{_mood.label}{' - '}{_mood.value}</option>
       })}
     </Nav.Select>
   </div>

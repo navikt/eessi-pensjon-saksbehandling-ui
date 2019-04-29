@@ -1,6 +1,6 @@
 import React from 'react'
 import _ from 'lodash'
-import { Responsive, WidthProvider } from 'react-grid-layout'
+import { Responsive, WidthProvider, createDragApiRef } from 'react-grid-layout'
 import { DropTarget } from 'react-dnd'
 import classNames from 'classnames'
 import WidgetContainer from './Widget/WidgetContainer'
@@ -8,7 +8,10 @@ import DashboardConfig from './Config/DashboardConfig'
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive)
 
+const dragApi = createDragApiRef()
+
 const DashboardGrid = (props) => {
+
   return props.connectDropTarget(<div
     id='dashboardGrid'
     className={classNames('c-ui-d-dashboardGrid', {
@@ -29,6 +32,7 @@ const DashboardGrid = (props) => {
       useCSSTransforms={props.mounted}
       preventCollision={false}
       draggableHandle={'.draggableHandle'}
+      dragApiRef={dragApi}
     >
       {_.map(props.layouts[props.currentBreakpoint], (layout) => {
         return <div id={'widget-' + layout.i} key={layout.i}>
@@ -59,14 +63,33 @@ export default DropTarget(
       return true
     },
     drop: (props, monitor, component) => {
-      // console.log('Something good dropped')
+      const {x, y} = monitor.getClientOffset()
       let droppedItem = monitor.getItem()
-      // let droppedItemType = monitor.getItemType()
-      // console.log('A good ' + droppedItemType + ' dropped')
-      props.onWidgetAdd(droppedItem.widgetTemplate)
+      let droppedItemType = monitor.getItemType()
+      console.log('A good ' + droppedItemType + ' dropped')
+      dragApi.value.stop({
+        position: {
+          left: x,
+          top: y
+        }
+      })
     },
-    hover: props => {
-      // console.log('Something good is hovering')
+    hover: (props, monitor, component) => {
+
+      let hoverItem = monitor.getItem()
+      let hoverItemType = monitor.getItemType()
+      if (dragApi.value) {
+        const {x, y} = monitor.getClientOffset()
+        dragApi.value.dragIn({
+           i: hoverItem.newId,
+           w: hoverItem.widgetTemplate.layout[props.currentBreakpoint].defaultW,
+           h: hoverItem.widgetTemplate.layout[props.currentBreakpoint].defaultH,
+           position: {
+              left: x,
+              top: y
+           }
+        })
+      }
     }
   },
   (connect, monitor) => {

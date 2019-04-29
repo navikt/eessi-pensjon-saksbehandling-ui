@@ -28,11 +28,12 @@ SmileyWidget.properties = {
   title: 'Smiley widget',
   description: 'Widget with a 😁',
   layout: {
-    lg: { minW: 2, maxW: 4, defaultW: 2, minH: 6, defaultH: 6, maxH: Infinity },
-    md: { minW: 1, maxW: 3, defaultW: 1, minH: 6, defaultH: 6, maxH: Infinity },
-    sm: { minW: 1, maxW: 1, defaultW: 1, minH: 6, defaultH: 6, maxH: Infinity }
+    lg: { minW: 2, maxW: 4, defaultW: 2, minH: 6, defaultH: 6, maxH: 999 },
+    md: { minW: 1, maxW: 3, defaultW: 1, minH: 6, defaultH: 6, maxH: 999 },
+    sm: { minW: 1, maxW: 1, defaultW: 1, minH: 6, defaultH: 6, maxH: 999 }
   },
   options: {
+    backgroundColor: 'white',
     mood: '😁',
     availableMoods: [
       { label: 'grin', value: '😁' },

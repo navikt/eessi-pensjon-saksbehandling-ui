@@ -74,6 +74,10 @@ const WidgetContainer = (props) => {
     }
   }
 
+  if (!props.widget) {
+    return null
+  }
+
   let backgroundColor = props.widget.options.backgroundColor || 'transparent'
   if (props.editMode) {
     backgroundColor = 'white'

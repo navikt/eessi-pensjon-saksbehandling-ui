@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { DragSource } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import classNames from 'classnames'
+import _ from 'lodash'
+
 import './Widget.css'
 
 const WidgetAdd = (props) => {
@@ -41,17 +43,30 @@ export default DragSource(
   'newWidget', {
     beginDrag: (props) => {
       console.log('Begin dragging widgetAdd')
-      // return the object I want to send to dropTarged when dropped
+      // create an Id
+      const newId = 'w-' + new Date().getTime() + '-' + props.widget.type
+      props.setWidgets(props.widgets.concat({
+        i: newId,
+        type: props.widget.type,
+        title: props.widget.title,
+        options: props.widget.options
+      }))
+      // return the object I want to send to dropTarget when dropped
       return {
-        widgetTemplate: props.widget
+        widgetTemplate: props.widget,
+        newId: newId
       }
     },
     endDrag: (props, monitor) => {
       console.log('End dragging widgetAdd')
-      // const item = monitor.getItem()
+      const item = monitor.getItem()
       const dropResult = monitor.getDropResult()
+      console.log(props, item, dropResult)
       if (dropResult) {
         console.log('Dropped successfully a widgetAdd')
+      } else {
+        console.log('Dropped failed for a widgetAdd')
+        props.setWidgets(_.reject(props.widgets, {'i': item.newId}))
       }
     },
     canDrag: () => {

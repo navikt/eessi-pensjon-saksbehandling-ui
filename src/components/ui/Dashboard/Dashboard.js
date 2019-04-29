@@ -36,31 +36,6 @@ const Dashboard = (props) => {
     loadData()
   }, [])
 
-  const onWidgetAdd = (widget) => {
-    const newId = 'w-' + new Date().getTime() + '-' + widget.type
-    setWidgets(widgets.concat({
-      i: newId,
-      type: widget.type,
-      title: widget.title,
-      options: widget.options
-    }))
-    const newLayouts = _.cloneDeep(layouts)
-    Object.keys(newLayouts).forEach(breakpoint => {
-      newLayouts[breakpoint] = newLayouts[breakpoint].concat({
-        i: newId,
-        x: 0,
-        y: Infinity,
-        w: widget.layout[breakpoint].defaultW,
-        h: widget.layout[breakpoint].defaultH,
-        minW: widget.layout[breakpoint].minW,
-        minH: widget.layout[breakpoint].minH,
-        maxW: widget.layout[breakpoint].maxW,
-        maxH: widget.layout[breakpoint].maxH
-      })
-    })
-    setLayouts(newLayouts)
-  }
-
   const onWidgetUpdate = (update, layout) => {
     setWidgets(widgets.map((widget) => {
       return (widget.i === layout.i) ? update : widget
@@ -128,6 +103,8 @@ const Dashboard = (props) => {
     {addMode ? <WidgetAddArea
       currentBreakpoint={currentBreakpoint}
       availableWidgets={availableWidgets}
+      widgets={widgets}
+      setWidgets={setWidgets}
       t={props.t} />
       : null}
     <DashboardGrid
@@ -138,7 +115,6 @@ const Dashboard = (props) => {
       currentBreakpoint={currentBreakpoint}
       onBreakpointChange={onBreakpointChange}
       onLayoutChange={onLayoutChange}
-      onWidgetAdd={onWidgetAdd}
       onWidgetUpdate={onWidgetUpdate}
       onWidgetResize={onWidgetResize}
       onWidgetDelete={onWidgetDelete}

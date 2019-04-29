@@ -10,7 +10,8 @@ export default [{
   type: 'panel',
   title: 'Panel widget - things to do',
   options: {
-    content: 'Work on the dashboard'
+    content: 'Work on the dashboard',
+    backgroundColor: 'white'
   }
 }, {
   i: 'w-2-smiley',

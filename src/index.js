@@ -1,4 +1,3 @@
-import 'babel-polyfill' // IE 11 compatibility
 import 'core-js/es/map' // IE 11 compatibility
 import 'core-js/es/set' // IE 11 compatibility
 import 'es6-promise/auto' // IE 11 compatibility

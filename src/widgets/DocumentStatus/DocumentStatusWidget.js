@@ -45,9 +45,9 @@ DocumentStatusWidget.properties = {
   title: 'Document Status widget',
   description: 'Widget with document status',
   layout: {
-    lg: { minW: 6, maxW: 12, defaultW: 6, minH: 2, maxH: Infinity, defaultH: 6 },
-    md: { minW: 3, maxW: 3, defaultW: 3, minH: 2, maxH: Infinity, defaultH: 3 },
-    sm: { minW: 1, maxW: 1, defaultW: 1, minH: 2, maxH: Infinity, defaultH: 3 }
+    lg: { minW: 6, maxW: 12, defaultW: 6, minH: 2, maxH: 999, defaultH: 6 },
+    md: { minW: 3, maxW: 3, defaultW: 3, minH: 2, maxH: 999, defaultH: 3 },
+    sm: { minW: 1, maxW: 1, defaultW: 1, minH: 2, maxH: 999, defaultH: 3 }
   },
   options: {
     collapsed: false

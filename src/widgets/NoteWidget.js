@@ -49,9 +49,9 @@ NoteWidget.properties = {
   title: 'Note widget',
   description: 'Post-it notes',
   layout: {
-    lg: { minW: 4, maxW: 6, defaultW: 4, minH: 5, defaultH: 5, maxH: Infinity },
-    md: { minW: 2, maxW: 3, defaultW: 2, minH: 5, defaultH: 5, maxH: Infinity },
-    sm: { minW: 1, maxW: 1, defaultW: 1, minH: 5, defaultH: 5, maxH: Infinity }
+    lg: { minW: 4, maxW: 6, defaultW: 4, minH: 5, defaultH: 5, maxH: 999 },
+    md: { minW: 2, maxW: 3, defaultW: 2, minH: 5, defaultH: 5, maxH: 999 },
+    sm: { minW: 1, maxW: 1, defaultW: 1, minH: 5, defaultH: 5, maxH: 999 }
   },
   options: {
     backgroundColor: 'yellow',
