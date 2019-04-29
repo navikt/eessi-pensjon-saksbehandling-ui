@@ -17,5 +17,5 @@ export async function saveDashboard (widgets, layouts) {
 }
 
 export async function loadAvailableWidgets () {
-   return await require('../Config/AvailableWidgets').default
+  return require('../Config/AvailableWidgets').default
 }

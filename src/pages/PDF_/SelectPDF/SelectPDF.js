@@ -74,7 +74,6 @@ class SelectPDF extends Component {
     this.fileUpload.getWrappedInstance().addFile(file)
   }
 
-
   render () {
     const { t, history, loadingPDF, files, location } = this.props
 

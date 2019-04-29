@@ -3,7 +3,7 @@ import _ from 'lodash'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { withTranslation } from 'react-i18next'
-import { Responsive, WidthProvider, createDragApiRef } from 'react-grid-layout'
+import { createDragApiRef } from 'react-grid-layout'
 import WidgetAddArea from './Widget/WidgetAddArea'
 import DashboardGrid from './DashboardGrid'
 import DashboardControlPanel from './DashboardControlPanel'
@@ -109,7 +109,7 @@ const Dashboard = (props) => {
       widgets={widgets}
       setWidgets={setWidgets}
       t={props.t}
-      dragApi={dragApi}/>
+      dragApi={dragApi} />
       : null}
     <DashboardGrid
       editMode={editMode}

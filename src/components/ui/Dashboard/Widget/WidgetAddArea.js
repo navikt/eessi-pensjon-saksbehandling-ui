@@ -11,7 +11,7 @@ const WidgetAddArea = (props) => {
         widgets={props.widgets}
         setWidgets={props.setWidgets}
         widget={widget}
-        dragApi={props.dragApi}/>
+        dragApi={props.dragApi} />
     })}
   </div>
 }

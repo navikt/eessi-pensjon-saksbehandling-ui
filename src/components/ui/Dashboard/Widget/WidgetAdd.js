@@ -63,7 +63,7 @@ export default DragSource(
       const dropResult = monitor.getDropResult()
       // if drag was not successful, clean up
       if (!dropResult) {
-        props.setWidgets(_.reject(props.widgets, {'i': item.newId}))
+        props.setWidgets(_.reject(props.widgets, { 'i': item.newId }))
       }
     },
     canDrag: () => {
