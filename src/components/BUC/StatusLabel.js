@@ -8,13 +8,13 @@ function StatusLabel (props) {
   if (status.indexOf(props.status) === -1) {
     return (
       <div data-qa='StatusLabel-unknown' className={classnames(props.className, 'd-inline-flex justify-content-center align-content-center', 'c-ui-status-label', 'c-ui-status-label-unknown')}>
-        {t('newFeatures:unknown')}
+        {t('ui:unknown')}
       </div>
     )
   }
   return (
     <div data-qa={`StatusLabel-${props.status}`} className={classnames(props.className, 'd-inline-flex justify-content-center align-content-center', 'c-ui-status-label', 'c-ui-status-label-' + props.status)}>
-      {t('newFeatures:' + props.status)}
+      {t('ui:' + props.status)}
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { EkspanderbartpanelBase } from 'nav-frontend-ekspanderbartpanel'
-import PersonHeader from '../../components/newFeatures/PersonHeader'
+import PersonHeader from './PersonHeader'
 
 const person = {
   fullName: 'Ola Normann',

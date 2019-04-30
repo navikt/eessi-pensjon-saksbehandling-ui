@@ -7,7 +7,6 @@ import PSelv from './PSelv/PSelv'
 import PInfo from './PInfo/PInfo'
 import PInfoSaksbehandler from './PInfo/PInfoSaksbehandler'
 import P4000 from './P4000/P4000'
-import NewFeatures from './NewFeatures/NewFeatures'
 import BUC from './BUC/BUC'
 
 export {
@@ -19,6 +18,5 @@ export {
   PInfoSaksbehandler,
   PInfo,
   P4000,
-  NewFeatures,
   BUC
 }

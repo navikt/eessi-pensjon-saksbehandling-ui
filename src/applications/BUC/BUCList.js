@@ -3,9 +3,9 @@ import React, { useState } from 'react'
 import { ToggleGruppe } from 'nav-frontend-toggle'
 import { EkspanderbartpanelBase } from 'nav-frontend-ekspanderbartpanel'
 
-import BucHeader from '../../components/newFeatures/BucHeader'
-import SedHeader from '../../components/newFeatures/SedHeader'
-import SedLabel from '../../components/newFeatures/SedLabel'
+import BucHeader from '../../components/BUC/BucHeader'
+import SedHeader from '../../components/BUC/SedHeader'
+import SedLabel from '../../components/BUC/SedLabel'
 
 import './BUCList.css'
 
@@ -94,8 +94,8 @@ const BUCList = (props) => {
     <div className='mb-3'>
       <ToggleGruppe
         defaultToggles={[
-          { children: t('newFeatures:ongoing'), pressed: true, onClick: () => setTab('ONGOING') },
-          { children: t('newFeatures:other'), onClick: () => setTab('OTHER') }
+          { children: t('ui:ongoing'), pressed: true, onClick: () => setTab('ONGOING') },
+          { children: t('ui:other'), onClick: () => setTab('OTHER') }
         ]}
       />
     </div>
