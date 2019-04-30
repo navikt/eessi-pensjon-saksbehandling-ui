@@ -85,6 +85,10 @@ export default DropTarget(
             i: hoverItem.newId,
             w: hoverItem.widget.layout[props.currentBreakpoint].defaultW,
             h: hoverItem.widget.layout[props.currentBreakpoint].defaultH,
+            minH: hoverItem.widget.layout[props.currentBreakpoint].minH,
+            maxH: hoverItem.widget.layout[props.currentBreakpoint].maxH,
+            minW: hoverItem.widget.layout[props.currentBreakpoint].minW,
+            maxW: hoverItem.widget.layout[props.currentBreakpoint].maxW,
             position: {
               left: position.x,
               top: position.y

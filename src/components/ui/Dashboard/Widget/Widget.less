@@ -5,49 +5,48 @@
   text-overflow: ellipsis;
 }
 
-.react-grid-layout {
-  background: #eee;
-}
-
 .react-grid-item.cssTransforms {
   transition-property: transform;/*, height, width;*/
 }
 
-.c-ui-d-WidgetEdit {
-  background-color: rgba(255,255,255,0.7);
-  text-align: center;
-}
-
-.c-ui-d-WidgetEdit .titleDiv {
-  background: #eee;
-  margin: 5px;
-  cursor: move;
-}
-
-.c-ui-d-WidgetEdit .titleDiv:hover {
-  background: whitesmoke;
-}
-
-.c-ui-d-WidgetEdit .title {
-  line-height: 1.5;
-}
-
-.c-ui-d-WidgetEdit .deleteButton {
-  background: white;
-  padding-left: 3px;
-  float: right;
-}
-
-.c-ui-d-WidgetEdit .deleteButton a {
-  text-decoration: none
-}
-
-.c-ui-d-WidgetEdit .deleteButton a:hover {
-  filter: brightness(130%);
-}
-
 .c-ui-d-Widget {
   height: 100%;
+}
+
+.c-ui-d-WidgetEdit {
+
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: flex-start;
+
+  .titleDiv {
+    background: #eee;
+    margin: 5px;
+    cursor: move;
+    &:hover {
+      background: grey;
+    }
+  }
+
+  .title {
+    line-height: 1.5;
+  }
+
+  .deleteButton {
+    background: white;
+    padding-left: 3px;
+    float: right;
+
+    a {
+      text-decoration: none;
+      &:hover {
+         filter: brightness(130%);
+       }
+    }
+  }
 }
 
 .c-ui-d-widgetAddContainer {
@@ -66,20 +65,21 @@
   cursor: move;
   transition: all 0.2s ease-out;
   overflow: hidden;
+
+  &.selected {
+     width: 0px;
+     margin-right: 0px;
+  }
+
+  &.hover {
+     background-color: white;
+  }
+
+  .content {
+    line-height: 1;
+  }
 }
 
-.c-ui-d-widgetAdd.selected {
-  width: 0px;
-  margin-right: 0px;
-}
-
-.c-ui-d-widgetAdd.hover {
-  background-color: white;
-}
-
-.c-ui-d-widgetAdd .content {
-  line-height: 1;
-}
 .c-ui-d-WidgetDelete {
   flex-direction: column;
   justify-content: center;

@@ -11,7 +11,7 @@ const WidgetDelete = (props) => {
     props.onWidgetDelete(props.layout)
   }
 
-  return <div className='c-ui-d-WidgetDelete' style={{ height: '300px' }}>
+  return <div className='c-ui-d-WidgetDelete' style={{ minHeight: '300px' }}>
     <ReactResizeDetector
       handleWidth
       handleHeight
