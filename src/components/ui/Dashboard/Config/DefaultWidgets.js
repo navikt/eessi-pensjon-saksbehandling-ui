@@ -9,8 +9,8 @@ export default [{
   title: 'Person widget',
   options: {}
 }, {
-  i: 'w-7-sedlist',
-  type: 'sedlist',
-  title: 'Sed list widget',
+  i: 'w-7-buclist',
+  type: 'buclist',
+  title: 'BUC list widget',
   options: {}
 }]

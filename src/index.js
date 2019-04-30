@@ -19,6 +19,7 @@ import i18n from './i18n'
 import * as reducers from './reducers'
 import * as routes from './constants/routes'
 import { unregister } from './registerServiceWorker'
+import * as Applications from './applications'
 import * as Pages from './pages'
 import AuthenticatedRoute from './components/app/AuthenticatedRoute'
 import * as constants from './constants/constants'
@@ -61,16 +62,17 @@ ReactDOM.render(
       <Suspense fallback={<WaitingPanel message='...' />}>
         <Router history={history}>
           <Switch>
-            <Route path='/newfeatures' component={Pages.NewFeatures} />
-            <AuthenticatedRoute exact path={routes.PSELV} component={Pages.PSelv} roles={[constants.SAKSBEHANDLER]} />
-            <AuthenticatedRoute exact path={`${routes.PINFO}/:step?`} component={Pages.PInfo} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-            <AuthenticatedRoute exact path={routes.PINFO_SAKSBEHANDLER} component={Pages.PInfoSaksbehandler} roles={[constants.SAKSBEHANDLER]} />
-            <AuthenticatedRoute exact path={routes.P4000_ROUTE} component={Pages.P4000} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-            <AuthenticatedRoute exact path={routes.PDF_GENERATE} component={Pages.GeneratePDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-            <AuthenticatedRoute exact path={routes.PDF_EDIT} component={Pages.EditPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-            <AuthenticatedRoute exact path={routes.PDF_SELECT} component={Pages.SelectPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+            <Route path='/newfeatures' component={Applications.NewFeatures} />
+            <AuthenticatedRoute exact path={routes.PSELV} component={Applications.PSelv} roles={[constants.SAKSBEHANDLER]} />
+            <AuthenticatedRoute exact path={`${routes.PINFO}/:step?`} component={Applications.PInfo} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+            <AuthenticatedRoute exact path={routes.PINFO_SAKSBEHANDLER} component={Applications.PInfoSaksbehandler} roles={[constants.SAKSBEHANDLER]} />
+            <AuthenticatedRoute exact path={routes.P4000_ROUTE} component={Applications.P4000} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+            <AuthenticatedRoute exact path={routes.PDF_GENERATE} component={Applications.GeneratePDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+            <AuthenticatedRoute exact path={routes.PDF_EDIT} component={Applications.EditPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+            <AuthenticatedRoute exact path={routes.PDF_SELECT} component={Applications.SelectPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
             <Redirect from={routes.PDF} to={{ pathname: routes.PDF_SELECT }} />
-            <AuthenticatedRoute exact path={`${routes.CASE}/:step?`} component={Pages.Case} roles={[constants.SAKSBEHANDLER]} />
+            <AuthenticatedRoute exact path={`${routes.CASE}/:step?`} component={Applications.Case} roles={[constants.SAKSBEHANDLER]} />
+
             <AuthenticatedRoute path={routes.INDEX} component={Pages.IndexPage} roles={[constants.SAKSBEHANDLER]} />
             <AuthenticatedRoute path={routes.RESEND} component={Pages.Resend} roles={[constants.SAKSBEHANDLER]} />
             <Route path={routes.NOT_LOGGED} render={() => <Pages.Error type='notLogged' />} />

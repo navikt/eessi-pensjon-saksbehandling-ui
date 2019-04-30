@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
-import _ from 'lodash'
 import { DragDropContext } from 'react-beautiful-dnd'
 
 import * as Nav from '../Nav'

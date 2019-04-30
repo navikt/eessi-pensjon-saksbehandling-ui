@@ -9,5 +9,5 @@ export default [
   Widgets.CatWidget.properties,
   Widgets.NoteWidget.properties,
   Widgets.PersonWidget.properties,
-  Widgets.SedListWidget.properties
+  Widgets.BUCListWidget.properties
 ]

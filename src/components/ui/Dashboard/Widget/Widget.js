@@ -32,8 +32,8 @@ const Widget = (props) => {
       return <Widgets.PersonWidget {...props} />
     case 'pdf':
       return <Widgets.PdfWidget {...props} />
-    case 'sedlist':
-      return <Widgets.SedListWidget {...props} />
+    case 'buclist':
+      return <Widgets.BUCListWidget {...props} />
     default:
       return <div>{props.t('ui:dashboard-noWidgetForType', { type: props.widget.type })}</div>
   }

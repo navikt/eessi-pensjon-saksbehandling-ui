@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
-import SedList from '../pages/NewFeatures/SedList'
+import BUCList from '../applications/BUC/BUCList'
 
-const SedListWidget = (props) => {
+const BUCListWidget = (props) => {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -12,19 +12,19 @@ const SedListWidget = (props) => {
     }
   }, [])
 
-  return <div className='c-ui-d-SedListWidget'>
+  return <div className='c-ui-d-BucListWidget'>
     <ReactResizeDetector
       handleWidth
       handleHeight
       onResize={props.onResize} />
-    <SedList t={props.t} />
+    <BUCList t={props.t} />
   </div>
 }
 
-SedListWidget.properties = {
-  type: 'sedlist',
-  title: 'SED List widget',
-  description: 'Widget with Sed list',
+BUCListWidget.properties = {
+  type: 'buclist',
+  title: 'BUC List widget',
+  description: 'Widget with BUC list',
   layout: {
     lg: { minW: 6, maxW: 12, defaultW: 6, minH: 2, defaultH: 4, maxH: 999 },
     md: { minW: 3, maxW: 3, defaultW: 1, minH: 2, defaultH: 4, maxH: 999 },
@@ -33,4 +33,4 @@ SedListWidget.properties = {
   options: {}
 }
 
-export default SedListWidget
+export default BUCListWidget

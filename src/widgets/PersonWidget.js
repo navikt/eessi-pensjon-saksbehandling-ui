@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
-import Person from '../pages/NewFeatures/Person'
+import Person from '../applications/NewFeatures/Person'
 
 const PersonWidget = (props) => {
   const [mounted, setMounted] = useState(false)

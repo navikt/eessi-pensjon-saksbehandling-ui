@@ -7,7 +7,7 @@ import BucHeader from '../../components/newFeatures/BucHeader'
 import SedHeader from '../../components/newFeatures/SedHeader'
 import SedLabel from '../../components/newFeatures/SedLabel'
 
-import './SedList.css'
+import './BUCList.css'
 
 const BUCLIST = [
   {
@@ -86,7 +86,7 @@ let SEDS = [
   }
 ]
 
-const SedList = (props) => {
+const BUCList = (props) => {
   const [tab, setTab] = useState('ONGOING')
   const { t } = props
 
@@ -124,4 +124,4 @@ const SedList = (props) => {
   </React.Fragment>
 }
 
-export default SedList
+export default BUCList

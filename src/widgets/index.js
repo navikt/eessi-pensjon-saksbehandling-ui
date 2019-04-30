@@ -9,7 +9,7 @@ import NoteOptionsWidget from './NoteOptionsWidget'
 import DocumentStatusWidget from './DocumentStatus/DocumentStatusWidget'
 import LinksWidget from './Links/LinksWidget'
 import PersonWidget from './PersonWidget'
-import SedListWidget from './SedListWidget'
+import BUCListWidget from './BUCListWidget'
 
 export {
   EkspandertBartWidget,
@@ -23,5 +23,5 @@ export {
   LinksWidget,
   PersonWidget,
   PdfWidget,
-  SedListWidget
+  BUCListWidget
 }
