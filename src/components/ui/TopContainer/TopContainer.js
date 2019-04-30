@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
+import _ from 'lodash'
+import { DragDropContext } from 'react-beautiful-dnd'
 
 import * as Nav from '../Nav'
 import Alert from '../Alert/Alert'
@@ -29,12 +31,22 @@ const mapDispatchToProps = () => {
 }
 
 export class TopContainer extends Component {
+  onDragEnd (e) {
+    const { droppables, file } = this.props
+
+    if (e.source && e.source.droppableId === 'c-pdf-dndExternalFiles-droppable' && e.destination) {
+      let droppableRef = droppables[e.destination.droppableId]
+      droppableRef.getWrappedInstance().addFile(file)
+    }
+  }
+
   render () {
     const { className, containerClassName, style, history, sideContent, userRole, header, highContrast, fluid } = this.props
 
     return <div style={style} className={classNames('c-ui-topContainer', userRole, className,
       { 'highContrast': highContrast })}>
-      <Drawer className={userRole} sideContent={sideContent}>
+      <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
+        <Drawer className={userRole} sideContent={sideContent}>
         {
           (window.eessipen && window.eessipen.ZONE === 'sbs')
             ? null
@@ -53,7 +65,8 @@ export class TopContainer extends Component {
           sessionExpiredReload={1000 * 60 * 61} /* At 61st minute */
         /> : null}
         {userRole === constants.SAKSBEHANDLER ? <Footer /> : null}
-      </Drawer>
+        </Drawer>
+      </DragDropContext>
     </div>
   }
 }

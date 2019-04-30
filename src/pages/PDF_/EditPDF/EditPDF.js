@@ -5,7 +5,6 @@ import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
 import Collapse from 'rc-collapse'
 import _ from 'lodash'
-import { DragDropContext } from 'react-beautiful-dnd'
 
 import * as Nav from '../../../components/ui/Nav'
 import StepIndicator from '../../../components/pdf/StepIndicator'
@@ -141,14 +140,7 @@ class EditPDF extends Component {
       })
     }
 
-    onDragEnd (e) {
-      const { droppables, file } = this.props
 
-      if (e.source && e.source.droppableId === 'c-pdf-dndExternalFiles-droppable' && e.destination) {
-        let droppableRef = droppables[e.destination.droppableId]
-        droppableRef.getWrappedInstance().addFile(file)
-      }
-    }
 
     render () {
       const { t, history, files, dndTarget, recipe, location } = this.props
@@ -177,7 +169,6 @@ class EditPDF extends Component {
             <h4>{t('pdf:documentBox')}</h4>
             <PDFSizeSlider style={{ width: '25%' }} />
           </div>
-          <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
             <DnD>
               <Nav.Row>
                 <Nav.Column className='col-sm-2 mb-4'>
@@ -221,7 +212,6 @@ class EditPDF extends Component {
                 </Nav.Column>
               </Nav.Row>
             </DnD>
-          </DragDropContext>
         </div>
       </TopContainer>
     }
