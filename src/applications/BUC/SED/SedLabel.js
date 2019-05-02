@@ -2,12 +2,12 @@ import React from 'react'
 import PanelBase from 'nav-frontend-paneler'
 import * as Typography from 'nav-frontend-typografi'
 
-import StatusLabel from './StatusLabel'
+import StatusLabel from '../StatusLabel'
 import './SedLabel.css'
 
 function SedLabel (props) {
   const { t } = props
-  return <PanelBase className='panel mt-2 pl-0 pr-0 d-flex justify-content-between'>
+  return <PanelBase className='a-buc-sed-sedlabel panel mt-2 pl-0 pr-0 d-flex justify-content-between'>
     <div className='col-2 c-ui-mw-150 d-flex align-content-center c-ui-sed-name'>
       <Typography.Element data-qa='SedLabel-name'>
         {props.sed.name}

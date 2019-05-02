@@ -2,4 +2,8 @@
   "buc-name" : "Navn på sed",
   "buc-status" : "Status",
   "buc-receiver" : "Mottaker/Avsender",
+
+  "startNewCase" : "Start ny behandling",
+  "startNewBUC" : "Starte ny BUC",
+  "backToList" : "Tilbake til liste"
 }

@@ -1,14 +1,12 @@
 import React from 'react'
 
-import * as Typografi from 'nav-frontend-typografi'
-import { LenkepanelBase } from 'nav-frontend-lenkepanel'
+import * as Nav from '../../../components/ui/Nav'
+import FlagList from '../../../components/ui/Flag/FlagList'
 
-import FlagList from './FlagList'
+import { ReactComponent as ProblemCircle } from '../../../resources/images/report-problem-circle.svg'
+import { ReactComponent as BubbleChat } from '../../../resources/images/bubble-chat-2.svg'
 
-import { ReactComponent as ProblemCircle } from '../../resources/images/report-problem-circle.svg'
-import { ReactComponent as BubbleChat } from '../../resources/images/bubble-chat-2.svg'
-
-import './BucHeader.css'
+import './BUCHeader.css'
 
 function preventDefault (onClick) {
   return function onClickHandler (e) {
@@ -18,23 +16,23 @@ function preventDefault (onClick) {
   }
 }
 
-function BucHeader (props) {
+function BUCHeader (props) {
   const { t } = props
   return (
     <div className='p-0 w-100 d-flex c-ui-bucHeader justify-content-between'>
       <div className='col-3'>
-        <Typografi.Ingress data-qa='BucHeader-type-name' className='font-weight-bold'>{props.type + ' - ' + props.name}</Typografi.Ingress>
-        <Typografi.Normaltekst data-qa='BucHeader-dateCreated'>{t('ui:created')}: {props.dateCreated}</Typografi.Normaltekst>
+        <Nav.Ingress data-qa='BucHeader-type-name' className='font-weight-bold'>{props.type + ' - ' + props.name}</Nav.Ingress>
+        <Nav.Normaltekst data-qa='BucHeader-dateCreated'>{t('ui:created')}: {props.dateCreated}</Nav.Normaltekst>
       </div>
       <div className='col-3 mr-auto d-flex align-items-center pl-0 pr-0'>
         <FlagList data-qa='BucHeader-FlagList' countries={props.countries} overflowLimit={2} flagPath='../../../../flags/' extention='.png' />
       </div>
       <div className='col-3 d-flex justify-content-end align-items-center pl-0 pr-0'>
-        <LenkepanelBase data-qa='BucHeader-LinkButton' onClick={preventDefault(props.behandlingOnClick)} className='knapp knapp--mini pl-3 pr-3 pt-2 pb-2 m-0' href={props.href} border>
+        <Nav.LenkepanelBase data-qa='BucHeader-LinkButton' onClick={preventDefault(props.behandlingOnClick)} className='knapp knapp--mini pl-3 pr-3 pt-2 pb-2 m-0' href={props.href} border>
           <div>
             {t('ui:processing')}
           </div>
-        </LenkepanelBase>
+        </Nav.LenkepanelBase>
       </div>
       <div className='col-2 d-flex justify-content-end align-items-center'>
         {props.merknader.length > 0
@@ -50,7 +48,7 @@ function BucHeader (props) {
   )
 }
 
-BucHeader.defaultProps = {
+BUCHeader.defaultProps = {
   type: '',
   name: '',
   dateCreated: '',
@@ -62,4 +60,4 @@ BucHeader.defaultProps = {
   t: arg => arg
 }
 
-export default BucHeader
+export default BUCHeader

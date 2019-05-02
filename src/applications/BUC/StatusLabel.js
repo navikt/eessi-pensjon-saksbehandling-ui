@@ -4,7 +4,7 @@ import './StatusLabel.css'
 
 function StatusLabel (props) {
   const { t } = props
-  const status = ['draft', 'sendt', 'received']
+  const status = ['draft', 'sent', 'received']
   if (status.indexOf(props.status) === -1) {
     return (
       <div data-qa='StatusLabel-unknown' className={classnames(props.className, 'd-inline-flex justify-content-center align-content-center', 'c-ui-status-label', 'c-ui-status-label-unknown')}>
