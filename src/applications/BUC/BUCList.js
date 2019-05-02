@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 
 import { ToggleGruppe } from 'nav-frontend-toggle'
 import { EkspanderbartpanelBase } from 'nav-frontend-ekspanderbartpanel'
+import { Store } from './index'
+import * as constants from './constants'
 
 import BucHeader from '../../components/BUC/BucHeader'
 import SedHeader from '../../components/BUC/SedHeader'
 import SedLabel from '../../components/BUC/SedLabel'
+
+import { Hovedknapp } from '../../components/ui/Nav'
 
 import './BUCList.css'
 
@@ -89,6 +93,14 @@ let SEDS = [
 const BUCList = (props) => {
   const [tab, setTab] = useState('ONGOING')
   const { t } = props
+  const { state, dispatch } = useContext(Store)
+
+  const onBUCNew = () => {
+    dispatch({
+      type: constants.BUC_MODE,
+      payload: 'new'
+    })
+  }
 
   return <React.Fragment>
     <div className='mb-3'>
@@ -98,6 +110,7 @@ const BUCList = (props) => {
           { children: t('ui:other'), onClick: () => setTab('OTHER') }
         ]}
       />
+      <Hovedknapp onClick={onBUCNew}>New</Hovedknapp>
     </div>
     {
       tab === 'ONGOING'

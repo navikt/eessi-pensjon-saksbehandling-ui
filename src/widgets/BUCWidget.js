@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
-import BUCList from '../applications/BUC/BUCList'
+import BUCApp from '../applications/BUC/index'
 
-const BUCListWidget = (props) => {
+const BUCWidget = (props) => {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -12,19 +12,19 @@ const BUCListWidget = (props) => {
     }
   }, [])
 
-  return <div className='c-ui-d-BucListWidget'>
+  return <div className='c-ui-d-BucWidget'>
     <ReactResizeDetector
       handleWidth
       handleHeight
       onResize={props.onResize} />
-    <BUCList t={props.t} />
+    <BUCApp/>
   </div>
 }
 
-BUCListWidget.properties = {
-  type: 'buclist',
-  title: 'BUC List widget',
-  description: 'Widget with BUC list',
+BUCWidget.properties = {
+  type: 'buc',
+  title: 'BUC widget',
+  description: 'Widget for BUC',
   layout: {
     lg: { minW: 6, maxW: 12, defaultW: 6, minH: 2, defaultH: 4, maxH: 999 },
     md: { minW: 3, maxW: 3, defaultW: 1, minH: 2, defaultH: 4, maxH: 999 },
@@ -33,4 +33,4 @@ BUCListWidget.properties = {
   options: {}
 }
 
-export default BUCListWidget
+export default BUCWidget
