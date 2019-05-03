@@ -1,10 +1,10 @@
 import * as types from '../constants/actionTypes'
 
-let initialState = {
+export const initialStatusState = {
   documents: []
 }
 
-export default function (state = initialState, action = {}) {
+const statusReducer = (state = initialStatusState, action = {}) => {
   switch (action.type) {
     case types.STATUS_PARAM_SET:
 
@@ -47,3 +47,5 @@ export default function (state = initialState, action = {}) {
       return state
   }
 }
+
+export default statusReducer

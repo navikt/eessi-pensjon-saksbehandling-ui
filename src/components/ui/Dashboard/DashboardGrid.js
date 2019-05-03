@@ -26,7 +26,7 @@ const DashboardGrid = (props) => {
       onBreakpointChange={props.onBreakpointChange}
       onLayoutChange={props.onLayoutChange}
       measureBeforeMount={false}
-      useCSSTransforms={props.mounted}
+      useCSSTransforms={false}
       preventCollision={false}
       draggableHandle={'.draggableHandle'}
       dragApiRef={props.dragApi}

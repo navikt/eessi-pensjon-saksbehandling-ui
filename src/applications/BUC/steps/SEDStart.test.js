@@ -1,13 +1,13 @@
 import React from 'react'
 import { createStore, combineReducers, bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as reducers from '../../reducers'
+import * as reducers from 'reducers'
 
-import { StartCase, mapStateToProps } from './StartCase'
+import { SEDStart, mapStateToProps } from './SEDStart'
 
 import * as uiActions from '../../actions/ui'
 import * as appActions from '../../actions/app'
-import * as caseActions from '../../actions/case'
+import * as bucActions from '../../actions/buc'
 
 const t = jest.fn((translationString) => { return translationString })
 
@@ -56,11 +56,11 @@ const reducer = combineReducers({
 })
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, caseActions, appActions, uiActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, bucActions, appActions, uiActions), dispatch) }
 }
 
-describe('StartCase: mount without sakId and AktoerId', () => {
-  let store, wrapper, ConnectedStartCase
+describe('SEDStart: mount without sakId and AktoerId', () => {
+  let store, wrapper, ConnectedSEDStart
   const initialState = {
     case: {
       step: 0
@@ -70,8 +70,8 @@ describe('StartCase: mount without sakId and AktoerId', () => {
 
   beforeEach(() => {
     store = createStore(reducer, initialState)
-    ConnectedStartCase = connect(mapStateToProps, mapDispatchToProps)(StartCase)
-    wrapper = shallow(<ConnectedStartCase t={t} store={store} />).dive()
+    ConnectedSEDStart = connect(mapStateToProps, mapDispatchToProps)(SEDStart)
+    wrapper = shallow(<ConnectedSEDStart t={t} store={store} />).dive()
   })
 
   it('renders successfully', () => {
@@ -82,8 +82,8 @@ describe('StartCase: mount without sakId and AktoerId', () => {
     wrapper.instance().onFetchCaseButtonClick()
     expect(store.getState().case.currentCase).toEqual(undefined)
     expect(wrapper.instance().state.validation).toEqual({
-      sakId: 'case:validation-noSakId',
-      aktoerId: 'case:validation-noAktoerId'
+      sakId: 'buc:validation-noSakId',
+      aktoerId: 'buc:validation-noAktoerId'
     })
 
     wrapper.instance().setState({
@@ -103,8 +103,8 @@ describe('StartCase: mount without sakId and AktoerId', () => {
   })
 })
 
-describe('StartCase: mount with sakId and AktoerId', () => {
-  let store, wrapper, ConnectedStartCase
+describe('SEDStart: mount with sakId and AktoerId', () => {
+  let store, wrapper, ConnectedSEDStart
   const initialState = {
     case: {
       step: 0
@@ -117,8 +117,8 @@ describe('StartCase: mount with sakId and AktoerId', () => {
 
   beforeEach(() => {
     store = createStore(reducer, initialState)
-    ConnectedStartCase = connect(mapStateToProps, mapDispatchToProps)(StartCase)
-    wrapper = shallow(<ConnectedStartCase t={t} store={store} />).dive()
+    ConnectedSEDStart = connect(mapStateToProps, mapDispatchToProps)(SEDStart)
+    wrapper = shallow(<ConnectedSEDStart t={t} store={store} />).dive()
   })
 
   it('renders successfully', () => {
@@ -130,8 +130,8 @@ describe('StartCase: mount with sakId and AktoerId', () => {
   })
 })
 
-describe('StartCase: rest of functions', () => {
-  let store, wrapper, ConnectedStartCase
+describe('SEDStart: rest of functions', () => {
+  let store, wrapper, ConnectedSEDStart
   const initialState = {
     case: {
       step: 0
@@ -147,8 +147,8 @@ describe('StartCase: rest of functions', () => {
 
   beforeEach(() => {
     store = createStore(reducer, initialState)
-    ConnectedStartCase = connect(mapStateToProps, mapDispatchToProps)(StartCase)
-    wrapper = shallow(<ConnectedStartCase t={t} store={store} />).dive()
+    ConnectedSEDStart = connect(mapStateToProps, mapDispatchToProps)(SEDStart)
+    wrapper = shallow(<ConnectedSEDStart t={t} store={store} />).dive()
   })
 
   it('onSakIdChange()', () => {
@@ -212,7 +212,7 @@ describe('StartCase: rest of functions', () => {
     let invalidSubjectArea = ''
     wrapper.instance().validateSubjectArea(invalidSubjectArea)
     expect(wrapper.instance().state.validation).toEqual({
-      'subjectAreaFail': 'case:validation-chooseSubjectArea'
+      'subjectAreaFail': 'buc:validation-chooseSubjectArea'
     })
   })
 
@@ -226,7 +226,7 @@ describe('StartCase: rest of functions', () => {
     let invalidBuc = ''
     wrapper.instance().validateBuc(invalidBuc)
     expect(wrapper.instance().state.validation).toEqual({
-      'bucFail': 'case:validation-chooseBuc'
+      'bucFail': 'buc:validation-chooseBuc'
     })
   })
 
@@ -240,7 +240,7 @@ describe('StartCase: rest of functions', () => {
     let invalidSed = ''
     wrapper.instance().validateSed(invalidSed)
     expect(wrapper.instance().state.validation).toEqual({
-      'sedFail': 'case:validation-chooseSed'
+      'sedFail': 'buc:validation-chooseSed'
     })
   })
 
@@ -254,7 +254,7 @@ describe('StartCase: rest of functions', () => {
     let invalidInstitutions = []
     wrapper.instance().validateInstitutions(invalidInstitutions)
     expect(wrapper.instance().state.validation).toEqual({
-      'institutionsFail': 'case:validation-chooseInstitutions'
+      'institutionsFail': 'buc:validation-chooseInstitutions'
     })
   })
 
@@ -268,7 +268,7 @@ describe('StartCase: rest of functions', () => {
     let invalidInstitution = ''
     wrapper.instance().validateInstitution(invalidInstitution)
     expect(wrapper.instance().state.validation).toEqual({
-      'institutionFail': 'case:validation-chooseInstitution'
+      'institutionFail': 'buc:validation-chooseInstitution'
     })
   })
 
@@ -282,7 +282,7 @@ describe('StartCase: rest of functions', () => {
     let invalidCountry = ''
     wrapper.instance().validateCountry(invalidCountry)
     expect(wrapper.instance().state.validation).toEqual({
-      'countryFail': 'case:validation-chooseCountry'
+      'countryFail': 'buc:validation-chooseCountry'
     })
   })
 
@@ -402,18 +402,18 @@ describe('StartCase: rest of functions', () => {
     let result = wrapper.instance().renderOptions(mockMap, mockType)
     expect(result.length).toEqual(mockMap.length) // note: it is 6, not 5
     let html = result.map(res => { return mount(res).html() })
-    expect(html).toEqual([ '<option value="case:form-chooseCountry">case:form-chooseCountry - case:case-case.form-chooseCountry</option>',
-      '<option value="NO">Norge - case:case-Norge</option>',
-      '<option value="SE">Sverige - case:case-Sverige</option>',
-      '<option value="DK">Danmark - case:case-Danmark</option>',
-      '<option value="FI">Finland - case:case-Finland</option>',
-      '<option value="IS">Island - case:case-Island</option>' ])
+    expect(html).toEqual([ '<option value="buc:form-chooseCountry">buc:form-chooseCountry - buc:case-case.form-chooseCountry</option>',
+      '<option value="NO">Norge - buc:case-Norge</option>',
+      '<option value="SE">Sverige - buc:case-Sverige</option>',
+      '<option value="DK">Danmark - buc:case-Danmark</option>',
+      '<option value="FI">Finland - buc:case-Finland</option>',
+      '<option value="IS">Island - buc:case-Island</option>' ])
   })
 
   it('getOptionLabel()', () => {
     let mockValue = 'mockValue'
     let label = wrapper.instance().getOptionLabel(mockValue)
-    expect(label).toEqual('mockValue - case:case-mockValue')
+    expect(label).toEqual('mockValue - buc:case-mockValue')
   })
 
   it('renderSubjectArea', () => {
@@ -426,9 +426,9 @@ describe('StartCase: rest of functions', () => {
     expect(result.find('select.skjemaelement__input').length).toEqual(1)
     expect(result.find('select option').length).toEqual(mockSubjectAreaList.length)
     expect(result.find('select option').map(it => { return it.text() })).toEqual([
-      'case:form-chooseSubjectArea - case:case-case.form-chooseSubjectArea',
-      'mockSubjectArea1 - case:case-mockSubjectArea1',
-      'mockSubjectArea2 - case:case-mockSubjectArea2'
+      'buc:form-chooseSubjectArea - buc:case-case.form-chooseSubjectArea',
+      'mockSubjectArea1 - buc:case-mockSubjectArea1',
+      'mockSubjectArea2 - buc:case-mockSubjectArea2'
     ])
   })
 
@@ -460,9 +460,9 @@ describe('StartCase: rest of functions', () => {
     expect(result.find('select.skjemaelement__input').length).toEqual(1)
     expect(result.find('select option').length).toEqual(mockInstitutionList.length)
     expect(result.find('select option').map(it => { return it.text() })).toEqual([
-      'case:form-chooseInstitution - case:case-case.form-chooseInstitution',
-      'mockInstitution1 - case:case-mockInstitution1',
-      'mockInstitution2 - case:case-mockInstitution2'
+      'buc:form-chooseInstitution - buc:case-case.form-chooseInstitution',
+      'mockInstitution1 - buc:case-mockInstitution1',
+      'mockInstitution2 - buc:case-mockInstitution2'
     ])
   })
 
@@ -476,9 +476,9 @@ describe('StartCase: rest of functions', () => {
     expect(result.find('select.skjemaelement__input').length).toEqual(1)
     expect(result.find('select option').length).toEqual(mockBucList.length)
     expect(result.find('select option').map(it => { return it.text() })).toEqual([
-      'case:form-chooseBuc - case:case-case.form-chooseBuc',
-      'mockBuc1 - case:case-mockBuc1',
-      'mockBuc2 - case:case-mockBuc2'
+      'buc:form-chooseBuc - buc:case-case.form-chooseBuc',
+      'mockBuc1 - buc:case-mockBuc1',
+      'mockBuc2 - buc:case-mockBuc2'
     ])
   })
 
@@ -492,9 +492,9 @@ describe('StartCase: rest of functions', () => {
     expect(result.find('select.skjemaelement__input').length).toEqual(1)
     expect(result.find('select option').length).toEqual(mockSedList.length)
     expect(result.find('select option').map(it => { return it.text() })).toEqual([
-      'case:form-chooseSed - case:case-case.form-chooseSed',
-      'mockSed1 - case:case-mockSed1',
-      'mockSed2 - case:case-mockSed2'
+      'buc:form-chooseSed - buc:case-case.form-chooseSed',
+      'mockSed1 - buc:case-mockSed1',
+      'mockSed2 - buc:case-mockSed2'
     ])
   })
 

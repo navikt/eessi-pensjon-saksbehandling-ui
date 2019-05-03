@@ -4,27 +4,27 @@ import PT from 'prop-types'
 import { connect } from 'react-redux'
 import { withTranslation } from 'react-i18next'
 
-import Export from '../../components/ui/Export/Export'
-import RenderData from '../../components/case/RenderData'
-import * as Nav from '../../components/ui/Nav'
+import Export from 'components/ui/Export/Export'
+import RenderData from 'applications/BUC/components/RenderData/RenderData'
+import * as Nav from 'components/ui/Nav'
 
-import * as caseActions from '../../actions/case'
-import * as statusActions from '../../actions/status'
-import * as appActions from '../../actions/app'
+import * as bucActions from 'actions/buc'
+import * as statusActions from 'actions/status'
+import * as appActions from 'actions/app'
 
 export const mapStateToProps = (state) => {
   return {
-    savedData: state.case.savedData,
-    previewData: state.case.previewData,
-    rinaUrl: state.case.rinaUrl,
-    step: state.case.step,
+    savedData: state.buc.savedData,
+    previewData: state.buc.previewData,
+    rinaUrl: state.buc.rinaUrl,
+    step: state.buc.step,
     sendingCase: state.loading.sendingCase,
     rinaLoading: state.loading.rinaUrl
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, statusActions, caseActions, appActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, statusActions, bucActions, appActions), dispatch) }
 }
 
 export class SaveSendCase extends Component {
@@ -63,15 +63,15 @@ export class SaveSendCase extends Component {
     render () {
       let { t, sendingCase, previewData, savedData, rinaLoading, rinaUrl } = this.props
 
-      let buttonText = sendingCase ? t('case:loading-sendingCase') : t('ui:send')
+      let buttonText = sendingCase ? t('buc:loading-sendingCase') : t('ui:send')
 
       return <div>
         <div className='fieldset animate text-center'>
-          { rinaLoading ? <span>{t('case:loading-rinaUrl')}</span>
+          { rinaLoading ? <span>{t('buc:loading-rinaUrl')}</span>
             : (rinaUrl && savedData && savedData.caseId ? <div>
-              <div className='m-4'><a target='_blank' href={rinaUrl + savedData.caseId}>{t('case:form-caseLink')}</a></div>
+              <div className='m-4'><a target='_blank' rel='noopener noreferrer' href={rinaUrl + savedData.caseId}>{t('buc:form-caseLink')}</a></div>
               <div className='m-4'>
-                <h4>{t('case:form-rinaId') + ': ' + savedData.caseId}</h4>
+                <h4>{t('buc:form-rinaId') + ': ' + savedData.caseId}</h4>
               </div>
               <div style={{ display: 'none' }}>
                 <RenderData t={t} previewData={Object.assign({}, previewData, savedData)} />
@@ -82,8 +82,8 @@ export class SaveSendCase extends Component {
 
         <div className='mb-4 p-4'>
           <Nav.Hovedknapp className='sendButton mr-3' disabled={sendingCase} spinner={sendingCase} onClick={this.onSendButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
-          <Nav.Knapp className='mr-3 createNewUnsetSakIdAktoerIdButton' onClick={this.onCreateNewUnsetSakIdAktoerIdButtonClick.bind(this)}>{t('case:button-createNewUnsetSakIdAktoerId')}</Nav.Knapp>
-          <Nav.Knapp className='createNewUnsetRinaIdButton' onClick={this.onCreateNewUnsetRinaIdButtonClick.bind(this)}>{t('case:button-createNewUnsetRinaId')}</Nav.Knapp>
+          <Nav.Knapp className='mr-3 createNewUnsetSakIdAktoerIdButton' onClick={this.onCreateNewUnsetSakIdAktoerIdButtonClick.bind(this)}>{t('buc:button-createNewUnsetSakIdAktoerId')}</Nav.Knapp>
+          <Nav.Knapp className='createNewUnsetRinaIdButton' onClick={this.onCreateNewUnsetRinaIdButtonClick.bind(this)}>{t('buc:button-createNewUnsetRinaId')}</Nav.Knapp>
         </div>
       </div>
     }

@@ -1,7 +1,7 @@
-import * as caseActions from './case'
+import * as bucActions from './buc'
 import * as api from './api'
-import * as types from '../constants/actionTypes'
-import * as urls from '../constants/urls'
+import * as types from 'constants/actionTypes'
+import * as urls from 'constants/urls'
 var sprintf = require('sprintf-js').sprintf
 
 describe('case actions', () => {
@@ -15,7 +15,7 @@ describe('case actions', () => {
 
   it('stepSet()', () => {
     const mockStep = 999
-    const generatedResult = caseActions.setStep(mockStep)
+    const generatedResult = bucActions.setStep(mockStep)
     expect(generatedResult).toEqual({
       type: types.CASE_STEP_SET,
       payload: mockStep
@@ -24,7 +24,7 @@ describe('case actions', () => {
 
   it('getCaseFromCaseNumber without RinaId()', () => {
     const mockParams = { foo: 'bar' }
-    caseActions.getCaseFromCaseNumber(mockParams)
+    bucActions.getCaseFromCaseNumber(mockParams)
     expect(api.call).toBeCalledWith({
       type: {
         request: types.CASE_GET_CASE_NUMBER_REQUEST,
@@ -37,7 +37,7 @@ describe('case actions', () => {
 
   it('getCaseFromCaseNumber with RinaId()', () => {
     const mockParams = { foo: 'bar', rinaId: '123' }
-    caseActions.getCaseFromCaseNumber(mockParams)
+    bucActions.getCaseFromCaseNumber(mockParams)
     expect(api.call).toBeCalledWith({
       type: {
         request: types.CASE_GET_CASE_NUMBER_REQUEST,
@@ -49,7 +49,7 @@ describe('case actions', () => {
   })
 
   it('call getSubjectAreaList()', () => {
-    caseActions.getSubjectAreaList()
+    bucActions.getSubjectAreaList()
     expect(api.call).toBeCalledWith({
       type: {
         request: types.CASE_GET_SUBJECT_AREA_LIST_REQUEST,
@@ -61,7 +61,7 @@ describe('case actions', () => {
   })
 
   it('call getCountryList()', () => {
-    caseActions.getCountryList()
+    bucActions.getCountryList()
     expect(api.call).toBeCalledWith({
       type: {
         request: types.CASE_GET_COUNTRY_LIST_REQUEST,
@@ -75,7 +75,7 @@ describe('case actions', () => {
   it('call getInstitutionListForBucAndCountry()', () => {
     let mockBuc = 'P_BUC_01'
     let mockCountry = 'NO'
-    caseActions.getInstitutionListForBucAndCountry(mockBuc, mockCountry)
+    bucActions.getInstitutionListForBucAndCountry(mockBuc, mockCountry)
     expect(api.call).toBeCalledWith({
       type: {
         request: types.CASE_GET_INSTITUTION_LIST_REQUEST,
@@ -88,7 +88,7 @@ describe('case actions', () => {
 
   it('call getInstitutionListForCountry()', () => {
     let mockCountry = 'NO'
-    caseActions.getInstitutionListForCountry(mockCountry)
+    bucActions.getInstitutionListForCountry(mockCountry)
     expect(api.call).toBeCalledWith({
       type: {
         request: types.CASE_GET_INSTITUTION_LIST_REQUEST,
@@ -100,7 +100,7 @@ describe('case actions', () => {
   })
 
   it('call getBucList() with no rinaId', () => {
-    caseActions.getBucList()
+    bucActions.getBucList()
     expect(api.call).toBeCalledWith({
       type: {
         request: types.CASE_GET_BUC_LIST_REQUEST,
@@ -113,7 +113,7 @@ describe('case actions', () => {
 
   it('call getBucList() with rinaId', () => {
     const mockRinaId = 123
-    caseActions.getBucList(mockRinaId)
+    bucActions.getBucList(mockRinaId)
     expect(api.call).toBeCalledWith({
       type: {
         request: types.CASE_GET_BUC_LIST_REQUEST,
@@ -126,7 +126,7 @@ describe('case actions', () => {
 
   it('call getSedList() with no rinaId', () => {
     const mockBuc = 'mockBuc'
-    caseActions.getSedList(mockBuc)
+    bucActions.getSedList(mockBuc)
     expect(api.call).toBeCalledWith({
       type: {
         request: types.CASE_GET_SED_LIST_REQUEST,
@@ -140,7 +140,7 @@ describe('case actions', () => {
   it('call getSedList() with rinaId', () => {
     const mockBuc = 'mockBuc'
     const mockRinaId = 123
-    caseActions.getSedList(mockBuc, mockRinaId)
+    bucActions.getSedList(mockBuc, mockRinaId)
     expect(api.call).toBeCalledWith({
       type: {
         request: types.CASE_GET_SED_LIST_REQUEST,
@@ -153,7 +153,7 @@ describe('case actions', () => {
 
   it('call dataPreview()', () => {
     const mockParams = { foo: 'bar' }
-    let generatedResult = caseActions.dataPreview(mockParams)
+    let generatedResult = bucActions.dataPreview(mockParams)
     expect(generatedResult).toEqual({
       type: types.CASE_DATA_PREVIEW_SUCCESS,
       payload: mockParams
@@ -161,7 +161,7 @@ describe('case actions', () => {
   })
 
   it('call cleanCaseNumber()', () => {
-    let generatedResult = caseActions.cleanCaseNumber()
+    let generatedResult = bucActions.cleanCaseNumber()
     expect(generatedResult).toEqual({
       type: types.CASE_GET_CASE_NUMBER_CLEAN
     })
@@ -169,7 +169,7 @@ describe('case actions', () => {
 
   it('call getMorePreviewData()', () => {
     const mockParams = { foo: 'bar' }
-    caseActions.getMorePreviewData(mockParams)
+    bucActions.getMorePreviewData(mockParams)
     expect(api.call).toBeCalledWith({
       type: {
         request: types.CASE_GET_MORE_PREVIEW_DATA_REQUEST,
@@ -184,7 +184,7 @@ describe('case actions', () => {
 
   it('call createSed() ', () => {
     const mockParams = { foo: 'bar' }
-    caseActions.createSed(mockParams)
+    bucActions.createSed(mockParams)
     expect(api.call).toBeCalledWith({
       type: {
         request: types.CASE_CREATE_SED_REQUEST,
@@ -199,7 +199,7 @@ describe('case actions', () => {
 
   it('call addToSed()', () => {
     const mockParams = { foo: 'bar' }
-    caseActions.addToSed(mockParams)
+    bucActions.addToSed(mockParams)
     expect(api.call).toBeCalledWith({
       type: {
         request: types.CASE_ADD_TO_SED_REQUEST,
@@ -216,7 +216,7 @@ describe('case actions', () => {
     const caseId = '123'
     const documentId = '456'
     const mockParams = { caseId: caseId, documentId: documentId }
-    caseActions.sendSed(mockParams)
+    bucActions.sendSed(mockParams)
     expect(api.call).toBeCalledWith({
       type: {
         request: types.CASE_SEND_SED_REQUEST,
@@ -228,7 +228,7 @@ describe('case actions', () => {
   })
 
   it('call getRinaUrl()', () => {
-    caseActions.getRinaUrl()
+    bucActions.getRinaUrl()
     expect(api.call).toBeCalledWith({
       type: {
         request: types.RINA_GET_URL_REQUEST,

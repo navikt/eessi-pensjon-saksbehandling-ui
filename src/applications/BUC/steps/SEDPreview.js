@@ -4,17 +4,17 @@ import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
 
-import * as Nav from '../../components/ui/Nav'
-import P6000 from '../../components/p6000/P6000'
-import RenderData from '../../components/case/RenderData'
+import * as Nav from 'components/ui/Nav'
+import P6000 from 'components/p6000/P6000'
+import RenderData from 'applications/BUC/components/RenderData/RenderData'
 
-import * as caseActions from '../../actions/case'
-import * as uiActions from '../../actions/ui'
+import * as bucActions from 'actions/buc'
+import * as uiActions from 'actions/ui'
 
 export const mapStateToProps = (state) => {
   return {
-    step: state.case.step,
-    previewData: state.case.previewData,
+    step: state.buc.step,
+    previewData: state.buc.previewData,
     language: state.ui.language,
     previewingCase: state.loading.previewingCase,
     savingCase: state.loading.savingCase,
@@ -23,7 +23,7 @@ export const mapStateToProps = (state) => {
 }
 
 export const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, caseActions, uiActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, bucActions, uiActions), dispatch) }
 }
 
 export class PreviewCase extends Component {
@@ -63,14 +63,14 @@ export class PreviewCase extends Component {
         { previewData.sed === 'P2000' ? <React.Fragment>
           <RenderData previewData={previewData} />
           <Nav.Hovedknapp className='fetchButton' disabled={previewingCase} spinner={previewingCase} onClick={this.onPreviewButtonClick.bind(this)}>
-            {previewingCase ? t('case:loading-previewingCase') : t('ui:preview')}
+            {previewingCase ? t('buc:loading-previewingCase') : t('ui:preview')}
           </Nav.Hovedknapp>
         </React.Fragment> : null}
         { previewData.sed === 'P6000' ? <P6000 /> : null }
       </div>
       <div className='mb-4 p-4'>
         <Nav.Knapp className='forwardButton' disabled={savingCase || !previewData} spinner={savingCase} onClick={this.onForwardButtonClick.bind(this)}>
-          {savingCase ? t('case:loading-savingCase') : t('ui:confirmAndSave')}</Nav.Knapp>
+          {savingCase ? t('buc:loading-savingCase') : t('ui:confirmAndSave')}</Nav.Knapp>
         <Nav.Flatknapp className='ml-3 backButton' type='standard' onClick={this.onBackButtonClick.bind(this)}>{t('ui:back')}</Nav.Flatknapp>
       </div>
     </div>

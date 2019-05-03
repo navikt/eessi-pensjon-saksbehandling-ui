@@ -1,28 +1,27 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
 import _ from 'lodash'
 import { withTranslation } from 'react-i18next'
+import { connect, bindActionCreators } from 'store'
 
-import PsychoPanel from '../../components/ui/Psycho/PsychoPanel'
-import * as Nav from '../../components/ui/Nav'
-import Icons from '../../components/ui/Icons'
-import CountrySelect from '../../components/ui/CountrySelect/CountrySelect'
+import PsychoPanel from 'components/ui/Psycho/PsychoPanel'
+import * as Nav from 'components/ui/Nav'
+import Icons from 'components/ui/Icons'
+import CountrySelect from 'components/ui/CountrySelect/CountrySelect'
 
-import * as caseActions from '../../actions/case'
-import * as uiActions from '../../actions/ui'
-import * as appActions from '../../actions/app'
+import * as bucActions from 'actions/buc'
+import * as uiActions from 'actions/ui'
+import * as appActions from 'actions/app'
 
 export const mapStateToProps = (state) => {
   return {
-    subjectAreaList: state.case.subjectAreaList,
-    institutionList: state.case.institutionList,
-    bucList: state.case.bucList,
-    sedList: state.case.sedList,
-    countryList: state.case.countryList,
-    currentCase: state.case.currentCase,
-    previewData: state.case.previewData,
+    subjectAreaList: state.buc.subjectAreaList,
+    institutionList: state.buc.institutionList,
+    bucList: state.buc.bucList,
+    sedList: state.buc.sedList,
+    countryList: state.buc.countryList,
+    currentCase: state.buc.currentCase,
+    previewData: state.buc.previewData,
 
     locale: state.ui.locale,
     loading: state.loading,
@@ -38,15 +37,15 @@ export const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, caseActions, appActions, uiActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, bucActions, appActions, uiActions), dispatch) }
 }
 
 const defaultSelects = {
-  subjectArea: 'case:form-chooseSubjectArea',
-  buc: 'case:form-chooseBuc',
-  sed: 'case:form-chooseSed',
-  institution: 'case:form-chooseInstitution',
-  country: 'case:form-chooseCountry'
+  subjectArea: 'buc:form-chooseSubjectArea',
+  buc: 'buc:form-chooseBuc',
+  sed: 'buc:form-chooseSed',
+  institution: 'buc:form-chooseInstitution',
+  country: 'buc:form-chooseCountry'
 }
 
 export class StartCase extends Component {
@@ -147,10 +146,10 @@ export class StartCase extends Component {
       const { _sakId, _aktoerId, _rinaId } = this.state
 
       if (!_sakId) {
-        this.setValidationState('sakId', t('case:validation-noSakId'))
+        this.setValidationState('sakId', t('buc:validation-noSakId'))
       }
       if (!_aktoerId) {
-        this.setValidationState('aktoerId', t('case:validation-noAktoerId'))
+        this.setValidationState('aktoerId', t('buc:validation-noAktoerId'))
       }
       if (this.hasNoValidationErrors()) {
         actions.getCaseFromCaseNumber({
@@ -197,7 +196,7 @@ export class StartCase extends Component {
       const { t } = this.props
 
       if (!subjectArea || subjectArea === defaultSelects.subjectArea) {
-        this.setValidationState('subjectAreaFail', t('case:validation-chooseSubjectArea'))
+        this.setValidationState('subjectAreaFail', t('buc:validation-chooseSubjectArea'))
       } else {
         this.resetValidationState('subjectAreaFail')
       }
@@ -206,7 +205,7 @@ export class StartCase extends Component {
     validateBuc (buc) {
       const { t } = this.props
       if (!buc || buc === defaultSelects.buc) {
-        this.setValidationState('bucFail', t('case:validation-chooseBuc'))
+        this.setValidationState('bucFail', t('buc:validation-chooseBuc'))
       } else {
         this.resetValidationState('bucFail')
       }
@@ -216,7 +215,7 @@ export class StartCase extends Component {
       const { t } = this.props
 
       if (!sed || sed === defaultSelects.sed) {
-        this.setValidationState('sedFail', t('case:validation-chooseSed'))
+        this.setValidationState('sedFail', t('buc:validation-chooseSed'))
       } else {
         this.resetValidationState('sedFail')
       }
@@ -226,7 +225,7 @@ export class StartCase extends Component {
       const { t } = this.props
 
       if (!institutions || Object.keys(institutions).length === 0) {
-        this.setValidationState('institutionsFail', t('case:validation-chooseInstitutions'))
+        this.setValidationState('institutionsFail', t('buc:validation-chooseInstitutions'))
       } else {
         this.resetValidationState('institutionsFail')
       }
@@ -236,7 +235,7 @@ export class StartCase extends Component {
       const { t } = this.props
 
       if (!institution || institution === defaultSelects.institution) {
-        this.setValidationState('institutionFail', t('case:validation-chooseInstitution'))
+        this.setValidationState('institutionFail', t('buc:validation-chooseInstitution'))
       } else {
         this.resetValidationState('institutionFail')
       }
@@ -246,7 +245,7 @@ export class StartCase extends Component {
       const { t } = this.props
 
       if (!country) {
-        this.setValidationState('countryFail', t('case:validation-chooseCountry'))
+        this.setValidationState('countryFail', t('buc:validation-chooseCountry'))
       } else {
         this.resetValidationState('countryFail')
       }
@@ -391,7 +390,7 @@ export class StartCase extends Component {
       const { t } = this.props
 
       let label = value
-      let description = t('case:case-' + value.replace(':', '.'))
+      let description = t('buc:case-' + value.replace(':', '.'))
       if (description !== 'case-' + value) {
         label += ' - ' + description
       }
@@ -408,7 +407,7 @@ export class StartCase extends Component {
         aria-describedby='help-subjectArea'
         bredde='xxl'
         feil={validation.subjectAreaFail ? { feilmelding: validation.subjectAreaFail } : null}
-        label={t('case:form-subjectArea')}
+        label={t('buc:form-subjectArea')}
         value={_subjectArea}
         onChange={this.onSubjectAreaChange.bind(this)}>
         {this.renderOptions(subjectAreaList, 'subjectArea')}
@@ -442,7 +441,7 @@ export class StartCase extends Component {
         aria-describedby='help-institution'
         bredde='xxl'
         feil={validation.institutionFail ? { feilmelding: validation.institutionFail } : null}
-        label={t('case:form-institution')}
+        label={t('buc:form-institution')}
         value={_institution || defaultSelects.institution}
         onChange={this.onInstitutionChange.bind(this)}>
         {this.renderOptions(institutionList, 'institution')}
@@ -459,7 +458,7 @@ export class StartCase extends Component {
         aria-describedby='help-buc'
         bredde='fullbredde'
         feil={validation.bucFail ? { feilmelding: validation.bucFail } : null}
-        label={t('case:form-buc')}
+        label={t('buc:form-buc')}
         value={_buc || defaultSelects.buc}
         onChange={this.onBucChange.bind(this)}>
         {this.renderOptions(bucList, 'buc')}
@@ -477,7 +476,7 @@ export class StartCase extends Component {
         bredde='fullbredde'
         feil={validation.sedFail ? { feilmelding: validation.sedFail } : null}
         disabled={!bucList}
-        label={t('case:form-sed')}
+        label={t('buc:form-sed')}
         value={_sed || defaultSelects.buc}
         onChange={this.onSedChange.bind(this)}>
         {this.renderOptions(sedList, 'sed')}
@@ -532,18 +531,18 @@ export class StartCase extends Component {
       renderedInstitutions.push(<Nav.Row key={'newInstitution'}>
         <div className='col-md-4'>
           <div>{this.renderCountry()}
-            <span id='help-country'>{t('case:help-country')}</span>
+            <span id='help-country'>{t('buc:help-country')}</span>
           </div>
           <div className='mb-3 selectBoxMessage'>
-            <div>{loading && loading.countryList ? this.getSpinner('case:loading-country') : null}</div>
+            <div>{loading && loading.countryList ? this.getSpinner('buc:loading-country') : null}</div>
           </div>
         </div>
         <div className='col-md-4'>
           <div>{this.renderInstitution()}
-            <span id='help-institution'>{t('case:help-institution')}</span>
+            <span id='help-institution'>{t('buc:help-institution')}</span>
           </div>
           <div className='mb-3 selectBoxMessage'>
-            <div>{loading && loading.institutionList ? this.getSpinner('case:loading-institution') : null}</div>
+            <div>{loading && loading.institutionList ? this.getSpinner('buc:loading-institution') : null}</div>
           </div>
         </div>
         <div className='col-md-4' style={{ lineHeight: '6rem' }}>
@@ -573,49 +572,49 @@ export class StartCase extends Component {
 
     render () {
       const { t, currentCase, loading, sed, vedtakId } = this.props
-      const { _sakId, _aktoerId, _rinaId, _subjectArea, _buc, _sed, _vedtakId, validation } = this.state
+      const { _sakId, _aktoerId, _rinaId, _sed, _vedtakId, validation } = this.state
 
       if (!currentCase) {
         return <React.Fragment>
-          <div className='fieldset animate'>
+
             <div className='mb-5'>
-              <PsychoPanel closeButton>{t('case:help-startCase')}</PsychoPanel>
+              <PsychoPanel closeButton>{t('buc:help-startCase')}</PsychoPanel>
             </div>
             <Nav.Row>
               <div className='mt-4 col-md-6'>
                 <Nav.Input aria-describedby='help-sakId'
                   className='getCaseInputSakId'
-                  label={t('case:form-sakId')}
+                  label={t('buc:form-sakId')}
                   value={_sakId || ''}
                   id='c-startcase-sakid-input'
                   onChange={this.onSakIdChange.bind(this)}
                   feil={validation.sakId ? { feilmelding: t(validation.sakId) } : null} />
-                <span id='help-sakId'>{t('case:help-sakId')}</span>
+                <span id='help-sakId'>{t('buc:help-sakId')}</span>
               </div>
               <div className='mt-4 col-md-6'>
                 <Nav.Input
                   className='getCaseInputAktoerId'
-                  label={t('case:form-aktoerId')}
+                  label={t('buc:form-aktoerId')}
                   value={_aktoerId || ''}
                   id='c-startcase-aktoerid-input'
                   onChange={this.onAktoerIdChange.bind(this)}
                   feil={validation.aktoerId ? { feilmelding: t(validation.aktoerId) } : null} />
-                <span id='help-aktoerId'>{t('case:help-aktoerId')}</span>
+                <span id='help-aktoerId'>{t('buc:help-aktoerId')}</span>
               </div>
               <div className='mt-4 col-md-6'>
                 <Nav.Input className='getCaseInputRinaId'
                   label={<div>
-                    <span>{t('case:form-rinaId')}</span>
+                    <span>{t('buc:form-rinaId')}</span>
                     <span className='optional'>{t('ui:optional')}</span>
                   </div>}
                   value={_rinaId || ''}
                   id='c-startcase-rinaid-input'
                   onChange={this.onRinaIdChange.bind(this)}
                 />
-                <span id='help-rinaId'>{t('case:help-rinaId')}</span>
+                <span id='help-rinaId'>{t('buc:help-rinaId')}</span>
               </div>
             </Nav.Row>
-          </div>
+
           <Nav.Row className='mt-4'>
             <div className='col-md-12'>
               <Nav.Hovedknapp
@@ -624,7 +623,7 @@ export class StartCase extends Component {
                 disabled={loading && loading.gettingCase}
                 spinner={loading && loading.gettingCase}
                 onClick={this.onFetchCaseButtonClick.bind(this)}>
-                {loading && loading.gettingCase ? t('case:loading-gettingCase') : t('ui:search')}
+                {loading && loading.gettingCase ? t('buc:loading-gettingCase') : t('ui:search')}
               </Nav.Hovedknapp>
             </div>
           </Nav.Row>
@@ -632,35 +631,35 @@ export class StartCase extends Component {
       }
 
       return <React.Fragment>
-        <div className='fieldset animate'>
-          {sed ? <h2 className='mb-4 appDescription'>{t('case:app-startCaseDescription') + ': ' + sed}</h2>
+
+          {sed ? <h2 className='mb-4 appDescription'>{t('buc:app-startCaseDescription') + ': ' + sed}</h2>
             : <React.Fragment>
-              <h2 className='mb-4 appDescription'>{t('case:app-startCaseDescription')}</h2>
+              <h2 className='mb-4 appDescription'>{t('buc:app-startCaseDescription')}</h2>
               <div className='mb-5'>
                 <PsychoPanel closeButton>{t('help-startCase2')}</PsychoPanel>
               </div>
               <Nav.Row className='mb-3 align-middle text-left'>
                 <div className='col-md-8'>{this.renderSubjectArea()}
-                  <span id='help-subjectArea'>{t('case:help-subjectArea')}</span>
+                  <span id='help-subjectArea'>{t('buc:help-subjectArea')}</span>
                 </div>
                 <div className='col-md-4 selectBoxMessage'>
-                  <div className='d-inline-block'>{loading && loading.subjectAreaList ? this.getSpinner('case:loading-subjectArea') : null}</div>
+                  <div className='d-inline-block'>{loading && loading.subjectAreaList ? this.getSpinner('buc:loading-subjectArea') : null}</div>
                 </div>
               </Nav.Row>
               <Nav.Row className='mb-3 align-middle text-left'>
                 <div className='col-md-8'>{this.renderBuc()}
-                  <span id='help-buc'>{t('case:help-buc')}</span>
+                  <span id='help-buc'>{t('buc:help-buc')}</span>
                 </div>
                 <div className='col-md-4 selectBoxMessage'>
-                  <div className='d-inline-block'>{loading && loading.bucList ? this.getSpinner('case:loading-buc') : null}</div>
+                  <div className='d-inline-block'>{loading && loading.bucList ? this.getSpinner('buc:loading-buc') : null}</div>
                 </div>
               </Nav.Row>
               <Nav.Row className='mb-3 align-middle text-left'>
                 <div className='col-md-8'>{this.renderSed()}
-                  <span id='help-sed'>{t('case:help-sed')}</span>
+                  <span id='help-sed'>{t('buc:help-sed')}</span>
                 </div>
                 <div className='col-md-4 selectBoxMessage'>
-                  <div className='d-inline-block'>{loading && loading.sedList ? this.getSpinner('case:loading-sed') : null}</div>
+                  <div className='d-inline-block'>{loading && loading.sedList ? this.getSpinner('buc:loading-sed') : null}</div>
                 </div>
               </Nav.Row>
             </React.Fragment>}
@@ -668,15 +667,15 @@ export class StartCase extends Component {
             ? <Nav.Row className='align-middle text-left'>
               <div className='col-md-8'>
                 <Nav.Input aria-describedby='help-vedtak'
-                  label={t('case:form-vedtakId')}
+                  label={t('buc:form-vedtakId')}
                   value={_vedtakId || vedtakId}
                   id='c-startcase-vedtakid-input'
                   onChange={this.onVedtakIdChange.bind(this)} />
-                <span id='help-vedtak'>{t('case:help-vedtakId')}</span>
+                <span id='help-vedtak'>{t('buc:help-vedtakId')}</span>
               </div>
             </Nav.Row> : null}
           {this.renderInstitutions()}
-        </div>
+
         <Nav.Row className='mb-4 mt-4'>
           <div className='col-md-12'>
             <Nav.Hovedknapp

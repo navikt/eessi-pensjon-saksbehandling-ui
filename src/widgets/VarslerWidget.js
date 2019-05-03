@@ -18,16 +18,15 @@ const VarslerWidget = (props) => {
   }, [])
 
   return <div className='c-ui-d-VarslerWidget p-3'>
-    <h4>{props.widget.title}</h4>
-    <div>
+    <div className='mt-2 mb-2'>
       <ToggleGruppe
         defaultToggles={[
           { children: props.t('ui:invite'), pressed: true, onClick: () => {setTab('invite')} },
           { children: props.t('ui:list'), onClick: () => {setTab('list')} }
         ]}
       />
-      {tab === 'invite' ? <VarslerPanel {...props}/> : <VarslerTable {...props}/>}
     </div>
+    {tab === 'invite' ? <VarslerPanel {...props}/> : <VarslerTable {...props}/>}
     <ReactResizeDetector
         handleWidth
         handleHeight

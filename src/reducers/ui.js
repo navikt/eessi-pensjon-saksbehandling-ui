@@ -14,7 +14,7 @@ export const initialUiState = {
   highContrast: false
 }
 
-export default function (state = {}, action = {}) {
+const uiReducer = (state = initialUiState, action = {}) => {
   switch (action.type) {
     case types.UI_MODAL_OPEN:
 
@@ -72,3 +72,5 @@ export default function (state = {}, action = {}) {
       return state
   }
 }
+
+export default uiReducer

@@ -1,6 +1,6 @@
 import * as types from '../constants/actionTypes'
 
-let initialState = {
+export const initialPinfoState = {
   isReady: false,
   step: 0,
   maxStep: 0,
@@ -12,7 +12,7 @@ let initialState = {
   buttonsVisible: true
 }
 
-export default function reducer (state = initialState, action = {}) {
+const pinfoReducer = (state = initialPinfoState, action = {}) => {
   switch (action.type) {
     case types.PINFO_STEP_SET:
 
@@ -110,7 +110,7 @@ export default function reducer (state = initialState, action = {}) {
       pinfo.buttonsVisible = true
       pinfo.isReady = true
       pinfo.stepError = undefined
-      return Object.assign({}, initialState, pinfo)
+      return Object.assign({}, initialPinfoState, pinfo)
     }
 
     case types.PINFO_BUTTONS_VISIBLE: {
@@ -122,10 +122,12 @@ export default function reducer (state = initialState, action = {}) {
     case types.PINFO_CLEAR_DATA:
     case types.APP_CLEAR_DATA:
 
-      return initialState
+      return initialPinfoState
 
     default:
 
       return state
   }
 }
+
+export default pinfoReducer

@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
-import BUCHeader from '../BUCHeader/BUCHeader'
-import SedHeader from '../SED/SedHeader'
-import SedLabel from '../SED/SedLabel'
-import { EkspanderbartpanelBase } from '../../../components/ui/Nav'
+import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
+import SedHeader from 'applications/BUC/components/SEDHeader/SedHeader'
+import SedLabel from 'applications/BUC/components/SEDHeader/SedLabel'
+import { EkspanderbartpanelBase } from 'components/ui/Nav'
 
-import * as actions from '../../../actions/buc'
+import * as actions from 'actions/buc'
 
 const BUCPanel = (props) => {
   const [seds, setSeds] = useState(null)

@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch) => {
 
 describe('components/ui/Alert/Alert', () => {
   let store, wrapper, ConnectedAlert
-  const initialState = {
+  const initialAlertState = {
     alert: {
       clientErrorMessage: 'mockClientErrorMessage',
       clientErrorStatus: 'mockClientErrorStatus',
@@ -28,7 +28,7 @@ describe('components/ui/Alert/Alert', () => {
   }
 
   beforeEach(() => {
-    store = createStore(reducer, initialState)
+    store = createStore(reducer, initialAlertState)
     ConnectedAlert = connect(mapStateToProps, mapDispatchToProps)(Alert)
   })
 

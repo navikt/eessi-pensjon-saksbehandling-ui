@@ -1,11 +1,11 @@
 import * as types from '../constants/actionTypes'
 
-let initialState = {
+export const initialPinfoSaksbehandlerState = {
   invite: undefined,
   sakType: undefined
 }
 
-export default function (state = initialState, action = {}) {
+const pinfoSaksbehandlerReducer = (state = initialPinfoSaksbehandlerState, action = {}) => {
   switch (action.type) {
     case types.PINFO_INVITE_REQUEST:
 
@@ -41,3 +41,5 @@ export default function (state = initialState, action = {}) {
       return state
   }
 }
+
+export default pinfoSaksbehandlerReducer

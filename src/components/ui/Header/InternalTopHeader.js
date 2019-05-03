@@ -65,7 +65,7 @@ export class InternalTopHeader extends Component {
             : isLoggingOut ? <Nav.NavFrontendSpinner type='XS' /> : null}
           <div className='skillelinje' />
           <div className='mr-4 ml-2 align-middle name'>
-            {gettingUserInfo ? t('case:loading-gettingUserInfo')
+            {gettingUserInfo ? t('buc:loading-gettingUserInfo')
               : username
                 ? <Nav.Select className='username-select'
                   label={''} value={username} selected={username}

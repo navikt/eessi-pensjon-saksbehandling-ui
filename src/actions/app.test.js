@@ -115,39 +115,39 @@ describe('Thunk Actions', () => {
   const pinfoWithName = { person: { nameAtBirth: 'LastName' } }
 
   it('call suggestPersonNameFromUsernameIfNotInState() when pinfo.person.lastName is empty', () => {
-    const initialState = {
+    const initialAppState = {
       app: app,
       pinfo: pinfo
     }
 
-    let store = mockStore(initialState)
+    let store = mockStore(initialAppState)
     const generatedResult = store.dispatch(appActions.suggestPersonNameFromUsernameIfNotInState())
     expect(generatedResult).toMatchObject(
       {
         type: 'PINFO/PERSON/SET',
-        payload: { nameAtBirth: initialState.app.lastName }
+        payload: { nameAtBirth: initialAppState.app.lastName }
       }
     )
   })
 
   it('call suggestPersonNameFromUsernameIfNotInState() when pinfo.person.lastName is NOT empty', () => {
-    const initialState = {
+    const initialAppState = {
       app: app,
       pinfo: pinfoWithName
     }
 
-    let store = mockStore(initialState)
+    let store = mockStore(initialAppState)
     const generatedResult = store.dispatch(appActions.suggestPersonNameFromUsernameIfNotInState())
     expect(generatedResult).toEqual(undefined)
   })
 
   it('call getAndPrefillPersonName()', () => {
-    const initialState = {
+    const initialAppState = {
       app: app,
       pinfo: pinfo
     }
 
-    let store = mockStore(initialState)
+    let store = mockStore(initialAppState)
 
     api.call = jest.fn()
     api.call.mockReturnValue(() => {

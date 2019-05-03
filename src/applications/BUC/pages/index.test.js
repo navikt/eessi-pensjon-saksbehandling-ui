@@ -2,7 +2,7 @@ import React from 'react'
 import { createStore } from 'redux'
 import { connect } from 'react-redux'
 
-import { Case } from './Case'
+import { BUCPageIndex } from 'applications/BUC/page/'
 
 const t = jest.fn((translationString) => { return translationString })
 
@@ -26,12 +26,12 @@ Object.defineProperty(window, 'location', {
   }
 })
 
-describe('Case', () => {
+describe('BUCPageIndex', () => {
   let store, wrapper, ConnectedCase
 
   beforeEach(() => {
     store = createStore(state => state)
-    ConnectedCase = connect(null, null)(Case)
+    ConnectedCase = connect(null, null)(BUCPageIndex)
     wrapper = shallow(<ConnectedCase
       t={t} store={store} step={9}
       title='mockTitle' history={mockHistory} match={mockMatch} location={{}}>

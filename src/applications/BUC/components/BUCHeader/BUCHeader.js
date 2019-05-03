@@ -1,10 +1,10 @@
 import React from 'react'
 
-import * as Nav from '../../../components/ui/Nav'
-import FlagList from '../../../components/ui/Flag/FlagList'
+import * as Nav from 'components/ui/Nav'
+import FlagList from 'components/ui/Flag/FlagList'
 
-import { ReactComponent as ProblemCircle } from '../../../resources/images/report-problem-circle.svg'
-import { ReactComponent as BubbleChat } from '../../../resources/images/bubble-chat-2.svg'
+import { ReactComponent as ProblemCircle } from 'resources/images/report-problem-circle.svg'
+import { ReactComponent as BubbleChat } from 'resources/images/bubble-chat-2.svg'
 
 import './BUCHeader.css'
 
@@ -19,7 +19,7 @@ function preventDefault (onClick) {
 function BUCHeader (props) {
   const { t } = props
   return (
-    <div className='p-0 w-100 d-flex c-ui-bucHeader justify-content-between'>
+    <div className='p-0 w-100 d-flex a-buc-c-bucHeader justify-content-between'>
       <div className='col-3'>
         <Nav.Ingress data-qa='BucHeader-type-name' className='font-weight-bold'>{props.type + ' - ' + props.name}</Nav.Ingress>
         <Nav.Normaltekst data-qa='BucHeader-dateCreated'>{t('ui:created')}: {props.dateCreated}</Nav.Normaltekst>
@@ -36,11 +36,11 @@ function BUCHeader (props) {
       </div>
       <div className='col-2 d-flex justify-content-end align-items-center'>
         {props.merknader.length > 0
-          ? <ProblemCircle data-qa='BucHeader-ProblemCircle' className='c-ui-bucheader-svg mr-2 ml-2' />
+          ? <ProblemCircle data-qa='BucHeader-ProblemCircle' className='bucheader-svg mr-2 ml-2' />
           : null
         }
         {props.comments.length > 0
-          ? <BubbleChat data-qa='BucHeader-BubbleChat' className='c-ui-bucheader-svg mr-2 ml-2' />
+          ? <BubbleChat data-qa='BucHeader-BubbleChat' className='bucheader-svg mr-2 ml-2' />
           : null
         }
       </div>

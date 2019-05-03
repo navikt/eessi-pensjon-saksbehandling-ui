@@ -1,7 +1,9 @@
 import * as types from '../constants/actionTypes'
 import _ from 'lodash'
 
-function printError (error) {
+export const initialAlertState = {}
+
+const printError = (error) => {
   let errorMessage = []
   if (error.status) {
     errorMessage.push(error.status)
@@ -23,7 +25,7 @@ function printError (error) {
   return errorMessage.join(' ')
 }
 
-export default function (state = {}, action = {}) {
+const alertReducer = (state = initialAlertState, action = {}) => {
   let clientErrorMessage, serverErrorMessage, clientErrorStatus
 
   if (_.endsWith(action.type, '/REQUEST') || action.type === types.ALERT_CLIENT_CLEAR) {
@@ -62,27 +64,27 @@ export default function (state = {}, action = {}) {
     switch (action.type) {
       case types.CASE_GET_SUBJECT_AREA_LIST_FAILURE:
 
-        clientErrorMessage = 'case:alert-noSubjectAreaList'
+        clientErrorMessage = 'buc:alert-noSubjectAreaList'
         break
 
       case types.CASE_GET_INSTITUTION_LIST_FAILURE:
 
-        clientErrorMessage = 'case:alert-noInstitutionList'
+        clientErrorMessage = 'buc:alert-noInstitutionList'
         break
 
       case types.CASE_GET_SED_LIST_FAILURE:
 
-        clientErrorMessage = 'case:alert-noSedList'
+        clientErrorMessage = 'buc:alert-noSedList'
         break
 
       case types.CASE_GET_BUC_LIST_FAILURE:
 
-        clientErrorMessage = 'case:alert-noBucList'
+        clientErrorMessage = 'buc:alert-noBucList'
         break
 
       case types.CASE_GET_COUNTRY_LIST_FAILURE:
 
-        clientErrorMessage = 'case:alert-noCountryList'
+        clientErrorMessage = 'buc:alert-noCountryList'
         break
 
       case types.PDF_GENERATE_FAILURE:
@@ -142,23 +144,23 @@ export default function (state = {}, action = {}) {
   switch (action.type) {
     case types.CASE_GET_CASE_NUMBER_SUCCESS:
 
-      clientErrorMessage = 'case:alert-caseFound'
+      clientErrorMessage = 'buc:alert-caseFound'
       break
 
     case types.CASE_GET_MORE_PREVIEW_DATA_SUCCESS:
 
-      clientErrorMessage = 'case:alert-getMorePreviewData'
+      clientErrorMessage = 'buc:alert-getMorePreviewData'
       break
 
     case types.CASE_CREATE_SED_SUCCESS:
     case types.CASE_ADD_TO_SED_SUCCESS:
 
-      clientErrorMessage = 'case:alert-savedData'
+      clientErrorMessage = 'buc:alert-savedData'
       break
 
     case types.CASE_SEND_SED_SUCCESS:
 
-      clientErrorMessage = 'case:alert-sentData'
+      clientErrorMessage = 'buc:alert-sentData'
       break
 
     case types.PDF_GENERATE_SUCCESS:
@@ -230,3 +232,5 @@ export default function (state = {}, action = {}) {
     uuid: undefined
   })
 }
+
+export default alertReducer

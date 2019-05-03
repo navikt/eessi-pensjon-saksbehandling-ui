@@ -53,7 +53,7 @@ ReactDOM.render(
         <Suspense fallback={<WaitingPanel message='...' />}>
           <Router history={history}>
             <Switch>
-              <AuthenticatedRoute exact path={routes.PSELV} component={Applications.PSelv} roles={[constants.SAKSBEHANDLER]} />
+
               <AuthenticatedRoute exact path={`${routes.PINFO}/:step?`} component={Applications.PInfo} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
               <AuthenticatedRoute exact path={routes.PINFO_SAKSBEHANDLER} component={Applications.PInfoSaksbehandler} roles={[constants.SAKSBEHANDLER]} />
               <AuthenticatedRoute exact path={routes.P4000_ROUTE} component={Applications.P4000} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
@@ -61,7 +61,7 @@ ReactDOM.render(
               <AuthenticatedRoute exact path={routes.PDF_EDIT} component={Applications.EditPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
               <AuthenticatedRoute exact path={routes.PDF_SELECT} component={Applications.SelectPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
               <Redirect from={routes.PDF} to={{ pathname: routes.PDF_SELECT }} />
-              <AuthenticatedRoute exact path={`${routes.CASE}/:step?`} component={Applications.Case} roles={[constants.SAKSBEHANDLER]} />
+              <AuthenticatedRoute exact path={`${routes.BUC}/:step?`} component={Pages.BUC} roles={[constants.SAKSBEHANDLER]} />
 
               <AuthenticatedRoute path={routes.INDEX} component={Pages.IndexPage} roles={[constants.SAKSBEHANDLER]} />
               <AuthenticatedRoute path={routes.RESEND} component={Pages.Resend} roles={[constants.SAKSBEHANDLER]} />

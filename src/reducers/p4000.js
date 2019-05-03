@@ -1,6 +1,6 @@
 import * as types from '../constants/actionTypes'
 
-let initialState = {
+export const initialP4000State = {
   events: [],
   event: undefined,
   comment: undefined,
@@ -8,7 +8,7 @@ let initialState = {
   pdf: undefined
 }
 
-export default function (state = initialState, action = {}) {
+const p4000Reducer = (state = initialP4000State, action = {}) => {
   let newEvents
 
   switch (action.type) {
@@ -114,10 +114,12 @@ export default function (state = initialState, action = {}) {
 
     case types.APP_CLEAR_DATA:
 
-      return initialState
+      return initialP4000State
 
     default:
 
       return state
   }
 }
+
+export default p4000Reducer
