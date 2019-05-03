@@ -46,24 +46,24 @@ export class TopContainer extends Component {
       { 'highContrast': highContrast })}>
       <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
         <Drawer className={userRole} sideContent={sideContent}>
-        {
-          (window.eessipen && window.eessipen.ZONE === 'sbs')
-            ? null
-            : <InternalTopHeader history={history} />
-        }
-        {header ? <Banner header={header} /> : null}
-        <Alert type='client' />
-        <Alert type='server' />
-        <Nav.Container fluid={fluid || false} className={classNames('_container', containerClassName)}>
-          {this.props.children}
-        </Nav.Container>
-        <Modal />
-        {userRole === constants.SAKSBEHANDLER ? <SessionMonitor
-          sessionExpiringWarning={1000 * 60 * 55} /* 55 minutes */
-          checkInterval={1000 * 60} /* check every minute */
-          sessionExpiredReload={1000 * 60 * 61} /* At 61st minute */
-        /> : null}
-        {userRole === constants.SAKSBEHANDLER ? <Footer /> : null}
+          {
+            (window.eessipen && window.eessipen.ZONE === 'sbs')
+              ? null
+              : <InternalTopHeader history={history} />
+          }
+          {header ? <Banner header={header} /> : null}
+          <Alert type='client' />
+          <Alert type='server' />
+          <Nav.Container fluid={fluid || false} className={classNames('_container', containerClassName)}>
+            {this.props.children}
+          </Nav.Container>
+          <Modal />
+          {userRole === constants.SAKSBEHANDLER ? <SessionMonitor
+            sessionExpiringWarning={1000 * 60 * 55} /* 55 minutes */
+            checkInterval={1000 * 60} /* check every minute */
+            sessionExpiredReload={1000 * 60 * 61} /* At 61st minute */
+          /> : null}
+          {userRole === constants.SAKSBEHANDLER ? <Footer /> : null}
         </Drawer>
       </DragDropContext>
     </div>

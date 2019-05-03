@@ -15,6 +15,7 @@ import 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/nb'
 
+import { StoreProvider } from './store'
 import i18n from './i18n'
 import * as reducers from './reducers'
 import * as routes from './constants/routes'
@@ -29,6 +30,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
 import './index_highContrast.css'
 
+import reducer, { initialState } from './reducer'
+
 const history = createBrowserHistory()
 
 const createStoreWithMiddleware = compose(
@@ -36,53 +39,42 @@ const createStoreWithMiddleware = compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f
 )(createStore)
 
-const reducer = combineReducers({
+const combinedReducer = combineReducers({
   ...reducers
 })
 
-const initialState = { ui: {
-  language: i18n.language,
-  locale: i18n.locale,
-  modalOpen: false,
-  modalBucketOpen: false,
-  drawerEnabled: false,
-  drawerOpen: false,
-  footerOpen: false,
-  drawerWidth: 10,
-  drawerOldWidth: 250,
-  highContrast: false
-} }
-
-const store = createStoreWithMiddleware(reducer, initialState)
+const store = createStoreWithMiddleware(combinedReducer, initialState)
 
 ReactDOM.render(
 
   <I18nextProvider i18n={i18n}>
     <Provider store={store}>
-      <Suspense fallback={<WaitingPanel message='...' />}>
-        <Router history={history}>
-          <Switch>
-            <AuthenticatedRoute exact path={routes.PSELV} component={Applications.PSelv} roles={[constants.SAKSBEHANDLER]} />
-            <AuthenticatedRoute exact path={`${routes.PINFO}/:step?`} component={Applications.PInfo} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-            <AuthenticatedRoute exact path={routes.PINFO_SAKSBEHANDLER} component={Applications.PInfoSaksbehandler} roles={[constants.SAKSBEHANDLER]} />
-            <AuthenticatedRoute exact path={routes.P4000_ROUTE} component={Applications.P4000} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-            <AuthenticatedRoute exact path={routes.PDF_GENERATE} component={Applications.GeneratePDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-            <AuthenticatedRoute exact path={routes.PDF_EDIT} component={Applications.EditPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-            <AuthenticatedRoute exact path={routes.PDF_SELECT} component={Applications.SelectPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-            <Redirect from={routes.PDF} to={{ pathname: routes.PDF_SELECT }} />
-            <AuthenticatedRoute exact path={`${routes.CASE}/:step?`} component={Applications.Case} roles={[constants.SAKSBEHANDLER]} />
+      <StoreProvider initialState={initialState} reducer={reducer}>
+        <Suspense fallback={<WaitingPanel message='...' />}>
+          <Router history={history}>
+            <Switch>
+              <AuthenticatedRoute exact path={routes.PSELV} component={Applications.PSelv} roles={[constants.SAKSBEHANDLER]} />
+              <AuthenticatedRoute exact path={`${routes.PINFO}/:step?`} component={Applications.PInfo} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+              <AuthenticatedRoute exact path={routes.PINFO_SAKSBEHANDLER} component={Applications.PInfoSaksbehandler} roles={[constants.SAKSBEHANDLER]} />
+              <AuthenticatedRoute exact path={routes.P4000_ROUTE} component={Applications.P4000} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+              <AuthenticatedRoute exact path={routes.PDF_GENERATE} component={Applications.GeneratePDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+              <AuthenticatedRoute exact path={routes.PDF_EDIT} component={Applications.EditPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+              <AuthenticatedRoute exact path={routes.PDF_SELECT} component={Applications.SelectPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+              <Redirect from={routes.PDF} to={{ pathname: routes.PDF_SELECT }} />
+              <AuthenticatedRoute exact path={`${routes.CASE}/:step?`} component={Applications.Case} roles={[constants.SAKSBEHANDLER]} />
 
-            <AuthenticatedRoute path={routes.INDEX} component={Pages.IndexPage} roles={[constants.SAKSBEHANDLER]} />
-            <AuthenticatedRoute path={routes.RESEND} component={Pages.Resend} roles={[constants.SAKSBEHANDLER]} />
-            <Route path={routes.NOT_LOGGED} render={() => <Pages.Error type='notLogged' />} />
-            <Route path={routes.NOT_INVITED} render={(props) => <Pages.Error type='notInvited' role={_.get(props, 'location.state.role')} />} />
-            <Route path={routes.FORBIDDEN} render={(props) => <Pages.Error type='forbidden' role={_.get(props, 'location.state.role')} />} />
-            <Route path={routes.ROOT + ':PATH+'} render={() => <Pages.Error type='error' />} />
-            <AuthenticatedRoute path={routes.ROOT} component={Pages.FirstPage} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-            <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
-          </Switch>
-        </Router>
-      </Suspense>
+              <AuthenticatedRoute path={routes.INDEX} component={Pages.IndexPage} roles={[constants.SAKSBEHANDLER]} />
+              <AuthenticatedRoute path={routes.RESEND} component={Pages.Resend} roles={[constants.SAKSBEHANDLER]} />
+              <Route path={routes.NOT_LOGGED} render={() => <Pages.Error type='notLogged' />} />
+              <Route path={routes.NOT_INVITED} render={(props) => <Pages.Error type='notInvited' role={_.get(props, 'location.state.role')} />} />
+              <Route path={routes.FORBIDDEN} render={(props) => <Pages.Error type='forbidden' role={_.get(props, 'location.state.role')} />} />
+              <Route path={routes.ROOT + ':PATH+'} render={() => <Pages.Error type='error' />} />
+              <AuthenticatedRoute path={routes.ROOT} component={Pages.FirstPage} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
+              <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
+            </Switch>
+          </Router>
+        </Suspense>
+      </StoreProvider>
     </Provider>
   </I18nextProvider>,
   document.getElementById('root')

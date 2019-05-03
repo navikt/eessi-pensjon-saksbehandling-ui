@@ -26,9 +26,9 @@ const NoteOptionsWidget = (props) => {
         return <option key={color} value={color}>{color}</option>
       })}
     </Nav.Select>
-    <br/>
-    <br/>
-    <br/>
+    <br />
+    <br />
+    <br />
   </div>
 }
 

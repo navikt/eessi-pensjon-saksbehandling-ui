@@ -1,18 +1,17 @@
 import React from 'react'
 
-import { Store } from '../index'
-import * as constants from '../constants'
+import { useStore } from '../../../store'
+import * as types from '../../../constants/actionTypes'
 
 import { Hovedknapp, Panel, Ingress } from '../../../components/ui/Nav'
 
 const BUCNew = (props) => {
-
-  const { state, dispatch } = React.useContext(Store)
+  const [ state, dispatch ] = useStore()
   const { t } = props
 
   const onBUCList = () => {
     dispatch({
-      type: constants.BUC_MODE_SET,
+      type: types.BUC_MODE_SET,
       payload: 'list'
     })
   }
@@ -23,7 +22,7 @@ const BUCNew = (props) => {
     </div>
     <Panel>
       <Ingress>{t('buc:startNewBUC')}</Ingress>
-      <hr/>
+      <hr />
 
     </Panel>
   </div>

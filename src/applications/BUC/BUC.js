@@ -1,32 +1,34 @@
 import React, { useEffect } from 'react'
 import { withTranslation } from 'react-i18next'
-import { Store } from './index'
-import * as constants from './constants'
-import * as actions from './actions'
+import { useStore } from '../../store'
+import * as actions from '../../actions/buc'
+import * as types from '../../constants/actionTypes'
 
 import BUCList from './BUCList/BUCList'
 import BUCNew from './BUCNew/BUCNew'
 
 const BUC = (props) => {
   const { t } = props
-  const { state, dispatch } = React.useContext(Store)
+  const [ state, dispatch ] = useStore()
 
   const fetchData = async () => {
     const response = await actions.fetchBucList()
     dispatch({
-      type: constants.BUC_LIST_SET,
+      type: types.BUC_LIST_SET,
       payload: response
     })
   }
 
   useEffect(() => {
-    fetchData()
+    if (!state.buc.list) {
+      fetchData()
+    }
   }, [])
 
-  return <React.Fragment>
-    {state.mode === 'new' ? <BUCNew t={t} /> : null}
-    {state.mode === 'list' ? <BUCList t={t} /> : null}
-  </React.Fragment>
+  return <div className='a-buc'>
+    {state.buc.mode === 'new' ? <BUCNew t={t} /> : null}
+    {state.buc.mode === 'list' ? <BUCList t={t} /> : null}
+  </div>
 }
 
 export default withTranslation()(BUC)

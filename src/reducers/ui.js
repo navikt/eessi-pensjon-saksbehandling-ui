@@ -1,4 +1,18 @@
 import * as types from '../constants/actionTypes'
+import i18n from '../i18n'
+
+export const initialUiState = {
+  language: i18n.language,
+  locale: i18n.locale,
+  modalOpen: false,
+  modalBucketOpen: false,
+  drawerEnabled: false,
+  drawerOpen: false,
+  footerOpen: false,
+  drawerWidth: 10,
+  drawerOldWidth: 250,
+  highContrast: false
+}
 
 export default function (state = {}, action = {}) {
   switch (action.type) {

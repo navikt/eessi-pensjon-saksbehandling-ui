@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
-import BUCApp from '../applications/BUC/index'
+import BUC from '../applications/BUC/BUC'
 
 const BUCWidget = (props) => {
   const [mounted, setMounted] = useState(false)
@@ -17,7 +17,7 @@ const BUCWidget = (props) => {
       handleWidth
       handleHeight
       onResize={props.onResize} />
-    <BUCApp/>
+    <BUC />
   </div>
 }
 

@@ -18,7 +18,7 @@ i18n
     fallbackLng: {
       'default': ['nb']
     },
-    debug: true,
+    debug: false,
     ns: ['ui', 'case', 'pdf', 'pinfo', 'pselv', 'p4000', 'p6000', 'buc'],
     defaultNS: 'ui',
     backend: {

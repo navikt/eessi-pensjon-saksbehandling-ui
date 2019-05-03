@@ -32,19 +32,19 @@ const BUCLIST = {
     }
   ],
   OTHER: [
-   {
-     type: 'P_BUC_01',
-     name: 'FIFOFA',
-     dateCreated: 'dd.mm.åå',
-     countries: ['RU', 'GB', 'CH']
-   },
-   {
-     type: 'P_BUC_02',
-     name: 'GRÅTASS',
-     dateCreated: 'dd.mm.åå',
-     countries: ['DE', 'TR', 'CA']
-   }
- ]
+    {
+      type: 'P_BUC_01',
+      name: 'FIFOFA',
+      dateCreated: 'dd.mm.åå',
+      countries: ['RU', 'GB', 'CH']
+    },
+    {
+      type: 'P_BUC_02',
+      name: 'GRÅTASS',
+      dateCreated: 'dd.mm.åå',
+      countries: ['DE', 'TR', 'CA']
+    }
+  ]
 }
 
 const SEDS = [

@@ -1,24 +1,23 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 
 import { ToggleGruppe } from 'nav-frontend-toggle'
 
-import { Store } from '../index'
-import * as constants from '../constants'
+import { useStore } from '../../../store'
+import * as types from '../../../constants/actionTypes'
 
 import BUCPanel from '../BUCPanel/BUCPanel'
 import { Hovedknapp } from '../../../components/ui/Nav'
 
 import './BUCList.css'
 
-
 const BUCList = (props) => {
   const [tab, setTab] = useState('ONGOING')
   const { t } = props
-  const { state, dispatch } = useContext(Store)
+  const [ state, dispatch ] = useStore()
 
   const onBUCNew = () => {
     dispatch({
-      type: constants.BUC_MODE_SET,
+      type: types.BUC_MODE_SET,
       payload: 'new'
     })
   }
@@ -33,8 +32,8 @@ const BUCList = (props) => {
       />
       <Hovedknapp onClick={onBUCNew}>{t('buc:startNewCase')}</Hovedknapp>
     </div>
-    {state.list ? state.list[tab].map((buc, index) => (
-       <BUCPanel t={t} key={index} buc={buc}/>
+    {state.buc.list ? state.buc.list[tab].map((buc, index) => (
+      <BUCPanel t={t} key={index} buc={buc} />
     )) : null}
 
   </React.Fragment>
