@@ -5,7 +5,7 @@ import GeneratePDF from './PDF_/GeneratePDF/GeneratePDF'
 import Case from './Case/Case'
 import PSelv from './PSelv/PSelv'
 import PInfo from './PInfo/PInfo'
-import PInfoSaksbehandler from './PInfo/PInfoSaksbehandler'
+import PInfoSaksbehandler from './PInfoSaksbehandler/PInfoSaksbehandler'
 import P4000 from './P4000/P4000'
 import BUC from './BUC/BUC'
 

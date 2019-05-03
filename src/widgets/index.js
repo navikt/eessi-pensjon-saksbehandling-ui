@@ -1,5 +1,5 @@
 import EkspandertBartWidget from './EkspandertBartWidget'
-import PanelWidget from './PanelWidget'
+import VarslerWidget from './VarslerWidget'
 import PdfWidget from './PdfWidget'
 import SmileyWidget from './SmileyWidget'
 import SmileyOptionsWidget from './SmileyOptionsWidget'
@@ -13,7 +13,7 @@ import BUCWidget from './BUCWidget'
 
 export {
   EkspandertBartWidget,
-  PanelWidget,
+  VarslerWidget,
   SmileyWidget,
   SmileyOptionsWidget,
   CatWidget,

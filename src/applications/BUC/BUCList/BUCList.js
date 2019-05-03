@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 
-import { ToggleGruppe } from 'nav-frontend-toggle'
-
 import { useStore } from '../../../store'
 import * as types from '../../../constants/actionTypes'
 
 import BUCPanel from '../BUCPanel/BUCPanel'
-import { Hovedknapp } from '../../../components/ui/Nav'
+import { Hovedknapp, ToggleGruppe } from '../../../components/ui/Nav'
 
 import './BUCList.css'
 
