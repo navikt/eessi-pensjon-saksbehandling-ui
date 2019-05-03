@@ -90,7 +90,7 @@ describe('DocumentStatus Rendering', () => {
     expect(documentButtons.children().length).toEqual(5)
 
     mockDocuments.forEach((document, index) => {
-      expect(documentButtons.childAt(index).is({ title: `${document.dokumentType} - case:case-${document.dokumentType}` }))
+      expect(documentButtons.childAt(index).is({ title: `${document.dokumentType} - buc:case-${document.dokumentType}` }))
     })
   })
 

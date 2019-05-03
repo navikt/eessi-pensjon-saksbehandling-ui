@@ -7,7 +7,7 @@ import { SaveSendCase, mapStateToProps } from './SaveSendCase'
 
 import * as statusActions from '../../actions/status'
 import * as appActions from '../../actions/app'
-import * as caseActions from '../../actions/case'
+import * as bucActions from '../../actions/buc'
 
 const t = jest.fn((translationString) => { return translationString })
 
@@ -45,7 +45,7 @@ const initialState = {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, statusActions, caseActions, appActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, statusActions, bucActions, appActions), dispatch) }
 }
 
 const reducer = combineReducers({
@@ -73,7 +73,7 @@ describe('PreviewCase', () => {
     wrapper.instance().onSendButtonClick()
     expect(store.getState().alert).toEqual({
       clientErrorStatus: 'OK',
-      clientErrorMessage: 'case:alert-sentData'
+      clientErrorMessage: 'buc:alert-sentData'
     })
   })
 

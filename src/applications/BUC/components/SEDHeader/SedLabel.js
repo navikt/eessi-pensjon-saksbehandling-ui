@@ -2,7 +2,7 @@ import React from 'react'
 import PanelBase from 'nav-frontend-paneler'
 import * as Typography from 'nav-frontend-typografi'
 
-import StatusLabel from '../StatusLabel'
+import StatusLabel from './StatusLabel'
 import './SedLabel.css'
 
 function SedLabel (props) {

@@ -10,9 +10,9 @@ const Links = (props) => {
   const { t } = props
 
   return <div className='w-links-links'>
-    <Nav.Lenkepanel border className='frontPageLink caseLink' linkCreator={(props) => (
-      <Link to={routes.CASE + '?sed=&buc='} {...props} />)
-    } href='#'>{t('case:app-createNewCase')}</Nav.Lenkepanel>
+    <Nav.Lenkepanel border className='frontPageLink bucLink' linkCreator={(props) => (
+      <Link to={routes.BUC + '?sed=&buc='} {...props} />)
+    } href='#'>{t('buc:app-createNewCase')}</Nav.Lenkepanel>
 
     <Nav.Lenkepanel border className='frontPageLink pInfoLink' linkCreator={(props) => (
       <Link to={routes.PINFO} {...props} />)

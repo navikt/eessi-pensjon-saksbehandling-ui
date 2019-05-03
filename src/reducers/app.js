@@ -1,6 +1,6 @@
 import * as types from '../constants/actionTypes'
 
-let initialState = {
+export const initialAppState = {
   loggedIn: undefined,
   loggedTime: undefined,
   allowed: false,
@@ -12,7 +12,7 @@ let initialState = {
   lastname: undefined
 }
 
-export default function (state = initialState, action = {}) {
+const appReducer = (state = initialAppState, action = {}) => {
   switch (action.type) {
     case types.APP_REFERRER_SET:
 
@@ -33,7 +33,7 @@ export default function (state = initialState, action = {}) {
 
     case types.APP_USERINFO_FAILURE:
 
-      return Object.assign({}, initialState, {
+      return Object.assign({}, initialAppState, {
         loggedIn: false,
         userStatus: 'ERROR'
       })
@@ -65,10 +65,12 @@ export default function (state = initialState, action = {}) {
     }
 
     case types.APP_LOGOUT_SUCCESS: {
-      return initialState
+      return initialAppState
     }
 
     default:
       return state
   }
 }
+
+export default appReducer

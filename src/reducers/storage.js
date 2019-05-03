@@ -1,15 +1,13 @@
-/* global Uint8Array */
-
 import * as types from '../constants/actionTypes'
 import _ from 'lodash'
 
-let initialState = {
+export const initialStorageState = {
   modalOpen: false,
   fileList: undefined,
   file: undefined
 }
 
-export default function (state = initialState, action = {}) {
+const storageReducer = (state = initialStorageState, action = {}) => {
   switch (action.type) {
     case types.STORAGE_LIST_SUCCESS:
     case types.STORAGE_LIST_NO_NOTIF_SUCCESS:
@@ -77,10 +75,12 @@ export default function (state = initialState, action = {}) {
     case types.STORAGE_MODAL_CLOSE:
     case types.APP_CLEAR_DATA:
 
-      return initialState
+      return initialStorageState
 
     default:
 
       return state
   }
 }
+
+export default storageReducer

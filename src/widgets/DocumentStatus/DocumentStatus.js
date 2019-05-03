@@ -176,7 +176,7 @@ export class DocumentStatus extends Component {
             case constants.P2200:
             case constants.P6000:
 
-              history.push(routes.CASE + '?sed=' + doc.dokumentType + '&buc=' + doc.id)
+              history.push(routes.BUC + '?sed=' + doc.dokumentType + '&buc=' + doc.id)
               break
             default:
               break
@@ -250,7 +250,7 @@ export class DocumentStatus extends Component {
               {documents.filter(this.docMatchesFilter.bind(this)).map((_doc, index) => {
                 let active = currentDocument ? _doc.dokumentType === currentDocument.dokumentType : false
                 let label = _doc.dokumentType
-                let description = t('case:case-' + _doc.dokumentType)
+                let description = t('buc:case-' + _doc.dokumentType)
                 if (label !== 'case-' + _doc.dokumentType) {
                   label += ' - ' + description
                 }

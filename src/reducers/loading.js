@@ -1,13 +1,13 @@
 import * as types from '../constants/actionTypes'
 import _ from 'lodash'
 
-let initialState = {}
+export const initialLoadingState = {}
 
-export default function (state = initialState, action = {}) {
+const loadingReducer = (state = initialLoadingState, action = {}) => {
   let status
 
   if (_.startsWith(action.type, 'SERVER_')) {
-    return initialState
+    return initialLoadingState
   }
 
   if (_.endsWith(action.type, '/REQUEST')) {
@@ -416,3 +416,5 @@ export default function (state = initialState, action = {}) {
       return state
   }
 }
+
+export default loadingReducer

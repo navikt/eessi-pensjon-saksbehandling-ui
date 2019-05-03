@@ -1,9 +1,7 @@
-/* global Uint8Array */
-
 import * as types from '../constants/actionTypes'
 import _ from 'lodash'
 
-let initialState = {
+export const initialPdfState = {
   recipe: {},
   files: [],
   pageScale: 1.0,
@@ -23,7 +21,7 @@ let initialState = {
   step: 0
 }
 
-export default function (state = initialState, action = {}) {
+const pdfReducer = (state = initialPdfState, action = {}) => {
   switch (action.type) {
     case types.PDF_SELECTED: {
       let newRecipe = _.clone(state.recipe)
@@ -73,7 +71,7 @@ export default function (state = initialState, action = {}) {
 
     case types.APP_CLEAR_DATA:
 
-      return initialState
+      return initialPdfState
 
     case types.PDF_WATERMARK_SET : {
       return Object.assign({}, state, {
@@ -92,3 +90,5 @@ export default function (state = initialState, action = {}) {
       return state
   }
 }
+
+export default pdfReducer

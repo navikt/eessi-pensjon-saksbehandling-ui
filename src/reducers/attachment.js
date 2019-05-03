@@ -1,8 +1,8 @@
 import * as types from '../constants/actionTypes'
 
-let initialState = {}
+export const initialAttachmentState = {}
 
-export default function (state = initialState, action = {}) {
+const attachmentReducer = (state = initialAttachmentState, action = {}) => {
   switch (action.type) {
     case types.ATTACHMENT_ADD_FILE_TO_STATE:
       return Object.assign({}, state, {
@@ -27,9 +27,11 @@ export default function (state = initialState, action = {}) {
       return Object.assign({}, state, action.payload)
 
     case types.ATTACHMENT_CLEAR_STATE:
-      return initialState
+      return initialAttachmentState
 
     default:
       return state
   }
 }
+
+export default attachmentReducer
