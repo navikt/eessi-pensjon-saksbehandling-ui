@@ -5,7 +5,7 @@ export const initialAppState = {
   loggedTime: undefined,
   allowed: false,
   username: undefined,
-  userRole: undefined,
+  userRole: [],
   userStatus: undefined,
   firstName: undefined,
   middleName: undefined,

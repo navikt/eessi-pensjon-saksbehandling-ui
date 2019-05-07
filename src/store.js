@@ -2,18 +2,19 @@ import React, { useReducer, useContext, createContext } from 'react'
 
 const Store = createContext()
 const useStore = () => useContext(Store)
+const applyThunk = (dispatch, state) => (action) => {
+  if (typeof action === 'function') {
+    return action(dispatch, state)
+  }
+  return dispatch(action)
+}
 
 const StoreProvider = ({ reducer, initialState, children }) => {
   const [ state, dispatch ] = useReducer(reducer, initialState)
-  const thunkDispatch = (action) => {
-    if (typeof action === 'function') {
-      return action(dispatch, state)
-    }
-    return dispatch(action)
-  }
+  const thunkDispatch = applyThunk(dispatch, state)
   return <Store.Provider value={[ state, thunkDispatch ]}>
      {children}
-   </Store.Provider>
+  </Store.Provider>
 }
 
 const bindActionCreator = (actionCreator, dispatch) => {
@@ -49,6 +50,7 @@ const connect = (
   return props => {
     const [ state, dispatch ] = useStore()
     return <WrappedComponent
+      {...props}
       dispatch={dispatch}
       {...mapStateToProps(state, props)}
       {...mapDispatchToProps(dispatch, props)}

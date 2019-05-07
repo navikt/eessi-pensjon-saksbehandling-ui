@@ -1,8 +1,8 @@
 import React from 'react'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
+import { bindActionCreators }from 'redux'
 import { withTranslation } from 'react-i18next'
-import { bindActionCreators } from 'redux'
 
 import Period from './StayAbroad/Period'
 import PsychoPanel from '../ui/Psycho/PsychoPanel'

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import PT from 'prop-types'
@@ -56,30 +56,34 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, storageActions, pinfoActions, appActions, uiActions, attachmentActions), dispatch) }
 }
 
-export class PInfo extends React.Component {
-  state = {
-    doPageValidationOnForwardButton: true,
-    doPageValidationOnStepIndicator: true,
-    fileList: undefined,
-    file: undefined
-  }
+const PInfo = (props) => {
 
-  componentDidMount () {
-    const { actions, username } = this.props
-    if (window.hj) {
-      window.hj('trigger', 'e207-feedback-no')
-    }
-    if (username) {
+  const doPageValidationOnForwardButton = true
+  const doPageValidationOnStepIndicator = true
+  const [ mounted, setMounted] = useState(false)
+
+  const { t, pageErrors, actions, history, username, location, send, step, pinfo } = props
+  const { maxStep, stepError, match, isSendingPinfo, isReady, buttonsVisible, attachments } = props
+  const { person, bank, stayAbroad } = props.pinfo
+
+  if (window.hj) {
+    window.hj('trigger', 'e207-feedback-no')
+  }
+  useEffect(() => {
+    if (username && !mounted) {
       actions.getAndPrefillPersonName()
       actions.getAllStateFromStorage()
+      setMounted(true)
     }
-  }
+  }, [username])
 
-  componentDidUpdate () {
-    const { send, actions, step, match, history } = this.props
-    if (send && step === 3) {
-      actions.setStep(4)
-    }
+  useEffect(() => {
+     if (send && step === 3) {
+       actions.setStep(4)
+     }
+  }, [send, step, actions])
+
+  useEffect(() => {
     if (_.has(match, 'params.step') && String(step + 1) !== match.params.step) {
       history.push({
         pathname: `${routes.PINFO}/${step + 1}`,
@@ -89,9 +93,9 @@ export class PInfo extends React.Component {
         window.hj('vpv', `/_/pinfo/${step + 1}`)
       }
     }
-  }
+  }, [step])
 
-  hasNoErrors (errors) {
+  const hasNoErrors = (errors) => {
     for (var key in errors) {
       if (errors[key]) {
         return false
@@ -100,8 +104,7 @@ export class PInfo extends React.Component {
     return true
   }
 
-  validatePage (step) {
-    const { person, bank, stayAbroad } = this.props.pinfo
+  const validatePage = (step) => {
 
     switch (step) {
       case 0:
@@ -117,30 +120,28 @@ export class PInfo extends React.Component {
     }
   }
 
-  onForwardButtonClick () {
-    const { actions, step, pinfo, username } = this.props
+  const onForwardButtonClick = () => {
 
     let errors = {}
-    if (this.state.doPageValidationOnForwardButton) {
-      errors = this.validatePage(step)
+    if (doPageValidationOnForwardButton) {
+      errors = validatePage(step)
       actions.setPageErrors(errors)
     }
 
-    if (this.hasNoErrors(errors)) {
+    if (hasNoErrors(errors)) {
       actions.setStep(step + 1)
       actions.postStorageFileWithNoNotification(username, constants.PINFO, constants.PINFO_FILE, JSON.stringify(pinfo))
       window.scrollTo(0, 0)
     }
   }
 
-  onStepIndicatorBeforeChange (nextStep) {
-    const { step, actions, maxStep, pinfo, username } = this.props
+  const onStepIndicatorBeforeChange = (nextStep) => {
 
     if (nextStep === step) {
       return false
     }
 
-    if (this.state.doPageValidationOnStepIndicator && nextStep > maxStep) {
+    if (doPageValidationOnStepIndicator && nextStep > maxStep) {
       actions.setStepError('pinfo:alert-stepTooHigh')
       return false
     }
@@ -151,24 +152,21 @@ export class PInfo extends React.Component {
     return true
   }
 
-  onStepIndicatorChange (newStep) {
-    const { actions, step } = this.props
+  const onStepIndicatorChange = (newStep) => {
 
     let errors = {}
-    if (newStep > step && this.state.doPageValidationOnStepIndicator) {
-      errors = this.validatePage(step)
+    if (newStep > step && doPageValidationOnStepIndicator) {
+      errors = validatePage(step)
       actions.setPageErrors(errors)
     }
 
-    if (this.hasNoErrors(errors)) {
+    if (hasNoErrors(errors)) {
       actions.setMainButtonsVisibility(true)
       actions.setStep(newStep)
     }
   }
 
-  onBackButtonClick () {
-    const { actions, history, step } = this.props
-
+  const onBackButtonClick = () => {
     actions.setPageErrors({})
 
     if (step === 0) {
@@ -182,27 +180,21 @@ export class PInfo extends React.Component {
     window.scrollTo(0, 0)
   }
 
-  saveStateAndExit () {
-    const { actions, pinfo, username } = this.props
-
+  const saveStateAndExit = () => {
     actions.closeModal()
     actions.saveStateAndExit(pinfo, username)
   }
 
-  deleteStateAndExit () {
-    const { actions, username } = this.props
-
+  const deleteStateAndExit = () => {
     actions.closeModal()
     actions.deleteStateAndExit(username)
   }
 
-  closeModal () {
-    const { actions } = this.props
+  const closeModal = () => {
     actions.closeModal()
   }
 
-  onSaveAndExitButtonClick () {
-    const { t, actions, history, pinfo } = this.props
+  const onSaveAndExitButtonClick = () => {
 
     let isPInfoEmpty = globalTests.isPInfoEmpty(pinfo)
 
@@ -217,21 +209,19 @@ export class PInfo extends React.Component {
       modalButtons: [{
         main: true,
         text: t('ui:yes') + ', ' + t('ui:exit').toLowerCase(),
-        onClick: this.saveStateAndExit.bind(this)
+        onClick: saveStateAndExit
       }, {
         text: t('ui:no') + ', ' + t('ui:continue').toLowerCase(),
-        onClick: this.closeModal.bind(this)
+        onClick: closeModal
       }]
     })
   }
 
-  onDeleteAndExitLinkClick (e) {
+  const onDeleteAndExitLinkClick = (e) => {
     if (e) {
       e.preventDefault()
       e.stopPropagation()
     }
-
-    const { t, actions, history, pinfo } = this.props
 
     let isPInfoEmpty = globalTests.isPInfoEmpty(pinfo)
 
@@ -246,31 +236,29 @@ export class PInfo extends React.Component {
       modalButtons: [{
         main: true,
         text: t('ui:yes') + ', ' + t('ui:delete').toLowerCase(),
-        onClick: this.deleteStateAndExit.bind(this)
+        onClick: deleteStateAndExit
       }, {
         text: t('ui:no'),
-        onClick: this.closeModal.bind(this)
+        onClick: closeModal
       }]
     })
   }
 
-  onSendButtonClick () {
-    const { actions, step, pinfo, attachments } = this.props
+  const onSendButtonClick = () => {
 
     let errors = {}
-    if (this.state.doPageValidationOnForwardButton) {
-      errors = this.validatePage(step)
+    if (doPageValidationOnForwardButton) {
+      errors = validatePage(step)
       actions.setPageErrors(errors)
     }
-    if (this.hasNoErrors(errors)) {
+    if (hasNoErrors(errors)) {
       let payload = new PInfoUtil(pinfo, attachments).generatePayload()
       actions.sendPInfo(payload)
     }
     window.scrollTo(0, 0)
   }
 
-  errorMessage () {
-    const { pageErrors } = this.props
+  const errorMessage = () => {
     for (var key in pageErrors) {
       if (pageErrors[key]) {
         return pageErrors[key]
@@ -279,108 +267,104 @@ export class PInfo extends React.Component {
     return undefined
   }
 
-  render () {
-    const { t, history, location, step, maxStep, stepError, isSendingPinfo, isReady, buttonsVisible, pinfo } = this.props
-
-    if (!isReady) {
-      return <TopContainer className='p-pInfo'
-        history={history} location={location}
-        header={t('pinfo:app-title')}>
-        <WaitingPanel className='mt-5' message={t('loading')} />
-      </TopContainer>
-    }
-
-    let errorMessage = this.errorMessage()
-    let isPInfoEmpty = globalTests.isPInfoEmpty(pinfo)
-    let noPeriods = step === 2 && _.isEmpty(pinfo.stayAbroad)
-
+  if (!isReady) {
     return <TopContainer className='p-pInfo'
       history={history} location={location}
-      header={<span>{t('pinfo:app-title')}</span>}>
-      { step !== 4
-        ? <React.Fragment>
-          {!isPInfoEmpty ? <Nav.Row>
-            <div className='col-sm-12 mb-4 delete-form-div'>
-              <Nav.Lenke
-                className='delete-form-link mt-3'
-                id='pinfo-deleteAndExit-button'
-                href='#reset'
-                onClick={this.onDeleteAndExitLinkClick.bind(this)}>
-                <Icons kind='trashcan' className='mr-2' size={16} />
-                <span>{t('pinfo:form-deleteAndExit')}</span>
-              </Nav.Lenke>
-            </div>
-          </Nav.Row> : null}
-          <Nav.Stegindikator
-            className='mt-4 mb-4'
-            aktivtSteg={step}
-            visLabel
-            onBeforeChange={this.onStepIndicatorBeforeChange.bind(this)}
-            onChange={this.onStepIndicatorChange.bind(this)}
-            autoResponsiv
-            steg={_.range(0, 5).map(index => ({
-              label: t('pinfo:form-step' + index),
-              ferdig: index < step,
-              aktiv: index === step
-            }))}
-          />
-          {stepError ? <div className='w-100 text-center mb-2'>
-            <AdvarselTrekant size={16} />
-            <span className='ml-2'>{t(stepError, { maxStep: (maxStep + 1) })}</span>
-          </div> : null}
-        </React.Fragment> : null}
-      <Nav.Row>
-        <div className='col-sm-2' />
-        <div className={classNames('fieldset animate', 'ml-auto', 'mr-auto', 'col-sm-8')}>
-          {errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe> : null}
-          {step === 0 ? <Person /> : null}
-          {step === 1 ? <Bank /> : null}
-          {step === 2 ? <StayAbroad /> : null}
-          {step === 3 ? <Confirm /> : null}
-          {step === 4 ? <Receipt /> : null}
-        </div>
-        <div className='col-sm-2' />
-      </Nav.Row>
-      {buttonsVisible && step < 5 ? <Nav.Row>
-        <div className='col-sm-12 text-center mb-4 mt-4'>
-          {step < 3 ? <Nav.Hovedknapp
-            id='pinfo-forward-button'
-            disabled={noPeriods}
-            className='forwardButton mb-2 mr-3 w-sm-100'
-            onClick={this.onForwardButtonClick.bind(this)}>
-            {t('saveAndContinue')}
-          </Nav.Hovedknapp> : null}
-          {step === 3 ? <Nav.Hovedknapp
-            id='pinfo-send-button'
-            className='sendButton mb-2 mr-3 w-sm-100'
-            disabled={isSendingPinfo}
-            spinner={isSendingPinfo}
-            onClick={this.onSendButtonClick.bind(this)}>
-            {isSendingPinfo ? t('sending') : t('confirmAndSend')}
-          </Nav.Hovedknapp> : null}
-          {step < 4 ? <Nav.Knapp
-            id='pinfo-back-button'
-            className='backButton mb-2 mr-3 w-sm-100'
-            onClick={this.onBackButtonClick.bind(this)}>
-            {t('back')}
-          </Nav.Knapp> : null}
-          { step < 4 ? <Nav.KnappBase
-            id='pinfo-saveandexit-button'
-            type='flat'
-            className='cancelButton mb-2 mr-3 w-sm-100'
-            onClick={this.onSaveAndExitButtonClick.bind(this)}>
-            {t('pinfo:form-saveAndExit')}
-          </Nav.KnappBase> : null}
-        </div></Nav.Row> : null}
-      {errorMessage ? <Nav.Row>
-        <div className='col-sm-2' />
-        <div className='col-sm-8 mb-4'>
-          <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(errorMessage)}</Nav.AlertStripe>
-        </div>
-        <div className='col-sm-2' />
-      </Nav.Row> : null}
+      header={t('pinfo:app-title')}>
+      <WaitingPanel className='mt-5' message={t('loading')} />
     </TopContainer>
   }
+
+  const _errorMessage = errorMessage()
+  const isPInfoEmpty = globalTests.isPInfoEmpty(pinfo)
+  const noPeriods = step === 2 && _.isEmpty(pinfo.stayAbroad)
+
+  return <TopContainer className='p-pInfo'
+    history={history} location={location}
+    header={<span>{t('pinfo:app-title')}</span>}>
+    { step !== 4
+      ? <React.Fragment>
+        {!isPInfoEmpty ? <Nav.Row>
+          <div className='col-sm-12 mb-4 delete-form-div'>
+            <Nav.Lenke
+              className='delete-form-link mt-3'
+              id='pinfo-deleteAndExit-button'
+              href='#reset'
+              onClick={onDeleteAndExitLinkClick}>
+              <Icons kind='trashcan' className='mr-2' size={16} />
+              <span>{t('pinfo:form-deleteAndExit')}</span>
+            </Nav.Lenke>
+          </div>
+        </Nav.Row> : null}
+        <Nav.Stegindikator
+          className='mt-4 mb-4'
+          aktivtSteg={step}
+          visLabel
+          onBeforeChange={onStepIndicatorBeforeChange}
+          onChange={onStepIndicatorChange}
+          autoResponsiv
+          steg={_.range(0, 5).map(index => ({
+            label: t('pinfo:form-step' + index),
+            ferdig: index < step,
+            aktiv: index === step
+          }))}
+        />
+        {stepError ? <div className='w-100 text-center mb-2'>
+          <AdvarselTrekant size={16} />
+          <span className='ml-2'>{t(stepError, { maxStep: (maxStep + 1) })}</span>
+        </div> : null}
+      </React.Fragment> : null}
+    <Nav.Row>
+      <div className='col-sm-2' />
+      <div className={classNames('fieldset animate', 'ml-auto', 'mr-auto', 'col-sm-8')}>
+        {_errorMessage ? <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(_errorMessage)}</Nav.AlertStripe> : null}
+        {step === 0 ? <Person /> : null}
+        {step === 1 ? <Bank /> : null}
+        {step === 2 ? <StayAbroad /> : null}
+        {step === 3 ? <Confirm /> : null}
+        {step === 4 ? <Receipt /> : null}
+      </div>
+      <div className='col-sm-2' />
+    </Nav.Row>
+    {buttonsVisible && step < 5 ? <Nav.Row>
+      <div className='col-sm-12 text-center mb-4 mt-4'>
+        {step < 3 ? <Nav.Hovedknapp
+          id='pinfo-forward-button'
+          disabled={noPeriods}
+          className='forwardButton mb-2 mr-3 w-sm-100'
+          onClick={onForwardButtonClick}>
+          {t('saveAndContinue')}
+        </Nav.Hovedknapp> : null}
+        {step === 3 ? <Nav.Hovedknapp
+          id='pinfo-send-button'
+          className='sendButton mb-2 mr-3 w-sm-100'
+          disabled={isSendingPinfo}
+          spinner={isSendingPinfo}
+          onClick={onSendButtonClick}>
+          {isSendingPinfo ? t('sending') : t('confirmAndSend')}
+        </Nav.Hovedknapp> : null}
+        {step < 4 ? <Nav.Knapp
+          id='pinfo-back-button'
+          className='backButton mb-2 mr-3 w-sm-100'
+          onClick={onBackButtonClick}>
+          {t('back')}
+        </Nav.Knapp> : null}
+        { step < 4 ? <Nav.KnappBase
+          id='pinfo-saveandexit-button'
+          type='flat'
+          className='cancelButton mb-2 mr-3 w-sm-100'
+          onClick={onSaveAndExitButtonClick}>
+          {t('pinfo:form-saveAndExit')}
+        </Nav.KnappBase> : null}
+      </div></Nav.Row> : null}
+    {_errorMessage ? <Nav.Row>
+      <div className='col-sm-2' />
+      <div className='col-sm-8 mb-4'>
+        <Nav.AlertStripe className='mt-3 mb-3' type='advarsel'>{t(_errorMessage)}</Nav.AlertStripe>
+      </div>
+      <div className='col-sm-2' />
+    </Nav.Row> : null}
+  </TopContainer>
 }
 
 PInfo.propTypes = {

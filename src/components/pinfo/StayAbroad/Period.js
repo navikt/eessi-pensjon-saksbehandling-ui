@@ -1,6 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
-import { connect } from 'react-redux'
+import { connect }from 'react-redux'
 import { bindActionCreators } from 'redux'
 import _ from 'lodash'
 import moment from 'moment'

@@ -63,9 +63,9 @@ export const BUCPageIndex = (props) => {
           aktiv: index === step
         }))} />
       {caseDescriptions[step] ? <h2 className='mb-4 appDescription'>{t(caseDescriptions[step])}</h2> : null}
-      {step === 0 ? <SEDStart mode='page'/> : null}
-      {step === 1 ? <SEDPreview mode='page'/> : null}
-      {step === 2 ? <SEDSaveSend mode='page'/> : null}
+      {step === 0 ? <SEDStart mode='page' {...props}/> : null}
+      {step === 1 ? <SEDPreview mode='page' {...props}/> : null}
+      {step === 2 ? <SEDSaveSend mode='page' {...props}/> : null}
     </div>
   </TopContainer>
 }

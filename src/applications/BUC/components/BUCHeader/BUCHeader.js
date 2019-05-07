@@ -39,10 +39,6 @@ function BUCHeader (props) {
           ? <ProblemCircle data-qa='BucHeader-ProblemCircle' className='bucheader-svg mr-2 ml-2' />
           : null
         }
-        {props.comments.length > 0
-          ? <BubbleChat data-qa='BucHeader-BubbleChat' className='bucheader-svg mr-2 ml-2' />
-          : null
-        }
       </div>
     </div>
   )

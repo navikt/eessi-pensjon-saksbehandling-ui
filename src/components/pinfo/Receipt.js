@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators }from 'redux'
 import { withTranslation } from 'react-i18next'
-import { bindActionCreators } from 'redux'
 import saveAs from 'file-saver'
 
 import * as Nav from '../ui/Nav'

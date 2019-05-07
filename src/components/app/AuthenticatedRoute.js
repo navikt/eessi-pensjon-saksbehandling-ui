@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { bindActionCreators }from 'redux'
 import { withTranslation } from 'react-i18next'
 import { Route, withRouter, Redirect } from 'react-router'
 import _ from 'lodash'
@@ -36,74 +36,66 @@ const paramAliases = {
   'fnr': 'aktoerId'
 }
 
-export class AuthenticatedRoute extends Component {
-  state = {}
+const AuthenticatedRoute = (props) => {
 
-  parseSearchParams () {
-    const { actions, location } = this.props
+  const [ _params, _setParams ] = useState({})
+  const { t, allowed, actions, location, loggedIn, gettingUserInfo, roles, userRole } = props
+
+  const parseSearchParams = () => {
 
     let params = new URLSearchParams(location.search)
     let newParams = {}
     params.forEach((value, key) => {
       const _key = paramAliases.hasOwnProperty(key) ? paramAliases[key] : key
       const _value = value || undefined
-      if (_value !== this.state[_key]) {
+      if (_value !== _params[_key]) {
         actions.setStatusParam(_key, _value)
         newParams[_key] = _value
       }
     })
     if (!_.isEmpty(newParams)) {
-      this.setState(newParams)
+      _setParams(newParams)
     }
     return newParams
   }
 
-  componentDidMount () {
-    const { actions, loggedIn, gettingUserInfo } = this.props
+  useEffect(() => {
     if (loggedIn === undefined && !gettingUserInfo) {
       actions.getUserInfo()
     }
-    this.parseSearchParams()
-  }
-
-  componentDidUpdate () {
-    const { actions, loggedIn } = this.props
     if (loggedIn === false) {
       actions.login()
     }
-  }
+    parseSearchParams()
+  }, [loggedIn, gettingUserInfo, actions])
 
-  hasApprovedRole () {
-    const { roles, userRole } = this.props
+  const hasApprovedRole = () => {
     return roles.indexOf(userRole) >= 0
   }
 
-  render () {
-    const { t, allowed, loggedIn, userRole } = this.props
-
-    if (!loggedIn) {
-      return <WaitingPanel message={t('authenticating')} />
-    }
-    let validRole = this.hasApprovedRole()
-
-    if (!validRole) {
-      return <Redirect to={{
-        pathname: routes.FORBIDDEN,
-        state: { role: userRole }
-      }} />
-    }
-
-    let authorized = allowed
-
-    if (!authorized) {
-      return <Redirect to={{
-        pathname: routes.NOT_INVITED,
-        state: { role: userRole }
-      }} />
-    }
-
-    return <Route {...this.props} />
+  if (!loggedIn) {
+    return <WaitingPanel message={t('authenticating')} />
   }
+
+  let validRole = hasApprovedRole()
+
+  if (!validRole) {
+    return <Redirect to={{
+      pathname: routes.FORBIDDEN,
+      state: { role: userRole }
+    }} />
+  }
+
+  let authorized = allowed
+
+  if (!authorized) {
+    return <Redirect to={{
+      pathname: routes.NOT_INVITED,
+      state: { role: userRole }
+    }} />
+  }
+
+  return <Route {...props} />
 }
 
 AuthenticatedRoute.propTypes = {

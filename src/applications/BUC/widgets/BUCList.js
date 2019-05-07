@@ -21,7 +21,7 @@ const BUCList = (props) => {
           { children: t('ui:other'), onClick: () => setTab('OTHER') }
         ]}
       />
-      <Hovedknapp onClick={onBUCNew}>{t('buc:app-startSEDTitle')}</Hovedknapp>
+      <Hovedknapp onClick={onBUCNew}>{t('buc:widget-createNewCase')}</Hovedknapp>
     </div>
     {list ? list[tab].map((buc, index) => (
       <BUCPanel t={t} key={index} buc={buc} />
