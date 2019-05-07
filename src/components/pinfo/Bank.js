@@ -1,7 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { bindActionCreators }from 'redux'
 import { withTranslation } from 'react-i18next'
 import _ from 'lodash'
 

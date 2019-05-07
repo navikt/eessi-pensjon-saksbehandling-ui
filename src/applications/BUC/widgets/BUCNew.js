@@ -16,11 +16,11 @@ const BUCNew = (props) => {
       <Hovedknapp onClick={onBUCList}>{t('buc:widget-backToList')}</Hovedknapp>
     </div>
     <Panel>
-      <Ingress>{t('buc:app-startSEDTitle')}</Ingress>
+      <Ingress>{t('buc:step-startSEDTitle')}</Ingress>
       <hr />
-      {step === 0 ? <SEDStart {...props}/> : null}
-      {step === 1 ? <SEDPreview {...props}/> : null}
-      {step === 2 ? <SEDSaveSend {...props}/> : null}
+      {step === 0 ? <SEDStart mode='widget' {...props}/> : null}
+      {step === 1 ? <SEDPreview mode='widget' {...props}/> : null}
+      {step === 2 ? <SEDSaveSend mode='widget' {...props}/> : null}
     </Panel>
   </div>
 }
