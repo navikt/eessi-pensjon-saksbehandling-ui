@@ -1,13 +1,14 @@
-let HOST = window.location.protocol + '//' + window.location.hostname
+const HOST = window.location.protocol + '//' + window.location.hostname
 export const BASE_URL = HOST + (window.location.port ? ':' + window.location.port : '')
 
-let BACKEND_URL = window.location.hostname === 'localhost' ? BASE_URL : BASE_URL + '/backend'
-let API_URL = BACKEND_URL + '/api'
-let SED_URL = BACKEND_URL + '/sed'
-let BUC_URL = BACKEND_URL + '/buc'
-let EUX_URL = BACKEND_URL + '/eux'
-let PDF_URL = BACKEND_URL + '/pdf'
-let PEN_URL = BACKEND_URL + '/pensjon'
+const FRONTEND_API_URL = window.location.hostname === 'localhost' ? BASE_URL : BASE_URL + '/frontend'
+const FAGMODUL_API_URL = window.location.hostname === 'localhost' ? BASE_URL : BASE_URL + '/fagmodul'
+const API_URL = FRONTEND_API_URL + '/api'
+const SED_URL = FAGMODUL_API_URL + '/sed'
+const BUC_URL = FRONTEND_API_URL + '/buc'
+const EUX_URL = FRONTEND_API_URL + '/eux'
+const PDF_URL = FRONTEND_API_URL + '/pdf'
+const PEN_URL = FRONTEND_API_URL + '/pensjon'
 
 export const NAV_URL = 'http://www.nav.no'
 
@@ -64,6 +65,5 @@ export const SED_WITH_RINAID_AND_DOCUMENTID_URL = '/%(rinaId)s/%(documentId)s/'
 // PdfController
 export const PDF_GENERATE_URL = PDF_URL + '/generate'
 
-// Login
-export const LOGIN_URL = BACKEND_URL + '/login'
+export const LOGIN_URL = FRONTEND_API_URL + '/login'
 export const LOGOUT_URL = 'https://loginservice-q.nav.no/slo'

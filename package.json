@@ -18,7 +18,14 @@
     "cucumber": "cucumber-js src/tests/**/*.feature -f node_modules/cucumber-pretty",
     "wcag-test": "nav-ally -f wcag.yml"
   },
-  "proxy": "http://localhost:8080",
+  "proxy": {
+    "/frontend": {
+      "target": "http://localhost:8080"
+    },
+    "/fagmodul": {
+      "target": "http://localhost:8081"
+    }
+  },
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
