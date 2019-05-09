@@ -138,7 +138,7 @@ class GenericEvent extends Component {
           validationFail: this.datepicker ? !this.datepicker.hasNoValidationErrors() : false
         })}>
           <Nav.Column>
-            <Nav.HjelpetekstBase>{t('p4000:help-' + type + '-dates')}</Nav.HjelpetekstBase>
+            <Nav.HjelpetekstAuto>{t('p4000:help-' + type + '-dates')}</Nav.HjelpetekstAuto>
             <h2 className='typo-undertittel mb-3'>{t('p4000:' + type + '-fieldset-1-dates-title')}</h2>
             <DatePicker provideController={(datepicker) => { this.datepicker = datepicker }} />
           </Nav.Column>

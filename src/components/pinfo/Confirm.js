@@ -107,9 +107,9 @@ class Confirm extends React.Component {
           label={<div className='pinfo-label'>
             <div className='pinfo-label'>
               <span>{t('pinfo:stayAbroad-comment')}</span>
-              <Nav.HjelpetekstBase id='pinfo-stayAbroad-comment-help'>
+              <Nav.HjelpetekstAuto id='pinfo-stayAbroad-comment-help'>
                 {t('pinfo:stayAbroad-comment-help')}
-              </Nav.HjelpetekstBase>
+              </Nav.HjelpetekstAuto>
             </div>
             <span className='optional'>{t('ui:optional')}</span>
           </div>}

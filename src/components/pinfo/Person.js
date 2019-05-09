@@ -110,9 +110,9 @@ class Person extends React.Component {
             label={<div className='pinfo-label'>
               <div className='pinfo-label'>
                 <span>{t('pinfo:person-info-lastNameAtBirth')}</span>
-                <Nav.HjelpetekstBase id='pinfo-person-lastNameAtBirth-help'>
+                <Nav.HjelpetekstAuto id='pinfo-person-lastNameAtBirth-help'>
                   {t('pinfo:person-info-lastNameAtBirth-help')}
-                </Nav.HjelpetekstBase>
+                </Nav.HjelpetekstAuto>
               </div>
             </div>}
             placeholder={t('ui:writeIn')}
@@ -131,9 +131,9 @@ class Person extends React.Component {
             label={<div className='pinfo-label'>
               <div className='pinfo-label'>
                 <span>{t('pinfo:person-info-previousName')}</span>
-                <Nav.HjelpetekstBase id='pinfo-person-previousName-help'>
+                <Nav.HjelpetekstAuto id='pinfo-person-previousName-help'>
                   {t('pinfo:person-info-previousName-help')}
-                </Nav.HjelpetekstBase>
+                </Nav.HjelpetekstAuto>
               </div>
               <span className='optional'>{t('ui:optional')}</span>
             </div>}

@@ -55,9 +55,9 @@ class FirstPage extends Component {
           </div>
           { userRole === constants.BRUKER ? <div>
             <span dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-bruker-1') }} />
-            <Nav.HjelpetekstBase id='pinfo-title-help' type='under'>
+            <Nav.HjelpetekstAuto id='pinfo-title-help' type='under'>
               {t('pinfo:eea-countries')}
-            </Nav.HjelpetekstBase>
+            </Nav.HjelpetekstAuto>
             <span dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-bruker-2') }} />
           </div> : null }
           { userRole === constants.SAKSBEHANDLER ? <div dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-saksbehandler') }} /> : null }

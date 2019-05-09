@@ -1,8 +1,6 @@
-import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
+import React, { useState, useEffect } from 'react'
+import { connect, bindActionCreators } from 'store'
 import PT from 'prop-types'
-import { connect } from 'react-redux'
-import { withTranslation } from 'react-i18next'
 
 import Export from 'components/ui/Export/Export'
 import RenderData from 'applications/BUC/components/RenderData/RenderData'
@@ -27,69 +25,66 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, statusActions, bucActions, appActions), dispatch) }
 }
 
-export class SaveSendCase extends Component {
-    state = {}
+const SEDSaveSend = (props) => {
 
-    componentDidMount () {
-      let { actions, rinaUrl } = this.props
-      if (!rinaUrl) {
-        actions.getRinaUrl()
-      }
+  const { t, actions } = props
+  const { savedData, previewData, rinaUrl, step, sendingCase, rinaLoading } = props
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+
+    if (!mounted && !rinaUrl) {
+      actions.getRinaUrl()
+      setMounted(true)
     }
+  } , [rinaUrl])
 
-    onSendButtonClick () {
-      const { actions, savedData } = this.props
-      let payload = {
-        sendsed: true,
-        caseId: savedData.caseId,
-        documentId: savedData.documentId
-      }
-      actions.sendSed(payload)
+  const onSendButtonClick = () => {
+    let payload = {
+      sendsed: true,
+      caseId: savedData.caseId,
+      documentId: savedData.documentId
     }
+    actions.sendSed(payload)
+  }
 
-    onCreateNewUnsetRinaIdButtonClick () {
-      const { actions } = this.props
-      actions.unsetStatusParam('rinaId')
-      actions.clearData()
-    }
+  const onCreateNewUnsetRinaIdButtonClick = () => {
+    actions.unsetStatusParam('rinaId')
+    actions.clearData()
+  }
 
-    onCreateNewUnsetSakIdAktoerIdButtonClick () {
-      const { actions } = this.props
-      actions.unsetStatusParam('sakId')
-      actions.unsetStatusParam('aktoerId')
-      actions.clearData()
-    }
+  const onCreateNewUnsetSakIdAktoerIdButtonClick = () => {
+    actions.unsetStatusParam('sakId')
+    actions.unsetStatusParam('aktoerId')
+    actions.clearData()
+  }
 
-    render () {
-      let { t, sendingCase, previewData, savedData, rinaLoading, rinaUrl } = this.props
+  const buttonText = sendingCase ? t('buc:loading-sendingCase') : t('ui:send')
 
-      let buttonText = sendingCase ? t('buc:loading-sendingCase') : t('ui:send')
-
-      return <div>
-        <div className='fieldset animate text-center'>
-          { rinaLoading ? <span>{t('buc:loading-rinaUrl')}</span>
-            : (rinaUrl && savedData && savedData.caseId ? <div>
-              <div className='m-4'><a target='_blank' rel='noopener noreferrer' href={rinaUrl + savedData.caseId}>{t('buc:form-caseLink')}</a></div>
-              <div className='m-4'>
-                <h4>{t('buc:form-rinaId') + ': ' + savedData.caseId}</h4>
-              </div>
-              <div style={{ display: 'none' }}>
-                <RenderData t={t} previewData={Object.assign({}, previewData, savedData)} />
-              </div>
-              <Export fileName='kvittering.pdf' nodeId='divToPrint' buttonLabel={t('ui:getReceipt')} />
-            </div> : null)}
+  return <React.Fragment>
+    <div className='fieldset animate text-center'>
+      { rinaLoading ? <span>{t('buc:loading-rinaUrl')}</span>
+      : (rinaUrl && savedData && savedData.caseId ? <div>
+        <div className='m-4'><a target='_blank' rel='noopener noreferrer' href={rinaUrl + savedData.caseId}>{t('buc:form-caseLink')}</a></div>
+        <div className='m-4'>
+          <h4>{t('buc:form-rinaId') + ': ' + savedData.caseId}</h4>
         </div>
-
-        <div className='mb-4 p-4'>
-          <Nav.Hovedknapp className='sendButton mr-3' disabled={sendingCase} spinner={sendingCase} onClick={this.onSendButtonClick.bind(this)}>{buttonText}</Nav.Hovedknapp>
-          <Nav.Knapp className='mr-3 createNewUnsetSakIdAktoerIdButton' onClick={this.onCreateNewUnsetSakIdAktoerIdButtonClick.bind(this)}>{t('buc:button-createNewUnsetSakIdAktoerId')}</Nav.Knapp>
-          <Nav.Knapp className='createNewUnsetRinaIdButton' onClick={this.onCreateNewUnsetRinaIdButtonClick.bind(this)}>{t('buc:button-createNewUnsetRinaId')}</Nav.Knapp>
+        <div style={{ display: 'none' }}>
+          <RenderData t={t} previewData={Object.assign({}, previewData, savedData)} />
         </div>
-      </div>
-    }
+        <Export fileName='kvittering.pdf' nodeId='divToPrint' buttonLabel={t('ui:getReceipt')} />
+      </div> : null)}
+    </div>
+
+    <div className='mb-4 p-4'>
+      <Nav.Hovedknapp className='sendButton mr-3' disabled={sendingCase} spinner={sendingCase} onClick={onSendButtonClick}>{buttonText}</Nav.Hovedknapp>
+      <Nav.Knapp className='mr-3 createNewUnsetSakIdAktoerIdButton' onClick={onCreateNewUnsetSakIdAktoerIdButtonClick}>{t('buc:button-createNewUnsetSakIdAktoerId')}</Nav.Knapp>
+      <Nav.Knapp className='createNewUnsetRinaIdButton' onClick={onCreateNewUnsetRinaIdButtonClick}>{t('buc:button-createNewUnsetRinaId')}</Nav.Knapp>
+    </div>
+  </React.Fragment>
 }
 
-SaveSendCase.propTypes = {
+SEDSaveSend.propTypes = {
   actions: PT.object,
   history: PT.object,
   location: PT.object,
@@ -103,6 +98,4 @@ SaveSendCase.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(
-  withTranslation()(SaveSendCase)
-)
+)(SEDSaveSend)

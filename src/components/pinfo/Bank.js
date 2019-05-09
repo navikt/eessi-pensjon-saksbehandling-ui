@@ -100,9 +100,9 @@ class Bank extends React.Component {
               <div className='pinfo-label'>
                 <div className='pinfo-label'>
                   <span>{t('pinfo:bank-country')}</span>
-                  <Nav.HjelpetekstBase id='pinfo-bank-country-help'>
+                  <Nav.HjelpetekstAuto id='pinfo-bank-country-help'>
                     {t('pinfo:bank-country-help')}
-                  </Nav.HjelpetekstBase>
+                  </Nav.HjelpetekstAuto>
                 </div>
               </div>
             </label>
@@ -126,9 +126,9 @@ class Bank extends React.Component {
             label={<div className='pinfo-label'>
               <div className='pinfo-label'>
                 <span>{t('pinfo:bank-iban')}</span>
-                <Nav.HjelpetekstBase id='pinfo-bank-iban-input-help'>
+                <Nav.HjelpetekstAuto id='pinfo-bank-iban-input-help'>
                   {t('pinfo:bank-iban-help')}
-                </Nav.HjelpetekstBase>
+                </Nav.HjelpetekstAuto>
               </div>
             </div>}
             placeholder={t('ui:writeIn')}
@@ -146,9 +146,9 @@ class Bank extends React.Component {
             label={<div className='pinfo-label'>
               <div className='pinfo-label'>
                 <span>{t('pinfo:bank-bicSwift')}</span>
-                <Nav.HjelpetekstBase id='pinfo-bank-bicSwift-input-help'>
+                <Nav.HjelpetekstAuto id='pinfo-bank-bicSwift-input-help'>
                   {t('pinfo:bank-bicSwift-help')}
-                </Nav.HjelpetekstBase>
+                </Nav.HjelpetekstAuto>
               </div>
             </div>}
             placeholder={t('ui:writeIn')}
@@ -166,9 +166,9 @@ class Bank extends React.Component {
             label={<div className='pinfo-label'>
               <div className='pinfo-label'>
                 <span>{t('pinfo:bank-address')}</span>
-                <Nav.HjelpetekstBase id='pinfo-bank-address-input-help'>
+                <Nav.HjelpetekstAuto id='pinfo-bank-address-input-help'>
                   {t('pinfo:bank-address-help')}
-                </Nav.HjelpetekstBase>
+                </Nav.HjelpetekstAuto>
               </div>
             </div>}
             placeholder={t('ui:writeIn')}
