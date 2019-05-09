@@ -1,0 +1,50 @@
+.a-buc-widget {
+
+    .hjelpetekst {
+        margin-top: 0px !important;
+        float: right! important;
+    }
+
+    .optional {
+      float: right;
+      font-weight: normal;
+      font-style: italic;
+    }
+
+    .renderedInstitutions {
+        background: white;
+        border: 1px solid lightgrey;
+        padding: 5px;
+        box-shadow: 1px 1px 1px lightgrey;
+        border-radius: 5px;
+    }
+
+    .selectBoxMessage {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+
+    .renderedInstitutions {
+        transform: translateX(-20px);
+        opacity: 0;
+        animation: renderedInstitutions-slideInFromLeft 0.4s forwards;
+    }
+
+    button.knapp:hover:not(:disabled) svg * {
+       stroke: white;
+    }
+}
+
+@keyframes renderedInstitutions-slideInFromLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+}

@@ -6,6 +6,8 @@ import * as bucActions from 'actions/buc'
 import BUCList from './BUCList'
 import BUCNew from './BUCNew'
 
+import './index.css'
+
 const mapStateToProps = (state) => {
   return {
     mode: state.buc.mode,
@@ -29,7 +31,7 @@ export const BUCWidgetIndex = (props) => {
     }
   }, [list, actions])
 
-  return <div className='a-buc'>
+  return <div className='a-buc-widget'>
     {mode === 'new' ? <BUCNew {...props} /> : null}
     {mode === 'list' ? <BUCList {...props} /> : null}
   </div>

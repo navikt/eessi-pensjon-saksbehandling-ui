@@ -92,7 +92,7 @@ class DnDSpecial extends Component {
       return <div className='c-pdf-dndSpecial position-relative'
         onMouseEnter={this.onHandleMouseEnter.bind(this)}
         onMouseLeave={this.onHandleMouseLeave.bind(this)}>
-        <Nav.HjelpetekstBase>{t('pdf:help-specials-pdf')}</Nav.HjelpetekstBase>
+        <Nav.HjelpetekstAuto>{t('pdf:help-specials-pdf')}</Nav.HjelpetekstAuto>
         <Droppable droppableId={'c-pdf-dndSpecial-droppable'} direction='horizontal'>
 
           {(provided, snapshot) => (

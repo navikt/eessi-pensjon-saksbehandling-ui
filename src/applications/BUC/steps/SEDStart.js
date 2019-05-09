@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { withTranslation } from 'react-i18next'
 import { connect, bindActionCreators } from 'store'
 
 import PsychoPanel from 'components/ui/Psycho/PsychoPanel'
@@ -215,18 +214,17 @@ const SEDStart = (props) => {
   }
 
   const onCreateInstitutionButtonClick = () => {
-    let institutions = (!_institutions ? [] : _.cloneDeep(_institutions))
-    institutions.push({
+    let newInstitutions = _institutions || []
+    newInstitutions.push({
       institution: _institution,
       country: _country
     })
-    setInstitutions(institutions)
+    setInstitutions(newInstitutions)
     setInstitution(undefined)
     setCountry(undefined)
   }
 
   const onRemoveInstitutionButtonClick = (institution) => {
-
     const newInstitutions = _.reject(_institutions, {
       'institution': institution.institution,
       'country': institution.country
@@ -336,9 +334,9 @@ const SEDStart = (props) => {
   const renderSubjectArea = () => {
     return <Nav.Select
       id='c-startcase-subjectarea-select'
-      className='subjectAreaList'
+      className='subjectAreaList flex-fill'
       aria-describedby='help-subjectArea'
-      bredde='xxl'
+      bredde='fullbredde'
       feil={validation.subjectAreaFail ? { feilmelding: validation.subjectAreaFail } : null}
       label={t('buc:form-subjectArea')}
       value={_subjectArea}
@@ -348,7 +346,7 @@ const SEDStart = (props) => {
   }
 
   const renderCountry = () => {
-    return <div className='mb-3'>
+    return <div className='mb-3 flex-fill'>
       <label className='skjemaelement__label'>{t('ui:country')}</label>
       <CountrySelect
         id='c-startcase-country-select'
@@ -364,9 +362,9 @@ const SEDStart = (props) => {
   const renderInstitution = () => {
     return <Nav.Select
       id='c-startcase-institution-select'
-      className='institutionList'
+      className='institutionList flex-fill'
       aria-describedby='help-institution'
-      bredde='xxl'
+      bredde='fullbredde'
       feil={validation.institutionFail ? { feilmelding: validation.institutionFail } : null}
       label={t('buc:form-institution')}
       value={_institution || defaultSelects.institution}
@@ -378,7 +376,7 @@ const SEDStart = (props) => {
   const renderBuc = () => {
     return <Nav.Select
       id='c-startcase-buc-select'
-      className='bucList'
+      className='bucList flex-fill'
       aria-describedby='help-buc'
       bredde='fullbredde'
       feil={validation.bucFail ? { feilmelding: validation.bucFail } : null}
@@ -392,7 +390,7 @@ const SEDStart = (props) => {
   const renderSed = () => {
     return <Nav.Select
       id='c-startcase-sed-select'
-      className='sedList'
+      className='sedList flex-fill'
       aria-describedby='help-sed'
       bredde='fullbredde'
       feil={validation.sedFail ? { feilmelding: validation.sedFail } : null}
@@ -423,7 +421,7 @@ const SEDStart = (props) => {
           id={'c-startcase-removeinstitution-' + institution.country + '_' + institution.institution + '-button'}
           className='removeInstitutionButton'
           type='standard'
-          onClick={onRemoveInstitutionButtonClick(institution)}>
+          onClick={() => onRemoveInstitutionButtonClick(institution)}>
           <div className='d-flex justify-content-center'>
             <Icons className='mr-2' size={20} kind='trashcan' color='#0067C5' />
             <span>{t('ui:remove')}</span>
@@ -434,45 +432,9 @@ const SEDStart = (props) => {
   }
 
   const renderInstitutions = () => {
-
-    let renderedInstitutions = _institutions ? _institutions.map(i => {
+    return !_institutions ? null: _institutions.map(i => {
       return renderChosenInstitution(i)
-    }) : []
-
-    let validInstitution = (!validation.countryFail && !validation.institutionFail) && _country && _institution
-
-    renderedInstitutions.push(<Nav.Row key={'newInstitution'}>
-      <div className='col-md-4'>
-        <div>{renderCountry()}
-          <span id='help-country'>{t('buc:help-country')}</span>
-        </div>
-        <div className='mb-3 selectBoxMessage'>
-          <div>{loading && loading.countryList ? getSpinner('buc:loading-country') : null}</div>
-        </div>
-      </div>
-      <div className='col-md-4'>
-        <div>{renderInstitution()}
-          <span id='help-institution'>{t('buc:help-institution')}</span>
-        </div>
-        <div className='mb-3 selectBoxMessage'>
-          <div>{loading && loading.institutionList ? getSpinner('buc:loading-institution') : null}</div>
-        </div>
-      </div>
-      <div className='col-md-4' style={{ lineHeight: '6rem' }}>
-        <Nav.Knapp
-          id='c-startcase-createinstitution-button'
-          className='w-100 createInstitutionButton'
-          disabled={!validInstitution}
-          onClick={onCreateInstitutionButtonClick}>
-          <div className='d-flex justify-content-center'>
-            <Icons kind='tilsette' size={20} color={!validInstitution ? 'white' : undefined} className='mr-2' />
-            <span>{t('ui:add')}</span>
-          </div>
-        </Nav.Knapp>
-      </div>
-    </Nav.Row>)
-
-    return <div className='mt-4'>{renderedInstitutions.map(i => { return i })}</div>
+    })
   }
 
   const allowedToForward = () => {
@@ -480,46 +442,55 @@ const SEDStart = (props) => {
     : _buc && _sed && _subjectArea && hasNoValidationErrors() && !_.isEmpty(_institutions)
   }
 
+  const validInstitution = (!validation.countryFail && !validation.institutionFail) && _country && _institution
+
   if (!currentCase) {
     return <React.Fragment>
       {mode === 'page' ? <div className='mb-5'>
         <PsychoPanel closeButton>{t('buc:help-startCase')}</PsychoPanel>
       </div> : null}
       <Nav.Row>
-        <div className='mt-4 col-md-6'>
+        <div className='col-md-6'>
           <Nav.Input aria-describedby='help-sakId'
             className='getCaseInputSakId'
             label={t('buc:form-sakId')}
             value={_sakId || ''}
+            bredde='XL'
             id='c-startcase-sakid-input'
             onChange={onSakIdChange}
             feil={validation.sakId ? { feilmelding: t(validation.sakId) } : null} />
-          <span id='help-sakId'>{t('buc:help-sakId')}</span>
+          {/*<span id='help-sakId'>{t('buc:help-sakId')}</span>*/}
         </div>
-        <div className='mt-4 col-md-6'>
+      </Nav.Row>
+      <Nav.Row>
+        <div className='col-md-6'>
           <Nav.Input
             className='getCaseInputAktoerId'
             label={t('buc:form-aktoerId')}
             value={_aktoerId || ''}
+            bredde='XL'
             id='c-startcase-aktoerid-input'
             onChange={onAktoerIdChange}
             feil={validation.aktoerId ? { feilmelding: t(validation.aktoerId) } : null} />
-          <span id='help-aktoerId'>{t('buc:help-aktoerId')}</span>
+          {/*<span id='help-aktoerId'>{t('buc:help-aktoerId')}</span>*/}
         </div>
-        <div className='mt-4 col-md-6'>
+      </Nav.Row>
+      <Nav.Row>
+        <div className='col-md-6'>
           <Nav.Input className='getCaseInputRinaId'
             label={<div>
               <span>{t('buc:form-rinaId')}</span>
               <span className='optional'>{t('ui:optional')}</span>
             </div>}
             value={_rinaId || ''}
+            bredde='XL'
             id='c-startcase-rinaid-input'
             onChange={onRinaIdChange}
           />
-          <span id='help-rinaId'>{t('buc:help-rinaId')}</span>
+          {/*<span id='help-rinaId'>{t('buc:help-rinaId')}</span>*/}
         </div>
       </Nav.Row>
-      <Nav.Row className='mt-4'>
+      <Nav.Row className='mt-6'>
         <div className='col-md-12'>
           <Nav.Hovedknapp
             id='c-startcase-forward-button'
@@ -535,51 +506,81 @@ const SEDStart = (props) => {
   }
 
   return <React.Fragment>
-      {sed ? <h2 className='mb-4 appDescription'>{t('buc:app-startCaseDescription') + ': ' + sed}</h2>
-        : <React.Fragment>
-          {mode === 'page' ? <React.Fragment>
-            <h2 className='mb-4 appDescription'>{t('buc:app-startCaseDescription')}</h2>
-            <div className='mb-5'>
-              <PsychoPanel closeButton>{t('help-startCase2')}</PsychoPanel>
-            </div>
-          </React.Fragment> : null}
-          <Nav.Row className='mb-3 align-middle text-left'>
-            <div className='col-md-8'>{renderSubjectArea()}
-              <span id='help-subjectArea'>{t('buc:help-subjectArea')}</span>
-            </div>
-            <div className='col-md-4 selectBoxMessage'>
-              <div className='d-inline-block'>{loading && loading.subjectAreaList ? getSpinner('buc:loading-subjectArea') : null}</div>
-            </div>
-          </Nav.Row>
-          <Nav.Row className='mb-3 align-middle text-left'>
-            <div className='col-md-8'>{renderBuc()}
-              <span id='help-buc'>{t('buc:help-buc')}</span>
-            </div>
-            <div className='col-md-4 selectBoxMessage'>
-              <div className='d-inline-block'>{loading && loading.bucList ? getSpinner('buc:loading-buc') : null}</div>
-            </div>
-          </Nav.Row>
-          <Nav.Row className='mb-3 align-middle text-left'>
-            <div className='col-md-8'>{renderSed()}
-              <span id='help-sed'>{t('buc:help-sed')}</span>
-            </div>
-            <div className='col-md-4 selectBoxMessage'>
-              <div className='d-inline-block'>{loading && loading.sedList ? getSpinner('buc:loading-sed') : null}</div>
-            </div>
-          </Nav.Row>
-        </React.Fragment>}
-      { (sed && sed === 'P6000') || (_sed && _sed === 'P6000')
-        ? <Nav.Row className='align-middle text-left'>
-          <div className='col-md-8'>
-            <Nav.Input aria-describedby='help-vedtak'
-              label={t('buc:form-vedtakId')}
-              value={_vedtakId || vedtakId}
-              id='c-startcase-vedtakid-input'
-              onChange={onVedtakIdChange} />
-            <span id='help-vedtak'>{t('buc:help-vedtakId')}</span>
+    {sed ? <h2 className='mb-4 appDescription'>{t('buc:app-startCaseDescription') + ': ' + sed}</h2>
+      : <React.Fragment>
+        {mode === 'page' ? <React.Fragment>
+          <h2 className='mb-4 appDescription'>{t('buc:app-startCaseDescription')}</h2>
+          <div className='mb-5'>
+            <PsychoPanel closeButton>{t('help-startCase2')}</PsychoPanel>
           </div>
-        </Nav.Row> : null}
-      {renderInstitutions()}
+        </React.Fragment> : null}
+        <Nav.Row className='mb-3'>
+          <div className='col-md-6'>
+            <Nav.Row>
+              <div className='col-md-12 d-flex'>{renderSubjectArea()}
+                <Nav.HjelpetekstAuto id='help-subjectArea'>{t('buc:help-subjectArea')}</Nav.HjelpetekstAuto>
+              </div>
+            </Nav.Row>
+            <Nav.Row>
+              <div className='col-md-12 d-flex'>{renderBuc()}
+                <Nav.HjelpetekstAuto id='help-buc'>{t('buc:help-buc')}</Nav.HjelpetekstAuto>
+              </div>
+            </Nav.Row>
+            <Nav.Row>
+              <div className='col-md-12 d-flex'>{renderSed()}
+                <Nav.HjelpetekstAuto id='help-sed'>{t('buc:help-sed')}</Nav.HjelpetekstAuto>
+              </div>
+            </Nav.Row>
+            { (sed && sed === 'P6000') || (_sed && _sed === 'P6000') ?
+            <Nav.Row>
+              <div className='col-md-12 d-flex'>
+                <Nav.Input aria-describedby='help-vedtak'
+                  label={t('buc:form-vedtakId')}
+                  value={_vedtakId || vedtakId}
+                  id='c-startcase-vedtakid-input'
+                  bredde='fullbredde'
+                  onChange={onVedtakIdChange} />
+                  <Nav.HjelpetekstAuto id='help-vedtak'>{t('buc:help-vedtakId')}</Nav.HjelpetekstAuto>
+              </div>
+            </Nav.Row> : null}
+            <Nav.Row>
+              <div className='col-md-12 d-flex'>{renderCountry()}
+                <Nav.HjelpetekstAuto id='help-country'>{t('buc:help-country')}</Nav.HjelpetekstAuto>
+              </div>
+            </Nav.Row>
+            <Nav.Row>
+              <div className='col-md-12 d-flex'>{renderInstitution()}
+                <Nav.HjelpetekstAuto id='help-institution'>{t('buc:help-institution')}</Nav.HjelpetekstAuto>
+              </div>
+            </Nav.Row>
+            <Nav.Row>
+              <div className='col-md-8'>
+                <Nav.Knapp
+                  id='c-startcase-createinstitution-button'
+                  className='w-100 createInstitutionButton'
+                  disabled={!validInstitution}
+                  onClick={onCreateInstitutionButtonClick}>
+                  <div className='d-flex justify-content-center'>
+                    <Icons kind='tilsette' size={20} color={!validInstitution ? 'white' : undefined} className='mr-2' />
+                    <span>{t('ui:add')}</span>
+                  </div>
+                </Nav.Knapp>
+              </div>
+            </Nav.Row>
+          </div>
+          <div className='col-md-6'>
+            <div className='selectBoxMessage'>{!loading ? null :
+              loading.subjectAreaList ? getSpinner('buc:loading-subjectArea') :
+              loading.bucList ? getSpinner('buc:loading-buc') :
+              loading.sedList ? getSpinner('buc:loading-sed') :
+              loading.institutionList ? getSpinner('buc:loading-institution') :
+              loading.countryList ? getSpinner('buc:loading-country') : null}
+            </div>
+            {renderInstitutions()}
+          </div>
+        </Nav.Row>
+      </React.Fragment>}
+
     <Nav.Row className='mb-4 mt-4'>
       <div className='col-md-12'>
         <Nav.Hovedknapp
@@ -612,6 +613,5 @@ SEDStart.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(
-  withTranslation()(SEDStart)
-)
+)(SEDStart)
+

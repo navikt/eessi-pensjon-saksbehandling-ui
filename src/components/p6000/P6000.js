@@ -37,9 +37,9 @@ class P6000 extends React.Component {
       <div className='mt-3'>
         <Nav.Row>
           <div className='col-md-6'>
-            <Nav.HjelpetekstBase id='help-award'>
+            <Nav.HjelpetekstAuto id='help-award'>
               {t('Trenger innspill fra fag om passende hjelpetekster (om noen)')}
-            </Nav.HjelpetekstBase>
+            </Nav.HjelpetekstAuto>
             <Nav.RadioPanelGruppe
               name='awardBenefit'
               legend={t('p6000:label-award-benefit')}
@@ -55,9 +55,9 @@ class P6000 extends React.Component {
             />
           </div>
           <div className='col-md-6'>
-            <Nav.HjelpetekstBase id='help-award'>
+            <Nav.HjelpetekstAuto id='help-award'>
               {t('Trenger innspill fra fag om passende hjelpetekster (om noen)')}
-            </Nav.HjelpetekstBase>
+            </Nav.HjelpetekstAuto>
             <Nav.RadioPanelGruppe
               name='voluntaryContributions'
               legend={t('p6000:label-voluntary-contributions')}
@@ -73,9 +73,9 @@ class P6000 extends React.Component {
         </Nav.Row>
         <Nav.Row>
           <div className='col-md-6'>
-            <Nav.HjelpetekstBase id='help-award'>
+            <Nav.HjelpetekstAuto id='help-award'>
               {t('Trenger innspill fra fag om passende hjelpetekster (om noen)')}
-            </Nav.HjelpetekstBase>
+            </Nav.HjelpetekstAuto>
             <Nav.RadioPanelGruppe
               name='creditedPeriod'
               legend={t('p6000:label-credited-period')}
@@ -88,9 +88,9 @@ class P6000 extends React.Component {
             />
           </div>
           <div className='col-md-6'>
-            <Nav.HjelpetekstBase id='help-award'>
+            <Nav.HjelpetekstAuto id='help-award'>
               {t('Trenger innspill fra fag om passende hjelpetekster (om noen)')}
-            </Nav.HjelpetekstBase>
+            </Nav.HjelpetekstAuto>
             <Nav.RadioPanelGruppe
               name='decisionReview'
               legend={t('p6000:label-review')}

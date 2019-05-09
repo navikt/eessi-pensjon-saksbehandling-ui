@@ -7,7 +7,7 @@
 
   "page-createNewCase" : "Opprett ny sak",
 
-  "step-startSEDTitle"         : "Opprett ny sak",
+  "step-startSEDTitle"         : "Starte ny BUC",
   "step-saveSendSEDTitle"      : "Lagre/Sende sak",
   "step-saveSendSEDDescription": "Lagre/Sende sak beskrivelse",
   "step-previewSEDTitle"       : "Vis innhold i SED",

@@ -548,9 +548,9 @@ export class Period extends React.Component {
                 label={<div className='pinfo-label'>
                   <div className='pinfo-label'>
                     <span>{t('pinfo:stayAbroad-category')}</span>
-                    <Nav.HjelpetekstBase id='pinfo-stayAbroad-category-select-help'>
+                    <Nav.HjelpetekstAuto id='pinfo-stayAbroad-category-select-help'>
                       {t('pinfo:stayAbroad-category-help')}
-                    </Nav.HjelpetekstBase>
+                    </Nav.HjelpetekstAuto>
                   </div>
                 </div>}
                 value={_period.type || ''}
@@ -635,9 +635,9 @@ export class Period extends React.Component {
                   label={<div className='pinfo-label'>
                     <div className='pinfo-label'>
                       <span>{t('pinfo:stayAbroad-period-fathername')}</span>
-                      <Nav.HjelpetekstBase id='pinfo-stayAbroad-period-fathername-help'>
+                      <Nav.HjelpetekstAuto id='pinfo-stayAbroad-period-fathername-help'>
                         <span>{t('pinfo:stayAbroad-spain-france-warning', { country: _period.country.label })}</span>
-                      </Nav.HjelpetekstBase>
+                      </Nav.HjelpetekstAuto>
                     </div>
                   </div>}
                   placeholder={t('ui:writeIn')}
@@ -653,9 +653,9 @@ export class Period extends React.Component {
                   label={<div className='pinfo-label'>
                     <div className='pinfo-label'>
                       <span>{t('pinfo:stayAbroad-period-mothername')}</span>
-                      <Nav.HjelpetekstBase id='pinfo-stayAbroad-period-mothername-help'>
+                      <Nav.HjelpetekstAuto id='pinfo-stayAbroad-period-mothername-help'>
                         <span>{t('pinfo:stayAbroad-spain-france-warning', { country: _period.country.label })}</span>
-                      </Nav.HjelpetekstBase>
+                      </Nav.HjelpetekstAuto>
                     </div>
                   </div>}
                   placeholder={t('ui:writeIn')}
@@ -673,9 +673,9 @@ export class Period extends React.Component {
                   label={<div className='pinfo-label'>
                     <div className='pinfo-label'>
                       <span>{t('pinfo:stayAbroad-work-place')}</span>
-                      <Nav.HjelpetekstBase id='pinfo-stayAbroad-work-place-help'>
+                      <Nav.HjelpetekstAuto id='pinfo-stayAbroad-work-place-help'>
                         <span>{t('pinfo:stayAbroad-work-place-help')}</span>
-                      </Nav.HjelpetekstBase>
+                      </Nav.HjelpetekstAuto>
                     </div>
                     <span className='optional'>{t('ui:optional')}</span>
                   </div>}
@@ -693,9 +693,9 @@ export class Period extends React.Component {
                   label={<div className='pinfo-label'>
                     <div className='pinfo-label'>
                       <span>{t('pinfo:stayAbroad-work-activity')}</span>
-                      <Nav.HjelpetekstBase id='pinfo-stayAbroad-work-activity-help'>
+                      <Nav.HjelpetekstAuto id='pinfo-stayAbroad-work-activity-help'>
                         <span>{t('pinfo:stayAbroad-work-activity-help')}</span>
-                      </Nav.HjelpetekstBase>
+                      </Nav.HjelpetekstAuto>
                     </div>
                   </div>}
                   placeholder={t('ui:writeIn')}
@@ -726,9 +726,9 @@ export class Period extends React.Component {
                   label={<div className='pinfo-label'>
                     <div className='pinfo-label'>
                       <span>{t('pinfo:stayAbroad-learn-institution')}</span>
-                      <Nav.HjelpetekstBase id='pinfo-stayAbroad-learn-institution-help'>
+                      <Nav.HjelpetekstAuto id='pinfo-stayAbroad-learn-institution-help'>
                         <span>{t('pinfo:stayAbroad-learn-institution-help')}</span>
-                      </Nav.HjelpetekstBase>
+                      </Nav.HjelpetekstAuto>
                     </div>
                   </div>}
                   value={_period.learnInstitution || ''}
@@ -781,9 +781,9 @@ export class Period extends React.Component {
                   label={<div className='pinfo-label'>
                     <div className='pinfo-label'>
                       <span>{t('pinfo:stayAbroad-insurance-name')}</span>
-                      <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-name-help'>
+                      <Nav.HjelpetekstAuto id='pinfo-stayAbroad-insurance-name-help'>
                         {t('pinfo:stayAbroad-insurance-name-help')}
-                      </Nav.HjelpetekstBase>
+                      </Nav.HjelpetekstAuto>
                     </div>
                     <span className='optional'>{t('ui:optional')}</span>
                   </div>}
@@ -802,9 +802,9 @@ export class Period extends React.Component {
                   label={<div className='pinfo-label'>
                     <div className='pinfo-label'>
                       <span>{t('pinfo:stayAbroad-insurance-id')}</span>
-                      <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-id-help'>
+                      <Nav.HjelpetekstAuto id='pinfo-stayAbroad-insurance-id-help'>
                         {t('pinfo:stayAbroad-insurance-id-help')}
-                      </Nav.HjelpetekstBase>
+                      </Nav.HjelpetekstAuto>
                     </div>
                     <span className='optional'>{t('ui:optional')}</span>
                   </div>}
@@ -823,9 +823,9 @@ export class Period extends React.Component {
                   label={<div className='pinfo-label'>
                     <div className='pinfo-label'>
                       <span>{t('pinfo:stayAbroad-insurance-type')}</span>
-                      <Nav.HjelpetekstBase id='pinfo-stayAbroad-insurance-type-help'>
+                      <Nav.HjelpetekstAuto id='pinfo-stayAbroad-insurance-type-help'>
                         {t('pinfo:stayAbroad-insurance-type-help')}
-                      </Nav.HjelpetekstBase>
+                      </Nav.HjelpetekstAuto>
                     </div>
                     <span className='optional'>{t('ui:optional')}</span>
                   </div>}

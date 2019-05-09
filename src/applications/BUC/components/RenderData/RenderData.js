@@ -1,11 +1,12 @@
 import React from 'react'
 import PT from 'prop-types'
-import { withTranslation } from 'react-i18next'
 import _ from 'lodash'
 
 import './RenderData.css'
 
 const RenderData = (props) => {
+
+  const { t, previewData } = props
 
   const renderJson = (json, level, counter) => {
     let res = []
@@ -24,8 +25,6 @@ const RenderData = (props) => {
     }
     return _.flatten(res)
   }
-
-  const { t, previewData } = this.props
 
   return <div id='divToPrint' className='p-3 a-buc-c-renderData'>
     <dl className='row'>
@@ -63,4 +62,4 @@ RenderData.propTypes = {
   t: PT.func.isRequired
 }
 
-export default withTranslation()(RenderData)
+export default RenderData

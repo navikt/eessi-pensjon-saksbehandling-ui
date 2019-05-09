@@ -146,7 +146,7 @@ class Work extends Component {
           validationFail: this.datepicker ? !this.datepicker.hasNoValidationErrors() : false
         })}>
           <Nav.Column>
-            <Nav.HjelpetekstBase>{t('p4000:help-' + type + '-dates')}</Nav.HjelpetekstBase>
+            <Nav.HjelpetekstAuto>{t('p4000:help-' + type + '-dates')}</Nav.HjelpetekstAuto>
             <h2 className='typo-undertittel mb-3'>{t('p4000:' + type + '-fieldset-1-dates-title')}</h2>
             <DatePicker provideController={(datepicker) => { this.datepicker = datepicker }} />
           </Nav.Column>
@@ -156,7 +156,7 @@ class Work extends Component {
         })}>
           <Nav.Column>
             {!this.hasNoInfoErrors() ? <Nav.AlertStripe className='mb-3' type='advarsel'>{t(this.state.infoValidationError)}</Nav.AlertStripe> : null}
-            <Nav.HjelpetekstBase>{t('p4000:help-' + type + '-info')}</Nav.HjelpetekstBase>
+            <Nav.HjelpetekstAuto>{t('p4000:help-' + type + '-info')}</Nav.HjelpetekstAuto>
             <h2 className='typo-undertittel mb-3'>{t('p4000:' + type + '-fieldset-2-info-title')}</h2>
 
             <Nav.Input className='activity'

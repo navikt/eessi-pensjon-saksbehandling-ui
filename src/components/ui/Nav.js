@@ -1,7 +1,7 @@
 import Ekspanderbartpanel, { EkspanderbartpanelBase } from 'nav-frontend-ekspanderbartpanel'
 import { Panel } from 'nav-frontend-paneler'
 import Lenkepanel, { LenkepanelBase } from 'nav-frontend-lenkepanel'
-import HjelpetekstBase from 'nav-frontend-hjelpetekst'
+import { HjelpetekstAuto } from 'nav-frontend-hjelpetekst'
 import AlertStripe, { AlertStripeAdvarsel } from 'nav-frontend-alertstriper'
 import { Container, Row, Column } from 'nav-frontend-grid'
 import { Checkbox, CheckboksPanelGruppe, Radio, RadioGruppe, SkjemaGruppe, Fieldset, Select, Input, Textarea, ToggleKnapp, RadioPanelGruppe } from 'nav-frontend-skjema'
@@ -31,7 +31,7 @@ export {
   Stegindikator,
   Tabs, TabsPure,
   Ikon,
-  HjelpetekstBase,
+  HjelpetekstAuto,
   Modal,
   Tekstomrade,
   EtikettBase,
