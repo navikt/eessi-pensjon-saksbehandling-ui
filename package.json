@@ -18,14 +18,6 @@
     "cucumber": "cucumber-js src/tests/**/*.feature -f node_modules/cucumber-pretty",
     "wcag-test": "nav-ally -f wcag.yml"
   },
-  "proxy": {
-    "/frontend": {
-      "target": "http://localhost:8080"
-    },
-    "/fagmodul": {
-      "target": "http://localhost:8081"
-    }
-  },
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
@@ -41,6 +33,7 @@
     "file-saver": "^2.0.1",
     "history": "^4.9.0",
     "html2pdf.js": "^0.9.1",
+    "http-proxy-middleware": "^0.19.1",
     "i18next": "^15.1.0",
     "i18next-browser-languagedetector": "^3.0.1",
     "i18next-xhr-backend": "^2.0.1",
