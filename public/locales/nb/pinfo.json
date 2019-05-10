@@ -206,6 +206,7 @@
     "validation-invalidChildBirthDate": "Ugyldig barn-s fødselsdato",
     "validation-noLearnInstitution": "Legg til navn på utdanningsinstitusjon",
 
+    "validation-wowMuchText" : "Det er ikke plass til mer tekst, men det er plass i tilleggsopplysninger i Godkjenn steg",
     "alert-inviteFailure" : "Invitasjon feilet",
     "alert-inviteSuccess" : "Varselet er nå sendt og vil straks vises under listen over dine utsendte varsler.",
     "alert-sendFailure" : "Det har skjedd en uventet feil. Vennligst prøv senere.",
