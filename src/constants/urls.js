@@ -1,8 +1,9 @@
 const HOST = window.location.protocol + '//' + window.location.hostname
 export const BASE_URL = HOST + (window.location.port ? ':' + window.location.port : '')
 
-const FRONTEND_API_URL = window.location.hostname === 'localhost' ? BASE_URL : BASE_URL + '/frontend'
-const FAGMODUL_API_URL = window.location.hostname === 'localhost' ? BASE_URL : BASE_URL + '/fagmodul'
+const FRONTEND_API_URL = BASE_URL + '/frontend'
+const FAGMODUL_API_URL = BASE_URL + '/fagmodul'
+
 const API_URL = FRONTEND_API_URL + '/api'
 const SED_URL = FAGMODUL_API_URL + '/sed'
 const BUC_URL = FRONTEND_API_URL + '/buc'
