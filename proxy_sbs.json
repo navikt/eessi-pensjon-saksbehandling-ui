@@ -9,6 +9,6 @@
     "contextPath": "/fagmodul",
     "baseUrl": "http://eessi-fagmodul",
     "requestRewrite": "REMOVE_CONTEXT_PATH",
-    "pingRequestPath": "/internal/isalive"
+    "pingRequestPath": "/actuator/health"
   }
 ]
