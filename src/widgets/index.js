@@ -3,7 +3,7 @@ import VarslerWidget from './VarslerWidget'
 import PdfWidget from './PdfWidget'
 import SmileyWidget from './SmileyWidget'
 import SmileyOptionsWidget from './SmileyOptionsWidget'
-import CatWidget from './CatWidget'
+import CatMidget from './CatMidget'
 import NoteWidget from './NoteWidget'
 import NoteOptionsWidget from './NoteOptionsWidget'
 import DocumentStatusWidget from './DocumentStatus/DocumentStatusWidget'
@@ -16,7 +16,7 @@ export {
   VarslerWidget,
   SmileyWidget,
   SmileyOptionsWidget,
-  CatWidget,
+  CatMidget,
   NoteWidget,
   NoteOptionsWidget,
   DocumentStatusWidget,
