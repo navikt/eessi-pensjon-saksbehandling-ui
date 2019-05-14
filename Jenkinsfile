@@ -58,18 +58,7 @@ node {
         }
     }
 
-    stage("Cucumber tests") {
-      build([
-        job       : 'Automatiske tester',
-        wait      : true,
-        parameters: [
-          string(name: 'environment', value: "autotest_env_T"),
-          booleanParam(name: 'testsaksbehandler', value: false),
-          booleanParam(name: 'borger', value: false),
-        ]
-      ])
-    }
-
+    /*
     stage("deploy Q1") {
         deploy_to_fss: {
           def version = sh(script: 'git describe --abbrev=0', returnStdout: true).trim()
@@ -108,6 +97,7 @@ node {
           ])
         }
     }
+    */
 
     github.commitStatus("success", "navikt/eessi-pensjon-saksbehandling-ui", appToken, commitHash)
   } catch (err) {
