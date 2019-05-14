@@ -107,7 +107,6 @@ node {
             ]
           ])
         }
-      )
     }
 
     github.commitStatus("success", "navikt/eessi-pensjon-saksbehandling-ui", appToken, commitHash)
