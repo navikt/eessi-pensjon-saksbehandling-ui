@@ -141,31 +141,4 @@ describe('Thunk Actions', () => {
     expect(generatedResult).toEqual(undefined)
   })
 
-  it('call getAndPrefillPersonName()', () => {
-    const initialAppState = {
-      app: app,
-      pinfo: pinfo
-    }
-
-    let store = mockStore(initialAppState)
-
-    api.call = jest.fn()
-    api.call.mockReturnValue(() => {
-      return Promise.resolve({
-        type: types.APP_PERSONDATA_SUCCESS,
-        payload: { fornavn: 'firstName', mellomnavn: 'middleName', etternavn: 'LastName' }
-      })
-    })
-
-    store.dispatch(
-      appActions.getAndPrefillPersonName()
-    ).then(() => {
-      const generatedActions = store.getActions()
-      const expectedActions = [
-        { type: 'APP/GET_AND_PREFILL/PERSON_NAME' },
-        { type: 'PINFO/PERSON/SET', payload: { nameAtBirth: 'LastName' } }
-      ]
-      expect(generatedActions).toEqual(expectedActions)
-    })
-  })
 })

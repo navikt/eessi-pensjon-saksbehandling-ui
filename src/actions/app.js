@@ -34,18 +34,6 @@ export function getUserInfo () {
   })
 }
 
-export function getAndPrefillPersonName () {
-  return function (dispatch) {
-    dispatch({ type: types.APP_GET_AND_PREFILL_PERSON_NAME })
-    try {
-      dispatch(getPersonData())
-      dispatch(suggestPersonNameFromUsernameIfNotInState())
-    } catch (error) {
-      dispatch({ type: types.APP_GET_AND_PREFILL_PERSON_NAME_FAILURE, payload: error })
-    }
-  }
-}
-
 export function getPersonData () {
   return api.call({
     url: urls.API_PERSONDATA_URL,
