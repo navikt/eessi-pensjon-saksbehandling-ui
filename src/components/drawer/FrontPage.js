@@ -14,9 +14,6 @@ class FrontPage extends Component {
       <Nav.Lenkepanel style={{ animationDelay: '0s' }} className='frontPageLink bucLink' linkCreator={(props) => (
         <Link to={routes.BUC} {...props} />)
       } href='#'>{t('buc:page-createNewCase')}</Nav.Lenkepanel>
-      <Nav.Lenkepanel style={{ animationDelay: '0.1s' }} className='frontPageLink pSelvLink' linkCreator={(props) => (
-        <Link to={routes.PSELV} {...props} />)
-      } href='#'>{t('pselv:app-startPselv')}</Nav.Lenkepanel>
       <Nav.Lenkepanel style={{ animationDelay: '0.2s' }} className='frontPageLink pInfoLink' linkCreator={(props) => (
         <Link to={routes.PINFO} {...props} />)
       } href='#'>{t('pinfo:app-startPinfo')}</Nav.Lenkepanel>

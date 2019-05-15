@@ -1,10 +1,9 @@
 /* global Blob */
 
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
-import { bindActionCreators } from 'redux'
+import { connect, bindActionCreators } from 'store'
 import classNames from 'classnames'
 import print from 'print-js'
 import { withRouter } from 'react-router'

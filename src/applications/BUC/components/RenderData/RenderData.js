@@ -5,7 +5,6 @@ import _ from 'lodash'
 import './RenderData.css'
 
 const RenderData = (props) => {
-
   const { t, previewData } = props
 
   const renderJson = (json, level, counter) => {

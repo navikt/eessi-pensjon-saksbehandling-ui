@@ -18,20 +18,19 @@ class Error extends Component {
   render () {
     const { t, history, location, role, type } = this.props
     let title, description
-    let _role = roleLabel[role] || 'user'
 
     switch (type) {
       case 'forbidden':
-        title = t('ui:error-' + _role + '-forbidden-title')
-        description = t('ui:error-' + _role + '-forbidden-description')
+        title = t('ui:error-saksbehandler-forbidden-title')
+        description = t('ui:error-saksbehandler-forbidden-description')
         break
       case 'notLogged':
         title = t('ui:error-notLogged-title')
         description = t('ui:error-notLogged-description')
         break
       case 'notInvited':
-        title = t('ui:error-' + _role + '-notInvited-title')
-        description = t('ui:error-' + _role + '-notInvited-description')
+        title = t('ui:error-saksbehandler-notInvited-title')
+        description = t('ui:error-saksbehandler-notInvited-description')
         break
 
       default:

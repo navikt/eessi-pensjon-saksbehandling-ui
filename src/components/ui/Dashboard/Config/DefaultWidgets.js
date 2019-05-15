@@ -3,7 +3,7 @@ export default [{
   type: 'varsler',
   title: 'Varsler widget',
   options: {
-   backgroundColor: 'white'
+    backgroundColor: 'white'
   }
 }, {
   i: 'w-5-links',

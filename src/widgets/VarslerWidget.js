@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react'
 import ReactResizeDetector from 'react-resize-detector'
 
 import { ToggleGruppe } from '../components/ui/Nav'
-import VarslerPanel from '../applications/PInfoSaksbehandler/VarslerPanel'
-import VarslerTable from '../applications/PInfoSaksbehandler/VarslerTable'
+import VarslerPanel from '../applications/PInfo/VarslerPanel'
+import VarslerTable from '../applications/PInfo/VarslerTable'
 
 const VarslerWidget = (props) => {
-
- const [mounted, setMounted] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const [tab, setTab] = useState('invite')
 
   useEffect(() => {
@@ -21,16 +20,16 @@ const VarslerWidget = (props) => {
     <div className='mt-2 mb-2'>
       <ToggleGruppe
         defaultToggles={[
-          { children: props.t('ui:invite'), pressed: true, onClick: () => {setTab('invite')} },
-          { children: props.t('ui:list'), onClick: () => {setTab('list')} }
+          { children: props.t('ui:invite'), pressed: true, onClick: () => { setTab('invite') } },
+          { children: props.t('ui:list'), onClick: () => { setTab('list') } }
         ]}
       />
     </div>
-    {tab === 'invite' ? <VarslerPanel {...props}/> : <VarslerTable {...props}/>}
+    {tab === 'invite' ? <VarslerPanel {...props} /> : <VarslerTable {...props} />}
     <ReactResizeDetector
-        handleWidth
-        handleHeight
-        onResize={props.onResize} />
+      handleWidth
+      handleHeight
+      onResize={props.onResize} />
   </div>
 }
 

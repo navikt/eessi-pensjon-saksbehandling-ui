@@ -6,9 +6,6 @@ import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import { createBrowserHistory } from 'history'
 import { Switch, Redirect, Route, Router } from 'react-router'
-import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
-import { Provider } from 'react-redux'
-import thunk from 'redux-thunk'
 import { I18nextProvider } from 'react-i18next'
 import _ from 'lodash'
 import 'moment'
@@ -34,48 +31,31 @@ import reducer, { initialState } from './reducer'
 
 const history = createBrowserHistory()
 
-const createStoreWithMiddleware = compose(
-  applyMiddleware(thunk),
-  window.devToolsExtension ? window.devToolsExtension() : f => f
-)(createStore)
-
-const combinedReducer = combineReducers({
-  ...reducers
-})
-
-const store = createStoreWithMiddleware(combinedReducer, initialState)
-
 ReactDOM.render(
-
   <I18nextProvider i18n={i18n}>
-    <Provider store={store}>
-      <StoreProvider initialState={initialState} reducer={reducer}>
-        <Suspense fallback={<WaitingPanel message='...' />}>
-          <Router history={history}>
-            <Switch>
-
-              <AuthenticatedRoute exact path={`${routes.PINFO}/:step?`} component={Applications.PInfo} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-              <AuthenticatedRoute exact path={routes.PINFO_SAKSBEHANDLER} component={Applications.PInfoSaksbehandler} roles={[constants.SAKSBEHANDLER]} />
-              <AuthenticatedRoute exact path={routes.P4000_ROUTE} component={Applications.P4000} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-              <AuthenticatedRoute exact path={routes.PDF_GENERATE} component={Applications.GeneratePDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-              <AuthenticatedRoute exact path={routes.PDF_EDIT} component={Applications.EditPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-              <AuthenticatedRoute exact path={routes.PDF_SELECT} component={Applications.SelectPDF} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-              <Redirect from={routes.PDF} to={{ pathname: routes.PDF_SELECT }} />
-              <AuthenticatedRoute exact path={`${routes.BUC}/:step?`} component={Pages.BUC} roles={[constants.SAKSBEHANDLER]} />
-
-              <AuthenticatedRoute path={routes.INDEX} component={Pages.IndexPage} roles={[constants.SAKSBEHANDLER]} />
-              <AuthenticatedRoute path={routes.RESEND} component={Pages.Resend} roles={[constants.SAKSBEHANDLER]} />
-              <Route path={routes.NOT_LOGGED} render={() => <Pages.Error type='notLogged' />} />
-              <Route path={routes.NOT_INVITED} render={(props) => <Pages.Error type='notInvited' role={_.get(props, 'location.state.role')} />} />
-              <Route path={routes.FORBIDDEN} render={(props) => <Pages.Error type='forbidden' role={_.get(props, 'location.state.role')} />} />
-              <Route path={routes.ROOT + ':PATH+'} render={() => <Pages.Error type='error' />} />
-              <AuthenticatedRoute path={routes.ROOT} component={Pages.FirstPage} roles={[constants.SAKSBEHANDLER, constants.BRUKER]} />
-              <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
-            </Switch>
-          </Router>
-        </Suspense>
-      </StoreProvider>
-    </Provider>
+    <StoreProvider initialState={initialState} reducer={reducer}>
+      <Suspense fallback={<WaitingPanel message='...' />}>
+        <Router history={history}>
+          <Switch>
+            <AuthenticatedRoute exact path={routes.PINFO} component={Applications.PInfo}/>
+            <AuthenticatedRoute exact path={routes.P4000_ROUTE} component={Applications.P4000}/>
+            <AuthenticatedRoute exact path={routes.PDF_GENERATE} component={Applications.GeneratePDF}/>
+            <AuthenticatedRoute exact path={routes.PDF_EDIT} component={Applications.EditPDF} />
+            <AuthenticatedRoute exact path={routes.PDF_SELECT} component={Applications.SelectPDF}/>
+            <Redirect from={routes.PDF} to={{ pathname: routes.PDF_SELECT }} />
+            <AuthenticatedRoute exact path={`${routes.BUC}/:step?`} component={Pages.BUC} />
+            <AuthenticatedRoute path={routes.INDEX} component={Pages.IndexPage} />
+            <AuthenticatedRoute path={routes.RESEND} component={Pages.Resend}/>
+            <Route path={routes.NOT_LOGGED} render={() => <Pages.Error type='notLogged' />} />
+            <Route path={routes.NOT_INVITED} render={(props) => <Pages.Error type='notInvited'/>} />
+            <Route path={routes.FORBIDDEN} render={(props) => <Pages.Error type='forbidden'/>} />
+            <Route path={routes.ROOT + ':PATH+'} render={() => <Pages.Error type='error' />} />
+            <AuthenticatedRoute path={routes.ROOT} component={Pages.FirstPage} />
+            <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
+          </Switch>
+        </Router>
+      </Suspense>
+    </StoreProvider>
   </I18nextProvider>,
   document.getElementById('root')
 )

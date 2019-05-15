@@ -2,7 +2,6 @@ import React from 'react'
 
 import ConnectedDrawer, { Drawer } from './Drawer'
 
-import { createStore, combineReducers } from 'redux'
 import * as reducers from '../../../reducers'
 
 const reducer = combineReducers({

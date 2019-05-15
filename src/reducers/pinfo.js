@@ -1,131 +1,43 @@
 import * as types from '../constants/actionTypes'
 
 export const initialPinfoState = {
-  isReady: false,
-  step: 0,
-  maxStep: 0,
-  stepError: undefined,
-  person: {},
-  bank: {},
-  stayAbroad: [],
-  receipt: undefined,
-  buttonsVisible: true
+  invite: undefined,
+  sakType: undefined
 }
 
 const pinfoReducer = (state = initialPinfoState, action = {}) => {
   switch (action.type) {
-    case types.PINFO_STEP_SET:
+    case types.PINFO_INVITE_REQUEST:
 
-      let step = action.payload
-      let maxStep = state.maxStep
-      if (step > maxStep) {
-        maxStep = step
-      }
       return Object.assign({}, state, {
-        step: step,
-        maxStep: maxStep,
-        stepError: undefined
+        invite: undefined
       })
 
-    case types.PINFO_STEP_ERROR: {
-      return Object.assign({}, state, {
-        stepError: action.payload
-      })
-    }
+    case types.PINFO_INVITE_FAILURE:
 
-    case types.PINFO_PERSON_SET:
       return Object.assign({}, state, {
-        person: {
-          ...state.person,
-          ...action.payload
+        invite: {
+          message: 'pinfo:alert-inviteFailure',
+          status: 'ERROR'
         }
       })
 
-    case types.PINFO_BANK_SET:
+    case types.PINFO_INVITE_SUCCESS:
+
       return Object.assign({}, state, {
-        bank: {
-          ...state.bank,
-          ...action.payload
+        invite: {
+          message: 'pinfo:alert-inviteSuccess',
+          status: 'OK'
         }
       })
 
-    case types.PINFO_COMMENT_SET:
-      return Object.assign({}, state, {
-        comment: action.payload
-      })
-
-    case types.PINFO_STAY_ABROAD_SET:
-
-      let sortedStayAbroad = action.payload.slice()
-      sortedStayAbroad.sort((a, b) => { return a.startDate - b.startDate })
+    case types.PINFO_SAKTYPE_SUCCESS:
 
       return Object.assign({}, state, {
-        stayAbroad: sortedStayAbroad
+        sakType: action.payload
       })
-
-    case types.PINFO_SEND_SUCCESS:
-
-      return Object.assign({}, state, {
-        send: action.payload
-      })
-
-    case types.PINFO_SET_READY:
-
-      return Object.assign({}, state, {
-        isReady: true
-      })
-
-    case types.PINFO_PAGE_ERRORS_SET: {
-      return Object.assign({}, state, {
-        pageErrors: action.payload.pageErrors,
-        errorTimestamp: action.payload.errorTimestamp
-      })
-    }
-
-    case types.PINFO_SEND_FAILURE:
-
-      return Object.assign({}, state, {
-        send: undefined
-      })
-
-    case types.PINFO_RECEIPT_SUCCESS:
-
-      return Object.assign({}, state, {
-        receipt: action.payload
-      })
-
-    case types.PINFO_RECEIPT_FAILURE:
-
-      return Object.assign({}, state, {
-        receipt: undefined
-      })
-
-    case types.PINFO_GET_FROM_STORAGE_SUCCESS: {
-      let pinfo
-      try {
-        pinfo = JSON.parse(action.payload)
-      } catch (e) {
-        pinfo = action.payload
-      }
-      pinfo.buttonsVisible = true
-      pinfo.isReady = true
-      pinfo.stepError = undefined
-      return Object.assign({}, initialPinfoState, pinfo)
-    }
-
-    case types.PINFO_BUTTONS_VISIBLE: {
-      return Object.assign({}, state, {
-        buttonsVisible: action.payload
-      })
-    }
-
-    case types.PINFO_CLEAR_DATA:
-    case types.APP_CLEAR_DATA:
-
-      return initialPinfoState
 
     default:
-
       return state
   }
 }

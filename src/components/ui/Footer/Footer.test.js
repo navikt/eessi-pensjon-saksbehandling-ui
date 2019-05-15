@@ -2,7 +2,6 @@ import React from 'react'
 
 import ConnectedFooter, { Footer } from './Footer'
 
-import { createStore, combineReducers } from 'redux'
 import * as reducers from '../../../reducers'
 
 const reducer = combineReducers({

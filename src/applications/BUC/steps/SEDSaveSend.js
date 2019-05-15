@@ -26,18 +26,16 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const SEDSaveSend = (props) => {
-
   const { t, actions } = props
-  const { savedData, previewData, rinaUrl, step, sendingCase, rinaLoading } = props
+  const { savedData, previewData, rinaUrl, sendingCase, rinaLoading } = props
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-
     if (!mounted && !rinaUrl) {
       actions.getRinaUrl()
       setMounted(true)
     }
-  } , [rinaUrl])
+  }, [rinaUrl])
 
   const onSendButtonClick = () => {
     let payload = {
@@ -64,16 +62,16 @@ const SEDSaveSend = (props) => {
   return <React.Fragment>
     <div className='fieldset animate text-center'>
       { rinaLoading ? <span>{t('buc:loading-rinaUrl')}</span>
-      : (rinaUrl && savedData && savedData.caseId ? <div>
-        <div className='m-4'><a target='_blank' rel='noopener noreferrer' href={rinaUrl + savedData.caseId}>{t('buc:form-caseLink')}</a></div>
-        <div className='m-4'>
-          <h4>{t('buc:form-rinaId') + ': ' + savedData.caseId}</h4>
-        </div>
-        <div style={{ display: 'none' }}>
-          <RenderData t={t} previewData={Object.assign({}, previewData, savedData)} />
-        </div>
-        <Export fileName='kvittering.pdf' nodeId='divToPrint' buttonLabel={t('ui:getReceipt')} />
-      </div> : null)}
+        : (rinaUrl && savedData && savedData.caseId ? <div>
+          <div className='m-4'><a target='_blank' rel='noopener noreferrer' href={rinaUrl + savedData.caseId}>{t('buc:form-caseLink')}</a></div>
+          <div className='m-4'>
+            <h4>{t('buc:form-rinaId') + ': ' + savedData.caseId}</h4>
+          </div>
+          <div style={{ display: 'none' }}>
+            <RenderData t={t} previewData={Object.assign({}, previewData, savedData)} />
+          </div>
+          <Export fileName='kvittering.pdf' nodeId='divToPrint' buttonLabel={t('ui:getReceipt')} />
+        </div> : null)}
     </div>
 
     <div className='mb-4 p-4'>

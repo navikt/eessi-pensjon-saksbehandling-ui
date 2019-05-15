@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect, bindActionCreators } from 'store'
 import PT from 'prop-types'
 
@@ -24,7 +24,6 @@ export const mapDispatchToProps = (dispatch) => {
 }
 
 const SEDPreview = (props) => {
-
   const { step, previewData, previewingCase, savingCase, p6000data } = props
   const { t, actions } = props
 

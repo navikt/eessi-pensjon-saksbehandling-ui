@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
-import { connect } from 'react-redux'
+import { connect } from 'store'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
@@ -74,5 +74,5 @@ DnDTarget.propTypes = {
 
 export default connect(
   mapStateToProps,
-  {}
+  () => {}
 )(DnDTarget)
