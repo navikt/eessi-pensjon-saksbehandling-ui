@@ -7,13 +7,13 @@ function StatusLabel (props) {
   const status = ['draft', 'sent', 'received']
   if (status.indexOf(props.status) === -1) {
     return (
-      <div data-qa='StatusLabel-unknown' className={classnames(props.className, 'd-inline-flex justify-content-center align-content-center', 'c-ui-status-label', 'c-ui-status-label-unknown')}>
+      <div data-qa='StatusLabel-unknown' className={classnames(props.className, 'p-1 d-inline-flex justify-content-center align-content-center', 'c-ui-status-label', 'c-ui-status-label-unknown')}>
         {t('ui:unknown')}
       </div>
     )
   }
   return (
-    <div data-qa={`StatusLabel-${props.status}`} className={classnames(props.className, 'd-inline-flex justify-content-center align-content-center', 'c-ui-status-label', 'c-ui-status-label-' + props.status)}>
+    <div data-qa={`StatusLabel-${props.status}`} className={classnames(props.className, 'p-1 d-inline-flex justify-content-center align-content-center', 'c-ui-status-label', 'c-ui-status-label-' + props.status)}>
       {t('ui:' + props.status)}
     </div>
   )

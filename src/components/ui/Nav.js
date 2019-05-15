@@ -1,5 +1,5 @@
 import Ekspanderbartpanel, { EkspanderbartpanelBase } from 'nav-frontend-ekspanderbartpanel'
-import { Panel } from 'nav-frontend-paneler'
+import PanelBase, { Panel } from 'nav-frontend-paneler'
 import Lenkepanel, { LenkepanelBase } from 'nav-frontend-lenkepanel'
 import { HjelpetekstAuto } from 'nav-frontend-hjelpetekst'
 import AlertStripe, { AlertStripeAdvarsel } from 'nav-frontend-alertstriper'
@@ -24,7 +24,9 @@ export {
   AlertStripe, AlertStripeAdvarsel,
   Container, Row, Column,
   Checkbox, CheckboksPanelGruppe, Radio, RadioGruppe, RadioPanelGruppe, SkjemaGruppe, Fieldset, Select, Input, Textarea, ToggleGruppe, ToggleKnapp,
-  Ekspanderbartpanel, EkspanderbartpanelBase, Panel, Lenkepanel, LenkepanelBase,
+  Ekspanderbartpanel, EkspanderbartpanelBase,
+  Panel, PanelBase,
+  Lenkepanel, LenkepanelBase,
   Sidetittel, Innholdstittel, Systemtittel, Undertittel, Element, Normaltekst, EtikettLiten, Undertekst, UndertekstBold, Ingress,
   NavFrontendSpinner,
   Knapp, Hovedknapp, Flatknapp, KnappBase, Fareknapp,
