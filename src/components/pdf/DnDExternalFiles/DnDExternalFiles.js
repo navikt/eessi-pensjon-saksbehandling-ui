@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import PT from 'prop-types'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import { connect, bindActionCreators } from 'store'
 import classNames from 'classnames'
 
 import File from '../../ui/File/File'

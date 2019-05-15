@@ -48,7 +48,6 @@ const defaultSelects = {
 }
 
 const SEDStart = (props) => {
-
   // these are only used for when we are collecting them through a form
   const [_sakId, setSakId] = useState(undefined)
   const [_aktoerId, setAktoerId] = useState(undefined)
@@ -66,18 +65,18 @@ const SEDStart = (props) => {
 
   const [mounted, setMounted] = useState(false)
 
-  const {t, actions} = props
-  const {subjectAreaList, institutionList, bucList, sedList, countryList} = props
-  const {currentCase, previewData, locale, loading, mode} = props
-  const {sakId, aktoerId, rinaId, vedtakId, sed, buc, mottak} = props
+  const { t, actions } = props
+  const { subjectAreaList, institutionList, bucList, sedList, countryList } = props
+  const { currentCase, previewData, locale, loading, mode } = props
+  const { sakId, aktoerId, rinaId, vedtakId, sed, buc, mottak } = props
 
   // update current fields with previewData
   useEffect(() => {
     if (previewData) {
-      if (previewData.subjectArea) {setSubjectArea(previewData.subjectArea)}
-      if (previewData.buc) {setBuc(previewData.buc)}
-      if (previewData.sed) {setSed(previewData.sed)}
-      if (previewData.institutions) {setInstitutions(previewData.institutions)}
+      if (previewData.subjectArea) { setSubjectArea(previewData.subjectArea) }
+      if (previewData.buc) { setBuc(previewData.buc) }
+      if (previewData.sed) { setSed(previewData.sed) }
+      if (previewData.institutions) { setInstitutions(previewData.institutions) }
     }
   }, [previewData])
 
@@ -122,7 +121,7 @@ const SEDStart = (props) => {
     setVedtakId(e.target.value.trim())
   }
 
-  const onFetchCaseButtonClick = () =>  {
+  const onFetchCaseButtonClick = () => {
     if (!_sakId) {
       setValidationState('sakId', t('buc:validation-noSakId'))
     }
@@ -432,14 +431,14 @@ const SEDStart = (props) => {
   }
 
   const renderInstitutions = () => {
-    return !_institutions ? null: _institutions.map(i => {
+    return !_institutions ? null : _institutions.map(i => {
       return renderChosenInstitution(i)
     })
   }
 
   const allowedToForward = () => {
     return sed ? buc && sed && hasNoValidationErrors() && !_.isEmpty(_institutions)
-    : _buc && _sed && _subjectArea && hasNoValidationErrors() && !_.isEmpty(_institutions)
+      : _buc && _sed && _subjectArea && hasNoValidationErrors() && !_.isEmpty(_institutions)
   }
 
   const validInstitution = (!validation.countryFail && !validation.institutionFail) && _country && _institution
@@ -459,7 +458,7 @@ const SEDStart = (props) => {
             id='c-startcase-sakid-input'
             onChange={onSakIdChange}
             feil={validation.sakId ? { feilmelding: t(validation.sakId) } : null} />
-          {/*<span id='help-sakId'>{t('buc:help-sakId')}</span>*/}
+          {/* <span id='help-sakId'>{t('buc:help-sakId')}</span> */}
         </div>
       </Nav.Row>
       <Nav.Row>
@@ -472,7 +471,7 @@ const SEDStart = (props) => {
             id='c-startcase-aktoerid-input'
             onChange={onAktoerIdChange}
             feil={validation.aktoerId ? { feilmelding: t(validation.aktoerId) } : null} />
-          {/*<span id='help-aktoerId'>{t('buc:help-aktoerId')}</span>*/}
+          {/* <span id='help-aktoerId'>{t('buc:help-aktoerId')}</span> */}
         </div>
       </Nav.Row>
       <Nav.Row>
@@ -487,7 +486,7 @@ const SEDStart = (props) => {
             id='c-startcase-rinaid-input'
             onChange={onRinaIdChange}
           />
-          {/*<span id='help-rinaId'>{t('buc:help-rinaId')}</span>*/}
+          {/* <span id='help-rinaId'>{t('buc:help-rinaId')}</span> */}
         </div>
       </Nav.Row>
       <Nav.Row className='mt-6'>
@@ -531,18 +530,18 @@ const SEDStart = (props) => {
                 <Nav.HjelpetekstAuto id='help-sed'>{t('buc:help-sed')}</Nav.HjelpetekstAuto>
               </div>
             </Nav.Row>
-            { (sed && sed === 'P6000') || (_sed && _sed === 'P6000') ?
-            <Nav.Row>
-              <div className='col-md-12 d-flex'>
-                <Nav.Input aria-describedby='help-vedtak'
-                  label={t('buc:form-vedtakId')}
-                  value={_vedtakId || vedtakId}
-                  id='c-startcase-vedtakid-input'
-                  bredde='fullbredde'
-                  onChange={onVedtakIdChange} />
+            { (sed && sed === 'P6000') || (_sed && _sed === 'P6000')
+              ? <Nav.Row>
+                <div className='col-md-12 d-flex'>
+                  <Nav.Input aria-describedby='help-vedtak'
+                    label={t('buc:form-vedtakId')}
+                    value={_vedtakId || vedtakId}
+                    id='c-startcase-vedtakid-input'
+                    bredde='fullbredde'
+                    onChange={onVedtakIdChange} />
                   <Nav.HjelpetekstAuto id='help-vedtak'>{t('buc:help-vedtakId')}</Nav.HjelpetekstAuto>
-              </div>
-            </Nav.Row> : null}
+                </div>
+              </Nav.Row> : null}
             <Nav.Row>
               <div className='col-md-12 d-flex'>{renderCountry()}
                 <Nav.HjelpetekstAuto id='help-country'>{t('buc:help-country')}</Nav.HjelpetekstAuto>
@@ -569,12 +568,12 @@ const SEDStart = (props) => {
             </Nav.Row>
           </div>
           <div className='col-md-6'>
-            <div className='selectBoxMessage'>{!loading ? null :
-              loading.subjectAreaList ? getSpinner('buc:loading-subjectArea') :
-              loading.bucList ? getSpinner('buc:loading-buc') :
-              loading.sedList ? getSpinner('buc:loading-sed') :
-              loading.institutionList ? getSpinner('buc:loading-institution') :
-              loading.countryList ? getSpinner('buc:loading-country') : null}
+            <div className='selectBoxMessage'>{!loading ? null
+              : loading.subjectAreaList ? getSpinner('buc:loading-subjectArea')
+                : loading.bucList ? getSpinner('buc:loading-buc')
+                  : loading.sedList ? getSpinner('buc:loading-sed')
+                    : loading.institutionList ? getSpinner('buc:loading-institution')
+                      : loading.countryList ? getSpinner('buc:loading-country') : null}
             </div>
             {renderInstitutions()}
           </div>
@@ -614,4 +613,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(SEDStart)
-

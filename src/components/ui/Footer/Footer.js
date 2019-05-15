@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import PT from 'prop-types'
-import { bindActionCreators } from 'redux'
+import { connect, bindActionCreators } from 'store'
 import classNames from 'classnames'
 
 import * as uiActions from '../../../actions/ui'

@@ -13,12 +13,12 @@ const StoreProvider = ({ reducer, initialState, children }) => {
   const [ state, dispatch ] = useReducer(reducer, initialState)
   const thunkDispatch = applyThunk(dispatch, state)
   return <Store.Provider value={[ state, thunkDispatch ]}>
-     {children}
+    {children}
   </Store.Provider>
 }
 
 const bindActionCreator = (actionCreator, dispatch) => {
-  return function() {
+  return function () {
     return dispatch(actionCreator.apply(this, arguments))
   }
 }

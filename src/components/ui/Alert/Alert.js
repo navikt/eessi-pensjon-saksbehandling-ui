@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { connect } from 'react-redux'
 import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
-import { bindActionCreators } from 'redux'
+import { connect, bindActionCreators } from 'store'
 
 import Icons from '../Icons'
 import * as Nav from '../Nav'

@@ -40,7 +40,7 @@ export function getAndPrefillPersonName () {
     try {
       dispatch(getPersonData())
       dispatch(suggestPersonNameFromUsernameIfNotInState())
-    } catch(error) {
+    } catch (error) {
       dispatch({ type: types.APP_GET_AND_PREFILL_PERSON_NAME_FAILURE, payload: error })
     }
   }

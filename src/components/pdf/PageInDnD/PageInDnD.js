@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { pdfjs, Document, Page } from 'react-pdf'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { connect, bindActionCreators } from 'store'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'

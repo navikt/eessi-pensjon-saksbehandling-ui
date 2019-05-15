@@ -1,6 +1,5 @@
 import React from 'react'
-import { createStore, combineReducers, bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import { store, connect, bindActionCreators } from 'store'
 import * as reducers from 'reducers'
 
 import { SEDStart, mapStateToProps } from './SEDStart'

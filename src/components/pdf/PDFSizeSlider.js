@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import { connect, bindActionCreators } from 'store'
 import { withTranslation } from 'react-i18next'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'

@@ -2,7 +2,7 @@ import React from 'react'
 
 import { TopContainer } from './TopContainer'
 
-import { createStore, combineReducers } from 'redux'
+
 import * as reducers from '../../../reducers'
 
 import * as constants from '../../../constants/constants'

@@ -1,7 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { connect, bindActionCreators } from 'store'
 import { withTranslation } from 'react-i18next'
 import { withRouter } from 'react-router'
 import classNames from 'classnames'

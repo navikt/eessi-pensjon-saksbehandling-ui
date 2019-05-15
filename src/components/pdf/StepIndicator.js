@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
-import { connect } from 'react-redux'
+import { connect } from 'store'
 import { withTranslation } from 'react-i18next'
 import _ from 'lodash'
 
@@ -105,7 +105,8 @@ StepIndicator.propTypes = {
 }
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  () => {}
 )(
   withTranslation()(StepIndicator)
 )

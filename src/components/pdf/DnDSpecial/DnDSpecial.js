@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import PT from 'prop-types'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { connect, bindActionCreators } from 'store'
 import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 

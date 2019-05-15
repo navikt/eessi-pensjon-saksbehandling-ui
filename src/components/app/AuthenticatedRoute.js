@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
-import { connect } from 'react-redux'
-import { bindActionCreators }from 'redux'
+import { connect, bindActionCreators } from 'store'
 import { withTranslation } from 'react-i18next'
 import { Route, withRouter, Redirect } from 'react-router'
 import _ from 'lodash'
@@ -9,9 +8,9 @@ import _ from 'lodash'
 import WaitingPanel from './WaitingPanel'
 
 import * as routes from '../../constants/routes'
+import * as constants from '../../constants/constants'
 import * as appActions from '../../actions/app'
 import * as statusActions from '../../actions/status'
-import * as attachmentActions from '../../actions/attachment'
 
 const mapStateToProps = (state) => {
   return {
@@ -26,7 +25,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, appActions, statusActions, attachmentActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, appActions, statusActions), dispatch) }
 }
 
 const paramAliases = {
@@ -37,12 +36,10 @@ const paramAliases = {
 }
 
 const AuthenticatedRoute = (props) => {
-
   const [ _params, _setParams ] = useState({})
-  const { t, allowed, actions, location, loggedIn, gettingUserInfo, roles, userRole } = props
+  const { t, allowed, actions, location, loggedIn, gettingUserInfo, userRole } = props
 
   const parseSearchParams = () => {
-
     let params = new URLSearchParams(location.search)
     let newParams = {}
     params.forEach((value, key) => {
@@ -69,29 +66,20 @@ const AuthenticatedRoute = (props) => {
     parseSearchParams()
   }, [loggedIn, gettingUserInfo, actions])
 
-  const hasApprovedRole = () => {
-    return roles.indexOf(userRole) >= 0
-  }
 
   if (!loggedIn) {
     return <WaitingPanel message={t('authenticating')} />
   }
 
-  let validRole = hasApprovedRole()
-
-  if (!validRole) {
+  if (userRole !== constants.SAKSBEHANDLER) {
     return <Redirect to={{
-      pathname: routes.FORBIDDEN,
-      state: { role: userRole }
+      pathname: routes.FORBIDDEN
     }} />
   }
 
-  let authorized = allowed
-
-  if (!authorized) {
+  if (!allowed) {
     return <Redirect to={{
-      pathname: routes.NOT_INVITED,
-      state: { role: userRole }
+      pathname: routes.NOT_INVITED
     }} />
   }
 
@@ -100,8 +88,7 @@ const AuthenticatedRoute = (props) => {
 
 AuthenticatedRoute.propTypes = {
   className: PT.string,
-  actions: PT.object.isRequired,
-  roles: PT.array.isRequired
+  actions: PT.object.isRequired
 }
 
 export default connect(

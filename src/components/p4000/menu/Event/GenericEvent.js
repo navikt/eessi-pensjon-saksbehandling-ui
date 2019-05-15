@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { connect, bindActionCreators } from 'store'
 import classNames from 'classnames'
 
 import * as p4000Actions from '../../../../actions/p4000'

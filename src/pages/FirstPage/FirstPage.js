@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { connect } from 'store'
 import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
 import 'url-search-params-polyfill'
@@ -31,7 +31,7 @@ class FirstPage extends Component {
     switch (userRole) {
       case constants.SAKSBEHANDLER:
         history.push({
-          pathname: routes.PINFO_SAKSBEHANDLER,
+          pathname: routes.PINFO,
           search: window.location.search
         })
         break
@@ -86,7 +86,7 @@ FirstPage.propTypes = {
 
 export default connect(
   mapStateToProps,
-  null
+  () => {}
 )(
   withTranslation()(FirstPage)
 )

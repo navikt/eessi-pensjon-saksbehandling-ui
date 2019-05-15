@@ -1,7 +1,6 @@
 import React from 'react'
 import LanguageSelector from './LanguageSelector'
 
-import { createStore, combineReducers } from 'redux'
 import * as reducers from '../../reducers'
 
 const reducer = combineReducers({

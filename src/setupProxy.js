@@ -1,6 +1,6 @@
 const proxy = require('http-proxy-middleware')
 
 module.exports = function (app) {
-   app.use(proxy('/frontend/', {'target': 'http://localhost:8080', pathRewrite: { '^/frontend': '' }, logLevel: 'debug'}))
-   app.use(proxy('/fagmodul/', {'target': 'http://localhost:8081', pathRewrite: { '^/fagmodul': '' }, logLevel: 'debug'}))
+  app.use(proxy('/frontend/', { 'target': 'http://localhost:8080', pathRewrite: { '^/frontend': '' }, logLevel: 'info' }))
+  app.use(proxy('/fagmodul/', { 'target': 'http://localhost:8081', pathRewrite: { '^/fagmodul': '' }, logLevel: 'info' }))
 }

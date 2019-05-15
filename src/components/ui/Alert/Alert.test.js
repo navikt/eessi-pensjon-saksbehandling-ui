@@ -1,6 +1,5 @@
 import React from 'react'
-import { createStore, combineReducers, bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+iimport { connect, bindActionCreators } from 'store'
 
 import { Alert, mapStateToProps } from './Alert'
 import * as reducers from '../../../reducers'

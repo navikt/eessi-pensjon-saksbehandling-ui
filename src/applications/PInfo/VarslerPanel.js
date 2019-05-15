@@ -1,11 +1,10 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { connect, bindActionCreators } from 'store'
 import PT from 'prop-types'
 import _ from 'lodash'
 
 import * as Nav from '../../components/ui/Nav'
-import * as pinfoActions from '../../actions/pinfo_saksbehandler'
+import * as pinfoActions from '../../actions/pinfo'
 
 import '../PInfo/PInfo.css'
 
@@ -16,8 +15,8 @@ const mapStateToProps = (state) => {
     isSendingPinfo: state.loading.isSendingPinfo,
     isInvitingPinfo: state.loading.isInvitingPinfo,
     gettingPinfoSaktype: state.loading.gettingPinfoSaktype,
-    invite: state.pinfoSaksbehandler.invite,
-    sakType: state.pinfoSaksbehandler.sakType
+    invite: state.pinfo.invite,
+    sakType: state.pinfor.sakType
   }
 }
 

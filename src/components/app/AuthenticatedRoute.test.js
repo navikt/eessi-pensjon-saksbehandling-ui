@@ -16,8 +16,7 @@ describe('components/app/AuthenticatedRoute', () => {
       setStatusParam: jest.fn(),
       login: jest.fn(),
       getUserInfo: jest.fn()
-    },
-    roles: [constants.SAKSBEHANDLER]
+    }
   }
 
   beforeEach(() => {

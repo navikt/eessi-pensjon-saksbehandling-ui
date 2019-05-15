@@ -1,6 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { connect, bindActionCreators } from 'store'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import _ from 'lodash'
@@ -8,9 +7,9 @@ import _ from 'lodash'
 import * as Nav from '../../components/ui/Nav'
 import Icons from '../../components/ui/Icons'
 import * as storageActions from '../../actions/storage'
-import * as pinfoActions from '../../actions/pinfo_saksbehandler'
+import * as pinfoActions from '../../actions/pinfo'
 
-import './PInfoSaksbehandler.css'
+import './PInfo.css'
 
 const mapStateToProps = (state) => {
   return {

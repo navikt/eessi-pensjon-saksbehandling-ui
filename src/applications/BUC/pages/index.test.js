@@ -1,6 +1,5 @@
 import React from 'react'
-import { createStore } from 'redux'
-import { connect } from 'react-redux'
+import { store, connect, bindActionCreators } from 'store'
 
 import { BUCPageIndex } from 'applications/BUC/page/'
 
@@ -30,7 +29,6 @@ describe('BUCPageIndex', () => {
   let store, wrapper, ConnectedCase
 
   beforeEach(() => {
-    store = createStore(state => state)
     ConnectedCase = connect(null, null)(BUCPageIndex)
     wrapper = shallow(<ConnectedCase
       t={t} store={store} step={9}

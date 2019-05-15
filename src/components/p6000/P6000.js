@@ -1,5 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { connect } from 'store'
 import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
 import * as Nav from '../ui/Nav'
