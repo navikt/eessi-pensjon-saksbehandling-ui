@@ -56,29 +56,43 @@ const SEDS = [
     name: 'P2000',
     status: 'sent',
     date: 'dd.mm.åå',
-    country: 'Sverige',
-    institution: 'Försäkringskassan'
+    institutions: [{
+       country: 'Sverige',
+       institution: 'Försäkringskassan'
+    }]
   },
   {
     name: 'P3000SE',
     status: 'draft',
     date: 'dd.mm.åå',
-    country: 'Sverige',
-    institution: 'Försäkringskassan'
+    institutions: [{
+       country: 'Sverige',
+       institution: 'Försäkringskassan'
+    }, {
+       country: 'Danmark',
+       institution: 'Udbetaling Danmark'
+    }, {
+       country: 'Norge',
+       institution: 'NAV'
+    }]
   },
   {
     name: 'P4000',
     status: 'received',
     date: 'dd.mm.åå',
-    country: 'Sverige',
-    institution: 'Försäkringskassan'
+    institutions: [{
+       country: 'Danmark',
+       institution: 'Udbetaling Danmark'
+    }]
   },
   {
     name: 'P5000',
     status: 'foo',
     date: 'dd.mm.åå',
-    country: 'Sverige',
-    institution: 'Försäkringskassan'
+    institutions: [{
+       country: 'Sverige',
+       institution: 'Försäkringskassan'
+    }]
   }
 ]
 

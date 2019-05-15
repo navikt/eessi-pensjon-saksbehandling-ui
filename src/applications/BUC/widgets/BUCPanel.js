@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
-import SedHeader from 'applications/BUC/components/SEDHeader/SedHeader'
-import SedLabel from 'applications/BUC/components/SEDHeader/SedLabel'
+import SedHeader from 'applications/BUC/components/SED/SedHeader'
+import SedLabel from 'applications/BUC/components/SED/SedLabel'
 import { EkspanderbartpanelBase } from 'components/ui/Nav'
 
 import * as actions from 'actions/buc'
