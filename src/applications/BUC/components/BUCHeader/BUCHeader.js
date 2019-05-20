@@ -25,7 +25,7 @@ function BUCHeader (props) {
         <Nav.Normaltekst data-qa='BucHeader-dateCreated'>{t('ui:created')}: {props.dateCreated}</Nav.Normaltekst>
       </div>
       <div className='col-3 mr-auto d-flex align-items-center pl-0 pr-0'>
-        <FlagList data-qa='BucHeader-FlagList' countries={props.countries} overflowLimit={2} flagPath='../../../../flags/' extention='.png' />
+        <FlagList data-qa='BucHeader-FlagList' countries={props.countries} overflowLimit={5} flagPath='../../../../flags/' extention='.png' />
       </div>
       <div className='col-3 d-flex justify-content-end align-items-center pl-0 pr-0'>
         <Nav.LenkepanelBase data-qa='BucHeader-LinkButton' onClick={preventDefault(props.behandlingOnClick)} className='knapp knapp--mini pl-3 pr-3 pt-2 pb-2 m-0' href={props.href} border>

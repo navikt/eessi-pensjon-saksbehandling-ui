@@ -1,0 +1,33 @@
+import React from 'react'
+import PT from 'prop-types'
+import classNames from 'classnames'
+import { Checkbox } from 'components/ui/Nav'
+
+const MultipleOption = (props) => {
+
+  const { data, selectProps, innerProps, isSelected, isFocused } = props
+
+  const onChange = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+  return <div id={selectProps.id + '-' + data.value}>
+    <div className={classNames('c-ui-multipleOption', {
+      selected: isSelected,
+      focused: isFocused
+    })} {...innerProps}>
+      <Checkbox label={data.label} checked={isSelected} onChange={onChange}/>
+    </div>
+  </div>
+}
+
+MultipleOption.propTypes = {
+  data: PT.object,
+  selectProps: PT.object,
+  innerProps: PT.object,
+  isSelected: PT.bool,
+  isFocused: PT.bool
+}
+
+export default MultipleOption

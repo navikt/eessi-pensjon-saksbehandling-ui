@@ -1,8 +1,11 @@
 import React from 'react'
 import classnames from 'classnames'
+import './Flag.css'
 
-function Flag (props) {
-  return <img alt='flag' data-qa='Flag-img' className={classnames(props.className, 'flag-image')} src={''.concat(props.flagPath, props.country, props.extention)} />
+const Flag = (props) => {
+  return <div className='c-ui-flag m-1'>
+    <img alt='flag' data-qa='Flag-img' className={classnames(props.className, 'flag-image')} src={''.concat(props.flagPath, props.country, props.extention)} />
+    </div>
 }
 
 Flag.defaultProps = {
@@ -12,3 +15,4 @@ Flag.defaultProps = {
 }
 
 export default Flag
+

@@ -53,6 +53,8 @@
   "form-chooseBuc" : "Velg BUC",
   "form-chooseSed": "Velg SED",
   "form-chooseInstitution": "Velg mottagerinstitusjon",
+  "form-chosenInstitutions" : "Valgte mottakerinstitusjoner",
+  "form-noInstitutionYet" : "Ingen mottakerinstitusjoner ennå",
   "form-institution"  : "Mottagerinstitusjon",
   "form-sakId" : "Saksnummer fra Pesys",
   "form-sed" : "SED",

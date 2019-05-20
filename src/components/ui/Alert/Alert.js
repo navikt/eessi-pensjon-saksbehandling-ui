@@ -61,7 +61,7 @@ export class Alert extends Component {
     } else {
       _message = t(clientErrorMessage)
     }
-    return <Nav.AlertStripe solid
+    return <Nav.AlertStripe
       className={classNames(className, 'c-ui-alert', { fixed: _fixed })}
       type={errorTypes[clientErrorStatus]}>
       {_message}

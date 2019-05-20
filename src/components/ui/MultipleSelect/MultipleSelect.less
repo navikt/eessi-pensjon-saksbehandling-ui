@@ -1,0 +1,92 @@
+@import '../../../constants';
+
+.c-ui-multipleSelect {
+
+  .c-ui-multipleOption {
+    padding: 5px;
+    &.selected {
+       background: lightblue;
+    }
+    &.focused {
+       background: aliceblue;
+    }
+
+    img {
+       border: 1px solid lightgrey;
+    }
+  }
+
+  .MultipleSelect__multi-value {
+      border-radius: 20px;
+      border: 1px solid grey;
+      padding: 0.25rem;
+  }
+
+  .MultipleSelect__multi-value__remove {
+      border-radius: 20px;
+      border: 1px solid grey;
+      margin-left: 0.25rem;
+  }
+
+  .c-ui-multipleOption-label {
+     color: black;
+     font-style: normal;
+  }
+
+  .multipleSelect__control {
+    border: 1px solid @form-dark-gray;
+  }
+
+  .multipleSelect__indicator-separator {
+    background-color: @form-dark-gray;
+  }
+}
+
+.c-ui-multipleSelect.skjemaelement__feilmelding {
+  .multipleSelect__control {
+    border: 1px solid #BA3A26;
+  }
+}
+
+.highContrast .c-ui-multipleSelect {
+
+  .multipleSelect__control {
+     border-width: 2px;
+     border-color: @white;
+  }
+
+  .multipleSelect__control {
+    background: black !important;
+  }
+
+  .c-ui-multipleOption {
+
+    background: @black;
+
+    &.selected {
+       background: @blue;
+       color: @black !important;
+       font-weight: bold;
+    }
+    &.focused {
+       background: @high-contrast-orange;
+       color: @black !important;
+       font-weight: bold;
+    }
+  }
+}
+
+
+.highContrast .c-ui-multipleSelect.skjemaelement__feilmelding {
+  .multipleSelect__control {
+     border-width: 2px;
+     border-color: #BA3A26;
+  }
+}
+
+.c-ui-multipleOption img,
+.c-ui-multipleValue img {
+  width: 50px;
+  height: 30px;
+  margin-right: 0.7rem;
+}

@@ -22,10 +22,10 @@ const SedLabel = (props) => {
       </div>
       <div className='col-4 d-flex flex-column'>
         {sed.institutions.map(el => {
-          return <div className='d-flex flex-row'>
-          <Element data-qa='SedLabel-country'>
-           {el.country}</Element>{': '}
-           <span>{el.institution}</span>
+          return <div key={el.country + el.institution} className='d-flex flex-row'>
+          <Element data-qa='SedLabel-country'>{el.country}</Element>
+          {': '}
+          <span>{el.institution}</span>
          </div>
         })}
       </div>
