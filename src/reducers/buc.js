@@ -1,4 +1,5 @@
 import * as types from '../constants/actionTypes'
+import _ from 'lodash'
 
 export const initialBucState = {
   mode: 'list',
@@ -33,22 +34,24 @@ const bucReducer = (state = initialBucState, action) => {
         subjectAreaList: action.payload
       })
 
-    case types.CASE_GET_INSTITUTION_LIST_REQUEST:
-
-      return Object.assign({}, state, {
-        institutionList: undefined
-      })
-
-    case types.CASE_GET_SUBJECT_AREA_LIST_FAILURE:
-
-      return Object.assign({}, state, {
-        institutionList: []
-      })
-
     case types.CASE_GET_INSTITUTION_LIST_SUCCESS:
 
+      let institutionList = state.institutionList ? _.cloneDeep(state.institutionList) : {}
+      action.payload.map(institution => {
+        let existingInstitutions = institutionList[institution.landkode] || []
+        if (!_.find(existingInstitutions, {'id': institution.id})) {
+          existingInstitutions.push({
+            id: institution.id,
+            navn: institution.navn,
+            akronym: institution.akronym,
+            landkode: institution.landkode
+          })
+        }
+        institutionList[institution.landkode] = existingInstitutions
+      })
+
       return Object.assign({}, state, {
-        institutionList: action.payload
+        institutionList: institutionList
       })
 
     case types.CASE_GET_SED_LIST_SUCCESS:

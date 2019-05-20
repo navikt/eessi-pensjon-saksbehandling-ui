@@ -6,7 +6,9 @@ import { connect, bindActionCreators } from 'store'
 import PsychoPanel from 'components/ui/Psycho/PsychoPanel'
 import * as Nav from 'components/ui/Nav'
 import Icons from 'components/ui/Icons'
-import CountrySelect from 'components/ui/CountrySelect/CountrySelect'
+import { countries } from 'components/ui/CountrySelect/CountrySelectData'
+import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
+import FlagList from 'components/ui/Flag/FlagList'
 
 import * as bucActions from 'actions/buc'
 import * as uiActions from 'actions/ui'
@@ -39,7 +41,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, bucActions, appActions, uiActions), dispatch) }
 }
 
-const defaultSelects = {
+const placeholders = {
   subjectArea: 'buc:form-chooseSubjectArea',
   buc: 'buc:form-chooseBuc',
   sed: 'buc:form-chooseSed',
@@ -58,9 +60,8 @@ const SEDStart = (props) => {
   const [_sed, setSed] = useState(undefined)
   const [_vedtakId, setVedtakId] = useState(undefined)
 
-  const [_country, setCountry] = useState(undefined)
-  const [_institution, setInstitution] = useState(undefined)
-  const [_institutions, setInstitutions] = useState(undefined)
+  const [_country, setCountry] = useState([])
+  const [_institution, setInstitution] = useState([])
   const [validation, setValidation] = useState({})
 
   const [mounted, setMounted] = useState(false)
@@ -76,7 +77,7 @@ const SEDStart = (props) => {
       if (previewData.subjectArea) { setSubjectArea(previewData.subjectArea) }
       if (previewData.buc) { setBuc(previewData.buc) }
       if (previewData.sed) { setSed(previewData.sed) }
-      if (previewData.institutions) { setInstitutions(previewData.institutions) }
+      if (previewData.institutions) { setInstitution(previewData.institutions) }
     }
   }, [previewData])
 
@@ -149,7 +150,7 @@ const SEDStart = (props) => {
     validateSubjectArea(_subjectArea)
     validateBuc(_buc || buc)
     validateSed(_sed || sed)
-    validateInstitutions(_institutions || parseMottak())
+    validateInstitution(_institution)
     if (hasNoValidationErrors()) {
       actions.dataPreview({
         sakId: currentCase.casenumber,
@@ -159,13 +160,13 @@ const SEDStart = (props) => {
         buc: _buc || buc,
         sed: _sed || sed,
         vedtakId: vedtakId || _vedtakId,
-        institutions: _institutions
+        institutions: _institution
       })
     }
   }
 
   const validateSubjectArea = (subjectArea) => {
-    if (!subjectArea || subjectArea === defaultSelects.subjectArea) {
+    if (!subjectArea || subjectArea === placeholders.subjectArea) {
       setValidationState('subjectAreaFail', t('buc:validation-chooseSubjectArea'))
     } else {
       resetValidationState('subjectAreaFail')
@@ -173,7 +174,7 @@ const SEDStart = (props) => {
   }
 
   const validateBuc = (buc) => {
-    if (!buc || buc === defaultSelects.buc) {
+    if (!buc || buc === placeholders.buc) {
       setValidationState('bucFail', t('buc:validation-chooseBuc'))
     } else {
       resetValidationState('bucFail')
@@ -181,23 +182,15 @@ const SEDStart = (props) => {
   }
 
   const validateSed = (sed) => {
-    if (!sed || sed === defaultSelects.sed) {
+    if (!sed || sed === placeholders.sed) {
       setValidationState('sedFail', t('buc:validation-chooseSed'))
     } else {
       resetValidationState('sedFail')
     }
   }
 
-  const validateInstitutions = (institutions) => {
-    if (!institutions || Object.keys(institutions).length === 0) {
-      setValidationState('institutionsFail', t('buc:validation-chooseInstitutions'))
-    } else {
-      resetValidationState('institutionsFail')
-    }
-  }
-
-  const validateInstitution = (institution) => {
-    if (!institution || institution === defaultSelects.institution) {
+  const validateInstitution = (institutions) => {
+    if (_.isEmpty(institutions)) {
       setValidationState('institutionFail', t('buc:validation-chooseInstitution'))
     } else {
       resetValidationState('institutionFail')
@@ -205,30 +198,15 @@ const SEDStart = (props) => {
   }
 
   const validateCountry = (country) => {
-    if (!country) {
+    if (_.isEmpty(country)) {
       setValidationState('countryFail', t('buc:validation-chooseCountry'))
     } else {
       resetValidationState('countryFail')
     }
   }
 
-  const onCreateInstitutionButtonClick = () => {
-    let newInstitutions = _institutions || []
-    newInstitutions.push({
-      institution: _institution,
-      country: _country
-    })
-    setInstitutions(newInstitutions)
-    setInstitution(undefined)
-    setCountry(undefined)
-  }
-
-  const onRemoveInstitutionButtonClick = (institution) => {
-    const newInstitutions = _.reject(_institutions, {
-      'institution': institution.institution,
-      'country': institution.country
-    })
-    setInstitutions(newInstitutions)
+  const onCreateInstitution = (value) => {
+    setInstitution(value)
   }
 
   const resetValidationState = (_key) => {
@@ -269,25 +247,22 @@ const SEDStart = (props) => {
     validateSed(thisSed)
   }
 
-  const onInstitutionChange = (e) => {
-    const thisInstitution = e.target.value
-    setInstitution(thisInstitution)
-    validateInstitution(thisInstitution)
+  const onInstitutionChange = (institutions) => {
+    setInstitution(institutions)
+    validateInstitution(institutions)
   }
 
-  const onCountryChange = (e) => {
-    const thisCountry = e.value
-    setCountry(thisCountry)
-    setInstitution(undefined)
-    validateCountry(thisCountry)
+  const onCountryChange = (countryList) => {
+    validateCountry(countryList)
     if (!validation.countryFail) {
-      if (thisCountry !== defaultSelects.country) {
+      setCountry(countryList)
+      countryList.map(country => {
         if (_buc) {
-          actions.getInstitutionListForBucAndCountry(_buc, thisCountry)
+          actions.getInstitutionListForBucAndCountry(_buc, country.value)
         } else {
-          actions.getInstitutionListForCountry(thisCountry)
+          actions.getInstitutionListForCountry(country.value)
         }
-      }
+      })
     }
   }
 
@@ -297,15 +272,15 @@ const SEDStart = (props) => {
     }
     if (!options || Object.keys(options).length === 0) {
       options = [{
-        key: defaultSelects[type],
-        value: t(defaultSelects[type])
+        key: placeholders[type],
+        value: t(placeholders[type])
       }]
     }
 
-    if (!options[0].key || (options[0].key && options[0].key !== defaultSelects[type])) {
+    if (!options[0].key || (options[0].key && options[0].key !== placeholders[type])) {
       options.unshift({
-        key: defaultSelects[type],
-        value: t(defaultSelects[type])
+        key: placeholders[type],
+        value: t(placeholders[type])
       })
     }
     return options.map(el => {
@@ -332,7 +307,7 @@ const SEDStart = (props) => {
 
   const renderSubjectArea = () => {
     return <Nav.Select
-      id='c-startcase-subjectarea-select'
+      id='a-buc-sedstart-subjectarea-select'
       className='subjectAreaList flex-fill'
       aria-describedby='help-subjectArea'
       bredde='fullbredde'
@@ -344,43 +319,63 @@ const SEDStart = (props) => {
     </Nav.Select>
   }
 
+  const countryObjectList = countryList ? _.filter(countries[locale], it => {
+    return countryList.indexOf(it.value) >= 0
+  }) : []
+
   const renderCountry = () => {
     return <div className='mb-3 flex-fill'>
       <label className='skjemaelement__label'>{t('ui:country')}</label>
-      <CountrySelect
-        id='c-startcase-country-select'
-        className='countrySelect'
+      <MultipleSelect
+        placeholder={t(placeholders.country)}
+        id='a-buc-sedstart-country-select'
+        className='multipleSelect'
         aria-describedby='help-country'
         locale={locale}
-        value={_country || {}}
-        onSelect={onCountryChange}
-        includeList={countryList} />
+        value={_country || []}
+        hideSelectedOptions={false}
+        onChange={onCountryChange}
+        optionList={countryObjectList} />
     </div>
   }
 
+  const institutionObjectList = institutionList ? Object.keys(institutionList).map(landkode => {
+    return {
+      label: landkode,
+      options: institutionList[landkode].map(institution => {
+        return {
+          label: institution.navn,
+          value: institution
+        }
+      })
+    }
+  }): []
+
   const renderInstitution = () => {
-    return <Nav.Select
-      id='c-startcase-institution-select'
-      className='institutionList flex-fill'
-      aria-describedby='help-institution'
-      bredde='fullbredde'
-      feil={validation.institutionFail ? { feilmelding: validation.institutionFail } : null}
-      label={t('buc:form-institution')}
-      value={_institution || defaultSelects.institution}
-      onChange={onInstitutionChange}>
-      {renderOptions(institutionList, 'institution')}
-    </Nav.Select>
+    return <div className='mb-3 flex-fill'>
+      <label className='skjemaelement__label'>{t('ui:institution')}</label>
+      <MultipleSelect
+        placeholder={t(placeholders.institution)}
+        id='a-buc-sedstart-institution-select'
+        className='multipleSelect'
+        aria-describedby='help-institution'
+        locale={locale}
+        value={_institution || []}
+        onChange={onInstitutionChange}
+        hideSelectedOptions={false}
+        optionList={institutionObjectList} />
+    </div>
   }
 
   const renderBuc = () => {
     return <Nav.Select
-      id='c-startcase-buc-select'
+      id='a-buc-sedstart-buc-select'
       className='bucList flex-fill'
       aria-describedby='help-buc'
       bredde='fullbredde'
       feil={validation.bucFail ? { feilmelding: validation.bucFail } : null}
       label={t('buc:form-buc')}
-      value={_buc || defaultSelects.buc}
+      value={_buc || placeholders.buc}
       onChange={onBucChange}>
       {renderOptions(bucList, 'buc')}
     </Nav.Select>
@@ -388,14 +383,14 @@ const SEDStart = (props) => {
 
   const renderSed = () => {
     return <Nav.Select
-      id='c-startcase-sed-select'
+      id='a-buc-sedstart-sed-select'
       className='sedList flex-fill'
       aria-describedby='help-sed'
       bredde='fullbredde'
       feil={validation.sedFail ? { feilmelding: validation.sedFail } : null}
       disabled={!bucList}
       label={t('buc:form-sed')}
-      value={_sed || defaultSelects.buc}
+      value={_sed || placeholders.buc}
       onChange={onSedChange}>
       {renderOptions(sedList, 'sed')}
     </Nav.Select>
@@ -408,37 +403,33 @@ const SEDStart = (props) => {
     </div>
   }
 
-  const renderChosenInstitution = (institution) => {
-    const renderedInstitution = (institution.country && institution.country !== defaultSelects.country ? institution.country + '/' : '') + institution.institution
-
-    return <Nav.Row key={renderedInstitution} className='mb-3 renderedInstitutions'>
-      <Nav.Column style={{ lineHeight: '2rem' }}>
-        <div className='renderedInstitution'><b>{renderedInstitution}</b></div>
-      </Nav.Column>
-      <Nav.Column className='text-right'>
-        <Nav.Knapp
-          id={'c-startcase-removeinstitution-' + institution.country + '_' + institution.institution + '-button'}
-          className='removeInstitutionButton'
-          type='standard'
-          onClick={() => onRemoveInstitutionButtonClick(institution)}>
-          <div className='d-flex justify-content-center'>
-            <Icons className='mr-2' size={20} kind='trashcan' color='#0067C5' />
-            <span>{t('ui:remove')}</span>
-          </div>
-        </Nav.Knapp>
-      </Nav.Column>
-    </Nav.Row>
-  }
-
   const renderInstitutions = () => {
-    return !_institutions ? null : _institutions.map(i => {
-      return renderChosenInstitution(i)
-    })
+
+    let institutions = {}
+    if (_institution) {
+      _institution.map(institution => {
+        if (!institutions.hasOwnProperty(institution.value.landkode)) {
+          institutions[institution.value.landkode] = [institution.label]
+        } else {
+           institutions[institution.value.landkode].push(institution.label)
+        }
+      })
+    }
+
+    return <React.Fragment>
+      <Nav.EtikettLiten>{t('buc:form-chosenInstitutions')}</Nav.EtikettLiten>
+      {!_.isEmpty(institutions) ? Object.keys(institutions).map(landkode => {
+         return <div className='d-flex align-items-baseline'>
+           <FlagList countries={[landkode]} overflowLimit={5} flagPath='../../../../flags/' extention='.png' />
+           <span>{landkode}: {institutions[landkode].join(', ')}</span>
+         </div>
+      }) : <Nav.Element>{t('buc:form-noInstitutionYet')}</Nav.Element>}
+    </React.Fragment>
   }
 
   const allowedToForward = () => {
-    return sed ? buc && sed && hasNoValidationErrors() && !_.isEmpty(_institutions)
-      : _buc && _sed && _subjectArea && hasNoValidationErrors() && !_.isEmpty(_institutions)
+    return sed ? buc && sed && hasNoValidationErrors() && !_.isEmpty(_institution)
+      : _buc && _sed && _subjectArea && hasNoValidationErrors() && !_.isEmpty(_institution)
   }
 
   const validInstitution = (!validation.countryFail && !validation.institutionFail) && _country && _institution
@@ -455,7 +446,7 @@ const SEDStart = (props) => {
             label={t('buc:form-sakId')}
             value={_sakId || ''}
             bredde='XL'
-            id='c-startcase-sakid-input'
+            id='a-buc-sedstart-sakid-input'
             onChange={onSakIdChange}
             feil={validation.sakId ? { feilmelding: t(validation.sakId) } : null} />
           {/* <span id='help-sakId'>{t('buc:help-sakId')}</span> */}
@@ -468,7 +459,7 @@ const SEDStart = (props) => {
             label={t('buc:form-aktoerId')}
             value={_aktoerId || ''}
             bredde='XL'
-            id='c-startcase-aktoerid-input'
+            id='a-buc-sedstart-aktoerid-input'
             onChange={onAktoerIdChange}
             feil={validation.aktoerId ? { feilmelding: t(validation.aktoerId) } : null} />
           {/* <span id='help-aktoerId'>{t('buc:help-aktoerId')}</span> */}
@@ -483,7 +474,7 @@ const SEDStart = (props) => {
             </div>}
             value={_rinaId || ''}
             bredde='XL'
-            id='c-startcase-rinaid-input'
+            id='a-buc-sedstart-rinaid-input'
             onChange={onRinaIdChange}
           />
           {/* <span id='help-rinaId'>{t('buc:help-rinaId')}</span> */}
@@ -492,7 +483,7 @@ const SEDStart = (props) => {
       <Nav.Row className='mt-6'>
         <div className='col-md-12'>
           <Nav.Hovedknapp
-            id='c-startcase-forward-button'
+            id='a-buc-sedstart-forward-button'
             className='forwardButton'
             disabled={loading && loading.gettingCase}
             spinner={loading && loading.gettingCase}
@@ -516,17 +507,17 @@ const SEDStart = (props) => {
         <Nav.Row className='mb-3'>
           <div className='col-md-6'>
             <Nav.Row>
-              <div className='col-md-12 d-flex'>{renderSubjectArea()}
+              <div className='col-md-12 d-flex align-items-center'>{renderSubjectArea()}
                 <Nav.HjelpetekstAuto id='help-subjectArea'>{t('buc:help-subjectArea')}</Nav.HjelpetekstAuto>
               </div>
             </Nav.Row>
             <Nav.Row>
-              <div className='col-md-12 d-flex'>{renderBuc()}
+              <div className='col-md-12 d-flex align-items-center'>{renderBuc()}
                 <Nav.HjelpetekstAuto id='help-buc'>{t('buc:help-buc')}</Nav.HjelpetekstAuto>
               </div>
             </Nav.Row>
             <Nav.Row>
-              <div className='col-md-12 d-flex'>{renderSed()}
+              <div className='col-md-12 d-flex align-items-center'>{renderSed()}
                 <Nav.HjelpetekstAuto id='help-sed'>{t('buc:help-sed')}</Nav.HjelpetekstAuto>
               </div>
             </Nav.Row>
@@ -536,34 +527,20 @@ const SEDStart = (props) => {
                   <Nav.Input aria-describedby='help-vedtak'
                     label={t('buc:form-vedtakId')}
                     value={_vedtakId || vedtakId}
-                    id='c-startcase-vedtakid-input'
+                    id='a-buc-sedstart-vedtakid-input'
                     bredde='fullbredde'
                     onChange={onVedtakIdChange} />
                   <Nav.HjelpetekstAuto id='help-vedtak'>{t('buc:help-vedtakId')}</Nav.HjelpetekstAuto>
                 </div>
               </Nav.Row> : null}
             <Nav.Row>
-              <div className='col-md-12 d-flex'>{renderCountry()}
+              <div className='col-md-12 d-flex align-items-center'>{renderCountry()}
                 <Nav.HjelpetekstAuto id='help-country'>{t('buc:help-country')}</Nav.HjelpetekstAuto>
               </div>
             </Nav.Row>
             <Nav.Row>
-              <div className='col-md-12 d-flex'>{renderInstitution()}
+              <div className='col-md-12 d-flex align-items-center'>{renderInstitution()}
                 <Nav.HjelpetekstAuto id='help-institution'>{t('buc:help-institution')}</Nav.HjelpetekstAuto>
-              </div>
-            </Nav.Row>
-            <Nav.Row>
-              <div className='col-md-8'>
-                <Nav.Knapp
-                  id='c-startcase-createinstitution-button'
-                  className='w-100 createInstitutionButton'
-                  disabled={!validInstitution}
-                  onClick={onCreateInstitutionButtonClick}>
-                  <div className='d-flex justify-content-center'>
-                    <Icons kind='tilsette' size={20} color={!validInstitution ? 'white' : undefined} className='mr-2' />
-                    <span>{t('ui:add')}</span>
-                  </div>
-                </Nav.Knapp>
               </div>
             </Nav.Row>
           </div>
@@ -583,7 +560,7 @@ const SEDStart = (props) => {
     <Nav.Row className='mb-4 mt-4'>
       <div className='col-md-12'>
         <Nav.Hovedknapp
-          id='c-startcase-forward-button'
+          id='a-buc-sedstart-forward-button'
           className='forwardButton'
           disabled={!allowedToForward()}
           onClick={onForwardButtonClick}>{t('ui:go')}</Nav.Hovedknapp>
