@@ -16,7 +16,7 @@ const mapStateToProps = (state) => {
     isInvitingPinfo: state.loading.isInvitingPinfo,
     gettingPinfoSaktype: state.loading.gettingPinfoSaktype,
     invite: state.pinfo.invite,
-    sakType: state.pinfor.sakType
+    sakType: state.pinfo.sakType
   }
 }
 
