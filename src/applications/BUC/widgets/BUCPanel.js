@@ -20,7 +20,7 @@ const BUCPanel = (props) => {
   return <EkspanderbartpanelBase
     className='mb-3'
     ariaTittel='foo'
-    heading={<BUCHeader t={props.t} {...props.buc} />}
+    heading={<BUCHeader t={props.t} {...props.buc} locale={props.locale}/>}
     onClick={onClick}>
     <SedHeader t={props.t} />
     {seds ? seds.map((sed, index) => (

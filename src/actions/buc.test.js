@@ -167,21 +167,6 @@ describe('case actions', () => {
     })
   })
 
-  it('call getMorePreviewData()', () => {
-    const mockParams = { foo: 'bar' }
-    bucActions.getMorePreviewData(mockParams)
-    expect(api.call).toBeCalledWith({
-      type: {
-        request: types.CASE_GET_MORE_PREVIEW_DATA_REQUEST,
-        success: types.CASE_GET_MORE_PREVIEW_DATA_SUCCESS,
-        failure: types.CASE_GET_MORE_PREVIEW_DATA_FAILURE
-      },
-      method: 'POST',
-      payload: mockParams,
-      url: urls.SED_PREVIEW_URL
-    })
-  })
-
   it('call createSed() ', () => {
     const mockParams = { foo: 'bar' }
     bucActions.createSed(mockParams)

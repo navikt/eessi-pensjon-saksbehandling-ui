@@ -10,7 +10,6 @@ import * as Nav from 'components/ui/Nav'
 import TopContainer from 'components/ui/TopContainer/TopContainer'
 import FrontPageDrawer from 'components/drawer/FrontPage'
 import SEDStart from 'applications/BUC/steps/SEDStart'
-import SEDPreview from 'applications/BUC/steps/SEDPreview'
 import SEDSaveSend from 'applications/BUC/steps/SEDSaveSend'
 import * as routes from 'constants/routes'
 
@@ -63,7 +62,6 @@ export const BUCPageIndex = (props) => {
         }))} />
       {caseDescriptions[step] ? <h2 className='mb-4 appDescription'>{t(caseDescriptions[step])}</h2> : null}
       {step === 0 ? <SEDStart mode='page' {...props} /> : null}
-      {step === 1 ? <SEDPreview mode='page' {...props} /> : null}
       {step === 2 ? <SEDSaveSend mode='page' {...props} /> : null}
     </div>
   </TopContainer>

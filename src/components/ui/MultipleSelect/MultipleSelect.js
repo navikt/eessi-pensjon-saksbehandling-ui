@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import Select from 'react-select'
+import CreatableSelect from 'react-select/lib/Creatable'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
 import MultipleOption from './MultipleOption'
-import SingleValue from './SingleValue'
+import MultipleValueRemove from './MultipleValueRemove'
 import MultipleErrorStyle from './MultipleErrorStyle'
 
 import './MultipleSelect.css'
@@ -19,6 +20,7 @@ const MultipleSelect = (props) => {
       placeholder,
       values,
       locale,
+      creatable = false,
       type,
       includeList,
       excludeList,
@@ -63,6 +65,25 @@ const MultipleSelect = (props) => {
   options = excludeList ? exclude(excludeList, options) : options
 
   return <div id={id} className={classNames('c-ui-multipleSelect', className, { 'skjemaelement__feilmelding': error })}>
+    {creatable ?
+    <CreatableSelect placeholder={placeholder}
+      isMulti={true}
+      closeMenuOnSelect={false}
+      defaultValue={_values}
+      options={options}
+      id={id ? id + '-select' : null}
+      components={{
+        Option: MultipleOption,
+        MultiValueRemove: MultipleValueRemove,
+        ...components }}
+      className='multipleSelect'
+      classNamePrefix='multipleSelect'
+      onChange={_onChange}
+      hideSelectedOptions={hideSelectedOptions || false}
+      styles={{ ...styles, ...MultipleErrorStyle(error) }}
+      tabSelectsValue={false}
+    />
+    :
     <Select placeholder={placeholder}
       isMulti={true}
       closeMenuOnSelect={false}
@@ -71,15 +92,15 @@ const MultipleSelect = (props) => {
       id={id ? id + '-select' : null}
       components={{
         Option: MultipleOption,
-        SingleValue: SingleValue,
+        MultiValueRemove: MultipleValueRemove,
         ...components }}
-      className='MultipleSelect'
-      classNamePrefix='MultipleSelect'
+      className='multipleSelect'
+      classNamePrefix='multipleSelect'
       onChange={_onChange}
       hideSelectedOptions={hideSelectedOptions || false}
       styles={{ ...styles, ...MultipleErrorStyle(error) }}
       tabSelectsValue={false}
-    />
+    />}
     {error
       ? <div role='alert' aria-live='assertive'>
         <div className='skjemaelement__feilmelding'>
@@ -108,7 +129,8 @@ MultipleSelect.propTypes = {
   errorMessage: PT.string,
   styles: PT.object,
   error: PT.bool,
-  components: PT.object
+  components: PT.object,
+  creatable: PT.bool
 }
 
 export default MultipleSelect

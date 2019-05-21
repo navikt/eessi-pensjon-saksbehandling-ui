@@ -3,53 +3,37 @@ import * as urls from 'constants/urls'
 import * as api from './api'
 var sprintf = require('sprintf-js').sprintf
 
-const BUCLIST = {
+const BUCLIST = [
+  {
+    type: 'P_BUC_01',
+    name: 'AldersPensjon',
+    dateCreated: 'dd.mm.åå',
+    countries: ['ZW', 'KR', 'SE', 'DK', 'CZ']
+  },
+  {
+    type: 'P_BUC_02',
+    name: 'UførePensjon',
+    dateCreated: 'dd.mm.åå',
+    countries: ['SE', 'DK', 'CZ'],
+    merknader: ['foo', 'bar', 'baz']
+  },
+  {
+    type: 'P_BUC_01',
+    name: 'AldersPensjon',
+    dateCreated: 'dd.mm.åå',
+    countries: ['ZW', 'KR', 'SE', 'DK', 'CZ'],
+    comments: ['foo', 'bar', 'baz']
+  },
+  {
+    type: 'P_BUC_01',
+    name: 'AldersPensjon',
+    dateCreated: 'dd.mm.åå',
+    countries: ['ZW', 'KR', 'SE', 'DK', 'CZ'],
+    merknader: ['foo', 'bar', 'baz'],
+    comments: ['foo', 'bar', 'baz']
+  }
+]
 
-  ONGOING: [
-    {
-      type: 'P_BUC_01',
-      name: 'AldersPensjon',
-      dateCreated: 'dd.mm.åå',
-      countries: ['ZW', 'KR', 'SE', 'DK', 'CZ']
-    },
-    {
-      type: 'P_BUC_02',
-      name: 'UførePensjon',
-      dateCreated: 'dd.mm.åå',
-      countries: ['SE', 'DK', 'CZ'],
-      merknader: ['foo', 'bar', 'baz']
-    },
-    {
-      type: 'P_BUC_01',
-      name: 'AldersPensjon',
-      dateCreated: 'dd.mm.åå',
-      countries: ['ZW', 'KR', 'SE', 'DK', 'CZ'],
-      comments: ['foo', 'bar', 'baz']
-    },
-    {
-      type: 'P_BUC_01',
-      name: 'AldersPensjon',
-      dateCreated: 'dd.mm.åå',
-      countries: ['ZW', 'KR', 'SE', 'DK', 'CZ'],
-      merknader: ['foo', 'bar', 'baz'],
-      comments: ['foo', 'bar', 'baz']
-    }
-  ],
-  OTHER: [
-    {
-      type: 'P_BUC_01',
-      name: 'FIFOFA',
-      dateCreated: 'dd.mm.åå',
-      countries: ['RU', 'GB', 'CH']
-    },
-    {
-      type: 'P_BUC_02',
-      name: 'GRÅTASS',
-      dateCreated: 'dd.mm.åå',
-      countries: ['DE', 'TR', 'CA']
-    }
-  ]
-}
 
 const SEDS = [
   {
@@ -177,6 +161,13 @@ export const getInstitutionListForCountry = (country) => {
   })
 }
 
+export const removeInstitutionForCountry = (country) => {
+  return {
+    type: types.CASE_REMOVE_INSTITUTION_LIST_FOR_COUNTRY,
+    payload: country
+  }
+}
+
 export const getBucList = (rinaId) => {
   let url = rinaId ? sprintf(urls.BUC_WITH_RINAID_NAME_URL, { rinaId: rinaId })
     : urls.EUX_BUCS_URL
@@ -216,19 +207,6 @@ export const cleanCaseNumber = () => {
   return {
     type: types.CASE_GET_CASE_NUMBER_CLEAN
   }
-}
-
-export const getMorePreviewData = (payload) => {
-  return api.call({
-    url: urls.SED_PREVIEW_URL,
-    method: 'POST',
-    payload: payload,
-    type: {
-      request: types.CASE_GET_MORE_PREVIEW_DATA_REQUEST,
-      success: types.CASE_GET_MORE_PREVIEW_DATA_SUCCESS,
-      failure: types.CASE_GET_MORE_PREVIEW_DATA_FAILURE
-    }
-  })
 }
 
 export const createSed = (payload) => {

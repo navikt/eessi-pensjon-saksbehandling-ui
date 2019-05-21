@@ -1,6 +1,6 @@
 import React from 'react'
 import CountryOption from './CountryOption'
-import { countries } from './CountrySelectData'
+import countries from './CountrySelectData'
 
 describe('CountryOption Rendering', () => {
   it('Renders correctly', () => {
