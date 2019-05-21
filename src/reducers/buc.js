@@ -37,7 +37,7 @@ const bucReducer = (state = initialBucState, action) => {
     case types.CASE_GET_INSTITUTION_LIST_SUCCESS:
 
       let institutionList = state.institutionList ? _.cloneDeep(state.institutionList) : {}
-      action.payload.map(institution => {
+      action.payload.forEach(institution => {
         let existingInstitutions = institutionList[institution.landkode] || []
         if (!_.find(existingInstitutions, {'id': institution.id})) {
           existingInstitutions.push({
@@ -52,6 +52,14 @@ const bucReducer = (state = initialBucState, action) => {
 
       return Object.assign({}, state, {
         institutionList: institutionList
+      })
+
+    case types.CASE_REMOVE_INSTITUTION_LIST_FOR_COUNTRY:
+      let institutions = state.institutionList ? _.cloneDeep(state.institutionList) : {}
+      const landkode = action.payload
+      delete institutions[landkode]
+      return Object.assign({}, state, {
+        institutionList: institutions
       })
 
     case types.CASE_GET_SED_LIST_SUCCESS:
@@ -82,24 +90,6 @@ const bucReducer = (state = initialBucState, action) => {
 
       return Object.assign({}, state, {
         countryList: action.payload
-      })
-
-    case types.CASE_DATA_PREVIEW_SUCCESS:
-
-      return Object.assign({}, state, {
-        previewData: action.payload,
-        step: 1
-      })
-
-    case types.CASE_GET_MORE_PREVIEW_DATA_SUCCESS:
-
-      let previewData = Object.assign({},
-        state.previewData,
-        action.payload
-      )
-
-      return Object.assign({}, state, {
-        previewData: previewData
       })
 
     case types.CASE_CREATE_SED_REQUEST:
@@ -145,7 +135,6 @@ const bucReducer = (state = initialBucState, action) => {
 
       return Object.assign({}, state, {
         currentCase: undefined,
-        previewData: undefined,
         savedData: undefined,
         step: 0
       })

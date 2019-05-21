@@ -63,7 +63,8 @@ const Icons = (props) => {
     case 'server' : return <FontAwesomeIcon icon={icons.faServer} {...props} />
     case 'db' : return <FontAwesomeIcon icon={icons.faDatabase} {...props} />
 
-    case 'close' : return <FontAwesomeIcon icon={icons.faTimesCircle} {...props} />
+    case 'solidclose' : return <FontAwesomeIcon icon={icons.faTimesCircle} {...props} />
+    case 'close' : return <FontAwesomeIcon icon={icons.faTimes} {...props} />
     case 'bigclose' : return <LineVersionClose {...props} />
     case 'vedlegg' : return <Vedlegg {...props} />
     case 'trashcan' : return <Trashcan {...props} />

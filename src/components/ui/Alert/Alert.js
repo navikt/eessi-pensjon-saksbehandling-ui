@@ -44,7 +44,7 @@ export class Alert extends Component {
         className={classNames('c-ui-alert', 'server', className)} type='feil' solid>
         {t(serverErrorMessage)}
         {uuid}
-        <Icons className='closeIcon' size='1x' kind='close' onClick={this.clientClear.bind(this)} />
+        <Icons className='closeIcon' size='1x' kind='solidclose' onClick={this.clientClear.bind(this)} />
       </Nav.AlertStripe> : null
     }
 
@@ -66,7 +66,7 @@ export class Alert extends Component {
       type={errorTypes[clientErrorStatus]}>
       {_message}
       {uuid}
-      <Icons className='closeIcon' size='1x' kind='close' onClick={this.clientClear.bind(this)} />
+      <Icons className='closeIcon' size='1x' kind='solidclose' onClick={this.clientClear.bind(this)} />
     </Nav.AlertStripe>
   }
 }

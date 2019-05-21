@@ -1,7 +1,6 @@
 import React from 'react'
 import { Hovedknapp, Panel, Ingress } from 'components/ui/Nav'
 import SEDStart from 'applications/BUC/steps/SEDStart'
-import SEDPreview from 'applications/BUC/steps/SEDPreview'
 import SEDSaveSend from 'applications/BUC/steps/SEDSaveSend'
 
 const BUCNew = (props) => {
@@ -11,18 +10,18 @@ const BUCNew = (props) => {
     actions.setMode('list')
   }
 
-  return <div>
-    <div className='text-right'>
+  return <React.Fragment>
+    <div className='a-buc-buclist-buttons mb-2'>
+        <div></div>
       <Hovedknapp onClick={onBUCList}>{t('buc:widget-backToList')}</Hovedknapp>
     </div>
     <Panel>
       <Ingress>{t('buc:step-startSEDTitle')}</Ingress>
       <hr />
       {step === 0 ? <SEDStart mode='widget' {...props} /> : null}
-      {step === 1 ? <SEDPreview mode='widget' {...props} /> : null}
       {step === 2 ? <SEDSaveSend mode='widget' {...props} /> : null}
     </Panel>
-  </div>
+  </React.Fragment>
 }
 
 export default BUCNew

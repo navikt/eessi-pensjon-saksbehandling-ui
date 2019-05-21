@@ -1,4 +1,4 @@
-export var countries = { 'en': [
+module.exports = { 'en': [
   {
     'value': 'NO',
     'label': 'Norway'

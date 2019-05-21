@@ -147,11 +147,6 @@ const alertReducer = (state = initialAlertState, action = {}) => {
       clientErrorMessage = 'buc:alert-caseFound'
       break
 
-    case types.CASE_GET_MORE_PREVIEW_DATA_SUCCESS:
-
-      clientErrorMessage = 'buc:alert-getMorePreviewData'
-      break
-
     case types.CASE_CREATE_SED_SUCCESS:
     case types.CASE_ADD_TO_SED_SUCCESS:
 

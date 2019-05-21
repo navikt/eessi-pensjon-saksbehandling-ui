@@ -5,10 +5,10 @@ import { connect, bindActionCreators } from 'store'
 
 import PsychoPanel from 'components/ui/Psycho/PsychoPanel'
 import * as Nav from 'components/ui/Nav'
-import Icons from 'components/ui/Icons'
-import { countries } from 'components/ui/CountrySelect/CountrySelectData'
+import countries from 'components/ui/CountrySelect/CountrySelectData'
 import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
 import FlagList from 'components/ui/Flag/FlagList'
+import Icons from 'components/ui/Icons'
 
 import * as bucActions from 'actions/buc'
 import * as uiActions from 'actions/ui'
@@ -22,7 +22,7 @@ export const mapStateToProps = (state) => {
     sedList: state.buc.sedList,
     countryList: state.buc.countryList,
     currentCase: state.buc.currentCase,
-    previewData: state.buc.previewData,
+    p6000data: state.p6000.data,
 
     locale: state.ui.locale,
     loading: state.loading,
@@ -32,8 +32,7 @@ export const mapStateToProps = (state) => {
     aktoerId: state.status.aktoerId,
     vedtakId: state.status.vedtakId,
     sed: state.status.sed,
-    buc: state.status.buc,
-    mottak: state.status.mottak
+    buc: state.status.buc
   }
 }
 
@@ -62,24 +61,15 @@ const SEDStart = (props) => {
 
   const [_country, setCountry] = useState([])
   const [_institution, setInstitution] = useState([])
+  const [_tags, setTags] = useState([])
   const [validation, setValidation] = useState({})
 
   const [mounted, setMounted] = useState(false)
 
   const { t, actions } = props
   const { subjectAreaList, institutionList, bucList, sedList, countryList } = props
-  const { currentCase, previewData, locale, loading, mode } = props
-  const { sakId, aktoerId, rinaId, vedtakId, sed, buc, mottak } = props
-
-  // update current fields with previewData
-  useEffect(() => {
-    if (previewData) {
-      if (previewData.subjectArea) { setSubjectArea(previewData.subjectArea) }
-      if (previewData.buc) { setBuc(previewData.buc) }
-      if (previewData.sed) { setSed(previewData.sed) }
-      if (previewData.institutions) { setInstitution(previewData.institutions) }
-    }
-  }, [previewData])
+  const { currentCase, locale, loading, mode, p6000data } = props
+  const { sakId, aktoerId, rinaId, vedtakId, sed, buc } = props
 
   useEffect(() => {
     if (!loading.gettingCase && _.isEmpty(currentCase) && sakId && aktoerId) {
@@ -138,21 +128,13 @@ const SEDStart = (props) => {
     }
   }
 
-  const parseMottak = () => {
-    if (!mottak || mottak.indexOf('/') < 0) {
-      return undefined
-    }
-    let pieces = mottak.split('/')
-    return { institution: pieces[1], country: pieces[0] }
-  }
-
   const onForwardButtonClick = () => {
     validateSubjectArea(_subjectArea)
     validateBuc(_buc || buc)
     validateSed(_sed || sed)
     validateInstitution(_institution)
     if (hasNoValidationErrors()) {
-      actions.dataPreview({
+      const data = {
         sakId: currentCase.casenumber,
         aktoerId: currentCase.pinid,
         rinaId: currentCase.rinaid,
@@ -160,9 +142,23 @@ const SEDStart = (props) => {
         buc: _buc || buc,
         sed: _sed || sed,
         vedtakId: vedtakId || _vedtakId,
-        institutions: _institution
-      })
+        institutions: _institution,
+        tags: _tags
+      }
+      if (data.sed === 'P6000') {
+        data.P6000 = Object.assign({}, p6000data)
+      }
+      data.euxCaseId = data.rinaId
+      if (!data.euxCaseId) {
+        actions.createSed(data)
+      } else {
+        actions.addToSed(data)
+      }
     }
+  }
+
+  const onCancelButtonClick = () => {
+    actions.setMode('list')
   }
 
   const validateSubjectArea = (subjectArea) => {
@@ -255,15 +251,27 @@ const SEDStart = (props) => {
   const onCountryChange = (countryList) => {
     validateCountry(countryList)
     if (!validation.countryFail) {
+
+      let oldCountryList = _.cloneDeep(countryList)
       setCountry(countryList)
-      countryList.map(country => {
+      let addedCountries = countryList.filter(country => ! oldCountryList.includes(country))
+      let removedCountries = oldCountryList.filter(country => ! countryList.includes(country))
+
+      addedCountries.map(country => {
         if (_buc) {
           actions.getInstitutionListForBucAndCountry(_buc, country.value)
         } else {
           actions.getInstitutionListForCountry(country.value)
         }
       })
+      removedCountries.map(country => {
+        actions.removeInstitutionForCountry(country.value)
+      })
     }
+  }
+
+  const onTagsChange = (tagsList) => {
+    setTags(tagsList)
   }
 
   const renderOptions = (options, type) => {
@@ -313,7 +321,7 @@ const SEDStart = (props) => {
       bredde='fullbredde'
       feil={validation.subjectAreaFail ? { feilmelding: validation.subjectAreaFail } : null}
       label={t('buc:form-subjectArea')}
-      value={_subjectArea}
+      value={_subjectArea || []}
       onChange={onSubjectAreaChange}>
       {renderOptions(subjectAreaList, 'subjectArea')}
     </Nav.Select>
@@ -340,8 +348,9 @@ const SEDStart = (props) => {
   }
 
   const institutionObjectList = institutionList ? Object.keys(institutionList).map(landkode => {
+    let label = _.find(countries[locale], {value: landkode})
     return {
-      label: landkode,
+      label: label.label,
       options: institutionList[landkode].map(institution => {
         return {
           label: institution.navn,
@@ -417,13 +426,36 @@ const SEDStart = (props) => {
     }
 
     return <React.Fragment>
-      <Nav.EtikettLiten>{t('buc:form-chosenInstitutions')}</Nav.EtikettLiten>
+      <Nav.Ingress className='mb-2'>{t('buc:form-chosenInstitutions')}</Nav.Ingress>
       {!_.isEmpty(institutions) ? Object.keys(institutions).map(landkode => {
          return <div className='d-flex align-items-baseline'>
-           <FlagList countries={[landkode]} overflowLimit={5} flagPath='../../../../flags/' extention='.png' />
+           <FlagList locale={locale} countries={[landkode]} overflowLimit={5} flagPath='../../../../flags/' extention='.png' />
            <span>{landkode}: {institutions[landkode].join(', ')}</span>
          </div>
-      }) : <Nav.Element>{t('buc:form-noInstitutionYet')}</Nav.Element>}
+      }) : <Nav.Normaltekst>{t('buc:form-noInstitutionYet')}</Nav.Normaltekst>}
+    </React.Fragment>
+  }
+
+  const renderTags = () => {
+    return <React.Fragment>
+      <div className='d-flex mb-2'>
+        <Icons kind='tilsette'/>
+        <span className='ml-3 mb-1'>{t('buc:form-tagsForBUC')}</span>
+      </div>
+      <div className='mb-3 flex-fill'>
+        <Nav.Normaltekst>{t('buc:form-tagsForBUC-description')}</Nav.Normaltekst>
+        <MultipleSelect
+          creatable={true}
+          placeholder={t('buc:form-tagPlaceholder')}
+          id='a-buc-sedstart-tags-select'
+          className='multipleSelect'
+          aria-describedby='help-tags'
+          locale={locale}
+          value={_tags || []}
+          hideSelectedOptions={false}
+          onChange={onTagsChange}
+          optionList={[]} />
+      </div>
     </React.Fragment>
   }
 
@@ -445,7 +477,7 @@ const SEDStart = (props) => {
             className='getCaseInputSakId'
             label={t('buc:form-sakId')}
             value={_sakId || ''}
-            bredde='XL'
+            bredde='fullbredde'
             id='a-buc-sedstart-sakid-input'
             onChange={onSakIdChange}
             feil={validation.sakId ? { feilmelding: t(validation.sakId) } : null} />
@@ -458,7 +490,7 @@ const SEDStart = (props) => {
             className='getCaseInputAktoerId'
             label={t('buc:form-aktoerId')}
             value={_aktoerId || ''}
-            bredde='XL'
+            bredde='fullbredde'
             id='a-buc-sedstart-aktoerid-input'
             onChange={onAktoerIdChange}
             feil={validation.aktoerId ? { feilmelding: t(validation.aktoerId) } : null} />
@@ -473,7 +505,7 @@ const SEDStart = (props) => {
               <span className='optional'>{t('ui:optional')}</span>
             </div>}
             value={_rinaId || ''}
-            bredde='XL'
+            bredde='fullbredde'
             id='a-buc-sedstart-rinaid-input'
             onChange={onRinaIdChange}
           />
@@ -545,25 +577,34 @@ const SEDStart = (props) => {
             </Nav.Row>
           </div>
           <div className='col-md-6'>
-            <div className='selectBoxMessage'>{!loading ? null
-              : loading.subjectAreaList ? getSpinner('buc:loading-subjectArea')
-                : loading.bucList ? getSpinner('buc:loading-buc')
-                  : loading.sedList ? getSpinner('buc:loading-sed')
-                    : loading.institutionList ? getSpinner('buc:loading-institution')
-                      : loading.countryList ? getSpinner('buc:loading-country') : null}
+            <div style={{minHeight: '10rem'}}>
+              {renderInstitutions()}
             </div>
-            {renderInstitutions()}
+            <div className='mt-3'>
+              {renderTags()}
+            </div>
           </div>
         </Nav.Row>
       </React.Fragment>}
 
     <Nav.Row className='mb-4 mt-4'>
+      <div className='col-md-12 selectBoxMessage'>{!loading ? null
+        : loading.subjectAreaList ? getSpinner('buc:loading-subjectArea')
+          : loading.bucList ? getSpinner('buc:loading-buc')
+            : loading.sedList ? getSpinner('buc:loading-sed')
+              : loading.institutionList ? getSpinner('buc:loading-institution')
+                : loading.countryList ? getSpinner('buc:loading-country') : null}
+      </div>
       <div className='col-md-12'>
         <Nav.Hovedknapp
           id='a-buc-sedstart-forward-button'
           className='forwardButton'
           disabled={!allowedToForward()}
-          onClick={onForwardButtonClick}>{t('ui:go')}</Nav.Hovedknapp>
+          onClick={onForwardButtonClick}>{t('buc:form-createCaseinRINA')}</Nav.Hovedknapp>
+        <Nav.Flatknapp
+          id='a-buc-sedstart-cancel'
+          className='cancelButton'
+          onClick={onCancelButtonClick}>{t('ui:cancel')}</Nav.Flatknapp>
       </div>
     </Nav.Row>
   </React.Fragment>
@@ -575,13 +616,12 @@ SEDStart.propTypes = {
   loading: PT.object,
   t: PT.func,
   subjectAreaList: PT.array,
-  institutionList: PT.array,
+  institutionList: PT.object,
   countryList: PT.array,
   sedList: PT.array,
   bucList: PT.array,
   sed: PT.string,
   buc: PT.string,
-  previewData: PT.object,
   locale: PT.string,
   vedtakId: PT.string
 }

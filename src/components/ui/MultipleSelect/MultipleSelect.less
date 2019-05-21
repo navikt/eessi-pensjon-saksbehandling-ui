@@ -3,7 +3,7 @@
 .c-ui-multipleSelect {
 
   .c-ui-multipleOption {
-    padding: 5px;
+    padding: 10px;
     &.selected {
        background: lightblue;
     }
@@ -11,18 +11,22 @@
        background: aliceblue;
     }
 
+    .skjemaelement {
+       margin-bottom: 0rem !important;
+    }
+
     img {
        border: 1px solid lightgrey;
     }
   }
 
-  .MultipleSelect__multi-value {
+  .multipleSelect__multi-value {
       border-radius: 20px;
       border: 1px solid grey;
       padding: 0.25rem;
   }
 
-  .MultipleSelect__multi-value__remove {
+  .multipleSelect__multi-value__remove {
       border-radius: 20px;
       border: 1px solid grey;
       margin-left: 0.25rem;
@@ -40,6 +44,18 @@
   .multipleSelect__indicator-separator {
     background-color: @form-dark-gray;
   }
+
+  .c-ui-multipleSelect-multipleValueRemove {
+     border: 1px solid grey;
+     border-radius: 20px;
+     width: 24px;
+     height: 24px;
+     text-align: center;
+
+     &:hover {
+       background-color: white;
+     }
+   }
 }
 
 .c-ui-multipleSelect.skjemaelement__feilmelding {

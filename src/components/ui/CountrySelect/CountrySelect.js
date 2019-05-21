@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
 import PT from 'prop-types'
-import { countries } from './CountrySelectData'
+import countries from './CountrySelectData'
 import _ from 'lodash'
 import classNames from 'classnames'
 import CountryOption from './CountryOption'

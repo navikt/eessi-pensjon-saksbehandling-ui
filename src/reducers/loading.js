@@ -86,13 +86,6 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
         status: status
       })
 
-    case types.CASE_GET_MORE_PREVIEW_DATA_REQUEST:
-
-      return Object.assign({}, state, {
-        previewingCase: true,
-        status: status
-      })
-
     case types.APP_USERINFO_REQUEST:
 
       return Object.assign({}, state, {
@@ -184,14 +177,6 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
 
       return Object.assign({}, state, {
         sendingCase: false,
-        status: status
-      })
-
-    case types.CASE_GET_MORE_PREVIEW_DATA_SUCCESS:
-    case types.CASE_GET_MORE_PREVIEW_DATA_FAILURE:
-
-      return Object.assign({}, state, {
-        previewingCase: false,
         status: status
       })
 
