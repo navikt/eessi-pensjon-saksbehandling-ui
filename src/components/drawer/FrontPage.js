@@ -13,7 +13,7 @@ class FrontPage extends Component {
       <h4 className='mb-4'>{t('forms')}</h4>
       <Nav.Lenkepanel style={{ animationDelay: '0s' }} className='frontPageLink bucLink' linkCreator={(props) => (
         <Link to={routes.BUC} {...props} />)
-      } href='#'>{t('buc:page-createNewCase')}</Nav.Lenkepanel>
+      } href='#'>{t('buc:form-createNewCase')}</Nav.Lenkepanel>
       <Nav.Lenkepanel style={{ animationDelay: '0.2s' }} className='frontPageLink pInfoLink' linkCreator={(props) => (
         <Link to={routes.PINFO} {...props} />)
       } href='#'>{t('pinfo:app-startPinfo')}</Nav.Lenkepanel>

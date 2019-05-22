@@ -62,27 +62,27 @@ const alertReducer = (state = initialAlertState, action = {}) => {
     clientErrorStatus = 'ERROR'
 
     switch (action.type) {
-      case types.CASE_GET_SUBJECT_AREA_LIST_FAILURE:
+      case types.BUC_GET_SUBJECT_AREA_LIST_FAILURE:
 
         clientErrorMessage = 'buc:alert-noSubjectAreaList'
         break
 
-      case types.CASE_GET_INSTITUTION_LIST_FAILURE:
+      case types.BUC_GET_INSTITUTION_LIST_FAILURE:
 
         clientErrorMessage = 'buc:alert-noInstitutionList'
         break
 
-      case types.CASE_GET_SED_LIST_FAILURE:
+      case types.BUC_GET_SED_LIST_FAILURE:
 
         clientErrorMessage = 'buc:alert-noSedList'
         break
 
-      case types.CASE_GET_BUC_LIST_FAILURE:
+      case types.BUC_GET_BUC_LIST_FAILURE:
 
         clientErrorMessage = 'buc:alert-noBucList'
         break
 
-      case types.CASE_GET_COUNTRY_LIST_FAILURE:
+      case types.BUC_GET_COUNTRY_LIST_FAILURE:
 
         clientErrorMessage = 'buc:alert-noCountryList'
         break
@@ -123,11 +123,6 @@ const alertReducer = (state = initialAlertState, action = {}) => {
         clientErrorMessage = 'pinfo:alert-sendFailure'
         break
 
-      case types.PINFO_RECEIPT_FAILURE:
-
-        clientErrorMessage = 'pinfo:alert-receiptFailure'
-        break
-
       default:
 
         clientErrorMessage = printError(action.payload)
@@ -142,18 +137,18 @@ const alertReducer = (state = initialAlertState, action = {}) => {
   }
 
   switch (action.type) {
-    case types.CASE_GET_CASE_NUMBER_SUCCESS:
+    case types.BUC_GET_CASE_NUMBER_SUCCESS:
 
       clientErrorMessage = 'buc:alert-caseFound'
       break
 
-    case types.CASE_CREATE_SED_SUCCESS:
-    case types.CASE_ADD_TO_SED_SUCCESS:
+    case types.BUC_CREATE_SED_SUCCESS:
+    case types.BUC_ADD_TO_SED_SUCCESS:
 
       clientErrorMessage = 'buc:alert-savedData'
       break
 
-    case types.CASE_SEND_SED_SUCCESS:
+    case types.BUC_SEND_SED_SUCCESS:
 
       clientErrorMessage = 'buc:alert-sentData'
       break
@@ -206,11 +201,6 @@ const alertReducer = (state = initialAlertState, action = {}) => {
     case types.PINFO_SEND_SUCCESS:
 
       clientErrorMessage = 'pinfo:alert-sendSuccess'
-      break
-
-    case types.PINFO_RECEIPT_SUCCESS:
-
-      clientErrorMessage = 'pinfo:alert-receiptSuccess'
       break
 
     default:

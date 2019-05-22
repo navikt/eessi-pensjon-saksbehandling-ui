@@ -22,42 +22,42 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
     status = 'OK'
   }
   switch (action.type) {
-    case types.CASE_GET_CASE_NUMBER_REQUEST:
+    case types.BUC_GET_CASE_NUMBER_REQUEST:
 
       return Object.assign({}, state, {
         gettingCase: true,
         status: status
       })
 
-    case types.CASE_GET_SUBJECT_AREA_LIST_REQUEST:
+    case types.BUC_GET_SUBJECT_AREA_LIST_REQUEST:
 
       return Object.assign({}, state, {
         subjectAreaList: true,
         status: status
       })
 
-    case types.CASE_GET_INSTITUTION_LIST_REQUEST:
+    case types.BUC_GET_INSTITUTION_LIST_REQUEST:
 
       return Object.assign({}, state, {
         institutionList: true,
         status: status
       })
 
-    case types.CASE_GET_SED_LIST_REQUEST:
+    case types.BUC_GET_SED_LIST_REQUEST:
 
       return Object.assign({}, state, {
         sedList: true,
         status: status
       })
 
-    case types.CASE_GET_BUC_LIST_REQUEST:
+    case types.BUC_GET_BUC_LIST_REQUEST:
 
       return Object.assign({}, state, {
         bucList: true,
         status: status
       })
 
-    case types.CASE_GET_COUNTRY_LIST_REQUEST:
+    case types.BUC_GET_COUNTRY_LIST_REQUEST:
 
       return Object.assign({}, state, {
         countryList: true,
@@ -71,15 +71,15 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
         status: status
       })
 
-    case types.CASE_CREATE_SED_REQUEST:
-    case types.CASE_ADD_TO_SED_REQUEST:
+    case types.BUC_CREATE_SED_REQUEST:
+    case types.BUC_ADD_TO_SED_REQUEST:
 
       return Object.assign({}, state, {
         savingCase: true,
         status: status
       })
 
-    case types.CASE_SEND_SED_REQUEST:
+    case types.BUC_SEND_SED_REQUEST:
 
       return Object.assign({}, state, {
         sendingCase: true,
@@ -114,66 +114,66 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
         status: status
       })
 
-    case types.CASE_GET_CASE_NUMBER_SUCCESS:
-    case types.CASE_GET_CASE_NUMBER_FAILURE:
+    case types.BUC_GET_CASE_NUMBER_SUCCESS:
+    case types.BUC_GET_CASE_NUMBER_FAILURE:
 
       return Object.assign({}, state, {
         gettingCase: false,
         status: status
       })
 
-    case types.CASE_GET_SUBJECT_AREA_LIST_SUCCESS:
-    case types.CASE_GET_SUBJECT_AREA_LIST_FAILURE:
+    case types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS:
+    case types.BUC_GET_SUBJECT_AREA_LIST_FAILURE:
 
       return Object.assign({}, state, {
         subjectAreaList: false,
         status: status
       })
 
-    case types.CASE_GET_INSTITUTION_LIST_SUCCESS:
-    case types.CASE_GET_INSTITUTION_LIST_FAILURE:
+    case types.BUC_GET_INSTITUTION_LIST_SUCCESS:
+    case types.BUC_GET_INSTITUTION_LIST_FAILURE:
 
       return Object.assign({}, state, {
         institutionList: false,
         status: status
       })
 
-    case types.CASE_GET_SED_LIST_SUCCESS:
-    case types.CASE_GET_SED_LIST_FAILURE:
+    case types.BUC_GET_SED_LIST_SUCCESS:
+    case types.BUC_GET_SED_LIST_FAILURE:
 
       return Object.assign({}, state, {
         sedList: false,
         status: status
       })
 
-    case types.CASE_GET_BUC_LIST_SUCCESS:
-    case types.CASE_GET_BUC_LIST_FAILURE:
+    case types.BUC_GET_BUC_LIST_SUCCESS:
+    case types.BUC_GET_BUC_LIST_FAILURE:
 
       return Object.assign({}, state, {
         bucList: false,
         status: status
       })
 
-    case types.CASE_GET_COUNTRY_LIST_SUCCESS:
-    case types.CASE_GET_COUNTRY_LIST_FAILURE:
+    case types.BUC_GET_COUNTRY_LIST_SUCCESS:
+    case types.BUC_GET_COUNTRY_LIST_FAILURE:
 
       return Object.assign({}, state, {
         countryList: false,
         status: status
       })
 
-    case types.CASE_CREATE_SED_SUCCESS:
-    case types.CASE_CREATE_SED_FAILURE:
-    case types.CASE_ADD_TO_SED_SUCCESS:
-    case types.CASE_ADD_TO_SED_FAILURE:
+    case types.BUC_CREATE_SED_SUCCESS:
+    case types.BUC_CREATE_SED_FAILURE:
+    case types.BUC_ADD_TO_SED_SUCCESS:
+    case types.BUC_ADD_TO_SED_FAILURE:
 
       return Object.assign({}, state, {
         savingCase: false,
         status: status
       })
 
-    case types.CASE_SEND_SED_SUCCESS:
-    case types.CASE_SEND_SED_FAILURE:
+    case types.BUC_SEND_SED_SUCCESS:
+    case types.BUC_SEND_SED_FAILURE:
 
       return Object.assign({}, state, {
         sendingCase: false,
@@ -348,18 +348,6 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
     case types.APP_LOGOUT_FAILURE:
       return Object.assign({}, state, {
         isLoggingOut: false
-      })
-
-    case types.PINFO_RECEIPT_SUCCESS:
-    case types.PINFO_RECEIPT_FAILURE:
-      return Object.assign({}, state, {
-        isGeneratingReceipt: false
-      })
-
-    case types.PINFO_RECEIPT_REQUEST:
-
-      return Object.assign({}, state, {
-        isGeneratingReceipt: true
       })
 
     case types.PINFO_SEND_SUCCESS:

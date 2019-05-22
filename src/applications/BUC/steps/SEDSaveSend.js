@@ -3,7 +3,6 @@ import { connect, bindActionCreators } from 'store'
 import PT from 'prop-types'
 
 import Export from 'components/ui/Export/Export'
-import RenderData from 'applications/BUC/components/RenderData/RenderData'
 import * as Nav from 'components/ui/Nav'
 
 import * as bucActions from 'actions/buc'
@@ -66,9 +65,6 @@ const SEDSaveSend = (props) => {
           <div className='m-4'><a target='_blank' rel='noopener noreferrer' href={rinaUrl + savedData.caseId}>{t('buc:form-caseLink')}</a></div>
           <div className='m-4'>
             <h4>{t('buc:form-rinaId') + ': ' + savedData.caseId}</h4>
-          </div>
-          <div style={{ display: 'none' }}>
-            <RenderData t={t} previewData={Object.assign({}, previewData, savedData)} />
           </div>
           <Export fileName='kvittering.pdf' nodeId='divToPrint' buttonLabel={t('ui:getReceipt')} />
         </div> : null)}

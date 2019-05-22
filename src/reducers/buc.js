@@ -15,6 +15,20 @@ const bucReducer = (state = initialBucState, action) => {
         mode: action.payload
       }
 
+    case types.BUC_BUC_SET:
+
+      return {
+        ...state,
+        buc: action.payload
+      }
+
+    case types.BUC_SEDS_SET:
+
+      return {
+        ...state,
+        seds: action.payload
+      }
+
     case types.BUC_LIST_SET:
 
       return {
@@ -22,19 +36,19 @@ const bucReducer = (state = initialBucState, action) => {
         list: action.payload
       }
 
-    case types.CASE_STEP_SET:
+    case types.BUC_STEP_SET:
 
       return Object.assign({}, state, {
         step: action.payload
       })
 
-    case types.CASE_GET_SUBJECT_AREA_LIST_SUCCESS:
+    case types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS:
 
       return Object.assign({}, state, {
         subjectAreaList: action.payload
       })
 
-    case types.CASE_GET_INSTITUTION_LIST_SUCCESS:
+    case types.BUC_GET_INSTITUTION_LIST_SUCCESS:
 
       let institutionList = state.institutionList ? _.cloneDeep(state.institutionList) : {}
       action.payload.forEach(institution => {
@@ -54,7 +68,7 @@ const bucReducer = (state = initialBucState, action) => {
         institutionList: institutionList
       })
 
-    case types.CASE_REMOVE_INSTITUTION_LIST_FOR_COUNTRY:
+    case types.BUC_REMOVE_INSTITUTION_LIST_FOR_COUNTRY:
       let institutions = state.institutionList ? _.cloneDeep(state.institutionList) : {}
       const landkode = action.payload
       delete institutions[landkode]
@@ -62,64 +76,64 @@ const bucReducer = (state = initialBucState, action) => {
         institutionList: institutions
       })
 
-    case types.CASE_GET_SED_LIST_SUCCESS:
+    case types.BUC_GET_SED_LIST_SUCCESS:
 
       return Object.assign({}, state, {
         sedList: action.payload
       })
 
-    case types.CASE_GET_BUC_LIST_REQUEST:
+    case types.BUC_GET_BUC_LIST_REQUEST:
 
       return Object.assign({}, state, {
         bucList: []
       })
 
-    case types.CASE_GET_BUC_LIST_SUCCESS:
+    case types.BUC_GET_BUC_LIST_SUCCESS:
 
       return Object.assign({}, state, {
         bucList: action.payload
       })
 
-    case types.CASE_GET_BUC_LIST_FAILURE:
+    case types.BUC_GET_BUC_LIST_FAILURE:
 
       return Object.assign({}, state, {
         bucList: []
       })
 
-    case types.CASE_GET_COUNTRY_LIST_SUCCESS:
+    case types.BUC_GET_COUNTRY_LIST_SUCCESS:
 
       return Object.assign({}, state, {
         countryList: action.payload
       })
 
-    case types.CASE_CREATE_SED_REQUEST:
-    case types.CASE_ADD_TO_SED_REQUEST:
+    case types.BUC_CREATE_SED_REQUEST:
+    case types.BUC_ADD_TO_SED_REQUEST:
 
       return Object.assign({}, state, {
         savedData: undefined
       })
 
-    case types.CASE_CREATE_SED_SUCCESS:
-    case types.CASE_ADD_TO_SED_SUCCESS:
+    case types.BUC_CREATE_SED_SUCCESS:
+    case types.BUC_ADD_TO_SED_SUCCESS:
 
       return Object.assign({}, state, {
         savedData: action.payload,
         step: 2
       })
 
-    case types.CASE_GET_CASE_NUMBER_REQUEST:
+    case types.BUC_GET_CASE_NUMBER_REQUEST:
 
       return Object.assign({}, state, {
         currentCase: undefined
       })
 
-    case types.CASE_GET_CASE_NUMBER_SUCCESS:
+    case types.BUC_GET_CASE_NUMBER_SUCCESS:
 
       return Object.assign({}, state, {
         currentCase: action.payload
       })
 
-    case types.CASE_GET_CASE_NUMBER_CLEAN:
+    case types.BUC_GET_CASE_NUMBER_CLEAN:
 
       return Object.assign({}, state, {
         currentCase: undefined
