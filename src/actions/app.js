@@ -45,20 +45,6 @@ export function getPersonData () {
   })
 }
 
-export function suggestPersonNameFromUsernameIfNotInState () {
-  return function (dispatch, globalState) {
-    if (!globalState.pinfo.person.nameAtBirth) {
-      let lastName = globalState.app.lastName
-      return dispatch({
-        type: types.PINFO_PERSON_SET,
-        payload: {
-          nameAtBirth: lastName
-        }
-      })
-    }
-  }
-}
-
 export function clearData () {
   return {
     type: types.APP_CLEAR_DATA

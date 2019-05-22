@@ -8,173 +8,56 @@ import * as Nav from 'components/ui/Nav'
 import countries from 'components/ui/CountrySelect/CountrySelectData'
 import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
 import FlagList from 'components/ui/Flag/FlagList'
+import FileUpload from 'components/ui/FileUpload/FileUpload'
 import Icons from 'components/ui/Icons'
 
 import * as bucActions from 'actions/buc'
-import * as uiActions from 'actions/ui'
-import * as appActions from 'actions/app'
 
 export const mapStateToProps = (state) => {
   return {
-    subjectAreaList: state.buc.subjectAreaList,
-    institutionList: state.buc.institutionList,
-    bucList: state.buc.bucList,
     sedList: state.buc.sedList,
     countryList: state.buc.countryList,
-    currentCase: state.buc.currentCase,
-    p6000data: state.p6000.data,
-
-    locale: state.ui.locale,
-    loading: state.loading,
-
-    sakId: state.status.sakId,
-    rinaId: state.status.rinaId,
-    aktoerId: state.status.aktoerId,
-    vedtakId: state.status.vedtakId,
-    sed: state.status.sed,
-    buc: state.status.buc
+    institutionList: state.buc.institutionList,
+    loading: state.loading
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, bucActions, appActions, uiActions), dispatch) }
+  return { actions: bindActionCreators(bucActions, dispatch) }
 }
 
 const placeholders = {
-  subjectArea: 'buc:form-chooseSubjectArea',
-  buc: 'buc:form-chooseBuc',
   sed: 'buc:form-chooseSed',
   institution: 'buc:form-chooseInstitution',
   country: 'buc:form-chooseCountry'
 }
 
 const SEDStart = (props) => {
-  // these are only used for when we are collecting them through a form
-  const [_sakId, setSakId] = useState(undefined)
-  const [_aktoerId, setAktoerId] = useState(undefined)
-  const [_rinaId, setRinaId] = useState(undefined)
 
-  const [_subjectArea, setSubjectArea] = useState('Pensjon')
-  const [_buc, setBuc] = useState(undefined)
   const [_sed, setSed] = useState(undefined)
-  const [_vedtakId, setVedtakId] = useState(undefined)
-
   const [_country, setCountry] = useState([])
   const [_institution, setInstitution] = useState([])
-  const [_tags, setTags] = useState([])
+  const [_attachments, setAttachments] = useState([])
   const [validation, setValidation] = useState({})
 
-  const [mounted, setMounted] = useState(false)
-
-  const { t, actions } = props
-  const { subjectAreaList, institutionList, bucList, sedList, countryList } = props
-  const { currentCase, locale, loading, mode, p6000data } = props
-  const { sakId, aktoerId, rinaId, vedtakId, sed, buc } = props
-
-  useEffect(() => {
-    if (!loading.gettingCase && _.isEmpty(currentCase) && sakId && aktoerId) {
-      actions.getCaseFromCaseNumber({
-        sakId: sakId,
-        aktoerId: aktoerId,
-        rinaId: rinaId
-      })
-      setMounted(true)
-    }
-
-    if (!loading.gettingCase && !_.isEmpty(currentCase)) {
-      if (subjectAreaList === undefined && !sed && !loading.subjectAreaList) {
-        actions.getSubjectAreaList()
-      }
-      if (bucList === undefined && !sed && !loading.bucList) {
-        actions.getBucList(currentCase ? currentCase.rinaid : undefined)
-      }
-      if (_.isEmpty(countryList) && !loading.countryList) {
-        actions.getCountryList()
-      }
-    }
-  }, [currentCase, mounted])
-
-  const onSakIdChange = (e) => {
-    resetValidationState('sakId')
-    setSakId(e.target.value.trim())
-  }
-
-  const onRinaIdChange = (e) => {
-    setRinaId(e.target.value.trim())
-  }
-
-  const onAktoerIdChange = (e) => {
-    resetValidationState('aktoerId')
-    setAktoerId(e.target.value.trim())
-  }
-
-  const onVedtakIdChange = (e) => {
-    setVedtakId(e.target.value.trim())
-  }
-
-  const onFetchCaseButtonClick = () => {
-    if (!_sakId) {
-      setValidationState('sakId', t('buc:validation-noSakId'))
-    }
-    if (!_aktoerId) {
-      setValidationState('aktoerId', t('buc:validation-noAktoerId'))
-    }
-    if (hasNoValidationErrors()) {
-      actions.getCaseFromCaseNumber({
-        sakId: _sakId,
-        aktoerId: _aktoerId,
-        rinaId: _rinaId
-      })
-    }
-  }
+  const { t, actions, sedList, countryList, institutionList, buc, locale, loading, layout = 'row' } = props
 
   const onForwardButtonClick = () => {
-    validateSubjectArea(_subjectArea)
-    validateBuc(_buc || buc)
-    validateSed(_sed || sed)
+    validateSed(_sed)
     validateInstitution(_institution)
     if (hasNoValidationErrors()) {
       const data = {
-        sakId: currentCase.casenumber,
-        aktoerId: currentCase.pinid,
-        rinaId: currentCase.rinaid,
-        subjectArea: _subjectArea,
-        buc: _buc || buc,
-        sed: _sed || sed,
-        vedtakId: vedtakId || _vedtakId,
+        sed: _sed,
         institutions: _institution,
-        tags: _tags
+        country: _country,
+        attachments: _attachments
       }
-      if (data.sed === 'P6000') {
-        data.P6000 = Object.assign({}, p6000data)
-      }
-      data.euxCaseId = data.rinaId
-      if (!data.euxCaseId) {
-        actions.createSed(data)
-      } else {
-        actions.addToSed(data)
-      }
+      actions.doSomethingWithSED(data)
     }
   }
 
   const onCancelButtonClick = () => {
     actions.setMode('list')
-  }
-
-  const validateSubjectArea = (subjectArea) => {
-    if (!subjectArea || subjectArea === placeholders.subjectArea) {
-      setValidationState('subjectAreaFail', t('buc:validation-chooseSubjectArea'))
-    } else {
-      resetValidationState('subjectAreaFail')
-    }
-  }
-
-  const validateBuc = (buc) => {
-    if (!buc || buc === placeholders.buc) {
-      setValidationState('bucFail', t('buc:validation-chooseBuc'))
-    } else {
-      resetValidationState('bucFail')
-    }
   }
 
   const validateSed = (sed) => {
@@ -222,21 +105,6 @@ const SEDStart = (props) => {
     })
   }
 
-  const onSubjectAreaChange = (e) => {
-    const thisSubjectArea = e.target.value
-    setSubjectArea(thisSubjectArea)
-    validateSubjectArea(thisSubjectArea)
-  }
-
-  const onBucChange = (e) => {
-    const thisBuc = e.target.value
-    setBuc(thisBuc)
-    validateBuc(thisBuc)
-    if (!validation.bucFail) {
-      actions.getSedList(thisBuc, rinaId)
-    }
-  }
-
   const onSedChange = (e) => {
     const thisSed = e.target.value
     setSed(thisSed)
@@ -258,20 +126,12 @@ const SEDStart = (props) => {
       let removedCountries = oldCountryList.filter(country => ! countryList.includes(country))
 
       addedCountries.map(country => {
-        if (_buc) {
-          actions.getInstitutionListForBucAndCountry(_buc, country.value)
-        } else {
-          actions.getInstitutionListForCountry(country.value)
-        }
+        actions.getInstitutionListForBucAndCountry(buc.type, country.value)
       })
       removedCountries.map(country => {
         actions.removeInstitutionForCountry(country.value)
       })
     }
-  }
-
-  const onTagsChange = (tagsList) => {
-    setTags(tagsList)
   }
 
   const renderOptions = (options, type) => {
@@ -313,20 +173,6 @@ const SEDStart = (props) => {
     return label
   }
 
-  const renderSubjectArea = () => {
-    return <Nav.Select
-      id='a-buc-sedstart-subjectarea-select'
-      className='subjectAreaList flex-fill'
-      aria-describedby='help-subjectArea'
-      bredde='fullbredde'
-      feil={validation.subjectAreaFail ? { feilmelding: validation.subjectAreaFail } : null}
-      label={t('buc:form-subjectArea')}
-      value={_subjectArea || []}
-      onChange={onSubjectAreaChange}>
-      {renderOptions(subjectAreaList, 'subjectArea')}
-    </Nav.Select>
-  }
-
   const countryObjectList = countryList ? _.filter(countries[locale], it => {
     return countryList.indexOf(it.value) >= 0
   }) : []
@@ -336,7 +182,7 @@ const SEDStart = (props) => {
       <label className='skjemaelement__label'>{t('ui:country')}</label>
       <MultipleSelect
         placeholder={t(placeholders.country)}
-        id='a-buc-sedstart-country-select'
+        id='a-buc-SEDStart-country-select'
         className='multipleSelect'
         aria-describedby='help-country'
         locale={locale}
@@ -365,7 +211,7 @@ const SEDStart = (props) => {
       <label className='skjemaelement__label'>{t('ui:institution')}</label>
       <MultipleSelect
         placeholder={t(placeholders.institution)}
-        id='a-buc-sedstart-institution-select'
+        id='a-buc-SEDStart-institution-select'
         className='multipleSelect'
         aria-describedby='help-institution'
         locale={locale}
@@ -376,28 +222,13 @@ const SEDStart = (props) => {
     </div>
   }
 
-  const renderBuc = () => {
-    return <Nav.Select
-      id='a-buc-sedstart-buc-select'
-      className='bucList flex-fill'
-      aria-describedby='help-buc'
-      bredde='fullbredde'
-      feil={validation.bucFail ? { feilmelding: validation.bucFail } : null}
-      label={t('buc:form-buc')}
-      value={_buc || placeholders.buc}
-      onChange={onBucChange}>
-      {renderOptions(bucList, 'buc')}
-    </Nav.Select>
-  }
-
   const renderSed = () => {
     return <Nav.Select
-      id='a-buc-sedstart-sed-select'
+      id='a-buc-SEDStart-sed-select'
       className='sedList flex-fill'
       aria-describedby='help-sed'
       bredde='fullbredde'
       feil={validation.sedFail ? { feilmelding: validation.sedFail } : null}
-      disabled={!bucList}
       label={t('buc:form-sed')}
       value={_sed || placeholders.buc}
       onChange={onSedChange}>
@@ -436,173 +267,53 @@ const SEDStart = (props) => {
     </React.Fragment>
   }
 
-  const renderTags = () => {
-    return <React.Fragment>
-      <div className='d-flex mb-2'>
-        <Icons kind='tilsette'/>
-        <span className='ml-3 mb-1'>{t('buc:form-tagsForBUC')}</span>
-      </div>
-      <div className='mb-3 flex-fill'>
-        <Nav.Normaltekst>{t('buc:form-tagsForBUC-description')}</Nav.Normaltekst>
-        <MultipleSelect
-          creatable={true}
-          placeholder={t('buc:form-tagPlaceholder')}
-          id='a-buc-sedstart-tags-select'
-          className='multipleSelect'
-          aria-describedby='help-tags'
-          locale={locale}
-          value={_tags || []}
-          hideSelectedOptions={false}
-          onChange={onTagsChange}
-          optionList={[]} />
-      </div>
-    </React.Fragment>
+  const onFileChange = (files) => {
+    setAttachments(files)
+  }
+
+  const renderAttachments = () => {
+    return <Nav.Lesmerpanel intro={<div className='d-flex'>
+      <Icons kind='tilsette'/>
+      <span className='ml-3 mb-1'>{t('buc:form-addAttachmentsFromJOARK')}</span>
+      </div>}>
+        <FileUpload t={t}
+         fileUploadDroppableId={'fileUpload'}
+         className='fileUpload'
+         files={_attachments}
+         onFileChange={onFileChange} />
+      </Nav.Lesmerpanel>
   }
 
   const allowedToForward = () => {
-    return sed ? buc && sed && hasNoValidationErrors() && !_.isEmpty(_institution)
-      : _buc && _sed && _subjectArea && hasNoValidationErrors() && !_.isEmpty(_institution)
+    return _sed && hasNoValidationErrors() && !_.isEmpty(_institution)
   }
 
   const validInstitution = (!validation.countryFail && !validation.institutionFail) && _country && _institution
 
-  if (!currentCase) {
-    return <React.Fragment>
-      {mode === 'page' ? <div className='mb-5'>
-        <PsychoPanel closeButton>{t('buc:help-startCase')}</PsychoPanel>
-      </div> : null}
-      <Nav.Row>
-        <div className='col-md-6'>
-          <Nav.Input aria-describedby='help-sakId'
-            className='getCaseInputSakId'
-            label={t('buc:form-sakId')}
-            value={_sakId || ''}
-            bredde='fullbredde'
-            id='a-buc-sedstart-sakid-input'
-            onChange={onSakIdChange}
-            feil={validation.sakId ? { feilmelding: t(validation.sakId) } : null} />
-          {/* <span id='help-sakId'>{t('buc:help-sakId')}</span> */}
-        </div>
-      </Nav.Row>
-      <Nav.Row>
-        <div className='col-md-6'>
-          <Nav.Input
-            className='getCaseInputAktoerId'
-            label={t('buc:form-aktoerId')}
-            value={_aktoerId || ''}
-            bredde='fullbredde'
-            id='a-buc-sedstart-aktoerid-input'
-            onChange={onAktoerIdChange}
-            feil={validation.aktoerId ? { feilmelding: t(validation.aktoerId) } : null} />
-          {/* <span id='help-aktoerId'>{t('buc:help-aktoerId')}</span> */}
-        </div>
-      </Nav.Row>
-      <Nav.Row>
-        <div className='col-md-6'>
-          <Nav.Input className='getCaseInputRinaId'
-            label={<div>
-              <span>{t('buc:form-rinaId')}</span>
-              <span className='optional'>{t('ui:optional')}</span>
-            </div>}
-            value={_rinaId || ''}
-            bredde='fullbredde'
-            id='a-buc-sedstart-rinaid-input'
-            onChange={onRinaIdChange}
-          />
-          {/* <span id='help-rinaId'>{t('buc:help-rinaId')}</span> */}
-        </div>
-      </Nav.Row>
-      <Nav.Row className='mt-6'>
-        <div className='col-md-12'>
-          <Nav.Hovedknapp
-            id='a-buc-sedstart-forward-button'
-            className='forwardButton'
-            disabled={loading && loading.gettingCase}
-            spinner={loading && loading.gettingCase}
-            onClick={onFetchCaseButtonClick}>
-            {loading && loading.gettingCase ? t('buc:loading-gettingCase') : t('ui:search')}
-          </Nav.Hovedknapp>
-        </div>
-      </Nav.Row>
-    </React.Fragment>
-  }
-
   return <React.Fragment>
-    {sed ? <h2 className='mb-4 appDescription'>{t('buc:app-startCaseDescription') + ': ' + sed}</h2>
-      : <React.Fragment>
-        {mode === 'page' ? <React.Fragment>
-          <h2 className='mb-4 appDescription'>{t('buc:app-startCaseDescription')}</h2>
-          <div className='mb-5'>
-            <PsychoPanel closeButton>{t('help-startCase2')}</PsychoPanel>
-          </div>
-        </React.Fragment> : null}
-        <Nav.Row className='mb-3'>
-          <div className='col-md-6'>
-            <Nav.Row>
-              <div className='col-md-12 d-flex align-items-center'>{renderSubjectArea()}
-                <Nav.HjelpetekstAuto id='help-subjectArea'>{t('buc:help-subjectArea')}</Nav.HjelpetekstAuto>
-              </div>
-            </Nav.Row>
-            <Nav.Row>
-              <div className='col-md-12 d-flex align-items-center'>{renderBuc()}
-                <Nav.HjelpetekstAuto id='help-buc'>{t('buc:help-buc')}</Nav.HjelpetekstAuto>
-              </div>
-            </Nav.Row>
-            <Nav.Row>
-              <div className='col-md-12 d-flex align-items-center'>{renderSed()}
-                <Nav.HjelpetekstAuto id='help-sed'>{t('buc:help-sed')}</Nav.HjelpetekstAuto>
-              </div>
-            </Nav.Row>
-            { (sed && sed === 'P6000') || (_sed && _sed === 'P6000')
-              ? <Nav.Row>
-                <div className='col-md-12 d-flex'>
-                  <Nav.Input aria-describedby='help-vedtak'
-                    label={t('buc:form-vedtakId')}
-                    value={_vedtakId || vedtakId}
-                    id='a-buc-sedstart-vedtakid-input'
-                    bredde='fullbredde'
-                    onChange={onVedtakIdChange} />
-                  <Nav.HjelpetekstAuto id='help-vedtak'>{t('buc:help-vedtakId')}</Nav.HjelpetekstAuto>
-                </div>
-              </Nav.Row> : null}
-            <Nav.Row>
-              <div className='col-md-12 d-flex align-items-center'>{renderCountry()}
-                <Nav.HjelpetekstAuto id='help-country'>{t('buc:help-country')}</Nav.HjelpetekstAuto>
-              </div>
-            </Nav.Row>
-            <Nav.Row>
-              <div className='col-md-12 d-flex align-items-center'>{renderInstitution()}
-                <Nav.HjelpetekstAuto id='help-institution'>{t('buc:help-institution')}</Nav.HjelpetekstAuto>
-              </div>
-            </Nav.Row>
-          </div>
-          <div className='col-md-6'>
-            <div style={{minHeight: '10rem'}}>
-              {renderInstitutions()}
-            </div>
-            <div className='mt-3'>
-              {renderTags()}
-            </div>
-          </div>
-        </Nav.Row>
-      </React.Fragment>}
-
-    <Nav.Row className='mb-4 mt-4'>
-      <div className='col-md-12 selectBoxMessage'>{!loading ? null
-        : loading.subjectAreaList ? getSpinner('buc:loading-subjectArea')
-          : loading.bucList ? getSpinner('buc:loading-buc')
-            : loading.sedList ? getSpinner('buc:loading-sed')
-              : loading.institutionList ? getSpinner('buc:loading-institution')
-                : loading.countryList ? getSpinner('buc:loading-country') : null}
+    <Nav.Row className='mb-3'>
+      <div className={layout === 'row' ? 'col-md-6' : 'col-md-12'}>
+        {renderSed()}
+        {renderCountry()}
+        {renderInstitution()}
+      </div>
+      <div className={layout === 'row' ? 'col-md-6' : 'col-md-12'}>
+        {renderInstitutions()}
+        {renderAttachments()}
+        <div className='selectBoxMessage'>{!loading ? null
+          : loading.sedList ? getSpinner('buc:loading-sed')
+            : loading.institutionList ? getSpinner('buc:loading-institution')
+              : loading.countryList ? getSpinner('buc:loading-country') : null}
+        </div>
       </div>
       <div className='col-md-12'>
         <Nav.Hovedknapp
-          id='a-buc-sedstart-forward-button'
+          id='a-buc-SEDStart-forward-button'
           className='forwardButton'
           disabled={!allowedToForward()}
-          onClick={onForwardButtonClick}>{t('buc:form-createCaseinRINA')}</Nav.Hovedknapp>
+          onClick={onForwardButtonClick}>{t('buc:form-orderSED')}</Nav.Hovedknapp>
         <Nav.Flatknapp
-          id='a-buc-sedstart-cancel'
+          id='a-buc-SEDStart-cancel'
           className='cancelButton'
           onClick={onCancelButtonClick}>{t('ui:cancel')}</Nav.Flatknapp>
       </div>
@@ -611,19 +322,15 @@ const SEDStart = (props) => {
 }
 
 SEDStart.propTypes = {
-  currentCase: PT.object,
   actions: PT.object,
   loading: PT.object,
   t: PT.func,
-  subjectAreaList: PT.array,
   institutionList: PT.object,
   countryList: PT.array,
   sedList: PT.array,
-  bucList: PT.array,
-  sed: PT.string,
   buc: PT.string,
   locale: PT.string,
-  vedtakId: PT.string
+  layout: PT.string
 }
 
 export default connect(

@@ -17,7 +17,7 @@ describe('case actions', () => {
     const mockStep = 999
     const generatedResult = bucActions.setStep(mockStep)
     expect(generatedResult).toEqual({
-      type: types.CASE_STEP_SET,
+      type: types.BUC_STEP_SET,
       payload: mockStep
     })
   })
@@ -27,9 +27,9 @@ describe('case actions', () => {
     bucActions.getCaseFromCaseNumber(mockParams)
     expect(api.call).toBeCalledWith({
       type: {
-        request: types.CASE_GET_CASE_NUMBER_REQUEST,
-        success: types.CASE_GET_CASE_NUMBER_SUCCESS,
-        failure: types.CASE_GET_CASE_NUMBER_FAILURE
+        request: types.BUC_GET_CASE_NUMBER_REQUEST,
+        success: types.BUC_GET_CASE_NUMBER_SUCCESS,
+        failure: types.BUC_GET_CASE_NUMBER_FAILURE
       },
       url: sprintf(urls.EUX_CASE_WITHOUT_RINAID_URL, mockParams)
     })
@@ -40,9 +40,9 @@ describe('case actions', () => {
     bucActions.getCaseFromCaseNumber(mockParams)
     expect(api.call).toBeCalledWith({
       type: {
-        request: types.CASE_GET_CASE_NUMBER_REQUEST,
-        success: types.CASE_GET_CASE_NUMBER_SUCCESS,
-        failure: types.CASE_GET_CASE_NUMBER_FAILURE
+        request: types.BUC_GET_CASE_NUMBER_REQUEST,
+        success: types.BUC_GET_CASE_NUMBER_SUCCESS,
+        failure: types.BUC_GET_CASE_NUMBER_FAILURE
       },
       url: sprintf(urls.EUX_CASE_WITH_RINAID_URL, mockParams)
     })
@@ -52,9 +52,9 @@ describe('case actions', () => {
     bucActions.getSubjectAreaList()
     expect(api.call).toBeCalledWith({
       type: {
-        request: types.CASE_GET_SUBJECT_AREA_LIST_REQUEST,
-        success: types.CASE_GET_SUBJECT_AREA_LIST_SUCCESS,
-        failure: types.CASE_GET_SUBJECT_AREA_LIST_FAILURE
+        request: types.BUC_GET_SUBJECT_AREA_LIST_REQUEST,
+        success: types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS,
+        failure: types.BUC_GET_SUBJECT_AREA_LIST_FAILURE
       },
       url: urls.EUX_SUBJECT_AREA_URL
     })
@@ -64,9 +64,9 @@ describe('case actions', () => {
     bucActions.getCountryList()
     expect(api.call).toBeCalledWith({
       type: {
-        request: types.CASE_GET_COUNTRY_LIST_REQUEST,
-        success: types.CASE_GET_COUNTRY_LIST_SUCCESS,
-        failure: types.CASE_GET_COUNTRY_LIST_FAILURE
+        request: types.BUC_GET_COUNTRY_LIST_REQUEST,
+        success: types.BUC_GET_COUNTRY_LIST_SUCCESS,
+        failure: types.BUC_GET_COUNTRY_LIST_FAILURE
       },
       url: urls.EUX_COUNTRY_URL
     })
@@ -78,9 +78,9 @@ describe('case actions', () => {
     bucActions.getInstitutionListForBucAndCountry(mockBuc, mockCountry)
     expect(api.call).toBeCalledWith({
       type: {
-        request: types.CASE_GET_INSTITUTION_LIST_REQUEST,
-        success: types.CASE_GET_INSTITUTION_LIST_SUCCESS,
-        failure: types.CASE_GET_INSTITUTION_LIST_FAILURE
+        request: types.BUC_GET_INSTITUTION_LIST_REQUEST,
+        success: types.BUC_GET_INSTITUTION_LIST_SUCCESS,
+        failure: types.BUC_GET_INSTITUTION_LIST_FAILURE
       },
       url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: mockBuc, country: mockCountry })
     })
@@ -91,9 +91,9 @@ describe('case actions', () => {
     bucActions.getInstitutionListForCountry(mockCountry)
     expect(api.call).toBeCalledWith({
       type: {
-        request: types.CASE_GET_INSTITUTION_LIST_REQUEST,
-        success: types.CASE_GET_INSTITUTION_LIST_SUCCESS,
-        failure: types.CASE_GET_INSTITUTION_LIST_FAILURE
+        request: types.BUC_GET_INSTITUTION_LIST_REQUEST,
+        success: types.BUC_GET_INSTITUTION_LIST_SUCCESS,
+        failure: types.BUC_GET_INSTITUTION_LIST_FAILURE
       },
       url: sprintf(urls.EUX_INSTITUTIONS_FOR_COUNTRY_URL, { country: mockCountry })
     })
@@ -103,9 +103,9 @@ describe('case actions', () => {
     bucActions.getBucList()
     expect(api.call).toBeCalledWith({
       type: {
-        request: types.CASE_GET_BUC_LIST_REQUEST,
-        success: types.CASE_GET_BUC_LIST_SUCCESS,
-        failure: types.CASE_GET_BUC_LIST_FAILURE
+        request: types.BUC_GET_BUC_LIST_REQUEST,
+        success: types.BUC_GET_BUC_LIST_SUCCESS,
+        failure: types.BUC_GET_BUC_LIST_FAILURE
       },
       url: urls.EUX_BUCS_URL
     })
@@ -116,9 +116,9 @@ describe('case actions', () => {
     bucActions.getBucList(mockRinaId)
     expect(api.call).toBeCalledWith({
       type: {
-        request: types.CASE_GET_BUC_LIST_REQUEST,
-        success: types.CASE_GET_BUC_LIST_SUCCESS,
-        failure: types.CASE_GET_BUC_LIST_FAILURE
+        request: types.BUC_GET_BUC_LIST_REQUEST,
+        success: types.BUC_GET_BUC_LIST_SUCCESS,
+        failure: types.BUC_GET_BUC_LIST_FAILURE
       },
       url: sprintf(urls.BUC_WITH_RINAID_NAME_URL, { rinaId: mockRinaId })
     })
@@ -129,9 +129,9 @@ describe('case actions', () => {
     bucActions.getSedList(mockBuc)
     expect(api.call).toBeCalledWith({
       type: {
-        request: types.CASE_GET_SED_LIST_REQUEST,
-        success: types.CASE_GET_SED_LIST_SUCCESS,
-        failure: types.CASE_GET_SED_LIST_FAILURE
+        request: types.BUC_GET_SED_LIST_REQUEST,
+        success: types.BUC_GET_SED_LIST_SUCCESS,
+        failure: types.BUC_GET_SED_LIST_FAILURE
       },
       url: sprintf(urls.EUX_SED_FOR_BUCS_URL, { buc: mockBuc })
     })
@@ -143,27 +143,18 @@ describe('case actions', () => {
     bucActions.getSedList(mockBuc, mockRinaId)
     expect(api.call).toBeCalledWith({
       type: {
-        request: types.CASE_GET_SED_LIST_REQUEST,
-        success: types.CASE_GET_SED_LIST_SUCCESS,
-        failure: types.CASE_GET_SED_LIST_FAILURE
+        request: types.BUC_GET_SED_LIST_REQUEST,
+        success: types.BUC_GET_SED_LIST_SUCCESS,
+        failure: types.BUC_GET_SED_LIST_FAILURE
       },
       url: sprintf(urls.EUX_SED_FROM_RINA_URL, { rinaId: mockRinaId })
-    })
-  })
-
-  it('call dataPreview()', () => {
-    const mockParams = { foo: 'bar' }
-    let generatedResult = bucActions.dataPreview(mockParams)
-    expect(generatedResult).toEqual({
-      type: types.CASE_DATA_PREVIEW_SUCCESS,
-      payload: mockParams
     })
   })
 
   it('call cleanCaseNumber()', () => {
     let generatedResult = bucActions.cleanCaseNumber()
     expect(generatedResult).toEqual({
-      type: types.CASE_GET_CASE_NUMBER_CLEAN
+      type: types.BUC_GET_CASE_NUMBER_CLEAN
     })
   })
 
@@ -172,9 +163,9 @@ describe('case actions', () => {
     bucActions.createSed(mockParams)
     expect(api.call).toBeCalledWith({
       type: {
-        request: types.CASE_CREATE_SED_REQUEST,
-        success: types.CASE_CREATE_SED_SUCCESS,
-        failure: types.CASE_CREATE_SED_FAILURE
+        request: types.BUC_CREATE_SED_REQUEST,
+        success: types.BUC_CREATE_SED_SUCCESS,
+        failure: types.BUC_CREATE_SED_FAILURE
       },
       method: 'POST',
       payload: mockParams,
@@ -187,9 +178,9 @@ describe('case actions', () => {
     bucActions.addToSed(mockParams)
     expect(api.call).toBeCalledWith({
       type: {
-        request: types.CASE_ADD_TO_SED_REQUEST,
-        success: types.CASE_ADD_TO_SED_SUCCESS,
-        failure: types.CASE_ADD_TO_SED_FAILURE
+        request: types.BUC_ADD_TO_SED_REQUEST,
+        success: types.BUC_ADD_TO_SED_SUCCESS,
+        failure: types.BUC_ADD_TO_SED_FAILURE
       },
       method: 'POST',
       payload: mockParams,
@@ -204,9 +195,9 @@ describe('case actions', () => {
     bucActions.sendSed(mockParams)
     expect(api.call).toBeCalledWith({
       type: {
-        request: types.CASE_SEND_SED_REQUEST,
-        success: types.CASE_SEND_SED_SUCCESS,
-        failure: types.CASE_SEND_SED_FAILURE
+        request: types.BUC_SEND_SED_REQUEST,
+        success: types.BUC_SEND_SED_SUCCESS,
+        failure: types.BUC_SEND_SED_FAILURE
       },
       url: sprintf(urls.SED_SEND_URL, { caseId: caseId, documentId: documentId })
     })

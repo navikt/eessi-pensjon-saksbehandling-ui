@@ -1,26 +1,71 @@
 import React, { useState } from 'react'
-
-import BUCPanel from './BUCPanel'
-import { Hovedknapp } from '../../../components/ui/Nav'
+import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
+import SedHeader from 'applications/BUC/components/SED/SedHeader'
+import SedLabel from 'applications/BUC/components/SED/SedLabel'
+import BUCEmpty from './BUCEmpty'
+import { EkspanderbartpanelBase, Hovedknapp } from 'components/ui/Nav'
+import * as bucActions from 'actions/buc'
 
 import './BUCList.css'
 
 const BUCList = (props) => {
   const { t, list, actions, locale } = props
+  const [seds, setSeds] = useState({})
 
   const onBUCNew = () => {
-    actions.setMode('new')
+    actions.setMode('newbuc')
+  }
+
+  /*useEffect(() => {
+      if (!list) {
+        actions.fetchBucList()
+      }
+  }, [list, actions])
+  */
+
+  const getBucList = () => {
+    actions.fetchBucList()
+  }
+
+  const updateSeds = async (buc) => {
+    if (seds[buc.type]) {
+      return seds
+    }
+    const newSeds = Object.assign({}, seds, {
+       [buc.type] : await bucActions.fetchSedListForBuc(buc)
+    })
+    setSeds(newSeds)
+    return newSeds
+  }
+
+  const onExpandBUCClick = async (buc) => {
+    await updateSeds(buc)
+  }
+
+  const onBUCEdit = async (buc) => {
+    const newSeds = await updateSeds(buc)
+    actions.setBuc(buc)
+    actions.setSeds(newSeds[buc.type])
+    actions.setMode('edit')
   }
 
   return <React.Fragment>
     <div className='a-buc-buclist-buttons mb-2'>
       <div></div>
-      <Hovedknapp onClick={onBUCNew}>{t('buc:widget-createNewCase')}</Hovedknapp>
+      <Hovedknapp onClick={onBUCNew}>{t('buc:form-createNewCase')}</Hovedknapp>
     </div>
-    {list ? list.map((buc, index) => (
-      <BUCPanel t={t} key={index} buc={buc} locale={locale}/>
-    )) : null}
-
+    {list ? list.map((buc, index) => {
+      return <EkspanderbartpanelBase
+        className='mb-3'
+        key={index}
+        heading={<BUCHeader t={t} buc={buc} locale={locale} onBUCEdit={onBUCEdit}/>}
+        onClick={() => onExpandBUCClick(buc)}>
+        <SedHeader t={t} />
+        {seds[buc.type] ? seds[buc.type].map((sed, index) => (
+          <SedLabel t={t} key={index} sed={sed} border/>
+        )) : null}
+      </EkspanderbartpanelBase>
+    }) : <BUCEmpty t={t} getBucList={getBucList}/> }
   </React.Fragment>
 }
 

@@ -5,6 +5,8 @@ import * as bucActions from 'actions/buc'
 
 import BUCList from './BUCList'
 import BUCNew from './BUCNew'
+import SEDNew from './SEDNew'
+import BUCEdit from './BUCEdit'
 
 import './index.css'
 
@@ -13,6 +15,8 @@ const mapStateToProps = (state) => {
     mode: state.buc.mode,
     list: state.buc.list,
     step: state.buc.step,
+    buc: state.buc.buc,
+    seds: state.buc.seds,
     locale: state.ui.locale
   }
 }
@@ -24,17 +28,13 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export const BUCWidgetIndex = (props) => {
-  const { mode, list, actions } = props
-
-  useEffect(() => {
-    if (!list) {
-      actions.fetchBucList()
-    }
-  }, [list, actions])
+  const { mode } = props
 
   return <div className='a-buc-widget'>
-    {mode === 'new' ? <BUCNew {...props} /> : null}
+    {mode === 'newbuc' ? <BUCNew {...props} /> : null}
+    {mode === 'newsed' ? <SEDNew {...props} /> : null}
     {mode === 'list' ? <BUCList {...props} /> : null}
+    {mode === 'edit' ? <BUCEdit {...props} /> : null}
   </div>
 }
 

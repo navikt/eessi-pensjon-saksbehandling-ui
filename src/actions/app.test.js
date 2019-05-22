@@ -108,37 +108,3 @@ describe('api actions', () => {
     api.call.mockRestore()
   })
 })
-
-describe('Thunk Actions', () => {
-  const app = { lastName: 'LastName' }
-  const pinfo = { person: { } }
-  const pinfoWithName = { person: { nameAtBirth: 'LastName' } }
-
-  it('call suggestPersonNameFromUsernameIfNotInState() when pinfo.person.lastName is empty', () => {
-    const initialAppState = {
-      app: app,
-      pinfo: pinfo
-    }
-
-    let store = mockStore(initialAppState)
-    const generatedResult = store.dispatch(appActions.suggestPersonNameFromUsernameIfNotInState())
-    expect(generatedResult).toMatchObject(
-      {
-        type: 'PINFO/PERSON/SET',
-        payload: { nameAtBirth: initialAppState.app.lastName }
-      }
-    )
-  })
-
-  it('call suggestPersonNameFromUsernameIfNotInState() when pinfo.person.lastName is NOT empty', () => {
-    const initialAppState = {
-      app: app,
-      pinfo: pinfoWithName
-    }
-
-    let store = mockStore(initialAppState)
-    const generatedResult = store.dispatch(appActions.suggestPersonNameFromUsernameIfNotInState())
-    expect(generatedResult).toEqual(undefined)
-  })
-
-})

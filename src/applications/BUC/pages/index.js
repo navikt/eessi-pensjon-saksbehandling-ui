@@ -9,13 +9,13 @@ import * as bucActions from 'actions/buc'
 import * as Nav from 'components/ui/Nav'
 import TopContainer from 'components/ui/TopContainer/TopContainer'
 import FrontPageDrawer from 'components/drawer/FrontPage'
-import SEDStart from 'applications/BUC/steps/SEDStart'
+import BUCStart from 'applications/BUC/steps/BUCStart'
 import SEDSaveSend from 'applications/BUC/steps/SEDSaveSend'
 import * as routes from 'constants/routes'
 
 import './index.css'
 
-const caseTitles = ['buc:step-startSEDTitle', 'buc:step-previewSEDTitle', 'buc:step-saveSendSEDTitle']
+const caseTitles = ['buc:step-startBUCTitle', 'buc:step-previewSEDTitle', 'buc:step-saveSendSEDTitle']
 const caseDescriptions = [undefined, 'buc:step-previewSEDDescription', 'buc:step-saveSendSEDDescription']
 
 const mapStateToProps = (state) => {
@@ -61,7 +61,7 @@ export const BUCPageIndex = (props) => {
           aktiv: index === step
         }))} />
       {caseDescriptions[step] ? <h2 className='mb-4 appDescription'>{t(caseDescriptions[step])}</h2> : null}
-      {step === 0 ? <SEDStart mode='page' {...props} /> : null}
+      {step === 0 ? <BUCStart mode='page' {...props} /> : null}
       {step === 2 ? <SEDSaveSend mode='page' {...props} /> : null}
     </div>
   </TopContainer>

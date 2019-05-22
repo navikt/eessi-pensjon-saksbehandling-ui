@@ -2,7 +2,7 @@ import React from 'react'
 import { store, connect, bindActionCreators } from 'store'
 import * as reducers from 'reducers'
 
-import { SEDStart, mapStateToProps } from './SEDStart'
+import { BUCStart, mapStateToProps } from './BUCStart'
 
 import * as uiActions from '../../actions/ui'
 import * as appActions from '../../actions/app'
@@ -58,8 +58,8 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, bucActions, appActions, uiActions), dispatch) }
 }
 
-describe('SEDStart: mount without sakId and AktoerId', () => {
-  let store, wrapper, ConnectedSEDStart
+describe('BUCStart: mount without sakId and AktoerId', () => {
+  let store, wrapper, ConnectedBUCStart
   const initialState = {
     case: {
       step: 0
@@ -69,8 +69,8 @@ describe('SEDStart: mount without sakId and AktoerId', () => {
 
   beforeEach(() => {
     store = createStore(reducer, initialState)
-    ConnectedSEDStart = connect(mapStateToProps, mapDispatchToProps)(SEDStart)
-    wrapper = shallow(<ConnectedSEDStart t={t} store={store} />).dive()
+    ConnectedBUCStart = connect(mapStateToProps, mapDispatchToProps)(BUCStart)
+    wrapper = shallow(<ConnectedBUCStart t={t} store={store} />).dive()
   })
 
   it('renders successfully', () => {
@@ -102,8 +102,8 @@ describe('SEDStart: mount without sakId and AktoerId', () => {
   })
 })
 
-describe('SEDStart: mount with sakId and AktoerId', () => {
-  let store, wrapper, ConnectedSEDStart
+describe('BUCStart: mount with sakId and AktoerId', () => {
+  let store, wrapper, ConnectedBUCStart
   const initialState = {
     case: {
       step: 0
@@ -116,8 +116,8 @@ describe('SEDStart: mount with sakId and AktoerId', () => {
 
   beforeEach(() => {
     store = createStore(reducer, initialState)
-    ConnectedSEDStart = connect(mapStateToProps, mapDispatchToProps)(SEDStart)
-    wrapper = shallow(<ConnectedSEDStart t={t} store={store} />).dive()
+    ConnectedBUCStart = connect(mapStateToProps, mapDispatchToProps)(BUCStart)
+    wrapper = shallow(<ConnectedBUCStart t={t} store={store} />).dive()
   })
 
   it('renders successfully', () => {
@@ -129,8 +129,8 @@ describe('SEDStart: mount with sakId and AktoerId', () => {
   })
 })
 
-describe('SEDStart: rest of functions', () => {
-  let store, wrapper, ConnectedSEDStart
+describe('BUCStart: rest of functions', () => {
+  let store, wrapper, ConnectedBUCStart
   const initialState = {
     case: {
       step: 0
@@ -146,8 +146,8 @@ describe('SEDStart: rest of functions', () => {
 
   beforeEach(() => {
     store = createStore(reducer, initialState)
-    ConnectedSEDStart = connect(mapStateToProps, mapDispatchToProps)(SEDStart)
-    wrapper = shallow(<ConnectedSEDStart t={t} store={store} />).dive()
+    ConnectedBUCStart = connect(mapStateToProps, mapDispatchToProps)(BUCStart)
+    wrapper = shallow(<ConnectedBUCStart t={t} store={store} />).dive()
   })
 
   it('onSakIdChange()', () => {

@@ -1,14 +1,16 @@
 import React from 'react'
 import PT from 'prop-types'
-import { Element, PanelBase } from 'components/ui/Nav'
+import { Element, PanelBase, Flatknapp } from 'components/ui/Nav'
+import classNames from 'classnames'
 
 import StatusLabel from './StatusLabel'
 import './SedLabel.css'
 
 const SedLabel = (props) => {
-  const { t, sed } = props
-  return <PanelBase className='a-buc-c-sed-sedlabel p-0'>
-    <div className='content pt-3 pb-3'>
+  const { t, sed, className, border = false } = props
+
+  return <PanelBase className={classNames('a-buc-c-sed-sedlabel p-0', className)}>
+    <div className={classNames('content pt-3 pb-3', {withborder: border})}>
       <div className='col-2 d-flex align-content-center c-ui-sed-name'>
         <Element data-qa='SedLabel-name'>
           {sed.name}
@@ -28,7 +30,12 @@ const SedLabel = (props) => {
          </div>
         })}
       </div>
-      <div className='col-2' />
+      <div className='col-2'>
+       <Flatknapp
+          id='a-buc-gotorina-button'
+          className='smallerButton'
+          onClick={() => {}}>{t('ui:goToRina')}</Flatknapp>
+      </div>
     </div>
   </PanelBase>
 }

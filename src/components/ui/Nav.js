@@ -1,6 +1,7 @@
 import Ekspanderbartpanel, { EkspanderbartpanelBase } from 'nav-frontend-ekspanderbartpanel'
 import PanelBase, { Panel } from 'nav-frontend-paneler'
 import Lenkepanel, { LenkepanelBase } from 'nav-frontend-lenkepanel'
+import Lesmerpanel from 'nav-frontend-lesmerpanel'
 import { HjelpetekstAuto } from 'nav-frontend-hjelpetekst'
 import AlertStripe, { AlertStripeAdvarsel } from 'nav-frontend-alertstriper'
 import { Container, Row, Column } from 'nav-frontend-grid'
@@ -27,6 +28,7 @@ export {
   Ekspanderbartpanel, EkspanderbartpanelBase,
   Panel, PanelBase,
   Lenkepanel, LenkepanelBase,
+  Lesmerpanel,
   Sidetittel, Innholdstittel, Systemtittel, Undertittel, Element, Normaltekst, EtikettLiten, Undertekst, UndertekstBold, Ingress,
   NavFrontendSpinner,
   Knapp, Hovedknapp, Flatknapp, KnappBase, Fareknapp,
