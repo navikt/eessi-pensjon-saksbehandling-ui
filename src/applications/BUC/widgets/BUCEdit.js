@@ -14,11 +14,6 @@ const BUCEdit = (props) => {
   const [ tab, setTab ] = useState('inbox')
   const [ search, setSearch ] = useState(undefined)
 
-  const onBUCEdit = (buc) => {
-    actions.setBuc(buc)
-    actions.setMode('edit')
-  }
-
   const onSEDNew = () => {
     actions.setMode('newsed')
   }
@@ -36,7 +31,7 @@ const BUCEdit = (props) => {
       return (search ? sed.name.matches(search) : sed) &&
         (tab === 'draft' ? sed.status === 'draft' : sed.status !== 'draft')
     }).map((sed, index) => {
-       return <SedLabel className='mt-2' t={t} key={index} sed={sed} />
+      return <SedLabel className='mt-2' t={t} key={index} sed={sed} />
     }) : null
   }
 
@@ -45,22 +40,22 @@ const BUCEdit = (props) => {
       <Nav.ToggleGruppe defaultToggles={[
         { children: t('ui:inbox'), pressed: true, onClick: () => setTab('inbox') },
         { children: t('ui:draft'), onClick: () => setTab('draft') }
-      ]}/>
+      ]} />
       <div>
         <Nav.Knapp onClick={onSEDNew}>{t('buc:form-orderNewSED')}</Nav.Knapp>
         <Nav.Knapp className='ml-2' onClick={onBUCList}>{t('buc:form-backToList')}</Nav.Knapp>
       </div>
     </div>
-    <Nav.Row style={{marginLeft: '-15px', marginRight: '-15px'}}>
+    <Nav.Row style={{ marginLeft: '-15px', marginRight: '-15px' }}>
       <div className='col-8'>
-        <SEDSearch className='mb-2' t={t} value={search} onSearch={onSearch}/>
+        <SEDSearch className='mb-2' t={t} value={search} onSearch={onSearch} />
         {renderSeds()}
       </div>
       <div className='col-4'>
-        <BUCDetail className='mb-3' t={t} buc={buc} locale={locale}/>
-        <SEDAnswer className='mb-3' t={t}/>
-        <BUCTags className='mb-3' t={t}/>
-        <UserTools className='mb-3' t={t}/>
+        <BUCDetail className='mb-3' t={t} buc={buc} locale={locale} />
+        <SEDAnswer className='mb-3' t={t} />
+        <BUCTags className='mb-3' t={t} />
+        <UserTools className='mb-3' t={t} />
       </div>
     </Nav.Row>
   </div>

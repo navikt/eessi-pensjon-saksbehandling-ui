@@ -10,7 +10,7 @@ const SedLabel = (props) => {
   const { t, sed, className, border = false } = props
 
   return <PanelBase className={classNames('a-buc-c-sed-sedlabel p-0', className)}>
-    <div className={classNames('content pt-3 pb-3', {withborder: border})}>
+    <div className={classNames('content pt-3 pb-3', { withborder: border })}>
       <div className='col-2 d-flex align-content-center c-ui-sed-name'>
         <Element data-qa='SedLabel-name'>
           {sed.name}
@@ -25,13 +25,13 @@ const SedLabel = (props) => {
       <div className='col-4 d-flex flex-column'>
         {sed.institutions.map(el => {
           return <div key={el.country + el.institution} className='d-flex flex-row'>
-          <Element className='mr-2' data-qa='SedLabel-country'>{el.country}{': '}</Element>
-          <span>{el.institution}</span>
-         </div>
+            <Element className='mr-2' data-qa='SedLabel-country'>{el.country}{': '}</Element>
+            <span>{el.institution}</span>
+          </div>
         })}
       </div>
       <div className='col-2'>
-       <Flatknapp
+        <Flatknapp
           id='a-buc-gotorina-button'
           className='smallerButton'
           onClick={() => {}}>{t('ui:goToRina')}</Flatknapp>

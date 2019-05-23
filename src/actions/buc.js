@@ -25,8 +25,8 @@ const SEDS = [
     status: 'sent',
     date: 'dd.mm.åå',
     institutions: [{
-       country: 'Sverige',
-       institution: 'Försäkringskassan'
+      country: 'Sverige',
+      institution: 'Försäkringskassan'
     }]
   },
   {
@@ -34,14 +34,14 @@ const SEDS = [
     status: 'draft',
     date: 'dd.mm.åå',
     institutions: [{
-       country: 'Sverige',
-       institution: 'Försäkringskassan'
+      country: 'Sverige',
+      institution: 'Försäkringskassan'
     }, {
-       country: 'Danmark',
-       institution: 'Udbetaling Danmark'
+      country: 'Danmark',
+      institution: 'Udbetaling Danmark'
     }, {
-       country: 'Norge',
-       institution: 'NAV'
+      country: 'Norge',
+      institution: 'NAV'
     }]
   },
   {
@@ -49,8 +49,8 @@ const SEDS = [
     status: 'received',
     date: 'dd.mm.åå',
     institutions: [{
-       country: 'Danmark',
-       institution: 'Udbetaling Danmark'
+      country: 'Danmark',
+      institution: 'Udbetaling Danmark'
     }]
   },
   {
@@ -58,8 +58,8 @@ const SEDS = [
     status: 'foo',
     date: 'dd.mm.åå',
     institutions: [{
-       country: 'Sverige',
-       institution: 'Försäkringskassan'
+      country: 'Sverige',
+      institution: 'Försäkringskassan'
     }]
   }
 ]
@@ -85,7 +85,7 @@ export const setBuc = (buc) => {
   }
 }
 
-export const setSeds= (seds) => {
+export const setSeds = (seds) => {
   return {
     type: types.BUC_SEDS_SET,
     payload: seds

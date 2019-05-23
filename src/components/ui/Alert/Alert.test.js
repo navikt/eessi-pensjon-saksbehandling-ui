@@ -1,5 +1,5 @@
 import React from 'react'
-iimport { connect, bindActionCreators } from 'store'
+import { connect, bindActionCreators } from 'store'
 
 import { Alert, mapStateToProps } from './Alert'
 import * as reducers from '../../../reducers'

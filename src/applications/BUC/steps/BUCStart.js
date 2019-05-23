@@ -201,10 +201,6 @@ const BUCStart = (props) => {
     }
   }
 
-  const onCreateInstitution = (value) => {
-    setInstitution(value)
-  }
-
   const resetValidationState = (_key) => {
     setValidation(_.omitBy(validation, (value, key) => {
       return key === _key
@@ -251,11 +247,10 @@ const BUCStart = (props) => {
   const onCountryChange = (countryList) => {
     validateCountry(countryList)
     if (!validation.countryFail) {
-
       let oldCountryList = _.cloneDeep(countryList)
       setCountry(countryList)
-      let addedCountries = countryList.filter(country => ! oldCountryList.includes(country))
-      let removedCountries = oldCountryList.filter(country => ! countryList.includes(country))
+      let addedCountries = countryList.filter(country => !oldCountryList.includes(country))
+      let removedCountries = oldCountryList.filter(country => !countryList.includes(country))
 
       addedCountries.map(country => {
         if (_buc) {
@@ -348,7 +343,7 @@ const BUCStart = (props) => {
   }
 
   const institutionObjectList = institutionList ? Object.keys(institutionList).map(landkode => {
-    let label = _.find(countries[locale], {value: landkode})
+    let label = _.find(countries[locale], { value: landkode })
     return {
       label: label.label,
       options: institutionList[landkode].map(institution => {
@@ -358,7 +353,7 @@ const BUCStart = (props) => {
         }
       })
     }
-  }): []
+  }) : []
 
   const renderInstitution = () => {
     return <div className='mb-3 flex-fill'>
@@ -413,14 +408,13 @@ const BUCStart = (props) => {
   }
 
   const renderInstitutions = () => {
-
     let institutions = {}
     if (_institution) {
       _institution.map(institution => {
         if (!institutions.hasOwnProperty(institution.value.landkode)) {
           institutions[institution.value.landkode] = [institution.label]
         } else {
-           institutions[institution.value.landkode].push(institution.label)
+          institutions[institution.value.landkode].push(institution.label)
         }
       })
     }
@@ -428,10 +422,10 @@ const BUCStart = (props) => {
     return <React.Fragment>
       <Nav.Ingress className='mb-2'>{t('buc:form-chosenInstitutions')}</Nav.Ingress>
       {!_.isEmpty(institutions) ? Object.keys(institutions).map(landkode => {
-         return <div className='d-flex align-items-baseline'>
-           <FlagList locale={locale} countries={[landkode]} overflowLimit={5} flagPath='../../../../flags/' extention='.png' />
-           <span>{landkode}: {institutions[landkode].join(', ')}</span>
-         </div>
+        return <div className='d-flex align-items-baseline'>
+          <FlagList locale={locale} countries={[landkode]} overflowLimit={5} flagPath='../../../../flags/' extention='.png' />
+          <span>{landkode}: {institutions[landkode].join(', ')}</span>
+        </div>
       }) : <Nav.Normaltekst>{t('buc:form-noInstitutionYet')}</Nav.Normaltekst>}
     </React.Fragment>
   }
@@ -439,13 +433,13 @@ const BUCStart = (props) => {
   const renderTags = () => {
     return <React.Fragment>
       <div className='d-flex mb-2'>
-        <Icons kind='tilsette'/>
+        <Icons kind='tilsette' />
         <span className='ml-3 mb-1'>{t('buc:form-tagsForBUC')}</span>
       </div>
       <div className='mb-3 flex-fill'>
         <Nav.Normaltekst>{t('buc:form-tagsForBUC-description')}</Nav.Normaltekst>
         <MultipleSelect
-          creatable={true}
+          creatable
           placeholder={t('buc:form-tagPlaceholder')}
           id='a-buc-BUCStart-tags-select'
           className='multipleSelect'
@@ -463,8 +457,6 @@ const BUCStart = (props) => {
     return sed ? buc && sed && hasNoValidationErrors() && !_.isEmpty(_institution)
       : _buc && _sed && _subjectArea && hasNoValidationErrors() && !_.isEmpty(_institution)
   }
-
-  const validInstitution = (!validation.countryFail && !validation.institutionFail) && _country && _institution
 
   if (!currentCase) {
     return <React.Fragment>
@@ -577,7 +569,7 @@ const BUCStart = (props) => {
             </Nav.Row>
           </div>
           <div className='col-md-6'>
-            <div style={{minHeight: '10rem'}}>
+            <div style={{ minHeight: '10rem' }}>
               {renderInstitutions()}
             </div>
             <div className='mt-3'>

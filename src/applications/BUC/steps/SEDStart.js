@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import { connect, bindActionCreators } from 'store'
 
-import PsychoPanel from 'components/ui/Psycho/PsychoPanel'
 import * as Nav from 'components/ui/Nav'
 import countries from 'components/ui/CountrySelect/CountrySelectData'
 import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
@@ -33,7 +32,6 @@ const placeholders = {
 }
 
 const SEDStart = (props) => {
-
   const [_sed, setSed] = useState(undefined)
   const [_country, setCountry] = useState([])
   const [_institution, setInstitution] = useState([])
@@ -84,10 +82,6 @@ const SEDStart = (props) => {
     }
   }
 
-  const onCreateInstitution = (value) => {
-    setInstitution(value)
-  }
-
   const resetValidationState = (_key) => {
     setValidation(_.omitBy(validation, (value, key) => {
       return key === _key
@@ -119,11 +113,10 @@ const SEDStart = (props) => {
   const onCountryChange = (countryList) => {
     validateCountry(countryList)
     if (!validation.countryFail) {
-
       let oldCountryList = _.cloneDeep(countryList)
       setCountry(countryList)
-      let addedCountries = countryList.filter(country => ! oldCountryList.includes(country))
-      let removedCountries = oldCountryList.filter(country => ! countryList.includes(country))
+      let addedCountries = countryList.filter(country => !oldCountryList.includes(country))
+      let removedCountries = oldCountryList.filter(country => !countryList.includes(country))
 
       addedCountries.map(country => {
         actions.getInstitutionListForBucAndCountry(buc.type, country.value)
@@ -194,7 +187,7 @@ const SEDStart = (props) => {
   }
 
   const institutionObjectList = institutionList ? Object.keys(institutionList).map(landkode => {
-    let label = _.find(countries[locale], {value: landkode})
+    let label = _.find(countries[locale], { value: landkode })
     return {
       label: label.label,
       options: institutionList[landkode].map(institution => {
@@ -204,7 +197,7 @@ const SEDStart = (props) => {
         }
       })
     }
-  }): []
+  }) : []
 
   const renderInstitution = () => {
     return <div className='mb-3 flex-fill'>
@@ -244,14 +237,13 @@ const SEDStart = (props) => {
   }
 
   const renderInstitutions = () => {
-
     let institutions = {}
     if (_institution) {
       _institution.map(institution => {
         if (!institutions.hasOwnProperty(institution.value.landkode)) {
           institutions[institution.value.landkode] = [institution.label]
         } else {
-           institutions[institution.value.landkode].push(institution.label)
+          institutions[institution.value.landkode].push(institution.label)
         }
       })
     }
@@ -259,10 +251,10 @@ const SEDStart = (props) => {
     return <React.Fragment>
       <Nav.Ingress className='mb-2'>{t('buc:form-chosenInstitutions')}</Nav.Ingress>
       {!_.isEmpty(institutions) ? Object.keys(institutions).map(landkode => {
-         return <div className='d-flex align-items-baseline'>
-           <FlagList locale={locale} countries={[landkode]} overflowLimit={5} flagPath='../../../../flags/' extention='.png' />
-           <span>{landkode}: {institutions[landkode].join(', ')}</span>
-         </div>
+        return <div className='d-flex align-items-baseline'>
+          <FlagList locale={locale} countries={[landkode]} overflowLimit={5} flagPath='../../../../flags/' extention='.png' />
+          <span>{landkode}: {institutions[landkode].join(', ')}</span>
+        </div>
       }) : <Nav.Normaltekst>{t('buc:form-noInstitutionYet')}</Nav.Normaltekst>}
     </React.Fragment>
   }
@@ -273,22 +265,20 @@ const SEDStart = (props) => {
 
   const renderAttachments = () => {
     return <Nav.Lesmerpanel intro={<div className='d-flex'>
-      <Icons kind='tilsette'/>
+      <Icons kind='tilsette' />
       <span className='ml-3 mb-1'>{t('buc:form-addAttachmentsFromJOARK')}</span>
-      </div>}>
-        <FileUpload t={t}
-         fileUploadDroppableId={'fileUpload'}
-         className='fileUpload'
-         files={_attachments}
-         onFileChange={onFileChange} />
-      </Nav.Lesmerpanel>
+    </div>}>
+      <FileUpload t={t}
+        fileUploadDroppableId={'fileUpload'}
+        className='fileUpload'
+        files={_attachments}
+        onFileChange={onFileChange} />
+    </Nav.Lesmerpanel>
   }
 
   const allowedToForward = () => {
     return _sed && hasNoValidationErrors() && !_.isEmpty(_institution)
   }
-
-  const validInstitution = (!validation.countryFail && !validation.institutionFail) && _country && _institution
 
   return <React.Fragment>
     <Nav.Row className='mb-3'>

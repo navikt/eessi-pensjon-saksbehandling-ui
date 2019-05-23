@@ -1,10 +1,8 @@
-import React, {useState} from 'react'
+import React from 'react'
 import classNames from 'classnames'
 import { EkspanderbartpanelBase, Ingress } from 'components/ui/Nav'
-import _ from 'lodash'
 
 const BUCTags = (props) => {
-
   const { t, className } = props
 
   return <EkspanderbartpanelBase
@@ -12,7 +10,7 @@ const BUCTags = (props) => {
     heading={<Ingress className='a-buc-c-sedanswer-buctags'>{t('buc:form-BUCtags')}</Ingress>
     }>
       Hello
-    </EkspanderbartpanelBase>
+  </EkspanderbartpanelBase>
 }
 
 export default BUCTags

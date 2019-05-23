@@ -9,13 +9,12 @@ import { Undertittel, Flatknapp } from 'components/ui/Nav'
 import './BUCEmpty.css'
 
 const BUCEmpty = (props) => {
-
   const { getBucList, t } = props
 
   return <div className='a-buc-bucempty'>
     <div className='a-buc-bucempty-artwork'>
       <img className='monitor' src={MonitorPNG} />
-      <img className='cup'  src={CupPNG} />
+      <img className='cup' src={CupPNG} />
       <img className='mouse' src={MousePNG} />
       <img className='map' src={MapPNG} />
     </div>

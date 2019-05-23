@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { connect,bindActionCreators } from 'store'
+import { connect, bindActionCreators } from 'store'
 import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
 import Collapse from 'rc-collapse'

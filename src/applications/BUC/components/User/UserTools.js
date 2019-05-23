@@ -1,10 +1,8 @@
-import React, {useState} from 'react'
+import React from 'react'
 import classNames from 'classnames'
 import { EkspanderbartpanelBase, Ingress } from 'components/ui/Nav'
-import _ from 'lodash'
 
 const UserTools = (props) => {
-
   const { t, className } = props
 
   return <EkspanderbartpanelBase
@@ -12,7 +10,7 @@ const UserTools = (props) => {
     heading={<Ingress className='a-buc-c-usertools-buctags'>{t('buc:form-notifyUser')}</Ingress>
     }>
       Hello
-    </EkspanderbartpanelBase>
+  </EkspanderbartpanelBase>
 }
 
 export default UserTools
