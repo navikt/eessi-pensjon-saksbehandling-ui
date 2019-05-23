@@ -3,7 +3,7 @@ import { Hovedknapp, Panel, Ingress } from 'components/ui/Nav'
 import SEDStart from 'applications/BUC/steps/SEDStart'
 
 const SEDNew = (props) => {
-  const { t, actions, step } = props
+  const { t, actions } = props
 
   const onBUCList = () => {
     actions.setMode('list')
@@ -11,7 +11,7 @@ const SEDNew = (props) => {
 
   return <React.Fragment>
     <div className='a-buc-buclist-buttons mb-2'>
-        <div></div>
+      <div />
       <Hovedknapp onClick={onBUCList}>{t('buc:form-backToList')}</Hovedknapp>
     </div>
     <Panel>

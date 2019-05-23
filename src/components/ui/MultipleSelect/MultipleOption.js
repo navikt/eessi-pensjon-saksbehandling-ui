@@ -4,7 +4,6 @@ import classNames from 'classnames'
 import { Checkbox } from 'components/ui/Nav'
 
 const MultipleOption = (props) => {
-
   const { data, selectProps, innerProps, isSelected, isFocused } = props
 
   return <div id={selectProps.id + '-' + data.value}>
@@ -12,7 +11,7 @@ const MultipleOption = (props) => {
       selected: isSelected,
       focused: isFocused
     })} {...innerProps}>
-     <Checkbox label={data.label} checked={isSelected}/>
+      <Checkbox label={data.label} checked={isSelected} />
     </div>
   </div>
 }
@@ -26,5 +25,3 @@ MultipleOption.propTypes = {
 }
 
 export default MultipleOption
-
-

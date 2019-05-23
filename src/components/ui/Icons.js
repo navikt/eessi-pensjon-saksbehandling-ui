@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PT from 'prop-types'
 
 import BookmarkArticleSVG from 'resources/images/LineVersionBookmarkArticle.js'
@@ -18,7 +18,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as icons from '@fortawesome/free-solid-svg-icons'
 
 const Icons = (props) => {
-
   switch (props.kind) {
     case 'work' : return <FontAwesomeIcon icon={icons.faBriefcase} {...props} />
     case 'home' : return <FontAwesomeIcon icon={icons.faHome} {...props} />

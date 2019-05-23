@@ -1,7 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import PersonHeader from './PersonHeader'
-import { Flatknapp, EkspanderbartpanelBase} from 'components/ui/Nav'
+import { Flatknapp, EkspanderbartpanelBase } from 'components/ui/Nav'
 import Icons from 'components/ui/Icons'
 
 const person = {
@@ -26,10 +26,10 @@ const PersonWidget = (props) => {
   return <React.Fragment>
     <div className='mb-2 text-right'>
       <Flatknapp>
-         <div className='d-flex'>
-           <Icons className='mr-2' color='#0067C5' kind='outlink'/>
-           <span>{props.t('ui:goToRina')}</span>
-         </div>
+        <div className='d-flex'>
+          <Icons className='mr-2' color='#0067C5' kind='outlink' />
+          <span>{props.t('ui:goToRina')}</span>
+        </div>
       </Flatknapp>
     </div>
     <EkspanderbartpanelBase className='mb-5' ariaTittel='foo' heading={<PersonHeader t={props.t} {...person} />}>

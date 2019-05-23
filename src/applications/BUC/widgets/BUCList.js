@@ -3,7 +3,7 @@ import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import SedHeader from 'applications/BUC/components/SED/SedHeader'
 import SedLabel from 'applications/BUC/components/SED/SedLabel'
 import BUCEmpty from './BUCEmpty'
-import { EkspanderbartpanelBase, Hovedknapp } from 'components/ui/Nav'
+import { EkspanderbartpanelBase, Flatknapp } from 'components/ui/Nav'
 import * as bucActions from 'actions/buc'
 
 import './BUCList.css'
@@ -16,7 +16,7 @@ const BUCList = (props) => {
     actions.setMode('newbuc')
   }
 
-  /*useEffect(() => {
+  /* useEffect(() => {
       if (!list) {
         actions.fetchBucList()
       }
@@ -32,7 +32,7 @@ const BUCList = (props) => {
       return seds
     }
     const newSeds = Object.assign({}, seds, {
-       [buc.type] : await bucActions.fetchSedListForBuc(buc)
+      [buc.type]: await bucActions.fetchSedListForBuc(buc)
     })
     setSeds(newSeds)
     return newSeds
@@ -51,21 +51,21 @@ const BUCList = (props) => {
 
   return <React.Fragment>
     <div className='a-buc-buclist-buttons mb-2'>
-      <div></div>
-      <Hovedknapp onClick={onBUCNew}>{t('buc:form-createNewCase')}</Hovedknapp>
+      <div />
+      <Flatknapp onClick={onBUCNew}>{t('buc:form-createNewCase')}</Flatknapp>
     </div>
     {list ? list.map((buc, index) => {
       return <EkspanderbartpanelBase
         className='mb-3'
         key={index}
-        heading={<BUCHeader t={t} buc={buc} locale={locale} onBUCEdit={onBUCEdit}/>}
+        heading={<BUCHeader t={t} buc={buc} locale={locale} onBUCEdit={onBUCEdit} />}
         onClick={() => onExpandBUCClick(buc)}>
         <SedHeader t={t} />
         {seds[buc.type] ? seds[buc.type].map((sed, index) => (
-          <SedLabel t={t} key={index} sed={sed} border/>
+          <SedLabel t={t} key={index} sed={sed} border />
         )) : null}
       </EkspanderbartpanelBase>
-    }) : <BUCEmpty t={t} getBucList={getBucList}/> }
+    }) : <BUCEmpty t={t} getBucList={getBucList} /> }
   </React.Fragment>
 }
 

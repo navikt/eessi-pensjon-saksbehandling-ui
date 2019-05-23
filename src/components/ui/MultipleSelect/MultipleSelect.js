@@ -11,27 +11,24 @@ import MultipleErrorStyle from './MultipleErrorStyle'
 import './MultipleSelect.css'
 
 const MultipleSelect = (props) => {
-
   const [ _values, setValues ] = useState([])
   const [ mounted, setMounted ] = useState(false)
 
   const {
-      id,
-      placeholder,
-      values,
-      locale,
-      creatable = false,
-      type,
-      includeList,
-      excludeList,
-      optionList = [],
-      className,
-      styles = {},
-      error = false,
-      components,
-      errorMessage,
-      onChange,
-      hideSelectedOptions
+    id,
+    placeholder,
+    values,
+    creatable = false,
+    includeList,
+    excludeList,
+    optionList = [],
+    className,
+    styles = {},
+    error = false,
+    components,
+    errorMessage,
+    onChange,
+    hideSelectedOptions
   } = props
 
   useEffect(() => {
@@ -39,7 +36,6 @@ const MultipleSelect = (props) => {
       setValues(values)
       setMounted(true)
     }
-
   }, [values, mounted])
 
   const include = (selectedValues, allValues) => {
@@ -65,42 +61,41 @@ const MultipleSelect = (props) => {
   options = excludeList ? exclude(excludeList, options) : options
 
   return <div id={id} className={classNames('c-ui-multipleSelect', className, { 'skjemaelement__feilmelding': error })}>
-    {creatable ?
-    <CreatableSelect placeholder={placeholder}
-      isMulti={true}
-      closeMenuOnSelect={false}
-      defaultValue={_values}
-      options={options}
-      id={id ? id + '-select' : null}
-      components={{
-        Option: MultipleOption,
-        MultiValueRemove: MultipleValueRemove,
-        ...components }}
-      className='multipleSelect'
-      classNamePrefix='multipleSelect'
-      onChange={_onChange}
-      hideSelectedOptions={hideSelectedOptions || false}
-      styles={{ ...styles, ...MultipleErrorStyle(error) }}
-      tabSelectsValue={false}
-    />
-    :
-    <Select placeholder={placeholder}
-      isMulti={true}
-      closeMenuOnSelect={false}
-      defaultValue={_values}
-      options={options}
-      id={id ? id + '-select' : null}
-      components={{
-        Option: MultipleOption,
-        MultiValueRemove: MultipleValueRemove,
-        ...components }}
-      className='multipleSelect'
-      classNamePrefix='multipleSelect'
-      onChange={_onChange}
-      hideSelectedOptions={hideSelectedOptions || false}
-      styles={{ ...styles, ...MultipleErrorStyle(error) }}
-      tabSelectsValue={false}
-    />}
+    {creatable
+      ? <CreatableSelect placeholder={placeholder}
+        isMulti
+        closeMenuOnSelect={false}
+        defaultValue={_values}
+        options={options}
+        id={id ? id + '-select' : null}
+        components={{
+          Option: MultipleOption,
+          MultiValueRemove: MultipleValueRemove,
+          ...components }}
+        className='multipleSelect'
+        classNamePrefix='multipleSelect'
+        onChange={_onChange}
+        hideSelectedOptions={hideSelectedOptions || false}
+        styles={{ ...styles, ...MultipleErrorStyle(error) }}
+        tabSelectsValue={false}
+      />
+      : <Select placeholder={placeholder}
+        isMulti
+        closeMenuOnSelect={false}
+        defaultValue={_values}
+        options={options}
+        id={id ? id + '-select' : null}
+        components={{
+          Option: MultipleOption,
+          MultiValueRemove: MultipleValueRemove,
+          ...components }}
+        className='multipleSelect'
+        classNamePrefix='multipleSelect'
+        onChange={_onChange}
+        hideSelectedOptions={hideSelectedOptions || false}
+        styles={{ ...styles, ...MultipleErrorStyle(error) }}
+        tabSelectsValue={false}
+      />}
     {error
       ? <div role='alert' aria-live='assertive'>
         <div className='skjemaelement__feilmelding'>
@@ -115,12 +110,10 @@ const MultipleSelect = (props) => {
 MultipleSelect.propTypes = {
   onChange: PT.func.isRequired,
   value: PT.oneOfType([PT.object, PT.string]),
-  locale: PT.string.isRequired,
   style: PT.object,
   includeList: PT.array,
   excludeList: PT.array,
   optionList: PT.array,
-  type: PT.string,
   className: PT.string,
   required: PT.string,
   id: PT.string,

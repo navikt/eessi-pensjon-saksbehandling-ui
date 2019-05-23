@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const SEDSaveSend = (props) => {
   const { t, actions } = props
-  const { savedData, previewData, rinaUrl, sendingCase, rinaLoading } = props
+  const { savedData, rinaUrl, sendingCase, rinaLoading } = props
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {

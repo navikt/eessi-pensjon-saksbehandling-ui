@@ -53,7 +53,7 @@ const bucReducer = (state = initialBucState, action) => {
       let institutionList = state.institutionList ? _.cloneDeep(state.institutionList) : {}
       action.payload.forEach(institution => {
         let existingInstitutions = institutionList[institution.landkode] || []
-        if (!_.find(existingInstitutions, {'id': institution.id})) {
+        if (!_.find(existingInstitutions, { 'id': institution.id })) {
           existingInstitutions.push({
             id: institution.id,
             navn: institution.navn,
