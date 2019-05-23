@@ -49,6 +49,6 @@ fasitResources:
 
     exposed:
 
-    - alias: EessiPensjonSaksbehandlingUi
+    - alias: EessiPensjonFrontend
       resourceType: RestService
       path: /
