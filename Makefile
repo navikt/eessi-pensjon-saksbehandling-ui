@@ -16,11 +16,11 @@ build:
 
 docker:
 	$(NAIS) validate --file nais.yaml
-	$(DOCKER) build --pull -t $(REGISTRY)/eessi-pensjon-saksbehandling-ui -f Dockerfile .
+	$(DOCKER) build --pull -t $(REGISTRY)/eessi-pensjon-frontend-ui-fss -f Dockerfile .
 
 docker-push:
-	$(DOCKER) tag $(REGISTRY)/eessi-pensjon-saksbehandling-ui $(REGISTRY)/eessi-pensjon-saksbehandling-ui:$(VERSION)
-	$(DOCKER) push $(REGISTRY)/eessi-pensjon-saksbehandling-ui:$(VERSION)
+	$(DOCKER) tag $(REGISTRY)/eessi-pensjon-frontend-ui-fss $(REGISTRY)/eessi-pensjon-frontend-ui-fss:$(VERSION)
+	$(DOCKER) push $(REGISTRY)/eessi-pensjon-frontend-ui-fss:$(VERSION)
 
 bump-version:
 	@echo $$(($$(cat ./VERSION) + 1)) > ./VERSION
@@ -31,4 +31,4 @@ tag:
 	git tag -a $(VERSION) -m "auto-tag from Makefile"
 
 manifest:
-	$(NAIS) upload --app eessi-pensjon-saksbehandling-ui -v $(VERSION) --file nais.yaml
+	$(NAIS) upload --app eessi-pensjon-frontend-ui-fss -v $(VERSION) --file nais.yaml
