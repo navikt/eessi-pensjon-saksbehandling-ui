@@ -2,25 +2,27 @@ import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import { EkspanderbartpanelBase, Ingress } from 'components/ui/Nav'
+import SEDStart from '../../steps/SEDStart'
 
-const UserTools = (props) => {
+const SEDTools = (props) => {
+
   const { t, className } = props
 
   return <EkspanderbartpanelBase
-    className={classNames('a-buc-c-usertools', className)}
-    id='a-buc-c-usertools__panel-id'
+    className={classNames('a-buc-c-sedtools', className)}
+    id='a-buc-c-sedtools__panel-id'
     heading={<Ingress
-      className='a-buc-c-usertools-buctags'>
-        {t('buc:form-notifyUser')}
+      className='a-buc-c-sedtools__header'>
+        {t('buc:form-answerSED')}
       </Ingress>
     }>
-      Hello
+    <SEDStart {...props} layout='column'/>
   </EkspanderbartpanelBase>
 }
 
-UserTools.propTypes = {
+SEDTools.propTypes = {
   className: PT.string,
   t: PT.func.isRequired
 }
 
-export default UserTools
+export default SEDTools

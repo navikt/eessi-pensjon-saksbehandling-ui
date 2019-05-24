@@ -252,7 +252,7 @@ const SEDStart = (props) => {
       <Nav.Ingress className='mb-2'>{t('buc:form-chosenInstitutions')}</Nav.Ingress>
       {!_.isEmpty(institutions) ? Object.keys(institutions).map(landkode => {
         return <div className='d-flex align-items-baseline'>
-          <FlagList locale={locale} countries={[landkode]} overflowLimit={5} flagPath='../../../../flags/' extention='.png' />
+          <FlagList locale={locale} countries={[landkode]} overflowLimit={5} />
           <span>{landkode}: {institutions[landkode].join(', ')}</span>
         </div>
       }) : <Nav.Normaltekst>{t('buc:form-noInstitutionYet')}</Nav.Normaltekst>}

@@ -31,7 +31,6 @@ jest.mock('../../actions/case', () => ({
 
 const initialState = {
   case: {
-    step: 2,
     savedData: {
       foo: 'bar'
     }

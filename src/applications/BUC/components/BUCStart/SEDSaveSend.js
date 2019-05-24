@@ -14,7 +14,6 @@ export const mapStateToProps = (state) => {
     savedData: state.buc.savedData,
     previewData: state.buc.previewData,
     rinaUrl: state.buc.rinaUrl,
-    step: state.buc.step,
     sendingCase: state.loading.sendingCase,
     rinaLoading: state.loading.rinaUrl
   }

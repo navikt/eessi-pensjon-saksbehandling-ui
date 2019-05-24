@@ -1,24 +1,50 @@
-.a-buc-c-bucHeader {
+.a-buc-c-bucheader {
 
-  .bucheader-svg {
-      min-width: 37px;
-      min-height: 37px;
+  padding: 0px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  &__flags {
+     margin: 0px;
+     padding: 0px;
+     display: flex;
+     align-items: center;
   }
 
-  a span.lenkepanel__indikator {
-      display: none;
-  }
-  a.lenkepanel {
-      border: solid 2px #0067c5;
-      border-radius: 2px;
-      color: #0067c5 !important;
-      &:hover {
-        color: white !important;
-      }
+  &__actions {
+    display: flex;
+    justify-content:flex-end;
+    align-items: center;
+    padding: 0px;
   }
 
-  a.lenkepanel--border:hover {
-      border: solid 2px #0067c5;
-      text-decoration: none;
+  &__button {
+
+    margin-bottom: 0px;
+    border: solid 2px #0067c5 !important;
+    border-radius: 2px;
+    color: #0067c5 !important;
+
+    &:hover {
+      color: white !important;
+    }
+
+    span.lenkepanel__indikator {
+       display: none;
+    }
+  }
+
+  &__tags {
+    display: flex;
+    justify-content:flex-end;
+    align-items: center;
+  }
+
+  &__tag {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    width: 30px;
+    height: 30px;
   }
 }
