@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react'
+import PT from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
 import Person from './Person/Person'
 
 const PersonWidget = (props) => {
   const [mounted, setMounted] = useState(false)
+  const { t, onResize } = props
 
   useEffect(() => {
-    if (!mounted && props.onResize) {
-      props.onResize()
+    if (!mounted) {
+      onResize()
       setMounted(true)
     }
-  }, [])
+  }, [mounted, onResize])
 
   return <div className='c-ui-d-PersonWidget'>
     <ReactResizeDetector
       handleWidth
       handleHeight
-      onResize={props.onResize} />
-    <Person t={props.t} />
+      onResize={onResize} />
+    <Person t={t} />
   </div>
 }
 
@@ -31,6 +33,11 @@ PersonWidget.properties = {
     sm: { minW: 1, maxW: 1, defaultW: 1, minH: 2, defaultH: 4, maxH: 999 }
   },
   options: {}
+}
+
+PersonWidget.propTypes = {
+  t: PT.func.isRequired,
+  onResize: PT.func.isRequired
 }
 
 export default PersonWidget

@@ -9,7 +9,6 @@ import { ReactComponent as BubbleChat } from 'resources/images/bubble-chat-2.svg
 import './BUCHeader.css'
 
 const BUCHeader = (props) => {
-
   const { t, locale, buc, onBUCEdit } = props
 
   const requestHandleBUC = (buc, e) => {

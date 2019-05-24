@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import PT from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
 
 import { ToggleGruppe } from '../components/ui/Nav'
@@ -6,22 +7,23 @@ import VarslerPanel from '../applications/PInfo/VarslerPanel'
 import VarslerTable from '../applications/PInfo/VarslerTable'
 
 const VarslerWidget = (props) => {
-  const [mounted, setMounted] = useState(false)
-  const [tab, setTab] = useState('invite')
+  const [ mounted, setMounted ] = useState(false)
+  const [ tab, setTab ] = useState('invite')
+  const { t, onResize } = props
 
   useEffect(() => {
-    if (!mounted && props.onResize) {
-      props.onResize()
+    if (!mounted) {
+      onResize()
       setMounted(true)
     }
-  }, [])
+  }, [mounted, onResize])
 
   return <div className='c-ui-d-VarslerWidget p-3'>
     <div className='mt-2 mb-2'>
       <ToggleGruppe
         defaultToggles={[
-          { children: props.t('ui:invite'), pressed: true, onClick: () => { setTab('invite') } },
-          { children: props.t('ui:list'), onClick: () => { setTab('list') } }
+          { children: t('ui:invite'), pressed: true, onClick: () => { setTab('invite') } },
+          { children: t('ui:list'), onClick: () => { setTab('list') } }
         ]}
       />
     </div>
@@ -29,7 +31,7 @@ const VarslerWidget = (props) => {
     <ReactResizeDetector
       handleWidth
       handleHeight
-      onResize={props.onResize} />
+      onResize={onResize} />
   </div>
 }
 
@@ -45,6 +47,11 @@ VarslerWidget.properties = {
   options: {
     backgroundColor: 'white'
   }
+}
+
+VarslerWidget.propTypes = {
+  onResize: PT.func.isRequired,
+  t: PT.func.isRequired
 }
 
 export default VarslerWidget

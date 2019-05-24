@@ -13,13 +13,15 @@ const BUCEmpty = (props) => {
 
   return <div className='a-buc-bucempty'>
     <div className='a-buc-bucempty-artwork'>
-      <img className='monitor' src={MonitorPNG} />
-      <img className='cup' src={CupPNG} />
-      <img className='mouse' src={MousePNG} />
-      <img className='map' src={MapPNG} />
+      <img alt='' className='monitor' src={MonitorPNG} />
+      <img alt='' className='cup' src={CupPNG} />
+      <img alt='' className='mouse' src={MousePNG} />
+      <img alt='' className='map' src={MapPNG} />
     </div>
     <Undertittel>{t('buc:form-empty-startANewCase')}</Undertittel>
-    <Flatknapp id='TODELETE'
+    <Flatknapp
+      className='mt-4'
+      id='TODELETE'
       onClick={getBucList}>{t('ui:start')}</Flatknapp>
   </div>
 }

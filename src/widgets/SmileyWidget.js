@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from 'react'
+import PT from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
 
 const SmileyWidget = (props) => {
-  const [mounted, setMounted] = useState(false)
+  const [ mounted, setMounted ] = useState(false)
+  const { widget, onResize } = props
 
   useEffect(() => {
-    if (!mounted && props.onResize) {
-      props.onResize()
+    if (!mounted) {
+      onResize()
       setMounted(true)
     }
-  }, [])
+  }, [mounted, onResize])
 
   return <div className='p-3 c-ui-d-SmileyWidget text-center'>
     <ReactResizeDetector
       handleWidth
       handleHeight
-      onResize={props.onResize} />
+      onResize={onResize} />
     <h4>Today's mood</h4>
     <p style={{
       fontSize: '100px'
-    }}><span role='img' aria-label='smiley'>{props.widget.options.mood}</span></p>
+    }}><span role='img' aria-label='smiley'>{widget.options.mood}</span></p>
   </div>
 }
 
@@ -44,6 +46,11 @@ SmileyWidget.properties = {
       { label: 'pouting', value: '😡' }
     ]
   }
+}
+
+SmileyWidget.propTypes = {
+  onResize: PT.func.isRequired,
+  widget: PT.object.isRequired
 }
 
 export default SmileyWidget

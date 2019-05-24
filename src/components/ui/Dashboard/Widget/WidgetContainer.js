@@ -5,37 +5,56 @@ import Widget from './Widget'
 import './Widget.css'
 
 const WidgetContainer = (props) => {
+  const { onWidgetUpdate, onWidgetResize } = props
+  const { widget, editMode, layout, rowHeight, currentBreakpoint } = props
+
   const [sizes, setSizes] = useState({ lg: {}, md: {}, sm: {} })
   const [mouseOver, setMouseOver] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [mode, setMode] = useState('view')
 
-  useEffect(() => {
-    if (!mounted) {
-      calculateSizes()
-      setMounted(true)
+  const getSizes = () => {
+    return {
+      width: document.getElementById('widget-' + layout.i).offsetWidth,
+      height: document.getElementById('widget-' + layout.i).offsetHeight
     }
-  }, [])
+  }
 
   useEffect(() => {
-    if (mode === 'view' && props.editMode && mouseOver) {
+    if (!mounted) {
+      if (document.getElementById('widget-' + layout.i)) {
+        const newSizes = getSizes()
+        let oldSizes = _.cloneDeep(sizes)
+        if (_.isEmpty(oldSizes[currentBreakpoint]) || (
+          ((oldSizes[currentBreakpoint].height !== newSizes.height) ||
+          (oldSizes[currentBreakpoint].width !== newSizes.width)))) {
+          oldSizes[currentBreakpoint] = newSizes
+          setSizes(oldSizes)
+        }
+      }
+      setMounted(true)
+    }
+  }, [mounted, layout, sizes, currentBreakpoint, getSizes])
+
+  useEffect(() => {
+    if (mode === 'view' && editMode && mouseOver) {
       setMode('edit')
     }
     if (mode === 'edit' && !mouseOver) {
       setMode('view')
     }
-  }, [mouseOver])
+  }, [mode, editMode, mouseOver])
 
   const onUpdate = (update) => {
-    props.onWidgetUpdate(update, props.layout)
+    onWidgetUpdate(update, layout)
   }
 
   const onResize = (width, height) => {
     if (!height || !width) { return }
-    if (props.onWidgetResize) {
-      let newLayout = _.cloneDeep(props.layout)
+    if (onWidgetResize) {
+      let newLayout = _.cloneDeep(layout)
       // these 10 are padding/margin added to each h
-      let newH = Math.ceil((height + 10) / (props.rowHeight + 10))
+      let newH = Math.ceil((height + 10) / (rowHeight + 10))
 
       // do not shrink below minimum H
       if (newH < newLayout.minH) {
@@ -56,37 +75,17 @@ const WidgetContainer = (props) => {
       if (mode !== 'edit' && newH !== newLayout.h) {
         console.log('Resized ' + newLayout.i + ' from h ' + newLayout.h + ' to ' + newH)
         newLayout.h = newH
-        props.onWidgetResize(newLayout)
+        onWidgetResize(newLayout)
       }
     }
   }
 
-  const getSizes = () => {
-    return {
-      width: document.getElementById('widget-' + props.layout.i).offsetWidth,
-      height: document.getElementById('widget-' + props.layout.i).offsetHeight
-    }
-  }
-
-  const calculateSizes = () => {
-    if (document.getElementById('widget-' + props.layout.i)) {
-      const newSizes = getSizes()
-      let oldSizes = _.cloneDeep(sizes)
-      if (_.isEmpty(oldSizes[props.currentBreakpoint]) || (
-        ((oldSizes[props.currentBreakpoint].height !== newSizes.height) ||
-        (oldSizes[props.currentBreakpoint].width !== newSizes.width)))) {
-        oldSizes[props.currentBreakpoint] = newSizes
-        setSizes(oldSizes)
-      }
-    }
-  }
-
-  if (!props.widget) {
+  if (!widget) {
     return null
   }
 
-  let backgroundColor = props.widget.options.backgroundColor || 'transparent'
-  if (props.editMode) {
+  let backgroundColor = widget.options.backgroundColor || 'transparent'
+  if (editMode) {
     backgroundColor = 'white'
   }
 

@@ -33,8 +33,8 @@ const placeholders = {
 
 const SEDStart = (props) => {
   const [_sed, setSed] = useState(undefined)
-  const [_country, setCountry] = useState([])
-  const [_institution, setInstitution] = useState([])
+  const [_countries, setCountries] = useState([])
+  const [_institutions, setInstitution] = useState([])
   const [_attachments, setAttachments] = useState([])
   const [validation, setValidation] = useState({})
 
@@ -42,12 +42,12 @@ const SEDStart = (props) => {
 
   const onForwardButtonClick = () => {
     validateSed(_sed)
-    validateInstitution(_institution)
+    validateInstitution(_institutions)
     if (hasNoValidationErrors()) {
       const data = {
         sed: _sed,
-        institutions: _institution,
-        country: _country,
+        institutions: _institutions,
+        country: _countries,
         attachments: _attachments
       }
       actions.doSomethingWithSED(data)
@@ -114,15 +114,15 @@ const SEDStart = (props) => {
     validateCountry(countryList)
     if (!validation.countryFail) {
       let oldCountryList = _.cloneDeep(countryList)
-      setCountry(countryList)
+      setCountries(countryList)
       let addedCountries = countryList.filter(country => !oldCountryList.includes(country))
       let removedCountries = oldCountryList.filter(country => !countryList.includes(country))
 
       addedCountries.map(country => {
-        actions.getInstitutionListForBucAndCountry(buc.type, country.value)
+        return actions.getInstitutionsListForBucAndCountry(buc.type, country.value)
       })
       removedCountries.map(country => {
-        actions.removeInstitutionForCountry(country.value)
+        return actions.removeInstitutionForCountry(country.value)
       })
     }
   }
@@ -174,12 +174,12 @@ const SEDStart = (props) => {
     return <div className='mb-3 flex-fill'>
       <label className='skjemaelement__label'>{t('ui:country')}</label>
       <MultipleSelect
+        className='a-buc-c-sedstart__country-select'
+        id='a-buc-c-sedstart__country-select-id'
         placeholder={t(placeholders.country)}
-        id='a-buc-SEDStart-country-select'
-        className='multipleSelect'
         aria-describedby='help-country'
         locale={locale}
-        value={_country || []}
+        value={_countries || []}
         hideSelectedOptions={false}
         onChange={onCountryChange}
         optionList={countryObjectList} />
@@ -203,12 +203,12 @@ const SEDStart = (props) => {
     return <div className='mb-3 flex-fill'>
       <label className='skjemaelement__label'>{t('ui:institution')}</label>
       <MultipleSelect
+        className='a-buc-c-sedstart__institution-select'
+        id='a-buc-c-sedstart__institution-select-id'
         placeholder={t(placeholders.institution)}
-        id='a-buc-SEDStart-institution-select'
-        className='multipleSelect'
         aria-describedby='help-institution'
         locale={locale}
-        value={_institution || []}
+        value={_institutions || []}
         onChange={onInstitutionChange}
         hideSelectedOptions={false}
         optionList={institutionObjectList} />
@@ -217,8 +217,9 @@ const SEDStart = (props) => {
 
   const renderSed = () => {
     return <Nav.Select
-      id='a-buc-SEDStart-sed-select'
-      className='sedList flex-fill'
+      className='a-buc-c-sedstart__sed-select flex-fill'
+      id='a-buc-c-sedstart__sed-select-id'
+      placeholder={t(placeholders.institution)}
       aria-describedby='help-sed'
       bredde='fullbredde'
       feil={validation.sedFail ? { feilmelding: validation.sedFail } : null}
@@ -230,7 +231,7 @@ const SEDStart = (props) => {
   }
 
   const getSpinner = (text) => {
-    return <div className='p-case-spinner ml-2'>
+    return <div className='a-buc-c-sedstart__spinner ml-2'>
       <Nav.NavFrontendSpinner type='S' />
       <div className='float-right ml-2'>{t(text)}</div>
     </div>
@@ -238,8 +239,8 @@ const SEDStart = (props) => {
 
   const renderInstitutions = () => {
     let institutions = {}
-    if (_institution) {
-      _institution.map(institution => {
+    if (_institutions) {
+      _institutions.forEach(institution => {
         if (!institutions.hasOwnProperty(institution.value.landkode)) {
           institutions[institution.value.landkode] = [institution.label]
         } else {
@@ -277,38 +278,36 @@ const SEDStart = (props) => {
   }
 
   const allowedToForward = () => {
-    return _sed && hasNoValidationErrors() && !_.isEmpty(_institution)
+    return _sed && hasNoValidationErrors() && !_.isEmpty(_institutions)
   }
 
-  return <React.Fragment>
-    <Nav.Row className='mb-3'>
-      <div className={layout === 'row' ? 'col-md-6' : 'col-md-12'}>
-        {renderSed()}
-        {renderCountry()}
-        {renderInstitution()}
+  return <Nav.Row className='a-buc-c-sedstart'>
+    <div className={layout === 'row' ? 'col-md-6' : 'col-md-12'}>
+      {renderSed()}
+      {renderCountry()}
+      {renderInstitution()}
+    </div>
+    <div className={layout === 'row' ? 'col-md-6' : 'col-md-12'}>
+      {renderInstitutions()}
+      {renderAttachments()}
+      <div className='selectBoxMessage'>{!loading ? null
+        : loading.sedList ? getSpinner('buc:loading-sed')
+          : loading.institutionList ? getSpinner('buc:loading-institution')
+            : loading.countryList ? getSpinner('buc:loading-country') : null}
       </div>
-      <div className={layout === 'row' ? 'col-md-6' : 'col-md-12'}>
-        {renderInstitutions()}
-        {renderAttachments()}
-        <div className='selectBoxMessage'>{!loading ? null
-          : loading.sedList ? getSpinner('buc:loading-sed')
-            : loading.institutionList ? getSpinner('buc:loading-institution')
-              : loading.countryList ? getSpinner('buc:loading-country') : null}
-        </div>
-      </div>
-      <div className='col-md-12'>
-        <Nav.Hovedknapp
-          id='a-buc-SEDStart-forward-button'
-          className='forwardButton'
-          disabled={!allowedToForward()}
-          onClick={onForwardButtonClick}>{t('buc:form-orderSED')}</Nav.Hovedknapp>
-        <Nav.Flatknapp
-          id='a-buc-SEDStart-cancel'
-          className='cancelButton'
-          onClick={onCancelButtonClick}>{t('ui:cancel')}</Nav.Flatknapp>
-      </div>
-    </Nav.Row>
-  </React.Fragment>
+    </div>
+    <div className='col-md-12'>
+      <Nav.Hovedknapp
+        id='a-buc-c-sedstart__forward-button-id'
+        className='a-buc-c-sedstart__forward-button'
+        disabled={!allowedToForward()}
+        onClick={onForwardButtonClick}>{t('buc:form-orderSED')}</Nav.Hovedknapp>
+      <Nav.Flatknapp
+        id='a-buc-c-sedstart__cancel-button-id'
+        className='a-buc-c-sedstart__cancel-button'
+        onClick={onCancelButtonClick}>{t('ui:cancel')}</Nav.Flatknapp>
+    </div>
+  </Nav.Row>
 }
 
 SEDStart.propTypes = {

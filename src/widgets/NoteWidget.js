@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from 'react'
+import PT from 'prop-types'
 import _ from 'lodash'
 import ReactResizeDetector from 'react-resize-detector'
 
 const NoteWidget = (props) => {
-  const [mounted, setMounted] = useState(false)
-  const [content, setContent] = useState(null)
+  const { widget, layout, onResize, onWidgetUpdate } = props
+  const [ mounted, setMounted ] = useState(false)
+  const [ content, setContent ] = useState(widget.options.content)
 
   useEffect(() => {
-    if (!mounted && props.onResize) {
+    if (!mounted) {
+      onResize()
       setMounted(true)
     }
-    setContent(props.widget.options.content)
-  }, [])
+  }, [mounted, onResize])
 
-  const id = 'widget-note-' + (props.layout !== undefined ? props.layout.i : '' + new Date().getTime())
+  const id = 'widget-note-' + (layout !== undefined ? layout.i : '' + new Date().getTime())
 
   const resize = () => {
     const width = document.getElementById(id).offsetWidth
     const height = document.getElementById(id).offsetHeight
-    props.onResize(width, height)
+    onResize(width, height)
   }
 
   const onBlur = (e) => {
@@ -28,18 +30,18 @@ const NoteWidget = (props) => {
 
   const saveContent = (e) => {
     const newContent = e.target.innerHTML
-    let newWidget = _.cloneDeep(props.widget)
+    let newWidget = _.cloneDeep(widget)
     newWidget.options.content = newContent
     setContent(newContent)
-    props.onWidgetUpdate(newWidget, props.layout)
+    onWidgetUpdate(newWidget, layout)
   }
 
   return <div className='p-3 c-ui-d-NoteWidget' id={id}>
     <ReactResizeDetector
       handleWidth
       handleHeight
-      onResize={props.onResize} />
-    <h4>{props.widget.title}</h4>
+      onResize={onResize} />
+    <h4>{widget.title}</h4>
     <div contentEditable='true' onBlur={onBlur} dangerouslySetInnerHTML={{ __html: content }} />
   </div>
 }
@@ -57,6 +59,13 @@ NoteWidget.properties = {
     backgroundColor: 'yellow',
     availableColors: ['white', 'yellow', 'orange', 'pink', 'lightgreen']
   }
+}
+
+NoteWidget.propTypes = {
+  onResize: PT.func.isRequired,
+  widget: PT.object.isRequired,
+  layout: PT.object.isRequired,
+  onWidgetUpdate: PT.func.isRequired
 }
 
 export default NoteWidget

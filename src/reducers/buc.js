@@ -36,12 +36,6 @@ const bucReducer = (state = initialBucState, action) => {
         list: action.payload
       }
 
-    case types.BUC_STEP_SET:
-
-      return Object.assign({}, state, {
-        step: action.payload
-      })
-
     case types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS:
 
       return Object.assign({}, state, {
@@ -117,26 +111,25 @@ const bucReducer = (state = initialBucState, action) => {
     case types.BUC_ADD_TO_SED_SUCCESS:
 
       return Object.assign({}, state, {
-        savedData: action.payload,
-        step: 2
+        savedData: action.payload
       })
 
     case types.BUC_GET_CASE_NUMBER_REQUEST:
 
       return Object.assign({}, state, {
-        currentCase: undefined
+        currentBUC: undefined
       })
 
     case types.BUC_GET_CASE_NUMBER_SUCCESS:
 
       return Object.assign({}, state, {
-        currentCase: action.payload
+        currentBUC: action.payload
       })
 
     case types.BUC_GET_CASE_NUMBER_CLEAN:
 
       return Object.assign({}, state, {
-        currentCase: undefined
+        currentBUC: undefined
       })
 
     case types.RINA_GET_URL_SUCCESS:
@@ -148,9 +141,8 @@ const bucReducer = (state = initialBucState, action) => {
     case types.APP_CLEAR_DATA:
 
       return Object.assign({}, state, {
-        currentCase: undefined,
-        savedData: undefined,
-        step: 0
+        currentBUC: undefined,
+        savedData: undefined
       })
 
     default:

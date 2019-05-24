@@ -25,7 +25,7 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
     case types.BUC_GET_CASE_NUMBER_REQUEST:
 
       return Object.assign({}, state, {
-        gettingCase: true,
+        gettingBUC: true,
         status: status
       })
 
@@ -118,7 +118,7 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
     case types.BUC_GET_CASE_NUMBER_FAILURE:
 
       return Object.assign({}, state, {
-        gettingCase: false,
+        gettingBUC: false,
         status: status
       })
 

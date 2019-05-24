@@ -1,6 +1,6 @@
 import React from 'react'
 import { Hovedknapp, Panel, Ingress } from 'components/ui/Nav'
-import SEDStart from 'applications/BUC/steps/SEDStart'
+import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
 
 const SEDNew = (props) => {
   const { t, actions } = props

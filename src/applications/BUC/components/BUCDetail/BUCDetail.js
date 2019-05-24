@@ -1,17 +1,17 @@
 import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
-import { EkspanderbartpanelBase, Ingress, Element, Normaltekst } from 'components/ui/Nav'
+import { EkspanderbartpanelBase, Ingress, Normaltekst } from 'components/ui/Nav'
 import FlagList from 'components/ui/Flag/FlagList'
 import _ from 'lodash'
 
 import './BUCDetail.css'
 
 const BUCDetail = (props) => {
-
   const { t, buc, className, locale } = props
 
   return <EkspanderbartpanelBase
+    apen
     className={classNames('a-buc-c-bucdetail', className)}
     id='a-buc-c-bucdetail__panel-id'
     heading={<div
@@ -32,7 +32,7 @@ const BUCDetail = (props) => {
         return <div
           className='a-buc-c-bucdetail__institutions'
           id='a-buc-c-bucdetail__institutions-id'>
-          <FlagList locale={locale} countries={[landkode]} overflowLimit={5}/>
+          <FlagList locale={locale} countries={[landkode]} overflowLimit={5} />
           <Normaltekst>{landkode}: {buc.institutions[landkode].join(', ')}</Normaltekst>
         </div>
       }) : <Normaltekst>{t('buc:form-noInstitutionYet')}</Normaltekst>}

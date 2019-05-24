@@ -6,7 +6,6 @@ import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
 import './SEDSearch.css'
 
 const SEDSearch = (props) => {
-
   const [ _query, setQuery ] = useState(undefined)
   const [ _name, setName ] = useState([])
   const [ _country, setCountry ] = useState([])
@@ -86,10 +85,10 @@ const SEDSearch = (props) => {
 }
 
 SEDSearch.propTypes = {
-  t : PT.func.isRequired,
-  onSearch : PT.func,
+  t: PT.func.isRequired,
+  onSearch: PT.func,
   className: PT.string,
-  locale  : PT.string.isRequired
+  locale: PT.string.isRequired
 }
 
 export default SEDSearch

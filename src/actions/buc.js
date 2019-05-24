@@ -96,13 +96,6 @@ export const fetchSedListForBuc = (buc) => {
   return SEDS
 }
 
-export const setStep = (step) => {
-  return {
-    type: types.BUC_STEP_SET,
-    payload: step
-  }
-}
-
 export const getCaseFromCaseNumber = (params) => {
   let url = params.rinaId ? sprintf(urls.EUX_CASE_WITH_RINAID_URL, params) : sprintf(urls.EUX_CASE_WITHOUT_RINAID_URL, params)
   return api.call({

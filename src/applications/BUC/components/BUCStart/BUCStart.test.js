@@ -79,7 +79,7 @@ describe('BUCStart: mount without sakId and AktoerId', () => {
 
   it('onFetchCaseButtonClick() with state values triggers getCaseFromCaseNumber ', async (done) => {
     wrapper.instance().onFetchCaseButtonClick()
-    expect(store.getState().case.currentCase).toEqual(undefined)
+    expect(store.getState().buc.currentBUC).toEqual(undefined)
     expect(wrapper.instance().state.validation).toEqual({
       sakId: 'buc:validation-noSakId',
       aktoerId: 'buc:validation-noAktoerId'
@@ -95,7 +95,7 @@ describe('BUCStart: mount without sakId and AktoerId', () => {
     wrapper.instance().onFetchCaseButtonClick()
     await new Promise(resolve => {
       setTimeout(() => {
-        expect(store.getState().case.currentCase).toEqual({ casenumber: '123', pinid: '456' })
+        expect(store.getState().buc.currentBUC).toEqual({ casenumber: '123', pinid: '456' })
         done()
       }, 500)
     })
@@ -124,17 +124,15 @@ describe('BUCStart: mount with sakId and AktoerId', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Fetches currentCase when given sakId and aktoerId', () => {
-    expect(store.getState().case.currentCase).toEqual({ casenumber: '123', pinid: '456' })
+  it('Fetches currentBUC when given sakId and aktoerId', () => {
+    expect(store.getState().buc.currentBUC).toEqual({ casenumber: '123', pinid: '456' })
   })
 })
 
 describe('BUCStart: rest of functions', () => {
   let store, wrapper, ConnectedBUCStart
   const initialState = {
-    case: {
-      step: 0
-    },
+    buc: {},
     status: {
       sakId: '123',
       aktoerId: '456'
@@ -197,7 +195,7 @@ describe('BUCStart: rest of functions', () => {
       _institutions: [{ institution: 'mockInstitution', country: 'mockCountry' }]
     })
     wrapper.setProps({
-      currentCase: {
+      currentBUC: {
         casenumber: '123',
         pinid: '456'
       }
