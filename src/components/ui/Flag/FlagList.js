@@ -4,9 +4,11 @@ import countryList from 'components/ui/CountrySelect/CountrySelectData'
 import _ from 'lodash'
 import Flag from './Flag'
 
+import './Flag.css'
+
 const FlagList = (props) => {
   const { className, locale, countries, overflowLimit, flagPath, extention } = props
-  return <div className={classNames('d-flex', className)}>
+  return <div className={classNames('c-ui-flaglist', className)}>
     {countries.map((country, index) => {
       if (index > overflowLimit - 1) {
         return null
@@ -15,7 +17,7 @@ const FlagList = (props) => {
       return <Flag data-qa='FlagList-Flag' key={index} flagPath={flagPath} country={country} label={label.label} extention={extention} />
     })}
     {countries.length > overflowLimit
-      ? <span data-qa='FlagList-overflow' className='pt-2'>+{countries.length - 2}</span>
+      ? <span data-qa='FlagList-overflow' className='pt-2'>+{countries.length - overflowLimit}</span>
       : null
     }
   </div>
@@ -24,8 +26,8 @@ const FlagList = (props) => {
 FlagList.defaultProps = {
   countries: [],
   overflowLimit: 2,
-  flagPath: '',
-  extention: ''
+  flagPath: '../../../../flags/',
+  extention: '.png'
 }
 
 export default FlagList

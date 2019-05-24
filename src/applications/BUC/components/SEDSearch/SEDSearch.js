@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
+import PT from 'prop-types'
 import classNames from 'classnames'
 import { EkspanderbartpanelBase, Input } from 'components/ui/Nav'
 import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
 import './SEDSearch.css'
 
 const SEDSearch = (props) => {
-  const [ _search, setSearch ] = useState(undefined)
+
+  const [ _query, setQuery ] = useState(undefined)
   const [ _name, setName ] = useState([])
   const [ _country, setCountry ] = useState([])
   const [ _status, setStatus ] = useState([])
@@ -18,9 +20,9 @@ const SEDSearch = (props) => {
     return false
   }
 
-  const onInputChange = (e) => {
+  const onQueryChange = (e) => {
     if (typeof onSearch === 'function') {
-      setSearch(e)
+      setQuery(e)
       onSearch(e)
     }
   }
@@ -39,39 +41,41 @@ const SEDSearch = (props) => {
 
   return <EkspanderbartpanelBase
     className={classNames('a-buc-c-sedsearch', className)}
-    heading={<Input label={null}
-      className='a-buc-c-sedsearch-input'
+    id='a-buc-c-sedsearch__panel-id'
+    heading={<Input
+      className='a-buc-c-sedsearch__query'
+      label={null}
       bredde='fullbredde'
-      value={_search} onChange={onInputChange}
+      value={_query} onChange={onQueryChange}
       placeholder={t('buc:form-filterSED')}
       onClick={stopPropagation}
     />}>
     <div>
       <MultipleSelect
-        id='a-buc-sedsearch-name'
+        id='a-buc-c-sedsearch__name-id'
         className='multipleSelect mb-3'
         creatable
-        placeholder={t('søk på navn')}
+        placeholder={t('ui:searchForName')}
         locale={locale}
         value={_name}
         hideSelectedOptions={false}
         onChange={onNameChange}
         optionList={[]} />
       <MultipleSelect
-        id='a-buc-sedsearch-country'
+        id='a-buc-c-sedsearch__country-id'
         className='multipleSelect mb-3'
         creatable
-        placeholder={t('Søk på land')}
+        placeholder={t('ui:searchForCountry')}
         locale={locale}
         value={_country}
         hideSelectedOptions={false}
         onChange={onCountryChange}
         optionList={[]} />
       <MultipleSelect
-        id='a-buc-sedsearch-status'
+        id='a-buc-c-sedsearch__status-id'
         className='multipleSelect mb-3'
         creatable
-        placeholder={t('Andre filter')}
+        placeholder={t('ui:searchForStatus')}
         locale={locale}
         value={_status}
         hideSelectedOptions={false}
@@ -79,6 +83,13 @@ const SEDSearch = (props) => {
         optionList={[]} />
     </div>
   </EkspanderbartpanelBase>
+}
+
+SEDSearch.propTypes = {
+  t : PT.func.isRequired,
+  onSearch : PT.func,
+  className: PT.string,
+  locale  : PT.string.isRequired
 }
 
 export default SEDSearch

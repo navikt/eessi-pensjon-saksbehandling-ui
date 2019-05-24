@@ -1,11 +1,14 @@
 import React from 'react'
 import PT from 'prop-types'
 import { Element } from 'components/ui/Nav'
-import './SedHeader.css'
 
-function SedHeader (props) {
+import './SEDHeader.css'
+
+const SEDHeader = (props) => {
   const { t } = props
-  return <div className='a-buc-c-sed-header pb-1'>
+  return <div
+    className='a-buc-c-sedheader pb-1'
+    id='a-buc-c-sedheader__div-id'>
     <div className='col-2'><Element>{t('buc:form-name')}</Element></div>
     <div className='col-4'><Element>{t('buc:form-status')}</Element></div>
     <div className='col-4'><Element>{t('buc:form-receiver')}</Element></div>
@@ -13,8 +16,8 @@ function SedHeader (props) {
   </div>
 }
 
-SedHeader.defaultProps = {
+SEDHeader.propTypes = {
   t: PT.func.isRequired
 }
 
-export default SedHeader
+export default SEDHeader

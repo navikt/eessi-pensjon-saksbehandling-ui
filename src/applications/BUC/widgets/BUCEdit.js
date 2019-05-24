@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import * as Nav from 'components/ui/Nav'
-import SedLabel from '../components/SED/SedLabel'
-import SEDSearch from '../components/SED/SEDSearch'
+import SEDRow from '../components/SEDRow/SEDRow'
+import SEDSearch from '../components/SEDSearch/SEDSearch'
 import BUCDetail from '../components/BUCDetail/BUCDetail'
 import BUCTags from '../components/BUCTags/BUCTags'
-import SEDAnswer from '../components/SED/SEDAnswer'
+import SEDTools from '../components/SEDTools/SEDTools'
 import UserTools from '../components/User/UserTools'
 
 import './BUCEdit.css'
@@ -31,7 +31,7 @@ const BUCEdit = (props) => {
       return (search ? sed.name.matches(search) : sed) &&
         (tab === 'draft' ? sed.status === 'draft' : sed.status !== 'draft')
     }).map((sed, index) => {
-      return <SedLabel className='mt-2' t={t} key={index} sed={sed} />
+      return <SEDRow className='mt-2' t={t} key={index} sed={sed} />
     }) : null
   }
 
@@ -53,8 +53,8 @@ const BUCEdit = (props) => {
       </div>
       <div className='col-4'>
         <BUCDetail className='mb-3' t={t} buc={buc} locale={locale} />
-        <SEDAnswer className='mb-3' t={t} />
-        <BUCTags className='mb-3' t={t} />
+        <SEDTools className='mb-3' t={t} />
+        <BUCTags className='mb-3' t={t} buc={buc}/>
         <UserTools className='mb-3' t={t} />
       </div>
     </Nav.Row>

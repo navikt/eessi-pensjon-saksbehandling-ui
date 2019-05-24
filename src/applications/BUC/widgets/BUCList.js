@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
-import SedHeader from 'applications/BUC/components/SED/SedHeader'
-import SedLabel from 'applications/BUC/components/SED/SedLabel'
+import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
+import SEDRow from 'applications/BUC/components/SEDRow/SEDRow'
 import BUCEmpty from './BUCEmpty'
 import { EkspanderbartpanelBase, Flatknapp } from 'components/ui/Nav'
 import * as bucActions from 'actions/buc'
@@ -60,9 +60,9 @@ const BUCList = (props) => {
         key={index}
         heading={<BUCHeader t={t} buc={buc} locale={locale} onBUCEdit={onBUCEdit} />}
         onClick={() => onExpandBUCClick(buc)}>
-        <SedHeader t={t} />
+        <SEDHeader t={t} />
         {seds[buc.type] ? seds[buc.type].map((sed, index) => (
-          <SedLabel t={t} key={index} sed={sed} border />
+          <SEDRow t={t} key={index} sed={sed} border />
         )) : null}
       </EkspanderbartpanelBase>
     }) : <BUCEmpty t={t} getBucList={getBucList} /> }
