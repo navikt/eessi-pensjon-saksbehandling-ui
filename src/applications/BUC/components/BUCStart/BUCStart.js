@@ -21,18 +21,16 @@ export const mapStateToProps = (state) => {
     bucList: state.buc.bucList,
     sedList: state.buc.sedList,
     countryList: state.buc.countryList,
-    currentCase: state.buc.currentCase,
-    p6000data: state.p6000.data,
-
-    locale: state.ui.locale,
+    currentBUC: state.buc.currentBUC,
     loading: state.loading,
-
+    p6000data: state.p6000.data,
     sakId: state.status.sakId,
     rinaId: state.status.rinaId,
     aktoerId: state.status.aktoerId,
     vedtakId: state.status.vedtakId,
     sed: state.status.sed,
-    buc: state.status.buc
+    buc: state.status.buc,
+    locale: state.ui.locale
   }
 }
 
@@ -59,20 +57,19 @@ const BUCStart = (props) => {
   const [_sed, setSed] = useState(undefined)
   const [_vedtakId, setVedtakId] = useState(undefined)
 
-  const [_country, setCountry] = useState([])
-  const [_institution, setInstitution] = useState([])
+  const [_countries, setCountries] = useState([])
+  const [_institutions, setInstitutions] = useState([])
   const [_tags, setTags] = useState([])
   const [validation, setValidation] = useState({})
 
   const [mounted, setMounted] = useState(false)
 
-  const { t, actions } = props
-  const { subjectAreaList, institutionList, bucList, sedList, countryList } = props
-  const { currentCase, locale, loading, mode, p6000data } = props
   const { sakId, aktoerId, rinaId, vedtakId, sed, buc } = props
+  const { subjectAreaList, institutionList, bucList, sedList, countryList } = props
+  const { t, actions, currentBUC, locale, loading, mode, p6000data } = props
 
   useEffect(() => {
-    if (!loading.gettingCase && _.isEmpty(currentCase) && sakId && aktoerId) {
+    if (!loading.gettingBUC && _.isEmpty(currentBUC) && sakId && aktoerId) {
       actions.getCaseFromCaseNumber({
         sakId: sakId,
         aktoerId: aktoerId,
@@ -81,18 +78,18 @@ const BUCStart = (props) => {
       setMounted(true)
     }
 
-    if (!loading.gettingCase && !_.isEmpty(currentCase)) {
+    if (!loading.gettingBUC && !_.isEmpty(currentBUC)) {
       if (subjectAreaList === undefined && !sed && !loading.subjectAreaList) {
         actions.getSubjectAreaList()
       }
       if (bucList === undefined && !sed && !loading.bucList) {
-        actions.getBucList(currentCase ? currentCase.rinaid : undefined)
+        actions.getBucList(currentBUC ? currentBUC.rinaid : undefined)
       }
       if (_.isEmpty(countryList) && !loading.countryList) {
         actions.getCountryList()
       }
     }
-  }, [currentCase, mounted])
+  }, [currentBUC, mounted, actions, loading, countryList, sakId, aktoerId, rinaId, bucList, sed, subjectAreaList])
 
   const onSakIdChange = (e) => {
     resetValidationState('sakId')
@@ -132,17 +129,17 @@ const BUCStart = (props) => {
     validateSubjectArea(_subjectArea)
     validateBuc(_buc || buc)
     validateSed(_sed || sed)
-    validateInstitution(_institution)
+    validateInstitution(_institutions)
     if (hasNoValidationErrors()) {
       const data = {
-        sakId: currentCase.casenumber,
-        aktoerId: currentCase.pinid,
-        rinaId: currentCase.rinaid,
+        sakId: currentBUC.casenumber,
+        aktoerId: currentBUC.pinid,
+        rinaId: currentBUC.rinaid,
         subjectArea: _subjectArea,
         buc: _buc || buc,
         sed: _sed || sed,
         vedtakId: vedtakId || _vedtakId,
-        institutions: _institution,
+        institutions: _institutions,
         tags: _tags
       }
       if (data.sed === 'P6000') {
@@ -240,7 +237,7 @@ const BUCStart = (props) => {
   }
 
   const onInstitutionChange = (institutions) => {
-    setInstitution(institutions)
+    setInstitutions(institutions)
     validateInstitution(institutions)
   }
 
@@ -248,18 +245,18 @@ const BUCStart = (props) => {
     validateCountry(countryList)
     if (!validation.countryFail) {
       let oldCountryList = _.cloneDeep(countryList)
-      setCountry(countryList)
+      setCountries(countryList)
       let addedCountries = countryList.filter(country => !oldCountryList.includes(country))
       let removedCountries = oldCountryList.filter(country => !countryList.includes(country))
 
-      addedCountries.map(country => {
+      addedCountries.forEach(country => {
         if (_buc) {
           actions.getInstitutionListForBucAndCountry(_buc, country.value)
         } else {
           actions.getInstitutionListForCountry(country.value)
         }
       })
-      removedCountries.map(country => {
+      removedCountries.forEach(country => {
         actions.removeInstitutionForCountry(country.value)
       })
     }
@@ -310,8 +307,8 @@ const BUCStart = (props) => {
 
   const renderSubjectArea = () => {
     return <Nav.Select
-      id='a-buc-BUCStart-subjectarea-select'
-      className='subjectAreaList flex-fill'
+      className='a-buc-c-bucstart__subjectarea-list flex-fill'
+      id='a-buc-c-bucstart__subjectarea-select-id'
       aria-describedby='help-subjectArea'
       bredde='fullbredde'
       feil={validation.subjectAreaFail ? { feilmelding: validation.subjectAreaFail } : null}
@@ -330,12 +327,12 @@ const BUCStart = (props) => {
     return <div className='mb-3 flex-fill'>
       <label className='skjemaelement__label'>{t('ui:country')}</label>
       <MultipleSelect
+        className='a-buc-c-bucstart__country'
+        id='a-buc-c-bucstart__country-select-id'
         placeholder={t(placeholders.country)}
-        id='a-buc-BUCStart-country-select'
-        className='multipleSelect'
         aria-describedby='help-country'
         locale={locale}
-        value={_country || []}
+        value={_countries || []}
         hideSelectedOptions={false}
         onChange={onCountryChange}
         optionList={countryObjectList} />
@@ -359,12 +356,12 @@ const BUCStart = (props) => {
     return <div className='mb-3 flex-fill'>
       <label className='skjemaelement__label'>{t('ui:institution')}</label>
       <MultipleSelect
+        className='a-buc-c-bucstart__institution'
+        id='a-buc-c-bucstart__institution-select-id'
         placeholder={t(placeholders.institution)}
-        id='a-buc-BUCStart-institution-select'
-        className='multipleSelect'
         aria-describedby='help-institution'
         locale={locale}
-        value={_institution || []}
+        value={_institutions || []}
         onChange={onInstitutionChange}
         hideSelectedOptions={false}
         optionList={institutionObjectList} />
@@ -373,8 +370,8 @@ const BUCStart = (props) => {
 
   const renderBuc = () => {
     return <Nav.Select
-      id='a-buc-BUCStart-buc-select'
-      className='bucList flex-fill'
+      className='a-buc-c-bucstart__buc flex-fill'
+      id='a-buc-c-bucstart__buc-select-id'
       aria-describedby='help-buc'
       bredde='fullbredde'
       feil={validation.bucFail ? { feilmelding: validation.bucFail } : null}
@@ -387,21 +384,21 @@ const BUCStart = (props) => {
 
   const renderSed = () => {
     return <Nav.Select
-      id='a-buc-BUCStart-sed-select'
-      className='sedList flex-fill'
+      className='a-buc-c-bucstart__sed flex-fill'
+      id='a-buc-c-bucstart__sed-select-id'
       aria-describedby='help-sed'
       bredde='fullbredde'
       feil={validation.sedFail ? { feilmelding: validation.sedFail } : null}
       disabled={!bucList}
       label={t('buc:form-sed')}
-      value={_sed || placeholders.buc}
+      value={_sed || placeholders.sed}
       onChange={onSedChange}>
       {renderOptions(sedList, 'sed')}
     </Nav.Select>
   }
 
   const getSpinner = (text) => {
-    return <div className='p-case-spinner ml-2'>
+    return <div className='a-buc-c-bucstart__spinner ml-2'>
       <Nav.NavFrontendSpinner type='S' />
       <div className='float-right ml-2'>{t(text)}</div>
     </div>
@@ -409,8 +406,8 @@ const BUCStart = (props) => {
 
   const renderInstitutions = () => {
     let institutions = {}
-    if (_institution) {
-      _institution.map(institution => {
+    if (_institutions) {
+      _institutions.forEach(institution => {
         if (!institutions.hasOwnProperty(institution.value.landkode)) {
           institutions[institution.value.landkode] = [institution.label]
         } else {
@@ -439,10 +436,10 @@ const BUCStart = (props) => {
       <div className='mb-3 flex-fill'>
         <Nav.Normaltekst>{t('buc:form-tagsForBUC-description')}</Nav.Normaltekst>
         <MultipleSelect
-          creatable
+          className='a-buc-c-bucstart__tags flex-fill'
+          id='a-buc-c-bucstart__tags-select-id'
           placeholder={t('buc:form-tagPlaceholder')}
-          id='a-buc-BUCStart-tags-select'
-          className='multipleSelect'
+          creatable
           aria-describedby='help-tags'
           locale={locale}
           value={_tags || []}
@@ -454,69 +451,67 @@ const BUCStart = (props) => {
   }
 
   const allowedToForward = () => {
-    return sed ? buc && sed && hasNoValidationErrors() && !_.isEmpty(_institution)
-      : _buc && _sed && _subjectArea && hasNoValidationErrors() && !_.isEmpty(_institution)
+    return sed ? buc && sed && hasNoValidationErrors() && !_.isEmpty(_institutions)
+      : _buc && _sed && _subjectArea && hasNoValidationErrors() && !_.isEmpty(_institutions)
   }
 
-  if (!currentCase) {
-    return <React.Fragment>
+  if (!currentBUC) {
+    return <div className='a-buc-c-bucstart__form-for-sakid-and-aktoerid'>
       {mode === 'page' ? <div className='mb-5'>
         <PsychoPanel closeButton>{t('buc:help-startCase')}</PsychoPanel>
       </div> : null}
       <Nav.Row>
         <div className='col-md-6'>
           <Nav.Input aria-describedby='help-sakId'
-            className='getCaseInputSakId'
+            className='-buc-c-bucstart__sakid'
+            id='a-buc-c-bucstart__sakid-input-id'
             label={t('buc:form-sakId')}
             value={_sakId || ''}
             bredde='fullbredde'
-            id='a-buc-BUCStart-sakid-input'
             onChange={onSakIdChange}
             feil={validation.sakId ? { feilmelding: t(validation.sakId) } : null} />
-          {/* <span id='help-sakId'>{t('buc:help-sakId')}</span> */}
         </div>
       </Nav.Row>
       <Nav.Row>
         <div className='col-md-6'>
           <Nav.Input
-            className='getCaseInputAktoerId'
+            className='-buc-c-bucstart__aktoerid'
+            id='a-buc-c-bucstart__aktoerid-input-id'
             label={t('buc:form-aktoerId')}
             value={_aktoerId || ''}
             bredde='fullbredde'
-            id='a-buc-BUCStart-aktoerid-input'
             onChange={onAktoerIdChange}
             feil={validation.aktoerId ? { feilmelding: t(validation.aktoerId) } : null} />
-          {/* <span id='help-aktoerId'>{t('buc:help-aktoerId')}</span> */}
         </div>
       </Nav.Row>
       <Nav.Row>
         <div className='col-md-6'>
-          <Nav.Input className='getCaseInputRinaId'
+          <Nav.Input
+            className='-buc-c-bucstart__rinaid'
+            id='a-buc-c-bucstart__rinaid-input-id'
             label={<div>
               <span>{t('buc:form-rinaId')}</span>
               <span className='optional'>{t('ui:optional')}</span>
             </div>}
             value={_rinaId || ''}
             bredde='fullbredde'
-            id='a-buc-BUCStart-rinaid-input'
             onChange={onRinaIdChange}
           />
-          {/* <span id='help-rinaId'>{t('buc:help-rinaId')}</span> */}
         </div>
       </Nav.Row>
       <Nav.Row className='mt-6'>
         <div className='col-md-12'>
           <Nav.Hovedknapp
-            id='a-buc-BUCStart-forward-button'
-            className='forwardButton'
-            disabled={loading && loading.gettingCase}
-            spinner={loading && loading.gettingCase}
+            id='a-buc-c-bucstart__forward-button-id'
+            className='a-buc-c-bucstart__forward-button'
+            disabled={loading && loading.gettingBUC}
+            spinner={loading && loading.gettingBUC}
             onClick={onFetchCaseButtonClick}>
-            {loading && loading.gettingCase ? t('buc:loading-gettingCase') : t('ui:search')}
+            {loading && loading.gettingBUC ? t('buc:loading-gettingBUC') : t('ui:search')}
           </Nav.Hovedknapp>
         </div>
       </Nav.Row>
-    </React.Fragment>
+    </div>
   }
 
   return <React.Fragment>
@@ -603,7 +598,9 @@ const BUCStart = (props) => {
 }
 
 BUCStart.propTypes = {
-  currentCase: PT.object,
+  currentBUC: PT.object,
+  p6000data: PT.object,
+  mode: PT.string,
   actions: PT.object,
   loading: PT.object,
   t: PT.func,
@@ -614,7 +611,10 @@ BUCStart.propTypes = {
   bucList: PT.array,
   sed: PT.string,
   buc: PT.string,
-  locale: PT.string,
+  locale: PT.string.isRequired,
+  sakId: PT.string,
+  aktoerId: PT.string,
+  rinaId: PT.string,
   vedtakId: PT.string
 }
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import PT from 'prop-types'
 import { DragSource } from 'react-dnd'
 import { getEmptyImage } from 'react-dnd-html5-backend'
 import classNames from 'classnames'
@@ -7,19 +8,22 @@ import _ from 'lodash'
 import './Widget.css'
 
 const WidgetAdd = (props) => {
-  const [mouseOver, setMouseOver] = useState(false)
+  const { connectDragPreview, connectDragSource, widget } = props
+  const [ mounted, setMounted ] = useState(false)
+  const [ mouseOver, setMouseOver ] = useState(false)
 
   useEffect(() => {
-    if (props.connectDragPreview) {
+    if (!mounted && connectDragPreview) {
       // Use empty image as a drag preview so browsers don't draw it
       // and we can draw whatever we want on the custom drag layer instead.
-      props.connectDragPreview(getEmptyImage(), {
+      connectDragPreview(getEmptyImage(), {
         // IE fallback: specify that we'd rather screenshot the node
         // when it already knows it's being dragged so we can hide it with CSS.
         captureDraggingState: true
       })
+      setMounted(true)
     }
-  }, [])
+  }, [mounted, connectDragPreview])
 
   return <div>
     <div
@@ -29,14 +33,18 @@ const WidgetAdd = (props) => {
       })}
       onMouseEnter={() => setMouseOver(true)}
       onMouseLeave={() => setMouseOver(false)}
-      title={props.widget.description}
-      ref={props.connectDragSource}>
+      title={widget.description}
+      ref={connectDragSource}>
       <div className='p-2 content'>
-        <h6>{props.widget.title}</h6>
-        <p><small>{props.widget.description}</small></p>
+        <h6>{widget.title}</h6>
+        <p><small>{widget.description}</small></p>
       </div>
     </div>
   </div>
+}
+
+WidgetAdd.propTypes = {
+  widget: PT.object.isRequired
 }
 
 export default DragSource(

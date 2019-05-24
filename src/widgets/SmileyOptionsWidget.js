@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import PT from 'prop-types'
 import _ from 'lodash'
 import * as Nav from '../components/ui/Nav'
 
 const SmileyOptionsWidget = (props) => {
-  const [mood, setMood] = useState(null)
-
-  useEffect(() => {
-    setMood(props.widget.options.mood)
-  }, [])
+  const { widget, onWidgetUpdate, layout, availableWidgets } = props
+  const [mood, setMood] = useState(widget.options.mood)
 
   const chooseMood = (e) => {
-    let newWidget = _.cloneDeep(props.widget)
+    let newWidget = _.cloneDeep(widget)
     newWidget.options.mood = e.target.value
     setMood(e.target.value)
-    props.onWidgetUpdate(newWidget, props.layout)
+    onWidgetUpdate(newWidget, layout)
   }
 
-  let widgetTemplate = _.find(props.availableWidgets, { type: 'smiley' })
+  let widgetTemplate = _.find(availableWidgets, { type: 'smiley' })
   return <div className='p-3'>
     <Nav.Select label={'mood'} value={mood || ''}
       onChange={chooseMood}>
@@ -25,6 +23,13 @@ const SmileyOptionsWidget = (props) => {
       })}
     </Nav.Select>
   </div>
+}
+
+SmileyOptionsWidget.propTypes = {
+  widget: PT.object.isRequired,
+  onWidgetUpdate: PT.func.isRequired,
+  layout: PT.object.isRequired,
+  availableWidgets: PT.array.isRequired
 }
 
 export default SmileyOptionsWidget

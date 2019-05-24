@@ -1,80 +1,35 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
-import _ from 'lodash'
-import { connect, bindActionCreators } from 'store'
-import * as bucActions from 'actions/buc'
 
-import * as Nav from 'components/ui/Nav'
 import TopContainer from 'components/ui/TopContainer/TopContainer'
 import FrontPageDrawer from 'components/drawer/FrontPage'
-import BUCStart from 'applications/BUC/steps/BUCStart'
-import SEDSaveSend from 'applications/BUC/steps/SEDSaveSend'
-import * as routes from 'constants/routes'
+import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
 
 import './index.css'
 
-const caseTitles = ['buc:step-startBUCTitle', 'buc:step-previewSEDTitle', 'buc:step-saveSendSEDTitle']
-const caseDescriptions = [undefined, 'buc:step-previewSEDDescription', 'buc:step-saveSendSEDDescription']
-
-const mapStateToProps = (state) => {
-  return {
-    step: state.buc.step
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators(bucActions, dispatch)
-  }
-}
-
 export const BUCPageIndex = (props) => {
-  const { t, className, history, location, match, step } = props
-
-  useEffect(() => {
-    if (_.has(match, 'params.step') && String(step + 1) !== match.params.step) {
-      history.push({
-        pathname: `${routes.BUC}/${step + 1}`,
-        search: window.location.search
-      })
-    }
-  }, [])
+  const { t, className, history, location } = props
 
   return <TopContainer
     className={classNames('a-buc-page', className)}
     history={history}
     location={location}
     sideContent={<FrontPageDrawer t={t} />}
-    header={t('buc:app-bucTitle') + ' - ' + t(caseTitles[step])}>
+    header={t('buc:app-bucTitle') + ' - ' + t('buc:step-startBUCTitle')}>
     <div className='mt-4'>
-      <Nav.Stegindikator
-        className='mb-4'
-        aktivtSteg={step}
-        visLabel
-        onBeforeChange={() => { return false }}
-        autoResponsiv
-        steg={_.range(0, 3).map(index => ({
-          label: t('buc:form-step' + index),
-          ferdig: index < step,
-          aktiv: index === step
-        }))} />
-      {caseDescriptions[step] ? <h2 className='mb-4 appDescription'>{t(caseDescriptions[step])}</h2> : null}
-      {step === 0 ? <BUCStart mode='page' {...props} /> : null}
-      {step === 2 ? <SEDSaveSend mode='page' {...props} /> : null}
+      <h2 className='mb-4 appDescription'>{t('buc:step-startBUCTitle')}</h2>
+      <BUCStart mode='page' {...props} /> : null}
     </div>
   </TopContainer>
 }
 
 BUCPageIndex.propTypes = {
-  description: PT.string,
   history: PT.object.isRequired,
   t: PT.func,
-  step: PT.number.isRequired,
   className: PT.string,
-  location: PT.object.isRequired,
-  status: PT.object
+  location: PT.object.isRequired
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(BUCPageIndex))
+export default withTranslation()(BUCPageIndex)

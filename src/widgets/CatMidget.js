@@ -1,22 +1,25 @@
 import React, { useState, useEffect } from 'react'
+import PT from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
+
 import './CatMidget.css'
 
 const CatMidget = (props) => {
-  const [mounted, setMounted] = useState(false)
+  const [ mounted, setMounted ] = useState(false)
+  const { onResize } = props
 
   useEffect(() => {
-    if (!mounted && props.onResize) {
-      props.onResize()
+    if (!mounted) {
+      onResize()
       setMounted(true)
     }
-  }, [])
+  }, [mounted, onResize])
 
   return <div className='c-ui-d-catMidget'>
     <ReactResizeDetector
       handleWidth
       handleHeight
-      onResize={props.onResize} />
+      onResize={onResize} />
     <img alt='cat' src={require('../resources/images/cat.jpg')} />
   </div>
 }
@@ -33,6 +36,10 @@ CatMidget.properties = {
   options: {
     backgroundColor: 'white'
   }
+}
+
+CatMidget.propTypes = {
+  onResize: PT.func.isRequired
 }
 
 export default CatMidget

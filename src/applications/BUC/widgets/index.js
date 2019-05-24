@@ -14,7 +14,6 @@ const mapStateToProps = (state) => {
   return {
     mode: state.buc.mode,
     list: state.buc.list,
-    step: state.buc.step,
     buc: state.buc.buc,
     seds: state.buc.seds,
     locale: state.ui.locale

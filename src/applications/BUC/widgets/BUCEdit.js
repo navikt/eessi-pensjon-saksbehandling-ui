@@ -54,7 +54,7 @@ const BUCEdit = (props) => {
       <div className='col-4'>
         <BUCDetail className='mb-3' t={t} buc={buc} locale={locale} />
         <SEDTools className='mb-3' t={t} />
-        <BUCTags className='mb-3' t={t} buc={buc}/>
+        <BUCTags className='mb-3' t={t} buc={buc} />
         <UserTools className='mb-3' t={t} />
       </div>
     </Nav.Row>

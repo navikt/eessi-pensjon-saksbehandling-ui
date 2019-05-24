@@ -7,7 +7,6 @@ import SEDStatus from '../SEDStatus/SEDStatus'
 import './SEDRow.css'
 
 const SEDRow = (props) => {
-
   const { t, sed, className, border = false } = props
 
   const onGoToRinaClick = () => {}

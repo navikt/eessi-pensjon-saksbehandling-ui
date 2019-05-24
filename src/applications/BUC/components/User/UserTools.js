@@ -11,8 +11,8 @@ const UserTools = (props) => {
     id='a-buc-c-usertools__panel-id'
     heading={<Ingress
       className='a-buc-c-usertools-buctags'>
-        {t('buc:form-notifyUser')}
-      </Ingress>
+      {t('buc:form-notifyUser')}
+    </Ingress>
     }>
       Hello
   </EkspanderbartpanelBase>

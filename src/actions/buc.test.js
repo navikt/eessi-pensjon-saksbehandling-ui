@@ -13,15 +13,6 @@ describe('case actions', () => {
     api.call.mockRestore()
   })
 
-  it('stepSet()', () => {
-    const mockStep = 999
-    const generatedResult = bucActions.setStep(mockStep)
-    expect(generatedResult).toEqual({
-      type: types.BUC_STEP_SET,
-      payload: mockStep
-    })
-  })
-
   it('getCaseFromCaseNumber without RinaId()', () => {
     const mockParams = { foo: 'bar' }
     bucActions.getCaseFromCaseNumber(mockParams)
