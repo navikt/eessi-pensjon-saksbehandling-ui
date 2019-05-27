@@ -41,6 +41,7 @@ const AuthenticatedRoute = (props) => {
   const { t, allowed, actions, location, loggedIn, userRole } = props
 
   useEffect(() => {
+
     const parseSearchParams = () => {
       let params = new URLSearchParams(location.search)
       let newParams = {}
@@ -58,7 +59,7 @@ const AuthenticatedRoute = (props) => {
       return newParams
     }
     parseSearchParams()
-  }, [location.search])
+  }, [location.search, _params, actions])
 
   useEffect(() => {
     if (!mounted) {
@@ -74,7 +75,7 @@ const AuthenticatedRoute = (props) => {
         setMounted(true)
       }
     }
-  }, [loggedIn, actions])
+  }, [loggedIn, actions, requestingUserInfo, mounted])
 
   if (!mounted) {
     return <WaitingPanel message={t('authenticating')} />

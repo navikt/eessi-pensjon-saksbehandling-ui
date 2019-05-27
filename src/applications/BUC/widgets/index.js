@@ -13,10 +13,12 @@ import './index.css'
 const mapStateToProps = (state) => {
   return {
     mode: state.buc.mode,
-    list: state.buc.list,
+    bucs: state.buc.bucs,
     buc: state.buc.buc,
     seds: state.buc.seds,
-    locale: state.ui.locale
+    gettingBUCs : state.loading.gettingBUCs,
+    locale: state.ui.locale,
+    aktoerId: state.app.params.aktoerId
   }
 }
 

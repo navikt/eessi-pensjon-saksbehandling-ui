@@ -41,7 +41,7 @@ export class Alert extends Component {
 
     if (type === 'server') {
       return serverErrorMessage ? <Nav.AlertStripe
-        className={classNames('c-ui-alert', 'server', className)} type='feil' solid>
+        className={classNames('c-ui-alert', 'server', className)} type='feil'>
         {t(serverErrorMessage)}
         {uuid}
         <Icons className='closeIcon' size='1x' kind='solidclose' onClick={this.clientClear.bind(this)} />

@@ -1,8 +1,10 @@
 import React from 'react'
 import PT from 'prop-types'
-import { Element, PanelBase, Flatknapp } from 'components/ui/Nav'
+import { Element, PanelBase, Normaltekst, Flatknapp } from 'components/ui/Nav'
 import classNames from 'classnames'
 import SEDStatus from '../SEDStatus/SEDStatus'
+import Icons from 'components/ui/Icons'
+import _ from 'lodash'
 
 import './SEDRow.css'
 
@@ -16,24 +18,26 @@ const SEDRow = (props) => {
     <div className={classNames('a-buc-c-sedrow__content pt-3 pb-3', { withborder: border })}>
       <div className='col-2 a-buc-c-sedrow__name'>
         <Element data-qa='SedLabel-name'>
-          {sed.name}
+          {sed.type}
         </Element>
       </div>
       <div className='col-4 a-buc-c-sedrow__status pl-0 pr-0'>
         <SEDStatus data-qa='SedLabel-SEDStatus' t={t} className='col-auto' status={sed.status} />
         <div data-qa='SedLabel-date' className='col'>
-          {sed.date}
+          <Normaltekst>{t('ui:created')}: {new Date(sed.creationDate).toLocaleDateString()}</Normaltekst>
+          <Normaltekst>{t('ui:lastUpdate')}: {sed.lastUpdate}</Normaltekst>
         </div>
       </div>
       <div className='col-4 a-buc-c-sedrow__institutions'>
-        {sed.institutions.map(el => {
+        {sed.institutions ? sed.institutions.map(el => {
           return <div key={el.country + el.institution} className='a-buc-c-sedrow__institution'>
             <Element className='mr-2' data-qa='SedLabel-country'>{el.country}{': '}</Element>
             <span>{el.institution}</span>
           </div>
-        })}
+        }) : null}
       </div>
       <div className='col-2 a-buc-c-sedrow__actions'>
+        {!_.isEmpty(sed.attachments) ? <Icons kind='vedlegg'/> : null}
         <Flatknapp
           id='a-buc-c-sedrow__gotorina-button'
           className='a-buc-c-sedrow__gotorina smallerButton'

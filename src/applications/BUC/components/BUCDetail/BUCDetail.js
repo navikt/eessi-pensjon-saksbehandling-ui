@@ -16,24 +16,28 @@ const BUCDetail = (props) => {
     id='a-buc-c-bucdetail__panel-id'
     heading={<div
       className='a-buc-c-bucdetail__header'>
-      <Ingress>{buc.type} {buc.name}</Ingress>
+      <Ingress>{buc.buc} {t('buc:buc-' + buc.buc)}</Ingress>
     </div>}>
     <div className='a-buc-c-bucdetail__body'>
       <dl className='a-buc-c-bucdetail__props'>
-        <dt>{t('ui:created')}:</dt>
-        <dd>dd.mm.åååå</dd>
-        <dt>{t('ui:caseowner')}:</dt>
-        <dd>xxxxxxxxx</dd>
-        <dt>{t('ui:tags')}:</dt>
-        <dd>xxxxxxxxx</dd>
+        <dt>{t('ui:caseId')}:</dt>
+        <dd>{buc.caseId}</dd>
+        <dt>{t('ui:aktoerId')}:</dt>
+        <dd>{buc.aktoerId}</dd>
+        <dt>{t('ui:creator')}:</dt>
+        <dd>{buc.creator.institution} ({buc.creator.country})</dd>
+        <dt>{t('ui:type')}:</dt>
+        <dd>{buc.sakType}</dd>
+        <dt>{t('ui:status')}:</dt>
+        <dd>{buc.status}</dd>
       </dl>
       <Ingress className='mb-2'>{t('buc:form-involvedInstitutions')}:</Ingress>
-      {!_.isEmpty(buc.institutions) ? Object.keys(buc.institutions).map(landkode => {
+      {!_.isEmpty(buc.institusjon) ? Object.keys(buc.institusjon).map(institution => {
         return <div
           className='a-buc-c-bucdetail__institutions'
           id='a-buc-c-bucdetail__institutions-id'>
-          <FlagList locale={locale} countries={[landkode]} overflowLimit={5} />
-          <Normaltekst>{landkode}: {buc.institutions[landkode].join(', ')}</Normaltekst>
+          <FlagList locale={locale} items={[{country: institution.country, label: institution.institution}]} overflowLimit={5} />
+          <Normaltekst>{institution.institution}</Normaltekst>
         </div>
       }) : <Normaltekst>{t('buc:form-noInstitutionYet')}</Normaltekst>}
     </div>

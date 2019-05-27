@@ -119,7 +119,7 @@ const SEDStart = (props) => {
       let removedCountries = oldCountryList.filter(country => !countryList.includes(country))
 
       addedCountries.map(country => {
-        return actions.getInstitutionsListForBucAndCountry(buc.type, country.value)
+        return actions.getInstitutionsListForBucAndCountry(buc.buc, country.value)
       })
       removedCountries.map(country => {
         return actions.removeInstitutionForCountry(country.value)
@@ -159,8 +159,8 @@ const SEDStart = (props) => {
 
   const getOptionLabel = (value) => {
     let label = value
-    let description = t('buc:case-' + value.replace(':', '.'))
-    if (description !== 'case-' + value) {
+    let description = t('buc:buc-' + value.replace(':', '.'))
+    if (description !== 'buc-' + value) {
       label += ' - ' + description
     }
     return label
@@ -252,9 +252,11 @@ const SEDStart = (props) => {
     return <React.Fragment>
       <Nav.Ingress className='mb-2'>{t('buc:form-chosenInstitutions')}</Nav.Ingress>
       {!_.isEmpty(institutions) ? Object.keys(institutions).map(landkode => {
+        let _institutions = institutions[landkode].join(', ')
         return <div className='d-flex align-items-baseline'>
-          <FlagList locale={locale} countries={[landkode]} overflowLimit={5} />
-          <span>{landkode}: {institutions[landkode].join(', ')}</span>
+
+          <FlagList locale={locale} items={[{country: landkode, label:_institutions}]} overflowLimit={5} />
+          <span>{landkode}: {_institutions}</span>
         </div>
       }) : <Nav.Normaltekst>{t('buc:form-noInstitutionYet')}</Nav.Normaltekst>}
     </React.Fragment>

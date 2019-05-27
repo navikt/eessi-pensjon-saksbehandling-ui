@@ -13,14 +13,15 @@ const WidgetContainer = (props) => {
   const [mounted, setMounted] = useState(false)
   const [mode, setMode] = useState('view')
 
-  const getSizes = () => {
-    return {
-      width: document.getElementById('widget-' + layout.i).offsetWidth,
-      height: document.getElementById('widget-' + layout.i).offsetHeight
-    }
-  }
-
   useEffect(() => {
+
+    const getSizes = () => {
+      return {
+        width: document.getElementById('widget-' + layout.i).offsetWidth,
+        height: document.getElementById('widget-' + layout.i).offsetHeight
+      }
+    }
+
     if (!mounted) {
       if (document.getElementById('widget-' + layout.i)) {
         const newSizes = getSizes()
@@ -34,7 +35,7 @@ const WidgetContainer = (props) => {
       }
       setMounted(true)
     }
-  }, [mounted, layout, sizes, currentBreakpoint, getSizes])
+  }, [mounted, layout, sizes, currentBreakpoint])
 
   useEffect(() => {
     if (mode === 'view' && editMode && mouseOver) {

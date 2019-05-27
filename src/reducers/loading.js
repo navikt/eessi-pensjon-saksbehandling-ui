@@ -1,7 +1,10 @@
 import * as types from '../constants/actionTypes'
 import _ from 'lodash'
 
-export const initialLoadingState = {}
+export const initialLoadingState = {
+  status: undefined,
+  gettingBUCs: false
+}
 
 const loadingReducer = (state = initialLoadingState, action = {}) => {
   let status
@@ -86,6 +89,13 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
         status: status
       })
 
+    case types.BUC_GET_BUCS_REQUEST:
+
+      return Object.assign({}, state, {
+        gettingBUCs: true,
+        status: status
+      })
+
     case types.APP_USERINFO_REQUEST:
 
       return Object.assign({}, state, {
@@ -156,6 +166,14 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
 
       return Object.assign({}, state, {
         sendingCase: false,
+        status: status
+      })
+
+    case types.BUC_GET_BUCS_SUCCESS:
+    case types.BUC_GET_BUCS_FAILURE:
+
+      return Object.assign({}, state, {
+        gettingBUCs: false,
         status: status
       })
 

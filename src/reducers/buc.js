@@ -2,8 +2,7 @@ import * as types from '../constants/actionTypes'
 import _ from 'lodash'
 
 export const initialBucState = {
-  mode: 'list',
-  step: 0
+  mode: 'list'
 }
 
 const bucReducer = (state = initialBucState, action) => {
@@ -29,11 +28,19 @@ const bucReducer = (state = initialBucState, action) => {
         seds: action.payload
       }
 
-    case types.BUC_LIST_SET:
+    case types.BUC_GET_BUCS_SUCCESS:
 
-      return {
+      return  {
         ...state,
-        list: action.payload
+        bucs: action.payload
+      }
+
+    case types.BUC_GET_BUCS_REQUEST:
+    case types.BUC_GET_BUCS_FAILURE:
+
+      return  {
+        ...state,
+        bucs: undefined
       }
 
     case types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS:
@@ -76,18 +83,13 @@ const bucReducer = (state = initialBucState, action) => {
         sedList: action.payload
       })
 
-    case types.BUC_GET_BUC_LIST_REQUEST:
-
-      return Object.assign({}, state, {
-        bucList: []
-      })
-
     case types.BUC_GET_BUC_LIST_SUCCESS:
 
       return Object.assign({}, state, {
         bucList: action.payload
       })
 
+    case types.BUC_GET_BUC_LIST_REQUEST:
     case types.BUC_GET_BUC_LIST_FAILURE:
 
       return Object.assign({}, state, {

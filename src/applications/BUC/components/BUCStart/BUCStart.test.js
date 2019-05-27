@@ -399,18 +399,18 @@ describe('BUCStart: rest of functions', () => {
     let result = wrapper.instance().renderOptions(mockMap, mockType)
     expect(result.length).toEqual(mockMap.length) // note: it is 6, not 5
     let html = result.map(res => { return mount(res).html() })
-    expect(html).toEqual([ '<option value="buc:form-chooseCountry">buc:form-chooseCountry - buc:case-case.form-chooseCountry</option>',
-      '<option value="NO">Norge - buc:case-Norge</option>',
-      '<option value="SE">Sverige - buc:case-Sverige</option>',
-      '<option value="DK">Danmark - buc:case-Danmark</option>',
-      '<option value="FI">Finland - buc:case-Finland</option>',
-      '<option value="IS">Island - buc:case-Island</option>' ])
+    expect(html).toEqual([ '<option value="buc:form-chooseCountry">buc:form-chooseCountry - buc:buc-case.form-chooseCountry</option>',
+      '<option value="NO">Norge - buc:buc-Norge</option>',
+      '<option value="SE">Sverige - buc:buc-Sverige</option>',
+      '<option value="DK">Danmark - buc:buc-Danmark</option>',
+      '<option value="FI">Finland - buc:buc-Finland</option>',
+      '<option value="IS">Island - buc:buc-Island</option>' ])
   })
 
   it('getOptionLabel()', () => {
     let mockValue = 'mockValue'
     let label = wrapper.instance().getOptionLabel(mockValue)
-    expect(label).toEqual('mockValue - buc:case-mockValue')
+    expect(label).toEqual('mockValue - buc:buc-mockValue')
   })
 
   it('renderSubjectArea', () => {
@@ -423,9 +423,9 @@ describe('BUCStart: rest of functions', () => {
     expect(result.find('select.skjemaelement__input').length).toEqual(1)
     expect(result.find('select option').length).toEqual(mockSubjectAreaList.length)
     expect(result.find('select option').map(it => { return it.text() })).toEqual([
-      'buc:form-chooseSubjectArea - buc:case-case.form-chooseSubjectArea',
-      'mockSubjectArea1 - buc:case-mockSubjectArea1',
-      'mockSubjectArea2 - buc:case-mockSubjectArea2'
+      'buc:form-chooseSubjectArea - buc:buc-case.form-chooseSubjectArea',
+      'mockSubjectArea1 - buc:buc-mockSubjectArea1',
+      'mockSubjectArea2 - buc:buc-mockSubjectArea2'
     ])
   })
 
@@ -457,9 +457,9 @@ describe('BUCStart: rest of functions', () => {
     expect(result.find('select.skjemaelement__input').length).toEqual(1)
     expect(result.find('select option').length).toEqual(mockInstitutionList.length)
     expect(result.find('select option').map(it => { return it.text() })).toEqual([
-      'buc:form-chooseInstitution - buc:case-case.form-chooseInstitution',
-      'mockInstitution1 - buc:case-mockInstitution1',
-      'mockInstitution2 - buc:case-mockInstitution2'
+      'buc:form-chooseInstitution - buc:buc-case.form-chooseInstitution',
+      'mockInstitution1 - buc:buc-mockInstitution1',
+      'mockInstitution2 - buc:buc-mockInstitution2'
     ])
   })
 
@@ -473,9 +473,9 @@ describe('BUCStart: rest of functions', () => {
     expect(result.find('select.skjemaelement__input').length).toEqual(1)
     expect(result.find('select option').length).toEqual(mockBucList.length)
     expect(result.find('select option').map(it => { return it.text() })).toEqual([
-      'buc:form-chooseBuc - buc:case-case.form-chooseBuc',
-      'mockBuc1 - buc:case-mockBuc1',
-      'mockBuc2 - buc:case-mockBuc2'
+      'buc:form-chooseBuc - buc:buc-case.form-chooseBuc',
+      'mockBuc1 - buc:buc-mockBuc1',
+      'mockBuc2 - buc:buc-mockBuc2'
     ])
   })
 
@@ -489,17 +489,17 @@ describe('BUCStart: rest of functions', () => {
     expect(result.find('select.skjemaelement__input').length).toEqual(1)
     expect(result.find('select option').length).toEqual(mockSedList.length)
     expect(result.find('select option').map(it => { return it.text() })).toEqual([
-      'buc:form-chooseSed - buc:case-case.form-chooseSed',
-      'mockSed1 - buc:case-mockSed1',
-      'mockSed2 - buc:case-mockSed2'
+      'buc:form-chooseSed - buc:buc-case.form-chooseSed',
+      'mockSed1 - buc:buc-mockSed1',
+      'mockSed2 - buc:buc-mockSed2'
     ])
   })
 
   it('getSpinner', () => {
     let mockText = 'mockText'
     let result = mount(wrapper.instance().getSpinner(mockText))
-    expect(result.find('div.p-case-spinner').length).toEqual(1)
-    expect(result.find('div.p-case-spinner').text()).toEqual('Venter...' + mockText)
+    expect(result.find('div.a-buc-c-bucstart__spinner').length).toEqual(1)
+    expect(result.find('div.a-buc-c-bucstart__spinner').text()).toEqual('Venter...' + mockText)
   })
 
   it('renderChosenInstitution', () => {

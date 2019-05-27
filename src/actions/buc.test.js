@@ -90,20 +90,10 @@ describe('case actions', () => {
     })
   })
 
-  it('call getBucList() with no rinaId', () => {
-    bucActions.getBucList()
-    expect(api.call).toBeCalledWith({
-      type: {
-        request: types.BUC_GET_BUC_LIST_REQUEST,
-        success: types.BUC_GET_BUC_LIST_SUCCESS,
-        failure: types.BUC_GET_BUC_LIST_FAILURE
-      },
-      url: urls.EUX_BUCS_URL
-    })
-  })
+
 
   it('call getBucList() with rinaId', () => {
-    const mockRinaId = 123
+    const mockAktoerId = 123
     bucActions.getBucList(mockRinaId)
     expect(api.call).toBeCalledWith({
       type: {
@@ -111,7 +101,7 @@ describe('case actions', () => {
         success: types.BUC_GET_BUC_LIST_SUCCESS,
         failure: types.BUC_GET_BUC_LIST_FAILURE
       },
-      url: sprintf(urls.BUC_WITH_RINAID_NAME_URL, { rinaId: mockRinaId })
+      url: sprintf(urls.SED_AKTOERID_DETALJER_URL, { aktoerId: mockAktoerId })
     })
   })
 
