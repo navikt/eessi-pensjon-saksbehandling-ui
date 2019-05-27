@@ -8,6 +8,9 @@ import RankArmySVG from 'resources/images/LineVersionRankArmy2.js'
 import RemoveCircleSVG from 'resources/images/FilledVersionRemoveCircle.js'
 import MessageSentSVG from 'resources/images/LineVersionExpandedEmailSend3.js'
 
+import { ReactComponent as ProblemCircle } from 'resources/images/report-problem-circle.svg'
+import { ReactComponent as BubbleChat } from 'resources/images/bubble-chat-2.svg'
+
 import Vedlegg from 'resources/images/Vedlegg'
 import Trashcan from 'resources/images/Trashcan'
 import Tilsette from 'resources/images/Tilsette'
@@ -69,6 +72,9 @@ const Icons = (props) => {
     case 'trashcan' : return <Trashcan {...props} />
     case 'tilsette' : return <Tilsette {...props} />
     case 'outlink' : return <LineVersionLogout {...props} />
+    case 'problem' : return <ProblemCircle {...props} />
+    case 'chat' : return <BubbleChat {...props} />
+
     default: return null
   }
 }

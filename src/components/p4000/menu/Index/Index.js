@@ -16,7 +16,6 @@ import TimelineButton from '../../Buttons/TimelineButton'
 import SummaryButton from '../../Buttons/SummaryButton'
 import NewButton from '../../Buttons/NewButton'
 
-import * as UrlValidator from '../../../../utils/UrlValidator'
 import * as routes from '../../../../constants/routes'
 import * as p4000Actions from '../../../../actions/p4000'
 import * as uiActions from '../../../../actions/ui'
@@ -60,7 +59,6 @@ class New extends Component {
     }
 
     componentDidMount () {
-      const { location } = this.props
 
       this.props.provideController({
         hasNoValidationErrors: this.hasNoValidationErrors.bind(this),

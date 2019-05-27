@@ -21,8 +21,8 @@ const SEDSearch = (props) => {
 
   const onQueryChange = (e) => {
     if (typeof onSearch === 'function') {
-      setQuery(e)
-      onSearch(e)
+      setQuery(e.target.value)
+      onSearch(e.target.value)
     }
   }
 

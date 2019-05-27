@@ -3,74 +3,6 @@ import * as urls from 'constants/urls'
 import * as api from './api'
 var sprintf = require('sprintf-js').sprintf
 
-const BUCLIST = [
-  {
-    type: 'P_BUC_01',
-    name: 'AldersPensjon',
-    dateCreated: 'dd.mm.åå',
-    countries: ['ZW', 'KR', 'SE', 'DK', 'CZ']
-  },
-  {
-    type: 'P_BUC_02',
-    name: 'UførePensjon',
-    dateCreated: 'dd.mm.åå',
-    countries: ['SE', 'DK', 'CZ'],
-    merknader: ['foo', 'bar', 'baz']
-  }
-]
-
-const SEDS = [
-  {
-    name: 'P2000',
-    status: 'sent',
-    date: 'dd.mm.åå',
-    institutions: [{
-      country: 'Sverige',
-      institution: 'Försäkringskassan'
-    }]
-  },
-  {
-    name: 'P3000SE',
-    status: 'draft',
-    date: 'dd.mm.åå',
-    institutions: [{
-      country: 'Sverige',
-      institution: 'Försäkringskassan'
-    }, {
-      country: 'Danmark',
-      institution: 'Udbetaling Danmark'
-    }, {
-      country: 'Norge',
-      institution: 'NAV'
-    }]
-  },
-  {
-    name: 'P4000',
-    status: 'received',
-    date: 'dd.mm.åå',
-    institutions: [{
-      country: 'Danmark',
-      institution: 'Udbetaling Danmark'
-    }]
-  },
-  {
-    name: 'P5000',
-    status: 'foo',
-    date: 'dd.mm.åå',
-    institutions: [{
-      country: 'Sverige',
-      institution: 'Försäkringskassan'
-    }]
-  }
-]
-
-export const fetchBucList = () => {
-  return {
-    type: types.BUC_LIST_SET,
-    payload: BUCLIST
-  }
-}
-
 export const setMode = (mode) => {
   return {
     type: types.BUC_MODE_SET,
@@ -90,10 +22,6 @@ export const setSeds = (seds) => {
     type: types.BUC_SEDS_SET,
     payload: seds
   }
-}
-
-export const fetchSedListForBuc = (buc) => {
-  return SEDS
 }
 
 export const getCaseFromCaseNumber = (params) => {
@@ -159,12 +87,23 @@ export const removeInstitutionForCountry = (country) => {
   }
 }
 
-export const getBucList = (rinaId) => {
-  let url = rinaId ? sprintf(urls.BUC_WITH_RINAID_NAME_URL, { rinaId: rinaId })
-    : urls.EUX_BUCS_URL
+export const fetchBucs = (aktoerId) => {
 
+  let url = sprintf(urls.SED_AKTOERID_DETALJER_URL, { aktoerId: aktoerId })
   return api.call({
     url: url,
+    type: {
+      request: types.BUC_GET_BUCS_REQUEST,
+      success: types.BUC_GET_BUCS_SUCCESS,
+      failure: types.BUC_GET_BUCS_FAILURE
+    }
+  })
+}
+
+export const getBucList = (aktoerId) => {
+
+  return api.call({
+    url: urls.EUX_BUCS_URL,
     type: {
       request: types.BUC_GET_BUC_LIST_REQUEST,
       success: types.BUC_GET_BUC_LIST_SUCCESS,

@@ -28,8 +28,8 @@ export const mapStateToProps = (state) => {
     rinaId: state.app.params.rinaId,
     aktoerId: state.app.params.aktoerId,
     vedtakId: state.app.params.vedtakId,
-    sed: state.status.sed,
-    buc: state.status.buc,
+    sed: state.app.params.sed,
+    buc: state.app.params.buc,
     locale: state.ui.locale
   }
 }
@@ -47,26 +47,27 @@ const placeholders = {
 }
 
 const BUCStart = (props) => {
-  // these are only used for when we are collecting them through a form
-  const [_sakId, setSakId] = useState(undefined)
-  const [_aktoerId, setAktoerId] = useState(undefined)
-  const [_rinaId, setRinaId] = useState(undefined)
+
+
+  const { sakId, aktoerId, rinaId, vedtakId, sed, buc } = props
+  const { subjectAreaList, institutionList, bucList, sedList, countryList } = props
+  const { t, actions, currentBUC, locale, loading, mode, p6000data } = props
+
+  // these values may be collected through a form, but if they are in URL, then they will be set
+  const [_sakId, setSakId] = useState(sakId)
+  const [_aktoerId, setAktoerId] = useState(aktoerId)
+  const [_rinaId, setRinaId] = useState(rinaId)
+  const [_vedtakId, setVedtakId] = useState(vedtakId)
+  const [_buc, setBuc] = useState(buc)
+  const [_sed, setSed] = useState(sed)
 
   const [_subjectArea, setSubjectArea] = useState('Pensjon')
-  const [_buc, setBuc] = useState(undefined)
-  const [_sed, setSed] = useState(undefined)
-  const [_vedtakId, setVedtakId] = useState(undefined)
-
   const [_countries, setCountries] = useState([])
   const [_institutions, setInstitutions] = useState([])
   const [_tags, setTags] = useState([])
   const [validation, setValidation] = useState({})
 
   const [mounted, setMounted] = useState(false)
-
-  const { sakId, aktoerId, rinaId, vedtakId, sed, buc } = props
-  const { subjectAreaList, institutionList, bucList, sedList, countryList } = props
-  const { t, actions, currentBUC, locale, loading, mode, p6000data } = props
 
   useEffect(() => {
     if (!loading.gettingBUC && _.isEmpty(currentBUC) && sakId && aktoerId) {
@@ -83,7 +84,7 @@ const BUCStart = (props) => {
         actions.getSubjectAreaList()
       }
       if (bucList === undefined && !sed && !loading.bucList) {
-        actions.getBucList(currentBUC ? currentBUC.rinaid : undefined)
+        actions.getBucList()
       }
       if (_.isEmpty(countryList) && !loading.countryList) {
         actions.getCountryList()
@@ -298,8 +299,8 @@ const BUCStart = (props) => {
 
   const getOptionLabel = (value) => {
     let label = value
-    let description = t('buc:case-' + value.replace(':', '.'))
-    if (description !== 'case-' + value) {
+    let description = t('buc:buc-' + value.replace(':', '.'))
+    if (description !== 'buc-' + value) {
       label += ' - ' + description
     }
     return label
@@ -419,9 +420,10 @@ const BUCStart = (props) => {
     return <React.Fragment>
       <Nav.Ingress className='mb-2'>{t('buc:form-chosenInstitutions')}</Nav.Ingress>
       {!_.isEmpty(institutions) ? Object.keys(institutions).map(landkode => {
+        let _institutions = institutions[landkode].join(', ')
         return <div className='d-flex align-items-baseline'>
-          <FlagList locale={locale} countries={[landkode]} overflowLimit={5} />
-          <span>{landkode}: {institutions[landkode].join(', ')}</span>
+          <FlagList locale={locale} items={[{country: landkode, label: _institutions}]} overflowLimit={5} />
+          <span>{landkode}: {_institutions}</span>
         </div>
       }) : <Nav.Normaltekst>{t('buc:form-noInstitutionYet')}</Nav.Normaltekst>}
     </React.Fragment>

@@ -20,9 +20,9 @@ const mapStateToProps = (state) => {
     vedtakId: state.app.params.vedtakId,
     kravId: state.app.params.kravId,
     fnr: state.app.params.fnr,
-    sed: state.status.sed,
-    buc: state.status.buc,
-    mottaker: state.status.mottaker,
+    sed: state.app.params.sed,
+    buc: state.app.params.buc,
+    mottaker: state.app.params.mottaker,
     footerOpen: state.ui.footerOpen
   }
 }

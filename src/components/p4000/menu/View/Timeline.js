@@ -23,7 +23,7 @@ import '../Menu.css'
 const mapStateToProps = (state) => {
   return {
     events: state.p4000.events,
-    sed: state.status.sed
+    sed: state.app.params.sed
   }
 }
 

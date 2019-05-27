@@ -21,7 +21,6 @@ const MultipleSelect = (props) => {
     excludeList,
     optionList = [],
     className,
-    styles = {},
     error = false,
     components,
     errorMessage,
