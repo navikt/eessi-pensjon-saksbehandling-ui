@@ -19,7 +19,6 @@ const mapStateToProps = (state) => {
     loggedIn: state.app.loggedIn,
     allowed: state.app.allowed,
     isLoggingIn: state.loading.isLoggingIn,
-    gettingUserInfo: state.loading.gettingUserInfo,
     rinaId: state.status.rinaId
   }
 }
@@ -37,35 +36,47 @@ const paramAliases = {
 
 const AuthenticatedRoute = (props) => {
   const [ _params, _setParams ] = useState({})
-  const { t, allowed, actions, location, loggedIn, gettingUserInfo, userRole } = props
-
-  const parseSearchParams = () => {
-    let params = new URLSearchParams(location.search)
-    let newParams = {}
-    params.forEach((value, key) => {
-      const _key = paramAliases.hasOwnProperty(key) ? paramAliases[key] : key
-      const _value = value || undefined
-      if (_value !== _params[_key]) {
-        actions.setStatusParam(_key, _value)
-        newParams[_key] = _value
-      }
-    })
-    if (!_.isEmpty(newParams)) {
-      _setParams(newParams)
-    }
-    return newParams
-  }
+  const [ mounted, setMounted ] = useState(false)
+  const [ requestingUserInfo, setRequestingUserInfo ] = useState(false)
+  const { t, allowed, actions, location, loggedIn, userRole } = props
 
   useEffect(() => {
-    if (loggedIn === undefined && !gettingUserInfo) {
-      actions.getUserInfo()
-    }
-    if (loggedIn === false) {
-      actions.login()
+    const parseSearchParams = () => {
+      let params = new URLSearchParams(location.search)
+      let newParams = {}
+      params.forEach((value, key) => {
+        const _key = paramAliases.hasOwnProperty(key) ? paramAliases[key] : key
+        const _value = value || undefined
+        if (_value !== _params[_key]) {
+          actions.setStatusParam(_key, _value)
+          newParams[_key] = _value
+        }
+      })
+      if (!_.isEmpty(newParams)) {
+        _setParams(newParams)
+      }
+      return newParams
     }
     parseSearchParams()
-  }, [loggedIn, gettingUserInfo, actions])
+  }, [location.search])
 
+  useEffect(() => {
+    if (!mounted) {
+      if (loggedIn === undefined && !requestingUserInfo) {
+        actions.getUserInfo()
+        setRequestingUserInfo(true)
+      }
+
+      if (requestingUserInfo && loggedIn !== undefined) {
+        setRequestingUserInfo(false)
+        if (loggedIn === false) {
+          actions.login()
+        } else {
+          setMounted(true)
+        }
+      }
+    }
+  }, [loggedIn, actions])
 
   if (!loggedIn) {
     return <WaitingPanel message={t('authenticating')} />
