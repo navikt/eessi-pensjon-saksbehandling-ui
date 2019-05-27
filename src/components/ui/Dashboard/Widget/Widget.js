@@ -24,8 +24,6 @@ const Widget = (props) => {
       return <Widgets.CatMidget {...props} />
     case 'note':
       return <Widgets.NoteWidget {...props} />
-    case 'documentstatus':
-      return <Widgets.DocumentStatusWidget {...props} />
     case 'links':
       return <Widgets.LinksWidget {...props} />
     case 'person':

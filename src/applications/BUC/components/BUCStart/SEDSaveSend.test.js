@@ -4,7 +4,6 @@ import * as reducers from '../../reducers'
 
 import { SaveSendCase, mapStateToProps } from './SaveSendCase'
 
-import * as statusActions from '../../actions/status'
 import * as appActions from '../../actions/app'
 import * as bucActions from '../../actions/buc'
 
@@ -43,7 +42,7 @@ const initialState = {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, statusActions, bucActions, appActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, bucActions, appActions), dispatch) }
 }
 
 const reducer = combineReducers({

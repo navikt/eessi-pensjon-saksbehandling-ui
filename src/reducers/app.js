@@ -9,16 +9,32 @@ export const initialAppState = {
   userStatus: undefined,
   firstName: undefined,
   middleName: undefined,
-  lastname: undefined
+  lastname: undefined,
+  params: {}
 }
 
 const appReducer = (state = initialAppState, action = {}) => {
   switch (action.type) {
-    case types.APP_REFERRER_SET:
 
-      return Object.assign({}, state, {
-        referrer: action.payload.referrer
-      })
+    case types.APP_PARAM_SET:
+
+      return {
+        ...state,
+        params: {
+          ...state.params,
+          [action.payload.key]: action.payload.value
+        }
+      }
+
+    case types.APP_PARAM_UNSET:
+
+      return {
+        ...state,
+        params: {
+          ...state.params,
+          [action.payload.key]: undefined
+        }
+      }
 
     case types.APP_USERINFO_SUCCESS:
 

@@ -93,27 +93,6 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
         status: status
       })
 
-    case types.STATUS_GET_REQUEST:
-
-      return Object.assign({}, state, {
-        gettingStatus: true,
-        status: status
-      })
-
-    case types.STATUS_SED_GET_REQUEST:
-
-      return Object.assign({}, state, {
-        gettingSED: true,
-        status: status
-      })
-
-    case types.STATUS_RINA_CASE_REQUEST:
-
-      return Object.assign({}, state, {
-        gettingRinaCase: true,
-        status: status
-      })
-
     case types.BUC_GET_CASE_NUMBER_SUCCESS:
     case types.BUC_GET_CASE_NUMBER_FAILURE:
 
@@ -193,30 +172,6 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
 
       return Object.assign({}, state, {
         gettingUserInfo: false,
-        status: status
-      })
-
-    case types.STATUS_GET_SUCCESS:
-    case types.STATUS_GET_FAILURE:
-
-      return Object.assign({}, state, {
-        gettingStatus: false,
-        status: status
-      })
-
-    case types.STATUS_SED_GET_SUCCESS:
-    case types.STATUS_SED_GET_FAILURE:
-
-      return Object.assign({}, state, {
-        gettingSED: false,
-        status: status
-      })
-
-    case types.STATUS_RINA_CASE_SUCCESS:
-    case types.STATUS_RINA_CASE_FAILURE:
-
-      return Object.assign({}, state, {
-        gettingRinaCase: true,
         status: status
       })
 

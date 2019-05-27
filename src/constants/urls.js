@@ -49,12 +49,8 @@ export const API_STORAGE_MULTIPLE_DELETE_URL = API_URL + '/storage/multiple/%(us
 export const PEN_SAKTYPE_URL = PEN_URL + '/saktype/%(sakId)s/%(aktoerId)s'
 
 // BucController
-export const BUC_WITH_RINAID_URL = BUC_URL + '/%(rinaId)s'
-export const BUC_WITH_RINAID_NAME_URL = BUC_URL + '/%(rinaId)s/name'
 export const BUC_ACTIONS_URL = BUC_URL + '/aksjoner'
 export const BUC_ACTIONS_FOR_RINAID_URL = BUC_URL + '/%(rinaId)s/aksjoner'
-export const BUC_ACTIONS_FOR_RINAID_AND_FILTER_URL = BUC_URL + '/%(rinaId)s/aksjoner/%(filter)s'
-export const BUC_ALL_DOCUMENTS_URL = BUC_URL + '/%(rinaId)s/allDocuments'
 
 // SedController
 export const SED_BUC_CREATE_URL = SED_URL + '/buc/create'

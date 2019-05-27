@@ -19,8 +19,7 @@ const mapStateToProps = (state) => {
   return {
     events: state.p4000.events,
     event: state.p4000.event,
-    eventIndex: state.p4000.eventIndex,
-    status: state.status
+    eventIndex: state.p4000.eventIndex
   }
 }
 

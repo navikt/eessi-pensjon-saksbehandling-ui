@@ -15,9 +15,9 @@ import * as p4000Actions from '../../../actions/p4000'
 const mapStateToProps = (state) => {
   return {
     events: state.p4000.events,
-    rinaId: state.status.rinaId,
-    sakId: state.status.sakId,
-    aktoerId: state.status.aktoerId,
+    rinaId: state.app.params.rinaId,
+    sakId: state.app.params.sakId,
+    aktoerId: state.app.params.aktoerId,
     submitting: state.loading.submittingP4000,
     submitted: state.p4000.submitted
   }

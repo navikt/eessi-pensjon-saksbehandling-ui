@@ -10,7 +10,6 @@ import WaitingPanel from './WaitingPanel'
 import * as routes from '../../constants/routes'
 import * as constants from '../../constants/constants'
 import * as appActions from '../../actions/app'
-import * as statusActions from '../../actions/status'
 
 const mapStateToProps = (state) => {
   return {
@@ -19,12 +18,12 @@ const mapStateToProps = (state) => {
     loggedIn: state.app.loggedIn,
     allowed: state.app.allowed,
     isLoggingIn: state.loading.isLoggingIn,
-    rinaId: state.status.rinaId
+    rinaId: state.app.params.rinaId
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, appActions, statusActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, appActions), dispatch) }
 }
 
 const paramAliases = {

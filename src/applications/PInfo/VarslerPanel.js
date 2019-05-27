@@ -10,8 +10,8 @@ import '../PInfo/PInfo.css'
 
 const mapStateToProps = (state) => {
   return {
-    sakId: state.status.sakId,
-    aktoerId: state.status.aktoerId,
+    sakId: state.app.params.sakId,
+    aktoerId: state.app.params.aktoerId,
     isSendingPinfo: state.loading.isSendingPinfo,
     isInvitingPinfo: state.loading.isInvitingPinfo,
     gettingPinfoSaktype: state.loading.gettingPinfoSaktype,

@@ -2,7 +2,6 @@ import * as Widgets from '../../../../widgets'
 
 export default [
   Widgets.EkspandertBartWidget.properties,
-  Widgets.DocumentStatusWidget.properties,
   Widgets.LinksWidget.properties,
   Widgets.VarslerWidget.properties,
   Widgets.SmileyWidget.properties,
