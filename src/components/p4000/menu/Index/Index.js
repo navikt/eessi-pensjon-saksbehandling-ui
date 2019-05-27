@@ -28,7 +28,7 @@ const mapStateToProps = (state) => {
     events: state.p4000.events,
     event: state.p4000.event,
     comment: state.p4000.comment,
-    rinaId: state.status.rinaId
+    rinaId: state.app.params.rinaId
   }
 }
 
@@ -51,8 +51,7 @@ const eventList = [
 
 class New extends Component {
     state = {
-      submitted: false,
-      referrer: undefined
+      submitted: false
     }
 
     handleEventSelect (newPage) {
@@ -62,10 +61,6 @@ class New extends Component {
 
     componentDidMount () {
       const { location } = this.props
-
-      this.setState({
-        referrer: new URLSearchParams(location.search).get('referrer')
-      })
 
       this.props.provideController({
         hasNoValidationErrors: this.hasNoValidationErrors.bind(this),
@@ -80,14 +75,6 @@ class New extends Component {
 
       if (this.state.submitted && rinaId) {
         history.push(routes.ROOT + '?rinaId=' + rinaId)
-      }
-    }
-
-    handleBackToReferrerRequest () {
-      const { history } = this.props
-
-      if (UrlValidator.validateReferrer(this.state.referrer)) {
-        history.push(routes.ROOT + this.state.referrer)
       }
     }
 
@@ -164,12 +151,6 @@ class New extends Component {
             <SubmitButton style={{ animationDelay: (fileMenuDelay + 0.21) + 's' }} />
           </div>
         </div>
-        {this.state.referrer ? <Nav.Row>
-          <Nav.Column>
-            <Nav.Hovedknapp className='backToReferrerButton' onClick={this.handleBackToReferrerRequest.bind(this)}>{t('ui:backTo') + ' ' + t('ui:' + this.state.referrer)}</Nav.Hovedknapp>
-          </Nav.Column>
-          <Nav.Column />
-        </Nav.Row> : null }
       </Nav.Panel>
     }
 }

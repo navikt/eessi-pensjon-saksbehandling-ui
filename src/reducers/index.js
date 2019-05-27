@@ -2,7 +2,6 @@
 import buc from './buc'
 import ui from './ui'
 import app from './app'
-import status from './status'
 import loading from './loading'
 import alert from './alert'
 import pdf from './pdf'
@@ -15,7 +14,6 @@ export {
   app,
   buc,
   ui,
-  status,
   loading,
   alert,
   pdf,

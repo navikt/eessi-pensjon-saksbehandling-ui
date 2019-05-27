@@ -6,7 +6,6 @@ import Export from 'components/ui/Export/Export'
 import * as Nav from 'components/ui/Nav'
 
 import * as bucActions from 'actions/buc'
-import * as statusActions from 'actions/status'
 import * as appActions from 'actions/app'
 
 export const mapStateToProps = (state) => {
@@ -20,7 +19,7 @@ export const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, statusActions, bucActions, appActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, bucActions, appActions), dispatch) }
 }
 
 const SEDSaveSend = (props) => {

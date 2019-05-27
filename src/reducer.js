@@ -6,7 +6,6 @@ import p4000Reducer, { initialP4000State } from './reducers/p4000'
 import p6000Reducer, { initialP6000State } from './reducers/p6000'
 import pdfReducer, { initialPdfState } from './reducers/pdf'
 import pinfoReducer, { initialPinfoState } from './reducers/pinfo'
-import statusReducer, { initialStatusState } from './reducers/status'
 import storageReducer, { initialStorageState } from './reducers/storage'
 import uiReducer, { initialUiState } from './reducers/ui'
 
@@ -20,7 +19,6 @@ const mainReducer = (state, action) => {
     p6000: p6000Reducer(state.p6000, action),
     pdf: pdfReducer(state.pdf, action),
     pinfo: pinfoReducer(state.pinfo, action),
-    status: statusReducer(state.status, action),
     storage: storageReducer(state.storage, action),
     ui: uiReducer(state.ui, action)
   }
@@ -35,7 +33,6 @@ export const initialState = {
   p6000: initialP6000State,
   pdf: initialPdfState,
   pinfo: initialPinfoState,
-  status: initialStatusState,
   storage: initialStorageState,
   ui: initialUiState
 }

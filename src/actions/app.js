@@ -2,6 +2,25 @@ import * as types from '../constants/actionTypes'
 import * as urls from '../constants/urls'
 import * as api from './api'
 
+export function setStatusParam (key, value) {
+  return {
+    type: types.APP_PARAM_SET,
+    payload: {
+      key: key,
+      value: value
+    }
+  }
+}
+
+export function unsetStatusParam (key) {
+  return {
+    type: types.APP_PARAM_UNSET,
+    payload: {
+      key: key
+    }
+  }
+}
+
 export function login () {
   let currentHost = window.location.origin // http://hostname
   let redirect = currentHost
@@ -48,15 +67,6 @@ export function getPersonData () {
 export function clearData () {
   return {
     type: types.APP_CLEAR_DATA
-  }
-}
-
-export function setReferrer (referrer) {
-  return {
-    type: types.APP_REFERRER_SET,
-    payload: {
-      referrer: referrer
-    }
   }
 }
 

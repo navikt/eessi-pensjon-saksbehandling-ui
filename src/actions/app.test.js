@@ -9,6 +9,30 @@ import thunk from 'redux-thunk'
 const mockStore = configureMockStore([thunk])
 
 describe('api actions', () => {
+   it('call setStatusParam()', () => {
+      const mockKey = 'mockKey'
+      const mockValue = 'mockValue'
+      const generatedResult = appActions.setStatusParam(mockKey, mockValue)
+      expect(generatedResult).toMatchObject({
+        type: types.APP_PARAM_SET,
+        payload: {
+          key: mockKey,
+          value: mockValue
+        }
+      })
+    })
+
+    it('call unsetStatusParam()', () => {
+      const mockKey = 'mockKey'
+      const generatedResult = appActions.unsetStatusParam(mockKey)
+      expect(generatedResult).toMatchObject({
+        type: types.APP_PARAM_UNSET,
+        payload: {
+          key: mockKey
+        }
+      })
+    })
+
   it('call login()', () => {
     Object.defineProperty(window, 'location', {
       writable: true,
@@ -56,17 +80,6 @@ describe('api actions', () => {
     const generatedResult = appActions.clearData()
     expect(generatedResult).toMatchObject({
       type: types.APP_CLEAR_DATA
-    })
-  })
-
-  it('call setReferrer()', () => {
-    const referrer = 'referrer'
-    const generatedResult = appActions.setReferrer(referrer)
-    expect(generatedResult).toMatchObject({
-      type: types.APP_REFERRER_SET,
-      payload: {
-        referrer: referrer
-      }
     })
   })
 

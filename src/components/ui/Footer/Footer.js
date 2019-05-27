@@ -5,7 +5,6 @@ import classNames from 'classnames'
 
 import * as uiActions from '../../../actions/ui'
 import * as appActions from '../../../actions/app'
-import * as statusActions from '../../../actions/status'
 import * as Nav from '../Nav'
 
 import * as constants from '../../../constants/constants'
@@ -15,12 +14,12 @@ import './Footer.css'
 const mapStateToProps = (state) => {
   return {
     userRole: state.app.userRole,
-    rinaId: state.status.rinaId,
-    sakId: state.status.sakId,
-    aktoerId: state.status.aktoerId,
-    vedtakId: state.status.vedtakId,
-    kravId: state.status.kravId,
-    fnr: state.status.fnr,
+    rinaId: state.app.params.rinaId,
+    sakId: state.app.params.sakId,
+    aktoerId: state.app.params.aktoerId,
+    vedtakId: state.app.params.vedtakId,
+    kravId: state.app.params.kravId,
+    fnr: state.app.params.fnr,
     sed: state.status.sed,
     buc: state.status.buc,
     mottaker: state.status.mottaker,
@@ -29,7 +28,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, appActions, uiActions, statusActions), dispatch) }
+  return { actions: bindActionCreators(Object.assign({}, appActions, uiActions), dispatch) }
 }
 
 const params = ['buc', 'sed', 'rinaId', 'sakId', 'aktoerId', 'vedtakId', 'kravId', 'fnr', 'mottaker']
