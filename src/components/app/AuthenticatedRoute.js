@@ -38,6 +38,7 @@ const AuthenticatedRoute = (props) => {
   const [ _params, _setParams ] = useState({})
   const [ mounted, setMounted ] = useState(false)
   const [ requestingUserInfo, setRequestingUserInfo ] = useState(false)
+  const [ requestingLogin, setRequestingLogin ] = useState(false)
   const { t, allowed, actions, location, loggedIn, userRole } = props
 
   useEffect(() => {
@@ -66,19 +67,17 @@ const AuthenticatedRoute = (props) => {
         actions.getUserInfo()
         setRequestingUserInfo(true)
       }
-
-      if (requestingUserInfo && loggedIn !== undefined) {
-        setRequestingUserInfo(false)
-        if (loggedIn === false) {
-          actions.login()
-        } else {
-          setMounted(true)
-        }
+      if (loggedIn === false && requestingUserInfo && !requestingLogin) {
+        actions.login()
+        setRequestingLogin(true)
+      }
+      if (loggedIn === true) {
+        setMounted(true)
       }
     }
   }, [loggedIn, actions])
 
-  if (!loggedIn) {
+  if (!mounted) {
     return <WaitingPanel message={t('authenticating')} />
   }
 
