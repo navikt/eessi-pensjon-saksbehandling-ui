@@ -75,7 +75,7 @@ const AuthenticatedRoute = (props) => {
         setMounted(true)
       }
     }
-  }, [loggedIn, actions, requestingUserInfo, mounted])
+  }, [loggedIn, actions, requestingUserInfo, requestingLogin, mounted])
 
   if (!mounted) {
     return <WaitingPanel message={t('authenticating')} />

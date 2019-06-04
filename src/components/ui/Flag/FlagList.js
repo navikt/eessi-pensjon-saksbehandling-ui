@@ -13,7 +13,7 @@ const FlagList = (props) => {
       if (index > overflowLimit - 1) {
         return null
       }
-      let _label = item.label || _.find(countryList[locale], { value: item.country })
+      let _label = item.label || _.find(countryList[locale], { value: item.country }).label
       return <Flag data-qa='FlagList-Flag' key={index} flagPath={flagPath} country={item.country} label={_label} extention={extention} />
     })}
     {items.length > overflowLimit

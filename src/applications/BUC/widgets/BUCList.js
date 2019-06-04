@@ -58,7 +58,7 @@ const BUCList = (props) => {
         onClick={() => onExpandBUCClick(buc)}>
         <SEDHeader t={t} />
         {seds[buc.buc] ? seds[buc.buc].map((sed, index) => (
-          <SEDRow t={t} key={index} sed={sed} border />
+          <SEDRow t={t} key={index} sed={sed} locale={locale} border />
         )) : null}
       </EkspanderbartpanelBase>
     }): <BUCEmpty t={t} aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> }

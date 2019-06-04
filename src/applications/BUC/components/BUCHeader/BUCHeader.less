@@ -4,6 +4,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   &__flags {
      margin: 0px;
@@ -21,7 +22,7 @@
 
   &__button {
 
-    margin-bottom: 0px;
+    margin-bottom: 0px !important;
     border: solid 2px #0067c5 !important;
     border-radius: 2px;
     color: #0067c5 !important;
@@ -46,5 +47,16 @@
     margin-right: 0.25rem;
     width: 30px;
     height: 30px;
+  }
+
+  &__numberofseds {
+    border: 1px solid black;
+    border-radius: 20px;
+    min-width: 30px;
+    min-height: 30px;
+    margin-right: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

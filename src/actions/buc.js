@@ -1,6 +1,8 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as api from './api'
+import sampleBucs from 'resources/tests/sampleBucs'
+
 var sprintf = require('sprintf-js').sprintf
 
 export const setMode = (mode) => {
@@ -89,7 +91,7 @@ export const removeInstitutionForCountry = (country) => {
 
 export const fetchBucs = (aktoerId) => {
 
-  let url = sprintf(urls.SED_AKTOERID_DETALJER_URL, { aktoerId: aktoerId })
+  /*let url = sprintf(urls.SED_AKTOERID_DETALJER_URL, { aktoerId: aktoerId })
   return api.call({
     url: url,
     type: {
@@ -98,6 +100,12 @@ export const fetchBucs = (aktoerId) => {
       failure: types.BUC_GET_BUCS_FAILURE
     }
   })
+}*/
+
+  return {
+     type: types.BUC_GET_BUCS_SUCCESS,
+     payload: sampleBucs
+  }
 }
 
 export const getBucList = (aktoerId) => {

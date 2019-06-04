@@ -15,7 +15,7 @@ const BUCTags = (props) => {
       {t('buc:form-BUCtags')}
     </Ingress>
     }>
-    <SEDStatus className='a-buc-c-buctags__tag'>{t(buc.status)}</SEDStatus>
+    <SEDStatus t={t} className='a-buc-c-buctags__tag'>{t(buc.status)}</SEDStatus>
   </EkspanderbartpanelBase>
 }
 
