@@ -1,7 +1,7 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as api from './api'
-import sampleBucs from './sampleBucs'
+import sampleBucs from 'resources/tests/sampleBucs'
 
 var sprintf = require('sprintf-js').sprintf
 

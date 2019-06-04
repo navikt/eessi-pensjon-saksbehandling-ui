@@ -12,11 +12,11 @@ const BUCDetail = (props) => {
 
   let institutionList = {}
   if (buc.institusjon) {
-    buc.institusjon.forEach(institution => {
-      if (institutionList.hasOwnProperty(institution.country)) {
-        institutionList[institution.country].push(institution.institution)
+    buc.institusjon.forEach(item => {
+      if (institutionList.hasOwnProperty(item.country)) {
+        institutionList[item.country].push(item.institution)
       } else {
-        institutionList[institution.country] = [institution.institution]
+        institutionList[item.country] = [item.institution]
       }
     })
   }
