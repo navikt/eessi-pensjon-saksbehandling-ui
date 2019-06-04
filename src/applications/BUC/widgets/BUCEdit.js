@@ -31,7 +31,7 @@ const BUCEdit = (props) => {
       return (search ? sed.name.matches(search) : sed) &&
         (tab === 'draft' ? sed.status === 'draft' : sed.status !== 'draft')
     }).map((sed, index) => {
-      return <SEDRow className='mt-2' t={t} key={index} sed={sed} />
+      return <SEDRow className='mt-2' locale={locale} t={t} key={index} sed={sed} />
     }) : null
   }
 

@@ -10,6 +10,17 @@ import './BUCDetail.css'
 const BUCDetail = (props) => {
   const { t, buc, className, locale } = props
 
+  let institutionList = {}
+  if (buc.institusjon) {
+    buc.institusjon.forEach(institution => {
+      if (institutionList.hasOwnProperty(institution.country)) {
+        institutionList[institution.country].push(institution.institution)
+      } else {
+        institutionList[institution.country] = [institution.institution]
+      }
+    })
+  }
+
   return <EkspanderbartpanelBase
     apen
     className={classNames('a-buc-c-bucdetail', className)}
@@ -32,12 +43,12 @@ const BUCDetail = (props) => {
         <dd>{buc.status}</dd>
       </dl>
       <Ingress className='mb-2'>{t('buc:form-involvedInstitutions')}:</Ingress>
-      {!_.isEmpty(buc.institusjon) ? Object.keys(buc.institusjon).map(institution => {
+      {!_.isEmpty(institutionList) ? Object.keys(institutionList).map(landkode => {
         return <div
           className='a-buc-c-bucdetail__institutions'
           id='a-buc-c-bucdetail__institutions-id'>
-          <FlagList locale={locale} items={[{country: institution.country, label: institution.institution}]} overflowLimit={5} />
-          <Normaltekst>{institution.institution}</Normaltekst>
+          <FlagList locale={locale} items={[{country: landkode}]} overflowLimit={1} />
+          <Normaltekst>{institutionList[landkode].join(', ')}</Normaltekst>
         </div>
       }) : <Normaltekst>{t('buc:form-noInstitutionYet')}</Normaltekst>}
     </div>

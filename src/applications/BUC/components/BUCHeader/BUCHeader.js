@@ -35,6 +35,7 @@ const BUCHeader = (props) => {
     id={'a-buc-c-bucheader__' + buc.buc}>
     <div className='col-4 a-buc-c-bucheader__label'>
       <Nav.Ingress data-qa='BucHeader-type-name'>{buc.buc + ' - ' + t('buc:buc-' + buc.buc)}</Nav.Ingress>
+      <Nav.Normaltekst style={{color: 'grey'}} data-qa='BucHeader-type-dates'>{buc.startDate + ' - ' + buc.lastUpdate}</Nav.Normaltekst>
     </div>
     <div className='col-4 a-buc-c-bucheader__flags'>
       <FlagList data-qa='BucHeader-FlagList'
@@ -51,6 +52,7 @@ const BUCHeader = (props) => {
       <Nav.LenkepanelBase data-qa='BucHeader-LinkButton' onClick={(e) => requestHandleBUC(buc, e)} className='a-buc-c-bucheader__button smallerButton knapp' href={'#' + buc.buc} border>{t('ui:processing')}</Nav.LenkepanelBase>
     </div>
     <div className='col-2 a-buc-c-bucheader__tags'>
+      <div className='a-buc-c-bucheader__numberofseds'>{buc.seds? buc.seds.length : 0}</div>
       <SEDStatus t={t} status={buc.status} />
       {buc.merknader && buc.merknader.length > 0
         ? <Icons kind='problem' data-qa='BucHeader-ProblemCircle' className='a-buc-c-bucheader__tag' />

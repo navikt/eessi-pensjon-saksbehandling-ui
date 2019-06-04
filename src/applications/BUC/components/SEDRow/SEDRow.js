@@ -3,13 +3,14 @@ import PT from 'prop-types'
 import { Element, PanelBase, Normaltekst, Flatknapp } from 'components/ui/Nav'
 import classNames from 'classnames'
 import SEDStatus from '../SEDStatus/SEDStatus'
+import FlagList from 'components/ui/Flag/FlagList'
 import Icons from 'components/ui/Icons'
 import _ from 'lodash'
 
 import './SEDRow.css'
 
 const SEDRow = (props) => {
-  const { t, sed, className, border = false } = props
+  const { t, sed, className, locale, border = false } = props
 
   const onGoToRinaClick = () => {}
 
@@ -29,10 +30,12 @@ const SEDRow = (props) => {
         </div>
       </div>
       <div className='col-4 a-buc-c-sedrow__institutions'>
-        {sed.institutions ? sed.institutions.map(el => {
-          return <div key={el.country + el.institution} className='a-buc-c-sedrow__institution'>
-            <Element className='mr-2' data-qa='SedLabel-country'>{el.country}{': '}</Element>
-            <span>{el.institution}</span>
+        {sed.participants ? sed.participants.map(participant => {
+          return <div key={participant.organisation.id} className='a-buc-c-sedrow__institution'>
+           <FlagList locale={locale} items={[{
+             country: participant.organisation.countryCode
+           }]}/>
+           <span>{participant.organisation.name}</span>
           </div>
         }) : null}
       </div>
