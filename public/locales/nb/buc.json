@@ -1,8 +1,4 @@
 {
-
-
-
-
   "step-startBUCTitle"         : "Starte ny BUC",
   "step-startSEDTitle"         : "Bestill ny SED",
   "step-saveSendSEDTitle"      : "Lagre/Sende sak",
@@ -16,6 +12,9 @@
   "alert-sentData"          : "Sendt sak",
   "alert-caseNotFound"      : "Saken ikke funnet",
   "alert-noBucList"         : "Ingen BUC liste",
+  "alert-noTagList"         : "Ingen merknader liste",
+  "alert-noBucs"            : "Ingen BUCs",
+  "alert-noBucsInfo"        : "Ingen BUCs Info",
   "alert-noCountryList"     : "Ingen land liste",
   "alert-noInstitutionList" : "Ingen mottager liste",
   "alert-noSedList"         : "Ingen SED liste",
@@ -88,6 +87,7 @@
   "help-aktoerId"    : "Hjelpe til Aktoer ID",
   "help-rinaId"      : "Hjelpe til RinaId",
   "help-buc"         : "Hjelpe til BUC",
+  "help-tag"         : "Hjelpe til merknader",
   "help-sakId"       : "Hjelpe til sak ID",
   "help-country"     : "Hjelpe til land",
   "help-institution" : "Hjelpe til mottager",
@@ -101,7 +101,7 @@
   "loading-buc"             : "Laster BUC...",
   "loading-country"         : "Laster land...",
   "loading-previewingCase"  : "Henter saken..",
-  "loading-gettingCase"     : "Henter saken...",
+  "loading-verifyingCaseNumber" : "Henter saken...",
   "loading-gettingUserInfo" : "Laster brukers informasjon...",
   "loading-institution"     : "Laster mottager...",
   "loading-sendingCase"     : "Sender saken...",
@@ -109,6 +109,11 @@
   "loading-sed"             : "Laster SED...",
   "loading-subjectArea"     : "Laster fagområde...",
   "loading-rinaUrl"         : "Laster URL...",
+
+  "tag-urgent" : "Urgent",
+  "tag-vip" : "VIP",
+  "tag-sensitive" : "Sensitive",
+  "tag-secret" : "Secret",
 
   "validation-noAktoerId"         : "Ingen aktoerId",
   "validation-noSakId"            : "Ingen sakId",

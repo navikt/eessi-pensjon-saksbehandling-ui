@@ -9,29 +9,29 @@ import thunk from 'redux-thunk'
 const mockStore = configureMockStore([thunk])
 
 describe('api actions', () => {
-   it('call setStatusParam()', () => {
-      const mockKey = 'mockKey'
-      const mockValue = 'mockValue'
-      const generatedResult = appActions.setStatusParam(mockKey, mockValue)
-      expect(generatedResult).toMatchObject({
-        type: types.APP_PARAM_SET,
-        payload: {
-          key: mockKey,
-          value: mockValue
-        }
-      })
+  it('call setStatusParam()', () => {
+    const mockKey = 'mockKey'
+    const mockValue = 'mockValue'
+    const generatedResult = appActions.setStatusParam(mockKey, mockValue)
+    expect(generatedResult).toMatchObject({
+      type: types.APP_PARAM_SET,
+      payload: {
+        key: mockKey,
+        value: mockValue
+      }
     })
+  })
 
-    it('call unsetStatusParam()', () => {
-      const mockKey = 'mockKey'
-      const generatedResult = appActions.unsetStatusParam(mockKey)
-      expect(generatedResult).toMatchObject({
-        type: types.APP_PARAM_UNSET,
-        payload: {
-          key: mockKey
-        }
-      })
+  it('call unsetStatusParam()', () => {
+    const mockKey = 'mockKey'
+    const generatedResult = appActions.unsetStatusParam(mockKey)
+    expect(generatedResult).toMatchObject({
+      type: types.APP_PARAM_UNSET,
+      payload: {
+        key: mockKey
+      }
     })
+  })
 
   it('call login()', () => {
     Object.defineProperty(window, 'location', {

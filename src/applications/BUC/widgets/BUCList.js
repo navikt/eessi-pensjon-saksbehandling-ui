@@ -10,7 +10,7 @@ import _ from 'lodash'
 import './BUCList.css'
 
 const BUCList = (props) => {
-  const { t, bucs, actions, aktoerId, gettingBUCs, locale } = props
+  const { t, bucs, bucsInfo, actions, aktoerId, gettingBUCs, locale } = props
   const [seds, setSeds] = useState({})
 
   const onBUCNew = () => {
@@ -19,13 +19,14 @@ const BUCList = (props) => {
 
   const getBucs = () => {
     actions.fetchBucs(aktoerId)
+    actions.fetchBucsInfo(aktoerId)
   }
 
   const updateSeds = (buc) => {
     if (seds[buc.buc]) {
       return seds
     }
-    let _buc = _.find(bucs, {buc: buc.buc})
+    let _buc = _.find(bucs, { buc: buc.buc })
     const newSeds = {
       ...seds,
       [buc.buc]: (_buc ? _buc.seds : [])
@@ -51,6 +52,8 @@ const BUCList = (props) => {
       { aktoerId ? <Flatknapp onClick={onBUCNew}>{t('buc:form-createNewCase')}</Flatknapp> : null}
     </div>
     {!_.isEmpty(bucs) ? bucs.map((buc, index) => {
+
+
       return <EkspanderbartpanelBase
         className='mb-3'
         key={index}
@@ -61,17 +64,17 @@ const BUCList = (props) => {
           <SEDRow t={t} key={index} sed={sed} locale={locale} border />
         )) : null}
       </EkspanderbartpanelBase>
-    }): <BUCEmpty t={t} aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> }
+    }) : <BUCEmpty t={t} aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> }
   </React.Fragment>
 }
 
 BUCList.propTypes = {
- t: PT.func.isRequired,
- bucs: PT.array,
- actions: PT.object.isRequired,
- aktoerId: PT.string,
- gettingBUCs: PT.bool.isRequired,
- locale: PT.string.isRequired
+  t: PT.func.isRequired,
+  bucs: PT.array,
+  actions: PT.object.isRequired,
+  aktoerId: PT.string,
+  gettingBUCs: PT.bool.isRequired,
+  locale: PT.string.isRequired
 }
 
 export default BUCList

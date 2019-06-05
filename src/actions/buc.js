@@ -1,6 +1,7 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as api from './api'
+import _ from 'lodash'
 import sampleBucs from 'resources/tests/sampleBucs'
 
 var sprintf = require('sprintf-js').sprintf
@@ -26,14 +27,42 @@ export const setSeds = (seds) => {
   }
 }
 
-export const getCaseFromCaseNumber = (params) => {
+export const fetchBucs = (aktoerId) => {
+  /* let url = sprintf(urls.BUC_AKTOERID_DETALJER_URL, { aktoerId: aktoerId })
+  return api.call({
+    url: url,
+    type: {
+      request: types.BUC_GET_BUCS_REQUEST,
+      success: types.BUC_GET_BUCS_SUCCESS,
+      failure: types.BUC_GET_BUCS_FAILURE
+    }
+  })
+} */
+  return {
+    type: types.BUC_GET_BUCS_SUCCESS,
+    payload: sampleBucs
+  }
+}
+
+export const fetchBucsInfo = (aktoerId) => {
+  return api.call({
+    url: sprintf(urls.API_STORAGE_GET_URL, { userId: aktoerId, namespace: 'BUC', file: 'INFO' }),
+    type: {
+      request: types.BUC_GET_BUCSINFO_REQUEST,
+      success: types.BUC_GET_BUCSINFO_SUCCESS,
+      failure: types.BUC_GET_BUCSINFO_FAILURE
+    }
+  })
+}
+
+export const verifyCaseNumber = (params) => {
   let url = params.rinaId ? sprintf(urls.EUX_CASE_WITH_RINAID_URL, params) : sprintf(urls.EUX_CASE_WITHOUT_RINAID_URL, params)
   return api.call({
     url: url,
     type: {
-      request: types.BUC_GET_CASE_NUMBER_REQUEST,
-      success: types.BUC_GET_CASE_NUMBER_SUCCESS,
-      failure: types.BUC_GET_CASE_NUMBER_FAILURE
+      request: types.BUC_VERIFY_CASE_NUMBER_REQUEST,
+      success: types.BUC_VERIFY_CASE_NUMBER_SUCCESS,
+      failure: types.BUC_VERIFY_CASE_NUMBER_FAILURE
     }
   })
 }
@@ -48,6 +77,69 @@ export const getSubjectAreaList = () => {
     }
   })
 }
+
+export const getBucList = (aktoerId) => {
+  return api.call({
+    url: urls.EUX_BUCS_URL,
+    type: {
+      request: types.BUC_GET_BUC_LIST_REQUEST,
+      success: types.BUC_GET_BUC_LIST_SUCCESS,
+      failure: types.BUC_GET_BUC_LIST_FAILURE
+    }
+  })
+}
+
+export const getTagList = (aktoerId) => {
+  return {
+    type: types.BUC_GET_TAG_LIST_SUCCESS,
+    payload: ['urgent', 'vip', 'sensitive', 'secret']
+  }
+}
+
+export const createBuc = (buc) => {
+  return api.fakecall({
+    url: sprintf(urls.BUC_CREATE_BUC_URL, {buc: buc}),
+    method: 'POST',
+    expectedPayload: {
+     'rinaId' : '123'
+    },
+    type: {
+      request: types.BUC_CREATE_BUC_REQUEST,
+      success: types.BUC_CREATE_BUC_SUCCESS,
+      failure: types.BUC_CREATE_BUC_FAILURE
+    }
+  })
+}
+
+export const saveBucsInfo = (params) => {
+
+  let newBucsInfo = _.cloneDeep(params.bucsInfo)
+
+  if (!newBucsInfo.hasOwnProperty('bucs')) {
+    newBucsInfo['bucs'] = {}
+  }
+  if (!newBucsInfo.bucs.hasOwnProperty(params.buc)) {
+    newBucsInfo.bucs[params.buc] = {
+      'tags' : params.tags
+    }
+  } else {
+    newBucsInfo.bucs[params.buc].tags = params.tags
+  }
+
+  return api.call({
+    url: sprintf(urls.API_STORAGE_POST_URL, { userId: params.aktoerId, namespace: 'BUC', file: 'INFO' }),
+    method: 'POST',
+    payload: newBucsInfo,
+    type: {
+      request: types.BUC_SAVE_BUCSINFO_REQUEST,
+      success: types.BUC_SAVE_BUCSINFO_SUCCESS,
+      failure: types.BUC_SAVE_BUCSINFO_FAILURE
+    }
+  })
+
+}
+
+// XXX
 
 export const getCountryList = () => {
   return api.call({
@@ -89,36 +181,8 @@ export const removeInstitutionForCountry = (country) => {
   }
 }
 
-export const fetchBucs = (aktoerId) => {
 
-  /*let url = sprintf(urls.SED_AKTOERID_DETALJER_URL, { aktoerId: aktoerId })
-  return api.call({
-    url: url,
-    type: {
-      request: types.BUC_GET_BUCS_REQUEST,
-      success: types.BUC_GET_BUCS_SUCCESS,
-      failure: types.BUC_GET_BUCS_FAILURE
-    }
-  })
-}*/
 
-  return {
-     type: types.BUC_GET_BUCS_SUCCESS,
-     payload: sampleBucs
-  }
-}
-
-export const getBucList = (aktoerId) => {
-
-  return api.call({
-    url: urls.EUX_BUCS_URL,
-    type: {
-      request: types.BUC_GET_BUC_LIST_REQUEST,
-      success: types.BUC_GET_BUC_LIST_SUCCESS,
-      failure: types.BUC_GET_BUC_LIST_FAILURE
-    }
-  })
-}
 
 export const getSedList = (buc, rinaId) => {
   let url = rinaId ? sprintf(urls.EUX_SED_FROM_RINA_URL, { rinaId: rinaId })
@@ -130,38 +194,6 @@ export const getSedList = (buc, rinaId) => {
       request: types.BUC_GET_SED_LIST_REQUEST,
       success: types.BUC_GET_SED_LIST_SUCCESS,
       failure: types.BUC_GET_SED_LIST_FAILURE
-    }
-  })
-}
-
-export const cleanCaseNumber = () => {
-  return {
-    type: types.BUC_GET_CASE_NUMBER_CLEAN
-  }
-}
-
-export const createSed = (payload) => {
-  return api.call({
-    url: urls.SED_BUC_CREATE_URL,
-    method: 'POST',
-    payload: payload,
-    type: {
-      request: types.BUC_CREATE_SED_REQUEST,
-      success: types.BUC_CREATE_SED_SUCCESS,
-      failure: types.BUC_CREATE_SED_FAILURE
-    }
-  })
-}
-
-export const addToSed = (payload) => {
-  return api.call({
-    url: urls.SED_ADD_URL,
-    method: 'POST',
-    payload: payload,
-    type: {
-      request: types.BUC_ADD_TO_SED_REQUEST,
-      success: types.BUC_ADD_TO_SED_SUCCESS,
-      failure: types.BUC_ADD_TO_SED_FAILURE
     }
   })
 }

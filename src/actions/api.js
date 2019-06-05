@@ -3,12 +3,37 @@ import fetch from 'cross-fetch'
 import cookies from 'browser-cookies'
 import 'cross-fetch/polyfill'
 
+function fakefetch (options) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(options.expectedPayload)
+    }, 500)
+  })
+}
+
+export function fakecall (options) {
+  return (dispatch) => {
+    console.log("FAKE API CALL: REQUEST")
+    dispatch({
+      type: options.type.request
+    })
+    return fakefetch(options).then(payload => {
+      console.log("FAKE API CALL: SUCCESS")
+      return dispatch({
+        type: options.type.success,
+        payload: payload
+      })
+    })
+  }
+}
+
 export function call (options) {
   return (dispatch) => {
     dispatch({
       type: options.type.request
     })
     let body = options.body || options.payload
+    body = body ? JSON.stringify(body) : undefined
     let CSRF_PROTECTION = cookies.get('NAV_CSRF_PROTECTION')
       ? { 'NAV_CSRF_PROTECTION': cookies.get('NAV_CSRF_PROTECTION') }
       : {}
@@ -21,7 +46,7 @@ export function call (options) {
         ...CSRF_PROTECTION,
         ...options.headers
       },
-      body: body ? JSON.stringify(body) : undefined
+      body: body
     }).then(response => {
       if (response.status >= 400) {
         var error = new Error(response.statusText)
@@ -36,24 +61,28 @@ export function call (options) {
     }).then(payload => {
       return dispatch({
         type: options.type.success,
-        payload: payload
+        payload: payload,
+        originalPayload: body
       })
     }).catch(error => {
       if (error.status === 401) {
         dispatch({
           type: types.SERVER_UNAUTHORIZED_ERROR,
-          payload: error.message
+          payload: error.message,
+          originalPayload: body
         })
       }
       if (error.status >= 500) {
         dispatch({
           type: types.SERVER_INTERNAL_ERROR,
-          payload: error.message
+          payload: error.message,
+          originalPayload: body
         })
       }
       return dispatch({
         type: options.type.failure,
-        payload: error.message
+        payload: error.message,
+        originalPayload: body
       })
     })
   }

@@ -59,7 +59,6 @@ class New extends Component {
     }
 
     componentDidMount () {
-
       this.props.provideController({
         hasNoValidationErrors: this.hasNoValidationErrors.bind(this),
         passesValidation: this.passesValidation.bind(this),

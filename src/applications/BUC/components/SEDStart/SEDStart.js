@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import { connect, bindActionCreators } from 'store'
@@ -37,8 +37,21 @@ const SEDStart = (props) => {
   const [_institutions, setInstitution] = useState([])
   const [_attachments, setAttachments] = useState([])
   const [validation, setValidation] = useState({})
+  const [mounted, setMounted] = useState(false)
 
-  const { t, actions, sedList, countryList, institutionList, buc, locale, loading, layout = 'row' } = props
+  const { t, actions, sedList, countryList, institutionList, rinaId, buc, locale, loading, layout = 'row' } = props
+
+  useEffect(() => {
+    if (!mounted) {
+      if (_.isEmpty(countryList) && !loading.countryList) {
+        actions.getCountryList()
+      }
+      if (_.isEmpty(sedList) && !loading.sedList) {
+        actions.getSedList(buc, rinaId)
+      }
+      setMounted(true)
+    }
+  }, [actions, buc, rinaId])
 
   const onForwardButtonClick = () => {
     validateSed(_sed)
@@ -255,7 +268,7 @@ const SEDStart = (props) => {
         let _institutions = institutions[landkode].join(', ')
         return <div className='d-flex align-items-baseline'>
 
-          <FlagList locale={locale} items={[{country: landkode, label:_institutions}]} overflowLimit={5} />
+          <FlagList locale={locale} items={[{ country: landkode, label: _institutions }]} overflowLimit={5} />
           <span>{landkode}: {_institutions}</span>
         </div>
       }) : <Nav.Normaltekst>{t('buc:form-noInstitutionYet')}</Nav.Normaltekst>}

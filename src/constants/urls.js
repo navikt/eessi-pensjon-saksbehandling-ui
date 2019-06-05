@@ -14,17 +14,18 @@ const PEN_URL = FRONTEND_API_URL + '/pensjon'
 export const NAV_URL = 'http://www.nav.no'
 
 // EuxController
-export const EUX_RINA_URL = EUX_URL + '/rinaurl'
 export const EUX_CASE_WITH_RINAID_URL = EUX_URL + '/case/%(sakId)s/%(aktoerId)s/%(rinaId)s'
 export const EUX_CASE_WITHOUT_RINAID_URL = EUX_URL + '/case/%(sakId)s/%(aktoerId)s'
+export const EUX_SUBJECT_AREA_URL = EUX_URL + '/subjectarea'
 export const EUX_BUCS_URL = EUX_URL + '/bucs'
+
 export const EUX_SED_FOR_BUCS_URL = EUX_URL + '/seds/%(buc)s'
 export const EUX_SED_FROM_RINA_URL = EUX_URL + '/sedfromrina/%(rinaId)s'
 export const EUX_CASE_FOR_RINAID_URL = EUX_URL + '/rinasaker/%(rinaId)s'
 export const EUX_INSTITUTIONS_FOR_COUNTRY_URL = EUX_URL + '/institutions/%(country)s'
 export const EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL = EUX_URL + '/institutions/%(buc)s/%(country)s'
 export const EUX_COUNTRY_URL = EUX_URL + '/countrycode'
-export const EUX_SUBJECT_AREA_URL = EUX_URL + '/subjectarea'
+export const EUX_RINA_URL = EUX_URL + '/rinaurl'
 
 // UserInfoController
 export const API_USERINFO_URL = API_URL + '/userinfo'
@@ -49,15 +50,14 @@ export const API_STORAGE_MULTIPLE_DELETE_URL = API_URL + '/storage/multiple/%(us
 export const PEN_SAKTYPE_URL = PEN_URL + '/saktype/%(sakId)s/%(aktoerId)s'
 
 // BucController
-export const BUC_ACTIONS_URL = BUC_URL + '/aksjoner'
-export const BUC_ACTIONS_FOR_RINAID_URL = BUC_URL + '/%(rinaId)s/aksjoner'
 
 // SedController
-export const SED_BUC_CREATE_URL = SED_URL + '/buc/create'
+export const BUC_AKTOERID_DETALJER_URL = SED_URL + '/bucdetaljer/%(aktoerId)s/'
+export const BUC_CREATE_BUC_URL = SED_URL + '/buc/%(buc)s'
+
 export const SED_PREVIEW_URL = SED_URL + '/preview'
 export const SED_ADD_URL = SED_URL + '/add'
 export const SED_SEND_URL = SED_URL + '/send/%(caseId)s/%(documentId)s/'
-export const SED_AKTOERID_DETALJER_URL = SED_URL + '/bucdetaljer/%(aktoerId)s/'
 
 // PdfController
 export const PDF_GENERATE_URL = PDF_URL + '/generate'

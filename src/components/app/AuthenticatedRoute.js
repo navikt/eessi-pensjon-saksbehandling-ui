@@ -41,7 +41,6 @@ const AuthenticatedRoute = (props) => {
   const { t, allowed, actions, location, loggedIn, userRole } = props
 
   useEffect(() => {
-
     const parseSearchParams = () => {
       let params = new URLSearchParams(location.search)
       let newParams = {}

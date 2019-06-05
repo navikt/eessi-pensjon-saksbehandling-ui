@@ -3,6 +3,7 @@ import PT from 'prop-types'
 import classNames from 'classnames'
 import { EkspanderbartpanelBase, Ingress, Normaltekst } from 'components/ui/Nav'
 import FlagList from 'components/ui/Flag/FlagList'
+import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import _ from 'lodash'
 
 import './BUCDetail.css'
@@ -40,14 +41,14 @@ const BUCDetail = (props) => {
         <dt>{t('ui:type')}:</dt>
         <dd>{buc.sakType}</dd>
         <dt>{t('ui:status')}:</dt>
-        <dd>{buc.status}</dd>
+        <dd><SEDStatus t={t} status={buc.status} /></dd>
       </dl>
       <Ingress className='mb-2'>{t('buc:form-involvedInstitutions')}:</Ingress>
       {!_.isEmpty(institutionList) ? Object.keys(institutionList).map(landkode => {
         return <div
           className='a-buc-c-bucdetail__institutions'
           id='a-buc-c-bucdetail__institutions-id'>
-          <FlagList locale={locale} items={[{country: landkode}]} overflowLimit={1} />
+          <FlagList locale={locale} items={[{ country: landkode }]} overflowLimit={1} />
           <Normaltekst>{institutionList[landkode].join(', ')}</Normaltekst>
         </div>
       }) : <Normaltekst>{t('buc:form-noInstitutionYet')}</Normaltekst>}
