@@ -15,7 +15,6 @@ export const initialAppState = {
 
 const appReducer = (state = initialAppState, action = {}) => {
   switch (action.type) {
-
     case types.APP_PARAM_SET:
 
       return {

@@ -13,27 +13,27 @@ describe('case actions', () => {
     api.call.mockRestore()
   })
 
-  it('getCaseFromCaseNumber without RinaId()', () => {
+  it('verifyCaseNumber without RinaId()', () => {
     const mockParams = { foo: 'bar' }
-    bucActions.getCaseFromCaseNumber(mockParams)
+    bucActions.verifyCaseNumber(mockParams)
     expect(api.call).toBeCalledWith({
       type: {
-        request: types.BUC_GET_CASE_NUMBER_REQUEST,
-        success: types.BUC_GET_CASE_NUMBER_SUCCESS,
-        failure: types.BUC_GET_CASE_NUMBER_FAILURE
+        request: types.BUC_VERIFY_CASE_NUMBER_REQUEST,
+        success: types.BUC_VERIFY_CASE_NUMBER_SUCCESS,
+        failure: types.BUC_VERIFY_CASE_NUMBER_FAILURE
       },
       url: sprintf(urls.EUX_CASE_WITHOUT_RINAID_URL, mockParams)
     })
   })
 
-  it('getCaseFromCaseNumber with RinaId()', () => {
+  it('verifyCaseNumber with RinaId()', () => {
     const mockParams = { foo: 'bar', rinaId: '123' }
-    bucActions.getCaseFromCaseNumber(mockParams)
+    bucActions.verifyCaseNumber(mockParams)
     expect(api.call).toBeCalledWith({
       type: {
-        request: types.BUC_GET_CASE_NUMBER_REQUEST,
-        success: types.BUC_GET_CASE_NUMBER_SUCCESS,
-        failure: types.BUC_GET_CASE_NUMBER_FAILURE
+        request: types.BUC_VERIFY_CASE_NUMBER_REQUEST,
+        success: types.BUC_VERIFY_CASE_NUMBER_SUCCESS,
+        failure: types.BUC_VERIFY_CASE_NUMBER_FAILURE
       },
       url: sprintf(urls.EUX_CASE_WITH_RINAID_URL, mockParams)
     })
@@ -90,8 +90,6 @@ describe('case actions', () => {
     })
   })
 
-
-
   it('call getBucList() with rinaId', () => {
     const mockAktoerId = 123
     bucActions.getBucList(mockRinaId)
@@ -101,7 +99,7 @@ describe('case actions', () => {
         success: types.BUC_GET_BUC_LIST_SUCCESS,
         failure: types.BUC_GET_BUC_LIST_FAILURE
       },
-      url: sprintf(urls.SED_AKTOERID_DETALJER_URL, { aktoerId: mockAktoerId })
+      url: sprintf(urls.BUC_AKTOERID_DETALJER_URL, { aktoerId: mockAktoerId })
     })
   })
 
@@ -132,42 +130,6 @@ describe('case actions', () => {
     })
   })
 
-  it('call cleanCaseNumber()', () => {
-    let generatedResult = bucActions.cleanCaseNumber()
-    expect(generatedResult).toEqual({
-      type: types.BUC_GET_CASE_NUMBER_CLEAN
-    })
-  })
-
-  it('call createSed() ', () => {
-    const mockParams = { foo: 'bar' }
-    bucActions.createSed(mockParams)
-    expect(api.call).toBeCalledWith({
-      type: {
-        request: types.BUC_CREATE_SED_REQUEST,
-        success: types.BUC_CREATE_SED_SUCCESS,
-        failure: types.BUC_CREATE_SED_FAILURE
-      },
-      method: 'POST',
-      payload: mockParams,
-      url: urls.SED_BUC_CREATE_URL
-    })
-  })
-
-  it('call addToSed()', () => {
-    const mockParams = { foo: 'bar' }
-    bucActions.addToSed(mockParams)
-    expect(api.call).toBeCalledWith({
-      type: {
-        request: types.BUC_ADD_TO_SED_REQUEST,
-        success: types.BUC_ADD_TO_SED_SUCCESS,
-        failure: types.BUC_ADD_TO_SED_FAILURE
-      },
-      method: 'POST',
-      payload: mockParams,
-      url: urls.SED_ADD_URL
-    })
-  })
 
   it('call sendSed()', () => {
     const caseId = '123'

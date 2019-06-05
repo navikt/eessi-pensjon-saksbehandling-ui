@@ -32,15 +32,15 @@ const SEDRow = (props) => {
       <div className='col-4 a-buc-c-sedrow__institutions'>
         {sed.participants ? sed.participants.map(participant => {
           return <div key={participant.organisation.id} className='a-buc-c-sedrow__institution'>
-           <FlagList locale={locale} items={[{
-             country: participant.organisation.countryCode
-           }]}/>
-           <span>{participant.organisation.name}</span>
+            <FlagList locale={locale} items={[{
+              country: participant.organisation.countryCode
+            }]} />
+            <span>{participant.organisation.name}</span>
           </div>
         }) : null}
       </div>
       <div className='col-2 a-buc-c-sedrow__actions'>
-        {!_.isEmpty(sed.attachments) ? <Icons kind='vedlegg'/> : null}
+        {!_.isEmpty(sed.attachments) ? <Icons kind='vedlegg' /> : null}
         <Flatknapp
           id='a-buc-c-sedrow__gotorina-button'
           className='a-buc-c-sedrow__gotorina smallerButton'

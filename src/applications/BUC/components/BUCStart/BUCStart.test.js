@@ -22,8 +22,8 @@ jest.mock('../../i18n')
 // mock actions that will be connected to the component
 jest.mock('../../actions/case', () => ({
   ...jest.requireActual('../../actions/case'),
-  getCaseFromCaseNumber: jest.fn(() => ({
-    type: 'CASE/GET_CASE_NUMBER/SUCCESS',
+  verifyCaseNumber: jest.fn(() => ({
+    type: 'CASE/VERIFY_CASE_NUMBER/SUCCESS',
     payload: { casenumber: '123', pinid: '456' }
   })),
   getSubjectAreaList: jest.fn(() => ({
@@ -77,7 +77,7 @@ describe('BUCStart: mount without sakId and AktoerId', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('onFetchCaseButtonClick() with state values triggers getCaseFromCaseNumber ', async (done) => {
+  it('onFetchCaseButtonClick() with state values triggers verifyCaseNumber ', async (done) => {
     wrapper.instance().onFetchCaseButtonClick()
     expect(store.getState().buc.currentBUC).toEqual(undefined)
     expect(wrapper.instance().state.validation).toEqual({

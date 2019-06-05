@@ -21,17 +21,17 @@ const BUCEmpty = (props) => {
       <img alt='' className='map' src={MapPNG} />
     </div>
     <Undertittel>{t('buc:form-empty-startANewCase')}</Undertittel>
-    {!aktoerId ? <Normaltekst>{t('buc:form-missingAktoerId')}</Normaltekst> :
-     bucs === undefined ? <Flatknapp
-      className='mt-4'
-      id='TODELETE'
-      disabled={gettingBUCs}
-      spinner={gettingBUCs}
-      onClick={getBucs}>{gettingBUCs ? t('buc:loading-bucs') : t('ui:start')}</Flatknapp>
-      : <div className='mt-4'>
-         <Normaltekst>{t('buc:form-noBUCsFound')}</Normaltekst>
-      </div>
-      }
+    {!aktoerId ? <Normaltekst>{t('buc:form-missingAktoerId')}</Normaltekst>
+      : bucs === undefined ? <Flatknapp
+        className='mt-4'
+        id='TODELETE'
+        disabled={gettingBUCs}
+        spinner={gettingBUCs}
+        onClick={getBucs}>{gettingBUCs ? t('buc:loading-bucs') : t('ui:start')}</Flatknapp>
+        : <div className='mt-4'>
+          <Normaltekst>{t('buc:form-noBUCsFound')}</Normaltekst>
+        </div>
+    }
   </div>
 }
 

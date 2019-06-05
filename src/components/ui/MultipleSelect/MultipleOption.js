@@ -11,7 +11,7 @@ const MultipleOption = (props) => {
       selected: isSelected,
       focused: isFocused
     })} {...innerProps}>
-      <Checkbox label={data.label} checked={isSelected} />
+      <Checkbox label={data.label} defaultChecked={isSelected} />
     </div>
   </div>
 }

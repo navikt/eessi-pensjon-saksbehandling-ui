@@ -14,7 +14,6 @@ const WidgetContainer = (props) => {
   const [mode, setMode] = useState('view')
 
   useEffect(() => {
-
     const getSizes = () => {
       return {
         width: document.getElementById('widget-' + layout.i).offsetWidth,

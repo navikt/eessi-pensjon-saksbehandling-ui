@@ -2,7 +2,9 @@ import * as types from '../constants/actionTypes'
 import _ from 'lodash'
 
 export const initialBucState = {
-  mode: 'list'
+  mode: 'list',
+  bucs: undefined,
+  bucsInfo: undefined
 }
 
 const bucReducer = (state = initialBucState, action) => {
@@ -30,7 +32,7 @@ const bucReducer = (state = initialBucState, action) => {
 
     case types.BUC_GET_BUCS_SUCCESS:
 
-      return  {
+      return {
         ...state,
         bucs: action.payload
       }
@@ -38,16 +40,116 @@ const bucReducer = (state = initialBucState, action) => {
     case types.BUC_GET_BUCS_REQUEST:
     case types.BUC_GET_BUCS_FAILURE:
 
-      return  {
+      return {
         ...state,
         bucs: undefined
       }
 
+    case types.BUC_GET_BUCSINFO_SUCCESS:
+
+      return {
+        ...state,
+        bucsInfo: action.payload
+      }
+
+    case types.BUC_GET_BUCSINFO_REQUEST:
+    case types.BUC_GET_BUCSINFO_FAILURE:
+
+      return {
+        ...state,
+        bucsInfo: undefined
+      }
+
+    case types.BUC_VERIFY_CASE_NUMBER_SUCCESS:
+
+      return {
+        ...state,
+        currentBUC: action.payload
+      }
+
+    case types.BUC_VERIFY_CASE_NUMBER_REQUEST:
+    case types.BUC_VERIFY_CASE_NUMBER_FAILURE:
+
+      return {
+        ...state,
+        currentBUC: undefined
+      }
+
     case types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         subjectAreaList: action.payload
-      })
+      }
+
+    case types.BUC_GET_SUBJECT_AREA_LIST_REQUEST:
+    case types.BUC_GET_SUBJECT_AREA_LIST_FAILURE:
+
+      return {
+        ...state,
+        subjectAreaList: []
+      }
+
+    case types.BUC_GET_BUC_LIST_SUCCESS:
+
+      return {
+        ...state,
+        bucList: action.payload
+      }
+
+    case types.BUC_GET_BUC_LIST_REQUEST:
+    case types.BUC_GET_BUC_LIST_FAILURE:
+
+      return {
+        ...state,
+        bucList: []
+      }
+
+    case types.BUC_GET_TAG_LIST_SUCCESS:
+
+      return {
+        ...state,
+        tagList: action.payload
+      }
+
+    case types.BUC_GET_TAG_LIST_REQUEST:
+    case types.BUC_GET_TAG_LIST_FAILURE:
+
+      return {
+        ...state,
+        tagList: []
+      }
+
+    case types.BUC_CREATE_BUC_REQUEST:
+    case types.BUC_CREATE_BUC_FAILURE:
+
+      return {
+        ...state,
+        rinaId: undefined
+      }
+
+    case types.BUC_CREATE_BUC_SUCCESS:
+
+      return {
+        ...state,
+        rinaId: action.payload.rinaId
+      }
+
+    case types.BUC_SAVE_BUCSINFO_SUCCESS:
+
+      return {
+        ...state,
+        bucsInfo: action.originalPayload
+      }
+
+    case types.BUC_SAVE_BUCSINFO_REQUEST:
+    case types.BUC_SAVE_BUCSINFO_FAILURE:
+
+      return {
+        ...state
+      }
+
+    // XXX
 
     case types.BUC_GET_INSTITUTION_LIST_SUCCESS:
 
@@ -83,56 +185,12 @@ const bucReducer = (state = initialBucState, action) => {
         sedList: action.payload
       })
 
-    case types.BUC_GET_BUC_LIST_SUCCESS:
-
-      return Object.assign({}, state, {
-        bucList: action.payload
-      })
-
-    case types.BUC_GET_BUC_LIST_REQUEST:
-    case types.BUC_GET_BUC_LIST_FAILURE:
-
-      return Object.assign({}, state, {
-        bucList: []
-      })
-
     case types.BUC_GET_COUNTRY_LIST_SUCCESS:
 
       return Object.assign({}, state, {
         countryList: action.payload
       })
 
-    case types.BUC_CREATE_SED_REQUEST:
-    case types.BUC_ADD_TO_SED_REQUEST:
-
-      return Object.assign({}, state, {
-        savedData: undefined
-      })
-
-    case types.BUC_CREATE_SED_SUCCESS:
-    case types.BUC_ADD_TO_SED_SUCCESS:
-
-      return Object.assign({}, state, {
-        savedData: action.payload
-      })
-
-    case types.BUC_GET_CASE_NUMBER_REQUEST:
-
-      return Object.assign({}, state, {
-        currentBUC: undefined
-      })
-
-    case types.BUC_GET_CASE_NUMBER_SUCCESS:
-
-      return Object.assign({}, state, {
-        currentBUC: action.payload
-      })
-
-    case types.BUC_GET_CASE_NUMBER_CLEAN:
-
-      return Object.assign({}, state, {
-        currentBUC: undefined
-      })
 
     case types.RINA_GET_URL_SUCCESS:
 
