@@ -14,6 +14,8 @@ import * as bucActions from 'actions/buc'
 
 export const mapStateToProps = (state) => {
   return {
+    buc: state.buc.buc,
+    rinaId: state.buc.rinaId,
     sedList: state.buc.sedList,
     countryList: state.buc.countryList,
     institutionList: state.buc.institutionList,
@@ -34,36 +36,42 @@ const placeholders = {
 const SEDStart = (props) => {
   const [_sed, setSed] = useState(undefined)
   const [_countries, setCountries] = useState([])
-  const [_institutions, setInstitution] = useState([])
+  const [_institutions, setInstitutions] = useState([])
   const [_attachments, setAttachments] = useState([])
   const [validation, setValidation] = useState({})
-  const [mounted, setMounted] = useState(false)
 
-  const { t, actions, sedList, countryList, institutionList, rinaId, buc, locale, loading, layout = 'row' } = props
+  const { t, actions, sedList, countryList, institutionList, aktoerId, rinaId, buc, sed, locale, loading, layout = 'row' } = props
 
   useEffect(() => {
-    if (!mounted) {
-      if (_.isEmpty(countryList) && !loading.countryList) {
-        actions.getCountryList()
-      }
-      if (_.isEmpty(sedList) && !loading.sedList) {
-        actions.getSedList(buc, rinaId)
-      }
-      setMounted(true)
+    if (_.isEmpty(countryList) && !loading.gettingCountryList) {
+      actions.getCountryList()
     }
-  }, [actions, buc, rinaId])
+    if (_.isEmpty(sedList) && !loading.gettingSedList) {
+      actions.getSedList(buc)
+    }
+  }, [actions, loading, countryList, sedList, buc])
+
+  useEffect(() => {
+    if (sed) {
+      actions.fetchBucs(aktoerId)
+      actions.fetchBucsInfo(aktoerId)
+      actions.setMode('list')
+    }
+  }, [sed, aktoerId, actions])
 
   const onForwardButtonClick = () => {
     validateSed(_sed)
-    validateInstitution(_institutions)
+    validateInstitutions(_institutions)
     if (hasNoValidationErrors()) {
-      const data = {
+      actions.createSed({
+        buc: buc.buc,
         sed: _sed,
         institutions: _institutions,
         country: _countries,
-        attachments: _attachments
-      }
-      actions.doSomethingWithSED(data)
+        attachments: _attachments,
+        aktoerId: aktoerId,
+        euxCaseId: rinaId
+      })
     }
   }
 
@@ -79,7 +87,7 @@ const SEDStart = (props) => {
     }
   }
 
-  const validateInstitution = (institutions) => {
+  const validateInstitutions = (institutions) => {
     if (_.isEmpty(institutions)) {
       setValidationState('institutionFail', t('buc:validation-chooseInstitution'))
     } else {
@@ -87,7 +95,7 @@ const SEDStart = (props) => {
     }
   }
 
-  const validateCountry = (country) => {
+  const validateCountries = (country) => {
     if (_.isEmpty(country)) {
       setValidationState('countryFail', t('buc:validation-chooseCountry'))
     } else {
@@ -118,24 +126,30 @@ const SEDStart = (props) => {
     validateSed(thisSed)
   }
 
-  const onInstitutionChange = (institutions) => {
-    setInstitution(institutions)
-    validateInstitution(institutions)
+  const onInstitutionsChange = (institutions) => {
+    let newInstitutions = institutions.map(item => {
+      return item.value
+    })
+    validateInstitutions(newInstitutions)
+    setInstitutions(newInstitutions)
   }
 
-  const onCountryChange = (countryList) => {
-    validateCountry(countryList)
-    if (!validation.countryFail) {
-      let oldCountryList = _.cloneDeep(countryList)
-      setCountries(countryList)
-      let addedCountries = countryList.filter(country => !oldCountryList.includes(country))
-      let removedCountries = oldCountryList.filter(country => !countryList.includes(country))
+  const onCountriesChange = (countryList) => {
 
+    let newCountries = countryList.map(item => {
+      return item.value
+    })
+    validateCountries(newCountries)
+    if (!validation.countryFail) {
+      let oldCountriesList = _.cloneDeep(_countries)
+      setCountries(newCountries)
+      let addedCountries = newCountries.filter(country => !oldCountriesList.includes(country))
+      let removedCountries = oldCountriesList.filter(country => !newCountries.includes(country))
       addedCountries.map(country => {
-        return actions.getInstitutionsListForBucAndCountry(buc.buc, country.value)
+        return actions.getInstitutionsListForBucAndCountry(buc.buc, country)
       })
       removedCountries.map(country => {
-        return actions.removeInstitutionForCountry(country.value)
+        return actions.removeInstitutionForCountry(country)
       })
     }
   }
@@ -194,7 +208,7 @@ const SEDStart = (props) => {
         locale={locale}
         value={_countries || []}
         hideSelectedOptions={false}
-        onChange={onCountryChange}
+        onChange={onCountriesChange}
         optionList={countryObjectList} />
     </div>
   }
@@ -206,7 +220,7 @@ const SEDStart = (props) => {
       options: institutionList[landkode].map(institution => {
         return {
           label: institution.navn,
-          value: institution
+          value: institution.id
         }
       })
     }
@@ -222,7 +236,7 @@ const SEDStart = (props) => {
         aria-describedby='help-institution'
         locale={locale}
         value={_institutions || []}
-        onChange={onInstitutionChange}
+        onChange={onInstitutionsChange}
         hideSelectedOptions={false}
         optionList={institutionObjectList} />
     </div>
@@ -253,23 +267,27 @@ const SEDStart = (props) => {
   const renderInstitutions = () => {
     let institutions = {}
     if (_institutions) {
-      _institutions.forEach(institution => {
-        if (!institutions.hasOwnProperty(institution.value.landkode)) {
-          institutions[institution.value.landkode] = [institution.label]
-        } else {
-          institutions[institution.value.landkode].push(institution.label)
-        }
+      _institutions.forEach(item => {
+        Object.keys(institutionList).map(landkode => {
+          let found = _.find(institutionList[landkode], {id: item})
+          if (found) {
+            if (!institutions.hasOwnProperty(landkode)) {
+               institutions[landkode] = [found.navn]
+            } else {
+               institutions[landkode].push(found.navn)
+            }
+          }
+        })
       })
     }
 
     return <React.Fragment>
       <Nav.Ingress className='mb-2'>{t('buc:form-chosenInstitutions')}</Nav.Ingress>
-      {!_.isEmpty(institutions) ? Object.keys(institutions).map(landkode => {
-        let _institutions = institutions[landkode].join(', ')
-        return <div className='d-flex align-items-baseline'>
-
-          <FlagList locale={locale} items={[{ country: landkode, label: _institutions }]} overflowLimit={5} />
-          <span>{landkode}: {_institutions}</span>
+      {!_.isEmpty(institutions) ? Object.keys(institutions).map((landkode, index) => {
+        let institutionLabel = institutions[landkode].join(', ')
+        return <div key={index} className='d-flex align-items-baseline'>
+          <FlagList locale={locale} items={[{ country: landkode, label: institutionLabel }]} overflowLimit={5} />
+          <span>{landkode}: {institutionLabel}</span>
         </div>
       }) : <Nav.Normaltekst>{t('buc:form-noInstitutionYet')}</Nav.Normaltekst>}
     </React.Fragment>
@@ -293,7 +311,7 @@ const SEDStart = (props) => {
   }
 
   const allowedToForward = () => {
-    return _sed && hasNoValidationErrors() && !_.isEmpty(_institutions)
+    return _sed && hasNoValidationErrors() && !_.isEmpty(_institutions) && !loading.creatingSed
   }
 
   return <Nav.Row className='a-buc-c-sedstart'>
@@ -306,9 +324,9 @@ const SEDStart = (props) => {
       {renderInstitutions()}
       {renderAttachments()}
       <div className='selectBoxMessage'>{!loading ? null
-        : loading.sedList ? getSpinner('buc:loading-sed')
+        : loading.gettingSedList ? getSpinner('buc:loading-sed')
           : loading.institutionList ? getSpinner('buc:loading-institution')
-            : loading.countryList ? getSpinner('buc:loading-country') : null}
+            : loading.gettingCountryList ? getSpinner('buc:loading-country') : null}
       </div>
     </div>
     <div className='col-md-12'>
@@ -316,7 +334,10 @@ const SEDStart = (props) => {
         id='a-buc-c-sedstart__forward-button-id'
         className='a-buc-c-sedstart__forward-button'
         disabled={!allowedToForward()}
-        onClick={onForwardButtonClick}>{t('buc:form-orderSED')}</Nav.Hovedknapp>
+        spinner={loading.creatingSed}
+        onClick={onForwardButtonClick}>
+        {loading.creatingSed ? t('buc:loading-creatingSED') : t('buc:form-orderSED')}
+      </Nav.Hovedknapp>
       <Nav.Flatknapp
         id='a-buc-c-sedstart__cancel-button-id'
         className='a-buc-c-sedstart__cancel-button'
@@ -332,7 +353,7 @@ SEDStart.propTypes = {
   institutionList: PT.object,
   countryList: PT.array,
   sedList: PT.array,
-  buc: PT.string,
+  buc: PT.object,
   locale: PT.string,
   layout: PT.string
 }

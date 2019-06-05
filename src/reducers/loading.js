@@ -25,203 +25,213 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
     status = 'OK'
   }
   switch (action.type) {
-
   // APP
 
-  case types.APP_USERINFO_REQUEST:
+    case types.APP_USERINFO_REQUEST:
 
-    return Object.assign({}, state, {
-      gettingUserInfo: true,
-      status: status
-    })
+      return Object.assign({}, state, {
+        gettingUserInfo: true,
+        status: status
+      })
 
-  case types.APP_USERINFO_SUCCESS:
-  case types.APP_USERINFO_FAILURE:
+    case types.APP_USERINFO_SUCCESS:
+    case types.APP_USERINFO_FAILURE:
 
-    return Object.assign({}, state, {
-      gettingUserInfo: false,
-      status: status
-    })
+      return Object.assign({}, state, {
+        gettingUserInfo: false,
+        status: status
+      })
 
-  case types.APP_LOGIN_REQUEST: {
-    return Object.assign({}, state, {
-      isLoggingIn: true
-    })
-  }
+    case types.APP_LOGIN_REQUEST: {
+      return Object.assign({}, state, {
+        isLoggingIn: true
+      })
+    }
 
-  case types.APP_LOGOUT_SUCCESS:
-  case types.APP_LOGOUT_FAILURE:
-    return Object.assign({}, state, {
-      isLoggingOut: false
-    })
+    case types.APP_LOGOUT_SUCCESS:
+    case types.APP_LOGOUT_FAILURE:
+      return Object.assign({}, state, {
+        isLoggingOut: false
+      })
 
-  case types.APP_LOGOUT_REQUEST:
-    return Object.assign({}, state, {
-      isLoggingOut: true
-    })
+    case types.APP_LOGOUT_REQUEST:
+      return Object.assign({}, state, {
+        isLoggingOut: true
+      })
 
-  // BUC
+      // BUC
 
-  case types.BUC_GET_BUCS_REQUEST:
+    case types.BUC_GET_BUCS_REQUEST:
 
-    return Object.assign({}, state, {
-      gettingBUCs: true,
-      status: status
-    })
+      return Object.assign({}, state, {
+        gettingBUCs: true,
+        status: status
+      })
 
-  case types.BUC_GET_BUCS_SUCCESS:
-  case types.BUC_GET_BUCS_FAILURE:
+    case types.BUC_GET_BUCS_SUCCESS:
+    case types.BUC_GET_BUCS_FAILURE:
 
-    return Object.assign({}, state, {
-      gettingBUCs: false,
-      status: status
-    })
+      return Object.assign({}, state, {
+        gettingBUCs: false,
+        status: status
+      })
 
-  case types.BUC_GET_BUCSINFO_REQUEST:
+    case types.BUC_GET_BUCSINFO_REQUEST:
 
-    return Object.assign({}, state, {
-      gettingBUCinfo : true,
-      status: status
-    })
+      return Object.assign({}, state, {
+        gettingBUCinfo: true,
+        status: status
+      })
 
-  case types.BUC_GET_BUCSINFO_SUCCESS:
-  case types.BUC_GET_BUCSINFO_FAILURE:
+    case types.BUC_GET_BUCSINFO_SUCCESS:
+    case types.BUC_GET_BUCSINFO_FAILURE:
 
-    return Object.assign({}, state, {
-      gettingBUCinfo: false,
-      status: status
-    })
+      return Object.assign({}, state, {
+        gettingBUCinfo: false,
+        status: status
+      })
 
-  case types.BUC_VERIFY_CASE_NUMBER_REQUEST:
+    case types.BUC_VERIFY_CASE_NUMBER_REQUEST:
 
-    return Object.assign({}, state, {
-      verifyingCaseNumber: true,
-      status: status
-    })
+      return Object.assign({}, state, {
+        verifyingCaseNumber: true,
+        status: status
+      })
 
-  case types.BUC_VERIFY_CASE_NUMBER_SUCCESS:
-  case types.BUC_VERIFY_CASE_NUMBER_FAILURE:
+    case types.BUC_VERIFY_CASE_NUMBER_SUCCESS:
+    case types.BUC_VERIFY_CASE_NUMBER_FAILURE:
 
-    return Object.assign({}, state, {
-      verifyingCaseNumber: false,
-      status: status
-    })
+      return Object.assign({}, state, {
+        verifyingCaseNumber: false,
+        status: status
+      })
 
-  case types.BUC_GET_SUBJECT_AREA_LIST_REQUEST:
+    case types.BUC_GET_SUBJECT_AREA_LIST_REQUEST:
 
-    return Object.assign({}, state, {
-      subjectAreaList: true,
-      status: status
-    })
+      return Object.assign({}, state, {
+        gettingSubjectAreaList: true,
+        status: status
+      })
 
-  case types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS:
-  case types.BUC_GET_SUBJECT_AREA_LIST_FAILURE:
+    case types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS:
+    case types.BUC_GET_SUBJECT_AREA_LIST_FAILURE:
 
-    return Object.assign({}, state, {
-      subjectAreaList: false,
-      status: status
-    })
+      return Object.assign({}, state, {
+        gettingSubjectAreaList: false,
+        status: status
+      })
 
-  case types.BUC_GET_BUC_LIST_REQUEST:
+    case types.BUC_GET_BUC_LIST_REQUEST:
 
-    return Object.assign({}, state, {
-      bucList: true,
-      status: status
-    })
+      return Object.assign({}, state, {
+        gettingBucList: true,
+        status: status
+      })
 
-  case types.BUC_GET_BUC_LIST_SUCCESS:
-  case types.BUC_GET_BUC_LIST_FAILURE:
+    case types.BUC_GET_BUC_LIST_SUCCESS:
+    case types.BUC_GET_BUC_LIST_FAILURE:
 
-    return Object.assign({}, state, {
-      bucList: false,
-      status: status
-    })
+      return Object.assign({}, state, {
+        gettingBucList: false,
+        status: status
+      })
 
-  case types.BUC_CREATE_BUC_REQUEST:
+    case types.BUC_CREATE_BUC_REQUEST:
 
-    return Object.assign({}, state, {
-      creatingBUC: true,
-      status: status
-    })
+      return Object.assign({}, state, {
+        creatingBUC: true,
+        status: status
+      })
 
-  case types.BUC_CREATE_BUC_SUCCESS:
-  case types.BUC_CREATE_BUC_FAILURE:
+    case types.BUC_CREATE_BUC_SUCCESS:
+    case types.BUC_CREATE_BUC_FAILURE:
 
-    return Object.assign({}, state, {
-      creatingBUC: false,
-      status: status
-    })
+      return Object.assign({}, state, {
+        creatingBUC: false,
+        status: status
+      })
 
+    case types.BUC_SAVE_BUCSINFO_REQUEST:
 
-// XXX
+      return Object.assign({}, state, {
+        savingBUCinfo: true,
+        status: status
+      })
 
-  case types.BUC_GET_INSTITUTION_LIST_REQUEST:
+    case types.BUC_SAVE_BUCSINFO_SUCCESS:
+    case types.BUC_SAVE_BUCSINFO_FAILURE:
 
-    return Object.assign({}, state, {
-      institutionList: true,
-      status: status
-    })
+      return Object.assign({}, state, {
+        savingBUCinfo: false,
+        status: status
+      })
 
-  case types.BUC_GET_SED_LIST_REQUEST:
+    case types.BUC_GET_SED_LIST_REQUEST:
 
-    return Object.assign({}, state, {
-      sedList: true,
-      status: status
-    })
+      return Object.assign({}, state, {
+        gettingSedList: true,
+        status: status
+      })
 
-  case types.BUC_GET_COUNTRY_LIST_REQUEST:
+    case types.BUC_GET_SED_LIST_SUCCESS:
+    case types.BUC_GET_SED_LIST_FAILURE:
 
-    return Object.assign({}, state, {
-      countryList: true,
-      status: status
-    })
+      return Object.assign({}, state, {
+        gettingSedList: false,
+        status: status
+      })
 
-  case types.RINA_GET_URL_REQUEST:
+    case types.BUC_GET_COUNTRY_LIST_REQUEST:
 
-    return Object.assign({}, state, {
-      rinaUrl: true,
-      status: status
-    })
+      return Object.assign({}, state, {
+        gettingCountryList: true,
+        status: status
+      })
 
-  case types.BUC_SEND_SED_REQUEST:
+    case types.BUC_GET_COUNTRY_LIST_SUCCESS:
+    case types.BUC_GET_COUNTRY_LIST_FAILURE:
 
-    return Object.assign({}, state, {
-      sendingCase: true,
-      status: status
-    })
+      return Object.assign({}, state, {
+        gettingCountryList: false,
+        status: status
+      })
 
-  case types.BUC_GET_INSTITUTION_LIST_SUCCESS:
-  case types.BUC_GET_INSTITUTION_LIST_FAILURE:
+    case types.BUC_GET_INSTITUTION_LIST_REQUEST:
 
-    return Object.assign({}, state, {
-      institutionList: false,
-      status: status
-    })
+      return Object.assign({}, state, {
+        institutionList: true,
+        status: status
+      })
 
-  case types.BUC_GET_SED_LIST_SUCCESS:
-  case types.BUC_GET_SED_LIST_FAILURE:
+    case types.BUC_GET_INSTITUTION_LIST_SUCCESS:
+    case types.BUC_GET_INSTITUTION_LIST_FAILURE:
 
-    return Object.assign({}, state, {
-      sedList: false,
-      status: status
-    })
+      return Object.assign({}, state, {
+        institutionList: false,
+        status: status
+      })
 
-  case types.BUC_GET_COUNTRY_LIST_SUCCESS:
-  case types.BUC_GET_COUNTRY_LIST_FAILURE:
+    case types.BUC_CREATE_SED_REQUEST:
 
-    return Object.assign({}, state, {
-      countryList: false,
-      status: status
-    })
+      return Object.assign({}, state, {
+        creatingSed: true,
+        status: status
+      })
 
-  case types.BUC_SEND_SED_SUCCESS:
-  case types.BUC_SEND_SED_FAILURE:
+    case types.BUC_CREATE_SED_SUCCESS:
+    case types.BUC_CREATE_SED_FAILURE:
 
-    return Object.assign({}, state, {
-      sendingCase: false,
-      status: status
-    })
+      return Object.assign({}, state, {
+        creatingSed: false,
+        status: status
+      })
 
+    case types.RINA_GET_URL_REQUEST:
+
+      return Object.assign({}, state, {
+        rinaUrl: true,
+        status: status
+      })
 
     case types.RINA_GET_URL_SUCCESS:
     case types.RINA_GET_URL_FAILURE:
@@ -230,6 +240,8 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
         rinaUrl: false,
         status: status
       })
+
+      // PDF
 
     case types.PDF_GENERATE_REQUEST:
 

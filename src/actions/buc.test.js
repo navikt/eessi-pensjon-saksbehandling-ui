@@ -22,20 +22,7 @@ describe('case actions', () => {
         success: types.BUC_VERIFY_CASE_NUMBER_SUCCESS,
         failure: types.BUC_VERIFY_CASE_NUMBER_FAILURE
       },
-      url: sprintf(urls.EUX_CASE_WITHOUT_RINAID_URL, mockParams)
-    })
-  })
-
-  it('verifyCaseNumber with RinaId()', () => {
-    const mockParams = { foo: 'bar', rinaId: '123' }
-    bucActions.verifyCaseNumber(mockParams)
-    expect(api.call).toBeCalledWith({
-      type: {
-        request: types.BUC_VERIFY_CASE_NUMBER_REQUEST,
-        success: types.BUC_VERIFY_CASE_NUMBER_SUCCESS,
-        failure: types.BUC_VERIFY_CASE_NUMBER_FAILURE
-      },
-      url: sprintf(urls.EUX_CASE_WITH_RINAID_URL, mockParams)
+      url: sprintf(urls.EUX_CASE_URL, mockParams)
     })
   })
 
@@ -77,19 +64,6 @@ describe('case actions', () => {
     })
   })
 
-  it('call getInstitutionListForCountry()', () => {
-    let mockCountry = 'NO'
-    bucActions.getInstitutionListForCountry(mockCountry)
-    expect(api.call).toBeCalledWith({
-      type: {
-        request: types.BUC_GET_INSTITUTION_LIST_REQUEST,
-        success: types.BUC_GET_INSTITUTION_LIST_SUCCESS,
-        failure: types.BUC_GET_INSTITUTION_LIST_FAILURE
-      },
-      url: sprintf(urls.EUX_INSTITUTIONS_FOR_COUNTRY_URL, { country: mockCountry })
-    })
-  })
-
   it('call getBucList() with rinaId', () => {
     const mockAktoerId = 123
     bucActions.getBucList(mockRinaId)
@@ -116,33 +90,16 @@ describe('case actions', () => {
     })
   })
 
-  it('call getSedList() with rinaId', () => {
-    const mockBuc = 'mockBuc'
-    const mockRinaId = 123
-    bucActions.getSedList(mockBuc, mockRinaId)
+
+  it('call createSed()', () => {
+    bucActions.createSed({})
     expect(api.call).toBeCalledWith({
       type: {
-        request: types.BUC_GET_SED_LIST_REQUEST,
-        success: types.BUC_GET_SED_LIST_SUCCESS,
-        failure: types.BUC_GET_SED_LIST_FAILURE
+        request: types.BUC_CREATE_SED_REQUEST,
+        success: types.BUC_CREATE_SED_SUCCESS,
+        failure: types.BUC_CREATE_SED_FAILURE
       },
-      url: sprintf(urls.EUX_SED_FROM_RINA_URL, { rinaId: mockRinaId })
-    })
-  })
-
-
-  it('call sendSed()', () => {
-    const caseId = '123'
-    const documentId = '456'
-    const mockParams = { caseId: caseId, documentId: documentId }
-    bucActions.sendSed(mockParams)
-    expect(api.call).toBeCalledWith({
-      type: {
-        request: types.BUC_SEND_SED_REQUEST,
-        success: types.BUC_SEND_SED_SUCCESS,
-        failure: types.BUC_SEND_SED_FAILURE
-      },
-      url: sprintf(urls.SED_SEND_URL, { caseId: caseId, documentId: documentId })
+      url: urls.BUC_CREATE_SED_URL
     })
   })
 

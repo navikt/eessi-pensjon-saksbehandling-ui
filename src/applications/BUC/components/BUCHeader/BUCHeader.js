@@ -9,7 +9,7 @@ import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import './BUCHeader.css'
 
 const BUCHeader = (props) => {
-  const { t, locale, buc, onBUCEdit } = props
+  const { t, locale, buc, bucInfo, onBUCEdit } = props
 
   const requestHandleBUC = (buc, e) => {
     e.preventDefault()
@@ -53,11 +53,11 @@ const BUCHeader = (props) => {
     </div>
     <div className='col-2 a-buc-c-bucheader__tags'>
       <div className='a-buc-c-bucheader__numberofseds'>{buc.seds ? buc.seds.length : 0}</div>
+      {bucInfo && bucInfo.tags && bucInfo.tags.length > 0 ?
+        <div title={bucInfo.tags.join(', ')}>
+        <Icons kind='problem' data-qa='BucHeader-ProblemCircle' className='a-buc-c-bucheader__tag' />
+      </div> : null}
       <SEDStatus t={t} status={buc.status} />
-      {buc.merknader && buc.merknader.length > 0
-        ? <Icons kind='problem' data-qa='BucHeader-ProblemCircle' className='a-buc-c-bucheader__tag' />
-        : null
-      }
     </div>
   </div>
 }
@@ -65,6 +65,7 @@ const BUCHeader = (props) => {
 BUCHeader.propTypes = {
   t: PT.func.isRequired,
   buc: PT.object.isRequired,
+  bucInfo: PT.object,
   locale: PT.string.isRequired,
   onBUCEdit: PT.func
 }

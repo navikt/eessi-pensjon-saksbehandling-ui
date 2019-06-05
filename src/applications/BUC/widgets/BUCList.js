@@ -52,12 +52,11 @@ const BUCList = (props) => {
       { aktoerId ? <Flatknapp onClick={onBUCNew}>{t('buc:form-createNewCase')}</Flatknapp> : null}
     </div>
     {!_.isEmpty(bucs) ? bucs.map((buc, index) => {
-
-
+      let bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[buc.buc] : {}
       return <EkspanderbartpanelBase
         className='mb-3'
         key={index}
-        heading={<BUCHeader t={t} buc={buc} locale={locale} onBUCEdit={onBUCEdit} />}
+        heading={<BUCHeader t={t} buc={buc} bucInfo={bucInfo} locale={locale} onBUCEdit={onBUCEdit} />}
         onClick={() => onExpandBUCClick(buc)}>
         <SEDHeader t={t} />
         {seds[buc.buc] ? seds[buc.buc].map((sed, index) => (

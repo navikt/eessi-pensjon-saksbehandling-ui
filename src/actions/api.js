@@ -3,22 +3,18 @@ import fetch from 'cross-fetch'
 import cookies from 'browser-cookies'
 import 'cross-fetch/polyfill'
 
-function fakefetch (options) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(options.expectedPayload)
-    }, 500)
-  })
-}
-
-export function fakecall (options) {
+export const fakecall = (options) => {
   return (dispatch) => {
-    console.log("FAKE API CALL: REQUEST")
+    console.log('FAKE API CALL: REQUEST')
     dispatch({
       type: options.type.request
     })
-    return fakefetch(options).then(payload => {
-      console.log("FAKE API CALL: SUCCESS")
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(options.expectedPayload)
+      }, 1000)
+    }).then(payload => {
+      console.log('FAKE API CALL: SUCCESS')
       return dispatch({
         type: options.type.success,
         payload: payload
@@ -27,7 +23,7 @@ export function fakecall (options) {
   }
 }
 
-export function call (options) {
+export const call = (options) => {
   return (dispatch) => {
     dispatch({
       type: options.type.request

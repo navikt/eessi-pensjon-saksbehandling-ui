@@ -103,7 +103,7 @@ export function setPdf (pdf) {
 
 export function submitP4000 (payload) {
   return api.call({
-    url: urls.SED_ADD_URL,
+    url: urls.BUC_CREATE_SED_URL,
     method: 'POST',
     payload: payload,
     type: {

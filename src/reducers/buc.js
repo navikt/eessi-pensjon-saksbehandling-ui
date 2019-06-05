@@ -132,7 +132,12 @@ const bucReducer = (state = initialBucState, action) => {
 
       return {
         ...state,
-        rinaId: action.payload.rinaId
+        rinaId: action.payload.rinaId,
+        buc: {
+          buc: action.payload.buc
+        },
+        seds: [],
+        sed: undefined
       }
 
     case types.BUC_SAVE_BUCSINFO_SUCCESS:
@@ -145,11 +150,31 @@ const bucReducer = (state = initialBucState, action) => {
     case types.BUC_SAVE_BUCSINFO_REQUEST:
     case types.BUC_SAVE_BUCSINFO_FAILURE:
 
+      return state
+
+    case types.BUC_GET_COUNTRY_LIST_SUCCESS:
+
       return {
-        ...state
+        ...state,
+        countryList: action.payload
       }
 
-    // XXX
+    case types.BUC_GET_COUNTRY_LIST_REQUEST:
+    case types.BUC_GET_COUNTRY_LIST_FAILURE:
+
+      return state
+
+    case types.BUC_GET_SED_LIST_SUCCESS:
+
+      return {
+        ...state,
+        sedList: action.payload
+      }
+
+    case types.BUC_GET_SED_LIST_REQUEST:
+    case types.BUC_GET_SED_LIST_FAILURE:
+
+      return state
 
     case types.BUC_GET_INSTITUTION_LIST_SUCCESS:
 
@@ -167,43 +192,37 @@ const bucReducer = (state = initialBucState, action) => {
         institutionList[institution.landkode] = existingInstitutions
       })
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         institutionList: institutionList
-      })
+      }
 
     case types.BUC_REMOVE_INSTITUTION_LIST_FOR_COUNTRY:
       let institutions = state.institutionList ? _.cloneDeep(state.institutionList) : {}
       const landkode = action.payload
       delete institutions[landkode]
-      return Object.assign({}, state, {
+      return {
+        ...state,
         institutionList: institutions
-      })
-
-    case types.BUC_GET_SED_LIST_SUCCESS:
-
-      return Object.assign({}, state, {
-        sedList: action.payload
-      })
-
-    case types.BUC_GET_COUNTRY_LIST_SUCCESS:
-
-      return Object.assign({}, state, {
-        countryList: action.payload
-      })
-
+      }
 
     case types.RINA_GET_URL_SUCCESS:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         rinaUrl: action.payload.rinaUrl
-      })
+      }
+
+    case types.BUC_CREATE_SED_SUCCESS:
+
+      return {
+        ...state,
+        sed: action.payload
+      }
 
     case types.APP_CLEAR_DATA:
 
-      return Object.assign({}, state, {
-        currentBUC: undefined,
-        savedData: undefined
-      })
+      return initialBucState
 
     default:
       return state
