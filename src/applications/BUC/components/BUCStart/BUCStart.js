@@ -52,6 +52,9 @@ const BUCStart = (props) => {
   const [_tags, setTags] = useState([])
   const [validation, setValidation] = useState({})
 
+  const [hasRinaId, setHasRinaId] = useState(false)
+  const [hasBucInfoSaved, setHasBucInfoSaved] = useState(false)
+
   useEffect(() => {
     if (!loading.verifyingCaseNumber && _.isEmpty(currentBUC) && sakId && aktoerId) {
       actions.verifyCaseNumber({
@@ -63,20 +66,20 @@ const BUCStart = (props) => {
 
   useEffect(() => {
     if (!loading.verifyingCaseNumber && !_.isEmpty(currentBUC)) {
-      if (subjectAreaList === undefined && !loading.subjectAreaList) {
+      if (subjectAreaList === undefined && !loading.gettingSubjectAreaList) {
         actions.getSubjectAreaList()
       }
-      if (bucList === undefined && !loading.bucList) {
+      if (bucList === undefined && !loading.gettingBucList) {
         actions.getBucList()
       }
-      if (tagList === undefined && !loading.tagList) {
+      if (tagList === undefined && !loading.gettingTagList) {
         actions.getTagList()
       }
     }
   }, [currentBUC, actions, loading, bucList, subjectAreaList, tagList])
 
   useEffect(() => {
-    if (loading.creatingBUC && rinaId) {
+    if (!hasRinaId && rinaId) {
       actions.saveBucsInfo({
         aktoerId: aktoerId,
         rinaId: rinaId,
@@ -84,8 +87,19 @@ const BUCStart = (props) => {
         bucsInfo: bucsInfo,
         buc: _buc
       })
+      setHasRinaId(true)
     }
-  }, [actions, loading, bucsInfo, aktoerId, _buc, _tags, rinaId])
+  }, [actions, loading, bucsInfo, aktoerId, _buc, _tags, rinaId, hasRinaId])
+
+  useEffect(() => {
+    if (!hasBucInfoSaved && loading.savingBUCinfo) {
+      setHasBucInfoSaved(true)
+    }
+    if (hasBucInfoSaved && !loading.savingBUCinfo) {
+      actions.setMode('newsed')
+      setHasBucInfoSaved(false)
+    }
+  }, [actions, loading, hasBucInfoSaved])
 
   const onSakIdChange = (e) => {
     resetValidationState('sakId')
@@ -248,7 +262,6 @@ const BUCStart = (props) => {
   }
 
   const renderTags = () => {
-
     let tagObjectList = tagList ? tagList.map(tag => {
       return {
         value: tag,
@@ -278,7 +291,7 @@ const BUCStart = (props) => {
   }
 
   const allowedToForward = () => {
-    return buc ? buc && hasNoValidationErrors() : _buc && _subjectArea && hasNoValidationErrors()
+    return _buc && _subjectArea && hasNoValidationErrors() && !loading.creatingBUC && !loading.savingBUCinfo
   }
 
   if (!currentBUC) {
@@ -358,15 +371,20 @@ const BUCStart = (props) => {
     </Nav.Row>
     <Nav.Row className='mb-4 mt-4'>
       <div className='col-md-12 selectBoxMessage'>{!loading ? null
-        : loading.subjectAreaList ? getSpinner('buc:loading-subjectArea')
-          : loading.bucList ? getSpinner('buc:loading-buc') : null}
+        : loading.gettingSubjectAreaList ? getSpinner('buc:loading-subjectArea')
+          : loading.gettingBucList ? getSpinner('buc:loading-buc') : null}
       </div>
       <div className='col-md-12'>
         <Nav.Hovedknapp
           id='a-buc-BUCStart-forward-button'
           className='forwardButton'
           disabled={!allowedToForward()}
-          onClick={onForwardButtonClick}>{t('buc:form-createCaseinRINA')}</Nav.Hovedknapp>
+          spinner={loading.creatingBUC}
+          onClick={onForwardButtonClick}>
+          {loading.creatingBUC ? t('buc:loading-creatingCaseinRINA')
+            : loading.savingBUCinfo ? t('buc:loading-savingBucInfo')
+              : t('buc:form-createCaseinRINA')}
+        </Nav.Hovedknapp>
         <Nav.Flatknapp
           id='a-buc-BUCStart-cancel'
           className='cancelButton ml-2'

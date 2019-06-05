@@ -33,10 +33,6 @@ jest.mock('../../actions/case', () => ({
   getSedList: jest.fn((buc) => ({
     type: 'CASE/GET_SED_LIST/SUCCESS',
     payload: [`mockSedFor${buc}1`, `mockSedFor${buc}2`]
-  })),
-  getInstitutionListForCountry: jest.fn((country) => ({
-    type: 'CASE/GET_INSTITUTION_LIST/SUCCESS',
-    payload: [`mockInstitutionFor${country}1`, `mockInstitutionFor${country}2`]
   }))
 }))
 

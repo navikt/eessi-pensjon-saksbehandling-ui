@@ -62,7 +62,6 @@ const alertReducer = (state = initialAlertState, action = {}) => {
     clientErrorStatus = 'ERROR'
 
     switch (action.type) {
-
       case types.BUC_GET_BUCS_FAILURE:
 
         clientErrorMessage = 'buc:alert-noBucs'
@@ -92,8 +91,7 @@ const alertReducer = (state = initialAlertState, action = {}) => {
         clientErrorMessage = 'buc:alert-noTagList'
         break
 
-
- // XXX
+        // XXX
 
       case types.BUC_GET_INSTITUTION_LIST_FAILURE:
 
@@ -104,7 +102,6 @@ const alertReducer = (state = initialAlertState, action = {}) => {
 
         clientErrorMessage = 'buc:alert-noSedList'
         break
-
 
       case types.BUC_GET_COUNTRY_LIST_FAILURE:
 
@@ -161,15 +158,14 @@ const alertReducer = (state = initialAlertState, action = {}) => {
   }
 
   switch (action.type) {
-
     case types.BUC_VERIFY_CASE_NUMBER_SUCCESS:
 
       clientErrorMessage = 'buc:alert-caseFound'
       break
 
-    case types.BUC_SEND_SED_SUCCESS:
+    case types.BUC_CREATE_SED_SUCCESS:
 
-      clientErrorMessage = 'buc:alert-sentData'
+      clientErrorMessage = 'buc:alert-createdSed'
       break
 
     case types.PDF_GENERATE_SUCCESS:

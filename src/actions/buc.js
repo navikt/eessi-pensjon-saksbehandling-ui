@@ -28,20 +28,16 @@ export const setSeds = (seds) => {
 }
 
 export const fetchBucs = (aktoerId) => {
-  /* let url = sprintf(urls.BUC_AKTOERID_DETALJER_URL, { aktoerId: aktoerId })
-  return api.call({
-    url: url,
+  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
+  return funcCall({
+    url: sprintf(urls.BUC_AKTOERID_DETALJER_URL, { aktoerId: aktoerId }),
+    expectedPayload: sampleBucs,
     type: {
       request: types.BUC_GET_BUCS_REQUEST,
       success: types.BUC_GET_BUCS_SUCCESS,
       failure: types.BUC_GET_BUCS_FAILURE
     }
   })
-} */
-  return {
-    type: types.BUC_GET_BUCS_SUCCESS,
-    payload: sampleBucs
-  }
 }
 
 export const fetchBucsInfo = (aktoerId) => {
@@ -56,7 +52,7 @@ export const fetchBucsInfo = (aktoerId) => {
 }
 
 export const verifyCaseNumber = (params) => {
-  let url = params.rinaId ? sprintf(urls.EUX_CASE_WITH_RINAID_URL, params) : sprintf(urls.EUX_CASE_WITHOUT_RINAID_URL, params)
+  let url = sprintf(urls.EUX_CASE_URL, params)
   return api.call({
     url: url,
     type: {
@@ -97,11 +93,13 @@ export const getTagList = (aktoerId) => {
 }
 
 export const createBuc = (buc) => {
-  return api.fakecall({
-    url: sprintf(urls.BUC_CREATE_BUC_URL, {buc: buc}),
+  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
+  return funcCall({
+    url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
     method: 'POST',
     expectedPayload: {
-     'rinaId' : '123'
+      'buc': buc,
+      'rinaId': '123'
     },
     type: {
       request: types.BUC_CREATE_BUC_REQUEST,
@@ -112,19 +110,19 @@ export const createBuc = (buc) => {
 }
 
 export const saveBucsInfo = (params) => {
-
-  let newBucsInfo = _.cloneDeep(params.bucsInfo)
+  let newBucsInfo = params.bucsInfo ? _.cloneDeep(params.bucsInfo) : {}
+  let newTags = params.tags ? params.tags.map(tag => {
+    return tag.value
+  }) : []
 
   if (!newBucsInfo.hasOwnProperty('bucs')) {
     newBucsInfo['bucs'] = {}
   }
+
   if (!newBucsInfo.bucs.hasOwnProperty(params.buc)) {
-    newBucsInfo.bucs[params.buc] = {
-      'tags' : params.tags
-    }
-  } else {
-    newBucsInfo.bucs[params.buc].tags = params.tags
+    newBucsInfo.bucs[params.buc] = {}
   }
+  newBucsInfo.bucs[params.buc]['tags'] = newTags
 
   return api.call({
     url: sprintf(urls.API_STORAGE_POST_URL, { userId: params.aktoerId, namespace: 'BUC', file: 'INFO' }),
@@ -136,10 +134,7 @@ export const saveBucsInfo = (params) => {
       failure: types.BUC_SAVE_BUCSINFO_FAILURE
     }
   })
-
 }
-
-// XXX
 
 export const getCountryList = () => {
   return api.call({
@@ -152,20 +147,21 @@ export const getCountryList = () => {
   })
 }
 
-export const getInstitutionListForBucAndCountry = (buc, country) => {
+export const getSedList = (buc) => {
+  let url = sprintf(urls.EUX_SED_FOR_BUCS_URL, { buc: buc.buc })
   return api.call({
-    url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: buc, country: country }),
+    url: url,
     type: {
-      request: types.BUC_GET_INSTITUTION_LIST_REQUEST,
-      success: types.BUC_GET_INSTITUTION_LIST_SUCCESS,
-      failure: types.BUC_GET_INSTITUTION_LIST_FAILURE
+      request: types.BUC_GET_SED_LIST_REQUEST,
+      success: types.BUC_GET_SED_LIST_SUCCESS,
+      failure: types.BUC_GET_SED_LIST_FAILURE
     }
   })
 }
 
-export const getInstitutionListForCountry = (country) => {
+export const getInstitutionsListForBucAndCountry = (buc, country) => {
   return api.call({
-    url: sprintf(urls.EUX_INSTITUTIONS_FOR_COUNTRY_URL, { country: country }),
+    url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: buc, country: country }),
     type: {
       request: types.BUC_GET_INSTITUTION_LIST_REQUEST,
       success: types.BUC_GET_INSTITUTION_LIST_SUCCESS,
@@ -181,30 +177,15 @@ export const removeInstitutionForCountry = (country) => {
   }
 }
 
-
-
-
-export const getSedList = (buc, rinaId) => {
-  let url = rinaId ? sprintf(urls.EUX_SED_FROM_RINA_URL, { rinaId: rinaId })
-    : sprintf(urls.EUX_SED_FOR_BUCS_URL, { buc: buc })
-
+export const createSed = (payload) => {
   return api.call({
-    url: url,
+    url: urls.BUC_CREATE_SED_URL,
+    payload: payload,
+    method: 'POST',
     type: {
-      request: types.BUC_GET_SED_LIST_REQUEST,
-      success: types.BUC_GET_SED_LIST_SUCCESS,
-      failure: types.BUC_GET_SED_LIST_FAILURE
-    }
-  })
-}
-
-export const sendSed = (params) => {
-  return api.call({
-    url: sprintf(urls.SED_SEND_URL, { caseId: params.caseId, documentId: params.documentId }),
-    type: {
-      request: types.BUC_SEND_SED_REQUEST,
-      success: types.BUC_SEND_SED_SUCCESS,
-      failure: types.BUC_SEND_SED_FAILURE
+      request: types.BUC_CREATE_SED_REQUEST,
+      success: types.BUC_CREATE_SED_SUCCESS,
+      failure: types.BUC_CREATE_SED_FAILURE
     }
   })
 }
