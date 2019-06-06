@@ -21,7 +21,8 @@ const mapStateToProps = (state) => {
     userRole: state.app.userRole,
     file: state.storage.file,
     droppables: state.app.droppables,
-    highContrast: state.ui.highContrast
+    highContrast: state.ui.highContrast,
+    remainingTime: state.app.remainingTime
   }
 }
 
@@ -40,7 +41,17 @@ export class TopContainer extends Component {
   }
 
   render () {
-    const { className, containerClassName, style, history, sideContent, userRole, header, highContrast, fluid } = this.props
+    const { className, containerClassName, style, history} = this.props
+    const { sideContent, userRole, header, highContrast, fluid, remainingTime } = this.props
+    /* how many minutes starts the warnings */
+    let minutesForWarning = 5
+    /* X minutes before expired */
+    let sessionExpiringWarning = remainingTime - 1000 * 60 * minutesForWarning
+    if (sessionExpiringWarning <= 1) {sessionExpiringWarning = 1}
+    /* check every minute */
+    let checkInterval = 1000 * 60
+    /* At expired time plus 1 minute */
+    let sessionExpiredReload = remainingTime + 1000 * 60
 
     return <div style={style} className={classNames('c-ui-topContainer', userRole, className,
       { 'highContrast': highContrast })}>
@@ -59,9 +70,9 @@ export class TopContainer extends Component {
           </Nav.Container>
           <Modal />
           {userRole === constants.SAKSBEHANDLER ? <SessionMonitor
-            sessionExpiringWarning={1000 * 60 * 55} /* 55 minutes */
-            checkInterval={1000 * 60} /* check every minute */
-            sessionExpiredReload={1000 * 60 * 61} /* At 61st minute */
+            sessionExpiringWarning={sessionExpiringWarning}
+            checkInterval={checkInterval}
+            sessionExpiredReload={sessionExpiredReload}
           /> : null}
           {userRole === constants.SAKSBEHANDLER ? <Footer /> : null}
         </Drawer>
