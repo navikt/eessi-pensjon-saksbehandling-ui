@@ -63,7 +63,7 @@ const BUCList = (props) => {
           <SEDRow t={t} key={index} sed={sed} locale={locale} border />
         )) : null}
       </EkspanderbartpanelBase>
-    }) : <BUCEmpty t={t} aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> }
+    }) : <BUCEmpty actions={actions} t={t} aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> }
   </React.Fragment>
 }
 

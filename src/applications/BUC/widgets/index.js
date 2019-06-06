@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { withTranslation } from 'react-i18next'
 import { connect, bindActionCreators } from 'store'
 import * as bucActions from 'actions/buc'
+import * as appActions from 'actions/app'
 
 import BUCList from './BUCList'
 import BUCNew from './BUCNew'
@@ -25,7 +26,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(bucActions, dispatch)
+    actions: bindActionCreators({...bucActions, ...appActions}, dispatch)
   }
 }
 
