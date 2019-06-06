@@ -1,10 +1,10 @@
 import React from 'react'
 import Icons from 'components/ui/Icons'
-
+import { components } from 'react-select'
 const MultipleValueRemove = (props) => {
-  return <div className='c-ui-multipleSelect-multipleValueRemove'>
+  return <components.MultiValueRemove {...props} className='c-ui-multipleSelect-multipleValueRemove'>
     <Icons kind='close' />
-  </div>
+  </components.MultiValueRemove>
 }
 
 export default MultipleValueRemove
