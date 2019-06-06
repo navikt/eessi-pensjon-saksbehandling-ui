@@ -7,7 +7,8 @@ import * as uiActions from '../../actions/ui'
 
 const mapStateToProps = (state) => {
   return {
-    loggedTime: state.app.loggedTime
+    loggedTime: state.app.loggedTime,
+    expirationTime: state.app.expirationTime
   }
 }
 
@@ -27,28 +28,30 @@ export class SessionMonitor extends Component {
 
   checkTimeout () {
     let self = this
-    const { t, actions, loggedTime, sessionExpiringWarning, sessionExpiredReload, checkInterval } = this.props
+    const { t, actions, loggedTime, expirationTime, sessionExpiringWarning, sessionExpiredReload, checkInterval } = this.props
     if (!loggedTime || !sessionExpiringWarning || !sessionExpiredReload || !checkInterval) {
       return
     }
     return setTimeout(() => {
-      let diff = new Date().getTime() - loggedTime.getTime()
-      if (diff > sessionExpiringWarning) {
-        console.log('Session will expire')
-        actions.openModal({
-          modalTitle: t('ui:session-expire-title'),
-          modalText: t('ui:session-expire-text'),
-          modalButtons: [{
-            main: true,
-            text: t('ui:ok-got-it'),
-            onClick: this.closeModal.bind(this)
-          }]
-        })
-      }
+      const now = new Date()
+      const diff = now.getTime() - loggedTime.getTime()
       if (diff > sessionExpiredReload) {
         window.location.reload()
+      } else {
+        if (diff > sessionExpiringWarning) {
+          const minutesRemaining = Math.abs(Math.ceil((expirationTime.getTime() - now.getTime()) / 1000 / 60))
+          actions.openModal({
+            modalTitle: t('ui:session-expire-title'),
+            modalText: t('ui:session-expire-text', {minutes: minutesRemaining}),
+            modalButtons: [{
+              main: true,
+              text: t('ui:ok-got-it'),
+              onClick: this.closeModal.bind(this)
+            }]
+          })
+        }
+        self.checkTimeout()
       }
-      self.checkTimeout()
     }, checkInterval)
   }
 
@@ -59,6 +62,7 @@ export class SessionMonitor extends Component {
 
 SessionMonitor.propTypes = {
   loggedTime: PT.object,
+  expirationTime: PT.object,
   sessionExpiringWarning: PT.number,
   sessionExpiredReload: PT.number,
   checkInterval: PT.number

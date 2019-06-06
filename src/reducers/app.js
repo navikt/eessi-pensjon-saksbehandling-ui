@@ -37,13 +37,20 @@ const appReducer = (state = initialAppState, action = {}) => {
 
     case types.APP_USERINFO_SUCCESS:
 
+      const now = new Date()
+      const expirationTime = action.payload.expirationTime ?
+        new Date(action.payload.expirationTime) :
+        new Date(new Date().setMinutes(now.getMinutes() + 60))
+      const remainingTime = Math.abs(expirationTime - now)
       return Object.assign({}, state, {
         username: action.payload.subject,
         userRole: action.payload.subject === '12345678910' ? 'SAKSBEHANDLER' : action.payload.role,
         allowed: action.payload.subject === '12345678910' ? true : action.payload.allowed,
         loggedIn: true,
         userStatus: 'OK',
-        loggedTime: new Date()
+        loggedTime: now,
+        expirationTime: expirationTime,
+        remainingTime: remainingTime
       })
 
     case types.APP_USERINFO_FAILURE:
