@@ -15,7 +15,6 @@ import * as bucActions from 'actions/buc'
 export const mapStateToProps = (state) => {
   return {
     buc: state.buc.buc,
-    rinaId: state.buc.rinaId,
     sedList: state.buc.sedList,
     countryList: state.buc.countryList,
     institutionList: state.buc.institutionList,
@@ -40,7 +39,7 @@ const SEDStart = (props) => {
   const [_attachments, setAttachments] = useState([])
   const [validation, setValidation] = useState({})
 
-  const { t, actions, sedList, countryList, institutionList, aktoerId, rinaId, buc, sed, locale, loading, layout = 'row' } = props
+  const { t, sakId, actions, sedList, countryList, institutionList, aktoerId, buc, sed, locale, loading, layout = 'row' } = props
 
   useEffect(() => {
     if (_.isEmpty(countryList) && !loading.gettingCountryList) {
@@ -63,14 +62,28 @@ const SEDStart = (props) => {
     validateSed(_sed)
     validateInstitutions(_institutions)
     if (hasNoValidationErrors()) {
+      // convert institution ids to proper institution objects
+      let institutions = []
+      _institutions.forEach(item => {
+        Object.keys(institutionList).forEach(landkode => {
+          let found = _.find(institutionList[landkode], {id: item})
+          if (found) {
+            institutions.push({
+              country: found.landkode,
+              institution: found.akronym,
+              name: found.navn
+            })
+          }
+        })
+      })
+
       actions.createSed({
+        sakId: sakId,
         buc: buc.type,
         sed: _sed,
-        institutions: _institutions,
-        country: _countries,
-        attachments: _attachments,
+        institutions: institutions,
         aktoerId: aktoerId,
-        euxCaseId: rinaId
+        euxCaseId: buc.caseId
       })
     }
   }

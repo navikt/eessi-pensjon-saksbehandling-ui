@@ -21,6 +21,7 @@ const mapStateToProps = (state) => {
     seds: state.buc.seds,
     gettingBUCs: state.loading.gettingBUCs,
     locale: state.ui.locale,
+    sakId: state.app.params.sakId,
     aktoerId: state.app.params.aktoerId
   }
 }
