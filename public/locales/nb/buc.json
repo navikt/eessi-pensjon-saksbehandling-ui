@@ -10,6 +10,7 @@
   "alert-morePreviewData"   : "Generert sak",
   "alert-savedData"         : "Lagret sak",
   "alert-createdSed"        : "Opprettet ny SED",
+  "alert-createdBuc"        : "Opprettet ny BUC",
   "alert-caseNotFound"      : "Saken ikke funnet",
   "alert-noBucList"         : "Ingen BUC liste",
   "alert-noTagList"         : "Ingen merknader liste",

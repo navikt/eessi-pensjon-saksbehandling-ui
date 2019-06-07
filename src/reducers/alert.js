@@ -91,8 +91,6 @@ const alertReducer = (state = initialAlertState, action = {}) => {
         clientErrorMessage = 'buc:alert-noTagList'
         break
 
-        // XXX
-
       case types.BUC_GET_INSTITUTION_LIST_FAILURE:
 
         clientErrorMessage = 'buc:alert-noInstitutionList'
@@ -163,9 +161,14 @@ const alertReducer = (state = initialAlertState, action = {}) => {
       clientErrorMessage = 'buc:alert-caseFound'
       break
 
+    case types.BUC_CREATE_BUC_SUCCESS:
+
+      clientErrorMessage = 'buc:alert-createdBuc|' + action.payload.buc
+      break
+
     case types.BUC_CREATE_SED_SUCCESS:
 
-      clientErrorMessage = 'buc:alert-createdSed'
+      clientErrorMessage = 'buc:alert-createdSed|' + action.payload.sed
       break
 
     case types.PDF_GENERATE_SUCCESS:

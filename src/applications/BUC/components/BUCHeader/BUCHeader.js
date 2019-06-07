@@ -32,9 +32,9 @@ const BUCHeader = (props) => {
 
   return <div
     className='a-buc-c-bucheader'
-    id={'a-buc-c-bucheader__' + buc.buc}>
+    id={'a-buc-c-bucheader__' + buc.type}>
     <div className='col-4 a-buc-c-bucheader__label'>
-      <Nav.Ingress data-qa='BucHeader-type-name'>{buc.buc + ' - ' + t('buc:buc-' + buc.buc)}</Nav.Ingress>
+      <Nav.Ingress data-qa='BucHeader-type-name'>{buc.type + ' - ' + t('buc:buc-' + buc.type)}</Nav.Ingress>
       <Nav.Normaltekst style={{ color: 'grey' }} data-qa='BucHeader-type-dates'>{buc.startDate + ' - ' + buc.lastUpdate}</Nav.Normaltekst>
     </div>
     <div className='col-4 a-buc-c-bucheader__flags'>
@@ -49,7 +49,7 @@ const BUCHeader = (props) => {
         overflowLimit={5} />
     </div>
     <div className='col-2 a-buc-c-bucheader__actions'>
-      <Nav.LenkepanelBase data-qa='BucHeader-LinkButton' onClick={(e) => requestHandleBUC(buc, e)} className='a-buc-c-bucheader__button smallerButton knapp' href={'#' + buc.buc} border>{t('ui:processing')}</Nav.LenkepanelBase>
+      <Nav.LenkepanelBase data-qa='BucHeader-LinkButton' onClick={(e) => requestHandleBUC(buc, e)} className='a-buc-c-bucheader__button smallerButton knapp' href={'#' + buc.type} border>{t('ui:processing')}</Nav.LenkepanelBase>
     </div>
     <div className='col-2 a-buc-c-bucheader__tags'>
       <div className='a-buc-c-bucheader__numberofseds'>{buc.seds ? buc.seds.length : 0}</div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
@@ -10,26 +10,36 @@ import _ from 'lodash'
 import './BUCList.css'
 
 const BUCList = (props) => {
-  const { t, bucs, bucsInfo, actions, aktoerId, gettingBUCs, locale } = props
-  const [seds, setSeds] = useState({})
+  const { t, bucs, bucsInfoList, bucsInfo, actions, aktoerId, rinaUrl, gettingBUCs, locale } = props
+  const [ seds, setSeds ] = useState({})
+  const [ gettingBucsInfo, setGettingBucsInfo ] = useState(false)
 
   const onBUCNew = () => {
     actions.setMode('newbuc')
   }
 
+  useEffect(() => {
+    if (bucsInfoList && !gettingBucsInfo) {
+      if (!_.isEmpty(bucsInfoList)) {
+        actions.fetchBucsInfo(aktoerId)
+      }
+      setGettingBucsInfo(true)
+    }
+  }, [bucsInfoList, gettingBucsInfo, actions, aktoerId])
+
   const getBucs = () => {
     actions.fetchBucs(aktoerId)
-    actions.fetchBucsInfo(aktoerId)
+    actions.fetchBucsInfoList(aktoerId)
   }
 
   const updateSeds = (buc) => {
-    if (seds[buc.buc]) {
+    if (seds[buc.type]) {
       return seds
     }
-    let _buc = _.find(bucs, { buc: buc.buc })
+    let _buc = _.find(bucs, { type: buc.type })
     const newSeds = {
       ...seds,
-      [buc.buc]: (_buc ? _buc.seds : [])
+      [buc.type]: (_buc ? _buc.seds : [])
     }
     setSeds(newSeds)
     return newSeds
@@ -42,7 +52,7 @@ const BUCList = (props) => {
   const onBUCEdit = async (buc) => {
     const newSeds = await updateSeds(buc)
     actions.setBuc(buc)
-    actions.setSeds(newSeds[buc.buc])
+    actions.setSeds(newSeds[buc.type])
     actions.setMode('edit')
   }
 
@@ -52,15 +62,15 @@ const BUCList = (props) => {
       { aktoerId ? <Flatknapp onClick={onBUCNew}>{t('buc:form-createNewCase')}</Flatknapp> : null}
     </div>
     {!_.isEmpty(bucs) ? bucs.map((buc, index) => {
-      let bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[buc.buc] : {}
+      let bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[buc.type] : {}
       return <EkspanderbartpanelBase
         className='mb-3'
         key={index}
         heading={<BUCHeader t={t} buc={buc} bucInfo={bucInfo} locale={locale} onBUCEdit={onBUCEdit} />}
         onClick={() => onExpandBUCClick(buc)}>
         <SEDHeader t={t} />
-        {seds[buc.buc] ? seds[buc.buc].map((sed, index) => (
-          <SEDRow t={t} key={index} sed={sed} locale={locale} border />
+        {seds[buc.type] ? seds[buc.type].map((sed, index) => (
+          <SEDRow t={t} key={index} sed={sed} rinaUrl={rinaUrl} rinaId={buc.caseId} locale={locale} border />
         )) : null}
       </EkspanderbartpanelBase>
     }) : <BUCEmpty actions={actions} t={t} aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> }
@@ -72,6 +82,7 @@ BUCList.propTypes = {
   bucs: PT.array,
   actions: PT.object.isRequired,
   aktoerId: PT.string,
+  rinaUrl: PT.string,
   gettingBUCs: PT.bool.isRequired,
   locale: PT.string.isRequired
 }

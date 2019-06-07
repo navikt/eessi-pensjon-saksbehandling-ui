@@ -1,6 +1,6 @@
 export default [
   {
-    'buc': 'P_BUC_01',
+    'type': 'P_BUC_01',
     'creator': {
       'country': 'NO',
       'institution': 'Z990638'
@@ -865,7 +865,7 @@ export default [
     ]
   },
   {
-    'buc': 'P_BUC_01',
+    'type': 'P_BUC_01',
     'creator': {
       'country': 'NO',
       'institution': 'Z990638'
@@ -1730,7 +1730,7 @@ export default [
     ]
   },
   {
-    'buc': 'P_BUC_03',
+    'type': 'P_BUC_03',
     'creator': {
       'country': 'NO',
       'institution': 'Z990638'
@@ -1811,7 +1811,7 @@ export default [
     ]
   },
   {
-    'buc': 'P_BUC_03',
+    'type': 'P_BUC_03',
     'creator': {
       'country': 'NO',
       'institution': 'Z990638'
