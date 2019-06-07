@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { withTranslation } from 'react-i18next'
 import { connect, bindActionCreators } from 'store'
 import * as bucActions from 'actions/buc'
@@ -16,6 +16,7 @@ const mapStateToProps = (state) => {
     mode: state.buc.mode,
     bucs: state.buc.bucs,
     bucsInfo: state.buc.bucsInfo,
+    rinaUrl: state.buc.rinaUrl,
     buc: state.buc.buc,
     seds: state.buc.seds,
     gettingBUCs: state.loading.gettingBUCs,
@@ -31,7 +32,15 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export const BUCWidgetIndex = (props) => {
-  const { mode } = props
+  const { mode, rinaUrl, actions } = props
+  const [ mounted, setMounted ] = useState(false)
+
+  useEffect(() => {
+    if (!mounted && !rinaUrl) {
+      actions.getRinaUrl()
+      setMounted(true)
+    }
+  }, [mounted, rinaUrl, actions])
 
   return <div className='a-buc-widget'>
     {mode === 'newbuc' ? <BUCNew {...props} /> : null}

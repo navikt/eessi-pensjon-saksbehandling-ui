@@ -64,7 +64,7 @@ const SEDStart = (props) => {
     validateInstitutions(_institutions)
     if (hasNoValidationErrors()) {
       actions.createSed({
-        buc: buc.buc,
+        buc: buc.type,
         sed: _sed,
         institutions: _institutions,
         country: _countries,
@@ -146,7 +146,7 @@ const SEDStart = (props) => {
       let addedCountries = newCountries.filter(country => !oldCountriesList.includes(country))
       let removedCountries = oldCountriesList.filter(country => !newCountries.includes(country))
       addedCountries.map(country => {
-        return actions.getInstitutionsListForBucAndCountry(buc.buc, country)
+        return actions.getInstitutionsListForBucAndCountry(buc.type, country)
       })
       removedCountries.map(country => {
         return actions.removeInstitutionForCountry(country)
@@ -268,7 +268,7 @@ const SEDStart = (props) => {
     let institutions = {}
     if (_institutions) {
       _institutions.forEach(item => {
-        Object.keys(institutionList).map(landkode => {
+        Object.keys(institutionList).forEach(landkode => {
           let found = _.find(institutionList[landkode], {id: item})
           if (found) {
             if (!institutions.hasOwnProperty(landkode)) {

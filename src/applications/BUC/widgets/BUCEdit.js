@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PT from 'prop-types'
 import * as Nav from 'components/ui/Nav'
 import SEDRow from '../components/SEDRow/SEDRow'
 import SEDSearch from '../components/SEDSearch/SEDSearch'
@@ -10,7 +11,7 @@ import UserTools from '../components/User/UserTools'
 import './BUCEdit.css'
 
 const BUCEdit = (props) => {
-  const { t, buc, actions, locale, seds } = props
+  const { t, buc, actions, rinaUrl, locale, seds } = props
   const [ tab, setTab ] = useState('inbox')
   const [ search, setSearch ] = useState(undefined)
 
@@ -31,7 +32,7 @@ const BUCEdit = (props) => {
       return (search ? sed.name.matches(search) : sed) &&
         (tab === 'draft' ? sed.status === 'draft' : sed.status !== 'draft')
     }).map((sed, index) => {
-      return <SEDRow className='mt-2' locale={locale} t={t} key={index} sed={sed} />
+      return <SEDRow className='mt-2' locale={locale} t={t} key={index} sed={sed} rinaUrl={rinaUrl} rinaId={buc.caseId}/>
     }) : null
   }
 
@@ -59,6 +60,15 @@ const BUCEdit = (props) => {
       </div>
     </Nav.Row>
   </div>
+}
+
+BUCEdit.propTypes = {
+  t: PT.func.isRequired,
+  bucs: PT.array,
+  actions: PT.object.isRequired,
+  rinaUrl: PT.string,
+  seds: PT.object.isRequired,
+  locale: PT.string.isRequired
 }
 
 export default BUCEdit

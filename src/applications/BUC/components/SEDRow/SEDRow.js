@@ -10,9 +10,11 @@ import _ from 'lodash'
 import './SEDRow.css'
 
 const SEDRow = (props) => {
-  const { t, sed, className, locale, border = false } = props
+  const { t, sed, className, locale, rinaId, rinaUrl, border = false } = props
 
-  const onGoToRinaClick = () => {}
+  const onGoToRinaClick = () => {
+    window.open(rinaUrl + rinaId, '_blank')
+  }
 
   return <PanelBase
     className={classNames('a-buc-c-sedrow p-0', className)}>

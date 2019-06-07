@@ -16,6 +16,7 @@ export const mapStateToProps = (state) => {
   return {
     currentBUC: state.buc.currentBUC,
     bucsInfo: state.buc.bucsInfo,
+    buc: state.buc.buc,
     subjectAreaList: state.buc.subjectAreaList,
     bucList: state.buc.bucList,
     tagList: state.buc.tagList,
@@ -24,7 +25,7 @@ export const mapStateToProps = (state) => {
     loading: state.loading,
     sakId: state.app.params.sakId,
     aktoerId: state.app.params.aktoerId,
-    buc: state.app.params.buc,
+    bucParam: state.app.params.buc,
     locale: state.ui.locale
   }
 }
@@ -39,20 +40,21 @@ const placeholders = {
 }
 
 const BUCStart = (props) => {
-  const { sakId, aktoerId, rinaId, buc, bucsInfo } = props
+
+  const { sakId, aktoerId, rinaId, buc, bucParam, bucsInfo } = props
   const { subjectAreaList, bucList, tagList } = props
   const { t, actions, currentBUC, locale, loading, mode } = props
 
   // these values may be collected through a form, but if they are in URL, then they will be set
   const [_sakId, setSakId] = useState(sakId)
   const [_aktoerId, setAktoerId] = useState(aktoerId)
-  const [_buc, setBuc] = useState(buc)
+  const [_buc, setBuc] = useState(bucParam)
 
   const [_subjectArea, setSubjectArea] = useState('Pensjon')
   const [_tags, setTags] = useState([])
   const [validation, setValidation] = useState({})
 
-  const [hasRinaId, setHasRinaId] = useState(false)
+  const [isBucCreated, setIsBucCreated] = useState(false)
   const [hasBucInfoSaved, setHasBucInfoSaved] = useState(false)
 
   useEffect(() => {
@@ -79,7 +81,7 @@ const BUCStart = (props) => {
   }, [currentBUC, actions, loading, bucList, subjectAreaList, tagList])
 
   useEffect(() => {
-    if (!hasRinaId && rinaId) {
+    if (!isBucCreated && buc) {
       actions.saveBucsInfo({
         aktoerId: aktoerId,
         rinaId: rinaId,
@@ -87,9 +89,9 @@ const BUCStart = (props) => {
         bucsInfo: bucsInfo,
         buc: _buc
       })
-      setHasRinaId(true)
+      setIsBucCreated(true)
     }
-  }, [actions, loading, bucsInfo, aktoerId, _buc, _tags, rinaId, hasRinaId])
+  }, [actions, loading, bucsInfo, aktoerId, buc, _buc, _tags, rinaId, isBucCreated])
 
   useEffect(() => {
     if (!hasBucInfoSaved && loading.savingBUCinfo) {
@@ -402,7 +404,7 @@ BUCStart.propTypes = {
   t: PT.func,
   subjectAreaList: PT.array,
   bucList: PT.array,
-  buc: PT.string,
+  bucParam: PT.string,
   locale: PT.string.isRequired,
   sakId: PT.string,
   aktoerId: PT.string,

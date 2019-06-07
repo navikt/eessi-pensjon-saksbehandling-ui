@@ -40,6 +40,17 @@ export const fetchBucs = (aktoerId) => {
   })
 }
 
+export const fetchBucsInfoList = (aktoerId) => {
+  return api.call({
+    url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: 'BUC' }),
+    type: {
+      request: types.BUC_GET_BUCSINFO_LIST_REQUEST,
+      success: types.BUC_GET_BUCSINFO_LIST_SUCCESS,
+      failure: types.BUC_GET_BUCSINFO_LIST_FAILURE
+    }
+  })
+}
+
 export const fetchBucsInfo = (aktoerId) => {
   return api.call({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: aktoerId, namespace: 'BUC', file: 'INFO' }),
@@ -97,10 +108,10 @@ export const createBuc = (buc) => {
   return funcCall({
     url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
     method: 'POST',
-    expectedPayload: {
-      'buc': buc,
-      'rinaId': '123'
-    },
+     expectedPayload: {
+       'type': buc,
+       'caseId': '123'
+     },
     type: {
       request: types.BUC_CREATE_BUC_REQUEST,
       success: types.BUC_CREATE_BUC_SUCCESS,
@@ -148,7 +159,7 @@ export const getCountryList = () => {
 }
 
 export const getSedList = (buc) => {
-  let url = sprintf(urls.EUX_SED_FOR_BUCS_URL, { buc: buc.buc })
+  let url = sprintf(urls.EUX_SED_FOR_BUCS_URL, { buc: buc.type })
   return api.call({
     url: url,
     type: {

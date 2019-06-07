@@ -4,6 +4,7 @@ import _ from 'lodash'
 export const initialBucState = {
   mode: 'list',
   bucs: undefined,
+  bucsInfoList: undefined,
   bucsInfo: undefined
 }
 
@@ -43,6 +44,21 @@ const bucReducer = (state = initialBucState, action) => {
       return {
         ...state,
         bucs: undefined
+      }
+
+    case types.BUC_GET_BUCSINFO_LIST_SUCCESS:
+
+      return {
+        ...state,
+        bucsInfoList: action.payload
+      }
+
+    case types.BUC_GET_BUCSINFO_LIST_REQUEST:
+    case types.BUC_GET_BUCSINFO_LIST_FAILURE:
+
+      return {
+        ...state,
+        bucsInfoList: undefined
       }
 
     case types.BUC_GET_BUCSINFO_SUCCESS:
@@ -132,10 +148,7 @@ const bucReducer = (state = initialBucState, action) => {
 
       return {
         ...state,
-        rinaId: action.payload.rinaId,
-        buc: {
-          buc: action.payload.buc
-        },
+        buc: action.payload,
         seds: [],
         sed: undefined
       }

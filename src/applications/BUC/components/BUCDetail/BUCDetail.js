@@ -28,7 +28,7 @@ const BUCDetail = (props) => {
     id='a-buc-c-bucdetail__panel-id'
     heading={<div
       className='a-buc-c-bucdetail__header'>
-      <Ingress>{buc.buc} {t('buc:buc-' + buc.buc)}</Ingress>
+      <Ingress>{buc.type} {t('buc:buc-' + buc.type)}</Ingress>
     </div>}>
     <div className='a-buc-c-bucdetail__body'>
       <dl className='a-buc-c-bucdetail__props'>
