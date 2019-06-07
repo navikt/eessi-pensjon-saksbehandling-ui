@@ -7,7 +7,7 @@ const FAGMODUL_API_URL = BASE_URL + '/fagmodul'
 
 const API_URL = FRONTEND_API_URL + '/api'
 const SED_URL = FAGMODUL_API_URL + '/sed'
-const BUC_URL = FRONTEND_API_URL + '/buc'
+const BUC_URL = FAGMODUL_API_URL + '/buc'
 const EUX_URL = FRONTEND_API_URL + '/eux'
 const PDF_URL = FRONTEND_API_URL + '/pdf'
 const PEN_URL = FRONTEND_API_URL + '/pensjon'
@@ -46,9 +46,9 @@ export const API_STORAGE_MULTIPLE_DELETE_URL = API_URL + '/storage/multiple/%(us
 export const PEN_SAKTYPE_URL = PEN_URL + '/saktype/%(sakId)s/%(aktoerId)s'
 
 // BucController
+export const BUC_AKTOERID_DETALJER_URL = BUC_URL + '/detaljer/%(aktoerId)s/'
 
 // SedController
-export const BUC_AKTOERID_DETALJER_URL = SED_URL + '/bucdetaljer/%(aktoerId)s/'
 export const BUC_CREATE_BUC_URL = SED_URL + '/buc/%(buc)s'
 export const BUC_CREATE_SED_URL = SED_URL + '/add'
 

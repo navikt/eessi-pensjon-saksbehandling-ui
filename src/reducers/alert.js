@@ -29,12 +29,13 @@ const alertReducer = (state = initialAlertState, action = {}) => {
   let clientErrorMessage, serverErrorMessage, clientErrorStatus
 
   if (_.endsWith(action.type, '/REQUEST') || action.type === types.ALERT_CLIENT_CLEAR) {
-    return Object.assign({}, state, {
+    return state
+    /*return Object.assign({}, state, {
       clientErrorMessage: undefined,
       clientErrorStatus: undefined,
       serverErrorMessage: undefined,
       uuid: undefined
-    })
+    })*/
   }
 
   if (_.endsWith(action.type, '/ERROR')) {
@@ -163,7 +164,7 @@ const alertReducer = (state = initialAlertState, action = {}) => {
 
     case types.BUC_CREATE_BUC_SUCCESS:
 
-      clientErrorMessage = 'buc:alert-createdBuc|' + action.payload.buc
+      clientErrorMessage = 'buc:alert-createdBuc|' + action.payload.type
       break
 
     case types.BUC_CREATE_SED_SUCCESS:
