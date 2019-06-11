@@ -140,7 +140,7 @@
     "not invited" : "Ikke tilgang",
     "notSent" : "Ikke sendt",
     "norway" : "Norge",
-    "ok-got-it" : "Ja, det stemmer",
+    "ok-got-it" : "Ok",
     "ongoing" : "Pågående",
     "open" : "Åpne",
     "openFile" : "Åpne fil",
@@ -212,5 +212,5 @@
     "yes" : "Ja",
 
     "session-expire-title" : "Du vil snart bli logget ut",
-    "session-expire-text" : "Du vil automatisk bli logget ut om {{minutes}} minutter. Vennligst last inn siden på nytt før du utfører flere oppgaver"
+    "session-expire-text" : "Husk å lagre opplysningene. Hvis du ønsker å fortsette, må du logge inn igjen.  Du blir logget ut om {{minutes}} minutter"
 }
