@@ -1,6 +1,7 @@
 import alertReducer, { initialAlertState } from './reducers/alert'
 import appReducer, { initialAppState } from './reducers/app'
 import bucReducer, { initialBucState } from './reducers/buc'
+import joarkReducer, { initialJoarkState } from './reducers/joark'
 import loadingReducer, { initialLoadingState } from './reducers/loading'
 import p4000Reducer, { initialP4000State } from './reducers/p4000'
 import p6000Reducer, { initialP6000State } from './reducers/p6000'
@@ -14,6 +15,7 @@ const mainReducer = (state, action) => {
     alert: alertReducer(state.alert, action),
     app: appReducer(state.app, action),
     buc: bucReducer(state.buc, action),
+    joark: joarkReducer(state.joark, action),
     loading: loadingReducer(state.loading, action),
     p4000: p4000Reducer(state.p4000, action),
     p6000: p6000Reducer(state.p6000, action),
@@ -28,6 +30,7 @@ export const initialState = {
   alert: initialAlertState,
   app: initialAppState,
   buc: initialBucState,
+  joark: initialJoarkState,
   loading: initialLoadingState,
   p4000: initialP4000State,
   p6000: initialP6000State,

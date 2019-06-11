@@ -7,7 +7,7 @@ import * as Nav from 'components/ui/Nav'
 import countries from 'components/ui/CountrySelect/CountrySelectData'
 import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
 import FlagList from 'components/ui/Flag/FlagList'
-import FileUpload from 'components/ui/FileUpload/FileUpload'
+import JoarkBrowser from 'components/ui/JoarkBrowser/JoarkBrowser'
 import Icons from 'components/ui/Icons'
 
 import * as bucActions from 'actions/buc'
@@ -315,9 +315,8 @@ const SEDStart = (props) => {
       <Icons kind='tilsette' />
       <span className='ml-3 mb-1'>{t('buc:form-addAttachmentsFromJOARK')}</span>
     </div>}>
-      <FileUpload t={t}
-        fileUploadDroppableId={'fileUpload'}
-        className='fileUpload'
+      <JoarkBrowser t={t}
+        className='joarkBrowser'
         files={_attachments}
         onFileChange={onFileChange} />
     </Nav.Lesmerpanel>

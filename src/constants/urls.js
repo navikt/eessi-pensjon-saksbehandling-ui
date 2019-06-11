@@ -42,6 +42,10 @@ export const API_STORAGE_POST_URL = API_URL + '/storage/%(userId)s___%(namespace
 export const API_STORAGE_DELETE_URL = API_URL + '/storage/%(userId)s___%(namespace)s___%(file)s'
 export const API_STORAGE_MULTIPLE_DELETE_URL = API_URL + '/storage/multiple/%(userId)s___%(namespace)s'
 
+// JoarkController
+export const API_JOARK_LIST_URL = API_URL + '/joark/list/%(userId)s'
+export const API_JOARK_GET_URL = API_URL + '/joark/get/%(userId)s'
+
 // PensjonController
 export const PEN_SAKTYPE_URL = PEN_URL + '/saktype/%(sakId)s/%(aktoerId)s'
 

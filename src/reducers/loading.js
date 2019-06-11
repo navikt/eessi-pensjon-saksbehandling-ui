@@ -241,7 +241,39 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
         status: status
       })
 
-      // PDF
+   // JOARK
+
+    case JOARK_LIST_REQUEST:
+
+      return Object.assign({}, state, {
+        loadingJoarkList: true,
+        status: status
+      })
+
+    case JOARK_LIST_SUCCESS:
+    case JOARK_LIST_FAILURE:
+
+      return Object.assign({}, state, {
+        loadingJoarkList: false,
+        status: status
+      })
+
+    case JOARK_GET_REQUEST:
+
+      return Object.assign({}, state, {
+        loadingJoarkFile: true,
+        status: status
+      })
+
+    case JOARK_GET_SUCCESS:
+    case JOARK_GET_FAILURE:
+
+      return Object.assign({}, state, {
+        loadingJoarkFile: false,
+        status: status
+      })
+
+    // PDF
 
     case types.PDF_GENERATE_REQUEST:
 
