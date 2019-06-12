@@ -170,13 +170,6 @@ class Export extends Component {
     }
   }
 
-  onAdvancedEditRequest () {
-    const { history, actions, pdf } = this.props
-
-    actions.selectPDF([pdf])
-    history.push(routes.PDF_EDIT)
-  }
-
   setCheckbox (key, e) {
     this.setState({
       [key]: e.target.checked,
@@ -268,12 +261,6 @@ class Export extends Component {
               {t('saveToServer')}
             </Nav.Knapp>
 
-            <Nav.Knapp className='exportButton advancedEditButton'
-              onClick={this.onAdvancedEditRequest.bind(this)}
-              disabled={pdf === undefined}>
-              <Icons kind='tool' size='2x' />
-              {t('advancedEdit')}
-            </Nav.Knapp>
           </div>
         </div>
         <div className='col-md-9'>

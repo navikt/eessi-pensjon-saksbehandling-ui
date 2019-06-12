@@ -11,6 +11,7 @@ const BUC_URL = FAGMODUL_API_URL + '/buc'
 const EUX_URL = FRONTEND_API_URL + '/eux'
 const PDF_URL = FRONTEND_API_URL + '/pdf'
 const PEN_URL = FRONTEND_API_URL + '/pensjon'
+const SAF_URL = FRONTEND_API_URL + '/saf'
 
 export const NAV_URL = 'http://www.nav.no'
 
@@ -43,8 +44,8 @@ export const API_STORAGE_DELETE_URL = API_URL + '/storage/%(userId)s___%(namespa
 export const API_STORAGE_MULTIPLE_DELETE_URL = API_URL + '/storage/multiple/%(userId)s___%(namespace)s'
 
 // JoarkController
-export const API_JOARK_LIST_URL = API_URL + '/joark/list/%(userId)s'
-export const API_JOARK_GET_URL = API_URL + '/joark/get/%(userId)s'
+export const API_JOARK_LIST_URL = SAF_URL + '/metadata/%(userId)s'
+export const API_JOARK_GET_URL = SAF_URL + '/get/%(userId)s'
 
 // PensjonController
 export const PEN_SAKTYPE_URL = PEN_URL + '/saktype/%(sakId)s/%(aktoerId)s'

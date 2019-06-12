@@ -8,7 +8,7 @@ import classNames from 'classnames'
 
 import PageInDnD from '../PageInDnD/PageInDnD'
 
-import * as pdfActions from '../../../actions/pdf'
+import * as pdfActions from 'actions/pdf'
 
 import './DnDSource.css'
 

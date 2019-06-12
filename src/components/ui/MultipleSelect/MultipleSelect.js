@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Select from 'react-select'
-import CreatableSelect from 'react-select/lib/Creatable'
+import CreatableSelect from 'react-select/creatable'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'

@@ -7,8 +7,7 @@ import * as Nav from 'components/ui/Nav'
 import countries from 'components/ui/CountrySelect/CountrySelectData'
 import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
 import FlagList from 'components/ui/Flag/FlagList'
-import JoarkBrowser from 'components/ui/JoarkBrowser/JoarkBrowser'
-import Icons from 'components/ui/Icons'
+import SEDAttachments from '../SEDAttachments/SEDAttachments'
 
 import * as bucActions from 'actions/buc'
 
@@ -306,20 +305,17 @@ const SEDStart = (props) => {
     </React.Fragment>
   }
 
-  const onFileChange = (files) => {
+  const setFiles = (files) => {
     setAttachments(files)
   }
 
   const renderAttachments = () => {
-    return <Nav.Lesmerpanel intro={<div className='d-flex'>
-      <Icons kind='tilsette' />
-      <span className='ml-3 mb-1'>{t('buc:form-addAttachmentsFromJOARK')}</span>
-    </div>}>
-      <JoarkBrowser t={t}
-        className='joarkBrowser'
-        files={_attachments}
-        onFileChange={onFileChange} />
-    </Nav.Lesmerpanel>
+    return <div className='mt-4'>
+      <Nav.Ingress className='mb-2'>{t('ui:attachments')}</Nav.Ingress>
+      {_attachments ? _attachments.map(att => {
+        return <div>{att}</div>
+      }) : null}
+    </div>
   }
 
   const allowedToForward = () => {
@@ -327,12 +323,10 @@ const SEDStart = (props) => {
   }
 
   return <Nav.Row className='a-buc-c-sedstart'>
-    <div className={layout === 'row' ? 'col-md-6' : 'col-md-12'}>
+    <div className={layout === 'row' ? 'col-md-4' : 'col-md-12'}>
       {renderSed()}
       {renderCountry()}
       {renderInstitution()}
-    </div>
-    <div className={layout === 'row' ? 'col-md-6' : 'col-md-12'}>
       {renderInstitutions()}
       {renderAttachments()}
       <div className='selectBoxMessage'>{!loading ? null
@@ -340,20 +334,23 @@ const SEDStart = (props) => {
           : loading.institutionList ? getSpinner('buc:loading-institution')
             : loading.gettingCountryList ? getSpinner('buc:loading-country') : null}
       </div>
+      <div>
+        <Nav.Hovedknapp
+          id='a-buc-c-sedstart__forward-button-id'
+          className='a-buc-c-sedstart__forward-button'
+          disabled={!allowedToForward()}
+          spinner={loading.creatingSed}
+          onClick={onForwardButtonClick}>
+          {loading.creatingSed ? t('buc:loading-creatingSED') : t('buc:form-orderSED')}
+        </Nav.Hovedknapp>
+        <Nav.Flatknapp
+          id='a-buc-c-sedstart__cancel-button-id'
+          className='a-buc-c-sedstart__cancel-button'
+          onClick={onCancelButtonClick}>{t('ui:cancel')}</Nav.Flatknapp>
+      </div>
     </div>
-    <div className='col-md-12'>
-      <Nav.Hovedknapp
-        id='a-buc-c-sedstart__forward-button-id'
-        className='a-buc-c-sedstart__forward-button'
-        disabled={!allowedToForward()}
-        spinner={loading.creatingSed}
-        onClick={onForwardButtonClick}>
-        {loading.creatingSed ? t('buc:loading-creatingSED') : t('buc:form-orderSED')}
-      </Nav.Hovedknapp>
-      <Nav.Flatknapp
-        id='a-buc-c-sedstart__cancel-button-id'
-        className='a-buc-c-sedstart__cancel-button'
-        onClick={onCancelButtonClick}>{t('ui:cancel')}</Nav.Flatknapp>
+    <div className={layout === 'row' ? 'col-md-8' : 'col-md-12'}>
+      <SEDAttachments t={t} setFiles={setFiles}/>
     </div>
   </Nav.Row>
 }

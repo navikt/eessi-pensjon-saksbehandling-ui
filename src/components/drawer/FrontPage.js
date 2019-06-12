@@ -23,7 +23,7 @@ class FrontPage extends Component {
         } href='#'>{t('p4000:app-startP4000')}</Nav.Lenkepanel>
       <h4 className='mt-4 mb-4'>{t('tools')}</h4>
       <Nav.Lenkepanel style={{ animationDelay: '0.4s' }} className='frontPageLink pdfLink' linkCreator={(props) => (
-        <Link to={routes.PDF_SELECT} {...props} />)
+        <Link to={routes.PDF} {...props} />)
       } href='#'>{t('pdf:app-createPdf')}</Nav.Lenkepanel>
     </div>
   }

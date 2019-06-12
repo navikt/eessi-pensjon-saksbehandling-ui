@@ -1,8 +1,8 @@
 import * as types from '../constants/actionTypes'
-import _ from 'lodash'
 
 export const initialJoarkState = {
-  list: undefined
+  list: undefined,
+  file: undefined
 }
 
 const joarkReducer = (state = initialJoarkState, action = {}) => {

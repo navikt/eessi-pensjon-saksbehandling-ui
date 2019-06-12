@@ -8,7 +8,7 @@ import _ from 'lodash'
 
 import PageInDnD from '../PageInDnD/PageInDnD'
 
-import * as pdfActions from '../../../actions/pdf'
+import * as pdfActions from 'actions/pdf'
 
 import './DnDImages.css'
 

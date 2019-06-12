@@ -1,6 +1,6 @@
 {
   "step-startBUCTitle"         : "Starte ny BUC",
-  "step-startSEDTitle"         : "Bestill ny SED",
+  "step-startSEDTitle"         : "Bestill ny SED til BUC {{buc}}",
   "step-saveSendSEDTitle"      : "Lagre/Sende sak",
   "step-saveSendSEDDescription": "Lagre/Sende sak beskrivelse",
   "step-previewSEDTitle"       : "Vis innhold i SED",
@@ -20,6 +20,10 @@
   "alert-noInstitutionList" : "Ingen mottager liste",
   "alert-noSedList"         : "Ingen SED liste",
   "alert-noSubjectAreaList" : "Ingen fagområde liste",
+
+  "attachments-step0" : "Velg vedlegg",
+  "attachments-step1" : "Rediger vedlegg",
+  "attachments-step2" : "Bekreft",
 
   "buc-P_BUC_01" : "Krav om alderspensjon",
   "buc-P_BUC_02" : "Krav om etterlattepensjon",
@@ -58,6 +62,7 @@
   "form-createCaseinRINA" : "Opprett sak i RINA",
   "form-createNewCase" : "Start ny behandling",
   "form-empty-startANewCase" : "Start en ny behandling for å komme i gang!",
+  "form-enableAttachments" : "Aktiver vedlegg",
   "form-filterSED" : "Filtrer SED på nav, land, ...",
   "form-institution"  : "Mottagerinstitusjon",
   "form-involvedInstitutions" : "Involverte land og institusjoner",

@@ -243,30 +243,30 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
 
    // JOARK
 
-    case JOARK_LIST_REQUEST:
+    case types.JOARK_LIST_REQUEST:
 
       return Object.assign({}, state, {
         loadingJoarkList: true,
         status: status
       })
 
-    case JOARK_LIST_SUCCESS:
-    case JOARK_LIST_FAILURE:
+    case types.JOARK_LIST_SUCCESS:
+    case types.JOARK_LIST_FAILURE:
 
       return Object.assign({}, state, {
         loadingJoarkList: false,
         status: status
       })
 
-    case JOARK_GET_REQUEST:
+    case types.JOARK_GET_REQUEST:
 
       return Object.assign({}, state, {
         loadingJoarkFile: true,
         status: status
       })
 
-    case JOARK_GET_SUCCESS:
-    case JOARK_GET_FAILURE:
+    case types.JOARK_GET_SUCCESS:
+    case types.JOARK_GET_FAILURE:
 
       return Object.assign({}, state, {
         loadingJoarkFile: false,

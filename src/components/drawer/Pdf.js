@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import ExternalFiles from '../pdf/ExternalFiles/ExternalFiles'
+import ExternalFiles from 'applications/PDF/components/ExternalFiles/ExternalFiles'
 
 class Pdf extends Component {
   render () {

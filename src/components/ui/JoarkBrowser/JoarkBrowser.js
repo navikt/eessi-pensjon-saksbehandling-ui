@@ -1,15 +1,20 @@
-import react, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import { connect, bindActionCreators } from 'store'
-import Dropzone from 'react-dropzone'
-import { DragDropContext, Droppable } from 'react-beautiful-dnd'
-import joarkActions from 'actions/joark'
+import { withTranslation } from 'react-i18next'
+import classNames from 'classnames'
+import File from 'components/ui/File/File'
+import * as joarkActions from 'actions/joark'
 
 import './JoarkBrowser.css'
 
 const mapStateToProps = (state) => {
   return {
-    list: state.joark.list
+    list: state.joark.list,
+    file: state.joark.file,
+    loadingJoarkList : state.loading.loadingJoarkList,
+    loadingJoarkFile : state.loading.loadingJoarkFile,
+    aktoerId: state.app.params.aktoerId
   }
 }
 
@@ -19,8 +24,16 @@ const mapDispatchToProps = (dispatch) => {
 
 const JoarkBrowser = (props) => {
 
-  const { list } = props
-  const [ files, setFiles ] = useState([])
+  const { t, list, files, file, loadingJoarkList, loadingJoarkFile, actions, aktoerId } = props
+  const [ _files, setFiles ] = useState(files)
+  const [ mounted, setMounted ] = useState(false)
+
+  useEffect(() => {
+    if (!mounted && list === undefined && !loadingJoarkList) {
+      actions.listJoarkFiles()
+      setMounted(true)
+    }
+  }, [mounted, list, loadingJoarkList, actions])
 
   const onDragEnd = () => {
   }
@@ -31,69 +44,27 @@ const JoarkBrowser = (props) => {
   const onDropRejected = () => {
   }
 
+  const addFile = (file) => {
+  }
+
+  const previewFile = (file) => {
+  }
+
   return <div className='c-ui-joarkBrowser'>
-    <DragDropContext onDragEnd={onDragEnd}>
-      <div className='c-ui-joarkBrowser__draggable-div'>
-        {list ? list.map((file, index) => {
-          return <Draggable
-            key={index}
-            draggableId={'c-ui-joarkBrowser__draggable-item-' +key}
-            index={index}>
-            {(provided, snapshot) => (
-              <div className={classNames('c-ui-joarkBrowser__draggable', { dragging: snapshot.isDragging })}
-                ref={provided.innerRef}
-                {...provided.draggableProps}
-                {...provided.dragHandleProps}
-                <File file={file} addLink animate previewLink downloadLink
-                  width={141.4} height={200} scale={1.0}
-                  onAddFile={() => .addFile(file)}
-                  onPreviewDocument={this.openPreview.bind(this, file)} />
-              </div>
-            )}
-          </Draggable>
-        }) : null}
+
+    {list ? list.map((file, index) => {
+      return <div key={index} className={classNames('c-ui-joarkBrowser__item')}>
+        <File file={file} addLink animate previewLink downloadLink
+          width={141.4} height={200} scale={1.0}
+          onAddFile={() => addFile(file)}
+          onPreviewDocument={() => previewFile(file)} />
       </div>
-      <Droppable droppableId={'joark-browser'} direction='horizontal'>
-        {(provided, snapshot) => (
-          <div className={classNames('dropzone', 'p-4', className)}>
-            <Dropzone
-              length={files.length}
-              activeClassName='dropzone-active'
-              accept={acceptedMimetypes}
-              onDrop={onDrop}
-              onDropRejected={onDropRejected}
-              inputProps={{ ...props.inputProps }}
-              {...tabIndex}>
-              {({ getRootProps, getInputProps }) => <div
-                {...getRootProps()}
-                ref={provided.innerRef}
-                className={classNames('droppable-zone', { 'droppable-zone-active ': snapshot.isDraggingOver })}>
-                <input {...getInputProps()} />
-                <div className='dropzone-placeholder'>
-                  <div className='dropzone-placeholder-message'>{t('ui:dropFilesHere', { maxFiles: maxFiles })}</div>
-                  <div className={classNames('dropzone-placeholder-status', 'dropzone-placeholder-status-' + status.type)}>{status.message}</div>
-                </div>
-                {provided.placeholder}
-                <div className='dropzone-files scrollable'>
-                  { files ? files.map((file, i) => {
-                    return <File className='mr-2' key={i} file={file}
-                      currentPage={currentPages[i]}
-                      deleteLink downloadLink previewLink
-                      onPreviousPage={this.onPreviousPageRequest.bind(this, i)}
-                      onNextPage={this.onNextPageRequest.bind(this, i)}
-                      onLoadSuccess={this.onLoadSuccess.bind(this, i)}
-                      onDeleteDocument={this.removeFile.bind(this, i)}
-                      onPreviewDocument={this.openPreview.bind(this, file)}
-                    />
-                  }) : null }
-                </div>
-              </div>}
-            </Dropzone>
-          </div>
-        )}
-      </Droppable>
-    </DragDropContext>
+    }) : null}
   </div>
 }
 
-export default connect(mapStateToProps, dispatchStateToProps)(JoarkBrowser)
+JoarkBrowser.propTypes = {
+  t: PT.func.isRequired
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(JoarkBrowser))

@@ -4,9 +4,9 @@ import PT from 'prop-types'
 import classNames from 'classnames'
 import _ from 'lodash'
 
-import * as pdfActions from '../../../actions/pdf'
+import * as pdfActions from 'actions/pdf'
 
-import { Ikon } from '../../ui/Nav'
+import { Ikon } from 'components/ui/Nav'
 
 import './PDFSpecialPage.css'
 
