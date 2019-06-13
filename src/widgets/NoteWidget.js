@@ -9,7 +9,7 @@ const NoteWidget = (props) => {
   const [ content, setContent ] = useState(widget.options.content)
 
   useEffect(() => {
-    if (!mounted) {
+    if (!mounted && onResize) {
       onResize()
       setMounted(true)
     }

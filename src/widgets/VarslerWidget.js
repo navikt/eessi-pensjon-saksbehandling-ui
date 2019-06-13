@@ -12,7 +12,7 @@ const VarslerWidget = (props) => {
   const { t, onResize } = props
 
   useEffect(() => {
-    if (!mounted) {
+    if (!mounted && onResize) {
       onResize()
       setMounted(true)
     }

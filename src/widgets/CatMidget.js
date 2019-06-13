@@ -9,7 +9,7 @@ const CatMidget = (props) => {
   const { onResize } = props
 
   useEffect(() => {
-    if (!mounted) {
+    if (!mounted && onResize) {
       onResize()
       setMounted(true)
     }

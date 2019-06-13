@@ -7,7 +7,7 @@ const SmileyWidget = (props) => {
   const { widget, onResize } = props
 
   useEffect(() => {
-    if (!mounted) {
+    if (!mounted && onResize) {
       onResize()
       setMounted(true)
     }
