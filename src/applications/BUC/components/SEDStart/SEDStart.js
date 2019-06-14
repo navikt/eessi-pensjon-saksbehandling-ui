@@ -35,7 +35,7 @@ const SEDStart = (props) => {
   const [_sed, setSed] = useState(undefined)
   const [_countries, setCountries] = useState([])
   const [_institutions, setInstitutions] = useState([])
-  const [_attachments, setAttachments] = useState([])
+  const [_attachments, setAttachments] = useState({})
   const [validation, setValidation] = useState({})
 
   const { t, sakId, actions, sedList, countryList, institutionList, aktoerId, buc, sed, locale, loading, layout = 'row' } = props
@@ -65,7 +65,7 @@ const SEDStart = (props) => {
       let institutions = []
       _institutions.forEach(item => {
         Object.keys(institutionList).forEach(landkode => {
-          let found = _.find(institutionList[landkode], {id: item})
+          let found = _.find(institutionList[landkode], { id: item })
           if (found) {
             institutions.push({
               country: found.landkode,
@@ -147,7 +147,6 @@ const SEDStart = (props) => {
   }
 
   const onCountriesChange = (countryList) => {
-
     let newCountries = countryList.map(item => {
       return item.value
     })
@@ -281,12 +280,12 @@ const SEDStart = (props) => {
     if (_institutions) {
       _institutions.forEach(item => {
         Object.keys(institutionList).forEach(landkode => {
-          let found = _.find(institutionList[landkode], {id: item})
+          let found = _.find(institutionList[landkode], { id: item })
           if (found) {
             if (!institutions.hasOwnProperty(landkode)) {
-               institutions[landkode] = [found.navn]
+              institutions[landkode] = [found.navn]
             } else {
-               institutions[landkode].push(found.navn)
+              institutions[landkode].push(found.navn)
             }
           }
         })
@@ -312,8 +311,10 @@ const SEDStart = (props) => {
   const renderAttachments = () => {
     return <div className='mt-4'>
       <Nav.Ingress className='mb-2'>{t('ui:attachments')}</Nav.Ingress>
-      {_attachments ? _attachments.map(att => {
-        return <div>{att}</div>
+      {_attachments ? Object.keys(_attachments).map((key, index1) => {
+        _attachments[key].map((att, index2) => {
+          return <div key={index1 + '-' + index2}>{key}: {att}</div>
+        })
       }) : null}
     </div>
   }
@@ -350,7 +351,7 @@ const SEDStart = (props) => {
       </div>
     </div>
     <div className={layout === 'row' ? 'col-md-8' : 'col-md-12'}>
-      <SEDAttachments t={t} setFiles={setFiles}/>
+      <SEDAttachments t={t} setFiles={setFiles} files={_attachments} />
     </div>
   </Nav.Row>
 }

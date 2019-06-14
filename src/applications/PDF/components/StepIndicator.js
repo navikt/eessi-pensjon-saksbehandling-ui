@@ -7,8 +7,7 @@ import AdvarselTrekant from 'resources/images/AdvarselTrekant'
 
 const steps = ['select', 'edit', 'generate']
 
-const StepIndicator = (props) =>  {
-
+const StepIndicator = (props) => {
   const { t, files, recipe, step, setStep } = props
   const [ message, setMessage ] = useState(undefined)
   const [ stepIndicator, setStepIndicator ] = useState(steps.indexOf(step))
@@ -21,7 +20,6 @@ const StepIndicator = (props) =>  {
   }
 
   const onBeforeChange = (nextStep) => {
-
     if (nextStep === stepIndicator) {
       return false
     }

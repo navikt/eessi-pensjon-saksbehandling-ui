@@ -31,12 +31,11 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, pdfActions, uiActions), dispatch) }
 }
 
-const PDFEditor = (props) =>  {
-
+const PDFEditor = (props) => {
   const { t, actions, files, dndTarget, recipe, pageScale } = this.props
 
   const handleAccordionChange = (index) => {
-    if (!index) {return}
+    if (!index) { return }
     actions.setActiveDnDTarget(index)
   }
 
@@ -49,7 +48,7 @@ const PDFEditor = (props) =>  {
   }
 
   const imageCollapse = (imageFiles) => {
-    if (_.isEmpty(imageFiles)) {return null}
+    if (_.isEmpty(imageFiles)) { return null }
     return <Nav.Ekspanderbartpanel apen key={'images'} tittel={t('images')} tittelProps='undertittel'>
       <DnDImages files={imageFiles} />
     </Nav.Ekspanderbartpanel>

@@ -28,7 +28,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators({...bucActions, ...appActions}, dispatch)
+    actions: bindActionCreators({ ...bucActions, ...appActions }, dispatch)
   }
 }
 

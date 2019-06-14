@@ -4,7 +4,6 @@ import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 
 const PDFSizeSlider = (props) => {
-
   const { t, pageScale, style, actions } = props
 
   const onChange = (value) => {

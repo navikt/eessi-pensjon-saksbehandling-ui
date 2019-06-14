@@ -20,11 +20,10 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators({...storageActions}, dispatch) }
+  return { actions: bindActionCreators({ ...storageActions }, dispatch) }
 }
 
 const ExternalFiles = (props) => {
-
   const { actions, username, t, loadingFileList, fileList, addFile, style, className } = props
 
   const requestExternalFileList = () => {

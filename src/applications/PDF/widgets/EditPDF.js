@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 
@@ -6,7 +6,6 @@ import PDFEditor from 'applications/PDF/components/PDFEditor/PDFEditor'
 import * as Nav from 'components/ui/Nav'
 
 const EditPDF = (props) => {
-
   const { t, actions, recipe, setStep } = props
 
   const hasOnlyEmptyArrays = (obj) => {
@@ -17,7 +16,6 @@ const EditPDF = (props) => {
   }
 
   const onForwardButtonClick = () => {
-
     if (hasOnlyEmptyArrays(recipe)) {
       actions.openModal({
         modalTitle: t('pdf:recipe-empty-title'),

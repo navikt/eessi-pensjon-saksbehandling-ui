@@ -20,11 +20,10 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators({...uiActions, ...storageActions}, dispatch) }
+  return { actions: bindActionCreators({ ...uiActions, ...storageActions }, dispatch) }
 }
 
 const DnDExternalFiles = (props) => {
-
   const { addFile, actions, username, fileList, file } = this.props
 
   const onaddFile = (file) => {

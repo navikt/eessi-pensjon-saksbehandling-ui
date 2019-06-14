@@ -17,7 +17,7 @@ export const PDFPageIndex = (props) => {
     sideContent={<FrontPageDrawer t={t} />}
     header={t('pdf:app-createPdf')}>
     <div className='mt-4'>
-      <PDFWidget/>
+      <PDFWidget />
     </div>
   </TopContainer>
 }

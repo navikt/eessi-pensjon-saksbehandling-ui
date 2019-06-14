@@ -9,7 +9,6 @@ import StorageModal from 'components/ui/Modal/StorageModal'
 import * as storages from '../../../constants/storages'
 
 const GeneratePDF = (props) => {
-
   const { t, generatingPDF, generatedPDFs, fileNames, actions, files, recipe, watermark, setStep } = props
 
   const [ _fileNames, setFileNames ] = useState({})
@@ -17,14 +16,13 @@ const GeneratePDF = (props) => {
   const _refs = {}
 
   Object.keys(generatedPDFs).forEach(key => {
-   // _refs[key] = useRef(null)
+    // _refs[key] = useRef(null)
   })
 
   useEffect(() => {
-
     if (!_.isEmpty(generatedPDFs) && _.isEmpty(fileNames)) {
       let newfileNames = {}
-      let newRefs = {}
+      // let newRefs = {}
 
       Object.keys(generatedPDFs).forEach(key => {
         newfileNames[key] = generatedPDFs[key].name
@@ -43,7 +41,7 @@ const GeneratePDF = (props) => {
       })
       setMounted(true)
     }
-  }, [mounted, actions])
+  }, [mounted, actions, files, recipe, watermark])
 
   const onBackButtonClick = () => {
     setStep('edit')

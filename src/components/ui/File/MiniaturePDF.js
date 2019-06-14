@@ -41,18 +41,9 @@ export class MiniaturePDF extends Component {
       let { currentPage } = this.props
 
       this.setState({
-        isHovering: false,
         numPages: undefined,
         currentPage: !isNaN(currentPage) ? currentPage : 1
       })
-    }
-
-    onHandleMouseEnter () {
-      this.setState({ isHovering: true })
-    }
-
-    onHandleMouseLeave () {
-      this.setState({ isHovering: false })
     }
 
     handleOnLoadSuccess (e) {
@@ -141,8 +132,6 @@ export class MiniaturePDF extends Component {
       const title = '' + file.name + '\n' + t('ui:pages') + ': ' + (numPages || '0') + '\n' + t('ui:size') + ': ' + size
 
       return <div title={title} className={classNames('c-ui-file', 'c-ui-miniaturePdf', className, { 'animate': animate })}
-        onMouseEnter={this.onHandleMouseEnter.bind(this)}
-        onMouseLeave={this.onHandleMouseLeave.bind(this)}
         style={{ transform: 'scale(' + scale + ')' }}>
         <Document className='position-relative' file={'data:application/pdf;base64,' + file.content.base64}
           onLoadSuccess={this.handleOnLoadSuccess.bind(this)}>

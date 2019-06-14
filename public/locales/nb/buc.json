@@ -46,6 +46,7 @@
   "buc-P10000"   : "Overføring av mer informasjon",
 
   "form-addAttachmentsFromJOARK" : "Legg til vedlegg fra JOARK",
+  "form-addAttachmentsFromFileUpload" : "Laster opp ny vedlegg fra din datamaskin",
   "form-aktoerId" : "Fødsels- og personnummer",
   "form-answerSED" : "Besvar SED",
   "form-backToList" : "Tilbake til liste",

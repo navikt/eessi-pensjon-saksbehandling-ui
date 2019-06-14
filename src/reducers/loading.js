@@ -241,7 +241,7 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
         status: status
       })
 
-   // JOARK
+      // JOARK
 
     case types.JOARK_LIST_REQUEST:
 
@@ -273,7 +273,7 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
         status: status
       })
 
-    // PDF
+      // PDF
 
     case types.PDF_GENERATE_REQUEST:
 

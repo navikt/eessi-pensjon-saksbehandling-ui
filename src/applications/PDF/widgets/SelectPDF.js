@@ -6,7 +6,6 @@ import * as Nav from 'components/ui/Nav'
 import FileUpload from 'components/ui/FileUpload/FileUpload'
 
 const SelectPDF = (props) => {
-
   const { t, actions, loadingPDF, files, setStep } = props
 
   const onForwardButtonClick = () => {

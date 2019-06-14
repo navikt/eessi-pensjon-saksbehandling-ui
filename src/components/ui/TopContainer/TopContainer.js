@@ -41,13 +41,13 @@ export class TopContainer extends Component {
   }
 
   render () {
-    const { className, containerClassName, style, history} = this.props
+    const { className, containerClassName, style, history } = this.props
     const { sideContent, userRole, header, highContrast, fluid, remainingTime } = this.props
     /* how many minutes starts the warnings */
     let minutesForWarning = 5
     /* X minutes before expired */
     let sessionExpiringWarning = remainingTime - 1000 * 60 * minutesForWarning
-    if (sessionExpiringWarning <= 1) {sessionExpiringWarning = 1}
+    if (sessionExpiringWarning <= 1) { sessionExpiringWarning = 1 }
     /* check every minute */
     let checkInterval = 1000 * 60
     /* At expired time plus 1 minute */

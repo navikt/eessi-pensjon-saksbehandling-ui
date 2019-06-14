@@ -11,7 +11,7 @@ const BUC_URL = FAGMODUL_API_URL + '/buc'
 const EUX_URL = FRONTEND_API_URL + '/eux'
 const PDF_URL = FRONTEND_API_URL + '/pdf'
 const PEN_URL = FRONTEND_API_URL + '/pensjon'
-const SAF_URL = FRONTEND_API_URL + '/saf'
+const SAF_URL = FAGMODUL_API_URL + '/saf'
 
 export const NAV_URL = 'http://www.nav.no'
 

@@ -15,7 +15,7 @@ const SEDNew = (props) => {
       <Hovedknapp onClick={onBUCList}>{t('buc:form-backToList')}</Hovedknapp>
     </div>
     <Panel>
-      <Ingress>{t('buc:step-startSEDTitle', {buc: buc.type})}</Ingress>
+      <Ingress>{t('buc:step-startSEDTitle', { buc: buc.type })}</Ingress>
       <hr />
       <SEDStart {...props} />
     </Panel>

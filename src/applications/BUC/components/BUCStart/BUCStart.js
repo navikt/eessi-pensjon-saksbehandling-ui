@@ -40,7 +40,6 @@ const placeholders = {
 }
 
 const BUCStart = (props) => {
-
   const { sakId, aktoerId, rinaId, buc, bucParam, bucsInfo } = props
   const { subjectAreaList, bucList, tagList } = props
   const { t, actions, currentBUC, locale, loading, mode } = props

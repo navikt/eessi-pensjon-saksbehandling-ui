@@ -9,17 +9,6 @@ import './File.css'
 import './MiniatureImage.css'
 
 export class MiniatureImage extends Component {
-    state = {
-      isHovering: false
-    }
-
-    onHandleMouseEnter () {
-      this.setState({ isHovering: true })
-    }
-
-    onHandleMouseLeave () {
-      this.setState({ isHovering: false })
-    }
 
     onDeleteDocument (e) {
       e.stopPropagation()
@@ -31,14 +20,12 @@ export class MiniatureImage extends Component {
     }
 
     render () {
-      const { t, file, size, deleteLink, downloadLink, className, animate, scale } = this.props
-      const { isHovering } = this.state
+      const { t, file, size, deleteLink, downloadLink, className, animate, scale, isHovering } = this.props
+
 
       const title = '' + file.name + '\n' + t('ui:size') + ': ' + size
 
       return <div title={title} className={classNames('c-ui-file', 'c-ui-miniatureImage', className, { 'animate': animate })}
-        onMouseEnter={this.onHandleMouseEnter.bind(this)}
-        onMouseLeave={this.onHandleMouseLeave.bind(this)}
         style={{ transform: 'scale(' + scale + ')' }}>
         <div>
           { deleteLink && isHovering ? <div onClick={this.onDeleteDocument.bind(this)} className='link deleteLink'>

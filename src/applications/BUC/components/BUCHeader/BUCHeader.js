@@ -53,10 +53,10 @@ const BUCHeader = (props) => {
     </div>
     <div className='col-2 a-buc-c-bucheader__tags'>
       <div className='a-buc-c-bucheader__numberofseds'>{buc.seds ? buc.seds.length : 0}</div>
-      {bucInfo && bucInfo.tags && bucInfo.tags.length > 0 ?
-        <div title={bucInfo.tags.join(', ')}>
-        <Icons kind='problem' data-qa='BucHeader-ProblemCircle' className='a-buc-c-bucheader__tag' />
-      </div> : null}
+      {bucInfo && bucInfo.tags && bucInfo.tags.length > 0
+        ? <div title={bucInfo.tags.join(', ')}>
+          <Icons kind='problem' data-qa='BucHeader-ProblemCircle' className='a-buc-c-bucheader__tag' />
+        </div> : null}
       <SEDStatus t={t} status={buc.status} />
     </div>
   </div>

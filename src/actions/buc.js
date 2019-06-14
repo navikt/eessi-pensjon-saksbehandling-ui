@@ -108,10 +108,10 @@ export const createBuc = (buc) => {
   return funcCall({
     url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
     method: 'POST',
-     expectedPayload: {
-       'type': buc,
-       'caseId': '123'
-     },
+    expectedPayload: {
+      'type': buc,
+      'caseId': '123'
+    },
     type: {
       request: types.BUC_CREATE_BUC_REQUEST,
       success: types.BUC_CREATE_BUC_SUCCESS,

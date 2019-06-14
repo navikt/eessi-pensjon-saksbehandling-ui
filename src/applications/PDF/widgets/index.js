@@ -29,7 +29,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators({...pdfActions, ...appActions, ...uiActions, ...storageActions}, dispatch)
+    actions: bindActionCreators({ ...pdfActions, ...appActions, ...uiActions, ...storageActions }, dispatch)
   }
 }
 
@@ -40,8 +40,8 @@ export const PDFWidgetIndex = (props) => {
   return <div className='a-pdf-widget'>
     <StepIndicator t={t} step={step} setStep={setStep} recipe={recipe} files={files} />
     {step === 'select' ? <SelectPDF {...props} setStep={setStep} /> : null}
-    {step === 'edit' ? <EditPDF {...props} setStep={setStep}/> : null}
-    {step === 'generate' ? <GeneratePDF {...props} setStep={setStep}/> : null}
+    {step === 'edit' ? <EditPDF {...props} setStep={setStep} /> : null}
+    {step === 'generate' ? <GeneratePDF {...props} setStep={setStep} /> : null}
   </div>
 }
 

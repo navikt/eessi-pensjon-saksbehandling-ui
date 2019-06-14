@@ -51,7 +51,7 @@ const BUCEmpty = (props) => {
         onClick={onSubmitAktoerId}>
         {t('ui:next')}
       </Hovedknapp>
-      </div>
+    </div>
       : bucs === undefined ? <Flatknapp
         className='mt-4'
         id='TODELETE'

@@ -30,12 +30,12 @@ const alertReducer = (state = initialAlertState, action = {}) => {
 
   if (_.endsWith(action.type, '/REQUEST') || action.type === types.ALERT_CLIENT_CLEAR) {
     return state
-    /*return Object.assign({}, state, {
+    /* return Object.assign({}, state, {
       clientErrorMessage: undefined,
       clientErrorStatus: undefined,
       serverErrorMessage: undefined,
       uuid: undefined
-    })*/
+    }) */
   }
 
   if (_.endsWith(action.type, '/ERROR')) {

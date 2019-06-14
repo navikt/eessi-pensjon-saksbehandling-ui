@@ -9,9 +9,7 @@ export function listJoarkFiles (userId) {
     expectedPayload: [{
       name: 'demo.pdf',
       mimetype: 'application/pdf',
-      content: {
-        base64: base64
-      }
+      size: 83549
     }],
     type: {
       request: types.JOARK_LIST_REQUEST,
@@ -27,6 +25,7 @@ export function getJoarkFiles (userId) {
     expectedPayload: {
       name: 'demo.pdf',
       mimetype: 'application/pdf',
+      size: 83549,
       content: {
         base64: base64
       }

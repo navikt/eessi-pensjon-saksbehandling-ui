@@ -90,7 +90,6 @@ describe('case actions', () => {
     })
   })
 
-
   it('call createSed()', () => {
     bucActions.createSed({})
     expect(api.call).toBeCalledWith({

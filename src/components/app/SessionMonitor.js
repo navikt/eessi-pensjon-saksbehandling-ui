@@ -42,7 +42,7 @@ export class SessionMonitor extends Component {
           const minutesRemaining = Math.abs(Math.ceil((expirationTime.getTime() - now.getTime()) / 1000 / 60))
           actions.openModal({
             modalTitle: t('ui:session-expire-title'),
-            modalText: t('ui:session-expire-text', {minutes: minutesRemaining}),
+            modalText: t('ui:session-expire-text', { minutes: minutesRemaining }),
             modalButtons: [{
               main: true,
               text: t('ui:ok-got-it'),
