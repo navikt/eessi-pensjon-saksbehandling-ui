@@ -42,6 +42,21 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
         status: status
       })
 
+    case types.APP_PERSONINFO_REQUEST:
+
+      return Object.assign({}, state, {
+        gettingPersonInfo: true,
+        status: status
+      })
+
+    case types.APP_PERSONINFO_SUCCESS:
+    case types.APP_PERSONINFO_FAILURE:
+
+      return Object.assign({}, state, {
+        gettingPersonInfo: false,
+        status: status
+      })
+
     case types.APP_LOGIN_REQUEST: {
       return Object.assign({}, state, {
         isLoggingIn: true

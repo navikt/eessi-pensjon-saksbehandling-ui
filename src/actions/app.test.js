@@ -1,7 +1,7 @@
 import * as appActions from './app'
 import * as api from './api'
 import * as types from '../constants/actionTypes'
-import { LOGOUT_URL, API_USERINFO_URL, API_PERSONDATA_URL } from '../constants/urls'
+import { LOGOUT_URL, API_USERINFO_URL } from '../constants/urls'
 
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
@@ -105,19 +105,5 @@ describe('api actions', () => {
         id: id
       }
     })
-  })
-
-  it('call getPersondata()', () => {
-    api.call = jest.fn()
-    appActions.getPersonData()
-    expect(api.call).toBeCalledWith({
-      type: {
-        request: types.APP_PERSONDATA_REQUEST,
-        success: types.APP_PERSONDATA_SUCCESS,
-        failure: types.APP_PERSONDATA_FAILURE
-      },
-      url: API_PERSONDATA_URL
-    })
-    api.call.mockRestore()
   })
 })

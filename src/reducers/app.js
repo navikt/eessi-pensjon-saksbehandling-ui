@@ -10,6 +10,7 @@ export const initialAppState = {
   firstName: undefined,
   middleName: undefined,
   lastname: undefined,
+  person: undefined,
   params: {}
 }
 
@@ -60,13 +61,12 @@ const appReducer = (state = initialAppState, action = {}) => {
         userStatus: 'ERROR'
       })
 
-    case types.APP_PERSONDATA_SUCCESS:
+    case types.APP_PERSONINFO_SUCCESS:
 
-      return Object.assign({}, state, {
-        firstName: action.payload.fornavn,
-        middleName: action.payload.mellomnavn,
-        lastName: action.payload.etternavn
-      })
+      return {
+        ...state,
+        person: action.payload
+      }
 
     case types.APP_DROPPABLE_REGISTER : {
       let droppables = state.droppables || {}

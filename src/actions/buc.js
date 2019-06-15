@@ -3,7 +3,6 @@ import * as urls from 'constants/urls'
 import * as api from './api'
 import _ from 'lodash'
 import sampleBucs from 'resources/tests/sampleBucs'
-
 var sprintf = require('sprintf-js').sprintf
 
 export const setMode = (mode) => {

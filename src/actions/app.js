@@ -1,6 +1,7 @@
 import * as types from '../constants/actionTypes'
 import * as urls from '../constants/urls'
 import * as api from './api'
+var sprintf = require('sprintf-js').sprintf
 
 export function setStatusParam (key, value) {
   return {
@@ -53,13 +54,13 @@ export function getUserInfo () {
   })
 }
 
-export function getPersonData () {
+export function getPersonInfo (aktoerId) {
   return api.call({
-    url: urls.API_PERSONDATA_URL,
+    url: sprintf(urls.PERSON_URL, { aktoerId : aktoerId } ),
     type: {
-      request: types.APP_PERSONDATA_REQUEST,
-      success: types.APP_PERSONDATA_SUCCESS,
-      failure: types.APP_PERSONDATA_FAILURE
+      request: types.APP_PERSONINFO_REQUEST,
+      success: types.APP_PERSONINFO_SUCCESS,
+      failure: types.APP_PERSONINFO_FAILURE
     }
   })
 }

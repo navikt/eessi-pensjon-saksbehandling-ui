@@ -10,6 +10,7 @@ const SED_URL = FAGMODUL_API_URL + '/sed'
 const BUC_URL = FAGMODUL_API_URL + '/buc'
 const EUX_URL = FRONTEND_API_URL + '/eux'
 const PDF_URL = FRONTEND_API_URL + '/pdf'
+const PER_URL = FAGMODUL_API_URL + '/person'
 const PEN_URL = FRONTEND_API_URL + '/pensjon'
 const SAF_URL = FAGMODUL_API_URL + '/saf'
 
@@ -26,7 +27,6 @@ export const EUX_RINA_URL = EUX_URL + '/rinaurl'
 
 // UserInfoController
 export const API_USERINFO_URL = API_URL + '/userinfo'
-export const API_PERSONDATA_URL = API_URL + '/persondata'
 
 // SubmitController
 export const API_SUBMISSION_SUBMIT_URL = API_URL + '/submission/submit'
@@ -50,11 +50,14 @@ export const API_JOARK_GET_URL = SAF_URL + '/get/%(userId)s'
 // PensjonController
 export const PEN_SAKTYPE_URL = PEN_URL + '/saktype/%(sakId)s/%(aktoerId)s'
 
+// PersonController
+export const PERSON_URL = PER_URL + '/%(aktoerId)s'
+
 // BucController
 export const BUC_AKTOERID_DETALJER_URL = BUC_URL + '/detaljer/%(aktoerId)s/'
+export const BUC_CREATE_BUC_URL = BUC_URL + '/%(buc)s'
 
 // SedController
-export const BUC_CREATE_BUC_URL = SED_URL + '/buc/%(buc)s'
 export const BUC_CREATE_SED_URL = SED_URL + '/add'
 
 // PdfController

@@ -4,7 +4,6 @@ import _ from 'lodash'
 import classNames from 'classnames'
 import PDFEditor from 'applications/PDF/components/PDFEditor/PDFEditor'
 import { Ingress, Hovedknapp, Flatknapp } from 'components/ui/Nav'
-import Step2 from 'Step2'
 
 const Step2 = (props) => {
   const { t, files, setFiles, setStep } = props
