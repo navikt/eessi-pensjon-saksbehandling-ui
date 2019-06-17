@@ -31,19 +31,4 @@ describe('pinfo actions', () => {
       url: 'http://localhost/api/varsel?saksId=123&aktoerId=456'
     })
   })
-
-  it('call getSakType()', () => {
-    pinfoActions.getSakType({
-      sakId: '123',
-      aktoerId: '456'
-    })
-    expect(api.call).toBeCalledWith({
-      type: {
-        request: types.PINFO_SAKTYPE_REQUEST,
-        success: types.PINFO_SAKTYPE_SUCCESS,
-        failure: types.PINFO_SAKTYPE_FAILURE
-      },
-      url: 'http://localhost/pensjon/saktype/123/456'
-    })
-  })
 })

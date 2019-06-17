@@ -132,12 +132,6 @@ const alertReducer = (state = initialAlertState, action = {}) => {
         clientErrorMessage = 'ui:loadFailure'
         break
 
-      case types.PINFO_SAKTYPE_FAILURE:
-
-        clientErrorMessage = 'pinfo:alert-sakTypeFailure'
-        clientErrorStatus = 'WARNING'
-        break
-
       case types.PINFO_SEND_FAILURE:
 
         clientErrorMessage = 'pinfo:alert-sendFailure'

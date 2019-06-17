@@ -12,11 +12,10 @@ const mapStateToProps = (state) => {
   return {
     sakId: state.app.params.sakId,
     aktoerId: state.app.params.aktoerId,
+    sakType: state.app.params.sakType,
     isSendingPinfo: state.loading.isSendingPinfo,
     isInvitingPinfo: state.loading.isInvitingPinfo,
-    gettingPinfoSaktype: state.loading.gettingPinfoSaktype,
-    invite: state.pinfo.invite,
-    sakType: state.pinfo.sakType
+    invite: state.pinfo.invite
   }
 }
 
@@ -30,10 +29,8 @@ class VarslerPanel extends React.Component {
   }
 
   componentDidMount () {
-    let { actions, aktoerId, sakId } = this.props
-    if (aktoerId && sakId) {
-      actions.getSakType({ sakId: sakId, aktoerId: aktoerId })
-    } else {
+    let { actions, aktoerId, sakId, sakType } = this.props
+    if (!aktoerId || !sakId || !sakType) {
       this.setState({
         noParams: true
       })
@@ -49,7 +46,7 @@ class VarslerPanel extends React.Component {
   }
 
   render () {
-    const { t, aktoerId, isInvitingPinfo, gettingPinfoSaktype, invite, sakType } = this.props
+    const { t, aktoerId, isInvitingPinfo, invite, sakId, sakType } = this.props
     const { noParams } = this.state
 
     if (noParams) {
@@ -60,14 +57,11 @@ class VarslerPanel extends React.Component {
 
     return <React.Fragment>
       <Nav.Undertittel>{t('pinfo:sb-send-notification-title')}</Nav.Undertittel>
-      {!_.isEmpty(sakType) ? <div className='mt-3 mb-3'>
-        <div><label class='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakId')}</label>: {sakType.sakId}</div>
-        <div><label class='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakType')}</label>: {sakType.sakType}</div>
-      </div> : null}
-      {gettingPinfoSaktype ? <div>
-        <Nav.NavFrontendSpinner />
-        <p className='typo-normal'>{t('ui:loading')}</p>
-      </div> : null}
+      <div className='mt-3' style={{columns: 3}}>
+        <div><label class='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakId')}</label>: {sakId}</div>
+        <div><label class='skjemaelement__label d-inline-block'>{t('ui:aktoerId')}</label>: {aktoerId}</div>
+        <div><label class='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakType')}</label>: {sakType}</div>
+      </div>
       <Nav.Undertekst className='mt-3 mb-3'>{t('pinfo:sb-send-notification-description', { user: aktoerId })}</Nav.Undertekst>
       <Nav.Hovedknapp
         id='pinfo-forward-button'

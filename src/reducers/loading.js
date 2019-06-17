@@ -426,17 +426,6 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
         isInvitingPinfo: true
       })
 
-    case types.PINFO_SAKTYPE_SUCCESS:
-    case types.PINFO_SAKTYPE_FAILURE:
-      return Object.assign({}, state, {
-        gettingPinfoSaktype: false
-      })
-
-    case types.PINFO_SAKTYPE_REQUEST:
-      return Object.assign({}, state, {
-        gettingPinfoSaktype: true
-      })
-
     default:
 
       return state

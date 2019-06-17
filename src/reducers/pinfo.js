@@ -1,8 +1,7 @@
 import * as types from '../constants/actionTypes'
 
 export const initialPinfoState = {
-  invite: undefined,
-  sakType: undefined
+  invite: undefined
 }
 
 const pinfoReducer = (state = initialPinfoState, action = {}) => {
@@ -29,12 +28,6 @@ const pinfoReducer = (state = initialPinfoState, action = {}) => {
           message: 'pinfo:alert-inviteSuccess',
           status: 'OK'
         }
-      })
-
-    case types.PINFO_SAKTYPE_SUCCESS:
-
-      return Object.assign({}, state, {
-        sakType: action.payload
       })
 
     default:
