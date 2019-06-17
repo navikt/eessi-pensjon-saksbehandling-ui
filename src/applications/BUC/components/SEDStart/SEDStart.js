@@ -15,6 +15,7 @@ export const mapStateToProps = (state) => {
   return {
     buc: state.buc.buc,
     sedList: state.buc.sedList,
+    sed: state.buc.sed,
     countryList: state.buc.countryList,
     institutionList: state.buc.institutionList,
     loading: state.loading
@@ -49,8 +50,10 @@ const SEDStart = (props) => {
     }
   }, [actions, loading, countryList, sedList, buc])
 
+  // when sed is successfully created
   useEffect(() => {
     if (sed) {
+      actions.resetSed()
       actions.fetchBucs(aktoerId)
       actions.fetchBucsInfo(aktoerId)
       actions.setMode('list')
@@ -312,7 +315,7 @@ const SEDStart = (props) => {
     return <div className='mt-4'>
       <Nav.Ingress className='mb-2'>{t('ui:attachments')}</Nav.Ingress>
       {_attachments ? Object.keys(_attachments).map((key, index1) => {
-        _attachments[key].map((att, index2) => {
+        return _attachments[key].map((att, index2) => {
           return <div key={index1 + '-' + index2}>{key}: {att}</div>
         })
       }) : null}

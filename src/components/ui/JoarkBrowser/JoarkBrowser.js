@@ -34,7 +34,7 @@ const JoarkBrowser = (props) => {
       actions.listJoarkFiles(aktoerId)
       setMounted(true)
     }
-  }, [mounted, list, loadingJoarkList, actions])
+  }, [mounted, list, loadingJoarkList, actions, aktoerId])
 
   const previewFile = (file) => {
   }

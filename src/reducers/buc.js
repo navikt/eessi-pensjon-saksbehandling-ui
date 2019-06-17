@@ -31,6 +31,12 @@ const bucReducer = (state = initialBucState, action) => {
         seds: action.payload
       }
 
+    case types.BUC_SED_RESET:
+      return {
+        ...state,
+        sed: undefined
+      }
+
     case types.BUC_GET_BUCS_SUCCESS:
 
       return {
@@ -157,7 +163,7 @@ const bucReducer = (state = initialBucState, action) => {
 
       return {
         ...state,
-        bucsInfo: action.originalPayload
+        bucsInfo: JSON.parse(action.originalPayload)
       }
 
     case types.BUC_SAVE_BUCSINFO_REQUEST:

@@ -57,6 +57,12 @@ const BUCStart = (props) => {
   const [hasBucInfoSaved, setHasBucInfoSaved] = useState(false)
 
   useEffect(() => {
+    if (currentBUC && !sakId) {
+      actions.setStatusParam('sakId', currentBUC.casenumber)
+    }
+  }, [currentBUC, sakId, actions])
+
+  useEffect(() => {
     if (!loading.verifyingCaseNumber && _.isEmpty(currentBUC) && sakId && aktoerId) {
       actions.verifyCaseNumber({
         sakId: sakId,

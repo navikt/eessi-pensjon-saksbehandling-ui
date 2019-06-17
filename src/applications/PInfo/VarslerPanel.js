@@ -29,7 +29,7 @@ class VarslerPanel extends React.Component {
   }
 
   componentDidMount () {
-    let { actions, aktoerId, sakId, sakType } = this.props
+    let { aktoerId, sakId, sakType } = this.props
     if (!aktoerId || !sakId || !sakType) {
       this.setState({
         noParams: true

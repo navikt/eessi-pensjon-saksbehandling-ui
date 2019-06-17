@@ -26,6 +26,12 @@ export const setSeds = (seds) => {
   }
 }
 
+export const resetSed = () => {
+  return {
+    type: types.BUC_SED_RESET
+  }
+}
+
 export const fetchBucs = (aktoerId) => {
   let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
   return funcCall({
@@ -188,9 +194,10 @@ export const removeInstitutionForCountry = (country) => {
 }
 
 export const createSed = (payload) => {
-  return api.call({
+  return api.fakecall({
     url: urls.BUC_CREATE_SED_URL,
     payload: payload,
+    expectedPayload: Object.assign({}, payload, {success: true}),
     method: 'POST',
     type: {
       request: types.BUC_CREATE_SED_REQUEST,
