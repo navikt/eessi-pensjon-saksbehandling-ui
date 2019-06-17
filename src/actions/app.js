@@ -56,7 +56,7 @@ export function getUserInfo () {
 
 export function getPersonInfo (aktoerId) {
   return api.call({
-    url: sprintf(urls.PERSON_URL, { aktoerId : aktoerId } ),
+    url: sprintf(urls.PERSON_URL, { aktoerId: aktoerId }),
     type: {
       request: types.APP_PERSONINFO_REQUEST,
       success: types.APP_PERSONINFO_SUCCESS,

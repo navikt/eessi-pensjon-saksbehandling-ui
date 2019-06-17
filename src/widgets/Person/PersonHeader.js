@@ -1,31 +1,45 @@
 import React from 'react'
 import { Systemtittel, Undertekst } from 'nav-frontend-typografi'
 import _ from 'lodash'
-import { ReactComponent as MannIcon } from '../../resources/images/mann.svg'
 import { AlertStripe, NavFrontendSpinner } from 'components/ui/Nav'
+import Icons from 'components/ui/Icons'
 
 function PersonHeader (props) {
   const { t, person, aktoerId, gettingPersonInfo } = props
+
+  let age = '-'
+  let fromDate; let toDate; let dateString = ''
+
+  if (person) {
+    if (person.foedselsdato) {
+      const birthDate = new Date(Date.parse(person.foedselsdato.foedselsdato))
+      age = new Date().getFullYear() - birthDate.getFullYear()
+    }
+
+    if (person.sivilstand.fomGyldighetsperiode) {
+      fromDate = new Date(Date.parse(person.sivilstand.fomGyldighetsperiode)).toLocaleDateString()
+      dateString = fromDate + ' - '
+    }
+    if (person.sivilstand.tomGyldighetsperiode) {
+      toDate = new Date(Date.parse(person.sivilstand.tomGyldighetsperiode)).toLocaleDateString()
+      dateString += toDate
+    }
+  }
+
   return <div className='d-flex w-100'>
-    <div>
-      <MannIcon data-qa='PersonHeader-Mann' />
-    </div>
     {!aktoerId ? <AlertStripe type='advarsel'>{t('buc:validation-noAktoerId')}</AlertStripe> : null }
     {gettingPersonInfo ? <div className='d-flex align-items-center'>
-       <NavFrontendSpinner className='ml-3 mr-3' type='M' />
-       <span>{t('ui:loading')}</span>
-     </div> : null}
-    { !_.isEmpty(person) ? <div className='w-100'>
-      <div className='col-12'>
-        <Systemtittel data-qa='PersonHeader-nameAgeID'>{props.fullName} ({props.age}) - {props.personID}</Systemtittel>
+      <NavFrontendSpinner className='ml-3 mr-3' type='M' />
+      <span>{t('ui:loading')}</span>
+    </div> : null}
+    { !_.isEmpty(person) ? <div>
+      <div className='d-flex align-items-center'>
+        <Icons kind={person.kjoenn.kjoenn.value === 'K' ? 'nav-woman-icon' : 'nav-man-icon'} />
+        <Systemtittel className='ml-2'>{person.personnavn.sammensattNavn} ({age}) - {person.aktoer.ident.ident}</Systemtittel>
       </div>
-      <div className='col-12 d-flex'>
-        <div className='pr-5 mr-5'>
-          <Undertekst data-qa='PersonHeader-country'>{t('ui:country')}: {props.country}</Undertekst>
-        </div>
-        <div>
-          <Undertekst data-qa='PersonHeader-maritalStatus' className='pl-2'>{t('ui:marital-status')}: {props.maritalStatus}</Undertekst>
-        </div>
+      <div className='d-flex'>
+        <Undertekst className='ml-5'>{t('ui:adresse')}: {person.gjeldendePostadressetype.value}</Undertekst>
+        <Undertekst className='ml-4'>{t('ui:marital-status')}: {person.sivilstand.sivilstand.value} {dateString ? '(' + dateString + ')' : ''}</Undertekst>
       </div>
     </div> : null}
   </div>

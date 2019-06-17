@@ -28,8 +28,8 @@ const SEDAttachments = (props) => {
           { label: t('buc:attachments-step1'), aktiv: (step === 1) },
           { label: t('buc:attachments-step2'), aktiv: (step === 2) }
         ]} /> : null}
-    {enableAttachments && step === 0 ? <Step1 setStep={setStep} {...props}/> : null}
-    {enableAttachments && step === 1 ? <Step2 setStep={setStep} {...props}/> : null}
+    {enableAttachments && step === 0 ? <Step1 setStep={setStep} {...props} /> : null}
+    {enableAttachments && step === 1 ? <Step2 setStep={setStep} {...props} /> : null}
   </div>
 }
 

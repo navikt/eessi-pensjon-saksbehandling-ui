@@ -21,7 +21,7 @@ const Step1 = (props) => {
 
   const getFiles = (key) => {
     if (files.hasOwnProperty(key)) {
-      return(files[key])
+      return (files[key])
     }
     return []
   }

@@ -20,7 +20,6 @@ const renderBytes = (bytes) => {
 }
 
 const File = (props) => {
-
   const { file, animate, scale, ui, onClick } = props
   const [ isHovering, setIsHovering ] = useState(false)
 
@@ -52,13 +51,13 @@ const File = (props) => {
     case 'image/png':
     case 'image/jpeg':
       return <div onMouseEnter={onHandleMouseEnter} onMouseLeave={onHandleMouseLeave}>
-      <MiniatureImage isHovering={isHovering}
-        animate={_animate} size={_size} scale={_scale} ui={_ui} {...props} />
+        <MiniatureImage isHovering={isHovering}
+          animate={_animate} size={_size} scale={_scale} ui={_ui} {...props} />
       </div>
     default:
       return <div onMouseEnter={onHandleMouseEnter} onMouseLeave={onHandleMouseLeave}>
         <MiniatureOther isHovering={isHovering}
-        animate={_animate} size={_size} scale={_scale} ui={_ui} {...props} />
+          animate={_animate} size={_size} scale={_scale} ui={_ui} {...props} />
       </div>
   }
 }

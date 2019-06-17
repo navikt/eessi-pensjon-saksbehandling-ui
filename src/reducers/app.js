@@ -65,7 +65,7 @@ const appReducer = (state = initialAppState, action = {}) => {
 
       return {
         ...state,
-        person: action.payload
+        person: action.payload.person
       }
 
     case types.APP_DROPPABLE_REGISTER : {
