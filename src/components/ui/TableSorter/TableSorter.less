@@ -1,0 +1,43 @@
+.c-ui-tablesorter {
+
+  display: flex;
+  flex-direction: row;
+
+  &__table {
+
+    width: 100%;
+
+    thead {
+      display: flex;
+      flex-direction: column;
+    }
+
+    tbody {
+      max-height: 200px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    tr {
+      display: flex;
+      flex-direction: row;
+    }
+
+    th {
+      text-align: center;
+      display: block;
+      width: 100%;
+    }
+
+    td {
+      display: block;
+      width: 100%;
+    }
+  }
+  &__preview {
+     margin-left: 1rem;
+     min-width: 141.4px;
+     min-height: 210px;
+  }
+}

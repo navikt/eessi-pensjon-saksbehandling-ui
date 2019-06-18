@@ -19,7 +19,7 @@ const SEDAttachments = (props) => {
     <Checkbox label={t('buc:form-enableAttachments')}
       onChange={onChange}
       checked={enableAttachments} />
-    {enableAttachments
+    {enableAttachments && step === 1
       ? <Stegindikator
         visLabel
         autoResponsiv

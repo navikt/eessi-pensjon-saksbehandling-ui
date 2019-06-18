@@ -72,8 +72,8 @@ const SEDStart = (props) => {
           if (found) {
             institutions.push({
               country: found.landkode,
-              institution: found.akronym,
-              name: found.navn
+              institution: found.navn,
+              name: found.akronym
             })
           }
         })

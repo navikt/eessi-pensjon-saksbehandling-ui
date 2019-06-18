@@ -9,7 +9,7 @@ import { Ingress, Hovedknapp } from 'components/ui/Nav'
 const Step1 = (props) => {
   const { t, files, setFiles, setStep } = props
 
-  const onForwardButtonClick = () => {
+  const onEditButtonClick = () => {
     setStep('edit')
   }
 
@@ -41,12 +41,12 @@ const Step1 = (props) => {
   }
 
   return <div>
-    <Ingress className='mt-2 mb-2'>{t('buc:form-addAttachmentsFromJOARK')}</Ingress>
+    <Ingress className='mt-4 mb-3'>{t('buc:form-addAttachmentsFromJOARK')}</Ingress>
     <JoarkBrowser
       {...props}
       files={getFiles('joark')}
       onFilesChange={handleJoarkFilesChange} />
-    <Ingress className='mt-3 mb-2'>{t('buc:form-addAttachmentsFromFileUpload')}</Ingress>
+    <Ingress className='mt-4 mb-3'>{t('buc:form-addAttachmentsFromFileUpload')}</Ingress>
     <FileUpload t={t}
       fileUploadDroppableId={'SEDAttachments'}
       id={classNames('a-buc-c-sedattachments-fileupload-id', 'mb-3')}
@@ -57,10 +57,10 @@ const Step1 = (props) => {
       afterDrop={handleAfterDrop}
       onFileChange={handleFileUploadFileChange} />
     <Hovedknapp
-      id='a-buc-c-sedattachmnents__next-button-id'
-      className='a-buc-c-sedattachmnents__next-button'
-      onClick={onForwardButtonClick}>
-      {t('ui:next')}
+      id='a-buc-c-sedattachmnents__edit-button-id'
+      className='a-buc-c-sedattachmnents__edit-button'
+      onClick={onEditButtonClick}>
+      {t('ui:edit')}
     </Hovedknapp>
   </div>
 }
