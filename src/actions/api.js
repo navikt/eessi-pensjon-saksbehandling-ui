@@ -5,7 +5,7 @@ import 'cross-fetch/polyfill'
 
 export const fakecall = (options) => {
   return (dispatch) => {
-    console.log('FAKE API CALL: REQUEST')
+    console.log('FAKE API CALL FOR ' + options.url + ': REQUEST')
     dispatch({
       type: options.type.request
     })
@@ -14,7 +14,7 @@ export const fakecall = (options) => {
         resolve(options.expectedPayload)
       }, 1000)
     }).then(payload => {
-      console.log('FAKE API CALL: SUCCESS')
+      console.log('FAKE API CALL FOR ' + options.url + ': SUCCESS')
       return dispatch({
         type: options.type.success,
         payload: payload

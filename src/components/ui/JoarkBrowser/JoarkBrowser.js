@@ -6,6 +6,7 @@ import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import File from 'components/ui/File/File'
 import { NavFrontendSpinner } from 'components/ui/Nav'
+import TableSorter from 'components/ui/TableSorter/TableSorter'
 import * as joarkActions from 'actions/joark'
 
 import './JoarkBrowser.css'
@@ -52,24 +53,35 @@ const JoarkBrowser = (props) => {
     }
   }
 
+  const config = {
+    sort: {column: 'name', order: 'desc'},
+    columns: {
+      name: {name: 'name', filterText: '', defaultSortOrder: 'desc'},
+      tags: {name: 'tags', filterText: '', defaultSortOrder: 'desc'},
+      date: {name: 'date', filterText: '', defaultSortOrder: 'desc'},
+    }
+  }
+
+  const items = list ? list.map((file, index) => {
+    return {id: index, name: file.name, tags: file.tags.join(', '), date: file.date}
+  }) : []
+
+  if (loadingJoarkList) {
+    return <div>
+      <NavFrontendSpinner type='XS' />
+      <span>{t('ui:loading')}</span>
+    </div>
+  }
+
   return <div className='c-ui-joarkBrowser'>
-    {list ? list.map((file, index) => {
-      let selected = _.find(_files, file)
-      return <div key={index}
-        className={classNames('c-ui-joarkBrowser__item', { selected: selected })}>
-        {loadingJoarkList ? <div>
-          <NavFrontendSpinner type='XS' />
-          <span>{t('ui:loading')}</span>
-        </div> : null}
-        <File file={file} addLink animate previewLink
-          width={141.4} height={200} scale={1.0}
-          onPreviewDocument={() => previewFile(file)}
-          onClick={() => handleFileClick(file)} />
-      </div>
-    }) : null}
+    <TableSorter items={items} config={config} />
   </div>
 }
 
+/* <File file={file} addLink animate previewLink
+            width={141.4} height={200} scale={1.0}
+            onPreviewDocument={() => previewFile(file)}
+            onClick={() => handleFileClick(file)} />*/
 JoarkBrowser.propTypes = {
   t: PT.func.isRequired,
   onFilesChange: PT.func.isRequired

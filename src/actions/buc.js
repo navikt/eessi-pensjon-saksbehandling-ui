@@ -194,7 +194,8 @@ export const removeInstitutionForCountry = (country) => {
 }
 
 export const createSed = (payload) => {
-  return api.fakecall({
+  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
+  return funcCall({
     url: urls.BUC_CREATE_SED_URL,
     payload: payload,
     expectedPayload: Object.assign({}, payload, {success: true}),

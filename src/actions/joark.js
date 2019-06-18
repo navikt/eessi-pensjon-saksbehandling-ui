@@ -4,12 +4,27 @@ import * as api from './api'
 var sprintf = require('sprintf-js').sprintf
 
 export function listJoarkFiles (userId) {
-  return api.call({
+  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
+  return funcCall({
     url: sprintf(urls.API_JOARK_LIST_URL, { userId: userId }),
     expectedPayload: [{
       name: 'demo.pdf',
       mimetype: 'application/pdf',
-      size: 83549
+      size: 83549,
+      tags: ['foo'],
+      date: new Date(2012, 0, 1)
+    }, {
+       name: 'demo2.pdf',
+       mimetype: 'application/pdf',
+       size: 83549,
+       tags: ['bar'],
+       date: new Date(2013, 0, 1)
+    }, {
+      name: 'demo3.pdf',
+      mimetype: 'application/pdf',
+      size: 83549,
+      tags: ['fuzz', 'bar', 'foo'],
+      date: new Date(2014, 0, 1)
     }],
     type: {
       request: types.JOARK_LIST_REQUEST,
@@ -20,7 +35,8 @@ export function listJoarkFiles (userId) {
 }
 
 export function getJoarkFiles (userId) {
-  return api.call({
+  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
+  return funcCall({
     url: sprintf(urls.API_JOARK_GET_URL, { userId: userId }),
     expectedPayload: {
       name: 'demo.pdf',
@@ -28,7 +44,9 @@ export function getJoarkFiles (userId) {
       size: 83549,
       content: {
         base64: base64
-      }
+      },
+      tags: ['bar'],
+      date: new Date(2014, 0, 1)
     },
     type: {
       request: types.JOARK_GET_REQUEST,

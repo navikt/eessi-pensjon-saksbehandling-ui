@@ -41,12 +41,11 @@ const Step1 = (props) => {
   }
 
   return <div>
-    <Ingress className='mb-2'>{t('buc:form-addAttachmentsFromJOARK')}</Ingress>
+    <Ingress className='mt-2 mb-2'>{t('buc:form-addAttachmentsFromJOARK')}</Ingress>
     <JoarkBrowser
       {...props}
       files={getFiles('joark')}
       onFilesChange={handleJoarkFilesChange} />
-    }
     <Ingress className='mt-3 mb-2'>{t('buc:form-addAttachmentsFromFileUpload')}</Ingress>
     <FileUpload t={t}
       fileUploadDroppableId={'SEDAttachments'}
