@@ -67,14 +67,15 @@ const JoarkBrowser = (props) => {
     }
   }
 
-  const items = list ? list.map((file, index) => {
+  const items = list ? list.map((file) => {
     return {
       raw: file,
-      id: index,
+      id: file.id,
       name: file.name,
-      tags: file.tags.join(', '),
+      tema: file.tema,
       date: file.date,
-      selected: false
+      focused: _previewFile ? _previewFile.id === file.id : false,
+      selected: _.find(files, file) !== undefined
     }
   }) : []
 
@@ -93,9 +94,9 @@ const JoarkBrowser = (props) => {
       previewFile={_previewFile}
       sort={{column: 'name', order: 'desc'}}
       columns={{
-        name: {name: 'name', filterText: '', defaultSortOrder: 'desc'},
-        tags: {name: 'tags', filterText: '', defaultSortOrder: 'desc'},
-        date: {name: 'date', filterText: '', defaultSortOrder: 'desc'},
+        name: {name: t('ui:title'), filterText: '', defaultSortOrder: 'desc'},
+        tema: {name: t('ui:tema'), filterText: '', defaultSortOrder: 'desc'},
+        date: {name: t('ui:date'), filterText: '', defaultSortOrder: 'desc'},
       }}
       onItemClicked={onItemClicked}
       onSelectedItemsChange={onSelectedItemsChange}

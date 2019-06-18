@@ -163,8 +163,8 @@ export const getCountryList = () => {
   })
 }
 
-export const getSedList = (buc) => {
-  let url = sprintf(urls.EUX_SED_FOR_BUCS_URL, { buc: buc.type })
+export const getSedList = (buc, rinaId) => {
+  let url = sprintf(urls.EUX_SED_FOR_BUCS_URL, { buc: buc.type, rinaId: buc.caseId })
   return api.call({
     url: url,
     type: {

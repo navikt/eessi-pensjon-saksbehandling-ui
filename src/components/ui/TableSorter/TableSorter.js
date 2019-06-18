@@ -50,9 +50,14 @@ const TableSorter = (props) => {
     }
 
     return sortedItems.map((item, index) => {
+
+      let background = index % 2 === 0 ? 'white' : 'whitesmoke'
+      if (item.selected) background  = 'lightblue'
+      if (item.focused) background = 'lightsteelblue'
+
       return <tr
         key={item.id}
-        style={{background: index % 2 === 0 ? 'white' : 'whitesmoke'}}
+        style={{background: background}}
         onClick={() => onItemClicked(item)}>
         { columnNames.map((c) => {
           if (typeof item[c] === 'string') {

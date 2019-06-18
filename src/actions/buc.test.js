@@ -79,14 +79,15 @@ describe('case actions', () => {
 
   it('call getSedList() with no rinaId', () => {
     const mockBuc = 'mockBuc'
-    bucActions.getSedList(mockBuc)
+    const mockRinaId = '123'
+    bucActions.getSedList(mockBuc. mockRinaId)
     expect(api.call).toBeCalledWith({
       type: {
         request: types.BUC_GET_SED_LIST_REQUEST,
         success: types.BUC_GET_SED_LIST_SUCCESS,
         failure: types.BUC_GET_SED_LIST_FAILURE
       },
-      url: sprintf(urls.EUX_SED_FOR_BUCS_URL, { buc: mockBuc })
+      url: sprintf(urls.EUX_SED_FOR_BUCS_URL, { buc: mockBuc, rinaId: mockRinaId })
     })
   })
 

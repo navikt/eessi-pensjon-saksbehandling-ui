@@ -8,22 +8,25 @@ export function listJoarkFiles (userId) {
   return funcCall({
     url: sprintf(urls.API_JOARK_LIST_URL, { userId: userId }),
     expectedPayload: [{
+      id: '1',
       name: 'blue.pdf',
       mimetype: 'application/pdf',
       size: 83549,
-      tags: ['foo'],
+      tema: 'foo',
       date: new Date(2012, 0, 1)
     }, {
-       name: 'red.pdf',
-       mimetype: 'application/pdf',
-       size: 83549,
-       tags: ['bar'],
-       date: new Date(2013, 0, 1)
+      id: '2',
+      name: 'red.pdf',
+      mimetype: 'application/pdf',
+      size: 83549,
+      tema: 'bar',
+      date: new Date(2013, 0, 1)
     }, {
+      id: '3',
       name: 'yellow.pdf',
       mimetype: 'application/pdf',
       size: 83549,
-      tags: ['fuzz', 'bar', 'foo'],
+      tema: 'fuzz',
       date: new Date(2014, 0, 1)
     }],
     type: {
@@ -39,6 +42,7 @@ export function getJoarkFile (userId, fileName) {
   return funcCall({
     url: sprintf(urls.API_JOARK_GET_URL, { userId: userId, file: fileName }),
     expectedPayload: {
+      id: '1',
       name: fileName,
       mimetype: 'application/pdf',
       size: 83549,
