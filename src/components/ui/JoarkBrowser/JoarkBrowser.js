@@ -63,7 +63,7 @@ const JoarkBrowser = (props) => {
   const onItemClicked = (clickedItem) => {
     const foundFile = _.find(files, clickedItem.raw)
     if (!foundFile) {
-      actions.previewJoarkFile(clickedItem.raw.journalpostId, clickedItem.raw.dokumentInfoId)
+      actions.previewJoarkFile(clickedItem.raw)
     } else {
       setPreviewFile(foundFile)
     }
