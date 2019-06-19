@@ -48,21 +48,7 @@ export function getJoarkFile (item) {
 
 const getMockedPayload = (journalpostId) => {
   let item = _.find(mockdata.data.dokumentoversiktBruker.journalposter, {journalpostId : journalpostId})
-  return {
-    journalpostId: item.journalpostId,
-    tilleggsopplysninger: item.tilleggsopplysninger,
-    tittel: item.tittel,
-    tema: item.tema,
-    dokumentInfoId: item.dokumenter[0].dokumentInfoId,
-    datoOpprette : item.datoOpprettet,
-    datoRegistrert: new Date(Date.parse(item.relevanteDatoer[0].dato)),
-    name: item.tittel,
-    size: files[item.tittel].length,
-    mimetype: 'application/pdf',
-    content: {
-      base64: files[item.tittel]
-    }
-  }
+  return files[item.tittel]
 }
 
 const mockdata = {'data':{'dokumentoversiktBruker':{'journalposter':[{

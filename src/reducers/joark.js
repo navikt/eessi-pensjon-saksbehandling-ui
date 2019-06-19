@@ -32,14 +32,27 @@ const joarkReducer = (state = initialJoarkState, action = {}) => {
       }
 
     case types.JOARK_GET_SUCCESS:
+
+      let item = action.context
+      let base64 = action.payload
+      let file = {
+        journalpostId: item.journalpostId,
+        tilleggsopplysninger: item.tilleggsopplysninger,
+        tittel: item.tittel,
+        tema: item.tema,
+        dokumentInfoId: item.dokumenter[0].dokumentInfoId,
+        datoOpprette : item.datoOpprettet,
+        datoRegistrert: new Date(Date.parse(item.relevanteDatoer[0].dato)),
+        name: item.tittel,
+        size: base64.length,
+        mimetype: 'application/pdf',
+        content: {
+            base64: base64
+        }
+      }
       return {
         ...state,
-        file: {
-          ...action.context,
-          content: {
-             base64: action.payload
-          }
-        }
+        file: file
       }
 
     case types.JOARK_PREVIEW_SUCCESS:
