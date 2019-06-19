@@ -8,6 +8,9 @@ export const initialJoarkState = {
 }
 
 const joarkReducer = (state = initialJoarkState, action = {}) => {
+
+  let item, base64
+
   switch (action.type) {
     case types.JOARK_LIST_SUCCESS:
       let documents = []
@@ -33,8 +36,8 @@ const joarkReducer = (state = initialJoarkState, action = {}) => {
 
     case types.JOARK_GET_SUCCESS:
 
-      let item = action.context
-      let base64 = action.payload
+      item = action.context
+      base64 = action.payload
       let file = {
         journalpostId: item.journalpostId,
         tilleggsopplysninger: item.tilleggsopplysninger,
@@ -47,7 +50,7 @@ const joarkReducer = (state = initialJoarkState, action = {}) => {
         size: base64.length,
         mimetype: 'application/pdf',
         content: {
-            base64: base64
+          base64: base64
         }
       }
       return {
@@ -56,9 +59,27 @@ const joarkReducer = (state = initialJoarkState, action = {}) => {
       }
 
     case types.JOARK_PREVIEW_SUCCESS:
+
+      item = action.context
+      base64 = action.payload
+      let previewFile = {
+        journalpostId: item.journalpostId,
+        tilleggsopplysninger: item.tilleggsopplysninger,
+        tittel: item.tittel,
+        tema: item.tema,
+        dokumentInfoId: item.dokumenter[0].dokumentInfoId,
+        datoOpprette : item.datoOpprettet,
+        datoRegistrert: new Date(Date.parse(item.relevanteDatoer[0].dato)),
+        name: item.tittel,
+        size: base64.length,
+        mimetype: 'application/pdf',
+        content: {
+          base64: base64
+        }
+      }
       return {
         ...state,
-        previewFile: action.payload
+        previewFile: previewFile
       }
 
     default:
