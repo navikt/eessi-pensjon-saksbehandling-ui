@@ -37,11 +37,23 @@ const PersonBody = (props) => {
             {renderEntity('ui:husbokstav', person.bostedsadresse.strukturertAdresse.husbokstav)}
           </div>
         </React.Fragment> : null}
+      { person.postadresse && person.postadresse.ustrukturertAdresse ?
+       <React.Fragment>
+         <div><Undertekst>{t('ui:ustrukturertAdresse')}</Undertekst></div>
+         <div className='pl-4'>
+           {renderEntity('ui:adresselinje1', person.postadresse.ustrukturertAdresse.adresselinje1)}
+           {renderEntity('ui:adresselinje2', person.postadresse.ustrukturertAdresse.adresselinje2)}
+           {renderEntity('ui:adresselinje3', person.postadresse.ustrukturertAdresse.adresselinje3)}
+           {renderEntity('ui:adresselinje4', person.postadresse.ustrukturertAdresse.adresselinje4)}
+           {renderEntity('ui:landkode', person.postadresse.ustrukturertAdresse.landkode.value)}
+           {renderEntity('ui:postnr', person.postadresse.ustrukturertAdresse.postnr)}
+           {renderEntity('ui:poststed', person.postadresse.ustrukturertAdresse.poststed)}
+         </div>
+       </React.Fragment> : null}
       {renderEntity('ui:statsborgerskap', person.statsborgerskap.land.value)}
       {renderEntity('ui:diskresjonskode', person.diskresjonskode)}
       {renderEntity('ui:personstatus', person.personstatus.personstatus.value)}
-      {renderEntity('ui:postadresse', person.postadresse)}
-      {renderEntity('ui:doedsdato', person.doedsdato)}
+      {renderEntity('ui:doedsdato', person.doedsdato ? person.doedsdato.doedsdato : null)}
       {renderEntity('ui:foedselsdato', person.foedselsdato.foedselsdato)}
       {renderEntity('ui:foedested', person.foedselsdato.foedested)}
       {renderEntity('ui:gjeldendePostadressetype', person.gjeldendePostadressetype.value)}
@@ -56,18 +68,18 @@ const PersonBody = (props) => {
       { person.harFraRolleI ? <React.Fragment>
         <div><Undertekst>{t('ui:harFraRolleI')}</Undertekst></div>
         <div className='pl-4'>
-          {person.harFraRolleI.map(rolle => {
+          {person.harFraRolleI.map((rolle, i) => {
             let age
             if (rolle.tilPerson.foedselsdato) {
               const birthDate = new Date(Date.parse(rolle.tilPerson.foedselsdato))
               age = new Date().getFullYear() - birthDate.getFullYear()
             }
-            return <div>
+            return <div key={i}>
               {renderEntity('ui:tilRolle', rolle.tilRolle.value)}
               {renderEntity('ui:tilPerson', rolle.tilPerson.personnavn.sammensattNavn + ' - ' + (age ? '(' + age + ')' : '') + ' - ' + rolle.tilPerson.aktoer.ident.ident)}
               {/*renderEntity('+', rolle.tilPerson.kjoenn + ' - ' + rolle.tilPerson.sivilstand)*/}
             </div>
-          })}
+            })}
         </div>
       </React.Fragment> : null }
     </div>
