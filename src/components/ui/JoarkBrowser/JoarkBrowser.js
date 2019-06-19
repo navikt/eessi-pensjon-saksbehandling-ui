@@ -94,14 +94,14 @@ const JoarkBrowser = (props) => {
       tema: file.tema,
       date: file.datoRegistrert,
       focused: _previewFile ? _previewFile.journalpostId === file.journalpostId : false,
-      selected: _.find(files, file) !== undefined
+      selected: _.find(files, {dokumentInfoId : file.dokumentInfoId}) !== undefined
     }
   }) : []
 
   if (loadingJoarkList) {
     return <div>
       <NavFrontendSpinner type='XS' />
-      <span>{t('ui:loading')}</span>
+      <span className='pl-2'>{t('ui:loading')}</span>
     </div>
   }
 

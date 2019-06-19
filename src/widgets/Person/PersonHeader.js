@@ -30,7 +30,7 @@ function PersonHeader (props) {
     {!aktoerId ? <AlertStripe type='advarsel'>{t('buc:validation-noAktoerId')}</AlertStripe> : null }
     {gettingPersonInfo ? <div className='d-flex align-items-center'>
       <NavFrontendSpinner className='ml-3 mr-3' type='M' />
-      <span>{t('ui:loading')}</span>
+      <span className='pl-2'>{t('ui:loading')}</span>
     </div> : null}
     { !_.isEmpty(person) ? <div>
       <div className='d-flex align-items-center'>

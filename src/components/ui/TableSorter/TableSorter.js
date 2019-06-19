@@ -137,7 +137,7 @@ const TableSorter = (props) => {
     <div className='c-ui-tablesorter__preview'>
       {loadingJoarkPreviewFile ? <div>
         <NavFrontendSpinner type='XS' />
-        <span>{t('ui:loading')}</span>
+        <span className='pl-2'>{t('ui:loading')}</span>
       </div> :
         previewFile ? <File file={previewFile} addLink animate previewLink
         width={141.4} height={200} scale={1.0}
