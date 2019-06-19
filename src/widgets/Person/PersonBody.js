@@ -15,8 +15,12 @@ const PersonBody = (props) => {
     </div>
   }
 
+  if (_.isEmpty(person)) {
+    return null
+  }
+
   return <div className='w-100' style={{ columns: 3 }}>
-    { !_.isEmpty(person) ? <div>
+    <div>
       { person.bostedsadresse && person.bostedsadresse.strukturertAdresse ?
         <React.Fragment>
           <div><Undertekst>{t('ui:strukturertAdresse')}</Undertekst></div>
@@ -66,7 +70,7 @@ const PersonBody = (props) => {
           })}
         </div>
       </React.Fragment> : null }
-    </div> : null}
+    </div>
   </div>
 }
 

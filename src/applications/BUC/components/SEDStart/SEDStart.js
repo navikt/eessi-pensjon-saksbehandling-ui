@@ -53,7 +53,7 @@ const SEDStart = (props) => {
   // when sed is successfully created
   useEffect(() => {
     if (sed) {
-      actions.resetSed()
+      actions.resetBuc()
       actions.fetchBucs(aktoerId)
       actions.fetchBucsInfo(aktoerId)
       actions.setMode('list')
@@ -91,6 +91,7 @@ const SEDStart = (props) => {
   }
 
   const onCancelButtonClick = () => {
+    actions.resetBuc()
     actions.setMode('list')
   }
 

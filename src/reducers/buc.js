@@ -37,6 +37,14 @@ const bucReducer = (state = initialBucState, action) => {
         sed: undefined
       }
 
+    case types.BUC_BUC_RESET:
+      return {
+        ...state,
+        buc: undefined,
+        seds: undefined,
+        sed: undefined
+      }
+
     case types.BUC_GET_BUCS_SUCCESS:
 
       return {

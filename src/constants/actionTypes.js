@@ -23,6 +23,7 @@ export const BUC_MODE_SET = 'BUC/MODE/SET'
 export const BUC_BUC_SET = 'BUC/BUC/SET'
 export const BUC_SEDS_SET = 'BUC/SEDS/SET'
 export const BUC_SED_RESET = 'BUC/SED/RESET'
+export const BUC_BUC_RESET = 'BUC/BUC/RESET'
 
 export const BUC_GET_BUCS_SUCCESS = 'BUC/GET_BUCS/SUCCESS'
 export const BUC_GET_BUCS_REQUEST = 'BUC/GET_BUCS/REQUEST'

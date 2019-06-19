@@ -32,6 +32,12 @@ export const resetSed = () => {
   }
 }
 
+export const resetBuc = () => {
+  return {
+    type: types.BUC_BUC_RESET
+  }
+}
+
 export const fetchBucs = (aktoerId) => {
   let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
   return funcCall({

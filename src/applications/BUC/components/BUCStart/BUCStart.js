@@ -102,7 +102,7 @@ const BUCStart = (props) => {
     if (!hasBucInfoSaved && loading.savingBUCinfo) {
       setHasBucInfoSaved(true)
     }
-    if (hasBucInfoSaved && !loading.savingBUCinfo) {
+    if (hasBucInfoSaved && !loading.savingBUCinfo && buc) {
       actions.setMode('newsed')
       setHasBucInfoSaved(false)
     }
@@ -142,6 +142,7 @@ const BUCStart = (props) => {
   }
 
   const onCancelButtonClick = () => {
+    actions.resetBuc()
     actions.setMode('list')
   }
 

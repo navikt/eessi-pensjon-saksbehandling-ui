@@ -6,6 +6,7 @@ const SEDNew = (props) => {
   const { t, actions, buc } = props
 
   const onBUCList = () => {
+    actions.resetBuc()
     actions.setMode('list')
   }
 
