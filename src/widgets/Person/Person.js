@@ -8,6 +8,7 @@ import { Flatknapp, EkspanderbartpanelBase } from 'components/ui/Nav'
 import Icons from 'components/ui/Icons'
 
 import * as appActions from 'actions/app'
+import './Person.css'
 
 const mapStateToProps = (state) => {
   return {

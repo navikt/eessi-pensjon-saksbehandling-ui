@@ -1,43 +1,53 @@
 import React from 'react'
 import { Undertekst } from 'nav-frontend-typografi'
 import _ from 'lodash'
+import classNames from 'classnames'
 
-function PersonBody (props) {
+const PersonBody = (props) => {
   const { t, person } = props
+
+  const renderEntity = (label, value) => {
+    const isValue = value !== undefined && value !== null && value !== ''
+    return <div>
+      <Undertekst className={classNames({'grey' : !isValue})}>
+        <span className={classNames({'font-weight-bold' : isValue})}>{t(label)}</span>: {value}
+      </Undertekst>
+    </div>
+  }
 
   return <div className='w-100' style={{ columns: 3 }}>
     { !_.isEmpty(person) ? <div>
-      <div>
-        <Undertekst>{t('ui:diskresjonskode')}: {person.diskresjonskode}</Undertekst>
+      <div><Undertekst>{t('ui:strukturertAdresse')}</Undertekst></div>
+      <div className='pl-4'>
+        {renderEntity('ui:landkode', person.bostedsadresse.strukturertAdresse.landkode.value)}
+        {renderEntity('ui:tilleggsadresse', person.bostedsadresse.strukturertAdresse.tilleggsadresse)}
+        {renderEntity('ui:tilleggsadresseType', person.bostedsadresse.strukturertAdresse.tilleggsadresseType)}
+        {renderEntity('ui:poststed', person.bostedsadresse.strukturertAdresse.poststed.value)}
+        {renderEntity('ui:bolignummer', person.bostedsadresse.strukturertAdresse.bolignummer)}
+        {renderEntity('ui:kommunenummer', person.bostedsadresse.strukturertAdresse.kommunenummer)}
+        {renderEntity('ui:gatenummer', person.bostedsadresse.strukturertAdresse.gatenummer)}
+        {renderEntity('ui:gatenavn', person.bostedsadresse.strukturertAdresse.gatenavn)}
+        {renderEntity('ui:husnummer', person.bostedsadresse.strukturertAdresse.husnummer)}
+        {renderEntity('ui:husbokstav', person.bostedsadresse.strukturertAdresse.husbokstav)}
       </div>
-      <div><Undertekst>{t('ui:strukturertAdresse')}</Undertekst>
-        <div><Undertekst>{t('ui:landkode')}: {person.bostedsadresse.strukturertAdresse.landkode.value}</Undertekst></div>
-        <div><Undertekst>{t('ui:tilleggsadresse')}:{person.bostedsadresse.strukturertAdresse.tilleggsadresse}</Undertekst></div>
-        <div><Undertekst>{t('ui:tilleggsadresseType')}:{person.bostedsadresse.strukturertAdresse.tilleggsadresseType}</Undertekst></div>
-        <div><Undertekst>{t('ui:poststed')}:{person.bostedsadresse.strukturertAdresse.poststed.value}</Undertekst></div>
-        <div><Undertekst>{t('ui:bolignummer')}:{person.bostedsadresse.strukturertAdresse.bolignummer}</Undertekst></div>
-        <div><Undertekst>{t('ui:kommunenummer')}:{person.bostedsadresse.strukturertAdresse.kommunenummer}</Undertekst></div>
-        <div><Undertekst>{t('ui:gatenummer')}:{person.bostedsadresse.strukturertAdresse.gatenummer}</Undertekst></div>
-        <div><Undertekst>{t('ui:gatenavn')}:{person.bostedsadresse.strukturertAdresse.gatenavn}</Undertekst></div>
-        <div><Undertekst>{t('ui:husnummer')}:{person.bostedsadresse.strukturertAdresse.husnummer}</Undertekst></div>
-        <div><Undertekst>{t('ui:husbokstav')}:{person.bostedsadresse.strukturertAdresse.husbokstav}</Undertekst></div>
-      </div>
-      <div><Undertekst>{t('ui:statsborgerskap')}:{person.statsborgerskap.land.value}</Undertekst></div>
-      <div><Undertekst>{t('ui:personstatus')}:{person.personstatus.personstatus.value}</Undertekst></div>
-      <div><Undertekst>{t('ui:postadresse')}:{person.postadresse}</Undertekst></div>
-      <div><Undertekst>{t('ui:doedsdato')}:{person.doedsdato}</Undertekst></div>
-      <div><Undertekst>{t('ui:foedselsdato')}:{person.foedselsdato.foedselsdato}</Undertekst></div>
-      <div><Undertekst>{t('ui:foedested')}:{person.foedselsdato.foedested}</Undertekst></div>
-      <div><Undertekst>{t('ui:gjeldendePostadressetype')}:{person.gjeldendePostadressetype.value}</Undertekst></div>
-      <div><Undertekst>{t('ui:geografiskTilknytning')}:{person.geografiskTilknytning.geografiskTilknytning}</Undertekst></div>
-      <div><Undertekst>{t('ui:midlertidigPostadresse')}:{person.midlertidigPostadresse}</Undertekst></div>
-      <div><Undertekst>{t('ui:vergeListe')}:{person.vergeListe.join(', ')}</Undertekst></div>
-      <div><Undertekst>{t('ui:kontaktinformasjon')}:{person.kontaktinformasjon.join(', ')}</Undertekst></div>
-      <div><Undertekst>{t('ui:bankkonto')}:{person.bankkonto}</Undertekst></div>
-      <div><Undertekst>{t('ui:tilrettelagtKommunikasjon')}:{person.tilrettelagtKommunikasjon.join(', ')}</Undertekst></div>
-      <div><Undertekst>{t('ui:sikkerhetstiltak')}:{person.sikkerhetstiltak}</Undertekst></div>
-      <div><Undertekst>{t('ui:maalform')}:{person.maalform}</Undertekst></div>
-      <div><Undertekst>{t('ui:harFraRolleI')}:</Undertekst>
+      {renderEntity('ui:statsborgerskap', person.statsborgerskap.land.value)}
+      {renderEntity('ui:diskresjonskode', person.diskresjonskode)}
+      {renderEntity('ui:personstatus', person.personstatus.personstatus.value)}
+      {renderEntity('ui:postadresse', person.postadresse)}
+      {renderEntity('ui:doedsdato', person.doedsdato)}
+      {renderEntity('ui:foedselsdato', person.foedselsdato.foedselsdato)}
+      {renderEntity('ui:foedested', person.foedselsdato.foedested)}
+      {renderEntity('ui:gjeldendePostadressetype', person.gjeldendePostadressetype.value)}
+      {renderEntity('ui:geografiskTilknytning', person.geografiskTilknytning.geografiskTilknytning)}
+      {renderEntity('ui:midlertidigPostadresse', person.midlertidigPostadresse)}
+      {renderEntity('ui:vergeListe', person.vergeListe.join(', '))}
+      {renderEntity('ui:kontaktinformasjon', person.kontaktinformasjon.join(', '))}
+      {renderEntity('ui:bankkonto', person.bankkonto)}
+      {renderEntity('ui:tilrettelagtKommunikasjon', person.tilrettelagtKommunikasjon.join(', '))}
+      {renderEntity('ui:sikkerhetstiltak', person.sikkerhetstiltak)}
+      {renderEntity('ui:maalform', person.maalform)}
+      <div><Undertekst>{t('ui:harFraRolleI')}</Undertekst></div>
+      <div className='pl-4'>
         {person.harFraRolleI.map(rolle => {
           let age
           if (rolle.tilPerson.foedselsdato) {
@@ -45,11 +55,9 @@ function PersonBody (props) {
             age = new Date().getFullYear() - birthDate.getFullYear()
           }
           return <div>
-            <div><Undertekst>{t('ui:tilRolle')}:{rolle.tilRolle.value}</Undertekst></div>
-            <div><Undertekst>{t('ui:tilPerson')}:{rolle.tilPerson.personnavn.sammensattNavn} - {age ? '(' + age + ')' : ''} - {rolle.tilPerson.aktoer.ident.ident}</Undertekst></div>
-            <div>
-              <Undertekst>{rolle.tilPerson.kjoenn} - {rolle.tilPerson.sivilstand}</Undertekst>
-            </div>
+            {renderEntity('ui:tilRolle', rolle.tilRolle.value)}
+            {renderEntity('ui:tilPerson', rolle.tilPerson.personnavn.sammensattNavn + ' - ' + (age ? '(' + age + ')' : '') + ' - ' + rolle.tilPerson.aktoer.ident.ident)}
+            {/*renderEntity('+', rolle.tilPerson.kjoenn + ' - ' + rolle.tilPerson.sivilstand)*/}
           </div>
         })}
       </div>

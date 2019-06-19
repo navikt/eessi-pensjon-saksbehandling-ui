@@ -31,12 +31,13 @@ export function previewJoarkFile (journalpostId, dokumentInfoId) {
   })
 }
 
-export function getJoarkFile (journalpostId, dokumentInfoId) {
+export function getJoarkFile (item) {
   let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
-  let expectedPayload = getMockedPayload(journalpostId)
+  let expectedPayload = urls.HOST === 'localhost' ? getMockedPayload(item.journalpostId) : undefined
   return funcCall({
-    url: sprintf(urls.API_JOARK_GET_URL, { dokumentInfoId: dokumentInfoId, journalpostId: journalpostId }),
+    url: sprintf(urls.API_JOARK_GET_URL, { dokumentInfoId: item.dokumentInfoId, journalpostId: item.journalpostId }),
     expectedPayload: expectedPayload,
+    context: item,
     type: {
       request: types.JOARK_GET_REQUEST,
       success: types.JOARK_GET_SUCCESS,

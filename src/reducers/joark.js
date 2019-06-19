@@ -34,7 +34,12 @@ const joarkReducer = (state = initialJoarkState, action = {}) => {
     case types.JOARK_GET_SUCCESS:
       return {
         ...state,
-        file: action.payload
+        file: {
+          ...action.context,
+          content: {
+             base64: action.payload
+          }
+        }
       }
 
     case types.JOARK_PREVIEW_SUCCESS:

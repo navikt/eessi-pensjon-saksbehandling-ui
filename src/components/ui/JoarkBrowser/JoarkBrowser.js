@@ -81,7 +81,7 @@ const JoarkBrowser = (props) => {
         }
       }
     } else {
-      actions.getJoarkFile(item.raw.journalpostId, item.raw.dokumentInfoId)
+      actions.getJoarkFile(item.raw)
     }
   }
 

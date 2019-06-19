@@ -17,7 +17,8 @@ export const fakecall = (options) => {
       console.log('FAKE API CALL FOR ' + options.url + ': SUCCESS')
       return dispatch({
         type: options.type.success,
-        payload: payload
+        payload: payload,
+        context: options.context
       })
     })
   }
@@ -58,27 +59,31 @@ export const call = (options) => {
       return dispatch({
         type: options.type.success,
         payload: payload,
-        originalPayload: body
+        originalPayload: body,
+        context: options.context
       })
     }).catch(error => {
       if (error.status === 401) {
         dispatch({
           type: types.SERVER_UNAUTHORIZED_ERROR,
           payload: error.message,
-          originalPayload: body
+          originalPayload: body,
+          context: options.context
         })
       }
       if (error.status >= 500) {
         dispatch({
           type: types.SERVER_INTERNAL_ERROR,
           payload: error.message,
-          originalPayload: body
+          originalPayload: body,
+          context: options.context
         })
       }
       return dispatch({
         type: options.type.failure,
         payload: error.message,
-        originalPayload: body
+        originalPayload: body,
+         context: options.context
       })
     })
   }
