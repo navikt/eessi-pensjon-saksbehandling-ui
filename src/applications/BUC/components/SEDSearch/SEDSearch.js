@@ -43,7 +43,7 @@ const SEDSearch = (props) => {
     id='a-buc-c-sedsearch__panel-id'
     heading={<Input
       className='a-buc-c-sedsearch__query'
-      label={null}
+      label={''}
       bredde='fullbredde'
       value={_query} onChange={onQueryChange}
       placeholder={t('buc:form-filterSED')}

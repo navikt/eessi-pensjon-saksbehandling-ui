@@ -44,7 +44,7 @@ export const API_STORAGE_MULTIPLE_DELETE_URL = API_URL + '/storage/multiple/%(us
 
 // JoarkController
 export const API_JOARK_LIST_URL = SAF_URL + '/metadata/%(userId)s'
-export const API_JOARK_GET_URL = SAF_URL + '/get/%(userId)s/%(file)s'
+export const API_JOARK_GET_URL = SAF_URL + '/get/%(journalpostId)s/%(dokumentInfoId)s'
 
 // PersonController
 export const PERSON_URL = PER_URL + '/%(aktoerId)s'

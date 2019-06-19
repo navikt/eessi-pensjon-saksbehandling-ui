@@ -15,8 +15,10 @@ const mapStateToProps = (state) => {
   return {
     list: state.joark.list,
     file: state.joark.file,
+    previewFile: state.joark.previewFile,
     loadingJoarkList: state.loading.loadingJoarkList,
     loadingJoarkFile: state.loading.loadingJoarkFile,
+    loadingJoarkPreviewFile: state.loading.loadingJoarkPreviewFile,
     aktoerId: state.app.params.aktoerId
   }
 }
@@ -26,9 +28,11 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const JoarkBrowser = (props) => {
-  const { t, list, files, file, loadingJoarkList, loadingJoarkFile, actions, aktoerId, onFilesChange } = props
+  const { t,  actions, list, file, previewFile, loadingJoarkList, loadingJoarkFile, loadingJoarkPreviewFile, aktoerId } = props
+  const { files, onFilesChange } = props
+  const [ _file, setFile ] = useState(file)
   const [ _files, setFiles ] = useState(files)
-  const [ _previewFile, setPreviewFile ] = useState(undefined)
+  const [ _previewFile, setPreviewFile ] = useState(previewFile)
   const [ mounted, setMounted ] = useState(false)
 
   useEffect(() => {
@@ -39,42 +43,57 @@ const JoarkBrowser = (props) => {
   }, [mounted, list, loadingJoarkList, actions, aktoerId])
 
   useEffect(() => {
-    if (file && !_previewFile) {
-      setPreviewFile(file)
+    if (file && (!_file || _file.content.base64 !== file.content.base64)) {
+      setFile(file)
+      let newFiles = _.cloneDeep(_files)
+      newFiles.push(file)
+      setFiles(newFiles)
+      if (onFilesChange) {
+        onFilesChange(newFiles)
+      }
     }
-  }, [file, _previewFile])
+  }, [file, _file])
+
+  useEffect(() => {
+    if (previewFile && (!_previewFile || _previewFile.content.base64 !== previewFile.content.base64)) {
+      setPreviewFile(previewFile)
+    }
+  }, [previewFile, _previewFile])
 
   const onItemClicked = (clickedItem) => {
-    setPreviewFile(undefined)
     const foundFile = _.find(files, clickedItem.raw)
     if (!foundFile) {
-      actions.getJoarkFile(aktoerId, clickedItem.name)
+      actions.previewJoarkFile(clickedItem.raw.journalpostId, clickedItem.raw.dokumentInfoId)
     } else {
-      setPreviewFile(clickedItem)
+      setPreviewFile(foundFile)
     }
   }
 
-  const onSelectedItemsChange = (items) => {
+  const onSelectedItemChange = (item, checked) => {
+
     let newFiles = _.cloneDeep(_files)
-    if (_.find(newFiles, file)) {
-      newFiles = _.reject(newFiles, file)
+    if (!checked) {
+      if (_.find(newFiles, item.raw)) {
+        newFiles = _.reject(newFiles, item.raw)
+        setFiles(newFiles)
+        if (onFilesChange) {
+          onFilesChange(newFiles)
+        }
+      }
     } else {
-      newFiles.push(file)
-    }
-    setFiles(newFiles)
-    if (onFilesChange) {
-      onFilesChange(newFiles)
+      actions.getJoarkFile(item.raw.journalpostId, item.raw.dokumentInfoId)
     }
   }
 
   const items = list ? list.map((file) => {
+
     return {
       raw: file,
-      id: file.id,
-      name: file.name,
+      id: file.journalpostId,
+      name: file.tittel,
       tema: file.tema,
-      date: file.date,
-      focused: _previewFile ? _previewFile.id === file.id : false,
+      date: file.datoRegistrert,
+      focused: _previewFile ? _previewFile.journalpostId === file.journalpostId : false,
       selected: _.find(files, file) !== undefined
     }
   }) : []
@@ -90,7 +109,9 @@ const JoarkBrowser = (props) => {
     <TableSorter
       t={t}
       items={items}
+      actions={actions}
       loadingJoarkFile={loadingJoarkFile}
+      loadingJoarkPreviewFile={loadingJoarkPreviewFile}
       previewFile={_previewFile}
       sort={{column: 'name', order: 'desc'}}
       columns={{
@@ -99,14 +120,21 @@ const JoarkBrowser = (props) => {
         date: {name: t('ui:date'), filterText: '', defaultSortOrder: 'desc'},
       }}
       onItemClicked={onItemClicked}
-      onSelectedItemsChange={onSelectedItemsChange}
+      onSelectedItemChange={onSelectedItemChange}
       />
   </div>
 }
 
 JoarkBrowser.propTypes = {
   t: PT.func.isRequired,
-  onFilesChange: PT.func.isRequired
+  onFilesChange: PT.func.isRequired,
+  list: PT.array,
+  files: PT.array,
+  file: PT.object,
+  loadingJoarkList: PT.bool,
+  loadingJoarkFile: PT.bool,
+  actions: PT.object.isRequired,
+  aktoerId: PT.string
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(JoarkBrowser))

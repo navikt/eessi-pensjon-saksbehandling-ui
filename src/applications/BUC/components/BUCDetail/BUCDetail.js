@@ -46,6 +46,7 @@ const BUCDetail = (props) => {
       <Ingress className='mb-2'>{t('buc:form-involvedInstitutions')}:</Ingress>
       {!_.isEmpty(institutionList) ? Object.keys(institutionList).map(landkode => {
         return <div
+          key={landkode}
           className='a-buc-c-bucdetail__institutions'
           id='a-buc-c-bucdetail__institutions-id'>
           <FlagList locale={locale} items={[{ country: landkode }]} overflowLimit={1} />

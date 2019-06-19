@@ -33,13 +33,13 @@ const BUCList = (props) => {
   }
 
   const updateSeds = (buc) => {
-    if (seds[buc.type]) {
+    if (seds[buc.type + '-' + buc.caseId]) {
       return seds
     }
-    let _buc = _.find(bucs, { type: buc.type })
+    let _buc = _.find(bucs, { type: buc.type, caseId: buc.caseId })
     const newSeds = {
       ...seds,
-      [buc.type]: (_buc ? _buc.seds : [])
+      [buc.type + '-' + buc.caseId]: (_buc ? _buc.seds : [])
     }
     setSeds(newSeds)
     return newSeds
@@ -52,7 +52,7 @@ const BUCList = (props) => {
   const onBUCEdit = async (buc) => {
     const newSeds = await updateSeds(buc)
     actions.setBuc(buc)
-    actions.setSeds(newSeds[buc.type])
+    actions.setSeds(newSeds[buc.type + '-' + buc.caseId])
     actions.setMode('edit')
   }
 
@@ -62,14 +62,14 @@ const BUCList = (props) => {
       { aktoerId ? <Flatknapp onClick={onBUCNew}>{t('buc:form-createNewCase')}</Flatknapp> : null}
     </div>
     {!_.isEmpty(bucs) ? bucs.map((buc, index) => {
-      let bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[buc.type] : {}
+      let bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[buc.type + '-' + buc.caseId] : {}
       return <EkspanderbartpanelBase
         className='mb-3'
         key={index}
         heading={<BUCHeader t={t} buc={buc} bucInfo={bucInfo} locale={locale} onBUCEdit={onBUCEdit} />}
         onClick={() => onExpandBUCClick(buc)}>
         <SEDHeader t={t} />
-        {seds[buc.type] ? seds[buc.type].map((sed, index) => (
+        {seds[buc.type + '-' + buc.caseId] ? seds[buc.type + '-' + buc.caseId].map((sed, index) => (
           <SEDRow t={t} key={index} sed={sed} rinaUrl={rinaUrl} rinaId={buc.caseId} locale={locale} border />
         )) : null}
       </EkspanderbartpanelBase>

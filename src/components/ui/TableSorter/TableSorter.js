@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import _ from 'lodash'
 import PT from 'prop-types'
 import File from 'components/ui/File/File'
-import { NavFrontendSpinner } from 'components/ui/Nav'
+import { NavFrontendSpinner, Checkbox } from 'components/ui/Nav'
 
 import './TableSorter.css'
 
 const TableSorter = (props) => {
 
-  const { t, actions, sort, columns, items, onItemClicked, loadingJoarkFile, previewFile } = props
+  const { t, actions, sort, columns, items, onItemClicked, loadingJoarkFile, loadingJoarkPreviewFile, previewFile, onSelectedItemChange } = props
   const [ _sort, setSort ] = useState(sort || { column: '', order: '' })
   const [ _columns, setColumns ] = useState(columns)
 
@@ -29,7 +29,6 @@ const TableSorter = (props) => {
   }
 
   const rows = () => {
-
     const filteredItems = _.filter(items, (item) => {
       return _.every(columnNames, (c) => {
         if (_columns[c].filterText) {
@@ -57,14 +56,24 @@ const TableSorter = (props) => {
 
       return <tr
         key={item.id}
-        style={{background: background}}
-        onClick={() => onItemClicked(item)}>
-        { columnNames.map((c) => {
+        style={{background: background}}>
+
+        <td className='checkbox'>
+          <input type='checkbox'
+          onChange={(e) => onItemSelected(item, e.target.checked)}
+          checked={item.selected} />
+        </td>
+        { columnNames.map((c, index) => {
           if (typeof item[c] === 'string') {
-            return <td>{item[c]}</td>
+            if (c === 'name') {
+              return <td key={c+'-'+index}><a href='#'
+              onClick={(e) => {e.preventDefault();onItemClicked(item)}}>{item[c]}</a></td>
+            }
+            return <td key={c+'-'+index}>{item[c]}</td>
           }
           if (item[c].toLocaleDateString) {
-            return <td>{item[c].toLocaleDateString()}</td>
+            const dateString = item[c].toLocaleDateString()
+            return <td key={c+'-'+index}>{dateString}</td>
           }
         })}
       </tr>
@@ -72,13 +81,16 @@ const TableSorter = (props) => {
   }
 
   const header = () => {
-    return columnNames.map((c) => {
-      return <th
+    return <React.Fragment>
+      <th className='checkbox'></th>
+      {columnNames.map((c) => {
+      return <th key={c}
         onClick={() => sortColumn(c)}
         className={"header " + sortClass(c)}>
           {_columns[c].name}
         </th>
-    })
+      })}
+    </React.Fragment>
   }
 
   const handleFilterTextChange = (column, newValue) => {
@@ -87,14 +99,23 @@ const TableSorter = (props) => {
     setColumns(newColumns)
   }
 
+  const onItemSelected = (item, checked) => {
+     onSelectedItemChange(item, checked)
+  }
+
   const filterInputs = () => {
-    return columnNames.map((c) => {
-      return <td>
-        <input type='text'
-          value={_columns[c].filterText}
-          onChange={(e) => handleFilterTextChange(c, e.target.value)} />
+    return <React.Fragment>
+      <td className='checkbox'>
+      {loadingJoarkFile ? <NavFrontendSpinner type='XS' /> : null}
       </td>
-    })
+      {columnNames.map((c) => {
+        return <td key={c}>
+          <input type='text'
+            value={_columns[c].filterText}
+            onChange={(e) => handleFilterTextChange(c, e.target.value)} />
+        </td>
+      })}
+    </React.Fragment>
   }
 
   const onPreviewFile = () => {
@@ -111,14 +132,14 @@ const TableSorter = (props) => {
         <tr>{ header() }</tr>
         <tr>{ filterInputs() }</tr>
       </thead>
-      <tbody>{ rows() } </tbody>
+      <tbody>{ rows() }</tbody>
     </table>
     <div className='c-ui-tablesorter__preview'>
-      {loadingJoarkFile? <div>
+      {loadingJoarkPreviewFile ? <div>
         <NavFrontendSpinner type='XS' />
         <span>{t('ui:loading')}</span>
-      </div> : null}
-      {previewFile ? <File file={previewFile} addLink animate previewLink
+      </div> :
+        previewFile ? <File file={previewFile} addLink animate previewLink
         width={141.4} height={200} scale={1.0}
         onPreviewDocument={onPreviewFile}
         onClick={onPreviewFile} /> : null}
@@ -133,6 +154,7 @@ TableSorter.propTypes = {
   columns: PT.object.isRequired,
   items: PT.array.isRequired,
   onItemClicked: PT.func.isRequired,
+  onSelectedItemsChange: PT.func.isRequired,
   loadingJoarkFile: PT.bool.isRequired,
   previewFile: PT.object
 }

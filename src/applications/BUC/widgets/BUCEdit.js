@@ -49,7 +49,7 @@ const BUCEdit = (props) => {
     </div>
     <Nav.Row style={{ marginLeft: '-15px', marginRight: '-15px' }}>
       <div className='col-8'>
-        <SEDSearch className='mb-2' t={t} value={search} onSearch={onSearch} />
+        <SEDSearch className='mb-2' t={t} locale={locale} value={search} onSearch={onSearch} />
         {renderSeds()}
       </div>
       <div className='col-4'>
@@ -67,7 +67,7 @@ BUCEdit.propTypes = {
   bucs: PT.array,
   actions: PT.object.isRequired,
   rinaUrl: PT.string,
-  seds: PT.object.isRequired,
+  seds: PT.array.isRequired,
   locale: PT.string.isRequired
 }
 

@@ -164,9 +164,11 @@ export const getCountryList = () => {
 }
 
 export const getSedList = (buc, rinaId) => {
+  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
   let url = sprintf(urls.EUX_SED_FOR_BUCS_URL, { buc: buc.type, rinaId: buc.caseId })
-  return api.call({
+  return funcCall({
     url: url,
+    expectedPayload: ['P0000'],
     type: {
       request: types.BUC_GET_SED_LIST_REQUEST,
       success: types.BUC_GET_SED_LIST_SUCCESS,

@@ -3,7 +3,8 @@ import _ from 'lodash'
 
 export const initialLoadingState = {
   status: undefined,
-  gettingBUCs: false
+  gettingBUCs: false,
+  loadingJoarkFile: false
 }
 
 const loadingReducer = (state = initialLoadingState, action = {}) => {
@@ -270,6 +271,21 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
 
       return Object.assign({}, state, {
         loadingJoarkList: false,
+        status: status
+      })
+
+    case types.JOARK_PREVIEW_REQUEST:
+
+      return Object.assign({}, state, {
+        loadingJoarkPreviewFile: true,
+        status: status
+      })
+
+    case types.JOARK_PREVIEW_SUCCESS:
+    case types.JOARK_PREVIEW_FAILURE:
+
+      return Object.assign({}, state, {
+        loadingJoarkPreviewFile: false,
         status: status
       })
 

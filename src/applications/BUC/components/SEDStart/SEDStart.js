@@ -316,7 +316,7 @@ const SEDStart = (props) => {
       <Nav.Ingress className='mb-2'>{t('ui:attachments')}</Nav.Ingress>
       {_attachments ? Object.keys(_attachments).map((key, index1) => {
         return _attachments[key].map((att, index2) => {
-          return <div key={index1 + '-' + index2}>{key}: {att}</div>
+          return <div key={index1 + '-' + index2}>{key}: {att.tittel || att.name}</div>
         })
       }) : null}
     </div>
