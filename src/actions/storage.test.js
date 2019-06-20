@@ -42,7 +42,7 @@ describe('storage actions', () => {
         failure: types.STORAGE_LIST_NO_NOTIF_FAILURE
       },
       method: 'GET',
-      url: 'http://localhost/api/storage/list/mockUser___mockNamespace'
+      url: 'http://localhost/frontend/api/storage/list/mockUser___mockNamespace'
     })
   })
 
@@ -57,7 +57,7 @@ describe('storage actions', () => {
         failure: types.STORAGE_LIST_FAILURE
       },
       method: 'GET',
-      url: 'http://localhost/api/storage/list/mockUser___mockNamespace'
+      url: 'http://localhost/frontend/api/storage/list/mockUser___mockNamespace'
     })
   })
 
@@ -75,7 +75,7 @@ describe('storage actions', () => {
         failure: types.STORAGE_GET_NO_NOTIF_FAILURE
       },
       method: 'GET',
-      url: 'http://localhost/api/storage/get/userId___namespace___file'
+      url: 'http://localhost/frontend/api/storage/get/userId___namespace___file'
     })
   })
 
@@ -93,7 +93,7 @@ describe('storage actions', () => {
         failure: types.STORAGE_GET_FAILURE
       },
       method: 'GET',
-      url: 'http://localhost/api/storage/get/userId___namespace___file'
+      url: 'http://localhost/frontend/api/storage/get/userId___namespace___file'
     })
   })
 
@@ -114,7 +114,7 @@ describe('storage actions', () => {
       },
       method: 'POST',
       payload: payload,
-      url: 'http://localhost/api/storage/userId___namespace___file'
+      url: 'http://localhost/frontend/api/storage/userId___namespace___file'
     })
   })
 
@@ -135,7 +135,7 @@ describe('storage actions', () => {
       },
       method: 'POST',
       payload: payload,
-      url: 'http://localhost/api/storage/userId___namespace___file'
+      url: 'http://localhost/frontend/api/storage/userId___namespace___file'
     })
   })
 
@@ -153,7 +153,7 @@ describe('storage actions', () => {
         failure: types.STORAGE_GET_ATTACHMENT_FAILURE
       },
       method: 'GET',
-      url: 'http://localhost/api/storage/get/userId___namespace___attachmentFile'
+      url: 'http://localhost/frontend/api/storage/get/userId___namespace___attachmentFile'
     })
   })
 
@@ -172,7 +172,7 @@ describe('storage actions', () => {
         failure: types.STORAGE_DELETE_FAILURE
       },
       method: 'DELETE',
-      url: 'http://localhost/api/storage/userId___namespace___file'
+      url: 'http://localhost/frontend/api/storage/userId___namespace___file'
     })
   })
 
@@ -189,7 +189,7 @@ describe('storage actions', () => {
         failure: types.STORAGE_MULTIPLE_DELETE_FAILURE
       },
       method: 'DELETE',
-      url: 'http://localhost/api/storage/multiple/userId___namespace'
+      url: 'http://localhost/frontend/api/storage/multiple/userId___namespace'
     })
   })
 

@@ -15,7 +15,7 @@ describe('pinfo actions', () => {
     api.call.mockRestore()
   })
 
-  it('call sendInvite()', () => {
+  it('sendInvite()', () => {
     pinfoActions.sendInvite({
       sakId: '123',
       aktoerId: '456'
@@ -28,7 +28,7 @@ describe('pinfo actions', () => {
         success: types.PINFO_INVITE_SUCCESS,
         failure: types.PINFO_INVITE_FAILURE
       },
-      url: 'http://localhost/api/varsel?saksId=123&aktoerId=456'
+      url: 'http://localhost/frontend/api/varsel?saksId=123&aktoerId=456'
     })
   })
 })

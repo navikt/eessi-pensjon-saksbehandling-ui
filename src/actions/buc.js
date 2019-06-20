@@ -96,7 +96,7 @@ export const getSubjectAreaList = () => {
   })
 }
 
-export const getBucList = (aktoerId) => {
+export const getBucList = () => {
   return api.call({
     url: urls.EUX_BUCS_URL,
     type: {
@@ -206,7 +206,7 @@ export const createSed = (payload) => {
   return funcCall({
     url: urls.BUC_CREATE_SED_URL,
     payload: payload,
-    expectedPayload: Object.assign({}, payload, { success: true }),
+    expectedPayload: {...payload, success: true},
     method: 'POST',
     type: {
       request: types.BUC_CREATE_SED_REQUEST,
