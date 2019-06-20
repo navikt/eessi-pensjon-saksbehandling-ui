@@ -33,7 +33,10 @@ const mapDispatchToProps = (dispatch) => {
 export class InternalTopHeader extends Component {
   onLogoClick () {
     const { history } = this.props
-    history.push(routes.INDEX)
+    history.push({
+      pathname: routes.INDEX,
+      search: window.location.search
+    })
   }
 
   handleUsernameSelectRequest (e) {
@@ -51,7 +54,7 @@ export class InternalTopHeader extends Component {
     return <React.Fragment>
       <header className='c-ui-topHeader'>
         <div className='brand'>
-          <a href='#index' id='c-ui-logo-link' onClick={this.onLogoClick.bind(this)}>
+          <a href='#' id='c-ui-logo-link' onClick={this.onLogoClick.bind(this)}>
             <NavLogoTransparent width='100' height='45' color={highContrast ? 'white' : 'black'} />
           </a>
           <div className='skillelinje' />
