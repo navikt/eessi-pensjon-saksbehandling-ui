@@ -83,7 +83,7 @@ export const call = (options) => {
         type: options.type.failure,
         payload: error.message,
         originalPayload: body,
-         context: options.context
+        context: options.context
       })
     })
   }

@@ -57,7 +57,7 @@ class VarslerPanel extends React.Component {
 
     return <React.Fragment>
       <Nav.Undertittel>{t('pinfo:sb-send-notification-title')}</Nav.Undertittel>
-      <div className='mt-3' style={{columns: 3}}>
+      <div className='mt-3' style={{ columns: 3 }}>
         <div><label class='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakId')}</label>: {sakId}</div>
         <div><label class='skjemaelement__label d-inline-block'>{t('ui:aktoerId')}</label>: {aktoerId}</div>
         <div><label class='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakType')}</label>: {sakType}</div>

@@ -24,11 +24,11 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators({...uiActions, ...joarkActions}, dispatch) }
+  return { actions: bindActionCreators({ ...uiActions, ...joarkActions }, dispatch) }
 }
 
 const JoarkBrowser = (props) => {
-  const { t,  actions, list, file, previewFile, loadingJoarkList, loadingJoarkFile, loadingJoarkPreviewFile, aktoerId } = props
+  const { t, actions, list, file, previewFile, loadingJoarkList, loadingJoarkFile, loadingJoarkPreviewFile, aktoerId } = props
   const { files, onFilesChange } = props
   const [ _file, setFile ] = useState(file)
   const [ _files, setFiles ] = useState(files)
@@ -70,7 +70,6 @@ const JoarkBrowser = (props) => {
   }
 
   const onSelectedItemChange = (item, checked) => {
-
     let newFiles = _.cloneDeep(_files)
     if (!checked) {
       if (_.find(newFiles, item.raw)) {
@@ -86,7 +85,6 @@ const JoarkBrowser = (props) => {
   }
 
   const items = list ? list.map((file) => {
-
     return {
       raw: file,
       id: file.journalpostId,
@@ -94,7 +92,7 @@ const JoarkBrowser = (props) => {
       tema: file.tema,
       date: file.datoRegistrert,
       focused: _previewFile ? _previewFile.journalpostId === file.journalpostId : false,
-      selected: _.find(files, {dokumentInfoId : file.dokumentInfoId}) !== undefined
+      selected: _.find(files, { dokumentInfoId: file.dokumentInfoId }) !== undefined
     }
   }) : []
 
@@ -113,15 +111,15 @@ const JoarkBrowser = (props) => {
       loadingJoarkFile={loadingJoarkFile}
       loadingJoarkPreviewFile={loadingJoarkPreviewFile}
       previewFile={_previewFile}
-      sort={{column: 'name', order: 'desc'}}
+      sort={{ column: 'name', order: 'desc' }}
       columns={{
-        name: {name: t('ui:title'), filterText: '', defaultSortOrder: 'desc'},
-        tema: {name: t('ui:tema'), filterText: '', defaultSortOrder: 'desc'},
-        date: {name: t('ui:date'), filterText: '', defaultSortOrder: 'desc'},
+        name: { name: t('ui:title'), filterText: '', defaultSortOrder: 'desc' },
+        tema: { name: t('ui:tema'), filterText: '', defaultSortOrder: 'desc' },
+        date: { name: t('ui:date'), filterText: '', defaultSortOrder: 'desc' }
       }}
       onItemClicked={onItemClicked}
       onSelectedItemChange={onSelectedItemChange}
-      />
+    />
   </div>
 }
 

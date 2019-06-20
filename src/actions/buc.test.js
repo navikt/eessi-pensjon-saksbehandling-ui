@@ -80,7 +80,7 @@ describe('case actions', () => {
   it('call getSedList() with no rinaId', () => {
     const mockBuc = 'mockBuc'
     const mockRinaId = '123'
-    bucActions.getSedList(mockBuc. mockRinaId)
+    bucActions.getSedList(mockBuc.mockRinaId)
     expect(api.call).toBeCalledWith({
       type: {
         request: types.BUC_GET_SED_LIST_REQUEST,

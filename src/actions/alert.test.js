@@ -1,7 +1,7 @@
 import * as alertActions from './alert'
 import * as types from '../constants/actionTypes'
 
-describe('pinfo actions', () => {
+describe('alert actions', () => {
   it('call clientClear()', () => {
     const generatedResult = alertActions.clientClear()
     expect(generatedResult).toMatchObject({

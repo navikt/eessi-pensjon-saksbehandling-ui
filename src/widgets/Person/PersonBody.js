@@ -9,8 +9,8 @@ const PersonBody = (props) => {
   const renderEntity = (label, value) => {
     const isValue = value !== undefined && value !== null && value !== ''
     return <div>
-      <Undertekst className={classNames({'grey' : !isValue})}>
-        <span className={classNames({'font-weight-bold' : isValue})}>{t(label)}</span>: {value}
+      <Undertekst className={classNames({ 'grey': !isValue })}>
+        <span className={classNames({ 'font-weight-bold': isValue })}>{t(label)}</span>: {value}
       </Undertekst>
     </div>
   }
@@ -21,8 +21,8 @@ const PersonBody = (props) => {
 
   return <div className='w-100' style={{ columns: 3 }}>
     <div>
-      { person.bostedsadresse && person.bostedsadresse.strukturertAdresse ?
-        <React.Fragment>
+      { person.bostedsadresse && person.bostedsadresse.strukturertAdresse
+        ? <React.Fragment>
           <div><Undertekst>{t('ui:strukturertAdresse')}</Undertekst></div>
           <div className='pl-4'>
             {renderEntity('ui:landkode', person.bostedsadresse.strukturertAdresse.landkode.value)}
@@ -37,19 +37,19 @@ const PersonBody = (props) => {
             {renderEntity('ui:husbokstav', person.bostedsadresse.strukturertAdresse.husbokstav)}
           </div>
         </React.Fragment> : null}
-      { person.postadresse && person.postadresse.ustrukturertAdresse ?
-       <React.Fragment>
-         <div><Undertekst>{t('ui:ustrukturertAdresse')}</Undertekst></div>
-         <div className='pl-4'>
-           {renderEntity('ui:adresselinje1', person.postadresse.ustrukturertAdresse.adresselinje1)}
-           {renderEntity('ui:adresselinje2', person.postadresse.ustrukturertAdresse.adresselinje2)}
-           {renderEntity('ui:adresselinje3', person.postadresse.ustrukturertAdresse.adresselinje3)}
-           {renderEntity('ui:adresselinje4', person.postadresse.ustrukturertAdresse.adresselinje4)}
-           {renderEntity('ui:landkode', person.postadresse.ustrukturertAdresse.landkode.value)}
-           {renderEntity('ui:postnr', person.postadresse.ustrukturertAdresse.postnr)}
-           {renderEntity('ui:poststed', person.postadresse.ustrukturertAdresse.poststed)}
-         </div>
-       </React.Fragment> : null}
+      { person.postadresse && person.postadresse.ustrukturertAdresse
+        ? <React.Fragment>
+          <div><Undertekst>{t('ui:ustrukturertAdresse')}</Undertekst></div>
+          <div className='pl-4'>
+            {renderEntity('ui:adresselinje1', person.postadresse.ustrukturertAdresse.adresselinje1)}
+            {renderEntity('ui:adresselinje2', person.postadresse.ustrukturertAdresse.adresselinje2)}
+            {renderEntity('ui:adresselinje3', person.postadresse.ustrukturertAdresse.adresselinje3)}
+            {renderEntity('ui:adresselinje4', person.postadresse.ustrukturertAdresse.adresselinje4)}
+            {renderEntity('ui:landkode', person.postadresse.ustrukturertAdresse.landkode.value)}
+            {renderEntity('ui:postnr', person.postadresse.ustrukturertAdresse.postnr)}
+            {renderEntity('ui:poststed', person.postadresse.ustrukturertAdresse.poststed)}
+          </div>
+        </React.Fragment> : null}
       {renderEntity('ui:statsborgerskap', person.statsborgerskap.land.value)}
       {renderEntity('ui:diskresjonskode', person.diskresjonskode)}
       {renderEntity('ui:personstatus', person.personstatus.personstatus.value)}
@@ -77,9 +77,9 @@ const PersonBody = (props) => {
             return <div key={i}>
               {renderEntity('ui:tilRolle', rolle.tilRolle.value)}
               {renderEntity('ui:tilPerson', rolle.tilPerson.personnavn.sammensattNavn + ' - ' + (age ? '(' + age + ')' : '') + ' - ' + rolle.tilPerson.aktoer.ident.ident)}
-              {/*renderEntity('+', rolle.tilPerson.kjoenn + ' - ' + rolle.tilPerson.sivilstand)*/}
+              {/* renderEntity('+', rolle.tilPerson.kjoenn + ' - ' + rolle.tilPerson.sivilstand) */}
             </div>
-            })}
+          })}
         </div>
       </React.Fragment> : null }
     </div>

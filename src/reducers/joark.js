@@ -8,22 +8,21 @@ export const initialJoarkState = {
 }
 
 const joarkReducer = (state = initialJoarkState, action = {}) => {
-
   let item, base64
 
   switch (action.type) {
     case types.JOARK_LIST_SUCCESS:
       let documents = []
       action.payload.data.dokumentoversiktBruker.journalposter.forEach(it => {
-        let registeredDate = _.find(it.relevanteDatoer, {datotype : 'DATO_REGISTRERT'})
+        let registeredDate = _.find(it.relevanteDatoer, { datotype: 'DATO_REGISTRERT' })
         it.dokumenter.forEach(it2 => {
           documents.push({
             tilleggsopplysninger: it.tilleggsopplysninger,
-            journalpostId : it.journalpostId,
+            journalpostId: it.journalpostId,
             tittel: it2.tittel,
             tema: it.tema,
             dokumentInfoId: it2.dokumentInfoId,
-            datoOpprette : it.datoOpprettet,
+            datoOpprette: it.datoOpprettet,
             datoRegistrert: registeredDate ? new Date(Date.parse(registeredDate.dato)) : undefined
           })
         })
@@ -44,7 +43,7 @@ const joarkReducer = (state = initialJoarkState, action = {}) => {
         tittel: item.tittel,
         tema: item.tema,
         dokumentInfoId: item.dokumentInfoId,
-        datoOpprettet : item.datoOpprettet,
+        datoOpprettet: item.datoOpprettet,
         datoRegistrert: item.datoRegistrert,
         name: item.tittel,
         size: base64.length,
@@ -68,7 +67,7 @@ const joarkReducer = (state = initialJoarkState, action = {}) => {
         tittel: item.tittel,
         tema: item.tema,
         dokumentInfoId: item.dokumentInfoId,
-        datoOpprettet : item.datoOpprettet,
+        datoOpprettet: item.datoOpprettet,
         datoRegistrert: item.rdatoRegistrert,
         name: item.tittel,
         size: base64.length,

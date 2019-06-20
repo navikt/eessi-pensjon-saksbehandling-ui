@@ -7,7 +7,6 @@ import { NavFrontendSpinner, Checkbox } from 'components/ui/Nav'
 import './TableSorter.css'
 
 const TableSorter = (props) => {
-
   const { t, actions, sort, columns, items, onItemClicked, loadingJoarkFile, loadingJoarkPreviewFile, previewFile, onSelectedItemChange } = props
   const [ _sort, setSort ] = useState(sort || { column: '', order: '' })
   const [ _columns, setColumns ] = useState(columns)
@@ -49,31 +48,30 @@ const TableSorter = (props) => {
     }
 
     return sortedItems.map((item, index) => {
-
       let background = index % 2 === 0 ? 'white' : 'whitesmoke'
-      if (item.selected) background  = 'lightblue'
+      if (item.selected) background = 'lightblue'
       if (item.focused) background = 'lightsteelblue'
 
       return <tr
         key={item.id}
-        style={{background: background}}>
+        style={{ background: background }}>
 
         <td className='checkbox'>
           <input type='checkbox'
-          onChange={(e) => onItemSelected(item, e.target.checked)}
-          checked={item.selected} />
+            onChange={(e) => onItemSelected(item, e.target.checked)}
+            checked={item.selected} />
         </td>
         { columnNames.map((c, index) => {
           if (typeof item[c] === 'string') {
             if (c === 'name') {
-              return <td key={c+'-'+index}><a href='#'
-              onClick={(e) => {e.preventDefault();onItemClicked(item)}}>{item[c]}</a></td>
+              return <td key={c + '-' + index}><a href='#'
+                onClick={(e) => { e.preventDefault(); onItemClicked(item) }}>{item[c]}</a></td>
             }
-            return <td key={c+'-'+index}>{item[c]}</td>
+            return <td key={c + '-' + index}>{item[c]}</td>
           }
           if (item[c].toLocaleDateString) {
             const dateString = item[c].toLocaleDateString()
-            return <td key={c+'-'+index}>{dateString}</td>
+            return <td key={c + '-' + index}>{dateString}</td>
           }
         })}
       </tr>
@@ -82,11 +80,11 @@ const TableSorter = (props) => {
 
   const header = () => {
     return <React.Fragment>
-      <th className='checkbox'></th>
+      <th className='checkbox' />
       {columnNames.map((c) => {
-      return <th key={c}
-        onClick={() => sortColumn(c)}
-        className={"header " + sortClass(c)}>
+        return <th key={c}
+          onClick={() => sortColumn(c)}
+          className={'header ' + sortClass(c)}>
           {_columns[c].name}
         </th>
       })}
@@ -100,13 +98,13 @@ const TableSorter = (props) => {
   }
 
   const onItemSelected = (item, checked) => {
-     onSelectedItemChange(item, checked)
+    onSelectedItemChange(item, checked)
   }
 
   const filterInputs = () => {
     return <React.Fragment>
       <td className='checkbox'>
-      {loadingJoarkFile ? <NavFrontendSpinner type='XS' /> : null}
+        {loadingJoarkFile ? <NavFrontendSpinner type='XS' /> : null}
       </td>
       {columnNames.map((c) => {
         return <td key={c}>
@@ -121,7 +119,7 @@ const TableSorter = (props) => {
   const onPreviewFile = () => {
     actions.openModal({
       modalContent: <div style={{ cursor: 'pointer' }} onClick={() => actions.closeModal()}>
-        <File file={previewFile} width={400} height={600}/>
+        <File file={previewFile} width={400} height={600} />
       </div>
     })
   }
@@ -138,11 +136,11 @@ const TableSorter = (props) => {
       {loadingJoarkPreviewFile ? <div>
         <NavFrontendSpinner type='XS' />
         <span className='pl-2'>{t('ui:loading')}</span>
-      </div> :
-        previewFile ? <File file={previewFile} addLink animate previewLink
-        width={141.4} height={200} scale={1.0}
-        onPreviewDocument={onPreviewFile}
-        onClick={onPreviewFile} /> : null}
+      </div>
+        : previewFile ? <File file={previewFile} addLink animate previewLink
+          width={141.4} height={200} scale={1.0}
+          onPreviewDocument={onPreviewFile}
+          onClick={onPreviewFile} /> : null}
     </div>
   </div>
 }

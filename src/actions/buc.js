@@ -206,7 +206,7 @@ export const createSed = (payload) => {
   return funcCall({
     url: urls.BUC_CREATE_SED_URL,
     payload: payload,
-    expectedPayload: Object.assign({}, payload, {success: true}),
+    expectedPayload: Object.assign({}, payload, { success: true }),
     method: 'POST',
     type: {
       request: types.BUC_CREATE_SED_REQUEST,

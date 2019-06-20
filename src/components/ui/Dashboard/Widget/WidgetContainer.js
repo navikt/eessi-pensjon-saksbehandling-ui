@@ -58,22 +58,22 @@ const WidgetContainer = (props) => {
 
       // do not shrink below minimum H
       if (newH < newLayout.minH) {
-        //console.log('New h ' + newH + ' rejected because minH is ' + newLayout.minH)
+        // console.log('New h ' + newH + ' rejected because minH is ' + newLayout.minH)
         newH = newLayout.minH
       }
 
       if (newH > newLayout.maxH) {
-        //console.log('New h ' + newH + ' rejected because maxH is ' + newLayout.maxH)
+        // console.log('New h ' + newH + ' rejected because maxH is ' + newLayout.maxH)
         newH = newLayout.maxH
       }
 
       // in edit mode, don't make it smaller than view mode
       if (mode === 'edit' && newH < newLayout.h) {
-        //console.log('New h ' + newH + ' rejected because edit mode and h is ' + newLayout.h)
+        // console.log('New h ' + newH + ' rejected because edit mode and h is ' + newLayout.h)
         newH = newLayout.h
       }
       if (mode !== 'edit' && newH !== newLayout.h) {
-        //console.log('Resized ' + newLayout.i + ' from h ' + newLayout.h + ' to ' + newH)
+        // console.log('Resized ' + newLayout.i + ' from h ' + newLayout.h + ' to ' + newH)
         newLayout.h = newH
         onWidgetResize(newLayout)
       }
