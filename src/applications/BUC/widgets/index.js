@@ -3,6 +3,7 @@ import { withTranslation } from 'react-i18next'
 import { connect, bindActionCreators } from 'store'
 import * as bucActions from 'actions/buc'
 import * as appActions from 'actions/app'
+import JoarkBrowser from 'components/ui/JoarkBrowser/JoarkBrowser'
 
 import BUCList from './BUCList'
 import BUCNew from './BUCNew'
@@ -44,6 +45,7 @@ export const BUCWidgetIndex = (props) => {
   }, [mounted, rinaUrl, actions])
 
   return <div className='a-buc-widget'>
+    <JoarkBrowser files={[]} onFilesChange={() =>{}} />
     {mode === 'newbuc' ? <BUCNew {...props} /> : null}
     {mode === 'newsed' ? <SEDNew {...props} /> : null}
     {mode === 'list' ? <BUCList {...props} /> : null}
