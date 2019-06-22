@@ -3,7 +3,6 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import { connect, bindActionCreators } from 'store'
 import { withTranslation } from 'react-i18next'
-import classNames from 'classnames'
 import { NavFrontendSpinner } from 'components/ui/Nav'
 import TableSorter from 'components/ui/TableSorter/TableSorter'
 import * as joarkActions from 'actions/joark'
@@ -52,7 +51,7 @@ const JoarkBrowser = (props) => {
         onFilesChange(newFiles)
       }
     }
-  }, [file, _file])
+  }, [file, _file, _files, onFilesChange])
 
   useEffect(() => {
     if (previewFile && (!_previewFile || _previewFile.content.base64 !== previewFile.content.base64)) {
@@ -72,8 +71,8 @@ const JoarkBrowser = (props) => {
   const onSelectedItemChange = (item, checked) => {
     let newFiles = _.cloneDeep(_files)
     if (!checked) {
-      if (_.find(newFiles, item.raw)) {
-        newFiles = _.reject(newFiles, item.raw)
+      if (_.find(newFiles, {journalpostId: item.raw.journalpostId})) {
+        newFiles = _.reject(newFiles, {journalpostId: item.raw.journalpostId})
         setFiles(newFiles)
         if (onFilesChange) {
           onFilesChange(newFiles)

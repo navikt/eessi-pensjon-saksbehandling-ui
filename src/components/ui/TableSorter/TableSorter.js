@@ -49,7 +49,6 @@ const TableSorter = (props) => {
 
     return sortedItems.map((item, index) => {
       let background = index % 2 === 0 ? 'white' : 'whitesmoke'
-      if (item.selected) background = 'lightblue'
       if (item.focused) background = 'lightsteelblue'
 
       return <tr
@@ -57,7 +56,8 @@ const TableSorter = (props) => {
         style={{ background: background }}>
 
         <td className='checkbox'>
-          <input type='checkbox'
+          <Checkbox
+            className='c-ui-tablesorter__checkbox'
             onChange={(e) => onItemSelected(item, e.target.checked)}
             checked={item.selected} />
         </td>
