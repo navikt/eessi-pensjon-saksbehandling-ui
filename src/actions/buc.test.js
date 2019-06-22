@@ -87,15 +87,15 @@ describe('buc actions', () => {
 
 
   it('fetchBucsInfo()', () => {
-    const mockUserId = 123
-    bucActions.fetchBucsInfo(mockUserId)
+    const mockFilename = 'mockFilename'
+    bucActions.fetchBucsInfo(mockFilename)
     expect(api.call).toBeCalledWith({
       type: {
         request: types.BUC_GET_BUCSINFO_REQUEST,
         success: types.BUC_GET_BUCSINFO_SUCCESS,
         failure: types.BUC_GET_BUCSINFO_FAILURE
       },
-      url: sprintf(urls.API_STORAGE_GET_URL, { userId: mockUserId, namespace: 'BUC', file: 'INFO' }),
+      url: sprintf(urls.API_STORAGE_GETFILE_URL, { file: mockFilename }),
     })
   })
 

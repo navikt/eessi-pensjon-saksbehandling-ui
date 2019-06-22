@@ -10,7 +10,7 @@ import _ from 'lodash'
 import './BUCList.css'
 
 const BUCList = (props) => {
-  const { t, bucs, bucsInfoList, bucsInfo, actions, aktoerId, rinaUrl, gettingBUCs, locale } = props
+  const { t, bucs, bucsInfoList, bucsInfo, actions, sakId, aktoerId, rinaUrl, gettingBUCs, locale } = props
   const [ seds, setSeds ] = useState({})
   const [ gettingBucsInfo, setGettingBucsInfo ] = useState(false)
 
@@ -19,10 +19,8 @@ const BUCList = (props) => {
   }
 
   useEffect(() => {
-    if (bucsInfoList && !gettingBucsInfo) {
-      if (!_.isEmpty(bucsInfoList)) {
-        actions.fetchBucsInfo(aktoerId)
-      }
+    if (!_.isEmpty(bucsInfoList) && !gettingBucsInfo && bucsInfoList.indexOf(aktoerId + '___BUC___INFO') >= 0) {
+      actions.fetchBucsInfo(aktoerId + '___BUC___INFO')
       setGettingBucsInfo(true)
     }
   }, [bucsInfoList, gettingBucsInfo, actions, aktoerId])
@@ -59,7 +57,7 @@ const BUCList = (props) => {
   return <React.Fragment>
     <div className='a-buc-buclist-buttons mb-2'>
       <div />
-      { aktoerId ? <Flatknapp onClick={onBUCNew}>{t('buc:form-createNewCase')}</Flatknapp> : null}
+      {aktoerId && sakId ? <Flatknapp onClick={onBUCNew}>{t('buc:form-createNewCase')}</Flatknapp> : null}
     </div>
     {!_.isEmpty(bucs) ? bucs.map((buc, index) => {
       let bucId = buc.type + '-' + buc.caseId
@@ -72,7 +70,7 @@ const BUCList = (props) => {
         <SEDHeader t={t} />
         <SEDBody t={t} seds={seds[bucId]} rinaUrl={rinaUrl} locale={locale} buc={buc} />
       </EkspanderbartpanelBase>
-    }) : <BUCEmpty actions={actions} t={t} aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> }
+    }) : <BUCEmpty actions={actions} t={t} sakId={sakId} aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> }
   </React.Fragment>
 }
 

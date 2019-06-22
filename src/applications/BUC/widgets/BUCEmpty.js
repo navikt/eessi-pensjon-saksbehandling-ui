@@ -12,7 +12,8 @@ import { Undertittel, Flatknapp, Normaltekst, Hovedknapp, Input, ToggleKnapp } f
 import './BUCEmpty.css'
 
 const BUCEmpty = (props) => {
-  const { getBucs, t, bucs, gettingBUCs, aktoerId, actions } = props
+  const { getBucs, t, bucs, gettingBUCs, aktoerId, sakId, actions } = props
+  const [ _sakId, setSakId ] = useState(sakId)
   const [ _aktoerId, setAktoerId ] = useState(aktoerId)
   const [validation, setValidation] = useState(undefined)
   const [ seeJoark, setSeeJoark ] = useState(false)
@@ -30,6 +31,19 @@ const BUCEmpty = (props) => {
     }
   }
 
+  const onSakIdChange = (e) => {
+    setValidation(undefined)
+    setSakId(e.target.value.trim())
+  }
+
+  const onSubmitSakId = (e) => {
+    if (!_sakId || !_sakId.match(/^\d+$/)) {
+      setValidation(t('buc:validation-noSakId'))
+    } else {
+      actions.setStatusParam('sakId', _sakId)
+    }
+  }
+
   return <div className='a-buc-bucempty'>
     <div className='a-buc-bucempty__artwork'>
       <img alt='' className='monitor' src={MonitorPNG} />
@@ -37,7 +51,7 @@ const BUCEmpty = (props) => {
       <img alt='' className='mouse' src={MousePNG} />
       <img alt='' className='map' src={MapPNG} />
     </div>
-    <Undertittel>{t('buc:form-empty-startANewCase')}</Undertittel>
+    <Undertittel className='mb-3'>{t('buc:form-empty-startANewCase')}</Undertittel>
     {!aktoerId ? <div className='a-buc-bucempty__aktoerid-div'>
       <Input
         className='a-buc-bucempty__aktoerid-input'
@@ -49,12 +63,28 @@ const BUCEmpty = (props) => {
         feil={validation ? { feilmelding: validation } : null} />
       <Hovedknapp
         id='a-buc-bucempty__aktoerid-button-id'
-        className='a-buc-bucempty__aktoerid-button'
+        className='a-buc-bucempty__aktoerid-button ml-3'
         onClick={onSubmitAktoerId}>
-        {t('ui:next')}
+        {t('ui:add')}
       </Hovedknapp>
-    </div>
-      : bucs === undefined ? <Flatknapp
+    </div> : null}
+    {!sakId ? <div className='a-buc-bucempty__sakid-div'>
+      <Input
+        className='a-buc-bucempty__sakid-input'
+        id='a-buc-bucempty__sakid-input-id'
+        label={t('ui:caseId')}
+        value={_sakId || ''}
+        bredde='fullbredde'
+        onChange={onSakIdChange}
+        feil={validation ? { feilmelding: validation } : null} />
+      <Hovedknapp
+        id='a-buc-bucempty__sakid-button-id'
+        className='a-buc-bucempty__sakid-button ml-3'
+        onClick={onSubmitSakId}>
+        {t('ui:add')}
+      </Hovedknapp>
+    </div> : null}
+    {aktoerId && sakId ? (bucs === undefined ? <Flatknapp
         className='mt-4'
         id='TODELETE'
         disabled={gettingBUCs}
@@ -62,11 +92,11 @@ const BUCEmpty = (props) => {
         onClick={getBucs}>{gettingBUCs ? t('buc:loading-bucs') : t('ui:start')}</Flatknapp>
         : <div className='mt-4'>
           <Normaltekst>{t('buc:form-noBUCsFound')}</Normaltekst>
-        </div>
-    }
-
-    <ToggleKnapp pressed={seeJoark} onClick={() => setSeeJoark(!seeJoark)}>{t('joark')}</ToggleKnapp>
-    {seeJoark ? <JoarkBrowser files={[]} onFilesChange={() => {}} /> : null}
+        </div>) : null}
+    <div className='m-4'>
+      <ToggleKnapp pressed={seeJoark} onClick={() => setSeeJoark(!seeJoark)}>{t('joark')}</ToggleKnapp>
+      {seeJoark ? <JoarkBrowser files={[]} onFilesChange={() => {}} /> : null}
+    </div>
   </div>
 }
 

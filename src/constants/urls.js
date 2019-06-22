@@ -37,6 +37,7 @@ export const API_VARSEL_URL = API_URL + '/varsel?saksId=%(sakId)s&aktoerId=%(akt
 
 // StorageController
 export const API_STORAGE_LIST_URL = API_URL + '/storage/list/%(userId)s___%(namespace)s'
+export const API_STORAGE_GETFILE_URL = API_URL + '/storage/get/%(file)s'
 export const API_STORAGE_GET_URL = API_URL + '/storage/get/%(userId)s___%(namespace)s___%(file)s'
 export const API_STORAGE_POST_URL = API_URL + '/storage/%(userId)s___%(namespace)s___%(file)s'
 export const API_STORAGE_DELETE_URL = API_URL + '/storage/%(userId)s___%(namespace)s___%(file)s'

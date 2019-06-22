@@ -92,7 +92,7 @@ const BUCStart = (props) => {
         rinaId: rinaId,
         tags: _tags,
         bucsInfo: bucsInfo,
-        buc: _buc
+        bucId: _buc + '-' + buc.caseId
       })
       setIsBucCreated(true)
     }

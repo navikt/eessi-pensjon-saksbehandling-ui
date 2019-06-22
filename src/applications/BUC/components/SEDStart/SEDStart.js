@@ -55,7 +55,7 @@ const SEDStart = (props) => {
     if (sed) {
       actions.resetBuc()
       actions.fetchBucs(aktoerId)
-      actions.fetchBucsInfo(aktoerId)
+      actions.fetchBucsInfo(aktoerId + '___BUC___INFO')
       actions.setMode('list')
     }
   }, [sed, aktoerId, actions])

@@ -69,9 +69,9 @@ export const fetchBucsInfoList = (aktoerId) => {
   })
 }
 
-export const fetchBucsInfo = (aktoerId) => {
+export const fetchBucsInfo = (fileName) => {
   return api.call({
-    url: sprintf(urls.API_STORAGE_GET_URL, { userId: aktoerId, namespace: 'BUC', file: 'INFO' }),
+    url: sprintf(urls.API_STORAGE_GETFILE_URL, { file: fileName }),
     type: {
       request: types.BUC_GET_BUCSINFO_REQUEST,
       success: types.BUC_GET_BUCSINFO_SUCCESS,
@@ -148,10 +148,10 @@ export const saveBucsInfo = (params) => {
     newBucsInfo['bucs'] = {}
   }
 
-  if (!newBucsInfo.bucs.hasOwnProperty(params.buc)) {
-    newBucsInfo.bucs[params.buc] = {}
+  if (!newBucsInfo.bucs.hasOwnProperty(params.bucId)) {
+    newBucsInfo.bucs[params.bucId] = {}
   }
-  newBucsInfo.bucs[params.buc]['tags'] = newTags
+  newBucsInfo.bucs[params.bucId]['tags'] = newTags
 
   return api.call({
     url: sprintf(urls.API_STORAGE_POST_URL, { userId: params.aktoerId, namespace: 'BUC', file: 'INFO' }),

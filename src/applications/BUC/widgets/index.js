@@ -17,6 +17,7 @@ const mapStateToProps = (state) => {
     bucs: state.buc.bucs,
     buc: state.buc.buc,
     bucsInfo: state.buc.bucsInfo,
+    bucsInfoList: state.buc.bucsInfoList,
     rinaUrl: state.buc.rinaUrl,
     seds: state.buc.seds,
     gettingBUCs: state.loading.gettingBUCs,
