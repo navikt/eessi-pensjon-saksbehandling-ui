@@ -3,6 +3,7 @@ import * as urls from 'constants/urls'
 import * as api from './api'
 import _ from 'lodash'
 import sampleBucs from 'resources/tests/sampleBucs'
+import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 var sprintf = require('sprintf-js').sprintf
 
 export const setMode = (mode) => {
@@ -70,8 +71,10 @@ export const fetchBucsInfoList = (aktoerId) => {
 }
 
 export const fetchBucsInfo = (fileName) => {
-  return api.call({
+  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
+  return funcCall({
     url: sprintf(urls.API_STORAGE_GETFILE_URL, { file: fileName }),
+    expectedPayload: sampleBucsInfo,
     type: {
       request: types.BUC_GET_BUCSINFO_REQUEST,
       success: types.BUC_GET_BUCSINFO_SUCCESS,

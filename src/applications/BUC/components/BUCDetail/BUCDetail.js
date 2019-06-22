@@ -9,7 +9,7 @@ import _ from 'lodash'
 import './BUCDetail.css'
 
 const BUCDetail = (props) => {
-  const { t, buc, className, locale } = props
+  const { t, buc, bucInfo, className, locale } = props
 
   let institutionList = {}
   if (buc.institusjon) {
@@ -46,6 +46,10 @@ const BUCDetail = (props) => {
         <dd>{buc.sakType}</dd>
         <dt>{t('ui:status')}:</dt>
         <dd><SEDStatus t={t} status={buc.status} /></dd>
+        <dt>{t('ui:tags')}:</dt>
+        <dd>{bucInfo && bucInfo.tags ? bucInfo.tags.join(', ') : ''}</dd>
+        <dt>{t('ui:comment')}:</dt>
+        <dd>{bucInfo && bucInfo.comment ? bucInfo.comment : ''}</dd>
       </dl>
       <Ingress className='mb-2'>{t('buc:form-involvedInstitutions')}:</Ingress>
       {!_.isEmpty(institutionList) ? Object.keys(institutionList).map(landkode => {
@@ -64,6 +68,7 @@ const BUCDetail = (props) => {
 BUCDetail.propTypes = {
   t: PT.func.isRequired,
   buc: PT.object.isRequired,
+  bucInfo: PT.object.isRequired,
   className: PT.string,
   locale: PT.string.isRequired
 }

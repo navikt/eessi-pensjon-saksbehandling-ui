@@ -5,7 +5,7 @@ import * as Nav from 'components/ui/Nav'
 import SEDRow from '../components/SEDRow/SEDRow'
 import SEDSearch from '../components/SEDSearch/SEDSearch'
 import BUCDetail from '../components/BUCDetail/BUCDetail'
-import BUCTags from '../components/BUCTags/BUCTags'
+import BUCTools from '../components/BUCTools/BUCTools'
 import SEDTools from '../components/SEDTools/SEDTools'
 import UserTools from '../components/User/UserTools'
 import SEDStatusSelect from 'applications/BUC/components/SEDStatusSelect/SEDStatusSelect'
@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const BUCEdit = (props) => {
-  const { t, buc, actions, rinaUrl, locale, seds, statusFilter } = props
+  const { t, buc, bucsInfo, actions, rinaUrl, locale, seds, statusFilter } = props
   const [ search, setSearch ] = useState(undefined)
   const [ countrySearch, setCountrySearch ] = useState(undefined)
 
@@ -65,6 +65,9 @@ const BUCEdit = (props) => {
     }) : null
   }
 
+  const bucId = buc.type + '-' + buc.caseId
+  const bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId] : {}
+
   return <div className='a-buc-bucedit'>
     <div className='a-buc-buclist-buttons mb-2'>
       <SEDStatusSelect t={t}/>
@@ -79,9 +82,9 @@ const BUCEdit = (props) => {
         {renderSeds()}
       </div>
       <div className='col-4'>
-        <BUCDetail className='mb-3' t={t} buc={buc} locale={locale} />
+        <BUCDetail className='mb-3' t={t} buc={buc} bucInfo={bucInfo} locale={locale} />
+        <BUCTools className='mb-3' t={t} buc={buc} bucInfo={bucInfo} locale={locale}/>
         <SEDTools className='mb-3' t={t} />
-        <BUCTags className='mb-3' t={t} buc={buc} />
         <UserTools className='mb-3' t={t} />
       </div>
     </Nav.Row>

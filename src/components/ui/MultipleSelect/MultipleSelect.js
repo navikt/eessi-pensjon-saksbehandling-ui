@@ -9,8 +9,6 @@ import MultipleValueRemove from './MultipleValueRemove'
 import './MultipleSelect.css'
 
 const MultipleSelect = (props) => {
-  const [ _values, setValues ] = useState([])
-  const [ mounted, setMounted ] = useState(false)
 
   const {
     id,
@@ -28,12 +26,7 @@ const MultipleSelect = (props) => {
     hideSelectedOptions
   } = props
 
-  useEffect(() => {
-    if (!mounted) {
-      setValues(values)
-      setMounted(true)
-    }
-  }, [values, mounted])
+  const [ _values, setValues ] = useState(values)
 
   const include = (selectedValues, allValues) => {
     return _.filter(allValues, it => {
