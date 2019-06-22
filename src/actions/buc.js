@@ -38,6 +38,13 @@ export const resetBuc = () => {
   }
 }
 
+export const setStatusFilter = (filter) => {
+  return {
+    type: types.BUC_STATUS_FILTER_SET,
+    payload: filter
+  }
+}
+
 export const fetchBucs = (aktoerId) => {
   let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
   return funcCall({

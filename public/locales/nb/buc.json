@@ -67,6 +67,7 @@
   "form-filterSED" : "Filtrer SED på nav, land, ...",
   "form-institution"  : "Mottagerinstitusjon",
   "form-involvedInstitutions" : "Involverte land og institusjoner",
+  "form-lastNonEmpty5" : "Viser de siste, ikke-tomme 5 SED-er",
   "form-missingAktoerId" : "Mangles AktoerId",
   "form-name" : "Navn på sed",
   "form-noBUCsFound" : "Ingen BUC-er funnet, vennligst start ny behandling",

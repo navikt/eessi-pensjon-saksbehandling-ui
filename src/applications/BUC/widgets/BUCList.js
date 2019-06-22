@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
-import SEDRow from 'applications/BUC/components/SEDRow/SEDRow'
+import SEDBody from 'applications/BUC/components/SEDBody/SEDBody'
 import BUCEmpty from './BUCEmpty'
 import { EkspanderbartpanelBase, Flatknapp } from 'components/ui/Nav'
 import _ from 'lodash'
@@ -62,16 +62,15 @@ const BUCList = (props) => {
       { aktoerId ? <Flatknapp onClick={onBUCNew}>{t('buc:form-createNewCase')}</Flatknapp> : null}
     </div>
     {!_.isEmpty(bucs) ? bucs.map((buc, index) => {
-      let bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[buc.type + '-' + buc.caseId] : {}
+      let bucId = buc.type + '-' + buc.caseId
+      let bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId] : {}
       return <EkspanderbartpanelBase
         className='mb-3'
         key={index}
         heading={<BUCHeader t={t} buc={buc} bucInfo={bucInfo} locale={locale} onBUCEdit={onBUCEdit} />}
         onClick={() => onExpandBUCClick(buc)}>
         <SEDHeader t={t} />
-        {seds[buc.type + '-' + buc.caseId] ? seds[buc.type + '-' + buc.caseId].map((sed, index) => (
-          <SEDRow t={t} key={index} sed={sed} rinaUrl={rinaUrl} rinaId={buc.caseId} locale={locale} border />
-        )) : null}
+        <SEDBody t={t} seds={seds[bucId]} rinaUrl={rinaUrl} locale={locale} buc={buc} />
       </EkspanderbartpanelBase>
     }) : <BUCEmpty actions={actions} t={t} aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> }
   </React.Fragment>

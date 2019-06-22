@@ -5,7 +5,8 @@ export const initialBucState = {
   mode: 'list',
   bucs: undefined,
   bucsInfoList: undefined,
-  bucsInfo: undefined
+  bucsInfo: undefined,
+  statusFilter: ['new', 'received', 'draft', 'sent', 'bla']
 }
 
 const bucReducer = (state = initialBucState, action) => {
@@ -35,6 +36,13 @@ const bucReducer = (state = initialBucState, action) => {
       return {
         ...state,
         sed: undefined
+      }
+
+    case types.BUC_STATUS_FILTER_SET:
+      console.log("reducer", action.payload)
+      return {
+        ...state,
+        statusFilter: action.payload
       }
 
     case types.BUC_BUC_RESET:

@@ -1,0 +1,17 @@
+import React, { useState } from 'react'
+import PT from 'prop-types'
+import { Normaltekst } from 'components/ui/Nav'
+import SEDRow from 'applications/BUC/components/SEDRow/SEDRow'
+
+const SEDBody = (props) => {
+  const { t, seds, rinaUrl, locale, buc } = props
+
+  return <React.Fragment>
+    {seds ? seds.filter(sed => sed.status !== 'empty').slice(0, 5).map((sed, index) => {
+      return <SEDRow t={t} key={index} sed={sed} rinaUrl={rinaUrl} rinaId={buc.caseId} locale={locale} border />
+    }) : null}
+    <Normaltekst>{t('buc:form-lastNonEmpty5')}</Normaltekst>
+  </React.Fragment>
+}
+
+export default SEDBody
