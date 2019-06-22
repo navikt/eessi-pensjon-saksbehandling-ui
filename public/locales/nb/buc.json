@@ -78,6 +78,7 @@
   "form-receiver" : "Mottaker/Avsender",
   "form-rinaId" : "Rina ID",
   "form-sakId" : "Saksnummer fra Pesys",
+  "form-searchForCountry" : "Søk på land (NO, SE, ...)",
   "form-sed" : "SED",
   "form-status" : "Status",
   "form-step0" : "Oppretter saken",

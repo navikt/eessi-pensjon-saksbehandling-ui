@@ -38,6 +38,10 @@ const BUCDetail = (props) => {
         <dd>{buc.aktoerId}</dd>
         <dt>{t('ui:creator')}:</dt>
         <dd>{buc.creator.institution} ({buc.creator.country})</dd>
+        <dt>{t('ui:created')}:</dt>
+        <dd>{buc.startDate}</dd>
+        <dt>{t('ui:lastUpdate')}:</dt>
+        <dd>{buc.lastUpdate}</dd>
         <dt>{t('ui:type')}:</dt>
         <dd>{buc.sakType}</dd>
         <dt>{t('ui:status')}:</dt>

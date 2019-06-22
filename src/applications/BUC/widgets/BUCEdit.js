@@ -28,6 +28,7 @@ const mapDispatchToProps = (dispatch) => {
 const BUCEdit = (props) => {
   const { t, buc, actions, rinaUrl, locale, seds, statusFilter } = props
   const [ search, setSearch ] = useState(undefined)
+  const [ countrySearch, setCountrySearch ] = useState(undefined)
 
   const onSEDNew = () => {
     actions.setMode('newsed')
@@ -37,13 +38,25 @@ const BUCEdit = (props) => {
     actions.setMode('list')
   }
 
+  const onCountrySearch = (countrySearch) => {
+    setCountrySearch(countrySearch)
+  }
+
   const onSearch = (search) => {
-    setSearch(setSearch)
+    setSearch(search)
   }
 
   const renderSeds = () => {
     return seds ? seds.filter(sed => {
-      return (search ? sed.name.match(search) : true)
+      return (
+        (search ? sed.type.match(search) || _.find(sed.participants, (it) => {
+          return it.organisation.id.match(search)
+        }): true)
+        &&
+        (countrySearch ? _.find(sed.participants, (it) => {
+          return _.find(countrySearch, {value: it.organisation.countryCode})
+        }): true)
+      )
     }).filter(sed => {
       return statusFilter ? statusFilter.indexOf(sed.status) >= 0 : true
     })
@@ -62,7 +75,7 @@ const BUCEdit = (props) => {
     </div>
     <Nav.Row style={{ marginLeft: '-15px', marginRight: '-15px' }}>
       <div className='col-8'>
-        <SEDSearch className='mb-2' t={t} locale={locale} value={search} onSearch={onSearch} />
+        <SEDSearch className='mb-2' t={t} locale={locale} value={search} onSearch={onSearch} onCountrySearch={onCountrySearch} />
         {renderSeds()}
       </div>
       <div className='col-4'>
