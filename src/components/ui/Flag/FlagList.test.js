@@ -3,9 +3,7 @@ import FlagList from './FlagList'
 
 const defaultMockProps = {
   countries: ['NO', 'SE', 'DK'],
-  overflowLimit: 2,
-  flagPath: '/mock/path',
-  extention: 'dummy'
+  overflowLimit: 2
 }
 
 describe('Renders FlagList', () => {
@@ -33,9 +31,7 @@ describe('Renders FlagList', () => {
     let wrapper = shallow(<FlagList {...defaultMockProps} />)
 
     wrapper.find('Flag').forEach((flag, index) => {
-      expect(flag.props().flagPath).toEqual(defaultMockProps.flagPath)
       expect(flag.props().country).toEqual(defaultMockProps.countries[index])
-      expect(flag.props().extention).toEqual(defaultMockProps.extention)
     })
   })
 })

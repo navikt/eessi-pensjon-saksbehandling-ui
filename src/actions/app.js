@@ -1,6 +1,7 @@
 import * as types from '../constants/actionTypes'
 import * as urls from '../constants/urls'
 import * as api from './api'
+import samplePerson from 'resources/tests/samplePerson'
 var sprintf = require('sprintf-js').sprintf
 
 export function setStatusParam (key, value) {
@@ -55,8 +56,10 @@ export function getUserInfo () {
 }
 
 export function getPersonInfo (aktoerId) {
-  return api.call({
+  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
+  return funcCall({
     url: sprintf(urls.PERSON_URL, { aktoerId: aktoerId }),
+    expectedPayload: samplePerson,
     type: {
       request: types.APP_PERSONINFO_REQUEST,
       success: types.APP_PERSONINFO_SUCCESS,

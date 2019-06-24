@@ -29,6 +29,7 @@ const BUCEdit = (props) => {
   const { t, buc, bucsInfo, actions, rinaUrl, locale, seds, statusFilter } = props
   const [ search, setSearch ] = useState(undefined)
   const [ countrySearch, setCountrySearch ] = useState(undefined)
+  const [ statusSearch, setStatusSearch ] = useState(undefined)
 
   const onSEDNew = () => {
     actions.setMode('newsed')
@@ -42,24 +43,49 @@ const BUCEdit = (props) => {
     setCountrySearch(countrySearch)
   }
 
+  const onStatusSearch = (statusSearch) => {
+    setStatusSearch(statusSearch)
+  }
+
   const onSearch = (search) => {
     setSearch(search)
   }
 
+  const sedFilter = (sed) => {
+    let match = true
+    if (match && search) {
+      match = sed.type.match(search) || _.find(sed.participants, (it) => {
+        return it.organisation.id.match(search)
+      })
+    }
+    if (match && countrySearch) {
+      match = _.find(sed.participants, (it) => {
+        return _.find(countrySearch, {value: it.organisation.countryCode})
+      })
+    }
+    if (match && statusFilter) {
+      if (statusFilter.length > 1) { // multiple
+        match = statusFilter.indexOf(sed.status) >= 0
+      } else { // single
+        switch (statusFilter[0]) {
+          case 'inbox':
+          match = sed.status !== null && sed.status !== 'empty' && sed.status !== 'new'
+          break
+          default:
+          match = sed.status === null || sed.status === 'new'
+          break
+        }
+      }
+    }
+    if (match && statusSearch) {
+      match = _.find(statusSearch, {value: sed.status})
+    }
+    return match
+  }
+
   const renderSeds = () => {
-    return seds ? seds.filter(sed => {
-      return (
-        (search ? sed.type.match(search) || _.find(sed.participants, (it) => {
-          return it.organisation.id.match(search)
-        }): true)
-        &&
-        (countrySearch ? _.find(sed.participants, (it) => {
-          return _.find(countrySearch, {value: it.organisation.countryCode})
-        }): true)
-      )
-    }).filter(sed => {
-      return statusFilter ? statusFilter.indexOf(sed.status) >= 0 : true
-    })
+    return seds ? seds
+    .filter(sedFilter)
     .map((sed, index) => {
       return <SEDRow className='mt-2' locale={locale} t={t} key={index} sed={sed} rinaUrl={rinaUrl} rinaId={buc.caseId} />
     }) : null
@@ -78,7 +104,8 @@ const BUCEdit = (props) => {
     </div>
     <Nav.Row style={{ marginLeft: '-15px', marginRight: '-15px' }}>
       <div className='col-8'>
-        <SEDSearch className='mb-2' t={t} locale={locale} value={search} onSearch={onSearch} onCountrySearch={onCountrySearch} />
+        <SEDSearch className='mb-2' t={t} locale={locale} value={search} seds={seds}
+        onSearch={onSearch} onCountrySearch={onCountrySearch} onStatusSearch={onStatusSearch}/>
         {renderSeds()}
       </div>
       <div className='col-4'>

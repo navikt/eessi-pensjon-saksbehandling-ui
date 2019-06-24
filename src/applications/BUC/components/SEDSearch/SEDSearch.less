@@ -1,7 +1,7 @@
 .a-buc-c-sedsearch {
 
    display: flex !important;
-   align-items: baseline;
+   align-items: flex-start;
 
   .ekspanderbartPanel__hode {
     padding: 0.25rem;
@@ -9,10 +9,14 @@
 
   &__query {
 
-    width: 66%;
+    width: 33%;
     margin-right: 0.5rem;
     margin-bottom: 0.25rem !important;
     margin-left: 0.25rem;
+
+    .skjemaelement__label {
+      display: none;
+    }
 
     .skjemaelement__input {
       background: whitesmoke;
@@ -21,6 +25,10 @@
   }
 
   &__country {
+    width: 33%;
+  }
+
+  &__status {
     width: 33%;
   }
 }

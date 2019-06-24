@@ -30,12 +30,6 @@ const alertReducer = (state = initialAlertState, action = {}) => {
 
   if (_.endsWith(action.type, '/REQUEST') || action.type === types.ALERT_CLIENT_CLEAR) {
     return state
-    /* return Object.assign({}, state, {
-      clientErrorMessage: undefined,
-      clientErrorStatus: undefined,
-      serverErrorMessage: undefined,
-      uuid: undefined
-    }) */
   }
 
   if (_.endsWith(action.type, '/ERROR')) {
@@ -163,7 +157,7 @@ const alertReducer = (state = initialAlertState, action = {}) => {
 
     case types.BUC_CREATE_SED_SUCCESS:
 
-      clientErrorMessage = 'buc:alert-createdSed|' + action.payload.sed
+      clientErrorMessage = 'buc:alert-createdSed|' + action.originalPayload.sed
       break
 
     case types.PDF_GENERATE_SUCCESS:

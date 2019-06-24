@@ -8,7 +8,7 @@ import { Container, Row, Column } from 'nav-frontend-grid'
 import { Checkbox, CheckboksPanelGruppe, Radio, RadioGruppe, SkjemaGruppe, Fieldset, Select, Input, Textarea, RadioPanelGruppe } from 'nav-frontend-skjema'
 import Typografi, { Sidetittel, Innholdstittel, Systemtittel, Undertittel, Element, Normaltekst, EtikettLiten, Undertekst, UndertekstBold, Ingress } from 'nav-frontend-typografi'
 import KnappBase, { Knapp, Hovedknapp, Flatknapp, Fareknapp } from 'nav-frontend-knapper'
-import { ToggleGruppe, ToggleKnapp } from 'nav-frontend-toggle'
+import { ToggleGruppe, ToggleKnapp, ToggleKnappPure } from 'nav-frontend-toggle'
 import Tabs, { TabsPure } from 'nav-frontend-tabs'
 import Ikon from 'nav-frontend-ikoner-assets'
 import Stegindikator from 'nav-frontend-stegindikator'
@@ -24,7 +24,8 @@ import Lenke from 'nav-frontend-lenker'
 export {
   AlertStripe, AlertStripeAdvarsel,
   Container, Row, Column,
-  Checkbox, CheckboksPanelGruppe, Radio, RadioGruppe, RadioPanelGruppe, SkjemaGruppe, Fieldset, Select, Input, Textarea, ToggleGruppe, ToggleKnapp,
+  Checkbox, CheckboksPanelGruppe, Radio, RadioGruppe, RadioPanelGruppe, SkjemaGruppe, Fieldset, Select, Input, Textarea,
+  ToggleGruppe, ToggleKnapp, ToggleKnappPure,
   Ekspanderbartpanel, EkspanderbartpanelBase,
   Panel, PanelBase,
   Lenkepanel, LenkepanelBase,

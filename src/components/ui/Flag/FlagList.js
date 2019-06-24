@@ -7,14 +7,14 @@ import Flag from './Flag'
 import './Flag.css'
 
 const FlagList = (props) => {
-  const { className, locale, items, overflowLimit, flagPath, extention } = props
+  const { className, locale, items, overflowLimit } = props
   return <div className={classNames('c-ui-flaglist', className)}>
     {items.map((item, index) => {
       if (index > overflowLimit - 1) {
         return null
       }
       let _label = item.label || _.find(countryList[locale], { value: item.country }).label
-      return <Flag data-qa='FlagList-Flag' key={index} flagPath={flagPath} country={item.country} label={_label} extention={extention} />
+      return <Flag className='m-2' data-qa='FlagList-Flag' key={index} country={item.country} label={_label} />
     })}
     {items.length > overflowLimit
       ? <span data-qa='FlagList-overflow' className='pt-2'>+{items.length - overflowLimit}</span>
@@ -25,9 +25,7 @@ const FlagList = (props) => {
 
 FlagList.defaultProps = {
   items: [],
-  overflowLimit: 2,
-  flagPath: '../../../../flags/',
-  extention: '.png'
+  overflowLimit: 2
 }
 
 export default FlagList

@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import { connect, bindActionCreators } from 'store'
 import { withTranslation } from 'react-i18next'
+import _ from 'lodash'
+
 import PersonHeader from './PersonHeader'
 import PersonBody from './PersonBody'
 import { Flatknapp, EkspanderbartpanelBase } from 'components/ui/Nav'
 import Icons from 'components/ui/Icons'
-
+import countries from 'components/ui/CountrySelect/CountrySelectData'
 import * as appActions from 'actions/app'
 import './Person.css'
 
@@ -15,7 +17,8 @@ const mapStateToProps = (state) => {
     person: state.app.person,
     gettingPersonInfo: state.loading.gettingPersonInfo,
     aktoerId: state.app.params.aktoerId,
-    rinaUrl: state.buc.rinaUrl
+    rinaUrl: state.buc.rinaUrl,
+    locale: state.ui.locale
   }
 }
 
@@ -24,8 +27,9 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const PersonWidget = (props) => {
-  const { t, actions, gettingPersonInfo, person, aktoerId, rinaUrl } = props
+  const { t, actions, locale, gettingPersonInfo, person, aktoerId, rinaUrl } = props
   const [ mounted, setMounted ] = useState(false)
+  let country = null
 
   useEffect(() => {
     if (!mounted && aktoerId) {
@@ -38,6 +42,10 @@ const PersonWidget = (props) => {
     if (rinaUrl) {
       window.open(rinaUrl, '_blank')
     }
+  }
+
+  if (person && person.statsborgerskap && person.statsborgerskap.land) {
+    country = _.find(countries[locale], {value3: person.statsborgerskap.land.value})
   }
 
   return <React.Fragment>
@@ -56,6 +64,7 @@ const PersonWidget = (props) => {
         <PersonHeader
           t={t} person={person}
           aktoerId={aktoerId}
+          country={country}
           gettingPersonInfo={gettingPersonInfo}
         />}>
       <PersonBody t={t} person={person} aktoerId={aktoerId} />
