@@ -87,7 +87,7 @@ const bucReducer = (state = initialBucState, action) => {
 
       return {
         ...state,
-        bucsInfo: action.payload
+        bucsInfo: typeof action.payload === 'object' ? action.payload : JSON.parse(action.payload)
       }
 
     case types.BUC_GET_BUCSINFO_REQUEST:
@@ -179,7 +179,7 @@ const bucReducer = (state = initialBucState, action) => {
 
       return {
         ...state,
-        bucsInfo: JSON.parse(action.originalPayload)
+        bucsInfo: typeof action.originalPayload === 'object' ? action.originalPayload : JSON.parse(action.originalPayload)
       }
 
     case types.BUC_SAVE_BUCSINFO_REQUEST:

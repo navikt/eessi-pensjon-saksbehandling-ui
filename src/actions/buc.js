@@ -146,15 +146,22 @@ export const saveBucsInfo = (params) => {
   let newTags = params.tags ? params.tags.map(tag => {
     return tag.value
   }) : []
+  let newComment = params.comment
+  let bucId = params.buc.type + '-' +  params.buc.caseId
 
   if (!newBucsInfo.hasOwnProperty('bucs')) {
     newBucsInfo['bucs'] = {}
   }
-
-  if (!newBucsInfo.bucs.hasOwnProperty(params.bucId)) {
-    newBucsInfo.bucs[params.bucId] = {}
+  if (!newBucsInfo.bucs.hasOwnProperty(bucId)) {
+    newBucsInfo.bucs[bucId] = {}
   }
-  newBucsInfo.bucs[params.bucId]['tags'] = newTags
+
+  if (params.tags) {
+    newBucsInfo.bucs[bucId]['tags'] = newTags
+  }
+  if (params.comment) {
+    newBucsInfo.bucs[bucId]['comment'] = newComment
+  }
 
   return api.call({
     url: sprintf(urls.API_STORAGE_POST_URL, { userId: params.aktoerId, namespace: 'BUC', file: 'INFO' }),

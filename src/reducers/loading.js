@@ -170,7 +170,7 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
     case types.BUC_SAVE_BUCSINFO_REQUEST:
 
       return Object.assign({}, state, {
-        savingBUCinfo: true,
+        savingBucsInfo: true,
         status: status
       })
 
@@ -178,7 +178,7 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
     case types.BUC_SAVE_BUCSINFO_FAILURE:
 
       return Object.assign({}, state, {
-        savingBUCinfo: false,
+        savingBucsInfo: false,
         status: status
       })
 

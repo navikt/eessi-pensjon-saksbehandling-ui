@@ -339,23 +339,23 @@ const SEDStart = (props) => {
           : loading.institutionList ? getSpinner('buc:loading-institution')
             : loading.gettingCountryList ? getSpinner('buc:loading-country') : null}
       </div>
-      <div>
-        <Nav.Hovedknapp
-          id='a-buc-c-sedstart__forward-button-id'
-          className='a-buc-c-sedstart__forward-button'
-          disabled={!allowedToForward()}
-          spinner={loading.creatingSed}
-          onClick={onForwardButtonClick}>
-          {loading.creatingSed ? t('buc:loading-creatingSED') : t('buc:form-orderSED')}
-        </Nav.Hovedknapp>
-        <Nav.Flatknapp
-          id='a-buc-c-sedstart__cancel-button-id'
-          className='a-buc-c-sedstart__cancel-button'
-          onClick={onCancelButtonClick}>{t('ui:cancel')}</Nav.Flatknapp>
-      </div>
     </div>
     <div className={layout === 'row' ? 'col-md-8' : 'col-md-12'}>
       <SEDAttachments t={t} setFiles={setFiles} files={_attachments} />
+    </div>
+    <div className='col-md-12'>
+      <Nav.Hovedknapp
+        id='a-buc-c-sedstart__forward-button-id'
+        className='a-buc-c-sedstart__forward-button'
+        disabled={!allowedToForward()}
+        spinner={loading.creatingSed}
+        onClick={onForwardButtonClick}>
+        {loading.creatingSed ? t('buc:loading-creatingSED') : t('buc:form-orderSED')}
+      </Nav.Hovedknapp>
+      <Nav.Flatknapp
+        id='a-buc-c-sedstart__cancel-button-id'
+        className='a-buc-c-sedstart__cancel-button'
+        onClick={onCancelButtonClick}>{t('ui:cancel')}</Nav.Flatknapp>
     </div>
   </Nav.Row>
 }

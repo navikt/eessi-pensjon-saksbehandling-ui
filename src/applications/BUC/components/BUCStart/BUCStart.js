@@ -88,21 +88,20 @@ const BUCStart = (props) => {
   useEffect(() => {
     if (!isBucCreated && buc) {
       actions.saveBucsInfo({
-        aktoerId: aktoerId,
-        rinaId: rinaId,
-        tags: _tags,
         bucsInfo: bucsInfo,
-        bucId: _buc + '-' + buc.caseId
+        aktoerId: aktoerId,
+        tags: _tags,
+        buc: buc
       })
       setIsBucCreated(true)
     }
   }, [actions, loading, bucsInfo, aktoerId, buc, _buc, _tags, rinaId, isBucCreated])
 
   useEffect(() => {
-    if (!hasBucInfoSaved && loading.savingBUCinfo) {
+    if (!hasBucInfoSaved && loading.savingBucsInfo) {
       setHasBucInfoSaved(true)
     }
-    if (hasBucInfoSaved && !loading.savingBUCinfo && buc) {
+    if (hasBucInfoSaved && !loading.savingBucsInfo && buc) {
       actions.setMode('newsed')
       setHasBucInfoSaved(false)
     }
@@ -299,7 +298,7 @@ const BUCStart = (props) => {
   }
 
   const allowedToForward = () => {
-    return _buc && _subjectArea && hasNoValidationErrors() && !loading.creatingBUC && !loading.savingBUCinfo
+    return _buc && _subjectArea && hasNoValidationErrors() && !loading.creatingBUC && !loading.savingBucsInfo
   }
 
   if (!currentBUC) {
@@ -390,7 +389,7 @@ const BUCStart = (props) => {
           spinner={loading.creatingBUC}
           onClick={onForwardButtonClick}>
           {loading.creatingBUC ? t('buc:loading-creatingCaseinRINA')
-            : loading.savingBUCinfo ? t('buc:loading-savingBucInfo')
+            : loading.savingBucsInfo ? t('buc:loading-savingBucInfo')
               : t('buc:form-createCaseinRINA')}
         </Nav.Hovedknapp>
         <Nav.Flatknapp

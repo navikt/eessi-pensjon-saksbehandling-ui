@@ -34,20 +34,20 @@ const BUCDetail = (props) => {
       <dl className='a-buc-c-bucdetail__props'>
         <dt>{t('ui:caseId')}:</dt>
         <dd>{buc.caseId}</dd>
-        <dt>{t('ui:aktoerId')}:</dt>
-        <dd>{buc.aktoerId}</dd>
+        <dt class='odd'>{t('ui:aktoerId')}:</dt>
+        <dd class='odd'>{buc.aktoerId}</dd>
         <dt>{t('ui:creator')}:</dt>
         <dd>{buc.creator.institution} ({buc.creator.country})</dd>
-        <dt>{t('ui:created')}:</dt>
-        <dd>{buc.startDate}</dd>
+        <dt class='odd'>{t('ui:created')}:</dt>
+        <dd class='odd'>{buc.startDate}</dd>
         <dt>{t('ui:lastUpdate')}:</dt>
         <dd>{buc.lastUpdate}</dd>
-        <dt>{t('ui:type')}:</dt>
-        <dd>{buc.sakType}</dd>
+        <dt class='odd'>{t('ui:type')}:</dt>
+        <dd class='odd'>{buc.sakType}</dd>
         <dt>{t('ui:status')}:</dt>
         <dd><SEDStatus t={t} status={buc.status} /></dd>
-        <dt>{t('ui:tags')}:</dt>
-        <dd>{bucInfo && bucInfo.tags ? bucInfo.tags.join(', ') : ''}</dd>
+        <dt class='odd'>{t('ui:tags')}:</dt>
+        <dd class='odd'>{bucInfo && bucInfo.tags ? bucInfo.tags.join(', ') : ''}</dd>
         <dt>{t('ui:comment')}:</dt>
         <dd>{bucInfo && bucInfo.comment ? bucInfo.comment : ''}</dd>
       </dl>

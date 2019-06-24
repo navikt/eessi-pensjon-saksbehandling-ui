@@ -10,7 +10,10 @@ import * as bucActions from 'actions/buc'
 const mapStateToProps = (state) => {
   return {
     tagList: state.buc.tagList,
-    gettingTagList: state.loading.gettingTagList
+    bucsInfo: state.buc.bucsInfo,
+    gettingTagList: state.loading.gettingTagList,
+    aktoerId: state.app.params.aktoerId,
+    savingBucsInfo: state.loading.savingBucsInfo
   }
 }
 
@@ -22,8 +25,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const BUCTools = (props) => {
 
-  const { t, bucInfo, tagList, gettingTagList, actions, locale, className } = props
-  const [ tags, setTags ] = useState(bucInfo ? bucInfo.tags.map(tag => {
+  const { t, aktoerId, buc, bucInfo, bucsInfo, savingBucsInfo, tagList, gettingTagList, actions, locale, className } = props
+  const [ tags, setTags ] = useState(bucInfo && bucInfo.tags ? bucInfo.tags.map(tag => {
     return {
       value: tag,
       label: t('buc:tag-' + tag)
@@ -53,14 +56,18 @@ const BUCTools = (props) => {
     setTags(tagsList)
   }
 
-  const onCommentChange = (comment) => {
-    setComment(comment)
+  const onCommentChange = (e) => {
+    setComment(e.target.value)
   }
 
-  const onTagsSave = () => {
-  }
-
-  const onCommentSave = () => {
+  const onSaveButtonClick = () => {
+    actions.saveBucsInfo({
+      bucsInfo: bucsInfo,
+      aktoerId: aktoerId,
+      tags: tags,
+      comment: comment,
+      buc: buc
+    })
   }
 
   const renderTags = () => {
@@ -82,10 +89,6 @@ const BUCTools = (props) => {
           onChange={onTagsChange}
           optionList={allTags} />
       </div>
-      <Flatknapp
-        id='a-buc-c-buctools__form-tags-button'
-        className='a-buc-c-buctools__form-button smallerButton'
-        onClick={onTagsSave}>{t('ui:change')}</Flatknapp>
     </div>
   }
 
@@ -100,10 +103,6 @@ const BUCTools = (props) => {
         value={comment}
         style={{ minHeight: '150px' }}
         onChange={onCommentChange} />
-      <Flatknapp
-        id='a-buc-c-buctools__form-comments-button'
-        className='a-buc-c-buctools__form-button smallerButton'
-        onClick={onCommentSave}>{t('ui:change')}</Flatknapp>
     </div>
   }
 
@@ -117,6 +116,11 @@ const BUCTools = (props) => {
     }>
     {renderTags()}
     {renderComments()}
+    <Flatknapp
+      id='a-buc-c-buctools__form-comments-button'
+      className='a-buc-c-buctools__form-button'
+      disabled={savingBucsInfo}
+      onClick={onSaveButtonClick}>{savingBucsInfo ? t('ui:saving'): t('ui:change')}</Flatknapp>
   </EkspanderbartpanelBase>
 }
 
