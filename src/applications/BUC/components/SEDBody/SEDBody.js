@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PT from 'prop-types'
 import { Normaltekst } from 'components/ui/Nav'
 import SEDRow from 'applications/BUC/components/SEDRow/SEDRow'
@@ -12,6 +12,14 @@ const SEDBody = (props) => {
     }) : null}
     <Normaltekst>{t('buc:form-lastNonEmpty5')}</Normaltekst>
   </React.Fragment>
+}
+
+SEDBody.propTypes = {
+  t: PT.func.isRequired,
+  seds: PT.array.isRequired,
+  rinaUrl: PT.string.isRequired,
+  locale: PT.string.isRequired,
+  buc: PT.object.isRequired
 }
 
 export default SEDBody

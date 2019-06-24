@@ -1,42 +1,35 @@
 .a-buc-c-sedrow {
   &__content {
-
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
 
     &.withborder {
       border-bottom: 1px solid grey;
     }
   }
 
-  &__name {
-    display: flex;
-    align-items: center;
-  }
-
-  &__status {
-     display: flex;
-     justify-content: center;
-     align-items: center;
-  }
-
-  &__institutions {
+  &__column {
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
 
-  &__institution {
-    display: flex;
+  &__info-dates {
     flex-direction: row;
-    align-items: baseline;
+    display: flex;
+    align-items: flex-start;
   }
 
-  &__actions {
+  &__info-date {
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__institution {
+    flex-direction: row;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-
   }
-
 }

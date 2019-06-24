@@ -1,9 +1,10 @@
 import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
-import { EkspanderbartpanelBase, Ingress, Normaltekst } from 'components/ui/Nav'
+import { EkspanderbartpanelBase, Normaltekst, Undertittel, Systemtittel, Element } from 'components/ui/Nav'
 import FlagList from 'components/ui/Flag/FlagList'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
+import countries from 'components/ui/CountrySelect/CountrySelectData'
 import _ from 'lodash'
 
 import './BUCDetail.css'
@@ -26,38 +27,39 @@ const BUCDetail = (props) => {
     apen
     className={classNames('a-buc-c-bucdetail', className)}
     id='a-buc-c-bucdetail__panel-id'
-    heading={<div
-      className='a-buc-c-bucdetail__header'>
-      <Ingress>{buc.type} {t('buc:buc-' + buc.type)}</Ingress>
-    </div>}>
+    heading={<Systemtittel className='a-buc-c-bucdetail__header'>{t('buc:buc-' + buc.type)}</Systemtittel>}>
     <div className='a-buc-c-bucdetail__body'>
       <dl className='a-buc-c-bucdetail__props'>
-        <dt>{t('ui:caseId')}:</dt>
-        <dd>{buc.caseId}</dd>
-        <dt class='odd'>{t('ui:aktoerId')}:</dt>
-        <dd class='odd'>{buc.aktoerId}</dd>
-        <dt>{t('ui:creator')}:</dt>
-        <dd>{buc.creator.institution} ({buc.creator.country})</dd>
-        <dt class='odd'>{t('ui:created')}:</dt>
-        <dd class='odd'>{buc.startDate}</dd>
-        <dt>{t('ui:lastUpdate')}:</dt>
-        <dd>{buc.lastUpdate}</dd>
-        <dt class='odd'>{t('ui:type')}:</dt>
-        <dd class='odd'>{buc.sakType}</dd>
-        <dt>{t('ui:status')}:</dt>
+        <dt class='odd'><Element>{t('ui:type')}:</Element></dt>
+        <dd class='odd'><Normaltekst>{buc.type}</Normaltekst></dd>
+        <dt><Element>{t('ui:caseId')}:</Element></dt>
+        <dd><Normaltekst>{buc.caseId}</Normaltekst></dd>
+        <dt class='odd'><Element>{t('ui:aktoerId')}:</Element></dt>
+        <dd class='odd'><Normaltekst>{buc.aktoerId}</Normaltekst></dd>
+        <dt><Element>{t('ui:creator')}:</Element></dt>
+        <dd><Normaltekst>{buc.creator.institution} ({buc.creator.country})</Normaltekst></dd>
+        <dt class='odd'><Element>{t('ui:created')}:</Element></dt>
+        <dd class='odd'><Normaltekst>{buc.startDate}</Normaltekst></dd>
+        <dt><Element>{t('ui:lastUpdate')}:</Element></dt>
+        <dd><Normaltekst>{buc.lastUpdate}</Normaltekst></dd>
+        <dt class='odd'><Element>{t('ui:type')}:</Element></dt>
+        <dd class='odd'><Normaltekst>{buc.sakType}</Normaltekst></dd>
+        <dt><Element>{t('ui:status')}:</Element></dt>
         <dd><SEDStatus t={t} status={buc.status} /></dd>
-        <dt class='odd'>{t('ui:tags')}:</dt>
-        <dd class='odd'>{bucInfo && bucInfo.tags ? bucInfo.tags.join(', ') : ''}</dd>
-        <dt>{t('ui:comment')}:</dt>
-        <dd>{bucInfo && bucInfo.comment ? bucInfo.comment : ''}</dd>
+        <dt class='odd'><Element>{t('ui:tags')}:</Element></dt>
+        <dd class='odd'><Normaltekst>{bucInfo && bucInfo.tags ? bucInfo.tags.join(', ') : ''}</Normaltekst></dd>
+        <dt><Element>{t('ui:comment')}:</Element></dt>
+        <dd><Normaltekst>{bucInfo && bucInfo.comment ? bucInfo.comment : ''}</Normaltekst></dd>
       </dl>
-      <Ingress className='mb-2'>{t('buc:form-involvedInstitutions')}:</Ingress>
+      <Undertittel className='mb-2'>{t('buc:form-involvedInstitutions')}:</Undertittel>
       {!_.isEmpty(institutionList) ? Object.keys(institutionList).map(landkode => {
+        const country = _.find(countries[locale], {value: landkode})
         return <div
           key={landkode}
           className='a-buc-c-bucdetail__institutions'
           id='a-buc-c-bucdetail__institutions-id'>
           <FlagList locale={locale} items={[{ country: landkode }]} overflowLimit={1} />
+          <Element className='pr-2'>{country.label}: </Element>
           <Normaltekst>{institutionList[landkode].join(', ')}</Normaltekst>
         </div>
       }) : <Normaltekst>{t('buc:form-noInstitutionYet')}</Normaltekst>}

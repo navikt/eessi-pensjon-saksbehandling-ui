@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import classNames from 'classnames'
-import { ToggleGruppe, Checkbox, ToggleKnappPure } from 'components/ui/Nav'
-import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
+import { ToggleKnappPure } from 'components/ui/Nav'
 import { connect, bindActionCreators } from 'store'
 import * as bucActions from 'actions/buc'
 
@@ -21,17 +19,16 @@ const mapDispatchToProps = (dispatch) => {
 
 const SEDStatusSelect = (props) => {
   const { t, actions, statusFilter, multiple } = props
-  const [ _multiple, setMultiple ] = useState(multiple || false)
+  const _multiple = multiple || false
 
   const onChange = (newStatus) => {
     const index = statusFilter.indexOf(newStatus)
     let newArray = _.cloneDeep(statusFilter)
     if (index >= 0) {
-      if (_multiple) {
-        newArray.splice(index, 1)
-      } else {
+      if (!_multiple) {
         return
       }
+      newArray.splice(index, 1)
     } else {
       if (_multiple) {
         newArray.push(newStatus)
@@ -43,8 +40,8 @@ const SEDStatusSelect = (props) => {
   }
 
   return <div>
-    <ToggleKnappPure kompakt pressed={statusFilter.indexOf('inbox') >= 0} onClick={() => onChange('inbox')}>{t('ui:inbox')}</ToggleKnappPure>
-    <ToggleKnappPure kompakt pressed={statusFilter.indexOf('draft') >= 0} onClick={() => onChange('draft')}>{t('ui:draft')}</ToggleKnappPure>
+    <ToggleKnappPure pressed={statusFilter.indexOf('inbox') >= 0} onClick={() => onChange('inbox')}>{t('ui:inbox')}</ToggleKnappPure>
+    <ToggleKnappPure pressed={statusFilter.indexOf('draft') >= 0} onClick={() => onChange('draft')}>{t('ui:draft')}</ToggleKnappPure>
   </div>
 }
 SEDStatusSelect.propTypes = {

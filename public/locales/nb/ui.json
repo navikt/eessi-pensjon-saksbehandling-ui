@@ -37,6 +37,7 @@
 
     "8numbers" : "8 siffer",
     "accepted" : "Akseptert",
+    "actions" : "Aksjoner",
     "add" : "Legg til",
     "added" : "Lagt til",
     "addAll" : "Legg til alle",
@@ -119,6 +120,7 @@
     "images" : "Bilder",
     "inbox" : "Postboks",
     "institution": "Mottakerinstitusjon",
+    "institutions": "Institusjoner",
     "invite" : "Invitere",
     "includeAttachments" : "Inkludere vedlegg",
     "lastUpdate" : "Siste oppdatering",
