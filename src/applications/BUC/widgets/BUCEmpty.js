@@ -84,15 +84,9 @@ const BUCEmpty = (props) => {
         {t('ui:add')}
       </Hovedknapp>
     </div> : null}
-    {aktoerId && sakId ? (bucs === undefined ? <Flatknapp
-        className='mt-4'
-        id='TODELETE'
-        disabled={gettingBUCs}
-        spinner={gettingBUCs}
-        onClick={getBucs}>{gettingBUCs ? t('buc:loading-bucs') : t('ui:start')}</Flatknapp>
-        : <div className='mt-4'>
-          <Normaltekst>{t('buc:form-noBUCsFound')}</Normaltekst>
-        </div>) : null}
+    {aktoerId && sakId && bucs !== undefined ? <div className='mt-4'>
+      <Normaltekst>{t('buc:form-noBUCsFound')}</Normaltekst>
+    </div>: null}
     <div className='m-4'>
       <ToggleKnapp pressed={seeJoark} onClick={() => setSeeJoark(!seeJoark)}>{t('joark')}</ToggleKnapp>
       {seeJoark ? <JoarkBrowser files={[]} onFilesChange={() => {}} /> : null}

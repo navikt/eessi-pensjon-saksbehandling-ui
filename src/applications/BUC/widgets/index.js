@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { withTranslation } from 'react-i18next'
 import { connect, bindActionCreators } from 'store'
+import { NavFrontendSpinner } from 'components/ui/Nav'
 import * as bucActions from 'actions/buc'
 import * as appActions from 'actions/app'
 
@@ -34,7 +35,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export const BUCWidgetIndex = (props) => {
-  const { mode, rinaUrl, actions } = props
+  const { actions, aktoerId, bucs, gettingBUCs, mode, rinaUrl, sakId, t } = props
   const [ mounted, setMounted ] = useState(false)
 
   useEffect(() => {
@@ -43,6 +44,24 @@ export const BUCWidgetIndex = (props) => {
       setMounted(true)
     }
   }, [mounted, rinaUrl, actions])
+
+  useEffect(() => {
+    if (!bucs && aktoerId && sakId && !gettingBUCs) {
+      actions.fetchBucs(aktoerId)
+      actions.fetchBucsInfoList(aktoerId)
+    }
+  }, [bucs, aktoerId, sakId, gettingBUCs])
+
+  if (!mounted) {
+    return null
+  }
+
+  if (gettingBUCs) {
+    return <div className='mt-5 a-buc-widget__loading'>
+     <NavFrontendSpinner className='ml-3 mr-3' type='XL' />
+     <span className='pl-2'>{t('buc:loading-bucs')}</span>
+    </div>
+  }
 
   return <div className='a-buc-widget'>
     {mode === 'newbuc' ? <BUCNew {...props} /> : null}

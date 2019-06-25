@@ -1,5 +1,5 @@
 import React from 'react'
-import { Hovedknapp, Panel, Ingress } from 'components/ui/Nav'
+import { Hovedknapp, Panel, Systemtittel } from 'components/ui/Nav'
 import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
 
 const SEDNew = (props) => {
@@ -11,12 +11,12 @@ const SEDNew = (props) => {
   }
 
   return <React.Fragment>
-    <div className='a-buc-buclist-buttons mb-2'>
+    <div className='a-buc-buclist__buttons mb-2'>
       <div />
       <Hovedknapp onClick={onBUCList}>{t('buc:form-backToList')}</Hovedknapp>
     </div>
     <Panel>
-      <Ingress>{t('buc:step-startSEDTitle', { buc: buc.type })}</Ingress>
+      <Systemtittel>{t('buc:step-startSEDTitle', { buc: buc.type })}</Systemtittel>
       <hr />
       <SEDStart {...props} />
     </Panel>

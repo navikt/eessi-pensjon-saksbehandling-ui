@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import _ from 'lodash'
 import PT from 'prop-types'
 import File from 'components/ui/File/File'
-import { NavFrontendSpinner, Checkbox } from 'components/ui/Nav'
+import { NavFrontendSpinner, Input, Checkbox } from 'components/ui/Nav'
 
 import './TableSorter.css'
 
@@ -108,7 +108,9 @@ const TableSorter = (props) => {
       </td>
       {columnNames.map((c) => {
         return <td key={c}>
-          <input type='text'
+          <Input
+            className='c-ui-tablesorter__sort-input'
+            label=''
             value={_columns[c].filterText}
             onChange={(e) => handleFilterTextChange(c, e.target.value)} />
         </td>

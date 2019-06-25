@@ -1,7 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
-import { EkspanderbartpanelBase, Ingress } from 'components/ui/Nav'
+import { EkspanderbartpanelBase, Systemtittel } from 'components/ui/Nav'
 import SEDStart from '../SEDStart/SEDStart'
 
 const SEDTools = (props) => {
@@ -10,10 +10,10 @@ const SEDTools = (props) => {
   return <EkspanderbartpanelBase
     className={classNames('a-buc-c-sedtools', className)}
     id='a-buc-c-sedtools__panel-id'
-    heading={<Ingress
+    heading={<Systemtittel
       className='a-buc-c-sedtools__header'>
       {t('buc:form-answerSED')}
-    </Ingress>
+    </Systemtittel>
     }>
     <SEDStart {...props} layout='column' />
   </EkspanderbartpanelBase>

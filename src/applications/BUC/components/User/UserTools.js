@@ -1,7 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
-import { EkspanderbartpanelBase, Ingress } from 'components/ui/Nav'
+import { EkspanderbartpanelBase, Systemtittel } from 'components/ui/Nav'
 
 const UserTools = (props) => {
   const { t, className } = props
@@ -9,10 +9,10 @@ const UserTools = (props) => {
   return <EkspanderbartpanelBase
     className={classNames('a-buc-c-usertools', className)}
     id='a-buc-c-usertools__panel-id'
-    heading={<Ingress
+    heading={<Systemtittel
       className='a-buc-c-usertools-buctags'>
       {t('buc:form-notifyUser')}
-    </Ingress>
+    </Systemtittel>
     }>
       Hello
   </EkspanderbartpanelBase>

@@ -7,12 +7,25 @@
     width: 70px;
   }
 
-  .headerSortDesc:after {
-    content: " ▲";
+  .headerSortDesc {
+    background: whitesmoke;
+    &:after {
+      content: " ▲";
+    }
   }
 
-  .headerSortAsc:after {
-    content: " ▼";
+  .headerSortAsc {
+    background: whitesmoke;
+    &:after {
+      content: " ▼";
+    }
+  }
+
+  &__sort-input {
+    margin-bottom: 0px !important;
+    .skjemaelement__label {
+        display: none;
+    }
   }
 
   &__checkbox {
@@ -36,19 +49,27 @@
       overflow-y: auto;
       display: flex;
       flex-direction: column;
+
+      tr {
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+      }
     }
 
     tr {
       display: flex;
       flex-direction: row;
-      padding-top: 0.25rem;
-      padding-bottom: 0.25rem;
     }
 
     th {
       text-align: center;
       display: block;
       width: 100%;
+      cursor: pointer;
+
+      &:hover {
+        background-color: aliceblue;
+      }
     }
 
     td {

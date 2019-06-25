@@ -10,7 +10,7 @@ const BUCNew = (props) => {
   }
 
   return <React.Fragment>
-    <div className='a-buc-buclist-buttons mb-2'>
+    <div className='a-buc-buclist__buttons mb-2'>
       <div />
       <Hovedknapp onClick={onBUCList}>{t('buc:form-backToList')}</Hovedknapp>
     </div>

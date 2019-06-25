@@ -8,7 +8,7 @@ const SEDBody = (props) => {
 
   return <React.Fragment>
     {seds ? seds.filter(sed => sed.status !== 'empty').slice(0, 5).map((sed, index) => {
-      return <SEDRow t={t} key={index} sed={sed} rinaUrl={rinaUrl} rinaId={buc.caseId} locale={locale} border />
+      return <SEDRow style={{ animationDelay: (0.2 * index) + 's' }} t={t} key={index} sed={sed} rinaUrl={rinaUrl} rinaId={buc.caseId} locale={locale} border />
     }) : null}
     <Normaltekst>{t('buc:form-lastNonEmpty5')}</Normaltekst>
   </React.Fragment>

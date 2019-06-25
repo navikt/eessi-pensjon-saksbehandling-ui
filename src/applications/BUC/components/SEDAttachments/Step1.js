@@ -4,7 +4,7 @@ import _ from 'lodash'
 import classNames from 'classnames'
 import JoarkBrowser from 'components/ui/JoarkBrowser/JoarkBrowser'
 import FileUpload from 'components/ui/FileUpload/FileUpload'
-import { Ingress, Hovedknapp } from 'components/ui/Nav'
+import { Undertittel, Hovedknapp } from 'components/ui/Nav'
 
 const Step1 = (props) => {
   const { t, files, setFiles, setStep } = props
@@ -41,12 +41,12 @@ const Step1 = (props) => {
   }
 
   return <div>
-    <Ingress className='mt-4 mb-3'>{t('buc:form-addAttachmentsFromJOARK')}</Ingress>
+    <Undertittel className='mt-4 mb-3'>{t('buc:form-addAttachmentsFromJOARK')}</Undertittel>
     <JoarkBrowser
       {...props}
       files={getFiles('joark')}
       onFilesChange={handleJoarkFilesChange} />
-    <Ingress className='mt-4 mb-3'>{t('buc:form-addAttachmentsFromFileUpload')}</Ingress>
+    <Undertittel className='mt-4 mb-3'>{t('buc:form-addAttachmentsFromFileUpload')}</Undertittel>
     <FileUpload t={t}
       fileUploadDroppableId={'SEDAttachments'}
       id={classNames('a-buc-c-sedattachments-fileupload-id', 'mb-3')}

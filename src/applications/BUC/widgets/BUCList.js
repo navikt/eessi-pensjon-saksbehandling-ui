@@ -55,7 +55,7 @@ const BUCList = (props) => {
   }
 
   return <React.Fragment>
-    <div className='a-buc-buclist-buttons mb-2'>
+    <div className='a-buc-buclist__buttons mb-2'>
       <div />
       {aktoerId && sakId ? <Flatknapp onClick={onBUCNew}>{t('buc:form-createNewCase')}</Flatknapp> : null}
     </div>
@@ -63,9 +63,15 @@ const BUCList = (props) => {
       let bucId = buc.type + '-' + buc.caseId
       let bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId] : {}
       return <EkspanderbartpanelBase
-        className='mb-3'
+        className='a-buc-buclist__buc mb-3'
         key={index}
-        heading={<BUCHeader t={t} buc={buc} bucInfo={bucInfo} locale={locale} onBUCEdit={onBUCEdit} />}
+        style={{ animationDelay: (0.2 * index) + 's' }}
+        heading={<BUCHeader t={t}
+          buc={buc}
+          bucInfo={bucInfo}
+          locale={locale}
+          onBUCEdit={onBUCEdit}
+        />}
         onClick={() => onExpandBUCClick(buc)}>
         <SEDHeader t={t} />
         <SEDBody t={t} seds={seds[bucId]} rinaUrl={rinaUrl} locale={locale} buc={buc} />

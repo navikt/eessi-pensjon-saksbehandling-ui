@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
-import { Ingress, Stegindikator, Checkbox, Hovedknapp } from 'components/ui/Nav'
+import { Stegindikator, Checkbox, Hovedknapp } from 'components/ui/Nav'
 import Step1 from './Step1'
 import Step2 from './Step2'
 

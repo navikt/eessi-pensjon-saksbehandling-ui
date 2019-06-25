@@ -297,7 +297,7 @@ const SEDStart = (props) => {
     }
 
     return <React.Fragment>
-      <Nav.Ingress className='mb-2'>{t('buc:form-chosenInstitutions')}</Nav.Ingress>
+      <Nav.Undertittel className='mb-2'>{t('buc:form-chosenInstitutions')}</Nav.Undertittel>
       {!_.isEmpty(institutions) ? Object.keys(institutions).map((landkode, index) => {
         let institutionLabel = institutions[landkode].join(', ')
         return <div key={index} className='d-flex align-items-baseline'>
@@ -314,7 +314,7 @@ const SEDStart = (props) => {
 
   const renderAttachments = () => {
     return <div className='mt-4'>
-      <Nav.Ingress className='mb-2'>{t('ui:attachments')}</Nav.Ingress>
+      <Nav.Undertittel className='mb-2'>{t('ui:attachments')}</Nav.Undertittel>
       {_attachments ? Object.keys(_attachments).map((key, index1) => {
         return _attachments[key].map((att, index2) => {
           return <div key={index1 + '-' + index2}>{key}: {att.tittel || att.name}</div>

@@ -9,7 +9,7 @@ import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import './BUCHeader.css'
 
 const BUCHeader = (props) => {
-  const { t, locale, buc, bucInfo, onBUCEdit } = props
+  const { t, style, locale, buc, bucInfo, onBUCEdit } = props
 
   const requestHandleBUC = (buc, e) => {
     e.preventDefault()
@@ -33,7 +33,9 @@ const BUCHeader = (props) => {
   const numberOfSeds = buc.seds ? buc.seds.length : 0
   return <div
     className='a-buc-c-bucheader'
-    id={'a-buc-c-bucheader__' + buc.type}>
+    id={'a-buc-c-bucheader__' + buc.type}
+    style={style}
+    >
     <div className='col-4 a-buc-c-bucheader__label'>
       <Nav.Undertittel data-qa='BucHeader-type-name'>{buc.type + ' - ' + t('buc:buc-' + buc.type)}</Nav.Undertittel>
       <Nav.Normaltekst style={{ color: 'grey' }} data-qa='BucHeader-type-dates'>{buc.startDate + ' - ' + buc.lastUpdate}</Nav.Normaltekst>
