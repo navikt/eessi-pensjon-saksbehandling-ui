@@ -45,6 +45,8 @@
   "buc-P8000"    : "Anmodning om tilleggsinformasjon",
   "buc-P10000"   : "Overføring av mer informasjon",
 
+  "error-noBucs" : "Feil å hente BUC-er",
+
   "form-addAttachmentsFromJOARK" : "Legg til vedlegg fra JOARK",
   "form-addAttachmentsFromFileUpload" : "Laster opp ny vedlegg fra din datamaskin",
   "form-aktoerId" : "Fødsels- og personnummer",

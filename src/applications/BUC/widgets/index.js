@@ -46,7 +46,7 @@ export const BUCWidgetIndex = (props) => {
   }, [mounted, rinaUrl, actions])
 
   useEffect(() => {
-    if (!bucs && aktoerId && sakId && !gettingBUCs) {
+    if (bucs === undefined && aktoerId && sakId && !gettingBUCs) {
       actions.fetchBucs(aktoerId)
       actions.fetchBucsInfoList(aktoerId)
     }
@@ -60,6 +60,12 @@ export const BUCWidgetIndex = (props) => {
     return <div className='mt-5 a-buc-widget__loading'>
      <NavFrontendSpinner className='ml-3 mr-3' type='XL' />
      <span className='pl-2'>{t('buc:loading-bucs')}</span>
+    </div>
+  }
+
+  if (bucs === null) {
+    return <div className='mt-5 a-buc-widget__loading'>
+      {t('buc:error-noBucs')}
     </div>
   }
 

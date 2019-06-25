@@ -64,7 +64,7 @@ const bucReducer = (state = initialBucState, action) => {
 
       return {
         ...state,
-        bucs: undefined
+        bucs: null
       }
 
     case types.BUC_GET_BUCSINFO_LIST_SUCCESS:
