@@ -277,10 +277,7 @@ const BUCStart = (props) => {
     }) : []
 
     return <div className='flex-fill'>
-      <div className='a-buc-c-bucstart__form-tags-label d-flex mb-2 align-items-center'>
-        <Icons kind='tilsette' />
-        <span className='ml-2'>{t('buc:form-tagsForBUC')}</span>
-      </div>
+      <Nav.Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Nav.Undertittel>
       <div className='mb-3'>
         <Nav.Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Nav.Normaltekst>
         <MultipleSelect
@@ -347,7 +344,7 @@ const BUCStart = (props) => {
 
   return <React.Fragment>
     {mode === 'page' ? <React.Fragment>
-      <h2 className='mb-4 appDescription'>{t('buc:app-startCaseDescription')}</h2>
+      <Nav.Systemtittel className='mb-4'>{t('buc:app-startCaseDescription')}</Nav.Systemtittel>
       <div className='mb-5'>
         <PsychoPanel closeButton>{t('help-startCase2')}</PsychoPanel>
       </div>

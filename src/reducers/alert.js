@@ -157,7 +157,7 @@ const alertReducer = (state = initialAlertState, action = {}) => {
 
     case types.BUC_CREATE_SED_SUCCESS:
 
-      clientErrorMessage = 'buc:alert-createdSed|' + action.originalPayload.sed
+      clientErrorMessage = 'buc:alert-createdSed|' + action.payload.type
       break
 
     case types.PDF_GENERATE_SUCCESS:

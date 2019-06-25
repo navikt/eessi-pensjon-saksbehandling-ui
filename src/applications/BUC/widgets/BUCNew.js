@@ -1,5 +1,5 @@
 import React from 'react'
-import { Hovedknapp, Panel, Ingress } from 'components/ui/Nav'
+import { Hovedknapp, Panel, Systemtittel } from 'components/ui/Nav'
 import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
 
 const BUCNew = (props) => {
@@ -15,7 +15,7 @@ const BUCNew = (props) => {
       <Hovedknapp onClick={onBUCList}>{t('buc:form-backToList')}</Hovedknapp>
     </div>
     <Panel>
-      <Ingress>{t('buc:step-startBUCTitle')}</Ingress>
+      <Systemtittel>{t('buc:step-startBUCTitle')}</Systemtittel>
       <hr />
       <BUCStart mode='widget' {...props} />
     </Panel>

@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import { connect, bindActionCreators } from 'store'
 import classNames from 'classnames'
 import Icons from 'components/ui/Icons'
-import { EkspanderbartpanelBase, Ingress, Normaltekst, Textarea, Flatknapp } from 'components/ui/Nav'
+import { EkspanderbartpanelBase, Systemtittel, Undertittel, Normaltekst, Textarea, Flatknapp } from 'components/ui/Nav'
 import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
 import * as bucActions from 'actions/buc'
 
@@ -72,10 +72,7 @@ const BUCTools = (props) => {
 
   const renderTags = () => {
     return <div className='flex-fill'>
-      <div className='a-buc-c-buctools__form-tags-label d-flex mb-2 align-items-center'>
-        <Icons kind='tilsette' />
-        <span className='ml-2'>{t('buc:form-tagsForBUC')}</span>
-      </div>
+      <Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Undertittel>
       <div className='mb-3'>
         <Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Normaltekst>
         <MultipleSelect
@@ -94,10 +91,7 @@ const BUCTools = (props) => {
 
   const renderComments = () => {
     return <div className='flex-fill'>
-      <div className='a-buc-c-buctools__form-tags-label d-flex mb-2 align-items-center'>
-        <Icons kind='tilsette' />
-        <span className='ml-2'>{t('buc:form-commentForBUC')}</span>
-      </div>
+      <Undertittel className='mb-2'>{t('buc:form-commentForBUC')}</Undertittel>
       <Textarea
         label={''}
         value={comment}
@@ -109,10 +103,10 @@ const BUCTools = (props) => {
   return <EkspanderbartpanelBase
     className={classNames('a-buc-c-buctools', className)}
     id='a-buc-c-buctools__panel-id'
-    heading={<Ingress
+    heading={<Systemtittel
       className='a-buc-c-buctoold__title'>
       {t('buc:form-BUCtools')}
-    </Ingress>
+    </Systemtittel>
     }>
     {renderTags()}
     {renderComments()}

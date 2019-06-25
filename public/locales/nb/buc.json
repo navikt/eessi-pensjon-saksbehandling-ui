@@ -91,6 +91,7 @@
   "form-tagsForBUC-description" : "Her kan du angi eventuelle merknader for den nye BUC-en.",
   "form-tagPlaceholder" : "Velg merknad...",
   "form-vedtakId" : "Vedtak ID",
+  "form-youhaveXseds" : "Du har {{seds}} SED-er på BUC",
 
   "button-createNewUnsetSakIdAktoerId": "Gå til startside med ny sakId og aktoerId",
   "button-createNewUnsetRinaId": "Gå til startside med ny rinaId",

@@ -1,15 +1,32 @@
 .c-ui-flag {
-    width: 25px;
-    height: 25px;
     border-radius: 50%;
     overflow: hidden;
     border: 1px solid lightgrey;
 
-    img.flag-image {
-       width: 40px;
-       height: 110%;
-       margin-left: -8px;
-       margin-top: -20%;
+    &__size-M {
+
+      width: 25px;
+      height: 25px;
+
+      img {
+        width: 40px;
+        height: 110%;
+        margin-left: -8px;
+        margin-top: -20%;
+      }
+    }
+
+    &__size-L img {
+
+      width: 40px;
+      height: 40px;
+
+      img {
+        width: 60px;
+        height: 100%;
+        margin-left: -8px;
+        margin-top: 0%;
+      }
     }
 }
 

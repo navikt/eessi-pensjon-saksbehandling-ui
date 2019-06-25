@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import TopContainer from 'components/ui/TopContainer/TopContainer'
 import FrontPageDrawer from 'components/drawer/FrontPage'
 import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
-
+import { Systemtittel } from 'components/ui/Nav'
 import './index.css'
 
 export const BUCPageIndex = (props) => {
@@ -19,7 +19,7 @@ export const BUCPageIndex = (props) => {
     sideContent={<FrontPageDrawer t={t} />}
     header={t('buc:app-bucTitle') + ' - ' + t('buc:step-startBUCTitle')}>
     <div className='mt-4'>
-      <h2 className='mb-4 appDescription'>{t('buc:step-startBUCTitle')}</h2>
+      <Systemtittel className='mb-4'>{t('buc:step-startBUCTitle')}</Systemtittel>
       <BUCStart mode='page' {...props} /> : null}
     </div>
   </TopContainer>

@@ -30,16 +30,18 @@ const BUCHeader = (props) => {
     })
   }
 
+  const numberOfSeds = buc.seds ? buc.seds.length : 0
   return <div
     className='a-buc-c-bucheader'
     id={'a-buc-c-bucheader__' + buc.type}>
     <div className='col-4 a-buc-c-bucheader__label'>
-      <Nav.Ingress data-qa='BucHeader-type-name'>{buc.type + ' - ' + t('buc:buc-' + buc.type)}</Nav.Ingress>
+      <Nav.Undertittel data-qa='BucHeader-type-name'>{buc.type + ' - ' + t('buc:buc-' + buc.type)}</Nav.Undertittel>
       <Nav.Normaltekst style={{ color: 'grey' }} data-qa='BucHeader-type-dates'>{buc.startDate + ' - ' + buc.lastUpdate}</Nav.Normaltekst>
     </div>
-    <div className='col-4 a-buc-c-bucheader__flags'>
+    <div className='col-2 a-buc-c-bucheader__flags'>
       <FlagList data-qa='BucHeader-FlagList'
         locale={locale}
+        size='L'
         items={Object.keys(institutionList).map(landkode => {
           return {
             country: landkode,
@@ -48,16 +50,16 @@ const BUCHeader = (props) => {
         })}
         overflowLimit={5} />
     </div>
-    <div className='col-2 a-buc-c-bucheader__actions'>
-      <Nav.LenkepanelBase data-qa='BucHeader-LinkButton' onClick={(e) => requestHandleBUC(buc, e)} className='a-buc-c-bucheader__button smallerButton knapp' href={'#' + buc.type} border>{t('ui:processing')}</Nav.LenkepanelBase>
-    </div>
-    <div className='col-2 a-buc-c-bucheader__tags'>
-      <div className='a-buc-c-bucheader__numberofseds'>{buc.seds ? buc.seds.length : 0}</div>
+    <div className='col-3 a-buc-c-bucheader__tags'>
+      <div title={t('buc:form-youhaveXseds', {seds: numberOfSeds})} className='a-buc-c-bucheader__numberofseds'>{numberOfSeds}</div>
       {bucInfo && bucInfo.tags && bucInfo.tags.length > 0
         ? <div title={bucInfo.tags.join(', ')}>
           <Icons kind='problem' data-qa='BucHeader-ProblemCircle' className='a-buc-c-bucheader__tag' />
         </div> : null}
-      <SEDStatus t={t} status={buc.status} />
+      {/*<SEDStatus t={t} status={buc.status} />*/}
+    </div>
+    <div className='col-3 a-buc-c-bucheader__actions'>
+      <Nav.LenkepanelBase data-qa='BucHeader-LinkButton' onClick={(e) => requestHandleBUC(buc, e)} className='a-buc-c-bucheader__button smallerButton knapp' href={'#' + buc.type} border>{t('ui:processing')}</Nav.LenkepanelBase>
     </div>
   </div>
 }
