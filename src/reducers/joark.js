@@ -35,26 +35,23 @@ const joarkReducer = (state = initialJoarkState, action = {}) => {
 
     case types.JOARK_GET_SUCCESS:
 
-      item = action.context
-      base64 = action.payload
-      let file = {
-        journalpostId: item.journalpostId,
-        tilleggsopplysninger: item.tilleggsopplysninger,
-        tittel: item.tittel,
-        tema: item.tema,
-        dokumentInfoId: item.dokumentInfoId,
-        datoOpprettet: item.datoOpprettet,
-        datoRegistrert: item.datoRegistrert,
-        name: item.tittel,
-        size: base64.length,
-        mimetype: 'application/pdf',
-        content: {
-          base64: base64
-        }
-      }
       return {
         ...state,
-        file: file
+        file: {
+          journalpostId: action.context.journalpostId,
+          tilleggsopplysninger: action.context.tilleggsopplysninger,
+          tittel: action.context.tittel,
+          tema: action.context.tema,
+          dokumentInfoId: action.context.dokumentInfoId,
+          datoOpprettet: action.context.datoOpprettet,
+          datoRegistrert: action.context.datoRegistrert,
+          name: action.payload.fileName,
+          size: action.payload.base64.length,
+          mimetype: action.payload.contentType,
+          content: {
+            base64: action.payload.base64
+          }
+        }
       }
 
     case types.JOARK_PREVIEW_SUCCESS:

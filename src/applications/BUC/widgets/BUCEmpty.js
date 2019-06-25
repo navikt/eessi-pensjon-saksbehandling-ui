@@ -5,7 +5,6 @@ import * as MonitorPNG from 'resources/images/artwork/dataskjerm.png'
 import * as CupPNG from 'resources/images/artwork/kop.png'
 import * as MousePNG from 'resources/images/artwork/NAVmusematte.png'
 import * as MapPNG from 'resources/images/artwork/saksstatus.png'
-import JoarkBrowser from 'components/ui/JoarkBrowser/JoarkBrowser'
 
 import { Undertittel, Flatknapp, Normaltekst, Hovedknapp, Input, ToggleKnapp } from 'components/ui/Nav'
 
@@ -16,7 +15,6 @@ const BUCEmpty = (props) => {
   const [ _sakId, setSakId ] = useState(sakId)
   const [ _aktoerId, setAktoerId ] = useState(aktoerId)
   const [validation, setValidation] = useState(undefined)
-  const [ seeJoark, setSeeJoark ] = useState(false)
 
   const onAktoerIdChange = (e) => {
     setValidation(undefined)
@@ -87,10 +85,6 @@ const BUCEmpty = (props) => {
     {aktoerId && sakId && bucs !== undefined ? <div className='mt-4'>
       <Normaltekst>{t('buc:form-noBUCsFound')}</Normaltekst>
     </div>: null}
-    <div className='m-4'>
-      <ToggleKnapp pressed={seeJoark} onClick={() => setSeeJoark(!seeJoark)}>{t('joark')}</ToggleKnapp>
-      {seeJoark ? <JoarkBrowser files={[]} onFilesChange={() => {}} /> : null}
-    </div>
   </div>
 }
 
