@@ -94,7 +94,7 @@ const BUCTools = (props) => {
       <Undertittel className='mb-2'>{t('buc:form-commentForBUC')}</Undertittel>
       <Textarea
         label={''}
-        value={comment}
+        value={comment || ''}
         style={{ minHeight: '150px' }}
         onChange={onCommentChange} />
     </div>

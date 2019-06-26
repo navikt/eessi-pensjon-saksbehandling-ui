@@ -1,15 +1,14 @@
 import React from 'react'
 import PT from 'prop-types'
 
-import * as Nav from 'components/ui/Nav'
+import { LenkepanelBase, Normaltekst, Undertittel } from 'components/ui/Nav'
 import FlagList from 'components/ui/Flag/FlagList'
 import Icons from 'components/ui/Icons'
-import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 
 import './BUCHeader.css'
 
 const BUCHeader = (props) => {
-  const { t, style, locale, buc, bucInfo, onBUCEdit } = props
+  const { buc, bucInfo, locale, onBUCEdit, style, t } = props
 
   const requestHandleBUC = (buc, e) => {
     e.preventDefault()
@@ -30,17 +29,22 @@ const BUCHeader = (props) => {
     })
   }
 
-  const numberOfSeds = buc.seds ? buc.seds.length : 0
+  const numberOfSeds = buc.seds ? buc.seds.filter(sed => {
+    return sed.status !== 'empty'
+  }).length : 0
+
   return <div
-    className='a-buc-c-bucheader'
     id={'a-buc-c-bucheader__' + buc.type}
+    className='a-buc-c-bucheader'
     style={style}
     >
-    <div className='col-4 a-buc-c-bucheader__label'>
-      <Nav.Undertittel data-qa='BucHeader-type-name'>{buc.type + ' - ' + t('buc:buc-' + buc.type)}</Nav.Undertittel>
-      <Nav.Normaltekst style={{ color: 'grey' }} data-qa='BucHeader-type-dates'>{buc.startDate + ' - ' + buc.lastUpdate}</Nav.Normaltekst>
+    <div
+      id='a-buc-c-bucheader__label-id'
+      className='a-buc-c-bucheader__label col-4'>
+      <Undertittel data-qa='BucHeader-type-name'>{buc.type + ' - ' + t('buc:buc-' + buc.type)}</Undertittel>
+      <Normaltekst style={{ color: 'grey' }} data-qa='BucHeader-type-dates'>{buc.startDate + ' - ' + buc.lastUpdate}</Normaltekst>
     </div>
-    <div className='col-2 a-buc-c-bucheader__flags'>
+    <div className='a-buc-c-bucheader__flags col-2'>
       <FlagList data-qa='BucHeader-FlagList'
         locale={locale}
         size='L'
@@ -58,20 +62,20 @@ const BUCHeader = (props) => {
         ? <div title={bucInfo.tags.join(', ')}>
           <Icons kind='problem' data-qa='BucHeader-ProblemCircle' className='a-buc-c-bucheader__tag' />
         </div> : null}
-      {/*<SEDStatus t={t} status={buc.status} />*/}
     </div>
     <div className='col-3 a-buc-c-bucheader__actions'>
-      <Nav.LenkepanelBase data-qa='BucHeader-LinkButton' onClick={(e) => requestHandleBUC(buc, e)} className='a-buc-c-bucheader__button smallerButton knapp' href={'#' + buc.type} border>{t('ui:processing')}</Nav.LenkepanelBase>
+      <LenkepanelBase data-qa='BucHeader-LinkButton' onClick={(e) => requestHandleBUC(buc, e)} className='a-buc-c-bucheader__button smallerButton knapp' href={'#' + buc.type} border>{t('ui:processing')}</LenkepanelBase>
     </div>
   </div>
 }
 
 BUCHeader.propTypes = {
-  t: PT.func.isRequired,
   buc: PT.object.isRequired,
   bucInfo: PT.object,
   locale: PT.string.isRequired,
-  onBUCEdit: PT.func
+  onBUCEdit: PT.func,
+  style: PT.object,
+  t: PT.func.isRequired
 }
 
 export default BUCHeader

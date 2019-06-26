@@ -32,7 +32,8 @@ const mapDispatchToProps = (dispatch) => {
 
 export class InternalTopHeader extends Component {
   onLogoClick () {
-    const { history } = this.props
+    const { history, actions } = this.props
+    actions.clearData()
     history.push({
       pathname: routes.INDEX,
       search: window.location.search

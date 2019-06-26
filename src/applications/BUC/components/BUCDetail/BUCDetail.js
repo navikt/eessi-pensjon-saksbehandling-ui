@@ -2,7 +2,8 @@ import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import _ from 'lodash'
-import { EkspanderbartpanelBase, Normaltekst, Undertittel, Systemtittel, EtikettLiten, Element } from 'components/ui/Nav'
+
+import { EkspanderbartpanelBase, Element, EtikettLiten, Normaltekst, Systemtittel, Undertittel } from 'components/ui/Nav'
 import Flag from 'components/ui/Flag/Flag'
 import countries from 'components/ui/CountrySelect/CountrySelectData'
 
