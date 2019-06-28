@@ -9,7 +9,6 @@ import MultipleValueRemove from './MultipleValueRemove'
 import './MultipleSelect.css'
 
 const MultipleSelect = (props) => {
-
   const {
     id,
     placeholder,

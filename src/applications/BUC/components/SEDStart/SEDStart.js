@@ -10,6 +10,7 @@ import FlagList from 'components/ui/Flag/FlagList'
 import SEDAttachments from '../SEDAttachments/SEDAttachments'
 
 import * as bucActions from 'actions/buc'
+import { getDisplayName } from '../../../../utils/displayName'
 
 export const mapStateToProps = (state) => {
   return {
@@ -372,7 +373,11 @@ SEDStart.propTypes = {
   layout: PT.string
 }
 
-export default connect(
+const ConnectedSEDStart = connect(
   mapStateToProps,
   mapDispatchToProps
 )(SEDStart)
+
+ConnectedSEDStart.displayName = `Connect(${getDisplayName(SEDStart)})`
+
+export default ConnectedSEDStart

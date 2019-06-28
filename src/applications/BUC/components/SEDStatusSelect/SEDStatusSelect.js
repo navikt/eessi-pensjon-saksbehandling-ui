@@ -4,6 +4,7 @@ import _ from 'lodash'
 import { ToggleKnappPure } from 'components/ui/Nav'
 import { connect, bindActionCreators } from 'store'
 import * as bucActions from 'actions/buc'
+import { getDisplayName } from '../../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -50,4 +51,8 @@ SEDStatusSelect.propTypes = {
   actions: PT.object.isRequired
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SEDStatusSelect)
+const ConnectedSedStatusSelect = connect(mapStateToProps, mapDispatchToProps)(SEDStatusSelect)
+
+ConnectedSedStatusSelect.displayName = `Connect(${getDisplayName(SEDStatusSelect)})`
+
+export default ConnectedSedStatusSelect

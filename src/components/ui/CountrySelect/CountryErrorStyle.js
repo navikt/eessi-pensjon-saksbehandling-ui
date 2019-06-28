@@ -1,4 +1,4 @@
-export default (error) => {
+const CountryErrorStyle = (error) => {
   return {
     container: (styles, state) => {
       let { boxShadow, ...rest } = styles
@@ -24,3 +24,5 @@ export default (error) => {
     }
   }
 }
+
+export default CountryErrorStyle

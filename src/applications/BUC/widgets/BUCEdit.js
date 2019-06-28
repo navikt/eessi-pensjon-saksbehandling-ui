@@ -12,6 +12,7 @@ import SEDStatusSelect from 'applications/BUC/components/SEDStatusSelect/SEDStat
 import { connect, bindActionCreators } from 'store'
 import * as bucActions from 'actions/buc'
 import './BUCEdit.css'
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -60,7 +61,7 @@ const BUCEdit = (props) => {
     }
     if (match && countrySearch) {
       match = _.find(sed.participants, (it) => {
-        return _.find(countrySearch, {value: it.organisation.countryCode})
+        return _.find(countrySearch, { value: it.organisation.countryCode })
       })
     }
     if (match && statusFilter) {
@@ -69,26 +70,26 @@ const BUCEdit = (props) => {
       } else { // single
         switch (statusFilter[0]) {
           case 'inbox':
-          match = sed.status !== null && sed.status !== 'empty' && sed.status !== 'new'
-          break
+            match = sed.status !== null && sed.status !== 'empty' && sed.status !== 'new'
+            break
           default:
-          match = sed.status === null || sed.status === 'new'
-          break
+            match = sed.status === null || sed.status === 'new'
+            break
         }
       }
     }
     if (match && statusSearch) {
-      match = _.find(statusSearch, {value: sed.status})
+      match = _.find(statusSearch, { value: sed.status })
     }
     return match
   }
 
   const renderSeds = () => {
     return seds ? seds
-    .filter(sedFilter)
-    .map((sed, index) => {
-      return <SEDRow className='mt-2' locale={locale} t={t} key={index} sed={sed} rinaUrl={rinaUrl} rinaId={buc.caseId} />
-    }) : null
+      .filter(sedFilter)
+      .map((sed, index) => {
+        return <SEDRow className='mt-2' locale={locale} t={t} key={index} sed={sed} rinaUrl={rinaUrl} rinaId={buc.caseId} />
+      }) : null
   }
 
   const bucId = buc.type + '-' + buc.caseId
@@ -96,7 +97,7 @@ const BUCEdit = (props) => {
 
   return <div className='a-buc-bucedit'>
     <div className='a-buc-buclist__buttons mb-2'>
-      <SEDStatusSelect t={t}/>
+      <SEDStatusSelect t={t} />
       <div>
         <Nav.Knapp onClick={onSEDNew}>{t('buc:form-orderNewSED')}</Nav.Knapp>
         <Nav.Knapp className='ml-2' onClick={onBUCList}>{t('buc:form-backToList')}</Nav.Knapp>
@@ -105,12 +106,12 @@ const BUCEdit = (props) => {
     <Nav.Row style={{ marginLeft: '-15px', marginRight: '-15px' }}>
       <div className='col-8'>
         <SEDSearch className='mb-2' t={t} locale={locale} value={search} seds={seds}
-        onSearch={onSearch} onCountrySearch={onCountrySearch} onStatusSearch={onStatusSearch}/>
+          onSearch={onSearch} onCountrySearch={onCountrySearch} onStatusSearch={onStatusSearch} />
         {renderSeds()}
       </div>
       <div className='col-4'>
         <BUCDetail className='mb-3' t={t} buc={buc} bucInfo={bucInfo} locale={locale} />
-        <BUCTools className='mb-3' t={t} buc={buc} bucInfo={bucInfo} locale={locale}/>
+        <BUCTools className='mb-3' t={t} buc={buc} bucInfo={bucInfo} locale={locale} />
         <SEDTools className='mb-3' t={t} />
         <UserTools className='mb-3' t={t} />
       </div>
@@ -127,4 +128,8 @@ BUCEdit.propTypes = {
   locale: PT.string.isRequired
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BUCEdit)
+const ConnectedBUCEdit = connect(mapStateToProps, mapDispatchToProps)(BUCEdit)
+
+ConnectedBUCEdit.displayName = `Connect(${getDisplayName(BUCEdit)})`
+
+export default ConnectedBUCEdit

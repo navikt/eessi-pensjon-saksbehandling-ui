@@ -10,6 +10,7 @@ import * as Nav from '../Nav'
 import * as alertActions from '../../../actions/alert'
 
 import './Alert.css'
+import { getDisplayName } from '../../../utils/displayName'
 
 export const mapStateToProps = (state) => {
   return {
@@ -83,9 +84,15 @@ Alert.propTypes = {
   uuid: PT.string
 }
 
-export default connect(
+const ConnectedAlert = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(Alert)
 )
+
+ConnectedAlert.displayName = `Connect(${getDisplayName((
+  withTranslation()(Alert)
+))})`
+
+export default ConnectedAlert

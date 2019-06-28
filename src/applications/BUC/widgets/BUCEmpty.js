@@ -84,7 +84,7 @@ const BUCEmpty = (props) => {
     </div> : null}
     {aktoerId && sakId && bucs !== undefined ? <div className='mt-4'>
       <Normaltekst>{t('buc:form-noBUCsFound')}</Normaltekst>
-    </div>: null}
+    </div> : null}
   </div>
 }
 

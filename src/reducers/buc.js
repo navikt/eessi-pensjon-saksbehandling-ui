@@ -11,7 +11,6 @@ export const initialBucState = {
 
 const bucReducer = (state = initialBucState, action) => {
   switch (action.type) {
-
     case types.APP_CLEAR_DATA: {
       return initialBucState
     }

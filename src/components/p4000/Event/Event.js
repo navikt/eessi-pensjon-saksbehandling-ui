@@ -11,6 +11,7 @@ import Icons from '../../ui/Icons'
 import * as Nav from '../../ui/Nav'
 
 import './Event.css'
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, p4000Actions), dispatch) }
@@ -43,9 +44,13 @@ Event.propTypes = {
   onClick: PT.func.isRequired
 }
 
-export default connect(
+const ConnectedEvent = connect(
   () => {},
   mapDispatchToProps
 )(
   withTranslation()(Event)
 )
+
+ConnectedEvent.displayName = `Connect(${getDisplayName(withTranslation()(Event))})`
+
+export default ConnectedEvent

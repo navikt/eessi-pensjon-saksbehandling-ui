@@ -1,5 +1,6 @@
 import React from 'react'
-export default (props) => (
+
+const NavLogoTransparent = (props) => (
   <svg width={(props.width || props.size || 269)} height={(props.height || props.size || 169)}
     viewBox='0 0 269 169'
     version='1.1' xmlns='http://www.w3.org/2000/svg'>
@@ -26,3 +27,5 @@ export default (props) => (
     </g>
   </svg>
 )
+
+export default NavLogoTransparent

@@ -77,7 +77,7 @@ describe('api actions', () => {
   })
 
   it('fakecall()', () => {
-    const mockedPayload = {foo: 'bar'}
+    const mockedPayload = { foo: 'bar' }
     store.dispatch(api.fakecall({
       url: 'http://mockedurl/',
       type: {

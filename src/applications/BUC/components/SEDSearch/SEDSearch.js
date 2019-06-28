@@ -37,7 +37,7 @@ const SEDSearch = (props) => {
 
   const onStatusChange = (statusList) => {
     if (typeof onStatusSearch === 'function') {
-      console.log("sd2")
+      console.log('sd2')
       onStatusSearch(statusList)
       setStatus(statusList)
     }
@@ -64,8 +64,8 @@ const SEDSearch = (props) => {
   if (seds) {
     seds.forEach(sed => {
       sed.participants.forEach(it => {
-        if (!_.find(availableCountries, {value: it.organisation.countryCode})) {
-          const country = _.find(countries[locale], {value: it.organisation.countryCode})
+        if (!_.find(availableCountries, { value: it.organisation.countryCode })) {
+          const country = _.find(countries[locale], { value: it.organisation.countryCode })
           availableCountries.push({
             label: country ? country.label : it.organisation.countryCode,
             value: it.organisation.countryCode
@@ -78,7 +78,7 @@ const SEDSearch = (props) => {
   return <Panel
     className={classNames('a-buc-c-sedsearch', 'p-2', className)}
     id='a-buc-c-sedsearch__panel-id'>
-     <Input
+    <Input
       className='a-buc-c-sedsearch__query pl-1 pr-1'
       label={''}
       bredde='fullbredde'
@@ -104,7 +104,7 @@ const SEDSearch = (props) => {
       hideSelectedOptions={false}
       onChange={onCountryChange}
       optionList={availableCountries} />
-    </Panel>
+  </Panel>
 }
 
 SEDSearch.propTypes = {

@@ -17,6 +17,7 @@ import Icons from '../../../ui/Icons'
 import * as routes from '../../../../constants/routes'
 
 import '../Menu.css'
+import { getDisplayName } from '../../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -185,9 +186,13 @@ GenericEvent.propTypes = {
 
 }
 
-export default connect(
+const ConnectedGenericEvent = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(GenericEvent)
 )
+
+ConnectedGenericEvent.displayName = `Connect(${getDisplayName(withTranslation()(GenericEvent))})`
+
+export default ConnectedGenericEvent

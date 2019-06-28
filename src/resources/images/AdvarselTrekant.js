@@ -1,5 +1,6 @@
 import React from 'react'
-export default (props) => (
+
+const AdvarselTrekant = (props) => (
   <svg width={(props.width || props.size || 23)} height={(props.width || props.size || 23)} viewBox='0 0 23 23' xmlns='http://www.w3.org/2000/svg'>
     <title>Advarsel</title>
     <g stroke='#BA3A26' fill='none' fillRule='evenodd' strokeLinejoin='round'>
@@ -8,3 +9,5 @@ export default (props) => (
     </g>
   </svg>
 )
+
+export default AdvarselTrekant

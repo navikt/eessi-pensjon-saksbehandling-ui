@@ -12,6 +12,7 @@ import bytes from 'bytes'
 import * as uiActions from '../../../actions/ui'
 import File from '../File/File'
 import './FileUpload.css'
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = () => {
   return {}
@@ -307,9 +308,13 @@ FileUpload.propTypes = {
   maxFileSize: PT.number
 }
 
-export default connect(
+const ConnectedFileUpload = connect(
   mapStateToProps,
   mapDispatchToProps
   , null, { forwardRef: true })(
   FileUpload
 )
+
+ConnectedFileUpload.displayName = `Connect(${getDisplayName(FileUpload)}`
+
+export default ConnectedFileUpload

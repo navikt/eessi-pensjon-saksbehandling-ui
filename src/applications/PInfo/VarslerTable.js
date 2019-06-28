@@ -10,6 +10,7 @@ import * as storageActions from '../../actions/storage'
 import * as pinfoActions from '../../actions/pinfo'
 
 import './PInfo.css'
+import { getDisplayName } from '../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -147,7 +148,11 @@ VarslerTable.propTypes = {
   actions: PT.object
 }
 
-export default connect(
+const ConnectedVarslerTable = connect(
   mapStateToProps,
   mapDispatchToProps
 )(VarslerTable)
+
+ConnectedVarslerTable.displayName = `Connect(${getDisplayName(VarslerTable)})`
+
+export default ConnectedVarslerTable

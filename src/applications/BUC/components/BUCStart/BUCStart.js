@@ -11,6 +11,7 @@ import Icons from 'components/ui/Icons'
 import * as bucActions from 'actions/buc'
 import * as uiActions from 'actions/ui'
 import * as appActions from 'actions/app'
+import { getDisplayName } from '../../../../utils/displayName'
 
 export const mapStateToProps = (state) => {
   return {
@@ -413,7 +414,11 @@ BUCStart.propTypes = {
   rinaId: PT.string
 }
 
-export default connect(
+const ConnectedBUCStart = connect(
   mapStateToProps,
   mapDispatchToProps
 )(BUCStart)
+
+ConnectedBUCStart.displayName = `Connect(${getDisplayName(BUCStart)})`
+
+export default ConnectedBUCStart

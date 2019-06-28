@@ -6,6 +6,7 @@ import { connect, bindActionCreators } from 'store'
 import './Drawer.css'
 
 import * as uiActions from '../../../actions/ui'
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -107,7 +108,11 @@ Drawer.propTypes = {
   drawerEnabled: PT.bool.isRequired
 }
 
-export default connect(
+const ConnectedDrawer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Drawer)
+
+ConnectedDrawer.displayName = `Connect(${getDisplayName(Drawer)})`
+
+export default ConnectedDrawer

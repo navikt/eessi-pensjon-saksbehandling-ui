@@ -2,15 +2,14 @@ import * as appActions from './app'
 import * as api from './api'
 import * as types from '../constants/actionTypes'
 import * as urls from '../constants/urls'
-var sprintf = require('sprintf-js').sprintf
 
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
+var sprintf = require('sprintf-js').sprintf
 
 const mockStore = configureMockStore([thunk])
 
 describe('app actions', () => {
-
   beforeAll(() => {
     api.call = jest.fn()
   })
@@ -83,7 +82,6 @@ describe('app actions', () => {
       url: urls.API_USERINFO_URL
     })
   })
-
 
   it('getPersonInfo()', () => {
     const mockAktoerId = '123'

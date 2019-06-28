@@ -18,6 +18,7 @@ import Icons from '../../../ui/Icons'
 
 import * as routes from '../../../../constants/routes'
 import '../Menu.css'
+import { getDisplayName } from '../../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -243,9 +244,13 @@ Child.propTypes = {
   locale: PT.string.isRequired
 }
 
-export default connect(
+const ConnectedChild = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(Child)
 )
+
+ConnectedChild.displayName = `Connect(${getDisplayName(withTranslation()(Child))})`
+
+export default ConnectedChild

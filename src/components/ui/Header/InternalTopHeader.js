@@ -15,6 +15,7 @@ import * as appActions from '../../../actions/app'
 import * as uiActions from '../../../actions/ui'
 
 import './InternalTopHeader.css'
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -100,9 +101,15 @@ InternalTopHeader.propTypes = {
   header: PT.oneOfType([PT.node, PT.string])
 }
 
-export default connect(
+const ConnectedInternalTopHeader = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(InternalTopHeader)
 )
+
+ConnectedInternalTopHeader.displayName = `Connect(${getDisplayName((
+  withTranslation()(InternalTopHeader)
+))})`
+
+export default ConnectedInternalTopHeader

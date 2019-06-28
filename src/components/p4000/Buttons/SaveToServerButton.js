@@ -9,6 +9,7 @@ import * as Nav from '../../ui/Nav'
 import P4000Util from '../Util'
 
 import * as storageActions from '../../../actions/storage'
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -61,9 +62,13 @@ SaveToServerButton.propTypes = {
   actions: PT.object
 }
 
-export default connect(
+const ConnectedSaveToServerButton = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(SaveToServerButton)
 )
+
+ConnectedSaveToServerButton.displayName = `Connect(${getDisplayName(withTranslation()(SaveToServerButton))})`
+
+export default ConnectedSaveToServerButton

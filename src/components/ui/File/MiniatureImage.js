@@ -53,4 +53,6 @@ MiniatureImage.propTypes = {
   scale: PT.number.isRequired
 }
 
-export default withTranslation()(MiniatureImage)
+const MiniatureImageWithTranslation = withTranslation()(MiniatureImage)
+
+export default MiniatureImageWithTranslation

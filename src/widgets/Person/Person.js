@@ -11,6 +11,7 @@ import Icons from 'components/ui/Icons'
 import countries from 'components/ui/CountrySelect/CountrySelectData'
 import * as appActions from 'actions/app'
 import './Person.css'
+import { getDisplayName } from '../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -45,7 +46,7 @@ const PersonWidget = (props) => {
   }
 
   if (person && person.statsborgerskap && person.statsborgerskap.land) {
-    country = _.find(countries[locale], {value3: person.statsborgerskap.land.value})
+    country = _.find(countries[locale], { value3: person.statsborgerskap.land.value })
   }
 
   return <React.Fragment>
@@ -76,4 +77,8 @@ PersonWidget.propTypes = {
   t: PT.func.isRequired
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(PersonWidget))
+const ConnectedPersonWidget = connect(mapStateToProps, mapDispatchToProps)(withTranslation()(PersonWidget))
+
+ConnectedPersonWidget.displayName = `Connect(${getDisplayName(withTranslation()(PersonWidget))})`
+
+export default ConnectedPersonWidget

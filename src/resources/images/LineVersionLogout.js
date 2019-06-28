@@ -1,5 +1,6 @@
 import React from 'react'
-export default (props) => (
+
+const LineVersionLogout = (props) => (
   <div {...props}>
     <svg contentScriptType='text/ecmascript' zoomAndPan='magnify'
       xmlnsXlink='http://www.w3.org/1999/xlink' contentStyleType='text/css'
@@ -12,3 +13,5 @@ export default (props) => (
         <path d='M23.961,12.691c0.051-0.122,0.051-0.26,0-0.382c-0.025-0.062-0.062-0.117-0.108-0.163l-5-5   c-0.195-0.195-0.512-0.195-0.707,0s-0.195,0.512,0,0.707L22.293,12H5.5C5.224,12,5,12.224,5,12.5S5.224,13,5.5,13h16.793   l-4.146,4.146c-0.195,0.195-0.195,0.512,0,0.707C18.244,17.951,18.372,18,18.5,18s0.256-0.049,0.354-0.146l5-5   C23.899,12.808,23.936,12.752,23.961,12.691z' /></g></svg>
   </div>
 )
+
+export default LineVersionLogout

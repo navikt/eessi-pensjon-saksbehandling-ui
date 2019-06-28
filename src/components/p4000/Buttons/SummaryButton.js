@@ -9,6 +9,7 @@ import * as Nav from '../../ui/Nav'
 
 import * as routes from '../../../constants/routes'
 import * as p4000Actions from '../../../actions/p4000'
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -48,9 +49,13 @@ SummaryButton.propTypes = {
   history: PT.object.isRequired
 }
 
-export default connect(
+const ConnectedSummaryButton = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(SummaryButton)
 )
+
+ConnectedSummaryButton.displayName = `Connect(${getDisplayName(withTranslation()(SummaryButton))})`
+
+export default ConnectedSummaryButton

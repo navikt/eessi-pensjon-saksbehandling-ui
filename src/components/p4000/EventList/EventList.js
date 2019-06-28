@@ -41,4 +41,6 @@ EventList.propTypes = {
   cancelEditRequest: PT.func.isRequired
 }
 
-export default withTranslation()(EventList)
+const EventListWithTranslation = withTranslation()(EventList)
+
+export default EventListWithTranslation

@@ -2,8 +2,8 @@ import * as bucActions from './buc'
 import * as api from './api'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-var sprintf = require('sprintf-js').sprintf
 import sampleBucs from 'resources/tests/sampleBucs'
+var sprintf = require('sprintf-js').sprintf
 
 urls.HOST = 'notlocalhost'
 
@@ -57,7 +57,6 @@ describe('buc actions', () => {
     })
   })
 
-
   it('fetchBucs()', () => {
     const mockAktoerId = 123
     bucActions.fetchBucs(mockAktoerId)
@@ -81,10 +80,9 @@ describe('buc actions', () => {
         success: types.BUC_GET_BUCSINFO_LIST_SUCCESS,
         failure: types.BUC_GET_BUCSINFO_LIST_FAILURE
       },
-      url: sprintf(urls.API_STORAGE_LIST_URL, { userId: mockUserId, namespace: 'BUC' }),
+      url: sprintf(urls.API_STORAGE_LIST_URL, { userId: mockUserId, namespace: 'BUC' })
     })
   })
-
 
   it('fetchBucsInfo()', () => {
     const mockFilename = 'mockFilename'
@@ -95,7 +93,7 @@ describe('buc actions', () => {
         success: types.BUC_GET_BUCSINFO_SUCCESS,
         failure: types.BUC_GET_BUCSINFO_FAILURE
       },
-      url: sprintf(urls.API_STORAGE_GETFILE_URL, { file: mockFilename }),
+      url: sprintf(urls.API_STORAGE_GETFILE_URL, { file: mockFilename })
     })
   })
 
@@ -111,7 +109,6 @@ describe('buc actions', () => {
       url: sprintf(urls.EUX_CASE_URL, mockParams)
     })
   })
-
 
   it('getSubjectAreaList()', () => {
     bucActions.getSubjectAreaList()
@@ -140,8 +137,8 @@ describe('buc actions', () => {
   it('getTagList()', () => {
     const expectedResults = bucActions.getTagList()
     expect(expectedResults).toMatchObject({
-     type: types.BUC_GET_TAG_LIST_SUCCESS,
-     payload: ['urgent', 'vip', 'sensitive', 'secret']
+      type: types.BUC_GET_TAG_LIST_SUCCESS,
+      payload: ['urgent', 'vip', 'sensitive', 'secret']
     })
   })
 
@@ -159,7 +156,7 @@ describe('buc actions', () => {
         type: mockBuc
       },
       method: 'POST',
-      url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: mockBuc }),
+      url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: mockBuc })
     })
   })
 
@@ -199,9 +196,8 @@ describe('buc actions', () => {
     })
   })
 
-
   it('getSedList()', () => {
-    const mockBuc = {type: 'mockBucType', caseId: 456}
+    const mockBuc = { type: 'mockBucType', caseId: 456 }
     const mockRinaId = '123'
     bucActions.getSedList(mockBuc, mockRinaId)
     expect(api.call).toBeCalledWith({
@@ -248,7 +244,7 @@ describe('buc actions', () => {
         failure: types.BUC_CREATE_SED_FAILURE
       },
       method: 'POST',
-      expectedPayload: {success: true},
+      expectedPayload: { success: true },
       payload: mockedPayload,
       url: urls.BUC_CREATE_SED_URL
     })

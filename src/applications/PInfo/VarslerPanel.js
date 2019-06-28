@@ -7,6 +7,7 @@ import * as Nav from '../../components/ui/Nav'
 import * as pinfoActions from '../../actions/pinfo'
 
 import '../PInfo/PInfo.css'
+import { getDisplayName } from '../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -84,7 +85,11 @@ VarslerPanel.propTypes = {
   actions: PT.object
 }
 
-export default connect(
+const ConnectedVarslerPanel = connect(
   mapStateToProps,
   mapDispatchToProps
 )(VarslerPanel)
+
+ConnectedVarslerPanel.displayName = `Connect(${getDisplayName(VarslerPanel)})`
+
+export default ConnectedVarslerPanel

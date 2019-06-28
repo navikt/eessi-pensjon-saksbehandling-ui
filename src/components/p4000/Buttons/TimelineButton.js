@@ -9,6 +9,7 @@ import * as Nav from '../../ui/Nav'
 
 import * as routes from '../../../constants/routes'
 import * as p4000Actions from '../../../actions/p4000'
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -49,9 +50,13 @@ TimelineButton.propTypes = {
   history: PT.object.isRequired
 }
 
-export default connect(
+const ConectedTimelineButton = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(TimelineButton)
 )
+
+ConectedTimelineButton.displayName = `Connect(${getDisplayName(withTranslation()(TimelineButton))})`
+
+export default ConectedTimelineButton

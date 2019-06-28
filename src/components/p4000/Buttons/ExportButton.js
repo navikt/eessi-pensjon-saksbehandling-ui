@@ -9,6 +9,7 @@ import * as Nav from '../../ui/Nav'
 
 import * as routes from '../../../constants/routes'
 import * as p4000Actions from '../../../actions/p4000'
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -52,9 +53,13 @@ ExportButton.propTypes = {
   history: PT.object.isRequired
 }
 
-export default connect(
+const ConnectedExportButton = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(ExportButton)
 )
+
+ConnectedExportButton.displayName = `Connect(${getDisplayName(withTranslation()(ExportButton))})`
+
+export default ConnectedExportButton

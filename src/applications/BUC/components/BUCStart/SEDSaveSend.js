@@ -87,7 +87,9 @@ SEDSaveSend.propTypes = {
   rinaUrl: PT.string
 }
 
-export default connect(
+const ConnectedSEDSaveSend = connect(
   mapStateToProps,
   mapDispatchToProps
 )(SEDSaveSend)
+
+export default ConnectedSEDSaveSend

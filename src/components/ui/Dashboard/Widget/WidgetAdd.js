@@ -47,7 +47,7 @@ WidgetAdd.propTypes = {
   widget: PT.object.isRequired
 }
 
-export default DragSource(
+const WidgetAddDragSource = DragSource(
   'newWidget', {
     beginDrag: (props) => {
       // console.log('WidgetAdd: BeginDrag')
@@ -84,3 +84,5 @@ export default DragSource(
     isDragging: monitor.isDragging()
   })
 )(WidgetAdd)
+
+export default WidgetAddDragSource

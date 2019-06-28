@@ -10,6 +10,7 @@ import Alert from '../Alert/Alert'
 import * as storageActions from '../../../actions/storage'
 import * as uiActions from '../../../actions/ui'
 import './StorageModal.css'
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -341,9 +342,13 @@ StorageModal.propTypes = {
   namespace: PT.string.isRequired
 }
 
-export default connect(
+const ConnectedStorageModal = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(StorageModal)
 )
+
+ConnectedStorageModal.displayName = `Connect(${getDisplayName(withTranslation()(StorageModal))})`
+
+export default ConnectedStorageModal

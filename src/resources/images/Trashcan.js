@@ -1,5 +1,6 @@
 import React from 'react'
-export default (props) => (
+
+const Trashcan = (props) => (
   <div {...props} >
     <svg focusable='false' height={props.size || props.height || 32} width={props.size || props.height || 32} viewBox='0 0 24 24'>
       <title>Søppelkasse</title>
@@ -7,3 +8,5 @@ export default (props) => (
     </svg>
   </div>
 )
+
+export default Trashcan

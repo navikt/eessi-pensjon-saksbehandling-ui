@@ -84,9 +84,11 @@ FirstPage.propTypes = {
   history: PT.object.isRequired
 }
 
-export default connect(
+const ConnectedFirstPage = connect(
   mapStateToProps,
   () => {}
 )(
   withTranslation()(FirstPage)
 )
+
+export default ConnectedFirstPage
