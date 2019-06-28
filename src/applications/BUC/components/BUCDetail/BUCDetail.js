@@ -4,24 +4,12 @@ import classNames from 'classnames'
 import _ from 'lodash'
 
 import { EkspanderbartpanelBase, Element, EtikettLiten, Normaltekst, Systemtittel, Undertittel } from 'components/ui/Nav'
-import Flag from 'components/ui/Flag/Flag'
-import countries from 'components/ui/CountrySelect/CountrySelectData'
+import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 
 import './BUCDetail.css'
 
 const BUCDetail = (props) => {
   const { buc, bucInfo, className, locale, t } = props
-
-  let institutionList = {}
-  if (buc.institusjon) {
-    buc.institusjon.forEach(item => {
-      if (institutionList.hasOwnProperty(item.country)) {
-        institutionList[item.country].push(item.institution)
-      } else {
-        institutionList[item.country] = [item.institution]
-      }
-    })
-  }
 
   return <EkspanderbartpanelBase
     id='a-buc-c-bucdetail__panel-id'
@@ -100,17 +88,7 @@ const BUCDetail = (props) => {
         className='mb-2'>
         {t('buc:form-involvedInstitutions')}:
       </Undertittel>
-      {!_.isEmpty(institutionList) ? Object.keys(institutionList).map(landkode => {
-        const country = _.find(countries[locale], { value: landkode })
-        return <div
-          id='a-buc-c-bucdetail__institutions-id'
-          className='a-buc-c-bucdetail__institutions'
-          key={landkode}>
-          <Flag label={country.label} country={landkode} size='M' />
-          <Element className='pr-2 pl-2'>{country.label}: </Element>
-          <Normaltekst>{institutionList[landkode].join(', ')}</Normaltekst>
-        </div>
-      }) : <Normaltekst>{t('buc:form-noInstitutionYet')}</Normaltekst>}
+      <InstitutionList t={t} institutions={buc.institusjon} locale={locale} type='joined'/>
     </div>
   </EkspanderbartpanelBase>
 }

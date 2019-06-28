@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import * as bucActions from './buc'
 import * as api from './api'
 import * as types from 'constants/actionTypes'
@@ -222,15 +223,6 @@ describe('buc actions', () => {
         failure: types.BUC_GET_INSTITUTION_LIST_FAILURE
       },
       url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: mockBuc, country: mockCountry })
-    })
-  })
-
-  it('removeInstitutionForCountry()', () => {
-    const mockedCountry = 'country'
-    const generatedResult = bucActions.removeInstitutionForCountry(mockedCountry)
-    expect(generatedResult).toMatchObject({
-      type: types.BUC_REMOVE_INSTITUTION_LIST_FOR_COUNTRY,
-      payload: mockedCountry
     })
   })
 

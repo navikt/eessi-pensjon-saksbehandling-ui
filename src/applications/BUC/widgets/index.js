@@ -20,6 +20,8 @@ const mapStateToProps = (state) => {
     buc: state.buc.buc,
     bucsInfo: state.buc.bucsInfo,
     bucsInfoList: state.buc.bucsInfoList,
+    institutionList: state.buc.institutionList,
+    institutionNames: state.buc.institutionNames,
     rinaUrl: state.buc.rinaUrl,
     seds: state.buc.seds,
     gettingBUCs: state.loading.gettingBUCs,

@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import { Element, PanelBase, Normaltekst, Lenke } from 'components/ui/Nav'
 import classNames from 'classnames'
 import SEDStatus from '../SEDStatus/SEDStatus'
-import FlagList from 'components/ui/Flag/FlagList'
+import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import Icons from 'components/ui/Icons'
 import _ from 'lodash'
 
@@ -11,6 +11,13 @@ import './SEDRow.css'
 
 const SEDRow = (props) => {
   const { t, sed, className, locale, rinaId, rinaUrl, border = false } = props
+
+  const institutionList = sed.participants ? sed.participants.map(participant => {
+    return {
+      country: participant.organisation.countryCode,
+      institution: participant.organisation.name
+    }
+  }) : []
 
   return <PanelBase
     className={classNames('a-buc-c-sedrow p-0', className)}>
@@ -33,16 +40,7 @@ const SEDRow = (props) => {
       </div>
       <div className='col-4 a-buc-c-sedrow__column a-buc-c-sedrow__institutions'>
         <Element className='pb-2' >{t('ui:institutions')}</Element>
-        <div>
-          {sed.participants ? sed.participants.map(participant => {
-            return <div key={participant.organisation.id} className='a-buc-c-sedrow__institution'>
-              <FlagList locale={locale} items={[{
-                country: participant.organisation.countryCode
-              }]} />
-              <span>{participant.organisation.name}</span>
-            </div>
-          }) : null}
-        </div>
+        <InstitutionList t={t} locale={locale} type='separated' institutions={institutionList}/>
       </div>
       <div className='col-4 a-buc-c-sedrow__column a-buc-c-sedrow__actions'>
         <Element className='pb-2' >{t('ui:actions')}</Element>

@@ -6,7 +6,6 @@ import { connect, bindActionCreators } from 'store'
 import PsychoPanel from 'components/ui/Psycho/PsychoPanel'
 import * as Nav from 'components/ui/Nav'
 import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
-import Icons from 'components/ui/Icons'
 
 import * as bucActions from 'actions/buc'
 import * as uiActions from 'actions/ui'

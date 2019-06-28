@@ -10,9 +10,10 @@ import _ from 'lodash'
 import './BUCList.css'
 
 const BUCList = (props) => {
-  const { t, bucs, bucsInfoList, bucsInfo, actions, sakId, aktoerId, rinaUrl, gettingBUCs, locale } = props
+  const { t, bucs, bucsInfoList, institutionList, gettingInstitutionList, bucsInfo, actions, sakId, aktoerId, rinaUrl, gettingBUCs, locale } = props
   const [ seds, setSeds ] = useState({})
   const [ gettingBucsInfo, setGettingBucsInfo ] = useState(false)
+  const [ mounted, setMounted ] = useState(false)
 
   const onBUCNew = () => {
     actions.setMode('newbuc')
@@ -24,6 +25,44 @@ const BUCList = (props) => {
       setGettingBucsInfo(true)
     }
   }, [bucsInfoList, gettingBucsInfo, actions, aktoerId])
+
+  useEffect(() => {
+
+    if (!mounted) {
+      const listOfCountries = []
+      bucs.forEach(buc => {
+        buc.institusjon.forEach(it => {
+          if (!_.find(listOfCountries, {country: it.country})) {
+            listOfCountries.push({
+              country: it.country,
+              buc: buc.type
+            })
+          }
+        })
+        buc.seds.forEach(sed => {
+          sed.participants.forEach(it => {
+            const country = it.organisation.countryCode
+            if (!_.find(listOfCountries, {country: country})) {
+              listOfCountries.push({
+                country: country,
+                buc: buc.type
+              })
+            }
+          })
+        })
+      })
+
+      listOfCountries.forEach(it => {
+        if (!_.find(institutionList, it)) {
+          console.log('getting for ', it.buc, it.country)
+          actions.getInstitutionsListForBucAndCountry(it.buc, it.country)
+        }
+      })
+
+      console.log('useEffect called')
+      setMounted(true)
+    }
+  }, [institutionList, bucs, mounted])
 
   const getBucs = () => {
     actions.fetchBucs(aktoerId)
@@ -74,7 +113,7 @@ const BUCList = (props) => {
         />}
         onClick={() => onExpandBUCClick(buc)}>
         <SEDHeader t={t} />
-        <SEDBody t={t} seds={seds[bucId]} rinaUrl={rinaUrl} locale={locale} buc={buc} />
+        <SEDBody t={t} seds={seds[bucId] || []} rinaUrl={rinaUrl} locale={locale} buc={buc} />
       </EkspanderbartpanelBase>
     }) : <BUCEmpty actions={actions} t={t} sakId={sakId} aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> }
   </React.Fragment>

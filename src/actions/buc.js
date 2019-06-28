@@ -203,19 +203,16 @@ export const getSedList = (buc, rinaId) => {
 export const getInstitutionsListForBucAndCountry = (buc, country) => {
   return api.call({
     url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: buc, country: country }),
+    context: {
+       buc: buc,
+       country: country
+    },
     type: {
       request: types.BUC_GET_INSTITUTION_LIST_REQUEST,
       success: types.BUC_GET_INSTITUTION_LIST_SUCCESS,
       failure: types.BUC_GET_INSTITUTION_LIST_FAILURE
     }
   })
-}
-
-export const removeInstitutionForCountry = (country) => {
-  return {
-    type: types.BUC_REMOVE_INSTITUTION_LIST_FOR_COUNTRY,
-    payload: country
-  }
 }
 
 export const createSed = (payload) => {

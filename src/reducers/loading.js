@@ -215,7 +215,7 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
     case types.BUC_GET_INSTITUTION_LIST_REQUEST:
 
       return Object.assign({}, state, {
-        institutionList: true,
+        gettingInstitutionList: true,
         status: status
       })
 
@@ -223,7 +223,7 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
     case types.BUC_GET_INSTITUTION_LIST_FAILURE:
 
       return Object.assign({}, state, {
-        institutionList: false,
+        gettingInstitutionList: false,
         status: status
       })
 

@@ -6,7 +6,9 @@ export const initialBucState = {
   bucs: undefined,
   bucsInfoList: undefined,
   bucsInfo: undefined,
-  statusFilter: ['inbox']
+  statusFilter: ['inbox'],
+  institutionList: undefined,
+  institutionNames: {}
 }
 
 const bucReducer = (state = initialBucState, action) => {
@@ -92,6 +94,7 @@ const bucReducer = (state = initialBucState, action) => {
         ...state,
         bucsInfo: typeof action.payload === 'object' ? action.payload : JSON.parse(action.payload)
       }
+
 
     case types.BUC_GET_BUCSINFO_REQUEST:
     case types.BUC_GET_BUCSINFO_FAILURE:
@@ -217,6 +220,7 @@ const bucReducer = (state = initialBucState, action) => {
     case types.BUC_GET_INSTITUTION_LIST_SUCCESS:
 
       let institutionList = state.institutionList ? _.cloneDeep(state.institutionList) : {}
+      let institutionNames = _.cloneDeep(state.institutionNames)
       action.payload.forEach(institution => {
         let existingInstitutions = institutionList[institution.landkode] || []
         if (!_.find(existingInstitutions, { 'id': institution.id })) {
@@ -224,24 +228,18 @@ const bucReducer = (state = initialBucState, action) => {
             id: institution.id,
             navn: institution.navn,
             akronym: institution.akronym,
-            landkode: institution.landkode
+            landkode: institution.landkode,
+            buc: action.context.buc
           })
         }
         institutionList[institution.landkode] = existingInstitutions
+        institutionNames[institution.id] = institution.navn
       })
 
       return {
         ...state,
-        institutionList: institutionList
-      }
-
-    case types.BUC_REMOVE_INSTITUTION_LIST_FOR_COUNTRY:
-      let institutions = state.institutionList ? _.cloneDeep(state.institutionList) : {}
-      const landkode = action.payload
-      delete institutions[landkode]
-      return {
-        ...state,
-        institutionList: institutions
+        institutionList: institutionList,
+        institutionNames: institutionNames
       }
 
     case types.RINA_GET_URL_SUCCESS:

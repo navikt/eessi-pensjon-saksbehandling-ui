@@ -6,11 +6,11 @@ import { connect, bindActionCreators } from 'store'
 import * as Nav from 'components/ui/Nav'
 import countries from 'components/ui/CountrySelect/CountrySelectData'
 import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
-import FlagList from 'components/ui/Flag/FlagList'
 import SEDAttachments from '../SEDAttachments/SEDAttachments'
+import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 
 import * as bucActions from 'actions/buc'
-import { getDisplayName } from '../../../../utils/displayName'
+import { getDisplayName } from 'utils/displayName'
 
 export const mapStateToProps = (state) => {
   return {
@@ -160,12 +160,8 @@ const SEDStart = (props) => {
       let oldCountriesList = _.cloneDeep(_countries)
       setCountries(newCountries)
       let addedCountries = newCountries.filter(country => !oldCountriesList.includes(country))
-      let removedCountries = oldCountriesList.filter(country => !newCountries.includes(country))
       addedCountries.map(country => {
         return actions.getInstitutionsListForBucAndCountry(buc.type, country)
-      })
-      removedCountries.map(country => {
-        return actions.removeInstitutionForCountry(country)
       })
     }
   }
@@ -229,18 +225,23 @@ const SEDStart = (props) => {
     </div>
   }
 
-  const institutionObjectList = institutionList ? Object.keys(institutionList).map(landkode => {
-    let label = _.find(countries[locale], { value: landkode })
-    return {
-      label: label.label,
-      options: institutionList[landkode].map(institution => {
-        return {
-          label: institution.navn,
-          value: institution.id
-        }
-      })
-    }
-  }) : []
+  const institutionObjectList = []
+  if (institutionList) {
+    Object.keys(institutionList).forEach(landkode => {
+      if (_countries.indexOf(landkode) >= 0) {
+        let label = _.find(countries[locale], { value: landkode })
+        institutionObjectList.push({
+          label: label.label,
+          options: institutionList[landkode].map(institution => {
+            return {
+              label: institution.navn,
+              value: institution.id
+            }
+          })
+        })
+      }
+    })
+  }
 
   const renderInstitution = () => {
     return <div className='mb-3 flex-fill'>
@@ -281,31 +282,15 @@ const SEDStart = (props) => {
   }
 
   const renderInstitutions = () => {
-    let institutions = {}
-    if (_institutions) {
-      _institutions.forEach(item => {
-        Object.keys(institutionList).forEach(landkode => {
-          let found = _.find(institutionList[landkode], { id: item })
-          if (found) {
-            if (!institutions.hasOwnProperty(landkode)) {
-              institutions[landkode] = [found.navn]
-            } else {
-              institutions[landkode].push(found.navn)
-            }
-          }
-        })
-      })
-    }
-
     return <React.Fragment>
       <Nav.Undertittel className='mb-2'>{t('buc:form-chosenInstitutions')}</Nav.Undertittel>
-      {!_.isEmpty(institutions) ? Object.keys(institutions).map((landkode, index) => {
-        let institutionLabel = institutions[landkode].join(', ')
-        return <div key={index} className='d-flex align-items-baseline'>
-          <FlagList locale={locale} items={[{ country: landkode, label: institutionLabel }]} overflowLimit={5} />
-          <span>{landkode}: {institutionLabel}</span>
-        </div>
-      }) : <Nav.Normaltekst>{t('buc:form-noInstitutionYet')}</Nav.Normaltekst>}
+      <InstitutionList t={t} institutions={_institutions.map(item => {
+         var [ country, institution ] = item.split(':')
+         return {
+           country: country,
+           institution: institution
+         }
+      })} locale={locale} type='joined'/>
     </React.Fragment>
   }
 
