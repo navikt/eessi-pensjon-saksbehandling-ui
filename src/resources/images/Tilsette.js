@@ -1,5 +1,6 @@
 import React from 'react'
-export default (props) => (
+
+const Tilsette = (props) => (
   <div {...props} >
     <svg width={(props.width || props.size || 24)} height={(props.height || props.size || 24)} viewBox='0 0 24 24' version='1.1' xmlns='http://www.w3.org/2000/svg'>
       <title>Tilsette</title>
@@ -11,3 +12,5 @@ export default (props) => (
     </svg>
   </div>
 )
+
+export default Tilsette

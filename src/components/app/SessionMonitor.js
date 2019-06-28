@@ -4,6 +4,7 @@ import { connect, bindActionCreators } from 'store'
 import { withTranslation } from 'react-i18next'
 
 import * as uiActions from '../../actions/ui'
+import { getDisplayName } from '../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -74,5 +75,9 @@ const ConnectedSessionMonitor = connect(
 )(
   withTranslation()(SessionMonitor)
 )
+
+ConnectedSessionMonitor.displayName = `Connect(${getDisplayName((
+  withTranslation()(SessionMonitor)
+))})`
 
 export default ConnectedSessionMonitor

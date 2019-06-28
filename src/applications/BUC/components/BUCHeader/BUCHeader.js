@@ -37,7 +37,7 @@ const BUCHeader = (props) => {
     id={'a-buc-c-bucheader__' + buc.type}
     className='a-buc-c-bucheader'
     style={style}
-    >
+  >
     <div
       id='a-buc-c-bucheader__label-id'
       className='a-buc-c-bucheader__label col-4'>
@@ -57,7 +57,7 @@ const BUCHeader = (props) => {
         overflowLimit={5} />
     </div>
     <div className='col-3 a-buc-c-bucheader__tags'>
-      <div title={t('buc:form-youhaveXseds', {seds: numberOfSeds})} className='a-buc-c-bucheader__numberofseds'>{numberOfSeds}</div>
+      <div title={t('buc:form-youhaveXseds', { seds: numberOfSeds })} className='a-buc-c-bucheader__numberofseds'>{numberOfSeds}</div>
       {bucInfo && bucInfo.tags && bucInfo.tags.length > 0
         ? <div title={bucInfo.tags.join(', ')}>
           <Icons kind='problem' data-qa='BucHeader-ProblemCircle' className='a-buc-c-bucheader__tag' />

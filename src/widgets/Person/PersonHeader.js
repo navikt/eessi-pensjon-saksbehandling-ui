@@ -40,7 +40,7 @@ function PersonHeader (props) {
         <Systemtittel className='ml-2'>{person.personnavn.sammensattNavn} ({age}) - {person.aktoer.ident.ident}</Systemtittel>
       </div>
       <div className='d-flex align-items-center'>
-        {country ? <Flag className='m-2' size='M' label={country.label} country={country.value}/>: null}
+        {country ? <Flag className='m-2' size='M' label={country.label} country={country.value} /> : null}
         <Undertekst className='ml-2'>{t('ui:adresse')}: {person.gjeldendePostadressetype.value}</Undertekst>
         <Undertekst className='ml-4'>{t('ui:marital-status')}: {person.sivilstand.sivilstand.value} {dateString ? '(' + dateString + ')' : ''}</Undertekst>
       </div>

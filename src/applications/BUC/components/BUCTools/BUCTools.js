@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import { connect, bindActionCreators } from 'store'
 import classNames from 'classnames'
-import Icons from 'components/ui/Icons'
 import { EkspanderbartpanelBase, Systemtittel, Undertittel, Normaltekst, Textarea, Flatknapp } from 'components/ui/Nav'
 import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
 import * as bucActions from 'actions/buc'
+import { getDisplayName } from '../../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -24,7 +24,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const BUCTools = (props) => {
-
   const { t, aktoerId, buc, bucInfo, bucsInfo, savingBucsInfo, tagList, gettingTagList, actions, locale, className } = props
   const [ tags, setTags ] = useState(bucInfo && bucInfo.tags ? bucInfo.tags.map(tag => {
     return {
@@ -114,7 +113,7 @@ const BUCTools = (props) => {
       id='a-buc-c-buctools__form-comments-button'
       className='a-buc-c-buctools__form-button'
       disabled={savingBucsInfo}
-      onClick={onSaveButtonClick}>{savingBucsInfo ? t('ui:saving'): t('ui:change')}</Flatknapp>
+      onClick={onSaveButtonClick}>{savingBucsInfo ? t('ui:saving') : t('ui:change')}</Flatknapp>
   </EkspanderbartpanelBase>
 }
 
@@ -124,4 +123,8 @@ BUCTools.propTypes = {
   className: PT.string
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BUCTools)
+const ConnectedBUCTools = connect(mapStateToProps, mapDispatchToProps)(BUCTools)
+
+ConnectedBUCTools.displayName = `Connect(${getDisplayName(BUCTools)})`
+
+export default ConnectedBUCTools

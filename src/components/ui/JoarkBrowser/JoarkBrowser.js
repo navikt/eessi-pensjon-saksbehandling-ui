@@ -9,6 +9,7 @@ import * as joarkActions from 'actions/joark'
 import * as uiActions from 'actions/ui'
 
 import './JoarkBrowser.css'
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -146,4 +147,8 @@ JoarkBrowser.propTypes = {
   aktoerId: PT.string
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(JoarkBrowser))
+const ConnectedJoarkbrowser = connect(mapStateToProps, mapDispatchToProps)(withTranslation()(JoarkBrowser))
+
+ConnectedJoarkbrowser.displayName = `Connect(${getDisplayName(withTranslation()(JoarkBrowser))})`
+
+export default ConnectedJoarkbrowser

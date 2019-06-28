@@ -9,6 +9,7 @@ import * as Nav from '../../ui/Nav'
 
 import * as routes from '../../../constants/routes'
 import * as p4000Actions from '../../../actions/p4000'
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -55,5 +56,7 @@ const ConectedTimelineButton = connect(
 )(
   withTranslation()(TimelineButton)
 )
+
+ConectedTimelineButton.displayName = `Connect(${getDisplayName(withTranslation()(TimelineButton))})`
 
 export default ConectedTimelineButton

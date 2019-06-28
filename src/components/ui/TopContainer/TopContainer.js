@@ -13,8 +13,9 @@ import InternalTopHeader from '../Header/InternalTopHeader'
 import Footer from '../Footer/Footer'
 import SessionMonitor from '../../app/SessionMonitor'
 
-import * as constants from '../../../constants/constants'
 import './TopContainer.css'
+
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -57,11 +58,7 @@ export class TopContainer extends Component {
       { 'highContrast': highContrast })}>
       <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
         <Drawer className={userRole} sideContent={sideContent}>
-          {
-            (window.eessipen && window.eessipen.ZONE === 'sbs')
-              ? null
-              : <InternalTopHeader history={history} />
-          }
+          <InternalTopHeader history={history} />
           {header ? <Banner header={header} /> : null}
           <Alert type='client' />
           <Alert type='server' />
@@ -69,12 +66,12 @@ export class TopContainer extends Component {
             {this.props.children}
           </Nav.Container>
           <Modal />
-          {userRole === constants.SAKSBEHANDLER ? <SessionMonitor
+          <SessionMonitor
             sessionExpiringWarning={sessionExpiringWarning}
             checkInterval={checkInterval}
             sessionExpiredReload={sessionExpiredReload}
-          /> : null}
-          {userRole === constants.SAKSBEHANDLER ? <Footer /> : null}
+          />
+          <Footer />
         </Drawer>
       </DragDropContext>
     </div>
@@ -96,5 +93,7 @@ const ConnectedTopContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(TopContainer)
+
+ConnectedTopContainer.displayName = `Connect(${getDisplayName(TopContainer)})`
 
 export default ConnectedTopContainer

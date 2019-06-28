@@ -11,6 +11,7 @@ import SEDNew from './SEDNew'
 import BUCEdit from './BUCEdit'
 
 import './index.css'
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -58,8 +59,8 @@ export const BUCWidgetIndex = (props) => {
 
   if (gettingBUCs) {
     return <div className='mt-5 a-buc-widget__loading'>
-     <NavFrontendSpinner className='ml-3 mr-3' type='XL' />
-     <span className='pl-2'>{t('buc:loading-bucs')}</span>
+      <NavFrontendSpinner className='ml-3 mr-3' type='XL' />
+      <span className='pl-2'>{t('buc:loading-bucs')}</span>
     </div>
   }
 
@@ -78,5 +79,7 @@ export const BUCWidgetIndex = (props) => {
 }
 
 const ConnectedBUCWidgetIndex = connect(mapStateToProps, mapDispatchToProps)(withTranslation()(BUCWidgetIndex))
+
+ConnectedBUCWidgetIndex.displayName = `Connect(${getDisplayName(withTranslation()(BUCWidgetIndex))})`
 
 export default ConnectedBUCWidgetIndex

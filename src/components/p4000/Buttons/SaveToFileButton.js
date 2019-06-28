@@ -11,6 +11,7 @@ import P4000Util from '../Util'
 import * as uiActions from '../../../actions/ui'
 import * as storageActions from '../../../actions/storage'
 import * as p4000Actions from '../../../actions/p4000'
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -75,5 +76,7 @@ const ConnectedSaveToFileButton = connect(
 )(
   withTranslation()(SaveToFileButton)
 )
+
+ConnectedSaveToFileButton.displayName = `Connect(${getDisplayName(withTranslation()(SaveToFileButton))})`
 
 export default ConnectedSaveToFileButton

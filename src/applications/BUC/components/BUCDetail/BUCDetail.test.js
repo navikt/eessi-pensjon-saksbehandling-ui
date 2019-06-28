@@ -4,7 +4,6 @@ import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 
 describe('Renders without crashing', () => {
-
   const buc = sampleBucs[0]
   const bucInfo = sampleBucsInfo['bucs'][buc.type + '-' + buc.caseId]
   const t = jest.fn((translationString) => { return translationString })
@@ -16,13 +15,13 @@ describe('Renders without crashing', () => {
   }
 
   it('Is non-empty and matches snapshot', () => {
-    let wrapper = shallow(<BUCDetail {...initialMockProps}/>)
+    let wrapper = shallow(<BUCDetail {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Renders child components', () => {
-    let wrapper = shallow(<BUCDetail {...initialMockProps}/>)
+    let wrapper = shallow(<BUCDetail {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper.exists('EkspanderbartpanelBase')).toEqual(true)
     expect(wrapper.find('.a-buc-c-bucdetail__body').render()).toHaveLength(1)
@@ -30,7 +29,7 @@ describe('Renders without crashing', () => {
     expect(wrapper.find('#a-buc-c-bucdetail__props-type').render().text()).toEqual(buc.type)
     expect(wrapper.find('#a-buc-c-bucdetail__props-caseId').render().text()).toEqual(buc.caseId)
     expect(wrapper.find('#a-buc-c-bucdetail__props-creator').render().text()).toEqual(
-      buc.creator.institution + ' (' + buc.creator.country + ')' )
+      buc.creator.institution + ' (' + buc.creator.country + ')')
     expect(wrapper.find('#a-buc-c-bucdetail__props-startDate').render().text()).toEqual(buc.startDate)
     expect(wrapper.find('#a-buc-c-bucdetail__props-lastUpdate').render().text()).toEqual(buc.lastUpdate)
     expect(wrapper.find('#a-buc-c-bucdetail__props-sakType').render().text()).toEqual('-')

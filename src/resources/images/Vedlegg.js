@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default (props) => (
+const Vedlegg = (props) => (
   <div {...props}>
     <svg width={(props.width || props.size || 21)} height={(props.width || props.size || 20)} viewBox='0 0 21 20' version='1.1' xmlns='http://www.w3.org/2000/svg'>
       <title>Vedlegg</title>
@@ -16,3 +16,5 @@ export default (props) => (
     </svg>
   </div>
 )
+
+export default Vedlegg

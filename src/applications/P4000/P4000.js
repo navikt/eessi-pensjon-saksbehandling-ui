@@ -14,6 +14,7 @@ import * as p4000Actions from '../../actions/p4000'
 import * as uiActions from '../../actions/ui'
 
 import './P4000.css'
+import { getDisplayName } from '../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -107,5 +108,7 @@ const ConnectedP4000 = connect(
 )(
   withTranslation()(P4000)
 )
+
+ConnectedP4000.displayName = `Connect(${getDisplayName(withTranslation()(P4000))})`
 
 export default ConnectedP4000

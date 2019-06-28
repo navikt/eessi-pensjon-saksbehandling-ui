@@ -9,6 +9,7 @@ import * as Nav from '../../ui/Nav'
 
 import * as p4000Actions from '../../../actions/p4000'
 import * as uiActions from '../../../actions/ui'
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -84,5 +85,7 @@ const ConnectedNewButton = connect(
 )(
   withTranslation()(NewButton)
 )
+
+ConnectedNewButton.displayName = `Connect(${getDisplayName(withTranslation()(NewButton))})`
 
 export default ConnectedNewButton

@@ -4,6 +4,7 @@ import { connect, bindActionCreators } from 'store'
 
 import * as uiActions from '../../../actions/ui'
 import './Banner.css'
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {}
@@ -34,5 +35,7 @@ const ConnectedBanner = connect(
 )(
   withTranslation()(Banner)
 )
+
+ConnectedBanner.displayName = `Connect(${getDisplayName(withTranslation()(Banner))}`
 
 export default ConnectedBanner

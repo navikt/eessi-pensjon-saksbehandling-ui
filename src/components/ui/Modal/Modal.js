@@ -6,6 +6,7 @@ import * as Nav from '../Nav'
 import * as uiActions from '../../../actions/ui'
 
 import './Modal.css'
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -58,5 +59,7 @@ const ConnectedModal = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Modal)
+
+ConnectedModal.displayName = `Connect(${getDisplayName(Modal)})`
 
 export default ConnectedModal

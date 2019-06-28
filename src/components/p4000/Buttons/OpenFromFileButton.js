@@ -12,6 +12,8 @@ import P4000Util from '../Util'
 
 import * as uiActions from '../../../actions/ui'
 import * as p4000Actions from '../../../actions/p4000'
+import { getDisplayName } from '../../../utils/displayName'
+import ConnectedNewButton from './NewButton'
 
 const mapStateToProps = (state) => {
   return {
@@ -128,5 +130,8 @@ const ConnectedOpenFromFileButton = connect(
 )(
   withTranslation()(OpenFromFileButton)
 )
+
+  .displayName = `Connect(${getDisplayName(withTranslation()())})`
+ConnectedOpenFromFileButton.displayName = `Connect(${getDisplayName(withTranslation()(OpenFromFileButton))})`
 
 export default ConnectedOpenFromFileButton

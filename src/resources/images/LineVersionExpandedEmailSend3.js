@@ -1,5 +1,6 @@
 import React from 'react'
-export default (props) => (
+
+const LineVersionExpandedEmailSend3 = (props) => (
   <div {...props} >
     <svg width={(props.width || props.size || 24)} height={(props.height || props.size || 24)}
       zoomAndPan='magnify'
@@ -18,3 +19,5 @@ export default (props) => (
         <path d='M3.5,10h-3C0.224,10,0,10.224,0,10.5S0.224,11,0.5,11h3C3.776,11,4,10.776,4,10.5S3.776,10,3.5,10z' /></g></svg>
   </div>
 )
+
+export default LineVersionExpandedEmailSend3

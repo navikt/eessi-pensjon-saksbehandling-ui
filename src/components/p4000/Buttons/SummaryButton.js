@@ -9,6 +9,7 @@ import * as Nav from '../../ui/Nav'
 
 import * as routes from '../../../constants/routes'
 import * as p4000Actions from '../../../actions/p4000'
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -54,5 +55,7 @@ const ConnectedSummaryButton = connect(
 )(
   withTranslation()(SummaryButton)
 )
+
+ConnectedSummaryButton.displayName = `Connect(${getDisplayName(withTranslation()(SummaryButton))})`
 
 export default ConnectedSummaryButton

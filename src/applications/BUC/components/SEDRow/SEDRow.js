@@ -34,23 +34,23 @@ const SEDRow = (props) => {
       <div className='col-4 a-buc-c-sedrow__column a-buc-c-sedrow__institutions'>
         <Element className='pb-2' >{t('ui:institutions')}</Element>
         <div>
-        {sed.participants ? sed.participants.map(participant => {
-          return <div key={participant.organisation.id} className='a-buc-c-sedrow__institution'>
-            <FlagList locale={locale} items={[{
-              country: participant.organisation.countryCode
-            }]} />
-            <span>{participant.organisation.name}</span>
-          </div>
-        }) : null}
+          {sed.participants ? sed.participants.map(participant => {
+            return <div key={participant.organisation.id} className='a-buc-c-sedrow__institution'>
+              <FlagList locale={locale} items={[{
+                country: participant.organisation.countryCode
+              }]} />
+              <span>{participant.organisation.name}</span>
+            </div>
+          }) : null}
         </div>
       </div>
       <div className='col-4 a-buc-c-sedrow__column a-buc-c-sedrow__actions'>
         <Element className='pb-2' >{t('ui:actions')}</Element>
         <div>{!_.isEmpty(sed.attachments) ? <Icons kind='vedlegg' /> : null}
-        <Lenke target='_blank'
-          id='a-buc-c-sedrow__gotorina-button'
-          className='a-buc-c-sedrow__gotorina'
-          href={rinaUrl + rinaId}>{t('ui:goToRina')}</Lenke>
+          <Lenke target='_blank'
+            id='a-buc-c-sedrow__gotorina-button'
+            className='a-buc-c-sedrow__gotorina'
+            href={rinaUrl + rinaId}>{t('ui:goToRina')}</Lenke>
         </div>
       </div>
     </div>

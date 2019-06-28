@@ -11,6 +11,8 @@ import * as routes from '../../constants/routes'
 import * as constants from '../../constants/constants'
 import * as appActions from '../../actions/app'
 
+import { getDisplayName } from '../../utils/displayName'
+
 const mapStateToProps = (state) => {
   return {
     userRole: state.app.userRole,
@@ -91,7 +93,6 @@ const AuthenticatedRoute = (props) => {
       pathname: routes.NOT_INVITED
     }} />
   }
-
   return <Route {...props} />
 }
 
@@ -108,5 +109,10 @@ const ConnectedAuthenticatedRoute = connect(
     withTranslation()(AuthenticatedRoute)
   )
 )
+
+ConnectedAuthenticatedRoute.displayName = `Connect(${getDisplayName(
+  withRouter(
+    withTranslation()(AuthenticatedRoute)
+  ))})`
 
 export default ConnectedAuthenticatedRoute

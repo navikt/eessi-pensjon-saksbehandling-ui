@@ -14,6 +14,7 @@ import * as p4000Actions from '../../../actions/p4000'
 import * as uiActions from '../../../actions/ui'
 
 import './EventForm.css'
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -106,6 +107,7 @@ class EventForm extends React.Component {
     let { t, type, mode, eventIndex, events, history, location, Component } = this.props
     let isEventPage = !((type === 'timeline' || type === 'index' || type === 'summary' || type === 'export'))
     let hideEventList = (type === 'timeline' || type === 'summary' || type === 'export' || _.isEmpty(events))
+    Component.displayName = getDisplayName(Component)
 
     return <div className='c-p4000-eventForm'>
       <EventList className={classNames({ 'hiding': hideEventList })}
@@ -157,5 +159,7 @@ const ConnectedEventForm = connect(
     withTranslation()(EventForm)
   )
 )
+
+ConnectedEventForm.displayName = `Connect(${getDisplayName(withTranslation()(EventForm))})`
 
 export default ConnectedEventForm

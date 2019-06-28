@@ -11,6 +11,7 @@ import P4000Util from '../Util'
 
 import * as uiActions from '../../../actions/ui'
 import * as p4000Actions from '../../../actions/p4000'
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -113,5 +114,7 @@ const ConnectedSubmitButton = connect(
 )(
   withTranslation()(SubmitButton)
 )
+
+ConnectedSubmitButton.displayName = `Connect(${getDisplayName(withTranslation()(SubmitButton))})`
 
 export default ConnectedSubmitButton

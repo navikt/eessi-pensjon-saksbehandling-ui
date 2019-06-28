@@ -16,6 +16,7 @@ import Icons from '../../../ui/Icons'
 
 import * as routes from '../../../../constants/routes'
 import '../Menu.css'
+import { getDisplayName } from '../../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -206,5 +207,7 @@ const ConnectedLearn = connect(
 )(
   withTranslation()(Learn)
 )
+
+ConnectedLearn.displayName = `Connect(${getDisplayName(withTranslation()(Learn))})`
 
 export default ConnectedLearn

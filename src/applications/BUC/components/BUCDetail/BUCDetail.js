@@ -30,8 +30,8 @@ const BUCDetail = (props) => {
     heading={<Systemtittel
       id='a-buc-c-bucdetail__header-id'
       className='a-buc-c-bucdetail__header'>
-        {t('buc:buc-' + buc.type)}
-      </Systemtittel>}>
+      {t('buc:buc-' + buc.type)}
+    </Systemtittel>}>
     <div className='a-buc-c-bucdetail__body'>
       <dl className='a-buc-c-bucdetail__props'>
         <dt className='odd'>
@@ -101,12 +101,12 @@ const BUCDetail = (props) => {
         {t('buc:form-involvedInstitutions')}:
       </Undertittel>
       {!_.isEmpty(institutionList) ? Object.keys(institutionList).map(landkode => {
-        const country = _.find(countries[locale], {value: landkode})
+        const country = _.find(countries[locale], { value: landkode })
         return <div
           id='a-buc-c-bucdetail__institutions-id'
           className='a-buc-c-bucdetail__institutions'
           key={landkode}>
-          <Flag label={country.label} country={landkode} size='M'/>
+          <Flag label={country.label} country={landkode} size='M' />
           <Element className='pr-2 pl-2'>{country.label}: </Element>
           <Normaltekst>{institutionList[landkode].join(', ')}</Normaltekst>
         </div>
@@ -120,7 +120,7 @@ BUCDetail.propTypes = {
   bucInfo: PT.object.isRequired,
   className: PT.string,
   locale: PT.string.isRequired,
-  t: PT.func.isRequired,
+  t: PT.func.isRequired
 }
 
 export default BUCDetail

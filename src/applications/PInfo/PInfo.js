@@ -11,6 +11,7 @@ import TopContainer from '../../components/ui/TopContainer/TopContainer'
 import Psycho from '../../components/ui/Psycho/Psycho'
 
 import '../PInfo/PInfo.css'
+import { getDisplayName } from '../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -78,5 +79,7 @@ const ConnectedPInfo = connect(
   mapStateToProps,
   () => {}
 )(withTranslation()(PInfo))
+
+ConnectedPInfo.displayName = `Connect(${getDisplayName(withTranslation()(PInfo))})`
 
 export default ConnectedPInfo

@@ -147,7 +147,7 @@ export const saveBucsInfo = (params) => {
     return tag.value
   }) : []
   let newComment = params.comment
-  let bucId = params.buc.type + '-' +  params.buc.caseId
+  let bucId = params.buc.type + '-' + params.buc.caseId
 
   if (!newBucsInfo.hasOwnProperty('bucs')) {
     newBucsInfo['bucs'] = {}
@@ -223,7 +223,7 @@ export const createSed = (payload) => {
   return funcCall({
     url: urls.BUC_CREATE_SED_URL,
     payload: payload,
-    expectedPayload: {...payload, success: true},
+    expectedPayload: { ...payload, success: true },
     method: 'POST',
     type: {
       request: types.BUC_CREATE_SED_REQUEST,

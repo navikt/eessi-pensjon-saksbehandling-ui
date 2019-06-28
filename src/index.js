@@ -44,7 +44,7 @@ ReactDOM.render(
             <Route path={routes.NOT_INVITED} render={(props) => <Pages.Error type='notInvited' />} />
             <Route path={routes.FORBIDDEN} render={(props) => <Pages.Error type='forbidden' />} />
             <Route path={routes.ROOT + ':PATH+'} render={() => <Pages.Error type='error' />} />
-            <AuthenticatedRoute path={routes.ROOT} component={Pages.FirstPage} />
+            <AuthenticatedRoute path={routes.ROOT} component={Pages.FirstPage} displayName />
             <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
           </Switch>
         </Router>

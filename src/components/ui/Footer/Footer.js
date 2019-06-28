@@ -10,6 +10,7 @@ import * as Nav from '../Nav'
 import * as constants from '../../../constants/constants'
 
 import './Footer.css'
+import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -127,7 +128,11 @@ Footer.propTypes = {
   fnr: PT.string
 }
 
-export default connect(
+const ConnectedFooter = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Footer)
+
+ConnectedFooter.displayName = `Connect(${getDisplayName(Footer)})`
+
+export default ConnectedFooter
