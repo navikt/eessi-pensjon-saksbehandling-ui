@@ -1,5 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
+import _ from 'lodash'
+
 import { Normaltekst } from 'components/ui/Nav'
 import SEDRow from 'applications/BUC/components/SEDRow/SEDRow'
 
@@ -7,7 +9,11 @@ const SEDBody = (props) => {
   const { t, seds, rinaUrl, locale, buc } = props
 
   return <React.Fragment>
-    {seds ? seds.filter(sed => sed.status !== 'empty').slice(0, 5).map((sed, index) => {
+    {seds ? _(seds)
+    .filter(sed => {return sed.status !== 'empty'})
+    .sortBy(['creationDate','type'])
+    .value()
+    .slice(0, 5).map((sed, index) => {
       return <SEDRow style={{ animationDelay: (0.2 * index) + 's' }} t={t} key={index} sed={sed} rinaUrl={rinaUrl} rinaId={buc.caseId} locale={locale} border />
     }) : null}
     <Normaltekst>{t('buc:form-lastNonEmpty5')}</Normaltekst>

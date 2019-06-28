@@ -12,7 +12,7 @@ import SEDStatusSelect from 'applications/BUC/components/SEDStatusSelect/SEDStat
 import { connect, bindActionCreators } from 'store'
 import * as bucActions from 'actions/buc'
 import './BUCEdit.css'
-import { getDisplayName } from '../../../utils/displayName'
+import { getDisplayName } from 'utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -85,8 +85,10 @@ const BUCEdit = (props) => {
   }
 
   const renderSeds = () => {
-    return seds ? seds
+    return seds ? _(seds)
       .filter(sedFilter)
+      .sortBy(['creationDate','type'])
+      .value()
       .map((sed, index) => {
         return <SEDRow className='mt-2' locale={locale} t={t} key={index} sed={sed} rinaUrl={rinaUrl} rinaId={buc.caseId} />
       }) : null
