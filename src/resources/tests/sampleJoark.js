@@ -4,19 +4,29 @@ const mockdata = { 'data': { 'dokumentoversiktBruker': { 'journalposter': [{
   tema: 'foo',
   dokumenter: [{
     dokumentInfoId: '4',
-    tittel: 'blue.pdf'
+    tittel: 'blue.pdf',
+    dokumentvarianter: [{
+      variantformat: 'ARKIV'
+    }, {
+      variantformat: 'DUMMY'
+    }]
   }],
   relevanteDatoer: [{
     'dato': '2018-12-27T14:42:24',
     'datotype': 'DATO_REGISTRERT'
-  }]
+  }],
 }, {
   journalpostId: '2',
   tittel: 'red.pdf',
   tema: 'bar',
   dokumenter: [{
     dokumentInfoId: '5',
-    tittel: 'red.pdf'
+    tittel: 'red.pdf',
+    dokumentvarianter: [{
+      variantformat: 'ARKIV'
+    }, {
+      variantformat: 'DUMMY'
+    }]
   }],
   relevanteDatoer: [{
     'dato': '2018-12-17T14:42:24',
@@ -28,7 +38,12 @@ const mockdata = { 'data': { 'dokumentoversiktBruker': { 'journalposter': [{
   tema: 'fuzz',
   dokumenter: [{
     dokumentInfoId: '6',
-    tittel: 'yellow.pdf'
+    tittel: 'yellow.pdf',
+    dokumentvarianter: [{
+      variantformat: 'ARKIV'
+    }, {
+      variantformat: 'DUMMY'
+    }]
   }],
   relevanteDatoer: [{
     'dato': '2018-12-07T14:42:24',

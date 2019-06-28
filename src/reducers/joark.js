@@ -13,17 +13,19 @@ const joarkReducer = (state = initialJoarkState, action = {}) => {
   switch (action.type) {
     case types.JOARK_LIST_SUCCESS:
       let documents = []
-      action.payload.data.dokumentoversiktBruker.journalposter.forEach(it => {
-        let registeredDate = _.find(it.relevanteDatoer, { datotype: 'DATO_REGISTRERT' })
-        it.dokumenter.forEach(it2 => {
+      action.payload.data.dokumentoversiktBruker.journalposter.forEach(post => {
+        let registeredDate = _.find(post.relevanteDatoer, { datotype: 'DATO_REGISTRERT' })
+        let varianter = _.find(post.dokumentvarianter, {variantformat: 'ARKIV'})
+        post.dokumenter.forEach(doc => {
           documents.push({
-            tilleggsopplysninger: it.tilleggsopplysninger,
-            journalpostId: it.journalpostId,
-            tittel: it2.tittel,
-            tema: it.tema,
-            dokumentInfoId: it2.dokumentInfoId,
-            datoOpprette: it.datoOpprettet,
-            datoRegistrert: registeredDate ? new Date(Date.parse(registeredDate.dato)) : undefined
+            tilleggsopplysninger: post.tilleggsopplysninger,
+            journalpostId: post.journalpostId,
+            tittel: doc.tittel,
+            tema: post.tema,
+            dokumentInfoId: doc.dokumentInfoId,
+            datoOpprettet: post.datoOpprettet,
+            datoRegistrert: registeredDate ? new Date(Date.parse(registeredDate.dato)) : undefined,
+            varianter: doc.dokumentvarianter.map(varianter => { return varianter.variantformat })
           })
         })
       })
@@ -45,6 +47,7 @@ const joarkReducer = (state = initialJoarkState, action = {}) => {
           dokumentInfoId: action.context.dokumentInfoId,
           datoOpprettet: action.context.datoOpprettet,
           datoRegistrert: action.context.datoRegistrert,
+          variant: action.context.variant,
           name: action.payload.fileName,
           size: action.payload.base64.length,
           mimetype: action.payload.contentType,

@@ -54,24 +54,32 @@ const TableSorter = (props) => {
       return <tr
         key={item.id}
         style={{ background: background }}>
-
-        <td className='checkbox'>
-          <Checkbox
-            className='c-ui-tablesorter__checkbox'
-            onChange={(e) => onItemSelected(item, e.target.checked)}
-            checked={item.selected} />
-        </td>
-        { columnNames.map((c, index) => {
-          if (typeof item[c] === 'string') {
-            if (c === 'name') {
-              return <td key={c + '-' + index}><a href='#'
-                onClick={(e) => { e.preventDefault(); onItemClicked(item) }}>{item[c]}</a></td>
-            }
-            return <td key={c + '-' + index}>{item[c]}</td>
-          }
-          if (item[c].toLocaleDateString) {
-            const dateString = item[c].toLocaleDateString()
-            return <td key={c + '-' + index}>{dateString}</td>
+        { columnNames.map((column, index) => {
+          const value = item[column]
+          const key = column + '-' + index
+          switch (column) {
+            case 'name':
+            case 'tema':
+            return <td key={key}>{value}</td>
+            case 'date':
+            return <td key={key}>{value.toLocaleDateString()}</td>
+            case 'varianter':
+            return <td key={key}>
+              {value.map(variant => {
+                return <div className='d-flex'>
+                  <Checkbox
+                    className='c-ui-tablesorter__checkbox'
+                    onChange={(e) => onSelectedItemChange(item, e.target.checked, variant)}
+                    checked={item.selected && item.variant === variant} />
+                  <a key={variant} href='#' onClick={(e) => {
+                    e.preventDefault();
+                    onItemClicked(item, variant)
+                  }}>{variant}</a>
+                </div>
+              })}
+            </td>
+            default:
+            return null
           }
         })}
       </tr>
@@ -80,7 +88,6 @@ const TableSorter = (props) => {
 
   const header = () => {
     return <React.Fragment>
-      <th className='checkbox' />
       {columnNames.map((c) => {
         return <th key={c}
           onClick={() => sortColumn(c)}
@@ -97,15 +104,8 @@ const TableSorter = (props) => {
     setColumns(newColumns)
   }
 
-  const onItemSelected = (item, checked) => {
-    onSelectedItemChange(item, checked)
-  }
-
   const filterInputs = () => {
     return <React.Fragment>
-      <td className='checkbox'>
-        {loadingJoarkFile ? <NavFrontendSpinner type='XS' /> : null}
-      </td>
       {columnNames.map((c) => {
         return <td key={c}>
           <Input
@@ -127,6 +127,7 @@ const TableSorter = (props) => {
   }
 
   return <div className='c-ui-tablesorter'>
+    {loadingJoarkFile ? <NavFrontendSpinner type='XS' /> : null}
     <table cellSpacing='0' className='c-ui-tablesorter__table'>
       <thead>
         <tr>{ header() }</tr>
@@ -154,7 +155,7 @@ TableSorter.propTypes = {
   columns: PT.object.isRequired,
   items: PT.array.isRequired,
   onItemClicked: PT.func.isRequired,
-  onSelectedItemsChange: PT.func.isRequired,
+  onSelectedItemChange: PT.func.isRequired,
   loadingJoarkFile: PT.bool.isRequired,
   previewFile: PT.object
 }

@@ -59,27 +59,37 @@ const JoarkBrowser = (props) => {
     }
   }, [previewFile, _previewFile])
 
-  const onItemClicked = (clickedItem) => {
-    const foundFile = _.find(files, clickedItem.raw)
+  const onItemClicked = (clickedItem, clickedVarianter) => {
+    const foundFile = _.find(files, {
+      journalpostId: clickedItem.raw.journalpostId,
+      varianter: clickedVarianter
+    })
+
     if (!foundFile) {
-      actions.previewJoarkFile(clickedItem.raw)
+      actions.previewJoarkFile(clickedItem.raw, clickedVarianter)
     } else {
       setPreviewFile(foundFile)
     }
   }
 
-  const onSelectedItemChange = (item, checked) => {
+  const onSelectedItemChange = (item, checked, varianter) => {
     let newFiles = _.cloneDeep(_files)
     if (!checked) {
-      if (_.find(newFiles, {journalpostId: item.raw.journalpostId})) {
-        newFiles = _.reject(newFiles, {journalpostId: item.raw.journalpostId})
+      if (_.find(newFiles, {
+        dokumentInfoId: item.raw.dokumentInfoId,
+        varianter: varianter
+      })) {
+        newFiles = _.reject(newFiles, {
+          journalpostId: item.raw.journalpostId,
+          varianter: varianter
+        })
         setFiles(newFiles)
         if (onFilesChange) {
           onFilesChange(newFiles)
         }
       }
     } else {
-      actions.getJoarkFile(item.raw)
+      actions.getJoarkFile(item.raw, varianter)
     }
   }
 
@@ -90,6 +100,7 @@ const JoarkBrowser = (props) => {
       name: file.tittel,
       tema: file.tema,
       date: file.datoRegistrert,
+      variant: file.variant,
       focused: _previewFile ? _previewFile.journalpostId === file.journalpostId : false,
       selected: _.find(files, { dokumentInfoId: file.dokumentInfoId }) !== undefined
     }
@@ -114,7 +125,8 @@ const JoarkBrowser = (props) => {
       columns={{
         name: { name: t('ui:title'), filterText: '', defaultSortOrder: 'desc' },
         tema: { name: t('ui:tema'), filterText: '', defaultSortOrder: 'desc' },
-        date: { name: t('ui:date'), filterText: '', defaultSortOrder: 'desc' }
+        date: { name: t('ui:date'), filterText: '', defaultSortOrder: 'desc' },
+        varianter: { name: t('ui:varianter'), filterText: '', defaultSortOrder: 'desc' },
       }}
       onItemClicked={onItemClicked}
       onSelectedItemChange={onSelectedItemChange}

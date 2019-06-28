@@ -51,9 +51,11 @@ describe('joark actions', () => {
   it('getJoarkFile()', () => {
     const mockItem = {
       journalpostId: '1',
-      dokumentInfoId: '4'
+      dokumentInfoId: '4',
+
     }
-    joarkActions.getJoarkFile(mockItem)
+    const mockVariant = 'DUMMY'
+    joarkActions.getJoarkFile(mockItem, mockVariant)
     expect(api.call).toBeCalledWith({
       type: {
         request: types.JOARK_GET_REQUEST,
@@ -62,7 +64,10 @@ describe('joark actions', () => {
       },
       expectedPayload: undefined,
       context: mockItem,
-      url: sprintf(urls.API_JOARK_GET_URL, { dokumentInfoId: mockItem.dokumentInfoId, journalpostId: mockItem.journalpostId })
+      url: sprintf(urls.API_JOARK_GET_URL, {
+        dokumentInfoId: mockItem.dokumentInfoId,
+        journalpostId: mockItem.journalpostId,
+        variant: mockVariant })
     })
   })
 })
