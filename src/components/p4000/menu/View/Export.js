@@ -308,7 +308,7 @@ Export.propTypes = {
   history: PT.object
 }
 
-export default connect(
+const ConnectedExport = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
@@ -316,3 +316,5 @@ export default connect(
     withTranslation()(Export)
   )
 )
+
+export default ConnectedExport

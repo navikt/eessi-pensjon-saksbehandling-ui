@@ -149,7 +149,7 @@ EventForm.propTypes = {
   location: PT.object
 }
 
-export default connect(
+const ConnectedEventForm = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
@@ -157,3 +157,5 @@ export default connect(
     withTranslation()(EventForm)
   )
 )
+
+export default ConnectedEventForm

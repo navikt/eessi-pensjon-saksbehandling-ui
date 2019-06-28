@@ -162,9 +162,11 @@ New.propTypes = {
   rinaId: PT.string
 }
 
-export default connect(
+const ConnectedNew = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(New)
 )
+
+export default ConnectedNew

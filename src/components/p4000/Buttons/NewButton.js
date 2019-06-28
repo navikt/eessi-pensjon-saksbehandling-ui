@@ -78,9 +78,11 @@ NewButton.propTypes = {
   event: PT.object
 }
 
-export default connect(
+const ConnectedNewButton = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(NewButton)
 )
+
+export default ConnectedNewButton

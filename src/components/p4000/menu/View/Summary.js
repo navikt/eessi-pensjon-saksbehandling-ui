@@ -71,9 +71,11 @@ Summary.propTypes = {
   actions: PT.object.isRequired
 }
 
-export default connect(
+const ConnectedSummary = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(Summary)
 )
+
+export default ConnectedSummary

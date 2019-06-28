@@ -127,4 +127,6 @@ BUCEdit.propTypes = {
   locale: PT.string.isRequired
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BUCEdit)
+const ConnectedBUCEdit = connect(mapStateToProps, mapDispatchToProps)(BUCEdit)
+
+export default ConnectedBUCEdit

@@ -212,9 +212,11 @@ _Timeline.propTypes = {
   sed: PT.object
 }
 
-export default connect(
+const ConnectedTimeline = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(_Timeline)
 )
+
+export default ConnectedTimeline

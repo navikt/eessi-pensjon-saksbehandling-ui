@@ -27,4 +27,6 @@ TimelineEvent.propTypes = {
   onClick: PT.func.isRequired
 }
 
-export default withTranslation()(TimelineEvent)
+const TimelineEventWithTranslation = withTranslation()(TimelineEvent)
+
+export default TimelineEventWithTranslation

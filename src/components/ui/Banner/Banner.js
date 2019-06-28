@@ -28,9 +28,11 @@ export class Banner extends Component {
   }
 }
 
-export default connect(
+const ConnectedBanner = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(Banner)
 )
+
+export default ConnectedBanner

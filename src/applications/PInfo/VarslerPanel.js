@@ -84,7 +84,9 @@ VarslerPanel.propTypes = {
   actions: PT.object
 }
 
-export default connect(
+const ConnectedVarslerPanel = connect(
   mapStateToProps,
   mapDispatchToProps
 )(VarslerPanel)
+
+export default ConnectedVarslerPanel

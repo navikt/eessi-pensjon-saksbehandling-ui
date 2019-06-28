@@ -42,4 +42,6 @@ MiniatureOther.propTypes = {
   className: PT.string
 }
 
-export default withTranslation()(MiniatureOther)
+const MiniatureOtherWithTranslation = withTranslation()(MiniatureOther)
+
+export default MiniatureOtherWithTranslation

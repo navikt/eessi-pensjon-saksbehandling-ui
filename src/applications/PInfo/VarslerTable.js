@@ -147,7 +147,9 @@ VarslerTable.propTypes = {
   actions: PT.object
 }
 
-export default connect(
+const ConnectedVarslerTable = connect(
   mapStateToProps,
   mapDispatchToProps
 )(VarslerTable)
+
+export default ConnectedVarslerTable

@@ -100,7 +100,7 @@ AuthenticatedRoute.propTypes = {
   actions: PT.object.isRequired
 }
 
-export default connect(
+const ConnectedAuthenticatedRoute = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
@@ -108,3 +108,5 @@ export default connect(
     withTranslation()(AuthenticatedRoute)
   )
 )
+
+export default ConnectedAuthenticatedRoute

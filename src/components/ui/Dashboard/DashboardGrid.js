@@ -52,7 +52,7 @@ const DashboardGrid = (props) => {
 
 DashboardGrid.defaultProps = DashboardConfig
 
-export default DropTarget(
+const WidgetDropTarget = DropTarget(
   ['newWidget'],
   {
     canDrop: props => {
@@ -113,3 +113,5 @@ export default DropTarget(
     }
   }
 )(DashboardGrid)
+
+export default WidgetDropTarget

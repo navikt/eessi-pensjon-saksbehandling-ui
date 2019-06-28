@@ -32,4 +32,6 @@ BUCPageIndex.propTypes = {
   location: PT.object.isRequired
 }
 
-export default withTranslation()(BUCPageIndex)
+const BucPageIndexWithTranslation = withTranslation()(BUCPageIndex)
+
+export default BucPageIndexWithTranslation

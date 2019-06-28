@@ -37,4 +37,6 @@ ExportRender.propTypes = {
   blackAndWhite: PT.bool.isRequired
 }
 
-export default withTranslation()(ExportRender)
+const ExportRenderWithTranslation = withTranslation()(ExportRender)
+
+export default ExportRenderWithTranslation

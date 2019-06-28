@@ -92,7 +92,9 @@ TopContainer.propTypes = {
   header: PT.oneOfType([PT.node, PT.string])
 }
 
-export default connect(
+const ConnectedTopContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(TopContainer)
+
+export default ConnectedTopContainer

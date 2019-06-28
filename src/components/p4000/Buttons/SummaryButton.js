@@ -48,9 +48,11 @@ SummaryButton.propTypes = {
   history: PT.object.isRequired
 }
 
-export default connect(
+const ConnectedSummaryButton = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(SummaryButton)
 )
+
+export default ConnectedSummaryButton

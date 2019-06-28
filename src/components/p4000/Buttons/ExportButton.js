@@ -52,9 +52,11 @@ ExportButton.propTypes = {
   history: PT.object.isRequired
 }
 
-export default connect(
+const ConnectedExportButton = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(ExportButton)
 )
+
+export default ConnectedExportButton

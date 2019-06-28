@@ -185,9 +185,11 @@ GenericEvent.propTypes = {
 
 }
 
-export default connect(
+const ConnectedGenericEvent = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(GenericEvent)
 )
+
+export default ConnectedGenericEvent

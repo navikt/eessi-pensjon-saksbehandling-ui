@@ -54,7 +54,9 @@ Modal.propTypes = {
   actions: PT.object.isRequired
 }
 
-export default connect(
+const ConnectedModal = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Modal)
+
+export default ConnectedModal

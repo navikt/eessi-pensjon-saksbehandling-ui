@@ -49,9 +49,11 @@ TimelineButton.propTypes = {
   history: PT.object.isRequired
 }
 
-export default connect(
+const ConectedTimelineButton = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(TimelineButton)
 )
+
+export default ConectedTimelineButton

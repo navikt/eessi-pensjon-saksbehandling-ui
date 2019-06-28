@@ -341,9 +341,11 @@ StorageModal.propTypes = {
   namespace: PT.string.isRequired
 }
 
-export default connect(
+const ConnectedStorageModal = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(StorageModal)
 )
+
+export default ConnectedStorageModal

@@ -101,9 +101,11 @@ P4000.propTypes = {
   status: PT.object
 }
 
-export default connect(
+const ConnectedP4000 = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(P4000)
 )
+
+export default ConnectedP4000

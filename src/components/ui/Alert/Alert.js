@@ -83,9 +83,11 @@ Alert.propTypes = {
   uuid: PT.string
 }
 
-export default connect(
+const ConnectedAlert = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(Alert)
 )
+
+export default ConnectedAlert

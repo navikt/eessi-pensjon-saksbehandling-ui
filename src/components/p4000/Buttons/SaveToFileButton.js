@@ -69,9 +69,11 @@ SaveToFileButton.propTypes = {
   style: PT.object
 }
 
-export default connect(
+const ConnectedSaveToFileButton = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(SaveToFileButton)
 )
+
+export default ConnectedSaveToFileButton

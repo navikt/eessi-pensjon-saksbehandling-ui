@@ -61,9 +61,11 @@ SaveToServerButton.propTypes = {
   actions: PT.object
 }
 
-export default connect(
+const ConnectedSaveToServerButton = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(SaveToServerButton)
 )
+
+export default ConnectedSaveToServerButton

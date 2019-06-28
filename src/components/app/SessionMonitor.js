@@ -68,9 +68,11 @@ SessionMonitor.propTypes = {
   checkInterval: PT.number
 }
 
-export default connect(
+const ConnectedSessionMonitor = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(SessionMonitor)
 )
+
+export default ConnectedSessionMonitor

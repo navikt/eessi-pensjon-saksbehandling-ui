@@ -71,4 +71,6 @@ EventsRender.propTypes = {
   blackAndWhite: PT.bool.isRequired
 }
 
-export default withTranslation()(EventsRender)
+const EventsRenderWithTranslation = withTranslation()(EventsRender)
+
+export default EventsRenderWithTranslation

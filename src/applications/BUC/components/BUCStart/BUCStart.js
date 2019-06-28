@@ -413,7 +413,9 @@ BUCStart.propTypes = {
   rinaId: PT.string
 }
 
-export default connect(
+const ConnectedBUCStart = connect(
   mapStateToProps,
   mapDispatchToProps
 )(BUCStart)
+
+export default ConnectedBUCStart

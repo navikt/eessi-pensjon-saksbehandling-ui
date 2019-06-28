@@ -45,7 +45,9 @@ LanguageSelector.propTypes = {
   actions: PT.object.isRequired
 }
 
-export default connect(
+const ConnectedLanguageSelector = connect(
   mapStateToProps,
   mapDispatchToProps
 )(LanguageSelector)
+
+export default ConnectedLanguageSelector

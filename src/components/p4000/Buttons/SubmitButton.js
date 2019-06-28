@@ -107,9 +107,11 @@ SubmitButton.propTypes = {
   submitted: PT.string
 }
 
-export default connect(
+const ConnectedSubmitButton = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(SubmitButton)
 )
+
+export default ConnectedSubmitButton

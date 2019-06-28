@@ -35,4 +35,6 @@ ExportHeader.propTypes = {
   blackAndWhite: PT.bool.isRequired
 }
 
-export default withTranslation()(ExportHeader)
+const ExportHeaderWithTranslation = withTranslation()(ExportHeader)
+
+export default ExportHeaderWithTranslation

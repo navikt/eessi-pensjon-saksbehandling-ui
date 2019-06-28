@@ -77,4 +77,6 @@ export const BUCWidgetIndex = (props) => {
   </div>
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(BUCWidgetIndex))
+const ConnectedBUCWidgetIndex = connect(mapStateToProps, mapDispatchToProps)(withTranslation()(BUCWidgetIndex))
+
+export default ConnectedBUCWidgetIndex

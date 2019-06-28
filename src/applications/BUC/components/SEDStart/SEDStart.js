@@ -372,7 +372,9 @@ SEDStart.propTypes = {
   layout: PT.string
 }
 
-export default connect(
+const ConnectedSEDStart = connect(
   mapStateToProps,
   mapDispatchToProps
 )(SEDStart)
+
+export default ConnectedSEDStart

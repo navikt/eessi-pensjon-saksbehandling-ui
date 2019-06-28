@@ -43,9 +43,11 @@ Event.propTypes = {
   onClick: PT.func.isRequired
 }
 
-export default connect(
+const ConnectedEvent = connect(
   () => {},
   mapDispatchToProps
 )(
   withTranslation()(Event)
 )
+
+export default ConnectedEvent

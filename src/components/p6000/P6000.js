@@ -112,7 +112,9 @@ P6000.propTypes = {
   data: PT.object
 }
 
-export default connect(
+const ConnectedP6000 = connect(
   mapStateToProps,
   mapDispatchToProps
 )(withTranslation()(P6000))
+
+export default ConnectedP6000

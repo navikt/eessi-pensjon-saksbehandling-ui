@@ -122,9 +122,11 @@ OpenFromFileButton.propTypes = {
   event: PT.object
 }
 
-export default connect(
+const ConnectedOpenFromFileButton = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(OpenFromFileButton)
 )
+
+export default ConnectedOpenFromFileButton

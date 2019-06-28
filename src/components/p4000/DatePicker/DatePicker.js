@@ -218,9 +218,11 @@ DatePicker.propTypes = {
   locale: PT.string.isRequired
 }
 
-export default connect(
+const ConnectedDatePicker = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(DatePicker)
 )
+
+export default ConnectedDatePicker

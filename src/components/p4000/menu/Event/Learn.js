@@ -200,9 +200,11 @@ Learn.propTypes = {
   locale: PT.string.isRequired
 }
 
-export default connect(
+const ConnectedLearn = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(Learn)
 )
+
+export default ConnectedLearn

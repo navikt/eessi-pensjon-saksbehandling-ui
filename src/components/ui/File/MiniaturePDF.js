@@ -183,4 +183,6 @@ MiniaturePDF.propTypes = {
   scale: PT.number.isRequired
 }
 
-export default withTranslation()(MiniaturePDF)
+const MiniaturePDFWithTranslation = withTranslation()(MiniaturePDF)
+
+export default MiniaturePDFWithTranslation

@@ -1,5 +1,5 @@
 import React from 'react'
-export default (props) => (
+const LineVersionHome3 = (props) => (
   <div {...props} >
     <svg width={(props.width || props.size || 24)} height={(props.height || props.size || 24)}
       contentScriptType='text/ecmascript'
@@ -17,3 +17,5 @@ export default (props) => (
     </svg>
   </div>
 )
+
+export default LineVersionHome3

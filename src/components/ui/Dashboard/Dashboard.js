@@ -131,6 +131,8 @@ const Dashboard = (props) => {
 
 Dashboard.defaultProps = DashboardConfig
 
-export default DragDropContext(HTML5Backend)(
+const DashboardDragAndDropContext = DragDropContext(HTML5Backend)(
   withTranslation()(Dashboard)
 )
+
+export default DashboardDragAndDropContext

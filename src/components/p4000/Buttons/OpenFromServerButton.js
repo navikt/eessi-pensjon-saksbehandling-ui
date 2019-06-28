@@ -106,9 +106,11 @@ OpenFromServerButton.propTypes = {
   event: PT.object
 }
 
-export default connect(
+const ConnectedOpenFromServerButton = connect(
   mapStateToProps,
   mapDispatchToProps
 )(
   withTranslation()(OpenFromServerButton)
 )
+
+export default ConnectedOpenFromServerButton

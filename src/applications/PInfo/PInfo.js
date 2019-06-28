@@ -74,7 +74,9 @@ PInfo.propTypes = {
   status: PT.object
 }
 
-export default connect(
+const ConnectedPInfo = connect(
   mapStateToProps,
   () => {}
 )(withTranslation()(PInfo))
+
+export default ConnectedPInfo
