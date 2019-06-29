@@ -114,7 +114,8 @@ const BUCList = (props) => {
         <SEDHeader t={t} />
         <SEDBody t={t} seds={seds[bucId] || []} rinaUrl={rinaUrl} locale={locale} buc={buc} />
       </EkspanderbartpanelBase>
-    }) : <BUCEmpty actions={actions} t={t} sakId={sakId} aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> }
+    }) : <BUCEmpty actions={actions} onBUCNew={onBUCNew} t={t} sakId={sakId}
+    aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> }
   </React.Fragment>
 }
 

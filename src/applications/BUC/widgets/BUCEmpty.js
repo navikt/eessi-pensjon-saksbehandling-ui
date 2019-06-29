@@ -1,20 +1,20 @@
 import React, { useState } from 'react'
 import PT from 'prop-types'
 
+import { Flatknapp, Hovedknapp, Input, Lenke, Normaltekst, ToggleKnapp, Undertittel } from 'components/ui/Nav'
+
 import * as MonitorPNG from 'resources/images/artwork/dataskjerm.png'
 import * as CupPNG from 'resources/images/artwork/kop.png'
 import * as MousePNG from 'resources/images/artwork/NAVmusematte.png'
 import * as MapPNG from 'resources/images/artwork/saksstatus.png'
 
-import { Undertittel, Flatknapp, Normaltekst, Hovedknapp, Input, ToggleKnapp } from 'components/ui/Nav'
-
 import './BUCEmpty.css'
 
 const BUCEmpty = (props) => {
-  const { getBucs, t, bucs, gettingBUCs, aktoerId, sakId, actions } = props
+  const { actions, aktoerId, bucs, getBucs, gettingBUCs, onBUCNew, sakId, t } = props
   const [ _sakId, setSakId ] = useState(sakId)
   const [ _aktoerId, setAktoerId ] = useState(aktoerId)
-  const [validation, setValidation] = useState(undefined)
+  const [ validation, setValidation ] = useState(undefined)
 
   const onAktoerIdChange = (e) => {
     setValidation(undefined)
@@ -49,7 +49,11 @@ const BUCEmpty = (props) => {
       <img alt='' className='mouse' src={MousePNG} />
       <img alt='' className='map' src={MapPNG} />
     </div>
-    <Undertittel className='mb-3'>{t('buc:form-empty-startANewCase')}</Undertittel>
+    <Undertittel className='mb-3'>
+      <Lenke href='#' onClick={onBUCNew}>
+        {t('buc:form-empty-startANewCase')}
+      </Lenke>
+    </Undertittel>
     {!aktoerId ? <div className='a-buc-bucempty__aktoerid-div'>
       <Input
         className='a-buc-bucempty__aktoerid-input'
@@ -82,19 +86,18 @@ const BUCEmpty = (props) => {
         {t('ui:add')}
       </Hovedknapp>
     </div> : null}
-    {aktoerId && sakId && bucs !== undefined ? <div className='mt-4'>
-      <Normaltekst>{t('buc:form-noBUCsFound')}</Normaltekst>
-    </div> : null}
   </div>
 }
 
 BUCEmpty.propTypes = {
-  t: PT.func.isRequired,
-  aktoerId: PT.string,
   actions: PT.object.isRequired,
+  aktoerId: PT.string,
+  bucs: PT.array,
   getBucs: PT.func.isRequired,
   gettingBUCs: PT.bool.isRequired,
-  bucs: PT.array
+  onBUCNew: PT.func.isRequired,
+  sakId: PT.string,
+  t: PT.func.isRequired
 }
 
 export default BUCEmpty
