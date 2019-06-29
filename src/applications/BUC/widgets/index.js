@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { withTranslation } from 'react-i18next'
 import { connect, bindActionCreators } from 'store'
-import { NavFrontendSpinner } from 'components/ui/Nav'
 import * as bucActions from 'actions/buc'
 import * as appActions from 'actions/app'
 
@@ -57,19 +56,6 @@ export const BUCWidgetIndex = (props) => {
 
   if (!mounted) {
     return null
-  }
-
-  if (gettingBUCs) {
-    return <div className='mt-5 a-buc-widget__loading'>
-      <NavFrontendSpinner className='ml-3 mr-3' type='XL' />
-      <span className='pl-2'>{t('buc:loading-bucs')}</span>
-    </div>
-  }
-
-  if (bucs === null) {
-    return <div className='mt-5 a-buc-widget__loading'>
-      {t('buc:error-noBucs')}
-    </div>
   }
 
   return <div className='a-buc-widget'>

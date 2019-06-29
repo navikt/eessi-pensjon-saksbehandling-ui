@@ -3,8 +3,9 @@ import PT from 'prop-types'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import SEDBody from 'applications/BUC/components/SEDBody/SEDBody'
+import RefreshButton from 'components/ui/RefreshButton/RefreshButton'
 import BUCEmpty from './BUCEmpty'
-import { EkspanderbartpanelBase, Flatknapp } from 'components/ui/Nav'
+import { EkspanderbartpanelBase, Flatknapp, NavFrontendSpinner } from 'components/ui/Nav'
 import _ from 'lodash'
 
 import './BUCList.css'
@@ -57,8 +58,6 @@ const BUCList = (props) => {
           actions.getInstitutionsListForBucAndCountry(it.buc, it.country)
         }
       })
-
-      console.log('useEffect called')
       setMounted(true)
     }
   }, [institutionList, bucs, mounted])
@@ -94,10 +93,17 @@ const BUCList = (props) => {
 
   return <React.Fragment>
     <div className='a-buc-buclist__buttons mb-2'>
-      <div />
+      <RefreshButton t={t} onRefreshClick={getBucs} rotating={gettingBUCs}/>
       {aktoerId && sakId ? <Flatknapp onClick={onBUCNew}>{t('buc:form-createNewCase')}</Flatknapp> : null}
     </div>
-    {!_.isEmpty(bucs) ? bucs.map((buc, index) => {
+    {gettingBUCs ? <div className='mt-5 a-buc-widget__loading'>
+      <NavFrontendSpinner className='ml-3 mr-3' type='XL' />
+      <span className='pl-2'>{t('buc:loading-bucs')}</span>
+    </div> : null}
+    {bucs === null ? <div className='mt-5 a-buc-widget__loading'>
+      {t('buc:error-noBucs')}
+    </div> : null}
+    {!gettingBUCs && !_.isEmpty(bucs) ? bucs.map((buc, index) => {
       let bucId = buc.type + '-' + buc.caseId
       let bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId] : {}
       return <EkspanderbartpanelBase
@@ -114,8 +120,9 @@ const BUCList = (props) => {
         <SEDHeader t={t} />
         <SEDBody t={t} seds={seds[bucId] || []} rinaUrl={rinaUrl} locale={locale} buc={buc} />
       </EkspanderbartpanelBase>
-    }) : <BUCEmpty actions={actions} onBUCNew={onBUCNew} t={t} sakId={sakId}
-    aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> }
+    }) : null}
+    {_.isArray(bucs) && _.isEmpty(bucs) ? <BUCEmpty actions={actions} onBUCNew={onBUCNew} t={t} sakId={sakId}
+    aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> : null}
   </React.Fragment>
 }
 

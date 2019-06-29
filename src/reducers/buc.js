@@ -66,6 +66,11 @@ const bucReducer = (state = initialBucState, action) => {
       }
 
     case types.BUC_GET_BUCS_REQUEST:
+      return {
+        ...state,
+        bucs: undefined
+      }
+
     case types.BUC_GET_BUCS_FAILURE:
 
       return {
