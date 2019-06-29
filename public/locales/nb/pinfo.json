@@ -225,7 +225,7 @@
     "alert-maxPeriods" : "Oppnådd maksimalt antall ({{maxPeriods}}) av oppholdsperioder",
     "alert-sakTypeFailure" : "Kunne ikke returnere sakstype, men du kan fremdeles sende varsel",
 
-    "error-noParams" : "Vennligst oppgi saksId/saksNr og fnr/aktoerId",
+    "error-noParams" : "Vennligst oppgi saksId/saksNr, fnr/aktoerId og sakType",
 
     "warning-home-period" : "Legg inn boperioder hvis du ikke har hatt arbeids-, utdannings-, militær- eller siviltjenesteperioder i samme tidsrom.",
     "warning-one-period" : "Du må legge inn minst en periode med tilhørende opplysninger om opphold i EØS-land."
