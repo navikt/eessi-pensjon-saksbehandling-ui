@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Select from 'react-select'
 import CreatableSelect from 'react-select/creatable'
+import makeAnimated from 'react-select/animated';
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
 import MultipleOption from './MultipleOption'
 import MultipleValueRemove from './MultipleValueRemove'
 import './MultipleSelect.css'
+
+const animatedComponents = makeAnimated()
 
 const MultipleSelect = (props) => {
   const {
@@ -27,6 +30,12 @@ const MultipleSelect = (props) => {
 
   const [ _values, setValues ] = useState(values)
 
+  useEffect(() => {
+    if (!_.isEqual(_values, values)) {
+      setValues(values)
+    }
+  }, [values, _values])
+
   const include = (selectedValues, allValues) => {
     return _.filter(allValues, it => {
       return selectedValues.indexOf(it.value) >= 0
@@ -37,13 +46,6 @@ const MultipleSelect = (props) => {
     return _.filter(allValues, it => {
       return selectedValues.indexOf(it.value) < 0
     })
-  }
-
-  const _onChange = (args) => {
-    setValues(args)
-    if (typeof onChange === 'function') {
-      onChange(args)
-    }
   }
 
   const selectStyle = () => {
@@ -80,17 +82,18 @@ const MultipleSelect = (props) => {
     {creatable
       ? <CreatableSelect placeholder={placeholder}
         isMulti
+        animatedComponents
         closeMenuOnSelect={false}
-        defaultValue={_values}
+        value={_values}
         options={options}
         id={id ? id + '-select' : null}
         components={{
           Option: MultipleOption,
           MultiValueRemove: MultipleValueRemove,
-          ...components }}
+          ...animatedComponents }}
         className='multipleSelect'
         classNamePrefix='multipleSelect'
-        onChange={_onChange}
+        onChange={onChange}
         hideSelectedOptions={hideSelectedOptions || false}
         styles={selectStyle()}
         tabSelectsValue={false}
@@ -98,16 +101,17 @@ const MultipleSelect = (props) => {
       : <Select placeholder={placeholder}
         isMulti
         closeMenuOnSelect={false}
-        defaultValue={_values}
+        value={_values}
         options={options}
         id={id ? id + '-select' : null}
         components={{
+          ...animatedComponents,
           Option: MultipleOption,
           MultiValueRemove: MultipleValueRemove,
-          ...components }}
+          }}
         className='multipleSelect'
         classNamePrefix='multipleSelect'
-        onChange={_onChange}
+        onChange={onChange}
         hideSelectedOptions={hideSelectedOptions || false}
         styles={selectStyle()}
         tabSelectsValue={false}

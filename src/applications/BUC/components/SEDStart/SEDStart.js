@@ -145,24 +145,32 @@ const SEDStart = (props) => {
   }
 
   const onInstitutionsChange = (institutions) => {
-    let newInstitutions = institutions.map(item => {
+    let newInstitutions = institutions ? institutions.map(item => {
       return item.value
-    })
+    }) : []
     validateInstitutions(newInstitutions)
     setInstitutions(newInstitutions)
   }
 
-  const onCountriesChange = (countryList) => {
-    let newCountries = countryList.map(item => {
+  const onCountriesChange = (countries) => {
+    let newCountries = countries ? countries.map(item => {
       return item.value
-    })
+    }) : []
     validateCountries(newCountries)
     if (!validation.countryFail) {
       let oldCountriesList = _.cloneDeep(_countries)
       setCountries(newCountries)
       let addedCountries = newCountries.filter(country => !oldCountriesList.includes(country))
+      let removedCountries = oldCountriesList.filter(country => !newCountries.includes(country))
       addedCountries.map(country => {
         return actions.getInstitutionsListForBucAndCountry(buc.type, country)
+      })
+      removedCountries.map(country => {
+        const newInstitutions = _.cloneDeep(_institutions)
+        setInstitutions(newInstitutions.filter(item => {
+          var [ _country, institution ] = item.split(':')
+          return country !== _country
+        }))
       })
     }
   }
@@ -210,6 +218,10 @@ const SEDStart = (props) => {
     return countryList.indexOf(it.value) >= 0
   }) : []
 
+  const countryValueList = _countries ? _.filter(countries[locale], it => {
+    return _countries.indexOf(it.value) >= 0
+  }) : []
+
   const renderCountry = () => {
     return <div className='mb-3 flex-fill'>
       <label className='skjemaelement__label'>{t('ui:country')}</label>
@@ -219,14 +231,14 @@ const SEDStart = (props) => {
         placeholder={t(placeholders.country)}
         aria-describedby='help-country'
         locale={locale}
-        value={_countries || []}
+        values={countryValueList}
         hideSelectedOptions={false}
         onChange={onCountriesChange}
         optionList={countryObjectList} />
     </div>
   }
 
-  const institutionObjectList = []
+  let institutionObjectList = []
   if (institutionList) {
     Object.keys(institutionList).forEach(landkode => {
       if (_countries.indexOf(landkode) >= 0) {
@@ -244,6 +256,18 @@ const SEDStart = (props) => {
     })
   }
 
+  let institutionValueList = []
+  if (institutionList && _institutions) {
+    institutionValueList = _institutions.map(item => {
+      const [country, institution ] = item.split(':')
+      const found = _.find(institutionList[country], {id: item})
+      return {
+        label: found.navn,
+        value: found.id
+       }
+    })
+  }
+
   const renderInstitution = () => {
     return <div className='mb-3 flex-fill'>
       <label className='skjemaelement__label'>{t('ui:institution')}</label>
@@ -253,7 +277,7 @@ const SEDStart = (props) => {
         placeholder={t(placeholders.institution)}
         aria-describedby='help-institution'
         locale={locale}
-        value={_institutions || []}
+        values={institutionValueList}
         onChange={onInstitutionsChange}
         hideSelectedOptions={false}
         optionList={institutionObjectList} />

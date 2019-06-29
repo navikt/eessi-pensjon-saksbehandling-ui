@@ -37,7 +37,6 @@ const SEDSearch = (props) => {
 
   const onStatusChange = (statusList) => {
     if (typeof onStatusSearch === 'function') {
-      console.log('sd2')
       onStatusSearch(statusList)
       setStatus(statusList)
     }
@@ -90,7 +89,7 @@ const SEDSearch = (props) => {
       id='a-buc-c-sedsearch__status-id'
       className='a-buc-c-sedsearch__status multipleSelect pl-1 pr-1'
       placeholder={t('buc:form-searchForStatus')}
-      locale={locale}
+      locale={locale}SE
       value={_status}
       hideSelectedOptions={false}
       onChange={onStatusChange}

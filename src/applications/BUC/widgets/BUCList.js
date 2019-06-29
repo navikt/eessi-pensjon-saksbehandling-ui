@@ -54,7 +54,6 @@ const BUCList = (props) => {
 
       listOfCountries.forEach(it => {
         if (!_.find(institutionList, it)) {
-          console.log('getting for ', it.buc, it.country)
           actions.getInstitutionsListForBucAndCountry(it.buc, it.country)
         }
       })
