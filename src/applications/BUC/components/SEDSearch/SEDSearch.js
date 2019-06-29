@@ -112,7 +112,6 @@ SEDSearch.propTypes = {
   onSearch: PT.func.isRequired,
   onCountrySearch: PT.func.isRequired,
   onStatusSearch: PT.func.isRequired,
-  availableCountries: PT.array.isRequired,
   className: PT.string,
   locale: PT.string.isRequired
 }

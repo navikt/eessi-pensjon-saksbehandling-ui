@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import * as bucActions from './buc'
 import * as api from './api'
 import * as types from 'constants/actionTypes'

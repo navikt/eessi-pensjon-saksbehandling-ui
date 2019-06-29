@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
-import classNames from 'classnames'
 import _ from 'lodash'
 
-import * as Nav from 'components/ui/Nav'
+import { NavFrontendSpinner, Undertittel } from 'components/ui/Nav'
 import Icons from 'components/ui/Icons'
 import RefreshButton from 'components/ui/RefreshButton/RefreshButton'
-import { getDisplayName } from 'utils/displayName'
 
 const VarslerTable = (props) => {
-
   const { actions, aktoerId, file, fileList, sakId, t } = props
 
   const [ isReady, setIsReady ] = useState(false)
@@ -51,7 +48,7 @@ const VarslerTable = (props) => {
         setIsReady(allFilesDone)
       }
     }
-  }, [actions, fileList, _fileList, file])
+  }, [actions, aktoerId, fileList, _fileList, _files, file, isReady, sakId])
 
   const refresh = () => {
     if (aktoerId && sakId) {
@@ -64,11 +61,11 @@ const VarslerTable = (props) => {
 
   return <React.Fragment>
     <div className='a-pinfo-table-notification-title'>
-      <Nav.Undertittel>{t('pinfo:sb-sent-notifications-title')}</Nav.Undertittel>
+      <Undertittel>{t('pinfo:sb-sent-notifications-title')}</Undertittel>
       <RefreshButton t={t} rotating={!isReady} onRefreshClick={refresh} />
     </div>
     {!isReady ? <div className='text-center' style={{ paddingTop: '3rem' }}>
-      <Nav.NavFrontendSpinner />
+      <NavFrontendSpinner />
       <p className='typo-normal'>{t('ui:loading')}</p>
     </div> : null}
     {isReady ? <table className='w-100 mt-4'>

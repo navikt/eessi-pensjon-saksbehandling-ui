@@ -1,7 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
-import _ from 'lodash'
 
 import { EkspanderbartpanelBase, Element, EtikettLiten, Normaltekst, Systemtittel, Undertittel } from 'components/ui/Nav'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'

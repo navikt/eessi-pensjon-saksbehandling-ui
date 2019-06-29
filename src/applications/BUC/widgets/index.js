@@ -37,7 +37,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export const BUCWidgetIndex = (props) => {
-  const { actions, aktoerId, bucs, gettingBUCs, mode, rinaUrl, sakId, t } = props
+  const { actions, aktoerId, bucs, gettingBUCs, mode, rinaUrl, sakId } = props
   const [ mounted, setMounted ] = useState(false)
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export const BUCWidgetIndex = (props) => {
       actions.fetchBucs(aktoerId)
       actions.fetchBucsInfoList(aktoerId)
     }
-  }, [bucs, aktoerId, sakId, gettingBUCs])
+  }, [actions, aktoerId, bucs, gettingBUCs, sakId])
 
   if (!mounted) {
     return null

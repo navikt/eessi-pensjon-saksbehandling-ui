@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import { connect, bindActionCreators } from 'store'
 import Icons from 'components/ui/Icons'
-import { AlertStripe }  from 'components/ui/Nav'
+import { AlertStripe } from 'components/ui/Nav'
 import * as alertActions from 'actions/alert'
 import { getDisplayName } from 'utils/displayName'
 
@@ -31,8 +31,7 @@ export const errorTypes = {
 }
 
 const Alert = (props) => {
-
-  const { actions,  className, clientErrorStatus, clientErrorMessage, fixed, t, type, serverErrorMessage, uuid } = props
+  const { actions, className, clientErrorStatus, clientErrorMessage, fixed, t, type, serverErrorMessage, uuid } = props
 
   const onClientClear = () => {
     actions.clientClear()
@@ -67,7 +66,6 @@ const Alert = (props) => {
     <Icons className='closeIcon' size='1x' kind='solidclose' onClick={onClientClear} />
   </AlertStripe>
 }
-
 
 Alert.propTypes = {
   actions: PT.object.isRequired,

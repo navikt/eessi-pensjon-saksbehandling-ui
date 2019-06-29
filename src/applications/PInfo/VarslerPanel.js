@@ -2,11 +2,9 @@ import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 
-import * as Nav from 'components/ui/Nav'
-import { getDisplayName } from 'utils/displayName'
+import { AlertStripe, Hovedknapp, Undertekst, Undertittel } from 'components/ui/Nav'
 
 const VarslerPanel = (props) => {
-
   const { actions, aktoerId, isInvitingPinfo, invite, sakId, sakType, t } = props
 
   const onInviteButtonClick = () => {
@@ -17,25 +15,25 @@ const VarslerPanel = (props) => {
   }
 
   return <React.Fragment>
-    <Nav.Undertittel>{t('pinfo:sb-send-notification-title')}</Nav.Undertittel>
+    <Undertittel>{t('pinfo:sb-send-notification-title')}</Undertittel>
     <div className='mt-3' style={{ columns: 3 }}>
       <div><label className='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakId')}</label>: {sakId}</div>
       <div><label className='skjemaelement__label d-inline-block'>{t('ui:aktoerId')}</label>: {aktoerId}</div>
       <div><label className='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakType')}</label>: {sakType}</div>
     </div>
-    <Nav.Undertekst className='mt-3 mb-3'>{t('pinfo:sb-send-notification-description', { user: aktoerId })}</Nav.Undertekst>
-    <Nav.Hovedknapp
+    <Undertekst className='mt-3 mb-3'>{t('pinfo:sb-send-notification-description', { user: aktoerId })}</Undertekst>
+    <Hovedknapp
       id='pinfo-forward-button'
       className='forwardButton mb-2 mr-3'
       disabled={isInvitingPinfo}
       spinner={isInvitingPinfo}
       onClick={onInviteButtonClick}>
       {isInvitingPinfo ? t('sending') : t('pinfo:sb-send-notification-button')}
-    </Nav.Hovedknapp>
-    { !_.isEmpty(invite) ? <Nav.AlertStripe
+    </Hovedknapp>
+    { !_.isEmpty(invite) ? <AlertStripe
       className='mt-4 mb-4' type={invite.status === 'ERROR' ? 'advarsel' : 'suksess'}>
       {t(invite.message)}
-    </Nav.AlertStripe> : null}
+    </AlertStripe> : null}
   </React.Fragment>
 }
 

@@ -29,12 +29,11 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators({...pinfoActions, ...storageActions}, dispatch) }
+  return { actions: bindActionCreators({ ...pinfoActions, ...storageActions }, dispatch) }
 }
 
 const PInfo = (props) => {
-
-  const { actions, aktoerId, history, location, sakId, sakType, t } = props
+  const { aktoerId, history, location, sakId, sakType, t } = props
   const [ noParams, setNoParams ] = useState(false)
   const [ mounted, setMounted ] = useState(false)
 
@@ -45,7 +44,7 @@ const PInfo = (props) => {
       }
       setMounted(true)
     }
-  }, [mounted, aktoerId, sakId])
+  }, [mounted, aktoerId, sakId, sakType])
 
   if (!mounted) {
     return null
@@ -69,13 +68,13 @@ const PInfo = (props) => {
       <div className='col-md-2' />
       <div className='col-md-8'>
         <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
-          <VarslerPanel {...props}/>
+          <VarslerPanel {...props} />
         </div>
       </div>
       <div className='col-md-2' />
       <div className='col-md-12'>
         <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
-          <VarslerTable {...props}/>
+          <VarslerTable {...props} />
         </div>
       </div>
     </Nav.Row>

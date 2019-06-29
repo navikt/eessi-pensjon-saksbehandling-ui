@@ -260,10 +260,6 @@ const bucReducer = (state = initialBucState, action) => {
         sed: action.payload
       }
 
-    case types.APP_CLEAR_DATA:
-
-      return initialBucState
-
     default:
       return state
   }

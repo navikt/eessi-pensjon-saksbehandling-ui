@@ -15,7 +15,6 @@ const joarkReducer = (state = initialJoarkState, action = {}) => {
       let documents = []
       action.payload.data.dokumentoversiktBruker.journalposter.forEach(post => {
         let registeredDate = _.find(post.relevanteDatoer, { datotype: 'DATO_REGISTRERT' })
-        let varianter = _.find(post.dokumentvarianter, { variantformat: 'ARKIV' })
         post.dokumenter.forEach(doc => {
           documents.push({
             tilleggsopplysninger: post.tilleggsopplysninger,

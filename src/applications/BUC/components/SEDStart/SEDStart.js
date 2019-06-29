@@ -19,7 +19,8 @@ export const mapStateToProps = (state) => {
     sed: state.buc.sed,
     countryList: state.buc.countryList,
     institutionList: state.buc.institutionList,
-    loading: state.loading
+    loading: state.loading,
+    locale: state.ui.locale
   }
 }
 

@@ -125,7 +125,7 @@ const MultipleSelect = (props) => {
 
 MultipleSelect.propTypes = {
   onChange: PT.func.isRequired,
-  value: PT.array.isRequired,
+  values: PT.array.isRequired,
   style: PT.object,
   includeList: PT.array,
   excludeList: PT.array,

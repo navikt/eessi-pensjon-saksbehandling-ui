@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import PT from 'prop-types'
 
-import { Flatknapp, Hovedknapp, Input, Lenke, Normaltekst, ToggleKnapp, Undertittel } from 'components/ui/Nav'
-
+import { Hovedknapp, Input, Lenke, Undertittel } from 'components/ui/Nav'
 import * as MonitorPNG from 'resources/images/artwork/dataskjerm.png'
 import * as CupPNG from 'resources/images/artwork/kop.png'
 import * as MousePNG from 'resources/images/artwork/NAVmusematte.png'
@@ -11,7 +10,7 @@ import * as MapPNG from 'resources/images/artwork/saksstatus.png'
 import './BUCEmpty.css'
 
 const BUCEmpty = (props) => {
-  const { actions, aktoerId, bucs, getBucs, gettingBUCs, onBUCNew, sakId, t } = props
+  const { actions, aktoerId, onBUCNew, sakId, t } = props
   const [ _sakId, setSakId ] = useState(sakId)
   const [ _aktoerId, setAktoerId ] = useState(aktoerId)
   const [ validation, setValidation ] = useState(undefined)
@@ -92,9 +91,6 @@ const BUCEmpty = (props) => {
 BUCEmpty.propTypes = {
   actions: PT.object.isRequired,
   aktoerId: PT.string,
-  bucs: PT.array,
-  getBucs: PT.func.isRequired,
-  gettingBUCs: PT.bool.isRequired,
   onBUCNew: PT.func.isRequired,
   sakId: PT.string,
   t: PT.func.isRequired

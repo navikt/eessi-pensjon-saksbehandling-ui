@@ -80,7 +80,7 @@ const BUCTools = (props) => {
           placeholder={t('buc:form-tagPlaceholder')}
           aria-describedby='help-tags'
           locale={locale}
-          values={tags}
+          values={tags || []}
           hideSelectedOptions={false}
           onChange={onTagsChange}
           optionList={allTags} />

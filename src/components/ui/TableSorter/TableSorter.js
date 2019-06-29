@@ -12,7 +12,6 @@ const TableSorter = (props) => {
   const [ _columns, setColumns ] = useState(columns)
 
   var columnNames = Object.keys(_columns)
-  var filters = {}
 
   const sortColumn = (column) => {
     var newSortOrder = _sort.order === 'asc' ? 'desc' : 'asc'
@@ -41,10 +40,6 @@ const TableSorter = (props) => {
     var sortedItems = _.sortBy(filteredItems, _sort.column)
     if (_sort.order === 'desc') {
       sortedItems.reverse()
-    }
-
-    var onRowClick = (item) => {
-      console.log(item)
     }
 
     return sortedItems.map((item, index) => {

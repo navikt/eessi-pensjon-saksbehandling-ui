@@ -11,7 +11,7 @@ import _ from 'lodash'
 import './BUCList.css'
 
 const BUCList = (props) => {
-  const { t, bucs, bucsInfoList, institutionList, gettingInstitutionList, bucsInfo, actions, sakId, aktoerId, rinaUrl, gettingBUCs, locale } = props
+  const { t, bucs, bucsInfoList, institutionList, bucsInfo, actions, sakId, aktoerId, rinaUrl, gettingBUCs, locale } = props
   const [ seds, setSeds ] = useState({})
   const [ gettingBucsInfo, setGettingBucsInfo ] = useState(false)
   const [ mounted, setMounted ] = useState(false)
@@ -93,7 +93,7 @@ const BUCList = (props) => {
 
   return <React.Fragment>
     <div className='a-buc-buclist__buttons mb-2'>
-      <RefreshButton t={t} onRefreshClick={getBucs} rotating={gettingBUCs}/>
+      <RefreshButton t={t} onRefreshClick={getBucs} rotating={gettingBUCs} />
       {aktoerId && sakId ? <Flatknapp onClick={onBUCNew}>{t('buc:form-createNewCase')}</Flatknapp> : null}
     </div>
     {gettingBUCs ? <div className='mt-5 a-buc-widget__loading'>
@@ -122,7 +122,7 @@ const BUCList = (props) => {
       </EkspanderbartpanelBase>
     }) : null}
     {_.isArray(bucs) && _.isEmpty(bucs) ? <BUCEmpty actions={actions} onBUCNew={onBUCNew} t={t} sakId={sakId}
-    aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> : null}
+      aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> : null}
   </React.Fragment>
 }
 
