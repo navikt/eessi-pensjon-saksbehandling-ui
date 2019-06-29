@@ -19,7 +19,7 @@ const PersonBody = (props) => {
     return null
   }
 
-  return <div className='w-100' style={{ columns: 3 }}>
+  return <div className='mb-5 -100' style={{ columns: 3 }}>
     <div>
       { person.bostedsadresse && person.bostedsadresse.strukturertAdresse
         ? <React.Fragment>
