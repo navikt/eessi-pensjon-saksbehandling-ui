@@ -27,7 +27,7 @@ const BUCList = (props) => {
   }, [bucsInfoList, gettingBucsInfo, actions, aktoerId])
 
   useEffect(() => {
-    if (!mounted) {
+    if (!mounted && !_.isEmpty(bucs)) {
       const listOfCountries = []
       bucs.forEach(buc => {
         buc.institusjon.forEach(it => {

@@ -42,7 +42,9 @@ const BUCHeader = (props) => {
       id='a-buc-c-bucheader__label-id'
       className='a-buc-c-bucheader__label col-4'>
       <Undertittel data-qa='BucHeader-type-name'>{buc.type + ' - ' + t('buc:buc-' + buc.type)}</Undertittel>
-      <Normaltekst style={{ color: 'grey' }} data-qa='BucHeader-type-dates'>{buc.startDate + ' - ' + buc.lastUpdate}</Normaltekst>
+      <Normaltekst style={{ color: 'grey' }} data-qa='BucHeader-type-dates'>
+        {new Date(buc.startDate).toLocaleDateString() + ' - ' + new Date(buc.lastUpdate).toLocaleDateString()}
+      </Normaltekst>
     </div>
     <div className='a-buc-c-bucheader__flags col-2'>
       <FlagList data-qa='BucHeader-FlagList'

@@ -31,9 +31,9 @@ const SEDRow = (props) => {
               <Element>{t('ui:created')}:</Element>
               <Normaltekst>{new Date(sed.creationDate).toLocaleDateString()}</Normaltekst>
             </div>
-            <div>
+            <div className='a-buc-c-sedrow__info-date'>
               <Element>{t('ui:lastUpdate')}:</Element>
-              <Normaltekst>{sed.lastUpdate}</Normaltekst>
+              <Normaltekst>{new Date(sed.lastUpdate).toLocaleDateString()}</Normaltekst>
             </div>
           </div>
         </div>
