@@ -88,7 +88,7 @@ const BUCDetail = (props) => {
         className='mb-2'>
         {t('buc:form-involvedInstitutions')}:
       </Undertittel>
-      <InstitutionList t={t} institutions={buc.institusjon} locale={locale} type='joined'/>
+      <InstitutionList t={t} institutions={buc.institusjon} locale={locale} type='joined' />
     </div>
   </EkspanderbartpanelBase>
 }

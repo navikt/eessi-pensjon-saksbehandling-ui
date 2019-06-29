@@ -95,7 +95,6 @@ const bucReducer = (state = initialBucState, action) => {
         bucsInfo: typeof action.payload === 'object' ? action.payload : JSON.parse(action.payload)
       }
 
-
     case types.BUC_GET_BUCSINFO_REQUEST:
     case types.BUC_GET_BUCSINFO_FAILURE:
 

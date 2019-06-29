@@ -204,8 +204,8 @@ export const getInstitutionsListForBucAndCountry = (buc, country) => {
   return api.call({
     url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: buc, country: country }),
     context: {
-       buc: buc,
-       country: country
+      buc: buc,
+      country: country
     },
     type: {
       request: types.BUC_GET_INSTITUTION_LIST_REQUEST,

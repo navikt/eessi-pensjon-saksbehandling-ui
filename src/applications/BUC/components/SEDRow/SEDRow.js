@@ -40,7 +40,7 @@ const SEDRow = (props) => {
       </div>
       <div className='col-4 a-buc-c-sedrow__column a-buc-c-sedrow__institutions'>
         <Element className='pb-2' >{t('ui:institutions')}</Element>
-        <InstitutionList t={t} locale={locale} type='separated' institutions={institutionList}/>
+        <InstitutionList t={t} locale={locale} type='separated' institutions={institutionList} />
       </div>
       <div className='col-4 a-buc-c-sedrow__column a-buc-c-sedrow__actions'>
         <Element className='pb-2' >{t('ui:actions')}</Element>

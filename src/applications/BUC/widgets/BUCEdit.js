@@ -87,7 +87,7 @@ const BUCEdit = (props) => {
   const renderSeds = () => {
     return seds ? _(seds)
       .filter(sedFilter)
-      .sortBy(['creationDate','type'])
+      .sortBy(['creationDate', 'type'])
       .value()
       .map((sed, index) => {
         return <SEDRow className='mt-2' locale={locale} t={t} key={index} sed={sed} rinaUrl={rinaUrl} rinaId={buc.caseId} />

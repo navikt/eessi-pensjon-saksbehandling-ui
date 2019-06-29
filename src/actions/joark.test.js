@@ -2,8 +2,8 @@ import * as joarkActions from './joark'
 import * as api from './api'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-var sprintf = require('sprintf-js').sprintf
 import sampleJoark from 'resources/tests/sampleJoark'
+var sprintf = require('sprintf-js').sprintf
 
 urls.HOST = 'notlocalhost'
 
@@ -51,7 +51,7 @@ describe('joark actions', () => {
   it('getJoarkFile()', () => {
     const mockItem = {
       journalpostId: '1',
-      dokumentInfoId: '4',
+      dokumentInfoId: '4'
 
     }
     const mockVariant = 'DUMMY'

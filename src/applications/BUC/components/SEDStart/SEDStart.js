@@ -285,12 +285,12 @@ const SEDStart = (props) => {
     return <React.Fragment>
       <Nav.Undertittel className='mb-2'>{t('buc:form-chosenInstitutions')}</Nav.Undertittel>
       <InstitutionList t={t} institutions={_institutions.map(item => {
-         var [ country, institution ] = item.split(':')
-         return {
-           country: country,
-           institution: institution
-         }
-      })} locale={locale} type='joined'/>
+        var [ country, institution ] = item.split(':')
+        return {
+          country: country,
+          institution: institution
+        }
+      })} locale={locale} type='joined' />
     </React.Fragment>
   }
 

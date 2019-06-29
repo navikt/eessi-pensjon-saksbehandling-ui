@@ -10,12 +10,12 @@ const SEDBody = (props) => {
 
   return <React.Fragment>
     {seds ? _(seds)
-    .filter(sed => {return sed.status !== 'empty'})
-    .sortBy(['creationDate','type'])
-    .value()
-    .slice(0, 5).map((sed, index) => {
-      return <SEDRow style={{ animationDelay: (0.2 * index) + 's' }} t={t} key={index} sed={sed} rinaUrl={rinaUrl} rinaId={buc.caseId} locale={locale} border />
-    }) : null}
+      .filter(sed => { return sed.status !== 'empty' })
+      .sortBy(['creationDate', 'type'])
+      .value()
+      .slice(0, 5).map((sed, index) => {
+        return <SEDRow style={{ animationDelay: (0.2 * index) + 's' }} t={t} key={index} sed={sed} rinaUrl={rinaUrl} rinaId={buc.caseId} locale={locale} border />
+      }) : null}
     <Normaltekst>{t('buc:form-lastNonEmpty5')}</Normaltekst>
   </React.Fragment>
 }

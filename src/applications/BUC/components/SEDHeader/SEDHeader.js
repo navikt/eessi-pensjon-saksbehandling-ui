@@ -11,7 +11,7 @@ const SEDHeader = (props) => {
     id='a-buc-c-sedheader__div-id'>
     <div className='col-4'><Element>{t('buc:form-name') + ', ' + t('buc:form-status')}</Element></div>
     <div className='col-4'><Element>{t('buc:form-receiver')}</Element></div>
-    <div className='col-4'/>
+    <div className='col-4' />
   </div>
 }
 

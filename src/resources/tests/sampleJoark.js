@@ -14,7 +14,7 @@ const mockdata = { 'data': { 'dokumentoversiktBruker': { 'journalposter': [{
   relevanteDatoer: [{
     'dato': '2018-12-27T14:42:24',
     'datotype': 'DATO_REGISTRERT'
-  }],
+  }]
 }, {
   journalpostId: '2',
   tittel: 'red.pdf',

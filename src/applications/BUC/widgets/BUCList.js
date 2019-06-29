@@ -27,12 +27,11 @@ const BUCList = (props) => {
   }, [bucsInfoList, gettingBucsInfo, actions, aktoerId])
 
   useEffect(() => {
-
     if (!mounted) {
       const listOfCountries = []
       bucs.forEach(buc => {
         buc.institusjon.forEach(it => {
-          if (!_.find(listOfCountries, {country: it.country})) {
+          if (!_.find(listOfCountries, { country: it.country })) {
             listOfCountries.push({
               country: it.country,
               buc: buc.type
@@ -42,7 +41,7 @@ const BUCList = (props) => {
         buc.seds.forEach(sed => {
           sed.participants.forEach(it => {
             const country = it.organisation.countryCode
-            if (!_.find(listOfCountries, {country: country})) {
+            if (!_.find(listOfCountries, { country: country })) {
               listOfCountries.push({
                 country: country,
                 buc: buc.type

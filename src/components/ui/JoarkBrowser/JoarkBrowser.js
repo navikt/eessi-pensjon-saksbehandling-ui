@@ -127,7 +127,7 @@ const JoarkBrowser = (props) => {
         name: { name: t('ui:title'), filterText: '', defaultSortOrder: 'desc' },
         tema: { name: t('ui:tema'), filterText: '', defaultSortOrder: 'desc' },
         date: { name: t('ui:date'), filterText: '', defaultSortOrder: 'desc' },
-        varianter: { name: t('ui:varianter'), filterText: '', defaultSortOrder: 'desc' },
+        varianter: { name: t('ui:varianter'), filterText: '', defaultSortOrder: 'desc' }
       }}
       onItemClicked={onItemClicked}
       onSelectedItemChange={onSelectedItemChange}

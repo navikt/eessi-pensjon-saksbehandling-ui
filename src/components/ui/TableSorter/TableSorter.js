@@ -60,26 +60,26 @@ const TableSorter = (props) => {
           switch (column) {
             case 'name':
             case 'tema':
-            return <td key={key}>{value}</td>
+              return <td key={key}>{value}</td>
             case 'date':
-            return <td key={key}>{value.toLocaleDateString()}</td>
+              return <td key={key}>{value.toLocaleDateString()}</td>
             case 'varianter':
-            return <td key={key}>
-              {value.map(variant => {
-                return <div className='d-flex'>
-                  <Checkbox
-                    className='c-ui-tablesorter__checkbox'
-                    onChange={(e) => onSelectedItemChange(item, e.target.checked, variant)}
-                    checked={item.selected && item.variant === variant} />
-                  <a key={variant} href='#' onClick={(e) => {
-                    e.preventDefault();
-                    onItemClicked(item, variant)
-                  }}>{variant}</a>
-                </div>
-              })}
-            </td>
+              return <td key={key}>
+                {value.map(variant => {
+                  return <div className='d-flex'>
+                    <Checkbox
+                      className='c-ui-tablesorter__checkbox'
+                      onChange={(e) => onSelectedItemChange(item, e.target.checked, variant)}
+                      checked={item.selected && item.variant === variant} />
+                    <a key={variant} href='#' onClick={(e) => {
+                      e.preventDefault()
+                      onItemClicked(item, variant)
+                    }}>{variant}</a>
+                  </div>
+                })}
+              </td>
             default:
-            return null
+              return null
           }
         })}
       </tr>

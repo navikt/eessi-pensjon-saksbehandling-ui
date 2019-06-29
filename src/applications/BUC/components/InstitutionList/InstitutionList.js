@@ -10,12 +10,11 @@ import './InstitutionList.css'
 
 const mapStateToProps = (state) => {
   return {
-    institutionNames : state.buc.institutionNames
+    institutionNames: state.buc.institutionNames
   }
 }
 
 const InstitutionList = (props) => {
-
   const { institutions, institutionNames, t, type, locale } = props
 
   let institutionList = {}
@@ -34,24 +33,24 @@ const InstitutionList = (props) => {
   }
 
   return Object.keys(institutionList).map(landkode => {
-    const country = _.find(countries[locale], {value: landkode})
+    const country = _.find(countries[locale], { value: landkode })
     return <div
       id='a-buc-c-institutionlist-id'
       className='a-buc-c-institutionlist'
       key={landkode}>
       {type === 'joined' ? <div className='a-buc-c-institution'>
-        <Flag label={country.label} country={landkode} size='M'/>
+        <Flag label={country.label} country={landkode} size='M' />
         <Element className='pr-2 pl-2'>{country.label}: </Element>
         <Normaltekst>{institutionList[landkode].map(institutionId => {
-          return institutionNames.hasOwnProperty(landkode + ':' + institutionId) ?
-            institutionNames[landkode + ':' + institutionId] : institutionId
+          return institutionNames.hasOwnProperty(landkode + ':' + institutionId)
+            ? institutionNames[landkode + ':' + institutionId] : institutionId
         }).join(', ')}</Normaltekst>
       </div> : null}
       {type === 'separated' ? institutionList[landkode].map(institutionId => {
-        const label = institutionNames.hasOwnProperty(landkode + ':' + institutionId) ?
-          institutionNames[landkode + ':' + institutionId] : institutionId
+        const label = institutionNames.hasOwnProperty(landkode + ':' + institutionId)
+          ? institutionNames[landkode + ':' + institutionId] : institutionId
         return <div className='a-buc-c-institution' key={institutionId}>
-          <Flag label={country.label} country={landkode} size='M'/>
+          <Flag label={country.label} country={landkode} size='M' />
           <Element className='pr-2 pl-2'>{country.label}: </Element>
           <Normaltekst>{label}</Normaltekst>
         </div>
