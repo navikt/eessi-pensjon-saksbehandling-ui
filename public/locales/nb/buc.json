@@ -7,6 +7,8 @@
   "step-previewSEDDescription" : "Viser innhold hentet til SED",
 
   "alert-caseFound"         : "Saken funnet",
+  "alert-createBucFailure"  : "Feil til å oprrette BUC",
+  "alert-createSedFailure"  : "Feil til å oprrette SED",
   "alert-morePreviewData"   : "Generert sak",
   "alert-savedData"         : "Lagret sak",
   "alert-createdSed"        : "Opprettet ny SED",
@@ -16,10 +18,12 @@
   "alert-noTagList"         : "Ingen merknader liste",
   "alert-noBucs"            : "Ingen BUCs",
   "alert-noBucsInfo"        : "Ingen BUCs Info",
+  "alert-noBucsInfoList"    : "Ingen BUCs Info liste",
   "alert-noCountryList"     : "Ingen land liste",
   "alert-noInstitutionList" : "Ingen mottager liste",
   "alert-noSedList"         : "Ingen SED liste",
   "alert-noSubjectAreaList" : "Ingen fagområde liste",
+  "alert-saveBucsInfoFailure" : "Feil til å lagre BUC info",
 
   "attachments-step0" : "Velg vedlegg",
   "attachments-step1" : "Rediger vedlegg",

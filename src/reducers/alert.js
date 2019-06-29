@@ -61,6 +61,11 @@ const alertReducer = (state = initialAlertState, action = {}) => {
 
         clientErrorMessage = 'buc:alert-noBucs'
         break
+      case types.BUC_GET_BUCSINFO_LIST_FAILURE:
+
+        clientErrorMessage = 'buc:alert-noBucsListInfo'
+        break
+
       case types.BUC_GET_BUCSINFO_FAILURE:
 
         clientErrorMessage = 'buc:alert-noBucsInfo'
@@ -99,6 +104,21 @@ const alertReducer = (state = initialAlertState, action = {}) => {
       case types.BUC_GET_COUNTRY_LIST_FAILURE:
 
         clientErrorMessage = 'buc:alert-noCountryList'
+        break
+
+      case types.BUC_CREATE_BUC_FAILURE:
+
+        clientErrorMessage = 'buc:alert-createBucFailure'
+        break
+
+      case types.BUC_CREATE_SED_FAILURE:
+
+        clientErrorMessage = 'buc:alert-createSedFailure'
+        break
+
+      case types.BUC_SAVE_BUCSINFO_FAILURE:
+
+        clientErrorMessage = 'buc:alert-saveBucsInfoFailure'
         break
 
       case types.PDF_GENERATE_FAILURE:
