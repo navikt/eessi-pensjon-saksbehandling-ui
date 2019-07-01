@@ -59,16 +59,15 @@ const BUCEdit = (props) => {
       let _search = search.toLowerCase()
       match = sed.type.match(search) || _.find(sed.participants, (it) => {
         const organizationId = it.organisation.id.toLowerCase()
-        const organizationName = institutionNames[organizationId].toLowerCase()
+        const organizationName = institutionNames[organizationId] ? institutionNames[organizationId].toLowerCase() : ''
         const countryCode = it.organisation.countryCode.toLowerCase()
-        const countryName = CountryData.findByValue(locale, countryCode).toLowerCase()
+        const countryName = CountryData.findByValue(locale, countryCode.toUpperCase()).label.toLowerCase()
         const creationDate = new Date(sed.creationDate).toLocaleDateString()
-        const lastUpdate = new Date(sed.lastUpdate).toLocaleDateString()
+        const lastUpdate = sed.lastUpdate ? new Date(sed.lastUpdate).toLocaleDateString() : ''
         const status = t('ui:' + sed.status).toLowerCase()
 
         return organizationId.match(_search) || organizationName.match(_search) || countryCode.match(_search) ||
-        (countryName ? countryName.label.match(_search) : true) || creationDate.match(_search) ||
-        lastUpdate.match(_search) || status.match(_search)
+        countryName.match(_search) || creationDate.match(_search) || lastUpdate.match(_search) || status.match(_search)
       })
     }
     if (match && countrySearch) {

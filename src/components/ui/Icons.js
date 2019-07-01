@@ -10,6 +10,7 @@ import MessageSentSVG from 'resources/images/LineVersionExpandedEmailSend3.js'
 
 import { ReactComponent as ProblemCircle } from 'resources/images/report-problem-circle.svg'
 import { ReactComponent as BubbleChat } from 'resources/images/bubble-chat-2.svg'
+import { ReactComponent as PaperClip } from 'resources/images/filled-version-paperclip-2.svg'
 
 import Vedlegg from 'resources/images/Vedlegg'
 import Trashcan from 'resources/images/Trashcan'
@@ -68,6 +69,7 @@ const Icons = (props) => {
     case 'server' : return <FontAwesomeIcon icon={icons.faServer} {...props} />
     case 'db' : return <FontAwesomeIcon icon={icons.faDatabase} {...props} />
 
+    case 'paperclip' : return <PaperClip {...props} />
     case 'solidclose' : return <FontAwesomeIcon icon={icons.faTimesCircle} {...props} />
     case 'close' : return <FontAwesomeIcon icon={icons.faTimes} {...props} />
     case 'bigclose' : return <LineVersionClose {...props} />

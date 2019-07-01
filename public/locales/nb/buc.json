@@ -59,6 +59,7 @@
   "form-buc" : "BUC",
   "form-BUCtools" : "BUC Verktøy",
   "form-caseLink" : "Lenke til saken",
+  "form-caseOwner" : "Sakeier",
   "form-caseSent" : "Saken sendt",
   "form-chooseCountry" : "Velg land",
   "form-chooseSubjectArea" : "Velg fagområde",
@@ -98,6 +99,7 @@
   "form-tagPlaceholder" : "Velg merknad...",
   "form-vedtakId" : "Vedtak ID",
   "form-youhaveXseds" : "Du har {{seds}} SED-er på BUC",
+  "form-youHaveXAttachments": "BUC-en har {{attachments}} vedlegg",
 
   "button-createNewUnsetSakIdAktoerId": "Gå til startside med ny sakId og aktoerId",
   "button-createNewUnsetRinaId": "Gå til startside med ny rinaId",

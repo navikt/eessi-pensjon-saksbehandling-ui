@@ -76,7 +76,28 @@ export default [
             'selected': false
           }
         ],
-        'attachments': []
+        'attachments': [{
+          'id' : '58828e7ff57943779ab7b24c522b1a3f',
+          'name' : 'balrog.png',
+          'fileName' : 'balrog.png',
+          'mimeType' : 'image/png',
+          'documentId': 'cac9db2726d54f2c9b51d1562b7b0a79',
+          'lastUpdate' : {
+            'year' : 2019,
+            'month' : 'MAY',
+            'chronology' : {
+              'id' : 'ISO',
+              'calendarType' : 'iso8601'
+            },
+            'dayOfMonth' : 20,
+            'dayOfWeek' : 'MONDAY',
+            'era' : 'CE',
+            'dayOfYear' : 140,
+            'leapYear' : false,
+            'monthValue' : 5
+          },
+          'medical' : false
+        }]
       },
       {
         'id': 'ff98ea9256244b908e19d4439db5bad3',
