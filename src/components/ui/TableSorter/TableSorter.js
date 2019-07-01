@@ -58,7 +58,7 @@ const TableSorter = (props) => {
               return <td key={key}>{value}</td>
             case 'date':
               return <td key={key}>{value.toLocaleDateString()}</td>
-            case 'varianter':
+            case 'variant':
               return <td key={key}>
                 {value.map(variant => {
                   return <div className='d-flex'>

@@ -60,29 +60,29 @@ const JoarkBrowser = (props) => {
     }
   }, [previewFile, _previewFile])
 
-  const onItemClicked = (clickedItem, clickedVarianter) => {
+  const onItemClicked = (clickedItem, clickedVariant) => {
     const foundFile = _.find(files, {
       journalpostId: clickedItem.raw.journalpostId,
-      varianter: clickedVarianter
+      variant: clickedVariant
     })
 
     if (!foundFile) {
-      actions.previewJoarkFile(clickedItem.raw, clickedVarianter)
+      actions.previewJoarkFile(clickedItem.raw, clickedVariant)
     } else {
       setPreviewFile(foundFile)
     }
   }
 
-  const onSelectedItemChange = (item, checked, varianter) => {
+  const onSelectedItemChange = (item, checked, variant) => {
     let newFiles = _.cloneDeep(_files)
     if (!checked) {
       if (_.find(newFiles, {
         dokumentInfoId: item.raw.dokumentInfoId,
-        varianter: varianter
+        variant: variant
       })) {
         newFiles = _.reject(newFiles, {
           journalpostId: item.raw.journalpostId,
-          varianter: varianter
+          variant: variant
         })
         setFiles(newFiles)
         if (onFilesChange) {
@@ -90,7 +90,7 @@ const JoarkBrowser = (props) => {
         }
       }
     } else {
-      actions.getJoarkFile(item.raw, varianter)
+      actions.getJoarkFile(item.raw, variant)
     }
   }
 
@@ -127,7 +127,7 @@ const JoarkBrowser = (props) => {
         name: { name: t('ui:title'), filterText: '', defaultSortOrder: 'desc' },
         tema: { name: t('ui:tema'), filterText: '', defaultSortOrder: 'desc' },
         date: { name: t('ui:date'), filterText: '', defaultSortOrder: 'desc' },
-        varianter: { name: t('ui:varianter'), filterText: '', defaultSortOrder: 'desc' }
+        variant: { name: t('ui:variant'), filterText: '', defaultSortOrder: 'desc' }
       }}
       onItemClicked={onItemClicked}
       onSelectedItemChange={onSelectedItemChange}
