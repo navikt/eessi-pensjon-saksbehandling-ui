@@ -1,7 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
-import countryList from 'components/ui/CountrySelect/CountrySelectData'
+import CountryData from 'components/ui/CountryData/CountryData'
 import _ from 'lodash'
 import Flag from './Flag'
 
@@ -15,7 +15,7 @@ const FlagList = (props) => {
       if (index > overflowLimit - 1) {
         return null
       }
-      let _label = item.label || _.find(countryList[locale], { value: item.country }).label
+      let _label = item.label || CountryData.findByValue(locale, item.country).label
       return <Flag size={size} className={classNames('m-2')} data-qa='FlagList-Flag' key={index} country={item.country} label={_label} />
     })}
     {items.length > overflowLimit

@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
 import { Panel, Input } from 'components/ui/Nav'
-import countries from 'components/ui/CountrySelect/CountrySelectData'
+import CountryData from 'components/ui/CountryData/CountryData'
 import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
 
 import './SEDSearch.css'
@@ -64,7 +64,7 @@ const SEDSearch = (props) => {
     seds.forEach(sed => {
       sed.participants.forEach(it => {
         if (!_.find(availableCountries, { value: it.organisation.countryCode })) {
-          const country = _.find(countries[locale], { value: it.organisation.countryCode })
+          const country = CountryData.findByValue(locale, it.organisation.countryCode )
           availableCountries.push({
             label: country ? country.label : it.organisation.countryCode,
             value: it.organisation.countryCode

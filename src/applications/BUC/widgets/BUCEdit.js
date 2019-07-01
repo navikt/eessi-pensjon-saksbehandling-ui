@@ -8,8 +8,7 @@ import BUCDetail from '../components/BUCDetail/BUCDetail'
 import BUCTools from '../components/BUCTools/BUCTools'
 import SEDTools from '../components/SEDTools/SEDTools'
 import UserTools from '../components/User/UserTools'
-import SEDStatusSelect from 'applications/BUC/components/SEDStatusSelect/SEDStatusSelect'
-import countries from 'components/ui/CountrySelect/CountrySelectData'
+import CountryData from 'components/ui/CountryData/CountryData'
 import { connect, bindActionCreators } from 'store'
 import * as bucActions from 'actions/buc'
 import './BUCEdit.css'
@@ -63,7 +62,7 @@ const BUCEdit = (props) => {
         const organizationId = it.organisation.id.toLowerCase()
         const organizationName = institutionNames[organizationId].toLowerCase()
         const countryCode = it.organisation.countryCode.toLowerCase()
-        const countryName = _.find(countries[locale], {value: countryCode}).toLowerCase()
+        const countryName = CountryData.findByValue(locale, countryCode).toLowerCase()
         const creationDate = new Date(sed.creationDate).toLocaleDateString()
         const lastUpdate = new Date(sed.lastUpdate).toLocaleDateString()
         const status = t('ui:' + sed.status).toLowerCase()
@@ -77,20 +76,6 @@ const BUCEdit = (props) => {
       match = _.find(sed.participants, (it) => {
         return _.find(countrySearch, { value: it.organisation.countryCode })
       })
-    }
-    if (match && statusFilter) {
-      if (statusFilter.length > 1) { // multiple
-        match = statusFilter.indexOf(sed.status) >= 0
-      } else { // single
-        switch (statusFilter[0]) {
-          case 'inbox':
-            match = sed.status !== null && sed.status !== 'empty' && sed.status !== 'new'
-            break
-          default:
-            match = sed.status === null || sed.status === 'new'
-            break
-        }
-      }
     }
     if (match && statusSearch) {
       match = _.find(statusSearch, { value: sed.status })

@@ -1,10 +1,10 @@
 import React from 'react'
 import CountryOption from './CountryOption'
-import countries from './CountrySelectData'
+import CountryData from '../CountryData/CountryData'
 
 describe('CountryOption Rendering', () => {
   it('Renders correctly', () => {
-    let countryData = [...countries.en, ...countries.nb]
+    let countryData = CountryData.getData('nb')
     let countrySelectProps = { selectProps: { type: 'country' } }
     let currencySelectProps = { selectProps: { type: 'currency' } }
 

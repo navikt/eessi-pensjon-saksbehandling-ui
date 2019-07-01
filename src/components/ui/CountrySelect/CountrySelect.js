@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
 import PT from 'prop-types'
-import countries from './CountrySelectData'
+import CountryData from '../CountryData/CountryData'
 import _ from 'lodash'
 import classNames from 'classnames'
 import CountryOption from './CountryOption'
@@ -46,7 +46,7 @@ class CountrySelect extends Component {
       errorMessage
     } = this.props
 
-    let optionList = countries[locale]
+    let optionList = CountryData.getData(locale)
     let options = (includeList ? this.include(includeList, optionList) : optionList)
     options = (excludeList ? this.exclude(excludeList, options) : options)
 

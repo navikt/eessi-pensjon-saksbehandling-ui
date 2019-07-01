@@ -4,7 +4,7 @@ import _ from 'lodash'
 import { connect, bindActionCreators } from 'store'
 
 import * as Nav from 'components/ui/Nav'
-import countries from 'components/ui/CountrySelect/CountrySelectData'
+import CountryData from 'components/ui/CountryData/CountryData'
 import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
 import SEDAttachments from '../SEDAttachments/SEDAttachments'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
@@ -214,13 +214,9 @@ const SEDStart = (props) => {
     return label
   }
 
-  const countryObjectList = countryList ? _.filter(countries[locale], it => {
-    return countryList.indexOf(it.value) >= 0
-  }) : []
+  const countryObjectList = countryList ? CountryData.filterByValueOnArray(countryList) : []
 
-  const countryValueList = _countries ? _.filter(countries[locale], it => {
-    return _countries.indexOf(it.value) >= 0
-  }) : []
+  const countryValueList = _countries ? CountryData.filterByValueOnArray(_countries) : []
 
   const renderCountry = () => {
     return <div className='mb-3 flex-fill'>
@@ -242,7 +238,7 @@ const SEDStart = (props) => {
   if (institutionList) {
     Object.keys(institutionList).forEach(landkode => {
       if (_countries.indexOf(landkode) >= 0) {
-        let label = _.find(countries[locale], { value: landkode })
+        let label = CountryData.findByValue(locale, landkode)
         institutionObjectList.push({
           label: label.label,
           options: institutionList[landkode].map(institution => {

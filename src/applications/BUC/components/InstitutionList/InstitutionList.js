@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import { connect } from 'store'
 import Flag from 'components/ui/Flag/Flag'
-import countries from 'components/ui/CountrySelect/CountrySelectData'
+import CountryData from 'components/ui/CountryData/CountryData'
 import { Element, Normaltekst } from 'components/ui/Nav'
 
 import './InstitutionList.css'
@@ -33,7 +33,7 @@ const InstitutionList = (props) => {
   }
 
   return Object.keys(institutionList).map(landkode => {
-    const country = _.find(countries[locale], { value: landkode })
+    const country = CountryData.findByValue(locale, landkode)
     return <div
       id='a-buc-c-institutionlist-id'
       className='a-buc-c-institutionlist'
