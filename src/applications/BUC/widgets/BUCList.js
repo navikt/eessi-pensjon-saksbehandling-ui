@@ -5,7 +5,7 @@ import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import SEDBody from 'applications/BUC/components/SEDBody/SEDBody'
 import RefreshButton from 'components/ui/RefreshButton/RefreshButton'
 import BUCEmpty from './BUCEmpty'
-import { EkspanderbartpanelBase, Flatknapp, NavFrontendSpinner } from 'components/ui/Nav'
+import { EkspanderbartpanelBase, Knapp, NavFrontendSpinner } from 'components/ui/Nav'
 import _ from 'lodash'
 
 import './BUCList.css'
@@ -93,7 +93,7 @@ const BUCList = (props) => {
   return <React.Fragment>
     <div className='a-buc-buclist__buttons mb-2'>
       <RefreshButton t={t} onRefreshClick={getBucs} rotating={gettingBUCs} />
-      {aktoerId && sakId ? <Flatknapp onClick={onBUCNew}>{t('buc:form-createNewCase')}</Flatknapp> : null}
+      {aktoerId && sakId ? <Knapp onClick={onBUCNew}>{t('buc:form-createNewCase')}</Knapp> : null}
     </div>
     {gettingBUCs ? <div className='mt-5 a-buc-widget__loading'>
       <NavFrontendSpinner className='ml-3 mr-3' type='XL' />
