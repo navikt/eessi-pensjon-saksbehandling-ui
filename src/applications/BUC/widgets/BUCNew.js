@@ -6,6 +6,7 @@ const BUCNew = (props) => {
   const { t, actions } = props
 
   const onBUCList = () => {
+    actions.resetBuc()
     actions.setMode('list')
   }
 

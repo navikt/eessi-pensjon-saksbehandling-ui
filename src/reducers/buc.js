@@ -21,7 +21,7 @@ const bucReducer = (state = initialBucState, action) => {
 
       return {
         ...state,
-        mode: action.payload
+        mode: action.payload,
       }
 
     case types.BUC_BUC_SET:

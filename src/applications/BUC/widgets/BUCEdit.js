@@ -39,6 +39,7 @@ const BUCEdit = (props) => {
   }
 
   const onBUCList = () => {
+    actions.resetBuc()
     actions.setMode('list')
   }
 
