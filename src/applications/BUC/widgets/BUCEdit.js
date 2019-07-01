@@ -16,7 +16,6 @@ import { getDisplayName } from 'utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
-    statusFilter: state.buc.statusFilter,
     institutionNames: state.buc.institutionNames
   }
 }
@@ -28,7 +27,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const BUCEdit = (props) => {
-  const { t, buc, bucsInfo, actions, rinaUrl, locale, seds, statusFilter, institutionNames } = props
+  const { t, buc, bucsInfo, actions, rinaUrl, locale, seds, institutionNames } = props
   const [ search, setSearch ] = useState(undefined)
   const [ countrySearch, setCountrySearch ] = useState(undefined)
   const [ statusSearch, setStatusSearch ] = useState(undefined)
@@ -67,9 +66,9 @@ const BUCEdit = (props) => {
         const lastUpdate = new Date(sed.lastUpdate).toLocaleDateString()
         const status = t('ui:' + sed.status).toLowerCase()
 
-        return organizationId.match(_search) || organizationName.match(_search) || countryCode.match(_search)
-        || (countryName ? countryName.label.match(_search) : true) || creationDate.match(_search)
-        || lastUpdate.match(_search) || status.match(_search)
+        return organizationId.match(_search) || organizationName.match(_search) || countryCode.match(_search) ||
+        (countryName ? countryName.label.match(_search) : true) || creationDate.match(_search) ||
+        lastUpdate.match(_search) || status.match(_search)
       })
     }
     if (match && countrySearch) {
@@ -98,8 +97,8 @@ const BUCEdit = (props) => {
 
   return <div className='a-buc-bucedit'>
     <div className='a-buc-buclist__buttons mb-2'>
-     <Knapp onClick={onBUCList}>{t('ui:back')}</Knapp>
-     <Knapp onClick={onSEDNew}>{t('buc:form-orderNewSED')}</Knapp>
+      <Knapp onClick={onBUCList}>{t('ui:back')}</Knapp>
+      <Knapp onClick={onSEDNew}>{t('buc:form-orderNewSED')}</Knapp>
     </div>
     <Row style={{ marginLeft: '-15px', marginRight: '-15px' }}>
       <div className='col-8'>

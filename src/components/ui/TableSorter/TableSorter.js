@@ -29,7 +29,7 @@ const TableSorter = (props) => {
   const rows = () => {
     const filteredItems = _.filter(items, (item) => {
       return _.every(columnNames, (column) => {
-        const filterText =  _columns[column].filterText
+        const filterText = _columns[column].filterText
         switch (column) {
           case 'varianter':
             return filterText ? item[column].find(it => it.match(filterText)) : true
@@ -37,7 +37,7 @@ const TableSorter = (props) => {
             return filterText ? item[column].toLocaleDateString().match(filterText) : true
           default:
             return filterText ? item[column].match(filterText) : true
-          }
+        }
       })
     })
 
@@ -70,7 +70,7 @@ const TableSorter = (props) => {
                       className='c-ui-tablesorter__checkbox'
                       onChange={(e) => onSelectedItemChange(item, e.target.checked, variant.label)}
                       checked={variant.selected} />
-                    <a href='#' onClick={(e) => {
+                    <a href='#item' onClick={(e) => {
                       e.preventDefault()
                       onItemClicked(item, variant.label)
                     }}>{variant.label}</a>

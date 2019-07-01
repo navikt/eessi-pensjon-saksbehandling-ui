@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import PT from 'prop-types'
-import _ from 'lodash'
-import classNames from 'classnames'
 import PDFEditor from 'applications/PDF/components/PDFEditor/PDFEditor'
 import { Hovedknapp, Flatknapp } from 'components/ui/Nav'
 
 const Step2 = (props) => {
-  const { t, files, setFiles, setStep } = props
+  const { t, setStep } = props
 
   const onForwardButtonClick = () => {
     setStep('generate')
@@ -35,8 +33,7 @@ const Step2 = (props) => {
 
 Step2.propTypes = {
   actions: PT.object,
-  t: PT.func.isRequired,
-  setFiles: PT.func.isRequired
+  t: PT.func.isRequired
 }
 
 export default Step2

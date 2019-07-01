@@ -165,10 +165,10 @@ const SEDStart = (props) => {
       addedCountries.map(country => {
         return actions.getInstitutionsListForBucAndCountry(buc.type, country)
       })
-      removedCountries.map(country => {
+      removedCountries.forEach(country => {
         const newInstitutions = _.cloneDeep(_institutions)
         setInstitutions(newInstitutions.filter(item => {
-          var [ _country, institution ] = item.split(':')
+          var [ _country ] = item.split(':')
           return country !== _country
         }))
       })
@@ -255,12 +255,12 @@ const SEDStart = (props) => {
   let institutionValueList = []
   if (institutionList && _institutions) {
     institutionValueList = _institutions.map(item => {
-      const [country, institution ] = item.split(':')
-      const found = _.find(institutionList[country], {id: item})
+      const [country ] = item.split(':')
+      const found = _.find(institutionList[country], { id: item })
       return {
         label: found.navn,
         value: found.id
-       }
+      }
     })
   }
 

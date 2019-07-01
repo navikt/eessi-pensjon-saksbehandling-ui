@@ -20,7 +20,7 @@ const renderBytes = (bytes) => {
 }
 
 const File = (props) => {
-  const { file, animate, scale, ui, onClick } = props
+  const { file, animate, scale, ui } = props
   const [ isHovering, setIsHovering ] = useState(false)
 
   const _animate = _.isBoolean(animate) ? animate : true
@@ -66,8 +66,7 @@ File.propTypes = {
   file: PT.object.isRequired,
   animate: PT.bool,
   scale: PT.number,
-  ui: PT.string,
-  onClick: PT.func
+  ui: PT.string
 }
 
 export default File

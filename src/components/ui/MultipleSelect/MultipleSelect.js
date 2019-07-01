@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Select from 'react-select'
 import CreatableSelect from 'react-select/creatable'
-import makeAnimated from 'react-select/animated';
+import makeAnimated from 'react-select/animated'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
@@ -22,7 +22,6 @@ const MultipleSelect = (props) => {
     optionList = [],
     className,
     error = false,
-    components,
     errorMessage,
     onChange,
     hideSelectedOptions
@@ -107,8 +106,8 @@ const MultipleSelect = (props) => {
         components={{
           ...animatedComponents,
           Option: MultipleOption,
-          MultiValueRemove: MultipleValueRemove,
-          }}
+          MultiValueRemove: MultipleValueRemove
+        }}
         className='multipleSelect'
         classNamePrefix='multipleSelect'
         onChange={onChange}
@@ -142,7 +141,6 @@ MultipleSelect.propTypes = {
   errorMessage: PT.string,
   styles: PT.object,
   error: PT.bool,
-  components: PT.object,
   creatable: PT.bool
 }
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
-import _ from 'lodash'
 
 import { connect, bindActionCreators } from 'store'
 import PersonHeader from './PersonHeader'
@@ -39,7 +38,7 @@ const PersonWidget = (props) => {
   }, [mounted, actions, aktoerId])
 
   if (person && person.statsborgerskap && person.statsborgerskap.land) {
-    country =CountryData.findByValue3(locale, person.statsborgerskap.land.value )
+    country = CountryData.findByValue3(locale, person.statsborgerskap.land.value)
   }
 
   return <EkspanderbartpanelBase

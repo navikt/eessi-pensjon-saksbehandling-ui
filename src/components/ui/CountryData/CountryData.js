@@ -1,7 +1,6 @@
 import _ from 'lodash'
 
 class CountryData {
-
   countries = {
     'en': [
       {
@@ -2783,11 +2782,11 @@ class CountryData {
   }
 
   findByValue = (locale, value) => {
-    return _.find(this.countries[locale], {value: value})
+    return _.find(this.countries[locale], { value: value })
   }
 
   findByValue3 = (locale, value) => {
-    return _.find(this.countries[locale], {value3: value})
+    return _.find(this.countries[locale], { value3: value })
   }
 
   filterByValueOnArray = (locale, needles) => {

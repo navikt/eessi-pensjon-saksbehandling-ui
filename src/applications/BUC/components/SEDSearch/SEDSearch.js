@@ -64,7 +64,7 @@ const SEDSearch = (props) => {
     seds.forEach(sed => {
       sed.participants.forEach(it => {
         if (!_.find(availableCountries, { value: it.organisation.countryCode })) {
-          const country = CountryData.findByValue(locale, it.organisation.countryCode )
+          const country = CountryData.findByValue(locale, it.organisation.countryCode)
           availableCountries.push({
             label: country ? country.label : it.organisation.countryCode,
             value: it.organisation.countryCode

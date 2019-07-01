@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PT from 'prop-types'
-import _ from 'lodash'
-import classNames from 'classnames'
-import { Stegindikator, Checkbox, Hovedknapp } from 'components/ui/Nav'
+import { Stegindikator, Checkbox } from 'components/ui/Nav'
 import Step1 from './Step1'
 import Step2 from './Step2'
 
 const SEDAttachments = (props) => {
-  const { t, files, setFiles } = props
+  const { t } = props
   const [ step, setStep ] = useState(0)
   const [ enableAttachments, setEnableAttachments ] = useState(false)
 
@@ -34,9 +32,7 @@ const SEDAttachments = (props) => {
 }
 
 SEDAttachments.propTypes = {
-  actions: PT.object,
-  t: PT.func.isRequired,
-  setFiles: PT.func.isRequired
+  t: PT.func.isRequired
 }
 
 export default SEDAttachments

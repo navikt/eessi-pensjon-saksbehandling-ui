@@ -105,7 +105,7 @@ const BUCStart = (props) => {
       actions.setMode('newsed')
       setHasBucInfoSaved(false)
     }
-  }, [actions, loading, hasBucInfoSaved])
+  }, [actions, loading, buc, hasBucInfoSaved])
 
   const onSakIdChange = (e) => {
     resetValidationState('sakId')

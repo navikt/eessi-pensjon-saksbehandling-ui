@@ -59,7 +59,7 @@ const BUCList = (props) => {
       })
       setMounted(true)
     }
-  }, [institutionList, bucs, mounted])
+  }, [institutionList, bucs, mounted, actions])
 
   const getBucs = () => {
     actions.fetchBucs(aktoerId)
@@ -120,9 +120,9 @@ const BUCList = (props) => {
         <SEDBody t={t} seds={seds[bucId] || []} rinaUrl={rinaUrl} locale={locale} buc={buc} />
       </EkspanderbartpanelBase>
     }) : null}
-    {(!sakId || !aktoerId) || (_.isArray(bucs) && _.isEmpty(bucs)) ?
-      <BUCEmpty actions={actions} onBUCNew={onBUCNew} t={t} sakId={sakId}
-      aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> : null}
+    {(!sakId || !aktoerId) || (_.isArray(bucs) && _.isEmpty(bucs))
+      ? <BUCEmpty actions={actions} onBUCNew={onBUCNew} t={t} sakId={sakId}
+        aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> : null}
   </React.Fragment>
 }
 
