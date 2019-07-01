@@ -82,7 +82,7 @@ const BUCHeader = (props) => {
         </div>  : null}
     </div>
     <div className='col-3 a-buc-c-bucheader__actions'>
-      <LenkepanelBase data-qa='BucHeader-LinkButton' onClick={(e) => onBUChandle(buc, e)} className='a-buc-c-bucheader__button smallerButton knapp' href={'#' + buc.type} border>{t('ui:processing')}</LenkepanelBase>
+      <LenkepanelBase data-qa='BucHeader-LinkButton' onClick={(e) => onBUChandle(buc, e)} className='a-buc-c-bucheader__button smallerButton knapp mr-5' href={'#' + buc.type} border>{t('ui:processing')}</LenkepanelBase>
     </div>
   </div>
 }
