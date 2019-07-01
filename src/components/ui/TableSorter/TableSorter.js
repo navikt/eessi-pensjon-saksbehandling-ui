@@ -28,12 +28,16 @@ const TableSorter = (props) => {
 
   const rows = () => {
     const filteredItems = _.filter(items, (item) => {
-      return _.every(columnNames, (c) => {
-        if (_columns[c].filterText) {
-          return item[c].match(_columns[c].filterText) ? item[c] : null
-        } else {
-          return item[c]
-        }
+      return _.every(columnNames, (column) => {
+        const filterText =  _columns[column].filterText
+        switch (column) {
+          case 'varianter':
+            return filterText ? item[column].find(it => it.match(filterText)) : true
+          case 'date':
+            return filterText ? item[column].toLocaleDateString().match(filterText) : true
+          default:
+            return filterText ? item[column].match(filterText) : true
+          }
       })
     })
 
@@ -51,25 +55,25 @@ const TableSorter = (props) => {
         style={{ background: background }}>
         { columnNames.map((column, index) => {
           const value = item[column]
-          const key = column + '-' + index
+          const key = item.id + '-' + column + '-' + index
           switch (column) {
             case 'name':
             case 'tema':
               return <td key={key}>{value}</td>
             case 'date':
               return <td key={key}>{value.toLocaleDateString()}</td>
-            case 'variant':
+            case 'varianter':
               return <td key={key}>
                 {value.map(variant => {
-                  return <div className='d-flex'>
+                  return <div key={variant} className='d-flex'>
                     <Checkbox
                       className='c-ui-tablesorter__checkbox'
-                      onChange={(e) => onSelectedItemChange(item, e.target.checked, variant)}
-                      checked={item.selected && item.variant === variant} />
-                    <a key={variant} href='#' onClick={(e) => {
+                      onChange={(e) => onSelectedItemChange(item, e.target.checked, variant.label)}
+                      checked={variant.selected} />
+                    <a href='#' onClick={(e) => {
                       e.preventDefault()
-                      onItemClicked(item, variant)
-                    }}>{variant}</a>
+                      onItemClicked(item, variant.label)
+                    }}>{variant.label}</a>
                   </div>
                 })}
               </td>
@@ -122,23 +126,27 @@ const TableSorter = (props) => {
   }
 
   return <div className='c-ui-tablesorter'>
-    {loadingJoarkFile ? <NavFrontendSpinner type='XS' /> : null}
-    <table cellSpacing='0' className='c-ui-tablesorter__table'>
-      <thead>
-        <tr>{ header() }</tr>
-        <tr>{ filterInputs() }</tr>
-      </thead>
-      <tbody>{ rows() }</tbody>
-    </table>
-    <div className='c-ui-tablesorter__preview'>
-      {loadingJoarkPreviewFile ? <div>
-        <NavFrontendSpinner type='XS' />
-        <span className='pl-2'>{t('ui:loading')}</span>
+    <div className='c-ui-tablesorter__status'>
+      {loadingJoarkFile ? <NavFrontendSpinner type='XS' /> : null}
+    </div>
+    <div className='c-ui-tablesorter__content'>
+      <table cellSpacing='0' className='c-ui-tablesorter__table'>
+        <thead>
+          <tr>{ header() }</tr>
+          <tr>{ filterInputs() }</tr>
+        </thead>
+        <tbody>{ rows() }</tbody>
+      </table>
+      <div className='c-ui-tablesorter__preview'>
+        {loadingJoarkPreviewFile ? <div>
+          <NavFrontendSpinner type='XS' />
+          <span className='pl-2'>{t('ui:loading')}</span>
+        </div>
+          : previewFile ? <File file={previewFile} addLink animate previewLink
+            width={141.4} height={200} scale={1.0}
+            onPreviewDocument={onPreviewFile}
+            onClick={onPreviewFile} /> : null}
       </div>
-        : previewFile ? <File file={previewFile} addLink animate previewLink
-          width={141.4} height={200} scale={1.0}
-          onPreviewDocument={onPreviewFile}
-          onClick={onPreviewFile} /> : null}
     </div>
   </div>
 }

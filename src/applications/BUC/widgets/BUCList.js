@@ -120,7 +120,8 @@ const BUCList = (props) => {
         <SEDBody t={t} seds={seds[bucId] || []} rinaUrl={rinaUrl} locale={locale} buc={buc} />
       </EkspanderbartpanelBase>
     }) : null}
-    {_.isArray(bucs) && _.isEmpty(bucs) ? <BUCEmpty actions={actions} onBUCNew={onBUCNew} t={t} sakId={sakId}
+    {(!sakId || !aktoerId) || (_.isArray(bucs) && _.isEmpty(bucs)) ?
+      <BUCEmpty actions={actions} onBUCNew={onBUCNew} t={t} sakId={sakId}
       aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> : null}
   </React.Fragment>
 }

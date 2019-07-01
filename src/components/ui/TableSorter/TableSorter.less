@@ -1,7 +1,16 @@
 .c-ui-tablesorter {
 
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+
+  &__content {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__status {
+    min-height: 30px;
+  }
 
   .checkbox {
     width: 70px;
@@ -36,7 +45,6 @@
   }
 
   &__table {
-
     width: 100%;
 
     thead {
@@ -81,6 +89,7 @@
       }
     }
   }
+
   &__preview {
      margin-left: 1rem;
      min-width: 141.4px;

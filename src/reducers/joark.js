@@ -24,7 +24,7 @@ const joarkReducer = (state = initialJoarkState, action = {}) => {
             dokumentInfoId: doc.dokumentInfoId,
             datoOpprettet: post.datoOpprettet,
             datoRegistrert: registeredDate ? new Date(Date.parse(registeredDate.dato)) : undefined,
-            varianter: doc.dokumentvarianter.map(variant => { return variant.variantformat })
+            varianter: doc.dokumentvarianter.map(variant => variant.variantformat)
           })
         })
       })

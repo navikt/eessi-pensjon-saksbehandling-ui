@@ -43,7 +43,8 @@ const JoarkBrowser = (props) => {
   }, [mounted, list, loadingJoarkList, actions, aktoerId])
 
   useEffect(() => {
-    if (file && (!_file || _file.content.base64 !== file.content.base64)) {
+    if (file && (!_file ||
+      (_file.dokumentInfoId !== file.dokumentInfoId || _file.content.base64 !== file.content.base64))) {
       setFile(file)
       let newFiles = _.cloneDeep(_files)
       newFiles.push(file)
@@ -101,9 +102,16 @@ const JoarkBrowser = (props) => {
       name: file.tittel,
       tema: file.tema,
       date: file.datoRegistrert,
-      variant: file.variant,
-      focused: _previewFile ? _previewFile.journalpostId === file.journalpostId : false,
-      selected: _.find(files, { dokumentInfoId: file.dokumentInfoId }) !== undefined
+      varianter: file.varianter.map(variant => {
+        return {
+          label: variant,
+          selected: _.find(files, {
+            dokumentInfoId: file.dokumentInfoId,
+            variant: variant
+          }) !== undefined
+        }
+      }),
+      focused: _previewFile ? _previewFile.journalpostId === file.journalpostId : false
     }
   }) : []
 
@@ -127,7 +135,7 @@ const JoarkBrowser = (props) => {
         name: { name: t('ui:title'), filterText: '', defaultSortOrder: 'desc' },
         tema: { name: t('ui:tema'), filterText: '', defaultSortOrder: 'desc' },
         date: { name: t('ui:date'), filterText: '', defaultSortOrder: 'desc' },
-        variant: { name: t('ui:variant'), filterText: '', defaultSortOrder: 'desc' }
+        varianter: { name: t('ui:variant'), filterText: '', defaultSortOrder: 'desc' }
       }}
       onItemClicked={onItemClicked}
       onSelectedItemChange={onSelectedItemChange}

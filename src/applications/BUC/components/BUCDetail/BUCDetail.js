@@ -84,7 +84,7 @@ const BUCDetail = (props) => {
       </dl>
       <Undertittel
         id='a-buc-c-bucdetail__institutions-id'
-        className='mb-2'>
+        className='-buc-c-bucdetail__institutions mb-2'>
         {t('buc:form-involvedInstitutions')}:
       </Undertittel>
       <InstitutionList t={t} institutions={buc.institusjon} locale={locale} type='joined' />

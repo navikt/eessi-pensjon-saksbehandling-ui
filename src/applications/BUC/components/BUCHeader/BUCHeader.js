@@ -10,12 +10,10 @@ import './BUCHeader.css'
 const BUCHeader = (props) => {
   const { buc, bucInfo, locale, onBUCEdit, style, t } = props
 
-  const requestHandleBUC = (buc, e) => {
+  const onBUChandle = (buc, e) => {
     e.preventDefault()
     e.stopPropagation()
-    if (typeof onBUCEdit === 'function') {
-      onBUCEdit(buc)
-    }
+    onBUCEdit(buc)
   }
 
   let institutionList = {}
@@ -29,25 +27,24 @@ const BUCHeader = (props) => {
     })
   }
 
-  const numberOfSeds = buc.seds ? buc.seds.filter(sed => {
-    return sed.status !== 'empty'
-  }).length : 0
+  const numberOfSeds = buc.seds ? buc.seds.filter(sed => sed.status !== 'empty').length : 0
 
   return <div
     id={'a-buc-c-bucheader__' + buc.type}
     className='a-buc-c-bucheader'
-    style={style}
-  >
+    style={style}>
     <div
       id='a-buc-c-bucheader__label-id'
       className='a-buc-c-bucheader__label col-4'>
-      <Undertittel data-qa='BucHeader-type-name'>{buc.type + ' - ' + t('buc:buc-' + buc.type)}</Undertittel>
-      <Normaltekst style={{ color: 'grey' }} data-qa='BucHeader-type-dates'>
+      <Undertittel className='a-buc-c-bucheader__title'>
+        {buc.type + ' - ' + t('buc:buc-' + buc.type)}
+      </Undertittel>
+      <Normaltekst className='a-buc-c-bucheader__description' style={{ color: 'grey' }}>
         {new Date(buc.startDate).toLocaleDateString() + ' - ' + new Date(buc.lastUpdate).toLocaleDateString()}
       </Normaltekst>
     </div>
     <div className='a-buc-c-bucheader__flags col-2'>
-      <FlagList data-qa='BucHeader-FlagList'
+      <FlagList
         locale={locale}
         size='L'
         items={Object.keys(institutionList).map(landkode => {
@@ -66,7 +63,7 @@ const BUCHeader = (props) => {
         </div> : null}
     </div>
     <div className='col-3 a-buc-c-bucheader__actions'>
-      <LenkepanelBase data-qa='BucHeader-LinkButton' onClick={(e) => requestHandleBUC(buc, e)} className='a-buc-c-bucheader__button smallerButton knapp' href={'#' + buc.type} border>{t('ui:processing')}</LenkepanelBase>
+      <LenkepanelBase data-qa='BucHeader-LinkButton' onClick={(e) => onBUChandle(buc, e)} className='a-buc-c-bucheader__button smallerButton knapp' href={'#' + buc.type} border>{t('ui:processing')}</LenkepanelBase>
     </div>
   </div>
 }
@@ -75,7 +72,7 @@ BUCHeader.propTypes = {
   buc: PT.object.isRequired,
   bucInfo: PT.object,
   locale: PT.string.isRequired,
-  onBUCEdit: PT.func,
+  onBUCEdit: PT.func.isRequired,
   style: PT.object,
   t: PT.func.isRequired
 }
