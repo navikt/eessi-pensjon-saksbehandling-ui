@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import * as Nav from 'components/ui/Nav'
+import { Knapp, Row } from 'components/ui/Nav'
 import SEDRow from '../components/SEDRow/SEDRow'
 import SEDSearch from '../components/SEDSearch/SEDSearch'
 import BUCDetail from '../components/BUCDetail/BUCDetail'
@@ -9,6 +9,7 @@ import BUCTools from '../components/BUCTools/BUCTools'
 import SEDTools from '../components/SEDTools/SEDTools'
 import UserTools from '../components/User/UserTools'
 import SEDStatusSelect from 'applications/BUC/components/SEDStatusSelect/SEDStatusSelect'
+import countries from 'components/ui/CountrySelect/CountrySelectData'
 import { connect, bindActionCreators } from 'store'
 import * as bucActions from 'actions/buc'
 import './BUCEdit.css'
@@ -16,7 +17,8 @@ import { getDisplayName } from 'utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
-    statusFilter: state.buc.statusFilter
+    statusFilter: state.buc.statusFilter,
+    institutionNames: state.buc.institutionNames
   }
 }
 
@@ -27,7 +29,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const BUCEdit = (props) => {
-  const { t, buc, bucsInfo, actions, rinaUrl, locale, seds, statusFilter } = props
+  const { t, buc, bucsInfo, actions, rinaUrl, locale, seds, statusFilter, institutionNames } = props
   const [ search, setSearch ] = useState(undefined)
   const [ countrySearch, setCountrySearch ] = useState(undefined)
   const [ statusSearch, setStatusSearch ] = useState(undefined)
@@ -55,8 +57,19 @@ const BUCEdit = (props) => {
   const sedFilter = (sed) => {
     let match = true
     if (match && search) {
+      let _search = search.toLowerCase()
       match = sed.type.match(search) || _.find(sed.participants, (it) => {
-        return it.organisation.id.match(search)
+        const organizationId = it.organisation.id.toLowerCase()
+        const organizationName = institutionNames[organizationId].toLowerCase()
+        const countryCode = it.organisation.countryCode.toLowerCase()
+        const countryName = _.find(countries[locale], {value: countryCode}).toLowerCase()
+        const creationDate = new Date(sed.creationDate).toLocaleDateString()
+        const lastUpdate = new Date(sed.lastUpdate).toLocaleDateString()
+        const status = t('ui:' + sed.status).toLowerCase()
+
+        return organizationId.match(_search) || organizationName.match(_search) || countryCode.match(_search)
+        || (countryName ? countryName.label.match(_search) : true) || creationDate.match(_search)
+        || lastUpdate.match(_search) || status.match(_search)
       })
     }
     if (match && countrySearch) {
@@ -99,13 +112,10 @@ const BUCEdit = (props) => {
 
   return <div className='a-buc-bucedit'>
     <div className='a-buc-buclist__buttons mb-2'>
-      <SEDStatusSelect t={t} />
-      <div>
-        <Nav.Knapp onClick={onSEDNew}>{t('buc:form-orderNewSED')}</Nav.Knapp>
-        <Nav.Knapp className='ml-2' onClick={onBUCList}>{t('buc:form-backToList')}</Nav.Knapp>
-      </div>
+     <Knapp onClick={onBUCList}>{t('ui:back')}</Knapp>
+     <Knapp onClick={onSEDNew}>{t('buc:form-orderNewSED')}</Knapp>
     </div>
-    <Nav.Row style={{ marginLeft: '-15px', marginRight: '-15px' }}>
+    <Row style={{ marginLeft: '-15px', marginRight: '-15px' }}>
       <div className='col-8'>
         <SEDSearch className='mb-2' t={t} locale={locale} value={search} seds={seds}
           onSearch={onSearch} onCountrySearch={onCountrySearch} onStatusSearch={onStatusSearch} />
@@ -117,7 +127,7 @@ const BUCEdit = (props) => {
         <SEDTools className='mb-3' t={t} />
         <UserTools className='mb-3' t={t} />
       </div>
-    </Nav.Row>
+    </Row>
   </div>
 }
 

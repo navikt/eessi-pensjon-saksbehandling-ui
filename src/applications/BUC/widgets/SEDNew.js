@@ -12,8 +12,7 @@ const SEDNew = (props) => {
 
   return <React.Fragment>
     <div className='a-buc-buclist__buttons mb-2'>
-      <div />
-      <Hovedknapp onClick={onBUCList}>{t('buc:form-backToList')}</Hovedknapp>
+      <Hovedknapp onClick={onBUCList}>{t('ui:back')}</Hovedknapp>
     </div>
     <Panel>
       <Systemtittel>{t('buc:step-startSEDTitle', { buc: buc.type })}</Systemtittel>
