@@ -35,7 +35,6 @@ function PersonHeader (props) {
 PersonHeader.propTypes = {
   t: PT.func.isRequired,
   person: PT.object,
-  country: PT.object,
   aktoerId: PT.string,
   gettingPersonInfo: PT.bool
 }
