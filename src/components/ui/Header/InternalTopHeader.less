@@ -1,8 +1,9 @@
 @import '../../../constants';
+@import (reference) '~nav-frontend-core/less/_variabler';
 
 .c-ui-topHeader {
 
-    background-color: @pension-orange;
+    background-color: @navMorkGra;
     display: flex;
     flex-direction: row;
     height: 4rem;
@@ -30,7 +31,7 @@
       }
 
       .tittel {
-        color: black;
+        color: white;
         display: flex;
         font-size: 13pt;
         padding-left: 15px;
@@ -89,6 +90,10 @@
         padding: 0.3em;
       }
     }
+
+  .skjemaelement__input {
+    color: white;
+  }
 }
 
 .highContrast .c-ui-topHeader {
