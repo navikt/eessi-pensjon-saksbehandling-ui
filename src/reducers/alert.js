@@ -49,7 +49,7 @@ const alertReducer = (state = initialAlertState, action = {}) => {
 
     return Object.assign({}, state, {
       serverErrorMessage: serverErrorMessage,
-      uuid: action.payload.uuid
+      uuid: action.error.uuid
     })
   }
 
@@ -116,6 +116,11 @@ const alertReducer = (state = initialAlertState, action = {}) => {
         clientErrorMessage = 'buc:alert-createSedFailure'
         break
 
+      case types.BUC_SED_ATTACHMENT_FAILURE:
+
+        clientErrorMessage = 'buc:alert-createAttachmentFailure'
+        break
+
       case types.BUC_SAVE_BUCSINFO_FAILURE:
 
         clientErrorMessage = 'buc:alert-saveBucsInfoFailure'
@@ -123,17 +128,17 @@ const alertReducer = (state = initialAlertState, action = {}) => {
 
       case types.JOARK_LIST_FAILURE:
 
-        clientErrorMessage = 'buc:alert-joarkListFailure|' + action.payload.error
+        clientErrorMessage = 'buc:alert-joarkListFailure|' + action.error
         break
 
       case types.JOARK_PREVIEW_FAILURE:
 
-        clientErrorMessage = 'buc:alert-joarkPreviewFailure|' + action.payload.error
+        clientErrorMessage = 'buc:alert-joarkPreviewFailure|' + action.error
         break
 
       case types.JOARK_GET_FAILURE:
 
-        clientErrorMessage = 'buc:alert-joarkGetFailure|' + action.payload.error
+        clientErrorMessage = 'buc:alert-joarkGetFailure|' + action.error
         break
 
       case types.PDF_GENERATE_FAILURE:
@@ -143,7 +148,7 @@ const alertReducer = (state = initialAlertState, action = {}) => {
 
       case types.P4000_OPEN_FAILURE:
 
-        clientErrorMessage = 'p4000:alert-openP4000error|' + action.payload.error
+        clientErrorMessage = 'p4000:alert-openP4000error|' + action.error
         break
 
       case types.P4000_SUBMIT_FAILURE:
@@ -192,7 +197,7 @@ const alertReducer = (state = initialAlertState, action = {}) => {
 
     case types.BUC_CREATE_SED_SUCCESS:
 
-      clientErrorMessage = 'buc:alert-createdSed|' + action.payload.type
+      clientErrorMessage = 'buc:alert-createdSed|' + action.payload.type || action.payload.sed
       break
 
     case types.PDF_GENERATE_SUCCESS:

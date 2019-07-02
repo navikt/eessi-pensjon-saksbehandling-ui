@@ -9,6 +9,7 @@
   "alert-caseFound"         : "Saken funnet",
   "alert-createBucFailure"  : "Feil til å oprrette BUC",
   "alert-createSedFailure"  : "Feil til å oprrette SED",
+  "alert-createAttachmentFailure" : "Feil til å sende SED vedlegg",
   "alert-morePreviewData"   : "Generert sak",
   "alert-savedData"         : "Lagret sak",
   "alert-createdSed"        : "Opprettet ny SED",
@@ -132,6 +133,7 @@
   "loading-creatingCaseinRINA" : "Oppretter sak i RINA...",
   "loading-creatingSED"   : "Oppretter ny SED...",
   "loading-savingBucInfo" : "Lagring BUC info...",
+  "loading-sendingSEDattachments" : "Sender SED vedlegg...",
 
   "tag-urgent"    : "Urgent",
   "tag-vip"       : "VIP",

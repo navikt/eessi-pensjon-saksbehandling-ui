@@ -2,13 +2,17 @@ import * as types from '../constants/actionTypes'
 import _ from 'lodash'
 
 export const initialBucState = {
-  mode: 'list',
+  attachments: undefined,
+  buc: undefined,
   bucs: undefined,
   bucsInfoList: undefined,
   bucsInfo: undefined,
+  sed: undefined,
+  seds: undefined,
   statusFilter: ['inbox'],
   institutionList: undefined,
-  institutionNames: {}
+  institutionNames: {},
+  mode: 'list'
 }
 
 const bucReducer = (state = initialBucState, action) => {
@@ -55,7 +59,8 @@ const bucReducer = (state = initialBucState, action) => {
         ...state,
         buc: undefined,
         seds: undefined,
-        sed: undefined
+        sed: undefined,
+        attachments: undefined
       }
 
     case types.BUC_GET_BUCS_SUCCESS:
@@ -182,7 +187,8 @@ const bucReducer = (state = initialBucState, action) => {
         ...state,
         buc: action.payload,
         seds: [],
-        sed: undefined
+        sed: undefined,
+        attachments: undefined
       }
 
     case types.BUC_SAVE_BUCSINFO_SUCCESS:
@@ -258,6 +264,19 @@ const bucReducer = (state = initialBucState, action) => {
       return {
         ...state,
         sed: action.payload
+      }
+
+    case types.BUC_SED_ATTACHMENT_SUCCESS:
+
+      let existingAttachments = state.attachments ? _.cloneDeep(state.attachments) : []
+      let newAttachment = action.payload
+      let found = _.find(existingAttachments, {dokumentInfoId: newAttachment.dokumentInfoId})
+      if (!found) {
+        existingAttachments.push(newAttachment)
+      }
+      return {
+        ...state,
+        attachments: existingAttachments
       }
 
     default:

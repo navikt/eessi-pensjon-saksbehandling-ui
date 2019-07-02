@@ -76,22 +76,33 @@ const JoarkBrowser = (props) => {
 
   const onSelectedItemChange = (item, checked, variant) => {
     let newFiles = _.cloneDeep(_files)
-    if (!checked) {
-      if (_.find(newFiles, {
-        dokumentInfoId: item.raw.dokumentInfoId,
+    const found = _.find(newFiles, {
+      dokumentInfoId: item.raw.dokumentInfoId,
+      variant: variant
+    })
+    let changed = false
+
+    if (!checked && found) {
+      newFiles = _.reject(newFiles, {
+        journalpostId: item.raw.journalpostId,
         variant: variant
-      })) {
-        newFiles = _.reject(newFiles, {
-          journalpostId: item.raw.journalpostId,
-          variant: variant
-        })
-        setFiles(newFiles)
-        if (onFilesChange) {
-          onFilesChange(newFiles)
-        }
+      })
+      changed = true
+    }
+
+    if (checked && !found) {
+      newFiles.push({
+        ...item.raw,
+        variant: variant
+      })
+      changed = true
+    }
+
+    if (changed) {
+      setFiles(newFiles)
+      if (onFilesChange) {
+        onFilesChange(newFiles)
       }
-    } else {
-      actions.getJoarkFile(item.raw, variant)
     }
   }
 
@@ -114,6 +125,10 @@ const JoarkBrowser = (props) => {
       focused: _previewFile ? _previewFile.journalpostId === file.journalpostId : false
     }
   }) : []
+
+  if (!mounted) {
+    return null
+  }
 
   if (loadingJoarkList) {
     return <div>
@@ -156,7 +171,5 @@ JoarkBrowser.propTypes = {
 }
 
 const ConnectedJoarkbrowser = connect(mapStateToProps, mapDispatchToProps)(withTranslation()(JoarkBrowser))
-
 ConnectedJoarkbrowser.displayName = `Connect(${getDisplayName(withTranslation()(JoarkBrowser))})`
-
 export default ConnectedJoarkbrowser

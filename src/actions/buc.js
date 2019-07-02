@@ -176,8 +176,10 @@ export const saveBucsInfo = (params) => {
 }
 
 export const getCountryList = () => {
-  return api.call({
+  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
+  return funcCall({
     url: urls.EUX_COUNTRY_URL,
+    expectedPayload: ['XX'],
     type: {
       request: types.BUC_GET_COUNTRY_LIST_REQUEST,
       success: types.BUC_GET_COUNTRY_LIST_SUCCESS,
@@ -201,12 +203,24 @@ export const getSedList = (buc, rinaId) => {
 }
 
 export const getInstitutionsListForBucAndCountry = (buc, country) => {
-  return api.call({
+  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
+  return funcCall({
     url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: buc, country: country }),
     context: {
       buc: buc,
       country: country
     },
+    expectedPayload: [{
+      'id':'XX:001',
+      'navn':'Demo institution 001',
+      'akronym':'001',
+      'landkode':'XX'
+    },{
+      'id':'XX:002',
+      'navn':'Demo institution 002',
+      'akronym':'002',
+       'landkode':'XX'
+    }],
     type: {
       request: types.BUC_GET_INSTITUTION_LIST_REQUEST,
       success: types.BUC_GET_INSTITUTION_LIST_SUCCESS,
@@ -220,12 +234,31 @@ export const createSed = (payload) => {
   return funcCall({
     url: urls.BUC_CREATE_SED_URL,
     payload: payload,
-    expectedPayload: { ...payload, success: true },
+    expectedPayload: {
+      ...payload,
+      id: '123456789'
+    },
     method: 'POST',
     type: {
       request: types.BUC_CREATE_SED_REQUEST,
       success: types.BUC_CREATE_SED_SUCCESS,
       failure: types.BUC_CREATE_SED_FAILURE
+    }
+  })
+}
+
+export const sendAttachmentToSed = (params) => {
+  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
+  return funcCall({
+    url: sprintf(urls.BUC_SED_ATTACHMENT_URL, params),
+    method: 'PUT',
+    expectedPayload: {
+      success: true
+    },
+    type: {
+      request: types.BUC_SED_ATTACHMENT_REQUEST,
+      success: types.BUC_SED_ATTACHMENT_SUCCESS,
+      failure: types.BUC_SED_ATTACHMENT_FAILURE
     }
   })
 }

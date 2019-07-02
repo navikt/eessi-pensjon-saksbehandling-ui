@@ -10,6 +10,7 @@ const TableSorter = (props) => {
   const { t, actions, sort, columns, items, onItemClicked, loadingJoarkFile, loadingJoarkPreviewFile, previewFile, onSelectedItemChange } = props
   const [ _sort, setSort ] = useState(sort || { column: '', order: '' })
   const [ _columns, setColumns ] = useState(columns)
+  const [ seeFilters, setSeeFilters ] = useState(false)
 
   var columnNames = Object.keys(_columns)
 
@@ -51,22 +52,22 @@ const TableSorter = (props) => {
       if (item.focused) background = 'lightsteelblue'
 
       return <tr
-        key={item.id}
+        key={index}
         style={{ background: background }}>
-        { columnNames.map((column, index) => {
+        { columnNames.map((column, index2) => {
           const value = item[column]
-          const key = item.id + '-' + column + '-' + index
           switch (column) {
             case 'name':
             case 'tema':
-              return <td key={key}>{value}</td>
+              return <td key={index2}>{value}</td>
             case 'date':
-              return <td key={key}>{value ? value.toLocaleDateString() : t('ui:unknown')}</td>
+              return <td key={index2}>{value ? value.toLocaleDateString() : t('ui:unknown')}</td>
             case 'varianter':
-              return <td key={key}>
+              return <td key={index2}>
                 {value.map(variant => {
-                  return <div key={variant} className='d-flex'>
+                  return <div key={variant.label} className='d-flex'>
                     <Checkbox
+                      label=''
                       className='c-ui-tablesorter__checkbox'
                       onChange={(e) => onSelectedItemChange(item, e.target.checked, variant.label)}
                       checked={variant.selected} />
@@ -127,13 +128,14 @@ const TableSorter = (props) => {
 
   return <div className='c-ui-tablesorter'>
     <div className='c-ui-tablesorter__status'>
+      <Checkbox label='' checked={seeFilters} onChange={() => setSeeFilters(!seeFilters)}/>
       {loadingJoarkFile ? <NavFrontendSpinner type='XS' /> : null}
     </div>
     <div className='c-ui-tablesorter__content'>
       <table cellSpacing='0' className='c-ui-tablesorter__table'>
         <thead>
           <tr>{ header() }</tr>
-          <tr>{ filterInputs() }</tr>
+          {seeFilters ? <tr>{ filterInputs() }</tr> : null}
         </thead>
         <tbody>{ rows() }</tbody>
       </table>
