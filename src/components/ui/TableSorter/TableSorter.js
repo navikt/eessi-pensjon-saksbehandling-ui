@@ -61,7 +61,7 @@ const TableSorter = (props) => {
             case 'tema':
               return <td key={key}>{value}</td>
             case 'date':
-              return <td key={key}>{value.toLocaleDateString()}</td>
+              return <td key={key}>{value ? value.toLocaleDateString() : t('ui:unknown')}</td>
             case 'varianter':
               return <td key={key}>
                 {value.map(variant => {
