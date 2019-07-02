@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import { connect, bindActionCreators } from 'store'
 
-import * as Nav from 'components/ui/Nav'
+import { Flatknapp, Hovedknapp, NavFrontendSpinner, Row, Select, Undertittel } from 'components/ui/Nav'
 import CountryData from 'components/ui/CountryData/CountryData'
 import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
 import SEDAttachments from '../SEDAttachments/SEDAttachments'
@@ -14,13 +14,14 @@ import { getDisplayName } from 'utils/displayName'
 
 export const mapStateToProps = (state) => {
   return {
+    attachments: state.buc.attachments,
     buc: state.buc.buc,
-    sedList: state.buc.sedList,
-    sed: state.buc.sed,
     countryList: state.buc.countryList,
     institutionList: state.buc.institutionList,
     loading: state.loading,
-    locale: state.ui.locale
+    locale: state.ui.locale,
+    sed: state.buc.sed,
+    sedList: state.buc.sedList
   }
 }
 
@@ -35,52 +36,98 @@ const placeholders = {
 }
 
 const SEDStart = (props) => {
-  const [_sed, setSed] = useState(undefined)
-  const [_countries, setCountries] = useState([])
-  const [_institutions, setInstitutions] = useState([])
-  const [_attachments, setAttachments] = useState({})
-  const [validation, setValidation] = useState({})
+  const [ _sed, setSed ] = useState(undefined)
+  const [ _countries, setCountries ] = useState([])
+  const [ _institutions, setInstitutions ] = useState([])
+  const [ _attachments, setAttachments ] = useState({})
+  const [ validation, setValidation ] = useState({})
+  const [ sedSent, setSedSent ] = useState(false)
+  const [ sendingAttachments, setSendingAttachments ] = useState(false)
+  const [ attachmentsSent, setAttachmentsSent ] = useState(false)
 
-  const { t, sakId, actions, sedList, countryList, institutionList, aktoerId, buc, sed, locale, loading, layout = 'row' } = props
+  const { actions, aktoerId, attachments, buc, countryList, institutionList } = props
+  const { layout = 'row', loading, locale, sakId, sed, sedList, t } = props
 
   useEffect(() => {
     if (_.isEmpty(countryList) && !loading.gettingCountryList) {
       actions.getCountryList()
     }
+  }, [actions, countryList, loading])
+
+  useEffect(() => {
     if (_.isEmpty(sedList) && !loading.gettingSedList) {
       actions.getSedList(buc)
     }
-  }, [actions, loading, countryList, sedList, buc])
+  }, [actions, loading, sedList, buc])
 
-  // when sed is successfully created
   useEffect(() => {
-    if (sed) {
+    if (sed && !sedSent) {
+      setSedSent(true)
+    }
+  }, [sed, sedSent])
+
+  useEffect(() => {
+    if (sedSent && !attachmentsSent) {
+      if (!sendingAttachments) {
+        setSendingAttachments(true)
+        if (_.isEmpty(_attachments) || !_attachments.joark || _.isEmpty(_attachments.joark) ) {
+          setAttachmentsSent(true)
+          setSendingAttachments(false)
+          return
+        }
+        _attachments.joark.forEach(attachment => {
+          const params = {
+            aktoerId: aktoerId,
+            rinaId : buc.caseId,
+            rinaDokumentId: sed.id,
+            joarkJournalpostId: attachment.journalpostId,
+            joarkDokumentInfoId: attachment.dokumentInfoId,
+            variantFormat: attachment.variant,
+          }
+          console.log('sending ', params)
+          actions.sendAttachmentToSed(params)
+        })
+        return
+      }
+      if (attachments && _attachments.joark.length === attachments.length) {
+        setAttachmentsSent(true)
+        setSendingAttachments(false)
+        return
+      }
+    }
+  }, [_attachments, actions, aktoerId, attachments, attachmentsSent, buc, sed, sedSent, sendingAttachments])
+
+  useEffect(() => {
+    if (sedSent && attachmentsSent) {
       actions.resetBuc()
       actions.fetchBucs(aktoerId)
       actions.fetchBucsInfo(aktoerId + '___BUC___INFO')
       actions.setMode('list')
     }
-  }, [sed, aktoerId, actions])
+  }, [attachmentsSent, aktoerId, actions, sedSent])
+
+  const convertInstitutionIDsToInstitutionObjects = () => {
+    let institutions = []
+    _institutions.forEach(item => {
+      Object.keys(institutionList).forEach(landkode => {
+        let found = _.find(institutionList[landkode], { id: item })
+        if (found) {
+          institutions.push({
+            country: found.landkode,
+            institution: found.id,
+            name: found.navn
+          })
+        }
+      })
+    })
+    return institutions
+  }
 
   const onForwardButtonClick = () => {
     validateSed(_sed)
     validateInstitutions(_institutions)
     if (hasNoValidationErrors()) {
-      // convert institution ids to proper institution objects
-      let institutions = []
-      _institutions.forEach(item => {
-        Object.keys(institutionList).forEach(landkode => {
-          let found = _.find(institutionList[landkode], { id: item })
-          if (found) {
-            institutions.push({
-              country: found.landkode,
-              institution: found.id,
-              name: found.navn
-            })
-          }
-        })
-      })
-
+      const institutions = convertInstitutionIDsToInstitutionObjects()
       actions.createSed({
         sakId: sakId,
         buc: buc.type,
@@ -214,9 +261,9 @@ const SEDStart = (props) => {
     return label
   }
 
-  const countryObjectList = countryList ? CountryData.filterByValueOnArray(countryList) : []
+  const countryObjectList = countryList ? CountryData.filterByValueOnArray(locale, countryList) : []
 
-  const countryValueList = _countries ? CountryData.filterByValueOnArray(_countries) : []
+  const countryValueList = _countries ? CountryData.filterByValueOnArray(locale, _countries) : []
 
   const renderCountry = () => {
     return <div className='mb-3 flex-fill'>
@@ -281,7 +328,7 @@ const SEDStart = (props) => {
   }
 
   const renderSed = () => {
-    return <Nav.Select
+    return <Select
       className='a-buc-c-sedstart__sed-select flex-fill'
       id='a-buc-c-sedstart__sed-select-id'
       placeholder={t(placeholders.institution)}
@@ -292,19 +339,19 @@ const SEDStart = (props) => {
       value={_sed || placeholders.buc}
       onChange={onSedChange}>
       {renderOptions(sedList, 'sed')}
-    </Nav.Select>
+    </Select>
   }
 
   const getSpinner = (text) => {
     return <div className='a-buc-c-sedstart__spinner ml-2'>
-      <Nav.NavFrontendSpinner type='S' />
+      <NavFrontendSpinner type='S' />
       <div className='float-right ml-2'>{t(text)}</div>
     </div>
   }
 
   const renderInstitutions = () => {
     return <React.Fragment>
-      <Nav.Undertittel className='mb-2'>{t('buc:form-chosenInstitutions')}</Nav.Undertittel>
+      <Undertittel className='mb-2'>{t('buc:form-chosenInstitutions')}</Undertittel>
       <InstitutionList t={t} institutions={_institutions.map(item => {
         var [ country, institution ] = item.split(':')
         return {
@@ -321,20 +368,23 @@ const SEDStart = (props) => {
 
   const renderAttachments = () => {
     return <div className='mt-4'>
-      <Nav.Undertittel className='mb-2'>{t('ui:attachments')}</Nav.Undertittel>
+      <Undertittel className='mb-2'>{t('ui:attachments')}</Undertittel>
       {_attachments ? Object.keys(_attachments).map((key, index1) => {
         return _attachments[key].map((att, index2) => {
-          return <div key={index1 + '-' + index2}>{key}: {att.tittel || att.name}</div>
+          return <div key={index1 + '-' + index2}>
+            {t('ui:' + key)}: {att.tittel || att.name} ({att.variant})
+          </div>
         })
       }) : null}
     </div>
   }
 
   const allowedToForward = () => {
-    return _sed && hasNoValidationErrors() && !_.isEmpty(_institutions) && !loading.creatingSed
+    return _sed && hasNoValidationErrors() && !_.isEmpty(_institutions)
+     && !loading.creatingSed && !sendingAttachments
   }
 
-  return <Nav.Row className='a-buc-c-sedstart'>
+  return <Row className='a-buc-c-sedstart'>
     <div className={layout === 'row' ? 'col-md-4' : 'col-md-12'}>
       {renderSed()}
       {renderCountry()}
@@ -351,39 +401,40 @@ const SEDStart = (props) => {
       <SEDAttachments t={t} setFiles={setFiles} files={_attachments} />
     </div>
     <div className='col-md-12'>
-      <Nav.Hovedknapp
+      <Hovedknapp
         id='a-buc-c-sedstart__forward-button-id'
         className='a-buc-c-sedstart__forward-button'
         disabled={!allowedToForward()}
-        spinner={loading.creatingSed}
+        spinner={loading.creatingSed || sendingAttachments}
         onClick={onForwardButtonClick}>
-        {loading.creatingSed ? t('buc:loading-creatingSED') : t('buc:form-orderSED')}
-      </Nav.Hovedknapp>
-      <Nav.Flatknapp
+        {loading.creatingSed ? t('buc:loading-creatingSED') :
+          sendingAttachments ? t('buc:loading-sendingSEDattachments') :
+            t('buc:form-orderSED')}
+      </Hovedknapp>
+      <Flatknapp
         id='a-buc-c-sedstart__cancel-button-id'
         className='a-buc-c-sedstart__cancel-button'
-        onClick={onCancelButtonClick}>{t('ui:cancel')}</Nav.Flatknapp>
+        onClick={onCancelButtonClick}>{t('ui:cancel')}</Flatknapp>
     </div>
-  </Nav.Row>
+  </Row>
 }
 
 SEDStart.propTypes = {
-  actions: PT.object,
-  loading: PT.object,
-  t: PT.func,
-  institutionList: PT.object,
+  actions: PT.object.isRequired,
+  aktoerId: PT.string.isRequired,
+  attachments: PT.array,
+  buc: PT.object.isRequired,
   countryList: PT.array,
+  institutionList: PT.object,
+  layout: PT.string,
+  loading: PT.object.isRequired,
+  locale: PT.string.isRequired,
+  sakId: PT.string.isRequired,
+  sed: PT.object,
   sedList: PT.array,
-  buc: PT.object,
-  locale: PT.string,
-  layout: PT.string
+  t: PT.func.isRequired
 }
 
-const ConnectedSEDStart = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SEDStart)
-
+const ConnectedSEDStart = connect(mapStateToProps, mapDispatchToProps)(SEDStart)
 ConnectedSEDStart.displayName = `Connect(${getDisplayName(SEDStart)})`
-
 export default ConnectedSEDStart

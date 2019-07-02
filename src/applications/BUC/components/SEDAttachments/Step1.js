@@ -46,7 +46,7 @@ const Step1 = (props) => {
       {...props}
       files={getFiles('joark')}
       onFilesChange={handleJoarkFilesChange} />
-    <Undertittel className='mt-4 mb-3'>{t('buc:form-addAttachmentsFromFileUpload')}</Undertittel>
+    {/*<Undertittel className='mt-4 mb-3'>{t('buc:form-addAttachmentsFromFileUpload')}</Undertittel>
     <FileUpload t={t}
       fileUploadDroppableId={'SEDAttachments'}
       id={classNames('a-buc-c-sedattachments-fileupload-id', 'mb-3')}
@@ -61,7 +61,7 @@ const Step1 = (props) => {
       className='a-buc-c-sedattachmnents__edit-button'
       onClick={onEditButtonClick}>
       {t('ui:edit')}
-    </Hovedknapp>
+    </Hovedknapp> */}
   </div>
 }
 

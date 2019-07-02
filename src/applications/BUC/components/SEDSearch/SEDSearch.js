@@ -89,8 +89,8 @@ const SEDSearch = (props) => {
       id='a-buc-c-sedsearch__status-id'
       className='a-buc-c-sedsearch__status multipleSelect pl-1 pr-1'
       placeholder={t('buc:form-searchForStatus')}
-      locale={locale}SE
-      value={_status}
+      locale={locale}
+      values={_status}
       hideSelectedOptions={false}
       onChange={onStatusChange}
       optionList={availableStatuses} />
@@ -99,7 +99,7 @@ const SEDSearch = (props) => {
       className='a-buc-c-sedsearch__country multipleSelect pl-1 pr-1'
       placeholder={t('buc:form-searchForCountry')}
       locale={locale}
-      value={_country}
+      values={_country}
       hideSelectedOptions={false}
       onChange={onCountryChange}
       optionList={availableCountries} />

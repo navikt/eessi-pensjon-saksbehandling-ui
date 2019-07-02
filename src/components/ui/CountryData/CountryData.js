@@ -1274,7 +1274,14 @@ class CountryData {
         'label': 'Zimbabwe',
         'currencyLabel': 'Zimbabwe Dollar',
         'currency': 'ZWL'
-      }],
+      }, {
+        'value': 'XX',
+        'value3': 'XXX',
+        'label': 'Demoland',
+        'currencyLabel': 'Demokroner',
+        'currency': 'XXX'
+      }
+    ],
     'nb': [
       {
         'value': 'NO',
@@ -2774,6 +2781,12 @@ class CountryData {
         'label': 'Øst Timor',
         'currencyLabel': 'US Dollar',
         'currency': 'USD'
+      }, {
+        'value': 'XX',
+        'value3': 'XXX',
+        'label': 'Demoland',
+        'currencyLabel': 'Demokroner',
+        'currency': 'XXX'
       }]
   }
 

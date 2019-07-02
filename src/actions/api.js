@@ -12,7 +12,7 @@ export const fakecall = (options) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(options.expectedPayload)
-      }, 1000)
+      }, Math.floor(Math.random()*2000))
     }).then(payload => {
       console.log('FAKE API CALL FOR ' + options.url + ': SUCCESS')
       return dispatch({
@@ -66,7 +66,7 @@ export const call = (options) => {
       if (error.status === 401) {
         dispatch({
           type: types.SERVER_UNAUTHORIZED_ERROR,
-          payload: error.message,
+          error: error.message,
           originalPayload: body,
           context: options.context
         })
@@ -74,14 +74,15 @@ export const call = (options) => {
       if (error.status >= 500) {
         dispatch({
           type: types.SERVER_INTERNAL_ERROR,
-          payload: error.message,
+          error: error.message,
           originalPayload: body,
           context: options.context
         })
       }
       return dispatch({
         type: options.type.failure,
-        payload: error.message,
+        payload: error,
+        error: error.message,
         originalPayload: body,
         context: options.context
       })
