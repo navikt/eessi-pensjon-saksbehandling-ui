@@ -6,6 +6,8 @@ import classNames from 'classnames'
 const PersonBody = (props) => {
   const { t, person } = props
 
+  let fromDate; let toDate; let dateString = ''
+
   const renderEntity = (label, value) => {
     const isValue = value !== undefined && value !== null && value !== ''
     return <div>
@@ -17,6 +19,14 @@ const PersonBody = (props) => {
 
   if (_.isEmpty(person)) {
     return null
+  }
+  if (_.get(person, 'sivilstand.fomGyldighetsperiode')) {
+    fromDate = new Date(Date.parse(person.sivilstand.fomGyldighetsperiode)).toLocaleDateString()
+    dateString = fromDate + ' - '
+  }
+  if (_.get(person, 'sivilstand.tomGyldighetsperiode')) {
+    toDate = new Date(Date.parse(person.sivilstand.tomGyldighetsperiode)).toLocaleDateString()
+    dateString += toDate
   }
 
   return <div className='mb-5 -100' style={{ columns: 3 }}>
@@ -52,6 +62,7 @@ const PersonBody = (props) => {
         </React.Fragment> : null}
       {renderEntity('ui:statsborgerskap', person.statsborgerskap.land.value)}
       {renderEntity('ui:diskresjonskode', person.diskresjonskode)}
+      {renderEntity('ui:marital-status', person.sivilstand.sivilstand.value + (dateString ? '(' + dateString + ')' : ''))}
       {renderEntity('ui:personstatus', person.personstatus.personstatus.value)}
       {renderEntity('ui:doedsdato', person.doedsdato ? person.doedsdato.doedsdato : null)}
       {renderEntity('ui:foedselsdato', person.foedselsdato.foedselsdato)}
