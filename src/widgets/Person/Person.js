@@ -6,7 +6,6 @@ import { connect, bindActionCreators } from 'store'
 import PersonHeader from './PersonHeader'
 import PersonBody from './PersonBody'
 import { EkspanderbartpanelBase } from 'components/ui/Nav'
-import CountryData from 'components/ui/CountryData/CountryData'
 import * as appActions from 'actions/app'
 import { getDisplayName } from 'utils/displayName'
 
@@ -26,9 +25,8 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const PersonWidget = (props) => {
-  const { actions, aktoerId, gettingPersonInfo, locale, person, t } = props
+  const { actions, aktoerId, gettingPersonInfo, person, t } = props
   const [ mounted, setMounted ] = useState(false)
-  let country = null
 
   useEffect(() => {
     if (!mounted && aktoerId) {
@@ -37,16 +35,11 @@ const PersonWidget = (props) => {
     }
   }, [mounted, actions, aktoerId])
 
-  if (person && person.statsborgerskap && person.statsborgerskap.land) {
-    country = CountryData.findByValue3(locale, person.statsborgerskap.land.value)
-  }
-
   return <EkspanderbartpanelBase
     heading={
       <PersonHeader
         t={t} person={person}
         aktoerId={aktoerId}
-        country={country}
         gettingPersonInfo={gettingPersonInfo}
       />}>
     <PersonBody t={t} person={person} aktoerId={aktoerId} />
