@@ -121,6 +121,21 @@ const alertReducer = (state = initialAlertState, action = {}) => {
         clientErrorMessage = 'buc:alert-saveBucsInfoFailure'
         break
 
+      case types.JOARK_LIST_FAILURE:
+
+        clientErrorMessage = 'buc:alert-joarkListFailure|' + action.payload.error
+        break
+
+      case types.JOARK_PREVIEW_FAILURE:
+
+        clientErrorMessage = 'buc:alert-joarkPreviewFailure|' + action.payload.error
+        break
+
+      case types.JOARK_GET_FAILURE:
+
+        clientErrorMessage = 'buc:alert-joarkGetFailure|' + action.payload.error
+        break
+
       case types.PDF_GENERATE_FAILURE:
 
         clientErrorMessage = 'pdf:alert-PDFGenerationFail'
