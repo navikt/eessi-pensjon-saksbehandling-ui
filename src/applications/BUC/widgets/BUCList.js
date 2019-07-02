@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
+import classNames from 'classnames'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import SEDBody from 'applications/BUC/components/SEDBody/SEDBody'
@@ -91,7 +92,7 @@ const BUCList = (props) => {
   }
 
   return <React.Fragment>
-    <div className='a-buc-buclist__buttons mb-2'>
+    <div className='a-buc-buclist__buttons mt-3 mb-3'>
       <RefreshButton t={t} onRefreshClick={getBucs} rotating={gettingBUCs} />
       {aktoerId && sakId ? <Knapp onClick={onBUCNew}>{t('buc:form-createNewCase')}</Knapp> : null}
     </div>
@@ -106,7 +107,7 @@ const BUCList = (props) => {
       let bucId = buc.type + '-' + buc.caseId
       let bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId] : {}
       return <EkspanderbartpanelBase
-        className='a-buc-buclist__buc mb-3'
+        className={classNames('a-buc-buclist__buc mb-3', 'c-ui-d-widget-border')}
         key={index}
         style={{ animationDelay: (0.2 * index) + 's' }}
         heading={<BUCHeader t={t}

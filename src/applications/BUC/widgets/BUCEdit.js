@@ -95,7 +95,7 @@ const BUCEdit = (props) => {
   const bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId] : {}
 
   return <div className='a-buc-bucedit'>
-    <div className='a-buc-buclist__buttons mb-2'>
+    <div className='a-buc-buclist__buttons mt-3 mb-3'>
       <Knapp onClick={onBUCList}>{t('ui:back')}</Knapp>
       <Knapp onClick={onSEDNew}>{t('buc:form-orderNewSED')}</Knapp>
     </div>
