@@ -29,6 +29,7 @@ const BUCHeader = (props) => {
   }
 
   const numberOfSeds = buc.seds ? buc.seds.filter(sed => sed.status !== 'empty').length : 0
+
   let attachments = []
   if (buc.seds) {
     buc.seds.forEach(sed => {
@@ -39,12 +40,10 @@ const BUCHeader = (props) => {
   }
 
   return <div
-    id={'a-buc-c-bucheader__' + buc.type}
+    id={'a-buc-c-bucheader__' + buc.type + '-' + buc.caseId}
     className='a-buc-c-bucheader'
     style={style}>
-    <div
-      id='a-buc-c-bucheader__label-id'
-      className='a-buc-c-bucheader__label col-4'>
+    <div className='a-buc-c-bucheader__label col-4'>
       <Undertittel className='a-buc-c-bucheader__title'>
         {buc.type + ' - ' + t('buc:buc-' + buc.type)}
       </Undertittel>
@@ -53,7 +52,7 @@ const BUCHeader = (props) => {
       </Normaltekst>
       <div className='a-buc-c-bucheader__owner'>
         <Normaltekst className='pr-2'>
-        {t('buc:form-caseOwner') + ': '}
+          {t('buc:form-caseOwner') + ': '}
         </Normaltekst>
         <InstitutionList t={t} locale={locale} type='separated' institutions={[buc.creator]} />
       </div>
@@ -70,19 +69,34 @@ const BUCHeader = (props) => {
         })}
         overflowLimit={5} />
     </div>
-    <div className='col-3 a-buc-c-bucheader__tags'>
-      <div title={t('buc:form-youhaveXseds', { seds: numberOfSeds })} className='a-buc-c-bucheader__numberofseds'>{numberOfSeds}</div>
+    <div className='col-3 a-buc-c-bucheader__icons'>
+      <div
+        className='a-buc-c-bucheader__icon-numberofseds'
+        title={t('buc:form-youhaveXseds', { seds: numberOfSeds })}>
+          {numberOfSeds}
+      </div>
       {bucInfo && bucInfo.tags && bucInfo.tags.length > 0 ?
-        <div title={bucInfo.tags.join(', ')}>
-          <Icons kind='problem' className='a-buc-c-bucheader__tag-problem' />
+        <div
+          className='a-buc-c-bucheader__icon-tags'
+          title={bucInfo.tags.join(', ')}>
+          <Icons kind='problem' />
         </div> : null}
       {attachments.length > 0 ?
-        <div className='pl-2 pr-2' title={t('buc:form-youHaveXAttachments', {attachments: attachments.length})}>
-          <Icons kind='paperclip' className='a-buc-c-bucheader__tag-vedlegg' />
-        </div>  : null}
+        <div
+          className='a-buc-c-bucheader__icon-vedlegg pl-2 pr-2'
+          title={t('buc:form-youHaveXAttachments', { attachments: attachments.length })}>
+          <Icons kind='paperclip' />
+        </div> : null}
     </div>
-    <div className='col-3 a-buc-c-bucheader__actions'>
-      <LenkepanelBase data-qa='BucHeader-LinkButton' onClick={(e) => onBUChandle(buc, e)} className='a-buc-c-bucheader__button smallerButton knapp mr-5' href={'#' + buc.type} border>{t('ui:processing')}</LenkepanelBase>
+    <div className='a-buc-c-bucheader__actions col-3'>
+      <LenkepanelBase
+        id='a-buc-c-bucheader__bucedit-button'
+        className='a-buc-c-bucheader__bucedit-button smallerButton knapp mr-5'
+        onClick={(e) => onBUChandle(buc, e)}
+        href={'#' + buc.type}
+        border>
+        {t('ui:processing')}
+      </LenkepanelBase>
     </div>
   </div>
 }
