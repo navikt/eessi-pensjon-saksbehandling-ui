@@ -1,6 +1,6 @@
-import * as types from '../constants/actionTypes'
-import * as urls from '../constants/urls'
-import * as api from './api'
+import * as types from 'constants/actionTypes'
+import * as urls from 'constants/urls'
+import * as api from 'actions/api'
 
 export function selectPDF (files) {
   return {

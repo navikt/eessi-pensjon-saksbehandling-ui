@@ -1,8 +1,9 @@
-import * as bucActions from './buc'
-import * as api from './api'
+import * as bucActions from 'actions/buc'
+import * as api from 'actions/api'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import sampleBucs from 'resources/tests/sampleBucs'
+import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 var sprintf = require('sprintf-js').sprintf
 
 urls.HOST = 'notlocalhost'
@@ -93,6 +94,7 @@ describe('buc actions', () => {
         success: types.BUC_GET_BUCSINFO_SUCCESS,
         failure: types.BUC_GET_BUCSINFO_FAILURE
       },
+      expectedPayload: sampleBucsInfo,
       url: sprintf(urls.API_STORAGE_GETFILE_URL, { file: mockFilename })
     })
   })
@@ -162,7 +164,12 @@ describe('buc actions', () => {
 
   it('saveBucsInfo() with empty params', () => {
     let mockParams = {
-      buc: 'mockBuc',
+      buc: {
+        type: 'mockBuc',
+        caseId: '456'
+      },
+      comment: 'dummy comment',
+      tags: [{value: 'DUMMY'}],
       aktoerId: 123
     }
     bucActions.saveBucsInfo(mockParams)
@@ -175,8 +182,9 @@ describe('buc actions', () => {
       method: 'POST',
       payload: {
         bucs: {
-          mockBuc: {
-            tags: []
+          'mockBuc-456': {
+            tags: ['DUMMY'],
+            comment: 'dummy comment'
           }
         }
       },
@@ -192,6 +200,7 @@ describe('buc actions', () => {
         success: types.BUC_GET_COUNTRY_LIST_SUCCESS,
         failure: types.BUC_GET_COUNTRY_LIST_FAILURE
       },
+      expectedPayload: ['XX'],
       url: urls.EUX_COUNTRY_URL
     })
   })
@@ -221,11 +230,26 @@ describe('buc actions', () => {
         success: types.BUC_GET_INSTITUTION_LIST_SUCCESS,
         failure: types.BUC_GET_INSTITUTION_LIST_FAILURE
       },
+       context: {
+         buc: mockBuc,
+         country: mockCountry
+       },
+       expectedPayload: [{
+         'akronym': '001',
+         'id': 'XX:001',
+         'landkode': 'XX',
+         'navn': 'Demo institution 001',
+       }, {
+         'akronym': '002',
+         'id': 'XX:002',
+         'landkode': 'XX',
+         'navn': 'Demo institution 002',
+       }],
       url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: mockBuc, country: mockCountry })
     })
   })
 
-  it('call createSed()', () => {
+  it('createSed()', () => {
     const mockedPayload = {}
     bucActions.createSed(mockedPayload)
     expect(api.call).toBeCalledWith({
@@ -235,9 +259,31 @@ describe('buc actions', () => {
         failure: types.BUC_CREATE_SED_FAILURE
       },
       method: 'POST',
-      expectedPayload: { success: true },
+      expectedPayload: { id: "123456789" },
       payload: mockedPayload,
       url: urls.BUC_CREATE_SED_URL
+    })
+  })
+
+  it('sendAttachmentToSed()', () => {
+    const mockParams = {
+      aktoerId: '123',
+      rinaId : '456',
+      rinaDokumentId: '789',
+      joarkJournalpostId: '123456',
+      joarkDokumentInfoId: '12346789',
+      variantFormat: 'DUMMY'
+    }
+    bucActions.sendAttachmentToSed(mockParams)
+    expect(api.call).toBeCalledWith({
+      type: {
+        request: types.BUC_SED_ATTACHMENT_REQUEST,
+        success: types.BUC_SED_ATTACHMENT_SUCCESS,
+        failure: types.BUC_SED_ATTACHMENT_FAILURE
+      },
+      method: 'PUT',
+      expectedPayload: { success: true },
+      url: sprintf(urls.BUC_SED_ATTACHMENT_URL, mockParams)
     })
   })
 

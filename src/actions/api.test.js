@@ -1,4 +1,4 @@
-import * as api from './api'
+import * as api from 'actions/api'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import nock from 'nock'

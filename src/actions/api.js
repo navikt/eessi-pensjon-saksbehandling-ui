@@ -1,7 +1,7 @@
-import * as types from '../constants/actionTypes'
 import fetch from 'cross-fetch'
 import cookies from 'browser-cookies'
 import 'cross-fetch/polyfill'
+import * as types from 'constants/actionTypes'
 
 export const fakecall = (options) => {
   return (dispatch) => {

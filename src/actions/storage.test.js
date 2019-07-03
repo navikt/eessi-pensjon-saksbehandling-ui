@@ -1,6 +1,6 @@
-import * as api from './api'
-import * as types from '../constants/actionTypes'
-import * as storageActions from './storage'
+import * as api from 'actions/api'
+import * as storageActions from 'actions/storage'
+import * as types from 'constants/actionTypes'
 
 describe('storage actions', () => {
   beforeAll(() => {

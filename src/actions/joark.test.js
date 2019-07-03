@@ -1,5 +1,5 @@
-import * as joarkActions from './joark'
-import * as api from './api'
+import * as joarkActions from 'actions/joark'
+import * as api from 'actions/api'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import sampleJoark from 'resources/tests/sampleJoark'
@@ -49,12 +49,12 @@ describe('joark actions', () => {
   })
 
   it('getJoarkFile()', () => {
+    const mockVariant = 'DUMMY'
     const mockItem = {
       journalpostId: '1',
-      dokumentInfoId: '4'
-
+      dokumentInfoId: '4',
+      variant: mockVariant
     }
-    const mockVariant = 'DUMMY'
     joarkActions.getJoarkFile(mockItem, mockVariant)
     expect(api.call).toBeCalledWith({
       type: {

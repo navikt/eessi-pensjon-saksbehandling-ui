@@ -1,10 +1,9 @@
-import * as pinfoActions from './pinfo.js'
-import * as types from '../constants/actionTypes'
-
-import * as api from './api'
-
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
+
+import * as pinfoActions from 'actions/pinfo'
+import * as api from 'actions/api'
+import * as types from 'constants/actionTypes'
 
 describe('pinfo actions', () => {
   beforeAll(() => {

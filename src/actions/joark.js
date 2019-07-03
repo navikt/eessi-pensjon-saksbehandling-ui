@@ -1,7 +1,7 @@
-import * as types from '../constants/actionTypes'
-import * as urls from '../constants/urls'
-import * as api from './api'
 import _ from 'lodash'
+import * as types from 'constants/actionTypes'
+import * as urls from 'constants/urls'
+import * as api from 'actions/api'
 import sampleJoark from 'resources/tests/sampleJoark'
 var sprintf = require('sprintf-js').sprintf
 
