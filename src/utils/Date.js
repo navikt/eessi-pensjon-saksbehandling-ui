@@ -1,5 +1,5 @@
 
-export function renderDate (date, t) {
+export const renderDate = (date, t) => {
   if (!date) {
     return t('ui:unknown')
   }
@@ -8,7 +8,7 @@ export function renderDate (date, t) {
   return [date.getFullYear(), (mm > 9 ? '' : '0') + mm, (dd > 9 ? '' : '0') + dd].join('.')
 }
 
-export function pinfoDateToDate (date) {
+export const pinfoDateToDate = (date) => {
   if (!date || !date.year || !date.month) { return null }
   let day = date.day || 1
   let month = parseInt(date.month, 10) - 1

@@ -2,7 +2,6 @@ import * as types from '../constants/actionTypes'
 import _ from 'lodash'
 
 export const initialBucState = {
-  attachments: undefined,
   buc: undefined,
   bucs: undefined,
   bucsInfoList: undefined,
@@ -10,6 +9,7 @@ export const initialBucState = {
   sed: undefined,
   seds: undefined,
   statusFilter: ['inbox'],
+  p4000: [],
   institutionList: undefined,
   institutionNames: {},
   mode: 'list'
@@ -52,6 +52,12 @@ const bucReducer = (state = initialBucState, action) => {
       return {
         ...state,
         statusFilter: action.payload
+      }
+
+    case types.BUC_P4000_INFO_SET:
+      return {
+        ...state,
+        p4000: action.payload
       }
 
     case types.BUC_BUC_RESET:
