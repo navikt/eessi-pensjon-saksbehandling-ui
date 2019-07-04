@@ -14,7 +14,7 @@ const placeholders = {
 }
 
 const Step1 = (props) => {
-  const [ _sed, setSed ] = useState(undefined)
+
   const [ _countries, setCountries ] = useState([])
   const [ _institutions, setInstitutions ] = useState([])
   const [ _attachments, setAttachments ] = useState({})
@@ -24,7 +24,7 @@ const Step1 = (props) => {
   const [ attachmentsSent, setAttachmentsSent ] = useState(false)
 
   const { actions, aktoerId, attachments, buc, countryList, institutionList } = props
-  const { layout = 'row', loading, locale, sakId, sed, nextStep, sedList, t } = props
+  const { layout = 'row', loading, locale, nextStep, sakId, sed, _sed, sedList, setSed, t } = props
 
   useEffect(() => {
     if (_.isEmpty(countryList) && !loading.gettingCountryList) {
@@ -418,7 +418,9 @@ Step1.propTypes = {
   locale: PT.string.isRequired,
   sakId: PT.string.isRequired,
   sed: PT.object,
+  _sed: PT.object,
   sedList: PT.array,
+  setSed: PT.func.isRequired,
   t: PT.func.isRequired
 }
 

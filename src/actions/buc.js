@@ -46,6 +46,13 @@ export const setStatusFilter = (filter) => {
   }
 }
 
+export const setP4000Info = (p4000) => {
+  return {
+    type: types.BUC_P4000_INFO_SET,
+    payload: p4000
+  }
+}
+
 export const fetchBucs = (aktoerId) => {
   let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
   return funcCall({

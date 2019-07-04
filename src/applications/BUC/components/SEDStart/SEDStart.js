@@ -3,11 +3,12 @@ import { connect, bindActionCreators } from 'store'
 import Step1 from './Step1'
 import Step2 from './Step2'
 import * as bucActions from 'actions/buc'
+import * as uiActions from 'actions/ui'
+import * as storageActions from 'actions/storage'
 import { getDisplayName } from 'utils/displayName'
 
 export const mapStateToProps = (state) => {
   return {
-    attachments: state.buc.attachments,
     buc: state.buc.buc,
     countryList: state.buc.countryList,
     institutionList: state.buc.institutionList,
@@ -19,12 +20,13 @@ export const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(bucActions, dispatch) }
+  return { actions: bindActionCreators({...storageActions, ...bucActions, ...uiActions}, dispatch) }
 }
 
 const SEDStart = (props) => {
 
   const [ step, setStep ] = useState(0)
+  const [ _sed, setSed ] = useState(undefined)
 
   const nextStep = () => {
     setStep(step + 1)
@@ -35,11 +37,11 @@ const SEDStart = (props) => {
   }
 
   if (step === 0) {
-    return <Step1 nextStep={nextStep} backStep={backStep} {...props}/>
+    return <Step1 nextStep={nextStep} backStep={backStep} _sed={_sed} setSed={setSed} {...props}/>
   }
 
   if (step === 1) {
-    return <Step2 nextStep={nextStep} backStep={backStep} {...props}/>
+    return <Step2 nextStep={nextStep} backStep={backStep} _sed={_sed} setSed={setSed} {...props}/>
   }
 
   return null

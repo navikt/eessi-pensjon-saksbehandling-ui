@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Flatknapp, Hovedknapp, Row } from 'components/ui/Nav'
+import SEDP4000 from 'applications/BUC/components/SEDP4000/SEDP4000'
 
 const Step2 = (props) => {
 
-  const { actions, t, loading, backStep } = props
+  const { actions, t, loading, backStep, _sed } = props
 
   const onBackButtonClick = () => {
     backStep()
@@ -23,6 +24,7 @@ const Step2 = (props) => {
   }
 
   return <Row>
+    {_sed === 'P4000' ? <SEDP4000 {...props}/> : null }
     <div className='col-md-12'>
       <Hovedknapp
         id='a-buc-c-sedstart__forward-button-id'

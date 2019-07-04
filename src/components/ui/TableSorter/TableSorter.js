@@ -154,7 +154,15 @@ const TableSorter = (props) => {
 
   return <div className='c-ui-tablesorter'>
     <div className='c-ui-tablesorter__status'>
-      {loadingJoarkFile ? <NavFrontendSpinner type='XS' /> : null}
+
+      {loadingJoarkFile ? <div>
+        <NavFrontendSpinner type='XS' />
+        <span className='pl-2'>{t('ui:loading')}</span>
+      </div> : null}
+      {loadingJoarkPreviewFile ? <div>
+        <NavFrontendSpinner type='XS' />
+        <span className='pl-2'>{t('ui:loading')}</span>
+      </div> : null}
     </div>
     <div className='c-ui-tablesorter__content'>
       <table cellSpacing='0' className='c-ui-tablesorter__table'>
@@ -164,12 +172,9 @@ const TableSorter = (props) => {
         </thead>
         <tbody>{ rows() }</tbody>
       </table>
+
       <div className='c-ui-tablesorter__preview'>
-        {loadingJoarkPreviewFile ? <div>
-          <NavFrontendSpinner type='XS' />
-          <span className='pl-2'>{t('ui:loading')}</span>
-        </div>
-          : previewFile ? <File file={previewFile} addLink animate previewLink
+        previewFile ? <File file={previewFile} addLink animate previewLink
             width={141.4} height={200} scale={1.0}
             onPreviewDocument={onPreviewFile}
             onClick={onPreviewFile} /> : null}
