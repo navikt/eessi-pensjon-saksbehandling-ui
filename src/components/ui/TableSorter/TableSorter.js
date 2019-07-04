@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import _ from 'lodash'
 import PT from 'prop-types'
 import File from 'components/ui/File/File'
-import { NavFrontendSpinner, Input, Checkbox } from 'components/ui/Nav'
+import { Checkbox, EtikettLiten, Input, NavFrontendSpinner, Normaltekst, UndertekstBold } from 'components/ui/Nav'
 
 import './TableSorter.css'
 
@@ -12,10 +12,15 @@ const TableSorter = (props) => {
   const [ _columns, setColumns ] = useState(columns)
   const [ seeFilters, setSeeFilters ] = useState(false)
 
-  var columnNames = Object.keys(_columns)
+  const columnNames = Object.keys(_columns)
+  const sortOrder = {
+    '' : 'asc',
+    'asc' : 'desc',
+    'desc' : ''
+  }
 
   const sortColumn = (column) => {
-    var newSortOrder = _sort.order === 'asc' ? 'desc' : 'asc'
+    var newSortOrder = sortOrder[_sort.order]
     if (_sort.column !== column) {
       newSortOrder = _columns[column].defaultSortOrder
     }
@@ -23,21 +28,21 @@ const TableSorter = (props) => {
   }
 
   const sortClass = (column) => {
-    var ascOrDesc = _sort.order === 'asc' ? 'headerSortAsc' : 'headerSortDesc'
+    var ascOrDesc = _sort.order === 'asc' ? 'headerSortAsc' : _sort.order === 'desc' ? 'headerSortDesc' : ''
     return _sort.column === column ? ascOrDesc : ''
   }
 
   const rows = () => {
     const filteredItems = _.filter(items, (item) => {
       return _.every(columnNames, (column) => {
-        const filterText = _columns[column].filterText
+        const filterText = _columns[column].filterText.toLowerCase()
         switch (column) {
           case 'varianter':
-            return filterText ? item[column].find(it => it.match(filterText)) : true
+            return filterText ? item[column].find(it => it.label.toLowerCase().match(filterText)) : true
           case 'date':
             return filterText ? item[column].toLocaleDateString().match(filterText) : true
           default:
-            return filterText ? item[column].match(filterText) : true
+            return filterText ? item[column].toLowerCase().match(filterText) : true
         }
       })
     })
@@ -49,23 +54,34 @@ const TableSorter = (props) => {
 
     return sortedItems.map((item, index) => {
       let background = index % 2 === 0 ? 'white' : 'whitesmoke'
-      if (item.focused) background = 'lightsteelblue'
 
       return <tr
         key={index}
         style={{ background: background }}>
+          <td/>
         { columnNames.map((column, index2) => {
           const value = item[column]
           switch (column) {
             case 'name':
+             return <td key={index2}>
+                <Normaltekst>{value}</Normaltekst>
+              </td>
             case 'tema':
-              return <td key={index2}>{value}</td>
+              return <td key={index2}>
+                <EtikettLiten>{value}</EtikettLiten>
+              </td>
             case 'date':
-              return <td key={index2}>{value ? value.toLocaleDateString() : t('ui:unknown')}</td>
+              return <td key={index2}>
+                <Normaltekst>{value ? value.toLocaleDateString() : t('ui:unknown')}</Normaltekst>
+              </td>
             case 'varianter':
               return <td key={index2}>
                 {value.map(variant => {
-                  return <div key={variant.label} className='d-flex'>
+                  let variantBackground = variant.focused ? 'lightgrey' : 'transparent'
+                  return <div
+                    key={variant.label}
+                    className='c-ui-tablesorter__subcell'
+                    style={{ background : variantBackground }}>
                     <Checkbox
                       label=''
                       className='c-ui-tablesorter__checkbox'
@@ -74,7 +90,9 @@ const TableSorter = (props) => {
                     <a href='#item' onClick={(e) => {
                       e.preventDefault()
                       onItemClicked(item, variant.label)
-                    }}>{variant.label}</a>
+                    }}>
+                      <Normaltekst>{variant.label}</Normaltekst>
+                    </a>
                   </div>
                 })}
               </td>
@@ -88,11 +106,18 @@ const TableSorter = (props) => {
 
   const header = () => {
     return <React.Fragment>
-      {columnNames.map((c) => {
-        return <th key={c}
-          onClick={() => sortColumn(c)}
-          className={'header ' + sortClass(c)}>
-          {_columns[c].name}
+      <th>
+        <Checkbox
+          className='c-ui-tablesorter__checkbox'
+          label=''
+          checked={seeFilters}
+          onChange={() => setSeeFilters(!seeFilters)}/>
+      </th>
+      {columnNames.map((column) => {
+        return <th key={column}
+          onClick={() => sortColumn(column)}
+          className={'header ' + sortClass(column)}>
+            <UndertekstBold>{_columns[column].name}</UndertekstBold>
         </th>
       })}
     </React.Fragment>
@@ -106,13 +131,14 @@ const TableSorter = (props) => {
 
   const filterInputs = () => {
     return <React.Fragment>
-      {columnNames.map((c) => {
-        return <td key={c}>
+      <td/>
+      {columnNames.map((column) => {
+        return <td key={column}>
           <Input
             className='c-ui-tablesorter__sort-input'
             label=''
-            value={_columns[c].filterText}
-            onChange={(e) => handleFilterTextChange(c, e.target.value)} />
+            value={_columns[column].filterText}
+            onChange={(e) => handleFilterTextChange(column, e.target.value)} />
         </td>
       })}
     </React.Fragment>
@@ -128,7 +154,6 @@ const TableSorter = (props) => {
 
   return <div className='c-ui-tablesorter'>
     <div className='c-ui-tablesorter__status'>
-      <Checkbox label='' checked={seeFilters} onChange={() => setSeeFilters(!seeFilters)}/>
       {loadingJoarkFile ? <NavFrontendSpinner type='XS' /> : null}
     </div>
     <div className='c-ui-tablesorter__content'>

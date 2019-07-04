@@ -12,20 +12,29 @@
     min-height: 30px;
   }
 
+  &__subcell {
+    display: flex;
+    padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+  }
+
   .checkbox {
     width: 70px;
   }
 
   .headerSortDesc {
-    background: whitesmoke;
-    &:after {
+    background: #0067C5;
+    color: white;
+
+    p:after {
       content: " ▲";
     }
   }
 
   .headerSortAsc {
-    background: whitesmoke;
-    &:after {
+    background: #0067C5;
+    color: white;
+
+    p:after {
       content: " ▼";
     }
   }
@@ -50,10 +59,29 @@
     thead {
       display: flex;
       flex-direction: column;
+      border-bottom: 2px solid grey;
+
+      th {
+        padding: 0.5rem;
+        text-align: center;
+        display: block;
+        cursor: pointer;
+
+        &:hover {
+          background-color: grey;
+        }
+
+        &:not(:first-child) {
+          flex: 1;
+        }
+
+        &:first-child {
+          width: 50px;
+        }
+      }
     }
 
     tbody {
-      max-height: 200px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -61,6 +89,7 @@
       tr {
         padding-top: 0.25rem;
         padding-bottom: 0.25rem;
+        border-bottom: 1px solid lightgrey;
       }
     }
 
@@ -69,23 +98,21 @@
       flex-direction: row;
     }
 
-    th {
-      text-align: center;
-      display: block;
-      width: 100%;
-      cursor: pointer;
-
-      &:hover {
-        background-color: aliceblue;
-      }
-    }
 
     td {
       display: block;
-      width: 100%;
+      padding: 0.25rem 0.5rem 0.25rem 0.5rem;
 
       input {
         width: 100%;
+      }
+
+      &:not(:first-child) {
+        flex: 1;
+      }
+
+      &:first-child {
+        width: 50px;
       }
     }
   }

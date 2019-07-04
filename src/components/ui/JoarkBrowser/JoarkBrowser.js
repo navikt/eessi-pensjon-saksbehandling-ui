@@ -56,15 +56,17 @@ const JoarkBrowser = (props) => {
   }, [file, _file, _files, onFilesChange])
 
   useEffect(() => {
-    if (previewFile && (!_previewFile || _previewFile.content.base64 !== previewFile.content.base64)) {
-      setPreviewFile(previewFile)
+    if (previewFile && (!_previewFile || _previewFile.journalpostId !== previewFile.journalpostId
+     ||  _previewFile.variant !== previewFile.variant)) {
+     setPreviewFile(previewFile)
     }
   }, [previewFile, _previewFile])
 
   const onItemClicked = (clickedItem, clickedVariant) => {
-    const foundFile = _.find(files, {
-      journalpostId: clickedItem.raw.journalpostId,
-      variant: clickedVariant
+    const foundFile = _.find(files, (file) => {
+      return file.journalpostId === clickedItem.raw.journalpostId &&
+        file.variant === clickedVariant &&
+        file.content !== undefined
     })
 
     if (!foundFile) {
@@ -112,17 +114,17 @@ const JoarkBrowser = (props) => {
       id: file.journalpostId,
       name: file.tittel,
       tema: file.tema,
-      date: file.datoRegistrert,
+      date: file.datoOpprettet,
       varianter: file.varianter.map(variant => {
         return {
           label: variant,
           selected: _.find(files, {
             dokumentInfoId: file.dokumentInfoId,
             variant: variant
-          }) !== undefined
+          }) !== undefined,
+          focused:  _previewFile ? _previewFile.journalpostId === file.journalpostId && _previewFile.variant === variant : false
         }
-      }),
-      focused: _previewFile ? _previewFile.journalpostId === file.journalpostId : false
+      })
     }
   }) : []
 
@@ -147,10 +149,10 @@ const JoarkBrowser = (props) => {
       previewFile={_previewFile}
       sort={{ column: 'name', order: 'desc' }}
       columns={{
-        name: { name: t('ui:title'), filterText: '', defaultSortOrder: 'desc' },
-        tema: { name: t('ui:tema'), filterText: '', defaultSortOrder: 'desc' },
-        date: { name: t('ui:date'), filterText: '', defaultSortOrder: 'desc' },
-        varianter: { name: t('ui:variant'), filterText: '', defaultSortOrder: 'desc' }
+        name: { name: t('ui:title'), filterText: '', defaultSortOrder: '' },
+        tema: { name: t('ui:tema'), filterText: '', defaultSortOrder: '' },
+        date: { name: t('ui:date'), filterText: '', defaultSortOrder: '' },
+        varianter: { name: t('ui:variant'), filterText: '', defaultSortOrder: '' }
       }}
       onItemClicked={onItemClicked}
       onSelectedItemChange={onSelectedItemChange}

@@ -83,6 +83,7 @@ const BUCEdit = (props) => {
 
   const renderSeds = () => {
     return seds ? _(seds)
+      .filter(sed => sed.status !== 'empty')
       .filter(sedFilter)
       .sortBy(['creationDate', 'type'])
       .value()

@@ -10,7 +10,7 @@ const SEDBody = (props) => {
 
   return <React.Fragment>
     {seds ? _(seds)
-      .filter(sed => { return sed.status !== 'empty' })
+      .filter(sed => sed.status !== 'empty')
       .sortBy(['creationDate', 'type'])
       .value()
       .slice(0, 5).map((sed, index) => {
