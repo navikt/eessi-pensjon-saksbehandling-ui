@@ -2,7 +2,7 @@ import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import { EkspanderbartpanelBase, Systemtittel } from 'components/ui/Nav'
-import SEDStart from '../SEDStart/SEDStart'
+import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
 
 const SEDTools = (props) => {
   const { t, className } = props

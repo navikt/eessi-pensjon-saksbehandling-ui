@@ -12,7 +12,7 @@
     "build:git": "export GIT_VERSION=`git describe --always` && sed -i -- \"s/%GIT_VERSION%/$GIT_VERSION/g\" build/index.html",
     "build:css": "less-watch-compiler --run-once --config less.json",
     "build:js": "cross-env NODE_OPTIONS=--max-old-space-size=4096 react-scripts build",
-    "test": "react-scripts test --verbose=false",
+    "test": "react-scripts test",
     "test:coverage": "react-scripts test --coverage",
     "start-json": "json-server --watch db.json --routes routes.json --port 8080",
     "cucumber": "cucumber-js src/tests/**/*.feature -f node_modules/cucumber-pretty",
@@ -34,7 +34,7 @@
     "history": "^4.9.0",
     "html2pdf.js": "^0.9.1",
     "http-proxy-middleware": "^0.19.1",
-    "i18next": "^17.0.4",
+    "i18next": "^17.0.6",
     "i18next-browser-languagedetector": "^3.0.1",
     "i18next-xhr-backend": "^3.0.0",
     "lodash": "^4.17.11",
@@ -99,14 +99,14 @@
     "react-collapse": "^4.0.3",
     "react-color": "^2.17.3",
     "react-datepicker": "^2.7.0",
-    "react-dnd": "^8.0.2",
-    "react-dnd-html5-backend": "^8.0.2",
+    "react-dnd": "^8.0.3",
+    "react-dnd-html5-backend": "^8.0.3",
     "react-dom": "^16.8.6",
     "react-dropzone": "^10.1.5",
     "react-grid-layout": "https://github.com/navikt/react-grid-layout#1.0.0",
-    "react-i18next": "^10.11.1",
+    "react-i18next": "^10.11.3",
     "react-json-view": "^1.19.1",
-    "react-modal": "^3.8.1",
+    "react-modal": "^3.8.2",
     "react-motion": "^0.5.2",
     "react-pdf": "^4.1.0",
     "react-resize-detector": "^4.2.0",
@@ -117,7 +117,7 @@
     "reactcss": "^1.2.3",
     "request": "^2.88.0",
     "sprintf-js": "^1.1.2",
-    "url-search-params-polyfill": "^6.0.0",
+    "url-search-params-polyfill": "^7.0.0",
     "vis": "^4.21.0"
   },
   "devDependencies": {
@@ -178,6 +178,9 @@
   "jest": {
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js"
     ]
   }
 }
