@@ -2,6 +2,7 @@ const mockdata = { 'data': { 'dokumentoversiktBruker': { 'journalposter': [{
   journalpostId: '1',
   tittel: 'blue.pdf',
   tema: 'foo',
+  datoOpprettet: '2018-12-27T14:42:24',
   dokumenter: [{
     dokumentInfoId: '4',
     tittel: 'blue.pdf',
@@ -10,15 +11,12 @@ const mockdata = { 'data': { 'dokumentoversiktBruker': { 'journalposter': [{
     }, {
       variantformat: 'DUMMY'
     }]
-  }],
-  relevanteDatoer: [{
-    'dato': '2018-12-27T14:42:24',
-    'datotype': 'DATO_REGISTRERT'
   }]
 }, {
   journalpostId: '2',
   tittel: 'red.pdf',
   tema: 'bar',
+  datoOpprettet: '2018-12-17T14:42:24',
   dokumenter: [{
     dokumentInfoId: '5',
     tittel: 'red.pdf',
@@ -27,15 +25,12 @@ const mockdata = { 'data': { 'dokumentoversiktBruker': { 'journalposter': [{
     }, {
       variantformat: 'DUMMY'
     }]
-  }],
-  relevanteDatoer: [{
-    'dato': '2018-12-17T14:42:24',
-    'datotype': 'DATO_REGISTRERT'
   }]
 }, {
   journalpostId: '3',
   tittel: 'yellow.pdf',
   tema: 'fuzz',
+  datoOpprettet: '2018-12-07T14:42:24',
   dokumenter: [{
     dokumentInfoId: '6',
     tittel: 'yellow.pdf',
@@ -44,10 +39,6 @@ const mockdata = { 'data': { 'dokumentoversiktBruker': { 'journalposter': [{
     }, {
       variantformat: 'DUMMY'
     }]
-  }],
-  relevanteDatoer: [{
-    'dato': '2018-12-07T14:42:24',
-    'datotype': 'DATO_REGISTRERT'
   }]
 }] } } }
 
