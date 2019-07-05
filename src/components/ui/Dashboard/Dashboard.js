@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import _ from 'lodash'
-import { DragDropContext } from 'react-dnd'
+import { DndProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { withTranslation } from 'react-i18next'
 import { createDragApiRef } from 'react-grid-layout'
@@ -94,6 +94,7 @@ const Dashboard = (props) => {
   }
 
   return <div className='c-ui-d-dashboard'>
+    <DndProvider backend={HTML5Backend}>
     <DashboardControlPanel
       currentBreakpoint={currentBreakpoint}
       addMode={addMode}
@@ -126,13 +127,10 @@ const Dashboard = (props) => {
       t={props.t}
       dragApi={dragApi}
     />
+    </DndProvider>
   </div>
 }
 
 Dashboard.defaultProps = DashboardConfig
-
-const DashboardDragAndDropContext = DragDropContext(HTML5Backend)(
-  withTranslation()(Dashboard)
-)
-
+const DashboardDragAndDropContext = withTranslation()(Dashboard)
 export default DashboardDragAndDropContext
