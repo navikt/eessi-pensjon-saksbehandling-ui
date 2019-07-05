@@ -125,7 +125,7 @@ export const getTagList = (aktoerId) => {
 }
 
 export const createBuc = (buc) => {
-  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
+  let funcCall = urls.HOST === 'localuhost' ? api.fakecall : api.call
   return funcCall({
     url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
     method: 'POST',

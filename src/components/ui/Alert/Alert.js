@@ -16,7 +16,7 @@ export const mapStateToProps = (state) => {
     clientErrorStatus: state.alert.clientErrorStatus,
     clientErrorMessage: state.alert.clientErrorMessage,
     serverErrorMessage: state.alert.serverErrorMessage,
-    uuid: state.alert.uuid
+    error: state.alert.error
   }
 }
 
@@ -31,19 +31,44 @@ export const errorTypes = {
 }
 
 const Alert = (props) => {
-  const { actions, className, clientErrorStatus, clientErrorMessage, fixed, t, type, serverErrorMessage, uuid } = props
+  const { actions, className, clientErrorStatus, clientErrorMessage, error, fixed, t, type, serverErrorMessage } = props
 
   const onClientClear = () => {
     actions.clientClear()
   }
 
+  const printError = (error) => {
+    let errorMessage = []
+    if (error.status) {
+      errorMessage.push(error.status)
+    }
+    if (error.message) {
+      errorMessage.push(error.message)
+    }
+    if (error.serverMessage) {
+      errorMessage.push(error.serverMessage)
+    }
+    if (error.uuid) {
+      errorMessage.push(error.uuid)
+    }
+    return errorMessage.join(' ')
+  }
+
   if (type === 'server') {
-    return serverErrorMessage ? <AlertStripe
+
+    if (!serverErrorMessage) {
+      return null
+    }
+
+    let message = t(serverErrorMessage)
+    if (error) {
+      message += ': ' + printError(error)
+    }
+    return <AlertStripe
       className={classNames('c-ui-alert', 'server', className)} type={errorTypes.ERROR}>
-      {t(serverErrorMessage)}
-      {uuid}
+      {message}
       <Icons className='closeIcon' size='1x' kind='solidclose' onClick={onClientClear} />
-    </AlertStripe> : null
+    </AlertStripe>
   }
 
   if (!clientErrorMessage) {
@@ -58,11 +83,15 @@ const Alert = (props) => {
   } else {
     message = t(clientErrorMessage)
   }
+
+  if (error) {
+    message += ': ' + printError(error)
+  }
+
   return <AlertStripe
     className={classNames(className, 'c-ui-alert', { fixed: fixed || true })}
     type={errorTypes[clientErrorStatus]}>
     {message}
-    {uuid}
     <Icons className='closeIcon' size='1x' kind='solidclose' onClick={onClientClear} />
   </AlertStripe>
 }
@@ -72,11 +101,11 @@ Alert.propTypes = {
   className: PT.string,
   clientErrorStatus: PT.string,
   clientErrorMessage: PT.string,
+  error: PT.object,
   fixed: PT.bool,
   t: PT.func.isRequired,
   type: PT.string.isRequired,
   serverErrorMessage: PT.string,
-  uuid: PT.string
 }
 
 const ConnectedAlert = connect(mapStateToProps, mapDispatchToProps)(withTranslation()(Alert))
