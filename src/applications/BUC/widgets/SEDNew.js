@@ -15,7 +15,7 @@ const SEDNew = (props) => {
       <Hovedknapp onClick={onBUCList}>{t('ui:back')}</Hovedknapp>
     </div>
     <Panel>
-      <Systemtittel>{t('buc:step-startSEDTitle', { buc: buc.type })}</Systemtittel>
+      <Systemtittel>{t('buc:step-startSEDTitle', { buc: buc.type, caseId: buc.caseId })}</Systemtittel>
       <hr />
       <SEDStart {...props} />
     </Panel>

@@ -1911,5 +1911,86 @@ export default [
         'attachments': []
       }
     ]
+  },
+  {
+    'type': 'P_BUC_04',
+    'creator': {
+      'country': 'NO',
+      'institution': 'Z990638'
+    },
+    'caseId': '195766',
+    'sakType': '',
+    'aktoerId': '1000070418092',
+    'status': 'open',
+    'startDate': '2019-05-29',
+    'lastUpdate': '2019-05-29',
+    'institusjon': [
+      {
+        'country': 'NO',
+        'institution': 'NO:NAVT003'
+      },
+      {
+        'country': 'NO',
+        'institution': 'NO:NAVT002'
+      }
+    ],
+    'seds': [
+      {
+        'id': '4b9ef7717b304c0bad343101c5851aa7',
+        'type': 'P2200',
+        'status': 'received',
+        'creationDate': 1559122122897,
+        'lastUpdate': '2019-05-29',
+        'participants': [
+          {
+            'role': 'Sender',
+            'organisation': {
+              'address': {
+                'country': 'NO',
+                'town': null,
+                'street': null,
+                'postalCode': null,
+                'region': null
+              },
+              'activeSince': 1518476400000,
+              'registryNumber': null,
+              'acronym': '12348',
+              'countryCode': 'NO',
+              'contactMethods': null,
+              'name': 'NAVT003',
+              'location': null,
+              'assignedBUCs': null,
+              'id': 'NO:NAVT003',
+              'accessPoint': null
+            },
+            'selected': true
+          },
+          {
+            'role': 'Receiver',
+            'organisation': {
+              'address': {
+                'country': 'NO',
+                'town': null,
+                'street': null,
+                'postalCode': null,
+                'region': null
+              },
+              'activeSince': 1508450400000,
+              'registryNumber': null,
+              'acronym': '12347',
+              'countryCode': 'NO',
+              'contactMethods': null,
+              'name': 'NAVT002',
+              'location': null,
+              'assignedBUCs': null,
+              'id': 'NO:NAVT002',
+              'accessPoint': null
+            },
+            'selected': false
+          }
+        ],
+        'attachments': []
+      }
+    ]
   }
 ]

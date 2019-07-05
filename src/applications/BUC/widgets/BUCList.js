@@ -20,6 +20,12 @@ const BUCList = (props) => {
   const onBUCNew = () => {
     actions.setMode('newbuc')
   }
+  const onSedNew = async (buc) => {
+    const newSeds = await updateSeds(buc)
+    actions.setBuc(buc)
+    actions.setSeds(newSeds[buc.type + '-' + buc.caseId])
+    actions.setMode('newsed')
+  }
 
   useEffect(() => {
     if (!_.isEmpty(bucsInfoList) && !gettingBucsInfo && bucsInfoList.indexOf(aktoerId + '___BUC___INFO') >= 0) {
@@ -118,7 +124,14 @@ const BUCList = (props) => {
         />}
         onClick={() => onExpandBUCClick(buc)}>
         <SEDHeader t={t} />
-        <SEDBody t={t} seds={seds[bucId] || []} rinaUrl={rinaUrl} locale={locale} buc={buc} />
+        <SEDBody
+          t={t}
+          seds={seds[bucId] || []}
+          rinaUrl={rinaUrl}
+          locale={locale}
+          buc={buc}
+          onSEDNew={onSedNew.bind(null, buc)}
+        />
       </EkspanderbartpanelBase>
     }) : null}
     {(!sakId || !aktoerId) || (_.isArray(bucs) && _.isEmpty(bucs))

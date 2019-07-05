@@ -1,6 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
-import { Element, PanelBase, Normaltekst, Lenke } from 'components/ui/Nav'
+import { Element, PanelBase, Normaltekst, Lenke, Flatknapp, Select } from 'components/ui/Nav'
 import classNames from 'classnames'
 import SEDStatus from '../SEDStatus/SEDStatus'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
@@ -10,7 +10,7 @@ import _ from 'lodash'
 import './SEDRow.css'
 
 const SEDRow = (props) => {
-  const { t, sed, className, locale, rinaId, rinaUrl, border = false } = props
+  const { t, sed, className, locale, rinaId, rinaUrl, border = false, onSEDNew } = props
 
   const institutionList = sed.participants ? sed.participants.map(participant => {
     return {
@@ -18,7 +18,6 @@ const SEDRow = (props) => {
       institution: participant.organisation.name
     }
   }) : []
-
   return <PanelBase
     className={classNames('a-buc-c-sedrow p-0', className)}>
     <div className={classNames('a-buc-c-sedrow__content pt-3 pb-3', { withborder: border })}>
@@ -44,7 +43,11 @@ const SEDRow = (props) => {
       </div>
       <div className='col-4 a-buc-c-sedrow__column a-buc-c-sedrow__actions'>
         <Element className='pb-2' >{t('ui:actions')}</Element>
-        <div>{!_.isEmpty(sed.attachments) ? <Icons kind='vedlegg' /> : null}
+        <div>
+          {!_.isEmpty(sed.attachments) ? <Icons kind='vedlegg' /> : null}
+          {sed.status === 'received'
+            ? <Flatknapp mini onClick={onSEDNew}>{t('buc:form-answerSED')}</Flatknapp>
+            : null}
           <Lenke target='_blank'
             id='a-buc-c-sedrow__gotorina-button'
             className='a-buc-c-sedrow__gotorina'
