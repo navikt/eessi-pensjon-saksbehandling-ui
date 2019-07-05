@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import _ from 'lodash'
 import PT from 'prop-types'
-import File from 'components/ui/File/File'
 import { Checkbox, EtikettLiten, Input, NavFrontendSpinner, Normaltekst, UndertekstBold } from 'components/ui/Nav'
 
 import './TableSorter.css'
 
 const TableSorter = (props) => {
-  const { t, actions, sort, columns, items, onItemClicked, loadingJoarkFile, loadingJoarkPreviewFile, previewFile, onSelectedItemChange } = props
+  const { t, sort, columns, items, onItemClicked, loadingJoarkFile, loadingJoarkPreviewFile, onSelectedItemChange } = props
   const [ _sort, setSort ] = useState(sort || { column: '', order: '' })
   const [ _columns, setColumns ] = useState(columns)
   const [ seeFilters, setSeeFilters ] = useState(false)
@@ -144,17 +143,8 @@ const TableSorter = (props) => {
     </React.Fragment>
   }
 
-  const onPreviewFile = () => {
-    actions.openModal({
-      modalContent: <div style={{ cursor: 'pointer' }} onClick={() => actions.closeModal()}>
-        <File file={previewFile} width={400} height={600} />
-      </div>
-    })
-  }
-
   return <div className='c-ui-tablesorter'>
     <div className='c-ui-tablesorter__status'>
-
       {loadingJoarkFile ? <div>
         <NavFrontendSpinner type='XS' />
         <span className='pl-2'>{t('ui:loading')}</span>
@@ -172,27 +162,18 @@ const TableSorter = (props) => {
         </thead>
         <tbody>{ rows() }</tbody>
       </table>
-
-      <div className='c-ui-tablesorter__preview'>
-        previewFile ? <File file={previewFile} addLink animate previewLink
-            width={141.4} height={200} scale={1.0}
-            onPreviewDocument={onPreviewFile}
-            onClick={onPreviewFile} /> : null}
-      </div>
     </div>
   </div>
 }
 
 TableSorter.propTypes = {
   t: PT.func.isRequired,
-  actions: PT.object.isRequired,
   sort: PT.object.isRequired,
   columns: PT.object.isRequired,
   items: PT.array.isRequired,
   onItemClicked: PT.func.isRequired,
   onSelectedItemChange: PT.func.isRequired,
-  loadingJoarkFile: PT.bool.isRequired,
-  previewFile: PT.object
+  loadingJoarkFile: PT.bool.isRequired
 }
 
 export default TableSorter

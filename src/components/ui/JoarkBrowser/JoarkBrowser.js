@@ -4,6 +4,7 @@ import _ from 'lodash'
 import { connect, bindActionCreators } from 'store'
 import { withTranslation } from 'react-i18next'
 import { NavFrontendSpinner } from 'components/ui/Nav'
+import File from 'components/ui/File/File'
 import TableSorter from 'components/ui/TableSorter/TableSorter'
 import * as joarkActions from 'actions/joark'
 import * as uiActions from 'actions/ui'
@@ -38,8 +39,8 @@ const JoarkBrowser = (props) => {
   useEffect(() => {
     if (!mounted && list === undefined && !loadingJoarkList) {
       actions.listJoarkFiles(aktoerId)
-      setMounted(true)
     }
+    setMounted(true)
   }, [mounted, list, loadingJoarkList, actions, aktoerId])
 
   useEffect(() => {
@@ -59,8 +60,17 @@ const JoarkBrowser = (props) => {
     if (previewFile && (!_previewFile || _previewFile.journalpostId !== previewFile.journalpostId
      ||  _previewFile.variant !== previewFile.variant)) {
      setPreviewFile(previewFile)
+    onPreviewFile(previewFile)
     }
-  }, [previewFile, _previewFile])
+  }, [previewFile, _previewFile, onPreviewFile])
+
+  const onPreviewFile = (previewFile) => {
+    actions.openModal({
+      modalContent: <div style={{ cursor: 'pointer' }} onClick={() => actions.closeModal()}>
+        <File file={previewFile} width={400} height={600} />
+      </div>
+    })
+  }
 
   const onItemClicked = (clickedItem, clickedVariant) => {
     const foundFile = _.find(files, (file) => {
@@ -146,7 +156,6 @@ const JoarkBrowser = (props) => {
       actions={actions}
       loadingJoarkFile={loadingJoarkFile}
       loadingJoarkPreviewFile={loadingJoarkPreviewFile}
-      previewFile={_previewFile}
       sort={{ column: 'name', order: 'desc' }}
       columns={{
         name: { name: t('ui:title'), filterText: '', defaultSortOrder: '' },
