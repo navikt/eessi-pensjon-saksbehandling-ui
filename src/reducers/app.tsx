@@ -1,5 +1,20 @@
 import * as types from '../constants/actionTypes'
 
+export interface AppReducer {
+  loggedIn?: boolean,
+  loggedTime?: Date,
+  allowed: boolean,
+  username?: string,
+  userRole: Array<string>,
+  userStatus?: string,
+  firstName?: string,
+  middleName?: string,
+  lastname?: string,
+  person?: any,
+  params: Object,
+  droppables?: Object
+}
+
 export const initialAppState = {
   loggedIn: undefined,
   loggedTime: undefined,
@@ -11,10 +26,11 @@ export const initialAppState = {
   middleName: undefined,
   lastname: undefined,
   person: undefined,
-  params: {}
+  params: {},
+  droppables: {}
 }
 
-const appReducer = (state = initialAppState, action = {}) => {
+function appReducer (state: AppReducer = initialAppState, action: any = {}):AppReducer {
   switch (action.type) {
     case types.APP_PARAM_SET:
 
@@ -38,11 +54,11 @@ const appReducer = (state = initialAppState, action = {}) => {
 
     case types.APP_USERINFO_SUCCESS:
 
-      const now = new Date()
-      const expirationTime = action.payload.expirationTime
+      const now: any = new Date()
+      const expirationTime: any = action.payload.expirationTime
         ? new Date(action.payload.expirationTime)
         : new Date(new Date().setMinutes(now.getMinutes() + 60))
-      const remainingTime = Math.abs(expirationTime - now)
+      const remainingTime: number = Math.abs(expirationTime - now)
       return Object.assign({}, state, {
         username: action.payload.subject,
         userRole: action.payload.subject === '12345678910' ? 'SAKSBEHANDLER' : action.payload.role,
@@ -69,18 +85,21 @@ const appReducer = (state = initialAppState, action = {}) => {
       }
 
     case types.APP_DROPPABLE_REGISTER : {
-      let droppables = state.droppables || {}
-      droppables[action.payload.id] = action.payload.ref
-
+      let droppables: any = state.droppables || {}
+      if (typeof action.payload.id === 'string') {
+        droppables[action.payload.id] = action.payload.ref
+      }
       return Object.assign({}, state, {
         droppables: droppables
       })
     }
 
     case types.APP_DROPPABLE_UNREGISTER : {
-      let droppables = state.droppables || {}
-      delete droppables[action.payload.id]
+      let droppables: any = state.droppables || {}
 
+      if (typeof action.payload.id === 'string') {
+        delete droppables[action.payload.id]
+      }
       return Object.assign({}, state, {
         droppables: droppables
       })

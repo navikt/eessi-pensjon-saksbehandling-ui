@@ -3,7 +3,7 @@ import i18n from '../i18n'
 
 export const initialUiState = {
   language: i18n.language,
-  locale: i18n.locale,
+  locale: i18n.language,
   modalOpen: false,
   modalBucketOpen: false,
   drawerEnabled: false,

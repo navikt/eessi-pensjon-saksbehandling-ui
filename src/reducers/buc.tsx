@@ -1,6 +1,44 @@
 import * as types from '../constants/actionTypes'
 import _ from 'lodash'
 
+interface Institution {
+  id?: string,
+  navn?: string,
+  akronym?: string,
+  landkode?: string,
+  buc?: any
+}
+
+interface InstitutionList {
+  [landkode: string]: Array<Institution>
+}
+
+interface InstitutionNames {
+  [id: string]: string
+}
+
+export interface BucReducer {
+  attachments?: any,
+  buc?: any,
+  bucs?: any,
+  bucsInfoList?: any,
+  bucsInfo?: any,
+  sed?: any,
+  seds?: any,
+  statusFilter: Array<string>,
+  institutionList?: InstitutionList,
+  institutionNames: InstitutionNames,
+  mode: string,
+  currentBUC?: any,
+  subjectAreaList?: any,
+  bucList?: any,
+  tagList?: any,
+  rinaId?: any,
+  countryList?: any,
+  sedList?: any,
+  rinaUrl?: string
+}
+
 export const initialBucState = {
   attachments: undefined,
   buc: undefined,
@@ -15,7 +53,7 @@ export const initialBucState = {
   mode: 'list'
 }
 
-const bucReducer = (state = initialBucState, action) => {
+function bucReducer (state: BucReducer = initialBucState, action: any):BucReducer {
   switch (action.type) {
     case types.APP_CLEAR_DATA: {
       return initialBucState
@@ -229,10 +267,13 @@ const bucReducer = (state = initialBucState, action) => {
 
     case types.BUC_GET_INSTITUTION_LIST_SUCCESS:
 
-      let institutionList = state.institutionList ? _.cloneDeep(state.institutionList) : {}
-      let institutionNames = _.cloneDeep(state.institutionNames)
-      action.payload.forEach(institution => {
-        let existingInstitutions = institutionList[institution.landkode] || []
+      let institutionList: InstitutionList = state.institutionList ? _.cloneDeep(state.institutionList) : {}
+      let institutionNames: InstitutionNames = _.cloneDeep(state.institutionNames)
+      action.payload.forEach((institution: Institution) => {
+        let existingInstitutions: Array<Institution> = []
+        if (institution.landkode && institutionList[institution.landkode]) {
+          existingInstitutions = institutionList[institution.landkode]
+        }
         if (!_.find(existingInstitutions, { 'id': institution.id })) {
           existingInstitutions.push({
             id: institution.id,
@@ -242,8 +283,12 @@ const bucReducer = (state = initialBucState, action) => {
             buc: action.context.buc
           })
         }
-        institutionList[institution.landkode] = existingInstitutions
-        institutionNames[institution.id] = institution.navn
+        if (institution.landkode) {
+          institutionList[institution.landkode] = existingInstitutions
+        }
+        if (institution.id && institution.navn) {
+          institutionNames[institution.id] = institution.navn
+        }
       })
 
       return {
@@ -270,7 +315,7 @@ const bucReducer = (state = initialBucState, action) => {
 
       let existingAttachments = state.attachments ? _.cloneDeep(state.attachments) : []
       let newAttachment = action.payload
-      let found = _.find(existingAttachments, {dokumentInfoId: newAttachment.dokumentInfoId})
+      let found = _.find(existingAttachments, { dokumentInfoId: newAttachment.dokumentInfoId })
       if (!found) {
         existingAttachments.push(newAttachment)
       }
