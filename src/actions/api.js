@@ -46,15 +46,21 @@ export const call = (options) => {
       body: body
     }).then(response => {
       if (response.status >= 400) {
-        var error = new Error(response.statusText)
+        const error = new Error(response.statusText)
         error.response = response
         error.status = response.status
-        throw error
+        return response.json().then((json) => {
+          const { message, stackTrace } = json
+          error.message = message
+          error.stackTrace = stackTrace
+          throw error
+        })
+        .catch((e) => {
+           return Promise.reject(error)
+        })
       } else {
-        return response
+        return response.json()
       }
-    }).then(response => {
-      return response.json()
     }).then(payload => {
       return dispatch({
         type: options.type.success,
@@ -66,7 +72,7 @@ export const call = (options) => {
       if (error.status === 401) {
         dispatch({
           type: types.SERVER_UNAUTHORIZED_ERROR,
-          error: error.message,
+          payload: error,
           originalPayload: body,
           context: options.context
         })
@@ -74,7 +80,7 @@ export const call = (options) => {
       if (error.status >= 500) {
         dispatch({
           type: types.SERVER_INTERNAL_ERROR,
-          error: error.message,
+          payload: error,
           originalPayload: body,
           context: options.context
         })
@@ -82,7 +88,6 @@ export const call = (options) => {
       return dispatch({
         type: options.type.failure,
         payload: error,
-        error: error.message,
         originalPayload: body,
         context: options.context
       })

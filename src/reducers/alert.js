@@ -3,28 +3,6 @@ import _ from 'lodash'
 
 export const initialAlertState = {}
 
-const printError = (error) => {
-  let errorMessage = []
-  if (error.status) {
-    errorMessage.push(error.status)
-  }
-  if (error.message) {
-    errorMessage.push(error.message)
-  } else {
-    if (error.error) {
-      errorMessage.push(error.error)
-    }
-  }
-  if (error.serverMessage) {
-    errorMessage.push(error.serverMessage)
-  }
-
-  if (error.uuid) {
-    errorMessage.push(error.uuid)
-  }
-  return errorMessage.join(' ')
-}
-
 const alertReducer = (state = initialAlertState, action = {}) => {
   let clientErrorMessage, serverErrorMessage, clientErrorStatus
 
@@ -49,7 +27,7 @@ const alertReducer = (state = initialAlertState, action = {}) => {
 
     return Object.assign({}, state, {
       serverErrorMessage: serverErrorMessage,
-      uuid: action.error.uuid
+      error: action.payload
     })
   }
 
@@ -128,17 +106,17 @@ const alertReducer = (state = initialAlertState, action = {}) => {
 
       case types.JOARK_LIST_FAILURE:
 
-        clientErrorMessage = 'buc:alert-joarkListFailure|' + action.error
+        clientErrorMessage = 'buc:alert-joarkListFailure'
         break
 
       case types.JOARK_PREVIEW_FAILURE:
 
-        clientErrorMessage = 'buc:alert-joarkPreviewFailure|' + action.error
+        clientErrorMessage = 'buc:alert-joarkPreviewFailure'
         break
 
       case types.JOARK_GET_FAILURE:
 
-        clientErrorMessage = 'buc:alert-joarkGetFailure|' + action.error
+        clientErrorMessage = 'buc:alert-joarkGetFailure'
         break
 
       case types.PDF_GENERATE_FAILURE:
@@ -148,7 +126,7 @@ const alertReducer = (state = initialAlertState, action = {}) => {
 
       case types.P4000_OPEN_FAILURE:
 
-        clientErrorMessage = 'p4000:alert-openP4000error|' + action.error
+        clientErrorMessage = 'p4000:alert-openP4000error'
         break
 
       case types.P4000_SUBMIT_FAILURE:
@@ -173,14 +151,14 @@ const alertReducer = (state = initialAlertState, action = {}) => {
 
       default:
 
-        clientErrorMessage = printError(action.payload)
+        clientErrorMessage = 'ui:error'
         break
     }
 
     return Object.assign({}, state, {
       clientErrorStatus: clientErrorMessage ? clientErrorStatus : undefined,
       clientErrorMessage: clientErrorMessage,
-      uuid: action.payload.uuid
+      error: action.payload
     })
   }
 
@@ -261,7 +239,7 @@ const alertReducer = (state = initialAlertState, action = {}) => {
   return Object.assign({}, state, {
     clientErrorStatus: 'OK',
     clientErrorMessage: clientErrorMessage,
-    uuid: undefined
+    error: undefined
   })
 }
 
