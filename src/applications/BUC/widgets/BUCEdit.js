@@ -88,7 +88,16 @@ const BUCEdit = (props) => {
       .sortBy(['creationDate', 'type'])
       .value()
       .map((sed, index) => {
-        return <SEDRow className='mt-2' locale={locale} t={t} key={index} sed={sed} rinaUrl={rinaUrl} rinaId={buc.caseId} />
+        return <SEDRow
+          className='mt-2'
+          locale={locale}
+          t={t}
+          key={index}
+          sed={sed}
+          rinaUrl={rinaUrl}
+          rinaId={buc.caseId}
+          onSEDNew={onSEDNew}
+        />
       }) : null
   }
 
@@ -109,7 +118,6 @@ const BUCEdit = (props) => {
       <div className='col-4'>
         <BUCDetail className='mb-3' t={t} buc={buc} bucInfo={bucInfo} locale={locale} />
         <BUCTools className='mb-3' t={t} buc={buc} bucInfo={bucInfo} locale={locale} />
-        <SEDTools className='mb-3' t={t} />
         <UserTools className='mb-3' t={t} />
       </div>
     </Row>
