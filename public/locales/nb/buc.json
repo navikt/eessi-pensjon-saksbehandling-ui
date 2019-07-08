@@ -16,7 +16,7 @@
   "alert-noCountryList"     : "Ingen land liste",
   "alert-noInstitutionList" : "Ingen mottager liste",
   "alert-noSedList"         : "Ingen SED liste",
-  "alert-noSubjectAreaList" : "Ingen fagområde liste",
+  "alert-noSubjectAreaList"   : "Ingen fagområde liste",
   "alert-saveBucsInfoFailure" : "Feil til å lagre BUC info",
 
   "attachments-step0" : "Velg vedlegg",
@@ -201,6 +201,9 @@
   "p4000-areYouSureCancelPeriod" : "Er du sikker på at du ikke vil lagre endringer i perioden?",
   "p4000-deletePeriod" : "Slett periode",
   "p4000-areYouSureDeletePeriod" : "Er du sikker på at du vil slette perioden?",
+  "p4000-saveEditPeriod" : "Lagre endringer",
+  "p4000-saveNewPeriod" : "Lagre periode",
+  "p4000-cancelPeriod" : "Avbryt",
 
   "tag-urgent"    : "Urgent",
   "tag-vip"       : "VIP",
