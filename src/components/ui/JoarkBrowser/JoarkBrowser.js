@@ -57,20 +57,19 @@ const JoarkBrowser = (props) => {
   }, [file, _file, _files, onFilesChange])
 
   useEffect(() => {
+    const onPreviewFile = (previewFile) => {
+      actions.openModal({
+        modalContent: <div style={{ cursor: 'pointer' }} onClick={() => actions.closeModal()}>
+          <File file={previewFile} width={400} height={600} />
+        </div>
+      })
+    }
     if (previewFile && (!_previewFile || _previewFile.journalpostId !== previewFile.journalpostId
      ||  _previewFile.variant !== previewFile.variant)) {
      setPreviewFile(previewFile)
     onPreviewFile(previewFile)
     }
-  }, [previewFile, _previewFile, onPreviewFile])
-
-  const onPreviewFile = (previewFile) => {
-    actions.openModal({
-      modalContent: <div style={{ cursor: 'pointer' }} onClick={() => actions.closeModal()}>
-        <File file={previewFile} width={400} height={600} />
-      </div>
-    })
-  }
+  }, [previewFile, _previewFile, actions])
 
   const onItemClicked = (clickedItem, clickedVariant) => {
     const foundFile = _.find(files, (file) => {

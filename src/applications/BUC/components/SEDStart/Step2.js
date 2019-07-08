@@ -6,15 +6,20 @@ const Step2 = (props) => {
 
   const { actions, t, loading, backStep, _sed } = props
 
+  const [ showButtons, setShowButtons ] = useState(true)
+
   const onBackButtonClick = () => {
+    showButtons(true)
     backStep()
   }
 
   const onForwardButtonClick = () => {
+    showButtons(true)
     console.log('Forward')
   }
 
   const onCancelButtonClick = () => {
+    showButtons(true)
     actions.resetBuc()
     actions.setMode('list')
   }
@@ -24,8 +29,14 @@ const Step2 = (props) => {
   }
 
   return <Row>
-    {_sed === 'P4000' ? <SEDP4000 {...props}/> : null }
-    <div className='col-md-12'>
+    {_sed === 'P4000' ? <React.Fragment>
+      <div className='col-2'/>
+      <div className='col-8'>
+        <SEDP4000 showButtons={showButtons} setShowButtons={setShowButtons} {...props}/>
+      </div>
+      <div className='col-2'/>
+    </React.Fragment> : null }
+    { showButtons ? <div className='col-md-12'>
       <Hovedknapp
         id='a-buc-c-sedstart__forward-button-id'
         className='a-buc-c-sedstart__forward-button'
@@ -44,7 +55,7 @@ const Step2 = (props) => {
         className='a-buc-c-sedstart__cancel-button'
         onClick={onCancelButtonClick}>{t('ui:cancel')}
       </Flatknapp>
-    </div>
+    </div> : null }
  </Row>
 
 }

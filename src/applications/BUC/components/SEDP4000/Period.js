@@ -8,6 +8,7 @@ import DatePicker from 'components/ui/DatePicker/DatePicker'
 import CountrySelect from 'components/ui/CountrySelect/CountrySelect'
 import * as CountryFilter from 'components/ui/CountrySelect/CountryFilter'
 import FocusGroup from 'components/ui/FocusGroup'
+import Flag from 'components/ui/Flag/Flag'
 import FileUpload from 'components/ui/FileUpload/FileUpload'
 import { AlertStripe, EtikettBase, Flatknapp, HjelpetekstAuto, Hovedknapp,
 Input, Knapp, Normaltekst, Row, Textarea, Select, Undertittel, Undertekst } from 'components/ui/Nav'
@@ -104,9 +105,7 @@ const Period = (props) => {
     if (error) {
       _localErrors[key] = error
     }
-    this.setState({
-      localErrors: _localErrors
-    })
+    setLocalErrors(_localErrors)
   }
 
   const dateSetProperty = (key, validateFunction, date) => {
@@ -327,7 +326,7 @@ const Period = (props) => {
   switch (mode) {
     case 'view':
     case 'confirm':
-      return <Row className={classNames('.a-buc-c-sedp4000-period', mode)}>
+      return <Row className={classNames('a-buc-c-sedp4000-period', mode)}>
         <div className={classNames('col-12', { 'col-md-6': mode === 'view' })}>
           <div id={period.id} className='existingPeriod'>
             <div className='icon mr-3 ml-3'>
@@ -338,9 +337,7 @@ const Period = (props) => {
             <div className='pb-2 existingPeriodDescription'>
               <span className='bold existingPeriodType'>{t('buc:p4000-category-' + period.type)}</span>
               <span>
-                <img className='flagImg ml-2 mr-2' src={'../../../../../flags/' + period.country.value + '.png'}
-                  alt={period.country.label} />
-                {period.country.label}
+                <Flag label={period.country.label} country={period.country.value} size='M' />
               </span>
               <br />
               <span className='existingPeriodDates'>
@@ -410,7 +407,7 @@ const Period = (props) => {
           </div>
         </Row>
         { _period.type ? <React.Fragment>
-          1|{_period.type === 'home' ? <AlertStripe className='mt-4 mb-4' type='advarsel'>{t('buc:p4000-warning-home-period')}</AlertStripe> : null}
+          {_period.type === 'home' ? <AlertStripe className='mt-4 mb-4' type='advarsel'>{t('buc:p4000-warning-home-period')}</AlertStripe> : null}
           <Undertittel className='mt-5 mb-2'>{t(`buc:p4000-period-title-${_period.type}`)}</Undertittel>
           <Normaltekst className='mb-3'>{t('buc:p4000-period-date-description')}</Normaltekst>
           <Row>
@@ -639,6 +636,7 @@ const Period = (props) => {
             <div className='col-sm-12'>
               <FileUpload
                 id={'pinfo-opphold-vedlegg-fileupload-' + period.id}
+                fileUploadDroppableId={'pinfo-opphold-vedlegg-fileupload-' + period.id}
                 acceptedMimetypes={['application/pdf', 'image/jpeg', 'image/png']}
                 maxFileSize={10 * 1024 * 1024}
                 maxFiles={10}
@@ -653,29 +651,29 @@ const Period = (props) => {
                 id='pinfo-opphold-endre-button'
                 className='editPeriodButton mb-2 mr-4 w-sm-100'
                 onClick={saveEditPeriod}>
-                {t('pinfo:form-saveEditPeriod')}
+                {t('buc:p4000-saveEditPeriod')}
               </Knapp> : null}
               {mode === 'new' ? <Hovedknapp
                 id='pinfo-opphold-lagre-button'
                 className='addPeriodButton mb-2 mr-4 w-sm-100'
                 onClick={saveNewPeriod}>
-                {t('pinfo:form-saveNewPeriod')}
+                {t('buc:p4000-saveNewPeriod')}
               </Hovedknapp> : null}
               <Flatknapp
                 id='pinfo-opphold-avbryt-button'
                 className='cancelPeriodButton mb-2 w-sm-100'
                 onClick={cancelPeriodRequest}>
-                {t('pinfo:form-cancelPeriod')}
+                {t('buc:p4000-cancelPeriod')}
               </Flatknapp>
             </div>
           </Row>
         </React.Fragment> : null}
         { !_period.type && _.isEmpty(periods) ? <AlertStripe
           className='mt-4 mb-4' type='advarsel'>
-          {t('pinfo:warning-one-period')}
+          {t('buc:p4000-warning-one-period')}
         </AlertStripe>
           : null}
-        {errorMessage ? <AlertStripe className='mt-4 mb-4' type='advarsel'>{t(errorMessage)}</AlertStripe> : null}
+        {_errorMessage ? <AlertStripe className='mt-4 mb-4' type='advarsel'>{t(_errorMessage)}</AlertStripe> : null}
       </React.Fragment>
     default:
       return null

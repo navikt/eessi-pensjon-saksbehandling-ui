@@ -418,7 +418,7 @@ Step1.propTypes = {
   locale: PT.string.isRequired,
   sakId: PT.string.isRequired,
   sed: PT.object,
-  _sed: PT.object,
+  _sed: PT.string,
   sedList: PT.array,
   setSed: PT.func.isRequired,
   t: PT.func.isRequired

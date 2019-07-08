@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import _ from 'lodash'
@@ -18,8 +18,17 @@ const SEDP4000 = (props) => {
   const [ _period, setPeriod ] = useState({})
   const [ maxPeriods ] = useState(8)
 
-  const { locale, p4000, t } = props
+  const { actions, locale, p4000, setShowButtons, showButtons, t } = props
   const mode = _period && _period.id ? 'edit' : 'new'
+
+  useEffect(() => {
+    if (mode === 'edit' && showButtons) {
+      setShowButtons(false)
+    }
+    if (mode === 'new' && !showButtons) {
+      setShowButtons(true)
+    }
+  }, [mode, showButtons])
 
   return <div className={classNames('a-buc-c-sedp4000', mode)}>
     {mode === 'new' ? <React.Fragment>
@@ -33,6 +42,7 @@ const SEDP4000 = (props) => {
         return a.startDate - b.startDate
       }).map((period, index) => {
         return <Period t={t}
+          actions={actions}
           mode='view'
           first={index === 0}
           last={index === p4000.length - 1}
@@ -44,7 +54,9 @@ const SEDP4000 = (props) => {
     </React.Fragment>
       : null}
     { p4000.length < maxPeriods ? <Period t={t}
+      actions={actions}
       mode={mode}
+      showButtons={showButtons}
       period={_period}
       periods={p4000}
       locale={locale}
@@ -56,6 +68,7 @@ const SEDP4000 = (props) => {
 }
 
 SEDP4000.propTypes = {
+  actions: PT.object,
   locale: PT.string,
   p4000: PT.array,
   t: PT.func
