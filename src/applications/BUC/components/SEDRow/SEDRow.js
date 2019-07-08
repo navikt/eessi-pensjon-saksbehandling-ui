@@ -30,10 +30,13 @@ const SEDRow = (props) => {
               <Element>{t('ui:created')}:</Element>
               <Normaltekst>{new Date(sed.creationDate).toLocaleDateString()}</Normaltekst>
             </div>
-            <div className='a-buc-c-sedrow__info-date'>
-              <Element>{t('ui:lastUpdate')}:</Element>
-              <Normaltekst>{new Date(sed.lastUpdate).toLocaleDateString()}</Normaltekst>
-            </div>
+            {(sed.status === 'received' || sed.status === 'sent')
+              ? null
+              : <div className='a-buc-c-sedrow__info-date'>
+                <Element>{t('ui:lastUpdate')}:</Element>
+                <Normaltekst>{new Date(sed.lastUpdate).toLocaleDateString()}</Normaltekst>
+              </div>
+            }
           </div>
         </div>
       </div>
