@@ -6,7 +6,7 @@ import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import SEDBody from 'applications/BUC/components/SEDBody/SEDBody'
 import RefreshButton from 'components/ui/RefreshButton/RefreshButton'
 import BUCEmpty from './BUCEmpty'
-import { EkspanderbartpanelBase, Flatknapp, Knapp, NavFrontendSpinner } from 'components/ui/Nav'
+import { EkspanderbartpanelBase, Flatknapp, Knapp, Lenke, NavFrontendSpinner } from 'components/ui/Nav'
 import Icons from 'components/ui/Icons'
 import _ from 'lodash'
 
@@ -145,13 +145,18 @@ const BUCList = (props) => {
       ? <BUCEmpty actions={actions} onBUCNew={onBUCNew} t={t} sakId={sakId}
         aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> : null}
     {(sakId && aktoerId)
-    ? <div className='mb-2 text-right'>
-        <Knapp onClick={goToRinaClick}>
-          <div className='d-flex'>
-            <Icons className='mr-2' color='#0067C5' kind='outlink' />
-            <span>{props.t('ui:goToRina')}</span>
+    ? <div className='mb-2 a-buc-buclist__footer'>
+      <div/>
+      <Lenke
+        id='a-buc-c-buclist__gotorina-link'
+        className='a-buc-c-buclist__gotorina'
+        href={rinaUrl}
+        target='rinaWindow'>
+         <div className='d-flex'>
+           <Icons className='mr-2' color='#0067C5' kind='outlink' />
+           <span>{props.t('ui:goToRina')}</span>
           </div>
-        </Knapp>
+        </Lenke>
       </div> : null}
   </React.Fragment>
 }
