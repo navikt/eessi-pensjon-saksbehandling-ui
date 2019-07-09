@@ -54,7 +54,10 @@ const SEDRow = (props) => {
           <Lenke target='_blank'
             id='a-buc-c-sedrow__gotorina-button'
             className='a-buc-c-sedrow__gotorina'
-            href={rinaUrl + rinaId}>{t('ui:goToRina')}</Lenke>
+            href={rinaUrl + rinaId}
+            target='rinaWindow'>
+              {t('ui:goToRina')}
+            </Lenke>
         </div>
       </div>
     </div>

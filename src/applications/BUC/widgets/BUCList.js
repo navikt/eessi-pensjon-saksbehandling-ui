@@ -6,7 +6,8 @@ import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import SEDBody from 'applications/BUC/components/SEDBody/SEDBody'
 import RefreshButton from 'components/ui/RefreshButton/RefreshButton'
 import BUCEmpty from './BUCEmpty'
-import { EkspanderbartpanelBase, Knapp, NavFrontendSpinner } from 'components/ui/Nav'
+import { EkspanderbartpanelBase, Flatknapp, Knapp, NavFrontendSpinner } from 'components/ui/Nav'
+import Icons from 'components/ui/Icons'
 import _ from 'lodash'
 
 import './BUCList.css'
@@ -90,6 +91,12 @@ const BUCList = (props) => {
     await updateSeds(buc)
   }
 
+  const goToRinaClick = () => {
+    if (rinaUrl) {
+      window.open(rinaUrl, 'rinaWindow')
+    }
+  }
+
   const onBUCEdit = async (buc) => {
     const newSeds = await updateSeds(buc)
     actions.setBuc(buc)
@@ -137,6 +144,15 @@ const BUCList = (props) => {
     {(!sakId || !aktoerId) || (_.isArray(bucs) && _.isEmpty(bucs))
       ? <BUCEmpty actions={actions} onBUCNew={onBUCNew} t={t} sakId={sakId}
         aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> : null}
+    {(sakId && aktoerId)
+    ? <div className='mb-2 text-right'>
+        <Knapp onClick={goToRinaClick}>
+          <div className='d-flex'>
+            <Icons className='mr-2' color='#0067C5' kind='outlink' />
+            <span>{props.t('ui:goToRina')}</span>
+          </div>
+        </Knapp>
+      </div> : null}
   </React.Fragment>
 }
 
