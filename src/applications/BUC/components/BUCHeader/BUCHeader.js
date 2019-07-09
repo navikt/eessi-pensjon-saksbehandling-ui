@@ -84,7 +84,7 @@ const BUCHeader = (props) => {
       {attachments.length > 0 ?
         <div
           className='a-buc-c-bucheader__icon-vedlegg pl-2 pr-2'
-          title={t('buc:form-youHaveXAttachments', { attachments: attachments.length })}>
+          title={t('buc:form-youHaveXAttachmentsInBuc', { attachments: attachments.length })}>
           <Icons kind='paperclip' />
         </div> : null}
     </div>

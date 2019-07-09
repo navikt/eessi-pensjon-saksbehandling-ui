@@ -2,8 +2,11 @@ import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 
-import { Normaltekst } from 'components/ui/Nav'
+import { Lenke, Normaltekst } from 'components/ui/Nav'
+import Icons from 'components/ui/Icons'
 import SEDRow from 'applications/BUC/components/SEDRow/SEDRow'
+
+import './SEDBody.css'
 
 const SEDBody = (props) => {
   const { t, seds, rinaUrl, locale, buc, onSEDNew } = props
@@ -19,14 +22,24 @@ const SEDBody = (props) => {
           t={t}
           key={index}
           sed={sed}
-          rinaUrl={rinaUrl}
-          rinaId={buc.caseId}
           locale={locale}
           border
           onSEDNew={onSEDNew}
         />
       }) : null}
-    <Normaltekst>{t('buc:form-lastNonEmpty5')}</Normaltekst>
+    <div className='a-buc-c-sedbody__footer mt-2'>
+      <Lenke
+        id='a-buc-c-sedbody__gotorina-link'
+        className='a-buc-c-sedbody__gotorina'
+        href={rinaUrl + buc.caseId}
+        target='rinaWindow'>
+        <div className='d-flex'>
+         <Icons className='mr-2' color='#0067C5' kind='outlink' />
+          <Normaltekst>{t('buc:form-seeSedInRina')}</Normaltekst>
+        </div>
+      </Lenke>
+      <Normaltekst>{t('buc:form-lastNonEmpty5')}</Normaltekst>
+    </div>
   </React.Fragment>
 }
 
