@@ -104,6 +104,10 @@ const BUCList = (props) => {
     actions.setMode('edit')
   }
 
+  if (_.isArray(bucs) && _.isEmpty(bucs)) {
+    actions.setMode('newbuc')
+  }
+
   return <React.Fragment>
     <div className='a-buc-buclist__buttons mt-3 mb-3'>
       <RefreshButton t={t} onRefreshClick={getBucs} rotating={gettingBUCs} />
@@ -141,8 +145,7 @@ const BUCList = (props) => {
         />
       </EkspanderbartpanelBase>
     }) : null}
-    {(!sakId || !aktoerId) || (_.isArray(bucs) && _.isEmpty(bucs))
-      ? <BUCEmpty actions={actions} onBUCNew={onBUCNew} t={t} sakId={sakId}
+    {(!sakId || !aktoerId) ? <BUCEmpty actions={actions} onBUCNew={onBUCNew} t={t} sakId={sakId}
         aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> : null}
     {(sakId && aktoerId)
     ? <div className='mb-2 a-buc-buclist__footer'>
