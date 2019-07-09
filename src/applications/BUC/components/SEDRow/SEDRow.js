@@ -28,7 +28,8 @@ const SEDRow = (props) => {
         <SEDStatus data-qa='SedLabel-SEDStatus' t={t} className='col-auto' status={sed.status} />
         <Normaltekst className='pl-2'>
           {new Date(sed.creationDate).toLocaleDateString()}
-          {sed.lastUpdate ? ' - ' + new Date(sed.lastUpdate).toLocaleDateString() : ''}
+          {sed.lastUpdate && sed.status !== 'received' && sed.status !== 'sent' ?
+          ' - ' + new Date(sed.lastUpdate).toLocaleDateString() : ''}
         </Normaltekst>
       </div>
       <div className='col-4 a-buc-c-sedrow__column a-buc-c-sedrow__institutions'>
