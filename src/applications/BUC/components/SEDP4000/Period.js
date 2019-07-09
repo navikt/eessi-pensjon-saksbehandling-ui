@@ -11,7 +11,7 @@ import FocusGroup from 'components/ui/FocusGroup'
 import Flag from 'components/ui/Flag/Flag'
 import FileUpload from 'components/ui/FileUpload/FileUpload'
 import { AlertStripe, EtikettBase, Flatknapp, HjelpetekstAuto, Hovedknapp,
-Input, Knapp, Normaltekst, Row, Textarea, Select, Undertittel, Undertekst } from 'components/ui/Nav'
+  Input, Knapp, Normaltekst, Row, Textarea, Select, Undertittel, Undertekst } from 'components/ui/Nav'
 import Icons from 'components/ui/Icons'
 import { pinfoDateToDate } from 'utils/Date'
 import { periodValidation } from './Validation/singleTests'
@@ -57,7 +57,6 @@ const Period = (props) => {
   const dateBlur = (key, validateFunction) => {
     const date = period[key]
     let _localErrors = _.cloneDeep(localErrors)
-
 
     let error = validateFunction ? validateFunction(date) : undefined
 
@@ -166,7 +165,6 @@ const Period = (props) => {
   }
 
   const saveEditPeriod = () => {
-
     let errors = validatePeriod()
     setLocalErrors(errors)
     setDisplayError(true)
@@ -188,7 +186,6 @@ const Period = (props) => {
   }
 
   const doCancelPeriod = () => {
-
     setLocalErrors({})
     setPeriod({})
     actions.closeModal()
@@ -479,7 +476,7 @@ const Period = (props) => {
                 value={period.learnInstitution || ''}
                 placeholder={t('ui:writeIn')}
                 onChange={setLearnInstitution}
-                  feil={localErrors.learnInstitution ? { feilmelding: t(localErrors.learnInstitution) } : null}
+                feil={localErrors.learnInstitution ? { feilmelding: t(localErrors.learnInstitution) } : null}
               />
             </div>
           </Row> : null}
@@ -552,7 +549,7 @@ const Period = (props) => {
                 </div>}
                 placeholder={t('ui:writeIn')}
                 value={period.insuranceId || ''}
-               onChange={setInsuranceId}
+                onChange={setInsuranceId}
                 feil={localErrors.insuranceId ? { feilmelding: t(localErrors.insuranceId) } : null}
               />
               <div className='id-suggestions'>

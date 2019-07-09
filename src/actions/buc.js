@@ -201,7 +201,7 @@ export const getSedList = (buc, rinaId) => {
   let url = sprintf(urls.EUX_SED_FOR_BUCS_URL, { buc: buc.type, rinaId: buc.caseId })
   return funcCall({
     url: url,
-    expectedPayload: ['P2000','P4000'],
+    expectedPayload: ['P2000', 'P4000'],
     type: {
       request: types.BUC_GET_SED_LIST_REQUEST,
       success: types.BUC_GET_SED_LIST_SUCCESS,
@@ -219,15 +219,15 @@ export const getInstitutionsListForBucAndCountry = (buc, country) => {
       country: country
     },
     expectedPayload: [{
-      'id':'XX:001',
-      'navn':'Demo institution 001',
-      'akronym':'001',
-      'landkode':'XX'
-    },{
-      'id':'XX:002',
-      'navn':'Demo institution 002',
-      'akronym':'002',
-       'landkode':'XX'
+      'id': 'XX:001',
+      'navn': 'Demo institution 001',
+      'akronym': '001',
+      'landkode': 'XX'
+    }, {
+      'id': 'XX:002',
+      'navn': 'Demo institution 002',
+      'akronym': '002',
+      'landkode': 'XX'
     }],
     type: {
       request: types.BUC_GET_INSTITUTION_LIST_REQUEST,

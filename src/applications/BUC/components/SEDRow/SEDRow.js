@@ -28,8 +28,8 @@ const SEDRow = (props) => {
         <SEDStatus data-qa='SedLabel-SEDStatus' t={t} className='col-auto' status={sed.status} />
         <Normaltekst className='pl-2'>
           {new Date(sed.creationDate).toLocaleDateString()}
-          {sed.lastUpdate && sed.status !== 'received' && sed.status !== 'sent' ?
-          ' - ' + new Date(sed.lastUpdate).toLocaleDateString() : ''}
+          {sed.lastUpdate && sed.status !== 'received' && sed.status !== 'sent'
+            ? ' - ' + new Date(sed.lastUpdate).toLocaleDateString() : ''}
         </Normaltekst>
       </div>
       <div className='col-4 a-buc-c-sedrow__column a-buc-c-sedrow__institutions'>
@@ -39,7 +39,7 @@ const SEDRow = (props) => {
         {!_.isEmpty(sed.attachments) ? <div
           title={t('buc:form-youHaveXAttachmentsInSed', { attachments: sed.attachments.length })}>
           <Icons kind='paperclip' />
-         </div>  : null}
+        </div> : null}
         {sed.status === 'received'
           ? <Flatknapp mini onClick={onSEDNew}>{t('buc:form-answerSED')}</Flatknapp>
           : null}

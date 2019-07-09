@@ -169,7 +169,7 @@ describe('buc actions', () => {
         caseId: '456'
       },
       comment: 'dummy comment',
-      tags: [{value: 'DUMMY'}],
+      tags: [{ value: 'DUMMY' }],
       aktoerId: 123
     }
     bucActions.saveBucsInfo(mockParams)
@@ -230,21 +230,21 @@ describe('buc actions', () => {
         success: types.BUC_GET_INSTITUTION_LIST_SUCCESS,
         failure: types.BUC_GET_INSTITUTION_LIST_FAILURE
       },
-       context: {
-         buc: mockBuc,
-         country: mockCountry
-       },
-       expectedPayload: [{
-         'akronym': '001',
-         'id': 'XX:001',
-         'landkode': 'XX',
-         'navn': 'Demo institution 001',
-       }, {
-         'akronym': '002',
-         'id': 'XX:002',
-         'landkode': 'XX',
-         'navn': 'Demo institution 002',
-       }],
+      context: {
+        buc: mockBuc,
+        country: mockCountry
+      },
+      expectedPayload: [{
+        'akronym': '001',
+        'id': 'XX:001',
+        'landkode': 'XX',
+        'navn': 'Demo institution 001'
+      }, {
+        'akronym': '002',
+        'id': 'XX:002',
+        'landkode': 'XX',
+        'navn': 'Demo institution 002'
+      }],
       url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: mockBuc, country: mockCountry })
     })
   })
@@ -259,7 +259,7 @@ describe('buc actions', () => {
         failure: types.BUC_CREATE_SED_FAILURE
       },
       method: 'POST',
-      expectedPayload: { id: "123456789" },
+      expectedPayload: { id: '123456789' },
       payload: mockedPayload,
       url: urls.BUC_CREATE_SED_URL
     })
@@ -268,7 +268,7 @@ describe('buc actions', () => {
   it('sendAttachmentToSed()', () => {
     const mockParams = {
       aktoerId: '123',
-      rinaId : '456',
+      rinaId: '456',
       rinaDokumentId: '789',
       joarkJournalpostId: '123456',
       joarkDokumentInfoId: '12346789',

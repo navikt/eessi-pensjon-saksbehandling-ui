@@ -7,7 +7,6 @@ export const initialJoarkState = {
 }
 
 const joarkReducer = (state = initialJoarkState, action = {}) => {
-
   switch (action.type) {
     case types.JOARK_LIST_SUCCESS:
       let documents = []

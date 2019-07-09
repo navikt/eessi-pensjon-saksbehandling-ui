@@ -21,11 +21,10 @@ export const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators({...storageActions, ...bucActions, ...uiActions}, dispatch) }
+  return { actions: bindActionCreators({ ...storageActions, ...bucActions, ...uiActions }, dispatch) }
 }
 
 const SEDStart = (props) => {
-
   const [ step, setStep ] = useState(0)
   const [ _sed, setSed ] = useState(undefined)
 
@@ -38,11 +37,11 @@ const SEDStart = (props) => {
   }
 
   if (step === 0) {
-    return <Step1 nextStep={nextStep} backStep={backStep} _sed={_sed} setSed={setSed} {...props}/>
+    return <Step1 nextStep={nextStep} backStep={backStep} _sed={_sed} setSed={setSed} {...props} />
   }
 
   if (step === 1) {
-    return <Step2 nextStep={nextStep} backStep={backStep} _sed={_sed} setSed={setSed} {...props}/>
+    return <Step2 nextStep={nextStep} backStep={backStep} _sed={_sed} setSed={setSed} {...props} />
   }
 
   return null

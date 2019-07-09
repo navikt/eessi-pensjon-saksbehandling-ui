@@ -4,7 +4,6 @@ import { Flatknapp, Hovedknapp, Row, Systemtittel } from 'components/ui/Nav'
 import SEDP4000 from 'applications/BUC/components/SEDP4000/SEDP4000'
 
 const Step2 = (props) => {
-
   const { actions, buc, t, loading, backStep, _sed, p4000info } = props
 
   const [ showButtons, setShowButtons ] = useState(true)
@@ -39,9 +38,9 @@ const Step2 = (props) => {
     </div>
     {_sed === 'P4000' ? <React.Fragment>
       <div className='col-8'>
-         <SEDP4000 showButtons={showButtons} setShowButtons={setShowButtons} {...props}/>
+        <SEDP4000 showButtons={showButtons} setShowButtons={setShowButtons} {...props} />
       </div>
-      <div className='col-4'/>
+      <div className='col-4' />
     </React.Fragment> : null }
     { showButtons ? <div className='col-md-12'>
       <Hovedknapp
@@ -49,7 +48,7 @@ const Step2 = (props) => {
         className='a-buc-c-sedstart__forward-button'
         disabled={!allowedToForward()}
         spinner={loading.creatingSed}
-        onClick={ onForwardButtonClick }>
+        onClick={onForwardButtonClick}>
         {t('buc:form-orderSED')}
       </Hovedknapp>
       <Flatknapp
@@ -63,8 +62,7 @@ const Step2 = (props) => {
         onClick={onCancelButtonClick}>{t('ui:cancel')}
       </Flatknapp>
     </div> : null }
- </Row>
-
+  </Row>
 }
 
 export default Step2

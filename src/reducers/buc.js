@@ -271,7 +271,7 @@ const bucReducer = (state = initialBucState, action) => {
 
       let existingAttachments = state.attachments ? _.cloneDeep(state.attachments) : []
       let newAttachment = action.payload
-      let found = _.find(existingAttachments, {dokumentInfoId: newAttachment.dokumentInfoId})
+      let found = _.find(existingAttachments, { dokumentInfoId: newAttachment.dokumentInfoId })
       if (!found) {
         existingAttachments.push(newAttachment)
       }

@@ -14,7 +14,6 @@ const placeholders = {
 }
 
 const Step1 = (props) => {
-
   const [ _countries, setCountries ] = useState([])
   const [ _institutions, setInstitutions ] = useState([])
   const [ _attachments, setAttachments ] = useState({})
@@ -48,7 +47,7 @@ const Step1 = (props) => {
     if (sedSent && !attachmentsSent) {
       if (!sendingAttachments) {
         setSendingAttachments(true)
-        if (_.isEmpty(_attachments) || !_attachments.joark || _.isEmpty(_attachments.joark) ) {
+        if (_.isEmpty(_attachments) || !_attachments.joark || _.isEmpty(_attachments.joark)) {
           setAttachmentsSent(true)
           setSendingAttachments(false)
           return
@@ -56,11 +55,11 @@ const Step1 = (props) => {
         _attachments.joark.forEach(attachment => {
           const params = {
             aktoerId: aktoerId,
-            rinaId : buc.caseId,
+            rinaId: buc.caseId,
             rinaDokumentId: sed.id,
             joarkJournalpostId: attachment.journalpostId,
             joarkDokumentInfoId: attachment.dokumentInfoId,
-            variantFormat: attachment.variant,
+            variantFormat: attachment.variant
           }
           console.log('sending ', params)
           actions.sendAttachmentToSed(params)
@@ -70,7 +69,6 @@ const Step1 = (props) => {
       if (attachments && _attachments.joark.length === attachments.length) {
         setAttachmentsSent(true)
         setSendingAttachments(false)
-        return
       }
     }
   }, [_attachments, actions, aktoerId, attachments, attachmentsSent, buc, sed, sedSent, sendingAttachments])
@@ -362,8 +360,8 @@ const Step1 = (props) => {
   }
 
   const allowedToForward = () => {
-    return _sed && hasNoValidationErrors() && !_.isEmpty(_institutions)
-     && !loading.creatingSed && !sendingAttachments
+    return _sed && hasNoValidationErrors() && !_.isEmpty(_institutions) &&
+     !loading.creatingSed && !sendingAttachments
   }
 
   const createSEDneedsMoreSteps = () => {
@@ -399,11 +397,11 @@ const Step1 = (props) => {
         className='a-buc-c-sedstart__forward-button'
         disabled={!allowedToForward()}
         spinner={loading.creatingSed || sendingAttachments}
-        onClick={ createSEDneedsMoreSteps() ? onNextButtonClick : onForwardButtonClick }>
-        {loading.creatingSed ? t('buc:loading-creatingSED') :
-          sendingAttachments ? t('buc:loading-sendingSEDattachments') :
-            createSEDneedsMoreSteps() ? t('ui:next') :
-              t('buc:form-orderSED')}
+        onClick={createSEDneedsMoreSteps() ? onNextButtonClick : onForwardButtonClick}>
+        {loading.creatingSed ? t('buc:loading-creatingSED')
+          : sendingAttachments ? t('buc:loading-sendingSEDattachments')
+            : createSEDneedsMoreSteps() ? t('ui:next')
+              : t('buc:form-orderSED')}
       </Hovedknapp>
       <Flatknapp
         id='a-buc-c-sedstart__cancel-button-id'

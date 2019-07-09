@@ -34,7 +34,7 @@ const SEDBody = (props) => {
         href={rinaUrl + buc.caseId}
         target='rinaWindow'>
         <div className='d-flex'>
-         <Icons className='mr-2' color='#0067C5' kind='outlink' />
+          <Icons className='mr-2' color='#0067C5' kind='outlink' />
           <Normaltekst>{t('buc:form-seeSedInRina')}</Normaltekst>
         </div>
       </Lenke>
