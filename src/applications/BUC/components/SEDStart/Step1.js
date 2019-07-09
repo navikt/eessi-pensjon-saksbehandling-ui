@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { Flatknapp, Hovedknapp, NavFrontendSpinner, Row, Select, Undertittel } from 'components/ui/Nav'
+import { Flatknapp, Hovedknapp, NavFrontendSpinner, Row, Select, Systemtittel, Undertittel } from 'components/ui/Nav'
 import CountryData from 'components/ui/CountryData/CountryData'
 import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
 import SEDAttachments from '../SEDAttachments/SEDAttachments'
@@ -318,7 +318,7 @@ const Step1 = (props) => {
       bredde='fullbredde'
       feil={validation.sedFail ? { feilmelding: validation.sedFail } : null}
       label={t('buc:form-sed')}
-      value={_sed || placeholders.buc}
+      value={_sed || placeholders.sed}
       onChange={onSedChange}>
       {renderOptions(sedList, 'sed')}
     </Select>
@@ -371,6 +371,13 @@ const Step1 = (props) => {
   }
 
   return <Row className='a-buc-c-sedstart'>
+    <div className='col-md-12'>
+      <Systemtittel>{t('buc:step-startSEDTitle', {
+        buc: buc.type,
+        sed: _sed || t('buc:form-newSed')
+      })}</Systemtittel>
+      <hr />
+    </div>
     <div className={layout === 'row' ? 'col-md-4' : 'col-md-12'}>
       {renderSed()}
       {renderCountry()}

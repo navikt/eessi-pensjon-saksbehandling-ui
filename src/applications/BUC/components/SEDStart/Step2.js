@@ -1,40 +1,47 @@
 import React, { useState } from 'react'
-import { Flatknapp, Hovedknapp, Row } from 'components/ui/Nav'
+import _ from 'lodash'
+import { Flatknapp, Hovedknapp, Row, Systemtittel } from 'components/ui/Nav'
 import SEDP4000 from 'applications/BUC/components/SEDP4000/SEDP4000'
 
 const Step2 = (props) => {
 
-  const { actions, t, loading, backStep, _sed } = props
+  const { actions, buc, t, loading, backStep, _sed, p4000info } = props
 
   const [ showButtons, setShowButtons ] = useState(true)
 
   const onBackButtonClick = () => {
-    showButtons(true)
+    setShowButtons(true)
     backStep()
   }
 
   const onForwardButtonClick = () => {
-    showButtons(true)
+    setShowButtons(true)
     console.log('Forward')
   }
 
   const onCancelButtonClick = () => {
-    showButtons(true)
+    setShowButtons(true)
     actions.resetBuc()
     actions.setMode('list')
   }
 
   const allowedToForward = () => {
-    return true
+    return _sed === 'P4000' ? p4000info && !_.isEmpty(p4000info.stayAbroad) : true
   }
 
   return <Row>
+    <div className='col-md-12'>
+      <Systemtittel>{t('buc:step-startSEDTitle', {
+        buc: buc.type,
+        sed: _sed || t('buc:form-newSed')
+      })}</Systemtittel>
+      <hr />
+    </div>
     {_sed === 'P4000' ? <React.Fragment>
-      <div className='col-2'/>
       <div className='col-8'>
-        <SEDP4000 showButtons={showButtons} setShowButtons={setShowButtons} {...props}/>
+         <SEDP4000 showButtons={showButtons} setShowButtons={setShowButtons} {...props}/>
       </div>
-      <div className='col-2'/>
+      <div className='col-4'/>
     </React.Fragment> : null }
     { showButtons ? <div className='col-md-12'>
       <Hovedknapp

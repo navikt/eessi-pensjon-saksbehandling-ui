@@ -4,6 +4,7 @@ import * as api from './api'
 import _ from 'lodash'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
+import sampleP4000info from 'resources/tests/sampleP4000info'
 var sprintf = require('sprintf-js').sprintf
 
 export const setMode = (mode) => {
@@ -132,7 +133,7 @@ export const getTagList = (aktoerId) => {
 }
 
 export const createBuc = (buc) => {
-  let funcCall = urls.HOST === 'localuhost' ? api.fakecall : api.call
+  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
   return funcCall({
     url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
     method: 'POST',
@@ -274,9 +275,37 @@ export const getRinaUrl = () => {
   return api.call({
     url: urls.EUX_RINA_URL,
     type: {
-      request: types.RINA_GET_URL_REQUEST,
-      success: types.RINA_GET_URL_SUCCESS,
-      failure: types.RINA_GET_URL_FAILURE
+      request: types.BUC_RINA_GET_URL_REQUEST,
+      success: types.BUC_RINA_GET_URL_SUCCESS,
+      failure: types.BUC_RINA_GET_URL_FAILURE
+    }
+  })
+}
+
+export const listP4000 = (aktoerId) => {
+  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
+  return funcCall({
+    url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: 'PINFO' }),
+    expectedPayload: [
+      aktoerId + '___PINFO___PINFO.json'
+    ],
+    type: {
+      request: types.BUC_GET_P4000_LIST_REQUEST,
+      success: types.BUC_GET_P4000_LIST_SUCCESS,
+      failure: types.BUC_GET_P4000_LIST_FAILURE
+    }
+  })
+}
+
+export const getP4000 = (file) => {
+  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
+  return funcCall({
+    url: sprintf(urls.API_STORAGE_GETFILE_URL, { file: file }),
+    expectedPayload: sampleP4000info,
+    type: {
+      request: types.BUC_GET_P4000_INFO_REQUEST,
+      success: types.BUC_GET_P4000_INFO_SUCCESS,
+      failure: types.BUC_GET_P4000_INFO_FAILURE
     }
   })
 }

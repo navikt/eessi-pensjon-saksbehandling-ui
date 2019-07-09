@@ -6,7 +6,7 @@ import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import SEDBody from 'applications/BUC/components/SEDBody/SEDBody'
 import RefreshButton from 'components/ui/RefreshButton/RefreshButton'
 import BUCEmpty from './BUCEmpty'
-import { EkspanderbartpanelBase, Flatknapp, Knapp, Lenke, NavFrontendSpinner } from 'components/ui/Nav'
+import { EkspanderbartpanelBase, Knapp, Lenke, NavFrontendSpinner } from 'components/ui/Nav'
 import Icons from 'components/ui/Icons'
 import _ from 'lodash'
 
@@ -89,12 +89,6 @@ const BUCList = (props) => {
 
   const onExpandBUCClick = async (buc) => {
     await updateSeds(buc)
-  }
-
-  const goToRinaClick = () => {
-    if (rinaUrl) {
-      window.open(rinaUrl, 'rinaWindow')
-    }
   }
 
   const onBUCEdit = async (buc) => {

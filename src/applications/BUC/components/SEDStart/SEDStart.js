@@ -15,7 +15,8 @@ export const mapStateToProps = (state) => {
     loading: state.loading,
     locale: state.ui.locale,
     sed: state.buc.sed,
-    sedList: state.buc.sedList
+    sedList: state.buc.sedList,
+    p4000info: state.buc.p4000info
   }
 }
 

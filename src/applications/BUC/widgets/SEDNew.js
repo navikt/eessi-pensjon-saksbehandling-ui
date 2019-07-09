@@ -1,9 +1,9 @@
 import React from 'react'
-import { Hovedknapp, Panel, Systemtittel } from 'components/ui/Nav'
+import { Hovedknapp, Panel } from 'components/ui/Nav'
 import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
 
 const SEDNew = (props) => {
-  const { t, actions, buc } = props
+  const { t, actions } = props
 
   const onBUCList = () => {
     actions.resetBuc()
@@ -15,8 +15,6 @@ const SEDNew = (props) => {
       <Hovedknapp onClick={onBUCList}>{t('ui:back')}</Hovedknapp>
     </div>
     <Panel>
-      <Systemtittel>{t('buc:step-startSEDTitle', { buc: buc.type, caseId: buc.caseId })}</Systemtittel>
-      <hr />
       <SEDStart {...props} />
     </Panel>
   </React.Fragment>
