@@ -64,10 +64,10 @@ const JoarkBrowser = (props) => {
         </div>
       })
     }
-    if (previewFile && (!_previewFile || _previewFile.journalpostId !== previewFile.journalpostId
-     ||  _previewFile.variant !== previewFile.variant)) {
-     setPreviewFile(previewFile)
-    onPreviewFile(previewFile)
+    if (previewFile && (!_previewFile || _previewFile.journalpostId !== previewFile.journalpostId ||
+     _previewFile.variant !== previewFile.variant)) {
+      setPreviewFile(previewFile)
+      onPreviewFile(previewFile)
     }
   }, [previewFile, _previewFile, actions])
 
@@ -131,7 +131,7 @@ const JoarkBrowser = (props) => {
             dokumentInfoId: file.dokumentInfoId,
             variant: variant
           }) !== undefined,
-          focused:  _previewFile ? _previewFile.journalpostId === file.journalpostId && _previewFile.variant === variant : false
+          focused: _previewFile ? _previewFile.journalpostId === file.journalpostId && _previewFile.variant === variant : false
         }
       })
     }

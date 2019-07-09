@@ -12,7 +12,7 @@ export const fakecall = (options) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(options.expectedPayload)
-      }, Math.floor(Math.random()*2000))
+      }, Math.floor(Math.random() * 2000))
     }).then(payload => {
       console.log('FAKE API CALL FOR ' + options.url + ': SUCCESS')
       return dispatch({
@@ -55,9 +55,9 @@ export const call = (options) => {
           error.stackTrace = stackTrace
           throw error
         })
-        .catch((e) => {
-           return Promise.reject(error)
-        })
+          .catch((e) => {
+            return Promise.reject(error)
+          })
       } else {
         return response.json()
       }

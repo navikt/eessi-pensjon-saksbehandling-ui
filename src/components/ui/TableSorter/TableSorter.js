@@ -13,9 +13,9 @@ const TableSorter = (props) => {
 
   const columnNames = Object.keys(_columns)
   const sortOrder = {
-    '' : 'asc',
-    'asc' : 'desc',
-    'desc' : ''
+    '': 'asc',
+    'asc': 'desc',
+    'desc': ''
   }
 
   const sortColumn = (column) => {
@@ -57,12 +57,12 @@ const TableSorter = (props) => {
       return <tr
         key={index}
         style={{ background: background }}>
-          <td/>
+        <td />
         { columnNames.map((column, index2) => {
           const value = item[column]
           switch (column) {
             case 'name':
-             return <td key={index2}>
+              return <td key={index2}>
                 <Normaltekst>{value}</Normaltekst>
               </td>
             case 'tema':
@@ -80,7 +80,7 @@ const TableSorter = (props) => {
                   return <div
                     key={variant.label}
                     className='c-ui-tablesorter__subcell'
-                    style={{ background : variantBackground }}>
+                    style={{ background: variantBackground }}>
                     <Checkbox
                       label=''
                       className='c-ui-tablesorter__checkbox'
@@ -110,13 +110,13 @@ const TableSorter = (props) => {
           className='c-ui-tablesorter__checkbox'
           label=''
           checked={seeFilters}
-          onChange={() => setSeeFilters(!seeFilters)}/>
+          onChange={() => setSeeFilters(!seeFilters)} />
       </th>
       {columnNames.map((column) => {
         return <th key={column}
           onClick={() => sortColumn(column)}
           className={'header ' + sortClass(column)}>
-            <UndertekstBold>{_columns[column].name}</UndertekstBold>
+          <UndertekstBold>{_columns[column].name}</UndertekstBold>
         </th>
       })}
     </React.Fragment>
@@ -130,7 +130,7 @@ const TableSorter = (props) => {
 
   const filterInputs = () => {
     return <React.Fragment>
-      <td/>
+      <td />
       {columnNames.map((column) => {
         return <td key={column}>
           <Input

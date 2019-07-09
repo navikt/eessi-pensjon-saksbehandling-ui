@@ -95,38 +95,38 @@ const Dashboard = (props) => {
 
   return <div className='c-ui-d-dashboard'>
     <DndProvider backend={HTML5Backend}>
-    <DashboardControlPanel
-      currentBreakpoint={currentBreakpoint}
-      addMode={addMode}
-      editMode={editMode}
-      onEditModeOn={onEditModeOn}
-      onCancelEdit={onCancelEdit}
-      onSaveEdit={onSaveEdit}
-      onAddChange={onAddChange}
-      t={props.t} />
-    {addMode ? <WidgetAddArea
-      currentBreakpoint={currentBreakpoint}
-      availableWidgets={availableWidgets}
-      widgets={widgets}
-      setWidgets={setWidgets}
-      t={props.t}
-      dragApi={dragApi} />
-      : null}
-    <DashboardGrid
-      editMode={editMode}
-      layouts={layouts}
-      widgets={widgets}
-      mounted={mounted}
-      currentBreakpoint={currentBreakpoint}
-      onBreakpointChange={onBreakpointChange}
-      onLayoutChange={onLayoutChange}
-      onWidgetUpdate={onWidgetUpdate}
-      onWidgetResize={onWidgetResize}
-      onWidgetDelete={onWidgetDelete}
-      availableWidgets={availableWidgets}
-      t={props.t}
-      dragApi={dragApi}
-    />
+      <DashboardControlPanel
+        currentBreakpoint={currentBreakpoint}
+        addMode={addMode}
+        editMode={editMode}
+        onEditModeOn={onEditModeOn}
+        onCancelEdit={onCancelEdit}
+        onSaveEdit={onSaveEdit}
+        onAddChange={onAddChange}
+        t={props.t} />
+      {addMode ? <WidgetAddArea
+        currentBreakpoint={currentBreakpoint}
+        availableWidgets={availableWidgets}
+        widgets={widgets}
+        setWidgets={setWidgets}
+        t={props.t}
+        dragApi={dragApi} />
+        : null}
+      <DashboardGrid
+        editMode={editMode}
+        layouts={layouts}
+        widgets={widgets}
+        mounted={mounted}
+        currentBreakpoint={currentBreakpoint}
+        onBreakpointChange={onBreakpointChange}
+        onLayoutChange={onLayoutChange}
+        onWidgetUpdate={onWidgetUpdate}
+        onWidgetResize={onWidgetResize}
+        onWidgetDelete={onWidgetDelete}
+        availableWidgets={availableWidgets}
+        t={props.t}
+        dragApi={dragApi}
+      />
     </DndProvider>
   </div>
 }

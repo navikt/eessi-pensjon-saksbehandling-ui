@@ -19,7 +19,6 @@ export const mapStateToProps = (state) => {
 }
 
 const SEDP4000 = (props) => {
-
   const [ period, setPeriod ] = useState({})
   const [ maxPeriods ] = useState(8)
   const [ isReady, setIsReady ] = useState(false)
@@ -111,7 +110,7 @@ const SEDP4000 = (props) => {
           periods={p4000info.stayAbroad}
           setPeriod={setPeriod}
           setPeriods={setPeriods}
-          key={index}/>
+          key={index} />
       })}
     </React.Fragment>
       : null}

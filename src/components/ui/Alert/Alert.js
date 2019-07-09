@@ -55,7 +55,6 @@ const Alert = (props) => {
   }
 
   if (type === 'server') {
-
     if (!serverErrorMessage) {
       return null
     }
@@ -105,7 +104,7 @@ Alert.propTypes = {
   fixed: PT.bool,
   t: PT.func.isRequired,
   type: PT.string.isRequired,
-  serverErrorMessage: PT.string,
+  serverErrorMessage: PT.string
 }
 
 const ConnectedAlert = connect(mapStateToProps, mapDispatchToProps)(withTranslation()(Alert))

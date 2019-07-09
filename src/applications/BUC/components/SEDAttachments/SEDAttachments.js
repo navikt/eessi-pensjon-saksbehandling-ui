@@ -17,11 +17,11 @@ const SEDAttachments = (props) => {
       className='a-buc-c-sedattachments__enable-button'
       label={t('buc:form-enableAttachments')}
       onClick={() => setEnableAttachments(!enableAttachments)}>
-        <div className='d-flex'>
-          <Icons className='mr-2' kind='tilsette'/>
-          <span>{t('ui:addAttachments')}</span>
-        </div>
-      </Knapp> : null}
+      <div className='d-flex'>
+        <Icons className='mr-2' kind='tilsette' />
+        <span>{t('ui:addAttachments')}</span>
+      </div>
+    </Knapp> : null}
     {enableAttachments && step === 1
       ? <Stegindikator
         visLabel

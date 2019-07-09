@@ -5,18 +5,18 @@ export default {
   stayAbroad: [{
     id: 1,
     type: 'work',
-    startDate: {day: 1, month: 1, year: 1970},
-    endDate: {day: 1, month: 1, year: 1979},
+    startDate: { day: 1, month: 1, year: 1970 },
+    endDate: { day: 1, month: 1, year: 1979 },
     workName: 'work name',
     workActivity: 'work activity',
     place: 'place',
-    country: {label: 'Sverige', value: 'SE'}
+    country: { label: 'Sverige', value: 'SE' }
   }, {
     id: 2,
     type: 'home',
-    startDate: {day: 1, month: 1, year: 1980},
-    endDate: {day: 1, month: 1, year: 1989},
+    startDate: { day: 1, month: 1, year: 1980 },
+    endDate: { day: 1, month: 1, year: 1989 },
     place: 'place',
-    country: {label: 'Norge', value: 'NO'}
+    country: { label: 'Norge', value: 'NO' }
   }]
 }

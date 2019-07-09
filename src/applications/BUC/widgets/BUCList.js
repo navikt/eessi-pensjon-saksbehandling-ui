@@ -140,18 +140,18 @@ const BUCList = (props) => {
       </EkspanderbartpanelBase>
     }) : null}
     {(!sakId || !aktoerId) ? <BUCEmpty actions={actions} onBUCNew={onBUCNew} t={t} sakId={sakId}
-        aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> : null}
+      aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> : null}
     {(sakId && aktoerId)
-    ? <div className='mb-2 a-buc-buclist__footer'>
-      <div/>
-      <Lenke
-        id='a-buc-c-buclist__gotorina-link'
-        className='a-buc-c-buclist__gotorina'
-        href={rinaUrl}
-        target='rinaWindow'>
-         <div className='d-flex'>
-           <Icons className='mr-2' color='#0067C5' kind='outlink' />
-           <span>{props.t('ui:goToRina')}</span>
+      ? <div className='mb-2 a-buc-buclist__footer'>
+        <div />
+        <Lenke
+          id='a-buc-c-buclist__gotorina-link'
+          className='a-buc-c-buclist__gotorina'
+          href={rinaUrl}
+          target='rinaWindow'>
+          <div className='d-flex'>
+            <Icons className='mr-2' color='#0067C5' kind='outlink' />
+            <span>{props.t('ui:goToRina')}</span>
           </div>
         </Lenke>
       </div> : null}
