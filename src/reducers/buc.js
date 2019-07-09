@@ -9,7 +9,8 @@ export const initialBucState = {
   sed: undefined,
   seds: undefined,
   statusFilter: ['inbox'],
-  p4000: [],
+  p4000info: undefined,
+  p4000list: undefined,
   institutionList: undefined,
   institutionNames: {},
   mode: 'list'
@@ -52,12 +53,6 @@ const bucReducer = (state = initialBucState, action) => {
       return {
         ...state,
         statusFilter: action.payload
-      }
-
-    case types.BUC_P4000_INFO_SET:
-      return {
-        ...state,
-        p4000: action.payload
       }
 
     case types.BUC_BUC_RESET:
@@ -258,7 +253,7 @@ const bucReducer = (state = initialBucState, action) => {
         institutionNames: institutionNames
       }
 
-    case types.RINA_GET_URL_SUCCESS:
+    case types.BUC_RINA_GET_URL_SUCCESS:
 
       return {
         ...state,
@@ -283,6 +278,31 @@ const bucReducer = (state = initialBucState, action) => {
       return {
         ...state,
         attachments: existingAttachments
+      }
+
+    case types.BUC_GET_P4000_LIST_SUCCESS:
+      return {
+        ...state,
+        p4000list: action.payload
+      }
+
+    case types.BUC_GET_P4000_LIST_FAILURE:
+      return {
+        ...state,
+        p4000list: null
+      }
+
+    case types.BUC_GET_P4000_INFO_SUCCESS:
+    case types.BUC_P4000_INFO_SET:
+      return {
+        ...state,
+        p4000info: action.payload
+      }
+
+    case types.BUC_GET_P4000_INFO_FAILURE:
+      return {
+        ...state,
+        p4000info: null
       }
 
     default:

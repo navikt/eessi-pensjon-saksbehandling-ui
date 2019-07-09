@@ -242,21 +242,46 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
         status: status
       })
 
-    case types.RINA_GET_URL_REQUEST:
+    case types.BUC_RINA_GET_URL_REQUEST:
 
       return Object.assign({}, state, {
         rinaUrl: true,
         status: status
       })
 
-    case types.RINA_GET_URL_SUCCESS:
-    case types.RINA_GET_URL_FAILURE:
+    case types.BUC_RINA_GET_URL_SUCCESS:
+    case types.BUC_RINA_GET_URL_FAILURE:
 
       return Object.assign({}, state, {
         rinaUrl: false,
         status: status
       })
 
+    case types.BUC_GET_P4000_LIST_REQUEST:
+      return {
+        ...state,
+        loadingP4000list: true
+      }
+
+    case types.BUC_GET_P4000_LIST_SUCCESS:
+    case types.BUC_GET_P4000_LIST_FAILURE:
+      return {
+        ...state,
+        loadingP4000list: false
+      }
+
+    case types.BUC_GET_P4000_INFO_REQUEST:
+      return {
+        ...state,
+        loadingP4000info: true
+      }
+
+    case types.BUC_GET_P4000_INFO_SUCCESS:
+    case types.BUC_GET_P4000_INFO_FAILURE:
+      return {
+        ...state,
+        loadingP4000info: false
+      }
       // JOARK
 
     case types.JOARK_LIST_REQUEST:

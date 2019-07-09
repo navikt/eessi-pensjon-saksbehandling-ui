@@ -1,6 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
-import { Element, PanelBase, Normaltekst, Lenke, Flatknapp } from 'components/ui/Nav'
+import { Element, PanelBase, Normaltekst, Flatknapp } from 'components/ui/Nav'
 import classNames from 'classnames'
 import SEDStatus from '../SEDStatus/SEDStatus'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'

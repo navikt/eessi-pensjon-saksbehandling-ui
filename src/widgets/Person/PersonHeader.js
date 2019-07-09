@@ -18,7 +18,7 @@ function PersonHeader (props) {
   }
 
   return <div className='d-flex w-100'>
-    {!aktoerId ? <AlertStripe type='advarsel'>{t('buc:validation-noAktoerId')}</AlertStripe> : null }
+    {!aktoerId ? <AlertStripe type='advarsel' className='w-100'>{t('buc:validation-noAktoerId')}</AlertStripe> : null }
     {gettingPersonInfo ? <div className='d-flex align-items-center'>
       <NavFrontendSpinner className='ml-3 mr-3' type='M' />
       <span className='pl-2'>{t('ui:loading')}</span>

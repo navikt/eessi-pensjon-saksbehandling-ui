@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import moment from 'moment'
@@ -14,24 +14,16 @@ import { AlertStripe, EtikettBase, Flatknapp, HjelpetekstAuto, Hovedknapp,
 Input, Knapp, Normaltekst, Row, Textarea, Select, Undertittel, Undertekst } from 'components/ui/Nav'
 import Icons from 'components/ui/Icons'
 import { pinfoDateToDate } from 'utils/Date'
-import { periodValidation, personValidation } from './Validation/singleTests'
+import { periodValidation } from './Validation/singleTests'
 import { periodStep } from './Validation/stepTests'
 
 import './Period.css'
 
 const Period = (props) => {
-  const { actions, editPeriod, first, key, last, locale, mode, p4000, period, periods, t } = props
+  const { actions, first, last, locale, mode, period, periods, setPeriod, setPeriods, t } = props
 
   const [ localErrors, setLocalErrors ] = useState({})
-  const [ errorTimestamp, setErrorTimestamp ] = useState(new Date().getTime())
   const [ displayError, setDisplayError ] = useState(false)
-  const [ _period, setPeriod ] = useState(period)
-
-  useEffect(() => {
-    if (mode === 'edit' && (_.isEmpty(_period) || _period.id !== period.id)) {
-      setPeriod(period)
-    }
-  }, [mode, _period, period])
 
   const setType = (e) => eventSetProperty('type', periodValidation.periodType, e)
   const setStartDate = (e) => dateSetProperty('startDate', periodValidation.periodStartDateOnChange, e)
@@ -44,12 +36,7 @@ const Period = (props) => {
   const setWorkActivity = (e) => eventSetProperty('workActivity', periodValidation.workActivity, e)
   const setWorkName = (e) => eventSetProperty('workName', periodValidation.workName, e)
   const setWorkPlace = (e) => eventSetProperty('workPlace', periodValidation.workPlace, e)
-  const setChildFirstName = (e) => eventSetProperty('childFirstName', periodValidation.childFirstName, e)
-  const setChildLastName = (e) => eventSetProperty('childLastName', periodValidation.childLastName, e)
-  const setChildBirthDate = (e) => dateSetProperty('childBirthDate', periodValidation.childBirthDate, e)
   const setLearnInstitution = (e) => eventSetProperty('learnInstitution', periodValidation.learnInstitution, e)
-  const setFatherName = (e) => eventSetPerson('fatherName', personValidation.fatherName, e)
-  const setMotherName = (e) => eventSetPerson('motherName', personValidation.motherName, e)
   const setAttachments = (e) => valueSetProperty('attachments', null, e)
   const blurStartDate = (e) => dateBlur('startDate', periodValidation.periodStartDateOnBlur, e)
   const blurEndDate = (e) => dateBlur('endDate', periodValidation.periodEndDateOnBlur, e)
@@ -63,37 +50,12 @@ const Period = (props) => {
     return true
   }
 
-  const hasSpecialCases = (periods) => {
-    if (!periods || _.isEmpty(periods)) {
-      return false
-    }
-    return periods.some(period => isASpecialCase(period))
-  }
-
-  const isASpecialCase = (period) => {
-    return period.country && (period.country.value === 'ES' || period.country.value === 'FR')
-  }
-
-  const eventSetPerson = (key, validateFunction, e) => {
-    let _localErrors = _.cloneDeep(localErrors)
-    const value = e.target.value
-    const error = validateFunction ? validateFunction(value) : undefined
-    if (!error && _localErrors.hasOwnProperty(key)) {
-      delete _localErrors[key]
-    }
-    if (error) {
-      _localErrors[key] = error
-    }
-    actions.setPerson({ [key]: value })
-    setLocalErrors(_localErrors)
-  }
-
   const eventSetProperty = (key, validateFunction, e) => {
     valueSetProperty(key, validateFunction, e.target.value)
   }
 
   const dateBlur = (key, validateFunction) => {
-    const date = _period[key]
+    const date = period[key]
     let _localErrors = _.cloneDeep(localErrors)
 
 
@@ -109,7 +71,7 @@ const Period = (props) => {
   }
 
   const dateSetProperty = (key, validateFunction, date) => {
-    const { startDate, endDate } = _period
+    const { startDate, endDate } = period
     let _localErrors = _.cloneDeep(localErrors)
     let error = validateFunction ? validateFunction(date) : undefined
     let timeSpanError
@@ -136,7 +98,7 @@ const Period = (props) => {
     }
 
     setPeriod({
-      ..._period,
+      ...period,
       [key]: date
     })
     setLocalErrors(_localErrors)
@@ -153,14 +115,14 @@ const Period = (props) => {
     }
 
     setPeriod({
-      ..._period,
+      ...period,
       [key]: value
     })
     setLocalErrors(_localErrors)
   }
 
   const validatePeriod = () => {
-    return periodStep(_period)
+    return periodStep(period)
   }
 
   const addInsuranceId = (insuranceId) => {
@@ -174,12 +136,11 @@ const Period = (props) => {
   const saveNewPeriod = () => {
     let errors = validatePeriod()
     setLocalErrors(errors)
-    setErrorTimestamp(new Date().getTime())
     setDisplayError(true)
 
     if (hasNoErrors(errors)) {
       let newPeriods = _.clone(periods)
-      let newPeriod = _.clone(_period)
+      let newPeriod = _.clone(period)
 
       // remove properties that do not belong to this type
       switch (newPeriod) {
@@ -197,33 +158,30 @@ const Period = (props) => {
 
       newPeriod.id = new Date().getTime()
       newPeriods.push(newPeriod)
-      actions.setP4000Info(newPeriods)
+      setPeriods(newPeriods)
       setPeriod({})
       setDisplayError(false)
       window.scrollTo(0, 0)
     }
   }
 
-
   const saveEditPeriod = () => {
 
     let errors = validatePeriod()
     setLocalErrors(errors)
-    setErrorTimestamp(new Date().getTime())
     setDisplayError(true)
 
     if (hasNoErrors(errors)) {
       let newPeriods = _.clone(periods)
-      let newPeriod = _.clone(_period)
+      let newPeriod = _.clone(period)
       newPeriod.id = new Date().getTime()
-      let index = _.findIndex(periods, { id: _period.id })
+      let index = _.findIndex(periods, { id: period.id })
       if (index >= 0) {
         newPeriods.splice(index, 1)
         newPeriods.push(newPeriod)
-        actions.setP4000Info(newPeriods)
+        setPeriods(newPeriods)
         setPeriod({})
         setDisplayError(false)
-        editPeriod({})
       }
       window.scrollTo(0, 0)
     }
@@ -233,8 +191,6 @@ const Period = (props) => {
 
     setLocalErrors({})
     setPeriod({})
-    setErrorTimestamp(new Date().getTime())
-    editPeriod({})
     actions.closeModal()
     window.scrollTo(0, 0)
   }
@@ -274,7 +230,7 @@ const Period = (props) => {
     if (index >= 0) {
       let newPeriods = _.clone(periods)
       newPeriods.splice(index, 1)
-      actions.setP4000Info(newPeriods)
+      setPeriods(newPeriods)
     }
     actions.closeModal()
   }
@@ -295,7 +251,7 @@ const Period = (props) => {
     return periods.map(period => {
       return period.insuranceName
     }).filter((insuranceName, index, self) => {
-      return insuranceName && _period.insuranceName !== insuranceName &&
+      return insuranceName && period.insuranceName !== insuranceName &&
         self.indexOf(insuranceName) === index
     }).map(insuranceName => {
       return <EtikettBase
@@ -310,7 +266,7 @@ const Period = (props) => {
     return periods.map(period => {
       return period.insuranceId
     }).filter((insuranceId, index, self) => {
-      return insuranceId && _period.insuranceId !== insuranceId &&
+      return insuranceId && period.insuranceId !== insuranceId &&
       self.indexOf(insuranceId) === index
     }).map(insuranceId => {
       return <EtikettBase
@@ -335,11 +291,10 @@ const Period = (props) => {
               <Icons className='iconsvg' kind={'nav-' + period.type} size={32} />
             </div>
             <div className='pb-2 existingPeriodDescription'>
-              <span className='bold existingPeriodType'>{t('buc:p4000-category-' + period.type)}</span>
-              <span>
+              <div className='d-flex'>
                 <Flag label={period.country.label} country={period.country.value} size='M' />
-              </span>
-              <br />
+                <span className='bold pl-2 existingPeriodType'>{t('buc:p4000-category-' + period.type)}</span>
+              </div>
               <span className='existingPeriodDates'>
                 <span className='bold'>{t('buc:p4000-period')}</span>{': '}
                 {moment(pinfoDateToDate(period.startDate)).format('DD.MM.YYYY')}{' - '}
@@ -369,7 +324,7 @@ const Period = (props) => {
           </div>
         </div>
         {mode === 'view' ? <div className='col-md-6 col-12 existingPeriodButtons'>
-          <Knapp className='mr-3 existingPeriodButton' onClick={() => editPeriod(period)}>
+          <Knapp className='mr-3 existingPeriodButton' onClick={() => setPeriod(period)}>
             {t('ui:change')}
           </Knapp>
           <Knapp className='existingPeriodButton' onClick={() => removePeriodRequest(period)}>
@@ -396,7 +351,7 @@ const Period = (props) => {
                   </HjelpetekstAuto>
                 </div>
               </div>}
-              value={_period.type || ''}
+              value={period.type || ''}
               onChange={setType}>
               <option value=''>{t('ui:choose')}</option>
               <option value='work'>{t('buc:p4000-category-work')}</option>
@@ -406,9 +361,9 @@ const Period = (props) => {
             </Select>
           </div>
         </Row>
-        { _period.type ? <React.Fragment>
-          {_period.type === 'home' ? <AlertStripe className='mt-4 mb-4' type='advarsel'>{t('buc:p4000-warning-home-period')}</AlertStripe> : null}
-          <Undertittel className='mt-5 mb-2'>{t(`buc:p4000-period-title-${_period.type}`)}</Undertittel>
+        { period.type ? <React.Fragment>
+          {period.type === 'home' ? <AlertStripe className='mt-4 mb-4' type='advarsel'>{t('buc:p4000-warning-home-period')}</AlertStripe> : null}
+          <Undertittel className='mt-5 mb-2'>{t(`buc:p4000-period-title-${period.type}`)}</Undertittel>
           <Normaltekst className='mb-3'>{t('buc:p4000-period-date-description')}</Normaltekst>
           <Row>
             <div className='col-sm-6 col-12 mb-2'>
@@ -420,7 +375,7 @@ const Period = (props) => {
                   ids={{ day: 'pinfo-opphold-startdato-day', month: 'pinfo-opphold-startdato-month', year: 'pinfo-opphold-startdato-year' }}
                   placeholders={{ day: t('buc:p4000-period-placeholder-day'), month: t('buc:p4000-period-placeholder-month'), year: t('buc:p4000-period-placeholder-year') }}
                   className='startDate pr-2'
-                  values={_period.startDate}
+                  values={period.startDate}
                   onChange={setStartDate}
                   feil={localErrors.startDate || localErrors.timeSpan ? { feilmelding: t(localErrors.startDate || localErrors.timeSpan) } : undefined}
                 />
@@ -434,7 +389,7 @@ const Period = (props) => {
                   ids={{ day: 'pinfo-opphold-sluttdato-day', month: 'pinfo-opphold-sluttdato-month', year: 'pinfo-opphold-sluttdato-year' }}
                   placeholders={{ day: t('buc:p4000-period-placeholder-day'), month: t('buc:p4000-period-placeholder-month'), year: t('buc:p4000-period-placeholder-year') }}
                   className='endDate pr-2'
-                  values={_period.endDate}
+                  values={period.endDate}
                   onChange={setEndDate}
                   feil={localErrors.endDate || localErrors.timeSpan ? { feilmelding: t(localErrors.endDate || localErrors.timeSpan) } : undefined}
                 />
@@ -450,14 +405,14 @@ const Period = (props) => {
                 id='pinfo-opphold-land'
                 locale={locale}
                 includeList={CountryFilter.EEA}
-                value={_period.country || null}
+                value={period.country || null}
                 onSelect={setCountry}
                 error={localErrors.country}
                 errorMessage={t(localErrors.country)}
               />
             </div>
           </Row>
-          {_period.type === 'work' ? <Row>
+          {period.type === 'work' ? <Row>
             <div className='col-sm-12'>
               <Textarea
                 id='pinfo-opphold-arbeidgiverssted-textarea'
@@ -471,7 +426,7 @@ const Period = (props) => {
                   <span className='optional'>{t('ui:optional')}</span>
                 </div>}
                 placeholder={t('ui:writeIn')}
-                value={_period.workPlace || ''}
+                value={period.workPlace || ''}
                 style={{ minHeight: '100px' }}
                 maxLength={100}
                 onChange={setWorkPlace}
@@ -490,7 +445,7 @@ const Period = (props) => {
                   </div>
                 </div>}
                 placeholder={t('ui:writeIn')}
-                value={_period.workActivity || ''}
+                value={period.workActivity || ''}
                 onChange={setWorkActivity}
                 feil={localErrors.workActivity ? { feilmelding: t(localErrors.workActivity) } : null}
               />
@@ -503,13 +458,13 @@ const Period = (props) => {
                   <span className='optional'>{t('ui:optional')}</span>
                 </div>}
                 placeholder={t('ui:writeIn')}
-                value={_period.workName || ''}
+                value={period.workName || ''}
                 onChange={setWorkName}
                 feil={localErrors.workName ? { feilmelding: t(localErrors.workName) } : null}
               />
             </div>
           </Row> : null}
-          {_period.type === 'learn' ? <Row>
+          {period.type === 'learn' ? <Row>
             <div className='col-sm-12'>
               <Input
                 id='pinfo-opphold-opplaeringsinstitusjonsnavn-input'
@@ -521,14 +476,14 @@ const Period = (props) => {
                     </HjelpetekstAuto>
                   </div>
                 </div>}
-                value={_period.learnInstitution || ''}
+                value={period.learnInstitution || ''}
                 placeholder={t('ui:writeIn')}
                 onChange={setLearnInstitution}
                   feil={localErrors.learnInstitution ? { feilmelding: t(localErrors.learnInstitution) } : null}
               />
             </div>
           </Row> : null}
-          {_period.type !== 'home' ? <Row>
+          {period.type !== 'home' ? <Row>
             <div className='col-sm-12'>
               <Undertittel className='mt-5 mb-2'>{t('buc:p4000-home-title')}</Undertittel>
             </div>
@@ -539,7 +494,7 @@ const Period = (props) => {
                   <span>{t('buc:p4000-place-and-country')}</span>
                 </div>}
                 placeholder={t('ui:writeIn')}
-                value={_period.place || ''}
+                value={period.place || ''}
                 style={{ minHeight: '100px' }}
                 maxLength={100}
                 onChange={setPlace}
@@ -552,7 +507,7 @@ const Period = (props) => {
                 id='pinfo-opphold-bosted-place-textarea'
                 label={t('buc:p4000-place')}
                 placeholder={t('ui:writeIn')}
-                value={_period.place || ''}
+                value={period.place || ''}
                 style={{ minHeight: '100px' }}
                 maxLength={100}
                 onChange={setPlace}
@@ -575,7 +530,7 @@ const Period = (props) => {
                   <span className='optional'>{t('ui:optional')}</span>
                 </div>}
                 placeholder={t('ui:writeIn')}
-                value={_period.insuranceName || ''}
+                value={period.insuranceName || ''}
                 onChange={setInsuranceName}
                 feil={localErrors.insuranceName ? { feilmelding: t(localErrors.insuranceName) } : null}
               />
@@ -596,7 +551,7 @@ const Period = (props) => {
                   <span className='optional'>{t('ui:optional')}</span>
                 </div>}
                 placeholder={t('ui:writeIn')}
-                value={_period.insuranceId || ''}
+                value={period.insuranceId || ''}
                onChange={setInsuranceId}
                 feil={localErrors.insuranceId ? { feilmelding: t(localErrors.insuranceId) } : null}
               />
@@ -616,7 +571,7 @@ const Period = (props) => {
                   </div>
                   <span className='optional'>{t('ui:optional')}</span>
                 </div>}
-                value={_period.insuranceType || ''}
+                value={period.insuranceType || ''}
                 onChange={setInsuranceType}
                 feil={localErrors.insuranceType ? { feilmelding: t(localErrors.insuranceType) } : null}>
                 <option value=''>{t('ui:choose')}</option>
@@ -641,8 +596,8 @@ const Period = (props) => {
                 maxFileSize={10 * 1024 * 1024}
                 maxFiles={10}
                 t={t}
-                files={(_period.attachments || [])}
-                onFileChange={() => setAttachments(_period)} />
+                files={period.attachments || []}
+                onFileChange={() => setAttachments(period)} />
             </div>
           </Row>
           <Row>
@@ -668,7 +623,7 @@ const Period = (props) => {
             </div>
           </Row>
         </React.Fragment> : null}
-        { !_period.type && _.isEmpty(periods) ? <AlertStripe
+        { !period.type && _.isEmpty(periods) ? <AlertStripe
           className='mt-4 mb-4' type='advarsel'>
           {t('buc:p4000-warning-one-period')}
         </AlertStripe>
@@ -684,7 +639,6 @@ Period.propTypes = {
   period: PT.object,
   periods: PT.array,
   actions: PT.object.isRequired,
-  editPeriod: PT.func.isRequired,
   t: PT.func
 }
 

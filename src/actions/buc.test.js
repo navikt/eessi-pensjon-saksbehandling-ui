@@ -291,9 +291,9 @@ describe('buc actions', () => {
     bucActions.getRinaUrl()
     expect(api.call).toBeCalledWith({
       type: {
-        request: types.RINA_GET_URL_REQUEST,
-        success: types.RINA_GET_URL_SUCCESS,
-        failure: types.RINA_GET_URL_FAILURE
+        request: types.BUC_RINA_GET_URL_REQUEST,
+        success: types.BUC_RINA_GET_URL_SUCCESS,
+        failure: types.BUC_RINA_GET_URL_FAILURE
       },
       url: urls.EUX_RINA_URL
     })
