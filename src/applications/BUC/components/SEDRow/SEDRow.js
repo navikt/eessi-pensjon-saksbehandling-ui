@@ -51,8 +51,8 @@ const SEDRow = (props) => {
           {sed.status === 'received'
             ? <Flatknapp mini onClick={onSEDNew}>{t('buc:form-answerSED')}</Flatknapp>
             : null}
-          <Lenke target='_blank'
-            id='a-buc-c-sedrow__gotorina-button'
+          <Lenke
+            id='a-buc-c-sedrow__gotorina-link'
             className='a-buc-c-sedrow__gotorina'
             href={rinaUrl + rinaId}
             target='rinaWindow'>
