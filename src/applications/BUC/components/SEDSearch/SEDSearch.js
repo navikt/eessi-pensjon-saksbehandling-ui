@@ -43,9 +43,6 @@ const SEDSearch = (props) => {
   }
 
   const availableStatuses = [{
-    label: t('ui:empty'),
-    value: null
-  }, {
     label: t('ui:new'),
     value: 'new'
   }, {
