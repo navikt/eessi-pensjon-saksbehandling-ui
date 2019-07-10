@@ -160,6 +160,8 @@
   "p4000-category-daily"          : "Dagpenger",
   "p4000-category-sick"           : "Sykepenger",
   "p4000-category-other"          : "Annet",
+  "p4000-comment"                 : "Tilleggsopplysninger",
+  "p4000-comment-help"            :"Her kan du legge inn tilleggsopplysninger du mener kan være nyttige for NAV og utenlandske trygdemyndigheter.",
   "p4000-country"                 : "Land",
   "p4000-deletePeriod"            : "Slett periode",
   "p4000-description"             : "Angi opplysninger relatert til tilbakelagte perioder i EØS-land",

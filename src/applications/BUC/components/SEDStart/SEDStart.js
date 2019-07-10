@@ -126,7 +126,9 @@ const SEDStart = (props) => {
         sed: _sed,
         institutions: institutions,
         aktoerId: aktoerId,
-        euxCaseId: buc.caseId
+        euxCaseId: buc.caseId,
+        attachments: attachments,
+        stayAbroad: p4000info ? p4000info.stayAbroad : undefined
       })
     }
   }
@@ -159,7 +161,7 @@ const SEDStart = (props) => {
     return false
   }
 
-  return <Row>
+  return <Row className='a-buc-c-sedstart'>
     { step === 0 ? <Step1
       _sed={_sed} setSed={setSed}
       _attachments={_attachments} setAttachments={setAttachments}
@@ -174,7 +176,7 @@ const SEDStart = (props) => {
       _institutions={_institutions} setInstitutions={setInstitutions}
       validation={validation} setValidation={setValidation}
       {...props} /> : null }
-    { showButtons ? <div className='col-md-12'>
+    { showButtons ? <div className='col-md-12 mt-4'>
       <Hovedknapp
         id='a-buc-c-sedstart__forward-button-id'
         className='a-buc-c-sedstart__forward-button'

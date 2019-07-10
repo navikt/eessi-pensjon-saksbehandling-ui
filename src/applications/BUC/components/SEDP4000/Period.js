@@ -39,6 +39,7 @@ const Period = (props) => {
   const setAttachments = (e) => valueSetProperty('attachments', null, e)
   const blurStartDate = (e) => dateBlur('startDate', periodValidation.periodStartDateOnBlur, e)
   const blurEndDate = (e) => dateBlur('endDate', periodValidation.periodEndDateOnBlur, e)
+  const setComment = (e) => eventSetProperty('comment', null, e)
 
   const hasNoErrors = (errors) => {
     for (var key in errors) {
@@ -338,14 +339,12 @@ const Period = (props) => {
         <Row className={mode}>
           <div className='col-sm-8'>
             <Select
-              id='pinfo-opphold-kategori-select'
-              label={<div className='pinfo-label'>
-                <div className='pinfo-label'>
-                  <span>{t('buc:p4000-category')}</span>
-                  <HjelpetekstAuto id='p4000-category-select-help'>
-                    {t('buc:p4000-category-help')}
-                  </HjelpetekstAuto>
-                </div>
+              id='a-buc-c-sedp4000-period__kategori-select'
+              label={<div className='a-buc-c-sedp4000-period__label'>
+                <span>{t('buc:p4000-category')}</span>
+                <HjelpetekstAuto id='p4000-category-select-help'>
+                  {t('buc:p4000-category-help')}
+                </HjelpetekstAuto>
               </div>}
               value={period.type || ''}
               onChange={setType}>
@@ -366,9 +365,9 @@ const Period = (props) => {
               <label className='datepickerLabel skjemaelement__label'>{t('buc:p4000-period-start-date')}</label>
               {<FocusGroup onBlur={blurStartDate}>
                 <DatePicker
-                  id='pinfo-opphold-startdato-date'
+                  id='a-buc-c-sedp4000-period__startdato-date'
                   labels={{ day: t('buc:p4000-period-day'), month: t('buc:p4000-period-month'), year: t('buc:p4000-period-year') }}
-                  ids={{ day: 'pinfo-opphold-startdato-day', month: 'pinfo-opphold-startdato-month', year: 'pinfo-opphold-startdato-year' }}
+                  ids={{ day: 'a-buc-c-sedp4000-period__startdato-day', month: 'a-buc-c-sedp4000-period__startdato-month', year: 'a-buc-c-sedp4000-period__startdato-year' }}
                   placeholders={{ day: t('buc:p4000-period-placeholder-day'), month: t('buc:p4000-period-placeholder-month'), year: t('buc:p4000-period-placeholder-year') }}
                   className='startDate pr-2'
                   values={period.startDate}
@@ -382,7 +381,7 @@ const Period = (props) => {
               {<FocusGroup onBlur={blurEndDate}>
                 <DatePicker
                   labels={{ day: t('buc:p4000-period-day'), month: t('buc:p4000-period-month'), year: t('buc:p4000-period-year') }}
-                  ids={{ day: 'pinfo-opphold-sluttdato-day', month: 'pinfo-opphold-sluttdato-month', year: 'pinfo-opphold-sluttdato-year' }}
+                  ids={{ day: 'a-buc-c-sedp4000-period__sluttdato-day', month: 'a-buc-c-sedp4000-period__sluttdato-month', year: 'a-buc-c-sedp4000-period__sluttdato-year' }}
                   placeholders={{ day: t('buc:p4000-period-placeholder-day'), month: t('buc:p4000-period-placeholder-month'), year: t('buc:p4000-period-placeholder-year') }}
                   className='endDate pr-2'
                   values={period.endDate}
@@ -395,10 +394,10 @@ const Period = (props) => {
           <Row>
             <div className='col-sm-8 mb-2'>
               <label className='skjemaelement__label'>
-                <div className='pinfo-label'>{t('buc:p4000-country')}</div>
+                <div className='a-buc-c-sedp4000-period__label'>{t('buc:p4000-country')}</div>
               </label>
               <CountrySelect
-                id='pinfo-opphold-land'
+                id='a-buc-c-sedp4000-period__land'
                 locale={locale}
                 includeList={CountryFilter.EEA}
                 value={period.country || null}
@@ -411,9 +410,9 @@ const Period = (props) => {
           {period.type === 'work' ? <Row>
             <div className='col-sm-12'>
               <Textarea
-                id='pinfo-opphold-arbeidgiverssted-textarea'
-                label={<div className='pinfo-label'>
-                  <div className='pinfo-label'>
+                id='a-buc-c-sedp4000-period__arbeidgiverssted-textarea'
+                label={<div className='a-buc-c-sedp4000-period__label'>
+                  <div className='a-buc-c-sedp4000-period__label'>
                     <span>{t('buc:p4000-work-place')}</span>
                     <HjelpetekstAuto id='p4000-work-place-help'>
                       <span>{t('buc:p4000-work-place-help')}</span>
@@ -431,9 +430,9 @@ const Period = (props) => {
             </div>
             <div className='col-sm-12'>
               <Input
-                id='pinfo-opphold-yrkesaktivitet-input'
-                label={<div className='pinfo-label'>
-                  <div className='pinfo-label'>
+                id='a-buc-c-sedp4000-period__yrkesaktivitet-input'
+                label={<div className='a-buc-c-sedp4000-period__label'>
+                  <div className='a-buc-c-sedp4000-period__label'>
                     <span>{t('buc:p4000-work-activity')}</span>
                     <HjelpetekstAuto id='p4000-work-activity-help'>
                       <span>{t('buc:p4000-work-activity-help')}</span>
@@ -448,8 +447,8 @@ const Period = (props) => {
             </div>
             <div className='col-sm-12'>
               <Input
-                id='pinfo-opphold-arbeidgiversnavn-input'
-                label={<div className='pinfo-label'>
+                id='a-buc-c-sedp4000-period__arbeidgiversnavn-input'
+                label={<div className='a-buc-c-sedp4000-period__label'>
                   <span>{t('buc:p4000-work-name')}</span>
                   <span className='optional'>{t('ui:optional')}</span>
                 </div>}
@@ -463,9 +462,9 @@ const Period = (props) => {
           {period.type === 'learn' ? <Row>
             <div className='col-sm-12'>
               <Input
-                id='pinfo-opphold-opplaeringsinstitusjonsnavn-input'
-                label={<div className='pinfo-label'>
-                  <div className='pinfo-label'>
+                id='a-buc-c-sedp4000-period__opplaeringsinstitusjonsnavn-input'
+                label={<div className='a-buc-c-sedp4000-period__label'>
+                  <div className='a-buc-c-sedp4000-period__label'>
                     <span>{t('buc:p4000-learn-institution')}</span>
                     <HjelpetekstAuto id='p4000-learn-institution-help'>
                       <span>{t('buc:p4000-learn-institution-help')}</span>
@@ -485,8 +484,8 @@ const Period = (props) => {
             </div>
             <div className='col-sm-12'>
               <Textarea
-                id='pinfo-opphold-bosted-place-textarea'
-                label={<div className='pinfo-label'>
+                id='a-buc-c-sedp4000-period__bosted-place-textarea'
+                label={<div className='a-buc-c-sedp4000-period__label'>
                   <span>{t('buc:p4000-place-and-country')}</span>
                 </div>}
                 placeholder={t('ui:writeIn')}
@@ -500,7 +499,7 @@ const Period = (props) => {
           </Row> : <Row>
             <div className='col-sm-12'>
               <Textarea
-                id='pinfo-opphold-bosted-place-textarea'
+                id='a-buc-c-sedp4000-period__bosted-place-textarea'
                 label={t('buc:p4000-place')}
                 placeholder={t('ui:writeIn')}
                 value={period.place || ''}
@@ -515,9 +514,9 @@ const Period = (props) => {
           <Row>
             <div className='col-sm-12'>
               <Input
-                id='pinfo-opphold-trygdeordning-navn'
-                label={<div className='pinfo-label'>
-                  <div className='pinfo-label'>
+                id='a-buc-c-sedp4000-period__trygdeordning-navn'
+                label={<div className='a-buc-c-sedp4000-period__label'>
+                  <div className='a-buc-c-sedp4000-period__label'>
                     <span>{t('buc:p4000-insurance-name')}</span>
                     <HjelpetekstAuto id='p4000-insurance-name-help'>
                       {t('buc:p4000-insurance-name-help')}
@@ -536,9 +535,9 @@ const Period = (props) => {
             </div>
             <div className='col-sm-12'>
               <Input
-                id='pinfo-opphold-trygdeordning-id'
-                label={<div className='pinfo-label'>
-                  <div className='pinfo-label'>
+                id='a-buc-c-sedp4000-period__trygdeordning-id'
+                label={<div className='a-buc-c-sedp4000-period__label'>
+                  <div className='a-buc-c-sedp4000-period__label'>
                     <span>{t('buc:p4000-insurance-id')}</span>
                     <HjelpetekstAuto id='p4000-insurance-id-help'>
                       {t('buc:p4000-insurance-id-help')}
@@ -557,9 +556,9 @@ const Period = (props) => {
             </div>
             <div className='col-sm-12'>
               <Select
-                id='pinfo-opphold-trygdeordning-type'
-                label={<div className='pinfo-label'>
-                  <div className='pinfo-label'>
+                id='a-buc-c-sedp4000-period__trygdeordning-type'
+                label={<div className='a-buc-c-sedp4000-period__label'>
+                  <div className='a-buc-c-sedp4000-period__label'>
                     <span>{t('buc:p4000-insurance-type')}</span>
                     <HjelpetekstAuto id='p4000-insurance-type-help'>
                       {t('buc:p4000-insurance-type-help')}
@@ -586,8 +585,8 @@ const Period = (props) => {
             </div>
             <div className='col-sm-12'>
               <FileUpload
-                id={'pinfo-opphold-vedlegg-fileupload-' + period.id}
-                fileUploadDroppableId={'pinfo-opphold-vedlegg-fileupload-' + period.id}
+                id={'a-buc-c-sedp4000-period__vedlegg-fileupload-' + period.id}
+                fileUploadDroppableId={'a-buc-c-sedp4000-period__vedlegg-fileupload-' + period.id}
                 acceptedMimetypes={['application/pdf', 'image/jpeg', 'image/png']}
                 maxFileSize={10 * 1024 * 1024}
                 maxFiles={10}
@@ -597,21 +596,40 @@ const Period = (props) => {
             </div>
           </Row>
           <Row>
+            <Undertittel className='mt-5 mb-2'>{t('buc:p4000-comment')}</Undertittel>
+          </Row>
+          <Textarea id='a-buc-c-sedp4000-period__comment'
+            label={<div className='a-buc-c-sedp4000-period__label'>
+              <div className='a-buc-c-sedp4000-period__label'>
+                <span>{t('buc:p4000-comment')}</span>
+                <HjelpetekstAuto id='a-buc-c-sedp4000-period__comment-help'>
+                  {t('buc:p4000-comment-help')}
+                </HjelpetekstAuto>
+              </div>
+              <span className='optional'>{t('ui:optional')}</span>
+            </div>}
+            placeholder={t('ui:writeIn')}
+            value={period.comment || ''}
+            style={{ minHeight: '100px' }}
+            onChange={setComment}
+            maxLength={2300}
+          />
+          <Row>
             <div className='mt-4 mb-4 col-sm-12'>
               {mode === 'edit' ? <Knapp
-                id='pinfo-opphold-endre-button'
+                id='a-buc-c-sedp4000-period__endre-button'
                 className='editPeriodButton mb-2 mr-4 w-sm-100'
                 onClick={saveEditPeriod}>
                 {t('buc:p4000-saveEditPeriod')}
               </Knapp> : null}
               {mode === 'new' ? <Hovedknapp
-                id='pinfo-opphold-lagre-button'
+                id='a-buc-c-sedp4000-period__lagre-button'
                 className='addPeriodButton mb-2 mr-4 w-sm-100'
                 onClick={saveNewPeriod}>
                 {t('buc:p4000-saveNewPeriod')}
               </Hovedknapp> : null}
               <Flatknapp
-                id='pinfo-opphold-avbryt-button'
+                id='a-buc-c-sedp4000-period__avbryt-button'
                 className='cancelPeriodButton mb-2 w-sm-100'
                 onClick={cancelPeriodRequest}>
                 {t('buc:p4000-cancelPeriod')}

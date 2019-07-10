@@ -1,7 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { NavFrontendSpinner, Row, Select, Systemtittel, Undertittel } from 'components/ui/Nav'
+import { NavFrontendSpinner, Select, Systemtittel, Undertittel } from 'components/ui/Nav'
 import CountryData from 'components/ui/CountryData/CountryData'
 import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
 import SEDAttachments from '../SEDAttachments/SEDAttachments'
@@ -176,7 +176,7 @@ const Step1 = (props) => {
     setAttachments(files)
   }
 
-  return <Row className='a-buc-c-sedstart'>
+  return <React.Fragment>
     <div className='col-md-12'>
       <Systemtittel>{t('buc:step-startSEDTitle', {
         buc: t(`buc:buc-${buc.type}`),
@@ -250,7 +250,7 @@ const Step1 = (props) => {
     <div className={layout === 'row' ? 'col-md-8' : 'col-md-12'}>
       <SEDAttachments t={t} setFiles={setFiles} files={_attachments} />
     </div>
-  </Row>
+  </React.Fragment>
 }
 
 Step1.propTypes = {

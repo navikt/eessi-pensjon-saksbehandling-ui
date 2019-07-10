@@ -103,12 +103,12 @@ const BUCEdit = (props) => {
       <Knapp onClick={onSEDNew}>{t('buc:form-orderNewSED')}</Knapp>
     </div>
     <Row style={{ marginLeft: '-15px', marginRight: '-15px' }}>
-      <div className='col-8'>
+      <div className='col-md-8'>
         <SEDSearch className='mb-2' t={t} locale={locale} value={search} seds={seds}
           onSearch={onSearch} onCountrySearch={onCountrySearch} onStatusSearch={onStatusSearch} />
         {renderSeds()}
       </div>
-      <div className='col-4'>
+      <div className='col-md-4'>
         <BUCDetail className='mb-3' t={t} buc={buc} bucInfo={bucInfo} locale={locale} />
         <BUCTools className='mb-3' t={t} buc={buc} bucInfo={bucInfo} locale={locale} />
         <UserTools className='mb-3' t={t} />
