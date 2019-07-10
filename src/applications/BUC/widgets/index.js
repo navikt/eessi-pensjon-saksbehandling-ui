@@ -8,6 +8,7 @@ import BUCList from './BUCList'
 import BUCNew from './BUCNew'
 import SEDNew from './SEDNew'
 import BUCEdit from './BUCEdit'
+import BUCCrumbs from '../components/BUCCrumbs/BUCCrumbs'
 
 import './index.css'
 import { getDisplayName } from '../../../utils/displayName'
@@ -37,7 +38,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export const BUCWidgetIndex = (props) => {
-  const { actions, aktoerId, bucs, gettingBUCs, mode, rinaUrl, sakId } = props
+  const { t, actions, aktoerId, bucs, buc, gettingBUCs, mode, rinaUrl, sakId } = props
   const [ mounted, setMounted ] = useState(false)
 
   useEffect(() => {
@@ -59,6 +60,14 @@ export const BUCWidgetIndex = (props) => {
   }
 
   return <div className='a-buc-widget'>
+    <BUCCrumbs
+      resetSed={actions.resetSed}
+      resetBuc={actions.resetBuc}
+      setMode={actions.setMode}
+      t={t}
+      buc={buc}
+      mode={mode}
+    />
     {mode === 'buclist' ? <BUCList {...props} /> : null}
     {mode === 'bucedit' ? <BUCEdit {...props} /> : null}
     {mode === 'bucnew' ? <BUCNew {...props} /> : null}
