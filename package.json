@@ -113,6 +113,7 @@
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-select": "^3.0.4",
+    "react-stomp": "^4.1.1",
     "react-visjs-timeline": "^1.5.0",
     "reactcss": "^1.2.3",
     "reinspect": "^1.0.1",

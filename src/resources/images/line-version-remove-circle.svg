@@ -1,0 +1,12 @@
+<svg contentScriptType="text/ecmascript" zoomAndPan="magnify"
+     xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css"
+     id="Layer_1" style="enable-background:new 0 0 23 23;" version="1.1"
+     xml:space="preserve" preserveAspectRatio="xMidYMid meet"
+     viewBox="0 0 23 23" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px">
+    <style type="text/css" xml:space="preserve">
+	.st0{fill:none;stroke:#BA3A26;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+</style>
+    <g fill="red">
+        <circle fill="none" r="11" cx="11.5" cy="11.5" stroke="red"/>
+        <path fill="none" d="M15.7,7.3l-8.5,8.5 M15.7,15.7L7.3,7.3"
+              stroke="red"/></g></svg>

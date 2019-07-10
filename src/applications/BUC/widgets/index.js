@@ -8,9 +8,11 @@ import BUCList from './BUCList'
 import BUCNew from './BUCNew'
 import SEDNew from './SEDNew'
 import BUCEdit from './BUCEdit'
-import BUCCrumbs from '../components/BUCCrumbs/BUCCrumbs'
+import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
+import BUCWebSocket from '../websocket'
+import { getDisplayName } from 'utils/displayName'
+
 import './index.css'
-import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -60,6 +62,7 @@ export const BUCWidgetIndex = (props) => {
   }
 
   return <div className='a-buc-widget'>
+    <BUCWebSocket/>
     <BUCCrumbs
       className='mb-3'
       actions={actions}
