@@ -1,6 +1,5 @@
 import React from 'react'
 import PT from 'prop-types'
-
 import { LenkepanelBase, Normaltekst, Undertittel } from 'components/ui/Nav'
 import FlagList from 'components/ui/Flag/FlagList'
 import Icons from 'components/ui/Icons'
@@ -54,7 +53,8 @@ const BUCHeader = (props) => {
         <Normaltekst className='pr-2'>
           {t('buc:form-caseOwner') + ': '}
         </Normaltekst>
-        <InstitutionList t={t} locale={locale} type='separated' institutions={[buc.creator]} />
+        <InstitutionList className='a-buc-c-bucheader__owner-institutions'
+        t={t} locale={locale} type='separated' institutions={[buc.creator]} />
       </div>
     </div>
     <div className='a-buc-c-bucheader__flags col-2'>
@@ -90,8 +90,8 @@ const BUCHeader = (props) => {
     </div>
     <div className='a-buc-c-bucheader__actions col-3'>
       <LenkepanelBase
-        id='a-buc-c-bucheader__bucedit-button'
-        className='a-buc-c-bucheader__bucedit-button smallerButton knapp mr-5'
+        id='a-buc-c-bucheader__bucedit-link'
+        className='a-buc-c-bucheader__bucedit-link smallerButton knapp mr-5'
         onClick={(e) => onBUChandle(buc, e)}
         href={'#' + buc.type}
         border>

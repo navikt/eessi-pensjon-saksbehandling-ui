@@ -70,4 +70,16 @@ describe('joark actions', () => {
         variant: mockVariant })
     })
   })
+
+  it('getMockedPayload()', () => {
+
+    const mockJournalpostId = '1'
+    const expectedItem = _.find(sampleJoark.mockdata.data.dokumentoversiktBruker.journalposter, { journalpostId: mockJournalpostId })
+    const generatedResult = joarkActions.getMockedPayload(mockJournalpostId)
+    expect(generatedResult).toMatchObject({
+      fileName: expectedItem.tittel,
+      contentType: 'application/pdf',
+      base64: sampleJoark.files[item.tittel]
+    })
+  })
 })

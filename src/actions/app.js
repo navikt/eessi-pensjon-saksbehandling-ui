@@ -4,7 +4,7 @@ import * as api from 'actions/api'
 import samplePerson from 'resources/tests/samplePerson'
 var sprintf = require('sprintf-js').sprintf
 
-export function setStatusParam (key, value) {
+export const setStatusParam = (key, value) => {
   return {
     type: types.APP_PARAM_SET,
     payload: {
@@ -14,7 +14,7 @@ export function setStatusParam (key, value) {
   }
 }
 
-export function unsetStatusParam (key) {
+export const unsetStatusParam = (key) => {
   return {
     type: types.APP_PARAM_UNSET,
     payload: {
@@ -23,28 +23,26 @@ export function unsetStatusParam (key) {
   }
 }
 
-export function login () {
-  let currentHost = window.location.origin // http://hostname
-  let redirect = currentHost
-  let context = encodeURIComponent(window.location.pathname + window.location.search)
-
-  let newUrl = urls.LOGIN_URL + '?redirect=' + redirect + '&context=' + context
+export const login = () => {
+  const currentHost = window.location.origin // http://hostname
+  const redirect = currentHost
+  const context = encodeURIComponent(window.location.pathname + window.location.search)
+  const newUrl = urls.LOGIN_URL + '?redirect=' + redirect + '&context=' + context
   window.location.href = newUrl
-
   return {
     type: types.APP_LOGIN_REQUEST
   }
 }
 
-export function logout () {
-  let redirectUrl = urls.LOGOUT_URL
+export const logout = () => {
+  const redirectUrl = urls.LOGOUT_URL
   window.location.href = redirectUrl
   return {
     type: types.APP_LOGOUT_REQUEST
   }
 }
 
-export function getUserInfo () {
+export const getUserInfo = () => {
   return api.call({
     url: urls.API_USERINFO_URL,
     type: {
@@ -55,8 +53,8 @@ export function getUserInfo () {
   })
 }
 
-export function getPersonInfo (aktoerId) {
-  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
+export const getPersonInfo = (aktoerId) => {
+  const funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
   return funcCall({
     url: sprintf(urls.PERSON_URL, { aktoerId: aktoerId }),
     expectedPayload: samplePerson,
@@ -68,13 +66,13 @@ export function getPersonInfo (aktoerId) {
   })
 }
 
-export function clearData () {
+export const clearData = () => {
   return {
     type: types.APP_CLEAR_DATA
   }
 }
 
-export function registerDroppable (id, ref) {
+export const registerDroppable = (id, ref) => {
   return {
     type: types.APP_DROPPABLE_REGISTER,
     payload: {
@@ -84,7 +82,7 @@ export function registerDroppable (id, ref) {
   }
 }
 
-export function unregisterDroppable (id) {
+export const unregisterDroppable = (id) => {
   return {
     type: types.APP_DROPPABLE_UNREGISTER,
     payload: {

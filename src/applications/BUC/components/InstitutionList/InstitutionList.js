@@ -1,6 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
+import classNames from 'classnames'
 import { connect } from 'store'
 import Flag from 'components/ui/Flag/Flag'
 import CountryData from 'components/ui/CountryData/CountryData'
@@ -15,7 +16,7 @@ const mapStateToProps = (state) => {
 }
 
 const InstitutionList = (props) => {
-  const { institutions, institutionNames, t, type, locale } = props
+  const { className, institutions, institutionNames, t, type, locale } = props
 
   let institutionList = {}
   if (institutions) {
@@ -36,7 +37,7 @@ const InstitutionList = (props) => {
     const country = CountryData.findByValue(locale, landkode)
     return <div
       id='a-buc-c-institutionlist-id'
-      className='a-buc-c-institutionlist'
+      className={classNames('a-buc-c-institutionlist', className)}
       key={landkode}>
       {type === 'joined' ? <div className='a-buc-c-institution'>
         <Flag label={country.label} country={landkode} size='M' />
@@ -60,6 +61,7 @@ const InstitutionList = (props) => {
 }
 
 InstitutionList.propTypes = {
+  className: PT.string,
   t: PT.func.isRequired,
   type: PT.string.isRequired,
   institutions: PT.array.isRequired,

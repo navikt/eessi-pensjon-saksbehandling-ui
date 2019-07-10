@@ -3,20 +3,20 @@ import * as urls from 'constants/urls'
 import * as api from 'actions/api'
 var sprintf = require('sprintf-js').sprintf
 
-export function openStorageModal (options) {
+export const openStorageModal = (options) => {
   return {
     type: types.STORAGE_MODAL_OPEN,
     payload: options
   }
 }
 
-export function closeStorageModal () {
+export const closeStorageModal = () => {
   return {
     type: types.STORAGE_MODAL_CLOSE
   }
 }
 
-export function listStorageFilesWithNoNotification (userId, namespace) {
+export const listStorageFilesWithNoNotification = (userId, namespace) => {
   return api.call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: userId, namespace: namespace }),
     method: 'GET',
@@ -28,7 +28,7 @@ export function listStorageFilesWithNoNotification (userId, namespace) {
   })
 }
 
-export function listStorageFiles (userId, namespace) {
+export const listStorageFiles = (userId, namespace) => {
   return api.call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: userId, namespace: namespace }),
     method: 'GET',
@@ -40,7 +40,7 @@ export function listStorageFiles (userId, namespace) {
   })
 }
 
-export function getStorageFileWithNoNotification (params) {
+export const getStorageFileWithNoNotification = (params) => {
   return api.call({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
     method: 'GET',
@@ -52,7 +52,7 @@ export function getStorageFileWithNoNotification (params) {
   })
 }
 
-export function getStorageFile (params) {
+export const getStorageFile = (params) => {
   return api.call({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
     method: 'GET',
@@ -64,7 +64,7 @@ export function getStorageFile (params) {
   })
 }
 
-export function postStorageFileWithNoNotification (userId, namespace, file, payload) {
+export const postStorageFileWithNoNotification = (userId, namespace, file, payload) => {
   return api.call({
     url: sprintf(urls.API_STORAGE_POST_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'POST',
@@ -77,7 +77,7 @@ export function postStorageFileWithNoNotification (userId, namespace, file, payl
   })
 }
 
-export function getAttachmentFromStorage (params) {
+export const getAttachmentFromStorage = (params) => {
   return api.call({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
     method: 'GET',
@@ -89,7 +89,7 @@ export function getAttachmentFromStorage (params) {
   })
 }
 
-export function postStorageFile (userId, namespace, file, payload) {
+export const postStorageFile = (userId, namespace, file, payload) => {
   return api.call({
     url: sprintf(urls.API_STORAGE_POST_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'POST',
@@ -102,7 +102,7 @@ export function postStorageFile (userId, namespace, file, payload) {
   })
 }
 
-export function deleteStorageFile (userId, namespace, file) {
+export const deleteStorageFile = (userId, namespace, file) => {
   return api.call({
     url: sprintf(urls.API_STORAGE_DELETE_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'DELETE',
@@ -114,7 +114,7 @@ export function deleteStorageFile (userId, namespace, file) {
   })
 }
 
-export function deleteAllStorageFilesFromUser (userId, namespace) {
+export const deleteAllStorageFilesFromUser = (userId, namespace) => {
   return api.call({
     url: sprintf(urls.API_STORAGE_MULTIPLE_DELETE_URL, { userId: userId, namespace: namespace }),
     method: 'DELETE',
@@ -126,14 +126,14 @@ export function deleteAllStorageFilesFromUser (userId, namespace) {
   })
 }
 
-export function setTargetFileToDelete (file) {
+export const setTargetFileToDelete = (file) => {
   return {
     type: types.STORAGE_TARGET_FILE_TO_DELETE_SET,
     payload: file
   }
 }
 
-export function cancelTargetFileToDelete () {
+export const cancelTargetFileToDelete = () => {
   return {
     type: types.STORAGE_TARGET_FILE_TO_DELETE_CANCEL
   }
