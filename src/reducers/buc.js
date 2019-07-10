@@ -13,7 +13,7 @@ export const initialBucState = {
   p4000list: undefined,
   institutionList: undefined,
   institutionNames: {},
-  mode: 'list'
+  mode: 'buclist'
 }
 
 const bucReducer = (state = initialBucState, action) => {

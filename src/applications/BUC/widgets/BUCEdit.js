@@ -32,12 +32,12 @@ const BUCEdit = (props) => {
   const [ statusSearch, setStatusSearch ] = useState(undefined)
 
   const onSEDNew = () => {
-    actions.setMode('newsed')
+    actions.setMode('sednew')
   }
 
   const onBUCList = () => {
     actions.resetBuc()
-    actions.setMode('list')
+    actions.setMode('buclist')
   }
 
   const onCountrySearch = (countrySearch) => {

@@ -7,7 +7,7 @@ const BUCNew = (props) => {
 
   const onBUCList = () => {
     actions.resetBuc()
-    actions.setMode('list')
+    actions.setMode('buclist')
   }
 
   return <React.Fragment>

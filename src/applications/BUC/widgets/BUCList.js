@@ -19,13 +19,14 @@ const BUCList = (props) => {
   const [ mounted, setMounted ] = useState(false)
 
   const onBUCNew = () => {
-    actions.setMode('newbuc')
+    actions.setMode('bucnew')
   }
+
   const onSedNew = async (buc) => {
     const newSeds = await updateSeds(buc)
     actions.setBuc(buc)
     actions.setSeds(newSeds[buc.type + '-' + buc.caseId])
-    actions.setMode('newsed')
+    actions.setMode('sednew')
   }
 
   useEffect(() => {
@@ -95,11 +96,11 @@ const BUCList = (props) => {
     const newSeds = await updateSeds(buc)
     actions.setBuc(buc)
     actions.setSeds(newSeds[buc.type + '-' + buc.caseId])
-    actions.setMode('edit')
+    actions.setMode('bucedit')
   }
 
   if (_.isArray(bucs) && _.isEmpty(bucs)) {
-    actions.setMode('newbuc')
+    actions.setMode('bucnew')
   }
 
   return <React.Fragment>

@@ -102,7 +102,7 @@ const BUCStart = (props) => {
       setHasBucInfoSaved(true)
     }
     if (hasBucInfoSaved && !loading.savingBucsInfo && buc) {
-      actions.setMode('newsed')
+      actions.setMode('sednew')
       setHasBucInfoSaved(false)
     }
   }, [actions, loading, buc, hasBucInfoSaved])
@@ -142,7 +142,7 @@ const BUCStart = (props) => {
 
   const onCancelButtonClick = () => {
     actions.resetBuc()
-    actions.setMode('list')
+    actions.setMode('buclist')
   }
 
   const validateSubjectArea = (subjectArea) => {

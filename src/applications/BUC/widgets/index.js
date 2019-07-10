@@ -59,15 +59,13 @@ export const BUCWidgetIndex = (props) => {
   }
 
   return <div className='a-buc-widget'>
-    {mode === 'newbuc' ? <BUCNew {...props} /> : null}
-    {mode === 'newsed' ? <SEDNew {...props} /> : null}
-    {mode === 'list' ? <BUCList {...props} /> : null}
-    {mode === 'edit' ? <BUCEdit {...props} /> : null}
+    {mode === 'buclist' ? <BUCList {...props} /> : null}
+    {mode === 'bucedit' ? <BUCEdit {...props} /> : null}
+    {mode === 'bucnew' ? <BUCNew {...props} /> : null}
+    {mode === 'sednew' ? <SEDNew {...props} /> : null}
   </div>
 }
 
 const ConnectedBUCWidgetIndex = connect(mapStateToProps, mapDispatchToProps)(withTranslation()(BUCWidgetIndex))
-
 ConnectedBUCWidgetIndex.displayName = `Connect(${getDisplayName(withTranslation()(BUCWidgetIndex))})`
-
 export default ConnectedBUCWidgetIndex
