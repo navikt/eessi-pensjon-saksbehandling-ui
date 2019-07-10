@@ -4,7 +4,7 @@ import * as api from 'actions/api'
 
 var sprintf = require('sprintf-js').sprintf
 
-export function sendInvite (params) {
+export const sendInvite = (params) => {
   return api.call({
     url: sprintf(urls.API_VARSEL_URL, params),
     method: 'POST',

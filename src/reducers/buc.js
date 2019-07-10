@@ -8,7 +8,6 @@ export const initialBucState = {
   bucsInfo: undefined,
   sed: undefined,
   seds: undefined,
-  statusFilter: ['inbox'],
   p4000info: undefined,
   p4000list: undefined,
   institutionList: undefined,
@@ -47,12 +46,6 @@ const bucReducer = (state = initialBucState, action) => {
       return {
         ...state,
         sed: undefined
-      }
-
-    case types.BUC_STATUS_FILTER_SET:
-      return {
-        ...state,
-        statusFilter: action.payload
       }
 
     case types.BUC_BUC_RESET:

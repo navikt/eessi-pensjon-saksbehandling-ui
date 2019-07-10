@@ -4,6 +4,8 @@ import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
+import sampleP4000info from 'resources/tests/sampleP4000info'
+import sampleInstitutions from 'resources/tests/sampleInstitutions'
 var sprintf = require('sprintf-js').sprintf
 
 urls.HOST = 'notlocalhost'
@@ -55,6 +57,15 @@ describe('buc actions', () => {
     const generatedResult = bucActions.resetBuc()
     expect(generatedResult).toMatchObject({
       type: types.BUC_BUC_RESET
+    })
+  })
+
+  it('setP4000Info()', () => {
+    const mockedP4000 = {foo : 'bar'}
+    const generatedResult = bucActions.setP4000Info(mockedP4000)
+    expect(generatedResult).toMatchObject({
+      type: types.BUC_P4000_INFO_SET,
+      payload: mockedP4000
     })
   })
 
@@ -234,17 +245,7 @@ describe('buc actions', () => {
         buc: mockBuc,
         country: mockCountry
       },
-      expectedPayload: [{
-        'akronym': '001',
-        'id': 'XX:001',
-        'landkode': 'XX',
-        'navn': 'Demo institution 001'
-      }, {
-        'akronym': '002',
-        'id': 'XX:002',
-        'landkode': 'XX',
-        'navn': 'Demo institution 002'
-      }],
+      expectedPayload: sampleInstitutions,
       url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: mockBuc, country: mockCountry })
     })
   })
@@ -287,7 +288,7 @@ describe('buc actions', () => {
     })
   })
 
-  it('call getRinaUrl()', () => {
+  it('getRinaUrl()', () => {
     bucActions.getRinaUrl()
     expect(api.call).toBeCalledWith({
       type: {
@@ -296,6 +297,36 @@ describe('buc actions', () => {
         failure: types.BUC_RINA_GET_URL_FAILURE
       },
       url: urls.EUX_RINA_URL
+    })
+  })
+
+  it('listP4000()', () => {
+    const mockAktoerId = '123'
+    bucActions.listP4000(mockAktoerId)
+    expect(api.call).toBeCalledWith({
+      type: {
+        request: types.BUC_GET_P4000_LIST_REQUEST,
+        success: types.BUC_GET_P4000_LIST_SUCCESS,
+        failure: types.BUC_GET_P4000_LIST_FAILURE
+      },
+      expectedPayload: [
+        aktoerId + '___PINFO___PINFO.json'
+      ],
+      url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: 'PINFO' })
+    })
+  })
+
+  it('getP4000()', () => {
+    const mockFile = 'file.jsonm'
+    bucActions.getP4000(mockFile)
+    expect(api.call).toBeCalledWith({
+      type: {
+        request: types.BUC_GET_P4000_INFO_REQUEST,
+        success: types.BUC_GET_P4000_INFO_SUCCESS,
+        failure: types.BUC_GET_P4000_INFO_FAILURE
+      },
+      expectedPayload: sampleP4000info,
+      url: sprintf(urls.API_STORAGE_GETFILE_URL, { file: file })
     })
   })
 })

@@ -5,6 +5,7 @@ import _ from 'lodash'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import sampleP4000info from 'resources/tests/sampleP4000info'
+import sampleInstitutions from 'resources/tests/sampleInstitutions'
 var sprintf = require('sprintf-js').sprintf
 
 export const setMode = (mode) => {
@@ -37,13 +38,6 @@ export const resetSed = () => {
 export const resetBuc = () => {
   return {
     type: types.BUC_BUC_RESET
-  }
-}
-
-export const setStatusFilter = (filter) => {
-  return {
-    type: types.BUC_STATUS_FILTER_SET,
-    payload: filter
   }
 }
 
@@ -218,17 +212,7 @@ export const getInstitutionsListForBucAndCountry = (buc, country) => {
       buc: buc,
       country: country
     },
-    expectedPayload: [{
-      'id': 'XX:001',
-      'navn': 'Demo institution 001',
-      'akronym': '001',
-      'landkode': 'XX'
-    }, {
-      'id': 'XX:002',
-      'navn': 'Demo institution 002',
-      'akronym': '002',
-      'landkode': 'XX'
-    }],
+    expectedPayload: sampleInstitutions,
     type: {
       request: types.BUC_GET_INSTITUTION_LIST_REQUEST,
       success: types.BUC_GET_INSTITUTION_LIST_SUCCESS,

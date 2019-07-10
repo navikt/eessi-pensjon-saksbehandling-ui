@@ -17,7 +17,7 @@ describe('rendering BucHeader', () => {
   }
 
   it('Renders without crashing', () => {
-    let wrapper = shallow(<BucHeader />)
+    let wrapper = shallow(<BucHeader {...initialMockProps}/>)
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
@@ -27,28 +27,28 @@ describe('rendering BucHeader', () => {
     expect(wrapper.exists('.a-buc-c-bucheader')).toEqual(true)
     expect(wrapper.exists('.a-buc-c-bucheader__label')).toEqual(true)
     expect(wrapper.exists('.a-buc-c-bucheader__title')).toEqual(true)
-    expect(wrapper.find('.a-buc-c-bucdetail__props-type').render().text()).toEqual(
-      buc.type + ' - ' + t('buc:buc-' + buc.type)
-    )
-    expect(wrapper.exists('.a-buc-c-bucheader__description')).toEqual(
+    expect(wrapper.exists('.a-buc-c-bucheader__description')).toEqual(true)
+    expect(wrapper.find('.a-buc-c-bucheader__description').render().text()).toEqual(
       new Date(buc.startDate).toLocaleDateString() + ' - ' + new Date(buc.lastUpdate).toLocaleDateString()
     )
     expect(wrapper.exists('.a-buc-c-bucheader__owner')).toEqual(true)
-    expect(wrapper.find('.a-buc-c-bucdetail__props-type').render().text()).toEqual(
-      t('buc:form-caseOwner') + ': Norge xc'
+    expect(wrapper.find('.a-buc-c-bucheader__owner Normaltekst').render().text()).toEqual(
+      t('buc:form-caseOwner') + ': '
     )
+    expect(wrapper.exists('.a-buc-c-bucheader__owner-institutions')).toEqual(true)
+
     expect(wrapper.exists('.a-buc-c-bucheader__flags')).toEqual(true)
     expect(wrapper.exists('.a-buc-c-bucheader__icons')).toEqual(true)
     expect(wrapper.exists('.a-buc-c-bucheader__icon-numberofseds')).toEqual(true)
-    expect(wrapper.find('.a-buc-c-bucdetail__icon-numberofseds').render().text()).toEqual('1')
+    expect(wrapper.find('.a-buc-c-bucheader__icon-numberofseds').render().text()).toEqual('1')
     expect(wrapper.exists('.a-buc-c-bucheader__icon-tags')).toEqual(true)
     expect(wrapper.exists('.a-buc-c-bucheader__icon-vedlegg')).toEqual(true)
-    expect(wrapper.exists('.a-buc-c-bucheader__tag-actions')).toEqual(true)
-    expect(wrapper.exists('.a-buc-c-bucheader__bucedit-button')).toEqual(true)
-    expect(wrapper.find('.a-buc-c-bucdetail__bucedit-button').render().text()).toEqual(t('ui:processing'))
+    expect(wrapper.exists('.a-buc-c-bucheader__actions')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-bucheader__bucedit-link')).toEqual(true)
+    expect(wrapper.find('LenkepanelBase.a-buc-c-bucheader__bucedit-link').render().text()).toEqual(t('ui:processing'))
   })
 
-  it('Conditionally renders Icons', () => {
+  it('Renders icons', () => {
     let wrapper = shallow(<BucHeader {...initialMockProps} />)
     expect(wrapper.exists('.a-buc-c-bucheader__icon-tags')).toEqual(true)
     expect(wrapper.exists('.a-buc-c-bucheader__icon-vedlegg')).toEqual(true)
@@ -59,34 +59,21 @@ describe('rendering BucHeader', () => {
       },
       buc: {
         ...buc,
-        attachments: []
+        seds: []
       }
     })
-
     expect(wrapper.exists('.a-buc-c-bucheader__icon-tags')).toEqual(false)
     expect(wrapper.exists('.a-buc-c-bucheader__icon-vedlegg')).toEqual(false)
   })
-})
 
-describe('BucHeader logic', () => {
-  it('Handles onClick and prevent bubbling', () => {
-    let mockClickHandler = jest.fn()
-
-    let mockEvent = {
-      preventDefault: jest.fn(),
-      stopPropagation: jest.fn()
-    }
-
-    let wrapper = shallow(<BucHeader behandlingOnClick={mockClickHandler} />)
-
-    expect(mockClickHandler).toHaveBeenCalledTimes(0)
-    expect(mockEvent.preventDefault).toHaveBeenCalledTimes(0)
-    expect(mockEvent.stopPropagation).toHaveBeenCalledTimes(0)
-
-    wrapper.find('LenkepanelBase').simulate('click', mockEvent)
-
-    expect(mockClickHandler).toHaveBeenCalled()
-    expect(mockEvent.preventDefault).toHaveBeenCalled()
-    expect(mockEvent.stopPropagation).toHaveBeenCalled()
+  it('Handles click in LenkepanelBase', () => {
+    let onBUCEdit = jest.fn()
+    let wrapper = shallow(<BucHeader {...initialMockProps} onBUCEdit={onBUCEdit} />)
+    expect(onBUCEdit).toHaveBeenCalledTimes(0)
+    wrapper.find('LenkepanelBase').simulate('click', {
+      preventDefault: () => {},
+      stopPropagation: () => {}
+    })
+    expect(onBUCEdit).toHaveBeenCalled()
   })
 })
