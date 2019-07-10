@@ -1,4 +1,5 @@
-import React, { useReducer, useContext, createContext } from 'react'
+import React, { useContext, createContext } from 'react'
+import { useReducer } from 'reinspect'
 
 const Store = createContext()
 const useStore = () => useContext(Store)
@@ -10,7 +11,7 @@ const applyThunk = (dispatch, state) => (action) => {
 }
 
 const StoreProvider = ({ reducer, initialState, children }) => {
-  const [ state, dispatch ] = useReducer(reducer, initialState)
+  const [ state, dispatch ] = useReducer(reducer, initialState, null, 'EESSI')
   const thunkDispatch = applyThunk(dispatch, state)
   return <Store.Provider value={[ state, thunkDispatch ]}>
     {children}
