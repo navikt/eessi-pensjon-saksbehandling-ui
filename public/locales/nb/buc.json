@@ -247,5 +247,9 @@
   "validation-noWorkRegion"         : "Legg til arbeidgivers region",
   "validation-noYear"               : "Legg til år",
   "validation-startAfterEnd"        : "Startdato kan ikke være før sluttdato",
-  "validation-wowMuchText"          : "Det er ikke plass til mer tekst, men det er plass i tilleggsopplysninger i Godkjenn steg"
+  "validation-wowMuchText"          : "Det er ikke plass til mer tekst, men det er plass i tilleggsopplysninger i Godkjenn steg",
+
+  "breadcrumb-root"    : "Liste",
+  "breadcrumb-newbuc"  : "Ny BUC",
+  "breadcrumb-newsed"  : "Ny SED"
 }
