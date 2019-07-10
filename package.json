@@ -115,6 +115,7 @@
     "react-select": "^3.0.4",
     "react-visjs-timeline": "^1.5.0",
     "reactcss": "^1.2.3",
+    "reinspect": "^1.0.1",
     "request": "^2.88.0",
     "sprintf-js": "^1.1.2",
     "url-search-params-polyfill": "^7.0.0",
