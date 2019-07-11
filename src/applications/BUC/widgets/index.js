@@ -61,6 +61,7 @@ export const BUCWidgetIndex = (props) => {
 
   return <div className='a-buc-widget'>
     <BUCCrumbs
+      className='mb-3'
       actions={actions}
       t={t}
       buc={buc}

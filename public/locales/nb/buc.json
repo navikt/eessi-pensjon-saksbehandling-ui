@@ -24,8 +24,8 @@
   "attachments-step2" : "Bekreft",
 
   "buccrumb-home"   : "Hjemme",
-  "buccrumb-newbuc" : "Starte ny BUC",
-  "buccrumb-newsed" : "Bestill {{sed}} til BUC {{buc}}",
+  "buccrumb-newbuc" : "Start ny BUC",
+  "buccrumb-newsed" : "Bestill my SED",
 
   "buc-P_BUC_01" : "Krav om alderspensjon",
   "buc-P_BUC_02" : "Krav om etterlattepensjon",
@@ -134,8 +134,8 @@
   "loading-subjectArea"           : "Laster fagområde...",
   "loading-verifyingCaseNumber"   : "Henter saken...",
 
-  "step-startBUCTitle"          : "Starte ny BUC",
-  "step-startSEDTitle"          : "Bestill {{sed}} til BUC {{buc}}",
+  "step-startBUCTitle"          : "Start ny BUC",
+  "step-startSEDTitle"          : "Bestill {{sed}} til {{buc}}",
   "step-saveSendSEDTitle"       : "Lagre/Sende sak",
   "step-saveSendSEDDescription" : "Lagre/Sende sak beskrivelse",
   "step-previewSEDTitle"        : "Vis innhold i SED",
