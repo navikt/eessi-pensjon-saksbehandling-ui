@@ -9,12 +9,14 @@ import BUCNew from './BUCNew'
 import SEDNew from './SEDNew'
 import BUCEdit from './BUCEdit'
 import BUCCrumbs from '../components/BUCCrumbs/BUCCrumbs'
-
 import './index.css'
 import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
+    aktoerId: state.app.params.aktoerId,
+    sakId: state.app.params.sakId,
+    vedtakId: state.app.params.vedtakId,
     mode: state.buc.mode,
     bucs: state.buc.bucs,
     buc: state.buc.buc,
@@ -25,9 +27,7 @@ const mapStateToProps = (state) => {
     rinaUrl: state.buc.rinaUrl,
     seds: state.buc.seds,
     gettingBUCs: state.loading.gettingBUCs,
-    locale: state.ui.locale,
-    sakId: state.app.params.sakId,
-    aktoerId: state.app.params.aktoerId
+    locale: state.ui.locale
   }
 }
 

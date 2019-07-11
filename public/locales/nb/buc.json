@@ -23,9 +23,9 @@
   "attachments-step1" : "Rediger vedlegg",
   "attachments-step2" : "Bekreft",
 
-  "buccrumb-home"   : "Hjemme",
+  "buccrumb-home"   : "Hjem",
   "buccrumb-newbuc" : "Start ny BUC",
-  "buccrumb-newsed" : "Bestill my SED",
+  "buccrumb-newsed" : "Bestill ny SED",
 
   "buc-P_BUC_01" : "Krav om alderspensjon",
   "buc-P_BUC_02" : "Krav om etterlattepensjon",
@@ -70,6 +70,7 @@
   "form-createNewCase"                : "Start ny behandling",
   "form-empty-startANewCase"          : "Start en ny behandling for å komme i gang!",
   "form-enableAttachments"            : "Aktiver vedlegg",
+  "form-enterVedtakId"                : "Legg til vedtakId",
   "form-filterSED"                    : "Filtrer SED på navn, mottaker",
   "form-institution"                  : "Mottagerinstitusjon",
   "form-involvedInstitutions"         : "Involverte land og institusjoner",
@@ -223,6 +224,7 @@
   "validation-chooseInstitutions"   : "Velg mottager",
   "validation-chooseSed"            : "Velg en SED",
   "validation-chooseSubjectArea"    : "Velg et fagområde",
+  "validation-chooseVedtakId"       : "Velg en vedtak ID",
   "validation-futureDate"           : "Dato kan ikke være i fremtiden",
   "validation-invalidChildBirthDate": "Ugyldig barn-s fødselsdato",
   "validation-invalidEndDate"       : "Ugyldig sluttdato",

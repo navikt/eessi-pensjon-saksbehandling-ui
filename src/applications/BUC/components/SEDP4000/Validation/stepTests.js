@@ -1,27 +1,5 @@
 import * as tests from './singleTests'
 
-export function personStep (person) {
-  return {
-    nameAtBirth: tests.personValidation.nameAtBirth(person.nameAtBirth),
-    previousName: tests.personValidation.previousName(person.previousName),
-    country: tests.personValidation.country(person.country),
-    place: tests.personValidation.place(person.place),
-    region: tests.personValidation.region(person.region),
-    phone: tests.personValidation.phone(person.phone),
-    email: tests.personValidation.email(person.email)
-  }
-}
-
-export function bankStep (bank) {
-  return {
-    bankName: tests.bankValidation.bankName(bank.bankName),
-    bankAddress: tests.bankValidation.bankAddress(bank.bankAddress),
-    bankCountry: tests.bankValidation.bankCountry(bank.bankCountry),
-    bankBicSwift: tests.bankValidation.bankBicSwift(bank.bankBicSwift),
-    bankIban: tests.bankValidation.bankIban(bank.bankIban)
-  }
-}
-
 export function stayAbroadStep (stayAbroad) {
   return {}
 }

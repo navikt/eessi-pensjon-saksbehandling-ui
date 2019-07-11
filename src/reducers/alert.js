@@ -6,7 +6,7 @@ export const initialAlertState = {}
 const alertReducer = (state = initialAlertState, action = {}) => {
   let clientErrorMessage, serverErrorMessage, clientErrorStatus
 
-  if (_.endsWith(action.type, '/REQUEST') || action.type === types.ALERT_CLIENT_CLEAR) {
+  if (action.type === types.ALERT_CLIENT_CLEAR) {
     return initialAlertState
   }
 
