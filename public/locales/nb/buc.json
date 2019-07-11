@@ -23,6 +23,10 @@
   "attachments-step1" : "Rediger vedlegg",
   "attachments-step2" : "Bekreft",
 
+  "buccrumb-home"   : "Hjemme",
+  "buccrumb-newbuc" : "Starte ny BUC",
+  "buccrumb-newsed" : "Bestill {{sed}} til BUC {{buc}}",
+
   "buc-P_BUC_01" : "Krav om alderspensjon",
   "buc-P_BUC_02" : "Krav om etterlattepensjon",
   "buc-P_BUC_03" : "Krav om uføretrygd",
@@ -247,9 +251,5 @@
   "validation-noWorkRegion"         : "Legg til arbeidgivers region",
   "validation-noYear"               : "Legg til år",
   "validation-startAfterEnd"        : "Startdato kan ikke være før sluttdato",
-  "validation-wowMuchText"          : "Det er ikke plass til mer tekst, men det er plass i tilleggsopplysninger i Godkjenn steg",
-
-  "breadcrumb-root"    : "Liste",
-  "breadcrumb-newbuc"  : "Ny BUC",
-  "breadcrumb-newsed"  : "Ny SED"
+  "validation-wowMuchText"          : "Det er ikke plass til mer tekst, men det er plass i tilleggsopplysninger i Godkjenn steg"
 }

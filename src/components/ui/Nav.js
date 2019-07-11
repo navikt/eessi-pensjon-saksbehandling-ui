@@ -20,6 +20,7 @@ import Lukknapp from 'nav-frontend-lukknapp'
 import Veileder from 'nav-frontend-veileder'
 import Veilederpanel from 'nav-frontend-veilederpanel'
 import Lenke from 'nav-frontend-lenker'
+import Chevron from 'nav-frontend-chevron'
 
 // Oversight in NAV's design system, 'Panel' is displayed as Unknown in the dev tools
 // unless you explicitly set a displayName ( as of 28 jun, 2019 )
@@ -48,5 +49,6 @@ export {
   Veileder,
   Veilederpanel,
   Lenke,
+  Chevron,
   Typografi
 }

@@ -104,7 +104,7 @@ const BUCList = (props) => {
   }
 
   return <React.Fragment>
-    <div className='a-buc-buclist__buttons mt-3 mb-3'>
+    <div className='a-buc-buclist__buttons mb-3'>
       <RefreshButton t={t} onRefreshClick={getBucs} rotating={gettingBUCs} />
       {aktoerId && sakId ? <Knapp onClick={onBUCNew}>{t('buc:form-createNewCase')}</Knapp> : null}
     </div>
