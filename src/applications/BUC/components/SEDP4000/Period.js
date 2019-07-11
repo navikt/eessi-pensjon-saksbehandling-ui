@@ -21,7 +21,6 @@ import './Period.css'
 
 const Period = (props) => {
   const { actions, first, last, locale, mode, period, periods, setPeriod, setPeriods, t } = props
-
   const [ localErrors, setLocalErrors ] = useState({})
   const [ displayError, setDisplayError ] = useState(false)
 

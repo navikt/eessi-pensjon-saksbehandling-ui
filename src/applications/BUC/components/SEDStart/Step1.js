@@ -179,7 +179,7 @@ const Step1 = (props) => {
   return <Row className='a-buc-c-sedstart'>
     <div className='col-md-12'>
       <Systemtittel>{t('buc:step-startSEDTitle', {
-        buc: buc.type,
+        buc: t(`buc:buc-${buc.type}`),
         sed: _sed || t('buc:form-newSed')
       })}</Systemtittel>
       <hr />

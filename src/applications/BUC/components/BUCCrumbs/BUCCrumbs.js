@@ -47,10 +47,7 @@ const BUCCrumbs = (props) => {
 
   if (mode === 'sednew') {
     buccrumbs.push({
-      label: t('buc:buccrumb-newsed', {
-        buc: buc.type,
-        sed: t('buc:form-newSed')
-      }),
+      label: t('buc:buccrumb-newsed'),
       func: goToNewSED
     })
   }
