@@ -61,9 +61,7 @@ export const BUCWidgetIndex = (props) => {
 
   return <div className='a-buc-widget'>
     <BUCCrumbs
-      resetSed={actions.resetSed}
-      resetBuc={actions.resetBuc}
-      setMode={actions.setMode}
+      actions={actions}
       t={t}
       buc={buc}
       mode={mode}

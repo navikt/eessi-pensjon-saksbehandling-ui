@@ -14,9 +14,8 @@ const placeholders = {
 }
 
 const Step1 = (props) => {
-
   const { actions, _attachments, buc, _countries, countryList, _institutions, institutionList } = props
-  const { layout = 'row', loading, locale , _sed, setAttachments, setCountries, setInstitutions } = props
+  const { layout = 'row', loading, locale, _sed, setAttachments, setCountries, setInstitutions } = props
   const { sedList, setSed, setValidation, t, validation } = props
 
   const validateSed = (sed) => {

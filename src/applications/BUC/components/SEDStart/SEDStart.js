@@ -28,7 +28,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const SEDStart = (props) => {
-
   const { actions, aktoerId, attachments, buc, countryList, institutionList, loading, p4000info, sakId, sed, sedList, t } = props
 
   const [ _sed, setSed ] = useState(undefined)
@@ -94,7 +93,6 @@ const SEDStart = (props) => {
 
   useEffect(() => {
     if (sedSent && attachmentsSent) {
-
       actions.resetSed()
       actions.fetchBucs(aktoerId)
       actions.fetchBucsInfo(aktoerId + '___BUC___INFO')
@@ -134,11 +132,11 @@ const SEDStart = (props) => {
   }
 
   const onNextButtonClick = () => {
-     setStep(step + 1)
+    setStep(step + 1)
   }
 
   const onBackButtonClick = () => {
-     setStep(step - 1)
+    setStep(step - 1)
   }
 
   const onCancelButtonClick = () => {
@@ -156,7 +154,7 @@ const SEDStart = (props) => {
        !loading.creatingSed && !sendingAttachments
     }
     if (step === 1) {
-        return _sed === 'P4000' ? p4000info && !_.isEmpty(p4000info.stayAbroad) : true
+      return _sed === 'P4000' ? p4000info && !_.isEmpty(p4000info.stayAbroad) : true
     }
     return false
   }
