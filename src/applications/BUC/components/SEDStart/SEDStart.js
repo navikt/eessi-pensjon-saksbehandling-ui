@@ -28,11 +28,12 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const SEDStart = (props) => {
-  const { actions, aktoerId, attachments, buc, countryList, institutionList, loading, p4000info, sakId, sed, sedList, t } = props
+  const { actions, aktoerId, attachments, buc, countryList, institutionList, loading, p4000info, sakId, sed, sedList, t, vedtakId } = props
 
   const [ _sed, setSed ] = useState(undefined)
   const [ _institutions, setInstitutions ] = useState([])
   const [ _countries, setCountries ] = useState([])
+  const [ _vedtakId, setVedtakId ] = useState(parseInt(vedtakId, 10))
   const [ _attachments, setAttachments ] = useState({})
 
   const [ step, setStep ] = useState(0)
@@ -100,6 +101,10 @@ const SEDStart = (props) => {
     }
   }, [attachmentsSent, aktoerId, actions, sedSent])
 
+  const sedNeedsVedtakId = () => {
+    return _sed === 'P5000' || _sed === 'P6000' || _sed === 'P7000'
+  }
+
   const convertInstitutionIDsToInstitutionObjects = () => {
     let institutions = []
     _institutions.forEach(item => {
@@ -120,16 +125,23 @@ const SEDStart = (props) => {
   const onForwardButtonClick = () => {
     if (_.isEmpty(validation)) {
       const institutions = convertInstitutionIDsToInstitutionObjects()
-      actions.createSed({
+      let payload = {
         sakId: sakId,
         buc: buc.type,
         sed: _sed,
         institutions: institutions,
         aktoerId: aktoerId,
         euxCaseId: buc.caseId,
-        attachments: attachments,
-        stayAbroad: p4000info ? p4000info.stayAbroad : undefined
-      })
+        attachments: attachments
+      }
+
+      if (_sed === 'P4000' && p4000info) {
+        payload.stayAbroad = p4000info.stayAbroad
+      }
+      if (sedNeedsVedtakId()) {
+        payload.vedtakId = _vedtakId
+      }
+      actions.createSed(payload)
     }
   }
 
@@ -153,7 +165,8 @@ const SEDStart = (props) => {
   const allowedToForward = () => {
     if (step === 0) {
       return _sed && _.isEmpty(validation) && !_.isEmpty(_institutions) &&
-       !loading.creatingSed && !sendingAttachments
+       !loading.creatingSed && !sendingAttachments &&
+       (sedNeedsVedtakId() ? _.isNumber(_vedtakId) && !_.isNaN(_vedtakId) : true)
     }
     if (step === 1) {
       return _sed === 'P4000' ? p4000info && !_.isEmpty(p4000info.stayAbroad) : true
@@ -164,16 +177,15 @@ const SEDStart = (props) => {
   return <Row className='a-buc-c-sedstart'>
     { step === 0 ? <Step1
       _sed={_sed} setSed={setSed}
-      _attachments={_attachments} setAttachments={setAttachments}
       _countries={_countries} setCountries={setCountries}
-      sendingAttachments={sendingAttachments}
       _institutions={_institutions} setInstitutions={setInstitutions}
+      _attachments={_attachments} setAttachments={setAttachments}
       validation={validation} setValidation={setValidation}
+      sedNeedsVedtakId={sedNeedsVedtakId}
+      vedtakId={_vedtakId} setVedtakId={setVedtakId}
       {...props} /> : null}
     { step === 1 ? <Step2
-      _sed={_sed} setSed={setSed}
       showButtons={showButtons} setShowButtons={setShowButtons}
-      _institutions={_institutions} setInstitutions={setInstitutions}
       validation={validation} setValidation={setValidation}
       {...props} /> : null }
     { showButtons ? <div className='col-md-12 mt-4'>

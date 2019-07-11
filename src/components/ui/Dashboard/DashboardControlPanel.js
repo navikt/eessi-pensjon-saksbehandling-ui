@@ -2,7 +2,7 @@ import React from 'react'
 import DashboardConfig from './Config/DashboardConfig'
 
 const DashboardControlPanel = (props) => {
-  return <div className='c-ui-d-dashboardControlPanel pt-2 pb-2 pr-4 pl-4'>
+  return <div className='c-ui-d-dashboardControlPanel pt-2 pb-0 pr-4 pl-4'>
     <div className='d-inline-block'>
       {props.editMode
         ? props.addMode ? props.t('ui:dashboard-dragNewWidgets') : props.t('ui:dashboard-arrangeWidgets')

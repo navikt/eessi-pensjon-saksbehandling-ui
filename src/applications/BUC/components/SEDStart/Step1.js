@@ -1,7 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { NavFrontendSpinner, Select, Systemtittel, Undertittel } from 'components/ui/Nav'
+import { Input, NavFrontendSpinner, Select, Systemtittel, Undertittel } from 'components/ui/Nav'
 import CountryData from 'components/ui/CountryData/CountryData'
 import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
 import SEDAttachments from '../SEDAttachments/SEDAttachments'
@@ -10,13 +10,14 @@ import InstitutionList from 'applications/BUC/components/InstitutionList/Institu
 const placeholders = {
   sed: 'buc:form-chooseSed',
   institution: 'buc:form-chooseInstitution',
-  country: 'buc:form-chooseCountry'
+  country: 'buc:form-chooseCountry',
+  vedtakId: 'buc:form-enterVedtakId'
 }
 
 const Step1 = (props) => {
   const { actions, _attachments, buc, _countries, countryList, _institutions, institutionList } = props
   const { layout = 'row', loading, locale, _sed, setAttachments, setCountries, setInstitutions } = props
-  const { sedList, setSed, setValidation, t, validation } = props
+  const { sedList, sedNeedsVedtakId, setSed, setValidation, setVedtakId, t, validation, vedtakId } = props
 
   const validateSed = (sed) => {
     if (!sed || sed === placeholders.sed) {
@@ -39,6 +40,14 @@ const Step1 = (props) => {
       setValidationState('countryFail', t('buc:validation-chooseCountry'))
     } else {
       resetValidationState('countryFail')
+    }
+  }
+
+  const validateVedtakId = (vedtakId) => {
+    if (sedNeedsVedtakId() && !_.isNumber(vedtakId)) {
+      setValidationState('vedtakFail', t('buc:validation-chooseVedtakId'))
+    } else {
+      resetValidationState('vedtakFail')
     }
   }
 
@@ -90,6 +99,15 @@ const Step1 = (props) => {
         }))
       })
     }
+  }
+
+  const onVedtakIdChange = (e) => {
+    let vedtakId = undefined
+    try {
+      vedtakId = parseInt(e.target.value, 10)
+    } catch(e) {}
+    validateVedtakId(vedtakId)
+    setVedtakId(vedtakId)
   }
 
   const renderOptions = (options, type) => {
@@ -197,6 +215,18 @@ const Step1 = (props) => {
         onChange={onSedChange}>
         {renderOptions(sedList, 'sed')}
       </Select>
+      {sedNeedsVedtakId() ? <div className='mb-3'>
+        <Input
+          id='a-buc-c-sedstart__vedtakid-input-id'
+          className='a-buc-c-sedstart__vedtakid-input'
+          label={t('ui:vedtakId')}
+          bredde='fullbredde'
+          value={vedtakId}
+          onChange={onVedtakIdChange}
+          placeholder={t(placeholders.vedtakId)}
+          feil={validation.vedtakFail ? { feilmelding: t(validation.vedtakFail) } : null}
+        />
+      </div> : null}
       <div className='mb-3 flex-fill'>
         <label className='skjemaelement__label'>{t('ui:country')}</label>
         <MultipleSelect
