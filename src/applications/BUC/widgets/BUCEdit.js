@@ -6,7 +6,6 @@ import SEDRow from '../components/SEDRow/SEDRow'
 import SEDSearch from '../components/SEDSearch/SEDSearch'
 import BUCDetail from '../components/BUCDetail/BUCDetail'
 import BUCTools from '../components/BUCTools/BUCTools'
-import UserTools from '../components/User/UserTools'
 import CountryData from 'components/ui/CountryData/CountryData'
 import { connect, bindActionCreators } from 'store'
 import * as bucActions from 'actions/buc'
@@ -91,6 +90,7 @@ const BUCEdit = (props) => {
           rinaUrl={rinaUrl}
           rinaId={buc.caseId}
           onSEDNew={onSEDNew}
+          border={'full'}
         />
       }) : null
   }
@@ -111,7 +111,6 @@ const BUCEdit = (props) => {
       <div className='col-md-4'>
         <BUCDetail className='mb-3' t={t} buc={buc} bucInfo={bucInfo} locale={locale} />
         <BUCTools className='mb-3' t={t} buc={buc} bucInfo={bucInfo} locale={locale} />
-        <UserTools className='mb-3' t={t} />
       </div>
     </Row>
   </div>

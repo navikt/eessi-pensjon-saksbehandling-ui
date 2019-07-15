@@ -57,7 +57,7 @@ describe('api actions', () => {
   it('call() with fake url and 500 response', () => {
     nock('http://mockedurl')
       .get('/')
-      .reply(500, {message: 'error'})
+      .reply(500, { message: 'error' })
 
     return store.dispatch(api.call({
       url: 'http://mockedurl/',
@@ -79,7 +79,7 @@ describe('api actions', () => {
   it('call() with fake url and 401 response', () => {
     nock('http://mockedurl')
       .get('/')
-      .reply(401, {message: 'unauthorized'})
+      .reply(401, { message: 'unauthorized' })
 
     return store.dispatch(api.call({
       url: 'http://mockedurl/',
@@ -96,7 +96,7 @@ describe('api actions', () => {
         expect(expectedActions[1]).toHaveProperty('type', 'SERVER/UNAUTHORIZED/ERROR')
         expect(expectedActions[2]).toHaveProperty('type', 'FAILURE')
       })
-    })
+  })
 
   it('fakecall()', () => {
     const mockedPayload = { foo: 'bar' }

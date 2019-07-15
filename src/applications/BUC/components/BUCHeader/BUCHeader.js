@@ -54,7 +54,7 @@ const BUCHeader = (props) => {
           {t('buc:form-caseOwner') + ': '}
         </Normaltekst>
         <InstitutionList className='a-buc-c-bucheader__owner-institutions'
-        t={t} locale={locale} type='separated' institutions={[buc.creator]} />
+          t={t} locale={locale} type='separated' institutions={[buc.creator]} />
       </div>
     </div>
     <div className='a-buc-c-bucheader__flags col-2'>

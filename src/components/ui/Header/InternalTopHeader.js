@@ -6,7 +6,7 @@ import classNames from 'classnames'
 
 import AdvarselTrekant from '../../../resources/images/AdvarselTrekant'
 import Icons from '../Icons'
-import * as Nav from '../Nav'
+import { NavFrontendSpinner, Select, Systemtittel } from '../Nav'
 
 import * as routes from '../../../constants/routes'
 
@@ -66,18 +66,18 @@ export class InternalTopHeader extends Component {
           {userRole ? <div title={userRole} className={classNames('mr-2', userRole)}>
             <Icons kind='user' />
           </div>
-            : isLoggingOut ? <Nav.NavFrontendSpinner type='XS' /> : null}
+            : isLoggingOut ? <NavFrontendSpinner type='XS' /> : null}
           <div className='skillelinje' />
           <div className='mr-4 ml-2 align-middle name'>
             {gettingUserInfo ? t('buc:loading-gettingUserInfo')
               : username
-                ? <Nav.Select className='username-select'
+                ? <Select className='username-select'
                   label={''} value={username} selected={username}
                   onChange={this.handleUsernameSelectRequest.bind(this)}>
                   <option value=''>{username}</option>
                   <option value='feedback'>{t('ui:giveFeedback')}</option>
                   <option value='logout'>{t('logout')}</option>
-                </Nav.Select>
+                </Select>
                 : <React.Fragment>
                   <AdvarselTrekant size={16} />
                   <span className='username-span'>{t('unknown')}</span>
@@ -86,7 +86,7 @@ export class InternalTopHeader extends Component {
           </div>
         </div>
       </header>
-      {header ? <h1 className='typo-sidetittel mt-4 appTitle'>{header}</h1> : null}
+      {header ? <Systemtittel className='m-4'>{header}</Systemtittel> : null}
     </React.Fragment>
   }
 }

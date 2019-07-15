@@ -62,7 +62,7 @@ export const BUCWidgetIndex = (props) => {
   }
 
   return <div className='a-buc-widget'>
-    <BUCWebSocket/>
+    <BUCWebSocket />
     <BUCCrumbs
       className='mb-3'
       actions={actions}

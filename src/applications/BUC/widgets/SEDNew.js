@@ -1,9 +1,10 @@
 import React from 'react'
 import { Panel } from 'components/ui/Nav'
 import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
+import './SEDNew.css'
 
 const SEDNew = (props) => {
-  return <Panel>
+  return <Panel className='a-buc-w-sednew'>
     <SEDStart {...props} />
   </Panel>
 }

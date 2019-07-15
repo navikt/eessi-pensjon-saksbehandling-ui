@@ -23,7 +23,7 @@ const SEDBody = (props) => {
           key={index}
           sed={sed}
           locale={locale}
-          border
+          border={'bottom'}
           onSEDNew={onSEDNew}
         />
       }) : null}
@@ -38,7 +38,8 @@ const SEDBody = (props) => {
           <Normaltekst>{t('buc:form-seeSedInRina')}</Normaltekst>
         </div>
       </Lenke>
-      <Normaltekst>{t('buc:form-lastNonEmpty5')}</Normaltekst>
+      {!_.isEmpty(seds) && seds.filter(sed => sed.status !== 'empty').length > 5
+        ? <Normaltekst>{t('buc:form-lastNonEmpty5')}</Normaltekst> : null}
     </div>
   </React.Fragment>
 }

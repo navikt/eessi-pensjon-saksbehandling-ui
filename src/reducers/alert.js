@@ -173,11 +173,6 @@ const alertReducer = (state = initialAlertState, action = {}) => {
   }
 
   switch (action.type) {
-    case types.BUC_VERIFY_CASE_NUMBER_SUCCESS:
-
-      clientErrorMessage = 'buc:alert-caseFound'
-      break
-
     case types.BUC_CREATE_BUC_SUCCESS:
 
       clientErrorMessage = 'buc:alert-createdBuc|' + action.payload.type

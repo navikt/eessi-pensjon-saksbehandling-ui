@@ -17,7 +17,7 @@ describe('rendering BucHeader', () => {
   }
 
   it('Renders without crashing', () => {
-    let wrapper = shallow(<BucHeader {...initialMockProps}/>)
+    let wrapper = shallow(<BucHeader {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
