@@ -59,4 +59,4 @@ const connect = (
   }
 }
 
-export { StoreProvider, useStore, connect, bindActionCreators }
+export { StoreProvider, connect, bindActionCreators }

@@ -1,0 +1,20 @@
+import i18n from './i18n'
+
+describe('i18n', () => {
+  it ('initializes', () => {
+    expect(i18n.options.lng).toEqual('nb')
+    expect(i18n.options.fallbackLng.default).toEqual(['nb'])
+    expect(i18n.options.debug).toEqual(false)
+    expect(i18n.options.ns).toEqual(['ui', 'pdf', 'pinfo', 'buc'])
+    expect(i18n.options.defaultNS).toEqual('ui')
+    expect(i18n.options.backend.loadPath).toEqual('/locales/{{lng}}/{{ns}}.json')
+    expect(i18n.options.interpolation.escapeValue).toEqual(false)
+    expect(i18n.options.react.wait).toEqual(true)
+    expect(i18n.options.react.withRef).toEqual(true)
+    expect(i18n.options.react.bindI18n).toEqual('languageChange loaded')
+    expect(i18n.options.react.bindStore).toEqual('added removed')
+    expect(i18n.options.react.nsMode).toEqual('default')
+    expect(i18n.locale).toEqual('nb')
+    expect(i18n.language).toEqual('nb')
+  })
+})
