@@ -102,10 +102,10 @@ const Step1 = (props) => {
   }
 
   const onVedtakIdChange = (e) => {
-    let vedtakId = undefined
+    let vedtakId
     try {
       vedtakId = parseInt(e.target.value, 10)
-    } catch(e) {}
+    } catch (e) {}
     validateVedtakId(vedtakId)
     setVedtakId(vedtakId)
   }
@@ -202,7 +202,7 @@ const Step1 = (props) => {
       })}</Systemtittel>
       <hr />
     </div>
-    <div className={layout === 'row' ? 'col-md-4' : 'col-md-12'}>
+    <div className={layout === 'row' ? 'col-md-4 pr-3' : 'col-md-12'}>
       <Select
         className='a-buc-c-sedstart__sed-select flex-fill'
         id='a-buc-c-sedstart__sed-select-id'
@@ -271,13 +271,13 @@ const Step1 = (props) => {
           })
         }) : null}
       </div>
-      <div className='selectBoxMessage'>{!loading ? null
+      <div className='selectBoxMessage mt-2 mb-2'>{!loading ? null
         : loading.gettingSedList ? getSpinner('buc:loading-sed')
           : loading.institutionList ? getSpinner('buc:loading-institution')
             : loading.gettingCountryList ? getSpinner('buc:loading-country') : null}
       </div>
     </div>
-    <div className={layout === 'row' ? 'col-md-8' : 'col-md-12'}>
+    <div className={layout === 'row' ? 'col-md-8 pl-3' : 'col-md-12'}>
       <SEDAttachments t={t} setFiles={setFiles} files={_attachments} />
     </div>
   </React.Fragment>

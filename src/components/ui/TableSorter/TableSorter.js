@@ -76,11 +76,9 @@ const TableSorter = (props) => {
             case 'varianter':
               return <td key={index2}>
                 {value.map(variant => {
-                  let variantBackground = variant.focused ? 'lightgrey' : 'transparent'
                   return <div
                     key={variant.label}
-                    className='c-ui-tablesorter__subcell'
-                    style={{ background: variantBackground }}>
+                    className='c-ui-tablesorter__subcell'>
                     <Checkbox
                       label=''
                       className='c-ui-tablesorter__checkbox'

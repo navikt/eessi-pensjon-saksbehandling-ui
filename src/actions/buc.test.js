@@ -61,7 +61,7 @@ describe('buc actions', () => {
   })
 
   it('setP4000Info()', () => {
-    const mockedP4000 = {foo : 'bar'}
+    const mockedP4000 = { foo: 'bar' }
     const generatedResult = bucActions.setP4000Info(mockedP4000)
     expect(generatedResult).toMatchObject({
       type: types.BUC_P4000_INFO_SET,

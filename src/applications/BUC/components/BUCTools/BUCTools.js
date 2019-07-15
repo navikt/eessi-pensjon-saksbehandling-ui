@@ -5,7 +5,8 @@ import classNames from 'classnames'
 import { EkspanderbartpanelBase, Systemtittel, Undertittel, Normaltekst, Textarea, Flatknapp } from 'components/ui/Nav'
 import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
 import * as bucActions from 'actions/buc'
-import { getDisplayName } from '../../../../utils/displayName'
+import { getDisplayName } from 'utils/displayName'
+import './BUCTools.css'
 
 const mapStateToProps = (state) => {
   return {

@@ -4,14 +4,19 @@
   opacity: 0;
   animation: a-buc-c-sedrow-slideInFromLeft 0.2s forwards;
 
+  &__border {
+    &-full {
+      border: 1px solid #59514B;
+    }
+    &-bottom {
+      border-bottom: 1px solid #59514B;
+    }
+  }
+
   &__content {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-
-    &.withborder {
-      border-bottom: 1px solid grey;
-    }
+    align-items: center;
   }
 
   &__column {

@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import { connect, bindActionCreators } from 'store'
-
 import PsychoPanel from 'components/ui/Psycho/PsychoPanel'
-import * as Nav from 'components/ui/Nav'
+import { Flatknapp, HjelpetekstAuto, Hovedknapp, Input, NavFrontendSpinner, Normaltekst, Row, Select, Systemtittel, Undertittel } from 'components/ui/Nav'
 import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
-
 import * as bucActions from 'actions/buc'
 import * as uiActions from 'actions/ui'
 import * as appActions from 'actions/app'
-import { getDisplayName } from '../../../../utils/displayName'
+import { getDisplayName } from 'utils/displayName'
 
 export const mapStateToProps = (state) => {
   return {
@@ -233,66 +231,19 @@ const BUCStart = (props) => {
     return label
   }
 
-  const renderSubjectArea = () => {
-    return <Nav.Select
-      className='a-buc-c-bucstart__subjectarea-list flex-fill'
-      id='a-buc-c-bucstart__subjectarea-select-id'
-      aria-describedby='help-subjectArea'
-      bredde='fullbredde'
-      feil={validation.subjectAreaFail ? { feilmelding: validation.subjectAreaFail } : null}
-      label={t('buc:form-subjectArea')}
-      value={_subjectArea || []}
-      onChange={onSubjectAreaChange}>
-      {renderOptions(subjectAreaList, 'subjectArea')}
-    </Nav.Select>
-  }
-
-  const renderBuc = () => {
-    return <Nav.Select
-      className='a-buc-c-bucstart__buc flex-fill'
-      id='a-buc-c-bucstart__buc-select-id'
-      aria-describedby='help-buc'
-      bredde='fullbredde'
-      feil={validation.bucFail ? { feilmelding: validation.bucFail } : null}
-      label={t('buc:form-buc')}
-      value={_buc || placeholders.buc}
-      onChange={onBucChange}>
-      {renderOptions(bucList, 'buc')}
-    </Nav.Select>
-  }
-
   const getSpinner = (text) => {
     return <div className='a-buc-c-bucstart__spinner ml-2'>
-      <Nav.NavFrontendSpinner type='S' />
+      <NavFrontendSpinner type='S' />
       <div className='float-right ml-2'>{t(text)}</div>
     </div>
   }
 
-  const renderTags = () => {
-    let tagObjectList = tagList ? tagList.map(tag => {
-      return {
-        value: tag,
-        label: t('buc:tag-' + tag)
-      }
-    }) : []
-
-    return <div className='flex-fill'>
-      <Nav.Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Nav.Undertittel>
-      <div className='mb-3'>
-        <Nav.Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Nav.Normaltekst>
-        <MultipleSelect
-          className='a-buc-c-bucstart__tags flex-fill'
-          id='a-buc-c-bucstart__tags-select-id'
-          placeholder={t('buc:form-tagPlaceholder')}
-          aria-describedby='help-tags'
-          locale={locale}
-          value={_tags}
-          hideSelectedOptions={false}
-          onChange={onTagsChange}
-          optionList={tagObjectList} />
-      </div>
-    </div>
-  }
+  const tagObjectList = tagList ? tagList.map(tag => {
+    return {
+      value: tag,
+      label: t('buc:tag-' + tag)
+    }
+  }) : []
 
   const allowedToForward = () => {
     return _buc && _subjectArea && hasNoValidationErrors() && !loading.creatingBUC && !loading.savingBucsInfo
@@ -303,9 +254,9 @@ const BUCStart = (props) => {
       {mode === 'page' ? <div className='mb-5'>
         <PsychoPanel closeButton>{t('buc:help-startCase')}</PsychoPanel>
       </div> : null}
-      <Nav.Row>
+      <Row>
         <div className='col-md-6'>
-          <Nav.Input aria-describedby='help-sakId'
+          <Input aria-describedby='help-sakId'
             className='-buc-c-bucstart__sakid'
             id='a-buc-c-bucstart__sakid-input-id'
             label={t('buc:form-sakId')}
@@ -314,10 +265,10 @@ const BUCStart = (props) => {
             onChange={onSakIdChange}
             feil={validation.sakId ? { feilmelding: t(validation.sakId) } : null} />
         </div>
-      </Nav.Row>
-      <Nav.Row>
+      </Row>
+      <Row>
         <div className='col-md-6'>
-          <Nav.Input
+          <Input
             className='-buc-c-bucstart__aktoerid'
             id='a-buc-c-bucstart__aktoerid-input-id'
             label={t('buc:form-aktoerId')}
@@ -326,60 +277,91 @@ const BUCStart = (props) => {
             onChange={onAktoerIdChange}
             feil={validation.aktoerId ? { feilmelding: t(validation.aktoerId) } : null} />
         </div>
-      </Nav.Row>
-      <Nav.Row className='mt-6'>
+      </Row>
+      <Row className='mt-6'>
         <div className='col-md-12'>
-          <Nav.Hovedknapp
+          <Hovedknapp
             id='a-buc-c-bucstart__forward-button-id'
             className='a-buc-c-bucstart__forward-button'
             disabled={loading && loading.verifyingCaseNumber}
             spinner={loading && loading.verifyingCaseNumber}
             onClick={onVerifyCaseButtonClick}>
             {loading && loading.verifyingCaseNumber ? t('buc:loading-verifyingCaseNumber') : t('ui:search')}
-          </Nav.Hovedknapp>
+          </Hovedknapp>
         </div>
-      </Nav.Row>
+      </Row>
     </div>
   }
 
   return <React.Fragment>
     {mode === 'page' ? <React.Fragment>
-      <Nav.Systemtittel className='mb-4'>{t('buc:app-startCaseDescription')}</Nav.Systemtittel>
+      <Systemtittel className='mb-4'>{t('buc:app-startCaseDescription')}</Systemtittel>
       <div className='mb-5'>
         <PsychoPanel closeButton>{t('help-startCase2')}</PsychoPanel>
       </div>
     </React.Fragment> : null}
-    <Nav.Row className='mb-3'>
-      <div className='col-md-6'>
-        <Nav.Row>
-          <div className='col-md-12 d-flex align-items-center'>
-            {renderSubjectArea()}
-            <Nav.HjelpetekstAuto id='help-subjectArea'>{t('buc:help-subjectArea')}</Nav.HjelpetekstAuto>
-          </div>
-        </Nav.Row>
-        <Nav.Row>
-          <div className='col-md-12 d-flex align-items-center'>
-            {renderBuc()}
-            <Nav.HjelpetekstAuto id='help-buc'>{t('buc:help-buc')}</Nav.HjelpetekstAuto>
-          </div>
-        </Nav.Row>
+    <Row className='mb-3'>
+      <div className='col-md-6 pr-3'>
+        <Select
+          className='a-buc-c-bucstart__subjectarea-list flex-fill'
+          id='a-buc-c-bucstart__subjectarea-select-id'
+          aria-describedby='help-subjectArea'
+          bredde='fullbredde'
+          feil={validation.subjectAreaFail ? { feilmelding: validation.subjectAreaFail } : null}
+          label={<div className='label'>
+            <span>{t('buc:form-subjectArea')}</span>
+            <HjelpetekstAuto id='help-subjectArea'>
+              {t('buc:help-subjectArea')}
+            </HjelpetekstAuto>
+          </div>}
+          value={_subjectArea || []}
+          onChange={onSubjectAreaChange}>
+          {renderOptions(subjectAreaList, 'subjectArea')}
+        </Select>
+        <Select
+          className='a-buc-c-bucstart__buc flex-fill'
+          id='a-buc-c-bucstart__buc-select-id'
+          aria-describedby='help-buc'
+          bredde='fullbredde'
+          feil={validation.bucFail ? { feilmelding: validation.bucFail } : null}
+          label={<div className='label'>
+            <span>{t('buc:form-buc')}</span>
+            <HjelpetekstAuto id='help-buc'>
+              {t('buc:help-buc')}
+            </HjelpetekstAuto>
+          </div>}
+          value={_buc || placeholders.buc}
+          onChange={onBucChange}>
+          {renderOptions(bucList, 'buc')}
+        </Select>
       </div>
-      <div className='col-md-6'>
-        <Nav.Row>
-          <div className='col-md-12 d-flex align-items-center'>
-            {renderTags()}
-            <Nav.HjelpetekstAuto id='help-tag'>{t('buc:help-tag')}</Nav.HjelpetekstAuto>
+      <div className='col-md-6 pl-3'>
+        <div className='flex-fill'>
+          <Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Undertittel>
+          <div className='mb-3'>
+            <Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Normaltekst>
+            <MultipleSelect
+              className='a-buc-c-bucstart__tags flex-fill'
+              id='a-buc-c-bucstart__tags-select-id'
+              placeholder={t('buc:form-tagPlaceholder')}
+              aria-describedby='help-tags'
+              locale={locale}
+              value={_tags}
+              hideSelectedOptions={false}
+              onChange={onTagsChange}
+              optionList={tagObjectList} />
           </div>
-        </Nav.Row>
+        </div>
+
+        <div className='selectBoxMessage mt-2 mb-2'>{!loading ? null
+          : loading.gettingSubjectAreaList ? getSpinner('buc:loading-subjectArea')
+            : loading.gettingBucList ? getSpinner('buc:loading-buc') : null}
+        </div>
       </div>
-    </Nav.Row>
-    <Nav.Row className='mb-4 mt-4'>
-      <div className='col-md-12 selectBoxMessage'>{!loading ? null
-        : loading.gettingSubjectAreaList ? getSpinner('buc:loading-subjectArea')
-          : loading.gettingBucList ? getSpinner('buc:loading-buc') : null}
-      </div>
+    </Row>
+    <Row className='mb-3'>
       <div className='col-md-12'>
-        <Nav.Hovedknapp
+        <Hovedknapp
           id='a-buc-BUCStart-forward-button'
           className='forwardButton'
           disabled={!allowedToForward()}
@@ -388,13 +370,13 @@ const BUCStart = (props) => {
           {loading.creatingBUC ? t('buc:loading-creatingCaseinRINA')
             : loading.savingBucsInfo ? t('buc:loading-savingBucInfo')
               : t('buc:form-createCaseinRINA')}
-        </Nav.Hovedknapp>
-        <Nav.Flatknapp
+        </Hovedknapp>
+        <Flatknapp
           id='a-buc-BUCStart-cancel'
           className='cancelButton ml-2'
-          onClick={onCancelButtonClick}>{t('ui:cancel')}</Nav.Flatknapp>
+          onClick={onCancelButtonClick}>{t('ui:cancel')}</Flatknapp>
       </div>
-    </Nav.Row>
+    </Row>
   </React.Fragment>
 }
 

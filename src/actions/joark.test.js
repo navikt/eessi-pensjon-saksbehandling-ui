@@ -72,7 +72,6 @@ describe('joark actions', () => {
   })
 
   it('getMockedPayload()', () => {
-
     const mockJournalpostId = '1'
     const expectedItem = _.find(sampleJoark.mockdata.data.dokumentoversiktBruker.journalposter, { journalpostId: mockJournalpostId })
     const generatedResult = joarkActions.getMockedPayload(mockJournalpostId)

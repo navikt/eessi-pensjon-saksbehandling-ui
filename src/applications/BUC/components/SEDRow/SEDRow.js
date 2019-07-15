@@ -10,7 +10,7 @@ import _ from 'lodash'
 import './SEDRow.css'
 
 const SEDRow = (props) => {
-  const { t, sed, className, locale, border = false, onSEDNew } = props
+  const { t, sed, className, locale, border = 'none', onSEDNew } = props
 
   const institutionList = sed.participants ? sed.participants.map(participant => {
     return {
@@ -20,7 +20,7 @@ const SEDRow = (props) => {
   }) : []
   return <PanelBase
     className={classNames('a-buc-c-sedrow p-0', className)}>
-    <div className={classNames('a-buc-c-sedrow__content pt-3 pb-3', { withborder: border })}>
+    <div className={classNames('a-buc-c-sedrow__content pt-2 pb-2', 'a-buc-c-sedrow__border-' + border)}>
       <div className='col-2 a-buc-c-sedrow__column a-buc-c-sedrow__name'>
         <Element>{sed.type}</Element>
       </div>
