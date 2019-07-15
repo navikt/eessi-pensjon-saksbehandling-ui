@@ -56,10 +56,10 @@ const BUCCrumbs = (props) => {
     {buccrumbs.map((buccrumb, i) => {
       const first = i === 0
       const last = (i === buccrumbs.length - 1)
-      return <React.Fragment>
+      return <React.Fragment key={i}>
         {!first ? <Chevron className='separator' type={'høyre'} /> : null}
         <div className='a-buc-c-buccrumb'>
-          {last ? t(buccrumb.label) : <Lenke href='#' onClick={buccrumb.func}>{buccrumb.label}</Lenke>}
+          {last ? t(buccrumb.label) : <Lenke href='#' title={buccrumb.label} onClick={buccrumb.func}>{buccrumb.label}</Lenke>}
         </div>
       </React.Fragment>
     })}
@@ -68,10 +68,9 @@ const BUCCrumbs = (props) => {
 
 BUCCrumbs.propTypes = {
   actions: PT.object.isRequired,
-  setMode: PT.func,
-  t: PT.func,
-  mode: PT.string,
   buc: PT.object,
-  sed: PT.object
+  mode: PT.string.isRequired,
+  sed: PT.object,
+  t: PT.func.isRequired
 }
 export default BUCCrumbs
