@@ -226,7 +226,7 @@ describe('buc actions', () => {
         success: types.BUC_GET_SED_LIST_SUCCESS,
         failure: types.BUC_GET_SED_LIST_FAILURE
       },
-      expectedPayload: ['P2000', 'P4000'],
+      expectedPayload: ['P2000', 'P4000', 'P50001'],
       url: sprintf(urls.EUX_SED_FOR_BUCS_URL, { buc: mockBuc.type, rinaId: mockBuc.caseId })
     })
   })
@@ -310,14 +310,14 @@ describe('buc actions', () => {
         failure: types.BUC_GET_P4000_LIST_FAILURE
       },
       expectedPayload: [
-        aktoerId + '___PINFO___PINFO.json'
+        mockAktoerId + '___PINFO___PINFO.json'
       ],
-      url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: 'PINFO' })
+      url: sprintf(urls.API_STORAGE_LIST_URL, { userId: mockAktoerId, namespace: 'PINFO' })
     })
   })
 
   it('getP4000()', () => {
-    const mockFile = 'file.jsonm'
+    const mockFile = 'file.json'
     bucActions.getP4000(mockFile)
     expect(api.call).toBeCalledWith({
       type: {
@@ -326,7 +326,7 @@ describe('buc actions', () => {
         failure: types.BUC_GET_P4000_INFO_FAILURE
       },
       expectedPayload: sampleP4000info,
-      url: sprintf(urls.API_STORAGE_GETFILE_URL, { file: file })
+      url: sprintf(urls.API_STORAGE_GETFILE_URL, { file: mockFile })
     })
   })
 })

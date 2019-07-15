@@ -62,7 +62,7 @@ export const getJoarkFile = (item, variant) => {
   })
 }
 
-const getMockedPayload = (journalpostId) => {
+export const getMockedPayload = (journalpostId) => {
   let item = _.find(sampleJoark.mockdata.data.dokumentoversiktBruker.journalposter, { journalpostId: journalpostId })
   return {
     fileName: item.tittel,
