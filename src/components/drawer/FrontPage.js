@@ -17,10 +17,6 @@ class FrontPage extends Component {
       <Nav.Lenkepanel style={{ animationDelay: '0.2s' }} className='frontPageLink pInfoLink' linkCreator={(props) => (
         <Link to={routes.PINFO} {...props} />)
       } href='#'>{t('pinfo:app-startPinfo')}</Nav.Lenkepanel>
-      <Nav.Lenkepanel style={{ animationDelay: '0.3s' }}
-        className='frontPageLink p4000Link' linkCreator={(props) => (
-          <Link to={routes.P4000} {...props} />)
-        } href='#'>{t('p4000:app-startP4000')}</Nav.Lenkepanel>
       <h4 className='mt-4 mb-4'>{t('tools')}</h4>
       <Nav.Lenkepanel style={{ animationDelay: '0.4s' }} className='frontPageLink pdfLink' linkCreator={(props) => (
         <Link to={routes.PDF} {...props} />)

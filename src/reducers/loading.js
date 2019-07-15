@@ -429,20 +429,6 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
         status: status
       })
 
-    case types.P4000_SUBMIT_REQUEST:
-
-      return Object.assign({}, state, {
-        submittingP4000: true,
-        status: status
-      })
-
-    case types.P4000_SUBMIT_SUCCESS:
-    case types.P4000_SUBMIT_FAILURE:
-
-      return Object.assign({}, state, {
-        submittingP4000: false,
-        status: status
-      })
 
     case types.PINFO_SEND_SUCCESS:
     case types.PINFO_SEND_FAILURE:

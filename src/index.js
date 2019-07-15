@@ -37,7 +37,6 @@ ReactDOM.render(
           <Router history={createBrowserHistory()}>
             <Switch>
               <AuthenticatedRoute exact path={routes.PINFO} component={Applications.PInfo} />
-              <AuthenticatedRoute exact path={routes.P4000_ROUTE} component={Applications.P4000} />
               <AuthenticatedRoute exact path={routes.PDF} component={Applications.PDF} />
               <AuthenticatedRoute exact path={`${routes.BUC}/:step?`} component={Pages.BUC} />
               <AuthenticatedRoute path={routes.INDEX} component={Pages.IndexPage} />

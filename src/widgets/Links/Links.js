@@ -18,9 +18,7 @@ const Links = (props) => {
       <Link to={routes.PINFO} {...props} />)
     } href='#'>{t('pinfo:app-startPinfo')}</Nav.Lenkepanel>
 
-    <Nav.Lenkepanel border className='frontPageLink p4000Link' linkCreator={(props) => (
-      <Link to={routes.P4000} {...props} />)
-    } href='#'>{t('p4000:app-startP4000')}</Nav.Lenkepanel>
+
   </div>
 }
 

@@ -134,16 +134,6 @@ const alertReducer = (state = initialAlertState, action = {}) => {
         clientErrorMessage = 'pdf:alert-PDFGenerationFail'
         break
 
-      case types.P4000_OPEN_FAILURE:
-
-        clientErrorMessage = 'p4000:alert-openP4000error'
-        break
-
-      case types.P4000_SUBMIT_FAILURE:
-
-        clientErrorMessage = 'p4000:alert-submitFailure'
-        break
-
       case types.STORAGE_LIST_FAILURE:
 
         clientErrorMessage = 'ui:listFailure'
@@ -186,36 +176,6 @@ const alertReducer = (state = initialAlertState, action = {}) => {
     case types.PDF_GENERATE_SUCCESS:
 
       clientErrorMessage = 'pdf:alert-PDFGenerationSuccess'
-      break
-
-    case types.P4000_NEW:
-
-      clientErrorMessage = 'p4000:alert-newP4000Form'
-      break
-
-    case types.P4000_OPEN_SUCCESS:
-
-      clientErrorMessage = 'p4000:alert-openP4000Form'
-      break
-
-    case types.P4000_EVENT_ADD:
-
-      clientErrorMessage = 'p4000:alert-addedP4000Event'
-      break
-
-    case types.P4000_EVENT_REPLACE:
-
-      clientErrorMessage = 'p4000:alert-replacedP4000Event'
-      break
-
-    case types.P4000_EVENT_DELETE:
-
-      clientErrorMessage = 'p4000:alert-deletedP4000Event'
-      break
-
-    case types.P4000_SUBMIT_SUCCESS:
-
-      clientErrorMessage = 'p4000:alert-submitSuccess'
       break
 
     case types.STORAGE_GET_SUCCESS:
