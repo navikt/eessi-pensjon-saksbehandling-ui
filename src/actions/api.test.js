@@ -98,7 +98,7 @@ describe('api actions', () => {
       })
   })
 
-  it('fakecall()', () => {
+  it('fakecall()', async (done) => {
     const mockedPayload = { foo: 'bar' }
     store.dispatch(api.fakecall({
       url: 'http://mockedurl/',
@@ -114,6 +114,7 @@ describe('api actions', () => {
       expect(expectedActions[0]).toHaveProperty('type', 'REQUEST')
       expect(expectedActions[1]).toHaveProperty('type', 'SUCCESS')
       expect(expectedActions[1]).toHaveProperty('payload', mockedPayload)
+      done()
     })
   })
 })
