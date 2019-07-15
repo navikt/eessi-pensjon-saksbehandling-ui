@@ -66,4 +66,4 @@ export const LOGIN_URL = FRONTEND_API_URL + '/login'
 export const LOGOUT_URL = 'https://loginservice-q.nav.no/slo'
 
 // Websocket
-export const WEBSOCKET_URL = FAGMODUL_API_URL + '/websocket'
+export const WEBSOCKET_URL = FRONTEND_API_URL + '/websocket'

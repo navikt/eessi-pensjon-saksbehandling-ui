@@ -4,7 +4,6 @@ import classNames from 'classnames'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import SEDBody from 'applications/BUC/components/SEDBody/SEDBody'
-import RefreshButton from 'components/ui/RefreshButton/RefreshButton'
 import BUCEmpty from './BUCEmpty'
 import { EkspanderbartpanelBase, Knapp, Lenke, NavFrontendSpinner } from 'components/ui/Nav'
 import Icons from 'components/ui/Icons'
@@ -105,7 +104,6 @@ const BUCList = (props) => {
 
   return <React.Fragment>
     <div className='a-buc-buclist__buttons mb-3'>
-      <RefreshButton t={t} onRefreshClick={getBucs} rotating={gettingBUCs} />
       {aktoerId && sakId ? <Knapp onClick={onBUCNew}>{t('buc:form-createNewCase')}</Knapp> : null}
     </div>
     {gettingBUCs ? <div className='mt-5 a-buc-widget__loading'>

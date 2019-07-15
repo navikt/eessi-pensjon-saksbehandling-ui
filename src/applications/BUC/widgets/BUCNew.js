@@ -1,5 +1,5 @@
 import React from 'react'
-import { Hovedknapp, Panel, Systemtittel } from 'components/ui/Nav'
+import { Panel, Systemtittel } from 'components/ui/Nav'
 import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
 
 import './BUCNew.css'

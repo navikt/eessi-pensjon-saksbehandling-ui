@@ -12,7 +12,9 @@ export const initialBucState = {
   p4000list: undefined,
   institutionList: undefined,
   institutionNames: {},
-  mode: 'buclist'
+  mode: 'buclist',
+  websocketLastChange: undefined,
+  websocketList: []
 }
 
 const bucReducer = (state = initialBucState, action) => {
