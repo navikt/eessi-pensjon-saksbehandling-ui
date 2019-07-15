@@ -9,7 +9,7 @@ import BUCNew from './BUCNew'
 import SEDNew from './SEDNew'
 import BUCEdit from './BUCEdit'
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
-import BUCWebSocket from '../websocket'
+import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
 import { getDisplayName } from 'utils/displayName'
 
 import './index.css'
@@ -57,19 +57,24 @@ export const BUCWidgetIndex = (props) => {
     }
   }, [actions, aktoerId, bucs, gettingBUCs, sakId])
 
+  const onWebsocketUpdate = (update) => {
+    actions.bucUpdate(update)
+  }
+
   if (!mounted) {
     return null
   }
 
   return <div className='a-buc-widget'>
-    <BUCWebSocket />
-    <BUCCrumbs
-      className='mb-3'
-      actions={actions}
-      t={t}
-      buc={buc}
-      mode={mode}
-    />
+    <div className='a-buc-widget__header mb-3'>
+      <BUCCrumbs
+        actions={actions}
+        t={t}
+        buc={buc}
+        mode={mode}
+      />
+      <BUCWebSocket onUpdate={onWebsocketUpdate}/>
+    </div>
     {mode === 'buclist' ? <BUCList {...props} /> : null}
     {mode === 'bucedit' ? <BUCEdit {...props} /> : null}
     {mode === 'bucnew' ? <BUCNew {...props} /> : null}

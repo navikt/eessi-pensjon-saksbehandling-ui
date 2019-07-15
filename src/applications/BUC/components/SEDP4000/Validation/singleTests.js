@@ -17,10 +17,6 @@ let mandatoryAndPatternMatch = function (value, error, pattern, patternError) {
   return !value || value === '' ? error : !pattern.test(value) ? patternError : undefined
 }
 
-let notMandatoryAndPatternMatch = function (value, pattern, patternError) {
-  return value && !pattern.test(value) ? patternError : undefined
-}
-
 let withinLength = function (value, limit) {
   return value && value.length > limit ? 'pinfo:validation-wowMuchText' : undefined
 }
