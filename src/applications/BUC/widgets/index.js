@@ -3,7 +3,7 @@ import { withTranslation } from 'react-i18next'
 import { connect, bindActionCreators } from 'store'
 import * as bucActions from 'actions/buc'
 import * as appActions from 'actions/app'
-
+import * as uiActions from 'actions/ui'
 import BUCList from './BUCList'
 import BUCNew from './BUCNew'
 import SEDNew from './SEDNew'
@@ -19,28 +19,34 @@ const mapStateToProps = (state) => {
     aktoerId: state.app.params.aktoerId,
     sakId: state.app.params.sakId,
     vedtakId: state.app.params.vedtakId,
+    bucParam: state.app.params.buc,
+    currentBUC: state.buc.currentBUC,
     mode: state.buc.mode,
     bucs: state.buc.bucs,
     buc: state.buc.buc,
+    subjectAreaList: state.buc.subjectAreaList,
+    bucList: state.buc.bucList,
+    tagList: state.buc.tagList,
     bucsInfo: state.buc.bucsInfo,
     bucsInfoList: state.buc.bucsInfoList,
     institutionList: state.buc.institutionList,
     institutionNames: state.buc.institutionNames,
+    rinaId: state.buc.rinaId,
     rinaUrl: state.buc.rinaUrl,
     seds: state.buc.seds,
-    gettingBUCs: state.loading.gettingBUCs,
+    loading: state.loading,
     locale: state.ui.locale
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators({ ...bucActions, ...appActions }, dispatch)
+    actions: bindActionCreators({ ...bucActions, ...appActions, ...uiActions }, dispatch)
   }
 }
 
 export const BUCWidgetIndex = (props) => {
-  const { t, actions, aktoerId, bucs, buc, gettingBUCs, mode, rinaUrl, sakId } = props
+  const { t, actions, aktoerId, bucs, buc, loading, mode, rinaUrl, sakId } = props
   const [ mounted, setMounted ] = useState(false)
 
   useEffect(() => {
@@ -51,11 +57,11 @@ export const BUCWidgetIndex = (props) => {
   }, [mounted, rinaUrl, actions])
 
   useEffect(() => {
-    if (bucs === undefined && aktoerId && sakId && !gettingBUCs) {
+    if (bucs === undefined && aktoerId && sakId && !loading.gettingBUCs) {
       actions.fetchBucs(aktoerId)
       actions.fetchBucsInfoList(aktoerId)
     }
-  }, [actions, aktoerId, bucs, gettingBUCs, sakId])
+  }, [actions, aktoerId, bucs, loading, sakId])
 
   const onWebsocketUpdate = (update) => {
     actions.bucUpdate(update)
