@@ -8,7 +8,10 @@ import InstitutionList from 'applications/BUC/components/InstitutionList/Institu
 import './BUCHeader.css'
 
 const BUCHeader = (props) => {
-  const { buc, bucInfo, institutionNames, locale, onBUCEdit, style, t } = props
+  const { buc, bucInfo, institutionNames, locale, onBUCEdit, t } = props
+  let institutionList = {}
+  let attachments = []
+  const numberOfSeds = buc.seds ? buc.seds.filter(sed => sed.status !== 'empty').length : 0
 
   const onBUChandle = (buc, e) => {
     e.preventDefault()
@@ -16,7 +19,6 @@ const BUCHeader = (props) => {
     onBUCEdit(buc)
   }
 
-  let institutionList = {}
   if (buc.institusjon) {
     buc.institusjon.forEach(institution => {
       if (institutionList.hasOwnProperty(institution.country)) {
@@ -27,9 +29,6 @@ const BUCHeader = (props) => {
     })
   }
 
-  const numberOfSeds = buc.seds ? buc.seds.filter(sed => sed.status !== 'empty').length : 0
-
-  let attachments = []
   if (buc.seds) {
     buc.seds.forEach(sed => {
       sed.attachments.forEach(att => {
@@ -40,22 +39,26 @@ const BUCHeader = (props) => {
 
   return <div
     id={'a-buc-c-bucheader__' + buc.type + '-' + buc.caseId}
-    className='a-buc-c-bucheader'
-    style={style}>
+    className='a-buc-c-bucheader'>
     <div className='a-buc-c-bucheader__label col-4'>
-      <Undertittel className='a-buc-c-bucheader__title'>
+      <Undertittel
+        className='a-buc-c-bucheader__title'>
         {buc.type + ' - ' + t('buc:buc-' + buc.type)}
       </Undertittel>
-      <Normaltekst className='a-buc-c-bucheader__description'>
+      <Normaltekst
+        id='a-buc-c-bucheader__description-id'
+        className='a-buc-c-bucheader__description'>
         {new Date(buc.startDate).toLocaleDateString() + ' - ' + new Date(buc.lastUpdate).toLocaleDateString()}
       </Normaltekst>
-      <div className='a-buc-c-bucheader__owner'>
+      <div
+        id='a-buc-c-bucheader__owner-id'
+        className='a-buc-c-bucheader__owner'>
         <Normaltekst className='pr-2'>
           {t('buc:form-caseOwner') + ': '}
         </Normaltekst>
-        <InstitutionList
+        <InstitutionList t={t}
+          id='a-buc-c-bucheader__owner-institutions-id'
           className='a-buc-c-bucheader__owner-institutions'
-          t={t}
           institutionNames={institutionNames}
           locale={locale}
           type='separated'
@@ -74,7 +77,7 @@ const BUCHeader = (props) => {
         })}
         overflowLimit={5} />
     </div>
-    <div className='col-3 a-buc-c-bucheader__icons'>
+    <div className='a-buc-c-bucheader__icons col-3'>
       <div
         className='a-buc-c-bucheader__icon-numberofseds'
         title={t('buc:form-youhaveXseds', { seds: numberOfSeds })}>
@@ -82,15 +85,15 @@ const BUCHeader = (props) => {
       </div>
       {bucInfo && bucInfo.tags && bucInfo.tags.length > 0
         ? <div
-          className='a-buc-c-bucheader__icon-tags'
-          title={bucInfo.tags.join(', ')}>
-          <Icons kind='problem' />
+            className='a-buc-c-bucheader__icon-tags'
+            title={bucInfo.tags.join(', ')}>
+            <Icons kind='problem' />
         </div> : null}
       {attachments.length > 0
         ? <div
-          className='a-buc-c-bucheader__icon-vedlegg pl-2 pr-2'
-          title={t('buc:form-youHaveXAttachmentsInBuc', { attachments: attachments.length })}>
-          <Icons kind='paperclip' />
+            className='a-buc-c-bucheader__icon-vedlegg pl-2 pr-2'
+            title={t('buc:form-youHaveXAttachmentsInBuc', { attachments: attachments.length })}>
+            <Icons kind='paperclip' />
         </div> : null}
     </div>
     <div className='a-buc-c-bucheader__actions col-3'>
@@ -112,7 +115,6 @@ BUCHeader.propTypes = {
   institutionNames: PT.object,
   locale: PT.string.isRequired,
   onBUCEdit: PT.func.isRequired,
-  style: PT.object,
   t: PT.func.isRequired
 }
 

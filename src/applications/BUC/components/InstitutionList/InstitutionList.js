@@ -58,7 +58,7 @@ InstitutionList.propTypes = {
   t: PT.func.isRequired,
   type: PT.string.isRequired,
   institutions: PT.array.isRequired,
-  institutionNames: PT.object.isRequired,
+  institutionNames: PT.object,
   locale: PT.string.isRequired
 }
 

@@ -1,36 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { connect, bindActionCreators } from 'store'
 import PsychoPanel from 'components/ui/Psycho/PsychoPanel'
 import { Flatknapp, HjelpetekstAuto, Hovedknapp, Input, NavFrontendSpinner, Normaltekst, Row, Select, Systemtittel, Undertittel } from 'components/ui/Nav'
 import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
-import * as bucActions from 'actions/buc'
-import * as uiActions from 'actions/ui'
-import * as appActions from 'actions/app'
-import { getDisplayName } from 'utils/displayName'
-
-export const mapStateToProps = (state) => {
-  return {
-    currentBUC: state.buc.currentBUC,
-    bucsInfo: state.buc.bucsInfo,
-    buc: state.buc.buc,
-    subjectAreaList: state.buc.subjectAreaList,
-    bucList: state.buc.bucList,
-    tagList: state.buc.tagList,
-    rinaId: state.buc.rinaId,
-
-    loading: state.loading,
-    sakId: state.app.params.sakId,
-    aktoerId: state.app.params.aktoerId,
-    bucParam: state.app.params.buc,
-    locale: state.ui.locale
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, bucActions, appActions, uiActions), dispatch) }
-}
 
 const placeholders = {
   subjectArea: 'buc:form-chooseSubjectArea',
@@ -38,27 +11,16 @@ const placeholders = {
 }
 
 const BUCStart = (props) => {
-  const { sakId, aktoerId, rinaId, buc, bucParam, bucsInfo } = props
-  const { subjectAreaList, bucList, tagList } = props
-  const { t, actions, currentBUC, locale, loading, mode } = props
+  const { actions, aktoerId, buc, bucParam, bucsInfo, bucList, currentBUC } = props
+  const { locale, loading, mode, sakId, subjectAreaList, tagList, t } = props
 
-  // these values may be collected through a form, but if they are in URL, then they will be set
-  const [_sakId, setSakId] = useState(sakId)
-  const [_aktoerId, setAktoerId] = useState(aktoerId)
   const [_buc, setBuc] = useState(bucParam)
-
   const [_subjectArea, setSubjectArea] = useState('Pensjon')
   const [_tags, setTags] = useState([])
   const [validation, setValidation] = useState({})
 
   const [isBucCreated, setIsBucCreated] = useState(false)
   const [hasBucInfoSaved, setHasBucInfoSaved] = useState(false)
-
-  useEffect(() => {
-    if (currentBUC && !sakId) {
-      actions.setStatusParam('sakId', currentBUC.casenumber)
-    }
-  }, [currentBUC, sakId, actions])
 
   useEffect(() => {
     if (!loading.verifyingCaseNumber && _.isEmpty(currentBUC) && sakId && aktoerId) {
@@ -93,7 +55,7 @@ const BUCStart = (props) => {
       })
       setIsBucCreated(true)
     }
-  }, [actions, loading, bucsInfo, aktoerId, buc, _buc, _tags, rinaId, isBucCreated])
+  }, [actions, loading, bucsInfo, aktoerId, buc, _buc, _tags, isBucCreated])
 
   useEffect(() => {
     if (!hasBucInfoSaved && loading.savingBucsInfo) {
@@ -104,31 +66,6 @@ const BUCStart = (props) => {
       setHasBucInfoSaved(false)
     }
   }, [actions, loading, buc, hasBucInfoSaved])
-
-  const onSakIdChange = (e) => {
-    resetValidationState('sakId')
-    setSakId(e.target.value.trim())
-  }
-
-  const onAktoerIdChange = (e) => {
-    resetValidationState('aktoerId')
-    setAktoerId(e.target.value.trim())
-  }
-
-  const onVerifyCaseButtonClick = () => {
-    if (!_sakId) {
-      setValidationState('sakId', t('buc:validation-noSakId'))
-    }
-    if (!_aktoerId) {
-      setValidationState('aktoerId', t('buc:validation-noAktoerId'))
-    }
-    if (hasNoValidationErrors()) {
-      actions.verifyCaseNumber({
-        sakId: _sakId,
-        aktoerId: _aktoerId
-      })
-    }
-  }
 
   const onForwardButtonClick = () => {
     validateSubjectArea(_subjectArea)
@@ -249,51 +186,11 @@ const BUCStart = (props) => {
     return _buc && _subjectArea && hasNoValidationErrors() && !loading.creatingBUC && !loading.savingBucsInfo
   }
 
-  if (!currentBUC) {
-    return <div className='a-buc-c-bucstart__form-for-sakid-and-aktoerid'>
-      {mode === 'page' ? <div className='mb-5'>
-        <PsychoPanel closeButton>{t('buc:help-startCase')}</PsychoPanel>
-      </div> : null}
-      <Row>
-        <div className='col-md-6'>
-          <Input aria-describedby='help-sakId'
-            className='-buc-c-bucstart__sakid'
-            id='a-buc-c-bucstart__sakid-input-id'
-            label={t('buc:form-sakId')}
-            value={_sakId || ''}
-            bredde='fullbredde'
-            onChange={onSakIdChange}
-            feil={validation.sakId ? { feilmelding: t(validation.sakId) } : null} />
-        </div>
-      </Row>
-      <Row>
-        <div className='col-md-6'>
-          <Input
-            className='-buc-c-bucstart__aktoerid'
-            id='a-buc-c-bucstart__aktoerid-input-id'
-            label={t('buc:form-aktoerId')}
-            value={_aktoerId || ''}
-            bredde='fullbredde'
-            onChange={onAktoerIdChange}
-            feil={validation.aktoerId ? { feilmelding: t(validation.aktoerId) } : null} />
-        </div>
-      </Row>
-      <Row className='mt-6'>
-        <div className='col-md-12'>
-          <Hovedknapp
-            id='a-buc-c-bucstart__forward-button-id'
-            className='a-buc-c-bucstart__forward-button'
-            disabled={loading && loading.verifyingCaseNumber}
-            spinner={loading && loading.verifyingCaseNumber}
-            onClick={onVerifyCaseButtonClick}>
-            {loading && loading.verifyingCaseNumber ? t('buc:loading-verifyingCaseNumber') : t('ui:search')}
-          </Hovedknapp>
-        </div>
-      </Row>
-    </div>
+  if (!sakId || !aktoerId) {
+     return null
   }
 
-  return <React.Fragment>
+  return <div className='a-buc-c-bucstart'>
     {mode === 'page' ? <React.Fragment>
       <Systemtittel className='mb-4'>{t('buc:app-startCaseDescription')}</Systemtittel>
       <div className='mb-5'>
@@ -303,14 +200,14 @@ const BUCStart = (props) => {
     <Row className='mb-3'>
       <div className='col-md-6 pr-3'>
         <Select
-          className='a-buc-c-bucstart__subjectarea-list flex-fill'
           id='a-buc-c-bucstart__subjectarea-select-id'
+          className='a-buc-c-bucstart__subjectarea-select flex-fill'
           aria-describedby='help-subjectArea'
           bredde='fullbredde'
           feil={validation.subjectAreaFail ? { feilmelding: validation.subjectAreaFail } : null}
           label={<div className='label'>
             <span>{t('buc:form-subjectArea')}</span>
-            <HjelpetekstAuto id='help-subjectArea'>
+            <HjelpetekstAuto id='a-buc-c-bucstart__subjectArea-help'>
               {t('buc:help-subjectArea')}
             </HjelpetekstAuto>
           </div>}
@@ -319,14 +216,14 @@ const BUCStart = (props) => {
           {renderOptions(subjectAreaList, 'subjectArea')}
         </Select>
         <Select
-          className='a-buc-c-bucstart__buc flex-fill'
           id='a-buc-c-bucstart__buc-select-id'
+          className='a-buc-c-bucstart__buc-select flex-fill'
           aria-describedby='help-buc'
           bredde='fullbredde'
           feil={validation.bucFail ? { feilmelding: validation.bucFail } : null}
           label={<div className='label'>
             <span>{t('buc:form-buc')}</span>
-            <HjelpetekstAuto id='help-buc'>
+            <HjelpetekstAuto id='a-buc-c-bucstart__buc-help'>
               {t('buc:help-buc')}
             </HjelpetekstAuto>
           </div>}
@@ -341,8 +238,8 @@ const BUCStart = (props) => {
           <div className='mb-3'>
             <Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Normaltekst>
             <MultipleSelect
-              className='a-buc-c-bucstart__tags flex-fill'
               id='a-buc-c-bucstart__tags-select-id'
+              className='a-buc-c-bucstart__tags-select flex-fill'
               placeholder={t('buc:form-tagPlaceholder')}
               aria-describedby='help-tags'
               locale={locale}
@@ -352,7 +249,6 @@ const BUCStart = (props) => {
               optionList={tagObjectList} />
           </div>
         </div>
-
         <div className='selectBoxMessage mt-2 mb-2'>{!loading ? null
           : loading.gettingSubjectAreaList ? getSpinner('buc:loading-subjectArea')
             : loading.gettingBucList ? getSpinner('buc:loading-buc') : null}
@@ -360,10 +256,10 @@ const BUCStart = (props) => {
       </div>
     </Row>
     <Row className='mb-3'>
-      <div className='col-md-12'>
+      <div className='a-buc-c-bucstart__buttons col-md-12'>
         <Hovedknapp
-          id='a-buc-BUCStart-forward-button'
-          className='forwardButton'
+          id='a-buc-c-bucstart__forward-button-id'
+          className='a-buc-c-bucstart__forward-button'
           disabled={!allowedToForward()}
           spinner={loading.creatingBUC}
           onClick={onForwardButtonClick}>
@@ -372,12 +268,12 @@ const BUCStart = (props) => {
               : t('buc:form-createCaseinRINA')}
         </Hovedknapp>
         <Flatknapp
-          id='a-buc-BUCStart-cancel'
-          className='cancelButton ml-2'
+          id='a-buc-c-bucstart__cancel-button-id'
+          className='a-buc-c-bucstart__cancel-button ml-2'
           onClick={onCancelButtonClick}>{t('ui:cancel')}</Flatknapp>
       </div>
     </Row>
-  </React.Fragment>
+  </div>
 }
 
 BUCStart.propTypes = {
@@ -391,15 +287,7 @@ BUCStart.propTypes = {
   bucParam: PT.string,
   locale: PT.string.isRequired,
   sakId: PT.string,
-  aktoerId: PT.string,
-  rinaId: PT.string
+  aktoerId: PT.string
 }
 
-const ConnectedBUCStart = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BUCStart)
-
-ConnectedBUCStart.displayName = `Connect(${getDisplayName(BUCStart)})`
-
-export default ConnectedBUCStart
+export default BUCStart

@@ -17,7 +17,7 @@ import 'moment/locale/nb'
 
 import { StoreProvider } from 'store'
 import reducer, { initialState } from 'reducer'
-import i18n from 'i18n'
+import i18n from './i18n'
 import * as routes from 'constants/routes'
 import { unregister } from 'registerServiceWorker'
 import * as Applications from 'applications'

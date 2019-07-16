@@ -1,9 +1,9 @@
 import React from 'react'
-import BucHeader from './BucHeader'
+import BucHeader from './BUCHeader'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 
-describe('rendering BucHeader', () => {
+describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
   const buc = sampleBucs[0]
   const bucInfo = sampleBucsInfo['bucs'][buc.type + '-' + buc.caseId]
   const t = jest.fn((translationString) => { return translationString })
@@ -16,7 +16,7 @@ describe('rendering BucHeader', () => {
     onBUCEdit: onBUCEdit
   }
 
-  it('Renders without crashing', () => {
+  it('Renders successfully', () => {
     let wrapper = shallow(<BucHeader {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
@@ -48,7 +48,7 @@ describe('rendering BucHeader', () => {
     expect(wrapper.find('LenkepanelBase.a-buc-c-bucheader__bucedit-link').render().text()).toEqual(t('ui:processing'))
   })
 
-  it('Renders icons', () => {
+  it('Renders icons if necessary', () => {
     let wrapper = shallow(<BucHeader {...initialMockProps} />)
     expect(wrapper.exists('.a-buc-c-bucheader__icon-tags')).toEqual(true)
     expect(wrapper.exists('.a-buc-c-bucheader__icon-vedlegg')).toEqual(true)
