@@ -7,25 +7,11 @@ import SEDSearch from '../components/SEDSearch/SEDSearch'
 import BUCDetail from '../components/BUCDetail/BUCDetail'
 import BUCTools from '../components/BUCTools/BUCTools'
 import CountryData from 'components/ui/CountryData/CountryData'
-import { connect, bindActionCreators } from 'store'
-import * as bucActions from 'actions/buc'
+
 import './BUCEdit.css'
-import { getDisplayName } from 'utils/displayName'
-
-const mapStateToProps = (state) => {
-  return {
-    institutionNames: state.buc.institutionNames
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators(bucActions, dispatch)
-  }
-}
 
 const BUCEdit = (props) => {
-  const { t, buc, bucsInfo, actions, rinaUrl, locale, seds, institutionNames } = props
+  const { t, aktoerId, buc, bucsInfo, actions, rinaUrl, institutionNames, loading, locale, seds, tagList } = props
   const [ search, setSearch ] = useState(undefined)
   const [ countrySearch, setCountrySearch ] = useState(undefined)
   const [ statusSearch, setStatusSearch ] = useState(undefined)
@@ -90,6 +76,7 @@ const BUCEdit = (props) => {
           rinaUrl={rinaUrl}
           rinaId={buc.caseId}
           onSEDNew={onSEDNew}
+          institutionNames={institutionNames}
           border={'full'}
         />
       }) : null
@@ -104,13 +91,34 @@ const BUCEdit = (props) => {
     </div>
     <Row style={{ marginLeft: '-15px', marginRight: '-15px' }}>
       <div className='col-md-8'>
-        <SEDSearch className='mb-2' t={t} locale={locale} value={search} seds={seds}
-          onSearch={onSearch} onCountrySearch={onCountrySearch} onStatusSearch={onStatusSearch} />
+        <SEDSearch
+          className='mb-2'
+          t={t}
+          locale={locale}
+          value={search}
+          seds={seds}
+          onSearch={onSearch}
+          onCountrySearch={onCountrySearch}
+          onStatusSearch={onStatusSearch} />
         {renderSeds()}
       </div>
       <div className='col-md-4'>
-        <BUCDetail className='mb-3' t={t} buc={buc} bucInfo={bucInfo} locale={locale} />
-        <BUCTools className='mb-3' t={t} buc={buc} bucInfo={bucInfo} locale={locale} />
+        <BUCDetail className='mb-3'
+          t={t}
+          buc={buc}
+          bucInfo={bucInfo}
+          locale={locale}
+          institutionNames={institutionNames}/>
+        <BUCTools className='mb-3'
+          t={t}
+          actions={actions}
+          aktoerId={aktoerId}
+          buc={buc}
+          bucInfo={bucInfo}
+          bucsInfo={bucsInfo}
+          locale={locale}
+          loading={loading}
+          tagList={tagList}/>
       </div>
     </Row>
   </div>
@@ -125,8 +133,4 @@ BUCEdit.propTypes = {
   locale: PT.string.isRequired
 }
 
-const ConnectedBUCEdit = connect(mapStateToProps, mapDispatchToProps)(BUCEdit)
-
-ConnectedBUCEdit.displayName = `Connect(${getDisplayName(BUCEdit)})`
-
-export default ConnectedBUCEdit
+export default BUCEdit
