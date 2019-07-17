@@ -5,11 +5,10 @@ import classNames from 'classnames'
 import Flag from 'components/ui/Flag/Flag'
 import CountryData from 'components/ui/CountryData/CountryData'
 import { Element, Normaltekst } from 'components/ui/Nav'
-
 import './InstitutionList.css'
 
 const InstitutionList = (props) => {
-  const { className, institutions, institutionNames, t, type, locale } = props
+  const { className, institutions, institutionNames, locale, t, type } = props
 
   let institutionList = {}
   if (institutions) {
@@ -55,11 +54,11 @@ const InstitutionList = (props) => {
 
 InstitutionList.propTypes = {
   className: PT.string,
-  t: PT.func.isRequired,
-  type: PT.string.isRequired,
   institutions: PT.array.isRequired,
   institutionNames: PT.object,
-  locale: PT.string.isRequired
+  locale: PT.string.isRequired,
+  t: PT.func.isRequired,
+  type: PT.string.isRequired
 }
 
 export default InstitutionList
