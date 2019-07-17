@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import PsychoPanel from 'components/ui/Psycho/PsychoPanel'
-import { Flatknapp, HjelpetekstAuto, Hovedknapp, Input, NavFrontendSpinner, Normaltekst, Row, Select, Systemtittel, Undertittel } from 'components/ui/Nav'
+import { Flatknapp, HjelpetekstAuto, Hovedknapp, NavFrontendSpinner, Normaltekst, Row, Select, Systemtittel, Undertittel } from 'components/ui/Nav'
 import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
 
 const placeholders = {
