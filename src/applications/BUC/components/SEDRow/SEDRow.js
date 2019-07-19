@@ -52,7 +52,7 @@ SEDRow.propTypes = {
   t: PT.func.isRequired,
   className: PT.string,
   sed: PT.object.isRequired,
-  border: PT.bool
+  border: PT.string.isRequired
 }
 
 export default SEDRow

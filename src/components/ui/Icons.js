@@ -13,6 +13,12 @@ import { ReactComponent as BubbleChat } from 'resources/images/bubble-chat-2.svg
 import { ReactComponent as PaperClip } from 'resources/images/filled-version-paperclip-2.svg'
 import { ReactComponent as CheckCircle } from 'resources/images/line-version-check-circle-2.svg'
 import { ReactComponent as RemoveCircle } from 'resources/images/line-version-remove-circle.svg'
+import { ReactComponent as HeartSVG } from 'resources/images/line-version-heart-circle.svg'
+import { ReactComponent as EcoglobeSVG } from 'resources/images/line-version-eco-globe.svg'
+import { ReactComponent as StethoscopeSVG } from 'resources/images/line-version-expanded-stethoscope.svg'
+import { ReactComponent as BirthdaycakeSVG } from 'resources/images/line-version-birthday-cake.svg'
+import { ReactComponent as HelpcircleSVG } from 'resources/images/line-version-help-circle.svg'
+import { ReactComponent as PiggybankSVG } from 'resources/images/line-version-piggy-bank.svg'
 
 import Vedlegg from 'resources/images/Vedlegg'
 import Trashcan from 'resources/images/Trashcan'
@@ -25,7 +31,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as icons from '@fortawesome/free-solid-svg-icons'
 
 const Icons = (props) => {
-  switch (props.kind) {
+
+  const { kind, size } = props
+  const h = parseInt(size, 10) || 24; const w = h
+
+  switch (kind) {
     case 'work' : return <FontAwesomeIcon icon={icons.faBriefcase} {...props} />
     case 'home' : return <FontAwesomeIcon icon={icons.faHome} {...props} />
     case 'child' : return <FontAwesomeIcon icon={icons.faChild} {...props} />
@@ -37,10 +47,17 @@ const Icons = (props) => {
     case 'sick' : return <FontAwesomeIcon icon={icons.faHSquare} {...props} />
     case 'other' : return <FontAwesomeIcon icon={icons.faCalendar} {...props} />
 
-    case 'nav-work' : return <HandbagSVG {...props} />
-    case 'nav-home' : return <HomeSVG {...props} />
-    case 'nav-military' : return <RankArmySVG {...props} />
-    case 'nav-learn' : return <BookmarkArticleSVG {...props} />
+    case 'nav-work' : return <HandbagSVG {...props} width={w} height={h} />
+    case 'nav-home' : return <HomeSVG {...props} width={w} height={h} />
+    case 'nav-military' : return <RankArmySVG {...props} width={w} height={h} />
+    case 'nav-learn' : return <BookmarkArticleSVG {...props} width={w} height={h} />
+    case 'nav-child' : return <HeartSVG {...props} width={w} height={h} />
+    case 'nav-voluntary' : return <EcoglobeSVG {...props} width={w} height={h} />
+    case 'nav-birth' : return <BirthdaycakeSVG {...props} width={w} height={h} />
+    case 'nav-daily' : return <PiggybankSVG {...props} width={w} height={h} />
+    case 'nav-sick' : return <StethoscopeSVG {...props} width={w} height={h} />
+    case 'nav-other' : return <HelpcircleSVG {...props} width={w} height={h} />
+
     case 'nav-close' : return <RemoveCircleSVG {...props} />
     case 'nav-message-sent' : return <MessageSentSVG {...props} />
     case 'nav-man-icon' : return <MannIcon {...props} />
@@ -89,7 +106,8 @@ const Icons = (props) => {
 }
 
 Icons.propTypes = {
-  kind: PT.string.isRequired
+  kind: PT.string.isRequired,
+  size: PT.oneOf([PT.string, PT.number])
 }
 
 export default Icons

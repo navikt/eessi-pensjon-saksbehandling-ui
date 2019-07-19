@@ -3,12 +3,6 @@ import Backend from 'i18next-xhr-backend'
 import { initReactI18next } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 
-// datepicker localization
-import { registerLocale, setDefaultLocale } from 'react-datepicker'
-import nb from 'date-fns/locale/nb'
-registerLocale('nb', nb)
-setDefaultLocale('nb')
-
 i18n
   .use(Backend)
   .use(LanguageDetector)

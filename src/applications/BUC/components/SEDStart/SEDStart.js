@@ -8,6 +8,7 @@ import * as bucActions from 'actions/buc'
 import * as uiActions from 'actions/ui'
 import * as storageActions from 'actions/storage'
 import { getDisplayName } from 'utils/displayName'
+import PInfoUtil from 'applications/BUC/components/SEDP4000/Util'
 
 export const mapStateToProps = (state) => {
   return {
@@ -136,7 +137,8 @@ const SEDStart = (props) => {
       }
 
       if (_sed === 'P4000' && p4000info) {
-        payload.stayAbroad = p4000info.stayAbroad
+        const periods = new PInfoUtil(p4000info.stayAbroad).generatePayload()
+        payload.periodeInfo = periods
       }
       if (sedNeedsVedtakId()) {
         payload.vedtakId = _vedtakId
@@ -185,6 +187,7 @@ const SEDStart = (props) => {
       vedtakId={_vedtakId} setVedtakId={setVedtakId}
       {...props} /> : null}
     { step === 1 ? <Step2
+      _sed={_sed}
       showButtons={showButtons} setShowButtons={setShowButtons}
       validation={validation} setValidation={setValidation}
       {...props} /> : null }
