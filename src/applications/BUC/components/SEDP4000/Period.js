@@ -10,8 +10,8 @@ import * as CountryFilter from 'components/ui/CountrySelect/CountryFilter'
 import FocusGroup from 'components/ui/FocusGroup'
 import Flag from 'components/ui/Flag/Flag'
 import FileUpload from 'components/ui/FileUpload/FileUpload'
-import { AlertStripe, EtikettBase, Flatknapp, HjelpetekstAuto, Hovedknapp,
-  Input, Knapp, Normaltekst, Row, Textarea, Select, Undertittel, Undertekst } from 'components/ui/Nav'
+import { AlertStripe, Checkbox, EtikettBase, Flatknapp, HjelpetekstAuto, Hovedknapp, Input } from 'components/ui/Nav'
+import { Knapp, Normaltekst, Row, Textarea, Select, Undertittel, Undertekst, UndertekstBold } from 'components/ui/Nav'
 import Icons from 'components/ui/Icons'
 import { pinfoDateToDate } from 'utils/Date'
 import { periodValidation } from './Validation/singleTests'
@@ -28,18 +28,22 @@ const Period = (props) => {
   const setStartDate = (e) => dateSetProperty('startDate', periodValidation.periodStartDateOnChange, e)
   const setEndDate = (e) => dateSetProperty('endDate', periodValidation.periodEndDateOnChange, e)
   const setCountry = (e) => valueSetProperty('country', periodValidation.periodCountry, e)
-  const setInsuranceName = (e) => eventSetProperty('insuranceName', periodValidation.insuranceName, e)
-  const setInsuranceType = (e) => eventSetProperty('insuranceType', periodValidation.insuranceType, e)
-  const setInsuranceId = (e) => eventSetProperty('insuranceId', null, e)
   const setPlace = (e) => eventSetProperty('place', periodValidation.periodPlace, e)
+  const setComment = (e) => eventSetProperty('comment', null, e)
   const setWorkActivity = (e) => eventSetProperty('workActivity', periodValidation.workActivity, e)
   const setWorkName = (e) => eventSetProperty('workName', periodValidation.workName, e)
   const setWorkPlace = (e) => eventSetProperty('workPlace', periodValidation.workPlace, e)
+  const setChildFirstName = (e) => eventSetProperty('childFirstName', periodValidation.childFirstName, e)
+  const setChildLastName = (e) => eventSetProperty('childLastName', periodValidation.childLastName, e)
+  const setChildBirthDate = (e) => dateSetProperty('childBirthDate', periodValidation.childBirthDate, e)
   const setLearnInstitution = (e) => eventSetProperty('learnInstitution', periodValidation.learnInstitution, e)
+  const setOther = (e) => eventSetProperty('other', periodValidation.other, e)
+  const setPayingInstitution = (e) => eventSetProperty('payingInstitution', periodValidation.payingInstitution, e)
   const setAttachments = (e) => valueSetProperty('attachments', null, e)
   const blurStartDate = (e) => dateBlur('startDate', periodValidation.periodStartDateOnBlur, e)
   const blurEndDate = (e) => dateBlur('endDate', periodValidation.periodEndDateOnBlur, e)
-  const setComment = (e) => eventSetProperty('comment', null, e)
+  const blurChildBirthDate = (e) => dateBlur('childBirthDate', periodValidation.periodChildBirthDateOnBlur, e)
+  const setUncertainDate = (e) => eventSetCheckbox('uncertainDate', null, e)
 
   const hasNoErrors = (errors) => {
     for (var key in errors) {
@@ -52,6 +56,10 @@ const Period = (props) => {
 
   const eventSetProperty = (key, validateFunction, e) => {
     valueSetProperty(key, validateFunction, e.target.value)
+  }
+
+  const eventSetCheckbox = (key, validateFunction, e) => {
+    valueSetProperty(key, validateFunction, !!e)
   }
 
   const dateBlur = (key, validateFunction) => {
@@ -124,14 +132,6 @@ const Period = (props) => {
     return periodStep(period)
   }
 
-  const addInsuranceId = (insuranceId) => {
-    valueSetProperty('insuranceId', null, insuranceId)
-  }
-
-  const addInsuranceName = (insuranceName) => {
-    valueSetProperty('insuranceName', null, insuranceName)
-  }
-
   const saveNewPeriod = () => {
     let errors = validatePeriod()
     setLocalErrors(errors)
@@ -142,17 +142,19 @@ const Period = (props) => {
       let newPeriod = _.clone(period)
 
       // remove properties that do not belong to this type
-      switch (newPeriod) {
-        case 'work':
-          delete newPeriod.learnInstitution
-          break
-        case 'learn':
-          delete newPeriod.workActivity
-          delete newPeriod.workName
-          delete newPeriod.workPlace
-          break
-        default:
-          break
+      if (newPeriod.type !== 'work') {
+        delete newPeriod.workActivity
+        delete newPeriod.workName
+        delete newPeriod.workPlace
+      }
+      if (newPeriod.type !== 'learn') {
+        delete newPeriod.learnInstitution
+      }
+      if (newPeriod.type !== 'sick' && newPeriod.type !== 'daily') {
+        delete newPeriod.payingInstitution
+      }
+      if (newPeriod.type !== 'other') {
+        delete newPeriod.other
       }
 
       newPeriod.id = new Date().getTime()
@@ -244,36 +246,6 @@ const Period = (props) => {
     return undefined
   }
 
-  const renderTagsForInsuranceName = () => {
-    return periods.map(period => {
-      return period.insuranceName
-    }).filter((insuranceName, index, self) => {
-      return insuranceName && period.insuranceName !== insuranceName &&
-        self.indexOf(insuranceName) === index
-    }).map(insuranceName => {
-      return <EtikettBase
-        key={insuranceName} className='mr-3 mb-2' type='fokus'
-        onClick={() => addInsuranceName(insuranceName)}>
-        <b>{insuranceName}</b>
-      </EtikettBase>
-    })
-  }
-
-  const renderTagsForInsuranceId = () => {
-    return periods.map(period => {
-      return period.insuranceId
-    }).filter((insuranceId, index, self) => {
-      return insuranceId && period.insuranceId !== insuranceId &&
-      self.indexOf(insuranceId) === index
-    }).map(insuranceId => {
-      return <EtikettBase
-        key={insuranceId} className='mr-3 mb-2' type='fokus'
-        onClick={() => addInsuranceId(insuranceId)}>
-        <b>{insuranceId}</b>
-      </EtikettBase>
-    })
-  }
-
   const _errorMessage = errorMessage()
 
   switch (mode) {
@@ -288,35 +260,55 @@ const Period = (props) => {
               <Icons className='iconsvg' kind={'nav-' + period.type} size={32} />
             </div>
             <div className='pb-2 existingPeriodDescription'>
-              <div className='d-flex'>
+              <div className='existingPeriodType d-flex align-items-center'>
+                <UndertekstBold className='existingPeriodType pr-2'>
+                  {t('buc:p4000-category-' + period.type)}
+                </UndertekstBold>
                 <Flag label={period.country.label} country={period.country.value} size='M' />
-                <span className='bold pl-2 existingPeriodType'>{t('buc:p4000-category-' + period.type)}</span>
+                <Normaltekst className='pl-2'>{period.country.label}</Normaltekst>
               </div>
-              <span className='existingPeriodDates'>
-                <span className='bold'>{t('buc:p4000-period')}</span>{': '}
-                {moment(pinfoDateToDate(period.startDate)).format('DD.MM.YYYY')}{' - '}
-                {period.endDate ? moment(pinfoDateToDate(period.endDate)).format('DD.MM.YYYY') : t('ui:unknown')}
-              </span>
-              <br />
-              <React.Fragment>
-                <span className='bold'>{t('buc:p4000-place')}</span>{': '}
-                {period.place}
-                <br />
-              </React.Fragment>
-              {period.type === 'work' ? <React.Fragment>
-                <span className='bold'>{t('buc:p4000-work-title')}</span>{': '}
-                {period.workActivity}
-                <br />
-              </React.Fragment> : null }
-              {period.type === 'learn' ? <React.Fragment>
-                <span className='bold'>{t('buc:p4000-learn-institution')}</span>{': '}
-                {period.learnInstitution}
-                <br />
-              </React.Fragment> : null }
-              {period.attachments && !_.isEmpty(period.attachments) ? <span className='existingPeriodAttachments'>
-                <span className='bold'>{t('buc:p4000-attachments')}</span>{': '}
-                {period.attachments.map(att => { return att.name }).join(', ')}
-              </span> : null}
+              <div className='existingPeriodDates d-flex align-items-center'>
+                <UndertekstBold className='mr-2'>{t('buc:p4000-period') + ': '}</UndertekstBold>
+                <Normaltekst>
+                  {moment(pinfoDateToDate(period.startDate)).format('DD.MM.YYYY')}{' - '}
+                  {period.endDate ? moment(pinfoDateToDate(period.endDate)).format('DD.MM.YYYY') : t('ui:unknown')}
+                </Normaltekst>
+              </div>
+              {period.type === 'work'
+                ? <div className='d-flex align-items-center'>
+                  <UndertekstBold className='mr-2'>{t('buc:p4000-work-title') + ': '}</UndertekstBold>
+                  <Normaltekst>{period.workActivity}</Normaltekst>
+                </div> : null }
+              {period.type === 'work' || period.type === 'home'
+                ? <div className='d-flex align-items-center'>
+                  <UndertekstBold className='mr-2'>{t('buc:p4000-place') + ': '}</UndertekstBold>
+                  <Normaltekst>{period.type === 'work' ? period.workPlace : period.place}</Normaltekst>
+                </div> : null }
+              {period.type === 'learn'
+                ? <div className='d-flex align-items-center'>
+                  <UndertekstBold className='mr-2'>{t('buc:p4000-learn-institution') + ': '}</UndertekstBold>
+                  <Normaltekst>{period.learnInstitution}</Normaltekst>
+                </div> : null }
+              {period.type === 'child'
+                ? <div className='d-flex align-items-center'>
+                  <UndertekstBold className='mr-2'>{t('buc:p4000-childname') + ': '}</UndertekstBold>
+                  <Normaltekst>{period.childLastName}{', '}{period.childFirstName}</Normaltekst>
+                </div> : null }
+              {period.type === 'daily' || period.type === 'sick'
+                ? <div className='d-flex align-items-center'>
+                  <UndertekstBold className='mr-2'>{t('buc:p4000-paying-institution') + ': '}</UndertekstBold>
+                  <Normaltekst>{period.payingInstitution}</Normaltekst>
+                </div> : null }
+              {period.type === 'other'
+                ? <div className='d-flex align-items-center'>
+                  <UndertekstBold className='mr-2'>{t('buc:p4000-label-other') + ': '}</UndertekstBold>
+                  <Normaltekst>{period.other}</Normaltekst>
+                </div> : null }
+              {period.attachments && !_.isEmpty(period.attachments)
+                ? <div className='existingPeriodAttachments align-items-center'>
+                  <UndertekstBold className='mr-2'>{t('buc:p4000-attachments') + ': '}</UndertekstBold>
+                  <Normaltekst>{period.attachments.map(att => att.name).join(', ')}</Normaltekst>
+                </div> : null}
             </div>
           </div>
         </div>
@@ -353,16 +345,32 @@ const Period = (props) => {
               <option value='home'>{t('buc:p4000-category-home')}</option>
               <option value='military'>{t('buc:p4000-category-military')}</option>
               <option value='learn'>{t('buc:p4000-category-learn')}</option>
+              <option value='child'>{t('buc:p4000-category-child')}</option>
+              <option value='voluntary'>{t('buc:p4000-category-voluntary')}</option>
+              <option value='birth'>{t('buc:p4000-category-birth')}</option>
+              <option value='daily'>{t('buc:p4000-category-daily')}</option>
+              <option value='sick'>{t('buc:p4000-category-sick')}</option>
+              <option value='other'>{t('buc:p4000-category-other')}</option>
             </Select>
           </div>
         </Row>
         { period.type ? <React.Fragment>
-          {period.type === 'home' ? <AlertStripe className='mt-4 mb-4' type='advarsel'>{t('buc:p4000-warning-home-period')}</AlertStripe> : null}
-          <Undertittel className='mt-5 mb-2'>{t(`buc:p4000-period-title-${period.type}`)}</Undertittel>
-          <Normaltekst className='mb-3'>{t('buc:p4000-period-date-description')}</Normaltekst>
+          {period.type === 'home'
+            ? <AlertStripe className='mt-4 mb-4' type='advarsel'>
+              {t('buc:p4000-warning-home-period')}
+            </AlertStripe>
+            : null}
+          <Undertittel className='mt-5 mb-2'>
+            {t(`buc:p4000-period-title-${period.type}`)}
+          </Undertittel>
+          <Normaltekst className='mb-3'>
+            {t('buc:p4000-period-date-description')}
+          </Normaltekst>
           <Row>
             <div className='col-sm-6 col-12 mb-2'>
-              <label className='datepickerLabel skjemaelement__label'>{t('buc:p4000-period-start-date')}</label>
+              <label className='datepickerLabel skjemaelement__label'>
+                {t('buc:p4000-period-start-date')}
+              </label>
               {<FocusGroup onBlur={blurStartDate}>
                 <DatePicker
                   id='a-buc-c-sedp4000-period__startdato-date'
@@ -377,7 +385,9 @@ const Period = (props) => {
               </FocusGroup>}
             </div>
             <div className='col-sm-6 col-12 mb-2'>
-              <label className='datepickerLabel skjemaelement__label'>{t('buc:p4000-period-end-date')}</label>
+              <label className='datepickerLabel skjemaelement__label'>
+                {t('buc:p4000-period-end-date')}
+              </label>
               {<FocusGroup onBlur={blurEndDate}>
                 <DatePicker
                   labels={{ day: t('buc:p4000-period-day'), month: t('buc:p4000-period-month'), year: t('buc:p4000-period-year') }}
@@ -390,11 +400,19 @@ const Period = (props) => {
                 />
               </FocusGroup>}
             </div>
+            <div className='col-sm-6 col-12 mb-2'>
+              <Checkbox
+                label={t('buc:p4000-uncertain-date')}
+                checked={period.uncertainDate}
+                onChange={setUncertainDate} />
+            </div>
           </Row>
           <Row>
             <div className='col-sm-8 mb-2'>
               <label className='skjemaelement__label'>
-                <div className='a-buc-c-sedp4000-period__label'>{t('buc:p4000-country')}</div>
+                <div className='a-buc-c-sedp4000-period__label'>
+                  {t('buc:p4000-country')}
+                </div>
               </label>
               <CountrySelect
                 id='a-buc-c-sedp4000-period__land'
@@ -413,12 +431,12 @@ const Period = (props) => {
                 id='a-buc-c-sedp4000-period__arbeidgiverssted-textarea'
                 label={<div className='a-buc-c-sedp4000-period__label'>
                   <div className='a-buc-c-sedp4000-period__label'>
-                    <span>{t('buc:p4000-work-place')}</span>
+                    <UndertekstBold>{t('buc:p4000-work-place')}</UndertekstBold>
                     <HjelpetekstAuto id='p4000-work-place-help'>
-                      <span>{t('buc:p4000-work-place-help')}</span>
+                       {t('buc:p4000-work-place-help')}
                     </HjelpetekstAuto>
                   </div>
-                  <span className='optional'>{t('ui:optional')}</span>
+                  <Normaltekst className='optional'>{t('ui:optional')}</Normaltekst>
                 </div>}
                 placeholder={t('ui:writeIn')}
                 value={period.workPlace || ''}
@@ -433,9 +451,9 @@ const Period = (props) => {
                 id='a-buc-c-sedp4000-period__yrkesaktivitet-input'
                 label={<div className='a-buc-c-sedp4000-period__label'>
                   <div className='a-buc-c-sedp4000-period__label'>
-                    <span>{t('buc:p4000-work-activity')}</span>
+                    <UndertekstBold>{t('buc:p4000-work-activity')}</UndertekstBold>
                     <HjelpetekstAuto id='p4000-work-activity-help'>
-                      <span>{t('buc:p4000-work-activity-help')}</span>
+                      {t('buc:p4000-work-activity-help')}
                     </HjelpetekstAuto>
                   </div>
                 </div>}
@@ -449,8 +467,8 @@ const Period = (props) => {
               <Input
                 id='a-buc-c-sedp4000-period__arbeidgiversnavn-input'
                 label={<div className='a-buc-c-sedp4000-period__label'>
-                  <span>{t('buc:p4000-work-name')}</span>
-                  <span className='optional'>{t('ui:optional')}</span>
+                  <UndertekstBold>{t('buc:p4000-work-name')}</UndertekstBold>
+                  <Normaltekst className='optional'>{t('ui:optional')}</Normaltekst>
                 </div>}
                 placeholder={t('ui:writeIn')}
                 value={period.workName || ''}
@@ -465,9 +483,9 @@ const Period = (props) => {
                 id='a-buc-c-sedp4000-period__opplaeringsinstitusjonsnavn-input'
                 label={<div className='a-buc-c-sedp4000-period__label'>
                   <div className='a-buc-c-sedp4000-period__label'>
-                    <span>{t('buc:p4000-learn-institution')}</span>
+                    <UndertekstBold>{t('buc:p4000-learn-institution')}</UndertekstBold>
                     <HjelpetekstAuto id='p4000-learn-institution-help'>
-                      <span>{t('buc:p4000-learn-institution-help')}</span>
+                      {t('buc:p4000-learn-institution-help')}
                     </HjelpetekstAuto>
                   </div>
                 </div>}
@@ -478,25 +496,95 @@ const Period = (props) => {
               />
             </div>
           </Row> : null}
-          {period.type !== 'home' ? <Row>
-            <div className='col-sm-12'>
-              <Undertittel className='mt-5 mb-2'>{t('buc:p4000-home-title')}</Undertittel>
-            </div>
-            <div className='col-sm-12'>
-              <Textarea
-                id='a-buc-c-sedp4000-period__bosted-place-textarea'
-                label={<div className='a-buc-c-sedp4000-period__label'>
-                  <span>{t('buc:p4000-place-and-country')}</span>
-                </div>}
-                placeholder={t('ui:writeIn')}
-                value={period.place || ''}
-                style={{ minHeight: '100px' }}
-                maxLength={100}
-                onChange={setPlace}
-                feil={localErrors.place ? { feilmelding: t(localErrors.place) } : null}
-              />
-            </div>
-          </Row> : <Row>
+          {period.type === 'other'
+            ? <Row>
+              <div className='col-sm-12'>
+                <Input
+                  className='mt-2'
+                  id='pinfo-opphold-andre-input'
+                  label={<div className='pinfo-label'>
+                    <div className='pinfo-label'>
+                      <UndertekstBold>{t('buc:p4000-category-other')}</UndertekstBold>
+                    </div>
+                  </div>}
+                  value={period.other || ''}
+                  placeholder={t('ui:writeIn')}
+                  onChange={setOther}
+                  feil={localErrors.other ? { feilmelding: t(localErrors.other) } : null}
+                />
+              </div>
+            </Row> : null}
+          {period.type === 'daily' || period.type === 'sick'
+            ? <Row>
+              <div className='col-sm-12'>
+                <Input
+                  className='mt-2'
+                  id='pinfo-opphold-betalende-institusjon-input'
+                  label={<div className='pinfo-label'>
+                    <div className='pinfo-label'>
+                      <UndertekstBold>{t('buc:p4000-paying-institution-name')}</UndertekstBold>
+                    </div>
+                  </div>}
+                  value={period.payingInstitution || ''}
+                  placeholder={t('ui:writeIn')}
+                  onChange={setPayingInstitution}
+                  feil={localErrors.payingInstitution ? { feilmelding: t(localErrors.payingInstitution) } : null}
+                />
+              </div>
+            </Row> : null}
+          {period.type === 'child'
+            ? <Row>
+              <div className='col-sm-12'>
+                <Undertittel className='mt-5 mb-2'>
+                  {t('buc:p4000-title-child-info')}
+                </Undertittel>
+                <Input
+                  id='pinfo-opphold-omsorgforbarn-etternavn-input'
+                  label={<div className='pinfo-label'>
+                    <div className='pinfo-label'>
+                      <UndertekstBold>{t('buc:p4000-label-lastname')}</UndertekstBold>
+                    </div>
+                  </div>}
+                  value={period.childLastName || ''}
+                  placeholder={t('ui:writeIn')}
+                  onChange={setChildLastName}
+                  feil={localErrors.childLastName ? { feilmelding: t(localErrors.childLastName) } : null}
+                />
+              </div>
+              <div className='col-sm-12'>
+                <Input
+                  id='pinfo-opphold-omsorgforbarn-fornavn-input'
+                  label={<div className='pinfo-label'>
+                    <div className='pinfo-label'>
+                      <UndertekstBold>{t('buc:p4000-label-firstname')}</UndertekstBold>
+                    </div>
+                  </div>}
+                  value={period.childFirstName || ''}
+                  placeholder={t('ui:writeIn')}
+                  onChange={setChildFirstName}
+                  feil={localErrors.childFirstName ? { feilmelding: t(localErrors.childFirstName) } : null}
+                />
+              </div>
+              <div className='col-sm-6 col-12 mb-2'>
+                <label className='datepickerLabel skjemaelement__label'>
+                  {t('buc:p4000-label-birthdate')}
+                </label>
+                <FocusGroup onBlur={blurChildBirthDate}>
+                  <DatePicker
+                    id='pinfo-opphold-fodelsdato-date'
+                    labels={{ day: t('buc:p4000-period-day'), month: t('buc:p4000-period-month'), year: t('buc:p4000-period-year') }}
+                    ids={{ day: 'pinfo-opphold-fodelsdato-day', month: 'pinfo-opphold-fodelsdato-month', year: 'pinfo-opphold-fodelsdato-year' }}
+                    placeholders={{ day: t('buc:p4000-period-placeholder-day'), month: t('buc:p4000-period-placeholder-month'), year: t('buc:p4000-period-placeholder-year') }}
+                    className='birthDate pr-2'
+                    values={period.childBirthDate}
+                    onChange={setChildBirthDate}
+                    feil={localErrors.childBirthDate || localErrors.timeSpan ? { feilmelding: t(localErrors.childBirthDate || localErrors.timeSpan) } : undefined}
+                  />
+                </FocusGroup>
+              </div>
+            </Row> : null}
+          {period.type === 'home'
+          ? <Row>
             <div className='col-sm-12'>
               <Textarea
                 id='a-buc-c-sedp4000-period__bosted-place-textarea'
@@ -509,79 +597,37 @@ const Period = (props) => {
                 feil={localErrors.place ? { feilmelding: t(localErrors.place) } : null}
               />
             </div>
-          </Row>}
-          <Undertittel className='mt-5 mb-2'>{t('buc:p4000-insurance-title')}</Undertittel>
+          </Row> : null}
           <Row>
             <div className='col-sm-12'>
-              <Input
-                id='a-buc-c-sedp4000-period__trygdeordning-navn'
+              <Undertittel className='mt-5 mb-2'>{t('buc:p4000-comment')}</Undertittel>
+              <Textarea id='a-buc-c-sedp4000-period__comment'
                 label={<div className='a-buc-c-sedp4000-period__label'>
                   <div className='a-buc-c-sedp4000-period__label'>
-                    <span>{t('buc:p4000-insurance-name')}</span>
-                    <HjelpetekstAuto id='p4000-insurance-name-help'>
-                      {t('buc:p4000-insurance-name-help')}
+                    <UndertekstBold>{t('buc:p4000-comment')}</UndertekstBold>
+                    <HjelpetekstAuto id='a-buc-c-sedp4000-period__comment-help'>
+                      {t('buc:p4000-comment-help')}
                     </HjelpetekstAuto>
                   </div>
-                  <span className='optional'>{t('ui:optional')}</span>
+                  <Normaltekst className='optional'>{t('ui:optional')}</Normaltekst>
                 </div>}
                 placeholder={t('ui:writeIn')}
-                value={period.insuranceName || ''}
-                onChange={setInsuranceName}
-                feil={localErrors.insuranceName ? { feilmelding: t(localErrors.insuranceName) } : null}
+                value={period.comment || ''}
+                style={{ minHeight: '100px' }}
+                onChange={setComment}
+                maxLength={2300}
               />
-              <div className='id-suggestions'>
-                {renderTagsForInsuranceName()}
-              </div>
-            </div>
-            <div className='col-sm-12'>
-              <Input
-                id='a-buc-c-sedp4000-period__trygdeordning-id'
-                label={<div className='a-buc-c-sedp4000-period__label'>
-                  <div className='a-buc-c-sedp4000-period__label'>
-                    <span>{t('buc:p4000-insurance-id')}</span>
-                    <HjelpetekstAuto id='p4000-insurance-id-help'>
-                      {t('buc:p4000-insurance-id-help')}
-                    </HjelpetekstAuto>
-                  </div>
-                  <span className='optional'>{t('ui:optional')}</span>
-                </div>}
-                placeholder={t('ui:writeIn')}
-                value={period.insuranceId || ''}
-                onChange={setInsuranceId}
-                feil={localErrors.insuranceId ? { feilmelding: t(localErrors.insuranceId) } : null}
-              />
-              <div className='id-suggestions'>
-                {renderTagsForInsuranceId()}
-              </div>
-            </div>
-            <div className='col-sm-12'>
-              <Select
-                id='a-buc-c-sedp4000-period__trygdeordning-type'
-                label={<div className='a-buc-c-sedp4000-period__label'>
-                  <div className='a-buc-c-sedp4000-period__label'>
-                    <span>{t('buc:p4000-insurance-type')}</span>
-                    <HjelpetekstAuto id='p4000-insurance-type-help'>
-                      {t('buc:p4000-insurance-type-help')}
-                    </HjelpetekstAuto>
-                  </div>
-                  <span className='optional'>{t('ui:optional')}</span>
-                </div>}
-                value={period.insuranceType || ''}
-                onChange={setInsuranceType}
-                feil={localErrors.insuranceType ? { feilmelding: t(localErrors.insuranceType) } : null}>
-                <option value=''>{t('ui:choose')}</option>
-                <option value={t('buc:p4000-insurance-type-01')}>{t('buc:p4000-insurance-type-01')}</option>
-                <option value={t('buc:p4000-insurance-type-02')}>{t('buc:p4000-insurance-type-02')}</option>
-                <option value={t('buc:p4000-insurance-type-03')}>{t('buc:p4000-insurance-type-03')}</option>
-                <option value={t('buc:p4000-insurance-type-04')}>{t('buc:p4000-insurance-type-04')}</option>
-              </Select>
             </div>
           </Row>
           <Row>
             <div className='col-sm-12'>
-              <Undertittel className='mt-5 mb-2'>{t('buc:p4000-attachment-title')}</Undertittel>
-              <Undertekst>{t('buc:p4000-attachment-title-help')}</Undertekst>
-              <span className='optional mb-1'>{t('ui:optional')}</span>
+              <Undertittel className='mt-5 mb-2'>
+                {t('buc:p4000-attachment-title')}
+              </Undertittel>
+              <Undertekst>
+                {t('buc:p4000-attachment-title-help')}
+              </Undertekst>
+              <Normaltekst className='optional mb-1'>{t('ui:optional')}</Normaltekst>
             </div>
             <div className='col-sm-12'>
               <FileUpload
@@ -595,25 +641,6 @@ const Period = (props) => {
                 onFileChange={() => setAttachments(period)} />
             </div>
           </Row>
-          <Row>
-            <Undertittel className='mt-5 mb-2'>{t('buc:p4000-comment')}</Undertittel>
-          </Row>
-          <Textarea id='a-buc-c-sedp4000-period__comment'
-            label={<div className='a-buc-c-sedp4000-period__label'>
-              <div className='a-buc-c-sedp4000-period__label'>
-                <span>{t('buc:p4000-comment')}</span>
-                <HjelpetekstAuto id='a-buc-c-sedp4000-period__comment-help'>
-                  {t('buc:p4000-comment-help')}
-                </HjelpetekstAuto>
-              </div>
-              <span className='optional'>{t('ui:optional')}</span>
-            </div>}
-            placeholder={t('ui:writeIn')}
-            value={period.comment || ''}
-            style={{ minHeight: '100px' }}
-            onChange={setComment}
-            maxLength={2300}
-          />
           <Row>
             <div className='mt-4 mb-4 col-sm-12'>
               {mode === 'edit' ? <Knapp
