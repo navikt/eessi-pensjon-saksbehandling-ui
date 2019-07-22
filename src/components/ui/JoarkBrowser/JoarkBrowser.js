@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import { connect, bindActionCreators } from 'store'
-import { withTranslation } from 'react-i18next'
 import { NavFrontendSpinner } from 'components/ui/Nav'
 import File from 'components/ui/File/File'
 import TableSorter from 'components/ui/TableSorter/TableSorter'
@@ -180,6 +179,6 @@ JoarkBrowser.propTypes = {
   aktoerId: PT.string
 }
 
-const ConnectedJoarkbrowser = connect(mapStateToProps, mapDispatchToProps)(withTranslation()(JoarkBrowser))
-ConnectedJoarkbrowser.displayName = `Connect(${getDisplayName(withTranslation()(JoarkBrowser))})`
+const ConnectedJoarkbrowser = connect(mapStateToProps, mapDispatchToProps)(JoarkBrowser)
+ConnectedJoarkbrowser.displayName = `Connect(${getDisplayName(JoarkBrowser)})`
 export default ConnectedJoarkbrowser

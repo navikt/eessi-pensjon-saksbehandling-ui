@@ -1,0 +1,49 @@
+import React, { Suspense } from 'react'
+import SEDAttachments from './SEDAttachments'
+import { StoreProvider } from 'store'
+import reducer, { initialState } from 'reducer'
+describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
+
+  const t = jest.fn((translationString) => { return translationString })
+  const initialMockProps = {
+    t: t,
+    files: {},
+    setFiles: jest.fn()
+  }
+  let wrapper
+
+  beforeEach(() => {
+    act(() => {
+      wrapper = mount(<StoreProvider initialState={initialState} reducer={reducer}>
+        <Suspense fallback={<div/>}>
+          <SEDAttachments {...initialMockProps} />
+        </Suspense>
+      </StoreProvider>)
+   })
+  })
+
+  it('Renders successfully', () => {
+    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper).toMatchSnapshot()
+  })
+
+  it('Pressing button for attachments makes it disappear', () => {
+    expect(wrapper.exists('.a-buc-c-sedattachments')).toEqual(true)
+    expect(wrapper.exists('#a-buc-c-sedattachments__enable-button-id')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-sedattachments-step1')).toEqual(false)
+
+    act(() => {
+      wrapper.find('#a-buc-c-sedattachments__enable-button-id').hostNodes().props().onClick()
+    })
+    // for some reason, we need to render to see changes.
+    // TODO change when jest allows to instance to update without needing it to render
+    expect(wrapper.find('.a-buc-c-sedattachments-step1')).toHaveLength(0)
+    expect(wrapper.render().find('.a-buc-c-sedattachments-step1')).toHaveLength(1)
+    expect(wrapper.render().find('#a-buc-c-sedattachments__enable-button-id')).toHaveLength(0)
+  })
+
+  it('Render()', () => {
+    expect(wrapper.exists('.a-buc-c-sedattachments')).toEqual(true)
+    expect(wrapper.exists('#a-buc-c-sedattachments__enable-button-id')).toEqual(true)
+  })
+})
