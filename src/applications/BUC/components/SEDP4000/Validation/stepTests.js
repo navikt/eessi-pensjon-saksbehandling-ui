@@ -33,6 +33,15 @@ export function periodStep (period) {
       errors.learnInstitution = tests.periodValidation.learnInstitution(period.learnInstitution)
       break
 
+    case 'daily':
+    case 'sick':
+      errors.payingInstitution = tests.periodValidation.payingInstitution(period.payingInstitution)
+      break
+
+    case 'other':
+      errors.otherType = tests.periodValidation.otherType(period.otherType)
+      break
+
     default:
       break
   }

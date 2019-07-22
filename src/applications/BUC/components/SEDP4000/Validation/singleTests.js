@@ -55,6 +55,19 @@ let periodEndDate = function (endDate) {
   return periodEndDateOnBlur(endDate)
 }
 
+let childBirthDate = function (childBirthDate) {
+  if (!childBirthDate || _.isEmpty(childBirthDate)) {
+    return 'pinfo:validation-noChildBirthDate'
+  }
+  if (!childBirthDate.year) {
+    return 'pinfo:validation-noYear'
+  }
+  if (!childBirthDate.month) {
+    return 'pinfo:validation-noMonth'
+  }
+  return childBirthDateOnBlur(childBirthDate)
+}
+
 let periodStartDateOnBlur = function (startDate) {
   if (startDate && startDate.year && startDate.year.length < 4) {
     return 'pinfo:validation-inValidYear'
@@ -67,6 +80,13 @@ let periodEndDateOnBlur = function (endDate) {
     return 'pinfo:validation-inValidYear'
   }
   return periodEndDateOnChange(endDate)
+}
+
+let childBirthDateOnBlur = function (childBirthDate) {
+  if (childBirthDate && childBirthDate.year && childBirthDate.year.length < 4) {
+    return 'pinfo:validation-inValidYear'
+  }
+  return childBirthDateOnChange(childBirthDate)
 }
 
 // tests if startDate is a valid date.
@@ -101,6 +121,23 @@ let periodEndDateOnChange = function (endDate) {
     return 'pinfo:validation-invalidEndDate'
   }
   if (endMoment.toDate().getTime() > new Date().getTime()) {
+    return 'pinfo:validation-futureDate'
+  }
+  return undefined
+}
+
+let childBirthDateOnChange = function (childBirthDate) {
+  if (!childBirthDate || !childBirthDate.month || !childBirthDate.year) {
+    return undefined
+  }
+
+  const monthInteger = parseInt(childBirthDate.month, 10) - 1
+  const childBirthDateMoment = moment([childBirthDate.year, monthInteger, (childBirthDate.day || 1)])
+
+  if (!childBirthDateMoment.isValid()) {
+    return 'pinfo:validation-invalidChildBirthDate'
+  }
+  if (childBirthDateMoment.toDate().getTime() > new Date().getTime()) {
     return 'pinfo:validation-futureDate'
   }
   return undefined
@@ -167,13 +204,16 @@ let childLastName = function (childLastName) {
     /^[^\d]+$/, 'pinfo:validation-invalidName') || withinLength(childLastName, 60)
 }
 
-let childBirthDate = function (childBirthDate) {
-  return !childBirthDate ? 'pinfo:validation-noChildBirthDate'
-    : (childBirthDate < new Date().getTime()) ? 'pinfo:validation-invalidChildBirthDate' : undefined
-}
-
 let learnInstitution = function (learnInstitution) {
   return mandatory(learnInstitution, 'pinfo:validation-noLearnInstitution') || withinLength(learnInstitution, 60)
+}
+
+let payingInstitution = function (payingInstitution) {
+  return mandatory(payingInstitution, 'pinfo:validation-noPayingInstitution') || withinLength(payingInstitution, 60)
+}
+
+let otherType = function (otherType) {
+  return mandatory(otherType, 'pinfo:validation-noOtherType') || withinLength(otherType, 60)
 }
 
 // PERIOD
@@ -182,10 +222,13 @@ export const periodValidation = {
   periodType,
   periodStartDate,
   periodEndDate,
+  childBirthDate,
   periodStartDateOnBlur,
   periodEndDateOnBlur,
+  childBirthDateOnBlur,
   periodStartDateOnChange,
   periodEndDateOnChange,
+  childBirthDateOnChange,
   periodTimeSpan,
   periodCountry,
   periodPlace,
@@ -197,6 +240,7 @@ export const periodValidation = {
   workPlace,
   childFirstName,
   childLastName,
-  childBirthDate,
-  learnInstitution
+  learnInstitution,
+  payingInstitution,
+  otherType
 }
