@@ -35,9 +35,9 @@ const Period = (props) => {
   const setWorkPlace = (e) => eventSetProperty('workPlace', periodValidation.workPlace, e)
   const setChildFirstName = (e) => eventSetProperty('childFirstName', periodValidation.childFirstName, e)
   const setChildLastName = (e) => eventSetProperty('childLastName', periodValidation.childLastName, e)
-  const setChildBirthDate = (e) => dateSetProperty('childBirthDate', periodValidation.childBirthDate, e)
+  const setChildBirthDate = (e) => dateSetProperty('childBirthDate', periodValidation.childBirthDateOnChange, e)
   const setLearnInstitution = (e) => eventSetProperty('learnInstitution', periodValidation.learnInstitution, e)
-  const setOther = (e) => eventSetProperty('other', periodValidation.other, e)
+  const setOtherType = (e) => eventSetProperty('otherType', periodValidation.otherType, e)
   const setPayingInstitution = (e) => eventSetProperty('payingInstitution', periodValidation.payingInstitution, e)
   const setAttachments = (e) => valueSetProperty('attachments', null, e)
   const blurStartDate = (e) => dateBlur('startDate', periodValidation.periodStartDateOnBlur, e)
@@ -154,7 +154,7 @@ const Period = (props) => {
         delete newPeriod.payingInstitution
       }
       if (newPeriod.type !== 'other') {
-        delete newPeriod.other
+        delete newPeriod.otherType
       }
 
       newPeriod.id = new Date().getTime()
@@ -302,7 +302,7 @@ const Period = (props) => {
               {period.type === 'other'
                 ? <div className='d-flex align-items-center'>
                   <UndertekstBold className='mr-2'>{t('buc:p4000-label-other') + ': '}</UndertekstBold>
-                  <Normaltekst>{period.other}</Normaltekst>
+                  <Normaltekst>{period.otherType}</Normaltekst>
                 </div> : null }
               {period.attachments && !_.isEmpty(period.attachments)
                 ? <div className='existingPeriodAttachments align-items-center'>
@@ -507,10 +507,10 @@ const Period = (props) => {
                       <UndertekstBold>{t('buc:p4000-category-other')}</UndertekstBold>
                     </div>
                   </div>}
-                  value={period.other || ''}
+                  value={period.otherType || ''}
                   placeholder={t('ui:writeIn')}
-                  onChange={setOther}
-                  feil={localErrors.other ? { feilmelding: t(localErrors.other) } : null}
+                  onChange={setOtherType}
+                  feil={localErrors.otherType ? { feilmelding: t(localErrors.otherType) } : null}
                 />
               </div>
             </Row> : null}

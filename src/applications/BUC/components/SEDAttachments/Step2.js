@@ -23,8 +23,8 @@ const Step2 = (props) => {
       {t('ui:next')}
     </Hovedknapp>
     <Flatknapp
-      id='a-buc-c-sedattachmnents__next-button-id'
-      className='a-buc-c-sedattachmnents__next-button'
+      id='a-buc-c-sedattachmnents__back-button-id'
+      className='a-buc-c-sedattachmnents__back-button'
       onClick={onBackButtonClick}>
       {t('ui:back')}
     </Flatknapp>

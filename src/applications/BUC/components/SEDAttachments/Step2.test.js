@@ -9,7 +9,8 @@ describe('applications/BUC/components/Step1/Step1', () => {
   const initialMockProps = {
     t: t,
     files: {},
-    setFiles: jest.fn()
+    setFiles: jest.fn(),
+    setStep: jest.fn()
   }
   let wrapper
 
@@ -26,6 +27,19 @@ describe('applications/BUC/components/Step1/Step1', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
+  it('Presses next button', () => {
+    expect(wrapper.exists('#a-buc-c-sedattachmnents__next-button-id')).toEqual(true)
+    let button = wrapper.find('#a-buc-c-sedattachmnents__next-button-id').hostNodes()
+    button.simulate('click')
+    expect(initialMockProps.setStep).toHaveBeenCalledWith('generate')
+  })
+
+  it('Presses back button', () => {
+    expect(wrapper.exists('#a-buc-c-sedattachmnents__back-button-id')).toEqual(true)
+    let button = wrapper.find('#a-buc-c-sedattachmnents__back-button-id').hostNodes()
+    button.simulate('click')
+    expect(initialMockProps.setStep).toHaveBeenCalledWith('select')
+  })
 
   it('Render()', () => {
     expect(wrapper.exists('.a-buc-c-sedattachments-step2')).toEqual(true)

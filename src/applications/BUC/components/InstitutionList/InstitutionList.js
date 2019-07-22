@@ -43,8 +43,8 @@ const InstitutionList = (props) => {
         const label = institutionNames && institutionNames.hasOwnProperty(landkode + ':' + institutionId)
           ? institutionNames[landkode + ':' + institutionId] : institutionId
         return <div className='a-buc-c-institution' key={institutionId}>
-          <Flag label={country.label} country={landkode} size='M' />
-          <Element className='pr-2 pl-2'>{country.label}: </Element>
+          <Flag label={country ? country.label : landkode} country={landkode} size='M' />
+          <Element className='pr-2 pl-2'>{country ? country.label : landkode}: </Element>
           <Normaltekst>{label}</Normaltekst>
         </div>
       }) : null}
