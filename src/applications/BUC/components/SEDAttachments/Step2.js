@@ -14,7 +14,7 @@ const Step2 = (props) => {
     setStep('select')
   }
 
-  return <div>
+  return <div className='a-buc-c-sedattachments-step2'>
     <PDFEditor {...props} />
     <Hovedknapp
       id='a-buc-c-sedattachmnents__next-button-id'

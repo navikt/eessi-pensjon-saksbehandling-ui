@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect, bindActionCreators } from 'store'
 import PT from 'prop-types'
-import { withTranslation } from 'react-i18next'
 import Collapse from 'rc-collapse'
 import _ from 'lodash'
 
@@ -32,7 +31,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const PDFEditor = (props) => {
-  const { t, actions, files, dndTarget, recipe, pageScale } = this.props
+  const { t, actions, files, dndTarget, recipe, pageScale } = props
 
   const handleAccordionChange = (index) => {
     if (!index) { return }
@@ -75,7 +74,7 @@ const PDFEditor = (props) => {
   return <div className='documentbox fieldset m-0 mt-4'>
     <div className='documentbox-header m-2'>
       <h4>{t('pdf:documentBox')}</h4>
-      <PDFSizeSlider pageScale={pageScale} actions={actions} style={{ width: '25%' }} />
+      <PDFSizeSlider t={t} pageScale={pageScale} actions={actions} style={{ width: '25%' }} />
     </div>
     <DnD>
       <Nav.Row>
@@ -116,7 +115,7 @@ const PDFEditor = (props) => {
 PDFEditor.propTypes = {
   actions: PT.object,
   history: PT.object,
-  t: PT.func,
+  t: PT.func.isRequired,
   files: PT.array.isRequired,
   recipe: PT.object.isRequired,
   dndTarget: PT.string
@@ -125,6 +124,5 @@ PDFEditor.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(
-  withTranslation()(PDFEditor)
-)
+)(PDFEditor)
+

@@ -40,7 +40,7 @@ const Step1 = (props) => {
   const handleAfterDrop = () => {
   }
 
-  return <div>
+  return <div className='a-buc-c-sedattachments-step1'>
     <Undertittel className='mt-4 mb-3'>{t('buc:form-addAttachmentsFromJOARK')}</Undertittel>
     <JoarkBrowser
       {...props}

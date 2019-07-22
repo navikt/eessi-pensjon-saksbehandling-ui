@@ -33,23 +33,60 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
     expect(initialMockProps.actions.getTagList).toHaveBeenCalled()
   })
 
-  it('onSaveButtonClick()', async (done) => {
+  it('changes tags', () => {
+    const firstMockedTags = bucInfo.tags.map(tag => {
+      return {
+        label: 'buc:tag-' + tag,
+        value: tag
+      }
+    })
+    const secondMockedTags = firstMockedTags.concat([{
+      label: 'buc:tag-mockTag1',
+      value: 'mockTag1'
+    }])
+    let wrapper = mount(<BUCTools {...initialMockProps} />)
+    wrapper.find('EkspanderbartpanelBase button').simulate('click')
+    expect(wrapper.exists('#a-buc-c-buctools__tags-select-id')).toEqual(true)
+
+    let tagSelect = wrapper.find('#a-buc-c-buctools__tags-select-id').hostNodes()
+    expect(tagSelect.find('StateManager').props().value).toEqual(firstMockedTags)
+
+    tagSelect.find('input').simulate('keyDown', { key: "ArrowDown", keyCode: 40 });
+    tagSelect.find('input').simulate('keyDown', { key: "Enter", keyCode: 13 });
+    tagSelect = wrapper.find('#a-buc-c-buctools__tags-select-id').hostNodes()
+    expect(tagSelect.find('StateManager').props().value).toEqual(secondMockedTags)
+  })
+
+  it('changes comments', () => {
+    const firstMockedComment = bucInfo.comment
+    const secondMockedComment = 'this is a mocked comment'
+    let wrapper = mount(<BUCTools {...initialMockProps} />)
+    wrapper.find('EkspanderbartpanelBase button').simulate('click')
+    expect(wrapper.exists('#a-buc-c-buctools__comment-textarea-id')).toEqual(true)
+
+    let tagSelect = wrapper.find('#a-buc-c-buctools__comment-textarea-id').hostNodes()
+    expect(tagSelect.props().value).toEqual(firstMockedComment)
+
+    tagSelect.props().onChange({target: {value: secondMockedComment }})
+    wrapper.update()
+    tagSelect = wrapper.find('#a-buc-c-buctools__comment-textarea-id').hostNodes()
+    expect(tagSelect.props().value).toEqual(secondMockedComment)
+
+  })
+
+  it('onSaveButtonClick()', () => {
     let wrapper = mount(<BUCTools {...initialMockProps} />)
     expect(wrapper.exists('.a-buc-c-buctools')).toEqual(true)
     wrapper.find('EkspanderbartpanelBase button').simulate('click')
-    await new Promise(resolve => {
-      setTimeout(() => {
-        wrapper.find('button#a-buc-c-buctools__save-button-id').simulate('click')
-        expect(initialMockProps.actions.saveBucsInfo).toHaveBeenCalledWith({
-          aktoerId: '123',
-          buc: buc,
-          comment: bucInfo.comment,
-          tags: bucInfo.tags,
-          bucsInfo: {foo: 'bar'}
-        })
-        done()
-      }, 500)
+    wrapper.find('button#a-buc-c-buctools__save-button-id').simulate('click')
+    expect(initialMockProps.actions.saveBucsInfo).toHaveBeenCalledWith({
+      aktoerId: '123',
+      buc: buc,
+      comment: bucInfo.comment,
+      tags: bucInfo.tags,
+      bucsInfo: {foo: 'bar'}
     })
+
   })
 
   it('render(), EkspanderbartpanelBase close', () => {
@@ -58,19 +95,14 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
     expect(wrapper.exists('.a-buc-c-buctools__save-button')).toEqual(false)
   })
 
-  it('render(), EkspanderbartpanelBase open', async (done) => {
+  it('render(), EkspanderbartpanelBase open', () => {
     let wrapper = mount(<BUCTools {...initialMockProps} />)
     expect(wrapper.exists('EkspanderbartpanelBase')).toEqual(true)
     wrapper.find('EkspanderbartpanelBase button').simulate('click')
-    await new Promise(resolve => {
-      setTimeout(() => {
-        expect(wrapper.exists('.a-buc-c-buctools')).toEqual(true)
-        expect(wrapper.find('.a-buc-c-buctools__title').hostNodes().render().text()).toEqual(t('buc:form-BUCtools'))
-        expect(wrapper.exists('.a-buc-c-buctools__tags-select')).toEqual(true)
-        expect(wrapper.exists('.a-buc-c-buctools__comment-textarea')).toEqual(true)
-        expect(wrapper.exists('.a-buc-c-buctools__save-button')).toEqual(true)
-        done()
-      }, 500)
-    })
+    expect(wrapper.exists('.a-buc-c-buctools')).toEqual(true)
+    expect(wrapper.find('.a-buc-c-buctools__title').hostNodes().render().text()).toEqual(t('buc:form-BUCtools'))
+    expect(wrapper.exists('.a-buc-c-buctools__tags-select')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-buctools__comment-textarea')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-buctools__save-button')).toEqual(true)
   })
 })
