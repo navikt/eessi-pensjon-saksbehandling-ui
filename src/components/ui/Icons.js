@@ -107,7 +107,7 @@ const Icons = (props) => {
 
 Icons.propTypes = {
   kind: PT.string.isRequired,
-  size: PT.oneOf([PT.string, PT.number])
+  size: PT.oneOfType([PT.string, PT.number])
 }
 
 export default Icons

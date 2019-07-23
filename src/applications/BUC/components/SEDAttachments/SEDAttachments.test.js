@@ -2,6 +2,7 @@ import React, { Suspense } from 'react'
 import SEDAttachments from './SEDAttachments'
 import { StoreProvider } from 'store'
 import reducer, { initialState } from 'reducer'
+
 describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
 
   const t = jest.fn((translationString) => { return translationString })

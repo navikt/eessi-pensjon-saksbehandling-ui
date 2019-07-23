@@ -10,7 +10,7 @@ import * as CountryFilter from 'components/ui/CountrySelect/CountryFilter'
 import FocusGroup from 'components/ui/FocusGroup'
 import Flag from 'components/ui/Flag/Flag'
 import FileUpload from 'components/ui/FileUpload/FileUpload'
-import { AlertStripe, Checkbox, EtikettBase, Flatknapp, HjelpetekstAuto, Hovedknapp, Input } from 'components/ui/Nav'
+import { AlertStripe, Checkbox, Flatknapp, HjelpetekstAuto, Hovedknapp, Input } from 'components/ui/Nav'
 import { Knapp, Normaltekst, Row, Textarea, Select, Undertittel, Undertekst, UndertekstBold } from 'components/ui/Nav'
 import Icons from 'components/ui/Icons'
 import { pinfoDateToDate } from 'utils/Date'
@@ -261,7 +261,7 @@ const Period = (props) => {
             </div>
             <div className='pb-2 existingPeriodDescription'>
               <div className='existingPeriodType d-flex align-items-center'>
-                <UndertekstBold className='existingPeriodType pr-2'>
+                <UndertekstBold className='pr-2'>
                   {t('buc:p4000-category-' + period.type)}
                 </UndertekstBold>
                 <Flag label={period.country.label} country={period.country.value} size='M' />
@@ -275,32 +275,32 @@ const Period = (props) => {
                 </Normaltekst>
               </div>
               {period.type === 'work'
-                ? <div className='d-flex align-items-center'>
+                ? <div className='existingPeriodWorkActivity d-flex align-items-center'>
                   <UndertekstBold className='mr-2'>{t('buc:p4000-work-title') + ': '}</UndertekstBold>
                   <Normaltekst>{period.workActivity}</Normaltekst>
                 </div> : null }
               {period.type === 'work' || period.type === 'home'
-                ? <div className='d-flex align-items-center'>
+                ? <div className='existingPeriodPlace d-flex align-items-center'>
                   <UndertekstBold className='mr-2'>{t('buc:p4000-place') + ': '}</UndertekstBold>
                   <Normaltekst>{period.type === 'work' ? period.workPlace : period.place}</Normaltekst>
                 </div> : null }
               {period.type === 'learn'
-                ? <div className='d-flex align-items-center'>
+                ? <div className='existingPeriodLearnInstitution d-flex align-items-center'>
                   <UndertekstBold className='mr-2'>{t('buc:p4000-learn-institution') + ': '}</UndertekstBold>
                   <Normaltekst>{period.learnInstitution}</Normaltekst>
                 </div> : null }
               {period.type === 'child'
-                ? <div className='d-flex align-items-center'>
+                ? <div className='existingPeriodChildName d-flex align-items-center'>
                   <UndertekstBold className='mr-2'>{t('buc:p4000-childname') + ': '}</UndertekstBold>
                   <Normaltekst>{period.childLastName}{', '}{period.childFirstName}</Normaltekst>
                 </div> : null }
               {period.type === 'daily' || period.type === 'sick'
-                ? <div className='d-flex align-items-center'>
+                ? <div className='existingPeriodPayingInstitution d-flex align-items-center'>
                   <UndertekstBold className='mr-2'>{t('buc:p4000-paying-institution') + ': '}</UndertekstBold>
                   <Normaltekst>{period.payingInstitution}</Normaltekst>
                 </div> : null }
               {period.type === 'other'
-                ? <div className='d-flex align-items-center'>
+                ? <div className='existingPeriodOtherType d-flex align-items-center'>
                   <UndertekstBold className='mr-2'>{t('buc:p4000-label-other') + ': '}</UndertekstBold>
                   <Normaltekst>{period.otherType}</Normaltekst>
                 </div> : null }
@@ -313,10 +313,10 @@ const Period = (props) => {
           </div>
         </div>
         {mode === 'view' ? <div className='col-md-6 col-12 existingPeriodButtons'>
-          <Knapp className='mr-3 existingPeriodButton' onClick={() => setPeriod(period)}>
+          <Knapp className='mr-3 existingPeriodButton change' onClick={() => setPeriod(period)}>
             {t('ui:change')}
           </Knapp>
-          <Knapp className='existingPeriodButton' onClick={() => removePeriodRequest(period)}>
+          <Knapp className='existingPeriodButton remove' onClick={() => removePeriodRequest(period)}>
             <Icons className='mr-3' kind='bigclose' size={18} color='#0067C5' />
             {t('ui:remove')}
           </Knapp>
@@ -325,9 +325,13 @@ const Period = (props) => {
 
     case 'edit':
     case 'new':
-      return <React.Fragment>
-        {_errorMessage ? <AlertStripe className='mt-4 mb-4' type='advarsel'>{t(_errorMessage)}</AlertStripe> : null}
-        <Undertittel className='mt-5 mb-2'>{t('buc:p4000-period-' + mode)}</Undertittel>
+      return <div className={classNames('a-buc-c-sedp4000-period', mode)}>
+        {_errorMessage ? <AlertStripe
+          className='a-buc-c-sedp4000-period__alert mt-4 mb-4'
+          type='advarsel'>
+            {t(_errorMessage)}
+          </AlertStripe> : null}
+        <Undertittel className='a-buc-c-sedp4000-period__title mt-5 mb-2'>{t('buc:p4000-period-' + mode)}</Undertittel>
         <Row className={mode}>
           <div className='col-sm-8'>
             <Select
@@ -355,19 +359,21 @@ const Period = (props) => {
           </div>
         </Row>
         { period.type ? <React.Fragment>
-          {period.type === 'home'
-            ? <AlertStripe className='mt-4 mb-4' type='advarsel'>
+          {period.type === 'home' ?
+            <AlertStripe
+              className='a-buc-c-sedp4000-period__alert_home mt-4 mb-4'
+              type='advarsel'>
               {t('buc:p4000-warning-home-period')}
-            </AlertStripe>
-            : null}
-          <Undertittel className='mt-5 mb-2'>
+            </AlertStripe> :
+            null }
+          <Undertittel className='a-buc-c-sedp4000-period__subtitle mt-5 mb-2'>
             {t(`buc:p4000-period-title-${period.type}`)}
           </Undertittel>
-          <Normaltekst className='mb-3'>
+          <Normaltekst className='a-buc-c-sedp4000-period__description mb-3'>
             {t('buc:p4000-period-date-description')}
           </Normaltekst>
           <Row>
-            <div className='col-sm-6 col-12 mb-2'>
+            <div className='a-buc-c-sedp4000-period__startDate col-sm-6 col-12 mb-2'>
               <label className='datepickerLabel skjemaelement__label'>
                 {t('buc:p4000-period-start-date')}
               </label>
@@ -384,7 +390,7 @@ const Period = (props) => {
                 />
               </FocusGroup>}
             </div>
-            <div className='col-sm-6 col-12 mb-2'>
+            <div className='a-buc-c-sedp4000-period__endDate col-sm-6 col-12 mb-2'>
               <label className='datepickerLabel skjemaelement__label'>
                 {t('buc:p4000-period-end-date')}
               </label>
@@ -400,8 +406,10 @@ const Period = (props) => {
                 />
               </FocusGroup>}
             </div>
-            <div className='col-sm-6 col-12 mb-2'>
+            <div className='a-buc-c-sedp4000-period__uncertainDate col-sm-6 col-12 mb-2'>
               <Checkbox
+                id='a-buc-c-sedp4000-period__uncertainDate-checkbox-id'
+                className='a-buc-c-sedp4000-period__uncertainDate-checkbox'
                 label={t('buc:p4000-uncertain-date')}
                 checked={period.uncertainDate}
                 onChange={setUncertainDate} />
@@ -415,7 +423,8 @@ const Period = (props) => {
                 </div>
               </label>
               <CountrySelect
-                id='a-buc-c-sedp4000-period__land'
+                id='a-buc-c-sedp4000-period__land-select-id'
+                className='a-buc-c-sedp4000-period__land-select'
                 locale={locale}
                 includeList={CountryFilter.EEA}
                 value={period.country || null}
@@ -428,7 +437,8 @@ const Period = (props) => {
           {period.type === 'work' ? <Row>
             <div className='col-sm-12'>
               <Textarea
-                id='a-buc-c-sedp4000-period__arbeidgiverssted-textarea'
+                id='a-buc-c-sedp4000-period__arbeidgiverssted-textarea-id'
+                className='a-buc-c-sedp4000-period__arbeidgiverssted-textarea'
                 label={<div className='a-buc-c-sedp4000-period__label'>
                   <div className='a-buc-c-sedp4000-period__label'>
                     <UndertekstBold>{t('buc:p4000-work-place')}</UndertekstBold>
@@ -448,7 +458,8 @@ const Period = (props) => {
             </div>
             <div className='col-sm-12'>
               <Input
-                id='a-buc-c-sedp4000-period__yrkesaktivitet-input'
+                id='a-buc-c-sedp4000-period__yrkesaktivitet-input-id'
+                className='a-buc-c-sedp4000-period__yrkesaktivitet-input'
                 label={<div className='a-buc-c-sedp4000-period__label'>
                   <div className='a-buc-c-sedp4000-period__label'>
                     <UndertekstBold>{t('buc:p4000-work-activity')}</UndertekstBold>
@@ -465,7 +476,8 @@ const Period = (props) => {
             </div>
             <div className='col-sm-12'>
               <Input
-                id='a-buc-c-sedp4000-period__arbeidgiversnavn-input'
+                id='a-buc-c-sedp4000-period__arbeidgiversnavn-input-id'
+                className='a-buc-c-sedp4000-period__arbeidgiversnavn-input'
                 label={<div className='a-buc-c-sedp4000-period__label'>
                   <UndertekstBold>{t('buc:p4000-work-name')}</UndertekstBold>
                   <Normaltekst className='optional'>{t('ui:optional')}</Normaltekst>
@@ -480,7 +492,8 @@ const Period = (props) => {
           {period.type === 'learn' ? <Row>
             <div className='col-sm-12'>
               <Input
-                id='a-buc-c-sedp4000-period__opplaeringsinstitusjonsnavn-input'
+                id='a-buc-c-sedp4000-period__opplaeringsinstitusjonsnavn-input-id'
+                className='a-buc-c-sedp4000-period__opplaeringsinstitusjonsnavn-input'
                 label={<div className='a-buc-c-sedp4000-period__label'>
                   <div className='a-buc-c-sedp4000-period__label'>
                     <UndertekstBold>{t('buc:p4000-learn-institution')}</UndertekstBold>
@@ -500,8 +513,8 @@ const Period = (props) => {
             ? <Row>
               <div className='col-sm-12'>
                 <Input
-                  className='mt-2'
-                  id='pinfo-opphold-andre-input'
+                  id='a-buc-c-sedp4000-period__andre-input-id'
+                  className='a-buc-c-sedp4000-period__andre-input mt-2'
                   label={<div className='pinfo-label'>
                     <div className='pinfo-label'>
                       <UndertekstBold>{t('buc:p4000-category-other')}</UndertekstBold>
@@ -518,8 +531,8 @@ const Period = (props) => {
             ? <Row>
               <div className='col-sm-12'>
                 <Input
-                  className='mt-2'
-                  id='pinfo-opphold-betalende-institusjon-input'
+                  id='a-buc-c-sedp4000-period__betalende-institusjon-input-id'
+                  className='a-buc-c-sedp4000-period__betalende-institusjon-input mt-2'
                   label={<div className='pinfo-label'>
                     <div className='pinfo-label'>
                       <UndertekstBold>{t('buc:p4000-paying-institution-name')}</UndertekstBold>
@@ -539,7 +552,8 @@ const Period = (props) => {
                   {t('buc:p4000-title-child-info')}
                 </Undertittel>
                 <Input
-                  id='pinfo-opphold-omsorgforbarn-etternavn-input'
+                  id='a-buc-c-sedp4000-period__omsorgforbarn-etternavn-input-id'
+                  className='a-buc-c-sedp4000-period__omsorgforbarn-etternavn-input'
                   label={<div className='pinfo-label'>
                     <div className='pinfo-label'>
                       <UndertekstBold>{t('buc:p4000-label-lastname')}</UndertekstBold>
@@ -553,7 +567,8 @@ const Period = (props) => {
               </div>
               <div className='col-sm-12'>
                 <Input
-                  id='pinfo-opphold-omsorgforbarn-fornavn-input'
+                  id='a-buc-c-sedp4000-period__omsorgforbarn-fornavn-input-id'
+                  className='a-buc-c-sedp4000-period__omsorgforbarn-fornavn-input'
                   label={<div className='pinfo-label'>
                     <div className='pinfo-label'>
                       <UndertekstBold>{t('buc:p4000-label-firstname')}</UndertekstBold>
@@ -571,11 +586,12 @@ const Period = (props) => {
                 </label>
                 <FocusGroup onBlur={blurChildBirthDate}>
                   <DatePicker
-                    id='pinfo-opphold-fodelsdato-date'
+                    id='a-buc-c-sedp4000-period__omsorgforbarn-fodelsdato-date-id'
+                    className='a-buc-c-sedp4000-period__omsorgforbarn-fodelsdato-dat pr-2'
                     labels={{ day: t('buc:p4000-period-day'), month: t('buc:p4000-period-month'), year: t('buc:p4000-period-year') }}
                     ids={{ day: 'pinfo-opphold-fodelsdato-day', month: 'pinfo-opphold-fodelsdato-month', year: 'pinfo-opphold-fodelsdato-year' }}
                     placeholders={{ day: t('buc:p4000-period-placeholder-day'), month: t('buc:p4000-period-placeholder-month'), year: t('buc:p4000-period-placeholder-year') }}
-                    className='birthDate pr-2'
+
                     values={period.childBirthDate}
                     onChange={setChildBirthDate}
                     feil={localErrors.childBirthDate || localErrors.timeSpan ? { feilmelding: t(localErrors.childBirthDate || localErrors.timeSpan) } : undefined}
@@ -587,7 +603,8 @@ const Period = (props) => {
           ? <Row>
             <div className='col-sm-12'>
               <Textarea
-                id='a-buc-c-sedp4000-period__bosted-place-textarea'
+                id='a-buc-c-sedp4000-period__bosted-place-textarea-id'
+                className='a-buc-c-sedp4000-period__bosted-place-textarea'
                 label={t('buc:p4000-place')}
                 placeholder={t('ui:writeIn')}
                 value={period.place || ''}
@@ -601,7 +618,9 @@ const Period = (props) => {
           <Row>
             <div className='col-sm-12'>
               <Undertittel className='mt-5 mb-2'>{t('buc:p4000-comment')}</Undertittel>
-              <Textarea id='a-buc-c-sedp4000-period__comment'
+              <Textarea
+                id='a-buc-c-sedp4000-period__comment-id'
+                className='a-buc-c-sedp4000-period__comment'
                 label={<div className='a-buc-c-sedp4000-period__label'>
                   <div className='a-buc-c-sedp4000-period__label'>
                     <UndertekstBold>{t('buc:p4000-comment')}</UndertekstBold>
@@ -631,33 +650,35 @@ const Period = (props) => {
             </div>
             <div className='col-sm-12'>
               <FileUpload
-                id={'a-buc-c-sedp4000-period__vedlegg-fileupload-' + period.id}
-                fileUploadDroppableId={'a-buc-c-sedp4000-period__vedlegg-fileupload-' + period.id}
+                id='a-buc-c-sedp4000-period__vedlegg-fileupload-id'
+                className='a-buc-c-sedp4000-period__vedlegg-fileupload'
                 acceptedMimetypes={['application/pdf', 'image/jpeg', 'image/png']}
                 maxFileSize={10 * 1024 * 1024}
                 maxFiles={10}
                 t={t}
                 files={period.attachments || []}
-                onFileChange={() => setAttachments(period)} />
+                onFileChange={(newFiles) => setAttachments(newFiles)}
+                openModal={actions.openModal}
+                closeModal={actions.closeModal}/>
             </div>
           </Row>
           <Row>
             <div className='mt-4 mb-4 col-sm-12'>
               {mode === 'edit' ? <Knapp
-                id='a-buc-c-sedp4000-period__endre-button'
-                className='editPeriodButton mb-2 mr-4 w-sm-100'
+                id='a-buc-c-sedp4000-period__edit-button-id'
+                className='a-buc-c-sedp4000-period__edit-button mb-2 mr-4 w-sm-100'
                 onClick={saveEditPeriod}>
                 {t('buc:p4000-saveEditPeriod')}
               </Knapp> : null}
               {mode === 'new' ? <Hovedknapp
-                id='a-buc-c-sedp4000-period__lagre-button'
-                className='addPeriodButton mb-2 mr-4 w-sm-100'
+                id='a-buc-c-sedp4000-period__save-button-id'
+                className='a-buc-c-sedp4000-period__save-button mb-2 mr-4 w-sm-100'
                 onClick={saveNewPeriod}>
                 {t('buc:p4000-saveNewPeriod')}
               </Hovedknapp> : null}
               <Flatknapp
-                id='a-buc-c-sedp4000-period__avbryt-button'
-                className='cancelPeriodButton mb-2 w-sm-100'
+                id='a-buc-c-sedp4000-period__cancel-button-id'
+                className='a-buc-c-sedp4000-period__cancel-button mb-2 w-sm-100'
                 onClick={cancelPeriodRequest}>
                 {t('buc:p4000-cancelPeriod')}
               </Flatknapp>
@@ -670,16 +691,21 @@ const Period = (props) => {
         </AlertStripe>
           : null}
         {_errorMessage ? <AlertStripe className='mt-4 mb-4' type='advarsel'>{t(_errorMessage)}</AlertStripe> : null}
-      </React.Fragment>
+      </div>
     default:
       return null
   }
 }
 
 Period.propTypes = {
+  actions: PT.object.isRequired,
+  first: PT.bool,
+  last: PT.bool,
+  locale: PT.string.isRequired,
+  mode: PT.string.isRequired,
   period: PT.object,
   periods: PT.array,
-  actions: PT.object.isRequired,
+  setPeriod: PT.func,
   t: PT.func
 }
 

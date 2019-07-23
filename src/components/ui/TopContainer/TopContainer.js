@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import { connect } from 'store'
-import { DragDropContext } from 'react-beautiful-dnd'
 
 import * as Nav from '../Nav'
 import Alert from '../Alert/Alert'
@@ -21,7 +20,6 @@ const mapStateToProps = (state) => {
   return {
     userRole: state.app.userRole,
     file: state.storage.file,
-    droppables: state.app.droppables,
     highContrast: state.ui.highContrast,
     remainingTime: state.app.remainingTime
   }
@@ -32,14 +30,6 @@ const mapDispatchToProps = () => {
 }
 
 export class TopContainer extends Component {
-  onDragEnd (e) {
-    const { droppables, file } = this.props
-
-    if (e.source && e.source.droppableId === 'c-pdf-dndExternalFiles-droppable' && e.destination) {
-      let droppableRef = droppables[e.destination.droppableId]
-      droppableRef.getWrappedInstance().addFile(file)
-    }
-  }
 
   render () {
     const { className, containerClassName, style, history } = this.props
@@ -56,7 +46,6 @@ export class TopContainer extends Component {
 
     return <div style={style} className={classNames('c-ui-topContainer', userRole, className,
       { 'highContrast': highContrast })}>
-      <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
         <Drawer className={userRole} sideContent={sideContent}>
           <InternalTopHeader history={history} />
           {header ? <Banner header={header} /> : null}
@@ -73,7 +62,6 @@ export class TopContainer extends Component {
           />
           <Footer />
         </Drawer>
-      </DragDropContext>
     </div>
   }
 }
@@ -82,7 +70,6 @@ TopContainer.propTypes = {
   children: PT.node.isRequired,
   className: PT.string,
   style: PT.object,
-  droppables: PT.object,
   file: PT.oneOfType([PT.object, PT.string]),
   sideContent: PT.object,
   history: PT.object.isRequired,

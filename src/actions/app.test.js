@@ -105,28 +105,4 @@ describe('app actions', () => {
       type: types.APP_CLEAR_DATA
     })
   })
-
-  it('registerDroppable()', () => {
-    const ref = 'ref'
-    const id = 'id'
-    const generatedResult = appActions.registerDroppable(id, ref)
-    expect(generatedResult).toMatchObject({
-      type: types.APP_DROPPABLE_REGISTER,
-      payload: {
-        id: id,
-        ref: ref
-      }
-    })
-  })
-
-  it('unregisterDroppable()', () => {
-    const id = 'id'
-    const generatedResult = appActions.unregisterDroppable(id)
-    expect(generatedResult).toMatchObject({
-      type: types.APP_DROPPABLE_UNREGISTER,
-      payload: {
-        id: id
-      }
-    })
-  })
 })

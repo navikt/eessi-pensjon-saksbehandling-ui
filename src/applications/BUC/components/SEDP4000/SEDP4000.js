@@ -18,7 +18,7 @@ export const mapStateToProps = (state) => {
   }
 }
 
-const SEDP4000 = (props) => {
+export const SEDP4000 = (props) => {
   const [ period, setPeriod ] = useState({})
   const [ maxPeriods ] = useState(8)
   const [ isReady, setIsReady ] = useState(false)
@@ -102,6 +102,7 @@ const SEDP4000 = (props) => {
         return a.startDate - b.startDate
       }).map((period, index) => {
         return <Period t={t}
+          locale={locale}
           actions={actions}
           mode='view'
           first={index === 0}
@@ -114,7 +115,8 @@ const SEDP4000 = (props) => {
       })}
     </React.Fragment>
       : null}
-    { p4000info.stayAbroad.length < maxPeriods ? <Period t={t}
+    { p4000info.stayAbroad.length < maxPeriods ?
+    <Period t={t}
       actions={actions}
       mode={mode}
       showButtons={showButtons}
@@ -123,7 +125,8 @@ const SEDP4000 = (props) => {
       locale={locale}
       setPeriod={setPeriod}
       setPeriods={setPeriods}
-    /> : <span>
+    /> :
+    <span>
       {t('buc:p4000-alert-maxPeriods', { maxPeriods: maxPeriods })}
     </span> }
   </div>
