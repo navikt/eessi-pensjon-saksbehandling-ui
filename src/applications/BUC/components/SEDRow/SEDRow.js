@@ -10,7 +10,7 @@ import _ from 'lodash'
 import './SEDRow.css'
 
 const SEDRow = (props) => {
-  const { t, sed, className, locale, border = 'none', onSEDNew } = props
+  const { t, sed, className, institutionNames, locale, border = 'none', onSEDNew } = props
 
   const institutionList = sed.participants ? sed.participants.map(participant => {
     return {
@@ -33,7 +33,12 @@ const SEDRow = (props) => {
         </Normaltekst>
       </div>
       <div className='col-4 a-buc-c-sedrow__column a-buc-c-sedrow__institutions'>
-        <InstitutionList t={t} locale={locale} type='separated' institutions={institutionList} />
+        <InstitutionList
+          t={t}
+          institutionNames={institutionNames}
+          locale={locale}
+          type='separated'
+          institutions={institutionList} />
       </div>
       <div className='col-2 a-buc-c-sedrow__column a-buc-c-sedrow__actions'>
         {!_.isEmpty(sed.attachments) ? <div

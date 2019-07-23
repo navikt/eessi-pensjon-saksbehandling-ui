@@ -8,7 +8,7 @@ import InstitutionList from 'applications/BUC/components/InstitutionList/Institu
 import './BUCDetail.css'
 
 const BUCDetail = (props) => {
-  const { buc, bucInfo, className, locale, t } = props
+  const { buc, bucInfo, className, institutionNames, locale, t } = props
 
   return <EkspanderbartpanelBase
     id='a-buc-c-bucdetail__panel-id'
@@ -84,10 +84,15 @@ const BUCDetail = (props) => {
       </dl>
       <Undertittel
         id='a-buc-c-bucdetail__institutions-id'
-        className='-buc-c-bucdetail__institutions mb-2'>
+        className='buc-c-bucdetail__institutions mb-2'>
         {t('buc:form-involvedInstitutions')}:
       </Undertittel>
-      <InstitutionList t={t} institutions={buc.institusjon} locale={locale} type='joined' />
+      <InstitutionList
+        t={t}
+        institutions={buc.institusjon}
+        institutionNames={institutionNames}
+        locale={locale}
+        type='joined' />
     </div>
   </EkspanderbartpanelBase>
 }
@@ -96,6 +101,7 @@ BUCDetail.propTypes = {
   buc: PT.object.isRequired,
   bucInfo: PT.object.isRequired,
   className: PT.string,
+  institutionNames: PT.object,
   locale: PT.string.isRequired,
   t: PT.func.isRequired
 }

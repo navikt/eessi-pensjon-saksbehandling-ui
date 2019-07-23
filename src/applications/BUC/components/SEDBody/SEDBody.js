@@ -9,7 +9,7 @@ import SEDRow from 'applications/BUC/components/SEDRow/SEDRow'
 import './SEDBody.css'
 
 const SEDBody = (props) => {
-  const { t, seds, rinaUrl, locale, buc, onSEDNew } = props
+  const { t, institutionNames, seds, rinaUrl, locale, buc, onSEDNew } = props
 
   return <React.Fragment>
     {seds ? _(seds)
@@ -25,6 +25,7 @@ const SEDBody = (props) => {
           locale={locale}
           border={'bottom'}
           onSEDNew={onSEDNew}
+          institutionNames={institutionNames}
         />
       }) : null}
     <div className='a-buc-c-sedbody__footer mt-2'>

@@ -2,18 +2,11 @@ import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
-import { connect } from 'store'
 import Flag from 'components/ui/Flag/Flag'
 import CountryData from 'components/ui/CountryData/CountryData'
 import { Element, Normaltekst } from 'components/ui/Nav'
 
 import './InstitutionList.css'
-
-const mapStateToProps = (state) => {
-  return {
-    institutionNames: state.buc.institutionNames
-  }
-}
 
 const InstitutionList = (props) => {
   const { className, institutions, institutionNames, t, type, locale } = props
@@ -43,12 +36,12 @@ const InstitutionList = (props) => {
         <Flag label={country.label} country={landkode} size='M' />
         <Element className='pr-2 pl-2'>{country.label}: </Element>
         <Normaltekst>{institutionList[landkode].map(institutionId => {
-          return institutionNames.hasOwnProperty(landkode + ':' + institutionId)
+          return institutionNames && institutionNames.hasOwnProperty(landkode + ':' + institutionId)
             ? institutionNames[landkode + ':' + institutionId] : institutionId
         }).join(', ')}</Normaltekst>
       </div> : null}
       {type === 'separated' ? institutionList[landkode].map(institutionId => {
-        const label = institutionNames.hasOwnProperty(landkode + ':' + institutionId)
+        const label = institutionNames && institutionNames.hasOwnProperty(landkode + ':' + institutionId)
           ? institutionNames[landkode + ':' + institutionId] : institutionId
         return <div className='a-buc-c-institution' key={institutionId}>
           <Flag label={country.label} country={landkode} size='M' />
@@ -69,4 +62,4 @@ InstitutionList.propTypes = {
   locale: PT.string.isRequired
 }
 
-export default connect(mapStateToProps, () => {})(InstitutionList)
+export default InstitutionList
