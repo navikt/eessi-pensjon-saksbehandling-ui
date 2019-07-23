@@ -5,7 +5,6 @@ import { connect } from 'store'
 
 import * as Nav from '../Nav'
 import Alert from '../Alert/Alert'
-import Drawer from '../Drawer/Drawer'
 import Banner from '../Banner/Banner'
 import Modal from '../Modal/Modal'
 import InternalTopHeader from '../Header/InternalTopHeader'
@@ -32,7 +31,7 @@ const mapDispatchToProps = () => {
 export class TopContainer extends Component {
 
   render () {
-    const { className, containerClassName, style, history } = this.props
+    const { className, containerClassName, style, history, t } = this.props
     const { sideContent, userRole, header, highContrast, fluid, remainingTime } = this.props
     /* how many minutes starts the warnings */
     let minutesForWarning = 5
@@ -44,24 +43,24 @@ export class TopContainer extends Component {
     /* At expired time plus 1 minute */
     let sessionExpiredReload = remainingTime + 1000 * 60
 
-    return <div style={style} className={classNames('c-ui-topContainer', userRole, className,
+    return <div style={style}
+      className={classNames('c-ui-topContainer', userRole, className,
       { 'highContrast': highContrast })}>
-        <Drawer className={userRole} sideContent={sideContent}>
-          <InternalTopHeader history={history} />
-          {header ? <Banner header={header} /> : null}
-          <Alert type='client' />
-          <Alert type='server' />
-          <Nav.Container fluid={fluid || false} className={classNames('_container', containerClassName)}>
-            {this.props.children}
-          </Nav.Container>
-          <Modal />
-          <SessionMonitor
-            sessionExpiringWarning={sessionExpiringWarning}
-            checkInterval={checkInterval}
-            sessionExpiredReload={sessionExpiredReload}
-          />
-          <Footer />
-        </Drawer>
+      <InternalTopHeader t={t} history={history} />
+      {header ? <Banner t={t} header={header} /> : null}
+      <Alert type='client' t={t} />
+      <Alert type='server' t={t} />
+      <Nav.Container fluid={fluid || false} className={classNames('_container', containerClassName)}>
+        {this.props.children}
+      </Nav.Container>
+      <Modal />
+      <SessionMonitor
+        t={t}
+        sessionExpiringWarning={sessionExpiringWarning}
+        checkInterval={checkInterval}
+        sessionExpiredReload={sessionExpiredReload}
+      />
+      <Footer />
     </div>
   }
 }

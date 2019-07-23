@@ -1,53 +1,46 @@
-import React from 'react'
-import { store, connect, bindActionCreators } from 'store'
+import React, { Suspense } from 'react'
+import { StoreProvider } from 'store'
+import reducer, { initialState } from 'reducer'
+import { BUCPageIndex } from 'applications/BUC/pages/'
 
-import { BUCPageIndex } from 'applications/BUC/page/'
-
-const t = jest.fn((translationString) => { return translationString })
-
-const mockHistory = {
-  push: jest.fn()
-}
-
-const mockMatch = {
-  params: {
-    step: 99
-  }
-}
-
-Object.defineProperty(window, 'location', {
-  writable: true,
-  value: {
-    origin: 'http://fake-url.nav.no/',
-    pathname: '/_/case',
-    search: '?sakId=123',
-    href: 'http://fake-url.nav.no/_/case?sakId=123'
-  }
+jest.doMock('applications/BUC/components/BUCStart/BUCStart', () => {
+  return () => <div />
 })
 
-describe('BUCPageIndex', () => {
-  let store, wrapper, ConnectedCase
+import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
+
+describe('applications/BUC/pages/index', () => {
+  let wrapper
+  const t = jest.fn((translationString) => { return translationString })
+  const initialMockProps = {
+    bucsInfo: {},
+    bucList: [],
+    history: {},
+    loading: {},
+    locale: 'nb',
+    location: {},
+    subjectAreaList: [],
+    tagList: [],
+    t: t,
+    userRole: 'mockUserRole'
+  }
 
   beforeEach(() => {
-    ConnectedCase = connect(null, null)(BUCPageIndex)
-    wrapper = shallow(<ConnectedCase
-      t={t} store={store} step={9}
-      title='mockTitle' history={mockHistory} match={mockMatch} location={{}}>
-      <div />
-    </ConnectedCase>).dive()
+    wrapper = mount(<StoreProvider initialState={initialState} reducer={reducer}>
+      <Suspense fallback={<div/>}>
+        <BUCPageIndex {...initialMockProps} />
+      </Suspense>
+    </StoreProvider>)
   })
 
   it('renders successfully', () => {
+    expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('renders and it changes URL to reflect the new step ', () => {
-    wrapper.setProps({
-      step: 90
-    })
-    expect(wrapper.instance().props.history.push).toBeCalledWith({
-      pathname: '/_/case/91',
-      search: '?sakId=123'
-    })
+  it('renders BUCStart in page mode', () => {
+    expect(wrapper.exists('.a-buc-page')).toEqual(true)
+    expect(wrapper.find('.a-buc-page__title').hostNodes().render().text()).toEqual('buc:step-startBUCTitle')
+    expect(wrapper.find('.a-buc-page BUCStart').props().mode).toEqual('page')
   })
 })

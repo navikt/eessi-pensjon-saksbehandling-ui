@@ -43,14 +43,6 @@ export class Footer extends Component {
     actions.unsetStatusParam(key)
   }
 
-  onLogoClick () {
-    const { actions, userRole } = this.props
-
-    if (userRole === constants.SAKSBEHANDLER) {
-      actions.toggleDrawerEnable()
-    }
-  }
-
   onSetParam () {
     const { actions } = this.props
     const { paramName, paramValue } = this.state
@@ -103,7 +95,6 @@ export class Footer extends Component {
           <Nav.Input label='' className={'paramValue'} value={paramValue || ''}
             onChange={this.onSetParamValue.bind(this)} />
           <Nav.Knapp className='addParamButton' onClick={this.onSetParam.bind(this)}>&nbsp;+&nbsp;</Nav.Knapp>
-          <Nav.Knapp className='toggleDrawerEnableButton' onClick={this.onLogoClick.bind(this)}>&nbsp;&lt;&lt;&nbsp;</Nav.Knapp>
         </div> : null}
       </div>
       {footerOpen ? <div className='params'>

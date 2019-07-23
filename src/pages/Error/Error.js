@@ -35,7 +35,7 @@ class Error extends Component {
     }
 
     return <TopContainer className={classNames('p-error')}
-      history={history} location={location} header={t('app-headerTitle')}>
+      t={t} history={history} location={location} header={t('app-headerTitle')}>
       <div className='col-md-12 text-center'>
         <div className='psycho mt-3 mb-4'>
           <Psycho type='trist' id='psycho' />

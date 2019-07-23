@@ -30,13 +30,6 @@ describe('ui actions', () => {
     })
   })
 
-  it('call toggleDrawerOpen()', () => {
-    const generatedResult = uiActions.toggleDrawerOpen()
-    expect(generatedResult).toMatchObject({
-      type: types.UI_DRAWER_TOGGLE_OPEN
-    })
-  })
-
   it('call toggleFooterOpen()', () => {
     const generatedResult = uiActions.toggleFooterOpen()
     expect(generatedResult).toMatchObject({
@@ -48,22 +41,6 @@ describe('ui actions', () => {
     const generatedResult = uiActions.toggleHighContrast()
     expect(generatedResult).toMatchObject({
       type: types.UI_HIGHCONTRAST_TOGGLE
-    })
-  })
-
-  it('call toggleDrawerEnable()', () => {
-    const generatedResult = uiActions.toggleDrawerEnable()
-    expect(generatedResult).toMatchObject({
-      type: types.UI_DRAWER_TOGGLE_ENABLE
-    })
-  })
-
-  it('call changeDrawerWidth()', () => {
-    const mockWidth = 999
-    const generatedResult = uiActions.changeDrawerWidth(mockWidth)
-    expect(generatedResult).toMatchObject({
-      type: types.UI_DRAWER_WIDTH_SET,
-      payload: mockWidth
     })
   })
 })

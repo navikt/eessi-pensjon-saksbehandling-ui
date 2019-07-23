@@ -22,12 +22,6 @@ export const closeModal = () => {
   }
 }
 
-export const toggleDrawerOpen = () => {
-  return {
-    type: types.UI_DRAWER_TOGGLE_OPEN
-  }
-}
-
 export const toggleFooterOpen = () => {
   return {
     type: types.UI_FOOTER_TOGGLE_OPEN
@@ -40,15 +34,3 @@ export const toggleHighContrast = () => {
   }
 }
 
-export const toggleDrawerEnable = () => {
-  return {
-    type: types.UI_DRAWER_TOGGLE_ENABLE
-  }
-}
-
-export const changeDrawerWidth = (newWidth) => {
-  return {
-    type: types.UI_DRAWER_WIDTH_SET,
-    payload: newWidth
-  }
-}

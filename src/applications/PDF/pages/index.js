@@ -4,7 +4,7 @@ import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import TopContainer from 'components/ui/TopContainer/TopContainer'
-import FrontPageDrawer from 'components/drawer/FrontPage'
+
 import PDFWidget from 'applications/PDF/widgets'
 
 export const PDFPageIndex = (props) => {
@@ -12,9 +12,9 @@ export const PDFPageIndex = (props) => {
 
   return <TopContainer
     className={classNames('a-buc-page', className)}
+    t={t}
     history={history}
     location={location}
-    sideContent={<FrontPageDrawer t={t} />}
     header={t('pdf:app-createPdf')}>
     <div className='mt-4'>
       <PDFWidget />

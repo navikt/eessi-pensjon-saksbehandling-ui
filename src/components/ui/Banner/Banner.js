@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { withTranslation } from 'react-i18next'
 import { connect, bindActionCreators } from 'store'
 
 import * as uiActions from '../../../actions/ui'
@@ -32,10 +31,8 @@ export class Banner extends Component {
 const ConnectedBanner = connect(
   mapStateToProps,
   mapDispatchToProps
-)(
-  withTranslation()(Banner)
-)
+)(Banner)
 
-ConnectedBanner.displayName = `Connect(${getDisplayName(withTranslation()(Banner))}`
+ConnectedBanner.displayName = `Connect(${getDisplayName(Banner)}`
 
 export default ConnectedBanner
