@@ -1,16 +1,16 @@
 import React from 'react'
 import PT from 'prop-types'
-import { Element, PanelBase, Normaltekst, Flatknapp } from 'components/ui/Nav'
+import _ from 'lodash'
 import classNames from 'classnames'
-import SEDStatus from '../SEDStatus/SEDStatus'
+import { Element, PanelBase, Normaltekst, Flatknapp } from 'components/ui/Nav'
+import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import Icons from 'components/ui/Icons'
-import _ from 'lodash'
 
 import './SEDRow.css'
 
 const SEDRow = (props) => {
-  const { t, sed, className, institutionNames, locale, border = 'none', onSEDNew } = props
+  const { border = 'none', className, institutionNames, locale, onSEDNew, sed, t } = props
 
   const institutionList = sed.participants ? sed.participants.map(participant => {
     return {
@@ -21,18 +21,18 @@ const SEDRow = (props) => {
   return <PanelBase
     className={classNames('a-buc-c-sedrow p-0', className)}>
     <div className={classNames('a-buc-c-sedrow__content pt-2 pb-2', 'a-buc-c-sedrow__border-' + border)}>
-      <div className='col-2 a-buc-c-sedrow__column a-buc-c-sedrow__name'>
+      <div className='a-buc-c-sedrow__column a-buc-c-sedrow__name col-2'>
         <Element>{sed.type}</Element>
       </div>
-      <div className='col-4 a-buc-c-sedrow__column a-buc-c-sedrow__status'>
-        <SEDStatus data-qa='SedLabel-SEDStatus' t={t} className='col-auto' status={sed.status} />
+      <div className='a-buc-c-sedrow__column a-buc-c-sedrow__status col-4'>
+        <SEDStatus t={t} className='col-auto' status={sed.status} />
         <Normaltekst className='pl-2'>
           {new Date(sed.creationDate).toLocaleDateString()}
           {sed.lastUpdate && sed.status !== 'received' && sed.status !== 'sent'
             ? ' - ' + new Date(sed.lastUpdate).toLocaleDateString() : ''}
         </Normaltekst>
       </div>
-      <div className='col-4 a-buc-c-sedrow__column a-buc-c-sedrow__institutions'>
+      <div className='a-buc-c-sedrow__column a-buc-c-sedrow__institutions col-4'>
         <InstitutionList
           t={t}
           institutionNames={institutionNames}
@@ -40,13 +40,18 @@ const SEDRow = (props) => {
           type='separated'
           institutions={institutionList} />
       </div>
-      <div className='col-2 a-buc-c-sedrow__column a-buc-c-sedrow__actions'>
+      <div className='a-buc-c-sedrow__column a-buc-c-sedrow__actions col-2'>
         {!_.isEmpty(sed.attachments) ? <div
+          className='a-buc-c-sedrow__actions-attachments'
           title={t('buc:form-youHaveXAttachmentsInSed', { attachments: sed.attachments.length })}>
           <Icons kind='paperclip' />
         </div> : null}
-        {sed.status === 'received'
-          ? <Flatknapp mini onClick={onSEDNew}>{t('buc:form-answerSED')}</Flatknapp>
+        {sed.status === 'received' ?
+          <Flatknapp mini
+            className='a-buc-c-sedrow__actions-answer-button'
+            onClick={onSEDNew}>
+            {t('buc:form-answerSED')}
+          </Flatknapp>
           : null}
       </div>
     </div>
@@ -54,10 +59,13 @@ const SEDRow = (props) => {
 }
 
 SEDRow.propTypes = {
-  t: PT.func.isRequired,
+  border: PT.string.isRequired,
   className: PT.string,
+  institutionNames: PT.object,
+  locale: PT.string.isRequired,
+  onSEDNew: PT.func.isRequired,
   sed: PT.object.isRequired,
-  border: PT.string.isRequired
+  t: PT.func.isRequired
 }
 
 export default SEDRow

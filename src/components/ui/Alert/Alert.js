@@ -1,6 +1,5 @@
 import React from 'react'
 import PT from 'prop-types'
-import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import { connect, bindActionCreators } from 'store'
@@ -107,6 +106,6 @@ Alert.propTypes = {
   serverErrorMessage: PT.string
 }
 
-const ConnectedAlert = connect(mapStateToProps, mapDispatchToProps)(withTranslation()(Alert))
-ConnectedAlert.displayName = `Connect(${getDisplayName((withTranslation()(Alert)))})`
+const ConnectedAlert = connect(mapStateToProps, mapDispatchToProps)(Alert)
+ConnectedAlert.displayName = `Connect(${getDisplayName((Alert))})`
 export default ConnectedAlert

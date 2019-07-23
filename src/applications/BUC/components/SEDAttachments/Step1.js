@@ -30,15 +30,13 @@ const Step1 = (props) => {
     handleFileChange(joarkFiles, 'joark')
   }
 
-  const handleFileUploadFileChange = (fileUploadFiles) => {
+  /*const handleFileUploadFileChange = (fileUploadFiles) => {
     handleFileChange(fileUploadFiles, 'fileupload')
-  }
+  }*/
 
-  const handleBeforeDrop = () => {
-  }
+  //const handleBeforeDrop = () => {}
 
-  const handleAfterDrop = () => {
-  }
+  //const handleAfterDrop = () => {}
 
   return <div className='a-buc-c-sedattachments-step1'>
     <Undertittel className='mt-4 mb-3'>{t('buc:form-addAttachmentsFromJOARK')}</Undertittel>

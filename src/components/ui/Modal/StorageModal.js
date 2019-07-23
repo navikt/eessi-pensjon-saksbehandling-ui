@@ -312,7 +312,7 @@ class StorageModal extends Component {
         </div>
 
         { loadingStatus === 'ERROR' ? <div className={classNames('text-center', className)}>
-          <Alert type='client' fixed={false} />
+          <Alert type='client' t={t} fixed={false} />
           <Nav.Knapp
             className='mr-3 mb-3 modal-other-button'
             onClick={this.onCancelClick.bind(this)}>

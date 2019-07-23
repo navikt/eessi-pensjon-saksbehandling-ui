@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
 import { connect, bindActionCreators } from 'store'
-import { withTranslation } from 'react-i18next'
 
 import * as uiActions from '../../actions/ui'
 import { getDisplayName } from '../../utils/displayName'
@@ -72,12 +71,10 @@ SessionMonitor.propTypes = {
 const ConnectedSessionMonitor = connect(
   mapStateToProps,
   mapDispatchToProps
-)(
-  withTranslation()(SessionMonitor)
-)
+)(SessionMonitor)
 
 ConnectedSessionMonitor.displayName = `Connect(${getDisplayName((
-  withTranslation()(SessionMonitor)
-))})`
+  SessionMonitor)
+)})`
 
 export default ConnectedSessionMonitor

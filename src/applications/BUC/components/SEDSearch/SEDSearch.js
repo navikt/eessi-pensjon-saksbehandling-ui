@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
-import { Panel, Input } from 'components/ui/Nav'
+import { Input, Panel } from 'components/ui/Nav'
 import CountryData from 'components/ui/CountryData/CountryData'
 import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
 
@@ -13,7 +13,7 @@ const SEDSearch = (props) => {
   const [ _country, setCountry ] = useState([])
   const [ _status, setStatus ] = useState([])
 
-  const { t, className, locale, onSearch, onCountrySearch, onStatusSearch, seds } = props
+  const { className, locale, onCountrySearch, onSearch, onStatusSearch, seds, t } = props
 
   const stopPropagation = (e) => {
     e.preventDefault()
@@ -72,10 +72,11 @@ const SEDSearch = (props) => {
   }
 
   return <Panel
-    className={classNames('a-buc-c-sedsearch', 'p-2', className)}
-    id='a-buc-c-sedsearch__panel-id'>
+    id='a-buc-c-sedsearch__panel-id'
+    className={classNames('a-buc-c-sedsearch', 'p-2', className)}>
     <Input
-      className='a-buc-c-sedsearch__query pl-1 pr-1'
+      id='a-buc-c-sedsearch__query-input-id'
+      className='a-buc-c-sedsearch__query-input pl-1 pr-1'
       label={''}
       bredde='fullbredde'
       value={_query} onChange={onQueryChange}
@@ -83,8 +84,8 @@ const SEDSearch = (props) => {
       onClick={stopPropagation}
     />
     <MultipleSelect
-      id='a-buc-c-sedsearch__status-id'
-      className='a-buc-c-sedsearch__status multipleSelect pl-1 pr-1'
+      id='a-buc-c-sedsearch__status-select-id'
+      className='a-buc-c-sedsearch__status-select multipleSelect pl-1 pr-1'
       placeholder={t('buc:form-searchForStatus')}
       locale={locale}
       values={_status}
@@ -92,8 +93,8 @@ const SEDSearch = (props) => {
       onChange={onStatusChange}
       optionList={availableStatuses} />
     <MultipleSelect
-      id='a-buc-c-sedsearch__country-id'
-      className='a-buc-c-sedsearch__country multipleSelect pl-1 pr-1'
+      id='a-buc-c-sedsearch__country-select-id'
+      className='a-buc-c-sedsearch__country-select multipleSelect pl-1 pr-1'
       placeholder={t('buc:form-searchForCountry')}
       locale={locale}
       values={_country}
@@ -104,12 +105,13 @@ const SEDSearch = (props) => {
 }
 
 SEDSearch.propTypes = {
-  t: PT.func.isRequired,
+  className: PT.string,
+  locale: PT.string.isRequired,
   onSearch: PT.func.isRequired,
   onCountrySearch: PT.func.isRequired,
   onStatusSearch: PT.func.isRequired,
-  className: PT.string,
-  locale: PT.string.isRequired
+  seds: PT.array.isRequired,
+  t: PT.func.isRequired
 }
 
 export default SEDSearch

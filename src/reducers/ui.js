@@ -6,11 +6,7 @@ export const initialUiState = {
   locale: i18n.locale,
   modalOpen: false,
   modalBucketOpen: false,
-  drawerEnabled: false,
-  drawerOpen: false,
   footerOpen: false,
-  drawerWidth: 10,
-  drawerOldWidth: 250,
   highContrast: false
 }
 
@@ -37,32 +33,14 @@ const uiReducer = (state = initialUiState, action = {}) => {
         locale: action.payload === 'nb' ? 'nb' : 'en'
       })
 
-    case types.UI_DRAWER_TOGGLE_OPEN : {
-      return Object.assign({}, state, {
-        drawerOpen: !state.drawerOpen,
-        drawerOldWidth: state.drawerWidth,
-        drawerWidth: state.drawerOldWidth
-      })
-    }
-
-    case types.UI_DRAWER_TOGGLE_ENABLE : {
-      return Object.assign({}, state, {
-        drawerEnabled: !state.drawerEnabled
-      })
-    }
-
-    case types.UI_DRAWER_WIDTH_SET :
-
-      return Object.assign({}, state, {
-        drawerWidth: action.payload
-      })
-
     case types.UI_FOOTER_TOGGLE_OPEN :
+
       return Object.assign({}, state, {
         footerOpen: !state.footerOpen
       })
 
     case types.UI_HIGHCONTRAST_TOGGLE :
+
       return Object.assign({}, state, {
         highContrast: !state.highContrast
       })

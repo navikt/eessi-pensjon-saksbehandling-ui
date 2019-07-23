@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect, bindActionCreators } from 'store'
 import PT from 'prop-types'
-import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import AdvarselTrekant from '../../../resources/images/AdvarselTrekant'
@@ -20,7 +19,6 @@ import { getDisplayName } from '../../../utils/displayName'
 const mapStateToProps = (state) => {
   return {
     username: state.app.username,
-    userRole: state.app.userRole,
     highContrast: state.ui.highContrast,
     gettingUserInfo: state.loading.gettingUserInfo,
     isLoggingOut: state.loading.isLoggingOut
@@ -51,7 +49,7 @@ export class InternalTopHeader extends Component {
   }
 
   render () {
-    let { t, username, userRole, gettingUserInfo, isLoggingOut, header } = this.props
+    let { t, username, gettingUserInfo, isLoggingOut, header } = this.props
 
     return <React.Fragment>
       <header className='c-ui-topHeader'>
@@ -63,10 +61,12 @@ export class InternalTopHeader extends Component {
           <div className='tittel'><span>{t('app-headerTitle')}</span></div>
         </div>
         <div className='user'>
-          {userRole ? <div title={userRole} className={classNames('mr-2', userRole)}>
+          {isLoggingOut ?
+          <NavFrontendSpinner type='XS' />
+          :
+          <div className={classNames('mr-2', 'SAKSBEHANDLER')}>
             <Icons kind='user' />
-          </div>
-            : isLoggingOut ? <NavFrontendSpinner type='XS' /> : null}
+          </div>}
           <div className='skillelinje' />
           <div className='mr-4 ml-2 align-middle name'>
             {gettingUserInfo ? t('buc:loading-gettingUserInfo')
@@ -94,7 +94,6 @@ export class InternalTopHeader extends Component {
 InternalTopHeader.propTypes = {
   t: PT.func.isRequired,
   username: PT.string,
-  userRole: PT.string,
   actions: PT.object,
   history: PT.object,
   gettingUserInfo: PT.bool,
@@ -104,12 +103,8 @@ InternalTopHeader.propTypes = {
 const ConnectedInternalTopHeader = connect(
   mapStateToProps,
   mapDispatchToProps
-)(
-  withTranslation()(InternalTopHeader)
-)
+)(InternalTopHeader)
 
-ConnectedInternalTopHeader.displayName = `Connect(${getDisplayName((
-  withTranslation()(InternalTopHeader)
-))})`
+ConnectedInternalTopHeader.displayName = `Connect(${getDisplayName(InternalTopHeader)})`
 
 export default ConnectedInternalTopHeader
