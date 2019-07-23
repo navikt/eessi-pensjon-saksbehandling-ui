@@ -8,7 +8,7 @@ import InstitutionList from 'applications/BUC/components/InstitutionList/Institu
 import './BUCHeader.css'
 
 const BUCHeader = (props) => {
-  const { buc, bucInfo, locale, onBUCEdit, style, t } = props
+  const { buc, bucInfo, institutionNames, locale, onBUCEdit, style, t } = props
 
   const onBUChandle = (buc, e) => {
     e.preventDefault()
@@ -53,8 +53,13 @@ const BUCHeader = (props) => {
         <Normaltekst className='pr-2'>
           {t('buc:form-caseOwner') + ': '}
         </Normaltekst>
-        <InstitutionList className='a-buc-c-bucheader__owner-institutions'
-          t={t} locale={locale} type='separated' institutions={[buc.creator]} />
+        <InstitutionList
+          className='a-buc-c-bucheader__owner-institutions'
+          t={t}
+          institutionNames={institutionNames}
+          locale={locale}
+          type='separated'
+          institutions={[buc.creator]} />
       </div>
     </div>
     <div className='a-buc-c-bucheader__flags col-2'>
@@ -104,6 +109,7 @@ const BUCHeader = (props) => {
 BUCHeader.propTypes = {
   buc: PT.object.isRequired,
   bucInfo: PT.object,
+  institutionNames: PT.object,
   locale: PT.string.isRequired,
   onBUCEdit: PT.func.isRequired,
   style: PT.object,
