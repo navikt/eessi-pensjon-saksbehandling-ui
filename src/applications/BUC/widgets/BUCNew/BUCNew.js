@@ -8,7 +8,7 @@ const BUCNew = (props) => {
   const { t } = props
 
   return <React.Fragment>
-    <Panel className='a-buc-w-bucnew'>
+    <Panel className='a-buc-bucnew'>
       <Systemtittel>{t('buc:step-startBUCTitle')}</Systemtittel>
       <hr />
       <BUCStart mode='widget' {...props} />

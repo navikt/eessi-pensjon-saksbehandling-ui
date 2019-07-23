@@ -13,7 +13,8 @@ class IndexPage extends Component {
       className='p-indexPage'
       t={t}
       containerClassName='p-0'
-      language={language} history={history} location={location}
+      language={language}
+      history={history}
       fluid>
       <Dashboard id='dashboard' />
     </TopContainer>

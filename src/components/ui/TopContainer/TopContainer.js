@@ -17,8 +17,6 @@ import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
-    userRole: state.app.userRole,
-    file: state.storage.file,
     highContrast: state.ui.highContrast,
     remainingTime: state.app.remainingTime
   }
@@ -31,8 +29,7 @@ const mapDispatchToProps = () => {
 export class TopContainer extends Component {
 
   render () {
-    const { className, containerClassName, style, history, t } = this.props
-    const { sideContent, userRole, header, highContrast, fluid, remainingTime } = this.props
+    const { className, containerClassName, style, history, t, header, highContrast, fluid, remainingTime } = this.props
     /* how many minutes starts the warnings */
     let minutesForWarning = 5
     /* X minutes before expired */
@@ -44,8 +41,7 @@ export class TopContainer extends Component {
     let sessionExpiredReload = remainingTime + 1000 * 60
 
     return <div style={style}
-      className={classNames('c-ui-topContainer', userRole, className,
-      { 'highContrast': highContrast })}>
+      className={classNames('c-ui-topContainer', className, { 'highContrast': highContrast })}>
       <InternalTopHeader t={t} history={history} />
       {header ? <Banner t={t} header={header} /> : null}
       <Alert type='client' t={t} />
@@ -69,8 +65,6 @@ TopContainer.propTypes = {
   children: PT.node.isRequired,
   className: PT.string,
   style: PT.object,
-  file: PT.oneOfType([PT.object, PT.string]),
-  sideContent: PT.object,
   history: PT.object.isRequired,
   header: PT.oneOfType([PT.node, PT.string])
 }
@@ -81,5 +75,4 @@ const ConnectedTopContainer = connect(
 )(TopContainer)
 
 ConnectedTopContainer.displayName = `Connect(${getDisplayName(TopContainer)})`
-
 export default ConnectedTopContainer

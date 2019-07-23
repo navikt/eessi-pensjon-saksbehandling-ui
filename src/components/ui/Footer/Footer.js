@@ -7,8 +7,6 @@ import * as uiActions from '../../../actions/ui'
 import * as appActions from '../../../actions/app'
 import * as Nav from '../Nav'
 
-import * as constants from '../../../constants/constants'
-
 import './Footer.css'
 import { getDisplayName } from '../../../utils/displayName'
 

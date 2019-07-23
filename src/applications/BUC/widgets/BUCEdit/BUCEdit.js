@@ -2,16 +2,16 @@ import React, { useState } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import { Knapp, Row } from 'components/ui/Nav'
-import SEDRow from '../components/SEDRow/SEDRow'
-import SEDSearch from '../components/SEDSearch/SEDSearch'
-import BUCDetail from '../components/BUCDetail/BUCDetail'
-import BUCTools from '../components/BUCTools/BUCTools'
+import SEDRow from 'applications/BUC/components/SEDRow/SEDRow'
+import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
+import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
+import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
 import CountryData from 'components/ui/CountryData/CountryData'
 
 import './BUCEdit.css'
 
 const BUCEdit = (props) => {
-  const { t, aktoerId, buc, bucsInfo, actions, rinaUrl, institutionNames, loading, locale, seds, tagList } = props
+  const { actions, aktoerId, buc, bucsInfo, institutionNames, loading, locale, rinaUrl, seds, t, tagList } = props
   const [ search, setSearch ] = useState(undefined)
   const [ countrySearch, setCountrySearch ] = useState(undefined)
   const [ statusSearch, setStatusSearch ] = useState(undefined)
@@ -44,9 +44,9 @@ const BUCEdit = (props) => {
         const creationDate = new Date(sed.creationDate).toLocaleDateString()
         const lastUpdate = sed.lastUpdate ? new Date(sed.lastUpdate).toLocaleDateString() : ''
         const status = t('ui:' + sed.status).toLowerCase()
-
-        return organizationId.match(_search) || organizationName.match(_search) || countryCode.match(_search) ||
-        countryName.match(_search) || creationDate.match(_search) || lastUpdate.match(_search) || status.match(_search)
+        return organizationId.match(_search) || organizationName.match(_search) ||
+          countryCode.match(_search) || countryName.match(_search) || creationDate.match(_search) ||
+          lastUpdate.match(_search) || status.match(_search)
       })
     }
     if (match && countrySearch) {
@@ -87,9 +87,12 @@ const BUCEdit = (props) => {
 
   return <div className='a-buc-bucedit'>
     <div className='a-buc-bucedit__buttons mb-3'>
-      <Knapp onClick={onSEDNew}>{t('buc:form-orderNewSED')}</Knapp>
+      <Knapp
+        id='a-buc-bucedit__new-sed-button-id'
+        className='a-buc-bucedit__new-sed-button'
+        onClick={onSEDNew}>{t('buc:form-orderNewSED')}</Knapp>
     </div>
-    <Row style={{ marginLeft: '-15px', marginRight: '-15px' }}>
+    <Row>
       <div className='col-md-8'>
         <SEDSearch
           className='mb-2'
@@ -125,12 +128,17 @@ const BUCEdit = (props) => {
 }
 
 BUCEdit.propTypes = {
-  t: PT.func.isRequired,
-  bucs: PT.array,
   actions: PT.object.isRequired,
+  aktoerId: PT.string.isRequired,
+  buc: PT.object.isRequired,
+  bucsInfo: PT.object,
+  institutionNames: PT.object,
+  loading: PT.object,
+  locale: PT.string.isRequired,
   rinaUrl: PT.string,
   seds: PT.array.isRequired,
-  locale: PT.string.isRequired
+  t: PT.func.isRequired,
+  tagList: PT.array
 }
 
 export default BUCEdit

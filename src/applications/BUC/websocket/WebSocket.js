@@ -4,7 +4,6 @@ import classNames from 'classnames'
 import SockJsClient from 'react-stomp'
 import { Knapp, Normaltekst } from 'components/ui/Nav'
 import Icons from 'components/ui/Icons'
-import { WEBSOCKET_URL } from 'constants/urls'
 
 import './WebSocket.css'
 
@@ -13,7 +12,7 @@ const CONNECTED = 'CONNECTED'
 const UPDATING = 'UPDATING'
 
 const BucWebSocket = (props) => {
-  const { onUpdate } = props
+  const { onUpdate, url } = props
   const [ count, setCount ] = useState(0)
   const [ status, setStatus ] = useState(DISCONNECTED)
   let webSocketRef = null
@@ -53,14 +52,17 @@ const BucWebSocket = (props) => {
       <Icons kind='refresh' /> :
       <Icons kind={status === CONNECTED ? 'checkCircle' : 'removeCircle'}/> }
     </div>
-    <Normaltekst className='ml-2'>{count}</Normaltekst>
+    <Normaltekst className='a-buc-websocket__number ml-2'>
+      {count}
+    </Normaltekst>
     <Knapp mini
+      id='a-buc-websocket__button-id'
       className='a-buc-websocket__button ml-2'
       style={{ pading: '0px' }}
       disabled={status === 'DISCONNECTED'}
       onClick={() => sendMessage()}>+1</Knapp>
     <SockJsClient
-      url={WEBSOCKET_URL}
+      url={url}
       topics={['/topic/1', '/topic/10', '/buc']}
       onConnect={onConnect}
       onDisconnect={onDisconnect}
@@ -73,7 +75,8 @@ const BucWebSocket = (props) => {
 }
 
 BucWebSocket.propTypes = {
-  onUpdate: PT.func.isRequired
+  onUpdate: PT.func.isRequired,
+  url: PT.string.isRequired
 }
 
 export default BucWebSocket

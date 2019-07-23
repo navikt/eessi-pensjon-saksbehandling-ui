@@ -67,7 +67,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
     let tagSelect = wrapper.find('#a-buc-c-buctools__comment-textarea-id').hostNodes()
     expect(tagSelect.props().value).toEqual(firstMockedComment)
 
-    tagSelect.props().onChange({target: {value: secondMockedComment }})
+    tagSelect.simulate('change', {target: {value: secondMockedComment }})
     wrapper.update()
     tagSelect = wrapper.find('#a-buc-c-buctools__comment-textarea-id').hostNodes()
     expect(tagSelect.props().value).toEqual(secondMockedComment)

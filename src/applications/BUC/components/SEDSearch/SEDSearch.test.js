@@ -32,7 +32,7 @@ describe('applications/BUC/components/SEDSearch/SEDSearch', () => {
   })
 
   it('Perform query', () => {
-    wrapper.find('#a-buc-c-sedsearch__query-input-id').hostNodes().props().onChange({target: {value: 'mockSearch'}})
+    wrapper.find('#a-buc-c-sedsearch__query-input-id').hostNodes().simulate('change', {target: {value: 'mockSearch'}})
     expect(initialMockProps.onSearch).toBeCalledWith('mockSearch')
   })
 
