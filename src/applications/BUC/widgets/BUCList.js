@@ -163,7 +163,7 @@ BUCList.propTypes = {
   actions: PT.object.isRequired,
   aktoerId: PT.string,
   rinaUrl: PT.string,
-  gettingBUCs: PT.bool.isRequired,
+  gettingBUCs: PT.bool,
   locale: PT.string.isRequired
 }
 

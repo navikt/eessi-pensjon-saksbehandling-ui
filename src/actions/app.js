@@ -71,22 +71,3 @@ export const clearData = () => {
     type: types.APP_CLEAR_DATA
   }
 }
-
-export const registerDroppable = (id, ref) => {
-  return {
-    type: types.APP_DROPPABLE_REGISTER,
-    payload: {
-      id: id,
-      ref: ref
-    }
-  }
-}
-
-export const unregisterDroppable = (id) => {
-  return {
-    type: types.APP_DROPPABLE_UNREGISTER,
-    payload: {
-      id: id
-    }
-  }
-}

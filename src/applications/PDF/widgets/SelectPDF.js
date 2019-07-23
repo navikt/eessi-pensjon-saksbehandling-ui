@@ -29,13 +29,15 @@ const SelectPDF = (props) => {
   return <React.Fragment>
     <div style={{ animation: 'none', opacity: 1 }} className='fieldset mt-4 mb-4'>
       <h2 className='mb-3'>{t('ui:fileUpload')}</h2>
-      <FileUpload t={t} fileUploadDroppableId={'selectPdf'}
+      <FileUpload t={t}
         className={classNames('fileUpload', 'mb-3')}
         accept={['application/pdf', 'image/jpeg', 'image/png']}
         files={files || []}
         beforeDrop={handleBeforeDrop}
         afterDrop={handleAfterDrop}
-        onFileChange={handleFileChange} />
+        onFileChange={handleFileChange}
+        openModal={actions.openModal}
+        closeModal={actions.closeModal}/>
     </div>
     <Nav.Hovedknapp
       className='forwardButton'

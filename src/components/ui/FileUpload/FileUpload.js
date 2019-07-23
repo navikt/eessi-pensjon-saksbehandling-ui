@@ -5,22 +5,11 @@ import PT from 'prop-types'
 import Dropzone from 'react-dropzone'
 import _ from 'lodash'
 import classNames from 'classnames'
-import { Droppable } from 'react-beautiful-dnd'
-import { connect, bindActionCreators } from 'store'
 import bytes from 'bytes'
 
-import * as uiActions from '../../../actions/ui'
-import File from '../File/File'
+import File from 'components/ui/File/File'
+
 import './FileUpload.css'
-import { getDisplayName } from '../../../utils/displayName'
-
-const mapStateToProps = () => {
-  return {}
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, uiActions), dispatch) }
-}
 
 class FileUpload extends Component {
     state = {
@@ -61,15 +50,15 @@ class FileUpload extends Component {
     }
 
     closePreview () {
-      const { actions } = this.props
+      const { closeModal } = this.props
 
-      actions.closeModal()
+      closeModal()
     }
 
     openPreview (file, pageNumber) {
-      const { actions } = this.props
+      const { openModal } = this.props
 
-      actions.openModal({
+      openModal({
         modalContent: <div style={{ cursor: 'pointer' }} onClick={this.closePreview.bind(this)}>
           <File file={file} width={400} height={600} pageNumber={pageNumber} />
         </div>
@@ -237,54 +226,43 @@ class FileUpload extends Component {
     }
 
     render () {
-      const { t, acceptedMimetypes, maxFileSize, className, fileUploadDroppableId, maxFiles } = this.props
+      const { t, acceptedMimetypes, maxFileSize, className, maxFiles } = this.props
       const { files, currentPages, status } = this.state
       const tabIndex = this.props.tabIndex ? { tabIndex: this.props.tabIndex } : {}
 
-      return <div className='c-ui-fileUpload'>
-        <Droppable droppableId={fileUploadDroppableId} direction='horizontal'>
-
-          {(provided, snapshot) => (
-            <div className={classNames('dropzone', 'p-4', className)}>
-              <Dropzone
-                length={files.length}
-                activeClassName='dropzone-active'
-                accept={acceptedMimetypes}
-                onDrop={this.onDrop.bind(this)}
-                maxSize={maxFileSize}
-                onDropRejected={this.onDropRejected.bind(this)}
-                inputProps={{ ...this.props.inputProps }}
-                {...tabIndex}>
-                {({ getRootProps, getInputProps }) => <div
-                  {...getRootProps()}
-                  ref={provided.innerRef}
-                  className={classNames('droppable-zone', { 'droppable-zone-active ': snapshot.isDraggingOver })}>
-                  <input {...getInputProps()} />
-                  <div className='dropzone-placeholder'>
-                    <div className='dropzone-placeholder-message'>{t('ui:dropFilesHere', { maxFiles: maxFiles })}</div>
-                    <div className={classNames('dropzone-placeholder-status', 'dropzone-placeholder-status-' + status.type)}>{status.message}</div>
-                  </div>
-
-                  {provided.placeholder}
-
-                  <div className='dropzone-files scrollable'>
-                    { files ? files.map((file, i) => {
-                      return <File className='mr-2' key={i} file={file}
-                        currentPage={currentPages[i]}
-                        deleteLink downloadLink previewLink
-                        onPreviousPage={this.onPreviousPageRequest.bind(this, i)}
-                        onNextPage={this.onNextPageRequest.bind(this, i)}
-                        onLoadSuccess={this.onLoadSuccess.bind(this, i)}
-                        onDeleteDocument={this.removeFile.bind(this, i)}
-                        onPreviewDocument={this.openPreview.bind(this, file)}
-                      />
-                    }) : null }
-                  </div>
-                </div>}
-              </Dropzone>
+      return <div className={classNames('c-ui-fileUpload', 'dropzone', 'p-4', className)}>
+        <Dropzone
+          length={files.length}
+          activeClassName='dropzone-active'
+          accept={acceptedMimetypes}
+          onDrop={this.onDrop.bind(this)}
+          maxSize={maxFileSize}
+          onDropRejected={this.onDropRejected.bind(this)}
+          inputProps={{ ...this.props.inputProps }}
+          {...tabIndex}>
+          {({ getRootProps, getInputProps, isDragActive }) => <div
+            {...getRootProps()}
+            className={classNames('droppable-zone', { 'droppable-zone-active ': isDragActive })}>
+            <input {...getInputProps()} />
+            <div className='dropzone-placeholder'>
+              <div className='dropzone-placeholder-message'>{t('ui:dropFilesHere', { maxFiles: maxFiles })}</div>
+              <div className={classNames('dropzone-placeholder-status', 'dropzone-placeholder-status-' + status.type)}>{status.message}</div>
             </div>
-          )}
-        </Droppable>
+            <div className='dropzone-files scrollable'>
+              { files ? files.map((file, i) => {
+                return <File className='mr-2' key={i} file={file}
+                  currentPage={currentPages[i]}
+                  deleteLink downloadLink previewLink
+                  onPreviousPage={this.onPreviousPageRequest.bind(this, i)}
+                  onNextPage={this.onNextPageRequest.bind(this, i)}
+                  onLoadSuccess={this.onLoadSuccess.bind(this, i)}
+                  onDeleteDocument={this.removeFile.bind(this, i)}
+                  onPreviewDocument={this.openPreview.bind(this, file)}
+                />
+              }) : null }
+            </div>
+          </div>}
+        </Dropzone>
       </div>
     }
 }
@@ -302,19 +280,10 @@ FileUpload.propTypes = {
   active: PT.func,
   inactive: PT.func,
   inputProps: PT.object,
-  fileUploadDroppableId: PT.string.isRequired,
-  actions: PT.object,
+  openModal: PT.func.isRequired,
+  closeModal: PT.func.isRequired,
   maxFiles: PT.number,
   maxFileSize: PT.number
 }
 
-const ConnectedFileUpload = connect(
-  mapStateToProps,
-  mapDispatchToProps
-  , null, { forwardRef: true })(
-  FileUpload
-)
-
-ConnectedFileUpload.displayName = `Connect(${getDisplayName(FileUpload)}`
-
-export default ConnectedFileUpload
+export default FileUpload

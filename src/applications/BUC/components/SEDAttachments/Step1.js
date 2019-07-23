@@ -55,7 +55,9 @@ const Step1 = (props) => {
       files={files.hasOwnProperty('fileupload') ? files['fileupload'] : []}
       beforeDrop={handleBeforeDrop}
       afterDrop={handleAfterDrop}
-      onFileChange={handleFileUploadFileChange} />
+      onFileChange={handleFileUploadFileChange}
+      openModal={actions.openModal}
+      closeModal={actions.closeModal}/>
     <Hovedknapp
       id='a-buc-c-sedattachmnents__edit-button-id'
       className='a-buc-c-sedattachmnents__edit-button'

@@ -36,7 +36,8 @@ export default class Util {
       firmaLand: this.handleCountry(period.country),
       navnFirma: period.workName,
       jobbUnderAnsattEllerSelvstendig: period.workActivity,
-      navnPaaInstitusjon: period.learnInstitution
+      navnPaaInstitusjon: period.learnInstitution,
+      comment: period.comment
     }
   }
 
@@ -52,7 +53,7 @@ export default class Util {
 
   handleOtherPeriod (period) {
     const newPeriod = this.handleGenericPeriod(period)
-    newPeriod.other = period.other
+    newPeriod.otherType = period.otherType
     return newPeriod
   }
 

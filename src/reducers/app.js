@@ -68,24 +68,6 @@ const appReducer = (state = initialAppState, action = {}) => {
         person: action.payload.person
       }
 
-    case types.APP_DROPPABLE_REGISTER : {
-      let droppables = state.droppables || {}
-      droppables[action.payload.id] = action.payload.ref
-
-      return Object.assign({}, state, {
-        droppables: droppables
-      })
-    }
-
-    case types.APP_DROPPABLE_UNREGISTER : {
-      let droppables = state.droppables || {}
-      delete droppables[action.payload.id]
-
-      return Object.assign({}, state, {
-        droppables: droppables
-      })
-    }
-
     case types.APP_LOGOUT_SUCCESS: {
       return initialAppState
     }
