@@ -6,7 +6,7 @@ import { Knapp, Normaltekst } from 'components/ui/Nav'
 import Icons from 'components/ui/Icons'
 import { WEBSOCKET_URL } from 'constants/urls'
 
-import './index.css'
+import './WebSocket.css'
 
 const DISCONNECTED = 'DISCONNECTED'
 const CONNECTED = 'CONNECTED'
