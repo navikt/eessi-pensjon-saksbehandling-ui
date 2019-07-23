@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import SEDBody from 'applications/BUC/components/SEDBody/SEDBody'
-import BUCEmpty from './BUCEmpty'
+import BUCEmpty from 'applications/BUC/widgets/BUCEmpty/BUCEmpty'
 import { EkspanderbartpanelBase, Knapp, Lenke, NavFrontendSpinner } from 'components/ui/Nav'
 import Icons from 'components/ui/Icons'
 import _ from 'lodash'
@@ -12,7 +12,7 @@ import _ from 'lodash'
 import './BUCList.css'
 
 const BUCList = (props) => {
-  const { t, bucs, bucsInfoList, institutionList, bucsInfo, actions, sakId, aktoerId, rinaUrl, gettingBUCs, locale } = props
+  const { actions, aktoerId, bucs, bucsInfoList, bucsInfo, gettingBUCs, institutionList, locale, rinaUrl, sakId, t } = props
   const [ seds, setSeds ] = useState({})
   const [ gettingBucsInfo, setGettingBucsInfo ] = useState(false)
   const [ mounted, setMounted ] = useState(false)
@@ -102,18 +102,28 @@ const BUCList = (props) => {
     actions.setMode('bucnew')
   }
 
-  return <React.Fragment>
+  return <div className='a-buc-buclist'>
     <div className='a-buc-buclist__buttons mb-3'>
-      {aktoerId && sakId ? <Knapp onClick={onBUCNew}>{t('buc:form-createNewCase')}</Knapp> : null}
+      {aktoerId && sakId ?
+      <Knapp
+        id='a-buc-buclist__newbuc-button-id'
+        className='a-buc-buclist__newbuc-button'
+        onClick={onBUCNew}>
+          {t('buc:form-createNewCase')}
+        </Knapp>
+      : null}
     </div>
-    {gettingBUCs ? <div className='mt-5 a-buc-widget__loading'>
+    {gettingBUCs ?
+    <div className='mt-5 a-buc-widget__loading'>
       <NavFrontendSpinner className='ml-3 mr-3' type='XL' />
       <span className='pl-2'>{t('buc:loading-bucs')}</span>
     </div> : null}
-    {bucs === null ? <div className='mt-5 a-buc-widget__loading'>
+    {bucs === null ?
+    <div className='mt-5 a-buc-widget__message'>
       {t('buc:error-noBucs')}
     </div> : null}
-    {!gettingBUCs && !_.isEmpty(bucs) ? bucs.map((buc, index) => {
+    {!gettingBUCs && !_.isEmpty(bucs) ?
+    bucs.map((buc, index) => {
       let bucId = buc.type + '-' + buc.caseId
       let bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId] : {}
       return <EkspanderbartpanelBase
@@ -138,11 +148,11 @@ const BUCList = (props) => {
         />
       </EkspanderbartpanelBase>
     }) : null}
-    {(!sakId || !aktoerId) ? <BUCEmpty actions={actions} onBUCNew={onBUCNew} t={t} sakId={sakId}
-      aktoerId={aktoerId} bucs={bucs} gettingBUCs={gettingBUCs} getBucs={getBucs} /> : null}
+    {(!sakId || !aktoerId) ?
+    <BUCEmpty {...props} />
+    : null}
     {(sakId && aktoerId)
       ? <div className='mb-2 a-buc-buclist__footer'>
-        <div />
         <Lenke
           id='a-buc-c-buclist__gotorina-link'
           className='a-buc-c-buclist__gotorina'
@@ -154,7 +164,7 @@ const BUCList = (props) => {
           </div>
         </Lenke>
       </div> : null}
-  </React.Fragment>
+  </div>
 }
 
 BUCList.propTypes = {

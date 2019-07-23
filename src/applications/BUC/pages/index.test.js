@@ -3,12 +3,6 @@ import { StoreProvider } from 'store'
 import reducer, { initialState } from 'reducer'
 import { BUCPageIndex } from 'applications/BUC/pages/'
 
-jest.doMock('applications/BUC/components/BUCStart/BUCStart', () => {
-  return () => <div />
-})
-
-import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
-
 describe('applications/BUC/pages/index', () => {
   let wrapper
   const t = jest.fn((translationString) => { return translationString })
@@ -21,8 +15,7 @@ describe('applications/BUC/pages/index', () => {
     location: {},
     subjectAreaList: [],
     tagList: [],
-    t: t,
-    userRole: 'mockUserRole'
+    t: t
   }
 
   beforeEach(() => {

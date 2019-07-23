@@ -73,7 +73,7 @@ describe('applications/BUC/components/SEDP4000/Period - view/confirm mode', () =
   it('Change button changes mode from view to edit', () => {
     const wrapper = mount(<Period {...initialMockProps} mode='view'/>)
     let periodButtons = wrapper.find('.a-buc-c-sedp4000-period.view .existingPeriodButtons').hostNodes()
-    periodButtons.find('.change').hostNodes().props().onClick()
+    periodButtons.find('.change').hostNodes().simulate('click')
     wrapper.update()
     expect(initialMockProps.setPeriod).toHaveBeenCalledWith(initialMockProps.period)
   })
@@ -81,7 +81,7 @@ describe('applications/BUC/components/SEDP4000/Period - view/confirm mode', () =
   it('Remove button opens a modal for deletion prompt', () => {
     const wrapper = mount(<Period {...initialMockProps} mode='view'/>)
     let periodButtons = wrapper.find('.a-buc-c-sedp4000-period.view .existingPeriodButtons').hostNodes()
-    periodButtons.find('.remove').hostNodes().props().onClick()
+    periodButtons.find('.remove').hostNodes().simulate('click')
     expect(initialMockProps.actions.openModal).toHaveBeenCalled()
   })
 })

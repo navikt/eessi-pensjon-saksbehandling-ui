@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const PInfo = (props) => {
-  const { aktoerId, history, location, sakId, sakType, t } = props
+  const { aktoerId, history, sakId, sakType, t } = props
   const [ noParams, setNoParams ] = useState(false)
   const [ mounted, setMounted ] = useState(false)
 
@@ -51,7 +51,7 @@ const PInfo = (props) => {
   }
 
   if (noParams) {
-    return <TopContainer className='p-pInfo' t={t} history={history} location={location} header={t('pinfo:app-title')}>
+    return <TopContainer className='p-pInfo' t={t} history={history} header={t('pinfo:app-title')}>
       <div className='content container text-center pt-4'>
         <div className='psycho mt-3 mb-4' style={{ height: '110px' }}>
           <Psycho type='trist' id='psycho' />
@@ -63,7 +63,7 @@ const PInfo = (props) => {
     </TopContainer>
   }
 
-  return <TopContainer className='p-pInfo' t={t} history={history} location={location}>
+  return <TopContainer className='p-pInfo' t={t} history={history}>
     <Nav.Row>
       <div className='col-md-2' />
       <div className='col-md-8'>
@@ -85,7 +85,6 @@ PInfo.propTypes = {
   actions: PT.object.isRequired,
   aktoerId: PT.string,
   history: PT.object,
-  location: PT.object.isRequired,
   t: PT.func.isRequired,
   sakId: PT.string,
   sakType: PT.string

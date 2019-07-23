@@ -34,8 +34,11 @@ class Error extends Component {
         break
     }
 
-    return <TopContainer className={classNames('p-error')}
-      t={t} history={history} location={location} header={t('app-headerTitle')}>
+    return <TopContainer
+      className={classNames('p-error')}
+      t={t}
+      history={history}
+      header={t('app-headerTitle')}>
       <div className='col-md-12 text-center'>
         <div className='psycho mt-3 mb-4'>
           <Psycho type='trist' id='psycho' />

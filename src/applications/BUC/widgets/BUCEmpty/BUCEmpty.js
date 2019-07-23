@@ -48,15 +48,18 @@ const BUCEmpty = (props) => {
       <img alt='' className='mouse' src={MousePNG} />
       <img alt='' className='map' src={MapPNG} />
     </div>
-    <Undertittel className='mb-3'>
-      <Lenke href='#' onClick={onBUCNew}>
+    <Undertittel className='a-buc-bucempty__title mb-3'>
+      <Lenke
+        id='a-buc-bucempty__newbuc-link-id'
+        className='a-buc-bucempty__newbuc-link'
+        href='#' onClick={onBUCNew}>
         {t('buc:form-empty-startANewCase')}
       </Lenke>
     </Undertittel>
-    {!aktoerId ? <div className='a-buc-bucempty__aktoerid-div'>
+    {!aktoerId ? <div className='a-buc-bucempty__form'>
       <Input
-        className='a-buc-bucempty__aktoerid-input'
         id='a-buc-bucempty__aktoerid-input-id'
+        className='a-buc-bucempty__aktoerid-input'
         label={t('ui:aktoerId')}
         value={_aktoerId || ''}
         bredde='fullbredde'
@@ -69,10 +72,10 @@ const BUCEmpty = (props) => {
         {t('ui:add')}
       </Hovedknapp>
     </div> : null}
-    {!sakId ? <div className='a-buc-bucempty__sakid-div'>
+    {!sakId ? <div className='a-buc-bucempty__form'>
       <Input
-        className='a-buc-bucempty__sakid-input'
         id='a-buc-bucempty__sakid-input-id'
+        className='a-buc-bucempty__sakid-input'
         label={t('ui:caseId')}
         value={_sakId || ''}
         bredde='fullbredde'

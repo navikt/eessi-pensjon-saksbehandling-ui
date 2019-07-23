@@ -8,13 +8,12 @@ import TopContainer from 'components/ui/TopContainer/TopContainer'
 import PDFWidget from 'applications/PDF/widgets'
 
 export const PDFPageIndex = (props) => {
-  const { t, className, history, location } = props
+  const { t, className, history } = props
 
   return <TopContainer
     className={classNames('a-buc-page', className)}
     t={t}
     history={history}
-    location={location}
     header={t('pdf:app-createPdf')}>
     <div className='mt-4'>
       <PDFWidget />
@@ -25,8 +24,7 @@ export const PDFPageIndex = (props) => {
 PDFPageIndex.propTypes = {
   history: PT.object.isRequired,
   t: PT.func,
-  className: PT.string,
-  location: PT.object.isRequired
+  className: PT.string
 }
 
 export default withTranslation()(PDFPageIndex)
