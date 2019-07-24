@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 
-import * as Nav from 'components/ui/Nav'
-import File from 'components/ui/File/File'
-import StorageModal from 'components/ui/Modal/StorageModal'
+import * as Nav from 'components/Nav'
+import File from 'components/File/File'
+import StorageModal from 'components/Modal/StorageModal'
 
 import * as storages from '../../../constants/storages'
 

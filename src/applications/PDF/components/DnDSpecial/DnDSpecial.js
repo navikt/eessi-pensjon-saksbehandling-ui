@@ -6,8 +6,8 @@ import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import PDFSpecialPage from '../PDFSpecialPage/PDFSpecialPage'
-import * as Nav from 'components/ui/Nav'
-import ColorPicker from 'components/ui/ColorPicker'
+import * as Nav from 'components/Nav'
+import ColorPicker from 'components/ColorPicker'
 
 import * as pdfActions from 'actions/pdf'
 

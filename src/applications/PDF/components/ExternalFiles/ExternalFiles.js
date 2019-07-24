@@ -4,7 +4,7 @@ import { connect, bindActionCreators } from 'store'
 import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
-import * as Nav from 'components/ui/Nav'
+import * as Nav from 'components/Nav'
 import DnDExternalFiles from '../DnDExternalFiles/DnDExternalFiles'
 import * as storageActions from 'actions/storage'
 import * as storages from 'constants/storages'

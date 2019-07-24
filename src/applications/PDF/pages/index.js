@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
-import TopContainer from 'components/ui/TopContainer/TopContainer'
+import TopContainer from 'components/TopContainer/TopContainer'
 
 import PDFWidget from 'applications/PDF/widgets'
 

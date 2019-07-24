@@ -1,9 +1,9 @@
 import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { Input, NavFrontendSpinner, Select, Systemtittel, Undertittel } from 'components/ui/Nav'
-import CountryData from 'components/ui/CountryData/CountryData'
-import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
+import { Input, NavFrontendSpinner, Select, Systemtittel, Undertittel } from 'components/Nav'
+import CountryData from 'components/CountryData/CountryData'
+import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import SEDAttachments from '../SEDAttachments/SEDAttachments'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 

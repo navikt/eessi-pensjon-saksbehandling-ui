@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import * as Nav from '../components/ui/Nav'
+import * as Nav from '../components/Nav'
 import * as routes from '../constants/routes'
 
 const PdfWidget = (props) => {

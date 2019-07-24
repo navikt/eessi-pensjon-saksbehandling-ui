@@ -2,7 +2,7 @@ import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 
-import { AlertStripe, Hovedknapp, Undertekst, Undertittel } from 'components/ui/Nav'
+import { AlertStripe, Hovedknapp, Undertekst, Undertittel } from 'components/Nav'
 
 const VarslerPanel = (props) => {
   const { actions, aktoerId, isInvitingPinfo, invite, sakId, sakType, t } = props

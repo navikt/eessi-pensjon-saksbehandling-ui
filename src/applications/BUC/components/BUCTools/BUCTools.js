@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
-import { EkspanderbartpanelBase, Knapp, Normaltekst, Systemtittel, Textarea, Undertittel } from 'components/ui/Nav'
-import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
+import { EkspanderbartpanelBase, Knapp, Normaltekst, Systemtittel, Textarea, Undertittel } from 'components/Nav'
+import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import './BUCTools.css'
 
 const BUCTools = (props) => {

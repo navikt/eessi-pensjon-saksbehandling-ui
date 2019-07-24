@@ -1,7 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
-import { Checkbox } from 'components/ui/Nav'
+import { Checkbox } from 'components/Nav'
 
 const MultipleOption = (props) => {
   const { data, selectProps, innerProps, isSelected, isFocused } = props

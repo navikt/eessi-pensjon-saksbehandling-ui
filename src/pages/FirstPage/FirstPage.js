@@ -4,9 +4,9 @@ import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
 import 'url-search-params-polyfill'
 
-import Psycho from '../../components/ui/Psycho/Psycho'
-import TopContainer from '../../components/ui/TopContainer/TopContainer'
-import * as Nav from '../../components/ui/Nav'
+import Psycho from '../../components/Psycho/Psycho'
+import TopContainer from '../../components/TopContainer/TopContainer'
+import * as Nav from '../../components/Nav'
 
 import * as routes from '../../constants/routes'
 import * as constants from '../../constants/constants'

@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import _ from 'lodash'
 
 import PDFEditor from 'applications/PDF/components/PDFEditor/PDFEditor'
-import * as Nav from 'components/ui/Nav'
+import * as Nav from 'components/Nav'
 
 const EditPDF = (props) => {
   const { t, actions, recipe, setStep } = props

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
 
-import { ToggleGruppe } from '../components/ui/Nav'
+import { ToggleGruppe } from '../components/Nav'
 import VarslerPanel from '../applications/PInfo/VarslerPanel'
 import VarslerTable from '../applications/PInfo/VarslerTable'
 

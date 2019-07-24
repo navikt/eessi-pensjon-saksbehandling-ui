@@ -1,7 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
-import Icons from 'components/ui/Icons'
+import Icons from 'components/Icons'
 
 import './RefreshButton.css'
 

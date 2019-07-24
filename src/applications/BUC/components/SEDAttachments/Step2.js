@@ -1,7 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import PDFEditor from 'applications/PDF/components/PDFEditor/PDFEditor'
-import { Hovedknapp, Flatknapp } from 'components/ui/Nav'
+import { Hovedknapp, Flatknapp } from 'components/Nav'
 
 const Step2 = (props) => {
   const { t, setStep } = props

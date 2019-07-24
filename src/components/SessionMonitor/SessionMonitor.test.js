@@ -1,7 +1,7 @@
 import React from 'react'
 import { SessionMonitor } from './SessionMonitor'
 
-describe('components/app/SessionMonitor', () => {
+describe('components/SessionMonitor', () => {
   let initialMockProps = {
     t: jest.fn((translationString) => { return translationString }),
     actions: {

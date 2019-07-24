@@ -5,7 +5,7 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
 
-import Icons from 'components/ui/Icons'
+import Icons from 'components/Icons'
 
 import * as pdfActions from 'actions/pdf'
 import * as uiActions from 'actions/ui'

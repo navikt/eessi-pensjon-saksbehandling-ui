@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import PsychoPanel from 'components/ui/Psycho/PsychoPanel'
-import { Flatknapp, HjelpetekstAuto, Hovedknapp, NavFrontendSpinner, Normaltekst, Row, Select, Systemtittel, Undertittel } from 'components/ui/Nav'
-import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
+import PsychoPanel from 'components/Psycho/PsychoPanel'
+import { Flatknapp, HjelpetekstAuto, Hovedknapp, NavFrontendSpinner, Normaltekst, Row, Select, Systemtittel, Undertittel } from 'components/Nav'
+import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 
 const placeholders = {
   subjectArea: 'buc:form-chooseSubjectArea',

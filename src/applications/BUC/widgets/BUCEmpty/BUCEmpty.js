@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PT from 'prop-types'
 
-import { Hovedknapp, Input, Lenke, Undertittel } from 'components/ui/Nav'
+import { Hovedknapp, Input, Lenke, Undertittel } from 'components/Nav'
 import * as MonitorPNG from 'resources/images/artwork/dataskjerm.png'
 import * as CupPNG from 'resources/images/artwork/kop.png'
 import * as MousePNG from 'resources/images/artwork/NAVmusematte.png'

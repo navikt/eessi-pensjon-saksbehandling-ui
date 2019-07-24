@@ -7,7 +7,7 @@ import _ from 'lodash'
 import classNames from 'classnames'
 import bytes from 'bytes'
 
-import File from 'components/ui/File/File'
+import File from 'components/File/File'
 
 import './FileUpload.css'
 

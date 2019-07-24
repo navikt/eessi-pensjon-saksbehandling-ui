@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
 
-import * as Nav from '../../components/ui/Nav'
+import * as Nav from '../../components/Nav'
 import * as routes from '../../constants/routes'
 
 const Links = (props) => {

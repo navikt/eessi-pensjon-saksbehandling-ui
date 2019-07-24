@@ -4,7 +4,7 @@ import PT from 'prop-types'
 import Collapse from 'rc-collapse'
 import _ from 'lodash'
 
-import * as Nav from 'components/ui/Nav'
+import * as Nav from 'components/Nav'
 import DnDSource from 'applications/PDF/components/DnDSource/DnDSource'
 import DnDSpecial from 'applications/PDF/components/DnDSpecial/DnDSpecial'
 import DnDImages from 'applications/PDF/components/DnDImages/DnDImages'

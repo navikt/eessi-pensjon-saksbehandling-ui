@@ -6,7 +6,7 @@ import _ from 'lodash'
 
 import * as pdfActions from 'actions/pdf'
 
-import { Ikon } from 'components/ui/Nav'
+import { Ikon } from 'components/Nav'
 
 import './PDFSpecialPage.css'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
-import CountryData from 'components/ui/CountryData/CountryData'
+import CountryData from 'components/CountryData/CountryData'
 import Flag from './Flag'
 
 import './Flag.css'
