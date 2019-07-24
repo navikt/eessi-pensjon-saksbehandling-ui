@@ -9,14 +9,12 @@ import TopContainer from '../../components/TopContainer/TopContainer'
 import * as Nav from '../../components/Nav'
 
 import * as routes from '../../constants/routes'
-import * as constants from '../../constants/constants'
 
 import './FirstPage.css'
 
 const mapStateToProps = (state) => {
   return {
     username: state.app.username,
-    userRole: state.app.userRole,
     loggedIn: state.app.loggedIn,
     gettingUserInfo: state.loading.gettingUserInfo,
     isLoggingIn: state.loading.isLoggingIn,
@@ -26,23 +24,15 @@ const mapStateToProps = (state) => {
 
 class FirstPage extends Component {
   handleForwardButtonClick () {
-    const { history, userRole } = this.props
-
-    switch (userRole) {
-      case constants.SAKSBEHANDLER:
-        history.push({
-          pathname: routes.PINFO,
-          search: window.location.search
-        })
-        break
-      default:
-        history.push(routes.PINFO)
-        break
-    }
+    const { history } = this.props
+    history.push({
+      pathname: routes.PINFO,
+      search: window.location.search
+    })
   }
 
   render () {
-    const { t, history, location, userRole } = this.props
+    const { t, history } = this.props
 
     return <TopContainer
       className='p-firstPage'
@@ -54,14 +44,7 @@ class FirstPage extends Component {
           <div className='psycho text-center mt-3 mb-4'>
             <Psycho id='psycho' />
           </div>
-          { userRole === constants.BRUKER ? <div>
-            <span dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-bruker-1') }} />
-            <Nav.HjelpetekstAuto id='pinfo-title-help' type='under'>
-              {t('pinfo:eea-countries')}
-            </Nav.HjelpetekstAuto>
-            <span dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-bruker-2') }} />
-          </div> : null }
-          { userRole === constants.SAKSBEHANDLER ? <div dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-saksbehandler') }} /> : null }
+          <div dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-saksbehandler') }} />
           <div className='text-center mt-3 mb-4'>
             <Nav.Hovedknapp
               id='pinfo-firstPage-forwardButton'

@@ -1,8 +1,7 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import { SEDP4000 } from './SEDP4000'
 
 describe('applications/BUC/components/SEDP4000/SEDP4000', () => {
-
   const t = jest.fn((translationString) => { return translationString })
   const initialMockProps = {
     aktoerId: '123',
@@ -22,10 +21,7 @@ describe('applications/BUC/components/SEDP4000/SEDP4000', () => {
   })
 
   it('UseEffect: call for p4000 file list if we do not have one', () => {
-    const wrapper = mount(<SEDP4000 {...initialMockProps} />)
+    mount(<SEDP4000 {...initialMockProps} />)
     expect(initialMockProps.actions.listP4000).toHaveBeenCalledWith(initialMockProps.aktoerId)
   })
-
 })
-
-

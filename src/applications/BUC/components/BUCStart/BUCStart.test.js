@@ -12,7 +12,7 @@ Object.defineProperty(window, 'location', {
 })
 
 describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerId', () => {
-
+  let wrapper
   let initialMockProps = {
     actions: {
       createBuc: jest.fn(),
@@ -26,7 +26,7 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
       resetBuc: jest.fn()
     },
     bucList: ['mockBuc1'],
-    currentBUC: {casenumber: '123', pinid: '456'},
+    currentBUC: { casenumber: '123', pinid: '456' },
     tagList: ['mockTag1', 'mockTag2'],
     aktoerId: '456',
     loading: {},
@@ -37,23 +37,24 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
     t: jest.fn((translationString) => { return translationString })
   }
 
+  beforeEach(() => {
+    wrapper = mount(<BUCStart {...initialMockProps} />)
+  })
+
   it('renders successfully', () => {
-    const wrapper = mount(<BUCStart {...initialMockProps}/>)
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it ('useEffect: verifies case number in no currentBUC is provided', () => {
-    const wrapper = mount(<BUCStart {...initialMockProps}
-      currentBUC={undefined} />)
+  it('useEffect: verifies case number in no currentBUC is provided', () => {
     expect(initialMockProps.actions.verifyCaseNumber).toHaveBeenCalledWith({
       sakId: '123',
       aktoerId: '456'
     })
   })
 
-  it ('useEffect: fetches subject areas, bucs, tags list if empty', () => {
-    const wrapper = mount(<BUCStart {...initialMockProps}
+  it('useEffect: fetches subject areas, bucs, tags list if empty', () => {
+    wrapper = mount(<BUCStart {...initialMockProps}
       subjectAreaList={undefined}
       bucList={undefined}
       tagList={undefined}
@@ -63,23 +64,23 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
     expect(initialMockProps.actions.getTagList).toHaveBeenCalled()
   })
 
-  it ('useEffect: saves bucsInfo after when buc was saved', () => {
-    const wrapper = mount(<BUCStart {...initialMockProps}
-      bucsInfo={{bucs: 'mockBucs'}}
-      buc={{foo: 'bar'}}
+  it('useEffect: saves bucsInfo after when buc was saved', () => {
+    wrapper = mount(<BUCStart {...initialMockProps}
+      bucsInfo={{ bucs: 'mockBucs' }}
+      buc={{ foo: 'bar' }}
     />)
     expect(initialMockProps.actions.saveBucsInfo).toHaveBeenCalledWith({
-      bucsInfo: {'bucs': 'mockBucs'},
+      bucsInfo: { 'bucs': 'mockBucs' },
       aktoerId: '456',
       tags: [],
-      buc: {foo: 'bar'}
+      buc: { foo: 'bar' }
     })
   })
 
-  it ('useEffect: having buc and saved bucInfo makes you go to sednew menu', async (done) => {
-    const wrapper = mount(<BUCStart {...initialMockProps}
-      bucsInfo={{bucs: 'mockBucs'}}
-      buc={{foo: 'bar'}}
+  it('useEffect: having buc and saved bucInfo makes you go to sednew menu', async (done) => {
+    wrapper = mount(<BUCStart {...initialMockProps}
+      bucsInfo={{ bucs: 'mockBucs' }}
+      buc={{ foo: 'bar' }}
     />)
 
     expect(initialMockProps.actions.setMode).not.toHaveBeenCalled()
@@ -96,31 +97,28 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
             savingBucsInfo: false
           }
         })
-        expect(initialMockProps.actions.setMode).toHaveBeenCalledWith("sednew")
+        expect(initialMockProps.actions.setMode).toHaveBeenCalledWith('sednew')
         done()
       }, 500)
     })
   })
 
   it('onForwardButtonClick()', () => {
-    const wrapper = mount(<BUCStart {...initialMockProps} />)
     expect(wrapper.find('button.a-buc-c-bucstart__forward-button').prop('disabled')).toBe(true)
-    wrapper.find('#a-buc-c-bucstart__subjectarea-select-id').hostNodes().prop('onChange')({target: {value: 'Pensjon'}})
-    wrapper.find('#a-buc-c-bucstart__buc-select-id').hostNodes().prop('onChange')({target: {value: 'mockBuc1'}})
+    wrapper.find('#a-buc-c-bucstart__subjectarea-select-id').hostNodes().prop('onChange')({ target: { value: 'Pensjon' } })
+    wrapper.find('#a-buc-c-bucstart__buc-select-id').hostNodes().prop('onChange')({ target: { value: 'mockBuc1' } })
     wrapper.update()
     wrapper.find('button.a-buc-c-bucstart__forward-button').simulate('click')
     expect(initialMockProps.actions.createBuc).toHaveBeenCalledWith('mockBuc1')
   })
 
   it('onCancelButtonClick()', () => {
-    const wrapper = mount(<BUCStart {...initialMockProps} />)
     expect(wrapper.find('button.a-buc-c-bucstart__cancel-button').prop('disabled')).toBe(false)
     wrapper.find('button.a-buc-c-bucstart__cancel-button').simulate('click')
     expect(initialMockProps.actions.setMode).toHaveBeenCalledWith('buclist')
   })
 
   it('render()', () => {
-    let wrapper = mount(<BUCStart {...initialMockProps} />)
     expect(wrapper.exists('div.a-buc-c-bucstart')).toEqual(true)
     expect(wrapper.exists('.a-buc-c-bucstart__subjectarea-select')).toEqual(true)
     expect(wrapper.exists('.a-buc-c-bucstart__buc-select')).toEqual(true)
@@ -130,4 +128,3 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
     expect(wrapper.exists('.a-buc-c-bucstart__cancel-button')).toEqual(true)
   })
 })
-

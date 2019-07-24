@@ -115,20 +115,20 @@ export const SEDP4000 = (props) => {
       })}
     </React.Fragment>
       : null}
-    { p4000info.stayAbroad.length < maxPeriods ?
-    <Period t={t}
-      actions={actions}
-      mode={mode}
-      showButtons={showButtons}
-      period={period}
-      periods={p4000info.stayAbroad}
-      locale={locale}
-      setPeriod={setPeriod}
-      setPeriods={setPeriods}
-    /> :
-    <span>
-      {t('buc:p4000-alert-maxPeriods', { maxPeriods: maxPeriods })}
-    </span> }
+    { p4000info.stayAbroad.length < maxPeriods
+      ? <Period t={t}
+        actions={actions}
+        mode={mode}
+        showButtons={showButtons}
+        period={period}
+        periods={p4000info.stayAbroad}
+        locale={locale}
+        setPeriod={setPeriod}
+        setPeriods={setPeriods}
+      />
+      : <span>
+        {t('buc:p4000-alert-maxPeriods', { maxPeriods: maxPeriods })}
+      </span> }
   </div>
 }
 

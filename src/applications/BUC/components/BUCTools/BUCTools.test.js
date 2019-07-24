@@ -15,7 +15,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
     aktoerId: '123',
     buc: buc,
     bucInfo: bucInfo,
-    bucsInfo: {foo: 'bar'},
+    bucsInfo: { foo: 'bar' },
     loading: {},
     locale: 'nb',
     t: t,
@@ -29,7 +29,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
   })
 
   it('UseEffect: fetches tag list', () => {
-    let wrapper = mount(<BUCTools {...initialMockProps} tagList={undefined} />)
+    mount(<BUCTools {...initialMockProps} tagList={undefined} />)
     expect(initialMockProps.actions.getTagList).toHaveBeenCalled()
   })
 
@@ -51,8 +51,8 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
     let tagSelect = wrapper.find('#a-buc-c-buctools__tags-select-id').hostNodes()
     expect(tagSelect.find('StateManager').props().value).toEqual(firstMockedTags)
 
-    tagSelect.find('input').simulate('keyDown', { key: "ArrowDown", keyCode: 40 });
-    tagSelect.find('input').simulate('keyDown', { key: "Enter", keyCode: 13 });
+    tagSelect.find('input').simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
+    tagSelect.find('input').simulate('keyDown', { key: 'Enter', keyCode: 13 })
     tagSelect = wrapper.find('#a-buc-c-buctools__tags-select-id').hostNodes()
     expect(tagSelect.find('StateManager').props().value).toEqual(secondMockedTags)
   })
@@ -67,11 +67,10 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
     let tagSelect = wrapper.find('#a-buc-c-buctools__comment-textarea-id').hostNodes()
     expect(tagSelect.props().value).toEqual(firstMockedComment)
 
-    tagSelect.simulate('change', {target: {value: secondMockedComment }})
+    tagSelect.simulate('change', { target: { value: secondMockedComment } })
     wrapper.update()
     tagSelect = wrapper.find('#a-buc-c-buctools__comment-textarea-id').hostNodes()
     expect(tagSelect.props().value).toEqual(secondMockedComment)
-
   })
 
   it('onSaveButtonClick()', () => {
@@ -84,9 +83,8 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
       buc: buc,
       comment: bucInfo.comment,
       tags: bucInfo.tags,
-      bucsInfo: {foo: 'bar'}
+      bucsInfo: { foo: 'bar' }
     })
-
   })
 
   it('render(), EkspanderbartpanelBase close', () => {

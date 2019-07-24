@@ -1,17 +1,16 @@
 import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import classNames from 'classnames'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
-import FileUpload from 'components/FileUpload/FileUpload'
-import { Undertittel, Hovedknapp } from 'components/Nav'
+// import FileUpload from 'components/FileUpload/FileUpload'
+import { Undertittel } from 'components/Nav'
 
 const Step1 = (props) => {
-  const { t, files, setFiles, setStep } = props
+  const { t, files, setFiles /* setStep */} = props
 
-  const onEditButtonClick = () => {
+  /* const onEditButtonClick = () => {
     setStep('edit')
-  }
+  } */
 
   const handleFileChange = (changedFiles, key) => {
     let newFiles = _.cloneDeep(files)
@@ -30,13 +29,13 @@ const Step1 = (props) => {
     handleFileChange(joarkFiles, 'joark')
   }
 
-  /*const handleFileUploadFileChange = (fileUploadFiles) => {
+  /* const handleFileUploadFileChange = (fileUploadFiles) => {
     handleFileChange(fileUploadFiles, 'fileupload')
-  }*/
+  } */
 
-  //const handleBeforeDrop = () => {}
+  // const handleBeforeDrop = () => {}
 
-  //const handleAfterDrop = () => {}
+  // const handleAfterDrop = () => {}
 
   return <div className='a-buc-c-sedattachments-step1'>
     <Undertittel className='mt-4 mb-3'>{t('buc:form-addAttachmentsFromJOARK')}</Undertittel>

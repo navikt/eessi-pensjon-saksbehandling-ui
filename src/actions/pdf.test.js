@@ -1,9 +1,9 @@
 import * as types from 'constants/actionTypes'
 import * as pdfActions from 'actions/pdf'
-
+import * as api from 'actions/api'
+import * as urls from 'constants/urls'
 
 describe('pdf actions', () => {
-
   it('selectPDF()', () => {
     const mockFiles = { foo: 'bar' }
     const generatedResult = pdfActions.selectPDF(mockFiles)
@@ -62,7 +62,7 @@ describe('pdf actions', () => {
   })
 
   it('setWatermark()', () => {
-    const mockPayload = {foo: 'bar'}
+    const mockPayload = { foo: 'bar' }
     const generatedResult = pdfActions.setWatermark(mockPayload)
     expect(generatedResult).toMatchObject({
       type: types.PDF_WATERMARK_SET,
@@ -71,7 +71,7 @@ describe('pdf actions', () => {
   })
 
   it('setSeparator()', () => {
-    const mockPayload = {foo: 'bar'}
+    const mockPayload = { foo: 'bar' }
     const generatedResult = pdfActions.setSeparator(mockPayload)
     expect(generatedResult).toMatchObject({
       type: types.PDF_SEPARATOR_SET,
@@ -80,7 +80,7 @@ describe('pdf actions', () => {
   })
 
   it('generatePDF()', () => {
-    const mockPayload = {foo: 'bar'}
+    const mockPayload = { foo: 'bar' }
     pdfActions.generatePDF(mockPayload)
     expect(api.call).toBeCalledWith({
       type: {

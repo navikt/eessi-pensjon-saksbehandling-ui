@@ -2,23 +2,12 @@ import React from 'react'
 
 import { TopContainer } from './TopContainer'
 
-import * as reducers from '../../../reducers'
-
-import * as constants from '../../../constants/constants'
-
-const reducer = combineReducers({
-  ...reducers
-})
-
 describe('renders', () => {
-  let store = createStore(reducer, {})
-
   it('renders without crashing', () => {
     let wrapper = shallow(
-      <TopContainer history={{}} userRole={constants.SAKSBEHANDLER}>
+      <TopContainer history={{}}>
         <div id='TEST_CHILD' />
-      </TopContainer>,
-      { context: { store } }
+      </TopContainer>
     )
     expect(wrapper).toMatchSnapshot()
     expect(wrapper.exists('#TEST_CHILD')).toEqual(true)

@@ -69,11 +69,6 @@ const BUCList = (props) => {
     }
   }, [institutionList, bucs, mounted, actions])
 
-  const getBucs = () => {
-    actions.fetchBucs(aktoerId)
-    actions.fetchBucsInfoList(aktoerId)
-  }
-
   const updateSeds = (buc) => {
     if (seds[buc.type + '-' + buc.caseId]) {
       return seds
@@ -104,53 +99,53 @@ const BUCList = (props) => {
 
   return <div className='a-buc-buclist'>
     <div className='a-buc-buclist__buttons mb-3'>
-      {aktoerId && sakId ?
-      <Knapp
-        id='a-buc-buclist__newbuc-button-id'
-        className='a-buc-buclist__newbuc-button'
-        onClick={onBUCNew}>
+      {aktoerId && sakId
+        ? <Knapp
+          id='a-buc-buclist__newbuc-button-id'
+          className='a-buc-buclist__newbuc-button'
+          onClick={onBUCNew}>
           {t('buc:form-createNewCase')}
         </Knapp>
-      : null}
+        : null}
     </div>
-    {gettingBUCs ?
-    <div className='mt-5 a-buc-widget__loading'>
-      <NavFrontendSpinner className='ml-3 mr-3' type='XL' />
-      <span className='pl-2'>{t('buc:loading-bucs')}</span>
-    </div> : null}
-    {bucs === null ?
-    <div className='mt-5 a-buc-widget__message'>
-      {t('buc:error-noBucs')}
-    </div> : null}
-    {!gettingBUCs && !_.isEmpty(bucs) ?
-    bucs.map((buc, index) => {
-      let bucId = buc.type + '-' + buc.caseId
-      let bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId] : {}
-      return <EkspanderbartpanelBase
-        className={classNames('a-buc-buclist__buc mb-3', 'c-ui-d-widget-border')}
-        key={index}
-        style={{ animationDelay: (0.2 * index) + 's' }}
-        heading={<BUCHeader t={t}
-          buc={buc}
-          bucInfo={bucInfo}
-          locale={locale}
-          onBUCEdit={onBUCEdit}
-        />}
-        onClick={() => onExpandBUCClick(buc)}>
-        <SEDHeader t={t} />
-        <SEDBody
-          t={t}
-          seds={seds[bucId] || []}
-          rinaUrl={rinaUrl}
-          locale={locale}
-          buc={buc}
-          onSEDNew={onSedNew.bind(null, buc)}
-        />
-      </EkspanderbartpanelBase>
-    }) : null}
-    {(!sakId || !aktoerId) ?
-    <BUCEmpty {...props} />
-    : null}
+    {gettingBUCs
+      ? <div className='mt-5 a-buc-widget__loading'>
+        <NavFrontendSpinner className='ml-3 mr-3' type='XL' />
+        <span className='pl-2'>{t('buc:loading-bucs')}</span>
+      </div> : null}
+    {bucs === null
+      ? <div className='mt-5 a-buc-widget__message'>
+        {t('buc:error-noBucs')}
+      </div> : null}
+    {!gettingBUCs && !_.isEmpty(bucs)
+      ? bucs.map((buc, index) => {
+        let bucId = buc.type + '-' + buc.caseId
+        let bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId] : {}
+        return <EkspanderbartpanelBase
+          className={classNames('a-buc-buclist__buc mb-3', 'c-ui-d-widget-border')}
+          key={index}
+          style={{ animationDelay: (0.2 * index) + 's' }}
+          heading={<BUCHeader t={t}
+            buc={buc}
+            bucInfo={bucInfo}
+            locale={locale}
+            onBUCEdit={onBUCEdit}
+          />}
+          onClick={() => onExpandBUCClick(buc)}>
+          <SEDHeader t={t} />
+          <SEDBody
+            t={t}
+            seds={seds[bucId] || []}
+            rinaUrl={rinaUrl}
+            locale={locale}
+            buc={buc}
+            onSEDNew={onSedNew.bind(null, buc)}
+          />
+        </EkspanderbartpanelBase>
+      }) : null}
+    {(!sakId || !aktoerId)
+      ? <BUCEmpty {...props} />
+      : null}
     {(sakId && aktoerId)
       ? <div className='mb-2 a-buc-buclist__footer'>
         <Lenke

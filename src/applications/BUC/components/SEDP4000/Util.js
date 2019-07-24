@@ -3,7 +3,6 @@ import moment from 'moment'
 import { pinfoDateToDate } from 'utils/Date'
 
 export default class Util {
-
   constructor (pinfo) {
     this.pinfo = pinfo
   }

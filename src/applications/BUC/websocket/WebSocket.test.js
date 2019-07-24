@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import BucWebSocket from './WebSocket'
 import { WEBSOCKET_URL } from 'constants/urls'
 

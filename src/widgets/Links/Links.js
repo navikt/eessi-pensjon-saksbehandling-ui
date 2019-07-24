@@ -18,7 +18,6 @@ const Links = (props) => {
       <Link to={routes.PINFO} {...props} />)
     } href='#'>{t('pinfo:app-startPinfo')}</Nav.Lenkepanel>
 
-
   </div>
 }
 

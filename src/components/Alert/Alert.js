@@ -29,7 +29,7 @@ export const errorTypes = {
   WARNING: 'advarsel'
 }
 
-const Alert = (props) => {
+export const Alert = (props) => {
   const { actions, className, clientErrorStatus, clientErrorMessage, error, fixed, t, type, serverErrorMessage } = props
 
   const onClientClear = () => {

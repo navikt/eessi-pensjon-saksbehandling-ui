@@ -37,7 +37,7 @@ const SelectPDF = (props) => {
         afterDrop={handleAfterDrop}
         onFileChange={handleFileChange}
         openModal={actions.openModal}
-        closeModal={actions.closeModal}/>
+        closeModal={actions.closeModal} />
     </div>
     <Nav.Hovedknapp
       className='forwardButton'

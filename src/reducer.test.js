@@ -1,11 +1,11 @@
 import reducer, { initialState } from './reducer'
 
 describe('reducer', () => {
-  it ('is a function', () => {
+  it('is a function', () => {
     expect(typeof reducer).toEqual('function')
   })
 
-  it ('inits', () => {
+  it('inits', () => {
     const generatedReducer = reducer({}, {})
     expect(generatedReducer).toHaveProperty('alert')
     expect(generatedReducer).toHaveProperty('app')
@@ -18,7 +18,7 @@ describe('reducer', () => {
     expect(generatedReducer).toHaveProperty('ui')
   })
 
-  it ('initStates', () => {
+  it('initStates', () => {
     expect(initialState).toHaveProperty('alert')
     expect(initialState).toHaveProperty('app')
     expect(initialState).toHaveProperty('buc')

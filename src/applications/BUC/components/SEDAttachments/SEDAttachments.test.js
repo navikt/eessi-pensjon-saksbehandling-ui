@@ -4,7 +4,6 @@ import { StoreProvider } from 'store'
 import reducer, { initialState } from 'reducer'
 
 describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
-
   const t = jest.fn((translationString) => { return translationString })
   const initialMockProps = {
     t: t,
@@ -14,13 +13,11 @@ describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
   let wrapper
 
   beforeEach(() => {
-    act(() => {
-      wrapper = mount(<StoreProvider initialState={initialState} reducer={reducer}>
-        <Suspense fallback={<div/>}>
-          <SEDAttachments {...initialMockProps} />
-        </Suspense>
-      </StoreProvider>)
-   })
+    wrapper = mount(<StoreProvider initialState={initialState} reducer={reducer}>
+      <Suspense fallback={<div />}>
+        <SEDAttachments {...initialMockProps} />
+      </Suspense>
+    </StoreProvider>)
   })
 
   it('Renders successfully', () => {

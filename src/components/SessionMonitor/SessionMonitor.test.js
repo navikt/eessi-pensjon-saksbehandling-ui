@@ -32,7 +32,7 @@ describe('components/SessionMonitor', () => {
   })
 
   it('SessionMonitor will trigger a openModal when session expired', async (done) => {
-    const wrapper = shallow(<SessionMonitor
+    shallow(<SessionMonitor
       loggedTime={new Date()}
       sessionExpiringWarning={1}
       checkInterval={500}

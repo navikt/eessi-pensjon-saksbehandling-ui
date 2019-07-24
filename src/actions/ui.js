@@ -33,4 +33,3 @@ export const toggleHighContrast = () => {
     type: types.UI_HIGHCONTRAST_TOGGLE
   }
 }
-

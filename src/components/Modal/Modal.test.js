@@ -2,39 +2,13 @@ import React from 'react'
 
 import Modal from './Modal'
 
-import * as reducers from '../../../reducers'
-
-const reducer = combineReducers({
-  ...reducers
-})
-
 describe('renders correctly', () => {
   it('Renders without crashing', () => {
     let mainButtonOnClick = jest.fn()
     let otherButtonOnClick = jest.fn()
 
-    let initialState = {
-      ui: {
-        modalOpen: true,
-        modal: {
-          modalTitle: 'MODALTITLE',
-          modalText: 'MODALTEXT',
-          modalButtons: [{
-            main: true,
-            text: 'MODALMAINBUTTONTEXT',
-            onClick: mainButtonOnClick
-          }, {
-            text: 'MODALOTHERBUTTONTEXT',
-            onClick: otherButtonOnClick
-          }]
-        }
-      }
-    }
-
-    let store = createStore(reducer, initialState)
     let wrapper = shallow(
-      <Modal />,
-      { context: { store } }
+      <Modal />
     )
 
     expect(wrapper).toMatchSnapshot()

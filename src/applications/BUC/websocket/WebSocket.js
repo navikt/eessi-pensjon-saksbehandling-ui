@@ -46,11 +46,11 @@ const BucWebSocket = (props) => {
 
   return <div className='a-buc-websocket'>
     <div
-     className={classNames('a-buc-websocket__status', { rotating: status === UPDATING })}
-     title={'websocket: ' + status}>
-      {status === UPDATING ?
-      <Icons kind='refresh' /> :
-      <Icons kind={status === CONNECTED ? 'checkCircle' : 'removeCircle'}/> }
+      className={classNames('a-buc-websocket__status', { rotating: status === UPDATING })}
+      title={'websocket: ' + status}>
+      {status === UPDATING
+        ? <Icons kind='refresh' />
+        : <Icons kind={status === CONNECTED ? 'checkCircle' : 'removeCircle'} /> }
     </div>
     <Normaltekst className='a-buc-websocket__number ml-2'>
       {count}

@@ -38,7 +38,6 @@ const mapDispatchToProps = (dispatch) => {
 export const BUCPageIndex = (props) => {
   const { className, history, t } = props
 
-
   return <TopContainer
     className={classNames('a-buc-page', className)}
     t={t}
@@ -60,4 +59,3 @@ BUCPageIndex.propTypes = {
 const ConnectedBucPageIndexWithTranslation = connect(mapStateToProps, mapDispatchToProps)(withTranslation()(BUCPageIndex))
 ConnectedBucPageIndexWithTranslation.displayName = `Connect(${getDisplayName(withTranslation()(BUCPageIndex))})`
 export default ConnectedBucPageIndexWithTranslation
-

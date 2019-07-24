@@ -1,7 +1,7 @@
 import i18n from './i18n'
 
 describe('i18n', () => {
-  it ('initializes', () => {
+  it('initializes', () => {
     expect(i18n.options.lng).toEqual('nb')
     expect(i18n.options.fallbackLng.default).toEqual(['nb'])
     expect(i18n.options.debug).toEqual(false)

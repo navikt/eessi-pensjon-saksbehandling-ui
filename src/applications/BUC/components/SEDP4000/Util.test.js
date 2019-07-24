@@ -2,101 +2,99 @@ import Util from './Util'
 import _ from 'lodash'
 
 describe('applications/BUC/components/SEDP4000/Util', () => {
-
-   const mockPeriods = [{
-     type: 'work',
-     startDate: {day: '1', month: '1', year: '1970'},
-     endDate: {day: '1', month: '1', year: '1971'},
-     country: {value: 'mockCountry'},
-     workActivity: 'mockWorkActivity',
-     workName: 'mockWorkName',
-     workPlace: 'mockWorkPlace',
-     comment: 'mockWorkComment',
-     insuranceName: 'mockInsuranceName',
-     insuranceType: 'mockInsuranceType',
-     insuranceId: 'mockInsuranceId'
-   }, {
-     type: 'home',
-     startDate: {day: '1', month: '1', year: '1971'},
-     endDate: {day: '1', month: '1', year: '1972'},
-     country: {value: 'mockCountry'},
-     place: 'mockPlace',
-     comment: 'mockHomeComment'
-   }, {
-     type: 'learn',
-     startDate: {day: '1', month: '1', year: '1972'},
-     endDate: {day: '1', month: '1', year: '1973'},
-     country: {value: 'mockCountry'},
-     comment: 'mockLearnComment',
-     learnInstitution: 'mockLearnInstitution'
-   }, {
-     type: 'military',
-     startDate: {day: '1', month: '1', year: '1973'},
-     endDate: {day: '1', month: '1', year: '1974'},
-     country: {value: 'mockCountry'},
-     comment: 'mockMilitaryComment'
-   }, {
-     type: 'voluntary',
-     startDate: {day: '1', month: '1', year: '1974'},
-     endDate: {day: '1', month: '1', year: '1975'},
-     country: {value: 'mockCountry'},
-     comment: 'mockVoluntaryComment'
-   }, {
-     type: 'birth',
-     startDate: {day: '1', month: '1', year: '1975'},
-     endDate: {day: '1', month: '1', year: '1976'},
-     country: {value: 'mockCountry'},
-     comment: 'mockBirthComment'
-   }, {
-     type: 'child',
-     startDate: {day: '1', month: '1', year: '1976'},
-     endDate: {day: '1', month: '1', year: '1977'},
-     country: {value: 'mockCountry'},
-     comment: 'mockChildComment',
-     childFirstName: 'mockChildFirstName',
-     childLastName: 'mockChildLastName',
-     childBirthDate: {day: '1', month: '1', year: '1976'}
+  const mockPeriods = [{
+    type: 'work',
+    startDate: { day: '1', month: '1', year: '1970' },
+    endDate: { day: '1', month: '1', year: '1971' },
+    country: { value: 'mockCountry' },
+    workActivity: 'mockWorkActivity',
+    workName: 'mockWorkName',
+    workPlace: 'mockWorkPlace',
+    comment: 'mockWorkComment',
+    insuranceName: 'mockInsuranceName',
+    insuranceType: 'mockInsuranceType',
+    insuranceId: 'mockInsuranceId'
   }, {
-     type: 'daily',
-     startDate: {day: '1', month: '1', year: '1977'},
-     endDate: {day: '1', month: '1', year: '1978'},
-     country: {value: 'mockCountry'},
-     comment: 'mockDailyComment',
-     payingInstitution: 'mockPayingInstitution'
+    type: 'home',
+    startDate: { day: '1', month: '1', year: '1971' },
+    endDate: { day: '1', month: '1', year: '1972' },
+    country: { value: 'mockCountry' },
+    place: 'mockPlace',
+    comment: 'mockHomeComment'
   }, {
-     type: 'sick',
-     startDate: {day: '1', month: '1', year: '1978'},
-     endDate: {day: '1', month: '1', year: '1979'},
-     country: {value: 'mockCountry'},
-     comment: 'mockSickComment',
-     payingInstitution: 'mockPayingInstitution'
+    type: 'learn',
+    startDate: { day: '1', month: '1', year: '1972' },
+    endDate: { day: '1', month: '1', year: '1973' },
+    country: { value: 'mockCountry' },
+    comment: 'mockLearnComment',
+    learnInstitution: 'mockLearnInstitution'
   }, {
-     type: 'other',
-     startDate: {day: '1', month: '1', year: '1979'},
-     endDate: {day: '1', month: '1', year: '1980'},
-     country: {value: 'mockCountry'},
-     comment: 'mockOtherComment',
-     otherType: 'mockOtherType'
+    type: 'military',
+    startDate: { day: '1', month: '1', year: '1973' },
+    endDate: { day: '1', month: '1', year: '1974' },
+    country: { value: 'mockCountry' },
+    comment: 'mockMilitaryComment'
+  }, {
+    type: 'voluntary',
+    startDate: { day: '1', month: '1', year: '1974' },
+    endDate: { day: '1', month: '1', year: '1975' },
+    country: { value: 'mockCountry' },
+    comment: 'mockVoluntaryComment'
+  }, {
+    type: 'birth',
+    startDate: { day: '1', month: '1', year: '1975' },
+    endDate: { day: '1', month: '1', year: '1976' },
+    country: { value: 'mockCountry' },
+    comment: 'mockBirthComment'
+  }, {
+    type: 'child',
+    startDate: { day: '1', month: '1', year: '1976' },
+    endDate: { day: '1', month: '1', year: '1977' },
+    country: { value: 'mockCountry' },
+    comment: 'mockChildComment',
+    childFirstName: 'mockChildFirstName',
+    childLastName: 'mockChildLastName',
+    childBirthDate: { day: '1', month: '1', year: '1976' }
+  }, {
+    type: 'daily',
+    startDate: { day: '1', month: '1', year: '1977' },
+    endDate: { day: '1', month: '1', year: '1978' },
+    country: { value: 'mockCountry' },
+    comment: 'mockDailyComment',
+    payingInstitution: 'mockPayingInstitution'
+  }, {
+    type: 'sick',
+    startDate: { day: '1', month: '1', year: '1978' },
+    endDate: { day: '1', month: '1', year: '1979' },
+    country: { value: 'mockCountry' },
+    comment: 'mockSickComment',
+    payingInstitution: 'mockPayingInstitution'
+  }, {
+    type: 'other',
+    startDate: { day: '1', month: '1', year: '1979' },
+    endDate: { day: '1', month: '1', year: '1980' },
+    country: { value: 'mockCountry' },
+    comment: 'mockOtherComment',
+    otherType: 'mockOtherType'
   }]
 
-  it ('Initializes', () => {
-     const mockPinfo = {foo: 'bar'}
-     const util = new Util(mockPinfo)
-     expect(util.pinfo).toEqual(mockPinfo)
+  it('Initializes', () => {
+    const mockPinfo = { foo: 'bar' }
+    const util = new Util(mockPinfo)
+    expect(util.pinfo).toEqual(mockPinfo)
   })
 
-  it ('writeDate()', () => {
+  it('writeDate()', () => {
     const util = new Util({})
-    const mockDate = {day: '20', month: '10', year: '1980'}
+    const mockDate = { day: '20', month: '10', year: '1980' }
     expect(util.writeDate(mockDate)).toEqual('20.10.1980')
   })
 
-  it ('handleDate()', () => {
-
+  it('handleDate()', () => {
     const util = new Util({})
     const mockPeriod = {
-      startDate: {day: '1', month: '1', year: '1970'},
-      endDate: {day: '1', month: '1', year: '1980'}
+      startDate: { day: '1', month: '1', year: '1970' },
+      endDate: { day: '1', month: '1', year: '1980' }
     }
     expect(util.handleDate(mockPeriod)).toEqual({
       fom: '01.01.1970',
@@ -104,12 +102,12 @@ describe('applications/BUC/components/SEDP4000/Util', () => {
     })
   })
 
-  it ('handleCountry()', () => {
+  it('handleCountry()', () => {
     const util = new Util({})
-    expect(util.handleCountry({value: 'mockCountry'})).toEqual('mockCountry')
+    expect(util.handleCountry({ value: 'mockCountry' })).toEqual('mockCountry')
   })
 
-  it ('handleGenericPeriod()', () => {
+  it('handleGenericPeriod()', () => {
     const util = new Util({})
     const period = util.handleGenericPeriod(mockPeriods[0])
     expect(period.land).toEqual('mockCountry')
@@ -129,46 +127,46 @@ describe('applications/BUC/components/SEDP4000/Util', () => {
     expect(period.navnPaaInstitusjon).toEqual(undefined)
   })
 
-  it ('handleWorkPeriod()', () => {
-     const util = new Util({})
-     const period = util.handleWorkPeriod(_(mockPeriods).find(it => it.type === 'work'))
-     const genericPeriod = util.handleGenericPeriod(_(mockPeriods).find(it => it.type === 'work'))
-     expect(period).toEqual(genericPeriod)
+  it('handleWorkPeriod()', () => {
+    const util = new Util({})
+    const period = util.handleWorkPeriod(_(mockPeriods).find(it => it.type === 'work'))
+    const genericPeriod = util.handleGenericPeriod(_(mockPeriods).find(it => it.type === 'work'))
+    expect(period).toEqual(genericPeriod)
   })
 
-  it ('handleDailyOrSickPeriod()', () => {
-     const util = new Util({})
-     const period = util.handleDailyOrSickPeriod(_(mockPeriods).find(it => it.type === 'daily'))
-     expect(period.payingInstitution).toEqual('mockPayingInstitution')
+  it('handleDailyOrSickPeriod()', () => {
+    const util = new Util({})
+    const period = util.handleDailyOrSickPeriod(_(mockPeriods).find(it => it.type === 'daily'))
+    expect(period.payingInstitution).toEqual('mockPayingInstitution')
   })
 
-  it ('handleOtherPeriod()', () => {
-     const util = new Util({})
-     const period = util.handleOtherPeriod(_(mockPeriods).find(it => it.type === 'other'))
-     expect(period.otherType).toEqual('mockOtherType')
+  it('handleOtherPeriod()', () => {
+    const util = new Util({})
+    const period = util.handleOtherPeriod(_(mockPeriods).find(it => it.type === 'other'))
+    expect(period.otherType).toEqual('mockOtherType')
   })
 
-  it ('handleOtherPeriod()', () => {
-     const util = new Util({})
-     const period = util.handleChildPeriod(_(mockPeriods).find(it => it.type === 'child'))
-     expect(period.barnEtternavn).toEqual('mockChildLastName')
-     expect(period.barnFornavn).toEqual('mockChildFirstName')
-     expect(period.barnFoedseldato).toEqual('01.01.1976')
+  it('handleOtherPeriod()', () => {
+    const util = new Util({})
+    const period = util.handleChildPeriod(_(mockPeriods).find(it => it.type === 'child'))
+    expect(period.barnEtternavn).toEqual('mockChildLastName')
+    expect(period.barnFornavn).toEqual('mockChildFirstName')
+    expect(period.barnFoedseldato).toEqual('01.01.1976')
   })
 
-  it ('handleLearnPeriod()', () => {
-     const util = new Util({})
-     const period = util.handleLearnPeriod(_(mockPeriods).find(it => it.type === 'learn'))
-     expect(period.navnPaaInstitusjon).toEqual('mockLearnInstitution')
+  it('handleLearnPeriod()', () => {
+    const util = new Util({})
+    const period = util.handleLearnPeriod(_(mockPeriods).find(it => it.type === 'learn'))
+    expect(period.navnPaaInstitusjon).toEqual('mockLearnInstitution')
   })
 
-  it ('generatePayload()', () => {
+  it('generatePayload()', () => {
     const util = new Util(mockPeriods)
     const result = util.generatePayload()
     expect(result).toHaveProperty('periodeInfo')
   })
 
-  it ('generatePeriods()', () => {
+  it('generatePeriods()', () => {
     const util = new Util(mockPeriods)
     const result = util.generatePayload()
     expect(result.periodeInfo).toHaveProperty('ansattSelvstendigPerioder')

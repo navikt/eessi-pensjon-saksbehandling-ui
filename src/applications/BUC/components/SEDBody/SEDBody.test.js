@@ -3,7 +3,6 @@ import SEDBody from './SEDBody'
 import sampleBucs from 'resources/tests/sampleBucs'
 
 describe('applications/BUC/components/SEDBody/SEDBody', () => {
-
   const t = jest.fn((translationString) => { return translationString })
   const buc = sampleBucs[0]
   const seds = buc.seds
