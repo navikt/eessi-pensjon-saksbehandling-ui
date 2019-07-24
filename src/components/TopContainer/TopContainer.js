@@ -27,7 +27,6 @@ const mapDispatchToProps = () => {
 }
 
 export class TopContainer extends Component {
-
   render () {
     const { className, containerClassName, style, history, t, header, highContrast, fluid, remainingTime } = this.props
     /* how many minutes starts the warnings */

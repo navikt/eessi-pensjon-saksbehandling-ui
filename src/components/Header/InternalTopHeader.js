@@ -61,12 +61,11 @@ export class InternalTopHeader extends Component {
           <div className='tittel'><span>{t('app-headerTitle')}</span></div>
         </div>
         <div className='user'>
-          {isLoggingOut ?
-          <NavFrontendSpinner type='XS' />
-          :
-          <div className={classNames('mr-2', 'SAKSBEHANDLER')}>
-            <Icons kind='user' />
-          </div>}
+          {isLoggingOut
+            ? <NavFrontendSpinner type='XS' />
+            : <div className={classNames('mr-2', 'SAKSBEHANDLER')}>
+              <Icons kind='user' />
+            </div>}
           <div className='skillelinje' />
           <div className='mr-4 ml-2 align-middle name'>
             {gettingUserInfo ? t('buc:loading-gettingUserInfo')

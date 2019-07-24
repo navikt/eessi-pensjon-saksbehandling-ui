@@ -85,7 +85,7 @@ const BUCTools = (props) => {
       className='a-buc-c-buctools__save-button'
       disabled={loading.savingBucsInfo}
       onClick={onSaveButtonClick}>
-        {loading.savingBucsInfo ? t('ui:saving') : t('ui:change')}
+      {loading.savingBucsInfo ? t('ui:saving') : t('ui:change')}
     </Knapp>
   </EkspanderbartpanelBase>
 }

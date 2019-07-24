@@ -85,15 +85,15 @@ const BUCHeader = (props) => {
       </div>
       {bucInfo && bucInfo.tags && bucInfo.tags.length > 0
         ? <div
-            className='a-buc-c-bucheader__icon-tags'
-            title={bucInfo.tags.join(', ')}>
-            <Icons kind='problem' />
+          className='a-buc-c-bucheader__icon-tags'
+          title={bucInfo.tags.join(', ')}>
+          <Icons kind='problem' />
         </div> : null}
       {attachments.length > 0
         ? <div
-            className='a-buc-c-bucheader__icon-vedlegg pl-2 pr-2'
-            title={t('buc:form-youHaveXAttachmentsInBuc', { attachments: attachments.length })}>
-            <Icons kind='paperclip' />
+          className='a-buc-c-bucheader__icon-vedlegg pl-2 pr-2'
+          title={t('buc:form-youHaveXAttachmentsInBuc', { attachments: attachments.length })}>
+          <Icons kind='paperclip' />
         </div> : null}
     </div>
     <div className='a-buc-c-bucheader__actions col-3'>

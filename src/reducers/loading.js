@@ -429,7 +429,6 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
         status: status
       })
 
-
     case types.PINFO_SEND_SUCCESS:
     case types.PINFO_SEND_FAILURE:
       return Object.assign({}, state, {

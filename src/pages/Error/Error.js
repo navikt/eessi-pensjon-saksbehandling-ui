@@ -11,7 +11,7 @@ import './Error.css'
 
 class Error extends Component {
   render () {
-    const { t, history, location, type } = this.props
+    const { t, history, type } = this.props
     let title, description
 
     switch (type) {

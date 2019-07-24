@@ -111,7 +111,7 @@ const BUCEdit = (props) => {
           buc={buc}
           bucInfo={bucInfo}
           locale={locale}
-          institutionNames={institutionNames}/>
+          institutionNames={institutionNames} />
         <BUCTools className='mb-3'
           t={t}
           actions={actions}
@@ -121,7 +121,7 @@ const BUCEdit = (props) => {
           bucsInfo={bucsInfo}
           locale={locale}
           loading={loading}
-          tagList={tagList}/>
+          tagList={tagList} />
       </div>
     </Row>
   </div>

@@ -4,7 +4,6 @@ import { StoreProvider } from 'store'
 import reducer, { initialState } from 'reducer'
 
 describe('applications/BUC/components/Step1/Step1', () => {
-
   const t = jest.fn((translationString) => { return translationString })
   const initialMockProps = {
     t: t,
@@ -15,11 +14,11 @@ describe('applications/BUC/components/Step1/Step1', () => {
   let wrapper
 
   beforeEach(() => {
-      wrapper = mount(<StoreProvider initialState={initialState} reducer={reducer}>
-        <Suspense fallback={<div/>}>
-          <Step2 {...initialMockProps} />
-        </Suspense>
-      </StoreProvider>)
+    wrapper = mount(<StoreProvider initialState={initialState} reducer={reducer}>
+      <Suspense fallback={<div />}>
+        <Step2 {...initialMockProps} />
+      </Suspense>
+    </StoreProvider>)
   })
 
   it('Renders successfully', () => {

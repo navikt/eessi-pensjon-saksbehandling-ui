@@ -79,7 +79,7 @@ describe('joark actions', () => {
     expect(generatedResult).toMatchObject({
       fileName: expectedItem.tittel,
       contentType: 'application/pdf',
-      base64: sampleJoark.files[item.tittel]
+      base64: sampleJoark.files[expectedItem.tittel]
     })
   })
 })

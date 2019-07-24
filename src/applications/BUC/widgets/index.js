@@ -80,7 +80,7 @@ export const BUCWidgetIndex = (props) => {
         buc={buc}
         mode={mode}
       />
-      <BUCWebSocket onUpdate={onWebsocketUpdate} url={WEBSOCKET_URL}/>
+      <BUCWebSocket onUpdate={onWebsocketUpdate} url={WEBSOCKET_URL} />
     </div>
     {mode === 'buclist' ? <BUCList {...props} /> : null}
     {mode === 'bucedit' ? <BUCEdit {...props} /> : null}

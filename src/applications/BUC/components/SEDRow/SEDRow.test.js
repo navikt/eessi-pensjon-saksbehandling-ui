@@ -3,7 +3,6 @@ import SEDRow from './SEDRow'
 import sampleBucs from 'resources/tests/sampleBucs'
 
 describe('applications/BUC/components/SEDRow/SEDRow', () => {
-
   const t = jest.fn((translationString) => { return translationString })
   const buc = sampleBucs[0]
   let sed = buc.seds[0]

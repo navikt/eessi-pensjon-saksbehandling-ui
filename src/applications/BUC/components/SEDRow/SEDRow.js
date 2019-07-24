@@ -46,8 +46,8 @@ const SEDRow = (props) => {
           title={t('buc:form-youHaveXAttachmentsInSed', { attachments: sed.attachments.length })}>
           <Icons kind='paperclip' />
         </div> : null}
-        {sed.status === 'received' ?
-          <Flatknapp mini
+        {sed.status === 'received'
+          ? <Flatknapp mini
             className='a-buc-c-sedrow__actions-answer-button'
             onClick={onSEDNew}>
             {t('buc:form-answerSED')}

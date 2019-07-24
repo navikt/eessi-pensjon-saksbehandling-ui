@@ -31,12 +31,12 @@ describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
     expect(wrapper.exists('#a-buc-bucempty__sakid-button-id')).toEqual(true)
   })
 
-  it('renders, without forms when aktoerId and sakId',  () => {
-    let mockProps = {...initialMockProps,
+  it('renders, without forms when aktoerId and sakId', () => {
+    let mockProps = { ...initialMockProps,
       aktoerId: '123',
-      sakId : '456'
+      sakId: '456'
     }
-    wrapper = mount(<BUCEmpty {...mockProps}/>)
+    wrapper = mount(<BUCEmpty {...mockProps} />)
     expect(wrapper.exists('#a-buc-bucempty__aktoerid-input-id')).toEqual(false)
     expect(wrapper.exists('#a-buc-bucempty__aktoerid-button-id')).toEqual(false)
     expect(wrapper.exists('#a-buc-bucempty__sakid-input-id')).toEqual(false)
@@ -44,20 +44,20 @@ describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
   })
 
   it('goes to bucnew when button pressed', () => {
-    wrapper = mount(<BUCEmpty {...initialMockProps}/>)
+    wrapper = mount(<BUCEmpty {...initialMockProps} />)
     wrapper.find('#a-buc-bucempty__newbuc-link-id').hostNodes().simulate('click')
     expect(initialMockProps.onBUCNew).toHaveBeenCalled()
   })
 
   it('can add aktoerId and sakId', () => {
     wrapper = mount(<BUCEmpty {...initialMockProps} />)
-    wrapper.find('#a-buc-bucempty__aktoerid-input-id').hostNodes().simulate('change', {target: {value: '123'}})
+    wrapper.find('#a-buc-bucempty__aktoerid-input-id').hostNodes().simulate('change', { target: { value: '123' } })
     wrapper.update()
     wrapper.find('#a-buc-bucempty__aktoerid-button-id').hostNodes().simulate('click')
     wrapper.update()
     expect(initialMockProps.actions.setStatusParam).toBeCalledWith('aktoerId', '123')
 
-    wrapper.find('#a-buc-bucempty__sakid-input-id').hostNodes().simulate('change', {target: {value: '123'}})
+    wrapper.find('#a-buc-bucempty__sakid-input-id').hostNodes().simulate('change', { target: { value: '123' } })
     wrapper.update()
     wrapper.find('#a-buc-bucempty__sakid-button-id').hostNodes().simulate('click')
     wrapper.update()

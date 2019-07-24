@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import Period from './Period'
 
 const t = jest.fn((translationString) => { return translationString })
@@ -12,10 +12,10 @@ const initialMockProps = {
     id: 1,
     country: {
       label: 'Norge',
-      value: 'NO',
+      value: 'NO'
     },
-    startDate: {day: '1', month: '1', year: '1970'},
-    endDate: {day: '1', month: '1', year: '1980'},
+    startDate: { day: '1', month: '1', year: '1970' },
+    endDate: { day: '1', month: '1', year: '1980' },
     type: 'military',
     place: 'mockPlace',
     comment: 'mockComment',
@@ -31,23 +31,22 @@ const initialMockProps = {
 }
 
 describe('applications/BUC/components/SEDP4000/Period - view/confirm mode', () => {
-
   it('Renders without crashing', () => {
-    const wrapper = mount(<Period {...initialMockProps} mode='view'/>)
+    const wrapper = mount(<Period {...initialMockProps} mode='view' />)
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Renders', () => {
-    const mockProps = {...initialMockProps,
-      period: {...initialMockProps.period,
+    const mockProps = { ...initialMockProps,
+      period: { ...initialMockProps.period,
         type: 'work',
         workActivity: 'mockWorkActivity',
         workPlace: 'mockWorkPlace',
-        workName: 'mockWorkName',
+        workName: 'mockWorkName'
       }
     }
-    const wrapper = mount(<Period {...mockProps} mode='view'/>)
+    const wrapper = mount(<Period {...mockProps} mode='view' />)
     expect(wrapper.exists('Period')).toEqual(true)
 
     let period = wrapper.find('.a-buc-c-sedp4000-period.view').hostNodes()
@@ -71,7 +70,7 @@ describe('applications/BUC/components/SEDP4000/Period - view/confirm mode', () =
   })
 
   it('Change button changes mode from view to edit', () => {
-    const wrapper = mount(<Period {...initialMockProps} mode='view'/>)
+    const wrapper = mount(<Period {...initialMockProps} mode='view' />)
     let periodButtons = wrapper.find('.a-buc-c-sedp4000-period.view .existingPeriodButtons').hostNodes()
     periodButtons.find('.change').hostNodes().simulate('click')
     wrapper.update()
@@ -79,52 +78,50 @@ describe('applications/BUC/components/SEDP4000/Period - view/confirm mode', () =
   })
 
   it('Remove button opens a modal for deletion prompt', () => {
-    const wrapper = mount(<Period {...initialMockProps} mode='view'/>)
+    const wrapper = mount(<Period {...initialMockProps} mode='view' />)
     let periodButtons = wrapper.find('.a-buc-c-sedp4000-period.view .existingPeriodButtons').hostNodes()
     periodButtons.find('.remove').hostNodes().simulate('click')
     expect(initialMockProps.actions.openModal).toHaveBeenCalled()
   })
 })
 
-
 describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
-
   it('Renders without crashing', () => {
-    const wrapper = mount(<Period {...initialMockProps} mode='edit'/>)
+    const wrapper = mount(<Period {...initialMockProps} mode='edit' />)
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Render period in edit mode', () => {
-    const wrapper = mount(<Period {...initialMockProps} mode='edit'/>)
+    const wrapper = mount(<Period {...initialMockProps} mode='edit' />)
     expect(wrapper.exists('Period')).toEqual(true)
     expect(wrapper.find('.a-buc-c-sedp4000-period__title').hostNodes().render().text()).toEqual('buc:p4000-period-edit')
   })
 
   it('Has the right buttons in new mode', () => {
-    const wrapper = mount(<Period {...initialMockProps} mode='new'/>)
+    const wrapper = mount(<Period {...initialMockProps} mode='new' />)
     expect(wrapper.exists('#a-buc-c-sedp4000-period__edit-button-id')).toEqual(false)
     expect(wrapper.exists('#a-buc-c-sedp4000-period__save-button-id')).toEqual(true)
     expect(wrapper.exists('#a-buc-c-sedp4000-period__cancel-button-id')).toEqual(true)
   })
 
   it('Has the right buttons in edit mode', () => {
-    const wrapper = mount(<Period {...initialMockProps} mode='edit'/>)
+    const wrapper = mount(<Period {...initialMockProps} mode='edit' />)
     expect(wrapper.exists('#a-buc-c-sedp4000-period__edit-button-id')).toEqual(true)
     expect(wrapper.exists('#a-buc-c-sedp4000-period__save-button-id')).toEqual(false)
     expect(wrapper.exists('#a-buc-c-sedp4000-period__cancel-button-id')).toEqual(true)
   })
 
   it('Renders work edit', () => {
-    const mockProps = {...initialMockProps,
-      period: {...initialMockProps.period,
+    const mockProps = { ...initialMockProps,
+      period: { ...initialMockProps.period,
         type: 'work',
         workActivity: 'mockWorkActivity',
         workPlace: 'mockWorkPlace',
-        workName: 'mockWorkName',
+        workName: 'mockWorkName'
       }
     }
-    const wrapper = mount(<Period {...mockProps} mode='edit'/>)
+    const wrapper = mount(<Period {...mockProps} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('work')
     expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-work')
     expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
@@ -133,7 +130,7 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
     expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toEqual(true)
     expect(wrapper.exists('.a-buc-c-sedp4000-period__uncertainDate-checkbox')).toEqual(true)
 
-    //expect(wrapper.find('#a-buc-c-sedp4000-period__land-select-id').hostNodes().props().value).toEqual('NO')
+    // expect(wrapper.find('#a-buc-c-sedp4000-period__land-select-id').hostNodes().props().value).toEqual('NO')
     expect(wrapper.find('#a-buc-c-sedp4000-period__arbeidgiverssted-textarea-id').hostNodes().props().value).toEqual('mockWorkPlace')
     expect(wrapper.find('#a-buc-c-sedp4000-period__yrkesaktivitet-input-id').hostNodes().props().value).toEqual('mockWorkActivity')
     expect(wrapper.find('#a-buc-c-sedp4000-period__arbeidgiversnavn-input-id').hostNodes().props().value).toEqual('mockWorkName')
@@ -142,14 +139,13 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
     expect(wrapper.exists('#a-buc-c-sedp4000-period__vedlegg-fileupload-id')).toEqual(true)
   })
 
-
   it('Renders home edit', () => {
-    const mockProps = {...initialMockProps,
-      period: {...initialMockProps.period,
+    const mockProps = { ...initialMockProps,
+      period: { ...initialMockProps.period,
         type: 'home'
       }
     }
-    const wrapper = mount(<Period {...mockProps} mode='edit'/>)
+    const wrapper = mount(<Period {...mockProps} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('home')
     expect(wrapper.find('.a-buc-c-sedp4000-period__alert_home').hostNodes().render().text()).toEqual('buc:p4000-warning-home-period')
     expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-home')
@@ -159,7 +155,7 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
     expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toEqual(true)
     expect(wrapper.exists('.a-buc-c-sedp4000-period__uncertainDate-checkbox')).toEqual(true)
 
-    //expect(wrapper.find('#a-buc-c-sedp4000-period__land-select-id').hostNodes().props().value).toEqual('NO')
+    // expect(wrapper.find('#a-buc-c-sedp4000-period__land-select-id').hostNodes().props().value).toEqual('NO')
     expect(wrapper.find('#a-buc-c-sedp4000-period__bosted-place-textarea-id').hostNodes().props().value).toEqual('mockPlace')
 
     expect(wrapper.find('#a-buc-c-sedp4000-period__comment-id').hostNodes().props().value).toEqual('mockComment')
@@ -167,13 +163,13 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
   })
 
   it('Renders learn edit', () => {
-     const mockProps = {...initialMockProps,
-       period: {...initialMockProps.period,
-         type: 'learn',
-         learnInstitution: 'mockLearnInstitution'
-       }
-     }
-    const wrapper = mount(<Period {...mockProps} mode='edit'/>)
+    const mockProps = { ...initialMockProps,
+      period: { ...initialMockProps.period,
+        type: 'learn',
+        learnInstitution: 'mockLearnInstitution'
+      }
+    }
+    const wrapper = mount(<Period {...mockProps} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('learn')
     expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-learn')
     expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
@@ -182,7 +178,7 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
     expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toEqual(true)
     expect(wrapper.exists('.a-buc-c-sedp4000-period__uncertainDate-checkbox')).toEqual(true)
 
-    //expect(wrapper.find('#a-buc-c-sedp4000-period__land-select-id').hostNodes().props().value).toEqual('NO')
+    // expect(wrapper.find('#a-buc-c-sedp4000-period__land-select-id').hostNodes().props().value).toEqual('NO')
     expect(wrapper.find('#a-buc-c-sedp4000-period__opplaeringsinstitusjonsnavn-input-id').hostNodes().props().value).toEqual('mockLearnInstitution')
 
     expect(wrapper.find('#a-buc-c-sedp4000-period__comment-id').hostNodes().props().value).toEqual('mockComment')
@@ -190,13 +186,13 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
   })
 
   it('Renders other edit', () => {
-    const mockProps = {...initialMockProps,
-      period: {...initialMockProps.period,
+    const mockProps = { ...initialMockProps,
+      period: { ...initialMockProps.period,
         type: 'other',
         otherType: 'mockOtherType'
       }
     }
-    const wrapper = mount(<Period {...mockProps} mode='edit'/>)
+    const wrapper = mount(<Period {...mockProps} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('other')
     expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-other')
     expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
@@ -205,22 +201,21 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
     expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toEqual(true)
     expect(wrapper.exists('.a-buc-c-sedp4000-period__uncertainDate-checkbox')).toEqual(true)
 
-   // expect(wrapper.find('#a-buc-c-sedp4000-period__land-select-id').hostNodes().props().value).toEqual('NO')
+    // expect(wrapper.find('#a-buc-c-sedp4000-period__land-select-id').hostNodes().props().value).toEqual('NO')
     expect(wrapper.find('#a-buc-c-sedp4000-period__andre-input-id').hostNodes().props().value).toEqual('mockOtherType')
 
     expect(wrapper.find('#a-buc-c-sedp4000-period__comment-id').hostNodes().props().value).toEqual('mockComment')
     expect(wrapper.exists('#a-buc-c-sedp4000-period__vedlegg-fileupload-id')).toEqual(true)
-
   })
 
   it('Renders daily edit', () => {
-    const mockProps = {...initialMockProps,
-      period: {...initialMockProps.period,
+    const mockProps = { ...initialMockProps,
+      period: { ...initialMockProps.period,
         type: 'daily',
         payingInstitution: 'mockPayingInstitution'
       }
     }
-    const wrapper = mount(<Period {...mockProps} mode='edit'/>)
+    const wrapper = mount(<Period {...mockProps} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('daily')
     expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-daily')
     expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
@@ -229,7 +224,7 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
     expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toEqual(true)
     expect(wrapper.exists('.a-buc-c-sedp4000-period__uncertainDate-checkbox')).toEqual(true)
 
-    //expect(wrapper.find('#a-buc-c-sedp4000-period__land-select-id').hostNodes().props().value).toEqual('NO')
+    // expect(wrapper.find('#a-buc-c-sedp4000-period__land-select-id').hostNodes().props().value).toEqual('NO')
     expect(wrapper.find('#a-buc-c-sedp4000-period__betalende-institusjon-input-id').hostNodes().props().value).toEqual('mockPayingInstitution')
 
     expect(wrapper.find('#a-buc-c-sedp4000-period__comment-id').hostNodes().props().value).toEqual('mockComment')
@@ -237,13 +232,13 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
   })
 
   it('Renders sick edit', () => {
-    const mockProps = {...initialMockProps,
-      period: {...initialMockProps.period,
+    const mockProps = { ...initialMockProps,
+      period: { ...initialMockProps.period,
         type: 'sick',
         payingInstitution: 'mockPayingInstitution'
       }
     }
-    const wrapper = mount(<Period {...mockProps} mode='edit'/>)
+    const wrapper = mount(<Period {...mockProps} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('sick')
     expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-sick')
     expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
@@ -252,7 +247,7 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
     expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toEqual(true)
     expect(wrapper.exists('.a-buc-c-sedp4000-period__uncertainDate-checkbox')).toEqual(true)
 
-    //expect(wrapper.find('#a-buc-c-sedp4000-period__land-select-id').hostNodes().props().value).toEqual('NO')
+    // expect(wrapper.find('#a-buc-c-sedp4000-period__land-select-id').hostNodes().props().value).toEqual('NO')
     expect(wrapper.find('#a-buc-c-sedp4000-period__betalende-institusjon-input-id').hostNodes().props().value).toEqual('mockPayingInstitution')
 
     expect(wrapper.find('#a-buc-c-sedp4000-period__comment-id').hostNodes().props().value).toEqual('mockComment')
@@ -260,15 +255,15 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
   })
 
   it('Renders child edit', () => {
-    const mockProps = {...initialMockProps,
-      period: {...initialMockProps.period,
+    const mockProps = { ...initialMockProps,
+      period: { ...initialMockProps.period,
         type: 'child',
         childFirstName: 'mockChildFirstName',
         childLastName: 'mockChildLastName',
-        childBirthDate: {day: '1', month: '1', year: '2000'}
+        childBirthDate: { day: '1', month: '1', year: '2000' }
       }
     }
-    const wrapper = mount(<Period {...mockProps} mode='edit'/>)
+    const wrapper = mount(<Period {...mockProps} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('child')
     expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-child')
     expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
@@ -277,7 +272,7 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
     expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toEqual(true)
     expect(wrapper.exists('.a-buc-c-sedp4000-period__uncertainDate-checkbox')).toEqual(true)
 
-   // expect(wrapper.find('#a-buc-c-sedp4000-period__land-select-id').hostNodes().props().value).toEqual('NO')
+    // expect(wrapper.find('#a-buc-c-sedp4000-period__land-select-id').hostNodes().props().value).toEqual('NO')
     expect(wrapper.find('#a-buc-c-sedp4000-period__omsorgforbarn-etternavn-input-id').hostNodes().props().value).toEqual('mockChildLastName')
     expect(wrapper.find('#a-buc-c-sedp4000-period__omsorgforbarn-fornavn-input-id').hostNodes().props().value).toEqual('mockChildFirstName')
     expect(wrapper.exists('#a-buc-c-sedp4000-period__omsorgforbarn-fodelsdato-date-id')).toEqual(true)
@@ -287,59 +282,59 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
   })
 
   it('Renders military edit', () => {
-     const mockProps = {...initialMockProps,
-       period: {...initialMockProps.period,
-         type: 'military'
-       }
-     }
-     const wrapper = mount(<Period {...mockProps} mode='edit'/>)
-     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('military')
-     expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-military')
-     expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
+    const mockProps = { ...initialMockProps,
+      period: { ...initialMockProps.period,
+        type: 'military'
+      }
+    }
+    const wrapper = mount(<Period {...mockProps} mode='edit' />)
+    expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('military')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-military')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
 
-     expect(wrapper.exists('.a-buc-c-sedp4000-period__startDate')).toEqual(true)
-     expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toEqual(true)
-     expect(wrapper.exists('.a-buc-c-sedp4000-period__uncertainDate-checkbox')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-sedp4000-period__startDate')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-sedp4000-period__uncertainDate-checkbox')).toEqual(true)
 
-     expect(wrapper.find('#a-buc-c-sedp4000-period__comment-id').hostNodes().props().value).toEqual('mockComment')
-     expect(wrapper.exists('#a-buc-c-sedp4000-period__vedlegg-fileupload-id')).toEqual(true)
-   })
+    expect(wrapper.find('#a-buc-c-sedp4000-period__comment-id').hostNodes().props().value).toEqual('mockComment')
+    expect(wrapper.exists('#a-buc-c-sedp4000-period__vedlegg-fileupload-id')).toEqual(true)
+  })
 
   it('Renders voluntary edit', () => {
-     const mockProps = {...initialMockProps,
-       period: {...initialMockProps.period,
-         type: 'voluntary'
-       }
-     }
-     const wrapper = mount(<Period {...mockProps} mode='edit'/>)
-     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('voluntary')
-     expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-voluntary')
-     expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
+    const mockProps = { ...initialMockProps,
+      period: { ...initialMockProps.period,
+        type: 'voluntary'
+      }
+    }
+    const wrapper = mount(<Period {...mockProps} mode='edit' />)
+    expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('voluntary')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-voluntary')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
 
-     expect(wrapper.exists('.a-buc-c-sedp4000-period__startDate')).toEqual(true)
-     expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toEqual(true)
-     expect(wrapper.exists('.a-buc-c-sedp4000-period__uncertainDate-checkbox')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-sedp4000-period__startDate')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-sedp4000-period__uncertainDate-checkbox')).toEqual(true)
 
-     expect(wrapper.find('#a-buc-c-sedp4000-period__comment-id').hostNodes().props().value).toEqual('mockComment')
-     expect(wrapper.exists('#a-buc-c-sedp4000-period__vedlegg-fileupload-id')).toEqual(true)
-   })
+    expect(wrapper.find('#a-buc-c-sedp4000-period__comment-id').hostNodes().props().value).toEqual('mockComment')
+    expect(wrapper.exists('#a-buc-c-sedp4000-period__vedlegg-fileupload-id')).toEqual(true)
+  })
 
   it('Renders birth edit', () => {
-     const mockProps = {...initialMockProps,
-       period: {...initialMockProps.period,
-         type: 'birth'
-       }
-     }
-     const wrapper = mount(<Period {...mockProps} mode='edit'/>)
-     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('birth')
-     expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-birth')
-     expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
+    const mockProps = { ...initialMockProps,
+      period: { ...initialMockProps.period,
+        type: 'birth'
+      }
+    }
+    const wrapper = mount(<Period {...mockProps} mode='edit' />)
+    expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('birth')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-birth')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
 
-     expect(wrapper.exists('.a-buc-c-sedp4000-period__startDate')).toEqual(true)
-     expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toEqual(true)
-     expect(wrapper.exists('.a-buc-c-sedp4000-period__uncertainDate-checkbox')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-sedp4000-period__startDate')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-sedp4000-period__uncertainDate-checkbox')).toEqual(true)
 
-     expect(wrapper.find('#a-buc-c-sedp4000-period__comment-id').hostNodes().props().value).toEqual('mockComment')
-     expect(wrapper.exists('#a-buc-c-sedp4000-period__vedlegg-fileupload-id')).toEqual(true)
-   })
+    expect(wrapper.find('#a-buc-c-sedp4000-period__comment-id').hostNodes().props().value).toEqual('mockComment')
+    expect(wrapper.exists('#a-buc-c-sedp4000-period__vedlegg-fileupload-id')).toEqual(true)
+  })
 })

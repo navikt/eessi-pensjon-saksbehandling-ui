@@ -10,8 +10,8 @@ import * as CountryFilter from 'components/CountrySelect/CountryFilter'
 import FocusGroup from 'components/FocusGroup'
 import Flag from 'components/Flag/Flag'
 import FileUpload from 'components/FileUpload/FileUpload'
-import { AlertStripe, Checkbox, Flatknapp, HjelpetekstAuto, Hovedknapp, Input } from 'components/Nav'
-import { Knapp, Normaltekst, Row, Textarea, Select, Undertittel, Undertekst, UndertekstBold } from 'components/Nav'
+import { AlertStripe, Checkbox, Flatknapp, HjelpetekstAuto, Hovedknapp, Input,
+  Knapp, Normaltekst, Row, Textarea, Select, Undertittel, Undertekst, UndertekstBold } from 'components/Nav'
 import Icons from 'components/Icons'
 import { pinfoDateToDate } from 'utils/Date'
 import { periodValidation } from './Validation/singleTests'
@@ -329,8 +329,8 @@ const Period = (props) => {
         {_errorMessage ? <AlertStripe
           className='a-buc-c-sedp4000-period__alert mt-4 mb-4'
           type='advarsel'>
-            {t(_errorMessage)}
-          </AlertStripe> : null}
+          {t(_errorMessage)}
+        </AlertStripe> : null}
         <Undertittel className='a-buc-c-sedp4000-period__title mt-5 mb-2'>{t('buc:p4000-period-' + mode)}</Undertittel>
         <Row className={mode}>
           <div className='col-sm-8'>
@@ -359,13 +359,13 @@ const Period = (props) => {
           </div>
         </Row>
         { period.type ? <React.Fragment>
-          {period.type === 'home' ?
-            <AlertStripe
+          {period.type === 'home'
+            ? <AlertStripe
               className='a-buc-c-sedp4000-period__alert_home mt-4 mb-4'
               type='advarsel'>
               {t('buc:p4000-warning-home-period')}
-            </AlertStripe> :
-            null }
+            </AlertStripe>
+            : null }
           <Undertittel className='a-buc-c-sedp4000-period__subtitle mt-5 mb-2'>
             {t(`buc:p4000-period-title-${period.type}`)}
           </Undertittel>
@@ -443,7 +443,7 @@ const Period = (props) => {
                   <div className='a-buc-c-sedp4000-period__label'>
                     <UndertekstBold>{t('buc:p4000-work-place')}</UndertekstBold>
                     <HjelpetekstAuto id='p4000-work-place-help'>
-                       {t('buc:p4000-work-place-help')}
+                      {t('buc:p4000-work-place-help')}
                     </HjelpetekstAuto>
                   </div>
                   <Normaltekst className='optional'>{t('ui:optional')}</Normaltekst>
@@ -600,21 +600,21 @@ const Period = (props) => {
               </div>
             </Row> : null}
           {period.type === 'home'
-          ? <Row>
-            <div className='col-sm-12'>
-              <Textarea
-                id='a-buc-c-sedp4000-period__bosted-place-textarea-id'
-                className='a-buc-c-sedp4000-period__bosted-place-textarea'
-                label={t('buc:p4000-place')}
-                placeholder={t('ui:writeIn')}
-                value={period.place || ''}
-                style={{ minHeight: '100px' }}
-                maxLength={100}
-                onChange={setPlace}
-                feil={localErrors.place ? { feilmelding: t(localErrors.place) } : null}
-              />
-            </div>
-          </Row> : null}
+            ? <Row>
+              <div className='col-sm-12'>
+                <Textarea
+                  id='a-buc-c-sedp4000-period__bosted-place-textarea-id'
+                  className='a-buc-c-sedp4000-period__bosted-place-textarea'
+                  label={t('buc:p4000-place')}
+                  placeholder={t('ui:writeIn')}
+                  value={period.place || ''}
+                  style={{ minHeight: '100px' }}
+                  maxLength={100}
+                  onChange={setPlace}
+                  feil={localErrors.place ? { feilmelding: t(localErrors.place) } : null}
+                />
+              </div>
+            </Row> : null}
           <Row>
             <div className='col-sm-12'>
               <Undertittel className='mt-5 mb-2'>{t('buc:p4000-comment')}</Undertittel>
@@ -659,7 +659,7 @@ const Period = (props) => {
                 files={period.attachments || []}
                 onFileChange={(newFiles) => setAttachments(newFiles)}
                 openModal={actions.openModal}
-                closeModal={actions.closeModal}/>
+                closeModal={actions.closeModal} />
             </div>
           </Row>
           <Row>

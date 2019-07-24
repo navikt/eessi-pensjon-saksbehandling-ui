@@ -187,7 +187,7 @@ const BUCStart = (props) => {
   }
 
   if (!sakId || !aktoerId) {
-     return null
+    return null
   }
 
   return <div className='a-buc-c-bucstart'>

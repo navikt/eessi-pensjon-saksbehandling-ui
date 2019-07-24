@@ -1,5 +1,3 @@
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
 import * as appActions from 'actions/app'
 import * as api from 'actions/api'
 import * as types from 'constants/actionTypes'
@@ -8,8 +6,6 @@ import samplePerson from 'resources/tests/samplePerson'
 var sprintf = require('sprintf-js').sprintf
 
 urls.HOST = 'notlocalhost'
-
-const mockStore = configureMockStore([thunk])
 
 describe('app actions', () => {
   beforeAll(() => {

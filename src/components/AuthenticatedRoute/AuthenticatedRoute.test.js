@@ -1,6 +1,5 @@
 import React from 'react'
 import { AuthenticatedRoute } from './AuthenticatedRoute'
-import * as constants from '../../constants/constants'
 import { MemoryRouter } from 'react-router'
 
 describe('components/AuthenticatedRoute', () => {

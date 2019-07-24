@@ -31,7 +31,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as icons from '@fortawesome/free-solid-svg-icons'
 
 const Icons = (props) => {
-
   const { kind, size } = props
   const h = parseInt(size, 10) || 24; const w = h
 

@@ -174,7 +174,7 @@ const Step1 = (props) => {
   let institutionValueList = []
   if (institutionList && _institutions) {
     institutionValueList = _institutions.map(item => {
-      const [country ] = item.split(':')
+      const [ country ] = item.split(':')
       const found = _.find(institutionList[country], { id: item })
       return {
         label: found.navn,
