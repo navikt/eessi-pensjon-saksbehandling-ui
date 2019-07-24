@@ -1,4 +1,4 @@
-import * as Widgets from '../../../../widgets'
+import * as Widgets from 'widgets'
 
 export default [
   Widgets.EkspandertBartWidget.properties,

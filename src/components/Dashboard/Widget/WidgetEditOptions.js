@@ -1,6 +1,6 @@
 import React from 'react'
 
-import * as Widgets from '../../../../widgets'
+import * as Widgets from 'widgets'
 
 const WidgetEditOptions = (props) => {
   switch (props.widget.type) {

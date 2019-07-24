@@ -3,12 +3,12 @@ import PT from 'prop-types'
 import { connect, bindActionCreators } from 'store'
 import classNames from 'classnames'
 
-import * as uiActions from '../../../actions/ui'
-import * as appActions from '../../../actions/app'
-import * as Nav from '../Nav'
+import * as uiActions from 'actions/ui'
+import * as appActions from 'actions/app'
+import * as Nav from 'components/Nav'
+import { getDisplayName } from 'utils/displayName'
 
 import './Footer.css'
-import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {

@@ -3,18 +3,16 @@ import { connect, bindActionCreators } from 'store'
 import PT from 'prop-types'
 import classNames from 'classnames'
 
-import AdvarselTrekant from '../../../resources/images/AdvarselTrekant'
-import Icons from '../Icons'
-import { NavFrontendSpinner, Select, Systemtittel } from '../Nav'
-
-import * as routes from '../../../constants/routes'
-
-import NavLogoTransparent from '../../../resources/images/NavLogoTransparent'
-import * as appActions from '../../../actions/app'
-import * as uiActions from '../../../actions/ui'
+import Icons from 'components/Icons'
+import { NavFrontendSpinner, Select, Systemtittel } from 'components/Nav'
+import * as routes from 'constants/routes'
+import AdvarselTrekant from 'resources/images/AdvarselTrekant'
+import NavLogoTransparent from 'resources/images/NavLogoTransparent'
+import * as appActions from 'actions/app'
+import * as uiActions from 'actions/ui'
+import { getDisplayName } from 'utils/displayName'
 
 import './InternalTopHeader.css'
-import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {

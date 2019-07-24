@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { connect, bindActionCreators } from 'store'
 
-import * as uiActions from '../../../actions/ui'
+import * as uiActions from 'actions/ui'
+import { getDisplayName } from 'utils/displayName'
+
 import './Banner.css'
-import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {}
