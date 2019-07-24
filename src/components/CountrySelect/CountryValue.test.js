@@ -1,29 +1,34 @@
 import React from 'react'
 import CountryValue from './CountryValue'
 
-describe('CountryValue Rendering', () => {
-  it('Renders correctly', () => {
-    let selectProps = { selectProps: { type: 'country' } }
+describe('components/CountrySelect/CountryValue', () => {
 
-    let testData = {
-      'value': 'NO',
-      'label': 'Norway',
-      'currency': 'NOK',
-      'currencyLabel': 'Norwegian Kroner'
+  const initialMockProps = {
+    selectProps: { selectProps: { type: 'country' } },
+    data: {
+      value: 'NO',
+      value3: 'NOR',
+      label: 'Norway',
+      currency: 'NOK',
+      currencyLabel: 'Norsk Krone'
     }
+  }
 
-    let wrapper = shallow(<CountryValue selectProps={selectProps} data={testData} />)
-
+  it('Renders', () => {
+    let wrapper = mount(<CountryValue {...initialMockProps} />)
+    expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
+  })
 
-    expect(wrapper.isEmptyRender()).toEqual(false)
-    expect(wrapper.children().length).toEqual(2)
-    expect(wrapper.childAt(1).text()).toEqual('Norway')
+  it('Has proper HTML structure: country select', () => {
+    let wrapper = mount(<CountryValue {...initialMockProps} />)
+    expect(wrapper.children().hostNodes().length).toEqual(1)
+    expect(wrapper.render().text()).toEqual('Norway')
+  })
 
-    wrapper.setProps({ selectProps: { selectProps: { type: 'currency' } } })
-
-    expect(wrapper.isEmptyRender()).toEqual(false)
-    expect(wrapper.children().length).toEqual(2)
-    expect(wrapper.childAt(1).text()).toEqual('NOK - Norwegian Kroner')
+  it('Has proper HTML structure: currency select', () => {
+    let wrapper = mount(<CountryValue {...initialMockProps} selectProps={{ selectProps: { type: 'currency' } }}/>)
+    expect(wrapper.children().hostNodes().length).toEqual(1)
+    expect(wrapper.render().text()).toEqual('NOK - Norsk Krone')
   })
 })
