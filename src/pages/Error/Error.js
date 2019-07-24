@@ -3,9 +3,9 @@ import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
-import TopContainer from '../../components/ui/TopContainer/TopContainer'
-import Psycho from '../../components/ui/Psycho/Psycho'
-import * as Nav from '../../components/ui/Nav'
+import TopContainer from '../../components/TopContainer/TopContainer'
+import Psycho from '../../components/Psycho/Psycho'
+import * as Nav from '../../components/Nav'
 
 import './Error.css'
 

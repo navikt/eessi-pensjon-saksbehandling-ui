@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import _ from 'lodash'
 import PT from 'prop-types'
-import { Checkbox, EtikettLiten, Input, NavFrontendSpinner, Normaltekst, UndertekstBold } from 'components/ui/Nav'
+import { Checkbox, EtikettLiten, Input, NavFrontendSpinner, Normaltekst, UndertekstBold } from 'components/Nav'
 
 import './TableSorter.css'
 

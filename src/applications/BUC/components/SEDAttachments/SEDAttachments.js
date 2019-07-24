@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PT from 'prop-types'
-import { Knapp, Stegindikator, Undertittel } from 'components/ui/Nav'
-import Icons from 'components/ui/Icons'
+import { Knapp, Stegindikator, Undertittel } from 'components/Nav'
+import Icons from 'components/Icons'
 import Step1 from './Step1'
 import Step2 from './Step2'
 

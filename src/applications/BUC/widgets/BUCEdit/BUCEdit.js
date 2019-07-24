@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { Knapp, Row } from 'components/ui/Nav'
+import { Knapp, Row } from 'components/Nav'
 import SEDRow from 'applications/BUC/components/SEDRow/SEDRow'
 import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
-import CountryData from 'components/ui/CountryData/CountryData'
+import CountryData from 'components/CountryData/CountryData'
 
 import './BUCEdit.css'
 

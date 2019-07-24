@@ -1,8 +1,8 @@
 import React from 'react'
 import PT from 'prop-types'
-import { LenkepanelBase, Normaltekst, Undertittel } from 'components/ui/Nav'
-import FlagList from 'components/ui/Flag/FlagList'
-import Icons from 'components/ui/Icons'
+import { LenkepanelBase, Normaltekst, Undertittel } from 'components/Nav'
+import FlagList from 'components/Flag/FlagList'
+import Icons from 'components/Icons'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 
 import './BUCHeader.css'

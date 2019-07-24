@@ -1,6 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
-import { Element } from 'components/ui/Nav'
+import { Element } from 'components/Nav'
 
 import './SEDHeader.css'
 

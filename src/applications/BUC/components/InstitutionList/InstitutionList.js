@@ -2,9 +2,9 @@ import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
-import Flag from 'components/ui/Flag/Flag'
-import CountryData from 'components/ui/CountryData/CountryData'
-import { Element, Normaltekst } from 'components/ui/Nav'
+import Flag from 'components/Flag/Flag'
+import CountryData from 'components/CountryData/CountryData'
+import { Element, Normaltekst } from 'components/Nav'
 import './InstitutionList.css'
 
 const InstitutionList = (props) => {

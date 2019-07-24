@@ -3,7 +3,7 @@ import { AuthenticatedRoute } from './AuthenticatedRoute'
 import * as constants from '../../constants/constants'
 import { MemoryRouter } from 'react-router'
 
-describe('components/app/AuthenticatedRoute', () => {
+describe('components/AuthenticatedRoute', () => {
   let initialMockProps = {
     path: '/_/mock',
     exact: true,

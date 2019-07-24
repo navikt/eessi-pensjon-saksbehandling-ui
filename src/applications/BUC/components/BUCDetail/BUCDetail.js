@@ -2,7 +2,7 @@ import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 
-import { EkspanderbartpanelBase, Element, EtikettLiten, Normaltekst, Systemtittel, Undertittel } from 'components/ui/Nav'
+import { EkspanderbartpanelBase, Element, EtikettLiten, Normaltekst, Systemtittel, Undertittel } from 'components/Nav'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 
 import './BUCDetail.css'

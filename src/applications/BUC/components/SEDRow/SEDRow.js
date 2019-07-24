@@ -2,10 +2,10 @@ import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
-import { Element, PanelBase, Normaltekst, Flatknapp } from 'components/ui/Nav'
+import { Element, PanelBase, Normaltekst, Flatknapp } from 'components/Nav'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import Icons from 'components/ui/Icons'
+import Icons from 'components/Icons'
 
 import './SEDRow.css'
 

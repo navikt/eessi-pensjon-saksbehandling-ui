@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 
-import { Stegindikator } from 'components/ui/Nav'
+import { Stegindikator } from 'components/Nav'
 import AdvarselTrekant from 'resources/images/AdvarselTrekant'
 
 const steps = ['select', 'edit', 'generate']

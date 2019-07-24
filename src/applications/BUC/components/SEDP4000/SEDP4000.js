@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import classNames from 'classnames'
 import _ from 'lodash'
 import { connect } from 'store'
-import { NavFrontendSpinner, Undertekst, Undertittel } from 'components/ui/Nav'
+import { NavFrontendSpinner, Undertekst, Undertittel } from 'components/Nav'
 import Period from './Period'
 
 export const mapStateToProps = (state) => {

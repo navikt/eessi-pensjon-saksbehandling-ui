@@ -1,7 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
-import { EtikettBase } from 'components/ui/Nav'
+import { EtikettBase } from 'components/Nav'
 
 import './SEDStatus.css'
 

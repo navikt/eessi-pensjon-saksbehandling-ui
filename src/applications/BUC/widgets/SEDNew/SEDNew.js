@@ -1,5 +1,5 @@
 import React from 'react'
-import { Panel } from 'components/ui/Nav'
+import { Panel } from 'components/Nav'
 import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
 import './SEDNew.css'
 

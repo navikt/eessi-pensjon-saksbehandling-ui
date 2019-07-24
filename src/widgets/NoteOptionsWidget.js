@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import * as Nav from '../components/ui/Nav'
+import * as Nav from '../components/Nav'
 
 const NoteOptionsWidget = (props) => {
   const { widget, onWidgetUpdate, layout, availableWidgets } = props

@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
-import { Input, Panel } from 'components/ui/Nav'
-import CountryData from 'components/ui/CountryData/CountryData'
-import MultipleSelect from 'components/ui/MultipleSelect/MultipleSelect'
+import { Input, Panel } from 'components/Nav'
+import CountryData from 'components/CountryData/CountryData'
+import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 
 import './SEDSearch.css'
 

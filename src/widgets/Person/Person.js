@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next'
 import { connect, bindActionCreators } from 'store'
 import PersonHeader from './PersonHeader'
 import PersonBody from './PersonBody'
-import { EkspanderbartpanelBase } from 'components/ui/Nav'
+import { EkspanderbartpanelBase } from 'components/Nav'
 import * as appActions from 'actions/app'
 import { getDisplayName } from 'utils/displayName'
 

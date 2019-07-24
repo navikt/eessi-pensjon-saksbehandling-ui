@@ -2,8 +2,8 @@ import React from 'react'
 import PT from 'prop-types'
 import { Systemtittel } from 'nav-frontend-typografi'
 import _ from 'lodash'
-import { AlertStripe, NavFrontendSpinner } from 'components/ui/Nav'
-import Icons from 'components/ui/Icons'
+import { AlertStripe, NavFrontendSpinner } from 'components/Nav'
+import Icons from 'components/Icons'
 
 function PersonHeader (props) {
   const { t, person, aktoerId, gettingPersonInfo } = props

@@ -15,7 +15,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, alertActions), dispatch) }
 }
 
-describe('components/ui/Alert/Alert', () => {
+describe('components/Alert/Alert', () => {
   let store, wrapper, ConnectedAlert
   const initialAlertState = {
     alert: {

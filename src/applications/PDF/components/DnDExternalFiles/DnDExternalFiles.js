@@ -4,7 +4,7 @@ import PT from 'prop-types'
 import { connect, bindActionCreators } from 'store'
 import classNames from 'classnames'
 
-import File from 'components/ui/File/File'
+import File from 'components/File/File'
 import * as uiActions from 'actions/ui'
 import * as storageActions from 'actions/storage'
 import * as storages from 'constants/storages'

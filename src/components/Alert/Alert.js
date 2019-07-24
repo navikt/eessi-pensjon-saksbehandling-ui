@@ -3,8 +3,8 @@ import PT from 'prop-types'
 import classNames from 'classnames'
 
 import { connect, bindActionCreators } from 'store'
-import Icons from 'components/ui/Icons'
-import { AlertStripe } from 'components/ui/Nav'
+import Icons from 'components/Icons'
+import { AlertStripe } from 'components/Nav'
 import * as alertActions from 'actions/alert'
 import { getDisplayName } from 'utils/displayName'
 

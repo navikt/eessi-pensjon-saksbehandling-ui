@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 
-import { NavFrontendSpinner, Undertittel } from 'components/ui/Nav'
-import Icons from 'components/ui/Icons'
-import RefreshButton from 'components/ui/RefreshButton/RefreshButton'
+import { NavFrontendSpinner, Undertittel } from 'components/Nav'
+import Icons from 'components/Icons'
+import RefreshButton from 'components/RefreshButton/RefreshButton'
 
 const VarslerTable = (props) => {
   const { actions, aktoerId, file, fileList, sakId, t } = props

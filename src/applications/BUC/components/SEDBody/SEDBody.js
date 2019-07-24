@@ -2,8 +2,8 @@ import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 
-import { Lenke, Normaltekst } from 'components/ui/Nav'
-import Icons from 'components/ui/Icons'
+import { Lenke, Normaltekst } from 'components/Nav'
+import Icons from 'components/Icons'
 import SEDRow from 'applications/BUC/components/SEDRow/SEDRow'
 
 import './SEDBody.css'

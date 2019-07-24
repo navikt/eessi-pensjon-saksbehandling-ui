@@ -2,8 +2,8 @@ import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
-import * as Nav from 'components/ui/Nav'
-import FileUpload from 'components/ui/FileUpload/FileUpload'
+import * as Nav from 'components/Nav'
+import FileUpload from 'components/FileUpload/FileUpload'
 
 const SelectPDF = (props) => {
   const { t, actions, loadingPDF, files, setStep } = props

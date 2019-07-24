@@ -2,9 +2,9 @@ import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
-import JoarkBrowser from 'components/ui/JoarkBrowser/JoarkBrowser'
-import FileUpload from 'components/ui/FileUpload/FileUpload'
-import { Undertittel, Hovedknapp } from 'components/ui/Nav'
+import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
+import FileUpload from 'components/FileUpload/FileUpload'
+import { Undertittel, Hovedknapp } from 'components/Nav'
 
 const Step1 = (props) => {
   const { t, files, setFiles, setStep } = props

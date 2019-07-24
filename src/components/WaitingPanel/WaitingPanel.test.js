@@ -1,7 +1,7 @@
 import React from 'react'
 import WaitingPanel from './WaitingPanel'
 
-describe('components/app/WaitingPanel', () => {
+describe('components/WaitingPanel', () => {
   it('WaitingPanel renders without crashing', () => {
     const wrapper = shallow(<WaitingPanel message='' />)
     expect(wrapper).toMatchSnapshot()

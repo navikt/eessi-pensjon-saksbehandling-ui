@@ -1,7 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
-import { Chevron, Lenke } from 'components/ui/Nav'
+import { Chevron, Lenke } from 'components/Nav'
 import './BUCCrumbs.css'
 
 const BUCCrumbs = (props) => {

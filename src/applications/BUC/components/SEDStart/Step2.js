@@ -1,5 +1,5 @@
 import React from 'react'
-import { Systemtittel } from 'components/ui/Nav'
+import { Systemtittel } from 'components/Nav'
 import SEDP4000 from 'applications/BUC/components/SEDP4000/SEDP4000'
 
 const Step2 = (props) => {

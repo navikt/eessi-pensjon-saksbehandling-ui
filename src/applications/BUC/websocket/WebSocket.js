@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import SockJsClient from 'react-stomp'
-import { Knapp, Normaltekst } from 'components/ui/Nav'
-import Icons from 'components/ui/Icons'
+import { Knapp, Normaltekst } from 'components/Nav'
+import Icons from 'components/Icons'
 
 import './WebSocket.css'
 

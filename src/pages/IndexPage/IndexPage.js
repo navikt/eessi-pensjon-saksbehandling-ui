@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
-import TopContainer from '../../components/ui/TopContainer/TopContainer'
-import Dashboard from '../../components/ui/Dashboard/Dashboard'
+import TopContainer from '../../components/TopContainer/TopContainer'
+import Dashboard from '../../components/Dashboard/Dashboard'
 import './IndexPage.css'
 
 class IndexPage extends Component {
