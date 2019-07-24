@@ -16,10 +16,10 @@ describe('Focusgroup Rendering', () => {
         <div id='4' />
       </FocusGroup>)
     expect(wrapper.children().length).toEqual(4)
-    expect(wrapper.exists('div[id="1"]')).toEqual(true)
-    expect(wrapper.exists('div[id="2"]')).toEqual(true)
-    expect(wrapper.exists('div[id="3"]')).toEqual(true)
-    expect(wrapper.exists('div[id="4"]')).toEqual(true)
+    expect(wrapper.exists('div[id="1"]')).toBeTruthy()
+    expect(wrapper.exists('div[id="2"]')).toBeTruthy()
+    expect(wrapper.exists('div[id="3"]')).toBeTruthy()
+    expect(wrapper.exists('div[id="4"]')).toBeTruthy()
     expect(wrapper.exists('div[id="5"]')).toEqual(false)
   })
 })
@@ -27,7 +27,7 @@ describe('Focusgroup Rendering', () => {
 describe('Focusgroup Event bubbling', () => {
   it('Focus event bubbles to parent', (done) => {
     function eventHandler (event) {
-      expect(event.testFlag).toEqual(true)
+      expect(event.testFlag).toBeTruthy()
       done()
     }
 
@@ -43,7 +43,7 @@ describe('Focusgroup Event bubbling', () => {
 
   it('Blur event bubbles to parent', (done) => {
     function eventHandler (event) {
-      expect(event.testFlag).toEqual(true)
+      expect(event.testFlag).toBeTruthy()
       done()
     }
 
@@ -68,7 +68,7 @@ describe('Focusgroup Event Grouping', () => {
     }
     function blurHandler (event) {
       blurCounter++
-      expect(focusCounter === 1 && blurCounter === 1).toEqual(true)
+      expect(focusCounter === 1 && blurCounter === 1).toBeTruthy()
       done()
     }
 

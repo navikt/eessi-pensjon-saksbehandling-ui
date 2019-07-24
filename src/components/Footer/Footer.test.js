@@ -23,6 +23,6 @@ describe('Render File', () => {
     )
     // expect(store.getState().ui.footerOpen).toEqual(undefined)
     wrapper.dive().find('div.footerButtonClosed').simulate('click')
-    // expect(store.getState().ui.footerOpen).toEqual(true)
+    // expect(store.getState().ui.footerOpen).toBeTruthy()
   })
 })

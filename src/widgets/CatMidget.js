@@ -15,7 +15,7 @@ const CatMidget = (props) => {
     }
   }, [mounted, onResize])
 
-  return <div className='c-ui-d-catMidget'>
+  return <div className='c-d-catMidget'>
     <ReactResizeDetector
       handleWidth
       handleHeight

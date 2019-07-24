@@ -18,31 +18,31 @@ describe('applications/BUC/components/SEDSearch/SEDSearch', () => {
     wrapper = mount(<SEDSearch {...initialMockProps} />)
   })
 
-  it('Renders successfully', () => {
+  it('Renders', () => {
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Render()', () => {
-    expect(wrapper.exists('.a-buc-c-sedsearch')).toEqual(true)
-    expect(wrapper.exists('#a-buc-c-sedsearch__query-input-id')).toEqual(true)
-    expect(wrapper.exists('#a-buc-c-sedsearch__status-select-id')).toEqual(true)
-    expect(wrapper.exists('#a-buc-c-sedsearch__country-select-id')).toEqual(true)
+  it('Has proper HTML structure', () => {
+    expect(wrapper.exists('.a-buc-c-sedsearch')).toBeTruthy()
+    expect(wrapper.exists('#a-buc-c-sedsearch__query-input-id')).toBeTruthy()
+    expect(wrapper.exists('#a-buc-c-sedsearch__status-select-id')).toBeTruthy()
+    expect(wrapper.exists('#a-buc-c-sedsearch__country-select-id')).toBeTruthy()
   })
 
-  it('Perform query', () => {
+  it('Handles query', () => {
     wrapper.find('#a-buc-c-sedsearch__query-input-id').hostNodes().simulate('change', { target: { value: 'mockSearch' } })
     expect(initialMockProps.onSearch).toBeCalledWith('mockSearch')
   })
 
-  it('Search by status', () => {
+  it('Handles search by status', () => {
     let statusSelect = wrapper.find('#a-buc-c-sedsearch__status-select-id input').hostNodes()
     statusSelect.simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
     statusSelect.simulate('keyDown', { key: 'Enter', keyCode: 13 })
     expect(initialMockProps.onStatusSearch).toBeCalledWith([{ 'label': 'ui:new', 'value': 'new' }])
   })
 
-  it('Search by country', () => {
+  it('Handles search by country', () => {
     let countrySelect = wrapper.find('#a-buc-c-sedsearch__country-select-id input').hostNodes()
     countrySelect.simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
     countrySelect.simulate('keyDown', { key: 'Enter', keyCode: 13 })

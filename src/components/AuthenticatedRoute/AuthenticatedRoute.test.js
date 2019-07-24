@@ -1,116 +1,78 @@
 import React from 'react'
 import { AuthenticatedRoute } from './AuthenticatedRoute'
-import { MemoryRouter } from 'react-router'
+import { Router } from 'react-router'
+import { createBrowserHistory } from 'history'
+import * as routes from 'constants/routes'
 
 describe('components/AuthenticatedRoute', () => {
   let initialMockProps = {
-    path: '/_/mock',
-    exact: true,
-    loggedIn: true,
-    location: {
-      search: ''
-    },
-    t: jest.fn((translationString) => { return translationString }),
     actions: {
       setStatusParam: jest.fn(),
       login: jest.fn(),
       getUserInfo: jest.fn()
-    }
+    },
+    location: {
+      search: '?a=b&sakId=123&aktoerId=456'
+    },
+    t: jest.fn((translationString) => { return translationString })
   }
 
-  beforeEach(() => {
-    initialMockProps.actions.setStatusParam.mockClear()
-    initialMockProps.actions.login.mockClear()
-    initialMockProps.actions.getUserInfo.mockClear()
+  it('UseEffect: read status params', () => {
+    const wrapper = mount(<Router history={createBrowserHistory()}>
+      <AuthenticatedRoute {...initialMockProps} />
+    </Router>)
+    expect(initialMockProps.actions.setStatusParam).toBeCalledWith('a', 'b')
+    expect(initialMockProps.actions.setStatusParam).toBeCalledWith('sakId', '123')
+    expect(initialMockProps.actions.setStatusParam).toBeCalledWith('aktoerId', '456')
   })
 
-  it('AuthenticationRoute renders without crashing', async () => {
-    const wrapper = shallow(<AuthenticatedRoute {...initialMockProps} />)
-    expect(wrapper).toMatchSnapshot()
+  it('UseEffect: ask for userInfo', () => {
+    const wrapper = mount(<Router history={createBrowserHistory()}>
+      <AuthenticatedRoute {...initialMockProps} />
+    </Router>)
+    expect(initialMockProps.actions.getUserInfo).toBeCalled()
   })
 
-  it('When AuthenticatedRoute mounts without login triggers a login call', () => {
-    const mockProps = Object.assign({}, initialMockProps)
-    mockProps.loggedIn = undefined
-    const wrapper = shallow(<AuthenticatedRoute {...mockProps} />)
-    expect(wrapper.instance().props.actions.login.mock.calls.length).toBe(0)
-    expect(wrapper.instance().props.actions.getUserInfo.mock.calls.length).toBe(1)
-    wrapper.setProps({ loggedIn: false })
-    expect(wrapper.instance().props.actions.login.mock.calls.length).toBe(1)
+  it('UseEffect: redirect for login', () => {
+    const wrapper = mount(<AuthenticatedRoute {...initialMockProps} loggedIn={false}/>)
+    expect(initialMockProps.actions.login).toBeCalled()
+    initialMockProps.actions.login.mockRestore()
   })
 
-  it('When AuthenticatedRoute mounts with login it does not trigger a login call', () => {
-    const wrapper = shallow(<AuthenticatedRoute {...initialMockProps} />)
-    expect(wrapper.instance().props.actions.login.mock.calls.length).toBe(0)
+  it('UseEffect: no need for login redirect', () => {
+    const wrapper = mount(<Router history={createBrowserHistory()}>
+      <AuthenticatedRoute {...initialMockProps} loggedIn={true}/>
+    </Router>)
+    expect(initialMockProps.actions.login).not.toBeCalled()
   })
 
-  it('When AuthenticatedRoute mounts with login it parses GET params', async () => {
-    const mockProps = Object.assign({}, initialMockProps)
-    mockProps.location.search = '?a=b&sakId=123&fnr=456'
-    const wrapper = shallow(<AuthenticatedRoute {...mockProps} />)
-    expect(wrapper.instance().props.actions.setStatusParam.mock.calls.length).toBe(3)
-    expect(wrapper.instance().state).toEqual({
-      a: 'b',
-      sakId: '123',
-      aktoerId: '456'
-    })
+  it('Has proper HTML structure: not mounted', () => {
+    const wrapper = mount(<Router history={createBrowserHistory()}>
+      <AuthenticatedRoute {...initialMockProps} />
+    </Router>)
+    expect(wrapper.exists('WaitingPanel')).toBeTruthy()
   })
 
-  it('AuthenticatedRoute hasApprovedRole as SAKSBEHANDLER user and SAKSBEHANDLER route', () => {
-    const mockProps = Object.assign({}, initialMockProps, {
-      userRole: 'SAKSBEHANDLER'
-    })
-    const wrapper = shallow(<AuthenticatedRoute {...mockProps} />)
-    expect(wrapper.instance().hasApprovedRole()).toBe(true)
+  it('Has proper HTML structure: forbidden', () => {
+    const wrapper = mount(<Router history={createBrowserHistory()}>
+      <AuthenticatedRoute {...initialMockProps} loggedIn={true} userRole={'UNKNOWN'} />
+    </Router>)
+    expect(wrapper.exists('Redirect')).toBeTruthy()
+    expect(wrapper.find('Redirect').props().to.pathname).toEqual(routes.FORBIDDEN)
   })
 
-  it('AuthenticatedRoute hasApprovedRole as BRUKER user and SAKSBEHANDLER route', () => {
-    const mockProps = Object.assign({}, initialMockProps, {
-      userRole: 'BRUKER'
-    })
-    const wrapper = shallow(<AuthenticatedRoute {...mockProps} />)
-    expect(wrapper.instance().hasApprovedRole()).toBe(false)
+  it('Has proper HTML structure: not allowed', () => {
+    const wrapper = mount(<Router history={createBrowserHistory()}>
+      <AuthenticatedRoute {...initialMockProps} loggedIn={true} userRole={'SAKSBEHANDLER'} allowed={false} />
+    </Router>)
+    expect(wrapper.exists('Redirect')).toBeTruthy()
+    expect(wrapper.find('Redirect').props().to.pathname).toEqual(routes.NOT_INVITED)
   })
 
-  it('AuthenticatedRoute with not approved role redirects to Forbidden page', () => {
-    const mockProps = Object.assign({}, initialMockProps, {
-      userRole: 'BRUKER'
-    })
-    const wrapper = mount(<MemoryRouter>
-      <AuthenticatedRoute {...mockProps} />
-    </MemoryRouter>)
-
-    expect(wrapper.instance().history.length).toBe(1)
-    expect(wrapper.instance().history.action).toBe('REPLACE')
-    expect(wrapper.instance().history.location.pathname).toBe('/_/forbidden')
-    expect(wrapper.instance().history.location.state.role).toBe('BRUKER')
-  })
-
-  it('AuthenticatedRoute with approved, unauthorized role redirects to NotInvited page', () => {
-    const mockProps = Object.assign({}, initialMockProps, {
-      userRole: 'SAKSBEHANDLER'
-    })
-    const wrapper = mount(<MemoryRouter>
-      <AuthenticatedRoute {...mockProps} />
-    </MemoryRouter>)
-
-    expect(wrapper.instance().history.length).toBe(1)
-    expect(wrapper.instance().history.action).toBe('REPLACE')
-    expect(wrapper.instance().history.location.pathname).toBe('/_/notinvited')
-    expect(wrapper.instance().history.location.state.role).toBe('SAKSBEHANDLER')
-  })
-
-  it('AuthenticatedRoute with approved, authorized role redirects to a Route page', () => {
-    const mockProps = Object.assign({}, initialMockProps, {
-      userRole: 'SAKSBEHANDLER',
-      allowed: true
-    })
-    const wrapper = mount(<MemoryRouter>
-      <AuthenticatedRoute {...mockProps} />
-    </MemoryRouter>)
-
-    expect(wrapper.instance().history.length).toBe(1)
-    expect(wrapper.instance().history.action).toBe('POP')
-    expect(wrapper.instance().history.location.pathname).toBe('/')
+  it('Has proper HTML structure: route', () => {
+    const wrapper = mount(<Router history={createBrowserHistory()}>
+      <AuthenticatedRoute {...initialMockProps} loggedIn={true} userRole={'SAKSBEHANDLER'} allowed={true} />
+    </Router>)
+    expect(wrapper.exists('Route')).toBeTruthy()
   })
 })

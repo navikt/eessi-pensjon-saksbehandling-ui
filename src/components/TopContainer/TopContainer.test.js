@@ -10,10 +10,10 @@ describe('renders', () => {
       </TopContainer>
     )
     expect(wrapper).toMatchSnapshot()
-    expect(wrapper.exists('#TEST_CHILD')).toEqual(true)
+    expect(wrapper.exists('#TEST_CHILD')).toBeTruthy()
     expect(wrapper.exists({ header: 'TEST_HEADER' })).toEqual(false)
 
     wrapper.setProps({ header: 'TEST_HEADER' })
-    expect(wrapper.exists({ header: 'TEST_HEADER' })).toEqual(true)
+    expect(wrapper.exists({ header: 'TEST_HEADER' })).toBeTruthy()
   })
 })

@@ -16,19 +16,19 @@ describe('Render Colorpicker', () => {
   })
   it('Toggles open/close', () => {
     let wrapper = shallow(<ColorPicker color={color} />)
-    expect(wrapper.exists('div.c-ui-colorPicker-popover')).toEqual(false)
+    expect(wrapper.exists('div.c-colorPicker-popover')).toEqual(false)
 
-    wrapper.find('div.c-ui-colorPicker-container').simulate('click')
-    expect(wrapper.exists('div.c-ui-colorPicker-popover')).toEqual(true)
+    wrapper.find('div.c-colorPicker-container').simulate('click')
+    expect(wrapper.exists('div.c-colorPicker-popover')).toBeTruthy()
 
-    wrapper.find('div.c-ui-colorPicker-container').simulate('click')
-    expect(wrapper.exists('div.c-ui-colorPicker-popover')).toEqual(false)
+    wrapper.find('div.c-colorPicker-container').simulate('click')
+    expect(wrapper.exists('div.c-colorPicker-popover')).toEqual(false)
 
-    wrapper.find('div.c-ui-colorPicker-container').simulate('click')
-    expect(wrapper.exists('div.c-ui-colorPicker-cover')).toEqual(true)
+    wrapper.find('div.c-colorPicker-container').simulate('click')
+    expect(wrapper.exists('div.c-colorPicker-cover')).toBeTruthy()
 
-    wrapper.find('div.c-ui-colorPicker-cover').simulate('click')
-    expect(wrapper.exists('div.c-ui-colorPicker-popover')).toEqual(false)
-    expect(wrapper.exists('div.c-ui-colorPicker-cover')).toEqual(false)
+    wrapper.find('div.c-colorPicker-cover').simulate('click')
+    expect(wrapper.exists('div.c-colorPicker-popover')).toEqual(false)
+    expect(wrapper.exists('div.c-colorPicker-cover')).toEqual(false)
   })
 })

@@ -36,7 +36,8 @@ class FirstPage extends Component {
 
     return <TopContainer
       className='p-firstPage'
-      t={t} history={history}
+      t={t}
+      history={history}
       header={<span>{t('pinfo:app-title')}</span>}>
       <div className='content container pt-4'>
         <div className='col-sm-3 col-12' />

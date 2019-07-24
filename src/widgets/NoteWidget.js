@@ -36,7 +36,7 @@ const NoteWidget = (props) => {
     onWidgetUpdate(newWidget, layout)
   }
 
-  return <div className='p-3 c-ui-d-NoteWidget' id={id}>
+  return <div className='p-3 c-d-NoteWidget' id={id}>
     <ReactResizeDetector
       handleWidth
       handleHeight

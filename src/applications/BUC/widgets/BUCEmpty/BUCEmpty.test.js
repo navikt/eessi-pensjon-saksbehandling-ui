@@ -12,26 +12,26 @@ describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
     t: t
   }
 
-  it('renders successfully', () => {
+  it('Renders', () => {
     wrapper = mount(<BUCEmpty {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('renders, with forms when no aktoerId and sakId', () => {
+  it('Has proper HTML structure with forms when no aktoerId and sakId', () => {
     wrapper = mount(<BUCEmpty {...initialMockProps} />)
-    expect(wrapper.exists('.a-buc-bucempty')).toEqual(true)
-    expect(wrapper.exists('.a-buc-bucempty__artwork')).toEqual(true)
-    expect(wrapper.exists('.a-buc-bucempty__title')).toEqual(true)
-    expect(wrapper.exists('#a-buc-bucempty__newbuc-link-id')).toEqual(true)
-    expect(wrapper.exists('.a-buc-bucempty__form')).toEqual(true)
-    expect(wrapper.exists('#a-buc-bucempty__aktoerid-input-id')).toEqual(true)
-    expect(wrapper.exists('#a-buc-bucempty__aktoerid-button-id')).toEqual(true)
-    expect(wrapper.exists('#a-buc-bucempty__sakid-input-id')).toEqual(true)
-    expect(wrapper.exists('#a-buc-bucempty__sakid-button-id')).toEqual(true)
+    expect(wrapper.exists('.a-buc-bucempty')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-bucempty__artwork')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-bucempty__title')).toBeTruthy()
+    expect(wrapper.exists('#a-buc-bucempty__newbuc-link-id')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-bucempty__form')).toBeTruthy()
+    expect(wrapper.exists('#a-buc-bucempty__aktoerid-input-id')).toBeTruthy()
+    expect(wrapper.exists('#a-buc-bucempty__aktoerid-button-id')).toBeTruthy()
+    expect(wrapper.exists('#a-buc-bucempty__sakid-input-id')).toBeTruthy()
+    expect(wrapper.exists('#a-buc-bucempty__sakid-button-id')).toBeTruthy()
   })
 
-  it('renders, without forms when aktoerId and sakId', () => {
+  it('Has proper HTML structure without forms when aktoerId and sakId', () => {
     let mockProps = { ...initialMockProps,
       aktoerId: '123',
       sakId: '456'
@@ -43,13 +43,13 @@ describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
     expect(wrapper.exists('#a-buc-bucempty__sakid-button-id')).toEqual(false)
   })
 
-  it('goes to bucnew when button pressed', () => {
+  it('Goes to bucnew when button pressed', () => {
     wrapper = mount(<BUCEmpty {...initialMockProps} />)
     wrapper.find('#a-buc-bucempty__newbuc-link-id').hostNodes().simulate('click')
     expect(initialMockProps.onBUCNew).toHaveBeenCalled()
   })
 
-  it('can add aktoerId and sakId', () => {
+  it('Handles added aktoerId and sakId', () => {
     wrapper = mount(<BUCEmpty {...initialMockProps} />)
     wrapper.find('#a-buc-bucempty__aktoerid-input-id').hostNodes().simulate('change', { target: { value: '123' } })
     wrapper.update()

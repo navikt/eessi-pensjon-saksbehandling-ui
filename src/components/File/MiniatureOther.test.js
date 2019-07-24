@@ -27,12 +27,12 @@ describe('Render MiniatureOther', () => {
     expect(wrapper.exists('div.deleteLink')).toEqual(false)
     expect(wrapper.exists('div.downloadLink')).toEqual(false)
 
-    wrapper.find('div.c-ui-miniatureOther').simulate('mouseEnter')
+    wrapper.find('div.c-miniatureOther').simulate('mouseEnter')
 
-    expect(wrapper.exists('div.deleteLink')).toEqual(true)
-    expect(wrapper.exists('div.downloadLink')).toEqual(true)
+    expect(wrapper.exists('div.deleteLink')).toBeTruthy()
+    expect(wrapper.exists('div.downloadLink')).toBeTruthy()
 
-    wrapper.find('div.c-ui-miniatureOther').simulate('mouseLeave')
+    wrapper.find('div.c-miniatureOther').simulate('mouseLeave')
 
     expect(wrapper.exists('div.deleteLink')).toEqual(false)
     expect(wrapper.exists('div.downloadLink')).toEqual(false)
@@ -52,7 +52,7 @@ describe('MiniatureOther functions', () => {
         deleteLink
         onDeleteDocument={onDeleteDocument}
       />)
-    wrapper.find('div.c-ui-miniatureOther').simulate('mouseEnter')
+    wrapper.find('div.c-miniatureOther').simulate('mouseEnter')
     wrapper.find('div.deleteLink > Icons').simulate('click', { stopPropagation: jest.fn(), preventDefault: jest.fn() })
 
     expect(onDeleteDocument).toHaveBeenCalled()
@@ -68,7 +68,7 @@ describe('MiniatureOther functions', () => {
         downloadLink
         onDeleteDocument={jest.fn()}
       />)
-    wrapper.find('div.c-ui-miniatureOther').simulate('mouseEnter')
+    wrapper.find('div.c-miniatureOther').simulate('mouseEnter')
     let downloadLinkProps = wrapper.find('div.downloadLink > a').props()
     expect(downloadLinkProps.href).toEqual(
       'data:application/octet-stream;base64,' +

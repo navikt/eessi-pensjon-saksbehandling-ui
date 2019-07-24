@@ -131,7 +131,7 @@ export class MiniaturePDF extends Component {
 
       const title = '' + file.name + '\n' + t('ui:pages') + ': ' + (numPages || '0') + '\n' + t('ui:size') + ': ' + size
 
-      return <div title={title} className={classNames('c-ui-file', 'c-ui-miniaturePdf', className, { 'animate': animate })}
+      return <div title={title} className={classNames('c-file', 'c-miniaturePdf', className, { 'animate': animate })}
         style={{ transform: 'scale(' + scale + ')' }}>
         <Document className='position-relative' file={'data:application/pdf;base64,' + file.content.base64}
           onLoadSuccess={this.handleOnLoadSuccess.bind(this)}>

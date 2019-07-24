@@ -23,17 +23,17 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
     wrapper = mount(<BUCEdit {...initialMockProps} />)
   })
 
-  it('renders successfully', () => {
+  it('Renders', () => {
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('renders', () => {
-    expect(wrapper.exists('.a-buc-bucedit')).toEqual(true)
-    expect(wrapper.exists('#a-buc-bucedit__new-sed-button-id')).toEqual(true)
-    expect(wrapper.exists('SEDSearch')).toEqual(true)
-    expect(wrapper.exists('BUCDetail')).toEqual(true)
-    expect(wrapper.exists('BUCTools')).toEqual(true)
+  it('Has proper HTML structure', () => {
+    expect(wrapper.exists('.a-buc-bucedit')).toBeTruthy()
+    expect(wrapper.exists('#a-buc-bucedit__new-sed-button-id')).toBeTruthy()
+    expect(wrapper.exists('SEDSearch')).toBeTruthy()
+    expect(wrapper.exists('BUCDetail')).toBeTruthy()
+    expect(wrapper.exists('BUCTools')).toBeTruthy()
   })
 
   it('moves to mode newsed when button pressed', () => {

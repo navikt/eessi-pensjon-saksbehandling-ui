@@ -4,7 +4,7 @@ import * as Nav from '../components/Nav'
 import * as routes from '../constants/routes'
 
 const PdfWidget = (props) => {
-  return <div className='c-ui-d-PdfWidget p-3'>
+  return <div className='c-d-PdfWidget p-3'>
     <h4>{props.widget.title}</h4>
     <Nav.Lenkepanel border className='link pdfLink' linkCreator={(props) => (
       <Link to={routes.PDF} {...props} />)

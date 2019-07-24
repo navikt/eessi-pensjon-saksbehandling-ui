@@ -78,10 +78,10 @@ const TableSorter = (props) => {
                 {value.map(variant => {
                   return <div
                     key={variant.label}
-                    className='c-ui-tablesorter__subcell'>
+                    className='c-tablesorter__subcell'>
                     <Checkbox
                       label=''
-                      className='c-ui-tablesorter__checkbox'
+                      className='c-tablesorter__checkbox'
                       onChange={(e) => onSelectedItemChange(item, e.target.checked, variant.label)}
                       checked={variant.selected} />
                     <a href='#item' onClick={(e) => {
@@ -105,7 +105,7 @@ const TableSorter = (props) => {
     return <React.Fragment>
       <th>
         <Checkbox
-          className='c-ui-tablesorter__checkbox'
+          className='c-tablesorter__checkbox'
           label=''
           checked={seeFilters}
           onChange={() => setSeeFilters(!seeFilters)} />
@@ -132,7 +132,7 @@ const TableSorter = (props) => {
       {columnNames.map((column) => {
         return <td key={column}>
           <Input
-            className='c-ui-tablesorter__sort-input'
+            className='c-tablesorter__sort-input'
             label=''
             value={_columns[column].filterText}
             onChange={(e) => handleFilterTextChange(column, e.target.value)} />
@@ -141,8 +141,8 @@ const TableSorter = (props) => {
     </React.Fragment>
   }
 
-  return <div className='c-ui-tablesorter'>
-    <div className='c-ui-tablesorter__status'>
+  return <div className='c-tablesorter'>
+    <div className='c-tablesorter__status'>
       {loadingJoarkFile ? <div>
         <NavFrontendSpinner type='XS' />
         <span className='pl-2'>{t('ui:loading')}</span>
@@ -152,8 +152,8 @@ const TableSorter = (props) => {
         <span className='pl-2'>{t('ui:loading')}</span>
       </div> : null}
     </div>
-    <div className='c-ui-tablesorter__content'>
-      <table cellSpacing='0' className='c-ui-tablesorter__table'>
+    <div className='c-tablesorter__content'>
+      <table cellSpacing='0' className='c-tablesorter__table'>
         <thead>
           <tr>{ header() }</tr>
           {seeFilters ? <tr>{ filterInputs() }</tr> : null}

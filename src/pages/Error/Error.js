@@ -11,7 +11,7 @@ import './Error.css'
 
 class Error extends Component {
   render () {
-    const { t, history, type } = this.props
+    const { history, t, type } = this.props
     let title, description
 
     switch (type) {
@@ -27,7 +27,6 @@ class Error extends Component {
         title = t('ui:error-saksbehandler-notInvited-title')
         description = t('ui:error-saksbehandler-notInvited-description')
         break
-
       default:
         title = t('ui:error-404-title')
         description = t('ui:error-404-description')

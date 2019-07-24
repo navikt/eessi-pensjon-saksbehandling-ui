@@ -18,7 +18,7 @@ const VarslerWidget = (props) => {
     }
   }, [mounted, onResize])
 
-  return <div className='c-ui-d-VarslerWidget p-3'>
+  return <div className='c-d-VarslerWidget p-3'>
     <div className='mt-2 mb-2'>
       <ToggleGruppe
         defaultToggles={[

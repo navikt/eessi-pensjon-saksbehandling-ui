@@ -8,7 +8,7 @@ class CountryValue extends Component {
     const _type = selectProps.selectProps.type || 'country'
     const _label = _type === 'country' ? data.label : (data.currency ? data.currency + ' - ' : '') + data.currencyLabel
 
-    return <div className='c-ui-countryValue' {...innerProps}>
+    return <div className='c-countryValue' {...innerProps}>
       <img src={flagImageUrl} alt={data.label} />
       {_label}
     </div>

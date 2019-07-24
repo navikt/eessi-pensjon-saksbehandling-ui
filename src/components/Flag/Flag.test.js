@@ -12,7 +12,7 @@ describe('render Flag', () => {
   it('Sets className from props', () => {
     let wrapper = shallow(<Flag className='TEST-CLASSNAME' />)
 
-    expect(wrapper.find('img').props().className.includes('TEST-CLASSNAME')).toEqual(true)
+    expect(wrapper.find('img').props().className.includes('TEST-CLASSNAME')).toBeTruthy()
   })
 
   it('Sets src from props', () => {

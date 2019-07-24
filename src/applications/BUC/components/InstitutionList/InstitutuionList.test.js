@@ -21,19 +21,19 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
     t: t
   }
 
-  it('Renders successfully', () => {
+  it('Renders', () => {
     let wrapper = shallow(<InstitutionList {...initialMockProps} type='joined' />)
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Render() joined', () => {
+  it('Has proper HTML structure with joined type', () => {
     let wrapper = mount(<InstitutionList {...initialMockProps} type='joined' />)
     expect(wrapper.find('.a-buc-c-institution').hostNodes()).toHaveLength(1)
     expect(wrapper.find('.a-buc-c-institution').hostNodes().render().text()).toEqual('Demoland: Mock 1 institution, Mock 2 institution')
   })
 
-  it('Render() separated', () => {
+  it('Has proper HTML structure with separated type', () => {
     let wrapper = mount(<InstitutionList {...initialMockProps} type='separated' />)
     expect(wrapper.find('.a-buc-c-institution').hostNodes()).toHaveLength(2)
     expect(wrapper.find('.a-buc-c-institution:first-child').hostNodes().render().text()).toEqual('Demoland: Mock 1 institution')

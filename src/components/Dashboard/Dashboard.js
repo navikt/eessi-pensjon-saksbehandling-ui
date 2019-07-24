@@ -93,7 +93,7 @@ const Dashboard = (props) => {
     return <div>Wait</div>
   }
 
-  return <div className='c-ui-d-dashboard'>
+  return <div className='c-d-dashboard'>
     <DndProvider backend={HTML5Backend}>
       <DashboardControlPanel
         currentBreakpoint={currentBreakpoint}

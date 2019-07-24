@@ -29,7 +29,7 @@ export class Modal extends Component {
   render () {
     const { modalOpen, modal } = this.props
 
-    return <Nav.Modal className='c-ui-modal'
+    return <Nav.Modal className='c-modal'
       ariaHideApp={false}
       isOpen={modalOpen}
       onRequestClose={this.closeModal.bind(this)}
@@ -40,8 +40,8 @@ export class Modal extends Component {
         {modal.modalContent ? modal.modalContent : <div id='modalText' className='m-4 text-center'>{modal.modalText}</div>}
         {modal.modalButtons ? <div className='text-center'>{modal.modalButtons.map(button => {
           return button.main
-            ? <Nav.Hovedknapp id='c-ui-modal-main-button' disabled={button.disabled || false} className='mr-3 mb-3 modal-main-button' key={button.text} onClick={button.onClick.bind(this)}>{button.text}</Nav.Hovedknapp>
-            : <Nav.Knapp id='c-ui-modal-other-button' className='mr-3 mb-3 modal-other-button' key={button.text} onClick={button.onClick.bind(this)}>{button.text}</Nav.Knapp>
+            ? <Nav.Hovedknapp id='c-modal-main-button' disabled={button.disabled || false} className='mr-3 mb-3 modal-main-button' key={button.text} onClick={button.onClick.bind(this)}>{button.text}</Nav.Hovedknapp>
+            : <Nav.Knapp id='c-modal-other-button' className='mr-3 mb-3 modal-other-button' key={button.text} onClick={button.onClick.bind(this)}>{button.text}</Nav.Knapp>
         })}
         </div> : null }
       </div> : null}

@@ -16,11 +16,11 @@ describe('renders correctly', () => {
     expect(wrapper.dive().dive().find('#modalText').text()).toEqual('MODALTEXT')
 
     expect(mainButtonOnClick).toHaveBeenCalledTimes(0)
-    wrapper.dive().dive().find('#c-ui-modal-main-button').simulate('click')
+    wrapper.dive().dive().find('#c-modal-main-button').simulate('click')
     expect(mainButtonOnClick).toHaveBeenCalled()
 
     expect(otherButtonOnClick).toHaveBeenCalledTimes(0)
-    wrapper.dive().dive().find('#c-ui-modal-other-button').simulate('click')
+    wrapper.dive().dive().find('#c-modal-other-button').simulate('click')
     expect(otherButtonOnClick).toHaveBeenCalled()
   })
 })

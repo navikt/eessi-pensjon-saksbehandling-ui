@@ -72,12 +72,12 @@ class ColorPicker extends React.Component {
     })
 
     return <div>
-      <div className={'c-ui-colorPicker-container'} style={styles.swatch} onClick={this.handleClick.bind(this)}>
+      <div className={'c-colorPicker-container'} style={styles.swatch} onClick={this.handleClick.bind(this)}>
         <div style={styles.color} />
       </div>
-      { this.state.displayColorPicker ? <div className='c-ui-colorPicker-popover' style={styles.popover}>
-        <div className='c-ui-colorPicker-cover' style={styles.cover} onClick={this.handleClose.bind(this)} />
-        <SketchPicker className='c-ui-colorPicker' color={color} onChange={this.handleChange.bind(this)} onChangeComplete={onChangeComplete} />
+      { this.state.displayColorPicker ? <div className='c-colorPicker-popover' style={styles.popover}>
+        <div className='c-colorPicker-cover' style={styles.cover} onClick={this.handleClose.bind(this)} />
+        <SketchPicker className='c-colorPicker' color={color} onChange={this.handleChange.bind(this)} onChangeComplete={onChangeComplete} />
       </div> : null }
 
     </div>

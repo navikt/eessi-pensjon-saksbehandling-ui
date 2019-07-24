@@ -73,15 +73,15 @@ describe('Render MiniaturePDF', () => {
     expect(wrapper.exists('div.downloadLink')).toEqual(false)
     expect(wrapper.exists('div.addLink')).toEqual(false)
 
-    wrapper.find('div.c-ui-miniaturePdf').simulate('mouseEnter')
+    wrapper.find('div.c-miniaturePdf').simulate('mouseEnter')
 
-    expect(wrapper.exists('a.previousPage')).toEqual(true)
-    expect(wrapper.exists('a.nextPage')).toEqual(true)
+    expect(wrapper.exists('a.previousPage')).toBeTruthy()
+    expect(wrapper.exists('a.nextPage')).toBeTruthy()
     expect(wrapper.find('div.link')).toHaveLength(4)
-    expect(wrapper.exists('div.previewLink')).toEqual(true)
-    expect(wrapper.exists('div.deleteLink')).toEqual(true)
-    expect(wrapper.exists('div.downloadLink')).toEqual(true)
-    expect(wrapper.exists('div.addLink')).toEqual(true)
+    expect(wrapper.exists('div.previewLink')).toBeTruthy()
+    expect(wrapper.exists('div.deleteLink')).toBeTruthy()
+    expect(wrapper.exists('div.downloadLink')).toBeTruthy()
+    expect(wrapper.exists('div.addLink')).toBeTruthy()
 
     wrapper.unmount()
   })
@@ -97,15 +97,15 @@ describe('MiniaturePDF functions', () => {
       onLoadSuccess={() => { }}
     />)
     wrapper.find('Document').instance().onLoadSuccess()
-    wrapper.find('div.c-ui-miniaturePdf').simulate('mouseEnter')
+    wrapper.find('div.c-miniaturePdf').simulate('mouseEnter')
 
     expect(wrapper.find('Page').text()).toEqual('Page: 1')
-    expect(wrapper.exists('a.nextPage')).toEqual(true)
+    expect(wrapper.exists('a.nextPage')).toBeTruthy()
 
     wrapper.find('a.nextPage').simulate('click')
 
     expect(wrapper.find('Page').text()).toEqual('Page: 2')
-    expect(wrapper.exists('a.previousPage')).toEqual(true)
+    expect(wrapper.exists('a.previousPage')).toBeTruthy()
 
     wrapper.find('a.previousPage').simulate('click')
 
@@ -128,7 +128,7 @@ describe('MiniaturePDF functions', () => {
       onNextPage={callback}
     />)
     wrapper.find('Document').instance().onLoadSuccess()
-    wrapper.find('div.c-ui-miniaturePdf').simulate('mouseEnter')
+    wrapper.find('div.c-miniaturePdf').simulate('mouseEnter')
 
     wrapper.find('a.nextPage').simulate('click')
     wrapper.find('a.previousPage').simulate('click')
@@ -157,7 +157,7 @@ describe('MiniaturePDF functions', () => {
     />)
 
     wrapper.find('Document').instance().onLoadSuccess()
-    wrapper.find('div.c-ui-miniaturePdf').simulate('mouseEnter')
+    wrapper.find('div.c-miniaturePdf').simulate('mouseEnter')
 
     expect(wrapper.find('div.link')).toHaveLength(0)
     expect(wrapper.exists('div.previewLink')).toEqual(false)
@@ -165,7 +165,7 @@ describe('MiniaturePDF functions', () => {
     wrapper.setProps({ previewLink: true })
 
     expect(wrapper.find('div.link')).toHaveLength(1)
-    expect(wrapper.exists('div.previewLink')).toEqual(true)
+    expect(wrapper.exists('div.previewLink')).toBeTruthy()
 
     wrapper.find('div.previewLink').simulate('click')
 
@@ -187,7 +187,7 @@ describe('MiniaturePDF functions', () => {
     />)
 
     wrapper.find('Document').instance().onLoadSuccess()
-    wrapper.find('div.c-ui-miniaturePdf').simulate('mouseEnter')
+    wrapper.find('div.c-miniaturePdf').simulate('mouseEnter')
 
     expect(wrapper.find('div.link')).toHaveLength(0)
     expect(wrapper.exists('div.deleteLink')).toEqual(false)
@@ -195,7 +195,7 @@ describe('MiniaturePDF functions', () => {
     wrapper.setProps({ deleteLink: true })
 
     expect(wrapper.find('div.link')).toHaveLength(1)
-    expect(wrapper.exists('div.deleteLink')).toEqual(true)
+    expect(wrapper.exists('div.deleteLink')).toBeTruthy()
 
     wrapper.find('div.deleteLink').simulate('click')
 
@@ -217,7 +217,7 @@ describe('MiniaturePDF functions', () => {
     />)
 
     wrapper.find('Document').instance().onLoadSuccess()
-    wrapper.find('div.c-ui-miniaturePdf').simulate('mouseEnter')
+    wrapper.find('div.c-miniaturePdf').simulate('mouseEnter')
 
     expect(wrapper.find('div.link')).toHaveLength(0)
     expect(wrapper.exists('div.addLink')).toEqual(false)
@@ -225,7 +225,7 @@ describe('MiniaturePDF functions', () => {
     wrapper.setProps({ addLink: true })
 
     expect(wrapper.find('div.link')).toHaveLength(1)
-    expect(wrapper.exists('div.addLink')).toEqual(true)
+    expect(wrapper.exists('div.addLink')).toBeTruthy()
 
     wrapper.find('div.addLink').simulate('click')
 
@@ -244,7 +244,7 @@ describe('MiniaturePDF functions', () => {
     />)
 
     wrapper.find('Document').instance().onLoadSuccess()
-    wrapper.find('div.c-ui-miniaturePdf').simulate('mouseEnter')
+    wrapper.find('div.c-miniaturePdf').simulate('mouseEnter')
 
     expect(wrapper.find('div.link')).toHaveLength(0)
     expect(wrapper.exists('div.downloadLink')).toEqual(false)
@@ -252,7 +252,7 @@ describe('MiniaturePDF functions', () => {
     wrapper.setProps({ downloadLink: true })
 
     expect(wrapper.find('div.link')).toHaveLength(1)
-    expect(wrapper.exists('div.downloadLink')).toEqual(true)
+    expect(wrapper.exists('div.downloadLink')).toBeTruthy()
 
     expect(wrapper.find('div.downloadLink > a').props().href)
       .toEqual('data:application/octet-stream;base64,' + encodeURIComponent(mockPdf.content.base64))

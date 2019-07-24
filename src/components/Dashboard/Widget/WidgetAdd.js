@@ -27,7 +27,7 @@ const WidgetAdd = (props) => {
 
   return <div>
     <div
-      className={classNames('c-ui-d-widgetAdd', {
+      className={classNames('c-d-widgetAdd', {
         'selected': props.isDragging,
         'hover': mouseOver
       })}

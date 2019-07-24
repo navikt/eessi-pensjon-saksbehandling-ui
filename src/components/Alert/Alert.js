@@ -63,7 +63,7 @@ export const Alert = (props) => {
       message += ': ' + printError(error)
     }
     return <AlertStripe
-      className={classNames('c-ui-alert', 'server', className)} type={errorTypes.ERROR}>
+      className={classNames('c-alert', 'server', className)} type={errorTypes.ERROR}>
       {message}
       <Icons className='closeIcon' size='1x' kind='solidclose' onClick={onClientClear} />
     </AlertStripe>
@@ -87,7 +87,7 @@ export const Alert = (props) => {
   }
 
   return <AlertStripe
-    className={classNames(className, 'c-ui-alert', { fixed: fixed || true })}
+    className={classNames(className, 'c-alert', 'client', { fixed: fixed || true })}
     type={errorTypes[clientErrorStatus]}>
     {message}
     <Icons className='closeIcon' size='1x' kind='solidclose' onClick={onClientClear} />

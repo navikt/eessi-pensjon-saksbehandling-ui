@@ -1,6 +1,6 @@
 @import '../../constants';
 
-.c-ui-fileUpload {
+.c-fileUpload {
 
     .scrollable {
         overflow-x: auto;
@@ -63,7 +63,7 @@
           &-active,
           &-zone-active {
                  background-color: rgba(0,128,0,0.2);
-                 animation: c-ui-fileUpload-pulsate 1s ease-out;
+                 animation: c-fileUpload-pulsate 1s ease-out;
                  animation-iteration-count: infinite;
           }
     }
@@ -90,7 +90,7 @@
         }
     }
 }
-@keyframes c-ui-fileUpload-pulsate {
+@keyframes c-fileUpload-pulsate {
     0% {
         background-color: rgba(0,128,0,0.2);
     }
@@ -102,7 +102,7 @@
     }
 }
 
-.highContrast .c-ui-fileUpload {
+.highContrast .c-fileUpload {
    .dropzone {
        background-color: @black;
    }

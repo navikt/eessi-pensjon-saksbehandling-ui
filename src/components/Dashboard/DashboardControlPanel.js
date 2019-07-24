@@ -2,14 +2,14 @@ import React from 'react'
 import DashboardConfig from './Config/DashboardConfig'
 
 const DashboardControlPanel = (props) => {
-  return <div className='c-ui-d-dashboardControlPanel pt-2 pb-0 pr-4 pl-4'>
+  return <div className='c-d-dashboardControlPanel pt-2 pb-0 pr-4 pl-4'>
     <div className='d-inline-block'>
       {props.editMode
         ? props.addMode ? props.t('ui:dashboard-dragNewWidgets') : props.t('ui:dashboard-arrangeWidgets')
         : null}
     </div>
-    <div className='c-ui-d-dashboardControlPanel-buttons'>
-      {props.editMode ? <button className='c-ui-d-dashboardControlPanel-button mr-2'
+    <div className='c-d-dashboardControlPanel-buttons'>
+      {props.editMode ? <button className='c-d-dashboardControlPanel-button mr-2'
         onClick={props.onAddChange}>
         {!props.addMode ? props.t('ui:dashboard-addNewWidgets') : props.t('ui:dashboard-hideNewWidgets')}
       </button> : null}

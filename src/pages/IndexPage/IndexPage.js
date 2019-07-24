@@ -7,14 +7,14 @@ import './IndexPage.css'
 
 class IndexPage extends Component {
   render () {
-    const { language, history, t } = this.props
+    const { history, language, t } = this.props
 
     return <TopContainer
       className='p-indexPage'
       t={t}
+      history={history}
       containerClassName='p-0'
       language={language}
-      history={history}
       fluid>
       <Dashboard id='dashboard' />
     </TopContainer>

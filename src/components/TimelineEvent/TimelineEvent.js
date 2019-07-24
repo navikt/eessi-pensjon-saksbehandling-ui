@@ -9,7 +9,7 @@ class TimelineEvent extends Component {
   render () {
     const { t, event, onClick } = this.props
 
-    return <div className='c-ui-timelineEvent'>
+    return <div className='c-timelineEvent'>
       <div className='timeline-event-badge'>
         <Icons size='2x' kind={event.content.type} />
       </div>

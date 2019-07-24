@@ -12,7 +12,7 @@ describe('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {
     mode: ''
   }
 
-  it('renders successfully', () => {
+  it('Renders', () => {
     const wrapper = shallow(<BUCCrumbs {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()

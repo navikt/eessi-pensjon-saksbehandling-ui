@@ -16,42 +16,42 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
     onBUCEdit: onBUCEdit
   }
 
-  it('Renders successfully', () => {
+  it('Renders', () => {
     let wrapper = shallow(<BucHeader {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Renders child components', () => {
+  it('Has proper HTML structure', () => {
     let wrapper = shallow(<BucHeader {...initialMockProps} />)
-    expect(wrapper.exists('.a-buc-c-bucheader')).toEqual(true)
-    expect(wrapper.exists('.a-buc-c-bucheader__label')).toEqual(true)
-    expect(wrapper.exists('.a-buc-c-bucheader__title')).toEqual(true)
-    expect(wrapper.exists('.a-buc-c-bucheader__description')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-bucheader')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucheader__label')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucheader__title')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucheader__description')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-bucheader__description').render().text()).toEqual(
       new Date(buc.startDate).toLocaleDateString() + ' - ' + new Date(buc.lastUpdate).toLocaleDateString()
     )
-    expect(wrapper.exists('.a-buc-c-bucheader__owner')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-bucheader__owner')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-bucheader__owner Normaltekst').render().text()).toEqual(
       t('buc:form-caseOwner') + ': '
     )
-    expect(wrapper.exists('.a-buc-c-bucheader__owner-institutions')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-bucheader__owner-institutions')).toBeTruthy()
 
-    expect(wrapper.exists('.a-buc-c-bucheader__flags')).toEqual(true)
-    expect(wrapper.exists('.a-buc-c-bucheader__icons')).toEqual(true)
-    expect(wrapper.exists('.a-buc-c-bucheader__icon-numberofseds')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-bucheader__flags')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucheader__icons')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucheader__icon-numberofseds')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-bucheader__icon-numberofseds').render().text()).toEqual('1')
-    expect(wrapper.exists('.a-buc-c-bucheader__icon-tags')).toEqual(true)
-    expect(wrapper.exists('.a-buc-c-bucheader__icon-vedlegg')).toEqual(true)
-    expect(wrapper.exists('.a-buc-c-bucheader__actions')).toEqual(true)
-    expect(wrapper.exists('.a-buc-c-bucheader__bucedit-link')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-bucheader__icon-tags')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucheader__icon-vedlegg')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucheader__actions')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucheader__bucedit-link')).toBeTruthy()
     expect(wrapper.find('LenkepanelBase.a-buc-c-bucheader__bucedit-link').render().text()).toEqual(t('ui:processing'))
   })
 
-  it('Renders icons if necessary', () => {
+  it('Shows icons if necessary', () => {
     let wrapper = shallow(<BucHeader {...initialMockProps} />)
-    expect(wrapper.exists('.a-buc-c-bucheader__icon-tags')).toEqual(true)
-    expect(wrapper.exists('.a-buc-c-bucheader__icon-vedlegg')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-bucheader__icon-tags')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucheader__icon-vedlegg')).toBeTruthy()
     wrapper.setProps({
       bucInfo: {
         tags: [],
