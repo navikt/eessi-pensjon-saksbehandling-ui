@@ -3,77 +3,58 @@ import CountrySelect from './CountrySelect'
 import { EEA } from './CountryFilter'
 
 const testData = {
-  'value': 'NO',
-  'label': 'Norway',
-  'currency': 'NOK',
-  'currencyLabel': 'Norwegian Kroner'
+  value: 'NO',
+  value3 : 'NOR',
+  label: 'Norge',
+  currency: 'NOK',
+  currencyLabel: 'Norsk Krone'
 }
 
-describe('CountrySelect Rendering', () => {
-  it('Renders correctly', () => {
-    let wrapper = shallow(<CountrySelect
-      id='react-select-test'
-      classNamePrefix='test'
-      locale='nb'
-      includeList={EEA}
-      value={testData}
-      onSelect={() => {}}
-      error={undefined}
-      errorMessage={undefined}
-    />)
+describe('components/CountrySelect', () => {
 
+  let wrapper
+  const initialMockParams = {
+    id: 'react-select-test',
+    classNamePrefix: 'test',
+    locale: 'nb',
+    includeList: EEA,
+    value: testData,
+    onSelect: jest.fn(),
+    error: undefined,
+    errorMessage: undefined
+  }
+
+  it('Renders', () => {
+    wrapper = mount(<CountrySelect {...initialMockParams} />)
+    expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
-})
 
-describe('Countryselect Behaviour', () => {
   it('Opens and closes', () => {
-    let wrapper = mount(<CountrySelect
-      id='react-select-test'
-      locale='nb'
-      includeList={EEA}
-      value={testData}
-      onSelect={() => {}}
-      error={undefined}
-      errorMessage={undefined}
-    />)
-
+    wrapper = mount(<CountrySelect {...initialMockParams} />)
     expect(wrapper.find('.c-countryOption').length).toEqual(0)
-    wrapper.find('.CountrySelect__dropdown-indicator').simulate('mouseDown', { button: 0 })
 
+    wrapper.find('.c-countrySelect__select__dropdown-indicator').hostNodes().simulate('mouseDown', { button: 0 })
     expect(wrapper.find('.c-countryOption').length).toEqual(EEA.length)
 
-    wrapper.find('.CountrySelect__dropdown-indicator').simulate('mouseDown', { button: 0 })
-
+    wrapper.find('.c-countrySelect__select__dropdown-indicator').hostNodes().simulate('mouseDown', { button: 0 })
     expect(wrapper.find('.c-countryOption').length).toEqual(0)
 
-    wrapper.find('.CountrySelect__control').simulate('keyDown', { key: 'ArrowDown' })
-
+    wrapper.find('.c-countrySelect__select__control').hostNodes().simulate('keyDown', { key: 'ArrowDown' })
     expect(wrapper.find('.c-countryOption').length).toEqual(EEA.length)
 
-    wrapper.find('.CountrySelect__control').simulate('keyDown', { key: 'Escape' })
-
+    wrapper.find('.c-countrySelect__select__control').hostNodes().simulate('keyDown', { key: 'Escape' })
     expect(wrapper.find('.c-countryOption').length).toEqual(0)
-
-    wrapper.unmount()
   })
 
-  it('Returns value when selected', (done) => {
-    const testOnSelect = (value) => {
-      expect(value.label).toEqual(wrapper.find('.c-countryOption').last().text())
-      expect(value).not.toEqual('something')
-      done()
-    }
-    let wrapper = mount(<CountrySelect
-      id='react-select-test'
-      locale='nb'
-      includeList={EEA}
-      value={testData}
-      onSelect={testOnSelect}
-      error={undefined}
-      errorMessage={undefined}
-    />)
-    wrapper.find('.CountrySelect__dropdown-indicator').simulate('mouseDown', { button: 0 })
-    wrapper.find('.c-countryOption').last().simulate('click')
-  })
+  it('Returns value when selected', () => {
+     wrapper = mount(<CountrySelect {...initialMockParams} />)
+     wrapper.find('.c-countrySelect__select__dropdown-indicator').hostNodes().simulate('keyDown', { key: 'ArrowDown' })
+     wrapper.find('.c-countryOption').hostNodes().last().simulate('keyDown', { key: 'Enter' })
+     expect(initialMockParams.onSelect).toBeCalledWith(testData, {
+       action: 'select-option',
+       name: undefined,
+       option: undefined
+     })
+   })
 })

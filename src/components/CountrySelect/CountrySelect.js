@@ -1,107 +1,90 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Select from 'react-select'
 import PT from 'prop-types'
-import CountryData from '../CountryData/CountryData'
 import _ from 'lodash'
 import classNames from 'classnames'
-import CountryOption from './CountryOption'
-import CountryValue from './CountryValue'
-import CountryErrorStyle from './CountryErrorStyle'
+import CountryData from 'components/CountryData/CountryData'
+import CountryOption from 'components/CountrySelect/CountryOption'
+import CountryValue from 'components/CountrySelect/CountryValue'
+import CountryErrorStyle from 'components/CountrySelect/CountryErrorStyle'
 
 import './CountrySelect.css'
 
-class CountrySelect extends Component {
-  onChange (val) {
-    const { onSelect } = this.props
-    if (typeof onSelect === 'function') {
-      onSelect(val)
-    }
-  }
+const CountrySelect = (props) => {
 
-  include (selectedCountries, allCountries) {
-    return _.filter(allCountries, country => {
+  const { className, components, error = false, errorMessage, excludeList, id } = props
+  const { includeList, locale, onSelect, placeholder, type, styles = {}, value } = props
+
+  const include = (selectedCountries, allCountries) => {
+    return _(allCountries).filter(country => {
       return selectedCountries.indexOf(country.value) >= 0
     })
   }
 
-  exclude (selectedCountries, allCountries) {
-    return _.filter(allCountries, country => {
+  const exclude = (selectedCountries, allCountries) => {
+    return _(allCountries).filter(country => {
       return selectedCountries.indexOf(country.value) < 0
     })
   }
 
-  render () {
-    const {
-      id,
-      placeholder,
-      value,
-      locale,
-      type,
-      includeList,
-      excludeList,
-      className,
-      styles = {},
-      error = false,
-      components,
-      errorMessage
-    } = this.props
+  const optionList = CountryData.getData(locale)
+  let options = (includeList ? include(includeList, optionList) : optionList)
+  options = (excludeList ? exclude(excludeList, options) : options)
 
-    let optionList = CountryData.getData(locale)
-    let options = (includeList ? this.include(includeList, optionList) : optionList)
-    options = (excludeList ? this.exclude(excludeList, options) : options)
-
-    let defValue = value
-    if (defValue && !defValue.label) {
-      defValue = _.find(options, { value: defValue.value ? defValue.value : defValue })
-    }
-    return <div id={id} className={classNames('c-countrySelect', className, { 'skjemaelement__feilmelding': error })}>
-      <Select placeholder={placeholder}
-        value={defValue || null}
-        options={options}
-        id={id ? id + '-select' : null}
-        components={{
-          Option: CountryOption,
-          SingleValue: CountryValue,
-          ...components }}
-        selectProps={{
-          type: type,
-          flagImagePath: '../../../../../flags/'
-        }}
-        className='CountrySelect'
-        classNamePrefix='CountrySelect'
-        onChange={this.onChange.bind(this)}
-        styles={{ ...styles, ...CountryErrorStyle(error) }}
-        tabSelectsValue={false}
-        multi={false}
-      />
-      {error
-        ? <div role='alert' aria-live='assertive'>
-          <div className='skjemaelement__feilmelding'>
-            {errorMessage}
-          </div>
-        </div>
-        : null
-      }
-    </div>
+  let defValue = value
+  if (defValue && !defValue.label) {
+    defValue = _(options).find({ value: defValue.value ? defValue.value : defValue })
   }
+
+  return <div
+    id={id}
+    className={classNames('c-countrySelect', className, { 'skjemaelement__feilmelding': error })}>
+    <Select
+      placeholder={placeholder}
+      value={defValue || null}
+      options={options}
+      id={id ? id + '-select' : null}
+      components={{
+        Option: CountryOption,
+        SingleValue: CountryValue,
+        ...components
+      }}
+      selectProps={{
+        type: type,
+        flagImagePath: '../../../../../flags/'
+      }}
+      className='c-countrySelect__select'
+      classNamePrefix='c-countrySelect__select'
+      onChange={onSelect}
+      styles={{
+        ...styles,
+        ...CountryErrorStyle(error)
+      }}
+      tabSelectsValue={false}
+      multi={false}
+    />
+    {error ?
+    <div role='alert' aria-live='assertive' className='skjemaelement__feilmelding'>
+      {errorMessage}
+    </div>
+    : null }
+  </div>
 }
+
 CountrySelect.propTypes = {
-  onSelect: PT.func.isRequired,
-  value: PT.oneOfType([PT.object, PT.string]),
-  locale: PT.string.isRequired,
-  style: PT.object,
-  includeList: PT.array,
-  excludeList: PT.array,
-  type: PT.string,
   className: PT.string,
-  required: PT.string,
-  id: PT.string,
-  inputProps: PT.object,
-  customInputProps: PT.object,
-  errorMessage: PT.string,
-  styles: PT.object,
+  components: PT.object,
   error: PT.bool,
-  components: PT.object
+  errorMessage: PT.string,
+  excludeList: PT.array,
+  id: PT.string,
+  includeList: PT.array,
+  locale: PT.string.isRequired,
+  onSelect: PT.func.isRequired,
+  placeholder: PT.string,
+  type: PT.string,
+  styles: PT.object,
+  value: PT.oneOfType([PT.object, PT.string])
 }
 
 export default CountrySelect

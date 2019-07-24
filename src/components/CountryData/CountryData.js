@@ -1285,7 +1285,7 @@ class CountryData {
     'nb': [
       {
         'value': 'NO',
-        'value3': 'NOK',
+        'value3': 'NOR',
         'label': 'Norge',
         'currencyLabel': 'Norsk Krone',
         'currency': 'NOK'

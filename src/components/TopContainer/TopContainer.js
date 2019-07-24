@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
-import { connect } from 'store'
+import { connect, bindActionCreators } from 'store'
 
-import * as Nav from 'components/Nav'
+import * as uiActions from 'actions/ui'
+import {Container } from 'components/Nav'
 import Alert from 'components/Alert/Alert'
 import Banner from 'components/Banner/Banner'
 import Modal from 'components/Modal/Modal'
@@ -14,53 +15,37 @@ import { getDisplayName } from 'utils/displayName'
 
 import './TopContainer.css'
 
-
 const mapStateToProps = (state) => {
   return {
-    highContrast: state.ui.highContrast,
-    remainingTime: state.app.remainingTime
+    highContrast: state.ui.highContrast
   }
 }
 
-const mapDispatchToProps = () => {
-  return {}
+const mapDispatchToProps = (dispatch) => {
+   return { actions: bindActionCreators(uiActions, dispatch) }
 }
 
-export class TopContainer extends Component {
-  render () {
-    const { className, containerClassName, style, history, t, header, highContrast, fluid, remainingTime } = this.props
-    /* how many minutes starts the warnings */
-    let minutesForWarning = 5
-    /* X minutes before expired */
-    let sessionExpiringWarning = remainingTime - 1000 * 60 * minutesForWarning
-    if (sessionExpiringWarning <= 1) { sessionExpiringWarning = 1 }
-    /* check every minute */
-    let checkInterval = 1000 * 60
-    /* At expired time plus 1 minute */
-    let sessionExpiredReload = remainingTime + 1000 * 60
+export const TopContainer = (props) => {
 
-    return <div style={style}
-      className={classNames('c-topContainer', className, { 'highContrast': highContrast })}>
-      <InternalTopHeader t={t} history={history} />
-      {header ? <Banner t={t} header={header} toggleHighContrast={actions.toggleHighContrast} /> : null}
-      <Alert type='client' t={t} />
-      <Alert type='server' t={t} />
-      <Nav.Container fluid={fluid || false} className={classNames('_container', containerClassName)}>
-        {this.props.children}
-      </Nav.Container>
-      <Modal />
-      <SessionMonitor
-        t={t}
-        sessionExpiringWarning={sessionExpiringWarning}
-        checkInterval={checkInterval}
-        sessionExpiredReload={sessionExpiredReload}
-      />
-      <Footer />
-    </div>
-  }
+  const { actions, className, children, fluid = true, header, history, highContrast, remainingTime, style, t } = props
+
+  return <div style={style}
+    className={classNames('c-topContainer', className, { 'highContrast': highContrast })}>
+    <InternalTopHeader t={t} history={history} />
+    {header ? <Banner t={t} header={header} toggleHighContrast={actions.toggleHighContrast} /> : null}
+    <Alert type='client' t={t} />
+    <Alert type='server' t={t} />
+    <Container fluid={fluid} className='_container p-0'>
+      {children}
+    </Container>
+    <Modal />
+    <SessionMonitor t={t}/>
+    <Footer />
+  </div>
 }
 
 TopContainer.propTypes = {
+  actions: PT.object.isRequired,
   children: PT.node.isRequired,
   className: PT.string,
   style: PT.object,
@@ -68,10 +53,6 @@ TopContainer.propTypes = {
   header: PT.oneOfType([PT.node, PT.string])
 }
 
-const ConnectedTopContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TopContainer)
-
+const ConnectedTopContainer = connect(mapStateToProps, mapDispatchToProps)(TopContainer)
 ConnectedTopContainer.displayName = `Connect(${getDisplayName(TopContainer)})`
 export default ConnectedTopContainer

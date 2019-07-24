@@ -7,22 +7,18 @@ import './IndexPage.css'
 
 class IndexPage extends Component {
   render () {
-    const { history, language, t } = this.props
+    const { history, t } = this.props
 
     return <TopContainer
       className='p-indexPage'
       t={t}
-      history={history}
-      containerClassName='p-0'
-      language={language}
-      fluid>
+      history={history}>
       <Dashboard id='dashboard' />
     </TopContainer>
   }
 }
 
 IndexPage.propTypes = {
-  language: PT.string,
   history: PT.object.isRequired,
   t: PT.func.isRequired
 }

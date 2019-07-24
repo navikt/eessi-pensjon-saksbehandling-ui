@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PT from 'prop-types'
 import { connect, bindActionCreators } from 'store'
 
@@ -8,6 +8,7 @@ import { getDisplayName } from '../../utils/displayName'
 const mapStateToProps = (state) => {
   return {
     loggedTime: state.app.loggedTime,
+    remainingTime: state.app.remainingTime,
     expirationTime: state.app.expirationTime
   }
 }
@@ -28,10 +29,22 @@ export class SessionMonitor extends Component {
 
   checkTimeout () {
     let self = this
-    const { t, actions, loggedTime, expirationTime, sessionExpiringWarning, sessionExpiredReload, checkInterval } = this.props
-    if (!loggedTime || !sessionExpiringWarning || !sessionExpiredReload || !checkInterval) {
+    const { t, actions, loggedTime, remainingTime, expirationTime } = this.props
+
+    if (!loggedTime || !remainingTime || !expirationTime) {
       return
     }
+
+   /* how many minutes starts the warnings */
+    const minutesForWarning = 5
+    /* X minutes before expired */
+    let sessionExpiringWarning = remainingTime - 1000 * 60 * minutesForWarning
+    if (sessionExpiringWarning <= 1) { sessionExpiringWarning = 1 }
+    /* check every minute */
+    const checkInterval = 1000 * 60
+    /* At expired time plus 1 minute */
+    const sessionExpiredReload = remainingTime + 1000 * 60
+
     return setTimeout(() => {
       const now = new Date()
       const diff = now.getTime() - loggedTime.getTime()
@@ -62,6 +75,7 @@ export class SessionMonitor extends Component {
 
 SessionMonitor.propTypes = {
   loggedTime: PT.object,
+  remainingTime: PT.object,
   expirationTime: PT.object,
   sessionExpiringWarning: PT.number,
   sessionExpiredReload: PT.number,
