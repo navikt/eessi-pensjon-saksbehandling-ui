@@ -1,5 +1,5 @@
 import React from 'react'
-import * as urls from '../../constants/urls'
+import * as urls from 'constants/urls'
 import cookies from 'browser-cookies'
 
 import fetch from 'cross-fetch'

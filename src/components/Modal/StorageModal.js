@@ -5,12 +5,12 @@ import { connect, bindActionCreators } from 'store'
 import { withTranslation } from 'react-i18next'
 import _ from 'lodash'
 
-import * as Nav from '../Nav'
-import Alert from '../Alert/Alert'
-import * as storageActions from '../../../actions/storage'
-import * as uiActions from '../../../actions/ui'
+import * as Nav from 'components/Nav'
+import Alert from 'components/Alert/Alert'
+import * as storageActions from 'actions/storage'
+import * as uiActions from 'actions/ui'
+import { getDisplayName } from 'utils/displayName'
 import './StorageModal.css'
-import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {

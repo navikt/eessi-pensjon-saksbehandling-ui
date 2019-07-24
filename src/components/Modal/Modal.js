@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import PT from 'prop-types'
 import { connect, bindActionCreators } from 'store'
 
-import * as Nav from '../Nav'
-import * as uiActions from '../../../actions/ui'
+import * as Nav from 'components/Nav'
+import * as uiActions from 'actions/ui'
+import { getDisplayName } from 'utils/displayName'
 
 import './Modal.css'
-import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {

@@ -3,17 +3,17 @@ import PT from 'prop-types'
 import classNames from 'classnames'
 import { connect } from 'store'
 
-import * as Nav from '../Nav'
-import Alert from '../Alert/Alert'
-import Banner from '../Banner/Banner'
-import Modal from '../Modal/Modal'
-import InternalTopHeader from '../Header/InternalTopHeader'
-import Footer from '../Footer/Footer'
-import SessionMonitor from '../../app/SessionMonitor'
+import * as Nav from 'components/Nav'
+import Alert from 'components/Alert/Alert'
+import Banner from 'components/Banner/Banner'
+import Modal from 'components/Modal/Modal'
+import InternalTopHeader from 'components/Header/InternalTopHeader'
+import Footer from 'components/Footer/Footer'
+import SessionMonitor from 'components/SessionMonitor/SessionMonitor'
+import { getDisplayName } from 'utils/displayName'
 
 import './TopContainer.css'
 
-import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {

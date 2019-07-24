@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import DatePicker from 'components/DatePicker/DatePicker'
 import CountrySelect from 'components/CountrySelect/CountrySelect'
 import * as CountryFilter from 'components/CountrySelect/CountryFilter'
-import FocusGroup from 'components/FocusGroup'
+import FocusGroup from 'components/FocusGroup/FocusGroup'
 import Flag from 'components/Flag/Flag'
 import FileUpload from 'components/FileUpload/FileUpload'
 import { AlertStripe, Checkbox, Flatknapp, HjelpetekstAuto, Hovedknapp, Input,

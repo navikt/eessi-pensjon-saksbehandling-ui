@@ -7,8 +7,7 @@ import classNames from 'classnames'
 
 import PDFSpecialPage from '../PDFSpecialPage/PDFSpecialPage'
 import * as Nav from 'components/Nav'
-import ColorPicker from 'components/ColorPicker'
-
+import ColorPicker from 'components/ColorPicker/ColorPicker'
 import * as pdfActions from 'actions/pdf'
 
 import './DnDSpecial.css'

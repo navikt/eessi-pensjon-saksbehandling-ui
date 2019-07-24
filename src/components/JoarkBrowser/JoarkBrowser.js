@@ -7,9 +7,9 @@ import File from 'components/File/File'
 import TableSorter from 'components/TableSorter/TableSorter'
 import * as joarkActions from 'actions/joark'
 import * as uiActions from 'actions/ui'
+import { getDisplayName } from 'utils/displayName'
 
 import './JoarkBrowser.css'
-import { getDisplayName } from '../../../utils/displayName'
 
 const mapStateToProps = (state) => {
   return {

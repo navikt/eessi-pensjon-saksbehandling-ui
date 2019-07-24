@@ -5,13 +5,11 @@ import { withTranslation } from 'react-i18next'
 import { Route, withRouter, Redirect } from 'react-router'
 import _ from 'lodash'
 
-import WaitingPanel from './WaitingPanel'
-
-import * as routes from '../../constants/routes'
-import * as constants from '../../constants/constants'
-import * as appActions from '../../actions/app'
-
-import { getDisplayName } from '../../utils/displayName'
+import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
+import * as routes from 'constants/routes'
+import * as constants from 'constants/constants'
+import * as appActions from 'actions/app'
+import { getDisplayName } from 'utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
