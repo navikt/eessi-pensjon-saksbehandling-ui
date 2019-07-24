@@ -4,7 +4,7 @@ import WidgetEditOptions from './WidgetEditOptions'
 import './Widget.css'
 
 const WidgetEdit = (props) => {
-  return <div className='c-ui-d-WidgetEdit'>
+  return <div className='c-d-WidgetEdit'>
 
     <div className='titleDiv draggableHandle'>
       <div className='title'>

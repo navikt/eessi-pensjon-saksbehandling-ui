@@ -230,7 +230,7 @@ class FileUpload extends Component {
       const { files, currentPages, status } = this.state
       const tabIndex = this.props.tabIndex ? { tabIndex: this.props.tabIndex } : {}
 
-      return <div className={classNames('c-ui-fileUpload', 'dropzone', 'p-4', className)}>
+      return <div className={classNames('c-fileUpload', 'dropzone', 'p-4', className)}>
         <Dropzone
           length={files.length}
           activeClassName='dropzone-active'

@@ -1,24 +1,30 @@
 import React from 'react'
-import { Banner } from './Banner'
+import Banner from './Banner'
 
-describe('Banner Rendering', () => {
-  it('Renders correctly', () => {
-    let wrapper = shallow(<Banner header='BANNER' t={arg => arg} />)
-    expect(wrapper).toMatchSnapshot()
+describe('components/Banner', () => {
+
+  let initialMockProps = {
+    header: 'BANNER',
+    t: jest.fn((translationString) => { return translationString }),
+    toggleHighContrast: jest.fn()
+  }
+
+  it('Renders', () => {
+    let wrapper = mount(<Banner {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toEqual(false)
-    expect(wrapper.find('h1').text()).toEqual('BANNER')
-    expect(wrapper.children().length).toEqual(2)
+    expect(wrapper).toMatchSnapshot()
   })
-})
 
-describe('Banner logic', () => {
-  it('HighContrast triggers action', (done) => {
-    let mockActions = { toggleHighContrast: () => {
-      done()
-    } }
+  it('Has proper HTML structure', () => {
+    let wrapper = mount(<Banner {...initialMockProps} />)
+    expect(wrapper.exists('.c-banner')).toBeTruthy()
+    expect(wrapper.find('.c-banner__title').hostNodes().render().text()).toEqual('BANNER')
+    expect(wrapper.exists('#c-banner__highcontrast-link-id')).toBeTruthy()
+  })
 
-    let wrapper = shallow(<Banner header='BANNER' t={arg => arg} actions={mockActions} />)
-
-    wrapper.find('a').simulate('click')
+  it('Handles highContrast request', () => {
+    let wrapper = mount(<Banner {...initialMockProps} />)
+    wrapper.find('#c-banner__highcontrast-link-id').hostNodes().simulate('click')
+    expect(initialMockProps.toggleHighContrast).toBeCalled()
   })
 })

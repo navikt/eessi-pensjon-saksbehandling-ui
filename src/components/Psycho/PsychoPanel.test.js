@@ -16,10 +16,10 @@ describe('PsychoPanel Rendering', () => {
         <div id='4' />
       </PsychoPanel>)
     expect(wrapper.find('Veilederpanel').children().length).toEqual(4)
-    expect(wrapper.exists('div[id="1"]')).toEqual(true)
-    expect(wrapper.exists('div[id="2"]')).toEqual(true)
-    expect(wrapper.exists('div[id="3"]')).toEqual(true)
-    expect(wrapper.exists('div[id="4"]')).toEqual(true)
+    expect(wrapper.exists('div[id="1"]')).toBeTruthy()
+    expect(wrapper.exists('div[id="2"]')).toBeTruthy()
+    expect(wrapper.exists('div[id="3"]')).toBeTruthy()
+    expect(wrapper.exists('div[id="4"]')).toBeTruthy()
     expect(wrapper.exists('div[id="5"]')).toEqual(false)
   })
 
@@ -36,7 +36,7 @@ describe('PsychoPanel Rendering', () => {
     wrapper.setProps({ closeButton: true })
     child = wrapper.find('Veilederpanel')
 
-    expect(child.exists('a[href="#close"]')).toEqual(true)
+    expect(child.exists('a[href="#close"]')).toBeTruthy()
   })
 })
 
@@ -54,6 +54,6 @@ describe('PsychoPanel button', () => {
 
     wrapper.find('a').simulate('click', mockEvent)
 
-    expect(wrapper.isEmptyRender()).toEqual(true)
+    expect(wrapper.isEmptyRender()).toBeTruthy()
   })
 })

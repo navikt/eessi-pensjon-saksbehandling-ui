@@ -40,9 +40,9 @@ export class TopContainer extends Component {
     let sessionExpiredReload = remainingTime + 1000 * 60
 
     return <div style={style}
-      className={classNames('c-ui-topContainer', className, { 'highContrast': highContrast })}>
+      className={classNames('c-topContainer', className, { 'highContrast': highContrast })}>
       <InternalTopHeader t={t} history={history} />
-      {header ? <Banner t={t} header={header} /> : null}
+      {header ? <Banner t={t} header={header} toggleHighContrast={actions.toggleHighContrast} /> : null}
       <Alert type='client' t={t} />
       <Alert type='server' t={t} />
       <Nav.Container fluid={fluid || false} className={classNames('_container', containerClassName)}>

@@ -236,7 +236,7 @@ class StorageModal extends Component {
       let enableButtons = (modalOptions && modalOptions.action !== undefined)
       let action = modalOptions ? modalOptions.action : undefined
 
-      return <Nav.Modal className='c-ui-storageModal'
+      return <Nav.Modal className='c-storageModal'
         ariaHideApp={false}
         isOpen={modalOpen}
         onRequestClose={this.onCancelClick.bind(this)}

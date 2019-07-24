@@ -14,15 +14,15 @@ describe('applications/BUC/widgets/BucWebSocket', () => {
     wrapper = mount(<BucWebSocket {...initialMockProps} />)
   })
 
-  it('renders successfully', () => {
+  it('Renders', () => {
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('renders BucWebSocket', () => {
-    expect(wrapper.exists('.a-buc-websocket')).toEqual(true)
-    expect(wrapper.exists('.a-buc-websocket__status')).toEqual(true)
-    expect(wrapper.exists('.a-buc-websocket__number')).toEqual(true)
-    expect(wrapper.exists('#a-buc-websocket__button-id')).toEqual(true)
+  it('Has proper HTML structure', () => {
+    expect(wrapper.exists('.a-buc-websocket')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-websocket__status')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-websocket__number')).toBeTruthy()
+    expect(wrapper.exists('#a-buc-websocket__button-id')).toBeTruthy()
   })
 })

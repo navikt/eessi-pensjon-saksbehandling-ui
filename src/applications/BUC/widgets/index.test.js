@@ -16,37 +16,37 @@ describe('applications/BUC/widgets/index', () => {
     t: t
   }
 
-  it('renders successfully', () => {
+  it('Renders', () => {
     wrapper = mount(<BUCWidgetIndex {...initialMockProps} mode='buclist' />)
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('renders BUCWidgetIndex ', () => {
+  it('Has proper HTML structure ', () => {
     wrapper = mount(<BUCWidgetIndex {...initialMockProps} mode='buclist' />)
-    expect(wrapper.exists('.a-buc-widget')).toEqual(true)
-    expect(wrapper.exists('.a-buc-widget__header')).toEqual(true)
-    expect(wrapper.exists('BUCCrumbs')).toEqual(true)
-    expect(wrapper.exists('BUCWebSocket')).toEqual(true)
+    expect(wrapper.exists('.a-buc-widget')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-widget__header')).toBeTruthy()
+    expect(wrapper.exists('BUCCrumbs')).toBeTruthy()
+    expect(wrapper.exists('BUCWebSocket')).toBeTruthy()
   })
 
-  it('renders BUCWidgetIndex in buclist mode', () => {
+  it('Has proper HTML structure in buclist mode', () => {
     wrapper = mount(<BUCWidgetIndex {...initialMockProps} mode='buclist' />)
-    expect(wrapper.exists('BUCList')).toEqual(true)
+    expect(wrapper.exists('BUCList')).toBeTruthy()
   })
 
-  it('renders BUCWidgetIndex in bucedit mode', () => {
+  it('Has proper HTML structure in bucedit mode', () => {
     wrapper = mount(<BUCWidgetIndex {...initialMockProps} mode='bucedit' />)
-    expect(wrapper.exists('BUCEdit')).toEqual(true)
+    expect(wrapper.exists('BUCEdit')).toBeTruthy()
   })
 
-  it('renders BUCWidgetIndex in bucnew mode', () => {
+  it('Has proper HTML structure in bucnew mode', () => {
     wrapper = mount(<BUCWidgetIndex {...initialMockProps} mode='bucnew' />)
-    expect(wrapper.exists('BUCNew')).toEqual(true)
+    expect(wrapper.exists('BUCNew')).toBeTruthy()
   })
 
-  it('renders BUCWidgetIndex in sednew mode', () => {
+  it('Has proper HTML structure in sednew mode', () => {
     wrapper = mount(<BUCWidgetIndex {...initialMockProps} mode='sednew' />)
-    expect(wrapper.exists('SEDNew')).toEqual(true)
+    expect(wrapper.exists('SEDNew')).toBeTruthy()
   })
 })

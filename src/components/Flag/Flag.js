@@ -8,7 +8,7 @@ const Flag = (props) => {
   const { label, className, size, flagPath, country, extension } = props
   let _size = size || 'M'
 
-  return <div className={classnames(className, 'c-ui-flag', 'c-ui-flag__size-' + _size)} title={label}>
+  return <div className={classnames(className, 'c-flag', 'c-flag__size-' + _size)} title={label}>
     <img alt={label} data-qa='Flag-img' src={''.concat(flagPath, country, extension)} />
   </div>
 }

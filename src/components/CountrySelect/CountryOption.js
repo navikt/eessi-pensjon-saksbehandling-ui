@@ -9,7 +9,7 @@ class CountryOption extends Component {
     const _type = selectProps.selectProps.type || 'country'
     const _label = _type === 'country' ? label : (data.currency ? data.currency + ' - ' : '') + data.currencyLabel
     return <div id={selectProps.id + '-' + data.value}>
-      <div className={classNames('c-ui-countryOption', {
+      <div className={classNames('c-countryOption', {
         selected: isSelected,
         focused: isFocused
       })} {...innerProps}>
@@ -17,7 +17,7 @@ class CountryOption extends Component {
           alt={label}
           onError={selectProps.selectProps.onImageError}
         />
-        <span className='c-ui-countryOption-label'>{_label}</span>
+        <span className='c-countryOption-label'>{_label}</span>
       </div>
     </div>
   }

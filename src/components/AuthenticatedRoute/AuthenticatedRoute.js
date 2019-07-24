@@ -5,10 +5,10 @@ import { withTranslation } from 'react-i18next'
 import { Route, withRouter, Redirect } from 'react-router'
 import _ from 'lodash'
 
-import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
-import * as routes from 'constants/routes'
-import * as constants from 'constants/constants'
 import * as appActions from 'actions/app'
+import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
+import * as constants from 'constants/constants'
+import * as routes from 'constants/routes'
 import { getDisplayName } from 'utils/displayName'
 
 const mapStateToProps = (state) => {
@@ -23,7 +23,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, appActions), dispatch) }
+  return { actions: bindActionCreators(appActions, dispatch) }
 }
 
 const paramAliases = {
@@ -33,12 +33,12 @@ const paramAliases = {
   'fnr': 'aktoerId'
 }
 
-const AuthenticatedRoute = (props) => {
+export const AuthenticatedRoute = (props) => {
+  const { actions, allowed, location, loggedIn, t, userRole } = props
   const [ _params, _setParams ] = useState({})
   const [ mounted, setMounted ] = useState(false)
   const [ requestingUserInfo, setRequestingUserInfo ] = useState(false)
   const [ requestingLogin, setRequestingLogin ] = useState(false)
-  const { t, allowed, actions, location, loggedIn, userRole } = props
 
   useEffect(() => {
     const parseSearchParams = () => {
@@ -66,7 +66,8 @@ const AuthenticatedRoute = (props) => {
         actions.getUserInfo()
         setRequestingUserInfo(true)
       }
-      if (loggedIn === false && requestingUserInfo && !requestingLogin) {
+
+      if (loggedIn === false && !requestingLogin) {
         actions.login()
         setRequestingLogin(true)
       }
@@ -95,22 +96,17 @@ const AuthenticatedRoute = (props) => {
 }
 
 AuthenticatedRoute.propTypes = {
-  className: PT.string,
-  actions: PT.object.isRequired
+  actions: PT.object.isRequired,
+  allowed: PT.bool,
+  location: PT.object.isRequired,
+  loggedIn: PT.bool,
+  t: PT.func.isRequired,
+  userRole: PT.string
 }
 
-const ConnectedAuthenticatedRoute = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(
-  withRouter(
-    withTranslation()(AuthenticatedRoute)
-  )
+const ConnectedAuthenticatedRoute = connect(mapStateToProps, mapDispatchToProps)(
+  withRouter(withTranslation()(AuthenticatedRoute))
 )
-
 ConnectedAuthenticatedRoute.displayName = `Connect(${getDisplayName(
-  withRouter(
-    withTranslation()(AuthenticatedRoute)
-  ))})`
-
+  withRouter(withTranslation()(AuthenticatedRoute)))})`
 export default ConnectedAuthenticatedRoute

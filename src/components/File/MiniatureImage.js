@@ -23,7 +23,7 @@ export class MiniatureImage extends Component {
 
     const title = '' + file.name + '\n' + t('ui:size') + ': ' + size
 
-    return <div title={title} className={classNames('c-ui-file', 'c-ui-miniatureImage', className, { 'animate': animate })}
+    return <div title={title} className={classNames('c-file', 'c-miniatureImage', className, { 'animate': animate })}
       style={{ transform: 'scale(' + scale + ')' }}>
       <div>
         { deleteLink && isHovering ? <div onClick={this.onDeleteDocument.bind(this)} className='link deleteLink'>

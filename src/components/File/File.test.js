@@ -17,18 +17,18 @@ describe('Render File', () => {
   })
   it('Renders right file type', () => {
     let wrapper = shallow(<File file={mockPDF} />)
-    expect(wrapper.containsMatchingElement(<MiniaturePDF />)).toEqual(true)
+    expect(wrapper.containsMatchingElement(<MiniaturePDF />)).toBeTruthy()
     expect(wrapper.containsMatchingElement(<MiniatureImage />)).toEqual(false)
     expect(wrapper.containsMatchingElement(<MiniatureOther />)).toEqual(false)
 
     wrapper.setProps({ file: mockPNG })
     expect(wrapper.containsMatchingElement(<MiniaturePDF />)).toEqual(false)
-    expect(wrapper.containsMatchingElement(<MiniatureImage />)).toEqual(true)
+    expect(wrapper.containsMatchingElement(<MiniatureImage />)).toBeTruthy()
     expect(wrapper.containsMatchingElement(<MiniatureOther />)).toEqual(false)
 
     wrapper.setProps({ file: mockOTHER })
     expect(wrapper.containsMatchingElement(<MiniaturePDF />)).toEqual(false)
     expect(wrapper.containsMatchingElement(<MiniatureImage />)).toEqual(false)
-    expect(wrapper.containsMatchingElement(<MiniatureOther />)).toEqual(true)
+    expect(wrapper.containsMatchingElement(<MiniatureOther />)).toBeTruthy()
   })
 })

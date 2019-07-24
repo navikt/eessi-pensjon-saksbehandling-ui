@@ -54,7 +54,7 @@ class CountrySelect extends Component {
     if (defValue && !defValue.label) {
       defValue = _.find(options, { value: defValue.value ? defValue.value : defValue })
     }
-    return <div id={id} className={classNames('c-ui-countrySelect', className, { 'skjemaelement__feilmelding': error })}>
+    return <div id={id} className={classNames('c-countrySelect', className, { 'skjemaelement__feilmelding': error })}>
       <Select placeholder={placeholder}
         value={defValue || null}
         options={options}

@@ -13,7 +13,7 @@ const SmileyWidget = (props) => {
     }
   }, [mounted, onResize])
 
-  return <div className='p-3 c-ui-d-SmileyWidget text-center'>
+  return <div className='p-3 c-d-SmileyWidget text-center'>
     <ReactResizeDetector
       handleWidth
       handleHeight

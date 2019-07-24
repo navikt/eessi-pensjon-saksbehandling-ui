@@ -29,12 +29,12 @@ describe('Render MiniatureImage', () => {
     expect(wrapper.exists('div.deleteLink')).toEqual(false)
     expect(wrapper.exists('div.downloadLink')).toEqual(false)
 
-    wrapper.find('div.c-ui-miniatureImage').simulate('mouseEnter')
+    wrapper.find('div.c-miniatureImage').simulate('mouseEnter')
 
-    expect(wrapper.exists('div.deleteLink')).toEqual(true)
-    expect(wrapper.exists('div.downloadLink')).toEqual(true)
+    expect(wrapper.exists('div.deleteLink')).toBeTruthy()
+    expect(wrapper.exists('div.downloadLink')).toBeTruthy()
 
-    wrapper.find('div.c-ui-miniatureImage').simulate('mouseLeave')
+    wrapper.find('div.c-miniatureImage').simulate('mouseLeave')
 
     expect(wrapper.exists('div.deleteLink')).toEqual(false)
     expect(wrapper.exists('div.downloadLink')).toEqual(false)
@@ -52,7 +52,7 @@ describe('MiniatureImage functions', () => {
         deleteLink
         onDeleteDocument={() => done()}
       />)
-    wrapper.find('div.c-ui-miniatureImage').simulate('mouseEnter')
+    wrapper.find('div.c-miniatureImage').simulate('mouseEnter')
     wrapper.find('div.deleteLink').simulate('click', { stopPropagation: jest.fn(), preventDefault: jest.fn() })
   })
 
@@ -66,7 +66,7 @@ describe('MiniatureImage functions', () => {
         downloadLink
         onDeleteDocument={jest.fn()}
       />)
-    wrapper.find('div.c-ui-miniatureImage').simulate('mouseEnter')
+    wrapper.find('div.c-miniatureImage').simulate('mouseEnter')
     let downloadLinkProps = wrapper.find('div.downloadLink > a').props()
     expect(downloadLinkProps.href).toEqual(
       'data:application/octet-stream;base64,' +

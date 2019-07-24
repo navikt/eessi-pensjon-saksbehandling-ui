@@ -8,7 +8,7 @@ import './RefreshButton.css'
 const RefreshButton = (props) => {
   const { t, onRefreshClick, rotating } = props
 
-  return <div title={t('ui:refresh')} className={classNames('c-ui-refreshbutton')}>
+  return <div title={t('ui:refresh')} className={classNames('c-refreshbutton')}>
     <a href='#refresh' onClick={onRefreshClick}>
       <div className={classNames({ rotating: rotating })}>
         <Icons kind='refresh' />

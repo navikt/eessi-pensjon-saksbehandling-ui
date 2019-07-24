@@ -4,7 +4,7 @@ import './Widget.css'
 import WidgetAddPreview from './WidgetAddPreview'
 
 const WidgetAddArea = (props) => {
-  return <div className='c-ui-d-widgetAddContainer'>
+  return <div className='c-d-widgetAddContainer'>
     <WidgetAddPreview t={props.t} currentBreakpoint={props.currentBreakpoint} />
     {props.availableWidgets.map((widget, i) => {
       return <WidgetAdd key={i}

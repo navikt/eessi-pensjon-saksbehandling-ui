@@ -18,7 +18,7 @@ describe('Renders FlagList', () => {
     let wrapper = shallow(<FlagList {...defaultMockProps} />)
 
     expect(wrapper.find('Flag').length).toEqual(2)
-    expect(wrapper.exists('span')).toEqual(true)
+    expect(wrapper.exists('span')).toBeTruthy()
     expect(wrapper.find('span').render().html()).toEqual('+1')
 
     wrapper.setProps({ overflowLimit: 3 })

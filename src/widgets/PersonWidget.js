@@ -14,7 +14,7 @@ const PersonWidget = (props) => {
     }
   }, [mounted, onResize])
 
-  return <div className='c-ui-d-PersonWidget'>
+  return <div className='c-d-PersonWidget'>
     <ReactResizeDetector
       handleWidth
       handleHeight

@@ -21,27 +21,27 @@ describe('applications/BUC/components/Step1/Step1', () => {
     </StoreProvider>)
   })
 
-  it('Renders successfully', () => {
+  it('Renders', () => {
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Presses next button', () => {
-    expect(wrapper.exists('#a-buc-c-sedattachmnents__next-button-id')).toEqual(true)
+    expect(wrapper.exists('#a-buc-c-sedattachmnents__next-button-id')).toBeTruthy()
     let button = wrapper.find('#a-buc-c-sedattachmnents__next-button-id').hostNodes()
     button.simulate('click')
     expect(initialMockProps.setStep).toHaveBeenCalledWith('generate')
   })
 
   it('Presses back button', () => {
-    expect(wrapper.exists('#a-buc-c-sedattachmnents__back-button-id')).toEqual(true)
+    expect(wrapper.exists('#a-buc-c-sedattachmnents__back-button-id')).toBeTruthy()
     let button = wrapper.find('#a-buc-c-sedattachmnents__back-button-id').hostNodes()
     button.simulate('click')
     expect(initialMockProps.setStep).toHaveBeenCalledWith('select')
   })
 
-  it('Render()', () => {
-    expect(wrapper.exists('.a-buc-c-sedattachments-step2')).toEqual(true)
-    expect(wrapper.exists('PDFEditor')).toEqual(true)
+  it('Has proper HTML structure', () => {
+    expect(wrapper.exists('.a-buc-c-sedattachments-step2')).toBeTruthy()
+    expect(wrapper.exists('PDFEditor')).toBeTruthy()
   })
 })

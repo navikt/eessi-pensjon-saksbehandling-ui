@@ -77,7 +77,7 @@ const MultipleSelect = (props) => {
   let options = includeList ? include(includeList, optionList) : optionList
   options = excludeList ? exclude(excludeList, options) : options
 
-  return <div id={id} className={classNames('c-ui-multipleSelect', className, { 'skjemaelement__feilmelding': error })}>
+  return <div id={id} className={classNames('c-multipleSelect', className, { 'skjemaelement__feilmelding': error })}>
     {creatable
       ? <CreatableSelect placeholder={placeholder}
         isMulti

@@ -1,38 +1,50 @@
 import React from 'react'
-
 import { Alert } from './Alert'
 
 describe('components/Alert/Alert', () => {
   let wrapper
   const t = jest.fn((translationString) => { return translationString })
   const initialMockProps = {
+    actions: {
+      clientClear: jest.fn()
+    },
+    clientErrorStatus: 'OK',
+    clientErrorMessage: 'mockClientErrorMessage',
+    error: undefined,
+    serverErrorMessage: 'mockServerErrorMessage',
     t: t
   }
 
-  it('Alert renders without crashing', () => {
-    wrapper = mount(<Alert {...initialMockProps} type='server' />)
+  it('Renders', () => {
+    wrapper = mount(<Alert {...initialMockProps} type='server'/>)
+    expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Alert renders as server', () => {
-    wrapper = mount(<Alert t={t} type='server' />)
-    expect(wrapper.render().text()).toEqual('mockServerErrorMessageMockUuid')
+  it('Has proper HTML structure as server', () => {
+    wrapper = mount(<Alert {...initialMockProps}  type='server' />)
+    expect(wrapper.exists('.c-alert.server')).toBeTruthy()
+    expect(wrapper.render().text()).toEqual('mockServerErrorMessage')
   })
 
-  it('Alert renders as client', () => {
-    wrapper = mount(<Alert t={t} type='client' />)
-    expect(wrapper.render().text()).toEqual('mockClientErrorMessageMockUuid')
+  it('Has proper HTML structure as client', () => {
+    wrapper = mount(<Alert {...initialMockProps}  type='client' />)
+    expect(wrapper.exists('.c-alert.client')).toBeTruthy()
+    expect(wrapper.render().text()).toEqual('mockClientErrorMessage')
   })
 
-  it('Alert close button works', async (done) => {
-    wrapper = mount(<Alert t={t} type='client' />)
-    expect(wrapper.render().text()).toEqual('mockClientErrorMessageMockUuid')
-    wrapper.instance().clientClear()
-    await new Promise(resolve => {
-      setTimeout(() => {
-        expect(wrapper.render().text()).toEqual('')
-        done()
-      }, 500)
-    })
+  it('Has proper HTML structure as client in OK type', () => {
+     wrapper = mount(<Alert {...initialMockProps}  type='client' />)
+     expect(wrapper.render().hasClass('alertstripe--suksess')).toBeTruthy()
+  })
+
+  it('Has proper HTML structure as client in ERROR type', () => {
+     wrapper = mount(<Alert {...initialMockProps}  type='client' clientErrorStatus='WARNING'/>)
+     expect(wrapper.render().hasClass('alertstripe--advarsel')).toBeTruthy()
+  })
+
+  it('Has proper HTML structure as client in ERROR type', () => {
+     wrapper = mount(<Alert {...initialMockProps}  type='client' clientErrorStatus='ERROR'/>)
+     expect(wrapper.render().hasClass('alertstripe--feil')).toBeTruthy()
   })
 })

@@ -14,18 +14,18 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
     bucInfo: bucInfo
   }
 
-  it('Renders successfully', () => {
+  it('Renders', () => {
     let wrapper = shallow(<BUCDetail {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Renders child components', () => {
+  it('Has proper HTML structure', () => {
     let wrapper = mount(<BUCDetail {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toEqual(false)
-    expect(wrapper.exists('EkspanderbartpanelBase')).toEqual(true)
-    expect(wrapper.exists('.a-buc-c-bucdetail__body')).toEqual(true)
-    expect(wrapper.exists('.a-buc-c-bucdetail__props')).toEqual(true)
+    expect(wrapper.exists('EkspanderbartpanelBase')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucdetail__body')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucdetail__props')).toBeTruthy()
     expect(wrapper.find('#a-buc-c-bucdetail__props-type').render().text()).toEqual(buc.type)
     expect(wrapper.find('#a-buc-c-bucdetail__props-caseId').render().text()).toEqual(buc.caseId)
     expect(wrapper.find('#a-buc-c-bucdetail__props-creator').render().text()).toEqual(
@@ -36,7 +36,7 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
     expect(wrapper.find('#a-buc-c-bucdetail__props-status').render().text()).toEqual(t('ui:' + buc.status))
     expect(wrapper.find('#a-buc-c-bucdetail__props-tags').render().text()).toEqual(bucInfo.tags.join(', '))
     expect(wrapper.find('#a-buc-c-bucdetail__props-comment').render().text()).toEqual(bucInfo.comment)
-    expect(wrapper.exists('.a-buc-c-bucdetail__institutions')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-bucdetail__institutions')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-institutionlist').render().text()).toEqual('Norge: NO:NAVT003, NO:NAVT002')
   })
 })

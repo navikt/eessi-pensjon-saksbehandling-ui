@@ -19,14 +19,14 @@ describe('applications/BUC/components/SEDBody/SEDBody', () => {
     wrapper = mount(<SEDBody {...initialMockProps} />)
   })
 
-  it('Renders successfully', () => {
+  it('Renders', () => {
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Render()', () => {
+  it('Has proper HTML structure', () => {
     expect(wrapper.find('SEDRow').length).toEqual(seds.filter(sed => sed.status !== 'empty').length)
-    expect(wrapper.exists('.a-buc-c-sedbody__footer')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-sedbody__footer')).toBeTruthy()
     const rinaLink = wrapper.find('#a-buc-c-sedbody__gotorina-link').hostNodes()
     expect(rinaLink.props().href).toEqual(initialMockProps.rinaUrl + initialMockProps.buc.caseId)
     expect(rinaLink.props().target).toEqual('rinaWindow')

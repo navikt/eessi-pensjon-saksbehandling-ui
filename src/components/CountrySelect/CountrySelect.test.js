@@ -38,29 +38,29 @@ describe('Countryselect Behaviour', () => {
       errorMessage={undefined}
     />)
 
-    expect(wrapper.find('.c-ui-countryOption').length).toEqual(0)
+    expect(wrapper.find('.c-countryOption').length).toEqual(0)
     wrapper.find('.CountrySelect__dropdown-indicator').simulate('mouseDown', { button: 0 })
 
-    expect(wrapper.find('.c-ui-countryOption').length).toEqual(EEA.length)
+    expect(wrapper.find('.c-countryOption').length).toEqual(EEA.length)
 
     wrapper.find('.CountrySelect__dropdown-indicator').simulate('mouseDown', { button: 0 })
 
-    expect(wrapper.find('.c-ui-countryOption').length).toEqual(0)
+    expect(wrapper.find('.c-countryOption').length).toEqual(0)
 
     wrapper.find('.CountrySelect__control').simulate('keyDown', { key: 'ArrowDown' })
 
-    expect(wrapper.find('.c-ui-countryOption').length).toEqual(EEA.length)
+    expect(wrapper.find('.c-countryOption').length).toEqual(EEA.length)
 
     wrapper.find('.CountrySelect__control').simulate('keyDown', { key: 'Escape' })
 
-    expect(wrapper.find('.c-ui-countryOption').length).toEqual(0)
+    expect(wrapper.find('.c-countryOption').length).toEqual(0)
 
     wrapper.unmount()
   })
 
   it('Returns value when selected', (done) => {
     const testOnSelect = (value) => {
-      expect(value.label).toEqual(wrapper.find('.c-ui-countryOption').last().text())
+      expect(value.label).toEqual(wrapper.find('.c-countryOption').last().text())
       expect(value).not.toEqual('something')
       done()
     }
@@ -74,6 +74,6 @@ describe('Countryselect Behaviour', () => {
       errorMessage={undefined}
     />)
     wrapper.find('.CountrySelect__dropdown-indicator').simulate('mouseDown', { button: 0 })
-    wrapper.find('.c-ui-countryOption').last().simulate('click')
+    wrapper.find('.c-countryOption').last().simulate('click')
   })
 })

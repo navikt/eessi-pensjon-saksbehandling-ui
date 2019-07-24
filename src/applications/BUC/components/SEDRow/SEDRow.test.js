@@ -21,13 +21,13 @@ describe('applications/BUC/components/SEDRow/SEDRow', () => {
     wrapper = mount(<SEDRow {...initialMockProps} />)
   })
 
-  it('Renders successfully', () => {
+  it('Renders', () => {
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Render()', () => {
-    expect(wrapper.exists('.a-buc-c-sedrow')).toEqual(true)
+  it('Has proper HTML structure', () => {
+    expect(wrapper.exists('.a-buc-c-sedrow')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-sedrow__name').hostNodes().render().text()).toEqual(sed.type)
 
     let status = wrapper.find('.a-buc-c-sedrow__status').hostNodes()
@@ -39,7 +39,7 @@ describe('applications/BUC/components/SEDRow/SEDRow', () => {
 
     let actions = wrapper.find('.a-buc-c-sedrow__actions').hostNodes()
     expect(actions.find('.a-buc-c-sedrow__actions-attachments').hostNodes().props().title).toEqual('buc:form-youHaveXAttachmentsInSed')
-    expect(actions.exists('Icons')).toEqual(true)
-    expect(actions.exists('Flatknapp.a-buc-c-sedrow__actions-answer-button')).toEqual(true)
+    expect(actions.exists('Icons')).toBeTruthy()
+    expect(actions.exists('Flatknapp.a-buc-c-sedrow__actions-answer-button')).toBeTruthy()
   })
 })

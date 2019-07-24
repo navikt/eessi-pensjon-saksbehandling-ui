@@ -77,7 +77,7 @@ export class Footer extends Component {
     const { footerOpen } = this.props
     const { paramValue } = this.state
 
-    return <footer className={classNames('c-ui-footer', { toggled: footerOpen })}>
+    return <footer className={classNames('c-footer', { toggled: footerOpen })}>
       <div className={classNames('contents', { fullWidth: !footerOpen })}>
         <div className={classNames({ footerButtonOpen: footerOpen, footerButtonClosed: !footerOpen })}
           onClick={this.toggleFooterOpen.bind(this)}>

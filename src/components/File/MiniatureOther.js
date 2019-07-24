@@ -15,7 +15,7 @@ export class MiniatureOther extends Component {
     let extension = file.name.substring(file.name.lastIndexOf('.') + 1)
 
     return <div title={file.name + '\n' + t('ui:size') + ': ' + size}
-      className={classNames('c-ui-file', 'c-ui-miniatureOther', className, { 'animate': animate })}>
+      className={classNames('c-file', 'c-miniatureOther', className, { 'animate': animate })}>
       { isHovering ? <div className='link deleteLink'>
         <Icons kind='trashcan' size={15} onClick={onDeleteDocument} />
       </div> : null }

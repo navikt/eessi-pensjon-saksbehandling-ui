@@ -41,19 +41,19 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
     wrapper = mount(<BUCStart {...initialMockProps} />)
   })
 
-  it('renders successfully', () => {
+  it('Renders', () => {
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('useEffect: verifies case number in no currentBUC is provided', () => {
+  it('UseEffect: verifies case number in no currentBUC is provided', () => {
     expect(initialMockProps.actions.verifyCaseNumber).toHaveBeenCalledWith({
       sakId: '123',
       aktoerId: '456'
     })
   })
 
-  it('useEffect: fetches subject areas, bucs, tags list if empty', () => {
+  it('UseEffect: fetches subject areas, bucs, tags list if empty', () => {
     wrapper = mount(<BUCStart {...initialMockProps}
       subjectAreaList={undefined}
       bucList={undefined}
@@ -64,7 +64,7 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
     expect(initialMockProps.actions.getTagList).toHaveBeenCalled()
   })
 
-  it('useEffect: saves bucsInfo after when buc was saved', () => {
+  it('UseEffect: saves bucsInfo after when buc was saved', () => {
     wrapper = mount(<BUCStart {...initialMockProps}
       bucsInfo={{ bucs: 'mockBucs' }}
       buc={{ foo: 'bar' }}
@@ -77,7 +77,7 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
     })
   })
 
-  it('useEffect: having buc and saved bucInfo makes you go to sednew menu', async (done) => {
+  it('UseEffect: having buc and saved bucInfo makes you go to sednew menu', async (done) => {
     wrapper = mount(<BUCStart {...initialMockProps}
       bucsInfo={{ bucs: 'mockBucs' }}
       buc={{ foo: 'bar' }}
@@ -103,8 +103,8 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
     })
   })
 
-  it('onForwardButtonClick()', () => {
-    expect(wrapper.find('button.a-buc-c-bucstart__forward-button').prop('disabled')).toBe(true)
+  it('Handles onForwardButtonClick()', () => {
+    expect(wrapper.find('button.a-buc-c-bucstart__forward-button').prop('disabled')).toBeTruthy()
     wrapper.find('#a-buc-c-bucstart__subjectarea-select-id').hostNodes().prop('onChange')({ target: { value: 'Pensjon' } })
     wrapper.find('#a-buc-c-bucstart__buc-select-id').hostNodes().prop('onChange')({ target: { value: 'mockBuc1' } })
     wrapper.update()
@@ -112,19 +112,19 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
     expect(initialMockProps.actions.createBuc).toHaveBeenCalledWith('mockBuc1')
   })
 
-  it('onCancelButtonClick()', () => {
+  it('Handles onCancelButtonClick()', () => {
     expect(wrapper.find('button.a-buc-c-bucstart__cancel-button').prop('disabled')).toBe(false)
     wrapper.find('button.a-buc-c-bucstart__cancel-button').simulate('click')
     expect(initialMockProps.actions.setMode).toHaveBeenCalledWith('buclist')
   })
 
-  it('render()', () => {
-    expect(wrapper.exists('div.a-buc-c-bucstart')).toEqual(true)
-    expect(wrapper.exists('.a-buc-c-bucstart__subjectarea-select')).toEqual(true)
-    expect(wrapper.exists('.a-buc-c-bucstart__buc-select')).toEqual(true)
-    expect(wrapper.exists('.a-buc-c-bucstart__tags-select')).toEqual(true)
-    expect(wrapper.exists('.a-buc-c-bucstart__buttons')).toEqual(true)
-    expect(wrapper.exists('.a-buc-c-bucstart__forward-button')).toEqual(true)
-    expect(wrapper.exists('.a-buc-c-bucstart__cancel-button')).toEqual(true)
+  it('Has proper HTML structure', () => {
+    expect(wrapper.exists('div.a-buc-c-bucstart')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucstart__subjectarea-select')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucstart__buc-select')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucstart__tags-select')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucstart__buttons')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucstart__forward-button')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucstart__cancel-button')).toBeTruthy()
   })
 })

@@ -20,14 +20,14 @@ describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
     </StoreProvider>)
   })
 
-  it('Renders successfully', () => {
+  it('Renders', () => {
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Pressing button for attachments makes it disappear', () => {
-    expect(wrapper.exists('.a-buc-c-sedattachments')).toEqual(true)
-    expect(wrapper.exists('#a-buc-c-sedattachments__enable-button-id')).toEqual(true)
+    expect(wrapper.exists('.a-buc-c-sedattachments')).toBeTruthy()
+    expect(wrapper.exists('#a-buc-c-sedattachments__enable-button-id')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-sedattachments-step1')).toEqual(false)
 
     wrapper.find('#a-buc-c-sedattachments__enable-button-id').hostNodes().simulate('click')
@@ -38,8 +38,8 @@ describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
     expect(wrapper.render().find('#a-buc-c-sedattachments__enable-button-id')).toHaveLength(0)
   })
 
-  it('Render()', () => {
-    expect(wrapper.exists('.a-buc-c-sedattachments')).toEqual(true)
-    expect(wrapper.exists('#a-buc-c-sedattachments__enable-button-id')).toEqual(true)
+  it('Has proper HTML structure', () => {
+    expect(wrapper.exists('.a-buc-c-sedattachments')).toBeTruthy()
+    expect(wrapper.exists('#a-buc-c-sedattachments__enable-button-id')).toBeTruthy()
   })
 })

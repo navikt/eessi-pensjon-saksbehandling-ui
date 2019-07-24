@@ -14,7 +14,7 @@ describe('applications/BUC/components/SEDP4000/SEDP4000', () => {
     setShowButtons: jest.fn()
   }
 
-  it('Renders without crashing', () => {
+  it('Renders', () => {
     const wrapper = mount(<SEDP4000 {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
@@ -23,5 +23,15 @@ describe('applications/BUC/components/SEDP4000/SEDP4000', () => {
   it('UseEffect: call for p4000 file list if we do not have one', () => {
     mount(<SEDP4000 {...initialMockProps} />)
     expect(initialMockProps.actions.listP4000).toHaveBeenCalledWith(initialMockProps.aktoerId)
+  })
+
+  it('Has proper HTML structure: unmounted state', () => {
+     const wrapper = mount(<SEDP4000 {...initialMockProps} />)
+     expect(wrapper.exists('NavFrontendSpinner').toBeTruthy()
+  })
+
+  it('Has proper HTML structure: mounted state', () => {
+    const wrapper = mount(<SEDP4000 {...initialMockProps} p4000list={['file']} p4000info={{stayAbroad: []}}/>)
+    expect(wrapper.exists('.a-buc-c-sedp4000').toBeTruthy()
   })
 })

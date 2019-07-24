@@ -7,7 +7,7 @@ const MultipleOption = (props) => {
   const { data, selectProps, innerProps, isSelected, isFocused } = props
 
   return <div id={selectProps.id + '-' + data.value}>
-    <div className={classNames('c-ui-multipleOption', {
+    <div className={classNames('c-multipleOption', {
       selected: isSelected,
       focused: isFocused
     })} {...innerProps}>

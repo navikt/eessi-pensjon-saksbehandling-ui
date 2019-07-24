@@ -9,7 +9,7 @@ import './Flag.css'
 const FlagList = (props) => {
   const { className, locale, size, items, overflowLimit } = props
 
-  return <div className={classNames('c-ui-flaglist', className)}>
+  return <div className={classNames('c-flaglist', className)}>
     {items.map((item, index) => {
       if (index > overflowLimit - 1) {
         return null

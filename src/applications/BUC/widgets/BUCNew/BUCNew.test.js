@@ -8,16 +8,16 @@ describe('applications/BUC/widgets/BUCNew/BUCNew', () => {
     t: t
   }
 
-  it('renders successfully', () => {
+  it('Renders', () => {
     wrapper = mount(<BUCNew {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('renders', () => {
+  it('Has proper HTML structure', () => {
     wrapper = mount(<BUCNew {...initialMockProps} />)
-    expect(wrapper.exists('.a-buc-bucnew')).toEqual(true)
-    expect(wrapper.exists('BUCStart')).toEqual(true)
+    expect(wrapper.exists('.a-buc-bucnew')).toBeTruthy()
+    expect(wrapper.exists('BUCStart')).toBeTruthy()
     expect(wrapper.find('BUCStart').hostNodes().props().mode).toEqual('widget')
   })
 })

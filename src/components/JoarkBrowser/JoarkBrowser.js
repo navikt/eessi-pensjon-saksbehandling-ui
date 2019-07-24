@@ -147,7 +147,7 @@ const JoarkBrowser = (props) => {
     </div>
   }
 
-  return <div className='c-ui-joarkBrowser'>
+  return <div className='c-joarkBrowser'>
     <TableSorter
       t={t}
       items={items}

@@ -20,13 +20,13 @@ describe('applications/BUC/components/Step1/Step1', () => {
     </StoreProvider>)
   })
 
-  it('Renders successfully', () => {
+  it('Renders', () => {
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Render()', () => {
-    expect(wrapper.exists('.a-buc-c-sedattachments-step1')).toEqual(true)
-    expect(wrapper.exists('JoarkBrowser')).toEqual(true)
+  it('Has proper HTML structure', () => {
+    expect(wrapper.exists('.a-buc-c-sedattachments-step1')).toBeTruthy()
+    expect(wrapper.exists('JoarkBrowser')).toBeTruthy()
   })
 })

@@ -11,7 +11,7 @@ const ResponsiveReactGridLayout = WidthProvider(Responsive)
 const DashboardGrid = (props) => {
   return props.connectDropTarget(<div
     id='dashboardGrid'
-    className={classNames('c-ui-d-dashboardGrid', {
+    className={classNames('c-d-dashboardGrid', {
       'canDrop': props.canDrop
     })}>
     <ResponsiveReactGridLayout

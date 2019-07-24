@@ -26,13 +26,13 @@ describe('applications/BUC/pages/index', () => {
     </StoreProvider>)
   })
 
-  it('renders successfully', () => {
+  it('Renders', () => {
     expect(wrapper.isEmptyRender()).toEqual(false)
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('renders BUCStart in page mode', () => {
-    expect(wrapper.exists('.a-buc-page')).toEqual(true)
+  it('Inits with BUCStart in page mode', () => {
+    expect(wrapper.exists('.a-buc-page')).toBeTruthy()
     expect(wrapper.find('.a-buc-page__title').hostNodes().render().text()).toEqual('buc:step-startBUCTitle')
     expect(wrapper.find('.a-buc-page BUCStart').props().mode).toEqual('page')
   })

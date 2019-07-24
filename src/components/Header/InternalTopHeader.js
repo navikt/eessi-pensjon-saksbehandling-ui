@@ -50,9 +50,9 @@ export class InternalTopHeader extends Component {
     let { t, username, gettingUserInfo, isLoggingOut, header } = this.props
 
     return <React.Fragment>
-      <header className='c-ui-topHeader'>
+      <header className='c-topHeader'>
         <div className='brand'>
-          <a href='#index' id='c-ui-logo-link' onClick={this.onLogoClick.bind(this)}>
+          <a href='#index' id='c-logo-link' onClick={this.onLogoClick.bind(this)}>
             <NavLogoTransparent width='100' height='45' color='white' />
           </a>
           <div className='skillelinje' />
