@@ -1,260 +1,116 @@
 import React from 'react'
-
-import { MiniaturePDF } from './MiniaturePDF'
-
-const mockPdf = {
-  size: 6090,
-  name: 'testPDF.pdf',
-  mimetype: 'application/pdf',
-  content: {
-    base64: 'mockData'
-  },
-  numPages: 5
-}
+import MiniaturePDF from './MiniaturePDF'
+import samplePDF from 'resources/tests/samplePDF'
 
 jest.mock('react-pdf', () => {
   const React = require('react')
   return {
     pdfjs: { GlobalWorkerOptions: { workerSrc: '' } },
-    Document: class Document extends React.Component {
-      onLoadSuccess () {
-        this.props.onLoadSuccess({ numPages: 5 })
-      }
-      render () {
-        return this.props.children ? this.props.children : null
-      }
+    Document: (props) => {
+      props.onLoadSuccess({ numPages: 5 })
+      return <div>{props.children}</div>
     },
-    Page: class Page extends React.Component {
-      render () {
-        return 'Page: ' + this.props.pageNumber
-      }
+    Page: (props) => {
+      return 'Page: ' + props.pageNumber
     }
   }
 })
 
-describe('Render MiniaturePDF', () => {
-  it('Renders without crashing', () => {
-    let wrapper = mount(<MiniaturePDF
-      size='Large'
-      currentPage={1}
-      t={arg => arg}
-      file={mockPdf}
-      scale={1}
-      onLoadSuccess={() => { }}
-    />)
-    wrapper.find('Document').instance().onLoadSuccess()
+describe('components/File/MiniaturePDF', () => {
 
-    expect(wrapper.isEmptyRender()).toEqual(false)
+  const t = jest.fn((translationString) => { return translationString })
+
+  const initialMockProps = {
+    size: '2 kB',
+    t: t,
+    file: samplePDF,
+    scale: 1,
+    onAddFile: jest.fn(),
+    onDeleteDocument: jest.fn(),
+    onLoadSuccess: jest.fn(),
+    onPreviewDocument: jest.fn(),
+    previewLink: true,
+    deleteLink: true,
+    downloadLink: true,
+    addLink: true
+  }
+
+  it('Renders', () => {
+    let wrapper = mount(<MiniaturePDF {...initialMockProps} />)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
-    wrapper.unmount()
+  })
+
+  it('onLoadSuccess is called wiehen mounted', () => {
+    mount(<MiniaturePDF {...initialMockProps} />)
+    expect(initialMockProps.onLoadSuccess).toHaveBeenCalled()
   })
 
   it('Renders buttons on onMouseEnter', () => {
-    let wrapper = mount(<MiniaturePDF
-      size='Large'
-      currentPage={3}
-      t={arg => arg}
-      file={mockPdf}
-      scale={1}
-      onLoadSuccess={() => { }}
-      previewLink
-      deleteLink
-      downloadLink
-      addLink
-    />)
+    let wrapper = mount(<MiniaturePDF {...initialMockProps} currentPage={3} />)
+    expect(wrapper.exists('.previousPage')).toBeFalsy()
+    expect(wrapper.exists('.nextPage')).toBeFalsy()
+    expect(wrapper.find('.link')).toHaveLength(0)
+    expect(wrapper.exists('.previewLink')).toBeFalsy()
+    expect(wrapper.exists('.deleteLink')).toBeFalsy()
+    expect(wrapper.exists('.downloadLink')).toBeFalsy()
+    expect(wrapper.exists('.addLink')).toBeFalsy()
 
-    wrapper.find('Document').instance().onLoadSuccess()
-
-    expect(wrapper.exists('a.previousPage')).toEqual(false)
-    expect(wrapper.exists('a.nextPage')).toEqual(false)
-    expect(wrapper.find('div.link')).toHaveLength(0)
-    expect(wrapper.exists('div.previewLink')).toEqual(false)
-    expect(wrapper.exists('div.deleteLink')).toEqual(false)
-    expect(wrapper.exists('div.downloadLink')).toEqual(false)
-    expect(wrapper.exists('div.addLink')).toEqual(false)
-
-    wrapper.find('div.c-miniaturePdf').simulate('mouseEnter')
-
-    expect(wrapper.exists('a.previousPage')).toBeTruthy()
-    expect(wrapper.exists('a.nextPage')).toBeTruthy()
-    expect(wrapper.find('div.link')).toHaveLength(4)
-    expect(wrapper.exists('div.previewLink')).toBeTruthy()
-    expect(wrapper.exists('div.deleteLink')).toBeTruthy()
-    expect(wrapper.exists('div.downloadLink')).toBeTruthy()
-    expect(wrapper.exists('div.addLink')).toBeTruthy()
-
-    wrapper.unmount()
+    wrapper.setProps({isHovering: true})
+    expect(wrapper.exists('.previousPage')).toBeTruthy()
+    expect(wrapper.exists('.nextPage')).toBeTruthy()
+    expect(wrapper.find('.link')).toHaveLength(4)
+    expect(wrapper.exists('.previewLink')).toBeTruthy()
+    expect(wrapper.exists('.deleteLink')).toBeTruthy()
+    expect(wrapper.exists('.downloadLink')).toBeTruthy()
+    expect(wrapper.exists('.addLink')).toBeTruthy()
   })
-})
 
-describe('MiniaturePDF functions', () => {
-  it('Change current page on click', () => {
-    let wrapper = mount(<MiniaturePDF
-      size='Large'
-      t={arg => arg}
-      file={mockPdf}
-      scale={1}
-      onLoadSuccess={() => { }}
-    />)
-    wrapper.find('Document').instance().onLoadSuccess()
-    wrapper.find('div.c-miniaturePdf').simulate('mouseEnter')
 
+  it('Changes current page', () => {
+    let wrapper = mount(<MiniaturePDF {...initialMockProps} isHovering={true}/>)
+    wrapper.setProps({isHovering: true})
     expect(wrapper.find('Page').text()).toEqual('Page: 1')
-    expect(wrapper.exists('a.nextPage')).toBeTruthy()
+    expect(wrapper.exists('.nextPage')).toBeTruthy()
 
-    wrapper.find('a.nextPage').simulate('click')
-
+    wrapper.find('.nextPage').hostNodes().simulate('click')
     expect(wrapper.find('Page').text()).toEqual('Page: 2')
-    expect(wrapper.exists('a.previousPage')).toBeTruthy()
+    expect(wrapper.exists('.previousPage')).toBeTruthy()
 
-    wrapper.find('a.previousPage').simulate('click')
-
+    wrapper.find('.previousPage').simulate('click')
     expect(wrapper.find('Page').text()).toEqual('Page: 1')
-
-    wrapper.unmount()
   })
 
-  it('Calls onPreviousPage and onNextPage props on click', () => {
-    const callback = jest.fn()
+  it('Preview page', () => {
+    let wrapper = mount(<MiniaturePDF {...initialMockProps} isHovering={true}/>)
+    expect(wrapper.exists('.previewLink')).toBeTruthy()
 
-    let wrapper = mount(<MiniaturePDF
-      size='Large'
-      t={arg => arg}
-      file={mockPdf}
-      currentPage={3}
-      scale={1}
-      onLoadSuccess={() => { }}
-      onPreviousPage={callback}
-      onNextPage={callback}
-    />)
-    wrapper.find('Document').instance().onLoadSuccess()
-    wrapper.find('div.c-miniaturePdf').simulate('mouseEnter')
-
-    wrapper.find('a.nextPage').simulate('click')
-    wrapper.find('a.previousPage').simulate('click')
-
-    expect(callback).toHaveBeenCalledTimes(2)
-
-    expect(wrapper.find('Page').text()).toEqual('Page: 3')
-    wrapper.setProps({ currentPage: 1 })
-    expect(wrapper.find('Page').text()).toEqual('Page: 1')
-
-    wrapper.unmount()
+    wrapper.find('.previewLink').simulate('click')
+    expect(initialMockProps.onPreviewDocument).toHaveBeenCalled()
   })
 
-  it('previewLink', () => {
-    let callback = jest.fn()
+  it('Delete document', () => {
+    let wrapper = mount(<MiniaturePDF {...initialMockProps} isHovering={true}/>)
+    expect(wrapper.exists('.deleteLink')).toBeTruthy()
 
-    let wrapper = mount(<MiniaturePDF
-      size='Large'
-      currentPage={3}
-      t={arg => arg}
-      file={mockPdf}
-      scale={1}
-      onLoadSuccess={() => { }}
-      previewLink={false}
-      onPreviewDocument={callback}
-    />)
-
-    wrapper.find('Document').instance().onLoadSuccess()
-    wrapper.find('div.c-miniaturePdf').simulate('mouseEnter')
-
-    expect(wrapper.find('div.link')).toHaveLength(0)
-    expect(wrapper.exists('div.previewLink')).toEqual(false)
-
-    wrapper.setProps({ previewLink: true })
-
-    expect(wrapper.find('div.link')).toHaveLength(1)
-    expect(wrapper.exists('div.previewLink')).toBeTruthy()
-
-    wrapper.find('div.previewLink').simulate('click')
-
-    expect(callback).toHaveBeenCalledTimes(1)
+    wrapper.find('.deleteLink').simulate('click')
+    expect(initialMockProps.onDeleteDocument).toHaveBeenCalled()
   })
 
-  it('deleteLink', () => {
-    let callback = jest.fn()
+  it('Add document', () => {
+    let wrapper = mount(<MiniaturePDF {...initialMockProps} isHovering={true}/>)
+    expect(wrapper.exists('.addLink')).toBeTruthy()
 
-    let wrapper = mount(<MiniaturePDF
-      size='Large'
-      currentPage={3}
-      t={arg => arg}
-      file={mockPdf}
-      scale={1}
-      onLoadSuccess={() => { }}
-      deleteLink={false}
-      onDeleteDocument={callback}
-    />)
-
-    wrapper.find('Document').instance().onLoadSuccess()
-    wrapper.find('div.c-miniaturePdf').simulate('mouseEnter')
-
-    expect(wrapper.find('div.link')).toHaveLength(0)
-    expect(wrapper.exists('div.deleteLink')).toEqual(false)
-
-    wrapper.setProps({ deleteLink: true })
-
-    expect(wrapper.find('div.link')).toHaveLength(1)
-    expect(wrapper.exists('div.deleteLink')).toBeTruthy()
-
-    wrapper.find('div.deleteLink').simulate('click')
-
-    expect(callback).toHaveBeenCalledTimes(1)
+    wrapper.find('.addLink').simulate('click')
+    expect(initialMockProps.onAddFile).toHaveBeenCalled()
   })
 
-  it('addLink', () => {
-    let callback = jest.fn()
+  it('Download document', () => {
+    let wrapper = mount(<MiniaturePDF {...initialMockProps} isHovering={true}/>)
+    expect(wrapper.exists('.downloadLink')).toBeTruthy()
 
-    let wrapper = mount(<MiniaturePDF
-      size='Large'
-      currentPage={3}
-      t={arg => arg}
-      file={mockPdf}
-      scale={1}
-      onLoadSuccess={() => { }}
-      addLink={false}
-      onAddFile={callback}
-    />)
-
-    wrapper.find('Document').instance().onLoadSuccess()
-    wrapper.find('div.c-miniaturePdf').simulate('mouseEnter')
-
-    expect(wrapper.find('div.link')).toHaveLength(0)
-    expect(wrapper.exists('div.addLink')).toEqual(false)
-
-    wrapper.setProps({ addLink: true })
-
-    expect(wrapper.find('div.link')).toHaveLength(1)
-    expect(wrapper.exists('div.addLink')).toBeTruthy()
-
-    wrapper.find('div.addLink').simulate('click')
-
-    expect(callback).toHaveBeenCalledTimes(1)
-  })
-
-  it('downloadLink', () => {
-    let wrapper = mount(<MiniaturePDF
-      size='Large'
-      currentPage={3}
-      t={arg => arg}
-      file={mockPdf}
-      scale={1}
-      onLoadSuccess={() => { }}
-      downloadLink={false}
-    />)
-
-    wrapper.find('Document').instance().onLoadSuccess()
-    wrapper.find('div.c-miniaturePdf').simulate('mouseEnter')
-
-    expect(wrapper.find('div.link')).toHaveLength(0)
-    expect(wrapper.exists('div.downloadLink')).toEqual(false)
-
-    wrapper.setProps({ downloadLink: true })
-
-    expect(wrapper.find('div.link')).toHaveLength(1)
-    expect(wrapper.exists('div.downloadLink')).toBeTruthy()
-
-    expect(wrapper.find('div.downloadLink > a').props().href)
-      .toEqual('data:application/octet-stream;base64,' + encodeURIComponent(mockPdf.content.base64))
+    wrapper.find('.downloadLink').simulate('click')
+    expect(wrapper.find('.downloadLink > a').props().href)
+      .toEqual('data:application/octet-stream;base64,' + encodeURIComponent(samplePDF.content.base64))
   })
 })

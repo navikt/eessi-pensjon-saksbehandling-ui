@@ -7,7 +7,7 @@ describe('store', () => {
     let wrapper = shallow(<StoreProvider initialState={initialState} reducer={reducer}>
       <div />
     </StoreProvider>)
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 })

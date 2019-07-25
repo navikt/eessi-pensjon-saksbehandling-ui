@@ -84,7 +84,7 @@ const GeneratePDF = (props) => {
         let pdf = generatedPDFs[key]
         return <div key={key} className='fieldset animate'>
           <div className='pdfrow'>
-            <File file={pdf} />
+            <File file={pdf} t={t} />
             <div className='ml-4'>
               <Nav.Input label={t('ui:filename')} value={_fileNames[key]}
                 onChange={(e) => setFileName(key, e.target.value)} />

@@ -23,7 +23,7 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
 
   it('Renders', () => {
     let wrapper = shallow(<InstitutionList {...initialMockProps} type='joined' />)
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 

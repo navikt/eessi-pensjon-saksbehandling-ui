@@ -14,7 +14,7 @@ describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
 
   it('Renders', () => {
     wrapper = mount(<BUCEmpty {...initialMockProps} />)
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
@@ -37,10 +37,10 @@ describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
       sakId: '456'
     }
     wrapper = mount(<BUCEmpty {...mockProps} />)
-    expect(wrapper.exists('#a-buc-bucempty__aktoerid-input-id')).toEqual(false)
-    expect(wrapper.exists('#a-buc-bucempty__aktoerid-button-id')).toEqual(false)
-    expect(wrapper.exists('#a-buc-bucempty__sakid-input-id')).toEqual(false)
-    expect(wrapper.exists('#a-buc-bucempty__sakid-button-id')).toEqual(false)
+    expect(wrapper.exists('#a-buc-bucempty__aktoerid-input-id')).toBeFalsy()
+    expect(wrapper.exists('#a-buc-bucempty__aktoerid-button-id')).toBeFalsy()
+    expect(wrapper.exists('#a-buc-bucempty__sakid-input-id')).toBeFalsy()
+    expect(wrapper.exists('#a-buc-bucempty__sakid-button-id')).toBeFalsy()
   })
 
   it('Goes to bucnew when button pressed', () => {

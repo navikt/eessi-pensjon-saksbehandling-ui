@@ -1,34 +1,41 @@
 import React from 'react'
-
 import File from './File'
 import MiniatureImage from './MiniatureImage'
 import MiniaturePDF from './MiniaturePDF'
 import MiniatureOther from './MiniatureOther'
 
-const mockPDF = { size: 404, mimetype: 'application/pdf' }
-const mockPNG = { size: 418, mimetype: 'image/png' }
+const mockPDF = { size: 404, mimetype: 'application/pdf', content: 'notnull' }
+const mockPNG = { size: 418, mimetype: 'image/png', content: 'notnull' }
 const mockOTHER = { size: 500, mimetype: 'other/other' }
 
-describe('Render File', () => {
-  it('Render without crashing', () => {
-    let wrapper = shallow(<File file={mockPDF} />)
+describe('components/File', () => {
+
+  const t = jest.fn((translationString) => { return translationString })
+
+  it('Renders', () => {
+    let wrapper = shallow(<File t={t} file={mockPDF} />)
     expect(wrapper).toMatchSnapshot()
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
   })
-  it('Renders right file type', () => {
-    let wrapper = shallow(<File file={mockPDF} />)
-    expect(wrapper.containsMatchingElement(<MiniaturePDF />)).toBeTruthy()
-    expect(wrapper.containsMatchingElement(<MiniatureImage />)).toEqual(false)
-    expect(wrapper.containsMatchingElement(<MiniatureOther />)).toEqual(false)
 
-    wrapper.setProps({ file: mockPNG })
-    expect(wrapper.containsMatchingElement(<MiniaturePDF />)).toEqual(false)
-    expect(wrapper.containsMatchingElement(<MiniatureImage />)).toBeTruthy()
-    expect(wrapper.containsMatchingElement(<MiniatureOther />)).toEqual(false)
+  it('Renders PDF', () => {
+    let wrapper = shallow(<File t={t} file={mockPDF} />)
+    expect(wrapper.exists('MiniaturePDF')).toBeTruthy()
+    expect(wrapper.exists('MiniatureImage')).toBeFalsy()
+    expect(wrapper.exists('MiniatureOther')).toBeFalsy()
+  })
 
-    wrapper.setProps({ file: mockOTHER })
-    expect(wrapper.containsMatchingElement(<MiniaturePDF />)).toEqual(false)
-    expect(wrapper.containsMatchingElement(<MiniatureImage />)).toEqual(false)
-    expect(wrapper.containsMatchingElement(<MiniatureOther />)).toBeTruthy()
+  it('Renders images', () => {
+    let wrapper = shallow(<File t={t} file={mockPNG} />)
+    expect(wrapper.exists('MiniaturePDF')).toBeFalsy()
+    expect(wrapper.exists('MiniatureImage')).toBeTruthy()
+    expect(wrapper.exists('MiniatureOther')).toBeFalsy()
+  })
+
+  it('Renders others', () => {
+    let wrapper = shallow(<File t={t} file={mockOTHER} />)
+    expect(wrapper.exists('MiniaturePDF')).toBeFalsy()
+    expect(wrapper.exists('MiniatureImage')).toBeFalsy()
+    expect(wrapper.exists('MiniatureOther')).toBeTruthy()
   })
 })

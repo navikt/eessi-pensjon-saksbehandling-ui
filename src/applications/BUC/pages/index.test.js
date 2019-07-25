@@ -27,7 +27,7 @@ describe('applications/BUC/pages/index', () => {
   })
 
   it('Renders', () => {
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 

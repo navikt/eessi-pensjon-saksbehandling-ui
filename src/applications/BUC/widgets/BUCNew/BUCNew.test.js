@@ -10,7 +10,7 @@ describe('applications/BUC/widgets/BUCNew/BUCNew', () => {
 
   it('Renders', () => {
     wrapper = mount(<BUCNew {...initialMockProps} />)
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 

@@ -33,7 +33,7 @@ const initialMockProps = {
 describe('applications/BUC/components/SEDP4000/Period - view/confirm mode', () => {
   it('Renders', () => {
     const wrapper = mount(<Period {...initialMockProps} mode='view' />)
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
@@ -88,7 +88,7 @@ describe('applications/BUC/components/SEDP4000/Period - view/confirm mode', () =
 describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
   it('Renders', () => {
     const wrapper = mount(<Period {...initialMockProps} mode='edit' />)
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
@@ -100,7 +100,7 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
 
   it('Has the right buttons in new mode', () => {
     const wrapper = mount(<Period {...initialMockProps} mode='new' />)
-    expect(wrapper.exists('#a-buc-c-sedp4000-period__edit-button-id')).toEqual(false)
+    expect(wrapper.exists('#a-buc-c-sedp4000-period__edit-button-id')).toBeFalsy()
     expect(wrapper.exists('#a-buc-c-sedp4000-period__save-button-id')).toBeTruthy()
     expect(wrapper.exists('#a-buc-c-sedp4000-period__cancel-button-id')).toBeTruthy()
   })
@@ -108,7 +108,7 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
   it('Has the right buttons in edit mode', () => {
     const wrapper = mount(<Period {...initialMockProps} mode='edit' />)
     expect(wrapper.exists('#a-buc-c-sedp4000-period__edit-button-id')).toBeTruthy()
-    expect(wrapper.exists('#a-buc-c-sedp4000-period__save-button-id')).toEqual(false)
+    expect(wrapper.exists('#a-buc-c-sedp4000-period__save-button-id')).toBeFalsy()
     expect(wrapper.exists('#a-buc-c-sedp4000-period__cancel-button-id')).toBeTruthy()
   })
 

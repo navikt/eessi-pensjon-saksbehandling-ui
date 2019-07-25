@@ -13,11 +13,11 @@ describe('Psycho Rendering', () => {
     let wrapper = shallow(<Psycho />)
 
     expect(wrapper.containsMatchingElement(<SmilendeOrangeVeileder />)).toBeTruthy()
-    expect(wrapper.containsMatchingElement(<TristOrangeVeileder />)).toEqual(false)
+    expect(wrapper.containsMatchingElement(<TristOrangeVeileder />)).toBeFalsy()
 
     wrapper.setProps({ type: 'trist' })
 
-    expect(wrapper.containsMatchingElement(<SmilendeOrangeVeileder />)).toEqual(false)
+    expect(wrapper.containsMatchingElement(<SmilendeOrangeVeileder />)).toBeFalsy()
     expect(wrapper.containsMatchingElement(<TristOrangeVeileder />)).toBeTruthy()
   })
 })

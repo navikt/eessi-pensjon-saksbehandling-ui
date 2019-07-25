@@ -5,7 +5,7 @@ describe('render Flag', () => {
   it('Renders without crashing', () => {
     let wrapper = shallow(<Flag />)
 
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 

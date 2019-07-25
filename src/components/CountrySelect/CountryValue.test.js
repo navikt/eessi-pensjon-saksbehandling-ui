@@ -16,7 +16,7 @@ describe('components/CountrySelect/CountryValue', () => {
 
   it('Renders', () => {
     let wrapper = mount(<CountryValue {...initialMockProps} />)
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 

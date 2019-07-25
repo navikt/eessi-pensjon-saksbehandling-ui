@@ -20,7 +20,7 @@ describe('Focusgroup Rendering', () => {
     expect(wrapper.exists('div[id="2"]')).toBeTruthy()
     expect(wrapper.exists('div[id="3"]')).toBeTruthy()
     expect(wrapper.exists('div[id="4"]')).toBeTruthy()
-    expect(wrapper.exists('div[id="5"]')).toEqual(false)
+    expect(wrapper.exists('div[id="5"]')).toBeFalsy()
   })
 })
 

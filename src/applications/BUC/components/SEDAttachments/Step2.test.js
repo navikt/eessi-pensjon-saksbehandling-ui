@@ -22,7 +22,7 @@ describe('applications/BUC/components/Step1/Step1', () => {
   })
 
   it('Renders', () => {
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 

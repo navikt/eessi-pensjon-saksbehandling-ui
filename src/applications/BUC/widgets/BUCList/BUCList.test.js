@@ -38,7 +38,7 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
   })
 
   it('Renders', () => {
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 

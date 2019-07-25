@@ -12,7 +12,7 @@ describe('Render TimelineEvent', () => {
       />
     )
     expect(wrapper).toMatchSnapshot()
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper.dive().containsMatchingElement({ kind: 'TEST' }))
   })
 

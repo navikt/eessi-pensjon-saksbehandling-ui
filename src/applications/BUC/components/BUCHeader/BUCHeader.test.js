@@ -18,7 +18,7 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
 
   it('Renders', () => {
     let wrapper = shallow(<BucHeader {...initialMockProps} />)
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
@@ -62,8 +62,8 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
         seds: []
       }
     })
-    expect(wrapper.exists('.a-buc-c-bucheader__icon-tags')).toEqual(false)
-    expect(wrapper.exists('.a-buc-c-bucheader__icon-vedlegg')).toEqual(false)
+    expect(wrapper.exists('.a-buc-c-bucheader__icon-tags')).toBeFalsy()
+    expect(wrapper.exists('.a-buc-c-bucheader__icon-vedlegg')).toBeFalsy()
   })
 
   it('Handles click in LenkepanelBase', () => {

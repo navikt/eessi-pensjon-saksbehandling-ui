@@ -20,12 +20,12 @@ describe('CountryOption Rendering', () => {
       />
     )
     expect(wrapper).toMatchSnapshot()
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
 
     for (let data of countryData) {
       wrapper.setProps({ label: data.label, selectProps: countrySelectProps, data: data })
 
-      expect(wrapper.isEmptyRender()).toEqual(false)
+      expect(wrapper.isEmptyRender()).toBeFalsy()
       expect(wrapper.find('span').text()).toEqual(data.label)
 
       wrapper.setProps({ selectProps: currencySelectProps })

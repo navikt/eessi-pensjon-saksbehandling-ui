@@ -6,7 +6,7 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
 
   it('Renders', () => {
     let wrapper = shallow(<SEDHeader t={t} />)
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 

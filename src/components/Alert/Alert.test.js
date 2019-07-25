@@ -17,7 +17,7 @@ describe('components/Alert/Alert', () => {
 
   it('Renders', () => {
     wrapper = mount(<Alert {...initialMockProps} type='server'/>)
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 

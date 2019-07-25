@@ -21,14 +21,14 @@ describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
   })
 
   it('Renders', () => {
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Pressing button for attachments makes it disappear', () => {
     expect(wrapper.exists('.a-buc-c-sedattachments')).toBeTruthy()
     expect(wrapper.exists('#a-buc-c-sedattachments__enable-button-id')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-c-sedattachments-step1')).toEqual(false)
+    expect(wrapper.exists('.a-buc-c-sedattachments-step1')).toBeFalsy()
 
     wrapper.find('#a-buc-c-sedattachments__enable-button-id').hostNodes().simulate('click')
     // for some reason, we need to render to see changes.
