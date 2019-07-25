@@ -5,7 +5,7 @@ describe('Render File', () => {
   it('Render without crashing', () => {
     let wrapper = shallow(<Footer />)
     expect(wrapper).toMatchSnapshot()
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
   })
 
   it('Toggles open/closed with props', () => {

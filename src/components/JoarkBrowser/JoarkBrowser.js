@@ -59,7 +59,7 @@ const JoarkBrowser = (props) => {
     const onPreviewFile = (previewFile) => {
       actions.openModal({
         modalContent: <div style={{ cursor: 'pointer' }} onClick={() => actions.closeModal()}>
-          <File file={previewFile} width={400} height={600} />
+          <File t={t} file={previewFile} width={400} height={600} />
         </div>
       })
     }

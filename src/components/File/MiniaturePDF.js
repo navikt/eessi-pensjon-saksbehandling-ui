@@ -1,188 +1,166 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import { pdfjs, Document, Page } from 'react-pdf'
-import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
+import Icons from 'components/Icons'
 
-import Icons from '../Icons'
-
-import './File.css'
 import './MiniaturePDF.css'
 
 pdfjs.GlobalWorkerOptions.workerSrc = process.env.PUBLIC_URL + '/pdf.worker.js'
 
-export class MiniaturePDF extends Component {
-    state = {
-      currentPage: 1
+export const MiniaturePDF = (props) => {
+
+  const { addLink, animate, className, currentPage, deleteLink, downloadLink, file,  height , isHovering, onAddFile } = props
+  const { onClick, onDeleteDocument, onLoadSuccess, onNextPage, onPreviewDocument, onPreviousPage, previewLink } = props
+  const { scale, size, t, ui, width } = props
+  const [ _currentPage, setCurrentPage ] = useState(1)
+  const [ _numberPages, setNumberPages ] = useState(undefined)
+  const title = '' + file.name + '\n' + t('ui:pages') + ': ' + (_numberPages || '0') + '\n' + t('ui:size') + ': ' + size
+
+  useEffect(() => {
+     if (currentPage && !isNaN(currentPage) && currentPage !== _currentPage) {
+      setCurrentPage(currentPage)
+     }
+  }, [currentPage])
+
+  const handleOnLoadSuccess = (e) => {
+    setNumberPages(e.numPages)
+    if (typeof onLoadSuccess === 'function') {
+      onLoadSuccess(e)
     }
+  }
 
-    static getDerivedStateFromProps (props, state) {
-      if (props.currentPage !== undefined &&
-            !isNaN(props.currentPage) &&
-            props.currentPage !== state.currentPage) {
-        return {
-          currentPage: props.currentPage
-        }
-      }
-      return {}
+  const handleOnDeleteDocument = (e) => {
+    e.stopPropagation()
+    e.preventDefault()
+    setCurrentPage(1)
+    if (typeof onDeleteDocument === 'function') {
+      onDeleteDocument()
     }
+  }
 
-    componentDidUpdate () {
-      let { currentPage } = this.props
-
-      if (this.state.currentPage === undefined) {
-        this.setState({
-          currentPage: !isNaN(currentPage) ? currentPage : 1
-        })
-      }
+  const handleOnPreviewDocument = (e) => {
+    e.stopPropagation()
+    e.preventDefault()
+    if (typeof onPreviewDocument === 'function') {
+      onPreviewDocument()
     }
+  }
 
-    componentDidMount () {
-      let { currentPage } = this.props
-
-      this.setState({
-        numPages: undefined,
-        currentPage: !isNaN(currentPage) ? currentPage : 1
-      })
+  const handleOnAddFile = (e) => {
+    e.stopPropagation()
+    e.preventDefault()
+    if (typeof onAddFile === 'function') {
+      onAddFile()
     }
+  }
 
-    handleOnLoadSuccess (e) {
-      const { onLoadSuccess } = this.props
-
-      this.setState({
-        numPages: e.numPages
-      }, () => {
-        if (typeof onLoadSuccess === 'function') {
-          onLoadSuccess(e)
-        }
-      })
+  const handlePreviousPageRequest = (e) => {
+    e.stopPropagation()
+    e.preventDefault()
+    if (onPreviousPage && typeof onPreviousPage === 'function') {
+      onPreviousPage()
+    } else {
+      setCurrentPage(_currentPage - 1)
     }
+  }
 
-    onDeleteDocument (e) {
-      e.stopPropagation()
-      e.preventDefault()
-
-      const { onDeleteDocument } = this.props
-
-      this.setState({
-        currentPage: 1
-      }, () => {
-        if (typeof onDeleteDocument === 'function') {
-          onDeleteDocument()
-        }
-      })
+  const handleNextPageRequest = (e) => {
+    e.stopPropagation()
+    e.preventDefault()
+    if (onNextPage && typeof onNextPage === 'function') {
+      onNextPage()
+    } else {
+      setCurrentPage(_currentPage + 1)
     }
+  }
 
-    onPreviewDocument (e) {
-      e.stopPropagation()
-      e.preventDefault()
-
-      const { onPreviewDocument } = this.props
-
-      if (typeof onPreviewDocument === 'function') {
-        onPreviewDocument()
-      }
-    }
-
-    onAddFile (e) {
-      e.stopPropagation()
-      e.preventDefault()
-
-      const { onAddFile } = this.props
-
-      if (typeof onAddFile === 'function') {
-        onAddFile()
-      }
-    }
-
-    handlePreviousPageRequest (e) {
-      e.stopPropagation()
-      e.preventDefault()
-
-      const { onPreviousPage } = this.props
-
-      if (onPreviousPage && typeof onPreviousPage === 'function') {
-        onPreviousPage()
-      } else {
-        this.setState({
-          currentPage: this.state.currentPage - 1
-        })
-      }
-    }
-
-    handleNextPageRequest (e) {
-      e.stopPropagation()
-      e.preventDefault()
-
-      const { onNextPage } = this.props
-
-      if (onNextPage && typeof onNextPage === 'function') {
-        onNextPage()
-      } else {
-        this.setState({
-          currentPage: this.state.currentPage + 1
-        })
-      }
-    }
-
-    render () {
-      const { t, file, size, ui, addLink, deleteLink, downloadLink, previewLink, className, animate, scale, width, height } = this.props
-      const { numPages, isHovering, currentPage } = this.state
-
-      const title = '' + file.name + '\n' + t('ui:pages') + ': ' + (numPages || '0') + '\n' + t('ui:size') + ': ' + size
-
-      return <div title={title} className={classNames('c-file', 'c-miniaturePdf', className, { 'animate': animate })}
-        style={{ transform: 'scale(' + scale + ')' }}>
-        <Document className='position-relative' file={'data:application/pdf;base64,' + file.content.base64}
-          onLoadSuccess={this.handleOnLoadSuccess.bind(this)}>
-          {previewLink && isHovering ? <div onClick={this.onPreviewDocument.bind(this)} className='link previewLink'>
-            <Icons style={{ cursor: 'pointer' }} size='1x' kind='view' />
-          </div> : null}
-          { deleteLink && isHovering ? <div onClick={this.onDeleteDocument.bind(this)} className='link deleteLink'>
-            <Icons kind='trashcan' size={15} />
-          </div> : null}
-          { addLink && isHovering ? <div onClick={this.onAddFile.bind(this)} className='link addLink'>
-            <Icons kind='vedlegg' size={20} />
-          </div> : null}
-          { downloadLink && isHovering ? <div className='link downloadLink'><a
-            onClick={(e) => e.stopPropagation()} title={t('ui:download')}
-            href={'data:application/octet-stream;base64,' + encodeURIComponent(file.content.base64)}
-            download={file.name}>
+  return <div
+    className={classNames('c-file-miniaturePdf', className, { 'animate': animate })}
+    title={title}
+    style={{ transform: 'scale(' + scale + ')' }}>
+    <Document
+      className='position-relative'
+      file={'data:application/pdf;base64,' + file.content.base64}
+      onLoadSuccess={handleOnLoadSuccess}>
+      {previewLink && isHovering ?
+      <div
+        className='link previewLink'
+        onClick={handleOnPreviewDocument}>
+        <Icons style={{ cursor: 'pointer' }} size='1x' kind='view' />
+      </div> : null}
+      { deleteLink && isHovering ?
+      <div
+        className='link deleteLink'
+        onClick={handleOnDeleteDocument}>
+        <Icons kind='trashcan' size={15} />
+      </div> : null}
+      { addLink && isHovering ?
+      <div
+        className='link addLink'
+        onClick={handleOnAddFile}>
+        <Icons kind='vedlegg' size={20} />
+      </div> : null}
+      { downloadLink && isHovering ?
+      <div
+        className='link downloadLink'>
+        <a
+          onClick={(e) => e.stopPropagation()}
+          title={t('ui:download')}
+          href={'data:application/octet-stream;base64,' + encodeURIComponent(file.content.base64)}
+          download={file.name}>
             <Icons size={'sm'} kind='download' />
-          </a></div> : null}
-          {currentPage > 1 && isHovering ? <a href='#previousPage' className='previousPage' onClick={this.handlePreviousPageRequest.bind(this)}>{'◀'}</a> : null}
-          {currentPage < numPages && isHovering ? <a href='#nextPage' className='nextPage' onClick={this.handleNextPageRequest.bind(this)}>{'▶'}</a> : null}
-          {isHovering ? <div className='pageNumber'>{currentPage}</div> : null}
-          <div className={classNames('page', ui)} onClick={(e) => e.stopPropagation()}>
-            <Page width={width || 100} height={height || 140} renderMode='svg' pageNumber={currentPage} />
-          </div>
-        </Document>
+        </a>
+      </div> : null}
+      {_currentPage > 1 && isHovering ?
+      <a
+        href='#previousPage'
+        className='previousPage'
+        onClick={handlePreviousPageRequest}>
+          {'◀'}
+      </a> : null}
+      {_currentPage < _numberPages && isHovering ?
+      <a
+        href='#nextPage'
+        className='nextPage'
+        onClick={handleNextPageRequest}>
+          {'▶'}
+      </a> : null}
+      {isHovering ?
+      <div className='pageNumber'>
+        {_currentPage}
+      </div> : null}
+      <div className={classNames('page', ui)}
+         onClick={onClick}>
+        <Page width={width || 100} height={height || 140} renderMode='svg' pageNumber={_currentPage} />
       </div>
-    }
+    </Document>
+  </div>
 }
 
 MiniaturePDF.propTypes = {
-  t: PT.func.isRequired,
-  onLoadSuccess: PT.func,
-  file: PT.object.isRequired,
-  size: PT.string,
-  width: PT.number,
-  height: PT.number,
-  animate: PT.bool,
-  onDeleteDocument: PT.func,
-  onPreviewDocument: PT.func,
-  onAddFile: PT.func,
-  deleteLink: PT.bool,
-  downloadLink: PT.bool,
   addLink: PT.bool,
-  previewLink: PT.bool,
+  animate: PT.bool,
   className: PT.string,
   currentPage: PT.number,
-  onPreviousPage: PT.func,
+  deleteLink: PT.bool,
+  downloadLink: PT.bool,
+  file: PT.object.isRequired,
+  height: PT.number,
+  isHovering: PT.bool,
+  onAddFile: PT.func,
+  onClick: PT.func,
+  onDeleteDocument: PT.func,
+  onLoadSuccess: PT.func,
   onNextPage: PT.func,
-  scale: PT.number.isRequired
+  onPreviousPage: PT.func,
+  onPreviewDocument: PT.func,
+  previewLink: PT.bool,
+  scale: PT.number.isRequired,
+  size: PT.string,
+  t: PT.func.isRequired,
+  ui: PT.string,
+  width: PT.number
 }
 
-const MiniaturePDFWithTranslation = withTranslation()(MiniaturePDF)
-
-export default MiniaturePDFWithTranslation
+export default MiniaturePDF

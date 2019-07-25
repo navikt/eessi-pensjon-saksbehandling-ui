@@ -6,7 +6,7 @@ describe('applications/BUC/widgets/SEDNew/SEDNew', () => {
 
   it('Renders', () => {
     wrapper = mount(<SEDNew />)
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 

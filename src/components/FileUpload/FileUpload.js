@@ -56,11 +56,11 @@ class FileUpload extends Component {
     }
 
     openPreview (file, pageNumber) {
-      const { openModal } = this.props
+      const { t, openModal } = this.props
 
       openModal({
         modalContent: <div style={{ cursor: 'pointer' }} onClick={this.closePreview.bind(this)}>
-          <File file={file} width={400} height={600} pageNumber={pageNumber} />
+          <File t={t} file={file} width={400} height={600} pageNumber={pageNumber} />
         </div>
       })
     }
@@ -250,7 +250,7 @@ class FileUpload extends Component {
             </div>
             <div className='dropzone-files scrollable'>
               { files ? files.map((file, i) => {
-                return <File className='mr-2' key={i} file={file}
+                return <File className='mr-2' key={i} file={file} t={t}
                   currentPage={currentPages[i]}
                   deleteLink downloadLink previewLink
                   onPreviousPage={this.onPreviousPageRequest.bind(this, i)}

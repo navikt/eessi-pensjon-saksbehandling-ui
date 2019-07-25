@@ -10,7 +10,7 @@ describe('Renders FlagList', () => {
   it('renders without crashing', () => {
     let wrapper = shallow(<FlagList {...defaultMockProps} />)
 
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
@@ -24,7 +24,7 @@ describe('Renders FlagList', () => {
     wrapper.setProps({ overflowLimit: 3 })
 
     expect(wrapper.find('Flag').length).toEqual(3)
-    expect(wrapper.exists('span')).toEqual(false)
+    expect(wrapper.exists('span')).toBeFalsy()
   })
 
   it('Assigns props to Flag', () => {

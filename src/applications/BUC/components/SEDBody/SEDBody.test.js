@@ -20,7 +20,7 @@ describe('applications/BUC/components/SEDBody/SEDBody', () => {
   })
 
   it('Renders', () => {
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 

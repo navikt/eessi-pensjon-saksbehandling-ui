@@ -24,7 +24,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
 
   it('Renders', () => {
     let wrapper = shallow(<BUCTools {...initialMockProps} />)
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
@@ -90,7 +90,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
   it('HTML with EkspanderbartpanelBase close', () => {
     let wrapper = mount(<BUCTools {...initialMockProps} />)
     expect(wrapper.exists('EkspanderbartpanelBase')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-c-buctools__save-button')).toEqual(false)
+    expect(wrapper.exists('.a-buc-c-buctools__save-button')).toBeFalsy()
   })
 
   it('HTML with EkspanderbartpanelBase open', () => {

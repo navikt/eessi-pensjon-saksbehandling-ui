@@ -7,6 +7,6 @@ describe('Render LanguageSelector', () => {
       <LanguageSelector />
     )
     expect(wrapper).toMatchSnapshot()
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
   })
 })

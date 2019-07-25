@@ -14,7 +14,7 @@ describe('Rendering PersonHeader', () => {
   it('renders without crashing', () => {
     let wrapper = shallow(<PersonHeader />)
 
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 

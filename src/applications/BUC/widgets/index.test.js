@@ -18,7 +18,7 @@ describe('applications/BUC/widgets/index', () => {
 
   it('Renders', () => {
     wrapper = mount(<BUCWidgetIndex {...initialMockProps} mode='buclist' />)
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 

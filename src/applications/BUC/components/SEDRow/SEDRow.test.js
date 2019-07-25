@@ -22,7 +22,7 @@ describe('applications/BUC/components/SEDRow/SEDRow', () => {
   })
 
   it('Renders', () => {
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 

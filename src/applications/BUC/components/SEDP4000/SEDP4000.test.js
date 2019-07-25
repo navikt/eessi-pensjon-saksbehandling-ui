@@ -16,7 +16,7 @@ describe('applications/BUC/components/SEDP4000/SEDP4000', () => {
 
   it('Renders', () => {
     const wrapper = mount(<SEDP4000 {...initialMockProps} />)
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 

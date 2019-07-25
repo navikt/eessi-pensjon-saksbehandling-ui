@@ -11,7 +11,7 @@ describe('components/Banner', () => {
 
   it('Renders', () => {
     let wrapper = mount(<Banner {...initialMockProps} />)
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 

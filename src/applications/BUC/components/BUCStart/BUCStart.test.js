@@ -42,7 +42,7 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   })
 
   it('Renders', () => {
-    expect(wrapper.isEmptyRender()).toEqual(false)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 

@@ -11,7 +11,7 @@ describe('renders', () => {
     )
     expect(wrapper).toMatchSnapshot()
     expect(wrapper.exists('#TEST_CHILD')).toBeTruthy()
-    expect(wrapper.exists({ header: 'TEST_HEADER' })).toEqual(false)
+    expect(wrapper.exists({ header: 'TEST_HEADER' })).toBeFalsy()
 
     wrapper.setProps({ header: 'TEST_HEADER' })
     expect(wrapper.exists({ header: 'TEST_HEADER' })).toBeTruthy()

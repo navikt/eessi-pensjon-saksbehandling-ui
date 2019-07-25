@@ -48,15 +48,15 @@ describe('DatePicker', () => {
   it('Renders errors correctly', () => {
     let wrapper = shallow(<DatePicker onChange={function () {}} />)
 
-    expect(wrapper.exists({ label: 'dag', feil: { feilmelding: '' } })).toEqual(false)
-    expect(wrapper.exists({ label: 'måned', feil: { feilmelding: '' } })).toEqual(false)
-    expect(wrapper.exists({ label: 'år', feil: { feilmelding: '' } })).toEqual(false)
+    expect(wrapper.exists({ label: 'dag', feil: { feilmelding: '' } })).toBeFalsy()
+    expect(wrapper.exists({ label: 'måned', feil: { feilmelding: '' } })).toBeFalsy()
+    expect(wrapper.exists({ label: 'år', feil: { feilmelding: '' } })).toBeFalsy()
     wrapper.setState({ errors: { day: true, month: true, year: true } })
     expect(wrapper.exists({ label: 'dag', feil: { feilmelding: '' } })).toBeTruthy()
     expect(wrapper.exists({ label: 'måned', feil: { feilmelding: '' } })).toBeTruthy()
     expect(wrapper.exists({ label: 'år', feil: { feilmelding: '' } })).toBeTruthy()
 
-    expect(wrapper.exists('.skjemaelement__feilmelding')).toEqual(false)
+    expect(wrapper.exists('.skjemaelement__feilmelding')).toBeFalsy()
     wrapper.setProps({ onChange: function () {}, feil: { feilmelding: 'ERROR' } })
     expect(wrapper.exists('.skjemaelement__feilmelding')).toBeTruthy()
     expect(wrapper.find('.skjemaelement__feilmelding').text()).toEqual('ERROR')
