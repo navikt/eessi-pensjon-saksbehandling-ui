@@ -5,7 +5,9 @@ describe('applications/BUC/widgets/BUCNew/BUCNew', () => {
   let wrapper
   const t = jest.fn((translationString) => { return translationString })
   const initialMockProps = {
-    t: t
+    t: t,
+    loading: {},
+    locale: 'nb'
   }
 
   it('Renders', () => {
@@ -18,6 +20,6 @@ describe('applications/BUC/widgets/BUCNew/BUCNew', () => {
     wrapper = mount(<BUCNew {...initialMockProps} />)
     expect(wrapper.exists('.a-buc-bucnew')).toBeTruthy()
     expect(wrapper.exists('BUCStart')).toBeTruthy()
-    expect(wrapper.find('BUCStart').hostNodes().props().mode).toEqual('widget')
+    expect(wrapper.find('BUCStart').props().mode).toEqual('widget')
   })
 })

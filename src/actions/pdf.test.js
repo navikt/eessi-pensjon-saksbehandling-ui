@@ -4,6 +4,15 @@ import * as api from 'actions/api'
 import * as urls from 'constants/urls'
 
 describe('pdf actions', () => {
+
+  beforeAll(() => {
+    api.call = jest.fn()
+  })
+
+  afterEach(() => {
+    api.call.mockRestore()
+  })
+
   it('selectPDF()', () => {
     const mockFiles = { foo: 'bar' }
     const generatedResult = pdfActions.selectPDF(mockFiles)

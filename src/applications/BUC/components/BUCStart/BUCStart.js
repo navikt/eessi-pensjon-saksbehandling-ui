@@ -243,7 +243,7 @@ const BUCStart = (props) => {
               placeholder={t('buc:form-tagPlaceholder')}
               aria-describedby='help-tags'
               locale={locale}
-              value={_tags}
+              values={_tags}
               hideSelectedOptions={false}
               onChange={onTagsChange}
               optionList={tagObjectList} />

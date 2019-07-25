@@ -3,12 +3,15 @@ import PT from 'prop-types'
 import SmilendeOrangeVeileder from 'resources/images/NavPensjonSmilendeOrangeVeileder'
 import TristOrangeVeileder from 'resources/images/NavPensjonTristOrangeVeileder'
 
-class Psycho extends Component {
-  render () {
-    const { type } = this.props
+const Psycho = (props) => {
 
-    return type === 'trist' ? <TristOrangeVeileder width='130' height='130' /> : <SmilendeOrangeVeileder width='130' height='130' />
-  }
+  const { type = 'smilende' } = props
+
+  return <div className='c-psycho'>
+    {type === 'trist' ?
+    <TristOrangeVeileder width='130' height='130' /> :
+    <SmilendeOrangeVeileder width='130' height='130' />}
+  </div>
 }
 
 Psycho.propTypes = {

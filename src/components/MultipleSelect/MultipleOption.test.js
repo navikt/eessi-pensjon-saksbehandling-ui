@@ -1,36 +1,27 @@
 import React from 'react'
-import CountryOption from './CountryOption'
-import CountryData from '../CountryData/CountryData'
+import MultipleOption from './MultipleOption'
 
-describe('CountryOption Rendering', () => {
-  it('Renders correctly', () => {
-    let countryData = CountryData.getData('nb')
-    let countrySelectProps = { selectProps: { type: 'country' } }
-    let currencySelectProps = { selectProps: { type: 'currency' } }
+describe('components/MultipleSelect/MultipleOption', () => {
 
-    let wrapper = shallow(
-      <CountryOption
-        value=''
-        label=''
-        selectProps={{ selectProps: {} }}
-        data={{}}
-        innerProps={{}}
-        isSelected={false}
-        isFocused={false}
-      />
-    )
-    expect(wrapper).toMatchSnapshot()
+  const initialMockProps = {
+    data: {
+      label: 'mockLabel',
+      value: 'mockValue'
+    },
+    selectProps: { selectProps: {} },
+    innerProps: {},
+    isSelected: false,
+    isFocused: false
+  }
+
+  it('Renders', () => {
+    let wrapper = mount(<MultipleOption {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
+    expect(wrapper).toMatchSnapshot()
+  })
 
-    for (let data of countryData) {
-      wrapper.setProps({ label: data.label, selectProps: countrySelectProps, data: data })
-
-      expect(wrapper.isEmptyRender()).toBeFalsy()
-      expect(wrapper.find('span').text()).toEqual(data.label)
-
-      wrapper.setProps({ selectProps: currencySelectProps })
-
-      expect(wrapper.find('span').text()).toEqual((data.currency ? data.currency + ' - ' : '') + data.currencyLabel)
-    }
+  it('Has proper HTML structure', () => {
+    let wrapper = shallow(<MultipleOption {...initialMockProps} />)
+    expect(wrapper.find('.c-multipleOption__checkbox').props().label).toEqual(initialMockProps.data.label)
   })
 })

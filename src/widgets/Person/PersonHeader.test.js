@@ -1,28 +1,27 @@
 import React from 'react'
 import PersonHeader from './PersonHeader'
+import samplePerson from 'resources/tests/samplePerson'
 
-const mockDefaultProps = {
-  fullName: 'TEST PERSON',
-  age: '314',
-  personID: '10293847565',
-  country: 'UNITED STATES OF TEST',
-  maritalStatus: 'FICTIONAL',
-  t: arg => arg
-}
+describe('widgets/Person/PersonHeader', () => {
 
-describe('Rendering PersonHeader', () => {
-  it('renders without crashing', () => {
-    let wrapper = shallow(<PersonHeader />)
+  const initialMockProps = {
+    aktoerId: '10293847565',
+    gettingPersonInfo: false,
+    t: jest.fn((translationString) => { return translationString }),
+    person: samplePerson.person
+  }
 
+  it('Renders', () => {
+    let wrapper = mount(<PersonHeader {...initialMockProps}/>)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Renders props', () => {
-    let wrapper = shallow(<PersonHeader {...mockDefaultProps} />)
-
-    expect(wrapper.find({ 'data-qa': 'PersonHeader-nameAgeID' }).render().html()).toEqual('TEST PERSON (314) - 10293847565')
-    expect(wrapper.find({ 'data-qa': 'PersonHeader-country' }).render().html()).toEqual('country: UNITED STATES OF TEST')
-    expect(wrapper.find({ 'data-qa': 'PersonHeader-maritalStatus' }).render().html()).toEqual('marital-status: FICTIONAL')
+  it('Has proper HML structure', () => {
+    let wrapper = mount(<PersonHeader {...initialMockProps} />)
+    expect(wrapper.exists('.w-personheader')).toBeTruthy()
+    expect(wrapper.exists('.w-personheader__content')).toBeTruthy()
+    expect(wrapper.find('.w-personheader__content img').props().kind).toEqual('nav-woman-icon')
+    expect(wrapper.find('.w-personheader__content h2').render().text()).toEqual('HØYSÆTHER NAZAKMIR-MASK (90) - 27072942618')
   })
 })

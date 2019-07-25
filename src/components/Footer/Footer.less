@@ -44,22 +44,22 @@
     .contents {
       display:flex;
     }
-    .newParam {
+    &__form {
       transform: scale(0.7);
       transform-origin: left top;
       display: flex;
       flex-direction: row;
       align-items: baseline;
     }
-    .paramSelect,
-    .paramValue {
+    &__select,
+    &__input {
        margin-right: 0.5rem;
        margin-bottom: 0px;
     }
-    .addParamButton {
+    &__add-button {
       padding: 0.5rem;
     }
-    .params {
+    &__params {
       display: flex;
       flex-direction: row-reverse;
 
@@ -68,11 +68,11 @@
       }
     }
 
-    .mini {
+    &__remove-button {
         transform: scale(0.5);
     }
 
-    .param {
+    &__param {
         display: flex;
         align-items: center;
         flex-direction: row;

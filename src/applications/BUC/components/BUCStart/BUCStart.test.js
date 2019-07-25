@@ -47,6 +47,7 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   })
 
   it('UseEffect: verifies case number in no currentBUC is provided', () => {
+    wrapper = mount(<BUCStart {...initialMockProps} currentBUC={undefined}/>)
     expect(initialMockProps.actions.verifyCaseNumber).toHaveBeenCalledWith({
       sakId: '123',
       aktoerId: '456'
@@ -108,13 +109,13 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
     wrapper.find('#a-buc-c-bucstart__subjectarea-select-id').hostNodes().prop('onChange')({ target: { value: 'Pensjon' } })
     wrapper.find('#a-buc-c-bucstart__buc-select-id').hostNodes().prop('onChange')({ target: { value: 'mockBuc1' } })
     wrapper.update()
-    wrapper.find('button.a-buc-c-bucstart__forward-button').simulate('click')
+    wrapper.find('button.a-buc-c-bucstart__forward-button').hostNodes().simulate('click')
     expect(initialMockProps.actions.createBuc).toHaveBeenCalledWith('mockBuc1')
   })
 
   it('Handles onCancelButtonClick()', () => {
     expect(wrapper.find('button.a-buc-c-bucstart__cancel-button').prop('disabled')).toBe(false)
-    wrapper.find('button.a-buc-c-bucstart__cancel-button').simulate('click')
+    wrapper.find('button.a-buc-c-bucstart__cancel-button').hostNodes().simulate('click')
     expect(initialMockProps.actions.setMode).toHaveBeenCalledWith('buclist')
   })
 
