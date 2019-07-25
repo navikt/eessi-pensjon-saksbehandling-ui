@@ -1,28 +1,39 @@
 import React from 'react'
 import { Footer } from './Footer'
 
-describe('Render File', () => {
-  it('Render without crashing', () => {
-    let wrapper = shallow(<Footer />)
+describe('components/Footer', () => {
+
+  const initialMockProps = {
+    actions: {
+      toggleFooterOpen: jest.fn(),
+      setStatusParam: jest.fn(),
+      unsetStatusParam: jest.fn()
+    }
+  }
+
+
+  it('Renders', () => {
+    let wrapper = mount(<Footer />)
     expect(wrapper).toMatchSnapshot()
     expect(wrapper.isEmptyRender()).toBeFalsy()
   })
 
   it('Toggles open/closed with props', () => {
-    let wrapper = shallow(<Footer />)
-
+    let wrapper = mount(<Footer />)
     expect(wrapper.exists('div.footerButtonClosed'))
-
     wrapper.setProps({ footerOpen: true })
     expect(wrapper.exists('div.footerButtonOpen'))
   })
 
-  it('Calls OnClick', () => {
-    let wrapper = shallow(
-      <Footer />
-    )
-    // expect(store.getState().ui.footerOpen).toEqual(undefined)
-    wrapper.dive().find('div.footerButtonClosed').simulate('click')
-    // expect(store.getState().ui.footerOpen).toBeTruthy()
+  it('Toggles open/closed with click', () => {
+    let wrapper = mount(<Footer {...initialMockProps}/> )
+    wrapper.find('.footerButtonClosed').simulate('click')
+    expect(initialMockProps.actions.toggleFooterOpen).toHaveBeenCalled()
+  })
+
+  it('Toggles open/closed with click', () => {
+    let wrapper = mount(<Footer {...initialMockProps}/> )
+    wrapper.find('.footerButtonClosed').simulate('click')
+    expect(initialMockProps.actions.toggleFooterOpen).toHaveBeenCalled()
   })
 })

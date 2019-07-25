@@ -1,37 +1,41 @@
 import React from 'react'
 import FlagList from './FlagList'
 
-const defaultMockProps = {
-  countries: ['NO', 'SE', 'DK'],
-  overflowLimit: 2
-}
+describe('components/Flag/FlagList', () => {
 
-describe('Renders FlagList', () => {
-  it('renders without crashing', () => {
-    let wrapper = shallow(<FlagList {...defaultMockProps} />)
+  const initialMockProps = {
+    items: [{
+      country: 'NO',
+    }, {
+      country: 'SE'
+    }, {
+      country: 'DK'
+    }],
+    overflowLimit: 2,
+    locale: 'nb'
+  }
 
+  it('Renders', () => {
+    let wrapper = mount(<FlagList {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('renders correct number of flags', () => {
-    let wrapper = shallow(<FlagList {...defaultMockProps} />)
-
+  it('Displays correct number of flags', () => {
+    let wrapper = mount(<FlagList {...initialMockProps} />)
     expect(wrapper.find('Flag').length).toEqual(2)
-    expect(wrapper.exists('span')).toBeTruthy()
-    expect(wrapper.find('span').render().html()).toEqual('+1')
+    expect(wrapper.exists('Normaltekst')).toBeTruthy()
+    expect(wrapper.find('Normaltekst').render().text()).toEqual('+1')
 
     wrapper.setProps({ overflowLimit: 3 })
-
     expect(wrapper.find('Flag').length).toEqual(3)
-    expect(wrapper.exists('span')).toBeFalsy()
+    expect(wrapper.exists('Normaltekst')).toBeFalsy()
   })
 
   it('Assigns props to Flag', () => {
-    let wrapper = shallow(<FlagList {...defaultMockProps} />)
-
+    let wrapper = mount(<FlagList {...initialMockProps} />)
     wrapper.find('Flag').forEach((flag, index) => {
-      expect(flag.props().country).toEqual(defaultMockProps.countries[index])
+      expect(flag.props().country).toEqual(initialMockProps.items[index].country)
     })
   })
 })
