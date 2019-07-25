@@ -27,11 +27,11 @@ describe('applications/BUC/components/SEDP4000/SEDP4000', () => {
 
   it('Has proper HTML structure: unmounted state', () => {
      const wrapper = mount(<SEDP4000 {...initialMockProps} />)
-     expect(wrapper.exists('NavFrontendSpinner').toBeTruthy()
+     expect(wrapper.exists('NavFrontendSpinner')).toBeTruthy()
   })
 
   it('Has proper HTML structure: mounted state', () => {
     const wrapper = mount(<SEDP4000 {...initialMockProps} p4000list={['file']} p4000info={{stayAbroad: []}}/>)
-    expect(wrapper.exists('.a-buc-c-sedp4000').toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-sedp4000')).toBeTruthy()
   })
 })

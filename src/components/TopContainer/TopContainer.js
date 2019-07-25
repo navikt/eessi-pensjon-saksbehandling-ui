@@ -27,11 +27,11 @@ const mapDispatchToProps = (dispatch) => {
 
 export const TopContainer = (props) => {
 
-  const { actions, className, children, fluid = true, header, history, highContrast, remainingTime, style, t } = props
+  const { actions, className, children, fluid = true, header, history, highContrast, remainingTime, t } = props
 
-  return <div style={style}
+  return <div
     className={classNames('c-topContainer', className, { 'highContrast': highContrast })}>
-    <InternalTopHeader t={t} history={history} />
+    <InternalTopHeader t={t} history={history}/>
     {header ? <Banner t={t} header={header} toggleHighContrast={actions.toggleHighContrast} /> : null}
     <Alert type='client' t={t} />
     <Alert type='server' t={t} />
@@ -46,11 +46,14 @@ export const TopContainer = (props) => {
 
 TopContainer.propTypes = {
   actions: PT.object.isRequired,
-  children: PT.node.isRequired,
   className: PT.string,
-  style: PT.object,
+  children: PT.node.isRequired,
+  fluid: PT.bool,
+  header: PT.oneOfType([PT.node, PT.string]),
   history: PT.object.isRequired,
-  header: PT.oneOfType([PT.node, PT.string])
+  highContrast: PT.bool,
+  remainingTime: PT.string,
+  t: PT.func.isRequired
 }
 
 const ConnectedTopContainer = connect(mapStateToProps, mapDispatchToProps)(TopContainer)

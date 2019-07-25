@@ -31,10 +31,7 @@ describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
     expect(wrapper.exists('.a-buc-c-sedattachments-step1')).toBeFalsy()
 
     wrapper.find('#a-buc-c-sedattachments__enable-button-id').hostNodes().simulate('click')
-    // for some reason, we need to render to see changes.
-    // TODO change when jest allows to instance to update without needing it to render
-    expect(wrapper.find('.a-buc-c-sedattachments-step1')).toHaveLength(0)
-    expect(wrapper.render().find('.a-buc-c-sedattachments-step1')).toHaveLength(1)
+    expect(wrapper.find('.a-buc-c-sedattachments-step1')).toHaveLength(1)
     expect(wrapper.render().find('#a-buc-c-sedattachments__enable-button-id')).toHaveLength(0)
   })
 

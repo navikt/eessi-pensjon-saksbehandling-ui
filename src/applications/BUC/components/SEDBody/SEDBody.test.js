@@ -3,17 +3,16 @@ import SEDBody from './SEDBody'
 import sampleBucs from 'resources/tests/sampleBucs'
 
 describe('applications/BUC/components/SEDBody/SEDBody', () => {
-  const t = jest.fn((translationString) => { return translationString })
-  const buc = sampleBucs[0]
-  const seds = buc.seds
-  const initialMockProps = {
-    t: t,
-    seds: seds,
-    rinaUrl: 'http://fakeurl.com/rina/',
-    buc: buc,
-    locale: 'nb'
-  }
+
   let wrapper
+  const initialMockProps = {
+    buc: sampleBucs[0],
+    locale: 'nb',
+    onSEDNew: jest.fn(),
+    rinaUrl: 'http://fakeurl.com/rina/',
+    seds: sampleBucs[0].seds,
+    t: jest.fn((translationString) => { return translationString })
+  }
 
   beforeEach(() => {
     wrapper = mount(<SEDBody {...initialMockProps} />)
@@ -25,7 +24,9 @@ describe('applications/BUC/components/SEDBody/SEDBody', () => {
   })
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.find('SEDRow').length).toEqual(seds.filter(sed => sed.status !== 'empty').length)
+    expect(wrapper.find('SEDRow').length).toEqual(
+      initialMockProps.seds.filter(sed => sed.status !== 'empty').length
+    )
     expect(wrapper.exists('.a-buc-c-sedbody__footer')).toBeTruthy()
     const rinaLink = wrapper.find('#a-buc-c-sedbody__gotorina-link').hostNodes()
     expect(rinaLink.props().href).toEqual(initialMockProps.rinaUrl + initialMockProps.buc.caseId)

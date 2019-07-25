@@ -1,94 +1,76 @@
-import React, {Component} from 'react'
+import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import { connect, bindActionCreators } from 'store'
 
-import * as uiActions from '../../actions/ui'
-import { getDisplayName } from '../../utils/displayName'
+import * as uiActions from 'actions/ui'
+import { getDisplayName } from 'utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
-    loggedTime: state.app.loggedTime,
-    remainingTime: state.app.remainingTime,
     expirationTime: state.app.expirationTime
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, uiActions), dispatch) }
+  return { actions: bindActionCreators(uiActions, dispatch) }
 }
 
-export class SessionMonitor extends Component {
-  componentDidMount () {
-    this.checkTimeout()
-  }
+export const SessionMonitor = (props) => {
 
-  closeModal () {
-    const { actions } = this.props
-    actions.closeModal()
-  }
+  const { actions,
+   /* check every minute */
+   checkInterval = 1000 * 60,
+   /* When session will expire */
+   expirationTime,
+   /* Warnings should start under 5 minutes */
+   millisecondsForWarning = 5 * 1000 * 60,
+   /* Reload under a minute */
+   sessionExpiredReload = 1000,
+   t
+  } = props
+  const [ mounted, setMounted ] = useState(false)
 
-  checkTimeout () {
-    let self = this
-    const { t, actions, loggedTime, remainingTime, expirationTime } = this.props
+  useEffect(() => {
+     if (!mounted) {
+      checkTimeout()
+      setMounted(true)
+    }
+  }, [mounted])
 
-    if (!loggedTime || !remainingTime || !expirationTime) {
+  const checkTimeout = () => {
+    if (!expirationTime) {
       return
     }
-
-   /* how many minutes starts the warnings */
-    const minutesForWarning = 5
-    /* X minutes before expired */
-    let sessionExpiringWarning = remainingTime - 1000 * 60 * minutesForWarning
-    if (sessionExpiringWarning <= 1) { sessionExpiringWarning = 1 }
-    /* check every minute */
-    const checkInterval = 1000 * 60
-    /* At expired time plus 1 minute */
-    const sessionExpiredReload = remainingTime + 1000 * 60
-
     return setTimeout(() => {
       const now = new Date()
-      const diff = now.getTime() - loggedTime.getTime()
-      if (diff > sessionExpiredReload) {
+      const diff = expirationTime.getTime() - now.getTime()
+      if (diff < sessionExpiredReload) {
         window.location.reload()
-      } else {
-        if (diff > sessionExpiringWarning) {
-          const minutesRemaining = Math.abs(Math.ceil((expirationTime.getTime() - now.getTime()) / 1000 / 60))
-          actions.openModal({
-            modalTitle: t('ui:session-expire-title'),
-            modalText: t('ui:session-expire-text', { minutes: minutesRemaining }),
-            modalButtons: [{
-              main: true,
-              text: t('ui:ok-got-it'),
-              onClick: this.closeModal.bind(this)
-            }]
-          })
-        }
-        self.checkTimeout()
       }
+      if (diff < millisecondsForWarning) {
+        actions.openModal({
+          modalTitle: t('ui:session-expire-title'),
+          modalText: t('ui:session-expire-text', { minutes:  Math.abs(Math.ceil(diff) / 1000 / 60) }),
+          modalButtons: [{
+            main: true,
+            text: t('ui:ok-got-it'),
+            onClick: actions.closeModal
+          }]
+        })
+      }
+      checkTimeout()
     }, checkInterval)
   }
 
-  render () {
-    return <div />
-  }
+  return <div className='c-sessionMonitor'/>
 }
 
 SessionMonitor.propTypes = {
-  loggedTime: PT.object,
-  remainingTime: PT.object,
+  actions: PT.object.isRequired,
   expirationTime: PT.object,
-  sessionExpiringWarning: PT.number,
-  sessionExpiredReload: PT.number,
-  checkInterval: PT.number
+  t: PT.func.isRequired
 }
 
-const ConnectedSessionMonitor = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SessionMonitor)
-
-ConnectedSessionMonitor.displayName = `Connect(${getDisplayName((
-  SessionMonitor)
-)})`
-
+const ConnectedSessionMonitor = connect(mapStateToProps,mapDispatchToProps)(SessionMonitor)
+ConnectedSessionMonitor.displayName = `Connect(${getDisplayName((SessionMonitor))})`
 export default ConnectedSessionMonitor

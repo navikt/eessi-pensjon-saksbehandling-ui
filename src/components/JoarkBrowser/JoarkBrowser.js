@@ -2,24 +2,24 @@ import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import { connect, bindActionCreators } from 'store'
-import { NavFrontendSpinner } from 'components/Nav'
-import File from 'components/File/File'
-import TableSorter from 'components/TableSorter/TableSorter'
 import * as joarkActions from 'actions/joark'
 import * as uiActions from 'actions/ui'
 import { getDisplayName } from 'utils/displayName'
+import { NavFrontendSpinner } from 'components/Nav'
+import File from 'components/File/File'
+import TableSorter from 'components/TableSorter/TableSorter'
 
 import './JoarkBrowser.css'
 
 const mapStateToProps = (state) => {
   return {
-    list: state.joark.list,
+    aktoerId: state.app.params.aktoerId,
     file: state.joark.file,
-    previewFile: state.joark.previewFile,
+    list: state.joark.list,
     loadingJoarkList: state.loading.loadingJoarkList,
     loadingJoarkFile: state.loading.loadingJoarkFile,
     loadingJoarkPreviewFile: state.loading.loadingJoarkPreviewFile,
-    aktoerId: state.app.params.aktoerId
+    previewFile: state.joark.previewFile
   }
 }
 
@@ -27,9 +27,9 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators({ ...uiActions, ...joarkActions }, dispatch) }
 }
 
-const JoarkBrowser = (props) => {
-  const { t, actions, list, file, previewFile, loadingJoarkList, loadingJoarkFile, loadingJoarkPreviewFile, aktoerId } = props
-  const { files, onFilesChange } = props
+export const JoarkBrowser = (props) => {
+  const { actions, aktoerId, file, files, list, loadingJoarkList } = props
+  const { loadingJoarkFile, loadingJoarkPreviewFile, onFilesChange, previewFile, t } = props
   const [ _file, setFile ] = useState(file)
   const [ _files, setFiles ] = useState(files)
   const [ _previewFile, setPreviewFile ] = useState(previewFile)
@@ -168,15 +168,17 @@ const JoarkBrowser = (props) => {
 }
 
 JoarkBrowser.propTypes = {
-  t: PT.func.isRequired,
-  onFilesChange: PT.func.isRequired,
-  list: PT.array,
-  files: PT.array,
+  actions: PT.object.isRequired,
+  aktoerId: PT.string,
   file: PT.object,
+  files: PT.array,
+  list: PT.array,
   loadingJoarkList: PT.bool,
   loadingJoarkFile: PT.bool,
-  actions: PT.object.isRequired,
-  aktoerId: PT.string
+  loadingJoarkPreviewFile: PT.bool,
+  onFilesChange: PT.func.isRequired,
+  previewFile: PT.object,
+  t: PT.func.isRequired
 }
 
 const ConnectedJoarkbrowser = connect(mapStateToProps, mapDispatchToProps)(JoarkBrowser)

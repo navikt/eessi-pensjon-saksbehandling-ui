@@ -72,25 +72,25 @@ export const Footer = (props) => {
         {footerOpen ? '▼' : null}
       </div>
       {footerOpen ?
-      <div className='newParam'>
-        <Select className='paramSelect' label='' onChange={onSetParamName}>
+      <div className='c-footer__form'>
+        <Select id='c-footer__select-id' className='c-footer__select' label='' onChange={onSetParamName}>
           <option value=''>{'--'}</option>
           {params.map(param => {
             return props[param] ? null : <option key={param} value={param}>{param}</option>
           })}
         </Select>
-        <Input label='' className={'paramValue'} value={paramValue || ''}
+        <Input label='' id='c-footer__input-id' className='c-footer__input' value={paramValue || ''}
           onChange={onSetParamValue} />
-        <Knapp className='addParamButton' onClick={onSetParam}>&nbsp;+&nbsp;</Knapp>
+        <Knapp id='c-footer__add-button-id' className='c-footer__add-button' onClick={onSetParam}>&nbsp;+&nbsp;</Knapp>
       </div> : null}
     </div>
-    {footerOpen ? <div className='params'>
+    {footerOpen ? <div className='c-footer__params'>
       {params.map(param => {
-        return props[param] ? <div key={param} className='param'>
-          <EtikettBase type='info'>
+        return props[param] ? <div key={param} className='c-footer__param'>
+          <EtikettBase className='c-footer__param-string' type='info'>
             <b>{param}</b> {props[param]}
           </EtikettBase>
-          <Lukknapp className='mini' bla onClick={() => onUnsetParam(param)} />
+          <Lukknapp className='c-footer__remove-button' bla onClick={() => onUnsetParam(param)} />
         </div> : null
       })}
     </div> : null}

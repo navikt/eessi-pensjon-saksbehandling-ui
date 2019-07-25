@@ -2,10 +2,28 @@ import React from 'react'
 
 import { TopContainer } from './TopContainer'
 
-describe('renders', () => {
-  it('renders without crashing', () => {
+describe('components/TopContainer', () => {
+
+  const initialMockProps = {
+    actions: {
+      toggleHighConstrast: jest.fn()
+    },
+    highContrast: false
+    history: {},
+    t: jest.fn((translationString) => { return translationString })
+  }
+
+  it('Renders', () => {
+    let wrapper = shallow(<TopContainer {...initialMockProps}>
+      <div/>
+    </TopContainer>)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
+    expect(wrapper).toMatchSnapshot()
+  })
+
+  it('Has proper HTML structure', () => {
     let wrapper = shallow(
-      <TopContainer history={{}}>
+      <TopContainer {...initialMockProps}>
         <div id='TEST_CHILD' />
       </TopContainer>
     )

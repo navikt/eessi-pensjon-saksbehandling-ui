@@ -9,7 +9,7 @@ import BUCNew from 'applications/BUC/widgets/BUCNew/BUCNew'
 import SEDNew from 'applications/BUC/widgets/SEDNew/SEDNew'
 import BUCEdit from 'applications/BUC/widgets/BUCEdit/BUCEdit'
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
-import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
+import WebSocket from 'applications/BUC/websocket/WebSocket'
 import { WEBSOCKET_URL } from 'constants/urls'
 import { getDisplayName } from 'utils/displayName'
 
@@ -47,15 +47,15 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export const BUCWidgetIndex = (props) => {
-  const { actions, aktoerId, bucs, buc, loading, mode, rinaUrl, sakId, t } = props
-  const [ mounted, setMounted ] = useState(false)
+  const { actions, aktoerId, bucs, buc, loading, mode, rinaUrl, sakId, t, waitForMount = true } = props
+  const [ mounted, setMounted ] = useState(!waitForMount)
 
   useEffect(() => {
     if (!mounted && !rinaUrl) {
       actions.getRinaUrl()
       setMounted(true)
     }
-  }, [actions, mounted, rinaUrl])
+  }, [actions, mounted, rinaUrl, waitForMount])
 
   useEffect(() => {
     if (bucs === undefined && aktoerId && sakId && !loading.gettingBUCs) {
@@ -69,7 +69,7 @@ export const BUCWidgetIndex = (props) => {
   }
 
   if (!mounted) {
-    return null
+    return <div/>
   }
 
   return <div className='a-buc-widget'>
@@ -80,7 +80,7 @@ export const BUCWidgetIndex = (props) => {
         buc={buc}
         mode={mode}
       />
-      <BUCWebSocket onUpdate={onWebsocketUpdate} url={WEBSOCKET_URL} />
+      <WebSocket onUpdate={onWebsocketUpdate} url={WEBSOCKET_URL} />
     </div>
     {mode === 'buclist' ? <BUCList {...props} /> : null}
     {mode === 'bucedit' ? <BUCEdit {...props} /> : null}
