@@ -2,39 +2,40 @@ import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import CountryData from 'components/CountryData/CountryData'
+import { Normaltekst } from 'components/Nav'
 import Flag from './Flag'
 
 import './Flag.css'
 
 const FlagList = (props) => {
-  const { className, locale, size, items, overflowLimit } = props
+  const { className, items, locale, overflowLimit = 2, size } = props
 
-  return <div className={classNames('c-flaglist', className)}>
+  return <div
+    className={classNames('c-flaglist', className)}>
     {items.map((item, index) => {
       if (index > overflowLimit - 1) {
         return null
       }
       let label = item.label || CountryData.findByValue(locale, item.country).label
-      return <Flag size={size} className={classNames('m-2')} data-qa='FlagList-Flag' key={index} country={item.country} label={label} />
+      return <Flag
+        className='m-2'
+        size={size}
+        key={index}
+        country={item.country}
+        label={label} />
     })}
-    {items.length > overflowLimit
-      ? <span data-qa='FlagList-overflow' className='pt-2'>+{items.length - overflowLimit}</span>
-      : null
-    }
+    {items.length > overflowLimit ?
+    <Normaltekst className='pt-2'>+{items.length - overflowLimit}</Normaltekst>
+    : null}
   </div>
-}
-
-FlagList.defaultProps = {
-  items: [],
-  overflowLimit: 2
 }
 
 FlagList.propTypes = {
   className: PT.string,
-  locale: PT.string,
-  size: PT.string,
+  locale: PT.string.isRequired,
   items: PT.array.isRequired,
-  overflowLimit: PT.number
+  overflowLimit: PT.number,
+  size: PT.string
 }
 
 export default FlagList
