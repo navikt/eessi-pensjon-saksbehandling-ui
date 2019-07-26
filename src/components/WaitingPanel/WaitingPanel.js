@@ -4,7 +4,6 @@ import classNames from 'classnames'
 import { NavFrontendSpinner } from 'components/Nav'
 
 const WaitingPanel = (props) => {
-
   const { message, className } = props
 
   return <div className={classNames('c-waitingPanel', 'text-center', className)}>

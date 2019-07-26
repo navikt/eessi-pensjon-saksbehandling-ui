@@ -23,11 +23,10 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators({...uiActions, ...appActions}, dispatch) }
+  return { actions: bindActionCreators({ ...uiActions, ...appActions }, dispatch) }
 }
 
 export const InternalTopHeader = (props) => {
-
   const { actions, gettingUserInfo, header, history, isLoggingOut, t, username } = props
 
   const onLogoClick = () => {
@@ -79,11 +78,11 @@ export const InternalTopHeader = (props) => {
         </div>
       </div>
     </header>
-    {header ?
-    <Systemtittel className='m-4'>
-      {header}
-    </Systemtittel>
-    : null}
+    {header
+      ? <Systemtittel className='m-4'>
+        {header}
+      </Systemtittel>
+      : null}
   </React.Fragment>
 }
 

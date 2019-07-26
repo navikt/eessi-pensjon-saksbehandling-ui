@@ -17,7 +17,6 @@ jest.mock('react-pdf', () => {
 })
 
 describe('components/File/MiniaturePDF', () => {
-
   const t = jest.fn((translationString) => { return translationString })
 
   const initialMockProps = {
@@ -56,7 +55,7 @@ describe('components/File/MiniaturePDF', () => {
     expect(wrapper.exists('.downloadLink')).toBeFalsy()
     expect(wrapper.exists('.addLink')).toBeFalsy()
 
-    wrapper.setProps({isHovering: true})
+    wrapper.setProps({ isHovering: true })
     expect(wrapper.exists('.previousPage')).toBeTruthy()
     expect(wrapper.exists('.nextPage')).toBeTruthy()
     expect(wrapper.find('.link')).toHaveLength(4)
@@ -66,10 +65,9 @@ describe('components/File/MiniaturePDF', () => {
     expect(wrapper.exists('.addLink')).toBeTruthy()
   })
 
-
   it('Changes current page', () => {
-    let wrapper = mount(<MiniaturePDF {...initialMockProps} isHovering={true}/>)
-    wrapper.setProps({isHovering: true})
+    let wrapper = mount(<MiniaturePDF {...initialMockProps} isHovering />)
+    wrapper.setProps({ isHovering: true })
     expect(wrapper.find('Page').text()).toEqual('Page: 1')
     expect(wrapper.exists('.nextPage')).toBeTruthy()
 
@@ -82,7 +80,7 @@ describe('components/File/MiniaturePDF', () => {
   })
 
   it('Preview page', () => {
-    let wrapper = mount(<MiniaturePDF {...initialMockProps} isHovering={true}/>)
+    let wrapper = mount(<MiniaturePDF {...initialMockProps} isHovering />)
     expect(wrapper.exists('.previewLink')).toBeTruthy()
 
     wrapper.find('.previewLink').simulate('click')
@@ -90,7 +88,7 @@ describe('components/File/MiniaturePDF', () => {
   })
 
   it('Delete document', () => {
-    let wrapper = mount(<MiniaturePDF {...initialMockProps} isHovering={true}/>)
+    let wrapper = mount(<MiniaturePDF {...initialMockProps} isHovering />)
     expect(wrapper.exists('.deleteLink')).toBeTruthy()
 
     wrapper.find('.deleteLink').simulate('click')
@@ -98,7 +96,7 @@ describe('components/File/MiniaturePDF', () => {
   })
 
   it('Add document', () => {
-    let wrapper = mount(<MiniaturePDF {...initialMockProps} isHovering={true}/>)
+    let wrapper = mount(<MiniaturePDF {...initialMockProps} isHovering />)
     expect(wrapper.exists('.addLink')).toBeTruthy()
 
     wrapper.find('.addLink').simulate('click')
@@ -106,7 +104,7 @@ describe('components/File/MiniaturePDF', () => {
   })
 
   it('Download document', () => {
-    let wrapper = mount(<MiniaturePDF {...initialMockProps} isHovering={true}/>)
+    let wrapper = mount(<MiniaturePDF {...initialMockProps} isHovering />)
     expect(wrapper.exists('.downloadLink')).toBeTruthy()
 
     wrapper.find('.downloadLink').simulate('click')

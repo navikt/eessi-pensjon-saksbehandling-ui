@@ -2,7 +2,6 @@ import React from 'react'
 import Flag from './Flag'
 
 describe('components/Flag', () => {
-
   const mockInitialProps = {
     label: 'mockLabel',
     country: 'xx'

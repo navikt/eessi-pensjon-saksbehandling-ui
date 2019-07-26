@@ -11,7 +11,6 @@ import CountryErrorStyle from 'components/CountrySelect/CountryErrorStyle'
 import './CountrySelect.css'
 
 const CountrySelect = (props) => {
-
   const { className, components, error = false, errorMessage, excludeList, id } = props
   const { includeList, locale, onSelect, placeholder, type, styles = {}, value } = props
 
@@ -63,11 +62,11 @@ const CountrySelect = (props) => {
       tabSelectsValue={false}
       multi={false}
     />
-    {error ?
-    <div role='alert' aria-live='assertive' className='skjemaelement__feilmelding'>
-      {errorMessage}
-    </div>
-    : null }
+    {error
+      ? <div role='alert' aria-live='assertive' className='skjemaelement__feilmelding'>
+        {errorMessage}
+      </div>
+      : null }
   </div>
 }
 

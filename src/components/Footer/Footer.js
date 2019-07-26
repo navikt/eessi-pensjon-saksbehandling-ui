@@ -28,12 +28,9 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(Object.assign({}, appActions, uiActions), dispatch) }
 }
 
-
 export const Footer = (props) => {
-
   const params = ['buc', 'sed', 'rinaId', 'sakId', 'aktoerId', 'vedtakId', 'kravId', 'fnr', 'mottaker']
   const { actions, footerOpen } = props
-  const { aktoerId, buc, fnr, kravId, mottaker, rinaId, sakId, sed, vedtakId } = props
   const [ paramName, setParamName ] = useState(undefined)
   const [ paramValue, setParamValue ] = useState(undefined)
 
@@ -71,18 +68,18 @@ export const Footer = (props) => {
         onClick={toggleFooterOpen}>
         {footerOpen ? '▼' : null}
       </div>
-      {footerOpen ?
-      <div className='c-footer__form'>
-        <Select id='c-footer__select-id' className='c-footer__select' label='' onChange={onSetParamName}>
-          <option value=''>{'--'}</option>
-          {params.map(param => {
-            return props[param] ? null : <option key={param} value={param}>{param}</option>
-          })}
-        </Select>
-        <Input label='' id='c-footer__input-id' className='c-footer__input' value={paramValue || ''}
-          onChange={onSetParamValue} />
-        <Knapp id='c-footer__add-button-id' className='c-footer__add-button' onClick={onSetParam}>&nbsp;+&nbsp;</Knapp>
-      </div> : null}
+      {footerOpen
+        ? <div className='c-footer__form'>
+          <Select id='c-footer__select-id' className='c-footer__select' label='' onChange={onSetParamName}>
+            <option value=''>{'--'}</option>
+            {params.map(param => {
+              return props[param] ? null : <option key={param} value={param}>{param}</option>
+            })}
+          </Select>
+          <Input label='' id='c-footer__input-id' className='c-footer__input' value={paramValue || ''}
+            onChange={onSetParamValue} />
+          <Knapp id='c-footer__add-button-id' className='c-footer__add-button' onClick={onSetParam}>&nbsp;+&nbsp;</Knapp>
+        </div> : null}
     </div>
     {footerOpen ? <div className='c-footer__params'>
       {params.map(param => {

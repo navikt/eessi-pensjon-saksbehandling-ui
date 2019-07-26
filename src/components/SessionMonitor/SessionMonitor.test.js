@@ -2,7 +2,6 @@ import React from 'react'
 import { SessionMonitor } from './SessionMonitor'
 
 describe('components/SessionMonitor', () => {
-
   let initialMockProps = {
     t: jest.fn((translationString) => { return translationString }),
     actions: {
@@ -14,7 +13,7 @@ describe('components/SessionMonitor', () => {
     const now = new Date()
     const expirationTime = new Date(new Date().setSeconds(now.getSeconds() + 10))
     const wrapper = mount(<SessionMonitor
-       expirationTime={expirationTime}
+      expirationTime={expirationTime}
       checkInterval={500}
       millisecondsForWarning={9900}
       sessionExpiredReload={1000}
@@ -27,7 +26,7 @@ describe('components/SessionMonitor', () => {
     // expires in 10 seconds - will check every 0.5s - warnings start at 9.9s - reload only happens under 1s
     const now = new Date()
     const expirationTime = new Date(new Date().setSeconds(now.getSeconds() + 10))
-    const wrapper = mount(<SessionMonitor
+    mount(<SessionMonitor
       expirationTime={expirationTime}
       checkInterval={500}
       millisecondsForWarning={9900}
@@ -48,7 +47,7 @@ describe('components/SessionMonitor', () => {
     // expires in 1 seconds - will check every 0.5s - warnings start at 0.9s - reload happens under 10s
     const now = new Date()
     const expirationTime = new Date(new Date().setSeconds(now.getSeconds() + 1))
-    const wrapper = mount(<SessionMonitor
+    mount(<SessionMonitor
       expirationTime={expirationTime}
       checkInterval={500}
       millisecondsForWarning={900}

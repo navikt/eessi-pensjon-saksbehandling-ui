@@ -2,11 +2,10 @@ import React from 'react'
 import { BUCWidgetIndex } from 'applications/BUC/widgets/index'
 import sampleBucs from 'resources/tests/sampleBucs'
 jest.mock('applications/BUC/widgets/SEDNew/SEDNew', () => {
-  return () => {return <div className='a-buc-sednew'/>}
+  return () => { return <div className='a-buc-sednew' /> }
 })
 
 describe('applications/BUC/widgets/index', () => {
-
   let wrapper
   const t = jest.fn((translationString) => { return translationString })
   const initialMockProps = {

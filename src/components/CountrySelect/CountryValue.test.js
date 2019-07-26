@@ -2,7 +2,6 @@ import React from 'react'
 import CountryValue from './CountryValue'
 
 describe('components/CountrySelect/CountryValue', () => {
-
   const initialMockProps = {
     selectProps: { selectProps: { type: 'country' } },
     data: {
@@ -27,7 +26,7 @@ describe('components/CountrySelect/CountryValue', () => {
   })
 
   it('Has proper HTML structure: currency select', () => {
-    let wrapper = mount(<CountryValue {...initialMockProps} selectProps={{ selectProps: { type: 'currency' } }}/>)
+    let wrapper = mount(<CountryValue {...initialMockProps} selectProps={{ selectProps: { type: 'currency' } }} />)
     expect(wrapper.children().hostNodes().length).toEqual(1)
     expect(wrapper.render().text()).toEqual('NOK - Norsk Krone')
   })

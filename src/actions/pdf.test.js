@@ -4,7 +4,6 @@ import * as api from 'actions/api'
 import * as urls from 'constants/urls'
 
 describe('pdf actions', () => {
-
   beforeAll(() => {
     api.call = jest.fn()
   })

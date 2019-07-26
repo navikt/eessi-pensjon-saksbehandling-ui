@@ -2,7 +2,6 @@ import React from 'react'
 import MiniatureImage from './MiniatureImage'
 
 describe('components/File/MiniatureImage', () => {
-
   const t = jest.fn((translationString) => { return translationString })
   const mockPNG = { name: 'teapot', size: 418, mimetype: 'image/png', content: { base64: '...' } }
   const mockJPG = { name: 'cup of joe', size: 200, mimetype: 'image/jpeg', content: { base64: '...' } }
@@ -24,7 +23,7 @@ describe('components/File/MiniatureImage', () => {
   })
 
   it('Renders the image', () => {
-    let wrapper = mount(<MiniatureImage {...initialMockProps}/>)
+    let wrapper = mount(<MiniatureImage {...initialMockProps} />)
     expect(wrapper.find('img').props().alt).toEqual('teapot')
   })
 
@@ -33,23 +32,23 @@ describe('components/File/MiniatureImage', () => {
     expect(wrapper.exists('.deleteLink')).toBeFalsy()
     expect(wrapper.exists('.downloadLink')).toBeFalsy()
 
-    wrapper.setProps({isHovering: true})
+    wrapper.setProps({ isHovering: true })
     expect(wrapper.exists('.deleteLink')).toBeTruthy()
     expect(wrapper.exists('.downloadLink')).toBeTruthy()
 
-    wrapper.setProps({isHovering: false})
+    wrapper.setProps({ isHovering: false })
     expect(wrapper.exists('.deleteLink')).toBeFalsy()
     expect(wrapper.exists('.downloadLink')).toBeFalsy()
   })
 
   it('Delete link calls onDeleteDocument on click', () => {
-    let wrapper = mount(<MiniatureImage {...initialMockProps} isHovering={true}/>)
+    let wrapper = mount(<MiniatureImage {...initialMockProps} isHovering />)
     wrapper.find('.deleteLink Icons').simulate('click')
     expect(initialMockProps.onDeleteDocument).toHaveBeenCalled()
   })
 
   it('Generates correct downloadlink for PNGs', () => {
-    let wrapper = mount(<MiniatureImage {...initialMockProps} isHovering={true}/>)
+    let wrapper = mount(<MiniatureImage {...initialMockProps} isHovering />)
     let downloadLinkProps = wrapper.find('.downloadLink > a').props()
     expect(downloadLinkProps.href).toEqual(
       'data:application/octet-stream;base64,' + encodeURIComponent(mockPNG.content.base64)
@@ -58,13 +57,13 @@ describe('components/File/MiniatureImage', () => {
   })
 
   it('Handles onClick in content', () => {
-    let wrapper = mount(<MiniatureImage {...initialMockProps}/>)
+    let wrapper = mount(<MiniatureImage {...initialMockProps} />)
     wrapper.find('.c-file-miniatureImage .content').simulate('click')
     expect(initialMockProps.onClick).toHaveBeenCalled()
   })
 
   it('Generates correct downloadlink for JPGs', () => {
-    let wrapper = mount(<MiniatureImage {...initialMockProps} file={mockJPG} isHovering={true}/>)
+    let wrapper = mount(<MiniatureImage {...initialMockProps} file={mockJPG} isHovering />)
     let downloadLinkProps = wrapper.find('.downloadLink > a').props()
     expect(downloadLinkProps.href).toEqual(
       'data:application/octet-stream;base64,' + encodeURIComponent(mockJPG.content.base64)

@@ -2,7 +2,6 @@ import React from 'react'
 import WaitingPanel from './WaitingPanel'
 
 describe('components/WaitingPanel', () => {
-
   it('Renders', () => {
     const wrapper = shallow(<WaitingPanel message='' />)
     expect(wrapper.isEmptyRender()).toBeFalsy()

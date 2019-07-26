@@ -10,9 +10,9 @@ const Flag = (props) => {
   return <div
     className={classnames(className, 'c-flag', 'c-flag__size-' + size)}
     title={label}>
-      <img
-        alt={label}
-        src={''.concat(flagPath, country, extension)} />
+    <img
+      alt={label}
+      src={''.concat(flagPath, country, extension)} />
   </div>
 }
 

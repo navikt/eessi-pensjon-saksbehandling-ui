@@ -3,7 +3,6 @@ import SEDBody from './SEDBody'
 import sampleBucs from 'resources/tests/sampleBucs'
 
 describe('applications/BUC/components/SEDBody/SEDBody', () => {
-
   let wrapper
   const initialMockProps = {
     buc: sampleBucs[0],

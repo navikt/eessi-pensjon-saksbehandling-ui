@@ -4,7 +4,6 @@ import PT from 'prop-types'
 // Container that allows you to trigger a callback on
 // the group of children as a whole when it gains or loses focus
 const FocusGroup = (props) => {
-
   const { children, onBlur, onFocus } = props
   const [ _timeoutID, setTimeoutID ] = useState(null)
   const [ focus, setFocus ] = useState(false)
@@ -35,7 +34,7 @@ const FocusGroup = (props) => {
     className='c-focusGroup'
     onBlur={handleOnBlur}
     onFocus={handleOnFocus}>
-    {props.children}
+    {children}
   </div>
 }
 

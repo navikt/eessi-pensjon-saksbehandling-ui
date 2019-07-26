@@ -2,15 +2,10 @@ import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
-// import FileUpload from 'components/FileUpload/FileUpload'
 import { Undertittel } from 'components/Nav'
 
 const Step1 = (props) => {
-  const { t, files, setFiles /* setStep */} = props
-
-  /* const onEditButtonClick = () => {
-    setStep('edit')
-  } */
+  const { t, files, setFiles } = props
 
   const handleFileChange = (changedFiles, key) => {
     let newFiles = _.cloneDeep(files)
@@ -29,38 +24,12 @@ const Step1 = (props) => {
     handleFileChange(joarkFiles, 'joark')
   }
 
-  /* const handleFileUploadFileChange = (fileUploadFiles) => {
-    handleFileChange(fileUploadFiles, 'fileupload')
-  } */
-
-  // const handleBeforeDrop = () => {}
-
-  // const handleAfterDrop = () => {}
-
   return <div className='a-buc-c-sedattachments-step1'>
     <Undertittel className='mt-4 mb-3'>{t('buc:form-addAttachmentsFromJOARK')}</Undertittel>
     <JoarkBrowser
       {...props}
       files={getFiles('joark')}
       onFilesChange={handleJoarkFilesChange} />
-    {/* <Undertittel className='mt-4 mb-3'>{t('buc:form-addAttachmentsFromFileUpload')}</Undertittel>
-    <FileUpload t={t}
-      fileUploadDroppableId={'SEDAttachments'}
-      id={classNames('a-buc-c-sedattachments-fileupload-id', 'mb-3')}
-      className={classNames('fileUpload', 'mb-3')}
-      accept={['application/pdf', 'image/jpeg', 'image/png']}
-      files={files.hasOwnProperty('fileupload') ? files['fileupload'] : []}
-      beforeDrop={handleBeforeDrop}
-      afterDrop={handleAfterDrop}
-      onFileChange={handleFileUploadFileChange}
-      openModal={actions.openModal}
-      closeModal={actions.closeModal}/>
-    <Hovedknapp
-      id='a-buc-c-sedattachmnents__edit-button-id'
-      className='a-buc-c-sedattachmnents__edit-button'
-      onClick={onEditButtonClick}>
-      {t('ui:edit')}
-    </Hovedknapp> */}
   </div>
 }
 

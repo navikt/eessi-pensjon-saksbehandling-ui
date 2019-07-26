@@ -16,35 +16,35 @@ describe('components/Alert/Alert', () => {
   }
 
   it('Renders', () => {
-    wrapper = mount(<Alert {...initialMockProps} type='server'/>)
+    wrapper = mount(<Alert {...initialMockProps} type='server' />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Has proper HTML structure as server', () => {
-    wrapper = mount(<Alert {...initialMockProps}  type='server' />)
+    wrapper = mount(<Alert {...initialMockProps} type='server' />)
     expect(wrapper.exists('.c-alert.server')).toBeTruthy()
     expect(wrapper.render().text()).toEqual('mockServerErrorMessage')
   })
 
   it('Has proper HTML structure as client', () => {
-    wrapper = mount(<Alert {...initialMockProps}  type='client' />)
+    wrapper = mount(<Alert {...initialMockProps} type='client' />)
     expect(wrapper.exists('.c-alert.client')).toBeTruthy()
     expect(wrapper.render().text()).toEqual('mockClientErrorMessage')
   })
 
   it('Has proper HTML structure as client in OK type', () => {
-     wrapper = mount(<Alert {...initialMockProps}  type='client' />)
-     expect(wrapper.render().hasClass('alertstripe--suksess')).toBeTruthy()
+    wrapper = mount(<Alert {...initialMockProps} type='client' />)
+    expect(wrapper.render().hasClass('alertstripe--suksess')).toBeTruthy()
   })
 
   it('Has proper HTML structure as client in ERROR type', () => {
-     wrapper = mount(<Alert {...initialMockProps}  type='client' clientErrorStatus='WARNING'/>)
-     expect(wrapper.render().hasClass('alertstripe--advarsel')).toBeTruthy()
+    wrapper = mount(<Alert {...initialMockProps} type='client' clientErrorStatus='WARNING' />)
+    expect(wrapper.render().hasClass('alertstripe--advarsel')).toBeTruthy()
   })
 
   it('Has proper HTML structure as client in ERROR type', () => {
-     wrapper = mount(<Alert {...initialMockProps}  type='client' clientErrorStatus='ERROR'/>)
-     expect(wrapper.render().hasClass('alertstripe--feil')).toBeTruthy()
+    wrapper = mount(<Alert {...initialMockProps} type='client' clientErrorStatus='ERROR' />)
+    expect(wrapper.render().hasClass('alertstripe--feil')).toBeTruthy()
   })
 })

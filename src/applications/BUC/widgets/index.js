@@ -69,7 +69,7 @@ export const BUCWidgetIndex = (props) => {
   }
 
   if (!mounted) {
-    return <div/>
+    return <div />
   }
 
   return <div className='a-buc-widget'>

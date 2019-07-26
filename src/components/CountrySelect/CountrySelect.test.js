@@ -4,14 +4,13 @@ import { EEA } from './CountryFilter'
 
 const testData = {
   value: 'NO',
-  value3 : 'NOR',
+  value3: 'NOR',
   label: 'Norge',
   currency: 'NOK',
   currencyLabel: 'Norsk Krone'
 }
 
 describe('components/CountrySelect', () => {
-
   let wrapper
   const initialMockParams = {
     id: 'react-select-test',
@@ -48,13 +47,13 @@ describe('components/CountrySelect', () => {
   })
 
   it('Returns value when selected', () => {
-     wrapper = mount(<CountrySelect {...initialMockParams} />)
-     wrapper.find('.c-countrySelect__select__dropdown-indicator').hostNodes().simulate('keyDown', { key: 'ArrowDown' })
-     wrapper.find('.c-countryOption').hostNodes().last().simulate('keyDown', { key: 'Enter' })
-     expect(initialMockParams.onSelect).toBeCalledWith(testData, {
-       action: 'select-option',
-       name: undefined,
-       option: undefined
-     })
-   })
+    wrapper = mount(<CountrySelect {...initialMockParams} />)
+    wrapper.find('.c-countrySelect__select__dropdown-indicator').hostNodes().simulate('keyDown', { key: 'ArrowDown' })
+    wrapper.find('.c-countryOption').hostNodes().last().simulate('keyDown', { key: 'Enter' })
+    expect(initialMockParams.onSelect).toBeCalledWith(testData, {
+      action: 'select-option',
+      name: undefined,
+      option: undefined
+    })
+  })
 })

@@ -2,7 +2,6 @@ import React from 'react'
 import FocusGroup from './Focusgroup'
 
 describe('components/FocusGroup', () => {
-
   it('Renders', () => {
     let wrapper = mount(<FocusGroup />)
     expect(wrapper).toMatchSnapshot()
@@ -25,7 +24,6 @@ describe('components/FocusGroup', () => {
 })
 
 describe('components/FocusGroup Event bubbling', () => {
-
   it('Focus event bubbles to parent', (done) => {
     const eventHandler = (event) => {
       expect(event.testFlag).toBeTruthy()

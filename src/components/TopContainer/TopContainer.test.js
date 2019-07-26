@@ -3,7 +3,6 @@ import React from 'react'
 import { TopContainer } from './TopContainer'
 
 describe('components/TopContainer', () => {
-
   const initialMockProps = {
     actions: {
       toggleHighConstrast: jest.fn()
@@ -15,7 +14,7 @@ describe('components/TopContainer', () => {
 
   it('Renders', () => {
     let wrapper = shallow(<TopContainer {...initialMockProps}>
-      <div/>
+      <div />
     </TopContainer>)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()

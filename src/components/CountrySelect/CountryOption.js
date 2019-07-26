@@ -3,7 +3,6 @@ import PT from 'prop-types'
 import classNames from 'classnames'
 
 const CountryOption = (props) => {
-
   const { data, innerProps, isSelected, isFocused, label, selectProps, value } = props
   const flagImageUrl = selectProps.selectProps.flagImagePath + value + '.png'
   const _type = selectProps.selectProps.type || 'country'
