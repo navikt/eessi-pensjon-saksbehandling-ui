@@ -300,6 +300,15 @@ describe('buc actions', () => {
     })
   })
 
+  it('sedUpdate()', () => {
+    const mockedData = { foo: 'bar' }
+    const generatedResult = bucActions.sedUpdate(mockedData)
+    expect(generatedResult).toMatchObject({
+      type: types.BUC_SED_UPDATE,
+      payload: mockedData
+    })
+  })
+
   it('listP4000()', () => {
     const mockAktoerId = '123'
     bucActions.listP4000(mockAktoerId)
