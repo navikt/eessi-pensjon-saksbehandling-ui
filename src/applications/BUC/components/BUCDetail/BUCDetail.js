@@ -12,7 +12,7 @@ const BUCDetail = (props) => {
 
   return <EkspanderbartpanelBase
     id='a-buc-c-bucdetail__panel-id'
-    className={classNames('a-buc-c-bucdetail', className)}
+    className={classNames('a-buc-c-bucdetail', 's-border', className)}
     apen
     heading={<Systemtittel
       id='a-buc-c-bucdetail__header-id'

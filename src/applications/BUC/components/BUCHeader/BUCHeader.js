@@ -99,7 +99,7 @@ const BUCHeader = (props) => {
     <div className='a-buc-c-bucheader__actions col-3'>
       <LenkepanelBase
         id='a-buc-c-bucheader__bucedit-link'
-        className='a-buc-c-bucheader__bucedit-link smallerButton knapp mr-5'
+        className='a-buc-c-bucheader__bucedit-link knapp mr-5'
         onClick={(e) => onBUChandle(buc, e)}
         href={'#' + buc.type}
         border>

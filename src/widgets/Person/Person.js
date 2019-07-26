@@ -36,7 +36,7 @@ const PersonWidget = (props) => {
   }, [mounted, actions, aktoerId])
 
   return <EkspanderbartpanelBase
-    className='c-d-widget-border'
+    className='s-border'
     heading={
       <PersonHeader
         t={t} person={person}

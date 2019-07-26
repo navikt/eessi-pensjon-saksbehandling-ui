@@ -68,7 +68,7 @@ export const JoarkBrowser = (props) => {
       setPreviewFile(previewFile)
       onPreviewFile(previewFile)
     }
-  }, [previewFile, _previewFile, actions])
+  }, [actions, previewFile, _previewFile, t])
 
   const onItemClicked = (clickedItem, clickedVariant) => {
     const foundFile = _.find(files, (file) => {

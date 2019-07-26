@@ -73,7 +73,7 @@ const SEDSearch = (props) => {
 
   return <Panel
     id='a-buc-c-sedsearch__panel-id'
-    className={classNames('a-buc-c-sedsearch', 'p-2', className)}>
+    className={classNames('a-buc-c-sedsearch', 'p-2', 's-border', className)}>
     <Input
       id='a-buc-c-sedsearch__query-input-id'
       className='a-buc-c-sedsearch__query-input pl-1 pr-1'
