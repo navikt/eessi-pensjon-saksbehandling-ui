@@ -6,7 +6,6 @@ import Icons from 'components/Icons'
 import './MiniatureImage.css'
 
 export const MiniatureImage = (props) => {
-
   const { animate, className, deleteLink, downloadLink, file, isHovering, onClick, onDeleteDocument, scale, size, t } = props
   const title = '' + file.name + '\n' + t('ui:size') + ': ' + size
 
@@ -15,22 +14,22 @@ export const MiniatureImage = (props) => {
     title={title}
     style={{ transform: 'scale(' + scale + ')' }}>
     <div>
-      { deleteLink && isHovering ?
-      <div
-        className='link deleteLink'
-        onClick={onDeleteDocument}>
-        <Icons kind='trashcan' size={15} />
-      </div>
-      : null}
-      { downloadLink && isHovering ?
-      <div className='link downloadLink'>
-        <a
-          onClick={(e) => e.stopPropagation()} title={t('ui:download')}
-          href={'data:application/octet-stream;base64,' + encodeURIComponent(file.content.base64)}
-          download={file.name}>
-          <Icons size={'sm'} kind='download' />
-        </a>
-      </div> : null}
+      { deleteLink && isHovering
+        ? <div
+          className='link deleteLink'
+          onClick={onDeleteDocument}>
+          <Icons kind='trashcan' size={15} />
+        </div>
+        : null}
+      { downloadLink && isHovering
+        ? <div className='link downloadLink'>
+          <a
+            onClick={(e) => e.stopPropagation()} title={t('ui:download')}
+            href={'data:application/octet-stream;base64,' + encodeURIComponent(file.content.base64)}
+            download={file.name}>
+            <Icons size={'sm'} kind='download' />
+          </a>
+        </div> : null}
       <div className='content' onClick={onClick}>
         <img
           alt={file.name}

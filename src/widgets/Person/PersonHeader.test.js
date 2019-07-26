@@ -3,7 +3,6 @@ import PersonHeader from './PersonHeader'
 import samplePerson from 'resources/tests/samplePerson'
 
 describe('widgets/Person/PersonHeader', () => {
-
   const initialMockProps = {
     aktoerId: '10293847565',
     gettingPersonInfo: false,
@@ -12,7 +11,7 @@ describe('widgets/Person/PersonHeader', () => {
   }
 
   it('Renders', () => {
-    let wrapper = mount(<PersonHeader {...initialMockProps}/>)
+    let wrapper = mount(<PersonHeader {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })

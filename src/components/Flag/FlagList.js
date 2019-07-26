@@ -24,9 +24,9 @@ const FlagList = (props) => {
         country={item.country}
         label={label} />
     })}
-    {items.length > overflowLimit ?
-    <Normaltekst className='pt-2'>+{items.length - overflowLimit}</Normaltekst>
-    : null}
+    {items.length > overflowLimit
+      ? <Normaltekst className='pt-2'>+{items.length - overflowLimit}</Normaltekst>
+      : null}
   </div>
 }
 

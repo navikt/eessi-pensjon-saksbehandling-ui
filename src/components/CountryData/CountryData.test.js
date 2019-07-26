@@ -1,9 +1,7 @@
 import CountryData from './CountryData'
 
 describe('components/CountryData', () => {
-
   it('getData', () => {
-
     let data = CountryData.getData('en')
     expect(data).toBeDefined()
     data = CountryData.getData('nb')
@@ -63,6 +61,3 @@ describe('components/CountryData', () => {
     }])
   })
 })
-
-
-

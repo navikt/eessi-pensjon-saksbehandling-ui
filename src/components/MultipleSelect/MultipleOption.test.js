@@ -2,7 +2,6 @@ import React from 'react'
 import MultipleOption from './MultipleOption'
 
 describe('components/MultipleSelect/MultipleOption', () => {
-
   const initialMockProps = {
     data: {
       label: 'mockLabel',

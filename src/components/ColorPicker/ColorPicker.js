@@ -5,13 +5,12 @@ import reactCSS from 'reactcss'
 import { SketchPicker } from 'react-color'
 
 const ColorPicker = (props) => {
-
   const { color, onChangeComplete } = props
 
   const [ displayColorPicker, setDisplayColorPicker ] = useState(false)
-  const [ _color, setColor ] = useState({r: 255, g: 255, b: 255, a: 1})
+  const [ _color, setColor ] = useState({ r: 255, g: 255, b: 255, a: 1 })
 
-  useEffect (() => {
+  useEffect(() => {
     if (!_.isEqual(color, _color)) {
       setColor(color)
     }
@@ -63,12 +62,12 @@ const ColorPicker = (props) => {
     <div className={'c-colorPicker__container'} style={styles.swatch} onClick={toggleColorDisplay}>
       <div style={styles.color} />
     </div>
-    { displayColorPicker ?
-    <div className='c-colorPicker__popover' style={styles.popover}>
-      <div className='c-colorPicker__cover' style={styles.cover} onClick={closeColorPicker} />
-      <SketchPicker color={color} onChange={changeColor} onChangeComplete={onChangeComplete} />
-    </div>
-    : null }
+    { displayColorPicker
+      ? <div className='c-colorPicker__popover' style={styles.popover}>
+        <div className='c-colorPicker__cover' style={styles.cover} onClick={closeColorPicker} />
+        <SketchPicker color={color} onChange={changeColor} onChangeComplete={onChangeComplete} />
+      </div>
+      : null }
   </div>
 }
 

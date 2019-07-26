@@ -2,7 +2,6 @@ import React from 'react'
 import Banner from './Banner'
 
 describe('components/Banner', () => {
-
   let initialMockProps = {
     header: 'BANNER',
     t: jest.fn((translationString) => { return translationString }),

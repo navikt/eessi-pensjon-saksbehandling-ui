@@ -16,22 +16,21 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export const SessionMonitor = (props) => {
-
   const { actions,
-   /* check every minute */
-   checkInterval = 1000 * 60,
-   /* When session will expire */
-   expirationTime,
-   /* Warnings should start under 5 minutes */
-   millisecondsForWarning = 5 * 1000 * 60,
-   /* Reload under a minute */
-   sessionExpiredReload = 1000,
-   t
+    /* check every minute */
+    checkInterval = 1000 * 60,
+    /* When session will expire */
+    expirationTime,
+    /* Warnings should start under 5 minutes */
+    millisecondsForWarning = 5 * 1000 * 60,
+    /* Reload under a minute */
+    sessionExpiredReload = 1000,
+    t
   } = props
   const [ mounted, setMounted ] = useState(false)
 
   useEffect(() => {
-     if (!mounted) {
+    if (!mounted) {
       checkTimeout()
       setMounted(true)
     }
@@ -50,7 +49,7 @@ export const SessionMonitor = (props) => {
       if (diff < millisecondsForWarning) {
         actions.openModal({
           modalTitle: t('ui:session-expire-title'),
-          modalText: t('ui:session-expire-text', { minutes:  Math.abs(Math.ceil(diff) / 1000 / 60) }),
+          modalText: t('ui:session-expire-text', { minutes: Math.abs(Math.ceil(diff) / 1000 / 60) }),
           modalButtons: [{
             main: true,
             text: t('ui:ok-got-it'),
@@ -62,7 +61,7 @@ export const SessionMonitor = (props) => {
     }, checkInterval)
   }
 
-  return <div className='c-sessionMonitor'/>
+  return <div className='c-sessionMonitor' />
 }
 
 SessionMonitor.propTypes = {
@@ -71,6 +70,6 @@ SessionMonitor.propTypes = {
   t: PT.func.isRequired
 }
 
-const ConnectedSessionMonitor = connect(mapStateToProps,mapDispatchToProps)(SessionMonitor)
+const ConnectedSessionMonitor = connect(mapStateToProps, mapDispatchToProps)(SessionMonitor)
 ConnectedSessionMonitor.displayName = `Connect(${getDisplayName((SessionMonitor))})`
 export default ConnectedSessionMonitor

@@ -47,7 +47,7 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   })
 
   it('UseEffect: verifies case number in no currentBUC is provided', () => {
-    wrapper = mount(<BUCStart {...initialMockProps} currentBUC={undefined}/>)
+    wrapper = mount(<BUCStart {...initialMockProps} currentBUC={undefined} />)
     expect(initialMockProps.actions.verifyCaseNumber).toHaveBeenCalledWith({
       sakId: '123',
       aktoerId: '456'

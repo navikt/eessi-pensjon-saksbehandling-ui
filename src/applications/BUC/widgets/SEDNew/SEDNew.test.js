@@ -1,7 +1,7 @@
 import React from 'react'
 import SEDNew from './SEDNew'
 jest.mock('applications/BUC/components/SEDStart/SEDStart', () => {
-  return () => {return <div className='mock-a-buc-sedstart'/>}
+  return () => { return <div className='mock-a-buc-sedstart' /> }
 })
 
 describe('applications/BUC/widgets/SEDNew/SEDNew', () => {

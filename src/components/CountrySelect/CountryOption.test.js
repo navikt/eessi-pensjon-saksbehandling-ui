@@ -3,7 +3,6 @@ import CountryOption from './CountryOption'
 import CountryData from '../CountryData/CountryData'
 
 describe('CountryOption Rendering', () => {
-
   let countryData = CountryData.getData('nb')
   let countrySelectProps = { selectProps: { type: 'country' } }
   let currencySelectProps = { selectProps: { type: 'currency' } }
@@ -38,5 +37,3 @@ describe('CountryOption Rendering', () => {
     }
   })
 })
-
-

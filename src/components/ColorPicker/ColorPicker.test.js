@@ -2,7 +2,6 @@ import React from 'react'
 import ColorPicker from './ColorPicker'
 
 describe('components/Colorpicker', () => {
-
   const initialMockProps = {
     color: { r: 255, g: 255, b: 255, a: 1 },
     onChangeComplete: jest.fn()

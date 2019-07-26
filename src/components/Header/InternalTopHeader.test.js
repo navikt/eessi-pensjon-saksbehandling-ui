@@ -3,7 +3,6 @@ import { InternalTopHeader } from './InternalTopHeader'
 import * as routes from 'constants/routes'
 
 describe('components/InternalTopHeader', () => {
-
   const initialMockProps = {
     t: jest.fn((translationString) => { return translationString }),
     username: 'testUser',

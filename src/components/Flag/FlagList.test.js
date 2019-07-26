@@ -2,10 +2,9 @@ import React from 'react'
 import FlagList from './FlagList'
 
 describe('components/Flag/FlagList', () => {
-
   const initialMockProps = {
     items: [{
-      country: 'NO',
+      country: 'NO'
     }, {
       country: 'SE'
     }, {

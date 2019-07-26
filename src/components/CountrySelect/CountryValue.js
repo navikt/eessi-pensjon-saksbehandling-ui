@@ -2,7 +2,6 @@ import React from 'react'
 import PT from 'prop-types'
 
 const CountryValue = (props) => {
-
   const { selectProps, data, innerProps } = props
   const flagImageUrl = selectProps.selectProps.flagImagePath + data.value + '.png'
   const _type = selectProps.selectProps.type || 'country'

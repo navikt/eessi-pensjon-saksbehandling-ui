@@ -3,7 +3,7 @@ const redBase64 = 'JVBERi0xLjQKJcOkw7zDtsOfCjIgMCBvYmoKPDwvTGVuZ3RoIDMgMCBSL0Zpb
 export default {
   name: 'red.pdf',
   mimetype: 'application/pdf',
-  numPages : 5,
+  numPages: 5,
   size: 10000,
   content: {
     base64: redBase64

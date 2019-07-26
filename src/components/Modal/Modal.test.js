@@ -2,7 +2,6 @@ import React from 'react'
 import { Modal } from './Modal'
 
 describe('components/Modal', () => {
-
   const initialMockProps = {
     actions: {
       closeModal: jest.fn()
