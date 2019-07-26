@@ -6,7 +6,7 @@ describe('applications/BUC/widgets/BucWebSocket', () => {
   let wrapper
 
   const initialMockProps = {
-    onUpdate: jest.fn(),
+    onSedUpdate: jest.fn(),
     url: WEBSOCKET_URL
   }
 

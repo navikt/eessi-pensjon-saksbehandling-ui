@@ -12,7 +12,7 @@ const CONNECTED = 'CONNECTED'
 const UPDATING = 'UPDATING'
 
 const BucWebSocket = (props) => {
-  const { onUpdate, url } = props
+  const { onSedUpdate, url } = props
   const [ count, setCount ] = useState(0)
   const [ status, setStatus ] = useState(DISCONNECTED)
   let webSocketRef = null
@@ -24,11 +24,8 @@ const BucWebSocket = (props) => {
     if (topic === '/topic/1') {
       setCount(count + parseInt(data.message, 10))
     }
-    if (topic === '/buc') {
-      console.log(data)
-      if (typeof onUpdate === 'function') {
-        onUpdate(data)
-      }
+    if (topic === '/sed' && typeof onSedUpdate === 'function') {
+      onSedUpdate(data)
     }
   }
 
@@ -75,7 +72,7 @@ const BucWebSocket = (props) => {
 }
 
 BucWebSocket.propTypes = {
-  onUpdate: PT.func.isRequired,
+  onSedUpdate: PT.func.isRequired,
   url: PT.string.isRequired
 }
 
