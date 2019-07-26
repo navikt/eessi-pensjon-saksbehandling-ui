@@ -1,81 +1,37 @@
 .a-buc-widget {
 
-    &__header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    &__loading {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .hjelpetekst {
-        margin-top: 0px !important;
-        float: right! important;
-    }
-
-    .optional {
-      float: right;
-      font-weight: normal;
-      font-style: italic;
-    }
-
-    .renderedInstitutions {
-        background: white;
-        border: 1px solid lightgrey;
-        padding: 5px;
-        box-shadow: 1px 1px 1px lightgrey;
-        border-radius: 5px;
-    }
-
-    .selectBoxMessage {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-end;
-        justify-content: space-between;
-        min-height: 2rem;
-    }
-
-    .renderedInstitutions {
-        transform: translateX(-20px);
-        opacity: 0;
-        animation: renderedInstitutions-slideInFromLeft 0.4s forwards;
-    }
-
-    button.knapp:hover:not(:disabled) svg * {
-       stroke: white;
-    }
-}
-
-.smallerButton {
-  padding: 0.25rem 0.5rem 0.25rem 0.5rem !important;
-  margin-bottom: 0px !important;
-  color: #0067C5 !important;
-  border-radius: 0.125rem !important;
-  border: 2px solid #0067C5 !important;
-
-  &:active {
-    background-color: #005B82 !important;
-    border-color: #005B82 !important;
-    color: #ffffff !important;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  &:hover {
-    background-color: #0067C5 !important;
-    color: #ffffff !important;
+  &__loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-}
 
-@keyframes renderedInstitutions-slideInFromLeft {
-      0% {
-        opacity: 0;
-        transform: translateX(-20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateX(0);
-      }
+  .optional {
+    float: right;
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  .s-border {
+    border: 1px solid #59514B;
+    border-radius: 4px;
+  }
+
+  .selectBoxMessage {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    min-height: 2rem;
+  }
+
+  button.knapp:hover:not(:disabled) svg * {
+    stroke: white;
+  }
 }

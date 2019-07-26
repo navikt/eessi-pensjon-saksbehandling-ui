@@ -14,7 +14,7 @@ const ColorPicker = (props) => {
     if (!_.isEqual(color, _color)) {
       setColor(color)
     }
-  }, [color])
+  }, [color, _color])
 
   const toggleColorDisplay = () => {
     setDisplayColorPicker(!displayColorPicker)

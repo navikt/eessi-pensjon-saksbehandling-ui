@@ -30,36 +30,36 @@ export const SessionMonitor = (props) => {
   const [ mounted, setMounted ] = useState(false)
 
   useEffect(() => {
+    const checkTimeout = () => {
+      if (!expirationTime) {
+        return
+      }
+      setTimeout(() => {
+        const now = new Date()
+        const diff = expirationTime.getTime() - now.getTime()
+        if (diff < sessionExpiredReload) {
+          window.location.reload()
+        }
+        if (diff < millisecondsForWarning) {
+          actions.openModal({
+            modalTitle: t('ui:session-expire-title'),
+            modalText: t('ui:session-expire-text', { minutes: Math.abs(Math.ceil(diff) / 1000 / 60) }),
+            modalButtons: [{
+              main: true,
+              text: t('ui:ok-got-it'),
+              onClick: actions.closeModal
+            }]
+          })
+        }
+        checkTimeout()
+      }, checkInterval)
+    }
+
     if (!mounted) {
       checkTimeout()
       setMounted(true)
     }
-  }, [mounted])
-
-  const checkTimeout = () => {
-    if (!expirationTime) {
-      return
-    }
-    return setTimeout(() => {
-      const now = new Date()
-      const diff = expirationTime.getTime() - now.getTime()
-      if (diff < sessionExpiredReload) {
-        window.location.reload()
-      }
-      if (diff < millisecondsForWarning) {
-        actions.openModal({
-          modalTitle: t('ui:session-expire-title'),
-          modalText: t('ui:session-expire-text', { minutes: Math.abs(Math.ceil(diff) / 1000 / 60) }),
-          modalButtons: [{
-            main: true,
-            text: t('ui:ok-got-it'),
-            onClick: actions.closeModal
-          }]
-        })
-      }
-      checkTimeout()
-    }, checkInterval)
-  }
+  }, [actions, checkInterval, expirationTime, millisecondsForWarning, mounted, sessionExpiredReload, t])
 
   return <div className='c-sessionMonitor' />
 }

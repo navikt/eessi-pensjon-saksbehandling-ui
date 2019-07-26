@@ -20,7 +20,7 @@ export const MiniaturePDF = (props) => {
     if (currentPage && !isNaN(currentPage) && currentPage !== _currentPage) {
       setCurrentPage(currentPage)
     }
-  }, [currentPage])
+  }, [currentPage, _currentPage])
 
   const handleOnLoadSuccess = (e) => {
     setNumberPages(e.numPages)

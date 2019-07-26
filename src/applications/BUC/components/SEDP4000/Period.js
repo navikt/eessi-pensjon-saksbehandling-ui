@@ -438,7 +438,7 @@ const Period = (props) => {
             <div className='col-sm-12'>
               <Textarea
                 id='a-buc-c-sedp4000-period__arbeidgiverssted-textarea-id'
-                className='a-buc-c-sedp4000-period__arbeidgiverssted-textarea'
+                className='a-buc-c-sedp4000-period__arbeidgiverssted-textarea skjemaelement__input'
                 label={<div className='a-buc-c-sedp4000-period__label'>
                   <div className='a-buc-c-sedp4000-period__label'>
                     <UndertekstBold>{t('buc:p4000-work-place')}</UndertekstBold>
@@ -450,7 +450,6 @@ const Period = (props) => {
                 </div>}
                 placeholder={t('ui:writeIn')}
                 value={period.workPlace || ''}
-                style={{ minHeight: '100px' }}
                 maxLength={100}
                 onChange={setWorkPlace}
                 feil={localErrors.workPlace ? { feilmelding: t(localErrors.workPlace) } : null}
@@ -604,11 +603,10 @@ const Period = (props) => {
               <div className='col-sm-12'>
                 <Textarea
                   id='a-buc-c-sedp4000-period__bosted-place-textarea-id'
-                  className='a-buc-c-sedp4000-period__bosted-place-textarea'
+                  className='a-buc-c-sedp4000-period__bosted-place-textarea skjemaelement__input'
                   label={t('buc:p4000-place')}
                   placeholder={t('ui:writeIn')}
                   value={period.place || ''}
-                  style={{ minHeight: '100px' }}
                   maxLength={100}
                   onChange={setPlace}
                   feil={localErrors.place ? { feilmelding: t(localErrors.place) } : null}
@@ -620,7 +618,7 @@ const Period = (props) => {
               <Undertittel className='mt-5 mb-2'>{t('buc:p4000-comment')}</Undertittel>
               <Textarea
                 id='a-buc-c-sedp4000-period__comment-id'
-                className='a-buc-c-sedp4000-period__comment'
+                className='a-buc-c-sedp4000-period__comment skjemaelement__input'
                 label={<div className='a-buc-c-sedp4000-period__label'>
                   <div className='a-buc-c-sedp4000-period__label'>
                     <UndertekstBold>{t('buc:p4000-comment')}</UndertekstBold>
@@ -632,7 +630,6 @@ const Period = (props) => {
                 </div>}
                 placeholder={t('ui:writeIn')}
                 value={period.comment || ''}
-                style={{ minHeight: '100px' }}
                 onChange={setComment}
                 maxLength={2300}
               />

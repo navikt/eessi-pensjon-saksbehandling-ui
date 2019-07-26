@@ -122,7 +122,7 @@ const BUCList = (props) => {
         let bucId = buc.type + '-' + buc.caseId
         let bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId] : {}
         return <EkspanderbartpanelBase
-          className={classNames('a-buc-buclist__buc mb-3', 'c-d-widget-border')}
+          className={classNames('a-buc-buclist__buc', 'mb-3', 's-border')}
           key={index}
           style={{ animationDelay: (0.2 * index) + 's' }}
           heading={<BUCHeader t={t}

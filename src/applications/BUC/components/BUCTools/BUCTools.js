@@ -53,7 +53,7 @@ const BUCTools = (props) => {
 
   return <EkspanderbartpanelBase
     id='a-buc-c-buctools__panel-id'
-    className={classNames('a-buc-c-buctools', className)}
+    className={classNames('a-buc-c-buctools', 's-border', className)}
     heading={<Systemtittel
       className='a-buc-c-buctools__title'>
       {t('buc:form-BUCtools')}
@@ -76,7 +76,7 @@ const BUCTools = (props) => {
     <Undertittel className='mb-2'>{t('buc:form-commentForBUC')}</Undertittel>
     <Textarea
       id='a-buc-c-buctools__comment-textarea-id'
-      className='a-buc-c-buctools__comment-textarea'
+      className='a-buc-c-buctools__comment-textarea skjemaelement__input'
       label={''}
       value={comment || ''}
       onChange={onCommentChange} />
