@@ -275,6 +275,44 @@ const bucReducer = (state = initialBucState, action) => {
         attachments: existingAttachments
       }
 
+    case types.BUC_SED_UPDATE: {
+
+      const newStatus = action.payload.action.toLowerCase()
+      const payload = action.payload.payload
+      const sedId = payload.sedId
+      const newBucs = state.bucs ? state.bucs.map(buc => {
+        return buc.seds ? buc.seds.map(sed => {
+          return {
+            ...sed,
+            status: sed.id === sedId ? newStatus : sed.status
+          }
+        }) : state.seds
+      }): state.bucs
+      const newBuc = state.buc ? {
+        ...state.buc,
+        seds: state.buc.seds.map(sed => {
+          return {
+            ...sed,
+            status: sed.id === sedId ? newStatus : sed.status
+          }
+        })
+      } : state.buc
+      const newSeds = state.seds ? state.seds.map(sed => {
+        return {
+          ...sed,
+          status: sed.id === sedId ? newStatus : sed.status
+        }
+      }) : state.seds
+
+      return {
+        ...state,
+        bucs: newBucs,
+        buc: newBuc,
+        seds: newSeds,
+        update: action.payload
+      }
+    }
+
     case types.BUC_GET_P4000_LIST_SUCCESS:
       return {
         ...state,

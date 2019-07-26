@@ -266,6 +266,13 @@ export const getRinaUrl = () => {
   })
 }
 
+export const sedUpdate = (data) => {
+  return {
+    type: types.BUC_SED_UPDATE,
+    payload: data
+  }
+}
+
 export const listP4000 = (aktoerId) => {
   let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
   return funcCall({

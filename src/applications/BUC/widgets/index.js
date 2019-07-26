@@ -64,8 +64,8 @@ export const BUCWidgetIndex = (props) => {
     }
   }, [actions, aktoerId, bucs, loading, sakId])
 
-  const onWebsocketUpdate = (update) => {
-    actions.bucUpdate(update)
+  const onSedUpdate = (data) => {
+    actions.sedUpdate(data)
   }
 
   if (!mounted) {
@@ -80,7 +80,7 @@ export const BUCWidgetIndex = (props) => {
         buc={buc}
         mode={mode}
       />
-      <WebSocket onUpdate={onWebsocketUpdate} url={WEBSOCKET_URL} />
+      <WebSocket onSedUpdate={onSedUpdate} url={WEBSOCKET_URL} />
     </div>
     {mode === 'buclist' ? <BUCList {...props} /> : null}
     {mode === 'bucedit' ? <BUCEdit {...props} /> : null}
