@@ -8,7 +8,7 @@ describe('components/TopContainer', () => {
     actions: {
       toggleHighConstrast: jest.fn()
     },
-    highContrast: false
+    highContrast: false,
     history: {},
     t: jest.fn((translationString) => { return translationString })
   }
