@@ -21,6 +21,7 @@ const mapStateToProps = (state) => {
   return {
     language: state.ui.language,
     files: state.pdf.files,
+    pageScale: state.pdf.pageScale,
     recipe: state.pdf.recipe,
     dndTarget: state.pdf.dndTarget
   }

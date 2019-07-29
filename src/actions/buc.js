@@ -49,8 +49,7 @@ export const setP4000Info = (p4000) => {
 }
 
 export const fetchBucs = (aktoerId) => {
-  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
-  return funcCall({
+  return api.funcCall({
     url: sprintf(urls.BUC_AKTOERID_DETALJER_URL, { aktoerId: aktoerId }),
     expectedPayload: sampleBucs,
     type: {
@@ -73,8 +72,7 @@ export const fetchBucsInfoList = (aktoerId) => {
 }
 
 export const fetchBucsInfo = (fileName) => {
-  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
-  return funcCall({
+  return api.funcCall({
     url: sprintf(urls.API_STORAGE_GETFILE_URL, { file: fileName }),
     expectedPayload: sampleBucsInfo,
     type: {
@@ -127,8 +125,7 @@ export const getTagList = (aktoerId) => {
 }
 
 export const createBuc = (buc) => {
-  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
-  return funcCall({
+  return api.funcCall({
     url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
     method: 'POST',
     expectedPayload: {
@@ -178,8 +175,7 @@ export const saveBucsInfo = (params) => {
 }
 
 export const getCountryList = () => {
-  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
-  return funcCall({
+  return api.funcCall({
     url: urls.EUX_COUNTRY_URL,
     expectedPayload: ['XX'],
     type: {
@@ -191,9 +187,8 @@ export const getCountryList = () => {
 }
 
 export const getSedList = (buc, rinaId) => {
-  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
   let url = sprintf(urls.EUX_SED_FOR_BUCS_URL, { buc: buc.type, rinaId: buc.caseId })
-  return funcCall({
+  return api.funcCall({
     url: url,
     expectedPayload: ['P2000', 'P4000', 'P5000'],
     type: {
@@ -205,8 +200,7 @@ export const getSedList = (buc, rinaId) => {
 }
 
 export const getInstitutionsListForBucAndCountry = (buc, country) => {
-  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
-  return funcCall({
+  return api.funcCall({
     url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: buc, country: country }),
     context: {
       buc: buc,
@@ -222,8 +216,7 @@ export const getInstitutionsListForBucAndCountry = (buc, country) => {
 }
 
 export const createSed = (payload) => {
-  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
-  return funcCall({
+  return api.funcCall({
     url: urls.BUC_CREATE_SED_URL,
     payload: payload,
     expectedPayload: {
@@ -240,8 +233,7 @@ export const createSed = (payload) => {
 }
 
 export const sendAttachmentToSed = (params) => {
-  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
-  return funcCall({
+  return api.funcCall({
     url: sprintf(urls.BUC_SED_ATTACHMENT_URL, params),
     method: 'PUT',
     expectedPayload: {
@@ -274,8 +266,7 @@ export const sedUpdate = (data) => {
 }
 
 export const listP4000 = (aktoerId) => {
-  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
-  return funcCall({
+  return api.funcCall({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: 'PINFO' }),
     expectedPayload: [
       aktoerId + '___PINFO___PINFO.json'
@@ -289,8 +280,7 @@ export const listP4000 = (aktoerId) => {
 }
 
 export const getP4000 = (file) => {
-  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
-  return funcCall({
+  return api.funcCall({
     url: sprintf(urls.API_STORAGE_GETFILE_URL, { file: file }),
     expectedPayload: sampleP4000info,
     type: {

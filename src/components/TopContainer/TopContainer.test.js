@@ -5,7 +5,7 @@ import { TopContainer } from './TopContainer'
 describe('components/TopContainer', () => {
   const initialMockProps = {
     actions: {
-      toggleHighConstrast: jest.fn()
+      toggleHighContrast: jest.fn()
     },
     highContrast: false,
     history: {},

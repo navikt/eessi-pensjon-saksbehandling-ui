@@ -1,13 +1,13 @@
 import _ from 'lodash'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
+import { IS_TEST } from 'constants/environment'
 import * as api from 'actions/api'
 import sampleJoark from 'resources/tests/sampleJoark'
 var sprintf = require('sprintf-js').sprintf
 
 export const listJoarkFiles = (userId) => {
-  const funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
-  return funcCall({
+  return api.funcCall({
     url: sprintf(urls.API_JOARK_LIST_URL, { userId: userId }),
     expectedPayload: sampleJoark.mockdata,
     type: {
@@ -19,9 +19,8 @@ export const listJoarkFiles = (userId) => {
 }
 
 export const previewJoarkFile = (item, variant) => {
-  const funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
-  const expectedPayload = urls.HOST === 'localhost' ? getMockedPayload(item.journalpostId) : undefined
-  return funcCall({
+  const expectedPayload = urls.HOST === 'localhost' && !IS_TEST ? getMockedPayload(item.journalpostId) : undefined
+  return api.funcCall({
     url: sprintf(urls.API_JOARK_GET_URL, {
       dokumentInfoId: item.dokumentInfoId,
       journalpostId: item.journalpostId,
@@ -41,9 +40,8 @@ export const previewJoarkFile = (item, variant) => {
 }
 
 export const getJoarkFile = (item, variant) => {
-  let funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
-  let expectedPayload = urls.HOST === 'localhost' ? getMockedPayload(item.journalpostId) : undefined
-  return funcCall({
+  let expectedPayload = urls.HOST === 'localhost' && !IS_TEST ? getMockedPayload(item.journalpostId) : undefined
+  return api.funcCall({
     url: sprintf(urls.API_JOARK_GET_URL, {
       dokumentInfoId: item.dokumentInfoId,
       journalpostId: item.journalpostId,

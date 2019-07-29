@@ -10,8 +10,8 @@ describe('components/SessionMonitor', () => {
   }
 
   it('Renders', () => {
-    const now = new Date()
-    const expirationTime = new Date(new Date().setSeconds(now.getSeconds() + 10))
+    const aDate = new Date('2020-12-17T03:24:00')
+    const expirationTime = new Date('2020-12-17T03:24:10')
     const wrapper = mount(<SessionMonitor
       expirationTime={expirationTime}
       checkInterval={500}
@@ -24,8 +24,8 @@ describe('components/SessionMonitor', () => {
 
   it('SessionMonitor will trigger a openModal when session is almost expiring', async (done) => {
     // expires in 10 seconds - will check every 0.5s - warnings start at 9.9s - reload only happens under 1s
-    const now = new Date()
-    const expirationTime = new Date(new Date().setSeconds(now.getSeconds() + 10))
+    const aDate = new Date('2020-12-17T03:24:00')
+    const expirationTime = new Date('2020-12-17T03:24:10')
     mount(<SessionMonitor
       expirationTime={expirationTime}
       checkInterval={500}
@@ -45,8 +45,8 @@ describe('components/SessionMonitor', () => {
 
   it('SessionMonitor will trigger a openModal when session expired', async (done) => {
     // expires in 1 seconds - will check every 0.5s - warnings start at 0.9s - reload happens under 10s
-    const now = new Date()
-    const expirationTime = new Date(new Date().setSeconds(now.getSeconds() + 1))
+    const aDate = new Date('2020-12-17T03:24:00')
+    const expirationTime = new Date('2020-12-17T03:23:01')
     mount(<SessionMonitor
       expirationTime={expirationTime}
       checkInterval={500}

@@ -6,21 +6,19 @@ import sampleJoark from 'resources/tests/sampleJoark'
 import _ from 'lodash'
 var sprintf = require('sprintf-js').sprintf
 
-urls.HOST = 'notlocalhost'
-
 describe('joark actions', () => {
   beforeAll(() => {
-    api.call = jest.fn()
+    api.funcCall = jest.fn()
   })
 
   afterEach(() => {
-    api.call.mockRestore()
+    api.funcCall.mockRestore()
   })
 
   it('listJoarkFiles()', () => {
     const mockUserId = 123
     joarkActions.listJoarkFiles(mockUserId)
-    expect(api.call).toBeCalledWith({
+    expect(api.funcCall).toBeCalledWith({
       type: {
         request: types.JOARK_LIST_REQUEST,
         success: types.JOARK_LIST_SUCCESS,
@@ -37,7 +35,7 @@ describe('joark actions', () => {
       dokumentInfoId: '4'
     }
     joarkActions.previewJoarkFile(mockItem)
-    expect(api.call).toBeCalledWith({
+    expect(api.funcCall).toBeCalledWith({
       type: {
         request: types.JOARK_PREVIEW_REQUEST,
         success: types.JOARK_PREVIEW_SUCCESS,
@@ -57,7 +55,7 @@ describe('joark actions', () => {
       variant: mockVariant
     }
     joarkActions.getJoarkFile(mockItem, mockVariant)
-    expect(api.call).toBeCalledWith({
+    expect(api.funcCall).toBeCalledWith({
       type: {
         request: types.JOARK_GET_REQUEST,
         success: types.JOARK_GET_SUCCESS,
