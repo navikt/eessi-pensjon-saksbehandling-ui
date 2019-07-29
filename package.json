@@ -12,8 +12,8 @@
     "build:git": "export GIT_VERSION=`git describe --always` && sed -i -- \"s/%GIT_VERSION%/$GIT_VERSION/g\" build/index.html",
     "build:css": "less-watch-compiler --run-once --config less.json",
     "build:js": "cross-env NODE_OPTIONS=--max-old-space-size=4096 react-scripts build",
-    "test": "react-scripts test",
-    "test:coverage": "react-scripts test --coverage  --watchAll=false",
+    "test": "cross-env NODE_ENV=test react-scripts test",
+    "test:coverage": "cross-env NODE_ENV=test react-scripts test --coverage  --watchAll=false",
     "start-json": "json-server --watch db.json --routes routes.json --port 8080",
     "cucumber": "cucumber-js src/tests/**/*.feature -f node_modules/cucumber-pretty",
     "wcag-test": "nav-ally -f wcag.yml"

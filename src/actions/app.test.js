@@ -5,14 +5,14 @@ import * as urls from 'constants/urls'
 import samplePerson from 'resources/tests/samplePerson'
 var sprintf = require('sprintf-js').sprintf
 
-urls.HOST = 'notlocalhost'
-
 describe('app actions', () => {
   beforeAll(() => {
+    api.funcCall = jest.fn()
     api.call = jest.fn()
   })
 
   afterEach(() => {
+    api.funcCall.mockRestore()
     api.call.mockRestore()
   })
 
@@ -84,7 +84,7 @@ describe('app actions', () => {
   it('getPersonInfo()', () => {
     const mockAktoerId = '123'
     appActions.getPersonInfo(mockAktoerId)
-    expect(api.call).toBeCalledWith({
+    expect(api.funcCall).toBeCalledWith({
       type: {
         request: types.APP_PERSONINFO_REQUEST,
         success: types.APP_PERSONINFO_SUCCESS,

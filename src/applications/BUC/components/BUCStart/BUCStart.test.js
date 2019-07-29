@@ -106,8 +106,8 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
 
   it('Handles onForwardButtonClick()', () => {
     expect(wrapper.find('button.a-buc-c-bucstart__forward-button').prop('disabled')).toBeTruthy()
-    wrapper.find('#a-buc-c-bucstart__subjectarea-select-id').hostNodes().prop('onChange')({ target: { value: 'Pensjon' } })
-    wrapper.find('#a-buc-c-bucstart__buc-select-id').hostNodes().prop('onChange')({ target: { value: 'mockBuc1' } })
+    wrapper.find('#a-buc-c-bucstart__subjectarea-select-id').hostNodes().simulate('change',{ target: { value: 'Pensjon' } })
+    wrapper.find('#a-buc-c-bucstart__buc-select-id').hostNodes().simulate('change', { target: { value: 'mockBuc1' } })
     wrapper.update()
     wrapper.find('button.a-buc-c-bucstart__forward-button').hostNodes().simulate('click')
     expect(initialMockProps.actions.createBuc).toHaveBeenCalledWith('mockBuc1')

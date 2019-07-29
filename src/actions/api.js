@@ -2,6 +2,8 @@ import fetch from 'cross-fetch'
 import cookies from 'browser-cookies'
 import 'cross-fetch/polyfill'
 import * as types from 'constants/actionTypes'
+import { IS_TEST } from 'constants/environment'
+import { HOST } from 'constants/urls'
 
 export const fakecall = (options) => {
   return (dispatch) => {
@@ -94,3 +96,8 @@ export const call = (options) => {
     })
   }
 }
+
+console.log(HOST)
+console.log(IS_TEST)
+
+export const funcCall = HOST === 'localhost' && !IS_TEST ? fakecall : call

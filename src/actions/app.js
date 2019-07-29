@@ -54,8 +54,7 @@ export const getUserInfo = () => {
 }
 
 export const getPersonInfo = (aktoerId) => {
-  const funcCall = urls.HOST === 'localhost' ? api.fakecall : api.call
-  return funcCall({
+  return api.funcCall({
     url: sprintf(urls.PERSON_URL, { aktoerId: aktoerId }),
     expectedPayload: samplePerson,
     type: {

@@ -37,7 +37,6 @@ describe('components/FocusGroup Event bubbling', () => {
     )
     let child = wrapper.childAt(0)
     child.simulate('focus', { 'testFlag': true })
-    wrapper.unmount()
   })
 
   it('Blur event bubbles to parent', (done) => {
@@ -53,7 +52,6 @@ describe('components/FocusGroup Event bubbling', () => {
     )
     let child = wrapper.childAt(0)
     child.simulate('blur', { 'testFlag': true })
-    wrapper.unmount()
   })
 })
 
@@ -78,6 +76,5 @@ describe('components/FocusGroup Event Grouping', () => {
     wrapper.simulate('blur')
     wrapper.simulate('focus')
     wrapper.simulate('blur')
-    wrapper.unmount()
   })
 })
