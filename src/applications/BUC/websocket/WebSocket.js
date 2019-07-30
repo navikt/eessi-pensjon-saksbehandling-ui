@@ -13,8 +13,8 @@ const UPDATING = 'UPDATING'
 
 const BucWebSocket = (props) => {
   const { onSedUpdate, url } = props
-  const [ count, setCount ] = useState(0)
-  const [ status, setStatus ] = useState(DISCONNECTED)
+  const [count, setCount] = useState(0)
+  const [status, setStatus] = useState(DISCONNECTED)
   let webSocketRef = null
 
   const onMessageReceived = (data, topic) => {
@@ -60,6 +60,7 @@ const BucWebSocket = (props) => {
       onClick={() => sendMessage()}>+1</Knapp>
     <SockJsClient
       url={url}
+      options={{ transports: ['htmlfile'] }}
       topics={['/topic/1', '/topic/10', '/buc']}
       onConnect={onConnect}
       onDisconnect={onDisconnect}
