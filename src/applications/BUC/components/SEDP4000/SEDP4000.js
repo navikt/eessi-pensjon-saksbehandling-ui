@@ -98,7 +98,7 @@ export const SEDP4000 = (props) => {
     </React.Fragment> : null}
     {!_.isEmpty(p4000info.stayAbroad) && mode === 'new' ? <React.Fragment>
       <Undertittel className='mt-5 mb-2'>{t('buc:p4000-previousPeriods')}</Undertittel>
-      {p4000info.stayAbroad.sort((a, b) => {
+      {p4000info? p4000info.stayAbroad.sort((a, b) => {
         return a.startDate - b.startDate
       }).map((period, index) => {
         return <Period t={t}
@@ -112,7 +112,7 @@ export const SEDP4000 = (props) => {
           setPeriod={setPeriod}
           setPeriods={setPeriods}
           key={index} />
-      })}
+      }) : null}
     </React.Fragment>
       : null}
     { p4000info.stayAbroad.length < maxPeriods
