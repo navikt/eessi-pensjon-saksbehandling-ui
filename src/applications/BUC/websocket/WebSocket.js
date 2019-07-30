@@ -60,7 +60,7 @@ const BucWebSocket = (props) => {
       onClick={() => sendMessage()}>+1</Knapp>
     <SockJsClient
       url={url}
-      options={{ transports: ['htmlfile'] }}
+      options={{ transports: ['xhr-streaming', 'xhr-polling'] }}
       topics={['/topic/1', '/topic/10', '/buc']}
       onConnect={onConnect}
       onDisconnect={onDisconnect}
