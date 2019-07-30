@@ -13,30 +13,47 @@ describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
   let wrapper
 
   beforeEach(() => {
+
+  })
+
+  it('Renders', () => {
     wrapper = mount(<StoreProvider initialState={initialState} reducer={reducer}>
       <Suspense fallback={<div />}>
         <SEDAttachments {...initialMockProps} />
       </Suspense>
     </StoreProvider>)
-  })
-
-  it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Pressing button for attachments makes it disappear', () => {
+  it('Has proper HTML structure', () => {
+    wrapper = mount(<StoreProvider initialState={initialState} reducer={reducer}>
+      <Suspense fallback={<div />}>
+        <SEDAttachments {...initialMockProps} />
+      </Suspense>
+    </StoreProvider>)
     expect(wrapper.exists('.a-buc-c-sedattachments')).toBeTruthy()
     expect(wrapper.exists('#a-buc-c-sedattachments__enable-button-id')).toBeTruthy()
+  })
+
+  it('Pressing button for attachments leads to step 1', () => {
+    wrapper = mount(<StoreProvider initialState={initialState} reducer={reducer}>
+      <Suspense fallback={<div />}>
+        <SEDAttachments {...initialMockProps} />
+      </Suspense>
+    </StoreProvider>)
     expect(wrapper.exists('.a-buc-c-sedattachments-step1')).toBeFalsy()
 
     wrapper.find('#a-buc-c-sedattachments__enable-button-id').hostNodes().simulate('click')
-    expect(wrapper.find('.a-buc-c-sedattachments-step1')).toHaveLength(1)
-    expect(wrapper.render().find('#a-buc-c-sedattachments__enable-button-id')).toHaveLength(0)
+    expect(wrapper.exists('.a-buc-c-sedattachments-step1')).toBeTruthy()
   })
 
-  it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.a-buc-c-sedattachments')).toBeTruthy()
-    expect(wrapper.exists('#a-buc-c-sedattachments__enable-button-id')).toBeTruthy()
+  it('Step 2 can be seen', () => {
+    wrapper = mount(<StoreProvider initialState={initialState} reducer={reducer}>
+      <Suspense fallback={<div />}>
+        <SEDAttachments {...initialMockProps} initialStep={2}/>
+      </Suspense>
+    </StoreProvider>)
+    expect(wrapper.exists('.a-buc-c-sedattachments-step2')).toBeTruthy()
   })
 })

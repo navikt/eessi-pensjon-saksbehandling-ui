@@ -81,10 +81,12 @@ const TableSorter = (props) => {
                     className='c-tablesorter__subcell'>
                     <Checkbox
                       label=''
+                      id={'c-tablesorter__checkbox-' + item['name'].replace('.', '_') + '-' + variant.label}
                       className='c-tablesorter__checkbox'
                       onChange={(e) => onSelectedItemChange(item, e.target.checked, variant.label)}
                       checked={variant.selected} />
-                    <a href='#item' onClick={(e) => {
+                    <a href='#item'
+                      onClick={(e) => {
                       e.preventDefault()
                       onItemClicked(item, variant.label)
                     }}>

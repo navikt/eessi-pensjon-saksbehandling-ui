@@ -6,8 +6,8 @@ import Step1 from './Step1'
 import Step2 from './Step2'
 
 const SEDAttachments = (props) => {
-  const { t } = props
-  const [ step, setStep ] = useState(0)
+  const { t, initialStep = 1 } = props
+  const [ step, setStep ] = useState(initialStep)
   const [ enableAttachments, setEnableAttachments ] = useState(false)
 
   return <div className='a-buc-c-sedattachments'>
@@ -22,22 +22,14 @@ const SEDAttachments = (props) => {
         <span>{t('ui:addAttachments')}</span>
       </div>
     </Knapp> : null}
-    {enableAttachments && step === 1
-      ? <Stegindikator
-        visLabel
-        autoResponsiv
-        steg={[
-          { label: t('buc:attachments-step0'), aktiv: (step === 0) },
-          { label: t('buc:attachments-step1'), aktiv: (step === 1) },
-          { label: t('buc:attachments-step2'), aktiv: (step === 2) }
-        ]} /> : null}
-    {enableAttachments && step === 0 ? <Step1 setStep={setStep} {...props} /> : null}
-    {enableAttachments && step === 1 ? <Step2 setStep={setStep} {...props} /> : null}
+    {enableAttachments && step === 1 ? <Step1 setStep={setStep} {...props} /> : null}
+    {enableAttachments && step === 2 ? <Step2 setStep={setStep} {...props} /> : null}
   </div>
 }
 
 SEDAttachments.propTypes = {
-  t: PT.func.isRequired
+  t: PT.func.isRequired,
+  initialStep: PT.number
 }
 
 export default SEDAttachments

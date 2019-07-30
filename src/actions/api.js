@@ -97,7 +97,4 @@ export const call = (options) => {
   }
 }
 
-console.log(HOST)
-console.log(IS_TEST)
-
 export const funcCall = HOST === 'localhost' && !IS_TEST ? fakecall : call
