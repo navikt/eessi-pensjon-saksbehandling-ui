@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import PT from 'prop-types'
+import cookies from 'browser-cookies'
 import classNames from 'classnames'
 import SockJsClient from 'react-stomp'
 import { Knapp, Normaltekst } from 'components/Nav'
@@ -41,6 +42,14 @@ const BucWebSocket = (props) => {
     webSocketRef.sendMessage('/buc/increment', count)
   }
 
+  const CSRF_PROTECTION = cookies.get('NAV_CSRF_PROTECTION')
+    ? { NAV_CSRF_PROTECTION: cookies.get('NAV_CSRF_PROTECTION') }
+    : {}
+
+  const customHeaders= {
+   ...CSRF_PROTECTION
+  }
+
   return <div className='a-buc-websocket'>
     <div
       className={classNames('a-buc-websocket__status', { rotating: status === UPDATING })}
@@ -60,6 +69,7 @@ const BucWebSocket = (props) => {
       onClick={() => sendMessage()}>+1</Knapp>
     <SockJsClient
       url={url}
+      headers={customHeaders}
       options={{ transports: ['xhr-streaming', 'xhr-polling'] }}
       topics={['/topic/1', '/topic/10', '/buc']}
       onConnect={onConnect}
