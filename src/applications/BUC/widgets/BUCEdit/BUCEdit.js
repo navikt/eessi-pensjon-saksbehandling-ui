@@ -12,9 +12,9 @@ import './BUCEdit.css'
 
 const BUCEdit = (props) => {
   const { actions, aktoerId, buc, bucsInfo, institutionNames, loading, locale, rinaUrl, seds, t, tagList } = props
-  const [ search, setSearch ] = useState(undefined)
-  const [ countrySearch, setCountrySearch ] = useState(undefined)
-  const [ statusSearch, setStatusSearch ] = useState(undefined)
+  const [search, setSearch] = useState(undefined)
+  const [countrySearch, setCountrySearch] = useState(undefined)
+  const [statusSearch, setStatusSearch] = useState(undefined)
 
   const onSEDNew = () => {
     actions.setMode('sednew')
@@ -35,7 +35,7 @@ const BUCEdit = (props) => {
   const sedFilter = (sed) => {
     let match = true
     if (match && search) {
-      let _search = search.toLowerCase()
+      const _search = search.toLowerCase()
       match = sed.type.match(search) || _.find(sed.participants, (it) => {
         const organizationId = it.organisation.id.toLowerCase()
         const organizationName = institutionNames[organizationId] ? institutionNames[organizationId].toLowerCase() : ''

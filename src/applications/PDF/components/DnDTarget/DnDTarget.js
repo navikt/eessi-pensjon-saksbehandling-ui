@@ -31,7 +31,7 @@ class DnDTarget extends Component {
             className={classNames('c-pdf-dndTarget-droppable', 'text-center', { 'c-pdf-dndTarget-droppable-active ': snapshot.isDraggingOver })}>
 
             {recipe[targetId] ? recipe[targetId].map((recipeStep, index) => {
-              let file = _.find(files, { name: recipeStep.name })
+              const file = _.find(files, { name: recipeStep.name })
 
               return <Draggable key={index} draggableId={index} index={index}>
 

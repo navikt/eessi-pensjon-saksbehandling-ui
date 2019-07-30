@@ -9,10 +9,10 @@ import RefreshButton from 'components/RefreshButton/RefreshButton'
 const VarslerTable = (props) => {
   const { actions, aktoerId, file, fileList, sakId, t } = props
 
-  const [ isReady, setIsReady ] = useState(false)
-  const [ _fileList, setFileList ] = useState(undefined)
-  const [ _files, setFiles ] = useState({})
-  const [ mounted, setMounted ] = useState(false)
+  const [isReady, setIsReady] = useState(false)
+  const [_fileList, setFileList] = useState(undefined)
+  const [_files, setFiles] = useState({})
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     if (!mounted) {
@@ -39,11 +39,11 @@ const VarslerTable = (props) => {
     }
 
     if (file !== undefined && !isReady) {
-      let files = _.cloneDeep(_files)
-      let key = file.timestamp + '.json'
-      if (!files.hasOwnProperty(key)) {
+      const files = _.cloneDeep(_files)
+      const key = file.timestamp + '.json'
+      if (!Object.prototype.hasOwnProperty.call(files, key)) {
         files[key] = file
-        let allFilesDone = Object.keys(files).length === fileList.length
+        const allFilesDone = Object.keys(files).length === fileList.length
         setFiles(files)
         setIsReady(allFilesDone)
       }
@@ -81,7 +81,7 @@ const VarslerTable = (props) => {
         {_files ? Object.keys(_files)
           .sort((a, b) => _files[b].timestamp.localeCompare(_files[a].timestamp))
           .map((file, index) => {
-            let content = _files[file]
+            const content = _files[file]
             return <tr className='slideAnimate' style={{ animationDelay: index * 0.03 + 's' }} key={file}>
               <td><Icons kind='nav-message-sent' /></td>
               <td>{content.tittel || file}</td>

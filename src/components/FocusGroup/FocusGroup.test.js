@@ -3,12 +3,12 @@ import FocusGroup from './Focusgroup'
 
 describe('components/FocusGroup', () => {
   it('Renders', () => {
-    let wrapper = mount(<FocusGroup />)
+    const wrapper = mount(<FocusGroup />)
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Has proper HTML structure', () => {
-    let wrapper = mount(
+    const wrapper = mount(
       <FocusGroup>
         <div id='1' />
         <div id='2' />
@@ -30,13 +30,13 @@ describe('components/FocusGroup Event bubbling', () => {
       done()
     }
 
-    let wrapper = mount(
+    const wrapper = mount(
       <FocusGroup onFocus={eventHandler} >
         <input type='text' />
       </FocusGroup>
     )
-    let child = wrapper.childAt(0)
-    child.simulate('focus', { 'testFlag': true })
+    const child = wrapper.childAt(0)
+    child.simulate('focus', { testFlag: true })
   })
 
   it('Blur event bubbles to parent', (done) => {
@@ -45,13 +45,13 @@ describe('components/FocusGroup Event bubbling', () => {
       done()
     }
 
-    let wrapper = mount(
+    const wrapper = mount(
       <FocusGroup onBlur={eventHandler} >
         <input type='text' />
       </FocusGroup>
     )
-    let child = wrapper.childAt(0)
-    child.simulate('blur', { 'testFlag': true })
+    const child = wrapper.childAt(0)
+    child.simulate('blur', { testFlag: true })
   })
 })
 
@@ -69,7 +69,7 @@ describe('components/FocusGroup Event Grouping', () => {
       done()
     }
 
-    let wrapper = mount(<FocusGroup onFocus={focusHandler} onBlur={blurHandler} />)
+    const wrapper = mount(<FocusGroup onFocus={focusHandler} onBlur={blurHandler} />)
     wrapper.simulate('focus')
     wrapper.simulate('blur')
     wrapper.simulate('focus')

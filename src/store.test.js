@@ -4,7 +4,7 @@ import reducer, { initialState } from 'reducer'
 
 describe('store', () => {
   it('renders', () => {
-    let wrapper = shallow(<StoreProvider initialState={initialState} reducer={reducer}>
+    const wrapper = shallow(<StoreProvider initialState={initialState} reducer={reducer}>
       <div />
     </StoreProvider>)
     expect(wrapper.isEmptyRender()).toBeFalsy()

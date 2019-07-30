@@ -25,9 +25,10 @@ export const SessionMonitor = (props) => {
     millisecondsForWarning = 5 * 1000 * 60,
     /* Reload under a minute */
     sessionExpiredReload = 1000,
+    now,
     t
   } = props
-  const [ mounted, setMounted ] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     const checkTimeout = () => {
@@ -35,15 +36,15 @@ export const SessionMonitor = (props) => {
         return
       }
       setTimeout(() => {
-        const now = new Date()
-        const diff = expirationTime.getTime() - now.getTime()
+        const _now = now || new Date()
+        const diff = expirationTime.getTime() - _now.getTime()
         if (diff < sessionExpiredReload) {
           window.location.reload()
         }
         if (diff < millisecondsForWarning) {
           actions.openModal({
             modalTitle: t('ui:session-expire-title'),
-            modalText: t('ui:session-expire-text', { minutes: Math.abs(Math.ceil(diff) / 1000 / 60) }),
+            modalText: t('ui:session-expire-text', { minutes: Math.ceil(Math.abs(diff / 1000 / 60)) }),
             modalButtons: [{
               main: true,
               text: t('ui:ok-got-it'),
@@ -59,7 +60,7 @@ export const SessionMonitor = (props) => {
       checkTimeout()
       setMounted(true)
     }
-  }, [actions, checkInterval, expirationTime, millisecondsForWarning, mounted, sessionExpiredReload, t])
+  }, [actions, checkInterval, expirationTime, millisecondsForWarning, mounted, now, sessionExpiredReload, t])
 
   return <div className='c-sessionMonitor' />
 }
@@ -67,6 +68,7 @@ export const SessionMonitor = (props) => {
 SessionMonitor.propTypes = {
   actions: PT.object.isRequired,
   expirationTime: PT.object,
+  now: PT.object,
   t: PT.func.isRequired
 }
 

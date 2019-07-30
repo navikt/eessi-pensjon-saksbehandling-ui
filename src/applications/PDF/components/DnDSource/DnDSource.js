@@ -44,7 +44,7 @@ class DnDSource extends Component {
       e.preventDefault()
       e.stopPropagation()
 
-      let potentialPages = []; let newRecipe = _.clone(recipe)
+      const potentialPages = []; const newRecipe = _.clone(recipe)
       let modified = false
 
       _.range(1, pdf.numPages + 1).map(pageNumber => {
@@ -85,7 +85,7 @@ class DnDSource extends Component {
         selectedPages = _.filter(recipe[dndTarget], { name: pdf.name })
       }
 
-      let addAllLink = isHovering ? <a href='#addAll' onClick={this.addAllPagesToTargetPdf.bind(this, pdf.name)}>{t('ui:addAll')}</a> : null
+      const addAllLink = isHovering ? <a href='#addAll' onClick={this.addAllPagesToTargetPdf.bind(this, pdf.name)}>{t('ui:addAll')}</a> : null
 
       return <div className='c-pdf-dndSource position-relative'
         onMouseEnter={this.onHandleMouseEnter.bind(this)}
@@ -103,7 +103,7 @@ class DnDSource extends Component {
                 if (_.find(selectedPages, { pageNumber: pageNumber })) {
                   return null
                 }
-                let key = pdf.name + '-' + pageNumber
+                const key = pdf.name + '-' + pageNumber
                 return <Draggable key={key} draggableId={key} index={pageNumber}>
                   {(provided, snapshot) => (
                     <div className={classNames('c-pdf-dndSource-draggable', { dragging: snapshot.isDragging })}

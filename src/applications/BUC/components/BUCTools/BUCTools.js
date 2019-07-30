@@ -7,9 +7,9 @@ import './BUCTools.css'
 
 const BUCTools = (props) => {
   const { actions, aktoerId, buc, bucInfo, bucsInfo, className, loading, locale, t, tagList } = props
-  const [ comment, setComment ] = useState(bucInfo ? bucInfo.comment : undefined)
-  const [ allTags, setAllTags ] = useState(undefined)
-  const [ tags, setTags ] = useState(bucInfo && bucInfo.tags ? bucInfo.tags.map(tag => {
+  const [comment, setComment] = useState(bucInfo ? bucInfo.comment : undefined)
+  const [allTags, setAllTags] = useState(undefined)
+  const [tags, setTags] = useState(bucInfo && bucInfo.tags ? bucInfo.tags.map(tag => {
     return {
       value: tag,
       label: t('buc:tag-' + tag)

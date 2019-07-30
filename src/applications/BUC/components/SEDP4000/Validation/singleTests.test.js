@@ -46,92 +46,92 @@ describe('applications/BUC/components/SEDP4000/Validation/singleTests', () => {
   it('periodValidation.periodStartDate function', () => {
     let result = singleTests.periodValidation.periodStartDate(undefined)
     expect(result).toEqual('pinfo:validation-noStartDate')
-    result = singleTests.periodValidation.periodStartDate({ 'day': '1', 'month': '1' })
+    result = singleTests.periodValidation.periodStartDate({ day: '1', month: '1' })
     expect(result).toEqual('pinfo:validation-noYear')
-    result = singleTests.periodValidation.periodStartDate({ 'day': '1', 'year': '1970' })
+    result = singleTests.periodValidation.periodStartDate({ day: '1', year: '1970' })
     expect(result).toEqual('pinfo:validation-noMonth')
-    result = singleTests.periodValidation.periodStartDate({ 'day': '1', 'month': '1', 'year': '1970' })
+    result = singleTests.periodValidation.periodStartDate({ day: '1', month: '1', year: '1970' })
     expect(result).toEqual(undefined)
   })
 
   it('periodValidation.periodEndDate function', () => {
     let result = singleTests.periodValidation.periodEndDate(undefined)
     expect(result).toEqual('pinfo:validation-noEndDate')
-    result = singleTests.periodValidation.periodEndDate({ 'day': '1', 'month': '1' })
+    result = singleTests.periodValidation.periodEndDate({ day: '1', month: '1' })
     expect(result).toEqual('pinfo:validation-noYear')
-    result = singleTests.periodValidation.periodEndDate({ 'day': '1', 'year': '1970' })
+    result = singleTests.periodValidation.periodEndDate({ day: '1', year: '1970' })
     expect(result).toEqual('pinfo:validation-noMonth')
-    result = singleTests.periodValidation.periodEndDate({ 'day': '1', 'month': '1', 'year': '1970' })
+    result = singleTests.periodValidation.periodEndDate({ day: '1', month: '1', year: '1970' })
     expect(result).toEqual(undefined)
   })
 
   it('periodValidation.childBirthDate function', () => {
     let result = singleTests.periodValidation.childBirthDate(undefined)
     expect(result).toEqual('pinfo:validation-noChildBirthDate')
-    result = singleTests.periodValidation.childBirthDate({ 'day': '1', 'month': '1' })
+    result = singleTests.periodValidation.childBirthDate({ day: '1', month: '1' })
     expect(result).toEqual('pinfo:validation-noYear')
-    result = singleTests.periodValidation.childBirthDate({ 'day': '1', 'year': '1970' })
+    result = singleTests.periodValidation.childBirthDate({ day: '1', year: '1970' })
     expect(result).toEqual('pinfo:validation-noMonth')
-    result = singleTests.periodValidation.childBirthDate({ 'day': '1', 'month': '1', 'year': '1970' })
+    result = singleTests.periodValidation.childBirthDate({ day: '1', month: '1', year: '1970' })
     expect(result).toEqual(undefined)
   })
 
   it('periodValidation.periodStartDateOnBlur function', () => {
     let result = singleTests.periodValidation.periodStartDateOnBlur({ year: '70' })
     expect(result).toEqual('pinfo:validation-inValidYear')
-    result = singleTests.periodValidation.periodStartDateOnBlur({ 'day': '1', 'month': '1', 'year': '1970' })
+    result = singleTests.periodValidation.periodStartDateOnBlur({ day: '1', month: '1', year: '1970' })
     expect(result).toEqual(undefined)
   })
 
   it('periodValidation.periodEndDateOnBlur function', () => {
     let result = singleTests.periodValidation.periodEndDateOnBlur({ year: '70' })
     expect(result).toEqual('pinfo:validation-inValidYear')
-    result = singleTests.periodValidation.periodEndDateOnBlur({ 'day': '1', 'month': '1', 'year': '1970' })
+    result = singleTests.periodValidation.periodEndDateOnBlur({ day: '1', month: '1', year: '1970' })
     expect(result).toEqual(undefined)
   })
 
   it('periodValidation.childBirthDateOnBlur function', () => {
     let result = singleTests.periodValidation.childBirthDateOnBlur({ year: '70' })
     expect(result).toEqual('pinfo:validation-inValidYear')
-    result = singleTests.periodValidation.childBirthDateOnBlur({ 'day': '1', 'month': '1', 'year': '1970' })
+    result = singleTests.periodValidation.childBirthDateOnBlur({ day: '1', month: '1', year: '1970' })
     expect(result).toEqual(undefined)
   })
 
   it('periodValidation.periodStartDateOnChange function', () => {
-    let result = singleTests.periodValidation.periodStartDateOnChange({ 'day': 'one', 'month': '1', 'year': '1970' })
+    let result = singleTests.periodValidation.periodStartDateOnChange({ day: 'one', month: '1', year: '1970' })
     expect(result).toEqual('pinfo:validation-invalidStartDate')
-    result = singleTests.periodValidation.periodStartDateOnChange({ 'day': '1', 'month': '1', 'year': '2099' })
+    result = singleTests.periodValidation.periodStartDateOnChange({ day: '1', month: '1', year: '2099' })
     expect(result).toEqual('pinfo:validation-futureDate')
-    result = singleTests.periodValidation.periodStartDateOnChange({ 'day': '1', 'month': '1', 'year': '1970' })
+    result = singleTests.periodValidation.periodStartDateOnChange({ day: '1', month: '1', year: '1970' })
     expect(result).toEqual(undefined)
   })
 
   it('periodValidation.periodEndDateOnChange function', () => {
-    let result = singleTests.periodValidation.periodEndDateOnChange({ 'day': 'one', 'month': '1', 'year': '1970' })
+    let result = singleTests.periodValidation.periodEndDateOnChange({ day: 'one', month: '1', year: '1970' })
     expect(result).toEqual('pinfo:validation-invalidEndDate')
-    result = singleTests.periodValidation.periodEndDateOnChange({ 'day': '1', 'month': '1', 'year': '2099' })
+    result = singleTests.periodValidation.periodEndDateOnChange({ day: '1', month: '1', year: '2099' })
     expect(result).toEqual('pinfo:validation-futureDate')
-    result = singleTests.periodValidation.periodEndDateOnChange({ 'day': '1', 'month': '1', 'year': '1970' })
+    result = singleTests.periodValidation.periodEndDateOnChange({ day: '1', month: '1', year: '1970' })
     expect(result).toEqual(undefined)
   })
 
   it('periodValidation.childBirthDateOnChange function', () => {
-    let result = singleTests.periodValidation.childBirthDateOnChange({ 'day': 'one', 'month': '1', 'year': '1970' })
+    let result = singleTests.periodValidation.childBirthDateOnChange({ day: 'one', month: '1', year: '1970' })
     expect(result).toEqual('pinfo:validation-invalidChildBirthDate')
-    result = singleTests.periodValidation.childBirthDateOnChange({ 'day': '1', 'month': '1', 'year': '2099' })
+    result = singleTests.periodValidation.childBirthDateOnChange({ day: '1', month: '1', year: '2099' })
     expect(result).toEqual('pinfo:validation-futureDate')
-    result = singleTests.periodValidation.childBirthDateOnChange({ 'day': '1', 'month': '1', 'year': '1970' })
+    result = singleTests.periodValidation.childBirthDateOnChange({ day: '1', month: '1', year: '1970' })
     expect(result).toEqual(undefined)
   })
 
   it('periodValidation.periodTimeSpan function', () => {
     let result = singleTests.periodValidation.periodTimeSpan(
-      { 'day': '1', 'month': '1', 'year': '1970' },
-      { 'day': '1', 'month': '1', 'year': '1960' })
+      { day: '1', month: '1', year: '1970' },
+      { day: '1', month: '1', year: '1960' })
     expect(result).toEqual('pinfo:validation-startAfterEnd')
     result = singleTests.periodValidation.periodTimeSpan(
-      { 'day': '1', 'month': '1', 'year': '1970' },
-      { 'day': '1', 'month': '1', 'year': '1980' })
+      { day: '1', month: '1', year: '1970' },
+      { day: '1', month: '1', year: '1980' })
     expect(result).toEqual(undefined)
   })
 

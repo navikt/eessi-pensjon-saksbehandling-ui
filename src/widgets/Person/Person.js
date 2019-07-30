@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const PersonWidget = (props) => {
   const { actions, aktoerId, gettingPersonInfo, person, t } = props
-  const [ mounted, setMounted ] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     if (!mounted && aktoerId) {

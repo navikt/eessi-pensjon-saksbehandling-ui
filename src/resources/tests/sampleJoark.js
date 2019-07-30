@@ -1,4 +1,4 @@
-const mockdata = { 'data': { 'dokumentoversiktBruker': { 'journalposter': [{
+const mockdata = { data: { dokumentoversiktBruker: { journalposter: [{
   journalpostId: '1',
   tittel: 'blue.pdf',
   tema: 'foo',

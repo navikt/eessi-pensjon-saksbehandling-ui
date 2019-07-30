@@ -39,7 +39,7 @@ class FileUpload extends Component {
 
     componentDidUpdate () {
       if (!_.isEmpty(this.props.files) && (!(this.state.currentPages) || _.isEmpty(this.state.currentPages))) {
-        let currentPages = []
+        const currentPages = []
         for (var i in this.props.files) {
           currentPages[i] = 1
         }
@@ -130,30 +130,30 @@ class FileUpload extends Component {
       const { t } = this.props
 
       return new Promise((resolve) => {
-        let loadingStatus = Array(acceptedFiles.length).fill().map(() => { return false })
+        const loadingStatus = Array(acceptedFiles.length).fill().map(() => { return false })
 
         acceptedFiles.forEach((file, index) => {
           const reader = new FileReader()
           reader.readAsArrayBuffer(file)
           reader.onloadend = async (e) => {
-            let blob = new Uint8Array(e.target.result)
+            const blob = new Uint8Array(e.target.result)
 
             var len = blob.byteLength
             var x = ''
             for (var i = 0; i < len; i++) {
               x += String.fromCharCode(blob[i])
             }
-            let base64 = window.btoa(x)
+            const base64 = window.btoa(x)
 
-            let newFiles = _.clone(this.state.files)
-            let newCurrentPages = _.clone(this.state.currentPages)
+            const newFiles = _.clone(this.state.files)
+            const newCurrentPages = _.clone(this.state.currentPages)
 
             newFiles.push({
-              'size': file.size,
-              'name': file.name,
-              'mimetype': file.type,
-              'content': {
-                'base64': base64
+              size: file.size,
+              name: file.name,
+              mimetype: file.type,
+              content: {
+                base64: base64
               }
             })
             newCurrentPages[newCurrentPages.length] = 1
@@ -181,46 +181,46 @@ class FileUpload extends Component {
     async addFile (file) {
       const { t } = this.props
 
-      let newFiles = _.clone(this.state.files)
-      let newCurrentPages = _.clone(this.state.currentPages)
+      const newFiles = _.clone(this.state.files)
+      const newCurrentPages = _.clone(this.state.currentPages)
 
       newFiles.push(file)
       newCurrentPages.push(file.numPages)
 
-      let statusMessage = t('ui:added') + ' ' + file.name
+      const statusMessage = t('ui:added') + ' ' + file.name
       await this.updateFiles(newFiles, newCurrentPages, statusMessage)
     }
 
     async removeFile (fileIndex) {
       const { t } = this.props
 
-      let newFiles = _.clone(this.state.files)
-      let newCurrentPages = _.clone(this.state.currentPages)
+      const newFiles = _.clone(this.state.files)
+      const newCurrentPages = _.clone(this.state.currentPages)
 
       newFiles.splice(fileIndex, 1)
       newCurrentPages.splice(fileIndex, 1)
 
-      let filename = this.state.files[fileIndex].name
-      let statusMessage = t('ui:removed') + ' ' + filename
+      const filename = this.state.files[fileIndex].name
+      const statusMessage = t('ui:removed') + ' ' + filename
       await this.updateFiles(newFiles, newCurrentPages, statusMessage)
     }
 
     async onLoadSuccess (index, event) {
       if (index !== undefined && event && event.numPages) {
-        let newFiles = _.clone(this.state.files)
+        const newFiles = _.clone(this.state.files)
         newFiles[index].numPages = event.numPages
         await this.updateFiles(newFiles, this.state.currentPages)
       }
     }
 
     onPreviousPageRequest (fileIndex) {
-      let newCurrentPages = _.clone(this.state.currentPages)
+      const newCurrentPages = _.clone(this.state.currentPages)
       newCurrentPages[fileIndex] = newCurrentPages[fileIndex] - 1
       this.setState({ currentPages: newCurrentPages })
     }
 
     onNextPageRequest (fileIndex) {
-      let newCurrentPages = _.clone(this.state.currentPages)
+      const newCurrentPages = _.clone(this.state.currentPages)
       newCurrentPages[fileIndex] = newCurrentPages[fileIndex] + 1
       this.setState({ currentPages: newCurrentPages })
     }

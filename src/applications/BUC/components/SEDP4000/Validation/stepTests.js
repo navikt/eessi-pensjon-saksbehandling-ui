@@ -5,7 +5,7 @@ export function stayAbroadStep (stayAbroad) {
 }
 
 export function periodStep (period) {
-  let errors = {
+  const errors = {
     startDate: tests.periodValidation.periodStartDate(period.startDate),
     endDate: tests.periodValidation.periodEndDate(period.endDate),
     insuranceName: tests.periodValidation.insuranceName(period.insuranceName),

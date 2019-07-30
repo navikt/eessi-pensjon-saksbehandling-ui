@@ -10,7 +10,7 @@ export const MiniatureImage = (props) => {
   const title = '' + file.name + '\n' + t('ui:size') + ': ' + size
 
   return <div
-    className={classNames('c-file-miniatureImage', className, { 'animate': animate })}
+    className={classNames('c-file-miniatureImage', className, { animate: animate })}
     title={title}
     style={{ transform: 'scale(' + scale + ')' }}>
     <div>

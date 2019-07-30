@@ -8,13 +8,13 @@ describe('components/Colorpicker', () => {
   }
 
   it('Renders', () => {
-    let wrapper = mount(<ColorPicker {...initialMockProps} />)
+    const wrapper = mount(<ColorPicker {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Toggles open/close', () => {
-    let wrapper = mount(<ColorPicker {...initialMockProps} />)
+    const wrapper = mount(<ColorPicker {...initialMockProps} />)
     expect(wrapper.exists('.c-colorPicker__popover')).toBeFalsy()
 
     wrapper.find('.c-colorPicker__container').hostNodes().simulate('click')

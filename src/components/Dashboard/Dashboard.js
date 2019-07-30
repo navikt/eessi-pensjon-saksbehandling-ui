@@ -46,16 +46,16 @@ const Dashboard = (props) => {
 
   const onWidgetResize = layout => {
     const newLayout = _.cloneDeep(layouts)
-    const index = _.findIndex(newLayout[currentBreakpoint], { 'i': layout.i })
+    const index = _.findIndex(newLayout[currentBreakpoint], { i: layout.i })
     newLayout[currentBreakpoint][index] = layout
     setLayouts(newLayout)
   }
 
   const onWidgetDelete = layout => {
-    setWidgets(_.reject(widgets, { 'i': layout.i }))
-    let newLayout = _.cloneDeep(layouts)
+    setWidgets(_.reject(widgets, { i: layout.i }))
+    const newLayout = _.cloneDeep(layouts)
     Object.keys(newLayout).forEach(breakpoint => {
-      newLayout[breakpoint] = _.reject(newLayout[breakpoint], { 'i': layout.i })
+      newLayout[breakpoint] = _.reject(newLayout[breakpoint], { i: layout.i })
     })
     setLayouts(newLayout)
   }

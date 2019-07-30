@@ -11,8 +11,8 @@ import * as storages from '../../../constants/storages'
 const GeneratePDF = (props) => {
   const { t, generatingPDF, generatedPDFs, fileNames, actions, files, recipe, watermark, setStep } = props
 
-  const [ _fileNames, setFileNames ] = useState({})
-  const [ mounted, setMounted ] = useState(false)
+  const [_fileNames, setFileNames] = useState({})
+  const [mounted, setMounted] = useState(false)
   const _refs = {}
 
   Object.keys(generatedPDFs).forEach(key => {
@@ -21,7 +21,7 @@ const GeneratePDF = (props) => {
 
   useEffect(() => {
     if (!_.isEmpty(generatedPDFs) && _.isEmpty(fileNames)) {
-      let newfileNames = {}
+      const newfileNames = {}
       // let newRefs = {}
 
       Object.keys(generatedPDFs).forEach(key => {
@@ -52,7 +52,7 @@ const GeneratePDF = (props) => {
   }
 
   const setFileName = (key, value) => {
-    let newFileNames = _.clone(_fileNames)
+    const newFileNames = _.clone(_fileNames)
     newFileNames[key] = value
     setFileNames(newFileNames)
   }
@@ -81,7 +81,7 @@ const GeneratePDF = (props) => {
       <p className='typo-normal'>{t('pdf:loading-generatingPDF')}</p>
     </div> : (generatedPDFs ? <div>
       {Object.keys(generatedPDFs).map(key => {
-        let pdf = generatedPDFs[key]
+        const pdf = generatedPDFs[key]
         return <div key={key} className='fieldset animate'>
           <div className='pdfrow'>
             <File file={pdf} t={t} />

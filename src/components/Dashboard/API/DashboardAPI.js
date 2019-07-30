@@ -8,7 +8,7 @@ export async function loadDashboard () {
   layouts = layouts ? JSON.parse(layouts) : defaultLayouts
   let widgets = await localStorage.getItem('c-d-widgets')
   widgets = widgets ? JSON.parse(widgets) : defaultWidgets
-  return [ widgets, layouts ]
+  return [widgets, layouts]
 }
 
 export async function saveDashboard (widgets, layouts) {

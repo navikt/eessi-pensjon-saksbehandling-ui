@@ -31,19 +31,19 @@ const mapDispatchToProps = (dispatch) => {
 const SEDStart = (props) => {
   const { actions, aktoerId, attachments, buc, countryList, institutionList, loading, p4000info, sakId, sed, sedList, t, vedtakId } = props
 
-  const [ _sed, setSed ] = useState(undefined)
-  const [ _institutions, setInstitutions ] = useState([])
-  const [ _countries, setCountries ] = useState([])
-  const [ _vedtakId, setVedtakId ] = useState(parseInt(vedtakId, 10))
-  const [ _attachments, setAttachments ] = useState({})
+  const [_sed, setSed] = useState(undefined)
+  const [_institutions, setInstitutions] = useState([])
+  const [_countries, setCountries] = useState([])
+  const [_vedtakId, setVedtakId] = useState(parseInt(vedtakId, 10))
+  const [_attachments, setAttachments] = useState({})
 
-  const [ step, setStep ] = useState(0)
-  const [ validation, setValidation ] = useState({})
-  const [ showButtons, setShowButtons ] = useState(true)
+  const [step, setStep] = useState(0)
+  const [validation, setValidation] = useState({})
+  const [showButtons, setShowButtons] = useState(true)
 
-  const [ sedSent, setSedSent ] = useState(false)
-  const [ sendingAttachments, setSendingAttachments ] = useState(false)
-  const [ attachmentsSent, setAttachmentsSent ] = useState(false)
+  const [sedSent, setSedSent] = useState(false)
+  const [sendingAttachments, setSendingAttachments] = useState(false)
+  const [attachmentsSent, setAttachmentsSent] = useState(false)
 
   useEffect(() => {
     if (_.isEmpty(countryList) && !loading.gettingCountryList) {
@@ -107,10 +107,10 @@ const SEDStart = (props) => {
   }
 
   const convertInstitutionIDsToInstitutionObjects = () => {
-    let institutions = []
+    const institutions = []
     _institutions.forEach(item => {
       Object.keys(institutionList).forEach(landkode => {
-        let found = _.find(institutionList[landkode], { id: item })
+        const found = _.find(institutionList[landkode], { id: item })
         if (found) {
           institutions.push({
             country: found.landkode,
@@ -126,7 +126,7 @@ const SEDStart = (props) => {
   const onForwardButtonClick = () => {
     if (_.isEmpty(validation)) {
       const institutions = convertInstitutionIDsToInstitutionObjects()
-      let payload = {
+      const payload = {
         sakId: sakId,
         buc: buc.type,
         sed: _sed,

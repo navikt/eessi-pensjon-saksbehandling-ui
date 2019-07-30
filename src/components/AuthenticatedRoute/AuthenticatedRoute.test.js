@@ -5,7 +5,7 @@ import { createBrowserHistory } from 'history'
 import * as routes from 'constants/routes'
 
 describe('components/AuthenticatedRoute', () => {
-  let initialMockProps = {
+  const initialMockProps = {
     actions: {
       setStatusParam: jest.fn(),
       login: jest.fn(),

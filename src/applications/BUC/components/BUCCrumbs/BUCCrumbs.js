@@ -26,7 +26,7 @@ const BUCCrumbs = (props) => {
     actions.setMode('sednew')
   }
 
-  let buccrumbs = [{
+  const buccrumbs = [{
     label: t('buc:buccrumb-home'),
     func: goToHome
   }]
@@ -59,9 +59,9 @@ const BUCCrumbs = (props) => {
       return <React.Fragment key={i}>
         {!first ? <Chevron className='separator' type={'høyre'} /> : null}
         <div className='a-buc-c-buccrumb'>
-          {last && !showLastLink ?
-          t(buccrumb.label) :
-          <Lenke href='#' title={buccrumb.label} onClick={buccrumb.func}>{buccrumb.label}</Lenke>}
+          {last && !showLastLink
+            ? t(buccrumb.label)
+            : <Lenke href='#' title={buccrumb.label} onClick={buccrumb.func}>{buccrumb.label}</Lenke>}
         </div>
       </React.Fragment>
     })}

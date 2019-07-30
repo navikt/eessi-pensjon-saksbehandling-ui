@@ -15,13 +15,13 @@ describe('components/Flag/FlagList', () => {
   }
 
   it('Renders', () => {
-    let wrapper = mount(<FlagList {...initialMockProps} />)
+    const wrapper = mount(<FlagList {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Displays correct number of flags', () => {
-    let wrapper = mount(<FlagList {...initialMockProps} />)
+    const wrapper = mount(<FlagList {...initialMockProps} />)
     expect(wrapper.find('Flag').length).toEqual(2)
     expect(wrapper.exists('Normaltekst')).toBeTruthy()
     expect(wrapper.find('Normaltekst').render().text()).toEqual('+1')
@@ -32,7 +32,7 @@ describe('components/Flag/FlagList', () => {
   })
 
   it('Assigns props to Flag', () => {
-    let wrapper = mount(<FlagList {...initialMockProps} />)
+    const wrapper = mount(<FlagList {...initialMockProps} />)
     wrapper.find('Flag').forEach((flag, index) => {
       expect(flag.props().country).toEqual(initialMockProps.items[index].country)
     })

@@ -24,8 +24,8 @@ export const initialPdfState = {
 const pdfReducer = (state = initialPdfState, action = {}) => {
   switch (action.type) {
     case types.PDF_SELECTED: {
-      let newRecipe = _.clone(state.recipe)
-      let existingPDF = action.payload.map(pdf => { return pdf.name })
+      const newRecipe = _.clone(state.recipe)
+      const existingPDF = action.payload.map(pdf => { return pdf.name })
 
       for (var i in newRecipe) {
         newRecipe[i] = _.filter(newRecipe[i], (step) => {

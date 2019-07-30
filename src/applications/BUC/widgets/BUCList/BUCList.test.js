@@ -20,7 +20,7 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
     bucsInfo: sampleBucsInfo,
     gettingBUCs: false,
     institutionList: [{
-      'NO': [{
+      NO: [{
         navn: 'mockInstitution1',
         akronym: 'MI1',
         id: 'NO:MI1',

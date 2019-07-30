@@ -71,7 +71,7 @@ const Step1 = (props) => {
   }
 
   const onInstitutionsChange = (institutions) => {
-    let newInstitutions = institutions ? institutions.map(item => {
+    const newInstitutions = institutions ? institutions.map(item => {
       return item.value
     }) : []
     validateInstitutions(newInstitutions)
@@ -79,22 +79,22 @@ const Step1 = (props) => {
   }
 
   const onCountriesChange = (countries) => {
-    let newCountries = countries ? countries.map(item => {
+    const newCountries = countries ? countries.map(item => {
       return item.value
     }) : []
     validateCountries(newCountries)
     if (!validation.countryFail) {
-      let oldCountriesList = _.cloneDeep(_countries)
+      const oldCountriesList = _.cloneDeep(_countries)
       setCountries(newCountries)
-      let addedCountries = newCountries.filter(country => !oldCountriesList.includes(country))
-      let removedCountries = oldCountriesList.filter(country => !newCountries.includes(country))
+      const addedCountries = newCountries.filter(country => !oldCountriesList.includes(country))
+      const removedCountries = oldCountriesList.filter(country => !newCountries.includes(country))
       addedCountries.map(country => {
         return actions.getInstitutionsListForBucAndCountry(buc.type, country)
       })
       removedCountries.forEach(country => {
         const newInstitutions = _.cloneDeep(_institutions)
         setInstitutions(newInstitutions.filter(item => {
-          var [ _country ] = item.split(':')
+          var [_country] = item.split(':')
           return country !== _country
         }))
       })
@@ -142,7 +142,7 @@ const Step1 = (props) => {
 
   const getOptionLabel = (value) => {
     let label = value
-    let description = t('buc:buc-' + value.replace(':', '.'))
+    const description = t('buc:buc-' + value.replace(':', '.'))
     if (description !== 'buc-' + value) {
       label += ' - ' + description
     }
@@ -153,11 +153,11 @@ const Step1 = (props) => {
 
   const countryValueList = _countries ? CountryData.filterByValueOnArray(locale, _countries) : []
 
-  let institutionObjectList = []
+  const institutionObjectList = []
   if (institutionList) {
     Object.keys(institutionList).forEach(landkode => {
       if (_countries.indexOf(landkode) >= 0) {
-        let label = CountryData.findByValue(locale, landkode)
+        const label = CountryData.findByValue(locale, landkode)
         institutionObjectList.push({
           label: label.label,
           options: institutionList[landkode].map(institution => {
@@ -174,7 +174,7 @@ const Step1 = (props) => {
   let institutionValueList = []
   if (institutionList && _institutions) {
     institutionValueList = _institutions.map(item => {
-      const [ country ] = item.split(':')
+      const [country] = item.split(':')
       const found = _.find(institutionList[country], { id: item })
       return {
         label: found.navn,
@@ -255,7 +255,7 @@ const Step1 = (props) => {
       </div>
       <Undertittel className='mb-2'>{t('buc:form-chosenInstitutions')}</Undertittel>
       <InstitutionList t={t} institutions={_institutions.map(item => {
-        var [ country, institution ] = item.split(':')
+        var [country, institution] = item.split(':')
         return {
           country: country,
           institution: institution

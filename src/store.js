@@ -11,9 +11,9 @@ const applyThunk = (dispatch, state) => (action) => {
 }
 
 const StoreProvider = ({ reducer, initialState, children }) => {
-  const [ state, dispatch ] = useReducer(reducer, initialState, state => state, 'EESSI')
+  const [state, dispatch] = useReducer(reducer, initialState, state => state, 'EESSI')
   const thunkDispatch = applyThunk(dispatch, state)
-  return <Store.Provider value={[ state, thunkDispatch ]}>
+  return <Store.Provider value={[state, thunkDispatch]}>
     {children}
   </Store.Provider>
 }
@@ -49,7 +49,7 @@ const connect = (
   mapDispatchToProps = () => {}
 ) => WrappedComponent => {
   return props => {
-    const [ state, dispatch ] = useStore()
+    const [state, dispatch] = useStore()
     return <WrappedComponent
       {...props}
       dispatch={dispatch}

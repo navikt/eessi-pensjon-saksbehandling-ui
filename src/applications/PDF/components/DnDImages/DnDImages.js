@@ -43,7 +43,7 @@ class DnDSpecial extends Component {
       e.preventDefault()
       e.stopPropagation()
 
-      let potentialImages = []; let newRecipe = _.clone(recipe)
+      const potentialImages = []; const newRecipe = _.clone(recipe)
       let modified = false
 
       _.filter(files, (file) => { return file.mimetype.startsWith('image/') }).map(file => {
@@ -69,7 +69,7 @@ class DnDSpecial extends Component {
     render () {
       const { t, files, recipe, dndTarget } = this.props
 
-      let addAllLink = this.state.isHovering ? <a href='#addAll' onClick={this.addAllImagesToTargetPdf.bind(this)}>{t('ui:addAll')}</a> : null
+      const addAllLink = this.state.isHovering ? <a href='#addAll' onClick={this.addAllImagesToTargetPdf.bind(this)}>{t('ui:addAll')}</a> : null
 
       return <div className='c-pdf-dndImages position-relative'
         onMouseEnter={this.onHandleMouseEnter.bind(this)}

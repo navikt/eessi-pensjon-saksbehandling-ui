@@ -44,9 +44,9 @@ class PDFSpecialPage extends Component {
       e.preventDefault()
 
       const { recipe, dndTarget, actions } = this.props
-      let newRecipe = _.clone(recipe)
+      const newRecipe = _.clone(recipe)
 
-      let index = _.findIndex(recipe[dndTarget], { separatorText: separatorText })
+      const index = _.findIndex(recipe[dndTarget], { separatorText: separatorText })
       if (index >= 0) {
         newRecipe[dndTarget].splice(index, 1)
         actions.setRecipe(newRecipe)

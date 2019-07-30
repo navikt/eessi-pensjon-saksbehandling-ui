@@ -161,7 +161,7 @@ const BUCStart = (props) => {
 
   const getOptionLabel = (value) => {
     let label = value
-    let description = t('buc:buc-' + value.replace(':', '.'))
+    const description = t('buc:buc-' + value.replace(':', '.'))
     if (description !== 'buc-' + value) {
       label += ' - ' + description
     }

@@ -9,9 +9,9 @@ import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
 import './SEDSearch.css'
 
 const SEDSearch = (props) => {
-  const [ _query, setQuery ] = useState(undefined)
-  const [ _country, setCountry ] = useState([])
-  const [ _status, setStatus ] = useState([])
+  const [_query, setQuery] = useState(undefined)
+  const [_country, setCountry] = useState([])
+  const [_status, setStatus] = useState([])
 
   const { className, locale, onCountrySearch, onSearch, onStatusSearch, seds, t } = props
 

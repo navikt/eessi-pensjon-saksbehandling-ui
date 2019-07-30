@@ -12,8 +12,8 @@ export const MiniaturePDF = (props) => {
   const { addLink, animate, className, currentPage, deleteLink, downloadLink, file, height, isHovering, onAddFile } = props
   const { onClick, onDeleteDocument, onLoadSuccess, onNextPage, onPreviewDocument, onPreviousPage, previewLink } = props
   const { scale, size, t, ui, width } = props
-  const [ _currentPage, setCurrentPage ] = useState(1)
-  const [ _numberPages, setNumberPages ] = useState(undefined)
+  const [_currentPage, setCurrentPage] = useState(1)
+  const [_numberPages, setNumberPages] = useState(undefined)
   const title = '' + file.name + '\n' + t('ui:pages') + ': ' + (_numberPages || '0') + '\n' + t('ui:size') + ': ' + size
 
   useEffect(() => {
@@ -75,7 +75,7 @@ export const MiniaturePDF = (props) => {
   }
 
   return <div
-    className={classNames('c-file-miniaturePdf', className, { 'animate': animate })}
+    className={classNames('c-file-miniaturePdf', className, { animate: animate })}
     title={title}
     style={{ transform: 'scale(' + scale + ')' }}>
     <Document

@@ -55,9 +55,9 @@ class PageInDnD extends Component {
      }
 
      addPageToTargetPdf (name, mimetype, pageNumber) {
-       let { recipe, dndTarget, actions } = this.props
+       const { recipe, dndTarget, actions } = this.props
 
-       let newRecipe = _.clone(recipe)
+       const newRecipe = _.clone(recipe)
        if (!newRecipe[dndTarget]) {
          newRecipe[dndTarget] = []
        }
@@ -72,7 +72,7 @@ class PageInDnD extends Component {
 
      removePageFromTargetPdf (name, mimetype, pageNumber) {
        const { recipe, dndTarget, actions } = this.props
-       let newRecipe = _.clone(recipe)
+       const newRecipe = _.clone(recipe)
 
        let index = -1
 

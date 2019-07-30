@@ -37,7 +37,7 @@ export const Alert = (props) => {
   }
 
   const printError = (error) => {
-    let errorMessage = []
+    const errorMessage = []
     if (error.status) {
       errorMessage.push(error.status)
     }

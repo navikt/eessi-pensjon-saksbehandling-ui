@@ -3,7 +3,7 @@ import _ from 'lodash'
 
 describe('applications/BUC/components/SEDP4000/Validation/stepTests', () => {
   it('stayAbroadStep', () => {
-    let errors = stepTests.stayAbroadStep({})
+    const errors = stepTests.stayAbroadStep({})
     expect(errors).toEqual({})
   })
 

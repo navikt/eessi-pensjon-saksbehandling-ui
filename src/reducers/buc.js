@@ -225,11 +225,11 @@ const bucReducer = (state = initialBucState, action) => {
 
     case types.BUC_GET_INSTITUTION_LIST_SUCCESS:
 
-      let institutionList = state.institutionList ? _.cloneDeep(state.institutionList) : {}
-      let institutionNames = _.cloneDeep(state.institutionNames)
+      const institutionList = state.institutionList ? _.cloneDeep(state.institutionList) : {}
+      const institutionNames = _.cloneDeep(state.institutionNames)
       action.payload.forEach(institution => {
-        let existingInstitutions = institutionList[institution.landkode] || []
-        if (!_.find(existingInstitutions, { 'id': institution.id })) {
+        const existingInstitutions = institutionList[institution.landkode] || []
+        if (!_.find(existingInstitutions, { id: institution.id })) {
           existingInstitutions.push({
             id: institution.id,
             navn: institution.navn,
@@ -264,9 +264,9 @@ const bucReducer = (state = initialBucState, action) => {
 
     case types.BUC_SED_ATTACHMENT_SUCCESS:
 
-      let existingAttachments = state.attachments ? _.cloneDeep(state.attachments) : []
-      let newAttachment = action.payload
-      let found = _.find(existingAttachments, { dokumentInfoId: newAttachment.dokumentInfoId })
+      const existingAttachments = state.attachments ? _.cloneDeep(state.attachments) : []
+      const newAttachment = action.payload
+      const found = _.find(existingAttachments, { dokumentInfoId: newAttachment.dokumentInfoId })
       if (!found) {
         existingAttachments.push(newAttachment)
       }
@@ -276,7 +276,6 @@ const bucReducer = (state = initialBucState, action) => {
       }
 
     case types.BUC_SED_UPDATE: {
-
       const newStatus = action.payload.action.toLowerCase()
       const payload = action.payload.payload
       const sedId = payload.sedId
@@ -287,7 +286,7 @@ const bucReducer = (state = initialBucState, action) => {
             status: sed.id === sedId ? newStatus : sed.status
           }
         }) : state.seds
-      }): state.bucs
+      }) : state.bucs
       const newBuc = state.buc ? {
         ...state.buc,
         seds: state.buc.seds.map(sed => {

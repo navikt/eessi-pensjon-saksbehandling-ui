@@ -9,7 +9,7 @@ export const initialJoarkState = {
 const joarkReducer = (state = initialJoarkState, action = {}) => {
   switch (action.type) {
     case types.JOARK_LIST_SUCCESS:
-      let documents = []
+      const documents = []
       action.payload.data.dokumentoversiktBruker.journalposter.forEach(post => {
         post.dokumenter.forEach(doc => {
           documents.push({

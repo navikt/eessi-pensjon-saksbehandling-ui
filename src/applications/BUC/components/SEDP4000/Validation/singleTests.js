@@ -2,34 +2,34 @@ import _ from 'lodash'
 import moment from 'moment'
 import { pinfoDateToDate } from 'utils/Date'
 
-let mandatory = function (value, error) {
+const mandatory = function (value, error) {
   if (!value) return error
   if (Array.isArray(value) && value.length === 0) return error
   if (value === '') return error
   return undefined
 }
 
-let notMandatory = function (value) {
+const notMandatory = function (value) {
   return undefined
 }
 
-let mandatoryAndPatternMatch = function (value, error, pattern, patternError) {
+const mandatoryAndPatternMatch = function (value, error, pattern, patternError) {
   return !value || value === '' ? error : !pattern.test(value) ? patternError : undefined
 }
 
-let withinLength = function (value, limit) {
+const withinLength = function (value, limit) {
   return value && value.length > limit ? 'pinfo:validation-wowMuchText' : undefined
 }
 
 export const stayAbroadValidation = {}
 
-let periodType = function (type) {
+const periodType = function (type) {
   return !type ? 'pinfo:validation-noPeriodType'
     : ['work', 'home', 'child', 'voluntary', 'military', 'birth', 'learn', 'daily', 'sick', 'other']
       .indexOf(type) < 0 ? 'pinfo:validation-invalidPeriodType' : undefined
 }
 
-let periodStartDate = function (startDate) {
+const periodStartDate = function (startDate) {
   if (!startDate || _.isEmpty(startDate)) {
     return 'pinfo:validation-noStartDate'
   }
@@ -42,7 +42,7 @@ let periodStartDate = function (startDate) {
   return periodStartDateOnBlur(startDate)
 }
 
-let periodEndDate = function (endDate) {
+const periodEndDate = function (endDate) {
   if (!endDate || _.isEmpty(endDate)) {
     return 'pinfo:validation-noEndDate'
   }
@@ -55,7 +55,7 @@ let periodEndDate = function (endDate) {
   return periodEndDateOnBlur(endDate)
 }
 
-let childBirthDate = function (childBirthDate) {
+const childBirthDate = function (childBirthDate) {
   if (!childBirthDate || _.isEmpty(childBirthDate)) {
     return 'pinfo:validation-noChildBirthDate'
   }
@@ -68,21 +68,21 @@ let childBirthDate = function (childBirthDate) {
   return childBirthDateOnBlur(childBirthDate)
 }
 
-let periodStartDateOnBlur = function (startDate) {
+const periodStartDateOnBlur = function (startDate) {
   if (startDate && startDate.year && startDate.year.length < 4) {
     return 'pinfo:validation-inValidYear'
   }
   return periodStartDateOnChange(startDate)
 }
 
-let periodEndDateOnBlur = function (endDate) {
+const periodEndDateOnBlur = function (endDate) {
   if (endDate && endDate.year && endDate.year.length < 4) {
     return 'pinfo:validation-inValidYear'
   }
   return periodEndDateOnChange(endDate)
 }
 
-let childBirthDateOnBlur = function (childBirthDate) {
+const childBirthDateOnBlur = function (childBirthDate) {
   if (childBirthDate && childBirthDate.year && childBirthDate.year.length < 4) {
     return 'pinfo:validation-inValidYear'
   }
@@ -92,7 +92,7 @@ let childBirthDateOnBlur = function (childBirthDate) {
 // tests if startDate is a valid date.
 // The validation for whether startdate exists is another test to avoid
 // Overeager validation.
-let periodStartDateOnChange = function (startDate) {
+const periodStartDateOnChange = function (startDate) {
   if (!startDate || !startDate.month || !startDate.year) {
     return undefined
   }
@@ -109,7 +109,7 @@ let periodStartDateOnChange = function (startDate) {
   return undefined
 }
 
-let periodEndDateOnChange = function (endDate) {
+const periodEndDateOnChange = function (endDate) {
   if (!endDate || !endDate.month || !endDate.year) {
     return undefined
   }
@@ -126,7 +126,7 @@ let periodEndDateOnChange = function (endDate) {
   return undefined
 }
 
-let childBirthDateOnChange = function (childBirthDate) {
+const childBirthDateOnChange = function (childBirthDate) {
   if (!childBirthDate || !childBirthDate.month || !childBirthDate.year) {
     return undefined
   }
@@ -143,7 +143,7 @@ let childBirthDateOnChange = function (childBirthDate) {
   return undefined
 }
 
-let periodTimeSpan = function (startDate, endDate) {
+const periodTimeSpan = function (startDate, endDate) {
   if (!startDate || !endDate) { return undefined }
 
   if (!startDate.month || !endDate.month) { return undefined }
@@ -162,57 +162,57 @@ let periodTimeSpan = function (startDate, endDate) {
   return undefined
 }
 
-let insuranceName = function (insuranceName) {
+const insuranceName = function (insuranceName) {
   return notMandatory(insuranceName) || withinLength(insuranceName, 60)
 }
 
-let insuranceType = function (insuranceType) {
+const insuranceType = function (insuranceType) {
   return notMandatory(insuranceType)
 }
 
-let insuranceId = function (insuranceId) {
+const insuranceId = function (insuranceId) {
   return notMandatory(insuranceId) || withinLength(insuranceId, 40)
 }
 
-let periodCountry = function (country) {
+const periodCountry = function (country) {
   return mandatory(country, 'pinfo:validation-noCountry')
 }
 
-let periodPlace = function (place) {
+const periodPlace = function (place) {
   return mandatory(place, 'pinfo:validation-noPlace') || withinLength(place, 60)
 }
 
-let workActivity = function (workActivity) {
+const workActivity = function (workActivity) {
   return mandatory(workActivity, 'pinfo:validation-noWorkActivity') || withinLength(workActivity, 60)
 }
 
-let workName = function (workName) {
+const workName = function (workName) {
   return notMandatory(workName) || withinLength(workName, 60)
 }
 
-let workPlace = function (workPlace) {
+const workPlace = function (workPlace) {
   return notMandatory(workPlace) || withinLength(workPlace, 60)
 }
 
-let childFirstName = function (childFirstName) {
+const childFirstName = function (childFirstName) {
   return mandatoryAndPatternMatch(childFirstName, 'pinfo:validation-noChildFirstName',
     /^[^\d]+$/, 'pinfo:validation-invalidName') || withinLength(childFirstName, 60)
 }
 
-let childLastName = function (childLastName) {
+const childLastName = function (childLastName) {
   return mandatoryAndPatternMatch(childLastName, 'pinfo:validation-noChildLastName',
     /^[^\d]+$/, 'pinfo:validation-invalidName') || withinLength(childLastName, 60)
 }
 
-let learnInstitution = function (learnInstitution) {
+const learnInstitution = function (learnInstitution) {
   return mandatory(learnInstitution, 'pinfo:validation-noLearnInstitution') || withinLength(learnInstitution, 60)
 }
 
-let payingInstitution = function (payingInstitution) {
+const payingInstitution = function (payingInstitution) {
   return mandatory(payingInstitution, 'pinfo:validation-noPayingInstitution') || withinLength(payingInstitution, 60)
 }
 
-let otherType = function (otherType) {
+const otherType = function (otherType) {
   return mandatory(otherType, 'pinfo:validation-noOtherType') || withinLength(otherType, 60)
 }
 

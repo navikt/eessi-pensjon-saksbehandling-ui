@@ -5,7 +5,7 @@ import sampleBucs from 'resources/tests/sampleBucs'
 describe('applications/BUC/components/SEDRow/SEDRow', () => {
   const t = jest.fn((translationString) => { return translationString })
   const buc = sampleBucs[0]
-  let sed = buc.seds[0]
+  const sed = buc.seds[0]
   sed.status = 'received'
   const initialMockProps = {
     border: 'none',
@@ -30,14 +30,14 @@ describe('applications/BUC/components/SEDRow/SEDRow', () => {
     expect(wrapper.exists('.a-buc-c-sedrow')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-sedrow__name').hostNodes().render().text()).toEqual(sed.type)
 
-    let status = wrapper.find('.a-buc-c-sedrow__status').hostNodes()
+    const status = wrapper.find('.a-buc-c-sedrow__status').hostNodes()
     expect(status.find('SEDStatus').render().text()).toEqual('ui:' + sed.status)
     expect(status.find('Normaltekst').render().text()).toEqual('2019-5-29')
 
-    let institutions = wrapper.find('.a-buc-c-sedrow__institutions').hostNodes()
+    const institutions = wrapper.find('.a-buc-c-sedrow__institutions').hostNodes()
     expect(institutions.find('InstitutionList').render().text()).toEqual('Norge: NAVT003Norge: NAVT002')
 
-    let actions = wrapper.find('.a-buc-c-sedrow__actions').hostNodes()
+    const actions = wrapper.find('.a-buc-c-sedrow__actions').hostNodes()
     expect(actions.find('.a-buc-c-sedrow__actions-attachments').hostNodes().props().title).toEqual('buc:form-youHaveXAttachmentsInSed')
     expect(actions.exists('Icons')).toBeTruthy()
     expect(actions.exists('Flatknapp.a-buc-c-sedrow__actions-answer-button')).toBeTruthy()

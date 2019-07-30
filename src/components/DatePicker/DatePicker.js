@@ -38,7 +38,7 @@ class DatePicker extends Component {
     let newDate
 
     if (!value) {
-      let newValues = Object.assign({}, values)
+      const newValues = Object.assign({}, values)
       delete newValues[key]
       newDate = Object.assign({}, newValues)
     } else {

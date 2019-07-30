@@ -11,9 +11,9 @@ import './BUCEmpty.css'
 
 const BUCEmpty = (props) => {
   const { actions, aktoerId, onBUCNew, sakId, t } = props
-  const [ _sakId, setSakId ] = useState(sakId)
-  const [ _aktoerId, setAktoerId ] = useState(aktoerId)
-  const [ validation, setValidation ] = useState(undefined)
+  const [_sakId, setSakId] = useState(sakId)
+  const [_aktoerId, setAktoerId] = useState(aktoerId)
+  const [validation, setValidation] = useState(undefined)
 
   const onAktoerIdChange = (e) => {
     setValidation(undefined)

@@ -20,7 +20,7 @@ const renderBytes = (bytes) => {
 
 const File = (props) => {
   const { animate, file, scale, ui } = props
-  const [ isHovering, setIsHovering ] = useState(false)
+  const [isHovering, setIsHovering] = useState(false)
 
   const _animate = _.isBoolean(animate) ? animate : true
   const _size = file ? renderBytes(file.size) : 0

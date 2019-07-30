@@ -16,7 +16,7 @@ const FlagList = (props) => {
       if (index > overflowLimit - 1) {
         return null
       }
-      let label = item.label || CountryData.findByValue(locale, item.country).label
+      const label = item.label || CountryData.findByValue(locale, item.country).label
       return <Flag
         className='m-2'
         size={size}

@@ -17,13 +17,13 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
   }
 
   it('Renders', () => {
-    let wrapper = shallow(<BucHeader {...initialMockProps} />)
+    const wrapper = shallow(<BucHeader {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Has proper HTML structure', () => {
-    let wrapper = shallow(<BucHeader {...initialMockProps} />)
+    const wrapper = shallow(<BucHeader {...initialMockProps} />)
     expect(wrapper.exists('.a-buc-c-bucheader')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__label')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__title')).toBeTruthy()
@@ -49,7 +49,7 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
   })
 
   it('Shows icons if necessary', () => {
-    let wrapper = shallow(<BucHeader {...initialMockProps} />)
+    const wrapper = shallow(<BucHeader {...initialMockProps} />)
     expect(wrapper.exists('.a-buc-c-bucheader__icon-tags')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__icon-vedlegg')).toBeTruthy()
     wrapper.setProps({
@@ -67,8 +67,8 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
   })
 
   it('Handles click in LenkepanelBase', () => {
-    let onBUCEdit = jest.fn()
-    let wrapper = shallow(<BucHeader {...initialMockProps} onBUCEdit={onBUCEdit} />)
+    const onBUCEdit = jest.fn()
+    const wrapper = shallow(<BucHeader {...initialMockProps} onBUCEdit={onBUCEdit} />)
     expect(onBUCEdit).toHaveBeenCalledTimes(0)
     wrapper.find('LenkepanelBase').simulate('click', {
       preventDefault: () => {},

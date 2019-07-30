@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import PT from 'prop-types'
-import { Knapp, Stegindikator, Undertittel } from 'components/Nav'
+import { Knapp, Undertittel } from 'components/Nav'
 import Icons from 'components/Icons'
 import Step1 from './Step1'
 import Step2 from './Step2'
 
 const SEDAttachments = (props) => {
   const { t, initialStep = 1 } = props
-  const [ step, setStep ] = useState(initialStep)
-  const [ enableAttachments, setEnableAttachments ] = useState(false)
+  const [step, setStep] = useState(initialStep)
+  const [enableAttachments, setEnableAttachments] = useState(false)
 
   return <div className='a-buc-c-sedattachments'>
     <Undertittel className='mb-2'>{t('ui:attachments')}</Undertittel>

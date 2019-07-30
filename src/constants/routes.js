@@ -1,4 +1,4 @@
-let BASE = '/_'
+const BASE = '/_'
 
 export const ROOT = BASE + '/'
 export const INDEX = BASE + '/index'

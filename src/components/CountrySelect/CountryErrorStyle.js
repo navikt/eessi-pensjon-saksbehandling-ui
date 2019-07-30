@@ -1,7 +1,7 @@
 const CountryErrorStyle = (error) => {
   return {
     container: (styles, state) => {
-      let { boxShadow, ...rest } = styles
+      const { boxShadow, ...rest } = styles
       return {
         ...rest,
         backgroundColor: error ? '#f3e3e3' : '#fff',
@@ -11,7 +11,7 @@ const CountryErrorStyle = (error) => {
       }
     },
     control: (styles, state) => {
-      let { boxShadow, ...rest } = styles
+      const { boxShadow, ...rest } = styles
       return {
         ...rest,
         borderColor: error ? '#ba3a26' : '#b7b1a9',

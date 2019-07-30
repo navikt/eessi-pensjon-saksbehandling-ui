@@ -13,7 +13,7 @@ Object.defineProperty(window, 'location', {
 
 describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerId', () => {
   let wrapper
-  let initialMockProps = {
+  const initialMockProps = {
     actions: {
       createBuc: jest.fn(),
       verifyCaseNumber: jest.fn(),
@@ -71,7 +71,7 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
       buc={{ foo: 'bar' }}
     />)
     expect(initialMockProps.actions.saveBucsInfo).toHaveBeenCalledWith({
-      bucsInfo: { 'bucs': 'mockBucs' },
+      bucsInfo: { bucs: 'mockBucs' },
       aktoerId: '456',
       tags: [],
       buc: { foo: 'bar' }
@@ -105,13 +105,13 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   })
 
   it('Renders a spinner when fetching data', () => {
-    wrapper.setProps({loading: {gettingSubjectAreaList: true }})
+    wrapper.setProps({ loading: { gettingSubjectAreaList: true } })
     expect(wrapper.exists('.a-buc-c-bucstart__spinner')).toBeTruthy()
   })
 
   it('Handles onForwardButtonClick()', () => {
     expect(wrapper.find('button.a-buc-c-bucstart__forward-button').prop('disabled')).toBeTruthy()
-    wrapper.find('#a-buc-c-bucstart__subjectarea-select-id').hostNodes().simulate('change',{ target: { value: 'Pensjon' } })
+    wrapper.find('#a-buc-c-bucstart__subjectarea-select-id').hostNodes().simulate('change', { target: { value: 'Pensjon' } })
     wrapper.find('#a-buc-c-bucstart__buc-select-id').hostNodes().simulate('change', { target: { value: 'mockBuc1' } })
     wrapper.update()
     wrapper.find('button.a-buc-c-bucstart__forward-button').hostNodes().simulate('click')

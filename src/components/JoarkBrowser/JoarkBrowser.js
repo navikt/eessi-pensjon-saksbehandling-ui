@@ -30,10 +30,10 @@ const mapDispatchToProps = (dispatch) => {
 export const JoarkBrowser = (props) => {
   const { actions, aktoerId, file, files, list, loadingJoarkList } = props
   const { loadingJoarkFile, loadingJoarkPreviewFile, onFilesChange, previewFile, t } = props
-  const [ _file, setFile ] = useState(file)
-  const [ _files, setFiles ] = useState(files)
-  const [ _previewFile, setPreviewFile ] = useState(previewFile)
-  const [ mounted, setMounted ] = useState(false)
+  const [_file, setFile] = useState(file)
+  const [_files, setFiles] = useState(files)
+  const [_previewFile, setPreviewFile] = useState(previewFile)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     if (!mounted && list === undefined && !loadingJoarkList) {
@@ -46,7 +46,7 @@ export const JoarkBrowser = (props) => {
     if (file && (!_file ||
       (_file.dokumentInfoId !== file.dokumentInfoId || _file.content.base64 !== file.content.base64))) {
       setFile(file)
-      let newFiles = _.cloneDeep(_files)
+      const newFiles = _.cloneDeep(_files)
       newFiles.push(file)
       setFiles(newFiles)
       if (onFilesChange) {

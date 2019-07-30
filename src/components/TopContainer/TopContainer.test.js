@@ -13,7 +13,7 @@ describe('components/TopContainer', () => {
   }
 
   it('Renders', () => {
-    let wrapper = shallow(<TopContainer {...initialMockProps}>
+    const wrapper = shallow(<TopContainer {...initialMockProps}>
       <div />
     </TopContainer>)
     expect(wrapper.isEmptyRender()).toBeFalsy()
@@ -21,7 +21,7 @@ describe('components/TopContainer', () => {
   })
 
   it('Has proper HTML structure', () => {
-    let wrapper = shallow(
+    const wrapper = shallow(
       <TopContainer {...initialMockProps}>
         <div id='TEST_CHILD' />
       </TopContainer>

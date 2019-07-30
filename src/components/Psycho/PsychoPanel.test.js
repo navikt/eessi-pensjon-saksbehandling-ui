@@ -3,12 +3,12 @@ import PsychoPanel from './PsychoPanel'
 
 describe('PsychoPanel Rendering', () => {
   it('Renders without crashing', () => {
-    let wrapper = shallow(<PsychoPanel><div className='child' /></PsychoPanel>)
+    const wrapper = shallow(<PsychoPanel><div className='child' /></PsychoPanel>)
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Render child components', () => {
-    let wrapper = shallow(
+    const wrapper = shallow(
       <PsychoPanel>
         <div id='1' />
         <div id='2' />
@@ -24,7 +24,7 @@ describe('PsychoPanel Rendering', () => {
   })
 
   it('Render closeButton', () => {
-    let wrapper = shallow(
+    const wrapper = shallow(
       <PsychoPanel closeButton={false}>
         <div id='1' />
       </PsychoPanel>)
@@ -42,13 +42,13 @@ describe('PsychoPanel Rendering', () => {
 
 describe('PsychoPanel button', () => {
   it('Renders null when button is clicked', () => {
-    let wrapper = shallow(
+    const wrapper = shallow(
       <PsychoPanel closeButton >
         <div id='1' />
       </PsychoPanel>
     )
 
-    let mockEvent = { preventDefault: () => {}, stopPropagation: () => {} }
+    const mockEvent = { preventDefault: () => {}, stopPropagation: () => {} }
 
     expect(wrapper.isEmptyRender()).toBeFalsy()
 

@@ -8,27 +8,27 @@ describe('components/File', () => {
   const mockOTHER = { size: 500, mimetype: 'other/other' }
 
   it('Renders', () => {
-    let wrapper = shallow(<File t={t} file={mockPDF} />)
+    const wrapper = shallow(<File t={t} file={mockPDF} />)
     expect(wrapper).toMatchSnapshot()
     expect(wrapper.isEmptyRender()).toBeFalsy()
   })
 
   it('Renders PDF', () => {
-    let wrapper = shallow(<File t={t} file={mockPDF} />)
+    const wrapper = shallow(<File t={t} file={mockPDF} />)
     expect(wrapper.exists('MiniaturePDF')).toBeTruthy()
     expect(wrapper.exists('MiniatureImage')).toBeFalsy()
     expect(wrapper.exists('MiniatureOther')).toBeFalsy()
   })
 
   it('Renders images', () => {
-    let wrapper = shallow(<File t={t} file={mockPNG} />)
+    const wrapper = shallow(<File t={t} file={mockPNG} />)
     expect(wrapper.exists('MiniaturePDF')).toBeFalsy()
     expect(wrapper.exists('MiniatureImage')).toBeTruthy()
     expect(wrapper.exists('MiniatureOther')).toBeFalsy()
   })
 
   it('Renders others', () => {
-    let wrapper = shallow(<File t={t} file={mockOTHER} />)
+    const wrapper = shallow(<File t={t} file={mockOTHER} />)
     expect(wrapper.exists('MiniaturePDF')).toBeFalsy()
     expect(wrapper.exists('MiniatureImage')).toBeFalsy()
     expect(wrapper.exists('MiniatureOther')).toBeTruthy()

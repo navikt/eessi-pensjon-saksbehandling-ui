@@ -13,9 +13,9 @@ import './BUCList.css'
 
 const BUCList = (props) => {
   const { actions, aktoerId, bucs, bucsInfoList, bucsInfo, gettingBUCs, institutionList, locale, rinaUrl, sakId, t } = props
-  const [ seds, setSeds ] = useState({})
-  const [ gettingBucsInfo, setGettingBucsInfo ] = useState(false)
-  const [ mounted, setMounted ] = useState(false)
+  const [seds, setSeds] = useState({})
+  const [gettingBucsInfo, setGettingBucsInfo] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   const onBUCNew = () => {
     actions.setMode('bucnew')
@@ -73,7 +73,7 @@ const BUCList = (props) => {
     if (seds[buc.type + '-' + buc.caseId]) {
       return seds
     }
-    let _buc = _.find(bucs, { type: buc.type, caseId: buc.caseId })
+    const _buc = _.find(bucs, { type: buc.type, caseId: buc.caseId })
     const newSeds = {
       ...seds,
       [buc.type + '-' + buc.caseId]: (_buc ? _buc.seds : [])
@@ -119,8 +119,8 @@ const BUCList = (props) => {
       </div> : null}
     {!gettingBUCs && !_.isEmpty(bucs)
       ? bucs.map((buc, index) => {
-        let bucId = buc.type + '-' + buc.caseId
-        let bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId] : {}
+        const bucId = buc.type + '-' + buc.caseId
+        const bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId] : {}
         return <EkspanderbartpanelBase
           id={'a-buc-buclist__buc-' + bucId}
           className={classNames('a-buc-buclist__buc', 'mb-3', 's-border')}

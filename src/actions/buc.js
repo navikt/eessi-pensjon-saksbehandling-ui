@@ -84,7 +84,7 @@ export const fetchBucsInfo = (fileName) => {
 }
 
 export const verifyCaseNumber = (params) => {
-  let url = sprintf(urls.EUX_CASE_URL, params)
+  const url = sprintf(urls.EUX_CASE_URL, params)
   return api.call({
     url: url,
     type: {
@@ -129,8 +129,8 @@ export const createBuc = (buc) => {
     url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
     method: 'POST',
     expectedPayload: {
-      'type': buc,
-      'caseId': '123'
+      type: buc,
+      caseId: '123'
     },
     type: {
       request: types.BUC_CREATE_BUC_REQUEST,
@@ -141,17 +141,17 @@ export const createBuc = (buc) => {
 }
 
 export const saveBucsInfo = (params) => {
-  let newBucsInfo = params.bucsInfo ? _.cloneDeep(params.bucsInfo) : {}
-  let newTags = params.tags ? params.tags.map(tag => {
+  const newBucsInfo = params.bucsInfo ? _.cloneDeep(params.bucsInfo) : {}
+  const newTags = params.tags ? params.tags.map(tag => {
     return tag.value
   }) : []
-  let newComment = params.comment
-  let bucId = params.buc.type + '-' + params.buc.caseId
+  const newComment = params.comment
+  const bucId = params.buc.type + '-' + params.buc.caseId
 
-  if (!newBucsInfo.hasOwnProperty('bucs')) {
+  if (!Object.prototype.hasOwnProperty.call(newBucsInfo, 'bucs')) {
     newBucsInfo['bucs'] = {}
   }
-  if (!newBucsInfo.bucs.hasOwnProperty(bucId)) {
+  if (!Object.prototype.hasOwnProperty.call(newBucsInfo.bucs, bucId)) {
     newBucsInfo.bucs[bucId] = {}
   }
 
@@ -187,7 +187,7 @@ export const getCountryList = () => {
 }
 
 export const getSedList = (buc, rinaId) => {
-  let url = sprintf(urls.EUX_SED_FOR_BUCS_URL, { buc: buc.type, rinaId: buc.caseId })
+  const url = sprintf(urls.EUX_SED_FOR_BUCS_URL, { buc: buc.type, rinaId: buc.caseId })
   return api.funcCall({
     url: url,
     expectedPayload: ['P2000', 'P4000', 'P5000'],

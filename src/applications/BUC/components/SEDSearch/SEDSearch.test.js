@@ -36,14 +36,14 @@ describe('applications/BUC/components/SEDSearch/SEDSearch', () => {
   })
 
   it('Handles search by status', () => {
-    let statusSelect = wrapper.find('#a-buc-c-sedsearch__status-select-id input').hostNodes()
+    const statusSelect = wrapper.find('#a-buc-c-sedsearch__status-select-id input').hostNodes()
     statusSelect.simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
     statusSelect.simulate('keyDown', { key: 'Enter', keyCode: 13 })
-    expect(initialMockProps.onStatusSearch).toBeCalledWith([{ 'label': 'ui:new', 'value': 'new' }])
+    expect(initialMockProps.onStatusSearch).toBeCalledWith([{ label: 'ui:new', value: 'new' }])
   })
 
   it('Handles search by country', () => {
-    let countrySelect = wrapper.find('#a-buc-c-sedsearch__country-select-id input').hostNodes()
+    const countrySelect = wrapper.find('#a-buc-c-sedsearch__country-select-id input').hostNodes()
     countrySelect.simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
     countrySelect.simulate('keyDown', { key: 'Enter', keyCode: 13 })
     expect(initialMockProps.onCountrySearch).toBeCalledWith([{ label: 'Norge', value: 'NO' }])

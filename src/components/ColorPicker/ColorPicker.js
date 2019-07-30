@@ -7,8 +7,8 @@ import { SketchPicker } from 'react-color'
 const ColorPicker = (props) => {
   const { color, onChangeComplete } = props
 
-  const [ displayColorPicker, setDisplayColorPicker ] = useState(false)
-  const [ _color, setColor ] = useState({ r: 255, g: 255, b: 255, a: 1 })
+  const [displayColorPicker, setDisplayColorPicker] = useState(false)
+  const [_color, setColor] = useState({ r: 255, g: 255, b: 255, a: 1 })
 
   useEffect(() => {
     if (!_.isEqual(color, _color)) {
@@ -29,7 +29,7 @@ const ColorPicker = (props) => {
   }
 
   const styles = reactCSS({
-    'default': {
+    default: {
       color: {
         width: '36px',
         height: '14px',

@@ -2,7 +2,7 @@ import React from 'react'
 import { SessionMonitor } from './SessionMonitor'
 
 describe('components/SessionMonitor', () => {
-  let initialMockProps = {
+  const initialMockProps = {
     t: jest.fn((translationString) => { return translationString }),
     actions: {
       openModal: jest.fn()
@@ -13,6 +13,7 @@ describe('components/SessionMonitor', () => {
     const aDate = new Date('2020-12-17T03:24:00')
     const expirationTime = new Date('2020-12-17T03:24:10')
     const wrapper = mount(<SessionMonitor
+      now={aDate}
       expirationTime={expirationTime}
       checkInterval={500}
       millisecondsForWarning={9900}
@@ -27,6 +28,7 @@ describe('components/SessionMonitor', () => {
     const aDate = new Date('2020-12-17T03:24:00')
     const expirationTime = new Date('2020-12-17T03:24:10')
     mount(<SessionMonitor
+      now={aDate}
       expirationTime={expirationTime}
       checkInterval={500}
       millisecondsForWarning={9900}
@@ -48,6 +50,7 @@ describe('components/SessionMonitor', () => {
     const aDate = new Date('2020-12-17T03:24:00')
     const expirationTime = new Date('2020-12-17T03:23:01')
     mount(<SessionMonitor
+      now={aDate}
       expirationTime={expirationTime}
       checkInterval={500}
       millisecondsForWarning={900}

@@ -11,8 +11,8 @@ const storageReducer = (state = initialStorageState, action = {}) => {
   switch (action.type) {
     case types.STORAGE_LIST_SUCCESS:
     case types.STORAGE_LIST_NO_NOTIF_SUCCESS:
-      let parsedList = action.payload.map(file => {
-        let index = file.lastIndexOf('___')
+      const parsedList = action.payload.map(file => {
+        const index = file.lastIndexOf('___')
         return index >= 0 ? file.substring(index + 3) : file
       })
 
@@ -52,8 +52,8 @@ const storageReducer = (state = initialStorageState, action = {}) => {
     }
 
     case types.STORAGE_DELETE_SUCCESS: {
-      let _fileList = _.clone(state.fileList)
-      let fileIndex = _fileList.indexOf(state.fileToDelete)
+      const _fileList = _.clone(state.fileList)
+      const fileIndex = _fileList.indexOf(state.fileToDelete)
 
       if (fileIndex >= 0) {
         _fileList.splice(fileIndex, 1)

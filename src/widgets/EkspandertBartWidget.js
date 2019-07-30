@@ -5,7 +5,7 @@ import ReactResizeDetector from 'react-resize-detector'
 
 const EkspandertBartWidget = (props) => {
   const onClick = () => {
-    let newWidget = _.cloneDeep(props.widget)
+    const newWidget = _.cloneDeep(props.widget)
     newWidget.options.collapsed = !newWidget.options.collapsed
     props.onUpdate(newWidget)
   }

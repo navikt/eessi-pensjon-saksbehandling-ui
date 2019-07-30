@@ -15,13 +15,13 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
   }
 
   it('Renders', () => {
-    let wrapper = shallow(<BUCDetail {...initialMockProps} />)
+    const wrapper = shallow(<BUCDetail {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Has proper HTML structure', () => {
-    let wrapper = mount(<BUCDetail {...initialMockProps} />)
+    const wrapper = mount(<BUCDetail {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper.exists('EkspanderbartpanelBase')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucdetail__body')).toBeTruthy()
