@@ -104,6 +104,11 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
     })
   })
 
+  it('Renders a spinner when fetching data', () => {
+    wrapper.setProps({loading: {gettingSubjectAreaList: true }})
+    expect(wrapper.exists('.a-buc-c-bucstart__spinner')).toBeTruthy()
+  })
+
   it('Handles onForwardButtonClick()', () => {
     expect(wrapper.find('button.a-buc-c-bucstart__forward-button').prop('disabled')).toBeTruthy()
     wrapper.find('#a-buc-c-bucstart__subjectarea-select-id').hostNodes().simulate('change',{ target: { value: 'Pensjon' } })

@@ -5,7 +5,7 @@ import { Chevron, Lenke } from 'components/Nav'
 import './BUCCrumbs.css'
 
 const BUCCrumbs = (props) => {
-  const { actions, buc, className, mode, t } = props
+  const { actions, buc, className, mode, showLastLink = false, t } = props
 
   const goToHome = () => {
     actions.resetSed()
@@ -59,7 +59,9 @@ const BUCCrumbs = (props) => {
       return <React.Fragment key={i}>
         {!first ? <Chevron className='separator' type={'høyre'} /> : null}
         <div className='a-buc-c-buccrumb'>
-          {last ? t(buccrumb.label) : <Lenke href='#' title={buccrumb.label} onClick={buccrumb.func}>{buccrumb.label}</Lenke>}
+          {last && !showLastLink ?
+          t(buccrumb.label) :
+          <Lenke href='#' title={buccrumb.label} onClick={buccrumb.func}>{buccrumb.label}</Lenke>}
         </div>
       </React.Fragment>
     })}
@@ -71,6 +73,7 @@ BUCCrumbs.propTypes = {
   buc: PT.object,
   mode: PT.string.isRequired,
   sed: PT.object,
+  showLastLink: PT.bool,
   t: PT.func.isRequired
 }
 export default BUCCrumbs

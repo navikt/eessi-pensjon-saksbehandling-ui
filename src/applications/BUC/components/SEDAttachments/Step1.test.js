@@ -1,7 +1,9 @@
 import React, { Suspense } from 'react'
 import Step1 from './Step1'
+import _ from 'lodash'
 import { StoreProvider } from 'store'
 import reducer, { initialState } from 'reducer'
+import sampleJoark from 'resources/tests/sampleJoark'
 
 describe('applications/BUC/components/Step1/Step1', () => {
   const t = jest.fn((translationString) => { return translationString })
@@ -10,10 +12,28 @@ describe('applications/BUC/components/Step1/Step1', () => {
     files: {},
     setFiles: jest.fn()
   }
+
+  let changedInitialState = _.cloneDeep(initialState)
+
+  // set up initial state
+  changedInitialState.joark.list = []
+  sampleJoark.mockdata.data.dokumentoversiktBruker.journalposter.forEach(post => {
+    post.dokumenter.forEach(doc => {
+      changedInitialState.joark.list.push({
+        tilleggsopplysninger: post.tilleggsopplysninger,
+        journalpostId: post.journalpostId,
+        tittel: doc.tittel,
+        tema: post.tema,
+        dokumentInfoId: doc.dokumentInfoId,
+        datoOpprettet: new Date(Date.parse(post.datoOpprettet)),
+        varianter: doc.dokumentvarianter.map(variant => variant.variantformat)
+      })
+    })
+  })
   let wrapper
 
   beforeEach(() => {
-    wrapper = mount(<StoreProvider initialState={initialState} reducer={reducer}>
+    wrapper = mount(<StoreProvider initialState={changedInitialState} reducer={reducer}>
       <Suspense fallback={<div />}>
         <Step1 {...initialMockProps} />
       </Suspense>
@@ -28,5 +48,12 @@ describe('applications/BUC/components/Step1/Step1', () => {
   it('Has proper HTML structure', () => {
     expect(wrapper.exists('.a-buc-c-sedattachments-step1')).toBeTruthy()
     expect(wrapper.exists('JoarkBrowser')).toBeTruthy()
+  })
+
+  it('Calls setFiles when selecting a file', () => {
+   wrapper.find('#c-tablesorter__checkbox-blue_pdf-ARKIV').hostNodes().simulate('change',  { target: { checked: true } })
+   let expectedFile = changedInitialState.joark.list[0]
+   expectedFile.variant = 'ARKIV'
+   expect(initialMockProps.setFiles).toHaveBeenCalledWith({ joark: [expectedFile]})
   })
 })
