@@ -13,7 +13,7 @@ const statusList = {
 }
 
 const SEDStatus = (props) => {
-  const { t, className, status } = props
+  const { className, status, t } = props
 
   let tagType = statusList.hasOwnProperty(status) ? statusList[status] : statusList['unknown']
 
@@ -23,8 +23,8 @@ const SEDStatus = (props) => {
 }
 
 SEDStatus.propTypes = {
-  status: PT.string.isRequired,
   className: PT.string,
+  status: PT.string.isRequired,
   t: PT.func.isRequired
 }
 

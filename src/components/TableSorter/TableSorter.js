@@ -134,6 +134,7 @@ const TableSorter = (props) => {
       {columnNames.map((column) => {
         return <td key={column}>
           <Input
+            id={'c-tablesorter__sort-' + column + '-input-id'}
             className='c-tablesorter__sort-input'
             label=''
             value={_columns[column].filterText}
