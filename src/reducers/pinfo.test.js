@@ -2,12 +2,12 @@ import pinfoReducer from './pinfo.js'
 import * as types from '../constants/actionTypes'
 
 describe('pinfo reducer', () => {
-  let initialState = {
+  const initialState = {
     invite: undefined
   }
 
   it('handles PINFO_INVITE_FAILURE action', () => {
-    let state = pinfoReducer(initialState, {
+    const state = pinfoReducer(initialState, {
       type: types.PINFO_INVITE_FAILURE
     })
     expect(state.invite.message).toEqual('pinfo:alert-inviteFailure')
@@ -15,7 +15,7 @@ describe('pinfo reducer', () => {
   })
 
   it('handles PINFO_INVITE_SUCCESS action', () => {
-    let state = pinfoReducer(initialState, {
+    const state = pinfoReducer(initialState, {
       type: types.PINFO_INVITE_SUCCESS
     })
     expect(state.invite.message).toEqual('pinfo:alert-inviteSuccess')

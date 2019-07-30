@@ -5,8 +5,8 @@ import ReactResizeDetector from 'react-resize-detector'
 
 const NoteWidget = (props) => {
   const { widget, layout, onResize, onWidgetUpdate } = props
-  const [ mounted, setMounted ] = useState(false)
-  const [ content, setContent ] = useState(widget.options.content)
+  const [mounted, setMounted] = useState(false)
+  const [content, setContent] = useState(widget.options.content)
 
   useEffect(() => {
     if (!mounted && onResize) {
@@ -30,7 +30,7 @@ const NoteWidget = (props) => {
 
   const saveContent = (e) => {
     const newContent = e.target.innerHTML
-    let newWidget = _.cloneDeep(widget)
+    const newWidget = _.cloneDeep(widget)
     newWidget.options.content = newContent
     setContent(newContent)
     onWidgetUpdate(newWidget, layout)

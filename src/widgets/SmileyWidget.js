@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
 
 const SmileyWidget = (props) => {
-  const [ mounted, setMounted ] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const { widget, onResize } = props
 
   useEffect(() => {

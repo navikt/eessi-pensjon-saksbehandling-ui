@@ -27,7 +27,7 @@ const MultipleSelect = (props) => {
     hideSelectedOptions
   } = props
 
-  const [ _values, setValues ] = useState(values)
+  const [_values, setValues] = useState(values)
 
   useEffect(() => {
     if (!_.isEqual(_values, values)) {
@@ -50,7 +50,7 @@ const MultipleSelect = (props) => {
   const selectStyle = () => {
     return {
       container: (styles, state) => {
-        let { boxShadow, ...rest } = styles
+        const { boxShadow, ...rest } = styles
         return {
           ...rest,
           backgroundColor: error ? '#f3e3e3' : '#fff',
@@ -60,7 +60,7 @@ const MultipleSelect = (props) => {
         }
       },
       control: (styles, state) => {
-        let { boxShadow, ...rest } = styles
+        const { boxShadow, ...rest } = styles
         return {
           ...rest,
           borderColor: error ? '#ba3a26' : '#b7b1a9',
@@ -77,7 +77,7 @@ const MultipleSelect = (props) => {
   let options = includeList ? include(includeList, optionList) : optionList
   options = excludeList ? exclude(excludeList, options) : options
 
-  return <div id={id} className={classNames('c-multipleSelect', className, { 'skjemaelement__feilmelding': error })}>
+  return <div id={id} className={classNames('c-multipleSelect', className, { skjemaelement__feilmelding: error })}>
     {creatable
       ? <CreatableSelect placeholder={placeholder}
         isMulti

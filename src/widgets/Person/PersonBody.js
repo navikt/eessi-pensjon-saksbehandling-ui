@@ -11,7 +11,7 @@ const PersonBody = (props) => {
   const renderEntity = (label, value) => {
     const isValue = value !== undefined && value !== null && value !== ''
     return <div>
-      <Undertekst className={classNames({ 'grey': !isValue })}>
+      <Undertekst className={classNames({ grey: !isValue })}>
         <span className={classNames({ 'font-weight-bold': isValue })}>{t(label)}</span>: {value}
       </Undertekst>
     </div>

@@ -8,13 +8,13 @@ const Step1 = (props) => {
   const { t, files, setFiles } = props
 
   const handleFileChange = (changedFiles, key) => {
-    let newFiles = _.cloneDeep(files)
+    const newFiles = _.cloneDeep(files)
     newFiles[key] = changedFiles
     setFiles(newFiles)
   }
 
   const getFiles = (key) => {
-    if (files.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(files, key)) {
       return (files[key])
     }
     return []

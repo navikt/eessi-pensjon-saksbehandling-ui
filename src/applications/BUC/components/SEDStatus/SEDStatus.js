@@ -6,16 +6,16 @@ import { EtikettBase } from 'components/Nav'
 import './SEDStatus.css'
 
 const statusList = {
-  'draft': 'info',
-  'sent': 'suksess',
-  'received': 'advarsel',
-  'unknown': 'fokus'
+  draft: 'info',
+  sent: 'suksess',
+  received: 'advarsel',
+  unknown: 'fokus'
 }
 
 const SEDStatus = (props) => {
   const { className, status, t } = props
 
-  let tagType = statusList.hasOwnProperty(status) ? statusList[status] : statusList['unknown']
+  const tagType = Object.prototype.hasOwnProperty.call(statusList, status) ? statusList[status] : statusList['unknown']
 
   return <EtikettBase className={classNames('a-buc-c-sedstatus', className)} type={tagType}>
     {t('ui:' + props.status)}

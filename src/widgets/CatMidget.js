@@ -5,7 +5,7 @@ import ReactResizeDetector from 'react-resize-detector'
 import './CatMidget.css'
 
 const CatMidget = (props) => {
-  const [ mounted, setMounted ] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const { onResize } = props
 
   useEffect(() => {

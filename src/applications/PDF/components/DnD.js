@@ -18,16 +18,16 @@ const mapDispatchToProps = (dispatch) => {
 
 class DnD extends Component {
   reorder (list, startIndex, endIndex) {
-    let newList = Array.from(list)
+    const newList = Array.from(list)
     const [removed] = newList.splice(startIndex, 1)
     newList.splice(endIndex, 0, removed)
     return newList
   }
 
   onDragEnd (result) {
-    let { recipe, actions } = this.props
+    const { recipe, actions } = this.props
 
-    let newRecipe = _.clone(recipe)
+    const newRecipe = _.clone(recipe)
     let modified = false
 
     if (!result.destination) { // 'dragged to nowhere'
@@ -36,11 +36,11 @@ class DnD extends Component {
 
     // get target ID
     let lastIndexOf = result.destination.droppableId.lastIndexOf('-')
-    let targetId = result.destination.droppableId.substring(lastIndexOf + 1)
+    const targetId = result.destination.droppableId.substring(lastIndexOf + 1)
 
     // get source ID
     lastIndexOf = result.source.droppableId.lastIndexOf('-')
-    let sourceId = result.source.droppableId.substring(lastIndexOf + 1)
+    const sourceId = result.source.droppableId.substring(lastIndexOf + 1)
 
     // dragged from a PDF source...
     if (_.startsWith(result.source.droppableId, 'c-pdf-dndSource-droppable-')) {
@@ -50,9 +50,9 @@ class DnD extends Component {
       }
 
       // ...to a PDF target? Add it
-      let lastIndexOf = result.draggableId.lastIndexOf('-')
-      let name = result.draggableId.substring(0, lastIndexOf)
-      let pageNumber = parseInt(result.draggableId.substring(lastIndexOf + 1), 10)
+      const lastIndexOf = result.draggableId.lastIndexOf('-')
+      const name = result.draggableId.substring(0, lastIndexOf)
+      const pageNumber = parseInt(result.draggableId.substring(lastIndexOf + 1), 10)
 
       if (!newRecipe[targetId]) {
         newRecipe[targetId] = []
@@ -119,7 +119,7 @@ class DnD extends Component {
         newRecipe[targetId] = []
       }
 
-      let payload = JSON.parse(decodeURIComponent(result.draggableId))
+      const payload = JSON.parse(decodeURIComponent(result.draggableId))
 
       newRecipe[targetId].splice(result.destination.index, 0, {
         separatorText: payload.separatorText,

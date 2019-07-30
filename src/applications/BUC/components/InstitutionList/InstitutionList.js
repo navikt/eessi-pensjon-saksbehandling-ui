@@ -10,10 +10,10 @@ import './InstitutionList.css'
 const InstitutionList = (props) => {
   const { className, institutions, institutionNames, locale, t, type } = props
 
-  let institutionList = {}
+  const institutionList = {}
   if (institutions) {
     institutions.forEach(item => {
-      if (institutionList.hasOwnProperty(item.country)) {
+      if (Object.prototype.hasOwnProperty.call(institutionList, item.country)) {
         institutionList[item.country].push(item.institution)
       } else {
         institutionList[item.country] = [item.institution]
@@ -35,13 +35,17 @@ const InstitutionList = (props) => {
         <Flag label={country.label} country={landkode} size='M' />
         <Element className='pr-2 pl-2'>{country.label}: </Element>
         <Normaltekst>{institutionList[landkode].map(institutionId => {
-          return institutionNames && institutionNames.hasOwnProperty(landkode + ':' + institutionId)
-            ? institutionNames[landkode + ':' + institutionId] : institutionId
+          return institutionNames &&
+          Object.prototype.hasOwnProperty.call(institutionNames, landkode + ':' + institutionId)
+            ? institutionNames[landkode + ':' + institutionId]
+            : institutionId
         }).join(', ')}</Normaltekst>
       </div> : null}
       {type === 'separated' ? institutionList[landkode].map(institutionId => {
-        const label = institutionNames && institutionNames.hasOwnProperty(landkode + ':' + institutionId)
-          ? institutionNames[landkode + ':' + institutionId] : institutionId
+        const label = institutionNames &&
+          Object.prototype.hasOwnProperty.call(institutionNames, landkode + ':' + institutionId)
+          ? institutionNames[landkode + ':' + institutionId]
+          : institutionId
         return <div className='a-buc-c-institution' key={institutionId}>
           <Flag label={country ? country.label : landkode} country={landkode} size='M' />
           <Element className='pr-2 pl-2'>{country ? country.label : landkode}: </Element>

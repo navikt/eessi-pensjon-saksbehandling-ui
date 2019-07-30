@@ -32,7 +32,7 @@ describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
   })
 
   it('Has proper HTML structure without forms when aktoerId and sakId', () => {
-    let mockProps = { ...initialMockProps,
+    const mockProps = { ...initialMockProps,
       aktoerId: '123',
       sakId: '456'
     }

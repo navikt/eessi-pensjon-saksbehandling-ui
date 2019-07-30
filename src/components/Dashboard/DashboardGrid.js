@@ -12,7 +12,7 @@ const DashboardGrid = (props) => {
   return props.connectDropTarget(<div
     id='dashboardGrid'
     className={classNames('c-d-dashboardGrid', {
-      'canDrop': props.canDrop
+      canDrop: props.canDrop
     })}>
     <ResponsiveReactGridLayout
       {...props}
@@ -35,7 +35,7 @@ const DashboardGrid = (props) => {
         return <div id={'widget-' + layout.i} key={layout.i}>
           <WidgetContainer
             layout={layout}
-            widget={_.find(props.widgets, { 'i': layout.i })}
+            widget={_.find(props.widgets, { i: layout.i })}
             editMode={props.editMode}
             currentBreakpoint={props.currentBreakpoint}
             onWidgetResize={props.onWidgetResize}

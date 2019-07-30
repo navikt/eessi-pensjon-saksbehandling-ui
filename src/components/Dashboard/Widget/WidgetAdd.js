@@ -9,8 +9,8 @@ import './Widget.css'
 
 const WidgetAdd = (props) => {
   const { connectDragPreview, connectDragSource, widget } = props
-  const [ mounted, setMounted ] = useState(false)
-  const [ mouseOver, setMouseOver ] = useState(false)
+  const [mounted, setMounted] = useState(false)
+  const [mouseOver, setMouseOver] = useState(false)
 
   useEffect(() => {
     if (!mounted && connectDragPreview) {
@@ -28,8 +28,8 @@ const WidgetAdd = (props) => {
   return <div>
     <div
       className={classNames('c-d-widgetAdd', {
-        'selected': props.isDragging,
-        'hover': mouseOver
+        selected: props.isDragging,
+        hover: mouseOver
       })}
       onMouseEnter={() => setMouseOver(true)}
       onMouseLeave={() => setMouseOver(false)}
@@ -71,7 +71,7 @@ const WidgetAddDragSource = DragSource(
       const dropResult = monitor.getDropResult()
       // if drag was not successful, clean up
       if (!dropResult) {
-        props.setWidgets(_.reject(props.widgets, { 'i': item.newId }))
+        props.setWidgets(_.reject(props.widgets, { i: item.newId }))
       }
     },
     canDrag: () => {

@@ -10,7 +10,7 @@ export const MiniatureOther = (props) => {
   const extension = file.name.substring(file.name.lastIndexOf('.') + 1)
 
   return <div
-    className={classNames('c-file-miniatureOther', className, { 'animate': animate })}>
+    className={classNames('c-file-miniatureOther', className, { animate: animate })}>
     title={file.name + '\n' + t('ui:size') + ': ' + size}
     { isHovering
       ? <div className='link deleteLink'>

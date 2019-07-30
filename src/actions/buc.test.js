@@ -156,7 +156,7 @@ describe('buc actions', () => {
   })
 
   it('createBuc()', () => {
-    let mockBuc = 'mockBuc'
+    const mockBuc = 'mockBuc'
     bucActions.createBuc(mockBuc)
     expect(api.funcCall).toBeCalledWith({
       type: {
@@ -174,7 +174,7 @@ describe('buc actions', () => {
   })
 
   it('saveBucsInfo() with empty params', () => {
-    let mockParams = {
+    const mockParams = {
       buc: {
         type: 'mockBuc',
         caseId: '456'
@@ -232,8 +232,8 @@ describe('buc actions', () => {
   })
 
   it('getInstitutionsListForBucAndCountry()', () => {
-    let mockBuc = 'P_BUC_01'
-    let mockCountry = 'NO'
+    const mockBuc = 'P_BUC_01'
+    const mockCountry = 'NO'
     bucActions.getInstitutionsListForBucAndCountry(mockBuc, mockCountry)
     expect(api.funcCall).toBeCalledWith({
       type: {

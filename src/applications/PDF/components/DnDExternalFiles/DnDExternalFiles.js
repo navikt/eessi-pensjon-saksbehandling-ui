@@ -55,7 +55,7 @@ const DnDExternalFiles = (props) => {
   return <div className='c-pdf-dndExternalFiles'>
     {fileList ? <div className='fileList'>
       {fileList.map((_file, index) => {
-        let selected = file && file.name === _file
+        const selected = file && file.name === _file
         return <div className={classNames('fileRow', { selected: selected })} key={index}>
           <a className={classNames('fileName')} href='#select'
             onClick={() => onSelectFile(_file)}>{_file}</a>
@@ -71,7 +71,7 @@ const DnDExternalFiles = (props) => {
                 <div ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
-                  className={classNames({ 'dragging': snapshot.isDragging })}>
+                  className={classNames({ dragging: snapshot.isDragging })}>
                   <File file={file} addLink animate previewLink downloadLink
                     width={141.4} height={200} scale={1.0}
                     onAddFile={() => onaddFile(file)}

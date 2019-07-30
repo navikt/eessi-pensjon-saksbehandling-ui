@@ -10,7 +10,7 @@ i18n
   .init({
     lng: 'nb',
     fallbackLng: {
-      'default': ['nb']
+      default: ['nb']
     },
     debug: false,
     ns: ['ui', 'pdf', 'pinfo', 'buc'],

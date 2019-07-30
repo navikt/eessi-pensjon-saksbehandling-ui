@@ -5,8 +5,8 @@ import PT from 'prop-types'
 // the group of children as a whole when it gains or loses focus
 const FocusGroup = (props) => {
   const { children, onBlur, onFocus } = props
-  const [ _timeoutID, setTimeoutID ] = useState(null)
-  const [ focus, setFocus ] = useState(false)
+  const [_timeoutID, setTimeoutID] = useState(null)
+  const [focus, setFocus] = useState(false)
 
   const handleOnBlur = (event) => {
     event.persist()

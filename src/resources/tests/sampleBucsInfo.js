@@ -1,5 +1,5 @@
 export default {
-  'bucs': {
+  bucs: {
     'P_BUC_01-195440': {
       tags: ['vip'],
       comment: 'this is a comment for P_BUC_01-195440'

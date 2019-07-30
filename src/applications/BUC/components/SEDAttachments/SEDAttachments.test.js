@@ -51,7 +51,7 @@ describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
   it('Step 2 can be seen', () => {
     wrapper = mount(<StoreProvider initialState={initialState} reducer={reducer}>
       <Suspense fallback={<div />}>
-        <SEDAttachments {...initialMockProps} initialStep={2}/>
+        <SEDAttachments {...initialMockProps} initialStep={2} />
       </Suspense>
     </StoreProvider>)
     expect(wrapper.exists('.a-buc-c-sedattachments-step2')).toBeTruthy()

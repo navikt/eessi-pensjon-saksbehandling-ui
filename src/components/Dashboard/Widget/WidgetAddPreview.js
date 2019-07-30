@@ -19,7 +19,7 @@ function getItemStyles (props, dimensions) {
       display: 'none'
     }
   }
-  let { x, y } = currentOffset
+  const { x, y } = currentOffset
   return {
     transform: `translate(${x}px, ${y}px)`,
     backgroundColor: 'white',
@@ -32,8 +32,8 @@ function getItemStyles (props, dimensions) {
 }
 
 const gridSizeToPixelSize = (w, h, breakpoint) => {
-  let gridWidth = document.getElementById('dashboardGrid').offsetWidth
-  let gridUnitWidth = Math.ceil(gridWidth / DashboardConfig.cols[breakpoint])
+  const gridWidth = document.getElementById('dashboardGrid').offsetWidth
+  const gridUnitWidth = Math.ceil(gridWidth / DashboardConfig.cols[breakpoint])
   const dimension = {
     height: (h * (DashboardConfig.rowHeight + 10) - 10) + 'px',
     width: (w * gridUnitWidth - 10) + 'px'
@@ -45,8 +45,8 @@ const WidgetAddPreview = (props) => {
   if (!props.isDragging) {
     return null
   }
-  let widget = props.item.widget
-  let dimensions = gridSizeToPixelSize(
+  const widget = props.item.widget
+  const dimensions = gridSizeToPixelSize(
     widget.layout[props.currentBreakpoint].defaultW,
     widget.layout[props.currentBreakpoint].defaultH,
     props.currentBreakpoint

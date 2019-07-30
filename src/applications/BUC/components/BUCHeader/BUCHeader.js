@@ -9,8 +9,8 @@ import './BUCHeader.css'
 
 const BUCHeader = (props) => {
   const { buc, bucInfo, institutionNames, locale, onBUCEdit, t } = props
-  let institutionList = {}
-  let attachments = []
+  const institutionList = {}
+  const attachments = []
   const numberOfSeds = buc.seds ? buc.seds.filter(sed => sed.status !== 'empty').length : 0
 
   const onBUChandle = (buc, e) => {
@@ -21,7 +21,7 @@ const BUCHeader = (props) => {
 
   if (buc.institusjon) {
     buc.institusjon.forEach(institution => {
-      if (institutionList.hasOwnProperty(institution.country)) {
+      if (Object.prototype.hasOwnProperty.call(institutionList, institution.country)) {
         institutionList[institution.country].push(institution.institution)
       } else {
         institutionList[institution.country] = [institution.institution]

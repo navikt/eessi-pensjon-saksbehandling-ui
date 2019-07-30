@@ -33,8 +33,8 @@ export const call = (options) => {
     })
     let body = options.body || options.payload
     body = body ? JSON.stringify(body) : undefined
-    let CSRF_PROTECTION = cookies.get('NAV_CSRF_PROTECTION')
-      ? { 'NAV_CSRF_PROTECTION': cookies.get('NAV_CSRF_PROTECTION') }
+    const CSRF_PROTECTION = cookies.get('NAV_CSRF_PROTECTION')
+      ? { NAV_CSRF_PROTECTION: cookies.get('NAV_CSRF_PROTECTION') }
       : {}
     return fetch(options.url, {
       method: options.method || 'GET',

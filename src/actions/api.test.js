@@ -118,11 +118,11 @@ describe('api actions', () => {
     })
   })
 
-  it ('decides to use call as we are in localhost and test env', () => {
+  it('decides to use call as we are in localhost and test env', () => {
     expect(api.funcCall.name).toEqual('call')
   })
 
-  it ('decides to use fakecall as we are in localhost and NOT test env', () => {
+  it('decides to use fakecall as we are in localhost and NOT test env', () => {
     jest.resetModules()
     jest.mock('constants/urls', () => {
       return { HOST: 'localhost' }
@@ -130,7 +130,7 @@ describe('api actions', () => {
     jest.mock('constants/environment', () => {
       return { IS_TEST: false }
     })
-    const newapi = require('actions/api');
+    const newapi = require('actions/api')
     expect(newapi.funcCall.name).toEqual('fakecall')
   })
 })

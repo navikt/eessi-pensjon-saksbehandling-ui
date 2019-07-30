@@ -98,13 +98,13 @@ describe('storage actions', () => {
   })
 
   it('call postStorageFileWithNoNotification()', () => {
-    let userId = 'userId'
+    const userId = 'userId'
 
-    let namespace = 'namespace'
+    const namespace = 'namespace'
 
-    let file = 'file'
+    const file = 'file'
 
-    let payload = { foo: 'bar' }
+    const payload = { foo: 'bar' }
     storageActions.postStorageFileWithNoNotification(userId, namespace, file, payload)
     expect(api.call).toBeCalledWith({
       type: {
@@ -119,13 +119,13 @@ describe('storage actions', () => {
   })
 
   it('call postStorageFile()', () => {
-    let userId = 'userId'
+    const userId = 'userId'
 
-    let namespace = 'namespace'
+    const namespace = 'namespace'
 
-    let file = 'file'
+    const file = 'file'
 
-    let payload = { foo: 'bar' }
+    const payload = { foo: 'bar' }
     storageActions.postStorageFile(userId, namespace, file, payload)
     expect(api.call).toBeCalledWith({
       type: {

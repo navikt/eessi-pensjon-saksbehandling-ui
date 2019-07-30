@@ -22,13 +22,13 @@ describe('components/Modal', () => {
   }
 
   it('Renders', () => {
-    let wrapper = mount(<Modal {...initialMockProps} />)
+    const wrapper = mount(<Modal {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Has proper HTML structure', () => {
-    let wrapper = mount(<Modal {...initialMockProps} />)
+    const wrapper = mount(<Modal {...initialMockProps} />)
     expect(wrapper.find('.c-modal__title').hostNodes().render().text()).toEqual(initialMockProps.modal.modalTitle)
     expect(wrapper.find('.c-modal__text').hostNodes().render().text()).toEqual(initialMockProps.modal.modalText)
     expect(wrapper.find('#c-modal__main-button-id').hostNodes().render().text()).toEqual(initialMockProps.modal.modalButtons[0].text)
@@ -36,7 +36,7 @@ describe('components/Modal', () => {
   })
 
   it('Buttons are active', () => {
-    let wrapper = mount(<Modal {...initialMockProps} />)
+    const wrapper = mount(<Modal {...initialMockProps} />)
     wrapper.find('#c-modal__main-button-id').hostNodes().simulate('click')
     expect(initialMockProps.modal.modalButtons[0].onClick).toHaveBeenCalled()
 

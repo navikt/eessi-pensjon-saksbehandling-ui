@@ -9,13 +9,13 @@ const NoteOptionsWidget = (props) => {
 
   const chooseColor = (e) => {
     const color = e.target.value
-    let newWidget = _.cloneDeep(widget)
+    const newWidget = _.cloneDeep(widget)
     newWidget.options.backgroundColor = color
     setBackgroundColor(color)
     onWidgetUpdate(newWidget, layout)
   }
 
-  let widgetTemplate = _.find(availableWidgets, { type: 'note' })
+  const widgetTemplate = _.find(availableWidgets, { type: 'note' })
   return <div className='p-3'>
 
     <Nav.Select label={'color'} value={backgroundColor || ''}

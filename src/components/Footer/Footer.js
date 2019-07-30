@@ -31,8 +31,8 @@ const mapDispatchToProps = (dispatch) => {
 export const Footer = (props) => {
   const params = ['buc', 'sed', 'rinaId', 'sakId', 'aktoerId', 'vedtakId', 'kravId', 'fnr', 'mottaker']
   const { actions, footerOpen } = props
-  const [ paramName, setParamName ] = useState(undefined)
-  const [ paramValue, setParamValue ] = useState(undefined)
+  const [paramName, setParamName] = useState(undefined)
+  const [paramValue, setParamValue] = useState(undefined)
 
   const onUnsetParam = (key) => {
     actions.unsetStatusParam(key)
@@ -45,14 +45,14 @@ export const Footer = (props) => {
   }
 
   const onSetParamName = (e) => {
-    let name = e.target ? e.target.value : e
+    const name = e.target ? e.target.value : e
     if (name !== '') {
       setParamName(name)
     }
   }
 
   const onSetParamValue = (e) => {
-    let value = e.target.value
+    const value = e.target.value
     if (value !== '') {
       setParamValue(value)
     }

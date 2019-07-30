@@ -49,12 +49,12 @@ describe('applications/BUC/components/SEDP4000/Period - view/confirm mode', () =
     const wrapper = mount(<Period {...mockProps} mode='view' />)
     expect(wrapper.exists('Period')).toBeTruthy()
 
-    let period = wrapper.find('.a-buc-c-sedp4000-period.view').hostNodes()
+    const period = wrapper.find('.a-buc-c-sedp4000-period.view').hostNodes()
     expect(period.exists('.existingPeriod')).toBeTruthy()
     expect(period.find('.existingPeriod Icons').props().kind).toEqual('nav-work')
     expect(period.exists('.existingPeriodDescription')).toBeTruthy()
 
-    let periodDescription = period.find('.existingPeriodDescription').hostNodes()
+    const periodDescription = period.find('.existingPeriodDescription').hostNodes()
     expect(periodDescription.find('.existingPeriodType UndertekstBold').render().text()).toEqual('buc:p4000-category-work')
     expect(periodDescription.find('.existingPeriodType Flag').props().country).toEqual('NO')
     expect(periodDescription.find('.existingPeriodType Normaltekst').render().text()).toEqual('Norge')
@@ -64,14 +64,14 @@ describe('applications/BUC/components/SEDP4000/Period - view/confirm mode', () =
     expect(periodDescription.find('.existingPeriodPlace').render().text()).toEqual('buc:p4000-place: mockWorkPlace')
     expect(periodDescription.find('.existingPeriodAttachments').render().text()).toEqual('buc:p4000-attachments: mock.pdf')
 
-    let periodButtons = period.find('.existingPeriodButtons').hostNodes()
+    const periodButtons = period.find('.existingPeriodButtons').hostNodes()
     expect(periodButtons.exists('.change')).toBeTruthy()
     expect(periodButtons.exists('.remove')).toBeTruthy()
   })
 
   it('Change button changes mode from view to edit', () => {
     const wrapper = mount(<Period {...initialMockProps} mode='view' />)
-    let periodButtons = wrapper.find('.a-buc-c-sedp4000-period.view .existingPeriodButtons').hostNodes()
+    const periodButtons = wrapper.find('.a-buc-c-sedp4000-period.view .existingPeriodButtons').hostNodes()
     periodButtons.find('.change').hostNodes().simulate('click')
     wrapper.update()
     expect(initialMockProps.setPeriod).toHaveBeenCalledWith(initialMockProps.period)
@@ -79,7 +79,7 @@ describe('applications/BUC/components/SEDP4000/Period - view/confirm mode', () =
 
   it('Remove button opens a modal for deletion prompt', () => {
     const wrapper = mount(<Period {...initialMockProps} mode='view' />)
-    let periodButtons = wrapper.find('.a-buc-c-sedp4000-period.view .existingPeriodButtons').hostNodes()
+    const periodButtons = wrapper.find('.a-buc-c-sedp4000-period.view .existingPeriodButtons').hostNodes()
     periodButtons.find('.remove').hostNodes().simulate('click')
     expect(initialMockProps.actions.openModal).toHaveBeenCalled()
   })

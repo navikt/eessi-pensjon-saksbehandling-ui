@@ -115,7 +115,7 @@ class StorageModal extends Component {
       }
 
       if (lastAction === 'list' && fileList) {
-        let newStatus = _.isEmpty(fileList)
+        const newStatus = _.isEmpty(fileList)
           ? t('noFilesFound')
           : t('found') + ' ' + fileList.length + ' ' + t(fileList.length === 1 ? 'file' : 'files').toLowerCase()
 
@@ -233,8 +233,8 @@ class StorageModal extends Component {
         loadingStatus, fileList, fileToDelete, modalOpen, modalOptions } = this.props
       const { currentSelectedFile, saveTargetFileName, status } = this.state
 
-      let enableButtons = (modalOptions && modalOptions.action !== undefined)
-      let action = modalOptions ? modalOptions.action : undefined
+      const enableButtons = (modalOptions && modalOptions.action !== undefined)
+      const action = modalOptions ? modalOptions.action : undefined
 
       return <Nav.Modal className='c-storageModal'
         ariaHideApp={false}
@@ -254,9 +254,9 @@ class StorageModal extends Component {
                 <p className='typo-normal'>{t('ui:loading')}</p>
               </div>
               : (fileList && !_.isEmpty(fileList) ? fileList.map((file, index) => {
-                let selected = currentSelectedFile && currentSelectedFile === file
-                let loading = loadingStorageFile && selected
-                let toDelete = fileToDelete === file
+                const selected = currentSelectedFile && currentSelectedFile === file
+                const loading = loadingStorageFile && selected
+                const toDelete = fileToDelete === file
 
                 return <div key={index} className={classNames('fileRow', { selected: selected })}>
                   { selected

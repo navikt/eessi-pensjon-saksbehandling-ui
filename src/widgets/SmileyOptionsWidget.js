@@ -8,13 +8,13 @@ const SmileyOptionsWidget = (props) => {
   const [mood, setMood] = useState(widget.options.mood)
 
   const chooseMood = (e) => {
-    let newWidget = _.cloneDeep(widget)
+    const newWidget = _.cloneDeep(widget)
     newWidget.options.mood = e.target.value
     setMood(e.target.value)
     onWidgetUpdate(newWidget, layout)
   }
 
-  let widgetTemplate = _.find(availableWidgets, { type: 'smiley' })
+  const widgetTemplate = _.find(availableWidgets, { type: 'smiley' })
   return <div className='p-3'>
     <Nav.Select label={'mood'} value={mood || ''}
       onChange={chooseMood}>

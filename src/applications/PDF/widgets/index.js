@@ -35,7 +35,7 @@ const mapDispatchToProps = (dispatch) => {
 
 export const PDFWidgetIndex = (props) => {
   const { t, recipe, files } = props
-  const [ step, setStep ] = useState('select')
+  const [step, setStep] = useState('select')
 
   return <div className='a-pdf-widget'>
     <StepIndicator t={t} step={step} setStep={setStep} recipe={recipe} files={files} />

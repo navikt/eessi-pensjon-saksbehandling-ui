@@ -13,7 +13,7 @@ describe('applications/BUC/components/Step1/Step1', () => {
     setFiles: jest.fn()
   }
 
-  let changedInitialState = _.cloneDeep(initialState)
+  const changedInitialState = _.cloneDeep(initialState)
 
   // set up initial state
   changedInitialState.joark.list = []
@@ -51,9 +51,9 @@ describe('applications/BUC/components/Step1/Step1', () => {
   })
 
   it('Calls setFiles when selecting a file', () => {
-   wrapper.find('#c-tablesorter__checkbox-blue_pdf-ARKIV').hostNodes().simulate('change',  { target: { checked: true } })
-   let expectedFile = changedInitialState.joark.list[0]
-   expectedFile.variant = 'ARKIV'
-   expect(initialMockProps.setFiles).toHaveBeenCalledWith({ joark: [expectedFile]})
+    wrapper.find('#c-tablesorter__checkbox-blue_pdf-ARKIV').hostNodes().simulate('change', { target: { checked: true } })
+    const expectedFile = changedInitialState.joark.list[0]
+    expectedFile.variant = 'ARKIV'
+    expect(initialMockProps.setFiles).toHaveBeenCalledWith({ joark: [expectedFile] })
   })
 })

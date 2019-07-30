@@ -3,9 +3,9 @@ import CountryOption from './CountryOption'
 import CountryData from '../CountryData/CountryData'
 
 describe('CountryOption Rendering', () => {
-  let countryData = CountryData.getData('nb')
-  let countrySelectProps = { selectProps: { type: 'country' } }
-  let currencySelectProps = { selectProps: { type: 'currency' } }
+  const countryData = CountryData.getData('nb')
+  const countrySelectProps = { selectProps: { type: 'country' } }
+  const currencySelectProps = { selectProps: { type: 'currency' } }
   let wrapper
 
   beforeEach(() => {
@@ -28,7 +28,7 @@ describe('CountryOption Rendering', () => {
   })
 
   it('Has proper HTML structure', () => {
-    for (let data of countryData) {
+    for (const data of countryData) {
       wrapper.setProps({ label: data.label, selectProps: countrySelectProps, data: data })
       expect(wrapper.find('span').text()).toEqual(data.label)
 

@@ -85,7 +85,7 @@ class DnDSpecial extends Component {
     render () {
       const { t, separator, watermark } = this.props
 
-      let separatorEnabled = !!separator.separatorText
+      const separatorEnabled = !!separator.separatorText
 
       return <div className='c-pdf-dndSpecial position-relative'
         onMouseEnter={this.onHandleMouseEnter.bind(this)}
@@ -109,8 +109,8 @@ class DnDSpecial extends Component {
                       {...provided.dragHandleProps}>
                       <PDFSpecialPage separator={separator} deleteLink={false}
                         className={classNames({
-                          'enabled': separatorEnabled,
-                          'disabled': !separatorEnabled,
+                          enabled: separatorEnabled,
+                          disabled: !separatorEnabled,
                           'c-pdf-dndSpecial-draggable-active': snapshot.isDragging
                         })} />
                     </div>

@@ -37,7 +37,7 @@ const CountrySelect = (props) => {
 
   return <div
     id={id}
-    className={classNames('c-countrySelect', className, { 'skjemaelement__feilmelding': error })}>
+    className={classNames('c-countrySelect', className, { skjemaelement__feilmelding: error })}>
     <Select
       placeholder={placeholder}
       value={defValue || null}

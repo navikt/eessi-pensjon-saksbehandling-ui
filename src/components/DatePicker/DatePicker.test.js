@@ -3,12 +3,12 @@ import DatePicker from './DatePicker'
 
 describe('DatePicker', () => {
   it('renders without crashing', () => {
-    let wrapper = shallow(<DatePicker onChange={function () { }} />)
+    const wrapper = shallow(<DatePicker onChange={function () { }} />)
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Correctly validates day', () => {
-    let wrapper = shallow(<DatePicker onChange={function () { }} />)
+    const wrapper = shallow(<DatePicker onChange={function () { }} />)
     expect(wrapper.instance().checkValidity({ day: 'DD' }).day).toBeTruthy()
     expect(wrapper.instance().checkValidity({ day: '-1' }).day).toBeTruthy()
     expect(wrapper.instance().checkValidity({ day: '0' }).day).toBeTruthy()
@@ -23,7 +23,7 @@ describe('DatePicker', () => {
   })
 
   it('Correctly validates month', () => {
-    let wrapper = shallow(<DatePicker onChange={function () {}} />)
+    const wrapper = shallow(<DatePicker onChange={function () {}} />)
     expect(wrapper.instance().checkValidity({ month: 'MM' }).month).toBeTruthy()
     expect(wrapper.instance().checkValidity({ month: '-1' }).month).toBeTruthy()
     expect(wrapper.instance().checkValidity({ month: '0' }).month).toBeTruthy()
@@ -35,7 +35,7 @@ describe('DatePicker', () => {
   })
 
   it('Correctly validates year', () => {
-    let wrapper = shallow(<DatePicker onChange={function () {}} />)
+    const wrapper = shallow(<DatePicker onChange={function () {}} />)
     expect(wrapper.instance().checkValidity({ year: 'YYYY' }).year).toBeTruthy()
     expect(wrapper.instance().checkValidity({ year: '0' }).year).toEqual(undefined)
     expect(wrapper.instance().checkValidity({ year: 0 }).year).toEqual(undefined)
@@ -46,7 +46,7 @@ describe('DatePicker', () => {
   })
 
   it('Renders errors correctly', () => {
-    let wrapper = shallow(<DatePicker onChange={function () {}} />)
+    const wrapper = shallow(<DatePicker onChange={function () {}} />)
 
     expect(wrapper.exists({ label: 'dag', feil: { feilmelding: '' } })).toBeFalsy()
     expect(wrapper.exists({ label: 'måned', feil: { feilmelding: '' } })).toBeFalsy()
@@ -63,7 +63,7 @@ describe('DatePicker', () => {
   })
 
   it('Sets state correctly', () => {
-    let wrapper = shallow(<DatePicker onChange={function () {}} values={{ day: '1', month: '1', year: '1970' }} />)
+    const wrapper = shallow(<DatePicker onChange={function () {}} values={{ day: '1', month: '1', year: '1970' }} />)
     wrapper.instance().dateChange('day', { target: { value: 'NaN' } })
     expect(wrapper.state().errors.day).toBeTruthy()
     expect(wrapper.state().errors.month).toEqual(undefined)
@@ -79,7 +79,7 @@ describe('DatePicker', () => {
   })
 
   it('Returns correct value', (done) => {
-    let wrapper = shallow(<DatePicker onChange={onChange} values={{ day: '1', month: '1', year: '1970' }} />)
+    const wrapper = shallow(<DatePicker onChange={onChange} values={{ day: '1', month: '1', year: '1970' }} />)
 
     function onChange (value) {
       expect(value).toEqual(objectToTestAgainst)

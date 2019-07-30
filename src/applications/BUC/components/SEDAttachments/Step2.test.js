@@ -28,14 +28,14 @@ describe('applications/BUC/components/Step1/Step1', () => {
 
   it('Presses next button', () => {
     expect(wrapper.exists('#a-buc-c-sedattachmnents__next-button-id')).toBeTruthy()
-    let button = wrapper.find('#a-buc-c-sedattachmnents__next-button-id').hostNodes()
+    const button = wrapper.find('#a-buc-c-sedattachmnents__next-button-id').hostNodes()
     button.simulate('click')
     expect(initialMockProps.setStep).toHaveBeenCalledWith('generate')
   })
 
   it('Presses back button', () => {
     expect(wrapper.exists('#a-buc-c-sedattachmnents__back-button-id')).toBeTruthy()
-    let button = wrapper.find('#a-buc-c-sedattachmnents__back-button-id').hostNodes()
+    const button = wrapper.find('#a-buc-c-sedattachmnents__back-button-id').hostNodes()
     button.simulate('click')
     expect(initialMockProps.setStep).toHaveBeenCalledWith('select')
   })

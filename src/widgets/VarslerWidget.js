@@ -7,8 +7,8 @@ import VarslerPanel from '../applications/PInfo/VarslerPanel'
 import VarslerTable from '../applications/PInfo/VarslerTable'
 
 const VarslerWidget = (props) => {
-  const [ mounted, setMounted ] = useState(false)
-  const [ tab, setTab ] = useState('invite')
+  const [mounted, setMounted] = useState(false)
+  const [tab, setTab] = useState('invite')
   const { t, onResize } = props
 
   useEffect(() => {

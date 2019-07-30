@@ -19,9 +19,9 @@ export const mapStateToProps = (state) => {
 }
 
 export const SEDP4000 = (props) => {
-  const [ period, setPeriod ] = useState({})
-  const [ maxPeriods ] = useState(8)
-  const [ isReady, setIsReady ] = useState(false)
+  const [period, setPeriod] = useState({})
+  const [maxPeriods] = useState(8)
+  const [isReady, setIsReady] = useState(false)
 
   const { actions, aktoerId, loadingP4000info, loadingP4000list, locale } = props
   const { p4000info, p4000list, setShowButtons, showButtons, t } = props
@@ -98,7 +98,7 @@ export const SEDP4000 = (props) => {
     </React.Fragment> : null}
     {!_.isEmpty(p4000info.stayAbroad) && mode === 'new' ? <React.Fragment>
       <Undertittel className='mt-5 mb-2'>{t('buc:p4000-previousPeriods')}</Undertittel>
-      {p4000info? p4000info.stayAbroad.sort((a, b) => {
+      {p4000info ? p4000info.stayAbroad.sort((a, b) => {
         return a.startDate - b.startDate
       }).map((period, index) => {
         return <Period t={t}

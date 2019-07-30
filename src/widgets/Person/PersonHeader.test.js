@@ -11,13 +11,13 @@ describe('widgets/Person/PersonHeader', () => {
   }
 
   it('Renders', () => {
-    let wrapper = mount(<PersonHeader {...initialMockProps} />)
+    const wrapper = mount(<PersonHeader {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Has proper HML structure', () => {
-    let wrapper = mount(<PersonHeader {...initialMockProps} />)
+    const wrapper = mount(<PersonHeader {...initialMockProps} />)
     expect(wrapper.exists('.w-personheader')).toBeTruthy()
     expect(wrapper.exists('.w-personheader__content')).toBeTruthy()
     expect(wrapper.find('.w-personheader__content img').props().kind).toEqual('nav-woman-icon')

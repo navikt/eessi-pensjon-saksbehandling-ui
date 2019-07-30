@@ -24,7 +24,7 @@ const WidgetContainer = (props) => {
     if (!mounted) {
       if (document.getElementById('widget-' + layout.i)) {
         const newSizes = getSizes()
-        let oldSizes = _.cloneDeep(sizes)
+        const oldSizes = _.cloneDeep(sizes)
         if (_.isEmpty(oldSizes[currentBreakpoint]) || (
           ((oldSizes[currentBreakpoint].height !== newSizes.height) ||
           (oldSizes[currentBreakpoint].width !== newSizes.width)))) {
@@ -52,7 +52,7 @@ const WidgetContainer = (props) => {
   const onResize = (width, height) => {
     if (!height || !width) { return }
     if (onWidgetResize) {
-      let newLayout = _.cloneDeep(layout)
+      const newLayout = _.cloneDeep(layout)
       // these 10 are padding/margin added to each h
       let newH = Math.ceil((height + 10) / (rowHeight + 10))
 

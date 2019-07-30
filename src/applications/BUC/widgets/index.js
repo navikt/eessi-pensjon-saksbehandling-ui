@@ -48,7 +48,7 @@ const mapDispatchToProps = (dispatch) => {
 
 export const BUCWidgetIndex = (props) => {
   const { actions, aktoerId, bucs, buc, loading, mode, rinaUrl, sakId, t, waitForMount = true } = props
-  const [ mounted, setMounted ] = useState(!waitForMount)
+  const [mounted, setMounted] = useState(!waitForMount)
 
   useEffect(() => {
     if (!mounted && !rinaUrl) {

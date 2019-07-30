@@ -34,8 +34,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const PInfo = (props) => {
   const { aktoerId, history, sakId, sakType, t } = props
-  const [ noParams, setNoParams ] = useState(false)
-  const [ mounted, setMounted ] = useState(false)
+  const [noParams, setNoParams] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     if (!mounted) {

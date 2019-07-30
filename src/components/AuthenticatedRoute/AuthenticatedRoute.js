@@ -27,25 +27,27 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const paramAliases = {
-  'rinaid': 'rinaId',
-  'saksNr': 'sakId',
-  'saksId': 'sakId',
-  'fnr': 'aktoerId'
+  rinaid: 'rinaId',
+  saksNr: 'sakId',
+  saksId: 'sakId',
+  fnr: 'aktoerId'
 }
 
 export const AuthenticatedRoute = (props) => {
   const { actions, allowed, location, loggedIn, t, userRole } = props
-  const [ _params, _setParams ] = useState({})
-  const [ mounted, setMounted ] = useState(false)
-  const [ requestingUserInfo, setRequestingUserInfo ] = useState(false)
-  const [ requestingLogin, setRequestingLogin ] = useState(false)
+  const [_params, _setParams] = useState({})
+  const [mounted, setMounted] = useState(false)
+  const [requestingUserInfo, setRequestingUserInfo] = useState(false)
+  const [requestingLogin, setRequestingLogin] = useState(false)
 
   useEffect(() => {
     const parseSearchParams = () => {
-      let params = new URLSearchParams(location.search)
-      let newParams = {}
+      const params = new URLSearchParams(location.search)
+      const newParams = {}
       params.forEach((value, key) => {
-        const _key = paramAliases.hasOwnProperty(key) ? paramAliases[key] : key
+        const _key = Object.prototype.hasOwnProperty.call(paramAliases, key)
+          ? paramAliases[key]
+          : key
         const _value = value || undefined
         if (_value !== _params[_key]) {
           actions.setStatusParam(_key, _value)

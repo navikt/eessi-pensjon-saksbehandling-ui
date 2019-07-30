@@ -16,18 +16,18 @@ describe('components/File/MiniatureOther', () => {
   }
 
   it('Renders', () => {
-    let wrapper = mount(<MiniatureOther {...initialMockProps} />)
+    const wrapper = mount(<MiniatureOther {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Renders the extension', () => {
-    let wrapper = mount(<MiniatureOther {...initialMockProps} />)
+    const wrapper = mount(<MiniatureOther {...initialMockProps} />)
     expect(wrapper.find('.extension').text()).toEqual('oolong')
   })
 
   it('Renders download and delete links on mouseEnter', () => {
-    let wrapper = mount(<MiniatureOther {...initialMockProps} />)
+    const wrapper = mount(<MiniatureOther {...initialMockProps} />)
     expect(wrapper.exists('.deleteLink')).toBeFalsy()
     expect(wrapper.exists('.downloadLink')).toBeFalsy()
 
@@ -41,14 +41,14 @@ describe('components/File/MiniatureOther', () => {
   })
 
   it('Delete link calls onDeleteDocument on click', () => {
-    let wrapper = mount(<MiniatureOther {...initialMockProps} isHovering />)
+    const wrapper = mount(<MiniatureOther {...initialMockProps} isHovering />)
     wrapper.find('.deleteLink Icons').simulate('click')
     expect(initialMockProps.onDeleteDocument).toHaveBeenCalled()
   })
 
   it('Generates correct downloadlink', () => {
-    let wrapper = mount(<MiniatureOther {...initialMockProps} isHovering />)
-    let downloadLinkProps = wrapper.find('.downloadLink > a').props()
+    const wrapper = mount(<MiniatureOther {...initialMockProps} isHovering />)
+    const downloadLinkProps = wrapper.find('.downloadLink > a').props()
     expect(downloadLinkProps.href).toEqual(
       'data:application/octet-stream;base64,' + encodeURIComponent(mockFile.content.base64)
     )
@@ -56,7 +56,7 @@ describe('components/File/MiniatureOther', () => {
   })
 
   it('Handles onClick in content', () => {
-    let wrapper = mount(<MiniatureOther {...initialMockProps} />)
+    const wrapper = mount(<MiniatureOther {...initialMockProps} />)
     wrapper.find('.c-file-miniatureOther .content').simulate('click')
     expect(initialMockProps.onClick).toHaveBeenCalled()
   })

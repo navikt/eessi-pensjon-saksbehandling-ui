@@ -21,8 +21,8 @@ import './Period.css'
 
 const Period = (props) => {
   const { actions, first, last, locale, mode, period, periods, setPeriod, setPeriods, t } = props
-  const [ localErrors, setLocalErrors ] = useState({})
-  const [ displayError, setDisplayError ] = useState(false)
+  const [localErrors, setLocalErrors] = useState({})
+  const [displayError, setDisplayError] = useState(false)
 
   const setType = (e) => eventSetProperty('type', periodValidation.periodType, e)
   const setStartDate = (e) => dateSetProperty('startDate', periodValidation.periodStartDateOnChange, e)
@@ -64,11 +64,11 @@ const Period = (props) => {
 
   const dateBlur = (key, validateFunction) => {
     const date = period[key]
-    let _localErrors = _.cloneDeep(localErrors)
+    const _localErrors = _.cloneDeep(localErrors)
 
-    let error = validateFunction ? validateFunction(date) : undefined
+    const error = validateFunction ? validateFunction(date) : undefined
 
-    if (!error && _localErrors.hasOwnProperty(key)) {
+    if (!error && Object.prototype.hasOwnProperty.call(_localErrors, key)) {
       delete _localErrors[key]
     }
     if (error) {
@@ -79,8 +79,8 @@ const Period = (props) => {
 
   const dateSetProperty = (key, validateFunction, date) => {
     const { startDate, endDate } = period
-    let _localErrors = _.cloneDeep(localErrors)
-    let error = validateFunction ? validateFunction(date) : undefined
+    const _localErrors = _.cloneDeep(localErrors)
+    const error = validateFunction ? validateFunction(date) : undefined
     let timeSpanError
 
     if (key === 'startDate' && endDate) {
@@ -90,10 +90,10 @@ const Period = (props) => {
       timeSpanError = periodValidation.periodTimeSpan(startDate, date)
     }
 
-    if (!error && _localErrors.hasOwnProperty(key)) {
+    if (!error && Object.prototype.hasOwnProperty.call(_localErrors, key)) {
       delete _localErrors[key]
     }
-    if (!timeSpanError && _localErrors.hasOwnProperty('timeSpan')) {
+    if (!timeSpanError && Object.prototype.hasOwnProperty.call(_localErrors, 'timeSpan')) {
       delete _localErrors.timeSpan
     }
 
@@ -112,9 +112,9 @@ const Period = (props) => {
   }
 
   const valueSetProperty = (key, validateFunction, value) => {
-    let _localErrors = _.cloneDeep(localErrors)
-    let error = validateFunction ? validateFunction(value) : undefined
-    if (!error && _localErrors.hasOwnProperty(key)) {
+    const _localErrors = _.cloneDeep(localErrors)
+    const error = validateFunction ? validateFunction(value) : undefined
+    if (!error && Object.prototype.hasOwnProperty.call(_localErrors, key)) {
       delete _localErrors[key]
     }
     if (error) {
@@ -133,13 +133,13 @@ const Period = (props) => {
   }
 
   const saveNewPeriod = () => {
-    let errors = validatePeriod()
+    const errors = validatePeriod()
     setLocalErrors(errors)
     setDisplayError(true)
 
     if (hasNoErrors(errors)) {
-      let newPeriods = _.clone(periods)
-      let newPeriod = _.clone(period)
+      const newPeriods = _.clone(periods)
+      const newPeriod = _.clone(period)
 
       // remove properties that do not belong to this type
       if (newPeriod.type !== 'work') {
@@ -167,15 +167,15 @@ const Period = (props) => {
   }
 
   const saveEditPeriod = () => {
-    let errors = validatePeriod()
+    const errors = validatePeriod()
     setLocalErrors(errors)
     setDisplayError(true)
 
     if (hasNoErrors(errors)) {
-      let newPeriods = _.clone(periods)
-      let newPeriod = _.clone(period)
+      const newPeriods = _.clone(periods)
+      const newPeriod = _.clone(period)
       newPeriod.id = new Date().getTime()
-      let index = _.findIndex(periods, { id: period.id })
+      const index = _.findIndex(periods, { id: period.id })
       if (index >= 0) {
         newPeriods.splice(index, 1)
         newPeriods.push(newPeriod)
@@ -225,9 +225,9 @@ const Period = (props) => {
   }
 
   const doRemovePeriod = (period) => {
-    let index = _.findIndex(periods, { id: period.id })
+    const index = _.findIndex(periods, { id: period.id })
     if (index >= 0) {
-      let newPeriods = _.clone(periods)
+      const newPeriods = _.clone(periods)
       newPeriods.splice(index, 1)
       setPeriods(newPeriods)
     }

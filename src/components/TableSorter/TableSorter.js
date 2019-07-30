@@ -7,15 +7,15 @@ import './TableSorter.css'
 
 const TableSorter = (props) => {
   const { t, sort, columns, items, onItemClicked, loadingJoarkFile, loadingJoarkPreviewFile, onSelectedItemChange } = props
-  const [ _sort, setSort ] = useState(sort || { column: '', order: '' })
-  const [ _columns, setColumns ] = useState(columns)
-  const [ seeFilters, setSeeFilters ] = useState(false)
+  const [_sort, setSort] = useState(sort || { column: '', order: '' })
+  const [_columns, setColumns] = useState(columns)
+  const [seeFilters, setSeeFilters] = useState(false)
 
   const columnNames = Object.keys(_columns)
   const sortOrder = {
     '': 'asc',
-    'asc': 'desc',
-    'desc': ''
+    asc: 'desc',
+    desc: ''
   }
 
   const sortColumn = (column) => {
@@ -52,7 +52,7 @@ const TableSorter = (props) => {
     }
 
     return sortedItems.map((item, index) => {
-      let background = index % 2 === 0 ? 'white' : 'whitesmoke'
+      const background = index % 2 === 0 ? 'white' : 'whitesmoke'
 
       return <tr
         key={index}
@@ -87,9 +87,9 @@ const TableSorter = (props) => {
                       checked={variant.selected} />
                     <a href='#item'
                       onClick={(e) => {
-                      e.preventDefault()
-                      onItemClicked(item, variant.label)
-                    }}>
+                        e.preventDefault()
+                        onItemClicked(item, variant.label)
+                      }}>
                       <Normaltekst>{variant.label}</Normaltekst>
                     </a>
                   </div>
@@ -123,7 +123,7 @@ const TableSorter = (props) => {
   }
 
   const handleFilterTextChange = (column, newValue) => {
-    let newColumns = _.cloneDeep(_columns)
+    const newColumns = _.cloneDeep(_columns)
     newColumns[column].filterText = newValue
     setColumns(newColumns)
   }

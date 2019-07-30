@@ -9,8 +9,8 @@ const steps = ['select', 'edit', 'generate']
 
 const StepIndicator = (props) => {
   const { t, files, recipe, step, setStep } = props
-  const [ message, setMessage ] = useState(undefined)
-  const [ stepIndicator, setStepIndicator ] = useState(steps.indexOf(step))
+  const [message, setMessage] = useState(undefined)
+  const [stepIndicator, setStepIndicator] = useState(steps.indexOf(step))
 
   const hasOnlyEmptyArrays = (obj) => {
     var emptyArrayMembers = _.filter(obj, (it) => {

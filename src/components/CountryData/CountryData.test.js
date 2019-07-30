@@ -11,7 +11,7 @@ describe('components/CountryData', () => {
   })
 
   it('findByValue', () => {
-    let data = CountryData.findByValue('nb', 'NO')
+    const data = CountryData.findByValue('nb', 'NO')
     expect(data).toMatchObject({
       currency: 'NOK',
       currencyLabel: 'Norsk Krone',
@@ -22,7 +22,7 @@ describe('components/CountryData', () => {
   })
 
   it('findByValue3', () => {
-    let data = CountryData.findByValue3('nb', 'NOR')
+    const data = CountryData.findByValue3('nb', 'NOR')
     expect(data).toMatchObject({
       currency: 'NOK',
       currencyLabel: 'Norsk Krone',
@@ -33,7 +33,7 @@ describe('components/CountryData', () => {
   })
 
   it('filterByValueOnArray', () => {
-    let data = CountryData.filterByValueOnArray('nb', ['NO', 'SE', 'FI', 'DK'])
+    const data = CountryData.filterByValueOnArray('nb', ['NO', 'SE', 'FI', 'DK'])
     expect(data).toMatchObject([{
       currency: 'NOK',
       currencyLabel: 'Norsk Krone',

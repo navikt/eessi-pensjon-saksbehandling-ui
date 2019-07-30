@@ -2,7 +2,7 @@ import React from 'react'
 import BUCCrumbs from './BUCCrumbs'
 
 describe('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {
-  let initialMockProps = {
+  const initialMockProps = {
     t: jest.fn((translationString) => { return translationString }),
     actions: {
       resetSed: jest.fn(),
@@ -53,9 +53,8 @@ describe('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {
     expect(initialMockProps.actions.setMode).toBeCalledWith('bucedit')
   })
 
-
   it('Goes to SEDNew when in SED new mode', () => {
-    const wrapper = mount(<BUCCrumbs {...initialMockProps} mode='sednew' buc={{ type: 'mockBuc' }}/>)
+    const wrapper = mount(<BUCCrumbs {...initialMockProps} mode='sednew' buc={{ type: 'mockBuc' }} />)
     wrapper.find('a[title="buc:buc-newsed"]').simulate('click')
     expect(initialMockProps.actions.setMode).toBeCalledWith('sednew')
   })

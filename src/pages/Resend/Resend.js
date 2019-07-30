@@ -6,7 +6,7 @@ import fetch from 'cross-fetch'
 import 'cross-fetch/polyfill'
 
 const CSRF_PROTECTION = cookies.get('NAV_CSRF_PROTECTION')
-  ? { 'NAV_CSRF_PROTECTION': cookies.get('NAV_CSRF_PROTECTION') }
+  ? { NAV_CSRF_PROTECTION: cookies.get('NAV_CSRF_PROTECTION') }
   : {}
 
 export default class Resend extends React.Component {
@@ -16,8 +16,8 @@ export default class Resend extends React.Component {
 
   submitHandler = async (e) => {
     e.preventDefault()
-    let fileName = document.getElementById('resend-fileName').value
-    let response = await fetch(urls.API_SUBMISSION_RESUBMIT_URL, {
+    const fileName = document.getElementById('resend-fileName').value
+    const response = await fetch(urls.API_SUBMISSION_RESUBMIT_URL, {
       method: 'POST',
       crossOrigin: true,
       json: true,
@@ -47,10 +47,10 @@ export default class Resend extends React.Component {
             </div>
           </div>
           {this.state.requestStack.map(request => {
-            let result = request.response.ok ? 'OK' : 'FEILET'
-            let message = request.response.statusText
-            let status = request.response.status
-            let fileName = request.fileName
+            const result = request.response.ok ? 'OK' : 'FEILET'
+            const message = request.response.statusText
+            const status = request.response.status
+            const fileName = request.fileName
             return (
               <div className='row'>
                 <span>{result}:{message}:{status}:{fileName}</span>

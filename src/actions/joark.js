@@ -40,7 +40,7 @@ export const previewJoarkFile = (item, variant) => {
 }
 
 export const getJoarkFile = (item, variant) => {
-  let expectedPayload = urls.HOST === 'localhost' && !IS_TEST ? getMockedPayload(item.journalpostId) : undefined
+  const expectedPayload = urls.HOST === 'localhost' && !IS_TEST ? getMockedPayload(item.journalpostId) : undefined
   return api.funcCall({
     url: sprintf(urls.API_JOARK_GET_URL, {
       dokumentInfoId: item.dokumentInfoId,
@@ -61,7 +61,7 @@ export const getJoarkFile = (item, variant) => {
 }
 
 export const getMockedPayload = (journalpostId) => {
-  let item = _.find(sampleJoark.mockdata.data.dokumentoversiktBruker.journalposter, { journalpostId: journalpostId })
+  const item = _.find(sampleJoark.mockdata.data.dokumentoversiktBruker.journalposter, { journalpostId: journalpostId })
   return {
     fileName: item.tittel,
     contentType: 'application/pdf',
