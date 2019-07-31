@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import cookies from 'browser-cookies'
 import classNames from 'classnames'
@@ -18,6 +18,27 @@ const BucWebSocket = (props) => {
   const [mounted, setMounted] = useState(false)
   const [status, setStatus] = useState(DISCONNECTED)
   let webSocketRef = null
+
+const CSRF_PROTECTION = cookies.get('NAV_CSRF_PROTECTION')
+
+  // We ave to add NAV_CSRF_PROTECTION headers for websocket's xhr calls,
+  // as they are the simple http transport that is not blocked
+  useEffect(() => {
+    if (!mounted) {
+      let o = XMLHttpRequest.prototype.open
+      let headersAdded = false
+      XMLHttpRequest.prototype.open = function() {
+        let res = o.apply(this, arguments)
+        if (!headersAdded && CSRF_PROTECTION) {
+          this.setRequestHeader('NAV_CSRF_PROTECTION', CSRF_PROTECTION)
+          console.log('Applying NAV_CSRF_PROTECTION header to xhr')
+          headersAdded = true
+        }
+        return res
+      }
+      setMounted(true)
+    }
+  }, [mounted])
 
   const onMessageReceived = (data, topic) => {
     if (topic === '/topic/10') {

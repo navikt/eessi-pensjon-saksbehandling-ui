@@ -121,7 +121,7 @@ export const SEDP4000 = (props) => {
         mode={mode}
         showButtons={showButtons}
         period={period}
-        periods={p4000info.stayAbroad}
+        periods={p4000info ? p4000info.stayAbroad : []}
         locale={locale}
         setPeriod={setPeriod}
         setPeriods={setPeriods}
