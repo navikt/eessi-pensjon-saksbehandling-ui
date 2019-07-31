@@ -4,6 +4,7 @@ import _ from 'lodash'
 import MiniatureOther from './MiniatureOther'
 import MiniaturePDF from './MiniaturePDF'
 import MiniatureImage from './MiniatureImage'
+import './File.css'
 
 const units = ['bytes', 'KB', 'MB', 'GB']
 

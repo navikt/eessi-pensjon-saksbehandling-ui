@@ -242,13 +242,13 @@ class FileUpload extends Component {
           {...tabIndex}>
           {({ getRootProps, getInputProps, isDragActive }) => <div
             {...getRootProps()}
-            className={classNames('droppable-zone', { 'droppable-zone-active ': isDragActive })}>
+            className={classNames('c-fileUpload-zone', { 'c-fileUpload-zone-active ': isDragActive })}>
             <input {...getInputProps()} />
-            <div className='dropzone-placeholder'>
-              <div className='dropzone-placeholder-message'>{t('ui:dropFilesHere', { maxFiles: maxFiles })}</div>
-              <div className={classNames('dropzone-placeholder-status', 'dropzone-placeholder-status-' + status.type)}>{status.message}</div>
+            <div className='c-fileUpload-placeholder'>
+              <div className='c-fileUpload-placeholder-message'>{t('ui:dropFilesHere', { maxFiles: maxFiles })}</div>
+              <div className={classNames('c-fileUpload-placeholder-status', 'c-fileUpload-placeholder-status-' + status.type)}>{status.message}</div>
             </div>
-            <div className='dropzone-files scrollable'>
+            <div className='c-fileUpload-files scrollable'>
               { files ? files.map((file, i) => {
                 return <File className='mr-2' key={i} file={file} t={t}
                   currentPage={currentPages[i]}
