@@ -10,6 +10,7 @@ import SEDNew from 'applications/BUC/widgets/SEDNew/SEDNew'
 import BUCEdit from 'applications/BUC/widgets/BUCEdit/BUCEdit'
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import WebSocket from 'applications/BUC/websocket/WebSocket'
+import { Knapp } from 'components/Nav'
 import { WEBSOCKET_URL } from 'constants/urls'
 import { getDisplayName } from 'utils/displayName'
 
@@ -49,6 +50,7 @@ const mapDispatchToProps = (dispatch) => {
 export const BUCWidgetIndex = (props) => {
   const { actions, aktoerId, bucs, buc, loading, mode, rinaUrl, sakId, t, waitForMount = true } = props
   const [mounted, setMounted] = useState(!waitForMount)
+  const [enableWebsocket, setEnableWebsocket] = useState(false)
 
   useEffect(() => {
     if (!mounted && !rinaUrl) {
@@ -80,7 +82,13 @@ export const BUCWidgetIndex = (props) => {
         buc={buc}
         mode={mode}
       />
-      <WebSocket onSedUpdate={onSedUpdate} url={WEBSOCKET_URL} />
+      {enableWebsocket ?
+        <WebSocket onSedUpdate={onSedUpdate} url={WEBSOCKET_URL} /> :
+        <Knapp mini
+          id='a-buc__enable-websocket-button-id'
+          className='a-buc__enable-websocket'
+          style={{ pading: '0px' }}
+          onClick={() => setEnableWebsocket(true)}>Websocket</Knapp> }
     </div>
     {mode === 'buclist' ? <BUCList {...props} /> : null}
     {mode === 'bucedit' ? <BUCEdit {...props} /> : null}
