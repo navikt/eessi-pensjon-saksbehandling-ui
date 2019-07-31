@@ -47,6 +47,7 @@ const BucWebSocket = (props) => {
     : {}
 
   const customHeaders= {
+    'X-Foo': 'bar',
    ...CSRF_PROTECTION
   }
 
@@ -70,12 +71,15 @@ const BucWebSocket = (props) => {
     <SockJsClient
       url={url}
       headers={customHeaders}
-      options={{ transports: ['xhr-streaming', 'xhr-polling'] }}
+      options={{
+        transports: ['xhr-streaming', 'xhr-polling'],
+        headers: customHeaders
+      }}
       topics={['/topic/1', '/topic/10', '/buc']}
       onConnect={onConnect}
       onDisconnect={onDisconnect}
       onMessage={onMessageReceived}
-      debug={false}
+      debug={true}
       reconnect
       ref={ws => webSocketRef = ws}
     />
