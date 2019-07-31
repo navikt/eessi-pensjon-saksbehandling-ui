@@ -63,7 +63,7 @@ const BucWebSocket = (props) => {
     <SockJsClient
       url={url}
       options={{
-        transports: ['jsonp-polling']
+   //     transports: ['xdr-streaming', 'xdr-polling']
       }}
       topics={['/topic/1', '/topic/10', '/buc']}
       onConnect={onConnect}
