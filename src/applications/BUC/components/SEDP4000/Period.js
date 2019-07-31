@@ -282,7 +282,7 @@ const Period = (props) => {
               {period.type === 'work' || period.type === 'home'
                 ? <div className='existingPeriodPlace d-flex align-items-center'>
                   <UndertekstBold className='mr-2'>{t('buc:p4000-place') + ': '}</UndertekstBold>
-                  <Normaltekst>{period.place}</Normaltekst>
+                  <Normaltekst>{period.workPlace || period.place}</Normaltekst>
                 </div> : null }
               {period.type === 'learn'
                 ? <div className='existingPeriodLearnInstitution d-flex align-items-center'>

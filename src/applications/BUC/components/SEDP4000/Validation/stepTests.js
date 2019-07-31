@@ -11,7 +11,6 @@ export function periodStep (period) {
     insuranceName: tests.periodValidation.insuranceName(period.insuranceName),
     insuranceType: tests.periodValidation.insuranceType(period.insuranceType),
     insuranceId: (period.type !== 'work') ? tests.periodValidation.insuranceId(period.insuranceId) : undefined,
-    place: tests.periodValidation.periodPlace(period.place),
     country: tests.periodValidation.periodCountry(period.country),
     timeSpan: tests.periodValidation.periodTimeSpan(period.startDate, period.endDate)
   }
@@ -21,6 +20,10 @@ export function periodStep (period) {
       errors.workActivity = tests.periodValidation.workActivity(period.workActivity)
       errors.workName = tests.periodValidation.workName(period.workName)
       errors.workPlace = tests.periodValidation.workPlace(period.workPlace)
+      break
+
+    case 'home':
+      errors.place = tests.periodValidation.periodPlace(period.place)
       break
 
     case 'child':
