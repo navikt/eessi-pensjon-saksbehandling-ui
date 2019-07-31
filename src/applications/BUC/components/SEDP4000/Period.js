@@ -282,7 +282,7 @@ const Period = (props) => {
               {period.type === 'work' || period.type === 'home'
                 ? <div className='existingPeriodPlace d-flex align-items-center'>
                   <UndertekstBold className='mr-2'>{t('buc:p4000-place') + ': '}</UndertekstBold>
-                  <Normaltekst>{period.type === 'work' ? period.workPlace : period.place}</Normaltekst>
+                  <Normaltekst>{period.place}</Normaltekst>
                 </div> : null }
               {period.type === 'learn'
                 ? <div className='existingPeriodLearnInstitution d-flex align-items-center'>
@@ -598,7 +598,7 @@ const Period = (props) => {
                 </FocusGroup>
               </div>
             </Row> : null}
-          {period.type === 'home'
+          {period.type === 'home' || period.type === 'work'
             ? <Row>
               <div className='col-sm-12'>
                 <Textarea
