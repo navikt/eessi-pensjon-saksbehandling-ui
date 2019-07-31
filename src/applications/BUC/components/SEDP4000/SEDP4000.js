@@ -115,7 +115,7 @@ export const SEDP4000 = (props) => {
       }) : null}
     </React.Fragment>
       : null}
-    { p4000info.stayAbroad.length < maxPeriods
+    { p4000info && p4000info.stayAbroad.length < maxPeriods
       ? <Period t={t}
         actions={actions}
         mode={mode}
