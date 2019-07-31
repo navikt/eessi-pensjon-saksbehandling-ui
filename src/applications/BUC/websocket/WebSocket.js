@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import cookies from 'browser-cookies'
 import classNames from 'classnames'
@@ -15,8 +15,29 @@ const UPDATING = 'UPDATING'
 const BucWebSocket = (props) => {
   const { onSedUpdate, url } = props
   const [count, setCount] = useState(0)
+  const [mounted, setMounted] = useState(false)
   const [status, setStatus] = useState(DISCONNECTED)
   let webSocketRef = null
+
+  const CSRF_PROTECTION = cookies.get('NAV_CSRF_PROTECTION')
+
+  // We ave to add NAV_CSRF_PROTECTION headers for websocket's xhr calls,
+  // as they are the simple http transport that is not blocked
+  useEffect(() => {
+    if (!mounted) {
+      let o = XMLHttpRequest.prototype.open
+      let headersAdded = false
+      XMLHttpRequest.prototype.open = function() {
+        let res = o.apply(this, arguments)
+        if (!headersAdded && CSRF_PROTECTION) {
+          this.setRequestHeader('NAV_CSRF_PROTECTION', CSRF_PROTECTION)
+          headersAdded = true
+        }
+        return res
+      }
+      setMounted(true)
+    }
+  }, [mounted])
 
   const onMessageReceived = (data, topic) => {
     if (topic === '/topic/10') {
@@ -42,15 +63,6 @@ const BucWebSocket = (props) => {
     webSocketRef.sendMessage('/buc/increment', count)
   }
 
-  const CSRF_PROTECTION = cookies.get('NAV_CSRF_PROTECTION')
-    ? { NAV_CSRF_PROTECTION: cookies.get('NAV_CSRF_PROTECTION') }
-    : {}
-
-  const customHeaders= {
-    'X-Foo': 'bar',
-   ...CSRF_PROTECTION
-  }
-
   return <div className='a-buc-websocket'>
     <div
       className={classNames('a-buc-websocket__status', { rotating: status === UPDATING })}
@@ -70,10 +82,8 @@ const BucWebSocket = (props) => {
       onClick={() => sendMessage()}>+1</Knapp>
     <SockJsClient
       url={url}
-      headers={customHeaders}
       options={{
-        transports: ['xhr-streaming', 'xhr-polling'],
-        headers: customHeaders
+        transports: ['xhr-streaming', 'xhr-polling']
       }}
       topics={['/topic/1', '/topic/10', '/buc']}
       onConnect={onConnect}

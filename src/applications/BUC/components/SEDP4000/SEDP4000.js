@@ -96,7 +96,7 @@ export const SEDP4000 = (props) => {
       <Undertekst className='mb-2'>{t('buc:p4000-description')}</Undertekst>
       <Undertekst className='mb-3'>{t('buc:p4000-info-on-help-icon')}</Undertekst>
     </React.Fragment> : null}
-    {!_.isEmpty(p4000info.stayAbroad) && mode === 'new' ? <React.Fragment>
+    {p4000info && !_.isEmpty(p4000info.stayAbroad) && mode === 'new' ? <React.Fragment>
       <Undertittel className='mt-5 mb-2'>{t('buc:p4000-previousPeriods')}</Undertittel>
       {p4000info ? p4000info.stayAbroad.sort((a, b) => {
         return a.startDate - b.startDate
