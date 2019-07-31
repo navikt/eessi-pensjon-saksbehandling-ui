@@ -18,73 +18,73 @@ const mandatoryAndPatternMatch = function (value, error, pattern, patternError) 
 }
 
 const withinLength = function (value, limit) {
-  return value && value.length > limit ? 'pinfo:validation-wowMuchText' : undefined
+  return value && value.length > limit ? 'buc:validation-wowMuchText' : undefined
 }
 
 export const stayAbroadValidation = {}
 
 const periodType = function (type) {
-  return !type ? 'pinfo:validation-noPeriodType'
+  return !type ? 'buc:validation-noPeriodType'
     : ['work', 'home', 'child', 'voluntary', 'military', 'birth', 'learn', 'daily', 'sick', 'other']
-      .indexOf(type) < 0 ? 'pinfo:validation-invalidPeriodType' : undefined
+      .indexOf(type) < 0 ? 'buc:validation-invalidPeriodType' : undefined
 }
 
 const periodStartDate = function (startDate) {
   if (!startDate || _.isEmpty(startDate)) {
-    return 'pinfo:validation-noStartDate'
+    return 'buc:validation-noStartDate'
   }
   if (!startDate.year) {
-    return 'pinfo:validation-noYear'
+    return 'buc:validation-noYear'
   }
   if (!startDate.month) {
-    return 'pinfo:validation-noMonth'
+    return 'buc:validation-noMonth'
   }
   return periodStartDateOnBlur(startDate)
 }
 
 const periodEndDate = function (endDate) {
   if (!endDate || _.isEmpty(endDate)) {
-    return 'pinfo:validation-noEndDate'
+    return 'buc:validation-noEndDate'
   }
   if (!endDate.year) {
-    return 'pinfo:validation-noYear'
+    return 'buc:validation-noYear'
   }
   if (!endDate.month) {
-    return 'pinfo:validation-noMonth'
+    return 'buc:validation-noMonth'
   }
   return periodEndDateOnBlur(endDate)
 }
 
 const childBirthDate = function (childBirthDate) {
   if (!childBirthDate || _.isEmpty(childBirthDate)) {
-    return 'pinfo:validation-noChildBirthDate'
+    return 'buc:validation-noChildBirthDate'
   }
   if (!childBirthDate.year) {
-    return 'pinfo:validation-noYear'
+    return 'buc:validation-noYear'
   }
   if (!childBirthDate.month) {
-    return 'pinfo:validation-noMonth'
+    return 'buc:validation-noMonth'
   }
   return childBirthDateOnBlur(childBirthDate)
 }
 
 const periodStartDateOnBlur = function (startDate) {
   if (startDate && startDate.year && startDate.year.length < 4) {
-    return 'pinfo:validation-inValidYear'
+    return 'buc:validation-inValidYear'
   }
   return periodStartDateOnChange(startDate)
 }
 
 const periodEndDateOnBlur = function (endDate) {
   if (endDate && endDate.year && endDate.year.length < 4) {
-    return 'pinfo:validation-inValidYear'
+    return 'buc:validation-inValidYear'
   }
   return periodEndDateOnChange(endDate)
 }
 
 const childBirthDateOnBlur = function (childBirthDate) {
   if (childBirthDate && childBirthDate.year && childBirthDate.year.length < 4) {
-    return 'pinfo:validation-inValidYear'
+    return 'buc:validation-inValidYear'
   }
   return childBirthDateOnChange(childBirthDate)
 }
@@ -101,10 +101,10 @@ const periodStartDateOnChange = function (startDate) {
   const startMoment = moment([startDate.year, monthInteger, (startDate.day || 1)])
 
   if (!startMoment.isValid()) {
-    return 'pinfo:validation-invalidStartDate'
+    return 'buc:validation-invalidStartDate'
   }
   if (startMoment.toDate().getTime() > new Date().getTime()) {
-    return 'pinfo:validation-futureDate'
+    return 'buc:validation-futureDate'
   }
   return undefined
 }
@@ -118,10 +118,10 @@ const periodEndDateOnChange = function (endDate) {
   const endMoment = moment([endDate.year, monthInteger, (endDate.day || 1)])
 
   if (!endMoment.isValid()) {
-    return 'pinfo:validation-invalidEndDate'
+    return 'buc:validation-invalidEndDate'
   }
   if (endMoment.toDate().getTime() > new Date().getTime()) {
-    return 'pinfo:validation-futureDate'
+    return 'buc:validation-futureDate'
   }
   return undefined
 }
@@ -135,10 +135,10 @@ const childBirthDateOnChange = function (childBirthDate) {
   const childBirthDateMoment = moment([childBirthDate.year, monthInteger, (childBirthDate.day || 1)])
 
   if (!childBirthDateMoment.isValid()) {
-    return 'pinfo:validation-invalidChildBirthDate'
+    return 'buc:validation-invalidChildBirthDate'
   }
   if (childBirthDateMoment.toDate().getTime() > new Date().getTime()) {
-    return 'pinfo:validation-futureDate'
+    return 'buc:validation-futureDate'
   }
   return undefined
 }
@@ -157,7 +157,7 @@ const periodTimeSpan = function (startDate, endDate) {
   if (!_startDate.isValid() || !_endDate.isValid()) { return undefined }
 
   if (_startDate.valueOf() > _endDate.valueOf()) {
-    return 'pinfo:validation-startAfterEnd'
+    return 'buc:validation-startAfterEnd'
   }
   return undefined
 }
@@ -175,15 +175,15 @@ const insuranceId = function (insuranceId) {
 }
 
 const periodCountry = function (country) {
-  return mandatory(country, 'pinfo:validation-noCountry')
+  return mandatory(country, 'buc:validation-noCountry')
 }
 
 const periodPlace = function (place) {
-  return mandatory(place, 'pinfo:validation-noPlace') || withinLength(place, 60)
+  return mandatory(place, 'buc:validation-noPlace') || withinLength(place, 60)
 }
 
 const workActivity = function (workActivity) {
-  return mandatory(workActivity, 'pinfo:validation-noWorkActivity') || withinLength(workActivity, 60)
+  return mandatory(workActivity, 'buc:validation-noWorkActivity') || withinLength(workActivity, 60)
 }
 
 const workName = function (workName) {
@@ -195,25 +195,25 @@ const workPlace = function (workPlace) {
 }
 
 const childFirstName = function (childFirstName) {
-  return mandatoryAndPatternMatch(childFirstName, 'pinfo:validation-noChildFirstName',
-    /^[^\d]+$/, 'pinfo:validation-invalidName') || withinLength(childFirstName, 60)
+  return mandatoryAndPatternMatch(childFirstName, 'buc:validation-noChildFirstName',
+    /^[^\d]+$/, 'buc:validation-invalidName') || withinLength(childFirstName, 60)
 }
 
 const childLastName = function (childLastName) {
-  return mandatoryAndPatternMatch(childLastName, 'pinfo:validation-noChildLastName',
-    /^[^\d]+$/, 'pinfo:validation-invalidName') || withinLength(childLastName, 60)
+  return mandatoryAndPatternMatch(childLastName, 'buc:validation-noChildLastName',
+    /^[^\d]+$/, 'buc:validation-invalidName') || withinLength(childLastName, 60)
 }
 
 const learnInstitution = function (learnInstitution) {
-  return mandatory(learnInstitution, 'pinfo:validation-noLearnInstitution') || withinLength(learnInstitution, 60)
+  return mandatory(learnInstitution, 'buc:validation-noLearnInstitution') || withinLength(learnInstitution, 60)
 }
 
 const payingInstitution = function (payingInstitution) {
-  return mandatory(payingInstitution, 'pinfo:validation-noPayingInstitution') || withinLength(payingInstitution, 60)
+  return mandatory(payingInstitution, 'buc:validation-noPayingInstitution') || withinLength(payingInstitution, 60)
 }
 
 const otherType = function (otherType) {
-  return mandatory(otherType, 'pinfo:validation-noOtherType') || withinLength(otherType, 60)
+  return mandatory(otherType, 'buc:validation-noOtherType') || withinLength(otherType, 60)
 }
 
 // PERIOD
