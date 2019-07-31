@@ -14,6 +14,7 @@ export const mapStateToProps = (state) => {
   return {
     attachments: state.buc.attachments,
     buc: state.buc.buc,
+    bucsInfoList: state.buc.bucsInfoList,
     countryList: state.buc.countryList,
     institutionList: state.buc.institutionList,
     loading: state.loading,
@@ -29,7 +30,8 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const SEDStart = (props) => {
-  const { actions, aktoerId, attachments, buc, countryList, institutionList, loading, p4000info, sakId, sed, sedList, t, vedtakId } = props
+  const { actions, aktoerId, attachments, buc, bucsInfoList, countryList, institutionList} = props
+  const { loading, p4000info, sakId, sed, sedList, t, vedtakId } = props
 
   const [_sed, setSed] = useState(undefined)
   const [_institutions, setInstitutions] = useState([])
@@ -97,7 +99,9 @@ const SEDStart = (props) => {
     if (sedSent && attachmentsSent) {
       actions.resetSed()
       actions.fetchBucs(aktoerId)
-      actions.fetchBucsInfo(aktoerId + '___BUC___INFO')
+      if (!_.isEmpty(bucsInfoList) && bucsInfoList.indexOf(aktoerId + '___BUC___INFO') >= 0) {
+        actions.fetchBucsInfo(aktoerId + '___BUC___INFO')
+      }
       actions.setMode('bucedit')
     }
   }, [attachmentsSent, aktoerId, actions, sedSent])
