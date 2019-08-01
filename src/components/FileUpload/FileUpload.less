@@ -53,8 +53,7 @@
     align-items: center;
   }
 
-  &-active,
-  &-zone-active {
+  &-active {
     background-color: rgba(0,128,0,0.2);
     animation: c-fileUpload-pulsate 1s ease-out;
     animation-iteration-count: infinite;
@@ -63,16 +62,6 @@
   .scrollable {
     overflow-x: auto;
     white-space: nowrap;
-  }
-
-  &-zone {
-    background: transparent;
-    position: absolute;
-    padding: 0;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
   }
 
   .fileUploadFile-exit {
