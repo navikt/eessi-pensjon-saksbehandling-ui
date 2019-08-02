@@ -20,7 +20,7 @@ const CatMidget = (props) => {
       handleWidth
       handleHeight
       onResize={onResize} />
-    <img alt='cat' src={require('../resources/images/cat.jpg')} />
+    <img alt='cat' src={require('resources/images/cat.jpg')} />
   </div>
 }
 

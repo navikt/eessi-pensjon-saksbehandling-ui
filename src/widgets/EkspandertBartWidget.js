@@ -4,32 +4,36 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
 import ReactResizeDetector from 'react-resize-detector'
 
 const EkspandertBartWidget = (props) => {
+
+  const { onUpdate, widget } = props
   const onClick = () => {
-    const newWidget = _.cloneDeep(props.widget)
+    const newWidget = _.cloneDeep(widget)
     newWidget.options.collapsed = !newWidget.options.collapsed
-    props.onUpdate(newWidget)
+    onUpdate(newWidget)
   }
 
   const _onResize = (w, h) => {
-    if (props.onResize) {
+    if (onResize) {
       // give more 50 for the panel header
-      props.onResize(w, h + 60)
+      onResize(w, h + 60)
     }
   }
 
   return <div className='c-d-EkspandertbartWidget'>
     <Ekspanderbartpanel
-      apen={!props.widget.options.collapsed}
-      tittel={props.widget.title}
+      apen={!widget.options.collapsed}
+      tittel={widget.title}
       onClick={onClick}>
       <div>
         <ReactResizeDetector
           handleWidth
           handleHeight
           onResize={_onResize} />
-        {props.widget.options.collapsed === true
+        {widget.options.collapsed === true
           ? null
-          : <div dangerouslySetInnerHTML={{ __html: props.widget.options.content }} />
+          : <div
+            className='content'
+            dangerouslySetInnerHTML={{ __html: widget.options.content }} />
         }
       </div>
     </Ekspanderbartpanel>
@@ -46,7 +50,8 @@ EkspandertBartWidget.properties = {
     sm: { minW: 1, maxW: 1, defaultW: 1, minH: 2, maxH: 999, defaultH: 3 }
   },
   options: {
-    collapsed: false
+    collapsed: false,
+    content: ''
   }
 }
 

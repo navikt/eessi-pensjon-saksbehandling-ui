@@ -208,7 +208,7 @@
       "src/reducers/*.js",
       "src/utils/*.js",
       "src/widgets/*.js",
-      "src/widgets/**/.js"
+      "src/widgets/**/*.js"
     ]
   }
 }
