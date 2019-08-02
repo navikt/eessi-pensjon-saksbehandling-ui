@@ -28,7 +28,6 @@ describe('widgets/Person/Person', () => {
   })
 
   it('UseEffect: fetches person info when mounting', () => {
-    wrapper = mount(<Person {...initialMockProps} />)
     expect(initialMockProps.actions.getPersonInfo).toHaveBeenCalled()
   })
 

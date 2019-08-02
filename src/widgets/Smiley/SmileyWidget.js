@@ -4,7 +4,7 @@ import ReactResizeDetector from 'react-resize-detector'
 
 const SmileyWidget = (props) => {
   const [mounted, setMounted] = useState(false)
-  const { widget, onResize } = props
+  const { onResize, widget } = props
 
   useEffect(() => {
     if (!mounted && onResize) {
@@ -13,7 +13,7 @@ const SmileyWidget = (props) => {
     }
   }, [mounted, onResize])
 
-  return <div className='p-3 c-d-SmileyWidget text-center'>
+  return <div className='w-SmileyWidget p-3 text-center'>
     <ReactResizeDetector
       handleWidth
       handleHeight
@@ -21,7 +21,11 @@ const SmileyWidget = (props) => {
     <h4>Today's mood</h4>
     <p style={{
       fontSize: '100px'
-    }}><span role='img' aria-label='smiley'>{widget.options.mood}</span></p>
+    }}>
+      <span className='w-SmileyWidget__smiley' role='img' aria-label='smiley'>
+        {widget.options.mood}
+      </span>
+    </p>
   </div>
 }
 
