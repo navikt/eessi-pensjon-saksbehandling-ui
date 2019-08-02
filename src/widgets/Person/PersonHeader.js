@@ -15,20 +15,20 @@ const PersonHeader = (props) => {
     }
   }
 
-  return <div className='w-personheader d-flex w-100'>
+  return <div className='w-person-header'>
     {!aktoerId
       ? <AlertStripe type='advarsel' className='w-100'>
         {t('buc:validation-noAktoerId')}
       </AlertStripe>
       : null }
     {gettingPersonInfo
-      ? <div className='w-personheader__waiting d-flex align-items-center'>
+      ? <div className='w-person-header__waiting'>
         <NavFrontendSpinner className='ml-3 mr-3' type='M' />
         <span className='pl-2'>{t('ui:loading')}</span>
       </div>
       : null}
     { !_.isEmpty(person)
-      ? <div className='w-personheader__content d-flex align-items-center'>
+      ? <div className='w-person-header__content'>
         <Icons kind={person.kjoenn.kjoenn.value === 'K' ? 'nav-woman-icon' : 'nav-man-icon'} />
         <Systemtittel className='ml-2'>
           {person.personnavn.sammensattNavn} ({age}) - {person.aktoer.ident.ident}
