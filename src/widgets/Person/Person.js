@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
-import { withTranslation } from 'react-i18next'
-
 import { connect, bindActionCreators } from 'store'
 import PersonHeader from './PersonHeader'
 import PersonBody from './PersonBody'
-import { EkspanderbartpanelBase } from 'components/Nav'
 import * as appActions from 'actions/app'
+import { EkspanderbartpanelBase } from 'components/Nav'
 import { getDisplayName } from 'utils/displayName'
 
 import './Person.css'
@@ -24,7 +22,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(appActions, dispatch) }
 }
 
-const PersonWidget = (props) => {
+export const Person = (props) => {
   const { actions, aktoerId, gettingPersonInfo, person, t } = props
   const [mounted, setMounted] = useState(false)
 
@@ -36,7 +34,7 @@ const PersonWidget = (props) => {
   }, [mounted, actions, aktoerId])
 
   return <EkspanderbartpanelBase
-    className='s-border'
+    className='w-person s-border'
     heading={
       <PersonHeader
         t={t} person={person}
@@ -47,7 +45,7 @@ const PersonWidget = (props) => {
   </EkspanderbartpanelBase>
 }
 
-PersonWidget.propTypes = {
+Person.propTypes = {
   actions: PT.object.isRequired,
   aktoerId: PT.string,
   gettingPersonInfo: PT.bool,
@@ -56,6 +54,6 @@ PersonWidget.propTypes = {
   t: PT.func.isRequired
 }
 
-const ConnectedPersonWidget = connect(mapStateToProps, mapDispatchToProps)(withTranslation()(PersonWidget))
-ConnectedPersonWidget.displayName = `Connect(${getDisplayName(withTranslation()(PersonWidget))})`
-export default ConnectedPersonWidget
+const ConnectedPerson = connect(mapStateToProps, mapDispatchToProps)(Person)
+ConnectedPerson.displayName = `Connect(${getDisplayName(Person)})`
+export default ConnectedPerson

@@ -7,7 +7,7 @@ import CatMidget from './CatMidget'
 import NoteWidget from './NoteWidget'
 import NoteOptionsWidget from './NoteOptionsWidget'
 import LinksWidget from './Links/LinksWidget'
-import PersonWidget from './PersonWidget'
+import PersonWidget from './Person/PersonWidget'
 import BUCWidget from './BUCWidget'
 
 export {
