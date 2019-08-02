@@ -4,7 +4,7 @@ import _ from 'lodash'
 import ReactResizeDetector from 'react-resize-detector'
 
 const NoteWidget = (props) => {
-  const { widget, layout, onResize, onWidgetUpdate } = props
+  const { id, layout, onResize, onWidgetUpdate, widget } = props
   const [mounted, setMounted] = useState(false)
   const [content, setContent] = useState(widget.options.content)
 
@@ -15,11 +15,11 @@ const NoteWidget = (props) => {
     }
   }, [mounted, onResize])
 
-  const id = 'widget-note-' + (layout !== undefined ? layout.i : '' + new Date().getTime())
+  const _id = id || 'widget-note-' + (layout !== undefined ? layout.i : '' + new Date().getTime())
 
   const resize = () => {
-    const width = document.getElementById(id).offsetWidth
-    const height = document.getElementById(id).offsetHeight
+    const width = document.getElementById(_id).offsetWidth
+    const height = document.getElementById(_id).offsetHeight
     onResize(width, height)
   }
 
@@ -36,13 +36,19 @@ const NoteWidget = (props) => {
     onWidgetUpdate(newWidget, layout)
   }
 
-  return <div className='p-3 c-d-NoteWidget' id={id}>
+  return <div
+    id={_id}
+    className='p-3 c-d-NoteWidget'>
     <ReactResizeDetector
       handleWidth
       handleHeight
       onResize={onResize} />
     <h4>{widget.title}</h4>
-    <div contentEditable='true' onBlur={onBlur} dangerouslySetInnerHTML={{ __html: content }} />
+    <div
+      className='c-d-NoteWidget__content'
+      contentEditable='true'
+      onBlur={onBlur}
+      dangerouslySetInnerHTML={{ __html: content }} />
   </div>
 }
 
@@ -62,6 +68,7 @@ NoteWidget.properties = {
 }
 
 NoteWidget.propTypes = {
+  id: PT.string,
   onResize: PT.func.isRequired,
   widget: PT.object.isRequired,
   layout: PT.object.isRequired,

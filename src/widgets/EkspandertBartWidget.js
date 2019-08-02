@@ -1,6 +1,6 @@
 import React from 'react'
 import _ from 'lodash'
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
+import { Ekspanderbartpanel } from 'components/Nav'
 import ReactResizeDetector from 'react-resize-detector'
 
 const EkspandertBartWidget = (props) => {

@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import * as Nav from '../components/Nav'
+import { Select } from 'components/Nav'
 
 const NoteOptionsWidget = (props) => {
-  const { widget, onWidgetUpdate, layout, availableWidgets } = props
+  const { availableWidgets, layout, onWidgetUpdate, widget } = props
   const [backgroundColor, setBackgroundColor] = useState(widget.options.backgroundColor)
 
   const chooseColor = (e) => {
@@ -16,14 +16,17 @@ const NoteOptionsWidget = (props) => {
   }
 
   const widgetTemplate = _.find(availableWidgets, { type: 'note' })
-  return <div className='p-3'>
 
-    <Nav.Select label={'color'} value={backgroundColor || ''}
+  return <div className='c-d-NoteOptionsWidget p-3'>
+    <Select
+      id='c-d-NoteOptionsWidget__color-select-id'
+      label={'color'}
+      value={backgroundColor || ''}
       onChange={chooseColor}>
       {widgetTemplate.options.availableColors.map(color => {
         return <option key={color} value={color}>{color}</option>
       })}
-    </Nav.Select>
+    </Select>
     <br />
     <br />
     <br />
@@ -31,10 +34,10 @@ const NoteOptionsWidget = (props) => {
 }
 
 NoteOptionsWidget.propTypes = {
-  widget: PT.object.isRequired,
-  onWidgetUpdate: PT.func.isRequired,
+  availableWidgets: PT.array.isRequired,
   layout: PT.object.isRequired,
-  availableWidgets: PT.array.isRequired
+  onWidgetUpdate: PT.func.isRequired,
+  widget: PT.object.isRequired
 }
 
 export default NoteOptionsWidget
