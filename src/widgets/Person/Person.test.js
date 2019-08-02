@@ -27,7 +27,7 @@ describe('widgets/Person/Person', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
   })
 
-  it('UseEffect: fetches person info if we ', () => {
+  it('UseEffect: fetches person info when mounting', () => {
     wrapper = mount(<Person {...initialMockProps} />)
     expect(initialMockProps.actions.getPersonInfo).toHaveBeenCalled()
   })

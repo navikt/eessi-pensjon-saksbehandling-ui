@@ -1,38 +1,42 @@
 import React from 'react'
+import PT from 'prop-types'
 import _ from 'lodash'
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
+import { Ekspanderbartpanel } from 'components/Nav'
 import ReactResizeDetector from 'react-resize-detector'
 import Links from './Links'
 
 import './LinksWidget.css'
 
 const LinksWidget = (props) => {
+
+  const { onResize, onUpdate, t, widget } = props
+
   const onClick = () => {
-    const newWidget = _.cloneDeep(props.widget)
+    const newWidget = _.cloneDeep(widget)
     newWidget.options.collapsed = !newWidget.options.collapsed
-    props.onUpdate(newWidget)
+    onUpdate(newWidget)
   }
 
   const _onResize = (w, h) => {
-    if (props.onResize) {
+    if (onResize) {
       // give more 70 for the panel header
-      props.onResize(w, h + 70)
+      onResize(w, h + 70)
     }
   }
 
   return <div className='c-d-LinksWidget'>
     <Ekspanderbartpanel
-      apen={!props.widget.options.collapsed}
-      tittel={props.widget.title}
+      apen={!widget.options.collapsed}
+      tittel={widget.title}
       onClick={onClick}>
       <div>
         <ReactResizeDetector
           handleWidth
           handleHeight
           onResize={_onResize} />
-        {props.widget.options.collapsed === true
+        {widget.options.collapsed === true
           ? null
-          : <Links />
+          : <Links t={t}/>
         }
       </div>
     </Ekspanderbartpanel>
@@ -49,6 +53,13 @@ LinksWidget.properties = {
     sm: { minW: 1, maxW: 1, defaultW: 1, minH: 2, defaultH: 4, maxH: 999 }
   },
   options: {}
+}
+
+LinksWidget.propTypes = {
+  onResize: PT.func.isRequired,
+  onUpdate: PT.func.isRequired,
+  t: PT.func.isRequired,
+  widget: PT.object.isRequired
 }
 
 export default LinksWidget
