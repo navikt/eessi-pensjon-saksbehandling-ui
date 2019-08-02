@@ -3,7 +3,7 @@ import NoteWidget from './NoteWidget'
 import _ from 'lodash'
 import layout from 'components/dashboard/Config/DefaultLayout'
 
-describe('widgets/NoteWidget', () => {
+describe('widgets/Note/NoteWidget', () => {
 
   let wrapper
   const initialMockProps = {
@@ -34,12 +34,12 @@ describe('widgets/NoteWidget', () => {
   })
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.c-d-NoteWidget')).toBeTruthy()
-    expect(wrapper.exists('.c-d-NoteWidget__content')).toBeTruthy()
+    expect(wrapper.exists('.w-NoteWidget')).toBeTruthy()
+    expect(wrapper.exists('.w-NoteWidget__content')).toBeTruthy()
   })
 
   it('Saves content when blurred', () => {
-    const div = wrapper.find('.c-d-NoteWidget__content').hostNodes()
+    const div = wrapper.find('.w-NoteWidget__content').hostNodes()
     div.simulate('blur')
     expect(initialMockProps.onResize).toHaveBeenCalledWith(999, 999)
     expect(initialMockProps.onWidgetUpdate).toHaveBeenCalledWith({

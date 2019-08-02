@@ -19,7 +19,7 @@ const EkspandertBartWidget = (props) => {
     }
   }
 
-  return <div className='c-d-EkspandertbartWidget'>
+  return <div className='w-EkspandertbartWidget'>
     <Ekspanderbartpanel
       apen={!widget.options.collapsed}
       tittel={widget.title}

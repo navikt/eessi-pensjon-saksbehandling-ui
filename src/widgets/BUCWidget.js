@@ -14,7 +14,7 @@ const BUCWidget = (props) => {
     }
   }, [mounted, onResize])
 
-  return <div className='c-d-BucWidget'>
+  return <div className='w-BucWidget'>
     <ReactResizeDetector
       handleWidth
       handleHeight

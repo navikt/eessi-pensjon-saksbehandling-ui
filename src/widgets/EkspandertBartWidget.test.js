@@ -41,8 +41,8 @@ describe('widgets/EkspandertBartWidget', () => {
   })
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.c-d-EkspandertbartWidget')).toBeTruthy()
-    expect(wrapper.find('.c-d-EkspandertbartWidget .content').render().text()).toEqual('mockContent')
+    expect(wrapper.exists('.w-EkspandertbartWidget')).toBeTruthy()
+    expect(wrapper.find('.w-EkspandertbartWidget .content').render().text()).toEqual('mockContent')
   })
 
   it('Has properties', () => {

@@ -4,7 +4,7 @@ jest.mock('widgets/Links/Links', () => {
   return () => { return <div className='mock-w-links' /> }
 })
 
-describe('widgets/LinksWidget', () => {
+describe('widgets/Links/LinksWidget', () => {
 
   let wrapper
   const initialMockProps = {
@@ -33,7 +33,7 @@ describe('widgets/LinksWidget', () => {
 
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.c-d-LinksWidget')).toBeTruthy()
+    expect(wrapper.exists('.w-LinksWidget')).toBeTruthy()
     expect(wrapper.find('.mock-w-links')).toBeTruthy()
   })
 

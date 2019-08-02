@@ -5,7 +5,7 @@ import NoteOptionsWidget from './NoteOptionsWidget'
 import availableWidgets from 'components/dashboard/Config/AvailableWidgets'
 import layout from 'components/dashboard/Config/DefaultLayout'
 
-describe('widgets/NoteOptionsWidget', () => {
+describe('widgets/Note/NoteOptionsWidget', () => {
 
   let wrapper
   const initialMockProps = {
@@ -28,13 +28,13 @@ describe('widgets/NoteOptionsWidget', () => {
   })
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.c-d-NoteOptionsWidget')).toBeTruthy()
-    expect(wrapper.exists('#c-d-NoteOptionsWidget__color-select-id')).toBeTruthy()
+    expect(wrapper.exists('.w-NoteOptionsWidget')).toBeTruthy()
+    expect(wrapper.exists('#w-NoteOptionsWidget__color-select-id')).toBeTruthy()
   })
 
   it('Saves color when changed', () => {
     const mockColor = 'mockColor'
-    const select = wrapper.find('#c-d-NoteOptionsWidget__color-select-id select').hostNodes()
+    const select = wrapper.find('#w-NoteOptionsWidget__color-select-id select').hostNodes()
     select.simulate('change', {target: {value: mockColor}})
     expect(initialMockProps.onWidgetUpdate).toHaveBeenCalledWith({
       ...initialMockProps.widget,
