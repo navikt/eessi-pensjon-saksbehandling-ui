@@ -107,6 +107,7 @@ const TableSorter = (props) => {
     return <React.Fragment>
       <th>
         <Checkbox
+          id='c-tablesorter__seefilters-checkbox-id'
           className='c-tablesorter__checkbox'
           label=''
           checked={seeFilters}

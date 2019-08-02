@@ -14,7 +14,7 @@ describe('applications/BUC/components/SEDStatus/SEDStatus', () => {
 
   it('Has proper HTML structure for sent status', () => {
     const wrapper = mount(<SEDStatus {...initialMockProps} status='sent' />)
-    wrapper.exists('EtikettBase').toBeTruthy()
+    expect(wrapper.exists('EtikettBase')).toBeTruthy()
     expect(wrapper.find('EtikettBase').props().type).toEqual('suksess')
   })
 })

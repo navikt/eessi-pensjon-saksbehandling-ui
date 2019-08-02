@@ -25,7 +25,6 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
 
   it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
   })
 
   it('Has proper HTML structure', () => {

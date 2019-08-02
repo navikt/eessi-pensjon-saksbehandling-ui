@@ -71,6 +71,7 @@ export const call = (options) => {
         context: options.context
       })
     }).catch(error => {
+      const body = options.body || options.payload
       if (error.status === 401) {
         dispatch({
           type: types.SERVER_UNAUTHORIZED_ERROR,

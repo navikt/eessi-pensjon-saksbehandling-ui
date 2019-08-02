@@ -1,3 +1,5 @@
+/* global XMLHttpRequest */
+
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import cookies from 'browser-cookies'
@@ -19,16 +21,16 @@ const BucWebSocket = (props) => {
   const [status, setStatus] = useState(DISCONNECTED)
   let webSocketRef = null
 
-const CSRF_PROTECTION = cookies.get('NAV_CSRF_PROTECTION')
+  const CSRF_PROTECTION = cookies.get('NAV_CSRF_PROTECTION')
 
   // We ave to add NAV_CSRF_PROTECTION headers for websocket's xhr calls,
   // as they are the simple http transport that is not blocked
   useEffect(() => {
     if (!mounted) {
-      let o = XMLHttpRequest.prototype.open
+      const o = XMLHttpRequest.prototype.open
       let headersAdded = false
-      XMLHttpRequest.prototype.open = function() {
-        let res = o.apply(this, arguments)
+      XMLHttpRequest.prototype.open = function () {
+        const res = o.apply(this, arguments)
         if (!headersAdded && CSRF_PROTECTION) {
           this.setRequestHeader('NAV_CSRF_PROTECTION', CSRF_PROTECTION)
           console.log('Applying NAV_CSRF_PROTECTION header to xhr')
@@ -84,13 +86,13 @@ const CSRF_PROTECTION = cookies.get('NAV_CSRF_PROTECTION')
     <SockJsClient
       url={url}
       options={{
-   //     transports: ['xdr-streaming', 'xdr-polling']
+        //     transports: ['xdr-streaming', 'xdr-polling']
       }}
       topics={['/topic/1', '/topic/10', '/buc']}
       onConnect={onConnect}
       onDisconnect={onDisconnect}
       onMessage={onMessageReceived}
-      debug={true}
+      debug
       reconnect
       ref={ws => webSocketRef = ws}
     />

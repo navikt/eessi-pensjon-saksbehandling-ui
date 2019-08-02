@@ -2,6 +2,9 @@ import React, { Suspense } from 'react'
 import SEDAttachments from './SEDAttachments'
 import { StoreProvider } from 'store'
 import reducer, { initialState } from 'reducer'
+jest.mock('applications/PDF/components/PDFEditor/PDFEditor', () => {
+  return () => { return <div className='a-buc-c-pdfeditor' /> }
+})
 
 describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
   const t = jest.fn((translationString) => { return translationString })
@@ -54,6 +57,9 @@ describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
         <SEDAttachments {...initialMockProps} initialStep={2} />
       </Suspense>
     </StoreProvider>)
+    expect(wrapper.exists('.a-buc-c-sedattachments-step2')).toBeFalsy()
+
+    wrapper.find('#a-buc-c-sedattachments__enable-button-id').hostNodes().simulate('click')
     expect(wrapper.exists('.a-buc-c-sedattachments-step2')).toBeTruthy()
   })
 })

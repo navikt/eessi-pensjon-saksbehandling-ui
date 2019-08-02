@@ -11,7 +11,6 @@ import File from 'components/File/File'
 import './FileUpload.css'
 
 const FileUpload = (props) => {
-
   const { acceptedMimetypes, afterDrop, beforeDrop, className, closeModal, currentPages } = props
   const { files, maxFiles, maxFileSize, onFileChange, openModal, status, tabIndex, t } = props
   const [_files, setFiles] = useState(files)
@@ -19,9 +18,9 @@ const FileUpload = (props) => {
   const [_status, setStatus] = useState(status || {})
 
   useEffect(() => {
-     if (!_.isEmpty(_files) && _.isEmpty(_currentPages)) {
-       setCurrentPages(_files.map(f => {return 1}))
-     }
+    if (!_.isEmpty(_files) && _.isEmpty(_currentPages)) {
+      setCurrentPages(_files.map(f => { return 1 }))
+    }
   }, [_currentPages, _files])
 
   const openPreview = (file, pageNumber) => {
@@ -126,7 +125,7 @@ const FileUpload = (props) => {
     if (index !== undefined && event && event.numPages) {
       const newFiles = _.cloneDeep(_files)
       newFiles[index].numPages = event.numPages
-       updateFiles(newFiles)
+      updateFiles(newFiles)
     }
   }
 
@@ -142,7 +141,7 @@ const FileUpload = (props) => {
     setCurrentPages(newCurrentPages)
   }
 
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: onDrop,
     onDropRejected: onDropRejected,
     accept: acceptedMimetypes,
@@ -153,28 +152,28 @@ const FileUpload = (props) => {
     className={classNames('c-fileUpload', 'p-4', { 'c-fileUpload-active ': isDragActive }, className)}
     tabIndex={tabIndex}
     {...getRootProps()}>
-      <input {...getInputProps()} />
-      <div className='c-fileUpload-placeholder'>
-        <div className='c-fileUpload-placeholder-message'>
-          {t('ui:dropFilesHere', { maxFiles: maxFiles })}
-        </div>
-        <div className={classNames('c-fileUpload-placeholder-status', 'c-fileUpload-placeholder-status-' + _status.type)}>
-          {_status.message || ''}
-        </div>
+    <input {...getInputProps()} />
+    <div className='c-fileUpload-placeholder'>
+      <div className='c-fileUpload-placeholder-message'>
+        {t('ui:dropFilesHere', { maxFiles: maxFiles })}
       </div>
-      <div className='c-fileUpload-files scrollable'>
+      <div className={classNames('c-fileUpload-placeholder-status', 'c-fileUpload-placeholder-status-' + _status.type)}>
+        {_status.message || ''}
+      </div>
+    </div>
+    <div className='c-fileUpload-files scrollable'>
       {_files.map((file, i) => {
         return <File className='mr-2' key={i} file={file} t={t}
           currentPage={_currentPages[i]}
           deleteLink downloadLink previewLink
           onPreviousPage={() => onPreviousPageRequest(i)}
-            onNextPage={() => onNextPageRequest(i)}
-            onLoadSuccess={() => onLoadSuccess(i)}
-            onDeleteDocument={() => removeFile(i)}
-            onPreviewDocument={() => openPreview(file)}
-          />
+          onNextPage={() => onNextPageRequest(i)}
+          onLoadSuccess={() => onLoadSuccess(i)}
+          onDeleteDocument={() => removeFile(i)}
+          onPreviewDocument={() => openPreview(file)}
+        />
       })}
-      </div>
+    </div>
   </div>
 }
 

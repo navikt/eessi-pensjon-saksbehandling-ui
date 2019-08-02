@@ -159,6 +159,8 @@
     "parser": "babel-eslint",
     "globals": [
       "Blob",
+      "File",
+      "XMLHttpRequest",
       "HTMLCanvasElement",
       "FileReader",
       "ReactDOM",

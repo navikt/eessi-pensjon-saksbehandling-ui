@@ -92,6 +92,7 @@ describe('buc actions', () => {
         success: types.BUC_GET_BUCSINFO_LIST_SUCCESS,
         failure: types.BUC_GET_BUCSINFO_LIST_FAILURE
       },
+      expectedPayload: [mockUserId + '__BUC__INFO'],
       url: sprintf(urls.API_STORAGE_LIST_URL, { userId: mockUserId, namespace: 'BUC' })
     })
   })
@@ -113,7 +114,7 @@ describe('buc actions', () => {
   it('verifyCaseNumber()', () => {
     const mockParams = { sakId: 123, aktoerId: 456 }
     bucActions.verifyCaseNumber(mockParams)
-    expect(api.funcCall).toBeCalledWith({
+    expect(api.call).toBeCalledWith({
       type: {
         request: types.BUC_VERIFY_CASE_NUMBER_REQUEST,
         success: types.BUC_VERIFY_CASE_NUMBER_SUCCESS,

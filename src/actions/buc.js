@@ -61,8 +61,9 @@ export const fetchBucs = (aktoerId) => {
 }
 
 export const fetchBucsInfoList = (aktoerId) => {
-  return api.call({
+  return api.funcCall({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: 'BUC' }),
+    expectedPayload: [aktoerId + '__BUC__INFO'],
     type: {
       request: types.BUC_GET_BUCSINFO_LIST_REQUEST,
       success: types.BUC_GET_BUCSINFO_LIST_SUCCESS,
