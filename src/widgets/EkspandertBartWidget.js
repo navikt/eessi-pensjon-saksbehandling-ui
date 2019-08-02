@@ -1,11 +1,11 @@
 import React from 'react'
+import PT from 'prop-types'
 import _ from 'lodash'
 import { Ekspanderbartpanel } from 'components/Nav'
 import ReactResizeDetector from 'react-resize-detector'
 
 const EkspandertBartWidget = (props) => {
-
-  const { onUpdate, onResize, widget } = props
+  const { onResize, onUpdate, widget } = props
   const onClick = () => {
     const newWidget = _.cloneDeep(widget)
     newWidget.options.collapsed = !newWidget.options.collapsed
@@ -53,6 +53,12 @@ EkspandertBartWidget.properties = {
     collapsed: false,
     content: ''
   }
+}
+
+EkspandertBartWidget.propTypes = {
+  onResize: PT.func.isRequired,
+  onUpdate: PT.func.isRequired,
+  widget: PT.object.isRequired
 }
 
 export default EkspandertBartWidget

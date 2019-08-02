@@ -3,7 +3,6 @@ import SmileyWidget from './SmileyWidget'
 import _ from 'lodash'
 
 describe('widgets/Smiley/SmileyWidget', () => {
-
   let wrapper
   const initialMockProps = {
     onResize: jest.fn(),

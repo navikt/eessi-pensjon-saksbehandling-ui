@@ -3,7 +3,6 @@ import { Person } from './Person'
 import samplePerson from 'resources/tests/samplePerson'
 
 describe('widgets/Person/Person', () => {
-
   let wrapper
   const initialMockProps = {
     actions: {
@@ -12,7 +11,7 @@ describe('widgets/Person/Person', () => {
     aktoerId: '123',
     locale: 'nb',
     person: samplePerson.person,
-    t: jest.fn((translationString) => { return translationString }),
+    t: jest.fn((translationString) => { return translationString })
   }
 
   beforeEach(() => {

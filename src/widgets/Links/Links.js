@@ -15,7 +15,7 @@ export const Links = (props) => {
       linkCreator={(props) => (
         <Link to={routes.BUC + '?sed=&buc='} {...props} />)
       } href='#'>
-        {t('buc:form-createNewCase')}
+      {t('buc:form-createNewCase')}
     </Lenkepanel>
   </div>
 }

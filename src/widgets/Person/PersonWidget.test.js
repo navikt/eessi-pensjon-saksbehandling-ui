@@ -5,7 +5,6 @@ jest.mock('widgets/Person/Person', () => {
 })
 
 describe('widgets/PersonWidget', () => {
-
   let wrapper
   const initialMockProps = {
     onResize: jest.fn(),

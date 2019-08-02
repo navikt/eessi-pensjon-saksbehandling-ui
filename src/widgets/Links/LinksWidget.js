@@ -8,7 +8,6 @@ import Links from './Links'
 import './LinksWidget.css'
 
 const LinksWidget = (props) => {
-
   const { onResize, onUpdate, t, widget } = props
 
   const onClick = () => {
@@ -36,7 +35,7 @@ const LinksWidget = (props) => {
           onResize={_onResize} />
         {widget.options.collapsed === true
           ? null
-          : <Links t={t}/>
+          : <Links t={t} />
         }
       </div>
     </Ekspanderbartpanel>

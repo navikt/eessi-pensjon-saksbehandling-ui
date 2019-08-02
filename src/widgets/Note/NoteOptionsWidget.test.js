@@ -6,7 +6,6 @@ import availableWidgets from 'components/dashboard/Config/AvailableWidgets'
 import layout from 'components/dashboard/Config/DefaultLayout'
 
 describe('widgets/Note/NoteOptionsWidget', () => {
-
   let wrapper
   const initialMockProps = {
     availableWidgets: availableWidgets,
@@ -35,7 +34,7 @@ describe('widgets/Note/NoteOptionsWidget', () => {
   it('Saves color when changed', () => {
     const mockColor = 'mockColor'
     const select = wrapper.find('#w-NoteOptionsWidget__color-select-id select').hostNodes()
-    select.simulate('change', {target: {value: mockColor}})
+    select.simulate('change', { target: { value: mockColor } })
     expect(initialMockProps.onWidgetUpdate).toHaveBeenCalledWith({
       ...initialMockProps.widget,
       options: {
