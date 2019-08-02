@@ -1,5 +1,5 @@
 import React from 'react'
-import { PdfWidget } from './PdfWidget'
+import PdfWidget from './PdfWidget'
 jest.mock('react-router-dom', () => {
   return {
     'Link': () => { return <div className='mock-link' /> }
@@ -11,6 +11,9 @@ describe('widgets/PdfWidget', () => {
   let wrapper
   const initialMockProps = {
     t: jest.fn((translationString) => { return translationString }),
+    widget: {
+      title: 'mockTitle'
+    }
   }
 
   beforeEach(() => {
