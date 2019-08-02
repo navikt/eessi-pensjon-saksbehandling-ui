@@ -2,6 +2,9 @@ import React, { Suspense } from 'react'
 import Step2 from './Step2'
 import { StoreProvider } from 'store'
 import reducer, { initialState } from 'reducer'
+jest.mock('applications/PDF/components/PDFEditor/PDFEditor', () => {
+  return () => { return <div className='a-buc-c-pdfeditor' /> }
+})
 
 describe('applications/BUC/components/Step1/Step1', () => {
   const t = jest.fn((translationString) => { return translationString })
@@ -42,6 +45,6 @@ describe('applications/BUC/components/Step1/Step1', () => {
 
   it('Has proper HTML structure', () => {
     expect(wrapper.exists('.a-buc-c-sedattachments-step2')).toBeTruthy()
-    expect(wrapper.exists('PDFEditor')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-pdfeditor')).toBeTruthy()
   })
 })

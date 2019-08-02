@@ -5,13 +5,15 @@ import { Checkbox } from 'components/Nav'
 
 const MultipleOption = (props) => {
   const { data, selectProps, innerProps, isSelected, isFocused } = props
+  const id = selectProps.id + '-' + data.value
 
-  return <div id={selectProps.id + '-' + data.value}>
+  return <div id={id}>
     <div className={classNames('c-multipleOption', {
       selected: isSelected,
       focused: isFocused
     })} {...innerProps}>
       <Checkbox
+        id={'c-multipleOption__checkbox-' + id}
         className='c-multipleOption__checkbox'
         label={data.label}
         onChange={() => {}} checked={isSelected}

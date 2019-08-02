@@ -82,9 +82,9 @@ export const BUCWidgetIndex = (props) => {
         buc={buc}
         mode={mode}
       />
-      {enableWebsocket ?
-        <WebSocket onSedUpdate={onSedUpdate} url={WEBSOCKET_URL} /> :
-        <Knapp mini
+      {enableWebsocket
+        ? <WebSocket onSedUpdate={onSedUpdate} url={WEBSOCKET_URL} />
+        : <Knapp mini
           id='a-buc__enable-websocket-button-id'
           className='a-buc__enable-websocket'
           style={{ pading: '0px' }}

@@ -63,8 +63,12 @@ export const InternalTopHeader = (props) => {
         <div className='mr-4 ml-2 align-middle name'>
           {gettingUserInfo ? t('buc:loading-gettingUserInfo')
             : username
-              ? <Select className='username-select'
-                label={''} value={username} selected={username}
+              ? <Select
+                id='username-select-id'
+                className='username-select'
+                label={''}
+                value={username}
+                selected={username}
                 onChange={handleUsernameSelectRequest}>
                 <option value=''>{username}</option>
                 <option value='feedback'>{t('ui:giveFeedback')}</option>

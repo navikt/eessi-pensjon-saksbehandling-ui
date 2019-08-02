@@ -18,10 +18,6 @@ describe('applications/BUC/components/SEDP4000/Validation/stepTests', () => {
 
     period = { ...period, endDate: { day: '1', month: '1', year: '1980' } }
     errors = stepTests.periodStep(period)
-    expect(errors.place).toEqual('buc:validation-noPlace')
-
-    period = { ...period, place: 'something' }
-    errors = stepTests.periodStep(period)
     expect(errors.country).toEqual('buc:validation-noCountry')
 
     period = { ...period, country: 'something' }
@@ -66,10 +62,6 @@ describe('applications/BUC/components/SEDP4000/Validation/stepTests', () => {
 
     period = { ...period, endDate: { day: '1', month: '1', year: '1980' } }
     errors = stepTests.periodStep(period)
-    expect(errors.place).toEqual('buc:validation-noPlace')
-
-    period = { ...period, place: 'something' }
-    errors = stepTests.periodStep(period)
     expect(errors.country).toEqual('buc:validation-noCountry')
 
     period = { ...period, country: 'something' }
@@ -87,10 +79,6 @@ describe('applications/BUC/components/SEDP4000/Validation/stepTests', () => {
     expect(errors.endDate).toEqual('buc:validation-noEndDate')
 
     period = { ...period, endDate: { day: '1', month: '1', year: '1980' } }
-    errors = stepTests.periodStep(period)
-    expect(errors.place).toEqual('buc:validation-noPlace')
-
-    period = { ...period, place: 'something' }
     errors = stepTests.periodStep(period)
     expect(errors.country).toEqual('buc:validation-noCountry')
 
@@ -110,14 +98,6 @@ describe('applications/BUC/components/SEDP4000/Validation/stepTests', () => {
 
     period = { ...period, endDate: { day: '1', month: '1', year: '1980' } }
     errors = stepTests.periodStep(period)
-    expect(errors.place).toEqual('buc:validation-noPlace')
-
-    period = { ...period, place: 'something' }
-    errors = stepTests.periodStep(period)
-    expect(errors.country).toEqual('buc:validation-noCountry')
-
-    period = { ...period, country: 'something' }
-    errors = stepTests.periodStep(period)
     expect(errors.childFirstName).toEqual('buc:validation-noChildFirstName')
 
     period = { ...period, childFirstName: 'something' }
@@ -129,6 +109,10 @@ describe('applications/BUC/components/SEDP4000/Validation/stepTests', () => {
     expect(errors.childBirthDate).toEqual('buc:validation-noChildBirthDate')
 
     period = { ...period, childBirthDate: { day: '1', month: '1', year: '1970' } }
+    errors = stepTests.periodStep(period)
+    expect(errors.country).toEqual('buc:validation-noCountry')
+
+    period = { ...period, country: 'something' }
     errors = stepTests.periodStep(period)
     expect(_(errors).find(err => err !== undefined)).toEqual(undefined)
   })
@@ -143,10 +127,6 @@ describe('applications/BUC/components/SEDP4000/Validation/stepTests', () => {
     expect(errors.endDate).toEqual('buc:validation-noEndDate')
 
     period = { ...period, endDate: { day: '1', month: '1', year: '1980' } }
-    errors = stepTests.periodStep(period)
-    expect(errors.place).toEqual('buc:validation-noPlace')
-
-    period = { ...period, place: 'something' }
     errors = stepTests.periodStep(period)
     expect(errors.country).toEqual('buc:validation-noCountry')
 
@@ -165,10 +145,6 @@ describe('applications/BUC/components/SEDP4000/Validation/stepTests', () => {
     expect(errors.endDate).toEqual('buc:validation-noEndDate')
 
     period = { ...period, endDate: { day: '1', month: '1', year: '1980' } }
-    errors = stepTests.periodStep(period)
-    expect(errors.place).toEqual('buc:validation-noPlace')
-
-    period = { ...period, place: 'something' }
     errors = stepTests.periodStep(period)
     expect(errors.country).toEqual('buc:validation-noCountry')
 
@@ -192,10 +168,6 @@ describe('applications/BUC/components/SEDP4000/Validation/stepTests', () => {
 
     period = { ...period, endDate: { day: '1', month: '1', year: '1980' } }
     errors = stepTests.periodStep(period)
-    expect(errors.place).toEqual('buc:validation-noPlace')
-
-    period = { ...period, place: 'something' }
-    errors = stepTests.periodStep(period)
     expect(errors.country).toEqual('buc:validation-noCountry')
 
     period = { ...period, country: 'something' }
@@ -218,10 +190,6 @@ describe('applications/BUC/components/SEDP4000/Validation/stepTests', () => {
 
     period = { ...period, endDate: { day: '1', month: '1', year: '1980' } }
     errors = stepTests.periodStep(period)
-    expect(errors.place).toEqual('buc:validation-noPlace')
-
-    period = { ...period, place: 'something' }
-    errors = stepTests.periodStep(period)
     expect(errors.country).toEqual('buc:validation-noCountry')
 
     period = { ...period, country: 'something' }
@@ -243,10 +211,6 @@ describe('applications/BUC/components/SEDP4000/Validation/stepTests', () => {
     expect(errors.endDate).toEqual('buc:validation-noEndDate')
 
     period = { ...period, endDate: { day: '1', month: '1', year: '1980' } }
-    errors = stepTests.periodStep(period)
-    expect(errors.place).toEqual('buc:validation-noPlace')
-
-    period = { ...period, place: 'something' }
     errors = stepTests.periodStep(period)
     expect(errors.country).toEqual('buc:validation-noCountry')
 

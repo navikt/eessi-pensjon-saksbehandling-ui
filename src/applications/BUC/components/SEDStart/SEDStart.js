@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const SEDStart = (props) => {
-  const { actions, aktoerId, attachments, buc, bucsInfoList, countryList, institutionList} = props
+  const { actions, aktoerId, attachments, buc, bucsInfoList, countryList, institutionList } = props
   const { loading, p4000info, sakId, sed, sedList, t, vedtakId } = props
 
   const [_sed, setSed] = useState(undefined)

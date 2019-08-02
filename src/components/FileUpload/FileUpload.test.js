@@ -1,9 +1,10 @@
+/* global File */
+
 import React from 'react'
 import FileUpload from './FileUpload'
 import samplePDF from 'resources/tests/samplePDF'
 
 describe('components/FileUpload/FileUpload', () => {
-
   let wrapper
   const initialMockProps = {
     acceptedMimetypes: ['application/pdf', 'text/plain'],
@@ -21,8 +22,8 @@ describe('components/FileUpload/FileUpload', () => {
     tabIndex: 1
   }
 
-  const fileContents = 'file contents';
-  const file = new File([fileContents], 'text.txt', { type: 'text/plain'})
+  const fileContents = 'file contents'
+  const file = new File([fileContents], 'text.txt', { type: 'text/plain' })
   const expectedProcessedFile = {
     content: {
       base64: 'ZmlsZSBjb250ZW50cw=='
@@ -66,11 +67,10 @@ describe('components/FileUpload/FileUpload', () => {
         resolve()
       }, 500)
     })
-
   })
 
   it('Dropping a file too large', async (done) => {
-    wrapper.setProps({ maxFileSize: 1})
+    wrapper.setProps({ maxFileSize: 1 })
     wrapper.simulate('drop', { target: { files: [file] } })
     await new Promise(resolve => {
       setTimeout(() => {
@@ -83,7 +83,7 @@ describe('components/FileUpload/FileUpload', () => {
   })
 
   it('Dropping a file of a forbidden mimetype', async (done) => {
-    wrapper.setProps({ acceptedMimetypes: ['application/pdf']})
+    wrapper.setProps({ acceptedMimetypes: ['application/pdf'] })
     wrapper.simulate('drop', { target: { files: [file] } })
     await new Promise(resolve => {
       setTimeout(() => {
@@ -96,13 +96,13 @@ describe('components/FileUpload/FileUpload', () => {
   })
 
   it('Renders a file ', () => {
-    wrapper = mount(<FileUpload {...initialMockProps} files={[file]}/>)
+    wrapper = mount(<FileUpload {...initialMockProps} files={[file]} />)
     expect(wrapper.exists('.c-file')).toBeTruthy()
     expect(wrapper.find('.c-file').render().text()).toEqual('title=text.txt\nui:size: 13 bytestxt')
   })
 
   it('Deleting a file', async (done) => {
-    wrapper = mount(<FileUpload {...initialMockProps} files={[file]}/>)
+    wrapper = mount(<FileUpload {...initialMockProps} files={[file]} />)
     initialMockProps.onFileChange.mockClear()
     expect(initialMockProps.onFileChange).not.toHaveBeenCalled()
     expect(wrapper.exists('.deleteLink')).toBeFalsy()
@@ -122,7 +122,7 @@ describe('components/FileUpload/FileUpload', () => {
   })
 
   it('With a PDF file, loading', () => {
-    wrapper = mount(<FileUpload {...initialMockProps} files={[samplePDF]}/>)
+    wrapper = mount(<FileUpload {...initialMockProps} files={[samplePDF]} />)
     expect(wrapper.find('.c-file').render().text()).toEqual('Loading PDF…')
     expect(wrapper.find('.c-file-miniaturePdf').props().title).toEqual('red.pdf\nui:pages: 0\nui:size: 9.8 KB')
   })
