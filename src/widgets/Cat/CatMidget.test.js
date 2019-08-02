@@ -1,7 +1,7 @@
 import React from 'react'
 import CatMidget from './CatMidget'
 
-describe('widgets/CatMidget', () => {
+describe('widgets/Cat/CatMidget', () => {
 
   let wrapper
   const initialMockProps = {
@@ -26,7 +26,7 @@ describe('widgets/CatMidget', () => {
   })
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.c-d-catMidget')).toBeTruthy()
+    expect(wrapper.exists('.w-catMidget')).toBeTruthy()
     expect(wrapper.find('img')).toBeTruthy()
   })
 

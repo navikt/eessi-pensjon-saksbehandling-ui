@@ -24,7 +24,7 @@ const LinksWidget = (props) => {
     }
   }
 
-  return <div className='c-d-LinksWidget'>
+  return <div className='w-LinksWidget'>
     <Ekspanderbartpanel
       apen={!widget.options.collapsed}
       tittel={widget.title}

@@ -17,9 +17,9 @@ const NoteOptionsWidget = (props) => {
 
   const widgetTemplate = _.find(availableWidgets, { type: 'note' })
 
-  return <div className='c-d-NoteOptionsWidget p-3'>
+  return <div className='w-NoteOptionsWidget p-3'>
     <Select
-      id='c-d-NoteOptionsWidget__color-select-id'
+      id='w-NoteOptionsWidget__color-select-id'
       label={'color'}
       value={backgroundColor || ''}
       onChange={chooseColor}>

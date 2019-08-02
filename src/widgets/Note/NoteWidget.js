@@ -38,14 +38,14 @@ const NoteWidget = (props) => {
 
   return <div
     id={_id}
-    className='p-3 c-d-NoteWidget'>
+    className='p-3 w-NoteWidget'>
     <ReactResizeDetector
       handleWidth
       handleHeight
       onResize={onResize} />
     <h4>{widget.title}</h4>
     <div
-      className='c-d-NoteWidget__content'
+      className='w-NoteWidget__content'
       contentEditable='true'
       onBlur={onBlur}
       dangerouslySetInnerHTML={{ __html: content }} />
