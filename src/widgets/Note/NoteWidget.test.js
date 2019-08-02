@@ -4,7 +4,6 @@ import _ from 'lodash'
 import layout from 'components/dashboard/Config/DefaultLayout'
 
 describe('widgets/Note/NoteWidget', () => {
-
   let wrapper
   const initialMockProps = {
     id: 'mock-id',

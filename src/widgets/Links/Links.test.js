@@ -2,15 +2,14 @@ import React from 'react'
 import { Links } from './Links'
 jest.mock('react-router-dom', () => {
   return {
-    'Link': () => { return <div className='mock-link' /> }
+    Link: () => { return <div className='mock-link' /> }
   }
 })
 
 describe('widgets/Links/Links', () => {
-
   let wrapper
   const initialMockProps = {
-    t: jest.fn((translationString) => { return translationString }),
+    t: jest.fn((translationString) => { return translationString })
   }
 
   beforeEach(() => {

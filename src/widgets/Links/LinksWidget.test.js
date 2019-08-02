@@ -5,7 +5,6 @@ jest.mock('widgets/Links/Links', () => {
 })
 
 describe('widgets/Links/LinksWidget', () => {
-
   let wrapper
   const initialMockProps = {
     onResize: jest.fn(),
@@ -30,7 +29,6 @@ describe('widgets/Links/LinksWidget', () => {
   it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
   })
-
 
   it('Has proper HTML structure', () => {
     expect(wrapper.exists('.w-LinksWidget')).toBeTruthy()

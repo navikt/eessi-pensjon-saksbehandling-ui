@@ -27,7 +27,7 @@ describe('widgets/Person/PersonBody', () => {
   })
 
   it('gets dates converted properly', () => {
-    let newSivilstand = {
+    const newSivilstand = {
       sivilstand: {
         value: 'MOCK',
         kodeRef: null,
@@ -39,11 +39,11 @@ describe('widgets/Person/PersonBody', () => {
       endretAv: null,
       endringstype: null
     }
-    let mockProps = {
+    const mockProps = {
       t: initialMockProps.t,
       person: {
-         ...samplePerson.person,
-         sivilstand: newSivilstand
+        ...samplePerson.person,
+        sivilstand: newSivilstand
       }
     }
     wrapper = mount(<PersonBody {...mockProps} />)

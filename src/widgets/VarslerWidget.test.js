@@ -3,7 +3,6 @@ import VarslerWidget from './VarslerWidget'
 import _ from 'lodash'
 
 describe('widgets/VarslerWidget', () => {
-
   let wrapper
   const initialMockProps = {
     actions: {},

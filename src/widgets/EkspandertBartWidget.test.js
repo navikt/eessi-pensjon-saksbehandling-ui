@@ -2,7 +2,6 @@ import React from 'react'
 import EkspandertBartWidget from './EkspandertBartWidget'
 
 describe('widgets/EkspandertBartWidget', () => {
-
   let wrapper
   const initialMockProps = {
     onResize: jest.fn(),

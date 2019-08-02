@@ -5,7 +5,6 @@ jest.mock('applications/BUC/widgets/', () => {
 })
 
 describe('widgets/BUCWidget', () => {
-
   let wrapper
   const initialMockProps = {
     onResize: jest.fn()

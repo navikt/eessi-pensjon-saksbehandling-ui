@@ -2,7 +2,6 @@ import React from 'react'
 import CatMidget from './CatMidget'
 
 describe('widgets/Cat/CatMidget', () => {
-
   let wrapper
   const initialMockProps = {
     onResize: jest.fn()

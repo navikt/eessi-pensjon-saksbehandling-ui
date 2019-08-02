@@ -6,7 +6,6 @@ import availableWidgets from 'components/dashboard/Config/AvailableWidgets'
 import layout from 'components/dashboard/Config/DefaultLayout'
 
 describe('widgets/Smiley/SmileyOptionsWidget', () => {
-
   let wrapper
   const initialMockProps = {
     availableWidgets: availableWidgets,
@@ -35,7 +34,7 @@ describe('widgets/Smiley/SmileyOptionsWidget', () => {
   it('Saves mood when changed', () => {
     const mockMood = 'mockMood'
     const select = wrapper.find('#w-SmileyOptionsWidget__mood-select-id select').hostNodes()
-    select.simulate('change', {target: {value: mockMood}})
+    select.simulate('change', { target: { value: mockMood } })
     expect(initialMockProps.onWidgetUpdate).toHaveBeenCalledWith({
       ...initialMockProps.widget,
       options: {
