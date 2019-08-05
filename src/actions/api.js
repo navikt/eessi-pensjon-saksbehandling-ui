@@ -79,21 +79,21 @@ export const call = (options) => {
           originalPayload: body,
           context: options.context
         })
-      }
-      if (error.status >= 500) {
+      } else if (error.status >= 500) {
         dispatch({
           type: types.SERVER_INTERNAL_ERROR,
           payload: error,
           originalPayload: body,
           context: options.context
         })
+      } else {
+        return dispatch({
+          type: options.type.failure,
+          payload: error,
+          originalPayload: body,
+          context: options.context
+        })
       }
-      return dispatch({
-        type: options.type.failure,
-        payload: error,
-        originalPayload: body,
-        context: options.context
-      })
     })
   }
 }
