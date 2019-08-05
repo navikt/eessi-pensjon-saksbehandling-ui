@@ -133,10 +133,11 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
 
     case types.BUC_GET_BUCSINFO_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         gettingBUCinfo: true,
         status: status
-      })
+      }
 
     case types.BUC_GET_BUCSINFO_SUCCESS:
     case types.BUC_GET_BUCSINFO_FAILURE:
@@ -175,10 +176,11 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
     case types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS:
     case types.BUC_GET_SUBJECT_AREA_LIST_FAILURE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         gettingSubjectAreaList: false,
         status: status
-      })
+      }
 
     case types.BUC_GET_BUC_LIST_REQUEST:
 
@@ -191,10 +193,11 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
     case types.BUC_GET_BUC_LIST_SUCCESS:
     case types.BUC_GET_BUC_LIST_FAILURE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         gettingBucList: false,
         status: status
-      })
+      }
 
     case types.BUC_CREATE_BUC_REQUEST:
 

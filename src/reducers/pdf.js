@@ -33,56 +33,64 @@ const pdfReducer = (state = initialPdfState, action = {}) => {
         })
       }
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         files: action.payload,
         recipe: newRecipe
-      })
+      }
     }
 
     case types.PDF_CLEAR: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         files: undefined
-      })
+      }
     }
 
     case types.PDF_GENERATE_SUCCESS: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         generatedPDFs: action.payload
-      })
+      }
     }
 
     case types.PDF_SET_RECIPE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         recipe: action.payload
-      })
+      }
 
     case types.PDF_SET_DND_TARGET:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         dndTarget: action.payload
-      })
+      }
 
     case types.PDF_SET_PAGE_SIZE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         pageScale: action.payload
-      })
+      }
 
     case types.APP_CLEAR_DATA:
 
       return initialPdfState
 
     case types.PDF_WATERMARK_SET : {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         watermark: action.payload
-      })
+      }
     }
 
     case types.PDF_SEPARATOR_SET : {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         separator: action.payload
-      })
+      }
     }
 
     default:
