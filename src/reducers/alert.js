@@ -25,10 +25,11 @@ const alertReducer = (state = initialAlertState, action = {}) => {
         break
     }
 
-    return Object.assign({}, state, {
+    return {
+      ...state,
       serverErrorMessage: serverErrorMessage,
       error: action.payload
-    })
+    }
   }
 
   if (_.endsWith(action.type, '/FAILURE')) {
@@ -155,11 +156,12 @@ const alertReducer = (state = initialAlertState, action = {}) => {
         break
     }
 
-    return Object.assign({}, state, {
+    return {
+      ...state,
       clientErrorStatus: clientErrorMessage ? clientErrorStatus : undefined,
       clientErrorMessage: clientErrorMessage,
       error: action.payload
-    })
+    }
   }
 
   switch (action.type) {
@@ -201,11 +203,12 @@ const alertReducer = (state = initialAlertState, action = {}) => {
     return state
   }
 
-  return Object.assign({}, state, {
+  return {
+    ...state,
     clientErrorStatus: 'OK',
     clientErrorMessage: clientErrorMessage,
     error: undefined
-  })
+  }
 }
 
 export default alertReducer

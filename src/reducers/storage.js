@@ -16,39 +16,45 @@ const storageReducer = (state = initialStorageState, action = {}) => {
         return index >= 0 ? file.substring(index + 3) : file
       })
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         fileList: parsedList
-      })
+      }
 
     case types.STORAGE_LIST_FAILURE:
     case types.STORAGE_LIST_NO_NOTIF_FAILURE:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         fileList: []
-      })
+      }
 
     case types.STORAGE_GET_SUCCESS:
     case types.STORAGE_GET_NO_NOTIF_SUCCESS:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         file: action.payload
-      })
+      }
 
     case types.STORAGE_POST_SUCCESS:
     case types.STORAGE_POST_NO_NOTIF_SUCCESS:
       // clean fileList so that component requests a list again
-      return Object.assign({}, state, {
+      return {
+        ...state,
         fileList: undefined
-      })
+      }
 
     case types.STORAGE_TARGET_FILE_TO_DELETE_SET : {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         fileToDelete: action.payload
-      })
+      }
     }
 
     case types.STORAGE_TARGET_FILE_TO_DELETE_CANCEL : {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         fileToDelete: undefined
-      })
+      }
     }
 
     case types.STORAGE_DELETE_SUCCESS: {
@@ -59,18 +65,20 @@ const storageReducer = (state = initialStorageState, action = {}) => {
         _fileList.splice(fileIndex, 1)
       }
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         fileList: _fileList,
         fileToDelete: undefined
-      })
+      }
     }
 
     case types.STORAGE_MODAL_OPEN:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         modalOpen: true,
         modalOptions: action.payload
-      })
+      }
 
     case types.STORAGE_MODAL_CLOSE:
     case types.APP_CLEAR_DATA:
