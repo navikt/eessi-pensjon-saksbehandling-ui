@@ -124,6 +124,6 @@ describe('components/FileUpload/FileUpload', () => {
   it('With a PDF file, loading', () => {
     wrapper = mount(<FileUpload {...initialMockProps} files={[samplePDF]} />)
     expect(wrapper.find('.c-file').render().text()).toEqual('Loading PDF…')
-    expect(wrapper.find('.c-file-miniaturePdf').props().title).toEqual('red.pdf\nui:pages: 0\nui:size: 9.8 KB')
+    expect(wrapper.find('.c-file-miniaturePdf').props().title).toEqual('red.pdf\nui:pages: 0\nui:size: 10wew KB')
   })
 })

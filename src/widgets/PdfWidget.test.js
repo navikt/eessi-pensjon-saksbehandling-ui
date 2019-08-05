@@ -9,6 +9,7 @@ jest.mock('react-router-dom', () => {
 describe('widgets/PdfWidget', () => {
   let wrapper
   const initialMockProps = {
+    t: jest.fn((translationString) => { return translationString }),
     widget: {
       title: 'mockTitle'
     }
