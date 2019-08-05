@@ -13,8 +13,8 @@ const renderBytes = (bytes) => {
     return '-'
   }
   let level = 0
-  while (bytes >= 1024 && ++level) {
-    bytes = bytes / 1024
+  while (bytes >= 1000 && ++level) {
+    bytes = bytes / 1000
   }
   return bytes.toFixed(bytes >= 10 || level < 1 ? 0 : 1) + ' ' + units[level]
 }
