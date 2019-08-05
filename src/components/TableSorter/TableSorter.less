@@ -1,5 +1,7 @@
 .c-tablesorter {
 
+  table-layout: fixed;
+
   &__status {
     min-height: 30px;
   }
@@ -61,9 +63,25 @@
           color: white;
         }
 
-        &:first-child {
-          width: 50px;
+        &:nth-child(1) {
+          width: 5%;
           display: block;
+        }
+
+        &:nth-child(2) {
+          width: 50%;
+        }
+
+        &:nth-child(3) {
+          width: 10%;
+        }
+
+        &:nth-child(4) {
+          width: 15%;
+        }
+
+        &:nth-child(5) {
+          width: 20%;
         }
       }
     }
@@ -78,7 +96,8 @@
     }
 
     td {
-      padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+      padding: .25rem .5rem;
+      overflow-wrap: break-word;
 
       input {
         width: 100%;
