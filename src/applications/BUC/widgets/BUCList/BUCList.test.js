@@ -3,6 +3,14 @@ import BUCList from './BUCList'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 
+jest.mock('components/Nav', () => {
+  return {
+    ...jest.requireActual('components/Nav'),
+    EkspanderbartpanelBase: () => { return <div className='mock-EkspanderbartpanelBase' /> }
+  }
+})
+
+
 describe('applications/BUC/widgets/BUCList/BUCList', () => {
   let wrapper
   const initialMockProps = {
@@ -46,7 +54,7 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
     expect(wrapper.exists('.a-buc-buclist')).toBeTruthy()
     expect(wrapper.exists('.a-buc-buclist__buttons')).toBeTruthy()
     expect(wrapper.exists('#a-buc-buclist__newbuc-button-id')).toBeTruthy()
-    expect(wrapper.find('.a-buc-buclist__buc').hostNodes().length).toEqual(sampleBucs.length)
+    expect(wrapper.find('.mock-EkspanderbartpanelBase').hostNodes().length).toEqual(sampleBucs.length)
     expect(wrapper.exists('.a-buc-buclist__footer')).toBeTruthy()
   })
 

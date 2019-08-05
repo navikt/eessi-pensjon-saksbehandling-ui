@@ -29,10 +29,10 @@ describe('reducers/loading', () => {
     return simulate(type, param, true, 'ERROR')
   }
 
-  it('SERVER_SOMETING', () => {
+  it('SOMETHING_ERROR', () => {
     expect(
       loadingReducer({}, {
-        type: 'SERVER_SOMETHING'
+        type: 'SOMETHING/ERROR'
       })
     ).toEqual(initialLoadingState)
   })

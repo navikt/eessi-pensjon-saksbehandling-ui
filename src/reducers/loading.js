@@ -37,7 +37,7 @@ export const initialLoadingState = {
 const loadingReducer = (state = initialLoadingState, action = {}) => {
   let status
 
-  if (_.startsWith(action.type, 'SERVER_')) {
+  if (_.endsWith(action.type, '/ERROR')) {
     return initialLoadingState
   }
 
