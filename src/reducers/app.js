@@ -38,7 +38,7 @@ const appReducer = (state = initialAppState, action = {}) => {
 
     case types.APP_USERINFO_SUCCESS:
 
-      const now = new Date()
+      const now = action.payload.now ? new Date(action.payload.now) : new Date()
       const expirationTime = action.payload.expirationTime
         ? new Date(action.payload.expirationTime)
         : new Date(new Date().setMinutes(now.getMinutes() + 60))
