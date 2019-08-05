@@ -1,16 +1,24 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import { Ekspanderbartpanel } from 'components/Nav'
 import ReactResizeDetector from 'react-resize-detector'
 
 const EkspandertBartWidget = (props) => {
-  const { onResize, onUpdate, widget } = props
+  const { content, onResize, onUpdate, widget } = props
+  const [ _content, setContent ] = useState(content || widget.options.content)
+
   const onClick = () => {
     const newWidget = _.cloneDeep(widget)
     newWidget.options.collapsed = !newWidget.options.collapsed
     onUpdate(newWidget)
   }
+
+  useEffect(() => {
+    if (content && content !== _content) {
+      setContent(content)
+    }
+  }, [content])
 
   const _onResize = (w, h) => {
     if (onResize) {
@@ -33,7 +41,7 @@ const EkspandertBartWidget = (props) => {
           ? null
           : <div
             className='content'
-            dangerouslySetInnerHTML={{ __html: widget.options.content }} />
+            dangerouslySetInnerHTML={{ __html: _content }} />
         }
       </div>
     </Ekspanderbartpanel>
@@ -56,6 +64,7 @@ EkspandertBartWidget.properties = {
 }
 
 EkspandertBartWidget.propTypes = {
+  content: PT.string,
   onResize: PT.func.isRequired,
   onUpdate: PT.func.isRequired,
   widget: PT.object.isRequired
