@@ -4,8 +4,8 @@ import i18n from '../i18n'
 export const initialUiState = {
   language: i18n.language,
   locale: i18n.locale,
+  modal: undefined,
   modalOpen: false,
-  modalBucketOpen: false,
   footerOpen: false,
   highContrast: false
 }
@@ -13,37 +13,41 @@ export const initialUiState = {
 const uiReducer = (state = initialUiState, action = {}) => {
   switch (action.type) {
     case types.UI_MODAL_OPEN:
-
-      return Object.assign({}, state, {
+      return {
+        ...state,
         modalOpen: true,
         modal: action.payload
-      })
+      }
 
     case types.UI_MODAL_CLOSE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         modalOpen: false,
         modal: undefined
-      })
+      }
 
     case types.UI_LANGUAGE_CHANGED:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         language: action.payload,
         locale: action.payload === 'nb' ? 'nb' : 'en'
-      })
+      }
 
     case types.UI_FOOTER_TOGGLE_OPEN :
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         footerOpen: !state.footerOpen
-      })
+      }
 
     case types.UI_HIGHCONTRAST_TOGGLE :
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         highContrast: !state.highContrast
-      })
+      }
 
     default:
 
