@@ -24,7 +24,7 @@ const File = (props) => {
   const [isHovering, setIsHovering] = useState(false)
 
   const _animate = _.isBoolean(animate) ? animate : true
-  const _size = file ? renderBytes(file.size) : 0
+  const _size = file && file.size !== undefined ? renderBytes(file.size) : 0
   const _scale = scale || 1.0
   const _ui = ui || 'paper'
 

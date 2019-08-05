@@ -69,10 +69,9 @@ describe('api actions', () => {
     }))
       .then(() => {
         const expectedActions = store.getActions()
-        expect(expectedActions.length).toBe(3)
+        expect(expectedActions.length).toBe(2)
         expect(expectedActions[0]).toHaveProperty('type', 'REQUEST')
         expect(expectedActions[1]).toHaveProperty('type', 'SERVER/INTERNAL/ERROR')
-        expect(expectedActions[2]).toHaveProperty('type', 'FAILURE')
       })
   })
 
@@ -91,10 +90,9 @@ describe('api actions', () => {
     }))
       .then(() => {
         const expectedActions = store.getActions()
-        expect(expectedActions.length).toBe(3)
+        expect(expectedActions.length).toBe(2)
         expect(expectedActions[0]).toHaveProperty('type', 'REQUEST')
         expect(expectedActions[1]).toHaveProperty('type', 'SERVER/UNAUTHORIZED/ERROR')
-        expect(expectedActions[2]).toHaveProperty('type', 'FAILURE')
       })
   })
 
