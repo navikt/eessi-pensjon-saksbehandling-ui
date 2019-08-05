@@ -1,24 +1,43 @@
-import pinfoReducer from './pinfo.js'
-import * as types from '../constants/actionTypes'
+import pinfoReducer, { initialPinfoState } from './pinfo.js'
+import * as types from 'constants/actionTypes'
 
-describe('pinfo reducer', () => {
-  const initialState = {
-    invite: undefined
-  }
-
-  it('handles PINFO_INVITE_FAILURE action', () => {
-    const state = pinfoReducer(initialState, {
-      type: types.PINFO_INVITE_FAILURE
-    })
-    expect(state.invite.message).toEqual('pinfo:alert-inviteFailure')
-    expect(state.invite.status).toEqual('ERROR')
+describe('reducers/pinfo', () => {
+  it('PINFO_INVITE_REQUEST', () => {
+    expect(
+      pinfoReducer({
+        ...initialPinfoState,
+        invite: 'something'
+      }, {
+        type: types.PINFO_INVITE_REQUEST
+      })
+    ).toEqual(initialPinfoState)
   })
 
-  it('handles PINFO_INVITE_SUCCESS action', () => {
-    const state = pinfoReducer(initialState, {
-      type: types.PINFO_INVITE_SUCCESS
+  it('PINFO_INVITE_FAILURE', () => {
+    expect(
+      pinfoReducer(initialPinfoState, {
+        type: types.PINFO_INVITE_FAILURE
+      })
+    ).toEqual({
+      ...initialPinfoState,
+      invite: {
+        message: 'pinfo:alert-inviteFailure',
+        status: 'ERROR'
+      }
     })
-    expect(state.invite.message).toEqual('pinfo:alert-inviteSuccess')
-    expect(state.invite.status).toEqual('OK')
+  })
+
+  it('PINFO_INVITE_SUCCESS', () => {
+    expect(
+      pinfoReducer(initialPinfoState, {
+        type: types.PINFO_INVITE_SUCCESS
+      })
+    ).toEqual({
+      ...initialPinfoState,
+      invite: {
+        message: 'pinfo:alert-inviteSuccess',
+        status: 'OK'
+      }
+    })
   })
 })

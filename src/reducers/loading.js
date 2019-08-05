@@ -2,9 +2,36 @@ import * as types from '../constants/actionTypes'
 import _ from 'lodash'
 
 export const initialLoadingState = {
-  status: undefined,
+  creatingBUC: false,
+  creatingSed: false,
+  deletingStorageFile: false,
+  generatingPDF: false,
   gettingBUCs: false,
-  loadingJoarkFile: false
+  gettingBucList: false,
+  gettingBUCinfo: false,
+  gettingCountryList: false,
+  gettingInstitutionList: false,
+  gettingPersonInfo: false,
+  gettingSedList: false,
+  gettingSubjectAreaList: false,
+  gettingUserInfo: false,
+  isInvitingPinfo: false,
+  isLoggingIn: false,
+  isLoggingOut: false,
+  isSendingPinfo: false,
+  loadingJoarkList: false,
+  loadingJoarkFile: false,
+  loadingJoarkPreviewFile: false,
+  loadingP4000list: false,
+  loadingP4000info: false,
+  loadingPDF: false,
+  loadingStorageFile: false,
+  loadingStorageFileList: false,
+  rinaUrl: false,
+  savingBucsInfo: false,
+  savingStorageFile: false,
+  status: undefined,
+  verifyingCaseNumber: false
 }
 
 const loadingReducer = (state = initialLoadingState, action = {}) => {
@@ -30,67 +57,79 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
 
     case types.APP_USERINFO_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         gettingUserInfo: true,
         status: status
-      })
+      }
 
     case types.APP_USERINFO_SUCCESS:
     case types.APP_USERINFO_FAILURE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         gettingUserInfo: false,
         status: status
-      })
+      }
 
     case types.APP_PERSONINFO_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         gettingPersonInfo: true,
         status: status
-      })
+      }
 
     case types.APP_PERSONINFO_SUCCESS:
     case types.APP_PERSONINFO_FAILURE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         gettingPersonInfo: false,
         status: status
-      })
+      }
 
     case types.APP_LOGIN_REQUEST: {
-      return Object.assign({}, state, {
-        isLoggingIn: true
-      })
+      return {
+        ...state,
+        isLoggingIn: true,
+        status: status
+      }
     }
 
     case types.APP_LOGOUT_SUCCESS:
     case types.APP_LOGOUT_FAILURE:
-      return Object.assign({}, state, {
-        isLoggingOut: false
-      })
+      return {
+        ...state,
+        isLoggingOut: false,
+        status: status
+      }
 
     case types.APP_LOGOUT_REQUEST:
-      return Object.assign({}, state, {
-        isLoggingOut: true
-      })
+      return {
+        ...state,
+        isLoggingOut: true,
+        status: status
+      }
 
       // BUC
 
     case types.BUC_GET_BUCS_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         gettingBUCs: true,
         status: status
-      })
+      }
 
     case types.BUC_GET_BUCS_SUCCESS:
     case types.BUC_GET_BUCS_FAILURE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         gettingBUCs: false,
         status: status
-      })
+      }
 
     case types.BUC_GET_BUCSINFO_REQUEST:
 
@@ -102,32 +141,36 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
     case types.BUC_GET_BUCSINFO_SUCCESS:
     case types.BUC_GET_BUCSINFO_FAILURE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         gettingBUCinfo: false,
         status: status
-      })
+      }
 
     case types.BUC_VERIFY_CASE_NUMBER_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         verifyingCaseNumber: true,
         status: status
-      })
+      }
 
     case types.BUC_VERIFY_CASE_NUMBER_SUCCESS:
     case types.BUC_VERIFY_CASE_NUMBER_FAILURE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         verifyingCaseNumber: false,
         status: status
-      })
+      }
 
     case types.BUC_GET_SUBJECT_AREA_LIST_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         gettingSubjectAreaList: true,
         status: status
-      })
+      }
 
     case types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS:
     case types.BUC_GET_SUBJECT_AREA_LIST_FAILURE:
@@ -139,10 +182,11 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
 
     case types.BUC_GET_BUC_LIST_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         gettingBucList: true,
         status: status
-      })
+      }
 
     case types.BUC_GET_BUC_LIST_SUCCESS:
     case types.BUC_GET_BUC_LIST_FAILURE:
@@ -154,303 +198,354 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
 
     case types.BUC_CREATE_BUC_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         creatingBUC: true,
         status: status
-      })
+      }
 
     case types.BUC_CREATE_BUC_SUCCESS:
     case types.BUC_CREATE_BUC_FAILURE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         creatingBUC: false,
         status: status
-      })
+      }
 
     case types.BUC_SAVE_BUCSINFO_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         savingBucsInfo: true,
         status: status
-      })
+      }
 
     case types.BUC_SAVE_BUCSINFO_SUCCESS:
     case types.BUC_SAVE_BUCSINFO_FAILURE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         savingBucsInfo: false,
         status: status
-      })
+      }
 
     case types.BUC_GET_SED_LIST_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         gettingSedList: true,
         status: status
-      })
+      }
 
     case types.BUC_GET_SED_LIST_SUCCESS:
     case types.BUC_GET_SED_LIST_FAILURE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         gettingSedList: false,
         status: status
-      })
+      }
 
     case types.BUC_GET_COUNTRY_LIST_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         gettingCountryList: true,
         status: status
-      })
+      }
 
     case types.BUC_GET_COUNTRY_LIST_SUCCESS:
     case types.BUC_GET_COUNTRY_LIST_FAILURE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         gettingCountryList: false,
         status: status
-      })
+      }
 
     case types.BUC_GET_INSTITUTION_LIST_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         gettingInstitutionList: true,
         status: status
-      })
+      }
 
     case types.BUC_GET_INSTITUTION_LIST_SUCCESS:
     case types.BUC_GET_INSTITUTION_LIST_FAILURE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         gettingInstitutionList: false,
         status: status
-      })
+      }
 
     case types.BUC_CREATE_SED_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         creatingSed: true,
         status: status
-      })
+      }
 
     case types.BUC_CREATE_SED_SUCCESS:
     case types.BUC_CREATE_SED_FAILURE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         creatingSed: false,
         status: status
-      })
+      }
 
     case types.BUC_RINA_GET_URL_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         rinaUrl: true,
         status: status
-      })
+      }
 
     case types.BUC_RINA_GET_URL_SUCCESS:
     case types.BUC_RINA_GET_URL_FAILURE:
 
-      return Object.assign({}, state, {
-        rinaUrl: false,
-        status: status
-      })
-
-    case types.BUC_GET_P4000_LIST_REQUEST:
       return {
         ...state,
-        loadingP4000list: true
+        rinaUrl: false,
+        status: status
+      }
+
+    case types.BUC_GET_P4000_LIST_REQUEST:
+
+      return {
+        ...state,
+        loadingP4000list: true,
+        status: status
       }
 
     case types.BUC_GET_P4000_LIST_SUCCESS:
     case types.BUC_GET_P4000_LIST_FAILURE:
+
       return {
         ...state,
-        loadingP4000list: false
+        loadingP4000list: false,
+        status: status
       }
 
     case types.BUC_GET_P4000_INFO_REQUEST:
+
       return {
         ...state,
-        loadingP4000info: true
+        loadingP4000info: true,
+        status: status
       }
 
     case types.BUC_GET_P4000_INFO_SUCCESS:
     case types.BUC_GET_P4000_INFO_FAILURE:
+
       return {
         ...state,
-        loadingP4000info: false
+        loadingP4000info: false,
+        status: status
       }
       // JOARK
 
     case types.JOARK_LIST_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         loadingJoarkList: true,
         status: status
-      })
+      }
 
     case types.JOARK_LIST_SUCCESS:
     case types.JOARK_LIST_FAILURE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         loadingJoarkList: false,
         status: status
-      })
+      }
 
     case types.JOARK_PREVIEW_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         loadingJoarkPreviewFile: true,
         status: status
-      })
+      }
 
     case types.JOARK_PREVIEW_SUCCESS:
     case types.JOARK_PREVIEW_FAILURE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         loadingJoarkPreviewFile: false,
         status: status
-      })
+      }
 
     case types.JOARK_GET_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         loadingJoarkFile: true,
         status: status
-      })
+      }
 
     case types.JOARK_GET_SUCCESS:
     case types.JOARK_GET_FAILURE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         loadingJoarkFile: false,
         status: status
-      })
+      }
 
       // PDF
 
     case types.PDF_GENERATE_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         generatingPDF: true,
         status: status
-      })
+      }
 
     case types.PDF_GENERATE_SUCCESS:
     case types.PDF_GENERATE_FAILURE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         generatingPDF: false,
         status: status
-      })
+      }
 
     case types.PDF_LOADING_FILES_STARTED:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         loadingPDF: true,
         status: status
-      })
+      }
 
     case types.PDF_LOADING_FILES_FINISHED:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         loadingPDF: false,
-        status: status
-      })
+        status: 'OK'
+      }
 
     case types.STORAGE_LIST_REQUEST:
     case types.STORAGE_LIST_NO_NOTIF_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         loadingStorageFileList: true,
         status: status
-      })
+      }
 
     case types.STORAGE_LIST_SUCCESS:
     case types.STORAGE_LIST_NO_NOTIF_SUCCESS:
     case types.STORAGE_LIST_FAILURE:
     case types.STORAGE_LIST_NO_NOTIF_FAILURE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         loadingStorageFileList: false,
         status: status
-      })
+      }
 
     case types.STORAGE_GET_REQUEST:
     case types.STORAGE_GET_NO_NOTIF_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         loadingStorageFile: true,
         status: status
-      })
+      }
 
     case types.STORAGE_GET_SUCCESS:
     case types.STORAGE_GET_NO_NOTIF_SUCCESS:
     case types.STORAGE_GET_FAILURE:
     case types.STORAGE_GET_NO_NOTIF_FAILURE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         loadingStorageFile: false,
         status: status
-      })
+      }
 
     case types.STORAGE_POST_REQUEST:
     case types.STORAGE_POST_NO_NOTIF_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         savingStorageFile: true,
         status: status
-      })
+      }
 
     case types.STORAGE_POST_SUCCESS:
     case types.STORAGE_POST_NO_NOTIF_SUCCESS:
     case types.STORAGE_POST_FAILURE:
     case types.STORAGE_POST_NO_NOTIF_FAILURE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         savingStorageFile: false,
         status: status
-      })
+      }
 
     case types.STORAGE_DELETE_REQUEST:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         deletingStorageFile: true,
         status: status
-      })
+      }
 
     case types.STORAGE_DELETE_SUCCESS:
     case types.STORAGE_DELETE_FAILURE:
 
-      return Object.assign({}, state, {
+      return {
+        ...state,
         deletingStorageFile: false,
         status: status
-      })
+      }
 
     case types.PINFO_SEND_SUCCESS:
     case types.PINFO_SEND_FAILURE:
-      return Object.assign({}, state, {
-        isSendingPinfo: false
-      })
+
+      return {
+        ...state,
+        isSendingPinfo: false,
+        status: status
+      }
 
     case types.PINFO_SEND_REQUEST:
 
-      return Object.assign({}, state, {
-        isSendingPinfo: true
-      })
+      return {
+        ...state,
+        isSendingPinfo: true,
+        status: status
+      }
 
     case types.PINFO_INVITE_SUCCESS:
     case types.PINFO_INVITE_FAILURE:
-      return Object.assign({}, state, {
-        isInvitingPinfo: false
-      })
+
+      return {
+        ...state,
+        isInvitingPinfo: false,
+        status: status
+      }
 
     case types.PINFO_INVITE_REQUEST:
-      return Object.assign({}, state, {
-        isInvitingPinfo: true
-      })
+
+      return {
+        ...state,
+        isInvitingPinfo: true,
+        status: status
+      }
 
     default:
 
