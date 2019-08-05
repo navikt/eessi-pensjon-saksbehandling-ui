@@ -2,17 +2,26 @@ import * as types from '../constants/actionTypes'
 import _ from 'lodash'
 
 export const initialBucState = {
+  attachments: undefined,
   buc: undefined,
   bucs: undefined,
   bucsInfoList: undefined,
   bucsInfo: undefined,
+  bucList: undefined,
+  countryList: undefined,
+  currentBUC: undefined,
   sed: undefined,
+  sedList: undefined,
   seds: undefined,
+  subjectAreaList: undefined,
   p4000info: undefined,
   p4000list: undefined,
   institutionList: undefined,
   institutionNames: {},
   mode: 'buclist',
+  rinaId: undefined,
+  tagList: undefined,
+  update: undefined,
   websocketLastChange: undefined,
   websocketList: []
 }
@@ -188,7 +197,6 @@ const bucReducer = (state = initialBucState, action) => {
       }
 
     case types.BUC_SAVE_BUCSINFO_SUCCESS:
-
       return {
         ...state,
         bucsInfo: typeof action.originalPayload === 'object' ? action.originalPayload : JSON.parse(action.originalPayload)
@@ -197,7 +205,10 @@ const bucReducer = (state = initialBucState, action) => {
     case types.BUC_SAVE_BUCSINFO_REQUEST:
     case types.BUC_SAVE_BUCSINFO_FAILURE:
 
-      return state
+      return {
+        ...state,
+        bucsInfo: undefined
+      }
 
     case types.BUC_GET_COUNTRY_LIST_SUCCESS:
 
@@ -209,7 +220,10 @@ const bucReducer = (state = initialBucState, action) => {
     case types.BUC_GET_COUNTRY_LIST_REQUEST:
     case types.BUC_GET_COUNTRY_LIST_FAILURE:
 
-      return state
+      return {
+        ...state,
+        countryList: undefined
+      }
 
     case types.BUC_GET_SED_LIST_SUCCESS:
 
@@ -221,12 +235,15 @@ const bucReducer = (state = initialBucState, action) => {
     case types.BUC_GET_SED_LIST_REQUEST:
     case types.BUC_GET_SED_LIST_FAILURE:
 
-      return state
+      return {
+        ...state,
+        sedList: undefined
+      }
 
     case types.BUC_GET_INSTITUTION_LIST_SUCCESS:
 
       const institutionList = state.institutionList ? _.cloneDeep(state.institutionList) : {}
-      const institutionNames = _.cloneDeep(state.institutionNames)
+      const institutionNames = _.clone(state.institutionNames)
       action.payload.forEach(institution => {
         const existingInstitutions = institutionList[institution.landkode] || []
         if (!_.find(existingInstitutions, { id: institution.id })) {
@@ -241,7 +258,6 @@ const bucReducer = (state = initialBucState, action) => {
         institutionList[institution.landkode] = existingInstitutions
         institutionNames[institution.id] = institution.navn
       })
-
       return {
         ...state,
         institutionList: institutionList,
@@ -280,21 +296,24 @@ const bucReducer = (state = initialBucState, action) => {
       const payload = action.payload.payload
       const sedId = payload.sedId
       const newBucs = state.bucs ? state.bucs.map(buc => {
-        return buc.seds ? buc.seds.map(sed => {
-          return {
-            ...sed,
-            status: sed.id === sedId ? newStatus : sed.status
-          }
-        }) : state.seds
+        return {
+          ...buc,
+          seds: buc.seds ? buc.seds.map(sed => {
+            return {
+              ...sed,
+              status: sed.id === sedId ? newStatus : sed.status
+            }
+          }) : buc.seds
+        }
       }) : state.bucs
       const newBuc = state.buc ? {
         ...state.buc,
-        seds: state.buc.seds.map(sed => {
+        seds: state.buc.seds ? state.buc.seds.map(sed => {
           return {
             ...sed,
             status: sed.id === sedId ? newStatus : sed.status
           }
-        })
+        }) : state.buc.seds
       } : state.buc
       const newSeds = state.seds ? state.seds.map(sed => {
         return {
@@ -302,7 +321,6 @@ const bucReducer = (state = initialBucState, action) => {
           status: sed.id === sedId ? newStatus : sed.status
         }
       }) : state.seds
-
       return {
         ...state,
         bucs: newBucs,
