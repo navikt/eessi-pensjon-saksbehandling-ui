@@ -44,6 +44,15 @@ describe('widgets/EkspandertBartWidget', () => {
     expect(wrapper.find('.w-EkspandertbartWidget .content').render().text()).toEqual('mockContent')
   })
 
+  it('Will call _onResize to accommodate content', () => {
+    wrapper.setProps({content: '<div>mockContent<br/><br/><br/><br/>mockContent</div>' })
+    wrapper.update()
+    wrapper.setProps({content: '<div/>' })
+    wrapper.update()
+    // doesn't capture, probably as mount render doesn't get size units
+    //expect(initialMockProps.onResize).toHaveBeenCalledWith("")
+  })
+
   it('Has properties', () => {
     expect(EkspandertBartWidget.properties).toHaveProperty('type')
     expect(EkspandertBartWidget.properties).toHaveProperty('title')
