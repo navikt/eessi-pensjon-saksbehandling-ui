@@ -131,7 +131,11 @@ export const createBuc = (buc) => {
     method: 'POST',
     expectedPayload: {
       type: buc,
-      caseId: '123'
+      caseId: '123',
+      creator: {
+        institution: 'NO:NAV07',
+        country: 'NO'
+      }
     },
     type: {
       request: types.BUC_CREATE_BUC_REQUEST,
