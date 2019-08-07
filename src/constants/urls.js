@@ -54,6 +54,7 @@ export const PERSON_URL = PER_URL + '/%(aktoerId)s'
 export const BUC_AKTOERID_DETALJER_URL = BUC_URL + '/detaljer/%(aktoerId)s/'
 export const BUC_CREATE_BUC_URL = BUC_URL + '/%(buc)s'
 export const BUC_SED_ATTACHMENT_URL = BUC_URL + '/vedlegg/%(aktoerId)s/%(rinaId)s/%(rinaDokumentId)s/%(joarkJournalpostId)s/%(joarkDokumentInfoId)s/%(variantFormat)s'
+export const BUC_BUCS_URL = BUC_URL + '/bucs'
 
 // SedController
 export const BUC_CREATE_SED_URL = SED_URL + '/add'
