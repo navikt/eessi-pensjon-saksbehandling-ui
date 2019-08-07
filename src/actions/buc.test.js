@@ -228,7 +228,7 @@ describe('buc actions', () => {
         failure: types.BUC_GET_SED_LIST_FAILURE
       },
       expectedPayload: ['P2000', 'P4000', 'P5000'],
-      url: sprintf(urls.EUX_SED_FOR_BUCS_URL, { buc: mockBuc.type, rinaId: mockBuc.caseId })
+      url: sprintf(urls.SED_GET_OPTIONS_URL, { buc: mockBuc.type, rinaId: mockBuc.caseId })
     })
   })
 

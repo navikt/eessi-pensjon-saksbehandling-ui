@@ -192,7 +192,7 @@ export const getCountryList = () => {
 }
 
 export const getSedList = (buc, rinaId) => {
-  const url = sprintf(urls.EUX_SED_FOR_BUCS_URL, { buc: buc.type, rinaId: buc.caseId })
+  const url = sprintf(urls.SED_GET_OPTIONS_URL, { buc: buc.type, rinaId: buc.caseId })
   return api.funcCall({
     url: url,
     expectedPayload: ['P2000', 'P4000', 'P5000'],
