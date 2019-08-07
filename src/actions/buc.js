@@ -109,7 +109,7 @@ export const getSubjectAreaList = () => {
 
 export const getBucList = () => {
   return api.call({
-    url: urls.EUX_BUCS_URL,
+    url: urls.BUC_BUCS_URL,
     type: {
       request: types.BUC_GET_BUC_LIST_REQUEST,
       success: types.BUC_GET_BUC_LIST_SUCCESS,

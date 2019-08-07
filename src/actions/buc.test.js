@@ -144,7 +144,7 @@ describe('buc actions', () => {
         success: types.BUC_GET_BUC_LIST_SUCCESS,
         failure: types.BUC_GET_BUC_LIST_FAILURE
       },
-      url: urls.EUX_BUCS_URL
+      url: urls.BUC_BUCS_URL
     })
   })
 
