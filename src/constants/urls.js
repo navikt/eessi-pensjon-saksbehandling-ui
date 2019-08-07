@@ -58,6 +58,7 @@ export const BUC_BUCS_URL = BUC_URL + '/bucs'
 
 // SedController
 export const BUC_CREATE_SED_URL = SED_URL + '/add'
+export const SED_GET_OPTIONS_URL = SED_URL + '/seds/%(buc)s/%(rinaId)s'
 
 // PdfController
 export const PDF_GENERATE_URL = PDF_URL + '/generate'
