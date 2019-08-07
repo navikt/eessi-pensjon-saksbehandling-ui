@@ -11,13 +11,15 @@ const placeholders = {
   sed: 'buc:form-chooseSed',
   institution: 'buc:form-chooseInstitution',
   country: 'buc:form-chooseCountry',
-  vedtakId: 'buc:form-enterVedtakId'
+  vedtakId: 'buc:form-enterVedtakId',
+  avdodId: 'buc:form-enterAvdodId'
 }
 
 const Step1 = (props) => {
   const { actions, _attachments, buc, _countries, countryList, _institutions, institutionList } = props
   const { layout = 'row', loading, locale, _sed, setAttachments, setCountries, setInstitutions } = props
-  const { sedList, sedNeedsVedtakId, setSed, setValidation, setVedtakId, t, validation, vedtakId } = props
+  const { sedList, sedNeedsVedtakId, sedNeedsAvdodId, setSed, setValidation, setVedtakId, setAvdodId, t,
+    validation, vedtakId, avdodId } = props
 
   const validateSed = (sed) => {
     if (!sed || sed === placeholders.sed) {
@@ -48,6 +50,14 @@ const Step1 = (props) => {
       setValidationState('vedtakFail', t('buc:validation-chooseVedtakId'))
     } else {
       resetValidationState('vedtakFail')
+    }
+  }
+
+  const validateAvdodId = (avdodId) => {
+    if(sedNeedsAvdodId() && isNaN(avdodId)) {
+      setValidationState('avdodFail', t('buc:validation-chooseAvdodId'))
+    } else {
+      resetValidationState('avdodFail')
     }
   }
 
@@ -108,6 +118,12 @@ const Step1 = (props) => {
     } catch (e) {}
     validateVedtakId(vedtakId)
     setVedtakId(vedtakId)
+  }
+
+  const onAvdodIdChange = (e) => {
+    const thisAvdodId = e.target.value
+    validateAvdodId(thisAvdodId)
+    setAvdodId(thisAvdodId)
   }
 
   const renderOptions = (options, type) => {
@@ -225,6 +241,18 @@ const Step1 = (props) => {
           onChange={onVedtakIdChange}
           placeholder={t(placeholders.vedtakId)}
           feil={validation.vedtakFail ? { feilmelding: t(validation.vedtakFail) } : null}
+        />
+      </div> : null}
+      {sedNeedsAvdodId() ? <div className='mb-3'>
+        <Input
+          id='a-buc-c-sedstart__avdodid-input-id'
+          className='a-buc-c-sedstart__avdodid-input'
+          label={t('ui:avdodId')}
+          bredde='fullbredde'
+          value={avdodId}
+          onChange={onAvdodIdChange}
+          placeholder={t(placeholders.avdodId)}
+          feil={validation.avdodFail ? { feilmelding: t(validation.avdodFail) } : null}
         />
       </div> : null}
       <div className='mb-3 flex-fill'>

@@ -37,6 +37,7 @@ const SEDStart = (props) => {
   const [_institutions, setInstitutions] = useState([])
   const [_countries, setCountries] = useState([])
   const [_vedtakId, setVedtakId] = useState(parseInt(vedtakId, 10))
+  const [_avdodId, setAvdodId] = useState("")
   const [_attachments, setAttachments] = useState({})
 
   const [step, setStep] = useState(0)
@@ -110,6 +111,10 @@ const SEDStart = (props) => {
     return _sed === 'P5000' || _sed === 'P6000' || _sed === 'P7000'
   }
 
+  const sedNeedsAvdodId = () => {
+    return _sed === 'P2100'
+  }
+
   const convertInstitutionIDsToInstitutionObjects = () => {
     const institutions = []
     _institutions.forEach(item => {
@@ -147,6 +152,9 @@ const SEDStart = (props) => {
       if (sedNeedsVedtakId()) {
         payload.vedtakId = _vedtakId
       }
+      if (sedNeedsAvdodId()) {
+        payload.avdodId = _avdodId
+      }
       actions.createSed(payload)
     }
   }
@@ -172,7 +180,8 @@ const SEDStart = (props) => {
     if (step === 0) {
       return _sed && _.isEmpty(validation) && !_.isEmpty(_institutions) &&
        !loading.creatingSed && !sendingAttachments &&
-       (sedNeedsVedtakId() ? _.isNumber(_vedtakId) && !_.isNaN(_vedtakId) : true)
+       (sedNeedsVedtakId() ? _.isNumber(_vedtakId) && !_.isNaN(_vedtakId) : true) &&
+        (sedNeedsAvdodId() ? !!_avdodId && !_.isNaN(_avdodId) : true)
     }
     if (step === 1) {
       return _sed === 'P4000' ? p4000info && !_.isEmpty(p4000info.stayAbroad) : true
@@ -188,7 +197,9 @@ const SEDStart = (props) => {
       _attachments={_attachments} setAttachments={setAttachments}
       validation={validation} setValidation={setValidation}
       sedNeedsVedtakId={sedNeedsVedtakId}
+      sedNeedsAvdodId={sedNeedsAvdodId}
       vedtakId={_vedtakId} setVedtakId={setVedtakId}
+      avdodId={_avdodId} setAvdodId={setAvdodId}
       {...props} /> : null}
     { step === 1 ? <Step2
       _sed={_sed}

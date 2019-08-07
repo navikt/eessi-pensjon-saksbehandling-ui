@@ -195,7 +195,7 @@ export const getSedList = (buc, rinaId) => {
   const url = sprintf(urls.EUX_SED_FOR_BUCS_URL, { buc: buc.type, rinaId: buc.caseId })
   return api.funcCall({
     url: url,
-    expectedPayload: ['P2000', 'P4000', 'P5000'],
+    expectedPayload: ['P2000', 'P2100', 'P4000', 'P5000'],
     type: {
       request: types.BUC_GET_SED_LIST_REQUEST,
       success: types.BUC_GET_SED_LIST_SUCCESS,
