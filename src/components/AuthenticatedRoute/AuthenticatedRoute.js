@@ -30,7 +30,8 @@ const paramAliases = {
   rinaid: 'rinaId',
   saksNr: 'sakId',
   saksId: 'sakId',
-  fnr: 'aktoerId'
+  fnr: 'aktoerId',
+  saksType: 'sakType'
 }
 
 export const AuthenticatedRoute = (props) => {

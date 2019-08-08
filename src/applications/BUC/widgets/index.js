@@ -10,7 +10,7 @@ import SEDNew from 'applications/BUC/widgets/SEDNew/SEDNew'
 import BUCEdit from 'applications/BUC/widgets/BUCEdit/BUCEdit'
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import WebSocket from 'applications/BUC/websocket/WebSocket'
-import { Knapp } from 'components/Nav'
+import { Knapp, Input } from 'components/Nav'
 import { WEBSOCKET_URL } from 'constants/urls'
 import { getDisplayName } from 'utils/displayName'
 
@@ -37,7 +37,9 @@ const mapStateToProps = (state) => {
     rinaUrl: state.buc.rinaUrl,
     seds: state.buc.seds,
     loading: state.loading,
-    locale: state.ui.locale
+    locale: state.ui.locale,
+    sakType: state.app.params.sakType,
+    avdodId: state.app.params.avdodId
   }
 }
 
@@ -48,9 +50,10 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export const BUCWidgetIndex = (props) => {
-  const { actions, aktoerId, bucs, buc, loading, mode, rinaUrl, sakId, t, waitForMount = true } = props
+  const { actions, aktoerId, bucs, buc, loading, mode, rinaUrl, sakId, t, waitForMount = true, sakType, avdodId } = props
   const [mounted, setMounted] = useState(!waitForMount)
   const [enableWebsocket, setEnableWebsocket] = useState(false)
+  const [_avdodId, setAvdodId] = useState('')
 
   useEffect(() => {
     if (!mounted && !rinaUrl) {
@@ -65,6 +68,12 @@ export const BUCWidgetIndex = (props) => {
       actions.fetchBucsInfoList(aktoerId)
     }
   }, [actions, aktoerId, bucs, loading, sakId])
+
+  useEffect( () => {
+    if(!sakType && sakId && aktoerId){
+      actions.getSakType(sakId, aktoerId)
+    }
+  },[sakType, sakId, aktoerId])
 
   const onSedUpdate = (data) => {
     actions.sedUpdate(data)
@@ -90,6 +99,13 @@ export const BUCWidgetIndex = (props) => {
           style={{ pading: '0px' }}
           onClick={() => setEnableWebsocket(true)}>Websocket</Knapp> }
     </div>
+    {sakType === 'Gjenlevendeytelse' && !avdodId
+      ? <div className='d-flex flex-row'>
+          <Input bredde={'S'} label={t('buc:app-avdodIdInput')} value={_avdodId} onChange={(e)=>setAvdodId(e.target.value)}/>
+          <Knapp mini={true} onClick={() => actions.setStatusParam('avdodId', _avdodId)}>{t('buc:app-avdodIdButton')}</Knapp>
+      </div>
+      : null
+    }
     {mode === 'buclist' ? <BUCList {...props} /> : null}
     {mode === 'bucedit' ? <BUCEdit {...props} /> : null}
     {mode === 'bucnew' ? <BUCNew {...props} /> : null}

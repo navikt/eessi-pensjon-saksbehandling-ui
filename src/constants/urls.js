@@ -12,6 +12,7 @@ const EUX_URL = FRONTEND_API_URL + '/eux'
 const PDF_URL = FRONTEND_API_URL + '/pdf'
 const PER_URL = FAGMODUL_API_URL + '/person'
 const SAF_URL = FAGMODUL_API_URL + '/saf'
+const PENSJON_URL = FAGMODUL_API_URL + '/pensjon'
 
 export const NAV_URL = 'http://www.nav.no'
 
@@ -59,6 +60,9 @@ export const BUC_BUCS_URL = BUC_URL + '/bucs'
 // SedController
 export const BUC_CREATE_SED_URL = SED_URL + '/add'
 export const SED_GET_OPTIONS_URL = SED_URL + '/seds/%(buc)s/%(rinaId)s'
+
+// PensjonController
+export const PENSJON_GET_SAKTYPE_URL = PENSJON_URL + '/saktype/%(sakId)s/%(aktoerId)s'
 
 // PdfController
 export const PDF_GENERATE_URL = PDF_URL + '/generate'
