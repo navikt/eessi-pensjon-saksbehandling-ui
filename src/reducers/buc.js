@@ -70,15 +70,14 @@ const bucReducer = (state = initialBucState, action) => {
 
     case types.BUC_GET_BUCS_SUCCESS:
 
-      return {
-        ...state,
-        bucs: action.payload
+      const bucReducer = (currentBucs, newBuc) => {
+        currentBucs[newBuc.caseId] = newBuc
+        return currentBucs
       }
 
-    case types.BUC_GET_BUCS_REQUEST:
       return {
         ...state,
-        bucs: undefined
+        bucs: (action.payload || []).reduce(bucReducer, state.bucs || {})
       }
 
     case types.BUC_GET_BUCS_FAILURE:

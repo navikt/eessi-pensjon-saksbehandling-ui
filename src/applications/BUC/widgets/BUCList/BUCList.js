@@ -17,6 +17,11 @@ const BUCList = (props) => {
   const [gettingBucsInfo, setGettingBucsInfo] = useState(false)
   const [mounted, setMounted] = useState(false)
 
+
+  const bucsAsArray = bucs
+    ? Object.values(bucs).sort( (a, b) => a.startDate < b.startDate ? -1 : 1 )
+    : bucs
+
   const onBUCNew = () => {
     actions.setMode('bucnew')
   }
@@ -36,9 +41,9 @@ const BUCList = (props) => {
   }, [bucsInfoList, gettingBucsInfo, actions, aktoerId])
 
   useEffect(() => {
-    if (!mounted && !_.isEmpty(bucs)) {
+    if (!mounted && !_.isEmpty(bucsAsArray)) {
       const listOfCountries = []
-      bucs.forEach(buc => {
+      bucsAsArray.forEach(buc => {
         buc.institusjon.forEach(it => {
           if (!_.find(listOfCountries, { country: it.country })) {
             listOfCountries.push({
@@ -67,13 +72,13 @@ const BUCList = (props) => {
       })
       setMounted(true)
     }
-  }, [institutionList, bucs, mounted, actions])
+  }, [institutionList, bucsAsArray, mounted, actions])
 
   const updateSeds = (buc) => {
     if (seds[buc.type + '-' + buc.caseId]) {
       return seds
     }
-    const _buc = _.find(bucs, { type: buc.type, caseId: buc.caseId })
+    const _buc = _.find(bucsAsArray, { type: buc.type, caseId: buc.caseId })
     const newSeds = {
       ...seds,
       [buc.type + '-' + buc.caseId]: (_buc ? _buc.seds : [])
@@ -93,7 +98,7 @@ const BUCList = (props) => {
     actions.setMode('bucedit')
   }
 
-  if (_.isArray(bucs) && _.isEmpty(bucs)) {
+  if (_.isArray(bucsAsArray) && _.isEmpty(bucsAsArray)) {
     actions.setMode('bucnew')
   }
 
@@ -113,12 +118,12 @@ const BUCList = (props) => {
         <NavFrontendSpinner className='ml-3 mr-3' type='XL' />
         <span className='pl-2'>{t('buc:loading-bucs')}</span>
       </div> : null}
-    {bucs === null
+    {bucsAsArray === null
       ? <div className='mt-5 a-buc-widget__message'>
         {t('buc:error-noBucs')}
       </div> : null}
-    {!gettingBUCs && !_.isEmpty(bucs)
-      ? bucs.map((buc, index) => {
+    {!gettingBUCs && !_.isEmpty(bucsAsArray)
+      ? bucsAsArray.map((buc, index) => {
         const bucId = buc.type + '-' + buc.caseId
         const bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId] : {}
         return <EkspanderbartpanelBase
@@ -165,7 +170,7 @@ const BUCList = (props) => {
 
 BUCList.propTypes = {
   t: PT.func.isRequired,
-  bucs: PT.array,
+  bucs: PT.object,
   actions: PT.object.isRequired,
   aktoerId: PT.string,
   rinaUrl: PT.string,

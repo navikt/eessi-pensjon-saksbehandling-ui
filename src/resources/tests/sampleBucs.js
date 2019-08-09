@@ -9,7 +9,7 @@ export default [
     sakType: '',
     aktoerId: '1000070418092',
     status: 'open',
-    startDate: '2019-05-29',
+    startDate: '2019-05-27',
     lastUpdate: '2019-05-29',
     institusjon: [
       {
@@ -891,11 +891,11 @@ export default [
       country: 'NO',
       institution: 'Z990638'
     },
-    caseId: '196304',
+    caseId: '296304',
     sakType: '',
     aktoerId: '1000070418092',
     status: 'open',
-    startDate: '2019-05-29',
+    startDate: '2019-05-19',
     lastUpdate: '2019-05-29',
     institusjon: [
       {
@@ -1756,11 +1756,11 @@ export default [
       country: 'NO',
       institution: 'Z990638'
     },
-    caseId: '195309',
+    caseId: '185309',
     sakType: '',
     aktoerId: '1000070418092',
     status: 'open',
-    startDate: '2019-05-29',
+    startDate: '2019-04-30',
     lastUpdate: '2019-05-29',
     institusjon: [
       {
@@ -1837,11 +1837,11 @@ export default [
       country: 'NO',
       institution: 'Z990638'
     },
-    caseId: '195766',
+    caseId: '195366',
     sakType: '',
     aktoerId: '1000070418092',
     status: 'open',
-    startDate: '2019-05-29',
+    startDate: '2019-07-29',
     lastUpdate: '2019-05-29',
     institusjon: [
       {
@@ -1918,7 +1918,7 @@ export default [
       country: 'NO',
       institution: 'Z990638'
     },
-    caseId: '195766',
+    caseId: '192766',
     sakType: '',
     aktoerId: '1000070418092',
     status: 'open',
