@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const SEDStart = (props) => {
-  const { actions, aktoerId, attachments, buc, bucsInfoList, countryList, institutionList } = props
+  const { actions, aktoerId, avdodId, attachments, buc, bucsInfoList, countryList, institutionList } = props
   const { loading, p4000info, sakId, sed, sedList, t, vedtakId } = props
 
   const [_sed, setSed] = useState(undefined)
@@ -99,12 +99,15 @@ const SEDStart = (props) => {
     if (sedSent && attachmentsSent) {
       actions.resetSed()
       actions.fetchBucs(aktoerId)
+      if(avdodId){
+        actions.fetchBucs(avdodId)
+      }
       if (!_.isEmpty(bucsInfoList) && bucsInfoList.indexOf(aktoerId + '___BUC___INFO') >= 0) {
         actions.fetchBucsInfo(aktoerId + '___BUC___INFO')
       }
       actions.setMode('bucedit')
     }
-  }, [attachmentsSent, aktoerId, actions, sedSent])
+  }, [attachmentsSent, aktoerId, avdodId, actions, sedSent])
 
   const sedNeedsVedtakId = () => {
     return _sed === 'P5000' || _sed === 'P6000' || _sed === 'P7000'

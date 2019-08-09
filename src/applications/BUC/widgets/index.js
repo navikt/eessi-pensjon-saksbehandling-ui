@@ -63,11 +63,17 @@ export const BUCWidgetIndex = (props) => {
   }, [actions, mounted, rinaUrl, waitForMount])
 
   useEffect(() => {
-    if (bucs === undefined && aktoerId && sakId && !loading.gettingBUCs) {
+    if (aktoerId && sakId) {
       actions.fetchBucs(aktoerId)
       actions.fetchBucsInfoList(aktoerId)
     }
-  }, [actions, aktoerId, bucs, loading, sakId])
+  }, [aktoerId, sakId])
+
+  useEffect( ()=> {
+    if(avdodId && sakId){
+      actions.fetchBucs(avdodId)
+    }
+  }, [avdodId, sakId])
 
   useEffect( () => {
     if(!sakType && sakId && aktoerId){
