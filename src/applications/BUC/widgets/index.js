@@ -39,7 +39,7 @@ const mapStateToProps = (state) => {
     loading: state.loading,
     locale: state.ui.locale,
     sakType: state.app.params.sakType,
-    avdodId: state.app.params.avdodId
+    avdodfnr: state.app.params.avdodfnr
   }
 }
 
@@ -50,10 +50,10 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export const BUCWidgetIndex = (props) => {
-  const { actions, aktoerId, bucs, buc, loading, mode, rinaUrl, sakId, t, waitForMount = true, sakType, avdodId } = props
+  const { actions, aktoerId, bucs, buc, loading, mode, rinaUrl, sakId, t, waitForMount = true, sakType, avdodfnr } = props
   const [mounted, setMounted] = useState(!waitForMount)
   const [enableWebsocket, setEnableWebsocket] = useState(false)
-  const [_avdodId, setAvdodId] = useState('')
+  const [_avdodfnr, setAvdodfnr] = useState('')
 
   useEffect(() => {
     if (!mounted && !rinaUrl) {
@@ -70,10 +70,10 @@ export const BUCWidgetIndex = (props) => {
   }, [aktoerId, sakId])
 
   useEffect( ()=> {
-    if(avdodId && sakId){
-      actions.fetchBucs(avdodId)
+    if(avdodfnr && sakId){
+      actions.fetchBucs(avdodfnr)
     }
-  }, [avdodId, sakId])
+  }, [avdodfnr, sakId])
 
   useEffect( () => {
     if(!sakType && sakId && aktoerId){
@@ -105,10 +105,10 @@ export const BUCWidgetIndex = (props) => {
           style={{ pading: '0px' }}
           onClick={() => setEnableWebsocket(true)}>Websocket</Knapp> }
     </div>
-    {sakType === 'Gjenlevendeytelse' && !avdodId
+    {sakType === 'Gjenlevendeytelse' && !avdodfnr
       ? <div className='d-flex flex-row'>
-          <Input bredde={'S'} label={t('buc:app-avdodIdInput')} value={_avdodId} onChange={(e)=>setAvdodId(e.target.value)}/>
-          <Knapp mini={true} onClick={() => actions.setStatusParam('avdodId', _avdodId)}>{t('buc:app-avdodIdButton')}</Knapp>
+          <Input bredde={'S'} label={t('buc:app-avdodfnrInput')} value={_avdodfnr} onChange={(e)=>setAvdodfnr(e.target.value)}/>
+          <Knapp mini={true} onClick={() => actions.setStatusParam('avdodfnr', _avdodfnr)}>{t('buc:app-avdodfnrButton')}</Knapp>
       </div>
       : null
     }

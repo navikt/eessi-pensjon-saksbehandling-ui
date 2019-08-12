@@ -21,7 +21,8 @@ export const mapStateToProps = (state) => {
     locale: state.ui.locale,
     sed: state.buc.sed,
     sedList: state.buc.sedList,
-    p4000info: state.buc.p4000info
+    p4000info: state.buc.p4000info,
+    avdodfnr: state.app.params.avdodfnr
   }
 }
 
@@ -30,7 +31,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const SEDStart = (props) => {
-  const { actions, aktoerId, avdodId, attachments, buc, bucsInfoList, countryList, institutionList } = props
+  const { actions, aktoerId, avdodfnr, attachments, buc, bucsInfoList, countryList, institutionList } = props
   const { loading, p4000info, sakId, sed, sedList, t, vedtakId } = props
 
   const [_sed, setSed] = useState(undefined)
@@ -99,15 +100,15 @@ const SEDStart = (props) => {
     if (sedSent && attachmentsSent) {
       actions.resetSed()
       actions.fetchBucs(aktoerId)
-      if(avdodId){
-        actions.fetchBucs(avdodId)
+      if(avdodfnr){
+        actions.fetchBucs(avdodfnr)
       }
       if (!_.isEmpty(bucsInfoList) && bucsInfoList.indexOf(aktoerId + '___BUC___INFO') >= 0) {
         actions.fetchBucsInfo(aktoerId + '___BUC___INFO')
       }
       actions.setMode('bucedit')
     }
-  }, [attachmentsSent, aktoerId, avdodId, actions, sedSent])
+  }, [attachmentsSent, aktoerId, avdodfnr, actions, sedSent])
 
   const sedNeedsVedtakId = () => {
     return _sed === 'P5000' || _sed === 'P6000' || _sed === 'P7000'
@@ -149,6 +150,9 @@ const SEDStart = (props) => {
       }
       if (sedNeedsVedtakId()) {
         payload.vedtakId = _vedtakId
+      }
+      if (avdodfnr) {
+        payload.avdodfnr = avdodfnr
       }
       actions.createSed(payload)
     }
