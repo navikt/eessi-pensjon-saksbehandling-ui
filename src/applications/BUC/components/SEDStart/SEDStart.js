@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const SEDStart = (props) => {
   const { actions, aktoerId, avdodfnr, attachments, buc, bucsInfoList, countryList, institutionList } = props
-  const { loading, p4000info, sakId, sed, sedList, t, vedtakId } = props
+  const { loading, p4000info, sakId, sed, t, vedtakId } = props
 
   const [_sed, setSed] = useState(undefined)
   const [_institutions, setInstitutions] = useState([])
@@ -54,11 +54,7 @@ const SEDStart = (props) => {
     }
   }, [actions, countryList, loading])
 
-  useEffect(() => {
-    if (_.isEmpty(sedList) && !loading.gettingSedList) {
-      actions.getSedList(buc)
-    }
-  }, [actions, loading, sedList, buc])
+  useEffect(() => { actions.getSedList(buc) }, [])
 
   useEffect(() => {
     if (sed && !sedSent) {
