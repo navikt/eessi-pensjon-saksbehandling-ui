@@ -76,11 +76,11 @@ describe('reducers/buc', () => {
     expect(
       bucReducer(initialBucState, {
         type: types.BUC_GET_BUCS_SUCCESS,
-        payload: 'mockPayload'
+        payload: [{caseId: 'mockPayload'}]
       })
     ).toEqual({
       ...initialBucState,
-      bucs: 'mockPayload'
+      bucs: {'mockPayload': {caseId: 'mockPayload'}} 
     })
   })
 
@@ -94,7 +94,7 @@ describe('reducers/buc', () => {
       })
     ).toEqual({
       ...initialBucState,
-      bucs: undefined
+      bucs: 'mockBucs'
     })
   })
 
