@@ -19,7 +19,7 @@ const BUCList = (props) => {
 
 
   const bucsAsArray = bucs
-    ? Object.values(bucs).sort( (a, b) => a.startDate < b.startDate ? -1 : 1 )
+    ? Object.values(bucs).sort( (a, b) => a.startDate < b.startDate ? 1 : -1 )
     : bucs
 
   const onBUCNew = () => {
