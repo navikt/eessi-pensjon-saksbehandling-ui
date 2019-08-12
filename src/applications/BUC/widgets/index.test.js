@@ -5,6 +5,12 @@ jest.mock('applications/BUC/widgets/SEDNew/SEDNew', () => {
   return () => { return <div className='a-buc-sednew' /> }
 })
 
+const bucReducer = (currentBucs, newBuc) => {
+  currentBucs[newBuc.caseId] = newBuc
+  return currentBucs
+}
+const mockBucs = sampleBucs.reduce(bucReducer, {})
+
 describe('applications/BUC/widgets/index', () => {
   let wrapper
   const t = jest.fn((translationString) => { return translationString })
@@ -13,10 +19,13 @@ describe('applications/BUC/widgets/index', () => {
       verifyCaseNumber: jest.fn(),
       saveBucsInfo: jest.fn(),
       getInstitutionsListForBucAndCountry: jest.fn(),
-      getTagList: jest.fn()
+      getTagList: jest.fn(),
+      fetchBucs: jest.fn(),
+      fetchBucsInfoList: jest.fn(),
+      getSakType: jest.fn()
     },
     aktoerId: '123',
-    bucs: sampleBucs,
+    bucs: mockBucs,
     buc: sampleBucs[0],
     seds: sampleBucs[0].seds,
     loading: {},

@@ -2,6 +2,8 @@ import React from 'react'
 import { Undertekst } from 'components/Nav'
 import _ from 'lodash'
 import classNames from 'classnames'
+import moment from 'moment'
+
 
 const PersonBody = (props) => {
   const { t, person } = props
@@ -27,10 +29,10 @@ const PersonBody = (props) => {
   }
 
   if (_.get(person, 'sivilstand.fomGyldighetsperiode')) {
-    dateString = new Date(Date.parse(person.sivilstand.fomGyldighetsperiode)).toLocaleDateString()
+    dateString = moment(person.sivilstand.fomGyldighetsperiode).format('Y-M-D')
   }
   if (_.get(person, 'sivilstand.tomGyldighetsperiode')) {
-    dateString += ' - ' + new Date(Date.parse(person.sivilstand.tomGyldighetsperiode)).toLocaleDateString()
+    dateString += ' - ' + moment(person.sivilstand.tomGyldighetsperiode).format('Y-M-D')
   }
 
   return <div className='w-person-body'>

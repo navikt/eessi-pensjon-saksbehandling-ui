@@ -75,9 +75,11 @@ const bucReducer = (state = initialBucState, action) => {
         return currentBucs
       }
 
+      if(!_.isArray(action.payload)){return state}
+
       return {
         ...state,
-        bucs: (action.payload || []).reduce(bucReducer, state.bucs || {})
+        bucs: action.payload.reduce(bucReducer, state.bucs || {})
       }
 
     case types.BUC_GET_BUCS_FAILURE:

@@ -167,6 +167,10 @@ describe('buc actions', () => {
       },
       expectedPayload: {
         caseId: '123',
+        creator: {
+          institution: 'NO:NAV07',
+          country: 'NO'
+        },
         type: mockBuc
       },
       method: 'POST',

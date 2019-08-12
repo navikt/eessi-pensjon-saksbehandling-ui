@@ -6,6 +6,7 @@ import { Element, PanelBase, Normaltekst, Flatknapp } from 'components/Nav'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import Icons from 'components/Icons'
+import moment from 'moment'
 
 import './SEDRow.css'
 
@@ -18,6 +19,7 @@ const SEDRow = (props) => {
       institution: participant.organisation.name
     }
   }) : []
+
   return <PanelBase
     className={classNames('a-buc-c-sedrow p-0', className)}>
     <div className={classNames('a-buc-c-sedrow__content pt-2 pb-2', 'a-buc-c-sedrow__border-' + border)}>
@@ -27,9 +29,9 @@ const SEDRow = (props) => {
       <div className='a-buc-c-sedrow__column a-buc-c-sedrow__status col-4'>
         <SEDStatus t={t} className='col-auto' status={sed.status} />
         <Normaltekst className='pl-2'>
-          {new Date(sed.creationDate).toLocaleDateString()}
+          {moment(sed.creationDate).format('Y-M-D')}
           {sed.lastUpdate && sed.status !== 'received' && sed.status !== 'sent'
-            ? ' - ' + new Date(sed.lastUpdate).toLocaleDateString() : ''}
+            ? ' - ' + moment(sed.creationDate).format('Y-M-D') : ''}
         </Normaltekst>
       </div>
       <div className='a-buc-c-sedrow__column a-buc-c-sedrow__institutions col-4'>

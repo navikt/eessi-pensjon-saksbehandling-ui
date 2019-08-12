@@ -10,6 +10,11 @@ jest.mock('components/Nav', () => {
   }
 })
 
+const bucReducer = (currentBucs, newBuc) => {
+  currentBucs[newBuc.caseId] = newBuc
+  return currentBucs
+}
+const mockBucs = sampleBucs.reduce(bucReducer, {})
 
 describe('applications/BUC/widgets/BUCList/BUCList', () => {
   let wrapper
@@ -23,7 +28,7 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
       fetchBucsInfoList: jest.fn()
     },
     aktoerId: '123',
-    bucs: sampleBucs,
+    bucs: mockBucs,
     bucsInfoList: [],
     bucsInfo: sampleBucsInfo,
     gettingBUCs: false,
