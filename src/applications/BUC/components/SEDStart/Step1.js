@@ -149,7 +149,9 @@ const Step1 = (props) => {
     return label
   }
 
-  const countryObjectList = countryList ? CountryData.filterByValueOnArray(locale, countryList) : []
+  const notNorway = countryCode => countryCode.toUpperCase() !== 'NO'
+
+  const countryObjectList = (countryList ? CountryData.filterByValueOnArray(locale, countryList.filter(notNorway)) : [])
 
   const countryValueList = _countries ? CountryData.filterByValueOnArray(locale, _countries) : []
 
