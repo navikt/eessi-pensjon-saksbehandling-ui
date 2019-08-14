@@ -149,11 +149,11 @@ const Step1 = (props) => {
     return label
   }
 
-  const notNorway = countryCode => countryCode.toUpperCase() !== 'NO'
-
-  const countryObjectList = (countryList ? CountryData.filterByValueOnArray(locale, countryList.filter(notNorway)) : [])
+  const countryObjectList = (countryList ? CountryData.filterByValueOnArray(locale, countryList) : [])
 
   const countryValueList = _countries ? CountryData.filterByValueOnArray(locale, _countries) : []
+
+  const notHostInstitution = institution => institution.id !== 'NO:NAVT002'
 
   const institutionObjectList = []
   if (institutionList) {
@@ -162,7 +162,7 @@ const Step1 = (props) => {
         const label = CountryData.findByValue(locale, landkode)
         institutionObjectList.push({
           label: label.label,
-          options: institutionList[landkode].map(institution => {
+          options: institutionList[landkode].filter(notHostInstitution).map(institution => {
             return {
               label: institution.navn,
               value: institution.id
