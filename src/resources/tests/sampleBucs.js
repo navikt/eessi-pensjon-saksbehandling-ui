@@ -9,8 +9,8 @@ export default [
     sakType: '',
     aktoerId: '1000070418092',
     status: 'open',
-    startDate: '2019-05-27',
-    lastUpdate: '2019-05-29',
+    startDate: '2019-5-27',
+    lastUpdate: '2019-5-29',
     institusjon: [
       {
         country: 'NO',
