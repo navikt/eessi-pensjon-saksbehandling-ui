@@ -1,6 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
+import moment from 'moment'
 
 import { EkspanderbartpanelBase, Element, EtikettLiten, Normaltekst, Systemtittel, Undertittel } from 'components/Nav'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
@@ -49,13 +50,13 @@ const BUCDetail = (props) => {
           <Element>{t('ui:created')}:</Element>
         </dt>
         <dd className='odd' id='a-buc-c-bucdetail__props-startDate'>
-          <Normaltekst>{buc.startDate}</Normaltekst>
+          <Normaltekst>{moment(buc.startDate).format('Y-M-D')}</Normaltekst>
         </dd>
         <dt>
           <Element>{t('ui:lastUpdate')}:</Element>
         </dt>
         <dd id='a-buc-c-bucdetail__props-lastUpdate'>
-          <Normaltekst>{buc.lastUpdate}</Normaltekst>
+          <Normaltekst>{moment(buc.lastUpdate).format('Y-M-D')}</Normaltekst>
         </dd>
         <dt className='odd'>
           <Element>{t('ui:type')}:</Element>
