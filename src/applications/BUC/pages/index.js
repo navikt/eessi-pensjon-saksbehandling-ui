@@ -10,6 +10,7 @@ import { getDisplayName } from 'utils/displayName'
 import * as bucActions from 'actions/buc'
 import * as appActions from 'actions/app'
 import * as uiActions from 'actions/ui'
+import { WEBSOCKET_URL } from 'constants/urls'
 import './index.css'
 
 export const mapStateToProps = (state) => {
@@ -35,8 +36,25 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
+//TODO remove/refactor. testing websocket from frontend
+const connectToWebSocket = () => {
+  let conn = new WebSocket(WEBSOCKET_URL, 'v0.eessiBuc')
+  conn.onopen = e => console.log(e.data)
+  conn.onmessage = e => console.log(e.data)
+  conn.onclose = e => console.log(e.data)
+  conn.onerror = e => console.log(e.data)
+  return conn
+}
+
 export const BUCPageIndex = (props) => {
   const { className, history, t } = props
+
+  //TODO remove/refactor. testing websocket from frontend
+  let websocketConnection
+  if(WEBSOCKET_URL) {
+    websocketConnection = connectToWebSocket()
+    websocketConnection.send('{"subscriptions": ["aktoerId"]}')
+  }
 
   return <TopContainer
     className={classNames('a-buc-page', className)}
