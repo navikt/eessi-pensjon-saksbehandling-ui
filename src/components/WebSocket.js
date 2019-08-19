@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {connect} from 'util/websocket'
+import {connect} from '../utils/websocket'
 
 const logData = (e) => console.log(e.data)
 
