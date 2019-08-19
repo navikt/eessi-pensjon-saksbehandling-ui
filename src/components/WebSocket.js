@@ -12,7 +12,8 @@ const mapStateToProps = (state) => {
 }
 
 
-const WebSocket = () => {
+const WebSocket = (props) => {
+  const {aktoerId, avdodfnr} = props
   const [connection, setConnection] = useState(null)
   const [ready, setReady] = useState(false)
 
@@ -24,7 +25,7 @@ const WebSocket = () => {
   )
 
   useEffect( () => {
-    if(ready){
+    if(connection && ready){
       let message = {subscriptions: [aktoerId, avdodfnr].filter(el=>el)}
       connection.send(JSON.stringify(message))
     }
