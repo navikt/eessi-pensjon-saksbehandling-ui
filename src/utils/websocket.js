@@ -1,4 +1,4 @@
-export function connect(onOpen, onMessage, onClose, onError){
+export function connectToWebSocket(onOpen, onMessage, onClose, onError){
   const webSocketURL = window.eessipen? window.eessipen.WEBSOCKETURL.replace('https', 'wss').concat('bucUpdate') : null
   if(!webSocketURL){ return null }
   const connection = new WebSocket(webSocketURL, 'v0.Buc')

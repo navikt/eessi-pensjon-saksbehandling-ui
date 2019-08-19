@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import {connect} from '../utils/websocket'
+import {connectToWebSocket} from '../utils/websocket'
+import { connect } from '../store'
 
 const logData = (e) => console.log(e.data)
+
+const mapStateToProps = (state) => {
+  return {
+    aktoerId: state.app.params.aktoerId,
+    avdodfnr: state.app.params.avdodfnr
+  }
+}
 
 
 const WebSocket = () => {
@@ -10,20 +18,21 @@ const WebSocket = () => {
 
 
   useEffect( () => {
-      let websocketConnection = connect(()=>setReady(true), logData, logData, logData)
+      let websocketConnection = connectToWebSocket(()=>setReady(true), logData, logData, logData)
       setConnection(websocketConnection)
     }, []
   )
 
   useEffect( () => {
     if(ready){
-      connection.send('{"subscriptions": ["foo"]}')
+      let message = {subscriptions: [aktoerId, avdodfnr].filter(el=>el)}
+      connection.send(JSON.stringify(message))
     }
 
-  }, [ready])
+  }, [ready, aktoerId, avdodfnr])
 
   return <div className='WebSocket'></div>
 
 }
 
-export default WebSocket
+export default connect(mapStateToProps, ()=>{})(WebSocket)
