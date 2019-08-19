@@ -49,6 +49,7 @@ fasitResources:
 
     - alias: EessiPensjonFrontendApi_v1
       resourceType: RestService
+      propertyMap:
           url: PUBLIC_WEBSOCKETURL
 
     exposed:
