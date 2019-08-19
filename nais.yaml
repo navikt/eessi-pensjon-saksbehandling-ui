@@ -47,6 +47,10 @@ fasitResources:
       propertyMap:
           url: LOADBALANCEURL
 
+    - alias: EessiPensjonFrontendApi_v1
+      resourceType: RestService
+          url: PUBLIC_WEBSOCKETURL
+
     exposed:
 
     - alias: EessiPensjonFrontend
