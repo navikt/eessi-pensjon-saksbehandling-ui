@@ -49,11 +49,6 @@ describe('applications/BUC/widgets/index', () => {
     expect(wrapper.exists('.a-buc-widget')).toBeTruthy()
     expect(wrapper.exists('.a-buc-widget__header')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-buccrumbs')).toBeTruthy()
-    expect(wrapper.exists('#a-buc__enable-websocket-button-id')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-websocket')).toBeFalsy()
-
-    wrapper.find('#a-buc__enable-websocket-button-id').hostNodes().simulate('click')
-    expect(wrapper.exists('.a-buc-websocket')).toBeTruthy()
   })
 
   it('Has proper HTML structure in buclist mode', () => {
