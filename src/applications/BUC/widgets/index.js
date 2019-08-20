@@ -9,10 +9,10 @@ import BUCNew from 'applications/BUC/widgets/BUCNew/BUCNew'
 import SEDNew from 'applications/BUC/widgets/SEDNew/SEDNew'
 import BUCEdit from 'applications/BUC/widgets/BUCEdit/BUCEdit'
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
-import WebSocket from 'applications/BUC/websocket/WebSocket'
 import { Knapp, Input } from 'components/Nav'
-import { WEBSOCKET_URL } from 'constants/urls'
 import { getDisplayName } from 'utils/displayName'
+import {connectToWebSocket} from '../../../utils/websocket'
+
 
 import './index.css'
 
@@ -52,8 +52,29 @@ const mapDispatchToProps = (dispatch) => {
 export const BUCWidgetIndex = (props) => {
   const { actions, aktoerId, bucs, buc, loading, mode, rinaUrl, sakId, t, waitForMount = true, sakType, avdodfnr } = props
   const [mounted, setMounted] = useState(!waitForMount)
-  const [enableWebsocket, setEnableWebsocket] = useState(false)
+  const [websocketConnection, setWebsocketConnection] = useState(undefined)
+  const [websocketReady, setWebsocketReady] = useState(false)
   const [_avdodfnr, setAvdodfnr] = useState('')
+
+  const onBucUpdate = (e) => {
+    if(e.data.bucUpdated){
+      if(aktoerId){ actions.fetchBucs(aktoerId) } //TODO use getBucInfo(rinaCaseId) when it's ready.
+      if(avdodfnr){ actions.fetchBucs(avdodfnr) }
+    }
+  }
+
+  useEffect( () => {
+    if(!websocketConnection) {
+      setWebsocketConnection(
+        connectToWebSocket(
+          ()=>setWebsocketReady(true),
+          onBucUpdate,
+          ()=>setWebsocketReady(false),
+          ()=>setWebsocketReady(false)
+        )
+      )
+    }
+  }, [websocketReady])
 
   useEffect(() => {
     if (!mounted && !rinaUrl) {
@@ -97,13 +118,6 @@ export const BUCWidgetIndex = (props) => {
         buc={buc}
         mode={mode}
       />
-      {enableWebsocket
-        ? <WebSocket onSedUpdate={onSedUpdate} url={WEBSOCKET_URL} />
-        : <Knapp mini
-          id='a-buc__enable-websocket-button-id'
-          className='a-buc__enable-websocket'
-          style={{ pading: '0px' }}
-          onClick={() => setEnableWebsocket(true)}>Websocket</Knapp> }
     </div>
     {sakType === 'Gjenlevendeytelse' && !avdodfnr
       ? <div className='d-flex flex-row'>
@@ -116,6 +130,7 @@ export const BUCWidgetIndex = (props) => {
     {mode === 'bucedit' ? <BUCEdit {...props} /> : null}
     {mode === 'bucnew' ? <BUCNew {...props} /> : null}
     {mode === 'sednew' ? <SEDNew {...props} /> : null}
+
   </div>
 }
 

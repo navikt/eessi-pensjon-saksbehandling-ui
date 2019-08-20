@@ -3,7 +3,6 @@ import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
 import TopContainer from '../../components/TopContainer/TopContainer'
 import Dashboard from '../../components/Dashboard/Dashboard'
-import WebSocket from '../../components/WebSocket'
 import './IndexPage.css'
 
 class IndexPage extends Component {
@@ -16,7 +15,6 @@ class IndexPage extends Component {
       t={t}
       history={history}>
       <Dashboard id='dashboard' />
-      <WebSocket />
     </TopContainer>
   }
 }
