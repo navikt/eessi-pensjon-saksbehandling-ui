@@ -48,6 +48,18 @@ export const setP4000Info = (p4000) => {
   }
 }
 
+export const fetchSingleBuc = (rinaCaseId) => {
+  return api.funcCall({
+    url: sprintf(urls.BUC_GET_SINGLE_BUC, { rinaCaseId: rinaCaseId }),
+    expectedPayload: sampleBucs[0],
+    type: {
+      request: types.BUC_GET_SINGLE_BUC_REQUEST,
+      success: types.BUC_GET_SINGLE_BUC_SUCCESS,
+      failure: types.BUC_GET_SINGLE_BUC_FAILURE
+    }
+  })
+}
+
 export const fetchBucs = (aktoerId) => {
   return api.funcCall({
     url: sprintf(urls.BUC_AKTOERID_DETALJER_URL, { aktoerId: aktoerId }),

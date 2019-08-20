@@ -16,11 +16,7 @@ const BUCList = (props) => {
   const [seds, setSeds] = useState({})
   const [gettingBucsInfo, setGettingBucsInfo] = useState(false)
   const [mounted, setMounted] = useState(false)
-
-
-  const bucsAsArray = bucs
-    ? Object.values(bucs).sort( (a, b) => a.startDate < b.startDate ? 1 : -1 )
-    : bucs
+  const [bucsAsArray, setBucsAsArray] = useState(undefined)
 
   const onBUCNew = () => {
     actions.setMode('bucnew')
@@ -32,6 +28,12 @@ const BUCList = (props) => {
     actions.setSeds(newSeds[buc.type + '-' + buc.caseId])
     actions.setMode('sednew')
   }
+
+  useEffect( () => {
+    setBucsAsArray(bucs
+      ? Object.values(bucs).sort( (a, b) => a.startDate < b.startDate ? 1 : -1 )
+      : bucs)
+  }, [bucs])
 
   useEffect(() => {
     if (!_.isEmpty(bucsInfoList) && !gettingBucsInfo && bucsInfoList.indexOf(aktoerId + '___BUC___INFO') >= 0) {

@@ -60,8 +60,7 @@ export const BUCWidgetIndex = (props) => {
     try {
       const data = JSON.parse(e.data)
       if (data.bucUpdated) {
-        if (aktoerId) { actions.fetchBucs(aktoerId) } //TODO use getBucInfo(rinaCaseId) when it's ready.
-        if (avdodfnr) { actions.fetchBucs(avdodfnr) }
+        if (aktoerId) { actions.fetchSingleBuc(data.bucUpdated) }
       }
     } catch (err) {
       console.error('Invalid JSON', e.data)
