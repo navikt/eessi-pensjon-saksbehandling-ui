@@ -57,9 +57,14 @@ export const BUCWidgetIndex = (props) => {
   const [_avdodfnr, setAvdodfnr] = useState('')
 
   const onBucUpdate = (e) => {
-    if(e.data.bucUpdated){
-      if(aktoerId){ actions.fetchBucs(aktoerId) } //TODO use getBucInfo(rinaCaseId) when it's ready.
-      if(avdodfnr){ actions.fetchBucs(avdodfnr) }
+    try {
+      const data = JSON.parse(e.data)
+      if (data.bucUpdated) {
+        if (aktoerId) { actions.fetchBucs(aktoerId) } //TODO use getBucInfo(rinaCaseId) when it's ready.
+        if (avdodfnr) { actions.fetchBucs(avdodfnr) }
+      }
+    } catch (err) {
+      console.error('Invalid JSON', e.data)
     }
   }
 
@@ -75,6 +80,7 @@ export const BUCWidgetIndex = (props) => {
       )
     }
   }, [websocketReady])
+
 
   useEffect(() => {
     if (!mounted && !rinaUrl) {
