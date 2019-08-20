@@ -68,6 +68,18 @@ const bucReducer = (state = initialBucState, action) => {
         attachments: undefined
       }
 
+    case types.BUC_GET_SINGLE_BUC_SUCCESS:
+
+      if(!action.payload.caseId){ return state }
+
+      let newBucs = {...state.bucs}
+      newBucs[action.payload.caseId] = action.payload
+
+      return {
+        ...state,
+        bucs: newBucs
+      }
+
     case types.BUC_GET_BUCS_SUCCESS:
 
       const bucReducer = (currentBucs, newBuc) => {

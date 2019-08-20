@@ -56,6 +56,7 @@ export const BUC_AKTOERID_DETALJER_URL = BUC_URL + '/detaljer/%(aktoerId)s/'
 export const BUC_CREATE_BUC_URL = BUC_URL + '/%(buc)s'
 export const BUC_SED_ATTACHMENT_URL = BUC_URL + '/vedlegg/%(aktoerId)s/%(rinaId)s/%(rinaDokumentId)s/%(joarkJournalpostId)s/%(joarkDokumentInfoId)s/%(variantFormat)s'
 export const BUC_BUCS_URL = BUC_URL + '/bucs'
+export const BUC_GET_SINGLE_BUC = BUC_URL + '/enkeldetalj/%(rinaCaseId)s/'
 
 // SedController
 export const BUC_CREATE_SED_URL = SED_URL + '/add'
@@ -70,6 +71,3 @@ export const PDF_GENERATE_URL = PDF_URL + '/generate'
 // Login
 export const LOGIN_URL = FRONTEND_API_URL + '/login'
 export const LOGOUT_URL = 'https://loginservice-q.nav.no/slo'
-
-// Websocket
-export const WEBSOCKET_URL = window.eessipen? window.eessipen.WEBSOCKETURL.replace('https', 'wss').concat('bucUpdate') : null
