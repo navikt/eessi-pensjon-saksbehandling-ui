@@ -111,7 +111,7 @@ SEDSearch.propTypes = {
   onSearch: PT.func.isRequired,
   onCountrySearch: PT.func.isRequired,
   onStatusSearch: PT.func.isRequired,
-  seds: PT.array.isRequired,
+  seds: PT.array,
   t: PT.func.isRequired
 }
 

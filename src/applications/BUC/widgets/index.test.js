@@ -16,7 +16,6 @@ describe('applications/BUC/widgets/index', () => {
   const t = jest.fn((translationString) => { return translationString })
   const initialMockProps = {
     actions: {
-      verifyCaseNumber: jest.fn(),
       saveBucsInfo: jest.fn(),
       getInstitutionsListForBucAndCountry: jest.fn(),
       getTagList: jest.fn(),

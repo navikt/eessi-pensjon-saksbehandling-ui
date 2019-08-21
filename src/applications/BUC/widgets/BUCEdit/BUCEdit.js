@@ -11,7 +11,7 @@ import CountryData from 'components/CountryData/CountryData'
 import './BUCEdit.css'
 
 const BUCEdit = (props) => {
-  const { actions, aktoerId, buc, bucsInfo, institutionNames, loading, locale, rinaUrl, seds, t, tagList } = props
+  const { actions, aktoerId, bucs, bucsInfo, currentBuc, institutionNames, loading, locale, rinaUrl, t, tagList } = props
   const [search, setSearch] = useState(undefined)
   const [countrySearch, setCountrySearch] = useState(undefined)
   const [statusSearch, setStatusSearch] = useState(undefined)
@@ -60,8 +60,14 @@ const BUCEdit = (props) => {
     return match
   }
 
+  if (_.isEmpty(bucs) || !currentBuc) {
+    return null
+  }
+
+  const buc = bucs[currentBuc]
+
   const renderSeds = () => {
-    return seds ? _(seds)
+    return buc.seds ? _(buc.seds)
       .filter(sed => sed.status !== 'empty')
       .filter(sedFilter)
       .sortBy(['creationDate', 'type'])
@@ -82,8 +88,7 @@ const BUCEdit = (props) => {
       }) : null
   }
 
-  const bucId = buc.type + '-' + buc.caseId
-  const bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId] : {}
+  const bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[buc.caseId] : {}
 
   return <div className='a-buc-bucedit'>
     <div className='a-buc-bucedit__buttons mb-3'>
@@ -99,7 +104,7 @@ const BUCEdit = (props) => {
           t={t}
           locale={locale}
           value={search}
-          seds={seds}
+          seds={buc.seds}
           onSearch={onSearch}
           onCountrySearch={onCountrySearch}
           onStatusSearch={onStatusSearch} />
@@ -130,13 +135,13 @@ const BUCEdit = (props) => {
 BUCEdit.propTypes = {
   actions: PT.object.isRequired,
   aktoerId: PT.string.isRequired,
-  buc: PT.object.isRequired,
+  bucs: PT.object.isRequired,
   bucsInfo: PT.object,
+  currentBuc: PT.string.isRequired,
   institutionNames: PT.object,
   loading: PT.object,
   locale: PT.string.isRequired,
   rinaUrl: PT.string,
-  seds: PT.array.isRequired,
   t: PT.func.isRequired,
   tagList: PT.array
 }

@@ -50,11 +50,6 @@ const alertReducer = (state = initialAlertState, action = {}) => {
         clientErrorMessage = 'buc:alert-noBucsInfo'
         break
 
-      case types.BUC_VERIFY_CASE_NUMBER_FAILURE:
-
-        clientErrorMessage = 'buc:alert-caseNotFound'
-        break
-
       case types.BUC_GET_SUBJECT_AREA_LIST_FAILURE:
 
         clientErrorMessage = 'buc:alert-noSubjectAreaList'

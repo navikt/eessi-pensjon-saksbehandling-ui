@@ -3,16 +3,14 @@ import _ from 'lodash'
 
 export const initialBucState = {
   attachments: undefined,
-  buc: undefined,
   bucs: undefined,
   bucsInfoList: undefined,
   bucsInfo: undefined,
   bucList: undefined,
   countryList: undefined,
-  currentBUC: undefined,
+  currentBuc: undefined,
   sed: undefined,
   sedList: undefined,
-  seds: undefined,
   subjectAreaList: undefined,
   p4000info: undefined,
   p4000list: undefined,
@@ -39,18 +37,11 @@ const bucReducer = (state = initialBucState, action) => {
         mode: action.payload
       }
 
-    case types.BUC_BUC_SET:
+    case types.BUC_CURRENTBUC_SET:
 
       return {
         ...state,
-        buc: action.payload
-      }
-
-    case types.BUC_SEDS_SET:
-
-      return {
-        ...state,
-        seds: action.payload
+        currentBuc: action.payload
       }
 
     case types.BUC_SED_RESET:
@@ -62,8 +53,7 @@ const bucReducer = (state = initialBucState, action) => {
     case types.BUC_BUC_RESET:
       return {
         ...state,
-        buc: undefined,
-        seds: undefined,
+        currentBuc: undefined,
         sed: undefined,
         attachments: undefined
       }
@@ -87,7 +77,9 @@ const bucReducer = (state = initialBucState, action) => {
         return currentBucs
       }
 
-      if(!_.isArray(action.payload)){return state}
+      if (!_.isArray(action.payload)) {
+        return state
+      }
 
       return {
         ...state,
@@ -129,21 +121,6 @@ const bucReducer = (state = initialBucState, action) => {
       return {
         ...state,
         bucsInfo: undefined
-      }
-
-    case types.BUC_VERIFY_CASE_NUMBER_SUCCESS:
-
-      return {
-        ...state,
-        currentBUC: action.payload
-      }
-
-    case types.BUC_VERIFY_CASE_NUMBER_REQUEST:
-    case types.BUC_VERIFY_CASE_NUMBER_FAILURE:
-
-      return {
-        ...state,
-        currentBUC: undefined
       }
 
     case types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS:
@@ -203,8 +180,12 @@ const bucReducer = (state = initialBucState, action) => {
 
       return {
         ...state,
-        buc: action.payload,
-        seds: [],
+        currentBuc: action.payload.caseId,
+        bucs: {
+          ...state.bucs,
+          [action.payload.caseId] : action.payload
+        },
+        mode: 'bucedit',
         sed: undefined,
         attachments: undefined
       }
@@ -303,45 +284,6 @@ const bucReducer = (state = initialBucState, action) => {
         ...state,
         attachments: existingAttachments
       }
-
-    case types.BUC_SED_UPDATE: {
-      const newStatus = action.payload.action.toLowerCase()
-      const payload = action.payload.payload
-      const sedId = payload.sedId
-      const newBucs = state.bucs ? state.bucs.map(buc => {
-        return {
-          ...buc,
-          seds: buc.seds ? buc.seds.map(sed => {
-            return {
-              ...sed,
-              status: sed.id === sedId ? newStatus : sed.status
-            }
-          }) : buc.seds
-        }
-      }) : state.bucs
-      const newBuc = state.buc ? {
-        ...state.buc,
-        seds: state.buc.seds ? state.buc.seds.map(sed => {
-          return {
-            ...sed,
-            status: sed.id === sedId ? newStatus : sed.status
-          }
-        }) : state.buc.seds
-      } : state.buc
-      const newSeds = state.seds ? state.seds.map(sed => {
-        return {
-          ...sed,
-          status: sed.id === sedId ? newStatus : sed.status
-        }
-      }) : state.seds
-      return {
-        ...state,
-        bucs: newBucs,
-        buc: newBuc,
-        seds: newSeds,
-        update: action.payload
-      }
-    }
 
     case types.BUC_GET_P4000_LIST_SUCCESS:
       return {

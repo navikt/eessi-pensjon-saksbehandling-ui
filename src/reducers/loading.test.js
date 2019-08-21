@@ -101,18 +101,6 @@ describe('reducers/loading', () => {
     simulateFailure(types.BUC_GET_BUCSINFO_FAILURE, 'gettingBUCinfo')
   })
 
-  it('BUC_VERIFY_CASE_NUMBER_REQUEST', () => {
-    simulateRequest(types.BUC_VERIFY_CASE_NUMBER_REQUEST, 'verifyingCaseNumber')
-  })
-
-  it('BUC_VERIFY_CASE_NUMBER_SUCCESS', () => {
-    simulateSuccess(types.BUC_VERIFY_CASE_NUMBER_SUCCESS, 'verifyingCaseNumber')
-  })
-
-  it('BUC_VERIFY_CASE_NUMBER_FAILURE', () => {
-    simulateFailure(types.BUC_VERIFY_CASE_NUMBER_FAILURE, 'verifyingCaseNumber')
-  })
-
   it('BUC_GET_SUBJECT_AREA_LIST_REQUEST', () => {
     simulateRequest(types.BUC_GET_SUBJECT_AREA_LIST_REQUEST, 'gettingSubjectAreaList')
   })

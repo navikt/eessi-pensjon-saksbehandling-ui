@@ -16,7 +16,6 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   const initialMockProps = {
     actions: {
       createBuc: jest.fn(),
-      verifyCaseNumber: jest.fn(),
       setStatusParam: jest.fn(),
       getSubjectAreaList: jest.fn(),
       getBucList: jest.fn(),
@@ -26,7 +25,6 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
       resetBuc: jest.fn()
     },
     bucList: ['mockBuc1'],
-    currentBUC: { casenumber: '123', pinid: '456' },
     tagList: ['mockTag1', 'mockTag2'],
     aktoerId: '456',
     loading: {},
@@ -44,14 +42,6 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
-  })
-
-  it('UseEffect: verifies case number in no currentBUC is provided', () => {
-    wrapper = mount(<BUCStart {...initialMockProps} currentBUC={undefined} />)
-    expect(initialMockProps.actions.verifyCaseNumber).toHaveBeenCalledWith({
-      sakId: '123',
-      aktoerId: '456'
-    })
   })
 
   it('UseEffect: fetches subject areas, bucs, tags list if empty', () => {

@@ -22,10 +22,9 @@ const mapStateToProps = (state) => {
     sakId: state.app.params.sakId,
     vedtakId: state.app.params.vedtakId,
     bucParam: state.app.params.buc,
-    currentBUC: state.buc.currentBUC,
+    currentBuc: state.buc.currentBuc,
     mode: state.buc.mode,
     bucs: state.buc.bucs,
-    buc: state.buc.buc,
     subjectAreaList: state.buc.subjectAreaList,
     bucList: state.buc.bucList,
     tagList: state.buc.tagList,
@@ -50,7 +49,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export const BUCWidgetIndex = (props) => {
-  const { actions, aktoerId, bucs, buc, loading, mode, rinaUrl, sakId, t, waitForMount = true, sakType, avdodfnr } = props
+  const { actions, aktoerId, bucs, currentBuc, loading, mode, rinaUrl, sakId, t, waitForMount = true, sakType, avdodfnr } = props
   const [mounted, setMounted] = useState(!waitForMount)
   const [websocketConnection, setWebsocketConnection] = useState(undefined)
   const [websocketReady, setWebsocketReady] = useState(false)
@@ -89,27 +88,23 @@ export const BUCWidgetIndex = (props) => {
   }, [actions, mounted, rinaUrl, waitForMount])
 
   useEffect(() => {
-    if (aktoerId && sakId) {
+    if (aktoerId && sakId && bucs === undefined && !loading.gettingBUCs) {
       actions.fetchBucs(aktoerId)
       actions.fetchBucsInfoList(aktoerId)
     }
-  }, [aktoerId, sakId])
+  }, [actions, aktoerId, sakId])
 
   useEffect( ()=> {
     if(avdodfnr && sakId){
       actions.fetchBucs(avdodfnr)
     }
-  }, [avdodfnr, sakId])
+  }, [actions, avdodfnr, sakId])
 
   useEffect( () => {
     if(!sakType && sakId && aktoerId){
       actions.getSakType(sakId, aktoerId)
     }
-  },[sakType, sakId, aktoerId])
-
-  const onSedUpdate = (data) => {
-    actions.sedUpdate(data)
-  }
+  },[actions, sakType, sakId, aktoerId])
 
   if (!mounted) {
     return <div />
@@ -120,7 +115,8 @@ export const BUCWidgetIndex = (props) => {
       <BUCCrumbs
         actions={actions}
         t={t}
-        buc={buc}
+        bucs={bucs}
+        currentBuc={currentBuc}
         mode={mode}
       />
     </div>

@@ -11,7 +11,7 @@ const placeholders = {
 }
 
 const BUCStart = (props) => {
-  const { actions, aktoerId, buc, bucParam, bucsInfo, bucList, currentBUC } = props
+  const { actions, aktoerId, buc, bucParam, bucsInfo, bucList } = props
   const { locale, loading, mode, sakId, subjectAreaList, tagList, t } = props
 
   const [_buc, setBuc] = useState(bucParam)
@@ -23,27 +23,16 @@ const BUCStart = (props) => {
   const [hasBucInfoSaved, setHasBucInfoSaved] = useState(false)
 
   useEffect(() => {
-    if (!loading.verifyingCaseNumber && _.isEmpty(currentBUC) && sakId && aktoerId) {
-      actions.verifyCaseNumber({
-        sakId: sakId,
-        aktoerId: aktoerId
-      })
+    if (subjectAreaList === undefined && !loading.gettingSubjectAreaList) {
+      actions.getSubjectAreaList()
     }
-  }, [currentBUC, actions, loading, sakId, aktoerId])
-
-  useEffect(() => {
-    if (!loading.verifyingCaseNumber && !_.isEmpty(currentBUC)) {
-      if (subjectAreaList === undefined && !loading.gettingSubjectAreaList) {
-        actions.getSubjectAreaList()
-      }
-      if (bucList === undefined && !loading.gettingBucList) {
-        actions.getBucList()
-      }
-      if (tagList === undefined && !loading.gettingTagList) {
-        actions.getTagList()
-      }
+    if (bucList === undefined && !loading.gettingBucList) {
+      actions.getBucList()
     }
-  }, [currentBUC, actions, loading, bucList, subjectAreaList, tagList])
+    if (tagList === undefined && !loading.gettingTagList) {
+      actions.getTagList()
+    }
+  }, [ actions, loading, bucList, subjectAreaList, tagList])
 
   useEffect(() => {
     if (!isBucCreated && buc) {
@@ -277,7 +266,6 @@ const BUCStart = (props) => {
 }
 
 BUCStart.propTypes = {
-  currentBUC: PT.object,
   mode: PT.string,
   actions: PT.object,
   loading: PT.object,

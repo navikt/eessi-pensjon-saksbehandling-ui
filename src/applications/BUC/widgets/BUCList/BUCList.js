@@ -13,27 +13,22 @@ import './BUCList.css'
 
 const BUCList = (props) => {
   const { actions, aktoerId, bucs, bucsInfoList, bucsInfo, gettingBUCs, institutionList, locale, rinaUrl, sakId, t } = props
-  const [seds, setSeds] = useState({})
   const [gettingBucsInfo, setGettingBucsInfo] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const [bucsAsArray, setBucsAsArray] = useState(undefined)
 
   const onBUCNew = () => {
     actions.setMode('bucnew')
   }
 
-  const onSedNew = async (buc) => {
-    const newSeds = await updateSeds(buc)
-    actions.setBuc(buc)
-    actions.setSeds(newSeds[buc.type + '-' + buc.caseId])
+  const onSedNew = (buc) => {
+    actions.setCurrentBuc(buc.caseId)
     actions.setMode('sednew')
   }
 
-  useEffect( () => {
-    setBucsAsArray(bucs
-      ? Object.values(bucs).sort( (a, b) => a.startDate < b.startDate ? 1 : -1 )
-      : bucs)
-  }, [bucs])
+  const onBUCEdit = async (buc) => {
+    actions.setCurrentBuc(buc.caseId)
+    actions.setMode('bucedit')
+  }
 
   useEffect(() => {
     if (!_.isEmpty(bucsInfoList) && !gettingBucsInfo && bucsInfoList.indexOf(aktoerId + '___BUC___INFO') >= 0) {
@@ -43,9 +38,10 @@ const BUCList = (props) => {
   }, [bucsInfoList, gettingBucsInfo, actions, aktoerId])
 
   useEffect(() => {
-    if (!mounted && !_.isEmpty(bucsAsArray)) {
+    if (!mounted && !_.isEmpty(bucs)) {
       const listOfCountries = []
-      bucsAsArray.forEach(buc => {
+      Object.keys(bucs).forEach(key => {
+        let buc = bucs[key]
         buc.institusjon.forEach(it => {
           if (!_.find(listOfCountries, { country: it.country })) {
             listOfCountries.push({
@@ -74,33 +70,9 @@ const BUCList = (props) => {
       })
       setMounted(true)
     }
-  }, [institutionList, bucsAsArray, mounted, actions])
+  }, [institutionList, bucs, mounted, actions])
 
-  const updateSeds = (buc) => {
-    if (seds[buc.type + '-' + buc.caseId]) {
-      return seds
-    }
-    const _buc = _.find(bucsAsArray, { type: buc.type, caseId: buc.caseId })
-    const newSeds = {
-      ...seds,
-      [buc.type + '-' + buc.caseId]: (_buc ? _buc.seds : [])
-    }
-    setSeds(newSeds)
-    return newSeds
-  }
-
-  const onExpandBUCClick = async (buc) => {
-    await updateSeds(buc)
-  }
-
-  const onBUCEdit = async (buc) => {
-    const newSeds = await updateSeds(buc)
-    actions.setBuc(buc)
-    actions.setSeds(newSeds[buc.type + '-' + buc.caseId])
-    actions.setMode('bucedit')
-  }
-
-  if (_.isArray(bucsAsArray) && _.isEmpty(bucsAsArray)) {
+  if (!gettingBUCs && bucs !== undefined && _.isEmpty(bucs)) {
     actions.setMode('bucnew')
   }
 
@@ -120,13 +92,14 @@ const BUCList = (props) => {
         <NavFrontendSpinner className='ml-3 mr-3' type='XL' />
         <span className='pl-2'>{t('buc:loading-bucs')}</span>
       </div> : null}
-    {bucsAsArray === null
+    {bucs === null
       ? <div className='mt-5 a-buc-widget__message'>
         {t('buc:error-noBucs')}
       </div> : null}
-    {!gettingBUCs && !_.isEmpty(bucsAsArray)
-      ? bucsAsArray.map((buc, index) => {
-        const bucId = buc.type + '-' + buc.caseId
+    {!gettingBUCs && !_.isEmpty(bucs)
+      ? Object.keys(bucs).map((key, index) => {
+        let buc = bucs[key]
+        const bucId = buc.caseId
         const bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId] : {}
         return <EkspanderbartpanelBase
           id={'a-buc-buclist__buc-' + bucId}
@@ -138,12 +111,11 @@ const BUCList = (props) => {
             bucInfo={bucInfo}
             locale={locale}
             onBUCEdit={onBUCEdit}
-          />}
-          onClick={() => onExpandBUCClick(buc)}>
+          />}>
           <SEDHeader t={t} />
           <SEDBody
             t={t}
-            seds={seds[bucId] || []}
+            seds={buc.seds || []}
             rinaUrl={rinaUrl}
             locale={locale}
             buc={buc}

@@ -22,27 +22,15 @@ describe('reducers/buc', () => {
     })
   })
 
-  it('BUC_BUC_SET', () => {
+  it('BUC_CURRENTBUC_SET', () => {
     expect(
       bucReducer(initialBucState, {
-        type: types.BUC_BUC_SET,
+        type: types.BUC_CURRENTBUC_SET,
         payload: 'mockPayload'
       })
     ).toEqual({
       ...initialBucState,
-      buc: 'mockPayload'
-    })
-  })
-
-  it('BUC_SEDS_SET', () => {
-    expect(
-      bucReducer(initialBucState, {
-        type: types.BUC_SEDS_SET,
-        payload: 'mockPayload'
-      })
-    ).toEqual({
-      ...initialBucState,
-      seds: 'mockPayload'
+      currentBuc: 'mockPayload'
     })
   })
 
@@ -188,46 +176,6 @@ describe('reducers/buc', () => {
     ).toEqual({
       ...initialBucState,
       bucsInfo: undefined
-    })
-  })
-
-  it('BUC_VERIFY_CASE_NUMBER_SUCCESS', () => {
-    expect(
-      bucReducer(initialBucState, {
-        type: types.BUC_VERIFY_CASE_NUMBER_SUCCESS,
-        payload: 'mockPayload'
-      })
-    ).toEqual({
-      ...initialBucState,
-      currentBUC: 'mockPayload'
-    })
-  })
-
-  it('BUC_VERIFY_CASE_NUMBER_REQUEST', () => {
-    expect(
-      bucReducer({
-        ...initialBucState,
-        currentBUC: 'mockCurrentBUC'
-      }, {
-        type: types.BUC_VERIFY_CASE_NUMBER_REQUEST
-      })
-    ).toEqual({
-      ...initialBucState,
-      currentBUC: undefined
-    })
-  })
-
-  it('BUC_VERIFY_CASE_NUMBER_FAILURE', () => {
-    expect(
-      bucReducer({
-        ...initialBucState,
-        currentBUC: 'mockCurrentBUC'
-      }, {
-        type: types.BUC_VERIFY_CASE_NUMBER_FAILURE
-      })
-    ).toEqual({
-      ...initialBucState,
-      currentBUC: undefined
     })
   })
 
@@ -582,69 +530,6 @@ describe('reducers/buc', () => {
     })
   })
 
-  it('BUC_SED_UPDATE', () => {
-    expect(
-      bucReducer({
-        ...initialBucState,
-        bucs: [{
-          id: 'buc1',
-          type: 'bucType1',
-          seds: [{
-            id: 'sed1',
-            status: 'mockStatus'
-          }]
-        }],
-        buc: {
-          id: 'buc1',
-          type: 'bucType1',
-          seds: [{
-            id: 'sed1',
-            status: 'mockStatus'
-          }]
-        },
-        seds: [{
-          id: 'sed1',
-          status: 'mockStatus'
-        }]
-      }, {
-        type: types.BUC_SED_UPDATE,
-        payload: {
-          action: 'RECEIVED',
-          payload: {
-            sedId: 'sed1'
-          }
-        }
-      })
-    ).toEqual({
-      ...initialBucState,
-      bucs: [{
-        id: 'buc1',
-        type: 'bucType1',
-        seds: [{
-          id: 'sed1',
-          status: 'received'
-        }]
-      }],
-      buc: {
-        id: 'buc1',
-        type: 'bucType1',
-        seds: [{
-          id: 'sed1',
-          status: 'received'
-        }]
-      },
-      seds: [{
-        id: 'sed1',
-        status: 'received'
-      }],
-      update: {
-        action: 'RECEIVED',
-        payload: {
-          sedId: 'sed1'
-        }
-      }
-    })
-  })
 
   it('BUC_GET_P4000_LIST_SUCCESS', () => {
     expect(
