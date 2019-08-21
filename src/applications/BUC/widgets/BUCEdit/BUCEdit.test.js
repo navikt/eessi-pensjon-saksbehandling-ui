@@ -2,6 +2,12 @@ import React from 'react'
 import BUCEdit from './BUCEdit'
 import sampleBucs from 'resources/tests/sampleBucs'
 
+const bucReducer = (currentBucs, newBuc) => {
+  currentBucs[newBuc.caseId] = newBuc
+  return currentBucs
+}
+const mockBucs = sampleBucs.reduce(bucReducer, {})
+
 describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
   let wrapper
   const initialMockProps = {
@@ -9,7 +15,8 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
       setMode: jest.fn()
     },
     aktoerId: '123',
-    buc: sampleBucs[0],
+    bucs: mockBucs,
+    currentBuc: '195440',
     institutionNames: {},
     loading: {},
     locale: 'nb',

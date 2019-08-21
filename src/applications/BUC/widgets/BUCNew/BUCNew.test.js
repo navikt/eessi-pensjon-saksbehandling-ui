@@ -1,7 +1,7 @@
 import React from 'react'
 import BUCNew from './BUCNew'
 jest.mock('applications/BUC/components/BUCStart/BUCStart', () => {
-  return () => { return <div className='mock-c-bucstart' /> }
+  return (props) => { return <div className='mock-c-bucstart' mode={props.mode}/> }
 })
 
 describe('applications/BUC/widgets/BUCNew/BUCNew', () => {
@@ -23,6 +23,6 @@ describe('applications/BUC/widgets/BUCNew/BUCNew', () => {
     wrapper = mount(<BUCNew {...initialMockProps} />)
     expect(wrapper.exists('.a-buc-bucnew')).toBeTruthy()
     expect(wrapper.exists('.mock-c-bucstart')).toBeTruthy()
-    expect(wrapper.find('BUCStart').props().mode).toEqual('widget')
+    expect(wrapper.find('.mock-c-bucstart').props().mode).toEqual('widget')
   })
 })

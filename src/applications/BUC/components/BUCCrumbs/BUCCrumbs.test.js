@@ -1,5 +1,13 @@
 import React from 'react'
 import BUCCrumbs from './BUCCrumbs'
+import sampleBucs from 'resources/tests/sampleBucs'
+
+const bucReducer = (currentBucs, newBuc) => {
+  currentBucs[newBuc.caseId] = newBuc
+  return currentBucs
+}
+const mockBucs = sampleBucs.reduce(bucReducer, {})
+
 
 describe('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {
   const initialMockProps = {
@@ -10,7 +18,9 @@ describe('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {
       setMode: jest.fn()
     },
     showLastLink: true,
-    mode: ''
+    mode: '',
+    currentBuc: '195440',
+    bucs: mockBucs
   }
 
   it('Renders', () => {
@@ -49,7 +59,7 @@ describe('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {
 
   it('Goes to BUC Edit when in New SED mode', () => {
     const wrapper = mount(<BUCCrumbs {...initialMockProps} mode='sednew' buc={{ type: 'mockBuc' }} />)
-    wrapper.find('a[title="buc:buc-mockBuc"]').simulate('click')
+    wrapper.find('a[title="buc:buc-P_BUC_01"]').simulate('click')
     expect(initialMockProps.actions.setMode).toBeCalledWith('bucedit')
   })
 

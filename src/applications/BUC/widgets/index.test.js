@@ -18,6 +18,7 @@ describe('applications/BUC/widgets/index', () => {
     actions: {
       saveBucsInfo: jest.fn(),
       getInstitutionsListForBucAndCountry: jest.fn(),
+      getBucList: jest.fn(),
       getTagList: jest.fn(),
       fetchBucs: jest.fn(),
       fetchBucsInfoList: jest.fn(),
@@ -26,6 +27,7 @@ describe('applications/BUC/widgets/index', () => {
     aktoerId: '123',
     bucs: mockBucs,
     buc: sampleBucs[0],
+    currentBuc: '195440',
     seds: sampleBucs[0].seds,
     loading: {},
     locale: 'nb',

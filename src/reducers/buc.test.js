@@ -49,8 +49,6 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        buc: 'mockBuc',
-        seds: 'mockSeds',
         sed: 'mockSed',
         attachments: 'mockAttachments'
       }, {
@@ -301,12 +299,17 @@ describe('reducers/buc', () => {
     expect(
       bucReducer(initialBucState, {
         type: types.BUC_CREATE_BUC_SUCCESS,
-        payload: 'mockPayload'
+        payload: { caseId: 'mockCaseId', mockPayload: 'mockPayload'}
       })
     ).toEqual({
       ...initialBucState,
-      buc: 'mockPayload',
-      seds: [],
+      bucs: {
+        "mockCaseId": {
+          "caseId": "mockCaseId",
+          "mockPayload": "mockPayload",
+        }},
+      currentBuc: 'mockCaseId',
+      mode: 'bucedit',
       sed: undefined,
       attachments: undefined
     })
