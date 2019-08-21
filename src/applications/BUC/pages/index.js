@@ -14,9 +14,9 @@ import './index.css'
 
 export const mapStateToProps = (state) => {
   return {
-    currentBUC: state.buc.currentBUC,
     bucsInfo: state.buc.bucsInfo,
     buc: state.buc.buc,
+    currentBuc: state.buc.currentBuc,
     subjectAreaList: state.buc.subjectAreaList,
     bucList: state.buc.bucList,
     tagList: state.buc.tagList,
@@ -34,8 +34,6 @@ const mapDispatchToProps = (dispatch) => {
     actions: bindActionCreators({ ...bucActions, ...appActions, ...uiActions }, dispatch)
   }
 }
-
-
 
 export const BUCPageIndex = (props) => {
   const { className, history, t } = props

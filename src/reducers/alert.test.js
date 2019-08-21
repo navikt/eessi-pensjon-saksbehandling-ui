@@ -82,17 +82,6 @@ describe('reducers/alert', () => {
     })
   })
 
-  it('BUC_VERIFY_CASE_NUMBER_FAILURE', () => {
-    expect(
-      alertReducer(initialAlertState, {
-        type: types.BUC_VERIFY_CASE_NUMBER_FAILURE
-      })
-    ).toEqual({
-      clientErrorStatus: 'ERROR',
-      clientErrorMessage: 'buc:alert-caseNotFound'
-    })
-  })
-
   it('BUC_GET_SUBJECT_AREA_LIST_FAILURE', () => {
     expect(
       alertReducer(initialAlertState, {

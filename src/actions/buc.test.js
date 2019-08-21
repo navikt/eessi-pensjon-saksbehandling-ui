@@ -28,21 +28,12 @@ describe('buc actions', () => {
     })
   })
 
-  it('setBuc()', () => {
+  it('setCurrentBuc()', () => {
     const mockedBuc = 'buc'
-    const generatedResult = bucActions.setBuc(mockedBuc)
+    const generatedResult = bucActions.setCurrentBuc(mockedBuc)
     expect(generatedResult).toMatchObject({
-      type: types.BUC_BUC_SET,
+      type: types.BUC_CURRENTBUC_SET,
       payload: mockedBuc
-    })
-  })
-
-  it('setSeds()', () => {
-    const mockedSeds = 'seds'
-    const generatedResult = bucActions.setSeds(mockedSeds)
-    expect(generatedResult).toMatchObject({
-      type: types.BUC_SEDS_SET,
-      payload: mockedSeds
     })
   })
 
@@ -111,19 +102,6 @@ describe('buc actions', () => {
     })
   })
 
-  it('verifyCaseNumber()', () => {
-    const mockParams = { sakId: 123, aktoerId: 456 }
-    bucActions.verifyCaseNumber(mockParams)
-    expect(api.call).toBeCalledWith({
-      type: {
-        request: types.BUC_VERIFY_CASE_NUMBER_REQUEST,
-        success: types.BUC_VERIFY_CASE_NUMBER_SUCCESS,
-        failure: types.BUC_VERIFY_CASE_NUMBER_FAILURE
-      },
-      url: sprintf(urls.EUX_CASE_URL, mockParams)
-    })
-  })
-
   it('getSubjectAreaList()', () => {
     bucActions.getSubjectAreaList()
     expect(api.call).toBeCalledWith({
@@ -138,12 +116,13 @@ describe('buc actions', () => {
 
   it('getBucList()', () => {
     bucActions.getBucList()
-    expect(api.call).toBeCalledWith({
+    expect(api.funcCall).toBeCalledWith({
       type: {
         request: types.BUC_GET_BUC_LIST_REQUEST,
         success: types.BUC_GET_BUC_LIST_SUCCESS,
         failure: types.BUC_GET_BUC_LIST_FAILURE
       },
+      expectedPayload: ['DEMO_BUC_01'],
       url: urls.BUC_BUCS_URL
     })
   })
@@ -302,15 +281,6 @@ describe('buc actions', () => {
         failure: types.BUC_RINA_GET_URL_FAILURE
       },
       url: urls.EUX_RINA_URL
-    })
-  })
-
-  it('sedUpdate()', () => {
-    const mockedData = { foo: 'bar' }
-    const generatedResult = bucActions.sedUpdate(mockedData)
-    expect(generatedResult).toMatchObject({
-      type: types.BUC_SED_UPDATE,
-      payload: mockedData
     })
   })
 

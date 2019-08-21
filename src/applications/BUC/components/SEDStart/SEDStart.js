@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const SEDStart = (props) => {
-  const { actions, aktoerId, avdodfnr, attachments, buc, bucsInfoList, countryList, institutionList } = props
+  const { actions, aktoerId, avdodfnr, attachments, bucs, bucsInfoList, countryList, currentBuc, institutionList } = props
   const { loading, p4000info, sakId, sed, t, vedtakId } = props
 
   const [_sed, setSed] = useState(undefined)
@@ -104,7 +104,13 @@ const SEDStart = (props) => {
       }
       actions.setMode('bucedit')
     }
-  }, [attachmentsSent, aktoerId, avdodfnr, actions, sedSent])
+  }, [attachmentsSent, aktoerId, avdodfnr, actions, bucsInfoList, sedSent])
+
+  if (_.isEmpty(bucs) || !currentBuc) {
+    return null
+  }
+
+  const buc = _.cloneDeep(bucs[currentBuc])
 
   const sedNeedsVedtakId = () => {
     return _sed === 'P5000' || _sed === 'P6000' || _sed === 'P7000'
@@ -185,19 +191,23 @@ const SEDStart = (props) => {
 
   return <Row className='a-buc-c-sedstart'>
     { step === 0 ? <Step1
+      {...props}
       _sed={_sed} setSed={setSed}
+      buc={buc}
       _countries={_countries} setCountries={setCountries}
       _institutions={_institutions} setInstitutions={setInstitutions}
       _attachments={_attachments} setAttachments={setAttachments}
       validation={validation} setValidation={setValidation}
       sedNeedsVedtakId={sedNeedsVedtakId}
       vedtakId={_vedtakId} setVedtakId={setVedtakId}
-      {...props} /> : null}
+    /> : null}
     { step === 1 ? <Step2
+      {...props}
       _sed={_sed}
+      buc={buc}
       showButtons={showButtons} setShowButtons={setShowButtons}
       validation={validation} setValidation={setValidation}
-      {...props} /> : null }
+    /> : null }
     { showButtons ? <div className='col-md-12 mt-4'>
       <Hovedknapp
         id='a-buc-c-sedstart__forward-button-id'

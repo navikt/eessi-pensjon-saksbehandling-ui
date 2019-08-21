@@ -21,8 +21,7 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
   const initialMockProps = {
     actions: {
       setMode: jest.fn(),
-      setBuc: jest.fn(),
-      setSeds: jest.fn(),
+      setCurrentBuc: jest.fn(),
       getInstitutionsListForBucAndCountry: jest.fn(),
       fetchBucs: jest.fn(),
       fetchBucsInfoList: jest.fn()

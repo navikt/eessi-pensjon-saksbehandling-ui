@@ -15,17 +15,10 @@ export const setMode = (mode) => {
   }
 }
 
-export const setBuc = (buc) => {
+export const setCurrentBuc = (bucCaseId) => {
   return {
-    type: types.BUC_BUC_SET,
-    payload: buc
-  }
-}
-
-export const setSeds = (seds) => {
-  return {
-    type: types.BUC_SEDS_SET,
-    payload: seds
+    type: types.BUC_CURRENTBUC_SET,
+    payload: bucCaseId
   }
 }
 
@@ -96,18 +89,6 @@ export const fetchBucsInfo = (fileName) => {
   })
 }
 
-export const verifyCaseNumber = (params) => {
-  const url = sprintf(urls.EUX_CASE_URL, params)
-  return api.call({
-    url: url,
-    type: {
-      request: types.BUC_VERIFY_CASE_NUMBER_REQUEST,
-      success: types.BUC_VERIFY_CASE_NUMBER_SUCCESS,
-      failure: types.BUC_VERIFY_CASE_NUMBER_FAILURE
-    }
-  })
-}
-
 export const getSubjectAreaList = () => {
   return api.call({
     url: urls.EUX_SUBJECT_AREA_URL,
@@ -120,8 +101,9 @@ export const getSubjectAreaList = () => {
 }
 
 export const getBucList = () => {
-  return api.call({
+  return api.funcCall({
     url: urls.BUC_BUCS_URL,
+    expectedPayload: ['DEMO_BUC_01'],
     type: {
       request: types.BUC_GET_BUC_LIST_REQUEST,
       success: types.BUC_GET_BUC_LIST_SUCCESS,
@@ -273,13 +255,6 @@ export const getRinaUrl = () => {
       failure: types.BUC_RINA_GET_URL_FAILURE
     }
   })
-}
-
-export const sedUpdate = (data) => {
-  return {
-    type: types.BUC_SED_UPDATE,
-    payload: data
-  }
 }
 
 export const listP4000 = (aktoerId) => {

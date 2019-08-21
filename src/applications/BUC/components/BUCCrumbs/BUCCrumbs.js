@@ -5,7 +5,7 @@ import { Chevron, Lenke } from 'components/Nav'
 import './BUCCrumbs.css'
 
 const BUCCrumbs = (props) => {
-  const { actions, buc, className, mode, showLastLink = false, t } = props
+  const { actions, bucs, currentBuc, className, mode, showLastLink = false, t } = props
 
   const goToHome = () => {
     actions.resetSed()
@@ -40,7 +40,7 @@ const BUCCrumbs = (props) => {
 
   if (mode === 'bucedit' || mode === 'sednew') {
     buccrumbs.push({
-      label: t(`buc:buc-${buc.type}`),
+      label: t(`buc:buc-${bucs[currentBuc].type}`),
       func: goToEdit
     })
   }
@@ -70,7 +70,8 @@ const BUCCrumbs = (props) => {
 
 BUCCrumbs.propTypes = {
   actions: PT.object.isRequired,
-  buc: PT.object,
+  bucs: PT.object,
+  currentBuc: PT.string,
   mode: PT.string.isRequired,
   sed: PT.object,
   showLastLink: PT.bool,

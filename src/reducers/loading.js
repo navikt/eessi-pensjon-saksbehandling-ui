@@ -30,8 +30,7 @@ export const initialLoadingState = {
   rinaUrl: false,
   savingBucsInfo: false,
   savingStorageFile: false,
-  status: undefined,
-  verifyingCaseNumber: false
+  status: undefined
 }
 
 const loadingReducer = (state = initialLoadingState, action = {}) => {
@@ -145,23 +144,6 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
       return {
         ...state,
         gettingBUCinfo: false,
-        status: status
-      }
-
-    case types.BUC_VERIFY_CASE_NUMBER_REQUEST:
-
-      return {
-        ...state,
-        verifyingCaseNumber: true,
-        status: status
-      }
-
-    case types.BUC_VERIFY_CASE_NUMBER_SUCCESS:
-    case types.BUC_VERIFY_CASE_NUMBER_FAILURE:
-
-      return {
-        ...state,
-        verifyingCaseNumber: false,
         status: status
       }
 
