@@ -30,7 +30,6 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
     bucs: mockBucs,
     bucsInfoList: [],
     bucsInfo: sampleBucsInfo,
-    gettingBUCs: false,
     institutionList: [{
       NO: [{
         navn: 'mockInstitution1',
@@ -39,6 +38,9 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
         landkode: 'NO'
       }]
     }],
+    loading: {
+      gettingBUCs: false
+    },
     locale: 'nb',
     rinaUrl: 'http://mockUrl/rinaUrl',
     sakId: '456',
