@@ -51,11 +51,13 @@ const WidgetAddPreview = (props) => {
     widget.layout[props.currentBreakpoint].defaultH,
     props.currentBreakpoint
   )
-  return <div style={layerStyles}>
-    <div style={getItemStyles(props, dimensions)}>
-      <Widget widget={widget} t={props.t} />
+  return (
+    <div style={layerStyles}>
+      <div style={getItemStyles(props, dimensions)}>
+        <Widget widget={widget} t={props.t} />
+      </div>
     </div>
-  </div>
+  )
 }
 
 const WidgetAddPreviewDragLayer = DragLayer(monitor => ({

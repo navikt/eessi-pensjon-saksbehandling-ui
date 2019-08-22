@@ -51,19 +51,23 @@ const EditPDF = (props) => {
     setStep('select')
   }
 
-  return <div className='documentbox fieldset m-0 mt-4'>
-    <PDFEditor />
-    <Nav.Row className='mb-4'>
-      <Nav.Column>
-        <Nav.Hovedknapp className='forwardButton'
-          disabled={hasOnlyEmptyArrays(recipe)}
-          onClick={onForwardButtonClick}>
-          {t('ui:forward')}
-        </Nav.Hovedknapp>
-        <Nav.Knapp className='backButton ml-3' onClick={onBackButtonClick}>{t('ui:back')}</Nav.Knapp>
-      </Nav.Column>
-    </Nav.Row>
-  </div>
+  return (
+    <div className='documentbox fieldset m-0 mt-4'>
+      <PDFEditor />
+      <Nav.Row className='mb-4'>
+        <Nav.Column>
+          <Nav.Hovedknapp
+            className='forwardButton'
+            disabled={hasOnlyEmptyArrays(recipe)}
+            onClick={onForwardButtonClick}
+          >
+            {t('ui:forward')}
+          </Nav.Hovedknapp>
+          <Nav.Knapp className='backButton ml-3' onClick={onBackButtonClick}>{t('ui:back')}</Nav.Knapp>
+        </Nav.Column>
+      </Nav.Row>
+    </div>
+  )
 }
 
 EditPDF.propTypes = {

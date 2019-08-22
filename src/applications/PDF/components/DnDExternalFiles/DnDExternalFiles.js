@@ -38,9 +38,11 @@ const DnDExternalFiles = (props) => {
 
   const openPreview = (file) => {
     actions.openModal({
-      modalContent: <div style={{ cursor: 'pointer' }} onClick={closePreview}>
-        <File file={file} width={400} height={600} />
-      </div>
+      modalContent: (
+        <div style={{ cursor: 'pointer' }} onClick={closePreview}>
+          <File file={file} width={400} height={600} />
+        </div>
+      )
     })
   }
 
@@ -52,44 +54,61 @@ const DnDExternalFiles = (props) => {
     })
   }
 
-  return <div className='c-pdf-dndExternalFiles'>
-    {fileList ? <div className='fileList'>
-      {fileList.map((_file, index) => {
-        const selected = file && file.name === _file
-        return <div className={classNames('fileRow', { selected: selected })} key={index}>
-          <a className={classNames('fileName')} href='#select'
-            onClick={() => onSelectFile(_file)}>{_file}</a>
+  return (
+    <div className='c-pdf-dndExternalFiles'>
+      {fileList ? (
+        <div className='fileList'>
+          {fileList.map((_file, index) => {
+            const selected = file && file.name === _file
+            return (
+              <div className={classNames('fileRow', { selected: selected })} key={index}>
+                <a
+                  className={classNames('fileName')} href='#select'
+                  onClick={() => onSelectFile(_file)}
+                >{_file}
+                </a>
+              </div>
+            )
+          })}
         </div>
-      })}
-    </div> : null}
-    {file ? <Droppable isDropDisabled droppableId={'c-pdf-dndExternalFiles-droppable'} direction='horizontal'>
-      {(provided) => (
-        <div className='m-2' ref={provided.innerRef}>
-          <Draggable className='draggable' draggableId={'storageFile'} index={0}>
-            {(provided, snapshot) => (
-              <React.Fragment>
-                <div ref={provided.innerRef}
-                  {...provided.draggableProps}
-                  {...provided.dragHandleProps}
-                  className={classNames({ dragging: snapshot.isDragging })}>
-                  <File file={file} addLink animate previewLink downloadLink
-                    width={141.4} height={200} scale={1.0}
-                    onAddFile={() => onaddFile(file)}
-                    onPreviewDocument={() => openPreview(file)} />
-                </div>
-                {snapshot.isDragging && (
-                  <div className='cloneStyle'>
-                    <File file={file} addLink={false} animate={false}
-                      width={141.4} height={200} scale={1.0} />
-                  </div>
+      ) : null}
+      {file ? (
+        <Droppable isDropDisabled droppableId='c-pdf-dndExternalFiles-droppable' direction='horizontal'>
+          {(provided) => (
+            <div className='m-2' ref={provided.innerRef}>
+              <Draggable className='draggable' draggableId='storageFile' index={0}>
+                {(provided, snapshot) => (
+                  <>
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      className={classNames({ dragging: snapshot.isDragging })}
+                    >
+                      <File
+                        file={file} addLink animate previewLink downloadLink
+                        width={141.4} height={200} scale={1.0}
+                        onAddFile={() => onaddFile(file)}
+                        onPreviewDocument={() => openPreview(file)}
+                      />
+                    </div>
+                    {snapshot.isDragging && (
+                      <div className='cloneStyle'>
+                        <File
+                          file={file} addLink={false} animate={false}
+                          width={141.4} height={200} scale={1.0}
+                        />
+                      </div>
+                    )}
+                  </>
                 )}
-              </React.Fragment>
-            )}
-          </Draggable>
-        </div>
-      )}
-    </Droppable> : null}
-  </div>
+              </Draggable>
+            </div>
+          )}
+        </Droppable>
+      ) : null}
+    </div>
+  )
 }
 
 DnDExternalFiles.propTypes = {

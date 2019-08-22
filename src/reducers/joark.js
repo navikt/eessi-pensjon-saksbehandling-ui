@@ -8,7 +8,7 @@ export const initialJoarkState = {
 
 const joarkReducer = (state = initialJoarkState, action = {}) => {
   switch (action.type) {
-    case types.JOARK_LIST_SUCCESS:
+    case types.JOARK_LIST_SUCCESS: {
       const documents = []
       action.payload.data.dokumentoversiktBruker.journalposter.forEach(post => {
         post.dokumenter.forEach(doc => {
@@ -28,6 +28,7 @@ const joarkReducer = (state = initialJoarkState, action = {}) => {
         ...state,
         list: documents
       }
+    }
 
     case types.JOARK_GET_SUCCESS:
 

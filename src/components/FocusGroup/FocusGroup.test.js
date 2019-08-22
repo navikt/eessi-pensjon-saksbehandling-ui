@@ -31,7 +31,7 @@ describe('components/FocusGroup Event bubbling', () => {
     }
 
     const wrapper = mount(
-      <FocusGroup onFocus={eventHandler} >
+      <FocusGroup onFocus={eventHandler}>
         <input type='text' />
       </FocusGroup>
     )
@@ -46,7 +46,7 @@ describe('components/FocusGroup Event bubbling', () => {
     }
 
     const wrapper = mount(
-      <FocusGroup onBlur={eventHandler} >
+      <FocusGroup onBlur={eventHandler}>
         <input type='text' />
       </FocusGroup>
     )

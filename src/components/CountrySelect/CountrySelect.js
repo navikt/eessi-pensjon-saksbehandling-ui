@@ -35,39 +35,44 @@ const CountrySelect = (props) => {
     defValue = _(options).find({ value: defValue.value ? defValue.value : defValue })
   }
 
-  return <div
-    id={id}
-    className={classNames('c-countrySelect', className, { skjemaelement__feilmelding: error })}>
-    <Select
-      placeholder={placeholder}
-      value={defValue || null}
-      options={options}
-      id={id ? id + '-select' : null}
-      components={{
-        Option: CountryOption,
-        SingleValue: CountryValue,
-        ...components
-      }}
-      selectProps={{
-        type: type,
-        flagImagePath: '../../../../../flags/'
-      }}
-      className='c-countrySelect__select'
-      classNamePrefix='c-countrySelect__select'
-      onChange={onSelect}
-      styles={{
-        ...styles,
-        ...CountryErrorStyle(error)
-      }}
-      tabSelectsValue={false}
-      multi={false}
-    />
-    {error
-      ? <div role='alert' aria-live='assertive' className='skjemaelement__feilmelding'>
-        {errorMessage}
-      </div>
-      : null }
-  </div>
+  return (
+    <div
+      id={id}
+      className={classNames('c-countrySelect', className, { skjemaelement__feilmelding: error })}
+    >
+      <Select
+        placeholder={placeholder}
+        value={defValue || null}
+        options={options}
+        id={id ? id + '-select' : null}
+        components={{
+          Option: CountryOption,
+          SingleValue: CountryValue,
+          ...components
+        }}
+        selectProps={{
+          type: type,
+          flagImagePath: '../../../../../flags/'
+        }}
+        className='c-countrySelect__select'
+        classNamePrefix='c-countrySelect__select'
+        onChange={onSelect}
+        styles={{
+          ...styles,
+          ...CountryErrorStyle(error)
+        }}
+        tabSelectsValue={false}
+        multi={false}
+      />
+      {error
+        ? (
+          <div role='alert' aria-live='assertive' className='skjemaelement__feilmelding'>
+            {errorMessage}
+          </div>
+        )
+        : null}
+    </div>
+  )
 }
 
 CountrySelect.propTypes = {

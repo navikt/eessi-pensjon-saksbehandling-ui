@@ -148,17 +148,17 @@ export const saveBucsInfo = (params) => {
   const bucId = params.buc.type + '-' + params.buc.caseId
 
   if (!Object.prototype.hasOwnProperty.call(newBucsInfo, 'bucs')) {
-    newBucsInfo['bucs'] = {}
+    newBucsInfo.bucs = {}
   }
   if (!Object.prototype.hasOwnProperty.call(newBucsInfo.bucs, bucId)) {
     newBucsInfo.bucs[bucId] = {}
   }
 
   if (params.tags) {
-    newBucsInfo.bucs[bucId]['tags'] = newTags
+    newBucsInfo.bucs[bucId].tags = newTags
   }
   if (params.comment) {
-    newBucsInfo.bucs[bucId]['comment'] = newComment
+    newBucsInfo.bucs[bucId].comment = newComment
   }
 
   return api.call({

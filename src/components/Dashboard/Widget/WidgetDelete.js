@@ -11,28 +11,33 @@ const WidgetDelete = (props) => {
     props.onWidgetDelete(props.layout)
   }
 
-  return <div className='c-d-WidgetDelete' style={{ minHeight: '300px' }}>
-    <ReactResizeDetector
-      handleWidth
-      handleHeight
-      onResize={props.onResize} />
-    <div className='deleteText'>
-      <p>{props.t('dashboard-deleteWidgetAreYouSure1')}</p>
-      <p>{props.t('dashboard-deleteWidgetAreYouSure2')}</p>
+  return (
+    <div className='c-d-WidgetDelete' style={{ minHeight: '300px' }}>
+      <ReactResizeDetector
+        handleWidth
+        handleHeight
+        onResize={props.onResize}
+      />
+      <div className='deleteText'>
+        <p>{props.t('dashboard-deleteWidgetAreYouSure1')}</p>
+        <p>{props.t('dashboard-deleteWidgetAreYouSure2')}</p>
+      </div>
+      <div className='buttons'>
+        <KnappBase
+          type='hoved'
+          onClick={onWidgetDeleteClick}
+        >
+          {props.t('ui:yes') + ', ' + props.t('ui:delete')}
+        </KnappBase>
+        <KnappBase
+          type='flat'
+          onClick={() => props.setMode('edit')}
+        >
+          {props.t('ui:no') + ', ' + props.t('ui:cancel')}
+        </KnappBase>
+      </div>
     </div>
-    <div className='buttons'>
-      <KnappBase
-        type='hoved'
-        onClick={onWidgetDeleteClick}>
-        {props.t('ui:yes') + ', ' + props.t('ui:delete')}
-      </KnappBase>
-      <KnappBase
-        type='flat'
-        onClick={() => props.setMode('edit')}>
-        {props.t('ui:no') + ', ' + props.t('ui:cancel')}
-      </KnappBase>
-    </div>
-  </div>
+  )
 }
 
 export default WidgetDelete

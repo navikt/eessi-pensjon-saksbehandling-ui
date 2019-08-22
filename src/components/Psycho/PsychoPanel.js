@@ -28,17 +28,23 @@ class PsychoPanel extends Component {
       return null
     }
 
-    return <div className={classNames('c-psychoPanel', className)}>
-      <Nav.Veilederpanel type='normal' svg={<Psycho type={type} />} kompakt>
-        {children}
-        {closeButton ? <div className='closeButton'>
-          <a href='#close' onClick={this.handleClose.bind(this)}
-            style={{ position: 'absolute', top: '5px', right: '5px' }}>
-            <Icons kind='nav-close' />
-          </a>
-        </div> : null}
-      </Nav.Veilederpanel>
-    </div>
+    return (
+      <div className={classNames('c-psychoPanel', className)}>
+        <Nav.Veilederpanel type='normal' svg={<Psycho type={type} />} kompakt>
+          {children}
+          {closeButton ? (
+            <div className='closeButton'>
+              <a
+                href='#close' onClick={this.handleClose.bind(this)}
+                style={{ position: 'absolute', top: '5px', right: '5px' }}
+              >
+                <Icons kind='nav-close' />
+              </a>
+            </div>
+          ) : null}
+        </Nav.Veilederpanel>
+      </div>
+    )
   }
 }
 

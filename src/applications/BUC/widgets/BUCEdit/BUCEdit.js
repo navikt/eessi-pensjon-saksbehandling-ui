@@ -73,63 +73,74 @@ const BUCEdit = (props) => {
       .sortBy(['creationDate', 'type'])
       .value()
       .map((sed, index) => {
-        return <SEDRow
-          className='mt-2'
-          locale={locale}
-          t={t}
-          key={index}
-          sed={sed}
-          rinaUrl={rinaUrl}
-          rinaId={buc.caseId}
-          onSEDNew={onSEDNew}
-          institutionNames={institutionNames}
-          border={'full'}
-        />
+        return (
+          <SEDRow
+            className='mt-2'
+            locale={locale}
+            t={t}
+            key={index}
+            sed={sed}
+            rinaUrl={rinaUrl}
+            rinaId={buc.caseId}
+            onSEDNew={onSEDNew}
+            institutionNames={institutionNames}
+            border='full'
+          />
+        )
       }) : null
   }
 
   const bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[buc.caseId] : {}
 
-  return <div className='a-buc-bucedit'>
-    <div className='a-buc-bucedit__buttons mb-3'>
-      <Knapp
-        id='a-buc-bucedit__new-sed-button-id'
-        className='a-buc-bucedit__new-sed-button'
-        onClick={onSEDNew}>{t('buc:form-orderNewSED')}</Knapp>
+  return (
+    <div className='a-buc-bucedit'>
+      <div className='a-buc-bucedit__buttons mb-3'>
+        <Knapp
+          id='a-buc-bucedit__new-sed-button-id'
+          className='a-buc-bucedit__new-sed-button'
+          onClick={onSEDNew}
+        >{t('buc:form-orderNewSED')}
+        </Knapp>
+      </div>
+      <Row>
+        <div className='col-md-8'>
+          <SEDSearch
+            className='mb-2'
+            t={t}
+            locale={locale}
+            value={search}
+            seds={buc.seds}
+            onSearch={onSearch}
+            onCountrySearch={onCountrySearch}
+            onStatusSearch={onStatusSearch}
+          />
+          {renderSeds()}
+        </div>
+        <div className='col-md-4'>
+          <BUCDetail
+            className='mb-3'
+            t={t}
+            buc={buc}
+            bucInfo={bucInfo}
+            locale={locale}
+            institutionNames={institutionNames}
+          />
+          <BUCTools
+            className='mb-3'
+            t={t}
+            actions={actions}
+            aktoerId={aktoerId}
+            buc={buc}
+            bucInfo={bucInfo}
+            bucsInfo={bucsInfo}
+            locale={locale}
+            loading={loading}
+            tagList={tagList}
+          />
+        </div>
+      </Row>
     </div>
-    <Row>
-      <div className='col-md-8'>
-        <SEDSearch
-          className='mb-2'
-          t={t}
-          locale={locale}
-          value={search}
-          seds={buc.seds}
-          onSearch={onSearch}
-          onCountrySearch={onCountrySearch}
-          onStatusSearch={onStatusSearch} />
-        {renderSeds()}
-      </div>
-      <div className='col-md-4'>
-        <BUCDetail className='mb-3'
-          t={t}
-          buc={buc}
-          bucInfo={bucInfo}
-          locale={locale}
-          institutionNames={institutionNames} />
-        <BUCTools className='mb-3'
-          t={t}
-          actions={actions}
-          aktoerId={aktoerId}
-          buc={buc}
-          bucInfo={bucInfo}
-          bucsInfo={bucsInfo}
-          locale={locale}
-          loading={loading}
-          tagList={tagList} />
-      </div>
-    </Row>
-  </div>
+  )
 }
 
 BUCEdit.propTypes = {

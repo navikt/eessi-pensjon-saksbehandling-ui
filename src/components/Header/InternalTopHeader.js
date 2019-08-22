@@ -44,50 +44,60 @@ export const InternalTopHeader = (props) => {
     }
   }
 
-  return <React.Fragment>
-    <header className='c-topHeader'>
-      <div className='brand'>
-        <a href='#index' id='c-topHeader__logo-link' onClick={onLogoClick}>
-          <NavLogoTransparent width='100' height='45' color='white' />
-        </a>
-        <div className='skillelinje' />
-        <div className='tittel'><span>{t('app-headerTitle')}</span></div>
-      </div>
-      <div className='user'>
-        {isLoggingOut
-          ? <NavFrontendSpinner type='XS' />
-          : <div className={classNames('mr-2', 'SAKSBEHANDLER')}>
-            <Icons kind='user' />
-          </div>}
-        <div className='skillelinje' />
-        <div className='mr-4 ml-2 align-middle name'>
-          {gettingUserInfo ? t('buc:loading-gettingUserInfo')
-            : username
-              ? <Select
-                id='username-select-id'
-                className='username-select'
-                label={''}
-                value={username}
-                selected={username}
-                onChange={handleUsernameSelectRequest}>
-                <option value=''>{username}</option>
-                <option value='feedback'>{t('ui:giveFeedback')}</option>
-                <option value='logout'>{t('logout')}</option>
-              </Select>
-              : <React.Fragment>
-                <AdvarselTrekant size={16} />
-                <span className='username-span'>{t('unknown')}</span>
-              </React.Fragment>
-          }
+  return (
+    <>
+      <header className='c-topHeader'>
+        <div className='brand'>
+          <a href='#index' id='c-topHeader__logo-link' onClick={onLogoClick}>
+            <NavLogoTransparent width='100' height='45' color='white' />
+          </a>
+          <div className='skillelinje' />
+          <div className='tittel'><span>{t('app-headerTitle')}</span></div>
         </div>
-      </div>
-    </header>
-    {header
-      ? <Systemtittel className='m-4'>
-        {header}
-      </Systemtittel>
-      : null}
-  </React.Fragment>
+        <div className='user'>
+          {isLoggingOut
+            ? <NavFrontendSpinner type='XS' />
+            : (
+              <div className={classNames('mr-2', 'SAKSBEHANDLER')}>
+                <Icons kind='user' />
+              </div>
+            )}
+          <div className='skillelinje' />
+          <div className='mr-4 ml-2 align-middle name'>
+            {gettingUserInfo ? t('buc:loading-gettingUserInfo')
+              : username
+                ? (
+                  <Select
+                    id='username-select-id'
+                    className='username-select'
+                    label=''
+                    value={username}
+                    selected={username}
+                    onChange={handleUsernameSelectRequest}
+                  >
+                    <option value=''>{username}</option>
+                    <option value='feedback'>{t('ui:giveFeedback')}</option>
+                    <option value='logout'>{t('logout')}</option>
+                  </Select>
+                )
+                : (
+                  <>
+                    <AdvarselTrekant size={16} />
+                    <span className='username-span'>{t('unknown')}</span>
+                  </>
+                )}
+          </div>
+        </div>
+      </header>
+      {header
+        ? (
+          <Systemtittel className='m-4'>
+            {header}
+          </Systemtittel>
+        )
+        : null}
+    </>
+  )
 }
 
 InternalTopHeader.propTypes = {

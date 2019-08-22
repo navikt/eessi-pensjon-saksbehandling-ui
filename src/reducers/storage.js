@@ -8,10 +8,11 @@ export const initialStorageState = {
 }
 
 const storageReducer = (state = initialStorageState, action = {}) => {
+  let parsedList
   switch (action.type) {
     case types.STORAGE_LIST_SUCCESS:
     case types.STORAGE_LIST_NO_NOTIF_SUCCESS:
-      const parsedList = action.payload.map(file => {
+      parsedList = action.payload.map(file => {
         const index = file.lastIndexOf('___')
         return index >= 0 ? file.substring(index + 3) : file
       })

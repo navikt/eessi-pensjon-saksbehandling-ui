@@ -54,73 +54,97 @@ const TableSorter = (props) => {
     return sortedItems.map((item, index) => {
       const background = index % 2 === 0 ? 'white' : 'whitesmoke'
 
-      return <tr
-        key={index}
-        style={{ background: background }}>
-        <td />
-        { columnNames.map((column, index2) => {
-          const value = item[column]
-          switch (column) {
-            case 'name':
-              return <td key={index2}>
-                <Normaltekst>{value}</Normaltekst>
-              </td>
-            case 'tema':
-              return <td key={index2}>
-                <EtikettLiten>{value}</EtikettLiten>
-              </td>
-            case 'date':
-              return <td key={index2}>
-                <Normaltekst>{value ? value.toLocaleDateString() : t('ui:unknown')}</Normaltekst>
-              </td>
-            case 'varianter':
-              return <td key={index2}>
-                {value.map(variant => {
-                  return <div
-                    key={variant.label}
-                    className='c-tablesorter__subcell'>
-                    <Checkbox
-                      label=''
-                      id={'c-tablesorter__checkbox-' + item['name'].replace('.', '_') + '-' + variant.label}
-                      className='c-tablesorter__checkbox'
-                      onChange={(e) => onSelectedItemChange(item, e.target.checked, variant.label)}
-                      checked={variant.selected} />
-                    <a href='#item'
-                      onClick={(e) => {
-                        e.preventDefault()
-                        onItemClicked(item, variant.label)
-                      }}>
-                      <Normaltekst>{variant.label}</Normaltekst>
-                    </a>
-                  </div>
-                })}
-              </td>
-            default:
-              return null
-          }
-        })}
-      </tr>
+      return (
+        <tr
+          key={index}
+          style={{ background: background }}
+        >
+          <td />
+          {columnNames.map((column, index2) => {
+            const value = item[column]
+            switch (column) {
+              case 'name':
+                return (
+                  <td key={index2}>
+                    <Normaltekst>{value}</Normaltekst>
+                  </td>
+                )
+              case 'tema':
+                return (
+                  <td key={index2}>
+                    <EtikettLiten>{value}</EtikettLiten>
+                  </td>
+                )
+              case 'date':
+                return (
+                  <td key={index2}>
+                    <Normaltekst>{value ? value.toLocaleDateString() : t('ui:unknown')}</Normaltekst>
+                  </td>
+                )
+              case 'varianter':
+                return (
+                  <td key={index2}>
+                    {value.map(variant => {
+                      return (
+                        <div
+                          key={variant.label}
+                          className='c-tablesorter__subcell'
+                        >
+                          <Checkbox
+                            label=''
+                            id={'c-tablesorter__checkbox-' + item.name.replace('.', '_') + '-' + variant.label}
+                            className='c-tablesorter__checkbox'
+                            onChange={(e) => onSelectedItemChange(item, e.target.checked, variant.label)}
+                            checked={variant.selected}
+                          />
+                          <a
+                            href='#item'
+                            onClick={(e) => {
+                              e.preventDefault()
+                              onItemClicked(item, variant.label)
+                            }}
+                          >
+                            <Normaltekst>{variant.label}</Normaltekst>
+                          </a>
+                        </div>
+                      )
+                    })}
+                  </td>
+                )
+              default:
+                return null
+            }
+          })}
+        </tr>
+      )
     })
   }
 
   const header = () => {
-    return <React.Fragment>
-      <th>
-        <Checkbox
-          id='c-tablesorter__seefilters-checkbox-id'
-          className='c-tablesorter__checkbox'
-          label=''
-          checked={seeFilters}
-          onChange={() => setSeeFilters(!seeFilters)} />
-      </th>
-      {columnNames.map((column) => {
-        return <th key={column}
-          onClick={() => sortColumn(column)}
-          className={'header ' + sortClass(column)}>
-          <UndertekstBold>{_columns[column].name}</UndertekstBold>
+    return (
+      <>
+        <th>
+          <Checkbox
+            id='c-tablesorter__seefilters-checkbox-id'
+            className='c-tablesorter__checkbox'
+            label=''
+            checked={seeFilters}
+            onChange={() => setSeeFilters(!seeFilters)}
+          />
         </th>
-      })}
-    </React.Fragment>
+        {columnNames.map((column) => {
+          return (
+            <th
+              key={column}
+              onClick={() => sortColumn(column)}
+              className={'header ' + sortClass(column)}
+            >
+              <UndertekstBold>{_columns[column].name}</UndertekstBold>
+            </th>
+          )
+        })}
+      </>
+    )
   }
 
   const handleFilterTextChange = (column, newValue) => {
@@ -130,42 +154,53 @@ const TableSorter = (props) => {
   }
 
   const filterInputs = () => {
-    return <React.Fragment>
-      <td />
-      {columnNames.map((column) => {
-        return <td key={column}>
-          <Input
-            id={'c-tablesorter__sort-' + column + '-input-id'}
-            className='c-tablesorter__sort-input'
-            label=''
-            value={_columns[column].filterText}
-            onChange={(e) => handleFilterTextChange(column, e.target.value)} />
-        </td>
-      })}
-    </React.Fragment>
+    return (
+      <>
+        <td />
+        {columnNames.map((column) => {
+          return (
+            <td key={column}>
+              <Input
+                id={'c-tablesorter__sort-' + column + '-input-id'}
+                className='c-tablesorter__sort-input'
+                label=''
+                value={_columns[column].filterText}
+                onChange={(e) => handleFilterTextChange(column, e.target.value)}
+              />
+            </td>
+          )
+        })}
+      </>
+    )
   }
 
-  return <div className='c-tablesorter'>
-    <div className='c-tablesorter__status'>
-      {loadingJoarkFile ? <div>
-        <NavFrontendSpinner type='XS' />
-        <span className='pl-2'>{t('ui:loading')}</span>
-      </div> : null}
-      {loadingJoarkPreviewFile ? <div>
-        <NavFrontendSpinner type='XS' />
-        <span className='pl-2'>{t('ui:loading')}</span>
-      </div> : null}
+  return (
+    <div className='c-tablesorter'>
+      <div className='c-tablesorter__status'>
+        {loadingJoarkFile ? (
+          <div>
+            <NavFrontendSpinner type='XS' />
+            <span className='pl-2'>{t('ui:loading')}</span>
+          </div>
+        ) : null}
+        {loadingJoarkPreviewFile ? (
+          <div>
+            <NavFrontendSpinner type='XS' />
+            <span className='pl-2'>{t('ui:loading')}</span>
+          </div>
+        ) : null}
+      </div>
+      <div className='c-tablesorter__content'>
+        <table cellSpacing='0' className='c-tablesorter__table'>
+          <thead>
+            <tr>{header()}</tr>
+            {seeFilters ? <tr>{filterInputs()}</tr> : null}
+          </thead>
+          <tbody>{rows()}</tbody>
+        </table>
+      </div>
     </div>
-    <div className='c-tablesorter__content'>
-      <table cellSpacing='0' className='c-tablesorter__table'>
-        <thead>
-          <tr>{ header() }</tr>
-          {seeFilters ? <tr>{ filterInputs() }</tr> : null}
-        </thead>
-        <tbody>{ rows() }</tbody>
-      </table>
-    </div>
-  </div>
+  )
 }
 
 TableSorter.propTypes = {

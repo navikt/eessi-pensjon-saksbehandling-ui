@@ -34,29 +34,33 @@ class FirstPage extends Component {
   render () {
     const { t, history } = this.props
 
-    return <TopContainer
-      className='p-firstPage'
-      t={t}
-      history={history}
-      header={<span>{t('pinfo:app-title')}</span>}>
-      <div className='content container pt-4'>
-        <div className='col-sm-3 col-12' />
-        <div className='col-12'>
-          <div className='psycho text-center mt-3 mb-4'>
-            <Psycho id='psycho' />
+    return (
+      <TopContainer
+        className='p-firstPage'
+        t={t}
+        history={history}
+        header={<span>{t('pinfo:app-title')}</span>}
+      >
+        <div className='content container pt-4'>
+          <div className='col-sm-3 col-12' />
+          <div className='col-12'>
+            <div className='psycho text-center mt-3 mb-4'>
+              <Psycho id='psycho' />
+            </div>
+            <div dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-saksbehandler') }} />
+            <div className='text-center mt-3 mb-4'>
+              <Nav.Hovedknapp
+                id='pinfo-firstPage-forwardButton'
+                className='mt-3 forwardButton'
+                onClick={this.handleForwardButtonClick.bind(this)}
+              >{t('continue')}
+              </Nav.Hovedknapp>
+            </div>
           </div>
-          <div dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-saksbehandler') }} />
-          <div className='text-center mt-3 mb-4'>
-            <Nav.Hovedknapp
-              id='pinfo-firstPage-forwardButton'
-              className='mt-3 forwardButton'
-              onClick={this.handleForwardButtonClick.bind(this)}>{t('continue')}
-            </Nav.Hovedknapp>
-          </div>
+          <div className='col-sm-3 col-12' />
         </div>
-        <div className='col-sm-3 col-12' />
-      </div>
-    </TopContainer>
+      </TopContainer>
+    )
   }
 }
 

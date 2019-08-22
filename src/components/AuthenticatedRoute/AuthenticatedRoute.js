@@ -85,15 +85,21 @@ export const AuthenticatedRoute = (props) => {
   }
 
   if (userRole !== constants.SAKSBEHANDLER) {
-    return <Redirect to={{
-      pathname: routes.FORBIDDEN
-    }} />
+    return (
+      <Redirect to={{
+        pathname: routes.FORBIDDEN
+      }}
+      />
+    )
   }
 
   if (!allowed) {
-    return <Redirect to={{
-      pathname: routes.NOT_INVITED
-    }} />
+    return (
+      <Redirect to={{
+        pathname: routes.NOT_INVITED
+      }}
+      />
+    )
   }
   return <Route {...props} />
 }

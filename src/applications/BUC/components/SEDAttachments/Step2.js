@@ -14,21 +14,25 @@ const Step2 = (props) => {
     setStep('select')
   }
 
-  return <div className='a-buc-c-sedattachments-step2'>
-    <PDFEditor {...props} />
-    <Hovedknapp
-      id='a-buc-c-sedattachmnents__next-button-id'
-      className='a-buc-c-sedattachmnents__next-button'
-      onClick={onForwardButtonClick}>
-      {t('ui:next')}
-    </Hovedknapp>
-    <Flatknapp
-      id='a-buc-c-sedattachmnents__back-button-id'
-      className='a-buc-c-sedattachmnents__back-button'
-      onClick={onBackButtonClick}>
-      {t('ui:back')}
-    </Flatknapp>
-  </div>
+  return (
+    <div className='a-buc-c-sedattachments-step2'>
+      <PDFEditor {...props} />
+      <Hovedknapp
+        id='a-buc-c-sedattachmnents__next-button-id'
+        className='a-buc-c-sedattachmnents__next-button'
+        onClick={onForwardButtonClick}
+      >
+        {t('ui:next')}
+      </Hovedknapp>
+      <Flatknapp
+        id='a-buc-c-sedattachmnents__back-button-id'
+        className='a-buc-c-sedattachmnents__back-button'
+        onClick={onBackButtonClick}
+      >
+        {t('ui:back')}
+      </Flatknapp>
+    </div>
+  )
 }
 
 Step2.propTypes = {

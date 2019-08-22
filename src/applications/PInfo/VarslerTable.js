@@ -59,39 +59,47 @@ const VarslerTable = (props) => {
     }
   }
 
-  return <React.Fragment>
-    <div className='a-pinfo-table-notification-title'>
-      <Undertittel>{t('pinfo:sb-sent-notifications-title')}</Undertittel>
-      <RefreshButton t={t} rotating={!isReady} onRefreshClick={refresh} />
-    </div>
-    {!isReady ? <div className='text-center' style={{ paddingTop: '3rem' }}>
-      <NavFrontendSpinner />
-      <p className='typo-normal'>{t('ui:loading')}</p>
-    </div> : null}
-    {isReady ? <table className='w-100 mt-4'>
-      <thead>
-        <tr style={{ borderBottom: '1px solid lightgrey' }}>
-          <th />
-          <th>{t('document')}</th>
-          <th>{t('sender')}</th>
-          <th>{t('date')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {_files ? Object.keys(_files)
-          .sort((a, b) => _files[b].timestamp.localeCompare(_files[a].timestamp))
-          .map((file, index) => {
-            const content = _files[file]
-            return <tr className='slideAnimate' style={{ animationDelay: index * 0.03 + 's' }} key={file}>
-              <td><Icons kind='nav-message-sent' /></td>
-              <td>{content.tittel || file}</td>
-              <td>{content.fulltnavn || t('unknown')}</td>
-              <td>{content.timestamp ? new Date(content.timestamp).toDateString() : t('unknown')}</td>
+  return (
+    <>
+      <div className='a-pinfo-table-notification-title'>
+        <Undertittel>{t('pinfo:sb-sent-notifications-title')}</Undertittel>
+        <RefreshButton t={t} rotating={!isReady} onRefreshClick={refresh} />
+      </div>
+      {!isReady ? (
+        <div className='text-center' style={{ paddingTop: '3rem' }}>
+          <NavFrontendSpinner />
+          <p className='typo-normal'>{t('ui:loading')}</p>
+        </div>
+      ) : null}
+      {isReady ? (
+        <table className='w-100 mt-4'>
+          <thead>
+            <tr style={{ borderBottom: '1px solid lightgrey' }}>
+              <th />
+              <th>{t('document')}</th>
+              <th>{t('sender')}</th>
+              <th>{t('date')}</th>
             </tr>
-          }) : null}
-      </tbody>
-    </table> : null}
-  </React.Fragment>
+          </thead>
+          <tbody>
+            {_files ? Object.keys(_files)
+              .sort((a, b) => _files[b].timestamp.localeCompare(_files[a].timestamp))
+              .map((file, index) => {
+                const content = _files[file]
+                return (
+                  <tr className='slideAnimate' style={{ animationDelay: index * 0.03 + 's' }} key={file}>
+                    <td><Icons kind='nav-message-sent' /></td>
+                    <td>{content.tittel || file}</td>
+                    <td>{content.fulltnavn || t('unknown')}</td>
+                    <td>{content.timestamp ? new Date(content.timestamp).toDateString() : t('unknown')}</td>
+                  </tr>
+                )
+              }) : null}
+          </tbody>
+        </table>
+      ) : null}
+    </>
+  )
 }
 
 VarslerTable.propTypes = {

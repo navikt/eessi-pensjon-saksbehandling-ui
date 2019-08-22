@@ -48,6 +48,8 @@ const SEDStart = (props) => {
   const [sendingAttachments, setSendingAttachments] = useState(false)
   const [attachmentsSent, setAttachmentsSent] = useState(false)
 
+  const buc = _.cloneDeep(bucs[currentBuc])
+
   useEffect(() => {
     if (_.isEmpty(countryList) && !loading.gettingCountryList) {
       actions.getCountryList()
@@ -96,7 +98,7 @@ const SEDStart = (props) => {
     if (sedSent && attachmentsSent) {
       actions.resetSed()
       actions.fetchBucs(aktoerId)
-      if(avdodfnr){
+      if (avdodfnr) {
         actions.fetchBucs(avdodfnr)
       }
       if (!_.isEmpty(bucsInfoList) && bucsInfoList.indexOf(aktoerId + '___BUC___INFO') >= 0) {
@@ -109,8 +111,6 @@ const SEDStart = (props) => {
   if (_.isEmpty(bucs) || !currentBuc) {
     return null
   }
-
-  const buc = _.cloneDeep(bucs[currentBuc])
 
   const sedNeedsVedtakId = () => {
     return _sed === 'P5000' || _sed === 'P6000' || _sed === 'P7000'
@@ -189,48 +189,62 @@ const SEDStart = (props) => {
     return false
   }
 
-  return <Row className='a-buc-c-sedstart'>
-    { step === 0 ? <Step1
-      {...props}
-      _sed={_sed} setSed={setSed}
-      buc={buc}
-      _countries={_countries} setCountries={setCountries}
-      _institutions={_institutions} setInstitutions={setInstitutions}
-      _attachments={_attachments} setAttachments={setAttachments}
-      validation={validation} setValidation={setValidation}
-      sedNeedsVedtakId={sedNeedsVedtakId}
-      vedtakId={_vedtakId} setVedtakId={setVedtakId}
-    /> : null}
-    { step === 1 ? <Step2
-      {...props}
-      _sed={_sed}
-      buc={buc}
-      showButtons={showButtons} setShowButtons={setShowButtons}
-      validation={validation} setValidation={setValidation}
-    /> : null }
-    { showButtons ? <div className='col-md-12 mt-4'>
-      <Hovedknapp
-        id='a-buc-c-sedstart__forward-button-id'
-        className='a-buc-c-sedstart__forward-button'
-        disabled={!allowedToForward()}
-        spinner={loading.creatingSed || sendingAttachments}
-        onClick={createSEDneedsMoreSteps() ? onNextButtonClick : onForwardButtonClick}>
-        {loading.creatingSed ? t('buc:loading-creatingSED')
-          : sendingAttachments ? t('buc:loading-sendingSEDattachments')
-            : createSEDneedsMoreSteps() ? t('ui:next')
-              : t('buc:form-orderSED')}
-      </Hovedknapp>
-      {step > 0 ? <Flatknapp
-        id='a-buc-c-sedstart__back-button-id'
-        className='a-buc-c-sedstart__back-button'
-        onClick={onBackButtonClick}>{t('ui:back')}
-      </Flatknapp> : null}
-      <Flatknapp
-        id='a-buc-c-sedstart__cancel-button-id'
-        className='a-buc-c-sedstart__cancel-button'
-        onClick={onCancelButtonClick}>{t('ui:cancel')}</Flatknapp>
-    </div> : null }
-  </Row>
+  return (
+    <Row className='a-buc-c-sedstart'>
+      {step === 0 ? (
+        <Step1
+          {...props}
+          _sed={_sed} setSed={setSed}
+          buc={buc}
+          _countries={_countries} setCountries={setCountries}
+          _institutions={_institutions} setInstitutions={setInstitutions}
+          _attachments={_attachments} setAttachments={setAttachments}
+          validation={validation} setValidation={setValidation}
+          sedNeedsVedtakId={sedNeedsVedtakId}
+          vedtakId={_vedtakId} setVedtakId={setVedtakId}
+        />
+      ) : null}
+      {step === 1 ? (
+        <Step2
+          {...props}
+          _sed={_sed}
+          buc={buc}
+          showButtons={showButtons} setShowButtons={setShowButtons}
+          validation={validation} setValidation={setValidation}
+        />
+      ) : null}
+      {showButtons ? (
+        <div className='col-md-12 mt-4'>
+          <Hovedknapp
+            id='a-buc-c-sedstart__forward-button-id'
+            className='a-buc-c-sedstart__forward-button'
+            disabled={!allowedToForward()}
+            spinner={loading.creatingSed || sendingAttachments}
+            onClick={createSEDneedsMoreSteps() ? onNextButtonClick : onForwardButtonClick}
+          >
+            {loading.creatingSed ? t('buc:loading-creatingSED')
+              : sendingAttachments ? t('buc:loading-sendingSEDattachments')
+                : createSEDneedsMoreSteps() ? t('ui:next')
+                  : t('buc:form-orderSED')}
+          </Hovedknapp>
+          {step > 0 ? (
+            <Flatknapp
+              id='a-buc-c-sedstart__back-button-id'
+              className='a-buc-c-sedstart__back-button'
+              onClick={onBackButtonClick}
+            >{t('ui:back')}
+            </Flatknapp>
+          ) : null}
+          <Flatknapp
+            id='a-buc-c-sedstart__cancel-button-id'
+            className='a-buc-c-sedstart__cancel-button'
+            onClick={onCancelButtonClick}
+          >{t('ui:cancel')}
+          </Flatknapp>
+        </div>
+      ) : null}
+    </Row>
+  )
 }
 
 const ConnectedSEDStart = connect(mapStateToProps, mapDispatchToProps)(SEDStart)

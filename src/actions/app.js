@@ -69,7 +69,7 @@ export const getPersonInfo = (aktoerId) => {
 export const getSakType = (sakId, aktoerId) => {
   return api.funcCall({
     url: sprintf(urls.PENSJON_GET_SAKTYPE_URL, { sakId: sakId, aktoerId: aktoerId }),
-    expectedPayload: {sakId: '123', sakType: 'GJENLEV'},
+    expectedPayload: { sakId: '123', sakType: 'GJENLEV' },
     type: {
       request: types.APP_SAKTYPE_REQUEST,
       success: types.APP_SAKTYPE_SUCCESS,

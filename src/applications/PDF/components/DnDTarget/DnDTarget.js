@@ -21,48 +21,61 @@ class DnDTarget extends Component {
   render () {
     const { files, recipe, targetId } = this.props
 
-    return <div className='c-pdf-dndTarget'>
+    return (
+      <div className='c-pdf-dndTarget'>
 
-      <Droppable droppableId={'c-pdf-dndTarget-droppable-' + targetId}>
+        <Droppable droppableId={'c-pdf-dndTarget-droppable-' + targetId}>
 
-        {(provided, snapshot) => (
+          {(provided, snapshot) => (
 
-          <div ref={provided.innerRef}
-            className={classNames('c-pdf-dndTarget-droppable', 'text-center', { 'c-pdf-dndTarget-droppable-active ': snapshot.isDraggingOver })}>
+            <div
+              ref={provided.innerRef}
+              className={classNames('c-pdf-dndTarget-droppable', 'text-center', { 'c-pdf-dndTarget-droppable-active ': snapshot.isDraggingOver })}
+            >
 
-            {recipe[targetId] ? recipe[targetId].map((recipeStep, index) => {
-              const file = _.find(files, { name: recipeStep.name })
+              {recipe[targetId] ? recipe[targetId].map((recipeStep, index) => {
+                const file = _.find(files, { name: recipeStep.name })
 
-              return <Draggable key={index} draggableId={index} index={index}>
+                return (
+                  <Draggable key={index} draggableId={index} index={index}>
 
-                {(provided, snapshot) => (
+                    {(provided, snapshot) => (
 
-                  <div className={classNames('c-pdf-dndTarget-draggable', { dragging: snapshot.isDragging })}
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}>
-                    { recipeStep.type === 'pickPage' || recipeStep.type === 'pickImage'
-                      ? <PageInDnD
-                        className={classNames({ 'c-pdf-dndTarget-draggable-active': snapshot.isDragging })}
-                        file={file}
-                        pageNumber={recipeStep.pageNumber}
-                        action='remove'
-                      />
-                      : recipeStep.type === 'specialPage'
-                        ? <PDFSpecialPage separator={{
-                          separatorTextColor: recipeStep.separatorTextColor,
-                          separatorText: recipeStep.separatorText
-                        }} deleteLink />
-                        : null
-                    }
-                  </div>
-                )}
-              </Draggable>
-            }) : null}
-          </div>
-        )}
-      </Droppable>
-    </div>
+                      <div
+                        className={classNames('c-pdf-dndTarget-draggable', { dragging: snapshot.isDragging })}
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        {recipeStep.type === 'pickPage' || recipeStep.type === 'pickImage'
+                          ? (
+                            <PageInDnD
+                              className={classNames({ 'c-pdf-dndTarget-draggable-active': snapshot.isDragging })}
+                              file={file}
+                              pageNumber={recipeStep.pageNumber}
+                              action='remove'
+                            />
+                          )
+                          : recipeStep.type === 'specialPage'
+                            ? (
+                              <PDFSpecialPage
+                                separator={{
+                                  separatorTextColor: recipeStep.separatorTextColor,
+                                  separatorText: recipeStep.separatorText
+                                }} deleteLink
+                              />
+                            )
+                            : null}
+                      </div>
+                    )}
+                  </Draggable>
+                )
+              }) : null}
+            </div>
+          )}
+        </Droppable>
+      </div>
+    )
   }
 }
 

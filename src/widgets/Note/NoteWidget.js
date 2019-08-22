@@ -36,20 +36,25 @@ const NoteWidget = (props) => {
     onWidgetUpdate(newWidget, layout)
   }
 
-  return <div
-    id={_id}
-    className='p-3 w-NoteWidget'>
-    <ReactResizeDetector
-      handleWidth
-      handleHeight
-      onResize={onResize} />
-    <h4>{widget.title}</h4>
+  return (
     <div
-      className='w-NoteWidget__content'
-      contentEditable='true'
-      onBlur={onBlur}
-      dangerouslySetInnerHTML={{ __html: content }} />
-  </div>
+      id={_id}
+      className='p-3 w-NoteWidget'
+    >
+      <ReactResizeDetector
+        handleWidth
+        handleHeight
+        onResize={onResize}
+      />
+      <h4>{widget.title}</h4>
+      <div
+        className='w-NoteWidget__content'
+        contentEditable='true'
+        onBlur={onBlur}
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    </div>
+  )
 }
 
 NoteWidget.properties = {

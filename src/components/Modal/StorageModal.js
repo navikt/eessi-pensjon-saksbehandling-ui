@@ -81,9 +81,11 @@ class StorageModal extends Component {
     }
 
     componentDidUpdate () {
-      const { t, username, modalOpen, fileList, file,
+      const {
+        t, username, modalOpen, fileList, file,
         savingStorageFile, deletingStorageFile, modalOptions, loadingStatus,
-        loadingStorageFileList, actions, namespace } = this.props
+        loadingStorageFileList, actions, namespace
+      } = this.props
       const { lastAction } = this.state
 
       if (!modalOpen) {
@@ -229,97 +231,133 @@ class StorageModal extends Component {
     }
 
     render () {
-      const { t, className, loadingStorageFileList, loadingStorageFile, deletingStorageFile,
-        loadingStatus, fileList, fileToDelete, modalOpen, modalOptions } = this.props
+      const {
+        t, className, loadingStorageFileList, loadingStorageFile, deletingStorageFile,
+        loadingStatus, fileList, fileToDelete, modalOpen, modalOptions
+      } = this.props
       const { currentSelectedFile, saveTargetFileName, status } = this.state
 
       const enableButtons = (modalOptions && modalOptions.action !== undefined)
       const action = modalOptions ? modalOptions.action : undefined
 
-      return <Nav.Modal className='c-storageModal'
-        ariaHideApp={false}
-        isOpen={modalOpen}
-        onRequestClose={this.onCancelClick.bind(this)}
-        closeButton={false}
-        contentLabel='contentLabel'>
+      return (
+        <Nav.Modal
+          className='c-storageModal'
+          ariaHideApp={false}
+          isOpen={modalOpen}
+          onRequestClose={this.onCancelClick.bind(this)}
+          closeButton={false}
+          contentLabel='contentLabel'
+        >
 
-        <div className='m-3 text-center'>
+          <div className='m-3 text-center'>
 
-          <h4>{t(action + 'File')}</h4>
-          <div className={classNames('body', className)}>
+            <h4>{t(action + 'File')}</h4>
+            <div className={classNames('body', className)}>
 
-            {loadingStorageFileList
-              ? <div className={classNames('text-center', className)}>
-                <Nav.NavFrontendSpinner />
-                <p className='typo-normal'>{t('ui:loading')}</p>
+              {loadingStorageFileList
+                ? (
+                  <div className={classNames('text-center', className)}>
+                    <Nav.NavFrontendSpinner />
+                    <p className='typo-normal'>{t('ui:loading')}</p>
+                  </div>
+                )
+                : (fileList && !_.isEmpty(fileList) ? fileList.map((file, index) => {
+                  const selected = currentSelectedFile && currentSelectedFile === file
+                  const loading = loadingStorageFile && selected
+                  const toDelete = fileToDelete === file
+
+                  return (
+                    <div key={index} className={classNames('fileRow', { selected: selected })}>
+                      {selected
+                        ? <div className={classNames('fileName')}>{file} {loading ? <Nav.NavFrontendSpinner /> : null}</div>
+                        : (
+                          <a
+                            className={classNames('fileName')}
+                            href='#select' onClick={this.onSelectFile.bind(this, file)}
+                          >{file} {loading ? <Nav.NavFrontendSpinner /> : null}
+                          </a>
+                        )}
+                      {toDelete
+                        ? deletingStorageFile
+                          ? (
+                            <div>
+                              <Nav.NavFrontendSpinner type='XS' />
+                              <span>{t('deleting')}</span>
+                            </div>
+                          )
+                          : (
+                            <div className='areYouSure'>
+                              <span>{t('areYouSure')}</span>
+                              <a
+                                className='link yesLink' href='#delete' title={t('delete')}
+                                onClick={this.onDeleteFile.bind(this)}
+                              >{t('yes')}
+                              </a>
+                              <a
+                                className='link noLink' href='#cancel' title={t('cancel')}
+                                onClick={this.cancelDeleteFile.bind(this)}
+                              >{t('no')}
+                              </a>
+                            </div>
+                          )
+                        : (
+                          <a href='#areyousure' className='link deleteLink' title={t('delete')} onClick={this.areYouSureDeleteFile.bind(this, file)}>
+                            <Nav.Ikon size={15} kind='trashcan' />
+                          </a>
+                        )}
+                    </div>
+                  )
+                }) : null)}
+            </div>
+
+            {modalOptions && modalOptions.action === 'save' ? (
+              <div>
+
+                <Nav.Input
+                  placeholder={t('filename')} value={saveTargetFileName || ''}
+                  onChange={this.setSaveTargetFileName.bind(this)}
+                />
               </div>
-              : (fileList && !_.isEmpty(fileList) ? fileList.map((file, index) => {
-                const selected = currentSelectedFile && currentSelectedFile === file
-                const loading = loadingStorageFile && selected
-                const toDelete = fileToDelete === file
+            ) : null}
 
-                return <div key={index} className={classNames('fileRow', { selected: selected })}>
-                  { selected
-                    ? <div className={classNames('fileName')}>{file} {loading ? <Nav.NavFrontendSpinner /> : null}</div>
-                    : <a className={classNames('fileName')}
-                      href='#select' onClick={this.onSelectFile.bind(this, file)}>{file} {loading ? <Nav.NavFrontendSpinner /> : null}</a>}
-                  {toDelete
-                    ? deletingStorageFile
-                      ? <div>
-                        <Nav.NavFrontendSpinner type='XS' />
-                        <span>{t('deleting')}</span>
-                      </div>
-                      : <div className='areYouSure'>
-                        <span>{t('areYouSure')}</span>
-                        <a className='link yesLink' href='#delete' title={t('delete')}
-                          onClick={this.onDeleteFile.bind(this)}>{t('yes')}</a>
-                        <a className='link noLink' href='#cancel' title={t('cancel')}
-                          onClick={this.cancelDeleteFile.bind(this)}>{t('no')}</a>
-                      </div>
-                    : <a href='#areyousure' className='link deleteLink' title={t('delete')} onClick={this.areYouSureDeleteFile.bind(this, file)}>
-                      <Nav.Ikon size={15} kind='trashcan' />
-                    </a>
-                  }
-                </div>
-              }) : null)
-            }
+            <div className='statusArea'>{status}</div>
+
+            <div className='buttonArea'>
+              {enableButtons ? (
+                <>
+                  <Nav.Hovedknapp
+                    className='mr-3 mb-3 modal-main-button'
+                    disabled={modalOptions.action === 'open' && currentSelectedFile === undefined}
+                    onClick={this.onOkClick.bind(this)}
+                  >
+                    {t(modalOptions.action)}
+                  </Nav.Hovedknapp>
+                  <Nav.Knapp
+                    className='mr-3 mb-3 modal-other-button'
+                    onClick={this.onCancelClick.bind(this)}
+                  >
+                    {t('cancel')}
+                  </Nav.Knapp>
+                </>
+              ) : null}
+            </div>
+
           </div>
 
-          {modalOptions && modalOptions.action === 'save' ? <div>
-
-            <Nav.Input placeholder={t('filename')} value={saveTargetFileName || ''}
-              onChange={this.setSaveTargetFileName.bind(this)} />
-          </div> : null}
-
-          <div className='statusArea'>{status}</div>
-
-          <div className='buttonArea'>
-            {enableButtons ? <React.Fragment>
-              <Nav.Hovedknapp
-                className='mr-3 mb-3 modal-main-button'
-                disabled={modalOptions.action === 'open' && currentSelectedFile === undefined}
-                onClick={this.onOkClick.bind(this)}>
-                {t(modalOptions.action)}
-              </Nav.Hovedknapp>
+          {loadingStatus === 'ERROR' ? (
+            <div className={classNames('text-center', className)}>
+              <Alert type='client' t={t} fixed={false} />
               <Nav.Knapp
                 className='mr-3 mb-3 modal-other-button'
-                onClick={this.onCancelClick.bind(this)}>
-                {t('cancel')}
+                onClick={this.onCancelClick.bind(this)}
+              >
+                {t('close')}
               </Nav.Knapp>
-            </React.Fragment> : null}
-          </div>
-
-        </div>
-
-        { loadingStatus === 'ERROR' ? <div className={classNames('text-center', className)}>
-          <Alert type='client' t={t} fixed={false} />
-          <Nav.Knapp
-            className='mr-3 mb-3 modal-other-button'
-            onClick={this.onCancelClick.bind(this)}>
-            {t('close')}
-          </Nav.Knapp>
-        </div> : null }
-      </Nav.Modal>
+            </div>
+          ) : null}
+        </Nav.Modal>
+      )
     }
 }
 

@@ -136,9 +136,11 @@ class DnD extends Component {
   }
 
   render () {
-    return <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
-      {this.props.children}
-    </DragDropContext>
+    return (
+      <DragDropContext onDragEnd={this.onDragEnd.bind(this)}>
+        {this.props.children}
+      </DragDropContext>
+    )
   }
 }
 

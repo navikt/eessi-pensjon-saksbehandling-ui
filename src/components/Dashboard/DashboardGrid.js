@@ -9,45 +9,50 @@ import DashboardConfig from './Config/DashboardConfig'
 const ResponsiveReactGridLayout = WidthProvider(Responsive)
 
 const DashboardGrid = (props) => {
-  return props.connectDropTarget(<div
-    id='dashboardGrid'
-    className={classNames('c-d-dashboardGrid', {
-      canDrop: props.canDrop
-    })}>
-    <ResponsiveReactGridLayout
-      {...props}
-      breakpoints={DashboardConfig.breakpoints}
-      autoSize
-      margin={DashboardConfig.margin}
-      containerPadding={DashboardConfig.containerPadding}
-      isDraggable={props.editMode}
-      isResizable={props.editMode}
-      layouts={props.layouts}
-      onBreakpointChange={props.onBreakpointChange}
-      onLayoutChange={props.onLayoutChange}
-      measureBeforeMount={false}
-      useCSSTransforms={false}
-      preventCollision={false}
-      draggableHandle={'.draggableHandle'}
-      dragApiRef={props.dragApi}
-    >
-      {_.map(props.layouts[props.currentBreakpoint], (layout) => {
-        return <div id={'widget-' + layout.i} key={layout.i}>
-          <WidgetContainer
-            layout={layout}
-            widget={_.find(props.widgets, { i: layout.i })}
-            editMode={props.editMode}
-            currentBreakpoint={props.currentBreakpoint}
-            onWidgetResize={props.onWidgetResize}
-            onWidgetUpdate={props.onWidgetUpdate}
-            onWidgetDelete={props.onWidgetDelete}
-            rowHeight={props.rowHeight}
-            availableWidgets={props.availableWidgets}
-            t={props.t}
-          /></div>
+  return props.connectDropTarget(
+    <div
+      id='dashboardGrid'
+      className={classNames('c-d-dashboardGrid', {
+        canDrop: props.canDrop
       })}
-    </ResponsiveReactGridLayout>
-  </div>)
+    >
+      <ResponsiveReactGridLayout
+        {...props}
+        breakpoints={DashboardConfig.breakpoints}
+        autoSize
+        margin={DashboardConfig.margin}
+        containerPadding={DashboardConfig.containerPadding}
+        isDraggable={props.editMode}
+        isResizable={props.editMode}
+        layouts={props.layouts}
+        onBreakpointChange={props.onBreakpointChange}
+        onLayoutChange={props.onLayoutChange}
+        measureBeforeMount={false}
+        useCSSTransforms={false}
+        preventCollision={false}
+        draggableHandle='.draggableHandle'
+        dragApiRef={props.dragApi}
+      >
+        {_.map(props.layouts[props.currentBreakpoint], (layout) => {
+          return (
+            <div id={'widget-' + layout.i} key={layout.i}>
+              <WidgetContainer
+                layout={layout}
+                widget={_.find(props.widgets, { i: layout.i })}
+                editMode={props.editMode}
+                currentBreakpoint={props.currentBreakpoint}
+                onWidgetResize={props.onWidgetResize}
+                onWidgetUpdate={props.onWidgetUpdate}
+                onWidgetDelete={props.onWidgetDelete}
+                rowHeight={props.rowHeight}
+                availableWidgets={props.availableWidgets}
+                t={props.t}
+              />
+            </div>
+          )
+        })}
+      </ResponsiveReactGridLayout>
+    </div>)
 }
 
 DashboardGrid.defaultProps = DashboardConfig

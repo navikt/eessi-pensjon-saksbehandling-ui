@@ -87,50 +87,61 @@ class DnDSource extends Component {
 
       const addAllLink = isHovering ? <a href='#addAll' onClick={this.addAllPagesToTargetPdf.bind(this, pdf.name)}>{t('ui:addAll')}</a> : null
 
-      return <div className='c-pdf-dndSource position-relative'
-        onMouseEnter={this.onHandleMouseEnter.bind(this)}
-        onMouseLeave={this.onHandleMouseLeave.bind(this)}>
+      return (
+        <div
+          className='c-pdf-dndSource position-relative'
+          onMouseEnter={this.onHandleMouseEnter.bind(this)}
+          onMouseLeave={this.onHandleMouseLeave.bind(this)}
+        >
 
-        <Droppable droppableId={'c-pdf-dndSource-droppable-' + pdf.name} direction='horizontal'>
+          <Droppable droppableId={'c-pdf-dndSource-droppable-' + pdf.name} direction='horizontal'>
 
-          {(provided, snapshot) => (
+            {(provided, snapshot) => (
 
-            <div ref={provided.innerRef}
-              className={classNames('c-pdf-dndSource-droppable', { 'c-pdf-dndSource-droppable-active': snapshot.isDraggingOver })}
-              style={{ minHeight: pageScale * 140 }}>
+              <div
+                ref={provided.innerRef}
+                className={classNames('c-pdf-dndSource-droppable', { 'c-pdf-dndSource-droppable-active': snapshot.isDraggingOver })}
+                style={{ minHeight: pageScale * 140 }}
+              >
 
-              {_.range(1, pdf.numPages + 1).map(pageNumber => {
-                if (_.find(selectedPages, { pageNumber: pageNumber })) {
-                  return null
-                }
-                const key = pdf.name + '-' + pageNumber
-                return <Draggable key={key} draggableId={key} index={pageNumber}>
-                  {(provided, snapshot) => (
-                    <div className={classNames('c-pdf-dndSource-draggable', { dragging: snapshot.isDragging })}
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      onFocus={this.onHandleFocus.bind(this, key)}
-                      onBlur={this.onHandleBlur.bind(this, key)}>
-                      <PageInDnD
-                        className={classNames({ 'c-pdf-dndSource-draggable-active': snapshot.isDragging })}
-                        style={{
-                          minWidth: 100 * pageScale,
-                          minHeight: 140 * pageScale
-                        }}
-                        file={pdf}
-                        pageNumber={pageNumber}
-                        isFocused={isFocused === key}
-                        action='add' />
-                    </div>
-                  )}
-                </Draggable>
-              })}
-            </div>
-          )}
-        </Droppable>
-        <div className='addAllLink'>{addAllLink}</div>
-      </div>
+                {_.range(1, pdf.numPages + 1).map(pageNumber => {
+                  if (_.find(selectedPages, { pageNumber: pageNumber })) {
+                    return null
+                  }
+                  const key = pdf.name + '-' + pageNumber
+                  return (
+                    <Draggable key={key} draggableId={key} index={pageNumber}>
+                      {(provided, snapshot) => (
+                        <div
+                          className={classNames('c-pdf-dndSource-draggable', { dragging: snapshot.isDragging })}
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          onFocus={this.onHandleFocus.bind(this, key)}
+                          onBlur={this.onHandleBlur.bind(this, key)}
+                        >
+                          <PageInDnD
+                            className={classNames({ 'c-pdf-dndSource-draggable-active': snapshot.isDragging })}
+                            style={{
+                              minWidth: 100 * pageScale,
+                              minHeight: 140 * pageScale
+                            }}
+                            file={pdf}
+                            pageNumber={pageNumber}
+                            isFocused={isFocused === key}
+                            action='add'
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  )
+                })}
+              </div>
+            )}
+          </Droppable>
+          <div className='addAllLink'>{addAllLink}</div>
+        </div>
+      )
     }
 }
 

@@ -5,7 +5,7 @@ import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 
 describe('applications/BUC/components/BUCTools/BUCTools', () => {
   const buc = sampleBucs[0]
-  const bucInfo = sampleBucsInfo['bucs'][buc.type + '-' + buc.caseId]
+  const bucInfo = sampleBucsInfo.bucs[buc.type + '-' + buc.caseId]
   const t = jest.fn((translationString) => { return translationString })
   const initialMockProps = {
     actions: {

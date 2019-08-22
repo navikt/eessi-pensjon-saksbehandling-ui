@@ -52,20 +52,25 @@ const BUCCrumbs = (props) => {
     })
   }
 
-  return <div className={classNames('a-buc-c-buccrumbs', className)}>
-    {buccrumbs.map((buccrumb, i) => {
-      const first = i === 0
-      const last = (i === buccrumbs.length - 1)
-      return <React.Fragment key={i}>
-        {!first ? <Chevron className='separator' type={'høyre'} /> : null}
-        <div className='a-buc-c-buccrumb'>
-          {last && !showLastLink
-            ? t(buccrumb.label)
-            : <Lenke href='#' title={buccrumb.label} onClick={buccrumb.func}>{buccrumb.label}</Lenke>}
-        </div>
-      </React.Fragment>
-    })}
-  </div>
+  return (
+    <div className={classNames('a-buc-c-buccrumbs', className)}>
+      {buccrumbs.map((buccrumb, i) => {
+        const first = i === 0
+        const last = (i === buccrumbs.length - 1)
+        const handleClick = buccrumb.func
+        return (
+          <React.Fragment key={i}>
+            {!first ? <Chevron className='separator' type='høyre' /> : null}
+            <div className='a-buc-c-buccrumb'>
+              {last && !showLastLink
+                ? t(buccrumb.label)
+                : <Lenke href='#' title={buccrumb.label} onClick={handleClick}>{buccrumb.label}</Lenke>}
+            </div>
+          </React.Fragment>
+        )
+      })}
+    </div>
+  )
 }
 
 BUCCrumbs.propTypes = {

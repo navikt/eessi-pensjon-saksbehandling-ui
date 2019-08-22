@@ -71,38 +71,43 @@ const SEDSearch = (props) => {
     })
   }
 
-  return <Panel
-    id='a-buc-c-sedsearch__panel-id'
-    className={classNames('a-buc-c-sedsearch', 'p-2', 's-border', className)}>
-    <Input
-      id='a-buc-c-sedsearch__query-input-id'
-      className='a-buc-c-sedsearch__query-input pl-1 pr-1'
-      label={''}
-      bredde='fullbredde'
-      value={_query}
-      onChange={onQueryChange}
-      placeholder={t('buc:form-filterSED')}
-      onClick={stopPropagation}
-    />
-    <MultipleSelect
-      id='a-buc-c-sedsearch__status-select-id'
-      className='a-buc-c-sedsearch__status-select multipleSelect pl-1 pr-1'
-      placeholder={t('buc:form-searchForStatus')}
-      locale={locale}
-      values={_status}
-      hideSelectedOptions={false}
-      onChange={onStatusChange}
-      optionList={availableStatuses} />
-    <MultipleSelect
-      id='a-buc-c-sedsearch__country-select-id'
-      className='a-buc-c-sedsearch__country-select multipleSelect pl-1 pr-1'
-      placeholder={t('buc:form-searchForCountry')}
-      locale={locale}
-      values={_country}
-      hideSelectedOptions={false}
-      onChange={onCountryChange}
-      optionList={availableCountries} />
-  </Panel>
+  return (
+    <Panel
+      id='a-buc-c-sedsearch__panel-id'
+      className={classNames('a-buc-c-sedsearch', 'p-2', 's-border', className)}
+    >
+      <Input
+        id='a-buc-c-sedsearch__query-input-id'
+        className='a-buc-c-sedsearch__query-input pl-1 pr-1'
+        label=''
+        bredde='fullbredde'
+        value={_query}
+        onChange={onQueryChange}
+        placeholder={t('buc:form-filterSED')}
+        onClick={stopPropagation}
+      />
+      <MultipleSelect
+        id='a-buc-c-sedsearch__status-select-id'
+        className='a-buc-c-sedsearch__status-select multipleSelect pl-1 pr-1'
+        placeholder={t('buc:form-searchForStatus')}
+        locale={locale}
+        values={_status}
+        hideSelectedOptions={false}
+        onChange={onStatusChange}
+        optionList={availableStatuses}
+      />
+      <MultipleSelect
+        id='a-buc-c-sedsearch__country-select-id'
+        className='a-buc-c-sedsearch__country-select multipleSelect pl-1 pr-1'
+        placeholder={t('buc:form-searchForCountry')}
+        locale={locale}
+        values={_country}
+        hideSelectedOptions={false}
+        onChange={onCountryChange}
+        optionList={availableCountries}
+      />
+    </Panel>
+  )
 }
 
 SEDSearch.propTypes = {

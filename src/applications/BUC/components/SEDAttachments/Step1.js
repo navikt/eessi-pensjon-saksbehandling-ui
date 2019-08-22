@@ -24,13 +24,16 @@ const Step1 = (props) => {
     handleFileChange(joarkFiles, 'joark')
   }
 
-  return <div className='a-buc-c-sedattachments-step1'>
-    <Undertittel className='mt-4 mb-3'>{t('buc:form-addAttachmentsFromJOARK')}</Undertittel>
-    <JoarkBrowser
-      {...props}
-      files={getFiles('joark')}
-      onFilesChange={handleJoarkFilesChange} />
-  </div>
+  return (
+    <div className='a-buc-c-sedattachments-step1'>
+      <Undertittel className='mt-4 mb-3'>{t('buc:form-addAttachmentsFromJOARK')}</Undertittel>
+      <JoarkBrowser
+        {...props}
+        files={getFiles('joark')}
+        onFilesChange={handleJoarkFilesChange}
+      />
+    </div>
+  )
 }
 
 Step1.propTypes = {

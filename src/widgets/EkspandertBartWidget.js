@@ -6,7 +6,7 @@ import ReactResizeDetector from 'react-resize-detector'
 
 const EkspandertBartWidget = (props) => {
   const { content, onResize, onUpdate, widget } = props
-  const [ _content, setContent ] = useState(content || widget.options.content)
+  const [_content, setContent] = useState(content || widget.options.content)
 
   const onClick = () => {
     const newWidget = _.cloneDeep(widget)
@@ -27,25 +27,31 @@ const EkspandertBartWidget = (props) => {
     }
   }
 
-  return <div className='w-EkspandertbartWidget'>
-    <Ekspanderbartpanel
-      apen={!widget.options.collapsed}
-      tittel={widget.title}
-      onClick={onClick}>
-      <div>
-        <ReactResizeDetector
-          handleWidth
-          handleHeight
-          onResize={_onResize} />
-        {widget.options.collapsed === true
-          ? null
-          : <div
-            className='content'
-            dangerouslySetInnerHTML={{ __html: _content }} />
-        }
-      </div>
-    </Ekspanderbartpanel>
-  </div>
+  return (
+    <div className='w-EkspandertbartWidget'>
+      <Ekspanderbartpanel
+        apen={!widget.options.collapsed}
+        tittel={widget.title}
+        onClick={onClick}
+      >
+        <div>
+          <ReactResizeDetector
+            handleWidth
+            handleHeight
+            onResize={_onResize}
+          />
+          {widget.options.collapsed === true
+            ? null
+            : (
+              <div
+                className='content'
+                dangerouslySetInnerHTML={{ __html: _content }}
+              />
+            )}
+        </div>
+      </Ekspanderbartpanel>
+    </div>
+  )
 }
 
 EkspandertBartWidget.properties = {

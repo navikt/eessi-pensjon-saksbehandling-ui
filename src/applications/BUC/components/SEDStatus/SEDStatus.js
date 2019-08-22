@@ -15,11 +15,13 @@ const statusList = {
 const SEDStatus = (props) => {
   const { className, status, t } = props
 
-  const tagType = Object.prototype.hasOwnProperty.call(statusList, status) ? statusList[status] : statusList['unknown']
+  const tagType = Object.prototype.hasOwnProperty.call(statusList, status) ? statusList[status] : statusList.unknown
 
-  return <EtikettBase className={classNames('a-buc-c-sedstatus', className)} type={tagType}>
-    {t('ui:' + props.status)}
-  </EtikettBase>
+  return (
+    <EtikettBase className={classNames('a-buc-c-sedstatus', className)} type={tagType}>
+      {t('ui:' + props.status)}
+    </EtikettBase>
+  )
 }
 
 SEDStatus.propTypes = {

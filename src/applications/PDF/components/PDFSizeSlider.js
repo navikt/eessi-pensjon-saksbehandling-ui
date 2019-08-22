@@ -10,9 +10,11 @@ const PDFSizeSlider = (props) => {
     actions.setPdfSize(value)
   }
 
-  return <div style={style} className='c-pdf-PDFSizeSlider' title={t('pdf:help-sizeSliderTooltip')}>
-    <Slider value={pageScale} min={0.5} max={2.5} step={0.1} onChange={onChange} />
-  </div>
+  return (
+    <div style={style} className='c-pdf-PDFSizeSlider' title={t('pdf:help-sizeSliderTooltip')}>
+      <Slider value={pageScale} min={0.5} max={2.5} step={0.1} onChange={onChange} />
+    </div>
+  )
 }
 
 PDFSizeSlider.propTypes = {

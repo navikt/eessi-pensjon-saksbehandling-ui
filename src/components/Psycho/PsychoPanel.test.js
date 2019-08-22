@@ -43,7 +43,7 @@ describe('PsychoPanel Rendering', () => {
 describe('PsychoPanel button', () => {
   it('Renders null when button is clicked', () => {
     const wrapper = shallow(
-      <PsychoPanel closeButton >
+      <PsychoPanel closeButton>
         <div id='1' />
       </PsychoPanel>
     )

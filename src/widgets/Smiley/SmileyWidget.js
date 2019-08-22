@@ -13,20 +13,24 @@ const SmileyWidget = (props) => {
     }
   }, [mounted, onResize])
 
-  return <div className='w-SmileyWidget p-3 text-center'>
-    <ReactResizeDetector
-      handleWidth
-      handleHeight
-      onResize={onResize} />
-    <h4>Today's mood</h4>
-    <p style={{
-      fontSize: '100px'
-    }}>
-      <span className='w-SmileyWidget__smiley' role='img' aria-label='smiley'>
-        {widget.options.mood}
-      </span>
-    </p>
-  </div>
+  return (
+    <div className='w-SmileyWidget p-3 text-center'>
+      <ReactResizeDetector
+        handleWidth
+        handleHeight
+        onResize={onResize}
+      />
+      <h4>Today's mood</h4>
+      <p style={{
+        fontSize: '100px'
+      }}
+      >
+        <span className='w-SmileyWidget__smiley' role='img' aria-label='smiley'>
+          {widget.options.mood}
+        </span>
+      </p>
+    </div>
+  )
 }
 
 SmileyWidget.properties = {

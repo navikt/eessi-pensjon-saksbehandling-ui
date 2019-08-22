@@ -80,53 +80,53 @@ export default class Util {
       switch (period.type) {
         case 'work':
           !_.has(payload, 'ansattSelvstendigPerioder')
-            ? payload['ansattSelvstendigPerioder'] = [this.handleWorkPeriod(period)]
-            : payload['ansattSelvstendigPerioder'].push(this.handleWorkPeriod(period))
+            ? payload.ansattSelvstendigPerioder = [this.handleWorkPeriod(period)]
+            : payload.ansattSelvstendigPerioder.push(this.handleWorkPeriod(period))
           break
         case 'home':
           !_.has(payload, 'boPerioder')
-            ? payload['boPerioder'] = [this.handleGenericPeriod(period)]
-            : payload['boPerioder'].push(this.handleGenericPeriod(period))
+            ? payload.boPerioder = [this.handleGenericPeriod(period)]
+            : payload.boPerioder.push(this.handleGenericPeriod(period))
           break
         case 'child':
           !_.has(payload, 'barnepassPerioder')
-            ? payload['barnepassPerioder'] = [this.handleChildPeriod(period)]
-            : payload['barnepassPerioder'].push(this.handleChildPeriod(period))
+            ? payload.barnepassPerioder = [this.handleChildPeriod(period)]
+            : payload.barnepassPerioder.push(this.handleChildPeriod(period))
           break
         case 'voluntary':
           !_.has(payload, 'frivilligPerioder')
-            ? payload['frivilligPerioder'] = [this.handleGenericPeriod(period)]
-            : payload['frivilligPerioder'].push(this.handleGenericPeriod(period))
+            ? payload.frivilligPerioder = [this.handleGenericPeriod(period)]
+            : payload.frivilligPerioder.push(this.handleGenericPeriod(period))
           break
         case 'military':
           !_.has(payload, 'forsvartjenestePerioder')
-            ? payload['forsvartjenestePerioder'] = [this.handleGenericPeriod(period)]
-            : payload['forsvartjenestePerioder'].push(this.handleGenericPeriod(period))
+            ? payload.forsvartjenestePerioder = [this.handleGenericPeriod(period)]
+            : payload.forsvartjenestePerioder.push(this.handleGenericPeriod(period))
           break
         case 'birth':
           !_.has(payload, 'foedselspermisjonPerioder')
-            ? payload['foedselspermisjonPerioder'] = [this.handleGenericPeriod(period)]
-            : payload['foedselspermisjonPerioder'].push(this.handleGenericPeriod(period))
+            ? payload.foedselspermisjonPerioder = [this.handleGenericPeriod(period)]
+            : payload.foedselspermisjonPerioder.push(this.handleGenericPeriod(period))
           break
         case 'learn':
           !_.has(payload, 'opplaeringPerioder')
-            ? payload['opplaeringPerioder'] = [this.handleLearnPeriod(period)]
-            : payload['opplaeringPerioder'].push(this.handleLearnPeriod(period))
+            ? payload.opplaeringPerioder = [this.handleLearnPeriod(period)]
+            : payload.opplaeringPerioder.push(this.handleLearnPeriod(period))
           break
         case 'daily':
           !_.has(payload, 'arbeidsledigPerioder')
-            ? payload['arbeidsledigPerioder'] = [this.handleDailyOrSickPeriod(period)]
-            : payload['arbeidsledigPerioder'].push(this.handleDailyOrSickPeriod(period))
+            ? payload.arbeidsledigPerioder = [this.handleDailyOrSickPeriod(period)]
+            : payload.arbeidsledigPerioder.push(this.handleDailyOrSickPeriod(period))
           break
         case 'sick':
           !_.has(payload, 'sykePerioder')
-            ? payload['sykePerioder'] = [this.handleDailyOrSickPeriod(period)]
-            : payload['sykePerioder'].push(this.handleDailyOrSickPeriod(period))
+            ? payload.sykePerioder = [this.handleDailyOrSickPeriod(period)]
+            : payload.sykePerioder.push(this.handleDailyOrSickPeriod(period))
           break
         case 'other':
           !_.has(payload, 'andrePerioder')
-            ? payload['andrePerioder'] = [this.handleOtherPeriod(period)]
-            : payload['andrePerioder'].push(this.handleOtherPeriod(period))
+            ? payload.andrePerioder = [this.handleOtherPeriod(period)]
+            : payload.andrePerioder.push(this.handleOtherPeriod(period))
           break
         default:
           return {}

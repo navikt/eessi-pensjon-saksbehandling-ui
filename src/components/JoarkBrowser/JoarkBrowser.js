@@ -58,9 +58,11 @@ export const JoarkBrowser = (props) => {
   useEffect(() => {
     const onPreviewFile = (previewFile) => {
       actions.openModal({
-        modalContent: <div style={{ cursor: 'pointer' }} onClick={() => actions.closeModal()}>
-          <File t={t} file={previewFile} width={400} height={600} />
-        </div>
+        modalContent: (
+          <div style={{ cursor: 'pointer' }} onClick={() => actions.closeModal()}>
+            <File t={t} file={previewFile} width={400} height={600} />
+          </div>
+        )
       })
     }
     if (previewFile && (!_previewFile || _previewFile.journalpostId !== previewFile.journalpostId ||
@@ -141,30 +143,34 @@ export const JoarkBrowser = (props) => {
   }
 
   if (loadingJoarkList) {
-    return <div>
-      <NavFrontendSpinner type='XS' />
-      <span className='pl-2'>{t('ui:loading')}</span>
-    </div>
+    return (
+      <div>
+        <NavFrontendSpinner type='XS' />
+        <span className='pl-2'>{t('ui:loading')}</span>
+      </div>
+    )
   }
 
-  return <div className='c-joarkBrowser'>
-    <TableSorter
-      t={t}
-      items={items}
-      actions={actions}
-      loadingJoarkFile={loadingJoarkFile}
-      loadingJoarkPreviewFile={loadingJoarkPreviewFile}
-      sort={{ column: 'name', order: 'desc' }}
-      columns={{
-        name: { name: t('ui:title'), filterText: '', defaultSortOrder: '' },
-        tema: { name: t('ui:tema'), filterText: '', defaultSortOrder: '' },
-        date: { name: t('ui:date'), filterText: '', defaultSortOrder: '' },
-        varianter: { name: t('ui:variant'), filterText: '', defaultSortOrder: '' }
-      }}
-      onItemClicked={onItemClicked}
-      onSelectedItemChange={onSelectedItemChange}
-    />
-  </div>
+  return (
+    <div className='c-joarkBrowser'>
+      <TableSorter
+        t={t}
+        items={items}
+        actions={actions}
+        loadingJoarkFile={loadingJoarkFile}
+        loadingJoarkPreviewFile={loadingJoarkPreviewFile}
+        sort={{ column: 'name', order: 'desc' }}
+        columns={{
+          name: { name: t('ui:title'), filterText: '', defaultSortOrder: '' },
+          tema: { name: t('ui:tema'), filterText: '', defaultSortOrder: '' },
+          date: { name: t('ui:date'), filterText: '', defaultSortOrder: '' },
+          varianter: { name: t('ui:variant'), filterText: '', defaultSortOrder: '' }
+        }}
+        onItemClicked={onItemClicked}
+        onSelectedItemChange={onSelectedItemChange}
+      />
+    </div>
+  )
 }
 
 JoarkBrowser.propTypes = {

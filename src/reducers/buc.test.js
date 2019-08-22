@@ -62,11 +62,11 @@ describe('reducers/buc', () => {
     expect(
       bucReducer(initialBucState, {
         type: types.BUC_GET_BUCS_SUCCESS,
-        payload: [{caseId: 'mockPayload'}]
+        payload: [{ caseId: 'mockPayload' }]
       })
     ).toEqual({
       ...initialBucState,
-      bucs: {'mockPayload': {caseId: 'mockPayload'}} 
+      bucs: { mockPayload: { caseId: 'mockPayload' } }
     })
   })
 
@@ -299,15 +299,16 @@ describe('reducers/buc', () => {
     expect(
       bucReducer(initialBucState, {
         type: types.BUC_CREATE_BUC_SUCCESS,
-        payload: { caseId: 'mockCaseId', mockPayload: 'mockPayload'}
+        payload: { caseId: 'mockCaseId', mockPayload: 'mockPayload' }
       })
     ).toEqual({
       ...initialBucState,
       bucs: {
-        "mockCaseId": {
-          "caseId": "mockCaseId",
-          "mockPayload": "mockPayload",
-        }},
+        mockCaseId: {
+          caseId: 'mockCaseId',
+          mockPayload: 'mockPayload'
+        }
+      },
       currentBuc: 'mockCaseId',
       mode: 'bucedit',
       sed: undefined,
@@ -532,7 +533,6 @@ describe('reducers/buc', () => {
       attachments: [{ dokumentInfoId: 1 }, { dokumentInfoId: 2 }]
     })
   })
-
 
   it('BUC_GET_P4000_LIST_SUCCESS', () => {
     expect(

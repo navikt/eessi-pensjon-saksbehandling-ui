@@ -7,13 +7,15 @@ import './BUCNew.css'
 const BUCNew = (props) => {
   const { t } = props
 
-  return <React.Fragment>
-    <Panel className='a-buc-bucnew s-border'>
-      <Systemtittel>{t('buc:step-startBUCTitle')}</Systemtittel>
-      <hr />
-      <BUCStart mode='widget' {...props} />
-    </Panel>
-  </React.Fragment>
+  return (
+    <>
+      <Panel className='a-buc-bucnew s-border'>
+        <Systemtittel>{t('buc:step-startBUCTitle')}</Systemtittel>
+        <hr />
+        <BUCStart mode='widget' {...props} />
+      </Panel>
+    </>
+  )
 }
 
 export default BUCNew

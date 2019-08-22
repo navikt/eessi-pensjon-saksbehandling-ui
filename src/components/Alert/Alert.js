@@ -44,13 +44,16 @@ export const Alert = (props) => {
     if (error.message) {
       errorMessage.push(error.message)
     }
+    if (error.error) {
+      errorMessage.push(error.error)
+    }
     if (error.serverMessage) {
       errorMessage.push(error.serverMessage)
     }
     if (error.uuid) {
       errorMessage.push(error.uuid)
     }
-    return errorMessage.join(' ')
+    return errorMessage.join(' - ')
   }
 
   if (type === 'server') {
@@ -62,11 +65,14 @@ export const Alert = (props) => {
     if (error) {
       message += ': ' + printError(error)
     }
-    return <AlertStripe
-      className={classNames('c-alert', 'server', className)} type={errorTypes.ERROR}>
-      {message}
-      <Icons className='closeIcon' size='1x' kind='solidclose' onClick={onClientClear} />
-    </AlertStripe>
+    return (
+      <AlertStripe
+        className={classNames('c-alert', 'server', className)} type={errorTypes.ERROR}
+      >
+        {message}
+        <Icons className='closeIcon' size='1x' kind='solidclose' onClick={onClientClear} />
+      </AlertStripe>
+    )
   }
 
   if (!clientErrorMessage) {
@@ -86,12 +92,15 @@ export const Alert = (props) => {
     message += ': ' + printError(error)
   }
 
-  return <AlertStripe
-    className={classNames(className, 'c-alert', 'client', { fixed: fixed || true })}
-    type={errorTypes[clientErrorStatus]}>
-    {message}
-    <Icons className='closeIcon' size='1x' kind='solidclose' onClick={onClientClear} />
-  </AlertStripe>
+  return (
+    <AlertStripe
+      className={classNames(className, 'c-alert', 'client', { fixed: fixed || true })}
+      type={errorTypes[clientErrorStatus]}
+    >
+      {message}
+      <Icons className='closeIcon' size='1x' kind='solidclose' onClick={onClientClear} />
+    </AlertStripe>
+  )
 }
 
 Alert.propTypes = {

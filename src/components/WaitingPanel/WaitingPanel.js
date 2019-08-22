@@ -6,10 +6,12 @@ import { NavFrontendSpinner } from 'components/Nav'
 const WaitingPanel = (props) => {
   const { message, className } = props
 
-  return <div className={classNames('c-waitingPanel', 'text-center', className)}>
-    <NavFrontendSpinner />
-    <p className='c-waitingPanel__message typo-normal'>{message}</p>
-  </div>
+  return (
+    <div className={classNames('c-waitingPanel', 'text-center', className)}>
+      <NavFrontendSpinner />
+      <p className='c-waitingPanel__message typo-normal'>{message}</p>
+    </div>
+  )
 }
 
 WaitingPanel.propTypes = {

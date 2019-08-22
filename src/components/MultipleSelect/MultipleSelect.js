@@ -77,53 +77,63 @@ const MultipleSelect = (props) => {
   let options = includeList ? include(includeList, optionList) : optionList
   options = excludeList ? exclude(excludeList, options) : options
 
-  return <div id={id} className={classNames('c-multipleSelect', className, { skjemaelement__feilmelding: error })}>
-    {creatable
-      ? <CreatableSelect placeholder={placeholder}
-        isMulti
-        animatedComponents
-        closeMenuOnSelect={false}
-        value={_values}
-        options={options}
-        id={id ? id + '-select' : null}
-        components={{
-          Option: MultipleOption,
-          MultiValueRemove: MultipleValueRemove,
-          ...animatedComponents }}
-        className='multipleSelect'
-        classNamePrefix='multipleSelect'
-        onChange={onChange}
-        hideSelectedOptions={hideSelectedOptions || false}
-        styles={selectStyle()}
-        tabSelectsValue={false}
-      />
-      : <Select placeholder={placeholder}
-        isMulti
-        closeMenuOnSelect={false}
-        value={_values}
-        options={options}
-        id={id ? id + '-select' : null}
-        components={{
-          ...animatedComponents,
-          Option: MultipleOption,
-          MultiValueRemove: MultipleValueRemove
-        }}
-        className='multipleSelect'
-        classNamePrefix='multipleSelect'
-        onChange={onChange}
-        hideSelectedOptions={hideSelectedOptions || false}
-        styles={selectStyle()}
-        tabSelectsValue={false}
-      />}
-    {error
-      ? <div role='alert' aria-live='assertive'>
-        <div className='skjemaelement__feilmelding'>
-          {errorMessage}
-        </div>
-      </div>
-      : null
-    }
-  </div>
+  return (
+    <div id={id} className={classNames('c-multipleSelect', className, { skjemaelement__feilmelding: error })}>
+      {creatable
+        ? (
+          <CreatableSelect
+            placeholder={placeholder}
+            isMulti
+            animatedComponents
+            closeMenuOnSelect={false}
+            value={_values}
+            options={options}
+            id={id ? id + '-select' : null}
+            components={{
+              Option: MultipleOption,
+              MultiValueRemove: MultipleValueRemove,
+              ...animatedComponents
+            }}
+            className='multipleSelect'
+            classNamePrefix='multipleSelect'
+            onChange={onChange}
+            hideSelectedOptions={hideSelectedOptions || false}
+            styles={selectStyle()}
+            tabSelectsValue={false}
+          />
+        )
+        : (
+          <Select
+            placeholder={placeholder}
+            isMulti
+            closeMenuOnSelect={false}
+            value={_values}
+            options={options}
+            id={id ? id + '-select' : null}
+            components={{
+              ...animatedComponents,
+              Option: MultipleOption,
+              MultiValueRemove: MultipleValueRemove
+            }}
+            className='multipleSelect'
+            classNamePrefix='multipleSelect'
+            onChange={onChange}
+            hideSelectedOptions={hideSelectedOptions || false}
+            styles={selectStyle()}
+            tabSelectsValue={false}
+          />
+        )}
+      {error
+        ? (
+          <div role='alert' aria-live='assertive'>
+            <div className='skjemaelement__feilmelding'>
+              {errorMessage}
+            </div>
+          </div>
+        )
+        : null}
+    </div>
+  )
 }
 
 MultipleSelect.propTypes = {

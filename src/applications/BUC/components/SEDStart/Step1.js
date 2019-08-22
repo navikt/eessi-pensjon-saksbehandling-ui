@@ -186,103 +186,117 @@ const Step1 = (props) => {
   }
 
   const getSpinner = (text) => {
-    return <div className='a-buc-c-sedstart__spinner ml-2'>
-      <NavFrontendSpinner type='S' />
-      <div className='float-right ml-2'>{t(text)}</div>
-    </div>
+    return (
+      <div className='a-buc-c-sedstart__spinner ml-2'>
+        <NavFrontendSpinner type='S' />
+        <div className='float-right ml-2'>{t(text)}</div>
+      </div>
+    )
   }
 
   const setFiles = (files) => {
     setAttachments(files)
   }
 
-  return <React.Fragment>
-    <div className='col-md-12'>
-      <Systemtittel>{t('buc:step-startSEDTitle', {
-        buc: t(`buc:buc-${buc.type}`),
-        sed: _sed || t('buc:form-newSed')
-      })}</Systemtittel>
-      <hr />
-    </div>
-    <div className={layout === 'row' ? 'col-md-4 pr-3' : 'col-md-12'}>
-      <Select
-        className='a-buc-c-sedstart__sed-select flex-fill'
-        id='a-buc-c-sedstart__sed-select-id'
-        placeholder={t(placeholders.institution)}
-        aria-describedby='help-sed'
-        bredde='fullbredde'
-        feil={validation.sedFail ? { feilmelding: validation.sedFail } : null}
-        label={t('buc:form-sed')}
-        value={_sed || placeholders.sed}
-        onChange={onSedChange}>
-        {renderOptions(sedList, 'sed')}
-      </Select>
-      {sedNeedsVedtakId() ? <div className='mb-3'>
-        <Input
-          id='a-buc-c-sedstart__vedtakid-input-id'
-          className='a-buc-c-sedstart__vedtakid-input'
-          label={t('ui:vedtakId')}
-          bredde='fullbredde'
-          value={vedtakId}
-          onChange={onVedtakIdChange}
-          placeholder={t(placeholders.vedtakId)}
-          feil={validation.vedtakFail ? { feilmelding: t(validation.vedtakFail) } : null}
-        />
-      </div> : null}
-      <div className='mb-3 flex-fill'>
-        <label className='skjemaelement__label'>{t('ui:country')}</label>
-        <MultipleSelect
-          className='a-buc-c-sedstart__country-select'
-          id='a-buc-c-sedstart__country-select-id'
-          placeholder={t(placeholders.country)}
-          aria-describedby='help-country'
-          locale={locale}
-          values={countryValueList}
-          hideSelectedOptions={false}
-          onChange={onCountriesChange}
-          optionList={countryObjectList} />
+  return (
+    <>
+      <div className='col-md-12'>
+        <Systemtittel>{t('buc:step-startSEDTitle', {
+          buc: t(`buc:buc-${buc.type}`),
+          sed: _sed || t('buc:form-newSed')
+        })}
+        </Systemtittel>
+        <hr />
       </div>
-      <div className='mb-3 flex-fill'>
-        <label className='skjemaelement__label'>{t('ui:institution')}</label>
-        <MultipleSelect
-          className='a-buc-c-sedstart__institution-select'
-          id='a-buc-c-sedstart__institution-select-id'
+      <div className={layout === 'row' ? 'col-md-4 pr-3' : 'col-md-12'}>
+        <Select
+          className='a-buc-c-sedstart__sed-select flex-fill'
+          id='a-buc-c-sedstart__sed-select-id'
           placeholder={t(placeholders.institution)}
-          aria-describedby='help-institution'
-          locale={locale}
-          values={institutionValueList}
-          onChange={onInstitutionsChange}
-          hideSelectedOptions={false}
-          optionList={institutionObjectList} />
+          aria-describedby='help-sed'
+          bredde='fullbredde'
+          feil={validation.sedFail ? { feilmelding: validation.sedFail } : null}
+          label={t('buc:form-sed')}
+          value={_sed || placeholders.sed}
+          onChange={onSedChange}
+        >
+          {renderOptions(sedList, 'sed')}
+        </Select>
+        {sedNeedsVedtakId() ? (
+          <div className='mb-3'>
+            <Input
+              id='a-buc-c-sedstart__vedtakid-input-id'
+              className='a-buc-c-sedstart__vedtakid-input'
+              label={t('ui:vedtakId')}
+              bredde='fullbredde'
+              value={vedtakId}
+              onChange={onVedtakIdChange}
+              placeholder={t(placeholders.vedtakId)}
+              feil={validation.vedtakFail ? { feilmelding: t(validation.vedtakFail) } : null}
+            />
+          </div>
+        ) : null}
+        <div className='mb-3 flex-fill'>
+          <label className='skjemaelement__label'>{t('ui:country')}</label>
+          <MultipleSelect
+            className='a-buc-c-sedstart__country-select'
+            id='a-buc-c-sedstart__country-select-id'
+            placeholder={t(placeholders.country)}
+            aria-describedby='help-country'
+            locale={locale}
+            values={countryValueList}
+            hideSelectedOptions={false}
+            onChange={onCountriesChange}
+            optionList={countryObjectList}
+          />
+        </div>
+        <div className='mb-3 flex-fill'>
+          <label className='skjemaelement__label'>{t('ui:institution')}</label>
+          <MultipleSelect
+            className='a-buc-c-sedstart__institution-select'
+            id='a-buc-c-sedstart__institution-select-id'
+            placeholder={t(placeholders.institution)}
+            aria-describedby='help-institution'
+            locale={locale}
+            values={institutionValueList}
+            onChange={onInstitutionsChange}
+            hideSelectedOptions={false}
+            optionList={institutionObjectList}
+          />
+        </div>
+        <Undertittel className='mb-2'>{t('buc:form-chosenInstitutions')}</Undertittel>
+        <InstitutionList
+          t={t} institutions={_institutions.map(item => {
+            var [country, institution] = item.split(':')
+            return {
+              country: country,
+              institution: institution
+            }
+          })} locale={locale} type='joined'
+        />
+        <div className='mt-4'>
+          <Undertittel className='mb-2'>{t('ui:attachments')}</Undertittel>
+          {_attachments ? Object.keys(_attachments).map((key, index1) => {
+            return _attachments[key].map((att, index2) => {
+              return (
+                <div key={index1 + '-' + index2}>
+                  {t('ui:' + key)}: {att.tittel || att.name} ({att.variant})
+                </div>
+              )
+            })
+          }) : null}
+        </div>
+        <div className='selectBoxMessage mt-2 mb-2'>{!loading ? null
+          : loading.gettingSedList ? getSpinner('buc:loading-sed')
+            : loading.institutionList ? getSpinner('buc:loading-institution')
+              : loading.gettingCountryList ? getSpinner('buc:loading-country') : null}
+        </div>
       </div>
-      <Undertittel className='mb-2'>{t('buc:form-chosenInstitutions')}</Undertittel>
-      <InstitutionList t={t} institutions={_institutions.map(item => {
-        var [country, institution] = item.split(':')
-        return {
-          country: country,
-          institution: institution
-        }
-      })} locale={locale} type='joined' />
-      <div className='mt-4'>
-        <Undertittel className='mb-2'>{t('ui:attachments')}</Undertittel>
-        {_attachments ? Object.keys(_attachments).map((key, index1) => {
-          return _attachments[key].map((att, index2) => {
-            return <div key={index1 + '-' + index2}>
-              {t('ui:' + key)}: {att.tittel || att.name} ({att.variant})
-            </div>
-          })
-        }) : null}
+      <div className={layout === 'row' ? 'col-md-8 pl-3' : 'col-md-12'}>
+        <SEDAttachments t={t} setFiles={setFiles} files={_attachments} />
       </div>
-      <div className='selectBoxMessage mt-2 mb-2'>{!loading ? null
-        : loading.gettingSedList ? getSpinner('buc:loading-sed')
-          : loading.institutionList ? getSpinner('buc:loading-institution')
-            : loading.gettingCountryList ? getSpinner('buc:loading-country') : null}
-      </div>
-    </div>
-    <div className={layout === 'row' ? 'col-md-8 pl-3' : 'col-md-12'}>
-      <SEDAttachments t={t} setFiles={setFiles} files={_attachments} />
-    </div>
-  </React.Fragment>
+    </>
+  )
 }
 
 Step1.propTypes = {

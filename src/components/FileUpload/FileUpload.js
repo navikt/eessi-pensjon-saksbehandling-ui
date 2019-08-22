@@ -25,9 +25,11 @@ const FileUpload = (props) => {
 
   const openPreview = (file, pageNumber) => {
     openModal({
-      modalContent: <div style={{ cursor: 'pointer' }} onClick={closeModal}>
-        <File t={t} file={file} width={400} height={600} pageNumber={pageNumber} />
-      </div>
+      modalContent: (
+        <div style={{ cursor: 'pointer' }} onClick={closeModal}>
+          <File t={t} file={file} width={400} height={600} pageNumber={pageNumber} />
+        </div>
+      )
     })
   }
 
@@ -148,33 +150,39 @@ const FileUpload = (props) => {
     maxSize: maxFileSize
   })
 
-  return <div
-    className={classNames('c-fileUpload', 'p-4', { 'c-fileUpload-active ': isDragActive }, className)}
-    tabIndex={tabIndex}
-    {...getRootProps()}>
-    <input {...getInputProps()} />
-    <div className='c-fileUpload-placeholder'>
-      <div className='c-fileUpload-placeholder-message'>
-        {t('ui:dropFilesHere', { maxFiles: maxFiles })}
+  return (
+    <div
+      className={classNames('c-fileUpload', 'p-4', { 'c-fileUpload-active ': isDragActive }, className)}
+      tabIndex={tabIndex}
+      {...getRootProps()}
+    >
+      <input {...getInputProps()} />
+      <div className='c-fileUpload-placeholder'>
+        <div className='c-fileUpload-placeholder-message'>
+          {t('ui:dropFilesHere', { maxFiles: maxFiles })}
+        </div>
+        <div className={classNames('c-fileUpload-placeholder-status', 'c-fileUpload-placeholder-status-' + _status.type)}>
+          {_status.message || ''}
+        </div>
       </div>
-      <div className={classNames('c-fileUpload-placeholder-status', 'c-fileUpload-placeholder-status-' + _status.type)}>
-        {_status.message || ''}
+      <div className='c-fileUpload-files scrollable'>
+        {_files.map((file, i) => {
+          return (
+            <File
+              className='mr-2' key={i} file={file} t={t}
+              currentPage={_currentPages[i]}
+              deleteLink downloadLink previewLink
+              onPreviousPage={() => onPreviousPageRequest(i)}
+              onNextPage={() => onNextPageRequest(i)}
+              onLoadSuccess={() => onLoadSuccess(i)}
+              onDeleteDocument={() => removeFile(i)}
+              onPreviewDocument={() => openPreview(file)}
+            />
+          )
+        })}
       </div>
     </div>
-    <div className='c-fileUpload-files scrollable'>
-      {_files.map((file, i) => {
-        return <File className='mr-2' key={i} file={file} t={t}
-          currentPage={_currentPages[i]}
-          deleteLink downloadLink previewLink
-          onPreviousPage={() => onPreviousPageRequest(i)}
-          onNextPage={() => onNextPageRequest(i)}
-          onLoadSuccess={() => onLoadSuccess(i)}
-          onDeleteDocument={() => removeFile(i)}
-          onPreviewDocument={() => openPreview(file)}
-        />
-      })}
-    </div>
-  </div>
+  )
 }
 
 FileUpload.propTypes = {

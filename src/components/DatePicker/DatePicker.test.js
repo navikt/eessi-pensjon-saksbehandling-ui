@@ -1,14 +1,23 @@
 import React from 'react'
 import DatePicker from './DatePicker'
 
-describe('DatePicker', () => {
-  it('renders without crashing', () => {
-    const wrapper = shallow(<DatePicker onChange={function () { }} />)
+describe('components/DatePicker', () => {
+
+  let wrapper
+  let initialMockProps = {
+    onChange: jest.fn()
+  }
+
+  beforeEach(() => {
+    wrapper = mount(<DatePicker {...initialMockProps} />)
+  })
+
+  it('Renders', () => {
+    expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Correctly validates day', () => {
-    const wrapper = shallow(<DatePicker onChange={function () { }} />)
     expect(wrapper.instance().checkValidity({ day: 'DD' }).day).toBeTruthy()
     expect(wrapper.instance().checkValidity({ day: '-1' }).day).toBeTruthy()
     expect(wrapper.instance().checkValidity({ day: '0' }).day).toBeTruthy()

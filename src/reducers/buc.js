@@ -58,20 +58,19 @@ const bucReducer = (state = initialBucState, action) => {
         attachments: undefined
       }
 
-    case types.BUC_GET_SINGLE_BUC_SUCCESS:
+    case types.BUC_GET_SINGLE_BUC_SUCCESS: {
+      return !action.payload.caseId
+        ? state
+        : {
+          ...state,
+          bucs: {
+            ...state.bucs,
+            [action.payload.caseId]: action.payload
+          }
+        }
+    }
 
-      if(!action.payload.caseId){ return state }
-
-      let newBucs = {...state.bucs}
-      newBucs[action.payload.caseId] = action.payload
-
-      return {
-        ...state,
-        bucs: newBucs
-      }
-
-    case types.BUC_GET_BUCS_SUCCESS:
-
+    case types.BUC_GET_BUCS_SUCCESS: {
       const bucReducer = (currentBucs, newBuc) => {
         currentBucs[newBuc.caseId] = newBuc
         return currentBucs
@@ -85,6 +84,7 @@ const bucReducer = (state = initialBucState, action) => {
         ...state,
         bucs: action.payload.reduce(bucReducer, state.bucs || {})
       }
+    }
 
     case types.BUC_GET_BUCS_FAILURE:
 
@@ -183,7 +183,7 @@ const bucReducer = (state = initialBucState, action) => {
         currentBuc: action.payload.caseId,
         bucs: {
           ...state.bucs,
-          [action.payload.caseId] : action.payload
+          [action.payload.caseId]: action.payload
         },
         mode: 'bucedit',
         sed: undefined,
@@ -234,8 +234,7 @@ const bucReducer = (state = initialBucState, action) => {
         sedList: undefined
       }
 
-    case types.BUC_GET_INSTITUTION_LIST_SUCCESS:
-
+    case types.BUC_GET_INSTITUTION_LIST_SUCCESS: {
       const institutionList = state.institutionList ? _.cloneDeep(state.institutionList) : {}
       const institutionNames = _.clone(state.institutionNames)
       action.payload.forEach(institution => {
@@ -257,6 +256,7 @@ const bucReducer = (state = initialBucState, action) => {
         institutionList: institutionList,
         institutionNames: institutionNames
       }
+    }
 
     case types.BUC_RINA_GET_URL_SUCCESS:
 
@@ -272,8 +272,7 @@ const bucReducer = (state = initialBucState, action) => {
         sed: action.payload
       }
 
-    case types.BUC_SED_ATTACHMENT_SUCCESS:
-
+    case types.BUC_SED_ATTACHMENT_SUCCESS: {
       const existingAttachments = state.attachments ? _.cloneDeep(state.attachments) : []
       const newAttachment = action.payload
       const found = _.find(existingAttachments, { dokumentInfoId: newAttachment.dokumentInfoId })
@@ -284,6 +283,7 @@ const bucReducer = (state = initialBucState, action) => {
         ...state,
         attachments: existingAttachments
       }
+    }
 
     case types.BUC_GET_P4000_LIST_SUCCESS:
       return {

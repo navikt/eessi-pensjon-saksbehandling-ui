@@ -33,16 +33,20 @@ export const Person = (props) => {
     }
   }, [mounted, actions, aktoerId])
 
-  return <EkspanderbartpanelBase
-    className='w-person s-border'
-    heading={
-      <PersonHeader
-        t={t} person={person}
-        aktoerId={aktoerId}
-        gettingPersonInfo={gettingPersonInfo}
-      />}>
-    <PersonBody t={t} person={person} aktoerId={aktoerId} />
-  </EkspanderbartpanelBase>
+  return (
+    <EkspanderbartpanelBase
+      className='w-person s-border'
+      heading={
+        <PersonHeader
+          t={t} person={person}
+          aktoerId={aktoerId}
+          gettingPersonInfo={gettingPersonInfo}
+        />
+      }
+    >
+      <PersonBody t={t} person={person} aktoerId={aktoerId} />
+    </EkspanderbartpanelBase>
+  )
 }
 
 Person.propTypes = {

@@ -74,45 +74,62 @@ const GeneratePDF = (props) => {
 
   const buttonText = generatingPDF ? t('pdf:loading-generatingPDF') : t('ui:startAgain')
 
-  return <div>
-    <StorageModal namespace={storages.FILES} />
-    {generatingPDF ? <div className='w-100 text-center'>
-      <Nav.NavFrontendSpinner />
-      <p className='typo-normal'>{t('pdf:loading-generatingPDF')}</p>
-    </div> : (generatedPDFs ? <div>
-      {Object.keys(generatedPDFs).map(key => {
-        const pdf = generatedPDFs[key]
-        return <div key={key} className='fieldset animate'>
-          <div className='pdfrow'>
-            <File file={pdf} t={t} />
-            <div className='ml-4'>
-              <Nav.Input label={t('ui:filename')} value={_fileNames[key]}
-                onChange={(e) => setFileName(key, e.target.value)} />
-              <a className='hiddenLink' ref={_refs[key]}
-                onClick={(e) => e.stopPropagation()} title={t('ui:download')}
-                href={'data:application/octet-stream;base64,' + encodeURIComponent(pdf.content.base64)}
-                download={_fileNames[key]}>{t('ui:download')}</a>
-              <Nav.Knapp className='downloadButton'
-                onClick={() => _refs[key].current.click()}>
-                {t('ui:download')}
-              </Nav.Knapp>
-              <Nav.Knapp className='ml-3 saveToServerButton'
-                onClick={() => handleFileSaveToServer.bind(pdf, _fileNames[key])}>
-                {t('ui:saveToServer')}
-              </Nav.Knapp>
-            </div>
-          </div>
+  return (
+    <div>
+      <StorageModal namespace={storages.FILES} />
+      {generatingPDF ? (
+        <div className='w-100 text-center'>
+          <Nav.NavFrontendSpinner />
+          <p className='typo-normal'>{t('pdf:loading-generatingPDF')}</p>
         </div>
-      })}
-    </div> : null)}
-    <Nav.Row className='mt-4'>
-      <Nav.Column>
-        <Nav.Hovedknapp className='downloadAllButton' onClick={downloadAll}>{t('ui:downloadAll')}</Nav.Hovedknapp>
-        <Nav.Knapp disabled={generatingPDF} className='ml-3 forwardButton' onClick={onForwardButtonClick}>{buttonText}</Nav.Knapp>
-        <Nav.KnappBase type='flat' className='backButton ml-3' onClick={onBackButtonClick}>{t('ui:back')}</Nav.KnappBase>
-      </Nav.Column>
-    </Nav.Row>
-  </div>
+      ) : (generatedPDFs ? (
+        <div>
+          {Object.keys(generatedPDFs).map(key => {
+            const pdf = generatedPDFs[key]
+            return (
+              <div key={key} className='fieldset animate'>
+                <div className='pdfrow'>
+                  <File file={pdf} t={t} />
+                  <div className='ml-4'>
+                    <Nav.Input
+                      label={t('ui:filename')} value={_fileNames[key]}
+                      onChange={(e) => setFileName(key, e.target.value)}
+                    />
+                    <a
+                      className='hiddenLink' ref={_refs[key]}
+                      onClick={(e) => e.stopPropagation()} title={t('ui:download')}
+                      href={'data:application/octet-stream;base64,' + encodeURIComponent(pdf.content.base64)}
+                      download={_fileNames[key]}
+                    >{t('ui:download')}
+                    </a>
+                    <Nav.Knapp
+                      className='downloadButton'
+                      onClick={() => _refs[key].current.click()}
+                    >
+                      {t('ui:download')}
+                    </Nav.Knapp>
+                    <Nav.Knapp
+                      className='ml-3 saveToServerButton'
+                      onClick={() => handleFileSaveToServer.bind(pdf, _fileNames[key])}
+                    >
+                      {t('ui:saveToServer')}
+                    </Nav.Knapp>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      ) : null)}
+      <Nav.Row className='mt-4'>
+        <Nav.Column>
+          <Nav.Hovedknapp className='downloadAllButton' onClick={downloadAll}>{t('ui:downloadAll')}</Nav.Hovedknapp>
+          <Nav.Knapp disabled={generatingPDF} className='ml-3 forwardButton' onClick={onForwardButtonClick}>{buttonText}</Nav.Knapp>
+          <Nav.KnappBase type='flat' className='backButton ml-3' onClick={onBackButtonClick}>{t('ui:back')}</Nav.KnappBase>
+        </Nav.Column>
+      </Nav.Row>
+    </div>
+  )
 }
 
 GeneratePDF.propTypes = {

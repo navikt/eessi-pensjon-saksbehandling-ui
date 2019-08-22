@@ -37,12 +37,14 @@ export const PDFWidgetIndex = (props) => {
   const { t, recipe, files } = props
   const [step, setStep] = useState('select')
 
-  return <div className='a-pdf-widget'>
-    <StepIndicator t={t} step={step} setStep={setStep} recipe={recipe} files={files} />
-    {step === 'select' ? <SelectPDF {...props} setStep={setStep} /> : null}
-    {step === 'edit' ? <EditPDF {...props} setStep={setStep} /> : null}
-    {step === 'generate' ? <GeneratePDF {...props} setStep={setStep} /> : null}
-  </div>
+  return (
+    <div className='a-pdf-widget'>
+      <StepIndicator t={t} step={step} setStep={setStep} recipe={recipe} files={files} />
+      {step === 'select' ? <SelectPDF {...props} setStep={setStep} /> : null}
+      {step === 'edit' ? <EditPDF {...props} setStep={setStep} /> : null}
+      {step === 'generate' ? <GeneratePDF {...props} setStep={setStep} /> : null}
+    </div>
+  )
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(PDFWidgetIndex))

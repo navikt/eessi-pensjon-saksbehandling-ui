@@ -89,16 +89,21 @@ const WidgetContainer = (props) => {
     backgroundColor = 'white'
   }
 
-  return <div className='c-d-Widget' style={{ backgroundColor }}
-    onMouseEnter={() => setMouseOver(true)}
-    onMouseLeave={() => setMouseOver(false)}>
-    <Widget {...props}
-      mode={mode}
-      setMode={setMode}
-      onUpdate={onUpdate}
-      onResize={onResize}
-    />
-  </div>
+  return (
+    <div
+      className='c-d-Widget' style={{ backgroundColor }}
+      onMouseEnter={() => setMouseOver(true)}
+      onMouseLeave={() => setMouseOver(false)}
+    >
+      <Widget
+        {...props}
+        mode={mode}
+        setMode={setMode}
+        onUpdate={onUpdate}
+        onResize={onResize}
+      />
+    </div>
+  )
 }
 
 export default WidgetContainer

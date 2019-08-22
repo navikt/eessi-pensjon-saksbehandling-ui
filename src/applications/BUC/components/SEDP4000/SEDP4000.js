@@ -83,53 +83,70 @@ export const SEDP4000 = (props) => {
   }
 
   if (!isReady) {
-    return <div className='col-md-8 d-flex mt-5 mb-5 align-items-center justify-content-center'>
-      <NavFrontendSpinner className='ml-3 mr-3' type='M' />
-      { loadingP4000list ? <span className='pl-2'>{t('buc:loading-p4000list')}</span> : null }
-      { loadingP4000info ? <span className='pl-2'>{t('buc:loading-p4000info')}</span> : null }
-    </div>
+    return (
+      <div className='col-md-8 d-flex mt-5 mb-5 align-items-center justify-content-center'>
+        <NavFrontendSpinner className='ml-3 mr-3' type='M' />
+        {loadingP4000list ? <span className='pl-2'>{t('buc:loading-p4000list')}</span> : null}
+        {loadingP4000info ? <span className='pl-2'>{t('buc:loading-p4000info')}</span> : null}
+      </div>
+    )
   }
 
-  return <div className={classNames('a-buc-c-sedp4000', mode)}>
-    {mode === 'new' ? <React.Fragment>
-      <Undertittel className='mb-3'>{t('buc:p4000-title')}</Undertittel>
-      <Undertekst className='mb-2'>{t('buc:p4000-description')}</Undertekst>
-      <Undertekst className='mb-3'>{t('buc:p4000-info-on-help-icon')}</Undertekst>
-    </React.Fragment> : null}
-    {p4000info && !_.isEmpty(p4000info.stayAbroad) && mode === 'new' ? <React.Fragment>
-      <Undertittel className='mt-5 mb-2'>{t('buc:p4000-previousPeriods')}</Undertittel>
-      {p4000info ? p4000info.stayAbroad.sort((a, b) => {
-        return a.startDate - b.startDate
-      }).map((period, index) => {
-        return <Period t={t}
-          locale={locale}
-          actions={actions}
-          mode='view'
-          first={index === 0}
-          last={index === p4000info.stayAbroad.length - 1}
-          period={period}
-          periods={p4000info.stayAbroad}
-          setPeriod={setPeriod}
-          setPeriods={setPeriods}
-          key={index} />
-      }) : null}
-    </React.Fragment>
-      : null}
-    { !p4000info || (p4000info && p4000info.stayAbroad.length < maxPeriods)
-      ? <Period t={t}
-        actions={actions}
-        mode={mode}
-        showButtons={showButtons}
-        period={period}
-        periods={p4000info ? p4000info.stayAbroad : []}
-        locale={locale}
-        setPeriod={setPeriod}
-        setPeriods={setPeriods}
-      />
-      : <span>
-        {t('buc:p4000-alert-maxPeriods', { maxPeriods: maxPeriods })}
-      </span> }
-  </div>
+  return (
+    <div className={classNames('a-buc-c-sedp4000', mode)}>
+      {mode === 'new' ? (
+        <>
+          <Undertittel className='mb-3'>{t('buc:p4000-title')}</Undertittel>
+          <Undertekst className='mb-2'>{t('buc:p4000-description')}</Undertekst>
+          <Undertekst className='mb-3'>{t('buc:p4000-info-on-help-icon')}</Undertekst>
+        </>
+      ) : null}
+      {p4000info && !_.isEmpty(p4000info.stayAbroad) && mode === 'new' ? (
+        <>
+          <Undertittel className='mt-5 mb-2'>{t('buc:p4000-previousPeriods')}</Undertittel>
+          {p4000info ? p4000info.stayAbroad.sort((a, b) => {
+            return a.startDate - b.startDate
+          }).map((period, index) => {
+            return (
+              <Period
+                t={t}
+                locale={locale}
+                actions={actions}
+                mode='view'
+                first={index === 0}
+                last={index === p4000info.stayAbroad.length - 1}
+                period={period}
+                periods={p4000info.stayAbroad}
+                setPeriod={setPeriod}
+                setPeriods={setPeriods}
+                key={index}
+              />
+            )
+          }) : null}
+        </>
+      )
+        : null}
+      {!p4000info || (p4000info && p4000info.stayAbroad.length < maxPeriods)
+        ? (
+          <Period
+            t={t}
+            actions={actions}
+            mode={mode}
+            showButtons={showButtons}
+            period={period}
+            periods={p4000info ? p4000info.stayAbroad : []}
+            locale={locale}
+            setPeriod={setPeriod}
+            setPeriods={setPeriods}
+          />
+        )
+        : (
+          <span>
+            {t('buc:p4000-alert-maxPeriods', { maxPeriods: maxPeriods })}
+          </span>
+        )}
+    </div>
+  )
 }
 
 SEDP4000.propTypes = {
