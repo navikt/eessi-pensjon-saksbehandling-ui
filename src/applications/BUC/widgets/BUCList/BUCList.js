@@ -42,25 +42,31 @@ const BUCList = (props) => {
       const listOfCountries = []
       Object.keys(bucs).forEach(key => {
         const buc = bucs[key]
-        buc.institusjon.forEach(it => {
-          if (!_.find(listOfCountries, { country: it.country })) {
-            listOfCountries.push({
-              country: it.country,
-              buc: buc.type
-            })
-          }
-        })
-        buc.seds.forEach(sed => {
-          sed.participants.forEach(it => {
-            const country = it.organisation.countryCode
-            if (!_.find(listOfCountries, { country: country })) {
+        if(_.isArray(buc.institusjon)) {
+          buc.institusjon.forEach(it => {
+            if (!_.find(listOfCountries, {country: it.country})) {
               listOfCountries.push({
-                country: country,
+                country: it.country,
                 buc: buc.type
               })
             }
           })
-        })
+        }
+        if(_.isArray(buc.seds)) {
+          buc.seds.forEach(sed => {
+            if (_.isArray(sed.participants)) {
+              sed.participants.forEach(it => {
+                const country = it.organisation.countryCode
+                if (!_.find(listOfCountries, {country: country})) {
+                  listOfCountries.push({
+                    country: country,
+                    buc: buc.type
+                  })
+                }
+              })
+            }
+          })
+        }
       })
 
       listOfCountries.forEach(it => {
