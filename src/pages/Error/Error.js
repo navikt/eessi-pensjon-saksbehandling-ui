@@ -43,12 +43,12 @@ export const Error = (props) => {
         <div className='psycho mt-3 mb-4'>
           <Psycho type='trist' id='psycho' />
         </div>
-        <Undertittel className='m-4'>
+        <Undertittel className='title m-4'>
           {title}
         </Undertittel>
-        <Normaltekst className='mb-4'>
+        <div className='description mb-4'>
           <div dangerouslySetInnerHTML={{ __html: description }} />
-        </Normaltekst>
+        </div>
         <div className='line' />
         <Normaltekst className='mt-2 mb-4'>
           {t('ui:error-footer')}

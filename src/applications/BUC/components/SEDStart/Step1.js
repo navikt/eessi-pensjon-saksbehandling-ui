@@ -4,7 +4,7 @@ import _ from 'lodash'
 import { Input, NavFrontendSpinner, Select, Systemtittel, Undertittel } from 'components/Nav'
 import CountryData from 'components/CountryData/CountryData'
 import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
-import SEDAttachments from '../SEDAttachments/SEDAttachments'
+import SEDAttachments from 'applications/BUC/components/SEDAttachments/SEDAttachments'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 
 const placeholders = {
