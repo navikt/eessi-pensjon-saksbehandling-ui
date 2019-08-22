@@ -99,7 +99,7 @@ export const BUCWidgetIndex = (props) => {
   }, [actions, avdodfnr, sakId])
 
   useEffect(() => {
-    if (!sakType && sakId && aktoerId) {
+    if (!sakType && !loading.gettingSakType && sakId && aktoerId) {
       actions.getSakType(sakId, aktoerId)
     }
   }, [actions, sakType, sakId, aktoerId])

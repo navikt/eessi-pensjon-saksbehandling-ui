@@ -61,6 +61,18 @@ describe('reducers/loading', () => {
     simulateFailure(types.APP_PERSONINFO_FAILURE, 'gettingPersonInfo')
   })
 
+  it('APP_SAKTYPE_REQUEST', () => {
+    simulateRequest(types.APP_SAKTYPE_REQUEST, 'gettingSakType')
+  })
+
+  it('APP_SAKTYPE_SUCCESS', () => {
+    simulateSuccess(types.APP_SAKTYPE_SUCCESS, 'gettingSakType')
+  })
+
+  it('APP_SAKTYPE_FAILURE', () => {
+    simulateFailure(types.APP_SAKTYPE_FAILURE, 'gettingSakType')
+  })
+
   it('APP_LOGIN_REQUEST', () => {
     simulateRequest(types.APP_LOGIN_REQUEST, 'isLoggingIn')
   })

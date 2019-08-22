@@ -13,7 +13,7 @@ import _ from 'lodash'
 import './BUCList.css'
 
 const BUCList = (props) => {
-  const { actions, aktoerId, bucs, bucsInfoList, bucsInfo, gettingBUCs, institutionList, locale, rinaUrl, sakId, t } = props
+  const { actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionList, loading, locale, rinaUrl, sakId, t } = props
   const [gettingBucsInfo, setGettingBucsInfo] = useState(false)
   const [mounted, setMounted] = useState(false)
 
@@ -79,7 +79,7 @@ const BUCList = (props) => {
     }
   }, [institutionList, bucs, mounted, actions])
 
-  if (!gettingBUCs && bucs !== undefined && _.isEmpty(bucs)) {
+  if (!loading.gettingBUCs && bucs !== undefined && _.isEmpty(bucs)) {
     actions.setMode('bucnew')
   }
 
@@ -173,7 +173,7 @@ BUCList.propTypes = {
   actions: PT.object.isRequired,
   aktoerId: PT.string,
   rinaUrl: PT.string,
-  gettingBUCs: PT.bool,
+  loading: PT.object.isRequired,
   locale: PT.string.isRequired
 }
 
