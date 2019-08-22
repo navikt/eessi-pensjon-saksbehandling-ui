@@ -16,7 +16,8 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export const SessionMonitor = (props) => {
-  const { actions,
+  const {
+    actions,
     /* check every minute */
     checkInterval = 1000 * 60,
     /* When session will expire */

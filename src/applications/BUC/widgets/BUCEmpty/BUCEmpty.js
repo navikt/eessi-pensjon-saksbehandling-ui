@@ -41,54 +41,65 @@ const BUCEmpty = (props) => {
     }
   }
 
-  return <div className='a-buc-bucempty'>
-    <div className='a-buc-bucempty__artwork'>
-      <img alt='' className='monitor' src={MonitorPNG} />
-      <img alt='' className='cup' src={CupPNG} />
-      <img alt='' className='mouse' src={MousePNG} />
-      <img alt='' className='map' src={MapPNG} />
+  return (
+    <div className='a-buc-bucempty'>
+      <div className='a-buc-bucempty__artwork'>
+        <img alt='' className='monitor' src={MonitorPNG} />
+        <img alt='' className='cup' src={CupPNG} />
+        <img alt='' className='mouse' src={MousePNG} />
+        <img alt='' className='map' src={MapPNG} />
+      </div>
+      <Undertittel className='a-buc-bucempty__title mb-3'>
+        <Lenke
+          id='a-buc-bucempty__newbuc-link-id'
+          className='a-buc-bucempty__newbuc-link'
+          href='#' onClick={onBUCNew}
+        >
+          {t('buc:form-empty-startANewCase')}
+        </Lenke>
+      </Undertittel>
+      {!aktoerId ? (
+        <div className='a-buc-bucempty__form'>
+          <Input
+            id='a-buc-bucempty__aktoerid-input-id'
+            className='a-buc-bucempty__aktoerid-input'
+            label={t('ui:aktoerId')}
+            value={_aktoerId || ''}
+            bredde='fullbredde'
+            onChange={onAktoerIdChange}
+            feil={validation ? { feilmelding: validation } : null}
+          />
+          <Hovedknapp
+            id='a-buc-bucempty__aktoerid-button-id'
+            className='a-buc-bucempty__aktoerid-button ml-3'
+            onClick={onSubmitAktoerId}
+          >
+            {t('ui:add')}
+          </Hovedknapp>
+        </div>
+      ) : null}
+      {!sakId ? (
+        <div className='a-buc-bucempty__form'>
+          <Input
+            id='a-buc-bucempty__sakid-input-id'
+            className='a-buc-bucempty__sakid-input'
+            label={t('ui:caseId')}
+            value={_sakId || ''}
+            bredde='fullbredde'
+            onChange={onSakIdChange}
+            feil={validation ? { feilmelding: validation } : null}
+          />
+          <Hovedknapp
+            id='a-buc-bucempty__sakid-button-id'
+            className='a-buc-bucempty__sakid-button ml-3'
+            onClick={onSubmitSakId}
+          >
+            {t('ui:add')}
+          </Hovedknapp>
+        </div>
+      ) : null}
     </div>
-    <Undertittel className='a-buc-bucempty__title mb-3'>
-      <Lenke
-        id='a-buc-bucempty__newbuc-link-id'
-        className='a-buc-bucempty__newbuc-link'
-        href='#' onClick={onBUCNew}>
-        {t('buc:form-empty-startANewCase')}
-      </Lenke>
-    </Undertittel>
-    {!aktoerId ? <div className='a-buc-bucempty__form'>
-      <Input
-        id='a-buc-bucempty__aktoerid-input-id'
-        className='a-buc-bucempty__aktoerid-input'
-        label={t('ui:aktoerId')}
-        value={_aktoerId || ''}
-        bredde='fullbredde'
-        onChange={onAktoerIdChange}
-        feil={validation ? { feilmelding: validation } : null} />
-      <Hovedknapp
-        id='a-buc-bucempty__aktoerid-button-id'
-        className='a-buc-bucempty__aktoerid-button ml-3'
-        onClick={onSubmitAktoerId}>
-        {t('ui:add')}
-      </Hovedknapp>
-    </div> : null}
-    {!sakId ? <div className='a-buc-bucempty__form'>
-      <Input
-        id='a-buc-bucempty__sakid-input-id'
-        className='a-buc-bucempty__sakid-input'
-        label={t('ui:caseId')}
-        value={_sakId || ''}
-        bredde='fullbredde'
-        onChange={onSakIdChange}
-        feil={validation ? { feilmelding: validation } : null} />
-      <Hovedknapp
-        id='a-buc-bucempty__sakid-button-id'
-        className='a-buc-bucempty__sakid-button ml-3'
-        onClick={onSubmitSakId}>
-        {t('ui:add')}
-      </Hovedknapp>
-    </div> : null}
-  </div>
+  )
 }
 
 BUCEmpty.propTypes = {

@@ -14,27 +14,33 @@ const VarslerPanel = (props) => {
     })
   }
 
-  return <React.Fragment>
-    <Undertittel>{t('pinfo:sb-send-notification-title')}</Undertittel>
-    <div className='mt-3' style={{ columns: 3 }}>
-      <div><label className='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakId')}</label>: {sakId}</div>
-      <div><label className='skjemaelement__label d-inline-block'>{t('ui:aktoerId')}</label>: {aktoerId}</div>
-      <div><label className='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakType')}</label>: {sakType}</div>
-    </div>
-    <Undertekst className='mt-3 mb-3'>{t('pinfo:sb-send-notification-description', { user: aktoerId })}</Undertekst>
-    <Hovedknapp
-      id='pinfo-forward-button'
-      className='forwardButton mb-2 mr-3'
-      disabled={isInvitingPinfo}
-      spinner={isInvitingPinfo}
-      onClick={onInviteButtonClick}>
-      {isInvitingPinfo ? t('sending') : t('pinfo:sb-send-notification-button')}
-    </Hovedknapp>
-    { !_.isEmpty(invite) ? <AlertStripe
-      className='mt-4 mb-4' type={invite.status === 'ERROR' ? 'advarsel' : 'suksess'}>
-      {t(invite.message)}
-    </AlertStripe> : null}
-  </React.Fragment>
+  return (
+    <>
+      <Undertittel>{t('pinfo:sb-send-notification-title')}</Undertittel>
+      <div className='mt-3' style={{ columns: 3 }}>
+        <div><label className='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakId')}</label>: {sakId}</div>
+        <div><label className='skjemaelement__label d-inline-block'>{t('ui:aktoerId')}</label>: {aktoerId}</div>
+        <div><label className='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakType')}</label>: {sakType}</div>
+      </div>
+      <Undertekst className='mt-3 mb-3'>{t('pinfo:sb-send-notification-description', { user: aktoerId })}</Undertekst>
+      <Hovedknapp
+        id='pinfo-forward-button'
+        className='forwardButton mb-2 mr-3'
+        disabled={isInvitingPinfo}
+        spinner={isInvitingPinfo}
+        onClick={onInviteButtonClick}
+      >
+        {isInvitingPinfo ? t('sending') : t('pinfo:sb-send-notification-button')}
+      </Hovedknapp>
+      {!_.isEmpty(invite) ? (
+        <AlertStripe
+          className='mt-4 mb-4' type={invite.status === 'ERROR' ? 'advarsel' : 'suksess'}
+        >
+          {t(invite.message)}
+        </AlertStripe>
+      ) : null}
+    </>
+  )
 }
 
 VarslerPanel.propTypes = {

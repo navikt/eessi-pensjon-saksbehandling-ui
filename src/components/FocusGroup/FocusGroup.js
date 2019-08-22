@@ -30,12 +30,15 @@ const FocusGroup = (props) => {
     }
   }
 
-  return <div
-    className='c-focusGroup'
-    onBlur={handleOnBlur}
-    onFocus={handleOnFocus}>
-    {children}
-  </div>
+  return (
+    <div
+      className='c-focusGroup'
+      onBlur={handleOnBlur}
+      onFocus={handleOnFocus}
+    >
+      {children}
+    </div>
+  )
 }
 
 FocusGroup.propTypes = {

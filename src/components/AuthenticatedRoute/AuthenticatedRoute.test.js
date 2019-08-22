@@ -18,18 +18,20 @@ describe('components/AuthenticatedRoute', () => {
   }
 
   it('UseEffect: read status params', () => {
-    mount(<Router history={createBrowserHistory()}>
-      <AuthenticatedRoute {...initialMockProps} />
-    </Router>)
+    mount(
+      <Router history={createBrowserHistory()}>
+        <AuthenticatedRoute {...initialMockProps} />
+      </Router>)
     expect(initialMockProps.actions.setStatusParam).toBeCalledWith('a', 'b')
     expect(initialMockProps.actions.setStatusParam).toBeCalledWith('sakId', '123')
     expect(initialMockProps.actions.setStatusParam).toBeCalledWith('aktoerId', '456')
   })
 
   it('UseEffect: ask for userInfo', () => {
-    mount(<Router history={createBrowserHistory()}>
-      <AuthenticatedRoute {...initialMockProps} />
-    </Router>)
+    mount(
+      <Router history={createBrowserHistory()}>
+        <AuthenticatedRoute {...initialMockProps} />
+      </Router>)
     expect(initialMockProps.actions.getUserInfo).toBeCalled()
   })
 
@@ -40,39 +42,44 @@ describe('components/AuthenticatedRoute', () => {
   })
 
   it('UseEffect: no need for login redirect', () => {
-    mount(<Router history={createBrowserHistory()}>
-      <AuthenticatedRoute {...initialMockProps} loggedIn />
-    </Router>)
+    mount(
+      <Router history={createBrowserHistory()}>
+        <AuthenticatedRoute {...initialMockProps} loggedIn />
+      </Router>)
     expect(initialMockProps.actions.login).not.toBeCalled()
   })
 
   it('Has proper HTML structure: not mounted', () => {
-    const wrapper = mount(<Router history={createBrowserHistory()}>
-      <AuthenticatedRoute {...initialMockProps} />
-    </Router>)
+    const wrapper = mount(
+      <Router history={createBrowserHistory()}>
+        <AuthenticatedRoute {...initialMockProps} />
+      </Router>)
     expect(wrapper.exists('WaitingPanel')).toBeTruthy()
   })
 
   it('Has proper HTML structure: forbidden', () => {
-    const wrapper = mount(<Router history={createBrowserHistory()}>
-      <AuthenticatedRoute {...initialMockProps} loggedIn userRole={'UNKNOWN'} />
-    </Router>)
+    const wrapper = mount(
+      <Router history={createBrowserHistory()}>
+        <AuthenticatedRoute {...initialMockProps} loggedIn userRole='UNKNOWN' />
+      </Router>)
     expect(wrapper.exists('Redirect')).toBeTruthy()
     expect(wrapper.find('Redirect').props().to.pathname).toEqual(routes.FORBIDDEN)
   })
 
   it('Has proper HTML structure: not allowed', () => {
-    const wrapper = mount(<Router history={createBrowserHistory()}>
-      <AuthenticatedRoute {...initialMockProps} loggedIn userRole={'SAKSBEHANDLER'} allowed={false} />
-    </Router>)
+    const wrapper = mount(
+      <Router history={createBrowserHistory()}>
+        <AuthenticatedRoute {...initialMockProps} loggedIn userRole='SAKSBEHANDLER' allowed={false} />
+      </Router>)
     expect(wrapper.exists('Redirect')).toBeTruthy()
     expect(wrapper.find('Redirect').props().to.pathname).toEqual(routes.NOT_INVITED)
   })
 
   it('Has proper HTML structure: route', () => {
-    const wrapper = mount(<Router history={createBrowserHistory()}>
-      <AuthenticatedRoute {...initialMockProps} loggedIn userRole={'SAKSBEHANDLER'} allowed />
-    </Router>)
+    const wrapper = mount(
+      <Router history={createBrowserHistory()}>
+        <AuthenticatedRoute {...initialMockProps} loggedIn userRole='SAKSBEHANDLER' allowed />
+      </Router>)
     expect(wrapper.exists('Route')).toBeTruthy()
   })
 })

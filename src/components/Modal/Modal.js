@@ -26,46 +26,65 @@ export const Modal = (props) => {
     actions.closeModal()
   }
 
-  return <NavModal className='c-modal'
-    ariaHideApp={false}
-    isOpen={modalOpen}
-    onRequestClose={closeModal}
-    closeButton={false}
-    contentLabel='contentLabel'>
-    {modal ? <div>
-      {modal.modalTitle
-        ? <div className='m-3 text-center'>
-          <Undertittel className='c-modal__title'>{modal.modalTitle}</Undertittel>
+  return (
+    <NavModal
+      className='c-modal'
+      ariaHideApp={false}
+      isOpen={modalOpen}
+      onRequestClose={closeModal}
+      closeButton={false}
+      contentLabel='contentLabel'
+    >
+      {modal ? (
+        <div>
+          {modal.modalTitle
+            ? (
+              <div className='m-3 text-center'>
+                <Undertittel className='c-modal__title'>{modal.modalTitle}</Undertittel>
+              </div>
+            )
+            : null}
+          {modal.modalContent
+            ? modal.modalContent
+            : (
+              <div className='c-modal__text m-4 text-center'>
+                {modal.modalText}
+              </div>
+            )}
+          {modal.modalButtons
+            ? (
+              <div className='c-modal__buttons text-center'>
+                {modal.modalButtons.map(button => {
+                  const handleClick = button.onClick
+                  return button.main
+                    ? (
+                      <Hovedknapp
+                        id='c-modal__main-button-id'
+                        disabled={button.disabled || false}
+                        className='c-modal__main-button mr-3 mb-3'
+                        key={button.text}
+                        onClick={handleClick}
+                      >
+                        {button.text}
+                      </Hovedknapp>
+                    )
+                    : (
+                      <Knapp
+                        id='c-modal__other-button-id'
+                        className='c-modal__other-button mr-3 mb-3'
+                        key={button.text}
+                        onClick={handleClick}
+                      >
+                        {button.text}
+                      </Knapp>
+                    )
+                })}
+              </div>
+            ) : null}
         </div>
-        : null}
-      {modal.modalContent
-        ? modal.modalContent
-        : <div className='c-modal__text m-4 text-center'>
-          {modal.modalText}
-        </div>}
-      {modal.modalButtons
-        ? <div className='c-modal__buttons text-center'>
-          {modal.modalButtons.map(button => {
-            return button.main
-              ? <Hovedknapp
-                id='c-modal__main-button-id'
-                disabled={button.disabled || false}
-                className='c-modal__main-button mr-3 mb-3'
-                key={button.text}
-                onClick={button.onClick}>
-                {button.text}
-              </Hovedknapp>
-              : <Knapp
-                id='c-modal__other-button-id'
-                className='c-modal__other-button mr-3 mb-3'
-                key={button.text}
-                onClick={button.onClick}>
-                {button.text}
-              </Knapp>
-          })}
-        </div> : null }
-    </div> : null}
-  </NavModal>
+      ) : null}
+    </NavModal>
+  )
 }
 
 Modal.propTypes = {

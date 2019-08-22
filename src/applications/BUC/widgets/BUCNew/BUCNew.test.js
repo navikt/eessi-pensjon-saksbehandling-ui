@@ -1,7 +1,7 @@
 import React from 'react'
 import BUCNew from './BUCNew'
 jest.mock('applications/BUC/components/BUCStart/BUCStart', () => {
-  return (props) => { return <div className='mock-c-bucstart' mode={props.mode}/> }
+  return (props) => { return <div className='mock-c-bucstart' mode={props.mode} /> }
 })
 
 describe('applications/BUC/widgets/BUCNew/BUCNew', () => {

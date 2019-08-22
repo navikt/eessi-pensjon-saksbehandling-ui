@@ -45,21 +45,25 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   })
 
   it('UseEffect: fetches subject areas, bucs, tags list if empty', () => {
-    wrapper = mount(<BUCStart {...initialMockProps}
-      subjectAreaList={undefined}
-      bucList={undefined}
-      tagList={undefined}
-    />)
+    wrapper = mount(
+      <BUCStart
+        {...initialMockProps}
+        subjectAreaList={undefined}
+        bucList={undefined}
+        tagList={undefined}
+      />)
     expect(initialMockProps.actions.getSubjectAreaList).toHaveBeenCalled()
     expect(initialMockProps.actions.getBucList).toHaveBeenCalled()
     expect(initialMockProps.actions.getTagList).toHaveBeenCalled()
   })
 
   it('UseEffect: saves bucsInfo after when buc was saved', () => {
-    wrapper = mount(<BUCStart {...initialMockProps}
-      bucsInfo={{ bucs: 'mockBucs' }}
-      buc={{ foo: 'bar' }}
-    />)
+    wrapper = mount(
+      <BUCStart
+        {...initialMockProps}
+        bucsInfo={{ bucs: 'mockBucs' }}
+        buc={{ foo: 'bar' }}
+      />)
     expect(initialMockProps.actions.saveBucsInfo).toHaveBeenCalledWith({
       bucsInfo: { bucs: 'mockBucs' },
       aktoerId: '456',
@@ -69,10 +73,12 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   })
 
   it('UseEffect: having buc and saved bucInfo makes you go to sednew menu', async (done) => {
-    wrapper = mount(<BUCStart {...initialMockProps}
-      bucsInfo={{ bucs: 'mockBucs' }}
-      buc={{ foo: 'bar' }}
-    />)
+    wrapper = mount(
+      <BUCStart
+        {...initialMockProps}
+        bucsInfo={{ bucs: 'mockBucs' }}
+        buc={{ foo: 'bar' }}
+      />)
 
     expect(initialMockProps.actions.setMode).not.toHaveBeenCalled()
     wrapper.setProps({

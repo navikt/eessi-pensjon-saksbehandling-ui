@@ -25,22 +25,25 @@ const WidgetAdd = (props) => {
     }
   }, [mounted, connectDragPreview])
 
-  return <div>
-    <div
-      className={classNames('c-d-widgetAdd', {
-        selected: props.isDragging,
-        hover: mouseOver
-      })}
-      onMouseEnter={() => setMouseOver(true)}
-      onMouseLeave={() => setMouseOver(false)}
-      title={widget.description}
-      ref={connectDragSource}>
-      <div className='p-2 content'>
-        <h6>{widget.title}</h6>
-        <p><small>{widget.description}</small></p>
+  return (
+    <div>
+      <div
+        className={classNames('c-d-widgetAdd', {
+          selected: props.isDragging,
+          hover: mouseOver
+        })}
+        onMouseEnter={() => setMouseOver(true)}
+        onMouseLeave={() => setMouseOver(false)}
+        title={widget.description}
+        ref={connectDragSource}
+      >
+        <div className='p-2 content'>
+          <h6>{widget.title}</h6>
+          <p><small>{widget.description}</small></p>
+        </div>
       </div>
     </div>
-  </div>
+  )
 }
 
 WidgetAdd.propTypes = {

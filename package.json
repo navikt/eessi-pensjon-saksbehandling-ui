@@ -164,6 +164,7 @@
       "HTMLCanvasElement",
       "FileReader",
       "ReactDOM",
+      "WebSocket",
       "fetch",
       "describe",
       "it",

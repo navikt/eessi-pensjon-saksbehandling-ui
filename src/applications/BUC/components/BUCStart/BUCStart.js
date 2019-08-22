@@ -32,7 +32,7 @@ const BUCStart = (props) => {
     if (tagList === undefined && !loading.gettingTagList) {
       actions.getTagList()
     }
-  }, [ actions, loading, bucList, subjectAreaList, tagList])
+  }, [actions, loading, bucList, subjectAreaList, tagList])
 
   useEffect(() => {
     if (!isBucCreated && buc) {
@@ -158,10 +158,12 @@ const BUCStart = (props) => {
   }
 
   const getSpinner = (text) => {
-    return <div className='a-buc-c-bucstart__spinner ml-2'>
-      <NavFrontendSpinner type='S' />
-      <div className='float-right ml-2'>{t(text)}</div>
-    </div>
+    return (
+      <div className='a-buc-c-bucstart__spinner ml-2'>
+        <NavFrontendSpinner type='S' />
+        <div className='float-right ml-2'>{t(text)}</div>
+      </div>
+    )
   }
 
   const tagObjectList = tagList ? tagList.map(tag => {
@@ -179,90 +181,104 @@ const BUCStart = (props) => {
     return null
   }
 
-  return <div className='a-buc-c-bucstart'>
-    {mode === 'page' ? <React.Fragment>
-      <Systemtittel className='mb-4'>{t('buc:app-startCaseDescription')}</Systemtittel>
-      <div className='mb-5'>
-        <PsychoPanel closeButton>{t('help-startCase2')}</PsychoPanel>
-      </div>
-    </React.Fragment> : null}
-    <Row className='mb-3'>
-      <div className='col-md-6 pr-3'>
-        <Select
-          id='a-buc-c-bucstart__subjectarea-select-id'
-          className='a-buc-c-bucstart__subjectarea-select flex-fill'
-          aria-describedby='help-subjectArea'
-          bredde='fullbredde'
-          feil={validation.subjectAreaFail ? { feilmelding: validation.subjectAreaFail } : null}
-          label={<div className='label'>
-            <span>{t('buc:form-subjectArea')}</span>
-            <HjelpetekstAuto id='a-buc-c-bucstart__subjectArea-help'>
-              {t('buc:help-subjectArea')}
-            </HjelpetekstAuto>
-          </div>}
-          value={_subjectArea || []}
-          onChange={onSubjectAreaChange}>
-          {renderOptions(subjectAreaList, 'subjectArea')}
-        </Select>
-        <Select
-          id='a-buc-c-bucstart__buc-select-id'
-          className='a-buc-c-bucstart__buc-select flex-fill'
-          aria-describedby='help-buc'
-          bredde='fullbredde'
-          feil={validation.bucFail ? { feilmelding: validation.bucFail } : null}
-          label={<div className='label'>
-            <span>{t('buc:form-buc')}</span>
-            <HjelpetekstAuto id='a-buc-c-bucstart__buc-help'>
-              {t('buc:help-buc')}
-            </HjelpetekstAuto>
-          </div>}
-          value={_buc || placeholders.buc}
-          onChange={onBucChange}>
-          {renderOptions(bucList, 'buc')}
-        </Select>
-      </div>
-      <div className='col-md-6 pl-3'>
-        <div className='flex-fill'>
-          <Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Undertittel>
-          <div className='mb-3'>
-            <Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Normaltekst>
-            <MultipleSelect
-              id='a-buc-c-bucstart__tags-select-id'
-              className='a-buc-c-bucstart__tags-select flex-fill'
-              placeholder={t('buc:form-tagPlaceholder')}
-              aria-describedby='help-tags'
-              locale={locale}
-              values={_tags}
-              hideSelectedOptions={false}
-              onChange={onTagsChange}
-              optionList={tagObjectList} />
+  return (
+    <div className='a-buc-c-bucstart'>
+      {mode === 'page' ? (
+        <>
+          <Systemtittel className='mb-4'>{t('buc:app-startCaseDescription')}</Systemtittel>
+          <div className='mb-5'>
+            <PsychoPanel closeButton>{t('help-startCase2')}</PsychoPanel>
+          </div>
+        </>
+      ) : null}
+      <Row className='mb-3'>
+        <div className='col-md-6 pr-3'>
+          <Select
+            id='a-buc-c-bucstart__subjectarea-select-id'
+            className='a-buc-c-bucstart__subjectarea-select flex-fill'
+            aria-describedby='help-subjectArea'
+            bredde='fullbredde'
+            feil={validation.subjectAreaFail ? { feilmelding: validation.subjectAreaFail } : null}
+            label={
+              <div className='label'>
+                <span>{t('buc:form-subjectArea')}</span>
+                <HjelpetekstAuto id='a-buc-c-bucstart__subjectArea-help'>
+                  {t('buc:help-subjectArea')}
+                </HjelpetekstAuto>
+              </div>
+            }
+            value={_subjectArea || []}
+            onChange={onSubjectAreaChange}
+          >
+            {renderOptions(subjectAreaList, 'subjectArea')}
+          </Select>
+          <Select
+            id='a-buc-c-bucstart__buc-select-id'
+            className='a-buc-c-bucstart__buc-select flex-fill'
+            aria-describedby='help-buc'
+            bredde='fullbredde'
+            feil={validation.bucFail ? { feilmelding: validation.bucFail } : null}
+            label={
+              <div className='label'>
+                <span>{t('buc:form-buc')}</span>
+                <HjelpetekstAuto id='a-buc-c-bucstart__buc-help'>
+                  {t('buc:help-buc')}
+                </HjelpetekstAuto>
+              </div>
+            }
+            value={_buc || placeholders.buc}
+            onChange={onBucChange}
+          >
+            {renderOptions(bucList, 'buc')}
+          </Select>
+        </div>
+        <div className='col-md-6 pl-3'>
+          <div className='flex-fill'>
+            <Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Undertittel>
+            <div className='mb-3'>
+              <Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Normaltekst>
+              <MultipleSelect
+                id='a-buc-c-bucstart__tags-select-id'
+                className='a-buc-c-bucstart__tags-select flex-fill'
+                placeholder={t('buc:form-tagPlaceholder')}
+                aria-describedby='help-tags'
+                locale={locale}
+                values={_tags}
+                hideSelectedOptions={false}
+                onChange={onTagsChange}
+                optionList={tagObjectList}
+              />
+            </div>
+          </div>
+          <div className='selectBoxMessage mt-2 mb-2'>{!loading ? null
+            : loading.gettingSubjectAreaList ? getSpinner('buc:loading-subjectArea')
+              : loading.gettingBucList ? getSpinner('buc:loading-buc') : null}
           </div>
         </div>
-        <div className='selectBoxMessage mt-2 mb-2'>{!loading ? null
-          : loading.gettingSubjectAreaList ? getSpinner('buc:loading-subjectArea')
-            : loading.gettingBucList ? getSpinner('buc:loading-buc') : null}
+      </Row>
+      <Row className='mb-3'>
+        <div className='a-buc-c-bucstart__buttons col-md-12'>
+          <Hovedknapp
+            id='a-buc-c-bucstart__forward-button-id'
+            className='a-buc-c-bucstart__forward-button'
+            disabled={!allowedToForward()}
+            spinner={loading.creatingBUC}
+            onClick={onForwardButtonClick}
+          >
+            {loading.creatingBUC ? t('buc:loading-creatingCaseinRINA')
+              : loading.savingBucsInfo ? t('buc:loading-savingBucInfo')
+                : t('buc:form-createCaseinRINA')}
+          </Hovedknapp>
+          <Flatknapp
+            id='a-buc-c-bucstart__cancel-button-id'
+            className='a-buc-c-bucstart__cancel-button ml-2'
+            onClick={onCancelButtonClick}
+          >{t('ui:cancel')}
+          </Flatknapp>
         </div>
-      </div>
-    </Row>
-    <Row className='mb-3'>
-      <div className='a-buc-c-bucstart__buttons col-md-12'>
-        <Hovedknapp
-          id='a-buc-c-bucstart__forward-button-id'
-          className='a-buc-c-bucstart__forward-button'
-          disabled={!allowedToForward()}
-          spinner={loading.creatingBUC}
-          onClick={onForwardButtonClick}>
-          {loading.creatingBUC ? t('buc:loading-creatingCaseinRINA')
-            : loading.savingBucsInfo ? t('buc:loading-savingBucInfo')
-              : t('buc:form-createCaseinRINA')}
-        </Hovedknapp>
-        <Flatknapp
-          id='a-buc-c-bucstart__cancel-button-id'
-          className='a-buc-c-bucstart__cancel-button ml-2'
-          onClick={onCancelButtonClick}>{t('ui:cancel')}</Flatknapp>
-      </div>
-    </Row>
-  </div>
+      </Row>
+    </div>
+  )
 }
 
 BUCStart.propTypes = {

@@ -51,34 +51,38 @@ const PInfo = (props) => {
   }
 
   if (noParams) {
-    return <TopContainer className='p-pInfo' t={t} history={history} header={t('pinfo:app-title')}>
-      <div className='content container text-center pt-4'>
-        <div className='psycho mt-3 mb-4' style={{ height: '110px' }}>
-          <Psycho type='trist' id='psycho' />
+    return (
+      <TopContainer className='p-pInfo' t={t} history={history} header={t('pinfo:app-title')}>
+        <div className='content container text-center pt-4'>
+          <div className='psycho mt-3 mb-4' style={{ height: '110px' }}>
+            <Psycho type='trist' id='psycho' />
+          </div>
+          <div className='text-center'>
+            <Nav.Normaltekst>{t('pinfo:error-noParams')}</Nav.Normaltekst>
+          </div>
         </div>
-        <div className='text-center'>
-          <Nav.Normaltekst>{t('pinfo:error-noParams')}</Nav.Normaltekst>
-        </div>
-      </div>
-    </TopContainer>
+      </TopContainer>
+    )
   }
 
-  return <TopContainer className='p-pInfo' t={t} history={history}>
-    <Nav.Row>
-      <div className='col-md-2' />
-      <div className='col-md-8'>
-        <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
-          <VarslerPanel {...props} />
+  return (
+    <TopContainer className='p-pInfo' t={t} history={history}>
+      <Nav.Row>
+        <div className='col-md-2' />
+        <div className='col-md-8'>
+          <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
+            <VarslerPanel {...props} />
+          </div>
         </div>
-      </div>
-      <div className='col-md-2' />
-      <div className='col-md-12'>
-        <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
-          <VarslerTable {...props} />
+        <div className='col-md-2' />
+        <div className='col-md-12'>
+          <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
+            <VarslerTable {...props} />
+          </div>
         </div>
-      </div>
-    </Nav.Row>
-  </TopContainer>
+      </Nav.Row>
+    </TopContainer>
+  )
 }
 
 PInfo.propTypes = {

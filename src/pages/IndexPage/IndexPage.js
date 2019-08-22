@@ -6,16 +6,18 @@ import Dashboard from '../../components/Dashboard/Dashboard'
 import './IndexPage.css'
 
 class IndexPage extends Component {
-
   render () {
     const { history, t } = this.props
 
-    return <TopContainer
-      className='p-indexPage'
-      t={t}
-      history={history}>
-      <Dashboard id='dashboard' />
-    </TopContainer>
+    return (
+      <TopContainer
+        className='p-indexPage'
+        t={t}
+        history={history}
+      >
+        <Dashboard id='dashboard' />
+      </TopContainer>
+    )
   }
 }
 

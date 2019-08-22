@@ -16,17 +16,20 @@ const SmileyOptionsWidget = (props) => {
 
   const widgetTemplate = _.find(availableWidgets, { type: 'smiley' })
 
-  return <div className='w-SmileyOptionsWidget p-3'>
-    <Select
-      id='w-SmileyOptionsWidget__mood-select-id'
-      label={'mood'}
-      value={mood || ''}
-      onChange={chooseMood}>
-      {widgetTemplate.options.availableMoods.map(_mood => {
-        return <option key={_mood.label} value={_mood.value}>{_mood.label}{' - '}{_mood.value}</option>
-      })}
-    </Select>
-  </div>
+  return (
+    <div className='w-SmileyOptionsWidget p-3'>
+      <Select
+        id='w-SmileyOptionsWidget__mood-select-id'
+        label='mood'
+        value={mood || ''}
+        onChange={chooseMood}
+      >
+        {widgetTemplate.options.availableMoods.map(_mood => {
+          return <option key={_mood.label} value={_mood.value}>{_mood.label}{' - '}{_mood.value}</option>
+        })}
+      </Select>
+    </div>
+  )
 }
 
 SmileyOptionsWidget.propTypes = {

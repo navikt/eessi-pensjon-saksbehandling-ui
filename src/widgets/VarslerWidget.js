@@ -17,23 +17,26 @@ const VarslerWidget = (props) => {
     }
   }, [mounted, onResize])
 
-  return <div className='w-VarslerWidget p-3'>
-    <div className='mt-2 mb-2'>
-      <ToggleGruppe
-        defaultToggles={[
-          { children: t('ui:invite'), pressed: true, onClick: () => { setTab('invite') } },
-          { children: t('ui:list'), onClick: () => { setTab('list') } }
-        ]}
+  return (
+    <div className='w-VarslerWidget p-3'>
+      <div className='mt-2 mb-2'>
+        <ToggleGruppe
+          defaultToggles={[
+            { children: t('ui:invite'), pressed: true, onClick: () => { setTab('invite') } },
+            { children: t('ui:list'), onClick: () => { setTab('list') } }
+          ]}
+        />
+      </div>
+      {tab === 'invite'
+        ? <VarslerPanel {...props} />
+        : <VarslerTable {...props} />}
+      <ReactResizeDetector
+        handleWidth
+        handleHeight
+        onResize={onResize}
       />
     </div>
-    {tab === 'invite'
-      ? <VarslerPanel {...props} />
-      : <VarslerTable {...props} />}
-    <ReactResizeDetector
-      handleWidth
-      handleHeight
-      onResize={onResize} />
-  </div>
+  )
 }
 
 VarslerWidget.properties = {

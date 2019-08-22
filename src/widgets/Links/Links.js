@@ -8,16 +8,18 @@ import * as routes from 'constants/routes'
 export const Links = (props) => {
   const { t } = props
 
-  return <div className='w-links'>
-    <Lenkepanel
-      border
-      className='frontPageLink bucLink'
-      linkCreator={(props) => (
-        <Link to={routes.BUC + '?sed=&buc='} {...props} />)
-      } href='#'>
-      {t('buc:form-createNewCase')}
-    </Lenkepanel>
-  </div>
+  return (
+    <div className='w-links'>
+      <Lenkepanel
+        border
+        className='frontPageLink bucLink'
+        linkCreator={(props) => (
+          <Link to={routes.BUC + '?sed=&buc='} {...props} />)} href='#'
+      >
+        {t('buc:form-createNewCase')}
+      </Lenkepanel>
+    </div>
+  )
 }
 
 Links.propTypes = {

@@ -58,17 +58,21 @@ const ColorPicker = (props) => {
     }
   })
 
-  return <div className='c-colorPicker'>
-    <div className={'c-colorPicker__container'} style={styles.swatch} onClick={toggleColorDisplay}>
-      <div style={styles.color} />
-    </div>
-    { displayColorPicker
-      ? <div className='c-colorPicker__popover' style={styles.popover}>
-        <div className='c-colorPicker__cover' style={styles.cover} onClick={closeColorPicker} />
-        <SketchPicker color={color} onChange={changeColor} onChangeComplete={onChangeComplete} />
+  return (
+    <div className='c-colorPicker'>
+      <div className='c-colorPicker__container' style={styles.swatch} onClick={toggleColorDisplay}>
+        <div style={styles.color} />
       </div>
-      : null }
-  </div>
+      {displayColorPicker
+        ? (
+          <div className='c-colorPicker__popover' style={styles.popover}>
+            <div className='c-colorPicker__cover' style={styles.cover} onClick={closeColorPicker} />
+            <SketchPicker color={color} onChange={changeColor} onChangeComplete={onChangeComplete} />
+          </div>
+        )
+        : null}
+    </div>
+  )
 }
 
 ColorPicker.propTypes = {

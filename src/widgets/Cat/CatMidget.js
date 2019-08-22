@@ -15,13 +15,16 @@ const CatMidget = (props) => {
     }
   }, [mounted, onResize])
 
-  return <div className='w-catMidget'>
-    <ReactResizeDetector
-      handleWidth
-      handleHeight
-      onResize={onResize} />
-    <img alt='cat' src={require('resources/images/cat.jpg')} />
-  </div>
+  return (
+    <div className='w-catMidget'>
+      <ReactResizeDetector
+        handleWidth
+        handleHeight
+        onResize={onResize}
+      />
+      <img alt='cat' src={require('resources/images/cat.jpg')} />
+    </div>
+  )
 }
 
 CatMidget.properties = {

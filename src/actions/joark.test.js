@@ -66,7 +66,8 @@ describe('joark actions', () => {
       url: sprintf(urls.API_JOARK_GET_URL, {
         dokumentInfoId: mockItem.dokumentInfoId,
         journalpostId: mockItem.journalpostId,
-        variant: mockVariant })
+        variant: mockVariant
+      })
     })
   })
 

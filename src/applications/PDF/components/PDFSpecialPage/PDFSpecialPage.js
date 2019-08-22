@@ -56,19 +56,28 @@ class PDFSpecialPage extends Component {
     render () {
       const { pageScale, className, style, separator, deleteLink } = this.props
 
-      return <div style={style} className={classNames('c-pdf-PDFSpecialPage', className)}
-        onMouseEnter={this.onHandleMouseEnter.bind(this)}
-        onMouseOver={this.onHandleMouseOver.bind(this)}
-        onMouseLeave={this.onHandleMouseLeave.bind(this)}>
-        {this.state.isHovering && deleteLink ? <div onClick={this.onDeleteDocument.bind(this, separator.separatorText)} className='link deleteLink'>
-          <Ikon size={15} kind='trashcan' />
-        </div> : null}
-        <div className='page' style={{ maxWidth: '100%', maxHeight: '100%', width: 100 * pageScale, height: 140 * pageScale }}>
-          <div className='content' style={{
-            color: `rgba(${separator.separatorTextColor.r}, ${separator.separatorTextColor.g}, ${separator.separatorTextColor.b}, ${separator.separatorTextColor.a})`
-          }}>{separator.separatorText}</div>
+      return (
+        <div
+          style={style} className={classNames('c-pdf-PDFSpecialPage', className)}
+          onMouseEnter={this.onHandleMouseEnter.bind(this)}
+          onMouseOver={this.onHandleMouseOver.bind(this)}
+          onMouseLeave={this.onHandleMouseLeave.bind(this)}
+        >
+          {this.state.isHovering && deleteLink ? (
+            <div onClick={this.onDeleteDocument.bind(this, separator.separatorText)} className='link deleteLink'>
+              <Ikon size={15} kind='trashcan' />
+            </div>
+          ) : null}
+          <div className='page' style={{ maxWidth: '100%', maxHeight: '100%', width: 100 * pageScale, height: 140 * pageScale }}>
+            <div
+              className='content' style={{
+                color: `rgba(${separator.separatorTextColor.r}, ${separator.separatorTextColor.g}, ${separator.separatorTextColor.b}, ${separator.separatorTextColor.a})`
+              }}
+            >{separator.separatorText}
+            </div>
+          </div>
         </div>
-      </div>
+      )
     }
 }
 

@@ -41,16 +41,24 @@ class PageInDnD extends Component {
        const { actions } = this.props
 
        actions.openModal({
-         modalContent: <div style={{ cursor: 'pointer' }} onClick={this.closePreview.bind(this)}>
-           {file.mimetype === 'application/pdf'
-             ? <Document className='documentPreview' file={'data:application/pdf;base64,' + file.content.base64}>
-               <Page className='bigpage' width={600} renderMode='svg' pageNumber={pageNumber} />
-             </Document> : null}
-           {file.mimetype.startsWith('image/') ? <div className='documentPreview'>
-             <img className='page' alt={file.name} style={{ width: '600px' }}
-               src={'data:' + file.mimetype + ';base64,' + file.content.base64} />
-           </div> : null}
-         </div>
+         modalContent: (
+           <div style={{ cursor: 'pointer' }} onClick={this.closePreview.bind(this)}>
+             {file.mimetype === 'application/pdf'
+               ? (
+                 <Document className='documentPreview' file={'data:application/pdf;base64,' + file.content.base64}>
+                   <Page className='bigpage' width={600} renderMode='svg' pageNumber={pageNumber} />
+                 </Document>
+               ) : null}
+             {file.mimetype.startsWith('image/') ? (
+               <div className='documentPreview'>
+                 <img
+                   className='page' alt={file.name} style={{ width: '600px' }}
+                   src={'data:' + file.mimetype + ';base64,' + file.content.base64}
+                 />
+               </div>
+             ) : null}
+           </div>
+         )
        })
      }
 
@@ -119,33 +127,53 @@ class PageInDnD extends Component {
          iconLink = <Icons style={{ cursor: 'pointer' }} size={iconSize} kind={iconKind} />
        }
 
-       return <div style={style} className={classNames('c-pdf-PageInDnD', className)}
-         onMouseEnter={this.onHandleMouseEnter.bind(this)}
-         onMouseOver={this.onHandleMouseOver.bind(this)}
-         onMouseLeave={this.onHandleMouseLeave.bind(this)}>
+       return (
+         <div
+           style={style} className={classNames('c-pdf-PageInDnD', className)}
+           onMouseEnter={this.onHandleMouseEnter.bind(this)}
+           onMouseOver={this.onHandleMouseOver.bind(this)}
+           onMouseLeave={this.onHandleMouseLeave.bind(this)}
+         >
 
-         {file.mimetype.startsWith('image/') ? <div className='document'>
-           <div onClick={iconFunction.bind(this, file.name, file.mimetype, pageNumber)} className='icon actionIcon'>{iconLink}</div>
-           {isHovering || isFocused ? <div className='icon previewIcon' onClick={this.openPreview.bind(this, file, pageNumber)}>
-             <Icons style={{ cursor: 'pointer' }}
-               size={'20'} kind={'view'} />
-           </div> : null}
-           <img className='page'
-             alt={file.name} style={{ maxWidth: '100%', width: (100 * pageScale) + 'px' }}
-             src={'data:' + file.mimetype + ';base64,' + file.content.base64} />
-         </div> : null}
-         {file.mimetype === 'application/pdf' ? <Document className='document'
-           file={'data:application/pdf;base64,' + file.content.base64}>
-           <div onClick={iconFunction.bind(this, file.name, file.mimetype, pageNumber)} className='icon actionIcon'>{iconLink}</div>
-           {isHovering || isFocused ? <div className='icon previewIcon' onClick={this.openPreview.bind(this, file, pageNumber)}>
-             <Icons style={{ cursor: 'pointer' }} size='1x' kind='view' />
-           </div> : null}
-           <Page className='page'
-             width={100 * pageScale} height={140 * pageScale}
-             renderMode='svg' pageNumber={pageNumber} />
-           <div className='pageNumber'>{pageNumber}</div>
-         </Document> : null}
-       </div>
+           {file.mimetype.startsWith('image/') ? (
+             <div className='document'>
+               <div onClick={iconFunction.bind(this, file.name, file.mimetype, pageNumber)} className='icon actionIcon'>{iconLink}</div>
+               {isHovering || isFocused ? (
+                 <div className='icon previewIcon' onClick={this.openPreview.bind(this, file, pageNumber)}>
+                   <Icons
+                     style={{ cursor: 'pointer' }}
+                     size='20' kind='view'
+                   />
+                 </div>
+               ) : null}
+               <img
+                 className='page'
+                 alt={file.name} style={{ maxWidth: '100%', width: (100 * pageScale) + 'px' }}
+                 src={'data:' + file.mimetype + ';base64,' + file.content.base64}
+               />
+             </div>
+           ) : null}
+           {file.mimetype === 'application/pdf' ? (
+             <Document
+               className='document'
+               file={'data:application/pdf;base64,' + file.content.base64}
+             >
+               <div onClick={iconFunction.bind(this, file.name, file.mimetype, pageNumber)} className='icon actionIcon'>{iconLink}</div>
+               {isHovering || isFocused ? (
+                 <div className='icon previewIcon' onClick={this.openPreview.bind(this, file, pageNumber)}>
+                   <Icons style={{ cursor: 'pointer' }} size='1x' kind='view' />
+                 </div>
+               ) : null}
+               <Page
+                 className='page'
+                 width={100 * pageScale} height={140 * pageScale}
+                 renderMode='svg' pageNumber={pageNumber}
+               />
+               <div className='pageNumber'>{pageNumber}</div>
+             </Document>
+           ) : null}
+         </div>
+       )
      }
 }
 

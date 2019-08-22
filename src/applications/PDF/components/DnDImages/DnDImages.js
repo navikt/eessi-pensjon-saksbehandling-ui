@@ -71,42 +71,54 @@ class DnDSpecial extends Component {
 
       const addAllLink = this.state.isHovering ? <a href='#addAll' onClick={this.addAllImagesToTargetPdf.bind(this)}>{t('ui:addAll')}</a> : null
 
-      return <div className='c-pdf-dndImages position-relative'
-        onMouseEnter={this.onHandleMouseEnter.bind(this)}
-        onMouseLeave={this.onHandleMouseLeave.bind(this)}>
+      return (
+        <div
+          className='c-pdf-dndImages position-relative'
+          onMouseEnter={this.onHandleMouseEnter.bind(this)}
+          onMouseLeave={this.onHandleMouseLeave.bind(this)}
+        >
 
-        <Droppable isDropDisabled droppableId={'c-pdf-dndImages-droppable-images'} direction='horizontal'>
+          <Droppable isDropDisabled droppableId='c-pdf-dndImages-droppable-images' direction='horizontal'>
 
-          {(provided, snapshot) => (
+            {(provided, snapshot) => (
 
-            <div ref={provided.innerRef}
-              className={classNames('c-pdf-dndImages-droppable', { 'c-pdf-dndImages-droppable-active': snapshot.isDraggingOver })}>
+              <div
+                ref={provided.innerRef}
+                className={classNames('c-pdf-dndImages-droppable', { 'c-pdf-dndImages-droppable-active': snapshot.isDraggingOver })}
+              >
 
-              {files.map((file, index) => {
-                if (_.find(recipe[dndTarget], { name: file.name })) {
-                  return null
-                }
+                {files.map((file, index) => {
+                  if (_.find(recipe[dndTarget], { name: file.name })) {
+                    return null
+                  }
 
-                return <Draggable key={file.name} draggableId={file.name} index={index}>
+                  return (
+                    <Draggable key={file.name} draggableId={file.name} index={index}>
 
-                  {(provided, snapshot) => (
-                    <div className={classNames('c-pdf-dndImages-draggable', { dragging: snapshot.isDragging })}
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}>
+                      {(provided, snapshot) => (
+                        <div
+                          className={classNames('c-pdf-dndImages-draggable', { dragging: snapshot.isDragging })}
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
 
-                      <PageInDnD className={classNames({ 'c-pdf-dndImages-draggable-active': snapshot.isDragging })}
-                        file={file} action='add' />
+                          <PageInDnD
+                            className={classNames({ 'c-pdf-dndImages-draggable-active': snapshot.isDragging })}
+                            file={file} action='add'
+                          />
 
-                    </div>
-                  )}
-                </Draggable>
-              })}
-            </div>
-          )}
-        </Droppable>
-        <div className='addAllLink'>{addAllLink}</div>
-      </div>
+                        </div>
+                      )}
+                    </Draggable>
+                  )
+                })}
+              </div>
+            )}
+          </Droppable>
+          <div className='addAllLink'>{addAllLink}</div>
+        </div>
+      )
     }
 }
 

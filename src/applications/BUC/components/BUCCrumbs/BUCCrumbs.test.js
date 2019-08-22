@@ -8,7 +8,6 @@ const bucReducer = (currentBucs, newBuc) => {
 }
 const mockBucs = sampleBucs.reduce(bucReducer, {})
 
-
 describe('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {
   const initialMockProps = {
     t: jest.fn((translationString) => { return translationString }),

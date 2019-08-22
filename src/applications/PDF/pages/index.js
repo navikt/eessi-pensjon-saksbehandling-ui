@@ -10,15 +10,18 @@ import PDFWidget from 'applications/PDF/widgets'
 export const PDFPageIndex = (props) => {
   const { t, className, history } = props
 
-  return <TopContainer
-    className={classNames('a-buc-page', className)}
-    t={t}
-    history={history}
-    header={t('pdf:app-createPdf')}>
-    <div className='mt-4'>
-      <PDFWidget />
-    </div>
-  </TopContainer>
+  return (
+    <TopContainer
+      className={classNames('a-buc-page', className)}
+      t={t}
+      history={history}
+      header={t('pdf:app-createPdf')}
+    >
+      <div className='mt-4'>
+        <PDFWidget />
+      </div>
+    </TopContainer>
+  )
 }
 
 PDFPageIndex.propTypes = {

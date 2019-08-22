@@ -51,43 +51,49 @@ const BUCTools = (props) => {
     })
   }
 
-  return <EkspanderbartpanelBase
-    id='a-buc-c-buctools__panel-id'
-    className={classNames('a-buc-c-buctools', 's-border', className)}
-    heading={<Systemtittel
-      className='a-buc-c-buctools__title'>
-      {t('buc:form-BUCtools')}
-    </Systemtittel>
-    }>
-    <Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Undertittel>
-    <div className='mb-3'>
-      <Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Normaltekst>
-      <MultipleSelect
-        id='a-buc-c-buctools__tags-select-id'
-        className='a-buc-c-buctools__tags-select'
-        placeholder={t('buc:form-tagPlaceholder')}
-        aria-describedby='help-tags'
-        locale={locale}
-        values={tags || []}
-        hideSelectedOptions={false}
-        onChange={onTagsChange}
-        optionList={allTags} />
-    </div>
-    <Undertittel className='mb-2'>{t('buc:form-commentForBUC')}</Undertittel>
-    <Textarea
-      id='a-buc-c-buctools__comment-textarea-id'
-      className='a-buc-c-buctools__comment-textarea skjemaelement__input'
-      label={''}
-      value={comment || ''}
-      onChange={onCommentChange} />
-    <Knapp
-      id='a-buc-c-buctools__save-button-id'
-      className='a-buc-c-buctools__save-button'
-      disabled={loading.savingBucsInfo}
-      onClick={onSaveButtonClick}>
-      {loading.savingBucsInfo ? t('ui:saving') : t('ui:change')}
-    </Knapp>
-  </EkspanderbartpanelBase>
+  return (
+    <EkspanderbartpanelBase
+      id='a-buc-c-buctools__panel-id'
+      className={classNames('a-buc-c-buctools', 's-border', className)}
+      heading={
+        <Systemtittel className='a-buc-c-buctools__title'>
+          {t('buc:form-BUCtools')}
+        </Systemtittel>
+      }
+    >
+      <Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Undertittel>
+      <div className='mb-3'>
+        <Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Normaltekst>
+        <MultipleSelect
+          id='a-buc-c-buctools__tags-select-id'
+          className='a-buc-c-buctools__tags-select'
+          placeholder={t('buc:form-tagPlaceholder')}
+          aria-describedby='help-tags'
+          locale={locale}
+          values={tags || []}
+          hideSelectedOptions={false}
+          onChange={onTagsChange}
+          optionList={allTags}
+        />
+      </div>
+      <Undertittel className='mb-2'>{t('buc:form-commentForBUC')}</Undertittel>
+      <Textarea
+        id='a-buc-c-buctools__comment-textarea-id'
+        className='a-buc-c-buctools__comment-textarea skjemaelement__input'
+        label=''
+        value={comment || ''}
+        onChange={onCommentChange}
+      />
+      <Knapp
+        id='a-buc-c-buctools__save-button-id'
+        className='a-buc-c-buctools__save-button'
+        disabled={loading.savingBucsInfo}
+        onClick={onSaveButtonClick}
+      >
+        {loading.savingBucsInfo ? t('ui:saving') : t('ui:change')}
+      </Knapp>
+    </EkspanderbartpanelBase>
+  )
 }
 
 BUCTools.propTypes = {

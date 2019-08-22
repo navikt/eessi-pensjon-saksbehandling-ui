@@ -38,8 +38,10 @@ describe('applications/BUC/components/SEDP4000/Period - view/confirm mode', () =
   })
 
   it('Has proper HTML structure', () => {
-    const mockProps = { ...initialMockProps,
-      period: { ...initialMockProps.period,
+    const mockProps = {
+      ...initialMockProps,
+      period: {
+        ...initialMockProps.period,
         type: 'work',
         workActivity: 'mockWorkActivity',
         workPlace: 'mockWorkPlace',
@@ -113,8 +115,10 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
   })
 
   it('Has proper HTML structure in work edit', () => {
-    const mockProps = { ...initialMockProps,
-      period: { ...initialMockProps.period,
+    const mockProps = {
+      ...initialMockProps,
+      period: {
+        ...initialMockProps.period,
         type: 'work',
         workActivity: 'mockWorkActivity',
         workPlace: 'mockWorkPlace',
@@ -140,8 +144,10 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
   })
 
   it('Has proper HTML structure in home edit', () => {
-    const mockProps = { ...initialMockProps,
-      period: { ...initialMockProps.period,
+    const mockProps = {
+      ...initialMockProps,
+      period: {
+        ...initialMockProps.period,
         type: 'home'
       }
     }
@@ -163,8 +169,10 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
   })
 
   it('Has proper HTML structure in learn edit', () => {
-    const mockProps = { ...initialMockProps,
-      period: { ...initialMockProps.period,
+    const mockProps = {
+      ...initialMockProps,
+      period: {
+        ...initialMockProps.period,
         type: 'learn',
         learnInstitution: 'mockLearnInstitution'
       }
@@ -186,8 +194,10 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
   })
 
   it('Has proper HTML structure in other edit', () => {
-    const mockProps = { ...initialMockProps,
-      period: { ...initialMockProps.period,
+    const mockProps = {
+      ...initialMockProps,
+      period: {
+        ...initialMockProps.period,
         type: 'other',
         otherType: 'mockOtherType'
       }
@@ -209,8 +219,10 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
   })
 
   it('Has proper HTML structure in daily edit', () => {
-    const mockProps = { ...initialMockProps,
-      period: { ...initialMockProps.period,
+    const mockProps = {
+      ...initialMockProps,
+      period: {
+        ...initialMockProps.period,
         type: 'daily',
         payingInstitution: 'mockPayingInstitution'
       }
@@ -232,8 +244,10 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
   })
 
   it('Has proper HTML structure in sick edit', () => {
-    const mockProps = { ...initialMockProps,
-      period: { ...initialMockProps.period,
+    const mockProps = {
+      ...initialMockProps,
+      period: {
+        ...initialMockProps.period,
         type: 'sick',
         payingInstitution: 'mockPayingInstitution'
       }
@@ -255,8 +269,10 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
   })
 
   it('Has proper HTML structure in child edit', () => {
-    const mockProps = { ...initialMockProps,
-      period: { ...initialMockProps.period,
+    const mockProps = {
+      ...initialMockProps,
+      period: {
+        ...initialMockProps.period,
         type: 'child',
         childFirstName: 'mockChildFirstName',
         childLastName: 'mockChildLastName',
@@ -282,8 +298,10 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
   })
 
   it('Has proper HTML structure in military edit', () => {
-    const mockProps = { ...initialMockProps,
-      period: { ...initialMockProps.period,
+    const mockProps = {
+      ...initialMockProps,
+      period: {
+        ...initialMockProps.period,
         type: 'military'
       }
     }
@@ -301,8 +319,10 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
   })
 
   it('Has proper HTML structure in voluntary edit', () => {
-    const mockProps = { ...initialMockProps,
-      period: { ...initialMockProps.period,
+    const mockProps = {
+      ...initialMockProps,
+      period: {
+        ...initialMockProps.period,
         type: 'voluntary'
       }
     }
@@ -320,8 +340,10 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
   })
 
   it('Has proper HTML structure in birth edit', () => {
-    const mockProps = { ...initialMockProps,
-      period: { ...initialMockProps.period,
+    const mockProps = {
+      ...initialMockProps,
+      period: {
+        ...initialMockProps.period,
         type: 'birth'
       }
     }

@@ -38,16 +38,19 @@ const mapDispatchToProps = (dispatch) => {
 export const BUCPageIndex = (props) => {
   const { className, history, t } = props
 
-  return <TopContainer
-    className={classNames('a-buc-page', className)}
-    t={t}
-    history={history}
-    header={t('buc:app-bucTitle') + ' - ' + t('buc:step-startBUCTitle')}>
-    <div className='mt-4'>
-      <Systemtittel className='a-buc-page__title mb-4'>{t('buc:step-startBUCTitle')}</Systemtittel>
-      <BUCStart mode='page' {...props} /> : null}
-    </div>
-  </TopContainer>
+  return (
+    <TopContainer
+      className={classNames('a-buc-page', className)}
+      t={t}
+      history={history}
+      header={t('buc:app-bucTitle') + ' - ' + t('buc:step-startBUCTitle')}
+    >
+      <div className='mt-4'>
+        <Systemtittel className='a-buc-page__title mb-4'>{t('buc:step-startBUCTitle')}</Systemtittel>
+        <BUCStart mode='page' {...props} /> : null}
+      </div>
+    </TopContainer>
+  )
 }
 
 BUCPageIndex.propTypes = {

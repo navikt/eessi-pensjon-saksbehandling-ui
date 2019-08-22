@@ -37,76 +37,93 @@ const BUCHeader = (props) => {
     })
   }
 
-  return <div
-    id={'a-buc-c-bucheader__' + buc.type + '-' + buc.caseId}
-    className='a-buc-c-bucheader'>
-    <div className='a-buc-c-bucheader__label col-4'>
-      <Undertittel
-        className='a-buc-c-bucheader__title'>
-        {buc.type + ' - ' + t('buc:buc-' + buc.type)}
-      </Undertittel>
-      <Normaltekst
-        id='a-buc-c-bucheader__description-id'
-        className='a-buc-c-bucheader__description'>
-        {new Date(buc.startDate).toLocaleDateString() + ' - ' + new Date(buc.lastUpdate).toLocaleDateString()}
-      </Normaltekst>
-      <div
-        id='a-buc-c-bucheader__owner-id'
-        className='a-buc-c-bucheader__owner'>
-        <Normaltekst className='pr-2'>
-          {t('buc:form-caseOwner') + ': '}
+  return (
+    <div
+      id={'a-buc-c-bucheader__' + buc.type + '-' + buc.caseId}
+      className='a-buc-c-bucheader'
+    >
+      <div className='a-buc-c-bucheader__label col-4'>
+        <Undertittel
+          className='a-buc-c-bucheader__title'
+        >
+          {buc.type + ' - ' + t('buc:buc-' + buc.type)}
+        </Undertittel>
+        <Normaltekst
+          id='a-buc-c-bucheader__description-id'
+          className='a-buc-c-bucheader__description'
+        >
+          {new Date(buc.startDate).toLocaleDateString() + ' - ' + new Date(buc.lastUpdate).toLocaleDateString()}
         </Normaltekst>
-        <InstitutionList t={t}
-          id='a-buc-c-bucheader__owner-institutions-id'
-          className='a-buc-c-bucheader__owner-institutions'
-          institutionNames={institutionNames}
+        <div
+          id='a-buc-c-bucheader__owner-id'
+          className='a-buc-c-bucheader__owner'
+        >
+          <Normaltekst className='pr-2'>
+            {t('buc:form-caseOwner') + ': '}
+          </Normaltekst>
+          <InstitutionList
+            t={t}
+            id='a-buc-c-bucheader__owner-institutions-id'
+            className='a-buc-c-bucheader__owner-institutions'
+            institutionNames={institutionNames}
+            locale={locale}
+            type='separated'
+            institutions={[buc.creator]}
+          />
+        </div>
+      </div>
+      <div className='a-buc-c-bucheader__flags col-2'>
+        <FlagList
           locale={locale}
-          type='separated'
-          institutions={[buc.creator]} />
+          size='L'
+          items={Object.keys(institutionList).map(landkode => {
+            return {
+              country: landkode,
+              label: institutionList[landkode].join(', ')
+            }
+          })}
+          overflowLimit={5}
+        />
+      </div>
+      <div className='a-buc-c-bucheader__icons col-3'>
+        <div
+          className='a-buc-c-bucheader__icon-numberofseds'
+          title={t('buc:form-youhaveXseds', { seds: numberOfSeds })}
+        >
+          {numberOfSeds}
+        </div>
+        {bucInfo && bucInfo.tags && bucInfo.tags.length > 0
+          ? (
+            <div
+              className='a-buc-c-bucheader__icon-tags'
+              title={bucInfo.tags.join(', ')}
+            >
+              <Icons kind='problem' />
+            </div>
+          ) : null}
+        {attachments.length > 0
+          ? (
+            <div
+              className='a-buc-c-bucheader__icon-vedlegg pl-2 pr-2'
+              title={t('buc:form-youHaveXAttachmentsInBuc', { attachments: attachments.length })}
+            >
+              <Icons kind='paperclip' />
+            </div>
+          ) : null}
+      </div>
+      <div className='a-buc-c-bucheader__actions col-3'>
+        <LenkepanelBase
+          id='a-buc-c-bucheader__bucedit-link'
+          className='a-buc-c-bucheader__bucedit-link knapp mr-5'
+          onClick={(e) => onBUChandle(buc, e)}
+          href={'#' + buc.type}
+          border
+        >
+          {t('ui:processing')}
+        </LenkepanelBase>
       </div>
     </div>
-    <div className='a-buc-c-bucheader__flags col-2'>
-      <FlagList
-        locale={locale}
-        size='L'
-        items={Object.keys(institutionList).map(landkode => {
-          return {
-            country: landkode,
-            label: institutionList[landkode].join(', ')
-          }
-        })}
-        overflowLimit={5} />
-    </div>
-    <div className='a-buc-c-bucheader__icons col-3'>
-      <div
-        className='a-buc-c-bucheader__icon-numberofseds'
-        title={t('buc:form-youhaveXseds', { seds: numberOfSeds })}>
-        {numberOfSeds}
-      </div>
-      {bucInfo && bucInfo.tags && bucInfo.tags.length > 0
-        ? <div
-          className='a-buc-c-bucheader__icon-tags'
-          title={bucInfo.tags.join(', ')}>
-          <Icons kind='problem' />
-        </div> : null}
-      {attachments.length > 0
-        ? <div
-          className='a-buc-c-bucheader__icon-vedlegg pl-2 pr-2'
-          title={t('buc:form-youHaveXAttachmentsInBuc', { attachments: attachments.length })}>
-          <Icons kind='paperclip' />
-        </div> : null}
-    </div>
-    <div className='a-buc-c-bucheader__actions col-3'>
-      <LenkepanelBase
-        id='a-buc-c-bucheader__bucedit-link'
-        className='a-buc-c-bucheader__bucedit-link knapp mr-5'
-        onClick={(e) => onBUChandle(buc, e)}
-        href={'#' + buc.type}
-        border>
-        {t('ui:processing')}
-      </LenkepanelBase>
-    </div>
-  </div>
+  )
 }
 
 BUCHeader.propTypes = {

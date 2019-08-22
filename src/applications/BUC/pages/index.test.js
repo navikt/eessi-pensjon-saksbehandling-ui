@@ -19,11 +19,12 @@ describe('applications/BUC/pages/index', () => {
   }
 
   beforeEach(() => {
-    wrapper = mount(<StoreProvider initialState={initialState} reducer={reducer}>
-      <Suspense fallback={<div />}>
-        <BUCPageIndex {...initialMockProps} />
-      </Suspense>
-    </StoreProvider>)
+    wrapper = mount(
+      <StoreProvider initialState={initialState} reducer={reducer}>
+        <Suspense fallback={<div />}>
+          <BUCPageIndex {...initialMockProps} />
+        </Suspense>
+      </StoreProvider>)
   })
 
   it('Renders', () => {

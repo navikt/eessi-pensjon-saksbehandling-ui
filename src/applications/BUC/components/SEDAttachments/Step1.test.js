@@ -33,11 +33,12 @@ describe('applications/BUC/components/Step1/Step1', () => {
   let wrapper
 
   beforeEach(() => {
-    wrapper = mount(<StoreProvider initialState={changedInitialState} reducer={reducer}>
-      <Suspense fallback={<div />}>
-        <Step1 {...initialMockProps} />
-      </Suspense>
-    </StoreProvider>)
+    wrapper = mount(
+      <StoreProvider initialState={changedInitialState} reducer={reducer}>
+        <Suspense fallback={<div />}>
+          <Step1 {...initialMockProps} />
+        </Suspense>
+      </StoreProvider>)
   })
 
   it('Renders', () => {

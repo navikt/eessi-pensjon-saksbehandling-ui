@@ -23,23 +23,26 @@ const LinksWidget = (props) => {
     }
   }
 
-  return <div className='w-LinksWidget'>
-    <Ekspanderbartpanel
-      apen={!widget.options.collapsed}
-      tittel={widget.title}
-      onClick={onClick}>
-      <div>
-        <ReactResizeDetector
-          handleWidth
-          handleHeight
-          onResize={_onResize} />
-        {widget.options.collapsed === true
-          ? null
-          : <Links t={t} />
-        }
-      </div>
-    </Ekspanderbartpanel>
-  </div>
+  return (
+    <div className='w-LinksWidget'>
+      <Ekspanderbartpanel
+        apen={!widget.options.collapsed}
+        tittel={widget.title}
+        onClick={onClick}
+      >
+        <div>
+          <ReactResizeDetector
+            handleWidth
+            handleHeight
+            onResize={_onResize}
+          />
+          {widget.options.collapsed === true
+            ? null
+            : <Links t={t} />}
+        </div>
+      </Ekspanderbartpanel>
+    </div>
+  )
 }
 
 LinksWidget.properties = {

@@ -7,13 +7,17 @@ import './Flag.css'
 const Flag = (props) => {
   const { className, country, extension = '.png', flagPath = '../../../../flags/', label, size = 'M' } = props
 
-  return <div
-    className={classnames(className, 'c-flag', 'c-flag__size-' + size)}
-    title={label}>
-    <img
-      alt={label}
-      src={''.concat(flagPath, country, extension)} />
-  </div>
+  return (
+    <div
+      className={classnames(className, 'c-flag', 'c-flag__size-' + size)}
+      title={label}
+    >
+      <img
+        alt={label}
+        src={''.concat(flagPath, country, extension)}
+      />
+    </div>
+  )
 }
 
 Flag.propTypes = {

@@ -36,8 +36,7 @@ const appReducer = (state = initialAppState, action = {}) => {
         }
       }
 
-    case types.APP_USERINFO_SUCCESS:
-
+    case types.APP_USERINFO_SUCCESS: {
       const now = action.payload.now ? new Date(action.payload.now) : new Date()
       const expirationTime = action.payload.expirationTime
         ? new Date(action.payload.expirationTime)
@@ -52,6 +51,7 @@ const appReducer = (state = initialAppState, action = {}) => {
         loggedTime: now,
         expirationTime: expirationTime
       }
+    }
 
     case types.APP_USERINFO_FAILURE:
 
@@ -73,11 +73,11 @@ const appReducer = (state = initialAppState, action = {}) => {
     }
 
     case types.APP_SAKTYPE_SUCCESS: {
-      let sakType = (action.payload.sakType === 'GJENLEV') ? 'Gjenlevendeytelse' : action.payload.sakType
+      const sakType = (action.payload.sakType === 'GJENLEV') ? 'Gjenlevendeytelse' : action.payload.sakType
 
       return {
         ...state,
-        params: {...state.params, sakType: sakType}
+        params: { ...state.params, sakType: sakType }
       }
     }
 

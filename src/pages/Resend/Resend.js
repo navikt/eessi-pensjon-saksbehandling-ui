@@ -14,7 +14,7 @@ export default class Resend extends React.Component {
     requestStack: []
   }
 
-  submitHandler = async (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault()
     const fileName = document.getElementById('resend-fileName').value
     const response = await fetch(urls.API_SUBMISSION_RESUBMIT_URL, {
@@ -33,7 +33,7 @@ export default class Resend extends React.Component {
 
   render () {
     return (
-      <form id='resend-form' onSubmit={this.submitHandler}>
+      <form id='resend-form' onSubmit={this.handleSubmit}>
         <div className='container'>
           <div className='row'>
             <div className='col-auto'>
@@ -46,13 +46,13 @@ export default class Resend extends React.Component {
               <input id='resend-submit' type='submit' />
             </div>
           </div>
-          {this.state.requestStack.map(request => {
+          {this.state.requestStack.map((request, index) => {
             const result = request.response.ok ? 'OK' : 'FEILET'
             const message = request.response.statusText
             const status = request.response.status
             const fileName = request.fileName
             return (
-              <div className='row'>
+              <div key={index} className='row'>
                 <span>{result}:{message}:{status}:{fileName}</span>
               </div>
             )

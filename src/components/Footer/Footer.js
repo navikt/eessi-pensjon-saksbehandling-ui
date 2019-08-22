@@ -62,36 +62,48 @@ export const Footer = (props) => {
     actions.toggleFooterOpen()
   }
 
-  return <footer className={classNames('c-footer', { toggled: footerOpen })}>
-    <div className={classNames('contents', { fullWidth: !footerOpen })}>
-      <div className={classNames({ footerButtonOpen: footerOpen, footerButtonClosed: !footerOpen })}
-        onClick={toggleFooterOpen}>
-        {footerOpen ? '▼' : null}
+  return (
+    <footer className={classNames('c-footer', { toggled: footerOpen })}>
+      <div className={classNames('contents', { fullWidth: !footerOpen })}>
+        <div
+          className={classNames({ footerButtonOpen: footerOpen, footerButtonClosed: !footerOpen })}
+          onClick={toggleFooterOpen}
+        >
+          {footerOpen ? '▼' : null}
+        </div>
+        {footerOpen
+          ? (
+            <div className='c-footer__form'>
+              <Select id='c-footer__select-id' className='c-footer__select' label='' onChange={onSetParamName}>
+                <option value=''>--</option>
+                {params.map(param => {
+                  return props[param] ? null : <option key={param} value={param}>{param}</option>
+                })}
+              </Select>
+              <Input
+                label='' id='c-footer__input-id' className='c-footer__input' value={paramValue || ''}
+                onChange={onSetParamValue}
+              />
+              <Knapp id='c-footer__add-button-id' className='c-footer__add-button' onClick={onSetParam}>&nbsp;+&nbsp;</Knapp>
+            </div>
+          ) : null}
       </div>
-      {footerOpen
-        ? <div className='c-footer__form'>
-          <Select id='c-footer__select-id' className='c-footer__select' label='' onChange={onSetParamName}>
-            <option value=''>{'--'}</option>
-            {params.map(param => {
-              return props[param] ? null : <option key={param} value={param}>{param}</option>
-            })}
-          </Select>
-          <Input label='' id='c-footer__input-id' className='c-footer__input' value={paramValue || ''}
-            onChange={onSetParamValue} />
-          <Knapp id='c-footer__add-button-id' className='c-footer__add-button' onClick={onSetParam}>&nbsp;+&nbsp;</Knapp>
-        </div> : null}
-    </div>
-    {footerOpen ? <div className='c-footer__params'>
-      {params.map(param => {
-        return props[param] ? <div key={param} className='c-footer__param'>
-          <EtikettBase className='c-footer__param-string' type='info'>
-            <b>{param}</b> {props[param]}
-          </EtikettBase>
-          <Lukknapp className='c-footer__remove-button' bla onClick={() => onUnsetParam(param)} />
-        </div> : null
-      })}
-    </div> : null}
-  </footer>
+      {footerOpen ? (
+        <div className='c-footer__params'>
+          {params.map(param => {
+            return props[param] ? (
+              <div key={param} className='c-footer__param'>
+                <EtikettBase className='c-footer__param-string' type='info'>
+                  <b>{param}</b> {props[param]}
+                </EtikettBase>
+                <Lukknapp className='c-footer__remove-button' bla onClick={() => onUnsetParam(param)} />
+              </div>
+            ) : null
+          })}
+        </div>
+      ) : null}
+    </footer>
+  )
 }
 
 Footer.propTypes = {

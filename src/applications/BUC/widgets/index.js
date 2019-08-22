@@ -11,8 +11,7 @@ import BUCEdit from 'applications/BUC/widgets/BUCEdit/BUCEdit'
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import { Knapp, Input } from 'components/Nav'
 import { getDisplayName } from 'utils/displayName'
-import {connectToWebSocket} from '../../../utils/websocket'
-
+import { connectToWebSocket } from '../../../utils/websocket'
 
 import './index.css'
 
@@ -66,19 +65,18 @@ export const BUCWidgetIndex = (props) => {
     }
   }
 
-  useEffect( () => {
-    if(!websocketConnection) {
+  useEffect(() => {
+    if (!websocketConnection) {
       setWebsocketConnection(
         connectToWebSocket(
-          ()=>setWebsocketReady(true),
+          () => setWebsocketReady(true),
           onBucUpdate,
-          ()=>setWebsocketReady(false),
-          ()=>setWebsocketReady(false)
+          () => setWebsocketReady(false),
+          () => setWebsocketReady(false)
         )
       )
     }
   }, [websocketReady])
-
 
   useEffect(() => {
     if (!mounted && !rinaUrl) {
@@ -94,45 +92,48 @@ export const BUCWidgetIndex = (props) => {
     }
   }, [actions, aktoerId, sakId])
 
-  useEffect( ()=> {
-    if(avdodfnr && sakId){
+  useEffect(() => {
+    if (avdodfnr && sakId) {
       actions.fetchBucs(avdodfnr)
     }
   }, [actions, avdodfnr, sakId])
 
-  useEffect( () => {
-    if(!sakType && sakId && aktoerId){
+  useEffect(() => {
+    if (!sakType && sakId && aktoerId) {
       actions.getSakType(sakId, aktoerId)
     }
-  },[actions, sakType, sakId, aktoerId])
+  }, [actions, sakType, sakId, aktoerId])
 
   if (!mounted) {
     return <div />
   }
 
-  return <div className='a-buc-widget'>
-    <div className='a-buc-widget__header mb-3'>
-      <BUCCrumbs
-        actions={actions}
-        t={t}
-        bucs={bucs}
-        currentBuc={currentBuc}
-        mode={mode}
-      />
-    </div>
-    {sakType === 'Gjenlevendeytelse' && !avdodfnr
-      ? <div className='d-flex flex-row'>
-          <Input bredde={'S'} label={t('buc:app-avdodfnrInput')} value={_avdodfnr} onChange={(e)=>setAvdodfnr(e.target.value)}/>
-          <Knapp mini={true} onClick={() => actions.setStatusParam('avdodfnr', _avdodfnr)}>{t('buc:app-avdodfnrButton')}</Knapp>
+  return (
+    <div className='a-buc-widget'>
+      <div className='a-buc-widget__header mb-3'>
+        <BUCCrumbs
+          actions={actions}
+          t={t}
+          bucs={bucs}
+          currentBuc={currentBuc}
+          mode={mode}
+        />
       </div>
-      : null
-    }
-    {mode === 'buclist' ? <BUCList {...props} /> : null}
-    {mode === 'bucedit' ? <BUCEdit {...props} /> : null}
-    {mode === 'bucnew' ? <BUCNew {...props} /> : null}
-    {mode === 'sednew' ? <SEDNew {...props} /> : null}
+      {sakType === 'Gjenlevendeytelse' && !avdodfnr
+        ? (
+          <div className='d-flex flex-row'>
+            <Input bredde='S' label={t('buc:app-avdodfnrInput')} value={_avdodfnr} onChange={(e) => setAvdodfnr(e.target.value)} />
+            <Knapp mini onClick={() => actions.setStatusParam('avdodfnr', _avdodfnr)}>{t('buc:app-avdodfnrButton')}</Knapp>
+          </div>
+        )
+        : null}
+      {mode === 'buclist' ? <BUCList {...props} /> : null}
+      {mode === 'bucedit' ? <BUCEdit {...props} /> : null}
+      {mode === 'bucnew' ? <BUCNew {...props} /> : null}
+      {mode === 'sednew' ? <SEDNew {...props} /> : null}
 
-  </div>
+    </div>
+  )
 }
 
 const ConnectedBUCWidgetIndex = connect(mapStateToProps, mapDispatchToProps)(withTranslation()(BUCWidgetIndex))

@@ -37,32 +37,56 @@ const File = (props) => {
   }
 
   if (!file.content) {
-    return <div className='c-file'
-      onMouseEnter={onHandleMouseEnter} onMouseLeave={onHandleMouseLeave}>
-      <MiniatureOther isHovering={isHovering}
-        animate={_animate} size={_size} scale={_scale} ui={_ui} {...props} />
-    </div>
+    return (
+      <div
+        className='c-file'
+        onMouseEnter={onHandleMouseEnter} onMouseLeave={onHandleMouseLeave}
+      >
+        <MiniatureOther
+          isHovering={isHovering}
+          animate={_animate} size={_size} scale={_scale} ui={_ui} {...props}
+        />
+      </div>
+    )
   }
   switch (file.mimetype) {
     case 'application/pdf' :
-      return <div className='c-file'
-        onMouseEnter={onHandleMouseEnter} onMouseLeave={onHandleMouseLeave}>
-        <MiniaturePDF isHovering={isHovering}
-          animate={_animate} size={_size} scale={_scale} ui={_ui} {...props} />
-      </div>
+      return (
+        <div
+          className='c-file'
+          onMouseEnter={onHandleMouseEnter} onMouseLeave={onHandleMouseLeave}
+        >
+          <MiniaturePDF
+            isHovering={isHovering}
+            animate={_animate} size={_size} scale={_scale} ui={_ui} {...props}
+          />
+        </div>
+      )
     case 'image/png':
     case 'image/jpeg':
-      return <div className='c-file'
-        onMouseEnter={onHandleMouseEnter} onMouseLeave={onHandleMouseLeave}>
-        <MiniatureImage isHovering={isHovering}
-          animate={_animate} size={_size} scale={_scale} ui={_ui} {...props} />
-      </div>
+      return (
+        <div
+          className='c-file'
+          onMouseEnter={onHandleMouseEnter} onMouseLeave={onHandleMouseLeave}
+        >
+          <MiniatureImage
+            isHovering={isHovering}
+            animate={_animate} size={_size} scale={_scale} ui={_ui} {...props}
+          />
+        </div>
+      )
     default:
-      return <div className='c-file'
-        onMouseEnter={onHandleMouseEnter} onMouseLeave={onHandleMouseLeave}>
-        <MiniatureOther isHovering={isHovering}
-          animate={_animate} size={_size} scale={_scale} ui={_ui} {...props} />
-      </div>
+      return (
+        <div
+          className='c-file'
+          onMouseEnter={onHandleMouseEnter} onMouseLeave={onHandleMouseLeave}
+        >
+          <MiniatureOther
+            isHovering={isHovering}
+            animate={_animate} size={_size} scale={_scale} ui={_ui} {...props}
+          />
+        </div>
+      )
   }
 }
 

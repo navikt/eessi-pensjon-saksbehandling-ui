@@ -17,20 +17,23 @@ const NoteOptionsWidget = (props) => {
 
   const widgetTemplate = _.find(availableWidgets, { type: 'note' })
 
-  return <div className='w-NoteOptionsWidget p-3'>
-    <Select
-      id='w-NoteOptionsWidget__color-select-id'
-      label={'color'}
-      value={backgroundColor || ''}
-      onChange={chooseColor}>
-      {widgetTemplate.options.availableColors.map(color => {
-        return <option key={color} value={color}>{color}</option>
-      })}
-    </Select>
-    <br />
-    <br />
-    <br />
-  </div>
+  return (
+    <div className='w-NoteOptionsWidget p-3'>
+      <Select
+        id='w-NoteOptionsWidget__color-select-id'
+        label='color'
+        value={backgroundColor || ''}
+        onChange={chooseColor}
+      >
+        {widgetTemplate.options.availableColors.map(color => {
+          return <option key={color} value={color}>{color}</option>
+        })}
+      </Select>
+      <br />
+      <br />
+      <br />
+    </div>
+  )
 }
 
 NoteOptionsWidget.propTypes = {

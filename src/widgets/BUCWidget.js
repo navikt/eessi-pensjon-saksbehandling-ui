@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
-import BUC from 'applications/BUC/widgets/'
+import Buc from 'applications/BUC/widgets/'
 
 const BUCWidget = (props) => {
   const [mounted, setMounted] = useState(false)
@@ -14,13 +14,16 @@ const BUCWidget = (props) => {
     }
   }, [mounted, onResize])
 
-  return <div className='w-BucWidget'>
-    <ReactResizeDetector
-      handleWidth
-      handleHeight
-      onResize={onResize} />
-    <BUC />
-  </div>
+  return (
+    <div className='w-BucWidget'>
+      <ReactResizeDetector
+        handleWidth
+        handleHeight
+        onResize={onResize}
+      />
+      <Buc />
+    </div>
+  )
 }
 
 BUCWidget.properties = {

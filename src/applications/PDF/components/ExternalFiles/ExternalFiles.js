@@ -30,16 +30,22 @@ const ExternalFiles = (props) => {
     actions.listStorageFiles(username, storages.FILES)
   }
 
-  return <Nav.Ekspanderbartpanel style={style} className={classNames('c-pdf-externalFiles', className)}
-    apen={false} tittel={t('ui:fileSelect')} tittelProps='undertittel'
-    onClick={requestExternalFileList}>
-    <div className='fileArea'>
-      {loadingFileList ? <div className='w-100 text-center'>
-        <Nav.NavFrontendSpinner />
-        <p className='typo-normal'>{t('pdf:loading-loadingFileList')}</p>
-      </div> : <DnDExternalFiles fileList={fileList || []} addFile={addFile} />}
-    </div>
-  </Nav.Ekspanderbartpanel>
+  return (
+    <Nav.Ekspanderbartpanel
+      style={style} className={classNames('c-pdf-externalFiles', className)}
+      apen={false} tittel={t('ui:fileSelect')} tittelProps='undertittel'
+      onClick={requestExternalFileList}
+    >
+      <div className='fileArea'>
+        {loadingFileList ? (
+          <div className='w-100 text-center'>
+            <Nav.NavFrontendSpinner />
+            <p className='typo-normal'>{t('pdf:loading-loadingFileList')}</p>
+          </div>
+        ) : <DnDExternalFiles fileList={fileList || []} addFile={addFile} />}
+      </div>
+    </Nav.Ekspanderbartpanel>
+  )
 }
 
 ExternalFiles.propTypes = {

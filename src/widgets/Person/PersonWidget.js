@@ -14,13 +14,16 @@ const PersonWidget = (props) => {
     }
   }, [mounted, onResize])
 
-  return <div className='c-d-PersonWidget'>
-    <ReactResizeDetector
-      handleWidth
-      handleHeight
-      onResize={onResize} />
-    <Person t={t} />
-  </div>
+  return (
+    <div className='c-d-PersonWidget'>
+      <ReactResizeDetector
+        handleWidth
+        handleHeight
+        onResize={onResize}
+      />
+      <Person t={t} />
+    </div>
+  )
 }
 
 PersonWidget.properties = {

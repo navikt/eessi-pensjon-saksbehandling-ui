@@ -10,24 +10,30 @@ import './Flag.css'
 const FlagList = (props) => {
   const { className, items, locale, overflowLimit = 2, size } = props
 
-  return <div
-    className={classNames('c-flaglist', className)}>
-    {items.map((item, index) => {
-      if (index > overflowLimit - 1) {
-        return null
-      }
-      const label = item.label || CountryData.findByValue(locale, item.country).label
-      return <Flag
-        className='m-2'
-        size={size}
-        key={index}
-        country={item.country}
-        label={label} />
-    })}
-    {items.length > overflowLimit
-      ? <Normaltekst className='pt-2'>+{items.length - overflowLimit}</Normaltekst>
-      : null}
-  </div>
+  return (
+    <div
+      className={classNames('c-flaglist', className)}
+    >
+      {items.map((item, index) => {
+        if (index > overflowLimit - 1) {
+          return null
+        }
+        const label = item.label || CountryData.findByValue(locale, item.country).label
+        return (
+          <Flag
+            className='m-2'
+            size={size}
+            key={index}
+            country={item.country}
+            label={label}
+          />
+        )
+      })}
+      {items.length > overflowLimit
+        ? <Normaltekst className='pt-2'>+{items.length - overflowLimit}</Normaltekst>
+        : null}
+    </div>
+  )
 }
 
 FlagList.propTypes = {
