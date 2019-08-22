@@ -97,7 +97,7 @@ const BUCList = (props) => {
         )
         : null}
     </div>
-    {gettingBUCs
+    {loading.gettingBUCs
       ? (
         <div className='mt-5 a-buc-widget__loading'>
           <NavFrontendSpinner className='ml-3 mr-3' type='XL'/>
@@ -110,7 +110,7 @@ const BUCList = (props) => {
           {t('buc:error-noBucs')}
         </div>
       ) : null}
-    {!gettingBUCs && !_.isEmpty(bucs)
+    {!loading.gettingBUCs && !_.isEmpty(bucs)
       ? Object.keys(bucs).map( key => bucs[key] )
         .sort((firstEl, secondEl) => {
         return moment(firstEl.startDate).isSameOrAfter(moment(secondEl.startDate)) ? -1 : 1
