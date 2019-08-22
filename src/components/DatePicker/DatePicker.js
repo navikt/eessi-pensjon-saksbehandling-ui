@@ -7,7 +7,8 @@ import { Input } from 'components/Nav'
 import './DatePicker.css'
 
 const DatePicker = (props) => {
-  const { className, feil, labels = {}, ids = {}, onChange, placeholders = {}, values = {} } = props
+  const { className, feil, labels = {}, id, ids = {}, onChange, placeholders = {}, initialValues = {} } = props
+  const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState({})
 
   const maxLength = (limit, event) => {
@@ -75,7 +76,7 @@ const DatePicker = (props) => {
     } else {
       newDate = Object.assign({}, values, { [key]: value })
     }
-
+    setValues(newDate)
     setErrors(checkValidity(newDate))
     onChange(newDate)
   }
@@ -83,12 +84,12 @@ const DatePicker = (props) => {
   const handleMaxLengthDay = (e) => { maxLength(2, e) }
   const handleMaxLengthMonth = (e) => { maxLength(2, e) }
   const handleMaxLengthYear = (e) => { maxLength(4, e) }
-  const handleChangeDay = (e) => { dateChange('day', e) }
+  const handleChangeDay = (e) => {dateChange('day', e) }
   const handleChangeMonth = (e) => { dateChange('month', e) }
   const handleChangeYear = (e) => { dateChange('year', e) }
 
   return (
-    <div className={classNames('datePicker', className)}>
+    <div className={classNames('c-datePicker', className)}>
       <div className='row pr-2'>
         <div className='col pl-2 pr-1'>
           <Input
@@ -136,21 +137,20 @@ const DatePicker = (props) => {
         </div>
       </div>
       {feil ? (
-        <div role='alert' aria-live='assertive'>
-          <div className='skjemaelement__feilmelding'>
-            {feil.feilmelding}
-          </div>
+        <div role='alert' aria-live='assertive' className='feilmelding skjemaelement__feilmelding'>
+          {feil.feilmelding}
         </div>
       )
-        : null}
+      : null}
     </div>
   )
 }
 
 DatePicker.propTypes = {
   required: PT.object,
+  id: PT.string,
   ids: PT.object,
-  values: PT.object,
+  initialValues: PT.object,
   feil: PT.object,
   labels: PT.object,
   onChange: PT.func.isRequired

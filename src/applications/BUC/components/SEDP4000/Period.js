@@ -416,7 +416,7 @@ const Period = (props) => {
                         ids={{ day: 'a-buc-c-sedp4000-period__startdato-day', month: 'a-buc-c-sedp4000-period__startdato-month', year: 'a-buc-c-sedp4000-period__startdato-year' }}
                         placeholders={{ day: t('buc:p4000-period-placeholder-day'), month: t('buc:p4000-period-placeholder-month'), year: t('buc:p4000-period-placeholder-year') }}
                         className='startDate pr-2'
-                        values={period.startDate}
+                        initialValues={period.startDate}
                         onChange={setStartDate}
                         feil={localErrors.startDate || localErrors.timeSpan ? { feilmelding: t(localErrors.startDate || localErrors.timeSpan) } : undefined}
                       />
@@ -430,11 +430,12 @@ const Period = (props) => {
                   {
                     <FocusGroup onBlur={blurEndDate}>
                       <DatePicker
+                        id='a-buc-c-sedp4000-period_sluttdato-date'
                         labels={{ day: t('buc:p4000-period-day'), month: t('buc:p4000-period-month'), year: t('buc:p4000-period-year') }}
                         ids={{ day: 'a-buc-c-sedp4000-period__sluttdato-day', month: 'a-buc-c-sedp4000-period__sluttdato-month', year: 'a-buc-c-sedp4000-period__sluttdato-year' }}
                         placeholders={{ day: t('buc:p4000-period-placeholder-day'), month: t('buc:p4000-period-placeholder-month'), year: t('buc:p4000-period-placeholder-year') }}
                         className='endDate pr-2'
-                        values={period.endDate}
+                        initialValues={period.endDate}
                         onChange={setEndDate}
                         feil={localErrors.endDate || localErrors.timeSpan ? { feilmelding: t(localErrors.endDate || localErrors.timeSpan) } : undefined}
                       />
@@ -653,7 +654,7 @@ const Period = (props) => {
                           labels={{ day: t('buc:p4000-period-day'), month: t('buc:p4000-period-month'), year: t('buc:p4000-period-year') }}
                           ids={{ day: 'pinfo-opphold-fodelsdato-day', month: 'pinfo-opphold-fodelsdato-month', year: 'pinfo-opphold-fodelsdato-year' }}
                           placeholders={{ day: t('buc:p4000-period-placeholder-day'), month: t('buc:p4000-period-placeholder-month'), year: t('buc:p4000-period-placeholder-year') }}
-                          values={period.childBirthDate}
+                          initialValues={period.childBirthDate}
                           onChange={setChildBirthDate}
                           feil={localErrors.childBirthDate || localErrors.timeSpan ? { feilmelding: t(localErrors.childBirthDate || localErrors.timeSpan) } : undefined}
                         />
