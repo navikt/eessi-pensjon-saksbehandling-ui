@@ -6,7 +6,7 @@ import { connect, bindActionCreators } from 'store'
 import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
-import PageInDnD from '../PageInDnD/PageInDnD'
+import PageInDnD from 'applications/PDF/components/PageInDnD/PageInDnD'
 
 import * as pdfActions from 'actions/pdf'
 

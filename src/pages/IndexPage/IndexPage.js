@@ -1,24 +1,23 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
-import TopContainer from '../../components/TopContainer/TopContainer'
-import Dashboard from '../../components/Dashboard/Dashboard'
+import TopContainer from 'components/TopContainer/TopContainer'
+import Dashboard from 'components/Dashboard/Dashboard'
 import './IndexPage.css'
 
-class IndexPage extends Component {
-  render () {
-    const { history, t } = this.props
+export const IndexPage = (props) => {
 
-    return (
-      <TopContainer
-        className='p-indexPage'
-        t={t}
-        history={history}
-      >
-        <Dashboard id='dashboard' />
-      </TopContainer>
-    )
-  }
+  const { history, t } = props
+
+  return (
+    <TopContainer
+      className='p-indexPage'
+      t={t}
+      history={history}
+    >
+      <Dashboard id='dashboard' />
+    </TopContainer>
+  )
 }
 
 IndexPage.propTypes = {

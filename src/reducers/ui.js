@@ -1,4 +1,4 @@
-import * as types from '../constants/actionTypes'
+import * as types from 'constants/actionTypes'
 import i18n from '../i18n'
 
 export const initialUiState = {

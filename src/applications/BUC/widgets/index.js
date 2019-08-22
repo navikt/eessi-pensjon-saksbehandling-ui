@@ -11,7 +11,7 @@ import BUCEdit from 'applications/BUC/widgets/BUCEdit/BUCEdit'
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import { Knapp, Input } from 'components/Nav'
 import { getDisplayName } from 'utils/displayName'
-import { connectToWebSocket } from '../../../utils/websocket'
+import { connectToWebSocket } from 'utils/websocket'
 
 import './index.css'
 

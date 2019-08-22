@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import * as Nav from 'components/Nav'
-import DnDExternalFiles from '../DnDExternalFiles/DnDExternalFiles'
+import DnDExternalFiles from 'applications/PDF/components/DnDExternalFiles/DnDExternalFiles'
 import * as storageActions from 'actions/storage'
 import * as storages from 'constants/storages'
 

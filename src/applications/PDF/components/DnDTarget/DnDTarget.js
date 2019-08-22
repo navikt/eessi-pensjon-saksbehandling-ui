@@ -4,9 +4,8 @@ import { connect } from 'store'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
-
-import PageInDnD from '../PageInDnD/PageInDnD'
-import PDFSpecialPage from '../PDFSpecialPage/PDFSpecialPage'
+import PageInDnD from 'applications/PDF/components/PageInDnD/PageInDnD'
+import PDFSpecialPage from 'applications/PDF/components/PDFSpecialPage/PDFSpecialPage'
 
 import './DnDTarget.css'
 

@@ -6,7 +6,7 @@ import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 import _ from 'lodash'
 
-import PageInDnD from '../PageInDnD/PageInDnD'
+import PageInDnD from 'applications/PDF/components/PageInDnD/PageInDnD'
 
 import * as pdfActions from 'actions/pdf'
 

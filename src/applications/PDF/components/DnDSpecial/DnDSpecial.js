@@ -5,7 +5,7 @@ import { connect, bindActionCreators } from 'store'
 import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
-import PDFSpecialPage from '../PDFSpecialPage/PDFSpecialPage'
+import PDFSpecialPage from 'applications/PDF/components/PDFSpecialPage/PDFSpecialPage'
 import * as Nav from 'components/Nav'
 import ColorPicker from 'components/ColorPicker/ColorPicker'
 import * as pdfActions from 'actions/pdf'

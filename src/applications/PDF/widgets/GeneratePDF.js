@@ -5,8 +5,7 @@ import _ from 'lodash'
 import * as Nav from 'components/Nav'
 import File from 'components/File/File'
 import StorageModal from 'components/Modal/StorageModal'
-
-import * as storages from '../../../constants/storages'
+import * as storages from 'constants/storages'
 
 const GeneratePDF = (props) => {
   const { t, generatingPDF, generatedPDFs, fileNames, actions, files, recipe, watermark, setStep } = props

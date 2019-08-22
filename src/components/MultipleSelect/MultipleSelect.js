@@ -147,7 +147,6 @@ MultipleSelect.propTypes = {
   required: PT.string,
   id: PT.string,
   inputProps: PT.object,
-  customInputProps: PT.object,
   errorMessage: PT.string,
   styles: PT.object,
   error: PT.bool,
