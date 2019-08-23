@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import classNames from 'classnames'
 import _ from 'lodash'
 import { connect } from 'store'
-import { NavFrontendSpinner, Undertekst, Undertittel } from 'components/Nav'
+import { Hovedknapp, NavFrontendSpinner, Normaltekst, Undertekst, Undertittel } from 'components/Nav'
 import Period from './Period'
 
 export const mapStateToProps = (state) => {
@@ -26,6 +26,7 @@ export const SEDP4000 = (props) => {
   const { actions, aktoerId, loadingP4000info, loadingP4000list, locale } = props
   const { p4000info, p4000list, setShowButtons, showButtons, t } = props
   const mode = period && period.id ? 'edit' : 'new'
+  const p4000file = aktoerId + '___PINFO___PINFO.json'
 
   // check aktoerId
   useEffect(() => {
@@ -40,18 +41,6 @@ export const SEDP4000 = (props) => {
       actions.listP4000(aktoerId)
     }
   }, [aktoerId, actions, isReady, loadingP4000list, p4000list])
-
-  // load P4000 info file if exists
-  useEffect(() => {
-    if (!isReady && !loadingP4000info && p4000info === undefined && _.isArray(p4000list)) {
-      const p4000file = aktoerId + '___PINFO___PINFO.json'
-      if (p4000list.indexOf(p4000file) >= 0) {
-        actions.getP4000(p4000file)
-      } else {
-        setIsReady(true)
-      }
-    }
-  }, [actions, aktoerId, loadingP4000info, p4000info, p4000list, isReady])
 
   // mark component as ready if p4000 info file is ready
   useEffect(() => {
@@ -78,6 +67,18 @@ export const SEDP4000 = (props) => {
     })
   }
 
+  const handleContinueButton = () => {
+    setIsReady(true)
+  }
+
+  const handleGetP4000infoButton = () => {
+    actions.getP4000(p4000file)
+  }
+
+  const noP4000Info = () => {
+    return p4000list === null || (_.isArray(p4000list) && p4000list.indexOf(p4000file) < 0)
+  }
+
   if (!aktoerId) {
     return <div>{t('buc:validation-noAktoerId')}</div>
   }
@@ -85,9 +86,33 @@ export const SEDP4000 = (props) => {
   if (!isReady) {
     return (
       <div className='col-md-8 d-flex mt-5 mb-5 align-items-center justify-content-center'>
-        <NavFrontendSpinner className='ml-3 mr-3' type='M' />
+        {loadingP4000list || loadingP4000info ? <NavFrontendSpinner className='ml-3 mr-3' type='M' /> : null}
         {loadingP4000list ? <span className='pl-2'>{t('buc:loading-p4000list')}</span> : null}
         {loadingP4000info ? <span className='pl-2'>{t('buc:loading-p4000info')}</span> : null}
+        {p4000info === undefined && p4000list !== undefined && !loadingP4000info
+          ? (noP4000Info() ? (
+            <span>
+              <Normaltekst>{t('buc:p4000-fileNotFound')}</Normaltekst>
+              <Hovedknapp
+                id='a-buc-c-sedp4000__continue-button-id'
+                className='a-buc-c-sedp4000__continue-button mt-3'
+                onClick={handleContinueButton}
+              >
+                {t('ui:continue')}
+              </Hovedknapp>
+            </span>
+          ) : (
+            <span>
+              <Normaltekst>{t('buc:p4000-fileFound')}</Normaltekst>
+              <Hovedknapp
+                id='a-buc-c-sedp4000__getP4000info-button-id'
+                className='a-buc-c-sedp4000__getP4000info-button mt-3'
+                onClick={handleGetP4000infoButton}
+              >
+                {t('ui:getInfo')}
+              </Hovedknapp>
+            </span>)
+          ) : null}
       </div>
     )
   }
