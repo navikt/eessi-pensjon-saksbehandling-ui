@@ -9,8 +9,7 @@ import * as routes from 'constants/routes'
 
 import './FirstPage.css'
 
-export const FirstPage  = (props) => {
-
+export const FirstPage = (props) => {
   const { t, history } = props
 
   const handleForwardButtonClick = () => {

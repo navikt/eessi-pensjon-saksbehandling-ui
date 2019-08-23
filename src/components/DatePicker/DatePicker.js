@@ -7,7 +7,7 @@ import { Input } from 'components/Nav'
 import './DatePicker.css'
 
 const DatePicker = (props) => {
-  const { className, feil, labels = {}, id, ids = {}, onChange, placeholders = {}, initialValues = {} } = props
+  const { className, feil, labels = {}, ids = {}, onChange, placeholders = {}, initialValues = {} } = props
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState({})
 
@@ -84,7 +84,7 @@ const DatePicker = (props) => {
   const handleMaxLengthDay = (e) => { maxLength(2, e) }
   const handleMaxLengthMonth = (e) => { maxLength(2, e) }
   const handleMaxLengthYear = (e) => { maxLength(4, e) }
-  const handleChangeDay = (e) => {dateChange('day', e) }
+  const handleChangeDay = (e) => { dateChange('day', e) }
   const handleChangeMonth = (e) => { dateChange('month', e) }
   const handleChangeYear = (e) => { dateChange('year', e) }
 
@@ -141,7 +141,7 @@ const DatePicker = (props) => {
           {feil.feilmelding}
         </div>
       )
-      : null}
+        : null}
     </div>
   )
 }

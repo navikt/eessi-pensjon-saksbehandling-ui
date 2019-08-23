@@ -6,7 +6,6 @@ import Dashboard from 'components/Dashboard/Dashboard'
 import './IndexPage.css'
 
 export const IndexPage = (props) => {
-
   const { history, t } = props
 
   return (

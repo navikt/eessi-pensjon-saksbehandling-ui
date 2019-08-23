@@ -2,9 +2,11 @@ import React from 'react'
 import { FirstPage } from './FirstPage'
 jest.mock('components/TopContainer/TopContainer', () => {
   return (props) => {
-    return <div className='mock-c-topcontainer'>
-      {props.children}
-    </div>
+    return (
+      <div className='mock-c-topcontainer'>
+        {props.children}
+      </div>
+    )
   }
 })
 
@@ -12,19 +14,19 @@ describe('pages/FirstPage', () => {
   let wrapper
   const initialMockProps = {
     history: {
-       push: jest.fn()
+      push: jest.fn()
     },
     t: jest.fn((translationString) => { return translationString })
   }
 
   it('Renders', () => {
-     wrapper = mount(<FirstPage {...initialMockProps} />)
-     expect(wrapper.isEmptyRender()).toBeFalsy()
-     expect(wrapper).toMatchSnapshot()
+    wrapper = mount(<FirstPage {...initialMockProps} />)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
+    expect(wrapper).toMatchSnapshot()
   })
 
   it('FirstPage has proper HTML structure', () => {
-    wrapper = mount(<FirstPage {...initialMockProps}/>)
+    wrapper = mount(<FirstPage {...initialMockProps} />)
     expect(wrapper.exists('.p-firstPage')).toBeTruthy()
     wrapper.find('.forwardButton').hostNodes().simulate('click')
     expect(initialMockProps.history.push).toHaveBeenCalledWith({

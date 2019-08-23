@@ -8,9 +8,8 @@ import classNames from 'classnames'
 import './Psycho.css'
 
 const PsychoPanel = (props) => {
-
   const { children, className, closeButton, type } = props
-  const [ hidden, setHidden ] = useState(false)
+  const [hidden, setHidden] = useState(false)
 
   const handleClose = (e) => {
     e.preventDefault()

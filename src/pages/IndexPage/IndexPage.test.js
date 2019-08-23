@@ -2,13 +2,15 @@ import React from 'react'
 import { IndexPage } from './IndexPage'
 jest.mock('components/TopContainer/TopContainer', () => {
   return (props) => {
-    return <div className='mock-c-topcontainer'>
-      {props.children}
-    </div>
+    return (
+      <div className='mock-c-topcontainer'>
+        {props.children}
+      </div>
+    )
   }
 })
 jest.mock('components/Dashboard/Dashboard', () => {
-  return () => <div className='mock-c-dashboard'/>
+  return () => <div className='mock-c-dashboard' />
 })
 
 describe('pages/IndexPage', () => {
@@ -19,13 +21,13 @@ describe('pages/IndexPage', () => {
   }
 
   it('Renders', () => {
-     wrapper = mount(<IndexPage {...initialMockProps} />)
-     expect(wrapper.isEmptyRender()).toBeFalsy()
-     expect(wrapper).toMatchSnapshot()
+    wrapper = mount(<IndexPage {...initialMockProps} />)
+    expect(wrapper.isEmptyRender()).toBeFalsy()
+    expect(wrapper).toMatchSnapshot()
   })
 
   it('IndexPage has proper HTML structure', () => {
-    wrapper = mount(<IndexPage {...initialMockProps}/>)
+    wrapper = mount(<IndexPage {...initialMockProps} />)
     expect(wrapper.exists('.p-indexPage')).toBeTruthy()
     expect(wrapper.exists('.mock-c-dashboard')).toBeTruthy()
   })
