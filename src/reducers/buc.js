@@ -19,9 +19,7 @@ export const initialBucState = {
   mode: 'buclist',
   rinaId: undefined,
   tagList: undefined,
-  update: undefined,
-  websocketLastChange: undefined,
-  websocketList: []
+  update: undefined
 }
 
 const bucReducer = (state = initialBucState, action) => {

@@ -71,3 +71,5 @@ export const PDF_GENERATE_URL = PDF_URL + '/generate'
 // Login
 export const LOGIN_URL = FRONTEND_API_URL + '/login'
 export const LOGOUT_URL = 'https://loginservice-q.nav.no/slo'
+
+export const WEBSOCKET_LOCALHOST_URL = 'ws://localhost:8080/bucUpdate'
