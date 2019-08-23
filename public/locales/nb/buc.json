@@ -167,6 +167,8 @@
   "p4000-country"                 : "Land",
   "p4000-deletePeriod"            : "Slett periode",
   "p4000-description"             : "Angi opplysninger relatert til tilbakelagte perioder i EØS-land",
+  "p4000-fileFound"               : "P4000 fil med brukers informasjon funnet",
+  "p4000-fileNotFound"            : "P4000 fil ikke funnet",
   "p4000-home-title"              : "Bosted i gjeldende periode",
   "p4000-info-on-help-icon"       : "Trykk på spørsmålstegnet hvis du lurer på hva som må fylles inn eller trenger mer informasjon",
   "p4000-insurance-title"         : "Institusjon eller trygdeordning",
