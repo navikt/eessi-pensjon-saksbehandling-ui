@@ -118,7 +118,7 @@ export const SEDStart = (props) => {
   const bucHasSedsWithAtLeastOneInstitution = () => {
     if (buc.seds) {
       return _(buc.seds).find(sed => {
-         return _.isArray(sed.participants) && !_.isEmpty(sed.participants)
+        return _.isArray(sed.participants) && !_.isEmpty(sed.participants)
       }) !== undefined
     }
     return false
@@ -191,7 +191,7 @@ export const SEDStart = (props) => {
 
   const allowedToForward = () => {
     if (step === 0) {
-       return _sed && _.isEmpty(validation) &&
+      return _sed && _.isEmpty(validation) &&
        (bucHasSedsWithAtLeastOneInstitution() || !_.isEmpty(_institutions)) &&
        !loading.creatingSed && !sendingAttachments &&
        (sedNeedsVedtakId() ? _.isNumber(_vedtakId) && !_.isNaN(_vedtakId) : true)

@@ -3,7 +3,6 @@ import Step1 from './Step1'
 import sampleBucs from 'resources/tests/sampleBucs'
 
 describe('applications/BUC/components/SEDStart/Step1', () => {
-
   let wrapper
 
   const bucReducer = (currentBucs, newBuc) => {
@@ -27,7 +26,7 @@ describe('applications/BUC/components/SEDStart/Step1', () => {
     setCountries: jest.fn(),
     setInstitutions: jest.fn(),
     sedList: ['P2000', 'P4000'],
-    sedNeedsVedtakId: () => {return false},
+    sedNeedsVedtakId: () => { return false },
     setSed: jest.fn(),
     setValidation: jest.fn(),
     setVedtakId: jest.fn(),

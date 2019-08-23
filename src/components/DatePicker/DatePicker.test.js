@@ -2,13 +2,12 @@ import React from 'react'
 import DatePicker from './DatePicker'
 
 describe('components/DatePicker', () => {
-
   let wrapper
-  let initialMockProps = {
+  const initialMockProps = {
     ids: {
       day: 'mock-day-id',
       month: 'mock-month-id',
-      year: 'mock-year-id',
+      year: 'mock-year-id'
     },
     onChange: jest.fn()
   }
@@ -24,7 +23,7 @@ describe('components/DatePicker', () => {
 
   it('Correctly validates day', () => {
     wrapper.find('.DatePickerDayInput .skjemaelement__input').hostNodes().simulate('change', { target: { value: 'DD' } })
-    expect(initialMockProps.onChange).toHaveBeenCalledWith({day: 'DD'})
+    expect(initialMockProps.onChange).toHaveBeenCalledWith({ day: 'DD' })
     expect(wrapper.exists('.DatePickerDayInput .skjemaelement__input--harFeil')).toBeTruthy()
 
     wrapper.find('.DatePickerDayInput .skjemaelement__input').hostNodes().simulate('change', { target: { value: '-1' } })
@@ -45,7 +44,7 @@ describe('components/DatePicker', () => {
 
     initialMockProps.onChange.mockReset()
     wrapper.find('.DatePickerMonthInput .skjemaelement__input').hostNodes().simulate('change', { target: { value: '4' } })
-    expect(initialMockProps.onChange).toHaveBeenCalledWith({day: '31', month: '4'})
+    expect(initialMockProps.onChange).toHaveBeenCalledWith({ day: '31', month: '4' })
     expect(wrapper.exists('.DatePickerDayInput .skjemaelement__input--harFeil')).toBeTruthy()
 
     wrapper.find('.DatePickerDayInput .skjemaelement__input').hostNodes().simulate('change', { target: { value: '29' } })
@@ -63,7 +62,7 @@ describe('components/DatePicker', () => {
 
   it('Correctly validates month', () => {
     wrapper.find('.DatePickerMonthInput .skjemaelement__input').hostNodes().simulate('change', { target: { value: 'MM' } })
-    expect(initialMockProps.onChange).toHaveBeenCalledWith({month: 'MM'})
+    expect(initialMockProps.onChange).toHaveBeenCalledWith({ month: 'MM' })
     expect(wrapper.exists('.DatePickerMonthInput .skjemaelement__input--harFeil')).toBeTruthy()
 
     wrapper.find('.DatePickerMonthInput .skjemaelement__input').hostNodes().simulate('change', { target: { value: '-1' } })
@@ -84,7 +83,7 @@ describe('components/DatePicker', () => {
 
   it('Correctly validates year', () => {
     wrapper.find('.DatePickerYearInput .skjemaelement__input').hostNodes().simulate('change', { target: { value: 'YYYY' } })
-    expect(initialMockProps.onChange).toHaveBeenCalledWith({year: 'YYYY'})
+    expect(initialMockProps.onChange).toHaveBeenCalledWith({ year: 'YYYY' })
     expect(wrapper.exists('.DatePickerYearInput .skjemaelement__input--harFeil')).toBeTruthy()
 
     wrapper.find('.DatePickerYearInput .skjemaelement__input').hostNodes().simulate('change', { target: { value: '0' } })
