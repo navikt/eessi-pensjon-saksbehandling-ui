@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import PT from 'prop-types'
 import { connect, bindActionCreators } from 'store'
 import _ from 'lodash'
 import Step1 from './Step1'
@@ -10,7 +11,7 @@ import * as storageActions from 'actions/storage'
 import { getDisplayName } from 'utils/displayName'
 import PInfoUtil from 'applications/BUC/components/SEDP4000/Util'
 
-export const mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
   return {
     attachments: state.buc.attachments,
     buc: state.buc.buc,
@@ -30,17 +31,17 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators({ ...storageActions, ...bucActions, ...uiActions }, dispatch) }
 }
 
-const SEDStart = (props) => {
-  const { actions, aktoerId, avdodfnr, attachments, bucs, bucsInfoList, countryList, currentBuc, institutionList } = props
-  const { loading, p4000info, sakId, sed, t, vedtakId } = props
+export const SEDStart = (props) => {
+  const { actions, aktoerId, avdodfnr, attachments, bucs, bucsInfoList, countryList, currentBuc } = props
+  const { initialAttachments = {}, initialStep = 0, institutionList, loading, p4000info, sakId, sed, t, vedtakId } = props
 
   const [_sed, setSed] = useState(undefined)
   const [_institutions, setInstitutions] = useState([])
   const [_countries, setCountries] = useState([])
   const [_vedtakId, setVedtakId] = useState(parseInt(vedtakId, 10))
-  const [_attachments, setAttachments] = useState({})
+  const [_attachments, setAttachments] = useState(initialAttachments)
 
-  const [step, setStep] = useState(0)
+  const [step, setStep] = useState(initialStep)
   const [validation, setValidation] = useState({})
   const [showButtons, setShowButtons] = useState(true)
 
@@ -56,7 +57,9 @@ const SEDStart = (props) => {
     }
   }, [actions, countryList, loading])
 
-  useEffect(() => { actions.getSedList(buc) }, [])
+  useEffect(() => {
+    actions.getSedList(buc)
+  }, [])
 
   useEffect(() => {
     if (sed && !sedSent) {
@@ -110,6 +113,15 @@ const SEDStart = (props) => {
 
   if (_.isEmpty(bucs) || !currentBuc) {
     return null
+  }
+
+  const bucHasSedsWithAtLeastOneInstitution = () => {
+    if (buc.seds) {
+      return _(buc.seds).find(sed => {
+         return _.isArray(sed.participants) && !_.isEmpty(sed.participants)
+      }) !== undefined
+    }
+    return false
   }
 
   const sedNeedsVedtakId = () => {
@@ -179,7 +191,8 @@ const SEDStart = (props) => {
 
   const allowedToForward = () => {
     if (step === 0) {
-      return _sed && _.isEmpty(validation) && !_.isEmpty(_institutions) &&
+       return _sed && _.isEmpty(validation) &&
+       (bucHasSedsWithAtLeastOneInstitution() || !_.isEmpty(_institutions)) &&
        !loading.creatingSed && !sendingAttachments &&
        (sedNeedsVedtakId() ? _.isNumber(_vedtakId) && !_.isNaN(_vedtakId) : true)
     }
@@ -245,6 +258,25 @@ const SEDStart = (props) => {
       ) : null}
     </Row>
   )
+}
+
+SEDStart.propTypes = {
+  actions: PT.object.isRequired,
+  aktoerId: PT.string.isRequired,
+  avdodfnr: PT.string,
+  attachments: PT.array,
+  bucs: PT.object.isRequired,
+  bucsInfoList: PT.object,
+  countryList: PT.array,
+  currentBuc: PT.string.isRequired,
+  initialAttachments: PT.object,
+  institutionList: PT.object,
+  loading: PT.object.isRequired,
+  p4000info: PT.object,
+  sakId: PT.string.isRequired,
+  sed: PT.object,
+  t: PT.func.isRequired,
+  vedtakId: PT.string
 }
 
 const ConnectedSEDStart = connect(mapStateToProps, mapDispatchToProps)(SEDStart)
