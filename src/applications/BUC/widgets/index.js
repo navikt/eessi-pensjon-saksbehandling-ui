@@ -8,10 +8,10 @@ import BUCList from 'applications/BUC/widgets/BUCList/BUCList'
 import BUCNew from 'applications/BUC/widgets/BUCNew/BUCNew'
 import SEDNew from 'applications/BUC/widgets/SEDNew/SEDNew'
 import BUCEdit from 'applications/BUC/widgets/BUCEdit/BUCEdit'
+import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import { Knapp, Input } from 'components/Nav'
 import { getDisplayName } from 'utils/displayName'
-import { connectToWebSocket } from 'utils/websocket'
 
 import './index.css'
 
@@ -50,33 +50,7 @@ const mapDispatchToProps = (dispatch) => {
 export const BUCWidgetIndex = (props) => {
   const { actions, aktoerId, bucs, currentBuc, loading, mode, rinaUrl, sakId, t, waitForMount = true, sakType, avdodfnr } = props
   const [mounted, setMounted] = useState(!waitForMount)
-  const [websocketConnection, setWebsocketConnection] = useState(undefined)
-  const [websocketReady, setWebsocketReady] = useState(false)
   const [_avdodfnr, setAvdodfnr] = useState('')
-
-  const onBucUpdate = (e) => {
-    try {
-      const data = JSON.parse(e.data)
-      if (data.bucUpdated) {
-        actions.fetchSingleBuc(data.bucUpdated)
-      }
-    } catch (err) {
-      console.error('Invalid JSON', e.data)
-    }
-  }
-
-  useEffect(() => {
-    if (!websocketConnection) {
-      setWebsocketConnection(
-        connectToWebSocket(
-          () => setWebsocketReady(true),
-          onBucUpdate,
-          () => setWebsocketReady(false),
-          () => setWebsocketReady(false)
-        )
-      )
-    }
-  }, [websocketReady])
 
   useEffect(() => {
     if (!mounted && !rinaUrl) {
@@ -118,6 +92,7 @@ export const BUCWidgetIndex = (props) => {
           currentBuc={currentBuc}
           mode={mode}
         />
+        <BUCWebSocket actions={actions} />
       </div>
       {sakType === 'Gjenlevendeytelse' && !avdodfnr
         ? (
