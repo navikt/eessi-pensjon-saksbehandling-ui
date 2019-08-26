@@ -24,6 +24,7 @@ const mapStateToProps = (state) => {
     currentBuc: state.buc.currentBuc,
     mode: state.buc.mode,
     bucs: state.buc.bucs,
+    avdodBucs: state.buc.avdodBucs,
     subjectAreaList: state.buc.subjectAreaList,
     bucList: state.buc.bucList,
     tagList: state.buc.tagList,
@@ -48,9 +49,10 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export const BUCWidgetIndex = (props) => {
-  const { actions, aktoerId, bucs, currentBuc, loading, mode, rinaUrl, sakId, t, waitForMount = true, sakType, avdodfnr } = props
+  const { actions, aktoerId, avdodBucs, bucs, currentBuc, loading, mode, rinaUrl, sakId, t, waitForMount = true, sakType, avdodfnr } = props
   const [mounted, setMounted] = useState(!waitForMount)
   const [_avdodfnr, setAvdodfnr] = useState('')
+  const combinedBucs = { ...avdodBucs, ...bucs }
 
   useEffect(() => {
     if (!mounted && !rinaUrl) {
@@ -67,7 +69,7 @@ export const BUCWidgetIndex = (props) => {
   }, [actions, aktoerId, sakId])
 
   useEffect(() => {
-    if (avdodfnr && sakId && !loading.gettingAvdodBUCs) {
+    if (avdodfnr && sakId && avdodBucs === undefined && !loading.gettingAvdodBUCs) {
       actions.fetchAvdodBucs(avdodfnr)
     }
   }, [actions, avdodfnr, sakId])
@@ -88,7 +90,7 @@ export const BUCWidgetIndex = (props) => {
         <BUCCrumbs
           actions={actions}
           t={t}
-          bucs={bucs}
+          bucs={combinedBucs}
           currentBuc={currentBuc}
           mode={mode}
         />
@@ -102,10 +104,10 @@ export const BUCWidgetIndex = (props) => {
           </div>
         )
         : null}
-      {mode === 'buclist' ? <BUCList {...props} /> : null}
-      {mode === 'bucedit' ? <BUCEdit {...props} /> : null}
-      {mode === 'bucnew' ? <BUCNew {...props} /> : null}
-      {mode === 'sednew' ? <SEDNew {...props} /> : null}
+      {mode === 'buclist' ? <BUCList {...props} bucs={combinedBucs} /> : null}
+      {mode === 'bucedit' ? <BUCEdit {...props} bucs={combinedBucs} /> : null}
+      {mode === 'bucnew' ? <BUCNew {...props} bucs={combinedBucs} /> : null}
+      {mode === 'sednew' ? <SEDNew {...props} bucs={combinedBucs} /> : null}
 
     </div>
   )
