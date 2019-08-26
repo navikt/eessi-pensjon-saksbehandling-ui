@@ -4,8 +4,6 @@ import classNames from 'classnames'
 import Icons from 'components/Icons'
 import { WEBSOCKET_LOCALHOST_URL } from 'constants/urls'
 
-import './WebSocket.css'
-
 const NOTCONNECTED = 'NOTCONNECTED'
 const CONNECTING = 'CONNECTING'
 const CONNECTED = 'CONNECTED'
