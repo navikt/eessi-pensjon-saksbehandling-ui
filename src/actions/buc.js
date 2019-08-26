@@ -65,6 +65,18 @@ export const fetchBucs = (aktoerId) => {
   })
 }
 
+export const fetchAvdodBucs = (aktoerId) => {
+  return api.funcCall({
+    url: sprintf(urls.BUC_AKTOERID_DETALJER_URL, { aktoerId: aktoerId }),
+    expectedPayload: sampleBucs,
+    type: {
+      request: types.BUC_GET_AVDOD_BUCS_REQUEST,
+      success: types.BUC_GET_AVDOD_BUCS_SUCCESS,
+      failure: types.BUC_GET_AVDOD_BUCS_FAILURE
+    }
+  })
+}
+
 export const fetchBucsInfoList = (aktoerId) => {
   return api.funcCall({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: 'BUC' }),

@@ -81,6 +81,13 @@ const appReducer = (state = initialAppState, action = {}) => {
       }
     }
 
+    case types.APP_SAKTYPE_FAILURE: {
+      return {
+        ...state,
+        params: { ...state.params, sakType: 'Unknown' }
+      }
+    }
+
     default:
       return state
   }
