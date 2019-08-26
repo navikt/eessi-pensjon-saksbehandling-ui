@@ -7,8 +7,8 @@ import _ from 'lodash'
 
 import './Widget.css'
 
-const WidgetAdd = (props) => {
-  const { connectDragPreview, connectDragSource, widget } = props
+export const WidgetAdd = (props) => {
+  const { connectDragPreview, connectDragSource, isDragging, widget } = props
   const [mounted, setMounted] = useState(false)
   const [mouseOver, setMouseOver] = useState(false)
 
@@ -26,34 +26,36 @@ const WidgetAdd = (props) => {
   }, [mounted, connectDragPreview])
 
   return (
-    <div>
-      <div
-        className={classNames('c-d-widgetAdd', {
-          selected: props.isDragging,
-          hover: mouseOver
-        })}
-        onMouseEnter={() => setMouseOver(true)}
-        onMouseLeave={() => setMouseOver(false)}
-        title={widget.description}
-        ref={connectDragSource}
-      >
-        <div className='p-2 content'>
-          <h6>{widget.title}</h6>
-          <p><small>{widget.description}</small></p>
-        </div>
+    <div
+      className={classNames('c-d-widgetAdd', {
+        selected: isDragging,
+        hover: mouseOver
+      })}
+      onMouseEnter={() => setMouseOver(true)}
+      onMouseLeave={() => setMouseOver(false)}
+      title={widget.description}
+      ref={connectDragSource}
+    >
+      <div className='p-2 content'>
+        <h6 className='c-d-widgetAdd__title'>{widget.title}</h6>
+        <p className='c-d-widgetAdd__description'>
+          <small>{widget.description}</small>
+        </p>
       </div>
     </div>
   )
 }
 
 WidgetAdd.propTypes = {
+  connectDragPreview: PT.func.isRequired,
+  connectDragSource: PT.object,
+  isDragging: PT.bool,
   widget: PT.object.isRequired
 }
 
 const WidgetAddDragSource = DragSource(
   'newWidget', {
     beginDrag: (props) => {
-      // console.log('WidgetAdd: BeginDrag')
       const newId = 'w-' + new Date().getTime() + '-' + props.widget.type
       // create new Widget from template
       props.setWidgets(props.widgets.concat({
@@ -69,7 +71,6 @@ const WidgetAddDragSource = DragSource(
       }
     },
     endDrag: (props, monitor) => {
-      // console.log('WidgetAdd: EndDrag')
       const item = monitor.getItem()
       const dropResult = monitor.getDropResult()
       // if drag was not successful, clean up

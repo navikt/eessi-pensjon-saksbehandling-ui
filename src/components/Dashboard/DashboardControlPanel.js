@@ -1,34 +1,48 @@
 import React from 'react'
+import PT from 'prop-types'
 import DashboardConfig from './Config/DashboardConfig'
 
 const DashboardControlPanel = (props) => {
+
+  const { addMode, currentBreakpoint, editMode, onAddChange, onCancelEdit, onEditModeOn, onSaveEdit, t } = props
+
   return (
-    <div className='c-d-dashboardControlPanel pt-2 pb-0 pr-4 pl-4'>
+    <div className='c-dashboard__controlPanel pt-2 pb-0 pr-4 pl-4'>
       <div className='d-inline-block'>
-        {props.editMode
-          ? props.addMode ? props.t('ui:dashboard-dragNewWidgets') : props.t('ui:dashboard-arrangeWidgets')
+        {editMode
+          ? addMode ? t('ui:dashboard-dragNewWidgets') : t('ui:dashboard-arrangeWidgets')
           : null}
       </div>
-      <div className='c-d-dashboardControlPanel-buttons'>
-        {props.editMode ? (
+      <div className='c-dashboard__controlPanel-buttons'>
+        {editMode ? (
           <button
-            className='c-d-dashboardControlPanel-button mr-2'
-            onClick={props.onAddChange}
+            id='c-dashboard__controlPanel-add-button-id'
+            className='c-dashboard__controlPanel-add-button mr-2'
+            onClick={onAddChange}
           >
-            {!props.addMode ? props.t('ui:dashboard-addNewWidgets') : props.t('ui:dashboard-hideNewWidgets')}
+            {!addMode ? t('ui:dashboard-addNewWidgets') : t('ui:dashboard-hideNewWidgets')}
           </button>
         ) : null}
-        {!props.editMode ? (
-          <button onClick={props.onEditModeOn}>
-            {props.t('ui:dashboard-editDashboard')}
+        {!editMode ? (
+          <button
+            id='c-dashboard__controlPanel-edit-button-id'
+            className='c-dashboard__controlPanel-edit-button'
+            onClick={onEditModeOn}>
+            {t('ui:dashboard-editDashboard')}
           </button>
         ) : (
           <>
-            <button className='mr-2' onClick={props.onSaveEdit}>
-              {props.t('ui:dashboard-saveChanges')}
+            <button
+              id='c-dashboard__controlPanel-save-button-id'
+              className='c-dashboard__controlPanel-save-button mr-2'
+              onClick={onSaveEdit}>
+              {t('ui:dashboard-saveChanges')}
             </button>
-            <button className='mr-2' onClick={props.onCancelEdit}>
-              {props.t('ui:dashboard-cancelChanges')}
+            <button
+              id='c-dashboard__controlPanel-cancel-button-id'
+              className='c-dashboard__controlPanel-cancel-button mr-2'
+              onClick={onCancelEdit}>
+              {t('ui:dashboard-cancelChanges')}
             </button>
           </>
         )}
@@ -37,6 +51,16 @@ const DashboardControlPanel = (props) => {
   )
 }
 
-DashboardControlPanel.defaultProps = DashboardConfig
+DashboardControlPanel.propTypes = {
+  addMode: PT.bool.isRequired,
+  currentBreakpoint: PT.string.isRequired,
+  editMode: PT.bool.isRequired,
+  onAddChange: PT.func.isRequired,
+  onCancelEdit: PT.func.isRequired,
+  onEditModeOn: PT.func.isRequired,
+  onSaveEdit: PT.func.isRequired,
+  t: PT.func.isRequired
+}
 
+DashboardControlPanel.defaultProps = DashboardConfig
 export default DashboardControlPanel

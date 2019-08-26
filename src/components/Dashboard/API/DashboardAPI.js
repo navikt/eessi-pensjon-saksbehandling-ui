@@ -1,7 +1,7 @@
 /* global localStorage */
 
-import defaultWidgets from '../Config/DefaultWidgets'
-import defaultLayouts from '../Config/DefaultLayout'
+import defaultWidgets from 'components/Dashboard/Config/DefaultWidgets'
+import defaultLayouts from 'components/Dashboard/Config/DefaultLayout'
 
 export async function loadDashboard () {
   let layouts = await localStorage.getItem('c-d-layouts')
@@ -17,5 +17,5 @@ export async function saveDashboard (widgets, layouts) {
 }
 
 export async function loadAvailableWidgets () {
-  return require('../Config/AvailableWidgets').default
+  return require('components/Dashboard/Config/AvailableWidgets').default
 }
