@@ -7,6 +7,7 @@ export const initialLoadingState = {
   deletingStorageFile: false,
   generatingPDF: false,
   gettingBUCs: false,
+  gettingAvdodBUCs: false,
   gettingBucList: false,
   gettingBUCinfo: false,
   gettingCountryList: false,
@@ -145,6 +146,23 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
       return {
         ...state,
         gettingBUCs: false,
+        status: status
+      }
+
+    case types.BUC_GET_AVDOD_BUCS_REQUEST:
+
+      return {
+        ...state,
+        gettingAvdodBUCs: true,
+        status: status
+      }
+
+    case types.BUC_GET_AVDOD_BUCS_SUCCESS:
+    case types.BUC_GET_AVDOD_BUCS_FAILURE:
+
+      return {
+        ...state,
+        gettingAvdodBUCs: false,
         status: status
       }
 
