@@ -3,6 +3,7 @@ import _ from 'lodash'
 
 export const initialBucState = {
   attachments: undefined,
+  avdodBucs: undefined,
   bucs: undefined,
   bucsInfoList: undefined,
   bucsInfo: undefined,
@@ -57,19 +58,21 @@ const bucReducer = (state = initialBucState, action) => {
       }
 
     case types.BUC_GET_SINGLE_BUC_SUCCESS: {
-      return !action.payload.caseId
+      if (!action.payload.caseId || !action.payload.type) { return state }
+      const key = action.payload.type === 'P_BUC_03' ? 'avdodBucs' : 'bucs'
+
+      return !action.payload.caseId || !action.payload.type
         ? state
         : {
           ...state,
-          bucs: {
-            ...state.bucs,
+          [key]: {
+            ...state[key],
             [action.payload.caseId]: action.payload
           }
         }
     }
 
-    case types.BUC_GET_BUCS_SUCCESS:
-    case types.BUC_GET_AVDOD_BUCS_SUCCESS: {
+    case types.BUC_GET_BUCS_SUCCESS: {
       const bucReducer = (currentBucs, newBuc) => {
         currentBucs[newBuc.caseId] = newBuc
         return currentBucs
@@ -86,11 +89,31 @@ const bucReducer = (state = initialBucState, action) => {
     }
 
     case types.BUC_GET_BUCS_FAILURE:
-    case types.BUC_GET_AVDOD_BUCS_FAILURE:
-
       return {
         ...state,
         bucs: null
+      }
+
+    case types.BUC_GET_AVDOD_BUCS_SUCCESS: {
+      const bucReducer = (currentBucs, newBuc) => {
+        currentBucs[newBuc.caseId] = newBuc
+        return currentBucs
+      }
+
+      if (!_.isArray(action.payload)) {
+        return state
+      }
+
+      return {
+        ...state,
+        avdodBucs: action.payload.reduce(bucReducer, state.avdodBucs || {})
+      }
+    }
+
+    case types.BUC_GET_AVDOD_BUCS_FAILURE:
+      return {
+        ...state,
+        avdodBucs: null
       }
 
     case types.BUC_GET_BUCSINFO_LIST_SUCCESS:
@@ -176,19 +199,21 @@ const bucReducer = (state = initialBucState, action) => {
         rinaId: undefined
       }
 
-    case types.BUC_CREATE_BUC_SUCCESS:
+    case types.BUC_CREATE_BUC_SUCCESS: {
+      const key = action.payload.type === 'P_BUC_03' ? 'avdodBucs' : 'bucs'
 
       return {
         ...state,
         currentBuc: action.payload.caseId,
-        bucs: {
-          ...state.bucs,
+        [key]: {
+          ...state[key],
           [action.payload.caseId]: action.payload
         },
         mode: 'bucedit',
         sed: undefined,
         attachments: undefined
       }
+    }
 
     case types.BUC_SAVE_BUCSINFO_SUCCESS:
       return {

@@ -14,7 +14,6 @@ import PInfoUtil from 'applications/BUC/components/SEDP4000/Util'
 const mapStateToProps = (state) => {
   return {
     attachments: state.buc.attachments,
-    buc: state.buc.buc,
     bucsInfoList: state.buc.bucsInfoList,
     countryList: state.buc.countryList,
     institutionList: state.buc.institutionList,
