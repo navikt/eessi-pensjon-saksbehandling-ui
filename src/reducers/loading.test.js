@@ -29,21 +29,6 @@ describe('reducers/loading', () => {
     return simulate(type, param, true, 'ERROR')
   }
 
-  const simulateNullFailure = (type, param) => {
-    return expect(
-      loadingReducer({
-        ...initialLoadingState,
-        [param]: true
-      }, {
-        type: type
-      })
-    ).toEqual({
-      ...initialLoadingState,
-      [param]: null,
-      status: 'ERROR'
-    })
-  }
-
   it('SOMETHING_ERROR', () => {
     expect(
       loadingReducer({}, {
@@ -113,7 +98,7 @@ describe('reducers/loading', () => {
   })
 
   it('BUC_GET_BUCS_FAILURE', () => {
-    simulateNullFailure(types.BUC_GET_BUCS_FAILURE, 'gettingBUCs')
+    simulateFailure(types.BUC_GET_BUCS_FAILURE, 'gettingBUCs')
   })
 
   it('BUC_GET_AVDOD_BUCS_REQUEST', () => {
@@ -125,7 +110,7 @@ describe('reducers/loading', () => {
   })
 
   it('BUC_GET_AVDOD_BUCS_FAILURE', () => {
-    simulateNullFailure(types.BUC_GET_AVDOD_BUCS_FAILURE, 'gettingAvdodBUCs')
+    simulateFailure(types.BUC_GET_AVDOD_BUCS_FAILURE, 'gettingAvdodBUCs')
   })
 
   it('BUC_GET_BUCSINFO_REQUEST', () => {
