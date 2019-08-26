@@ -68,7 +68,8 @@ const bucReducer = (state = initialBucState, action) => {
         }
     }
 
-    case types.BUC_GET_BUCS_SUCCESS: {
+    case types.BUC_GET_BUCS_SUCCESS:
+    case types.BUC_GET_AVDOD_BUCS_SUCCESS: {
       const bucReducer = (currentBucs, newBuc) => {
         currentBucs[newBuc.caseId] = newBuc
         return currentBucs
@@ -85,6 +86,7 @@ const bucReducer = (state = initialBucState, action) => {
     }
 
     case types.BUC_GET_BUCS_FAILURE:
+    case types.BUC_GET_AVDOD_BUCS_FAILURE:
 
       return {
         ...state,

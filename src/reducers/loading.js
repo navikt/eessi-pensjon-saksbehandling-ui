@@ -141,11 +141,16 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
       }
 
     case types.BUC_GET_BUCS_SUCCESS:
-    case types.BUC_GET_BUCS_FAILURE:
-
       return {
         ...state,
         gettingBUCs: false,
+        status: status
+      }
+
+    case types.BUC_GET_BUCS_FAILURE:
+      return {
+        ...state,
+        gettingBUCs: null,
         status: status
       }
 
@@ -158,11 +163,16 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
       }
 
     case types.BUC_GET_AVDOD_BUCS_SUCCESS:
-    case types.BUC_GET_AVDOD_BUCS_FAILURE:
-
       return {
         ...state,
         gettingAvdodBUCs: false,
+        status: status
+      }
+
+    case types.BUC_GET_AVDOD_BUCS_FAILURE:
+      return {
+        ...state,
+        gettingAvdodBUCs: null,
         status: status
       }
 
