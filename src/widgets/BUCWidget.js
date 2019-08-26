@@ -39,7 +39,7 @@ BUCWidget.properties = {
 }
 
 BUCWidget.propTypes = {
-  onResize: PT.func.isRequired
+  onResize: PT.func
 }
 
 export default BUCWidget

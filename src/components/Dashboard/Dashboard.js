@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import PT from 'prop-types'
 import _ from 'lodash'
 import { DndProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
@@ -9,6 +10,7 @@ import DashboardGrid from './DashboardGrid'
 import DashboardControlPanel from './DashboardControlPanel'
 import DashboardConfig from './Config/DashboardConfig'
 import * as DashboardAPI from './API/DashboardAPI'
+import { Normaltekst, NavFrontendSpinner } from 'components/Nav'
 
 import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
@@ -16,7 +18,9 @@ import './Dashboard.css'
 
 const dragApi = createDragApiRef()
 
-const Dashboard = (props) => {
+export const Dashboard = (props) => {
+
+  const { t } = props
   const [editMode, setEditMode] = useState(false)
   const [addMode, setAddMode] = useState(false)
   const [mounted, setMounted] = useState(false)
@@ -90,11 +94,16 @@ const Dashboard = (props) => {
   }
 
   if (!mounted) {
-    return <div>Wait</div>
+    return (
+      <div className='c-dashboard__loading text-center' style={{ paddingTop: '3rem' }}>
+        <NavFrontendSpinner />
+        <Normaltekst>{t('ui:loading')}</Normaltekst>
+      </div>
+    )
   }
 
   return (
-    <div className='c-d-dashboard'>
+    <div className='c-dashboard'>
       <DndProvider backend={HTML5Backend}>
         <DashboardControlPanel
           currentBreakpoint={currentBreakpoint}
@@ -104,7 +113,7 @@ const Dashboard = (props) => {
           onCancelEdit={onCancelEdit}
           onSaveEdit={onSaveEdit}
           onAddChange={onAddChange}
-          t={props.t}
+          t={t}
         />
         {addMode ? (
           <WidgetAddArea
@@ -112,7 +121,7 @@ const Dashboard = (props) => {
             availableWidgets={availableWidgets}
             widgets={widgets}
             setWidgets={setWidgets}
-            t={props.t}
+            t={t}
             dragApi={dragApi}
           />
         )
@@ -129,12 +138,16 @@ const Dashboard = (props) => {
           onWidgetResize={onWidgetResize}
           onWidgetDelete={onWidgetDelete}
           availableWidgets={availableWidgets}
-          t={props.t}
+          t={t}
           dragApi={dragApi}
         />
       </DndProvider>
     </div>
   )
+}
+
+Dashboard.propTypes = {
+  t: PT.func.isRequired
 }
 
 Dashboard.defaultProps = DashboardConfig

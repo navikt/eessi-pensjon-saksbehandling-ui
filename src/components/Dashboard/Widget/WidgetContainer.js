@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import PT from 'prop-types'
 import _ from 'lodash'
 import Widget from './Widget'
 
 import './Widget.css'
 
 const WidgetContainer = (props) => {
-  const { onWidgetUpdate, onWidgetResize } = props
-  const { widget, editMode, layout, rowHeight, currentBreakpoint } = props
+  const { currentBreakpoint, editMode, layout, onWidgetUpdate, onWidgetResize, rowHeight, widget } = props
 
   const [sizes, setSizes] = useState({ lg: {}, md: {}, sm: {} })
   const [mouseOver, setMouseOver] = useState(false)
@@ -50,7 +50,9 @@ const WidgetContainer = (props) => {
   }
 
   const onResize = (width, height) => {
-    if (!height || !width) { return }
+    if (!height || !width) {
+      return
+    }
     if (onWidgetResize) {
       const newLayout = _.cloneDeep(layout)
       // these 10 are padding/margin added to each h
@@ -104,6 +106,16 @@ const WidgetContainer = (props) => {
       />
     </div>
   )
+}
+
+WidgetContainer.propTypes = {
+  currentBreakpoint: PT.string.isRequired,
+  editMode: PT.bool.isRequired,
+  layout: PT.object.isRequired,
+  onWidgetUpdate: PT.func.isRequired,
+  onWidgetResize: PT.func.isRequired,
+  rowHeight: PT.number.isRequired,
+  widget: PT.object.isRequired
 }
 
 export default WidgetContainer

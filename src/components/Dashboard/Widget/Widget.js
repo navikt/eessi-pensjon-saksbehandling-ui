@@ -1,18 +1,21 @@
 import React from 'react'
+import PT from 'prop-types'
 import WidgetEdit from './WidgetEdit'
 import WidgetDelete from './WidgetDelete'
 import * as Widgets from 'widgets'
 
 const Widget = (props) => {
-  if (props.mode === 'edit') {
+
+  const { mode, t, widget } = props
+  if (mode === 'edit') {
     return <WidgetEdit {...props} />
   }
 
-  if (props.mode === 'delete') {
+  if (mode === 'delete') {
     return <WidgetDelete {...props} />
   }
 
-  switch (props.widget.type) {
+  switch (widget.type) {
     case 'ekspandertbart':
       return <Widgets.EkspandertBartWidget {...props} />
     case 'varsler':
@@ -32,8 +35,14 @@ const Widget = (props) => {
     case 'buc':
       return <Widgets.BUCWidget {...props} />
     default:
-      return <div>{props.t('ui:dashboard-noWidgetForType', { type: props.widget.type })}</div>
+      return <div>{t('ui:dashboard-noWidgetForType', { type: widget.type })}</div>
   }
+}
+
+Widget.propTypes ={
+  mode: PT.string,
+  t: PT.func.isRequired,
+  widget: PT.object.isRequired
 }
 
 export default Widget

@@ -1,14 +1,18 @@
 import React from 'react'
+import PT from 'prop-types'
 import KnappBase from 'nav-frontend-knapper'
 import ReactResizeDetector from 'react-resize-detector'
 
 import './Widget.css'
 
 const WidgetDelete = (props) => {
+
+  const { layout, onResize, onWidgetDelete, setMode, t } = props
+
   const onWidgetDeleteClick = (e) => {
     e.stopPropagation()
     e.preventDefault()
-    props.onWidgetDelete(props.layout)
+    onWidgetDelete(layout)
   }
 
   return (
@@ -16,28 +20,35 @@ const WidgetDelete = (props) => {
       <ReactResizeDetector
         handleWidth
         handleHeight
-        onResize={props.onResize}
+        onResize={onResize}
       />
       <div className='deleteText'>
-        <p>{props.t('dashboard-deleteWidgetAreYouSure1')}</p>
-        <p>{props.t('dashboard-deleteWidgetAreYouSure2')}</p>
+        <p>{t('dashboard-deleteWidgetAreYouSure1')}</p>
+        <p>{t('dashboard-deleteWidgetAreYouSure2')}</p>
       </div>
       <div className='buttons'>
         <KnappBase
           type='hoved'
           onClick={onWidgetDeleteClick}
         >
-          {props.t('ui:yes') + ', ' + props.t('ui:delete')}
+          {t('ui:yes') + ', ' + t('ui:delete')}
         </KnappBase>
         <KnappBase
           type='flat'
-          onClick={() => props.setMode('edit')}
+          onClick={() => setMode('edit')}
         >
-          {props.t('ui:no') + ', ' + props.t('ui:cancel')}
+          {t('ui:no') + ', ' + t('ui:cancel')}
         </KnappBase>
       </div>
     </div>
   )
 }
 
+WidgetDelete.propTypes = {
+  layout: PT.object.isRequired,
+  onResize: PT.func.isRequired,
+  onWidgetDelete: PT.func.isRequired,
+  setMode: PT.func.isRequired,
+  t: PT.func.isRequired
+}
 export default WidgetDelete

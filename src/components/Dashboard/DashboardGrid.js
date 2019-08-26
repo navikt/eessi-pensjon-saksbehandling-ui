@@ -1,4 +1,5 @@
 import React from 'react'
+import PT from 'prop-types'
 import _ from 'lodash'
 import { Responsive, WidthProvider } from 'react-grid-layout'
 import { DropTarget } from 'react-dnd'
@@ -8,12 +9,16 @@ import DashboardConfig from './Config/DashboardConfig'
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive)
 
-const DashboardGrid = (props) => {
-  return props.connectDropTarget(
+export const DashboardGrid = (props) => {
+
+  const { availableWidgets, canDrop, connectDropTarget, currentBreakpoint, dragApi, editMode, layouts, mounted } = props
+  const { onBreakpointChange, onLayoutChange, onWidgetUpdate, onWidgetResize, onWidgetDelete, rowHeight, t, widgets } = props
+
+  return (
     <div
       id='dashboardGrid'
-      className={classNames('c-d-dashboardGrid', {
-        canDrop: props.canDrop
+      className={classNames('c-dashboard__grid', {
+        canDrop: canDrop
       })}
     >
       <ResponsiveReactGridLayout
@@ -22,31 +27,31 @@ const DashboardGrid = (props) => {
         autoSize
         margin={DashboardConfig.margin}
         containerPadding={DashboardConfig.containerPadding}
-        isDraggable={props.editMode}
-        isResizable={props.editMode}
-        layouts={props.layouts}
-        onBreakpointChange={props.onBreakpointChange}
-        onLayoutChange={props.onLayoutChange}
+        isDraggable={editMode}
+        isResizable={editMode}
+        layouts={layouts}
+        onBreakpointChange={onBreakpointChange}
+        onLayoutChange={onLayoutChange}
         measureBeforeMount={false}
         useCSSTransforms={false}
         preventCollision={false}
         draggableHandle='.draggableHandle'
-        dragApiRef={props.dragApi}
+        dragApiRef={dragApi}
       >
-        {_.map(props.layouts[props.currentBreakpoint], (layout) => {
+        {_.map(layouts[currentBreakpoint], (layout) => {
           return (
             <div id={'widget-' + layout.i} key={layout.i}>
               <WidgetContainer
                 layout={layout}
-                widget={_.find(props.widgets, { i: layout.i })}
-                editMode={props.editMode}
-                currentBreakpoint={props.currentBreakpoint}
-                onWidgetResize={props.onWidgetResize}
-                onWidgetUpdate={props.onWidgetUpdate}
-                onWidgetDelete={props.onWidgetDelete}
-                rowHeight={props.rowHeight}
-                availableWidgets={props.availableWidgets}
-                t={props.t}
+                widget={_.find(widgets, { i: layout.i })}
+                editMode={editMode}
+                currentBreakpoint={currentBreakpoint}
+                onWidgetResize={onWidgetResize}
+                onWidgetUpdate={onWidgetUpdate}
+                onWidgetDelete={onWidgetDelete}
+                rowHeight={rowHeight}
+                availableWidgets={availableWidgets}
+                t={t}
               />
             </div>
           )
@@ -55,17 +60,32 @@ const DashboardGrid = (props) => {
     </div>)
 }
 
+DashboardGrid.propTypes = {
+  availableWidgets: PT.array.isRequired,
+  currentBreakpoint: PT.string.isRequired,
+  dragApi: PT.object.isRequired,
+  editMode: PT.bool.isRequired,
+  layouts: PT.object.isRequired,
+  mounted: PT.bool.isRequired,
+  onBreakpointChange: PT.func.isRequired,
+  onLayoutChange: PT.func.isRequired,
+  onWidgetUpdate: PT.func.isRequired,
+  onWidgetResize: PT.func.isRequired,
+  onWidgetDelete: PT.func.isRequired,
+  rowHeight: PT.number.isRequired,
+  t: PT.func.isRequired,
+  widgets: PT.array.isRequired
+}
+
 DashboardGrid.defaultProps = DashboardConfig
 
 const WidgetDropTarget = DropTarget(
   ['newWidget'],
   {
     canDrop: props => {
-      // console.log('DashboardGrid, canDrop')
       return true
     },
     drop: (props, monitor, component) => {
-      // console.log('DashboardGrid: drop')
       const position = monitor.getSourceClientOffset()
       // this removes placeholder, dragApi will add widget to layout
       props.dragApi.value.stop({
@@ -76,7 +96,6 @@ const WidgetDropTarget = DropTarget(
       })
     },
     hover: (props, monitor, component) => {
-      // console.log('DashboardGrid: hover')
       const hoverItem = monitor.getItem()
       const position = monitor.getSourceClientOffset()
       const dashboardPosition = {
@@ -86,14 +105,15 @@ const WidgetDropTarget = DropTarget(
 
       if (props.dragApi.value) {
         if (dashboardPosition.x < position.x && dashboardPosition.y < position.y) {
+          const widget = hoverItem.widget.layout[props.currentBreakpoint]
           props.dragApi.value.dragIn({
             i: hoverItem.newId,
-            w: hoverItem.widget.layout[props.currentBreakpoint].defaultW,
-            h: hoverItem.widget.layout[props.currentBreakpoint].defaultH,
-            minH: hoverItem.widget.layout[props.currentBreakpoint].minH,
-            maxH: hoverItem.widget.layout[props.currentBreakpoint].maxH,
-            minW: hoverItem.widget.layout[props.currentBreakpoint].minW,
-            maxW: hoverItem.widget.layout[props.currentBreakpoint].maxW,
+            w: widget.defaultW,
+            h: widget.defaultH,
+            minH: widget.minH,
+            maxH: widget.maxH,
+            minW: widget.minW,
+            maxW: widget.maxW,
             position: {
               left: position.x,
               top: position.y
