@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
+import _ from 'lodash'
 import classNames from 'classnames'
 import Icons from 'components/Icons'
 import { WEBSOCKET_LOCALHOST_URL } from 'constants/urls'
