@@ -4,6 +4,8 @@ import classNames from 'classnames'
 import Icons from 'components/Icons'
 import { WEBSOCKET_LOCALHOST_URL } from 'constants/urls'
 
+import './WebSocket.css'
+
 const NOTCONNECTED = 'NOTCONNECTED'
 const CONNECTING = 'CONNECTING'
 const CONNECTED = 'CONNECTED'
@@ -11,31 +13,40 @@ const RECEIVING = 'RECEIVING'
 const ERROR = 'ERROR'
 
 const BucWebSocket = (props) => {
-  const { actions } = props
+  const { actions, aktoerId } = props
   const [status, setStatus] = useState(NOTCONNECTED)
   const [websocketConnection, setWebsocketConnection] = useState(undefined)
   const [websocketReady, setWebsocketReady] = useState(false)
 
   useEffect(() => {
     if (!websocketConnection) {
-      console.log('Connecting to websocket')
+      console.log('WebSocket: Connecting...')
       setWebsocketConnection(connectToWebSocket())
     }
   }, [websocketReady])
 
-  const onBucUpdate = (e) => {
-    console.log('got websocket update', e)
+  const onMessageHandler = (e) => {
+    console.log('Websocket: Got message', e)
     setStatus(RECEIVING)
     try {
       const data = JSON.parse(e.data)
       if (data.bucUpdated) {
+        console.log('Websocket: Updating buc ', data.bucUpdated)
         actions.fetchSingleBuc(data.bucUpdated)
       }
+      if (data.subscriptions) {
+        console.log('Websocket: Subscription status is ', data.subscriptions)
+      }
     } catch (err) {
-      console.error('Invalid JSON', e.data)
+      console.error('Websocket: Invalid JSON', e.data)
     } finally {
       setStatus(CONNECTED)
     }
+  }
+
+  const websocketSubscribe = (connection, aktoerId) => {
+    console.log('Websocket: subscribing to aktoerId', aktoerId)
+    connection.send('{"subscriptions": ["' + aktoerId + '"]}')
   }
 
   const connectToWebSocket = (onOpen, onMessage, onClose, onError) => {
@@ -45,15 +56,19 @@ const BucWebSocket = (props) => {
       : WEBSOCKET_LOCALHOST_URL
     const connection = new WebSocket(webSocketURL, 'v0.Buc')
     connection.onopen = () => {
+      console.log('Websocket: Connected')
       setStatus(CONNECTED)
       setWebsocketReady(true)
+      websocketSubscribe(connection, aktoerId)
     }
-    connection.onmessage = onBucUpdate
+    connection.onmessage = onMessageHandler
     connection.onclose = () => {
+      console.log('Websocket: Closed')
       setStatus(NOTCONNECTED)
       setWebsocketReady(false)
     }
-    connection.onerror = () => {
+    connection.onerror = (e) => {
+      console.log('Websocket: Error', e)
       setStatus(ERROR)
       setWebsocketReady(false)
     }
@@ -67,15 +82,16 @@ const BucWebSocket = (props) => {
         title={'websocket: ' + status}
       >
         {status === CONNECTED ? <Icons kind='checkCircle' /> : null}
-        {status === NOTCONNECTED ? <Icons kind='removeCircle' /> : null}
-        {status === CONNECTING ? <div>...</div> : null}
+        {status === NOTCONNECTED || status === ERROR ? <Icons kind='removeCircle' /> : null}
+        {status === CONNECTING || status === RECEIVING ? <Icons kind='connecting' /> : null}
       </div>
     </div>
   )
 }
 
 BucWebSocket.propTypes = {
-  actions: PT.object.isRequired
+  actions: PT.object.isRequired,
+  aktoerId: PT.string.isRequired
 }
 
 export default BucWebSocket

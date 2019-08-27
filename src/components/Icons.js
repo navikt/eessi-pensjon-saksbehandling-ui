@@ -19,6 +19,7 @@ import { ReactComponent as StethoscopeSVG } from 'resources/images/line-version-
 import { ReactComponent as BirthdaycakeSVG } from 'resources/images/line-version-birthday-cake.svg'
 import { ReactComponent as HelpcircleSVG } from 'resources/images/line-version-help-circle.svg'
 import { ReactComponent as PiggybankSVG } from 'resources/images/line-version-piggy-bank.svg'
+import { ReactComponent as NetworkConnectingSVG } from 'resources/images/filled-version-network-connecting.svg'
 
 import Vedlegg from 'resources/images/Vedlegg'
 import Trashcan from 'resources/images/Trashcan'
@@ -90,6 +91,7 @@ const Icons = (props) => {
     case 'paperclip' : return <PaperClip {...props} />
     case 'checkCircle' : return <CheckCircle {...props} />
     case 'removeCircle' : return <RemoveCircle {...props} />
+    case 'connecting' : return <NetworkConnectingSVG {...props} />
     case 'solidclose' : return <FontAwesomeIcon icon={icons.faTimesCircle} {...props} />
     case 'close' : return <FontAwesomeIcon icon={icons.faTimes} {...props} />
     case 'bigclose' : return <LineVersionClose {...props} />
