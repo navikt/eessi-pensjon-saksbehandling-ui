@@ -51,7 +51,7 @@ const TableSorter = (props) => {
       sortedItems.reverse()
     }
 
-    const convertSomeNonAlphanumericCharactersToUnderscore = (text) =>{
+    const convertSomeNonAlphanumericCharactersToUnderscore = (text) => {
       return text.replace(/[ .\-\\(\\)]/g, '_')
     }
 
@@ -107,7 +107,7 @@ const TableSorter = (props) => {
                             href='#item'
                             onClick={(e) => {
                               e.preventDefault()
-                              onItemClicked(item, variant.label)
+                              onItemClicked(item, variant.variantformat)
                             }}
                           >
                             <Normaltekst>{variant.label}</Normaltekst>
