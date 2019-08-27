@@ -20,6 +20,7 @@ const mapStateToProps = (state) => {
     aktoerId: state.app.params.aktoerId,
     sakId: state.app.params.sakId,
     vedtakId: state.app.params.vedtakId,
+    avdodfnr: state.app.params.avdodfnr,
     bucParam: state.app.params.buc,
     currentBuc: state.buc.currentBuc,
     mode: state.buc.mode,
@@ -37,8 +38,7 @@ const mapStateToProps = (state) => {
     seds: state.buc.seds,
     loading: state.loading,
     locale: state.ui.locale,
-    sakType: state.app.params.sakType,
-    avdodfnr: state.app.params.avdodfnr
+    sakType: state.app.params.sakType
   }
 }
 
@@ -94,7 +94,7 @@ export const BUCWidgetIndex = (props) => {
           currentBuc={currentBuc}
           mode={mode}
         />
-        <BUCWebSocket actions={actions} aktoerId={aktoerId} />
+        <BUCWebSocket actions={actions} aktoerId={aktoerId} avdodfnr={avdodfnr}/>
       </div>
       {sakType === 'Gjenlevendeytelse' && !avdodfnr
         ? (
