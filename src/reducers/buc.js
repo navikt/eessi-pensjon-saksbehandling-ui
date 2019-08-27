@@ -59,7 +59,7 @@ const bucReducer = (state = initialBucState, action) => {
 
     case types.BUC_GET_SINGLE_BUC_SUCCESS: {
       if (!action.payload.caseId || !action.payload.type) { return state }
-      const key = action.payload.type === 'P_BUC_03' ? 'avdodBucs' : 'bucs'
+      const key = action.payload.type === 'P_BUC_02' ? 'avdodBucs' : 'bucs'
 
       return !action.payload.caseId || !action.payload.type
         ? state
@@ -200,7 +200,7 @@ const bucReducer = (state = initialBucState, action) => {
       }
 
     case types.BUC_CREATE_BUC_SUCCESS: {
-      const key = action.payload.type === 'P_BUC_03' ? 'avdodBucs' : 'bucs'
+      const key = action.payload.type === 'P_BUC_02' ? 'avdodBucs' : 'bucs'
 
       return {
         ...state,
