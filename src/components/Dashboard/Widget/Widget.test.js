@@ -1,11 +1,10 @@
 import React from 'react'
 import Widget from './Widget'
 jest.mock('applications/BUC/widgets/index', () => {
-  return () => {return <div className='mock-Buc'/>}
+  return () => { return <div className='mock-Buc' /> }
 })
 
 describe('components/Dashboard/Widget/Widget', () => {
-
   const initialMockProps = {
     t: jest.fn((translationString) => { return translationString }),
     widget: {
@@ -14,23 +13,23 @@ describe('components/Dashboard/Widget/Widget', () => {
   }
 
   it('Renders', () => {
-    const wrapper = mount(<Widget {...initialMockProps} mode='view'/>)
+    const wrapper = mount(<Widget {...initialMockProps} mode='view' />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Renders WidgetEdit', () => {
-    const wrapper = mount(<Widget {...initialMockProps} mode='edit'/>)
+    const wrapper = mount(<Widget {...initialMockProps} mode='edit' />)
     expect(wrapper.exists('WidgetEdit')).toBeTruthy()
   })
 
   it('Renders WidgetDelete', () => {
-    const wrapper = mount(<Widget {...initialMockProps} mode='delete'/>)
+    const wrapper = mount(<Widget {...initialMockProps} mode='delete' />)
     expect(wrapper.exists('WidgetDelete')).toBeTruthy()
   })
 
   it('Renders BucWidget', () => {
-    const wrapper = mount(<Widget {...initialMockProps} mode='view' widget={{type: 'buc'}}/>)
+    const wrapper = mount(<Widget {...initialMockProps} mode='view' widget={{ type: 'buc' }} />)
     expect(wrapper.exists('.w-BucWidget')).toBeTruthy()
   })
 })

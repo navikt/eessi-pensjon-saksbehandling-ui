@@ -9,13 +9,12 @@ document.getElementById = (el) => {
 }
 
 describe('components/Dashboard/Widget/WidgetContainer', () => {
-
   let wrapper
 
   const initialMockProps = {
     currentBreakpoint: 'lg',
     editMode: false,
-    layout: {foo: 'bar'},
+    layout: { foo: 'bar' },
     onWidgetUpdate: jest.fn(),
     onWidgetResize: jest.fn(),
     rowHeight: 0,
@@ -28,7 +27,7 @@ describe('components/Dashboard/Widget/WidgetContainer', () => {
   }
 
   beforeEach(() => {
-    wrapper = mount(<WidgetContainer {...initialMockProps}/>)
+    wrapper = mount(<WidgetContainer {...initialMockProps} />)
   })
 
   it('Renders', () => {

@@ -5,7 +5,6 @@ import WidgetDelete from './WidgetDelete'
 import * as Widgets from 'widgets'
 
 const Widget = (props) => {
-
   const { mode, t, widget } = props
   if (mode === 'edit') {
     return <WidgetEdit {...props} />
@@ -39,7 +38,7 @@ const Widget = (props) => {
   }
 }
 
-Widget.propTypes ={
+Widget.propTypes = {
   mode: PT.string,
   t: PT.func.isRequired,
   widget: PT.object.isRequired

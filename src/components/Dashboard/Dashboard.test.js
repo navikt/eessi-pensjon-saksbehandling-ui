@@ -12,33 +12,36 @@ jest.mock('react-dnd', () => {
     },
     DragSource: (name, opts, conn) => WrappedComponent => {
       return (props) => {
-        return <WrappedComponent {...props}/>
+        return <WrappedComponent {...props} />
       }
     },
     DropTarget: (name, opts, conn) => WrappedComponent => {
       return (props) => {
-        return <WrappedComponent {...props}
-          connectDropTarget={WC => {return WC}}/>
+        return (
+          <WrappedComponent
+            {...props}
+            connectDropTarget={WC => { return WC }}
+          />
+        )
       }
     },
     DragLayer: (opts) => WrappedComponent => {
       return (props) => {
-        return <WrappedComponent {...props}/>
+        return <WrappedComponent {...props} />
       }
     }
   }
 })
 
 jest.mock('react-dnd-html5-backend', () => {
-  return () => {return undefined}
+  return () => { return undefined }
 })
 
 jest.mock('components/Dashboard/Widget/Widget', () => {
-  return () => {return <div className='mock-c-d-widget'/>}
+  return () => { return <div className='mock-c-d-widget' /> }
 })
 
 describe('components/Dashboard/Dashboard', () => {
-
   let wrapper
   const initialMockProps = {
     t: jest.fn((translationString) => { return translationString })
@@ -56,7 +59,6 @@ describe('components/Dashboard/Dashboard', () => {
   it('Has proper HTML structure: loading', () => {
     expect(wrapper.exists('div.c-dashboard__loading')).toBeTruthy()
   })
-
 
   it('Has proper HTML structure: loaded', async (done) => {
     await new Promise(resolve => {

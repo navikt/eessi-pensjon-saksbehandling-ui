@@ -4,12 +4,11 @@ jest.mock('react-dnd', () => {
   return {
     DragLayer: (name, opts, conn) => WrappedComponent => {
       return (props) => {
-        return <WrappedComponent {...props}/>
+        return <WrappedComponent {...props} />
       }
     }
   }
 })
-
 
 document.getElementById = (el) => {
   return {
@@ -18,12 +17,11 @@ document.getElementById = (el) => {
 }
 
 describe('components/Dashboard/Widget/WidgetAddPreview', () => {
-
   let wrapper
 
   const initialMockProps = {
     currentBreakpoint: 'lg',
-    currentOffset: {x: 0, y: 0},
+    currentOffset: { x: 0, y: 0 },
     initialOffset: {},
     isDragging: true,
     item: {
@@ -40,7 +38,7 @@ describe('components/Dashboard/Widget/WidgetAddPreview', () => {
   }
 
   beforeEach(() => {
-    wrapper = mount(<WidgetAddPreview {...initialMockProps}/>)
+    wrapper = mount(<WidgetAddPreview {...initialMockProps} />)
   })
 
   it('Renders', () => {

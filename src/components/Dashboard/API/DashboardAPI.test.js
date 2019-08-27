@@ -1,12 +1,13 @@
+/* global localStorage */
+
 import defaultWidgets from 'components/Dashboard/Config/DefaultWidgets'
 import defaultLayouts from 'components/Dashboard/Config/DefaultLayout'
 import availableWidgets from 'components/Dashboard/Config/AvailableWidgets'
 import * as DashboardAPI from './DashboardAPI'
 
 describe('components/Dashboard/API/DashboardAPI', () => {
-
   it('loadDashboard() - no localStorage', async (done) => {
-    const [ widgets, layouts] = await DashboardAPI.loadDashboard()
+    const [widgets, layouts] = await DashboardAPI.loadDashboard()
     expect(widgets).toEqual(defaultWidgets)
     expect(layouts).toEqual(defaultLayouts)
     done()
@@ -15,17 +16,17 @@ describe('components/Dashboard/API/DashboardAPI', () => {
   it('loadDashboard() - with localStorage', async (done) => {
     localStorage.setItem('c-d-layouts', '{"foo": "bar"}')
     localStorage.setItem('c-d-widgets', '{"foo": "bar"}')
-    const mockContent = {foo: 'bar'}
+    const mockContent = { foo: 'bar' }
 
-    const [ widgets, layouts] = await DashboardAPI.loadDashboard()
+    const [widgets, layouts] = await DashboardAPI.loadDashboard()
     expect(widgets).toEqual(mockContent)
     expect(layouts).toEqual(mockContent)
     done()
   })
 
   it('saveDashboard()', async (done) => {
-    const mockWidgets = {'value': 'mockWidgets'}
-    const mockLayouts = {'value': 'mockLayouts'}
+    const mockWidgets = { value: 'mockWidgets' }
+    const mockLayouts = { value: 'mockLayouts' }
     await DashboardAPI.saveDashboard(mockWidgets, mockLayouts)
 
     const savedLayouts = localStorage.getItem('c-d-layouts')

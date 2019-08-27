@@ -10,9 +10,8 @@ import DashboardConfig from './Config/DashboardConfig'
 const ResponsiveReactGridLayout = WidthProvider(Responsive)
 
 export const DashboardGrid = (props) => {
-
-  const { availableWidgets, canDrop, connectDropTarget, currentBreakpoint, dragApi, editMode, layouts, mounted } = props
-  const { onBreakpointChange, onLayoutChange, onWidgetUpdate, onWidgetResize, onWidgetDelete, rowHeight, t, widgets } = props
+  const { availableWidgets, canDrop, currentBreakpoint, dragApi, editMode, layouts, onBreakpointChange } = props
+  const { onLayoutChange, onWidgetUpdate, onWidgetResize, onWidgetDelete, rowHeight, t, widgets } = props
 
   return (
     <div
@@ -66,7 +65,6 @@ DashboardGrid.propTypes = {
   dragApi: PT.object.isRequired,
   editMode: PT.bool.isRequired,
   layouts: PT.object.isRequired,
-  mounted: PT.bool.isRequired,
   onBreakpointChange: PT.func.isRequired,
   onLayoutChange: PT.func.isRequired,
   onWidgetUpdate: PT.func.isRequired,

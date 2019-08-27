@@ -6,7 +6,6 @@ import ReactResizeDetector from 'react-resize-detector'
 import './Widget.css'
 
 const WidgetDelete = (props) => {
-
   const { layout, onResize, onWidgetDelete, setMode, t } = props
 
   const onWidgetDeleteClick = (e) => {

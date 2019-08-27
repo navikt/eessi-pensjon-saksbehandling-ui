@@ -2,7 +2,6 @@ import React from 'react'
 import DashboardControlPanel from './DashboardControlPanel'
 
 describe('components/Dashboard/DashboardControlPanel', () => {
-
   let wrapper
   const initialMockProps = {
     addMode: false,
@@ -35,7 +34,7 @@ describe('components/Dashboard/DashboardControlPanel', () => {
   })
 
   it('Control Panel in Edit mode', () => {
-    wrapper = mount(<DashboardControlPanel {...initialMockProps} editMode={true}/>)
+    wrapper = mount(<DashboardControlPanel {...initialMockProps} editMode />)
     expect(wrapper.exists('.c-dashboard__controlPanel-add-button')).toBeTruthy()
     expect(wrapper.exists('.c-dashboard__controlPanel-save-button')).toBeTruthy()
     expect(wrapper.exists('.c-dashboard__controlPanel-cancel-button')).toBeTruthy()

@@ -3,8 +3,7 @@ import PT from 'prop-types'
 import DashboardConfig from './Config/DashboardConfig'
 
 const DashboardControlPanel = (props) => {
-
-  const { addMode, currentBreakpoint, editMode, onAddChange, onCancelEdit, onEditModeOn, onSaveEdit, t } = props
+  const { addMode, editMode, onAddChange, onCancelEdit, onEditModeOn, onSaveEdit, t } = props
 
   return (
     <div className='c-dashboard__controlPanel pt-2 pb-0 pr-4 pl-4'>
@@ -27,7 +26,8 @@ const DashboardControlPanel = (props) => {
           <button
             id='c-dashboard__controlPanel-edit-button-id'
             className='c-dashboard__controlPanel-edit-button'
-            onClick={onEditModeOn}>
+            onClick={onEditModeOn}
+          >
             {t('ui:dashboard-editDashboard')}
           </button>
         ) : (
@@ -35,13 +35,15 @@ const DashboardControlPanel = (props) => {
             <button
               id='c-dashboard__controlPanel-save-button-id'
               className='c-dashboard__controlPanel-save-button mr-2'
-              onClick={onSaveEdit}>
+              onClick={onSaveEdit}
+            >
               {t('ui:dashboard-saveChanges')}
             </button>
             <button
               id='c-dashboard__controlPanel-cancel-button-id'
               className='c-dashboard__controlPanel-cancel-button mr-2'
-              onClick={onCancelEdit}>
+              onClick={onCancelEdit}
+            >
               {t('ui:dashboard-cancelChanges')}
             </button>
           </>
@@ -53,7 +55,6 @@ const DashboardControlPanel = (props) => {
 
 DashboardControlPanel.propTypes = {
   addMode: PT.bool.isRequired,
-  currentBreakpoint: PT.string.isRequired,
   editMode: PT.bool.isRequired,
   onAddChange: PT.func.isRequired,
   onCancelEdit: PT.func.isRequired,
