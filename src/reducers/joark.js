@@ -7,7 +7,7 @@ export const initialJoarkState = {
 }
 
 const joarkReducer = (state = initialJoarkState, action = {}) => {
-  let blob, base64, len, x, i
+
   switch (action.type) {
     case types.JOARK_LIST_SUCCESS: {
       const documents = []
@@ -37,14 +37,6 @@ const joarkReducer = (state = initialJoarkState, action = {}) => {
     }
 
     case types.JOARK_GET_SUCCESS:
-
-      blob = new Uint8Array(action.payload.filInnhold)
-      len = blob.byteLength
-      x = ''
-      for (i = 0; i < len; i++) {
-        x += String.fromCharCode(blob[i])
-      }
-      base64 = window.btoa(x)
       return {
         ...state,
         file: {
@@ -56,23 +48,15 @@ const joarkReducer = (state = initialJoarkState, action = {}) => {
           datoOpprettet: action.context.datoOpprettet,
           variant: action.context.variant,
           name: action.payload.fileName,
-          size: base64.length,
+          size: action.payload.filInnhold.length,
           mimetype: action.payload.contentType,
           content: {
-            base64: base64
+            base64: action.payload.filInnhold
           }
         }
       }
 
     case types.JOARK_PREVIEW_SUCCESS:
-
-      blob = new Uint8Array(action.payload.filInnhold)
-      len = blob.byteLength
-      x = ''
-      for (i = 0; i < len; i++) {
-        x += String.fromCharCode(blob[i])
-      }
-      base64 = window.btoa(x)
       return {
         ...state,
         previewFile: {
@@ -84,10 +68,10 @@ const joarkReducer = (state = initialJoarkState, action = {}) => {
           datoOpprettet: action.context.datoOpprettet,
           variant: action.context.variant,
           name: action.payload.fileName,
-          size: base64.length,
+          size: action.payload.filInnhold.length,
           mimetype: action.payload.contentType,
           content: {
-            base64: base64
+            base64: action.payload.filInnhold
           }
         }
       }
