@@ -26,7 +26,12 @@ describe('applications/BUC/components/Step1/Step1', () => {
         tema: post.tema,
         dokumentInfoId: doc.dokumentInfoId,
         datoOpprettet: new Date(Date.parse(post.datoOpprettet)),
-        varianter: doc.dokumentvarianter.map(variant => variant.variantformat)
+        varianter: doc.dokumentvarianter.map(variant => {
+          return {
+            variantformat: variant.variantformat,
+            filnavn: variant.filnavn
+          }
+        })
       })
     })
   })
@@ -52,9 +57,9 @@ describe('applications/BUC/components/Step1/Step1', () => {
   })
 
   it('Calls setFiles when selecting a file', () => {
-    wrapper.find('#c-tablesorter__checkbox-blue_pdf-ARKIV').hostNodes().simulate('change', { target: { checked: true } })
+    wrapper.find('#c-tablesorter__checkbox-blue_pdf-ARKIV__23534345_pdf_').hostNodes().simulate('change', { target: { checked: true } })
     const expectedFile = changedInitialState.joark.list[0]
-    expectedFile.variant = 'ARKIV'
+    expectedFile.variantformat = 'ARKIV (23534345.pdf)'
     expect(initialMockProps.setFiles).toHaveBeenCalledWith({ joark: [expectedFile] })
   })
 })

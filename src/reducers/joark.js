@@ -7,7 +7,7 @@ export const initialJoarkState = {
 }
 
 const joarkReducer = (state = initialJoarkState, action = {}) => {
-  let blob, base64
+  let blob, base64, len, x, i
   switch (action.type) {
     case types.JOARK_LIST_SUCCESS: {
       const documents = []
@@ -20,7 +20,12 @@ const joarkReducer = (state = initialJoarkState, action = {}) => {
             tema: post.tema,
             dokumentInfoId: doc.dokumentInfoId,
             datoOpprettet: new Date(Date.parse(post.datoOpprettet)),
-            varianter: doc.dokumentvarianter.map(variant => variant.variantformat)
+            varianter: doc.dokumentvarianter.map(variant => {
+              return {
+                variantformat: variant.variantformat,
+                filnavn: variant.filnavn
+              }
+            })
           })
         })
       })
@@ -34,9 +39,9 @@ const joarkReducer = (state = initialJoarkState, action = {}) => {
     case types.JOARK_GET_SUCCESS:
 
       blob = new Uint8Array(action.payload.filInnhold)
-      var len = blob.byteLength
-      var x = ''
-      for (var i = 0; i < len; i++) {
+      len = blob.byteLength
+      x = ''
+      for (i = 0; i < len; i++) {
         x += String.fromCharCode(blob[i])
       }
       base64 = window.btoa(x)
@@ -62,9 +67,9 @@ const joarkReducer = (state = initialJoarkState, action = {}) => {
     case types.JOARK_PREVIEW_SUCCESS:
 
       blob = new Uint8Array(action.payload.filInnhold)
-      var len = blob.byteLength
-      var x = ''
-      for (var i = 0; i < len; i++) {
+      len = blob.byteLength
+      x = ''
+      for (i = 0; i < len; i++) {
         x += String.fromCharCode(blob[i])
       }
       base64 = window.btoa(x)

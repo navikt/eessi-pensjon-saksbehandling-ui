@@ -14,9 +14,11 @@ describe('reducers/joark', () => {
             tittel: 'mocktittel',
             dokumentInfoId: 'mockdokumentInfoId',
             dokumentvarianter: [{
-              variantformat: 'mockVariantFormat1'
+              variantformat: 'mockVariantFormat1',
+              filnavn: 'mockFilnavn1'
             }, {
-              variantformat: 'mockVariantFormat2'
+              variantformat: 'mockVariantFormat2',
+              filnavn: 'mockFilnavn2'
             }]
           }]
         }, {
@@ -28,9 +30,11 @@ describe('reducers/joark', () => {
             tittel: 'mocktittel2',
             dokumentInfoId: 'mockdokumentInfoId2',
             dokumentvarianter: [{
-              variantformat: 'mockVariantFormat1'
+              variantformat: 'mockVariantFormat3',
+              filnavn: 'mockFilnavn3'
             }, {
-              variantformat: 'mockVariantFormat2'
+              variantformat: 'mockVariantFormat4',
+              filnavn: 'mockFilnavn4'
             }]
           }]
         }]
@@ -45,7 +49,13 @@ describe('reducers/joark', () => {
     tema: 'mocktema',
     dokumentInfoId: 'mockdokumentInfoId',
     datoOpprettet: new Date(Date.parse('2020-12-17T03:24:00')),
-    varianter: ['mockVariantFormat1', 'mockVariantFormat2']
+    varianter: [{
+      variantformat: 'mockVariantFormat1',
+      filnavn: 'mockFilnavn1'
+    }, {
+      variantformat: 'mockVariantFormat2',
+      filnavn: 'mockFilnavn2'
+    }]
   }, {
     tilleggsopplysninger: 'mocktilleggsopplysninger2',
     journalpostId: 'mockjournalpostId2',
@@ -53,7 +63,13 @@ describe('reducers/joark', () => {
     tema: 'mocktema2',
     dokumentInfoId: 'mockdokumentInfoId2',
     datoOpprettet: new Date(Date.parse('2020-12-17T03:24:00')),
-    varianter: ['mockVariantFormat1', 'mockVariantFormat2']
+    varianter: [{
+      variantformat: 'mockVariantFormat3',
+      filnavn: 'mockFilnavn3'
+    }, {
+      variantformat: 'mockVariantFormat4',
+      filnavn: 'mockFilnavn4'
+    }]
   }]
 
   it('JOARK_LIST_SUCCESS', () => {
@@ -83,7 +99,7 @@ describe('reducers/joark', () => {
         },
         payload: {
           fileName: 'mockName',
-          filInnhold:  [0,16,131,16],
+          filInnhold: [0, 16, 131, 16],
           contentType: 'mockContentType'
         }
       })
@@ -122,7 +138,7 @@ describe('reducers/joark', () => {
         },
         payload: {
           fileName: 'mockName',
-          filInnhold: [0,16,131,16],
+          filInnhold: [0, 16, 131, 16],
           contentType: 'mockContentType'
         }
       })
