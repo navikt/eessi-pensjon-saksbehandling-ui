@@ -1,0 +1,20 @@
+.a-buc-websocket {
+  display: flex;
+
+  &__status {
+    width: 24px;
+  }
+
+  .rotating {
+    animation: a-buc-websocket-rotating 2s linear infinite;
+  }
+}
+
+@keyframes a-buc-websocket-rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
