@@ -13,7 +13,7 @@ const RECEIVING = 'RECEIVING'
 const ERROR = 'ERROR'
 
 const BucWebSocket = (props) => {
-  const { actions, aktoerId } = props
+  const { actions, aktoerId, avdodfnr } = props
   const [status, setStatus] = useState(NOTCONNECTED)
   const [websocketConnection, setWebsocketConnection] = useState(undefined)
   const [websocketReady, setWebsocketReady] = useState(false)
@@ -44,9 +44,21 @@ const BucWebSocket = (props) => {
     }
   }
 
-  const websocketSubscribe = (connection, aktoerId) => {
-    console.log('Websocket: subscribing to aktoerId', aktoerId)
-    connection.send('{"subscriptions": ["' + aktoerId + '"]}')
+  const websocketSubscribe = (connection) => {
+    console.log('Websocket: subscribing to aktoerId', aktoerId, ' and avdodfnr ', avdodfnr)
+    let ids = []
+    if (aktoerId) {
+      ids.push(aktoerId)
+    }
+    if (avdodfnr) {
+      ids.push(avdodfnr)
+    }
+    if (!_.isEmpty(ids)) {
+      const message = {
+        subscriptions: ids
+      }
+      connection.send(JSON.stringify(message))
+    }
   }
 
   const connectToWebSocket = (onOpen, onMessage, onClose, onError) => {
@@ -91,7 +103,8 @@ const BucWebSocket = (props) => {
 
 BucWebSocket.propTypes = {
   actions: PT.object.isRequired,
-  aktoerId: PT.string.isRequired
+  aktoerId: PT.string.isRequired,
+  avdodfnr: PT.string
 }
 
 export default BucWebSocket
