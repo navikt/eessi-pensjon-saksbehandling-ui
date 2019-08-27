@@ -92,7 +92,7 @@ const TableSorter = (props) => {
                         >
                           <Checkbox
                             label=''
-                            id={'c-tablesorter__checkbox-' + item.name.replace('.', '_') + '-' + variant.label}
+                            id={'c-tablesorter__checkbox-' + item.name.replace('.', '_') + '-' + variant.label.replace(/[ .\-\\(\\)]/g, '_')}
                             className='c-tablesorter__checkbox'
                             onChange={(e) => onSelectedItemChange(item, e.target.checked, variant.label)}
                             checked={variant.selected}

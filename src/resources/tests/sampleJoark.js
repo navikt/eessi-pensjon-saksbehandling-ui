@@ -10,9 +10,11 @@ const mockdata = {
           dokumentInfoId: '4',
           tittel: 'blue.pdf',
           dokumentvarianter: [{
-            variantformat: 'ARKIV'
+            variantformat: 'ARKIV',
+            filnavn: '23534345.pdf'
           }, {
-            variantformat: 'DUMMY'
+            variantformat: 'DUMMY',
+            filnavn: '908745345.pdf'
           }]
         }]
       }, {
@@ -24,9 +26,11 @@ const mockdata = {
           dokumentInfoId: '5',
           tittel: 'red.pdf',
           dokumentvarianter: [{
-            variantformat: 'ARKIV'
+            variantformat: 'ARKIV',
+            filnavn: '98734213487.pdf'
           }, {
-            variantformat: 'DUMMY'
+            variantformat: 'DUMMY',
+            filnavn: '998424576.pdf'
           }]
         }]
       }, {
@@ -38,9 +42,11 @@ const mockdata = {
           dokumentInfoId: '6',
           tittel: 'yellow.pdf',
           dokumentvarianter: [{
-            variantformat: 'ARKIV'
+            variantformat: 'ARKIV',
+            filnavn: '1078475197.pdf'
           }, {
-            variantformat: 'DUMMY'
+            variantformat: 'DUMMY',
+            filnavn: '09873539824762.pdf'
           }]
         }]
       }]
