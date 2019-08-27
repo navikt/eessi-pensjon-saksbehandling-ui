@@ -5,7 +5,6 @@ import Widget from './Widget'
 import DashboardConfig from 'components/Dashboard/Config/DashboardConfig'
 
 export const WidgetAddPreview = (props) => {
-
   const { currentBreakpoint, currentOffset, initialOffset, isDragging, item, t } = props
   if (!isDragging) {
     return null
@@ -57,7 +56,7 @@ export const WidgetAddPreview = (props) => {
   }
 
   return (
-    <div className='c-d-widgetAddPreview'  style={layerStyles}>
+    <div className='c-d-widgetAddPreview' style={layerStyles}>
       <div style={getItemStyles(initialOffset, currentOffset, dimensions)}>
         <Widget widget={widget} t={t} />
       </div>
@@ -66,12 +65,12 @@ export const WidgetAddPreview = (props) => {
 }
 
 WidgetAddPreview.propTypes = {
- currentBreakpoint: PT.string.isRequired,
- currentOffset: PT.object,
- initialOffset: PT.object,
- isDragging: PT.bool,
- item: PT.object.isRequired,
- t: PT.func.isRequired
+  currentBreakpoint: PT.string.isRequired,
+  currentOffset: PT.object,
+  initialOffset: PT.object,
+  isDragging: PT.bool,
+  item: PT.object.isRequired,
+  t: PT.func.isRequired
 }
 
 const WidgetAddPreviewDragLayer = DragLayer(monitor => ({

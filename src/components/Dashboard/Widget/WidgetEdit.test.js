@@ -2,7 +2,6 @@ import React from 'react'
 import WidgetEdit from './WidgetEdit'
 
 describe('components/Dashboard/Widget/WidgetEdit', () => {
-
   let wrapper
 
   const initialMockProps = {
@@ -14,7 +13,7 @@ describe('components/Dashboard/Widget/WidgetEdit', () => {
   }
 
   beforeEach(() => {
-    wrapper = mount(<WidgetEdit {...initialMockProps}/>)
+    wrapper = mount(<WidgetEdit {...initialMockProps} />)
   })
 
   it('Renders', () => {

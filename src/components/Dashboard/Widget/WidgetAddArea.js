@@ -5,7 +5,6 @@ import './Widget.css'
 import WidgetAddPreview from './WidgetAddPreview'
 
 const WidgetAddArea = (props) => {
-
   const { availableWidgets, currentBreakpoint, dragApi, setWidgets, t, widgets } = props
   return (
     <div className='c-d-widgetAddArea'>

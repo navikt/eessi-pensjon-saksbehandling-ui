@@ -5,7 +5,6 @@ import WidgetEditOptions from './WidgetEditOptions'
 import './Widget.css'
 
 const WidgetEdit = (props) => {
-
   const { setMode, t } = props
 
   return (

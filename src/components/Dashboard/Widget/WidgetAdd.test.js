@@ -4,7 +4,7 @@ jest.mock('react-dnd', () => {
   return {
     DragSource: (name, opts, conn) => WrappedComponent => {
       return (props) => {
-        return <WrappedComponent {...props}/>
+        return <WrappedComponent {...props} />
       }
     }
   }
@@ -12,12 +12,11 @@ jest.mock('react-dnd', () => {
 
 jest.mock('react-dnd-html5-backend', () => {
   return {
-    getEmptyImage: () => {return undefined}
+    getEmptyImage: () => { return undefined }
   }
 })
 
 describe('components/Dashboard/Widget/WidgetAdd', () => {
-
   let wrapper
   const initialMockProps = {
     connectDragPreview: jest.fn(),
@@ -31,7 +30,7 @@ describe('components/Dashboard/Widget/WidgetAdd', () => {
   }
 
   beforeEach(() => {
-    wrapper = mount(<WidgetAdd {...initialMockProps}/>)
+    wrapper = mount(<WidgetAdd {...initialMockProps} />)
   })
 
   it('Renders', () => {

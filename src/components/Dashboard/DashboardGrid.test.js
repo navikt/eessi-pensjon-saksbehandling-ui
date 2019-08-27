@@ -5,24 +5,27 @@ jest.mock('react-dnd', () => {
   return {
     DropTarget: (name, opts, conn) => WrappedComponent => {
       return (props) => {
-        return <WrappedComponent {...props}
-          connectDropTarget={WC => {return WC}}/>
+        return (
+          <WrappedComponent
+            {...props}
+            connectDropTarget={WC => { return WC }}
+          />
+        )
       }
     }
   }
 })
 
 describe('components/Dashboard/DashboardGrid', () => {
-
   let wrapper
   const initialMockProps = {
     availableWidgets: [],
     canDrop: jest.fn(),
-    connectDropTarget: (WC => {return WC}),
+    connectDropTarget: WC => { return WC },
     currentBreakpoint: 'lg',
     dragApi: {},
     editMode: false,
-    layouts: {'lg': []},
+    layouts: { lg: [] },
     mounted: true,
     onBreakpointChange: jest.fn(),
     onLayoutChange: jest.fn(),

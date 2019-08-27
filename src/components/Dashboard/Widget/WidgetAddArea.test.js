@@ -2,11 +2,10 @@ import React from 'react'
 import WidgetAddArea from './WidgetAddArea'
 
 describe('components/Dashboard/Widget/WidgetAddArea', () => {
-
   let wrapper
 
   const initialMockProps = {
-    availableWidsets= [],
+    availableWidsets: [],
     currentBreakpoint: 'lg',
     dragApi: {},
     setWidgets: jest.fn(),
@@ -15,7 +14,7 @@ describe('components/Dashboard/Widget/WidgetAddArea', () => {
   }
 
   beforeEach(() => {
-    wrapper = mount(<WidgetAddArea {...initialMockProps}/>)
+    wrapper = mount(<WidgetAddArea {...initialMockProps} />)
   })
 
   it('Renders', () => {

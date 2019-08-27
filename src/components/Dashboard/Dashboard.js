@@ -19,7 +19,6 @@ import './Dashboard.css'
 const dragApi = createDragApiRef()
 
 export const Dashboard = (props) => {
-
   const { t } = props
   const [editMode, setEditMode] = useState(false)
   const [addMode, setAddMode] = useState(false)

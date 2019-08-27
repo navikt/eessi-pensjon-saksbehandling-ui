@@ -3,7 +3,6 @@ import PT from 'prop-types'
 import * as Widgets from 'widgets'
 
 const WidgetEditOptions = (props) => {
-
   const { widget } = props
 
   switch (widget.type) {
