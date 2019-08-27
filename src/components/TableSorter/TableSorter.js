@@ -51,6 +51,10 @@ const TableSorter = (props) => {
       sortedItems.reverse()
     }
 
+    const convertSomeNonAlphanumericCharactersToUnderscore = (text) =>{
+      return text.replace(/[ .\-\\(\\)]/g, '_')
+    }
+
     return sortedItems.map((item, index) => {
       const background = index % 2 === 0 ? 'white' : 'whitesmoke'
 
@@ -92,7 +96,9 @@ const TableSorter = (props) => {
                         >
                           <Checkbox
                             label=''
-                            id={'c-tablesorter__checkbox-' + item.name.replace('.', '_') + '-' + variant.label.replace(/[ .\-\\(\\)]/g, '_')}
+                            id={'c-tablesorter__checkbox-' +
+                              item.name.replace('.', '_') + '-' +
+                              convertSomeNonAlphanumericCharactersToUnderscore(variant.label)}
                             className='c-tablesorter__checkbox'
                             onChange={(e) => onSelectedItemChange(item, e.target.checked, variant.label)}
                             checked={variant.selected}
