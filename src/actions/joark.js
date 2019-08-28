@@ -24,7 +24,7 @@ export const previewJoarkFile = (item, variant) => {
     url: sprintf(urls.API_JOARK_GET_URL, {
       dokumentInfoId: item.dokumentInfoId,
       journalpostId: item.journalpostId,
-      variant: variant
+      variantFormat: variant.variantformat
     }),
     expectedPayload: expectedPayload,
     context: {
@@ -45,7 +45,7 @@ export const getJoarkFile = (item, variant) => {
     url: sprintf(urls.API_JOARK_GET_URL, {
       dokumentInfoId: item.dokumentInfoId,
       journalpostId: item.journalpostId,
-      variant: variant
+      variantFormat: variant.variantformat
     }),
     expectedPayload: expectedPayload,
     context: {
@@ -65,6 +65,6 @@ export const getMockedPayload = (journalpostId) => {
   return {
     fileName: item.tittel,
     contentType: 'application/pdf',
-    base64: sampleJoark.files[item.tittel]
+    filInnhold: sampleJoark.files[item.tittel]
   }
 }

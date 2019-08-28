@@ -82,7 +82,7 @@ export const SEDStart = (props) => {
             rinaDokumentId: sed.id,
             joarkJournalpostId: attachment.journalpostId,
             joarkDokumentInfoId: attachment.dokumentInfoId,
-            variantFormat: attachment.variant
+            variantFormat: attachment.variant.variantformat
           }
           console.log('sending ', params)
           actions.sendAttachmentToSed(params)

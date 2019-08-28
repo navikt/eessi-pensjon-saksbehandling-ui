@@ -280,7 +280,7 @@ const Step1 = (props) => {
             return _attachments[key].map((att, index2) => {
               return (
                 <div key={index1 + '-' + index2}>
-                  {t('ui:' + key)}: {att.tittel || att.name} ({att.variant})
+                  {t('ui:' + key)}: {att.tittel || att.name} - {att.variant.variantformat} ({att.variant.filnavn})
                 </div>
               )
             })
