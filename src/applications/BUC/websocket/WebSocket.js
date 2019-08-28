@@ -3,6 +3,7 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
 import Icons from 'components/Icons'
+import { HjelpetekstAuto } from 'components/Nav'
 import { WEBSOCKET_LOCALHOST_URL } from 'constants/urls'
 
 import './WebSocket.css'
@@ -16,37 +17,36 @@ const ERROR = 'ERROR'
 const BucWebSocket = (props) => {
   const { actions, aktoerId, avdodfnr } = props
   const [status, setStatus] = useState(NOTCONNECTED)
+  const [log, setLog] = useState([])
   const [websocketConnection, setWebsocketConnection] = useState(undefined)
   const [websocketReady, setWebsocketReady] = useState(false)
 
   useEffect(() => {
     if (!websocketConnection) {
-      console.log('WebSocket: Connecting...')
+      pushToLog('info', 'Connecting...')
       setWebsocketConnection(connectToWebSocket())
     }
   }, [websocketReady])
 
   const onMessageHandler = (e) => {
-    console.log('Websocket: Got message', e)
     setStatus(RECEIVING)
     try {
       const data = JSON.parse(e.data)
       if (data.bucUpdated && data.bucUpdated.caseId) {
-        console.log('Websocket: Updating buc ', data.bucUpdated.caseId)
+        pushToLog('info', 'Updating buc ' + data.bucUpdated.caseId)
         actions.fetchSingleBuc(data.bucUpdated.caseId)
       }
       if (data.subscriptions) {
-        console.log('Websocket: Subscription status is ', data.subscriptions)
+        pushToLog('info', 'Subscription status is ' + data.subscriptions)
       }
     } catch (err) {
-      console.error('Websocket: Invalid JSON', e.data)
+      pushToLog('error', 'Invalid JSON: ' + e.data)
     } finally {
       setStatus(CONNECTED)
     }
   }
 
   const websocketSubscribe = (connection) => {
-    console.log('Websocket: subscribing to aktoerId', aktoerId, ' and avdodfnr ', avdodfnr)
     const ids = []
     if (aktoerId) {
       ids.push(aktoerId)
@@ -59,7 +59,20 @@ const BucWebSocket = (props) => {
         subscriptions: ids
       }
       connection.send(JSON.stringify(message))
+      pushToLog('info', 'Request subscribing to aktoerId ' + aktoerId + ' and avdodfnr ' + avdodfnr)
     }
+  }
+
+  const pushToLog = (level, message) => {
+    const now = new Date()
+    const line = now.toLocaleDateString() + ' ' + now.toLocaleTimeString() + ': ' + message
+    if (level === 'error') {
+      console.error(line)
+    } else {
+      console.log(line)
+    }
+    setLog(log => [...log, (<span className={classNames('log', level)}>{line}</span>)].slice(-100))
+    console.log(log)
   }
 
   const connectToWebSocket = (onOpen, onMessage, onClose, onError) => {
@@ -69,35 +82,45 @@ const BucWebSocket = (props) => {
       : WEBSOCKET_LOCALHOST_URL
     const connection = new WebSocket(webSocketURL, 'v0.Buc')
     connection.onopen = () => {
-      console.log('Websocket: Connected')
+      pushToLog('info', 'Connected')
       setStatus(CONNECTED)
       setWebsocketReady(true)
       websocketSubscribe(connection, aktoerId)
     }
     connection.onmessage = onMessageHandler
     connection.onclose = () => {
-      console.log('Websocket: Closed')
+      pushToLog('info', 'Closed')
       setStatus(NOTCONNECTED)
       setWebsocketReady(false)
     }
     connection.onerror = (e) => {
-      console.log('Websocket: Error', e)
+      pushToLog('error', 'Error: ' + e)
       setStatus(ERROR)
       setWebsocketReady(false)
     }
     return connection
   }
 
+  const getAnchor = () => {
+    switch (status) {
+      case CONNECTED:
+      return <Icons kind='checkCircle' />
+      case NOTCONNECTED:
+      case ERROR:
+      return  <Icons kind='removeCircle' />
+      case CONNECTING:
+      case RECEIVING:
+      return <Icons kind='connecting' />
+      default:
+      return null
+    }
+  }
+
   return (
-    <div className='a-buc-websocket'>
-      <div
-        className={classNames('a-buc-websocket__status', { rotating: status === 'RECEIVING' })}
-        title={'websocket: ' + status}
-      >
-        {status === CONNECTED ? <Icons kind='checkCircle' /> : null}
-        {status === NOTCONNECTED || status === ERROR ? <Icons kind='removeCircle' /> : null}
-        {status === CONNECTING || status === RECEIVING ? <Icons kind='connecting' /> : null}
-      </div>
+    <div className='a-buc-websocket' title={'websocket: ' + status}>
+      <HjelpetekstAuto anchor={getAnchor}>
+        {log}
+      </HjelpetekstAuto>
     </div>
   )
 }

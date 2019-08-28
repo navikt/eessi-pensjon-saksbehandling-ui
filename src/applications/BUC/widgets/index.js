@@ -94,7 +94,7 @@ export const BUCWidgetIndex = (props) => {
           currentBuc={currentBuc}
           mode={mode}
         />
-        <BUCWebSocket actions={actions} aktoerId={aktoerId} avdodfnr={avdodfnr} />
+        <BUCWebSocket actions={actions} aktoerId={aktoerId} avdodfnr={avdodfnr}/>
       </div>
       {sakType === 'Gjenlevendeytelse' && !avdodfnr
         ? (
