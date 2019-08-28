@@ -6,6 +6,7 @@ import { Checkbox, EtikettLiten, Input, NavFrontendSpinner, Normaltekst, Underte
 import './TableSorter.css'
 
 const TableSorter = (props) => {
+
   const { t, sort, columns, items, onItemClicked, loadingJoarkFile, loadingJoarkPreviewFile, onSelectedItemChange } = props
   const [_sort, setSort] = useState(sort || { column: '', order: '' })
   const [_columns, setColumns] = useState(columns)
@@ -100,14 +101,14 @@ const TableSorter = (props) => {
                               item.name.replace('.', '_') + '-' +
                               convertSomeNonAlphanumericCharactersToUnderscore(variant.label)}
                             className='c-tablesorter__checkbox'
-                            onChange={(e) => onSelectedItemChange(item, e.target.checked, variant.label)}
+                            onChange={(e) => onSelectedItemChange(item, e.target.checked, variant.variant)}
                             checked={variant.selected}
                           />
                           <a
                             href='#item'
                             onClick={(e) => {
                               e.preventDefault()
-                              onItemClicked(item, variant.variantformat)
+                              onItemClicked(item, variant.variant)
                             }}
                           >
                             <Normaltekst>{variant.label}</Normaltekst>

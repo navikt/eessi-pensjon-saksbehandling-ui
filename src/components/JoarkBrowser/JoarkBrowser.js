@@ -66,38 +66,38 @@ export const JoarkBrowser = (props) => {
       })
     }
     if (previewFile && (!_previewFile || _previewFile.journalpostId !== previewFile.journalpostId ||
-     _previewFile.variantformat !== previewFile.variantformat)) {
+     _previewFile.variant !== previewFile.variant)) {
       setPreviewFile(previewFile)
       onPreviewFile(previewFile)
     }
   }, [actions, previewFile, _previewFile, t])
 
-  const onItemClicked = (clickedItem, clickedVariantFormat) => {
+  const onItemClicked = (clickedItem, clickedVariant) => {
     const foundFile = _.find(files, (file) => {
       return file.journalpostId === clickedItem.raw.journalpostId &&
-        file.variantformat === clickedVariantFormat &&
+        file.variant === clickedVariant &&
         file.content !== undefined
     })
 
     if (!foundFile) {
-      actions.previewJoarkFile(clickedItem.raw, clickedVariantFormat)
+      actions.previewJoarkFile(clickedItem.raw, clickedVariant)
     } else {
       setPreviewFile(foundFile)
     }
   }
 
-  const onSelectedItemChange = (item, checked, variantformat) => {
+  const onSelectedItemChange = (item, checked, variant) => {
     let newFiles = _.cloneDeep(_files)
     const found = _.find(newFiles, {
       dokumentInfoId: item.raw.dokumentInfoId,
-      variantformat: variantformat
+      variant: variant
     })
     let changed = false
 
     if (!checked && found) {
       newFiles = _.reject(newFiles, {
         journalpostId: item.raw.journalpostId,
-        variantformat: variantformat
+        variant: variant
       })
       changed = true
     }
@@ -105,7 +105,7 @@ export const JoarkBrowser = (props) => {
     if (checked && !found) {
       newFiles.push({
         ...item.raw,
-        variantformat: variantformat
+        variant: variant
       })
       changed = true
     }
@@ -125,16 +125,16 @@ export const JoarkBrowser = (props) => {
       name: file.tittel,
       tema: file.tema,
       date: file.datoOpprettet,
-      varianter: file.varianter.map(item => {
+      varianter: file.varianter.map(variant => {
+        let label = variant.variantformat + ' (' + variant.filnavn + ')'
         return {
-          variantformat: item.variantformat,
-          filnavn: item.filnavn,
-          label: item.variantformat + ' (' + item.filnavn + ')',
+          variant: variant,
+          label: label,
           selected: _.find(files, {
             dokumentInfoId: file.dokumentInfoId,
-            variantformat: item.variantformat
+            variant: variant
           }) !== undefined,
-          focused: _previewFile ? _previewFile.journalpostId === file.journalpostId && _previewFile.variantformat === item.variantformat : false
+          focused: _previewFile ? _previewFile.journalpostId === file.journalpostId && _previewFile.variant === variant : false
         }
       })
     }
