@@ -1,6 +1,7 @@
 import fetch from 'cross-fetch'
 import cookies from 'browser-cookies'
 import 'cross-fetch/polyfill'
+import uuid from 'uuid/v4'
 import * as types from 'constants/actionTypes'
 import { IS_TEST } from 'constants/environment'
 import { HOST } from 'constants/urls'
@@ -42,6 +43,7 @@ export const call = (options) => {
       json: true,
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
+        'X-Request-ID': uuid(),
         ...CSRF_PROTECTION,
         ...options.headers
       },
