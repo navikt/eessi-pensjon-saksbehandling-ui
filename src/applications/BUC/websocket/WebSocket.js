@@ -47,7 +47,7 @@ const BucWebSocket = (props) => {
 
   const websocketSubscribe = (connection) => {
     console.log('Websocket: subscribing to aktoerId', aktoerId, ' and avdodfnr ', avdodfnr)
-    let ids = []
+    const ids = []
     if (aktoerId) {
       ids.push(aktoerId)
     }
