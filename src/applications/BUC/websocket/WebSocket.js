@@ -71,8 +71,7 @@ const BucWebSocket = (props) => {
     } else {
       console.log(line)
     }
-    setLog(log => [...log, (<span className={classNames('log', level)}>{line}</span>)].slice(-100))
-    console.log(log)
+    setLog(log => [...log, (<span key={line} className={classNames('log', level)}>{line}</span>)].slice(-100))
   }
 
   const connectToWebSocket = (onOpen, onMessage, onClose, onError) => {
@@ -104,15 +103,15 @@ const BucWebSocket = (props) => {
   const getAnchor = () => {
     switch (status) {
       case CONNECTED:
-      return <Icons kind='checkCircle' />
+        return <Icons kind='checkCircle' />
       case NOTCONNECTED:
       case ERROR:
-      return  <Icons kind='removeCircle' />
+        return <Icons kind='removeCircle' />
       case CONNECTING:
       case RECEIVING:
-      return <Icons kind='connecting' />
+        return <Icons kind='connecting' />
       default:
-      return null
+        return null
     }
   }
 

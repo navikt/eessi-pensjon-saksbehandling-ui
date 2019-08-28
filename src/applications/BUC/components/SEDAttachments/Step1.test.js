@@ -57,9 +57,12 @@ describe('applications/BUC/components/Step1/Step1', () => {
   })
 
   it('Calls setFiles when selecting a file', () => {
-    wrapper.find('#c-tablesorter__checkbox-blue_pdf-ARKIV__23534345_pdf_').hostNodes().simulate('change', { target: { checked: true } })
+    wrapper.find('#c-tablesorter__checkbox-1-ARKIV__23534345_pdf_').hostNodes().simulate('change', { target: { checked: true } })
     const expectedFile = changedInitialState.joark.list[0]
-    expectedFile.variantformat = 'ARKIV (23534345.pdf)'
+    expectedFile.variant = {
+      variantformat: 'ARKIV',
+      filnavn: '23534345.pdf'
+    }
     expect(initialMockProps.setFiles).toHaveBeenCalledWith({ joark: [expectedFile] })
   })
 })

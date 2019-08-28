@@ -31,7 +31,10 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
       joark: [{
         journalpostId: '456',
         dokumentInfoId: '789',
-        variant: 'ARKIV'
+        variant: {
+          variantformat: 'ARKIV',
+          filnavn: 'mockFilename'
+        }
       }]
     },
     institutionList: {},
@@ -74,7 +77,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
       rinaDokumentId: 'mockSedId',
       joarkJournalpostId: initialMockProps.initialAttachments.joark[0].journalpostId,
       joarkDokumentInfoId: initialMockProps.initialAttachments.joark[0].dokumentInfoId,
-      variantFormat: initialMockProps.initialAttachments.joark[0].variant
+      variantFormat: initialMockProps.initialAttachments.joark[0].variant.variantformat
     })
     wrapper.setProps({ attachments: [{ id: 'mockSedId' }] })
     expect(initialMockProps.actions.resetSed).toHaveBeenCalled()

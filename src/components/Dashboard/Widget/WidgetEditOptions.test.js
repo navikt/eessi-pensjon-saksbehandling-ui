@@ -10,7 +10,15 @@ describe('components/Dashboard/Widget/WidgetEditOptions', () => {
       options: {
         backgroundColor: 'mockColor'
       }
-    }
+    },
+    availableWidgets: [{
+      type: 'note',
+      options: {
+        availableColors: ['mockColor']
+      }
+    }],
+    layout: {},
+    onWidgetUpdate: jest.fn()
   }
 
   beforeEach(() => {
@@ -23,6 +31,6 @@ describe('components/Dashboard/Widget/WidgetEditOptions', () => {
   })
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.exists('Widgets.NoteOptionsWidget')).toBeTruthy()
+    expect(wrapper.exists('.w-NoteOptionsWidget')).toBeTruthy()
   })
 })

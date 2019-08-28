@@ -70,6 +70,7 @@ describe('buc actions', () => {
         failure: types.BUC_GET_BUCS_FAILURE
       },
       expectedPayload: sampleBucs,
+      failWith500: true,
       url: sprintf(urls.BUC_AKTOERID_DETALJER_URL, { aktoerId: mockAktoerId })
     })
   })

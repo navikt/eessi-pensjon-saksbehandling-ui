@@ -34,7 +34,10 @@ describe('joark actions', () => {
       journalpostId: '1',
       dokumentInfoId: '4'
     }
-    joarkActions.previewJoarkFile(mockItem)
+    const mockVariant = {
+      variantformat: 'mockVariant'
+    }
+    joarkActions.previewJoarkFile(mockItem, mockVariant)
     expect(api.funcCall).toBeCalledWith({
       type: {
         request: types.JOARK_PREVIEW_REQUEST,
@@ -42,17 +45,25 @@ describe('joark actions', () => {
         failure: types.JOARK_PREVIEW_FAILURE
       },
       expectedPayload: undefined,
-      context: mockItem,
-      url: sprintf(urls.API_JOARK_GET_URL, { dokumentInfoId: mockItem.dokumentInfoId, journalpostId: mockItem.journalpostId })
+      context: {
+        ...mockItem,
+        variant: mockVariant
+      },
+      url: sprintf(urls.API_JOARK_GET_URL, {
+        dokumentInfoId: mockItem.dokumentInfoId,
+        journalpostId: mockItem.journalpostId,
+        variantFormat: mockVariant.variantformat
+      })
     })
   })
 
   it('getJoarkFile()', () => {
-    const mockVariant = 'DUMMY'
     const mockItem = {
       journalpostId: '1',
-      dokumentInfoId: '4',
-      variant: mockVariant
+      dokumentInfoId: '4'
+    }
+    const mockVariant = {
+      variantformat: 'mockVariant'
     }
     joarkActions.getJoarkFile(mockItem, mockVariant)
     expect(api.funcCall).toBeCalledWith({
@@ -62,11 +73,14 @@ describe('joark actions', () => {
         failure: types.JOARK_GET_FAILURE
       },
       expectedPayload: undefined,
-      context: mockItem,
+      context: {
+        ...mockItem,
+        variant: mockVariant
+      },
       url: sprintf(urls.API_JOARK_GET_URL, {
         dokumentInfoId: mockItem.dokumentInfoId,
         journalpostId: mockItem.journalpostId,
-        variant: mockVariant
+        variantFormat: mockVariant.variantformat
       })
     })
   })
@@ -78,7 +92,7 @@ describe('joark actions', () => {
     expect(generatedResult).toMatchObject({
       fileName: expectedItem.tittel,
       contentType: 'application/pdf',
-      base64: sampleJoark.files[expectedItem.tittel]
+      filInnhold: sampleJoark.files[expectedItem.tittel]
     })
   })
 })
