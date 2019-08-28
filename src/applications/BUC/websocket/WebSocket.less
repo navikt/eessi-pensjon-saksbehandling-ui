@@ -1,8 +1,20 @@
 .a-buc-websocket {
   display: flex;
 
-  &__status {
+  button {
     width: 24px;
+    height: 24px;
+  }
+
+  .log {
+    font-size: 0.9rem;
+    display: block;
+    &.info {
+      color: white;
+    }
+    &.error {
+      color: red;
+    }
   }
 
   .rotating {
