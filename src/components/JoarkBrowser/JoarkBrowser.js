@@ -126,7 +126,7 @@ export const JoarkBrowser = (props) => {
       tema: file.tema,
       date: file.datoOpprettet,
       varianter: file.varianter.map(variant => {
-        let label = variant.variantformat + ' (' + variant.filnavn + ')'
+        const label = variant.variantformat + ' (' + variant.filnavn + ')'
         return {
           variant: variant,
           label: label,

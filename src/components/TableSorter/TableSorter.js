@@ -6,7 +6,6 @@ import { Checkbox, EtikettLiten, Input, NavFrontendSpinner, Normaltekst, Underte
 import './TableSorter.css'
 
 const TableSorter = (props) => {
-
   const { t, sort, columns, items, onItemClicked, loadingJoarkFile, loadingJoarkPreviewFile, onSelectedItemChange } = props
   const [_sort, setSort] = useState(sort || { column: '', order: '' })
   const [_columns, setColumns] = useState(columns)
