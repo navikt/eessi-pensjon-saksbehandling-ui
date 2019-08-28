@@ -27,7 +27,7 @@ describe('applications/BUC/components/SEDP4000/SEDP4000', () => {
 
   it('Has proper HTML structure: unmounted state', () => {
     const wrapper = mount(<SEDP4000 {...initialMockProps} />)
-    expect(wrapper.exists('NavFrontendSpinner')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-sedp4000__notReady')).toBeTruthy()
   })
 
   it('Has proper HTML structure: mounted state', () => {

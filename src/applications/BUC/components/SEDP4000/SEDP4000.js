@@ -85,7 +85,7 @@ export const SEDP4000 = (props) => {
 
   if (!isReady) {
     return (
-      <div className='col-md-8 d-flex mt-5 mb-5 align-items-center justify-content-center'>
+      <div className='a-buc-c-sedp4000__notReady col-md-8 d-flex mt-5 mb-5 align-items-center justify-content-center'>
         {loadingP4000list || loadingP4000info ? <NavFrontendSpinner className='ml-3 mr-3' type='M' /> : null}
         {loadingP4000list ? <span className='pl-2'>{t('buc:loading-p4000list')}</span> : null}
         {loadingP4000info ? <span className='pl-2'>{t('buc:loading-p4000info')}</span> : null}

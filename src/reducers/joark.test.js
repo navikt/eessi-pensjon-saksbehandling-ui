@@ -99,7 +99,7 @@ describe('reducers/joark', () => {
         },
         payload: {
           fileName: 'mockName',
-          filInnhold: [0, 16, 131, 16],
+          filInnhold: 'mockContent',
           contentType: 'mockContentType'
         }
       })
@@ -114,10 +114,10 @@ describe('reducers/joark', () => {
         datoOpprettet: '2020-12-17T03:24:00',
         variant: 'mockVariant',
         name: 'mockName',
-        size: 8,
+        size: 11,
         mimetype: 'mockContentType',
         content: {
-          base64: 'ABCDEA=='
+          base64: 'mockContent'
         }
       }
     })
@@ -138,7 +138,7 @@ describe('reducers/joark', () => {
         },
         payload: {
           fileName: 'mockName',
-          filInnhold: [0, 16, 131, 16],
+          filInnhold: 'mockContent',
           contentType: 'mockContentType'
         }
       })
@@ -153,10 +153,10 @@ describe('reducers/joark', () => {
         datoOpprettet: '2020-12-17T03:24:00',
         variant: 'mockVariant',
         name: 'mockName',
-        size: 8,
+        size: 11,
         mimetype: 'mockContentType',
         content: {
-          base64: 'ABCDEA=='
+          base64: 'mockContent'
         }
       }
     })

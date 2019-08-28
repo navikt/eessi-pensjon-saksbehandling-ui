@@ -1,5 +1,20 @@
 import React from 'react'
 import WidgetAddArea from './WidgetAddArea'
+jest.mock('react-dnd', () => {
+  return {
+    DragSource: (name, opts, conn) => WrappedComponent => {
+      return (props) => {
+        return <WrappedComponent {...props} />
+      }
+    }
+  }
+})
+
+jest.mock('react-dnd-html5-backend', () => {
+  return {
+    getEmptyImage: () => { return undefined }
+  }
+})
 
 describe('components/Dashboard/Widget/WidgetAddArea', () => {
   let wrapper
