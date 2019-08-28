@@ -31,9 +31,9 @@ const BucWebSocket = (props) => {
     setStatus(RECEIVING)
     try {
       const data = JSON.parse(e.data)
-      if (data.bucUpdated) {
-        console.log('Websocket: Updating buc ', data.bucUpdated)
-        actions.fetchSingleBuc(data.bucUpdated)
+      if (data.bucUpdated && data.bucUpdated.caseId) {
+        console.log('Websocket: Updating buc ', data.bucUpdated.caseId)
+        actions.fetchSingleBuc(data.bucUpdated.caseId)
       }
       if (data.subscriptions) {
         console.log('Websocket: Subscription status is ', data.subscriptions)
