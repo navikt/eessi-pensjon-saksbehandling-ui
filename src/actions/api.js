@@ -94,6 +94,14 @@ export const call = (options) => {
           originalPayload: body,
           context: options.context
         })
+        if (options.failWith500) {
+          dispatch({
+            type: options.type.failure,
+            payload: error,
+            originalPayload: body,
+            context: options.context
+          })
+        }
       } else {
         return dispatch({
           type: options.type.failure,

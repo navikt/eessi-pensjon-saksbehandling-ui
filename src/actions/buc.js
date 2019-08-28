@@ -56,6 +56,7 @@ export const fetchSingleBuc = (rinaCaseId) => {
 export const fetchBucs = (aktoerId) => {
   return api.funcCall({
     url: sprintf(urls.BUC_AKTOERID_DETALJER_URL, { aktoerId: aktoerId }),
+    failWith500: true,
     expectedPayload: sampleBucs,
     type: {
       request: types.BUC_GET_BUCS_REQUEST,
