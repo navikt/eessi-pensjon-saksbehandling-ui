@@ -70,7 +70,7 @@ const TableSorter = (props) => {
               case 'name':
                 return (
                   <td key={index2}>
-                    <Normaltekst>{value}</Normaltekst>
+                    <Normaltekst>{item.id} - {value}</Normaltekst>
                   </td>
                 )
               case 'tema':
