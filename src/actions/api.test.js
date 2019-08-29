@@ -75,6 +75,29 @@ describe('api actions', () => {
       })
   })
 
+  it('call() with fake url, 500 response and failWith500', () => {
+    nock('http://mockedurl')
+      .get('/')
+      .reply(500, { message: 'unauthorized' })
+
+    return store.dispatch(api.call({
+      url: 'http://mockedurl/',
+      failWith500: true,
+      type: {
+        request: 'REQUEST',
+        success: 'SUCCESS',
+        failure: 'FAILURE'
+      }
+    }))
+      .then(() => {
+        const expectedActions = store.getActions()
+        expect(expectedActions.length).toBe(3)
+        expect(expectedActions[0]).toHaveProperty('type', 'REQUEST')
+        expect(expectedActions[1]).toHaveProperty('type', 'SERVER/INTERNAL/ERROR')
+        expect(expectedActions[2]).toHaveProperty('type', 'FAILURE')
+      })
+  })
+
   it('call() with fake url and 401 response', () => {
     nock('http://mockedurl')
       .get('/')
@@ -93,6 +116,29 @@ describe('api actions', () => {
         expect(expectedActions.length).toBe(2)
         expect(expectedActions[0]).toHaveProperty('type', 'REQUEST')
         expect(expectedActions[1]).toHaveProperty('type', 'SERVER/UNAUTHORIZED/ERROR')
+      })
+  })
+
+  it('call() with fake url, 401 response and failWith401', () => {
+    nock('http://mockedurl')
+      .get('/')
+      .reply(401, { message: 'unauthorized' })
+
+    return store.dispatch(api.call({
+      url: 'http://mockedurl/',
+      failWith401: true,
+      type: {
+        request: 'REQUEST',
+        success: 'SUCCESS',
+        failure: 'FAILURE'
+      }
+    }))
+      .then(() => {
+        const expectedActions = store.getActions()
+        expect(expectedActions.length).toBe(3)
+        expect(expectedActions[0]).toHaveProperty('type', 'REQUEST')
+        expect(expectedActions[1]).toHaveProperty('type', 'SERVER/UNAUTHORIZED/ERROR')
+        expect(expectedActions[2]).toHaveProperty('type', 'FAILURE')
       })
   })
 

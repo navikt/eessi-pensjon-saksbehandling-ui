@@ -18,7 +18,7 @@ const EkspandertBartWidget = (props) => {
     if (content && content !== _content) {
       setContent(content)
     }
-  }, [content])
+  }, [content, _content])
 
   const _onResize = (w, h) => {
     if (onResize) {

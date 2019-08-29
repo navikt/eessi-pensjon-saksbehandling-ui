@@ -19,14 +19,36 @@ const BucWebSocket = (props) => {
   const [status, setStatus] = useState(NOTCONNECTED)
   const [log, setLog] = useState([])
   const [websocketConnection, setWebsocketConnection] = useState(undefined)
-  const [websocketReady, setWebsocketReady] = useState(false)
+
+  const connectToWebSocket = (onOpen, onMessage, onClose, onError) => {
+    setStatus(CONNECTING)
+    const webSocketURL = window.eessipen
+      ? window.eessipen.WEBSOCKETURL.replace('https', 'wss').concat('bucUpdate')
+      : WEBSOCKET_LOCALHOST_URL
+    pushToLog('info', 'Connecting to ' + webSocketURL + '...')
+    const connection = new WebSocket(webSocketURL, 'v0.Buc')
+    connection.onopen = () => {
+      pushToLog('info', 'Connected')
+      setStatus(CONNECTED)
+      websocketSubscribe(connection, aktoerId)
+    }
+    connection.onmessage = onMessageHandler
+    connection.onclose = () => {
+      pushToLog('info', 'Closed')
+      setStatus(NOTCONNECTED)
+    }
+    connection.onerror = (e) => {
+      pushToLog('error', 'Error: ' + e)
+      setStatus(ERROR)
+    }
+    return connection
+  }
 
   useEffect(() => {
     if (!websocketConnection) {
-      pushToLog('info', 'Connecting...')
       setWebsocketConnection(connectToWebSocket())
     }
-  }, [websocketReady])
+  }, [connectToWebSocket, websocketConnection])
 
   const onMessageHandler = (e) => {
     setStatus(RECEIVING)
@@ -72,32 +94,6 @@ const BucWebSocket = (props) => {
       console.log(line)
     }
     setLog(log => [...log, (<span key={line} className={classNames('log', level)}>{line}</span>)].slice(-100))
-  }
-
-  const connectToWebSocket = (onOpen, onMessage, onClose, onError) => {
-    setStatus(CONNECTING)
-    const webSocketURL = window.eessipen
-      ? window.eessipen.WEBSOCKETURL.replace('https', 'wss').concat('bucUpdate')
-      : WEBSOCKET_LOCALHOST_URL
-    const connection = new WebSocket(webSocketURL, 'v0.Buc')
-    connection.onopen = () => {
-      pushToLog('info', 'Connected')
-      setStatus(CONNECTED)
-      setWebsocketReady(true)
-      websocketSubscribe(connection, aktoerId)
-    }
-    connection.onmessage = onMessageHandler
-    connection.onclose = () => {
-      pushToLog('info', 'Closed')
-      setStatus(NOTCONNECTED)
-      setWebsocketReady(false)
-    }
-    connection.onerror = (e) => {
-      pushToLog('error', 'Error: ' + e)
-      setStatus(ERROR)
-      setWebsocketReady(false)
-    }
-    return connection
   }
 
   const getAnchor = () => {

@@ -69,7 +69,7 @@ WidgetAddPreview.propTypes = {
   currentOffset: PT.object,
   initialOffset: PT.object,
   isDragging: PT.bool,
-  item: PT.object.isRequired,
+  item: PT.object,
   t: PT.func.isRequired
 }
 

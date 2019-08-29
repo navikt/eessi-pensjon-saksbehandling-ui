@@ -158,7 +158,7 @@ export const saveBucsInfo = (params) => {
     return tag.value
   }) : []
   const newComment = params.comment
-  const bucId = params.buc.type + '-' + params.buc.caseId
+  const bucId = params.buc.caseId
 
   if (!Object.prototype.hasOwnProperty.call(newBucsInfo, 'bucs')) {
     newBucsInfo.bucs = {}

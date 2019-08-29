@@ -1,7 +1,6 @@
 import React from 'react'
 import Period from './Period'
 
-const t = jest.fn((translationString) => { return translationString })
 const initialMockProps = {
   actions: {
     openModal: jest.fn(),
@@ -26,7 +25,7 @@ const initialMockProps = {
       size: 123
     }]
   },
-  t: t,
+  t: jest.fn((translationString) => { return translationString }),
   setPeriod: jest.fn()
 }
 
@@ -358,5 +357,18 @@ describe('applications/BUC/components/SEDP4000/Period - new/edit mode', () => {
 
     expect(wrapper.find('#a-buc-c-sedp4000-period__comment-id').hostNodes().props().value).toEqual('mockComment')
     expect(wrapper.exists('#a-buc-c-sedp4000-period__vedlegg-fileupload-id')).toBeTruthy()
+  })
+
+  it('throws a validation error when child not properly filled out', () => {
+    const mockProps = {
+      ...initialMockProps,
+      period: {
+        ...initialMockProps.period,
+        type: 'child'
+      }
+    }
+    const wrapper = mount(<Period {...mockProps} mode='edit' />)
+    wrapper.find('#a-buc-c-sedp4000-period__edit-button-id').hostNodes().simulate('click')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__alert').hostNodes().render().text()).toEqual('buc:validation-noChildFirstName')
   })
 })

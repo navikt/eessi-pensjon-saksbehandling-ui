@@ -1,27 +1,26 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import SEDAttachments from './SEDAttachments'
-import { StoreProvider } from 'store'
-import reducer, { initialState } from 'reducer'
-jest.mock('applications/PDF/components/PDFEditor/PDFEditor', () => {
-  return () => { return <div className='a-buc-c-pdfeditor' /> }
+jest.mock('./Step1', () => {
+  return () => { return <div className='mock-step1' /> }
+})
+jest.mock('./Step2', () => {
+  return () => { return <div className='mock-step2' /> }
 })
 
 describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
-  const t = jest.fn((translationString) => { return translationString })
+  let wrapper
   const initialMockProps = {
-    t: t,
+    t: jest.fn((translationString) => { return translationString }),
     files: {},
     setFiles: jest.fn()
   }
-  let wrapper
 
   beforeEach(() => {
-    wrapper = mount(
-      <StoreProvider initialState={initialState} reducer={reducer}>
-        <Suspense fallback={<div />}>
-          <SEDAttachments {...initialMockProps} />
-        </Suspense>
-      </StoreProvider>)
+    wrapper = mount(<SEDAttachments {...initialMockProps} />)
+  })
+
+  afterEach(() => {
+    wrapper.unmount()
   })
 
   it('Renders', () => {
@@ -35,20 +34,15 @@ describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
   })
 
   it('Pressing button for attachments leads to step 1', () => {
-    expect(wrapper.exists('.a-buc-c-sedattachments-step1')).toBeFalsy()
+    expect(wrapper.exists('.mock-step1')).toBeFalsy()
     wrapper.find('#a-buc-c-sedattachments__enable-button-id').hostNodes().simulate('click')
-    expect(wrapper.exists('.a-buc-c-sedattachments-step1')).toBeTruthy()
+    expect(wrapper.exists('.mock-step1')).toBeTruthy()
   })
 
   it('Step 2 can be seen', () => {
-    wrapper = mount(
-      <StoreProvider initialState={initialState} reducer={reducer}>
-        <Suspense fallback={<div />}>
-          <SEDAttachments {...initialMockProps} initialStep={2} />
-        </Suspense>
-      </StoreProvider>)
-    expect(wrapper.exists('.a-buc-c-sedattachments-step2')).toBeFalsy()
+    wrapper = mount(<SEDAttachments {...initialMockProps} initialStep={2} />)
+    expect(wrapper.exists('.mock-step2')).toBeFalsy()
     wrapper.find('#a-buc-c-sedattachments__enable-button-id').hostNodes().simulate('click')
-    expect(wrapper.exists('.a-buc-c-sedattachments-step2')).toBeTruthy()
+    expect(wrapper.exists('.mock-step2')).toBeTruthy()
   })
 })

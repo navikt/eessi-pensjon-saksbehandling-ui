@@ -39,6 +39,10 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
     wrapper = mount(<BUCStart {...initialMockProps} />)
   })
 
+  afterEach(() => {
+    wrapper.unmount()
+  })
+
   it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
@@ -115,7 +119,7 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   })
 
   it('Handles onCancelButtonClick()', () => {
-    expect(wrapper.find('button.a-buc-c-bucstart__cancel-button').prop('disabled')).toBe(false)
+    expect(wrapper.find('button.a-buc-c-bucstart__cancel-button').prop('disabled')).toBeFalsy()
     wrapper.find('button.a-buc-c-bucstart__cancel-button').hostNodes().simulate('click')
     expect(initialMockProps.actions.setMode).toHaveBeenCalledWith('buclist')
   })

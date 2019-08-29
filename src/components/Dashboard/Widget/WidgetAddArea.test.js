@@ -6,6 +6,11 @@ jest.mock('react-dnd', () => {
       return (props) => {
         return <WrappedComponent {...props} />
       }
+    },
+    DragLayer: (opts) => WrappedComponent => {
+      return (props) => {
+        return <WrappedComponent {...props} />
+      }
     }
   }
 })
@@ -16,11 +21,17 @@ jest.mock('react-dnd-html5-backend', () => {
   }
 })
 
+jest.mock('./WidgetAdd', () => {
+  return () => { return <div className='mock-widgetadd' /> }
+})
+
 describe('components/Dashboard/Widget/WidgetAddArea', () => {
   let wrapper
 
   const initialMockProps = {
-    availableWidsets: [],
+    availableWidgets: [{
+      foo: 'mockAvailableWidget'
+    }],
     currentBreakpoint: 'lg',
     dragApi: {},
     setWidgets: jest.fn(),
@@ -30,6 +41,10 @@ describe('components/Dashboard/Widget/WidgetAddArea', () => {
 
   beforeEach(() => {
     wrapper = mount(<WidgetAddArea {...initialMockProps} />)
+  })
+
+  afterEach(() => {
+    wrapper.unmount()
   })
 
   it('Renders', () => {

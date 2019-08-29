@@ -47,6 +47,7 @@ export const SEDStart = (props) => {
   const [sedSent, setSedSent] = useState(false)
   const [sendingAttachments, setSendingAttachments] = useState(false)
   const [attachmentsSent, setAttachmentsSent] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   const buc = _.cloneDeep(bucs[currentBuc])
 
@@ -57,8 +58,11 @@ export const SEDStart = (props) => {
   }, [actions, countryList, loading])
 
   useEffect(() => {
-    actions.getSedList(buc)
-  }, [])
+    if (!mounted) {
+      actions.getSedList(buc)
+      setMounted(true)
+    }
+  }, [mounted, actions, buc])
 
   useEffect(() => {
     if (sed && !sedSent) {

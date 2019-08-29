@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import PDFEditor from 'applications/PDF/components/PDFEditor/PDFEditor'
 import { Hovedknapp, Flatknapp } from 'components/Nav'
 
-const Step2 = (props) => {
+export const Step2 = (props) => {
   const { t, setStep } = props
 
   const onForwardButtonClick = () => {
@@ -15,7 +15,7 @@ const Step2 = (props) => {
   }
 
   return (
-    <div className='a-buc-c-sedattachments-step2'>
+    <div className='a-buc-c-sedattachments__step2'>
       <PDFEditor {...props} />
       <Hovedknapp
         id='a-buc-c-sedattachmnents__next-button-id'
