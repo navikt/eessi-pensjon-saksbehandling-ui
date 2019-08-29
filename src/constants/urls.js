@@ -14,14 +14,9 @@ const PER_URL = FAGMODUL_API_URL + '/person'
 const SAF_URL = FAGMODUL_API_URL + '/saf'
 const PENSJON_URL = FAGMODUL_API_URL + '/pensjon'
 
-export const NAV_URL = 'http://www.nav.no'
-
 // EuxController
-export const EUX_CASE_URL = EUX_URL + '/case/%(sakId)s/%(aktoerId)s'
 export const EUX_SUBJECT_AREA_URL = EUX_URL + '/subjectarea'
-export const EUX_BUCS_URL = EUX_URL + '/bucs'
 export const EUX_COUNTRY_URL = EUX_URL + '/countrycode'
-export const EUX_SED_FOR_BUCS_URL = EUX_URL + '/seds/%(buc)s/%(rinaId)s'
 export const EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL = EUX_URL + '/institutions/%(buc)s/%(country)s'
 export const EUX_RINA_URL = EUX_URL + '/rinaurl'
 
@@ -29,8 +24,6 @@ export const EUX_RINA_URL = EUX_URL + '/rinaurl'
 export const API_USERINFO_URL = API_URL + '/userinfo'
 
 // SubmitController
-export const API_SUBMISSION_SUBMIT_URL = API_URL + '/submission/submit'
-export const API_SUBMISSION_RECEIPT_URL = API_URL + '/submission/receipt'
 export const API_SUBMISSION_RESUBMIT_URL = API_URL + '/submission/resubmit'
 
 // VarselController
