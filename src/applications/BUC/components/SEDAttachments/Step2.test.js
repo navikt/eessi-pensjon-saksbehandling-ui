@@ -1,28 +1,24 @@
-import React, { Suspense } from 'react'
-import Step2 from './Step2'
-import { StoreProvider } from 'store'
-import reducer, { initialState } from 'reducer'
+import React from 'react'
+import { Step2 } from './Step2'
 jest.mock('applications/PDF/components/PDFEditor/PDFEditor', () => {
-  return () => { return <div className='a-buc-c-pdfeditor' /> }
+  return () => { return <div className='mock-pdfeditor' /> }
 })
 
 describe('applications/BUC/components/Step1/Step1', () => {
-  const t = jest.fn((translationString) => { return translationString })
+  let wrapper
   const initialMockProps = {
-    t: t,
     files: {},
     setFiles: jest.fn(),
-    setStep: jest.fn()
+    setStep: jest.fn(),
+    t: jest.fn((translationString) => { return translationString })
   }
-  let wrapper
 
   beforeEach(() => {
-    wrapper = mount(
-      <StoreProvider initialState={initialState} reducer={reducer}>
-        <Suspense fallback={<div />}>
-          <Step2 {...initialMockProps} />
-        </Suspense>
-      </StoreProvider>)
+    wrapper = mount(<Step2 {...initialMockProps} />)
+  })
+
+  afterEach(() => {
+    wrapper.unmount()
   })
 
   it('Renders', () => {
@@ -45,7 +41,7 @@ describe('applications/BUC/components/Step1/Step1', () => {
   })
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.a-buc-c-sedattachments-step2')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-c-pdfeditor')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-sedattachments__step2')).toBeTruthy()
+    expect(wrapper.exists('.mock-pdfeditor')).toBeTruthy()
   })
 })

@@ -96,6 +96,21 @@ describe('app actions', () => {
     })
   })
 
+  it('getSakType()', () => {
+    const mockSakId = '123'
+    const mockAktoerId = '456'
+    appActions.getSakType(mockSakId, mockAktoerId)
+    expect(api.funcCall).toBeCalledWith({
+      type: {
+        request: types.APP_SAKTYPE_REQUEST,
+        success: types.APP_SAKTYPE_SUCCESS,
+        failure: types.APP_SAKTYPE_FAILURE
+      },
+      expectedPayload: { sakId: mockSakId, sakType: 'GJENLEV' },
+      url: sprintf(urls.PENSJON_GET_SAKTYPE_URL, { sakId: mockSakId, aktoerId: mockAktoerId })
+    })
+  })
+
   it('clearData()', () => {
     const generatedResult = appActions.clearData()
     expect(generatedResult).toMatchObject({

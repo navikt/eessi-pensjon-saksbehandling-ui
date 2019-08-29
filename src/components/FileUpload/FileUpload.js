@@ -52,35 +52,6 @@ const FileUpload = (props) => {
     }
   }
 
-  const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
-    if (beforeDrop) {
-      beforeDrop()
-    }
-    if (maxFiles && (_files.length + acceptedFiles.length > maxFiles)) {
-      return setStatus({
-        message: t('ui:maxFilesExceeded', { maxFiles: maxFiles }),
-        type: 'ERROR'
-      })
-    }
-    processFiles(acceptedFiles, rejectedFiles)
-    if (afterDrop) {
-      afterDrop()
-    }
-  }, [])
-
-  const onDropRejected = (rejectedFiles) => {
-    if (maxFileSize && rejectedFiles[0].size > maxFileSize) {
-      setStatus({
-        message: t('ui:fileIsTooBigLimitIs', {
-          maxFileSize: bytes(maxFileSize),
-          size: bytes(rejectedFiles[0].size),
-          file: rejectedFiles[0].name
-        }),
-        type: 'ERROR'
-      })
-    }
-  }
-
   const processFiles = (acceptedFiles, rejectedFiles) => {
     const newFiles = _.clone(_files)
     const newCurrentPages = _.clone(_currentPages)
@@ -111,6 +82,37 @@ const FileUpload = (props) => {
     statusMessage += t('ui:rejected') + ': ' + rejectedFiles.length + ', '
     statusMessage += t('ui:total') + ': ' + newFiles.length
     updateFiles(newFiles, newCurrentPages, statusMessage)
+  }
+
+  const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
+    if (beforeDrop) {
+      beforeDrop()
+    }
+    if (maxFiles && (_files.length + acceptedFiles.length > maxFiles)) {
+      return setStatus({
+        message: t('ui:maxFilesExceeded', { maxFiles: maxFiles }),
+        type: 'ERROR'
+      })
+    }
+
+    processFiles(acceptedFiles, rejectedFiles)
+
+    if (afterDrop) {
+      afterDrop()
+    }
+  }, [_files.length, afterDrop, beforeDrop, maxFiles, t])
+
+  const onDropRejected = (rejectedFiles) => {
+    if (maxFileSize && rejectedFiles[0].size > maxFileSize) {
+      setStatus({
+        message: t('ui:fileIsTooBigLimitIs', {
+          maxFileSize: bytes(maxFileSize),
+          size: bytes(rejectedFiles[0].size),
+          file: rejectedFiles[0].name
+        }),
+        type: 'ERROR'
+      })
+    }
   }
 
   const removeFile = (fileIndex) => {

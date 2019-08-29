@@ -59,39 +59,45 @@ describe('components/FileUpload/FileUpload', () => {
     initialMockProps.onFileChange.mockClear()
     expect(initialMockProps.onFileChange).not.toHaveBeenCalled()
     wrapper.simulate('drop', { target: { files: [file] } })
-    await new Promise(resolve => {
-      setTimeout(() => {
-        expect(initialMockProps.onFileChange).toHaveBeenCalledWith([expectedProcessedFile])
-        expect(wrapper.find('.c-fileUpload-placeholder-status').render().text()).toEqual('ui:accepted: 1, ui:rejected: 0, ui:total: 0')
-        done()
-        resolve()
-      }, 500)
+    await act(async () => {
+      await new Promise(resolve => {
+        setTimeout(() => {
+          expect(initialMockProps.onFileChange).toHaveBeenCalledWith([expectedProcessedFile])
+          expect(wrapper.find('.c-fileUpload-placeholder-status').render().text()).toEqual('ui:accepted: 1, ui:rejected: 0, ui:total: 0')
+          done()
+          resolve()
+        }, 500)
+      })
     })
   })
 
   it('Dropping a file too large', async (done) => {
     wrapper.setProps({ maxFileSize: 1 })
     wrapper.simulate('drop', { target: { files: [file] } })
-    await new Promise(resolve => {
-      setTimeout(() => {
-        expect(initialMockProps.onFileChange).toHaveBeenCalledWith([])
-        expect(wrapper.find('.c-fileUpload-placeholder-status').render().text()).toEqual('ui:fileIsTooBigLimitIs')
-        done()
-        resolve()
-      }, 500)
+    await act(async () => {
+      await new Promise(resolve => {
+        setTimeout(() => {
+          expect(initialMockProps.onFileChange).toHaveBeenCalledWith([])
+          expect(wrapper.find('.c-fileUpload-placeholder-status').render().text()).toEqual('ui:fileIsTooBigLimitIs')
+          done()
+          resolve()
+        }, 500)
+      })
     })
   })
 
   it('Dropping a file of a forbidden mimetype', async (done) => {
     wrapper.setProps({ acceptedMimetypes: ['application/pdf'] })
     wrapper.simulate('drop', { target: { files: [file] } })
-    await new Promise(resolve => {
-      setTimeout(() => {
-        expect(initialMockProps.onFileChange).toHaveBeenCalledWith([])
-        expect(wrapper.find('.c-fileUpload-placeholder-status').render().text()).toEqual('ui:accepted: 0, ui:rejected: 1, ui:total: 0')
-        done()
-        resolve()
-      }, 500)
+    await act(async () => {
+      await new Promise(resolve => {
+        setTimeout(() => {
+          expect(initialMockProps.onFileChange).toHaveBeenCalledWith([])
+          expect(wrapper.find('.c-fileUpload-placeholder-status').render().text()).toEqual('ui:accepted: 0, ui:rejected: 1, ui:total: 0')
+          done()
+          resolve()
+        }, 500)
+      })
     })
   })
 
@@ -111,13 +117,15 @@ describe('components/FileUpload/FileUpload', () => {
     expect(wrapper.exists('.deleteLink')).toBeTruthy()
 
     wrapper.find('.deleteLink Icons').simulate('click')
-    await new Promise(resolve => {
-      setTimeout(() => {
-        expect(initialMockProps.onFileChange).toHaveBeenCalledWith([])
-        expect(wrapper.find('.c-fileUpload-placeholder-status').render().text()).toEqual('ui:removed text.txt')
-        done()
-        resolve()
-      }, 500)
+    await act(async () => {
+      await new Promise(resolve => {
+        setTimeout(() => {
+          expect(initialMockProps.onFileChange).toHaveBeenCalledWith([])
+          expect(wrapper.find('.c-fileUpload-placeholder-status').render().text()).toEqual('ui:removed text.txt')
+          done()
+          resolve()
+        }, 500)
+      })
     })
   })
 

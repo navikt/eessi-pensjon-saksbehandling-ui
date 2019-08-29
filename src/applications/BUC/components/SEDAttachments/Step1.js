@@ -1,23 +1,16 @@
 import React from 'react'
 import PT from 'prop-types'
-import _ from 'lodash'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import { Undertittel } from 'components/Nav'
 
-const Step1 = (props) => {
+export const Step1 = (props) => {
   const { t, files, setFiles } = props
 
   const handleFileChange = (changedFiles, key) => {
-    const newFiles = _.cloneDeep(files)
-    newFiles[key] = changedFiles
-    setFiles(newFiles)
-  }
-
-  const getFiles = (key) => {
-    if (Object.prototype.hasOwnProperty.call(files, key)) {
-      return (files[key])
-    }
-    return []
+    setFiles({
+      ...files,
+      [key]: changedFiles
+    })
   }
 
   const handleJoarkFilesChange = (joarkFiles) => {
@@ -25,11 +18,11 @@ const Step1 = (props) => {
   }
 
   return (
-    <div className='a-buc-c-sedattachments-step1'>
+    <div className='a-buc-c-sedattachments__step1'>
       <Undertittel className='mt-4 mb-3'>{t('buc:form-addAttachmentsFromJOARK')}</Undertittel>
       <JoarkBrowser
         {...props}
-        files={getFiles('joark')}
+        files={files ? files.joark : []}
         onFilesChange={handleJoarkFilesChange}
       />
     </div>

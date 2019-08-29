@@ -47,8 +47,14 @@ describe('components/Dashboard/Dashboard', () => {
     t: jest.fn((translationString) => { return translationString })
   }
 
-  beforeEach(() => {
-    wrapper = mount(<Dashboard {...initialMockProps} />)
+  beforeEach(async () => {
+    await act(async () => {
+      wrapper = mount(<Dashboard {...initialMockProps} />)
+    })
+  })
+
+  afterEach(() => {
+    wrapper.unmount()
   })
 
   it('Renders', () => {
@@ -61,14 +67,16 @@ describe('components/Dashboard/Dashboard', () => {
   })
 
   it('Has proper HTML structure: loaded', async (done) => {
-    await new Promise(resolve => {
-      setTimeout(() => {
-        wrapper.update()
-        expect(wrapper.exists('div.c-dashboard')).toBeTruthy()
-        expect(wrapper.exists('DashboardControlPanel')).toBeTruthy()
-        expect(wrapper.exists('DashboardGrid')).toBeTruthy()
-        done()
-      }, 500)
+    await act(async () => {
+      await new Promise(resolve => {
+        setTimeout(() => {
+          wrapper.update()
+          expect(wrapper.exists('div.c-dashboard')).toBeTruthy()
+          expect(wrapper.exists('DashboardControlPanel')).toBeTruthy()
+          expect(wrapper.exists('DashboardGrid')).toBeTruthy()
+          done()
+        }, 500)
+      })
     })
   })
 })

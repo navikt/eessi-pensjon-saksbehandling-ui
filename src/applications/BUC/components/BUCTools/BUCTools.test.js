@@ -4,9 +4,9 @@ import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 
 describe('applications/BUC/components/BUCTools/BUCTools', () => {
+  let wrapper
   const buc = sampleBucs[0]
-  const bucInfo = sampleBucsInfo.bucs[buc.type + '-' + buc.caseId]
-  const t = jest.fn((translationString) => { return translationString })
+  const bucInfo = sampleBucsInfo.bucs[buc.caseId]
   const initialMockProps = {
     actions: {
       getTagList: jest.fn(),
@@ -18,12 +18,19 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
     bucsInfo: { foo: 'bar' },
     loading: {},
     locale: 'nb',
-    t: t,
+    t: jest.fn((translationString) => { return translationString }),
     tagList: ['mockTag1', 'mockTag2']
   }
 
+  beforeEach(() => {
+    wrapper = mount(<BUCTools {...initialMockProps} />)
+  })
+
+  afterEach(() => {
+    wrapper.unmount()
+  })
+
   it('Renders', () => {
-    const wrapper = shallow(<BUCTools {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
@@ -44,7 +51,6 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
       label: 'buc:tag-mockTag1',
       value: 'mockTag1'
     }])
-    const wrapper = mount(<BUCTools {...initialMockProps} />)
     wrapper.find('EkspanderbartpanelBase button').simulate('click')
     expect(wrapper.exists('#a-buc-c-buctools__tags-select-id')).toBeTruthy()
 
@@ -60,7 +66,6 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
   it('Changes comments', () => {
     const firstMockedComment = bucInfo.comment
     const secondMockedComment = 'this is a mocked comment'
-    const wrapper = mount(<BUCTools {...initialMockProps} />)
     wrapper.find('EkspanderbartpanelBase button').simulate('click')
     expect(wrapper.exists('#a-buc-c-buctools__comment-textarea-id')).toBeTruthy()
 
@@ -74,7 +79,6 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
   })
 
   it('Handles onSaveButtonClick()', () => {
-    const wrapper = mount(<BUCTools {...initialMockProps} />)
     expect(wrapper.exists('.a-buc-c-buctools')).toBeTruthy()
     wrapper.find('EkspanderbartpanelBase button').simulate('click')
     wrapper.find('button#a-buc-c-buctools__save-button-id').simulate('click')
@@ -88,17 +92,15 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
   })
 
   it('HTML with EkspanderbartpanelBase close', () => {
-    const wrapper = mount(<BUCTools {...initialMockProps} />)
     expect(wrapper.exists('EkspanderbartpanelBase')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-buctools__save-button')).toBeFalsy()
   })
 
   it('HTML with EkspanderbartpanelBase open', () => {
-    const wrapper = mount(<BUCTools {...initialMockProps} />)
     expect(wrapper.exists('EkspanderbartpanelBase')).toBeTruthy()
     wrapper.find('EkspanderbartpanelBase button').simulate('click')
     expect(wrapper.exists('.a-buc-c-buctools')).toBeTruthy()
-    expect(wrapper.find('.a-buc-c-buctools__title').hostNodes().render().text()).toEqual(t('buc:form-BUCtools'))
+    expect(wrapper.find('.a-buc-c-buctools__title').hostNodes().render().text()).toEqual('buc:form-BUCtools')
     expect(wrapper.exists('.a-buc-c-buctools__tags-select')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-buctools__comment-textarea')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-buctools__save-button')).toBeTruthy()

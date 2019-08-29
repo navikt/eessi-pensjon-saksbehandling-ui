@@ -6,6 +6,10 @@ jest.mock('applications/BUC/widgets/index', () => {
 
 describe('components/Dashboard/Widget/Widget', () => {
   const initialMockProps = {
+    layout: {},
+    onResize: jest.fn(),
+    onWidgetDelete: jest.fn(),
+    setMode: jest.fn(),
     t: jest.fn((translationString) => { return translationString }),
     widget: {
       type: 'foo'

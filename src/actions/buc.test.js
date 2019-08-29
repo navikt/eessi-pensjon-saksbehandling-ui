@@ -60,6 +60,20 @@ describe('buc actions', () => {
     })
   })
 
+  it('fetchSingleBuc()', () => {
+    const mockRinaCaseId = '123'
+    bucActions.fetchSingleBuc(mockRinaCaseId)
+    expect(api.funcCall).toBeCalledWith({
+      type: {
+        request: types.BUC_GET_SINGLE_BUC_REQUEST,
+        success: types.BUC_GET_SINGLE_BUC_SUCCESS,
+        failure: types.BUC_GET_SINGLE_BUC_FAILURE
+      },
+      expectedPayload: sampleBucs[0],
+      url: sprintf(urls.BUC_GET_SINGLE_BUC, { rinaCaseId: mockRinaCaseId })
+    })
+  })
+
   it('fetchBucs()', () => {
     const mockAktoerId = 123
     bucActions.fetchBucs(mockAktoerId)
@@ -71,6 +85,20 @@ describe('buc actions', () => {
       },
       expectedPayload: sampleBucs,
       failWith500: true,
+      url: sprintf(urls.BUC_AKTOERID_DETALJER_URL, { aktoerId: mockAktoerId })
+    })
+  })
+
+  it('fetchAvdodBucs()', () => {
+    const mockAktoerId = 123
+    bucActions.fetchAvdodBucs(mockAktoerId)
+    expect(api.funcCall).toBeCalledWith({
+      type: {
+        request: types.BUC_GET_AVDOD_BUCS_REQUEST,
+        success: types.BUC_GET_AVDOD_BUCS_SUCCESS,
+        failure: types.BUC_GET_AVDOD_BUCS_FAILURE
+      },
+      expectedPayload: sampleBucs,
       url: sprintf(urls.BUC_AKTOERID_DETALJER_URL, { aktoerId: mockAktoerId })
     })
   })
@@ -178,7 +206,7 @@ describe('buc actions', () => {
       method: 'POST',
       payload: {
         bucs: {
-          'mockBuc-456': {
+          456: {
             tags: ['DUMMY'],
             comment: 'dummy comment'
           }

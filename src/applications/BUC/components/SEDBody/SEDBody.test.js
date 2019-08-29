@@ -17,6 +17,10 @@ describe('applications/BUC/components/SEDBody/SEDBody', () => {
     wrapper = mount(<SEDBody {...initialMockProps} />)
   })
 
+  afterEach(() => {
+    wrapper.unmount()
+  })
+
   it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
