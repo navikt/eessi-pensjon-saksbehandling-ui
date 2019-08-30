@@ -24,4 +24,15 @@ describe('components/Dashboard/Widget/WidgetDelete', () => {
   it('Has proper HTML structure', () => {
     expect(wrapper.exists('.c-d-WidgetDelete')).toBeTruthy()
   })
+
+  it('Deletes widget when delete button is clicked', () => {
+    wrapper.find('#c-d-WidgetDelete__delete-button-id').hostNodes().simulate('click')
+    expect(initialMockProps.onWidgetDelete).toHaveBeenCalledWith(initialMockProps.layout)
+  })
+
+  it('Returns to edit mode when cancel button is clicked', () => {
+    wrapper.find('#c-d-WidgetDelete__cancel-button-id').hostNodes().simulate('click')
+    expect(initialMockProps.setMode).toHaveBeenCalledWith('edit')
+  })
+
 })

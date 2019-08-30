@@ -3,23 +3,28 @@ import BUCEmpty from './BUCEmpty'
 
 describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
   let wrapper
-  const t = jest.fn((translationString) => { return translationString })
   const initialMockProps = {
     actions: {
       setStatusParam: jest.fn()
     },
     onBUCNew: jest.fn(),
-    t: t
+    t: jest.fn((translationString) => { return translationString })
   }
 
-  it('Renders', () => {
+  beforeEach(() => {
     wrapper = mount(<BUCEmpty {...initialMockProps} />)
+  })
+
+  afterEach(() => {
+    wrapper.unmount()
+  })
+
+  it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Has proper HTML structure with forms when no aktoerId and sakId', () => {
-    wrapper = mount(<BUCEmpty {...initialMockProps} />)
     expect(wrapper.exists('.a-buc-bucempty')).toBeTruthy()
     expect(wrapper.exists('.a-buc-bucempty__artwork')).toBeTruthy()
     expect(wrapper.exists('.a-buc-bucempty__title')).toBeTruthy()
@@ -45,21 +50,27 @@ describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
   })
 
   it('Goes to bucnew when button pressed', () => {
-    wrapper = mount(<BUCEmpty {...initialMockProps} />)
     wrapper.find('#a-buc-bucempty__newbuc-link-id').hostNodes().simulate('click')
     expect(initialMockProps.onBUCNew).toHaveBeenCalled()
   })
 
   it('Handles added aktoerId and sakId', () => {
-    wrapper = mount(<BUCEmpty {...initialMockProps} />)
-    wrapper.find('#a-buc-bucempty__aktoerid-input-id').hostNodes().simulate('change', { target: { value: '123' } })
+    wrapper.find('#a-buc-bucempty__aktoerid-input-id').hostNodes().simulate('change', { target: { value: 'notvalid' } })
+    wrapper.find('#a-buc-bucempty__aktoerid-button-id').hostNodes().simulate('click')
     wrapper.update()
+    expect(wrapper.find('#a-buc-bucempty__aktoerid-input-id .skjemaelement__feilmelding').render().html()).toEqual('buc:validation-noAktoerId')
+
+    wrapper.find('#a-buc-bucempty__aktoerid-input-id').hostNodes().simulate('change', { target: { value: '123' } })
     wrapper.find('#a-buc-bucempty__aktoerid-button-id').hostNodes().simulate('click')
     wrapper.update()
     expect(initialMockProps.actions.setStatusParam).toBeCalledWith('aktoerId', '123')
 
-    wrapper.find('#a-buc-bucempty__sakid-input-id').hostNodes().simulate('change', { target: { value: '123' } })
+    wrapper.find('#a-buc-bucempty__sakid-input-id').hostNodes().simulate('change', { target: { value: 'notvalid' } })
+    wrapper.find('#a-buc-bucempty__sakid-button-id').hostNodes().simulate('click')
     wrapper.update()
+    expect(wrapper.find('#a-buc-bucempty__sakid-input-id .skjemaelement__feilmelding').render().html()).toEqual('buc:validation-noSakId')
+
+    wrapper.find('#a-buc-bucempty__sakid-input-id').hostNodes().simulate('change', { target: { value: '123' } })
     wrapper.find('#a-buc-bucempty__sakid-button-id').hostNodes().simulate('click')
     wrapper.update()
     expect(initialMockProps.actions.setStatusParam).toBeCalledWith('sakId', '123')

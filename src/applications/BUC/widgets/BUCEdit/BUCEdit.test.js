@@ -30,6 +30,10 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
     wrapper = mount(<BUCEdit {...initialMockProps} />)
   })
 
+  afterEach(() => {
+    wrapper.unmount()
+  })
+
   it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
   })
@@ -47,4 +51,19 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
     newSedButton.simulate('click')
     expect(initialMockProps.actions.setMode).toBeCalledWith('sednew')
   })
+
+  it('SEDSearch status searttriggers the filter functions', () => {
+    expect(wrapper.find('.a-buc-c-sedrow').hostNodes().length).toEqual(1)
+    const sedSearch = wrapper.find('.a-buc-c-sedsearch').hostNodes()
+
+    const statusSelect = sedSearch.find('#a-buc-c-sedsearch__status-select-id input')
+    statusSelect.simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
+
+    expect(wrapper.find('#a-buc-c-sedsearch__status-select-id .c-multipleOption').length).toEqual(4)
+    expect(wrapper.find('#a-buc-c-sedsearch__status-select-id .c-multipleOption').at(0).render().text()).toEqual('ui:new')
+
+    statusSelect.simulate('keyDown', { key: 'Enter', keyCode: 13 })
+    expect(wrapper.find('.a-buc-c-sedrow').hostNodes().length).toEqual(0)
+  })
+
 })

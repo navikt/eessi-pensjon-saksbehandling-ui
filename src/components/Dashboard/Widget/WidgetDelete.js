@@ -27,12 +27,16 @@ const WidgetDelete = (props) => {
       </div>
       <div className='buttons'>
         <KnappBase
+          id='c-d-WidgetDelete__delete-button-id'
+          className='c-d-WidgetDelete__delete-button'
           type='hoved'
           onClick={onWidgetDeleteClick}
         >
           {t('ui:yes') + ', ' + t('ui:delete')}
         </KnappBase>
         <KnappBase
+          id='c-d-WidgetDelete__cancel-button-id'
+          className='c-d-WidgetDelete__cancel-button'
           type='flat'
           onClick={() => setMode('edit')}
         >

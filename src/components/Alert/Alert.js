@@ -47,9 +47,6 @@ export const Alert = (props) => {
     if (error.error) {
       errorMessage.push(error.error)
     }
-    if (error.serverMessage) {
-      errorMessage.push(error.serverMessage)
-    }
     if (error.uuid) {
       errorMessage.push(error.uuid)
     }

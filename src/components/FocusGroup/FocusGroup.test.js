@@ -24,57 +24,45 @@ describe('components/FocusGroup', () => {
 })
 
 describe('components/FocusGroup Event bubbling', () => {
-  it('Focus event bubbles to parent', (done) => {
+
+
+  it('Focus event bubbles to parent', async (done) => {
     const eventHandler = (event) => {
       expect(event.testFlag).toBeTruthy()
       done()
     }
 
-    const wrapper = mount(
-      <FocusGroup onFocus={eventHandler}>
-        <input type='text' />
-      </FocusGroup>
-    )
+    let wrapper
+
+    await act(async () => {
+      wrapper = mount(
+        <FocusGroup onFocus={eventHandler}>
+          <input type='text' />
+        </FocusGroup>
+      )
+    })
+
     const child = wrapper.childAt(0)
     child.simulate('focus', { testFlag: true })
   })
 
-  it('Blur event bubbles to parent', (done) => {
+  it('Blur event bubbles to parent', async (done) => {
     const eventHandler = (event) => {
       expect(event.testFlag).toBeTruthy()
       done()
     }
 
-    const wrapper = mount(
-      <FocusGroup onBlur={eventHandler}>
-        <input type='text' />
-      </FocusGroup>
-    )
+    let wrapper
+
+    await act(async () => {
+      wrapper = mount(
+        <FocusGroup onBlur={eventHandler}>
+          <input type='text' />
+        </FocusGroup>
+      )
+    })
+
     const child = wrapper.childAt(0)
     child.simulate('blur', { testFlag: true })
-  })
-})
-
-describe('components/FocusGroup Event Grouping', () => {
-  it('Sends a single focus and blur event', (done) => {
-    let focusCounter = 0
-    let blurCounter = 0
-
-    const focusHandler = (event) => {
-      focusCounter++
-    }
-    const blurHandler = (event) => {
-      blurCounter++
-      expect(focusCounter === 1 && blurCounter === 1).toBeTruthy()
-      done()
-    }
-
-    const wrapper = mount(<FocusGroup onFocus={focusHandler} onBlur={blurHandler} />)
-    wrapper.simulate('focus')
-    wrapper.simulate('blur')
-    wrapper.simulate('focus')
-    wrapper.simulate('blur')
-    wrapper.simulate('focus')
-    wrapper.simulate('blur')
   })
 })

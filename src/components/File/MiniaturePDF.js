@@ -9,11 +9,11 @@ import './MiniaturePDF.css'
 pdfjs.GlobalWorkerOptions.workerSrc = process.env.PUBLIC_URL + '/pdf.worker.js'
 
 export const MiniaturePDF = (props) => {
-  const { addLink, animate, className, currentPage, deleteLink, downloadLink, file, height, isHovering, onAddFile } = props
+  const { addLink, animate, className, currentPage, deleteLink, downloadLink, file, height, initialNumberPages, index, isHovering, onAddFile } = props
   const { onClick, onDeleteDocument, onLoadSuccess, onNextPage, onPreviewDocument, onPreviousPage, previewLink } = props
   const { scale, size, t, ui, width } = props
   const [_currentPage, setCurrentPage] = useState(1)
-  const [_numberPages, setNumberPages] = useState(undefined)
+  const [_numberPages, setNumberPages] = useState(initialNumberPages)
   const title = '' + file.name + '\n' + t('ui:pages') + ': ' + (_numberPages || '0') + '\n' + t('ui:size') + ': ' + size
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export const MiniaturePDF = (props) => {
   const handleOnLoadSuccess = (e) => {
     setNumberPages(e.numPages)
     if (typeof onLoadSuccess === 'function') {
-      onLoadSuccess(e)
+      onLoadSuccess(index, e)
     }
   }
 
@@ -34,7 +34,7 @@ export const MiniaturePDF = (props) => {
     e.preventDefault()
     setCurrentPage(1)
     if (typeof onDeleteDocument === 'function') {
-      onDeleteDocument()
+      onDeleteDocument(index)
     }
   }
 
@@ -42,7 +42,7 @@ export const MiniaturePDF = (props) => {
     e.stopPropagation()
     e.preventDefault()
     if (typeof onPreviewDocument === 'function') {
-      onPreviewDocument()
+      onPreviewDocument(file)
     }
   }
 
@@ -50,30 +50,28 @@ export const MiniaturePDF = (props) => {
     e.stopPropagation()
     e.preventDefault()
     if (typeof onAddFile === 'function') {
-      onAddFile()
+      onAddFile(file)
     }
   }
 
   const handlePreviousPageRequest = (e) => {
     e.stopPropagation()
     e.preventDefault()
+    setCurrentPage(_currentPage - 1)
     if (onPreviousPage && typeof onPreviousPage === 'function') {
-      onPreviousPage()
-    } else {
-      setCurrentPage(_currentPage - 1)
+      onPreviousPage(index)
     }
   }
 
   const handleNextPageRequest = (e) => {
     e.stopPropagation()
     e.preventDefault()
+    setCurrentPage(_currentPage + 1)
     if (onNextPage && typeof onNextPage === 'function') {
-      onNextPage()
-    } else {
-      setCurrentPage(_currentPage + 1)
+      onNextPage(index)
     }
   }
-
+  
   return (
     <div
       className={classNames('c-file-miniaturePdf', className, { animate: animate })}
@@ -84,6 +82,8 @@ export const MiniaturePDF = (props) => {
         className='position-relative'
         file={'data:application/pdf;base64,' + file.content.base64}
         onLoadSuccess={handleOnLoadSuccess}
+        setNumberPages={setNumberPages}
+        {...props}
       >
         {previewLink && isHovering
           ? (
@@ -173,6 +173,7 @@ MiniaturePDF.propTypes = {
   downloadLink: PT.bool,
   file: PT.object.isRequired,
   height: PT.number,
+  initialNumberPages: PT.number,
   isHovering: PT.bool,
   onAddFile: PT.func,
   onClick: PT.func,

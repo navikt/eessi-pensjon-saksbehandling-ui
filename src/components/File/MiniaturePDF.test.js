@@ -23,6 +23,7 @@ describe('components/File/MiniaturePDF', () => {
     size: '2 kB',
     t: t,
     file: samplePDF,
+    initialNumberPages: 5,
     scale: 1,
     onAddFile: jest.fn(),
     onDeleteDocument: jest.fn(),

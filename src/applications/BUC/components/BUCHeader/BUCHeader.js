@@ -1,5 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
+import _ from 'lodash'
 import { LenkepanelBase, Normaltekst, Undertittel } from 'components/Nav'
 import FlagList from 'components/Flag/FlagList'
 import Icons from 'components/Icons'
@@ -19,7 +20,7 @@ const BUCHeader = (props) => {
     onBUCEdit(buc)
   }
 
-  if (buc.institusjon) {
+  if (_.isArray(buc.institusjon)) {
     buc.institusjon.forEach(institution => {
       if (Object.prototype.hasOwnProperty.call(institutionList, institution.country)) {
         institutionList[institution.country].push(institution.institution)
@@ -29,7 +30,7 @@ const BUCHeader = (props) => {
     })
   }
 
-  if (buc.seds) {
+  if (_.isArray(buc.seds)) {
     buc.seds.forEach(sed => {
       sed.attachments.forEach(att => {
         attachments.push(att)

@@ -19,12 +19,14 @@ export const mapStateToProps = (state) => {
 }
 
 export const SEDP4000 = (props) => {
+
+  const { actions, aktoerId, initialMaxPeriods = 8, loadingP4000info, loadingP4000list, locale } = props
+  const { p4000info, p4000list, setShowButtons, showButtons, t } = props
+
   const [period, setPeriod] = useState({})
-  const [maxPeriods] = useState(8)
+  const [maxPeriods] = useState(initialMaxPeriods)
   const [isReady, setIsReady] = useState(false)
 
-  const { actions, aktoerId, loadingP4000info, loadingP4000list, locale } = props
-  const { p4000info, p4000list, setShowButtons, showButtons, t } = props
   const mode = period && period.id ? 'edit' : 'new'
   const p4000file = aktoerId + '___PINFO___PINFO.json'
 
@@ -166,7 +168,7 @@ export const SEDP4000 = (props) => {
           />
         )
         : (
-          <span>
+          <span className='a-buc-c-sedp4000__maxPeriods-warning'>
             {t('buc:p4000-alert-maxPeriods', { maxPeriods: maxPeriods })}
           </span>
         )}
@@ -177,6 +179,7 @@ export const SEDP4000 = (props) => {
 SEDP4000.propTypes = {
   actions: PT.object,
   aktoerId: PT.string.isRequired,
+  initialMaxPeriods: PT.number,
   loadingP4000info: PT.bool,
   loadingP4000list: PT.bool,
   locale: PT.string.isRequired,

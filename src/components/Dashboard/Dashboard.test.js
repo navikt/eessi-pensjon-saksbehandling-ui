@@ -79,4 +79,14 @@ describe('components/Dashboard/Dashboard', () => {
       })
     })
   })
+
+  it('Has Add mode', () => {
+    expect(wrapper.exists('WidgetAddArea')).toBeFalsy()
+    wrapper.update()
+    expect(wrapper.exists('.c-dashboard__controlPanel-buttons')).toBeTruthy()
+    wrapper.find('#c-dashboard__controlPanel-edit-button-id').simulate('click')
+    wrapper.find('#c-dashboard__controlPanel-add-button-id').hostNodes().simulate('click')
+    wrapper.update()
+    expect(wrapper.exists('WidgetAddArea')).toBeTruthy()
+  })
 })
