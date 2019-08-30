@@ -32,9 +32,10 @@ const mapDispatchToProps = (dispatch) => {
 
 export const SEDStart = (props) => {
   const { actions, aktoerId, avdodfnr, attachments, bucs, bucsInfoList, countryList, currentBuc } = props
-  const { initialAttachments = {}, initialStep = 0, institutionList, loading, p4000info, sakId, sed, t, vedtakId } = props
+  const { initialAttachments = {}, initialSed = undefined, initialStep = 0, institutionList } = props
+  const { loading, p4000info, sakId, sed, t, vedtakId } = props
 
-  const [_sed, setSed] = useState(undefined)
+  const [_sed, setSed] = useState(initialSed)
   const [_institutions, setInstitutions] = useState([])
   const [_countries, setCountries] = useState([])
   const [_vedtakId, setVedtakId] = useState(parseInt(vedtakId, 10))
@@ -149,6 +150,7 @@ export const SEDStart = (props) => {
   }
 
   const onForwardButtonClick = () => {
+    console.log(validation)
     if (_.isEmpty(validation)) {
       const institutions = convertInstitutionIDsToInstitutionObjects()
       const payload = {

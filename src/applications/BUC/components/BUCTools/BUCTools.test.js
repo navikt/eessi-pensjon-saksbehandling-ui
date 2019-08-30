@@ -32,7 +32,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
 
   it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
+    // expect(wrapper).toMatchSnapshot() - do not use, collapse dependency generates random ids
   })
 
   it('UseEffect: fetches tag list', () => {

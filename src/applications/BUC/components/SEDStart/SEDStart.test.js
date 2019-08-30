@@ -13,6 +13,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
 
   const initialMockProps = {
     actions: {
+      createSed: jest.fn(),
       getCountryList: jest.fn(),
       getSedList: jest.fn(),
       sendAttachmentToSed: jest.fn(),
@@ -37,6 +38,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
         }
       }]
     },
+    initialSed: 'P2000',
     institutionList: {},
     loading: {},
     locale: 'nb',
@@ -96,6 +98,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
   })
 
   it('With a BUC with SEDs that have participants, no need to demand a institution', () => {
+    wrapper = mount(<SEDStart {...initialMockProps} initialSed={undefined}/>)
     expect(wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().props().disabled).toEqual(true)
     wrapper.find('#a-buc-c-sedstart__sed-select-id').hostNodes().simulate('change', { target: { value: 'mockSed' } })
     expect(wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().props().disabled).toEqual(false)
@@ -120,5 +123,25 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
   it('Renders with step 2', () => {
     wrapper = mount(<SEDStart {...initialMockProps} initialStep={1} />)
     expect(wrapper.find('Step2')).toBeTruthy()
+  })
+
+  it('Creates sed when forward button is clicked ', () => {
+    expect(wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().prop('disabled')).toBeFalsy()
+    wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().simulate('click')
+    expect(initialMockProps.actions.createSed).toHaveBeenCalledWith({
+      aktoerId: '123',
+      attachments: [],
+      buc: 'P_BUC_01',
+      euxCaseId: '195440',
+      institutions: [],
+      sakId: '123',
+      sed: 'P2000'
+    })
+  })
+
+  it('Cancels sed when cancel button is clicked ', () => {
+    wrapper.find('#a-buc-c-sedstart__cancel-button-id').hostNodes().simulate('click')
+    expect(initialMockProps.actions.resetSed).toHaveBeenCalled()
+    expect(initialMockProps.actions.setMode).toHaveBeenCalledWith('bucedit')
   })
 })

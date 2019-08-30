@@ -57,6 +57,7 @@ const BUCStart = (props) => {
   }, [actions, loading, buc, hasBucInfoSaved])
 
   const onForwardButtonClick = () => {
+    console.log(_subjectArea)
     validateSubjectArea(_subjectArea)
     validateBuc(_buc)
     if (hasNoValidationErrors()) {
@@ -119,9 +120,7 @@ const BUCStart = (props) => {
   }
 
   const renderOptions = (options, type) => {
-    if (typeof options === 'string') {
-      options = [options]
-    }
+
     if (!options || Object.keys(options).length === 0) {
       options = [{
         key: placeholders[type],
@@ -185,7 +184,9 @@ const BUCStart = (props) => {
     <div className='a-buc-c-bucstart'>
       {mode === 'page' ? (
         <>
-          <Systemtittel className='mb-4'>{t('buc:app-startCaseDescription')}</Systemtittel>
+          <Systemtittel className='a-buc-c-bucstart__page-title mb-4'>
+            {t('buc:app-startCaseDescription')}
+          </Systemtittel>
           <div className='mb-5'>
             <PsychoPanel closeButton>{t('help-startCase2')}</PsychoPanel>
           </div>
@@ -207,7 +208,7 @@ const BUCStart = (props) => {
                 </HjelpetekstAuto>
               </div>
             }
-            value={_subjectArea || []}
+            value={_subjectArea}
             onChange={onSubjectAreaChange}
           >
             {renderOptions(subjectAreaList, 'subjectArea')}

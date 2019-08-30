@@ -6,7 +6,8 @@ import Icons from 'components/Icons'
 import './MiniatureOther.css'
 
 export const MiniatureOther = (props) => {
-  const { animate, className, file, isHovering, onClick, onDeleteDocument, size, t } = props
+  const { animate, className, file, index, isHovering, onClick = () =>
+    {}, onDeleteDocument, size, t } = props
   const extension = file.name.substring(file.name.lastIndexOf('.') + 1)
 
   return (
@@ -17,7 +18,7 @@ export const MiniatureOther = (props) => {
       {isHovering
         ? (
           <div className='link deleteLink'>
-            <Icons kind='trashcan' size={15} onClick={onDeleteDocument} />
+            <Icons kind='trashcan' size={15} onClick={() => onDeleteDocument(index)} />
           </div>
         ) : null}
       {isHovering && file.content
@@ -36,7 +37,7 @@ export const MiniatureOther = (props) => {
           </div>
         )
         : null}
-      <div className='content' onClick={onClick}>
+      <div className='content' onClick={() => onClick(index)}>
         <div className='extension'>{extension}</div>
       </div>
     </div>
@@ -47,6 +48,7 @@ MiniatureOther.propTypes = {
   animate: PT.bool,
   className: PT.string,
   file: PT.object.isRequired,
+  index: PT.number,
   isHovering: PT.bool,
   onClick: PT.func,
   onDeleteDocument: PT.func,

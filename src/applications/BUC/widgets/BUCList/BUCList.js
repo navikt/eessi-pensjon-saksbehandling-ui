@@ -79,7 +79,7 @@ const BUCList = (props) => {
     }
   }, [institutionList, bucs, mounted, actions])
 
-  if (!loading.gettingBUCs && bucs !== undefined && _.isEmpty(bucs)) {
+  if (aktoerId && sakId && !loading.gettingBUCs && bucs !== undefined && _.isEmpty(bucs)) {
     actions.setMode('bucnew')
   }
 

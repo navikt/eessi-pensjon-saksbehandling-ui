@@ -3,6 +3,23 @@
 import React from 'react'
 import FileUpload from './FileUpload'
 import samplePDF from 'resources/tests/samplePDF'
+jest.mock('react-pdf', () => {
+  const React = require('react')
+  return {
+    pdfjs: { GlobalWorkerOptions: { workerSrc: '' } },
+    Document: (props) => {
+      props.setNumberPages(5)
+      return <div className='mock-pdfdocument'>
+        {props.children}
+      </div>
+    },
+    Page: (props) => {
+      return <div className='mock-pdfpage'>
+        {'Page: '}{props.pageNumber}
+      </div>
+    }
+  }
+})
 
 describe('components/FileUpload/FileUpload', () => {
   let wrapper
@@ -129,9 +146,32 @@ describe('components/FileUpload/FileUpload', () => {
     })
   })
 
-  it('With a PDF file, loading', () => {
+  it('With a PDF file, loaded', async (done) => {
     wrapper = mount(<FileUpload {...initialMockProps} files={[samplePDF]} />)
-    expect(wrapper.find('.c-file').render().text()).toEqual('Loading PDF…')
-    expect(wrapper.find('.c-file-miniaturePdf').props().title).toEqual('red.pdf\nui:pages: 0\nui:size: 10 KB')
+    await act(async () => {
+      await new Promise(resolve => {
+        setTimeout(() => {
+          wrapper.update()
+          expect(wrapper.find('.c-file .mock-pdfpage').render().text()).toEqual('Page: 1')
+          wrapper.find('.c-file').simulate('mouseenter')
+          wrapper.update()
+
+          expect(wrapper.exists('.previewLink')).toBeTruthy()
+          wrapper.find('.previewLink').simulate('click')
+          expect(initialMockProps.openModal).toHaveBeenCalled()
+
+          expect(wrapper.exists('.nextPage')).toBeTruthy()
+          wrapper.find('.nextPage').simulate('click')
+          wrapper.update()
+          expect(wrapper.find('.c-file .mock-pdfpage').render().text()).toEqual('Page: 2')
+
+          expect(wrapper.exists('.previousPage')).toBeTruthy()
+          wrapper.find('.previousPage').simulate('click')
+          wrapper.update()
+          expect(wrapper.find('.c-file .mock-pdfpage').render().text()).toEqual('Page: 1')
+          done()
+        }, 500)
+      })
+    })
   })
 })

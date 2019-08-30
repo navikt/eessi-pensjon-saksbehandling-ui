@@ -301,7 +301,6 @@ const Step1 = (props) => {
 
 Step1.propTypes = {
   actions: PT.object.isRequired,
-  aktoerId: PT.string.isRequired,
   attachments: PT.array,
   buc: PT.object.isRequired,
   countryList: PT.array,
@@ -309,7 +308,6 @@ Step1.propTypes = {
   layout: PT.string,
   loading: PT.object.isRequired,
   locale: PT.string.isRequired,
-  sakId: PT.string.isRequired,
   sed: PT.object,
   _sed: PT.string,
   sedList: PT.array,

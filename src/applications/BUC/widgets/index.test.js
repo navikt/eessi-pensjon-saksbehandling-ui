@@ -22,7 +22,9 @@ describe('applications/BUC/widgets/index', () => {
       getTagList: jest.fn(),
       fetchBucs: jest.fn(),
       fetchBucsInfoList: jest.fn(),
-      getSakType: jest.fn()
+      fetchAvdodBucs: jest.fn(),
+      getSakType: jest.fn(),
+      getRinaUrl: jest.fn()
     },
     aktoerId: '123',
     bucs: mockBucs,
@@ -43,6 +45,19 @@ describe('applications/BUC/widgets/index', () => {
     wrapper = mount(<BUCWidgetIndex {...initialMockProps} mode='xxx' />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
+  })
+
+  it('UseEffect: getRinaUrl', () => {
+    const mockActions = {getRinaUrl: jest.fn()}
+    wrapper = mount(<BUCWidgetIndex loading={{}} actions={mockActions} t={t} aktoerId={'123'} mode='xxx'/>)
+    expect(mockActions.getRinaUrl).toHaveBeenCalled()
+  })
+
+  it('UseEffect: fetchBucs, fetchBucsInfo, fetchAvdodBucs', () => {
+    wrapper = mount(<BUCWidgetIndex {...initialMockProps} mode='xxx' bucs={undefined} avdodfnr={'567'}/>)
+    expect(initialMockProps.actions.fetchBucs).toHaveBeenCalled()
+    expect(initialMockProps.actions.fetchBucsInfoList).toHaveBeenCalled()
+    expect(initialMockProps.actions.fetchAvdodBucs).toHaveBeenCalled()
   })
 
   it('Has proper HTML structure ', () => {

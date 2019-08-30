@@ -6,7 +6,7 @@ import Icons from 'components/Icons'
 import './MiniatureImage.css'
 
 export const MiniatureImage = (props) => {
-  const { animate, className, deleteLink, downloadLink, file, isHovering, onClick, onDeleteDocument, scale, size, t } = props
+  const { animate, className, deleteLink, downloadLink, file, index, isHovering, onClick = () => {}, onDeleteDocument, scale, size, t } = props
   const title = '' + file.name + '\n' + t('ui:size') + ': ' + size
 
   return (
@@ -20,7 +20,7 @@ export const MiniatureImage = (props) => {
           ? (
             <div
               className='link deleteLink'
-              onClick={onDeleteDocument}
+              onClick={() => onDeleteDocument(index)}
             >
               <Icons kind='trashcan' size={15} />
             </div>
@@ -38,7 +38,7 @@ export const MiniatureImage = (props) => {
               </a>
             </div>
           ) : null}
-        <div className='content' onClick={onClick}>
+        <div className='content' onClick={() => onClick(index)}>
           <img
             alt={file.name}
             style={{ maxWidth: '100px' }}
@@ -56,6 +56,7 @@ MiniatureImage.propTypes = {
   deleteLink: PT.bool,
   downloadLink: PT.bool,
   file: PT.object.isRequired,
+  index: PT.number,
   isHovering: PT.bool,
   onClick: PT.func,
   onDeleteDocument: PT.func,

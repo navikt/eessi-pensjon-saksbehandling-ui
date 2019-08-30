@@ -174,11 +174,12 @@ const FileUpload = (props) => {
               className='mr-2' key={i} file={file} t={t}
               currentPage={_currentPages[i]}
               deleteLink downloadLink previewLink
-              onPreviousPage={() => onPreviousPageRequest(i)}
-              onNextPage={() => onNextPageRequest(i)}
-              onLoadSuccess={() => onLoadSuccess(i)}
-              onDeleteDocument={() => removeFile(i)}
-              onPreviewDocument={() => openPreview(file)}
+              index={i}
+              onPreviousPage={onPreviousPageRequest}
+              onNextPage={onNextPageRequest}
+              onLoadSuccess={onLoadSuccess}
+              onDeleteDocument={removeFile}
+              onPreviewDocument={openPreview}
             />
           )
         })}
