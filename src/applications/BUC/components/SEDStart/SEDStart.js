@@ -270,7 +270,7 @@ SEDStart.propTypes = {
   avdodfnr: PT.string,
   attachments: PT.array,
   bucs: PT.object.isRequired,
-  bucsInfoList: PT.object,
+  bucsInfoList: PT.array,
   countryList: PT.array,
   currentBuc: PT.string.isRequired,
   initialAttachments: PT.object,

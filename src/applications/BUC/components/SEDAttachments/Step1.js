@@ -1,5 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
+import _ from 'lodash'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import { Undertittel } from 'components/Nav'
 
@@ -22,7 +23,7 @@ export const Step1 = (props) => {
       <Undertittel className='mt-4 mb-3'>{t('buc:form-addAttachmentsFromJOARK')}</Undertittel>
       <JoarkBrowser
         {...props}
-        files={files ? files.joark : []}
+        files={files & _.isArray(files.joark) ? files.joark : []}
         onFilesChange={handleJoarkFilesChange}
       />
     </div>
