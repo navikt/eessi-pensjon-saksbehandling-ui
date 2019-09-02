@@ -8,13 +8,35 @@ export default class Util {
   }
 
   writeDate (date) {
-    return moment(pinfoDateToDate(date)).format('DD.MM.YYYY')
+    return moment(pinfoDateToDate(date)).format('YYYY-MM-DD')
   }
 
   handleDate (period) {
-    return {
-      fom: period.startDate ? this.writeDate(period.startDate) : null,
-      tom: period.endDate ? this.writeDate(period.endDate) : null
+    switch (period.dateType) {
+      case 'both':
+        return {
+          lukketPeriode: {
+            fom: this.writeDate(period.startDate),
+            tom: this.writeDate(period.endDate)
+          }
+        }
+      case 'onlyStartDate01':
+        return {
+          openPeriode: {
+            extra: '01',
+            fom: this.writeDate(period.startDate)
+          }
+        }
+      case 'onlyStartDate98':
+        return {
+          openPeriode: {
+            extra: '98',
+            fom: this.writeDate(period.startDate)
+          }
+        }
+
+      default:
+        return null
     }
   }
 
@@ -23,55 +45,101 @@ export default class Util {
   }
 
   handleGenericPeriod (period) {
-    return {
-      land: this.handleCountry(period.country),
-      periode: this.handleDate(period),
-      vedlegg: period.attachments,
-      sted: period.place,
-      trygdeordningnavn: period.insuranceName,
-      medlemskap: period.insuranceType,
-      forsikringId: period.insuranceId,
-      firmaSted: period.workPlace,
-      firmaLand: this.handleCountry(period.country),
-      navnFirma: period.workName,
-      jobbUnderAnsattEllerSelvstendig: period.workActivity,
-      navnPaaInstitusjon: period.learnInstitution,
-      comment: period.comment
+    const result = {}
+
+    result.land = this.handleCountry(period.country)
+    result.periode = this.handleDate(period)
+    if (period.attachments) {
+      result.vedlegg = period.attachments
     }
+    if (period.insuranceName) {
+      result.trygdeordningnavn = period.insuranceName
+    }
+
+    if (period.insuranceType) {
+      result.medlemskap = period.insuranceType
+    }
+
+    if (period.insuranceId) {
+      result.forsikkringEllerRegistreringNr = period.insuranceId
+    }
+
+    result.annenInformasjon = period.comment
+    result.usikkerDatoIndikator = period.uncertainDate ? '1' : '0'
+    return result
   }
 
   handleWorkPeriod (period) {
+    const newPeriod = this.handleGenericPeriod(period)
+    newPeriod.jobbUnderAnsattEllerSelvstendig = period.workActivity
+    newPeriod.navnFirma = period.workName
+    newPeriod.typePeriode = period.workType
+    newPeriod.adresseFirma = {
+      postnummer: period.workZipCode,
+      by: period.workCity,
+      bygning: period.workBuilding,
+      land: this.handleCountry(period.country),
+      gate: period.workStreet,
+      region: period.workRegion
+    }
+    delete newPeriod.land
+    return newPeriod
+  }
+
+  handleDailyPeriod (period) {
+    const newPeriod = this.handleGenericPeriod(period)
+    newPeriod.navnPaaInstitusjon = period.payingInstitution
+    return newPeriod
+  }
+
+  handleSickPeriod (period) {
+    const newPeriod = this.handleGenericPeriod(period)
+    newPeriod.navnPaaInstitusjon = period.payingInstitution
+    return newPeriod
+  }
+
+  handleHomePeriod (period) {
     return this.handleGenericPeriod(period)
   }
 
-  handleDailyOrSickPeriod (period) {
-    const newPeriod = this.handleGenericPeriod(period)
-    newPeriod.payingInstitution = period.payingInstitution
-    return newPeriod
+  handleBirthPeriod (period) {
+    return this.handleGenericPeriod(period)
+  }
+
+  handleVoluntaryPeriod (period) {
+    return this.handleGenericPeriod(period)
+  }
+
+  handleMilitaryPeriod (period) {
+    return this.handleGenericPeriod(period)
   }
 
   handleOtherPeriod (period) {
     const newPeriod = this.handleGenericPeriod(period)
-    newPeriod.otherType = period.otherType
+    newPeriod.typePeriode = period.otherType
     return newPeriod
   }
 
   handleChildPeriod (period) {
     const newPeriod = this.handleGenericPeriod(period)
-    newPeriod.barnEtternavn = period.childLastName
-    newPeriod.barnFoedseldato = this.writeDate(period.childBirthDate)
-    newPeriod.barnFornavn = period.childFirstName
+    newPeriod.informasjonBarn = {
+      etternavn: period.childLastName,
+      foedseldato: this.writeDate(period.childBirthDate),
+      fornavn: period.childFirstName,
+      land: this.handleCountry(period.country)
+    }
+    delete newPeriod.land
     return newPeriod
   }
 
   handleLearnPeriod (period) {
-    return this.handleGenericPeriod(period)
+    const newPeriod = this.handleGenericPeriod(period)
+    newPeriod.navnPaaInstitusjon = period.learnInstitution
+    return newPeriod
   }
 
   generatePayload () {
-    const result = {}
-    result.periodeInfo = this.generatePeriods()
-    return result
+    return { periodeInfo: this.generatePeriods() }
   }
 
   generatePeriods () {
@@ -85,8 +153,8 @@ export default class Util {
           break
         case 'home':
           !_.has(payload, 'boPerioder')
-            ? payload.boPerioder = [this.handleGenericPeriod(period)]
-            : payload.boPerioder.push(this.handleGenericPeriod(period))
+            ? payload.boPerioder = [this.handleHomePeriod(period)]
+            : payload.boPerioder.push(this.handleHomePeriod(period))
           break
         case 'child':
           !_.has(payload, 'barnepassPerioder')
@@ -95,18 +163,18 @@ export default class Util {
           break
         case 'voluntary':
           !_.has(payload, 'frivilligPerioder')
-            ? payload.frivilligPerioder = [this.handleGenericPeriod(period)]
-            : payload.frivilligPerioder.push(this.handleGenericPeriod(period))
+            ? payload.frivilligPerioder = [this.handleVoluntaryPeriod(period)]
+            : payload.frivilligPerioder.push(this.handleVoluntaryPeriod(period))
           break
         case 'military':
           !_.has(payload, 'forsvartjenestePerioder')
-            ? payload.forsvartjenestePerioder = [this.handleGenericPeriod(period)]
-            : payload.forsvartjenestePerioder.push(this.handleGenericPeriod(period))
+            ? payload.forsvartjenestePerioder = [this.handleMilitaryPeriod(period)]
+            : payload.forsvartjenestePerioder.push(this.handleMilitaryPeriod(period))
           break
         case 'birth':
           !_.has(payload, 'foedselspermisjonPerioder')
-            ? payload.foedselspermisjonPerioder = [this.handleGenericPeriod(period)]
-            : payload.foedselspermisjonPerioder.push(this.handleGenericPeriod(period))
+            ? payload.foedselspermisjonPerioder = [this.handleBirthPeriod(period)]
+            : payload.foedselspermisjonPerioder.push(this.handleBirthPeriod(period))
           break
         case 'learn':
           !_.has(payload, 'opplaeringPerioder')
@@ -115,13 +183,13 @@ export default class Util {
           break
         case 'daily':
           !_.has(payload, 'arbeidsledigPerioder')
-            ? payload.arbeidsledigPerioder = [this.handleDailyOrSickPeriod(period)]
-            : payload.arbeidsledigPerioder.push(this.handleDailyOrSickPeriod(period))
+            ? payload.arbeidsledigPerioder = [this.handleDailyPeriod(period)]
+            : payload.arbeidsledigPerioder.push(this.handleDailyPeriod(period))
           break
         case 'sick':
           !_.has(payload, 'sykePerioder')
-            ? payload.sykePerioder = [this.handleDailyOrSickPeriod(period)]
-            : payload.sykePerioder.push(this.handleDailyOrSickPeriod(period))
+            ? payload.sykePerioder = [this.handleSickPeriod(period)]
+            : payload.sykePerioder.push(this.handleSickPeriod(period))
           break
         case 'other':
           !_.has(payload, 'andrePerioder')

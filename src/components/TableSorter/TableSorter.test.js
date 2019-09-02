@@ -1,7 +1,7 @@
 import React from 'react'
 import TableSorter from './TableSorter'
 
-describe('components/TableSorter/TabbleSorter', () => {
+describe('components/TableSorter/TableSorter', () => {
   let wrapper
   const initialMockProps = {
     columns: {

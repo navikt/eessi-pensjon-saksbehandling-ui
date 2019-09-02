@@ -279,17 +279,16 @@ const Period = (props) => {
                 </div>
                 {period.type === 'work'
                   ? (
-                    <div className='existingPeriodWorkActivity d-flex align-items-center'>
-                      <UndertekstBold className='mr-2'>{t('buc:p4000-work-title') + ': '}</UndertekstBold>
-                      <Normaltekst>{period.workActivity}</Normaltekst>
-                    </div>
-                  ) : null}
-                {period.type === 'work' || period.type === 'home'
-                  ? (
-                    <div className='existingPeriodPlace d-flex align-items-center'>
-                      <UndertekstBold className='mr-2'>{t('buc:p4000-place') + ': '}</UndertekstBold>
-                      <Normaltekst>{period.workPlace || period.place}</Normaltekst>
-                    </div>
+                    <>
+                      <div className='existingPeriodWorkActivity d-flex align-items-center'>
+                        <UndertekstBold className='mr-2'>{t('buc:p4000-work-title') + ': '}</UndertekstBold>
+                        <Normaltekst>{period.workActivity}</Normaltekst>
+                      </div>
+                      <div className='existingPeriodPlace d-flex align-items-center'>
+                        <UndertekstBold className='mr-2'>{t('buc:p4000-place') + ': '}</UndertekstBold>
+                        <Normaltekst>{period.workCity || period.place}</Normaltekst>
+                      </div>
+                    </>
                   ) : null}
                 {period.type === 'learn'
                   ? (

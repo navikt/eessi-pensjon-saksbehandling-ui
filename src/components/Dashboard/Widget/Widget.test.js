@@ -26,6 +26,7 @@ describe('components/Dashboard/Widget/Widget', () => {
     t: jest.fn((translationString) => { return translationString }),
     widget: {
       type: 'foo',
+      title: 'mockTitle',
       options: {
         content: 'mockContent'
       }
