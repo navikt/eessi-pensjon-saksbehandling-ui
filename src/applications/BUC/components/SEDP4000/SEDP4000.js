@@ -19,7 +19,6 @@ export const mapStateToProps = (state) => {
 }
 
 export const SEDP4000 = (props) => {
-
   const { actions, aktoerId, initialMaxPeriods = 8, loadingP4000info, loadingP4000list, locale } = props
   const { p4000info, p4000list, setShowButtons, showButtons, t } = props
 

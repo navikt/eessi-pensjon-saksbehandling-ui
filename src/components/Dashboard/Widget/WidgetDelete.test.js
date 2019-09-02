@@ -34,5 +34,4 @@ describe('components/Dashboard/Widget/WidgetDelete', () => {
     wrapper.find('#c-d-WidgetDelete__cancel-button-id').hostNodes().simulate('click')
     expect(initialMockProps.setMode).toHaveBeenCalledWith('edit')
   })
-
 })

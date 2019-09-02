@@ -33,7 +33,7 @@ describe('components/Dashboard/Widget/Widget', () => {
   }
 
   beforeEach(() => {
-    wrapper = mount(<Widget {...initialMockProps} mode='view'/>)
+    wrapper = mount(<Widget {...initialMockProps} mode='view' />)
   })
 
   afterEach(() => {
@@ -46,58 +46,57 @@ describe('components/Dashboard/Widget/Widget', () => {
   })
 
   it('Renders WidgetEdit', () => {
-    wrapper.setProps({mode: 'edit'})
+    wrapper.setProps({ mode: 'edit' })
     expect(wrapper.exists('WidgetEdit')).toBeTruthy()
   })
 
   it('Renders WidgetDelete', () => {
-    wrapper.setProps({mode: 'delete'})
+    wrapper.setProps({ mode: 'delete' })
     expect(wrapper.exists('WidgetDelete')).toBeTruthy()
   })
 
   it('Renders EkspandertbartWidget', () => {
-    wrapper.setProps({widget: {type: 'ekspandertbart', options: {content: 'mockContent'}}})
+    wrapper.setProps({ widget: { type: 'ekspandertbart', options: { content: 'mockContent' } } })
     expect(wrapper.exists('.w-EkspandertbartWidget')).toBeTruthy()
   })
 
   it('Renders VarslerWidget', () => {
-    wrapper.setProps({widget: {type: 'varsler'}})
+    wrapper.setProps({ widget: { type: 'varsler' } })
     expect(wrapper.exists('.w-VarslerWidget')).toBeTruthy()
   })
 
   it('Renders SmileyWidget', () => {
-    wrapper.setProps({widget: {type: 'smiley', options: {mood: 'mockMood'}}})
+    wrapper.setProps({ widget: { type: 'smiley', options: { mood: 'mockMood' } } })
     expect(wrapper.exists('.w-SmileyWidget')).toBeTruthy()
   })
 
   it('Renders CatMidget', () => {
-    wrapper.setProps({widget: {type: 'cat'}})
+    wrapper.setProps({ widget: { type: 'cat' } })
     expect(wrapper.exists('.w-catMidget')).toBeTruthy()
   })
 
   it('Renders NoteWidget', () => {
-    wrapper.setProps({widget: {type: 'note', options: {content: 'mockContent'}}})
+    wrapper.setProps({ widget: { type: 'note', options: { content: 'mockContent' } } })
     expect(wrapper.exists('.w-NoteWidget')).toBeTruthy()
   })
 
   it('Renders LinksWidget', () => {
-    wrapper.setProps({widget: {type: 'links', options: {collapsed: false}}})
+    wrapper.setProps({ widget: { type: 'links', options: { collapsed: false } } })
     expect(wrapper.exists('.w-LinksWidget')).toBeTruthy()
   })
 
   it('Renders PersonWidget', () => {
-    wrapper.setProps({widget: {type: 'person'}})
+    wrapper.setProps({ widget: { type: 'person' } })
     expect(wrapper.exists('.w-PersonWidget')).toBeTruthy()
   })
 
   it('Renders PdfWidget', () => {
-    wrapper.setProps({widget: {type: 'pdf'}})
+    wrapper.setProps({ widget: { type: 'pdf' } })
     expect(wrapper.exists('.w-PdfWidget')).toBeTruthy()
   })
 
   it('Renders BucWidget', () => {
-    wrapper.setProps({widget: {type: 'buc'}})
+    wrapper.setProps({ widget: { type: 'buc' } })
     expect(wrapper.exists('.w-BucWidget')).toBeTruthy()
   })
-
 })

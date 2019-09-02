@@ -57,7 +57,6 @@ const BUCStart = (props) => {
   }, [actions, loading, buc, hasBucInfoSaved])
 
   const onForwardButtonClick = () => {
-    console.log(_subjectArea)
     validateSubjectArea(_subjectArea)
     validateBuc(_buc)
     if (hasNoValidationErrors()) {
@@ -120,7 +119,6 @@ const BUCStart = (props) => {
   }
 
   const renderOptions = (options, type) => {
-
     if (!options || Object.keys(options).length === 0) {
       options = [{
         key: placeholders[type],

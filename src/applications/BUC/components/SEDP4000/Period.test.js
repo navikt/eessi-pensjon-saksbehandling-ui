@@ -91,7 +91,7 @@ describe('applications/BUC/components/SEDP4000/Period - new mode', () => {
   it('Renders', () => {
     const wrapper = mount(<Period {...initialMockProps} mode='new' />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
-   // expect(wrapper).toMatchSnapshot()
+    // expect(wrapper).toMatchSnapshot()
   })
 
   it('Has the right buttons in new mode', () => {
@@ -112,7 +112,7 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
   it('Renders', () => {
     const wrapper = mount(<Period {...initialMockProps} mode='edit' />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
-    //expect(wrapper).toMatchSnapshot()
+    // expect(wrapper).toMatchSnapshot()
   })
 
   it('Has a period in edit mode', () => {

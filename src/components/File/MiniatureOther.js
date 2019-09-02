@@ -6,8 +6,9 @@ import Icons from 'components/Icons'
 import './MiniatureOther.css'
 
 export const MiniatureOther = (props) => {
-  const { animate, className, file, index, isHovering, onClick = () =>
-    {}, onDeleteDocument, size, t } = props
+  const {
+    animate, className, file, index, isHovering, onClick = () => {}, onDeleteDocument, size, t
+  } = props
   const extension = file.name.substring(file.name.lastIndexOf('.') + 1)
 
   return (

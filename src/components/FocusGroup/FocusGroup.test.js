@@ -24,8 +24,6 @@ describe('components/FocusGroup', () => {
 })
 
 describe('components/FocusGroup Event bubbling', () => {
-
-
   it('Focus event bubbles to parent', async (done) => {
     const eventHandler = (event) => {
       expect(event.testFlag).toBeTruthy()

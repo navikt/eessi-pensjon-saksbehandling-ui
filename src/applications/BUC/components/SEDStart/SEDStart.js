@@ -150,7 +150,6 @@ export const SEDStart = (props) => {
   }
 
   const onForwardButtonClick = () => {
-    console.log(validation)
     if (_.isEmpty(validation)) {
       const institutions = convertInstitutionIDsToInstitutionObjects()
       const payload = {

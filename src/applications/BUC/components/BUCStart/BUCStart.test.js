@@ -110,7 +110,7 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   })
 
   it('Renders as a standalone page', () => {
-    wrapper.setProps({mode: 'page'})
+    wrapper.setProps({ mode: 'page' })
     expect(wrapper.exists('.a-buc-c-bucstart__page-title')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucstart PsychoPanel')).toBeTruthy()
   })
