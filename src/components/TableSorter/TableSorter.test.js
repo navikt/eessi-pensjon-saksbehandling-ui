@@ -2,7 +2,6 @@ import React from 'react'
 import TableSorter from './TableSorter'
 
 describe('components/TableSorter/TabbleSorter', () => {
-
   let wrapper
   const initialMockProps = {
     columns: {
@@ -16,7 +15,7 @@ describe('components/TableSorter/TabbleSorter', () => {
       id: '1',
       name: 'name',
       tema: 'tema',
-      date: new Date(1,1,1970),
+      date: new Date(1, 1, 1970),
       varianter: [{
         label: 'label',
         variant: 'variant',
@@ -50,6 +49,4 @@ describe('components/TableSorter/TabbleSorter', () => {
   it('Has proper HTML structure: loading', () => {
     expect(wrapper.exists('div.c-tablesorter')).toBeTruthy()
   })
-
-
 })

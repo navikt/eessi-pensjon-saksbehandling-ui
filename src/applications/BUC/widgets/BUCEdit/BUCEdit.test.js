@@ -65,5 +65,4 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
     statusSelect.simulate('keyDown', { key: 'Enter', keyCode: 13 })
     expect(wrapper.find('.a-buc-c-sedrow').hostNodes().length).toEqual(0)
   })
-
 })

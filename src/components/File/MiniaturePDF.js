@@ -71,7 +71,7 @@ export const MiniaturePDF = (props) => {
       onNextPage(index)
     }
   }
-  
+
   return (
     <div
       className={classNames('c-file-miniaturePdf', className, { animate: animate })}

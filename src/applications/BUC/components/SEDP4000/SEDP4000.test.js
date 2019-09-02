@@ -34,11 +34,11 @@ describe('applications/BUC/components/SEDP4000/SEDP4000', () => {
 
   it('Has proper HTML structure: unmounted state', () => {
     expect(wrapper.exists('.a-buc-c-sedp4000__notReady')).toBeTruthy()
-    wrapper.setProps({loadingP4000list: true})
+    wrapper.setProps({ loadingP4000list: true })
     wrapper.update()
     expect(wrapper.exists('.a-buc-c-sedp4000__notReady NavFrontendSpinner')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-sedp4000__notReady').render().text()).toEqual('Venter...buc:loading-p4000list')
-    wrapper.setProps({loadingP4000list: false, loadingP4000info: true})
+    wrapper.setProps({ loadingP4000list: false, loadingP4000info: true })
     wrapper.update()
     expect(wrapper.exists('.a-buc-c-sedp4000__notReady NavFrontendSpinner')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-sedp4000__notReady').render().text()).toEqual('Venter...buc:loading-p4000info')
@@ -58,5 +58,4 @@ describe('applications/BUC/components/SEDP4000/SEDP4000', () => {
     expect(wrapper.exists('.a-buc-c-sedp4000__maxPeriods-warning')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-sedp4000__maxPeriods-warning').render().text()).toEqual('buc:p4000-alert-maxPeriods')
   })
-
 })

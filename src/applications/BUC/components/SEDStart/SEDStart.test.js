@@ -98,7 +98,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
   })
 
   it('With a BUC with SEDs that have participants, no need to demand a institution', () => {
-    wrapper = mount(<SEDStart {...initialMockProps} initialSed={undefined}/>)
+    wrapper = mount(<SEDStart {...initialMockProps} initialSed={undefined} />)
     expect(wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().props().disabled).toEqual(true)
     wrapper.find('#a-buc-c-sedstart__sed-select-id').hostNodes().simulate('change', { target: { value: 'mockSed' } })
     expect(wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().props().disabled).toEqual(false)

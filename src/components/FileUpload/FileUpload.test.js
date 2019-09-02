@@ -9,14 +9,18 @@ jest.mock('react-pdf', () => {
     pdfjs: { GlobalWorkerOptions: { workerSrc: '' } },
     Document: (props) => {
       props.setNumberPages(5)
-      return <div className='mock-pdfdocument'>
-        {props.children}
-      </div>
+      return (
+        <div className='mock-pdfdocument'>
+          {props.children}
+        </div>
+      )
     },
     Page: (props) => {
-      return <div className='mock-pdfpage'>
-        {'Page: '}{props.pageNumber}
-      </div>
+      return (
+        <div className='mock-pdfpage'>
+          {'Page: '}{props.pageNumber}
+        </div>
+      )
     }
   }
 })

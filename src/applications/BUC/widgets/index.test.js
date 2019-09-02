@@ -48,13 +48,13 @@ describe('applications/BUC/widgets/index', () => {
   })
 
   it('UseEffect: getRinaUrl', () => {
-    const mockActions = {getRinaUrl: jest.fn()}
-    wrapper = mount(<BUCWidgetIndex loading={{}} actions={mockActions} t={t} aktoerId={'123'} mode='xxx'/>)
+    const mockActions = { getRinaUrl: jest.fn() }
+    wrapper = mount(<BUCWidgetIndex loading={{}} actions={mockActions} t={t} aktoerId='123' mode='xxx' />)
     expect(mockActions.getRinaUrl).toHaveBeenCalled()
   })
 
   it('UseEffect: fetchBucs, fetchBucsInfo, fetchAvdodBucs', () => {
-    wrapper = mount(<BUCWidgetIndex {...initialMockProps} mode='xxx' bucs={undefined} avdodfnr={'567'}/>)
+    wrapper = mount(<BUCWidgetIndex {...initialMockProps} mode='xxx' bucs={undefined} avdodfnr='567' />)
     expect(initialMockProps.actions.fetchBucs).toHaveBeenCalled()
     expect(initialMockProps.actions.fetchBucsInfoList).toHaveBeenCalled()
     expect(initialMockProps.actions.fetchAvdodBucs).toHaveBeenCalled()
