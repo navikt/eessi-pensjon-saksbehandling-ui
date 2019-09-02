@@ -73,7 +73,7 @@ export const JoarkBrowser = (props) => {
   }, [actions, previewFile, _previewFile, t])
 
   const onItemClicked = (clickedItem, clickedVariant) => {
-    const foundFile = _.find(files, (file) => {
+    const foundFile = _.find(_files, (file) => {
       return file.journalpostId === clickedItem.raw.journalpostId &&
         file.variant === clickedVariant &&
         file.content !== undefined
@@ -130,7 +130,7 @@ export const JoarkBrowser = (props) => {
         return {
           variant: variant,
           label: label,
-          selected: _.find(files, {
+          selected: _.find(_files, {
             dokumentInfoId: file.dokumentInfoId,
             variant: variant
           }) !== undefined,
