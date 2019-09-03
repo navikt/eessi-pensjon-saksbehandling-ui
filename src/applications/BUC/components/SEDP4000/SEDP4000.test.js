@@ -52,10 +52,4 @@ describe('applications/BUC/components/SEDP4000/SEDP4000', () => {
     wrapper.update()
     expect(wrapper.exists('.a-buc-c-sedp4000')).toBeTruthy()
   })
-
-  it('Warns when exceeding maxPeriods', () => {
-    wrapper = mount(<SEDP4000 {...initialMockProps} initialMaxPeriods={1} p4000info={sampleP4000info} />)
-    expect(wrapper.exists('.a-buc-c-sedp4000__maxPeriods-warning')).toBeTruthy()
-    expect(wrapper.find('.a-buc-c-sedp4000__maxPeriods-warning').render().text()).toEqual('buc:p4000-alert-maxPeriods')
-  })
 })

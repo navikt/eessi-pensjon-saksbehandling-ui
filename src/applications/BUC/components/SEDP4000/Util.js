@@ -77,7 +77,6 @@ export default class Util {
     newPeriod.adresseFirma = {
       postnummer: period.workZipCode,
       by: period.workCity,
-      bygning: period.workBuilding,
       land: this.handleCountry(period.country),
       gate: period.workStreet,
       region: period.workRegion

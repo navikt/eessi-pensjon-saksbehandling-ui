@@ -10,7 +10,7 @@ export function periodStep (period) {
     endDate: tests.periodValidation.periodEndDate(period.endDate),
     insuranceName: tests.periodValidation.insuranceName(period.insuranceName),
     insuranceType: tests.periodValidation.insuranceType(period.insuranceType),
-    insuranceId: (period.type !== 'work') ? tests.periodValidation.insuranceId(period.insuranceId) : undefined,
+    insuranceId: tests.periodValidation.insuranceId(period.insuranceId),
     country: tests.periodValidation.periodCountry(period.country),
     timeSpan: tests.periodValidation.periodTimeSpan(period.startDate, period.endDate)
   }
