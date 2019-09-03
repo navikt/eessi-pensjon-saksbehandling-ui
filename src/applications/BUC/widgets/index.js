@@ -23,6 +23,7 @@ const mapStateToProps = (state) => {
     avdodfnr: state.app.params.avdodfnr,
     bucParam: state.app.params.buc,
     currentBuc: state.buc.currentBuc,
+    currentSed: state.buc.currentSed,
     mode: state.buc.mode,
     bucs: state.buc.bucs,
     avdodBucs: state.buc.avdodBucs,

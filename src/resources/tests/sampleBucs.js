@@ -25,7 +25,7 @@ export default [
       {
         id: '90149c52a98044b599c3bf5d48537782',
         type: 'P2000',
-        status: 'sent',
+        status: 'received',
         creationDate: 1559117379454,
         lastUpdate: '2019-05-29',
         participants: [
@@ -101,6 +101,7 @@ export default [
       },
       {
         id: 'ff98ea9256244b908e19d4439db5bad3',
+        parentDocumentId: '90149c52a98044b599c3bf5d48537782',
         type: 'P6000',
         status: 'empty',
         creationDate: 1559117444000,
@@ -884,6 +885,1018 @@ export default [
         attachments: []
       }
     ]
+  },
+  {
+    type: 'P_BUC_01',
+    creator: {
+      country: 'NO',
+      institution: 'NO:NAVT003',
+      name: 'NAVT003'
+    },
+    caseId: '158123',
+    sakType: '',
+    aktoerId: '001122334455',
+    status: 'open',
+    startDate: 1557392989122,
+    lastUpdate: 1558362934000,
+    institusjon: [{
+      country: 'NO',
+      institution: 'NO:NAVT003',
+      name: 'NAVT003'
+    }, {
+      country: 'NO',
+      institution: 'NO:NAVT002',
+      name: 'NAVT002'
+    }],
+    seds: [{
+      id: 'f2123ebf16dc4ddaaaf2420d0adb39c7',
+      parentDocumentId: null,
+      type: 'H020',
+      status: 'empty',
+      creationDate: 1557393035000,
+      lastUpdate: 1557393035000,
+      displayName: 'Claim for - Reimbursement - Administrative Check /Medical information',
+      participants: [{
+        role: 'Sender',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1518476400000,
+          registryNumber: null,
+          acronym: '12348',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT003',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT003',
+          accessPoint: null
+        },
+        selected: false
+      }, {
+        role: 'Receiver',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1508450400000,
+          registryNumber: null,
+          acronym: '12347',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT002',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT002',
+          accessPoint: null
+        },
+        selected: false
+      }],
+      attachments: []
+    }, {
+      id: '0bb1ad15987741f1bbf45eba4f955e80',
+      parentDocumentId: null,
+      type: 'P10000',
+      status: 'empty',
+      creationDate: 1557393035000,
+      lastUpdate: 1557393035000,
+      displayName: 'Transfer of additional information',
+      participants: [{
+        role: 'Sender',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1518476400000,
+          registryNumber: null,
+          acronym: '12348',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT003',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT003',
+          accessPoint: null
+        },
+        selected: false
+      }, {
+        role: 'Receiver',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1508450400000,
+          registryNumber: null,
+          acronym: '12347',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT002',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT002',
+          accessPoint: null
+        },
+        selected: false
+      }],
+      attachments: []
+    }, {
+      id: '06f698fa890b4046b736e2efe3b25074',
+      parentDocumentId: null,
+      type: 'P4000',
+      status: 'sent',
+      creationDate: 1557393062757,
+      lastUpdate: 1557393062757,
+      displayName: 'Report on insurance history',
+      participants: [{
+        role: 'Sender',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1518476400000,
+          registryNumber: null,
+          acronym: '12348',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT003',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT003',
+          accessPoint: null
+        },
+        selected: false
+      }, {
+        role: 'Receiver',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1508450400000,
+          registryNumber: null,
+          acronym: '12347',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT002',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT002',
+          accessPoint: null
+        },
+        selected: false
+      }],
+      attachments: []
+    }, {
+      id: '3b82e3d56f304ca0ac05c1ce626d9472',
+      parentDocumentId: null,
+      type: 'P6000',
+      status: 'empty',
+      creationDate: 1557393101000,
+      lastUpdate: 1557393101000,
+      displayName: 'Pension decision',
+      participants: [{
+        role: 'Sender',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1518476400000,
+          registryNumber: null,
+          acronym: '12348',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT003',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT003',
+          accessPoint: null
+        },
+        selected: false
+      }, {
+        role: 'Receiver',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1508450400000,
+          registryNumber: null,
+          acronym: '12347',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT002',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT002',
+          accessPoint: null
+        },
+        selected: false
+      }],
+      attachments: []
+    }, {
+      id: '52c08e4129da4120b9b982142c272a61',
+      parentDocumentId: null,
+      type: 'P5000',
+      status: 'new',
+      creationDate: 1557393081308,
+      lastUpdate: 1558360875571,
+      displayName: 'Insurance/residence periods',
+      participants: [{
+        role: 'Sender',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1518476400000,
+          registryNumber: null,
+          acronym: '12348',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT003',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT003',
+          accessPoint: null
+        },
+        selected: false
+      }, {
+        role: 'Receiver',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1508450400000,
+          registryNumber: null,
+          acronym: '12347',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT002',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT002',
+          accessPoint: null
+        },
+        selected: false
+      }],
+      attachments: []
+    }, {
+      id: 'cac9db2726d54f2c9b51d1562b7b0a79',
+      parentDocumentId: null,
+      type: 'P8000',
+      status: 'new',
+      creationDate: 1557825747269,
+      lastUpdate: 1558362934400,
+      displayName: 'Request for additional information',
+      participants: [{
+        role: 'Sender',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1518476400000,
+          registryNumber: null,
+          acronym: '12348',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT003',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT003',
+          accessPoint: null
+        },
+        selected: false
+      }, {
+        role: 'Receiver',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1508450400000,
+          registryNumber: null,
+          acronym: '12347',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT002',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT002',
+          accessPoint: null
+        },
+        selected: false
+      }],
+      attachments: [{
+        id: '58828e7ff57943779ab7b24c522b1a3f',
+        name: 'balrog.png',
+        fileName: 'balrog.png',
+        mimeType: 'image/png',
+        documentId: 'cac9db2726d54f2c9b51d1562b7b0a79',
+        lastUpdate: 1558361547000,
+        medical: false
+      }, {
+        id: '1e5b8c0cf3c94b2f9a4192abb4818cc1',
+        name: 'balrog.png',
+        fileName: 'balrog.png',
+        mimeType: 'image/png',
+        documentId: 'cac9db2726d54f2c9b51d1562b7b0a79',
+        lastUpdate: 1558361557000,
+        medical: false
+      }]
+    }, {
+      id: '3fe845d1142742a5a7a28f339e5d5b30',
+      parentDocumentId: null,
+      type: 'P2000',
+      status: 'sent',
+      creationDate: 1557392992767,
+      lastUpdate: 1557392992767,
+      displayName: 'Old age pension claim',
+      participants: [{
+        role: 'Sender',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1518476400000,
+          registryNumber: null,
+          acronym: '12348',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT003',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT003',
+          accessPoint: null
+        },
+        selected: true
+      }, {
+        role: 'Receiver',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1508450400000,
+          registryNumber: null,
+          acronym: '12347',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT002',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT002',
+          accessPoint: null
+        },
+        selected: false
+      }],
+      attachments: []
+    }, {
+      id: '268b8ed450bf4e8a99e6c0057d5ed857',
+      parentDocumentId: null,
+      type: 'P3000_NO',
+      status: 'empty',
+      creationDate: 1557393034000,
+      lastUpdate: 1557393034000,
+      displayName: 'Country specific information',
+      participants: [{
+        role: 'Receiver',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1508450400000,
+          registryNumber: null,
+          acronym: '12347',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT002',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT002',
+          accessPoint: null
+        },
+        selected: false
+      }, {
+        role: 'Sender',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1518476400000,
+          registryNumber: null,
+          acronym: '12348',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT003',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT003',
+          accessPoint: null
+        },
+        selected: false
+      }],
+      attachments: []
+    }, {
+      id: 'a8160dcb66c840a88ef331eed4b193be',
+      parentDocumentId: '3fe845d1142742a5a7a28f339e5d5b30',
+      type: 'X008',
+      status: 'empty',
+      creationDate: 1557393034000,
+      lastUpdate: 1557393034000,
+      displayName: 'Invalidate Sed',
+      participants: [{
+        role: 'Sender',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1518476400000,
+          registryNumber: null,
+          acronym: '12348',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT003',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT003',
+          accessPoint: null
+        },
+        selected: true
+      }, {
+        role: 'Receiver',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1508450400000,
+          registryNumber: null,
+          acronym: '12347',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT002',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT002',
+          accessPoint: null
+        },
+        selected: false
+      }],
+      attachments: []
+    }, {
+      id: '5d4e5b878a60433a919c833c146401cb',
+      parentDocumentId: null,
+      type: 'P7000',
+      status: 'empty',
+      creationDate: 1557393034000,
+      lastUpdate: 1557393034000,
+      displayName: 'Notification of Summary note',
+      participants: [{
+        role: 'Sender',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1518476400000,
+          registryNumber: null,
+          acronym: '12348',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT003',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT003',
+          accessPoint: null
+        },
+        selected: false
+      }, {
+        role: 'Receiver',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1508450400000,
+          registryNumber: null,
+          acronym: '12347',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT002',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT002',
+          accessPoint: null
+        },
+        selected: false
+      }],
+      attachments: []
+    }, {
+      id: '836de1a761514b1eab50c88e507e9a1c',
+      parentDocumentId: null,
+      type: 'H070',
+      status: 'empty',
+      creationDate: 1557393035000,
+      lastUpdate: 1557393035000,
+      displayName: 'Notification of death',
+      participants: [{
+        role: 'Sender',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1518476400000,
+          registryNumber: null,
+          acronym: '12348',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT003',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT003',
+          accessPoint: null
+        },
+        selected: false
+      }, {
+        role: 'Receiver',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1508450400000,
+          registryNumber: null,
+          acronym: '12347',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT002',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT002',
+          accessPoint: null
+        },
+        selected: false
+      }],
+      attachments: []
+    }, {
+      id: '2d305e9ac51f43cf9a4012679ea3036e',
+      parentDocumentId: null,
+      type: 'X005',
+      status: 'empty',
+      creationDate: 1557393034000,
+      lastUpdate: 1557393034000,
+      displayName: 'Add New Participant',
+      participants: [{
+        role: 'Sender',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1518476400000,
+          registryNumber: null,
+          acronym: '12348',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT003',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT003',
+          accessPoint: null
+        },
+        selected: false
+      }, {
+        role: 'Receiver',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1508450400000,
+          registryNumber: null,
+          acronym: '12347',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT002',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT002',
+          accessPoint: null
+        },
+        selected: false
+      }],
+      attachments: []
+    }, {
+      id: 'ef5811b43d564539997c9e1e8539a0a5',
+      parentDocumentId: '891a8c61651049d6b2e0c0bd32215203',
+      type: 'X008',
+      status: 'empty',
+      creationDate: 1557393101000,
+      lastUpdate: 1557393101000,
+      displayName: 'Invalidate Sed',
+      participants: [{
+        role: 'Sender',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1518476400000,
+          registryNumber: null,
+          acronym: '12348',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT003',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT003',
+          accessPoint: null
+        },
+        selected: false
+      }, {
+        role: 'Receiver',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1508450400000,
+          registryNumber: null,
+          acronym: '12347',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT002',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT002',
+          accessPoint: null
+        },
+        selected: false
+      }],
+      attachments: []
+    }, {
+      id: '74cfcccbdb764b768365090152c84892',
+      parentDocumentId: '06f698fa890b4046b736e2efe3b25074',
+      type: 'X008',
+      status: 'empty',
+      creationDate: 1557393078000,
+      lastUpdate: 1557393078000,
+      displayName: 'Invalidate Sed',
+      participants: [{
+        role: 'Sender',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1518476400000,
+          registryNumber: null,
+          acronym: '12348',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT003',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT003',
+          accessPoint: null
+        },
+        selected: false
+      }, {
+        role: 'Receiver',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1508450400000,
+          registryNumber: null,
+          acronym: '12347',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT002',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT002',
+          accessPoint: null
+        },
+        selected: false
+      }],
+      attachments: []
+    }, {
+      id: '3e29fb69d44f440a81e01aa2199d4b2f',
+      parentDocumentId: null,
+      type: 'H120',
+      status: 'empty',
+      creationDate: 1557393035000,
+      lastUpdate: 1557393035000,
+      displayName: 'Request for Medical Information',
+      participants: [{
+        role: 'Sender',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1518476400000,
+          registryNumber: null,
+          acronym: '12348',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT003',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT003',
+          accessPoint: null
+        },
+        selected: false
+      }, {
+        role: 'Receiver',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1508450400000,
+          registryNumber: null,
+          acronym: '12347',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT002',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT002',
+          accessPoint: null
+        },
+        selected: false
+      }],
+      attachments: []
+    }, {
+      id: '4ef97838c25c46fba04dcd57a511338d',
+      parentDocumentId: null,
+      type: 'X009',
+      status: 'empty',
+      creationDate: 1557393033000,
+      lastUpdate: 1557393033000,
+      displayName: 'Reminder',
+      participants: [{
+        role: 'Sender',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1518476400000,
+          registryNumber: null,
+          acronym: '12348',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT003',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT003',
+          accessPoint: null
+        },
+        selected: false
+      }, {
+        role: 'Receiver',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1508450400000,
+          registryNumber: null,
+          acronym: '12347',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT002',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT002',
+          accessPoint: null
+        },
+        selected: false
+      }],
+      attachments: []
+    }, {
+      id: '6808b56f66b64a24ae94ddad3aeb9290',
+      parentDocumentId: null,
+      type: 'X007',
+      status: 'empty',
+      creationDate: 1557393034000,
+      lastUpdate: 1557393034000,
+      displayName: 'Forward Case',
+      participants: [{
+        role: 'Sender',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1518476400000,
+          registryNumber: null,
+          acronym: '12348',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT003',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT003',
+          accessPoint: null
+        },
+        selected: false
+      }, {
+        role: 'Receiver',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1508450400000,
+          registryNumber: null,
+          acronym: '12347',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT002',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT002',
+          accessPoint: null
+        },
+        selected: false
+      }],
+      attachments: []
+    }, {
+      id: '891a8c61651049d6b2e0c0bd32215203',
+      parentDocumentId: null,
+      type: 'P6000',
+      status: 'sent',
+      creationDate: 1557393087051,
+      lastUpdate: 1557393087051,
+      displayName: 'Pension decision',
+      participants: [{
+        role: 'Sender',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1518476400000,
+          registryNumber: null,
+          acronym: '12348',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT003',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT003',
+          accessPoint: null
+        },
+        selected: false
+      }, {
+        role: 'Receiver',
+        organisation: {
+          address: {
+            country: 'NO',
+            town: null,
+            street: null,
+            postalCode: null,
+            region: null
+          },
+          activeSince: 1508450400000,
+          registryNumber: null,
+          acronym: '12347',
+          countryCode: 'NO',
+          contactMethods: null,
+          name: 'NAVT002',
+          location: null,
+          assignedBUCs: null,
+          id: 'NO:NAVT002',
+          accessPoint: null
+        },
+        selected: false
+      }],
+      attachments: []
+    }]
   },
   {
     type: 'P_BUC_01',
@@ -1913,7 +2926,88 @@ export default [
     ]
   },
   {
-    type: 'P_BUC_04',
+    type: 'P_BUC_03',
+    creator: {
+      country: 'NO',
+      institution: 'Z990638'
+    },
+    caseId: '185666',
+    sakType: '',
+    aktoerId: '1000070418092',
+    status: 'open',
+    startDate: '2019-07-29',
+    lastUpdate: '2019-05-29',
+    institusjon: [
+      {
+        country: 'NO',
+        institution: 'NO:NAVT003'
+      },
+      {
+        country: 'NO',
+        institution: 'NO:NAVT002'
+      }
+    ],
+    seds: [
+      {
+        id: '4b9ef7717b304c0bad343101c5851aa7',
+        type: 'P2200',
+        status: 'new',
+        creationDate: 1559122122897,
+        lastUpdate: '2019-05-29',
+        participants: [
+          {
+            role: 'Sender',
+            organisation: {
+              address: {
+                country: 'NO',
+                town: null,
+                street: null,
+                postalCode: null,
+                region: null
+              },
+              activeSince: 1518476400000,
+              registryNumber: null,
+              acronym: '12348',
+              countryCode: 'NO',
+              contactMethods: null,
+              name: 'NAVT003',
+              location: null,
+              assignedBUCs: null,
+              id: 'NO:NAVT003',
+              accessPoint: null
+            },
+            selected: true
+          },
+          {
+            role: 'Receiver',
+            organisation: {
+              address: {
+                country: 'NO',
+                town: null,
+                street: null,
+                postalCode: null,
+                region: null
+              },
+              activeSince: 1508450400000,
+              registryNumber: null,
+              acronym: '12347',
+              countryCode: 'NO',
+              contactMethods: null,
+              name: 'NAVT002',
+              location: null,
+              assignedBUCs: null,
+              id: 'NO:NAVT002',
+              accessPoint: null
+            },
+            selected: false
+          }
+        ],
+        attachments: []
+      }
+    ]
+  },
+  {
+    type: 'P_BUC_MOCK',
     creator: {
       country: 'NO',
       institution: 'Z990638'
@@ -1937,8 +3031,66 @@ export default [
     seds: [
       {
         id: '4b9ef7717b304c0bad343101c5851aa7',
+        parentDocumentId: null,
         type: 'P2200',
         status: 'received',
+        creationDate: 1559122122897,
+        lastUpdate: '2019-05-29',
+        participants: [
+          {
+            role: 'Sender',
+            organisation: {
+              address: {
+                country: 'NO',
+                town: null,
+                street: null,
+                postalCode: null,
+                region: null
+              },
+              activeSince: 1518476400000,
+              registryNumber: null,
+              acronym: '12348',
+              countryCode: 'NO',
+              contactMethods: null,
+              name: 'NAVT003',
+              location: null,
+              assignedBUCs: null,
+              id: 'NO:NAVT003',
+              accessPoint: null
+            },
+            selected: true
+          },
+          {
+            role: 'Receiver',
+            organisation: {
+              address: {
+                country: 'NO',
+                town: null,
+                street: null,
+                postalCode: null,
+                region: null
+              },
+              activeSince: 1508450400000,
+              registryNumber: null,
+              acronym: '12347',
+              countryCode: 'NO',
+              contactMethods: null,
+              name: 'NAVT002',
+              location: null,
+              assignedBUCs: null,
+              id: 'NO:NAVT002',
+              accessPoint: null
+            },
+            selected: false
+          }
+        ],
+        attachments: []
+      },
+      {
+        id: '5b9ef7717b304c0bad343101c5851aa7',
+        parentDocumentId: '4b9ef7717b304c0bad343101c5851aa7',
+        type: 'PMOCK',
+        status: 'empty',
         creationDate: 1559122122897,
         lastUpdate: '2019-05-29',
         participants: [

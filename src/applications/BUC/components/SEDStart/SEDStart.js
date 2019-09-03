@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export const SEDStart = (props) => {
-  const { actions, aktoerId, avdodfnr, attachments, bucs, bucsInfoList, countryList, currentBuc } = props
+  const { actions, aktoerId, avdodfnr, attachments, bucs, bucsInfoList, countryList, currentBuc, currentSed } = props
   const { initialAttachments = {}, initialSed = undefined, initialStep = 0, institutionList } = props
   const { loading, p4000info, sakId, sed, t, vedtakId } = props
 
@@ -60,7 +60,15 @@ export const SEDStart = (props) => {
 
   useEffect(() => {
     if (!mounted) {
-      actions.getSedList(buc)
+      if (!currentSed || !currentBuc) {
+        actions.getSedList(buc)
+      } else {
+        actions.setSedList(
+          bucs[currentBuc].seds
+            .filter(sed => sed.parentDocumentId === currentSed)
+            .map(sed => sed.type)
+        )
+      }
       setMounted(true)
     }
   }, [mounted, actions, buc])
@@ -172,7 +180,11 @@ export const SEDStart = (props) => {
       if (avdodfnr) {
         payload.avdodfnr = avdodfnr
       }
-      actions.createSed(payload)
+      if (currentSed) {
+        actions.createReplySed(payload, currentSed)
+      } else {
+        actions.createSed(payload)
+      }
     }
   }
 
