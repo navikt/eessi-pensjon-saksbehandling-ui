@@ -14,10 +14,10 @@
     align-items: flex-end;
   }
 
-  .existingPeriod {
+  &__existingPeriod {
     display: flex;
 
-    .icon {
+    &-icon {
       min-width: 32px;
       display: flex;
       flex-direction: column;
@@ -47,27 +47,42 @@
         text-align: center;
       }
     }
-    .existingPeriodAttachmentsContainer {
-      word-break: break-all;
+
+    &-description {
+      padding-bottom: 0.5rem;
+    }
+
+    &-type,
+    &-dates,
+    &-workActivity,
+    &-learnInstitution,
+    &-payingInstitution,
+    &-otherType,
+    &-childName {
+      display: flex;
+      align-items: center;
+    }
+
+    &-attachments {
+      align-items: center;
+    }
+    &-buttons {
+      display: flex;
+      justify-content: center;
+    }
+
+    &-button {
+      display: flex;
+      align-items: center;
+      min-width: 140px;
+      justify-content: center;
+      padding-left: 0px;
+      padding-right: 0px;
     }
   }
 
   .line {
      border-left: 1px solid black;
-  }
-
-  .existingPeriodButtons {
-    display: flex;
-    justify-content: center;
-
-    .existingPeriodButton {
-       display: flex;
-       align-items: center;
-       min-width: 140px;
-       justify-content: center;
-       padding-left: 0px;
-       padding-right: 0px;
-    }
   }
 
   &__edit-button,
@@ -91,8 +106,6 @@
      }
   }
 }
-
-
 
 .highContrast .c-pinfo-stayabroad-period {
   .line {

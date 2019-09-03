@@ -150,7 +150,6 @@ export default {
       adresseFirma: {
         postnummer: 'work period 1 zip code',
         by: 'work period 1 workCity',
-        bygning: 'work period 1 workBuilding',
         land: 'MM',
         gate: 'work period 1 workStreet',
         region: 'work period 1 workRegion'
@@ -171,7 +170,6 @@ export default {
       adresseFirma: {
         postnummer: 'work period 2 zip code',
         by: 'work period 2 workCity',
-        bygning: 'work period 2 workBuilding',
         land: 'NN',
         gate: 'work period 2 workStreet',
         region: 'work period 2 workRegion'

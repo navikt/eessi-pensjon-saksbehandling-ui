@@ -19,11 +19,10 @@ export const mapStateToProps = (state) => {
 }
 
 export const SEDP4000 = (props) => {
-  const { actions, aktoerId, initialMaxPeriods = 8, loadingP4000info, loadingP4000list, locale } = props
+  const { actions, aktoerId, loadingP4000info, loadingP4000list, locale } = props
   const { p4000info, p4000list, setShowButtons, showButtons, t } = props
 
   const [period, setPeriod] = useState({})
-  const [maxPeriods] = useState(initialMaxPeriods)
   const [isReady, setIsReady] = useState(false)
 
   const mode = period && period.id ? 'edit' : 'new'
@@ -152,25 +151,17 @@ export const SEDP4000 = (props) => {
         </>
       )
         : null}
-      {!p4000info || (p4000info && p4000info.stayAbroad.length < maxPeriods)
-        ? (
-          <Period
-            t={t}
-            actions={actions}
-            mode={mode}
-            showButtons={showButtons}
-            period={period}
-            periods={p4000info ? p4000info.stayAbroad : []}
-            locale={locale}
-            setPeriod={setPeriod}
-            setPeriods={setPeriods}
-          />
-        )
-        : (
-          <span className='a-buc-c-sedp4000__maxPeriods-warning'>
-            {t('buc:p4000-alert-maxPeriods', { maxPeriods: maxPeriods })}
-          </span>
-        )}
+      <Period
+        t={t}
+        actions={actions}
+        mode={mode}
+        showButtons={showButtons}
+        period={period}
+        periods={p4000info ? p4000info.stayAbroad : []}
+        locale={locale}
+        setPeriod={setPeriod}
+        setPeriods={setPeriods}
+      />
     </div>
   )
 }
@@ -178,7 +169,6 @@ export const SEDP4000 = (props) => {
 SEDP4000.propTypes = {
   actions: PT.object,
   aktoerId: PT.string.isRequired,
-  initialMaxPeriods: PT.number,
   loadingP4000info: PT.bool,
   loadingP4000list: PT.bool,
   locale: PT.string.isRequired,

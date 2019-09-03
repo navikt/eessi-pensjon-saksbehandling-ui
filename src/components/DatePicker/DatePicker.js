@@ -7,7 +7,7 @@ import { Input } from 'components/Nav'
 import './DatePicker.css'
 
 const DatePicker = (props) => {
-  const { className, feil, labels = {}, ids = {}, onChange, placeholders = {}, initialValues = {} } = props
+  const { className, disabled = false, feil, labels = {}, ids = {}, onChange, placeholders = {}, initialValues = {} } = props
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState({})
 
@@ -100,6 +100,7 @@ const DatePicker = (props) => {
             type='number'
             min='1'
             max='31'
+            disabled={disabled}
             value={(values.day !== undefined) ? values.day : ''}
             onInput={handleMaxLengthDay}
             onChange={handleChangeDay}
@@ -115,6 +116,7 @@ const DatePicker = (props) => {
             type='number'
             min='1'
             max='12'
+            disabled={disabled}
             value={values.month !== undefined ? values.month : ''}
             onInput={handleMaxLengthMonth}
             onChange={handleChangeMonth}
@@ -129,6 +131,7 @@ const DatePicker = (props) => {
             placeholder={placeholders.year}
             type='number'
             min='1900'
+            disabled={disabled}
             value={values.year !== undefined ? values.year : ''}
             onInput={handleMaxLengthYear}
             onChange={handleChangeYear}
@@ -147,6 +150,7 @@ const DatePicker = (props) => {
 }
 
 DatePicker.propTypes = {
+  disabled: PT.bool,
   required: PT.object,
   id: PT.string,
   ids: PT.object,
