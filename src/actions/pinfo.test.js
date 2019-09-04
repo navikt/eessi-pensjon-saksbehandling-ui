@@ -2,7 +2,7 @@ import * as pinfoActions from 'actions/pinfo'
 import * as api from 'actions/api'
 import * as types from 'constants/actionTypes'
 
-describe('pinfo actions', () => {
+describe('actions/pinfo', () => {
   beforeAll(() => {
     api.call = jest.fn()
   })

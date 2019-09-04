@@ -3,7 +3,7 @@ import * as pdfActions from 'actions/pdf'
 import * as api from 'actions/api'
 import * as urls from 'constants/urls'
 
-describe('pdf actions', () => {
+describe('actions/pdf', () => {
   beforeAll(() => {
     api.call = jest.fn()
   })

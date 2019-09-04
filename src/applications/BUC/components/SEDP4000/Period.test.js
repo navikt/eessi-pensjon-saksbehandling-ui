@@ -43,12 +43,12 @@ describe('applications/BUC/components/SEDP4000/Period - view/confirm mode', () =
     expect(period.exists('.a-buc-c-sedp4000-period__existingPeriod-description')).toBeTruthy()
 
     const periodDescription = period.find('.a-buc-c-sedp4000-period__existingPeriod-description').hostNodes()
-    expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-type UndertekstBold').render().text()).toEqual('buc:p4000-category-work')
+    expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-type UndertekstBold').render().text()).toEqual('buc:p4000-label-category-work')
     expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-type Flag').props().country).toEqual('MM')
     expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-type Normaltekst').render().text()).toEqual('mockMM')
-    expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-dates').render().text()).toEqual('buc:p4000-period: 01.01.1993 - 01.01.1994 (?)')
-    expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-workActivity').render().text()).toEqual('buc:p4000-work-title: work period 1 workActivity')
-    expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-attachments').render().text()).toEqual('buc:p4000-attachments: mock.pdf')
+    expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-dates').render().text()).toEqual('buc:p4000-label-period: 01.01.1993 - 01.01.1994 (?)')
+    expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-workActivity').render().text()).toEqual('buc:p4000-label-work-activity2: work period 1 workActivity')
+    expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-attachments').render().text()).toEqual('buc:p4000-label-attachments: mock.pdf')
 
     const periodButtons = period.find('.a-buc-c-sedp4000-period__existingPeriod-buttons').hostNodes()
     expect(periodButtons.exists('.change')).toBeTruthy()
@@ -102,7 +102,7 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
   it('Has a period in edit mode', () => {
     const wrapper = mount(<Period {...initialMockProps} mode='edit' />)
     expect(wrapper.exists('Period')).toBeTruthy()
-    expect(wrapper.find('.a-buc-c-sedp4000-period__title').hostNodes().render().text()).toEqual('buc:p4000-period-edit')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__title').hostNodes().render().text()).toEqual('buc:p4000-title-edit')
   })
 
   it('Has the right buttons in edit mode', () => {
@@ -115,8 +115,8 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
   it('Has proper HTML structure in work edit', () => {
     const wrapper = mount(<Period {...initialMockProps} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('work')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-work')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-title-work')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-help-date')
 
     expect(wrapper.exists('.a-buc-c-sedp4000-period__startDate')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toBeTruthy()
@@ -138,8 +138,8 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
     const wrapper = mount(<Period {...mockProps} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('home')
     expect(wrapper.find('.a-buc-c-sedp4000-period__alert_home').hostNodes().render().text()).toEqual('buc:p4000-warning-home-period')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-home')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-title-home')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-help-date')
 
     expect(wrapper.exists('.a-buc-c-sedp4000-period__startDate')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toBeTruthy()
@@ -157,8 +157,8 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
     }
     const wrapper = mount(<Period {...mockProps} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('learn')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-learn')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-title-learn')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-help-date')
 
     expect(wrapper.exists('.a-buc-c-sedp4000-period__startDate')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toBeTruthy()
@@ -178,8 +178,8 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
     }
     const wrapper = mount(<Period {...mockProps} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('other')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-other')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-title-other')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-help-date')
 
     expect(wrapper.exists('.a-buc-c-sedp4000-period__startDate')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toBeTruthy()
@@ -199,8 +199,8 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
     }
     const wrapper = mount(<Period {...mockProps} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('daily')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-daily')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-title-daily')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-help-date')
 
     expect(wrapper.exists('.a-buc-c-sedp4000-period__startDate')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toBeTruthy()
@@ -220,8 +220,8 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
     }
     const wrapper = mount(<Period {...mockProps} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('sick')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-sick')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-title-sick')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-help-date')
 
     expect(wrapper.exists('.a-buc-c-sedp4000-period__startDate')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toBeTruthy()
@@ -242,8 +242,8 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
 
     const wrapper = mount(<Period {...mockProps} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('child')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-child')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-title-child')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-help-date')
 
     expect(wrapper.exists('.a-buc-c-sedp4000-period__startDate')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toBeTruthy()
@@ -265,8 +265,8 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
     }
     const wrapper = mount(<Period {...mockProps} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('military')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-military')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-title-military')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-help-date')
 
     expect(wrapper.exists('.a-buc-c-sedp4000-period__startDate')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toBeTruthy()
@@ -284,8 +284,8 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
     }
     const wrapper = mount(<Period {...mockProps} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('voluntary')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-voluntary')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-title-voluntary')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-help-date')
 
     expect(wrapper.exists('.a-buc-c-sedp4000-period__startDate')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toBeTruthy()
@@ -303,8 +303,8 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
     }
     const wrapper = mount(<Period {...mockProps} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('birth')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-period-title-birth')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-period-date-description')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-title-birth')
+    expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-help-date')
 
     expect(wrapper.exists('.a-buc-c-sedp4000-period__startDate')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-sedp4000-period__endDate')).toBeTruthy()

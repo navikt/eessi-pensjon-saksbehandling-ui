@@ -92,7 +92,7 @@ export const SEDP4000 = (props) => {
         {p4000info === undefined && p4000list !== undefined && !loadingP4000info
           ? (noP4000Info() ? (
             <span>
-              <Normaltekst>{t('buc:p4000-fileNotFound')}</Normaltekst>
+              <Normaltekst>{t('buc:p4000-label-p4000FileNotFound')}</Normaltekst>
               <Hovedknapp
                 id='a-buc-c-sedp4000__continue-button-id'
                 className='a-buc-c-sedp4000__continue-button mt-3'
@@ -103,7 +103,7 @@ export const SEDP4000 = (props) => {
             </span>
           ) : (
             <span>
-              <Normaltekst>{t('buc:p4000-fileFound')}</Normaltekst>
+              <Normaltekst>{t('buc:p4000-label-p4000FileFound')}</Normaltekst>
               <Hovedknapp
                 id='a-buc-c-sedp4000__getP4000info-button-id'
                 className='a-buc-c-sedp4000__getP4000info-button mt-3'
@@ -121,14 +121,14 @@ export const SEDP4000 = (props) => {
     <div className={classNames('a-buc-c-sedp4000', mode)}>
       {mode === 'new' ? (
         <>
-          <Undertittel className='mb-3'>{t('buc:p4000-title')}</Undertittel>
-          <Undertekst className='mb-2'>{t('buc:p4000-description')}</Undertekst>
-          <Undertekst className='mb-3'>{t('buc:p4000-info-on-help-icon')}</Undertekst>
+          <Undertittel className='mb-3'>{t('buc:p4000-app-title')}</Undertittel>
+          <Undertekst className='mb-2'>{t('buc:p4000-app-description')}</Undertekst>
+          <Undertekst className='mb-3'>{t('buc:p4000-app-help')}</Undertekst>
         </>
       ) : null}
       {p4000info && !_.isEmpty(p4000info.stayAbroad) && mode === 'new' ? (
         <>
-          <Undertittel className='mt-5 mb-2'>{t('buc:p4000-previousPeriods')}</Undertittel>
+          <Undertittel className='mt-5 mb-2'>{t('buc:p4000-title-previousPeriods')}</Undertittel>
           {p4000info ? p4000info.stayAbroad.sort((a, b) => {
             return a.startDate - b.startDate
           }).map((period, index) => {
