@@ -132,6 +132,7 @@ export const JoarkBrowser = (props) => {
           label: label,
           selected: _.find(_files, {
             dokumentInfoId: file.dokumentInfoId,
+            journalpostId: file.journalpostId,
             variant: variant
           }) !== undefined,
           focused: _previewFile ? _previewFile.journalpostId === file.journalpostId && _previewFile.variant === variant : false

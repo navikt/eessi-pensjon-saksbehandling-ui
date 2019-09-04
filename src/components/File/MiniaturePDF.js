@@ -79,11 +79,11 @@ export const MiniaturePDF = (props) => {
       style={{ transform: 'scale(' + scale + ')' }}
     >
       <Document
+        {...props}
         className='position-relative'
         file={'data:application/pdf;base64,' + file.content.base64}
         onLoadSuccess={handleOnLoadSuccess}
         setNumberPages={setNumberPages}
-        {...props}
       >
         {previewLink && isHovering
           ? (
