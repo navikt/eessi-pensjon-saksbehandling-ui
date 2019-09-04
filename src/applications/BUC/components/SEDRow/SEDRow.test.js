@@ -13,7 +13,7 @@ describe('applications/BUC/components/SEDRow/SEDRow', () => {
     locale: 'nb',
     onSEDNew: jest.fn(),
     sed: sed,
-    childSeds: [buc.seds[1]],
+    followUpSeds: [buc.seds[1]],
     t: t
   }
   let wrapper

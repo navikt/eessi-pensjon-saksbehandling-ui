@@ -17,7 +17,7 @@ const BUCEdit = (props) => {
   const [statusSearch, setStatusSearch] = useState(undefined)
 
   const onSEDNew = (sed) => {
-    sed ? actions.setCurrentSed(sed.id) : actions.setCurrentSed(undefined)
+    actions.setCurrentSed(sed ? sed.id : undefined)
     actions.setMode('sednew')
   }
 
@@ -81,7 +81,7 @@ const BUCEdit = (props) => {
             t={t}
             key={index}
             sed={sed}
-            childSeds={buc.seds.filter(_seds => _seds.parentDocumentId === sed.id)}
+            followUpSeds={buc.seds.filter(_seds => _seds.parentDocumentId === sed.id)}
             rinaUrl={rinaUrl}
             rinaId={buc.caseId}
             onSEDNew={onSEDNew.bind(null, sed)}

@@ -22,8 +22,8 @@ const BUCList = (props) => {
   }
 
   const onSedNew = (buc, sed) => {
-    buc ? actions.setCurrentBuc(buc.caseId) : actions.setCurrentBuc(undefined)
-    sed ? actions.setCurrentSed(sed.id) : actions.setCurrentSed(undefined)
+    actions.setCurrentBuc(buc ? buc.caseId : undefined)
+    actions.setCurrentSed(sed ? sed.id : undefined)
     actions.setMode('sednew')
   }
 
