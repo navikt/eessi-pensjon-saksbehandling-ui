@@ -6,7 +6,7 @@ import sampleJoark from 'resources/tests/sampleJoark'
 import _ from 'lodash'
 var sprintf = require('sprintf-js').sprintf
 
-describe('joark actions', () => {
+describe('actions/joark', () => {
   beforeAll(() => {
     api.funcCall = jest.fn()
   })

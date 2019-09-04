@@ -8,7 +8,7 @@ import sampleP4000info from 'resources/tests/sampleP4000info'
 import sampleInstitutions from 'resources/tests/sampleInstitutions'
 var sprintf = require('sprintf-js').sprintf
 
-describe('buc actions', () => {
+describe('actions/buc', () => {
   beforeAll(() => {
     api.call = jest.fn()
     api.funcCall = jest.fn()

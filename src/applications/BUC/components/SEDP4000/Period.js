@@ -11,8 +11,8 @@ import FocusGroup from 'components/FocusGroup/FocusGroup'
 import Flag from 'components/Flag/Flag'
 import FileUpload from 'components/FileUpload/FileUpload'
 import {
-  AlertStripe, Checkbox, Flatknapp, HjelpetekstAuto, Hovedknapp, Input,
-  Knapp, Normaltekst, Row, Textarea, Select, Undertittel, Undertekst, UndertekstBold
+  AlertStripe, Checkbox, Fieldset, Flatknapp, HjelpetekstAuto, Hovedknapp, Input,
+  Knapp, Normaltekst, Radio, Row, Textarea, Select, Undertittel, Undertekst, UndertekstBold
 } from 'components/Nav'
 import Icons from 'components/Icons'
 import { pinfoDateToDate } from 'utils/Date'
@@ -33,7 +33,7 @@ const Period = (props) => {
   const blurStartDate = (e) => dateBlur('startDate', periodValidation.periodStartDateOnBlur, e)
   const blurEndDate = (e) => dateBlur('endDate', periodValidation.periodEndDateOnBlur, e)
   const setUncertainDate = (e) => eventSetCheckbox('uncertainDate', null, e)
-  const setDateType = (e) => eventSetProperty('dateType', null, e)
+  //const setDateType = (e) => eventSetProperty('dateType', null, e)
 
   const setCountry = (e) => valueSetProperty('country', periodValidation.periodCountry, e)
   const setComment = (e) => eventSetProperty('comment', null, e)
@@ -41,7 +41,7 @@ const Period = (props) => {
 
   const setWorkActivity = (e) => eventSetProperty('workActivity', periodValidation.workActivity, e)
   const setWorkName = (e) => eventSetProperty('workName', periodValidation.workName, e)
-  // const setWorkType = (e) => eventSetProperty('workType', periodValidation.workType, e)
+  const setWorkType = (e) => eventSetProperty('workType', periodValidation.workType, e)
   const setWorkStreet = (e) => eventSetProperty('workStreet', periodValidation.workStreet, e)
   const setWorkCity = (e) => eventSetProperty('workCity', periodValidation.workCity, e)
   const setWorkZipCode = (e) => eventSetProperty('workZipCode', periodValidation.workZipCode, e)
@@ -59,13 +59,13 @@ const Period = (props) => {
   const setOtherType = (e) => eventSetProperty('otherType', periodValidation.otherType, e)
 
   useEffect(() => {
-    if (period.type && !period.dateType) {
+    /*if (period.type && !period.dateType) {
       setDateType({ target: { value: 'both' } })
-    }
-    /* if (period.type === 'work' && !period.workType) {
+    }*/
+    if (period.type === 'work' && !period.workType) {
       setWorkType({target: {value: '01'}})
-    } */
-  }, [period.type, period.dateType, setDateType])
+    }
+  }, [period.type, period.workType, setWorkType])
 
   const hasNoErrors = (errors) => {
     for (var key in errors) {
@@ -227,8 +227,8 @@ const Period = (props) => {
 
   const removePeriodRequest = (period) => {
     actions.openModal({
-      modalTitle: t('buc:p4000-deletePeriod'),
-      modalText: t('buc:p4000-areYouSureDeletePeriod'),
+      modalTitle: t('buc:p4000-alert-deletePeriod-title'),
+      modalText: t('buc:p4000-alert-deletePeriod-description'),
       modalButtons: [{
         main: true,
         text: t('ui:yes') + ', ' + t('ui:delete').toLowerCase(),
@@ -242,8 +242,8 @@ const Period = (props) => {
 
   const cancelPeriodRequest = () => {
     actions.openModal({
-      modalTitle: t('buc:p4000-cancelPeriod'),
-      modalText: t('buc:p4000-areYouSureCancelPeriod'),
+      modalTitle: t('buc:p4000-alert-cancelPeriod-title'),
+      modalText: t('buc:p4000-alert-cancelPeriod-description'),
       modalButtons: [{
         main: true,
         text: t('ui:yes') + ', ' + t('ui:cancel').toLowerCase(),
@@ -294,13 +294,13 @@ const Period = (props) => {
               <div className='a-buc-c-sedp4000-period__existingPeriod-description'>
                 <div className='a-buc-c-sedp4000-period__existingPeriod-type'>
                   <UndertekstBold className='pr-2'>
-                    {t('buc:p4000-category-' + period.type)}
+                    {t('buc:p4000-label-category-' + period.type)}
                   </UndertekstBold>
                   <Flag label={period.country.label} country={period.country.value} size='M' />
                   <Normaltekst className='pl-2'>{period.country.label}</Normaltekst>
                 </div>
                 <div className='a-buc-c-sedp4000-period__existingPeriod-dates'>
-                  <UndertekstBold className='mr-2'>{t('buc:p4000-period') + ': '}</UndertekstBold>
+                  <UndertekstBold className='mr-2'>{t('buc:p4000-label-period') + ': '}</UndertekstBold>
                   <Normaltekst>
                     {moment(pinfoDateToDate(period.startDate)).format('DD.MM.YYYY')}{' - '}
                     {period.endDate ? moment(pinfoDateToDate(period.endDate)).format('DD.MM.YYYY') : t('ui:unknown')}
@@ -311,11 +311,11 @@ const Period = (props) => {
                   ? (
                     <>
                       <div className='a-buc-c-sedp4000-period__existingPeriod-workActivity'>
-                        <UndertekstBold className='mr-2'>{t('buc:p4000-work-title') + ': '}</UndertekstBold>
+                        <UndertekstBold className='mr-2'>{t('buc:p4000-label-work-activity2') + ': '}</UndertekstBold>
                         <Normaltekst>{period.workActivity}</Normaltekst>
                       </div>
                       <div className='existingPeriodPlace d-flex align-items-center'>
-                        <UndertekstBold className='mr-2'>{t('buc:p4000-place') + ': '}</UndertekstBold>
+                        <UndertekstBold className='mr-2'>{t('buc:p4000-label-place') + ': '}</UndertekstBold>
                         <Normaltekst>{period.workCity}</Normaltekst>
                       </div>
                     </>
@@ -323,35 +323,35 @@ const Period = (props) => {
                 {period.type === 'learn'
                   ? (
                     <div className='a-buc-c-sedp4000-period__existingPeriod-learnInstitution'>
-                      <UndertekstBold className='mr-2'>{t('buc:p4000-learn-institution') + ': '}</UndertekstBold>
+                      <UndertekstBold className='mr-2'>{t('buc:p4000-label-learn-institution') + ': '}</UndertekstBold>
                       <Normaltekst>{period.learnInstitution}</Normaltekst>
                     </div>
                   ) : null}
                 {period.type === 'child'
                   ? (
                     <div className='a-buc-c-sedp4000-period__existingPeriod-childName'>
-                      <UndertekstBold className='mr-2'>{t('buc:p4000-childname') + ': '}</UndertekstBold>
+                      <UndertekstBold className='mr-2'>{t('buc:p4000-label-childname') + ': '}</UndertekstBold>
                       <Normaltekst>{period.childLastName}{', '}{period.childFirstName}</Normaltekst>
                     </div>
                   ) : null}
                 {period.type === 'daily' || period.type === 'sick'
                   ? (
                     <div className='a-buc-c-sedp4000-period__existingPeriod-payingInstitution'>
-                      <UndertekstBold className='mr-2'>{t('buc:p4000-paying-institution') + ': '}</UndertekstBold>
+                      <UndertekstBold className='mr-2'>{t('buc:p4000-label-paying-institution') + ': '}</UndertekstBold>
                       <Normaltekst>{period.payingInstitution}</Normaltekst>
                     </div>
                   ) : null}
                 {period.type === 'other'
                   ? (
                     <div className='a-buc-c-sedp4000-period__existingPeriod-otherType'>
-                      <UndertekstBold className='mr-2'>{t('buc:p4000-label-other') + ': '}</UndertekstBold>
+                      <UndertekstBold className='mr-2'>{t('buc:p4000-label-otherType') + ': '}</UndertekstBold>
                       <Normaltekst>{period.otherType}</Normaltekst>
                     </div>
                   ) : null}
                 {period.attachments && !_.isEmpty(period.attachments)
                   ? (
                     <div className='a-buc-c-sedp4000-period__existingPeriod-attachments'>
-                      <UndertekstBold className='mr-2'>{t('buc:p4000-attachments') + ': '}</UndertekstBold>
+                      <UndertekstBold className='mr-2'>{t('buc:p4000-label-attachments') + ': '}</UndertekstBold>
                       <Normaltekst>{period.attachments.map(att => att.name).join(', ')}</Normaltekst>
                     </div>
                   ) : null}
@@ -384,16 +384,16 @@ const Period = (props) => {
               {t(_errorMessage)}
             </AlertStripe>
           ) : null}
-          <Undertittel className='a-buc-c-sedp4000-period__title mt-5 mb-2'>{t('buc:p4000-period-' + mode)}</Undertittel>
+          <Undertittel className='a-buc-c-sedp4000-period__title mt-5 mb-2'>{t('buc:p4000-title-' + mode)}</Undertittel>
           <Row className={mode}>
             <div className='col-sm-8'>
               <Select
                 id='a-buc-c-sedp4000-period__kategori-select'
                 label={
                   <div className='a-buc-c-sedp4000-period__label'>
-                    <span>{t('buc:p4000-category')}</span>
+                    <span>{t('buc:p4000-label-category')}</span>
                     <HjelpetekstAuto id='p4000-category-select-help'>
-                      {t('buc:p4000-category-help')}
+                      {t('buc:p4000-help-category')}
                     </HjelpetekstAuto>
                   </div>
                 }
@@ -401,16 +401,16 @@ const Period = (props) => {
                 onChange={setType}
               >
                 <option value=''>{t('ui:choose')}</option>
-                <option value='work'>{t('buc:p4000-category-work')}</option>
-                <option value='home'>{t('buc:p4000-category-home')}</option>
-                <option value='military'>{t('buc:p4000-category-military')}</option>
-                <option value='learn'>{t('buc:p4000-category-learn')}</option>
-                <option value='child'>{t('buc:p4000-category-child')}</option>
-                <option value='voluntary'>{t('buc:p4000-category-voluntary')}</option>
-                <option value='birth'>{t('buc:p4000-category-birth')}</option>
-                <option value='daily'>{t('buc:p4000-category-daily')}</option>
-                <option value='sick'>{t('buc:p4000-category-sick')}</option>
-                <option value='other'>{t('buc:p4000-category-other')}</option>
+                <option value='work'>{t('buc:p4000-label-category-work')}</option>
+                <option value='home'>{t('buc:p4000-label-category-home')}</option>
+                <option value='military'>{t('buc:p4000-label-category-military')}</option>
+                <option value='learn'>{t('buc:p4000-label-category-learn')}</option>
+                <option value='child'>{t('buc:p4000-label-category-child')}</option>
+                <option value='voluntary'>{t('buc:p4000-label-category-voluntary')}</option>
+                <option value='birth'>{t('buc:p4000-label-category-birth')}</option>
+                <option value='daily'>{t('buc:p4000-label-category-daily')}</option>
+                <option value='sick'>{t('buc:p4000-label-category-sick')}</option>
+                <option value='other'>{t('buc:p4000-label-category-other')}</option>
               </Select>
             </div>
           </Row>
@@ -427,38 +427,37 @@ const Period = (props) => {
                 )
                 : null}
               <Undertittel className='a-buc-c-sedp4000-period__subtitle mt-5 mb-2'>
-                {t(`buc:p4000-period-title-${period.type}`)}
+                {t(`buc:p4000-title-${period.type}`)}
               </Undertittel>
               <Normaltekst className='a-buc-c-sedp4000-period__description mb-3'>
-                {t('buc:p4000-period-date-description')}
+                {t('buc:p4000-help-date')}
               </Normaltekst>
               <Row>
-                <div className='a-buc-c-sedp4000-period__dateType col-12 mb-2'>
+                {/*<div className='a-buc-c-sedp4000-period__dateType col-12 mb-2'>
                   <Select
                     className='a-buc-c-sedp4000-period__dateType-select flex-fill'
                     id='a-buc-c-sedp4000-period__dateType-select-id'
                     bredde='fullbredde'
-                    label={t('buc:p4000-period-date-type')}
+                    label={t('buc:p4000-label-date-type')}
                     value={period.dateType}
                     onChange={setDateType}
                   >
-                    <option value='both'>{t('buc:p4000-both')}</option>
-                    <option value='onlyStartDate01'>{t('buc:p4000-onlyStartDate01')}</option>
-                    <option value='onlyStartDate98'>{t('buc:p4000-onlyStartDate98')}</option>
+                    <option value='both'>{t('buc:p4000-label-closedPeriod')}</option>
+                    <option value='onlyStartDate01'>{t('buc:p4000-label-onlyStartDate01')}</option>
+                    <option value='onlyStartDate98'>{t('buc:p4000-label-onlyStartDate98')}</option>
                   </Select>
-                </div>
-
+                </div>*/}
                 <div className='a-buc-c-sedp4000-period__startDate col-sm-6 col-12 mb-2'>
                   <label className='datepickerLabel skjemaelement__label'>
-                    {t('buc:p4000-period-start-date')}
+                    {t('buc:p4000-label-start-date')}
                   </label>
                   {
                     <FocusGroup onBlur={blurStartDate}>
                       <DatePicker
                         id='a-buc-c-sedp4000-period__startdato-date'
-                        labels={{ day: t('buc:p4000-period-day'), month: t('buc:p4000-period-month'), year: t('buc:p4000-period-year') }}
+                        labels={{ day: t('buc:p4000-label-day'), month: t('buc:p4000-label-month'), year: t('buc:p4000-label-year') }}
                         ids={{ day: 'a-buc-c-sedp4000-period__startdato-day', month: 'a-buc-c-sedp4000-period__startdato-month', year: 'a-buc-c-sedp4000-period__startdato-year' }}
-                        placeholders={{ day: t('buc:p4000-period-placeholder-day'), month: t('buc:p4000-period-placeholder-month'), year: t('buc:p4000-period-placeholder-year') }}
+                        placeholders={{ day: t('buc:p4000-placeholder-day'), month: t('buc:p4000-placeholder-month'), year: t('buc:p4000-placeholder-year') }}
                         className='startDate pr-2'
                         initialValues={period.startDate}
                         onChange={setStartDate}
@@ -469,16 +468,15 @@ const Period = (props) => {
                 </div>
                 <div className='a-buc-c-sedp4000-period__endDate col-sm-6 col-12 mb-2'>
                   <label className='datepickerLabel skjemaelement__label'>
-                    {t('buc:p4000-period-end-date')}
+                    {t('buc:p4000-label-end-date')}
                   </label>
                   {
                     <FocusGroup onBlur={blurEndDate}>
                       <DatePicker
-                        disabled={period.dateType !== 'both'}
                         id='a-buc-c-sedp4000-period_sluttdato-date'
-                        labels={{ day: t('buc:p4000-period-day'), month: t('buc:p4000-period-month'), year: t('buc:p4000-period-year') }}
+                        labels={{ day: t('buc:p4000-label-day'), month: t('buc:p4000-label-month'), year: t('buc:p4000-label-year') }}
                         ids={{ day: 'a-buc-c-sedp4000-period__sluttdato-day', month: 'a-buc-c-sedp4000-period__sluttdato-month', year: 'a-buc-c-sedp4000-period__sluttdato-year' }}
-                        placeholders={{ day: t('buc:p4000-period-placeholder-day'), month: t('buc:p4000-period-placeholder-month'), year: t('buc:p4000-period-placeholder-year') }}
+                        placeholders={{ day: t('buc:p4000-placeholder-day'), month: t('buc:p4000-placeholder-month'), year: t('buc:p4000-placeholder-year') }}
                         className='endDate pr-2'
                         initialValues={period.endDate}
                         onChange={setEndDate}
@@ -491,7 +489,7 @@ const Period = (props) => {
                   <Checkbox
                     id='a-buc-c-sedp4000-period__uncertainDate-checkbox-id'
                     className='a-buc-c-sedp4000-period__uncertainDate-checkbox'
-                    label={t('buc:p4000-uncertain-date')}
+                    label={t('buc:p4000-label-uncertain-date')}
                     checked={period.uncertainDate}
                     onChange={setUncertainDate}
                   />
@@ -502,7 +500,7 @@ const Period = (props) => {
                   <div className='col-sm-8 mb-2'>
                     <label className='skjemaelement__label'>
                       <div className='a-buc-c-sedp4000-period__label'>
-                        {t('buc:p4000-country')}
+                        {t('buc:p4000-label-country')}
                       </div>
                     </label>
                     <CountrySelect
@@ -521,34 +519,34 @@ const Period = (props) => {
               {period.type === 'work' ? (
                 <>
                   <Row>
-                    {/* <div className='col-sm-12'>
+                    <div className='col-sm-12'>
                     <Fieldset
                       id='a-buc-c-sedp4000-period__workType-radio-id'
                       className='a-buc-c-sedp4000-period__workType-radio'
-                      legend={t('buc:p4000-work-type')}>
+                      legend={t('buc:p4000-label-work-type')}>
                       <Radio
-                        label={t('buc:p4000-work-type-01')}
+                        label={t('buc:p4000-label-work-type-01')}
                         name="period-workType"
                         value='01'
                         checked={period.workType === '01'}
                         onChange={setWorkType}/>
                       <Radio
-                        label={t('buc:p4000-work-type-02')}
+                        label={t('buc:p4000-label-work-type-02')}
                         name="period-workType"
                         value='02'
                         checked={period.workType === '02'}
                         onChange={setWorkType}/>
                     </Fieldset>
-                  </div> */}
+                  </div>
                     <div className='col-sm-12'>
                       <Input
                         id='a-buc-c-sedp4000-period__yrkesaktivitet-input-id'
                         className='a-buc-c-sedp4000-period__yrkesaktivitet-input'
                         label={
                           <div className='a-buc-c-sedp4000-period__label'>
-                            <UndertekstBold>{t('buc:p4000-work-activity')}</UndertekstBold>
-                            <HjelpetekstAuto id='p4000-work-activity-help'>
-                              {t('buc:p4000-work-activity-help')}
+                            <UndertekstBold>{t('buc:p4000-label-work-activity')}</UndertekstBold>
+                            <HjelpetekstAuto id='p4000-help-work-activity'>
+                              {t('buc:p4000-help-work-activity')}
                             </HjelpetekstAuto>
                           </div>
                         }
@@ -564,9 +562,9 @@ const Period = (props) => {
                         className='a-buc-c-sedp4000-period__insuranceId-input'
                         label={
                           <div className='a-buc-c-sedp4000-period__label'>
-                            <UndertekstBold>{t('buc:p4000-insurance-id')}</UndertekstBold>
-                            <HjelpetekstAuto id='p4000-insurance-id-help'>
-                              {t('buc:p4000-insurance-id-help')}
+                            <UndertekstBold>{t('buc:p4000-label-insurance-id')}</UndertekstBold>
+                            <HjelpetekstAuto id='p4000-help-insurance-id'>
+                              {t('buc:p4000-help-insurance-id')}
                             </HjelpetekstAuto>
                           </div>
                         }
@@ -582,7 +580,7 @@ const Period = (props) => {
                         className='a-buc-c-sedp4000-period__arbeidgiversnavn-input'
                         label={
                           <div className='a-buc-c-sedp4000-period__label'>
-                            <UndertekstBold>{t('buc:p4000-work-name')}</UndertekstBold>
+                            <UndertekstBold>{t('buc:p4000-label-work-name')}</UndertekstBold>
                             <Normaltekst className='optional'>{t('ui:optional')}</Normaltekst>
                           </div>
                         }
@@ -596,7 +594,7 @@ const Period = (props) => {
                   <Row>
                     <div className='col-sm-12'>
                       <Undertittel className='mt-5 mb-2'>
-                        {t('buc:p4000-work-address')}
+                        {t('buc:p4000-label-work-address')}
                       </Undertittel>
                     </div>
                     <div className='col-sm-12'>
@@ -605,9 +603,9 @@ const Period = (props) => {
                         className='a-buc-c-sedp4000-period__workStreet-input'
                         label={
                           <div className='a-buc-c-sedp4000-period__label'>
-                            <UndertekstBold>{t('buc:p4000-work-street')}</UndertekstBold>
-                            <HjelpetekstAuto id='p4000-work-street-help'>
-                              {t('buc:p4000-work-street-help')}
+                            <UndertekstBold>{t('buc:p4000-label-work-street')}</UndertekstBold>
+                            <HjelpetekstAuto id='p4000-help-work-street'>
+                              {t('buc:p4000-help-work-street')}
                             </HjelpetekstAuto>
                           </div>
                         }
@@ -623,9 +621,9 @@ const Period = (props) => {
                         className='a-buc-c-sedp4000-period__workCity-input'
                         label={
                           <div className='a-buc-c-sedp4000-period__label'>
-                            <UndertekstBold>{t('buc:p4000-work-city')}</UndertekstBold>
-                            <HjelpetekstAuto id='p4000-work-city-help'>
-                              {t('buc:p4000-work-city-help')}
+                            <UndertekstBold>{t('buc:p4000-label-work-city')}</UndertekstBold>
+                            <HjelpetekstAuto id='p4000-help-work-city'>
+                              {t('buc:p4000-help-work-city')}
                             </HjelpetekstAuto>
                           </div>
                         }
@@ -641,9 +639,9 @@ const Period = (props) => {
                         className='a-buc-c-sedp4000-period__workZipCode-input'
                         label={
                           <div className='a-buc-c-sedp4000-period__label'>
-                            <UndertekstBold>{t('buc:p4000-work-zipcode')}</UndertekstBold>
-                            <HjelpetekstAuto id='p4000-work-zipcode-help'>
-                              {t('buc:p4000-work-zipcode-help')}
+                            <UndertekstBold>{t('buc:p4000-label-work-zipcode')}</UndertekstBold>
+                            <HjelpetekstAuto id='p4000-help-work-zipcode'>
+                              {t('buc:p4000-help-work-zipcode')}
                             </HjelpetekstAuto>
                           </div>
                         }
@@ -659,9 +657,9 @@ const Period = (props) => {
                         className='a-buc-c-sedp4000-period__workRegion-input'
                         label={
                           <div className='a-buc-c-sedp4000-period__label'>
-                            <UndertekstBold>{t('buc:p4000-work-region')}</UndertekstBold>
-                            <HjelpetekstAuto id='p4000-work-region-help'>
-                              {t('buc:p4000-work-region-help')}
+                            <UndertekstBold>{t('buc:p4000-label-work-region')}</UndertekstBold>
+                            <HjelpetekstAuto id='p4000-help-work-region'>
+                              {t('buc:p4000-help-work-region')}
                             </HjelpetekstAuto>
                           </div>
                         }
@@ -674,7 +672,7 @@ const Period = (props) => {
                     <div className='col-sm-8 mb-2'>
                       <label className='skjemaelement__label'>
                         <div className='a-buc-c-sedp4000-period__label'>
-                          {t('buc:p4000-country')}
+                          {t('buc:p4000-label-country')}
                         </div>
                       </label>
                       <CountrySelect
@@ -700,9 +698,9 @@ const Period = (props) => {
                       label={
                         <div className='a-buc-c-sedp4000-period__label'>
                           <div className='a-buc-c-sedp4000-period__label'>
-                            <UndertekstBold>{t('buc:p4000-learn-institution')}</UndertekstBold>
-                            <HjelpetekstAuto id='p4000-learn-institution-help'>
-                              {t('buc:p4000-learn-institution-help')}
+                            <UndertekstBold>{t('buc:p4000-label-learn-institution')}</UndertekstBold>
+                            <HjelpetekstAuto id='p4000-help-learn-institution'>
+                              {t('buc:p4000-help-learn-institution')}
                             </HjelpetekstAuto>
                           </div>
                         </div>
@@ -725,7 +723,7 @@ const Period = (props) => {
                         label={
                           <div className='pinfo-label'>
                             <div className='pinfo-label'>
-                              <UndertekstBold>{t('buc:p4000-category-other')}</UndertekstBold>
+                              <UndertekstBold>{t('buc:p4000-label-otherType')}</UndertekstBold>
                             </div>
                           </div>
                         }
@@ -747,7 +745,7 @@ const Period = (props) => {
                         label={
                           <div className='pinfo-label'>
                             <div className='pinfo-label'>
-                              <UndertekstBold>{t('buc:p4000-paying-institution-name')}</UndertekstBold>
+                              <UndertekstBold>{t('buc:p4000-label-paying-institution-name')}</UndertekstBold>
                             </div>
                           </div>
                         }
@@ -807,9 +805,9 @@ const Period = (props) => {
                         <DatePicker
                           id='a-buc-c-sedp4000-period__omsorgforbarn-fodelsdato-date-id'
                           className='a-buc-c-sedp4000-period__omsorgforbarn-fodelsdato-dat pr-2'
-                          labels={{ day: t('buc:p4000-period-day'), month: t('buc:p4000-period-month'), year: t('buc:p4000-period-year') }}
+                          labels={{ day: t('buc:p4000-label-day'), month: t('buc:p4000-label-month'), year: t('buc:p4000-label-year') }}
                           ids={{ day: 'pinfo-opphold-fodelsdato-day', month: 'pinfo-opphold-fodelsdato-month', year: 'pinfo-opphold-fodelsdato-year' }}
-                          placeholders={{ day: t('buc:p4000-period-placeholder-day'), month: t('buc:p4000-period-placeholder-month'), year: t('buc:p4000-period-placeholder-year') }}
+                          placeholders={{ day: t('buc:p4000-placeholder-day'), month: t('buc:p4000-placeholder-month'), year: t('buc:p4000-placeholder-year') }}
                           initialValues={period.childBirthDate}
                           onChange={setChildBirthDate}
                           feil={localErrors.childBirthDate || localErrors.timeSpan ? { feilmelding: t(localErrors.childBirthDate || localErrors.timeSpan) } : undefined}
@@ -820,22 +818,22 @@ const Period = (props) => {
                 ) : null}
               <Row>
                 <div className='col-sm-12'>
-                  <Undertittel className='mt-5 mb-2'>{t('buc:p4000-comment')}</Undertittel>
+                  <Undertittel className='mt-5 mb-2'>{t('buc:p4000-title-comment-info')}</Undertittel>
                   <Textarea
                     id='a-buc-c-sedp4000-period__comment-id'
                     className='a-buc-c-sedp4000-period__comment skjemaelement__input'
                     label={
                       <div className='a-buc-c-sedp4000-period__label'>
                         <div className='a-buc-c-sedp4000-period__label'>
-                          <UndertekstBold>{t('buc:p4000-comment')}</UndertekstBold>
+                          <UndertekstBold>{t('buc:p4000-label-comment-info')}</UndertekstBold>
                           <HjelpetekstAuto id='a-buc-c-sedp4000-period__comment-help'>
-                            {t('buc:p4000-comment-help')}
+                            {t('buc:p4000-help-comment-info')}
                           </HjelpetekstAuto>
                         </div>
                         <Normaltekst className='optional'>{t('ui:optional')}</Normaltekst>
                       </div>
                     }
-                    placeholder={t('ui:writeIn')}
+                    placeholder={t('buc:p4000-placeholder-comment-info')}
                     value={period.comment || ''}
                     onChange={setComment}
                     maxLength={2300}
@@ -848,7 +846,7 @@ const Period = (props) => {
                     {t('buc:p4000-attachment-title')}
                   </Undertittel>
                   <Undertekst>
-                    {t('buc:p4000-attachment-title-help')}
+                    {t('buc:p4000-help-attachment')}
                   </Undertekst>
                   <Normaltekst className='optional mb-1'>{t('ui:optional')}</Normaltekst>
                 </div>
@@ -875,7 +873,7 @@ const Period = (props) => {
                       className='a-buc-c-sedp4000-period__edit-button mb-2 mr-4 w-sm-100'
                       onClick={saveEditPeriod}
                     >
-                      {t('buc:p4000-saveEditPeriod')}
+                      {t('buc:p4000-button-saveEditPeriod')}
                     </Knapp>
                   ) : null}
                   {mode === 'new' ? (
@@ -884,7 +882,7 @@ const Period = (props) => {
                       className='a-buc-c-sedp4000-period__save-button mb-2 mr-4 w-sm-100'
                       onClick={saveNewPeriod}
                     >
-                      {t('buc:p4000-saveNewPeriod')}
+                      {t('buc:p4000-button-saveNewPeriod')}
                     </Hovedknapp>
                   ) : null}
                   <Flatknapp
@@ -892,7 +890,7 @@ const Period = (props) => {
                     className='a-buc-c-sedp4000-period__cancel-button mb-2 w-sm-100'
                     onClick={cancelPeriodRequest}
                   >
-                    {t('buc:p4000-cancelPeriod')}
+                    {t('buc:p4000-button-cancelPeriod')}
                   </Flatknapp>
                 </div>
               </Row>

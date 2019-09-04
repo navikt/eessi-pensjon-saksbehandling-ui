@@ -5,8 +5,9 @@ import * as urls from 'constants/urls'
 import samplePerson from 'resources/tests/samplePerson'
 var sprintf = require('sprintf-js').sprintf
 
-describe('app actions', () => {
-  beforeAll(() => {
+describe('actions/app', () => {
+
+  beforeEach(() => {
     api.funcCall = jest.fn()
     api.call = jest.fn()
   })
@@ -16,7 +17,7 @@ describe('app actions', () => {
     api.call.mockRestore()
   })
 
-  it('call setStatusParam()', () => {
+  it('setStatusParam()', () => {
     const mockKey = 'mockKey'
     const mockValue = 'mockValue'
     const generatedResult = appActions.setStatusParam(mockKey, mockValue)
@@ -29,7 +30,7 @@ describe('app actions', () => {
     })
   })
 
-  it('call unsetStatusParam()', () => {
+  it('unsetStatusParam()', () => {
     const mockKey = 'mockKey'
     const generatedResult = appActions.unsetStatusParam(mockKey)
     expect(generatedResult).toMatchObject({
@@ -40,7 +41,7 @@ describe('app actions', () => {
     })
   })
 
-  it('call login()', () => {
+  it('login()', () => {
     Object.defineProperty(window, 'location', {
       writable: true,
       value: {
@@ -57,7 +58,7 @@ describe('app actions', () => {
     })
   })
 
-  it('call logout()', () => {
+  it('logout()', () => {
     Object.defineProperty(window, 'location', {
       writable: true,
       value: {}
@@ -69,7 +70,7 @@ describe('app actions', () => {
     })
   })
 
-  it('call getUserInfo()', () => {
+  it('getUserInfo()', () => {
     appActions.getUserInfo()
     expect(api.call).toBeCalledWith({
       type: {

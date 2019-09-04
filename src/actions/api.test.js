@@ -5,7 +5,7 @@ import nock from 'nock'
 
 const mockStore = configureMockStore([thunk])
 
-describe('api actions', () => {
+describe('actions/api', () => {
   let store
 
   beforeEach(() => {
