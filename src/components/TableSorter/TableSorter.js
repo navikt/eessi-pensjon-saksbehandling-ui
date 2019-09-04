@@ -70,7 +70,7 @@ const TableSorter = (props) => {
               case 'name':
                 return (
                   <td key={index2}>
-                    <Normaltekst>{item.id} - {value}</Normaltekst>
+                    <Normaltekst>{value}</Normaltekst>
                   </td>
                 )
               case 'tema':
@@ -96,7 +96,7 @@ const TableSorter = (props) => {
                         >
                           <Checkbox
                             label=''
-                            id={'c-tablesorter__checkbox-' + item.id + '-' +
+                            id={'c-tablesorter__checkbox-' + item.journalpostId + '-' + item.dokumentInfoId + '-' +
                               convertSomeNonAlphanumericCharactersToUnderscore(variant.label)}
                             className='c-tablesorter__checkbox'
                             onChange={(e) => onSelectedItemChange(item, e.target.checked, variant.variant)}

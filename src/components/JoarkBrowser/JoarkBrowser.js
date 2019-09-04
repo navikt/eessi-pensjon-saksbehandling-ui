@@ -123,12 +123,13 @@ export const JoarkBrowser = (props) => {
   const items = list ? list.map((file) => {
     return {
       raw: file,
-      id: file.journalpostId,
+      journalpostId: file.journalpostId,
+      dokumentInfoId: file.dokumentInfoId,
       name: file.tittel,
       tema: file.tema,
       date: file.datoOpprettet,
       varianter: file.varianter.map(variant => {
-        const label = variant.variantformat + ' (' + variant.filnavn + ')'
+        const label = variant.variantformat + (variant.filnavn ? ' (' + variant.filnavn + ')' : '')
         return {
           variant: variant,
           label: label,
