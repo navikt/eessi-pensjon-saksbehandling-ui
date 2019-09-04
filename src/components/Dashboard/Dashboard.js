@@ -1,22 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { DndProvider } from 'react-dnd'
-import HTML5Backend from 'react-dnd-html5-backend'
 import { withTranslation } from 'react-i18next'
-import { createDragApiRef } from 'react-grid-layout'
-import WidgetAddArea from './Widget/WidgetAddArea'
-import DashboardGrid from './DashboardGrid'
-import DashboardControlPanel from './DashboardControlPanel'
 import DashboardConfig from './Config/DashboardConfig'
 import * as DashboardAPI from './API/DashboardAPI'
-import { Normaltekst, NavFrontendSpinner } from 'components/Nav'
 
-import 'react-grid-layout/css/styles.css'
-import 'react-resizable/css/styles.css'
-import './Dashboard.css'
-
-const dragApi = createDragApiRef()
+import DashboardRender from 'components/Dashboard/DashboardRender'
 
 export const Dashboard = (props) => {
   const { t } = props
@@ -92,56 +81,12 @@ export const Dashboard = (props) => {
     setEditMode(false)
   }
 
-  if (!mounted) {
-    return (
-      <div className='c-dashboard__loading text-center' style={{ paddingTop: '3rem' }}>
-        <NavFrontendSpinner />
-        <Normaltekst>{t('ui:loading')}</Normaltekst>
-      </div>
-    )
-  }
-
   return (
-    <div className='c-dashboard'>
-      <DndProvider backend={HTML5Backend}>
-        <DashboardControlPanel
-          currentBreakpoint={currentBreakpoint}
-          addMode={addMode}
-          editMode={editMode}
-          onEditModeOn={onEditModeOn}
-          onCancelEdit={onCancelEdit}
-          onSaveEdit={onSaveEdit}
-          onAddChange={onAddChange}
-          t={t}
-        />
-        {addMode ? (
-          <WidgetAddArea
-            currentBreakpoint={currentBreakpoint}
-            availableWidgets={availableWidgets}
-            widgets={widgets}
-            setWidgets={setWidgets}
-            t={t}
-            dragApi={dragApi}
-          />
-        )
-          : null}
-        <DashboardGrid
-          editMode={editMode}
-          layouts={layouts}
-          widgets={widgets}
-          mounted={mounted}
-          currentBreakpoint={currentBreakpoint}
-          onBreakpointChange={onBreakpointChange}
-          onLayoutChange={onLayoutChange}
-          onWidgetUpdate={onWidgetUpdate}
-          onWidgetResize={onWidgetResize}
-          onWidgetDelete={onWidgetDelete}
-          availableWidgets={availableWidgets}
-          t={t}
-          dragApi={dragApi}
-        />
-      </DndProvider>
-    </div>
+    <DashboardRender
+      t={t} addMode={addMode} editMode={editMode} onEditModeOn={onEditModeOn} onCancelEdit={onCancelEdit} onSaveEdit={onSaveEdit} onAddChange={onAddChange} mounted={mounted}
+      layouts={layouts} onLayoutChange={onLayoutChange} onBreakpointChange={onBreakpointChange} currentBreakpoint={currentBreakpoint}
+      widgets={widgets} availableWidgets={availableWidgets} setWidgets={setWidgets} onWidgetUpdate={onWidgetUpdate} onWidgetResize={onWidgetResize} onWidgetDelete={onWidgetDelete}
+    />
   )
 }
 
