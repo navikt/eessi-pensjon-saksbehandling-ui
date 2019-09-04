@@ -22,6 +22,20 @@ export const setCurrentBuc = (bucCaseId) => {
   }
 }
 
+export const setCurrentSed = (sedDocumentId) => {
+  return {
+    type: types.BUC_CURRENTSED_SET,
+    payload: sedDocumentId
+  }
+}
+
+export const setSedList = (sedList) => {
+  return {
+    type: types.BUC_SEDLIST_SET,
+    payload: sedList
+  }
+}
+
 export const resetSed = () => {
   return {
     type: types.BUC_SED_RESET
@@ -198,7 +212,7 @@ export const getCountryList = () => {
   })
 }
 
-export const getSedList = (buc, rinaId) => {
+export const getSedList = (buc) => {
   const url = sprintf(urls.SED_GET_OPTIONS_URL, { buc: buc.type, rinaId: buc.caseId })
   return api.funcCall({
     url: url,
@@ -240,6 +254,23 @@ export const createSed = (payload) => {
       request: types.BUC_CREATE_SED_REQUEST,
       success: types.BUC_CREATE_SED_SUCCESS,
       failure: types.BUC_CREATE_SED_FAILURE
+    }
+  })
+}
+
+export const createReplySed = (payload, parentId) => {
+  return api.funcCall({
+    url: sprintf(urls.BUC_CREATE_REPLY_SED_URL, { parentId: parentId }),
+    payload: payload,
+    expectedPayload: {
+      ...payload,
+      id: '123456789'
+    },
+    method: 'POST',
+    type: {
+      request: types.BUC_CREATE_REPLY_SED_REQUEST,
+      success: types.BUC_CREATE_REPLY_SED_SUCCESS,
+      failure: types.BUC_CREATE_REPLY_SED_FAILURE
     }
   })
 }

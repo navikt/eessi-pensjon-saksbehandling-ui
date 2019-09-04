@@ -24,9 +24,10 @@ const SEDBody = (props) => {
               t={t}
               key={index}
               sed={sed}
+              followUpSeds={seds.filter(_seds => _seds.parentDocumentId === sed.id)}
               locale={locale}
               border='bottom'
-              onSEDNew={onSEDNew}
+              onSEDNew={() => onSEDNew(sed)}
               institutionNames={institutionNames}
             />
           )

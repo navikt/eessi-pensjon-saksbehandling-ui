@@ -12,7 +12,8 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
   let wrapper
   const initialMockProps = {
     actions: {
-      setMode: jest.fn()
+      setMode: jest.fn(),
+      setCurrentSed: jest.fn()
     },
     aktoerId: '123',
     bucs: mockBucs,

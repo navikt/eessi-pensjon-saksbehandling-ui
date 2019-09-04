@@ -16,7 +16,8 @@ const BUCEdit = (props) => {
   const [countrySearch, setCountrySearch] = useState(undefined)
   const [statusSearch, setStatusSearch] = useState(undefined)
 
-  const onSEDNew = () => {
+  const onSEDNew = (sed) => {
+    actions.setCurrentSed(sed ? sed.id : undefined)
     actions.setMode('sednew')
   }
 
@@ -80,9 +81,10 @@ const BUCEdit = (props) => {
             t={t}
             key={index}
             sed={sed}
+            followUpSeds={buc.seds.filter(_seds => _seds.parentDocumentId === sed.id)}
             rinaUrl={rinaUrl}
             rinaId={buc.caseId}
-            onSEDNew={onSEDNew}
+            onSEDNew={onSEDNew.bind(null, sed)}
             institutionNames={institutionNames}
             border='full'
           />
@@ -98,7 +100,7 @@ const BUCEdit = (props) => {
         <Knapp
           id='a-buc-bucedit__new-sed-button-id'
           className='a-buc-bucedit__new-sed-button'
-          onClick={onSEDNew}
+          onClick={onSEDNew.bind(null, undefined)}
         >{t('buc:form-orderNewSED')}
         </Knapp>
       </div>

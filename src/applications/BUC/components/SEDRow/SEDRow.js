@@ -11,7 +11,7 @@ import moment from 'moment'
 import './SEDRow.css'
 
 const SEDRow = (props) => {
-  const { border = 'none', className, institutionNames, locale, onSEDNew, sed, t } = props
+  const { border = 'none', className, institutionNames, locale, onSEDNew, sed, followUpSeds, t } = props
 
   const institutionList = sed.participants ? sed.participants.map(participant => {
     return {
@@ -54,7 +54,7 @@ const SEDRow = (props) => {
               <Icons kind='paperclip' />
             </div>
           ) : null}
-          {sed.status === 'received'
+          {(!_.isEmpty(followUpSeds) && sed.status === 'received')
             ? (
               <Flatknapp
                 mini

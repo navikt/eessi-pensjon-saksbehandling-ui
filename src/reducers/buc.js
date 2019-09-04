@@ -10,6 +10,7 @@ export const initialBucState = {
   bucList: undefined,
   countryList: undefined,
   currentBuc: undefined,
+  currentSed: undefined,
   sed: undefined,
   sedList: undefined,
   subjectAreaList: undefined,
@@ -41,6 +42,20 @@ const bucReducer = (state = initialBucState, action) => {
       return {
         ...state,
         currentBuc: action.payload
+      }
+
+    case types.BUC_CURRENTSED_SET:
+
+      return {
+        ...state,
+        currentSed: action.payload
+      }
+
+    case types.BUC_SEDLIST_SET:
+
+      return {
+        ...state,
+        sedList: action.payload
       }
 
     case types.BUC_SED_RESET:
@@ -291,6 +306,7 @@ const bucReducer = (state = initialBucState, action) => {
       }
 
     case types.BUC_CREATE_SED_SUCCESS:
+    case types.BUC_CREATE_REPLY_SED_SUCCESS:
 
       return {
         ...state,

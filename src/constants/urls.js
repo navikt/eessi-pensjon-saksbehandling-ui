@@ -53,6 +53,7 @@ export const BUC_GET_SINGLE_BUC = BUC_URL + '/enkeldetalj/%(rinaCaseId)s/'
 
 // SedController
 export const BUC_CREATE_SED_URL = SED_URL + '/add'
+export const BUC_CREATE_REPLY_SED_URL = SED_URL + '/replysed/%(parentId)s'
 export const SED_GET_OPTIONS_URL = SED_URL + '/seds/%(buc)s/%(rinaId)s'
 
 // PensjonController
