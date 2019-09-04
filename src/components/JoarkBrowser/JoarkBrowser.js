@@ -90,6 +90,7 @@ export const JoarkBrowser = (props) => {
     let newFiles = _.cloneDeep(_files)
     const found = _.find(newFiles, {
       dokumentInfoId: item.raw.dokumentInfoId,
+      journalpostId: item.raw.journalpostId,
       variant: variant
     })
     let changed = false
@@ -97,6 +98,7 @@ export const JoarkBrowser = (props) => {
     if (!checked && found) {
       newFiles = _.reject(newFiles, {
         journalpostId: item.raw.journalpostId,
+        dokumentInfoId: item.raw.dokumentInfoId,
         variant: variant
       })
       changed = true
