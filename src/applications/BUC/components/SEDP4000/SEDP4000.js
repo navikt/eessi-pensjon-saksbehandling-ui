@@ -25,7 +25,7 @@ export const SEDP4000 = (props) => {
   const [period, setPeriod] = useState({})
   const [isReady, setIsReady] = useState(false)
 
-  const mode = period && period.id ? 'edit' : 'new'
+  const mode = period.id ? 'edit' : 'new'
   const p4000file = aktoerId + '___PINFO___PINFO.json'
 
   // check aktoerId

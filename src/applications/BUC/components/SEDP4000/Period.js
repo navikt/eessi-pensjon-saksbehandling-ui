@@ -12,7 +12,7 @@ import Flag from 'components/Flag/Flag'
 import FileUpload from 'components/FileUpload/FileUpload'
 import {
   AlertStripe, Checkbox, Fieldset, Flatknapp, HjelpetekstAuto, Hovedknapp, Input,
-  Knapp, Normaltekst, Radio, Row, Textarea, Select, Undertittel, Undertekst, UndertekstBold
+  Knapp, Normaltekst, Radio, Row, Select, Textarea, Undertittel, Undertekst, UndertekstBold
 } from 'components/Nav'
 import Icons from 'components/Icons'
 import { pinfoDateToDate } from 'utils/Date'
@@ -87,9 +87,7 @@ const Period = (props) => {
   const dateBlur = (key, validateFunction) => {
     const date = period[key]
     const _localErrors = _.cloneDeep(localErrors)
-
     const error = validateFunction ? validateFunction(date) : undefined
-
     if (!error && Object.prototype.hasOwnProperty.call(_localErrors, key)) {
       delete _localErrors[key]
     }
@@ -167,7 +165,7 @@ const Period = (props) => {
       if (newPeriod.type !== 'work') {
         delete newPeriod.workActivity
         delete newPeriod.workName
-        // delete newPeriod.workType
+        delete newPeriod.workType
         delete newPeriod.workCity
         delete newPeriod.workRegion
         delete newPeriod.workZipCode
@@ -193,8 +191,13 @@ const Period = (props) => {
       setPeriods(newPeriods)
       setPeriod({})
       setDisplayError(false)
+
       window.scrollTo(0, 0)
     }
+  }
+
+  const requestEditPeriod = (period) => {
+     setPeriod(period)
   }
 
   const saveEditPeriod = () => {
@@ -360,7 +363,7 @@ const Period = (props) => {
           </div>
           {mode === 'view' ? (
             <div className='col-md-6 col-12 a-buc-c-sedp4000-period__existingPeriod-buttons'>
-              <Knapp className='a-buc-c-sedp4000-period__existingPeriod-button change mr-3 ' onClick={() => setPeriod(period)}>
+              <Knapp className='a-buc-c-sedp4000-period__existingPeriod-button change mr-3 ' onClick={() => requestEditPeriod(period)}>
                 {t('ui:change')}
               </Knapp>
               <Knapp className='a-buc-c-sedp4000-period__existingPeriod-button remove' onClick={() => removePeriodRequest(period)}>
@@ -698,7 +701,7 @@ const Period = (props) => {
                       label={
                         <div className='a-buc-c-sedp4000-period__label'>
                           <div className='a-buc-c-sedp4000-period__label'>
-                            <UndertekstBold>{t('buc:p4000-label-learn-institution')}</UndertekstBold>
+                            <UndertekstBold>{t('buc:p4000-label-learn-institution-name')}</UndertekstBold>
                             <HjelpetekstAuto id='p4000-help-learn-institution'>
                               {t('buc:p4000-help-learn-institution')}
                             </HjelpetekstAuto>

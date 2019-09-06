@@ -19,18 +19,23 @@ describe('applications/BUC/components/SEDP4000/Validation/singleTests', () => {
       'childBirthDateOnChange',
       'periodTimeSpan',
       'periodCountry',
-      'periodPlace',
       'insuranceName',
       'insuranceType',
       'insuranceId',
       'workActivity',
       'workName',
+      'workType',
+      'workStreet',
+      'workCity',
+      'workZipCode',
+      'workRegion',
       'workPlace',
       'childFirstName',
       'childLastName',
       'learnInstitution',
       'payingInstitution',
-      'otherType'
+      'otherType',
+      'comment'
     ])
   })
 
@@ -164,15 +169,6 @@ describe('applications/BUC/components/SEDP4000/Validation/singleTests', () => {
     let result = singleTests.periodValidation.periodCountry(undefined)
     expect(result).toEqual('buc:validation-noCountry')
     result = singleTests.periodValidation.periodCountry('something')
-    expect(result).toEqual(undefined)
-  })
-
-  it('periodValidation.periodPlace function', () => {
-    let result = singleTests.periodValidation.periodPlace(undefined)
-    expect(result).toEqual('buc:validation-noPlace')
-    result = singleTests.periodValidation.periodPlace('12345678901234567890123456789012345678901234567890123456789012345678901')
-    expect(result).toEqual('buc:validation-wowMuchText')
-    result = singleTests.periodValidation.periodPlace('something')
     expect(result).toEqual(undefined)
   })
 

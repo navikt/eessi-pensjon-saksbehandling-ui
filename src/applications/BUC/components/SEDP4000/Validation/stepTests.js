@@ -19,11 +19,11 @@ export function periodStep (period) {
     case 'work':
       errors.workActivity = tests.periodValidation.workActivity(period.workActivity)
       errors.workName = tests.periodValidation.workName(period.workName)
-      errors.workPlace = tests.periodValidation.workPlace(period.workPlace)
-      break
-
-    case 'home':
-      errors.place = tests.periodValidation.periodPlace(period.place)
+      errors.workType = tests.periodValidation.workType(period.workType)
+      errors.workStreet = tests.periodValidation.workStreet(period.workStreet)
+      errors.workCity = tests.periodValidation.workCity(period.workCity)
+      errors.workZipCode = tests.periodValidation.workZipCode(period.workZipCode)
+      errors.workRegion = tests.periodValidation.workRegion(period.workRegion)
       break
 
     case 'child':

@@ -26,6 +26,14 @@ describe('applications/BUC/components/SEDP4000/Validation/stepTests', () => {
 
     period = { ...period, workActivity: 'something' }
     errors = stepTests.periodStep(period)
+    expect(errors.workType).toEqual('buc:validation-noWorkType')
+
+    period = { ...period, workType: '01' }
+    errors = stepTests.periodStep(period)
+    expect(errors.workCity).toEqual('buc:validation-noWorkCity')
+
+    period = { ...period, workCity: 'something' }
+    errors = stepTests.periodStep(period)
     expect(_(errors).find(err => err !== undefined)).toEqual(undefined)
   })
 
@@ -39,10 +47,6 @@ describe('applications/BUC/components/SEDP4000/Validation/stepTests', () => {
     expect(errors.endDate).toEqual('buc:validation-noEndDate')
 
     period = { ...period, endDate: { day: '1', month: '1', year: '1980' } }
-    errors = stepTests.periodStep(period)
-    expect(errors.place).toEqual('buc:validation-noPlace')
-
-    period = { ...period, place: 'something' }
     errors = stepTests.periodStep(period)
     expect(errors.country).toEqual('buc:validation-noCountry')
 

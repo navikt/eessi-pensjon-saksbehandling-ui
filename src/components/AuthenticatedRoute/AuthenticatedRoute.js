@@ -16,9 +16,7 @@ const mapStateToProps = (state) => {
     userRole: state.app.userRole,
     userStatus: state.app.userStatus,
     loggedIn: state.app.loggedIn,
-    allowed: state.app.allowed,
-    isLoggingIn: state.loading.isLoggingIn,
-    rinaId: state.app.params.rinaId
+    allowed: state.app.allowed
   }
 }
 
