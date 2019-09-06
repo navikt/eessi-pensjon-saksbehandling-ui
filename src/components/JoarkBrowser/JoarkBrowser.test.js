@@ -53,7 +53,7 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
   })
 
   it('Calls onFilesChange when selecting a file', () => {
-    wrapper.find('#c-tablesorter__checkbox-1-ARKIV__23534345_pdf_').hostNodes().simulate('change', { target: { checked: true } })
+    wrapper.find('#c-tablesorter__checkbox-1-4-ARKIV__23534345_pdf_').hostNodes().simulate('change', { target: { checked: true } })
     const expectedFile = files[0]
     expectedFile.variant = {
       variantformat: 'ARKIV',
