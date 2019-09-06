@@ -3,18 +3,24 @@ import FocusGroup from './Focusgroup'
 
 describe('components/FocusGroup', () => {
   it('Renders', () => {
-    const wrapper = mount(<FocusGroup />)
+    let wrapper
+    act(() => {
+      wrapper = mount(<FocusGroup />)
+    })
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Has proper HTML structure', () => {
-    const wrapper = mount(
-      <FocusGroup>
-        <div id='1' />
-        <div id='2' />
-        <div id='3' />
-        <div id='4' />
-      </FocusGroup>)
+    let wrapper
+    act(() => {
+      wrapper = mount(
+        <FocusGroup>
+          <div id='1' />
+          <div id='2' />
+          <div id='3' />
+          <div id='4' />
+        </FocusGroup>)
+    })
     expect(wrapper.exists('div[id="1"]')).toBeTruthy()
     expect(wrapper.exists('div[id="2"]')).toBeTruthy()
     expect(wrapper.exists('div[id="3"]')).toBeTruthy()
@@ -32,7 +38,7 @@ describe('components/FocusGroup Event bubbling', () => {
 
     let wrapper
 
-    await act(async () => {
+    act(() => {
       wrapper = mount(
         <FocusGroup onFocus={eventHandler}>
           <input type='text' />
@@ -41,18 +47,20 @@ describe('components/FocusGroup Event bubbling', () => {
     })
 
     const child = wrapper.childAt(0)
-    child.simulate('focus', { testFlag: true })
+    act(() => {
+      child.simulate('focus', { testFlag: true })
+    })
   })
 
-  it('Blur event bubbles to parent', async (done) => {
+  it('Blur event bubbles to parent', (done) => {
+    jest.useFakeTimers()
     const eventHandler = (event) => {
       expect(event.testFlag).toBeTruthy()
       done()
     }
 
     let wrapper
-
-    await act(async () => {
+    act(() => {
       wrapper = mount(
         <FocusGroup onBlur={eventHandler}>
           <input type='text' />
@@ -61,6 +69,13 @@ describe('components/FocusGroup Event bubbling', () => {
     })
 
     const child = wrapper.childAt(0)
-    child.simulate('blur', { testFlag: true })
+
+    act(() => {
+      child.simulate('blur', { testFlag: true })
+    })
+
+    act(() => {
+      jest.runAllTimers()
+    })
   })
 })
