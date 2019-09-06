@@ -148,7 +148,7 @@ export default {
       jobbUnderAnsattEllerSelvstendig: 'work period 1 workActivity',
       annenInformasjon: 'work period 1 comment',
       adresseFirma: {
-        postnummer: 'work period 1 zip code',
+        postnummer: '0123',
         by: 'work period 1 workCity',
         land: 'MM',
         gate: 'work period 1 workStreet',
@@ -168,7 +168,7 @@ export default {
       jobbUnderAnsattEllerSelvstendig: 'work period 2 workActivity',
       annenInformasjon: 'work period 2 comment',
       adresseFirma: {
-        postnummer: 'work period 2 zip code',
+        postnummer: '0124',
         by: 'work period 2 workCity',
         land: 'NN',
         gate: 'work period 2 workStreet',

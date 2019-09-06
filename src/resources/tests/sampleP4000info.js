@@ -135,7 +135,7 @@ export default {
     workType: '01',
     workActivity: 'work period 1 workActivity',
     workStreet: 'work period 1 workStreet',
-    workZipCode: 'work period 1 zip code',
+    workZipCode: '0123',
     workCity: 'work period 1 workCity',
     workRegion: 'work period 1 workRegion',
     insuranceId: 'work period 1 insuranceId'
@@ -152,7 +152,7 @@ export default {
     workType: '02',
     workActivity: 'work period 2 workActivity',
     workStreet: 'work period 2 workStreet',
-    workZipCode: 'work period 2 zip code',
+    workZipCode: '0124',
     workCity: 'work period 2 workCity',
     workRegion: 'work period 2 workRegion',
     insuranceId: 'work period 2 insuranceId'

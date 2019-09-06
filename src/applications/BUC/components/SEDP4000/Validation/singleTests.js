@@ -178,16 +178,32 @@ const periodCountry = function (country) {
   return mandatory(country, 'buc:validation-noCountry')
 }
 
-const periodPlace = function (place) {
-  return mandatory(place, 'buc:validation-noPlace') || withinLength(place, 60)
-}
-
 const workActivity = function (workActivity) {
   return mandatory(workActivity, 'buc:validation-noWorkActivity') || withinLength(workActivity, 60)
 }
 
 const workName = function (workName) {
   return notMandatory(workName) || withinLength(workName, 60)
+}
+
+const workStreet = function (workStreet) {
+  return notMandatory(workStreet) || withinLength(workStreet, 140)
+}
+
+const workCity = function (workCity) {
+  return mandatory(workCity, 'buc:validation-noWorkCity')
+}
+
+const workZipCode = function (workZipCode) {
+  return notMandatory(workZipCode) || withinLength(workZipCode, 10)
+}
+
+const workRegion = function (workRegion) {
+  return notMandatory(workRegion) || withinLength(workRegion, 60)
+}
+
+const workType = function (workType) {
+  return mandatory(workType, 'buc:validation-noWorkType')
 }
 
 const workPlace = function (workPlace) {
@@ -216,6 +232,10 @@ const otherType = function (otherType) {
   return mandatory(otherType, 'buc:validation-noOtherType') || withinLength(otherType, 60)
 }
 
+const comment = function (comment) {
+  return notMandatory(comment) || withinLength(comment, 500)
+}
+
 // PERIOD
 
 export const periodValidation = {
@@ -231,16 +251,21 @@ export const periodValidation = {
   childBirthDateOnChange,
   periodTimeSpan,
   periodCountry,
-  periodPlace,
   insuranceName,
   insuranceType,
   insuranceId,
   workActivity,
   workName,
+  workType,
+  workStreet,
+  workCity,
+  workZipCode,
+  workRegion,
   workPlace,
   childFirstName,
   childLastName,
   learnInstitution,
   payingInstitution,
-  otherType
+  otherType,
+  comment
 }
