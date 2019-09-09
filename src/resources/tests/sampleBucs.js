@@ -9,8 +9,8 @@ export default [
     sakType: '',
     aktoerId: '1000070418092',
     status: 'open',
-    startDate: '2019-5-27',
-    lastUpdate: '2019-5-29',
+    startDate: 1558908000000,
+    lastUpdate: 1559080800000,
     institusjon: [
       {
         country: 'NO',
@@ -27,7 +27,7 @@ export default [
         type: 'P2000',
         status: 'received',
         creationDate: 1559117379454,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -105,7 +105,7 @@ export default [
         type: 'P6000',
         status: 'empty',
         creationDate: 1559117444000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -161,7 +161,7 @@ export default [
         type: 'P3000_NO',
         status: 'empty',
         creationDate: 1559117443000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Receiver',
@@ -217,7 +217,7 @@ export default [
         type: 'P5000',
         status: 'empty',
         creationDate: 1559117444000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -273,7 +273,7 @@ export default [
         type: 'X009',
         status: 'empty',
         creationDate: 1559117443000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -329,7 +329,7 @@ export default [
         type: 'P8000',
         status: 'empty',
         creationDate: 1559117444000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -385,7 +385,7 @@ export default [
         type: 'P7000',
         status: 'empty',
         creationDate: 1559117443000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -441,7 +441,7 @@ export default [
         type: 'P4000',
         status: 'empty',
         creationDate: 1559117444000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -497,7 +497,7 @@ export default [
         type: 'X007',
         status: 'empty',
         creationDate: 1559117444000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -553,7 +553,7 @@ export default [
         type: 'X005',
         status: 'empty',
         creationDate: 1559117444000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -609,7 +609,7 @@ export default [
         type: 'P10000',
         status: 'empty',
         creationDate: 1559117444000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -665,7 +665,7 @@ export default [
         type: 'H020',
         status: 'empty',
         creationDate: 1559117444000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -721,7 +721,7 @@ export default [
         type: 'H120',
         status: 'empty',
         creationDate: 1559117444000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -777,7 +777,7 @@ export default [
         type: 'X008',
         status: 'empty',
         creationDate: 1559117443000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -833,7 +833,7 @@ export default [
         type: 'H070',
         status: 'empty',
         creationDate: 1559117444000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -1908,8 +1908,8 @@ export default [
     sakType: '',
     aktoerId: '1000070418092',
     status: 'open',
-    startDate: '2019-05-19',
-    lastUpdate: '2019-05-29',
+    startDate: 1558216800000,
+    lastUpdate: 1559080800000,
     institusjon: [
       {
         country: 'NO',
@@ -1926,7 +1926,7 @@ export default [
         type: 'P8000',
         status: 'empty',
         creationDate: 1559131846000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -1982,7 +1982,7 @@ export default [
         type: 'P4000',
         status: 'empty',
         creationDate: 1559131844000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -2038,7 +2038,7 @@ export default [
         type: 'P5000',
         status: 'empty',
         creationDate: 1559131845000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -2094,7 +2094,7 @@ export default [
         type: 'P2000',
         status: 'sent',
         creationDate: 1559131780176,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -2150,7 +2150,7 @@ export default [
         type: 'X008',
         status: 'empty',
         creationDate: 1559131844000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -2206,7 +2206,7 @@ export default [
         type: 'H020',
         status: 'empty',
         creationDate: 1559131845000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -2262,7 +2262,7 @@ export default [
         type: 'P7000',
         status: 'empty',
         creationDate: 1559131844000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -2318,7 +2318,7 @@ export default [
         type: 'P6000',
         status: 'empty',
         creationDate: 1559131845000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -2374,7 +2374,7 @@ export default [
         type: 'X007',
         status: 'empty',
         creationDate: 1559131845000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -2430,7 +2430,7 @@ export default [
         type: 'X009',
         status: 'empty',
         creationDate: 1559131844000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -2486,7 +2486,7 @@ export default [
         type: 'P10000',
         status: 'empty',
         creationDate: 1559131844000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -2542,7 +2542,7 @@ export default [
         type: 'P3000_NO',
         status: 'empty',
         creationDate: 1559131845000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Receiver',
@@ -2598,7 +2598,7 @@ export default [
         type: 'H120',
         status: 'empty',
         creationDate: 1559131845000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -2654,7 +2654,7 @@ export default [
         type: 'H070',
         status: 'empty',
         creationDate: 1559131845000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -2710,7 +2710,7 @@ export default [
         type: 'X005',
         status: 'empty',
         creationDate: 1559131845000,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -2773,8 +2773,8 @@ export default [
     sakType: '',
     aktoerId: '1000070418092',
     status: 'open',
-    startDate: '2019-04-30',
-    lastUpdate: '2019-05-29',
+    startDate: 1556575200000,
+    lastUpdate: 1559080800000,
     institusjon: [
       {
         country: 'NO',
@@ -2791,7 +2791,7 @@ export default [
         type: 'P2200',
         status: 'new',
         creationDate: 1559114926363,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -2854,8 +2854,8 @@ export default [
     sakType: '',
     aktoerId: '1000070418092',
     status: 'open',
-    startDate: '2019-07-29',
-    lastUpdate: '2019-05-29',
+    startDate: 1564351200000,
+    lastUpdate: 1559080800000,
     institusjon: [
       {
         country: 'NO',
@@ -2872,7 +2872,7 @@ export default [
         type: 'P2200',
         status: 'new',
         creationDate: 1559122122897,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -2935,8 +2935,8 @@ export default [
     sakType: '',
     aktoerId: '1000070418092',
     status: 'open',
-    startDate: '2019-07-29',
-    lastUpdate: '2019-05-29',
+    startDate: 1564351200000,
+    lastUpdate: 1559080800000,
     institusjon: [
       {
         country: 'NO',
@@ -2953,7 +2953,7 @@ export default [
         type: 'P2200',
         status: 'new',
         creationDate: 1559122122897,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -3016,8 +3016,8 @@ export default [
     sakType: '',
     aktoerId: '1000070418092',
     status: 'open',
-    startDate: '2019-05-29',
-    lastUpdate: '2019-05-29',
+    startDate: 1559080800000,
+    lastUpdate: 1559080800000,
     institusjon: [
       {
         country: 'NO',
@@ -3035,7 +3035,7 @@ export default [
         type: 'P2200',
         status: 'received',
         creationDate: 1559122122897,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
@@ -3092,7 +3092,7 @@ export default [
         type: 'PMOCK',
         status: 'empty',
         creationDate: 1559122122897,
-        lastUpdate: '2019-05-29',
+        lastUpdate: 1559080800000,
         participants: [
           {
             role: 'Sender',
