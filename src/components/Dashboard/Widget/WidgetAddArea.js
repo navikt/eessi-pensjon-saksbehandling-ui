@@ -30,7 +30,7 @@ WidgetAddArea.propTypes = {
   dragApi: PT.object,
   setWidgets: PT.func.isRequired,
   t: PT.func.isRequired,
-  widgets: PT.object.isRequired
+  widgets: PT.array.isRequired
 }
 
 export default WidgetAddArea

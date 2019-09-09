@@ -10,6 +10,7 @@ import * as uiActions from 'actions/ui'
 import * as storageActions from 'actions/storage'
 import { getDisplayName } from 'utils/displayName'
 import PInfoUtil from 'applications/BUC/components/SEDP4000/Util'
+import { IS_TEST } from 'constants/environment'
 
 const mapStateToProps = (state) => {
   return {
@@ -97,7 +98,9 @@ export const SEDStart = (props) => {
             joarkDokumentInfoId: attachment.dokumentInfoId,
             variantFormat: attachment.variant.variantformat
           }
-          console.log('sending ', params)
+          if (!IS_TEST) {
+            console.log('sending ', params)
+          }
           actions.sendAttachmentToSed(params)
         })
         return

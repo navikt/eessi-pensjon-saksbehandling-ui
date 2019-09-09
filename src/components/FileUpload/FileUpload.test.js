@@ -76,50 +76,46 @@ describe('components/FileUpload/FileUpload', () => {
     expect(wrapper.exists('.c-fileUpload-files')).toBeTruthy()
   })
 
-  it('UseEffect: File dropped, onFileChange is called when dropping something', async (done) => {
-    initialMockProps.onFileChange.mockClear()
+  it('UseEffect: File dropped, onFileChange is called when dropping something', async () => {
+    act(() => {
+      initialMockProps.onFileChange.mockClear()
+    })
     expect(initialMockProps.onFileChange).not.toHaveBeenCalled()
-    wrapper.simulate('drop', { target: { files: [file] } })
     await act(async () => {
-      await new Promise(resolve => {
-        setTimeout(() => {
-          expect(initialMockProps.onFileChange).toHaveBeenCalledWith([expectedProcessedFile])
-          expect(wrapper.find('.c-fileUpload-placeholder-status').render().text()).toEqual('ui:accepted: 1, ui:rejected: 0, ui:total: 0')
-          done()
-          resolve()
-        }, 500)
-      })
+      wrapper.simulate('drop', { target: { files: [file] } })
     })
+    await act(async () => {
+      wrapper.update()
+    })
+    expect(initialMockProps.onFileChange).toHaveBeenCalledWith([expectedProcessedFile])
+    expect(wrapper.find('.c-fileUpload-placeholder-status').render().text()).toEqual('ui:accepted: 1, ui:rejected: 0, ui:total: 0')
   })
 
-  it('Dropping a file too large', async (done) => {
+  it('Dropping a file too large', async () => {
+    act(() => {
+      initialMockProps.onFileChange.mockClear()
+    })
     wrapper.setProps({ maxFileSize: 1 })
-    wrapper.simulate('drop', { target: { files: [file] } })
     await act(async () => {
-      await new Promise(resolve => {
-        setTimeout(() => {
-          expect(initialMockProps.onFileChange).toHaveBeenCalledWith([])
-          expect(wrapper.find('.c-fileUpload-placeholder-status').render().text()).toEqual('ui:fileIsTooBigLimitIs')
-          done()
-          resolve()
-        }, 500)
-      })
+      wrapper.simulate('drop', { target: { files: [file] } })
     })
+    act(() => {
+      wrapper.update()
+    })
+    expect(initialMockProps.onFileChange).toHaveBeenCalledWith([])
+    expect(wrapper.find('.c-fileUpload-placeholder-status').render().text()).toEqual('ui:fileIsTooBigLimitIs')
   })
 
-  it('Dropping a file of a forbidden mimetype', async (done) => {
-    wrapper.setProps({ acceptedMimetypes: ['application/pdf'] })
-    wrapper.simulate('drop', { target: { files: [file] } })
-    await act(async () => {
-      await new Promise(resolve => {
-        setTimeout(() => {
-          expect(initialMockProps.onFileChange).toHaveBeenCalledWith([])
-          expect(wrapper.find('.c-fileUpload-placeholder-status').render().text()).toEqual('ui:accepted: 0, ui:rejected: 1, ui:total: 0')
-          done()
-          resolve()
-        }, 500)
-      })
+  it('Dropping a file of a forbidden mimetype', async () => {
+    act(() => {
+      initialMockProps.onFileChange.mockClear()
     })
+    wrapper.setProps({ acceptedMimetypes: ['application/pdf'] })
+    await act(async () => {
+      wrapper.simulate('drop', { target: { files: [file] } })
+    })
+    expect(initialMockProps.onFileChange).toHaveBeenCalledWith([])
+    expect(wrapper.find('.c-fileUpload-placeholder-status').render().text()).toEqual('ui:accepted: 0, ui:rejected: 1, ui:total: 0')
   })
 
   it('Renders a file ', () => {
@@ -128,54 +124,70 @@ describe('components/FileUpload/FileUpload', () => {
     expect(wrapper.find('.c-file').render().text()).toEqual('title=text.txt\nui:size: 13 bytestxt')
   })
 
-  it('Deleting a file', async (done) => {
-    wrapper = mount(<FileUpload {...initialMockProps} files={[file]} />)
-    initialMockProps.onFileChange.mockClear()
+  it('Deleting a file', () => {
+    act(() => {
+      wrapper = mount(<FileUpload {...initialMockProps} files={[file]} />)
+    })
+    act(() => {
+      initialMockProps.onFileChange.mockClear()
+    })
     expect(initialMockProps.onFileChange).not.toHaveBeenCalled()
     expect(wrapper.exists('.deleteLink')).toBeFalsy()
 
-    wrapper.find('.c-file').simulate('mouseenter')
+    act(() => {
+      wrapper.find('.c-file').simulate('mouseenter')
+    })
+    act(() => {
+      wrapper.update()
+    })
     expect(wrapper.exists('.deleteLink')).toBeTruthy()
 
-    wrapper.find('.deleteLink Icons').simulate('click')
-    await act(async () => {
-      await new Promise(resolve => {
-        setTimeout(() => {
-          expect(initialMockProps.onFileChange).toHaveBeenCalledWith([])
-          expect(wrapper.find('.c-fileUpload-placeholder-status').render().text()).toEqual('ui:removed text.txt')
-          done()
-          resolve()
-        }, 500)
-      })
+    act(() => {
+      wrapper.find('.deleteLink Icons').simulate('click')
     })
+    act(() => {
+      wrapper.update()
+    })
+    expect(initialMockProps.onFileChange).toHaveBeenCalledWith([])
+    expect(wrapper.find('.c-fileUpload-placeholder-status').render().text()).toEqual('ui:removed text.txt')
   })
 
-  it('With a PDF file, loaded', async (done) => {
+  it('With a PDF file, loaded', () => {
     wrapper = mount(<FileUpload {...initialMockProps} files={[samplePDF]} />)
-    await act(async () => {
-      await new Promise(resolve => {
-        setTimeout(() => {
-          wrapper.update()
-          expect(wrapper.find('.c-file .mock-pdfpage').render().text()).toEqual('Page: 1')
-          wrapper.find('.c-file').simulate('mouseenter')
-          wrapper.update()
 
-          expect(wrapper.exists('.previewLink')).toBeTruthy()
-          wrapper.find('.previewLink').simulate('click')
-          expect(initialMockProps.openModal).toHaveBeenCalled()
-
-          expect(wrapper.exists('.nextPage')).toBeTruthy()
-          wrapper.find('.nextPage').simulate('click')
-          wrapper.update()
-          expect(wrapper.find('.c-file .mock-pdfpage').render().text()).toEqual('Page: 2')
-
-          expect(wrapper.exists('.previousPage')).toBeTruthy()
-          wrapper.find('.previousPage').simulate('click')
-          wrapper.update()
-          expect(wrapper.find('.c-file .mock-pdfpage').render().text()).toEqual('Page: 1')
-          done()
-        }, 500)
-      })
+    act(() => {
+      wrapper.update()
     })
+    expect(wrapper.find('.c-file .mock-pdfpage').render().text()).toEqual('Page: 1')
+    act(() => {
+      wrapper.find('.c-file').simulate('mouseenter')
+    })
+    act(() => {
+      wrapper.update()
+    })
+
+    expect(wrapper.exists('.previewLink')).toBeTruthy()
+    act(() => {
+      wrapper.find('.previewLink').simulate('click')
+    })
+    expect(initialMockProps.openModal).toHaveBeenCalled()
+
+    expect(wrapper.exists('.nextPage')).toBeTruthy()
+    act(() => {
+      wrapper.find('.nextPage').simulate('click')
+    })
+    act(() => {
+      wrapper.update()
+    })
+    expect(wrapper.find('.c-file .mock-pdfpage').render().text()).toEqual('Page: 2')
+
+    expect(wrapper.exists('.previousPage')).toBeTruthy()
+    act(() => {
+      wrapper.find('.previousPage').simulate('click')
+    })
+    act(() => {
+      wrapper.update()
+    })
+    expect(wrapper.find('.c-file .mock-pdfpage').render().text()).toEqual('Page: 1')
   })
 })

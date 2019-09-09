@@ -1,6 +1,19 @@
 import React from 'react'
 import { SessionMonitor } from './SessionMonitor'
 
+jest.mock('i18next', function () {
+  const use = jest.fn()
+  const init = jest.fn()
+  const loadLanguages = jest.fn()
+  const result = {
+    use: use,
+    init: init,
+    loadLanguages: loadLanguages
+  }
+  use.mockImplementation(() => result)
+  return result
+})
+
 describe('components/SessionMonitor', () => {
   const initialMockProps = {
     t: jest.fn((translationString) => { return translationString }),

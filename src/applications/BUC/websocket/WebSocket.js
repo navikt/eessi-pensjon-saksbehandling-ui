@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import Icons from 'components/Icons'
 import { HjelpetekstAuto } from 'components/Nav'
 import { WEBSOCKET_LOCALHOST_URL } from 'constants/urls'
+import { IS_TEST } from 'constants/environment'
 
 import './WebSocket.css'
 
@@ -88,10 +89,12 @@ const BucWebSocket = (props) => {
   const pushToLog = (level, message) => {
     const now = new Date()
     const line = now.toLocaleDateString() + ' ' + now.toLocaleTimeString() + ': ' + message
-    if (level === 'error') {
-      console.error(line)
-    } else {
-      console.log(line)
+    if (!IS_TEST) {
+      if (level === 'error') {
+        console.error(line)
+      } else {
+        console.log(line)
+      }
     }
     setLog(log => [...log, (<span key={line} className={classNames('log', level)}>{line}</span>)].slice(-100))
   }

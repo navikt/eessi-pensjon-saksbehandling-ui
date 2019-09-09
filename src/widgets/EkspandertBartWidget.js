@@ -31,7 +31,7 @@ const EkspandertBartWidget = (props) => {
     <div className='w-EkspandertbartWidget'>
       <Ekspanderbartpanel
         apen={!widget.options.collapsed}
-        tittel={widget.title}
+        tittel={widget.title || ''}
         onClick={onClick}
       >
         <div>
@@ -41,7 +41,7 @@ const EkspandertBartWidget = (props) => {
             onResize={_onResize}
           />
           {widget.options.collapsed === true
-            ? null
+            ? ''
             : (
               <div
                 className='content'

@@ -8,7 +8,9 @@ import { HOST } from 'constants/urls'
 
 export const fakecall = (options) => {
   return (dispatch) => {
-    console.log('FAKE API CALL FOR ' + options.url + ': REQUEST')
+    if (!IS_TEST) {
+      console.log('FAKE API CALL FOR ' + options.url + ': REQUEST')
+    }
     dispatch({
       type: options.type.request
     })
@@ -17,7 +19,9 @@ export const fakecall = (options) => {
         resolve(options.expectedPayload)
       }, Math.floor(Math.random() * 2000))
     }).then(payload => {
-      console.log('FAKE API CALL FOR ' + options.url + ': SUCCESS')
+      if (!IS_TEST) {
+        console.log('FAKE API CALL FOR ' + options.url + ': SUCCESS')
+      }
       return dispatch({
         type: options.type.success,
         payload: payload,

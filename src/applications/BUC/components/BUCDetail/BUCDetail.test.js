@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 import BUCDetail from './BUCDetail'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
@@ -34,8 +35,8 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
     expect(wrapper.find('#a-buc-c-bucdetail__props-caseId').render().text()).toEqual(buc.caseId)
     expect(wrapper.find('#a-buc-c-bucdetail__props-creator').render().text()).toEqual(
       buc.creator.institution + ' (' + buc.creator.country + ')')
-    expect(wrapper.find('#a-buc-c-bucdetail__props-startDate').render().text()).toEqual(buc.startDate)
-    expect(wrapper.find('#a-buc-c-bucdetail__props-lastUpdate').render().text()).toEqual(buc.lastUpdate)
+    expect(wrapper.find('#a-buc-c-bucdetail__props-startDate').render().text()).toEqual(moment(buc.startDate).format('Y-M-D'))
+    expect(wrapper.find('#a-buc-c-bucdetail__props-lastUpdate').render().text()).toEqual(moment(buc.lastUpdate).format('Y-M-D'))
     expect(wrapper.find('#a-buc-c-bucdetail__props-sakType').render().text()).toEqual('-')
     expect(wrapper.find('#a-buc-c-bucdetail__props-status').render().text()).toEqual('ui:' + buc.status)
     expect(wrapper.find('#a-buc-c-bucdetail__props-tags').render().text()).toEqual(bucInfo.tags.join(', '))
