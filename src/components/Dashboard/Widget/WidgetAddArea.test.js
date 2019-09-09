@@ -36,7 +36,7 @@ describe('components/Dashboard/Widget/WidgetAddArea', () => {
     dragApi: {},
     setWidgets: jest.fn(),
     t: jest.fn((translationString) => { return translationString }),
-    widgets: {}
+    widgets: []
   }
 
   beforeEach(() => {
