@@ -237,7 +237,7 @@ const Step1 = (props) => {
               className='a-buc-c-sedstart__vedtakid-input'
               label={t('ui:vedtakId')}
               bredde='fullbredde'
-              value={vedtakId}
+              value={vedtakId || ''}
               onChange={onVedtakIdChange}
               placeholder={t(placeholders.vedtakId)}
               feil={validation.vedtakFail ? { feilmelding: t(validation.vedtakFail) } : null}
