@@ -6,7 +6,6 @@ import samplePerson from 'resources/tests/samplePerson'
 var sprintf = require('sprintf-js').sprintf
 
 describe('actions/app', () => {
-
   beforeEach(() => {
     api.funcCall = jest.fn()
     api.call = jest.fn()

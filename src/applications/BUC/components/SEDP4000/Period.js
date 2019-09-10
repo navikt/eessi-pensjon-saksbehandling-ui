@@ -33,7 +33,7 @@ const Period = (props) => {
   const blurStartDate = (e) => dateBlur('startDate', periodValidation.periodStartDateOnBlur, e)
   const blurEndDate = (e) => dateBlur('endDate', periodValidation.periodEndDateOnBlur, e)
   const setUncertainDate = (e) => eventSetCheckbox('uncertainDate', null, e)
-  //const setDateType = (e) => eventSetProperty('dateType', null, e)
+  // const setDateType = (e) => eventSetProperty('dateType', null, e)
 
   const setCountry = (e) => valueSetProperty('country', periodValidation.periodCountry, e)
   const setComment = (e) => eventSetProperty('comment', null, e)
@@ -59,11 +59,11 @@ const Period = (props) => {
   const setOtherType = (e) => eventSetProperty('otherType', periodValidation.otherType, e)
 
   useEffect(() => {
-    /*if (period.type && !period.dateType) {
+    /* if (period.type && !period.dateType) {
       setDateType({ target: { value: 'both' } })
-    }*/
+    } */
     if (period.type === 'work' && !period.workType) {
-      setWorkType({target: {value: '01'}})
+      setWorkType({ target: { value: '01' } })
     }
   }, [period.type, period.workType, setWorkType])
 
@@ -197,7 +197,7 @@ const Period = (props) => {
   }
 
   const requestEditPeriod = (period) => {
-     setPeriod(period)
+    setPeriod(period)
   }
 
   const saveEditPeriod = () => {
@@ -436,7 +436,7 @@ const Period = (props) => {
                 {t('buc:p4000-help-date')}
               </Normaltekst>
               <Row>
-                {/*<div className='a-buc-c-sedp4000-period__dateType col-12 mb-2'>
+                {/* <div className='a-buc-c-sedp4000-period__dateType col-12 mb-2'>
                   <Select
                     className='a-buc-c-sedp4000-period__dateType-select flex-fill'
                     id='a-buc-c-sedp4000-period__dateType-select-id'
@@ -449,7 +449,7 @@ const Period = (props) => {
                     <option value='onlyStartDate01'>{t('buc:p4000-label-onlyStartDate01')}</option>
                     <option value='onlyStartDate98'>{t('buc:p4000-label-onlyStartDate98')}</option>
                   </Select>
-                </div>*/}
+                </div> */}
                 <div className='a-buc-c-sedp4000-period__startDate col-sm-6 col-12 mb-2'>
                   <label className='datepickerLabel skjemaelement__label'>
                     {t('buc:p4000-label-start-date')}
@@ -523,24 +523,27 @@ const Period = (props) => {
                 <>
                   <Row>
                     <div className='col-sm-12'>
-                    <Fieldset
-                      id='a-buc-c-sedp4000-period__workType-radio-id'
-                      className='a-buc-c-sedp4000-period__workType-radio'
-                      legend={t('buc:p4000-label-work-type')}>
-                      <Radio
-                        label={t('buc:p4000-label-work-type-01')}
-                        name="period-workType"
-                        value='01'
-                        checked={period.workType === '01'}
-                        onChange={setWorkType}/>
-                      <Radio
-                        label={t('buc:p4000-label-work-type-02')}
-                        name="period-workType"
-                        value='02'
-                        checked={period.workType === '02'}
-                        onChange={setWorkType}/>
-                    </Fieldset>
-                  </div>
+                      <Fieldset
+                        id='a-buc-c-sedp4000-period__workType-radio-id'
+                        className='a-buc-c-sedp4000-period__workType-radio'
+                        legend={t('buc:p4000-label-work-type')}
+                      >
+                        <Radio
+                          label={t('buc:p4000-label-work-type-01')}
+                          name='period-workType'
+                          value='01'
+                          checked={period.workType === '01'}
+                          onChange={setWorkType}
+                        />
+                        <Radio
+                          label={t('buc:p4000-label-work-type-02')}
+                          name='period-workType'
+                          value='02'
+                          checked={period.workType === '02'}
+                          onChange={setWorkType}
+                        />
+                      </Fieldset>
+                    </div>
                     <div className='col-sm-12'>
                       <Input
                         id='a-buc-c-sedp4000-period__yrkesaktivitet-input-id'
