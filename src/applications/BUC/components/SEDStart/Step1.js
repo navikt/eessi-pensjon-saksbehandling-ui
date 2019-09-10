@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import { Input, NavFrontendSpinner, Select, Systemtittel, Undertittel } from 'components/Nav'
@@ -16,8 +16,14 @@ const placeholders = {
 
 const Step1 = (props) => {
   const { actions, _attachments, buc, _countries, countryList, _institutions, institutionList } = props
-  const { layout = 'row', loading, locale, _sed, setAttachments, setCountries, setInstitutions } = props
+  const { layout = 'row', loading, locale, _sed, currentSed, setAttachments, setCountries, setInstitutions } = props
   const { sedList, sedNeedsVedtakId, setSed, setValidation, setVedtakId, t, validation, vedtakId } = props
+
+  useEffect(() => {
+    if (_.isArray(sedList) && sedList.length === 1 && !_sed) {
+      setSed(sedList[0])
+    }
+  }, [sedList, _sed])
 
   const validateSed = (sed) => {
     if (!sed || sed === placeholders.sed) {
@@ -111,23 +117,18 @@ const Step1 = (props) => {
   }
 
   const renderOptions = (options, type) => {
-    if (typeof options === 'string') {
-      options = [options]
-    }
-    if (!options || Object.keys(options).length === 0) {
-      options = [{
-        key: placeholders[type],
-        value: t(placeholders[type])
-      }]
+    let _options = [{
+      key: placeholders[type],
+      value: t(placeholders[type])
+    }]
+
+    if (_.isString(options)) {
+      _options = [..._options, options]
+    } else if (_.isArray(options)) {
+      _options = [..._options, ...options]
     }
 
-    if (!options[0].key || (options[0].key && options[0].key !== placeholders[type])) {
-      options.unshift({
-        key: placeholders[type],
-        value: t(placeholders[type])
-      })
-    }
-    return options.map(el => {
+    return _options.map(el => {
       let key, value
       if (typeof el === 'string') {
         key = el
@@ -201,10 +202,17 @@ const Step1 = (props) => {
   return (
     <>
       <div className='col-md-12'>
-        <Systemtittel>{t('buc:step-startSEDTitle', {
-          buc: t(`buc:buc-${buc.type}`),
-          sed: _sed || t('buc:form-newSed')
-        })}
+        <Systemtittel>{
+          !currentSed
+            ? t('buc:step-startSEDTitle', {
+              buc: t(`buc:buc-${buc.type}`),
+              sed: _sed || t('buc:form-newSed')
+            })
+            : t('buc:step-replySEDTitle', {
+              buc: t(`buc:buc-${buc.type}`),
+              sed: buc.seds.find(sed => sed.id === currentSed).type
+            })
+        }
         </Systemtittel>
         <hr />
       </div>
@@ -236,44 +244,49 @@ const Step1 = (props) => {
             />
           </div>
         ) : null}
-        <div className='mb-3 flex-fill'>
-          <label className='skjemaelement__label'>{t('ui:country')}</label>
-          <MultipleSelect
-            className='a-buc-c-sedstart__country-select'
-            id='a-buc-c-sedstart__country-select-id'
-            placeholder={t(placeholders.country)}
-            aria-describedby='help-country'
-            locale={locale}
-            values={countryValueList}
-            hideSelectedOptions={false}
-            onChange={onCountriesChange}
-            optionList={countryObjectList}
-          />
-        </div>
-        <div className='mb-3 flex-fill'>
-          <label className='skjemaelement__label'>{t('ui:institution')}</label>
-          <MultipleSelect
-            className='a-buc-c-sedstart__institution-select'
-            id='a-buc-c-sedstart__institution-select-id'
-            placeholder={t(placeholders.institution)}
-            aria-describedby='help-institution'
-            locale={locale}
-            values={institutionValueList}
-            onChange={onInstitutionsChange}
-            hideSelectedOptions={false}
-            optionList={institutionObjectList}
-          />
-        </div>
-        <Undertittel className='mb-2'>{t('buc:form-chosenInstitutions')}</Undertittel>
-        <InstitutionList
-          t={t} institutions={_institutions.map(item => {
-            var [country, institution] = item.split(':')
-            return {
-              country: country,
-              institution: institution
-            }
-          })} locale={locale} type='joined'
-        />
+        {!currentSed
+          ? (
+            <>
+              <div className='mb-3 flex-fill'>
+                <label className='skjemaelement__label'>{t('ui:country')}</label>
+                <MultipleSelect
+                  className='a-buc-c-sedstart__country-select'
+                  id='a-buc-c-sedstart__country-select-id'
+                  placeholder={t(placeholders.country)}
+                  aria-describedby='help-country'
+                  locale={locale}
+                  values={countryValueList}
+                  hideSelectedOptions={false}
+                  onChange={onCountriesChange}
+                  optionList={countryObjectList}
+                />
+              </div>
+              <div className='mb-3 flex-fill'>
+                <label className='skjemaelement__label'>{t('ui:institution')}</label>
+                <MultipleSelect
+                  className='a-buc-c-sedstart__institution-select'
+                  id='a-buc-c-sedstart__institution-select-id'
+                  placeholder={t(placeholders.institution)}
+                  aria-describedby='help-institution'
+                  locale={locale}
+                  values={institutionValueList}
+                  onChange={onInstitutionsChange}
+                  hideSelectedOptions={false}
+                  optionList={institutionObjectList}
+                />
+              </div>
+              <Undertittel className='mb-2'>{t('buc:form-chosenInstitutions')}</Undertittel>
+              <InstitutionList
+                t={t} institutions={_institutions.map(item => {
+                  var [country, institution] = item.split(':')
+                  return {
+                    country: country,
+                    institution: institution
+                  }
+                })} locale={locale} type='joined'
+              />
+            </>
+          ) : null}
         <div className='mt-4'>
           <Undertittel className='mb-2'>{t('ui:attachments')}</Undertittel>
           {_attachments ? Object.keys(_attachments).map((key, index1) => {
