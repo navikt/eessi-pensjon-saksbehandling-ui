@@ -20,10 +20,10 @@ const Step1 = (props) => {
   const { sedList, sedNeedsVedtakId, setSed, setValidation, setVedtakId, t, validation, vedtakId } = props
 
   useEffect(() => {
-    if (_.isArray(sedList) && sedList.length === 1) {
+    if (_.isArray(sedList) && sedList.length === 1 && !_sed) {
       setSed(sedList[0])
     }
-  }, [sedList])
+  }, [sedList, _sed])
 
   const validateSed = (sed) => {
     if (!sed || sed === placeholders.sed) {
@@ -117,21 +117,17 @@ const Step1 = (props) => {
   }
 
   const renderOptions = (options, type) => {
-    let _options
+    let _options = [{
+      key: placeholders[type],
+      value: t(placeholders[type])
+    }]
 
     if (_.isString(options)) {
-      _options = [options]
+      _options = [..._options, options]
     } else if (_.isArray(options)) {
-      _options = [{
-        key: placeholders[type],
-        value: t(placeholders[type])
-      }, ...options]
-    } else {
-      _options = [{
-        key: placeholders[type],
-        value: t(placeholders[type])
-      }]
+      _options = [..._options, ...options]
     }
+
     return _options.map(el => {
       let key, value
       if (typeof el === 'string') {
@@ -206,10 +202,17 @@ const Step1 = (props) => {
   return (
     <>
       <div className='col-md-12'>
-        <Systemtittel>{t('buc:step-startSEDTitle', {
-          buc: t(`buc:buc-${buc.type}`),
-          sed: _sed || t('buc:form-newSed')
-        })}
+        <Systemtittel>{
+          !currentSed
+            ? t('buc:step-startSEDTitle', {
+              buc: t(`buc:buc-${buc.type}`),
+              sed: _sed || t('buc:form-newSed')
+            })
+            : t('buc:step-replySEDTitle', {
+              buc: t(`buc:buc-${buc.type}`),
+              sed: buc.seds.find(sed => sed.id === currentSed).type
+            })
+        }
         </Systemtittel>
         <hr />
       </div>

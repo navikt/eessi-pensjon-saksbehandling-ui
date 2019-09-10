@@ -141,6 +141,7 @@
   "step-saveSendSEDDescription" : "Lagre/Sende sak beskrivelse",
   "step-previewSEDTitle"        : "Vis innhold i SED",
   "step-previewSEDDescription"  : "Viser innhold hentet til SED",
+  "step-replySEDTitle"          : "Bestill svar til {{sed}} på {{buc}}",
 
   "p4000-alert-maxPeriods"        : "Oppnådd maksimalt antall ({{maxPeriods}}) av oppholdsperioder",
   "p4000-areYouSureCancelPeriod"  : "Er du sikker på at du ikke vil lagre endringer i perioden?",
