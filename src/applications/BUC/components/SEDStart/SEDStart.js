@@ -226,7 +226,7 @@ export const SEDStart = (props) => {
       {step === 0 ? (
         <Step1
           {...props}
-          _sed={_sed} setSed={setSed}
+          _sed={_sed} setSed={setSed} currentSed={currentSed}
           buc={buc}
           _countries={_countries} setCountries={setCountries}
           _institutions={_institutions} setInstitutions={setInstitutions}
