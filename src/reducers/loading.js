@@ -456,7 +456,6 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
       }
 
     case types.STORAGE_LIST_REQUEST:
-    case types.STORAGE_LIST_NO_NOTIF_REQUEST:
 
       return {
         ...state,
@@ -465,9 +464,7 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
       }
 
     case types.STORAGE_LIST_SUCCESS:
-    case types.STORAGE_LIST_NO_NOTIF_SUCCESS:
     case types.STORAGE_LIST_FAILURE:
-    case types.STORAGE_LIST_NO_NOTIF_FAILURE:
 
       return {
         ...state,
@@ -476,7 +473,6 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
       }
 
     case types.STORAGE_GET_REQUEST:
-    case types.STORAGE_GET_NO_NOTIF_REQUEST:
 
       return {
         ...state,
@@ -485,9 +481,7 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
       }
 
     case types.STORAGE_GET_SUCCESS:
-    case types.STORAGE_GET_NO_NOTIF_SUCCESS:
     case types.STORAGE_GET_FAILURE:
-    case types.STORAGE_GET_NO_NOTIF_FAILURE:
 
       return {
         ...state,
@@ -496,7 +490,6 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
       }
 
     case types.STORAGE_POST_REQUEST:
-    case types.STORAGE_POST_NO_NOTIF_REQUEST:
 
       return {
         ...state,
@@ -505,9 +498,7 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
       }
 
     case types.STORAGE_POST_SUCCESS:
-    case types.STORAGE_POST_NO_NOTIF_SUCCESS:
     case types.STORAGE_POST_FAILURE:
-    case types.STORAGE_POST_NO_NOTIF_FAILURE:
 
       return {
         ...state,

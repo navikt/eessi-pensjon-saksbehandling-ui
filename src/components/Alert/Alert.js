@@ -95,7 +95,7 @@ export const Alert = (props) => {
       type={errorTypes[clientErrorStatus]}
     >
       {message}
-      <Icons className='closeIcon' size='1x' kind='solidclose' onClick={onClientClear} />
+      <Icons className='closeIcon' kind='solidclose' onClick={onClientClear} />
     </AlertStripe>
   )
 }

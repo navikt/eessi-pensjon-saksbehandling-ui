@@ -16,22 +16,11 @@ export const closeStorageModal = () => {
   }
 }
 
-export const listStorageFilesWithNoNotification = (userId, namespace) => {
+export const listStorageFiles = (userId, namespace, context) => {
   return api.call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: userId, namespace: namespace }),
     method: 'GET',
-    type: {
-      request: types.STORAGE_LIST_NO_NOTIF_REQUEST,
-      success: types.STORAGE_LIST_NO_NOTIF_SUCCESS,
-      failure: types.STORAGE_LIST_NO_NOTIF_FAILURE
-    }
-  })
-}
-
-export const listStorageFiles = (userId, namespace) => {
-  return api.call({
-    url: sprintf(urls.API_STORAGE_LIST_URL, { userId: userId, namespace: namespace }),
-    method: 'GET',
+    context: context || { notification: true},
     type: {
       request: types.STORAGE_LIST_REQUEST,
       success: types.STORAGE_LIST_SUCCESS,
@@ -40,39 +29,16 @@ export const listStorageFiles = (userId, namespace) => {
   })
 }
 
-export const getStorageFileWithNoNotification = (params) => {
-  return api.call({
+export const getStorageFile = (params, context) => {
+  return api.funcCall({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
     method: 'GET',
-    type: {
-      request: types.STORAGE_GET_NO_NOTIF_REQUEST,
-      success: types.STORAGE_GET_NO_NOTIF_SUCCESS,
-      failure: types.STORAGE_GET_NO_NOTIF_FAILURE
-    }
-  })
-}
-
-export const getStorageFile = (params) => {
-  return api.call({
-    url: sprintf(urls.API_STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
-    method: 'GET',
+    expectedPayload: {},
+    context: context || { notification: true},
     type: {
       request: types.STORAGE_GET_REQUEST,
       success: types.STORAGE_GET_SUCCESS,
       failure: types.STORAGE_GET_FAILURE
-    }
-  })
-}
-
-export const postStorageFileWithNoNotification = (userId, namespace, file, payload) => {
-  return api.call({
-    url: sprintf(urls.API_STORAGE_POST_URL, { userId: userId, namespace: namespace, file: file }),
-    method: 'POST',
-    payload: payload,
-    type: {
-      request: types.STORAGE_POST_NO_NOTIF_REQUEST,
-      success: types.STORAGE_POST_NO_NOTIF_SUCCESS,
-      failure: types.STORAGE_POST_NO_NOTIF_FAILURE
     }
   })
 }
@@ -89,11 +55,12 @@ export const getAttachmentFromStorage = (params) => {
   })
 }
 
-export const postStorageFile = (userId, namespace, file, payload) => {
+export const postStorageFile = (userId, namespace, file, payload, context) => {
   return api.call({
     url: sprintf(urls.API_STORAGE_POST_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'POST',
     payload: payload,
+    context: context || { notification: true},
     type: {
       request: types.STORAGE_POST_REQUEST,
       success: types.STORAGE_POST_SUCCESS,

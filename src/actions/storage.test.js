@@ -31,22 +31,23 @@ describe('actions/storage', () => {
     })
   })
 
-  it('listStorageFilesWithNoNotification()', () => {
+  it('listStorageFiles() with no notification', () => {
     const mockUser = 'mockUser'
     const mockNamespace = 'mockNamespace'
-    storageActions.listStorageFilesWithNoNotification(mockUser, mockNamespace)
+    storageActions.listStorageFiles(mockUser, mockNamespace, {notification: false})
     expect(api.call).toBeCalledWith({
       type: {
-        request: types.STORAGE_LIST_NO_NOTIF_REQUEST,
-        success: types.STORAGE_LIST_NO_NOTIF_SUCCESS,
-        failure: types.STORAGE_LIST_NO_NOTIF_FAILURE
+        request: types.STORAGE_LIST_REQUEST,
+        success: types.STORAGE_LIST_SUCCESS,
+        failure: types.STORAGE_LIST_FAILURE
       },
+      context: {notification: false},
       method: 'GET',
       url: 'http://localhost/frontend/api/storage/list/mockUser___mockNamespace'
     })
   })
 
-  it('listStorageFiles()', () => {
+  it('listStorageFiles() with notification', () => {
     const mockUser = 'mockUser'
     const mockNamespace = 'mockNamespace'
     storageActions.listStorageFiles(mockUser, mockNamespace)
@@ -56,30 +57,32 @@ describe('actions/storage', () => {
         success: types.STORAGE_LIST_SUCCESS,
         failure: types.STORAGE_LIST_FAILURE
       },
+      context: {notification:true},
       method: 'GET',
       url: 'http://localhost/frontend/api/storage/list/mockUser___mockNamespace'
     })
   })
 
-  it('getStorageFileWithNoNotification()', () => {
+  it('getStorageFile() with no notification', () => {
     const mockParams = {
       userId: 'userId',
       namespace: 'namespace',
       file: 'file'
     }
-    storageActions.getStorageFileWithNoNotification(mockParams)
+    storageActions.getStorageFile(mockParams, {notification: false})
     expect(api.call).toBeCalledWith({
       type: {
-        request: types.STORAGE_GET_NO_NOTIF_REQUEST,
-        success: types.STORAGE_GET_NO_NOTIF_SUCCESS,
-        failure: types.STORAGE_GET_NO_NOTIF_FAILURE
+        request: types.STORAGE_GET_REQUEST,
+        success: types.STORAGE_GET_SUCCESS,
+        failure: types.STORAGE_GET_FAILURE
       },
       method: 'GET',
+      context: {notification:false},
       url: 'http://localhost/frontend/api/storage/get/userId___namespace___file'
     })
   })
 
-  it('listStorageFiles()', () => {
+  it('getStorageFiles() with notification', () => {
     const mockParams = {
       userId: 'userId',
       namespace: 'namespace',
@@ -93,38 +96,34 @@ describe('actions/storage', () => {
         failure: types.STORAGE_GET_FAILURE
       },
       method: 'GET',
+      context: {notification: true},
       url: 'http://localhost/frontend/api/storage/get/userId___namespace___file'
     })
   })
 
-  it('postStorageFileWithNoNotification()', () => {
+  it('postStorageFile()', () => {
     const userId = 'userId'
-
     const namespace = 'namespace'
-
     const file = 'file'
-
     const payload = { foo: 'bar' }
-    storageActions.postStorageFileWithNoNotification(userId, namespace, file, payload)
+    storageActions.postStorageFile(userId, namespace, file, payload, {notification: false})
     expect(api.call).toBeCalledWith({
       type: {
-        request: types.STORAGE_POST_NO_NOTIF_REQUEST,
-        success: types.STORAGE_POST_NO_NOTIF_SUCCESS,
-        failure: types.STORAGE_POST_NO_NOTIF_FAILURE
+        request: types.STORAGE_POST_REQUEST,
+        success: types.STORAGE_POST_SUCCESS,
+        failure: types.STORAGE_POST_FAILURE
       },
       method: 'POST',
       payload: payload,
+      context: {notification: false},
       url: 'http://localhost/frontend/api/storage/userId___namespace___file'
     })
   })
 
   it('postStorageFile()', () => {
     const userId = 'userId'
-
     const namespace = 'namespace'
-
     const file = 'file'
-
     const payload = { foo: 'bar' }
     storageActions.postStorageFile(userId, namespace, file, payload)
     expect(api.call).toBeCalledWith({
@@ -135,6 +134,7 @@ describe('actions/storage', () => {
       },
       method: 'POST',
       payload: payload,
+      {notification: true},
       url: 'http://localhost/frontend/api/storage/userId___namespace___file'
     })
   })

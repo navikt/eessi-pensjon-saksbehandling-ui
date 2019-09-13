@@ -8,7 +8,7 @@ import * as storageActions from 'actions/storage'
 import * as pinfoActions from 'actions/pinfo'
 import VarslerPanel from './VarslerPanel'
 import VarslerTable from './VarslerTable'
-import * as Nav from 'components/Nav'
+import { Normaltekst, Row } from 'components/Nav'
 import TopContainer from 'components/TopContainer/TopContainer'
 import Psycho from 'components/Psycho/Psycho'
 import { getDisplayName } from 'utils/displayName'
@@ -52,13 +52,13 @@ const PInfo = (props) => {
 
   if (noParams) {
     return (
-      <TopContainer className='p-pInfo' t={t} history={history} header={t('pinfo:app-title')}>
+      <TopContainer className='a-pinfo' t={t} history={history} header={t('pinfo:app-title')}>
         <div className='content container text-center pt-4'>
           <div className='psycho mt-3 mb-4' style={{ height: '110px' }}>
             <Psycho type='trist' id='psycho' />
           </div>
           <div className='text-center'>
-            <Nav.Normaltekst>{t('pinfo:error-noParams')}</Nav.Normaltekst>
+            <Normaltekst>{t('pinfo:error-noParams')}</Normaltekst>
           </div>
         </div>
       </TopContainer>
@@ -66,8 +66,8 @@ const PInfo = (props) => {
   }
 
   return (
-    <TopContainer className='p-pInfo' t={t} history={history}>
-      <Nav.Row>
+    <TopContainer className='a-pinfo' t={t} history={history}>
+      <Row>
         <div className='col-md-2' />
         <div className='col-md-8'>
           <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
@@ -80,18 +80,17 @@ const PInfo = (props) => {
             <VarslerTable {...props} />
           </div>
         </div>
-      </Nav.Row>
+      </Row>
     </TopContainer>
   )
 }
 
 PInfo.propTypes = {
-  actions: PT.object.isRequired,
   aktoerId: PT.string,
   history: PT.object,
-  t: PT.func.isRequired,
   sakId: PT.string,
-  sakType: PT.string
+  sakType: PT.string,
+  t: PT.func.isRequired
 }
 
 const ConnectedPInfo = connect(
