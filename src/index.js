@@ -1,6 +1,8 @@
 import 'core-js/es/object/assign' // IE 11 compatibility
 import 'core-js/es/object/entries' // IE 11 compatibility
+import 'core-js/es/object/keys' // IE 11 compatibility
 import 'core-js/es/array/includes' // IE 11 compatibility
+import 'core-js/es/array/find' // IE 11 compatibility
 import 'core-js/es/map' // IE 11 compatibility
 import 'core-js/es/set' // IE 11 compatibility
 import 'es6-promise/auto' // IE 11 compatibility
