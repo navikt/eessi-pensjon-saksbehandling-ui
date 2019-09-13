@@ -12,9 +12,31 @@ export default class Util {
   }
 
   handleDate (period) {
-    return {
-      fom: this.writeDate(period.startDate),
-      tom: this.writeDate(period.endDate)
+    switch (period.dateType) {
+      case 'both':
+        return {
+          lukketPeriode: {
+            fom: this.writeDate(period.startDate),
+            tom: this.writeDate(period.endDate)
+          }
+        }
+      case 'onlyStartDate01':
+        return {
+          openPeriode: {
+            extra: '01',
+            fom: this.writeDate(period.startDate)
+          }
+        }
+      case 'onlyStartDate98':
+        return {
+          openPeriode: {
+            extra: '98',
+            fom: this.writeDate(period.startDate)
+          }
+        }
+
+      default:
+        return null
     }
   }
 

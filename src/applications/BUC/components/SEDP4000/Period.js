@@ -33,7 +33,7 @@ const Period = (props) => {
   const blurStartDate = (e) => dateBlur('startDate', periodValidation.periodStartDateOnBlur, e)
   const blurEndDate = (e) => dateBlur('endDate', periodValidation.periodEndDateOnBlur, e)
   const setUncertainDate = (e) => eventSetCheckbox('uncertainDate', null, e)
-  // const setDateType = (e) => eventSetProperty('dateType', null, e)
+  const setDateType = (e) => eventSetProperty('dateType', null, e)
 
   const setCountry = (e) => valueSetProperty('country', periodValidation.periodCountry, e)
   const setComment = (e) => eventSetProperty('comment', null, e)
@@ -59,13 +59,13 @@ const Period = (props) => {
   const setOtherType = (e) => eventSetProperty('otherType', periodValidation.otherType, e)
 
   useEffect(() => {
-    /* if (period.type && !period.dateType) {
+    if (period.type && !period.dateType) {
       setDateType({ target: { value: 'both' } })
-    } */
+    }
     if (period.type === 'work' && !period.workType) {
       setWorkType({ target: { value: '01' } })
     }
-  }, [period.type, period.workType, setWorkType])
+  }, [period.dateType, period.type, period.workType, setWorkType])
 
   const hasNoErrors = (errors) => {
     for (var key in errors) {
@@ -436,7 +436,7 @@ const Period = (props) => {
                 {t('buc:p4000-help-date')}
               </Normaltekst>
               <Row>
-                {/* <div className='a-buc-c-sedp4000-period__dateType col-12 mb-2'>
+                <div className='a-buc-c-sedp4000-period__dateType col-12 mb-2'>
                   <Select
                     className='a-buc-c-sedp4000-period__dateType-select flex-fill'
                     id='a-buc-c-sedp4000-period__dateType-select-id'
@@ -449,7 +449,7 @@ const Period = (props) => {
                     <option value='onlyStartDate01'>{t('buc:p4000-label-onlyStartDate01')}</option>
                     <option value='onlyStartDate98'>{t('buc:p4000-label-onlyStartDate98')}</option>
                   </Select>
-                </div> */}
+                </div>
                 <div className='a-buc-c-sedp4000-period__startDate col-sm-6 col-12 mb-2'>
                   <label className='datepickerLabel skjemaelement__label'>
                     {t('buc:p4000-label-start-date')}
@@ -476,6 +476,7 @@ const Period = (props) => {
                   {
                     <FocusGroup onBlur={blurEndDate}>
                       <DatePicker
+                        disabled={period.dateType !== 'both'}
                         id='a-buc-c-sedp4000-period_sluttdato-date'
                         labels={{ day: t('buc:p4000-label-day'), month: t('buc:p4000-label-month'), year: t('buc:p4000-label-year') }}
                         ids={{ day: 'a-buc-c-sedp4000-period__sluttdato-day', month: 'a-buc-c-sedp4000-period__sluttdato-month', year: 'a-buc-c-sedp4000-period__sluttdato-year' }}
