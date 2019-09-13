@@ -312,7 +312,7 @@ describe('reducers/buc', () => {
       currentBuc: 'mockCaseId',
       mode: 'bucedit',
       sed: undefined,
-      attachments: undefined
+      attachments: []
     })
   })
 
@@ -504,13 +504,13 @@ describe('reducers/buc', () => {
     })
   })
 
-  it('BUC_SED_ATTACHMENT_SUCCESS: existing attachment', () => {
+  it('BUC_SEND_ATTACHMENT_SUCCESS: existing attachment', () => {
     expect(
       bucReducer({
         ...initialBucState,
         attachments: [{ dokumentInfoId: 1 }]
       }, {
-        type: types.BUC_SED_ATTACHMENT_SUCCESS,
+        type: types.BUC_SEND_ATTACHMENT_SUCCESS,
         payload: { dokumentInfoId: 1 }
       })
     ).toEqual({
@@ -519,13 +519,13 @@ describe('reducers/buc', () => {
     })
   })
 
-  it('BUC_SED_ATTACHMENT_SUCCESS: non-existing attachment', () => {
+  it('BUC_SEND_ATTACHMENT_SUCCESS: non-existing attachment', () => {
     expect(
       bucReducer({
         ...initialBucState,
         attachments: [{ dokumentInfoId: 1 }]
       }, {
-        type: types.BUC_SED_ATTACHMENT_SUCCESS,
+        type: types.BUC_SEND_ATTACHMENT_SUCCESS,
         payload: { dokumentInfoId: 2 }
       })
     ).toEqual({

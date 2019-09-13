@@ -23,7 +23,7 @@ const Step1 = (props) => {
     if (_.isArray(sedList) && sedList.length === 1 && !_sed) {
       setSed(sedList[0])
     }
-  }, [sedList, _sed])
+  }, [sedList, _sed, setSed])
 
   const validateSed = (sed) => {
     if (!sed || sed === placeholders.sed) {

@@ -90,7 +90,7 @@ const alertReducer = (state = initialAlertState, action = {}) => {
         clientErrorMessage = 'buc:alert-createSedFailure'
         break
 
-      case types.BUC_SED_ATTACHMENT_FAILURE:
+      case types.BUC_SEND_ATTACHMENT_FAILURE:
 
         clientErrorMessage = 'buc:alert-createAttachmentFailure'
         break

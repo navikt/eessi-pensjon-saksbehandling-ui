@@ -20,7 +20,7 @@ export const listStorageFiles = (userId, namespace, context) => {
   return api.call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: userId, namespace: namespace }),
     method: 'GET',
-    context: context || { notification: true},
+    context: context || { notification: true },
     type: {
       request: types.STORAGE_LIST_REQUEST,
       success: types.STORAGE_LIST_SUCCESS,
@@ -34,7 +34,7 @@ export const getStorageFile = (params, context) => {
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
     method: 'GET',
     expectedPayload: {},
-    context: context || { notification: true},
+    context: context || { notification: true },
     type: {
       request: types.STORAGE_GET_REQUEST,
       success: types.STORAGE_GET_SUCCESS,
@@ -60,7 +60,7 @@ export const postStorageFile = (userId, namespace, file, payload, context) => {
     url: sprintf(urls.API_STORAGE_POST_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'POST',
     payload: payload,
-    context: context || { notification: true},
+    context: context || { notification: true },
     type: {
       request: types.STORAGE_POST_REQUEST,
       success: types.STORAGE_POST_SUCCESS,

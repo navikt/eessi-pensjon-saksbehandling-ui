@@ -19,6 +19,7 @@ describe('actions/pinfo', () => {
     expect(api.funcCall).toBeCalledWith({
       method: 'POST',
       payload: {},
+      expectedPayload: { success: true },
       type: {
         request: types.PINFO_INVITE_REQUEST,
         success: types.PINFO_INVITE_SUCCESS,

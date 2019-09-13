@@ -2,7 +2,7 @@ import * as types from 'constants/actionTypes'
 import _ from 'lodash'
 
 export const initialBucState = {
-  attachments: undefined,
+  attachments: [],
   avdodBucs: undefined,
   bucs: undefined,
   bucsInfoList: undefined,
@@ -69,7 +69,7 @@ const bucReducer = (state = initialBucState, action) => {
         ...state,
         currentBuc: undefined,
         sed: undefined,
-        attachments: undefined
+        attachments: []
       }
 
     case types.BUC_GET_SINGLE_BUC_SUCCESS: {
@@ -226,7 +226,7 @@ const bucReducer = (state = initialBucState, action) => {
         },
         mode: 'bucedit',
         sed: undefined,
-        attachments: undefined
+        attachments: []
       }
     }
 
@@ -313,8 +313,8 @@ const bucReducer = (state = initialBucState, action) => {
         sed: action.payload
       }
 
-    case types.BUC_SED_ATTACHMENT_SUCCESS: {
-      const existingAttachments = state.attachments ? _.cloneDeep(state.attachments) : []
+    case types.BUC_SEND_ATTACHMENT_SUCCESS: {
+      const existingAttachments = _.cloneDeep(state.attachments)
       const newAttachment = action.payload
       const found = _.find(existingAttachments, { dokumentInfoId: newAttachment.dokumentInfoId })
       if (!found) {

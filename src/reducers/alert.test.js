@@ -170,10 +170,10 @@ describe('reducers/alert', () => {
     })
   })
 
-  it('BUC_SED_ATTACHMENT_FAILURE', () => {
+  it('BUC_SEND_ATTACHMENT_FAILURE', () => {
     expect(
       alertReducer(initialAlertState, {
-        type: types.BUC_SED_ATTACHMENT_FAILURE
+        type: types.BUC_SEND_ATTACHMENT_FAILURE
       })
     ).toEqual({
       clientErrorStatus: 'ERROR',
@@ -344,7 +344,8 @@ describe('reducers/alert', () => {
   it('STORAGE_GET_SUCCESS', () => {
     expect(
       alertReducer(initialAlertState, {
-        type: types.STORAGE_GET_SUCCESS
+        type: types.STORAGE_GET_SUCCESS,
+        context: { notification: true }
       })
     ).toEqual({
       clientErrorStatus: 'OK',
@@ -355,7 +356,8 @@ describe('reducers/alert', () => {
   it('STORAGE_POST_SUCCESS', () => {
     expect(
       alertReducer(initialAlertState, {
-        type: types.STORAGE_POST_SUCCESS
+        type: types.STORAGE_POST_SUCCESS,
+        context: { notification: true }
       })
     ).toEqual({
       clientErrorStatus: 'OK',

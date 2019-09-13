@@ -40,15 +40,17 @@ export const SEDStart = (props) => {
   const [_institutions, setInstitutions] = useState([])
   const [_countries, setCountries] = useState([])
   const [_vedtakId, setVedtakId] = useState(parseInt(vedtakId, 10))
-  const [_attachments, setAttachments] = useState(initialAttachments)
 
   const [step, setStep] = useState(initialStep)
   const [validation, setValidation] = useState({})
   const [showButtons, setShowButtons] = useState(true)
 
   const [sedSent, setSedSent] = useState(false)
+  const [sendingAttachment, setSendingAttachment] = useState(false)
   const [sendingAttachments, setSendingAttachments] = useState(false)
   const [attachmentsSent, setAttachmentsSent] = useState(false)
+  const [_attachments, setAttachments] = useState(initialAttachments)
+  const [_storeAttachments, setStoreAttachments] = useState(attachments || [])
   const [mounted, setMounted] = useState(false)
 
   const buc = _.cloneDeep(bucs[currentBuc])
@@ -72,47 +74,81 @@ export const SEDStart = (props) => {
       }
       setMounted(true)
     }
-  }, [mounted, actions, buc])
+  }, [mounted, actions, buc, bucs, currentBuc, currentSed])
 
   useEffect(() => {
+    // mark sed as sent
     if (sed && !sedSent) {
       setSedSent(true)
     }
   }, [sed, sedSent])
 
   useEffect(() => {
+    // if sed is sent, we can start sending attachments
     if (sedSent && !attachmentsSent) {
-      if (!sendingAttachments) {
-        setSendingAttachments(true)
-        if (_.isEmpty(_attachments) || !_attachments.joark || _.isEmpty(_attachments.joark)) {
-          setAttachmentsSent(true)
-          setSendingAttachments(false)
-          return
-        }
-        _attachments.joark.forEach(attachment => {
-          const params = {
-            aktoerId: aktoerId,
-            rinaId: buc.caseId,
-            rinaDokumentId: sed.id,
-            joarkJournalpostId: attachment.journalpostId,
-            joarkDokumentInfoId: attachment.dokumentInfoId,
-            variantFormat: attachment.variant.variantformat
-          }
-          if (!IS_TEST) {
-            console.log('sending ', params)
-          }
-          actions.sendAttachmentToSed(params)
-        })
+      // no attachments to send - conclude
+      if (_.isEmpty(_attachments) || !_attachments.joark || _.isEmpty(_attachments.joark)) {
+        setAttachmentsSent(true)
         return
       }
-      if (attachments && _attachments.joark.length === attachments.length) {
+      // all attachments are sent - conclude
+      if (_attachments.joark.length === _storeAttachments.length) {
         setAttachmentsSent(true)
         setSendingAttachments(false)
+        return
+      }
+      // mark state as sending attachments
+      setSendingAttachments(true)
+      if (!IS_TEST) {
+        console.log('Starting sending attachments')
       }
     }
-  }, [_attachments, actions, aktoerId, attachments, attachmentsSent, buc, sed, sedSent, sendingAttachments])
+  }, [_attachments, attachmentsSent, sedSent, _storeAttachments])
 
   useEffect(() => {
+    if (sendingAttachments) {
+      if (!sendingAttachment) {
+        const unsentAttachments = _.difference(_attachments.joark, _storeAttachments)
+
+        // all sent, mark sending attachments as done
+        if (_.isEmpty(unsentAttachments)) {
+          setSendingAttachments(false)
+          if (!IS_TEST) {
+            console.log('All attachments sent')
+          }
+          return
+        }
+
+        const unsentAttachment = _.first(unsentAttachments)
+        const params = {
+          aktoerId: aktoerId,
+          rinaId: buc.caseId,
+          rinaDokumentId: sed.id,
+          joarkJournalpostId: unsentAttachment.journalpostId,
+          joarkDokumentInfoId: unsentAttachment.dokumentInfoId,
+          variantFormat: unsentAttachment.variant.variantformat
+        }
+        if (!IS_TEST) {
+          console.log('Sending attachment ' + (_storeAttachments.length + 1) + ' of ' + _attachments.joark.length)
+        }
+        actions.sendAttachmentToSed(params)
+        setSendingAttachment(true)
+        return
+      }
+
+      // handle if we have a newly sent attachment
+      if (sendingAttachment && _storeAttachments.length !== attachments.length) {
+        if (!IS_TEST) {
+          console.log('Attachment ' + (attachments.length) + ' of ' + _attachments.joark.length + ' sent')
+        }
+        setStoreAttachments(attachments)
+        setSendingAttachment(false)
+      }
+    }
+  }, [actions, aktoerId, attachments, _attachments, buc, sed, sendingAttachment, sendingAttachments, _storeAttachments])
+
+  useEffect(() => {
+    // cleanup after attachments sent
     if (sedSent && attachmentsSent) {
       actions.resetSed()
       actions.fetchBucs(aktoerId)
@@ -124,7 +160,7 @@ export const SEDStart = (props) => {
       }
       actions.setMode('bucedit')
     }
-  }, [attachmentsSent, aktoerId, avdodfnr, actions, bucsInfoList, sedSent])
+  }, [_attachments, actions, aktoerId, attachments, attachmentsSent, avdodfnr, buc, bucsInfoList, sed, sedSent, sendingAttachments])
 
   if (_.isEmpty(bucs) || !currentBuc) {
     return null
@@ -255,7 +291,10 @@ export const SEDStart = (props) => {
             onClick={createSEDneedsMoreSteps() ? onNextButtonClick : onForwardButtonClick}
           >
             {loading.creatingSed ? t('buc:loading-creatingSED')
-              : sendingAttachments ? t('buc:loading-sendingSEDattachments')
+              : sendingAttachments ? t('buc:loading-sendingSEDattachments', {
+                current: (_storeAttachments.length + 1),
+                total: _attachments.joark.length
+              })
                 : createSEDneedsMoreSteps() ? t('ui:next')
                   : t('buc:form-orderSED')}
           </Hovedknapp>
