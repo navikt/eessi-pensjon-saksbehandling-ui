@@ -176,13 +176,15 @@ const alertReducer = (state = initialAlertState, action = {}) => {
       break
 
     case types.STORAGE_GET_SUCCESS:
-
-      clientErrorMessage = 'ui:loadSuccess'
+      if (action.context.notification) {
+        clientErrorMessage = 'ui:loadSuccess'
+      }
       break
 
     case types.STORAGE_POST_SUCCESS:
-
-      clientErrorMessage = 'ui:saveSuccess'
+      if (action.context.notification) {
+        clientErrorMessage = 'ui:saveSuccess'
+      }
       break
 
     case types.PINFO_SEND_SUCCESS:

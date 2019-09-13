@@ -11,7 +11,6 @@ const storageReducer = (state = initialStorageState, action = {}) => {
   let parsedList
   switch (action.type) {
     case types.STORAGE_LIST_SUCCESS:
-    case types.STORAGE_LIST_NO_NOTIF_SUCCESS:
       parsedList = action.payload.map(file => {
         const index = file.lastIndexOf('___')
         return index >= 0 ? file.substring(index + 3) : file
@@ -23,21 +22,18 @@ const storageReducer = (state = initialStorageState, action = {}) => {
       }
 
     case types.STORAGE_LIST_FAILURE:
-    case types.STORAGE_LIST_NO_NOTIF_FAILURE:
       return {
         ...state,
         fileList: []
       }
 
     case types.STORAGE_GET_SUCCESS:
-    case types.STORAGE_GET_NO_NOTIF_SUCCESS:
       return {
         ...state,
         file: action.payload
       }
 
     case types.STORAGE_POST_SUCCESS:
-    case types.STORAGE_POST_NO_NOTIF_SUCCESS:
       // clean fileList so that component requests a list again
       return {
         ...state,

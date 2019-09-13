@@ -1,14 +1,14 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as api from 'actions/api'
-
 var sprintf = require('sprintf-js').sprintf
 
 export const sendInvite = (params) => {
-  return api.call({
+  return api.funcCall({
     url: sprintf(urls.API_VARSEL_URL, params),
     method: 'POST',
     payload: {},
+    expectedPayload: {success: true},
     type: {
       request: types.PINFO_INVITE_REQUEST,
       success: types.PINFO_INVITE_SUCCESS,

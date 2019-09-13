@@ -1,7 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-
 import { AlertStripe, Hovedknapp, Undertekst, Undertittel } from 'components/Nav'
 
 const VarslerPanel = (props) => {
