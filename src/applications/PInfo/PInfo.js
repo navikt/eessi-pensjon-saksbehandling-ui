@@ -8,7 +8,7 @@ import * as storageActions from 'actions/storage'
 import * as pinfoActions from 'actions/pinfo'
 import VarslerPanel from './VarslerPanel'
 import VarslerTable from './VarslerTable'
-import { Normaltekst, Row } from 'components/Nav'
+import { Normaltekst } from 'components/Nav'
 import TopContainer from 'components/TopContainer/TopContainer'
 import Psycho from 'components/Psycho/Psycho'
 import { getDisplayName } from 'utils/displayName'
@@ -67,20 +67,18 @@ const PInfo = (props) => {
 
   return (
     <TopContainer className='a-pinfo' t={t} history={history}>
-      <Row>
+      <div>
         <div className='col-md-2' />
         <div className='col-md-8'>
           <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
             <VarslerPanel {...props} />
           </div>
-        </div>
-        <div className='col-md-2' />
-        <div className='col-md-12'>
           <div className={classNames('fieldset', 'animate', 'mt-4', 'mb-4')}>
             <VarslerTable {...props} />
           </div>
         </div>
-      </Row>
+        <div className='col-md-2' />
+      </div>
     </TopContainer>
   )
 }
