@@ -8,7 +8,7 @@ export const sendInvite = (params) => {
     url: sprintf(urls.API_VARSEL_URL, params),
     method: 'POST',
     payload: {},
-    expectedPayload: {success: true},
+    expectedPayload: { success: true },
     type: {
       request: types.PINFO_INVITE_REQUEST,
       success: types.PINFO_INVITE_SUCCESS,

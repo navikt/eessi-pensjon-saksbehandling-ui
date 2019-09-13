@@ -277,15 +277,15 @@ export const createReplySed = (payload, parentId) => {
 
 export const sendAttachmentToSed = (params) => {
   return api.funcCall({
-    url: sprintf(urls.BUC_SED_ATTACHMENT_URL, params),
+    url: sprintf(urls.BUC_SEND_ATTACHMENT_URL, params),
     method: 'PUT',
     expectedPayload: {
       success: true
     },
     type: {
-      request: types.BUC_SED_ATTACHMENT_REQUEST,
-      success: types.BUC_SED_ATTACHMENT_SUCCESS,
-      failure: types.BUC_SED_ATTACHMENT_FAILURE
+      request: types.BUC_SEND_ATTACHMENT_REQUEST,
+      success: types.BUC_SEND_ATTACHMENT_SUCCESS,
+      failure: types.BUC_SEND_ATTACHMENT_FAILURE
     }
   })
 }

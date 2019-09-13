@@ -291,13 +291,13 @@ describe('actions/buc', () => {
     bucActions.sendAttachmentToSed(mockParams)
     expect(api.funcCall).toBeCalledWith({
       type: {
-        request: types.BUC_SED_ATTACHMENT_REQUEST,
-        success: types.BUC_SED_ATTACHMENT_SUCCESS,
-        failure: types.BUC_SED_ATTACHMENT_FAILURE
+        request: types.BUC_SEND_ATTACHMENT_REQUEST,
+        success: types.BUC_SEND_ATTACHMENT_SUCCESS,
+        failure: types.BUC_SEND_ATTACHMENT_FAILURE
       },
       method: 'PUT',
       expectedPayload: { success: true },
-      url: sprintf(urls.BUC_SED_ATTACHMENT_URL, mockParams)
+      url: sprintf(urls.BUC_SEND_ATTACHMENT_URL, mockParams)
     })
   })
 

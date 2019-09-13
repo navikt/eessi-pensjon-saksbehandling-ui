@@ -5,14 +5,17 @@ import * as types from 'constants/actionTypes'
 describe('actions/storage', () => {
   beforeAll(() => {
     api.call = jest.fn()
+    api.funcCall = jest.fn()
   })
 
   afterEach(() => {
     api.call.mockReset()
+    api.funcCall.mockReset()
   })
 
   afterAll(() => {
     api.call.mockRestore()
+    api.funcCall.mockRestore()
   })
 
   it('openStorageModal()', () => {
@@ -34,14 +37,14 @@ describe('actions/storage', () => {
   it('listStorageFiles() with no notification', () => {
     const mockUser = 'mockUser'
     const mockNamespace = 'mockNamespace'
-    storageActions.listStorageFiles(mockUser, mockNamespace, {notification: false})
-    expect(api.call).toBeCalledWith({
+    storageActions.listStorageFiles(mockUser, mockNamespace, { notification: false })
+    expect(api.funcCall).toBeCalledWith({
       type: {
         request: types.STORAGE_LIST_REQUEST,
         success: types.STORAGE_LIST_SUCCESS,
         failure: types.STORAGE_LIST_FAILURE
       },
-      context: {notification: false},
+      context: { notification: false },
       method: 'GET',
       url: 'http://localhost/frontend/api/storage/list/mockUser___mockNamespace'
     })
@@ -51,13 +54,13 @@ describe('actions/storage', () => {
     const mockUser = 'mockUser'
     const mockNamespace = 'mockNamespace'
     storageActions.listStorageFiles(mockUser, mockNamespace)
-    expect(api.call).toBeCalledWith({
+    expect(api.funcCall).toBeCalledWith({
       type: {
         request: types.STORAGE_LIST_REQUEST,
         success: types.STORAGE_LIST_SUCCESS,
         failure: types.STORAGE_LIST_FAILURE
       },
-      context: {notification:true},
+      context: { notification: true },
       method: 'GET',
       url: 'http://localhost/frontend/api/storage/list/mockUser___mockNamespace'
     })
@@ -69,15 +72,16 @@ describe('actions/storage', () => {
       namespace: 'namespace',
       file: 'file'
     }
-    storageActions.getStorageFile(mockParams, {notification: false})
-    expect(api.call).toBeCalledWith({
+    storageActions.getStorageFile(mockParams, { notification: false })
+    expect(api.funcCall).toBeCalledWith({
       type: {
         request: types.STORAGE_GET_REQUEST,
         success: types.STORAGE_GET_SUCCESS,
         failure: types.STORAGE_GET_FAILURE
       },
       method: 'GET',
-      context: {notification:false},
+      expectedPayload: {},
+      context: { notification: false },
       url: 'http://localhost/frontend/api/storage/get/userId___namespace___file'
     })
   })
@@ -89,14 +93,15 @@ describe('actions/storage', () => {
       file: 'file'
     }
     storageActions.getStorageFile(mockParams)
-    expect(api.call).toBeCalledWith({
+    expect(api.funcCall).toBeCalledWith({
       type: {
         request: types.STORAGE_GET_REQUEST,
         success: types.STORAGE_GET_SUCCESS,
         failure: types.STORAGE_GET_FAILURE
       },
       method: 'GET',
-      context: {notification: true},
+      expectedPayload: {},
+      context: { notification: true },
       url: 'http://localhost/frontend/api/storage/get/userId___namespace___file'
     })
   })
@@ -106,7 +111,7 @@ describe('actions/storage', () => {
     const namespace = 'namespace'
     const file = 'file'
     const payload = { foo: 'bar' }
-    storageActions.postStorageFile(userId, namespace, file, payload, {notification: false})
+    storageActions.postStorageFile(userId, namespace, file, payload, { notification: false })
     expect(api.call).toBeCalledWith({
       type: {
         request: types.STORAGE_POST_REQUEST,
@@ -115,7 +120,7 @@ describe('actions/storage', () => {
       },
       method: 'POST',
       payload: payload,
-      context: {notification: false},
+      context: { notification: false },
       url: 'http://localhost/frontend/api/storage/userId___namespace___file'
     })
   })
@@ -134,7 +139,7 @@ describe('actions/storage', () => {
       },
       method: 'POST',
       payload: payload,
-      {notification: true},
+      context: { notification: true },
       url: 'http://localhost/frontend/api/storage/userId___namespace___file'
     })
   })
