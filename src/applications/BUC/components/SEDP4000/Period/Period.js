@@ -39,7 +39,7 @@ const Period = (props) => {
   const setChildFirstName = (e) => eventSetProperty('childFirstName', periodValidation.childFirstName, e)
   const setChildLastName = (e) => eventSetProperty('childLastName', periodValidation.childLastName, e)
   const setChildBirthDate = (e) => dateSetProperty('childBirthDate', periodValidation.childBirthDateOnChange, e)
-  const blurChildBirthDate = (e) => dateBlur('childBirthDate', periodValidation.periodChildBirthDateOnBlur, e)
+  const blurChildBirthDate = (e) => dateBlur('childBirthDate', periodValidation.childBirthDateOnBlur, e)
 
   const setLearnInstitution = (e) => eventSetProperty('learnInstitution', periodValidation.learnInstitution, e)
   const setPayingInstitution = (e) => eventSetProperty('payingInstitution', periodValidation.payingInstitution, e)
@@ -68,7 +68,7 @@ const Period = (props) => {
   }
 
   const eventSetCheckbox = (key, validateFunction, e) => {
-    valueSetProperty(key, validateFunction, !!e)
+    valueSetProperty(key, validateFunction, e.target.checked)
   }
 
   const dateBlur = (key, validateFunction) => {

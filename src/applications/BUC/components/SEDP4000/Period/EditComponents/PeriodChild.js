@@ -4,8 +4,9 @@ import { Input } from 'nav-frontend-skjema'
 import FocusGroup from 'components/FocusGroup/FocusGroup'
 import DatePicker from 'components/DatePicker/DatePicker'
 import React from 'react'
+import PT from 'prop-types'
 
-export const PeriodChild = ({ period, setChildLastName, setChildFirstName, blurChildBirthDate, setChildBirthDate, localErrors, t }) => (
+const PeriodChild = ({ period, setChildLastName, setChildFirstName, blurChildBirthDate, setChildBirthDate, localErrors, t }) => (
   <Row>
     <div className='col-sm-12'>
       <Undertittel className='mt-5 mb-2'>
@@ -71,3 +72,15 @@ export const PeriodChild = ({ period, setChildLastName, setChildFirstName, blurC
     </div>
   </Row>
 )
+
+PeriodChild.propTypes = {
+  period: PT.object,
+  localErrors: PT.object,
+  t: PT.func,
+  blurChildBirthDate: PT.func,
+  setChildBirthDate: PT.func,
+  setChildFirstName: PT.func,
+  setChildLastName: PT.func
+}
+
+export default PeriodChild

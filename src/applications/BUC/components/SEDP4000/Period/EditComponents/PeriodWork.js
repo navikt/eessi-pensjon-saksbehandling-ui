@@ -5,8 +5,9 @@ import { HjelpetekstAuto } from 'nav-frontend-hjelpetekst'
 import CountrySelect from 'components/CountrySelect/CountrySelect'
 import * as CountryFilter from 'components/CountrySelect/CountryFilter'
 import React from 'react'
+import PT from 'prop-types'
 
-export const PeriodWork = ({
+const PeriodWork = ({
   t,
   period,
   setWorkType,
@@ -196,3 +197,21 @@ export const PeriodWork = ({
     </Row>
   </>
 )
+
+PeriodWork.propTypes = {
+  period: PT.object,
+  locale: PT.string.isRequired,
+  localErrors: PT.object,
+  t: PT.func,
+  setCountry: PT.func,
+  setInsuranceId: PT.func,
+  setWorkActivity: PT.func,
+  setWorkType: PT.func,
+  setWorkName: PT.func,
+  setWorkStreet: PT.func,
+  setWorkCity: PT.func,
+  setWorkRegion: PT.func,
+  setWorkZipCode: PT.func
+}
+
+export default PeriodWork
