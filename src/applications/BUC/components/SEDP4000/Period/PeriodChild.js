@@ -1,0 +1,73 @@
+import { Row } from 'nav-frontend-grid'
+import { UndertekstBold, Undertittel } from 'nav-frontend-typografi'
+import { Input } from 'nav-frontend-skjema'
+import FocusGroup from 'components/FocusGroup/FocusGroup'
+import DatePicker from 'components/DatePicker/DatePicker'
+import React from 'react'
+
+export const PeriodChild = ({ period, setChildLastName, setChildFirstName, blurChildBirthDate, setChildBirthDate, localErrors, t }) => (
+  <Row>
+    <div className='col-sm-12'>
+      <Undertittel className='mt-5 mb-2'>
+        {t('buc:p4000-title-child-info')}
+      </Undertittel>
+      <Input
+        id='a-buc-c-sedp4000-period__omsorgforbarn-etternavn-input-id'
+        className='a-buc-c-sedp4000-period__omsorgforbarn-etternavn-input'
+        label={
+          <div className='pinfo-label'>
+            <div className='pinfo-label'>
+              <UndertekstBold>{t('buc:p4000-label-lastname')}</UndertekstBold>
+            </div>
+          </div>
+        }
+        value={period.childLastName || ''}
+        placeholder={t('ui:writeIn')}
+        onChange={setChildLastName}
+        feil={localErrors.childLastName ? { feilmelding: t(localErrors.childLastName) } : null}
+      />
+    </div>
+    <div className='col-sm-12'>
+      <Input
+        id='a-buc-c-sedp4000-period__omsorgforbarn-fornavn-input-id'
+        className='a-buc-c-sedp4000-period__omsorgforbarn-fornavn-input'
+        label={
+          <div className='pinfo-label'>
+            <div className='pinfo-label'>
+              <UndertekstBold>{t('buc:p4000-label-firstname')}</UndertekstBold>
+            </div>
+          </div>
+        }
+        value={period.childFirstName || ''}
+        placeholder={t('ui:writeIn')}
+        onChange={setChildFirstName}
+        feil={localErrors.childFirstName ? { feilmelding: t(localErrors.childFirstName) } : null}
+      />
+    </div>
+    <div className='col-sm-6 col-12 mb-2'>
+      <label className='datepickerLabel skjemaelement__label'>
+        {t('buc:p4000-label-birthdate')}
+      </label>
+      <FocusGroup onBlur={blurChildBirthDate}>
+        <DatePicker
+          id='a-buc-c-sedp4000-period__omsorgforbarn-fodelsdato-date-id'
+          className='a-buc-c-sedp4000-period__omsorgforbarn-fodelsdato-dat pr-2'
+          labels={{ day: t('buc:p4000-label-day'), month: t('buc:p4000-label-month'), year: t('buc:p4000-label-year') }}
+          ids={{
+            day: 'pinfo-opphold-fodelsdato-day',
+            month: 'pinfo-opphold-fodelsdato-month',
+            year: 'pinfo-opphold-fodelsdato-year'
+          }}
+          placeholders={{
+            day: t('buc:p4000-placeholder-day'),
+            month: t('buc:p4000-placeholder-month'),
+            year: t('buc:p4000-placeholder-year')
+          }}
+          initialValues={period.childBirthDate}
+          onChange={setChildBirthDate}
+          feil={localErrors.childBirthDate || localErrors.timeSpan ? { feilmelding: t(localErrors.childBirthDate || localErrors.timeSpan) } : undefined}
+        />
+      </FocusGroup>
+    </div>
+  </Row>
+)
