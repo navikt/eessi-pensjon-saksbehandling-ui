@@ -508,14 +508,26 @@ describe('reducers/buc', () => {
     expect(
       bucReducer({
         ...initialBucState,
-        attachments: [{ dokumentInfoId: 1 }]
+        attachments: [{
+          dokumentInfoId: 1,
+          journalpostId: 1,
+          variant: 1
+        }]
       }, {
         type: types.BUC_SEND_ATTACHMENT_SUCCESS,
-        payload: { dokumentInfoId: 1 }
+        originalPayload: {
+          dokumentInfoId: 1,
+          journalpostId: 1,
+          variant: 1
+        }
       })
     ).toEqual({
       ...initialBucState,
-      attachments: [{ dokumentInfoId: 1 }]
+      attachments: [{
+        dokumentInfoId: 1,
+        journalpostId: 1,
+        variant: 1
+      }]
     })
   })
 
@@ -526,7 +538,7 @@ describe('reducers/buc', () => {
         attachments: [{ dokumentInfoId: 1 }]
       }, {
         type: types.BUC_SEND_ATTACHMENT_SUCCESS,
-        payload: { dokumentInfoId: 2 }
+        originalPayload: { dokumentInfoId: 2 }
       })
     ).toEqual({
       ...initialBucState,
