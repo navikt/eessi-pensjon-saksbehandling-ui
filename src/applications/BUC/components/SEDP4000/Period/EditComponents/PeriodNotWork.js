@@ -1,10 +1,10 @@
-import { Row } from 'nav-frontend-grid'
-import CountrySelect from 'components/CountrySelect/CountrySelect'
-import * as CountryFilter from 'components/CountrySelect/CountryFilter'
 import React from 'react'
 import PT from 'prop-types'
+import CountrySelect from 'components/CountrySelect/CountrySelect'
+import * as CountryFilter from 'components/CountrySelect/CountryFilter'
+import { Row } from 'components/Nav'
 
-const PeriodNotWork = ({ t, period, locale, setCountry, localErrors }) => (
+const PeriodNotWork = ({ localErrors, locale, period, setCountry, t }) => (
   <Row>
     <div className='col-sm-8 mb-2'>
       <label className='skjemaelement__label'>
@@ -27,11 +27,11 @@ const PeriodNotWork = ({ t, period, locale, setCountry, localErrors }) => (
 )
 
 PeriodNotWork.propTypes = {
-  period: PT.object,
-  locale: PT.string.isRequired,
   localErrors: PT.object,
-  t: PT.func,
-  setCountry: PT.func
+  locale: PT.string.isRequired,
+  period: PT.object,
+  setCountry: PT.func,
+  t: PT.func.isRequired
 }
 
 export default PeriodNotWork

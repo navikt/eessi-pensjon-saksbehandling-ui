@@ -4,14 +4,14 @@ import _ from 'lodash'
 import moment from 'moment'
 import classNames from 'classnames'
 import Flag from 'components/Flag/Flag'
-import { Knapp, Normaltekst, Row, UndertekstBold } from 'components/Nav'
 import Icons from 'components/Icons'
 import { pinfoDateToDate } from 'utils/Date'
+import { Knapp, Normaltekst, Row, UndertekstBold } from 'components/Nav'
 
 import 'applications/BUC/components/SEDP4000/Period/Period.css'
 
 const PeriodView = (props) => {
-  const { period, mode, first, last, t, requestEditPeriod, removePeriodRequest } = props
+  const { first, last, mode, period, removePeriodRequest, requestEditPeriod, t } = props
 
   return (
     <Row className={classNames('a-buc-c-sedp4000-period', mode)}>
@@ -109,9 +109,9 @@ PeriodView.propTypes = {
   last: PT.bool,
   mode: PT.string.isRequired,
   period: PT.object,
-  requestEditPeriod: PT.func,
   removePeriodRequest: PT.func,
-  t: PT.func
+  requestEditPeriod: PT.func,
+  t: PT.func.isRequired
 }
 
 export default PeriodView

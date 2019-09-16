@@ -1,12 +1,10 @@
-import { Row } from 'nav-frontend-grid'
-import { UndertekstBold, Undertittel } from 'nav-frontend-typografi'
-import { Input } from 'nav-frontend-skjema'
-import FocusGroup from 'components/FocusGroup/FocusGroup'
-import DatePicker from 'components/DatePicker/DatePicker'
 import React from 'react'
 import PT from 'prop-types'
+import DatePicker from 'components/DatePicker/DatePicker'
+import FocusGroup from 'components/FocusGroup/FocusGroup'
+import { Input, Row, UndertekstBold, Undertittel } from 'components/Nav'
 
-const PeriodChild = ({ period, setChildLastName, setChildFirstName, blurChildBirthDate, setChildBirthDate, localErrors, t }) => (
+const PeriodChild = ({ blurChildBirthDate, localErrors, period, setChildBirthDate, setChildFirstName, setChildLastName, t }) => (
   <Row>
     <div className='col-sm-12'>
       <Undertittel className='mt-5 mb-2'>
@@ -74,13 +72,13 @@ const PeriodChild = ({ period, setChildLastName, setChildFirstName, blurChildBir
 )
 
 PeriodChild.propTypes = {
-  period: PT.object,
-  localErrors: PT.object,
-  t: PT.func,
   blurChildBirthDate: PT.func,
+  localErrors: PT.object,
+  period: PT.object,
   setChildBirthDate: PT.func,
   setChildFirstName: PT.func,
-  setChildLastName: PT.func
+  setChildLastName: PT.func,
+  t: PT.func.isRequired
 }
 
 export default PeriodChild

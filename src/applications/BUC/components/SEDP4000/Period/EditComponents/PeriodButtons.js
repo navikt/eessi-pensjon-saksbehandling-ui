@@ -1,15 +1,14 @@
-import { Row } from 'nav-frontend-grid'
-import { Flatknapp, Hovedknapp, Knapp } from 'nav-frontend-knapper'
 import React from 'react'
 import PT from 'prop-types'
+import { Flatknapp, Hovedknapp, Knapp, Row } from 'components/Nav'
 
-const PeriodButtons = ({ mode, saveEditPeriod, saveNewPeriod, t, cancelPeriodRequest }) => (
+const PeriodButtons = ({ cancelPeriodRequest, mode, saveEditPeriod, saveNewPeriod, t }) => (
   <Row>
     <div className='mt-4 mb-4 col-sm-12'>
       {mode === 'edit' ? (
         <Knapp
-          id='a-buc-c-sedp4000-period__edit-button-id'
           className='a-buc-c-sedp4000-period__edit-button mb-2 mr-4 w-sm-100'
+          id='a-buc-c-sedp4000-period__edit-button-id'
           onClick={saveEditPeriod}
         >
           {t('buc:p4000-button-saveEditPeriod')}
@@ -17,16 +16,16 @@ const PeriodButtons = ({ mode, saveEditPeriod, saveNewPeriod, t, cancelPeriodReq
       ) : null}
       {mode === 'new' ? (
         <Hovedknapp
-          id='a-buc-c-sedp4000-period__save-button-id'
           className='a-buc-c-sedp4000-period__save-button mb-2 mr-4 w-sm-100'
+          id='a-buc-c-sedp4000-period__save-button-id'
           onClick={saveNewPeriod}
         >
           {t('buc:p4000-button-saveNewPeriod')}
         </Hovedknapp>
       ) : null}
       <Flatknapp
-        id='a-buc-c-sedp4000-period__cancel-button-id'
         className='a-buc-c-sedp4000-period__cancel-button mb-2 w-sm-100'
+        id='a-buc-c-sedp4000-period__cancel-button-id'
         onClick={cancelPeriodRequest}
       >
         {t('buc:p4000-button-cancelPeriod')}
@@ -36,11 +35,11 @@ const PeriodButtons = ({ mode, saveEditPeriod, saveNewPeriod, t, cancelPeriodReq
 )
 
 PeriodButtons.propTypes = {
+  cancelPeriodRequest: PT.func,
   mode: PT.string.isRequired,
-  t: PT.func,
-  saveNewPeriod: PT.func,
   saveEditPeriod: PT.func,
-  cancelPeriodRequest: PT.func
+  saveNewPeriod: PT.func,
+  t: PT.func.isRequired
 }
 
 export default PeriodButtons
