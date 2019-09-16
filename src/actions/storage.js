@@ -17,7 +17,7 @@ export const closeStorageModal = () => {
 }
 
 export const listStorageFiles = (userId, namespace, context) => {
-  return api.call({
+  return api.funcCall({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: userId, namespace: namespace }),
     method: 'GET',
     context: context || { notification: true },
