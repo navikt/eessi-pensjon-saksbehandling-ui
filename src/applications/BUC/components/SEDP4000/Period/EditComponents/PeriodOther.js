@@ -2,8 +2,9 @@ import { Row } from 'nav-frontend-grid'
 import { Input } from 'nav-frontend-skjema'
 import { UndertekstBold } from 'nav-frontend-typografi'
 import React from 'react'
+import PT from 'prop-types'
 
-export const PeriodOther = ({ period, setOtherType, localErrors, t }) => (
+const PeriodOther = ({ period, setOtherType, localErrors, t }) => (
   <Row>
     <div className='col-sm-12'>
       <Input
@@ -24,3 +25,12 @@ export const PeriodOther = ({ period, setOtherType, localErrors, t }) => (
     </div>
   </Row>
 )
+
+PeriodOther.propTypes = {
+  period: PT.object,
+  localErrors: PT.object,
+  t: PT.func,
+  setOtherType: PT.func
+}
+
+export default PeriodOther

@@ -3,8 +3,9 @@ import { Input } from 'nav-frontend-skjema'
 import { UndertekstBold } from 'nav-frontend-typografi'
 import { HjelpetekstAuto } from 'nav-frontend-hjelpetekst'
 import React from 'react'
+import PT from 'prop-types'
 
-export const PeriodLearn = ({ t, period, setLearnInstitution, localErrors }) => (
+const PeriodLearn = ({ t, period, setLearnInstitution, localErrors }) => (
   <Row className='period-learn'>
     <div className='col-sm-12'>
       <Input
@@ -28,3 +29,12 @@ export const PeriodLearn = ({ t, period, setLearnInstitution, localErrors }) => 
     </div>
   </Row>
 )
+
+PeriodLearn.propTypes = {
+  period: PT.object,
+  localErrors: PT.object,
+  t: PT.func,
+  setLearnInstitution: PT.func
+}
+
+export default PeriodLearn
