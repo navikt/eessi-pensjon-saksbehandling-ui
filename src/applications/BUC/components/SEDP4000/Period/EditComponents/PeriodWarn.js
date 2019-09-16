@@ -1,9 +1,9 @@
-import _ from 'lodash'
-import { AlertStripe } from 'components/Nav'
 import React from 'react'
 import PT from 'prop-types'
+import _ from 'lodash'
+import { AlertStripe } from 'components/Nav'
 
-const PeriodWarn = ({ period, periods, t, errorMessage }) => (
+const PeriodWarn = ({ errorMessage, period, periods, t }) => (
   <>
     {!period.type && _.isEmpty(periods) ? (
       <AlertStripe
@@ -18,10 +18,10 @@ const PeriodWarn = ({ period, periods, t, errorMessage }) => (
 )
 
 PeriodWarn.propTypes = {
+  errorMessage: PT.string,
   period: PT.object,
   periods: PT.array,
-  errorMessage: PT.string,
-  t: PT.func
+  t: PT.func.isRequired
 }
 
 export default PeriodWarn

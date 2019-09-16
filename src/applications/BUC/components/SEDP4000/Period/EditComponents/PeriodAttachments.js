@@ -1,10 +1,9 @@
-import { Row } from 'nav-frontend-grid'
-import { Normaltekst, Undertekst, Undertittel } from 'nav-frontend-typografi'
-import FileUpload from 'components/FileUpload/FileUpload'
 import React from 'react'
 import PT from 'prop-types'
+import FileUpload from 'components/FileUpload/FileUpload'
+import { Normaltekst, Row, Undertekst, Undertittel } from 'components/Nav'
 
-const PeriodAttachments = ({ t, period, setAttachments, openModal, closeModal }) => (
+const PeriodAttachments = ({ closeModal, openModal, period, setAttachments, t }) => (
   <Row>
     <div className='col-sm-12'>
       <Undertittel className='mt-5 mb-2'>
@@ -17,27 +16,27 @@ const PeriodAttachments = ({ t, period, setAttachments, openModal, closeModal })
     </div>
     <div className='col-sm-12'>
       <FileUpload
-        id='a-buc-c-sedp4000-period__vedlegg-fileupload-id'
-        className='a-buc-c-sedp4000-period__vedlegg-fileupload'
         acceptedMimetypes={['application/pdf', 'image/jpeg', 'image/png']}
-        maxFileSize={10 * 1024 * 1024}
-        maxFiles={10}
-        t={t}
+        className='a-buc-c-sedp4000-period__vedlegg-fileupload'
+        closeModal={closeModal}
         files={period.attachments || []}
+        id='a-buc-c-sedp4000-period__vedlegg-fileupload-id'
+        maxFiles={10}
+        maxFileSize={10 * 1024 * 1024}
         onFileChange={(newFiles) => setAttachments(newFiles)}
         openModal={openModal}
-        closeModal={closeModal}
+        t={t}
       />
     </div>
   </Row>
 )
 
 PeriodAttachments.propTypes = {
-  t: PT.func,
-  period: PT.object,
-  openModal: PT.func.isRequired,
   closeModal: PT.func.isRequired,
-  setAttachments: PT.func
+  openModal: PT.func.isRequired,
+  period: PT.object,
+  setAttachments: PT.func.isRequired,
+  t: PT.func.isRequired
 }
 
 export default PeriodAttachments

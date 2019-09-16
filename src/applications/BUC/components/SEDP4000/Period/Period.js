@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
+import PeriodEdit from 'applications/BUC/components/SEDP4000/Period/PeriodEdit'
+import PeriodView from 'applications/BUC/components/SEDP4000/Period/PeriodView'
 import { periodValidation } from 'applications/BUC/components/SEDP4000/Validation/singleTests'
 import { periodStep } from 'applications/BUC/components/SEDP4000/Validation/stepTests'
 
 import 'applications/BUC/components/SEDP4000/Period/Period.css'
-import PeriodView from 'applications/BUC/components/SEDP4000/Period/PeriodView'
-import PeriodEdit from 'applications/BUC/components/SEDP4000/Period/PeriodEdit'
 
 const Period = (props) => {
   const { actions, first, last, locale, mode, period, periods, setPeriod, setPeriods, t } = props
@@ -274,9 +274,9 @@ const Period = (props) => {
     case 'confirm':
       return (
         <PeriodView
-          mode={mode}
           first={first}
           last={last}
+          mode={mode}
           period={period}
           removePeriodRequest={removePeriodRequest}
           requestEditPeriod={requestEditPeriod}
@@ -287,8 +287,6 @@ const Period = (props) => {
     case 'new':
       return (
         <PeriodEdit
-          period={period}
-          periods={periods}
           actions={actions}
           blurChildBirthDate={blurChildBirthDate}
           blurEndDate={blurEndDate}
@@ -298,6 +296,8 @@ const Period = (props) => {
           locale={locale}
           localErrors={localErrors}
           mode={mode}
+          period={period}
+          periods={periods}
           saveEditPeriod={saveEditPeriod}
           saveNewPeriod={saveNewPeriod}
           setAttachments={setAttachments}
@@ -339,7 +339,8 @@ Period.propTypes = {
   period: PT.object,
   periods: PT.array,
   setPeriod: PT.func,
-  t: PT.func
+  setPeriods: PT.func,
+  t: PT.func.isRequired
 }
 
 export default Period

@@ -1,11 +1,8 @@
-import { Row } from 'nav-frontend-grid'
-import { Normaltekst, UndertekstBold, Undertittel } from 'nav-frontend-typografi'
-import { Textarea } from 'nav-frontend-skjema'
-import { HjelpetekstAuto } from 'nav-frontend-hjelpetekst'
 import React from 'react'
 import PT from 'prop-types'
+import { HjelpetekstAuto, Normaltekst, Row, Textarea, UndertekstBold, Undertittel } from 'components/Nav'
 
-const PeriodComment = ({ t, period, setComment }) => (
+const PeriodComment = ({ period, setComment, t }) => (
   <Row>
     <div className='col-sm-12'>
       <Undertittel className='mt-5 mb-2'>{t('buc:p4000-title-comment-info')}</Undertittel>
@@ -34,8 +31,8 @@ const PeriodComment = ({ t, period, setComment }) => (
 
 PeriodComment.propTypes = {
   period: PT.object,
-  t: PT.func,
-  setComment: PT.func
+  setComment: PT.func,
+  t: PT.func.isRequired
 }
 
 export default PeriodComment

@@ -1,22 +1,19 @@
-import { AlertStripe } from 'components/Nav'
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
-import { Row } from 'nav-frontend-grid'
-import { Checkbox, Select } from 'nav-frontend-skjema'
-import FocusGroup from 'components/FocusGroup/FocusGroup'
-import DatePicker from 'components/DatePicker/DatePicker'
 import React from 'react'
 import PT from 'prop-types'
+import DatePicker from 'components/DatePicker/DatePicker'
+import FocusGroup from 'components/FocusGroup/FocusGroup'
+import { AlertStripe, Checkbox, Normaltekst, Row, Select, Undertittel } from 'components/Nav'
 
 const PeriodDate = ({
-  t,
+  blurEndDate,
+  blurStartDate,
+  localErrors,
   period,
   setDateType,
-  blurStartDate,
-  setStartDate,
-  localErrors,
-  blurEndDate,
   setEndDate,
-  setUncertainDate
+  setStartDate,
+  setUncertainDate,
+  t
 }) => (
   <>
     {period.type === 'home' ? (
@@ -124,16 +121,16 @@ const PeriodDate = ({
 )
 
 PeriodDate.propTypes = {
-  period: PT.object,
-  localErrors: PT.object,
-  t: PT.func,
   blurChildBirthDate: PT.func,
-  blurStartDate: PT.func,
   blurEndDate: PT.func,
+  blurStartDate: PT.func,
+  localErrors: PT.object,
+  period: PT.object,
   setDateType: PT.func,
   setEndDate: PT.func,
   setStartDate: PT.func,
-  setUncertainDate: PT.func
+  setUncertainDate: PT.func,
+  t: PT.func.isRequired
 }
 
 export default PeriodDate

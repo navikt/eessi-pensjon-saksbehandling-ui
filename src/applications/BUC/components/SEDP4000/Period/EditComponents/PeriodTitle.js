@@ -1,7 +1,6 @@
-import { AlertStripe } from 'components/Nav'
-import { Undertittel } from 'nav-frontend-typografi'
 import React from 'react'
 import PT from 'prop-types'
+import { AlertStripe, Undertittel } from 'components/Nav'
 
 const PeriodTitle = ({ errorMessage, mode, t }) => (
   <>
@@ -17,9 +16,9 @@ const PeriodTitle = ({ errorMessage, mode, t }) => (
 )
 
 PeriodTitle.propTypes = {
-  mode: PT.string.isRequired,
   errorMessage: PT.string,
-  t: PT.func
+  mode: PT.string.isRequired,
+  t: PT.func.isRequired
 }
 
 export default PeriodTitle

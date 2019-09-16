@@ -1,26 +1,23 @@
-import { Row } from 'nav-frontend-grid'
-import { Fieldset, Input, Radio } from 'nav-frontend-skjema'
-import { Normaltekst, UndertekstBold, Undertittel } from 'nav-frontend-typografi'
-import { HjelpetekstAuto } from 'nav-frontend-hjelpetekst'
-import CountrySelect from 'components/CountrySelect/CountrySelect'
-import * as CountryFilter from 'components/CountrySelect/CountryFilter'
 import React from 'react'
 import PT from 'prop-types'
+import CountrySelect from 'components/CountrySelect/CountrySelect'
+import * as CountryFilter from 'components/CountrySelect/CountryFilter'
+import { Fieldset, HjelpetekstAuto, Input, Normaltekst, Radio, Row, UndertekstBold, Undertittel } from 'components/Nav'
 
 const PeriodWork = ({
-  t,
-  period,
-  setWorkType,
-  setWorkActivity,
-  localErrors,
-  setInsuranceId,
-  setWorkName,
-  setWorkStreet,
-  setWorkCity,
-  setWorkZipCode,
-  setWorkRegion,
   locale,
-  setCountry
+  localErrors,
+  period,
+  setCountry,
+  setInsuranceId,
+  setWorkActivity,
+  setWorkCity,
+  setWorkName,
+  setWorkRegion,
+  setWorkStreet,
+  setWorkType,
+  setWorkZipCode,
+  t
 }) => (
   <>
     <Row>
@@ -199,19 +196,19 @@ const PeriodWork = ({
 )
 
 PeriodWork.propTypes = {
-  period: PT.object,
   locale: PT.string.isRequired,
   localErrors: PT.object,
-  t: PT.func,
+  period: PT.object,
   setCountry: PT.func,
   setInsuranceId: PT.func,
   setWorkActivity: PT.func,
-  setWorkType: PT.func,
-  setWorkName: PT.func,
-  setWorkStreet: PT.func,
   setWorkCity: PT.func,
+  setWorkName: PT.func,
   setWorkRegion: PT.func,
-  setWorkZipCode: PT.func
+  setWorkStreet: PT.func,
+  setWorkType: PT.func,
+  setWorkZipCode: PT.func,
+  t: PT.func.isRequired
 }
 
 export default PeriodWork

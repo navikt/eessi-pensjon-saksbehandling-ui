@@ -2,37 +2,36 @@ import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 
-import PeriodNotWork from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodNotWork'
-import PeriodWork from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodWork'
-import PeriodLearn from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodLearn'
-import PeriodOther from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodOther'
-import PeriodDailySick from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodDailySick'
-import PeriodChild from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodChild'
-import PeriodTitle from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodTitle'
-import PeriodCategorySelect from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodCategorySelect'
-import PeriodDate from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodDate'
-import PeriodComment from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodComment'
 import PeriodAttachments from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodAttachments'
 import PeriodButtons from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodButtons'
+import PeriodCategorySelect from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodCategorySelect'
+import PeriodChild from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodChild'
+import PeriodComment from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodComment'
+import PeriodDailySick from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodDailySick'
+import PeriodDate from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodDate'
+import PeriodLearn from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodLearn'
+import PeriodNotWork from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodNotWork'
+import PeriodOther from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodOther'
+import PeriodTitle from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodTitle'
 import PeriodWarn from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodWarn'
+import PeriodWork from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodWork'
 
 import 'applications/BUC/components/SEDP4000/Period/Period.css'
 
 const PeriodEdit = ({
+  actions,
+  blurChildBirthDate,
+  blurEndDate,
+  blurStartDate,
+  cancelPeriodRequest,
+  errorMessage,
+  locale,
+  localErrors,
   mode,
   period,
   periods,
-  locale,
-  errorMessage,
-  localErrors,
-  t,
-  actions,
-  blurChildBirthDate,
-  blurStartDate,
-  blurEndDate,
-  saveNewPeriod,
   saveEditPeriod,
-  cancelPeriodRequest,
+  saveNewPeriod,
   setAttachments,
   setChildBirthDate,
   setChildFirstName,
@@ -49,94 +48,94 @@ const PeriodEdit = ({
   setType,
   setUncertainDate,
   setWorkActivity,
-  setWorkType,
-  setWorkName,
-  setWorkStreet,
   setWorkCity,
+  setWorkName,
   setWorkRegion,
-  setWorkZipCode
+  setWorkStreet,
+  setWorkType,
+  setWorkZipCode,
+  t
 }) => {
   return (
     <div className={classNames('a-buc-c-sedp4000-period', mode)}>
-      <PeriodTitle t={t} mode={mode} errorMessage={errorMessage} />
-      <PeriodCategorySelect mode={mode} t={t} period={period} setType={setType} />
+      <PeriodTitle errorMessage={errorMessage} mode={mode} t={t} />
+      <PeriodCategorySelect mode={mode} period={period} setType={setType} t={t} />
       {period.type ? (
         <>
           <PeriodDate
-            period={period}
-            t={t}
-            localErrors={localErrors}
-            setUncertainDate={setUncertainDate}
-            setStartDate={setStartDate}
-            setEndDate={setEndDate}
-            setDateType={setDateType}
-            blurStartDate={blurStartDate}
             blurEndDate={blurEndDate}
+            blurStartDate={blurStartDate}
+            localErrors={localErrors}
+            period={period}
+            setDateType={setDateType}
+            setEndDate={setEndDate}
+            setStartDate={setStartDate}
+            setUncertainDate={setUncertainDate}
+            t={t}
           />
           {period.type === 'work' ? (
             <PeriodWork
-              period={period}
               locale={locale}
               localErrors={localErrors}
+              period={period}
               setCountry={setCountry}
-              t={t}
-              setWorkType={setWorkType}
-              setWorkStreet={setWorkStreet}
-              setWorkRegion={setWorkRegion}
-              setWorkName={setWorkName}
-              setWorkCity={setWorkCity}
-              setWorkActivity={setWorkActivity}
               setInsuranceId={setInsuranceId}
+              setWorkActivity={setWorkActivity}
+              setWorkCity={setWorkCity}
+              setWorkName={setWorkName}
+              setWorkRegion={setWorkRegion}
+              setWorkStreet={setWorkStreet}
+              setWorkType={setWorkType}
               setWorkZipCode={setWorkZipCode}
+              t={t}
             />
-          ) : <PeriodNotWork t={t} setCountry={setCountry} localErrors={localErrors} locale={locale} period={period} />}
+          ) : <PeriodNotWork locale={locale} localErrors={localErrors} period={period} setCountry={setCountry} t={t} />}
           {period.type === 'learn' ? (
-            <PeriodLearn t={t} localErrors={localErrors} period={period} setLearnInstitution={setLearnInstitution} />
+            <PeriodLearn localErrors={localErrors} period={period} setLearnInstitution={setLearnInstitution} t={t} />
           ) : null}
           {period.type === 'other'
-            ? <PeriodOther t={t} setOtherType={setOtherType} period={period} localErrors={localErrors} />
+            ? <PeriodOther localErrors={localErrors} period={period} setOtherType={setOtherType} t={t} />
             : null}
           {period.type === 'daily' || period.type === 'sick'
             ? (
-              <PeriodDailySick localErrors={localErrors} period={period} t={t} setPayingInstitution={setPayingInstitution} />
+              <PeriodDailySick localErrors={localErrors} period={period} setPayingInstitution={setPayingInstitution} t={t} />
             ) : null}
           {period.type === 'child'
             ? (
               <PeriodChild
-                t={t} period={period}
-                localErrors={localErrors}
-                setChildLastName={setChildLastName}
-                setChildFirstName={setChildFirstName}
-                setChildBirthDate={setChildBirthDate}
                 blurChildBirthDate={blurChildBirthDate}
+                localErrors={localErrors}
+                setChildBirthDate={setChildBirthDate}
+                setChildFirstName={setChildFirstName}
+                setChildLastName={setChildLastName}
+                t={t} period={period}
               />
             ) : null}
-          <PeriodComment t={t} period={period} setComment={setComment} />
-          <PeriodAttachments t={t} period={period} setAttachments={setAttachments} openModal={actions.openModal} closeModal={actions.closeModal} />
-          <PeriodButtons t={t} mode={mode} saveNewPeriod={saveNewPeriod} saveEditPeriod={saveEditPeriod} cancelPeriodRequest={cancelPeriodRequest} />
+          <PeriodComment period={period} setComment={setComment} t={t} />
+          <PeriodAttachments closeModal={actions.closeModal} openModal={actions.openModal} period={period} setAttachments={setAttachments} t={t} />
+          <PeriodButtons cancelPeriodRequest={cancelPeriodRequest} mode={mode} saveEditPeriod={saveEditPeriod} saveNewPeriod={saveNewPeriod} t={t} />
         </>
       ) : null}
-      <PeriodWarn t={t} period={period} periods={periods} errorMessage={errorMessage} />
+      <PeriodWarn errorMessage={errorMessage} period={period} periods={periods} t={t} />
     </div>
   )
 }
 
 PeriodEdit.propTypes = {
+  actions: PT.object.isRequired,
+  blurChildBirthDate: PT.func,
+  blurEndDate: PT.func,
+  blurStartDate: PT.func,
+  cancelPeriodRequest: PT.func,
+  errorMessage: PT.string,
+  locale: PT.string.isRequired,
+  localErrors: PT.object,
   mode: PT.string.isRequired,
   period: PT.object,
   periods: PT.array,
-  locale: PT.string.isRequired,
-  errorMessage: PT.string,
-  localErrors: PT.object,
-  t: PT.func,
-  actions: PT.object.isRequired,
-  blurChildBirthDate: PT.func,
-  blurStartDate: PT.func,
-  blurEndDate: PT.func,
-  saveNewPeriod: PT.func,
   saveEditPeriod: PT.func,
-  cancelPeriodRequest: PT.func,
-  setAttachments: PT.func,
+  saveNewPeriod: PT.func,
+  setAttachments: PT.func.isRequired,
   setChildBirthDate: PT.func,
   setChildFirstName: PT.func,
   setChildLastName: PT.func,
@@ -152,12 +151,13 @@ PeriodEdit.propTypes = {
   setType: PT.func,
   setUncertainDate: PT.func,
   setWorkActivity: PT.func,
-  setWorkType: PT.func,
-  setWorkName: PT.func,
-  setWorkStreet: PT.func,
   setWorkCity: PT.func,
+  setWorkName: PT.func,
   setWorkRegion: PT.func,
-  setWorkZipCode: PT.func
+  setWorkStreet: PT.func,
+  setWorkType: PT.func,
+  setWorkZipCode: PT.func,
+  t: PT.func.isRequired
 }
 
 export default PeriodEdit

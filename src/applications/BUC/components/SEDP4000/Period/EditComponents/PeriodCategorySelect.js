@@ -1,10 +1,8 @@
-import { Row } from 'nav-frontend-grid'
-import { Select } from 'nav-frontend-skjema'
-import { HjelpetekstAuto } from 'nav-frontend-hjelpetekst'
 import React from 'react'
 import PT from 'prop-types'
+import { HjelpetekstAuto, Row, Select } from 'components/Nav'
 
-const PeriodCategorySelect = ({ mode, t, period, setType }) => (
+const PeriodCategorySelect = ({ mode, period, setType, t }) => (
   <Row className={mode}>
     <div className='col-sm-8'>
       <Select
@@ -17,8 +15,8 @@ const PeriodCategorySelect = ({ mode, t, period, setType }) => (
             </HjelpetekstAuto>
           </div>
         }
-        value={period.type || ''}
         onChange={setType}
+        value={period.type || ''}
       >
         <option value=''>{t('ui:choose')}</option>
         <option value='work'>{t('buc:p4000-label-category-work')}</option>
@@ -39,8 +37,8 @@ const PeriodCategorySelect = ({ mode, t, period, setType }) => (
 PeriodCategorySelect.propTypes = {
   mode: PT.string.isRequired,
   period: PT.object,
-  t: PT.func,
-  setType: PT.func
+  setType: PT.func,
+  t: PT.func.isRequired
 }
 
 export default PeriodCategorySelect

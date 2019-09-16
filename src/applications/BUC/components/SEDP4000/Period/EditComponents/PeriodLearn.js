@@ -1,11 +1,8 @@
-import { Row } from 'nav-frontend-grid'
-import { Input } from 'nav-frontend-skjema'
-import { UndertekstBold } from 'nav-frontend-typografi'
-import { HjelpetekstAuto } from 'nav-frontend-hjelpetekst'
 import React from 'react'
 import PT from 'prop-types'
+import { HjelpetekstAuto, Input, Row, UndertekstBold } from 'components/Nav'
 
-const PeriodLearn = ({ t, period, setLearnInstitution, localErrors }) => (
+const PeriodLearn = ({ localErrors, period, setLearnInstitution, t }) => (
   <Row className='period-learn'>
     <div className='col-sm-12'>
       <Input
@@ -31,10 +28,10 @@ const PeriodLearn = ({ t, period, setLearnInstitution, localErrors }) => (
 )
 
 PeriodLearn.propTypes = {
-  period: PT.object,
   localErrors: PT.object,
-  t: PT.func,
-  setLearnInstitution: PT.func
+  period: PT.object,
+  setLearnInstitution: PT.func,
+  t: PT.func.isRequired
 }
 
 export default PeriodLearn
