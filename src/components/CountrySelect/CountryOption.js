@@ -1,5 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
+import { components } from 'react-select'
 import classNames from 'classnames'
 
 const CountryOption = (props) => {
@@ -9,21 +10,23 @@ const CountryOption = (props) => {
   const _label = _type === 'country' ? label : (data.currency ? data.currency + ' - ' : '') + data.currencyLabel
   const handleImageError = selectProps.selectProps.onImageError
   return (
-    <div id={selectProps.id + '-' + data.value}>
-      <div
-        className={classNames('c-countryOption', {
-          selected: isSelected,
-          focused: isFocused
-        })} {...innerProps}
-      >
-        <img
-          src={flagImageUrl}
-          alt={label}
-          onError={handleImageError}
-        />
-        <span className='c-countryOption__label'>{_label}</span>
+    <components.Option {...props}>
+      <div id={selectProps.id + '-' + data.value}>
+        <div
+          className={classNames('c-countryOption', {
+            selected: isSelected,
+            focused: isFocused
+          })} {...innerProps}
+        >
+          <img
+            src={flagImageUrl}
+            alt={label}
+            onError={handleImageError}
+          />
+          <span className='c-countryOption__label'>{_label}</span>
+        </div>
       </div>
-    </div>
+    </components.Option>
   )
 }
 
