@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import _ from 'lodash'
 import { connect } from 'store'
 import { Hovedknapp, NavFrontendSpinner, Normaltekst, Undertekst, Undertittel } from 'components/Nav'
-import Period from './Period'
+import Period from 'applications/BUC/components/SEDP4000/Period/Period'
 
 export const mapStateToProps = (state) => {
   return {

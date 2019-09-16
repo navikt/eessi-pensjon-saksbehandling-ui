@@ -8,7 +8,7 @@ import { Knapp, Normaltekst, Row, UndertekstBold } from 'components/Nav'
 import Icons from 'components/Icons'
 import { pinfoDateToDate } from 'utils/Date'
 
-import './Period.css'
+import 'applications/BUC/components/SEDP4000/Period/Period.css'
 
 const PeriodView = (props) => {
   const { period, mode, first, last, t, requestEditPeriod, removePeriodRequest } = props
