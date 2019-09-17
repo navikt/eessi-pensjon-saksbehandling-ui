@@ -1,4 +1,4 @@
-import React from 'React'
+import React from 'react'
 import { getDisplayName } from './displayName'
 
 describe('utils/displayName', () => {
