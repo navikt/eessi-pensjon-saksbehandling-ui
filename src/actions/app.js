@@ -43,9 +43,14 @@ export const logout = () => {
 }
 
 export const getUserInfo = () => {
-  return api.call({
+  return api.funcCall({
     url: urls.API_USERINFO_URL,
     failWith401: true,
+     expectedPayload: {
+      subject: 'demoSBUser',
+      role: 'SAKSBEHANDLER',
+      allowed: true
+    },
     type: {
       request: types.APP_USERINFO_REQUEST,
       success: types.APP_USERINFO_SUCCESS,

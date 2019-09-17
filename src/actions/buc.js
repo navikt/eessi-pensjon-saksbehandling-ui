@@ -104,9 +104,9 @@ export const fetchBucsInfoList = (aktoerId) => {
   })
 }
 
-export const fetchBucsInfo = (fileName) => {
+export const fetchBucsInfo = (userId, namespace, file) => {
   return api.funcCall({
-    url: sprintf(urls.API_STORAGE_GETFILE_URL, { file: fileName }),
+    url: sprintf(urls.API_STORAGE_GET_URL, { userId: userId, namespace: namespace, file: file }),
     expectedPayload: sampleBucsInfo,
     type: {
       request: types.BUC_GET_BUCSINFO_REQUEST,
@@ -291,8 +291,11 @@ export const sendAttachmentToSed = (params) => {
 }
 
 export const getRinaUrl = () => {
-  return api.call({
+  return api.funcCall({
     url: urls.EUX_RINA_URL,
+    expectedPayload: {
+      rinaUrl: 'http://mockurl.com/rinaUrl'
+    },
     type: {
       request: types.BUC_RINA_GET_URL_REQUEST,
       success: types.BUC_RINA_GET_URL_SUCCESS,
@@ -317,12 +320,26 @@ export const listP4000 = (aktoerId) => {
 
 export const getP4000 = (file) => {
   return api.funcCall({
-    url: sprintf(urls.API_STORAGE_GETFILE_URL, { file: file }),
+    url: sprintf(urls.API_STORAGE_GET_URL, { file: file }),
     expectedPayload: sampleP4000info,
     type: {
       request: types.BUC_GET_P4000_INFO_REQUEST,
       success: types.BUC_GET_P4000_INFO_SUCCESS,
       failure: types.BUC_GET_P4000_INFO_FAILURE
+    }
+  })
+}
+
+export const saveP4000asSaksbehandler = (aktoerId, file) => {
+  return api.funcCall({
+    url: sprintf(urls.API_STORAGE_POST_URL, { userId: aktoerId, namespace: 'PINFO', file: 'PINFOSB.json' }),
+    payload: file,
+    expectedPayload: sampleP4000info,
+    context: { notification: false },
+    type: {
+      request: types.BUC_SAVE_PINFOSB_REQUEST,
+      success: types.BUC_SAVE_PINFOSB_SUCCESS,
+      failure: types.BUC_SAVE_PINFOSB_FAILURE
     }
   })
 }
