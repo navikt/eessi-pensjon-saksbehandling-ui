@@ -250,7 +250,6 @@
   "p4000-title-work"            : "Arbeidsperiode",
 
   "p4000-warning-home-period" : "Legg inn boperioder hvis du ikke har hatt arbeids-, utdannings-, militær- eller siviltjenesteperioder i samme tidsrom.",
-  "p4000-warning-one-period"  : "Du må legge inn minst en periode med tilhørende opplysninger om opphold i EØS-land.",
 
   "tag-urgent"    : "Urgent",
   "tag-vip"       : "VIP",
@@ -284,6 +283,7 @@
   "validation-noLearnInstitution"   : "Legg til navn på utdanningsinstitusjon",
   "validation-noPayingInstitution"  : "Legg til navn på betalende institusjon",
   "validation-noMonth"              : "Legg til måned",
+  "validation-noPeriods"            : "Du må legge inn minst en periode med tilhørende opplysninger om opphold i EØS-land.",
   "validation-noPeriodType"         : "Velg periodetype",
   "validation-noPlace"              : "Legg til sted/by",
   "validation-noSakId"              : "Ingen sakId",

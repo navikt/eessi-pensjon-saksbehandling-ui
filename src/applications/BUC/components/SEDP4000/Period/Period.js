@@ -9,9 +9,8 @@ import { periodStep } from 'applications/BUC/components/SEDP4000/Validation/step
 import 'applications/BUC/components/SEDP4000/Period/Period.css'
 
 const Period = (props) => {
-  const { actions, first, last, locale, mode, period, periods, setPeriod, setPeriods, t } = props
-  const [localErrors, setLocalErrors] = useState({})
-  const [displayError, setDisplayError] = useState(false)
+  const { actions, first, last, locale, localErrors, mode, period, periods } = props
+  const { setLocalError, setLocalErrors, setPeriod, setPeriods, t } = props
 
   const setType = (e) => eventSetProperty('type', periodValidation.periodType, e)
 
@@ -73,20 +72,12 @@ const Period = (props) => {
 
   const dateBlur = (key, validateFunction) => {
     const date = period[key]
-    const _localErrors = _.cloneDeep(localErrors)
     const error = validateFunction ? validateFunction(date) : undefined
-    if (!error && Object.prototype.hasOwnProperty.call(_localErrors, key)) {
-      delete _localErrors[key]
-    }
-    if (error) {
-      _localErrors[key] = error
-    }
-    setLocalErrors(_localErrors)
+    setLocalError(key, error)
   }
 
   const dateSetProperty = (key, validateFunction, date) => {
     const { startDate, endDate } = period
-    const _localErrors = _.cloneDeep(localErrors)
     const error = validateFunction ? validateFunction(date) : undefined
     let timeSpanError
 
@@ -96,43 +87,21 @@ const Period = (props) => {
     if (key === 'endDate' && startDate) {
       timeSpanError = periodValidation.periodTimeSpan(startDate, date)
     }
-
-    if (!error && Object.prototype.hasOwnProperty.call(_localErrors, key)) {
-      delete _localErrors[key]
-    }
-    if (!timeSpanError && Object.prototype.hasOwnProperty.call(_localErrors, 'timeSpan')) {
-      delete _localErrors.timeSpan
-    }
-
-    if (error) {
-      _localErrors[key] = error
-    }
-    if (timeSpanError) {
-      _localErrors.timeSpan = timeSpanError
-    }
-
     setPeriod({
       ...period,
       [key]: date
     })
-    setLocalErrors(_localErrors)
+    setLocalError(key, error)
+    setLocalError('timeSpan', timeSpanError)
   }
 
   const valueSetProperty = (key, validateFunction, value) => {
-    const _localErrors = _.cloneDeep(localErrors)
     const error = validateFunction ? validateFunction(value) : undefined
-    if (!error && Object.prototype.hasOwnProperty.call(_localErrors, key)) {
-      delete _localErrors[key]
-    }
-    if (error) {
-      _localErrors[key] = error
-    }
-
     setPeriod({
       ...period,
       [key]: value
     })
-    setLocalErrors(_localErrors)
+    setLocalError(key, error)
   }
 
   const validatePeriod = () => {
@@ -142,7 +111,6 @@ const Period = (props) => {
   const saveNewPeriod = () => {
     const errors = validatePeriod()
     setLocalErrors(errors)
-    setDisplayError(true)
 
     if (hasNoErrors(errors)) {
       const newPeriods = _.clone(periods)
@@ -177,8 +145,7 @@ const Period = (props) => {
       newPeriods.push(newPeriod)
       setPeriods(newPeriods)
       setPeriod({})
-      setDisplayError(false)
-
+      setLocalErrors({})
       window.scrollTo(0, 0)
     }
   }
@@ -190,7 +157,6 @@ const Period = (props) => {
   const saveEditPeriod = () => {
     const errors = validatePeriod()
     setLocalErrors(errors)
-    setDisplayError(true)
 
     if (hasNoErrors(errors)) {
       const newPeriods = _.clone(periods)
@@ -202,7 +168,7 @@ const Period = (props) => {
         newPeriods.push(newPeriod)
         setPeriods(newPeriods)
         setPeriod({})
-        setDisplayError(false)
+        setLocalErrors({})
       }
       window.scrollTo(0, 0)
     }
@@ -255,20 +221,6 @@ const Period = (props) => {
     actions.closeModal()
   }
 
-  const errorMessage = () => {
-    if (!displayError) {
-      return undefined
-    }
-    for (var key in localErrors) {
-      if (localErrors[key]) {
-        return localErrors[key]
-      }
-    }
-    return undefined
-  }
-
-  const _errorMessage = errorMessage()
-
   switch (mode) {
     case 'view':
     case 'confirm':
@@ -276,6 +228,7 @@ const Period = (props) => {
         <PeriodView
           first={first}
           last={last}
+          localErrors={{}}
           mode={mode}
           period={period}
           removePeriodRequest={removePeriodRequest}
@@ -292,7 +245,6 @@ const Period = (props) => {
           blurEndDate={blurEndDate}
           blurStartDate={blurStartDate}
           cancelPeriodRequest={cancelPeriodRequest}
-          errorMessage={_errorMessage}
           locale={locale}
           localErrors={localErrors}
           mode={mode}
@@ -335,9 +287,12 @@ Period.propTypes = {
   first: PT.bool,
   last: PT.bool,
   locale: PT.string.isRequired,
+  localErrors: PT.object.isRequired,
   mode: PT.string.isRequired,
   period: PT.object,
   periods: PT.array,
+  setLocalErrors: PT.func,
+  setLocalError: PT.func,
   setPeriod: PT.func,
   setPeriods: PT.func,
   t: PT.func.isRequired

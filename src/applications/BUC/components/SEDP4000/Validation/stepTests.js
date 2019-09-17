@@ -1,7 +1,9 @@
 import * as tests from './singleTests'
 
 export function stayAbroadStep (stayAbroad) {
-  return {}
+  return {
+    noPeriods: tests.stayAbroadValidation.noPeriods(stayAbroad)
+  }
 }
 
 export function periodStep (period) {

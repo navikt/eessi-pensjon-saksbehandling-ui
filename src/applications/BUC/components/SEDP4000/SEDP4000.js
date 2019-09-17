@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import classNames from 'classnames'
 import _ from 'lodash'
 import { connect } from 'store'
-import { Hovedknapp, NavFrontendSpinner, Normaltekst, Undertekst, Undertittel } from 'components/Nav'
+import { AlertStripe, Hovedknapp, NavFrontendSpinner, Normaltekst, Undertekst, Undertittel } from 'components/Nav'
 import Period from 'applications/BUC/components/SEDP4000/Period/Period'
 
 export const mapStateToProps = (state) => {
@@ -24,6 +24,7 @@ export const SEDP4000 = (props) => {
 
   const [period, setPeriod] = useState({})
   const [isReady, setIsReady] = useState(false)
+  const [localErrors, setLocalErrors] = useState({})
 
   const mode = period.id ? 'edit' : 'new'
   const p4000file = aktoerId + '___PINFO___PINFO.json'
@@ -60,6 +61,13 @@ export const SEDP4000 = (props) => {
     }
   }, [mode, setShowButtons, showButtons, period])
 
+  const setLocalError = (key, error) => {
+    setLocalErrors({
+      ...localErrors,
+      [key] : error
+    })
+  }
+
   const setPeriods = (periods) => {
     actions.setP4000Info({
       ...p4000info,
@@ -82,6 +90,17 @@ export const SEDP4000 = (props) => {
   if (!aktoerId) {
     return <div>{t('buc:validation-noAktoerId')}</div>
   }
+
+  const errorMessage = () => {
+    for (var key in localErrors) {
+      if (localErrors[key]) {
+        return localErrors[key]
+      }
+    }
+    return undefined
+  }
+
+  const _errorMessage = errorMessage()
 
   if (!isReady) {
     return (
@@ -126,6 +145,11 @@ export const SEDP4000 = (props) => {
           <Undertekst className='mb-3'>{t('buc:p4000-app-help')}</Undertekst>
         </>
       ) : null}
+      {_errorMessage ? (
+        <AlertStripe className='a-buc-c-sedp4000d__alert mt-4 mb-4' type='advarsel'>
+          {t(_errorMessage)}
+        </AlertStripe>
+      ) : null}
       {p4000info && !_.isEmpty(p4000info.stayAbroad) && mode === 'new' ? (
         <>
           <Undertittel className='mt-5 mb-2'>{t('buc:p4000-title-previousPeriods')}</Undertittel>
@@ -142,6 +166,9 @@ export const SEDP4000 = (props) => {
                 last={index === p4000info.stayAbroad.length - 1}
                 period={period}
                 periods={p4000info.stayAbroad}
+                localErrors={localErrors}
+                setLocalError={setLocalError}
+                setLocalErrors={setLocalErrors}
                 setPeriod={setPeriod}
                 setPeriods={setPeriods}
                 key={index}
@@ -159,9 +186,17 @@ export const SEDP4000 = (props) => {
         period={period}
         periods={p4000info ? p4000info.stayAbroad : []}
         locale={locale}
+        localErrors={localErrors}
+        setLocalError={setLocalError}
+        setLocalErrors={setLocalErrors}
         setPeriod={setPeriod}
         setPeriods={setPeriods}
       />
+      {_errorMessage ? (
+        <AlertStripe className='a-buc-c-sedp4000d__alert mt-4 mb-4' type='advarsel'>
+          {t(_errorMessage)}
+        </AlertStripe>
+      ) : null}
     </div>
   )
 }
