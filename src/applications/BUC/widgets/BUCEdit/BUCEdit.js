@@ -125,6 +125,7 @@ const BUCEdit = (props) => {
             buc={buc}
             bucInfo={bucInfo}
             locale={locale}
+            rinaUrl={rinaUrl}
             institutionNames={institutionNames}
           />
           <BUCTools

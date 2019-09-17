@@ -3,13 +3,13 @@ import PT from 'prop-types'
 import classNames from 'classnames'
 import moment from 'moment'
 
-import { EkspanderbartpanelBase, Element, EtikettLiten, Normaltekst, Systemtittel, Undertittel } from 'components/Nav'
+import { EkspanderbartpanelBase, Element, EtikettLiten, Lenke, Normaltekst, Systemtittel, Undertittel } from 'components/Nav'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 
 import './BUCDetail.css'
 
 const BUCDetail = (props) => {
-  const { buc, bucInfo, className, institutionNames, locale, t } = props
+  const { buc, bucInfo, className, institutionNames, locale, rinaUrl, t } = props
 
   return (
     <EkspanderbartpanelBase
@@ -34,10 +34,17 @@ const BUCDetail = (props) => {
             <Normaltekst>{buc.type}</Normaltekst>
           </dd>
           <dt>
-            <Element>{t('ui:caseId')}:</Element>
+            <Element>{t('ui:caseIdInRina')}:</Element>
           </dt>
           <dd id='a-buc-c-bucdetail__props-caseId'>
-            <Normaltekst>{buc.caseId}</Normaltekst>
+            <Lenke
+              id='a-buc-c-bucdetail__gotorina-link'
+              className='a-buc-c-bucdetail__gotorina'
+              href={rinaUrl + buc.caseId}
+              target='rinaWindow'
+            >
+              {buc.caseId}
+            </Lenke>
           </dd>
           <dt className='odd'>
             <Element>{t('ui:aktoerId')}:</Element>
@@ -112,6 +119,7 @@ BUCDetail.propTypes = {
   className: PT.string,
   institutionNames: PT.object,
   locale: PT.string.isRequired,
+  rinaUrl: PT.string.isRequired,
   t: PT.func.isRequired
 }
 

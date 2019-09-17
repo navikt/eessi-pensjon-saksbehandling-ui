@@ -13,7 +13,6 @@ import PeriodLearn from 'applications/BUC/components/SEDP4000/Period/EditCompone
 import PeriodNotWork from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodNotWork'
 import PeriodOther from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodOther'
 import PeriodTitle from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodTitle'
-import PeriodWarn from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodWarn'
 import PeriodWork from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodWork'
 
 import 'applications/BUC/components/SEDP4000/Period/Period.css'
@@ -24,7 +23,6 @@ const PeriodEdit = ({
   blurEndDate,
   blurStartDate,
   cancelPeriodRequest,
-  errorMessage,
   locale,
   localErrors,
   mode,
@@ -58,7 +56,7 @@ const PeriodEdit = ({
 }) => {
   return (
     <div className={classNames('a-buc-c-sedp4000-period', mode)}>
-      <PeriodTitle errorMessage={errorMessage} mode={mode} t={t} />
+      <PeriodTitle mode={mode} t={t} />
       <PeriodCategorySelect mode={mode} period={period} setType={setType} t={t} />
       {period.type ? (
         <>
@@ -116,7 +114,6 @@ const PeriodEdit = ({
           <PeriodButtons cancelPeriodRequest={cancelPeriodRequest} mode={mode} saveEditPeriod={saveEditPeriod} saveNewPeriod={saveNewPeriod} t={t} />
         </>
       ) : null}
-      <PeriodWarn errorMessage={errorMessage} period={period} periods={periods} t={t} />
     </div>
   )
 }
@@ -127,7 +124,6 @@ PeriodEdit.propTypes = {
   blurEndDate: PT.func,
   blurStartDate: PT.func,
   cancelPeriodRequest: PT.func,
-  errorMessage: PT.string,
   locale: PT.string.isRequired,
   localErrors: PT.object,
   mode: PT.string.isRequired,
