@@ -25,9 +25,10 @@ export const SEDP4000 = (props) => {
   const [period, setPeriod] = useState({})
   const [isReady, setIsReady] = useState(false)
   const [localErrors, setLocalErrors] = useState({})
+  const [p4000file, setP4000file] = useState(undefined)
+  const [role, setRole] = useState(undefined)
 
   const mode = period.id ? 'edit' : 'new'
-  const p4000file = aktoerId + '___PINFO___PINFO.json'
 
   // check aktoerId
   useEffect(() => {
@@ -35,13 +36,6 @@ export const SEDP4000 = (props) => {
       setIsReady(true)
     }
   }, [aktoerId])
-
-  // load P4000 file list
-  useEffect(() => {
-    if (!isReady && !loadingP4000list && p4000list === undefined) {
-      actions.listP4000(aktoerId)
-    }
-  }, [aktoerId, actions, isReady, loadingP4000list, p4000list])
 
   // mark component as ready if p4000 info file is ready
   useEffect(() => {
@@ -76,11 +70,24 @@ export const SEDP4000 = (props) => {
   }
 
   const handleContinueButton = () => {
+    actions.saveP4000asSaksbehandler(aktoerId, p4000file)
     setIsReady(true)
   }
 
   const handleGetP4000infoButton = () => {
     actions.getP4000(p4000file)
+  }
+
+  const handleListP4000userButton = () => {
+    setRole('user')
+    setP4000file(aktoerId + '___PINFO___PINFO.json')
+    actions.listP4000(aktoerId)
+  }
+
+  const handleListP4000saksbehandlerButton = () => {
+    setRole('saksbehandler')
+    setP4000file(aktoerId + '___PINFO___PINFOSB.json')
+    actions.listP4000(aktoerId)
   }
 
   const noP4000Info = () => {
@@ -108,10 +115,10 @@ export const SEDP4000 = (props) => {
         {loadingP4000list || loadingP4000info ? <NavFrontendSpinner className='ml-3 mr-3' type='M' /> : null}
         {loadingP4000list ? <span className='pl-2'>{t('buc:loading-p4000list')}</span> : null}
         {loadingP4000info ? <span className='pl-2'>{t('buc:loading-p4000info')}</span> : null}
-        {p4000info === undefined && p4000list !== undefined && !loadingP4000info
+        {!loadingP4000info && p4000list !== undefined && p4000info === undefined
           ? (noP4000Info() ? (
             <span>
-              <Normaltekst>{t('buc:p4000-label-p4000FileNotFound')}</Normaltekst>
+              <Normaltekst>{t('buc:p4000-label-p4000' + role + 'FileNotFound')}</Normaltekst>
               <Hovedknapp
                 id='a-buc-c-sedp4000__continue-button-id'
                 className='a-buc-c-sedp4000__continue-button mt-3'
@@ -122,7 +129,7 @@ export const SEDP4000 = (props) => {
             </span>
           ) : (
             <span>
-              <Normaltekst>{t('buc:p4000-label-p4000FileFound')}</Normaltekst>
+              <Normaltekst>{t('buc:p4000-label-p4000' + role + 'FileFound')}</Normaltekst>
               <Hovedknapp
                 id='a-buc-c-sedp4000__getP4000info-button-id'
                 className='a-buc-c-sedp4000__getP4000info-button mt-3'
@@ -131,7 +138,31 @@ export const SEDP4000 = (props) => {
                 {t('ui:getInfo')}
               </Hovedknapp>
             </span>)
-          ) : null}
+        ) : null}
+        {!loadingP4000list && p4000list === undefined ? (
+            <div className='d-flex flex-column'>
+              <div>
+                <Normaltekst>{t('buc:p4000-help-listP4000user')}</Normaltekst>
+                <Hovedknapp
+                  id='a-buc-c-sedp4000__listP4000user-button-id'
+                  className='a-buc-c-sedp4000__listP4000user-button mt-3'
+                  onClick={handleListP4000userButton}
+                >
+                  {t('buc:p4000-button-listP4000user')}
+                </Hovedknapp>
+              </div>
+              <div className='mt-3'>
+                <Normaltekst>{t('buc:p4000-help-listP4000saksbehandler')}</Normaltekst>
+                <Hovedknapp
+                  id='a-buc-c-sedp4000__listP4000saksbehandler-button-id'
+                  className='a-buc-c-sedp4000__listP4000saksbehandler-button mt-3'
+                  onClick={handleListP4000saksbehandlerButton}
+                >
+                  {t('buc:p4000-button-listP4000saksbehandler')}
+                </Hovedknapp>
+              </div>
+            </div>
+        ) : null}
       </div>
     )
   }

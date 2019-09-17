@@ -34,7 +34,7 @@ const BUCList = (props) => {
 
   useEffect(() => {
     if (!_.isEmpty(bucsInfoList) && !gettingBucsInfo && bucsInfoList.indexOf(aktoerId + '___BUC___INFO') >= 0) {
-      actions.fetchBucsInfo(aktoerId + '___BUC___INFO')
+      actions.fetchBucsInfo(aktoerId, 'BUC', 'INFO')
       setGettingBucsInfo(true)
     }
   }, [bucsInfoList, gettingBucsInfo, actions, aktoerId])

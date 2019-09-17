@@ -161,7 +161,7 @@ export const SEDStart = (props) => {
         actions.fetchBucs(avdodfnr)
       }
       if (!_.isEmpty(bucsInfoList) && bucsInfoList.indexOf(aktoerId + '___BUC___INFO') >= 0) {
-        actions.fetchBucsInfo(aktoerId + '___BUC___INFO')
+        actions.fetchBucsInfo(aktoerId, 'BUC', 'INFO')
       }
       actions.setMode('bucedit')
     }

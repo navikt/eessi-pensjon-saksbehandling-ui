@@ -118,8 +118,10 @@ describe('actions/buc', () => {
   })
 
   it('fetchBucsInfo()', () => {
+    const mockUserId ='mockUserId'
+    const mockNamespace = 'mockNamespace'
     const mockFilename = 'mockFilename'
-    bucActions.fetchBucsInfo(mockFilename)
+    bucActions.fetchBucsInfo(mockUserId, mockNamespace, mockFilename)
     expect(api.funcCall).toBeCalledWith({
       type: {
         request: types.BUC_GET_BUCSINFO_REQUEST,
@@ -127,7 +129,7 @@ describe('actions/buc', () => {
         failure: types.BUC_GET_BUCSINFO_FAILURE
       },
       expectedPayload: sampleBucsInfo,
-      url: sprintf(urls.API_STORAGE_GETFILE_URL, { file: mockFilename })
+      url: sprintf(urls.API_STORAGE_GET_URL, { userId: mockUserId, namespace: mockNamespace, file: mockFilename })
     })
   })
 
@@ -341,7 +343,22 @@ describe('actions/buc', () => {
         failure: types.BUC_GET_P4000_INFO_FAILURE
       },
       expectedPayload: sampleP4000info,
-      url: sprintf(urls.API_STORAGE_GETFILE_URL, { file: mockFile })
+      url: sprintf(urls.API_STORAGE_GET_URL, { file: mockFile })
+    })
+  })
+
+  it('saveP4000asSaksbehandler()', () => {
+    const mockFile = 'file.json'
+    expect(api.funcCall).toBeCalledWith({
+      url: sprintf(urls.API_STORAGE_POST_URL, { userId: params.aktoerId, namespace: 'PINFO', file: 'PINFOSB.json' }),
+      payload: file,
+      expectedPayload: { success: true },
+      context: context || { notification: true },
+      type: {
+        request: types.BUC_SAVE_PINFOSB_REQUEST,
+        success: types.BUC_SAVE_PINFOSB_SUCCESS,
+        failure: types.BUC_SAVE_PINFOSB_FAILURE
+      }
     })
   })
 })
