@@ -2,7 +2,7 @@ import * as singleTests from './singleTests'
 
 describe('applications/BUC/components/SEDP4000/Validation/singleTests', () => {
   it('stayAbroadValidation', () => {
-    expect(Object.keys(singleTests.periodValidation)).toEqual([
+    expect(Object.keys(singleTests.stayAbroadValidation)).toEqual([
       'noPeriods'
     ])
   })

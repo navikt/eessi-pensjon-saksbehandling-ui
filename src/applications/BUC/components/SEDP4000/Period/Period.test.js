@@ -21,8 +21,11 @@ const initialMockProps = {
     }]
   },
   periods: [],
+  localErrors: {},
   setPeriod: jest.fn(),
   setPeriods: jest.fn(),
+  setLocalError: jest.fn(),
+  setLocalErrors: jest.fn(),
   t: jest.fn((translationString) => { return translationString })
 }
 
@@ -318,11 +321,16 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
   it('throws a validation error when child not properly filled out', () => {
     const mockProps = {
       ...initialMockProps,
-      period: _(sampleP4000info.stayAbroad).find(it => it.type === 'child')
+      period: { ..._(sampleP4000info.stayAbroad).find(it => it.type === 'child'), childFirstName: undefined },
+      mode: 'edit'
     }
-    mockProps.period.childFirstName = undefined
-    const wrapper = mount(<Period {...mockProps} mode='edit' />)
+    const wrapper = mount(<Period {...mockProps} />)
+    wrapper.setProps({
+      setLocalErrors: (arg) => {
+        wrapper.setProps({ localErrors: arg })
+      }
+    })
     wrapper.find('#a-buc-c-sedp4000-period__edit-button-id').hostNodes().simulate('click')
-    expect(wrapper.find('.a-buc-c-sedp4000-period__alert').hostNodes().render().text()).toEqual('buc:validation-noChildFirstName')
+    expect(wrapper.find('#a-buc-c-sedp4000-period__omsorgforbarn-fornavn-input-id div.skjemaelement__feilmelding').text()).toEqual('buc:validation-noChildFirstName')
   })
 })
