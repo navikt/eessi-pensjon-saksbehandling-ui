@@ -2,8 +2,8 @@ import React from 'react'
 import _ from 'lodash'
 import NoteWidget from './NoteWidget'
 import NoteOptionsWidget from './NoteOptionsWidget'
-import availableWidgets from 'components/dashboard/Config/AvailableWidgets'
-import layout from 'components/dashboard/Config/DefaultLayout'
+import availableWidgets from 'components/Dashboard/Config/AvailableWidgets'
+import layout from 'components/Dashboard/Config/DefaultLayout'
 
 describe('widgets/Note/NoteOptionsWidget', () => {
   let wrapper

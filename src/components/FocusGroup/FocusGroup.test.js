@@ -1,5 +1,5 @@
 import React from 'react'
-import FocusGroup from './Focusgroup'
+import FocusGroup from './FocusGroup'
 
 describe('components/FocusGroup', () => {
   it('Renders', () => {

@@ -13,6 +13,7 @@
     "build:css": "less-watch-compiler --run-once --config less.json",
     "build:js": "cross-env NODE_OPTIONS=--max-old-space-size=4096 react-scripts build",
     "test": "cross-env NODE_ENV=test react-scripts test",
+    "test:ci": "cross-env NODE_ENV=test react-scripts test --updateSnapshot --watchAll=false",
     "test:coverage": "cross-env NODE_ENV=test react-scripts test --coverage  --watchAll=false",
     "start-json": "json-server --watch db.json --routes routes.json --port 8080",
     "cucumber": "cucumber-js src/tests/**/*.feature -f node_modules/cucumber-pretty",

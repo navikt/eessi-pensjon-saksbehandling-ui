@@ -2,8 +2,8 @@ import React from 'react'
 import _ from 'lodash'
 import SmileyWidget from './SmileyWidget'
 import SmileyOptionsWidget from './SmileyOptionsWidget'
-import availableWidgets from 'components/dashboard/Config/AvailableWidgets'
-import layout from 'components/dashboard/Config/DefaultLayout'
+import availableWidgets from 'components/Dashboard/Config/AvailableWidgets'
+import layout from 'components/Dashboard/Config/DefaultLayout'
 
 describe('widgets/Smiley/SmileyOptionsWidget', () => {
   let wrapper
