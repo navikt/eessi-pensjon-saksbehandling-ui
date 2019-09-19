@@ -49,7 +49,7 @@
 
   "error-noBucs" : "Feil å hente BUC-er",
 
-  "form-addAttachmentsFromJOARK"      : "Legg til vedlegg fra JOARK",
+  "form-addAttachmentsFromJOARK"      : "Legg til vedlegg",
   "form-addAttachmentsFromFileUpload" : "Laster opp ny vedlegg fra din datamaskin",
   "form-aktoerId"                     : "Fødsels- og personnummer",
   "form-answerSED"                    : "Besvar SED",
