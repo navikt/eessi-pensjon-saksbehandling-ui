@@ -282,6 +282,7 @@ export const sendAttachmentToSed = (params) => {
     expectedPayload: {
       success: true
     },
+    context: params,
     type: {
       request: types.BUC_SEND_ATTACHMENT_REQUEST,
       success: types.BUC_SEND_ATTACHMENT_SUCCESS,

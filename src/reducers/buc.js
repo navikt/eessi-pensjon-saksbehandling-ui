@@ -315,7 +315,7 @@ const bucReducer = (state = initialBucState, action) => {
 
     case types.BUC_SEND_ATTACHMENT_SUCCESS: {
       const existingAttachments = _.cloneDeep(state.attachments)
-      const newAttachment = action.originalPayload
+      const newAttachment = action.context
       const found = _.find(existingAttachments, {
         dokumentInfoId: newAttachment.dokumentInfoId,
         journalpostId: newAttachment.journalpostId,

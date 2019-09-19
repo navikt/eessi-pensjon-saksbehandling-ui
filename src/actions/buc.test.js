@@ -295,6 +295,7 @@ describe('actions/buc', () => {
         success: types.BUC_SEND_ATTACHMENT_SUCCESS,
         failure: types.BUC_SEND_ATTACHMENT_FAILURE
       },
+      context: mockParams,
       method: 'PUT',
       expectedPayload: { success: true },
       url: sprintf(urls.BUC_SEND_ATTACHMENT_URL, mockParams)
