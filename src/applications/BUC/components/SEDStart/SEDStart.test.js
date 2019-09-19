@@ -91,7 +91,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
       journalpostId: initialMockProps.initialAttachments.joark[0].journalpostId,
       dokumentInfoId: initialMockProps.initialAttachments.joark[0].dokumentInfoId,
       variantFormat: initialMockProps.initialAttachments.joark[0].variant.variantformat
-    })
+    }, initialMockProps.initialAttachments.joark[0])
     wrapper.setProps({ attachments: [{ id: 'mockSedId' }] })
     expect(initialMockProps.actions.resetSed).toHaveBeenCalled()
     expect(initialMockProps.actions.fetchBucs).toHaveBeenCalledWith(initialMockProps.aktoerId)

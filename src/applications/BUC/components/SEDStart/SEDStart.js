@@ -129,9 +129,10 @@ export const SEDStart = (props) => {
           variantFormat: unsentAttachment.variant.variantformat
         }
         if (!IS_TEST) {
-          console.log('Sending attachment ' + (_storeAttachments.length + 1) + ' of ' + _attachments.joark.length)
+          console.log('Sending attachment ' + (_storeAttachments.length + 1) + ' of ' + _attachments.joark.length + ': ' +
+          unsentAttachment.journalpostId + '/' + unsentAttachment.dokumentInfoId + '/' + unsentAttachment.variant.variantformat)
         }
-        actions.sendAttachmentToSed(params)
+        actions.sendAttachmentToSed(params, unsentAttachment)
         setSendingAttachment(true)
         return
       }

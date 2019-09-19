@@ -288,14 +288,15 @@ describe('actions/buc', () => {
       dokumentInfoId: '12346789',
       variantFormat: 'DUMMY'
     }
-    bucActions.sendAttachmentToSed(mockParams)
+    const mockContext = { foo: 'bar'}
+    bucActions.sendAttachmentToSed(mockParams, mockContext)
     expect(api.funcCall).toBeCalledWith({
       type: {
         request: types.BUC_SEND_ATTACHMENT_REQUEST,
         success: types.BUC_SEND_ATTACHMENT_SUCCESS,
         failure: types.BUC_SEND_ATTACHMENT_FAILURE
       },
-      context: mockParams,
+      context: mockContext,
       method: 'PUT',
       expectedPayload: { success: true },
       url: sprintf(urls.BUC_SEND_ATTACHMENT_URL, mockParams)
