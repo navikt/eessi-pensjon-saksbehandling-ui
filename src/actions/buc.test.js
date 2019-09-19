@@ -284,8 +284,8 @@ describe('actions/buc', () => {
       aktoerId: '123',
       rinaId: '456',
       rinaDokumentId: '789',
-      joarkJournalpostId: '123456',
-      joarkDokumentInfoId: '12346789',
+      journalpostId: '123456',
+      dokumentInfoId: '12346789',
       variantFormat: 'DUMMY'
     }
     bucActions.sendAttachmentToSed(mockParams)

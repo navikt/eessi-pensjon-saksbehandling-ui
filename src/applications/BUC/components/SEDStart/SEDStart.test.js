@@ -88,8 +88,8 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
       aktoerId: initialMockProps.aktoerId,
       rinaId: initialMockProps.currentBuc,
       rinaDokumentId: 'mockSedId',
-      joarkJournalpostId: initialMockProps.initialAttachments.joark[0].journalpostId,
-      joarkDokumentInfoId: initialMockProps.initialAttachments.joark[0].dokumentInfoId,
+      journalpostId: initialMockProps.initialAttachments.joark[0].journalpostId,
+      dokumentInfoId: initialMockProps.initialAttachments.joark[0].dokumentInfoId,
       variantFormat: initialMockProps.initialAttachments.joark[0].variant.variantformat
     })
     wrapper.setProps({ attachments: [{ id: 'mockSedId' }] })

@@ -64,7 +64,7 @@ export const SEDP4000 = (props) => {
   const setLocalError = (key, error) => {
     setLocalErrors({
       ...localErrors,
-      [key] : error
+      [key]: error
     })
   }
 

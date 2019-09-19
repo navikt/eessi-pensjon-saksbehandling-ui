@@ -124,8 +124,8 @@ export const SEDStart = (props) => {
           aktoerId: aktoerId,
           rinaId: buc.caseId,
           rinaDokumentId: sed.id,
-          joarkJournalpostId: unsentAttachment.journalpostId,
-          joarkDokumentInfoId: unsentAttachment.dokumentInfoId,
+          journalpostId: unsentAttachment.journalpostId,
+          dokumentInfoId: unsentAttachment.dokumentInfoId,
           variantFormat: unsentAttachment.variant.variantformat
         }
         if (!IS_TEST) {
