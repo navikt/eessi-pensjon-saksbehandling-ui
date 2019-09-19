@@ -108,7 +108,11 @@ export const SEDStart = (props) => {
   useEffect(() => {
     if (sendingAttachments) {
       if (!sendingAttachment) {
-        const unsentAttachments = _.difference(_attachments.joark, _storeAttachments)
+        const unsentAttachments = _.differenceWith(_attachments.joark, _storeAttachments, (a, b) => {
+          return a.dokumentInfoId === b.dokumentInfoId &&
+            a.journalpostId === b.journalpostId &&
+            a.variant.variantFormat === b.variant.variantFormat
+        })
 
         // all sent, mark sending attachments as done
         if (_.isEmpty(unsentAttachments)) {
