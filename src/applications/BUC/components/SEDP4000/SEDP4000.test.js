@@ -28,7 +28,13 @@ describe('applications/BUC/components/SEDP4000/SEDP4000', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('UseEffect: call for p4000 file list if we do not have one', () => {
+  it('Call for p4000 file list when clicking user-button', () => {
+    wrapper.find('button#a-buc-c-sedp4000__listP4000user-button-id').simulate('click')
+    expect(initialMockProps.actions.listP4000).toHaveBeenCalledWith(initialMockProps.aktoerId)
+  })
+
+  it('Call for p4000 file list when clicking saksbehandler-button', () => {
+    wrapper.find('button#a-buc-c-sedp4000__listP4000saksbehandler-button-id').simulate('click')
     expect(initialMockProps.actions.listP4000).toHaveBeenCalledWith(initialMockProps.aktoerId)
   })
 
@@ -41,7 +47,7 @@ describe('applications/BUC/components/SEDP4000/SEDP4000', () => {
     wrapper.setProps({ loadingP4000list: false, loadingP4000info: true })
     wrapper.update()
     expect(wrapper.exists('.a-buc-c-sedp4000__notReady NavFrontendSpinner')).toBeTruthy()
-    expect(wrapper.find('.a-buc-c-sedp4000__notReady').render().text()).toEqual('Venter...buc:loading-p4000info')
+    expect(wrapper.find('.a-buc-c-sedp4000__notReady > span').text()).toEqual('buc:loading-p4000info')
   })
 
   it('Has proper HTML structure: mounted state', () => {
