@@ -46,7 +46,7 @@ export const getUserInfo = () => {
   return api.funcCall({
     url: urls.API_USERINFO_URL,
     failWith401: true,
-     expectedPayload: {
+    expectedPayload: {
       subject: 'demoSBUser',
       role: 'SAKSBEHANDLER',
       allowed: true

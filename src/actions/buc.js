@@ -117,7 +117,7 @@ export const fetchBucsInfo = (userId, namespace, file) => {
 }
 
 export const getSubjectAreaList = () => {
-  return api.call({
+  return api.funcCall({
     url: urls.EUX_SUBJECT_AREA_URL,
     type: {
       request: types.BUC_GET_SUBJECT_AREA_LIST_REQUEST,
@@ -188,7 +188,7 @@ export const saveBucsInfo = (params) => {
     newBucsInfo.bucs[bucId].comment = newComment
   }
 
-  return api.call({
+  return api.funcCall({
     url: sprintf(urls.API_STORAGE_POST_URL, { userId: params.aktoerId, namespace: 'BUC', file: 'INFO' }),
     method: 'POST',
     payload: newBucsInfo,

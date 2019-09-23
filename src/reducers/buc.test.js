@@ -515,7 +515,7 @@ describe('reducers/buc', () => {
         }]
       }, {
         type: types.BUC_SEND_ATTACHMENT_SUCCESS,
-        originalPayload: {
+        context: {
           dokumentInfoId: 1,
           journalpostId: 1,
           variant: 1
@@ -538,7 +538,7 @@ describe('reducers/buc', () => {
         attachments: [{ dokumentInfoId: 1 }]
       }, {
         type: types.BUC_SEND_ATTACHMENT_SUCCESS,
-        originalPayload: { dokumentInfoId: 2 }
+        context: { dokumentInfoId: 2 }
       })
     ).toEqual({
       ...initialBucState,

@@ -138,30 +138,30 @@ export const SEDP4000 = (props) => {
                 {t('ui:getInfo')}
               </Hovedknapp>
             </span>)
-        ) : null}
+          ) : null}
         {!loadingP4000list && p4000list === undefined ? (
-            <div className='d-flex flex-column'>
-              <div>
-                <Normaltekst>{t('buc:p4000-help-listP4000user')}</Normaltekst>
-                <Hovedknapp
-                  id='a-buc-c-sedp4000__listP4000user-button-id'
-                  className='a-buc-c-sedp4000__listP4000user-button mt-3'
-                  onClick={handleListP4000userButton}
-                >
-                  {t('buc:p4000-button-listP4000user')}
-                </Hovedknapp>
-              </div>
-              <div className='mt-3'>
-                <Normaltekst>{t('buc:p4000-help-listP4000saksbehandler')}</Normaltekst>
-                <Hovedknapp
-                  id='a-buc-c-sedp4000__listP4000saksbehandler-button-id'
-                  className='a-buc-c-sedp4000__listP4000saksbehandler-button mt-3'
-                  onClick={handleListP4000saksbehandlerButton}
-                >
-                  {t('buc:p4000-button-listP4000saksbehandler')}
-                </Hovedknapp>
-              </div>
+          <div className='d-flex flex-column'>
+            <div>
+              <Normaltekst>{t('buc:p4000-help-listP4000user')}</Normaltekst>
+              <Hovedknapp
+                id='a-buc-c-sedp4000__listP4000user-button-id'
+                className='a-buc-c-sedp4000__listP4000user-button mt-3'
+                onClick={handleListP4000userButton}
+              >
+                {t('buc:p4000-button-listP4000user')}
+              </Hovedknapp>
             </div>
+            <div className='mt-3'>
+              <Normaltekst>{t('buc:p4000-help-listP4000saksbehandler')}</Normaltekst>
+              <Hovedknapp
+                id='a-buc-c-sedp4000__listP4000saksbehandler-button-id'
+                className='a-buc-c-sedp4000__listP4000saksbehandler-button mt-3'
+                onClick={handleListP4000saksbehandlerButton}
+              >
+                {t('buc:p4000-button-listP4000saksbehandler')}
+              </Hovedknapp>
+            </div>
+          </div>
         ) : null}
       </div>
     )
