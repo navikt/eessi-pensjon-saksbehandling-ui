@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import moment from 'moment'
-import { pinfoDateToDate } from 'utils/Date'
+import Util from '../Util'
 
 const mandatory = (value, error) => {
   if (!value) return error
@@ -157,12 +157,13 @@ const periodTimeSpan = (startDate, endDate) => {
   // makes sure both dates have 4 digit years before verifying that they are in the correct sequence.
   if (startDate.year.length < 4 || endDate.year.length < 4) { return undefined }
 
-  const _startDate = moment(pinfoDateToDate(startDate))
-  const _endDate = moment(pinfoDateToDate(endDate))
+  const util = new Util({}, null)
+  const _startDate = util.pinfoDateToDate(startDate)
+  const _endDate = util.pinfoDateToDate(endDate)
 
-  if (!_startDate.isValid() || !_endDate.isValid()) { return undefined }
+  if (!_startDate || !_endDate) { return undefined }
 
-  if (_startDate.valueOf() > _endDate.valueOf()) {
+  if (moment(_startDate).valueOf() > moment(_endDate).valueOf()) {
     return 'buc:validation-startAfterEnd'
   }
   return undefined

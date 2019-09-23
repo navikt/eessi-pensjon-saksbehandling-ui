@@ -215,7 +215,7 @@ export const SEDStart = (props) => {
       }
 
       if (_sed === 'P4000' && p4000info) {
-        const periods = new PInfoUtil(p4000info.stayAbroad).generatePayload()
+        const periods = new PInfoUtil(p4000info.stayAbroad, t).generatePayload()
         payload.periodeInfo = periods.periodeInfo
       }
       if (sedNeedsVedtakId()) {

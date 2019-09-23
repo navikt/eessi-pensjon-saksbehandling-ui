@@ -1,18 +1,17 @@
 import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import moment from 'moment'
 import classNames from 'classnames'
 import Flag from 'components/Flag/Flag'
 import Icons from 'components/Icons'
-import { pinfoDateToDate } from 'utils/Date'
 import { Knapp, Normaltekst, Row, UndertekstBold } from 'components/Nav'
+import Util from '../Util'
 
 import 'applications/BUC/components/SEDP4000/Period/Period.css'
 
 const PeriodView = (props) => {
   const { first, last, mode, period, removePeriodRequest, requestEditPeriod, t } = props
-
+  const util = new Util({}, t)
   return (
     <Row className={classNames('a-buc-c-sedp4000-period', mode)}>
       <div className={classNames('col-12', { 'col-md-6': mode === 'view' })}>
@@ -33,8 +32,7 @@ const PeriodView = (props) => {
             <div className='a-buc-c-sedp4000-period__existingPeriod-dates'>
               <UndertekstBold className='mr-2'>{t('buc:p4000-label-period') + ': '}</UndertekstBold>
               <Normaltekst>
-                {moment(pinfoDateToDate(period.startDate)).format('DD.MM.YYYY')}{' - '}
-                {period.endDate ? moment(pinfoDateToDate(period.endDate)).format('DD.MM.YYYY') : t('ui:unknown')}
+                {util.renderDate(period.startDate)}{' - '}{util.renderDate(period.endDate)}
                 {period.uncertainDate ? ' (?)' : ''}
               </Normaltekst>
             </div>

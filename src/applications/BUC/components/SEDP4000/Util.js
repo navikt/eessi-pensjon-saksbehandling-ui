@@ -1,14 +1,26 @@
 import _ from 'lodash'
 import moment from 'moment'
-import { pinfoDateToDate } from 'utils/Date'
 
 export default class Util {
-  constructor (pinfo) {
+  constructor (pinfo, t) {
     this.pinfo = pinfo
+    this.t = t
   }
 
-  writeDate (date) {
-    return moment(pinfoDateToDate(date)).format('YYYY-MM-DD')
+  pinfoDateToDate (date) {
+    if (!date || !date.year || !date.month) { return null }
+    const day = parseInt(date.day) || 1
+    const month = parseInt(date.month, 10) - 1
+    const year = parseInt(date.year)
+    return { year, month, day }
+  }
+
+  renderDate (date) {
+    if (!date) {
+      return this.t('ui:unknown')
+    }
+    const d = moment(this.pinfoDateToDate(date))
+    return d.isValid() ? d.format('YYYY-MM-DD') : null
   }
 
   handleDate (period) {
@@ -16,22 +28,22 @@ export default class Util {
       case 'both':
         return {
           lukketPeriode: {
-            fom: this.writeDate(period.startDate),
-            tom: this.writeDate(period.endDate)
+            fom: this.renderDate(period.startDate),
+            tom: this.renderDate(period.endDate)
           }
         }
       case 'onlyStartDate01':
         return {
           openPeriode: {
             extra: '01',
-            fom: this.writeDate(period.startDate)
+            fom: this.renderDate(period.startDate)
           }
         }
       case 'onlyStartDate98':
         return {
           openPeriode: {
             extra: '98',
-            fom: this.writeDate(period.startDate)
+            fom: this.renderDate(period.startDate)
           }
         }
 
@@ -123,7 +135,7 @@ export default class Util {
     const newPeriod = this.handleGenericPeriod(period)
     newPeriod.informasjonBarn = {
       etternavn: period.childLastName,
-      foedseldato: this.writeDate(period.childBirthDate),
+      foedseldato: this.renderDate(period.childBirthDate),
       fornavn: period.childFirstName,
       land: this.handleCountry(period.country)
     }

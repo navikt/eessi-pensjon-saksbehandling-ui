@@ -5,20 +5,16 @@ import targetP4000info from 'resources/tests/targetP4000info'
 
 describe('applications/BUC/components/SEDP4000/Util - empty payload', () => {
   let util
+  const t = jest.fn((translationString) => { return translationString })
 
   beforeAll(() => {
-    util = new Util({})
+    util = new Util({}, t)
   })
 
   it('Initializes', () => {
     const mockPinfo = { foo: 'bar' }
-    util = new Util(mockPinfo)
+    util = new Util(mockPinfo, t)
     expect(util.pinfo).toEqual(mockPinfo)
-  })
-
-  it('writeDate()', () => {
-    const mockDate = { day: '20', month: '10', year: '1980' }
-    expect(util.writeDate(mockDate)).toEqual('1980-10-20')
   })
 
   it('handleDate(): both', () => {
@@ -63,6 +59,24 @@ describe('applications/BUC/components/SEDP4000/Util - empty payload', () => {
     })
   })
 
+  it('renderDate invalid date', () => {
+    expect(util.renderDate(null)).toEqual('ui:unknown')
+  })
+
+  it('renderDate valid date', () => {
+    const date = { year: '2020', month: '12', day: '17' }
+    expect(util.renderDate(date)).toEqual('2020-12-17')
+  })
+
+  it('pinfoDateToDate invalid date', () => {
+    expect(util.pinfoDateToDate(null)).toEqual(null)
+  })
+
+  it('pinfoDateToDate valid date', () => {
+    const date = { month: 11, year: 2020 }
+    expect(util.pinfoDateToDate(date)).toEqual({ day: 1, month: 10, year: 2020 })
+  })
+
   it('handleCountry()', () => {
     expect(util.handleCountry({ value: 'mockCountry' })).toEqual('mockCountry')
   })
@@ -91,9 +105,10 @@ describe('applications/BUC/components/SEDP4000/Util - empty payload', () => {
 
 describe('applications/BUC/components/SEDP4000/Util - with payload', () => {
   let util
+  const t = jest.fn((translationString) => { return translationString })
 
   beforeAll(() => {
-    util = new Util(sampleP4000info.stayAbroad)
+    util = new Util(sampleP4000info.stayAbroad, t)
   })
 
   it('handleLearnPeriod()', () => {
@@ -148,9 +163,10 @@ describe('applications/BUC/components/SEDP4000/Util - with payload', () => {
 
 describe('applications/BUC/components/SEDP4000/Util - with payload', () => {
   let util
+  const t = jest.fn((translationString) => { return translationString })
 
   beforeAll(() => {
-    util = new Util(sampleP4000info.stayAbroad)
+    util = new Util(sampleP4000info.stayAbroad, t)
   })
 
   it('generatePayload', () => {
