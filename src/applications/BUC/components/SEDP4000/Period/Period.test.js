@@ -49,7 +49,7 @@ describe('applications/BUC/components/SEDP4000/Period - view/confirm mode', () =
     expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-type UndertekstBold').render().text()).toEqual('buc:p4000-label-category-work')
     expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-type Flag').props().country).toEqual('MM')
     expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-type Normaltekst').render().text()).toEqual('mockMM')
-    expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-dates').render().text()).toEqual('buc:p4000-label-period: 01.01.1993 - 01.01.1994 (?)')
+    expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-dates').render().text()).toEqual('buc:p4000-label-period: 1993-01-01 - 1994-01-01 (?)')
     expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-workActivity').render().text()).toEqual('buc:p4000-label-work-activity2: work period 1 workActivity')
     expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-attachments').render().text()).toEqual('buc:p4000-label-attachments: mock.pdf')
 
