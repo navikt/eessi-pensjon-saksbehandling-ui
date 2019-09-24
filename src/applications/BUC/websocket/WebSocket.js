@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
@@ -21,7 +21,42 @@ const BucWebSocket = (props) => {
   const [log, setLog] = useState([])
   const [websocketConnection, setWebsocketConnection] = useState(undefined)
 
-  const connectToWebSocket = (onOpen, onMessage, onClose, onError) => {
+  const onMessageHandler = useCallback((e) => {
+    setStatus(RECEIVING)
+    try {
+      const data = JSON.parse(e.data)
+      if (data.bucUpdated && data.bucUpdated.caseId) {
+        pushToLog('info', 'Updating buc ' + data.bucUpdated.caseId)
+        actions.fetchSingleBuc(data.bucUpdated.caseId)
+      }
+      if (data.subscriptions) {
+        pushToLog('info', 'Subscription status is ' + data.subscriptions)
+      }
+    } catch (err) {
+      pushToLog('error', 'Invalid JSON: ' + e.data)
+    } finally {
+      setStatus(CONNECTED)
+    }
+  }, [actions])
+
+  const websocketSubscribe = useCallback((connection) => {
+    const ids = []
+    if (aktoerId) {
+      ids.push(aktoerId)
+    }
+    if (avdodfnr) {
+      ids.push(avdodfnr)
+    }
+    if (!_.isEmpty(ids)) {
+      const message = {
+        subscriptions: ids
+      }
+      connection.send(JSON.stringify(message))
+      pushToLog('info', 'Request subscribing to aktoerId ' + aktoerId + ' and avdodfnr ' + avdodfnr)
+    }
+  }, [aktoerId, avdodfnr])
+
+  const connectToWebSocket = useCallback(() => {
     setStatus(CONNECTING)
     const webSocketURL = window.eessipen
       ? window.eessipen.WEBSOCKETURL.replace('https', 'wss').concat('bucUpdate')
@@ -43,48 +78,13 @@ const BucWebSocket = (props) => {
       setStatus(ERROR)
     }
     return connection
-  }
+  }, [aktoerId, onMessageHandler, websocketSubscribe])
 
   useEffect(() => {
     if (!websocketConnection) {
       setWebsocketConnection(connectToWebSocket())
     }
   }, [connectToWebSocket, websocketConnection])
-
-  const onMessageHandler = (e) => {
-    setStatus(RECEIVING)
-    try {
-      const data = JSON.parse(e.data)
-      if (data.bucUpdated && data.bucUpdated.caseId) {
-        pushToLog('info', 'Updating buc ' + data.bucUpdated.caseId)
-        actions.fetchSingleBuc(data.bucUpdated.caseId)
-      }
-      if (data.subscriptions) {
-        pushToLog('info', 'Subscription status is ' + data.subscriptions)
-      }
-    } catch (err) {
-      pushToLog('error', 'Invalid JSON: ' + e.data)
-    } finally {
-      setStatus(CONNECTED)
-    }
-  }
-
-  const websocketSubscribe = (connection) => {
-    const ids = []
-    if (aktoerId) {
-      ids.push(aktoerId)
-    }
-    if (avdodfnr) {
-      ids.push(avdodfnr)
-    }
-    if (!_.isEmpty(ids)) {
-      const message = {
-        subscriptions: ids
-      }
-      connection.send(JSON.stringify(message))
-      pushToLog('info', 'Request subscribing to aktoerId ' + aktoerId + ' and avdodfnr ' + avdodfnr)
-    }
-  }
 
   const pushToLog = (level, message) => {
     const now = new Date()
