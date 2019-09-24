@@ -4,14 +4,14 @@ import DashboardRender from 'components/Dashboard/DashboardRender'
 
 const mockLayouts = {
   lg: [
-    { i: 'w-6-person', x: 0, y: 0, w: 1, h: 1, minW: 1, maxW: 1, minH: 1, maxH: 999 },
-    { i: 'w-7-buc', x: 0, y: 2, w: 1, h: 6, minW: 1, maxW: 1, minH: 2, maxH: 999 }
+    { i: 'w-1-overview', x: 0, y: 0, w: 1, h: 1, minW: 1, maxW: 1, minH: 1, maxH: 999 },
+    { i: 'w-2-buc', x: 0, y: 2, w: 1, h: 6, minW: 1, maxW: 1, minH: 2, maxH: 999 }
   ]
 }
 
 const mockWidgets = [
-  { i: 'w-6-person', type: 'person', title: 'Person widget', options: {} },
-  { i: 'w-7-buc', type: 'buc', title: 'BUC widget', options: {} }
+  { i: 'w-1-overview', type: 'overview', title: 'Overview widget', options: {} },
+  { i: 'w-2-buc', type: 'buc', title: 'BUC widget', options: {} }
 ]
 
 const mockConfig = {
@@ -260,22 +260,22 @@ describe('components/Dashboard/Dashboard', () => {
     expect(props().widgets).toEqual(mockWidgets)
     act(() => {
       props().onWidgetUpdate({
-        i: 'w-6-person',
+        i: 'w-1-overview',
         type: 'horse',
         title: 'horse widget',
         options: { legs: 4, mane: true }
-      }, { i: 'w-6-person' })
+      }, { i: 'w-1-overview' })
     })
     act(() => {
       wrapper.update()
     })
     expect(props().widgets).toEqual([{
-      i: 'w-6-person',
+      i: 'w-1-overview',
       type: 'horse',
       title: 'horse widget',
       options: { legs: 4, mane: true }
     }, {
-      i: 'w-7-buc',
+      i: 'w-2-buc',
       type: 'buc',
       title: 'BUC widget',
       options: {}
@@ -294,15 +294,15 @@ describe('components/Dashboard/Dashboard', () => {
       wrapper.update()
     })
     act(() => {
-      props().onWidgetResize({ i: 'w-6-person', x: 99, y: 99, w: 99, h: 99, minW: 99, maxW: 99, minH: 99, maxH: 99 })
+      props().onWidgetResize({ i: 'w-1-overview', x: 99, y: 99, w: 99, h: 99, minW: 99, maxW: 99, minH: 99, maxH: 99 })
     })
     act(() => {
       wrapper.update()
     })
     expect(props().layouts).toEqual({
       lg: [
-        { i: 'w-6-person', x: 99, y: 99, w: 99, h: 99, minW: 99, maxW: 99, minH: 99, maxH: 99 },
-        { i: 'w-7-buc', x: 0, y: 2, w: 1, h: 6, minW: 1, maxW: 1, minH: 2, maxH: 999 }
+        { i: 'w-1-overview', x: 99, y: 99, w: 99, h: 99, minW: 99, maxW: 99, minH: 99, maxH: 99 },
+        { i: 'w-2-buc', x: 0, y: 2, w: 1, h: 6, minW: 1, maxW: 1, minH: 2, maxH: 999 }
       ]
     })
   })
@@ -314,13 +314,13 @@ describe('components/Dashboard/Dashboard', () => {
     })
     expect(props().layouts).toEqual(mockLayouts)
     act(() => {
-      props().onWidgetDelete({ i: 'w-6-person' })
+      props().onWidgetDelete({ i: 'w-1-overview' })
     })
     act(() => {
       wrapper.update()
     })
     expect(props().layouts).toEqual({
-      lg: [{ i: 'w-7-buc', x: 0, y: 2, w: 1, h: 6, minW: 1, maxW: 1, minH: 2, maxH: 999 }]
+      lg: [{ i: 'w-2-buc', x: 0, y: 2, w: 1, h: 6, minW: 1, maxW: 1, minH: 2, maxH: 999 }]
     })
   })
 })

@@ -7,6 +7,6 @@ export default [
   Widgets.SmileyWidget.properties,
   Widgets.CatMidget.properties,
   Widgets.NoteWidget.properties,
-  Widgets.PersonWidget.properties,
+  Widgets.OverviewWidget.properties,
   Widgets.BUCWidget.properties
 ]

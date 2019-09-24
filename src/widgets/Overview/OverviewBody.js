@@ -4,7 +4,7 @@ import _ from 'lodash'
 import classNames from 'classnames'
 import moment from 'moment'
 
-const PersonBody = (props) => {
+const OverviewBody = (props) => {
   const { t, person } = props
 
   let dateString = ''
@@ -13,8 +13,8 @@ const PersonBody = (props) => {
     const isValue = !_.isEmpty(value)
     return (
       <div
-        id={'w-person-body__element-' + label.replace('ui:', '')}
-        className='w-person-body__element'
+        id={'w-overview-body__element-' + label.replace('ui:', '')}
+        className='w-overview-body__element'
       >
         <Undertekst className={classNames({ grey: !isValue })}>
           <span className={classNames({ 'font-weight-bold': isValue })}>
@@ -38,7 +38,7 @@ const PersonBody = (props) => {
   }
 
   return (
-    <div className='w-person-body'>
+    <div className='w-overview-body'>
       {person.bostedsadresse && person.bostedsadresse.strukturertAdresse
         ? (
           <>
@@ -119,4 +119,4 @@ const PersonBody = (props) => {
   )
 }
 
-export default PersonBody
+export default OverviewBody

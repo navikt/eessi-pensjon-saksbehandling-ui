@@ -7,7 +7,7 @@ import CatMidget from './Cat/CatMidget'
 import NoteWidget from './Note/NoteWidget'
 import NoteOptionsWidget from './Note/NoteOptionsWidget'
 import LinksWidget from './Links/LinksWidget'
-import PersonWidget from './Person/PersonWidget'
+import OverviewWidget from './Overview/OverviewWidget'
 import BUCWidget from './BUCWidget'
 
 export {
@@ -19,7 +19,7 @@ export {
   NoteWidget,
   NoteOptionsWidget,
   LinksWidget,
-  PersonWidget,
+  OverviewWidget,
   PdfWidget,
   BUCWidget
 }

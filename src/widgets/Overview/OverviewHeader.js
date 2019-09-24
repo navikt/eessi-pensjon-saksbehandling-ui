@@ -4,7 +4,7 @@ import _ from 'lodash'
 import { AlertStripe, NavFrontendSpinner, Systemtittel } from 'components/Nav'
 import Icons from 'components/Icons'
 
-const PersonHeader = (props) => {
+const OverviewHeader = (props) => {
   const { t, person, aktoerId, gettingPersonInfo } = props
   let age = '-'
 
@@ -45,11 +45,11 @@ const PersonHeader = (props) => {
   )
 }
 
-PersonHeader.propTypes = {
+OverviewHeader.propTypes = {
   t: PT.func.isRequired,
   person: PT.object,
   aktoerId: PT.string,
   gettingPersonInfo: PT.bool
 }
 
-export default PersonHeader
+export default OverviewHeader

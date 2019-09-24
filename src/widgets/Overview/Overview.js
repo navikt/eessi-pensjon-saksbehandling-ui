@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import { connect, bindActionCreators } from 'store'
-import PersonHeader from './PersonHeader'
-import PersonBody from './PersonBody'
+import OverviewHeader from './OverviewHeader'
+import OverviewBody from './OverviewBody'
 import * as appActions from 'actions/app'
 import { EkspanderbartpanelBase } from 'components/Nav'
 import { getDisplayName } from 'utils/displayName'
 
-import './Person.css'
+import './Overview.css'
 
 const mapStateToProps = (state) => {
   return {
@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators(appActions, dispatch) }
 }
 
-export const Person = (props) => {
+export const Overview = (props) => {
   const { actions, aktoerId, gettingPersonInfo, person, t } = props
   const [mounted, setMounted] = useState(false)
 
@@ -35,21 +35,21 @@ export const Person = (props) => {
 
   return (
     <EkspanderbartpanelBase
-      className='w-person s-border'
+      className='w-overview s-border'
       heading={
-        <PersonHeader
+        <OverviewHeader
           t={t} person={person}
           aktoerId={aktoerId}
           gettingPersonInfo={gettingPersonInfo}
         />
       }
     >
-      <PersonBody t={t} person={person} aktoerId={aktoerId} />
+      <OverviewBody t={t} person={person} aktoerId={aktoerId} />
     </EkspanderbartpanelBase>
   )
 }
 
-Person.propTypes = {
+Overview.propTypes = {
   actions: PT.object.isRequired,
   aktoerId: PT.string,
   gettingPersonInfo: PT.bool,
@@ -58,6 +58,6 @@ Person.propTypes = {
   t: PT.func.isRequired
 }
 
-const ConnectedPerson = connect(mapStateToProps, mapDispatchToProps)(Person)
-ConnectedPerson.displayName = `Connect(${getDisplayName(Person)})`
-export default ConnectedPerson
+const ConnectedOverview = connect(mapStateToProps, mapDispatchToProps)(Overview)
+ConnectedOverview.displayName = `Connect(${getDisplayName(Overview)})`
+export default ConnectedOverview
