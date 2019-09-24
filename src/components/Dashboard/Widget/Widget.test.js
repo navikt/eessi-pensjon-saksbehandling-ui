@@ -61,11 +61,6 @@ describe('components/Dashboard/Widget/Widget', () => {
     expect(wrapper.exists('.w-EkspandertbartWidget')).toBeTruthy()
   })
 
-  it('Renders VarslerWidget', () => {
-    wrapper.setProps({ widget: { type: 'varsler' } })
-    expect(wrapper.exists('.w-VarslerWidget')).toBeTruthy()
-  })
-
   it('Renders SmileyWidget', () => {
     wrapper.setProps({ widget: { type: 'smiley', options: { mood: 'mockMood' } } })
     expect(wrapper.exists('.w-SmileyWidget')).toBeTruthy()

@@ -223,5 +223,10 @@
     "yes" : "Ja",
 
     "session-expire-title" : "Du vil snart bli logget ut",
-    "session-expire-text" : "Husk å lagre opplysningene. Hvis du ønsker å fortsette, må du logge inn igjen.  Du blir logget ut om {{minutes}} minutter"
+    "session-expire-text" : "Husk å lagre opplysningene. Hvis du ønsker å fortsette, må du logge inn igjen.  Du blir logget ut om {{minutes}} minutter",
+
+    "widget-myOverview" : "Min oversikt",
+    "widget-myOverview-userDetails" : "Opplysninger om bruker",
+    "widget-myOverview-notifications" : "Send varsel og inviter bruker"
+
 }
