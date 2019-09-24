@@ -1,8 +1,8 @@
 import React from 'react'
-import PersonHeader from './PersonHeader'
+import OverviewHeader from './OverviewHeader'
 import samplePerson from 'resources/tests/samplePerson'
 
-describe('widgets/Person/PersonHeader', () => {
+describe('widgets/Overview/OverviewHeader', () => {
   let wrapper
   const initialMockProps = {
     aktoerId: '10293847565',
@@ -12,7 +12,7 @@ describe('widgets/Person/PersonHeader', () => {
   }
 
   beforeEach(() => {
-    wrapper = mount(<PersonHeader {...initialMockProps} />)
+    wrapper = mount(<OverviewHeader {...initialMockProps} />)
   })
 
   afterEach(() => {
@@ -25,9 +25,9 @@ describe('widgets/Person/PersonHeader', () => {
   })
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.w-person-header')).toBeTruthy()
-    expect(wrapper.exists('.w-person-header__content')).toBeTruthy()
-    expect(wrapper.find('.w-person-header__content img').props().kind).toEqual('nav-woman-icon')
-    expect(wrapper.find('.w-person-header__content h2').render().text()).toEqual('HØYSÆTHER NAZAKMIR-MASK (90) - 27072942618')
+    expect(wrapper.exists('.w-overview-header')).toBeTruthy()
+    expect(wrapper.exists('.w-overview-header__content')).toBeTruthy()
+    expect(wrapper.find('.w-overview-header__content img').props().kind).toEqual('nav-woman-icon')
+    expect(wrapper.find('.w-overview-header__content h2').render().text()).toEqual('HØYSÆTHER NAZAKMIR-MASK (90) - 27072942618')
   })
 })

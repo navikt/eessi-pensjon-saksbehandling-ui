@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
-import Person from './Person'
+import Overview from './Overview'
 
-const PersonWidget = (props) => {
+const OverviewWidget = (props) => {
   const [mounted, setMounted] = useState(false)
   const { t, onResize } = props
 
@@ -15,21 +15,21 @@ const PersonWidget = (props) => {
   }, [mounted, onResize])
 
   return (
-    <div className='c-d-PersonWidget'>
+    <div className='c-d-OverviewWidget'>
       <ReactResizeDetector
         handleWidth
         handleHeight
         onResize={onResize}
       />
-      <Person t={t} />
+      <Overview t={t} />
     </div>
   )
 }
 
-PersonWidget.properties = {
-  type: 'person',
-  title: 'Person widget',
-  description: 'Widget with person info',
+OverviewWidget.properties = {
+  type: 'overview',
+  title: 'Overview widget',
+  description: 'Widget with overview info',
   layout: {
     lg: { minW: 6, maxW: 12, defaultW: 6, minH: 2, defaultH: 4, maxH: 999 },
     md: { minW: 3, maxW: 3, defaultW: 1, minH: 2, defaultH: 4, maxH: 999 },
@@ -38,9 +38,9 @@ PersonWidget.properties = {
   options: {}
 }
 
-PersonWidget.propTypes = {
+OverviewWidget.propTypes = {
   t: PT.func.isRequired,
   onResize: PT.func.isRequired
 }
 
-export default PersonWidget
+export default OverviewWidget

@@ -27,8 +27,8 @@ const Widget = (props) => {
       return <Widgets.NoteWidget {...props} />
     case 'links':
       return <Widgets.LinksWidget {...props} />
-    case 'person':
-      return <Widgets.PersonWidget {...props} />
+    case 'overview':
+      return <Widgets.OverviewWidget {...props} />
     case 'pdf':
       return <Widgets.PdfWidget {...props} />
     case 'buc':

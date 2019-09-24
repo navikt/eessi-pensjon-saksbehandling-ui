@@ -1,8 +1,8 @@
 import React from 'react'
-import PersonBody from './PersonBody'
+import OverviewBody from './OverviewBody'
 import samplePerson from 'resources/tests/samplePerson'
 
-describe('widgets/Person/PersonBody', () => {
+describe('widgets/Overview/OverviewBody', () => {
   let wrapper
   const initialMockProps = {
     t: jest.fn((translationString) => { return translationString }),
@@ -10,7 +10,7 @@ describe('widgets/Person/PersonBody', () => {
   }
 
   beforeEach(() => {
-    wrapper = mount(<PersonBody {...initialMockProps} />)
+    wrapper = mount(<OverviewBody {...initialMockProps} />)
   })
 
   afterEach(() => {
@@ -46,7 +46,7 @@ describe('widgets/Person/PersonBody', () => {
         sivilstand: newSivilstand
       }
     }
-    wrapper = mount(<PersonBody {...mockProps} />)
+    wrapper = mount(<OverviewBody {...mockProps} />)
     expect(wrapper.find('#w-person-body__element-marital-status').render().text()).toEqual('ui:marital-status: MOCK (1970-1-1 - 1980-12-31)')
   })
 })

@@ -6,7 +6,7 @@ jest.mock('applications/BUC/widgets/index', () => {
 jest.mock('widgets/PdfWidget', () => {
   return () => { return <div className='w-PdfWidget' /> }
 })
-jest.mock('widgets/Person/PersonWidget', () => {
+jest.mock('widgets/Overview/OverviewWidget', () => {
   return () => { return <div className='w-PersonWidget' /> }
 })
 jest.mock('widgets/Links/LinksWidget', () => {
@@ -86,9 +86,9 @@ describe('components/Dashboard/Widget/Widget', () => {
     expect(wrapper.exists('.w-LinksWidget')).toBeTruthy()
   })
 
-  it('Renders PersonWidget', () => {
-    wrapper.setProps({ widget: { type: 'person' } })
-    expect(wrapper.exists('.w-PersonWidget')).toBeTruthy()
+  it('Renders OverviewWidget', () => {
+    wrapper.setProps({ widget: { type: 'overview' } })
+    expect(wrapper.exists('.w-OverviewWidget')).toBeTruthy()
   })
 
   it('Renders PdfWidget', () => {

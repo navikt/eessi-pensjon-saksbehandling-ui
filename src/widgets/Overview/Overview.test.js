@@ -1,8 +1,8 @@
 import React from 'react'
-import { Person } from './Person'
+import { Overview } from './Overview'
 import samplePerson from 'resources/tests/samplePerson'
 
-describe('widgets/Person/Person', () => {
+describe('widgets/Overview/Overview', () => {
   let wrapper
   const initialMockProps = {
     actions: {
@@ -15,7 +15,7 @@ describe('widgets/Person/Person', () => {
   }
 
   beforeEach(() => {
-    wrapper = mount(<Person {...initialMockProps} />)
+    wrapper = mount(<Overview {...initialMockProps} />)
   })
 
   afterEach(() => {
