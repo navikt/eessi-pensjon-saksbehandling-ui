@@ -3,5 +3,6 @@ export default {
   breakpoints: { lg: 900, md: 600, sm: 0 },
   margin: [10, 10],
   containerPadding: [10, 10],
-  rowHeight: 30
+  rowHeight: 30,
+  version: 1
 }

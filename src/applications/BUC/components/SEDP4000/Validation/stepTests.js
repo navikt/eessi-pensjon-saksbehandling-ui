@@ -1,12 +1,12 @@
 import * as tests from './singleTests'
 
-export function stayAbroadStep (stayAbroad) {
+export const stayAbroadStep = (stayAbroad) => {
   return {
     noPeriods: tests.stayAbroadValidation.noPeriods(stayAbroad)
   }
 }
 
-export function periodStep (period) {
+export const periodStep = (period) => {
   const errors = {
     startDate: tests.periodValidation.periodStartDate(period.startDate),
     endDate: tests.periodValidation.periodEndDate(period.endDate),

@@ -1,7 +1,7 @@
 import React from 'react'
 import { SessionMonitor } from './SessionMonitor'
 
-jest.mock('i18next', function () {
+jest.mock('i18next', () => {
   const use = jest.fn()
   const init = jest.fn()
   const loadLanguages = jest.fn()

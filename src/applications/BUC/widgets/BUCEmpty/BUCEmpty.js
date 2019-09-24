@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import PT from 'prop-types'
 
 import { Hovedknapp, Input, Lenke, Undertittel } from 'components/Nav'
-import * as MonitorPNG from 'resources/images/artwork/dataskjerm.png'
-import * as CupPNG from 'resources/images/artwork/kop.png'
-import * as MousePNG from 'resources/images/artwork/NAVmusematte.png'
-import * as MapPNG from 'resources/images/artwork/saksstatus.png'
+import MonitorPNG from 'resources/images/artwork/dataskjerm.png'
+import CupPNG from 'resources/images/artwork/kop.png'
+import MousePNG from 'resources/images/artwork/NAVmusematte.png'
+import MapPNG from 'resources/images/artwork/saksstatus.png'
 
 import './BUCEmpty.css'
 

@@ -14,31 +14,36 @@ const mockWidgets = [
   { i: 'w-7-buc', type: 'buc', title: 'BUC widget', options: {} }
 ]
 
+const mockConfig = {
+  version: 1
+}
+
 const defaultLocalStorage = window.localStorage
 
 const localStorageMock = (() => {
   let store = {}
 
   return {
-    getItem: function (key) {
+    getItem: (key) => {
       return store[key] || null
     },
-    setItem: function (key, value) {
-      store[key] = value.toString()
+    setItem: (key, value) => {
+      store[key] = value
     },
-    clear: function () {
+    clear: () => {
       store = {}
     },
-    initializeStore: function () {
+    initializeStore: () => {
       store = {
         'c-d-widgets': JSON.stringify(mockWidgets),
-        'c-d-layouts': JSON.stringify(mockLayouts)
+        'c-d-layouts': JSON.stringify(mockLayouts),
+        'c-d-config': JSON.stringify(mockConfig)
       }
     }
   }
 })()
 
-jest.mock('i18next', function () {
+jest.mock('i18next', () => {
   const use = jest.fn()
   const init = jest.fn()
   const loadLanguages = jest.fn()
