@@ -33,13 +33,7 @@ const FileUpload = (props) => {
     })
   }
 
-  useEffect(() => {
-    if (onFileChange) {
-      onFileChange(_files)
-    }
-  }, [_files])
-
-  const updateFiles = (newFiles, newCurrentPages, statusMessage) => {
+  const updateFiles = useCallback((newFiles, newCurrentPages, statusMessage) => {
     setFiles(newFiles)
     if (newCurrentPages) {
       setCurrentPages(newCurrentPages)
@@ -50,9 +44,12 @@ const FileUpload = (props) => {
         type: 'OK'
       })
     }
-  }
+    if (onFileChange) {
+      onFileChange(newFiles)
+    }
+  }, [_status, onFileChange])
 
-  const processFiles = (acceptedFiles, rejectedFiles) => {
+  const processFiles = useCallback((acceptedFiles, rejectedFiles) => {
     const newFiles = _.clone(_files)
     const newCurrentPages = _.clone(_currentPages)
     acceptedFiles.forEach((file, index) => {
@@ -82,7 +79,7 @@ const FileUpload = (props) => {
     statusMessage += t('ui:rejected') + ': ' + rejectedFiles.length + ', '
     statusMessage += t('ui:total') + ': ' + newFiles.length
     updateFiles(newFiles, newCurrentPages, statusMessage)
-  }
+  }, [_currentPages, _files, t, updateFiles])
 
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
     if (beforeDrop) {
@@ -100,7 +97,7 @@ const FileUpload = (props) => {
     if (afterDrop) {
       afterDrop()
     }
-  }, [_files.length, afterDrop, beforeDrop, maxFiles, t])
+  }, [_files.length, afterDrop, beforeDrop, maxFiles, processFiles, t])
 
   const onDropRejected = (rejectedFiles) => {
     if (maxFileSize && rejectedFiles[0].size > maxFileSize) {

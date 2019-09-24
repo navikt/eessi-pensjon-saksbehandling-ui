@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import PeriodEdit from 'applications/BUC/components/SEDP4000/Period/PeriodEdit'
@@ -12,6 +12,19 @@ const Period = (props) => {
   const { actions, first, last, locale, localErrors, mode, period, periods } = props
   const { setLocalError, setLocalErrors, setPeriod, setPeriods, t } = props
 
+  const valueSetProperty = useCallback((key, validateFunction, value) => {
+    const error = validateFunction ? validateFunction(value) : undefined
+    setPeriod({
+      ...period,
+      [key]: value
+    })
+    setLocalError(key, error)
+  }, [period, setLocalError, setPeriod])
+
+  const eventSetProperty = useCallback((key, validateFunction, e) => {
+    valueSetProperty(key, validateFunction, e.target.value)
+  }, [valueSetProperty])
+
   const setType = (e) => eventSetProperty('type', periodValidation.periodType, e)
 
   const setStartDate = (e) => dateSetProperty('startDate', periodValidation.periodStartDateOnChange, e)
@@ -19,7 +32,7 @@ const Period = (props) => {
   const blurStartDate = (e) => dateBlur('startDate', periodValidation.periodStartDateOnBlur, e)
   const blurEndDate = (e) => dateBlur('endDate', periodValidation.periodEndDateOnBlur, e)
   const setUncertainDate = (e) => eventSetCheckbox('uncertainDate', null, e)
-  const setDateType = (e) => eventSetProperty('dateType', null, e)
+  const setDateType = useCallback((e) => eventSetProperty('dateType', null, e), [eventSetProperty])
 
   const setCountry = (e) => valueSetProperty('country', periodValidation.periodCountry, e)
   const setComment = (e) => eventSetProperty('comment', null, e)
@@ -27,7 +40,7 @@ const Period = (props) => {
 
   const setWorkActivity = (e) => eventSetProperty('workActivity', periodValidation.workActivity, e)
   const setWorkName = (e) => eventSetProperty('workName', periodValidation.workName, e)
-  const setWorkType = (e) => eventSetProperty('workType', periodValidation.workType, e)
+  const setWorkType = useCallback((e) => eventSetProperty('workType', periodValidation.workType, e), [eventSetProperty])
   const setWorkStreet = (e) => eventSetProperty('workStreet', periodValidation.workStreet, e)
   const setWorkCity = (e) => eventSetProperty('workCity', periodValidation.workCity, e)
   const setWorkZipCode = (e) => eventSetProperty('workZipCode', periodValidation.workZipCode, e)
@@ -51,7 +64,7 @@ const Period = (props) => {
     if (period.type === 'work' && !period.workType) {
       setWorkType({ target: { value: '01' } })
     }
-  }, [period.dateType, period.type, period.workType, setWorkType])
+  }, [period.dateType, period.type, period.workType, setDateType, setWorkType])
 
   const hasNoErrors = (errors) => {
     for (var key in errors) {
@@ -60,10 +73,6 @@ const Period = (props) => {
       }
     }
     return true
-  }
-
-  const eventSetProperty = (key, validateFunction, e) => {
-    valueSetProperty(key, validateFunction, e.target.value)
   }
 
   const eventSetCheckbox = (key, validateFunction, e) => {
@@ -93,15 +102,6 @@ const Period = (props) => {
     })
     setLocalError(key, error)
     setLocalError('timeSpan', timeSpanError)
-  }
-
-  const valueSetProperty = (key, validateFunction, value) => {
-    const error = validateFunction ? validateFunction(value) : undefined
-    setPeriod({
-      ...period,
-      [key]: value
-    })
-    setLocalError(key, error)
   }
 
   const validatePeriod = () => {
