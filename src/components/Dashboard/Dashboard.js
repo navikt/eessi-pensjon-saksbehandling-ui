@@ -14,6 +14,7 @@ export const Dashboard = (props) => {
   const [mounted, setMounted] = useState(false)
   const [widgets, setWidgets] = useState([])
   const [layouts, setLayouts] = useState({})
+  const [, setConfig] = useState({})
   const [backupLayouts, setBackupLayouts] = useState({})
   const [currentBreakpoint, setCurrentBreakpoint] = useState('lg')
   const [availableWidgets, setAvailableWidgets] = useState([])
@@ -22,9 +23,10 @@ export const Dashboard = (props) => {
     const loadData = async () => {
       const _availableWidgets = await DashboardAPI.loadAvailableWidgets()
       setAvailableWidgets(_availableWidgets)
-      const [_widgets, _layouts] = await DashboardAPI.loadDashboard()
+      const [_widgets, _layouts, _config] = await DashboardAPI.loadDashboard()
       setWidgets(_widgets)
       setLayouts(_layouts)
+      setConfig(_config)
       setMounted(true)
     }
     loadData()

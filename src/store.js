@@ -21,8 +21,8 @@ const StoreProvider = ({ reducer, initialState, children }) => {
 }
 
 const bindActionCreator = (actionCreator, dispatch) => {
-  return function () {
-    return dispatch(actionCreator.apply(this, arguments))
+  return (...args) => {
+    return dispatch(actionCreator.apply(this, args))
   }
 }
 
