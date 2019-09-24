@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import PT from 'prop-types'
+import _ from 'lodash'
 import { connect, bindActionCreators } from 'store'
-import OverviewHeader from './OverviewHeader'
-import OverviewBody from './OverviewBody'
 import * as appActions from 'actions/app'
-import { EkspanderbartpanelBase } from 'components/Nav'
+import { EkspanderbartpanelBase, Systemtittel, Tabs } from 'components/Nav'
 import { getDisplayName } from 'utils/displayName'
+import PersonPanel from './PersonPanel'
+import VarslerPanel from './VarslerPanel'
 
 import './Overview.css'
 
@@ -23,7 +24,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export const Overview = (props) => {
-  const { actions, aktoerId, gettingPersonInfo, person, t } = props
+  const { actions, aktoerId, gettingPersonInfo, onUpdate, person, t, widget } = props
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -33,18 +34,47 @@ export const Overview = (props) => {
     }
   }, [mounted, actions, aktoerId])
 
+  const onExpandablePanelChange = () => {
+    const newWidget = _.cloneDeep(widget)
+    newWidget.options.collapsed = !newWidget.options.collapsed
+    onUpdate(newWidget)
+  }
+
+  const onTabChanged = useCallback((e, i) => {
+    const newWidget = _.cloneDeep(widget)
+    newWidget.options.tabIndex = i
+    onUpdate(newWidget)
+  }, [onUpdate, widget])
+
   return (
     <EkspanderbartpanelBase
       className='w-overview s-border'
-      heading={
-        <OverviewHeader
-          t={t} person={person}
-          aktoerId={aktoerId}
-          gettingPersonInfo={gettingPersonInfo}
-        />
-      }
+      apen={!widget.options.collapsed}
+      onClick={onExpandablePanelChange}
+      heading={<Systemtittel className='p-2'>{t('ui:widget-myOverview')}</Systemtittel>}
     >
-      <OverviewBody t={t} person={person} aktoerId={aktoerId} />
+      <Tabs
+        tabs={[
+          { label: t('ui:widget-myOverview-userDetails') },
+          { label: t('ui:widget-myOverview-notifications') }
+        ]}
+        onChange={onTabChanged}
+      />
+      {widget.options.tabIndex === undefined || widget.options.tabIndex === 0 ? (
+        <>
+          <PersonPanel
+            t={t}
+            gettingPersonInfo={gettingPersonInfo}
+            person={person}
+            aktoerId={aktoerId}
+          />
+        </>
+      ) : null}
+      {widget.options.tabIndex === 1 ? (
+        <>
+          <VarslerPanel {...props} />
+        </>
+      ) : null}
     </EkspanderbartpanelBase>
   )
 }
@@ -54,6 +84,7 @@ Overview.propTypes = {
   aktoerId: PT.string,
   gettingPersonInfo: PT.bool,
   locale: PT.string.isRequired,
+  onUpdate: PT.string.isRequired,
   person: PT.object,
   t: PT.func.isRequired
 }

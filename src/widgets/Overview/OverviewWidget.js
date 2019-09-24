@@ -4,8 +4,8 @@ import ReactResizeDetector from 'react-resize-detector'
 import Overview from './Overview'
 
 const OverviewWidget = (props) => {
+  const { t, onResize, onUpdate, widget } = props
   const [mounted, setMounted] = useState(false)
-  const { t, onResize } = props
 
   useEffect(() => {
     if (!mounted && onResize) {
@@ -21,7 +21,7 @@ const OverviewWidget = (props) => {
         handleHeight
         onResize={onResize}
       />
-      <Overview t={t} />
+      <Overview t={t} onUpdate={onUpdate} widget={widget} />
     </div>
   )
 }
@@ -35,12 +35,17 @@ OverviewWidget.properties = {
     md: { minW: 3, maxW: 3, defaultW: 1, minH: 2, defaultH: 4, maxH: 999 },
     sm: { minW: 1, maxW: 1, defaultW: 1, minH: 2, defaultH: 4, maxH: 999 }
   },
-  options: {}
+  options: {
+    collapsed: false,
+    tabIndex: 0
+  }
 }
 
 OverviewWidget.propTypes = {
   t: PT.func.isRequired,
-  onResize: PT.func.isRequired
+  onResize: PT.func.isRequired,
+  onUpdate: PT.func.isRequired,
+  widget: PT.object.isRequired
 }
 
 export default OverviewWidget

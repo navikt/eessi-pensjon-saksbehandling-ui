@@ -17,8 +17,6 @@ const Widget = (props) => {
   switch (widget.type) {
     case 'ekspandertbart':
       return <Widgets.EkspandertBartWidget {...props} />
-    case 'varsler':
-      return <Widgets.VarslerWidget {...props} />
     case 'smiley':
       return <Widgets.SmileyWidget {...props} />
     case 'cat':
