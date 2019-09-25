@@ -14,7 +14,7 @@ export const Dashboard = (props) => {
   const [mounted, setMounted] = useState(false)
   const [widgets, setWidgets] = useState([])
   const [layouts, setLayouts] = useState({})
-  const [, setConfig] = useState({})
+  const [config, setConfig] = useState({})
   const [backupLayouts, setBackupLayouts] = useState({})
   const [currentBreakpoint, setCurrentBreakpoint] = useState('lg')
   const [availableWidgets, setAvailableWidgets] = useState([])
@@ -78,7 +78,7 @@ export const Dashboard = (props) => {
   }
 
   const onSaveEdit = async () => {
-    await DashboardAPI.saveDashboard(widgets, layouts)
+    await DashboardAPI.saveDashboard(widgets, layouts, config)
     setAddMode(false)
     setEditMode(false)
   }

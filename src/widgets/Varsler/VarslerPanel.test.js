@@ -1,7 +1,7 @@
 import React from 'react'
-import VarslerPanel from './VarslerPanel'
+import { VarslerPanel } from './VarslerPanel'
 
-describe('widgets/Overview/VarslerPanel', () => {
+describe('widgets/Varsler/VarslerPanel', () => {
   let wrapper
   const initialMockProps = {
     actions: {
@@ -33,6 +33,6 @@ describe('widgets/Overview/VarslerPanel', () => {
   })
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.w-overview-varslerPanel')).toBeTruthy()
+    expect(wrapper.exists('.w-varslerPanel')).toBeTruthy()
   })
 })

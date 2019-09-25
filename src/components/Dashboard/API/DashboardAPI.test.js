@@ -31,12 +31,15 @@ describe('components/Dashboard/API/DashboardAPI', () => {
   it('saveDashboard()', async (done) => {
     const mockWidgets = { value: 'mockWidgets' }
     const mockLayouts = { value: 'mockLayouts' }
-    await DashboardAPI.saveDashboard(mockWidgets, mockLayouts)
+    const mockConfig = { value: 'mockConfig' }
+    await DashboardAPI.saveDashboard(mockWidgets, mockLayouts, mockConfig)
 
     const savedLayouts = localStorage.getItem('c-d-layouts')
     const savedWidgets = localStorage.getItem('c-d-widgets')
+    const savedConfig = localStorage.getItem('c-d-config')
     expect(savedLayouts).toEqual(JSON.stringify(mockLayouts))
     expect(savedWidgets).toEqual(JSON.stringify(mockWidgets))
+    expect(savedConfig).toEqual(JSON.stringify(mockConfig))
     done()
   })
 
