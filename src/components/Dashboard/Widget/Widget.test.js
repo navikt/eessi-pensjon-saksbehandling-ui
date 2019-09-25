@@ -7,7 +7,7 @@ jest.mock('widgets/PdfWidget', () => {
   return () => { return <div className='w-PdfWidget' /> }
 })
 jest.mock('widgets/Overview/OverviewWidget', () => {
-  return () => { return <div className='w-PersonWidget' /> }
+  return () => { return <div className='w-OverviewWidget' /> }
 })
 jest.mock('widgets/Links/LinksWidget', () => {
   return () => { return <div className='w-LinksWidget' /> }
@@ -82,7 +82,7 @@ describe('components/Dashboard/Widget/Widget', () => {
   })
 
   it('Renders OverviewWidget', () => {
-    wrapper.setProps({ widget: { type: 'overview' } })
+    wrapper.setProps({ widget: { type: 'overview', options: { collapsed: false } } })
     expect(wrapper.exists('.w-OverviewWidget')).toBeTruthy()
   })
 

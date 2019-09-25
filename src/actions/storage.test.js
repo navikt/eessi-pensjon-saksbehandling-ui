@@ -38,7 +38,7 @@ describe('actions/storage', () => {
     const mockUser = 'mockUser'
     const mockNamespace = 'mockNamespace'
     storageActions.listStorageFiles(mockUser, mockNamespace, { notification: false })
-    expect(api.funcCall).toBeCalledWith({
+    expect(api.funcCall).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.STORAGE_LIST_REQUEST,
         success: types.STORAGE_LIST_SUCCESS,
@@ -47,14 +47,14 @@ describe('actions/storage', () => {
       context: { notification: false },
       method: 'GET',
       url: 'http://localhost/frontend/api/storage/list/mockUser___mockNamespace'
-    })
+    }))
   })
 
   it('listStorageFiles() with notification', () => {
     const mockUser = 'mockUser'
     const mockNamespace = 'mockNamespace'
     storageActions.listStorageFiles(mockUser, mockNamespace)
-    expect(api.funcCall).toBeCalledWith({
+    expect(api.funcCall).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.STORAGE_LIST_REQUEST,
         success: types.STORAGE_LIST_SUCCESS,
@@ -63,7 +63,7 @@ describe('actions/storage', () => {
       context: { notification: true },
       method: 'GET',
       url: 'http://localhost/frontend/api/storage/list/mockUser___mockNamespace'
-    })
+    }))
   })
 
   it('getStorageFile() with no notification', () => {
@@ -73,17 +73,16 @@ describe('actions/storage', () => {
       file: 'file'
     }
     storageActions.getStorageFile(mockParams, { notification: false })
-    expect(api.funcCall).toBeCalledWith({
+    expect(api.funcCall).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.STORAGE_GET_REQUEST,
         success: types.STORAGE_GET_SUCCESS,
         failure: types.STORAGE_GET_FAILURE
       },
       method: 'GET',
-      expectedPayload: {},
       context: { notification: false },
       url: 'http://localhost/frontend/api/storage/get/userId___namespace___file'
-    })
+    }))
   })
 
   it('getStorageFiles() with notification', () => {
@@ -93,17 +92,16 @@ describe('actions/storage', () => {
       file: 'file'
     }
     storageActions.getStorageFile(mockParams)
-    expect(api.funcCall).toBeCalledWith({
+    expect(api.funcCall).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.STORAGE_GET_REQUEST,
         success: types.STORAGE_GET_SUCCESS,
         failure: types.STORAGE_GET_FAILURE
       },
       method: 'GET',
-      expectedPayload: {},
       context: { notification: true },
       url: 'http://localhost/frontend/api/storage/get/userId___namespace___file'
-    })
+    }))
   })
 
   it('postStorageFile()', () => {

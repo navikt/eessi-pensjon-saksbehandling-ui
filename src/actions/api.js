@@ -7,51 +7,54 @@ import { IS_TEST } from 'constants/environment'
 import { HOST } from 'constants/urls'
 
 export const fakecall = (options) => {
+  const { context, expectedPayload, type, url } = options
   return (dispatch) => {
     if (!IS_TEST) {
-      console.log('FAKE API CALL FOR ' + options.url + ': REQUEST')
+      console.log('FAKE API CALL FOR ' + url + ': REQUEST')
     }
     dispatch({
-      type: options.type.request
+      type: type.request
     })
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve(options.expectedPayload)
+        const _payload = typeof expectedPayload === 'function' ? expectedPayload() : expectedPayload
+        resolve(_payload)
       }, Math.floor(Math.random() * 2000))
     }).then(payload => {
       if (!IS_TEST) {
-        console.log('FAKE API CALL FOR ' + options.url + ': SUCCESS')
+        console.log('FAKE API CALL FOR ' + url + ': SUCCESS')
       }
       return dispatch({
-        type: options.type.success,
+        type: type.success,
         payload: payload,
-        context: options.context
+        context: context
       })
     })
   }
 }
 
 export const call = (options) => {
+  const { body, context, failWith401, failWith500, headers, method, payload, type, url } = options
   return (dispatch) => {
     dispatch({
-      type: options.type.request
+      type: type.request
     })
-    let body = options.body || options.payload
-    body = body ? JSON.stringify(body) : undefined
+    let _body = body || payload
+    _body = _body ? JSON.stringify(_body) : undefined
     const CSRF_PROTECTION = cookies.get('NAV_CSRF_PROTECTION')
       ? { NAV_CSRF_PROTECTION: cookies.get('NAV_CSRF_PROTECTION') }
       : {}
-    return fetch(options.url, {
-      method: options.method || 'GET',
+    return fetch(url, {
+      method: method || 'GET',
       crossOrigin: true,
       json: true,
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         'X-Request-ID': uuid(),
         ...CSRF_PROTECTION,
-        ...options.headers
+        ...headers
       },
-      body: body
+      body: _body
     }).then(response => {
       if (response.status >= 400) {
         const error = new Error(response.statusText)
@@ -71,49 +74,49 @@ export const call = (options) => {
       }
     }).then(payload => {
       return dispatch({
-        type: options.type.success,
+        type: type.success,
         payload: payload,
         originalPayload: body,
-        context: options.context
+        context: context
       })
     }).catch(error => {
-      const body = options.body || options.payload
+      const _body = body || payload
       if (error.status === 401) {
         dispatch({
           type: types.SERVER_UNAUTHORIZED_ERROR,
           payload: error,
-          originalPayload: body,
-          context: options.context
+          originalPayload: _body,
+          context: context
         })
-        if (options.failWith401) {
+        if (failWith401) {
           dispatch({
-            type: options.type.failure,
+            type: type.failure,
             payload: error,
-            originalPayload: body,
-            context: options.context
+            originalPayload: _body,
+            context: context
           })
         }
       } else if (error.status >= 500) {
         dispatch({
           type: types.SERVER_INTERNAL_ERROR,
           payload: error,
-          originalPayload: body,
-          context: options.context
+          originalPayload: _body,
+          context: context
         })
-        if (options.failWith500) {
+        if (failWith500) {
           dispatch({
-            type: options.type.failure,
+            type: type.failure,
             payload: error,
-            originalPayload: body,
-            context: options.context
+            originalPayload: _body,
+            context: context
           })
         }
       } else {
         return dispatch({
-          type: options.type.failure,
+          type: type.failure,
           payload: error,
-          originalPayload: body,
-          context: options.context
+          originalPayload: _body,
+          context: context
         })
       }
     })

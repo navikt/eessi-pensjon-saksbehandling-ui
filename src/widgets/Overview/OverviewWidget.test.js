@@ -8,7 +8,14 @@ describe('widgets/OverviewWidget', () => {
   let wrapper
   const initialMockProps = {
     onResize: jest.fn(),
-    t: jest.fn((translationString) => { return translationString })
+    onUpdate: jest.fn(),
+    t: jest.fn((translationString) => { return translationString }),
+    widget: {
+      options: {
+        collapsed: false,
+        tabIndex: 0
+      }
+    }
   }
 
   beforeEach(() => {
@@ -29,7 +36,7 @@ describe('widgets/OverviewWidget', () => {
   })
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.c-d-OverviewWidget')).toBeTruthy()
+    expect(wrapper.exists('.w-OverviewWidget')).toBeTruthy()
     expect(wrapper.find('.mock-w-overview')).toBeTruthy()
   })
 

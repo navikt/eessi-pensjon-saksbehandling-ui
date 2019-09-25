@@ -25,7 +25,6 @@ describe('widgets/Overview/PersonPanel', () => {
   })
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.w-person-body')).toBeTruthy()
     expect(wrapper.exists('.w-overview-personPanel')).toBeTruthy()
     expect(wrapper.exists('.w-overview-personPanel__title')).toBeTruthy()
     expect(wrapper.find('.w-overview-personPanel__title img').props().kind).toEqual('nav-woman-icon')
@@ -46,6 +45,7 @@ describe('widgets/Overview/PersonPanel', () => {
       endringstype: null
     }
     const mockProps = {
+      aktoerId: '10293847565',
       t: initialMockProps.t,
       person: {
         ...samplePerson.person,
@@ -53,6 +53,6 @@ describe('widgets/Overview/PersonPanel', () => {
       }
     }
     wrapper = mount(<PersonPanel {...mockProps} />)
-    expect(wrapper.find('#w-person-body__element-marital-status').render().text()).toEqual('ui:marital-status: MOCK (1970-1-1 - 1980-12-31)')
+    expect(wrapper.find('#w-overview-personPanel__element-marital-status').render().text()).toEqual('ui:marital-status: MOCK (1970-1-1 - 1980-12-31)')
   })
 })
