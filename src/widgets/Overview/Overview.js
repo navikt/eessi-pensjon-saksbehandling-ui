@@ -3,7 +3,9 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import { connect, bindActionCreators } from 'store'
 import * as appActions from 'actions/app'
-import { EkspanderbartpanelBase, Systemtittel, Tabs } from 'components/Nav'
+import * as storageActions from 'actions/storage'
+import * as pinfoActions from 'actions/pinfo'
+import { EkspanderbartpanelBase, Panel, Systemtittel, Tabs } from 'components/Nav'
 import { getDisplayName } from 'utils/displayName'
 import PersonPanel from './PersonPanel'
 import VarslerPanel from './VarslerPanel'
@@ -12,19 +14,26 @@ import './Overview.css'
 
 const mapStateToProps = (state) => {
   return {
-    person: state.app.person,
-    gettingPersonInfo: state.loading.gettingPersonInfo,
     aktoerId: state.app.params.aktoerId,
-    locale: state.ui.locale
+    fileList: state.storage.fileList,
+    file: state.storage.file,
+    gettingPersonInfo: state.loading.gettingPersonInfo,
+    invite: state.pinfo.invite,
+    isSendingPinfo: state.loading.isSendingPinfo,
+    isInvitingPinfo: state.loading.isInvitingPinfo,
+    locale: state.ui.locale,
+    person: state.app.person,
+    sakId: state.app.params.sakId,
+    sakType: state.app.params.sakType
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(appActions, dispatch) }
+  return { actions: bindActionCreators({ ...appActions, ...pinfoActions, ...storageActions }, dispatch) }
 }
 
 export const Overview = (props) => {
-  const { actions, aktoerId, gettingPersonInfo, onUpdate, person, t, widget } = props
+  const { actions, aktoerId, onUpdate, t, widget } = props
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -51,29 +60,24 @@ export const Overview = (props) => {
       className='w-overview s-border'
       apen={!widget.options.collapsed}
       onClick={onExpandablePanelChange}
-      heading={<Systemtittel className='p-2'>{t('ui:widget-myOverview')}</Systemtittel>}
+      heading={<Systemtittel className='p-2'>{t('ui:widget-overview')}</Systemtittel>}
     >
       <Tabs
         tabs={[
-          { label: t('ui:widget-myOverview-userDetails') },
-          { label: t('ui:widget-myOverview-notifications') }
+          { label: t('ui:widget-overview-userDetails') },
+          { label: t('ui:widget-overview-notifications') }
         ]}
         onChange={onTabChanged}
       />
       {widget.options.tabIndex === undefined || widget.options.tabIndex === 0 ? (
-        <>
-          <PersonPanel
-            t={t}
-            gettingPersonInfo={gettingPersonInfo}
-            person={person}
-            aktoerId={aktoerId}
-          />
-        </>
+        <Panel>
+          <PersonPanel {...props} />
+        </Panel>
       ) : null}
       {widget.options.tabIndex === 1 ? (
-        <>
+        <Panel>
           <VarslerPanel {...props} />
-        </>
+        </Panel>
       ) : null}
     </EkspanderbartpanelBase>
   )
@@ -82,11 +86,9 @@ export const Overview = (props) => {
 Overview.propTypes = {
   actions: PT.object.isRequired,
   aktoerId: PT.string,
-  gettingPersonInfo: PT.bool,
-  locale: PT.string.isRequired,
   onUpdate: PT.string.isRequired,
-  person: PT.object,
-  t: PT.func.isRequired
+  t: PT.func.isRequired,
+  widget: PT.object.isRequired
 }
 
 const ConnectedOverview = connect(mapStateToProps, mapDispatchToProps)(Overview)

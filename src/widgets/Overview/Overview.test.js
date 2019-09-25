@@ -10,8 +10,15 @@ describe('widgets/Overview/Overview', () => {
     },
     aktoerId: '123',
     locale: 'nb',
+    onUpdate: jest.fn(),
     person: samplePerson.person,
-    t: jest.fn((translationString) => { return translationString })
+    t: jest.fn((translationString) => { return translationString }),
+    widget: {
+      options: {
+        collapsed: false,
+        tabIndex: 0
+      }
+    }
   }
 
   beforeEach(() => {
@@ -31,12 +38,12 @@ describe('widgets/Overview/Overview', () => {
   })
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.w-person')).toBeTruthy()
+    expect(wrapper.exists('.w-overview')).toBeTruthy()
     expect(wrapper.exists('EkspanderbartpanelBase')).toBeTruthy()
-    expect(wrapper.exists('PersonHeader')).toBeTruthy()
-    expect(wrapper.exists('PersonBody')).toBeFalsy()
+    expect(wrapper.exists('PersonPanel')).toBeTruthy()
+    expect(wrapper.exists('VarslerPanel')).toBeFalsy()
 
-    wrapper.find('EkspanderbartpanelBase button').simulate('click')
-    expect(wrapper.exists('PersonBody')).toBeTruthy()
+    wrapper.find('EkspanderbartpanelBase button.ekspanderbartPanel__hode').hostNodes().simulate('click')
+    expect(wrapper.exists('PersonPanel')).toBeFalsy()
   })
 })

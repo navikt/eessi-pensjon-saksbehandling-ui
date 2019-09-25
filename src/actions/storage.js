@@ -21,6 +21,15 @@ export const listStorageFiles = (userId, namespace, context) => {
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: userId, namespace: namespace }),
     method: 'GET',
     context: context || { notification: true },
+    expectedPayload: () => {
+      if (namespace === 'PINFO') {
+        return [userId + '___' + namespace + '___PINFO.json']
+      }
+      if (namespace === 'varsler___123') {
+        return [userId + '___' + namespace + '___1970-01-01Z00:00:00']
+      }
+      return []
+    },
     type: {
       request: types.STORAGE_LIST_REQUEST,
       success: types.STORAGE_LIST_SUCCESS,
@@ -33,7 +42,15 @@ export const getStorageFile = (params, context) => {
   return api.funcCall({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
     method: 'GET',
-    expectedPayload: {},
+    expectedPayload: () => {
+      if (params.namespace === 'varsler') {
+        return {
+          tittel: 'mockTittel',
+          fulltnavn: 'mockFulltnavn',
+          timestamp: '1970-01-01Z00:00:00'
+        }
+      }
+    },
     context: context || { notification: true },
     type: {
       request: types.STORAGE_GET_REQUEST,

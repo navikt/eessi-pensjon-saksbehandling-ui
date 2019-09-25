@@ -81,6 +81,7 @@
     "dataGenerated" : "Data generert",
     "dataSaved" : "Data lagret",
     "date" : "Dato",
+    "dateandtime" : "Dato og klokkeslett",
     "dateFormat" : "DD.MM.ÅÅÅÅ",
     "delete" : "Slett",
     "deleteAndLeave" : "Slett og lukk",
@@ -195,6 +196,7 @@
     "sending" : "Sender...",
     "sent" : "Sendt",
     "sentDate" : "Sendt dato",
+    "sentDocuments" : "Utsendte dokumenter",
     "sentSuccess" : "Sendt OK",
     "sentFailure" : "Feil med sending",
     "serverInternalError" : "Server intern feil, vennligst prøv igjen senere",
@@ -225,8 +227,11 @@
     "session-expire-title" : "Du vil snart bli logget ut",
     "session-expire-text" : "Husk å lagre opplysningene. Hvis du ønsker å fortsette, må du logge inn igjen.  Du blir logget ut om {{minutes}} minutter",
 
-    "widget-myOverview" : "Min oversikt",
-    "widget-myOverview-userDetails" : "Opplysninger om bruker",
-    "widget-myOverview-notifications" : "Send varsel og inviter bruker"
-
+    "widget-overview" : "Min oversikt",
+    "widget-overview-userDetails" : "Opplysninger om bruker",
+    "widget-overview-notifications" : "Send varsel og inviter bruker",
+    "widget-overview-sendNotification-description" : "Den nye løsningen for elektronisk utfylling av utenlandsopplysninger er nå tilgjengelig for utvalgte brukere.<br/><br/>Send varsel og inviter <B>{{user}}</B> til å prøve ut løsningen.",
+    "widget-overview-sendNotification-button" : "Send varsel",
+    "widget-overview-sendNotification-title" : "Utsendte varsler",
+    "widget-overview-sendNotification-noMessages" : "Det er ingen utsendte varsler til denne brukeren"
 }
