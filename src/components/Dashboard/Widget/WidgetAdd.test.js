@@ -20,7 +20,7 @@ describe('components/Dashboard/Widget/WidgetAdd', () => {
   let wrapper
   const initialMockProps = {
     connectDragPreview: jest.fn(),
-    connectDragSource: undefined,
+    connectDragSource: jest.fn(),
     isDragging: false,
     widget: {
       title: 'mockTitle',
