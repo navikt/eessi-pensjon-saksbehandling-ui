@@ -42,7 +42,7 @@ const BUCEmpty = (props) => {
   }
 
   return (
-    <div className='a-buc-bucempty'>
+    <div className='panel a-buc-bucempty s-border d-flex'>
       <div className='a-buc-bucempty__artwork'>
         <img alt='' className='monitor' src={MonitorPNG} />
         <img alt='' className='cup' src={CupPNG} />
