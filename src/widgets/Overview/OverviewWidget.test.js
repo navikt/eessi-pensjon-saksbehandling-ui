@@ -12,8 +12,7 @@ describe('widgets/OverviewWidget', () => {
     t: jest.fn((translationString) => { return translationString }),
     widget: {
       options: {
-        collapsed: false,
-        tabIndex: 0
+        collapsed: false
       }
     }
   }

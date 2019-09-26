@@ -1,11 +1,32 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import PT from 'prop-types'
+import { connect, bindActionCreators } from 'store'
 import _ from 'lodash'
-import { AlertStripe, Hovedknapp, NavFrontendSpinner, Row, Undertittel, Veileder } from 'components/Nav'
+import { AlertStripe, Hovedknapp, NavFrontendSpinner, Panel, Row, Systemtittel, Veileder } from 'components/Nav'
 import Icons from 'components/Icons'
+import * as pinfoActions from 'actions/pinfo'
+import * as storageActions from 'actions/storage'
 import RefreshButton from 'components/RefreshButton/RefreshButton'
+import { getDisplayName } from 'utils/displayName'
 import { ReactComponent as VeilederSVG } from 'resources/images/NavPensjonVeileder.svg'
-const VarslerPanel = (props) => {
+
+const mapStateToProps = (state) => {
+  return {
+    aktoerId: state.app.params.aktoerId,
+    fileList: state.storage.fileList,
+    file: state.storage.file,
+    invite: state.pinfo.invite,
+    isInvitingPinfo: state.loading.isInvitingPinfo,
+    sakId: state.app.params.sakId,
+    sakType: state.app.params.sakType
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return { actions: bindActionCreators({ ...pinfoActions, ...storageActions }, dispatch) }
+}
+
+export const VarslerPanel = (props) => {
   const { actions, aktoerId, file, fileList, isInvitingPinfo, invite, sakId, sakType, t } = props
 
   const [isReady, setIsReady] = useState(false)
@@ -68,7 +89,8 @@ const VarslerPanel = (props) => {
   }, [actions, aktoerId, sakId])
 
   return (
-    <div className='w-overview-varslerPanel'>
+    <Panel className='w-varslerPanel s-border'>
+      <Systemtittel className='pb-3'>{t('ui:widget-overview-notifications')}</Systemtittel>
       <Row>
         <div className='col-md-4'>
           {/* <div><label className='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakId')}</label>: {sakId}</div>
@@ -149,7 +171,7 @@ const VarslerPanel = (props) => {
 
         </div>
       </Row>
-    </div>
+    </Panel>
   )
 }
 
@@ -165,4 +187,6 @@ VarslerPanel.propTypes = {
   t: PT.func.isRequired
 }
 
-export default VarslerPanel
+const ConnectedVarsler = connect(mapStateToProps, mapDispatchToProps)(VarslerPanel)
+ConnectedVarsler.displayName = `Connect(${getDisplayName(VarslerPanel)})`
+export default ConnectedVarsler

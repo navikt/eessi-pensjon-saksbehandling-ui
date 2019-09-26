@@ -2,35 +2,11 @@ import React from 'react'
 import _ from 'lodash'
 import classNames from 'classnames'
 import moment from 'moment'
-import { AlertStripe, NavFrontendSpinner, Systemtittel, Undertekst } from 'components/Nav'
-import Icons from 'components/Icons'
+import { Undertekst } from 'components/Nav'
 import PT from 'prop-types'
 
 const PersonPanel = (props) => {
-  const { t, person, aktoerId, gettingPersonInfo } = props
-  let age = '-'
-
-  if (person && person.foedselsdato) {
-    const birthDate = new Date(Date.parse(person.foedselsdato.foedselsdato))
-    age = new Date().getFullYear() - birthDate.getFullYear()
-  }
-
-  if (!aktoerId) {
-    return (
-      <AlertStripe type='advarsel' className='w-100'>
-        {t('buc:validation-noAktoerId')}
-      </AlertStripe>
-    )
-  }
-
-  if (gettingPersonInfo) {
-    return (
-      <div className='w-overview-personPanel__waiting'>
-        <NavFrontendSpinner className='ml-3 mr-3' type='M' />
-        <span className='pl-2'>{t('ui:loading')}</span>
-      </div>
-    )
-  }
+  const { t, person } = props
 
   if (!person) {
     return null
@@ -63,100 +39,91 @@ const PersonPanel = (props) => {
   }
 
   return (
-    <div className='w-overview-personPanel'>
-      <div className='w-overview-personPanel__title pt-4 pb-4'>
-        <Icons kind={person.kjoenn.kjoenn.value === 'K' ? 'nav-woman-icon' : 'nav-man-icon'} />
-        <Systemtittel className='ml-2'>
-          {person.personnavn.sammensattNavn} ({age}) - {person.aktoer.ident.ident}
-        </Systemtittel>
-      </div>
-      <div className='w-overview-personPanel__content'>
-        {person.bostedsadresse && person.bostedsadresse.strukturertAdresse
-          ? (
-            <>
-              <div>
-                <Undertekst>{t('ui:strukturertAdresse')}</Undertekst>
-              </div>
-              <div className='pl-4'>
-                {renderEntity('ui:landkode', person.bostedsadresse.strukturertAdresse.landkode.value)}
-                {renderEntity('ui:tilleggsadresse', person.bostedsadresse.strukturertAdresse.tilleggsadresse)}
-                {renderEntity('ui:tilleggsadresseType', person.bostedsadresse.strukturertAdresse.tilleggsadresseType)}
-                {renderEntity('ui:poststed', person.bostedsadresse.strukturertAdresse.poststed.value)}
-                {renderEntity('ui:bolignummer', person.bostedsadresse.strukturertAdresse.bolignummer)}
-                {renderEntity('ui:kommunenummer', person.bostedsadresse.strukturertAdresse.kommunenummer)}
-                {renderEntity('ui:gatenummer', person.bostedsadresse.strukturertAdresse.gatenummer)}
-                {renderEntity('ui:gatenavn', person.bostedsadresse.strukturertAdresse.gatenavn)}
-                {renderEntity('ui:husnummer', person.bostedsadresse.strukturertAdresse.husnummer)}
-                {renderEntity('ui:husbokstav', person.bostedsadresse.strukturertAdresse.husbokstav)}
-              </div>
-            </>
-          ) : null}
-        {person.postadresse && person.postadresse.ustrukturertAdresse
-          ? (
-            <>
-              <div>
-                <Undertekst>{t('ui:ustrukturertAdresse')}</Undertekst>
-              </div>
-              <div className='pl-4'>
-                {renderEntity('ui:adresselinje1', person.postadresse.ustrukturertAdresse.adresselinje1)}
-                {renderEntity('ui:adresselinje2', person.postadresse.ustrukturertAdresse.adresselinje2)}
-                {renderEntity('ui:adresselinje3', person.postadresse.ustrukturertAdresse.adresselinje3)}
-                {renderEntity('ui:adresselinje4', person.postadresse.ustrukturertAdresse.adresselinje4)}
-                {renderEntity('ui:landkode', person.postadresse.ustrukturertAdresse.landkode.value)}
-                {renderEntity('ui:postnr', person.postadresse.ustrukturertAdresse.postnr)}
-                {renderEntity('ui:poststed', person.postadresse.ustrukturertAdresse.poststed)}
-              </div>
-            </>
-          ) : null}
-        {renderEntity('ui:statsborgerskap', person.statsborgerskap.land.value)}
-        {renderEntity('ui:diskresjonskode', person.diskresjonskode)}
-        {renderEntity('ui:marital-status', person.sivilstand.sivilstand.value + (dateString ? ' (' + dateString + ')' : ''))}
-        {renderEntity('ui:personstatus', person.personstatus.personstatus.value)}
-        {renderEntity('ui:doedsdato', person.doedsdato ? person.doedsdato.doedsdato : null)}
-        {renderEntity('ui:foedselsdato', person.foedselsdato.foedselsdato)}
-        {renderEntity('ui:foedested', person.foedselsdato.foedested)}
-        {renderEntity('ui:gjeldendePostadressetype', person.gjeldendePostadressetype.value)}
-        {renderEntity('ui:geografiskTilknytning', person.geografiskTilknytning.geografiskTilknytning)}
-        {renderEntity('ui:midlertidigPostadresse', person.midlertidigPostadresse)}
-        {renderEntity('ui:vergeListe', person.vergeListe.join(', '))}
-        {renderEntity('ui:kontaktinformasjon', person.kontaktinformasjon.join(', '))}
-        {renderEntity('ui:bankkonto', person.bankkonto)}
-        {renderEntity('ui:tilrettelagtKommunikasjon', person.tilrettelagtKommunikasjon.join(', '))}
-        {renderEntity('ui:sikkerhetstiltak', person.sikkerhetstiltak)}
-        {renderEntity('ui:maalform', person.maalform)}
-        {person.harFraRolleI ? (
+
+    <div className='w-overview-personPanel__content'>
+      {person.bostedsadresse && person.bostedsadresse.strukturertAdresse
+        ? (
           <>
             <div>
-              <Undertekst>{t('ui:harFraRolleI')}</Undertekst>
+              <Undertekst>{t('ui:strukturertAdresse')}</Undertekst>
             </div>
             <div className='pl-4'>
-              {person.harFraRolleI.map((rolle, i) => {
-                let age
-                if (rolle.tilPerson.foedselsdato) {
-                  const birthDate = new Date(Date.parse(rolle.tilPerson.foedselsdato))
-                  age = new Date().getFullYear() - birthDate.getFullYear()
-                }
-                return (
-                  <div key={i}>
-                    {renderEntity('ui:tilRolle', rolle.tilRolle.value)}
-                    {renderEntity('ui:tilPerson', rolle.tilPerson.personnavn.sammensattNavn + ' - ' +
-              (age ? '(' + age + ')' : '') + ' - ' + rolle.tilPerson.aktoer.ident.ident)}
-                  </div>
-                )
-              })}
+              {renderEntity('ui:landkode', person.bostedsadresse.strukturertAdresse.landkode.value)}
+              {renderEntity('ui:tilleggsadresse', person.bostedsadresse.strukturertAdresse.tilleggsadresse)}
+              {renderEntity('ui:tilleggsadresseType', person.bostedsadresse.strukturertAdresse.tilleggsadresseType)}
+              {renderEntity('ui:poststed', person.bostedsadresse.strukturertAdresse.poststed.value)}
+              {renderEntity('ui:bolignummer', person.bostedsadresse.strukturertAdresse.bolignummer)}
+              {renderEntity('ui:kommunenummer', person.bostedsadresse.strukturertAdresse.kommunenummer)}
+              {renderEntity('ui:gatenummer', person.bostedsadresse.strukturertAdresse.gatenummer)}
+              {renderEntity('ui:gatenavn', person.bostedsadresse.strukturertAdresse.gatenavn)}
+              {renderEntity('ui:husnummer', person.bostedsadresse.strukturertAdresse.husnummer)}
+              {renderEntity('ui:husbokstav', person.bostedsadresse.strukturertAdresse.husbokstav)}
             </div>
           </>
         ) : null}
-      </div>
+      {person.postadresse && person.postadresse.ustrukturertAdresse
+        ? (
+          <>
+            <div>
+              <Undertekst>{t('ui:ustrukturertAdresse')}</Undertekst>
+            </div>
+            <div className='pl-4'>
+              {renderEntity('ui:adresselinje1', person.postadresse.ustrukturertAdresse.adresselinje1)}
+              {renderEntity('ui:adresselinje2', person.postadresse.ustrukturertAdresse.adresselinje2)}
+              {renderEntity('ui:adresselinje3', person.postadresse.ustrukturertAdresse.adresselinje3)}
+              {renderEntity('ui:adresselinje4', person.postadresse.ustrukturertAdresse.adresselinje4)}
+              {renderEntity('ui:landkode', person.postadresse.ustrukturertAdresse.landkode.value)}
+              {renderEntity('ui:postnr', person.postadresse.ustrukturertAdresse.postnr)}
+              {renderEntity('ui:poststed', person.postadresse.ustrukturertAdresse.poststed)}
+            </div>
+          </>
+        ) : null}
+      {renderEntity('ui:statsborgerskap', person.statsborgerskap.land.value)}
+      {renderEntity('ui:diskresjonskode', person.diskresjonskode)}
+      {renderEntity('ui:marital-status', person.sivilstand.sivilstand.value + (dateString ? ' (' + dateString + ')' : ''))}
+      {renderEntity('ui:personstatus', person.personstatus.personstatus.value)}
+      {renderEntity('ui:doedsdato', person.doedsdato ? person.doedsdato.doedsdato : null)}
+      {renderEntity('ui:foedselsdato', person.foedselsdato.foedselsdato)}
+      {renderEntity('ui:foedested', person.foedselsdato.foedested)}
+      {renderEntity('ui:gjeldendePostadressetype', person.gjeldendePostadressetype.value)}
+      {renderEntity('ui:geografiskTilknytning', person.geografiskTilknytning.geografiskTilknytning)}
+      {renderEntity('ui:midlertidigPostadresse', person.midlertidigPostadresse)}
+      {renderEntity('ui:vergeListe', person.vergeListe.join(', '))}
+      {renderEntity('ui:kontaktinformasjon', person.kontaktinformasjon.join(', '))}
+      {renderEntity('ui:bankkonto', person.bankkonto)}
+      {renderEntity('ui:tilrettelagtKommunikasjon', person.tilrettelagtKommunikasjon.join(', '))}
+      {renderEntity('ui:sikkerhetstiltak', person.sikkerhetstiltak)}
+      {renderEntity('ui:maalform', person.maalform)}
+      {person.harFraRolleI ? (
+        <>
+          <div>
+            <Undertekst>{t('ui:harFraRolleI')}</Undertekst>
+          </div>
+          <div className='pl-4'>
+            {person.harFraRolleI.map((rolle, i) => {
+              let age
+              if (rolle.tilPerson.foedselsdato) {
+                const birthDate = new Date(Date.parse(rolle.tilPerson.foedselsdato))
+                age = new Date().getFullYear() - birthDate.getFullYear()
+              }
+              return (
+                <div key={i}>
+                  {renderEntity('ui:tilRolle', rolle.tilRolle.value)}
+                  {renderEntity('ui:tilPerson', rolle.tilPerson.personnavn.sammensattNavn + ' - ' +
+              (age ? '(' + age + ')' : '') + ' - ' + rolle.tilPerson.aktoer.ident.ident)}
+                </div>
+              )
+            })}
+          </div>
+        </>
+      ) : null}
     </div>
   )
 }
 
 PersonPanel.propTypes = {
   t: PT.func.isRequired,
-  person: PT.object,
-  aktoerId: PT.string,
-  gettingPersonInfo: PT.bool
+  person: PT.object
 }
 
 export default PersonPanel

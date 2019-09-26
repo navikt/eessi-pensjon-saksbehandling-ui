@@ -39,8 +39,8 @@ describe('components/FileUpload/FileUpload', () => {
     onFileChange: jest.fn(),
     openModal: jest.fn(),
     status: {},
-    t: jest.fn((translationString) => { return translationString }),
-    tabIndex: 1
+    tabIndex: 1,
+    t: jest.fn((translationString) => { return translationString })
   }
 
   const fileContents = 'file contents'

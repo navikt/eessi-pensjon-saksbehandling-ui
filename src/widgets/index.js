@@ -7,6 +7,7 @@ import NoteWidget from './Note/NoteWidget'
 import NoteOptionsWidget from './Note/NoteOptionsWidget'
 import LinksWidget from './Links/LinksWidget'
 import OverviewWidget from './Overview/OverviewWidget'
+import VarslerWidget from './Varsler/VarslerWidget'
 import BUCWidget from './BUCWidget'
 
 export {
@@ -18,6 +19,7 @@ export {
   NoteOptionsWidget,
   LinksWidget,
   OverviewWidget,
+  VarslerWidget,
   PdfWidget,
   BUCWidget
 }

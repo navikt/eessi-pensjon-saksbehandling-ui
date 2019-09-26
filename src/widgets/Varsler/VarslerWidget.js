@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
-import Overview from './Overview'
+import VarslerPanel from './VarslerPanel'
 
-const OverviewWidget = (props) => {
-  const { t, onResize, onUpdate, widget } = props
+const VarslerWidget = (props) => {
+  const { onResize } = props
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -15,36 +15,31 @@ const OverviewWidget = (props) => {
   }, [mounted, onResize])
 
   return (
-    <div className='w-OverviewWidget'>
+    <div className='w-varslerWidget'>
       <ReactResizeDetector
         handleWidth
         handleHeight
         onResize={onResize}
       />
-      <Overview t={t} onUpdate={onUpdate} widget={widget} />
+      <VarslerPanel {...props} />
     </div>
   )
 }
 
-OverviewWidget.properties = {
-  type: 'overview',
-  title: 'Overview widget',
-  description: 'Widget with overview info',
+VarslerWidget.properties = {
+  type: 'varsler',
+  title: 'Varsler widget',
+  description: 'Varsler widget',
   layout: {
     lg: { minW: 6, maxW: 12, defaultW: 6, minH: 2, defaultH: 4, maxH: 999 },
     md: { minW: 3, maxW: 3, defaultW: 1, minH: 2, defaultH: 4, maxH: 999 },
     sm: { minW: 1, maxW: 1, defaultW: 1, minH: 2, defaultH: 4, maxH: 999 }
   },
-  options: {
-    collapsed: false
-  }
+  options: {}
 }
 
-OverviewWidget.propTypes = {
-  t: PT.func.isRequired,
-  onResize: PT.func.isRequired,
-  onUpdate: PT.func.isRequired,
-  widget: PT.object.isRequired
+VarslerWidget.propTypes = {
+  onResize: PT.func.isRequired
 }
 
-export default OverviewWidget
+export default VarslerWidget

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Overview } from './Overview'
+import { Overview } from '../Overview/Overview'
 import samplePerson from 'resources/tests/samplePerson'
 
 describe('widgets/Overview/Overview', () => {
@@ -39,8 +39,8 @@ describe('widgets/Overview/Overview', () => {
   it('Has proper HTML structure', () => {
     expect(wrapper.exists('.w-overview')).toBeTruthy()
     expect(wrapper.exists('EkspanderbartpanelBase')).toBeTruthy()
-    expect(wrapper.exists('PersonTitle')).toBeTruthy()
     expect(wrapper.exists('PersonPanel')).toBeTruthy()
+    expect(wrapper.exists('VarslerPanel')).toBeFalsy()
 
     wrapper.find('EkspanderbartpanelBase button.ekspanderbartPanel__hode').hostNodes().simulate('click')
     expect(wrapper.exists('PersonPanel')).toBeFalsy()

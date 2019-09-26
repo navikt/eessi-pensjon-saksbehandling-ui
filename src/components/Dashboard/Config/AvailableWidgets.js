@@ -7,5 +7,6 @@ export default [
   Widgets.CatMidget.properties,
   Widgets.NoteWidget.properties,
   Widgets.OverviewWidget.properties,
+  Widgets.VarslerWidget.properties,
   Widgets.BUCWidget.properties
 ]
