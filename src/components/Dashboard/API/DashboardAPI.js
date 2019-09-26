@@ -31,6 +31,10 @@ export const saveDashboard = async (widgets, layouts, config) => {
   await localStorage.setItem('c-d-layouts', JSON.stringify(layouts))
 }
 
+export const saveWidgets = async (widgets) => {
+  await localStorage.setItem('c-d-widgets', JSON.stringify(widgets))
+}
+
 export const resetDashboard = async () => {
   await localStorage.setItem('c-d-config', JSON.stringify(defaultConfig))
   await localStorage.setItem('c-d-widgets', JSON.stringify(defaultWidgets))

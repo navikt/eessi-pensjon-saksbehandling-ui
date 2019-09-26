@@ -33,10 +33,12 @@ export const Dashboard = (props) => {
     setMounted(true)
   }, [])
 
-  const onWidgetUpdate = (update, layout) => {
-    setWidgets(widgets.map((widget) => {
-      return (widget.i === layout.i) ? update : widget
-    }))
+  const onWidgetUpdate = async (updatedWidget, layout) => {
+    const newWidgets = widgets.map((widget) => {
+      return (widget.i === layout.i) ? updatedWidget : widget
+    })
+    setWidgets(newWidgets)
+    await DashboardAPI.saveWidgets(newWidgets)
   }
 
   const onWidgetResize = layout => {

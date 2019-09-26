@@ -56,8 +56,10 @@ export const BUCWidgetIndex = (props) => {
   const combinedBucs = { ...avdodBucs, ...bucs }
 
   useEffect(() => {
-    if (!mounted && !rinaUrl) {
-      actions.getRinaUrl()
+    if (!mounted) {
+      if (!rinaUrl) {
+        actions.getRinaUrl()
+      }
       setMounted(true)
     }
   }, [actions, mounted, rinaUrl, waitForMount])
