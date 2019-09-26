@@ -3,10 +3,16 @@ import PT from 'prop-types'
 import DashboardConfig from './Config/DashboardConfig'
 
 const DashboardControlPanel = (props) => {
-  const { addMode, editMode, onAddChange, onCancelEdit, onEditModeOn, onSaveEdit, t } = props
+  const { addMode, editMode, onAddChange, onCancelEdit, onEditModeOn, onResetEdit, onSaveEdit, t } = props
+
+  const onResetEditHandler = () => {
+    if (window.confirm(t('ui:dashboard-editDashboard') + '?')) {
+      onResetEdit()
+    }
+  }
 
   return (
-    <div className='c-dashboard__controlPanel pt-2 pb-0 pr-4 pl-4'>
+    <div className='c-dashboard__controlPanel pt-3 pb-1 pr-3 pl-3'>
       <div className='d-inline-block'>
         {editMode
           ? addMode ? t('ui:dashboard-dragNewWidgets') : t('ui:dashboard-arrangeWidgets')
@@ -32,6 +38,13 @@ const DashboardControlPanel = (props) => {
           </button>
         ) : (
           <>
+            <button
+              id='c-dashboard__controlPanel-reset-button-id'
+              className='c-dashboard__controlPanel-reset-button mr-2'
+              onClick={onResetEditHandler}
+            >
+              {t('ui:dashboard-reset')}
+            </button>
             <button
               id='c-dashboard__controlPanel-save-button-id'
               className='c-dashboard__controlPanel-save-button mr-2'

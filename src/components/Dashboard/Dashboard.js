@@ -19,17 +19,18 @@ export const Dashboard = (props) => {
   const [currentBreakpoint, setCurrentBreakpoint] = useState('lg')
   const [availableWidgets, setAvailableWidgets] = useState([])
 
+  const initDashboard = async () => {
+    const _availableWidgets = await DashboardAPI.loadAvailableWidgets()
+    setAvailableWidgets(_availableWidgets)
+    const [_widgets, _layouts, _config] = await DashboardAPI.loadDashboard()
+    setWidgets(_widgets)
+    setLayouts(_layouts)
+    setConfig(_config)
+  }
+
   useEffect(() => {
-    const loadData = async () => {
-      const _availableWidgets = await DashboardAPI.loadAvailableWidgets()
-      setAvailableWidgets(_availableWidgets)
-      const [_widgets, _layouts, _config] = await DashboardAPI.loadDashboard()
-      setWidgets(_widgets)
-      setLayouts(_layouts)
-      setConfig(_config)
-      setMounted(true)
-    }
-    loadData()
+    initDashboard()
+    setMounted(true)
   }, [])
 
   const onWidgetUpdate = (update, layout) => {
@@ -77,6 +78,13 @@ export const Dashboard = (props) => {
     setLayouts(backupLayouts)
   }
 
+  const onResetEdit = async () => {
+    await DashboardAPI.resetDashboard()
+    initDashboard()
+    setAddMode(false)
+    setEditMode(false)
+  }
+
   const onSaveEdit = async () => {
     await DashboardAPI.saveDashboard(widgets, layouts, config)
     setAddMode(false)
@@ -85,9 +93,11 @@ export const Dashboard = (props) => {
 
   return (
     <DashboardRender
-      t={t} addMode={addMode} editMode={editMode} onEditModeOn={onEditModeOn} onCancelEdit={onCancelEdit} onSaveEdit={onSaveEdit} onAddChange={onAddChange} mounted={mounted}
+      t={t} addMode={addMode} editMode={editMode} onEditModeOn={onEditModeOn} onCancelEdit={onCancelEdit}
+      onSaveEdit={onSaveEdit} onResetEdit={onResetEdit} onAddChange={onAddChange} mounted={mounted}
       layouts={layouts} onLayoutChange={onLayoutChange} onBreakpointChange={onBreakpointChange} currentBreakpoint={currentBreakpoint}
-      widgets={widgets} availableWidgets={availableWidgets} setWidgets={setWidgets} onWidgetUpdate={onWidgetUpdate} onWidgetResize={onWidgetResize} onWidgetDelete={onWidgetDelete}
+      widgets={widgets} availableWidgets={availableWidgets} setWidgets={setWidgets} onWidgetUpdate={onWidgetUpdate}
+      onWidgetResize={onWidgetResize} onWidgetDelete={onWidgetDelete}
     />
   )
 }

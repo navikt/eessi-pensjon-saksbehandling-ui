@@ -8,6 +8,7 @@
     "dashboard-addNewWidgets" : "Legg til nye widgeter",
     "dashboard-hideNewWidgets" : "Skjule nye widgeter",
     "dashboard-editDashboard" : "Rediger dashbordet",
+    "dashboard-reset" : "Nullstill dashbordet",
     "dashboard-saveChanges" : "Lagre endringer",
     "dashboard-cancelChanges" : "Glem endringer",
     "dashboard-noWidgetForType" : "Ingen widget til type {{type}}",
