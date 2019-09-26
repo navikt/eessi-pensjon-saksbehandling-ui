@@ -43,6 +43,20 @@ describe('components/Dashboard/API/DashboardAPI', () => {
     done()
   })
 
+  it('resetDashboard()', async (done) => {
+    await localStorage.setItem('c-d-layouts', 'mockLayout')
+    await localStorage.setItem('c-d-widgets', 'mockWidgets')
+    await localStorage.setItem('c-d-config', 'mockConfig')
+    await DashboardAPI.resetDashboard()
+    const savedLayouts = localStorage.getItem('c-d-layouts')
+    const savedWidgets = localStorage.getItem('c-d-widgets')
+    const savedConfig = localStorage.getItem('c-d-config')
+    expect(savedLayouts).toEqual(JSON.stringify(defaultLayouts))
+    expect(savedWidgets).toEqual(JSON.stringify(defaultWidgets))
+    expect(savedConfig).toEqual(JSON.stringify(defaultConfig))
+    done()
+  })
+
   it('loadAvailableWidgets()', async (done) => {
     const loadedAvailableWidgets = await DashboardAPI.loadAvailableWidgets()
     expect(loadedAvailableWidgets).toEqual(availableWidgets)

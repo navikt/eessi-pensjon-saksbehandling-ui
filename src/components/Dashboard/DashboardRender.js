@@ -15,7 +15,7 @@ import './Dashboard.css'
 const dragApi = createDragApiRef()
 
 export const DashboardRender = (props) => {
-  const { t, addMode, editMode, onEditModeOn, onCancelEdit, onSaveEdit, onAddChange, mounted } = props
+  const { t, addMode, editMode, onEditModeOn, onCancelEdit, onResetEdit, onSaveEdit, onAddChange, mounted } = props
   const { layouts, onLayoutChange, onBreakpointChange, currentBreakpoint } = props
   const { widgets, availableWidgets, setWidgets, onWidgetUpdate, onWidgetResize, onWidgetDelete } = props
 
@@ -37,6 +37,7 @@ export const DashboardRender = (props) => {
             onEditModeOn={onEditModeOn}
             onCancelEdit={onCancelEdit}
             onSaveEdit={onSaveEdit}
+            onResetEdit={onResetEdit}
             onAddChange={onAddChange}
             t={t}
           />

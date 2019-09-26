@@ -48,7 +48,7 @@ export const WidgetAdd = (props) => {
 
 WidgetAdd.propTypes = {
   connectDragPreview: PT.func.isRequired,
-  connectDragSource: PT.object,
+  connectDragSource: PT.func.isRequired,
   isDragging: PT.bool,
   widget: PT.object.isRequired
 }

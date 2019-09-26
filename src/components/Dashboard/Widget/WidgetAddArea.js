@@ -1,8 +1,9 @@
 import React from 'react'
 import PT from 'prop-types'
 import WidgetAdd from './WidgetAdd'
-import './Widget.css'
 import WidgetAddPreview from './WidgetAddPreview'
+
+import './Widget.css'
 
 const WidgetAddArea = (props) => {
   const { availableWidgets, currentBreakpoint, dragApi, setWidgets, t, widgets } = props

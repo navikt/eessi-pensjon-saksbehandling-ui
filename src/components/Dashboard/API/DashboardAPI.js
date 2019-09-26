@@ -31,6 +31,12 @@ export const saveDashboard = async (widgets, layouts, config) => {
   await localStorage.setItem('c-d-layouts', JSON.stringify(layouts))
 }
 
+export const resetDashboard = async () => {
+  await localStorage.setItem('c-d-config', JSON.stringify(defaultConfig))
+  await localStorage.setItem('c-d-widgets', JSON.stringify(defaultWidgets))
+  await localStorage.setItem('c-d-layouts', JSON.stringify(defaultLayouts))
+}
+
 export const loadAvailableWidgets = async () => {
   return require('components/Dashboard/Config/AvailableWidgets').default
 }
