@@ -10,6 +10,8 @@ import RefreshButton from 'components/RefreshButton/RefreshButton'
 import { getDisplayName } from 'utils/displayName'
 import { ReactComponent as VeilederSVG } from 'resources/images/NavPensjonVeileder.svg'
 
+import './VarslerPanel.css'
+
 const mapStateToProps = (state) => {
   return {
     aktoerId: state.app.params.aktoerId,
@@ -33,6 +35,7 @@ export const VarslerPanel = (props) => {
   const [_fileList, setFileList] = useState(undefined)
   const [_files, setFiles] = useState({})
   const [mounted, setMounted] = useState(false)
+  const [hasParams, setHasParams] = useState(false)
 
   const onInviteButtonClick = () => {
     actions.sendInvite({
@@ -46,6 +49,7 @@ export const VarslerPanel = (props) => {
       if (aktoerId && sakId && fileList === undefined) {
         actions.listStorageFiles(aktoerId, 'varsler___' + sakId)
       }
+      setHasParams(aktoerId !== undefined && sakId !== undefined)
       setMounted(true)
     }
   }, [actions, aktoerId, sakId, fileList, mounted])
@@ -88,6 +92,24 @@ export const VarslerPanel = (props) => {
     }
   }, [actions, aktoerId, sakId])
 
+  if (!mounted) {
+    return null
+  }
+
+  if (mounted && !hasParams) {
+    return (
+      <Panel className='w-varslerPanel s-border'>
+        <Systemtittel className='pb-3'>{t('ui:widget-overview-notifications')}</Systemtittel>
+        <Veileder
+          tekst={t('pinfo:error-noParams')}
+          posisjon='høyre'
+        >
+          <VeilederSVG />
+        </Veileder>
+      </Panel>
+    )
+  }
+
   return (
     <Panel className='w-varslerPanel s-border'>
       <Systemtittel className='pb-3'>{t('ui:widget-overview-notifications')}</Systemtittel>
@@ -124,7 +146,7 @@ export const VarslerPanel = (props) => {
           ) : null}
         </div>
         <div className='col-md-8'>
-          <div className='w-overview-varslerPanel__title'>
+          <div className='w-varslerPanel__title'>
             {/* <Undertittel>{t('ui:widget-overview-sendNotification-title')}</Undertittel> */}
             <div />
             <RefreshButton t={t} rotating={!isReady} onRefreshClick={onRefreshHandle} />
@@ -168,7 +190,6 @@ export const VarslerPanel = (props) => {
               </tbody>
             </table>
           )}
-
         </div>
       </Row>
     </Panel>
