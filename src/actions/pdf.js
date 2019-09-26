@@ -63,7 +63,7 @@ export function setSeparator (payload) {
 }
 
 export function generatePDF (payload) {
-  return api.call({
+  return api.realCall({
     url: urls.PDF_GENERATE_URL,
     method: 'POST',
     payload: payload,

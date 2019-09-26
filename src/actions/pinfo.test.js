@@ -4,11 +4,11 @@ import * as types from 'constants/actionTypes'
 
 describe('actions/pinfo', () => {
   beforeAll(() => {
-    api.funcCall = jest.fn()
+    api.call = jest.fn()
   })
 
   afterAll(() => {
-    api.funcCall.mockRestore()
+    api.call.mockRestore()
   })
 
   it('sendInvite()', () => {
@@ -16,7 +16,7 @@ describe('actions/pinfo', () => {
       sakId: '123',
       aktoerId: '456'
     })
-    expect(api.funcCall).toBeCalledWith({
+    expect(api.call).toBeCalledWith({
       method: 'POST',
       payload: {},
       expectedPayload: { success: true },

@@ -56,7 +56,7 @@ export const setP4000Info = (p4000) => {
 }
 
 export const fetchSingleBuc = (rinaCaseId) => {
-  return api.funcCall({
+  return api.call({
     url: sprintf(urls.BUC_GET_SINGLE_BUC, { rinaCaseId: rinaCaseId }),
     expectedPayload: sampleBucs[0],
     type: {
@@ -68,7 +68,7 @@ export const fetchSingleBuc = (rinaCaseId) => {
 }
 
 export const fetchBucs = (aktoerId) => {
-  return api.funcCall({
+  return api.call({
     url: sprintf(urls.BUC_AKTOERID_DETALJER_URL, { aktoerId: aktoerId }),
     failWith500: true,
     expectedPayload: sampleBucs,
@@ -81,7 +81,7 @@ export const fetchBucs = (aktoerId) => {
 }
 
 export const fetchAvdodBucs = (aktoerId) => {
-  return api.funcCall({
+  return api.call({
     url: sprintf(urls.BUC_AKTOERID_DETALJER_URL, { aktoerId: aktoerId }),
     expectedPayload: sampleBucs,
     type: {
@@ -93,7 +93,7 @@ export const fetchAvdodBucs = (aktoerId) => {
 }
 
 export const fetchBucsInfoList = (aktoerId) => {
-  return api.funcCall({
+  return api.call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: 'BUC' }),
     expectedPayload: [aktoerId + '__BUC__INFO'],
     type: {
@@ -105,7 +105,7 @@ export const fetchBucsInfoList = (aktoerId) => {
 }
 
 export const fetchBucsInfo = (userId, namespace, file) => {
-  return api.funcCall({
+  return api.call({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: userId, namespace: namespace, file: file }),
     expectedPayload: sampleBucsInfo,
     type: {
@@ -117,7 +117,7 @@ export const fetchBucsInfo = (userId, namespace, file) => {
 }
 
 export const getSubjectAreaList = () => {
-  return api.funcCall({
+  return api.call({
     url: urls.EUX_SUBJECT_AREA_URL,
     type: {
       request: types.BUC_GET_SUBJECT_AREA_LIST_REQUEST,
@@ -128,7 +128,7 @@ export const getSubjectAreaList = () => {
 }
 
 export const getBucList = () => {
-  return api.funcCall({
+  return api.call({
     url: urls.BUC_BUCS_URL,
     expectedPayload: ['DEMO_BUC_01'],
     type: {
@@ -147,7 +147,7 @@ export const getTagList = (aktoerId) => {
 }
 
 export const createBuc = (buc) => {
-  return api.funcCall({
+  return api.call({
     url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
     method: 'POST',
     expectedPayload: {
@@ -188,7 +188,7 @@ export const saveBucsInfo = (params) => {
     newBucsInfo.bucs[bucId].comment = newComment
   }
 
-  return api.funcCall({
+  return api.call({
     url: sprintf(urls.API_STORAGE_POST_URL, { userId: params.aktoerId, namespace: 'BUC', file: 'INFO' }),
     method: 'POST',
     payload: newBucsInfo,
@@ -201,7 +201,7 @@ export const saveBucsInfo = (params) => {
 }
 
 export const getCountryList = () => {
-  return api.funcCall({
+  return api.call({
     url: urls.EUX_COUNTRY_URL,
     expectedPayload: ['XX'],
     type: {
@@ -214,7 +214,7 @@ export const getCountryList = () => {
 
 export const getSedList = (buc) => {
   const url = sprintf(urls.SED_GET_OPTIONS_URL, { buc: buc.type, rinaId: buc.caseId })
-  return api.funcCall({
+  return api.call({
     url: url,
     expectedPayload: ['P2000', 'P4000', 'P5000'],
     type: {
@@ -226,7 +226,7 @@ export const getSedList = (buc) => {
 }
 
 export const getInstitutionsListForBucAndCountry = (buc, country) => {
-  return api.funcCall({
+  return api.call({
     url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: buc, country: country }),
     context: {
       buc: buc,
@@ -242,7 +242,7 @@ export const getInstitutionsListForBucAndCountry = (buc, country) => {
 }
 
 export const createSed = (payload) => {
-  return api.funcCall({
+  return api.call({
     url: urls.BUC_CREATE_SED_URL,
     payload: payload,
     expectedPayload: {
@@ -259,7 +259,7 @@ export const createSed = (payload) => {
 }
 
 export const createReplySed = (payload, parentId) => {
-  return api.funcCall({
+  return api.call({
     url: sprintf(urls.BUC_CREATE_REPLY_SED_URL, { parentId: parentId }),
     payload: payload,
     expectedPayload: {
@@ -276,7 +276,7 @@ export const createReplySed = (payload, parentId) => {
 }
 
 export const sendAttachmentToSed = (params, context) => {
-  return api.funcCall({
+  return api.call({
     url: sprintf(urls.BUC_SEND_ATTACHMENT_URL, params),
     method: 'PUT',
     expectedPayload: {
@@ -292,7 +292,7 @@ export const sendAttachmentToSed = (params, context) => {
 }
 
 export const getRinaUrl = () => {
-  return api.funcCall({
+  return api.call({
     url: urls.EUX_RINA_URL,
     expectedPayload: {
       rinaUrl: 'http://mockurl.com/rinaUrl'
@@ -306,7 +306,7 @@ export const getRinaUrl = () => {
 }
 
 export const listP4000 = (aktoerId) => {
-  return api.funcCall({
+  return api.call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: 'PINFO' }),
     expectedPayload: [
       aktoerId + '___PINFO___PINFO.json'
@@ -320,7 +320,7 @@ export const listP4000 = (aktoerId) => {
 }
 
 export const getP4000 = (file) => {
-  return api.funcCall({
+  return api.call({
     url: sprintf(urls.API_STORAGE_GET_URL, { file: file }),
     expectedPayload: sampleP4000info,
     type: {
@@ -332,7 +332,7 @@ export const getP4000 = (file) => {
 }
 
 export const saveP4000asSaksbehandler = (aktoerId, file) => {
-  return api.funcCall({
+  return api.call({
     url: sprintf(urls.API_STORAGE_POST_URL, { userId: aktoerId, namespace: 'PINFO', file: 'PINFOSB.json' }),
     payload: file,
     expectedPayload: sampleP4000info,

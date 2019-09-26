@@ -9,14 +9,14 @@ import sampleInstitutions from 'resources/tests/sampleInstitutions'
 var sprintf = require('sprintf-js').sprintf
 
 describe('actions/buc', () => {
-  const funcCall = jest.spyOn(api, 'funcCall').mockImplementation(jest.fn())
+  const call = jest.spyOn(api, 'call').mockImplementation(jest.fn())
 
   afterEach(() => {
-    funcCall.mockReset()
+    call.mockReset()
   })
 
   afterAll(() => {
-    funcCall.mockRestore()
+    call.mockRestore()
   })
 
   it('setMode()', () => {
@@ -63,7 +63,7 @@ describe('actions/buc', () => {
   it('fetchSingleBuc()', () => {
     const mockRinaCaseId = '123'
     bucActions.fetchSingleBuc(mockRinaCaseId)
-    expect(funcCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       type: {
         request: types.BUC_GET_SINGLE_BUC_REQUEST,
         success: types.BUC_GET_SINGLE_BUC_SUCCESS,
@@ -77,7 +77,7 @@ describe('actions/buc', () => {
   it('fetchBucs()', () => {
     const mockAktoerId = 123
     bucActions.fetchBucs(mockAktoerId)
-    expect(funcCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       type: {
         request: types.BUC_GET_BUCS_REQUEST,
         success: types.BUC_GET_BUCS_SUCCESS,
@@ -92,7 +92,7 @@ describe('actions/buc', () => {
   it('fetchAvdodBucs()', () => {
     const mockAktoerId = 123
     bucActions.fetchAvdodBucs(mockAktoerId)
-    expect(funcCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       type: {
         request: types.BUC_GET_AVDOD_BUCS_REQUEST,
         success: types.BUC_GET_AVDOD_BUCS_SUCCESS,
@@ -106,7 +106,7 @@ describe('actions/buc', () => {
   it('fetchBucsInfoList()', () => {
     const mockUserId = 123
     bucActions.fetchBucsInfoList(mockUserId)
-    expect(funcCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       type: {
         request: types.BUC_GET_BUCSINFO_LIST_REQUEST,
         success: types.BUC_GET_BUCSINFO_LIST_SUCCESS,
@@ -122,7 +122,7 @@ describe('actions/buc', () => {
     const mockNamespace = 'mockNamespace'
     const mockFilename = 'mockFilename'
     bucActions.fetchBucsInfo(mockUserId, mockNamespace, mockFilename)
-    expect(funcCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       type: {
         request: types.BUC_GET_BUCSINFO_REQUEST,
         success: types.BUC_GET_BUCSINFO_SUCCESS,
@@ -135,7 +135,7 @@ describe('actions/buc', () => {
 
   it('getSubjectAreaList()', () => {
     bucActions.getSubjectAreaList()
-    expect(funcCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       type: {
         request: types.BUC_GET_SUBJECT_AREA_LIST_REQUEST,
         success: types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS,
@@ -147,7 +147,7 @@ describe('actions/buc', () => {
 
   it('getBucList()', () => {
     bucActions.getBucList()
-    expect(funcCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       type: {
         request: types.BUC_GET_BUC_LIST_REQUEST,
         success: types.BUC_GET_BUC_LIST_SUCCESS,
@@ -169,7 +169,7 @@ describe('actions/buc', () => {
   it('createBuc()', () => {
     const mockBuc = 'mockBuc'
     bucActions.createBuc(mockBuc)
-    expect(funcCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       type: {
         request: types.BUC_CREATE_BUC_REQUEST,
         success: types.BUC_CREATE_BUC_SUCCESS,
@@ -199,7 +199,7 @@ describe('actions/buc', () => {
       aktoerId: 123
     }
     bucActions.saveBucsInfo(mockParams)
-    expect(funcCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       type: {
         request: types.BUC_SAVE_BUCSINFO_REQUEST,
         success: types.BUC_SAVE_BUCSINFO_SUCCESS,
@@ -220,7 +220,7 @@ describe('actions/buc', () => {
 
   it('getCountryList()', () => {
     bucActions.getCountryList()
-    expect(funcCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       type: {
         request: types.BUC_GET_COUNTRY_LIST_REQUEST,
         success: types.BUC_GET_COUNTRY_LIST_SUCCESS,
@@ -235,7 +235,7 @@ describe('actions/buc', () => {
     const mockBuc = { type: 'mockBucType', caseId: 456 }
     const mockRinaId = '123'
     bucActions.getSedList(mockBuc, mockRinaId)
-    expect(funcCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       type: {
         request: types.BUC_GET_SED_LIST_REQUEST,
         success: types.BUC_GET_SED_LIST_SUCCESS,
@@ -250,7 +250,7 @@ describe('actions/buc', () => {
     const mockBuc = 'P_BUC_01'
     const mockCountry = 'NO'
     bucActions.getInstitutionsListForBucAndCountry(mockBuc, mockCountry)
-    expect(funcCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       type: {
         request: types.BUC_GET_INSTITUTION_LIST_REQUEST,
         success: types.BUC_GET_INSTITUTION_LIST_SUCCESS,
@@ -268,7 +268,7 @@ describe('actions/buc', () => {
   it('createSed()', () => {
     const mockedPayload = {}
     bucActions.createSed(mockedPayload)
-    expect(funcCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       type: {
         request: types.BUC_CREATE_SED_REQUEST,
         success: types.BUC_CREATE_SED_SUCCESS,
@@ -292,7 +292,7 @@ describe('actions/buc', () => {
     }
     const mockContext = { foo: 'bar' }
     bucActions.sendAttachmentToSed(mockParams, mockContext)
-    expect(funcCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       type: {
         request: types.BUC_SEND_ATTACHMENT_REQUEST,
         success: types.BUC_SEND_ATTACHMENT_SUCCESS,
@@ -307,7 +307,7 @@ describe('actions/buc', () => {
 
   it('getRinaUrl()', () => {
     bucActions.getRinaUrl()
-    expect(funcCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       expectedPayload: {
         rinaUrl: 'http://mockurl.com/rinaUrl'
       },
@@ -323,7 +323,7 @@ describe('actions/buc', () => {
   it('listP4000()', () => {
     const mockAktoerId = '123'
     bucActions.listP4000(mockAktoerId)
-    expect(funcCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       type: {
         request: types.BUC_GET_P4000_LIST_REQUEST,
         success: types.BUC_GET_P4000_LIST_SUCCESS,
@@ -339,7 +339,7 @@ describe('actions/buc', () => {
   it('getP4000()', () => {
     const mockFile = 'file.json'
     bucActions.getP4000(mockFile)
-    expect(funcCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       type: {
         request: types.BUC_GET_P4000_INFO_REQUEST,
         success: types.BUC_GET_P4000_INFO_SUCCESS,
@@ -353,7 +353,7 @@ describe('actions/buc', () => {
   it('saveP4000asSaksbehandler()', () => {
     const mockAktoer = '1234567890'
     bucActions.saveP4000asSaksbehandler(mockAktoer, sampleP4000info)
-    expect(funcCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       url: sprintf(urls.API_STORAGE_POST_URL, { userId: mockAktoer, namespace: 'PINFO', file: 'PINFOSB.json' }),
       payload: sampleP4000info,
       expectedPayload: sampleP4000info,

@@ -6,8 +6,7 @@ import * as types from 'constants/actionTypes'
 import { IS_TEST } from 'constants/environment'
 import { HOST } from 'constants/urls'
 
-export const fakecall = (options) => {
-  const { context, expectedPayload, type, url } = options
+export const fakeCall = ({ context, expectedPayload, type, url }) => {
   return (dispatch) => {
     if (!IS_TEST) {
       console.log('FAKE API CALL FOR ' + url + ': REQUEST')
@@ -33,7 +32,7 @@ export const fakecall = (options) => {
   }
 }
 
-export const call = (options) => {
+export const realCall = (options) => {
   const { body, context, failWith401, failWith500, headers, method, payload, type, url } = options
   return (dispatch) => {
     dispatch({
@@ -66,7 +65,7 @@ export const call = (options) => {
           error.stackTrace = stackTrace
           throw error
         })
-          .catch((e) => {
+          .catch(() => {
             return Promise.reject(error)
           })
       } else {
@@ -123,4 +122,4 @@ export const call = (options) => {
   }
 }
 
-export const funcCall = HOST === 'localhost' && !IS_TEST ? fakecall : call
+export const call = HOST === 'localhost' && !IS_TEST ? fakeCall : realCall

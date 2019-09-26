@@ -5,11 +5,11 @@ import * as urls from 'constants/urls'
 
 describe('actions/pdf', () => {
   beforeAll(() => {
-    api.call = jest.fn()
+    api.realCall = jest.fn()
   })
 
   afterEach(() => {
-    api.call.mockRestore()
+    api.realCall.mockRestore()
   })
 
   it('selectPDF()', () => {
@@ -90,7 +90,7 @@ describe('actions/pdf', () => {
   it('generatePDF()', () => {
     const mockPayload = { foo: 'bar' }
     pdfActions.generatePDF(mockPayload)
-    expect(api.call).toBeCalledWith({
+    expect(api.realCall).toBeCalledWith({
       type: {
         request: types.PDF_GENERATE_REQUEST,
         success: types.PDF_GENERATE_SUCCESS,

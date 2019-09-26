@@ -7,7 +7,7 @@ import sampleJoark from 'resources/tests/sampleJoark'
 var sprintf = require('sprintf-js').sprintf
 
 export const listJoarkFiles = (userId) => {
-  return api.funcCall({
+  return api.call({
     url: sprintf(urls.API_JOARK_LIST_URL, { userId: userId }),
     expectedPayload: sampleJoark.mockdata,
     type: {
@@ -20,7 +20,7 @@ export const listJoarkFiles = (userId) => {
 
 export const previewJoarkFile = (item, variant) => {
   const expectedPayload = urls.HOST === 'localhost' && !IS_TEST ? getMockedPayload(item.journalpostId) : undefined
-  return api.funcCall({
+  return api.call({
     url: sprintf(urls.API_JOARK_GET_URL, {
       dokumentInfoId: item.dokumentInfoId,
       journalpostId: item.journalpostId,
@@ -41,7 +41,7 @@ export const previewJoarkFile = (item, variant) => {
 
 export const getJoarkFile = (item, variant) => {
   const expectedPayload = urls.HOST === 'localhost' && !IS_TEST ? getMockedPayload(item.journalpostId) : undefined
-  return api.funcCall({
+  return api.call({
     url: sprintf(urls.API_JOARK_GET_URL, {
       dokumentInfoId: item.dokumentInfoId,
       journalpostId: item.journalpostId,

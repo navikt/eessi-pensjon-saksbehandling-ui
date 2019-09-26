@@ -17,7 +17,7 @@ export const closeStorageModal = () => {
 }
 
 export const listStorageFiles = (userId, namespace, context) => {
-  return api.funcCall({
+  return api.call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: userId, namespace: namespace }),
     method: 'GET',
     context: context || { notification: true },
@@ -39,7 +39,7 @@ export const listStorageFiles = (userId, namespace, context) => {
 }
 
 export const getStorageFile = (params, context) => {
-  return api.funcCall({
+  return api.call({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
     method: 'GET',
     expectedPayload: () => {
@@ -61,7 +61,7 @@ export const getStorageFile = (params, context) => {
 }
 
 export const getAttachmentFromStorage = (params) => {
-  return api.call({
+  return api.realCall({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
     method: 'GET',
     type: {
@@ -73,7 +73,7 @@ export const getAttachmentFromStorage = (params) => {
 }
 
 export const postStorageFile = (userId, namespace, file, payload, context) => {
-  return api.call({
+  return api.realCall({
     url: sprintf(urls.API_STORAGE_POST_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'POST',
     payload: payload,
@@ -87,7 +87,7 @@ export const postStorageFile = (userId, namespace, file, payload, context) => {
 }
 
 export const deleteStorageFile = (userId, namespace, file) => {
-  return api.call({
+  return api.realCall({
     url: sprintf(urls.API_STORAGE_DELETE_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'DELETE',
     type: {
@@ -99,7 +99,7 @@ export const deleteStorageFile = (userId, namespace, file) => {
 }
 
 export const deleteAllStorageFilesFromUser = (userId, namespace) => {
-  return api.call({
+  return api.realCall({
     url: sprintf(urls.API_STORAGE_MULTIPLE_DELETE_URL, { userId: userId, namespace: namespace }),
     method: 'DELETE',
     type: {

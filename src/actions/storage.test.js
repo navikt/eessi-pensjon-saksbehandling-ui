@@ -4,18 +4,18 @@ import * as types from 'constants/actionTypes'
 
 describe('actions/storage', () => {
   beforeAll(() => {
+    api.realCall = jest.fn()
     api.call = jest.fn()
-    api.funcCall = jest.fn()
   })
 
   afterEach(() => {
+    api.realCall.mockReset()
     api.call.mockReset()
-    api.funcCall.mockReset()
   })
 
   afterAll(() => {
+    api.realCall.mockRestore()
     api.call.mockRestore()
-    api.funcCall.mockRestore()
   })
 
   it('openStorageModal()', () => {
@@ -38,7 +38,7 @@ describe('actions/storage', () => {
     const mockUser = 'mockUser'
     const mockNamespace = 'mockNamespace'
     storageActions.listStorageFiles(mockUser, mockNamespace, { notification: false })
-    expect(api.funcCall).toBeCalledWith(expect.objectContaining({
+    expect(api.call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.STORAGE_LIST_REQUEST,
         success: types.STORAGE_LIST_SUCCESS,
@@ -54,7 +54,7 @@ describe('actions/storage', () => {
     const mockUser = 'mockUser'
     const mockNamespace = 'mockNamespace'
     storageActions.listStorageFiles(mockUser, mockNamespace)
-    expect(api.funcCall).toBeCalledWith(expect.objectContaining({
+    expect(api.call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.STORAGE_LIST_REQUEST,
         success: types.STORAGE_LIST_SUCCESS,
@@ -73,7 +73,7 @@ describe('actions/storage', () => {
       file: 'file'
     }
     storageActions.getStorageFile(mockParams, { notification: false })
-    expect(api.funcCall).toBeCalledWith(expect.objectContaining({
+    expect(api.call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.STORAGE_GET_REQUEST,
         success: types.STORAGE_GET_SUCCESS,
@@ -92,7 +92,7 @@ describe('actions/storage', () => {
       file: 'file'
     }
     storageActions.getStorageFile(mockParams)
-    expect(api.funcCall).toBeCalledWith(expect.objectContaining({
+    expect(api.call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.STORAGE_GET_REQUEST,
         success: types.STORAGE_GET_SUCCESS,
@@ -110,7 +110,7 @@ describe('actions/storage', () => {
     const file = 'file'
     const payload = { foo: 'bar' }
     storageActions.postStorageFile(userId, namespace, file, payload, { notification: false })
-    expect(api.call).toBeCalledWith({
+    expect(api.realCall).toBeCalledWith({
       type: {
         request: types.STORAGE_POST_REQUEST,
         success: types.STORAGE_POST_SUCCESS,
@@ -129,7 +129,7 @@ describe('actions/storage', () => {
     const file = 'file'
     const payload = { foo: 'bar' }
     storageActions.postStorageFile(userId, namespace, file, payload)
-    expect(api.call).toBeCalledWith({
+    expect(api.realCall).toBeCalledWith({
       type: {
         request: types.STORAGE_POST_REQUEST,
         success: types.STORAGE_POST_SUCCESS,
@@ -149,7 +149,7 @@ describe('actions/storage', () => {
       file: 'attachmentFile'
     }
     storageActions.getAttachmentFromStorage(mockParams)
-    expect(api.call).toBeCalledWith({
+    expect(api.realCall).toBeCalledWith({
       type: {
         request: types.STORAGE_GET_ATTACHMENT_REQUEST,
         success: types.STORAGE_GET_ATTACHMENT_SUCCESS,
@@ -168,7 +168,7 @@ describe('actions/storage', () => {
     const file = 'file'
 
     storageActions.deleteStorageFile(userId, namespace, file)
-    expect(api.call).toBeCalledWith({
+    expect(api.realCall).toBeCalledWith({
       type: {
         request: types.STORAGE_DELETE_REQUEST,
         success: types.STORAGE_DELETE_SUCCESS,
@@ -185,7 +185,7 @@ describe('actions/storage', () => {
     const namespace = 'namespace'
 
     storageActions.deleteAllStorageFilesFromUser(userId, namespace)
-    expect(api.call).toBeCalledWith({
+    expect(api.realCall).toBeCalledWith({
       type: {
         request: types.STORAGE_MULTIPLE_DELETE_REQUEST,
         success: types.STORAGE_MULTIPLE_DELETE_SUCCESS,

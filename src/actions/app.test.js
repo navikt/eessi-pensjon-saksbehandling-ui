@@ -6,14 +6,14 @@ import samplePerson from 'resources/tests/samplePerson'
 const sprintf = require('sprintf-js').sprintf
 
 describe('actions/app', () => {
-  const funcCall = jest.spyOn(api, 'funcCall').mockImplementation(jest.fn())
+  const call = jest.spyOn(api, 'call').mockImplementation(jest.fn())
 
   afterEach(() => {
-    funcCall.mockReset()
+    call.mockReset()
   })
 
   afterAll(() => {
-    funcCall.mockRestore()
+    call.mockRestore()
   })
 
   it('setStatusParam()', () => {
@@ -71,7 +71,7 @@ describe('actions/app', () => {
 
   it('getUserInfo()', () => {
     appActions.getUserInfo()
-    expect(funcCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       expectedPayload: {
         subject: 'demoSBUser',
         role: 'SAKSBEHANDLER',
@@ -90,7 +90,7 @@ describe('actions/app', () => {
   it('getPersonInfo()', () => {
     const mockAktoerId = '123'
     appActions.getPersonInfo(mockAktoerId)
-    expect(funcCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       type: {
         request: types.APP_PERSONINFO_REQUEST,
         success: types.APP_PERSONINFO_SUCCESS,
@@ -105,7 +105,7 @@ describe('actions/app', () => {
     const mockSakId = '123'
     const mockAktoerId = '456'
     appActions.getSakType(mockSakId, mockAktoerId)
-    expect(funcCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       type: {
         request: types.APP_SAKTYPE_REQUEST,
         success: types.APP_SAKTYPE_SUCCESS,

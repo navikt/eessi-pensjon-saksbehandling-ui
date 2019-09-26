@@ -8,17 +8,17 @@ var sprintf = require('sprintf-js').sprintf
 
 describe('actions/joark', () => {
   beforeAll(() => {
-    api.funcCall = jest.fn()
+    api.call = jest.fn()
   })
 
   afterEach(() => {
-    api.funcCall.mockRestore()
+    api.call.mockRestore()
   })
 
   it('listJoarkFiles()', () => {
     const mockUserId = 123
     joarkActions.listJoarkFiles(mockUserId)
-    expect(api.funcCall).toBeCalledWith({
+    expect(api.call).toBeCalledWith({
       type: {
         request: types.JOARK_LIST_REQUEST,
         success: types.JOARK_LIST_SUCCESS,
@@ -38,7 +38,7 @@ describe('actions/joark', () => {
       variantformat: 'mockVariant'
     }
     joarkActions.previewJoarkFile(mockItem, mockVariant)
-    expect(api.funcCall).toBeCalledWith({
+    expect(api.call).toBeCalledWith({
       type: {
         request: types.JOARK_PREVIEW_REQUEST,
         success: types.JOARK_PREVIEW_SUCCESS,
@@ -66,7 +66,7 @@ describe('actions/joark', () => {
       variantformat: 'mockVariant'
     }
     joarkActions.getJoarkFile(mockItem, mockVariant)
-    expect(api.funcCall).toBeCalledWith({
+    expect(api.call).toBeCalledWith({
       type: {
         request: types.JOARK_GET_REQUEST,
         success: types.JOARK_GET_SUCCESS,

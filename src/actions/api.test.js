@@ -17,7 +17,7 @@ describe('actions/api', () => {
       .get('/')
       .reply(404, 'nope')
 
-    return store.dispatch(api.call({
+    return store.dispatch(api.realCall({
       url: 'http://mockedurl',
       type: {
         request: 'REQUEST',
@@ -38,7 +38,7 @@ describe('actions/api', () => {
       .get('/')
       .reply(200, { foo: 'bar' })
 
-    return store.dispatch(api.call({
+    return store.dispatch(api.realCall({
       url: 'http://mockedurl/',
       type: {
         request: 'REQUEST',
@@ -59,7 +59,7 @@ describe('actions/api', () => {
       .get('/')
       .reply(500, { message: 'error' })
 
-    return store.dispatch(api.call({
+    return store.dispatch(api.realCall({
       url: 'http://mockedurl/',
       type: {
         request: 'REQUEST',
@@ -80,7 +80,7 @@ describe('actions/api', () => {
       .get('/')
       .reply(500, { message: 'unauthorized' })
 
-    return store.dispatch(api.call({
+    return store.dispatch(api.realCall({
       url: 'http://mockedurl/',
       failWith500: true,
       type: {
@@ -103,7 +103,7 @@ describe('actions/api', () => {
       .get('/')
       .reply(401, { message: 'unauthorized' })
 
-    return store.dispatch(api.call({
+    return store.dispatch(api.realCall({
       url: 'http://mockedurl/',
       type: {
         request: 'REQUEST',
@@ -124,7 +124,7 @@ describe('actions/api', () => {
       .get('/')
       .reply(401, { message: 'unauthorized' })
 
-    return store.dispatch(api.call({
+    return store.dispatch(api.realCall({
       url: 'http://mockedurl/',
       failWith401: true,
       type: {
@@ -142,9 +142,9 @@ describe('actions/api', () => {
       })
   })
 
-  it('fakecall()', async (done) => {
+  it('fakeCall()', async (done) => {
     const mockedPayload = { foo: 'bar' }
-    store.dispatch(api.fakecall({
+    store.dispatch(api.fakeCall({
       url: 'http://mockedurl/',
       type: {
         request: 'REQUEST',
@@ -163,10 +163,10 @@ describe('actions/api', () => {
   })
 
   it('decides to use call as we are in localhost and test env', () => {
-    expect(api.funcCall.name).toEqual('call')
+    expect(api.call.name).toEqual('call')
   })
 
-  it('decides to use fakecall as we are in localhost and NOT test env', () => {
+  it('decides to use fakeCall as we are in localhost and NOT test env', () => {
     jest.resetModules()
     jest.mock('constants/urls', () => {
       return { HOST: 'localhost' }
@@ -175,6 +175,6 @@ describe('actions/api', () => {
       return { IS_TEST: false }
     })
     const newapi = require('actions/api')
-    expect(newapi.funcCall.name).toEqual('fakecall')
+    expect(newapi.call.name).toEqual('fakeCall')
   })
 })

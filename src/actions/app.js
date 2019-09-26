@@ -43,7 +43,7 @@ export const logout = () => {
 }
 
 export const getUserInfo = () => {
-  return api.funcCall({
+  return api.call({
     url: urls.API_USERINFO_URL,
     failWith401: true,
     expectedPayload: {
@@ -60,7 +60,7 @@ export const getUserInfo = () => {
 }
 
 export const getPersonInfo = (aktoerId) => {
-  return api.funcCall({
+  return api.call({
     url: sprintf(urls.PERSON_URL, { aktoerId: aktoerId }),
     expectedPayload: samplePerson,
     type: {
@@ -72,7 +72,7 @@ export const getPersonInfo = (aktoerId) => {
 }
 
 export const getSakType = (sakId, aktoerId) => {
-  return api.funcCall({
+  return api.call({
     url: sprintf(urls.PENSJON_GET_SAKTYPE_URL, { sakId: sakId, aktoerId: aktoerId }),
     expectedPayload: { sakId: '123', sakType: 'GJENLEV' },
     type: {
