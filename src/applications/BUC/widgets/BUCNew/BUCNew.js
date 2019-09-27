@@ -1,5 +1,5 @@
 import React from 'react'
-import { Panel, Systemtittel } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
 
 import './BUCNew.css'
@@ -9,11 +9,11 @@ const BUCNew = (props) => {
 
   return (
     <>
-      <Panel className='a-buc-bucnew s-border'>
-        <Systemtittel>{t('buc:step-startBUCTitle')}</Systemtittel>
+      <Nav.Panel className='a-buc-bucnew s-border'>
+        <Nav.Systemtittel>{t('buc:step-startBUCTitle')}</Nav.Systemtittel>
         <hr />
         <BUCStart mode='widget' {...props} />
-      </Panel>
+      </Nav.Panel>
     </>
   )
 }

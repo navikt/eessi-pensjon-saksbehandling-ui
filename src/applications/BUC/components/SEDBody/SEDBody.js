@@ -1,9 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-
-import { Lenke, Normaltekst } from 'components/Nav'
-import Icons from 'components/Icons'
+import { Icons, Nav } from 'eessi-pensjon-ui'
 import SEDRow from 'applications/BUC/components/SEDRow/SEDRow'
 
 import './SEDBody.css'
@@ -33,7 +31,7 @@ const SEDBody = (props) => {
           )
         }) : null}
       <div className='a-buc-c-sedbody__footer mt-2'>
-        <Lenke
+        <Nav.Lenke
           id='a-buc-c-sedbody__gotorina-link'
           className='a-buc-c-sedbody__gotorina'
           href={rinaUrl + buc.caseId}
@@ -41,11 +39,11 @@ const SEDBody = (props) => {
         >
           <div className='d-flex'>
             <Icons className='mr-2' color='#0067C5' kind='outlink' />
-            <Normaltekst>{t('buc:form-seeSedInRina')}</Normaltekst>
+            <Nav.Normaltekst>{t('buc:form-seeSedInRina')}</Nav.Normaltekst>
           </div>
-        </Lenke>
+        </Nav.Lenke>
         {!_.isEmpty(seds) && seds.filter(sed => sed.status !== 'empty').length > 5
-          ? <Normaltekst>{t('buc:form-lastNonEmpty5')}</Normaltekst> : null}
+          ? <Nav.Normaltekst>{t('buc:form-lastNonEmpty5')}</Nav.Normaltekst> : null}
       </div>
     </>
   )

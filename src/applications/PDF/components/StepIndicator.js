@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 
-import { Stegindikator } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 import AdvarselTrekant from 'resources/images/AdvarselTrekant'
 
 const steps = ['select', 'edit', 'generate']
@@ -45,7 +45,7 @@ const StepIndicator = (props) => {
 
   return (
     <>
-      <Stegindikator
+      <Nav.Stegindikator
         visLabel
         onBeforeChange={onBeforeChange}
         onChange={onChange}

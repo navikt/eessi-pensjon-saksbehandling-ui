@@ -2,9 +2,7 @@ import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
-import Flag from 'components/Flag/Flag'
-import Icons from 'components/Icons'
-import { Knapp, Normaltekst, Row, UndertekstBold } from 'components/Nav'
+import { Flag, Icons, Nav } from 'eessi-pensjon-ui'
 import Util from '../Util'
 
 import 'applications/BUC/components/SEDP4000/Period/Period.css'
@@ -13,7 +11,7 @@ const PeriodView = (props) => {
   const { first, last, mode, period, removePeriodRequest, requestEditPeriod, t } = props
   const util = new Util({}, t)
   return (
-    <Row className={classNames('a-buc-c-sedp4000-period', mode)}>
+    <Nav.Row className={classNames('a-buc-c-sedp4000-period', mode)}>
       <div className={classNames('col-12', { 'col-md-6': mode === 'view' })}>
         <div id={period.id} className='a-buc-c-sedp4000-period__existingPeriod'>
           <div className='a-buc-c-sedp4000-period__existingPeriod-icon mr-3 ml-3'>
@@ -23,65 +21,65 @@ const PeriodView = (props) => {
           </div>
           <div className='a-buc-c-sedp4000-period__existingPeriod-description'>
             <div className='a-buc-c-sedp4000-period__existingPeriod-type'>
-              <UndertekstBold className='pr-2'>
+              <Nav.UndertekstBold className='pr-2'>
                 {t('buc:p4000-label-category-' + period.type)}
-              </UndertekstBold>
+              </Nav.UndertekstBold>
               <Flag label={period.country.label} country={period.country.value} size='M' />
-              <Normaltekst className='pl-2'>{period.country.label}</Normaltekst>
+              <Nav.Normaltekst className='pl-2'>{period.country.label}</Nav.Normaltekst>
             </div>
             <div className='a-buc-c-sedp4000-period__existingPeriod-dates'>
-              <UndertekstBold className='mr-2'>{t('buc:p4000-label-period') + ': '}</UndertekstBold>
-              <Normaltekst>
+              <Nav.UndertekstBold className='mr-2'>{t('buc:p4000-label-period') + ': '}</Nav.UndertekstBold>
+              <Nav.Normaltekst>
                 {util.renderDate(period.startDate)}{' - '}{util.renderDate(period.endDate)}
                 {period.uncertainDate ? ' (?)' : ''}
-              </Normaltekst>
+              </Nav.Normaltekst>
             </div>
             {period.type === 'work'
               ? (
                 <>
                   <div className='a-buc-c-sedp4000-period__existingPeriod-workActivity'>
-                    <UndertekstBold className='mr-2'>{t('buc:p4000-label-work-activity2') + ': '}</UndertekstBold>
-                    <Normaltekst>{period.workActivity}</Normaltekst>
+                    <Nav.UndertekstBold className='mr-2'>{t('buc:p4000-label-work-activity2') + ': '}</Nav.UndertekstBold>
+                    <Nav.Normaltekst>{period.workActivity}</Nav.Normaltekst>
                   </div>
                   <div className='existingPeriodPlace d-flex align-items-center'>
-                    <UndertekstBold className='mr-2'>{t('buc:p4000-label-place') + ': '}</UndertekstBold>
-                    <Normaltekst>{period.workCity}</Normaltekst>
+                    <Nav.UndertekstBold className='mr-2'>{t('buc:p4000-label-place') + ': '}</Nav.UndertekstBold>
+                    <Nav.Normaltekst>{period.workCity}</Nav.Normaltekst>
                   </div>
                 </>
               ) : null}
             {period.type === 'learn'
               ? (
                 <div className='a-buc-c-sedp4000-period__existingPeriod-learnInstitution'>
-                  <UndertekstBold className='mr-2'>{t('buc:p4000-label-learn-institution') + ': '}</UndertekstBold>
-                  <Normaltekst>{period.learnInstitution}</Normaltekst>
+                  <Nav.UndertekstBold className='mr-2'>{t('buc:p4000-label-learn-institution') + ': '}</Nav.UndertekstBold>
+                  <Nav.Normaltekst>{period.learnInstitution}</Nav.Normaltekst>
                 </div>
               ) : null}
             {period.type === 'child'
               ? (
                 <div className='a-buc-c-sedp4000-period__existingPeriod-childName'>
-                  <UndertekstBold className='mr-2'>{t('buc:p4000-label-childname') + ': '}</UndertekstBold>
-                  <Normaltekst>{period.childLastName}{', '}{period.childFirstName}</Normaltekst>
+                  <Nav.UndertekstBold className='mr-2'>{t('buc:p4000-label-childname') + ': '}</Nav.UndertekstBold>
+                  <Nav.Normaltekst>{period.childLastName}{', '}{period.childFirstName}</Nav.Normaltekst>
                 </div>
               ) : null}
             {period.type === 'daily' || period.type === 'sick'
               ? (
                 <div className='a-buc-c-sedp4000-period__existingPeriod-payingInstitution'>
-                  <UndertekstBold className='mr-2'>{t('buc:p4000-label-paying-institution') + ': '}</UndertekstBold>
-                  <Normaltekst>{period.payingInstitution}</Normaltekst>
+                  <Nav.UndertekstBold className='mr-2'>{t('buc:p4000-label-paying-institution') + ': '}</Nav.UndertekstBold>
+                  <Nav.Normaltekst>{period.payingInstitution}</Nav.Normaltekst>
                 </div>
               ) : null}
             {period.type === 'other'
               ? (
                 <div className='a-buc-c-sedp4000-period__existingPeriod-otherType'>
-                  <UndertekstBold className='mr-2'>{t('buc:p4000-label-otherType') + ': '}</UndertekstBold>
-                  <Normaltekst>{period.otherType}</Normaltekst>
+                  <Nav.UndertekstBold className='mr-2'>{t('buc:p4000-label-otherType') + ': '}</Nav.UndertekstBold>
+                  <Nav.Normaltekst>{period.otherType}</Nav.Normaltekst>
                 </div>
               ) : null}
             {period.attachments && !_.isEmpty(period.attachments)
               ? (
                 <div className='a-buc-c-sedp4000-period__existingPeriod-attachments'>
-                  <UndertekstBold className='mr-2'>{t('buc:p4000-label-attachments') + ': '}</UndertekstBold>
-                  <Normaltekst>{period.attachments.map(att => att.name).join(', ')}</Normaltekst>
+                  <Nav.UndertekstBold className='mr-2'>{t('buc:p4000-label-attachments') + ': '}</Nav.UndertekstBold>
+                  <Nav.Normaltekst>{period.attachments.map(att => att.name).join(', ')}</Nav.Normaltekst>
                 </div>
               ) : null}
           </div>
@@ -89,16 +87,16 @@ const PeriodView = (props) => {
       </div>
       {mode === 'view' ? (
         <div className='col-md-6 col-12 a-buc-c-sedp4000-period__existingPeriod-buttons'>
-          <Knapp className='a-buc-c-sedp4000-period__existingPeriod-button change mr-3 ' onClick={() => requestEditPeriod(period)}>
+          <Nav.Knapp className='a-buc-c-sedp4000-period__existingPeriod-button change mr-3 ' onClick={() => requestEditPeriod(period)}>
             {t('ui:change')}
-          </Knapp>
-          <Knapp className='a-buc-c-sedp4000-period__existingPeriod-button remove' onClick={() => removePeriodRequest(period)}>
+          </Nav.Knapp>
+          <Nav.Knapp className='a-buc-c-sedp4000-period__existingPeriod-button remove' onClick={() => removePeriodRequest(period)}>
             <Icons className='mr-3' kind='bigclose' size={18} color='#0067C5' />
             {t('ui:remove')}
-          </Knapp>
+          </Nav.Knapp>
         </div>
       ) : null}
-    </Row>
+    </Nav.Row>
   )
 }
 

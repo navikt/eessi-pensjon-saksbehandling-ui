@@ -1,18 +1,17 @@
 import React from 'react'
 import PT from 'prop-types'
-import FileUpload from 'components/FileUpload/FileUpload'
-import { Normaltekst, Row, Undertekst, Undertittel } from 'components/Nav'
+import { FileUpload, Nav } from 'eessi-pensjon-ui'
 
 const PeriodAttachments = ({ closeModal, openModal, period, setAttachments, t }) => (
-  <Row>
+  <Nav.Row>
     <div className='col-sm-12'>
-      <Undertittel className='mt-5 mb-2'>
+      <Nav.Undertittel className='mt-5 mb-2'>
         {t('buc:p4000-attachment-title')}
-      </Undertittel>
-      <Undertekst>
+      </Nav.Undertittel>
+      <Nav.Undertekst>
         {t('buc:p4000-help-attachment')}
-      </Undertekst>
-      <Normaltekst className='optional mb-1'>{t('ui:optional')}</Normaltekst>
+      </Nav.Undertekst>
+      <Nav.Normaltekst className='optional mb-1'>{t('ui:optional')}</Nav.Normaltekst>
     </div>
     <div className='col-sm-12'>
       <FileUpload
@@ -28,7 +27,7 @@ const PeriodAttachments = ({ closeModal, openModal, period, setAttachments, t })
         t={t}
       />
     </div>
-  </Row>
+  </Nav.Row>
 )
 
 PeriodAttachments.propTypes = {

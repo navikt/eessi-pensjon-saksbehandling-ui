@@ -4,7 +4,7 @@ import { connect, bindActionCreators } from 'store'
 import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
-import * as Nav from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 import DnDExternalFiles from 'applications/PDF/components/DnDExternalFiles/DnDExternalFiles'
 import * as storageActions from 'actions/storage'
 import * as storages from 'constants/storages'
@@ -42,7 +42,7 @@ const ExternalFiles = (props) => {
       <div className='fileArea'>
         {loadingFileList ? (
           <div className='w-100 text-center'>
-            <Nav.NavFrontendSpinner />
+            <Nav.Spinner />
             <p className='typo-normal'>{t('pdf:loading-loadingFileList')}</p>
           </div>
         ) : <DnDExternalFiles fileList={fileList || []} addFile={addFile} />}

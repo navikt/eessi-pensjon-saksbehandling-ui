@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { Input, NavFrontendSpinner, Select, Systemtittel, Undertittel } from 'components/Nav'
-import CountryData from 'components/CountryData/CountryData'
-import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
+import { CountryData, Nav, MultipleSelect } from 'eessi-pensjon-ui'
 import SEDAttachments from 'applications/BUC/components/SEDAttachments/SEDAttachments'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 
@@ -189,7 +187,7 @@ const Step1 = (props) => {
   const getSpinner = (text) => {
     return (
       <div className='a-buc-c-sedstart__spinner ml-2'>
-        <NavFrontendSpinner type='S' />
+        <Nav.Spinner type='S' />
         <div className='float-right ml-2'>{t(text)}</div>
       </div>
     )
@@ -202,7 +200,7 @@ const Step1 = (props) => {
   return (
     <>
       <div className='col-md-12'>
-        <Systemtittel>{
+        <Nav.Systemtittel>{
           !currentSed
             ? t('buc:step-startSEDTitle', {
               buc: t(`buc:buc-${buc.type}`),
@@ -213,11 +211,11 @@ const Step1 = (props) => {
               sed: buc.seds.find(sed => sed.id === currentSed).type
             })
         }
-        </Systemtittel>
+        </Nav.Systemtittel>
         <hr />
       </div>
       <div className={layout === 'row' ? 'col-md-4 pr-3' : 'col-md-12'}>
-        <Select
+        <Nav.Select
           className='a-buc-c-sedstart__sed-select flex-fill'
           id='a-buc-c-sedstart__sed-select-id'
           placeholder={t(placeholders.institution)}
@@ -229,10 +227,10 @@ const Step1 = (props) => {
           onChange={onSedChange}
         >
           {renderOptions(sedList, 'sed')}
-        </Select>
+        </Nav.Select>
         {sedNeedsVedtakId() ? (
           <div className='mb-3'>
-            <Input
+            <Nav.Input
               id='a-buc-c-sedstart__vedtakid-input-id'
               className='a-buc-c-sedstart__vedtakid-input'
               label={t('ui:vedtakId')}
@@ -275,7 +273,7 @@ const Step1 = (props) => {
                   optionList={institutionObjectList}
                 />
               </div>
-              <Undertittel className='mb-2'>{t('buc:form-chosenInstitutions')}</Undertittel>
+              <Nav.Undertittel className='mb-2'>{t('buc:form-chosenInstitutions')}</Nav.Undertittel>
               <InstitutionList
                 t={t} institutions={_institutions.map(item => {
                   var [country, institution] = item.split(':')
@@ -288,7 +286,7 @@ const Step1 = (props) => {
             </>
           ) : null}
         <div className='mt-4'>
-          <Undertittel className='mb-2'>{t('ui:attachments')}</Undertittel>
+          <Nav.Undertittel className='mb-2'>{t('ui:attachments')}</Nav.Undertittel>
           {_attachments ? Object.keys(_attachments).map((key, index1) => {
             return _attachments[key].map((att, index2) => {
               return (

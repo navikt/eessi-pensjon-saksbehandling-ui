@@ -1,7 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
-import { EtikettBase } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 
 import './SEDStatus.css'
 
@@ -18,9 +18,9 @@ const SEDStatus = (props) => {
   const tagType = Object.prototype.hasOwnProperty.call(statusList, status) ? statusList[status] : statusList.unknown
 
   return (
-    <EtikettBase className={classNames('a-buc-c-sedstatus', className)} type={tagType}>
+    <Nav.EtikettBase className={classNames('a-buc-c-sedstatus', className)} type={tagType}>
       {t('ui:' + props.status)}
-    </EtikettBase>
+    </Nav.EtikettBase>
   )
 }
 

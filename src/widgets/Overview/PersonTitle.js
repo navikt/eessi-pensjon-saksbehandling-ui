@@ -1,7 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
-import { AlertStripe, NavFrontendSpinner, Systemtittel } from 'components/Nav'
-import Icons from 'components/Icons'
+import { Icons, Nav } from 'eessi-pensjon-ui'
 
 const PersonTitle = (props) => {
   const { aktoerId, gettingPersonInfo, person, t } = props
@@ -14,16 +13,16 @@ const PersonTitle = (props) => {
 
   if (!aktoerId) {
     return (
-      <AlertStripe type='advarsel' className='w-100'>
+      <Nav.AlertStripe type='advarsel' className='w-100'>
         {t('buc:validation-noAktoerId')}
-      </AlertStripe>
+      </Nav.AlertStripe>
     )
   }
 
   if (gettingPersonInfo) {
     return (
       <div className='w-overview-personPanel__waiting'>
-        <NavFrontendSpinner className='ml-3 mr-3' type='M' />
+        <Nav.Spinner className='ml-3 mr-3' type='M' />
         <span className='pl-2'>{t('ui:loading')}</span>
       </div>
     )
@@ -36,9 +35,9 @@ const PersonTitle = (props) => {
   return (
     <div className='w-overview-personPanel__title'>
       <Icons kind={person.kjoenn.kjoenn.value === 'K' ? 'nav-woman-icon' : 'nav-man-icon'} />
-      <Systemtittel className='ml-2'>
+      <Nav.Systemtittel className='ml-2'>
         {person.personnavn.sammensattNavn} ({age}) - {person.aktoer.ident.ident}
-      </Systemtittel>
+      </Nav.Systemtittel>
     </div>
   )
 }

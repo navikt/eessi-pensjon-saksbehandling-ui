@@ -2,101 +2,101 @@ import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import moment from 'moment'
+import { Nav } from 'eessi-pensjon-ui'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import { EkspanderbartpanelBase, Element, EtikettLiten, Lenke, Normaltekst, Systemtittel, Undertittel } from 'components/Nav'
 import './BUCDetail.css'
 
 const BUCDetail = ({ buc, bucInfo, className, institutionNames, locale, rinaUrl, t }) => {
   return (
-    <EkspanderbartpanelBase
+    <Nav.EkspanderbartpanelBase
       id='a-buc-c-bucdetail__panel-id'
       className={classNames('a-buc-c-bucdetail', 's-border', className)}
       apen
       heading={
-        <Systemtittel
+        <Nav.Systemtittel
           id='a-buc-c-bucdetail__header-id'
           className='a-buc-c-bucdetail__header'
         >
           {t('buc:buc-' + buc.type)}
-        </Systemtittel>
+        </Nav.Systemtittel>
       }
     >
       <div className='a-buc-c-bucdetail__body'>
         <dl className='a-buc-c-bucdetail__props'>
           <dt className='odd'>
-            <Element>{t('buc:form-buc-type')}:</Element>
+            <Nav.Element>{t('buc:form-buc-type')}:</Nav.Element>
           </dt>
           <dd className='odd' id='a-buc-c-bucdetail__props-type-id'>
-            <Normaltekst>{buc.type}</Normaltekst>
+            <Nav.Normaltekst>{buc.type}</Nav.Normaltekst>
           </dd>
           <dt>
-            <Element>{t('ui:caseIdInRina')}:</Element>
+            <Nav.Element>{t('ui:caseIdInRina')}:</Nav.Element>
           </dt>
           <dd id='a-buc-c-bucdetail__props-caseId-id'>
-            <Lenke
+            <Nav.Lenke
               id='a-buc-c-bucdetail__gotorina-link-id'
               className='a-buc-c-bucdetail__gotorina-link'
               href={rinaUrl + buc.caseId}
               target='rinaWindow'
             >
               {buc.caseId}
-            </Lenke>
+            </Nav.Lenke>
           </dd>
           <dt className='odd'>
-            <Element>{t('ui:aktoerId')}:</Element>
+            <Nav.Element>{t('ui:aktoerId')}:</Nav.Element>
           </dt>
           <dd className='odd' id='a-buc-c-bucdetail__props-aktoerId-id'>
-            <Normaltekst>{buc.aktoerId}</Normaltekst>
+            <Nav.Normaltekst>{buc.aktoerId}</Nav.Normaltekst>
           </dd>
           <dt>
-            <Element>{t('ui:creator')}:</Element>
+            <Nav.Element>{t('ui:creator')}:</Nav.Element>
           </dt>
           <dd id='a-buc-c-bucdetail__props-creator-id'>
-            <Normaltekst>{buc.creator.institution} ({buc.creator.country})</Normaltekst>
+            <Nav.Normaltekst>{buc.creator.institution} ({buc.creator.country})</Nav.Normaltekst>
           </dd>
           <dt className='odd'>
-            <Element>{t('ui:created')}:</Element>
+            <Nav.Element>{t('ui:created')}:</Nav.Element>
           </dt>
           <dd className='odd' id='a-buc-c-bucdetail__props-startDate-id'>
-            <Normaltekst>{moment(buc.startDate).format('Y-M-D')}</Normaltekst>
+            <Nav.Normaltekst>{moment(buc.startDate).format('Y-M-D')}</Nav.Normaltekst>
           </dd>
           <dt>
-            <Element>{t('ui:lastUpdate')}:</Element>
+            <Nav.Element>{t('ui:lastUpdate')}:</Nav.Element>
           </dt>
           <dd id='a-buc-c-bucdetail__props-lastUpdate-id'>
-            <Normaltekst>{moment(buc.lastUpdate).format('Y-M-D')}</Normaltekst>
+            <Nav.Normaltekst>{moment(buc.lastUpdate).format('Y-M-D')}</Nav.Normaltekst>
           </dd>
           <dt className='odd'>
-            <Element>{t('buc:form-buc-saktype')}:</Element>
+            <Nav.Element>{t('buc:form-buc-saktype')}:</Nav.Element>
           </dt>
           <dd className='odd' id='a-buc-c-bucdetail__props-sakType-id'>
-            <Normaltekst>{buc.sakType || '-'}</Normaltekst>
+            <Nav.Normaltekst>{buc.sakType || '-'}</Nav.Normaltekst>
           </dd>
           <dt>
-            <Element>{t('ui:status')}:</Element>
+            <Nav.Element>{t('ui:status')}:</Nav.Element>
           </dt>
           <dd id='a-buc-c-bucdetail__props-status-id'>
-            <Normaltekst>{t('ui:' + buc.status)}</Normaltekst>
+            <Nav.Normaltekst>{t('ui:' + buc.status)}</Nav.Normaltekst>
           </dd>
           <dt className='odd'>
-            <Element>{t('ui:tags')}:</Element>
+            <Nav.Element>{t('ui:tags')}:</Nav.Element>
           </dt>
           <dd className='odd' id='a-buc-c-bucdetail__props-tags-id'>
-            <EtikettLiten>{bucInfo && bucInfo.tags ? bucInfo.tags.join(', ') : ''}</EtikettLiten>
+            <Nav.EtikettLiten>{bucInfo && bucInfo.tags ? bucInfo.tags.join(', ') : ''}</Nav.EtikettLiten>
           </dd>
           <dt>
-            <Element>{t('ui:comment')}:</Element>
+            <Nav.Element>{t('ui:comment')}:</Nav.Element>
           </dt>
           <dd id='a-buc-c-bucdetail__props-comment-id'>
-            <Normaltekst>{bucInfo && bucInfo.comment ? bucInfo.comment : ''}</Normaltekst>
+            <Nav.Normaltekst>{bucInfo && bucInfo.comment ? bucInfo.comment : ''}</Nav.Normaltekst>
           </dd>
         </dl>
-        <Undertittel
+        <Nav.Undertittel
           id='a-buc-c-bucdetail__institutions-id'
           className='a-buc-c-bucdetail__institutions mb-2'
         >
           {t('buc:form-involvedInstitutions')}:
-        </Undertittel>
+        </Nav.Undertittel>
         <InstitutionList
           t={t}
           institutions={buc.institusjon}
@@ -105,7 +105,7 @@ const BUCDetail = ({ buc, bucInfo, className, institutionNames, locale, rinaUrl,
           type='joined'
         />
       </div>
-    </EkspanderbartpanelBase>
+    </Nav.EkspanderbartpanelBase>
   )
 }
 

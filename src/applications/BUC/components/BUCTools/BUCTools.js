@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
-import { EkspanderbartpanelBase, Knapp, Normaltekst, Systemtittel, Textarea, Undertittel } from 'components/Nav'
-import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
+import { MultipleSelect, Nav } from 'eessi-pensjon-ui'
 import './BUCTools.css'
 
 const BUCTools = (props) => {
-  const { actions, aktoerId, buc, bucInfo, bucsInfo, className, loading, locale, t, tagList } = props
+  const { actions, aktoerId, buc, bucInfo, bucsInfo, className, loading, locale, onTagChange, t, tagList } = props
   const [comment, setComment] = useState(bucInfo ? bucInfo.comment : undefined)
   const [allTags, setAllTags] = useState(undefined)
   const [tags, setTags] = useState(bucInfo && bucInfo.tags ? bucInfo.tags.map(tag => {
@@ -34,6 +33,9 @@ const BUCTools = (props) => {
   }, [t, allTags, tagList])
 
   const onTagsChange = (tagsList) => {
+    if (typeof onTagChange === 'function') {
+      onTagChange(tagList)
+    }
     setTags(tagsList)
   }
 
@@ -52,18 +54,18 @@ const BUCTools = (props) => {
   }
 
   return (
-    <EkspanderbartpanelBase
+    <Nav.EkspanderbartpanelBase
       id='a-buc-c-buctools__panel-id'
       className={classNames('a-buc-c-buctools', 's-border', className)}
       heading={
-        <Systemtittel className='a-buc-c-buctools__title'>
+        <Nav.Systemtittel className='a-buc-c-buctools__title'>
           {t('buc:form-BUCtools')}
-        </Systemtittel>
+        </Nav.Systemtittel>
       }
     >
-      <Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Undertittel>
+      <Nav.Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Nav.Undertittel>
       <div className='mb-3'>
-        <Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Normaltekst>
+        <Nav.Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Nav.Normaltekst>
         <MultipleSelect
           id='a-buc-c-buctools__tags-select-id'
           className='a-buc-c-buctools__tags-select'
@@ -76,23 +78,23 @@ const BUCTools = (props) => {
           optionList={allTags}
         />
       </div>
-      <Undertittel className='mb-2'>{t('buc:form-commentForBUC')}</Undertittel>
-      <Textarea
+      <Nav.Undertittel className='mb-2'>{t('buc:form-commentForBUC')}</Nav.Undertittel>
+      <Nav.Textarea
         id='a-buc-c-buctools__comment-textarea-id'
         className='a-buc-c-buctools__comment-textarea skjemaelement__input'
         label=''
         value={comment || ''}
         onChange={onCommentChange}
       />
-      <Knapp
+      <Nav.Knapp
         id='a-buc-c-buctools__save-button-id'
         className='a-buc-c-buctools__save-button'
         disabled={loading.savingBucsInfo}
         onClick={onSaveButtonClick}
       >
         {loading.savingBucsInfo ? t('ui:saving') : t('ui:change')}
-      </Knapp>
-    </EkspanderbartpanelBase>
+      </Nav.Knapp>
+    </Nav.EkspanderbartpanelBase>
   )
 }
 
@@ -105,6 +107,7 @@ BUCTools.propTypes = {
   className: PT.string,
   loading: PT.object.isRequired,
   locale: PT.string.isRequired,
+  onTagChange: PT.func,
   t: PT.func.isRequired,
   tagList: PT.array
 }

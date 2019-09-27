@@ -25,7 +25,6 @@ import { unregister } from 'registerServiceWorker'
 import * as Applications from 'applications'
 import * as Pages from 'pages'
 import AuthenticatedRoute from 'components/AuthenticatedRoute/AuthenticatedRoute'
-import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'index.css'
@@ -35,7 +34,7 @@ ReactDOM.render(
   <StateInspector>
     <I18nextProvider i18n={i18n}>
       <StoreProvider initialState={initialState} reducer={reducer}>
-        <Suspense fallback={<WaitingPanel message='...' />}>
+        <Suspense fallback={<span>...</span>}>
           <Router history={createBrowserHistory()}>
             <Switch>
               <AuthenticatedRoute exact path={routes.PINFO} component={Applications.PInfo} />

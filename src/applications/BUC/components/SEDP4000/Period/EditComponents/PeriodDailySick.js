@@ -1,17 +1,17 @@
 import React from 'react'
 import PT from 'prop-types'
-import { Input, Row, UndertekstBold } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 
 const PeriodDailySick = ({ localErrors, period, setPayingInstitution, t }) => (
-  <Row>
+  <Nav.Row>
     <div className='col-sm-12'>
-      <Input
+      <Nav.Input
         id='a-buc-c-sedp4000-period__betalende-institusjon-input-id'
         className='a-buc-c-sedp4000-period__betalende-institusjon-input mt-2'
         label={
           <div className='pinfo-label'>
             <div className='pinfo-label'>
-              <UndertekstBold>{t('buc:p4000-label-paying-institution-name')}</UndertekstBold>
+              <Nav.UndertekstBold>{t('buc:p4000-label-paying-institution-name')}</Nav.UndertekstBold>
             </div>
           </div>
         }
@@ -21,7 +21,7 @@ const PeriodDailySick = ({ localErrors, period, setPayingInstitution, t }) => (
         feil={localErrors.payingInstitution ? { feilmelding: t(localErrors.payingInstitution) } : null}
       />
     </div>
-  </Row>
+  </Nav.Row>
 )
 
 PeriodDailySick.propTypes = {

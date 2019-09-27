@@ -1,9 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { LenkepanelBase, Normaltekst, Undertittel } from 'components/Nav'
-import FlagList from 'components/Flag/FlagList'
-import Icons from 'components/Icons'
+import { FlagList, Icons, Nav } from 'eessi-pensjon-ui'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 
 import './BUCHeader.css'
@@ -44,24 +42,24 @@ const BUCHeader = (props) => {
       className='a-buc-c-bucheader'
     >
       <div className='a-buc-c-bucheader__label col-4'>
-        <Undertittel
+        <Nav.Undertittel
           className='a-buc-c-bucheader__title'
         >
           {buc.type + ' - ' + t('buc:buc-' + buc.type)}
-        </Undertittel>
-        <Normaltekst
+        </Nav.Undertittel>
+        <Nav.Normaltekst
           id='a-buc-c-bucheader__description-id'
           className='a-buc-c-bucheader__description'
         >
           {new Date(buc.startDate).toLocaleDateString() + ' - ' + new Date(buc.lastUpdate).toLocaleDateString()}
-        </Normaltekst>
+        </Nav.Normaltekst>
         <div
           id='a-buc-c-bucheader__owner-id'
           className='a-buc-c-bucheader__owner'
         >
-          <Normaltekst className='pr-2'>
+          <Nav.Normaltekst className='pr-2'>
             {t('buc:form-caseOwner') + ': '}
-          </Normaltekst>
+          </Nav.Normaltekst>
           <InstitutionList
             t={t}
             id='a-buc-c-bucheader__owner-institutions-id'
@@ -113,7 +111,7 @@ const BUCHeader = (props) => {
           ) : null}
       </div>
       <div className='a-buc-c-bucheader__actions col-3'>
-        <LenkepanelBase
+        <Nav.LenkepanelBase
           id='a-buc-c-bucheader__bucedit-link'
           className='a-buc-c-bucheader__bucedit-link knapp mr-5'
           onClick={(e) => onBUChandle(buc, e)}
@@ -121,7 +119,7 @@ const BUCHeader = (props) => {
           border
         >
           {t('ui:processing')}
-        </LenkepanelBase>
+        </Nav.LenkepanelBase>
       </div>
     </div>
   )

@@ -6,7 +6,7 @@ import _ from 'lodash'
 
 import * as pdfActions from 'actions/pdf'
 
-import { Ikon } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 
 import './PDFSpecialPage.css'
 
@@ -65,7 +65,7 @@ class PDFSpecialPage extends Component {
         >
           {this.state.isHovering && deleteLink ? (
             <div onClick={this.onDeleteDocument.bind(this, separator.separatorText)} className='link deleteLink'>
-              <Ikon size={15} kind='trashcan' />
+              <Nav.Ikon size={15} kind='trashcan' />
             </div>
           ) : null}
           <div className='page' style={{ maxWidth: '100%', maxHeight: '100%', width: 100 * pageScale, height: 140 * pageScale }}>

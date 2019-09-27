@@ -4,8 +4,7 @@ import { connect, bindActionCreators } from 'store'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
-
-import Icons from 'components/Icons'
+import { Icons } from 'eessi-pensjon-ui'
 
 import * as pdfActions from 'actions/pdf'
 import * as uiActions from 'actions/ui'

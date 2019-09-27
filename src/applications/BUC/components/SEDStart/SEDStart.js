@@ -4,7 +4,7 @@ import { connect, bindActionCreators } from 'store'
 import _ from 'lodash'
 import Step1 from './Step1'
 import Step2 from './Step2'
-import { Flatknapp, Hovedknapp, Row } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 import * as bucActions from 'actions/buc'
 import * as uiActions from 'actions/ui'
 import * as storageActions from 'actions/storage'
@@ -263,7 +263,7 @@ export const SEDStart = (props) => {
   }
 
   return (
-    <Row className='a-buc-c-sedstart'>
+    <Nav.Row className='a-buc-c-sedstart'>
       {step === 0 ? (
         <Step1
           {...props}
@@ -288,7 +288,7 @@ export const SEDStart = (props) => {
       ) : null}
       {showButtons ? (
         <div className='col-md-12 mt-4'>
-          <Hovedknapp
+          <Nav.Hovedknapp
             id='a-buc-c-sedstart__forward-button-id'
             className='a-buc-c-sedstart__forward-button'
             disabled={!allowedToForward()}
@@ -302,24 +302,24 @@ export const SEDStart = (props) => {
               })
                 : createSEDneedsMoreSteps() ? t('ui:next')
                   : t('buc:form-orderSED')}
-          </Hovedknapp>
+          </Nav.Hovedknapp>
           {step > 0 ? (
-            <Flatknapp
+            <Nav.Flatknapp
               id='a-buc-c-sedstart__back-button-id'
               className='a-buc-c-sedstart__back-button'
               onClick={onBackButtonClick}
             >{t('ui:back')}
-            </Flatknapp>
+            </Nav.Flatknapp>
           ) : null}
-          <Flatknapp
+          <Nav.Flatknapp
             id='a-buc-c-sedstart__cancel-button-id'
             className='a-buc-c-sedstart__cancel-button'
             onClick={onCancelButtonClick}
           >{t('ui:cancel')}
-          </Flatknapp>
+          </Nav.Flatknapp>
         </div>
       ) : null}
-    </Row>
+    </Nav.Row>
   )
 }
 

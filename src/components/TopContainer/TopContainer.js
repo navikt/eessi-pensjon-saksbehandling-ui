@@ -2,12 +2,8 @@ import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import { connect, bindActionCreators } from 'store'
-
 import * as uiActions from 'actions/ui'
-import { Container } from 'components/Nav'
-import Alert from 'components/Alert/Alert'
-import Banner from 'components/Banner/Banner'
-import Modal from 'components/Modal/Modal'
+import { Alert, Banner, Modal, Nav } from 'eessi-pensjon-ui'
 import InternalTopHeader from 'components/Header/InternalTopHeader'
 import Footer from 'components/Footer/Footer'
 import SessionMonitor from 'components/SessionMonitor/SessionMonitor'
@@ -17,7 +13,13 @@ import './TopContainer.css'
 
 const mapStateToProps = (state) => {
   return {
-    highContrast: state.ui.highContrast
+    modal: state.ui.modal,
+    modalOpen: state.ui.modalOpen,
+    highContrast: state.ui.highContrast,
+    clientErrorStatus: state.alert.clientErrorStatus,
+    clientErrorMessage: state.alert.clientErrorMessage,
+    serverErrorMessage: state.alert.serverErrorMessage,
+    error: state.alert.error
   }
 }
 
@@ -26,20 +28,42 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export const TopContainer = (props) => {
-  const { actions, className, children, fluid = true, header, history, highContrast, t } = props
+  const { actions, className, children, clientErrorMessage, clientErrorStatus, error, fluid = true, header, history } = props
+  const { highContrast, modal, modalOpen, serverErrorMessage, t } = props
 
-  return (
+  const handleModalClose = () => {
+    actions.closeModal()
+  }
+
+  const onClientClear = () => {
+    actions.clientClear()
+  }
+
+   return (
     <div
       className={classNames('c-topContainer', className, { highContrast: highContrast })}
     >
       <InternalTopHeader t={t} history={history} />
       {header ? <Banner t={t} header={header} toggleHighContrast={actions.toggleHighContrast} /> : null}
-      <Alert type='client' t={t} />
-      <Alert type='server' t={t} />
-      <Container fluid={fluid} className='_container p-0'>
+      <Alert
+        type='client'
+        t={t}
+        clientErrorMessage={clientErrorMessage}
+        clientErrorStatus={clientErrorStatus}
+        error={error}
+        onClientClear={onClientClear}
+      />
+      <Alert
+        type='server'
+        t={t}
+        serverErrorMessage={serverErrorMessage}
+        error={error}
+        onClientClear={onClientClear}
+      />
+      <Nav.Container fluid={fluid} className='_container p-0'>
         {children}
-      </Container>
-      <Modal />
+      </Nav.Container>
+      <Modal modalOpen={modalOpen} modal={modal} onModalClose={handleModalClose} />
       <SessionMonitor t={t} />
       <Footer />
     </div>

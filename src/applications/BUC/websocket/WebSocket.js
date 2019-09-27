@@ -2,8 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
-import Icons from 'components/Icons'
-import { HjelpetekstAuto } from 'components/Nav'
+import { Icons, Nav } from 'eessi-pensjon-ui'
 import { WEBSOCKET_LOCALHOST_URL } from 'constants/urls'
 import { IS_TEST } from 'constants/environment'
 
@@ -116,9 +115,9 @@ const BucWebSocket = (props) => {
 
   return (
     <div className='a-buc-websocket' title={'websocket: ' + status}>
-      <HjelpetekstAuto anchor={getAnchor}>
+      <Nav.HjelpetekstAuto anchor={getAnchor}>
         {log}
-      </HjelpetekstAuto>
+      </Nav.HjelpetekstAuto>
     </div>
   )
 }

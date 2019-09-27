@@ -1,7 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { Ekspanderbartpanel } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 import ReactResizeDetector from 'react-resize-detector'
 import Links from './Links'
 
@@ -25,7 +25,7 @@ const LinksWidget = (props) => {
 
   return (
     <div className='w-LinksWidget'>
-      <Ekspanderbartpanel
+      <Nav.Ekspanderbartpanel
         apen={!widget.options.collapsed}
         tittel={widget.title}
         onClick={onClick}
@@ -40,7 +40,7 @@ const LinksWidget = (props) => {
             ? null
             : <Links t={t} />}
         </div>
-      </Ekspanderbartpanel>
+      </Nav.Ekspanderbartpanel>
     </div>
   )
 }

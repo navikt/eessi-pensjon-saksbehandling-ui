@@ -1,7 +1,7 @@
 export default {
   trygdetid: {
     andrePerioder: [{
-      land: 'AA',
+      land: 'AF',
       annenInformasjon: 'other period 1 comment',
       periode: {
         lukketPeriode: {
@@ -24,7 +24,7 @@ export default {
       typePeriode: 'other period 2 otherType'
     }],
     arbeidsledigPerioder: [{
-      land: 'CC',
+      land: 'CA',
       annenInformasjon: 'daily period 1 comment',
       periode: {
         lukketPeriode: {
@@ -35,7 +35,7 @@ export default {
       usikkerDatoIndikator: '1',
       navnPaaInstitusjon: 'daily period 1 payingInstitution'
     }, {
-      land: 'DD',
+      land: 'DO',
       annenInformasjon: 'daily period 2 comment',
       periode: {
         lukketPeriode: {
@@ -47,7 +47,7 @@ export default {
       navnPaaInstitusjon: 'daily period 2 payingInstitution'
     }],
     boPerioder: [{
-      land: 'EE',
+      land: 'EC',
       annenInformasjon: 'home period 1 comment',
       periode: {
         lukketPeriode: {
@@ -57,7 +57,7 @@ export default {
       },
       usikkerDatoIndikator: '1'
     }, {
-      land: 'FF',
+      land: 'FR',
       annenInformasjon: 'home period 2 comment',
       periode: {
         lukketPeriode: {
@@ -68,7 +68,7 @@ export default {
       usikkerDatoIndikator: '1'
     }],
     opplaeringPerioder: [{
-      land: 'GG',
+      land: 'GR',
       annenInformasjon: 'learn period 1 comment',
       periode: {
         lukketPeriode: {
@@ -79,7 +79,7 @@ export default {
       usikkerDatoIndikator: '1',
       navnPaaInstitusjon: 'learn period 1 learnInstitution'
     }, {
-      land: 'HH',
+      land: 'HU',
       annenInformasjon: 'learn period 2 comment',
       periode: {
         lukketPeriode: {
@@ -91,7 +91,7 @@ export default {
       navnPaaInstitusjon: 'learn period 2 learnInstitution'
     }],
     sykePerioder: [{
-      land: 'II',
+      land: 'IT',
       annenInformasjon: 'sick period 1 comment',
       periode: {
         lukketPeriode: {
@@ -102,7 +102,7 @@ export default {
       usikkerDatoIndikator: '1',
       navnPaaInstitusjon: 'sick period 1 payingInstitution'
     }, {
-      land: 'JJ',
+      land: 'JP',
       annenInformasjon: 'sick period 2 comment',
       periode: {
         lukketPeriode: {
@@ -117,7 +117,7 @@ export default {
       annenInformasjon: 'child period 1 comment',
       informasjonBarn: {
         fornavn: 'Ole',
-        land: 'KK',
+        land: 'KE',
         etternavn: 'Olsen',
         foedseldato: '2002-01-01'
       },
@@ -132,7 +132,7 @@ export default {
       annenInformasjon: 'child period 2 comment',
       informasjonBarn: {
         fornavn: 'Teddy',
-        land: 'LL',
+        land: 'LU',
         etternavn: 'Olsen',
         foedseldato: '2003-01-01'
       },
@@ -150,7 +150,7 @@ export default {
       adresseFirma: {
         postnummer: '0123',
         by: 'work period 1 workCity',
-        land: 'MM',
+        land: 'MX',
         gate: 'work period 1 workStreet',
         region: 'work period 1 workRegion'
       },
@@ -170,7 +170,7 @@ export default {
       adresseFirma: {
         postnummer: '0124',
         by: 'work period 2 workCity',
-        land: 'NN',
+        land: 'NL',
         gate: 'work period 2 workStreet',
         region: 'work period 2 workRegion'
       },
@@ -186,7 +186,7 @@ export default {
       usikkerDatoIndikator: '1'
     }],
     forsvartjenestePerioder: [{
-      land: 'OO',
+      land: 'OM',
       annenInformasjon: 'military period 1 comment',
       periode: {
         lukketPeriode: {
@@ -196,7 +196,7 @@ export default {
       },
       usikkerDatoIndikator: '1'
     }, {
-      land: 'PP',
+      land: 'PT',
       annenInformasjon: 'military period 2 comment',
       periode: {
         lukketPeriode: {
@@ -207,7 +207,7 @@ export default {
       usikkerDatoIndikator: '1'
     }],
     foedselspermisjonPerioder: [{
-      land: 'QQ',
+      land: 'QA',
       annenInformasjon: 'birth period 1 comment',
       periode: {
         openPeriode: {
@@ -217,7 +217,7 @@ export default {
       },
       usikkerDatoIndikator: '0'
     }, {
-      land: 'RR',
+      land: 'RU',
       annenInformasjon: 'birth period 2 comment',
       periode: {
         lukketPeriode: {
@@ -228,7 +228,7 @@ export default {
       usikkerDatoIndikator: '1'
     }],
     frivilligPerioder: [{
-      land: 'SS',
+      land: 'SM',
       annenInformasjon: 'voluntary period 1 comment',
       periode: {
         lukketPeriode: {
@@ -238,7 +238,7 @@ export default {
       },
       usikkerDatoIndikator: '1'
     }, {
-      land: 'TT',
+      land: 'TR',
       annenInformasjon: 'voluntary period 2 comment',
       periode: {
         lukketPeriode: {

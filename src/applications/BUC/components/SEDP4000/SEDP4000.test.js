@@ -42,11 +42,11 @@ describe('applications/BUC/components/SEDP4000/SEDP4000', () => {
     expect(wrapper.exists('.a-buc-c-sedp4000__notReady')).toBeTruthy()
     wrapper.setProps({ loadingP4000list: true })
     wrapper.update()
-    expect(wrapper.exists('.a-buc-c-sedp4000__notReady NavFrontendSpinner')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-sedp4000__notReady Spinner')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-sedp4000__notReady').render().text()).toEqual('Venter...buc:loading-p4000list')
     wrapper.setProps({ loadingP4000list: false, loadingP4000info: true })
     wrapper.update()
-    expect(wrapper.exists('.a-buc-c-sedp4000__notReady NavFrontendSpinner')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-sedp4000__notReady Spinner')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-sedp4000__notReady > span').text()).toEqual('buc:loading-p4000info')
   })
 

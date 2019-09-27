@@ -18,6 +18,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
     bucsInfo: { foo: 'bar' },
     loading: {},
     locale: 'nb',
+    onTagChange: jest.fn(),
     t: jest.fn((translationString) => { return translationString }),
     tagList: ['mockTag1', 'mockTag2']
   }
@@ -32,7 +33,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
 
   it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
-    // expect(wrapper).toMatchSnapshot() - do not use, collapse dependency generates random ids
+    //expect(wrapper).toMatchSnapshot()// - do not use, collapse dependency generates random ids
   })
 
   it('UseEffect: fetches tag list', () => {
@@ -47,20 +48,13 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
         value: tag
       }
     })
-    const secondMockedTags = firstMockedTags.concat([{
-      label: 'buc:tag-mockTag1',
-      value: 'mockTag1'
-    }])
+
     wrapper.find('EkspanderbartpanelBase button').simulate('click')
     expect(wrapper.exists('#a-buc-c-buctools__tags-select-id')).toBeTruthy()
-
-    let tagSelect = wrapper.find('#a-buc-c-buctools__tags-select-id').hostNodes()
-    expect(tagSelect.find('StateManager').props().value).toEqual(firstMockedTags)
-
+    const tagSelect = wrapper.find('#a-buc-c-buctools__tags-select-id').hostNodes()
     tagSelect.find('input').simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
     tagSelect.find('input').simulate('keyDown', { key: 'Enter', keyCode: 13 })
-    tagSelect = wrapper.find('#a-buc-c-buctools__tags-select-id').hostNodes()
-    expect(tagSelect.find('StateManager').props().value).toEqual(secondMockedTags)
+    expect(initialMockProps.onTagChange).toHaveBeenCalledWith(['mockTag1', 'mockTag2'])
   })
 
   it('Changes comments', () => {

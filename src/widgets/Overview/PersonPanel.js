@@ -2,7 +2,7 @@ import React from 'react'
 import _ from 'lodash'
 import classNames from 'classnames'
 import moment from 'moment'
-import { Undertekst } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 
 const PersonPanel = (props) => {
@@ -21,12 +21,12 @@ const PersonPanel = (props) => {
         id={'w-overview-personPanel__element-' + label.replace('ui:', '')}
         className='w-overview-personPanel__element'
       >
-        <Undertekst className={classNames({ grey: !isValue })}>
+        <Nav.Undertekst className={classNames({ grey: !isValue })}>
           <span className={classNames({ 'font-weight-bold': isValue })}>
             {t(label)}
           </span>
         : {value}
-        </Undertekst>
+        </Nav.Undertekst>
       </div>
     )
   }
@@ -45,7 +45,7 @@ const PersonPanel = (props) => {
         ? (
           <>
             <div>
-              <Undertekst>{t('ui:strukturertAdresse')}</Undertekst>
+              <Nav.Undertekst>{t('ui:strukturertAdresse')}</Nav.Undertekst>
             </div>
             <div className='pl-4'>
               {renderEntity('ui:landkode', person.bostedsadresse.strukturertAdresse.landkode.value)}
@@ -65,7 +65,7 @@ const PersonPanel = (props) => {
         ? (
           <>
             <div>
-              <Undertekst>{t('ui:ustrukturertAdresse')}</Undertekst>
+              <Nav.Undertekst>{t('ui:ustrukturertAdresse')}</Nav.Undertekst>
             </div>
             <div className='pl-4'>
               {renderEntity('ui:adresselinje1', person.postadresse.ustrukturertAdresse.adresselinje1)}
@@ -97,7 +97,7 @@ const PersonPanel = (props) => {
       {person.harFraRolleI ? (
         <>
           <div>
-            <Undertekst>{t('ui:harFraRolleI')}</Undertekst>
+            <Nav.Undertekst>{t('ui:harFraRolleI')}</Nav.Undertekst>
           </div>
           <div className='pl-4'>
             {person.harFraRolleI.map((rolle, i) => {

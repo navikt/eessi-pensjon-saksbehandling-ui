@@ -2,11 +2,9 @@ import React, { useEffect, useState, useCallback } from 'react'
 import PT from 'prop-types'
 import { connect, bindActionCreators } from 'store'
 import _ from 'lodash'
-import { AlertStripe, Hovedknapp, NavFrontendSpinner, Panel, Row, Systemtittel, Veileder } from 'components/Nav'
-import Icons from 'components/Icons'
+import { Icons, Nav, RefreshButton } from 'eessi-pensjon-ui'
 import * as pinfoActions from 'actions/pinfo'
 import * as storageActions from 'actions/storage'
-import RefreshButton from 'components/RefreshButton/RefreshButton'
 import { getDisplayName } from 'utils/displayName'
 import { ReactComponent as VeilederSVG } from 'resources/images/NavPensjonVeileder.svg'
 
@@ -104,36 +102,36 @@ export const VarslerPanel = (props) => {
 
   if (mounted && !hasParams) {
     return (
-      <Panel className='w-varslerPanel s-border'>
-        <Systemtittel className='pb-3'>{t('ui:widget-overview-notifications')}</Systemtittel>
-        <Veileder
+      <Nav.Panel className='w-varslerPanel s-border'>
+        <Nav.Systemtittel className='pb-3'>{t('ui:widget-overview-notifications')}</Nav.Systemtittel>
+        <Nav.Veileder
           tekst={t('pinfo:error-noParams')}
           posisjon='høyre'
         >
           <VeilederSVG />
-        </Veileder>
-      </Panel>
+        </Nav.Veileder>
+      </Nav.Panel>
     )
   }
 
   return (
-    <Panel className='w-varslerPanel s-border'>
-      <Systemtittel className='pb-3'>{t('ui:widget-overview-notifications')}</Systemtittel>
-      <Row>
+    <Nav.Panel className='w-varslerPanel s-border'>
+      <Nav.Systemtittel className='pb-3'>{t('ui:widget-overview-notifications')}</Nav.Systemtittel>
+      <Nav.Row>
         <div className='col-md-4'>
           {/* <div><label className='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakId')}</label>: {sakId}</div>
           <div><label className='skjemaelement__label d-inline-block'>{t('ui:aktoerId')}</label>: {aktoerId}</div>
           <div><label className='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakType')}</label>: {sakType}</div> */}
-          <Veileder
+          <Nav.Veileder
             tekst={(
               <div dangerouslySetInnerHTML={{ __html: t('ui:widget-overview-sendNotification-description', { user: aktoerId }) }} />
             )}
             posisjon='høyre'
           >
             <VeilederSVG />
-          </Veileder>
+          </Nav.Veileder>
           <div className='text-center'>
-            <Hovedknapp
+            <Nav.Hovedknapp
               id='pinfo-forward-button'
               className='forwardButton mt-3'
               disabled={isInvitingPinfo}
@@ -141,14 +139,14 @@ export const VarslerPanel = (props) => {
               onClick={onInviteButtonClick}
             >
               {isInvitingPinfo ? t('sending') : t('ui:widget-overview-sendNotification-button')}
-            </Hovedknapp>
+            </Nav.Hovedknapp>
           </div>
           {!_.isEmpty(invite) ? (
-            <AlertStripe
+            <Nav.AlertStripe
               className='mt-4 mb-4' type={invite.status === 'ERROR' ? 'advarsel' : 'suksess'}
             >
               {t(invite.message)}
-            </AlertStripe>
+            </Nav.AlertStripe>
           ) : null}
         </div>
         <div className='col-md-8'>
@@ -159,7 +157,7 @@ export const VarslerPanel = (props) => {
           </div>
           {!isReady ? (
             <div className='text-center' style={{ paddingTop: '3rem' }}>
-              <NavFrontendSpinner />
+              <Nav.Spinner />
               <p className='typo-normal'>{t('ui:loading')}</p>
             </div>
           ) : (
@@ -197,8 +195,8 @@ export const VarslerPanel = (props) => {
             </table>
           )}
         </div>
-      </Row>
-    </Panel>
+      </Nav.Row>
+    </Nav.Panel>
   )
 }
 

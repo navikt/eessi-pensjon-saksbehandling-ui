@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { connect, bindActionCreators } from 'store'
 import TopContainer from 'components/TopContainer/TopContainer'
 import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
-import { Systemtittel } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 import { getDisplayName } from 'utils/displayName'
 import * as bucActions from 'actions/buc'
 import * as appActions from 'actions/app'
@@ -46,7 +46,7 @@ export const BUCPageIndex = (props) => {
       header={t('buc:app-bucTitle') + ' - ' + t('buc:step-startBUCTitle')}
     >
       <div className='mt-4'>
-        <Systemtittel className='a-buc-page__title mb-4'>{t('buc:step-startBUCTitle')}</Systemtittel>
+        <Nav.Systemtittel className='a-buc-page__title mb-4'>{t('buc:step-startBUCTitle')}</Nav.Systemtittel>
         <BUCStart mode='page' {...props} /> : null}
       </div>
     </TopContainer>

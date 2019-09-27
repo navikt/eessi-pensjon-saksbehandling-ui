@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { Select } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 
 const SmileyOptionsWidget = (props) => {
   const { availableWidgets, layout, onWidgetUpdate, widget } = props
@@ -18,7 +18,7 @@ const SmileyOptionsWidget = (props) => {
 
   return (
     <div className='w-SmileyOptionsWidget p-3'>
-      <Select
+      <Nav.Select
         id='w-SmileyOptionsWidget__mood-select-id'
         label='mood'
         value={mood || ''}
@@ -27,7 +27,7 @@ const SmileyOptionsWidget = (props) => {
         {widgetTemplate.options.availableMoods.map(_mood => {
           return <option key={_mood.label} value={_mood.value}>{_mood.label}{' - '}{_mood.value}</option>
         })}
-      </Select>
+      </Nav.Select>
     </div>
   )
 }

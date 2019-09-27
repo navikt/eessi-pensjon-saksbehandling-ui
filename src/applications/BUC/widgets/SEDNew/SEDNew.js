@@ -1,13 +1,13 @@
 import React from 'react'
-import { Panel } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
 import './SEDNew.css'
 
 const SEDNew = (props) => {
   return (
-    <Panel className='a-buc-sednew s-border'>
+    <Nav.Panel className='a-buc-sednew s-border'>
       <SEDStart {...props} />
-    </Panel>
+    </Nav.Panel>
   )
 }
 

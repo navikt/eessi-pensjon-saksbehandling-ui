@@ -2,7 +2,7 @@ import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
-import { Undertittel } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 
 export const Step1 = (props) => {
   const { t, files, setFiles } = props
@@ -20,7 +20,7 @@ export const Step1 = (props) => {
 
   return (
     <div className='a-buc-c-sedattachments__step1'>
-      <Undertittel className='mt-4 mb-3'>{t('buc:form-addAttachmentsFromJOARK')}</Undertittel>
+      <Nav.Undertittel className='mt-4 mb-3'>{t('buc:form-addAttachmentsFromJOARK')}</Nav.Undertittel>
       <JoarkBrowser
         {...props}
         files={files & _.isArray(files.joark) ? files.joark : []}

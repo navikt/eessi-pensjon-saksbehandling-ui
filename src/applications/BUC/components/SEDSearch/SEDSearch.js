@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
-import { Input, Panel } from 'components/Nav'
-import CountryData from 'components/CountryData/CountryData'
-import MultipleSelect from 'components/MultipleSelect/MultipleSelect'
+import { CountryData, MultipleSelect, Nav } from 'eessi-pensjon-ui'
 
 import './SEDSearch.css'
 
@@ -74,11 +72,11 @@ const SEDSearch = (props) => {
   }
 
   return (
-    <Panel
+    <Nav.Panel
       id='a-buc-c-sedsearch__panel-id'
       className={classNames('a-buc-c-sedsearch', 'p-2', 's-border', className)}
     >
-      <Input
+      <Nav.Input
         id='a-buc-c-sedsearch__query-input-id'
         className='a-buc-c-sedsearch__query-input pl-1 pr-1'
         label=''
@@ -108,7 +106,7 @@ const SEDSearch = (props) => {
         onChange={onCountryChange}
         optionList={availableCountries}
       />
-    </Panel>
+    </Nav.Panel>
   )
 }
 

@@ -6,8 +6,7 @@ import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
 
 import PDFSpecialPage from 'applications/PDF/components/PDFSpecialPage/PDFSpecialPage'
-import * as Nav from 'components/Nav'
-import ColorPicker from 'components/ColorPicker/ColorPicker'
+import { ColorPicker, Nav } from 'eessi-pensjon-ui'
 import * as pdfActions from 'actions/pdf'
 
 import './DnDSpecial.css'

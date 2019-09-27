@@ -6,8 +6,7 @@ import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import SEDBody from 'applications/BUC/components/SEDBody/SEDBody'
 import BUCEmpty from 'applications/BUC/widgets/BUCEmpty/BUCEmpty'
-import { EkspanderbartpanelBase, Knapp, Lenke, NavFrontendSpinner } from 'components/Nav'
-import Icons from 'components/Icons'
+import { Icons, Nav } from 'eessi-pensjon-ui'
 import _ from 'lodash'
 
 import './BUCList.css'
@@ -89,20 +88,20 @@ const BUCList = (props) => {
       <div className='a-buc-buclist__buttons mb-3'>
         {aktoerId && sakId
           ? (
-            <Knapp
+            <Nav.Knapp
               id='a-buc-buclist__newbuc-button-id'
               className='a-buc-buclist__newbuc-button'
               onClick={onBUCNew}
             >
               {t('buc:form-createNewCase')}
-            </Knapp>
+            </Nav.Knapp>
           )
           : null}
       </div>
       {loading.gettingBUCs
         ? (
           <div className='mt-5 a-buc-widget__loading'>
-            <NavFrontendSpinner className='ml-3 mr-3' type='XL' />
+            <Nav.Spinner className='ml-3 mr-3' type='XL' />
             <span className='pl-2'>{t('buc:loading-bucs')}</span>
           </div>
         ) : null}
@@ -120,7 +119,7 @@ const BUCList = (props) => {
             const bucId = buc.caseId
             const bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId] : {}
             return (
-              <EkspanderbartpanelBase
+              <Nav.EkspanderbartpanelBase
                 id={'a-buc-buclist__buc-' + bucId}
                 className={classNames('a-buc-buclist__buc', 'mb-3', 's-border')}
                 key={index}
@@ -144,7 +143,7 @@ const BUCList = (props) => {
                   buc={buc}
                   onSEDNew={onSedNew.bind(null, buc)}
                 />
-              </EkspanderbartpanelBase>
+              </Nav.EkspanderbartpanelBase>
             )
           }) : null}
       {(!sakId || !aktoerId)
@@ -153,7 +152,7 @@ const BUCList = (props) => {
       {(sakId && aktoerId)
         ? (
           <div className='mb-2 a-buc-buclist__footer'>
-            <Lenke
+            <Nav.Lenke
               id='a-buc-c-buclist__gotorina-link'
               className='a-buc-c-buclist__gotorina'
               href={rinaUrl}
@@ -163,7 +162,7 @@ const BUCList = (props) => {
                 <Icons className='mr-2' color='#0067C5' kind='outlink' />
                 <span>{props.t('ui:goToRina')}</span>
               </div>
-            </Lenke>
+            </Nav.Lenke>
           </div>
         ) : null}
     </div>

@@ -5,8 +5,7 @@ import classNames from 'classnames'
 
 import * as appActions from 'actions/app'
 import * as uiActions from 'actions/ui'
-import Icons from 'components/Icons'
-import { NavFrontendSpinner, Select, Systemtittel } from 'components/Nav'
+import { Icons, Nav } from 'eessi-pensjon-ui'
 import * as routes from 'constants/routes'
 import AdvarselTrekant from 'resources/images/AdvarselTrekant'
 import NavLogoTransparent from 'resources/images/NavLogoTransparent'
@@ -56,7 +55,7 @@ export const InternalTopHeader = (props) => {
         </div>
         <div className='user'>
           {isLoggingOut
-            ? <NavFrontendSpinner type='XS' />
+            ? <Nav.Spinner type='XS' />
             : (
               <div className={classNames('mr-2', 'SAKSBEHANDLER')}>
                 <Icons kind='user' />
@@ -67,7 +66,7 @@ export const InternalTopHeader = (props) => {
             {gettingUserInfo ? t('buc:loading-gettingUserInfo')
               : username
                 ? (
-                  <Select
+                  <Nav.Select
                     id='username-select-id'
                     className='username-select'
                     label=''
@@ -78,7 +77,7 @@ export const InternalTopHeader = (props) => {
                     <option value=''>{username}</option>
                     <option value='feedback'>{t('ui:giveFeedback')}</option>
                     <option value='logout'>{t('logout')}</option>
-                  </Select>
+                  </Nav.Select>
                 )
                 : (
                   <>
@@ -91,9 +90,9 @@ export const InternalTopHeader = (props) => {
       </header>
       {header
         ? (
-          <Systemtittel className='m-4'>
+          <Nav.Systemtittel className='m-4'>
             {header}
-          </Systemtittel>
+          </Nav.Systemtittel>
         )
         : null}
     </>

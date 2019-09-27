@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PT from 'prop-types'
 
-import { Hovedknapp, Input, Lenke, Undertittel } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 import MonitorPNG from 'resources/images/artwork/dataskjerm.png'
 import CupPNG from 'resources/images/artwork/kop.png'
 import MousePNG from 'resources/images/artwork/NAVmusematte.png'
@@ -49,18 +49,18 @@ const BUCEmpty = (props) => {
         <img alt='' className='mouse' src={MousePNG} />
         <img alt='' className='map' src={MapPNG} />
       </div>
-      <Undertittel className='a-buc-bucempty__title mb-3'>
-        <Lenke
+      <Nav.Undertittel className='a-buc-bucempty__title mb-3'>
+        <Nav.Lenke
           id='a-buc-bucempty__newbuc-link-id'
           className='a-buc-bucempty__newbuc-link'
           href='#' onClick={onBUCNew}
         >
           {t('buc:form-empty-startANewCase')}
-        </Lenke>
-      </Undertittel>
+        </Nav.Lenke>
+      </Nav.Undertittel>
       {!aktoerId ? (
         <div className='a-buc-bucempty__form'>
-          <Input
+          <Nav.Input
             id='a-buc-bucempty__aktoerid-input-id'
             className='a-buc-bucempty__aktoerid-input'
             label={t('ui:aktoerId')}
@@ -69,18 +69,18 @@ const BUCEmpty = (props) => {
             onChange={onAktoerIdChange}
             feil={validation ? { feilmelding: validation } : null}
           />
-          <Hovedknapp
+          <Nav.Hovedknapp
             id='a-buc-bucempty__aktoerid-button-id'
             className='a-buc-bucempty__aktoerid-button ml-3'
             onClick={onSubmitAktoerId}
           >
             {t('ui:add')}
-          </Hovedknapp>
+          </Nav.Hovedknapp>
         </div>
       ) : null}
       {!sakId ? (
         <div className='a-buc-bucempty__form'>
-          <Input
+          <Nav.Input
             id='a-buc-bucempty__sakid-input-id'
             className='a-buc-bucempty__sakid-input'
             label={t('ui:caseId')}
@@ -89,13 +89,13 @@ const BUCEmpty = (props) => {
             onChange={onSakIdChange}
             feil={validation ? { feilmelding: validation } : null}
           />
-          <Hovedknapp
+          <Nav.Hovedknapp
             id='a-buc-bucempty__sakid-button-id'
             className='a-buc-bucempty__sakid-button ml-3'
             onClick={onSubmitSakId}
           >
             {t('ui:add')}
-          </Hovedknapp>
+          </Nav.Hovedknapp>
         </div>
       ) : null}
     </div>

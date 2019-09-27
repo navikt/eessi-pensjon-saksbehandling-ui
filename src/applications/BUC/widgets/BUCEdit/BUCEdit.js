@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { Knapp, Row } from 'components/Nav'
+import { CountryData, Nav } from 'eessi-pensjon-ui'
 import SEDRow from 'applications/BUC/components/SEDRow/SEDRow'
 import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
-import CountryData from 'components/CountryData/CountryData'
 
 import './BUCEdit.css'
 
@@ -97,14 +96,14 @@ const BUCEdit = (props) => {
   return (
     <div className='a-buc-bucedit'>
       <div className='a-buc-bucedit__buttons mb-3'>
-        <Knapp
+        <Nav.Knapp
           id='a-buc-bucedit__new-sed-button-id'
           className='a-buc-bucedit__new-sed-button'
           onClick={onSEDNew.bind(null, undefined)}
         >{t('buc:form-orderNewSED')}
-        </Knapp>
+        </Nav.Knapp>
       </div>
-      <Row>
+      <Nav.Row>
         <div className='col-md-8'>
           <SEDSearch
             className='mb-2'
@@ -141,7 +140,7 @@ const BUCEdit = (props) => {
             tagList={tagList}
           />
         </div>
-      </Row>
+      </Nav.Row>
     </div>
   )
 }

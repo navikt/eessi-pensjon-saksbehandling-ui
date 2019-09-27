@@ -1,18 +1,18 @@
 import React from 'react'
 import PT from 'prop-types'
-import { HjelpetekstAuto, Row, Select } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 
 const PeriodCategorySelect = ({ mode, period, setType, t }) => (
-  <Row className={mode}>
+  <Nav.Row className={mode}>
     <div className='col-sm-8'>
-      <Select
+      <Nav.Select
         id='a-buc-c-sedp4000-period__kategori-select'
         label={
           <div className='a-buc-c-sedp4000-period__label'>
             <span>{t('buc:p4000-label-category')}</span>
-            <HjelpetekstAuto id='p4000-category-select-help'>
+            <Nav.HjelpetekstAuto id='p4000-category-select-help'>
               {t('buc:p4000-help-category')}
-            </HjelpetekstAuto>
+            </Nav.HjelpetekstAuto>
           </div>
         }
         onChange={setType}
@@ -29,9 +29,9 @@ const PeriodCategorySelect = ({ mode, period, setType, t }) => (
         <option value='daily'>{t('buc:p4000-label-category-daily')}</option>
         <option value='sick'>{t('buc:p4000-label-category-sick')}</option>
         <option value='other'>{t('buc:p4000-label-category-other')}</option>
-      </Select>
+      </Nav.Select>
     </div>
-  </Row>
+  </Nav.Row>
 )
 
 PeriodCategorySelect.propTypes = {
