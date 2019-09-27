@@ -1,6 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
-import KnappBase from 'nav-frontend-knapper'
+import { Nav } from 'eessi-pensjon-ui'
 import ReactResizeDetector from 'react-resize-detector'
 
 import './Widget.css'
@@ -26,22 +26,22 @@ const WidgetDelete = (props) => {
         <p>{t('dashboard-deleteWidgetAreYouSure2')}</p>
       </div>
       <div className='buttons'>
-        <KnappBase
+        <Nav.KnappBase
           id='c-d-WidgetDelete__delete-button-id'
           className='c-d-WidgetDelete__delete-button'
           type='hoved'
           onClick={onWidgetDeleteClick}
         >
           {t('ui:yes') + ', ' + t('ui:delete')}
-        </KnappBase>
-        <KnappBase
+        </Nav.KnappBase>
+        <Nav.KnappBase
           id='c-d-WidgetDelete__cancel-button-id'
           className='c-d-WidgetDelete__cancel-button'
           type='flat'
           onClick={() => setMode('edit')}
         >
           {t('ui:no') + ', ' + t('ui:cancel')}
-        </KnappBase>
+        </Nav.KnappBase>
       </div>
     </div>
   )

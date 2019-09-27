@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
-import { Lenkepanel } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 import * as routes from 'constants/routes'
 
 export const Links = (props) => {
@@ -10,14 +10,14 @@ export const Links = (props) => {
 
   return (
     <div className='w-links'>
-      <Lenkepanel
+      <Nav.Lenkepanel
         border
         className='frontPageLink bucLink'
         linkCreator={(props) => (
           <Link to={routes.BUC + '?sed=&buc='} {...props} />)} href='#'
       >
         {t('buc:form-createNewCase')}
-      </Lenkepanel>
+      </Nav.Lenkepanel>
     </div>
   )
 }

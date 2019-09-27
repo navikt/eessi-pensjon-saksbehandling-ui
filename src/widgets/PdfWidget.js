@@ -1,7 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import { Link } from 'react-router-dom'
-import { Lenkepanel } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 import * as routes from 'constants/routes'
 
 const PdfWidget = (props) => {
@@ -10,14 +10,14 @@ const PdfWidget = (props) => {
   return (
     <div className='w-PdfWidget p-3'>
       <h4>{widget.title}</h4>
-      <Lenkepanel
+      <Nav.Lenkepanel
         border
         className='link pdfLink'
         linkCreator={(props) => (
           <Link to={routes.PDF} {...props} />)} href='#'
       >
         {t('pdf:app-createPdf')}
-      </Lenkepanel>
+      </Nav.Lenkepanel>
     </div>
   )
 }

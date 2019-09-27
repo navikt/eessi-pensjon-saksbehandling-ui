@@ -1,7 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { AlertStripe, Hovedknapp, Undertekst, Undertittel } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 
 const VarslerPanel = (props) => {
   const { actions, aktoerId, isInvitingPinfo, invite, sakId, sakType, t } = props
@@ -15,14 +15,14 @@ const VarslerPanel = (props) => {
 
   return (
     <>
-      <Undertittel>{t('pinfo:sb-send-notification-title')}</Undertittel>
+      <Nav.Undertittel>{t('pinfo:sb-send-notification-title')}</Nav.Undertittel>
       <div className='mt-3' style={{ columns: 3 }}>
         <div><label className='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakId')}</label>: {sakId}</div>
         <div><label className='skjemaelement__label d-inline-block'>{t('ui:aktoerId')}</label>: {aktoerId}</div>
         <div><label className='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakType')}</label>: {sakType}</div>
       </div>
-      <Undertekst className='mt-3 mb-3'>{t('pinfo:sb-send-notification-description', { user: aktoerId })}</Undertekst>
-      <Hovedknapp
+      <Nav.Undertekst className='mt-3 mb-3'>{t('pinfo:sb-send-notification-description', { user: aktoerId })}</Nav.Undertekst>
+      <Nav.Hovedknapp
         id='pinfo-forward-button'
         className='forwardButton mb-2 mr-3'
         disabled={isInvitingPinfo}
@@ -30,13 +30,13 @@ const VarslerPanel = (props) => {
         onClick={onInviteButtonClick}
       >
         {isInvitingPinfo ? t('sending') : t('pinfo:sb-send-notification-button')}
-      </Hovedknapp>
+      </Nav.Hovedknapp>
       {!_.isEmpty(invite) ? (
-        <AlertStripe
+        <Nav.AlertStripe
           className='mt-4 mb-4' type={invite.status === 'ERROR' ? 'advarsel' : 'suksess'}
         >
           {t(invite.message)}
-        </AlertStripe>
+        </Nav.AlertStripe>
       ) : null}
     </>
   )

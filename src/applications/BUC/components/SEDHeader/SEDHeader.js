@@ -1,6 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
-import { Element } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 
 import './SEDHeader.css'
 
@@ -12,13 +12,13 @@ const SEDHeader = (props) => {
       id='a-buc-c-sedheader__div-id'
     >
       <div className='a-buc-c-sedheader__head col-2'>
-        <Element>{t('buc:form-name')}</Element>
+        <Nav.Element>{t('buc:form-name')}</Nav.Element>
       </div>
       <div className='a-buc-c-sedheader__head col-4'>
-        <Element>{t('buc:form-status')}</Element>
+        <Nav.Element>{t('buc:form-status')}</Nav.Element>
       </div>
       <div className='a-buc-c-sedheader__head col-4'>
-        <Element>{t('buc:form-receiver')}</Element>
+        <Nav.Element>{t('buc:form-receiver')}</Nav.Element>
       </div>
       <div className='a-buc-c-sedheader__head col-2' />
     </div>

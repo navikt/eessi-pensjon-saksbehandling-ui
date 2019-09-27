@@ -1,20 +1,20 @@
 import React from 'react'
 import PT from 'prop-types'
-import { HjelpetekstAuto, Input, Row, UndertekstBold } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 
 const PeriodLearn = ({ localErrors, period, setLearnInstitution, t }) => (
-  <Row className='period-learn'>
+  <Nav.Row className='period-learn'>
     <div className='col-sm-12'>
-      <Input
+      <Nav.Input
         id='a-buc-c-sedp4000-period__opplaeringsinstitusjonsnavn-input-id'
         className='a-buc-c-sedp4000-period__opplaeringsinstitusjonsnavn-input'
         label={
           <div className='a-buc-c-sedp4000-period__label'>
             <div className='a-buc-c-sedp4000-period__label'>
-              <UndertekstBold>{t('buc:p4000-label-learn-institution-name')}</UndertekstBold>
-              <HjelpetekstAuto id='p4000-help-learn-institution'>
+              <Nav.UndertekstBold>{t('buc:p4000-label-learn-institution-name')}</Nav.UndertekstBold>
+              <Nav.HjelpetekstAuto id='p4000-help-learn-institution'>
                 {t('buc:p4000-help-learn-institution')}
-              </HjelpetekstAuto>
+              </Nav.HjelpetekstAuto>
             </div>
           </div>
         }
@@ -24,7 +24,7 @@ const PeriodLearn = ({ localErrors, period, setLearnInstitution, t }) => (
         feil={localErrors.learnInstitution ? { feilmelding: t(localErrors.learnInstitution) } : null}
       />
     </div>
-  </Row>
+  </Nav.Row>
 )
 
 PeriodLearn.propTypes = {

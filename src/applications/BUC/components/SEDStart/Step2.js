@@ -1,5 +1,5 @@
 import React from 'react'
-import { Systemtittel } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 import SEDP4000 from 'applications/BUC/components/SEDP4000/SEDP4000'
 
 const Step2 = (props) => {
@@ -8,11 +8,11 @@ const Step2 = (props) => {
   return (
     <>
       <div className='col-md-12'>
-        <Systemtittel>{t('buc:step-startSEDTitle', {
+        <Nav.Systemtittel>{t('buc:step-startSEDTitle', {
           buc: t(`buc:buc-${buc.type}`),
           sed: _sed || t('buc:form-newSed')
         })}
-        </Systemtittel>
+        </Nav.Systemtittel>
         <hr />
       </div>
       {_sed === 'P4000' ? (

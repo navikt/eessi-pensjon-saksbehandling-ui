@@ -1,22 +1,20 @@
 import React from 'react'
 import PT from 'prop-types'
-import DatePicker from 'components/DatePicker/DatePicker'
-import FocusGroup from 'components/FocusGroup/FocusGroup'
-import { Input, Row, UndertekstBold, Undertittel } from 'components/Nav'
+import { DatePicker, FocusGroup, Nav } from 'eessi-pensjon-ui'
 
 const PeriodChild = ({ blurChildBirthDate, localErrors, period, setChildBirthDate, setChildFirstName, setChildLastName, t }) => (
-  <Row>
+  <Nav.Row>
     <div className='col-sm-12'>
-      <Undertittel className='mt-5 mb-2'>
+      <Nav.Undertittel className='mt-5 mb-2'>
         {t('buc:p4000-title-child-info')}
-      </Undertittel>
-      <Input
+      </Nav.Undertittel>
+      <Nav.Input
         id='a-buc-c-sedp4000-period__omsorgforbarn-etternavn-input-id'
         className='a-buc-c-sedp4000-period__omsorgforbarn-etternavn-input'
         label={
           <div className='pinfo-label'>
             <div className='pinfo-label'>
-              <UndertekstBold>{t('buc:p4000-label-lastname')}</UndertekstBold>
+              <Nav.UndertekstBold>{t('buc:p4000-label-lastname')}</Nav.UndertekstBold>
             </div>
           </div>
         }
@@ -27,13 +25,13 @@ const PeriodChild = ({ blurChildBirthDate, localErrors, period, setChildBirthDat
       />
     </div>
     <div className='col-sm-12'>
-      <Input
+      <Nav.Input
         id='a-buc-c-sedp4000-period__omsorgforbarn-fornavn-input-id'
         className='a-buc-c-sedp4000-period__omsorgforbarn-fornavn-input'
         label={
           <div className='pinfo-label'>
             <div className='pinfo-label'>
-              <UndertekstBold>{t('buc:p4000-label-firstname')}</UndertekstBold>
+              <Nav.UndertekstBold>{t('buc:p4000-label-firstname')}</Nav.UndertekstBold>
             </div>
           </div>
         }
@@ -68,7 +66,7 @@ const PeriodChild = ({ blurChildBirthDate, localErrors, period, setChildBirthDat
         />
       </FocusGroup>
     </div>
-  </Row>
+  </Nav.Row>
 )
 
 PeriodChild.propTypes = {

@@ -1,8 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
-import DatePicker from 'components/DatePicker/DatePicker'
-import FocusGroup from 'components/FocusGroup/FocusGroup'
-import { AlertStripe, Checkbox, Normaltekst, Row, Select, Undertittel } from 'components/Nav'
+import { DatePicker, FocusGroup, Nav } from 'eessi-pensjon-ui'
 
 const PeriodDate = ({
   blurEndDate,
@@ -17,21 +15,21 @@ const PeriodDate = ({
 }) => (
   <>
     {period.type === 'home' ? (
-      <AlertStripe
+      <Nav.AlertStripe
         className='a-buc-c-sedp4000-period__alert_home mt-4 mb-4'
         type='advarsel'
       >
         {t('buc:p4000-warning-home-period')}
-      </AlertStripe>) : null}
-    <Undertittel className='a-buc-c-sedp4000-period__subtitle mt-5 mb-2'>
+      </Nav.AlertStripe>) : null}
+    <Nav.Undertittel className='a-buc-c-sedp4000-period__subtitle mt-5 mb-2'>
       {t(`buc:p4000-title-${period.type}`)}
-    </Undertittel>
-    <Normaltekst className='a-buc-c-sedp4000-period__description mb-3'>
+    </Nav.Undertittel>
+    <Nav.Normaltekst className='a-buc-c-sedp4000-period__description mb-3'>
       {t('buc:p4000-help-date')}
-    </Normaltekst>
-    <Row>
+    </Nav.Normaltekst>
+    <Nav.Row>
       <div className='a-buc-c-sedp4000-period__dateType col-12 mb-2'>
-        <Select
+        <Nav.Select
           className='a-buc-c-sedp4000-period__dateType-select flex-fill'
           id='a-buc-c-sedp4000-period__dateType-select-id'
           bredde='fullbredde'
@@ -42,7 +40,7 @@ const PeriodDate = ({
           <option value='both'>{t('buc:p4000-label-closedPeriod')}</option>
           <option value='onlyStartDate01'>{t('buc:p4000-label-onlyStartDate01')}</option>
           <option value='onlyStartDate98'>{t('buc:p4000-label-onlyStartDate98')}</option>
-        </Select>
+        </Nav.Select>
       </div>
       <div className='a-buc-c-sedp4000-period__startDate col-sm-6 col-12 mb-2'>
         <label className='datepickerLabel skjemaelement__label'>
@@ -108,7 +106,7 @@ const PeriodDate = ({
         }
       </div>
       <div className='a-buc-c-sedp4000-period__uncertainDate col-sm-6 col-12 mb-2'>
-        <Checkbox
+        <Nav.Checkbox
           id='a-buc-c-sedp4000-period__uncertainDate-checkbox-id'
           className='a-buc-c-sedp4000-period__uncertainDate-checkbox'
           label={t('buc:p4000-label-uncertain-date')}
@@ -116,7 +114,7 @@ const PeriodDate = ({
           onChange={setUncertainDate}
         />
       </div>
-    </Row>
+    </Nav.Row>
   </>
 )
 

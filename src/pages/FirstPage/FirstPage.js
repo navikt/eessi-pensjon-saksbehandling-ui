@@ -2,9 +2,8 @@ import React from 'react'
 import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
 import 'url-search-params-polyfill'
-import Psycho from 'components/Psycho/Psycho'
+import { Nav, Psycho } from 'eessi-pensjon-ui'
 import TopContainer from 'components/TopContainer/TopContainer'
-import { Hovedknapp } from 'components/Nav'
 import * as routes from 'constants/routes'
 
 import './FirstPage.css'
@@ -34,12 +33,12 @@ export const FirstPage = (props) => {
           </div>
           <div dangerouslySetInnerHTML={{ __html: t('pinfo:psycho-description-saksbehandler') }} />
           <div className='text-center mt-3 mb-4'>
-            <Hovedknapp
+            <Nav.Hovedknapp
               id='pinfo-firstPage-forwardButton'
               className='mt-3 forwardButton'
               onClick={handleForwardButtonClick}
             >{t('continue')}
-            </Hovedknapp>
+            </Nav.Hovedknapp>
           </div>
         </div>
         <div className='col-sm-3 col-12' />

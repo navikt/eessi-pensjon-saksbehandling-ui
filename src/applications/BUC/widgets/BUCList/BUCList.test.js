@@ -3,10 +3,25 @@ import BUCList from './BUCList'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 
-jest.mock('components/Nav', () => {
+jest.mock('eessi-pensjon-ui', () => {
   return {
-    ...jest.requireActual('components/Nav'),
-    EkspanderbartpanelBase: () => { return <div className='mock-EkspanderbartpanelBase' /> }
+    Icons: () => {
+      return <div className='mock-Icons' />
+    },
+    Nav: {
+      EkspanderbartpanelBase: () => {
+        return <div className='mock-EkspanderbartpanelBase' />
+      },
+      Lenke: () => {
+        return <div className='mock-Lenke' />
+      },
+      Spinner: () => {
+        return <div className='mock-Spinner' />
+      },
+      Knapp: (props) => {
+        return <button {...props}>{props.children}</button>
+      }
+    }
   }
 })
 
@@ -56,17 +71,17 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
+  it('Moves to mode newbuc when button pressed', () => {
+    const newBucButton = wrapper.find('#a-buc-buclist__newbuc-button-id').hostNodes()
+    newBucButton.simulate('click')
+    expect(initialMockProps.actions.setMode).toBeCalledWith('bucnew')
+  })
+
   it('Has proper HTML structure', () => {
     expect(wrapper.exists('.a-buc-buclist')).toBeTruthy()
     expect(wrapper.exists('.a-buc-buclist__buttons')).toBeTruthy()
     expect(wrapper.exists('#a-buc-buclist__newbuc-button-id')).toBeTruthy()
     expect(wrapper.find('.mock-EkspanderbartpanelBase').hostNodes().length).toEqual(sampleBucs.length)
     expect(wrapper.exists('.a-buc-buclist__footer')).toBeTruthy()
-  })
-
-  it('Moves to mode newbuc when button pressed', () => {
-    const newBucButton = wrapper.find('#a-buc-buclist__newbuc-button-id').hostNodes()
-    newBucButton.simulate('click')
-    expect(initialMockProps.actions.setMode).toBeCalledWith('bucnew')
   })
 })

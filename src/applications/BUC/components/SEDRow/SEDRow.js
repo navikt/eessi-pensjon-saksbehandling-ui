@@ -2,10 +2,9 @@ import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
-import { Element, PanelBase, Normaltekst, Flatknapp } from 'components/Nav'
+import { Icons, Nav } from 'eessi-pensjon-ui'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import Icons from 'components/Icons'
 import moment from 'moment'
 
 import './SEDRow.css'
@@ -21,20 +20,20 @@ const SEDRow = (props) => {
   }) : []
 
   return (
-    <PanelBase
+    <Nav.PanelBase
       className={classNames('a-buc-c-sedrow p-0', className)}
     >
       <div className={classNames('a-buc-c-sedrow__content pt-2 pb-2', 'a-buc-c-sedrow__border-' + border)}>
         <div className='a-buc-c-sedrow__column a-buc-c-sedrow__name col-2'>
-          <Element>{sed.type}</Element>
+          <Nav.Element>{sed.type}</Nav.Element>
         </div>
         <div className='a-buc-c-sedrow__column a-buc-c-sedrow__status col-4'>
           <SEDStatus t={t} className='col-auto' status={sed.status} />
-          <Normaltekst className='pl-2'>
+          <Nav.Normaltekst className='pl-2'>
             {moment(sed.creationDate).format('Y-M-D')}
             {sed.lastUpdate && sed.status !== 'received' && sed.status !== 'sent'
               ? ' - ' + moment(sed.creationDate).format('Y-M-D') : ''}
-          </Normaltekst>
+          </Nav.Normaltekst>
         </div>
         <div className='a-buc-c-sedrow__column a-buc-c-sedrow__institutions col-4'>
           <InstitutionList
@@ -56,18 +55,18 @@ const SEDRow = (props) => {
           ) : null}
           {(!_.isEmpty(followUpSeds) && sed.status === 'received')
             ? (
-              <Flatknapp
+              <Nav.Flatknapp
                 mini
                 className='a-buc-c-sedrow__actions-answer-button'
                 onClick={onSEDNew}
               >
                 {t('buc:form-answerSED')}
-              </Flatknapp>
+              </Nav.Flatknapp>
             )
             : null}
         </div>
       </div>
-    </PanelBase>
+    </Nav.PanelBase>
   )
 }
 

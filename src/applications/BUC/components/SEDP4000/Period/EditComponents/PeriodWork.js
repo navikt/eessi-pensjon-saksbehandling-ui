@@ -1,8 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
-import CountrySelect from 'components/CountrySelect/CountrySelect'
-import * as CountryFilter from 'components/CountrySelect/CountryFilter'
-import { Fieldset, HjelpetekstAuto, Input, Normaltekst, Radio, Row, UndertekstBold, Undertittel } from 'components/Nav'
+import { CountrySelect, CountryFilter, Nav } from 'eessi-pensjon-ui'
 
 const PeriodWork = ({
   locale,
@@ -20,39 +18,39 @@ const PeriodWork = ({
   t
 }) => (
   <>
-    <Row>
+    <Nav.Row>
       <div className='col-sm-12'>
-        <Fieldset
+        <Nav.Fieldset
           id='a-buc-c-sedp4000-period__workType-radio-id'
           className='a-buc-c-sedp4000-period__workType-radio'
           legend={t('buc:p4000-label-work-type')}
         >
-          <Radio
+          <Nav.Radio
             label={t('buc:p4000-label-work-type-01')}
             name='period-workType'
             value='01'
             checked={period.workType === '01'}
             onChange={setWorkType}
           />
-          <Radio
+          <Nav.Radio
             label={t('buc:p4000-label-work-type-02')}
             name='period-workType'
             value='02'
             checked={period.workType === '02'}
             onChange={setWorkType}
           />
-        </Fieldset>
+        </Nav.Fieldset>
       </div>
       <div className='col-sm-12'>
-        <Input
+        <Nav.Input
           id='a-buc-c-sedp4000-period__yrkesaktivitet-input-id'
           className='a-buc-c-sedp4000-period__yrkesaktivitet-input'
           label={
             <div className='a-buc-c-sedp4000-period__label'>
-              <UndertekstBold>{t('buc:p4000-label-work-activity')}</UndertekstBold>
-              <HjelpetekstAuto id='p4000-help-work-activity'>
+              <Nav.UndertekstBold>{t('buc:p4000-label-work-activity')}</Nav.UndertekstBold>
+              <Nav.HjelpetekstAuto id='p4000-help-work-activity'>
                 {t('buc:p4000-help-work-activity')}
-              </HjelpetekstAuto>
+              </Nav.HjelpetekstAuto>
             </div>
           }
           placeholder={t('ui:writeIn')}
@@ -62,15 +60,15 @@ const PeriodWork = ({
         />
       </div>
       <div className='col-sm-12'>
-        <Input
+        <Nav.Input
           id='a-buc-c-sedp4000-period__insuranceId-input-id'
           className='a-buc-c-sedp4000-period__insuranceId-input'
           label={
             <div className='a-buc-c-sedp4000-period__label'>
-              <UndertekstBold>{t('buc:p4000-label-insurance-id')}</UndertekstBold>
-              <HjelpetekstAuto id='p4000-help-insurance-id'>
+              <Nav.UndertekstBold>{t('buc:p4000-label-insurance-id')}</Nav.UndertekstBold>
+              <Nav.HjelpetekstAuto id='p4000-help-insurance-id'>
                 {t('buc:p4000-help-insurance-id')}
-              </HjelpetekstAuto>
+              </Nav.HjelpetekstAuto>
             </div>
           }
           placeholder={t('ui:writeIn')}
@@ -80,13 +78,13 @@ const PeriodWork = ({
         />
       </div>
       <div className='col-sm-12'>
-        <Input
+        <Nav.Input
           id='a-buc-c-sedp4000-period__arbeidgiversnavn-input-id'
           className='a-buc-c-sedp4000-period__arbeidgiversnavn-input'
           label={
             <div className='a-buc-c-sedp4000-period__label'>
-              <UndertekstBold>{t('buc:p4000-label-work-name')}</UndertekstBold>
-              <Normaltekst className='optional'>{t('ui:optional')}</Normaltekst>
+              <Nav.UndertekstBold>{t('buc:p4000-label-work-name')}</Nav.UndertekstBold>
+              <Nav.Normaltekst className='optional'>{t('ui:optional')}</Nav.Normaltekst>
             </div>
           }
           placeholder={t('ui:writeIn')}
@@ -95,23 +93,23 @@ const PeriodWork = ({
           feil={localErrors.workName ? { feilmelding: t(localErrors.workName) } : null}
         />
       </div>
-    </Row>
-    <Row>
+    </Nav.Row>
+    <Nav.Row>
       <div className='col-sm-12'>
-        <Undertittel className='mt-5 mb-2'>
+        <Nav.Undertittel className='mt-5 mb-2'>
           {t('buc:p4000-label-work-address')}
-        </Undertittel>
+        </Nav.Undertittel>
       </div>
       <div className='col-sm-12'>
-        <Input
+        <Nav.Input
           id='a-buc-c-sedp4000-period__workStreet-input-id'
           className='a-buc-c-sedp4000-period__workStreet-input'
           label={
             <div className='a-buc-c-sedp4000-period__label'>
-              <UndertekstBold>{t('buc:p4000-label-work-street')}</UndertekstBold>
-              <HjelpetekstAuto id='p4000-help-work-street'>
+              <Nav.UndertekstBold>{t('buc:p4000-label-work-street')}</Nav.UndertekstBold>
+              <Nav.HjelpetekstAuto id='p4000-help-work-street'>
                 {t('buc:p4000-help-work-street')}
-              </HjelpetekstAuto>
+              </Nav.HjelpetekstAuto>
             </div>
           }
           value={period.workStreet || ''}
@@ -121,15 +119,15 @@ const PeriodWork = ({
         />
       </div>
       <div className='col-sm-12'>
-        <Input
+        <Nav.Input
           id='a-buc-c-sedp4000-period__workCity-input-id'
           className='a-buc-c-sedp4000-period__workCity-input'
           label={
             <div className='a-buc-c-sedp4000-period__label'>
-              <UndertekstBold>{t('buc:p4000-label-work-city')}</UndertekstBold>
-              <HjelpetekstAuto id='p4000-help-work-city'>
+              <Nav.UndertekstBold>{t('buc:p4000-label-work-city')}</Nav.UndertekstBold>
+              <Nav.HjelpetekstAuto id='p4000-help-work-city'>
                 {t('buc:p4000-help-work-city')}
-              </HjelpetekstAuto>
+              </Nav.HjelpetekstAuto>
             </div>
           }
           value={period.workCity || ''}
@@ -139,15 +137,15 @@ const PeriodWork = ({
         />
       </div>
       <div className='col-sm-6'>
-        <Input
+        <Nav.Input
           id='a-buc-c-sedp4000-period__workZipCode-input-id'
           className='a-buc-c-sedp4000-period__workZipCode-input'
           label={
             <div className='a-buc-c-sedp4000-period__label'>
-              <UndertekstBold>{t('buc:p4000-label-work-zipcode')}</UndertekstBold>
-              <HjelpetekstAuto id='p4000-help-work-zipcode'>
+              <Nav.UndertekstBold>{t('buc:p4000-label-work-zipcode')}</Nav.UndertekstBold>
+              <Nav.HjelpetekstAuto id='p4000-help-work-zipcode'>
                 {t('buc:p4000-help-work-zipcode')}
-              </HjelpetekstAuto>
+              </Nav.HjelpetekstAuto>
             </div>
           }
           value={period.workZipCode || ''}
@@ -157,15 +155,15 @@ const PeriodWork = ({
         />
       </div>
       <div className='col-sm-6'>
-        <Input
+        <Nav.Input
           id='a-buc-c-sedp4000-period__workRegion-input-id'
           className='a-buc-c-sedp4000-period__workRegion-input'
           label={
             <div className='a-buc-c-sedp4000-period__label'>
-              <UndertekstBold>{t('buc:p4000-label-work-region')}</UndertekstBold>
-              <HjelpetekstAuto id='p4000-help-work-region'>
+              <Nav.UndertekstBold>{t('buc:p4000-label-work-region')}</Nav.UndertekstBold>
+              <Nav.HjelpetekstAuto id='p4000-help-work-region'>
                 {t('buc:p4000-help-work-region')}
-              </HjelpetekstAuto>
+              </Nav.HjelpetekstAuto>
             </div>
           }
           value={period.workRegion || ''}
@@ -191,7 +189,7 @@ const PeriodWork = ({
           errorMessage={t(localErrors.country)}
         />
       </div>
-    </Row>
+    </Nav.Row>
   </>
 )
 

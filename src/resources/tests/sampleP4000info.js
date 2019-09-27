@@ -8,7 +8,7 @@ export default {
     endDate: { day: 1, month: 1, year: 1971 },
     dateType: 'both',
     uncertainDate: true,
-    country: { label: 'mockAA', value: 'AA' },
+    country: { label: 'mockAA', value: 'AF' },
     comment: 'other period 1 comment',
     otherType: 'other period 1 otherType'
   }, {
@@ -27,7 +27,7 @@ export default {
     endDate: { day: 1, month: 1, year: 1974 },
     dateType: 'both',
     uncertainDate: true,
-    country: { label: 'mockCC', value: 'CC' },
+    country: { label: 'mockCC', value: 'CA' },
     comment: 'daily period 1 comment',
     payingInstitution: 'daily period 1 payingInstitution'
   }, {
@@ -37,7 +37,7 @@ export default {
     endDate: { day: 1, month: 1, year: 1976 },
     dateType: 'both',
     uncertainDate: true,
-    country: { label: 'mockDD', value: 'DD' },
+    country: { label: 'mockDD', value: 'DO' },
     comment: 'daily period 2 comment',
     payingInstitution: 'daily period 2 payingInstitution'
   }, {
@@ -47,7 +47,7 @@ export default {
     endDate: { day: 1, month: 1, year: 1978 },
     dateType: 'both',
     uncertainDate: true,
-    country: { label: 'mockEE', value: 'EE' },
+    country: { label: 'mockEE', value: 'EC' },
     comment: 'home period 1 comment'
   }, {
     id: 6,
@@ -56,7 +56,7 @@ export default {
     endDate: { day: 1, month: 1, year: 1980 },
     dateType: 'both',
     uncertainDate: true,
-    country: { label: 'mockFF', value: 'FF' },
+    country: { label: 'mockFF', value: 'FR' },
     comment: 'home period 2 comment'
   }, {
     id: 7,
@@ -65,7 +65,7 @@ export default {
     endDate: { day: 1, month: 1, year: 1982 },
     dateType: 'both',
     uncertainDate: true,
-    country: { label: 'mockGG', value: 'GG' },
+    country: { label: 'mockGG', value: 'GR' },
     comment: 'learn period 1 comment',
     learnInstitution: 'learn period 1 learnInstitution'
   }, {
@@ -75,7 +75,7 @@ export default {
     endDate: { day: 1, month: 1, year: 1984 },
     dateType: 'both',
     uncertainDate: true,
-    country: { label: 'mockHH', value: 'HH' },
+    country: { label: 'mockHH', value: 'HU' },
     comment: 'learn period 2 comment',
     learnInstitution: 'learn period 2 learnInstitution'
   }, {
@@ -85,7 +85,7 @@ export default {
     endDate: { day: 1, month: 1, year: 1986 },
     dateType: 'both',
     uncertainDate: true,
-    country: { label: 'mockII', value: 'II' },
+    country: { label: 'mockII', value: 'IT' },
     comment: 'sick period 1 comment',
     payingInstitution: 'sick period 1 payingInstitution'
   }, {
@@ -95,7 +95,7 @@ export default {
     endDate: { day: 1, month: 1, year: 1988 },
     dateType: 'both',
     uncertainDate: true,
-    country: { label: 'mockJJ', value: 'JJ' },
+    country: { label: 'mockJJ', value: 'JP' },
     comment: 'sick period 2 comment',
     payingInstitution: 'sick period 2 payingInstitution'
   }, {
@@ -105,7 +105,7 @@ export default {
     endDate: { day: 1, month: 1, year: 1990 },
     dateType: 'both',
     uncertainDate: true,
-    country: { label: 'mockKK', value: 'KK' },
+    country: { label: 'mockKK', value: 'KE' },
     comment: 'child period 1 comment',
     childFirstName: 'Ole',
     childLastName: 'Olsen',
@@ -117,7 +117,7 @@ export default {
     endDate: { day: 1, month: 1, year: 1992 },
     dateType: 'both',
     uncertainDate: true,
-    country: { label: 'mockLL', value: 'LL' },
+    country: { label: 'mockLL', value: 'LU' },
     comment: 'child period 2 comment',
     childFirstName: 'Teddy',
     childLastName: 'Olsen',
@@ -130,7 +130,7 @@ export default {
     dateType: 'both',
     uncertainDate: true,
     comment: 'work period 1 comment',
-    country: { label: 'mockMM', value: 'MM' },
+    country: { label: 'mockMM', value: 'MX' },
     workName: 'work period 1 workName',
     workType: '01',
     workActivity: 'work period 1 workActivity',
@@ -147,7 +147,7 @@ export default {
     dateType: 'both',
     uncertainDate: true,
     comment: 'work period 2 comment',
-    country: { label: 'mockNN', value: 'NN' },
+    country: { label: 'mockNN', value: 'NL' },
     workName: 'work period 2 workName',
     workType: '02',
     workActivity: 'work period 2 workActivity',
@@ -163,7 +163,7 @@ export default {
     endDate: { day: 1, month: 1, year: 1998 },
     dateType: 'both',
     uncertainDate: true,
-    country: { label: 'mockOO', value: 'OO' },
+    country: { label: 'mockOO', value: 'OM' },
     comment: 'military period 1 comment'
   }, {
     id: 16,
@@ -172,7 +172,7 @@ export default {
     endDate: { day: 1, month: 1, year: 2000 },
     dateType: 'both',
     uncertainDate: true,
-    country: { label: 'mockPP', value: 'PP' },
+    country: { label: 'mockPP', value: 'PT' },
     comment: 'military period 2 comment'
   }, {
     id: 17,
@@ -180,7 +180,7 @@ export default {
     startDate: { day: 1, month: 1, year: 2001 },
     dateType: 'onlyStartDate98',
     uncertainDate: false,
-    country: { label: 'mockQQ', value: 'QQ' },
+    country: { label: 'mockQQ', value: 'QA' },
     comment: 'birth period 1 comment'
   }, {
     id: 18,
@@ -189,7 +189,7 @@ export default {
     endDate: { day: 1, month: 1, year: 2003 },
     dateType: 'both',
     uncertainDate: true,
-    country: { label: 'mockRR', value: 'RR' },
+    country: { label: 'mockRR', value: 'RU' },
     comment: 'birth period 2 comment'
   }, {
     id: 19,
@@ -198,7 +198,7 @@ export default {
     endDate: { day: 1, month: 1, year: 2005 },
     dateType: 'both',
     uncertainDate: true,
-    country: { label: 'mockSS', value: 'SS' },
+    country: { label: 'mockSS', value: 'SM' },
     comment: 'voluntary period 1 comment'
   }, {
     id: 20,
@@ -207,7 +207,7 @@ export default {
     endDate: { day: 1, month: 1, year: 2007 },
     dateType: 'both',
     uncertainDate: true,
-    country: { label: 'mockTT', value: 'TT' },
+    country: { label: 'mockTT', value: 'TR' },
     comment: 'voluntary period 2 comment'
   }]
 }

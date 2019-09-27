@@ -5,8 +5,8 @@ import { connect, bindActionCreators } from 'store'
 import * as joarkActions from 'actions/joark'
 import * as uiActions from 'actions/ui'
 import { getDisplayName } from 'utils/displayName'
-import { NavFrontendSpinner } from 'components/Nav'
-import File from 'components/File/File'
+import { Nav } from 'eessi-pensjon-ui'
+import { File } from 'eessi-pensjon-ui'
 import TableSorter from 'components/TableSorter/TableSorter'
 
 import './JoarkBrowser.css'
@@ -151,7 +151,7 @@ export const JoarkBrowser = (props) => {
   if (loadingJoarkList) {
     return (
       <div>
-        <NavFrontendSpinner type='XS' />
+        <Nav.Spinner type='XS' />
         <span className='pl-2'>{t('ui:loading')}</span>
       </div>
     )

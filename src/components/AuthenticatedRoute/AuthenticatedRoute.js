@@ -6,7 +6,7 @@ import { Route, withRouter, Redirect } from 'react-router'
 import _ from 'lodash'
 
 import * as appActions from 'actions/app'
-import WaitingPanel from 'components/WaitingPanel/WaitingPanel'
+import { WaitingPanel } from 'eessi-pensjon-ui'
 import * as constants from 'constants/constants'
 import * as routes from 'constants/routes'
 import { getDisplayName } from 'utils/displayName'

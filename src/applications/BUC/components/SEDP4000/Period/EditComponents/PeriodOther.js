@@ -1,17 +1,17 @@
 import React from 'react'
 import PT from 'prop-types'
-import { Input, Row, UndertekstBold } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 
 const PeriodOther = ({ localErrors, period, setOtherType, t }) => (
-  <Row>
+  <Nav.Row>
     <div className='col-sm-12'>
-      <Input
+      <Nav.Input
         id='a-buc-c-sedp4000-period__andre-input-id'
         className='a-buc-c-sedp4000-period__andre-input mt-2'
         label={
           <div className='pinfo-label'>
             <div className='pinfo-label'>
-              <UndertekstBold>{t('buc:p4000-label-otherType')}</UndertekstBold>
+              <Nav.UndertekstBold>{t('buc:p4000-label-otherType')}</Nav.UndertekstBold>
             </div>
           </div>
         }
@@ -21,7 +21,7 @@ const PeriodOther = ({ localErrors, period, setOtherType, t }) => (
         feil={localErrors.otherType ? { feilmelding: t(localErrors.otherType) } : null}
       />
     </div>
-  </Row>
+  </Nav.Row>
 )
 
 PeriodOther.propTypes = {

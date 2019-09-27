@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import _ from 'lodash'
 import PT from 'prop-types'
-import { Checkbox, EtikettLiten, Input, NavFrontendSpinner, Normaltekst, UndertekstBold } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 
 import './TableSorter.css'
 
@@ -70,19 +70,19 @@ const TableSorter = (props) => {
               case 'name':
                 return (
                   <td key={index2}>
-                    <Normaltekst>{value}</Normaltekst>
+                    <Nav.Normaltekst>{value}</Nav.Normaltekst>
                   </td>
                 )
               case 'tema':
                 return (
                   <td key={index2}>
-                    <EtikettLiten>{value}</EtikettLiten>
+                    <Nav.EtikettLiten>{value}</Nav.EtikettLiten>
                   </td>
                 )
               case 'date':
                 return (
                   <td key={index2}>
-                    <Normaltekst>{value ? value.toLocaleDateString() : t('ui:unknown')}</Normaltekst>
+                    <Nav.Normaltekst>{value ? value.toLocaleDateString() : t('ui:unknown')}</Nav.Normaltekst>
                   </td>
                 )
               case 'varianter':
@@ -94,7 +94,7 @@ const TableSorter = (props) => {
                           key={variant.label}
                           className='c-tablesorter__subcell'
                         >
-                          <Checkbox
+                          <Nav.Checkbox
                             label=''
                             id={'c-tablesorter__checkbox-' + item.journalpostId + '-' + item.dokumentInfoId + '-' +
                               convertSomeNonAlphanumericCharactersToUnderscore(variant.label)}
@@ -109,7 +109,7 @@ const TableSorter = (props) => {
                               onItemClicked(item, variant.variant)
                             }}
                           >
-                            <Normaltekst>{variant.label}</Normaltekst>
+                            <Nav.Normaltekst>{variant.label}</Nav.Normaltekst>
                           </a>
                         </div>
                       )
@@ -129,7 +129,7 @@ const TableSorter = (props) => {
     return (
       <>
         <th>
-          <Checkbox
+          <Nav.Checkbox
             id='c-tablesorter__seefilters-checkbox-id'
             className='c-tablesorter__checkbox'
             label=''
@@ -144,7 +144,7 @@ const TableSorter = (props) => {
               onClick={() => sortColumn(column)}
               className={'header ' + sortClass(column)}
             >
-              <UndertekstBold>{_columns[column].name}</UndertekstBold>
+              <Nav.UndertekstBold>{_columns[column].name}</Nav.UndertekstBold>
             </th>
           )
         })}
@@ -165,7 +165,7 @@ const TableSorter = (props) => {
         {columnNames.map((column) => {
           return (
             <td key={column}>
-              <Input
+              <Nav.Input
                 id={'c-tablesorter__sort-' + column + '-input-id'}
                 className='c-tablesorter__sort-input'
                 label=''
@@ -184,13 +184,13 @@ const TableSorter = (props) => {
       <div className='c-tablesorter__status'>
         {loadingJoarkFile ? (
           <div>
-            <NavFrontendSpinner type='XS' />
+            <Nav.Spinner type='XS' />
             <span className='pl-2'>{t('ui:loading')}</span>
           </div>
         ) : null}
         {loadingJoarkPreviewFile ? (
           <div>
-            <NavFrontendSpinner type='XS' />
+            <Nav.Spinner type='XS' />
             <span className='pl-2'>{t('ui:loading')}</span>
           </div>
         ) : null}

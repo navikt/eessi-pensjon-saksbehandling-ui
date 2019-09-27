@@ -59,6 +59,7 @@ export function setSeparator (payload) {
   return {
     type: types.PDF_SEPARATOR_SET,
     payload: payload
+  }
 }
 
 export function generatePDF (payload) {

@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import { connect, bindActionCreators } from 'store'
 import * as appActions from 'actions/app'
-import { EkspanderbartpanelBase } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 import { getDisplayName } from 'utils/displayName'
 import PersonTitle from './PersonTitle'
 import PersonPanel from './PersonPanel'
@@ -43,14 +43,14 @@ export const Overview = (props) => {
   }
 
   return (
-    <EkspanderbartpanelBase
+    <Nav.EkspanderbartpanelBase
       className='w-overview s-border'
       apen={!widget.options.collapsed}
       onClick={onExpandablePanelChange}
       heading={<PersonTitle {...props} />}
     >
       <PersonPanel {...props} />
-    </EkspanderbartpanelBase>
+    </Nav.EkspanderbartpanelBase>
   )
 }
 

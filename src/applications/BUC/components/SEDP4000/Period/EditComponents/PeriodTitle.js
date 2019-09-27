@@ -1,11 +1,11 @@
 import React from 'react'
 import PT from 'prop-types'
-import { Undertittel } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 
 const PeriodTitle = ({ mode, t }) => (
-  <Undertittel className='a-buc-c-sedp4000-period__title mt-5 mb-2'>
+  <Nav.Undertittel className='a-buc-c-sedp4000-period__title mt-5 mb-2'>
     {t('buc:p4000-title-' + mode)}
-  </Undertittel>
+  </Nav.Undertittel>
 )
 
 PeriodTitle.propTypes = {

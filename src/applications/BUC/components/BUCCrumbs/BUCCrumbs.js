@@ -1,7 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
-import { Chevron, Lenke } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 import './BUCCrumbs.css'
 
 const BUCCrumbs = ({ actions, bucs, currentBuc, className, mode, showLastLink = false, t }) => {
@@ -58,11 +58,11 @@ const BUCCrumbs = ({ actions, bucs, currentBuc, className, mode, showLastLink = 
         const onBucCrumbClick = buccrumb.func
         return (
           <React.Fragment key={i}>
-            {!first ? <Chevron className='separator' type='høyre' /> : null}
+            {!first ? <Nav.Chevron className='separator' type='høyre' /> : null}
             <div className='a-buc-c-buccrumb'>
               {last && !showLastLink
                 ? t(buccrumb.label)
-                : <Lenke href='#' title={buccrumb.label} onClick={onBucCrumbClick}>{buccrumb.label}</Lenke>}
+                : <Nav.Lenke href='#' title={buccrumb.label} onClick={onBucCrumbClick}>{buccrumb.label}</Nav.Lenke>}
             </div>
           </React.Fragment>
         )

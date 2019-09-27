@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { Ekspanderbartpanel } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 import ReactResizeDetector from 'react-resize-detector'
 
 const EkspandertBartWidget = (props) => {
@@ -29,7 +29,7 @@ const EkspandertBartWidget = (props) => {
 
   return (
     <div className='w-EkspandertbartWidget'>
-      <Ekspanderbartpanel
+      <Nav.Ekspanderbartpanel
         apen={!widget.options.collapsed}
         tittel={widget.title || ''}
         onClick={onClick}
@@ -49,7 +49,7 @@ const EkspandertBartWidget = (props) => {
               />
             )}
         </div>
-      </Ekspanderbartpanel>
+      </Nav.Ekspanderbartpanel>
     </div>
   )
 }

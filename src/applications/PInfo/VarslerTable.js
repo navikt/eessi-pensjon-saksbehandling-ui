@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { NavFrontendSpinner, Undertittel } from 'components/Nav'
-import Icons from 'components/Icons'
-import RefreshButton from 'components/RefreshButton/RefreshButton'
+import { Icons, Nav, RefreshButton } from 'eessi-pensjon-ui'
 
 const VarslerTable = (props) => {
   const { actions, aktoerId, file, fileList, sakId, t } = props
@@ -67,12 +65,12 @@ const VarslerTable = (props) => {
   return (
     <>
       <div className='a-pinfo-table-notification-title'>
-        <Undertittel>{t('pinfo:sb-sent-notifications-title')}</Undertittel>
+        <Nav.Undertittel>{t('pinfo:sb-sent-notifications-title')}</Nav.Undertittel>
         <RefreshButton t={t} rotating={!isReady} onRefreshClick={refresh} />
       </div>
       {!isReady ? (
         <div className='text-center' style={{ paddingTop: '3rem' }}>
-          <NavFrontendSpinner />
+          <Nav.Spinner />
           <p className='typo-normal'>{t('ui:loading')}</p>
         </div>
       ) : null}

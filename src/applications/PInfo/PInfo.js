@@ -8,9 +8,8 @@ import * as storageActions from 'actions/storage'
 import * as pinfoActions from 'actions/pinfo'
 import VarslerPanel from './VarslerPanel'
 import VarslerTable from './VarslerTable'
-import { Normaltekst } from 'components/Nav'
 import TopContainer from 'components/TopContainer/TopContainer'
-import Psycho from 'components/Psycho/Psycho'
+import { Psycho, Nav } from 'eessi-pensjon-ui'
 import { getDisplayName } from 'utils/displayName'
 
 import './PInfo.css'
@@ -58,7 +57,7 @@ const PInfo = (props) => {
             <Psycho type='trist' id='psycho' />
           </div>
           <div className='text-center'>
-            <Normaltekst>{t('pinfo:error-noParams')}</Normaltekst>
+            <Nav.Normaltekst>{t('pinfo:error-noParams')}</Nav.Normaltekst>
           </div>
         </div>
       </TopContainer>

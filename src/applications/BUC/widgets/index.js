@@ -10,7 +10,7 @@ import SEDNew from 'applications/BUC/widgets/SEDNew/SEDNew'
 import BUCEdit from 'applications/BUC/widgets/BUCEdit/BUCEdit'
 import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
-import { Knapp, Input } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 import { getDisplayName } from 'utils/displayName'
 
 import './index.css'
@@ -102,8 +102,8 @@ export const BUCWidgetIndex = (props) => {
       {sakType === 'Gjenlevendeytelse' && !avdodfnr
         ? (
           <div className='d-flex flex-row'>
-            <Input bredde='S' label={t('buc:app-avdodfnrInput')} value={_avdodfnr} onChange={(e) => setAvdodfnr(e.target.value)} />
-            <Knapp mini onClick={() => actions.setStatusParam('avdodfnr', _avdodfnr)}>{t('buc:app-avdodfnrButton')}</Knapp>
+            <Nav.Input bredde='S' label={t('buc:app-avdodfnrInput')} value={_avdodfnr} onChange={(e) => setAvdodfnr(e.target.value)} />
+            <Nav.Knapp mini onClick={() => actions.setStatusParam('avdodfnr', _avdodfnr)}>{t('buc:app-avdodfnrButton')}</Nav.Knapp>
           </div>
         )
         : null}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { Select } from 'components/Nav'
+import { Nav } from 'eessi-pensjon-ui'
 
 const NoteOptionsWidget = (props) => {
   const { availableWidgets, layout, onWidgetUpdate, widget } = props
@@ -19,7 +19,7 @@ const NoteOptionsWidget = (props) => {
 
   return (
     <div className='w-NoteOptionsWidget p-3'>
-      <Select
+      <Nav.Select
         id='w-NoteOptionsWidget__color-select-id'
         label='color'
         value={backgroundColor || ''}
@@ -28,7 +28,7 @@ const NoteOptionsWidget = (props) => {
         {widgetTemplate.options.availableColors.map(color => {
           return <option key={color} value={color}>{color}</option>
         })}
-      </Select>
+      </Nav.Select>
       <br />
       <br />
       <br />

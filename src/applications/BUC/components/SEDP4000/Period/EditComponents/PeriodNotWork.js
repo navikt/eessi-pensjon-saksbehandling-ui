@@ -1,11 +1,9 @@
 import React from 'react'
 import PT from 'prop-types'
-import CountrySelect from 'components/CountrySelect/CountrySelect'
-import * as CountryFilter from 'components/CountrySelect/CountryFilter'
-import { Row } from 'components/Nav'
+import { CountrySelect, CountryFilter, Nav } from 'eessi-pensjon-ui'
 
 const PeriodNotWork = ({ localErrors, locale, period, setCountry, t }) => (
-  <Row>
+  <Nav.Row>
     <div className='col-sm-8 mb-2'>
       <label className='skjemaelement__label'>
         <div className='a-buc-c-sedp4000-period__label'>
@@ -23,7 +21,7 @@ const PeriodNotWork = ({ localErrors, locale, period, setCountry, t }) => (
         errorMessage={t(localErrors.country)}
       />
     </div>
-  </Row>
+  </Nav.Row>
 )
 
 PeriodNotWork.propTypes = {
