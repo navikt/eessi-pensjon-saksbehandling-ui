@@ -1,6 +1,6 @@
 {
-  "name": "eessi-fagmodul-frontend",
-  "version": "0.0.1-SNAPSHOT",
+  "name": "eessi-pensjon-saksbehandling-ui",
+  "version": "1.1.0",
   "license": "MIT",
   "scripts": {
     "lint": "standard",

@@ -1,3 +1,5 @@
+/* global System */
+
 System.config({
   paths: {
     'actions/*': './src/actions/*',
