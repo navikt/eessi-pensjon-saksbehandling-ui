@@ -1,5 +1,5 @@
-import * as types from 'constants/actionTypes'
 import i18n from 'i18n'
+import * as types from 'constants/actionTypes'
 
 export const changeLanguage = (language) => {
   i18n.changeLanguage(language)

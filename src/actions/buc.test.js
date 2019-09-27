@@ -2,11 +2,7 @@ import * as bucActions from 'actions/buc'
 import * as api from 'actions/api'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import sampleBucs from 'resources/tests/sampleBucs'
-import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
-import sampleP4000info from 'resources/tests/sampleP4000info'
-import sampleInstitutions from 'resources/tests/sampleInstitutions'
-var sprintf = require('sprintf-js').sprintf
+const sprintf = require('sprintf-js').sprintf
 
 describe('actions/buc', () => {
   const call = jest.spyOn(api, 'call').mockImplementation(jest.fn())
@@ -37,10 +33,21 @@ describe('actions/buc', () => {
     })
   })
 
-  it('resetSed()', () => {
-    const generatedResult = bucActions.resetSed()
+  it('setCurrentSed()', () => {
+    const mockedSed = 'sed'
+    const generatedResult = bucActions.setCurrentSed(mockedSed)
     expect(generatedResult).toMatchObject({
-      type: types.BUC_SED_RESET
+      type: types.BUC_CURRENTSED_SET,
+      payload: mockedSed
+    })
+  })
+
+  it('setSedList()', () => {
+    const mockedSedList = 'sedlist'
+    const generatedResult = bucActions.setSedList(mockedSedList)
+    expect(generatedResult).toMatchObject({
+      type: types.BUC_SEDLIST_SET,
+      payload: mockedSedList
     })
   })
 
@@ -48,6 +55,13 @@ describe('actions/buc', () => {
     const generatedResult = bucActions.resetBuc()
     expect(generatedResult).toMatchObject({
       type: types.BUC_BUC_RESET
+    })
+  })
+
+  it('resetSed()', () => {
+    const generatedResult = bucActions.resetSed()
+    expect(generatedResult).toMatchObject({
+      type: types.BUC_SED_RESET
     })
   })
 
@@ -63,58 +77,54 @@ describe('actions/buc', () => {
   it('fetchSingleBuc()', () => {
     const mockRinaCaseId = '123'
     bucActions.fetchSingleBuc(mockRinaCaseId)
-    expect(call).toBeCalledWith({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_SINGLE_BUC_REQUEST,
         success: types.BUC_GET_SINGLE_BUC_SUCCESS,
         failure: types.BUC_GET_SINGLE_BUC_FAILURE
       },
-      expectedPayload: sampleBucs[0],
       url: sprintf(urls.BUC_GET_SINGLE_BUC, { rinaCaseId: mockRinaCaseId })
-    })
+    }))
   })
 
   it('fetchBucs()', () => {
     const mockAktoerId = 123
     bucActions.fetchBucs(mockAktoerId)
-    expect(call).toBeCalledWith({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUCS_REQUEST,
         success: types.BUC_GET_BUCS_SUCCESS,
         failure: types.BUC_GET_BUCS_FAILURE
       },
-      expectedPayload: sampleBucs,
       failWith500: true,
-      url: sprintf(urls.BUC_AKTOERID_DETALJER_URL, { aktoerId: mockAktoerId })
-    })
+      url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: mockAktoerId })
+    }))
   })
 
   it('fetchAvdodBucs()', () => {
     const mockAktoerId = 123
     bucActions.fetchAvdodBucs(mockAktoerId)
-    expect(call).toBeCalledWith({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_AVDOD_BUCS_REQUEST,
         success: types.BUC_GET_AVDOD_BUCS_SUCCESS,
         failure: types.BUC_GET_AVDOD_BUCS_FAILURE
       },
-      expectedPayload: sampleBucs,
-      url: sprintf(urls.BUC_AKTOERID_DETALJER_URL, { aktoerId: mockAktoerId })
-    })
+      url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: mockAktoerId })
+    }))
   })
 
   it('fetchBucsInfoList()', () => {
     const mockUserId = 123
     bucActions.fetchBucsInfoList(mockUserId)
-    expect(call).toBeCalledWith({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUCSINFO_LIST_REQUEST,
         success: types.BUC_GET_BUCSINFO_LIST_SUCCESS,
         failure: types.BUC_GET_BUCSINFO_LIST_FAILURE
       },
-      expectedPayload: [mockUserId + '__BUC__INFO'],
       url: sprintf(urls.API_STORAGE_LIST_URL, { userId: mockUserId, namespace: 'BUC' })
-    })
+    }))
   })
 
   it('fetchBucsInfo()', () => {
@@ -122,15 +132,14 @@ describe('actions/buc', () => {
     const mockNamespace = 'mockNamespace'
     const mockFilename = 'mockFilename'
     bucActions.fetchBucsInfo(mockUserId, mockNamespace, mockFilename)
-    expect(call).toBeCalledWith({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUCSINFO_REQUEST,
         success: types.BUC_GET_BUCSINFO_SUCCESS,
         failure: types.BUC_GET_BUCSINFO_FAILURE
       },
-      expectedPayload: sampleBucsInfo,
       url: sprintf(urls.API_STORAGE_GET_URL, { userId: mockUserId, namespace: mockNamespace, file: mockFilename })
-    })
+    }))
   })
 
   it('getSubjectAreaList()', () => {
@@ -147,15 +156,14 @@ describe('actions/buc', () => {
 
   it('getBucList()', () => {
     bucActions.getBucList()
-    expect(call).toBeCalledWith({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_BUC_LIST_REQUEST,
         success: types.BUC_GET_BUC_LIST_SUCCESS,
         failure: types.BUC_GET_BUC_LIST_FAILURE
       },
-      expectedPayload: ['DEMO_BUC_01'],
-      url: urls.BUC_BUCS_URL
-    })
+      url: urls.BUC_GET_BUC_LIST_URL
+    }))
   })
 
   it('getTagList()', () => {
@@ -169,26 +177,43 @@ describe('actions/buc', () => {
   it('createBuc()', () => {
     const mockBuc = 'mockBuc'
     bucActions.createBuc(mockBuc)
-    expect(call).toBeCalledWith({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_CREATE_BUC_REQUEST,
         success: types.BUC_CREATE_BUC_SUCCESS,
         failure: types.BUC_CREATE_BUC_FAILURE
       },
-      expectedPayload: {
-        caseId: '123',
-        creator: {
-          institution: 'NO:NAV07',
-          country: 'NO'
-        },
-        type: mockBuc
-      },
       method: 'POST',
       url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: mockBuc })
-    })
+    }))
   })
 
   it('saveBucsInfo() with empty params', () => {
+    const mockParams = {
+      buc: {
+        type: 'mockBuc',
+        caseId: '456'
+      },
+      aktoerId: 123
+    }
+    bucActions.saveBucsInfo(mockParams)
+    expect(call).toBeCalledWith({
+      type: {
+        request: types.BUC_SAVE_BUCSINFO_REQUEST,
+        success: types.BUC_SAVE_BUCSINFO_SUCCESS,
+        failure: types.BUC_SAVE_BUCSINFO_FAILURE
+      },
+      method: 'POST',
+      payload: {
+        bucs: {
+          456: {}
+        }
+      },
+      url: sprintf(urls.API_STORAGE_POST_URL, { userId: mockParams.aktoerId, namespace: 'BUC', file: 'INFO' })
+    })
+  })
+
+  it('saveBucsInfo() with non-empty params', () => {
     const mockParams = {
       buc: {
         type: 'mockBuc',
@@ -220,37 +245,35 @@ describe('actions/buc', () => {
 
   it('getCountryList()', () => {
     bucActions.getCountryList()
-    expect(call).toBeCalledWith({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_COUNTRY_LIST_REQUEST,
         success: types.BUC_GET_COUNTRY_LIST_SUCCESS,
         failure: types.BUC_GET_COUNTRY_LIST_FAILURE
       },
-      expectedPayload: ['XX'],
       url: urls.EUX_COUNTRY_URL
-    })
+    }))
   })
 
   it('getSedList()', () => {
     const mockBuc = { type: 'mockBucType', caseId: 456 }
     const mockRinaId = '123'
     bucActions.getSedList(mockBuc, mockRinaId)
-    expect(call).toBeCalledWith({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_SED_LIST_REQUEST,
         success: types.BUC_GET_SED_LIST_SUCCESS,
         failure: types.BUC_GET_SED_LIST_FAILURE
       },
-      expectedPayload: ['P2000', 'P4000', 'P5000'],
-      url: sprintf(urls.SED_GET_OPTIONS_URL, { buc: mockBuc.type, rinaId: mockBuc.caseId })
-    })
+      url: sprintf(urls.BUC_GET_SED_LIST_URL, { buc: mockBuc.type, rinaId: mockBuc.caseId })
+    }))
   })
 
   it('getInstitutionsListForBucAndCountry()', () => {
     const mockBuc = 'P_BUC_01'
     const mockCountry = 'NO'
     bucActions.getInstitutionsListForBucAndCountry(mockBuc, mockCountry)
-    expect(call).toBeCalledWith({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_INSTITUTION_LIST_REQUEST,
         success: types.BUC_GET_INSTITUTION_LIST_SUCCESS,
@@ -260,25 +283,39 @@ describe('actions/buc', () => {
         buc: mockBuc,
         country: mockCountry
       },
-      expectedPayload: sampleInstitutions,
       url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: mockBuc, country: mockCountry })
-    })
+    }))
   })
 
   it('createSed()', () => {
     const mockedPayload = {}
     bucActions.createSed(mockedPayload)
-    expect(call).toBeCalledWith({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_CREATE_SED_REQUEST,
         success: types.BUC_CREATE_SED_SUCCESS,
         failure: types.BUC_CREATE_SED_FAILURE
       },
       method: 'POST',
-      expectedPayload: { id: '123456789' },
       payload: mockedPayload,
       url: urls.BUC_CREATE_SED_URL
-    })
+    }))
+  })
+
+  it('createReplySed()', () => {
+    const mockedPayload = {}
+    const mockParentId = '123'
+    bucActions.createReplySed(mockedPayload, mockParentId)
+    expect(call).toBeCalledWith(expect.objectContaining({
+      type: {
+        request: types.BUC_CREATE_REPLY_SED_REQUEST,
+        success: types.BUC_CREATE_REPLY_SED_SUCCESS,
+        failure: types.BUC_CREATE_REPLY_SED_FAILURE
+      },
+      method: 'POST',
+      payload: mockedPayload,
+      url: sprintf(urls.BUC_CREATE_REPLY_SED_URL, { parentId: mockParentId })
+    }))
   })
 
   it('sendAttachmentToSed()', () => {
@@ -292,7 +329,7 @@ describe('actions/buc', () => {
     }
     const mockContext = { foo: 'bar' }
     bucActions.sendAttachmentToSed(mockParams, mockContext)
-    expect(call).toBeCalledWith({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_SEND_ATTACHMENT_REQUEST,
         success: types.BUC_SEND_ATTACHMENT_SUCCESS,
@@ -300,69 +337,61 @@ describe('actions/buc', () => {
       },
       context: mockContext,
       method: 'PUT',
-      expectedPayload: { success: true },
       url: sprintf(urls.BUC_SEND_ATTACHMENT_URL, mockParams)
-    })
+    }))
   })
 
   it('getRinaUrl()', () => {
     bucActions.getRinaUrl()
-    expect(call).toBeCalledWith({
-      expectedPayload: {
-        rinaUrl: 'http://mockurl.com/rinaUrl'
-      },
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_RINA_GET_URL_REQUEST,
         success: types.BUC_RINA_GET_URL_SUCCESS,
         failure: types.BUC_RINA_GET_URL_FAILURE
       },
       url: urls.EUX_RINA_URL
-    })
+    }))
   })
 
   it('listP4000()', () => {
     const mockAktoerId = '123'
     bucActions.listP4000(mockAktoerId)
-    expect(call).toBeCalledWith({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_P4000_LIST_REQUEST,
         success: types.BUC_GET_P4000_LIST_SUCCESS,
         failure: types.BUC_GET_P4000_LIST_FAILURE
       },
-      expectedPayload: [
-        mockAktoerId + '___PINFO___PINFO.json'
-      ],
       url: sprintf(urls.API_STORAGE_LIST_URL, { userId: mockAktoerId, namespace: 'PINFO' })
-    })
+    }))
   })
 
   it('getP4000()', () => {
     const mockFile = 'file.json'
     bucActions.getP4000(mockFile)
-    expect(call).toBeCalledWith({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_P4000_INFO_REQUEST,
         success: types.BUC_GET_P4000_INFO_SUCCESS,
         failure: types.BUC_GET_P4000_INFO_FAILURE
       },
-      expectedPayload: sampleP4000info,
       url: sprintf(urls.API_STORAGE_GET_URL, { file: mockFile })
-    })
+    }))
   })
 
   it('saveP4000asSaksbehandler()', () => {
     const mockAktoer = '1234567890'
-    bucActions.saveP4000asSaksbehandler(mockAktoer, sampleP4000info)
-    expect(call).toBeCalledWith({
-      url: sprintf(urls.API_STORAGE_POST_URL, { userId: mockAktoer, namespace: 'PINFO', file: 'PINFOSB.json' }),
-      payload: sampleP4000info,
-      expectedPayload: sampleP4000info,
-      context: { notification: false },
+    const mockP4000info = 'mockP4000Info'
+    bucActions.saveP4000asSaksbehandler(mockAktoer, mockP4000info)
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_SAVE_PINFOSB_REQUEST,
         success: types.BUC_SAVE_PINFOSB_SUCCESS,
         failure: types.BUC_SAVE_PINFOSB_FAILURE
-      }
-    })
+      },
+      url: sprintf(urls.API_STORAGE_POST_URL, { userId: mockAktoer, namespace: 'PINFO', file: 'PINFOSB.json' }),
+      payload: mockP4000info,
+      context: { notification: false }
+    }))
   })
 })

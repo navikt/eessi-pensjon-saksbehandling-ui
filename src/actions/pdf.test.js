@@ -1,15 +1,17 @@
-import * as types from 'constants/actionTypes'
-import * as pdfActions from 'actions/pdf'
 import * as api from 'actions/api'
+import * as pdfActions from 'actions/pdf'
+import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 
 describe('actions/pdf', () => {
-  beforeAll(() => {
-    api.realCall = jest.fn()
-  })
+  const call = jest.spyOn(api, 'call').mockImplementation(jest.fn())
 
   afterEach(() => {
-    api.realCall.mockRestore()
+    call.mockReset()
+  })
+
+  afterAll(() => {
+    call.mockRestore()
   })
 
   it('selectPDF()', () => {
@@ -90,7 +92,7 @@ describe('actions/pdf', () => {
   it('generatePDF()', () => {
     const mockPayload = { foo: 'bar' }
     pdfActions.generatePDF(mockPayload)
-    expect(api.realCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       type: {
         request: types.PDF_GENERATE_REQUEST,
         success: types.PDF_GENERATE_SUCCESS,

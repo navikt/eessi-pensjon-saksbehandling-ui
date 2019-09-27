@@ -2,7 +2,7 @@ import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as api from 'actions/api'
 import samplePerson from 'resources/tests/samplePerson'
-var sprintf = require('sprintf-js').sprintf
+const sprintf = require('sprintf-js').sprintf
 
 export const setStatusParam = (key, value) => {
   return {
@@ -24,19 +24,16 @@ export const unsetStatusParam = (key) => {
 }
 
 export const login = () => {
-  const currentHost = window.location.origin // http://hostname
-  const redirect = currentHost
+  const redirect = window.location.origin // http://hostname
   const context = encodeURIComponent(window.location.pathname + window.location.search)
-  const newUrl = urls.LOGIN_URL + '?redirect=' + redirect + '&context=' + context
-  window.location.href = newUrl
+  window.location.href = urls.LOGIN_URL + '?redirect=' + redirect + '&context=' + context
   return {
     type: types.APP_LOGIN_REQUEST
   }
 }
 
 export const logout = () => {
-  const redirectUrl = urls.LOGOUT_URL
-  window.location.href = redirectUrl
+  window.location.href = urls.LOGOUT_URL
   return {
     type: types.APP_LOGOUT_REQUEST
   }
@@ -47,7 +44,7 @@ export const getUserInfo = () => {
     url: urls.API_USERINFO_URL,
     failWith401: true,
     expectedPayload: {
-      subject: 'demoSBUser',
+      subject: 'demoSaksbehandlerUser',
       role: 'SAKSBEHANDLER',
       allowed: true
     },
@@ -74,7 +71,10 @@ export const getPersonInfo = (aktoerId) => {
 export const getSakType = (sakId, aktoerId) => {
   return api.call({
     url: sprintf(urls.PENSJON_GET_SAKTYPE_URL, { sakId: sakId, aktoerId: aktoerId }),
-    expectedPayload: { sakId: '123', sakType: 'GJENLEV' },
+    expectedPayload: {
+      sakId: '123',
+      sakType: 'GJENLEV'
+    },
     type: {
       request: types.APP_SAKTYPE_REQUEST,
       success: types.APP_SAKTYPE_SUCCESS,

@@ -1,32 +1,33 @@
-import * as joarkActions from 'actions/joark'
+import _ from 'lodash'
 import * as api from 'actions/api'
+import * as joarkActions from 'actions/joark'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import sampleJoark from 'resources/tests/sampleJoark'
-import _ from 'lodash'
-var sprintf = require('sprintf-js').sprintf
+const sprintf = require('sprintf-js').sprintf
 
 describe('actions/joark', () => {
-  beforeAll(() => {
-    api.call = jest.fn()
-  })
+  const call = jest.spyOn(api, 'call').mockImplementation(jest.fn())
 
   afterEach(() => {
-    api.call.mockRestore()
+    call.mockReset()
+  })
+
+  afterAll(() => {
+    call.mockRestore()
   })
 
   it('listJoarkFiles()', () => {
     const mockUserId = 123
     joarkActions.listJoarkFiles(mockUserId)
-    expect(api.call).toBeCalledWith({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.JOARK_LIST_REQUEST,
         success: types.JOARK_LIST_SUCCESS,
         failure: types.JOARK_LIST_FAILURE
       },
-      expectedPayload: sampleJoark.mockdata,
       url: sprintf(urls.API_JOARK_LIST_URL, { userId: mockUserId })
-    })
+    }))
   })
 
   it('previewJoarkFile()', () => {
@@ -38,13 +39,12 @@ describe('actions/joark', () => {
       variantformat: 'mockVariant'
     }
     joarkActions.previewJoarkFile(mockItem, mockVariant)
-    expect(api.call).toBeCalledWith({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.JOARK_PREVIEW_REQUEST,
         success: types.JOARK_PREVIEW_SUCCESS,
         failure: types.JOARK_PREVIEW_FAILURE
       },
-      expectedPayload: undefined,
       context: {
         ...mockItem,
         variant: mockVariant
@@ -54,7 +54,7 @@ describe('actions/joark', () => {
         journalpostId: mockItem.journalpostId,
         variantFormat: mockVariant.variantformat
       })
-    })
+    }))
   })
 
   it('getJoarkFile()', () => {
@@ -66,13 +66,12 @@ describe('actions/joark', () => {
       variantformat: 'mockVariant'
     }
     joarkActions.getJoarkFile(mockItem, mockVariant)
-    expect(api.call).toBeCalledWith({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.JOARK_GET_REQUEST,
         success: types.JOARK_GET_SUCCESS,
         failure: types.JOARK_GET_FAILURE
       },
-      expectedPayload: undefined,
       context: {
         ...mockItem,
         variant: mockVariant
@@ -82,13 +81,24 @@ describe('actions/joark', () => {
         journalpostId: mockItem.journalpostId,
         variantFormat: mockVariant.variantformat
       })
-    })
+    }))
   })
 
-  it('getMockedPayload()', () => {
+  it('getMockedPayload() in localhost, test environment will not used mocked values', () => {
     const mockJournalpostId = '1'
-    const expectedItem = _.find(sampleJoark.mockdata.data.dokumentoversiktBruker.journalposter, { journalpostId: mockJournalpostId })
     const generatedResult = joarkActions.getMockedPayload(mockJournalpostId)
+    expect(generatedResult).toEqual(undefined)
+  })
+
+  it('getMockedPayload() in localhost, non-test environment will use mocked values for local development', () => {
+    jest.resetModules()
+    jest.mock('constants/environment', () => {
+      return { IS_TEST: false }
+    })
+    const mockJournalpostId = '1'
+    const newJoarkActions = require('actions/joark')
+    const expectedItem = _.find(sampleJoark.mockdata.data.dokumentoversiktBruker.journalposter, { journalpostId: mockJournalpostId })
+    const generatedResult = newJoarkActions.getMockedPayload(mockJournalpostId)
     expect(generatedResult).toMatchObject({
       fileName: expectedItem.tittel,
       contentType: 'application/pdf',

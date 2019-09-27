@@ -47,7 +47,10 @@ export const VarslerPanel = (props) => {
   useEffect(() => {
     if (!mounted) {
       if (aktoerId && sakId && fileList === undefined) {
-        actions.listStorageFiles(aktoerId, 'varsler___' + sakId)
+        actions.listStorageFiles({
+          userId: aktoerId,
+          namespace: 'varsler___' + sakId
+        })
       }
       setHasParams(aktoerId !== undefined && sakId !== undefined)
       setMounted(true)
@@ -88,7 +91,10 @@ export const VarslerPanel = (props) => {
       setFileList(undefined)
       setFiles({})
       setIsReady(false)
-      actions.listStorageFiles(aktoerId, 'varsler___' + sakId)
+      actions.listStorageFiles({
+        userId: aktoerId,
+        namespace: 'varsler___' + sakId
+      })
     }
   }, [actions, aktoerId, sakId])
 

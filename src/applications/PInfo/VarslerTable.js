@@ -16,7 +16,10 @@ const VarslerTable = (props) => {
   useEffect(() => {
     if (!mounted) {
       if (aktoerId && sakId && fileList === undefined) {
-        actions.listStorageFiles(aktoerId, 'varsler___' + sakId)
+        actions.listStorageFiles({
+          userId: aktoerId,
+          namespace: 'varsler___' + sakId
+        })
       }
       setMounted(true)
     }
@@ -54,7 +57,10 @@ const VarslerTable = (props) => {
       setFileList(undefined)
       setFiles({})
       setIsReady(false)
-      actions.listStorageFiles(aktoerId, 'varsler___' + sakId)
+      actions.listStorageFiles({
+        userId: aktoerId,
+        namespace: 'varsler___' + sakId
+      })
     }
   }
 

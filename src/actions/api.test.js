@@ -163,7 +163,7 @@ describe('actions/api', () => {
   })
 
   it('decides to use call as we are in localhost and test env', () => {
-    expect(api.call.name).toEqual('call')
+    expect(api.call.name).toEqual('realCall')
   })
 
   it('decides to use fakeCall as we are in localhost and NOT test env', () => {
@@ -174,7 +174,7 @@ describe('actions/api', () => {
     jest.mock('constants/environment', () => {
       return { IS_TEST: false }
     })
-    const newapi = require('actions/api')
-    expect(newapi.call.name).toEqual('fakeCall')
+    const newApi = require('actions/api')
+    expect(newApi.call.name).toEqual('fakeCall')
   })
 })

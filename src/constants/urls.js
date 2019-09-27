@@ -44,16 +44,16 @@ export const API_JOARK_GET_URL = SAF_URL + '/hentdokument/%(journalpostId)s/%(do
 export const PERSON_URL = PER_URL + '/%(aktoerId)s'
 
 // BucController
-export const BUC_AKTOERID_DETALJER_URL = BUC_URL + '/detaljer/%(aktoerId)s/'
+export const BUC_GET_BUCS_URL = BUC_URL + '/detaljer/%(aktoerId)s/'
 export const BUC_CREATE_BUC_URL = BUC_URL + '/%(buc)s'
 export const BUC_SEND_ATTACHMENT_URL = BUC_URL + '/vedlegg/%(aktoerId)s/%(rinaId)s/%(rinaDokumentId)s/%(journalpostId)s/%(dokumentInfoId)s/%(variantFormat)s'
-export const BUC_BUCS_URL = BUC_URL + '/bucs'
+export const BUC_GET_BUC_LIST_URL = BUC_URL + '/bucs'
 export const BUC_GET_SINGLE_BUC = BUC_URL + '/enkeldetalj/%(rinaCaseId)s/'
 
 // SedController
 export const BUC_CREATE_SED_URL = SED_URL + '/add'
 export const BUC_CREATE_REPLY_SED_URL = SED_URL + '/replysed/%(parentId)s'
-export const SED_GET_OPTIONS_URL = SED_URL + '/seds/%(buc)s/%(rinaId)s'
+export const BUC_GET_SED_LIST_URL = SED_URL + '/seds/%(buc)s/%(rinaId)s'
 
 // PensjonController
 export const PENSJON_GET_SAKTYPE_URL = PENSJON_URL + '/saktype/%(sakId)s/%(aktoerId)s'
@@ -65,4 +65,5 @@ export const PDF_GENERATE_URL = PDF_URL + '/generate'
 export const LOGIN_URL = FRONTEND_API_URL + '/login'
 export const LOGOUT_URL = 'https://loginservice-q.nav.no/slo'
 
+// Websocket
 export const WEBSOCKET_LOCALHOST_URL = 'ws://localhost:8080/bucUpdate'

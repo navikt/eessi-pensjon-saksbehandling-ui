@@ -2,7 +2,6 @@ import * as appActions from 'actions/app'
 import * as api from 'actions/api'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import samplePerson from 'resources/tests/samplePerson'
 const sprintf = require('sprintf-js').sprintf
 
 describe('actions/app', () => {
@@ -71,12 +70,7 @@ describe('actions/app', () => {
 
   it('getUserInfo()', () => {
     appActions.getUserInfo()
-    expect(call).toBeCalledWith({
-      expectedPayload: {
-        subject: 'demoSBUser',
-        role: 'SAKSBEHANDLER',
-        allowed: true
-      },
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.APP_USERINFO_REQUEST,
         success: types.APP_USERINFO_SUCCESS,
@@ -84,36 +78,34 @@ describe('actions/app', () => {
       },
       failWith401: true,
       url: urls.API_USERINFO_URL
-    })
+    }))
   })
 
   it('getPersonInfo()', () => {
     const mockAktoerId = '123'
     appActions.getPersonInfo(mockAktoerId)
-    expect(call).toBeCalledWith({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.APP_PERSONINFO_REQUEST,
         success: types.APP_PERSONINFO_SUCCESS,
         failure: types.APP_PERSONINFO_FAILURE
       },
-      expectedPayload: samplePerson,
       url: sprintf(urls.PERSON_URL, { aktoerId: mockAktoerId })
-    })
+    }))
   })
 
   it('getSakType()', () => {
     const mockSakId = '123'
     const mockAktoerId = '456'
     appActions.getSakType(mockSakId, mockAktoerId)
-    expect(call).toBeCalledWith({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.APP_SAKTYPE_REQUEST,
         success: types.APP_SAKTYPE_SUCCESS,
         failure: types.APP_SAKTYPE_FAILURE
       },
-      expectedPayload: { sakId: mockSakId, sakType: 'GJENLEV' },
       url: sprintf(urls.PENSJON_GET_SAKTYPE_URL, { sakId: mockSakId, aktoerId: mockAktoerId })
-    })
+    }))
   })
 
   it('clearData()', () => {

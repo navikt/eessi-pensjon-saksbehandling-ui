@@ -6,7 +6,7 @@ import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import sampleP4000info from 'resources/tests/sampleP4000info'
 import sampleInstitutions from 'resources/tests/sampleInstitutions'
-var sprintf = require('sprintf-js').sprintf
+const sprintf = require('sprintf-js').sprintf
 
 export const setMode = (mode) => {
   return {
@@ -36,15 +36,15 @@ export const setSedList = (sedList) => {
   }
 }
 
-export const resetSed = () => {
-  return {
-    type: types.BUC_SED_RESET
-  }
-}
-
 export const resetBuc = () => {
   return {
     type: types.BUC_BUC_RESET
+  }
+}
+
+export const resetSed = () => {
+  return {
+    type: types.BUC_SED_RESET
   }
 }
 
@@ -69,7 +69,7 @@ export const fetchSingleBuc = (rinaCaseId) => {
 
 export const fetchBucs = (aktoerId) => {
   return api.call({
-    url: sprintf(urls.BUC_AKTOERID_DETALJER_URL, { aktoerId: aktoerId }),
+    url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
     failWith500: true,
     expectedPayload: sampleBucs,
     type: {
@@ -82,7 +82,7 @@ export const fetchBucs = (aktoerId) => {
 
 export const fetchAvdodBucs = (aktoerId) => {
   return api.call({
-    url: sprintf(urls.BUC_AKTOERID_DETALJER_URL, { aktoerId: aktoerId }),
+    url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
     expectedPayload: sampleBucs,
     type: {
       request: types.BUC_GET_AVDOD_BUCS_REQUEST,
@@ -129,7 +129,7 @@ export const getSubjectAreaList = () => {
 
 export const getBucList = () => {
   return api.call({
-    url: urls.BUC_BUCS_URL,
+    url: urls.BUC_GET_BUC_LIST_URL,
     expectedPayload: ['DEMO_BUC_01'],
     type: {
       request: types.BUC_GET_BUC_LIST_REQUEST,
@@ -139,7 +139,7 @@ export const getBucList = () => {
   })
 }
 
-export const getTagList = (aktoerId) => {
+export const getTagList = () => {
   return {
     type: types.BUC_GET_TAG_LIST_SUCCESS,
     payload: ['urgent', 'vip', 'sensitive', 'secret']
@@ -166,30 +166,26 @@ export const createBuc = (buc) => {
   })
 }
 
-export const saveBucsInfo = (params) => {
-  const newBucsInfo = params.bucsInfo ? _.cloneDeep(params.bucsInfo) : {}
-  const newTags = params.tags ? params.tags.map(tag => {
+export const saveBucsInfo = ({ aktoerId, buc, bucsInfo, comment, tags }) => {
+  const newBucsInfo = bucsInfo ? _.cloneDeep(bucsInfo) : {}
+  const newTags = tags ? tags.map(tag => {
     return tag.value
   }) : []
-  const newComment = params.comment
-  const bucId = params.buc.caseId
-
+  const bucId = buc.caseId
   if (!Object.prototype.hasOwnProperty.call(newBucsInfo, 'bucs')) {
     newBucsInfo.bucs = {}
   }
   if (!Object.prototype.hasOwnProperty.call(newBucsInfo.bucs, bucId)) {
     newBucsInfo.bucs[bucId] = {}
   }
-
-  if (params.tags) {
+  if (tags) {
     newBucsInfo.bucs[bucId].tags = newTags
   }
-  if (params.comment) {
-    newBucsInfo.bucs[bucId].comment = newComment
+  if (comment) {
+    newBucsInfo.bucs[bucId].comment = comment
   }
-
   return api.call({
-    url: sprintf(urls.API_STORAGE_POST_URL, { userId: params.aktoerId, namespace: 'BUC', file: 'INFO' }),
+    url: sprintf(urls.API_STORAGE_POST_URL, { userId: aktoerId, namespace: 'BUC', file: 'INFO' }),
     method: 'POST',
     payload: newBucsInfo,
     type: {
@@ -213,7 +209,7 @@ export const getCountryList = () => {
 }
 
 export const getSedList = (buc) => {
-  const url = sprintf(urls.SED_GET_OPTIONS_URL, { buc: buc.type, rinaId: buc.caseId })
+  const url = sprintf(urls.BUC_GET_SED_LIST_URL, { buc: buc.type, rinaId: buc.caseId })
   return api.call({
     url: url,
     expectedPayload: ['P2000', 'P4000', 'P5000'],

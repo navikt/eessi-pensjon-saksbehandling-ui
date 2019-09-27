@@ -1,7 +1,7 @@
+import * as api from 'actions/api'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import * as api from 'actions/api'
-var sprintf = require('sprintf-js').sprintf
+const sprintf = require('sprintf-js').sprintf
 
 export const openStorageModal = (options) => {
   return {
@@ -16,7 +16,7 @@ export const closeStorageModal = () => {
   }
 }
 
-export const listStorageFiles = (userId, namespace, context) => {
+export const listStorageFiles = ({ userId, namespace }, context) => {
   return api.call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: userId, namespace: namespace }),
     method: 'GET',
@@ -38,12 +38,12 @@ export const listStorageFiles = (userId, namespace, context) => {
   })
 }
 
-export const getStorageFile = (params, context) => {
+export const getStorageFile = ({ userId, namespace, file }, context) => {
   return api.call({
-    url: sprintf(urls.API_STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
+    url: sprintf(urls.API_STORAGE_GET_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'GET',
     expectedPayload: () => {
-      if (params.namespace === 'varsler') {
+      if (namespace === 'varsler') {
         return {
           tittel: 'mockTittel',
           fulltnavn: 'mockFulltnavn',
@@ -60,9 +60,9 @@ export const getStorageFile = (params, context) => {
   })
 }
 
-export const getAttachmentFromStorage = (params) => {
-  return api.realCall({
-    url: sprintf(urls.API_STORAGE_GET_URL, { userId: params.userId, namespace: params.namespace, file: params.file }),
+export const getAttachmentFromStorage = ({ userId, namespace, file }) => {
+  return api.call({
+    url: sprintf(urls.API_STORAGE_GET_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'GET',
     type: {
       request: types.STORAGE_GET_ATTACHMENT_REQUEST,
@@ -72,8 +72,8 @@ export const getAttachmentFromStorage = (params) => {
   })
 }
 
-export const postStorageFile = (userId, namespace, file, payload, context) => {
-  return api.realCall({
+export const postStorageFile = ({ userId, namespace, file }, payload, context) => {
+  return api.call({
     url: sprintf(urls.API_STORAGE_POST_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'POST',
     payload: payload,
@@ -86,8 +86,8 @@ export const postStorageFile = (userId, namespace, file, payload, context) => {
   })
 }
 
-export const deleteStorageFile = (userId, namespace, file) => {
-  return api.realCall({
+export const deleteStorageFile = ({ userId, namespace, file }) => {
+  return api.call({
     url: sprintf(urls.API_STORAGE_DELETE_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'DELETE',
     type: {
@@ -98,8 +98,8 @@ export const deleteStorageFile = (userId, namespace, file) => {
   })
 }
 
-export const deleteAllStorageFilesFromUser = (userId, namespace) => {
-  return api.realCall({
+export const deleteAllStorageFilesFromUser = ({ userId, namespace }) => {
+  return api.call({
     url: sprintf(urls.API_STORAGE_MULTIPLE_DELETE_URL, { userId: userId, namespace: namespace }),
     method: 'DELETE',
     type: {

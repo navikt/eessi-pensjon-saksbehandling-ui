@@ -58,12 +58,11 @@ export function setWatermark (payload) {
 export function setSeparator (payload) {
   return {
     type: types.PDF_SEPARATOR_SET,
-    payload: payload
-  }
+    payload: payload 
 }
 
 export function generatePDF (payload) {
-  return api.realCall({
+  return api.call({
     url: urls.PDF_GENERATE_URL,
     method: 'POST',
     payload: payload,

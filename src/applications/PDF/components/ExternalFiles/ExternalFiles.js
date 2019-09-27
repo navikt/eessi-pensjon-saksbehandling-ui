@@ -27,7 +27,10 @@ const ExternalFiles = (props) => {
   const { actions, username, t, loadingFileList, fileList, addFile, style, className } = props
 
   const requestExternalFileList = () => {
-    actions.listStorageFiles(username, storages.FILES)
+    actions.listStorageFiles({
+      userId: username,
+      namespace: storages.FILES
+    })
   }
 
   return (

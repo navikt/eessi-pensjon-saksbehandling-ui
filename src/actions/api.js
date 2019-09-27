@@ -1,27 +1,27 @@
 import fetch from 'cross-fetch'
-import cookies from 'browser-cookies'
+import { get as cookieGet } from 'browser-cookies'
 import 'cross-fetch/polyfill'
 import uuid from 'uuid/v4'
 import * as types from 'constants/actionTypes'
 import { IS_TEST } from 'constants/environment'
 import { HOST } from 'constants/urls'
 
-export const fakeCall = ({ context, expectedPayload, type, url }) => {
+export const fakeCall = ({ context, expectedPayload, method, type, url }) => {
   return (dispatch) => {
     if (!IS_TEST) {
-      console.log('FAKE API CALL FOR ' + url + ': REQUEST')
+      console.log('FAKE API REQUEST FOR ' + (method || 'GET') + ' ' + url)
     }
     dispatch({
       type: type.request
     })
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       setTimeout(() => {
         const _payload = typeof expectedPayload === 'function' ? expectedPayload() : expectedPayload
         resolve(_payload)
       }, Math.floor(Math.random() * 2000))
     }).then(payload => {
       if (!IS_TEST) {
-        console.log('FAKE API CALL FOR ' + url + ': SUCCESS')
+        console.log('FAKE API SUCCESS FOR ' + (method || 'GET') + url)
       }
       return dispatch({
         type: type.success,
@@ -32,16 +32,15 @@ export const fakeCall = ({ context, expectedPayload, type, url }) => {
   }
 }
 
-export const realCall = (options) => {
-  const { body, context, failWith401, failWith500, headers, method, payload, type, url } = options
+export const realCall = ({ body, context, failWith401, failWith500, headers, method, payload, type, url }) => {
   return (dispatch) => {
     dispatch({
       type: type.request
     })
     let _body = body || payload
     _body = _body ? JSON.stringify(_body) : undefined
-    const CSRF_PROTECTION = cookies.get('NAV_CSRF_PROTECTION')
-      ? { NAV_CSRF_PROTECTION: cookies.get('NAV_CSRF_PROTECTION') }
+    const CSRF_PROTECTION = cookieGet('NAV_CSRF_PROTECTION')
+      ? { NAV_CSRF_PROTECTION: cookieGet('NAV_CSRF_PROTECTION') }
       : {}
     return fetch(url, {
       method: method || 'GET',
@@ -60,9 +59,8 @@ export const realCall = (options) => {
         error.response = response
         error.status = response.status
         return response.json().then((json) => {
-          const { message, stackTrace } = json
-          error.message = message
-          error.stackTrace = stackTrace
+          error.message = json.message
+          error.stackTrace = json.stackTrace
           throw error
         })
           .catch(() => {

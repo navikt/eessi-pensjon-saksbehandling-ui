@@ -1,6 +1,6 @@
+import i18n from 'i18n'
 import * as types from 'constants/actionTypes'
 import * as uiActions from 'actions/ui'
-import i18n from 'i18n'
 
 describe('actions/ui', () => {
   it('changeLanguage()', () => {

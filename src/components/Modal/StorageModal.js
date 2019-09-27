@@ -93,7 +93,10 @@ class StorageModal extends Component {
       }
 
       if (!fileList && !loadingStorageFileList && loadingStatus !== 'ERROR') {
-        actions.listStorageFiles(username, namespace)
+        actions.listStorageFiles({
+          userId: username,
+          namespace: namespace
+        })
       }
 
       if (lastAction === 'delete' && !deletingStorageFile) {
@@ -221,7 +224,11 @@ class StorageModal extends Component {
       e.preventDefault()
       const { username, actions, fileToDelete, namespace } = this.props
 
-      actions.deleteStorageFile(username, namespace, fileToDelete)
+      actions.deleteStorageFile({
+        userId: username,
+        namespace: namespace,
+        file: fileToDelete
+      })
     }
 
     setSaveTargetFileName (e) {

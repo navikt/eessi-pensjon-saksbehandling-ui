@@ -1,21 +1,18 @@
 import * as api from 'actions/api'
 import * as storageActions from 'actions/storage'
 import * as types from 'constants/actionTypes'
+import * as urls from 'constants/urls'
+const sprintf = require('sprintf-js').sprintf
 
 describe('actions/storage', () => {
-  beforeAll(() => {
-    api.realCall = jest.fn()
-    api.call = jest.fn()
-  })
+  const call = jest.spyOn(api, 'call').mockImplementation(jest.fn())
 
   afterEach(() => {
-    api.realCall.mockReset()
-    api.call.mockReset()
+    call.mockReset()
   })
 
   afterAll(() => {
-    api.realCall.mockRestore()
-    api.call.mockRestore()
+    call.mockRestore()
   })
 
   it('openStorageModal()', () => {
@@ -35,26 +32,31 @@ describe('actions/storage', () => {
   })
 
   it('listStorageFiles() with no notification', () => {
-    const mockUser = 'mockUser'
-    const mockNamespace = 'mockNamespace'
-    storageActions.listStorageFiles(mockUser, mockNamespace, { notification: false })
-    expect(api.call).toBeCalledWith(expect.objectContaining({
+    const mockParams = {
+      userId: 'mockUser',
+      namespace: 'mockNamespace'
+    }
+    const mockContext = { notification: false }
+    storageActions.listStorageFiles(mockParams, mockContext)
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.STORAGE_LIST_REQUEST,
         success: types.STORAGE_LIST_SUCCESS,
         failure: types.STORAGE_LIST_FAILURE
       },
-      context: { notification: false },
+      context: mockContext,
       method: 'GET',
-      url: 'http://localhost/frontend/api/storage/list/mockUser___mockNamespace'
+      url: sprintf(urls.API_STORAGE_LIST_URL, mockParams)
     }))
   })
 
   it('listStorageFiles() with notification', () => {
-    const mockUser = 'mockUser'
-    const mockNamespace = 'mockNamespace'
-    storageActions.listStorageFiles(mockUser, mockNamespace)
-    expect(api.call).toBeCalledWith(expect.objectContaining({
+    const mockParams = {
+      userId: 'mockUser',
+      namespace: 'mockNamespace'
+    }
+    storageActions.listStorageFiles(mockParams)
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.STORAGE_LIST_REQUEST,
         success: types.STORAGE_LIST_SUCCESS,
@@ -62,7 +64,7 @@ describe('actions/storage', () => {
       },
       context: { notification: true },
       method: 'GET',
-      url: 'http://localhost/frontend/api/storage/list/mockUser___mockNamespace'
+      url: sprintf(urls.API_STORAGE_LIST_URL, mockParams)
     }))
   })
 
@@ -73,7 +75,7 @@ describe('actions/storage', () => {
       file: 'file'
     }
     storageActions.getStorageFile(mockParams, { notification: false })
-    expect(api.call).toBeCalledWith(expect.objectContaining({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.STORAGE_GET_REQUEST,
         success: types.STORAGE_GET_SUCCESS,
@@ -81,7 +83,7 @@ describe('actions/storage', () => {
       },
       method: 'GET',
       context: { notification: false },
-      url: 'http://localhost/frontend/api/storage/get/userId___namespace___file'
+      url: sprintf(urls.API_STORAGE_GET_URL, mockParams)
     }))
   })
 
@@ -92,7 +94,7 @@ describe('actions/storage', () => {
       file: 'file'
     }
     storageActions.getStorageFile(mockParams)
-    expect(api.call).toBeCalledWith(expect.objectContaining({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.STORAGE_GET_REQUEST,
         success: types.STORAGE_GET_SUCCESS,
@@ -100,45 +102,50 @@ describe('actions/storage', () => {
       },
       method: 'GET',
       context: { notification: true },
-      url: 'http://localhost/frontend/api/storage/get/userId___namespace___file'
+      url: sprintf(urls.API_STORAGE_GET_URL, mockParams)
     }))
   })
 
-  it('postStorageFile()', () => {
-    const userId = 'userId'
-    const namespace = 'namespace'
-    const file = 'file'
-    const payload = { foo: 'bar' }
-    storageActions.postStorageFile(userId, namespace, file, payload, { notification: false })
-    expect(api.realCall).toBeCalledWith({
+  it('postStorageFile() without notification', () => {
+    const mockParams = {
+      userId: 'userId',
+      namespace: 'namespace',
+      file: 'file'
+    }
+    const mockPayload = { foo: 'bar' }
+    const mockContext = { notification: false }
+    storageActions.postStorageFile(mockParams, mockPayload, mockContext)
+    expect(call).toBeCalledWith({
       type: {
         request: types.STORAGE_POST_REQUEST,
         success: types.STORAGE_POST_SUCCESS,
         failure: types.STORAGE_POST_FAILURE
       },
       method: 'POST',
-      payload: payload,
+      payload: mockPayload,
       context: { notification: false },
-      url: 'http://localhost/frontend/api/storage/userId___namespace___file'
+      url: sprintf(urls.API_STORAGE_POST_URL, mockParams)
     })
   })
 
-  it('postStorageFile()', () => {
-    const userId = 'userId'
-    const namespace = 'namespace'
-    const file = 'file'
-    const payload = { foo: 'bar' }
-    storageActions.postStorageFile(userId, namespace, file, payload)
-    expect(api.realCall).toBeCalledWith({
+  it('postStorageFile() with notification', () => {
+    const mockParams = {
+      userId: 'userId',
+      namespace: 'namespace',
+      file: 'file'
+    }
+    const mockPayload = { foo: 'bar' }
+    storageActions.postStorageFile(mockParams, mockPayload)
+    expect(call).toBeCalledWith({
       type: {
         request: types.STORAGE_POST_REQUEST,
         success: types.STORAGE_POST_SUCCESS,
         failure: types.STORAGE_POST_FAILURE
       },
       method: 'POST',
-      payload: payload,
+      payload: mockPayload,
       context: { notification: true },
-      url: 'http://localhost/frontend/api/storage/userId___namespace___file'
+      url: sprintf(urls.API_STORAGE_POST_URL, mockParams)
     })
   })
 
@@ -149,50 +156,49 @@ describe('actions/storage', () => {
       file: 'attachmentFile'
     }
     storageActions.getAttachmentFromStorage(mockParams)
-    expect(api.realCall).toBeCalledWith({
+    expect(call).toBeCalledWith({
       type: {
         request: types.STORAGE_GET_ATTACHMENT_REQUEST,
         success: types.STORAGE_GET_ATTACHMENT_SUCCESS,
         failure: types.STORAGE_GET_ATTACHMENT_FAILURE
       },
       method: 'GET',
-      url: 'http://localhost/frontend/api/storage/get/userId___namespace___attachmentFile'
+      url: sprintf(urls.API_STORAGE_GET_URL, mockParams)
     })
   })
 
   it('deleteStorageFile()', () => {
-    const userId = 'userId'
-
-    const namespace = 'namespace'
-
-    const file = 'file'
-
-    storageActions.deleteStorageFile(userId, namespace, file)
-    expect(api.realCall).toBeCalledWith({
+    const mockParams = {
+      userId: 'userId',
+      namespace: 'namespace',
+      file: 'attachmentFile'
+    }
+    storageActions.deleteStorageFile(mockParams)
+    expect(call).toBeCalledWith({
       type: {
         request: types.STORAGE_DELETE_REQUEST,
         success: types.STORAGE_DELETE_SUCCESS,
         failure: types.STORAGE_DELETE_FAILURE
       },
       method: 'DELETE',
-      url: 'http://localhost/frontend/api/storage/userId___namespace___file'
+      url: sprintf(urls.API_STORAGE_DELETE_URL, mockParams)
     })
   })
 
   it('deleteAllStorageFilesFromUser()', () => {
-    const userId = 'userId'
-
-    const namespace = 'namespace'
-
-    storageActions.deleteAllStorageFilesFromUser(userId, namespace)
-    expect(api.realCall).toBeCalledWith({
+    const mockParams = {
+      userId: 'userId',
+      namespace: 'namespace'
+    }
+    storageActions.deleteAllStorageFilesFromUser(mockParams)
+    expect(call).toBeCalledWith({
       type: {
         request: types.STORAGE_MULTIPLE_DELETE_REQUEST,
         success: types.STORAGE_MULTIPLE_DELETE_SUCCESS,
         failure: types.STORAGE_MULTIPLE_DELETE_FAILURE
       },
       method: 'DELETE',
-      url: 'http://localhost/frontend/api/storage/multiple/userId___namespace'
+      url: sprintf(urls.API_STORAGE_MULTIPLE_DELETE_URL, mockParams)
     })
   })
 

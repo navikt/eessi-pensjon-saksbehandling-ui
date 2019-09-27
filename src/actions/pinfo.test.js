@@ -1,22 +1,27 @@
 import * as pinfoActions from 'actions/pinfo'
 import * as api from 'actions/api'
 import * as types from 'constants/actionTypes'
+import * as urls from 'constants/urls'
+const sprintf = require('sprintf-js').sprintf
 
 describe('actions/pinfo', () => {
-  beforeAll(() => {
-    api.call = jest.fn()
+  const call = jest.spyOn(api, 'call').mockImplementation(jest.fn())
+
+  afterEach(() => {
+    call.mockReset()
   })
 
   afterAll(() => {
-    api.call.mockRestore()
+    call.mockRestore()
   })
 
   it('sendInvite()', () => {
-    pinfoActions.sendInvite({
+    const mockParams = {
       sakId: '123',
       aktoerId: '456'
-    })
-    expect(api.call).toBeCalledWith({
+    }
+    pinfoActions.sendInvite(mockParams)
+    expect(call).toBeCalledWith({
       method: 'POST',
       payload: {},
       expectedPayload: { success: true },
@@ -25,7 +30,7 @@ describe('actions/pinfo', () => {
         success: types.PINFO_INVITE_SUCCESS,
         failure: types.PINFO_INVITE_FAILURE
       },
-      url: 'http://localhost/frontend/api/varsel?saksId=123&aktoerId=456'
+      url: sprintf(urls.API_VARSEL_URL, mockParams)
     })
   })
 })
