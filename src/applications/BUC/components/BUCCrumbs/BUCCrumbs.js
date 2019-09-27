@@ -4,9 +4,7 @@ import classNames from 'classnames'
 import { Chevron, Lenke } from 'components/Nav'
 import './BUCCrumbs.css'
 
-const BUCCrumbs = (props) => {
-  const { actions, bucs, currentBuc, className, mode, showLastLink = false, t } = props
-
+const BUCCrumbs = ({ actions, bucs, currentBuc, className, mode, showLastLink = false, t }) => {
   const goToHome = () => {
     actions.resetSed()
     actions.resetBuc()
@@ -57,14 +55,14 @@ const BUCCrumbs = (props) => {
       {buccrumbs.map((buccrumb, i) => {
         const first = i === 0
         const last = (i === buccrumbs.length - 1)
-        const handleClick = buccrumb.func
+        const onBucCrumbClick = buccrumb.func
         return (
           <React.Fragment key={i}>
             {!first ? <Chevron className='separator' type='høyre' /> : null}
             <div className='a-buc-c-buccrumb'>
               {last && !showLastLink
                 ? t(buccrumb.label)
-                : <Lenke href='#' title={buccrumb.label} onClick={handleClick}>{buccrumb.label}</Lenke>}
+                : <Lenke href='#' title={buccrumb.label} onClick={onBucCrumbClick}>{buccrumb.label}</Lenke>}
             </div>
           </React.Fragment>
         )

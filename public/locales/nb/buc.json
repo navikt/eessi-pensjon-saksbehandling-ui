@@ -55,6 +55,8 @@
   "form-answerSED"                    : "Besvar SED",
   "form-backToList"                   : "Tilbake til liste",
   "form-buc"                          : "BUC",
+  "form-buc-type"                     : "Type",
+  "form-buc-saktype"                  : "Sak type",
   "form-BUCtools"                     : "BUC Verktøy",
   "form-caseLink"                     : "Lenke til saken",
   "form-caseOwner"                    : "Sakeier",
