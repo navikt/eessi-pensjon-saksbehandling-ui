@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
+import * as storage from 'constants/storage'
 import { File, Nav, StorageModal } from 'eessi-pensjon-ui'
-import * as storages from 'constants/storages'
 
 const GeneratePDF = ({ t, generatingPDF, generatedPDFs, fileNames, actions, files, recipe, watermark, setStep }) => {
 
@@ -71,7 +71,7 @@ const GeneratePDF = ({ t, generatingPDF, generatedPDFs, fileNames, actions, file
 
   return (
     <div>
-      <StorageModal namespace={storages.FILES} />
+      <StorageModal namespace={storage.NAMESPACE_FILES} />
       {generatingPDF ? (
         <div className='w-100 text-center'>
           <Nav.Spinner />

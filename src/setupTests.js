@@ -1,6 +1,5 @@
 import Enzyme, { shallow, render, mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import cheerio from 'cheerio'
 import { act } from 'react-dom/test-utils'
 import { WebSocket } from 'mock-socket'
 window.fetch = require('jest-fetch-mock')
@@ -9,7 +8,6 @@ Enzyme.configure({ adapter: new Adapter() })
 global.shallow = shallow
 global.render = render
 global.mount = mount
-global.cheerio = cheerio
 global.act = act
 global.WebSocket = WebSocket
 

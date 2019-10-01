@@ -3,6 +3,7 @@ import PT from 'prop-types'
 import classNames from 'classnames'
 import _ from 'lodash'
 import { connect } from 'store'
+import * as storage from 'constants/storage'
 import { Nav } from 'eessi-pensjon-ui'
 import Period from 'applications/BUC/components/SEDP4000/Period/Period'
 
@@ -79,13 +80,13 @@ export const SEDP4000 = ({
 
   const handleListP4000userButton = () => {
     setRole('user')
-    setP4000file(aktoerId + '___PINFO___PINFO.json')
+    setP4000file(aktoerId + '___' + storage.NAMESPACE_PINFO + '___' + storage.FILE_PINFO)
     actions.listP4000(aktoerId)
   }
 
   const handleListP4000saksbehandlerButton = () => {
     setRole('saksbehandler')
-    setP4000file(aktoerId + '___PINFO___PINFOSB.json')
+    setP4000file(aktoerId + '___' + storage.NAMESPACE_PINFO + '___' + storage.FILE_PINFOSB)
     actions.listP4000(aktoerId)
   }
 

@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import File from 'components/File/File'
 import * as uiActions from 'actions/ui'
 import * as storageActions from 'actions/storage'
-import * as storages from 'constants/storages'
+import * as storages from 'constants/storage'
 
 import './DnDExternalFiles.css'
 

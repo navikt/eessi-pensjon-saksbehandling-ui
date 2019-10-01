@@ -2,6 +2,7 @@ import * as bucActions from 'actions/buc'
 import * as api from 'actions/api'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
+import * as storage from 'constants/storage'
 const sprintf = require('sprintf-js').sprintf
 
 describe('actions/buc', () => {
@@ -123,7 +124,7 @@ describe('actions/buc', () => {
         success: types.BUC_GET_BUCSINFO_LIST_SUCCESS,
         failure: types.BUC_GET_BUCSINFO_LIST_FAILURE
       },
-      url: sprintf(urls.API_STORAGE_LIST_URL, { userId: mockUserId, namespace: 'BUC' })
+      url: sprintf(urls.API_STORAGE_LIST_URL, { userId: mockUserId, namespace: storage.NAMESPACE_BUC })
     }))
   })
 
@@ -362,7 +363,7 @@ describe('actions/buc', () => {
         success: types.BUC_GET_P4000_LIST_SUCCESS,
         failure: types.BUC_GET_P4000_LIST_FAILURE
       },
-      url: sprintf(urls.API_STORAGE_LIST_URL, { userId: mockAktoerId, namespace: 'PINFO' })
+      url: sprintf(urls.API_STORAGE_LIST_URL, { userId: mockAktoerId, namespace: storage.NAMESPACE_PINFO })
     }))
   })
 
@@ -389,7 +390,7 @@ describe('actions/buc', () => {
         success: types.BUC_SAVE_PINFOSB_SUCCESS,
         failure: types.BUC_SAVE_PINFOSB_FAILURE
       },
-      url: sprintf(urls.API_STORAGE_POST_URL, { userId: mockAktoer, namespace: 'PINFO', file: 'PINFOSB.json' }),
+      url: sprintf(urls.API_STORAGE_POST_URL, { userId: mockAktoer, namespace: storage.NAMESPACE_PINFO, file: 'PINFOSB.json' }),
       payload: mockP4000info,
       context: { notification: false }
     }))

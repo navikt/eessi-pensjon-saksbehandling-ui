@@ -1,6 +1,7 @@
 import * as api from 'actions/api'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
+import * as storage from 'constants/storage'
 const sprintf = require('sprintf-js').sprintf
 
 export const openStorageModal = (options) => {
@@ -22,10 +23,10 @@ export const listStorageFiles = ({ userId, namespace }, context) => {
     method: 'GET',
     context: context || { notification: true },
     expectedPayload: () => {
-      if (namespace === 'PINFO') {
-        return [userId + '___' + namespace + '___PINFO.json']
+      if (namespace === storage.NAMESPACE_PINFO) {
+        return [userId + '___' + namespace + '___' + storage.FILE_PINFO]
       }
-      if (namespace === 'varsler___123') {
+      if (namespace === storage.NAMESPACE_VARSLER + '___123') {
         return [userId + '___' + namespace + '___1970-01-01Z00:00:00']
       }
       return []

@@ -1,5 +1,6 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
+import * as storage from 'constants/storage'
 import * as api from './api'
 import _ from 'lodash'
 import sampleBucs from 'resources/tests/sampleBucs'
@@ -94,7 +95,7 @@ export const fetchAvdodBucs = (aktoerId) => {
 
 export const fetchBucsInfoList = (aktoerId) => {
   return api.call({
-    url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: 'BUC' }),
+    url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_BUC }),
     expectedPayload: [aktoerId + '__BUC__INFO'],
     type: {
       request: types.BUC_GET_BUCSINFO_LIST_REQUEST,
@@ -185,7 +186,7 @@ export const saveBucsInfo = ({ aktoerId, buc, bucsInfo, comment, tags }) => {
     newBucsInfo.bucs[bucId].comment = comment
   }
   return api.call({
-    url: sprintf(urls.API_STORAGE_POST_URL, { userId: aktoerId, namespace: 'BUC', file: 'INFO' }),
+    url: sprintf(urls.API_STORAGE_POST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_BUC, file: storage.FILE_BUCINFO }),
     method: 'POST',
     payload: newBucsInfo,
     type: {
@@ -303,9 +304,9 @@ export const getRinaUrl = () => {
 
 export const listP4000 = (aktoerId) => {
   return api.call({
-    url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: 'PINFO' }),
+    url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_PINFO }),
     expectedPayload: [
-      aktoerId + '___PINFO___PINFO.json'
+      aktoerId + '___' + storage.NAMESPACE_PINFO + '___' + storage.FILE_PINFO
     ],
     type: {
       request: types.BUC_GET_P4000_LIST_REQUEST,
@@ -329,7 +330,7 @@ export const getP4000 = (file) => {
 
 export const saveP4000asSaksbehandler = (aktoerId, file) => {
   return api.call({
-    url: sprintf(urls.API_STORAGE_POST_URL, { userId: aktoerId, namespace: 'PINFO', file: 'PINFOSB.json' }),
+    url: sprintf(urls.API_STORAGE_POST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_PINFO, file: 'PINFOSB.json' }),
     payload: file,
     expectedPayload: sampleP4000info,
     context: { notification: false },

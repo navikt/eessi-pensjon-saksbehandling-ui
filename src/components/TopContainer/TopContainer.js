@@ -51,6 +51,7 @@ export const TopContainer = ({
       className={classNames('c-topContainer', className, { highContrast: highContrast })}
     >
       <InternalTopHeader
+        actions={actions}
         t={t}
         history={history}
         username={username}

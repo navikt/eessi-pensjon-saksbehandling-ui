@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import { Nav } from 'eessi-pensjon-ui'
 import DnDExternalFiles from 'applications/PDF/components/DnDExternalFiles/DnDExternalFiles'
 import * as storageActions from 'actions/storage'
-import * as storages from 'constants/storages'
+import * as storages from 'constants/storage'
 
 import './ExternalFiles.css'
 
