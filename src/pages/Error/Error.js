@@ -2,14 +2,12 @@ import React from 'react'
 import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
-import TopContainer from 'components/TopContainer/TopContainer'
 import { Nav, Psycho } from 'eessi-pensjon-ui'
+import TopContainer from 'components/TopContainer/TopContainer'
 
 import './Error.css'
 
-export const Error = (props) => {
-  const { history, t, type } = props
-
+export const Error = ({ history, t, type }) => {
   let title, description
 
   switch (type) {

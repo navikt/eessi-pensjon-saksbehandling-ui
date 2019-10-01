@@ -3,9 +3,7 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import { Icons, Nav, RefreshButton } from 'eessi-pensjon-ui'
 
-const VarslerTable = (props) => {
-  const { actions, aktoerId, file, fileList, sakId, t } = props
-
+const VarslerTable = ({ actions, aktoerId, file, fileList, sakId, t }) => {
   const [isReady, setIsReady] = useState(false)
   const [_fileList, setFileList] = useState(undefined)
   const [_files, setFiles] = useState({})
@@ -26,10 +24,12 @@ const VarslerTable = (props) => {
   useEffect(() => {
     if (fileList !== undefined && _fileList === undefined) {
       fileList.map(file => {
-        actions.getStorageFileWithNoNotification({
+        actions.getStorageFile({
           userId: aktoerId,
           namespace: 'varsler',
           file: sakId + '___' + file
+        }, {
+          notification: false
         })
         return file
       })

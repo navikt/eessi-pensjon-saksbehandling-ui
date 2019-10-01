@@ -3,9 +3,7 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import { Nav } from 'eessi-pensjon-ui'
 
-const VarslerPanel = (props) => {
-  const { actions, aktoerId, isInvitingPinfo, invite, sakId, sakType, t } = props
-
+const VarslerPanel = ({ actions, aktoerId, isInvitingPinfo, invite, sakId, sakType, t }) => {
   const onInviteButtonClick = () => {
     actions.sendInvite({
       aktoerId: aktoerId,

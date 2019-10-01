@@ -4,8 +4,7 @@ import { Nav } from 'eessi-pensjon-ui'
 
 import './SEDHeader.css'
 
-const SEDHeader = (props) => {
-  const { t } = props
+const SEDHeader = ({ t }) => {
   return (
     <div
       className='a-buc-c-sedheader pb-1'

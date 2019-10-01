@@ -99,6 +99,7 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
           }
         })
         expect(initialMockProps.actions.setMode).toHaveBeenCalledWith('sednew')
+        resolve()
         done()
       }, 500)
     })

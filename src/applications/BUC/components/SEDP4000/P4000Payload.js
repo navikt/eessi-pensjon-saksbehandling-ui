@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import moment from 'moment'
 
-export default class Util {
+export default class P4000Payload {
   constructor (pinfo, t) {
     this.pinfo = pinfo
     this.t = t

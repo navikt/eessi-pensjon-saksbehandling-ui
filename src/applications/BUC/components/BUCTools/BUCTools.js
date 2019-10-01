@@ -4,8 +4,7 @@ import classNames from 'classnames'
 import { MultipleSelect, Nav } from 'eessi-pensjon-ui'
 import './BUCTools.css'
 
-const BUCTools = (props) => {
-  const { actions, aktoerId, buc, bucInfo, bucsInfo, className, loading, locale, onTagChange, t, tagList } = props
+const BUCTools = ({ actions, aktoerId, buc, bucInfo, bucsInfo, className, loading, locale, onTagChange, t, tagList }) => {
   const [comment, setComment] = useState(bucInfo ? bucInfo.comment : undefined)
   const [allTags, setAllTags] = useState(undefined)
   const [tags, setTags] = useState(bucInfo && bucInfo.tags ? bucInfo.tags.map(tag => {

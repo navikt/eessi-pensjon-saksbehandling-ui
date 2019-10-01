@@ -1,28 +1,28 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import { Nav } from 'eessi-pensjon-ui'
 import './BUCCrumbs.css'
 
 const BUCCrumbs = ({ actions, bucs, currentBuc, className, mode, showLastLink = false, t }) => {
-  const goToHome = () => {
+  const goToHome = useCallback(() => {
     actions.resetSed()
     actions.resetBuc()
     actions.setMode('buclist')
-  }
+  }, [actions])
 
-  const goToEdit = () => {
+  const goToEdit = useCallback(() => {
     actions.resetSed()
     actions.setMode('bucedit')
-  }
+  }, [actions])
 
-  const goToNewBUC = () => {
+  const goToNewBUC = useCallback(() => {
     actions.setMode('bucnew')
-  }
+  }, [actions])
 
-  const goToNewSED = () => {
+  const goToNewSED = useCallback(() => {
     actions.setMode('sednew')
-  }
+  }, [actions])
 
   const buccrumbs = [{
     label: t('buc:buccrumb-home'),

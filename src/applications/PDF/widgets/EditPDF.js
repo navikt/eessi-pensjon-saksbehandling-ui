@@ -1,13 +1,10 @@
 import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-
-import PDFEditor from 'applications/PDF/components/PDFEditor/PDFEditor'
 import { Nav } from 'eessi-pensjon-ui'
+import PDFEditor from 'applications/PDF/components/PDFEditor/PDFEditor'
 
-const EditPDF = (props) => {
-  const { t, actions, recipe, setStep } = props
-
+const EditPDF = ({ t, actions, recipe, setStep }) => {
   const hasOnlyEmptyArrays = (obj) => {
     var emptyArrayMembers = _.filter(obj, (it) => {
       return !it || (_.isArray(it) && _.isEmpty(it))

@@ -3,8 +3,7 @@ import PT from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
 import Overview from './Overview'
 
-const OverviewWidget = (props) => {
-  const { t, onResize, onUpdate, widget } = props
+const OverviewWidget = ({ t, onResize, onUpdate, widget }) => {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {

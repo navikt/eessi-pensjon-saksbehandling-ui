@@ -14,11 +14,11 @@ import './Dashboard.css'
 
 const dragApi = createDragApiRef()
 
-export const DashboardRender = (props) => {
-  const { t, addMode, editMode, onEditModeOn, onCancelEdit, onResetEdit, onSaveEdit, onAddChange, mounted } = props
-  const { layouts, onLayoutChange, onBreakpointChange, currentBreakpoint } = props
-  const { widgets, availableWidgets, setWidgets, onWidgetUpdate, onWidgetResize, onWidgetDelete } = props
-
+export const DashboardRender = ({
+  addMode, availableWidgets, currentBreakpoint, editMode, layouts, mounted, onAddChange,
+  onBreakpointChange, onCancelEdit, onEditModeOn, onLayoutChange, onResetEdit, onSaveEdit,
+  onWidgetDelete, onWidgetResize, onWidgetUpdate, t, setWidgets, widgets
+}) => {
   if (!mounted) {
     return (
       <div className='c-dashboard__loading text-center' style={{ paddingTop: '3rem' }}>
@@ -74,6 +74,22 @@ export const DashboardRender = (props) => {
 }
 
 DashboardRender.propTypes = {
-  t: PT.func.isRequired
+  addMode: PT.func.isRequired,
+  availableWidgets: PT.object.isRequired,
+  currentBreakpoint: PT.string.isRequired,
+  editMode: PT.func.isRequired,
+  layouts: PT.object.isRequired,
+  onAddChange: PT.func.isRequired,
+  onBreakpointChange: PT.func.isRequired,
+  onCancelEdit: PT.func.isRequired,
+  onEditModeOn: PT.func.isRequired,
+  onLayoutChange: PT.func.isRequired,
+  onResetEdit: PT.func.isRequired,
+  onSaveEdit: PT.func.isRequired,
+  onWidgetDelete: PT.func.isRequired,
+  onWidgetResize: PT.func.isRequired,
+  onWidgetUpdate: PT.func.isRequired,
+  t: PT.func.isRequired,
+  widgets: PT.array
 }
 export default DashboardRender

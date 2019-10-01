@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import { FlagList, Icons, Nav } from 'eessi-pensjon-ui'
@@ -6,17 +6,16 @@ import InstitutionList from 'applications/BUC/components/InstitutionList/Institu
 
 import './BUCHeader.css'
 
-const BUCHeader = (props) => {
-  const { buc, bucInfo, institutionNames, locale, onBUCEdit, t } = props
+const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, t }) => {
   const institutionList = {}
   const attachments = []
   const numberOfSeds = buc.seds ? buc.seds.filter(sed => sed.status !== 'empty').length : 0
 
-  const onBUChandle = (buc, e) => {
+  const onBucHandle = useCallback((buc, e) => {
     e.preventDefault()
     e.stopPropagation()
     onBUCEdit(buc)
-  }
+  }, [onBUCEdit])
 
   if (_.isArray(buc.institusjon)) {
     buc.institusjon.forEach(institution => {
@@ -114,7 +113,7 @@ const BUCHeader = (props) => {
         <Nav.LenkepanelBase
           id='a-buc-c-bucheader__bucedit-link'
           className='a-buc-c-bucheader__bucedit-link knapp mr-5'
-          onClick={(e) => onBUChandle(buc, e)}
+          onClick={(e) => onBucHandle(buc, e)}
           href={'#' + buc.type}
           border
         >

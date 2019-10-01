@@ -3,8 +3,8 @@ import PT from 'prop-types'
 import PDFEditor from 'applications/PDF/components/PDFEditor/PDFEditor'
 import { Nav } from 'eessi-pensjon-ui'
 
-export const Step2 = (props) => {
-  const { t, setStep } = props
+export const AttachmentStep2 = (props) => {
+  const { setStep, t } = props
 
   const onForwardButtonClick = () => {
     setStep('generate')
@@ -35,9 +35,9 @@ export const Step2 = (props) => {
   )
 }
 
-Step2.propTypes = {
-  actions: PT.object,
+AttachmentStep2.propTypes = {
+  setStep: PT.func.isRequired,
   t: PT.func.isRequired
 }
 
-export default Step2
+export default AttachmentStep2

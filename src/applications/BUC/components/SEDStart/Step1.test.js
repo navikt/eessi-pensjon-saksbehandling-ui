@@ -2,7 +2,7 @@ import React from 'react'
 import Step1 from './Step1'
 import sampleBucs from 'resources/tests/sampleBucs'
 
-describe('applications/BUC/components/SEDStart/Step1', () => {
+describe('applications/BUC/components/SEDStart/AttachmentStep1', () => {
   let wrapper
 
   const bucReducer = (currentBucs, newBuc) => {

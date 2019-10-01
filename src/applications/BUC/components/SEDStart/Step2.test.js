@@ -5,7 +5,7 @@ jest.mock('applications/BUC/components/SEDP4000/SEDP4000', () => {
   return () => { return <div className='mock-sedp4000' /> }
 })
 
-describe('applications/BUC/components/SEDStart/Step2', () => {
+describe('applications/BUC/components/SEDStart/AttachmentStep2', () => {
   let wrapper
 
   const bucReducer = (currentBucs, newBuc) => {

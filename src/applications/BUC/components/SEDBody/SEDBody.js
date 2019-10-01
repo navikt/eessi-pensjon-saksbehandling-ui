@@ -6,9 +6,7 @@ import SEDRow from 'applications/BUC/components/SEDRow/SEDRow'
 
 import './SEDBody.css'
 
-const SEDBody = (props) => {
-  const { t, institutionNames, seds, rinaUrl, locale, buc, onSEDNew } = props
-
+const SEDBody = ({ buc, institutionNames, locale, onSEDNew, rinaUrl, seds, t }) => {
   return (
     <>
       {seds ? _(seds)
@@ -50,11 +48,13 @@ const SEDBody = (props) => {
 }
 
 SEDBody.propTypes = {
-  t: PT.func.isRequired,
-  seds: PT.array.isRequired,
-  rinaUrl: PT.string.isRequired,
+  buc: PT.object.isRequired,
+  institutionNames: PT.object,
   locale: PT.string.isRequired,
-  buc: PT.object.isRequired
+  onSEDNew: PT.func.isRequired,
+  rinaUrl: PT.string.isRequired,
+  seds: PT.array.isRequired,
+  t: PT.func.isRequired
 }
 
 export default SEDBody

@@ -2,11 +2,21 @@ import React, { Suspense } from 'react'
 import { StoreProvider } from 'store'
 import reducer, { initialState } from 'reducer'
 import { BUCPageIndex } from 'applications/BUC/pages/'
+jest.mock('components/TopContainer/TopContainer', () => {
+  return ({ children }) => {
+    return (
+      <div className='mock-c-topcontainer'>
+        {children}
+      </div>
+    )
+  }
+})
 
 describe('applications/BUC/pages/index', () => {
   let wrapper
   const t = jest.fn((translationString) => { return translationString })
   const initialMockProps = {
+    actions: {},
     bucsInfo: {},
     bucList: [],
     history: {},

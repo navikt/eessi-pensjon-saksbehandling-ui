@@ -1,12 +1,12 @@
 import React from 'react'
-import { Step1 } from './Step1'
+import { AttachmentStep1 } from './AttachmentStep1'
 jest.mock('components/JoarkBrowser/JoarkBrowser', () => {
   return (props) => {
     return <div className='mock-joarkbrowser' onClick={() => props.onFilesChange([{ foo: 'bar' }])} />
   }
 })
 
-describe('applications/BUC/components/Step1/Step1', () => {
+describe('applications/BUC/components/AttachmentStep1/AttachmentStep1', () => {
   let wrapper
 
   const initialMockProps = {
@@ -16,7 +16,7 @@ describe('applications/BUC/components/Step1/Step1', () => {
   }
 
   beforeEach(() => {
-    wrapper = mount(<Step1 {...initialMockProps} />)
+    wrapper = mount(<AttachmentStep1 {...initialMockProps} />)
   })
 
   afterEach(() => {

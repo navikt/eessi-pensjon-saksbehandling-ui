@@ -9,8 +9,7 @@ import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
 
 import './BUCEdit.css'
 
-const BUCEdit = (props) => {
-  const { actions, aktoerId, bucs, bucsInfo, currentBuc, institutionNames, loading, locale, rinaUrl, t, tagList } = props
+const BUCEdit = ({ actions, aktoerId, bucs, bucsInfo, currentBuc, institutionNames, loading, locale, rinaUrl, t, tagList }) => {
   const [search, setSearch] = useState(undefined)
   const [countrySearch, setCountrySearch] = useState(undefined)
   const [statusSearch, setStatusSearch] = useState(undefined)

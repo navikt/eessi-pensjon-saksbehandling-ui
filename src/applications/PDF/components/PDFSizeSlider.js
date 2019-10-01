@@ -3,9 +3,7 @@ import PT from 'prop-types'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 
-const PDFSizeSlider = (props) => {
-  const { t, pageScale, style, actions } = props
-
+const PDFSizeSlider = ({ t, pageScale, style, actions }) => {
   const onChange = (value) => {
     actions.setPdfSize(value)
   }

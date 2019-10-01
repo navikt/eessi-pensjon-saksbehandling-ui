@@ -7,8 +7,7 @@ import TopContainer from 'components/TopContainer/TopContainer'
 
 import PDFWidget from 'applications/PDF/widgets'
 
-export const PDFPageIndex = (props) => {
-  const { t, className, history } = props
+export const PDFPageIndex = ({ t, className, history }) => {
 
   return (
     <TopContainer

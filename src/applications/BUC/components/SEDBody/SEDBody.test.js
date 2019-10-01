@@ -35,4 +35,9 @@ describe('applications/BUC/components/SEDBody/SEDBody', () => {
     expect(rinaLink.props().href).toEqual(initialMockProps.rinaUrl + initialMockProps.buc.caseId)
     expect(rinaLink.props().target).toEqual('rinaWindow')
   })
+
+  it('With no seds', () => {
+    wrapper = mount(<SEDBody {...initialMockProps} seds={null} />)
+    expect(wrapper.find('SEDRow').length).toEqual(0)
+  })
 })

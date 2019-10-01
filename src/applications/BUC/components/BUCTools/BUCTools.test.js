@@ -33,7 +33,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
 
   it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
-    //expect(wrapper).toMatchSnapshot()// - do not use, collapse dependency generates random ids
+    // expect(wrapper).toMatchSnapshot()// - do not use, collapse dependency generates random ids
   })
 
   it('UseEffect: fetches tag list', () => {
@@ -42,13 +42,6 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
   })
 
   it('Changes tags', () => {
-    const firstMockedTags = bucInfo.tags.map(tag => {
-      return {
-        label: 'buc:tag-' + tag,
-        value: tag
-      }
-    })
-
     wrapper.find('EkspanderbartpanelBase button').simulate('click')
     expect(wrapper.exists('#a-buc-c-buctools__tags-select-id')).toBeTruthy()
     const tagSelect = wrapper.find('#a-buc-c-buctools__tags-select-id').hostNodes()

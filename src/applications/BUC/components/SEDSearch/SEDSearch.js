@@ -6,12 +6,10 @@ import { CountryData, MultipleSelect, Nav } from 'eessi-pensjon-ui'
 
 import './SEDSearch.css'
 
-const SEDSearch = (props) => {
+const SEDSearch = ({ className, locale, onCountrySearch, onSearch, onStatusSearch, seds, t }) => {
   const [_query, setQuery] = useState(undefined)
   const [_country, setCountry] = useState([])
   const [_status, setStatus] = useState([])
-
-  const { className, locale, onCountrySearch, onSearch, onStatusSearch, seds, t } = props
 
   const stopPropagation = (e) => {
     e.preventDefault()

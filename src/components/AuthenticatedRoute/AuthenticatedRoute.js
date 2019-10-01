@@ -4,12 +4,10 @@ import { connect, bindActionCreators } from 'store'
 import { withTranslation } from 'react-i18next'
 import { Route, withRouter, Redirect } from 'react-router'
 import _ from 'lodash'
-
 import * as appActions from 'actions/app'
 import { WaitingPanel } from 'eessi-pensjon-ui'
 import * as constants from 'constants/constants'
 import * as routes from 'constants/routes'
-import { getDisplayName } from 'utils/displayName'
 
 const mapStateToProps = (state) => {
   return {
@@ -111,9 +109,6 @@ AuthenticatedRoute.propTypes = {
   userRole: PT.string
 }
 
-const ConnectedAuthenticatedRoute = connect(mapStateToProps, mapDispatchToProps)(
-  withRouter(withTranslation()(AuthenticatedRoute))
-)
-ConnectedAuthenticatedRoute.displayName = `Connect(${getDisplayName(
-  withRouter(withTranslation()(AuthenticatedRoute)))})`
+const ConnectedAuthenticatedRoute = connect(mapStateToProps, mapDispatchToProps)(withRouter(withTranslation()(AuthenticatedRoute)))
+ConnectedAuthenticatedRoute.displayName = 'Connect(AuthenticatedRoute)'
 export default ConnectedAuthenticatedRoute

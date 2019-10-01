@@ -10,7 +10,6 @@ import VarslerPanel from './VarslerPanel'
 import VarslerTable from './VarslerTable'
 import TopContainer from 'components/TopContainer/TopContainer'
 import { Psycho, Nav } from 'eessi-pensjon-ui'
-import { getDisplayName } from 'utils/displayName'
 
 import './PInfo.css'
 
@@ -90,11 +89,6 @@ PInfo.propTypes = {
   t: PT.func.isRequired
 }
 
-const ConnectedPInfo = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withTranslation()(PInfo))
-
-ConnectedPInfo.displayName = `Connect(${getDisplayName(withTranslation()(PInfo))})`
-
+const ConnectedPInfo = connect(mapStateToProps, mapDispatchToProps)(withTranslation()(PInfo))
+ConnectedPInfo.displayName = 'Connect(PInfo)'
 export default ConnectedPInfo

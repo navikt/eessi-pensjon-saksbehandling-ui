@@ -8,14 +8,17 @@ const placeholders = {
   buc: 'buc:form-chooseBuc'
 }
 
-const BUCStart = (props) => {
-  const { actions, aktoerId, buc, bucParam, bucsInfo, bucList } = props
-  const { locale, loading, mode, sakId, subjectAreaList, tagList, t } = props
-
+const BUCStart = ({
+  actions, aktoerId, buc, bucParam, bucsInfo, bucList,
+  locale, loading, mode, sakId, subjectAreaList, tagList, t
+}) => {
   const [_buc, setBuc] = useState(bucParam)
   const [_subjectArea, setSubjectArea] = useState('Pensjon')
   const [_tags, setTags] = useState([])
-  const [validation, setValidation] = useState({})
+  const [validation, setValidation] = useState({
+    subjectAreaFail: undefined,
+    bucFail: undefined
+  })
 
   const [isBucCreated, setIsBucCreated] = useState(false)
   const [hasBucInfoSaved, setHasBucInfoSaved] = useState(false)
@@ -54,19 +57,6 @@ const BUCStart = (props) => {
     }
   }, [actions, loading, buc, hasBucInfoSaved])
 
-  const onForwardButtonClick = () => {
-    validateSubjectArea(_subjectArea)
-    validateBuc(_buc)
-    if (hasNoValidationErrors()) {
-      actions.createBuc(_buc)
-    }
-  }
-
-  const onCancelButtonClick = () => {
-    actions.resetBuc()
-    actions.setMode('buclist')
-  }
-
   const validateSubjectArea = (subjectArea) => {
     if (!subjectArea || subjectArea === placeholders.subjectArea) {
       setValidationState('subjectAreaFail', t('buc:validation-chooseSubjectArea'))
@@ -98,6 +88,19 @@ const BUCStart = (props) => {
       ...validation,
       [key]: value
     })
+  }
+
+  const onForwardButtonClick = () => {
+    validateSubjectArea(_subjectArea)
+    validateBuc(_buc)
+    if (hasNoValidationErrors()) {
+      actions.createBuc(_buc)
+    }
+  }
+
+  const onCancelButtonClick = () => {
+    actions.resetBuc()
+    actions.setMode('buclist')
   }
 
   const onSubjectAreaChange = (e) => {
@@ -279,16 +282,19 @@ const BUCStart = (props) => {
 }
 
 BUCStart.propTypes = {
-  mode: PT.string,
+  aktoerId: PT.string,
   actions: PT.object,
-  loading: PT.object,
-  t: PT.func,
-  subjectAreaList: PT.array,
+  buc: PT.object,
+  bucsInfo: PT.object,
   bucList: PT.array,
   bucParam: PT.string,
+  loading: PT.object,
   locale: PT.string.isRequired,
+  mode: PT.string,
   sakId: PT.string,
-  aktoerId: PT.string
+  subjectAreaList: PT.array,
+  tagList: PT.array,
+  t: PT.func.isRequired
 }
 
 export default BUCStart

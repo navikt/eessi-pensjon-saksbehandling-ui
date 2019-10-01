@@ -3,9 +3,8 @@ import PT from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
 import Buc from 'applications/BUC/widgets/'
 
-const BUCWidget = (props) => {
+const BUCWidget = ({ onResize }) => {
   const [mounted, setMounted] = useState(false)
-  const { onResize } = props
 
   useEffect(() => {
     if (!mounted && onResize) {

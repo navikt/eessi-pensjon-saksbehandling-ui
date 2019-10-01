@@ -3,8 +3,7 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import { Nav } from 'eessi-pensjon-ui'
 
-const NoteOptionsWidget = (props) => {
-  const { availableWidgets, layout, onWidgetUpdate, widget } = props
+const NoteOptionsWidget = ({ availableWidgets, layout, onWidgetUpdate, widget }) => {
   const [backgroundColor, setBackgroundColor] = useState(widget.options.backgroundColor)
 
   const chooseColor = (e) => {

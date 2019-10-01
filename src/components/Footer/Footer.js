@@ -1,36 +1,11 @@
 import React, { useState } from 'react'
 import PT from 'prop-types'
-import { connect, bindActionCreators } from 'store'
 import classNames from 'classnames'
-import * as uiActions from 'actions/ui'
-import * as appActions from 'actions/app'
 import { Nav } from 'eessi-pensjon-ui'
-import { getDisplayName } from 'utils/displayName'
-
 import './Footer.css'
 
-const mapStateToProps = (state) => {
-  return {
-    aktoerId: state.app.params.aktoerId,
-    buc: state.app.params.buc,
-    fnr: state.app.params.fnr,
-    kravId: state.app.params.kravId,
-    mottaker: state.app.params.mottaker,
-    rinaId: state.app.params.rinaId,
-    sakId: state.app.params.sakId,
-    sed: state.app.params.sed,
-    vedtakId: state.app.params.vedtakId,
-    footerOpen: state.ui.footerOpen
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, appActions, uiActions), dispatch) }
-}
-
-export const Footer = (props) => {
-  const params = ['buc', 'sed', 'rinaId', 'sakId', 'aktoerId', 'vedtakId', 'kravId', 'fnr', 'mottaker']
-  const { actions, footerOpen } = props
+const Footer = ({ actions, footerOpen, params = {} }) => {
+  const validParams = ['buc', 'sed', 'rinaId', 'sakId', 'aktoerId', 'avdodfnr', 'vedtakId', 'kravId', 'fnr', 'mottaker']
   const [paramName, setParamName] = useState(undefined)
   const [paramValue, setParamValue] = useState(undefined)
 
@@ -76,8 +51,8 @@ export const Footer = (props) => {
             <div className='c-footer__form'>
               <Nav.Select id='c-footer__select-id' className='c-footer__select' label='' onChange={onSetParamName}>
                 <option value=''>--</option>
-                {params.map(param => {
-                  return props[param] ? null : <option key={param} value={param}>{param}</option>
+                {validParams.map(param => {
+                  return params[param] ? null : <option key={param} value={param}>{param}</option>
                 })}
               </Nav.Select>
               <Nav.Input
@@ -90,11 +65,11 @@ export const Footer = (props) => {
       </div>
       {footerOpen ? (
         <div className='c-footer__params'>
-          {params.map(param => {
-            return props[param] ? (
+          {validParams.map(param => {
+            return params[param] ? (
               <div key={param} className='c-footer__param'>
                 <Nav.EtikettBase className='c-footer__param-string' type='info'>
-                  <b>{param}</b> {props[param]}
+                  <b>{param}</b> {params[param]}
                 </Nav.EtikettBase>
                 <Nav.Lukknapp className='c-footer__remove-button' onClick={() => onUnsetParam(param)} />
               </div>
@@ -107,19 +82,9 @@ export const Footer = (props) => {
 }
 
 Footer.propTypes = {
-  actions: PT.object,
-  aktoerId: PT.string,
-  buc: PT.string,
-  fnr: PT.string,
+  actions: PT.object.isRequired,
   footerOpen: PT.bool,
-  kravId: PT.string,
-  mottaker: PT.string,
-  rinaId: PT.string,
-  sakId: PT.string,
-  sed: PT.string,
-  vedtakId: PT.string
+  params: PT.object
 }
 
-const ConnectedFooter = connect(mapStateToProps, mapDispatchToProps)(Footer)
-ConnectedFooter.displayName = `Connect(${getDisplayName(Footer)})`
-export default ConnectedFooter
+export default Footer

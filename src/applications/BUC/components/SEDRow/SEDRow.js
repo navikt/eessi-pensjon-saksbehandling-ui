@@ -2,16 +2,13 @@ import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
+import moment from 'moment'
 import { Icons, Nav } from 'eessi-pensjon-ui'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import moment from 'moment'
-
 import './SEDRow.css'
 
-const SEDRow = (props) => {
-  const { border = 'none', className, institutionNames, locale, onSEDNew, sed, followUpSeds, t } = props
-
+const SEDRow = ({ border = 'none', className, institutionNames, locale, onSEDNew, sed, followUpSeds, t }) => {
   const institutionList = sed.participants ? sed.participants.map(participant => {
     return {
       country: participant.organisation.countryCode,

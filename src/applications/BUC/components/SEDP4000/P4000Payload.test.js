@@ -1,19 +1,19 @@
-import Util from './Util'
+import P4000Payload from './P4000Payload'
 import _ from 'lodash'
 import sampleP4000info from 'resources/tests/sampleP4000info'
 import targetP4000info from 'resources/tests/targetP4000info'
 
-describe('applications/BUC/components/SEDP4000/Util - empty payload', () => {
+describe('applications/BUC/components/SEDP4000/P4000Payload - empty payload', () => {
   let util
   const t = jest.fn((translationString) => { return translationString })
 
   beforeAll(() => {
-    util = new Util({}, t)
+    util = new P4000Payload({}, t)
   })
 
   it('Initializes', () => {
     const mockPinfo = { foo: 'bar' }
-    util = new Util(mockPinfo, t)
+    util = new P4000Payload(mockPinfo, t)
     expect(util.pinfo).toEqual(mockPinfo)
   })
 
@@ -103,12 +103,12 @@ describe('applications/BUC/components/SEDP4000/Util - empty payload', () => {
   })
 })
 
-describe('applications/BUC/components/SEDP4000/Util - with payload', () => {
+describe('applications/BUC/components/SEDP4000/P4000Payload - with payload', () => {
   let util
   const t = jest.fn((translationString) => { return translationString })
 
   beforeAll(() => {
-    util = new Util(sampleP4000info.stayAbroad, t)
+    util = new P4000Payload(sampleP4000info.stayAbroad, t)
   })
 
   it('handleLearnPeriod()', () => {
@@ -161,12 +161,12 @@ describe('applications/BUC/components/SEDP4000/Util - with payload', () => {
   })
 })
 
-describe('applications/BUC/components/SEDP4000/Util - with payload', () => {
+describe('applications/BUC/components/SEDP4000/P4000Payload - with payload', () => {
   let util
   const t = jest.fn((translationString) => { return translationString })
 
   beforeAll(() => {
-    util = new Util(sampleP4000info.stayAbroad, t)
+    util = new P4000Payload(sampleP4000info.stayAbroad, t)
   })
 
   it('generatePayload', () => {

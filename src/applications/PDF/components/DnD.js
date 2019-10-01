@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, pdfActions), dispatch) }
+  return { actions: bindActionCreators(pdfActions, dispatch) }
 }
 
 class DnD extends Component {

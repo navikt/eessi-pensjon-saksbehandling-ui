@@ -7,8 +7,7 @@ import _ from 'lodash'
 
 import './Widget.css'
 
-export const WidgetAdd = (props) => {
-  const { connectDragPreview, connectDragSource, isDragging, widget } = props
+export const WidgetAdd = ({ connectDragPreview, connectDragSource, isDragging, widget }) => {
   const [mounted, setMounted] = useState(false)
   const [mouseOver, setMouseOver] = useState(false)
 

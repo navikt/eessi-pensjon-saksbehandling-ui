@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import moment from 'moment'
-import Util from '../Util'
+import P4000Payload from '../P4000Payload'
 
 const mandatory = (value, error) => {
   if (!value) return error
@@ -9,7 +9,7 @@ const mandatory = (value, error) => {
   return undefined
 }
 
-const notMandatory = (value) => {
+const notMandatory = () => {
   return undefined
 }
 
@@ -157,7 +157,7 @@ const periodTimeSpan = (startDate, endDate) => {
   // makes sure both dates have 4 digit years before verifying that they are in the correct sequence.
   if (startDate.year.length < 4 || endDate.year.length < 4) { return undefined }
 
-  const util = new Util({}, null)
+  const util = new P4000Payload({}, null)
   const _startDate = util.pinfoDateToDate(startDate)
   const _endDate = util.pinfoDateToDate(endDate)
 

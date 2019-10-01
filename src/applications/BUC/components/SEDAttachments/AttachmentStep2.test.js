@@ -1,10 +1,10 @@
 import React from 'react'
-import { Step2 } from './Step2'
+import { AttachmentStep2 } from './AttachmentStep2'
 jest.mock('applications/PDF/components/PDFEditor/PDFEditor', () => {
   return () => { return <div className='mock-pdfeditor' /> }
 })
 
-describe('applications/BUC/components/Step1/Step1', () => {
+describe('applications/BUC/components/AttachmentStep1/AttachmentStep1', () => {
   let wrapper
   const initialMockProps = {
     files: {},
@@ -14,7 +14,7 @@ describe('applications/BUC/components/Step1/Step1', () => {
   }
 
   beforeEach(() => {
-    wrapper = mount(<Step2 {...initialMockProps} />)
+    wrapper = mount(<AttachmentStep2 {...initialMockProps} />)
   })
 
   afterEach(() => {

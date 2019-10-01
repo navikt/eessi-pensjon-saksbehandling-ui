@@ -3,7 +3,7 @@ import { Nav } from 'eessi-pensjon-ui'
 import SEDP4000 from 'applications/BUC/components/SEDP4000/SEDP4000'
 
 const Step2 = (props) => {
-  const { buc, t, _sed, showButtons, setShowButtons, validation, setValidation } = props
+  const { buc, t, _sed, showButtons, setShowButtons } = props
 
   return (
     <>

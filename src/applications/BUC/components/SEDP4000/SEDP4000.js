@@ -18,16 +18,15 @@ export const mapStateToProps = (state) => {
   }
 }
 
-export const SEDP4000 = (props) => {
-  const { actions, aktoerId, loadingP4000info, loadingP4000list, locale } = props
-  const { p4000info, p4000list, setShowButtons, showButtons, t } = props
-
+export const SEDP4000 = ({
+  actions, aktoerId, loadingP4000info, loadingP4000list,
+  locale, p4000info, p4000list, setShowButtons, showButtons, t
+}) => {
   const [period, setPeriod] = useState({})
   const [isReady, setIsReady] = useState(false)
   const [localErrors, setLocalErrors] = useState({})
   const [p4000file, setP4000file] = useState(undefined)
   const [role, setRole] = useState(undefined)
-
   const mode = period.id ? 'edit' : 'new'
 
   // check aktoerId

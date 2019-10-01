@@ -1,5 +1,5 @@
 import React from 'react'
-import { SessionMonitor } from './SessionMonitor'
+import SessionMonitor from './SessionMonitor'
 
 jest.mock('i18next', () => {
   const use = jest.fn()

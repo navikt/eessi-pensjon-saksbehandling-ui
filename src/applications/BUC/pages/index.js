@@ -6,7 +6,6 @@ import { connect, bindActionCreators } from 'store'
 import TopContainer from 'components/TopContainer/TopContainer'
 import BUCStart from 'applications/BUC/components/BUCStart/BUCStart'
 import { Nav } from 'eessi-pensjon-ui'
-import { getDisplayName } from 'utils/displayName'
 import * as bucActions from 'actions/buc'
 import * as appActions from 'actions/app'
 import * as uiActions from 'actions/ui'
@@ -60,5 +59,5 @@ BUCPageIndex.propTypes = {
 }
 
 const ConnectedBucPageIndexWithTranslation = connect(mapStateToProps, mapDispatchToProps)(withTranslation()(BUCPageIndex))
-ConnectedBucPageIndexWithTranslation.displayName = `Connect(${getDisplayName(withTranslation()(BUCPageIndex))})`
+ConnectedBucPageIndexWithTranslation.displayName = 'Connect(BUCPageIndex)'
 export default ConnectedBucPageIndexWithTranslation

@@ -1,10 +1,10 @@
 import React from 'react'
 import { FirstPage } from './FirstPage'
 jest.mock('components/TopContainer/TopContainer', () => {
-  return (props) => {
+  return ({ children }) => {
     return (
       <div className='mock-c-topcontainer'>
-        {props.children}
+        {children}
       </div>
     )
   }

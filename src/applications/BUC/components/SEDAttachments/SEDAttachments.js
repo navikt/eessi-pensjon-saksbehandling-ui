@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import PT from 'prop-types'
 import { Icons, Nav } from 'eessi-pensjon-ui'
-import Step1 from './Step1'
-import Step2 from './Step2'
+import AttachmentStep1 from './AttachmentStep1'
+import AttachmentStep2 from './AttachmentStep2'
 
 const SEDAttachments = (props) => {
   const { t, initialStep = 1 } = props
@@ -25,8 +25,8 @@ const SEDAttachments = (props) => {
           </div>
         </Nav.Knapp>
       ) : null}
-      {enableAttachments && step === 1 ? <Step1 setStep={setStep} {...props} /> : null}
-      {enableAttachments && step === 2 ? <Step2 setStep={setStep} {...props} /> : null}
+      {enableAttachments && step === 1 ? <AttachmentStep1 setStep={setStep} {...props} /> : null}
+      {enableAttachments && step === 2 ? <AttachmentStep2 setStep={setStep} {...props} /> : null}
     </div>
   )
 }

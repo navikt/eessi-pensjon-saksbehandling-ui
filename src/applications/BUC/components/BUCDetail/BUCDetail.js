@@ -30,7 +30,7 @@ const BUCDetail = ({ buc, bucInfo, className, institutionNames, locale, rinaUrl,
             <Nav.Normaltekst>{buc.type}</Nav.Normaltekst>
           </dd>
           <dt>
-            <Nav.Element>{t('ui:caseIdInRina')}:</Nav.Element>
+            <Nav.Element>{t('buc:form-caseIdInRina')}:</Nav.Element>
           </dt>
           <dd id='a-buc-c-bucdetail__props-caseId-id'>
             <Nav.Lenke

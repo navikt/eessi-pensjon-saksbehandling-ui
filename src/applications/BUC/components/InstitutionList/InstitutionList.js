@@ -5,9 +5,7 @@ import classNames from 'classnames'
 import { CountryData, Flag, Nav } from 'eessi-pensjon-ui'
 import './InstitutionList.css'
 
-const InstitutionList = (props) => {
-  const { className, institutions, institutionNames, locale, t, type } = props
-
+const InstitutionList = ({ className, institutions, institutionNames, locale, t, type }) => {
   const institutionList = {}
   if (institutions) {
     institutions.forEach(item => {

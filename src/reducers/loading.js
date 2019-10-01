@@ -16,6 +16,7 @@ export const initialLoadingState = {
   gettingSakType: false,
   gettingSedList: false,
   gettingSubjectAreaList: false,
+  gettingTagList: false,
   gettingUserInfo: false,
   isInvitingPinfo: false,
   isLoggingIn: false,

@@ -4,9 +4,7 @@ import _ from 'lodash'
 import classNames from 'classnames'
 import { FileUpload, Nav } from 'eessi-pensjon-ui'
 
-const SelectPDF = (props) => {
-  const { t, actions, loadingPDF, files, setStep } = props
-
+const SelectPDF = ({ t, actions, loadingPDF, files, setStep }) => {
   const onForwardButtonClick = () => {
     setStep('edit')
   }

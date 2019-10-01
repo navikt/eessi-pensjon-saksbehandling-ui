@@ -14,8 +14,7 @@ const CONNECTED = 'CONNECTED'
 const RECEIVING = 'RECEIVING'
 const ERROR = 'ERROR'
 
-const BucWebSocket = (props) => {
-  const { actions, aktoerId, avdodfnr } = props
+const BucWebSocket = ({ actions, aktoerId, avdodfnr }) => {
   const [status, setStatus] = useState(NOTCONNECTED)
   const [log, setLog] = useState([])
   const [websocketConnection, setWebsocketConnection] = useState(undefined)

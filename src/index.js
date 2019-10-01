@@ -43,8 +43,8 @@ ReactDOM.render(
               <AuthenticatedRoute path={routes.INDEX} component={Pages.IndexPage} />
               <AuthenticatedRoute path={routes.RESEND} component={Pages.Resend} />
               <Route path={routes.NOT_LOGGED} render={() => <Pages.Error type='notLogged' />} />
-              <Route path={routes.NOT_INVITED} render={(props) => <Pages.Error type='notInvited' />} />
-              <Route path={routes.FORBIDDEN} render={(props) => <Pages.Error type='forbidden' />} />
+              <Route path={routes.NOT_INVITED} render={() => <Pages.Error type='notInvited' />} />
+              <Route path={routes.FORBIDDEN} render={() => <Pages.Error type='forbidden' />} />
               <Route path={routes.ROOT + ':PATH+'} render={() => <Pages.Error type='error' />} />
               <AuthenticatedRoute path={routes.ROOT} component={Pages.FirstPage} displayName />
               <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />

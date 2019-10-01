@@ -12,11 +12,11 @@ const placeholders = {
   vedtakId: 'buc:form-enterVedtakId'
 }
 
-const Step1 = (props) => {
-  const { actions, _attachments, buc, _countries, countryList, _institutions, institutionList } = props
-  const { layout = 'row', loading, locale, _sed, currentSed, setAttachments, setCountries, setInstitutions } = props
-  const { sedList, sedNeedsVedtakId, setSed, setValidation, setVedtakId, t, validation, vedtakId } = props
-
+const Step1 = ({
+  actions, _attachments, buc, _countries, countryList, _institutions, institutionList,
+  layout = 'row', loading, locale, _sed, currentSed, setAttachments, setCountries, setInstitutions,
+  sedList, sedNeedsVedtakId, setSed, setValidation, setVedtakId, t, validation, vedtakId
+}) => {
   useEffect(() => {
     if (_.isArray(sedList) && sedList.length === 1 && !_sed) {
       setSed(sedList[0])

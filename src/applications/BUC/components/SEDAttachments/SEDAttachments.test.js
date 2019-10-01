@@ -1,9 +1,9 @@
 import React from 'react'
 import SEDAttachments from './SEDAttachments'
-jest.mock('./Step1', () => {
+jest.mock('./AttachmentStep1', () => {
   return () => { return <div className='mock-step1' /> }
 })
-jest.mock('./Step2', () => {
+jest.mock('./AttachmentStep2', () => {
   return () => { return <div className='mock-step2' /> }
 })
 

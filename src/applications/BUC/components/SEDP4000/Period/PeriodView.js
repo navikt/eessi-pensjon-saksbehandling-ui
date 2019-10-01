@@ -3,13 +3,12 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
 import { Flag, Icons, Nav } from 'eessi-pensjon-ui'
-import Util from '../Util'
+import P4000Payload from '../P4000Payload'
 
 import 'applications/BUC/components/SEDP4000/Period/Period.css'
 
-const PeriodView = (props) => {
-  const { first, last, mode, period, removePeriodRequest, requestEditPeriod, t } = props
-  const util = new Util({}, t)
+const PeriodView = ({ first, last, mode, period, removePeriodRequest, requestEditPeriod, t }) => {
+  const util = new P4000Payload({}, t)
   return (
     <Nav.Row className={classNames('a-buc-c-sedp4000-period', mode)}>
       <div className={classNames('col-12', { 'col-md-6': mode === 'view' })}>

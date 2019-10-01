@@ -28,12 +28,10 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, pdfActions, uiActions), dispatch) }
+  return { actions: bindActionCreators({ ...pdfActions, ...uiActions }, dispatch) }
 }
 
-const PDFEditor = (props) => {
-  const { t, actions, files, dndTarget, recipe, pageScale } = props
-
+const PDFEditor = ({ t, actions, files, dndTarget, recipe, pageScale }) => {
   const handleAccordionChange = (index) => {
     if (!index) { return }
     actions.setActiveDnDTarget(index)

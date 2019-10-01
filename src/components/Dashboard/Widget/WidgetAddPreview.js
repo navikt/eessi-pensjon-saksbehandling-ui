@@ -4,8 +4,7 @@ import { DragLayer } from 'react-dnd'
 import Widget from './Widget'
 import DashboardConfig from 'components/Dashboard/Config/DashboardConfig'
 
-export const WidgetAddPreview = (props) => {
-  const { currentBreakpoint, currentOffset, initialOffset, isDragging, item, t } = props
+export const WidgetAddPreview = ({ currentBreakpoint, currentOffset, initialOffset, isDragging, item, t }) => {
   if (!isDragging) {
     return null
   }

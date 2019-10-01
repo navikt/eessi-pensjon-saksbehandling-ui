@@ -8,9 +8,7 @@ import * as routes from 'constants/routes'
 
 import './FirstPage.css'
 
-export const FirstPage = (props) => {
-  const { t, history } = props
-
+export const FirstPage = ({ t, history }) => {
   const handleForwardButtonClick = () => {
     history.push({
       pathname: routes.PINFO,

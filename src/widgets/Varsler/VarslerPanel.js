@@ -5,7 +5,6 @@ import _ from 'lodash'
 import { Icons, Nav, RefreshButton } from 'eessi-pensjon-ui'
 import * as pinfoActions from 'actions/pinfo'
 import * as storageActions from 'actions/storage'
-import { getDisplayName } from 'utils/displayName'
 import { ReactComponent as VeilederSVG } from 'resources/images/NavPensjonVeileder.svg'
 
 import './VarslerPanel.css'
@@ -213,5 +212,5 @@ VarslerPanel.propTypes = {
 }
 
 const ConnectedVarsler = connect(mapStateToProps, mapDispatchToProps)(VarslerPanel)
-ConnectedVarsler.displayName = `Connect(${getDisplayName(VarslerPanel)})`
+ConnectedVarsler.displayName = 'Connect(VarslerPanel)'
 export default ConnectedVarsler

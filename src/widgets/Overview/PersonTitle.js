@@ -2,8 +2,7 @@ import React from 'react'
 import PT from 'prop-types'
 import { Icons, Nav } from 'eessi-pensjon-ui'
 
-const PersonTitle = (props) => {
-  const { aktoerId, gettingPersonInfo, person, t } = props
+const PersonTitle = ({ aktoerId, gettingPersonInfo, person, t }) => {
   let age = '-'
 
   if (person && person.foedselsdato) {

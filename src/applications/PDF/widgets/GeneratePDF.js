@@ -4,8 +4,7 @@ import _ from 'lodash'
 import { File, Nav, StorageModal } from 'eessi-pensjon-ui'
 import * as storages from 'constants/storages'
 
-const GeneratePDF = (props) => {
-  const { t, generatingPDF, generatedPDFs, fileNames, actions, files, recipe, watermark, setStep } = props
+const GeneratePDF = ({ t, generatingPDF, generatedPDFs, fileNames, actions, files, recipe, watermark, setStep }) => {
 
   const [_fileNames, setFileNames] = useState({})
   const [mounted, setMounted] = useState(false)

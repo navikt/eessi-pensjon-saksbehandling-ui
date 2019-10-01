@@ -1,5 +1,5 @@
 import React from 'react'
-import { Footer } from './Footer'
+import Footer from './Footer'
 
 describe('components/Footer', () => {
   const initialMockProps = {
@@ -39,7 +39,7 @@ describe('components/Footer', () => {
   })
 
   it('Remove a param', () => {
-    const wrapper = mount(<Footer {...initialMockProps} sakId='123' />)
+    const wrapper = mount(<Footer {...initialMockProps} params={{ sakId: '123' }} />)
     expect(wrapper.find('.c-footer__param-string').hostNodes().render().text()).toEqual('sakId 123')
     wrapper.find('.c-footer__remove-button').hostNodes().simulate('click')
     expect(initialMockProps.actions.unsetStatusParam).toHaveBeenCalled()

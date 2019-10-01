@@ -23,9 +23,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators({ ...storageActions }, dispatch) }
 }
 
-const ExternalFiles = (props) => {
-  const { actions, username, t, loadingFileList, fileList, addFile, style, className } = props
-
+const ExternalFiles = ({ actions, username, t, loadingFileList, fileList, addFile, style, className }) => {
   const requestExternalFileList = () => {
     actions.listStorageFiles({
       userId: username,

@@ -2,35 +2,42 @@ import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import { connect, bindActionCreators } from 'store'
+import * as appActions from 'actions/app'
 import * as uiActions from 'actions/ui'
 import { Alert, Banner, Modal, Nav } from 'eessi-pensjon-ui'
 import InternalTopHeader from 'components/Header/InternalTopHeader'
 import Footer from 'components/Footer/Footer'
 import SessionMonitor from 'components/SessionMonitor/SessionMonitor'
-import { getDisplayName } from 'utils/displayName'
 
 import './TopContainer.css'
 
 const mapStateToProps = (state) => {
   return {
-    modal: state.ui.modal,
-    modalOpen: state.ui.modalOpen,
-    highContrast: state.ui.highContrast,
     clientErrorStatus: state.alert.clientErrorStatus,
     clientErrorMessage: state.alert.clientErrorMessage,
     serverErrorMessage: state.alert.serverErrorMessage,
-    error: state.alert.error
+    error: state.alert.error,
+    expirationTime: state.app.expirationTime,
+    params: state.app.params,
+    username: state.app.username,
+    gettingUserInfo: state.loading.gettingUserInfo,
+    isLoggingOut: state.loading.isLoggingOut,
+    footerOpen: state.ui.footerOpen,
+    modal: state.ui.modal,
+    modalOpen: state.ui.modalOpen,
+    highContrast: state.ui.highContrast
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(uiActions, dispatch) }
+  return { actions: bindActionCreators({ ...uiActions, ...appActions }, dispatch) }
 }
 
-export const TopContainer = (props) => {
-  const { actions, className, children, clientErrorMessage, clientErrorStatus, error, fluid = true, header, history } = props
-  const { highContrast, modal, modalOpen, serverErrorMessage, t } = props
-
+export const TopContainer = ({
+  actions, className, children, clientErrorMessage, clientErrorStatus, error,
+  expirationTime, fluid = true, footerOpen, gettingUserInfo, header, history,
+  highContrast, isLoggingOut, modal, modalOpen, params, serverErrorMessage, t, username
+}) => {
   const handleModalClose = () => {
     actions.closeModal()
   }
@@ -39,12 +46,23 @@ export const TopContainer = (props) => {
     actions.clientClear()
   }
 
-   return (
+  return (
     <div
       className={classNames('c-topContainer', className, { highContrast: highContrast })}
     >
-      <InternalTopHeader t={t} history={history} />
-      {header ? <Banner t={t} header={header} toggleHighContrast={actions.toggleHighContrast} /> : null}
+      <InternalTopHeader
+        t={t}
+        history={history}
+        username={username}
+        gettingUserInfo={gettingUserInfo}
+        isLoggingOut={isLoggingOut}
+      />
+      {header ? (
+        <Banner
+          t={t}
+          header={header}
+          toggleHighContrast={actions.toggleHighContrast}
+        />) : null}
       <Alert
         type='client'
         t={t}
@@ -60,12 +78,26 @@ export const TopContainer = (props) => {
         error={error}
         onClientClear={onClientClear}
       />
-      <Nav.Container fluid={fluid} className='_container p-0'>
+      <Nav.Container
+        className='_container p-0'
+        fluid={fluid}
+      >
         {children}
       </Nav.Container>
-      <Modal modalOpen={modalOpen} modal={modal} onModalClose={handleModalClose} />
-      <SessionMonitor t={t} />
-      <Footer />
+      <Modal
+        modalOpen={modalOpen}
+        modal={modal}
+        onModalClose={handleModalClose}
+      />
+      <SessionMonitor
+        t={t}
+        expirationTime={expirationTime}
+      />
+      <Footer
+        actions={actions}
+        params={params}
+        footerOpen={footerOpen}
+      />
     </div>
   )
 }
@@ -82,5 +114,5 @@ TopContainer.propTypes = {
 }
 
 const ConnectedTopContainer = connect(mapStateToProps, mapDispatchToProps)(TopContainer)
-ConnectedTopContainer.displayName = `Connect(${getDisplayName(TopContainer)})`
+ConnectedTopContainer.displayName = 'Connect(TopContainer)'
 export default ConnectedTopContainer

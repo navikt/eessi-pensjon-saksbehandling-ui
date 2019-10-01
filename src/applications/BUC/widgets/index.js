@@ -11,7 +11,6 @@ import BUCEdit from 'applications/BUC/widgets/BUCEdit/BUCEdit'
 import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import { Nav } from 'eessi-pensjon-ui'
-import { getDisplayName } from 'utils/displayName'
 
 import './index.css'
 
@@ -117,5 +116,5 @@ export const BUCWidgetIndex = (props) => {
 }
 
 const ConnectedBUCWidgetIndex = connect(mapStateToProps, mapDispatchToProps)(withTranslation()(BUCWidgetIndex))
-ConnectedBUCWidgetIndex.displayName = `Connect(${getDisplayName(withTranslation()(BUCWidgetIndex))})`
+ConnectedBUCWidgetIndex.displayName = 'Connect(BUCWidgetIndex)'
 export default ConnectedBUCWidgetIndex

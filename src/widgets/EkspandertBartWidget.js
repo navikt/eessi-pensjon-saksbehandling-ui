@@ -4,8 +4,7 @@ import _ from 'lodash'
 import { Nav } from 'eessi-pensjon-ui'
 import ReactResizeDetector from 'react-resize-detector'
 
-const EkspandertBartWidget = (props) => {
-  const { content, onResize, onUpdate, widget } = props
+const EkspandertBartWidget = ({ content, onResize, onUpdate, widget }) => {
   const [_content, setContent] = useState(content || widget.options.content)
 
   const onClick = () => {

@@ -3,8 +3,7 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import ReactResizeDetector from 'react-resize-detector'
 
-const NoteWidget = (props) => {
-  const { id, layout, onResize, onWidgetUpdate, widget } = props
+const NoteWidget = ({ id, layout, onResize, onWidgetUpdate, widget }) => {
   const [mounted, setMounted] = useState(false)
   const [content, setContent] = useState(widget.options.content)
 

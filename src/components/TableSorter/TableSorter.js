@@ -5,8 +5,7 @@ import { Nav } from 'eessi-pensjon-ui'
 
 import './TableSorter.css'
 
-const TableSorter = (props) => {
-  const { t, sort, columns, items, onItemClicked, loadingJoarkFile, loadingJoarkPreviewFile, onSelectedItemChange } = props
+const TableSorter = ({ t, sort, columns, items, onItemClicked, loadingJoarkFile, loadingJoarkPreviewFile, onSelectedItemChange }) => {
   const [_sort, setSort] = useState(sort || { column: '', order: '' })
   const [_columns, setColumns] = useState(columns)
   const [seeFilters, setSeeFilters] = useState(false)

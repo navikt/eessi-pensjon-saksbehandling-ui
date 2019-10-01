@@ -1,5 +1,4 @@
 export const SAKSBEHANDLER = 'SAKSBEHANDLER'
-export const BRUKER = 'BRUKER'
 
 export const P2000 = 'P2000'
 export const P2100 = 'P2100'

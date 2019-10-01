@@ -8,10 +8,10 @@ import { periodStep } from 'applications/BUC/components/SEDP4000/Validation/step
 
 import 'applications/BUC/components/SEDP4000/Period/Period.css'
 
-const Period = (props) => {
-  const { actions, first, last, locale, localErrors, mode, period, periods } = props
-  const { setLocalError, setLocalErrors, setPeriod, setPeriods, t } = props
-
+const Period = ({
+  actions, first, last, locale, localErrors, mode, period, periods,
+  setLocalError, setLocalErrors, setPeriod, setPeriods, t
+}) => {
   const valueSetProperty = useCallback((key, validateFunction, value) => {
     const error = validateFunction ? validateFunction(value) : undefined
     setPeriod({
@@ -67,8 +67,8 @@ const Period = (props) => {
   }, [period.dateType, period.type, period.workType, setDateType, setWorkType])
 
   const hasNoErrors = (errors) => {
-    for (var key in errors) {
-      if (errors[key]) {
+    for (const key in errors) {
+      if (Object.prototype.hasOwnProperty.call(errors, key) && errors[key]) {
         return false
       }
     }
@@ -111,7 +111,6 @@ const Period = (props) => {
   const saveNewPeriod = () => {
     const errors = validatePeriod()
     setLocalErrors(errors)
-
     if (hasNoErrors(errors)) {
       const newPeriods = _.clone(periods)
       const newPeriod = _.clone(period)

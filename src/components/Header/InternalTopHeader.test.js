@@ -1,5 +1,5 @@
 import React from 'react'
-import { InternalTopHeader } from './InternalTopHeader'
+import InternalTopHeader from './InternalTopHeader'
 import * as routes from 'constants/routes'
 
 describe('components/InternalTopHeader', () => {

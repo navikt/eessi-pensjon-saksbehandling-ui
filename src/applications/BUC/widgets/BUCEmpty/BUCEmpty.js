@@ -9,8 +9,7 @@ import MapPNG from 'resources/images/artwork/saksstatus.png'
 
 import './BUCEmpty.css'
 
-const BUCEmpty = (props) => {
-  const { actions, aktoerId, onBUCNew, sakId, t } = props
+const BUCEmpty = ({ actions, aktoerId, onBUCNew, sakId, t }) => {
   const [_sakId, setSakId] = useState(sakId)
   const [_aktoerId, setAktoerId] = useState(aktoerId)
   const [validation, setValidation] = useState(undefined)
@@ -20,7 +19,7 @@ const BUCEmpty = (props) => {
     setAktoerId(e.target.value.trim())
   }
 
-  const onSubmitAktoerId = (e) => {
+  const onSubmitAktoerId = () => {
     if (!_aktoerId || !_aktoerId.match(/^\d+$/)) {
       setValidation(t('buc:validation-noAktoerId'))
     } else {
@@ -33,7 +32,7 @@ const BUCEmpty = (props) => {
     setSakId(e.target.value.trim())
   }
 
-  const onSubmitSakId = (e) => {
+  const onSubmitSakId = () => {
     if (!_sakId || !_sakId.match(/^\d+$/)) {
       setValidation(t('buc:validation-noSakId'))
     } else {
@@ -83,7 +82,7 @@ const BUCEmpty = (props) => {
           <Nav.Input
             id='a-buc-bucempty__sakid-input-id'
             className='a-buc-bucempty__sakid-input'
-            label={t('ui:caseId')}
+            label={t('buc:form-caseId')}
             value={_sakId || ''}
             bredde='fullbredde'
             onChange={onSakIdChange}

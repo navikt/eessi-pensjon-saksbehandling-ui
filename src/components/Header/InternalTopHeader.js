@@ -1,33 +1,13 @@
 import React from 'react'
-import { connect, bindActionCreators } from 'store'
 import PT from 'prop-types'
 import classNames from 'classnames'
-
-import * as appActions from 'actions/app'
-import * as uiActions from 'actions/ui'
 import { Icons, Nav } from 'eessi-pensjon-ui'
 import * as routes from 'constants/routes'
 import AdvarselTrekant from 'resources/images/AdvarselTrekant'
 import NavLogoTransparent from 'resources/images/NavLogoTransparent'
-import { getDisplayName } from 'utils/displayName'
-
 import './InternalTopHeader.css'
 
-const mapStateToProps = (state) => {
-  return {
-    username: state.app.username,
-    gettingUserInfo: state.loading.gettingUserInfo,
-    isLoggingOut: state.loading.isLoggingOut
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators({ ...uiActions, ...appActions }, dispatch) }
-}
-
-export const InternalTopHeader = (props) => {
-  const { actions, gettingUserInfo, header, history, isLoggingOut, t, username } = props
-
+const InternalTopHeader = ({ actions, gettingUserInfo, header, history, isLoggingOut, t, username }) => {
   const onLogoClick = () => {
     actions.clearData()
     history.push({
@@ -109,6 +89,4 @@ InternalTopHeader.propTypes = {
   username: PT.string
 }
 
-const ConnectedInternalTopHeader = connect(mapStateToProps, mapDispatchToProps)(InternalTopHeader)
-ConnectedInternalTopHeader.displayName = `Connect(${getDisplayName(InternalTopHeader)})`
-export default ConnectedInternalTopHeader
+export default InternalTopHeader

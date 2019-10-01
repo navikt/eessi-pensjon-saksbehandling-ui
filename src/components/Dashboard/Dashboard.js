@@ -7,8 +7,7 @@ import * as DashboardAPI from './API/DashboardAPI'
 
 import DashboardRender from 'components/Dashboard/DashboardRender'
 
-export const Dashboard = (props) => {
-  const { t } = props
+export const Dashboard = ({ t }) => {
   const [editMode, setEditMode] = useState(false)
   const [addMode, setAddMode] = useState(false)
   const [mounted, setMounted] = useState(false)

@@ -5,19 +5,15 @@ import TopContainer from 'components/TopContainer/TopContainer'
 import Dashboard from 'components/Dashboard/Dashboard'
 import './IndexPage.css'
 
-export const IndexPage = (props) => {
-  const { history, t } = props
-
-  return (
-    <TopContainer
-      className='p-indexPage'
-      t={t}
-      history={history}
-    >
-      <Dashboard id='dashboard' />
-    </TopContainer>
-  )
-}
+export const IndexPage = ({ history, t }) => (
+  <TopContainer
+    className='p-indexPage'
+    t={t}
+    history={history}
+  >
+    <Dashboard id='dashboard' />
+  </TopContainer>
+)
 
 IndexPage.propTypes = {
   history: PT.object.isRequired,

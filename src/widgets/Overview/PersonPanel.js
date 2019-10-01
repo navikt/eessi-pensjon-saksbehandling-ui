@@ -5,9 +5,7 @@ import moment from 'moment'
 import { Nav } from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 
-const PersonPanel = (props) => {
-  const { t, person } = props
-
+const PersonPanel = ({ t, person }) => {
   if (!person) {
     return null
   }

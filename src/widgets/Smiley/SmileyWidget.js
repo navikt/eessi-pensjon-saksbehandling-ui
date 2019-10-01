@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
 
-const SmileyWidget = (props) => {
+const SmileyWidget = ({ onResize, widget }) => {
   const [mounted, setMounted] = useState(false)
-  const { onResize, widget } = props
 
   useEffect(() => {
     if (!mounted && onResize) {

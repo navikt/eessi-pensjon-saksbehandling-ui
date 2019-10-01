@@ -22,7 +22,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, pdfActions, uiActions), dispatch) }
+  return { actions: bindActionCreators({ ...pdfActions, ...uiActions }, dispatch) }
 }
 
 class PageInDnD extends Component {

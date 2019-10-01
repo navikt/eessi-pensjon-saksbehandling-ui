@@ -7,9 +7,7 @@ import Links from './Links'
 
 import './LinksWidget.css'
 
-const LinksWidget = (props) => {
-  const { onResize, onUpdate, t, widget } = props
-
+const LinksWidget = ({ onResize, onUpdate, t, widget }) => {
   const onClick = () => {
     const newWidget = _.cloneDeep(widget)
     newWidget.options.collapsed = !newWidget.options.collapsed

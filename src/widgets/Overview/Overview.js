@@ -4,7 +4,6 @@ import _ from 'lodash'
 import { connect, bindActionCreators } from 'store'
 import * as appActions from 'actions/app'
 import { Nav } from 'eessi-pensjon-ui'
-import { getDisplayName } from 'utils/displayName'
 import PersonTitle from './PersonTitle'
 import PersonPanel from './PersonPanel'
 
@@ -62,5 +61,5 @@ Overview.propTypes = {
 }
 
 const ConnectedOverview = connect(mapStateToProps, mapDispatchToProps)(Overview)
-ConnectedOverview.displayName = `Connect(${getDisplayName(Overview)})`
+ConnectedOverview.displayName = 'Connect(Overview)'
 export default ConnectedOverview

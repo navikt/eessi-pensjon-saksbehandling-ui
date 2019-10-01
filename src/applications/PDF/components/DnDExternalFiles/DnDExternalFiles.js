@@ -23,8 +23,7 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators({ ...uiActions, ...storageActions }, dispatch) }
 }
 
-const DnDExternalFiles = (props) => {
-  const { addFile, actions, username, fileList, file } = this.props
+const DnDExternalFiles = ({ addFile, actions, username, fileList, file }) => {
 
   const onaddFile = (file) => {
     if (typeof addFile === 'function') {

@@ -21,7 +21,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(Object.assign({}, pdfActions), dispatch) }
+  return { actions: bindActionCreators(pdfActions, dispatch) }
 }
 
 class DnDSpecial extends Component {

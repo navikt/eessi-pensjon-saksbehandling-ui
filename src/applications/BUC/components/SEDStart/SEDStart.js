@@ -8,8 +8,7 @@ import { Nav } from 'eessi-pensjon-ui'
 import * as bucActions from 'actions/buc'
 import * as uiActions from 'actions/ui'
 import * as storageActions from 'actions/storage'
-import { getDisplayName } from 'utils/displayName'
-import PInfoUtil from 'applications/BUC/components/SEDP4000/Util'
+import PInfoUtil from 'applications/BUC/components/SEDP4000/P4000Payload'
 import { IS_TEST } from 'constants/environment'
 
 const mapStateToProps = (state) => {
@@ -343,5 +342,5 @@ SEDStart.propTypes = {
 }
 
 const ConnectedSEDStart = connect(mapStateToProps, mapDispatchToProps)(SEDStart)
-ConnectedSEDStart.displayName = `Connect(${getDisplayName(SEDStart)})`
+ConnectedSEDStart.displayName = 'Connect(SEDStart)'
 export default ConnectedSEDStart

@@ -4,11 +4,8 @@ import _ from 'lodash'
 import { connect, bindActionCreators } from 'store'
 import * as joarkActions from 'actions/joark'
 import * as uiActions from 'actions/ui'
-import { getDisplayName } from 'utils/displayName'
-import { Nav } from 'eessi-pensjon-ui'
-import { File } from 'eessi-pensjon-ui'
+import { File, Nav } from 'eessi-pensjon-ui'
 import TableSorter from 'components/TableSorter/TableSorter'
-
 import './JoarkBrowser.css'
 
 const mapStateToProps = (state) => {
@@ -27,9 +24,10 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators({ ...uiActions, ...joarkActions }, dispatch) }
 }
 
-export const JoarkBrowser = (props) => {
-  const { actions, aktoerId, file, files, list, loadingJoarkList } = props
-  const { loadingJoarkFile, loadingJoarkPreviewFile, onFilesChange, previewFile, t } = props
+export const JoarkBrowser = ({
+  actions, aktoerId, file, files, list, loadingJoarkList,
+  loadingJoarkFile, loadingJoarkPreviewFile, onFilesChange, previewFile, t
+}) => {
   const [_file, setFile] = useState(file)
   const [_files, setFiles] = useState(files)
   const [_previewFile, setPreviewFile] = useState(previewFile)
@@ -194,5 +192,5 @@ JoarkBrowser.propTypes = {
 }
 
 const ConnectedJoarkbrowser = connect(mapStateToProps, mapDispatchToProps)(JoarkBrowser)
-ConnectedJoarkbrowser.displayName = `Connect(${getDisplayName(JoarkBrowser)})`
+ConnectedJoarkbrowser.displayName = 'Connect(JoarkBrowser)'
 export default ConnectedJoarkbrowser
