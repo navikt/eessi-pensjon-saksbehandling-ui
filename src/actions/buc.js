@@ -84,6 +84,7 @@ export const fetchBucs = (aktoerId) => {
 export const fetchAvdodBucs = (aktoerId) => {
   return api.call({
     url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
+    failWith500: true,
     expectedPayload: sampleBucs,
     type: {
       request: types.BUC_GET_AVDOD_BUCS_REQUEST,
