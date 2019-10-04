@@ -21,8 +21,7 @@ describe('reducers/ui', () => {
         ...initialUiState,
         modalOpen: true
       }, {
-        type: types.UI_MODAL_CLOSE,
-        payload: 'something'
+        type: types.UI_MODAL_CLOSE
       })
     ).toEqual(initialUiState)
   })

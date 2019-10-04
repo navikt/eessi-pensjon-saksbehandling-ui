@@ -38,7 +38,7 @@ export const Error = ({ history, t, type }) => {
     >
       <div className='col-md-12 text-center'>
         <div className='psycho mt-3 mb-4'>
-          <Psycho type='trist' id='psycho' />
+          <Psycho mood='trist' id='psycho' />
         </div>
         <Nav.Undertittel className='title m-4'>
           {title}

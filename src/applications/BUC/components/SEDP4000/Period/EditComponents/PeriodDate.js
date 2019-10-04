@@ -1,6 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
-import { DatePicker, FocusGroup, Nav } from 'eessi-pensjon-ui'
+import { DatePicker, Nav } from 'eessi-pensjon-ui'
 
 const PeriodDate = ({
   blurEndDate,
@@ -47,30 +47,29 @@ const PeriodDate = ({
           {t('buc:p4000-label-start-date')}
         </label>
         {
-          <FocusGroup onBlur={blurStartDate}>
-            <DatePicker
-              id='a-buc-c-sedp4000-period__startdato-date'
-              labels={{
-                day: t('buc:p4000-label-day'),
-                month: t('buc:p4000-label-month'),
-                year: t('buc:p4000-label-year')
-              }}
-              ids={{
-                day: 'a-buc-c-sedp4000-period__startdato-day',
-                month: 'a-buc-c-sedp4000-period__startdato-month',
-                year: 'a-buc-c-sedp4000-period__startdato-year'
-              }}
-              placeholders={{
-                day: t('buc:p4000-placeholder-day'),
-                month: t('buc:p4000-placeholder-month'),
-                year: t('buc:p4000-placeholder-year')
-              }}
-              className='startDate pr-2'
-              initialValues={period.startDate}
-              onChange={setStartDate}
-              feil={localErrors.startDate || localErrors.timeSpan ? { feilmelding: t(localErrors.startDate || localErrors.timeSpan) } : undefined}
-            />
-          </FocusGroup>
+          <DatePicker
+            onBlur={blurStartDate}
+            id='a-buc-c-sedp4000-period__startdato-date'
+            labels={{
+              day: t('buc:p4000-label-day'),
+              month: t('buc:p4000-label-month'),
+              year: t('buc:p4000-label-year')
+            }}
+            ids={{
+              day: 'a-buc-c-sedp4000-period__startdato-day',
+              month: 'a-buc-c-sedp4000-period__startdato-month',
+              year: 'a-buc-c-sedp4000-period__startdato-year'
+            }}
+            placeholders={{
+              day: t('buc:p4000-placeholder-day'),
+              month: t('buc:p4000-placeholder-month'),
+              year: t('buc:p4000-placeholder-year')
+            }}
+            className='startDate pr-2'
+            initialValues={period.startDate}
+            onChange={setStartDate}
+            feil={localErrors.startDate || localErrors.timeSpan ? { feilmelding: t(localErrors.startDate || localErrors.timeSpan) } : undefined}
+          />
         }
       </div>
       <div className='a-buc-c-sedp4000-period__endDate col-sm-6 col-12 mb-2'>
@@ -78,31 +77,30 @@ const PeriodDate = ({
           {t('buc:p4000-label-end-date')}
         </label>
         {
-          <FocusGroup onBlur={blurEndDate}>
-            <DatePicker
-              disabled={period.dateType !== 'both'}
-              id='a-buc-c-sedp4000-period_sluttdato-date'
-              labels={{
-                day: t('buc:p4000-label-day'),
-                month: t('buc:p4000-label-month'),
-                year: t('buc:p4000-label-year')
-              }}
-              ids={{
-                day: 'a-buc-c-sedp4000-period__sluttdato-day',
-                month: 'a-buc-c-sedp4000-period__sluttdato-month',
-                year: 'a-buc-c-sedp4000-period__sluttdato-year'
-              }}
-              placeholders={{
-                day: t('buc:p4000-placeholder-day'),
-                month: t('buc:p4000-placeholder-month'),
-                year: t('buc:p4000-placeholder-year')
-              }}
-              className='endDate pr-2'
-              initialValues={period.endDate}
-              onChange={setEndDate}
-              feil={localErrors.endDate || localErrors.timeSpan ? { feilmelding: t(localErrors.endDate || localErrors.timeSpan) } : undefined}
-            />
-          </FocusGroup>
+          <DatePicker
+            onBlur={blurEndDate}
+            disabled={period.dateType !== 'both'}
+            id='a-buc-c-sedp4000-period_sluttdato-date'
+            labels={{
+              day: t('buc:p4000-label-day'),
+              month: t('buc:p4000-label-month'),
+              year: t('buc:p4000-label-year')
+            }}
+            ids={{
+              day: 'a-buc-c-sedp4000-period__sluttdato-day',
+              month: 'a-buc-c-sedp4000-period__sluttdato-month',
+              year: 'a-buc-c-sedp4000-period__sluttdato-year'
+            }}
+            placeholders={{
+              day: t('buc:p4000-placeholder-day'),
+              month: t('buc:p4000-placeholder-month'),
+              year: t('buc:p4000-placeholder-year')
+            }}
+            className='endDate pr-2'
+            initialValues={period.endDate}
+            onChange={setEndDate}
+            feil={localErrors.endDate || localErrors.timeSpan ? { feilmelding: t(localErrors.endDate || localErrors.timeSpan) } : undefined}
+          />
         }
       </div>
       <div className='a-buc-c-sedp4000-period__uncertainDate col-sm-6 col-12 mb-2'>

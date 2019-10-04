@@ -52,7 +52,7 @@ SEDBody.propTypes = {
   institutionNames: PT.object,
   locale: PT.string.isRequired,
   onSEDNew: PT.func.isRequired,
-  rinaUrl: PT.string.isRequired,
+  rinaUrl: PT.string,
   seds: PT.array.isRequired,
   t: PT.func.isRequired
 }

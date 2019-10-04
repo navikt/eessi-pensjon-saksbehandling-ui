@@ -1,7 +1,7 @@
-EESSI Pensjon Frontend UI
+EESSI Pensjon Saksbehandling UI
 ===============================
 
-This is the frontend part of the EESSI Penjson web application, developed in [ReactJS](//reactjs.org).
+This is the frontend part of the EESSI Pensjon web application for saksbehandler, developed in [ReactJS](//reactjs.org).
 
 ## INSTALL 
 
@@ -9,15 +9,15 @@ run `npm install` if you just cloned this repo, or everytime there is some code 
 
 ## TEST
 
-Cucumber/Selenium tests are [on a separate repository, EESSI-Pensjon aotomatic tests](//github.com/navikt/eessi-pensjon-automatic-tests)
+Run tests with `npm run test`.
 
-Run tests with `./run-test.sh` (Mac/Linux) or `run-test.bat` (Windows).
-
-For coverage report, add a '--coverage' argument.
+For coverage report, run `npm run test:coverage`.
 
 ## LINT
 
-Run `./run-lint.sh` (Mac/Linux) or `run-lint.bat` (Windows) to lint the code.
+To lint the code, run `npm run lint` 
+
+To fix lint issues, run `npm run lint:fix` 
 
 ## RUN 
 
@@ -27,15 +27,17 @@ In order to browse the webapp, you need a valid authentication token.
 
 ### Run in development environment, with hot reloading
 
-Run `run-dev.sh` (Mac/Linux) or `run-dev.bat` (Windows). This will launch a webpack server on port 3000 and launch a brower window/tab. *Note*: To change default port, do `set PORT={wantedPort}` (Windows) or `export PORT={wantedPort}` (Linux/Mac). 
+To start the app in development mode, run `npm run start`. This will launch a webpack server on port 3000 and launch a brower window/tab.
+ 
+*Note*: To change default port, do `set PORT={wantedPort}` (Windows) or `export PORT={wantedPort}` (Linux/Mac). 
 
 Any changes made to code files will trigger a page reload.
 
 ### Run in production environment
 
-Run `./run-build.sh` (Mac/Linux) or `run-build.bat` (Windows). It will process LESS, compact JS code and build a minimized package ready for production.
+To build the app for production mode, run `npm run build`. It will process LESS, compact JS code and build a minimized package ready for production.
 
-Now, point your browser to the build/ folder, it should load the index.html page.
+Point your browser to the build/ folder, and it should load the index.html page.
 
 ### Docker
 

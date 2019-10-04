@@ -1,7 +1,19 @@
 import React from 'react'
 import { AttachmentStep2 } from './AttachmentStep2'
-jest.mock('applications/PDF/components/PDFEditor/PDFEditor', () => {
-  return () => { return <div className='mock-pdfeditor' /> }
+jest.mock('eessi-pensjon-ui', () => {
+  return {
+    PDFEditor: () => {
+      return <div className='mock-pdfeditor' />
+    },
+    Nav: {
+      Hovedknapp: (props) => {
+        return <button className='mock-hovedknapp' {...props}>{props.children}</button>
+      },
+      Flatknapp: (props) => {
+        return <button className='mock-flatknapp' {...props}>{props.children}</button>
+      }
+    }
+  }
 })
 
 describe('applications/BUC/components/AttachmentStep1/AttachmentStep1', () => {

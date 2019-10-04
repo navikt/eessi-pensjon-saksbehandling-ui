@@ -19,7 +19,7 @@ jest.mock('eessi-pensjon-ui', () => {
         return <div className='mock-Spinner' />
       },
       Knapp: (props) => {
-        return <button {...props}>{props.children}</button>
+        return <button className='mock-knapp' {...props}>{props.children}</button>
       }
     }
   }

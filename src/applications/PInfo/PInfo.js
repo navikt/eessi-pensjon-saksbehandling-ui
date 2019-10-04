@@ -53,7 +53,7 @@ const PInfo = (props) => {
       <TopContainer className='a-pinfo' t={t} history={history} header={t('pinfo:app-title')}>
         <div className='content container text-center pt-4'>
           <div className='psycho mt-3 mb-4' style={{ height: '110px' }}>
-            <Psycho type='trist' id='psycho' />
+            <Psycho mood='trist' id='psycho' />
           </div>
           <div className='text-center'>
             <Nav.Normaltekst>{t('pinfo:error-noParams')}</Nav.Normaltekst>

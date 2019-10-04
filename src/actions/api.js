@@ -21,7 +21,7 @@ export const fakeCall = ({ context, expectedPayload, method, type, url }) => {
       }, Math.floor(Math.random() * 2000))
     }).then(payload => {
       if (!IS_TEST) {
-        console.log('FAKE API SUCCESS FOR ' + (method || 'GET') + url)
+        console.log('FAKE API SUCCESS FOR ' + (method || 'GET') + ' ' + url)
       }
       return dispatch({
         type: type.success,

@@ -1,6 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
-import { DatePicker, FocusGroup, Nav } from 'eessi-pensjon-ui'
+import { DatePicker, Nav } from 'eessi-pensjon-ui'
 
 const PeriodChild = ({ blurChildBirthDate, localErrors, period, setChildBirthDate, setChildFirstName, setChildLastName, t }) => (
   <Nav.Row>
@@ -45,26 +45,25 @@ const PeriodChild = ({ blurChildBirthDate, localErrors, period, setChildBirthDat
       <label className='datepickerLabel skjemaelement__label'>
         {t('buc:p4000-label-birthdate')}
       </label>
-      <FocusGroup onBlur={blurChildBirthDate}>
-        <DatePicker
-          id='a-buc-c-sedp4000-period__omsorgforbarn-fodelsdato-date-id'
-          className='a-buc-c-sedp4000-period__omsorgforbarn-fodelsdato-dat pr-2'
-          labels={{ day: t('buc:p4000-label-day'), month: t('buc:p4000-label-month'), year: t('buc:p4000-label-year') }}
-          ids={{
-            day: 'pinfo-opphold-fodelsdato-day',
-            month: 'pinfo-opphold-fodelsdato-month',
-            year: 'pinfo-opphold-fodelsdato-year'
-          }}
-          placeholders={{
-            day: t('buc:p4000-placeholder-day'),
-            month: t('buc:p4000-placeholder-month'),
-            year: t('buc:p4000-placeholder-year')
-          }}
-          initialValues={period.childBirthDate}
-          onChange={setChildBirthDate}
-          feil={localErrors.childBirthDate || localErrors.timeSpan ? { feilmelding: t(localErrors.childBirthDate || localErrors.timeSpan) } : undefined}
-        />
-      </FocusGroup>
+      <DatePicker
+        onBlur={blurChildBirthDate}
+        id='a-buc-c-sedp4000-period__omsorgforbarn-fodelsdato-date-id'
+        className='a-buc-c-sedp4000-period__omsorgforbarn-fodelsdato-dat pr-2'
+        labels={{ day: t('buc:p4000-label-day'), month: t('buc:p4000-label-month'), year: t('buc:p4000-label-year') }}
+        ids={{
+          day: 'pinfo-opphold-fodelsdato-day',
+          month: 'pinfo-opphold-fodelsdato-month',
+          year: 'pinfo-opphold-fodelsdato-year'
+        }}
+        placeholders={{
+          day: t('buc:p4000-placeholder-day'),
+          month: t('buc:p4000-placeholder-month'),
+          year: t('buc:p4000-placeholder-year')
+        }}
+        initialValues={period.childBirthDate}
+        onChange={setChildBirthDate}
+        feil={localErrors.childBirthDate || localErrors.timeSpan ? { feilmelding: t(localErrors.childBirthDate || localErrors.timeSpan) } : undefined}
+      />
     </div>
   </Nav.Row>
 )

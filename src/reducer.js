@@ -3,7 +3,6 @@ import appReducer, { initialAppState } from './reducers/app'
 import bucReducer, { initialBucState } from './reducers/buc'
 import joarkReducer, { initialJoarkState } from './reducers/joark'
 import loadingReducer, { initialLoadingState } from './reducers/loading'
-import pdfReducer, { initialPdfState } from './reducers/pdf'
 import pinfoReducer, { initialPinfoState } from './reducers/pinfo'
 import storageReducer, { initialStorageState } from './reducers/storage'
 import uiReducer, { initialUiState } from './reducers/ui'
@@ -15,7 +14,6 @@ const mainReducer = (state, action) => {
     buc: bucReducer(state.buc, action),
     joark: joarkReducer(state.joark, action),
     loading: loadingReducer(state.loading, action),
-    pdf: pdfReducer(state.pdf, action),
     pinfo: pinfoReducer(state.pinfo, action),
     storage: storageReducer(state.storage, action),
     ui: uiReducer(state.ui, action)
@@ -28,7 +26,6 @@ export const initialState = {
   buc: initialBucState,
   joark: initialJoarkState,
   loading: initialLoadingState,
-  pdf: initialPdfState,
   pinfo: initialPinfoState,
   storage: initialStorageState,
   ui: initialUiState

@@ -27,7 +27,7 @@ export const initialLoadingState = {
   loadingJoarkPreviewFile: false,
   loadingP4000list: false,
   loadingP4000info: false,
-  loadingPDF: false,
+
   loadingStorageFile: false,
   loadingStorageFileList: false,
   rinaUrl: false,
@@ -419,41 +419,6 @@ const loadingReducer = (state = initialLoadingState, action = {}) => {
         ...state,
         loadingJoarkFile: false,
         status: status
-      }
-
-      // PDF
-
-    case types.PDF_GENERATE_REQUEST:
-
-      return {
-        ...state,
-        generatingPDF: true,
-        status: status
-      }
-
-    case types.PDF_GENERATE_SUCCESS:
-    case types.PDF_GENERATE_FAILURE:
-
-      return {
-        ...state,
-        generatingPDF: false,
-        status: status
-      }
-
-    case types.PDF_LOADING_FILES_STARTED:
-
-      return {
-        ...state,
-        loadingPDF: true,
-        status: status
-      }
-
-    case types.PDF_LOADING_FILES_FINISHED:
-
-      return {
-        ...state,
-        loadingPDF: false,
-        status: 'OK'
       }
 
     case types.STORAGE_LIST_REQUEST:

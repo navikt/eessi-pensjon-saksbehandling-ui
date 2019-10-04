@@ -108,7 +108,6 @@
     "forms" : "Skjemaer",
     "forward" : "Neste",
     "found" : "Fant" ,
-    "generate" : "Generere",
     "generating" : "Genererer...",
     "getInfo" : "Hent informasjon",
     "getReceipt" : "Hent kvittering",
@@ -217,7 +216,6 @@
     "uploaded" : "Lastet opp",
     "variant" : "Variant",
     "view" : "Oversikt",
-    "watermark" : "Vannmerke",
     "writeIn" : "Skriv inn",
     "yes" : "Ja",
 

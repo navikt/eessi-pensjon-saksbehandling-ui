@@ -1,7 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
-import PDFEditor from 'applications/PDF/components/PDFEditor/PDFEditor'
-import { Nav } from 'eessi-pensjon-ui'
+import { Nav, PDFEditor } from 'eessi-pensjon-ui'
 
 export const AttachmentStep2 = (props) => {
   const { setStep, t } = props

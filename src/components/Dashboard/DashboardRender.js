@@ -74,10 +74,10 @@ export const DashboardRender = ({
 }
 
 DashboardRender.propTypes = {
-  addMode: PT.func.isRequired,
-  availableWidgets: PT.object.isRequired,
+  addMode: PT.bool.isRequired,
+  availableWidgets: PT.array.isRequired,
   currentBreakpoint: PT.string.isRequired,
-  editMode: PT.func.isRequired,
+  editMode: PT.bool.isRequired,
   layouts: PT.object.isRequired,
   onAddChange: PT.func.isRequired,
   onBreakpointChange: PT.func.isRequired,

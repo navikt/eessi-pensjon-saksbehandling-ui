@@ -1,20 +1,13 @@
 import React, { useContext, createContext } from 'react'
-import { useReducer } from 'reinspect'
+import useThunkReducer from 'react-hook-thunk-reducer'
 
 const Store = createContext()
 const useStore = () => useContext(Store)
-const applyThunk = (dispatch, state) => (action) => {
-  if (typeof action === 'function') {
-    return action(dispatch, state)
-  }
-  return dispatch(action)
-}
 
-const StoreProvider = ({ reducer, initialState, children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState, state => state, 'EESSI')
-  const thunkDispatch = applyThunk(dispatch, state)
+export const StoreProvider = ({ reducer, initialState, children }) => {
+  const [state, dispatch] = useThunkReducer(reducer, initialState)
   return (
-    <Store.Provider value={[state, thunkDispatch]}>
+    <Store.Provider value={[state, dispatch]}>
       {children}
     </Store.Provider>
   )
@@ -26,7 +19,7 @@ const bindActionCreator = (actionCreator, dispatch) => {
   }
 }
 
-const bindActionCreators = (actionCreators, dispatch) => {
+export const bindActionCreators = (actionCreators, dispatch) => {
   if (typeof actionCreators === 'function') {
     return bindActionCreator(actionCreators, dispatch)
   }
@@ -46,7 +39,7 @@ const bindActionCreators = (actionCreators, dispatch) => {
   return {}
 }
 
-const connect = (
+export const connect = (
   mapStateToProps = () => {},
   mapDispatchToProps = () => {}
 ) => WrappedComponent => {
@@ -62,5 +55,3 @@ const connect = (
     )
   }
 }
-
-export { StoreProvider, connect, bindActionCreators }

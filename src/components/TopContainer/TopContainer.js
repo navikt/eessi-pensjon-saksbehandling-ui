@@ -46,6 +46,24 @@ export const TopContainer = ({
     actions.clientClear()
   }
 
+  const getClientErrorMessage = () => {
+    if (!clientErrorMessage) {
+      return null
+    }
+    const separatorIndex = clientErrorMessage.lastIndexOf('|')
+    let message
+    if (separatorIndex >= 0) {
+      message = t(clientErrorMessage.substring(0, separatorIndex)) + ': ' + clientErrorMessage.substring(separatorIndex + 1)
+    } else {
+      message = t(clientErrorMessage)
+    }
+    return message
+  }
+
+  const getServerErrorMessage = () => {
+    return serverErrorMessage ? t(serverErrorMessage) : undefined
+  }
+
   return (
     <div
       className={classNames('c-topContainer', className, { highContrast: highContrast })}
@@ -60,22 +78,20 @@ export const TopContainer = ({
       />
       {header ? (
         <Banner
-          t={t}
           header={header}
           toggleHighContrast={actions.toggleHighContrast}
+          labelHighContrast={t('ui:highContrast')}
         />) : null}
       <Alert
         type='client'
-        t={t}
-        clientErrorMessage={clientErrorMessage}
-        clientErrorStatus={clientErrorStatus}
+        message={getClientErrorMessage()}
+        status={clientErrorStatus}
         error={error}
         onClientClear={onClientClear}
       />
       <Alert
         type='server'
-        t={t}
-        serverErrorMessage={serverErrorMessage}
+        message={getServerErrorMessage()}
         error={error}
         onClientClear={onClientClear}
       />
@@ -92,6 +108,7 @@ export const TopContainer = ({
       />
       <SessionMonitor
         t={t}
+        actions={actions}
         expirationTime={expirationTime}
       />
       <Footer

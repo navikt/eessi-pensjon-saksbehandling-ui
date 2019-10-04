@@ -247,17 +247,6 @@ describe('reducers/alert', () => {
     })
   })
 
-  it('PDF_GENERATE_FAILURE', () => {
-    expect(
-      alertReducer(initialAlertState, {
-        type: types.PDF_GENERATE_FAILURE
-      })
-    ).toEqual({
-      clientErrorStatus: 'ERROR',
-      clientErrorMessage: 'pdf:alert-PDFGenerationFail'
-    })
-  })
-
   it('STORAGE_LIST_FAILURE', () => {
     expect(
       alertReducer(initialAlertState, {
@@ -327,17 +316,6 @@ describe('reducers/alert', () => {
     ).toEqual({
       clientErrorStatus: 'OK',
       clientErrorMessage: 'buc:alert-createdSed|mockType'
-    })
-  })
-
-  it('PDF_GENERATE_SUCCESS', () => {
-    expect(
-      alertReducer(initialAlertState, {
-        type: types.PDF_GENERATE_SUCCESS
-      })
-    ).toEqual({
-      clientErrorStatus: 'OK',
-      clientErrorMessage: 'pdf:alert-PDFGenerationSuccess'
     })
   })
 

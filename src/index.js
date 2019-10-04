@@ -12,7 +12,6 @@ import ReactDOM from 'react-dom'
 import { createBrowserHistory } from 'history'
 import { Switch, Redirect, Route, Router } from 'react-router'
 import { I18nextProvider } from 'react-i18next'
-import { StateInspector } from 'reinspect'
 import 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/nb'
@@ -31,29 +30,26 @@ import 'index.css'
 import 'index_highContrast.css'
 
 ReactDOM.render(
-  <StateInspector>
-    <I18nextProvider i18n={i18n}>
-      <StoreProvider initialState={initialState} reducer={reducer}>
-        <Suspense fallback={<span>...</span>}>
-          <Router history={createBrowserHistory()}>
-            <Switch>
-              <AuthenticatedRoute exact path={routes.PINFO} component={Applications.PInfo} />
-              <AuthenticatedRoute exact path={routes.PDF} component={Applications.PDF} />
-              <AuthenticatedRoute exact path={`${routes.BUC}/:step?`} component={Pages.BUC} />
-              <AuthenticatedRoute path={routes.INDEX} component={Pages.IndexPage} />
-              <AuthenticatedRoute path={routes.RESEND} component={Pages.Resend} />
-              <Route path={routes.NOT_LOGGED} render={() => <Pages.Error type='notLogged' />} />
-              <Route path={routes.NOT_INVITED} render={() => <Pages.Error type='notInvited' />} />
-              <Route path={routes.FORBIDDEN} render={() => <Pages.Error type='forbidden' />} />
-              <Route path={routes.ROOT + ':PATH+'} render={() => <Pages.Error type='error' />} />
-              <AuthenticatedRoute path={routes.ROOT} component={Pages.FirstPage} displayName />
-              <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
-            </Switch>
-          </Router>
-        </Suspense>
-      </StoreProvider>
-    </I18nextProvider>
-  </StateInspector>,
+  <I18nextProvider i18n={i18n}>
+    <StoreProvider initialState={initialState} reducer={reducer}>
+      <Suspense fallback={<span>...</span>}>
+        <Router history={createBrowserHistory()}>
+          <Switch>
+            <AuthenticatedRoute exact path={routes.PINFO} component={Applications.PInfo} />
+            <AuthenticatedRoute exact path={`${routes.BUC}/:step?`} component={Pages.BUC} />
+            <AuthenticatedRoute path={routes.INDEX} component={Pages.IndexPage} />
+            <AuthenticatedRoute path={routes.RESEND} component={Pages.Resend} />
+            <Route path={routes.NOT_LOGGED} render={() => <Pages.Error type='notLogged' />} />
+            <Route path={routes.NOT_INVITED} render={() => <Pages.Error type='notInvited' />} />
+            <Route path={routes.FORBIDDEN} render={() => <Pages.Error type='forbidden' />} />
+            <Route path={routes.ROOT + ':PATH+'} render={() => <Pages.Error type='error' />} />
+            <AuthenticatedRoute path={routes.ROOT} component={Pages.FirstPage} displayName />
+            <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
+          </Switch>
+        </Router>
+      </Suspense>
+    </StoreProvider>
+  </I18nextProvider>,
   document.getElementById('root')
 )
 

@@ -145,14 +145,14 @@ describe('actions/buc', () => {
 
   it('getSubjectAreaList()', () => {
     bucActions.getSubjectAreaList()
-    expect(call).toBeCalledWith({
+    expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_SUBJECT_AREA_LIST_REQUEST,
         success: types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS,
         failure: types.BUC_GET_SUBJECT_AREA_LIST_FAILURE
       },
       url: urls.EUX_SUBJECT_AREA_URL
-    })
+    }))
   })
 
   it('getBucList()', () => {

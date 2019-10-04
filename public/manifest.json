@@ -1,6 +1,6 @@
 {
-  "short_name": "Pensjon-Utland",
-  "name": "eessi-pensjon-frontend-ui",
+  "short_name": "EESSI Pensjon Saksbehandling UI",
+  "name": "eessi-pensjon-saksbehandling-ui",
   "icons": [
     {
       "src": "favicon.ico",

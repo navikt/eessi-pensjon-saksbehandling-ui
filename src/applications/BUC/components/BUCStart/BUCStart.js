@@ -80,7 +80,7 @@ const BUCStart = ({
   }
 
   const hasNoValidationErrors = () => {
-    return _.isEmpty(validation)
+    return _.find(validation, (it) => (it !== undefined)) === undefined
   }
 
   const setValidationState = (key, value) => {

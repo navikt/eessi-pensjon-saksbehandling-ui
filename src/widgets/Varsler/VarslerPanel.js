@@ -118,9 +118,11 @@ export const VarslerPanel = (props) => {
       <Nav.Systemtittel className='pb-3'>{t('ui:widget-overview-notifications')}</Nav.Systemtittel>
       <Nav.Row>
         <div className='col-md-4'>
-          {/* <div><label className='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakId')}</label>: {sakId}</div>
-          <div><label className='skjemaelement__label d-inline-block'>{t('ui:aktoerId')}</label>: {aktoerId}</div>
-          <div><label className='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakType')}</label>: {sakType}</div> */}
+          <div style={{ display: 'none' }}>
+            <div><label className='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakId')}</label>: {sakId}</div>
+            <div><label className='skjemaelement__label d-inline-block'>{t('ui:aktoerId')}</label>: {aktoerId}</div>
+            <div><label className='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakType')}</label>: {sakType}</div>
+          </div>
           <Nav.Veileder
             tekst={(
               <div dangerouslySetInnerHTML={{ __html: t('ui:widget-overview-sendNotification-description', { user: aktoerId }) }} />

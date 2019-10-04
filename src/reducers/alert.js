@@ -125,11 +125,6 @@ const alertReducer = (state = initialAlertState, action = {}) => {
         clientErrorMessage = 'buc:alert-joarkGetFailure'
         break
 
-      case types.PDF_GENERATE_FAILURE:
-
-        clientErrorMessage = 'pdf:alert-PDFGenerationFail'
-        break
-
       case types.STORAGE_LIST_FAILURE:
 
         clientErrorMessage = 'ui:listFailure'
@@ -168,11 +163,6 @@ const alertReducer = (state = initialAlertState, action = {}) => {
     case types.BUC_CREATE_SED_SUCCESS:
 
       clientErrorMessage = 'buc:alert-createdSed|' + (action.payload.type || action.payload.sed)
-      break
-
-    case types.PDF_GENERATE_SUCCESS:
-
-      clientErrorMessage = 'pdf:alert-PDFGenerationSuccess'
       break
 
     case types.STORAGE_GET_SUCCESS:

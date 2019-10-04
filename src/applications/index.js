@@ -1,7 +1,7 @@
-import PDF from './PDF/pages/'
+import BUC from './BUC/pages'
 import PInfo from './PInfo/PInfo'
 
 export {
-  PDF,
+  BUC,
   PInfo
 }
