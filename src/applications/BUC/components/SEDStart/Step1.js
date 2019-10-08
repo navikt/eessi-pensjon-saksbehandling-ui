@@ -252,11 +252,10 @@ const Step1 = ({
                   id='a-buc-c-sedstart__country-select-id'
                   placeholder={t(placeholders.country)}
                   aria-describedby='help-country'
-                  locale={locale}
                   values={countryValueList}
                   hideSelectedOptions={false}
-                  onChange={onCountriesChange}
-                  optionList={countryObjectList}
+                  onSelect={onCountriesChange}
+                  options={countryObjectList}
                 />
               </div>
               <div className='mb-3 flex-fill'>
@@ -266,11 +265,10 @@ const Step1 = ({
                   id='a-buc-c-sedstart__institution-select-id'
                   placeholder={t(placeholders.institution)}
                   aria-describedby='help-institution'
-                  locale={locale}
                   values={institutionValueList}
-                  onChange={onInstitutionsChange}
+                  onSelect={onInstitutionsChange}
                   hideSelectedOptions={false}
-                  optionList={institutionObjectList}
+                  options={institutionObjectList}
                 />
               </div>
               <Nav.Undertittel className='mb-2'>{t('buc:form-chosenInstitutions')}</Nav.Undertittel>

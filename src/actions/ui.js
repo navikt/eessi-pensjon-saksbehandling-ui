@@ -11,14 +11,15 @@ export const changeLanguage = (language) => {
 
 export const openModal = (modal) => {
   return {
-    type: types.UI_MODAL_OPEN,
+    type: types.UI_MODAL_SET,
     payload: modal
   }
 }
 
 export const closeModal = () => {
   return {
-    type: types.UI_MODAL_CLOSE
+    type: types.UI_MODAL_SET,
+    payload: undefined
   }
 }
 

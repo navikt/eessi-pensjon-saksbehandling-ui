@@ -24,7 +24,6 @@ const mapStateToProps = (state) => {
     isLoggingOut: state.loading.isLoggingOut,
     footerOpen: state.ui.footerOpen,
     modal: state.ui.modal,
-    modalOpen: state.ui.modalOpen,
     highContrast: state.ui.highContrast
   }
 }
@@ -36,13 +35,13 @@ const mapDispatchToProps = (dispatch) => {
 export const TopContainer = ({
   actions, className, children, clientErrorMessage, clientErrorStatus, error,
   expirationTime, fluid = true, footerOpen, gettingUserInfo, header, history,
-  highContrast, isLoggingOut, modal, modalOpen, params, serverErrorMessage, t, username
+  highContrast, isLoggingOut, modal, params, serverErrorMessage, t, username
 }) => {
   const handleModalClose = () => {
     actions.closeModal()
   }
 
-  const onClientClear = () => {
+  const onClear = () => {
     actions.clientClear()
   }
 
@@ -87,13 +86,13 @@ export const TopContainer = ({
         message={getClientErrorMessage()}
         status={clientErrorStatus}
         error={error}
-        onClientClear={onClientClear}
+        onClear={onClear}
       />
       <Alert
         type='server'
         message={getServerErrorMessage()}
         error={error}
-        onClientClear={onClientClear}
+        onClear={onClear}
       />
       <Nav.Container
         className='_container p-0'
@@ -102,7 +101,6 @@ export const TopContainer = ({
         {children}
       </Nav.Container>
       <Modal
-        modalOpen={modalOpen}
         modal={modal}
         onModalClose={handleModalClose}
       />

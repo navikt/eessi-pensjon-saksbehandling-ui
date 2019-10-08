@@ -70,11 +70,10 @@ const BUCTools = ({ actions, aktoerId, buc, bucInfo, bucsInfo, className, loadin
           className='a-buc-c-buctools__tags-select'
           placeholder={t('buc:form-tagPlaceholder')}
           aria-describedby='help-tags'
-          locale={locale}
           values={tags || []}
           hideSelectedOptions={false}
-          onChange={onTagsChange}
-          optionList={allTags}
+          onSelect={onTagsChange}
+          options={allTags}
         />
       </div>
       <Nav.Undertittel className='mb-2'>{t('buc:form-commentForBUC')}</Nav.Undertittel>

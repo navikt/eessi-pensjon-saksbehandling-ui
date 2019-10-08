@@ -5,26 +5,16 @@ export const initialUiState = {
   language: i18n.language,
   locale: i18n.locale,
   modal: undefined,
-  modalOpen: false,
   footerOpen: false,
   highContrast: false
 }
 
 const uiReducer = (state = initialUiState, action = {}) => {
   switch (action.type) {
-    case types.UI_MODAL_OPEN:
+    case types.UI_MODAL_SET:
       return {
         ...state,
-        modalOpen: true,
         modal: action.payload
-      }
-
-    case types.UI_MODAL_CLOSE:
-
-      return {
-        ...state,
-        modalOpen: false,
-        modal: undefined
       }
 
     case types.UI_LANGUAGE_CHANGED:

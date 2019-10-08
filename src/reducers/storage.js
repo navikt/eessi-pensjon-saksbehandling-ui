@@ -2,7 +2,7 @@ import * as types from 'constants/actionTypes'
 import _ from 'lodash'
 
 export const initialStorageState = {
-  modalOpen: false,
+  modal: undefined,
   fileList: undefined,
   file: undefined
 }
@@ -69,15 +69,6 @@ const storageReducer = (state = initialStorageState, action = {}) => {
       }
     }
 
-    case types.STORAGE_MODAL_OPEN:
-
-      return {
-        ...state,
-        modalOpen: true,
-        modalOptions: action.payload
-      }
-
-    case types.STORAGE_MODAL_CLOSE:
     case types.APP_CLEAR_DATA:
 
       return initialStorageState

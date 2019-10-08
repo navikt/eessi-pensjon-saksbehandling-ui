@@ -68,7 +68,7 @@ const PeriodDate = ({
             className='startDate pr-2'
             initialValues={period.startDate}
             onChange={setStartDate}
-            feil={localErrors.startDate || localErrors.timeSpan ? { feilmelding: t(localErrors.startDate || localErrors.timeSpan) } : undefined}
+            error={localErrors.startDate || localErrors.timeSpan ? t(localErrors.startDate || localErrors.timeSpan) : undefined}
           />
         }
       </div>
@@ -99,7 +99,7 @@ const PeriodDate = ({
             className='endDate pr-2'
             initialValues={period.endDate}
             onChange={setEndDate}
-            feil={localErrors.endDate || localErrors.timeSpan ? { feilmelding: t(localErrors.endDate || localErrors.timeSpan) } : undefined}
+            error={localErrors.endDate || localErrors.timeSpan ? t(localErrors.endDate || localErrors.timeSpan) : undefined}
           />
         }
       </div>

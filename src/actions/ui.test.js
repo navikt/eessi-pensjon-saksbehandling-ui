@@ -18,7 +18,7 @@ describe('actions/ui', () => {
     const mockModal = { foo: 'bar' }
     const generatedResult = uiActions.openModal(mockModal)
     expect(generatedResult).toMatchObject({
-      type: types.UI_MODAL_OPEN,
+      type: types.UI_MODAL_SET,
       payload: mockModal
     })
   })
@@ -26,7 +26,8 @@ describe('actions/ui', () => {
   it('closeModal()', () => {
     const generatedResult = uiActions.closeModal()
     expect(generatedResult).toMatchObject({
-      type: types.UI_MODAL_CLOSE
+      type: types.UI_MODAL_SET,
+      payload: undefined
     })
   })
 

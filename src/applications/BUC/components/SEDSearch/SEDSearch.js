@@ -88,21 +88,19 @@ const SEDSearch = ({ className, locale, onCountrySearch, onSearch, onStatusSearc
         id='a-buc-c-sedsearch__status-select-id'
         className='a-buc-c-sedsearch__status-select multipleSelect pl-1 pr-1'
         placeholder={t('buc:form-searchForStatus')}
-        locale={locale}
         values={_status}
         hideSelectedOptions={false}
-        onChange={onStatusChange}
-        optionList={availableStatuses}
+        onSelect={onStatusChange}
+        options={availableStatuses}
       />
       <MultipleSelect
         id='a-buc-c-sedsearch__country-select-id'
         className='a-buc-c-sedsearch__country-select multipleSelect pl-1 pr-1'
         placeholder={t('buc:form-searchForCountry')}
-        locale={locale}
         values={_country}
         hideSelectedOptions={false}
-        onChange={onCountryChange}
-        optionList={availableCountries}
+        onSelect={onCountryChange}
+        options={availableCountries}
       />
     </Nav.Panel>
   )

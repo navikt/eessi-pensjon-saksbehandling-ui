@@ -185,8 +185,7 @@ const PeriodWork = ({
           includeList={CountryFilter.EEA}
           value={period.country || null}
           onSelect={setCountry}
-          error={localErrors.country}
-          errorMessage={t(localErrors.country)}
+          error={localErrors.country ? t(localErrors.country) : undefined}
         />
       </div>
     </Nav.Row>

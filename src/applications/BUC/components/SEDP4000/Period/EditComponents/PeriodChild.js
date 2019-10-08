@@ -62,7 +62,7 @@ const PeriodChild = ({ blurChildBirthDate, localErrors, period, setChildBirthDat
         }}
         initialValues={period.childBirthDate}
         onChange={setChildBirthDate}
-        feil={localErrors.childBirthDate || localErrors.timeSpan ? { feilmelding: t(localErrors.childBirthDate || localErrors.timeSpan) } : undefined}
+        error={localErrors.childBirthDate || localErrors.timeSpan ? t(localErrors.childBirthDate || localErrors.timeSpan) : undefined}
       />
     </div>
   </Nav.Row>

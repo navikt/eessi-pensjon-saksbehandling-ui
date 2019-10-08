@@ -2,28 +2,16 @@ import uiReducer, { initialUiState } from './ui.js'
 import * as types from 'constants/actionTypes'
 
 describe('reducers/ui', () => {
-  it('UI_MODAL_OPEN', () => {
+  it('UI_MODAL_SET', () => {
     expect(
       uiReducer(initialUiState, {
-        type: types.UI_MODAL_OPEN,
+        type: types.UI_MODAL_SET,
         payload: 'something'
       })
     ).toEqual({
       ...initialUiState,
-      modalOpen: true,
       modal: 'something'
     })
-  })
-
-  it('UI_MODAL_CLOSE', () => {
-    expect(
-      uiReducer({
-        ...initialUiState,
-        modalOpen: true
-      }, {
-        type: types.UI_MODAL_CLOSE
-      })
-    ).toEqual(initialUiState)
   })
 
   it('UI_LANGUAGE_CHANGED', () => {

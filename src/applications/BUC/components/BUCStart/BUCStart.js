@@ -242,11 +242,10 @@ const BUCStart = ({
                 className='a-buc-c-bucstart__tags-select flex-fill'
                 placeholder={t('buc:form-tagPlaceholder')}
                 aria-describedby='help-tags'
-                locale={locale}
                 values={_tags}
                 hideSelectedOptions={false}
-                onChange={onTagsChange}
-                optionList={tagObjectList}
+                onSelect={onTagsChange}
+                options={tagObjectList}
               />
             </div>
           </div>
