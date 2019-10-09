@@ -34,6 +34,30 @@ describe('reducers/buc', () => {
     })
   })
 
+  it('BUC_CURRENTSED_SET', () => {
+    expect(
+      bucReducer(initialBucState, {
+        type: types.BUC_CURRENTSED_SET,
+        payload: 'mockPayload'
+      })
+    ).toEqual({
+      ...initialBucState,
+      currentSed: 'mockPayload'
+    })
+  })
+
+  it('BUC_SEDLIST_SET', () => {
+    expect(
+      bucReducer(initialBucState, {
+        type: types.BUC_SEDLIST_SET,
+        payload: 'mockPayload'
+      })
+    ).toEqual({
+      ...initialBucState,
+      sedList: 'mockPayload'
+    })
+  })
+
   it('BUC_SED_RESET', () => {
     expect(
       bucReducer({
@@ -58,6 +82,24 @@ describe('reducers/buc', () => {
     ).toEqual(initialBucState)
   })
 
+  it('BUC_GET_SINGLE_BUC_SUCCESS', () => {
+    expect(
+      bucReducer({
+        ...initialBucState,
+        bucs: { mockPayload: { caseId: 'mockPayload' } }
+      }, {
+        type: types.BUC_GET_SINGLE_BUC_SUCCESS,
+        payload: [{
+          caseId: 'mockPayload',
+          type: 'P_BUC_01'
+        }]
+      })
+    ).toEqual({
+      ...initialBucState,
+      bucs: { mockPayload: { caseId: 'mockPayload' } }
+    })
+  })
+
   it('BUC_GET_BUCS_SUCCESS', () => {
     expect(
       bucReducer(initialBucState, {
@@ -67,20 +109,6 @@ describe('reducers/buc', () => {
     ).toEqual({
       ...initialBucState,
       bucs: { mockPayload: { caseId: 'mockPayload' } }
-    })
-  })
-
-  it('BUC_GET_BUCS_REQUEST', () => {
-    expect(
-      bucReducer({
-        ...initialBucState,
-        bucs: 'mockBucs'
-      }, {
-        type: types.BUC_GET_BUCS_REQUEST
-      })
-    ).toEqual({
-      ...initialBucState,
-      bucs: 'mockBucs'
     })
   })
 
@@ -95,6 +123,32 @@ describe('reducers/buc', () => {
     ).toEqual({
       ...initialBucState,
       bucs: null
+    })
+  })
+
+  it('BUC_GET_AVDOD_BUCS_SUCCESS', () => {
+    expect(
+      bucReducer(initialBucState, {
+        type: types.BUC_GET_AVDOD_BUCS_SUCCESS,
+        payload: [{ caseId: 'mockPayload' }]
+      })
+    ).toEqual({
+      ...initialBucState,
+      avdodBucs: { mockPayload: { caseId: 'mockPayload' } }
+    })
+  })
+
+  it('BUC_GET_AVDOD_BUCS_FAILURE', () => {
+    expect(
+      bucReducer({
+        ...initialBucState,
+        avdodBucs: 'mockBucs'
+      }, {
+        type: types.BUC_GET_AVDOD_BUCS_FAILURE
+      })
+    ).toEqual({
+      ...initialBucState,
+      avdodBucs: null
     })
   })
 
@@ -504,6 +558,18 @@ describe('reducers/buc', () => {
     })
   })
 
+  it('BUC_CREATE_REPLY_SED_SUCCESS', () => {
+    expect(
+      bucReducer(initialBucState, {
+        type: types.BUC_CREATE_REPLY_SED_SUCCESS,
+        payload: 'something'
+      })
+    ).toEqual({
+      ...initialBucState,
+      sed: 'something'
+    })
+  })
+
   it('BUC_SEND_ATTACHMENT_SUCCESS: existing attachment', () => {
     expect(
       bucReducer({
@@ -600,6 +666,18 @@ describe('reducers/buc', () => {
     })
   })
 
+  it('BUC_P4000_INFO_SET', () => {
+    expect(
+      bucReducer(initialBucState, {
+        type: types.BUC_P4000_INFO_SET,
+        payload: 'something'
+      })
+    ).toEqual({
+      ...initialBucState,
+      p4000info: 'something'
+    })
+  })
+
   it('BUC_GET_P4000_INFO_FAILURE', () => {
     expect(
       bucReducer({
@@ -611,18 +689,6 @@ describe('reducers/buc', () => {
     ).toEqual({
       ...initialBucState,
       p4000info: null
-    })
-  })
-
-  it('BUC_P4000_INFO_SET', () => {
-    expect(
-      bucReducer(initialBucState, {
-        type: types.BUC_P4000_INFO_SET,
-        payload: 'something'
-      })
-    ).toEqual({
-      ...initialBucState,
-      p4000info: 'something'
     })
   })
 })

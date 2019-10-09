@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { MultipleSelect, Nav, PsychoPanel } from 'eessi-pensjon-ui'
+import { MultipleSelect, Nav, PsychoPanel, WaitingPanel } from 'eessi-pensjon-ui'
 
 const placeholders = {
   subjectArea: 'buc:form-chooseSubjectArea',
@@ -156,12 +156,7 @@ const BUCStart = ({
   }
 
   const getSpinner = (text) => {
-    return (
-      <div className='a-buc-c-bucstart__spinner ml-2'>
-        <Nav.Spinner type='S' />
-        <div className='float-right ml-2'>{t(text)}</div>
-      </div>
-    )
+    return <WaitingPanel className='a-buc-c-bucstart__spinner ml-2' size='S' message={t(text)} />
   }
 
   const tagObjectList = tagList ? tagList.map(tag => {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { Icons, Nav, RefreshButton } from 'eessi-pensjon-ui'
+import { Icons, Nav, RefreshButton, WaitingPanel } from 'eessi-pensjon-ui'
 
 const VarslerTable = ({ actions, aktoerId, file, fileList, sakId, t }) => {
   const [isReady, setIsReady] = useState(false)
@@ -69,10 +69,7 @@ const VarslerTable = ({ actions, aktoerId, file, fileList, sakId, t }) => {
         <RefreshButton t={t} rotating={!isReady} onRefreshClick={refresh} />
       </div>
       {!isReady ? (
-        <div className='text-center' style={{ paddingTop: '3rem' }}>
-          <Nav.Spinner />
-          <p className='typo-normal'>{t('ui:loading')}</p>
-        </div>
+        <WaitingPanel style={{ paddingTop: '3rem' }} message={t('ui:loading')} />
       ) : null}
       {isReady ? (
         <table className='w-100 mt-4'>

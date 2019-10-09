@@ -6,7 +6,7 @@ import { createDragApiRef } from 'react-grid-layout'
 import WidgetAddArea from './Widget/WidgetAddArea'
 import DashboardGrid from './DashboardGrid'
 import DashboardControlPanel from './DashboardControlPanel'
-import { Nav } from 'eessi-pensjon-ui'
+import { WaitingPanel } from 'eessi-pensjon-ui'
 
 import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
@@ -21,10 +21,7 @@ export const DashboardRender = ({
 }) => {
   if (!mounted) {
     return (
-      <div className='c-dashboard__loading text-center' style={{ paddingTop: '3rem' }}>
-        <Nav.Spinner />
-        <Nav.Normaltekst>{t('ui:loading')}</Nav.Normaltekst>
-      </div>
+      <WaitingPanel className='c-dashboard__loading' style={{ paddingTop: '3rem' }} message={t('ui:loading')} />
     )
   } else {
     return (

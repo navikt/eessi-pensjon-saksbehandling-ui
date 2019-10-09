@@ -1,6 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
-import { Icons, Nav } from 'eessi-pensjon-ui'
+import { Icons, Nav, WaitingPanel } from 'eessi-pensjon-ui'
 
 const PersonTitle = ({ aktoerId, gettingPersonInfo, person, t }) => {
   let age = '-'
@@ -12,19 +12,14 @@ const PersonTitle = ({ aktoerId, gettingPersonInfo, person, t }) => {
 
   if (!aktoerId) {
     return (
-      <Nav.AlertStripe type='advarsel' className='w-100'>
+      <Nav.AlertStripe type='advarsel' className='w-overview-personPanel__alert w-100'>
         {t('buc:validation-noAktoerId')}
       </Nav.AlertStripe>
     )
   }
 
   if (gettingPersonInfo) {
-    return (
-      <div className='w-overview-personPanel__waiting'>
-        <Nav.Spinner className='ml-3 mr-3' type='M' />
-        <span className='pl-2'>{t('ui:loading')}</span>
-      </div>
-    )
+    return <WaitingPanel className='w-overview-personPanel__waiting' message={t('ui:loading')} />
   }
 
   if (!person) {

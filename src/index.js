@@ -38,7 +38,6 @@ ReactDOM.render(
             <AuthenticatedRoute exact path={routes.PINFO} component={Applications.PInfo} />
             <AuthenticatedRoute exact path={`${routes.BUC}/:step?`} component={Pages.BUC} />
             <AuthenticatedRoute path={routes.INDEX} component={Pages.IndexPage} />
-            <AuthenticatedRoute path={routes.RESEND} component={Pages.Resend} />
             <Route path={routes.NOT_LOGGED} render={() => <Pages.Error type='notLogged' />} />
             <Route path={routes.NOT_INVITED} render={() => <Pages.Error type='notInvited' />} />
             <Route path={routes.FORBIDDEN} render={() => <Pages.Error type='forbidden' />} />

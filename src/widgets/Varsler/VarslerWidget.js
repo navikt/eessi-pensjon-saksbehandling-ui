@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
-import VarslerPanel from './VarslerPanel'
+import VarslerPanel from 'widgets/Varsler/VarslerPanel'
 
 const VarslerWidget = (props) => {
   const { onResize } = props

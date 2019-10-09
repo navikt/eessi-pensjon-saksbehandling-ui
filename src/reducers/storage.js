@@ -3,22 +3,20 @@ import _ from 'lodash'
 
 export const initialStorageState = {
   modal: undefined,
+  fileToDelete: undefined,
   fileList: undefined,
   file: undefined
 }
 
 const storageReducer = (state = initialStorageState, action = {}) => {
-  let parsedList
   switch (action.type) {
     case types.STORAGE_LIST_SUCCESS:
-      parsedList = action.payload.map(file => {
-        const index = file.lastIndexOf('___')
-        return index >= 0 ? file.substring(index + 3) : file
-      })
-
       return {
         ...state,
-        fileList: parsedList
+        fileList: action.payload.map(file => {
+          const index = file.lastIndexOf('___')
+          return index >= 0 ? file.substring(index + 3) : file
+        })
       }
 
     case types.STORAGE_LIST_FAILURE:
@@ -34,37 +32,28 @@ const storageReducer = (state = initialStorageState, action = {}) => {
       }
 
     case types.STORAGE_POST_SUCCESS:
-      // clean fileList so that component requests a list again
+      // clean fileList so that component requests a list again (fileList == undefined triggers a fetch)
       return {
         ...state,
         fileList: undefined
       }
 
-    case types.STORAGE_TARGET_FILE_TO_DELETE_SET : {
+    case types.STORAGE_TARGET_FILE_TO_DELETE_SET:
       return {
         ...state,
         fileToDelete: action.payload
       }
-    }
 
-    case types.STORAGE_TARGET_FILE_TO_DELETE_CANCEL : {
+    case types.STORAGE_TARGET_FILE_TO_DELETE_CANCEL:
       return {
         ...state,
         fileToDelete: undefined
       }
-    }
 
     case types.STORAGE_DELETE_SUCCESS: {
-      const _fileList = _.clone(state.fileList)
-      const fileIndex = _fileList.indexOf(state.fileToDelete)
-
-      if (fileIndex >= 0) {
-        _fileList.splice(fileIndex, 1)
-      }
-
       return {
         ...state,
-        fileList: _fileList,
+        fileList: _.reject(state.fileList, (it) => _(it).isEqual(state.fileToDelete)),
         fileToDelete: undefined
       }
     }

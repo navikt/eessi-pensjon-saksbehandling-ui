@@ -2,6 +2,7 @@ import * as api from 'actions/api'
 import * as storageActions from 'actions/storage'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
+import * as storage from 'constants/storage'
 const sprintf = require('sprintf-js').sprintf
 
 describe('actions/storage', () => {
@@ -34,7 +35,7 @@ describe('actions/storage', () => {
   it('listStorageFiles() with no notification', () => {
     const mockParams = {
       userId: 'mockUser',
-      namespace: 'mockNamespace'
+      namespace: storage.NAMESPACE_PINFO
     }
     const mockContext = { notification: false }
     storageActions.listStorageFiles(mockParams, mockContext)
@@ -53,7 +54,7 @@ describe('actions/storage', () => {
   it('listStorageFiles() with notification', () => {
     const mockParams = {
       userId: 'mockUser',
-      namespace: 'mockNamespace'
+      namespace: storage.NAMESPACE_VARSLER
     }
     storageActions.listStorageFiles(mockParams)
     expect(call).toBeCalledWith(expect.objectContaining({

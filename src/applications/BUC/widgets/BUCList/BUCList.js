@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import moment from 'moment'
-import { Icons, Nav } from 'eessi-pensjon-ui'
+import { Icons, Nav, WaitingPanel } from 'eessi-pensjon-ui'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import SEDBody from 'applications/BUC/components/SEDBody/SEDBody'
@@ -100,10 +100,7 @@ const BUCList = (props) => {
       </div>
       {loading.gettingBUCs
         ? (
-          <div className='mt-5 a-buc-widget__loading'>
-            <Nav.Spinner className='ml-3 mr-3' type='XL' />
-            <span className='pl-2'>{t('buc:loading-bucs')}</span>
-          </div>
+          <WaitingPanel className='mt-5 a-buc-widget__loading' size='XL' message={t('buc:loading-bucs')} />
         ) : null}
       {bucs === null
         ? (

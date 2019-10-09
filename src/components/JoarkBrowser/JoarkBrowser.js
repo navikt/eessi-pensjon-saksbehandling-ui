@@ -4,8 +4,7 @@ import _ from 'lodash'
 import { connect, bindActionCreators } from 'store'
 import * as joarkActions from 'actions/joark'
 import * as uiActions from 'actions/ui'
-import { File, Nav } from 'eessi-pensjon-ui'
-import TableSorter from 'components/TableSorter/TableSorter'
+import { File, Nav, TableSorter, WaitingPanel } from 'eessi-pensjon-ui'
 import './JoarkBrowser.css'
 
 const mapStateToProps = (state) => {
@@ -118,6 +117,10 @@ export const JoarkBrowser = ({
     }
   }
 
+  const convertSomeNonAlphanumericCharactersToUnderscore = (text) => {
+    return text.replace(/[ .\-\\(\\)]/g, '_')
+  }
+
   const items = list ? list.map((file) => {
     return {
       raw: file,
@@ -148,30 +151,57 @@ export const JoarkBrowser = ({
 
   if (loadingJoarkList) {
     return (
-      <div>
-        <Nav.Spinner type='XS' />
-        <span className='pl-2'>{t('ui:loading')}</span>
-      </div>
+      <WaitingPanel size='XS' message={t('ui:loading')} />
     )
   }
 
   return (
     <div className='c-joarkBrowser'>
       <TableSorter
-        t={t}
         items={items}
-        actions={actions}
-        loadingJoarkFile={loadingJoarkFile}
-        loadingJoarkPreviewFile={loadingJoarkPreviewFile}
+        loading={loadingJoarkFile || loadingJoarkPreviewFile}
         sort={{ column: 'name', order: 'desc' }}
-        columns={{
-          name: { name: t('ui:title'), filterText: '', defaultSortOrder: '' },
-          tema: { name: t('ui:tema'), filterText: '', defaultSortOrder: '' },
-          date: { name: t('ui:date'), filterText: '', defaultSortOrder: '' },
-          varianter: { name: t('ui:variant'), filterText: '', defaultSortOrder: '' }
-        }}
-        onItemClicked={onItemClicked}
-        onSelectedItemChange={onSelectedItemChange}
+        columns={[
+          { id: 'name', label: t('ui:title'), type: 'string', filterText: '', defaultSortOrder: '' },
+          { id: 'tema', label: t('ui:tema'), type: 'tag', filterText: '', defaultSortOrder: '' },
+          { id: 'date', label: t('ui:date'), type: 'date', filterText: '', defaultSortOrder: '' },
+          {
+            id: 'varianter',
+            label: t('ui:variant'),
+            type: 'object',
+            filterText: '',
+            defaultSortOrder: '',
+            needle: (it) => it.label.toLowerCase(),
+            toTableCell: (item, value) => {
+              return value.map(variant => {
+                return (
+                  <div
+                    key={variant.label}
+                    className='c-tablesorter__subcell'
+                  >
+                    <Nav.Checkbox
+                      label=''
+                      id={'c-tablesorter__checkbox-' + item.journalpostId + '-' + item.dokumentInfoId + '-' +
+                    convertSomeNonAlphanumericCharactersToUnderscore(variant.label)}
+                      className='c-tablesorter__checkbox'
+                      onChange={(e) => onSelectedItemChange(item, e.target.checked, variant.variant)}
+                      checked={variant.selected}
+                    />
+                    <a
+                      href='#item'
+                      onClick={(e) => {
+                        e.preventDefault()
+                        onItemClicked(item, variant.variant)
+                      }}
+                    >
+                      <Nav.Normaltekst>{variant.label}</Nav.Normaltekst>
+                    </a>
+                  </div>
+                )
+              })
+            }
+          }
+        ]}
       />
     </div>
   )
@@ -191,6 +221,4 @@ JoarkBrowser.propTypes = {
   t: PT.func.isRequired
 }
 
-const ConnectedJoarkbrowser = connect(mapStateToProps, mapDispatchToProps)(JoarkBrowser)
-ConnectedJoarkbrowser.displayName = 'Connect(JoarkBrowser)'
-export default ConnectedJoarkbrowser
+export default connect(mapStateToProps, mapDispatchToProps)(JoarkBrowser)

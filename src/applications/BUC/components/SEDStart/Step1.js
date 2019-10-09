@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { CountryData, Nav, MultipleSelect } from 'eessi-pensjon-ui'
+import { CountryData, Nav, MultipleSelect, WaitingPanel } from 'eessi-pensjon-ui'
 import SEDAttachments from 'applications/BUC/components/SEDAttachments/SEDAttachments'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 
@@ -186,10 +186,7 @@ const Step1 = ({
 
   const getSpinner = (text) => {
     return (
-      <div className='a-buc-c-sedstart__spinner ml-2'>
-        <Nav.Spinner type='S' />
-        <div className='float-right ml-2'>{t(text)}</div>
-      </div>
+      <WaitingPanel className='a-buc-c-sedstart__spinner' size='S' message={t(text)} />
     )
   }
 

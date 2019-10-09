@@ -17,20 +17,22 @@ export const closeStorageModal = () => {
   }
 }
 
+const mockListStorageFiles = (userId, namespace) => {
+  if (namespace === storage.NAMESPACE_PINFO) {
+    return [userId + '___' + namespace + '___' + storage.FILE_PINFO]
+  }
+  if (namespace === storage.NAMESPACE_VARSLER + '___123') {
+    return [userId + '___' + namespace + '___1970-01-01Z00:00:00']
+  }
+  return []
+}
+
 export const listStorageFiles = ({ userId, namespace }, context) => {
   return api.call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: userId, namespace: namespace }),
     method: 'GET',
     context: context || { notification: true },
-    expectedPayload: () => {
-      if (namespace === storage.NAMESPACE_PINFO) {
-        return [userId + '___' + namespace + '___' + storage.FILE_PINFO]
-      }
-      if (namespace === storage.NAMESPACE_VARSLER + '___123') {
-        return [userId + '___' + namespace + '___1970-01-01Z00:00:00']
-      }
-      return []
-    },
+    expectedPayload: () => mockListStorageFiles(userId, namespace),
     type: {
       request: types.STORAGE_LIST_REQUEST,
       success: types.STORAGE_LIST_SUCCESS,

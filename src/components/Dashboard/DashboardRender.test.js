@@ -58,20 +58,21 @@ describe('components/Dashboard/Dashboard', () => {
     widgets: [],
     availableWidgets: [],
     setWidgets: jest.fn(),
+    onResetEdit: jest.fn(),
     onWidgetUpdate: jest.fn(),
     onWidgetResize: jest.fn(),
     onWidgetDelete: jest.fn()
   }
 
   it('Renders', () => {
-    const wrapper = shallow(<DashboardRender {...initialMockProps} />)
+    const wrapper = mount(<DashboardRender {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
     wrapper.unmount()
   })
 
   it('Has proper HTML structure: loading', () => {
-    const wrapper = shallow(<DashboardRender {...initialMockProps} />)
+    const wrapper = mount(<DashboardRender {...initialMockProps} />)
     expect(wrapper.exists('div.c-dashboard__loading')).toBeTruthy()
     wrapper.unmount()
   })

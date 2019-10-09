@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react'
 import PT from 'prop-types'
 import { connect, bindActionCreators } from 'store'
 import _ from 'lodash'
-import { Icons, Nav, RefreshButton } from 'eessi-pensjon-ui'
+import { Icons, Nav, RefreshButton, WaitingPanel } from 'eessi-pensjon-ui'
 import * as pinfoActions from 'actions/pinfo'
 import * as storageActions from 'actions/storage'
 import { ReactComponent as VeilederSVG } from 'resources/images/NavPensjonVeileder.svg'
@@ -157,10 +157,7 @@ export const VarslerPanel = (props) => {
             <RefreshButton t={t} rotating={!isReady} onRefreshClick={onRefreshHandle} />
           </div>
           {!isReady ? (
-            <div className='text-center' style={{ paddingTop: '3rem' }}>
-              <Nav.Spinner />
-              <p className='typo-normal'>{t('ui:loading')}</p>
-            </div>
+            <WaitingPanel style={{ paddingTop: '3rem' }} message={t('ui:loading')} />
           ) : (
             <table className='w-100 mt-2'>
               <thead>

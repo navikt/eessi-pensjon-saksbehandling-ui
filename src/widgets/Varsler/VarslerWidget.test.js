@@ -1,27 +1,17 @@
 import React from 'react'
-import { Overview } from '../Overview/Overview'
-import samplePerson from 'resources/tests/samplePerson'
+import VarslerWidget from './VarslerWidget'
+jest.mock('widgets/Varsler/VarslerPanel', () => {
+  return () => { return <div className='mock-varslerPanel' /> }
+})
 
-describe('widgets/Overview/Overview', () => {
+describe('widgets/Varsler/VarslerWidget', () => {
   let wrapper
   const initialMockProps = {
-    actions: {
-      getPersonInfo: jest.fn()
-    },
-    aktoerId: '123',
-    locale: 'nb',
-    onUpdate: jest.fn(),
-    person: samplePerson.person,
-    t: jest.fn((translationString) => { return translationString }),
-    widget: {
-      options: {
-        collapsed: false
-      }
-    }
+    onResize: jest.fn()
   }
 
   beforeEach(() => {
-    wrapper = mount(<Overview {...initialMockProps} />)
+    wrapper = mount(<VarslerWidget {...initialMockProps} />)
   })
 
   afterEach(() => {
@@ -32,17 +22,8 @@ describe('widgets/Overview/Overview', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
   })
 
-  it('UseEffect: fetches person info when mounting', () => {
-    expect(initialMockProps.actions.getPersonInfo).toHaveBeenCalled()
-  })
-
   it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.w-overview')).toBeTruthy()
-    expect(wrapper.exists('EkspanderbartpanelBase')).toBeTruthy()
-    expect(wrapper.exists('PersonPanel')).toBeTruthy()
-    expect(wrapper.exists('VarslerPanel')).toBeFalsy()
-
-    wrapper.find('EkspanderbartpanelBase button.ekspanderbartPanel__hode').hostNodes().simulate('click')
-    expect(wrapper.exists('PersonPanel')).toBeFalsy()
+    expect(wrapper.exists('.w-varslerWidget')).toBeTruthy()
+    expect(wrapper.exists('.mock-varslerPanel')).toBeTruthy()
   })
 })
