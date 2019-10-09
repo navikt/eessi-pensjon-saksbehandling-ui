@@ -21,7 +21,7 @@
     "type": "git",
     "url": "git+https://github.com/navikt/eessi-pensjon-saksbehandling-ui.git"
   },
-  "homepage": "https://github.com/navikt/eessi-pensjon-saksbehandling-ui#readme",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
