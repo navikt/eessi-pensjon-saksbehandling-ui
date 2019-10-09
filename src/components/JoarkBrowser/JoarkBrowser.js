@@ -160,7 +160,6 @@ export const JoarkBrowser = ({
       <TableSorter
         items={items}
         loading={loadingJoarkFile || loadingJoarkPreviewFile}
-        sort={{ column: 'name', order: 'desc' }}
         columns={[
           { id: 'name', label: t('ui:title'), type: 'string', filterText: '', defaultSortOrder: '' },
           { id: 'tema', label: t('ui:tema'), type: 'tag', filterText: '', defaultSortOrder: '' },

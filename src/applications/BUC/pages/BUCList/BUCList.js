@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
+import _ from 'lodash'
 import moment from 'moment'
 import { Icons, Nav, WaitingPanel } from 'eessi-pensjon-ui'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
-import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
-import SEDBody from 'applications/BUC/components/SEDBody/SEDBody'
-import BUCEmpty from 'applications/BUC/widgets/BUCEmpty/BUCEmpty'
-import _ from 'lodash'
-
+import SEDList from 'applications/BUC/components/SEDList/SEDList'
 import './BUCList.css'
 
-const BUCList = (props) => {
-  const { actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionList, loading, locale, rinaUrl, sakId, t } = props
+const BUCList = ({ actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionList, loading, locale, rinaUrl, sakId, t }) => {
   const [gettingBucsInfo, setGettingBucsInfo] = useState(false)
   const [mounted, setMounted] = useState(false)
 
@@ -20,7 +16,7 @@ const BUCList = (props) => {
     actions.setMode('bucnew')
   }
 
-  const onSedNew = (buc, sed) => {
+  const onSEDNew = (buc, sed) => {
     actions.setCurrentBuc(buc ? buc.caseId : undefined)
     actions.setCurrentSed(sed ? sed.id : undefined)
     actions.setMode('sednew')
@@ -131,21 +127,32 @@ const BUCList = (props) => {
                   />
                 }
               >
-                <SEDHeader t={t} />
-                <SEDBody
+                <div
+                  id='a-buc-c-sedheader__div-id'
+                  className='a-buc-buclist__sedheader pb-1'
+                >
+                  <div className='a-buc-buclist__sedheader-head col-2'>
+                    <Nav.Element>{t('buc:form-name')}</Nav.Element>
+                  </div>
+                  <div className='a-buc-buclist__sedheader_head col-4'>
+                    <Nav.Element>{t('buc:form-status')}</Nav.Element>
+                  </div>
+                  <div className='a-buc-buclist__sedheader-head col-4'>
+                    <Nav.Element>{t('buc:form-receiver')}</Nav.Element>
+                  </div>
+                  <div className='a-buc-buclist__sedheader-head col-2' />
+                </div>
+                <SEDList
                   t={t}
                   seds={buc.seds || []}
                   rinaUrl={rinaUrl}
                   locale={locale}
                   buc={buc}
-                  onSEDNew={onSedNew.bind(null, buc)}
+                  onSEDNew={onSEDNew}
                 />
               </Nav.EkspanderbartpanelBase>
             )
           }) : null}
-      {(!sakId || !aktoerId)
-        ? <BUCEmpty {...props} />
-        : null}
       {(sakId && aktoerId)
         ? (
           <div className='mb-2 a-buc-buclist__footer'>
@@ -157,7 +164,7 @@ const BUCList = (props) => {
             >
               <div className='d-flex'>
                 <Icons className='mr-2' color='#0067C5' kind='outlink' />
-                <span>{props.t('ui:goToRina')}</span>
+                <span>{t('ui:goToRina')}</span>
               </div>
             </Nav.Lenke>
           </div>
@@ -167,13 +174,13 @@ const BUCList = (props) => {
 }
 
 BUCList.propTypes = {
-  t: PT.func.isRequired,
-  bucs: PT.object,
   actions: PT.object.isRequired,
   aktoerId: PT.string,
+  bucs: PT.object,
   rinaUrl: PT.string,
   loading: PT.object.isRequired,
-  locale: PT.string.isRequired
+  locale: PT.string.isRequired,
+  t: PT.func.isRequired
 }
 
 export default BUCList

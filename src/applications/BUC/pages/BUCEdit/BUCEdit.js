@@ -2,11 +2,10 @@ import React, { useState } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import { CountryData, Nav } from 'eessi-pensjon-ui'
-import SEDRow from 'applications/BUC/components/SEDRow/SEDRow'
+import SEDPanel from 'applications/BUC/components/SEDPanel/SEDPanel'
 import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
-
 import './BUCEdit.css'
 
 const BUCEdit = ({ actions, aktoerId, bucs, bucsInfo, currentBuc, institutionNames, loading, locale, rinaUrl, t, tagList }) => {
@@ -64,32 +63,6 @@ const BUCEdit = ({ actions, aktoerId, bucs, bucsInfo, currentBuc, institutionNam
   }
 
   const buc = bucs[currentBuc]
-
-  const renderSeds = () => {
-    return buc.seds ? _(buc.seds)
-      .filter(sed => sed.status !== 'empty')
-      .filter(sedFilter)
-      .sortBy(['creationDate', 'type'])
-      .value()
-      .map((sed, index) => {
-        return (
-          <SEDRow
-            className='mt-2'
-            locale={locale}
-            t={t}
-            key={index}
-            sed={sed}
-            followUpSeds={buc.seds.filter(_seds => _seds.parentDocumentId === sed.id)}
-            rinaUrl={rinaUrl}
-            rinaId={buc.caseId}
-            onSEDNew={onSEDNew.bind(null, sed)}
-            institutionNames={institutionNames}
-            border='full'
-          />
-        )
-      }) : null
-  }
-
   const bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[buc.caseId] : {}
 
   return (
@@ -114,7 +87,28 @@ const BUCEdit = ({ actions, aktoerId, bucs, bucsInfo, currentBuc, institutionNam
             onCountrySearch={onCountrySearch}
             onStatusSearch={onStatusSearch}
           />
-          {renderSeds()}
+          {buc.seds ? _(buc.seds)
+            .filter(sed => sed.status !== 'empty')
+            .filter(sedFilter)
+            .sortBy(['creationDate', 'type'])
+            .value()
+            .map((sed, index) => {
+              return (
+                <SEDPanel
+                  className='mt-2'
+                  locale={locale}
+                  t={t}
+                  key={index}
+                  sed={sed}
+                  followUpSeds={buc.seds.filter(_seds => _seds.parentDocumentId === sed.id)}
+                  rinaUrl={rinaUrl}
+                  rinaId={buc.caseId}
+                  onSEDNew={() => onSEDNew(sed)}
+                  institutionNames={institutionNames}
+                  border='full'
+                />
+              )
+            }) : null}
         </div>
         <div className='col-md-4'>
           <BUCDetail

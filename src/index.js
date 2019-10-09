@@ -36,7 +36,6 @@ ReactDOM.render(
         <Router history={createBrowserHistory()}>
           <Switch>
             <AuthenticatedRoute exact path={routes.PINFO} component={Applications.PInfo} />
-            <AuthenticatedRoute exact path={`${routes.BUC}/:step?`} component={Pages.BUC} />
             <AuthenticatedRoute path={routes.INDEX} component={Pages.IndexPage} />
             <Route path={routes.NOT_LOGGED} render={() => <Pages.Error type='notLogged' />} />
             <Route path={routes.NOT_INVITED} render={() => <Pages.Error type='notInvited' />} />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
-import Buc from 'applications/BUC/widgets/'
+import Buc from 'applications/BUC/'
 
 const BUCWidget = ({ onResize }) => {
   const [mounted, setMounted] = useState(false)

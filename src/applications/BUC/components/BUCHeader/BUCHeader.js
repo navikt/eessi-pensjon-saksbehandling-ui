@@ -3,7 +3,6 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import { FlagList, Icons, Nav } from 'eessi-pensjon-ui'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-
 import './BUCHeader.css'
 
 const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, t }) => {
@@ -61,6 +60,7 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, t }) => 
           </Nav.Normaltekst>
           <InstitutionList
             t={t}
+            flagType='circle'
             id='a-buc-c-bucheader__owner-institutions-id'
             className='a-buc-c-bucheader__owner-institutions'
             institutionNames={institutionNames}
@@ -73,6 +73,7 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, t }) => 
       <div className='a-buc-c-bucheader__flags col-2'>
         <FlagList
           locale={locale}
+          type='circle'
           size='L'
           items={Object.keys(institutionList).map(landkode => {
             return {

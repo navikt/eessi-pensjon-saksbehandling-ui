@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { CountryData, Flag, Nav } from 'eessi-pensjon-ui'
 import './InstitutionList.css'
 
-const InstitutionList = ({ className, institutions, institutionNames, locale, t, type }) => {
+const InstitutionList = ({ className, flagType = 'circle', institutions, institutionNames, locale, t, type }) => {
   const institutionList = {}
   if (institutions) {
     institutions.forEach(item => {
@@ -31,7 +31,7 @@ const InstitutionList = ({ className, institutions, institutionNames, locale, t,
       >
         {type === 'joined' ? (
           <div className='a-buc-c-institution'>
-            <Flag label={country.label} country={landkode} size='M' />
+            <Flag label={country.label} country={landkode} size='M' type={flagType} />
             <Nav.Element className='pr-2 pl-2'>{country.label}: </Nav.Element>
             <Nav.Normaltekst>{institutionList[landkode].map(institutionId => {
               return institutionNames &&
@@ -49,7 +49,7 @@ const InstitutionList = ({ className, institutions, institutionNames, locale, t,
             : institutionId
           return (
             <div className='a-buc-c-institution' key={institutionId}>
-              <Flag label={country ? country.label : landkode} country={landkode} size='M' />
+              <Flag label={country ? country.label : landkode} country={landkode} size='M' type={flagType}/>
               <Nav.Element className='pr-2 pl-2'>{country ? country.label : landkode}: </Nav.Element>
               <Nav.Normaltekst>{label}</Nav.Normaltekst>
             </div>
@@ -62,6 +62,7 @@ const InstitutionList = ({ className, institutions, institutionNames, locale, t,
 
 InstitutionList.propTypes = {
   className: PT.string,
+  flagType: PT.string,
   institutions: PT.array.isRequired,
   institutionNames: PT.object,
   locale: PT.string.isRequired,

@@ -1,7 +1,7 @@
 import React from 'react'
 import BUCWidget from './BUCWidget'
-jest.mock('applications/BUC/widgets/', () => {
-  return () => { return <div className='mock-buc-widget' /> }
+jest.mock('applications/BUC/', () => {
+  return () => { return <div className='mock-a-buc' /> }
 })
 
 describe('widgets/BUCWidget', () => {
@@ -29,7 +29,7 @@ describe('widgets/BUCWidget', () => {
 
   it('Has proper HTML structure', () => {
     expect(wrapper.exists('.w-BucWidget')).toBeTruthy()
-    expect(wrapper.find('.mock-buc-widget')).toBeTruthy()
+    expect(wrapper.find('.mock-a-buc')).toBeTruthy()
   })
 
   it('Has properties', () => {

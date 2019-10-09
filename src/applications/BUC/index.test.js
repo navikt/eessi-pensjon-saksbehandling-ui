@@ -1,5 +1,5 @@
 import React from 'react'
-import { BUCWidgetIndex } from 'applications/BUC/widgets/index'
+import { BUCWidgetIndex } from 'applications/BUC/index'
 import sampleBucs from 'resources/tests/sampleBucs'
 jest.mock('applications/BUC/widgets/SEDNew/SEDNew', () => {
   return () => { return <div className='a-buc-sednew' /> }

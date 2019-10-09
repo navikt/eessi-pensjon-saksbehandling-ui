@@ -4,14 +4,14 @@ import { connect, bindActionCreators } from 'store'
 import * as bucActions from 'actions/buc'
 import * as appActions from 'actions/app'
 import * as uiActions from 'actions/ui'
-import BUCList from 'applications/BUC/widgets/BUCList/BUCList'
-import BUCNew from 'applications/BUC/widgets/BUCNew/BUCNew'
-import SEDNew from 'applications/BUC/widgets/SEDNew/SEDNew'
-import BUCEdit from 'applications/BUC/widgets/BUCEdit/BUCEdit'
+import { Nav, WaitingPanel } from 'eessi-pensjon-ui'
+import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
+import BUCList from 'applications/BUC/pages/BUCList/BUCList'
+import BUCNew from 'applications/BUC/pages/BUCNew/BUCNew'
+import SEDNew from 'applications/BUC/pages/SEDNew/SEDNew'
+import BUCEdit from 'applications/BUC/pages/BUCEdit/BUCEdit'
 import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
-import { Nav } from 'eessi-pensjon-ui'
-
 import './index.css'
 
 const mapStateToProps = (state) => {
@@ -61,7 +61,7 @@ export const BUCWidgetIndex = (props) => {
       }
       setMounted(true)
     }
-  }, [actions, mounted, rinaUrl, waitForMount])
+  }, [actions, mounted, rinaUrl])
 
   useEffect(() => {
     if (aktoerId && sakId && bucs === undefined && !loading.gettingBUCs) {
@@ -83,7 +83,19 @@ export const BUCWidgetIndex = (props) => {
   }, [actions, aktoerId, loading.gettingSakType, sakType, sakId])
 
   if (!mounted) {
-    return <div />
+    return <WaitingPanel />
+  }
+
+  if (!sakId || !aktoerId) {
+    return (
+      <BUCEmpty
+        actions={actions}
+        aktoerId={aktoerId}
+        onBUCNew={() => actions.setMode('bucnew')}
+        sakId={sakId}
+        t={t}
+      />
+    )
   }
 
   return (
@@ -110,11 +122,8 @@ export const BUCWidgetIndex = (props) => {
       {mode === 'bucedit' ? <BUCEdit {...props} bucs={combinedBucs} /> : null}
       {mode === 'bucnew' ? <BUCNew {...props} bucs={combinedBucs} /> : null}
       {mode === 'sednew' ? <SEDNew {...props} bucs={combinedBucs} /> : null}
-
     </div>
   )
 }
 
-const ConnectedBUCWidgetIndex = connect(mapStateToProps, mapDispatchToProps)(withTranslation()(BUCWidgetIndex))
-ConnectedBUCWidgetIndex.displayName = 'Connect(BUCWidgetIndex)'
-export default ConnectedBUCWidgetIndex
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(BUCWidgetIndex))

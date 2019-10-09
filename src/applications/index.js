@@ -1,4 +1,4 @@
-import BUC from './BUC/pages'
+import BUC from './BUC'
 import PInfo from './PInfo/PInfo'
 
 export {

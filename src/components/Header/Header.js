@@ -5,9 +5,9 @@ import { Icons, Nav } from 'eessi-pensjon-ui'
 import * as routes from 'constants/routes'
 import AdvarselTrekant from 'resources/images/AdvarselTrekant'
 import NavLogoTransparent from 'resources/images/NavLogoTransparent'
-import './InternalTopHeader.css'
+import './Header.css'
 
-const InternalTopHeader = ({ actions, gettingUserInfo, header, history, isLoggingOut, t, username }) => {
+const Header = ({ actions, gettingUserInfo, header, history, isLoggingOut, t, username }) => {
   const onLogoClick = () => {
     actions.clearData()
     history.push({
@@ -79,7 +79,7 @@ const InternalTopHeader = ({ actions, gettingUserInfo, header, history, isLoggin
   )
 }
 
-InternalTopHeader.propTypes = {
+Header.propTypes = {
   actions: PT.object.isRequired,
   gettingUserInfo: PT.bool,
   header: PT.oneOfType([PT.node, PT.string]),
@@ -89,4 +89,4 @@ InternalTopHeader.propTypes = {
   username: PT.string
 }
 
-export default InternalTopHeader
+export default Header

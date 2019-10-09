@@ -1,8 +1,8 @@
 import React from 'react'
-import SEDBody from './SEDBody'
+import SEDList from './SEDList'
 import sampleBucs from 'resources/tests/sampleBucs'
 
-describe('applications/BUC/components/SEDBody/SEDBody', () => {
+describe('applications/BUC/components/SEDList/SEDList', () => {
   let wrapper
   const initialMockProps = {
     buc: sampleBucs[0],
@@ -14,7 +14,7 @@ describe('applications/BUC/components/SEDBody/SEDBody', () => {
   }
 
   beforeEach(() => {
-    wrapper = mount(<SEDBody {...initialMockProps} />)
+    wrapper = mount(<SEDList {...initialMockProps} />)
   })
 
   afterEach(() => {
@@ -30,14 +30,14 @@ describe('applications/BUC/components/SEDBody/SEDBody', () => {
     expect(wrapper.find('SEDRow').length).toEqual(
       initialMockProps.seds.filter(sed => sed.status !== 'empty').length
     )
-    expect(wrapper.exists('.a-buc-c-sedbody__footer')).toBeTruthy()
-    const rinaLink = wrapper.find('#a-buc-c-sedbody__gotorina-link').hostNodes()
+    expect(wrapper.exists('.a-buc-c-sedlist__footer')).toBeTruthy()
+    const rinaLink = wrapper.find('#a-buc-c-sedlist__gotorina-link').hostNodes()
     expect(rinaLink.props().href).toEqual(initialMockProps.rinaUrl + initialMockProps.buc.caseId)
     expect(rinaLink.props().target).toEqual('rinaWindow')
   })
 
   it('With no seds', () => {
-    wrapper = mount(<SEDBody {...initialMockProps} seds={null} />)
+    wrapper = mount(<SEDList {...initialMockProps} seds={null} />)
     expect(wrapper.find('SEDRow').length).toEqual(0)
   })
 })

@@ -49,7 +49,7 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
 
   it('Has proper HTML structure', () => {
     expect(wrapper.exists('.c-joarkBrowser')).toBeTruthy()
-    expect(wrapper.exists('TableSorter')).toBeTruthy()
+    expect(wrapper.exists('.c-tableSorter')).toBeTruthy()
   })
 
   it('Calls onFilesChange when selecting a file', () => {

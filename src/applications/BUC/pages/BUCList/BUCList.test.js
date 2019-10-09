@@ -83,5 +83,7 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
     expect(wrapper.exists('#a-buc-buclist__newbuc-button-id')).toBeTruthy()
     expect(wrapper.find('.mock-EkspanderbartpanelBase').hostNodes().length).toEqual(sampleBucs.length)
     expect(wrapper.exists('.a-buc-buclist__footer')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-sedheader')).toBeTruthy()
+    expect(wrapper.find('.a-buc-c-sedheader__head').length).toEqual(4)
   })
 })

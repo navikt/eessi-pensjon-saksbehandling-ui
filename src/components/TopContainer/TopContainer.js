@@ -5,7 +5,7 @@ import { connect, bindActionCreators } from 'store'
 import * as appActions from 'actions/app'
 import * as uiActions from 'actions/ui'
 import { Alert, Banner, Modal, Nav } from 'eessi-pensjon-ui'
-import InternalTopHeader from 'components/Header/InternalTopHeader'
+import Header from 'components/Header/Header'
 import Footer from 'components/Footer/Footer'
 import SessionMonitor from 'components/SessionMonitor/SessionMonitor'
 
@@ -67,7 +67,7 @@ export const TopContainer = ({
     <div
       className={classNames('c-topContainer', className, { highContrast: highContrast })}
     >
-      <InternalTopHeader
+      <Header
         actions={actions}
         t={t}
         history={history}
