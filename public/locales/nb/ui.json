@@ -3,19 +3,6 @@
 
     "alert-noSuchUser" : "Ukjent bruker",
 
-    "dashboard-dragNewWidgets" : "Dra nye widgeter til dashbordet",
-    "dashboard-arrangeWidgets" : "Ordne widgets, og lagre eller avbryt endringer",
-    "dashboard-addNewWidgets" : "Legg til nye widgeter",
-    "dashboard-hideNewWidgets" : "Skjule nye widgeter",
-    "dashboard-editDashboard" : "Rediger dashbordet",
-    "dashboard-reset" : "Nullstill dashbordet",
-    "dashboard-saveChanges" : "Lagre endringer",
-    "dashboard-cancelChanges" : "Glem endringer",
-    "dashboard-noWidgetForType" : "Ingen widget til type {{type}}",
-    "dashboard-deleteWidgetAreYouSure1" : "Er du sikker på at du vil slett dette widget?",
-    "dashboard-deleteWidgetAreYouSure2" : "Du kan legg til andre senere, men alle innstillinger vil gå tapt",
-    "dashboard-dragHereToMoveWidget" : "Dra her for å flytte widgeten",
-
     "error-user-notInvited-title" : "Ikke tilgang",
     "error-user-notInvited-description" : "Du har ikke tilgang til denne siden.",
     "error-user-forbidden-title" : "Ikke tilgang",

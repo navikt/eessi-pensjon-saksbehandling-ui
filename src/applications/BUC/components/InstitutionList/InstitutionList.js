@@ -49,7 +49,7 @@ const InstitutionList = ({ className, flagType = 'circle', institutions, institu
             : institutionId
           return (
             <div className='a-buc-c-institution' key={institutionId}>
-              <Flag label={country ? country.label : landkode} country={landkode} size='M' type={flagType}/>
+              <Flag label={country ? country.label : landkode} country={landkode} size='M' type={flagType} />
               <Nav.Element className='pr-2 pl-2'>{country ? country.label : landkode}: </Nav.Element>
               <Nav.Normaltekst>{label}</Nav.Normaltekst>
             </div>

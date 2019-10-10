@@ -18,7 +18,7 @@ const SEDHeader = ({ border = 'none', buc, className, institutionNames, locale, 
 
   return (
     <Nav.PanelBase
-      className={classNames('a-buc-c-sedrow','w-100','p-0', className)}
+      className={classNames('a-buc-c-sedrow', 'w-100', 'p-0', className)}
     >
       <div className={classNames('a-buc-c-sedrow__content pt-2 pb-2', 'a-buc-c-sedrow__border-' + border)}>
         <div className='a-buc-c-sedrow__column a-buc-c-sedrow__name col-2'>

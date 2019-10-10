@@ -19,7 +19,7 @@ const SEDPanel = ({ buc, locale, onSEDNew, rinaUrl, sed, t }) => {
         />
       }
     >
-      <SEDBody t={t}/>
+      <SEDBody t={t} />
     </Nav.EkspanderbartpanelBase>
 
   )
