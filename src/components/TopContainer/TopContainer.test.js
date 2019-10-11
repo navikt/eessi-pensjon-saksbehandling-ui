@@ -8,6 +8,8 @@ describe('components/TopContainer', () => {
     actions: {
       toggleHighContrast: jest.fn()
     },
+    clientErrorMessage: 'mockErrorMessage',
+    header: 'mockHeader',
     highContrast: false,
     history: {},
     t: jest.fn((translationString) => { return translationString })
@@ -27,10 +29,29 @@ describe('components/TopContainer', () => {
   })
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.exists('#TEST_CHILD')).toBeTruthy()
-    expect(wrapper.exists({ header: 'TEST_HEADER' })).toBeFalsy()
+    expect(wrapper.exists('Header')).toBeTruthy()
+    expect(wrapper.exists('Banner')).toBeTruthy()
+    expect(wrapper.exists('Alert')).toBeTruthy()
+    expect(wrapper.exists('Modal')).toBeTruthy()
+    expect(wrapper.exists('SessionMonitor')).toBeTruthy()
+    expect(wrapper.exists('Footer')).toBeTruthy()
+  })
 
-    wrapper.setProps({ header: 'TEST_HEADER' })
-    expect(wrapper.exists({ header: 'TEST_HEADER' })).toBeTruthy()
+  it('Compute the client error message', () => {
+    wrapper.setProps({
+      clientErrorMessage: 'mockMessage|mockParams'
+    })
+    expect(wrapper.find('Alert[type="client"]').render().text()).toEqual('mockMessage: mockParams')
+  })
+
+  it('Opens modal', () => {
+    const mockModal = {
+      modalTitle: 'mockTitle',
+      modalText: 'mockText'
+    }
+    wrapper.setProps({
+      modal: mockModal
+    })
+    expect(wrapper.find('Modal').props().modal).toEqual(expect.objectContaining(mockModal))
   })
 })

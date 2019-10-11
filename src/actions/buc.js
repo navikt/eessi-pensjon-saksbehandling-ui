@@ -169,18 +169,13 @@ export const createBuc = (buc) => {
   })
 }
 
-export const saveBucsInfo = ({ aktoerId, buc, bucsInfo, comment, tags }) => {
-  const newBucsInfo = bucsInfo ? _.cloneDeep(bucsInfo) : {}
-  const newTags = tags ? tags.map(tag => {
-    return tag.value
-  }) : []
+export const saveBucsInfo = ({ aktoerId, buc, bucsInfo = {}, comment, tags }) => {
+  const newBucsInfo = _.cloneDeep(bucsInfo)
+  const newTags = tags ? tags.map(tag => tag.value) : []
   const bucId = buc.caseId
-  if (!Object.prototype.hasOwnProperty.call(newBucsInfo, 'bucs')) {
-    newBucsInfo.bucs = {}
-  }
-  if (!Object.prototype.hasOwnProperty.call(newBucsInfo.bucs, bucId)) {
-    newBucsInfo.bucs[bucId] = {}
-  }
+  newBucsInfo.bucs = newBucsInfo.bucs || {}
+  newBucsInfo.bucs[bucId] = newBucsInfo.bucs[bucId] || {}
+
   if (tags) {
     newBucsInfo.bucs[bucId].tags = newTags
   }

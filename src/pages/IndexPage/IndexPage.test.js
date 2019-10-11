@@ -9,8 +9,10 @@ jest.mock('components/TopContainer/TopContainer', () => {
     )
   }
 })
-jest.mock('components/Dashboard/Dashboard', () => {
-  return () => <div className='mock-c-dashboard' />
+jest.mock('eessi-pensjon-ui', () => {
+  return {
+    Dashboard: () => <div className='mock-c-dashboard' />
+  }
 })
 
 describe('pages/IndexPage', () => {

@@ -1,7 +1,7 @@
 import React from 'react'
-import { BUCWidgetIndex } from 'applications/BUC/index'
+import { BUCIndex } from 'applications/BUC'
 import sampleBucs from 'resources/tests/sampleBucs'
-jest.mock('applications/BUC/widgets/SEDNew/SEDNew', () => {
+jest.mock('applications/BUC/pages/SEDNew/SEDNew', () => {
   return () => { return <div className='a-buc-sednew' /> }
 })
 
@@ -11,7 +11,7 @@ const bucReducer = (currentBucs, newBuc) => {
 }
 const mockBucs = sampleBucs.reduce(bucReducer, {})
 
-describe('applications/BUC/widgets/index', () => {
+describe('applications/BUC/index', () => {
   let wrapper
   const t = jest.fn((translationString) => { return translationString })
   const initialMockProps = {
@@ -42,48 +42,48 @@ describe('applications/BUC/widgets/index', () => {
   }
 
   it('Renders', () => {
-    wrapper = mount(<BUCWidgetIndex {...initialMockProps} mode='xxx' />)
+    wrapper = mount(<BUCIndex {...initialMockProps} mode='xxx' />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
   it('UseEffect: getRinaUrl', () => {
     const mockActions = { getRinaUrl: jest.fn() }
-    wrapper = mount(<BUCWidgetIndex loading={{}} actions={mockActions} t={t} aktoerId='123' mode='xxx' />)
+    wrapper = mount(<BUCIndex waitForMount loading={{}} actions={mockActions} t={t} aktoerId='123' mode='xxx' />)
     expect(mockActions.getRinaUrl).toHaveBeenCalled()
   })
 
   it('UseEffect: fetchBucs, fetchBucsInfo, fetchAvdodBucs', () => {
-    wrapper = mount(<BUCWidgetIndex {...initialMockProps} mode='xxx' bucs={undefined} avdodfnr='567' />)
+    wrapper = mount(<BUCIndex {...initialMockProps} mode='xxx' bucs={undefined} avdodfnr='567' />)
     expect(initialMockProps.actions.fetchBucs).toHaveBeenCalled()
     expect(initialMockProps.actions.fetchBucsInfoList).toHaveBeenCalled()
     expect(initialMockProps.actions.fetchAvdodBucs).toHaveBeenCalled()
   })
 
   it('Has proper HTML structure ', () => {
-    wrapper = mount(<BUCWidgetIndex {...initialMockProps} mode='xxx' />)
+    wrapper = mount(<BUCIndex {...initialMockProps} mode='xxx' />)
     expect(wrapper.exists('.a-buc-widget')).toBeTruthy()
     expect(wrapper.exists('.a-buc-widget__header')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-buccrumbs')).toBeTruthy()
   })
 
   it('Has proper HTML structure in buclist mode', () => {
-    wrapper = mount(<BUCWidgetIndex {...initialMockProps} mode='buclist' />)
+    wrapper = mount(<BUCIndex {...initialMockProps} mode='buclist' />)
     expect(wrapper.exists('BUCList')).toBeTruthy()
   })
 
   it('Has proper HTML structure in bucedit mode', () => {
-    wrapper = mount(<BUCWidgetIndex {...initialMockProps} mode='bucedit' />)
+    wrapper = mount(<BUCIndex {...initialMockProps} mode='bucedit' />)
     expect(wrapper.exists('BUCEdit')).toBeTruthy()
   })
 
   it('Has proper HTML structure in bucnew mode', () => {
-    wrapper = mount(<BUCWidgetIndex {...initialMockProps} mode='bucnew' />)
+    wrapper = mount(<BUCIndex {...initialMockProps} mode='bucnew' />)
     expect(wrapper.exists('BUCNew')).toBeTruthy()
   })
 
   it('Has proper HTML structure in sednew mode', () => {
-    wrapper = mount(<BUCWidgetIndex {...initialMockProps} mode='sednew' />)
+    wrapper = mount(<BUCIndex {...initialMockProps} mode='sednew' />)
     expect(wrapper.exists('.a-buc-sednew')).toBeTruthy()
   })
 })

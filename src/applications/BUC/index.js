@@ -48,7 +48,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export const BUCWidgetIndex = (props) => {
+export const BUCIndex = (props) => {
   const { actions, aktoerId, avdodBucs, bucs, currentBuc, loading, mode, rinaUrl, sakId, t, waitForMount = true, sakType, avdodfnr } = props
   const [mounted, setMounted] = useState(!waitForMount)
   const [_avdodfnr, setAvdodfnr] = useState('')
@@ -126,4 +126,4 @@ export const BUCWidgetIndex = (props) => {
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(BUCWidgetIndex))
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(BUCIndex))

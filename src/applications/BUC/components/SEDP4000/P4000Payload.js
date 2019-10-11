@@ -20,7 +20,7 @@ export default class P4000Payload {
       return this.t('ui:unknown')
     }
     const d = moment(this.pinfoDateToDate(date))
-    return d.isValid() ? d.format('YYYY-MM-DD') : null
+    return d.isValid() ? d.format('DD.MM.YYYY') : null
   }
 
   handleDate (period) {

@@ -35,4 +35,47 @@ describe('widgets/Varsler/VarslerPanel', () => {
   it('Has proper HTML structure', () => {
     expect(wrapper.exists('.w-varslerPanel')).toBeTruthy()
   })
+
+  it('UseEffect: There is a file list', () => {
+    wrapper.setProps({
+      fileList: ['mockFileName']
+    })
+    expect(initialMockProps.actions.getStorageFile).toHaveBeenCalledWith({
+      userId: initialMockProps.aktoerId,
+      namespace: 'varsler',
+      file: initialMockProps.sakId + '___mockFileName'
+    }, {
+      notification: false
+    })
+  })
+
+  it('UseEffect: There is a file', () => {
+    wrapper.setProps({
+      fileList: ['mockFileName'],
+      file: { name: 'mockFileName' }
+    })
+    expect(initialMockProps.actions.getStorageFile).toHaveBeenCalledWith({
+      userId: initialMockProps.aktoerId,
+      namespace: 'varsler',
+      file: initialMockProps.sakId + '___mockFileName'
+    }, {
+      notification: false
+    })
+  })
+
+  it('Refresh button triggers refresh action', () => {
+    wrapper.find('.w-varslerPanel__refresh-button').hostNodes().simulate('click')
+    expect(initialMockProps.actions.listStorageFiles).toHaveBeenCalledWith({
+      userId: initialMockProps.aktoerId,
+      namespace: 'varsler___' + initialMockProps.sakId
+    })
+  })
+
+  it('Invite button triggers a invite action', () => {
+    wrapper.find('.w-varslerPanel__invite-button').hostNodes().simulate('click')
+    expect(initialMockProps.actions.sendInvite).toBeCalledWith({
+      aktoerId: initialMockProps.aktoerId,
+      sakId: initialMockProps.sakId
+    })
+  })
 })

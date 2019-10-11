@@ -5,8 +5,8 @@ export default {
       annenInformasjon: 'other period 1 comment',
       periode: {
         lukketPeriode: {
-          fom: '1970-01-01',
-          tom: '1971-01-01'
+          fom: '01.01.1970',
+          tom: '01.01.1971'
         }
       },
       usikkerDatoIndikator: '1',
@@ -16,7 +16,7 @@ export default {
       annenInformasjon: 'other period 2 comment',
       periode: {
         openPeriode: {
-          fom: '1972-01-01',
+          fom: '01.01.1972',
           extra: '01'
         }
       },
@@ -28,8 +28,8 @@ export default {
       annenInformasjon: 'daily period 1 comment',
       periode: {
         lukketPeriode: {
-          fom: '1973-01-01',
-          tom: '1974-01-01'
+          fom: '01.01.1973',
+          tom: '01.01.1974'
         }
       },
       usikkerDatoIndikator: '1',
@@ -39,8 +39,8 @@ export default {
       annenInformasjon: 'daily period 2 comment',
       periode: {
         lukketPeriode: {
-          fom: '1975-01-01',
-          tom: '1976-01-01'
+          fom: '01.01.1975',
+          tom: '01.01.1976'
         }
       },
       usikkerDatoIndikator: '1',
@@ -51,8 +51,8 @@ export default {
       annenInformasjon: 'home period 1 comment',
       periode: {
         lukketPeriode: {
-          fom: '1977-01-01',
-          tom: '1978-01-01'
+          fom: '01.01.1977',
+          tom: '01.01.1978'
         }
       },
       usikkerDatoIndikator: '1'
@@ -61,8 +61,8 @@ export default {
       annenInformasjon: 'home period 2 comment',
       periode: {
         lukketPeriode: {
-          fom: '1979-01-01',
-          tom: '1980-01-01'
+          fom: '01.01.1979',
+          tom: '01.01.1980'
         }
       },
       usikkerDatoIndikator: '1'
@@ -72,8 +72,8 @@ export default {
       annenInformasjon: 'learn period 1 comment',
       periode: {
         lukketPeriode: {
-          fom: '1981-01-01',
-          tom: '1982-01-01'
+          fom: '01.01.1981',
+          tom: '01.01.1982'
         }
       },
       usikkerDatoIndikator: '1',
@@ -83,8 +83,8 @@ export default {
       annenInformasjon: 'learn period 2 comment',
       periode: {
         lukketPeriode: {
-          fom: '1983-01-01',
-          tom: '1984-01-01'
+          fom: '01.01.1983',
+          tom: '01.01.1984'
         }
       },
       usikkerDatoIndikator: '1',
@@ -95,8 +95,8 @@ export default {
       annenInformasjon: 'sick period 1 comment',
       periode: {
         lukketPeriode: {
-          fom: '1985-01-01',
-          tom: '1986-01-01'
+          fom: '01.01.1985',
+          tom: '01.01.1986'
         }
       },
       usikkerDatoIndikator: '1',
@@ -106,8 +106,8 @@ export default {
       annenInformasjon: 'sick period 2 comment',
       periode: {
         lukketPeriode: {
-          fom: '1987-01-01',
-          tom: '1988-01-01'
+          fom: '01.01.1987',
+          tom: '01.01.1988'
         }
       },
       usikkerDatoIndikator: '1',
@@ -119,12 +119,12 @@ export default {
         fornavn: 'Ole',
         land: 'KE',
         etternavn: 'Olsen',
-        foedseldato: '2002-01-01'
+        foedseldato: '01.01.2002'
       },
       periode: {
         lukketPeriode: {
-          fom: '1989-01-01',
-          tom: '1990-01-01'
+          fom: '01.01.1989',
+          tom: '01.01.1990'
         }
       },
       usikkerDatoIndikator: '1'
@@ -134,12 +134,12 @@ export default {
         fornavn: 'Teddy',
         land: 'LU',
         etternavn: 'Olsen',
-        foedseldato: '2003-01-01'
+        foedseldato: '01.01.2003'
       },
       periode: {
         lukketPeriode: {
-          fom: '1991-01-01',
-          tom: '1992-01-01'
+          fom: '01.01.1991',
+          tom: '01.01.1992'
         }
       },
       usikkerDatoIndikator: '1'
@@ -156,8 +156,8 @@ export default {
       },
       periode: {
         lukketPeriode: {
-          fom: '1993-01-01',
-          tom: '1994-01-01'
+          fom: '01.01.1993',
+          tom: '01.01.1994'
         }
       },
       forsikkringEllerRegistreringNr: 'work period 1 insuranceId',
@@ -176,8 +176,8 @@ export default {
       },
       periode: {
         lukketPeriode: {
-          fom: '1995-01-01',
-          tom: '1996-01-01'
+          fom: '01.01.1995',
+          tom: '01.01.1996'
         }
       },
       forsikkringEllerRegistreringNr: 'work period 2 insuranceId',
@@ -190,8 +190,8 @@ export default {
       annenInformasjon: 'military period 1 comment',
       periode: {
         lukketPeriode: {
-          fom: '1997-01-01',
-          tom: '1998-01-01'
+          fom: '01.01.1997',
+          tom: '01.01.1998'
         }
       },
       usikkerDatoIndikator: '1'
@@ -200,8 +200,8 @@ export default {
       annenInformasjon: 'military period 2 comment',
       periode: {
         lukketPeriode: {
-          fom: '1999-01-01',
-          tom: '2000-01-01'
+          fom: '01.01.1999',
+          tom: '01.01.2000'
         }
       },
       usikkerDatoIndikator: '1'
@@ -211,7 +211,7 @@ export default {
       annenInformasjon: 'birth period 1 comment',
       periode: {
         openPeriode: {
-          fom: '2001-01-01',
+          fom: '01.01.2001',
           extra: '98'
         }
       },
@@ -221,8 +221,8 @@ export default {
       annenInformasjon: 'birth period 2 comment',
       periode: {
         lukketPeriode: {
-          fom: '2002-01-01',
-          tom: '2003-01-01'
+          fom: '01.01.2002',
+          tom: '01.01.2003'
         }
       },
       usikkerDatoIndikator: '1'
@@ -232,8 +232,8 @@ export default {
       annenInformasjon: 'voluntary period 1 comment',
       periode: {
         lukketPeriode: {
-          fom: '2004-01-01',
-          tom: '2005-01-01'
+          fom: '01.01.2004',
+          tom: '01.01.2005'
         }
       },
       usikkerDatoIndikator: '1'
@@ -242,8 +242,8 @@ export default {
       annenInformasjon: 'voluntary period 2 comment',
       periode: {
         lukketPeriode: {
-          fom: '2006-01-01',
-          tom: '2007-01-01'
+          fom: '01.01.2006',
+          tom: '01.01.2007'
         }
       },
       usikkerDatoIndikator: '1'

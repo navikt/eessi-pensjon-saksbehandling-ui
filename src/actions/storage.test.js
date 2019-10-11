@@ -72,7 +72,7 @@ describe('actions/storage', () => {
   it('getStorageFile() with no notification', () => {
     const mockParams = {
       userId: 'userId',
-      namespace: 'namespace',
+      namespace: 'varsler',
       file: 'file'
     }
     storageActions.getStorageFile(mockParams, { notification: false })

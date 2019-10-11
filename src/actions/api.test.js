@@ -176,5 +176,15 @@ describe('actions/api', () => {
     })
     const newApi = require('actions/api')
     expect(newApi.call.name).toEqual('fakeCall')
+
+    store.dispatch(newApi.call({
+      url: 'http://mockedurl/',
+      type: {
+        request: 'REQUEST',
+        success: 'SUCCESS',
+        failure: 'FAILURE'
+      },
+      expectedPayload: 'mockedPayload'
+    }))
   })
 })

@@ -133,8 +133,8 @@ export const VarslerPanel = (props) => {
           </Nav.Veileder>
           <div className='text-center'>
             <Nav.Hovedknapp
-              id='pinfo-forward-button'
-              className='forwardButton mt-3'
+              id='w-varslerPanel__invite-button-id'
+              className='w-varslerPanel__invite-button mt-3'
               disabled={isInvitingPinfo}
               spinner={isInvitingPinfo}
               onClick={onInviteButtonClick}
@@ -154,7 +154,12 @@ export const VarslerPanel = (props) => {
           <div className='w-varslerPanel__title'>
             {/* <Undertittel>{t('ui:widget-overview-sendNotification-title')}</Undertittel> */}
             <div />
-            <RefreshButton t={t} rotating={!isReady} onRefreshClick={onRefreshHandle} />
+            <RefreshButton
+              className='w-varslerPanel__refresh-button'
+              labelRefresh={t('ui:refresh')}
+              rotating={!isReady}
+              onRefreshClick={onRefreshHandle}
+            />
           </div>
           {!isReady ? (
             <WaitingPanel style={{ paddingTop: '3rem' }} message={t('ui:loading')} />

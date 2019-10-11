@@ -3,30 +3,46 @@ import Header from './Header'
 import * as routes from 'constants/routes'
 
 describe('components/Header', () => {
+  let wrapper
   const initialMockProps = {
     t: jest.fn((translationString) => { return translationString }),
     username: 'testUser',
     actions: {
-      clearData: jest.fn()
+      clearData: jest.fn(),
+      logout: jest.fn()
     },
     history: {
       push: jest.fn()
     }
   }
 
+  beforeEach(() => {
+    wrapper = mount(<Header {...initialMockProps} />)
+  })
+
+  afterEach(() => {
+    wrapper.unmount()
+  })
+
   it('Renders', () => {
-    const wrapper = mount(<Header {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Clicking logo is handled', () => {
-    const wrapper = mount(<Header {...initialMockProps} />)
     wrapper.find('#c-topHeader__logo-link').hostNodes().simulate('click')
     expect(initialMockProps.actions.clearData).toHaveBeenCalled()
     expect(initialMockProps.history.push).toHaveBeenCalledWith({
       pathname: routes.INDEX,
       search: window.location.search
     })
+    initialMockProps.actions.clearData.mockReset()
+  })
+
+  it('Clicking logout', () => {
+    const select = wrapper.find('select#username-select-id')
+    select.simulate('change', { target: { value: 'logout' } })
+    expect(initialMockProps.actions.clearData).toHaveBeenCalled()
+    expect(initialMockProps.actions.logout).toHaveBeenCalled()
   })
 })

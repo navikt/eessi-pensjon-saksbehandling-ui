@@ -25,8 +25,8 @@ describe('applications/BUC/components/SEDP4000/P4000Payload - empty payload', ()
     }
     expect(util.handleDate(mockPeriod)).toEqual({
       lukketPeriode: {
-        fom: '1970-01-01',
-        tom: '1980-01-01'
+        fom: '01.01.1970',
+        tom: '01.01.1980'
       }
     })
   })
@@ -39,7 +39,7 @@ describe('applications/BUC/components/SEDP4000/P4000Payload - empty payload', ()
     }
     expect(util.handleDate(mockPeriod)).toEqual({
       openPeriode: {
-        fom: '1970-01-01',
+        fom: '01.01.1970',
         extra: '01'
       }
     })
@@ -53,7 +53,7 @@ describe('applications/BUC/components/SEDP4000/P4000Payload - empty payload', ()
     }
     expect(util.handleDate(mockPeriod)).toEqual({
       openPeriode: {
-        fom: '1970-01-01',
+        fom: '01.01.1970',
         extra: '98'
       }
     })
@@ -65,7 +65,7 @@ describe('applications/BUC/components/SEDP4000/P4000Payload - empty payload', ()
 
   it('renderDate valid date', () => {
     const date = { year: '2020', month: '12', day: '17' }
-    expect(util.renderDate(date)).toEqual('2020-12-17')
+    expect(util.renderDate(date)).toEqual('17.12.2020')
   })
 
   it('pinfoDateToDate invalid date', () => {
