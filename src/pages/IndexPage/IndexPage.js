@@ -59,7 +59,7 @@ export const IndexPage = ({ history, t }) => (
     history={history}
   >
     <Dashboard
-      id='dashboard'
+      id='eessi-pensjon-ui-fss'
       extraWidgets={extraWidgets}
       defaultWidgets={defaultWidgets}
       defaultLayout={defaultLayout}

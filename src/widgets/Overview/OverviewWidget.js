@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
 import Overview from './Overview'
 
-const OverviewWidget = ({ t, onResize, onUpdate, widget }) => {
+const OverviewWidget = ({ onResize, onUpdate, widget }) => {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const OverviewWidget = ({ t, onResize, onUpdate, widget }) => {
         handleHeight
         onResize={onResize}
       />
-      <Overview t={t} onUpdate={onUpdate} widget={widget} />
+      <Overview onUpdate={onUpdate} widget={widget} />
     </div>
   )
 }
@@ -40,7 +40,6 @@ OverviewWidget.properties = {
 }
 
 OverviewWidget.propTypes = {
-  t: PT.func.isRequired,
   onResize: PT.func.isRequired,
   onUpdate: PT.func.isRequired,
   widget: PT.object.isRequired

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
+import { withTranslation } from 'react-i18next'
 import { connect, bindActionCreators } from 'store'
 import * as appActions from 'actions/app'
 import { Nav } from 'eessi-pensjon-ui'
@@ -60,6 +61,4 @@ Overview.propTypes = {
   widget: PT.object.isRequired
 }
 
-const ConnectedOverview = connect(mapStateToProps, mapDispatchToProps)(Overview)
-ConnectedOverview.displayName = 'Connect(Overview)'
-export default ConnectedOverview
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(Overview))

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react'
 import PT from 'prop-types'
 import { connect, bindActionCreators } from 'store'
 import _ from 'lodash'
+import { withTranslation } from 'react-i18next'
 import { Icons, Nav, RefreshButton, WaitingPanel } from 'eessi-pensjon-ui'
 import * as pinfoActions from 'actions/pinfo'
 import * as storageActions from 'actions/storage'
@@ -215,6 +216,4 @@ VarslerPanel.propTypes = {
   t: PT.func.isRequired
 }
 
-const ConnectedVarsler = connect(mapStateToProps, mapDispatchToProps)(VarslerPanel)
-ConnectedVarsler.displayName = 'Connect(VarslerPanel)'
-export default ConnectedVarsler
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(VarslerPanel))
