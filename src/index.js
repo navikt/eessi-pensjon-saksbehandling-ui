@@ -24,10 +24,14 @@ import { unregister } from 'registerServiceWorker'
 import * as Applications from 'applications'
 import * as Pages from 'pages'
 import AuthenticatedRoute from 'components/AuthenticatedRoute/AuthenticatedRoute'
-
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'index.css'
 import 'index_highContrast.css'
+
+import pdfjs from 'pdfjs-dist/build/pdf'
+if (process.env.NODE_ENV !== 'production') {
+  pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
+}
 
 ReactDOM.render(
   <I18nextProvider i18n={i18n}>

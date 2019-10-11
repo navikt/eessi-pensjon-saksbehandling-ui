@@ -4,7 +4,7 @@ import _ from 'lodash'
 import { connect, bindActionCreators } from 'store'
 import * as joarkActions from 'actions/joark'
 import * as uiActions from 'actions/ui'
-import { File, Nav, TableSorter, WaitingPanel } from 'eessi-pensjon-ui'
+import { File, Modal, Nav, TableSorter, WaitingPanel } from 'eessi-pensjon-ui'
 import './JoarkBrowser.css'
 
 const mapStateToProps = (state) => {
@@ -31,6 +31,7 @@ export const JoarkBrowser = ({
   const [_files, setFiles] = useState(files)
   const [_previewFile, setPreviewFile] = useState(previewFile)
   const [mounted, setMounted] = useState(false)
+  const [modal, setModal] = useState(undefined)
 
   useEffect(() => {
     if (!mounted && list === undefined && !loadingJoarkList) {
@@ -54,10 +55,13 @@ export const JoarkBrowser = ({
 
   useEffect(() => {
     const onPreviewFile = (previewFile) => {
-      actions.openModal({
+      setModal({
         modalContent: (
-          <div style={{ cursor: 'pointer' }} onClick={() => actions.closeModal()}>
-            <File t={t} file={previewFile} width={400} height={600} />
+          <div
+            style={{ cursor: 'pointer' }}
+            onClick={() => setModal(undefined)}
+          >
+            <File file={previewFile} width={400} height={600} />
           </div>
         )
       })
@@ -157,6 +161,7 @@ export const JoarkBrowser = ({
 
   return (
     <div className='c-joarkBrowser'>
+      <Modal modal={modal} />
       <TableSorter
         items={items}
         loading={loadingJoarkFile || loadingJoarkPreviewFile}
@@ -176,7 +181,7 @@ export const JoarkBrowser = ({
                 return (
                   <div
                     key={variant.label}
-                    className='c-tablesorter__subcell'
+                    className='c-joarkbrowser__subcell'
                   >
                     <Nav.Checkbox
                       label=''
@@ -216,8 +221,7 @@ JoarkBrowser.propTypes = {
   loadingJoarkFile: PT.bool,
   loadingJoarkPreviewFile: PT.bool,
   onFilesChange: PT.func.isRequired,
-  previewFile: PT.object,
-  t: PT.func.isRequired
+  previewFile: PT.object
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(JoarkBrowser)
