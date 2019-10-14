@@ -11,7 +11,7 @@ const Header = ({ actions, gettingUserInfo, header, history, isLoggingOut, t, us
   const onLogoClick = () => {
     actions.clearData()
     history.push({
-      pathname: routes.INDEX,
+      pathname: routes.ROOT,
       search: window.location.search
     })
   }

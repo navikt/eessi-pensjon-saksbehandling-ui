@@ -2,20 +2,12 @@ import React from 'react'
 import PT from 'prop-types'
 import { Icons, Nav, WaitingPanel } from 'eessi-pensjon-ui'
 
-const PersonTitle = ({ aktoerId, gettingPersonInfo, person, t }) => {
+const PersonTitle = ({ gettingPersonInfo, person, t }) => {
   let age = '-'
 
   if (person && person.foedselsdato) {
     const birthDate = new Date(Date.parse(person.foedselsdato.foedselsdato))
     age = new Date().getFullYear() - birthDate.getFullYear()
-  }
-
-  if (!aktoerId) {
-    return (
-      <Nav.AlertStripe type='advarsel' className='w-overview-personPanel__alert w-100'>
-        {t('buc:validation-noAktoerId')}
-      </Nav.AlertStripe>
-    )
   }
 
   if (gettingPersonInfo) {

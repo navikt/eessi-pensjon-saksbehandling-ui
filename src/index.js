@@ -21,7 +21,6 @@ import reducer, { initialState } from 'reducer'
 import i18n from './i18n'
 import * as routes from 'constants/routes'
 import { unregister } from 'registerServiceWorker'
-import * as Applications from 'applications'
 import * as Pages from 'pages'
 import AuthenticatedRoute from 'components/AuthenticatedRoute/AuthenticatedRoute'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -39,13 +38,11 @@ ReactDOM.render(
       <Suspense fallback={<span>...</span>}>
         <Router history={createBrowserHistory()}>
           <Switch>
-            <AuthenticatedRoute exact path={routes.PINFO} component={Applications.PInfo} />
-            <AuthenticatedRoute path={routes.INDEX} component={Pages.IndexPage} />
             <Route path={routes.NOT_LOGGED} render={() => <Pages.Error type='notLogged' />} />
             <Route path={routes.NOT_INVITED} render={() => <Pages.Error type='notInvited' />} />
             <Route path={routes.FORBIDDEN} render={() => <Pages.Error type='forbidden' />} />
             <Route path={routes.ROOT + ':PATH+'} render={() => <Pages.Error type='error' />} />
-            <AuthenticatedRoute path={routes.ROOT} component={Pages.FirstPage} displayName />
+            <AuthenticatedRoute path={routes.ROOT} component={Pages.IndexPage} />
             <Redirect from='/' to={{ pathname: routes.ROOT, search: window.location.search }} />
           </Switch>
         </Router>

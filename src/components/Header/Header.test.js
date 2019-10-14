@@ -33,7 +33,7 @@ describe('components/Header', () => {
     wrapper.find('#c-topHeader__logo-link').hostNodes().simulate('click')
     expect(initialMockProps.actions.clearData).toHaveBeenCalled()
     expect(initialMockProps.history.push).toHaveBeenCalledWith({
-      pathname: routes.INDEX,
+      pathname: routes.ROOT,
       search: window.location.search
     })
     initialMockProps.actions.clearData.mockReset()

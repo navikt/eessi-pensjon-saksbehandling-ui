@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export const Overview = (props) => {
-  const { actions, aktoerId, onUpdate, widget } = props
+  const { actions, aktoerId, onUpdate, t, widget } = props
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -40,6 +40,13 @@ export const Overview = (props) => {
     const newWidget = _.cloneDeep(widget)
     newWidget.options.collapsed = !newWidget.options.collapsed
     onUpdate(newWidget)
+  }
+  if (!aktoerId) {
+    return (
+      <Nav.AlertStripe type='advarsel' className='w-overview-personPanel__alert w-100'>
+        {t('buc:validation-noAktoerId')}
+      </Nav.AlertStripe>
+    )
   }
 
   return (
@@ -58,7 +65,8 @@ Overview.propTypes = {
   actions: PT.object.isRequired,
   aktoerId: PT.string,
   onUpdate: PT.func.isRequired,
-  widget: PT.object.isRequired
+  widget: PT.object.isRequired,
+  t: PT.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(Overview))

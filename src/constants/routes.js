@@ -1,7 +1,6 @@
 const BASE = '/_'
 
 export const ROOT = BASE + '/'
-export const INDEX = BASE + '/index'
 export const PINFO = BASE + '/pinfo'
 export const PDF = BASE + '/pdf'
 export const BUC = BASE + '/buc'
