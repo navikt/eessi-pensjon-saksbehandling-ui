@@ -42,12 +42,6 @@ const BUCDetail = ({ buc, bucInfo, className, institutionNames, locale, rinaUrl,
               {buc.caseId}
             </Nav.Lenke>
           </dd>
-          <dt className='odd'>
-            <Nav.Element>{t('ui:aktoerId')}:</Nav.Element>
-          </dt>
-          <dd className='odd' id='a-buc-c-bucdetail__props-aktoerId-id'>
-            <Nav.Normaltekst>{buc.aktoerId}</Nav.Normaltekst>
-          </dd>
           <dt>
             <Nav.Element>{t('ui:creator')}:</Nav.Element>
           </dt>
@@ -66,13 +60,6 @@ const BUCDetail = ({ buc, bucInfo, className, institutionNames, locale, rinaUrl,
           <dd id='a-buc-c-bucdetail__props-lastUpdate-id'>
             <Nav.Normaltekst>{moment(buc.lastUpdate).format('Y-M-D')}</Nav.Normaltekst>
           </dd>
-          <dt className='odd'>
-            <Nav.Element>{t('buc:form-buc-saktype')}:</Nav.Element>
-          </dt>
-          <dd className='odd' id='a-buc-c-bucdetail__props-sakType-id'>
-            <Nav.Normaltekst>{buc.sakType || '-'}</Nav.Normaltekst>
-          </dd>
-          <dt>
             <Nav.Element>{t('ui:status')}:</Nav.Element>
           </dt>
           <dd id='a-buc-c-bucdetail__props-status-id'>
