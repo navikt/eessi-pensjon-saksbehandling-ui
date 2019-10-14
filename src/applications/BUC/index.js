@@ -4,7 +4,7 @@ import { connect, bindActionCreators } from 'store'
 import * as bucActions from 'actions/buc'
 import * as appActions from 'actions/app'
 import * as uiActions from 'actions/ui'
-import { Nav, WaitingPanel } from 'eessi-pensjon-ui'
+import {Icons, Nav, WaitingPanel} from 'eessi-pensjon-ui'
 import BUCEmpty from 'applications/BUC/pages/BUCEmpty/BUCEmpty'
 import BUCList from 'applications/BUC/pages/BUCList/BUCList'
 import BUCNew from 'applications/BUC/pages/BUCNew/BUCNew'
@@ -122,6 +122,7 @@ export const BUCIndex = (props) => {
       {mode === 'bucedit' ? <BUCEdit {...props} bucs={combinedBucs} /> : null}
       {mode === 'bucnew' ? <BUCNew {...props} bucs={combinedBucs} /> : null}
       {mode === 'sednew' ? <SEDNew {...props} bucs={combinedBucs} /> : null}
+
     </div>
   )
 }

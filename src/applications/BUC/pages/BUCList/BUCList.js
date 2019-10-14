@@ -3,8 +3,9 @@ import PT from 'prop-types'
 import classNames from 'classnames'
 import _ from 'lodash'
 import moment from 'moment'
-import { Icons, Nav, WaitingPanel } from 'eessi-pensjon-ui'
+import { Nav, WaitingPanel } from 'eessi-pensjon-ui'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
+import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import SEDList from 'applications/BUC/components/SEDList/SEDList'
 import './BUCList.css'
 
@@ -153,22 +154,7 @@ const BUCList = ({ actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionL
               </Nav.EkspanderbartpanelBase>
             )
           }) : null}
-      {(sakId && aktoerId)
-        ? (
-          <div className='mb-2 a-buc-buclist__footer'>
-            <Nav.Lenke
-              id='a-buc-c-buclist__gotorina-link'
-              className='a-buc-c-buclist__gotorina'
-              href={rinaUrl}
-              target='rinaWindow'
-            >
-              <div className='d-flex'>
-                <Icons className='mr-2' color='#0067C5' kind='outlink' />
-                <span>{t('ui:goToRina')}</span>
-              </div>
-            </Nav.Lenke>
-          </div>
-        ) : null}
+      <BUCFooter className='w-100 mb-2' rinaUrl={rinaUrl} t={t} />
     </div>
   )
 }

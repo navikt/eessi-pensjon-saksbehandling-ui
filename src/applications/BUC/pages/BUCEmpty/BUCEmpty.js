@@ -6,10 +6,11 @@ import MonitorPNG from 'resources/images/artwork/dataskjerm.png'
 import CupPNG from 'resources/images/artwork/kop.png'
 import MousePNG from 'resources/images/artwork/NAVmusematte.png'
 import MapPNG from 'resources/images/artwork/saksstatus.png'
+import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 
 import './BUCEmpty.css'
 
-const BUCEmpty = ({ actions, aktoerId, onBUCNew, sakId, t }) => {
+const BUCEmpty = ({ actions, aktoerId, onBUCNew, rinaUrl, sakId, t }) => {
   const [_sakId, setSakId] = useState(sakId)
   const [_aktoerId, setAktoerId] = useState(aktoerId)
   const [validation, setValidation] = useState(undefined)
@@ -97,6 +98,7 @@ const BUCEmpty = ({ actions, aktoerId, onBUCNew, sakId, t }) => {
           </Nav.Hovedknapp>
         </div>
       ) : null}
+      <BUCFooter className='w-100 mb-2' rinaUrl={rinaUrl} t={t} />
     </div>
   )
 }
