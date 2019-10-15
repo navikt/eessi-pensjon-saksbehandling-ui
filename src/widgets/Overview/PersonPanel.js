@@ -59,22 +59,22 @@ const PersonPanel = ({ t, person }) => {
   if (_.get(person, 'sivilstand.tomGyldighetsperiode')) {
     dateString += ' - ' + moment(person.sivilstand.tomGyldighetsperiode).format('D.M.Y')
   }
-  if (person.foedselsdato.foedselsdato) {
+  if (_.get(person, 'foedselsdato.foedselsdato')) {
     birthDateString = moment(person.foedselsdato.foedselsdato).format('D.M.Y')
   }
-  if (person.doedsdato.doedsdato) {
+  if (_.get(person, 'doedsdato.doedsdato')) {
     deathDateString = moment(person.doedsdato.doedsdato).format('D.M.Y')
   }
-  if (person.statsborgerskap.land.value) {
+  if (_.get(person, 'statsborgerskap.land.value')) {
     nationality = getCountry(person.statsborgerskap.land.value)
   }
 
-  if (person.sivilstand.sivilstand.value) {
+  if (_.get(person, 'sivilstand.sivilstand.value')) {
     maritalStatus = person.sivilstand.sivilstand.value.toLowerCase()
     maritalStatus = maritalStatus.charAt(0).toUpperCase() + maritalStatus.slice(1)
   }
 
-  if (person.bostedsadresse && person.bostedsadresse.strukturertAdresse) {
+  if (_.get(person, 'bostedsadresse.strukturertAdresse')) {
     bostedsadresse = addAddressLine(bostedsadresse, person, 'bostedsadresse.strukturertAdresse.gatenavn', t('ui:gatenavn'))
     bostedsadresse = addAddressLine(bostedsadresse, person, 'bostedsadresse.strukturertAdresse.gatenummer', t('ui:gatenummer'))
     bostedsadresse = addAddressLine(bostedsadresse, person, 'bostedsadresse.strukturertAdresse.husnummer', t('ui:husnummer'))
@@ -85,7 +85,7 @@ const PersonPanel = ({ t, person }) => {
     bostedsadresse = addAddressLine(bostedsadresse, person, 'bostedsadresse.strukturertAdresse.poststed.value', t('ui:poststed'))
   }
 
-  if (person.postadresse && person.postadresse.ustrukturertAdresse) {
+  if (_.get(person, 'postadresse.ustrukturertAdresse')) {
     postadresse = addAddressLine(postadresse, person, 'postadresse.ustrukturertAdresse.adresselinje1')
     postadresse = addAddressLine(postadresse, person, 'postadresse.ustrukturertAdresse.adresselinje2')
     postadresse = addAddressLine(postadresse, person, 'postadresse.ustrukturertAdresse.adresselinje3')
