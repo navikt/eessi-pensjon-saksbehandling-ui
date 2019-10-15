@@ -7,6 +7,7 @@ import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import sampleP4000info from 'resources/tests/sampleP4000info'
 import sampleInstitutions from 'resources/tests/sampleInstitutions'
+
 const sprintf = require('sprintf-js').sprintf
 
 export const setMode = (mode) => {
@@ -97,7 +98,7 @@ export const fetchAvdodBucs = (aktoerId) => {
 export const fetchBucsInfoList = (aktoerId) => {
   return api.call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_BUC }),
-    expectedPayload: [aktoerId + '__BUC__INFO'],
+    expectedPayload: [aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO],
     type: {
       request: types.BUC_GET_BUCSINFO_LIST_REQUEST,
       success: types.BUC_GET_BUCSINFO_LIST_SUCCESS,

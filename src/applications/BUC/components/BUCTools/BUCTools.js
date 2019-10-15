@@ -22,12 +22,10 @@ const BUCTools = ({ actions, aktoerId, buc, bucInfo, bucsInfo, className, loadin
 
   useEffect(() => {
     if (!allTags && tagList) {
-      setAllTags(tagList.map(tag => {
-        return {
-          value: tag,
-          label: t('buc:tag-' + tag)
-        }
-      }))
+      setAllTags(tagList.map(tag => ({
+        value: tag,
+        label: t('buc:' + tag)
+      })))
     }
   }, [t, allTags, tagList])
 

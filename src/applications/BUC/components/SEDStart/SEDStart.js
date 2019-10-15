@@ -10,6 +10,7 @@ import * as uiActions from 'actions/ui'
 import * as storageActions from 'actions/storage'
 import PInfoUtil from 'applications/BUC/components/SEDP4000/P4000Payload'
 import { IS_TEST } from 'constants/environment'
+import * as storage from 'constants/storage'
 
 const mapStateToProps = (state) => {
   return {
@@ -159,8 +160,9 @@ export const SEDStart = (props) => {
       if (avdodfnr) {
         actions.fetchBucs(avdodfnr)
       }
-      if (!_.isEmpty(bucsInfoList) && bucsInfoList.indexOf(aktoerId + '___BUC___INFO') >= 0) {
-        actions.fetchBucsInfo(aktoerId, 'BUC', 'INFO')
+      if (!_.isEmpty(bucsInfoList) &&
+        bucsInfoList.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
+        actions.fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO)
       }
       actions.setMode('bucedit')
     }

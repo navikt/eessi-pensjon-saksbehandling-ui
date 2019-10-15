@@ -46,7 +46,7 @@ export const getStorageFile = ({ userId, namespace, file }, context) => {
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'GET',
     expectedPayload: () => {
-      if (namespace === 'varsler') {
+      if (namespace === storage.NAMESPACE_VARSLER) {
         return {
           tittel: 'mockTittel',
           fulltnavn: 'mockFulltnavn',

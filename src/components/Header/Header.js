@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import classNames from 'classnames'
 import { Icons, Nav } from 'eessi-pensjon-ui'
 import * as routes from 'constants/routes'
-import AdvarselTrekant from 'resources/images/AdvarselTrekant'
+import { ReactComponent as AdvarselTrekant } from 'resources/images/AdvarselTrekant.svg'
 import NavLogoTransparent from 'resources/images/NavLogoTransparent'
 import './Header.css'
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
+import * as storage from 'constants/storage'
 import _ from 'lodash'
 import moment from 'moment'
 import { Nav, WaitingPanel } from 'eessi-pensjon-ui'
@@ -29,8 +30,9 @@ const BUCList = ({ actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionL
   }
 
   useEffect(() => {
-    if (!_.isEmpty(bucsInfoList) && !gettingBucsInfo && bucsInfoList.indexOf(aktoerId + '___BUC___INFO') >= 0) {
-      actions.fetchBucsInfo(aktoerId, 'BUC', 'INFO')
+    if (!_.isEmpty(bucsInfoList) && !gettingBucsInfo &&
+      bucsInfoList.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
+      actions.fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO)
       setGettingBucsInfo(true)
     }
   }, [bucsInfoList, gettingBucsInfo, actions, aktoerId])

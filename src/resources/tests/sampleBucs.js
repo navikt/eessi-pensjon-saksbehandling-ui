@@ -14,11 +14,27 @@ export default [
     institusjon: [
       {
         country: 'NO',
-        institution: 'NO:NAVT003'
+        institution: 'NO:NAVT000'
       },
       {
-        country: 'NO',
-        institution: 'NO:NAVT002'
+        country: 'SE',
+        institution: 'SE:DEMO001'
+      },
+      {
+        country: 'FI',
+        institution: 'FI:DEMO002'
+      },
+      {
+        country: 'DK',
+        institution: 'DK:DEMO003'
+      },
+      {
+        country: 'PT',
+        institution: 'PT:DEMO004'
+      },
+      {
+        country: 'FR',
+        institution: 'FR:DEMO005'
       }
     ],
     seds: [

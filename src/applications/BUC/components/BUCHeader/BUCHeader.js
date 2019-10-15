@@ -108,20 +108,19 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, t }) => 
                 className='a-buc-c-bucheader__icon-tags'
                 title={bucInfo.tags.join(', ')}
               >
-                <Icons kind='problem' />
+                <Icons kind='problem' width={32} height={32} />
               </div>
             ) : null}
         </div>
         <div className='a-buc-c-bucheader__actions col-sm-4'>
-          <Nav.LenkepanelBase
+          <Nav.Knapp
             id='a-buc-c-bucheader__bucedit-link'
-            className='a-buc-c-bucheader__bucedit-link knapp'
+            className='a-buc-c-bucheader__bucedit-link'
             onClick={(e) => onBucHandle(buc, e)}
             href={'#' + buc.type}
-            border
           >
             {t('ui:processing')}
-          </Nav.LenkepanelBase>
+          </Nav.Knapp>
         </div>
       </Nav.Row>
     </div>

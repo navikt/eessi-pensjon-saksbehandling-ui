@@ -210,7 +210,7 @@ describe('actions/buc', () => {
           456: {}
         }
       },
-      url: sprintf(urls.API_STORAGE_POST_URL, { userId: mockParams.aktoerId, namespace: 'BUC', file: 'INFO' })
+      url: sprintf(urls.API_STORAGE_POST_URL, { userId: mockParams.aktoerId, namespace: storage.NAMESPACE_BUC, file: storage.FILE_BUCINFO })
     })
   })
 
@@ -240,7 +240,7 @@ describe('actions/buc', () => {
           }
         }
       },
-      url: sprintf(urls.API_STORAGE_POST_URL, { userId: mockParams.aktoerId, namespace: 'BUC', file: 'INFO' })
+      url: sprintf(urls.API_STORAGE_POST_URL, { userId: mockParams.aktoerId, namespace: storage.NAMESPACE_BUC, file: storage.FILE_BUCINFO })
     })
   })
 
