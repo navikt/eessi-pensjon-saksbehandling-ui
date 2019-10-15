@@ -6,7 +6,6 @@ import { Icons, Nav, WaitingPanel } from 'eessi-pensjon-ui'
 import './PersonTitle.css'
 
 const PersonTitle = ({ gettingPersonInfo, person, t }) => {
-  let age
   let birthDate
   let deathDate
 
@@ -25,7 +24,7 @@ const PersonTitle = ({ gettingPersonInfo, person, t }) => {
     deathDate = new Date(Date.parse(person.doedsdato.doedsdato))
   }
 
-  age = (deathDate ? deathDate.getFullYear() : new Date().getFullYear()) - birthDate.getFullYear()
+  const age = (deathDate ? deathDate.getFullYear() : new Date().getFullYear()) - birthDate.getFullYear()
 
   let kind = 'nav-unknown-icon'
   if (person.kjoenn.kjoenn.value === 'K') {

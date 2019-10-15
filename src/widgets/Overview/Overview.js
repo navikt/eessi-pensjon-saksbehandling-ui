@@ -41,6 +41,7 @@ export const Overview = (props) => {
     newWidget.options.collapsed = !newWidget.options.collapsed
     onUpdate(newWidget)
   }
+
   if (!aktoerId) {
     return (
       <Nav.AlertStripe type='advarsel' className='w-overview-personPanel__alert w-100'>

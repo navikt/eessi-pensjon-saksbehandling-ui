@@ -7,8 +7,8 @@ import { Icons, Nav, RefreshButton, WaitingPanel } from 'eessi-pensjon-ui'
 import * as pinfoActions from 'actions/pinfo'
 import * as storageActions from 'actions/storage'
 import { ReactComponent as VeilederSVG } from 'resources/images/NavPensjonVeileder.svg'
-
 import './VarslerPanel.css'
+import moment from "moment";
 
 const mapStateToProps = (state) => {
   return {
@@ -18,7 +18,8 @@ const mapStateToProps = (state) => {
     invite: state.pinfo.invite,
     isInvitingPinfo: state.loading.isInvitingPinfo,
     sakId: state.app.params.sakId,
-    sakType: state.app.params.sakType
+    sakType: state.app.params.sakType,
+    person: state.app.person
   }
 }
 
@@ -27,7 +28,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export const VarslerPanel = (props) => {
-  const { actions, aktoerId, file, fileList, isInvitingPinfo, invite, sakId, sakType, t } = props
+  const { actions, aktoerId, file, fileList, isInvitingPinfo, invite, onUpdate, person, sakId, sakType, t, widget } = props
 
   const [isReady, setIsReady] = useState(false)
   const [_fileList, setFileList] = useState(undefined)
@@ -40,6 +41,12 @@ export const VarslerPanel = (props) => {
       aktoerId: aktoerId,
       sakId: sakId
     })
+  }
+
+  const onExpandablePanelChange = () => {
+    const newWidget = _.cloneDeep(widget)
+    newWidget.options.collapsed = !newWidget.options.collapsed
+    onUpdate(newWidget)
   }
 
   useEffect(() => {
@@ -114,9 +121,14 @@ export const VarslerPanel = (props) => {
     )
   }
 
+  const user = _.get(person, 'aktoer.ident.ident') || '-'
   return (
-    <Nav.Panel className='w-varslerPanel s-border'>
-      <Nav.Systemtittel className='pb-3'>{t('ui:widget-overview-notifications')}</Nav.Systemtittel>
+    <Nav.EkspanderbartpanelBase
+      className='w-varslerPanel s-border'
+      apen={!widget.options.collapsed}
+      onClick={onExpandablePanelChange}
+      heading={<Nav.Systemtittel className='pb-3'>{t('ui:widget-overview-notifications')}</Nav.Systemtittel>}
+    >
       <Nav.Row>
         <div className='col-md-4'>
           <div style={{ display: 'none' }}>
@@ -126,7 +138,7 @@ export const VarslerPanel = (props) => {
           </div>
           <Nav.Veileder
             tekst={(
-              <div dangerouslySetInnerHTML={{ __html: t('ui:widget-overview-sendNotification-description', { user: aktoerId }) }} />
+              <div dangerouslySetInnerHTML={{ __html: t('ui:widget-overview-sendNotification-description', { user: user }) }} />
             )}
             posisjon='høyre'
           >
@@ -186,7 +198,7 @@ export const VarslerPanel = (props) => {
                             <td><Icons kind='nav-message-sent' /></td>
                             <td>{content.tittel || file}</td>
                             <td>{content.fulltnavn || t('unknown')}</td>
-                            <td>{content.timestamp ? new Date(content.timestamp).toDateString() : t('unknown')}</td>
+                            <td>{content.timestamp ? moment(content.timestamp).format('D.M.Y') : t('unknown')}</td>
                           </tr>
                         )
                       })
@@ -200,7 +212,7 @@ export const VarslerPanel = (props) => {
           )}
         </div>
       </Nav.Row>
-    </Nav.Panel>
+    </Nav.EkspanderbartpanelBase>
   )
 }
 
@@ -211,9 +223,11 @@ VarslerPanel.propTypes = {
   fileList: PT.array,
   isInvitingPinfo: PT.bool,
   invite: PT.object,
+  person: PT.object,
   sakId: PT.string,
   sakType: PT.string,
-  t: PT.func.isRequired
+  t: PT.func.isRequired,
+  widget: PT.object.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(VarslerPanel))

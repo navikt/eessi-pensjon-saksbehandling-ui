@@ -35,7 +35,9 @@ VarslerWidget.properties = {
     md: { minW: 3, maxW: 3, defaultW: 1, minH: 2, defaultH: 4, maxH: 999 },
     sm: { minW: 1, maxW: 1, defaultW: 1, minH: 2, defaultH: 4, maxH: 999 }
   },
-  options: {}
+  options: {
+    collapsed: true
+  }
 }
 
 VarslerWidget.propTypes = {

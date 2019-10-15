@@ -11,7 +11,7 @@ const SEDList = ({ buc, institutionNames, locale, onSEDNew, rinaUrl, seds, t }) 
     <>
       {seds ? _(seds)
         .filter(sed => sed.status !== 'empty')
-        .orderBy(['creationDate', 'type'], ['desc', 'asc'])
+        .orderBy(['lastUpdate', 'type'], ['desc', 'desc'])
         .value()
         .slice(0, 5).map((sed, index) => {
           return (
@@ -38,7 +38,7 @@ const SEDList = ({ buc, institutionNames, locale, onSEDNew, rinaUrl, seds, t }) 
         >
           <div className='d-flex'>
             <Icons className='mr-2' color='#0067C5' kind='outlink' />
-            <Nav.Normaltekst>{t('buc:form-seeSedInRina')}</Nav.Normaltekst>
+            <Nav.Normaltekst>{t('buc:form-seeBucInRina')}</Nav.Normaltekst>
           </div>
         </Nav.Lenke>
         {!_.isEmpty(seds) && seds.filter(sed => sed.status !== 'empty').length > 5

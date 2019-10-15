@@ -32,9 +32,7 @@ const SEDHeader = ({ border = 'none', buc, className, institutionNames, locale, 
         <div className='a-buc-c-sedrow__column a-buc-c-sedrow__status col-3'>
           <SEDStatus t={t} className='col-auto' status={sed.status} />
           <Nav.Normaltekst className='pl-2'>
-            {moment(sed.creationDate).format('D.M.Y')}
-            {sed.lastUpdate && sed.status !== 'received' && sed.status !== 'sent'
-              ? ' - ' + moment(sed.creationDate).format('D.M.Y') : ''}
+            {sed.lastUpdate ? moment(sed.lastUpdate).format('D.M.Y') : null}
           </Nav.Normaltekst>
         </div>
         <div className='a-buc-c-sedrow__column a-buc-c-sedrow__institutions col-3'>
