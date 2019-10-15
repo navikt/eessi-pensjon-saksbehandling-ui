@@ -126,6 +126,7 @@ const BUCList = ({ actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionL
                     buc={buc}
                     bucInfo={bucInfo}
                     locale={locale}
+                    rinaUrl={rinaUrl}
                     onBUCEdit={onBUCEdit}
                   />
                 }
@@ -134,13 +135,13 @@ const BUCList = ({ actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionL
                   id='a-buc-c-sedheader__div-id'
                   className='a-buc-buclist__sedheader pb-1'
                 >
-                  <div className='a-buc-buclist__sedheader-head col-2'>
+                  <div className='a-buc-buclist__sedheader-head col-4'>
                     <Nav.Element>{t('buc:form-name')}</Nav.Element>
                   </div>
-                  <div className='a-buc-buclist__sedheader_head col-4'>
+                  <div className='a-buc-buclist__sedheader_head col-3'>
                     <Nav.Element>{t('buc:form-status')}</Nav.Element>
                   </div>
-                  <div className='a-buc-buclist__sedheader-head col-4'>
+                  <div className='a-buc-buclist__sedheader-head col-3'>
                     <Nav.Element>{t('buc:form-receiver')}</Nav.Element>
                   </div>
                   <div className='a-buc-buclist__sedheader-head col-2' />

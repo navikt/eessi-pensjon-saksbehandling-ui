@@ -985,7 +985,7 @@ export default [
       status: 'empty',
       creationDate: 1557393035000,
       lastUpdate: 1557393035000,
-      displayName: 'Transfer of additional information',
+      c154002displayName: 'Transfer of additional information',
       participants: [{
         role: 'Sender',
         organisation: {

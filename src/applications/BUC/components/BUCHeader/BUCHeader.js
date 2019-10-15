@@ -5,7 +5,7 @@ import { FlagList, Icons, Nav } from 'eessi-pensjon-ui'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import './BUCHeader.css'
 
-const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, t }) => {
+const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl, t }) => {
   const institutionList = {}
   const attachments = []
   const numberOfSeds = buc.seds ? buc.seds.filter(sed => sed.status !== 'empty').length : 0
@@ -78,7 +78,18 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, t }) => 
               className='a-buc-c-bucheader__case'
             >
               <Nav.Normaltekst className='pr-2 text-nowrap'>
-                {t('buc:form-caseNumberInRina') + ': '}{buc.caseId}
+                {t('buc:form-caseNumberInRina') + ': '}
+                <Nav.Lenke
+                  className='a-buc-c-bucheader__gotorina-link'
+                  href={rinaUrl + buc.caseId}
+                  target='rinaWindow'
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    window.open(rinaUrl + buc.caseId, 'rinaWindow')
+                  }}
+                >
+                  {buc.caseId}
+                </Nav.Lenke>
               </Nav.Normaltekst>
             </div>
           ) : null}
@@ -133,6 +144,7 @@ BUCHeader.propTypes = {
   institutionNames: PT.object,
   locale: PT.string.isRequired,
   onBUCEdit: PT.func.isRequired,
+  rinaUrl: PT.string,
   t: PT.func.isRequired
 }
 

@@ -11,7 +11,7 @@ const SEDList = ({ buc, institutionNames, locale, onSEDNew, rinaUrl, seds, t }) 
     <>
       {seds ? _(seds)
         .filter(sed => sed.status !== 'empty')
-        .sortBy(['creationDate', 'type'])
+        .orderBy(['creationDate', 'type'], ['desc', 'asc'])
         .value()
         .slice(0, 5).map((sed, index) => {
           return (

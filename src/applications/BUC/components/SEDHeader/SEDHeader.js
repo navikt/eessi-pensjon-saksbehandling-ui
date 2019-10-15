@@ -16,23 +16,28 @@ const SEDHeader = ({ border = 'none', buc, className, institutionNames, locale, 
     }
   }) : []
 
+  let sedLabel = t('buc:buc-' + sed.type)
+  if (sedLabel === 'buc:buc-' + sed.type) {
+    sedLabel = undefined
+  }
+
   return (
     <Nav.PanelBase
       className={classNames('a-buc-c-sedrow', 'w-100', 'p-0', className)}
     >
       <div className={classNames('a-buc-c-sedrow__content pt-2 pb-2', 'a-buc-c-sedrow__border-' + border)}>
-        <div className='a-buc-c-sedrow__column a-buc-c-sedrow__name col-2'>
-          <Nav.Element>{sed.type}</Nav.Element>
+        <div className='a-buc-c-sedrow__column a-buc-c-sedrow__name col-4'>
+          <Nav.Element>{sed.type}{sedLabel ? ' - ' + sedLabel : ''}</Nav.Element>
         </div>
-        <div className='a-buc-c-sedrow__column a-buc-c-sedrow__status col-4'>
+        <div className='a-buc-c-sedrow__column a-buc-c-sedrow__status col-3'>
           <SEDStatus t={t} className='col-auto' status={sed.status} />
           <Nav.Normaltekst className='pl-2'>
-            {moment(sed.creationDate).format('Y-M-D')}
+            {moment(sed.creationDate).format('D.M.Y')}
             {sed.lastUpdate && sed.status !== 'received' && sed.status !== 'sent'
-              ? ' - ' + moment(sed.creationDate).format('Y-M-D') : ''}
+              ? ' - ' + moment(sed.creationDate).format('D.M.Y') : ''}
           </Nav.Normaltekst>
         </div>
-        <div className='a-buc-c-sedrow__column a-buc-c-sedrow__institutions col-4'>
+        <div className='a-buc-c-sedrow__column a-buc-c-sedrow__institutions col-3'>
           <InstitutionList
             t={t}
             institutionNames={institutionNames}

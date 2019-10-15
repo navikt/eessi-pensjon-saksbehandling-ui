@@ -52,13 +52,13 @@ const BUCDetail = ({ buc, bucInfo, className, institutionNames, locale, rinaUrl,
             <Nav.Element>{t('ui:created')}:</Nav.Element>
           </dt>
           <dd className='odd' id='a-buc-c-bucdetail__props-startDate-id'>
-            <Nav.Normaltekst>{moment(buc.startDate).format('Y-M-D')}</Nav.Normaltekst>
+            <Nav.Normaltekst>{moment(buc.startDate).format('D.M.Y')}</Nav.Normaltekst>
           </dd>
           <dt>
             <Nav.Element>{t('ui:lastUpdate')}:</Nav.Element>
           </dt>
           <dd id='a-buc-c-bucdetail__props-lastUpdate-id'>
-            <Nav.Normaltekst>{moment(buc.lastUpdate).format('Y-M-D')}</Nav.Normaltekst>
+            <Nav.Normaltekst>{moment(buc.lastUpdate).format('D.M.Y')}</Nav.Normaltekst>
           </dd>
           <dt>
             <Nav.Element>{t('ui:status')}:</Nav.Element>
