@@ -121,7 +121,7 @@ export const fetchBucsInfo = (userId, namespace, file) => {
 export const getSubjectAreaList = () => {
   return api.call({
     url: urls.EUX_SUBJECT_AREA_URL,
-    expectedPayload: ['Pensjon', 'Andre'],
+    expectedPayload: ['Pensjon'],
     type: {
       request: types.BUC_GET_SUBJECT_AREA_LIST_REQUEST,
       success: types.BUC_GET_SUBJECT_AREA_LIST_SUCCESS,

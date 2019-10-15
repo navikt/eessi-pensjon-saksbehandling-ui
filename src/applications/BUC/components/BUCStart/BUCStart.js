@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
+import classNames from 'classnames'
 import { MultipleSelect, Nav, PsychoPanel, WaitingPanel } from 'eessi-pensjon-ui'
 
 const placeholders = {
@@ -126,14 +127,14 @@ const BUCStart = ({
         value: t(placeholders[type])
       }]
     }
-
     if (!options[0].key || (options[0].key && options[0].key !== placeholders[type])) {
       options.unshift({
         key: placeholders[type],
         value: t(placeholders[type])
       })
     }
-    return options.map(el => {
+
+    return options ? options.map(el => {
       let key, value
       if (typeof el === 'string') {
         key = el
@@ -143,10 +144,13 @@ const BUCStart = ({
         value = el.value || el.navn
       }
       return <option value={key} key={key}>{getOptionLabel(value)}</option>
-    })
+    }) : null
   }
 
   const getOptionLabel = (value) => {
+    if (typeof value !== 'string') {
+      return value
+    }
     let label = value
     const description = t('buc:buc-' + value.replace(':', '.'))
     if (description !== 'buc-' + value) {
@@ -190,18 +194,14 @@ const BUCStart = ({
         <div className='col-md-6 pr-3'>
           <Nav.Select
             id='a-buc-c-bucstart__subjectarea-select-id'
-            className='a-buc-c-bucstart__subjectarea-select flex-fill'
+            className={classNames('a-buc-c-bucstart__subjectarea-select flex-fill', {
+              grey: !_subjectArea || _subjectArea === placeholders.subjectArea
+            })}
             aria-describedby='help-subjectArea'
             bredde='fullbredde'
+            placeholder={placeholders.subjectArea}
             feil={validation.subjectAreaFail ? { feilmelding: validation.subjectAreaFail } : null}
-            label={
-              <div className='label'>
-                <span>{t('buc:form-subjectArea')}</span>
-                <Nav.HjelpetekstAuto id='a-buc-c-bucstart__subjectArea-help'>
-                  {t('buc:help-subjectArea')}
-                </Nav.HjelpetekstAuto>
-              </div>
-            }
+            label={t('buc:form-subjectArea')}
             value={_subjectArea}
             onChange={onSubjectAreaChange}
           >
@@ -209,18 +209,14 @@ const BUCStart = ({
           </Nav.Select>
           <Nav.Select
             id='a-buc-c-bucstart__buc-select-id'
-            className='a-buc-c-bucstart__buc-select flex-fill'
+            className={classNames('a-buc-c-bucstart__buc-selectflex-fill', {
+              grey: !_buc || _buc === placeholders.buc
+            })}
             aria-describedby='help-buc'
             bredde='fullbredde'
+            placeholder={placeholders.buc}
             feil={validation.bucFail ? { feilmelding: validation.bucFail } : null}
-            label={
-              <div className='label'>
-                <span>{t('buc:form-buc')}</span>
-                <Nav.HjelpetekstAuto id='a-buc-c-bucstart__buc-help'>
-                  {t('buc:help-buc')}
-                </Nav.HjelpetekstAuto>
-              </div>
-            }
+            label={t('buc:form-buc')}
             value={_buc || placeholders.buc}
             onChange={onBucChange}
           >

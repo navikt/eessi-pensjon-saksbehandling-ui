@@ -3,10 +3,10 @@ import SEDAttachments from '../SEDAttachments/SEDAttachments'
 
 const SEDBody = ({ t, files }) => {
   return (
-    <div/>
+    <div />
   )
 }
 
 export default SEDBody
 
-/*      <SEDAttachments t={t} files={files} />*/
+/*      <SEDAttachments t={t} files={files} /> */

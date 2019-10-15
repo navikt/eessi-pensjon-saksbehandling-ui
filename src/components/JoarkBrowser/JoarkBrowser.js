@@ -196,7 +196,8 @@ export const JoarkBrowser = ({
           { id: 'name', label: t('ui:title'), type: 'string', filterText: '', defaultSortOrder: '' },
           { id: 'tema', label: t('ui:tema'), type: 'tag', filterText: '', defaultSortOrder: '' },
           { id: 'date', label: t('ui:date'), type: 'date', filterText: '', defaultSortOrder: '' },
-          { id: 'varianter',
+          {
+            id: 'varianter',
             label: t('ui:variant'),
             type: 'object',
             filterText: '',

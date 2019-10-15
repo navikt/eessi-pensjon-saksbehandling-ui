@@ -99,16 +99,16 @@ const PersonPanel = ({ t, person }) => {
   return (
     <Nav.Row className='w-overview-personPanel__content'>
       <div className='col-md-4'>
-      {renderEntity('ui:birthdate', birthDateString)}
-      {renderEntity('ui:deathdate', deathDateString)}
-      {renderEntity('ui:nationality', nationality)}
+        {renderEntity('ui:birthdate', birthDateString)}
+        {renderEntity('ui:deathdate', deathDateString)}
+        {renderEntity('ui:nationality', nationality)}
       </div>
       <div className='col-md-4'>
-      {renderEntity('ui:marital-status',maritalStatus + (dateString ? ', ' + dateString : ''))}
+        {renderEntity('ui:marital-status', maritalStatus + (dateString ? ', ' + dateString : ''))}
       </div>
       <div className='col-md-4'>
-      {renderEntity('ui:bostedsadresse', bostedsadresse)}
-      {renderEntity('ui:postadresse', postadresse)}
+        {renderEntity('ui:bostedsadresse', bostedsadresse)}
+        {renderEntity('ui:postadresse', postadresse)}
       </div>
     </Nav.Row>
   )

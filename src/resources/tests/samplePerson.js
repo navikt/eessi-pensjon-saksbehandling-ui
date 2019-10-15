@@ -15,14 +15,14 @@ export default {
       endringstype: null
     },
     statsborgerskap: {
-      land: {value: 'DNK', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Landkoder'},
+      land: { value: 'DNK', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Landkoder' },
       endringstidspunkt: null,
       endretAv: null,
       endringstype: null
     },
     harFraRolleI: [{
       harSammeBosted: false,
-      tilRolle: {value: 'BARN', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Familierelasjoner'},
+      tilRolle: { value: 'BARN', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Familierelasjoner' },
       tilPerson: {
         diskresjonskode: null,
         bostedsadresse: null,
@@ -32,7 +32,7 @@ export default {
         aktoer: {
           ident: {
             ident: '27066349360',
-            type: {value: 'FNR', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Personidenter'}
+            type: { value: 'FNR', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Personidenter' }
           }
         },
         kjoenn: null,
@@ -55,7 +55,7 @@ export default {
       endringstype: null
     }, {
       harSammeBosted: false,
-      tilRolle: {value: 'BARN', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Familierelasjoner'},
+      tilRolle: { value: 'BARN', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Familierelasjoner' },
       tilPerson: {
         diskresjonskode: null,
         bostedsadresse: null,
@@ -65,7 +65,7 @@ export default {
         aktoer: {
           ident: {
             ident: '25076029647',
-            type: {value: 'FNR', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Personidenter'}
+            type: { value: 'FNR', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Personidenter' }
           }
         },
         kjoenn: null,
@@ -90,10 +90,10 @@ export default {
     aktoer: {
       ident: {
         ident: '27072942618',
-        type: {value: 'FNR', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Personidenter'}
+        type: { value: 'FNR', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Personidenter' }
       }
     },
-    kjoenn: {kjoenn: {value: 'K', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Kj_c3_b8nnstyper'}},
+    kjoenn: { kjoenn: { value: 'K', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Kj_c3_b8nnstyper' } },
     personnavn: {
       etternavn: 'HØYSÆTHER',
       fornavn: 'NAZAKMIR-MASK',
@@ -108,7 +108,10 @@ export default {
         value: 'DØD',
         kodeRef: null,
         kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Personstatuser'
-      }, endringstidspunkt: null, endretAv: null, endringstype: null
+      },
+      endringstidspunkt: null,
+      endretAv: null,
+      endringstype: null
     },
     postadresse: {
       ustrukturertAdresse: {
@@ -123,9 +126,12 @@ export default {
         adresselinje4: null,
         postnr: null,
         poststed: null
-      }, endringstidspunkt: null, endretAv: null, endringstype: null
+      },
+      endringstidspunkt: null,
+      endretAv: null,
+      endringstype: null
     },
-    doedsdato: {doedsdato: '2018-05-19T22:00:00.000+0000', endringstidspunkt: null, endretAv: null, endringstype: null},
+    doedsdato: { doedsdato: '2018-05-19T22:00:00.000+0000', endringstidspunkt: null, endretAv: null, endringstype: null },
     foedselsdato: {
       foedselsdato: '1929-07-26T23:00:00.000+0000',
       endringstidspunkt: null,
@@ -138,7 +144,7 @@ export default {
       kodeRef: null,
       kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Postadressetyper'
     },
-    geografiskTilknytning: {geografiskTilknytning: '0213'},
+    geografiskTilknytning: { geografiskTilknytning: '0213' },
     midlertidigPostadresse: null,
     vergeListe: [],
     kontaktinformasjon: [],
