@@ -192,7 +192,6 @@ export const saveBucsInfo = ({ aktoerId, buc, bucsInfo = {}, comment, tags }) =>
   const bucId = buc.caseId
   newBucsInfo.bucs = newBucsInfo.bucs || {}
   newBucsInfo.bucs[bucId] = newBucsInfo.bucs[bucId] || {}
-
   if (tags) {
     newBucsInfo.bucs[bucId].tags = newTags
   }

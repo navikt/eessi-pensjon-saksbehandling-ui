@@ -48,7 +48,7 @@ describe('widgets/Overview/Overview', () => {
   })
 
   it('With no aktoerId', () => {
-    wrapper = mount(<PersonTitle {...initialMockProps} aktoerId={undefined} />)
+    wrapper = mount(<Overview {...initialMockProps} aktoerId={undefined} />)
     expect(wrapper.exists('.w-overview__alert')).toBeTruthy()
     expect(wrapper.find('.w-overview__alert').hostNodes().render().text()).toEqual('buc:validation-noAktoerId')
   })

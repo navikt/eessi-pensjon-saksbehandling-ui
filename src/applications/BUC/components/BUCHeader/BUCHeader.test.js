@@ -40,7 +40,6 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
       'buc:form-caseOwner: Norge - Z990638'
     )
     expect(wrapper.exists('.a-buc-c-bucheader__owner-institutions')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-c-bucheader__flags')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__icons')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__icon-numberofseds')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-bucheader__icon-numberofseds').render().text()).toEqual('1')

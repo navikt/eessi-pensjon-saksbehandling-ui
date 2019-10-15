@@ -184,7 +184,6 @@ export const JoarkBrowser = ({
       <WaitingPanel size='XS' message={t('ui:loading')} />
     )
   }
-  console.log(files)
   return (
     <div className='c-joarkBrowser'>
       <Modal modal={modal} />

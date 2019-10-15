@@ -44,7 +44,7 @@ const BUCTools = ({ actions, aktoerId, buc, bucInfo, bucsInfo, className, loadin
     actions.saveBucsInfo({
       bucsInfo: bucsInfo,
       aktoerId: aktoerId,
-      tags: tags.map(tag => tag.value),
+      tags: tags,
       comment: comment,
       buc: buc
     })

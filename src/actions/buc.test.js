@@ -257,6 +257,14 @@ describe('actions/buc', () => {
           }
         }
       },
+      context: {
+        bucs: {
+          456: {
+            tags: ['DUMMY'],
+            comment: 'dummy comment'
+          }
+        }
+      },
       url: sprintf(urls.API_STORAGE_POST_URL, { userId: mockParams.aktoerId, namespace: storage.NAMESPACE_BUC, file: storage.FILE_BUCINFO })
     })
   })
