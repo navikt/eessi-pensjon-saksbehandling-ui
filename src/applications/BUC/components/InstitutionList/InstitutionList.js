@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { CountryData, Flag, Nav } from 'eessi-pensjon-ui'
 import './InstitutionList.css'
 
-const InstitutionList = ({ className, flagType = 'circle', institutions, institutionNames, locale, t, type }) => {
+const InstitutionList = ({ className, flagType = 'circle', institutions, institutionNames, locale, separator = ': ', t, type }) => {
   const institutionList = {}
   if (institutions) {
     institutions.forEach(item => {
@@ -32,7 +32,7 @@ const InstitutionList = ({ className, flagType = 'circle', institutions, institu
         {type === 'joined' ? (
           <div className='a-buc-c-institution'>
             <Flag label={country.label} country={landkode} size='M' type={flagType} />
-            <Nav.Element className='pr-2 pl-2'>{country.label}: </Nav.Element>
+            <Nav.Element className='pr-2 pl-2'>{country.label}{separator}</Nav.Element>
             <Nav.Normaltekst>{institutionList[landkode].map(institutionId => {
               return institutionNames &&
           Object.prototype.hasOwnProperty.call(institutionNames, landkode + ':' + institutionId)
@@ -50,7 +50,7 @@ const InstitutionList = ({ className, flagType = 'circle', institutions, institu
           return (
             <div className='a-buc-c-institution' key={institutionId}>
               <Flag label={country ? country.label : landkode} country={landkode} size='M' type={flagType} />
-              <Nav.Element className='pr-2 pl-2'>{country ? country.label : landkode}: </Nav.Element>
+              <Nav.Element className='pr-2 pl-2'>{country ? country.label : landkode}{separator}</Nav.Element>
               <Nav.Normaltekst>{label}</Nav.Normaltekst>
             </div>
           )
@@ -66,6 +66,7 @@ InstitutionList.propTypes = {
   institutions: PT.array.isRequired,
   institutionNames: PT.object,
   locale: PT.string.isRequired,
+  separator: PT.string,
   t: PT.func.isRequired,
   type: PT.string.isRequired
 }

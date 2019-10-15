@@ -51,7 +51,7 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, t }) => 
             id='a-buc-c-bucheader__description-id'
             className='a-buc-c-bucheader__description'
           >
-            {new Date(buc.startDate).toLocaleDateString() + ' - ' + new Date(buc.lastUpdate).toLocaleDateString()}
+            {t('ui:created')}: {new Date(buc.startDate).toLocaleDateString()}
           </Nav.Normaltekst>
           <div
             id='a-buc-c-bucheader__owner-id'
@@ -68,11 +68,22 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, t }) => 
               institutionNames={institutionNames}
               locale={locale}
               type='separated'
+              separator=' - '
               institutions={[buc.creator]}
             />
           </div>
+          {buc.caseId ? (
+            <div
+              id='a-buc-c-bucheader__case-id'
+              className='a-buc-c-bucheader__case'
+            >
+              <Nav.Normaltekst className='pr-2 text-nowrap'>
+                {t('buc:form-caseNumberInRina') + ': '}{buc.caseId}
+              </Nav.Normaltekst>
+            </div>
+          ) : null}
         </div>
-        <div className='a-buc-c-bucheader__flags col-sm-2'>
+        <div className='a-buc-c-bucheader__icons col-sm-4'>
           <FlagList
             locale={locale}
             type='circle'
@@ -85,8 +96,6 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, t }) => 
             })}
             overflowLimit={5}
           />
-        </div>
-        <div className='a-buc-c-bucheader__icons col-sm-3'>
           <div
             className='a-buc-c-bucheader__icon-numberofseds'
             title={t('buc:form-youhaveXseds', { seds: numberOfSeds })}
@@ -105,14 +114,14 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, t }) => 
           {attachments.length > 0
             ? (
               <div
-                className='a-buc-c-bucheader__icon-vedlegg pl-2 pr-2'
+                className='a-buc-c-bucheader__icon-vedlegg'
                 title={t('buc:form-youHaveXAttachmentsInBuc', { attachments: attachments.length })}
               >
                 <Icons kind='paperclip' />
               </div>
             ) : null}
         </div>
-        <div className='a-buc-c-bucheader__actions col-sm-3'>
+        <div className='a-buc-c-bucheader__actions col-sm-4'>
           <Nav.LenkepanelBase
             id='a-buc-c-bucheader__bucedit-link'
             className='a-buc-c-bucheader__bucedit-link knapp'
