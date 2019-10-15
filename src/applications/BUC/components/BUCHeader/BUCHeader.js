@@ -111,15 +111,6 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, t }) => 
                 <Icons kind='problem' />
               </div>
             ) : null}
-          {attachments.length > 0
-            ? (
-              <div
-                className='a-buc-c-bucheader__icon-vedlegg'
-                title={t('buc:form-youHaveXAttachmentsInBuc', { attachments: attachments.length })}
-              >
-                <Icons kind='paperclip' />
-              </div>
-            ) : null}
         </div>
         <div className='a-buc-c-bucheader__actions col-sm-4'>
           <Nav.LenkepanelBase
