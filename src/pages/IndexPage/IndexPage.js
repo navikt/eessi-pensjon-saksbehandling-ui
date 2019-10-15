@@ -52,6 +52,8 @@ const defaultConfig = {
   version: 1
 }
 
+const allowedWidgets = ['buc', 'varsler', 'overview']
+
 export const IndexPage = ({ history, t }) => (
   <TopContainer
     className='p-indexPage'
@@ -64,6 +66,7 @@ export const IndexPage = ({ history, t }) => (
       defaultWidgets={defaultWidgets}
       defaultLayout={defaultLayout}
       defaultConfig={defaultConfig}
+      allowedWidgets={allowedWidgets}
     />
   </TopContainer>
 )
