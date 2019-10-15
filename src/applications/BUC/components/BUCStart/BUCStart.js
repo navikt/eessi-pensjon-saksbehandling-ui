@@ -121,6 +121,7 @@ const BUCStart = ({
   }
 
   const renderOptions = (options, type) => {
+    console.log(options)
     if (!options || Object.keys(options).length === 0) {
       options = [{
         key: placeholders[type],
@@ -166,7 +167,7 @@ const BUCStart = ({
   const tagObjectList = tagList ? tagList.map(tag => {
     return {
       value: tag,
-      label: t('buc:tag-' + tag)
+      label: t('buc:' + tag)
     }
   }) : []
 
