@@ -27,7 +27,7 @@ describe('applications/BUC/components/SEDList/SEDList', () => {
   })
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.find('SEDRow').length).toEqual(
+    expect(wrapper.find('SEDHeader').length).toEqual(
       initialMockProps.seds.filter(sed => sed.status !== 'empty').length
     )
     expect(wrapper.exists('.a-buc-c-sedlist__footer')).toBeTruthy()

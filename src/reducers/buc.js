@@ -233,7 +233,7 @@ const bucReducer = (state = initialBucState, action) => {
     case types.BUC_SAVE_BUCSINFO_SUCCESS:
       return {
         ...state,
-        bucsInfo: typeof action.originalPayload === 'object' ? action.originalPayload : JSON.parse(action.originalPayload)
+        bucsInfo: action.context
       }
 
     case types.BUC_SAVE_BUCSINFO_REQUEST:
@@ -241,7 +241,7 @@ const bucReducer = (state = initialBucState, action) => {
 
       return {
         ...state,
-        bucsInfo: undefined
+        bucsInfo: action.context
       }
 
     case types.BUC_GET_COUNTRY_LIST_SUCCESS:

@@ -203,6 +203,7 @@ export const saveBucsInfo = ({ aktoerId, buc, bucsInfo = {}, comment, tags }) =>
     url: sprintf(urls.API_STORAGE_POST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_BUC, file: storage.FILE_BUCINFO }),
     method: 'POST',
     payload: newBucsInfo,
+    context: newBucsInfo,
     type: {
       request: types.BUC_SAVE_BUCSINFO_REQUEST,
       success: types.BUC_SAVE_BUCSINFO_SUCCESS,

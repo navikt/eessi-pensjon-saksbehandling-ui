@@ -23,19 +23,19 @@ const SEDHeader = ({ border = 'none', buc, className, institutionNames, locale, 
 
   return (
     <Nav.PanelBase
-      className={classNames('a-buc-c-sedrow', 'w-100', 'p-0', className)}
+      className={classNames('a-buc-c-sedheader', 'w-100', 'p-0', className)}
     >
-      <div className={classNames('a-buc-c-sedrow__content pt-2 pb-2', 'a-buc-c-sedrow__border-' + border)}>
-        <div className='a-buc-c-sedrow__column a-buc-c-sedrow__name col-4'>
+      <div className={classNames('a-buc-c-sedheader__content pt-2 pb-2', 'a-buc-c-sedheader__border-' + border)}>
+        <div className='a-buc-c-sedheader__column a-buc-c-sedheader__name col-4'>
           <Nav.Element>{sed.type}{sedLabel ? ' - ' + sedLabel : ''}</Nav.Element>
         </div>
-        <div className='a-buc-c-sedrow__column a-buc-c-sedrow__status col-3'>
+        <div className='a-buc-c-sedheader__column a-buc-c-sedheader__status col-3'>
           <SEDStatus t={t} className='col-auto' status={sed.status} />
           <Nav.Normaltekst className='pl-2'>
             {sed.lastUpdate ? moment(sed.lastUpdate).format('D.M.Y') : null}
           </Nav.Normaltekst>
         </div>
-        <div className='a-buc-c-sedrow__column a-buc-c-sedrow__institutions col-3'>
+        <div className='a-buc-c-sedheader__column a-buc-c-sedheader__institutions col-3'>
           <InstitutionList
             t={t}
             institutionNames={institutionNames}
@@ -44,10 +44,10 @@ const SEDHeader = ({ border = 'none', buc, className, institutionNames, locale, 
             institutions={institutionList}
           />
         </div>
-        <div className='a-buc-c-sedrow__column a-buc-c-sedrow__actions col-2'>
+        <div className='a-buc-c-sedheader__column a-buc-c-sedheader__actions col-2'>
           {!_.isEmpty(sed.attachments) ? (
             <div
-              className='a-buc-c-sedrow__actions-attachments'
+              className='a-buc-c-sedheader__actions-attachments'
               title={t('buc:form-youHaveXAttachmentsInSed', { attachments: sed.attachments.length })}
             >
               <Icons kind='paperclip' />
@@ -57,7 +57,7 @@ const SEDHeader = ({ border = 'none', buc, className, institutionNames, locale, 
             ? (
               <Nav.Flatknapp
                 mini
-                className='a-buc-c-sedrow__actions-answer-button'
+                className='a-buc-c-sedheader__actions-answer-button'
                 onClick={() => onSEDNew(buc, sed)}
               >
                 {t('buc:form-answerSED')}

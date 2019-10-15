@@ -1,5 +1,17 @@
 import React from 'react'
 import { VarslerPanel } from './VarslerPanel'
+jest.mock('eessi-pensjon-ui', () => {
+  return {
+    Nav: {
+      EkspanderbartpanelBase: ({ children }) => {
+        return <div className='mock-EkspanderbartpanelBase'>{children}</div>
+      },
+      Lenke: () => {
+        return <div className='mock-Lenke' />
+      }
+    }
+  }
+})
 
 describe('widgets/Varsler/VarslerPanel', () => {
   let wrapper
@@ -16,7 +28,12 @@ describe('widgets/Varsler/VarslerPanel', () => {
     invite: undefined,
     sakId: '123',
     sakType: 'Alderspensjon',
-    t: jest.fn((translationString) => { return translationString })
+    t: jest.fn((translationString) => { return translationString }),
+    widget: {
+      options: {
+        collapsed: false
+      }
+    }
   }
 
   beforeEach(() => {

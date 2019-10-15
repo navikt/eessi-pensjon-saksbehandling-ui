@@ -1,6 +1,6 @@
 export default {
   bucs: {
-    158123: {
+    195440: {
       tags: ['vip'],
       comment: 'this is a comment for P_BUC_01 195440'
     },

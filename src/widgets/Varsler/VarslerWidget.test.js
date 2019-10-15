@@ -7,7 +7,12 @@ jest.mock('widgets/Varsler/VarslerPanel', () => {
 describe('widgets/Varsler/VarslerWidget', () => {
   let wrapper
   const initialMockProps = {
-    onResize: jest.fn()
+    onResize: jest.fn(),
+    widget:{
+      options:{
+        collapsed: false
+      }
+    }
   }
 
   beforeEach(() => {

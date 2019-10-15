@@ -1,6 +1,7 @@
 import React from 'react'
 import { Overview } from './Overview'
 import samplePerson from 'resources/tests/samplePerson'
+import PersonTitle from "widgets/Overview/PersonTitle";
 
 describe('widgets/Overview/Overview', () => {
   let wrapper
@@ -44,5 +45,11 @@ describe('widgets/Overview/Overview', () => {
 
     wrapper.find('EkspanderbartpanelBase button.ekspanderbartPanel__hode').hostNodes().simulate('click')
     expect(wrapper.exists('PersonPanel')).toBeFalsy()
+  })
+
+  it('With no aktoerId', () => {
+    wrapper = mount(<PersonTitle {...initialMockProps} aktoerId={undefined} />)
+    expect(wrapper.exists('.w-overview__alert')).toBeTruthy()
+    expect(wrapper.find('.w-overview__alert').hostNodes().render().text()).toEqual('buc:validation-noAktoerId')
   })
 })

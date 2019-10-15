@@ -8,10 +8,11 @@ import './SEDList.css'
 
 const SEDList = ({ buc, institutionNames, locale, onSEDNew, rinaUrl, seds, t }) => {
   return (
-    <>
+    <div className='a-buc-c-sedlist'>
       {seds ? _(seds)
         .filter(sed => sed.status !== 'empty')
-        .orderBy(['lastUpdate', 'type'], ['desc', 'desc'])
+        .orderBy(['lastUpdate', 'type'], ['desc', 'de' +
+        'sc'])
         .value()
         .slice(0, 5).map((sed, index) => {
           return (
@@ -44,7 +45,7 @@ const SEDList = ({ buc, institutionNames, locale, onSEDNew, rinaUrl, seds, t }) 
         {!_.isEmpty(seds) && seds.filter(sed => sed.status !== 'empty').length > 5
           ? <Nav.Normaltekst>{t('buc:form-lastNonEmpty5')}</Nav.Normaltekst> : null}
       </div>
-    </>
+    </div>
   )
 }
 

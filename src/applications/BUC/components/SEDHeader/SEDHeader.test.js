@@ -33,7 +33,7 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
 
     const status = wrapper.find('.a-buc-c-sedrow__status').hostNodes()
     expect(status.find('SEDStatus').render().text()).toEqual('ui:' + sed.status)
-    expect(status.find('Normaltekst').render().text()).toEqual('2019-5-29')
+    expect(status.find('Normaltekst').render().text()).toEqual('29.5.2019')
 
     const institutions = wrapper.find('.a-buc-c-sedrow__institutions').hostNodes()
     expect(institutions.find('InstitutionList').render().text()).toEqual('Norge: NAVT003Norge: NAVT002')

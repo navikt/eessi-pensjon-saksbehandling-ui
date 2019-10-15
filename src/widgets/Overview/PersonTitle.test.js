@@ -32,13 +32,7 @@ describe('widgets/Overview/PersonTitle', () => {
   it('Has proper HTML structure', () => {
     expect(wrapper.exists('.w-overview-personPanel__title')).toBeTruthy()
     expect(wrapper.find('.w-overview-personPanel__title img').props().kind).toEqual('nav-woman-icon')
-    expect(wrapper.find('.w-overview-personPanel__title h2').render().text()).toEqual('HØYSÆTHER NAZAKMIR-MASK (90) - 27072942618')
-  })
-
-  it('With no aktoerId', () => {
-    wrapper = mount(<PersonTitle {...initialMockProps} aktoerId={undefined} />)
-    expect(wrapper.exists('.w-overview-personPanel__alert')).toBeTruthy()
-    expect(wrapper.find('.w-overview-personPanel__alert').hostNodes().render().text()).toEqual('buc:validation-noAktoerId')
+    expect(wrapper.find('.w-overview-personPanel__title h2').render().text()).toEqual('HØYSÆTHER NAZAKMIR-MASK (89) - 27072942618')
   })
 
   it('Shows waiting panel when fetching person', () => {

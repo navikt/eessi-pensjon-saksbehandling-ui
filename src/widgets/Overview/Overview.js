@@ -44,7 +44,7 @@ export const Overview = (props) => {
 
   if (!aktoerId) {
     return (
-      <Nav.AlertStripe type='advarsel' className='w-overview-personPanel__alert w-100'>
+      <Nav.AlertStripe type='advarsel' className='w-overview__alert w-100'>
         {t('buc:validation-noAktoerId')}
       </Nav.AlertStripe>
     )

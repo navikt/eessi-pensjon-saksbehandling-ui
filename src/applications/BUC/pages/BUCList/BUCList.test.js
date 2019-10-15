@@ -9,8 +9,8 @@ jest.mock('eessi-pensjon-ui', () => {
       return <div className='mock-Icons' />
     },
     Nav: {
-      EkspanderbartpanelBase: () => {
-        return <div className='mock-EkspanderbartpanelBase' />
+      EkspanderbartpanelBase: ({ children }) => {
+        return <div className='mock-EkspanderbartpanelBase'>{children}</div>
       },
       Lenke: () => {
         return <div className='mock-Lenke' />
@@ -82,8 +82,8 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
     expect(wrapper.exists('.a-buc-buclist__buttons')).toBeTruthy()
     expect(wrapper.exists('#a-buc-buclist__newbuc-button-id')).toBeTruthy()
     expect(wrapper.find('.mock-EkspanderbartpanelBase').hostNodes().length).toEqual(sampleBucs.length)
-    expect(wrapper.exists('.a-buc-buclist__footer')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-c-sedheader')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-sedlist')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-sedheader__head').length).toEqual(4)
+    expect(wrapper.exists('.a-buc-footer')).toBeTruthy()
   })
 })

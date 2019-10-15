@@ -171,7 +171,24 @@ describe('actions/buc', () => {
     const expectedResults = bucActions.getTagList()
     expect(expectedResults).toMatchObject({
       type: types.BUC_GET_TAG_LIST_SUCCESS,
-      payload: ['urgent', 'vip', 'sensitive', 'secret']
+      payload: [
+        "tag-refusjonskrav",
+        "tag-uttakFor67ar",
+             "tag-kombinasjonssaker",
+             "tag-skilsmissesakerDE",
+             "tag-forLavOpptjening",
+             "tag-konvensjonsland",
+             "tag-innvilgetYtelseIUtland",
+            "tag-LengstOpptjeningstidINorge",
+             "tag-kurantSak",
+             "tag-InnvilgetGrunnytelse",
+             "tag-12_2",
+             "tag-lånekassen",
+             "tag-loependeBarnetillegg",
+             "tag-inntektsavkortetGrunnytelse",
+             "tag-avvikendeMedlemskap"
+
+      ]
     })
   })
 

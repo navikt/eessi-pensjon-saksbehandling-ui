@@ -2,13 +2,13 @@ import React, { useEffect, useState, useCallback } from 'react'
 import PT from 'prop-types'
 import { connect, bindActionCreators } from 'store'
 import _ from 'lodash'
+import moment from 'moment'
 import { withTranslation } from 'react-i18next'
 import { Icons, Nav, RefreshButton, WaitingPanel } from 'eessi-pensjon-ui'
 import * as pinfoActions from 'actions/pinfo'
 import * as storageActions from 'actions/storage'
 import { ReactComponent as VeilederSVG } from 'resources/images/NavPensjonVeileder.svg'
 import './VarslerPanel.css'
-import moment from "moment";
 
 const mapStateToProps = (state) => {
   return {

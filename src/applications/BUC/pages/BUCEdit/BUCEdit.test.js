@@ -54,7 +54,7 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
   })
 
   it('SEDSearch status searttriggers the filter functions', () => {
-    expect(wrapper.find('.a-buc-c-sedrow').hostNodes().length).toEqual(1)
+    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(1)
     const sedSearch = wrapper.find('.a-buc-c-sedsearch').hostNodes()
 
     const statusSelect = sedSearch.find('#a-buc-c-sedsearch__status-select-id input')
@@ -64,6 +64,6 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
     expect(wrapper.find('#a-buc-c-sedsearch__status-select-id .c-multipleOption').at(0).render().text()).toEqual('ui:new')
 
     statusSelect.simulate('keyDown', { key: 'Enter', keyCode: 13 })
-    expect(wrapper.find('.a-buc-c-sedrow').hostNodes().length).toEqual(0)
+    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(0)
   })
 })

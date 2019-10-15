@@ -33,11 +33,11 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
     expect(wrapper.exists('.a-buc-c-bucheader__title')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__description')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-bucheader__description').hostNodes().render().text()).toEqual(
-      new Date(buc.startDate).toLocaleDateString() + ' - ' + new Date(buc.lastUpdate).toLocaleDateString()
+      'ui:created: ' + new Date(buc.startDate).toLocaleDateString()
     )
     expect(wrapper.exists('.a-buc-c-bucheader__owner')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-bucheader__owner').hostNodes().render().text()).toEqual(
-      'buc:form-caseOwner: Norge: Z990638'
+      'buc:form-caseOwner: Norge - Z990638'
     )
     expect(wrapper.exists('.a-buc-c-bucheader__owner-institutions')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__flags')).toBeTruthy()
@@ -45,7 +45,6 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
     expect(wrapper.exists('.a-buc-c-bucheader__icon-numberofseds')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-bucheader__icon-numberofseds').render().text()).toEqual('1')
     expect(wrapper.exists('.a-buc-c-bucheader__icon-tags')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-c-bucheader__icon-vedlegg')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__actions')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__bucedit-link')).toBeTruthy()
     expect(wrapper.find('LenkepanelBase.a-buc-c-bucheader__bucedit-link').render().text()).toEqual('ui:processing')
@@ -53,7 +52,6 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
 
   it('Shows icons if necessary', () => {
     expect(wrapper.exists('.a-buc-c-bucheader__icon-tags')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-c-bucheader__icon-vedlegg')).toBeTruthy()
     wrapper.setProps({
       bucInfo: {
         tags: [],
@@ -65,12 +63,11 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
       }
     })
     expect(wrapper.exists('.a-buc-c-bucheader__icon-tags')).toBeFalsy()
-    expect(wrapper.exists('.a-buc-c-bucheader__icon-vedlegg')).toBeFalsy()
   })
 
-  it('Handles click in LenkepanelBase', () => {
+  it('Handles click in Knapp', () => {
     expect(initialMockProps.onBUCEdit).toHaveBeenCalledTimes(0)
-    wrapper.find('LenkepanelBase').simulate('click', {
+    wrapper.find('Knapp').simulate('click', {
       preventDefault: () => {},
       stopPropagation: () => {}
     })

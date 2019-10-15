@@ -10,8 +10,7 @@ const placeholders = {
 }
 
 const BUCStart = ({
-  actions, aktoerId, buc, bucParam, bucsInfo, bucList,
-  locale, loading, mode, sakId, subjectAreaList, tagList, t
+  actions, aktoerId, buc, bucParam, bucsInfo, bucList, loading, mode, sakId, subjectAreaList, tagList, t
 }) => {
   const [_buc, setBuc] = useState(bucParam)
   const [_subjectArea, setSubjectArea] = useState('Pensjon')
@@ -121,7 +120,6 @@ const BUCStart = ({
   }
 
   const renderOptions = (options, type) => {
-    console.log(options)
     if (!options || Object.keys(options).length === 0) {
       options = [{
         key: placeholders[type],
@@ -210,7 +208,7 @@ const BUCStart = ({
           </Nav.Select>
           <Nav.Select
             id='a-buc-c-bucstart__buc-select-id'
-            className={classNames('a-buc-c-bucstart__buc-selectflex-fill', {
+            className={classNames('a-buc-c-bucstart__buc-select flex-fill', {
               grey: !_buc || _buc === placeholders.buc
             })}
             aria-describedby='help-buc'
@@ -280,7 +278,6 @@ BUCStart.propTypes = {
   bucList: PT.array,
   bucParam: PT.string,
   loading: PT.object,
-  locale: PT.string.isRequired,
   mode: PT.string,
   sakId: PT.string,
   subjectAreaList: PT.array,
