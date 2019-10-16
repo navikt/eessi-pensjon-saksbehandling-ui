@@ -1,11 +1,13 @@
-import 'core-js/es/object/assign' // IE 11 compatibility
-import 'core-js/es/object/entries' // IE 11 compatibility
-import 'core-js/es/object/keys' // IE 11 compatibility
-import 'core-js/es/array/includes' // IE 11 compatibility
-import 'core-js/es/array/find' // IE 11 compatibility
-import 'core-js/es/map' // IE 11 compatibility
-import 'core-js/es/set' // IE 11 compatibility
-import 'es6-promise/auto' // IE 11 compatibility
+// IE 11 compatibility
+import 'core-js/es/object/assign'
+import 'core-js/es/object/entries'
+import 'core-js/es/object/keys'
+import 'core-js/es/array/includes'
+import 'core-js/es/array/find'
+import 'core-js/es/map'
+import 'core-js/es/set'
+import 'es6-promise/auto'
+import 'core-js/features/url-search-params'
 
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
