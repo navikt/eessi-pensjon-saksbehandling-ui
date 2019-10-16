@@ -90,7 +90,7 @@ const BUCEdit = ({ actions, aktoerId, bucs, bucsInfo, currentBuc, institutionNam
           {buc.seds ? _(buc.seds)
             .filter(sed => sed.status !== 'empty')
             .filter(sedFilter)
-            .sortBy(['creationDate', 'type'])
+            .orderBy(['lastUpdate', 'type'], ['desc', 'desc'])
             .value()
             .map((sed, index) => {
               return (

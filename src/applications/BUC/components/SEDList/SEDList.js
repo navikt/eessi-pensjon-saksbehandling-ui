@@ -11,8 +11,7 @@ const SEDList = ({ buc, institutionNames, locale, onSEDNew, rinaUrl, seds, t }) 
     <div className='a-buc-c-sedlist'>
       {seds ? _(seds)
         .filter(sed => sed.status !== 'empty')
-        .orderBy(['lastUpdate', 'type'], ['desc', 'de' +
-        'sc'])
+        .orderBy(['lastUpdate', 'type'], ['desc', 'desc'])
         .value()
         .slice(0, 5).map((sed, index) => {
           return (

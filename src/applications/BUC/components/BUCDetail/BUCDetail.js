@@ -17,30 +17,17 @@ const BUCDetail = ({ buc, bucInfo, className, institutionNames, locale, rinaUrl,
           id='a-buc-c-bucdetail__header-id'
           className='a-buc-c-bucdetail__header'
         >
-          {t('buc:buc-' + buc.type)}
+          {buc.type + ' - ' + t('buc:buc-' + buc.type)}
         </Nav.Systemtittel>
       }
     >
       <div className='a-buc-c-bucdetail__body'>
         <dl className='a-buc-c-bucdetail__props'>
           <dt className='odd'>
-            <Nav.Element>{t('buc:form-buc-type')}:</Nav.Element>
+            <Nav.Element>{t('ui:status')}:</Nav.Element>
           </dt>
-          <dd className='odd' id='a-buc-c-bucdetail__props-type-id'>
-            <Nav.Normaltekst>{buc.type}</Nav.Normaltekst>
-          </dd>
-          <dt>
-            <Nav.Element>{t('buc:form-caseIdInRina')}:</Nav.Element>
-          </dt>
-          <dd id='a-buc-c-bucdetail__props-caseId-id'>
-            <Nav.Lenke
-              id='a-buc-c-bucdetail__gotorina-link-id'
-              className='a-buc-c-bucdetail__gotorina-link'
-              href={rinaUrl + buc.caseId}
-              target='rinaWindow'
-            >
-              {buc.caseId}
-            </Nav.Lenke>
+          <dd className='odd' id='a-buc-c-bucdetail__props-status-id'>
+            <Nav.Normaltekst>{t('ui:' + buc.status)}</Nav.Normaltekst>
           </dd>
           <dt>
             <Nav.Element>{t('ui:creator')}:</Nav.Element>
@@ -55,16 +42,17 @@ const BUCDetail = ({ buc, bucInfo, className, institutionNames, locale, rinaUrl,
             <Nav.Normaltekst>{moment(buc.startDate).format('D.M.Y')}</Nav.Normaltekst>
           </dd>
           <dt>
-            <Nav.Element>{t('ui:lastUpdate')}:</Nav.Element>
+            <Nav.Element>{t('buc:form-rinaCaseNumber')}:</Nav.Element>
           </dt>
-          <dd id='a-buc-c-bucdetail__props-lastUpdate-id'>
-            <Nav.Normaltekst>{moment(buc.lastUpdate).format('D.M.Y')}</Nav.Normaltekst>
-          </dd>
-          <dt>
-            <Nav.Element>{t('ui:status')}:</Nav.Element>
-          </dt>
-          <dd id='a-buc-c-bucdetail__props-status-id'>
-            <Nav.Normaltekst>{t('ui:' + buc.status)}</Nav.Normaltekst>
+          <dd id='a-buc-c-bucdetail__props-caseId-id'>
+            <Nav.Lenke
+              id='a-buc-c-bucdetail__gotorina-link-id'
+              className='a-buc-c-bucdetail__gotorina-link'
+              href={rinaUrl + buc.caseId}
+              target='rinaWindow'
+            >
+              {buc.caseId}
+            </Nav.Lenke>
           </dd>
           <dt className='odd'>
             <Nav.Element>{t('ui:tags')}:</Nav.Element>
