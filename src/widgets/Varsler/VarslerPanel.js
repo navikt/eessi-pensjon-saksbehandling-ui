@@ -198,7 +198,7 @@ export const VarslerPanel = (props) => {
                             <td><Icons kind='nav-message-sent' /></td>
                             <td>{content.tittel || file}</td>
                             <td>{content.fulltnavn || t('unknown')}</td>
-                            <td>{content.timestamp ? moment(content.timestamp).format('D.M.Y') : t('unknown')}</td>
+                            <td>{content.timestamp ? moment(content.timestamp).format('DD.MM.YYYY') : t('unknown')}</td>
                           </tr>
                         )
                       })

@@ -6,6 +6,7 @@ import SEDPanel from 'applications/BUC/components/SEDPanel/SEDPanel'
 import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
+import moment from 'moment'
 import './BUCEdit.css'
 
 const BUCEdit = ({ actions, aktoerId, bucs, bucsInfo, currentBuc, institutionNames, loading, locale, rinaUrl, t, tagList }) => {
@@ -39,8 +40,8 @@ const BUCEdit = ({ actions, aktoerId, bucs, bucsInfo, currentBuc, institutionNam
         const organizationName = it.organisation.name.toLowerCase()
         const countryCode = it.organisation.countryCode.toLowerCase()
         const countryName = CountryData.findByValue(locale, countryCode.toUpperCase()).label.toLowerCase()
-        const creationDate = new Date(sed.creationDate).toLocaleDateString()
-        const lastUpdate = sed.lastUpdate ? new Date(sed.lastUpdate).toLocaleDateString() : ''
+        const creationDate = moment(sed.creationDate).format('DD.MM.YYYY')
+        const lastUpdate = moment(sed.lastUpdate).format('DD.MM.YYYY')
         const status = t('ui:' + sed.status).toLowerCase()
         return organizationId.match(_search) || organizationName.match(_search) ||
           countryCode.match(_search) || countryName.match(_search) || creationDate.match(_search) ||

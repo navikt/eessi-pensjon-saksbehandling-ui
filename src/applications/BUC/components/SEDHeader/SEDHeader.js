@@ -3,6 +3,7 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
 import moment from 'moment'
+
 import { Icons, Nav } from 'eessi-pensjon-ui'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
@@ -31,9 +32,12 @@ const SEDHeader = ({ border = 'none', buc, className, institutionNames, locale, 
         </div>
         <div className='a-buc-c-sedheader__column a-buc-c-sedheader__status col-3'>
           <SEDStatus t={t} className='col-auto' status={sed.status} />
-          <Nav.Normaltekst className='pl-2'>
-            {sed.lastUpdate ? moment(sed.lastUpdate).format('D.M.Y') : null}
-          </Nav.Normaltekst>
+          <div className='pl-2'>
+            <Nav.Normaltekst data-tip={t('ui:lastUpdate')}>
+              {sed.lastUpdate ? moment(sed.lastUpdate).format('DD.MM.YYYY') : null}
+            </Nav.Normaltekst>
+            {sed.version ? <Nav.Normaltekst>{t('ui:version')}{': '}{sed.version || '-'}</Nav.Normaltekst> : null}
+          </div>
         </div>
         <div className='a-buc-c-sedheader__column a-buc-c-sedheader__institutions col-3'>
           <InstitutionList
@@ -48,7 +52,7 @@ const SEDHeader = ({ border = 'none', buc, className, institutionNames, locale, 
           {!_.isEmpty(sed.attachments) ? (
             <div
               className='a-buc-c-sedheader__actions-attachments'
-              title={t('buc:form-youHaveXAttachmentsInSed', { attachments: sed.attachments.length })}
+              data-tip={t('buc:form-youHaveXAttachmentsInSed', { attachments: sed.attachments.length })}
             >
               <Icons kind='paperclip' />
             </div>

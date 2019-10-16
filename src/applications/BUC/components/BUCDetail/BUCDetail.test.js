@@ -36,8 +36,8 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
     expect(wrapper.find('#a-buc-c-bucdetail__props-caseId-id').render().text()).toEqual(buc.caseId)
     expect(wrapper.find('#a-buc-c-bucdetail__props-creator-id').render().text()).toEqual(
       buc.creator.institution + ' (' + buc.creator.country + ')')
-    expect(wrapper.find('#a-buc-c-bucdetail__props-startDate-id').render().text()).toEqual(moment(buc.startDate).format('D.M.Y'))
-    expect(wrapper.find('#a-buc-c-bucdetail__props-lastUpdate-id').render().text()).toEqual(moment(buc.lastUpdate).format('D.M.Y'))
+    expect(wrapper.find('#a-buc-c-bucdetail__props-startDate-id').render().text()).toEqual(moment(buc.startDate).format('DD.MM.YYYY'))
+    expect(wrapper.find('#a-buc-c-bucdetail__props-lastUpdate-id').render().text()).toEqual(moment(buc.lastUpdate).format('DD.MM.YYYY'))
     expect(wrapper.find('#a-buc-c-bucdetail__props-status-id').render().text()).toEqual('ui:' + buc.status)
     expect(wrapper.find('#a-buc-c-bucdetail__props-tags-id').render().text()).toEqual('buc:tag-vip')
     expect(wrapper.find('#a-buc-c-bucdetail__props-comment-id').render().text()).toEqual(bucInfo.comment)

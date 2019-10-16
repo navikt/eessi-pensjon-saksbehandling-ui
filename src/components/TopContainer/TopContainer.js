@@ -8,6 +8,7 @@ import { Alert, Banner, Modal, Nav } from 'eessi-pensjon-ui'
 import Header from 'components/Header/Header'
 import Footer from 'components/Footer/Footer'
 import SessionMonitor from 'components/SessionMonitor/SessionMonitor'
+import ReactTooltip from 'react-tooltip'
 
 import './TopContainer.css'
 
@@ -67,6 +68,7 @@ export const TopContainer = ({
     <div
       className={classNames('c-topContainer', className, { highContrast: highContrast })}
     >
+      <ReactTooltip place='top' type='dark' effect='solid' />
       <Header
         actions={actions}
         t={t}

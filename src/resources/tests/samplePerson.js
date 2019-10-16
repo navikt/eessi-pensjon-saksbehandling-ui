@@ -1,7 +1,24 @@
 export default {
   person: {
     diskresjonskode: null,
-    bostedsadresse: null,
+    bostedsadresse: {
+      strukturertAdresse: {
+        landkode: {
+          value: 'NOR',
+          kodeRef: null,
+          kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Landkoder'
+        },
+        tilleggsadresse: null,
+        tilleggsadresseType: 'Offisiell adresse',
+        poststed: { value: '5036', kodeRef: null, kodeverksRef: 'http://nav.no/kodeverk/Kodeverk/Postnummer' },
+        bolignummer: null,
+        kommunenummer: '1201',
+        gatenummer: null,
+        gatenavn: 'KJEMPEBAKKENVEIEN',
+        husnummer: 12,
+        husbokstav: null
+      }
+    },
     sivilstand: {
       sivilstand: {
         value: 'ENKE',

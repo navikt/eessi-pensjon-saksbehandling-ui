@@ -43,11 +43,10 @@ const PersonPanel = ({ t, person }) => {
     )
   }
 
-  const addAddressLine = (address, person, param, label) => {
-    const value = _.get(person, param)
+  const addAddressLine = (address, value, label, separator) => {
     if (value) {
-      address.push(label ? <span>{label}: {value}</span> : <span>{value}</span>)
-      address.push(<br />)
+      address.push(<span data-tip={label}>{value}</span>)
+      address.push(separator)
     }
     return address
   }
@@ -61,16 +60,16 @@ const PersonPanel = ({ t, person }) => {
   }
 
   if (_.get(person, 'sivilstand.fomGyldighetsperiode')) {
-    dateString = moment(person.sivilstand.fomGyldighetsperiode).format('D.M.Y')
+    dateString = moment(person.sivilstand.fomGyldighetsperiode).format('DD.MM.YYYY')
   }
   if (_.get(person, 'sivilstand.tomGyldighetsperiode')) {
-    dateString += ' - ' + moment(person.sivilstand.tomGyldighetsperiode).format('D.M.Y')
+    dateString += ' - ' + moment(person.sivilstand.tomGyldighetsperiode).format('DD.MM.YYYY')
   }
   if (_.get(person, 'foedselsdato.foedselsdato')) {
-    birthDateString = moment(person.foedselsdato.foedselsdato).format('D.M.Y')
+    birthDateString = moment(person.foedselsdato.foedselsdato).format('DD.MM.YYYY')
   }
   if (_.get(person, 'doedsdato.doedsdato')) {
-    deathDateString = moment(person.doedsdato.doedsdato).format('D.M.Y')
+    deathDateString = moment(person.doedsdato.doedsdato).format('DD.MM.YYYY')
   }
   if (_.get(person, 'statsborgerskap.land.value')) {
     nationality = getCountry(person.statsborgerskap.land.value)
@@ -82,27 +81,24 @@ const PersonPanel = ({ t, person }) => {
   }
 
   if (_.get(person, 'bostedsadresse.strukturertAdresse')) {
-    bostedsadresse = addAddressLine(bostedsadresse, person, 'bostedsadresse.strukturertAdresse.gatenavn', t('ui:gatenavn'))
-    bostedsadresse = addAddressLine(bostedsadresse, person, 'bostedsadresse.strukturertAdresse.gatenummer', t('ui:gatenummer'))
-    bostedsadresse = addAddressLine(bostedsadresse, person, 'bostedsadresse.strukturertAdresse.husnummer', t('ui:husnummer'))
-    bostedsadresse = addAddressLine(bostedsadresse, person, 'bostedsadresse.strukturertAdresse.husbokstav', t('ui:husbokstav'))
-    bostedsadresse = addAddressLine(bostedsadresse, person, 'bostedsadresse.strukturertAdresse.kommunenummer', t('ui:kommunenummer'))
-    bostedsadresse = addAddressLine(bostedsadresse, person, 'bostedsadresse.strukturertAdresse.tilleggsadresse', t('ui:tilleggsadresse'))
-    bostedsadresse = addAddressLine(bostedsadresse, person, 'bostedsadresse.strukturertAdresse.tilleggsadresseType', t('ui:tilleggsadresseType'))
-    bostedsadresse = addAddressLine(bostedsadresse, person, 'bostedsadresse.strukturertAdresse.poststed.value', t('ui:poststed'))
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.gatenavn'), t('ui:gatenavn'), <span className='mr-2' />)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.gatenummer'), t('ui:gatenummer'), <br />)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.husnummer'), t('ui:husnummer'), <br />)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.husbokstav'), t('ui:husbokstav'), <span className='mr-2' />)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.kommunenummer'), t('ui:kommunenummer'), <br />)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.tilleggsadresse'), t('ui:tilleggsadresse'), <br />)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.poststed.value'), t('ui:poststed'), <br />)
   }
 
   if (_.get(person, 'postadresse.ustrukturertAdresse')) {
-    postadresse = addAddressLine(postadresse, person, 'postadresse.ustrukturertAdresse.adresselinje1')
-    postadresse = addAddressLine(postadresse, person, 'postadresse.ustrukturertAdresse.adresselinje2')
-    postadresse = addAddressLine(postadresse, person, 'postadresse.ustrukturertAdresse.adresselinje3')
-    postadresse = addAddressLine(postadresse, person, 'postadresse.ustrukturertAdresse.adresselinje4')
-    postadresse = addAddressLine(postadresse, person, 'postadresse.ustrukturertAdresse.postnr')
-    postadresse = addAddressLine(postadresse, person, 'postadresse.ustrukturertAdresse.poststed')
-    const country = getCountry(_.get(person, 'postadresse.ustrukturertAdresse.landkode.value'))
-    if (country) postadresse.push(country)
+    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.adresselinje1'), t('ui:adresse'), <br />)
+    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.adresselinje2'), t('ui:adresse'), <br />)
+    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.adresselinje3'), t('ui:adresse'), <br />)
+    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.adresselinje4'), t('ui:adresse'), <br />)
+    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.postnr'), t('ui:postnummer'), <span className='mr-2' />)
+    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.poststed'), t('ui:poststed'), <br />)
+    postadresse = addAddressLine(postadresse, getCountry(_.get(person, 'postadresse.ustrukturertAdresse.landkode.value')), t('ui:country'), <br />)
   }
-
   return (
     <>
       <Nav.Row className='w-overview-personPanel__content m-4'>

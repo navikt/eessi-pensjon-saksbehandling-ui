@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
+import moment from 'moment'
 import { FlagList, Icons, Nav } from 'eessi-pensjon-ui'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import './BUCHeader.css'
@@ -51,7 +52,7 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl,
             id='a-buc-c-bucheader__description-id'
             className='a-buc-c-bucheader__description'
           >
-            {t('ui:created')}: {new Date(buc.startDate).toLocaleDateString()}
+            {t('ui:created')}: {moment(buc.startDate).format('DD.MM.YYYY')}
           </Nav.Normaltekst>
           <div
             id='a-buc-c-bucheader__owner-id'
@@ -109,7 +110,7 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl,
           />
           <div
             className='a-buc-c-bucheader__icon-numberofseds'
-            title={t('buc:form-youhaveXseds', { seds: numberOfSeds })}
+            data-tip={t('buc:form-youhaveXseds', { seds: numberOfSeds })}
           >
             {numberOfSeds}
           </div>
@@ -117,21 +118,21 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl,
             ? (
               <div
                 className='a-buc-c-bucheader__icon-tags'
-                title={bucInfo.tags.join(', ')}
+                data-tip={bucInfo.tags.map(tag => t('buc:' + tag)).join(', ')}
               >
-                <Icons kind='problem' width={32} height={32} />
+                <Icons kind='problem' size={32} />
               </div>
             ) : null}
         </div>
         <div className='a-buc-c-bucheader__actions col-sm-4'>
-          <Nav.Knapp
+          <Nav.Lenke
             id='a-buc-c-bucheader__bucedit-link'
-            className='a-buc-c-bucheader__bucedit-link'
+            className='a-buc-c-bucheader__bucedit-link knapp text-decoration-none'
             onClick={(e) => onBucHandle(buc, e)}
             href={'#' + buc.type}
           >
             {t('ui:processing')}
-          </Nav.Knapp>
+          </Nav.Lenke>
         </div>
       </Nav.Row>
     </div>

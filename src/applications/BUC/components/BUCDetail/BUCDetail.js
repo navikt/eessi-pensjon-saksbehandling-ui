@@ -45,7 +45,7 @@ const BUCDetail = ({ buc, bucInfo, className, institutionNames, locale, rinaUrl,
             <Nav.Element>{t('ui:created')}:</Nav.Element>
           </dt>
           <dd className='odd' id='a-buc-c-bucdetail__props-startDate-id'>
-            <Nav.Normaltekst>{moment(buc.startDate).format('D.M.Y')}</Nav.Normaltekst>
+            <Nav.Normaltekst>{moment(buc.startDate).format('DD.MM.YYYY')}</Nav.Normaltekst>
           </dd>
           <dt>
             <Nav.Element>{t('buc:form-rinaCaseNumber')}:</Nav.Element>

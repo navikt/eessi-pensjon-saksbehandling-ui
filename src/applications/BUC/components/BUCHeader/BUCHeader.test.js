@@ -1,5 +1,6 @@
 import React from 'react'
 import BucHeader from './BUCHeader'
+import moment from 'moment'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 
@@ -33,7 +34,7 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
     expect(wrapper.exists('.a-buc-c-bucheader__title')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__description')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-bucheader__description').hostNodes().render().text()).toEqual(
-      'ui:created: ' + new Date(buc.startDate).toLocaleDateString()
+      'ui:created: ' + moment(buc.startDate).format('DD.MM.YYYY')
     )
     expect(wrapper.exists('.a-buc-c-bucheader__owner')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-bucheader__owner').hostNodes().render().text()).toEqual(
