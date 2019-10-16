@@ -7,12 +7,10 @@ import './BUCTools.css'
 const BUCTools = ({ actions, aktoerId, buc, bucInfo, bucsInfo, className, loading, locale, onTagChange, t, tagList }) => {
   const [comment, setComment] = useState(bucInfo ? bucInfo.comment : undefined)
   const [allTags, setAllTags] = useState(undefined)
-  const [tags, setTags] = useState(bucInfo && bucInfo.tags ? bucInfo.tags.map(tag => {
-    return {
-      value: tag,
-      label: t('buc:tag-' + tag)
-    }
-  }) : [])
+  const [tags, setTags] = useState(bucInfo && bucInfo.tags ? bucInfo.tags.map(tag => ({
+    value: tag,
+    label: t('buc:' + tag)
+  })) : [])
 
   useEffect(() => {
     if (tagList === undefined && !loading.gettingTagList) {

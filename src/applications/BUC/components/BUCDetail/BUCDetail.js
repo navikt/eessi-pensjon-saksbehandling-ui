@@ -70,7 +70,7 @@ const BUCDetail = ({ buc, bucInfo, className, institutionNames, locale, rinaUrl,
             <Nav.Element>{t('ui:tags')}:</Nav.Element>
           </dt>
           <dd className='odd' id='a-buc-c-bucdetail__props-tags-id'>
-            <Nav.EtikettLiten>{bucInfo && bucInfo.tags ? bucInfo.tags.join(', ') : ''}</Nav.EtikettLiten>
+            <Nav.EtikettLiten>{bucInfo && bucInfo.tags ? bucInfo.tags.map(tag => t('buc:' + tag)).join(', ') : ''}</Nav.EtikettLiten>
           </dd>
           <dt>
             <Nav.Element>{t('ui:comment')}:</Nav.Element>
