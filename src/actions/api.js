@@ -22,6 +22,7 @@ export const fakeCall = ({ context, expectedPayload, method, type, url }) => {
     }).then(payload => {
       if (!IS_TEST) {
         console.log('FAKE API SUCCESS FOR ' + (method || 'GET') + ' ' + url)
+        console.log('Payload', payload)
       }
       return dispatch({
         type: type.success,

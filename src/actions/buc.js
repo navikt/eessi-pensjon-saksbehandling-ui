@@ -214,7 +214,7 @@ export const saveBucsInfo = ({ aktoerId, buc, bucsInfo = {}, comment, tags }) =>
 export const getCountryList = () => {
   return api.call({
     url: urls.EUX_COUNTRY_URL,
-    expectedPayload: ['XX'],
+    expectedPayload: ['NO', 'FI', 'SE', 'DK'],
     type: {
       request: types.BUC_GET_COUNTRY_LIST_REQUEST,
       success: types.BUC_GET_COUNTRY_LIST_SUCCESS,
@@ -227,7 +227,7 @@ export const getSedList = (buc) => {
   const url = sprintf(urls.BUC_GET_SED_LIST_URL, { buc: buc.type, rinaId: buc.caseId })
   return api.call({
     url: url,
-    expectedPayload: ['P2000', 'P4000', 'P5000'],
+    expectedPayload: ['P2000', 'P4000', 'P5000', 'P6000'],
     type: {
       request: types.BUC_GET_SED_LIST_REQUEST,
       success: types.BUC_GET_SED_LIST_SUCCESS,

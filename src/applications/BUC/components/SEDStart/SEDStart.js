@@ -4,7 +4,7 @@ import { connect, bindActionCreators } from 'store'
 import _ from 'lodash'
 import Step1 from './Step1'
 import Step2 from './Step2'
-import { Nav } from 'eessi-pensjon-ui'
+import { CountryData, Nav } from 'eessi-pensjon-ui'
 import * as bucActions from 'actions/buc'
 import * as uiActions from 'actions/ui'
 import * as storageActions from 'actions/storage'
@@ -37,8 +37,10 @@ export const SEDStart = (props) => {
   const { loading, p4000info, sakId, sed, t, vedtakId } = props
 
   const [_sed, setSed] = useState(initialSed)
-  const [_institutions, setInstitutions] = useState([])
-  const [_countries, setCountries] = useState([])
+  const [_institutions, setInstitutions] = useState(bucs[currentBuc] && bucs[currentBuc].institusjon
+    ? bucs[currentBuc].institusjon.map(inst => inst.institution) : [])
+  const [_countries, setCountries] = useState(bucs[currentBuc] && bucs[currentBuc].institusjon
+    ? _.uniq(bucs[currentBuc].institusjon.map(inst => inst.country)) : [])
   const [_vedtakId, setVedtakId] = useState(parseInt(vedtakId, 10))
 
   const [step, setStep] = useState(initialStep)
@@ -182,7 +184,11 @@ export const SEDStart = (props) => {
   }
 
   const sedNeedsVedtakId = () => {
-    return _sed === 'P5000' || _sed === 'P6000' || _sed === 'P7000'
+    return _sed === 'P6000' || _sed === 'P7000'
+  }
+
+  const sedCanHaveAttachments = () => {
+    return _sed !== undefined && _sed !== 'P5000' && _sed !== 'P7000' && _sed !== 'H070'
   }
 
   const convertInstitutionIDsToInstitutionObjects = () => {
@@ -201,6 +207,7 @@ export const SEDStart = (props) => {
     })
     return institutions
   }
+
 
   const onForwardButtonClick = () => {
     if (_.isEmpty(validation)) {
@@ -268,13 +275,13 @@ export const SEDStart = (props) => {
       {step === 0 ? (
         <Step1
           {...props}
-          _sed={_sed} setSed={setSed} currentSed={currentSed}
-          buc={buc}
-          _countries={_countries} setCountries={setCountries}
-          _institutions={_institutions} setInstitutions={setInstitutions}
+          _sed={_sed} setSed={setSed} currentSed={currentSed} buc={buc}
+          _countries={_countries} setCountries={setCountries} countryList={countryList}
+          _institutions={_institutions} setInstitutions={setInstitutions} institutionList={institutionList}
           _attachments={_attachments} setAttachments={setAttachments}
           validation={validation} setValidation={setValidation}
           sedNeedsVedtakId={sedNeedsVedtakId}
+          sedCanHaveAttachments={sedCanHaveAttachments}
           vedtakId={_vedtakId} setVedtakId={setVedtakId}
         />
       ) : null}

@@ -22,7 +22,7 @@ const BUCFooter = ({ className, rinaUrl, t }) => (
 
 BUCFooter.propTypes = {
   className: PT.string,
-  rinaUrl: PT.string.isRequired,
+  rinaUrl: PT.string,
   t: PT.func.isRequired
 }
 export default BUCFooter

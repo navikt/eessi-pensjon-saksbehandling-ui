@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { CountryData, Nav, MultipleSelect, WaitingPanel } from 'eessi-pensjon-ui'
+import { Nav, MultipleSelect, WaitingPanel, CountryData } from 'eessi-pensjon-ui'
 import SEDAttachments from 'applications/BUC/components/SEDAttachments/SEDAttachments'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 
@@ -13,10 +13,50 @@ const placeholders = {
 }
 
 const Step1 = ({
-  actions, _attachments, buc, _countries, countryList, _institutions, institutionList,
-  layout = 'row', loading, locale, _sed, currentSed, setAttachments, setCountries, setInstitutions,
+  actions, _attachments, buc, _countries, countryList, currentSed, _institutions, institutionList,
+  layout = 'row', loading, locale, _sed, sedCanHaveAttachments, setAttachments, setCountries, setInstitutions,
   sedList, sedNeedsVedtakId, setSed, setValidation, setVedtakId, t, validation, vedtakId
 }) => {
+  const countryObjectList = (countryList ? CountryData.filterByValueOnArray(locale, countryList) : [])
+  const countryValueList = _countries ? CountryData.filterByValueOnArray(locale, _countries) : []
+  const notHostInstitution = institution => institution.id !== 'NO:NAVT002'
+  const institutionObjectList = []
+  if (institutionList) {
+    Object.keys(institutionList).forEach(landkode => {
+      if (_countries.indexOf(landkode) >= 0) {
+        const label = CountryData.findByValue(locale, landkode)
+        institutionObjectList.push({
+          label: label.label,
+          options: institutionList[landkode].filter(notHostInstitution).map(institution => {
+            return {
+              label: institution.navn,
+              value: institution.id
+            }
+          })
+        })
+      }
+    })
+  }
+
+  let institutionValueList = []
+  if (institutionList && _institutions) {
+    institutionValueList = _institutions.map(item => {
+      const [country, institution] = item.split(':')
+      const found = _.find(institutionList[country], { id: item })
+      if (found) {
+        return {
+          label: found.navn,
+          value: found.id
+        }
+      } else {
+        return {
+          label: item,
+          value: institution
+        }
+      }
+    })
+  }
+
   useEffect(() => {
     if (_.isArray(sedList) && sedList.length === 1 && !_sed) {
       setSed(sedList[0])
@@ -148,42 +188,6 @@ const Step1 = ({
     return label
   }
 
-  const countryObjectList = (countryList ? CountryData.filterByValueOnArray(locale, countryList) : [])
-
-  const countryValueList = _countries ? CountryData.filterByValueOnArray(locale, _countries) : []
-
-  const notHostInstitution = institution => institution.id !== 'NO:NAVT002'
-
-  const institutionObjectList = []
-  if (institutionList) {
-    Object.keys(institutionList).forEach(landkode => {
-      if (_countries.indexOf(landkode) >= 0) {
-        const label = CountryData.findByValue(locale, landkode)
-        institutionObjectList.push({
-          label: label.label,
-          options: institutionList[landkode].filter(notHostInstitution).map(institution => {
-            return {
-              label: institution.navn,
-              value: institution.id
-            }
-          })
-        })
-      }
-    })
-  }
-
-  let institutionValueList = []
-  if (institutionList && _institutions) {
-    institutionValueList = _institutions.map(item => {
-      const [country] = item.split(':')
-      const found = _.find(institutionList[country], { id: item })
-      return {
-        label: found.navn,
-        value: found.id
-      }
-    })
-  }
-
   const getSpinner = (text) => {
     return (
       <WaitingPanel className='a-buc-c-sedstart__spinner' size='S' message={t(text)} />
@@ -230,7 +234,7 @@ const Step1 = ({
             <Nav.Input
               id='a-buc-c-sedstart__vedtakid-input-id'
               className='a-buc-c-sedstart__vedtakid-input'
-              label={t('ui:vedtakId')}
+              label={t('buc:form-vedtakId')}
               bredde='fullbredde'
               value={vedtakId || ''}
               onChange={onVedtakIdChange}
@@ -298,9 +302,11 @@ const Step1 = ({
               : loading.gettingCountryList ? getSpinner('buc:loading-country') : null}
         </div>
       </div>
-      <div className={layout === 'row' ? 'col-md-8 pl-3' : 'col-md-12'}>
-        <SEDAttachments t={t} setFiles={setFiles} files={_attachments} />
-      </div>
+      {sedCanHaveAttachments() ? (
+        <div className={layout === 'row' ? 'col-md-8 pl-3' : 'col-md-12'}>
+          <SEDAttachments t={t} setFiles={setFiles} files={_attachments} />
+        </div>
+      ) : null}
     </>
   )
 }
