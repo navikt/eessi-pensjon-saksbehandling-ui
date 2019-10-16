@@ -30,10 +30,16 @@ const BUCDetail = ({ buc, bucInfo, className, institutionNames, locale, rinaUrl,
             <Nav.Normaltekst>{t('ui:' + buc.status)}</Nav.Normaltekst>
           </dd>
           <dt>
-            <Nav.Element>{t('ui:creator')}:</Nav.Element>
+            <Nav.Element>{t('buc:form-caseOwner')}:</Nav.Element>
           </dt>
           <dd id='a-buc-c-bucdetail__props-creator-id'>
-            <Nav.Normaltekst>{buc.creator.institution} ({buc.creator.country})</Nav.Normaltekst>
+            <InstitutionList
+              t={t}
+              institutions={[buc.creator]}
+              institutionNames={institutionNames}
+              locale={locale}
+              type='joined'
+            />
           </dd>
           <dt className='odd'>
             <Nav.Element>{t('ui:created')}:</Nav.Element>

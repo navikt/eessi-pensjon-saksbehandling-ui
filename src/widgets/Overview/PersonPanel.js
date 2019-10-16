@@ -1,7 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
 import moment from 'moment'
-import { Nav, CountryData } from 'eessi-pensjon-ui'
+import { Icons, Nav, CountryData } from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 
 const PersonPanel = ({ t, person }) => {
@@ -18,22 +18,29 @@ const PersonPanel = ({ t, person }) => {
   let postadresse = []
 
   const renderEntity = (label, value) => {
+    let _value
     if (!value) {
-      return null
+      _value = t('ui:notRegistered')
+    } else {
+      _value = typeof value === 'string' ? [value] : value
     }
-    const _value = typeof value === 'string' ? [value] : value
-    if (!_(_value).isEmpty()) {
-      return (
-        <div
-          id={'w-overview-personPanel__element-' + label.replace('ui:', '')}
-          className='w-overview-personPanel__element'
-        >
-          <Nav.Undertekst>
-            <strong>{t(label)}</strong>: {_value.map(val => val)}
-          </Nav.Undertekst>
-        </div>
-      )
+    if (_.isEmpty(_value)) {
+      _value = [t('ui:notRegistered')]
     }
+    return (
+      <div
+        id={'w-overview-personPanel__element-' + label.replace('ui:', '')}
+        className='w-overview-personPanel__element'
+      >
+        <Nav.Undertekst className='mr-2'>
+          <strong>{t(label)}</strong>:
+        </Nav.Undertekst>
+        <Nav.Normaltekst>
+          {_value.map(val => val)}
+        </Nav.Normaltekst>
+
+      </div>
+    )
   }
 
   const addAddressLine = (address, person, param, label) => {
@@ -97,20 +104,37 @@ const PersonPanel = ({ t, person }) => {
   }
 
   return (
-    <Nav.Row className='w-overview-personPanel__content'>
-      <div className='col-md-4'>
-        {renderEntity('ui:birthdate', birthDateString)}
-        {renderEntity('ui:deathdate', deathDateString)}
-        {renderEntity('ui:nationality', nationality)}
-      </div>
-      <div className='col-md-4'>
-        {renderEntity('ui:marital-status', maritalStatus + (dateString ? ', ' + dateString : ''))}
-      </div>
-      <div className='col-md-4'>
-        {renderEntity('ui:bostedsadresse', bostedsadresse)}
-        {renderEntity('ui:postadresse', postadresse)}
-      </div>
-    </Nav.Row>
+    <>
+      <Nav.Row className='w-overview-personPanel__content m-4'>
+        <div className='w-overview-personPanel__item col-md-4'>
+          <Icons kind='nav-home' className='mr-2' />
+          {renderEntity('ui:bostedsadresse', bostedsadresse)}
+        </div>
+        <div className='w-overview-personPanel__item col-md-4'>
+          <Icons kind='calendar' className='mr-2' />
+          {renderEntity('ui:birthdate', birthDateString)}
+        </div>
+        <div className='w-overview-personPanel__item col-md-4'>
+          <Icons kind='nav-work' className='mr-2' />
+          {renderEntity('ui:nationality', nationality)}
+        </div>
+      </Nav.Row>
+      <hr className='m-4' />
+      <Nav.Row className='w-overview-personPanel__content m-4'>
+        <div className='w-overview-personPanel__item col-md-4'>
+          <Icons kind='address' className='mr-2' />
+          {renderEntity('ui:postadresse', postadresse)}
+        </div>
+        <div className='w-overview-personPanel__item col-md-4'>
+          <Icons kind='calendar' className='mr-2' />
+          {renderEntity('ui:deathdate', deathDateString)}
+        </div>
+        <div className='w-overview-personPanel__item col-md-4'>
+          <Icons kind='nav-child' className='mr-2' />
+          {renderEntity('ui:marital-status', maritalStatus + (dateString ? ', ' + dateString : ''))}
+        </div>
+      </Nav.Row>
+    </>
   )
 }
 
