@@ -9,7 +9,7 @@ const BUCFooter = ({ className, rinaUrl, t }) => (
     <Nav.Lenke
       id='a-buc-c-buclist__gotorina-link'
       className='a-buc-c-buclist__gotorina'
-      href={rinaUrl}
+      href={rinaUrl || '#'}
       target='rinaWindow'
     >
       <div className='d-flex'>

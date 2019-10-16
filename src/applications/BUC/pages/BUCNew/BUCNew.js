@@ -8,12 +8,14 @@ import './BUCNew.css'
 const BUCNew = (props) => {
   const { t } = props
   return (
-    <Nav.Panel className='a-buc-bucnew s-border'>
-      <Nav.Systemtittel>{t('buc:step-startBUCTitle')}</Nav.Systemtittel>
-      <hr />
-      <BUCStart mode='widget' {...props} />
-      <BUCFooter className='w-100 mb-2' {...props} />
-    </Nav.Panel>
+    <>
+      <Nav.Panel className='a-buc-bucnew s-border'>
+        <Nav.Systemtittel>{t('buc:step-startBUCTitle')}</Nav.Systemtittel>
+        <hr />
+        <BUCStart mode='widget' {...props} />
+      </Nav.Panel>
+      <BUCFooter className='w-100 mt-2 mb-2' {...props} />
+    </>
   )
 }
 

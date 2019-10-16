@@ -92,6 +92,7 @@ export const BUCIndex = (props) => {
         actions={actions}
         aktoerId={aktoerId}
         onBUCNew={() => actions.setMode('bucnew')}
+        rinaUrl={rinaUrl}
         sakId={sakId}
         t={t}
       />

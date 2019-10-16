@@ -157,7 +157,7 @@ const BUCList = ({ actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionL
               </Nav.EkspanderbartpanelBase>
             )
           }) : null}
-      <BUCFooter className='w-100 mb-2' rinaUrl={rinaUrl} t={t} />
+      <BUCFooter className='w-100 mt-2 mb-2' rinaUrl={rinaUrl} t={t} />
     </div>
   )
 }
