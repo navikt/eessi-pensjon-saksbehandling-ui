@@ -28,19 +28,19 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
   })
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.a-buc-c-sedrow')).toBeTruthy()
-    expect(wrapper.find('.a-buc-c-sedrow__name').hostNodes().render().text()).toEqual(sed.type)
+    expect(wrapper.exists('.a-buc-c-sedheader')).toBeTruthy()
+    expect(wrapper.find('.a-buc-c-sedheader__name').hostNodes().render().text()).toEqual(sed.type)
 
-    const status = wrapper.find('.a-buc-c-sedrow__status').hostNodes()
+    const status = wrapper.find('.a-buc-c-sedheader__status').hostNodes()
     expect(status.find('SEDStatus').render().text()).toEqual('ui:' + sed.status)
     expect(status.find('Normaltekst').render().text()).toEqual('29.5.2019')
 
-    const institutions = wrapper.find('.a-buc-c-sedrow__institutions').hostNodes()
+    const institutions = wrapper.find('.a-buc-c-sedheader__institutions').hostNodes()
     expect(institutions.find('InstitutionList').render().text()).toEqual('Norge: NAVT003Norge: NAVT002')
 
-    const actions = wrapper.find('.a-buc-c-sedrow__actions').hostNodes()
-    expect(actions.find('.a-buc-c-sedrow__actions-attachments').hostNodes().props().title).toEqual('buc:form-youHaveXAttachmentsInSed')
+    const actions = wrapper.find('.a-buc-c-sedheader__actions').hostNodes()
+    expect(actions.find('.a-buc-c-sedheader__actions-attachments').hostNodes().props().title).toEqual('buc:form-youHaveXAttachmentsInSed')
     expect(actions.exists('Icons')).toBeTruthy()
-    expect(actions.exists('Flatknapp.a-buc-c-sedrow__actions-answer-button')).toBeTruthy()
+    expect(actions.exists('Flatknapp.a-buc-c-sedheader__actions-answer-button')).toBeTruthy()
   })
 })

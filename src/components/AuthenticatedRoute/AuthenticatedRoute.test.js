@@ -3,6 +3,13 @@ import { AuthenticatedRoute } from './AuthenticatedRoute'
 import { Router } from 'react-router'
 import { createBrowserHistory } from 'history'
 import * as routes from 'constants/routes'
+jest.mock('eessi-pensjon-ui', () => {
+  const Ui = jest.requireActual('eessi-pensjon-ui')
+  return {
+    ...Ui,
+    WaitingPanel: () => <div className='mock-waitingPanel' />
+  }
+})
 
 describe('components/AuthenticatedRoute', () => {
   const initialMockProps = {

@@ -46,7 +46,7 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
     expect(wrapper.exists('.a-buc-c-bucheader__icon-tags')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__actions')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__bucedit-link')).toBeTruthy()
-    expect(wrapper.find('LenkepanelBase.a-buc-c-bucheader__bucedit-link').render().text()).toEqual('ui:processing')
+    expect(wrapper.find('.a-buc-c-bucheader__bucedit-link').hostNodes().render().text()).toEqual('ui:processing')
   })
 
   it('Shows icons if necessary', () => {

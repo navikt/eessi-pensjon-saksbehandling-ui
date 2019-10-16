@@ -73,7 +73,7 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
       aktoerId: '123',
       buc: buc,
       comment: bucInfo.comment,
-      tags: bucInfo.tags,
+      tags: [{ label: 'buc:tag-vip', value: 'tag-vip' }],
       bucsInfo: { foo: 'bar' }
     })
   })

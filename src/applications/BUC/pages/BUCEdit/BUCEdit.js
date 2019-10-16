@@ -36,7 +36,7 @@ const BUCEdit = ({ actions, aktoerId, bucs, bucsInfo, currentBuc, institutionNam
       const _search = search.toLowerCase()
       match = sed.type.match(search) || _.find(sed.participants, (it) => {
         const organizationId = it.organisation.id.toLowerCase()
-        const organizationName = institutionNames[organizationId] ? institutionNames[organizationId].toLowerCase() : ''
+        const organizationName = it.organisation.name.toLowerCase()
         const countryCode = it.organisation.countryCode.toLowerCase()
         const countryName = CountryData.findByValue(locale, countryCode.toUpperCase()).label.toLowerCase()
         const creationDate = new Date(sed.creationDate).toLocaleDateString()

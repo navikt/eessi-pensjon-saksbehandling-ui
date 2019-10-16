@@ -1,7 +1,6 @@
 import React from 'react'
 import { Overview } from './Overview'
 import samplePerson from 'resources/tests/samplePerson'
-import PersonTitle from "widgets/Overview/PersonTitle";
 
 describe('widgets/Overview/Overview', () => {
   let wrapper
@@ -42,9 +41,6 @@ describe('widgets/Overview/Overview', () => {
     expect(wrapper.exists('EkspanderbartpanelBase')).toBeTruthy()
     expect(wrapper.exists('PersonTitle')).toBeTruthy()
     expect(wrapper.exists('PersonPanel')).toBeTruthy()
-
-    wrapper.find('EkspanderbartpanelBase button.ekspanderbartPanel__hode').hostNodes().simulate('click')
-    expect(wrapper.exists('PersonPanel')).toBeFalsy()
   })
 
   it('With no aktoerId', () => {

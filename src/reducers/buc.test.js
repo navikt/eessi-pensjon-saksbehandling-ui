@@ -396,7 +396,8 @@ describe('reducers/buc', () => {
     expect(
       bucReducer(initialBucState, {
         type: types.BUC_SAVE_BUCSINFO_SUCCESS,
-        originalPayload: '{"foo":"bar"}'
+        context: { foo: 'bar' },
+        payload: 'Something else'
       })
     ).toEqual({
       ...initialBucState,
@@ -464,11 +465,11 @@ describe('reducers/buc', () => {
     expect(
       bucReducer(initialBucState, {
         type: types.BUC_GET_SED_LIST_SUCCESS,
-        payload: 'something'
+        payload: ['P4000', 'A3012', 'B1000', 'X800', 'H208', 'H207', 'P2000']
       })
     ).toEqual({
       ...initialBucState,
-      sedList: 'something'
+      sedList: ['P2000', 'P4000', 'H207', 'H208', 'X800', 'A3012', 'B1000']
     })
   })
 

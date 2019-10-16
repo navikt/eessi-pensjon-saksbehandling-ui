@@ -222,6 +222,11 @@ describe('actions/buc', () => {
         failure: types.BUC_SAVE_BUCSINFO_FAILURE
       },
       method: 'POST',
+      context: {
+        bucs: {
+          456: {}
+        }
+      },
       payload: {
         bucs: {
           456: {}

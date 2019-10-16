@@ -259,12 +259,21 @@ const bucReducer = (state = initialBucState, action) => {
         countryList: undefined
       }
 
-    case types.BUC_GET_SED_LIST_SUCCESS:
-
+    case types.BUC_GET_SED_LIST_SUCCESS: {
+      // the higher the indexOf, the higher it goes in the sorted list
+      const sedTypes = ['X', 'H', 'P']
       return {
         ...state,
-        sedList: action.payload
+        sedList: action.payload.sort((a, b) => {
+          const mainCompare = a.localeCompare(b)
+          const sedTypeA = a.charAt(0)
+          const sedTypeB = b.charAt(0)
+          if (sedTypes.indexOf(sedTypeB) - sedTypes.indexOf(sedTypeA) > 0) return 1
+          if (sedTypes.indexOf(sedTypeB) - sedTypes.indexOf(sedTypeA) < 0) return -1
+          return mainCompare
+        })
       }
+    }
 
     case types.BUC_GET_SED_LIST_REQUEST:
     case types.BUC_GET_SED_LIST_FAILURE:

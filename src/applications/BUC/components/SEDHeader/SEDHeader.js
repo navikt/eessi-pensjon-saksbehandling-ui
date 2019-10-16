@@ -71,7 +71,7 @@ const SEDHeader = ({ border = 'none', buc, className, institutionNames, locale, 
 }
 
 SEDHeader.propTypes = {
-  border: PT.string.isRequired,
+  border: PT.string,
   buc: PT.object,
   className: PT.string,
   institutionNames: PT.object,

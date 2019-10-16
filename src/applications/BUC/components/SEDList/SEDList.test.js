@@ -37,7 +37,7 @@ describe('applications/BUC/components/SEDList/SEDList', () => {
   })
 
   it('With no seds', () => {
-    wrapper = mount(<SEDList {...initialMockProps} seds={null} />)
+    wrapper = mount(<SEDList {...initialMockProps} seds={[]} />)
     expect(wrapper.find('SEDRow').length).toEqual(0)
   })
 })

@@ -2,25 +2,13 @@ import React from 'react'
 import BUCList from './BUCList'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
-
 jest.mock('eessi-pensjon-ui', () => {
+  const Ui = jest.requireActual('eessi-pensjon-ui')
   return {
-    Icons: () => {
-      return <div className='mock-Icons' />
-    },
+    ...Ui,
     Nav: {
-      EkspanderbartpanelBase: ({ children }) => {
-        return <div className='mock-EkspanderbartpanelBase'>{children}</div>
-      },
-      Lenke: () => {
-        return <div className='mock-Lenke' />
-      },
-      Spinner: () => {
-        return <div className='mock-Spinner' />
-      },
-      Knapp: (props) => {
-        return <button className='mock-knapp' {...props}>{props.children}</button>
-      }
+      ...Ui.Nav,
+      EkspanderbartpanelBase: ({ children }) => <div className='mock-EkspanderbartpanelBase'>{children}</div>
     }
   }
 })
@@ -83,7 +71,7 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
     expect(wrapper.exists('#a-buc-buclist__newbuc-button-id')).toBeTruthy()
     expect(wrapper.find('.mock-EkspanderbartpanelBase').hostNodes().length).toEqual(sampleBucs.length)
     expect(wrapper.exists('.a-buc-c-sedlist')).toBeTruthy()
-    expect(wrapper.find('.a-buc-c-sedheader__head').length).toEqual(4)
+    expect(wrapper.find('.a-buc-buclist__sedheader-head').hostNodes().length).toEqual(21)
     expect(wrapper.exists('.a-buc-footer')).toBeTruthy()
   })
 })

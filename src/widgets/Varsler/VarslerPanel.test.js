@@ -1,14 +1,12 @@
 import React from 'react'
 import { VarslerPanel } from './VarslerPanel'
 jest.mock('eessi-pensjon-ui', () => {
+  const Ui = jest.requireActual('eessi-pensjon-ui')
   return {
+    ...Ui,
     Nav: {
-      EkspanderbartpanelBase: ({ children }) => {
-        return <div className='mock-EkspanderbartpanelBase'>{children}</div>
-      },
-      Lenke: () => {
-        return <div className='mock-Lenke' />
-      }
+      ...Ui.Nav,
+      EkspanderbartpanelBase: ({ children }) => <div className='mock-EkspanderbartpanelBase'>{children}</div>
     }
   }
 })

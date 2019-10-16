@@ -39,7 +39,7 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
     expect(wrapper.find('#a-buc-c-bucdetail__props-startDate-id').render().text()).toEqual(moment(buc.startDate).format('D.M.Y'))
     expect(wrapper.find('#a-buc-c-bucdetail__props-lastUpdate-id').render().text()).toEqual(moment(buc.lastUpdate).format('D.M.Y'))
     expect(wrapper.find('#a-buc-c-bucdetail__props-status-id').render().text()).toEqual('ui:' + buc.status)
-    expect(wrapper.find('#a-buc-c-bucdetail__props-tags-id').render().text()).toEqual(bucInfo.tags.join(', '))
+    expect(wrapper.find('#a-buc-c-bucdetail__props-tags-id').render().text()).toEqual('buc:tag-vip')
     expect(wrapper.find('#a-buc-c-bucdetail__props-comment-id').render().text()).toEqual(bucInfo.comment)
     expect(wrapper.exists('.a-buc-c-bucdetail__institutions')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-institutionlist').hostNodes().first().render().text()).toEqual('Norge: NO:NAVT000')
