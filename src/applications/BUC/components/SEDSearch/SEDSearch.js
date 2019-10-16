@@ -91,7 +91,7 @@ const SEDSearch = ({ className, locale, onCountrySearch, onSearch, onStatusSearc
         values={_status}
         hideSelectedOptions={false}
         onSelect={onStatusChange}
-        options={availableStatuses}
+        options={availableStatuses.sort((a, b) => a.label.localeCompare(b.label))}
       />
       <MultipleSelect
         id='a-buc-c-sedsearch__country-select-id'
