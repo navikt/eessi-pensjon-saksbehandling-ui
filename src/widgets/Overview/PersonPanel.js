@@ -20,7 +20,7 @@ const PersonPanel = ({ t, person }) => {
   const renderEntity = (label, value) => {
     let _value
     if (!value) {
-      _value = t('ui:notRegistered')
+      _value = [t('ui:notRegistered')]
     } else {
       _value = typeof value === 'string' ? [value] : value
     }
