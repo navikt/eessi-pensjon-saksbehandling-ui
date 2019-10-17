@@ -38,14 +38,13 @@ const PersonPanel = ({ t, person }) => {
         <Nav.Normaltekst>
           {_value.map(val => val)}
         </Nav.Normaltekst>
-
       </div>
     )
   }
 
   const addAddressLine = (address, value, label, separator) => {
     if (value) {
-      address.push(<span data-tip={label}>{value}</span>)
+      address.push(<span key={value} data-tip={label}>{value}</span>)
       address.push(separator)
     }
     return address
@@ -81,23 +80,23 @@ const PersonPanel = ({ t, person }) => {
   }
 
   if (_.get(person, 'bostedsadresse.strukturertAdresse')) {
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.gatenavn'), t('ui:gatenavn'), <span className='mr-2' />)
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.gatenummer'), t('ui:gatenummer'), <br />)
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.husnummer'), t('ui:husnummer'), <br />)
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.husbokstav'), t('ui:husbokstav'), <span className='mr-2' />)
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.kommunenummer'), t('ui:kommunenummer'), <br />)
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.tilleggsadresse'), t('ui:tilleggsadresse'), <br />)
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.poststed.value'), t('ui:poststed'), <br />)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.gatenavn'), t('ui:gatenavn'), <span key={0} className='mr-2' />)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.gatenummer'), t('ui:gatenummer'), <br key={1} />)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.husnummer'), t('ui:husnummer'), <br key={2} />)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.husbokstav'), t('ui:husbokstav'), <span key={3} className='mr-2' />)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.kommunenummer'), t('ui:kommunenummer'), <br key={4} />)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.tilleggsadresse'), t('ui:tilleggsadresse'), <br key={5} />)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.poststed.value'), t('ui:poststed'), <br key={6} />)
   }
 
   if (_.get(person, 'postadresse.ustrukturertAdresse')) {
-    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.adresselinje1'), t('ui:adresse'), <br />)
-    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.adresselinje2'), t('ui:adresse'), <br />)
-    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.adresselinje3'), t('ui:adresse'), <br />)
-    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.adresselinje4'), t('ui:adresse'), <br />)
-    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.postnr'), t('ui:postnummer'), <span className='mr-2' />)
-    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.poststed'), t('ui:poststed'), <br />)
-    postadresse = addAddressLine(postadresse, getCountry(_.get(person, 'postadresse.ustrukturertAdresse.landkode.value')), t('ui:country'), <br />)
+    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.adresselinje1'), t('ui:adresse'), <br key={0} />)
+    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.adresselinje2'), t('ui:adresse'), <br key={1} />)
+    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.adresselinje3'), t('ui:adresse'), <br key={2} />)
+    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.adresselinje4'), t('ui:adresse'), <br key={3} />)
+    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.postnr'), t('ui:postnummer'), <span key={4} className='mr-2' />)
+    postadresse = addAddressLine(postadresse, _.get(person, 'postadresse.ustrukturertAdresse.poststed'), t('ui:poststed'), <br key={5} />)
+    postadresse = addAddressLine(postadresse, getCountry(_.get(person, 'postadresse.ustrukturertAdresse.landkode.value')), t('ui:country'), <br key={6} />)
   }
   return (
     <>

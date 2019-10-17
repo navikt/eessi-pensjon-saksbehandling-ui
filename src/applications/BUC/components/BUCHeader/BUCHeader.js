@@ -69,7 +69,6 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl,
               institutionNames={institutionNames}
               locale={locale}
               type='separated'
-              separator=' - '
               institutions={[buc.creator]}
             />
           </div>
@@ -100,12 +99,15 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl,
             locale={locale}
             type='circle'
             size='L'
-            items={Object.keys(institutionList).map(landkode => {
-              return {
-                country: landkode,
-                label: institutionList[landkode].join(', ')
-              }
-            })}
+            items={Object.keys(institutionList).map(landkode => ({
+              country: landkode,
+              label: institutionList[landkode].map((institutionId) => {
+                return institutionNames &&
+                Object.prototype.hasOwnProperty.call(institutionNames, institutionId)
+                  ? institutionNames[institutionId]
+                  : institutionId
+              }).join(', ')
+            }))}
             overflowLimit={5}
           />
           <div
@@ -126,7 +128,7 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl,
         </div>
         <div className='a-buc-c-bucheader__actions col-sm-4'>
           <Nav.Lenke
-            id='a-buc-c-bucheader__bucedit-link'
+            id='a-buc-c-bucheader__bucedit-link-id'
             className='a-buc-c-bucheader__bucedit-link knapp text-decoration-none'
             onClick={(e) => onBucHandle(buc, e)}
             href={'#' + buc.type}

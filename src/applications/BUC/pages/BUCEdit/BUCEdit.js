@@ -9,14 +9,14 @@ import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
 import moment from 'moment'
 import './BUCEdit.css'
 
-const BUCEdit = ({ actions, aktoerId, bucs, bucsInfo, currentBuc, institutionNames, loading, locale, rinaUrl, t, tagList }) => {
+const BUCEdit = ({ actions, aktoerId, bucs, bucsInfo, currentBuc, institutionNames, loading, locale, rinaUrl, setMode, t, tagList }) => {
   const [search, setSearch] = useState(undefined)
   const [countrySearch, setCountrySearch] = useState(undefined)
   const [statusSearch, setStatusSearch] = useState(undefined)
 
   const onSEDNew = (sed) => {
     actions.setCurrentSed(sed ? sed.id : undefined)
-    actions.setMode('sednew')
+    setMode('sednew')
   }
 
   const onCountrySearch = (countrySearch) => {

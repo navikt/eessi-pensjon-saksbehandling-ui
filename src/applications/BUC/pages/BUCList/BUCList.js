@@ -10,23 +10,23 @@ import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import SEDList from 'applications/BUC/components/SEDList/SEDList'
 import './BUCList.css'
 
-const BUCList = ({ actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionList, loading, locale, rinaUrl, sakId, t }) => {
+const BUCList = ({ actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionList, institutionNames, loading, locale, rinaUrl, sakId, setMode, t }) => {
   const [gettingBucsInfo, setGettingBucsInfo] = useState(false)
   const [mounted, setMounted] = useState(false)
 
   const onBUCNew = () => {
-    actions.setMode('bucnew')
+    setMode('bucnew')
   }
 
   const onSEDNew = (buc, sed) => {
     actions.setCurrentBuc(buc ? buc.caseId : undefined)
     actions.setCurrentSed(sed ? sed.id : undefined)
-    actions.setMode('sednew')
+    setMode('sednew')
   }
 
   const onBUCEdit = async (buc) => {
     actions.setCurrentBuc(buc.caseId)
-    actions.setMode('bucedit')
+    setMode('bucedit')
   }
 
   useEffect(() => {
@@ -79,7 +79,7 @@ const BUCList = ({ actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionL
   }, [institutionList, bucs, mounted, actions])
 
   if (aktoerId && sakId && !loading.gettingBUCs && bucs !== undefined && _.isEmpty(bucs)) {
-    actions.setMode('bucnew')
+    setMode('bucnew')
   }
 
   return (
@@ -125,6 +125,7 @@ const BUCList = ({ actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionL
                     t={t}
                     buc={buc}
                     bucInfo={bucInfo}
+                    institutionNames={institutionNames}
                     locale={locale}
                     rinaUrl={rinaUrl}
                     onBUCEdit={onBUCEdit}
@@ -152,6 +153,7 @@ const BUCList = ({ actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionL
                   rinaUrl={rinaUrl}
                   locale={locale}
                   buc={buc}
+                  institutionNames={institutionNames}
                   onSEDNew={onSEDNew}
                 />
               </Nav.EkspanderbartpanelBase>
@@ -167,6 +169,7 @@ BUCList.propTypes = {
   aktoerId: PT.string,
   bucs: PT.object,
   rinaUrl: PT.string,
+  institutionNames: PT.object,
   loading: PT.object.isRequired,
   locale: PT.string.isRequired,
   t: PT.func.isRequired

@@ -4,24 +4,24 @@ import classNames from 'classnames'
 import { Nav } from 'eessi-pensjon-ui'
 import './BUCCrumbs.css'
 
-const BUCCrumbs = ({ actions, bucs, currentBuc, className, mode, showLastLink = false, t }) => {
+const BUCCrumbs = ({ actions, bucs, currentBuc, className, mode, setMode, showLastLink = false, t }) => {
   const goToHome = useCallback(() => {
     actions.resetSed()
     actions.resetBuc()
-    actions.setMode('buclist')
+    setMode('buclist')
   }, [actions])
 
   const goToEdit = useCallback(() => {
     actions.resetSed()
-    actions.setMode('bucedit')
+    setMode('bucedit')
   }, [actions])
 
   const goToNewBUC = useCallback(() => {
-    actions.setMode('bucnew')
+    setMode('bucnew')
   }, [actions])
 
   const goToNewSED = useCallback(() => {
-    actions.setMode('sednew')
+    setMode('sednew')
   }, [actions])
 
   const buccrumbs = [{

@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import ReactResizeDetector from 'react-resize-detector'
 import Buc from 'applications/BUC/'
 
-const BUCWidget = ({ onResize }) => {
+const BUCWidget = ({ onResize, onFullFocus, onRestoreFocus }) => {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const BUCWidget = ({ onResize }) => {
         handleHeight
         onResize={onResize}
       />
-      <Buc />
+      <Buc onRestoreFocus={onRestoreFocus} onFullFocus={onFullFocus} />
     </div>
   )
 }
@@ -38,7 +38,9 @@ BUCWidget.properties = {
 }
 
 BUCWidget.propTypes = {
-  onResize: PT.func
+  onResize: PT.func.isRequired,
+  onFullFocus: PT.func.isRequired,
+  onRestoreFocus: PT.func.isRequired
 }
 
 export default BUCWidget

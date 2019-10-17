@@ -12,7 +12,6 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
   let wrapper
   const initialMockProps = {
     actions: {
-      setMode: jest.fn(),
       setCurrentSed: jest.fn()
     },
     aktoerId: '123',
@@ -23,6 +22,7 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
     locale: 'nb',
     rinaUrl: 'http://mockUrl/rinaUrl',
     seds: sampleBucs[0].seds,
+    setMode: jest.fn(),
     t: jest.fn((translationString) => { return translationString }),
     tagList: ['mockTag1', 'mockTag2']
   }
@@ -50,7 +50,7 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
   it('moves to mode newsed when button pressed', () => {
     const newSedButton = wrapper.find('#a-buc-bucedit__new-sed-button-id').hostNodes()
     newSedButton.simulate('click')
-    expect(initialMockProps.actions.setMode).toBeCalledWith('sednew')
+    expect(initialMockProps.setMode).toBeCalledWith('sednew')
   })
 
   it('SEDSearch status searttriggers the filter functions', () => {
@@ -61,7 +61,7 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
     statusSelect.simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
 
     expect(wrapper.find('#a-buc-c-sedsearch__status-select-id .c-multipleOption').length).toEqual(4)
-    expect(wrapper.find('#a-buc-c-sedsearch__status-select-id .c-multipleOption').at(0).render().text()).toEqual('ui:new')
+    expect(wrapper.find('#a-buc-c-sedsearch__status-select-id .c-multipleOption').at(0).render().text()).toEqual('ui:cancelled')
 
     statusSelect.simulate('keyDown', { key: 'Enter', keyCode: 13 })
     expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(0)

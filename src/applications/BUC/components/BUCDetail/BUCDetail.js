@@ -74,18 +74,20 @@ const BUCDetail = ({ buc, bucInfo, className, institutionNames, locale, rinaUrl,
           </dd>
         </dl>
         <Nav.Undertittel
-          id='a-buc-c-bucdetail__institutions-id'
-          className='a-buc-c-bucdetail__institutions mb-2'
+          id='a-buc-c-bucdetail__institutions-title-id'
+          className='a-buc-c-bucdetail__institutions-title mb-2'
         >
           {t('buc:form-involvedInstitutions')}:
         </Nav.Undertittel>
-        <InstitutionList
-          t={t}
-          institutions={buc.institusjon}
-          institutionNames={institutionNames}
-          locale={locale}
-          type='joined'
-        />
+        <div className='a-buc-c-bucdetail__institutions'>
+          <InstitutionList
+            t={t}
+            institutions={buc.institusjon}
+            institutionNames={institutionNames}
+            locale={locale}
+            type='joined'
+          />
+        </div>
       </div>
     </Nav.EkspanderbartpanelBase>
   )

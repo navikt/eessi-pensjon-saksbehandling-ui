@@ -4,7 +4,7 @@ import { connect, bindActionCreators } from 'store'
 import _ from 'lodash'
 import Step1 from './Step1'
 import Step2 from './Step2'
-import { CountryData, Nav } from 'eessi-pensjon-ui'
+import { Nav } from 'eessi-pensjon-ui'
 import * as bucActions from 'actions/buc'
 import * as uiActions from 'actions/ui'
 import * as storageActions from 'actions/storage'
@@ -33,8 +33,8 @@ const mapDispatchToProps = (dispatch) => {
 
 export const SEDStart = (props) => {
   const { actions, aktoerId, avdodfnr, attachments, bucs, bucsInfoList, countryList, currentBuc, currentSed } = props
-  const { initialAttachments = {}, initialSed = undefined, initialStep = 0, institutionList } = props
-  const { loading, p4000info, sakId, sed, t, vedtakId } = props
+  const { initialAttachments = {}, initialSed = undefined, initialStep = 0, institutionList, institutionNames } = props
+  const { loading, p4000info, sakId, sed, setMode, t, vedtakId } = props
 
   const [_sed, setSed] = useState(initialSed)
   const [_institutions, setInstitutions] = useState(bucs[currentBuc] && bucs[currentBuc].institusjon
@@ -166,7 +166,7 @@ export const SEDStart = (props) => {
         bucsInfoList.indexOf(aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO) >= 0) {
         actions.fetchBucsInfo(aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO)
       }
-      actions.setMode('bucedit')
+      setMode('bucedit')
     }
   }, [_attachments, actions, aktoerId, attachments, attachmentsSent, avdodfnr, buc, bucsInfoList, sed, sedSent, sendingAttachments])
 
@@ -207,7 +207,6 @@ export const SEDStart = (props) => {
     })
     return institutions
   }
-
 
   const onForwardButtonClick = () => {
     if (_.isEmpty(validation)) {
@@ -250,7 +249,7 @@ export const SEDStart = (props) => {
 
   const onCancelButtonClick = () => {
     actions.resetSed()
-    actions.setMode('bucedit')
+    setMode('bucedit')
   }
 
   const createSEDneedsMoreSteps = () => {
@@ -278,6 +277,7 @@ export const SEDStart = (props) => {
           _sed={_sed} setSed={setSed} currentSed={currentSed} buc={buc}
           _countries={_countries} setCountries={setCountries} countryList={countryList}
           _institutions={_institutions} setInstitutions={setInstitutions} institutionList={institutionList}
+          institutionNames={institutionNames}
           _attachments={_attachments} setAttachments={setAttachments}
           validation={validation} setValidation={setValidation}
           sedNeedsVedtakId={sedNeedsVedtakId}
@@ -342,6 +342,7 @@ SEDStart.propTypes = {
   currentBuc: PT.string.isRequired,
   initialAttachments: PT.object,
   institutionList: PT.object,
+  institutionNames: PT.object,
   loading: PT.object.isRequired,
   p4000info: PT.object,
   sakId: PT.string.isRequired,

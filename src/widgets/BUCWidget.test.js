@@ -7,7 +7,9 @@ jest.mock('applications/BUC/', () => {
 describe('widgets/BUCWidget', () => {
   let wrapper
   const initialMockProps = {
-    onResize: jest.fn()
+    onResize: jest.fn(),
+    onFullFocus: jest.fn(),
+    onRestoreFocus: jest.fn()
   }
 
   beforeEach(() => {

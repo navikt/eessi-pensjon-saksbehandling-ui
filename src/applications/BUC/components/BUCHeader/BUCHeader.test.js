@@ -38,7 +38,7 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
     )
     expect(wrapper.exists('.a-buc-c-bucheader__owner')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-bucheader__owner').hostNodes().render().text()).toEqual(
-      'buc:form-caseOwner: Norge - Z990638'
+      'buc:form-caseOwner: Z990638'
     )
     expect(wrapper.exists('.a-buc-c-bucheader__owner-institutions')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__icons')).toBeTruthy()
@@ -65,12 +65,9 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
     expect(wrapper.exists('.a-buc-c-bucheader__icon-tags')).toBeFalsy()
   })
 
-  it('Handles click in Knapp', () => {
+  it('Handles click in Lenke', () => {
     expect(initialMockProps.onBUCEdit).toHaveBeenCalledTimes(0)
-    wrapper.find('Knapp').simulate('click', {
-      preventDefault: () => {},
-      stopPropagation: () => {}
-    })
+    wrapper.find('a#a-buc-c-bucheader__bucedit-link-id').simulate('click')
     expect(initialMockProps.onBUCEdit).toHaveBeenCalled()
   })
 })

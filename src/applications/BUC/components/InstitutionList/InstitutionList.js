@@ -5,14 +5,19 @@ import classNames from 'classnames'
 import { CountryData, Flag, Nav } from 'eessi-pensjon-ui'
 import './InstitutionList.css'
 
-const InstitutionList = ({ className, flagType = 'circle', institutions, institutionNames, locale, separator = ': ', t, type }) => {
+const InstitutionList = ({ className, flag = true, flagType = 'circle', institutions, institutionNames, locale, t, type }) => {
   const institutionList = {}
   if (institutions) {
     institutions.forEach(item => {
-      if (Object.prototype.hasOwnProperty.call(institutionList, item.country)) {
-        institutionList[item.country].push(item.institution)
+      let institution = item.institution
+      const country = item.country
+      if (institution.startsWith(country + ':')) {
+        institution = institution.substring(institution.indexOf(':') + 1, institution.length)
+      }
+      if (Object.prototype.hasOwnProperty.call(institutionList, country)) {
+        institutionList[country].push(institution)
       } else {
-        institutionList[item.country] = [item.institution]
+        institutionList[country] = [institution]
       }
     })
   }
@@ -23,6 +28,7 @@ const InstitutionList = ({ className, flagType = 'circle', institutions, institu
 
   return Object.keys(institutionList).map(landkode => {
     const country = CountryData.findByValue(locale, landkode)
+
     return (
       <div
         id='a-buc-c-institutionlist-id'
@@ -31,8 +37,7 @@ const InstitutionList = ({ className, flagType = 'circle', institutions, institu
       >
         {type === 'joined' ? (
           <div className='a-buc-c-institution'>
-            <Flag label={country.label} country={landkode} size='M' type={flagType} />
-            <Nav.Element className='pr-2 pl-2'>{country.label}{separator}</Nav.Element>
+            {flag ? <Flag className='mr-2' label={country.label} country={landkode} size='M' type={flagType} /> : null}
             <Nav.Normaltekst>{institutionList[landkode].map(institutionId => {
               return institutionNames &&
           Object.prototype.hasOwnProperty.call(institutionNames, landkode + ':' + institutionId)
@@ -43,15 +48,16 @@ const InstitutionList = ({ className, flagType = 'circle', institutions, institu
           </div>
         ) : null}
         {type === 'separated' ? institutionList[landkode].map(institutionId => {
-          const label = institutionNames &&
-          Object.prototype.hasOwnProperty.call(institutionNames, landkode + ':' + institutionId)
-            ? institutionNames[landkode + ':' + institutionId]
-            : institutionId
           return (
             <div className='a-buc-c-institution' key={institutionId}>
-              <Flag label={country ? country.label : landkode} country={landkode} size='M' type={flagType} />
-              <Nav.Element className='pr-2 pl-2'>{country ? country.label : landkode}{separator}</Nav.Element>
-              <Nav.Normaltekst>{label}</Nav.Normaltekst>
+              {flag ? <Flag className='mr-2' label={country ? country.label : landkode} country={landkode} size='M' type={flagType} /> : null}
+              <Nav.Normaltekst>{
+                institutionNames &&
+                Object.prototype.hasOwnProperty.call(institutionNames, landkode + ':' + institutionId)
+                  ? institutionNames[landkode + ':' + institutionId]
+                  : institutionId
+              }
+              </Nav.Normaltekst>
             </div>
           )
         }) : null}
@@ -62,11 +68,11 @@ const InstitutionList = ({ className, flagType = 'circle', institutions, institu
 
 InstitutionList.propTypes = {
   className: PT.string,
+  flag: PT.bool,
   flagType: PT.string,
   institutions: PT.array.isRequired,
   institutionNames: PT.object,
   locale: PT.string.isRequired,
-  separator: PT.string,
   t: PT.func.isRequired,
   type: PT.string.isRequired
 }

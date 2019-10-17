@@ -60,10 +60,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: true
@@ -83,10 +83,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -138,10 +138,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -161,10 +161,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -194,10 +194,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -217,10 +217,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -250,10 +250,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -273,10 +273,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -306,10 +306,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -329,10 +329,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -362,10 +362,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -385,10 +385,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -418,10 +418,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -441,10 +441,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -474,10 +474,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -497,10 +497,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -530,10 +530,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -553,10 +553,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -586,10 +586,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -609,10 +609,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -642,10 +642,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -665,10 +665,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -698,10 +698,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -721,10 +721,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -754,10 +754,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -777,10 +777,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -810,10 +810,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: true
@@ -833,10 +833,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -866,10 +866,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -889,10 +889,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -906,8 +906,8 @@ export default [
     type: 'P_BUC_01',
     creator: {
       country: 'NO',
-      institution: 'NO:NAVT003',
-      name: 'NAVT003'
+      institution: 'NO:DEMO002',
+      name: 'DEMO002'
     },
     caseId: '158123',
     sakType: '',
@@ -917,12 +917,12 @@ export default [
     lastUpdate: 1558362934000,
     institusjon: [{
       country: 'NO',
-      institution: 'NO:NAVT003',
-      name: 'NAVT003'
+      institution: 'NO:DEMO002',
+      name: 'DEMO002'
     }, {
       country: 'NO',
-      institution: 'NO:NAVT002',
-      name: 'NAVT002'
+      institution: 'NO:DEMO001',
+      name: 'DEMO001'
     }],
     seds: [{
       id: 'f2123ebf16dc4ddaaaf2420d0adb39c7',
@@ -947,10 +947,10 @@ export default [
           acronym: '12348',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT003',
+          name: 'DEMO002',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT003',
+          id: 'NO:DEMO002',
           accessPoint: null
         },
         selected: false
@@ -969,10 +969,10 @@ export default [
           acronym: '12347',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT002',
+          name: 'DEMO001',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT002',
+          id: 'NO:DEMO001',
           accessPoint: null
         },
         selected: false
@@ -1001,10 +1001,10 @@ export default [
           acronym: '12348',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT003',
+          name: 'DEMO002',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT003',
+          id: 'NO:DEMO002',
           accessPoint: null
         },
         selected: false
@@ -1023,10 +1023,10 @@ export default [
           acronym: '12347',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT002',
+          name: 'DEMO001',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT002',
+          id: 'NO:DEMO001',
           accessPoint: null
         },
         selected: false
@@ -1055,10 +1055,10 @@ export default [
           acronym: '12348',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT003',
+          name: 'DEMO002',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT003',
+          id: 'NO:DEMO002',
           accessPoint: null
         },
         selected: false
@@ -1077,10 +1077,10 @@ export default [
           acronym: '12347',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT002',
+          name: 'DEMO001',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT002',
+          id: 'NO:DEMO001',
           accessPoint: null
         },
         selected: false
@@ -1109,10 +1109,10 @@ export default [
           acronym: '12348',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT003',
+          name: 'DEMO002',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT003',
+          id: 'NO:DEMO002',
           accessPoint: null
         },
         selected: false
@@ -1131,10 +1131,10 @@ export default [
           acronym: '12347',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT002',
+          name: 'DEMO001',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT002',
+          id: 'NO:DEMO001',
           accessPoint: null
         },
         selected: false
@@ -1163,10 +1163,10 @@ export default [
           acronym: '12348',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT003',
+          name: 'DEMO002',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT003',
+          id: 'NO:DEMO002',
           accessPoint: null
         },
         selected: false
@@ -1185,10 +1185,10 @@ export default [
           acronym: '12347',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT002',
+          name: 'DEMO001',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT002',
+          id: 'NO:DEMO001',
           accessPoint: null
         },
         selected: false
@@ -1217,10 +1217,10 @@ export default [
           acronym: '12348',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT003',
+          name: 'DEMO002',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT003',
+          id: 'NO:DEMO002',
           accessPoint: null
         },
         selected: false
@@ -1239,10 +1239,10 @@ export default [
           acronym: '12347',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT002',
+          name: 'DEMO001',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT002',
+          id: 'NO:DEMO001',
           accessPoint: null
         },
         selected: false
@@ -1287,10 +1287,10 @@ export default [
           acronym: '12348',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT003',
+          name: 'DEMO002',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT003',
+          id: 'NO:DEMO002',
           accessPoint: null
         },
         selected: true
@@ -1309,10 +1309,10 @@ export default [
           acronym: '12347',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT002',
+          name: 'DEMO001',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT002',
+          id: 'NO:DEMO001',
           accessPoint: null
         },
         selected: false
@@ -1341,10 +1341,10 @@ export default [
           acronym: '12347',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT002',
+          name: 'DEMO001',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT002',
+          id: 'NO:DEMO001',
           accessPoint: null
         },
         selected: false
@@ -1363,10 +1363,10 @@ export default [
           acronym: '12348',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT003',
+          name: 'DEMO002',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT003',
+          id: 'NO:DEMO002',
           accessPoint: null
         },
         selected: false
@@ -1395,10 +1395,10 @@ export default [
           acronym: '12348',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT003',
+          name: 'DEMO002',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT003',
+          id: 'NO:DEMO002',
           accessPoint: null
         },
         selected: true
@@ -1417,10 +1417,10 @@ export default [
           acronym: '12347',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT002',
+          name: 'DEMO001',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT002',
+          id: 'NO:DEMO001',
           accessPoint: null
         },
         selected: false
@@ -1449,10 +1449,10 @@ export default [
           acronym: '12348',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT003',
+          name: 'DEMO002',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT003',
+          id: 'NO:DEMO002',
           accessPoint: null
         },
         selected: false
@@ -1471,10 +1471,10 @@ export default [
           acronym: '12347',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT002',
+          name: 'DEMO001',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT002',
+          id: 'NO:DEMO001',
           accessPoint: null
         },
         selected: false
@@ -1503,10 +1503,10 @@ export default [
           acronym: '12348',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT003',
+          name: 'DEMO002',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT003',
+          id: 'NO:DEMO002',
           accessPoint: null
         },
         selected: false
@@ -1525,10 +1525,10 @@ export default [
           acronym: '12347',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT002',
+          name: 'DEMO001',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT002',
+          id: 'NO:DEMO001',
           accessPoint: null
         },
         selected: false
@@ -1557,10 +1557,10 @@ export default [
           acronym: '12348',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT003',
+          name: 'DEMO002',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT003',
+          id: 'NO:DEMO002',
           accessPoint: null
         },
         selected: false
@@ -1579,10 +1579,10 @@ export default [
           acronym: '12347',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT002',
+          name: 'DEMO001',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT002',
+          id: 'NO:DEMO001',
           accessPoint: null
         },
         selected: false
@@ -1611,10 +1611,10 @@ export default [
           acronym: '12348',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT003',
+          name: 'DEMO002',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT003',
+          id: 'NO:DEMO002',
           accessPoint: null
         },
         selected: false
@@ -1633,10 +1633,10 @@ export default [
           acronym: '12347',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT002',
+          name: 'DEMO001',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT002',
+          id: 'NO:DEMO001',
           accessPoint: null
         },
         selected: false
@@ -1665,10 +1665,10 @@ export default [
           acronym: '12348',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT003',
+          name: 'DEMO002',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT003',
+          id: 'NO:DEMO002',
           accessPoint: null
         },
         selected: false
@@ -1687,10 +1687,10 @@ export default [
           acronym: '12347',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT002',
+          name: 'DEMO001',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT002',
+          id: 'NO:DEMO001',
           accessPoint: null
         },
         selected: false
@@ -1719,10 +1719,10 @@ export default [
           acronym: '12348',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT003',
+          name: 'DEMO002',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT003',
+          id: 'NO:DEMO002',
           accessPoint: null
         },
         selected: false
@@ -1741,10 +1741,10 @@ export default [
           acronym: '12347',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT002',
+          name: 'DEMO001',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT002',
+          id: 'NO:DEMO001',
           accessPoint: null
         },
         selected: false
@@ -1773,10 +1773,10 @@ export default [
           acronym: '12348',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT003',
+          name: 'DEMO002',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT003',
+          id: 'NO:DEMO002',
           accessPoint: null
         },
         selected: false
@@ -1795,10 +1795,10 @@ export default [
           acronym: '12347',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT002',
+          name: 'DEMO001',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT002',
+          id: 'NO:DEMO001',
           accessPoint: null
         },
         selected: false
@@ -1827,10 +1827,10 @@ export default [
           acronym: '12348',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT003',
+          name: 'DEMO002',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT003',
+          id: 'NO:DEMO002',
           accessPoint: null
         },
         selected: false
@@ -1849,10 +1849,10 @@ export default [
           acronym: '12347',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT002',
+          name: 'DEMO001',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT002',
+          id: 'NO:DEMO001',
           accessPoint: null
         },
         selected: false
@@ -1881,10 +1881,10 @@ export default [
           acronym: '12348',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT003',
+          name: 'DEMO002',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT003',
+          id: 'NO:DEMO002',
           accessPoint: null
         },
         selected: false
@@ -1903,10 +1903,10 @@ export default [
           acronym: '12347',
           countryCode: 'NO',
           contactMethods: null,
-          name: 'NAVT002',
+          name: 'DEMO001',
           location: null,
           assignedBUCs: null,
-          id: 'NO:NAVT002',
+          id: 'NO:DEMO001',
           accessPoint: null
         },
         selected: false
@@ -1929,11 +1929,11 @@ export default [
     institusjon: [
       {
         country: 'NO',
-        institution: 'NO:NAVT003'
+        institution: 'NO:DEMO002'
       },
       {
         country: 'NO',
-        institution: 'NO:NAVT002'
+        institution: 'NO:DEMO001'
       }
     ],
     seds: [
@@ -1959,10 +1959,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -1982,10 +1982,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -2015,10 +2015,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -2038,10 +2038,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -2071,10 +2071,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -2094,10 +2094,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -2127,10 +2127,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: true
@@ -2150,10 +2150,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -2183,10 +2183,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: true
@@ -2206,10 +2206,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -2239,10 +2239,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -2262,10 +2262,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -2295,10 +2295,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -2318,10 +2318,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -2351,10 +2351,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -2374,10 +2374,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -2407,10 +2407,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -2430,10 +2430,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -2463,10 +2463,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -2486,10 +2486,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -2519,10 +2519,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -2542,10 +2542,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -2575,10 +2575,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -2598,10 +2598,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -2631,10 +2631,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -2654,10 +2654,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -2687,10 +2687,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -2710,10 +2710,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -2743,10 +2743,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: false
@@ -2766,10 +2766,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -2794,11 +2794,11 @@ export default [
     institusjon: [
       {
         country: 'NO',
-        institution: 'NO:NAVT003'
+        institution: 'NO:DEMO002'
       },
       {
         country: 'NO',
-        institution: 'NO:NAVT002'
+        institution: 'NO:DEMO001'
       }
     ],
     seds: [
@@ -2824,10 +2824,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: true
@@ -2847,10 +2847,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -2875,11 +2875,11 @@ export default [
     institusjon: [
       {
         country: 'NO',
-        institution: 'NO:NAVT003'
+        institution: 'NO:DEMO002'
       },
       {
         country: 'NO',
-        institution: 'NO:NAVT002'
+        institution: 'NO:DEMO001'
       }
     ],
     seds: [
@@ -2905,10 +2905,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: true
@@ -2928,10 +2928,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -2956,11 +2956,11 @@ export default [
     institusjon: [
       {
         country: 'NO',
-        institution: 'NO:NAVT003'
+        institution: 'NO:DEMO002'
       },
       {
         country: 'NO',
-        institution: 'NO:NAVT002'
+        institution: 'NO:DEMO001'
       }
     ],
     seds: [
@@ -2986,10 +2986,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: true
@@ -3009,10 +3009,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -3037,11 +3037,11 @@ export default [
     institusjon: [
       {
         country: 'NO',
-        institution: 'NO:NAVT003'
+        institution: 'NO:DEMO002'
       },
       {
         country: 'NO',
-        institution: 'NO:NAVT002'
+        institution: 'NO:DEMO001'
       }
     ],
     seds: [
@@ -3068,10 +3068,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: true
@@ -3091,10 +3091,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false
@@ -3125,10 +3125,10 @@ export default [
               acronym: '12348',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT003',
+              name: 'DEMO002',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT003',
+              id: 'NO:DEMO002',
               accessPoint: null
             },
             selected: true
@@ -3148,10 +3148,10 @@ export default [
               acronym: '12347',
               countryCode: 'NO',
               contactMethods: null,
-              name: 'NAVT002',
+              name: 'DEMO001',
               location: null,
               assignedBUCs: null,
-              id: 'NO:NAVT002',
+              id: 'NO:DEMO001',
               accessPoint: null
             },
             selected: false

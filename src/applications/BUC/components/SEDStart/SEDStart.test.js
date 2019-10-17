@@ -29,8 +29,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
       getSedList: jest.fn(),
       sendAttachmentToSed: jest.fn(),
       resetSed: jest.fn(),
-      fetchBucs: jest.fn(),
-      setMode: jest.fn()
+      fetchBucs: jest.fn()
     },
     aktoerId: '123',
     attachments: [],
@@ -56,6 +55,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     p4000info: sampleP4000info,
     sakId: '123',
     sed: undefined,
+    setMode: jest.fn(),
     t: jest.fn((translationString) => { return translationString }),
     vedtakId: '123'
   }
@@ -95,7 +95,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     wrapper.setProps({ attachments: [{ id: 'mockSedId' }] })
     expect(initialMockProps.actions.resetSed).toHaveBeenCalled()
     expect(initialMockProps.actions.fetchBucs).toHaveBeenCalledWith(initialMockProps.aktoerId)
-    expect(initialMockProps.actions.setMode).toHaveBeenCalledWith('bucedit')
+    expect(initialMockProps.setMode).toHaveBeenCalledWith('bucedit')
   })
 
   it('With a BUC with SEDs that have NO participants, demand a institution', () => {
@@ -170,6 +170,6 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
   it('Cancels sed when cancel button is clicked ', () => {
     wrapper.find('#a-buc-c-sedstart__cancel-button-id').hostNodes().simulate('click')
     expect(initialMockProps.actions.resetSed).toHaveBeenCalled()
-    expect(initialMockProps.actions.setMode).toHaveBeenCalledWith('bucedit')
+    expect(initialMockProps.setMode).toHaveBeenCalledWith('bucedit')
   })
 })

@@ -48,6 +48,6 @@ describe('widgets/Overview/PersonPanel', () => {
       }
     }
     wrapper = mount(<PersonPanel {...mockProps} />)
-    expect(wrapper.find('#w-overview-personPanel__element-marital-status').render().text()).toEqual('ui:marital-status: Mock, 1.1.1970 - 31.12.1980')
+    expect(wrapper.find('#w-overview-personPanel__element-marital-status').render().text()).toEqual('ui:marital-status:Mock, 01.01.1970 - 31.12.1980')
   })
 })

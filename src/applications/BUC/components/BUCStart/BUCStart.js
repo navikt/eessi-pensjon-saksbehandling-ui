@@ -10,7 +10,7 @@ const placeholders = {
 }
 
 const BUCStart = ({
-  actions, aktoerId, buc, bucParam, bucsInfo, bucList, loading, mode, sakId, subjectAreaList, tagList, t
+  actions, aktoerId, buc, bucParam, bucsInfo, bucList, loading, mode, sakId, setMode, subjectAreaList, tagList, t
 }) => {
   const [_buc, setBuc] = useState(bucParam)
   const [_subjectArea, setSubjectArea] = useState('Pensjon')
@@ -52,7 +52,7 @@ const BUCStart = ({
       setHasBucInfoSaved(true)
     }
     if (hasBucInfoSaved && !loading.savingBucsInfo && buc) {
-      actions.setMode('sednew')
+      setMode('sednew')
       setHasBucInfoSaved(false)
     }
   }, [actions, loading, buc, hasBucInfoSaved])
@@ -100,7 +100,7 @@ const BUCStart = ({
 
   const onCancelButtonClick = () => {
     actions.resetBuc()
-    actions.setMode('buclist')
+    setMode('buclist')
   }
 
   const onSubjectAreaChange = (e) => {

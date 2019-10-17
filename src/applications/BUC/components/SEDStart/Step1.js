@@ -13,13 +13,13 @@ const placeholders = {
 }
 
 const Step1 = ({
-  actions, _attachments, buc, _countries, countryList, currentSed, _institutions, institutionList,
+  actions, _attachments, buc, _countries, countryList, currentSed, _institutions, institutionList, institutionNames,
   layout = 'row', loading, locale, _sed, sedCanHaveAttachments, setAttachments, setCountries, setInstitutions,
   sedList, sedNeedsVedtakId, setSed, setValidation, setVedtakId, t, validation, vedtakId
 }) => {
   const countryObjectList = (countryList ? CountryData.filterByValueOnArray(locale, countryList) : [])
   const countryValueList = _countries ? CountryData.filterByValueOnArray(locale, _countries) : []
-  const notHostInstitution = institution => institution.id !== 'NO:NAVT002'
+  const notHostInstitution = institution => institution.id !== 'NO:DEMO001'
   const institutionObjectList = []
   if (institutionList) {
     Object.keys(institutionList).forEach(landkode => {
@@ -274,13 +274,17 @@ const Step1 = ({
               </div>
               <Nav.Undertittel className='mb-2'>{t('buc:form-chosenInstitutions')}</Nav.Undertittel>
               <InstitutionList
-                t={t} institutions={_institutions.map(item => {
+                t={t}
+                institutionNames={institutionNames}
+                institutions={_institutions.map(item => {
                   var [country, institution] = item.split(':')
                   return {
                     country: country,
                     institution: institution
                   }
-                })} locale={locale} type='joined'
+                })}
+                locale={locale}
+                type='joined'
               />
             </>
           ) : null}
@@ -317,6 +321,7 @@ Step1.propTypes = {
   buc: PT.object.isRequired,
   countryList: PT.array,
   institutionList: PT.object,
+  institutionNames: PT.object,
   layout: PT.string,
   loading: PT.object.isRequired,
   locale: PT.string.isRequired,

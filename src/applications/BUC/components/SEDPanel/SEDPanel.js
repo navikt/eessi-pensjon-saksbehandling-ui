@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import SEDHeader from '../SEDHeader/SEDHeader'
 import SEDBody from '../SEDBody/SEDBody'
 
-const SEDPanel = ({ buc, locale, onSEDNew, rinaUrl, sed, t }) => {
+const SEDPanel = ({ buc, institutionNames, locale, onSEDNew, rinaUrl, sed, t }) => {
   return (
     <Nav.EkspanderbartpanelBase
       className={classNames('a-buc-sedpanel', 'mb-3', 's-border')}
@@ -13,6 +13,7 @@ const SEDPanel = ({ buc, locale, onSEDNew, rinaUrl, sed, t }) => {
           t={t}
           sed={sed}
           rinaUrl={rinaUrl}
+          institutionNames={institutionNames}
           locale={locale}
           buc={buc}
           onSEDNew={onSEDNew}

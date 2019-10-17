@@ -21,7 +21,6 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
       getBucList: jest.fn(),
       getTagList: jest.fn(),
       saveBucsInfo: jest.fn(),
-      setMode: jest.fn(),
       resetBuc: jest.fn()
     },
     bucList: ['mockBuc1'],
@@ -32,6 +31,7 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
     subjectAreaList: ['mockSubjectArea1', 'mockSubjectArea2'],
     locale: 'nb',
     mode: 'widget',
+    setMode: jest.fn(),
     t: jest.fn((translationString) => { return translationString })
   }
 
@@ -84,7 +84,7 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
         buc={{ foo: 'bar' }}
       />)
 
-    expect(initialMockProps.actions.setMode).not.toHaveBeenCalled()
+    expect(initialMockProps.setMode).not.toHaveBeenCalled()
     wrapper.setProps({
       loading: {
         savingBucsInfo: true
@@ -98,7 +98,7 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
             savingBucsInfo: false
           }
         })
-        expect(initialMockProps.actions.setMode).toHaveBeenCalledWith('sednew')
+        expect(initialMockProps.setMode).toHaveBeenCalledWith('sednew')
         resolve()
         done()
       }, 500)
@@ -137,7 +137,7 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   it('Handles onCancelButtonClick()', () => {
     expect(wrapper.find('button.a-buc-c-bucstart__cancel-button').prop('disabled')).toBeFalsy()
     wrapper.find('button.a-buc-c-bucstart__cancel-button').hostNodes().simulate('click')
-    expect(initialMockProps.actions.setMode).toHaveBeenCalledWith('buclist')
+    expect(initialMockProps.setMode).toHaveBeenCalledWith('buclist')
   })
 
   it('Has proper HTML structure', () => {

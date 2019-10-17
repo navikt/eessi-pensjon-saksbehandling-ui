@@ -1,8 +1,8 @@
 import React from 'react'
-import { AuthenticatedRoute } from './AuthenticatedRoute'
 import { Router } from 'react-router'
 import { createBrowserHistory } from 'history'
 import * as routes from 'constants/routes'
+import { AuthenticatedRoute } from './AuthenticatedRoute'
 jest.mock('eessi-pensjon-ui', () => {
   const Ui = jest.requireActual('eessi-pensjon-ui')
   return {

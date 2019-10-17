@@ -14,12 +14,11 @@ import ReactDOM from 'react-dom'
 import { createBrowserHistory } from 'history'
 import { Switch, Redirect, Route, Router } from 'react-router'
 import { I18nextProvider } from 'react-i18next'
+import { StoreProvider } from 'store'
+import reducer, { initialState } from 'reducer'
 import 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/nb'
-
-import { StoreProvider } from 'store'
-import reducer, { initialState } from 'reducer'
 import i18n from './i18n'
 import * as routes from 'constants/routes'
 import { unregister } from 'registerServiceWorker'
@@ -28,10 +27,15 @@ import AuthenticatedRoute from 'components/AuthenticatedRoute/AuthenticatedRoute
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'index.css'
 import 'index_highContrast.css'
-
 import pdfjs from 'pdfjs-dist/build/pdf'
+
 if (process.env.NODE_ENV !== 'production') {
   pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
+}
+
+window.onerror = (msg, src, lineno, colno, error) => {
+  console.log('error', msg, src, lineno, colno, error)
+  return <div>Error</div>
 }
 
 ReactDOM.render(

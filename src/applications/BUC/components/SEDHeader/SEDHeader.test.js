@@ -33,13 +33,12 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
 
     const status = wrapper.find('.a-buc-c-sedheader__status').hostNodes()
     expect(status.find('SEDStatus').render().text()).toEqual('ui:' + sed.status)
-    expect(status.find('Normaltekst').render().text()).toEqual('29.5.2019')
+    expect(status.find('Normaltekst').render().text()).toEqual('29.05.2019')
 
     const institutions = wrapper.find('.a-buc-c-sedheader__institutions').hostNodes()
-    expect(institutions.find('InstitutionList').render().text()).toEqual('Norge: NAVT003Norge: NAVT002')
+    expect(institutions.find('InstitutionList').render().text()).toEqual('DEMO002DEMO001')
 
     const actions = wrapper.find('.a-buc-c-sedheader__actions').hostNodes()
-    expect(actions.find('.a-buc-c-sedheader__actions-attachments').hostNodes().props().title).toEqual('buc:form-youHaveXAttachmentsInSed')
     expect(actions.exists('Icons')).toBeTruthy()
     expect(actions.exists('Flatknapp.a-buc-c-sedheader__actions-answer-button')).toBeTruthy()
   })

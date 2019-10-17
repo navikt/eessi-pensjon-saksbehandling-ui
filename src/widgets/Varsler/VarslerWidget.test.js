@@ -8,9 +8,9 @@ describe('widgets/Varsler/VarslerWidget', () => {
   let wrapper
   const initialMockProps = {
     onResize: jest.fn(),
-    widget:{
-      options:{
-        collapsed: false
+    widget: {
+      options: {
+        collapsed: false
       }
     }
   }

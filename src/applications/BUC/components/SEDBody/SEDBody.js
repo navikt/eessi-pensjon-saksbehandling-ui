@@ -1,5 +1,5 @@
 import React from 'react'
-import SEDAttachments from '../SEDAttachments/SEDAttachments'
+// import SEDAttachments from '../SEDAttachments/SEDAttachments'
 
 const SEDBody = ({ t, files }) => {
   return (

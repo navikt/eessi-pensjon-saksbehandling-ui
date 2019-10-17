@@ -23,7 +23,6 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
   let wrapper
   const initialMockProps = {
     actions: {
-      setMode: jest.fn(),
       setCurrentBuc: jest.fn(),
       getInstitutionsListForBucAndCountry: jest.fn(),
       fetchBucs: jest.fn(),
@@ -47,6 +46,7 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
     locale: 'nb',
     rinaUrl: 'http://mockUrl/rinaUrl',
     sakId: '456',
+    setMode: jest.fn(),
     t: jest.fn((translationString) => { return translationString })
   }
 
@@ -62,7 +62,7 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
   it('Moves to mode newbuc when button pressed', () => {
     const newBucButton = wrapper.find('#a-buc-buclist__newbuc-button-id').hostNodes()
     newBucButton.simulate('click')
-    expect(initialMockProps.actions.setMode).toBeCalledWith('bucnew')
+    expect(initialMockProps.setMode).toBeCalledWith('bucnew')
   })
 
   it('Has proper HTML structure', () => {

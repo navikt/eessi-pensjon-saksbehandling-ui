@@ -39,7 +39,7 @@ describe('applications/BUC/components/SEDSearch/SEDSearch', () => {
     const statusSelect = wrapper.find('#a-buc-c-sedsearch__status-select-id input').hostNodes()
     statusSelect.simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
     statusSelect.simulate('keyDown', { key: 'Enter', keyCode: 13 })
-    expect(initialMockProps.onStatusSearch).toBeCalledWith([{ label: 'ui:new', value: 'new' }])
+    expect(initialMockProps.onStatusSearch).toBeCalledWith([{ label: 'ui:cancelled', value: 'cancelled' }])
   })
 
   it('Handles search by country', () => {

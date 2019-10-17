@@ -49,9 +49,11 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export const BUCIndex = (props) => {
-  const { actions, aktoerId, avdodBucs, bucs, currentBuc, loading, mode, rinaUrl, sakId, t, waitForMount = true, sakType, avdodfnr } = props
+  const { actions, aktoerId, avdodfnr, avdodBucs, bucs, currentBuc, loading, mode, onFullFocus, onRestoreFocus } = props
+  const { rinaUrl, sakId, t, waitForMount = true, sakType } = props
   const [mounted, setMounted] = useState(!waitForMount)
   const [_avdodfnr, setAvdodfnr] = useState('')
+  const [show, setShow] = useState(false)
   const combinedBucs = { ...avdodBucs, ...bucs }
 
   useEffect(() => {
@@ -86,12 +88,21 @@ export const BUCIndex = (props) => {
     return <WaitingPanel />
   }
 
+  const setMode = (mode) => {
+    actions.setMode(mode)
+    if (mode !== 'buclist') {
+      onFullFocus()
+    } else {
+      onRestoreFocus()
+    }
+  }
+
   if (!sakId || !aktoerId) {
     return (
       <BUCEmpty
         actions={actions}
         aktoerId={aktoerId}
-        onBUCNew={() => actions.setMode('bucnew')}
+        onBUCNew={() => setMode('bucnew')}
         rinaUrl={rinaUrl}
         sakId={sakId}
         t={t}
@@ -108,21 +119,26 @@ export const BUCIndex = (props) => {
           bucs={combinedBucs}
           currentBuc={currentBuc}
           mode={mode}
+          setMode={setMode}
         />
         <BUCWebSocket actions={actions} aktoerId={aktoerId} avdodfnr={avdodfnr} />
       </div>
       {sakType === 'Gjenlevendeytelse' && !avdodfnr
         ? (
-          <div className='d-flex flex-row'>
-            <Nav.Input bredde='S' label={t('buc:app-avdodfnrInput')} value={_avdodfnr} onChange={(e) => setAvdodfnr(e.target.value)} />
-            <Nav.Knapp mini onClick={() => actions.setStatusParam('avdodfnr', _avdodfnr)}>{t('buc:app-avdodfnrButton')}</Nav.Knapp>
-          </div>
+          show ? (
+            <div className='d-flex flex-row align-items-end'>
+              <Nav.Input bredde='S' label={t('buc:form-avdodfnrInput')} value={_avdodfnr} onChange={(e) => setAvdodfnr(e.target.value)} />
+              <Nav.Knapp mini className='ml-2 mb-3' onClick={() => actions.setStatusParam('avdodfnr', _avdodfnr)}>{t('buc:form-avdodfnrButton')}</Nav.Knapp>
+            </div>
+          ) : (
+            <Nav.Knapp mini onClick={() => setShow(true)}>{t('buc:form-avdodfnr')}</Nav.Knapp>
+          )
         )
         : null}
-      {mode === 'buclist' ? <BUCList {...props} bucs={combinedBucs} /> : null}
-      {mode === 'bucedit' ? <BUCEdit {...props} bucs={combinedBucs} /> : null}
-      {mode === 'bucnew' ? <BUCNew {...props} bucs={combinedBucs} /> : null}
-      {mode === 'sednew' ? <SEDNew {...props} bucs={combinedBucs} /> : null}
+      {mode === 'buclist' ? <BUCList {...props} bucs={combinedBucs} setMode={setMode} /> : null}
+      {mode === 'bucedit' ? <BUCEdit {...props} bucs={combinedBucs} setMode={setMode} /> : null}
+      {mode === 'bucnew' ? <BUCNew {...props} bucs={combinedBucs} setMode={setMode} /> : null}
+      {mode === 'sednew' ? <SEDNew {...props} bucs={combinedBucs} setMode={setMode} /> : null}
 
     </div>
   )

@@ -50,7 +50,7 @@ export const getStorageFile = ({ userId, namespace, file }, context) => {
         return {
           tittel: 'mockTittel',
           fulltnavn: 'mockFulltnavn',
-          timestamp: '1970-01-01Z00:00:00'
+          timestamp: '1970-01-01T00:00:00Z'
         }
       }
     },

@@ -36,13 +36,13 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
 
   it('Has proper HTML structure with joined type', () => {
     expect(wrapper.find('.a-buc-c-institution')).toHaveLength(1)
-    expect(wrapper.find('.a-buc-c-institution').hostNodes().render().text()).toEqual('Norge: Mock 1 institution, Mock 2 institution')
+    expect(wrapper.find('.a-buc-c-institution').hostNodes().render().text()).toEqual('Mock 1 institution, Mock 2 institution')
   })
 
   it('Has proper HTML structure with separated type', () => {
     wrapper = mount(<InstitutionList {...initialMockProps} type='separated' />)
     expect(wrapper.find('.a-buc-c-institution').hostNodes()).toHaveLength(2)
-    expect(wrapper.find('.a-buc-c-institution:first-child').hostNodes().render().text()).toEqual('Norge: Mock 1 institution')
-    expect(wrapper.find('.a-buc-c-institution:last-child').hostNodes().render().text()).toEqual('Norge: Mock 2 institution')
+    expect(wrapper.find('.a-buc-c-institution:first-child').hostNodes().render().text()).toEqual('Mock 1 institution')
+    expect(wrapper.find('.a-buc-c-institution:last-child').hostNodes().render().text()).toEqual('Mock 2 institution')
   })
 })
