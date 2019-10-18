@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import { connect, bindActionCreators } from 'store'
@@ -33,11 +33,17 @@ const mapDispatchToProps = (dispatch) => {
   return { actions: bindActionCreators({ ...uiActions, ...appActions }, dispatch) }
 }
 
-export const TopContainer = ({
-  actions, className, children, clientErrorMessage, clientErrorStatus, error,
-  expirationTime, fluid = true, footerOpen, gettingUserInfo, header, history,
-  highContrast, isLoggingOut, modal, params, serverErrorMessage, t, username
-}) => {
+export const TopContainer = (props) => {
+  const {
+    actions, className, children, clientErrorMessage, clientErrorStatus, error,
+    expirationTime, fluid = true, footerOpen, gettingUserInfo, header, history,
+    highContrast, isLoggingOut, modal, params, serverErrorMessage, t, username
+  } = props
+
+  useEffect(() => {
+    ReactTooltip.rebuild()
+  }, [props])
+
   const handleModalClose = () => {
     actions.closeModal()
   }
