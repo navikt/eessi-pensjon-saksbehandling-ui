@@ -1,10 +1,11 @@
 import React from 'react'
 import PT from 'prop-types'
+import ReactTooltip from 'react-tooltip'
 import { withTranslation } from 'react-i18next'
 import TopContainer from 'components/TopContainer/TopContainer'
 import { Dashboard } from 'eessi-pensjon-ui'
-import './IndexPage.css'
 import * as extraWidgets from 'widgets'
+import './IndexPage.css'
 
 const defaultLayout = {
   default: {
@@ -59,22 +60,30 @@ const defaultConfig = {
 
 const allowedWidgets = ['buc', 'varsler', 'overview']
 
-export const IndexPage = ({ history, t }) => (
-  <TopContainer
-    className='p-indexPage'
-    t={t}
-    history={history}
-  >
-    <Dashboard
-      id='eessi-pensjon-ui-fss'
-      extraWidgets={extraWidgets}
-      defaultWidgets={defaultWidgets}
-      defaultLayout={defaultLayout}
-      defaultConfig={defaultConfig}
-      allowedWidgets={allowedWidgets}
-    />
-  </TopContainer>
-)
+export const IndexPage = ({ history, t }) => {
+  const afterLayoutChange = () => {
+    ReactTooltip.rebuild()
+  }
+
+  return (
+    <TopContainer
+      className='p-indexPage'
+      t={t}
+      history={history}
+    >
+      <ReactTooltip place='top' type='dark' effect='solid' />
+      <Dashboard
+        id='eessi-pensjon-ui-fss'
+        extraWidgets={extraWidgets}
+        defaultWidgets={defaultWidgets}
+        defaultLayout={defaultLayout}
+        defaultConfig={defaultConfig}
+        allowedWidgets={allowedWidgets}
+        afterLayoutChange={afterLayoutChange}
+      />
+    </TopContainer>
+  )
+}
 
 IndexPage.propTypes = {
   history: PT.object.isRequired,

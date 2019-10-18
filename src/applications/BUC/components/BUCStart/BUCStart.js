@@ -55,7 +55,7 @@ const BUCStart = ({
       setMode('sednew')
       setHasBucInfoSaved(false)
     }
-  }, [actions, loading, buc, hasBucInfoSaved])
+  }, [actions, loading, buc, hasBucInfoSaved, setMode])
 
   const validateSubjectArea = (subjectArea) => {
     if (!subjectArea || subjectArea === placeholders.subjectArea) {

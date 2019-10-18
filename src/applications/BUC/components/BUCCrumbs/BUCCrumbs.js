@@ -9,20 +9,20 @@ const BUCCrumbs = ({ actions, bucs, currentBuc, className, mode, setMode, showLa
     actions.resetSed()
     actions.resetBuc()
     setMode('buclist')
-  }, [actions])
+  }, [actions, setMode])
 
   const goToEdit = useCallback(() => {
     actions.resetSed()
     setMode('bucedit')
-  }, [actions])
+  }, [actions, setMode])
 
   const goToNewBUC = useCallback(() => {
     setMode('bucnew')
-  }, [actions])
+  }, [setMode])
 
   const goToNewSED = useCallback(() => {
     setMode('sednew')
-  }, [actions])
+  }, [setMode])
 
   const buccrumbs = [{
     label: t('buc:buccrumb-home'),

@@ -1,15 +1,13 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import { connect, bindActionCreators } from 'store'
-import * as appActions from 'actions/app'
+import * as alertActions from 'actions/alert'
 import * as uiActions from 'actions/ui'
-import { Alert, Banner, Modal, Nav } from 'eessi-pensjon-ui'
 import Header from 'components/Header/Header'
 import Footer from 'components/Footer/Footer'
 import SessionMonitor from 'components/SessionMonitor/SessionMonitor'
-import ReactTooltip from 'react-tooltip'
-
+import { Alert, Banner, Modal, Nav } from 'eessi-pensjon-ui'
 import './TopContainer.css'
 
 const mapStateToProps = (state) => {
@@ -30,20 +28,14 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators({ ...uiActions, ...appActions }, dispatch) }
+  return { actions: bindActionCreators({ ...alertActions, ...uiActions }, dispatch) }
 }
 
-export const TopContainer = (props) => {
-  const {
-    actions, className, children, clientErrorMessage, clientErrorStatus, error,
-    expirationTime, fluid = true, footerOpen, gettingUserInfo, header, history,
-    highContrast, isLoggingOut, modal, params, serverErrorMessage, t, username
-  } = props
-
-  useEffect(() => {
-    ReactTooltip.rebuild()
-  }, [props])
-
+export const TopContainer = ({
+  actions, className, children, clientErrorMessage, clientErrorStatus, error,
+  expirationTime, fluid = true, footerOpen, gettingUserInfo, header, history,
+  highContrast, isLoggingOut, modal, params, serverErrorMessage, t, username
+}) => {
   const handleModalClose = () => {
     actions.closeModal()
   }
@@ -74,7 +66,6 @@ export const TopContainer = (props) => {
     <div
       className={classNames('c-topContainer', className, { highContrast: highContrast })}
     >
-      <ReactTooltip place='top' type='dark' effect='solid' />
       <Header
         actions={actions}
         t={t}

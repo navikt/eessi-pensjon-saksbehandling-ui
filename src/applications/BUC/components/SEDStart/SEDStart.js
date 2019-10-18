@@ -168,7 +168,7 @@ export const SEDStart = (props) => {
       }
       setMode('bucedit')
     }
-  }, [_attachments, actions, aktoerId, attachments, attachmentsSent, avdodfnr, buc, bucsInfoList, sed, sedSent, sendingAttachments])
+  }, [_attachments, actions, aktoerId, attachments, attachmentsSent, avdodfnr, buc, bucsInfoList, sed, sedSent, setMode, sendingAttachments])
 
   if (_.isEmpty(bucs) || !currentBuc) {
     return null
