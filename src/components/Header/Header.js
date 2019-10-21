@@ -3,7 +3,6 @@ import PT from 'prop-types'
 import classNames from 'classnames'
 import { Icons, Nav } from 'eessi-pensjon-ui'
 import * as routes from 'constants/routes'
-import { ReactComponent as AdvarselTrekant } from 'resources/images/AdvarselTrekant.svg'
 import NavLogoTransparent from 'resources/images/NavLogoTransparent'
 import './Header.css'
 
@@ -61,7 +60,7 @@ const Header = ({ actions, gettingUserInfo, header, history, isLoggingOut, t, us
                 )
                 : (
                   <>
-                    <AdvarselTrekant size={16} />
+                    <Icons kind='advarsel' size={16} />
                     <span className='username-span'>{t('unknown')}</span>
                   </>
                 )}
