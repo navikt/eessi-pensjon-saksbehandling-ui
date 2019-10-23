@@ -15,6 +15,7 @@ import { createBrowserHistory } from 'history'
 import { Switch, Redirect, Route, Router } from 'react-router'
 import { I18nextProvider } from 'react-i18next'
 import { StoreProvider } from 'store'
+import Loadable from 'loadable'
 import reducer, { initialState } from 'reducer'
 import 'moment'
 import 'moment/locale/en-gb'
@@ -22,12 +23,16 @@ import 'moment/locale/nb'
 import i18n from './i18n'
 import * as routes from 'constants/routes'
 import { unregister } from 'registerServiceWorker'
-import * as Pages from 'pages'
 import AuthenticatedRoute from 'components/AuthenticatedRoute/AuthenticatedRoute'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'index.css'
 import 'index_highContrast.css'
 import pdfjs from 'pdfjs-dist/build/pdf'
+
+const Pages = {
+  Error: Loadable({ loader: () => import('./pages/Error/Error') }),
+  IndexPage: Loadable({ loader: () => import('./pages/IndexPage/IndexPage') })
+}
 
 if (process.env.NODE_ENV !== 'production') {
   pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`

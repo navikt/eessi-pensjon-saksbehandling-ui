@@ -1,5 +1,8 @@
 import React from 'react'
 import { IndexPage } from './IndexPage'
+import ReactTooltip from 'react-tooltip'
+ReactTooltip.rebuild = jest.fn()
+
 jest.mock('components/TopContainer/TopContainer', () => {
   return ({ children }) => {
     return (
@@ -11,7 +14,7 @@ jest.mock('components/TopContainer/TopContainer', () => {
 })
 jest.mock('eessi-pensjon-ui', () => {
   return {
-    Dashboard: () => <div className='mock-c-dashboard' />
+    Dashboard: (props) => <div className='mock-c-dashboard' onClick={() => props.afterLayoutChange()} />
   }
 })
 
@@ -22,15 +25,26 @@ describe('pages/IndexPage', () => {
     t: jest.fn((translationString) => { return translationString })
   }
 
-  it('Renders', () => {
+  beforeEach(() => {
     wrapper = mount(<IndexPage {...initialMockProps} />)
+  })
+
+  afterEach(() => {
+    wrapper.unmount()
+  })
+
+  it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
 
   it('IndexPage has proper HTML structure', () => {
-    wrapper = mount(<IndexPage {...initialMockProps} />)
     expect(wrapper.exists('.p-indexPage')).toBeTruthy()
     expect(wrapper.exists('.mock-c-dashboard')).toBeTruthy()
+  })
+
+  it('Layout change triggers a tooltip rebuild', () => {
+    wrapper.find('.mock-c-dashboard').simulate('click')
+    expect(ReactTooltip.rebuild).toHaveBeenCalled()
   })
 })

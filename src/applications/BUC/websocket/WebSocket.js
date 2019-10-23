@@ -88,6 +88,7 @@ const BucWebSocket = ({ actions, aktoerId, avdodfnr }) => {
     const now = new Date()
     const line = now.toLocaleDateString() + ' ' + now.toLocaleTimeString() + ': ' + message
     if (!IS_TEST) {
+      /* istanbul ignore next */
       if (level === 'error') {
         console.error(line)
       } else {

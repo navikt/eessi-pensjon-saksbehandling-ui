@@ -12,7 +12,7 @@ import PInfoUtil from 'applications/BUC/components/SEDP4000/P4000Payload'
 import { IS_TEST } from 'constants/environment'
 import * as storage from 'constants/storage'
 
-const mapStateToProps = (state) => {
+const mapStateToProps = /* istanbul ignore next */ (state) => {
   return {
     attachments: state.buc.attachments,
     bucsInfoList: state.buc.bucsInfoList,
@@ -27,7 +27,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = /* istanbul ignore next */ (dispatch) => {
   return { actions: bindActionCreators({ ...storageActions, ...bucActions, ...uiActions }, dispatch) }
 }
 

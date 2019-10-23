@@ -8,6 +8,7 @@ import { Nav } from 'eessi-pensjon-ui'
 import Period from 'applications/BUC/components/SEDP4000/Period/Period'
 
 export const mapStateToProps = (state) => {
+  /* istanbul ignore next */
   return {
     aktoerId: state.app.params.aktoerId,
     p4000: state.buc.p4000,

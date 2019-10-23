@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
+import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
 import { connect, bindActionCreators } from 'store'
 import * as bucActions from 'actions/buc'
@@ -15,6 +16,7 @@ import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import './index.css'
 
 const mapStateToProps = (state) => {
+  /* istanbul ignore next */
   return {
     aktoerId: state.app.params.aktoerId,
     sakId: state.app.params.sakId,
@@ -43,6 +45,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
+  /* istanbul ignore next */
   return {
     actions: bindActionCreators({ ...bucActions, ...appActions, ...uiActions }, dispatch)
   }
@@ -84,17 +87,23 @@ export const BUCIndex = (props) => {
     }
   }, [actions, aktoerId, loading.gettingSakType, sakType, sakId])
 
-  if (!mounted) {
-    return <WaitingPanel />
-  }
-
-  const setMode = (mode) => {
+  const setMode = useCallback((mode) => {
     actions.setMode(mode)
     if (mode !== 'buclist') {
       onFullFocus()
     } else {
       onRestoreFocus()
     }
+  }, [actions, onRestoreFocus, onFullFocus])
+
+  useEffect(() => {
+    if (loading.gettingBUCs && mode !== 'buclist') {
+      setMode('buclist')
+    }
+  }, [loading.gettingBUCs, mode, setMode])
+
+  if (!mounted) {
+    return <WaitingPanel />
   }
 
   if (!sakId || !aktoerId) {
@@ -139,9 +148,26 @@ export const BUCIndex = (props) => {
       {mode === 'bucedit' ? <BUCEdit {...props} bucs={combinedBucs} setMode={setMode} /> : null}
       {mode === 'bucnew' ? <BUCNew {...props} bucs={combinedBucs} setMode={setMode} /> : null}
       {mode === 'sednew' ? <SEDNew {...props} bucs={combinedBucs} setMode={setMode} /> : null}
-
     </div>
   )
+}
+
+BUCIndex.propTypes = {
+  actions: PT.object.isRequired,
+  aktoerId: PT.string,
+  avdodfnr: PT.string,
+  avdodBucs: PT.object,
+  bucs: PT.object,
+  currentBuc: PT.string,
+  loading: PT.object,
+  mode: PT.string.isRequired,
+  onFullFocus: PT.func,
+  onRestoreFocus: PT.func,
+  rinaUrl: PT.string,
+  sakId: PT.string,
+  t: PT.func.isRequired,
+  waitForMount: PT.bool,
+  sakType: PT.string
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(BUCIndex))

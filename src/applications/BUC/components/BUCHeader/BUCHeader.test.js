@@ -10,8 +10,10 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
   const initialMockProps = {
     buc: buc,
     bucInfo: sampleBucsInfo.bucs[buc.caseId],
+    institutionNames: {},
     locale: 'nb',
     onBUCEdit: jest.fn(),
+    rinaUrl: 'http://mockurl.com/rina',
     t: jest.fn((translationString) => { return translationString })
   }
 
@@ -66,8 +68,14 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
   })
 
   it('Handles click in Lenke', () => {
-    expect(initialMockProps.onBUCEdit).toHaveBeenCalledTimes(0)
+    initialMockProps.onBUCEdit.mockReset()
     wrapper.find('a#a-buc-c-bucheader__bucedit-link-id').simulate('click')
     expect(initialMockProps.onBUCEdit).toHaveBeenCalled()
+  })
+
+  it('Handles Rina link', () => {
+    window.open.mockReset()
+    wrapper.find('.a-buc-c-bucheader__gotorina-link').first().simulate('click')
+    expect(window.open).toHaveBeenCalledWith(initialMockProps.rinaUrl + initialMockProps.buc.caseId, 'rinaWindow')
   })
 })

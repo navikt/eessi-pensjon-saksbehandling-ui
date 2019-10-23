@@ -78,4 +78,18 @@ describe('applications/BUC/websocket/WebSocket', () => {
       }, 300)
     })
   })
+
+  it('close connection', async (done) => {
+    expect(wrapper.find('.a-buc-websocket').props().title).toEqual('websocket: CONNECTED')
+    act(() => {
+      mockSocket.close()
+    })
+    await new Promise(resolve => {
+      setTimeout(() => {
+        wrapper.update()
+        expect(wrapper.find('.a-buc-websocket').props().title).toEqual('websocket: NOTCONNECTED')
+        done()
+      }, 500)
+    })
+  })
 })

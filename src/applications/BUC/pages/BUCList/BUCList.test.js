@@ -2,13 +2,14 @@ import React from 'react'
 import BUCList from './BUCList'
 import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
+import * as storage from 'constants/storage'
 jest.mock('eessi-pensjon-ui', () => {
   const Ui = jest.requireActual('eessi-pensjon-ui')
   return {
     ...Ui,
     Nav: {
       ...Ui.Nav,
-      EkspanderbartpanelBase: ({ children }) => <div className='mock-EkspanderbartpanelBase'>{children}</div>
+      EkspanderbartpanelBase: ({ heading, children }) => <div className='mock-EkspanderbartpanelBase'>{heading}{children}</div>
     }
   }
 })
@@ -26,7 +27,9 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
       setCurrentBuc: jest.fn(),
       getInstitutionsListForBucAndCountry: jest.fn(),
       fetchBucs: jest.fn(),
-      fetchBucsInfoList: jest.fn()
+      fetchBucsInfo: jest.fn(),
+      fetchBucsInfoList: jest.fn(),
+      setCurrentSed: jest.fn()
     },
     aktoerId: '123',
     bucs: mockBucs,
@@ -47,7 +50,9 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
     rinaUrl: 'http://mockUrl/rinaUrl',
     sakId: '456',
     setMode: jest.fn(),
-    t: jest.fn((translationString) => { return translationString })
+    t: jest.fn((translationString) => {
+      return translationString
+    })
   }
 
   beforeEach(() => {
@@ -59,10 +64,20 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
     expect(wrapper).toMatchSnapshot()
   })
 
-  it('Moves to mode newbuc when button pressed', () => {
-    const newBucButton = wrapper.find('#a-buc-buclist__newbuc-button-id').hostNodes()
-    newBucButton.simulate('click')
-    expect(initialMockProps.setMode).toBeCalledWith('bucnew')
+  it('Render: loading BUCs', () => {
+    wrapper.setProps({ loading: { gettingBUCs: true } })
+    expect(wrapper.exists('WaitingPanel')).toBeTruthy()
+  })
+
+  it('UseEffect: fetch bucs info', () => {
+    wrapper = mount(
+      <BUCList
+        {...initialMockProps} bucsInfoList={[
+          initialMockProps.aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO
+        ]}
+      />
+    )
+    expect(initialMockProps.actions.fetchBucsInfo).toHaveBeenCalledWith(initialMockProps.aktoerId, storage.NAMESPACE_BUC, storage.FILE_BUCINFO)
   })
 
   it('Has proper HTML structure', () => {
@@ -73,5 +88,17 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
     expect(wrapper.exists('.a-buc-c-sedlist')).toBeTruthy()
     expect(wrapper.find('.a-buc-buclist__sedheader-head').hostNodes().length).toEqual(21)
     expect(wrapper.exists('.a-buc-footer')).toBeTruthy()
+  })
+
+  it('Moves to mode sednew when button pressed', () => {
+    const replySedButton = wrapper.find('.a-buc-c-sedheader__actions-answer-button').hostNodes().first()
+    replySedButton.simulate('click')
+    expect(initialMockProps.setMode).toBeCalledWith('sednew')
+  })
+
+  it('Moves to mode bucedit when button pressed', () => {
+    const bucEditButton = wrapper.find('.a-buc-c-bucheader__bucedit-link').first()
+    bucEditButton.simulate('click')
+    expect(initialMockProps.setMode).toBeCalledWith('bucedit')
   })
 })

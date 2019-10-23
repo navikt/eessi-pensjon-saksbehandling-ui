@@ -6,7 +6,7 @@ jest.mock('eessi-pensjon-ui', () => {
     ...Ui,
     Nav: {
       ...Ui.Nav,
-      EkspanderbartpanelBase: ({ children }) => <div className='mock-EkspanderbartpanelBase'>{children}</div>
+      EkspanderbartpanelBase: ({ onClick, children }) => <div className='mock-EkspanderbartpanelBase' onClick={onClick}>{children}</div>
     }
   }
 })
@@ -24,6 +24,7 @@ describe('widgets/Varsler/VarslerPanel', () => {
     fileList: undefined,
     isInvitingPinfo: false,
     invite: undefined,
+    onUpdate: jest.fn(),
     sakId: '123',
     sakType: 'Alderspensjon',
     t: jest.fn((translationString) => { return translationString }),
@@ -51,7 +52,14 @@ describe('widgets/Varsler/VarslerPanel', () => {
     expect(wrapper.exists('.w-varslerPanel')).toBeTruthy()
   })
 
+  it('With no params', () => {
+    wrapper = mount(<VarslerPanel {...initialMockProps} sakId={undefined} />)
+    expect(wrapper.exists('.w-varslerPanel__noParams-title')).toBeTruthy()
+    expect(wrapper.exists('Veileder')).toBeTruthy()
+  })
+
   it('UseEffect: There is a file list', () => {
+    expect(initialMockProps.actions.getStorageFile).not.toHaveBeenCalled()
     wrapper.setProps({
       fileList: ['mockFileName']
     })
@@ -79,7 +87,8 @@ describe('widgets/Varsler/VarslerPanel', () => {
   })
 
   it('Refresh button triggers refresh action', () => {
-    wrapper.find('.w-varslerPanel__refresh-button').hostNodes().simulate('click')
+    initialMockProps.actions.listStorageFiles.mockReset()
+    wrapper.find('.w-varslerPanel__refresh-button a').hostNodes().simulate('click')
     expect(initialMockProps.actions.listStorageFiles).toHaveBeenCalledWith({
       userId: initialMockProps.aktoerId,
       namespace: 'varsler___' + initialMockProps.sakId
@@ -91,6 +100,15 @@ describe('widgets/Varsler/VarslerPanel', () => {
     expect(initialMockProps.actions.sendInvite).toBeCalledWith({
       aktoerId: initialMockProps.aktoerId,
       sakId: initialMockProps.sakId
+    })
+  })
+
+  it('Expandable panel triggers widget update', () => {
+    wrapper.find('.mock-EkspanderbartpanelBase').hostNodes().simulate('click')
+    expect(initialMockProps.onUpdate).toBeCalledWith({
+      options: {
+        collapsed: !initialMockProps.widget.options.collapsed
+      }
     })
   })
 })

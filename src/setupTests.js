@@ -15,3 +15,4 @@ global.WebSocket = WebSocket
 HTMLCanvasElement.prototype.getContext = jest.fn()
 window.scrollTo = jest.fn()
 window.location.reload = jest.fn()
+window.open = jest.fn()

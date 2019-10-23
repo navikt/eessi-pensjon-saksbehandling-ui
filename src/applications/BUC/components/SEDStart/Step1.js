@@ -199,7 +199,7 @@ const Step1 = ({
   }
 
   return (
-    <>
+    <div className='a-buc-sedstart-step1'>
       <div className='col-md-12'>
         <Nav.Systemtittel>{
           !currentSed
@@ -311,7 +311,7 @@ const Step1 = ({
           <SEDAttachments t={t} setFiles={setFiles} files={_attachments} />
         </div>
       ) : null}
-    </>
+    </div>
   )
 }
 

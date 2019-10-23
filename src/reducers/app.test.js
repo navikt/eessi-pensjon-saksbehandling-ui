@@ -41,7 +41,7 @@ describe('reducers/app', () => {
     })
   })
 
-  it('APP_USERINFO_SUCCESS', () => {
+  it('APP_USERINFO_SUCCESS: with date ', () => {
     const mockNowDate = '2020-12-17T03:24:00'
     const mockExpirationDate = '2020-12-31T09:00:00'
     expect(
@@ -64,6 +64,28 @@ describe('reducers/app', () => {
       userStatus: 'OK',
       loggedTime: new Date(mockNowDate),
       expirationTime: new Date(mockExpirationDate)
+    })
+  })
+
+  it('APP_USERINFO_SUCCESS: with no date ', () => {
+    expect(
+      appReducer(initialAppState, {
+        type: types.APP_USERINFO_SUCCESS,
+        payload: {
+          subject: 'mockSubject',
+          role: 'mockRole',
+          allowed: 'mockAllowed'
+        }
+      })
+    ).toEqual({
+      ...initialAppState,
+      username: 'mockSubject',
+      userRole: 'mockRole',
+      allowed: 'mockAllowed',
+      loggedIn: true,
+      userStatus: 'OK',
+      loggedTime: expect.any(Date),
+      expirationTime: expect.any(Date)
     })
   })
 
@@ -99,5 +121,34 @@ describe('reducers/app', () => {
         type: types.APP_LOGOUT_SUCCESS
       })
     ).toEqual(initialAppState)
+  })
+
+  it('APP_SAKTYPE_SUCCESS', () => {
+    expect(
+      appReducer(initialAppState, {
+        type: types.APP_SAKTYPE_SUCCESS,
+        payload: {
+          sakType: 'GJENLEV'
+        }
+      })
+    ).toEqual({
+      ...initialAppState,
+      params: {
+        sakType: 'Gjenlevendeytelse'
+      }
+    })
+  })
+
+  it('APP_SAKTYPE_FAILURE', () => {
+    expect(
+      appReducer(initialAppState, {
+        type: types.APP_SAKTYPE_FAILURE
+      })
+    ).toEqual({
+      ...initialAppState,
+      params: {
+        sakType: 'Unknown'
+      }
+    })
   })
 })

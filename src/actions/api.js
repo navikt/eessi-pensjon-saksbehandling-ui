@@ -9,6 +9,7 @@ import { HOST } from 'constants/urls'
 export const fakeCall = ({ context, expectedPayload, method, type, url }) => {
   return (dispatch) => {
     if (!IS_TEST) {
+      /* istanbul ignore next */
       console.log('FAKE API REQUEST FOR ' + (method || 'GET') + ' ' + url)
     }
     dispatch({
@@ -21,7 +22,9 @@ export const fakeCall = ({ context, expectedPayload, method, type, url }) => {
       }, Math.floor(Math.random() * 2000))
     }).then(payload => {
       if (!IS_TEST) {
+        /* istanbul ignore next */
         console.log('FAKE API SUCCESS FOR ' + (method || 'GET') + ' ' + url)
+        /* istanbul ignore next */
         console.log('Payload', payload)
       }
       return dispatch({

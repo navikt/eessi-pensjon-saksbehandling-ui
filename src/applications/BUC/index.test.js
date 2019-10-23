@@ -4,7 +4,9 @@ import sampleBucs from 'resources/tests/sampleBucs'
 jest.mock('applications/BUC/pages/SEDNew/SEDNew', () => {
   return () => { return <div className='a-buc-sednew' /> }
 })
-
+jest.mock('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {
+  return ({ setMode }) => (<div className='mock-buccrumbs' onChange={(e) => setMode(e.target.value)} />)
+})
 const bucReducer = (currentBucs, newBuc) => {
   currentBucs[newBuc.caseId] = newBuc
   return currentBucs
@@ -24,15 +26,17 @@ describe('applications/BUC/index', () => {
       fetchBucsInfoList: jest.fn(),
       fetchAvdodBucs: jest.fn(),
       getSakType: jest.fn(),
-      getRinaUrl: jest.fn()
+      getRinaUrl: jest.fn(),
+      setMode: jest.fn()
     },
     aktoerId: '123',
     bucs: mockBucs,
-    buc: sampleBucs[0],
     currentBuc: '195440',
-    seds: sampleBucs[0].seds,
     loading: {},
     locale: 'nb',
+    mode: 'buclist',
+    onFullFocus: jest.fn(),
+    onRestoreFocus: jest.fn(),
     rinaUrl: 'http://mockUrl/rina',
     sakId: '456',
     subjectAreaList: ['mockSubjectArea1', 'mockSubjectArea2'],
@@ -60,11 +64,17 @@ describe('applications/BUC/index', () => {
     expect(initialMockProps.actions.fetchAvdodBucs).toHaveBeenCalled()
   })
 
+  it('UseEffect: when getting BUCs, set mode to buclist', () => {
+    initialMockProps.actions.setMode.mockReset()
+    wrapper = mount(<BUCIndex {...initialMockProps} mode='bucnew' loading={{ gettingBUCs: true }} />)
+    expect(initialMockProps.actions.setMode).toHaveBeenCalledWith('buclist')
+  })
+
   it('Has proper HTML structure ', () => {
     wrapper = mount(<BUCIndex {...initialMockProps} mode='xxx' />)
     expect(wrapper.exists('.a-buc-widget')).toBeTruthy()
     expect(wrapper.exists('.a-buc-widget__header')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-c-buccrumbs')).toBeTruthy()
+    expect(wrapper.exists('.mock-buccrumbs')).toBeTruthy()
   })
 
   it('Has proper HTML structure in buclist mode', () => {
@@ -85,5 +95,15 @@ describe('applications/BUC/index', () => {
   it('Has proper HTML structure in sednew mode', () => {
     wrapper = mount(<BUCIndex {...initialMockProps} mode='sednew' />)
     expect(wrapper.exists('.a-buc-sednew')).toBeTruthy()
+  })
+
+  it('Calls fullFocus and ReplaceFocus functions', () => {
+    wrapper = mount(<BUCIndex {...initialMockProps} />)
+    wrapper.find('.mock-buccrumbs').simulate('change', { target: { value: 'bucnew' } })
+    wrapper.update()
+    expect(initialMockProps.onFullFocus).toHaveBeenCalled()
+    wrapper.find('.mock-buccrumbs').simulate('change', { target: { value: 'buclist' } })
+    wrapper.setProps({ mode: 'buclist' })
+    expect(initialMockProps.onRestoreFocus).toHaveBeenCalled()
   })
 })

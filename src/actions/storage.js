@@ -18,12 +18,18 @@ export const closeStorageModal = () => {
 }
 
 const mockListStorageFiles = (userId, namespace) => {
+  /* istanbul ignore next */
   if (namespace === storage.NAMESPACE_PINFO) {
     return [userId + '___' + namespace + '___' + storage.FILE_PINFO]
   }
+  /* istanbul ignore next */
   if (namespace === storage.NAMESPACE_VARSLER + '___123') {
-    return [userId + '___' + namespace + '___1970-01-01Z00:00:00']
+    return [
+      userId + '___' + namespace + '___1970-01-01Z00:00:00',
+      userId + '___' + namespace + '___1980-01-01Z00:00:00'
+    ]
   }
+  /* istanbul ignore next */
   return []
 }
 
@@ -32,7 +38,7 @@ export const listStorageFiles = ({ userId, namespace }, context) => {
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: userId, namespace: namespace }),
     method: 'GET',
     context: context || { notification: true },
-    expectedPayload: () => mockListStorageFiles(userId, namespace),
+    expectedPayload: () => { /* istanbul ignore next */ mockListStorageFiles(userId, namespace) },
     type: {
       request: types.STORAGE_LIST_REQUEST,
       success: types.STORAGE_LIST_SUCCESS,
@@ -46,6 +52,7 @@ export const getStorageFile = ({ userId, namespace, file }, context) => {
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'GET',
     expectedPayload: () => {
+      /* istanbul ignore next */
       if (namespace === storage.NAMESPACE_VARSLER) {
         return {
           tittel: 'mockTittel',

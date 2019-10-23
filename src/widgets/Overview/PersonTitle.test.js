@@ -40,4 +40,18 @@ describe('widgets/Overview/PersonTitle', () => {
     expect(wrapper.exists('.w-overview-personPanel__waiting')).toBeTruthy()
     expect(wrapper.find('.w-overview-personPanel__waiting').hostNodes().render().text()).toEqual('Venter...ui:loading')
   })
+
+  it('Renders different person icons', () => {
+    samplePerson.person.kjoenn.kjoenn.value = 'M'
+    wrapper.setProps({ person: samplePerson.person })
+    expect(wrapper.find('Icons').props().kind).toEqual('nav-man-icon')
+
+    samplePerson.person.kjoenn.kjoenn.value = 'X'
+    wrapper.setProps({ person: samplePerson.person })
+    expect(wrapper.find('Icons').props().kind).toEqual('nav-unknown-icon')
+
+    samplePerson.person.kjoenn.kjoenn.value = 'K'
+    wrapper.setProps({ person: samplePerson.person })
+    expect(wrapper.find('Icons').props().kind).toEqual('nav-woman-icon')
+  })
 })

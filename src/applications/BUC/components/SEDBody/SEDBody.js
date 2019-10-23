@@ -3,7 +3,7 @@ import React from 'react'
 
 const SEDBody = ({ t, files }) => {
   return (
-    <div />
+    <div className='a-buc-c-sedbody' />
   )
 }
 

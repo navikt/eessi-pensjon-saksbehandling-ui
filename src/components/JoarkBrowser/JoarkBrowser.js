@@ -7,7 +7,7 @@ import * as uiActions from 'actions/ui'
 import { File, Modal, Nav, TableSorter, WaitingPanel } from 'eessi-pensjon-ui'
 import './JoarkBrowser.css'
 
-const mapStateToProps = (state) => {
+const mapStateToProps = /* istanbul ignore next */ (state) => {
   return {
     aktoerId: state.app.params.aktoerId,
     file: state.joark.file,
@@ -19,13 +19,13 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = /* istanbul ignore next */ (dispatch) => {
   return { actions: bindActionCreators({ ...uiActions, ...joarkActions }, dispatch) }
 }
 
 export const JoarkBrowser = ({
   actions, aktoerId, file, files, list, loadingJoarkList,
-  loadingJoarkFile, loadingJoarkPreviewFile, onFilesChange, previewFile, t
+  loadingJoarkFile, loadingJoarkPreviewFile, onFilesChange, onPreviewFile, previewFile, t
 }) => {
   const [_file, setFile] = useState(file)
   const [_previewFile, setPreviewFile] = useState(previewFile)
@@ -52,7 +52,7 @@ export const JoarkBrowser = ({
   }, [file, _file, files, onFilesChange])
 
   useEffect(() => {
-    const onPreviewFile = (previewFile) => {
+    const _onPreviewFile = (previewFile) => {
       setModal({
         modalContent: (
           <div
@@ -63,11 +63,14 @@ export const JoarkBrowser = ({
           </div>
         )
       })
+      if (_.isFunction(onPreviewFile)) {
+        onPreviewFile(previewFile)
+      }
     }
     if (previewFile && (!_previewFile || _previewFile.journalpostId !== previewFile.journalpostId ||
      _previewFile.variant !== previewFile.variant)) {
       setPreviewFile(previewFile)
-      onPreviewFile(previewFile)
+      _onPreviewFile(previewFile)
     }
   }, [actions, previewFile, _previewFile, t])
 
@@ -221,7 +224,9 @@ JoarkBrowser.propTypes = {
   loadingJoarkFile: PT.bool,
   loadingJoarkPreviewFile: PT.bool,
   onFilesChange: PT.func.isRequired,
-  previewFile: PT.object
+  onPreviewFile: PT.func,
+  previewFile: PT.object,
+  t: PT.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(JoarkBrowser)

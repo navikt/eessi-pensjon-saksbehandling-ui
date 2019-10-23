@@ -2,7 +2,7 @@ import React from 'react'
 import Step1 from './Step1'
 import sampleBucs from 'resources/tests/sampleBucs'
 
-describe('applications/BUC/components/SEDStart/AttachmentStep1', () => {
+describe('applications/BUC/components/SEDStart/Step1', () => {
   let wrapper
 
   const bucReducer = (currentBucs, newBuc) => {
@@ -18,7 +18,14 @@ describe('applications/BUC/components/SEDStart/AttachmentStep1', () => {
     _countries: [],
     countryList: [],
     _institutions: [],
-    institutionList: {},
+    institutionList: {
+      NO: [{
+        akronym: 'DEMO001',
+        navn: 'Demo 001',
+        landkode: 'NO',
+        id: 'NO:DEMO001'
+      }]
+    },
     loading: {},
     locale: 'nb',
     _sed: undefined,
@@ -53,5 +60,10 @@ describe('applications/BUC/components/SEDStart/AttachmentStep1', () => {
     expect(wrapper.exists('#a-buc-c-sedstart__sed-select-id')).toBeTruthy()
     expect(wrapper.exists('#a-buc-c-sedstart__country-select-id')).toBeTruthy()
     expect(wrapper.exists('#a-buc-c-sedstart__institution-select-id')).toBeTruthy()
+  })
+
+  it('lets select SED', () => {
+    wrapper.find('select#a-buc-c-sedstart__sed-select-id').simulate('change', { target: { value: 'P2000' } })
+    expect(initialMockProps.setSed).toHaveBeenCalledWith('P2000')
   })
 })

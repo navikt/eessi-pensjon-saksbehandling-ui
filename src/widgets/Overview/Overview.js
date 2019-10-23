@@ -11,6 +11,7 @@ import PersonPanel from './PersonPanel'
 import './Overview.css'
 
 const mapStateToProps = (state) => {
+  /* istanbul ignore next */
   return {
     aktoerId: state.app.params.aktoerId,
     gettingPersonInfo: state.loading.gettingPersonInfo,
@@ -22,6 +23,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
+  /* istanbul ignore next */
   return { actions: bindActionCreators({ ...appActions }, dispatch) }
 }
 

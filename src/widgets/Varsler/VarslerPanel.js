@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import PT from 'prop-types'
 import { connect, bindActionCreators } from 'store'
 import _ from 'lodash'
@@ -10,7 +10,7 @@ import * as storageActions from 'actions/storage'
 import { ReactComponent as VeilederSVG } from 'resources/images/NavPensjonVeileder.svg'
 import './VarslerPanel.css'
 
-const mapStateToProps = (state) => {
+const mapStateToProps = /* istanbul ignore next */ (state) => {
   return {
     aktoerId: state.app.params.aktoerId,
     fileList: state.storage.fileList,
@@ -23,7 +23,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = /* istanbul ignore next */ (dispatch) => {
   return { actions: bindActionCreators({ ...pinfoActions, ...storageActions }, dispatch) }
 }
 
@@ -91,7 +91,7 @@ export const VarslerPanel = (props) => {
     }
   }, [actions, aktoerId, fileList, _fileList, _files, file, isReady, sakId])
 
-  const onRefreshHandle = useCallback(() => {
+  const onRefreshHandle = () => {
     if (aktoerId && sakId) {
       setFileList(undefined)
       setFiles({})
@@ -101,7 +101,7 @@ export const VarslerPanel = (props) => {
         namespace: 'varsler___' + sakId
       })
     }
-  }, [actions, aktoerId, sakId])
+  }
 
   if (!mounted) {
     return null
@@ -110,7 +110,7 @@ export const VarslerPanel = (props) => {
   if (mounted && !hasParams) {
     return (
       <Nav.Panel className='w-varslerPanel s-border'>
-        <Nav.Systemtittel className='pb-3'>{t('ui:widget-overview-notifications')}</Nav.Systemtittel>
+        <Nav.Systemtittel className='w-varslerPanel__noParams-title pb-3'>{t('ui:widget-overview-notifications')}</Nav.Systemtittel>
         <Nav.Veileder
           tekst={t('pinfo:error-noParams')}
           posisjon='høyre'

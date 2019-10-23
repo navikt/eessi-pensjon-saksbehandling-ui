@@ -48,4 +48,13 @@ describe('widgets/Overview/Overview', () => {
     expect(wrapper.exists('.w-overview__alert')).toBeTruthy()
     expect(wrapper.find('.w-overview__alert').hostNodes().render().text()).toEqual('buc:validation-noAktoerId')
   })
+
+  it('Expandable ', () => {
+    wrapper.find('EkspanderbartpanelBase button').simulate('click')
+    expect(initialMockProps.onUpdate).toHaveBeenCalledWith({
+      options: {
+        collapsed: true
+      }
+    })
+  })
 })

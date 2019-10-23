@@ -3,6 +3,7 @@ import PT from 'prop-types'
 import classNames from 'classnames'
 import { connect, bindActionCreators } from 'store'
 import * as alertActions from 'actions/alert'
+import * as appActions from 'actions/app'
 import * as uiActions from 'actions/ui'
 import Header from 'components/Header/Header'
 import Footer from 'components/Footer/Footer'
@@ -11,6 +12,7 @@ import { Alert, Banner, Modal, Nav } from 'eessi-pensjon-ui'
 import './TopContainer.css'
 
 const mapStateToProps = (state) => {
+  /* istanbul ignore next */
   return {
     clientErrorStatus: state.alert.clientErrorStatus,
     clientErrorMessage: state.alert.clientErrorMessage,
@@ -28,7 +30,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators({ ...alertActions, ...uiActions }, dispatch) }
+  /* istanbul ignore next */
+  return { actions: bindActionCreators({ ...alertActions, ...appActions, ...uiActions }, dispatch) }
 }
 
 export const TopContainer = ({

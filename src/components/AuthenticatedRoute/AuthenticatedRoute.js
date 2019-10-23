@@ -10,6 +10,7 @@ import * as constants from 'constants/constants'
 import * as routes from 'constants/routes'
 
 const mapStateToProps = (state) => {
+  /* istanbul ignore next */
   return {
     userRole: state.app.userRole,
     userStatus: state.app.userStatus,
@@ -19,6 +20,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
+  /* istanbul ignore next */
   return { actions: bindActionCreators(appActions, dispatch) }
 }
 

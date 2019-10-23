@@ -1,12 +1,13 @@
 import React from 'react'
-
 import { TopContainer } from './TopContainer'
 
 describe('components/TopContainer', () => {
   let wrapper
   const initialMockProps = {
     actions: {
-      toggleHighContrast: jest.fn()
+      toggleHighContrast: jest.fn(),
+      clientClear: jest.fn(),
+      closeModal: jest.fn()
     },
     clientErrorMessage: 'mockErrorMessage',
     header: 'mockHeader',
@@ -16,7 +17,7 @@ describe('components/TopContainer', () => {
   }
 
   beforeEach(() => {
-    wrapper = shallow(
+    wrapper = mount(
       <TopContainer {...initialMockProps}>
         <div id='TEST_CHILD' />
       </TopContainer>
@@ -38,20 +39,37 @@ describe('components/TopContainer', () => {
   })
 
   it('Compute the client error message', () => {
+    initialMockProps.actions.clientClear.mockReset()
     wrapper.setProps({
       clientErrorMessage: 'mockMessage|mockParams'
     })
-    expect(wrapper.find('Alert[type="client"]').render().text()).toEqual('mockMessage: mockParams')
+    const clientAlert = wrapper.find('Alert[type="client"]')
+    expect(clientAlert.render().text()).toEqual('mockMessage: mockParams')
+
+    clientAlert.find('Icons').simulate('click')
+    expect(initialMockProps.actions.clientClear).toHaveBeenCalled()
   })
 
-  it('Opens modal', () => {
+  it('Opens and closes modal', () => {
     const mockModal = {
       modalTitle: 'mockTitle',
-      modalText: 'mockText'
+      modalText: 'mockText',
+      modalButtons: [{
+        text: 'ok'
+      }]
     }
-    wrapper.setProps({
-      modal: mockModal
+    act(() => {
+      wrapper.setProps({
+        modal: mockModal
+      })
     })
-    expect(wrapper.find('Modal').props().modal).toEqual(expect.objectContaining(mockModal))
+    act(() => {
+      wrapper.update()
+    })
+    const modal = wrapper.find('.c-topContainer > Modal')
+    expect(modal.props().modal).toEqual(expect.objectContaining(mockModal))
+
+    modal.find('button').simulate('click')
+    expect(initialMockProps.actions.closeModal).toHaveBeenCalled()
   })
 })
