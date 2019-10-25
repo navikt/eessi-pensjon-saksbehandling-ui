@@ -1,9 +1,8 @@
-FROM navikt/pus-decorator:228.20190926.1521
+FROM navikt/pus-decorator
 ENV APPLICATION_NAME=eessipen
 ENV PUBLIC_ZONE=fss
-ENV CONTEXT_PATH /
 ENV DISABLE_FRONTEND_LOGGER true
 ENV DISABLE_DECORATOR true
 ENV DISABLE_UNLEASH true
-ADD build /app
+COPY /build /app
 ADD decorator.yaml /decorator.yaml
