@@ -1,8 +1,9 @@
-FROM navikt/pus-decorator
+FROM repo.adeo.no:5443/pus/decorator:156.20181221.0926
 ENV APPLICATION_NAME=eessipen
+ENV CONTEXT_PATH=/
 ENV PUBLIC_ZONE=fss
 ENV DISABLE_FRONTEND_LOGGER true
 ENV DISABLE_DECORATOR true
 ENV DISABLE_UNLEASH true
-COPY /build /app
-ADD decorator.yaml /decorator.yaml
+ADD build /app
+ADD proxy.json /proxy.json
