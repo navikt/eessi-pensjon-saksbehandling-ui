@@ -77,7 +77,7 @@ describe('actions/app', () => {
         success: types.APP_USERINFO_SUCCESS,
         failure: types.APP_USERINFO_FAILURE
       },
-      failWith401: true,
+      cascadeFailureError: true,
       url: urls.API_USERINFO_URL
     }))
   })

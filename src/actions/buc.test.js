@@ -3,6 +3,7 @@ import { call } from 'eessi-pensjon-ui/dist/api'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as storage from 'constants/storage'
+import tagsList from 'constants/tagsList'
 const sprintf = require('sprintf-js').sprintf
 jest.mock('eessi-pensjon-ui/dist/api', () => ({
   call: jest.fn()
@@ -98,7 +99,7 @@ describe('actions/buc', () => {
         success: types.BUC_GET_BUCS_SUCCESS,
         failure: types.BUC_GET_BUCS_FAILURE
       },
-      failWith500: true,
+      cascadeFailureError: true,
       url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: mockAktoerId })
     }))
   })
@@ -172,24 +173,7 @@ describe('actions/buc', () => {
     const expectedResults = bucActions.getTagList()
     expect(expectedResults).toMatchObject({
       type: types.BUC_GET_TAG_LIST_SUCCESS,
-      payload: [
-        'tag-refusjonskrav',
-        'tag-uttakFor67ar',
-        'tag-kombinasjonssaker',
-        'tag-skilsmissesakerDE',
-        'tag-forLavOpptjening',
-        'tag-konvensjonsland',
-        'tag-innvilgetYtelseIUtland',
-        'tag-LengstOpptjeningstidINorge',
-        'tag-kurantSak',
-        'tag-InnvilgetGrunnytelse',
-        'tag-12_2',
-        'tag-lånekassen',
-        'tag-loependeBarnetillegg',
-        'tag-inntektsavkortetGrunnytelse',
-        'tag-avvikendeMedlemskap'
-
-      ]
+      payload: tagsList
     })
   })
 

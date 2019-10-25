@@ -1,9 +1,10 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as storage from 'constants/storage'
+import tagsList from 'constants/tagsList'
 import * as api from 'eessi-pensjon-ui/dist/api'
 import _ from 'lodash'
-import sampleBucs from 'resources/tests/sampleBucs'
+import sampleBucsWithSomeErrors from 'resources/tests/sampleBucsWithSomeErrors'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import sampleP4000info from 'resources/tests/sampleP4000info'
 import sampleInstitutions from 'resources/tests/sampleInstitutions'
@@ -60,7 +61,7 @@ export const setP4000Info = (p4000) => {
 export const fetchSingleBuc = (rinaCaseId) => {
   return api.call({
     url: sprintf(urls.BUC_GET_SINGLE_BUC, { rinaCaseId: rinaCaseId }),
-    expectedPayload: sampleBucs[0],
+    expectedPayload: sampleBucsWithSomeErrors[0],
     type: {
       request: types.BUC_GET_SINGLE_BUC_REQUEST,
       success: types.BUC_GET_SINGLE_BUC_SUCCESS,
@@ -72,8 +73,8 @@ export const fetchSingleBuc = (rinaCaseId) => {
 export const fetchBucs = (aktoerId) => {
   return api.call({
     url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
-    failWith500: true,
-    expectedPayload: sampleBucs,
+    cascadeFailureError: true,
+    expectedPayload: sampleBucsWithSomeErrors,
     type: {
       request: types.BUC_GET_BUCS_REQUEST,
       success: types.BUC_GET_BUCS_SUCCESS,
@@ -85,8 +86,8 @@ export const fetchBucs = (aktoerId) => {
 export const fetchAvdodBucs = (aktoerId) => {
   return api.call({
     url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
-    failWith500: true,
-    expectedPayload: sampleBucs,
+    cascadeFailureError: true,
+    expectedPayload: sampleBucsWithSomeErrors,
     type: {
       request: types.BUC_GET_AVDOD_BUCS_REQUEST,
       success: types.BUC_GET_AVDOD_BUCS_SUCCESS,
@@ -146,23 +147,7 @@ export const getBucList = () => {
 export const getTagList = () => {
   return {
     type: types.BUC_GET_TAG_LIST_SUCCESS,
-    payload: [
-      'tag-refusjonskrav',
-      'tag-uttakFor67ar',
-      'tag-kombinasjonssaker',
-      'tag-skilsmissesakerDE',
-      'tag-forLavOpptjening',
-      'tag-konvensjonsland',
-      'tag-innvilgetYtelseIUtland',
-      'tag-LengstOpptjeningstidINorge',
-      'tag-kurantSak',
-      'tag-InnvilgetGrunnytelse',
-      'tag-12_2',
-      'tag-lånekassen',
-      'tag-loependeBarnetillegg',
-      'tag-inntektsavkortetGrunnytelse',
-      'tag-avvikendeMedlemskap'
-    ]
+    payload: tagsList
   }
 }
 

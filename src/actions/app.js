@@ -42,7 +42,7 @@ export const logout = () => {
 export const getUserInfo = () => {
   return api.call({
     url: urls.API_USERINFO_URL,
-    failWith401: true,
+    cascadeFailureError: true,
     expectedPayload: {
       subject: 'demoSaksbehandlerUser',
       role: 'SAKSBEHANDLER',
