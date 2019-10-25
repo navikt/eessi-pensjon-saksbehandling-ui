@@ -1,4 +1,4 @@
-FROM repo.adeo.no:5443/pus/decorator:228.20190926.1521
+FROM navikt/pus-decorator:228.20190926.1521
 ENV APPLICATION_NAME=eessipen
 ENV PUBLIC_ZONE=fss
 ENV CONTEXT_PATH /
