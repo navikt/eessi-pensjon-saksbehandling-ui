@@ -171,7 +171,7 @@ export const VarslerPanel = (props) => {
               className='w-varslerPanel__refresh-button'
               labelRefresh={t('ui:refresh')}
               rotating={!isReady}
-              onRefreshClick={onRefreshHandle}
+              onRefreshClicked={onRefreshHandle}
             />
           </div>
           {!isReady ? (

@@ -1,14 +1,15 @@
 import _ from 'lodash'
-import * as api from 'actions/api'
+import { call } from 'eessi-pensjon-ui/dist/api'
 import * as joarkActions from 'actions/joark'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import sampleJoark from 'resources/tests/sampleJoark'
 const sprintf = require('sprintf-js').sprintf
+jest.mock('eessi-pensjon-ui/dist/api', () => ({
+  call: jest.fn()
+}))
 
 describe('actions/joark', () => {
-  const call = jest.spyOn(api, 'call').mockImplementation(jest.fn())
-
   afterEach(() => {
     call.mockReset()
   })

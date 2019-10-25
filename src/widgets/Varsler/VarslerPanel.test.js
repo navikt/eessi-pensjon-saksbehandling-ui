@@ -27,7 +27,7 @@ describe('widgets/Varsler/VarslerPanel', () => {
     onUpdate: jest.fn(),
     sakId: '123',
     sakType: 'Alderspensjon',
-    t: jest.fn((translationString) => { return translationString }),
+    t: jest.fn(t => t),
     widget: {
       options: {
         collapsed: false

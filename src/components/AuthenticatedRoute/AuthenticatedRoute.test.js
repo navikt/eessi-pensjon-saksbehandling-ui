@@ -21,7 +21,7 @@ describe('components/AuthenticatedRoute', () => {
     location: {
       search: '?a=b&sakId=123&aktoerId=456'
     },
-    t: jest.fn((translationString) => { return translationString })
+    t: jest.fn(t => t)
   }
 
   it('UseEffect: read status params', () => {

@@ -1,6 +1,6 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import * as api from 'actions/api'
+import * as api from 'eessi-pensjon-ui/dist/api'
 const sprintf = require('sprintf-js').sprintf
 
 export const sendInvite = (params) => {

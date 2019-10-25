@@ -9,10 +9,13 @@ import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
 import moment from 'moment'
 import './BUCEdit.css'
 
-const BUCEdit = ({ actions, aktoerId, bucs, bucsInfo, currentBuc, institutionNames, loading, locale, rinaUrl, setMode, t, tagList }) => {
-  const [search, setSearch] = useState(undefined)
-  const [countrySearch, setCountrySearch] = useState(undefined)
-  const [statusSearch, setStatusSearch] = useState(undefined)
+const BUCEdit = ({
+  actions, aktoerId, bucs, bucsInfo, currentBuc, initialSearch, initialCountrySearch, initialStatusSearch,
+  institutionNames, loading, locale, rinaUrl, setMode, t, tagList
+}) => {
+  const [search, setSearch] = useState(initialSearch)
+  const [countrySearch, setCountrySearch] = useState(initialCountrySearch)
+  const [statusSearch, setStatusSearch] = useState(initialStatusSearch)
 
   const onSEDNew = (sed) => {
     actions.setCurrentSed(sed ? sed.id : undefined)
@@ -145,6 +148,9 @@ BUCEdit.propTypes = {
   bucs: PT.object.isRequired,
   bucsInfo: PT.object,
   currentBuc: PT.string.isRequired,
+  initialSearch: PT.string,
+  initialCountrySearch: PT.string,
+  initialStatusSearch: PT.string,
   institutionNames: PT.object,
   loading: PT.object,
   locale: PT.string.isRequired,

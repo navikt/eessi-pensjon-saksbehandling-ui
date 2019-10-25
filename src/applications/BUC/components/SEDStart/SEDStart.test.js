@@ -56,7 +56,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     sakId: '123',
     sed: undefined,
     setMode: jest.fn(),
-    t: jest.fn((translationString) => { return translationString }),
+    t: jest.fn(t => t),
     vedtakId: '123'
   }
 

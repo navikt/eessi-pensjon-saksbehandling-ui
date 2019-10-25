@@ -37,7 +37,7 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
     loadingJoarkPreviewFile: false,
     onFilesChange: jest.fn(),
     onPreviewFile: jest.fn(),
-    t: jest.fn((translationString) => { return translationString })
+    t: jest.fn(t => t)
   }
 
   beforeEach(() => {

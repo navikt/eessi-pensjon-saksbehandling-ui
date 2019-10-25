@@ -184,7 +184,7 @@ const PeriodWork = ({
           locale={locale}
           includeList={CountryFilter.EEA}
           value={period.country || null}
-          onSelect={setCountry}
+          onOptionSelected={setCountry}
           error={localErrors.country ? t(localErrors.country) : undefined}
         />
       </div>

@@ -5,7 +5,7 @@ describe('applications/BUC/components/BUCFooter/BUCFooter', () => {
   let wrapper
   const initialMockProps = {
     rinaUrl: 'http://mockurl/rinaUrl',
-    t: jest.fn((translationString) => { return translationString })
+    t: jest.fn(t => t)
   }
 
   beforeEach(() => {

@@ -129,7 +129,7 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl,
         <div className='a-buc-c-bucheader__actions col-sm-4'>
           <Nav.Lenke
             id='a-buc-c-bucheader__bucedit-link-id'
-            className='a-buc-c-bucheader__bucedit-link knapp text-decoration-none'
+            className='a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-2'
             onClick={(e) => onBucHandle(buc, e)}
             href={'#' + buc.type}
           >

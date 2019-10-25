@@ -13,7 +13,7 @@ describe('components/TopContainer', () => {
     header: 'mockHeader',
     highContrast: false,
     history: {},
-    t: jest.fn((translationString) => { return translationString })
+    t: jest.fn(t => t)
   }
 
   beforeEach(() => {
@@ -48,6 +48,12 @@ describe('components/TopContainer', () => {
 
     clientAlert.find('Icons').simulate('click')
     expect(initialMockProps.actions.clientClear).toHaveBeenCalled()
+  })
+
+  it('Toggles high contrast', () => {
+    initialMockProps.actions.toggleHighContrast.mockReset()
+    wrapper.find('Banner #c-banner__highcontrast-link-id').hostNodes().simulate('click')
+    expect(initialMockProps.actions.toggleHighContrast).toHaveBeenCalledWith()
   })
 
   it('Opens and closes modal', () => {

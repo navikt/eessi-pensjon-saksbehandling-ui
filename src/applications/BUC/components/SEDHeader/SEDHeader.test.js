@@ -3,7 +3,6 @@ import SEDHeader from './SEDHeader'
 import sampleBucs from 'resources/tests/sampleBucs'
 
 describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
-  const t = jest.fn((translationString) => { return translationString })
   const buc = sampleBucs[0]
   const sed = buc.seds[0]
   sed.status = 'received'
@@ -14,7 +13,7 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
     onSEDNew: jest.fn(),
     sed: sed,
     followUpSeds: [buc.seds[1]],
-    t: t
+    t: jest.fn(t => t)
   }
   let wrapper
 

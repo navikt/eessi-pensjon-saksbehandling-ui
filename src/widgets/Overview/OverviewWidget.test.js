@@ -9,7 +9,7 @@ describe('widgets/OverviewWidget', () => {
   const initialMockProps = {
     onResize: jest.fn(),
     onUpdate: jest.fn(),
-    t: jest.fn((translationString) => { return translationString }),
+    t: jest.fn(t => t),
     widget: {
       options: {
         collapsed: false

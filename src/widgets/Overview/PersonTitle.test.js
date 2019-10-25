@@ -8,7 +8,7 @@ describe('widgets/Overview/PersonTitle', () => {
     aktoerId: '10293847565',
     gettingPersonInfo: false,
     person: samplePerson.person,
-    t: jest.fn((translationString) => { return translationString })
+    t: jest.fn(t => t)
   }
 
   beforeEach(() => {

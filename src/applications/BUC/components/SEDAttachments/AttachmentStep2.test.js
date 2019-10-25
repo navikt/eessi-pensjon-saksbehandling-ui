@@ -22,7 +22,7 @@ describe('applications/BUC/components/AttachmentStep1/AttachmentStep1', () => {
     files: {},
     setFiles: jest.fn(),
     setStep: jest.fn(),
-    t: jest.fn((translationString) => { return translationString })
+    t: jest.fn(t => t)
   }
 
   beforeEach(() => {

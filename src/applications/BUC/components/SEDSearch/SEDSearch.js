@@ -11,12 +11,6 @@ const SEDSearch = ({ className, locale, onCountrySearch, onSearch, onStatusSearc
   const [_country, setCountry] = useState([])
   const [_status, setStatus] = useState([])
 
-  const stopPropagation = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
-    return false
-  }
-
   const onQueryChange = (e) => {
     if (typeof onSearch === 'function') {
       setQuery(e.target.value)
@@ -82,7 +76,6 @@ const SEDSearch = ({ className, locale, onCountrySearch, onSearch, onStatusSearc
         value={_query || ''}
         onChange={onQueryChange}
         placeholder={t('buc:form-filterSED')}
-        onClick={stopPropagation}
       />
       <MultipleSelect
         id='a-buc-c-sedsearch__status-select-id'

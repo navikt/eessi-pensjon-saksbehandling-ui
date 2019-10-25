@@ -8,7 +8,7 @@ describe('applications/BUC/widgets/BUCEmpty/BUCEmpty', () => {
       setStatusParam: jest.fn()
     },
     onBUCNew: jest.fn(),
-    t: jest.fn((translationString) => { return translationString })
+    t: jest.fn(t => t)
   }
 
   beforeEach(() => {

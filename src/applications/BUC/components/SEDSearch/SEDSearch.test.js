@@ -3,16 +3,15 @@ import SEDSearch from './SEDSearch'
 import sampleBucs from 'resources/tests/sampleBucs'
 
 describe('applications/BUC/components/SEDSearch/SEDSearch', () => {
-  const t = jest.fn((translationString) => { return translationString })
+  let wrapper
   const initialMockProps = {
     onSearch: jest.fn(),
     onCountrySearch: jest.fn(),
     onStatusSearch: jest.fn(),
     locale: 'nb',
     seds: sampleBucs[0].seds,
-    t: t
+    t: jest.fn(t => t)
   }
-  let wrapper
 
   beforeEach(() => {
     wrapper = mount(<SEDSearch {...initialMockProps} />)

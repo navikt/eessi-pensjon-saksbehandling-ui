@@ -26,7 +26,7 @@ const initialMockProps = {
   setPeriods: jest.fn(),
   setLocalError: jest.fn(),
   setLocalErrors: jest.fn(),
-  t: jest.fn((translationString) => { return translationString })
+  t: jest.fn(t => t)
 }
 
 describe('applications/BUC/components/SEDP4000/Period - view/confirm mode', () => {

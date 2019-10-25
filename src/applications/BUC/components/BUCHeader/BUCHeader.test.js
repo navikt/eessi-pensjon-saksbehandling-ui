@@ -14,7 +14,7 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
     locale: 'nb',
     onBUCEdit: jest.fn(),
     rinaUrl: 'http://mockurl.com/rina',
-    t: jest.fn((translationString) => { return translationString })
+    t: jest.fn(t => t)
   }
 
   beforeEach(() => {

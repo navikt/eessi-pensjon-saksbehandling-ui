@@ -12,7 +12,7 @@ describe('applications/BUC/components/SEDP4000/SEDP4000', () => {
     locale: 'nb',
     showButtons: true,
     setShowButtons: jest.fn(),
-    t: jest.fn((translationString) => { return translationString })
+    t: jest.fn(t => t)
   }
 
   beforeEach(() => {

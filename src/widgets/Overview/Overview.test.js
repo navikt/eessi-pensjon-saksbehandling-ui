@@ -12,7 +12,7 @@ describe('widgets/Overview/Overview', () => {
     locale: 'nb',
     onUpdate: jest.fn(),
     person: samplePerson.person,
-    t: jest.fn((translationString) => { return translationString }),
+    t: jest.fn(t => t),
     widget: {
       options: {
         collapsed: false

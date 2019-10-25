@@ -5,7 +5,7 @@ import * as routes from 'constants/routes'
 describe('components/Header', () => {
   let wrapper
   const initialMockProps = {
-    t: jest.fn((translationString) => { return translationString }),
+    t: jest.fn(t => t),
     username: 'testUser',
     actions: {
       clearData: jest.fn(),

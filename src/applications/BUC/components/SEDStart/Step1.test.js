@@ -38,7 +38,7 @@ describe('applications/BUC/components/SEDStart/Step1', () => {
     setSed: jest.fn(),
     setValidation: jest.fn(),
     setVedtakId: jest.fn(),
-    t: jest.fn((translationString) => { return translationString }),
+    t: jest.fn(t => t),
     validation: {},
     vedtakId: '123'
   }

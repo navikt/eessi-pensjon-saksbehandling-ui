@@ -17,7 +17,7 @@ describe('applications/BUC/components/SEDStart/AttachmentStep2', () => {
   const initialMockProps = {
     buc: mockBucs['195440'],
     _sed: 'P4000',
-    t: jest.fn((translationString) => { return translationString }),
+    t: jest.fn(t => t),
     showButtons: true,
     setShowButtons: jest.fn()
   }

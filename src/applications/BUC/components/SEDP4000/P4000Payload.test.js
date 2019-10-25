@@ -5,7 +5,7 @@ import targetP4000info from 'resources/tests/targetP4000info'
 
 describe('applications/BUC/components/SEDP4000/P4000Payload - empty payload', () => {
   let util
-  const t = jest.fn((translationString) => { return translationString })
+  const t = jest.fn(t => t)
 
   beforeAll(() => {
     util = new P4000Payload({}, t)
@@ -105,7 +105,7 @@ describe('applications/BUC/components/SEDP4000/P4000Payload - empty payload', ()
 
 describe('applications/BUC/components/SEDP4000/P4000Payload - with payload', () => {
   let util
-  const t = jest.fn((translationString) => { return translationString })
+  const t = jest.fn(t => t)
 
   beforeAll(() => {
     util = new P4000Payload(sampleP4000info.stayAbroad, t)
@@ -163,7 +163,7 @@ describe('applications/BUC/components/SEDP4000/P4000Payload - with payload', () 
 
 describe('applications/BUC/components/SEDP4000/P4000Payload - with payload', () => {
   let util
-  const t = jest.fn((translationString) => { return translationString })
+  const t = jest.fn(t => t)
 
   beforeAll(() => {
     util = new P4000Payload(sampleP4000info.stayAbroad, t)

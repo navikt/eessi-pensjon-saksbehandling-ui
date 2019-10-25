@@ -1,6 +1,6 @@
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import * as api from 'actions/api'
+import * as api from 'eessi-pensjon-ui/dist/api'
 import samplePerson from 'resources/tests/samplePerson'
 const sprintf = require('sprintf-js').sprintf
 

@@ -14,7 +14,7 @@ describe('pages/Error', () => {
   let wrapper
   const initialMockProps = {
     history: {},
-    t: jest.fn((translationString) => { return translationString })
+    t: jest.fn(t => t)
   }
 
   it('Renders', () => {

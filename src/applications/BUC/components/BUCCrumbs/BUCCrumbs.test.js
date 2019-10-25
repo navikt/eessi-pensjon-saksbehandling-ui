@@ -20,7 +20,7 @@ describe('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {
     mode: '',
     showLastLink: true,
     setMode: jest.fn(),
-    t: jest.fn((translationString) => { return translationString })
+    t: jest.fn(t => t)
   }
 
   afterEach(() => {

@@ -10,7 +10,7 @@ jest.mock('./AttachmentStep2', () => {
 describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
   let wrapper
   const initialMockProps = {
-    t: jest.fn((translationString) => { return translationString }),
+    t: jest.fn(t => t),
     files: {},
     setFiles: jest.fn()
   }

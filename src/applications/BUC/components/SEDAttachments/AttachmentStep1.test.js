@@ -12,7 +12,7 @@ describe('applications/BUC/components/AttachmentStep1/AttachmentStep1', () => {
   const initialMockProps = {
     files: {},
     setFiles: jest.fn(),
-    t: jest.fn((translationString) => { return translationString })
+    t: jest.fn(t => t)
   }
 
   beforeEach(() => {
@@ -33,7 +33,7 @@ describe('applications/BUC/components/AttachmentStep1/AttachmentStep1', () => {
     expect(wrapper.exists('.mock-joarkbrowser')).toBeTruthy()
   })
 
-  it('onFileChange triggered', () => {
+  it('onFilesChanged triggered', () => {
     wrapper.find('.mock-joarkbrowser').simulate('click')
     expect(initialMockProps.setFiles).toHaveBeenCalledWith({ joark: [{ foo: 'bar' }] })
   })

@@ -16,13 +16,13 @@ const PeriodAttachments = ({ closeModal, openModal, period, setAttachments, t })
     <div className='col-sm-12'>
       <FileUpload
         acceptedMimetypes={['application/pdf', 'image/jpeg', 'image/png']}
-        className='a-buc-c-sedp4000-period__vedlegg-fileupload'
+        className='a-buc-c-sedp4000-period__vedlegg-fileupload p-4'
         closeModal={closeModal}
         files={period.attachments || []}
         id='a-buc-c-sedp4000-period__vedlegg-fileupload-id'
         maxFiles={10}
         maxFileSize={10 * 1024 * 1024}
-        onFileChange={(newFiles) => setAttachments(newFiles)}
+        onFilesChanged={(newFiles) => setAttachments(newFiles)}
         openModal={openModal}
         t={t}
       />

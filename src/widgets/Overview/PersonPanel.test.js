@@ -6,7 +6,7 @@ describe('widgets/Overview/PersonPanel', () => {
   let wrapper
   const initialMockProps = {
     person: samplePerson.person,
-    t: jest.fn((translationString) => { return translationString })
+    t: jest.fn(t => t)
   }
 
   beforeEach(() => {

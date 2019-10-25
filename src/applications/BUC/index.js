@@ -15,8 +15,7 @@ import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
 import BUCCrumbs from 'applications/BUC/components/BUCCrumbs/BUCCrumbs'
 import './index.css'
 
-const mapStateToProps = (state) => {
-  /* istanbul ignore next */
+const mapStateToProps = /* istanbul ignore next */ (state) => {
   return {
     aktoerId: state.app.params.aktoerId,
     sakId: state.app.params.sakId,
@@ -44,8 +43,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  /* istanbul ignore next */
+const mapDispatchToProps = /* istanbul ignore next */ (dispatch) => {
   return {
     actions: bindActionCreators({ ...bucActions, ...appActions, ...uiActions }, dispatch)
   }

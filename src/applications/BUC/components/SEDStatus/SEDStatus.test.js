@@ -3,7 +3,7 @@ import SEDStatus from './SEDStatus'
 
 describe('applications/BUC/components/SEDStatus/SEDStatus', () => {
   const initialMockProps = {
-    t: jest.fn((translationString) => { return translationString })
+    t: jest.fn(t => t)
   }
 
   it('Renders', () => {

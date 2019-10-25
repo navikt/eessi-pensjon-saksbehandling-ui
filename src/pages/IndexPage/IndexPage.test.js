@@ -22,7 +22,7 @@ describe('pages/IndexPage', () => {
   let wrapper
   const initialMockProps = {
     history: {},
-    t: jest.fn((translationString) => { return translationString })
+    t: jest.fn(t => t)
   }
 
   beforeEach(() => {

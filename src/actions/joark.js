@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import * as api from 'actions/api'
+import * as api from 'eessi-pensjon-ui/dist/api'
 import * as types from 'constants/actionTypes'
 import { IS_TEST } from 'constants/environment'
 import * as urls from 'constants/urls'

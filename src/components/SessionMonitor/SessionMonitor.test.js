@@ -16,7 +16,7 @@ jest.mock('i18next', () => {
 
 describe('components/SessionMonitor', () => {
   const initialMockProps = {
-    t: jest.fn((translationString) => { return translationString }),
+    t: jest.fn(t => t),
     actions: {
       openModal: jest.fn()
     }

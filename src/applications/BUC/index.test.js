@@ -15,7 +15,6 @@ const mockBucs = sampleBucs.reduce(bucReducer, {})
 
 describe('applications/BUC/index', () => {
   let wrapper
-  const t = jest.fn((translationString) => { return translationString })
   const initialMockProps = {
     actions: {
       saveBucsInfo: jest.fn(),
@@ -40,7 +39,7 @@ describe('applications/BUC/index', () => {
     rinaUrl: 'http://mockUrl/rina',
     sakId: '456',
     subjectAreaList: ['mockSubjectArea1', 'mockSubjectArea2'],
-    t: t,
+    t: jest.fn(t => t),
     tagList: ['mockTag1', 'mockTag2'],
     waitForMount: false
   }
@@ -53,11 +52,14 @@ describe('applications/BUC/index', () => {
 
   it('UseEffect: getRinaUrl', () => {
     const mockActions = { getRinaUrl: jest.fn() }
-    wrapper = mount(<BUCIndex waitForMount loading={{}} actions={mockActions} t={t} aktoerId='123' mode='xxx' />)
-    expect(mockActions.getRinaUrl).toHaveBeenCalled()
+    wrapper = mount(<BUCIndex waitForMount loading={{}} actions={mockActions} t={initialMockProps.t} aktoerId='123' mode='xxx' />)
+    expect(mockActions.getRinaUrl).toHaveBeenCalledWith()
   })
 
   it('UseEffect: fetchBucs, fetchBucsInfo, fetchAvdodBucs', () => {
+    initialMockProps.actions.fetchBucs.mockReset()
+    initialMockProps.actions.fetchBucsInfoList.mockReset()
+    initialMockProps.actions.fetchAvdodBucs.mockReset()
     wrapper = mount(<BUCIndex {...initialMockProps} mode='xxx' bucs={undefined} avdodfnr='567' />)
     expect(initialMockProps.actions.fetchBucs).toHaveBeenCalled()
     expect(initialMockProps.actions.fetchBucsInfoList).toHaveBeenCalled()
@@ -97,7 +99,17 @@ describe('applications/BUC/index', () => {
     expect(wrapper.exists('.a-buc-sednew')).toBeTruthy()
   })
 
+  it('HShows BUCEmpty when no sakId and aktoerId are given', () => {
+    initialMockProps.actions.setMode.mockReset()
+    wrapper = mount(<BUCIndex {...initialMockProps} sakId={undefined} aktoerId={undefined} />)
+    expect(wrapper.exists('BUCEmpty')).toBeTruthy()
+    wrapper.find('#a-buc-bucempty__newbuc-link-id').hostNodes().simulate('click')
+    expect(initialMockProps.actions.setMode).toHaveBeenCalledWith('bucnew')
+  })
+
   it('Calls fullFocus and ReplaceFocus functions', () => {
+    initialMockProps.onFullFocus.mockReset()
+    initialMockProps.onRestoreFocus.mockReset()
     wrapper = mount(<BUCIndex {...initialMockProps} />)
     wrapper.find('.mock-buccrumbs').simulate('change', { target: { value: 'bucnew' } })
     wrapper.update()

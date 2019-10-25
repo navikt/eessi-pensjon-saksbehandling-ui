@@ -23,7 +23,7 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
     rinaUrl: 'http://mockUrl/rinaUrl',
     seds: sampleBucs[0].seds,
     setMode: jest.fn(),
-    t: jest.fn((translationString) => { return translationString }),
+    t: jest.fn(t => t),
     tagList: ['mockTag1', 'mockTag2']
   }
 
@@ -37,6 +37,16 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
 
   it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
+  })
+
+  it('Renders null without bucs', () => {
+    wrapper = mount(<BUCEdit {...initialMockProps} bucs={[]} />)
+    expect(wrapper.isEmptyRender()).toBeTruthy()
+  })
+
+  it('Renders null without currentBuc', () => {
+    wrapper = mount(<BUCEdit {...initialMockProps} currentBuc={undefined} />)
+    expect(wrapper.isEmptyRender()).toBeTruthy()
   })
 
   it('Has proper HTML structure', () => {
@@ -53,7 +63,7 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
     expect(initialMockProps.setMode).toBeCalledWith('sednew')
   })
 
-  it('SEDSearch status searttriggers the filter functions', () => {
+  it('SEDSearch status start triggers the filter functions', () => {
     expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(1)
     const sedSearch = wrapper.find('.a-buc-c-sedsearch').hostNodes()
 
@@ -65,5 +75,55 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
 
     statusSelect.simulate('keyDown', { key: 'Enter', keyCode: 13 })
     expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(0)
+  })
+
+  it('SEDSearch query search triggers the filter functions', () => {
+    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(1)
+    const sedSearch = wrapper.find('.a-buc-c-sedsearch').hostNodes()
+
+    const queryInput = sedSearch.find('input#a-buc-c-sedsearch__query-input-id').hostNodes()
+    queryInput.simulate('change', { target: { value: 'XXX' } })
+
+    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(0)
+  })
+
+  it('SEDSearch country search triggers the filter functions', () => {
+    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(1)
+    const sedSearch = wrapper.find('.a-buc-c-sedsearch').hostNodes()
+
+    const countrySelect = sedSearch.find('#a-buc-c-sedsearch__country-select-id input')
+    countrySelect.simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
+    countrySelect.simulate('keyDown', { key: 'Enter', keyCode: 13 })
+    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(1)
+  })
+
+  it('Performs a query search that will not find elements', () => {
+    wrapper = mount(<BUCEdit {...initialMockProps} initialSearch='XXX' />)
+    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(0)
+  })
+
+  it('Performs a query search that will find elements', () => {
+    wrapper = mount(<BUCEdit {...initialMockProps} initialSearch='P2000' />)
+    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(1)
+  })
+
+  it('Performs a country search that will not find elements', () => {
+    wrapper = mount(<BUCEdit {...initialMockProps} initialCountrySearch='XXX' />)
+    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(0)
+  })
+
+  it('Performs a country search that will find elements', () => {
+    wrapper = mount(<BUCEdit {...initialMockProps} initialCountrySearch='no' />)
+    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(1)
+  })
+
+  it('Performs a status search that will not find elements', () => {
+    wrapper = mount(<BUCEdit {...initialMockProps} initialStatusSearch='XXX' />)
+    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(0)
+  })
+
+  it('Performs a status search that will find elements', () => {
+    wrapper = mount(<BUCEdit {...initialMockProps} initialStatusSearch='cancelled' />)
+    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(1)
   })
 })

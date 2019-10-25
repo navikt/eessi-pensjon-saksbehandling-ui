@@ -79,8 +79,22 @@ describe('applications/BUC/websocket/WebSocket', () => {
     })
   })
 
-  it('close connection', async (done) => {
+  it('error connection', async (done) => {
     expect(wrapper.find('.a-buc-websocket').props().title).toEqual('websocket: CONNECTED')
+    act(() => {
+      mockServer.simulate('error')
+    })
+    await new Promise(resolve => {
+      setTimeout(() => {
+        wrapper.update()
+        expect(wrapper.find('.a-buc-websocket').props().title).toEqual('websocket: ERROR')
+        done()
+      }, 500)
+    })
+  })
+
+  it('close connection', async (done) => {
+    expect(wrapper.find('.a-buc-websocket').props().title).toEqual('websocket: ERROR')
     act(() => {
       mockSocket.close()
     })

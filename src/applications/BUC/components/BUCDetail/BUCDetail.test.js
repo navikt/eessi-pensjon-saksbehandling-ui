@@ -13,7 +13,7 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
     bucInfo: bucInfo,
     locale: 'nb',
     rinaUrl: 'http://rinaurl.mock.com',
-    t: jest.fn((translationString) => { return translationString })
+    t: jest.fn(t => t)
   }
 
   beforeEach(() => {

@@ -32,7 +32,7 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
     locale: 'nb',
     mode: 'widget',
     setMode: jest.fn(),
-    t: jest.fn((translationString) => { return translationString })
+    t: jest.fn(t => t)
   }
 
   beforeEach(() => {
@@ -46,6 +46,16 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
+  })
+
+  it('Renders null if no sakId', () => {
+    wrapper = mount(<BUCStart {...initialMockProps} sakId={undefined} />)
+    expect(wrapper.isEmptyRender()).toBeTruthy()
+  })
+
+  it('Renders null if no aktoerId', () => {
+    wrapper = mount(<BUCStart {...initialMockProps} aktoerId={undefined} />)
+    expect(wrapper.isEmptyRender()).toBeTruthy()
   })
 
   it('UseEffect: fetches subject areas, bucs, tags list if empty', () => {

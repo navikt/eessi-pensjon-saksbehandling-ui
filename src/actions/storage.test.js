@@ -1,13 +1,14 @@
-import * as api from 'actions/api'
+import { call } from 'eessi-pensjon-ui/dist/api'
 import * as storageActions from 'actions/storage'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as storage from 'constants/storage'
 const sprintf = require('sprintf-js').sprintf
+jest.mock('eessi-pensjon-ui/dist/api', () => ({
+  call: jest.fn()
+}))
 
 describe('actions/storage', () => {
-  const call = jest.spyOn(api, 'call').mockImplementation(jest.fn())
-
   afterEach(() => {
     call.mockReset()
   })

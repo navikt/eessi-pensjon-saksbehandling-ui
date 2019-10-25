@@ -6,9 +6,8 @@ jest.mock('applications/BUC/components/BUCStart/BUCStart', () => {
 
 describe('applications/BUC/widgets/BUCNew/BUCNew', () => {
   let wrapper
-  const t = jest.fn((translationString) => { return translationString })
   const initialMockProps = {
-    t: t,
+    t: jest.fn(t => t),
     loading: {},
     locale: 'nb'
   }

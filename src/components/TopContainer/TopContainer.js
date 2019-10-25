@@ -11,8 +11,7 @@ import SessionMonitor from 'components/SessionMonitor/SessionMonitor'
 import { Alert, Banner, Modal, Nav } from 'eessi-pensjon-ui'
 import './TopContainer.css'
 
-const mapStateToProps = (state) => {
-  /* istanbul ignore next */
+const mapStateToProps = /* istanbul ignore next */ (state) => {
   return {
     clientErrorStatus: state.alert.clientErrorStatus,
     clientErrorMessage: state.alert.clientErrorMessage,
@@ -29,8 +28,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  /* istanbul ignore next */
+const mapDispatchToProps = /* istanbul ignore next */ (dispatch) => {
   return { actions: bindActionCreators({ ...alertActions, ...appActions, ...uiActions }, dispatch) }
 }
 
@@ -45,6 +43,10 @@ export const TopContainer = ({
 
   const onClear = () => {
     actions.clientClear()
+  }
+
+  const handleHighContrastToggle = () => {
+    actions.toggleHighContrast()
   }
 
   const getClientErrorMessage = () => {
@@ -80,7 +82,7 @@ export const TopContainer = ({
       {header ? (
         <Banner
           header={header}
-          toggleHighContrast={actions.toggleHighContrast}
+          onHighContrastClicked={handleHighContrastToggle}
           labelHighContrast={t('ui:highContrast')}
         />) : null}
       <Alert
@@ -88,13 +90,13 @@ export const TopContainer = ({
         message={getClientErrorMessage()}
         status={clientErrorStatus}
         error={error}
-        onClear={onClear}
+        onClose={onClear}
       />
       <Alert
         type='server'
         message={getServerErrorMessage()}
         error={error}
-        onClear={onClear}
+        onClose={onClear}
       />
       <Nav.Container
         className='_container p-0'

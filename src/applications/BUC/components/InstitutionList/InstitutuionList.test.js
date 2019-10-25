@@ -18,7 +18,7 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
       'NO:Mock2': 'Mock 2 institution'
     },
     locale: 'nb',
-    t: jest.fn((translationString) => { return translationString })
+    t: jest.fn(t => t)
   }
 
   beforeEach(() => {
