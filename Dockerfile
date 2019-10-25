@@ -6,4 +6,4 @@ ENV DISABLE_FRONTEND_LOGGER true
 ENV DISABLE_DECORATOR true
 ENV DISABLE_UNLEASH true
 ADD build /app
-ADD proxy.json /proxy.json
+ADD decorator.yaml /decorator.yaml
