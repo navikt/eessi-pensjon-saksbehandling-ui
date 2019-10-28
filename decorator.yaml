@@ -1,15 +1,14 @@
 contextPath: /
 
-auth:
-  enforce: false
-
 proxy:
   - contextPath: /frontend
     baseUrl: http://eessi-pensjon-frontend-api-fss
     requestRewrite: REMOVE_CONTEXT_PATH
     pingRequestPath: /internal/isalive
+    validateOidcToken: false
 
   - contextPath: /fagmodul
     baseUrl: http://eessi-fagmodul
     requestRewrite: REMOVE_CONTEXT_PATH
     pingRequestPath: /actuator/health
+    validateOidcToken: false

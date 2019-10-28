@@ -4,6 +4,5 @@ ENV PUBLIC_ZONE=fss
 ENV DISABLE_FRONTEND_LOGGER=true
 ENV DISABLE_DECORATOR=true
 ENV DISABLE_UNLEASH=true
-ENV CONTEXT_PATH=/
 COPY /build /app
 ADD decorator.yaml /decorator.yaml
