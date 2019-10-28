@@ -53,7 +53,7 @@ describe('actions/joark', () => {
       url: sprintf(urls.API_JOARK_GET_URL, {
         dokumentInfoId: mockItem.dokumentInfoId,
         journalpostId: mockItem.journalpostId,
-        variantFormat: mockVariant.variantformat
+        variantformat: mockVariant.variantformat
       })
     }))
   })
@@ -80,7 +80,7 @@ describe('actions/joark', () => {
       url: sprintf(urls.API_JOARK_GET_URL, {
         dokumentInfoId: mockItem.dokumentInfoId,
         journalpostId: mockItem.journalpostId,
-        variantFormat: mockVariant.variantformat
+        variantformat: mockVariant.variantformat
       })
     }))
   })

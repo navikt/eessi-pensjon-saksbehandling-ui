@@ -69,6 +69,17 @@ describe('reducers/buc', () => {
     ).toEqual(initialBucState)
   })
 
+  it('BUC_SED_ATTACHMENTS_RESET', () => {
+    expect(
+      bucReducer({
+        ...initialBucState,
+        attachments: 'mockAttachments'
+      }, {
+        type: types.BUC_SED_ATTACHMENTS_RESET
+      })
+    ).toEqual(initialBucState)
+  })
+
   it('BUC_BUC_RESET', () => {
     expect(
       bucReducer({

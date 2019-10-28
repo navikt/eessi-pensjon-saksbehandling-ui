@@ -68,6 +68,13 @@ describe('actions/buc', () => {
     })
   })
 
+  it('resetSedAttachments()', () => {
+    const generatedResult = bucActions.resetSedAttachments()
+    expect(generatedResult).toMatchObject({
+      type: types.BUC_SED_ATTACHMENTS_RESET
+    })
+  })
+
   it('setP4000Info()', () => {
     const mockedP4000 = { foo: 'bar' }
     const generatedResult = bucActions.setP4000Info(mockedP4000)
@@ -341,7 +348,7 @@ describe('actions/buc', () => {
       rinaDokumentId: '789',
       journalpostId: '123456',
       dokumentInfoId: '12346789',
-      variantFormat: 'DUMMY'
+      variantformat: 'DUMMY'
     }
     const mockContext = { foo: 'bar' }
     bucActions.sendAttachmentToSed(mockParams, mockContext)

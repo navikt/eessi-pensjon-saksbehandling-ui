@@ -64,6 +64,13 @@ const bucReducer = (state = initialBucState, action) => {
         sed: undefined
       }
 
+    case types.BUC_SED_ATTACHMENTS_RESET: {
+      return {
+        ...state,
+        attachments: []
+      }
+    }
+
     case types.BUC_BUC_RESET:
       return {
         ...state,

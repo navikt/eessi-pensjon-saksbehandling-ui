@@ -53,6 +53,7 @@ const defaultConfig = {
   margin: [10, 10],
   containerPadding: [10, 10],
   rowHeight: 30,
+  defaultTabIndex: 0,
   version: 1
 }
 
@@ -62,6 +63,7 @@ export const IndexPage = ({ history, t }) => {
   const afterLayoutChange = () => {
     ReactTooltip.rebuild()
   }
+
 
   return (
     <TopContainer

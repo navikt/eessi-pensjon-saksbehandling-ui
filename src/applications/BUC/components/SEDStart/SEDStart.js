@@ -8,6 +8,7 @@ import { Nav } from 'eessi-pensjon-ui'
 import * as bucActions from 'actions/buc'
 import * as uiActions from 'actions/ui'
 import * as storageActions from 'actions/storage'
+import SEDAttachmentSender from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import PInfoUtil from 'applications/BUC/components/SEDP4000/P4000Payload'
 import { IS_TEST } from 'constants/environment'
 import * as storage from 'constants/storage'
@@ -42,17 +43,14 @@ export const SEDStart = (props) => {
   const [_countries, setCountries] = useState(bucs[currentBuc] && bucs[currentBuc].institusjon
     ? _.uniq(bucs[currentBuc].institusjon.map(inst => inst.country)) : [])
   const [_vedtakId, setVedtakId] = useState(parseInt(vedtakId, 10))
-
+  const [_attachments, setAttachments] = useState(initialAttachments)
   const [step, setStep] = useState(initialStep)
   const [validation, setValidation] = useState({})
-  const [showButtons, setShowButtons] = useState(true)
 
+  const [showButtons, setShowButtons] = useState(true)
   const [sedSent, setSedSent] = useState(false)
-  const [sendingAttachment, setSendingAttachment] = useState(false)
   const [sendingAttachments, setSendingAttachments] = useState(false)
   const [attachmentsSent, setAttachmentsSent] = useState(false)
-  const [_attachments, setAttachments] = useState(initialAttachments)
-  const [_storeAttachments, setStoreAttachments] = useState(attachments || [])
   const [mounted, setMounted] = useState(false)
 
   const buc = _.cloneDeep(bucs[currentBuc])
@@ -90,74 +88,28 @@ export const SEDStart = (props) => {
     if (sedSent && !attachmentsSent) {
       // no attachments to send - conclude
       if (_.isEmpty(_attachments) || !_attachments.joark || _.isEmpty(_attachments.joark)) {
+        if (!IS_TEST) {
+          console.log('SEDStart: No attachments to send, concluding')
+        }
         setAttachmentsSent(true)
-        return
-      }
-      // all attachments are sent - conclude
-      if (_attachments.joark.length === _storeAttachments.length) {
-        setAttachmentsSent(true)
-        setSendingAttachments(false)
         return
       }
       // mark state as sending attachments
       setSendingAttachments(true)
       if (!IS_TEST) {
-        console.log('Starting sending attachments')
+        console.log('SEDStart: Marking setSendingAttachments as true')
       }
     }
-  }, [_attachments, attachmentsSent, sedSent, _storeAttachments])
-
-  useEffect(() => {
-    if (sendingAttachments) {
-      if (!sendingAttachment) {
-        const unsentAttachments = _.differenceWith(_attachments.joark, _storeAttachments, (a, b) => {
-          return a.dokumentInfoId === b.dokumentInfoId &&
-            a.journalpostId === b.journalpostId &&
-            a.variant.variantFormat === b.variant.variantFormat
-        })
-
-        // all sent, mark sending attachments as done
-        if (_.isEmpty(unsentAttachments)) {
-          setSendingAttachments(false)
-          if (!IS_TEST) {
-            console.log('All attachments sent')
-          }
-          return
-        }
-
-        const unsentAttachment = _.first(unsentAttachments)
-        const params = {
-          aktoerId: aktoerId,
-          rinaId: buc.caseId,
-          rinaDokumentId: sed.id,
-          journalpostId: unsentAttachment.journalpostId,
-          dokumentInfoId: unsentAttachment.dokumentInfoId,
-          variantFormat: unsentAttachment.variant.variantformat
-        }
-        if (!IS_TEST) {
-          console.log('Sending attachment ' + (_storeAttachments.length + 1) + ' of ' + _attachments.joark.length + ': ' +
-          unsentAttachment.journalpostId + '/' + unsentAttachment.dokumentInfoId + '/' + unsentAttachment.variant.variantformat)
-        }
-        actions.sendAttachmentToSed(params, unsentAttachment)
-        setSendingAttachment(true)
-        return
-      }
-
-      // handle if we have a newly sent attachment
-      if (sendingAttachment && _storeAttachments.length !== attachments.length) {
-        if (!IS_TEST) {
-          console.log('Attachment ' + (attachments.length) + ' of ' + _attachments.joark.length + ' sent')
-        }
-        setStoreAttachments(attachments)
-        setSendingAttachment(false)
-      }
-    }
-  }, [actions, aktoerId, attachments, _attachments, buc, sed, sendingAttachment, sendingAttachments, _storeAttachments])
+  }, [_attachments, attachmentsSent, sedSent])
 
   useEffect(() => {
     // cleanup after attachments sent
     if (sedSent && attachmentsSent) {
+      if (!IS_TEST) {
+        console.log('SEDStart: Attachments sent, cleaning up')
+      }
       actions.resetSed()
+      actions.resetSedAttachments()
       actions.fetchBucs(aktoerId)
       if (avdodfnr) {
         actions.fetchBucs(avdodfnr)
@@ -168,7 +120,7 @@ export const SEDStart = (props) => {
       }
       setMode('bucedit')
     }
-  }, [_attachments, actions, aktoerId, attachments, attachmentsSent, avdodfnr, buc, bucsInfoList, sed, sedSent, setMode, sendingAttachments])
+  }, [actions, aktoerId, attachmentsSent, avdodfnr, bucsInfoList, sedSent, setMode])
 
   if (_.isEmpty(bucs) || !currentBuc) {
     return null
@@ -294,6 +246,20 @@ export const SEDStart = (props) => {
           validation={validation} setValidation={setValidation}
         />
       ) : null}
+      {sendingAttachments ? (
+        <SEDAttachmentSender
+          sendAttachmentToSed={actions.sendAttachmentToSed}
+          aktoerId={aktoerId}
+          buc={buc}
+          sed={sed}
+          allAttachments={_attachments}
+          savedAttachments={attachments}
+          onFinished={() => {
+            setAttachmentsSent(true)
+          }}
+          t={t}
+        />
+      ) : null}
       {showButtons ? (
         <div className='col-md-12 mt-4'>
           <Nav.Hovedknapp
@@ -304,10 +270,7 @@ export const SEDStart = (props) => {
             onClick={createSedNeedsMoreSteps() ? onNextButtonClick : onForwardButtonClick}
           >
             {loading.creatingSed ? t('buc:loading-creatingSED')
-              : sendingAttachments ? t('buc:loading-sendingSEDattachments', {
-                current: (_storeAttachments.length + 1),
-                total: _attachments.joark.length
-              })
+              : sendingAttachments ? t('buc:loading-sendingSEDattachments')
                 : createSedNeedsMoreSteps() ? t('ui:next')
                   : t('buc:form-orderSED')}
           </Nav.Hovedknapp>

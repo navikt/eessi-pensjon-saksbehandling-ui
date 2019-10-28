@@ -25,8 +25,8 @@
   "dependencies": {
     "bootstrap": "^4.3.1",
     "classnames": "^2.2.6",
-    "core-js": "^3.3.4",
-    "eessi-pensjon-ui": "https://github.com/navikt/eessi-pensjon-ui#1.1.8",
+    "core-js": "^3.3.5",
+    "eessi-pensjon-ui": "https://github.com/navikt/eessi-pensjon-ui#1.1.9",
     "history": "^4.10.1",
     "http-proxy-middleware": "^0.20.0",
     "i18next": "^18.0.1",

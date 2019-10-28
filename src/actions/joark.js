@@ -23,7 +23,7 @@ export const previewJoarkFile = (item, variant) => {
     url: sprintf(urls.API_JOARK_GET_URL, {
       dokumentInfoId: item.dokumentInfoId,
       journalpostId: item.journalpostId,
-      variantFormat: variant.variantformat
+      variantformat: variant.variantformat
     }),
     expectedPayload: getMockedPayload(item.journalpostId),
     context: {
@@ -43,7 +43,7 @@ export const getJoarkFile = (item, variant) => {
     url: sprintf(urls.API_JOARK_GET_URL, {
       dokumentInfoId: item.dokumentInfoId,
       journalpostId: item.journalpostId,
-      variantFormat: variant.variantformat
+      variantformat: variant.variantformat
     }),
     expectedPayload: getMockedPayload(item.journalpostId),
     context: {

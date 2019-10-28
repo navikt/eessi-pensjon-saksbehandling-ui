@@ -1,7 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { Icons, Nav } from 'eessi-pensjon-ui'
+import { Nav } from 'eessi-pensjon-ui'
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 
 import './SEDList.css'

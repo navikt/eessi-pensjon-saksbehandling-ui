@@ -50,6 +50,11 @@ export const resetSed = () => {
     type: types.BUC_SED_RESET
   }
 }
+export const resetSedAttachments = () => {
+  return {
+    type: types.BUC_SED_ATTACHMENTS_RESET
+  }
+}
 
 export const setP4000Info = (p4000) => {
   return {
@@ -275,9 +280,7 @@ export const sendAttachmentToSed = (params, context) => {
   return api.call({
     url: sprintf(urls.BUC_SEND_ATTACHMENT_URL, params),
     method: 'PUT',
-    expectedPayload: {
-      success: true
-    },
+    expectedPayload: context,
     context: context,
     type: {
       request: types.BUC_SEND_ATTACHMENT_REQUEST,

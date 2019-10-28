@@ -142,7 +142,8 @@
   "loading-savingCase"            : "Lagrer saken...",
   "loading-sed"                   : "Laster SED...",
   "loading-sendingCase"           : "Sender saken...",
-  "loading-sendingSEDattachments" : "Sender SED vedlegg... {{current}} av {{total}}",
+  "loading-sendingSEDattachments" : "Sender SED vedlegg...",
+  "loading-sendingXofY"           : "Sender {{current}} av {{total}}",
   "loading-subjectArea"           : "Laster fagområde...",
   "loading-verifyingCaseNumber"   : "Henter saken...",
 

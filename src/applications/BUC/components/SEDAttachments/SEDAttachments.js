@@ -11,7 +11,11 @@ const SEDAttachments = (props) => {
 
   return (
     <div className='a-buc-c-sedattachments'>
-      <Nav.Undertittel className='mb-2'>{t('ui:attachments')}</Nav.Undertittel>
+      {enableAttachments && step === 1 ? (
+        <Nav.Undertittel className='mt-4 mb-3'>
+          {t('buc:form-addAttachmentsFromJOARK')}
+        </Nav.Undertittel>
+      ) : null}
       {!enableAttachments ? (
         <Nav.Knapp
           id='a-buc-c-sedattachments__enable-button-id'
