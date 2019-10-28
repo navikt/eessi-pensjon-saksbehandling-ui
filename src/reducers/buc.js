@@ -265,7 +265,7 @@ const bucReducer = (state = initialBucState, action) => {
       return {
         ...state,
         sedList: action.payload.sort((a, b) => {
-          const mainCompare = a.localeCompare(b)
+          const mainCompare = parseInt(a.replace(/[^\d]/g, ''), 10) - parseInt(b.replace(/[^\d]/g, ''), 10)
           const sedTypeA = a.charAt(0)
           const sedTypeB = b.charAt(0)
           if (sedTypes.indexOf(sedTypeB) - sedTypes.indexOf(sedTypeA) > 0) return 1

@@ -84,9 +84,8 @@ const PersonPanel = ({ t, person }) => {
     bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.gatenummer'), t('ui:gatenummer'), <br key={1} />)
     bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.husnummer'), t('ui:husnummer'), <br key={2} />)
     bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.husbokstav'), t('ui:husbokstav'), <span key={3} className='mr-2' />)
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.kommunenummer'), t('ui:kommunenummer'), <br key={4} />)
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.tilleggsadresse'), t('ui:tilleggsadresse'), <br key={5} />)
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.poststed.value'), t('ui:poststed'), <br key={6} />)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.tilleggsadresse'), t('ui:tilleggsadresse'), <br key={4} />)
+    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.poststed.value'), t('ui:poststed'), <br key={5} />)
   }
 
   if (_.get(person, 'postadresse.ustrukturertAdresse')) {
@@ -102,31 +101,47 @@ const PersonPanel = ({ t, person }) => {
     <>
       <Nav.Row className='w-overview-personPanel__content m-4'>
         <div className='w-overview-personPanel__item col-md-4'>
-          <Icons kind='nav-home' className='mr-2' />
+          <div className='mr-2'>
+            <Icons kind='nav-home' />
+          </div>
           {renderEntity('ui:bostedsadresse', bostedsadresse)}
         </div>
         <div className='w-overview-personPanel__item col-md-4'>
-          <Icons kind='calendar' className='mr-2' />
+          <div className='mr-2'>
+            <Icons kind='calendar' />
+          </div>
           {renderEntity('ui:birthdate', birthDateString)}
         </div>
         <div className='w-overview-personPanel__item col-md-4'>
-          <Icons kind='nav-work' className='mr-2' />
+          <div className='mr-2'>
+            <Icons kind='nav-work' />
+          </div>
           {renderEntity('ui:nationality', nationality)}
         </div>
       </Nav.Row>
       <hr className='m-4' />
       <Nav.Row className='w-overview-personPanel__content m-4'>
         <div className='w-overview-personPanel__item col-md-4'>
-          <Icons kind='address' className='mr-2' />
+          <div className='mr-2'>
+            <Icons kind='address' />
+          </div>
           {renderEntity('ui:postadresse', postadresse)}
         </div>
         <div className='w-overview-personPanel__item col-md-4'>
-          <Icons kind='calendar' className='mr-2' />
+          <div className='mr-2'>
+            <Icons kind='calendar' />
+          </div>
           {renderEntity('ui:deathdate', deathDateString)}
         </div>
         <div className='w-overview-personPanel__item col-md-4'>
-          <Icons kind='nav-child' className='mr-2' />
-          {renderEntity('ui:marital-status', maritalStatus + (dateString ? ', ' + dateString : ''))}
+          <div className='mr-2'>
+            <Icons kind='nav-child' />
+          </div>
+          {renderEntity('ui:marital-status',
+            t('ui:widget-overview-maritalstatus-' + maritalStatus) +
+            (maritalStatus !== 'Null' && maritalStatus !== 'Ugif' && dateString
+              ? ' (' + dateString + ')' : '')
+          )}
         </div>
       </Nav.Row>
     </>
