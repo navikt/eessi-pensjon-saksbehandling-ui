@@ -1,12 +1,13 @@
-import React from 'react'
-// import SEDAttachments from '../SEDAttachments/SEDAttachments'
+import React, { useState } from 'react'
+import SEDAttachments from '../SEDAttachments/SEDAttachments'
 
-const SEDBody = ({ t, files }) => {
+const SEDBody = ({ t, sed }) => {
+  const [files, setFiles] = useState(sed.vedlegg)
   return (
-    <div className='a-buc-c-sedbody' />
+    <div className='a-buc-c-sedbody'>
+      <SEDAttachments t={t} files={files} setFiles={setFiles} />
+    </div>
   )
 }
 
 export default SEDBody
-
-/*      <SEDAttachments t={t} files={files} /> */

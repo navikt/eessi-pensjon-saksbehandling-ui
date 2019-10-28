@@ -252,7 +252,7 @@ export const SEDStart = (props) => {
     setMode('bucedit')
   }
 
-  const createSEDneedsMoreSteps = () => {
+  const createSedNeedsMoreSteps = () => {
     return step === 0 && _sed === 'P4000'
   }
 
@@ -301,14 +301,14 @@ export const SEDStart = (props) => {
             className='a-buc-c-sedstart__forward-button'
             disabled={!allowedToForward()}
             spinner={loading.creatingSed || sendingAttachments}
-            onClick={createSEDneedsMoreSteps() ? onNextButtonClick : onForwardButtonClick}
+            onClick={createSedNeedsMoreSteps() ? onNextButtonClick : onForwardButtonClick}
           >
             {loading.creatingSed ? t('buc:loading-creatingSED')
               : sendingAttachments ? t('buc:loading-sendingSEDattachments', {
                 current: (_storeAttachments.length + 1),
                 total: _attachments.joark.length
               })
-                : createSEDneedsMoreSteps() ? t('ui:next')
+                : createSedNeedsMoreSteps() ? t('ui:next')
                   : t('buc:form-orderSED')}
           </Nav.Hovedknapp>
           {step > 0 ? (
