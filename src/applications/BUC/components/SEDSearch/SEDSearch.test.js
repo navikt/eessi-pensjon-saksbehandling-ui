@@ -6,7 +6,6 @@ describe('applications/BUC/components/SEDSearch/SEDSearch', () => {
   let wrapper
   const initialMockProps = {
     onSearch: jest.fn(),
-    onCountrySearch: jest.fn(),
     onStatusSearch: jest.fn(),
     locale: 'nb',
     seds: sampleBucs[0].seds,
@@ -26,7 +25,6 @@ describe('applications/BUC/components/SEDSearch/SEDSearch', () => {
     expect(wrapper.exists('.a-buc-c-sedsearch')).toBeTruthy()
     expect(wrapper.exists('#a-buc-c-sedsearch__query-input-id')).toBeTruthy()
     expect(wrapper.exists('#a-buc-c-sedsearch__status-select-id')).toBeTruthy()
-    expect(wrapper.exists('#a-buc-c-sedsearch__country-select-id')).toBeTruthy()
   })
 
   it('Handles query', () => {
@@ -39,12 +37,5 @@ describe('applications/BUC/components/SEDSearch/SEDSearch', () => {
     statusSelect.simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
     statusSelect.simulate('keyDown', { key: 'Enter', keyCode: 13 })
     expect(initialMockProps.onStatusSearch).toBeCalledWith([{ label: 'ui:cancelled', value: 'cancelled' }])
-  })
-
-  it('Handles search by country', () => {
-    const countrySelect = wrapper.find('#a-buc-c-sedsearch__country-select-id input').hostNodes()
-    countrySelect.simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
-    countrySelect.simulate('keyDown', { key: 'Enter', keyCode: 13 })
-    expect(initialMockProps.onCountrySearch).toBeCalledWith([{ label: 'Norge', value: 'NO' }])
   })
 })

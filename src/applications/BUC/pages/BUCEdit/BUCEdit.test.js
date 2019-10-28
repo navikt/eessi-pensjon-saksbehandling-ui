@@ -87,16 +87,6 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
     expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(0)
   })
 
-  it('SEDSearch country search triggers the filter functions', () => {
-    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(1)
-    const sedSearch = wrapper.find('.a-buc-c-sedsearch').hostNodes()
-
-    const countrySelect = sedSearch.find('#a-buc-c-sedsearch__country-select-id input')
-    countrySelect.simulate('keyDown', { key: 'ArrowDown', keyCode: 40 })
-    countrySelect.simulate('keyDown', { key: 'Enter', keyCode: 13 })
-    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(1)
-  })
-
   it('Performs a query search that will not find elements', () => {
     wrapper = mount(<BUCEdit {...initialMockProps} initialSearch='XXX' />)
     expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(0)
@@ -104,16 +94,6 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
 
   it('Performs a query search that will find elements', () => {
     wrapper = mount(<BUCEdit {...initialMockProps} initialSearch='P2000' />)
-    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(1)
-  })
-
-  it('Performs a country search that will not find elements', () => {
-    wrapper = mount(<BUCEdit {...initialMockProps} initialCountrySearch='XXX' />)
-    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(0)
-  })
-
-  it('Performs a country search that will find elements', () => {
-    wrapper = mount(<BUCEdit {...initialMockProps} initialCountrySearch='no' />)
     expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(1)
   })
 

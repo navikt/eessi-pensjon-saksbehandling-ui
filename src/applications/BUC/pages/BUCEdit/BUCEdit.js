@@ -10,20 +10,15 @@ import moment from 'moment'
 import './BUCEdit.css'
 
 const BUCEdit = ({
-  actions, aktoerId, bucs, bucsInfo, currentBuc, initialSearch, initialCountrySearch, initialStatusSearch,
+  actions, aktoerId, bucs, bucsInfo, currentBuc, initialSearch, initialStatusSearch,
   institutionNames, loading, locale, rinaUrl, setMode, t, tagList
 }) => {
   const [search, setSearch] = useState(initialSearch)
-  const [countrySearch, setCountrySearch] = useState(initialCountrySearch)
   const [statusSearch, setStatusSearch] = useState(initialStatusSearch)
 
   const onSEDNew = (sed) => {
     actions.setCurrentSed(sed ? sed.id : undefined)
     setMode('sednew')
-  }
-
-  const onCountrySearch = (countrySearch) => {
-    setCountrySearch(countrySearch)
   }
 
   const onStatusSearch = (statusSearch) => {
@@ -49,11 +44,6 @@ const BUCEdit = ({
         return organizationId.match(_search) || organizationName.match(_search) ||
           countryCode.match(_search) || countryName.match(_search) || creationDate.match(_search) ||
           lastUpdate.match(_search) || status.match(_search)
-      })
-    }
-    if (match && countrySearch) {
-      match = _.find(sed.participants, (it) => {
-        return _.find(countrySearch, { value: it.organisation.countryCode })
       })
     }
     if (match && statusSearch) {
@@ -84,11 +74,8 @@ const BUCEdit = ({
           <SEDSearch
             className='mb-2'
             t={t}
-            locale={locale}
             value={search}
-            seds={buc.seds}
             onSearch={onSearch}
-            onCountrySearch={onCountrySearch}
             onStatusSearch={onStatusSearch}
           />
           {buc.seds ? _(buc.seds)
@@ -149,7 +136,6 @@ BUCEdit.propTypes = {
   bucsInfo: PT.object,
   currentBuc: PT.string.isRequired,
   initialSearch: PT.string,
-  initialCountrySearch: PT.string,
   initialStatusSearch: PT.string,
   institutionNames: PT.object,
   loading: PT.object,
