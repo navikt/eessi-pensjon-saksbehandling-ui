@@ -8,7 +8,6 @@ describe('applications/BUC/components/SEDList/SEDList', () => {
     buc: sampleBucs[0],
     locale: 'nb',
     onSEDNew: jest.fn(),
-    rinaUrl: 'http://fakeurl.com/rina/',
     seds: sampleBucs[0].seds,
     t: jest.fn(t => t)
   }

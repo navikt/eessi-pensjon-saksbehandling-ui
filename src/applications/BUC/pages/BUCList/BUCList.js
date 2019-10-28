@@ -150,7 +150,6 @@ const BUCList = ({ actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionL
                 <SEDList
                   t={t}
                   seds={buc.seds || []}
-                  rinaUrl={rinaUrl}
                   locale={locale}
                   buc={buc}
                   institutionNames={institutionNames}

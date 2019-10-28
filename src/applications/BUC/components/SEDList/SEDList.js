@@ -6,7 +6,7 @@ import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 
 import './SEDList.css'
 
-const SEDList = ({ buc, institutionNames, locale, onSEDNew, rinaUrl, seds, t }) => {
+const SEDList = ({ buc, institutionNames, locale, onSEDNew, seds, t }) => {
   return (
     <div className='a-buc-c-sedlist'>
       {seds ? _(seds)
@@ -30,17 +30,6 @@ const SEDList = ({ buc, institutionNames, locale, onSEDNew, rinaUrl, seds, t }) 
           )
         }) : null}
       <div className='a-buc-c-sedlist__footer mt-2'>
-        <Nav.Lenke
-          id='a-buc-c-sedlist__gotorina-link'
-          className='a-buc-c-sedlist__gotorina'
-          href={rinaUrl + buc.caseId}
-          target='rinaWindow'
-        >
-          <div className='d-flex'>
-            <Icons className='mr-2' color='#0067C5' kind='outlink' />
-            <Nav.Normaltekst>{t('buc:form-seeBucInRina')}</Nav.Normaltekst>
-          </div>
-        </Nav.Lenke>
         {!_.isEmpty(seds) && seds.filter(sed => sed.status !== 'empty').length > 5
           ? <Nav.Normaltekst>{t('buc:form-lastNonEmpty5')}</Nav.Normaltekst> : null}
       </div>
@@ -53,7 +42,6 @@ SEDList.propTypes = {
   institutionNames: PT.object,
   locale: PT.string.isRequired,
   onSEDNew: PT.func.isRequired,
-  rinaUrl: PT.string,
   seds: PT.array.isRequired,
   t: PT.func.isRequired
 }
