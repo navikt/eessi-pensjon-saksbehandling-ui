@@ -1,3 +1,8 @@
+contextPath: /
+
+auth:
+  enforce: false
+
 proxy:
   - contextPath: /frontend
     baseUrl: http://eessi-pensjon-frontend-api-fss
