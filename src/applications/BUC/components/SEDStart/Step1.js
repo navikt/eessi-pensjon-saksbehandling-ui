@@ -199,7 +199,7 @@ const Step1 = ({
   }
 
   return (
-    <div className='a-buc-sedstart-step1'>
+    <div className='a-buc-sedstart-step1 w-100'>
       <div className='col-md-12'>
         <Nav.Systemtittel>{
           !currentSed
@@ -215,7 +215,7 @@ const Step1 = ({
         </Nav.Systemtittel>
         <hr />
       </div>
-      <div className={layout === 'row' ? 'col-md-4 pr-3' : 'col-md-12'}>
+      <div className={layout === 'row' ? 'col-md-6 pr-3' : 'col-md-12'}>
         <Nav.Select
           className='a-buc-c-sedstart__sed-select flex-fill'
           id='a-buc-c-sedstart__sed-select-id'
@@ -307,7 +307,7 @@ const Step1 = ({
         </div>
       </div>
       {sedCanHaveAttachments() ? (
-        <div className={layout === 'row' ? 'col-md-8 pl-3' : 'col-md-12'}>
+        <div className={layout === 'row' ? 'col-md-6' : 'col-md-12'}>
           <SEDAttachments t={t} setFiles={setFiles} files={_attachments} />
         </div>
       ) : null}
