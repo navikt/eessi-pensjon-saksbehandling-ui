@@ -7,7 +7,10 @@ describe('applications/BUC/components/SEDBody/SEDBody', () => {
   const initialMockProps = {
     t: jest.fn((translationString) => {
       return translationString
-    })
+    }),
+    sed: {
+      attachments: []
+    }
   }
 
   beforeEach(() => {

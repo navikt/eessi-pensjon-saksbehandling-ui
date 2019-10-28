@@ -31,7 +31,7 @@ describe('widgets/Overview/PersonPanel', () => {
     expect(wrapper.exists('.w-overview-personPanel__content')).toBeTruthy()
     expect(wrapper.find('svg[kind="nav-home"]')).toBeTruthy()
     expect(wrapper.find('#w-overview-personPanel__element-bostedsadresse').render().text()).toEqual(
-      'ui:bostedsadresse:KJEMPEBAKKENVEIEN1212015036')
+      'ui:bostedsadresse:KJEMPEBAKKENVEIEN125036')
 
     expect(wrapper.find('svg[kind="calendar"]')).toBeTruthy()
     expect(wrapper.find('#w-overview-personPanel__element-birthdate').render().text()).toEqual(
@@ -73,6 +73,7 @@ describe('widgets/Overview/PersonPanel', () => {
         }
       }
     })
-    expect(wrapper.find('#w-overview-personPanel__element-marital-status').render().text()).toEqual('ui:marital-status:Mock, 01.01.1970 - 31.12.1980')
+    expect(wrapper.find('#w-overview-personPanel__element-marital-status').render().text()).toEqual(
+      'ui:marital-status:ui:widget-overview-maritalstatus-Mock (01.01.1970 - 31.12.1980)')
   })
 })

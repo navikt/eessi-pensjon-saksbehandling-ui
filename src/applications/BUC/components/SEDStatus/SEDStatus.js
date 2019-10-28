@@ -14,7 +14,6 @@ const statusList = {
 
 const SEDStatus = ({ className, status, t }) => {
   const tagType = Object.prototype.hasOwnProperty.call(statusList, status) ? statusList[status] : statusList.unknown
-  console.log(status, tagType)
   return (
     <Nav.EtikettBase className={classNames('a-buc-c-sedstatus', className)} type={tagType}>
       {t('ui:' + status)}
