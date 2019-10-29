@@ -248,11 +248,12 @@ export const SEDStart = (props) => {
       ) : null}
       {sendingAttachments ? (
         <SEDAttachmentSender
+          className='ml-3 w-50'
           sendAttachmentToSed={actions.sendAttachmentToSed}
           aktoerId={aktoerId}
           buc={buc}
           sed={sed}
-          allAttachments={_attachments}
+          allAttachments={_attachments.joark}
           savedAttachments={attachments}
           onFinished={() => {
             setAttachmentsSent(true)

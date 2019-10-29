@@ -116,6 +116,7 @@
   "form-tagsForBUC"                   : "Merknader",
   "form-tagsForBUC-description"       : "Her kan du angi eventuelle merknader for den nye BUC-en.",
   "form-tagPlaceholder"               : "Velg merknad...",
+  "form-uploadAttachments"            : "Laster opp vedlegg",
   "form-vedtakId"                     : "Vedtaks-ID",
   "form-youhaveXseds"                 : "Du har {{seds}} SED-er på BUC",
   "form-youHaveXAttachmentsInBuc"     : "BUC-en har {{attachments}} vedlegg",

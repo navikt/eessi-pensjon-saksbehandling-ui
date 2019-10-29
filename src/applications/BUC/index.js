@@ -22,6 +22,7 @@ const mapStateToProps = /* istanbul ignore next */ (state) => {
     vedtakId: state.app.params.vedtakId,
     avdodfnr: state.app.params.avdodfnr,
     bucParam: state.app.params.buc,
+    attachments: state.buc.attachments,
     currentBuc: state.buc.currentBuc,
     currentSed: state.buc.currentSed,
     mode: state.buc.mode,

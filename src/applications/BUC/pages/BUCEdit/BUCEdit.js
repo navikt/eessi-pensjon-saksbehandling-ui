@@ -9,8 +9,10 @@ import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
 import moment from 'moment'
 import './BUCEdit.css'
 
+const sedTypes = ['X', 'H', 'P']
+
 const BUCEdit = ({
-  actions, aktoerId, bucs, bucsInfo, currentBuc, initialSearch, initialStatusSearch,
+  actions, aktoerId, attachments, bucs, bucsInfo, currentBuc, initialSearch, initialStatusSearch,
   institutionNames, loading, locale, rinaUrl, setMode, t, tagList
 }) => {
   const [search, setSearch] = useState(initialSearch)
@@ -78,15 +80,27 @@ const BUCEdit = ({
             onSearch={onSearch}
             onStatusSearch={onStatusSearch}
           />
-          {buc.seds ? _(buc.seds)
+          {buc.seds ? buc.seds
             .filter(sed => sed.status !== 'empty')
             .filter(sedFilter)
-            .orderBy(['lastUpdate', 'type'], ['desc', 'desc'])
-            .value()
+            .sort((a, b) => {
+              if (a.lastUpdate - b.lastUpdate > 0) return 1
+              if (a.lastUpdate - b.lastUpdate < 0) return -1
+              const mainCompare = parseInt(a.type.replace(/[^\d]/g, ''), 10) - parseInt(b.replace.type(/[^\d]/g, ''), 10)
+              const sedTypeA = a.type.charAt(0)
+              const sedTypeB = b.type.charAt(0)
+              if (sedTypes.indexOf(sedTypeB) - sedTypes.indexOf(sedTypeA) > 0) return 1
+              if (sedTypes.indexOf(sedTypeB) - sedTypes.indexOf(sedTypeA) < 0) return -1
+              return mainCompare
+            })
             .map((sed, index) => {
               return (
                 <SEDPanel
                   className='mt-2'
+                  actions={actions}
+                  aktoerId={aktoerId}
+                  attachments={attachments}
+                  buc={buc}
                   locale={locale}
                   t={t}
                   key={index}
@@ -132,6 +146,7 @@ const BUCEdit = ({
 BUCEdit.propTypes = {
   actions: PT.object.isRequired,
   aktoerId: PT.string.isRequired,
+  attachments: PT.array,
   bucs: PT.object.isRequired,
   bucsInfo: PT.object,
   currentBuc: PT.string.isRequired,

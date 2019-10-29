@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import SEDHeader from '../SEDHeader/SEDHeader'
 import SEDBody from '../SEDBody/SEDBody'
 
-const SEDPanel = ({ buc, institutionNames, locale, onSEDNew, rinaUrl, sed, t }) => {
+const SEDPanel = ({ actions, aktoerId, attachments, buc, institutionNames, locale, onSEDNew, rinaUrl, sed, t }) => {
   const sedHasOption = (sed) => {
     return sed.status === 'new'
   }
@@ -12,7 +12,7 @@ const SEDPanel = ({ buc, institutionNames, locale, onSEDNew, rinaUrl, sed, t }) 
   if (!sedHasOption(sed)) {
     return (
       <SEDHeader
-        className='p-3 s-border'
+        className='a-buc-sedpanel p-3 mb-3 s-border'
         t={t}
         sed={sed}
         rinaUrl={rinaUrl}
@@ -39,7 +39,14 @@ const SEDPanel = ({ buc, institutionNames, locale, onSEDNew, rinaUrl, sed, t }) 
         />
       }
     >
-      <SEDBody t={t} sed={sed} />
+      <SEDBody
+        actions={actions}
+        aktoerId={aktoerId}
+        attachments={attachments}
+        buc={buc}
+        sed={sed}
+        t={t}
+      />
     </Nav.EkspanderbartpanelBase>
 
   )

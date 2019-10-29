@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import { Nav, MultipleSelect, WaitingPanel, CountryData } from 'eessi-pensjon-ui'
@@ -20,6 +20,7 @@ const Step1 = ({
   const countryObjectList = (countryList ? CountryData.filterByValueOnArray(locale, countryList) : [])
   const countryValueList = _countries ? CountryData.filterByValueOnArray(locale, _countries) : []
   const notHostInstitution = institution => institution.id !== 'NO:DEMO001'
+  const [seeAttachmentPanel, setSeeAttachmentPanel] = useState(false)
   const institutionObjectList = []
   if (institutionList) {
     Object.keys(institutionList).forEach(landkode => {
@@ -308,7 +309,13 @@ const Step1 = ({
       </div>
       {sedCanHaveAttachments() ? (
         <div className={layout === 'row' ? 'col-md-6' : 'col-md-12'}>
-          <SEDAttachments t={t} setFiles={setFiles} files={_attachments} />
+          <SEDAttachments
+            t={t}
+            setFiles={setFiles}
+            files={_attachments}
+            open={seeAttachmentPanel}
+            onOpen={() => setSeeAttachmentPanel(true)}
+          />
         </div>
       ) : null}
     </div>

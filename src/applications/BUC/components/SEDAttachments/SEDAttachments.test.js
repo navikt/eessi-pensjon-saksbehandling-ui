@@ -12,7 +12,9 @@ describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
   const initialMockProps = {
     t: jest.fn(t => t),
     files: {},
-    setFiles: jest.fn()
+    setFiles: jest.fn(),
+    open: false,
+    onOpen: jest.fn()
   }
 
   beforeEach(() => {

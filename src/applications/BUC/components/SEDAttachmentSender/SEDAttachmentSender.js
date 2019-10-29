@@ -8,7 +8,7 @@ import { ProgressBar } from 'eessi-pensjon-ui'
 const SEDAttachmentSender = (props) => {
   const { sendAttachmentToSed, aktoerId, allAttachments, buc, className, sed, onFinished, savedAttachments, t } = props
   const [sendingAttachment, setSendingAttachment] = useState(false)
-  const [_storeAttachments, setStoreAttachments] = useState(savedAttachments)
+  const [_storeAttachments, setStoreAttachments] = useState(savedAttachments || [])
 
   const handleFinished = useCallback(() => {
     if (_(onFinished).isFunction()) {
@@ -18,9 +18,9 @@ const SEDAttachmentSender = (props) => {
 
   useEffect(() => {
     // all attachments are sent - conclude
-    if (allAttachments.joark.length === _storeAttachments.length) {
+    if (allAttachments.length === _storeAttachments.length) {
       if (!IS_TEST) {
-        console.log('SEDAttachmentSender: allAttachments.joark (' + allAttachments.joark.length + ') same as _storeAttachments (' + _storeAttachments.length + ')')
+        console.log('SEDAttachmentSender: allAttachments (' + allAttachments.length + ') same as _storeAttachments (' + _storeAttachments.length + ')')
       }
       handleFinished()
     }
@@ -31,7 +31,7 @@ const SEDAttachmentSender = (props) => {
       if (!IS_TEST) {
         console.log('SEDAttachmentSender: Picking a new unsent attachment')
       }
-      const unsentAttachments = allAttachments.joark.filter(a => {
+      const unsentAttachments = allAttachments.filter(a => {
         return !_.find(_storeAttachments, b => {
           return a.dokumentInfoId === b.dokumentInfoId &&
             a.journalpostId === b.journalpostId &&
@@ -58,30 +58,31 @@ const SEDAttachmentSender = (props) => {
         variantformat: unsentAttachment.variant.variantformat
       }
       if (!IS_TEST) {
-        console.log('Sending unsent attachment ' + (_storeAttachments.length + 1) + ' of ' + allAttachments.joark.length + ': ' +
+        console.log('Sending unsent attachment ' + (_storeAttachments.length + 1) + ' of ' + allAttachments.length + ': ' +
           unsentAttachment.journalpostId + '/' + unsentAttachment.dokumentInfoId + '/' + unsentAttachment.variant.variantformat)
       }
       sendAttachmentToSed(params, unsentAttachment)
       setSendingAttachment(true)
-      return
     }
+  }, [aktoerId, sendAttachmentToSed, _storeAttachments, allAttachments, buc.caseId, handleFinished, sed.id, sendingAttachment])
 
+  useEffect(() => {
     // handle if we have a newly sent attachment
     if (sendingAttachment && _storeAttachments.length !== savedAttachments.length) {
       if (!IS_TEST) {
-        console.log('SEDAttachmentSender: Attachment ' + (savedAttachments.length) + ' of ' + allAttachments.joark.length + ' sent')
+        console.log('SEDAttachmentSender: Attachment ' + (savedAttachments.length) + ' of ' + allAttachments.length + ' sent')
       }
       setStoreAttachments(savedAttachments)
       setSendingAttachment(false)
     }
-  }, [sendAttachmentToSed, aktoerId, savedAttachments, buc, sed, sendingAttachment, _storeAttachments])
+  }, [allAttachments, savedAttachments, sendingAttachment, _storeAttachments])
 
-  const current = (_storeAttachments.length === allAttachments.joark.length ? _storeAttachments.length : _storeAttachments.length + 1)
-  const total = allAttachments.joark.length
+  const current = (_storeAttachments.length === allAttachments.length ? _storeAttachments.length : _storeAttachments.length + 1)
+  const total = allAttachments.length
   const percentage = (Math.floor((current * 100) / total))
 
   return (
-    <div className={classNames('a-buc-sedAttachmentSender ml-3 w-50', className)}>
+    <div className={classNames('a-buc-sedAttachmentSender', className)}>
       <ProgressBar now={percentage}>
         {t('buc:loading-sendingXofY', {
           current: current,
