@@ -74,36 +74,36 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
     expect(wrapper.find('#a-buc-c-sedsearch__status-select-id .c-multipleOption').at(0).render().text()).toEqual('ui:cancelled')
 
     statusSelect.simulate('keyDown', { key: 'Enter', keyCode: 13 })
-    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(0)
+    expect(wrapper.find('.a-buc-c-sedlistheader').hostNodes().length).toEqual(0)
   })
 
   it('SEDSearch query search triggers the filter functions', () => {
-    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(1)
+    expect(wrapper.find('.a-buc-c-sedlistheader').hostNodes().length).toEqual(1)
     const sedSearch = wrapper.find('.a-buc-c-sedsearch').hostNodes()
 
     const queryInput = sedSearch.find('input#a-buc-c-sedsearch__query-input-id').hostNodes()
     queryInput.simulate('change', { target: { value: 'XXX' } })
 
-    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(0)
+    expect(wrapper.find('.a-buc-c-sedlistheader').hostNodes().length).toEqual(0)
   })
 
   it('Performs a query search that will not find elements', () => {
     wrapper = mount(<BUCEdit {...initialMockProps} initialSearch='XXX' />)
-    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(0)
+    expect(wrapper.find('.a-buc-c-sedlistheader').hostNodes().length).toEqual(0)
   })
 
   it('Performs a query search that will find elements', () => {
     wrapper = mount(<BUCEdit {...initialMockProps} initialSearch='P2000' />)
-    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(1)
+    expect(wrapper.find('.a-buc-c-sedlistheader').hostNodes().length).toEqual(1)
   })
 
   it('Performs a status search that will not find elements', () => {
     wrapper = mount(<BUCEdit {...initialMockProps} initialStatusSearch='XXX' />)
-    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(0)
+    expect(wrapper.find('.a-buc-c-sedlistheader').hostNodes().length).toEqual(0)
   })
 
   it('Performs a status search that will find elements', () => {
     wrapper = mount(<BUCEdit {...initialMockProps} initialStatusSearch='cancelled' />)
-    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(1)
+    expect(wrapper.find('.a-buc-c-sedlistheader').hostNodes().length).toEqual(1)
   })
 })

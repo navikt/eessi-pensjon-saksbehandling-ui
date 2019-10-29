@@ -40,7 +40,7 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
     )
     expect(wrapper.exists('.a-buc-c-bucheader__owner')).toBeTruthy()
     expect(wrapper.find('.a-buc-c-bucheader__owner').hostNodes().render().text()).toEqual(
-      'buc:form-caseOwner: Z990638'
+      'buc:form-caseOwner: NAVAT07'
     )
     expect(wrapper.exists('.a-buc-c-bucheader__owner-institutions')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__icons')).toBeTruthy()

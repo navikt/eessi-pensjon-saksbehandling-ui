@@ -29,6 +29,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
       getSedList: jest.fn(),
       sendAttachmentToSed: jest.fn(),
       resetSed: jest.fn(),
+      resetSedAttachments: jest.fn(),
       fetchBucs: jest.fn()
     },
     aktoerId: '123',

@@ -31,7 +31,7 @@ describe('widgets/Overview/PersonPanel', () => {
     expect(wrapper.exists('.w-overview-personPanel__content')).toBeTruthy()
     expect(wrapper.find('svg[kind="nav-home"]')).toBeTruthy()
     expect(wrapper.find('#w-overview-personPanel__element-bostedsadresse').render().text()).toEqual(
-      'ui:bostedsadresse:KJEMPEBAKKENVEIEN125036')
+      'ui:bostedsadresse:KJEMPEBAKKENVEIEN125036BERGEN')
 
     expect(wrapper.find('svg[kind="calendar"]')).toBeTruthy()
     expect(wrapper.find('#w-overview-personPanel__element-birthdate').render().text()).toEqual(

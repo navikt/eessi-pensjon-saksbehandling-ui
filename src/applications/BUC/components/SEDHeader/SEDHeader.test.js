@@ -28,7 +28,7 @@ describe('applications/BUC/components/SEDHeader/SEDHeader', () => {
 
   it('Has proper HTML structure', () => {
     expect(wrapper.exists('.a-buc-c-sedheader')).toBeTruthy()
-    expect(wrapper.find('.a-buc-c-sedheader__name').hostNodes().render().text()).toEqual(sed.type)
+    expect(wrapper.find('.a-buc-c-sedheader__name').hostNodes().render().text()).toEqual('P2000 - buc:buc-P2000')
 
     const status = wrapper.find('.a-buc-c-sedheader__status').hostNodes()
     expect(status.find('SEDStatus').render().text()).toEqual('ui:' + sed.status)

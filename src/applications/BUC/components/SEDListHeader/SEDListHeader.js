@@ -37,12 +37,12 @@ const SEDListHeader = ({ border = 'none', buc, className, institutionNames, loca
 
   return (
     <Nav.PanelBase
-      className={classNames('a-buc-c-sedheader', 'w-100', 'p-0', className)}
+      className={classNames('a-buc-c-sedlistheader', 'w-100', 'p-0', className)}
     >
-      <div className={classNames('a-buc-c-sedheader__content pt-2 pb-2', 'a-buc-c-sedheader__border-' + border)}>
-        <div className='a-buc-c-sedheader__column a-buc-c-sedheader__name col-4'>
+      <div className={classNames('a-buc-c-sedlistheader__content pt-2 pb-2', 'a-buc-c-sedlistheader__border-' + border)}>
+        <div className='a-buc-c-sedlistheader__column a-buc-c-sedlistheader__name col-4'>
           <Nav.Element>{sed.type}{sedLabel ? ' - ' + sedLabel : ''}</Nav.Element>
-          <div className='a-buc-c-sedheader__status'>
+          <div className='a-buc-c-sedlistheader__status'>
             <SEDStatus t={t} className='col-auto' status={sed.status} />
             <div className='pl-2'>
               <Nav.Normaltekst data-tip={t('ui:lastUpdate')}>
@@ -52,7 +52,7 @@ const SEDListHeader = ({ border = 'none', buc, className, institutionNames, loca
             </div>
           </div>
         </div>
-        <div className='a-buc-c-sedheader__column a-buc-c-sedheader__institutions col-3'>
+        <div className='a-buc-c-sedlistheader__column a-buc-c-sedlistheader__institutions col-3'>
           <InstitutionList
             t={t}
             institutionNames={institutionNames}
@@ -61,7 +61,7 @@ const SEDListHeader = ({ border = 'none', buc, className, institutionNames, loca
             institutions={institutionSenderList}
           />
         </div>
-        <div className='a-buc-c-sedheader__column a-buc-c-sedheader__institutions col-3'>
+        <div className='a-buc-c-sedlistheader__column a-buc-c-sedlistheader__institutions col-3'>
           <InstitutionList
             t={t}
             institutionNames={institutionNames}
@@ -70,10 +70,10 @@ const SEDListHeader = ({ border = 'none', buc, className, institutionNames, loca
             institutions={institutionReceiverList}
           />
         </div>
-        <div className='a-buc-c-sedheader__column a-buc-c-sedheader__actions col-2'>
+        <div className='a-buc-c-sedlistheader__column a-buc-c-sedlistheader__actions col-2'>
           {!_.isEmpty(sed.attachments) ? (
             <div
-              className='a-buc-c-sedheader__actions-attachments'
+              className='a-buc-c-sedlistheader__actions-attachments'
               data-tip={t('buc:form-youHaveXAttachmentsInSed', { attachments: sed.attachments.length })}
             >
               <Icons kind='paperclip' />
@@ -83,7 +83,7 @@ const SEDListHeader = ({ border = 'none', buc, className, institutionNames, loca
             ? (
               <Nav.Flatknapp
                 mini
-                className='a-buc-c-sedheader__actions-answer-button'
+                className='a-buc-c-sedlistheader__actions-answer-button'
                 onClick={() => onSEDNew(buc, sed)}
               >
                 {t('buc:form-answerSED')}
