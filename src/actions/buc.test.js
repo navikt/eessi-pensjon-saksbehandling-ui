@@ -4,6 +4,8 @@ import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
+import { CountryFilter } from 'eessi-pensjon-ui'
+
 const sprintf = require('sprintf-js').sprintf
 jest.mock('eessi-pensjon-ui/dist/api', () => ({
   call: jest.fn()
@@ -267,15 +269,11 @@ describe('actions/buc', () => {
   })
 
   it('getCountryList()', () => {
-    bucActions.getCountryList()
-    expect(call).toBeCalledWith(expect.objectContaining({
-      type: {
-        request: types.BUC_GET_COUNTRY_LIST_REQUEST,
-        success: types.BUC_GET_COUNTRY_LIST_SUCCESS,
-        failure: types.BUC_GET_COUNTRY_LIST_FAILURE
-      },
-      url: urls.EUX_COUNTRY_URL
-    }))
+    const generatedResult = bucActions.getCountryList()
+    expect(generatedResult).toMatchObject({
+      type: types.BUC_GET_COUNTRY_LIST_SUCCESS,
+      payload: CountryFilter.EESSI_READY
+    })
   })
 
   it('getSedList()', () => {

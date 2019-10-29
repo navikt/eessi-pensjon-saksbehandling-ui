@@ -8,6 +8,7 @@ import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import sampleP4000info from 'resources/tests/sampleP4000info'
 import sampleInstitutions from 'resources/tests/sampleInstitutions'
+import { CountryFilter } from 'eessi-pensjon-ui'
 
 const sprintf = require('sprintf-js').sprintf
 
@@ -202,15 +203,10 @@ export const saveBucsInfo = ({ aktoerId, buc, bucsInfo = {}, comment, tags }) =>
 }
 
 export const getCountryList = () => {
-  return api.call({
-    url: urls.EUX_COUNTRY_URL,
-    expectedPayload: ['NO', 'FI', 'SE', 'DK'],
-    type: {
-      request: types.BUC_GET_COUNTRY_LIST_REQUEST,
-      success: types.BUC_GET_COUNTRY_LIST_SUCCESS,
-      failure: types.BUC_GET_COUNTRY_LIST_FAILURE
-    }
-  })
+  return {
+    type: types.BUC_GET_COUNTRY_LIST_SUCCESS,
+    payload: CountryFilter.EESSI_READY
+  }
 }
 
 export const getSedList = (buc) => {
