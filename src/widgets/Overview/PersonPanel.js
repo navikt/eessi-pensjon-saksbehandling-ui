@@ -1,7 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
 import moment from 'moment'
-import { Icons, Nav, CountryData } from 'eessi-pensjon-ui'
+import { CountryData, Icons, Nav, PostalCodes } from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 
 const PersonPanel = ({ t, person }) => {
@@ -79,13 +79,18 @@ const PersonPanel = ({ t, person }) => {
     maritalStatus = maritalStatus.charAt(0).toUpperCase() + maritalStatus.slice(1)
   }
 
+  const zipCode = _.get(person, 'bostedsadresse.strukturertAdresse.poststed.value')
+
   if (_.get(person, 'bostedsadresse.strukturertAdresse')) {
     bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.gatenavn'), t('ui:gatenavn'), <span key={0} className='mr-2' />)
     bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.gatenummer'), t('ui:gatenummer'), <br key={1} />)
     bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.husnummer'), t('ui:husnummer'), <br key={2} />)
     bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.husbokstav'), t('ui:husbokstav'), <span key={3} className='mr-2' />)
     bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.tilleggsadresse'), t('ui:tilleggsadresse'), <br key={4} />)
-    bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.poststed.value'), t('ui:poststed'), <br key={5} />)
+    bostedsadresse = addAddressLine(bostedsadresse, zipCode, t('ui:poststed'), <span className='mr-2' key={5} />)
+    if (zipCode) {
+      bostedsadresse = addAddressLine(bostedsadresse, PostalCodes.get(zipCode), t('ui:city'), <br key={6} />)
+    }
   }
 
   if (_.get(person, 'postadresse.ustrukturertAdresse')) {
