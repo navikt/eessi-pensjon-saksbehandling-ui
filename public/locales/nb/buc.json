@@ -94,6 +94,7 @@
 
   "form-addAttachmentsFromJOARK"      : "Legg til vedlegg",
   "form-addAttachmentsFromFileUpload" : "Laster opp ny vedlegg fra din datamaskin",
+  "form-actions"                      : "Aksjoner",
   "form-aktoerId"                     : "Fødsels- og personnummer",
   "form-avdodfnr"                     : "Avdød fnr",
   "form-avdodfnrInput"                : "Legg inn avdød fnr",
@@ -134,7 +135,9 @@
   "form-notifyUser"                   : "Varsle bruker",
   "form-orderNewSED"                  : "Bestill ny SED",
   "form-orderSED"                     : "Bestill SED",
-  "form-receiver"                     : "Mottaker/avsender",
+  "form-senderreceiver"               : "Mottaker/avsender",
+  "form-sender"                       : "Avsender",
+  "form-receiver"                     : "Mottaker(e)",
   "form-rinaCaseNumber"               : "RINA-saksnummer",
   "form-rinaId"                       : "Rina ID",
   "form-sakId"                        : "Saksnummer fra Pesys",

@@ -6,6 +6,7 @@ import SEDPanel from 'applications/BUC/components/SEDPanel/SEDPanel'
 import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
+import SEDPanelHeader from 'applications/BUC/components/SEDPanelHeader/SEDPanelHeader'
 import moment from 'moment'
 import './BUCEdit.css'
 
@@ -80,6 +81,7 @@ const BUCEdit = ({
             onSearch={onSearch}
             onStatusSearch={onStatusSearch}
           />
+          <SEDPanelHeader t={t} />
           {buc.seds ? buc.seds
             .filter(sed => sed.status !== 'empty')
             .filter(sedFilter)

@@ -1,0 +1,57 @@
+.a-buc-c-sedheader {
+
+  transform: translateX(-20px);
+  opacity: 0;
+  animation: a-buc-c-sedheader-slideInFromLeft 0.2s forwards;
+
+  &__border {
+    &-full {
+      border: 1px solid #59514B;
+      border-radius: 4px;
+    }
+    &-bottom {
+      border-bottom: 1px solid #59514B;
+    }
+  }
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__status {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  &__institution {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+  }
+
+  &__actions {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+@keyframes a-buc-c-sedheader-slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

@@ -3,7 +3,6 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import { Nav } from 'eessi-pensjon-ui'
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
-
 import './SEDList.css'
 const sedTypes = ['X', 'H', 'P']
 

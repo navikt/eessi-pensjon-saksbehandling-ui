@@ -1,7 +1,7 @@
 import React from 'react'
 import { Nav } from 'eessi-pensjon-ui'
 import classNames from 'classnames'
-import SEDHeader from '../SEDHeader/SEDHeader'
+import SEDListHeader from 'applications/BUC/components/SEDListHeader/SEDListHeader'
 import SEDBody from '../SEDBody/SEDBody'
 
 const SEDPanel = ({ actions, aktoerId, attachments, buc, institutionNames, locale, onSEDNew, rinaUrl, sed, t }) => {
@@ -11,7 +11,7 @@ const SEDPanel = ({ actions, aktoerId, attachments, buc, institutionNames, local
 
   if (!sedHasOption(sed)) {
     return (
-      <SEDHeader
+      <SEDListHeader
         className='a-buc-sedpanel p-3 mb-3 s-border'
         t={t}
         sed={sed}
@@ -28,7 +28,7 @@ const SEDPanel = ({ actions, aktoerId, attachments, buc, institutionNames, local
     <Nav.EkspanderbartpanelBase
       className={classNames('a-buc-sedpanel', 'mb-3', 's-border')}
       heading={
-        <SEDHeader
+        <SEDListHeader
           t={t}
           sed={sed}
           rinaUrl={rinaUrl}

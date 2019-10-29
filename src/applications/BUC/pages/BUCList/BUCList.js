@@ -143,7 +143,7 @@ const BUCList = ({ actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionL
                     <Nav.Element>{t('buc:form-status')}</Nav.Element>
                   </div>
                   <div className='a-buc-buclist__sedheader-head col-3'>
-                    <Nav.Element>{t('buc:form-receiver')}</Nav.Element>
+                    <Nav.Element>{t('buc:form-senderreceiver')}</Nav.Element>
                   </div>
                   <div className='a-buc-buclist__sedheader-head col-2' />
                 </div>
