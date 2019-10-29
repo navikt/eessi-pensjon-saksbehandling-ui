@@ -4,7 +4,7 @@ import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
 import * as api from 'eessi-pensjon-ui/dist/api'
 import _ from 'lodash'
-import sampleBucsWithSomeErrors from 'resources/tests/sampleBucsWithSomeErrors'
+import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import sampleP4000info from 'resources/tests/sampleP4000info'
 import sampleInstitutions from 'resources/tests/sampleInstitutions'
@@ -66,7 +66,7 @@ export const setP4000Info = (p4000) => {
 export const fetchSingleBuc = (rinaCaseId) => {
   return api.call({
     url: sprintf(urls.BUC_GET_SINGLE_BUC, { rinaCaseId: rinaCaseId }),
-    expectedPayload: sampleBucsWithSomeErrors[0],
+    expectedPayload: sampleBucs[0],
     type: {
       request: types.BUC_GET_SINGLE_BUC_REQUEST,
       success: types.BUC_GET_SINGLE_BUC_SUCCESS,
@@ -79,7 +79,7 @@ export const fetchBucs = (aktoerId) => {
   return api.call({
     url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
     cascadeFailureError: true,
-    expectedPayload: sampleBucsWithSomeErrors,
+    expectedPayload: sampleBucs,
     type: {
       request: types.BUC_GET_BUCS_REQUEST,
       success: types.BUC_GET_BUCS_SUCCESS,
@@ -92,7 +92,7 @@ export const fetchAvdodBucs = (aktoerId) => {
   return api.call({
     url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
     cascadeFailureError: true,
-    expectedPayload: sampleBucsWithSomeErrors,
+    expectedPayload: sampleBucs,
     type: {
       request: types.BUC_GET_AVDOD_BUCS_REQUEST,
       success: types.BUC_GET_AVDOD_BUCS_SUCCESS,

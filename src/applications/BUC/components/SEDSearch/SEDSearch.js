@@ -44,7 +44,7 @@ const SEDSearch = ({ className, onSearch, onStatusSearch, t }) => {
     >
       <Nav.Input
         id='a-buc-c-sedsearch__query-input-id'
-        className='a-buc-c-sedsearch__query-input pl-1 pr-1'
+        className='a-buc-c-sedsearch__query-input pl-1 pr-1 w-50'
         label=''
         bredde='fullbredde'
         value={_query || ''}
@@ -53,7 +53,7 @@ const SEDSearch = ({ className, onSearch, onStatusSearch, t }) => {
       />
       <MultipleSelect
         id='a-buc-c-sedsearch__status-select-id'
-        className='a-buc-c-sedsearch__status-select multipleSelect pl-1 pr-1'
+        className='a-buc-c-sedsearch__status-select multipleSelect pl-1 pr-1 w-50'
         placeholder={t('buc:form-searchForStatus')}
         values={_status}
         hideSelectedOptions={false}

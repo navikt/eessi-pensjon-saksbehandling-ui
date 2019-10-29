@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import moment from 'moment'
 import { Nav } from 'eessi-pensjon-ui'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
+import { getBucTypeLabel } from 'applications/BUC/components/InstitutionList/BUCUtils'
 import './BUCDetail.css'
 
 const BUCDetail = ({ buc, bucInfo, className, institutionNames, locale, rinaUrl, t }) => {
@@ -17,7 +18,11 @@ const BUCDetail = ({ buc, bucInfo, className, institutionNames, locale, rinaUrl,
           id='a-buc-c-bucdetail__header-id'
           className='a-buc-c-bucdetail__header'
         >
-          {buc.type + ' - ' + t('buc:buc-' + buc.type)}
+          {buc.type + ' - ' + getBucTypeLabel({
+            type: buc.type,
+            locale: locale,
+            t: t
+          })}
         </Nav.Systemtittel>
       }
     >

@@ -3,6 +3,7 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
 import { MultipleSelect, Nav, PsychoPanel, WaitingPanel } from 'eessi-pensjon-ui'
+import { getBucTypeLabel } from 'applications/BUC/components/InstitutionList/BUCUtils'
 
 const placeholders = {
   subjectArea: 'buc:form-chooseSubjectArea',
@@ -10,7 +11,7 @@ const placeholders = {
 }
 
 const BUCStart = ({
-  actions, aktoerId, buc, bucParam, bucsInfo, bucList, loading, mode, sakId, setMode, subjectAreaList, tagList, t
+  actions, aktoerId, buc, bucParam, bucsInfo, bucList, loading, locale, mode, sakId, setMode, subjectAreaList, tagList, t
 }) => {
   const [_buc, setBuc] = useState(bucParam)
   const [_subjectArea, setSubjectArea] = useState('Pensjon')
@@ -150,12 +151,11 @@ const BUCStart = ({
     if (typeof value !== 'string') {
       return value
     }
-    let label = value
-    const description = t('buc:buc-' + value.replace(':', '.'))
-    if (description !== 'buc-' + value) {
-      label += ' - ' + description
-    }
-    return label
+    return value + ' - ' + getBucTypeLabel({
+      t: t,
+      locale: locale,
+      type: value
+    })
   }
 
   const getSpinner = (text) => {
@@ -278,6 +278,7 @@ BUCStart.propTypes = {
   bucList: PT.array,
   bucParam: PT.string,
   loading: PT.object,
+  locale: PT.string,
   mode: PT.string,
   sakId: PT.string,
   subjectAreaList: PT.array,

@@ -4,6 +4,7 @@ import _ from 'lodash'
 import moment from 'moment'
 import { FlagList, Icons, Nav } from 'eessi-pensjon-ui'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
+import { getBucTypeLabel } from 'applications/BUC/components/InstitutionList/BUCUtils'
 import './BUCHeader.css'
 
 const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl, t }) => {
@@ -49,11 +50,15 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl,
       className='a-buc-c-bucheader'
     >
       <Nav.Undertittel
-        className='a-buc-c-bucheader__title w-100 pl-3 pb-1'
+        className='a-buc-c-bucheader__title w-100 pb-1'
       >
-        {buc.type + ' - ' + t('buc:buc-' + buc.type)}
+        {buc.type + ' - ' + getBucTypeLabel({
+          t: t,
+          locale: locale,
+          type: buc.type
+        })}
       </Nav.Undertittel>
-      <Nav.Row className='a-buc-c-bucheader__row w-100'>
+      <Nav.Row className='a-buc-c-bucheader__row no-gutters w-100'>
         <div className='a-buc-c-bucheader__label col-sm-4'>
 
           <Nav.Normaltekst

@@ -7,6 +7,7 @@ import moment from 'moment'
 import { Icons, Nav } from 'eessi-pensjon-ui'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
+import { getBucTypeLabel } from 'applications/BUC/components/InstitutionList/BUCUtils'
 import './SEDHeader.css'
 
 const SEDHeader = ({ border = 'none', buc, className, institutionNames, locale, onSEDNew, sed, followUpSeds, t }) => {
@@ -17,10 +18,11 @@ const SEDHeader = ({ border = 'none', buc, className, institutionNames, locale, 
     }
   }) : []
 
-  let sedLabel = t('buc:buc-' + sed.type)
-  if (sedLabel === 'buc:buc-' + sed.type) {
-    sedLabel = undefined
-  }
+  const sedLabel = getBucTypeLabel({
+    t: t,
+    type: sed.type,
+    locale: locale
+  })
 
   return (
     <Nav.PanelBase

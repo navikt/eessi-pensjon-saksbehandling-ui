@@ -4,6 +4,7 @@ import _ from 'lodash'
 import { Nav, MultipleSelect, WaitingPanel, CountryData } from 'eessi-pensjon-ui'
 import SEDAttachments from 'applications/BUC/components/SEDAttachments/SEDAttachments'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
+import {getBucTypeLabel} from "applications/BUC/components/InstitutionList/BUCUtils";
 
 const placeholders = {
   sed: 'buc:form-chooseSed',
@@ -181,12 +182,11 @@ const Step1 = ({
   }
 
   const getOptionLabel = (value) => {
-    let label = value
-    const description = t('buc:buc-' + value.replace(':', '.'))
-    if (description !== 'buc-' + value) {
-      label += ' - ' + description
-    }
-    return label
+    return value + ' - ' + getBucTypeLabel({
+      t: t,
+      locale: locale,
+      type: value
+    })
   }
 
   const getSpinner = (text) => {
