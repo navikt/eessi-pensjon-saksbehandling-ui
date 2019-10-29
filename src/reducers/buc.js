@@ -267,7 +267,6 @@ const bucReducer = (state = initialBucState, action) => {
       }
 
     case types.BUC_GET_SED_LIST_SUCCESS: {
-      // the higher the indexOf, the higher it goes in the sorted list
       const sedTypes = ['X', 'H', 'P']
       return {
         ...state,

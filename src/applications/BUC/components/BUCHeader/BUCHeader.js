@@ -4,7 +4,7 @@ import _ from 'lodash'
 import moment from 'moment'
 import { FlagList, Icons, Nav } from 'eessi-pensjon-ui'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import { getBucTypeLabel } from 'applications/BUC/components/InstitutionList/BUCUtils'
+import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import './BUCHeader.css'
 
 const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl, t }) => {

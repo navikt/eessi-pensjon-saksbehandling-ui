@@ -4,7 +4,7 @@ import _ from 'lodash'
 import { Nav, MultipleSelect, WaitingPanel, CountryData } from 'eessi-pensjon-ui'
 import SEDAttachments from 'applications/BUC/components/SEDAttachments/SEDAttachments'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import {getBucTypeLabel} from "applications/BUC/components/InstitutionList/BUCUtils";
+import {getBucTypeLabel} from "applications/BUC/components/BUCUtils/BUCUtils";
 
 const placeholders = {
   sed: 'buc:form-chooseSed',

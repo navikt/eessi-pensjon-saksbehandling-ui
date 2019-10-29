@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
 import { MultipleSelect, Nav, PsychoPanel, WaitingPanel } from 'eessi-pensjon-ui'
-import { getBucTypeLabel } from 'applications/BUC/components/InstitutionList/BUCUtils'
+import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 
 const placeholders = {
   subjectArea: 'buc:form-chooseSubjectArea',

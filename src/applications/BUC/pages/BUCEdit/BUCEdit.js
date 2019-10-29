@@ -7,10 +7,9 @@ import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
 import SEDPanelHeader from 'applications/BUC/components/SEDPanelHeader/SEDPanelHeader'
+import { sedSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import moment from 'moment'
 import './BUCEdit.css'
-
-const sedTypes = ['X', 'H', 'P']
 
 const BUCEdit = ({
   actions, aktoerId, attachments, bucs, bucsInfo, currentBuc, initialSearch, initialStatusSearch,
@@ -85,16 +84,7 @@ const BUCEdit = ({
           {buc.seds ? buc.seds
             .filter(sed => sed.status !== 'empty')
             .filter(sedFilter)
-            .sort((a, b) => {
-              if (a.lastUpdate - b.lastUpdate > 0) return 1
-              if (a.lastUpdate - b.lastUpdate < 0) return -1
-              const mainCompare = parseInt(a.type.replace(/[^\d]/g, ''), 10) - parseInt(b.replace.type(/[^\d]/g, ''), 10)
-              const sedTypeA = a.type.charAt(0)
-              const sedTypeB = b.type.charAt(0)
-              if (sedTypes.indexOf(sedTypeB) - sedTypes.indexOf(sedTypeA) > 0) return 1
-              if (sedTypes.indexOf(sedTypeB) - sedTypes.indexOf(sedTypeA) < 0) return -1
-              return mainCompare
-            })
+            .sort(sedSorter)
             .map((sed, index) => {
               return (
                 <SEDPanel

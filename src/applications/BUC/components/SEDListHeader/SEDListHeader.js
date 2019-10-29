@@ -7,7 +7,7 @@ import moment from 'moment'
 import { Icons, Nav } from 'eessi-pensjon-ui'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import { getBucTypeLabel } from 'applications/BUC/components/InstitutionList/BUCUtils'
+import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import './SEDListHeader.css'
 
 const SEDListHeader = ({ border = 'none', buc, className, institutionNames, locale, onSEDNew, sed, followUpSeds, t }) => {
