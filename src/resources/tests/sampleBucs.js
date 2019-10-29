@@ -3,7 +3,8 @@ export default [
     type: 'P_BUC_01',
     creator: {
       country: 'NO',
-      institution: 'Z990638'
+      institution: 'NO:NAVAT07',
+      name: 'NAV ACCEPTANCE TEST 07'
     },
     caseId: '195440',
     sakType: '',
@@ -14,7 +15,7 @@ export default [
     institusjon: [
       {
         country: 'NO',
-        institution: 'NO:NAVT000'
+        institution: 'NO:NAVAT07'
       },
       {
         country: 'SE',
@@ -3798,7 +3799,7 @@ export default [
     type: 'P_BUC_01',
     creator: {
       country: 'NO',
-      institution: 'Z990638'
+      institution: 'NO:DEMO001'
     },
     caseId: '296304',
     sakType: '',
@@ -4663,7 +4664,7 @@ export default [
     type: 'P_BUC_03',
     creator: {
       country: 'NO',
-      institution: 'Z990638'
+      institution: 'NO:DEMO001'
     },
     caseId: '185309',
     sakType: '',
@@ -4744,7 +4745,7 @@ export default [
     type: 'P_BUC_03',
     creator: {
       country: 'NO',
-      institution: 'Z990638'
+      institution: 'NO:DEMO001'
     },
     caseId: '195366',
     sakType: '',
@@ -4825,7 +4826,7 @@ export default [
     type: 'P_BUC_03',
     creator: {
       country: 'NO',
-      institution: 'Z990638'
+      institution: 'NO:DEMO001'
     },
     caseId: '185666',
     sakType: '',
@@ -4906,7 +4907,7 @@ export default [
     type: 'P_BUC_MOCK',
     creator: {
       country: 'NO',
-      institution: 'Z990638'
+      institution: 'NO:DEMO001'
     },
     caseId: '192766',
     sakType: '',

@@ -38,10 +38,14 @@ export const SEDStart = (props) => {
   const { loading, p4000info, sakId, sed, setMode, t, vedtakId } = props
 
   const [_sed, setSed] = useState(initialSed)
-  const [_institutions, setInstitutions] = useState(bucs[currentBuc] && bucs[currentBuc].institusjon
-    ? bucs[currentBuc].institusjon.map(inst => inst.institution) : [])
-  const [_countries, setCountries] = useState(bucs[currentBuc] && bucs[currentBuc].institusjon
-    ? _.uniq(bucs[currentBuc].institusjon.map(inst => inst.country)) : [])
+  const [_institutions, setInstitutions] = useState(
+    bucs[currentBuc] && bucs[currentBuc].institusjon
+      ? bucs[currentBuc].institusjon
+        .filter(inst => inst.institution !== bucs[currentBuc].creator.institution)
+        .map(inst => inst.institution) : [])
+  const [_countries, setCountries] = useState(
+    bucs[currentBuc] && bucs[currentBuc].institusjon
+      ? _.uniq(bucs[currentBuc].institusjon.map(inst => inst.country)) : [])
   const [_vedtakId, setVedtakId] = useState(parseInt(vedtakId, 10))
   const [_attachments, setAttachments] = useState(initialAttachments)
   const [step, setStep] = useState(initialStep)
