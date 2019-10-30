@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import SEDListHeader from 'applications/BUC/components/SEDListHeader/SEDListHeader'
 import SEDBody from '../SEDBody/SEDBody'
 
-const SEDPanel = ({ actions, aktoerId, attachments, buc, institutionNames, locale, onSEDNew, rinaUrl, sed, t }) => {
+const SEDPanel = ({ actions, aktoerId, attachments, buc, followUpSeds, institutionNames, locale, onSEDNew, rinaUrl, sed, t }) => {
   const sedHasOption = (sed) => {
     return sed.status === 'new'
   }
@@ -13,6 +13,7 @@ const SEDPanel = ({ actions, aktoerId, attachments, buc, institutionNames, local
     return (
       <SEDListHeader
         className='a-buc-sedpanel p-3 mb-3 s-border'
+        followUpSeds={followUpSeds}
         t={t}
         sed={sed}
         rinaUrl={rinaUrl}
@@ -29,6 +30,7 @@ const SEDPanel = ({ actions, aktoerId, attachments, buc, institutionNames, local
       className={classNames('a-buc-sedpanel', 'mb-3', 's-border')}
       heading={
         <SEDListHeader
+          followUpSeds={followUpSeds}
           t={t}
           sed={sed}
           rinaUrl={rinaUrl}
