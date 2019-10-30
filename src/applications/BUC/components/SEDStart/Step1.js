@@ -182,11 +182,16 @@ const Step1 = ({
   }
 
   const getOptionLabel = (value) => {
-    return value + ' - ' + getBucTypeLabel({
+    let label = value
+    const description = getBucTypeLabel({
       t: t,
       locale: locale,
       type: value
     })
+    if (description !== 'buc-' + value) {
+      label += ' - ' + description
+    }
+    return label
   }
 
   const getSpinner = (text) => {
