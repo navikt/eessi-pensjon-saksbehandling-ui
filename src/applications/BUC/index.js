@@ -88,7 +88,7 @@ export const BUCIndex = (props) => {
 
   const setMode = useCallback((mode) => {
     actions.setMode(mode)
-    if (mode !== 'buclist') {
+    if (mode === 'bucnew' || mode === 'sednew') {
       onFullFocus()
     } else {
       onRestoreFocus()
