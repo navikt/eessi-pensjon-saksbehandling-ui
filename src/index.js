@@ -27,15 +27,10 @@ import AuthenticatedRoute from 'components/AuthenticatedRoute/AuthenticatedRoute
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'index.css'
 import 'index_highContrast.css'
-import pdfjs from 'pdfjs-dist/build/pdf'
 
 const Pages = {
   Error: Loadable({ loader: () => import('./pages/Error/Error') }),
   IndexPage: Loadable({ loader: () => import('./pages/IndexPage/IndexPage') })
-}
-
-if (process.env.NODE_ENV !== 'production') {
-  pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 }
 
 window.onerror = (msg, src, lineno, colno, error) => {

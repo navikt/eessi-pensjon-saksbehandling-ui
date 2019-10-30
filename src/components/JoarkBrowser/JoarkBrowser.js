@@ -59,7 +59,11 @@ export const JoarkBrowser = ({
             style={{ cursor: 'pointer' }}
             onClick={() => setModal(undefined)}
           >
-            <File file={previewFile} width={400} height={600} />
+            <File
+              file={previewFile}
+              width={400} height={600}
+              onContentClick={() => setModal(undefined)}
+            />
           </div>
         )
       })
