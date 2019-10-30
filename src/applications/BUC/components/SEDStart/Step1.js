@@ -68,32 +68,40 @@ const Step1 = ({
   const validateSed = (sed) => {
     if (!sed || sed === placeholders.sed) {
       setValidationState('sedFail', t('buc:validation-chooseSed'))
+      return false
     } else {
       resetValidationState('sedFail')
+      return true
     }
   }
 
   const validateInstitutions = (institutions) => {
     if (_.isEmpty(institutions)) {
       setValidationState('institutionFail', t('buc:validation-chooseInstitution'))
+      return false
     } else {
       resetValidationState('institutionFail')
+      return true
     }
   }
 
   const validateCountries = (country) => {
     if (_.isEmpty(country)) {
       setValidationState('countryFail', t('buc:validation-chooseCountry'))
+      return false
     } else {
       resetValidationState('countryFail')
+      return true
     }
   }
 
   const validateVedtakId = (vedtakId) => {
     if (sedNeedsVedtakId() && !_.isNumber(vedtakId)) {
       setValidationState('vedtakFail', t('buc:validation-chooseVedtakId'))
+      return false
     } else {
       resetValidationState('vedtakFail')
+      return true
     }
   }
 
@@ -128,23 +136,20 @@ const Step1 = ({
     const newCountries = countries ? countries.map(item => {
       return item.value
     }) : []
-    validateCountries(newCountries)
-    if (!validation.countryFail) {
-      const oldCountriesList = _.cloneDeep(_countries)
-      setCountries(newCountries)
-      const addedCountries = newCountries.filter(country => !oldCountriesList.includes(country))
-      const removedCountries = oldCountriesList.filter(country => !newCountries.includes(country))
-      addedCountries.map(country => {
-        return actions.getInstitutionsListForBucAndCountry(buc.type, country)
+    const oldCountriesList = _.cloneDeep(_countries)
+    const addedCountries = newCountries.filter(country => !oldCountriesList.includes(country))
+    const removedCountries = oldCountriesList.filter(country => !newCountries.includes(country))
+    addedCountries.map(country => {
+      return actions.getInstitutionsListForBucAndCountry(buc.type, country)
+    })
+    removedCountries.forEach(country => {
+      const newInstitutions = _institutions.filter(item => {
+        var [_country] = item.split(':')
+        return country !== _country
       })
-      removedCountries.forEach(country => {
-        const newInstitutions = _.cloneDeep(_institutions)
-        setInstitutions(newInstitutions.filter(item => {
-          var [_country] = item.split(':')
-          return country !== _country
-        }))
-      })
-    }
+      setInstitutions(newInstitutions)
+    })
+    setCountries(newCountries)
   }
 
   const onVedtakIdChange = (e) => {

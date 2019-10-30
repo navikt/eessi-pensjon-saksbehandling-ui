@@ -141,7 +141,8 @@ export const VarslerPanel = (props) => {
           <Nav.Veileder
             tekst={(
               <>
-                {!_.isEmpty(invite) ? <div dangerouslySetInnerHTML={{ __html: t(invite.message) }} />
+                {!_.isEmpty(invite)
+                  ? <div dangerouslySetInnerHTML={{ __html: t(invite.message) }} />
                   : <div dangerouslySetInnerHTML={{ __html: t('ui:widget-overview-sendNotification-description', { user: user }) }} />}
               </>
             )}

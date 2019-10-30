@@ -9,13 +9,13 @@ const statusList = {
   sent: 'suksess',
   received: 'info',
   cancelled: 'advarsel',
-  unknown: 'advarsel'
+  unknown: 'info'
 }
 
 const SEDStatus = ({ className, status, t }) => {
   const tagType = Object.prototype.hasOwnProperty.call(statusList, status) ? statusList[status] : statusList.unknown
   return (
-    <Nav.EtikettBase className={classNames('a-buc-c-sedstatus', className)} type={tagType}>
+    <Nav.EtikettBase className={classNames('a-buc-c-sedstatus', 'a-buc-c-sedstatus__' + status, className)} type={tagType}>
       {t('ui:' + status)}
     </Nav.EtikettBase>
   )

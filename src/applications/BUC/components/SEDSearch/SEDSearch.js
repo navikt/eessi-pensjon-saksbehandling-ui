@@ -66,7 +66,6 @@ const SEDSearch = ({ className, onSearch, onStatusSearch, t }) => {
 
 SEDSearch.propTypes = {
   className: PT.string,
-  locale: PT.string.isRequired,
   onSearch: PT.func.isRequired,
   onStatusSearch: PT.func.isRequired,
   seds: PT.array,

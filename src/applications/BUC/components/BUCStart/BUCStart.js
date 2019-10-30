@@ -61,16 +61,20 @@ const BUCStart = ({
   const validateSubjectArea = (subjectArea) => {
     if (!subjectArea || subjectArea === placeholders.subjectArea) {
       setValidationState('subjectAreaFail', t('buc:validation-chooseSubjectArea'))
+      return false
     } else {
       resetValidationState('subjectAreaFail')
+      return true
     }
   }
 
   const validateBuc = (buc) => {
     if (!buc || buc === placeholders.buc) {
       setValidationState('bucFail', t('buc:validation-chooseBuc'))
+      return false
     } else {
       resetValidationState('bucFail')
+      return true
     }
   }
 
@@ -92,9 +96,7 @@ const BUCStart = ({
   }
 
   const onForwardButtonClick = () => {
-    validateSubjectArea(_subjectArea)
-    validateBuc(_buc)
-    if (hasNoValidationErrors()) {
+    if (validateSubjectArea(_subjectArea) && validateBuc(_buc)) {
       actions.createBuc(_buc)
     }
   }

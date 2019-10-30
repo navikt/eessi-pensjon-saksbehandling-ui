@@ -100,7 +100,7 @@ const BUCDetail = ({ buc, bucInfo, className, institutionNames, locale, rinaUrl,
 
 BUCDetail.propTypes = {
   buc: PT.object.isRequired,
-  bucInfo: PT.object.isRequired,
+  bucInfo: PT.object,
   className: PT.string,
   institutionNames: PT.object,
   locale: PT.string.isRequired,
