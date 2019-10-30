@@ -114,6 +114,8 @@ export const VarslerPanel = (props) => {
         <Nav.Veileder
           tekst={t('pinfo:error-noParams')}
           posisjon='høyre'
+          type='feilmelding'
+          fargetema='feilmelding'
         >
           <VeilederSVG />
         </Nav.Veileder>
@@ -138,9 +140,14 @@ export const VarslerPanel = (props) => {
           </div>
           <Nav.Veileder
             tekst={(
-              <div dangerouslySetInnerHTML={{ __html: t('ui:widget-overview-sendNotification-description', { user: user }) }} />
+              <>
+                {!_.isEmpty(invite) ? <div dangerouslySetInnerHTML={{ __html: t(invite.message) }} />
+                  : <div dangerouslySetInnerHTML={{ __html: t('ui:widget-overview-sendNotification-description', { user: user }) }} />}
+              </>
             )}
-            posisjon='høyre'
+            type={invite ? (invite.status === 'ERROR' ? 'feilmelding' : 'suksess') : ''}
+            fargetema={invite ? (invite.status === 'ERROR' ? 'feilmelding' : 'suksess') : ''}
+            posisjon='bunn'
           >
             <VeilederSVG />
           </Nav.Veileder>
@@ -155,13 +162,6 @@ export const VarslerPanel = (props) => {
               {isInvitingPinfo ? t('sending') : t('ui:widget-overview-sendNotification-button')}
             </Nav.Hovedknapp>
           </div>
-          {!_.isEmpty(invite) ? (
-            <Nav.AlertStripe
-              className='mt-4 mb-4' type={invite.status === 'ERROR' ? 'advarsel' : 'suksess'}
-            >
-              {t(invite.message)}
-            </Nav.AlertStripe>
-          ) : null}
         </div>
         <div className='col-md-8'>
           <div className='w-varslerPanel__title'>
