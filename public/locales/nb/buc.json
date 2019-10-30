@@ -132,6 +132,7 @@
   "form-newSed"                       : "ny SED",
   "form-noBUCsFound"                  : "Ingen BUC-er funnet, vennligst start ny behandling",
   "form-noInstitutionYet"             : "Ingen mottakerinstitusjoner ennå",
+  "form-noAttachmentsYet"             : "Ingen vedlegg ennå",
   "form-notifyUser"                   : "Varsle bruker",
   "form-orderNewSED"                  : "Bestill ny SED",
   "form-orderSED"                     : "Bestill SED",

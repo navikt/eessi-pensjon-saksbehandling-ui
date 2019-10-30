@@ -10,7 +10,7 @@ import InstitutionList from 'applications/BUC/components/InstitutionList/Institu
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import './SEDListHeader.css'
 
-const SEDListHeader = ({ border = 'none', buc, className, institutionNames, locale, onSEDNew, sed, followUpSeds, t }) => {
+const SEDListHeader = ({ border = 'none', buc, className, institutionNames, locale, onSEDNew, sed, style, followUpSeds, t }) => {
   const institutionSenderList = sed.participants ? sed.participants
     .filter(participant => participant.role === 'Sender')
     .map(participant => {
@@ -37,6 +37,7 @@ const SEDListHeader = ({ border = 'none', buc, className, institutionNames, loca
 
   return (
     <Nav.PanelBase
+      style={style}
       className={classNames('a-buc-c-sedlistheader', 'w-100', 'p-0', className)}
     >
       <div className={classNames('a-buc-c-sedlistheader__content pt-2 pb-2', 'a-buc-c-sedlistheader__border-' + border)}>

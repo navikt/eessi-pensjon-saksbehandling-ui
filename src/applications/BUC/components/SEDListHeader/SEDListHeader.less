@@ -1,9 +1,5 @@
 .a-buc-c-sedlistheader {
 
-  transform: translateX(-20px);
-  opacity: 0;
-  animation: a-buc-c-sedlistheader-slideInFromLeft 0.2s forwards;
-
   &__border {
     &-full {
       border: 1px solid #59514B;
@@ -43,16 +39,5 @@
   &__actions {
     flex-direction: row;
     align-items: center;
-  }
-}
-
-@keyframes a-buc-c-sedlistheader-slideInFromLeft {
-  0% {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
   }
 }

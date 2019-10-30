@@ -7,7 +7,7 @@ import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
 import SEDPanelHeader from 'applications/BUC/components/SEDPanelHeader/SEDPanelHeader'
-import { sedSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import { getBucTypeLabel, sedSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import moment from 'moment'
 import './BUCEdit.css'
 
@@ -35,20 +35,27 @@ const BUCEdit = ({
     let match = true
     if (match && search) {
       const _search = search.toLowerCase()
-      match = sed.type.match(search) || _.find(sed.participants, (it) => {
-        const organizationId = it.organisation.id.toLowerCase()
-        const organizationName = it.organisation.name.toLowerCase()
-        const countryCode = it.organisation.countryCode.toLowerCase()
-        const countryName = CountryData.findByValue(locale, countryCode.toUpperCase()).label.toLowerCase()
-        const creationDate = moment(sed.creationDate).format('DD.MM.YYYY')
-        const lastUpdate = moment(sed.lastUpdate).format('DD.MM.YYYY')
-        const status = t('ui:' + sed.status).toLowerCase()
-        return organizationId.match(_search) || organizationName.match(_search) ||
+      const bucType = getBucTypeLabel({
+        t: t,
+        locale: locale,
+        type: sed.type
+      })
+      match = sed.type.toLowerCase().match(_search) ||
+        bucType.toLowerCase().match(_search) ||
+        _.find(sed.participants, (it) => {
+          const organizationId = it.organisation.id.toLowerCase()
+          const organizationName = it.organisation.name.toLowerCase()
+          const countryCode = it.organisation.countryCode.toLowerCase()
+          const countryName = CountryData.findByValue(locale, countryCode.toUpperCase()).label.toLowerCase()
+          const creationDate = moment(sed.creationDate).format('DD.MM.YYYY')
+          const lastUpdate = moment(sed.lastUpdate).format('DD.MM.YYYY')
+          const status = t('ui:' + sed.status).toLowerCase()
+          return organizationId.match(_search) || organizationName.match(_search) ||
           countryCode.match(_search) || countryName.match(_search) || creationDate.match(_search) ||
           lastUpdate.match(_search) || status.match(_search)
-      })
+        })
     }
-    if (match && statusSearch) {
+    if (match && !_.isEmpty(statusSearch)) {
       match = _.find(statusSearch, { value: sed.status })
     }
     return match
@@ -92,6 +99,7 @@ const BUCEdit = ({
                   actions={actions}
                   aktoerId={aktoerId}
                   attachments={attachments}
+                  style={{ animationDelay: (0.2 * index) + 's' }}
                   buc={buc}
                   locale={locale}
                   t={t}

@@ -299,18 +299,20 @@ const Step1 = ({
               />
             </>
           ) : null}
-        <div className='mt-4'>
-          <Nav.Undertittel className='mb-2'>{t('ui:attachments')}</Nav.Undertittel>
-          {_attachments ? Object.keys(_attachments).map((key, index1) => {
-            return _attachments[key].map((att, index2) => {
-              return (
-                <div key={index1 + '-' + index2}>
-                  {att.tittel || att.name} - {att.variant.variantformat} ({att.variant.filnavn})
-                </div>
-              )
-            })
-          }) : null}
-        </div>
+        {sedCanHaveAttachments() ? (
+          <div className='mt-4'>
+            <Nav.Undertittel className='mb-2'>{t('ui:attachments')}</Nav.Undertittel>
+            {!_.isEmpty(_attachments) ? Object.keys(_attachments).map((key, index1) => {
+              return _attachments[key].map((att, index2) => {
+                return (
+                  <Nav.Normaltekst key={index1 + '-' + index2}>
+                    {att.tittel || att.name} - {att.variant.variantformat} ({att.variant.filnavn})
+                  </Nav.Normaltekst>
+                )
+              })
+            }) : <Nav.Normaltekst>{t('buc:form-noAttachmentsYet')}</Nav.Normaltekst>}
+          </div>
+        ) : null }
         <div className='selectBoxMessage mt-2 mb-2'>{!loading ? null
           : loading.gettingSedList ? getSpinner('buc:loading-sed')
             : loading.institutionList ? getSpinner('buc:loading-institution')

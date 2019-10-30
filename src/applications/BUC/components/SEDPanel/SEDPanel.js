@@ -3,8 +3,9 @@ import { Nav } from 'eessi-pensjon-ui'
 import classNames from 'classnames'
 import SEDListHeader from 'applications/BUC/components/SEDListHeader/SEDListHeader'
 import SEDBody from '../SEDBody/SEDBody'
+import './SEDPanel.css'
 
-const SEDPanel = ({ actions, aktoerId, attachments, buc, followUpSeds, institutionNames, locale, onSEDNew, rinaUrl, sed, t }) => {
+const SEDPanel = ({ actions, aktoerId, attachments, buc, followUpSeds, institutionNames, locale, onSEDNew, rinaUrl, sed, style, t }) => {
   const sedHasOption = (sed) => {
     return sed.status === 'new'
   }
@@ -19,6 +20,7 @@ const SEDPanel = ({ actions, aktoerId, attachments, buc, followUpSeds, instituti
         rinaUrl={rinaUrl}
         institutionNames={institutionNames}
         locale={locale}
+        style={style}
         buc={buc}
         onSEDNew={onSEDNew}
       />
@@ -27,6 +29,7 @@ const SEDPanel = ({ actions, aktoerId, attachments, buc, followUpSeds, instituti
 
   return (
     <Nav.EkspanderbartpanelBase
+      style={style}
       className={classNames('a-buc-sedpanel', 'mb-3', 's-border')}
       heading={
         <SEDListHeader
