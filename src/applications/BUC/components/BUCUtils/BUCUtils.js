@@ -13,8 +13,8 @@ export const getBucTypeLabel = ({ type, locale, t }) => {
 const sedTypes = ['X', 'H', 'P']
 
 export const sedSorter = (a, b) => {
-  if (a.lastUpdate - b.lastUpdate > 0) return 1
-  if (a.lastUpdate - b.lastUpdate < 0) return -1
+  if (b.lastUpdate - a.lastUpdate > 0) return 1
+  if (b.lastUpdate - a.lastUpdate < 0) return -1
   const mainCompare = parseInt(a.type.replace(/[^\d]/g, ''), 10) - parseInt(b.replace.type(/[^\d]/g, ''), 10)
   const sedTypeA = a.type.charAt(0)
   const sedTypeB = b.type.charAt(0)
