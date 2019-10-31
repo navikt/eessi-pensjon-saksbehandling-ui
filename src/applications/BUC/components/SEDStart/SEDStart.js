@@ -219,9 +219,6 @@ export const SEDStart = (props) => {
        !loading.creatingSed && !sendingAttachments &&
        (sedNeedsVedtakId() ? _.isNumber(_vedtakId) && !_.isNaN(_vedtakId) : true)
     }
-    if (step === 1) {
-      return _sed === 'P4000' ? p4000info && !_.isEmpty(p4000info.stayAbroad) : true
-    }
     return false
   }
 

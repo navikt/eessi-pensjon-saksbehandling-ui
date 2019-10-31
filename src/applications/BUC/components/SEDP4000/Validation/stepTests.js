@@ -1,11 +1,5 @@
 import * as tests from './singleTests'
 
-export const stayAbroadStep = (stayAbroad) => {
-  return {
-    noPeriods: tests.stayAbroadValidation.noPeriods(stayAbroad)
-  }
-}
-
 export const periodStep = (period) => {
   const errors = {
     startDate: tests.periodValidation.periodStartDate(period.startDate),

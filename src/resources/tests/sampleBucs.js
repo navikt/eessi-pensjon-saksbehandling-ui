@@ -26,8 +26,8 @@ export default [
         institution: 'FI:DEMO002'
       },
       {
-        country: 'DK',
-        institution: 'DK:DEMO003'
+        country: 'UK',
+        institution: 'UK:DEMO003'
       },
       {
         country: 'PT',

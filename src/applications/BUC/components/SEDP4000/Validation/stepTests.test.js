@@ -3,16 +3,6 @@ import _ from 'lodash'
 import sampleP4000info from 'resources/tests/sampleP4000info'
 
 describe('applications/BUC/components/SEDP4000/Validation/stepTests', () => {
-  it('stayAbroadStep', () => {
-    const stayAbroad = []
-    let errors = stepTests.stayAbroadStep(stayAbroad)
-    expect(errors.noPeriods).toEqual('pinfo:validation-noPeriods')
-
-    const period = _(sampleP4000info.stayAbroad).find(it => it.type === 'work')
-    stayAbroad.push(period)
-    errors = stepTests.stayAbroadStep(stayAbroad)
-    expect(_(errors).find(err => err !== undefined)).toEqual(undefined)
-  })
 
   it('periodStep - work', () => {
     let period = { type: 'work' }
