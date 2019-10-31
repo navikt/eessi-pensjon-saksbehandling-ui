@@ -40,7 +40,7 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
   })
 
   it('Renders null without bucs', () => {
-    wrapper = mount(<BUCEdit {...initialMockProps} bucs={[]} />)
+    wrapper = mount(<BUCEdit {...initialMockProps} bucs={{}} />)
     expect(wrapper.isEmptyRender()).toBeTruthy()
   })
 

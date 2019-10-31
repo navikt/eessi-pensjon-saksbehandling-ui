@@ -51,7 +51,7 @@ const mapDispatchToProps = /* istanbul ignore next */ (dispatch) => {
 }
 
 export const BUCIndex = (props) => {
-  const { actions, aktoerId, avdodfnr, avdodBucs, bucs, currentBuc, loading, mode, onFullFocus, onRestoreFocus } = props
+  const { actions, aktoerId, allowFullScreen, avdodfnr, avdodBucs, bucs, currentBuc, loading, mode, onFullFocus, onRestoreFocus } = props
   const { rinaUrl, sakId, t, waitForMount = true, sakType } = props
   const [mounted, setMounted] = useState(!waitForMount)
   const [_avdodfnr, setAvdodfnr] = useState('')
@@ -88,12 +88,14 @@ export const BUCIndex = (props) => {
 
   const setMode = useCallback((mode) => {
     actions.setMode(mode)
-    if (mode === 'bucnew' || mode === 'sednew') {
-      onFullFocus()
-    } else {
-      onRestoreFocus()
+    if (allowFullScreen) {
+      if (mode === 'bucnew' || mode === 'sednew') {
+        onFullFocus()
+      } else {
+        onRestoreFocus()
+      }
     }
-  }, [actions, onRestoreFocus, onFullFocus])
+  }, [actions, allowFullScreen, onRestoreFocus, onFullFocus])
 
   useEffect(() => {
     if (loading.gettingBUCs && mode !== 'buclist') {
@@ -154,6 +156,7 @@ export const BUCIndex = (props) => {
 BUCIndex.propTypes = {
   actions: PT.object.isRequired,
   aktoerId: PT.string,
+  allowFullScreen: PT.bool,
   avdodfnr: PT.string,
   avdodBucs: PT.object,
   bucs: PT.object,

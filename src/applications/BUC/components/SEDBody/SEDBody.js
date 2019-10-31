@@ -32,7 +32,7 @@ const SEDBody = ({ actions, attachments, aktoerId, buc, t, sed }) => {
       setSeeAttachmentPanel(false)
       actions.resetSedAttachments()
     }
-  }, [actions, attachmentsSent])
+  }, [actions, attachmentsSent, sendingAttachments])
 
   const onUploadAttachments = () => {
     setSendingAttachments(true)

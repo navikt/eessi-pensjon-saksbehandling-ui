@@ -9,11 +9,7 @@ const PersonTitle = ({ gettingPersonInfo, person, t }) => {
   let birthDate
   let deathDate
 
-  if (!person) {
-    return null
-  }
-
-  if (gettingPersonInfo) {
+  if (!person || gettingPersonInfo) {
     return <WaitingPanel className='w-overview-personPanel__waiting' message={t('ui:loading')} />
   }
 

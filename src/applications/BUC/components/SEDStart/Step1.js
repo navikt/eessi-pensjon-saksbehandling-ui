@@ -150,6 +150,7 @@ const Step1 = ({
       setInstitutions(newInstitutions)
     })
     setCountries(newCountries)
+    validateCountries(newCountries)
   }
 
   const onVedtakIdChange = (e) => {

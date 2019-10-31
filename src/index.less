@@ -1,5 +1,5 @@
 @import './constants';
-
+@import './keyframes';
 body {
   margin: 0;
   padding: 0;
@@ -76,42 +76,15 @@ pre {
 }
 
 .ekspanderbartPanel--apen .ReactCollapse--collapse {
-  transition: all 300ms ease;
+  will-change: max-height, height;
+  max-height: 150em;
+  animation: animation-open 250ms ease;
 }
 
 .ekspanderbartPanel--lukket .ReactCollapse--collapse {
-  transition: all 300ms ease;
-}
-
-@keyframes xxx {
-  0% {
-    transform: scaleY(0);
-
-  }
-  100% {
-    transform: scaleY(1);
-  }
-}
-
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0.01;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes slideInFromLeft {
-  0% {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  will-change: max-height, height;
+  max-height: 0;
+  animation: animation-close 250ms ease;
 }
 
 li.stegindikator__steg {

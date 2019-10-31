@@ -61,7 +61,33 @@ const defaultWidgets = [{
   type: 'buc',
   title: 'BUC widget',
   visible: true,
+  options: {
+    allowFullScreen: true
+  }
+}, {
+  i: 'w-3-varsler',
+  type: 'varsler',
+  title: 'Varsler widget',
+  visible: true,
   options: {}
+}]
+
+const defaultWidgetsWithVarsel = [{
+  i: 'w-1-overview',
+  type: 'overview',
+  title: 'Overview widget',
+  visible: true,
+  options: {
+    collapsed: true
+  }
+}, {
+  i: 'w-2-buc',
+  type: 'buc',
+  title: 'BUC widget',
+  visible: true,
+  options: {
+    allowFullScreen: false
+  }
 }, {
   i: 'w-3-varsler',
   type: 'varsler',
@@ -100,7 +126,7 @@ export const IndexPage = ({ history, t, username }) => {
       <Dashboard
         id='eessi-pensjon-ui-fss'
         extraWidgets={extraWidgets}
-        defaultWidgets={defaultWidgets}
+        defaultWidgets={username === 'Z990706' ? defaultWidgetsWithVarsel : defaultWidgets}
         defaultLayout={username === 'Z990706' ? defaultLayoutWithVarsel : defaultLayout}
         defaultConfig={defaultConfig}
         allowedWidgets={allowedWidgets}

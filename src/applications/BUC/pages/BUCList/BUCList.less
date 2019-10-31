@@ -10,23 +10,12 @@
   &__buc{
     transform: translateX(-20px);
     opacity: 0;
-    animation: a-buc-buclist-slideInFromLeft 0.2s forwards;
+    animation: slideInFromLeft 0.2s forwards;
   }
 
   &__sedheader {
     display: flex;
     justify-content: space-between;
     border-bottom: 2px solid grey;
-  }
-}
-
-@keyframes a-buc-buclist-slideInFromLeft {
-  0% {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
   }
 }

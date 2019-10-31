@@ -18,6 +18,10 @@ const BUCEdit = ({
   const [search, setSearch] = useState(initialSearch)
   const [statusSearch, setStatusSearch] = useState(initialStatusSearch)
 
+  if (_.isEmpty(bucs) || !currentBuc) {
+    return null
+  }
+
   const onSEDNew = (sed) => {
     actions.setCurrentSed(sed ? sed.id : undefined)
     setMode('sednew')
@@ -59,10 +63,6 @@ const BUCEdit = ({
       match = _.find(statusSearch, { value: sed.status })
     }
     return match
-  }
-
-  if (_.isEmpty(bucs) || !currentBuc) {
-    return null
   }
 
   const buc = bucs[currentBuc]
@@ -149,7 +149,7 @@ BUCEdit.propTypes = {
   attachments: PT.array,
   bucs: PT.object.isRequired,
   bucsInfo: PT.object,
-  currentBuc: PT.string.isRequired,
+  currentBuc: PT.string,
   initialSearch: PT.string,
   initialStatusSearch: PT.string,
   institutionNames: PT.object,
