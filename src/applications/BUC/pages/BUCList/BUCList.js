@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import * as storage from 'constants/storage'
 import _ from 'lodash'
 import moment from 'moment'
-import { Nav, WaitingPanel } from 'eessi-pensjon-ui'
+import { ExpandingPanel, Nav, WaitingPanel } from 'eessi-pensjon-ui'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import SEDList from 'applications/BUC/components/SEDList/SEDList'
@@ -115,7 +115,7 @@ const BUCList = ({ actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionL
             const bucId = buc.caseId
             const bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId] : {}
             return (
-              <Nav.EkspanderbartpanelBase
+              <ExpandingPanel
                 id={'a-buc-buclist__buc-' + bucId}
                 className={classNames('a-buc-buclist__buc', 'mb-3', 's-border')}
                 key={index}
@@ -155,7 +155,7 @@ const BUCList = ({ actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionL
                   institutionNames={institutionNames}
                   onSEDNew={onSEDNew}
                 />
-              </Nav.EkspanderbartpanelBase>
+              </ExpandingPanel>
             )
           }) : null}
       <BUCFooter className='w-100 mt-2 mb-2' rinaUrl={rinaUrl} t={t} />
