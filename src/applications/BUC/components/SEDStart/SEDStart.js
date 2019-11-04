@@ -144,7 +144,7 @@ export const SEDStart = (props) => {
   }
 
   const sedCanHaveAttachments = () => {
-    return _sed !== undefined && _sed !== 'P5000' && _sed !== 'P7000' && _sed !== 'H070'
+    return _sed !== undefined && _sed !== 'P4000' && _sed !== 'P5000' && _sed !== 'P7000' && _sed !== 'H070'
   }
 
   const convertInstitutionIDsToInstitutionObjects = () => {
@@ -209,7 +209,7 @@ export const SEDStart = (props) => {
   }
 
   const createSedNeedsMoreSteps = () => {
-    return step === 0 && _sed === 'P4000'
+    return false
   }
 
   const allowedToForward = () => {

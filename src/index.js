@@ -25,7 +25,6 @@ import * as routes from 'constants/routes'
 import { unregister } from 'registerServiceWorker'
 import AuthenticatedRoute from 'components/AuthenticatedRoute/AuthenticatedRoute'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import 'eessi-pensjon-ui/dist/nav.css'
 import 'index.css'
 import 'index_highContrast.css'
 
