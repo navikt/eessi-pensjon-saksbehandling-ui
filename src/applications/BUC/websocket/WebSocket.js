@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
-import { Icons, Nav } from 'eessi-pensjon-ui'
+import { Icons } from 'eessi-pensjon-ui'
 import { WEBSOCKET_LOCALHOST_URL } from 'constants/urls'
 import { IS_TEST } from 'constants/environment'
 
@@ -101,23 +101,21 @@ const BucWebSocket = ({ actions, aktoerId, avdodfnr }) => {
   const getAnchor = () => {
     switch (status) {
       case CONNECTED:
-        return <Icons kind='checkCircle' />
+        return 'checkCircle'
       case NOTCONNECTED:
       case ERROR:
-        return <Icons kind='removeCircle' />
+        return 'removeCircle'
       case CONNECTING:
       case RECEIVING:
-        return <Icons kind='connecting' />
+        return 'connecting'
       default:
-        return null
+        return 'unknown'
     }
   }
 
   return (
     <div className='a-buc-websocket' title={'websocket: ' + status}>
-      <Nav.HjelpetekstAuto anchor={getAnchor}>
-        {log}
-      </Nav.HjelpetekstAuto>
+      <Icons kind={getAnchor()} size={24} onClick={() => console.log(log)} />
     </div>
   )
 }

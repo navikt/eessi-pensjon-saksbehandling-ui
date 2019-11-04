@@ -7,14 +7,14 @@ const PeriodCategorySelect = ({ mode, period, setType, t }) => (
     <div className='col-sm-8'>
       <Nav.Select
         id='a-buc-c-sedp4000-period__kategori-select'
-        label={
+        label={(
           <div className='a-buc-c-sedp4000-period__label'>
             <span>{t('buc:p4000-label-category')}</span>
-            <Nav.HjelpetekstAuto id='p4000-category-select-help'>
+            <Nav.Hjelpetekst id='p4000-category-select-help'>
               {t('buc:p4000-help-category')}
-            </Nav.HjelpetekstAuto>
+            </Nav.Hjelpetekst>
           </div>
-        }
+        )}
         onChange={setType}
         value={period.type || ''}
       >

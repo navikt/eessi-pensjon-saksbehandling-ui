@@ -48,9 +48,9 @@ const PeriodWork = ({
           label={
             <div className='a-buc-c-sedp4000-period__label'>
               <Nav.UndertekstBold>{t('buc:p4000-label-work-activity')}</Nav.UndertekstBold>
-              <Nav.HjelpetekstAuto id='p4000-help-work-activity'>
+              <Nav.Hjelpetekst id='p4000-help-work-activity'>
                 {t('buc:p4000-help-work-activity')}
-              </Nav.HjelpetekstAuto>
+              </Nav.Hjelpetekst>
             </div>
           }
           placeholder={t('ui:writeIn')}
@@ -66,9 +66,9 @@ const PeriodWork = ({
           label={
             <div className='a-buc-c-sedp4000-period__label'>
               <Nav.UndertekstBold>{t('buc:p4000-label-insurance-id')}</Nav.UndertekstBold>
-              <Nav.HjelpetekstAuto id='p4000-help-insurance-id'>
+              <Nav.Hjelpetekst id='p4000-help-insurance-id'>
                 {t('buc:p4000-help-insurance-id')}
-              </Nav.HjelpetekstAuto>
+              </Nav.Hjelpetekst>
             </div>
           }
           placeholder={t('ui:writeIn')}
@@ -107,9 +107,9 @@ const PeriodWork = ({
           label={
             <div className='a-buc-c-sedp4000-period__label'>
               <Nav.UndertekstBold>{t('buc:p4000-label-work-street')}</Nav.UndertekstBold>
-              <Nav.HjelpetekstAuto id='p4000-help-work-street'>
+              <Nav.Hjelpetekst id='p4000-help-work-street'>
                 {t('buc:p4000-help-work-street')}
-              </Nav.HjelpetekstAuto>
+              </Nav.Hjelpetekst>
             </div>
           }
           value={period.workStreet || ''}
@@ -125,9 +125,9 @@ const PeriodWork = ({
           label={
             <div className='a-buc-c-sedp4000-period__label'>
               <Nav.UndertekstBold>{t('buc:p4000-label-work-city')}</Nav.UndertekstBold>
-              <Nav.HjelpetekstAuto id='p4000-help-work-city'>
+              <Nav.Hjelpetekst id='p4000-help-work-city'>
                 {t('buc:p4000-help-work-city')}
-              </Nav.HjelpetekstAuto>
+              </Nav.Hjelpetekst>
             </div>
           }
           value={period.workCity || ''}
@@ -143,9 +143,9 @@ const PeriodWork = ({
           label={
             <div className='a-buc-c-sedp4000-period__label'>
               <Nav.UndertekstBold>{t('buc:p4000-label-work-zipcode')}</Nav.UndertekstBold>
-              <Nav.HjelpetekstAuto id='p4000-help-work-zipcode'>
+              <Nav.Hjelpetekst id='p4000-help-work-zipcode'>
                 {t('buc:p4000-help-work-zipcode')}
-              </Nav.HjelpetekstAuto>
+              </Nav.Hjelpetekst>
             </div>
           }
           value={period.workZipCode || ''}
@@ -161,9 +161,9 @@ const PeriodWork = ({
           label={
             <div className='a-buc-c-sedp4000-period__label'>
               <Nav.UndertekstBold>{t('buc:p4000-label-work-region')}</Nav.UndertekstBold>
-              <Nav.HjelpetekstAuto id='p4000-help-work-region'>
+              <Nav.Hjelpetekst id='p4000-help-work-region'>
                 {t('buc:p4000-help-work-region')}
-              </Nav.HjelpetekstAuto>
+              </Nav.Hjelpetekst>
             </div>
           }
           value={period.workRegion || ''}

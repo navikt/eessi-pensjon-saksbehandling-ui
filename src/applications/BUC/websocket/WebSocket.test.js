@@ -38,12 +38,12 @@ describe('applications/BUC/websocket/WebSocket', () => {
 
   it('Has proper HTML structure', () => {
     expect(wrapper.exists('.a-buc-websocket')).toBeTruthy()
-    expect(wrapper.exists('HjelpetekstAuto')).toBeTruthy()
+    expect(wrapper.exists('Hjelpetekst')).toBeTruthy()
   })
 
   it('Starts by trying to connect', () => {
-    wrapper.find('HjelpetekstAuto button').simulate('click')
-    const logs = wrapper.find('HjelpetekstAuto span.log').hostNodes().render().html()
+    wrapper.find('Hjelpetekst button').simulate('click')
+    const logs = wrapper.find('Hjelpetekst span.log').hostNodes().render().html()
     expect(_(logs).endsWith('Connecting to ws://localhost:8888...')).toBeTruthy()
   })
 
@@ -52,7 +52,7 @@ describe('applications/BUC/websocket/WebSocket', () => {
       await new Promise(resolve => {
         setTimeout(() => {
           wrapper.update()
-          const logs = wrapper.find('HjelpetekstAuto span.log')
+          const logs = wrapper.find('Hjelpetekst span.log')
           expect(logs.length).toBe(3)
           expect(_(logs.at(0).render().html()).endsWith('Connecting to ws://localhost:8888...')).toBeTruthy()
           expect(_(logs.at(1).render().html()).endsWith('Connected')).toBeTruthy()
@@ -69,7 +69,7 @@ describe('applications/BUC/websocket/WebSocket', () => {
         mockSocket.send(JSON.stringify({ bucUpdated: { caseId: '123' } }))
         setTimeout(() => {
           wrapper.update()
-          const logs = wrapper.find('HjelpetekstAuto span.log')
+          const logs = wrapper.find('Hjelpetekst span.log')
           expect(logs.length).toBe(4)
           expect(_(logs.at(3).render().html()).endsWith('Updating buc 123')).toBeTruthy()
           expect(initialMockProps.actions.fetchSingleBuc).toHaveBeenCalledWith('123')

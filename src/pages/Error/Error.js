@@ -2,7 +2,7 @@ import React from 'react'
 import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
-import { Nav, Psycho } from 'eessi-pensjon-ui'
+import { Nav, EESSIPensjonVeileder } from 'eessi-pensjon-ui'
 import TopContainer from 'components/TopContainer/TopContainer'
 
 import './Error.css'
@@ -37,8 +37,8 @@ export const Error = ({ history, t, type }) => {
       header={t('app-headerTitle')}
     >
       <div className='col-md-12 text-center'>
-        <div className='psycho mt-3 mb-4'>
-          <Psycho mood='trist' id='psycho' />
+        <div className='EESSIPensjonVeileder mt-3 mb-4'>
+          <EESSIPensjonVeileder mood='trist' id='EESSIPensjonVeileder' />
         </div>
         <Nav.Undertittel className='title m-4'>
           {title}

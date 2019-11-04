@@ -13,9 +13,9 @@ const PeriodComment = ({ period, setComment, t }) => (
           <div className='a-buc-c-sedp4000-period__label'>
             <div className='a-buc-c-sedp4000-period__label'>
               <Nav.UndertekstBold>{t('buc:p4000-label-comment-info')}</Nav.UndertekstBold>
-              <Nav.HjelpetekstAuto id='a-buc-c-sedp4000-period__comment-help'>
+              <Nav.Hjelpetekst id='a-buc-c-sedp4000-period__comment-help'>
                 {t('buc:p4000-help-comment-info')}
-              </Nav.HjelpetekstAuto>
+              </Nav.Hjelpetekst>
             </div>
             <Nav.Normaltekst className='optional'>{t('ui:optional')}</Nav.Normaltekst>
           </div>

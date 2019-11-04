@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
-import { MultipleSelect, Nav, PsychoPanel, WaitingPanel } from 'eessi-pensjon-ui'
+import { MultipleSelect, Nav, EESSIPensjonVeilederPanel, WaitingPanel } from 'eessi-pensjon-ui'
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 
 const placeholders = {
@@ -193,7 +193,7 @@ const BUCStart = ({
             {t('buc:app-startCaseDescription')}
           </Nav.Systemtittel>
           <div className='mb-5'>
-            <PsychoPanel closeButton>{t('help-startCase2')}</PsychoPanel>
+            <EESSIPensjonVeilederPanel closeButton>{t('help-startCase2')}</EESSIPensjonVeilederPanel>
           </div>
         </>
       ) : null}
