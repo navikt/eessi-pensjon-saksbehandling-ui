@@ -7,7 +7,8 @@ import './SEDPanel.css'
 
 const SEDPanel = ({ actions, aktoerId, attachments, buc, followUpSeds, institutionNames, locale, onSEDNew, rinaUrl, sed, style, t }) => {
   const sedHasOption = (sed) => {
-    return sed.status === 'new'
+    const allowedStatus = ['new', 'active']
+    return _.includes(allowedStatus, sed.status)
   }
 
   if (!sedHasOption(sed)) {

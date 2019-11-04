@@ -314,6 +314,13 @@
 
   "p4000-warning-home-period" : "Legg inn boperioder hvis du ikke har hatt arbeids-, utdannings-, militær- eller siviltjenesteperioder i samme tidsrom.",
 
+  "status-active" : "Under oppdatering",
+  "status-cancelled": "Ugyldiggjort",
+  "status-new" : "Utkast",
+  "status-received" : "Mottatt",
+  "status-sent" : "Sendt",
+  "stauts-unknown" : "Ukjent",
+
   "tag-urgent"    : "Urgent",
   "tag-vip"       : "VIP",
   "tag-sensitive" : "Sensitive",

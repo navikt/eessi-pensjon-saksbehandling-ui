@@ -7,7 +7,7 @@ describe('applications/BUC/components/SEDStatus/SEDStatus', () => {
   }
 
   it('Renders', () => {
-    const wrapper = shallow(<SEDStatus {...initialMockProps} status='draft' />)
+    const wrapper = shallow(<SEDStatus {...initialMockProps} status='new' />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })

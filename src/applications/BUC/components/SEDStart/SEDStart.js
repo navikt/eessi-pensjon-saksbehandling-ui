@@ -144,7 +144,8 @@ export const SEDStart = (props) => {
   }
 
   const sedCanHaveAttachments = () => {
-    return _sed !== undefined && _sed !== 'P4000' && _sed !== 'P5000' && _sed !== 'P7000' && _sed !== 'H070'
+    const sedsWithoutAttachments = ['P4000', 'P5000', 'P7000', 'H070']
+    return _sed !== undefined && !_.includes(sedsWithoutAttachments, _sed)
   }
 
   const convertInstitutionIDsToInstitutionObjects = () => {
