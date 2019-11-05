@@ -18,18 +18,15 @@ export const listJoarkFiles = (userId) => {
   })
 }
 
-export const previewJoarkFile = (item, variant) => {
+export const getPreviewJoarkFile = (item) => {
   return api.call({
     url: sprintf(urls.API_JOARK_GET_URL, {
       dokumentInfoId: item.dokumentInfoId,
       journalpostId: item.journalpostId,
-      variantformat: variant.variantformat
+      variantformat: item.variant.variantformat
     }),
     expectedPayload: getMockedPayload(item.journalpostId),
-    context: {
-      ...item,
-      variant: variant
-    },
+    context: item,
     type: {
       request: types.JOARK_PREVIEW_REQUEST,
       success: types.JOARK_PREVIEW_SUCCESS,
@@ -38,18 +35,22 @@ export const previewJoarkFile = (item, variant) => {
   })
 }
 
-export const getJoarkFile = (item, variant) => {
+export const setPreviewJoarkFile = (item) => {
+  return {
+    type: types.JOARK_PREVIEW_SET,
+    payload: item
+  }
+}
+
+export const getJoarkFile = (item) => {
   return api.call({
     url: sprintf(urls.API_JOARK_GET_URL, {
       dokumentInfoId: item.dokumentInfoId,
       journalpostId: item.journalpostId,
-      variantformat: variant.variantformat
+      variantformat: item.variant.variantformat
     }),
     expectedPayload: getMockedPayload(item.journalpostId),
-    context: {
-      ...item,
-      variant: variant
-    },
+    context: item,
     type: {
       request: types.JOARK_GET_REQUEST,
       success: types.JOARK_GET_SUCCESS,

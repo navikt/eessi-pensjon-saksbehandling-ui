@@ -1,6 +1,7 @@
 import React from 'react'
 import { Nav } from 'eessi-pensjon-ui'
 import classNames from 'classnames'
+import _ from 'lodash'
 import SEDListHeader from 'applications/BUC/components/SEDListHeader/SEDListHeader'
 import SEDBody from '../SEDBody/SEDBody'
 import './SEDPanel.css'

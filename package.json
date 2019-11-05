@@ -26,7 +26,7 @@
     "bootstrap": "^4.3.1",
     "classnames": "^2.2.6",
     "core-js": "^3.3.6",
-    "eessi-pensjon-ui": "https://github.com/navikt/eessi-pensjon-ui#1.2.7",
+    "eessi-pensjon-ui": "https://github.com/navikt/eessi-pensjon-ui#1.2.9",
     "history": "^4.10.1",
     "http-proxy-middleware": "^0.20.0",
     "i18next": "^19.0.0",
@@ -48,7 +48,7 @@
     "url-search-params-polyfill": "^7.0.0"
   },
   "devDependencies": {
-    "@babel/runtime": "^7.6.3",
+    "@babel/runtime": "^7.7.1",
     "acorn": "^7.1.0",
     "cross-env": "^6.0.3",
     "enzyme": "^3.10.0",
@@ -76,7 +76,7 @@
   ],
   "standard": {
     "ignore": [
-      "public/*.js"
+      "public/**/*.js"
     ],
     "parser": "babel-eslint",
     "globals": [

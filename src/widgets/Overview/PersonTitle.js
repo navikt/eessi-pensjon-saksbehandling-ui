@@ -22,9 +22,9 @@ const PersonTitle = ({ gettingPersonInfo, person, t }) => {
   }
   if (person && person.doedsdato && person.doedsdato.doedsdato) {
     deathDate = moment(person.doedsdato.doedsdato)
-     if (deathDate) {
-        deathDate = deathDate.toDate()
-     }
+    if (deathDate) {
+      deathDate = deathDate.toDate()
+    }
   }
 
   const age = (deathDate ? deathDate.getFullYear() : new Date().getFullYear()) - birthDate.getFullYear()

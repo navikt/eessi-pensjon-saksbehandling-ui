@@ -55,6 +55,12 @@ const joarkReducer = (state = initialJoarkState, action = {}) => {
         }
       }
 
+    case types.JOARK_PREVIEW_SET:
+      return {
+        ...state,
+        previewFile: action.payload
+      }
+
     case types.JOARK_PREVIEW_SUCCESS:
       return {
         ...state,

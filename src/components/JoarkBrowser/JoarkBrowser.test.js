@@ -26,7 +26,7 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
   const initialMockProps = {
     actions: {
       listJoarkFiles: jest.fn(),
-      previewJoarkFile: jest.fn()
+      getPreviewJoarkFile: jest.fn()
     },
     aktoerId: '123',
     file: undefined,
@@ -110,9 +110,9 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
   })
 
   it('Calls onItemClicked', () => {
-    initialMockProps.actions.previewJoarkFile.mockReset()
+    initialMockProps.actions.getPreviewJoarkFile.mockReset()
     wrapper.find('.c-joarkbrowser__subcell a').hostNodes().first().simulate('click')
-    expect(initialMockProps.actions.previewJoarkFile).toHaveBeenCalledWith(expect.objectContaining({
+    expect(initialMockProps.actions.getPreviewJoarkFile).toHaveBeenCalledWith(expect.objectContaining({
       datoOpprettet: expect.any(Date),
       dokumentInfoId: '4',
       journalpostId: '1',

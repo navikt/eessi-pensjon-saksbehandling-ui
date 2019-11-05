@@ -6,7 +6,7 @@ import AttachmentStep1 from './AttachmentStep1'
 import AttachmentStep2 from './AttachmentStep2'
 
 const SEDAttachments = (props) => {
-  const { t, initialStep = 1, open = false, onOpen } = props
+  const { t, initialStep = 1, open = false, onOpen, onSubmit } = props
   const [step, setStep] = useState(initialStep)
 
   const handleButtonClick = () => {
@@ -14,13 +14,9 @@ const SEDAttachments = (props) => {
       onOpen()
     }
   }
+
   return (
     <div className='a-buc-c-sedattachments'>
-      {open && step === 1 ? (
-        <Nav.Undertittel className='mt-4 mb-3'>
-          {t('buc:form-addAttachmentsFromJOARK')}
-        </Nav.Undertittel>
-      ) : null}
       {!open ? (
         <Nav.Knapp
           id='a-buc-c-sedattachments__enable-button-id'
@@ -34,8 +30,8 @@ const SEDAttachments = (props) => {
           </div>
         </Nav.Knapp>
       ) : null}
-      {open && step === 1 ? <AttachmentStep1 setStep={setStep} {...props} /> : null}
-      {open && step === 2 ? <AttachmentStep2 setStep={setStep} {...props} /> : null}
+      {open && step === 1 ? <AttachmentStep1 setStep={setStep} onSubmit={onSubmit} {...props} /> : null}
+      {open && step === 2 ? <AttachmentStep2 setStep={setStep} onSubmit={onSubmit} {...props} /> : null}
     </div>
   )
 }
@@ -43,6 +39,7 @@ const SEDAttachments = (props) => {
 SEDAttachments.propTypes = {
   open: PT.bool,
   onOpen: PT.func,
+  onSubmit: PT.func,
   t: PT.func.isRequired,
   initialStep: PT.number
 }

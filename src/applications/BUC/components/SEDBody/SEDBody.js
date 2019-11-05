@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import SEDAttachments from '../SEDAttachments/SEDAttachments'
 import { Nav } from 'eessi-pensjon-ui'
 import { IS_TEST } from 'constants/environment'
-import _ from 'lodash'
 import SEDAttachmentSender from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 
 const SEDBody = ({ actions, attachments, aktoerId, buc, t, sed }) => {
@@ -10,17 +9,6 @@ const SEDBody = ({ actions, attachments, aktoerId, buc, t, sed }) => {
   const [sendingAttachments, setSendingAttachments] = useState(false)
   const [attachmentsSent, setAttachmentsSent] = useState(false)
   const [seeAttachmentPanel, setSeeAttachmentPanel] = useState(false)
-
-  const setFiles = (files) => {
-    setAttachments({
-      ..._attachments,
-      joark: files.joark
-    })
-  }
-
-  const allowedToUpload = () => {
-    return !sendingAttachments && !_.isEmpty(_attachments.joark)
-  }
 
   useEffect(() => {
     // cleanup after attachments sent
@@ -34,32 +22,25 @@ const SEDBody = ({ actions, attachments, aktoerId, buc, t, sed }) => {
     }
   }, [actions, attachmentsSent, sendingAttachments])
 
-  const onUploadAttachments = () => {
+  const onHandleSubmit = (files) => {
+    setAttachments({
+      ..._attachments,
+      joark: files.joark
+    })
     setSendingAttachments(true)
   }
 
   return (
     <div className='a-buc-c-sedbody'>
-
       <div className='mt-4 mb-4'>
         <Nav.Undertittel className='mb-2'>{t('ui:attachments')}</Nav.Undertittel>
-        {_attachments ? Object.keys(_attachments).map((key, index1) => {
-          return _attachments[key].map((att, index2) => {
-            return (
-              <div key={index1 + '-' + index2}>
-                {key}: {att.tittel || att.name}
-                {att.variant ? '- ' + att.variant.variantformat + '(' + att.variant.filnavn + ')' : ''}
-              </div>
-            )
-          })
-        }) : null}
       </div>
       <SEDAttachments
         t={t}
         files={_attachments}
-        setFiles={setFiles}
         open={seeAttachmentPanel}
         onOpen={() => { setSeeAttachmentPanel(!seeAttachmentPanel) }}
+        onSubmit={onHandleSubmit}
       />
       {sendingAttachments ? (
         <SEDAttachmentSender
@@ -70,23 +51,10 @@ const SEDBody = ({ actions, attachments, aktoerId, buc, t, sed }) => {
           sed={sed}
           allAttachments={_attachments.joark}
           savedAttachments={attachments}
-          onFinished={() => {
-            setAttachmentsSent(true)
-          }}
+          onFinished={() => setAttachmentsSent(true)}
           t={t}
         />
       ) : null}
-      <div className='mt-4'>
-        <Nav.Hovedknapp
-          id='a-buc-sedbody__upload-button-id'
-          className='a-buc-sedbody__upload-button'
-          disabled={!allowedToUpload()}
-          spinner={sendingAttachments}
-          onClick={() => onUploadAttachments()}
-        >
-          {sendingAttachments ? t('buc:loading-sendingSEDattachments') : t('buc:form-uploadAttachments')}
-        </Nav.Hovedknapp>
-      </div>
     </div>
   )
 }

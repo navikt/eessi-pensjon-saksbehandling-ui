@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import { connect, bindActionCreators } from 'store'
 import * as joarkActions from 'actions/joark'
 import * as uiActions from 'actions/ui'
-import { File, Modal, Nav, TableSorter, WaitingPanel } from 'eessi-pensjon-ui'
+import { File, Icons, Modal, Nav, TableSorter, WaitingPanel } from 'eessi-pensjon-ui'
 import './JoarkBrowser.css'
 
 const mapStateToProps = /* istanbul ignore next */ (state) => {
@@ -25,7 +25,7 @@ const mapDispatchToProps = /* istanbul ignore next */ (dispatch) => {
 
 export const JoarkBrowser = ({
   actions, aktoerId, file, files, list, loadingJoarkList,
-  loadingJoarkFile, loadingJoarkPreviewFile, onFilesChange, onPreviewFile, previewFile, t
+  loadingJoarkFile, loadingJoarkPreviewFile, mode = 'view', onFilesChange, onPreviewFile, previewFile, t
 }) => {
   const [_file, setFile] = useState(file)
   const [_previewFile, setPreviewFile] = useState(previewFile)
@@ -38,6 +38,18 @@ export const JoarkBrowser = ({
     }
     setMounted(true)
   }, [mounted, list, loadingJoarkList, actions, aktoerId])
+
+  const equalFiles = (a, b) => {
+    if (!a && !b) { return true }
+    if ((!a && b) || (a && !b)) { return false }
+    return a.journalpostId === b.journalpostId &&
+      a.dokumentInfoId === b.dokumentInfoId &&
+      _.isEqual(a.variant, b.variant)
+  }
+
+  const handleModalClose = useCallback(() => {
+    actions.setPreviewJoarkFile(undefined)
+  }, [actions])
 
   useEffect(() => {
     if (file && (!_file ||
@@ -53,16 +65,20 @@ export const JoarkBrowser = ({
 
   useEffect(() => {
     const _onPreviewFile = (previewFile) => {
+      if (!previewFile) {
+        return setModal(undefined)
+      }
       setModal({
+        closeButton: true,
         modalContent: (
           <div
             style={{ cursor: 'pointer' }}
-            onClick={() => setModal(undefined)}
+            onClick={handleModalClose}
           >
             <File
               file={previewFile}
               width={400} height={600}
-              onContentClick={() => setModal(undefined)}
+              onContentClick={handleModalClose}
             />
           </div>
         )
@@ -71,116 +87,11 @@ export const JoarkBrowser = ({
         onPreviewFile(previewFile)
       }
     }
-    if (previewFile && (!_previewFile || _previewFile.journalpostId !== previewFile.journalpostId ||
-     _previewFile.variant !== previewFile.variant)) {
+    if (!equalFiles(previewFile, _previewFile)) {
       setPreviewFile(previewFile)
       _onPreviewFile(previewFile)
     }
-  }, [actions, onPreviewFile, previewFile, _previewFile, t])
-
-  const onItemClicked = (clickedItem, clickedVariant) => {
-    const foundFile = _.find(files, (file) => {
-      return file.journalpostId === clickedItem.raw.journalpostId &&
-        file.variant === clickedVariant &&
-        file.content !== undefined
-    })
-
-    if (!foundFile) {
-      actions.previewJoarkFile(clickedItem.raw, clickedVariant)
-    } else {
-      setPreviewFile(foundFile)
-    }
-  }
-
-  const onSelectedItemChange = (item, checked, variant, context) => {
-    let newFiles = _.cloneDeep(context.files)
-    const found = _.find(newFiles, {
-      dokumentInfoId: item.raw.dokumentInfoId,
-      journalpostId: item.raw.journalpostId,
-      variant: variant
-    })
-    let changed = false
-
-    if (!checked && found) {
-      newFiles = _.reject(newFiles, {
-        journalpostId: item.raw.journalpostId,
-        dokumentInfoId: item.raw.dokumentInfoId,
-        variant: variant
-      })
-      changed = true
-    }
-
-    if (checked && !found) {
-      newFiles.push({
-        ...item.raw,
-        variant: variant
-      })
-      changed = true
-    }
-
-    if (changed && onFilesChange) {
-      onFilesChange(newFiles)
-    }
-  }
-
-  const convertSomeNonAlphanumericCharactersToUnderscore = (text) => {
-    return text.replace(/[ .\-\\(\\)]/g, '_')
-  }
-
-  const renderTableCell = (item, value, context) => {
-    return value.map(variant => {
-      return (
-        <div
-          key={variant.label}
-          className='c-joarkbrowser__subcell'
-        >
-          <Nav.Checkbox
-            label=''
-            id={'c-tablesorter__checkbox-' + item.journalpostId + '-' + item.dokumentInfoId + '-' +
-            convertSomeNonAlphanumericCharactersToUnderscore(variant.label)}
-            className='c-tablesorter__checkbox'
-            onChange={(e) => {
-              onSelectedItemChange(item, e.target.checked, variant.variant, context)
-            }}
-            checked={variant.selected}
-          />
-          <a
-            href='#item'
-            onClick={(e) => {
-              e.preventDefault()
-              onItemClicked(item, variant.variant)
-            }}
-          >
-            <Nav.Normaltekst>{variant.label}</Nav.Normaltekst>
-          </a>
-        </div>
-      )
-    })
-  }
-
-  const items = list ? list.map((file) => {
-    return {
-      raw: file,
-      journalpostId: file.journalpostId,
-      dokumentInfoId: file.dokumentInfoId,
-      name: file.tittel,
-      tema: file.tema,
-      date: file.datoOpprettet,
-      varianter: file.varianter.map(variant => {
-        const label = variant.variantformat + (variant.filnavn ? ' (' + variant.filnavn + ')' : '')
-        return {
-          variant: variant,
-          label: label,
-          selected: _.find(files, {
-            dokumentInfoId: file.dokumentInfoId,
-            journalpostId: file.journalpostId,
-            variant: variant
-          }) !== undefined,
-          focused: _previewFile ? _previewFile.journalpostId === file.journalpostId && _previewFile.variant === variant : false
-        }
-      })
-    }
-  }) : []
+  }, [actions, handleModalClose, onPreviewFile, previewFile, _previewFile, t])
 
   if (!mounted) {
     return null
@@ -191,28 +102,127 @@ export const JoarkBrowser = ({
       <WaitingPanel size='XS' message={t('ui:loading')} />
     )
   }
+
+  const onPreviewItem = (clickedItem) => {
+    const foundFile = _.find(files, (file) => (equalFiles(file, clickedItem) && file.content !== undefined))
+    if (!foundFile) {
+      actions.getPreviewJoarkFile(clickedItem)
+    } else {
+      actions.setPreviewJoarkFile(foundFile)
+    }
+  }
+
+  const onDeleteItem = (files, item) => {
+    const newFiles = _.reject(files, (file) => equalFiles(file, item))
+    onFilesChange(newFiles)
+  }
+
+  const onSelectedItemChange = (items) => {
+    onFilesChange(items.filter(item => item.selected))
+  }
+
+  const convertSomeNonAlphanumericCharactersToUnderscore = (text) => {
+    return text.replace(/[ .\-\\(\\)]/g, '_')
+  }
+
+  const renderTableCell = (item, value, context) => {
+    const previewing = context.loadingJoarkPreviewFile
+    return (
+      <div
+        key={item.label}
+        className='c-joarkbrowser__subcell'
+      >
+        <Nav.Normaltekst>{item.label}</Nav.Normaltekst>
+        <div>
+          <Nav.Knapp
+            form='kompakt'
+            disabled={previewing}
+            spinner={previewing}
+            id={'c-tablesorter__preview-button-' + item.journalpostId + '-' + item.dokumentInfoId + '-' +
+          convertSomeNonAlphanumericCharactersToUnderscore(item.label)}
+            className='c-tablesorter__preview-button mr-2 ml-2'
+            onClick={() => onPreviewItem(item)}
+          >
+            {previewing ? '' : <Icons kind='view' />}
+          </Nav.Knapp>
+          {context.mode === 'confirm' ? (
+            <Nav.Knapp
+              form='kompakt'
+              id={'c-tablesorter__delete-button-' + item.journalpostId + '-' + item.dokumentInfoId + '-' +
+            convertSomeNonAlphanumericCharactersToUnderscore(item.label)}
+              className='c-tablesorter__delete-button mr-2 ml-2'
+              onClick={() => onDeleteItem(context.files, item)}
+            >
+              <Icons kind='trashcan' />
+            </Nav.Knapp>
+          ) : null}
+        </div>
+      </div>
+    )
+  }
+
+  let items
+  if (mode === 'view') {
+    items = list ? list.map((file) => {
+      let variant
+      if (file.varianter !== undefined) {
+        variant = _.find(file.varianter, v => v.variantformat === 'ARKIV')
+        if (!variant && !_.isEmpty(file.varianter)) {
+          variant = file.varianter[0]
+        }
+      } else {
+        variant = file.variant
+      }
+      return {
+        journalpostId: file.journalpostId,
+        dokumentInfoId: file.dokumentInfoId,
+        name: file.tittel,
+        tema: file.tema,
+        date: file.datoOpprettet,
+        label: variant.variantformat + (variant.filnavn ? ' (' + variant.filnavn + ')' : ''),
+        variant: variant,
+        selected: _.find(files, {
+          dokumentInfoId: file.dokumentInfoId,
+          journalpostId: file.journalpostId,
+          variant: variant
+        }) !== undefined,
+        focused: _previewFile ? _previewFile.journalpostId === file.journalpostId && _previewFile.variant === variant : false
+      }
+    }) : []
+  } else {
+    items = files || []
+  }
+
+  const context = {
+    files: files,
+    mode: mode,
+    loadingJoarkPreviewFile: loadingJoarkPreviewFile,
+    previewFile: _previewFile
+  }
+
   return (
     <div className='c-joarkBrowser'>
-      <Modal modal={modal} />
+      <Modal modal={modal} onModalClose={handleModalClose} />
       <TableSorter
         items={items}
-        context={{ files: files }}
+        context={context}
+        searchable
+        selectable={mode === 'view'}
+        sortable
         loading={loadingJoarkFile || loadingJoarkPreviewFile}
         columns={[
-          { id: 'name', label: t('ui:title'), type: 'string', filterText: '', defaultSortOrder: '' },
-          { id: 'tema', label: t('ui:tema'), type: 'tag', filterText: '', defaultSortOrder: '' },
-          { id: 'date', label: t('ui:date'), type: 'date', filterText: '', defaultSortOrder: '' },
+          { id: 'name', label: t('ui:title'), type: 'string' },
+          { id: 'tema', label: t('ui:tema'), type: 'tag' },
+          { id: 'date', label: t('ui:date'), type: 'date' },
           {
             id: 'varianter',
             label: t('ui:variant'),
             type: 'object',
-            filterText: '',
-            defaultSortOrder: '',
             needle: (it) => it.label.toLowerCase(),
             toTableCell: renderTableCell
-
           }
         ]}
+        onRowSelectChange={onSelectedItemChange}
       />
     </div>
   )

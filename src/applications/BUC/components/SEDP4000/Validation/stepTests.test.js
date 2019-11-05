@@ -3,7 +3,6 @@ import _ from 'lodash'
 import sampleP4000info from 'resources/tests/sampleP4000info'
 
 describe('applications/BUC/components/SEDP4000/Validation/stepTests', () => {
-
   it('periodStep - work', () => {
     let period = { type: 'work' }
     let errors = stepTests.periodStep(period)

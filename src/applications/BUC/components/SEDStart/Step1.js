@@ -313,7 +313,7 @@ const Step1 = ({
               })
             }) : <Nav.Normaltekst>{t('buc:form-noAttachmentsYet')}</Nav.Normaltekst>}
           </div>
-        ) : null }
+        ) : null}
         <div className='selectBoxMessage mt-2 mb-2'>{!loading ? null
           : loading.gettingSedList ? getSpinner('buc:loading-sed')
             : loading.institutionList ? getSpinner('buc:loading-institution')
@@ -324,7 +324,7 @@ const Step1 = ({
         <div className={layout === 'row' ? 'col-md-6' : 'col-md-12'}>
           <SEDAttachments
             t={t}
-            setFiles={setFiles}
+            onSubmit={setFiles}
             files={_attachments}
             open={seeAttachmentPanel}
             onOpen={() => setSeeAttachmentPanel(true)}

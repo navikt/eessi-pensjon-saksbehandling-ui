@@ -27,7 +27,6 @@ export const initialLoadingState = {
   loadingJoarkPreviewFile: false,
   loadingP4000list: false,
   loadingP4000info: false,
-
   loadingStorageFile: false,
   loadingStorageFileList: false,
   rinaUrl: false,

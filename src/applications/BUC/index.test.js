@@ -110,7 +110,7 @@ describe('applications/BUC/index', () => {
   it('Calls fullFocus and ReplaceFocus functions', () => {
     initialMockProps.onFullFocus.mockReset()
     initialMockProps.onRestoreFocus.mockReset()
-    wrapper = mount(<BUCIndex {...initialMockProps} allowFullScreen={true} />)
+    wrapper = mount(<BUCIndex {...initialMockProps} allowFullScreen />)
     wrapper.find('.mock-buccrumbs').simulate('change', { target: { value: 'bucnew' } })
     wrapper.update()
     expect(initialMockProps.onFullFocus).toHaveBeenCalled()

@@ -31,7 +31,7 @@ describe('actions/joark', () => {
     }))
   })
 
-  it('previewJoarkFile()', () => {
+  it('getPreviewJoarkFile()', () => {
     const mockItem = {
       journalpostId: '1',
       dokumentInfoId: '4'
@@ -39,7 +39,7 @@ describe('actions/joark', () => {
     const mockVariant = {
       variantformat: 'mockVariant'
     }
-    joarkActions.previewJoarkFile(mockItem, mockVariant)
+    joarkActions.getPreviewJoarkFile(mockItem, mockVariant)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.JOARK_PREVIEW_REQUEST,
