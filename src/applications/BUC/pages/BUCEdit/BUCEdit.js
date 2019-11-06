@@ -69,11 +69,11 @@ const BUCEdit = ({
   const bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[buc.caseId] : {}
 
   return (
-    <div className='a-buc-bucedit'>
-      <div className='a-buc-bucedit__buttons mb-3'>
+    <div className='a-buc-p-bucedit'>
+      <div className='a-buc-p-bucedit__buttons mb-3'>
         <Nav.Knapp
-          id='a-buc-bucedit__new-sed-button-id'
-          className='a-buc-bucedit__new-sed-button'
+          id='a-buc-p-bucedit__new-sed-button-id'
+          className='a-buc-p-bucedit__new-sed-button'
           onClick={onSEDNew.bind(null, undefined)}
         >{t('buc:form-orderNewSED')}
         </Nav.Knapp>

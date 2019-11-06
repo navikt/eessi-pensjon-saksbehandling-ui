@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import SEDAttachments from '../SEDAttachments/SEDAttachments'
-import { Alert, Nav } from 'eessi-pensjon-ui'
+import { Nav } from 'eessi-pensjon-ui'
 import { IS_TEST } from 'constants/environment'
 import SEDAttachmentSender from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 
-const SEDBody = ({ actions, attachments, attachmentsError, aktoerId, buc, t, sed }) => {
+const SEDBody = ({ actions, aktoerId, attachments, attachmentsError, buc, sed, t }) => {
   const [_attachments, setAttachments] = useState({ sed: sed.attachments || [], joark: [] })
   const [sendingAttachments, setSendingAttachments] = useState(false)
   const [attachmentsSent, setAttachmentsSent] = useState(false)
@@ -32,9 +32,7 @@ const SEDBody = ({ actions, attachments, attachmentsError, aktoerId, buc, t, sed
 
   return (
     <div className='a-buc-c-sedbody'>
-      <div className='mt-4 mb-4'>
-        <Nav.Undertittel className='mb-2'>{t('ui:attachments')}</Nav.Undertittel>
-      </div>
+      <Nav.Undertittel className='mt-4 mb-4'>{t('ui:attachments')}</Nav.Undertittel>
       <SEDAttachments
         t={t}
         files={_attachments}
@@ -44,25 +42,20 @@ const SEDBody = ({ actions, attachments, attachmentsError, aktoerId, buc, t, sed
         disableButtons={sendingAttachments}
       />
       {sendingAttachments ? (
-        !attachmentsError ? (
-          <SEDAttachmentSender
-            className='mt-3 mb-3 w-100'
-            sendAttachmentToSed={actions.sendAttachmentToSed}
-            aktoerId={aktoerId}
-            buc={buc}
-            sed={sed}
-            allAttachments={_attachments.joark}
-            savedAttachments={attachments}
-            onFinished={() => setAttachmentsSent(true)}
-            t={t}
-          />
-        ) : (
-          <Alert
-            type='client'
-            message={t('buc:error-sendingAttachments')}
-            status='ERROR'
-          />
-        )
+        <SEDAttachmentSender
+          className='mt-3 mb-3 w-100'
+          attachmentsError={attachmentsError}
+          sendAttachmentToSed={actions.sendAttachmentToSed}
+          payload={{
+            aktoerId: aktoerId,
+            rinaId: buc.caseId,
+            rinaDokumentId: sed.id
+          }}
+          allAttachments={_attachments.joark}
+          savedAttachments={attachments}
+          onFinished={() => setAttachmentsSent(true)}
+          t={t}
+        />
       ) : null}
     </div>
   )

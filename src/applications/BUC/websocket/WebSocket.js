@@ -5,7 +5,6 @@ import classNames from 'classnames'
 import { Icons } from 'eessi-pensjon-ui'
 import { WEBSOCKET_LOCALHOST_URL } from 'constants/urls'
 import { IS_TEST } from 'constants/environment'
-
 import './WebSocket.css'
 
 const NOTCONNECTED = 'NOTCONNECTED'

@@ -50,15 +50,15 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
   })
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.a-buc-bucedit')).toBeTruthy()
-    expect(wrapper.exists('#a-buc-bucedit__new-sed-button-id')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-p-bucedit')).toBeTruthy()
+    expect(wrapper.exists('#a-buc-p-bucedit__new-sed-button-id')).toBeTruthy()
     expect(wrapper.exists('SEDSearch')).toBeTruthy()
     expect(wrapper.exists('BUCDetail')).toBeTruthy()
     expect(wrapper.exists('BUCTools')).toBeTruthy()
   })
 
   it('moves to mode newsed when button pressed', () => {
-    const newSedButton = wrapper.find('#a-buc-bucedit__new-sed-button-id').hostNodes()
+    const newSedButton = wrapper.find('#a-buc-p-bucedit__new-sed-button-id').hostNodes()
     newSedButton.simulate('click')
     expect(initialMockProps.setMode).toBeCalledWith('sednew')
   })

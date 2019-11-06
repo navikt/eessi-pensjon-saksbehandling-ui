@@ -22,7 +22,7 @@ describe('applications/BUC/components/InstitutionList/InstitutionList', () => {
   }
 
   beforeEach(() => {
-    wrapper = mount(<InstitutionList {...initialMockProps}/>)
+    wrapper = mount(<InstitutionList {...initialMockProps} />)
   })
 
   afterEach(() => {

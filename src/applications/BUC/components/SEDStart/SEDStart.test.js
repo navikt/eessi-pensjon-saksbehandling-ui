@@ -116,10 +116,10 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     expect(wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().props().disabled).toEqual(false)
   })
 
-  it('With SED P4000 we need more steps', () => {
+  it('With SED P4000 we do not need more steps', () => {
     expect(wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().render().text()).toEqual('buc:form-orderSED')
     wrapper.find('#a-buc-c-sedstart__sed-select-id').hostNodes().simulate('change', { target: { value: 'P4000' } })
-    expect(wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().render().text()).toEqual('ui:next')
+    expect(wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().render().text()).toEqual('buc:form-orderSED')
   })
 
   it('With SED P4000 we get a proper submit', () => {

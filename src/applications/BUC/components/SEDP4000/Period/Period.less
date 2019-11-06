@@ -1,3 +1,5 @@
+@import '../../../../../constants';
+
 .a-buc-c-sedp4000-period {
 
   align-items: baseline;
@@ -42,7 +44,7 @@
         position: absolute;
         top: 10%;
         left: 10px;
-        background: white;
+        background: @white;
         z-index: 2;
         text-align: center;
       }
@@ -82,7 +84,7 @@
   }
 
   .line {
-     border-left: 1px solid black;
+     border-left: 1px solid @black;
   }
 
   &__edit-button,
@@ -109,12 +111,12 @@
 
 .highContrast .c-pinfo-stayabroad-period {
   .line {
-     border-left: 2px solid white;
+     border-left: 2px solid @white;
   }
 }
 
 label.datepickerLabel {
-  border-bottom: 1px solid #979797;
+  border-bottom: 1px solid @gray-dark;
 }
 
 @media (min-width: 768px) {
@@ -122,6 +124,6 @@ label.datepickerLabel {
     height: 23px;
     display: block;
     width: 45px;
-    border-bottom: 1px solid #979797;
+    border-bottom: 1px solid @gray-dark;
   }
 }

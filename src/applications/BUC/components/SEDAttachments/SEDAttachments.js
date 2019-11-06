@@ -2,16 +2,31 @@ import React, { useState } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import { Icons, Nav } from 'eessi-pensjon-ui'
-import AttachmentStep1 from './AttachmentStep1'
-import AttachmentStep2 from './AttachmentStep2'
+import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 
-const SEDAttachments = (props) => {
-  const { initialStep = 1, open = false, onOpen, t } = props
-  const [step, setStep] = useState(initialStep)
+const SEDAttachments = ({ disableButtons, files, initialMode = 'view', open = false, onFilesChange, onOpen, onSubmit, t }) => {
+  const [mode, setMode] = useState(initialMode)
+  const [localFiles, setLocalFiles] = useState(files && _.isArray(files.joark) ? files.joark : [])
 
   const handleButtonClick = () => {
     if (_(onOpen).isFunction()) {
       onOpen()
+    }
+  }
+
+  const onLocalFileChange = (changedFiles) => {
+    setLocalFiles(changedFiles)
+    if (_.isFunction(onFilesChange)) {
+      onFilesChange(changedFiles)
+    }
+  }
+
+  const onSubmitJoarkFiles = (joarkFiles) => {
+    if (_.isFunction(onSubmit)) {
+      onSubmit({
+        ...files,
+        joark: joarkFiles
+      })
     }
   }
 
@@ -29,19 +44,61 @@ const SEDAttachments = (props) => {
             <span>{t('ui:addAttachments')}</span>
           </div>
         </Nav.Knapp>
-      ) : null}
-      {open && step === 1 ? <AttachmentStep1 setStep={setStep} {...props} /> : null}
-      {open && step === 2 ? <AttachmentStep2 setStep={setStep} {...props} /> : null}
+      ) : (
+        <>
+          <JoarkBrowser
+            files={localFiles}
+            mode={mode}
+            onFilesChange={onLocalFileChange}
+            t={t}
+          />
+          <div className='mt-4'>
+            {mode === 'view' ? (
+              <Nav.Hovedknapp
+                disabled={_.isEmpty(localFiles)}
+                id='a-buc-c-sedattachments__upload-button-id'
+                className='a-buc-c-sedattachments__upload-button'
+                onClick={() => setMode('confirm')}
+              >
+                {t('buc:form-addSelectedAttachments')}
+              </Nav.Hovedknapp>
+            ) : null}
+            {mode === 'confirm' ? (
+              <>
+                <Nav.Hovedknapp
+                  disabled={_.isEmpty(localFiles) || disableButtons}
+                  id='a-buc-c-sedattachments__submit-button-id'
+                  className='a-buc-c-sedattachments__submit-button mr-2'
+                  onClick={() => onSubmitJoarkFiles(localFiles)}
+                >
+                  {t('buc:form-submitSelectedAttachments')}
+                </Nav.Hovedknapp>
+                <Nav.Knapp
+                  disabled={disableButtons}
+                  id='a-buc-c-sedattachments__cancel-button-id'
+                  className='a-buc-c-sedattachments__cancel-button'
+                  onClick={() => setMode('view')}
+                >
+                  {t('buc:form-selectAgainAttachments')}
+                </Nav.Knapp>
+              </>
+            ) : null}
+          </div>
+        </>
+      )}
     </div>
   )
 }
 
 SEDAttachments.propTypes = {
+  disableButtons: PT.bool,
+  files: PT.object.isRequired,
+  initialMode: PT.oneOf(['view', 'confirm']),
   open: PT.bool,
+  onFilesChange: PT.func,
   onOpen: PT.func,
   onSubmit: PT.func,
-  t: PT.func.isRequired,
-  initialStep: PT.number
+  t: PT.func.isRequired
 }
 
 export default SEDAttachments

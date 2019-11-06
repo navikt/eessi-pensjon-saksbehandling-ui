@@ -1,3 +1,5 @@
+@import '../../../../constants';
+
 .a-buc-c-bucheader {
   display: flex;
   flex-direction: column;
@@ -33,12 +35,12 @@
 
   &__button {
     margin-bottom: 0px !important;
-    border: solid 2px #0067c5 !important;
+    border: solid 2px @blue-nav !important;
     border-radius: 2px;
-    color: #0067c5 !important;
+    color: @blue-nav !important;
 
     &:hover {
-      color: white !important;
+      color: @white !important;
     }
 
     span.lenkepanel__indikator {
@@ -59,7 +61,7 @@
   }
 
   &__icon-numberofseds {
-    border: 2px solid black;
+    border: 2px solid @black;
     border-radius: 20px;
     min-width: 32px;
     min-height: 32px;
@@ -74,19 +76,19 @@
   &__bucedit-link {
     padding: 0.25rem 0.5rem 0.25rem 0.5rem !important;
     margin-bottom: 0px !important;
-    color: #0067C5 !important;
+    color: @blue-nav !important;
     border-radius: 0.125rem !important;
-    border: 2px solid #0067C5 !important;
+    border: 2px solid @blue-nav !important;
 
     &:active {
-      background-color: #005B82 !important;
-      border-color: #005B82 !important;
-      color: #ffffff !important;
+      background-color: @blue-nav !important;
+      border-color: @blue-nav !important;
+      color: @white !important;
     }
 
     &:hover {
-      background-color: #0067C5 !important;
-      color: #ffffff !important;
+      background-color: @blue-nav !important;
+      color: @white !important;
     }
   }
 }

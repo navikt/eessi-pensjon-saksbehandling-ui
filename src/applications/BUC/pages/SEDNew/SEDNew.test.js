@@ -1,7 +1,7 @@
 import React from 'react'
 import SEDNew from './SEDNew'
 jest.mock('applications/BUC/components/SEDStart/SEDStart', () => {
-  return () => { return <div className='mock-a-buc-sedstart' /> }
+  return () => { return <div className='mock-sedstart' /> }
 })
 
 describe('applications/BUC/widgets/SEDNew/SEDNew', () => {
@@ -15,7 +15,7 @@ describe('applications/BUC/widgets/SEDNew/SEDNew', () => {
 
   it('Has proper HTML structure', () => {
     wrapper = mount(<SEDNew />)
-    expect(wrapper.exists('.a-buc-sednew')).toBeTruthy()
-    expect(wrapper.exists('.mock-a-buc-sedstart')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-p-sednew')).toBeTruthy()
+    expect(wrapper.exists('.mock-sedstart')).toBeTruthy()
   })
 })

@@ -3,10 +3,9 @@ import PT from 'prop-types'
 import classNames from 'classnames'
 import _ from 'lodash'
 import { IS_TEST } from 'constants/environment'
-import { ProgressBar } from 'eessi-pensjon-ui'
+import { Alert, ProgressBar } from 'eessi-pensjon-ui'
 
-const SEDAttachmentSender = (props) => {
-  const { sendAttachmentToSed, aktoerId, allAttachments, buc, className, sed, onFinished, savedAttachments, t } = props
+const SEDAttachmentSender = ({ allAttachments, attachmentsError, className, payload = {}, onFinished, savedAttachments, sendAttachmentToSed, t }) => {
   const [sendingAttachment, setSendingAttachment] = useState(false)
   const [_storeAttachments, setStoreAttachments] = useState(savedAttachments || [])
 
@@ -20,7 +19,8 @@ const SEDAttachmentSender = (props) => {
     // all attachments are sent - conclude
     if (allAttachments.length === _storeAttachments.length) {
       if (!IS_TEST) {
-        console.log('SEDAttachmentSender: allAttachments (' + allAttachments.length + ') same as _storeAttachments (' + _storeAttachments.length + ')')
+        console.log('SEDAttachmentSender: allAttachments (' + allAttachments.length +
+          ') same as _storeAttachments (' + _storeAttachments.length + ')')
       }
       handleFinished()
     }
@@ -50,9 +50,7 @@ const SEDAttachmentSender = (props) => {
 
       const unsentAttachment = _.first(unsentAttachments)
       const params = {
-        aktoerId: aktoerId,
-        rinaId: buc.caseId,
-        rinaDokumentId: sed.id,
+        ...payload,
         journalpostId: unsentAttachment.journalpostId,
         dokumentInfoId: unsentAttachment.dokumentInfoId,
         variantformat: unsentAttachment.variant.variantformat
@@ -64,7 +62,7 @@ const SEDAttachmentSender = (props) => {
       sendAttachmentToSed(params, unsentAttachment)
       setSendingAttachment(true)
     }
-  }, [aktoerId, sendAttachmentToSed, _storeAttachments, allAttachments, buc.caseId, handleFinished, sed.id, sendingAttachment])
+  }, [sendAttachmentToSed, _storeAttachments, allAttachments, handleFinished, payload, sendingAttachment])
 
   useEffect(() => {
     // handle if we have a newly sent attachment
@@ -81,8 +79,17 @@ const SEDAttachmentSender = (props) => {
   const total = allAttachments.length
   const percentage = (Math.floor((current * 100) / total))
 
+  if (attachmentsError) {
+    return (
+      <Alert
+        type='client'
+        message={t('buc:error-sendingAttachments')}
+        status='ERROR'
+      />
+    )
+  }
   return (
-    <div className={classNames('a-buc-sedAttachmentSender', className)}>
+    <div className={classNames('a-buc-c-sedAttachmentSender', className)}>
       <ProgressBar now={percentage}>
         {t('buc:loading-sendingXofY', {
           current: current,
@@ -94,14 +101,13 @@ const SEDAttachmentSender = (props) => {
 }
 
 SEDAttachmentSender.propType = {
+  allAttachments: PT.array,
+  attachmentsError: PT.boolean,
   className: PT.string,
-  sendAttachmentToSed: PT.func.isRequired,
-  aktoerId: PT.string,
-  attachments: PT.array,
-  buc: PT.object,
-  sed: PT.object,
-  initialAttachments: PT.array,
   onFinished: PT.func,
+  payload: PT.object,
+  savedAttachments: PT.array,
+  sendAttachmentToSed: PT.func.isRequired,
   t: PT.func.isRequired
 }
 

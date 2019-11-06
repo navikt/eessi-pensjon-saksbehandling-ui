@@ -43,8 +43,8 @@ const BUCEmpty = ({ actions, aktoerId, onBUCNew, rinaUrl, sakId, t }) => {
 
   return (
     <>
-      <div className='panel a-buc-bucempty s-border d-flex'>
-        <div className='a-buc-bucempty__artwork'>
+      <div className='panel a-buc-p-bucempty s-border d-flex'>
+        <div className='a-buc-p-bucempty__artwork'>
           <img alt='' className='monitor' src={MonitorPNG} />
           <img alt='' className='cup' src={CupPNG} />
           <img alt='' className='mouse' src={MousePNG} />
@@ -52,18 +52,18 @@ const BUCEmpty = ({ actions, aktoerId, onBUCNew, rinaUrl, sakId, t }) => {
         </div>
         <Nav.Undertittel className='a-buc-bucempty__title mb-3'>
           <Nav.Lenke
-            id='a-buc-bucempty__newbuc-link-id'
-            className='a-buc-bucempty__newbuc-link'
+            id='a-buc-p-bucempty__newbuc-link-id'
+            className='a-buc-p-bucempty__newbuc-link'
             href='#' onClick={onBUCNew}
           >
             {t('buc:form-empty-startANewCase')}
           </Nav.Lenke>
         </Nav.Undertittel>
         {!aktoerId ? (
-          <div className='a-buc-bucempty__form'>
+          <div className='a-buc-p-bucempty__form'>
             <Nav.Input
-              id='a-buc-bucempty__aktoerid-input-id'
-              className='a-buc-bucempty__aktoerid-input'
+              id='a-buc-p-bucempty__aktoerid-input-id'
+              className='a-buc-p-bucempty__aktoerid-input'
               label={t('ui:aktoerId')}
               value={_aktoerId || ''}
               bredde='fullbredde'
@@ -71,8 +71,8 @@ const BUCEmpty = ({ actions, aktoerId, onBUCNew, rinaUrl, sakId, t }) => {
               feil={validation ? { feilmelding: validation } : null}
             />
             <Nav.Hovedknapp
-              id='a-buc-bucempty__aktoerid-button-id'
-              className='a-buc-bucempty__aktoerid-button ml-3'
+              id='a-buc-p-bucempty__aktoerid-button-id'
+              className='a-buc-p-bucempty__aktoerid-button ml-3'
               onClick={onSubmitAktoerId}
             >
               {t('ui:add')}
@@ -80,10 +80,10 @@ const BUCEmpty = ({ actions, aktoerId, onBUCNew, rinaUrl, sakId, t }) => {
           </div>
         ) : null}
         {!sakId ? (
-          <div className='a-buc-bucempty__form'>
+          <div className='a-buc-p-bucempty__form'>
             <Nav.Input
-              id='a-buc-bucempty__sakid-input-id'
-              className='a-buc-bucempty__sakid-input'
+              id='a-buc-p-bucempty__sakid-input-id'
+              className='a-buc-p-bucempty__sakid-input'
               label={t('buc:form-caseId')}
               value={_sakId || ''}
               bredde='fullbredde'
@@ -91,8 +91,8 @@ const BUCEmpty = ({ actions, aktoerId, onBUCNew, rinaUrl, sakId, t }) => {
               feil={validation ? { feilmelding: validation } : null}
             />
             <Nav.Hovedknapp
-              id='a-buc-bucempty__sakid-button-id'
-              className='a-buc-bucempty__sakid-button ml-3'
+              id='a-buc-p-bucempty__sakid-button-id'
+              className='a-buc-p-bucempty__sakid-button ml-3'
               onClick={onSubmitSakId}
             >
               {t('ui:add')}

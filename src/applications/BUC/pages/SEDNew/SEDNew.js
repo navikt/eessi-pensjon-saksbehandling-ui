@@ -4,7 +4,7 @@ import SEDStart from 'applications/BUC/components/SEDStart/SEDStart'
 import './SEDNew.css'
 
 const SEDNew = (props) => (
-  <Nav.Panel className='a-buc-sednew s-border'>
+  <Nav.Panel className='a-buc-p-sednew s-border'>
     <SEDStart {...props} />
   </Nav.Panel>
 )

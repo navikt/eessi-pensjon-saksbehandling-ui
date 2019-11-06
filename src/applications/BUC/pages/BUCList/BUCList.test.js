@@ -81,12 +81,12 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
   })
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.a-buc-buclist')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-buclist__buttons')).toBeTruthy()
-    expect(wrapper.exists('#a-buc-buclist__newbuc-button-id')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-p-buclist')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-p-buclist__buttons')).toBeTruthy()
+    expect(wrapper.exists('#a-buc-p-buclist__newbuc-button-id')).toBeTruthy()
     expect(wrapper.find('.mock-EkspanderbartpanelBase').hostNodes().length).toEqual(sampleBucs.length)
     expect(wrapper.exists('.a-buc-c-sedlist')).toBeTruthy()
-    expect(wrapper.find('.a-buc-buclist__sedheader-head').hostNodes().length).toEqual(30)
+    expect(wrapper.find('.a-buc-p-buclist__sedheader-head').hostNodes().length).toEqual(30)
     expect(wrapper.exists('.a-buc-footer')).toBeTruthy()
   })
 

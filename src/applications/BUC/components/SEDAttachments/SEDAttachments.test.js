@@ -1,10 +1,7 @@
 import React from 'react'
 import SEDAttachments from './SEDAttachments'
-jest.mock('./AttachmentStep1', () => {
-  return () => { return <div className='mock-step1' /> }
-})
-jest.mock('./AttachmentStep2', () => {
-  return () => { return <div className='mock-step2' /> }
+jest.mock('components/JoarkBrowser/JoarkBrowser', () => {
+  return (props) => (<div className='mock-joarkbrowser' onClick={() => props.onFilesChange([{ foo: 'bar' }])} />)
 })
 
 describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
@@ -12,9 +9,11 @@ describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
   const initialMockProps = {
     t: jest.fn(t => t),
     files: {},
-    setFiles: jest.fn(),
-    open: false,
-    onOpen: jest.fn()
+    initialMode: 'view',
+    onFilesChange: jest.fn(),
+    open: true,
+    onOpen: jest.fn(),
+    onSubmit: jest.fn()
   }
 
   beforeEach(() => {
@@ -31,20 +30,19 @@ describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
   })
 
   it('Has proper HTML structure', () => {
+    wrapper = mount(<SEDAttachments {...initialMockProps} open={false} />)
     expect(wrapper.exists('.a-buc-c-sedattachments')).toBeTruthy()
     expect(wrapper.exists('#a-buc-c-sedattachments__enable-button-id')).toBeTruthy()
   })
 
-  it('Pressing button for attachments leads to step 1', () => {
-    expect(wrapper.exists('.mock-step1')).toBeFalsy()
-    wrapper.find('#a-buc-c-sedattachments__enable-button-id').hostNodes().simulate('click')
-    expect(wrapper.exists('.mock-step1')).toBeTruthy()
+  it('onFilesChanged triggered', () => {
+    wrapper.find('.mock-joarkbrowser').simulate('click')
+    expect(initialMockProps.onFilesChange).toHaveBeenCalledWith([{ foo: 'bar' }])
   })
 
-  it('Step 2 can be seen', () => {
-    wrapper = mount(<SEDAttachments {...initialMockProps} initialStep={2} />)
-    expect(wrapper.exists('.mock-step2')).toBeFalsy()
-    wrapper.find('#a-buc-c-sedattachments__enable-button-id').hostNodes().simulate('click')
-    expect(wrapper.exists('.mock-step2')).toBeTruthy()
+  it('onSubmit triggered', () => {
+    wrapper = mount(<SEDAttachments {...initialMockProps} initialMode='confirm' files={{ joark: [{ foo: 'bar2' }] }} />)
+    wrapper.find('button.a-buc-c-sedattachments__submit-button').props().onClick()
+    expect(initialMockProps.onSubmit).toHaveBeenCalledWith({ joark: [{ foo: 'bar2' }] })
   })
 })

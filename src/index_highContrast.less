@@ -31,7 +31,7 @@
   a:hover, .link-btn:hover,.fake-link:hover,
   a:active, .link-btn:active, .fake-link:active,
   a:focus, .link-btn:focus,.fake-link:focus {
-    color: #0ca9e1 !important;
+    color: @blue-light !important;
   }
 
   a h1, a h2, a h3, a p, a span {
@@ -41,7 +41,7 @@
   a:hover h1, a:active h1, a:focus h1, a:hover h2, a:active h2, a:focus h2,
   a:hover h3, a:active h3, a:focus h3, a:hover p, a:active p, a:focus p,
   a:hover span, a:active span, a:focus span {
-      color: #0ca9e1 !important;
+      color: @blue-light !important;
   }
 
   .hero-link:focus, .hero-link:hover, .hero-link:active {
@@ -53,45 +53,15 @@
   }
 
    .knapp, .knapp.hoved, .knapp.btn-auth, .btn {
-      border: 1px solid #fff;
+      border: 1px solid @white;
       color: @high-contrast-orange !important;
       background-image: none;
   }
 
    .knapp:focus, .knapp.hoved:focus, .knapp.btn-auth:focus, .btn:focus, .knapp:hover, .knapp.hoved:hover, .knapp.btn-auth:hover, .btn:hover, .knapp:active, .knapp.hoved:active, .knapp.btn-auth:active, .btn:active {
-      border-color: #ffc40d;
+      border-color: @high-contrast-orange;
       color: @high-contrast-orange !important;
       text-decoration: underline
-  }
-
-   .tooltip {
-      background: @white !important;
-      color: @black !important
-  }
-
-   .tooltip .tooltip-inner {
-      background: @white !important;
-      color: @black !important
-  }
-
-   .tooltip .tooltip-arrow {
-      border-right-color: @white !important
-  }
-
-   .tooltip * {
-      background-color: @white !important
-  }
-
-   .tooltip span, .tooltip p, .tooltip div, .tooltip th, .tooltip td, .tooltip section, .tooltip aside, .tooltip article, .tooltip header, .tooltip footer, .tooltip li, .tooltip h1, .tooltip h2, .tooltip h3, .tooltip h4, .tooltip h5, .tooltip h6, .tooltip input, .tooltip time, .tooltip figcaption, .tooltip select, .tooltip textarea, .tooltip label {
-      color: @black !important
-  }
-
-   .hero-banner, .hero-banner * {
-      background: #F1F1F1 !important
-  }
-
-   .siteheader .hero-banner.nighttime, .siteheader .hero-banner.nighttime * {
-      background-color: #98B3B7 !important
   }
 
    ::-webkit-input-placeholder {
@@ -111,17 +81,17 @@
   }
 
    li.dropdown .caret {
-      border-top: 4px solid @high-contrast-orange
+      border-top: 4px solid @high-contrast-orange;
   }
 
    li.dropdown:hover .caret, li.dropdown:active .caret, li.dropdown:focus .caret {
-      border-top: 4px solid #0ca9e1
+      border-top: 4px solid @blue-light;
   }
 
   .btn-small {
       background-color: transparent;
       background-image: none !important;
-      border: 1px solid #d1d1d1
+      border: 1px solid @white-off;
   }
 
   .btn-small:hover, .btn-small:active, .btn-small:focus {
@@ -134,10 +104,10 @@
   }
 
   .skjemaelement__input--harFeil {
-      border-color: #BA3A26;
+      border-color: @red-fail;
   }
 
   .skjemaelement__feilmelding {
-      color: #BA3A26 !important;
+      color: @red-fail !important;
   }
 }

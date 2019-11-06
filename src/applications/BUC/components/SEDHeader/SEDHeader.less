@@ -1,18 +1,11 @@
+@import '../../../../constants';
+
 .a-buc-c-sedheader {
 
   transform: translateX(-20px);
   opacity: 0;
   animation: slideInFromLeft 0.2s forwards;
-
-  &__border {
-    &-full {
-      border: 1px solid #59514B;
-      border-radius: 4px;
-    }
-    &-bottom {
-      border-bottom: 1px solid #59514B;
-    }
-  }
+  border-bottom: 1px solid @border-gray;
 
   &__content {
     display: flex;

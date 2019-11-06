@@ -83,13 +83,13 @@ const BUCList = ({ actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionL
   }
 
   return (
-    <div className='a-buc-buclist'>
-      <div className='a-buc-buclist__buttons mb-3'>
+    <div className='a-buc-p-buclist'>
+      <div className='a-buc-p-buclist__buttons mb-3'>
         {aktoerId && sakId
           ? (
             <Nav.Knapp
-              id='a-buc-buclist__newbuc-button-id'
-              className='a-buc-buclist__newbuc-button'
+              id='a-buc-p-buclist__newbuc-button-id'
+              className='a-buc-p-buclist__newbuc-button'
               onClick={onBUCNew}
             >
               {t('buc:form-createNewCase')}
@@ -99,11 +99,11 @@ const BUCList = ({ actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionL
       </div>
       {loading.gettingBUCs
         ? (
-          <WaitingPanel className='mt-5 a-buc-widget__loading' size='XL' message={t('buc:loading-bucs')} />
+          <WaitingPanel className='mt-5 a-buc-p-buclist__loading' size='XL' message={t('buc:loading-bucs')} />
         ) : null}
       {bucs === null
         ? (
-          <div className='mt-5 a-buc-widget__message'>
+          <div className='mt-5 a-buc-p-buclist__message'>
             {t('buc:error-noBucs')}
           </div>
         ) : null}
@@ -116,8 +116,8 @@ const BUCList = ({ actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionL
             const bucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId] : {}
             return (
               <ExpandingPanel
-                id={'a-buc-buclist__buc-' + bucId}
-                className={classNames('a-buc-buclist__buc', 'mb-3', 's-border')}
+                id={'a-buc-p-buclist__buc-' + bucId}
+                className={classNames('a-buc-p-buclist__buc', 'mb-3', 's-border')}
                 key={index}
                 style={{ animationDelay: (0.2 * index) + 's' }}
                 heading={
@@ -133,19 +133,19 @@ const BUCList = ({ actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionL
                 }
               >
                 <div
-                  id='a-buc-c-sedheader__div-id'
-                  className='a-buc-buclist__sedheader pb-1'
+                  id='a-buc-p-buclist__seadheader-div-id'
+                  className='a-buc-p-buclist__sedheader pb-1'
                 >
-                  <div className='a-buc-buclist__sedheader-head col-4'>
+                  <div className='a-buc-p-buclist__sedheader-head col-4'>
                     <Nav.Element>{t('buc:form-name')}</Nav.Element>
                   </div>
-                  <div className='a-buc-buclist__sedheader_head col-3'>
+                  <div className='a-buc-p-buclist__sedheader_head col-3'>
                     <Nav.Element>{t('buc:form-status')}</Nav.Element>
                   </div>
-                  <div className='a-buc-buclist__sedheader-head col-3'>
+                  <div className='a-buc-p-buclist__sedheader-head col-3'>
                     <Nav.Element>{t('buc:form-senderreceiver')}</Nav.Element>
                   </div>
-                  <div className='a-buc-buclist__sedheader-head col-2' />
+                  <div className='a-buc-p-buclist__sedheader-head col-2' />
                 </div>
                 <SEDList
                   t={t}

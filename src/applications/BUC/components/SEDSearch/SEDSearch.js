@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import { MultipleSelect, Nav } from 'eessi-pensjon-ui'
-
 import './SEDSearch.css'
 
 const SEDSearch = ({ className, onSearch, onStatusSearch, t }) => {
@@ -68,7 +67,6 @@ SEDSearch.propTypes = {
   className: PT.string,
   onSearch: PT.func.isRequired,
   onStatusSearch: PT.func.isRequired,
-  seds: PT.array,
   t: PT.func.isRequired
 }
 

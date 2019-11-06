@@ -4,7 +4,7 @@ import { connect, bindActionCreators } from 'store'
 import _ from 'lodash'
 import Step1 from './Step1'
 import Step2 from './Step2'
-import { Alert, Nav } from 'eessi-pensjon-ui'
+import { Nav } from 'eessi-pensjon-ui'
 import * as bucActions from 'actions/buc'
 import * as uiActions from 'actions/ui'
 import * as storageActions from 'actions/storage'
@@ -250,27 +250,20 @@ export const SEDStart = (props) => {
         />
       ) : null}
       {sendingAttachments ? (
-        !attachmentsError ? (
-          <SEDAttachmentSender
-            className='ml-3 w-50'
-            sendAttachmentToSed={actions.sendAttachmentToSed}
-            aktoerId={aktoerId}
-            buc={buc}
-            sed={sed}
-            allAttachments={_attachments.joark}
-            savedAttachments={attachments}
-            onFinished={() => {
-              setAttachmentsSent(true)
-            }}
-            t={t}
-          />
-        ) : (
-          <Alert
-            type='client'
-            message={t('buc:error-sendingAttachments')}
-            status='ERROR'
-          />
-        )
+        <SEDAttachmentSender
+          className='ml-3 w-50'
+          attachmentsError={attachmentsError}
+          sendAttachmentToSed={actions.sendAttachmentToSed}
+          payload={{
+            aktoerId: aktoerId,
+            rinaId: buc.caseId,
+            rinaDokumentId: sed.id
+          }}
+          allAttachments={_attachments.joark}
+          savedAttachments={attachments}
+          onFinished={() => setAttachmentsSent(true)}
+          t={t}
+        />
       ) : null}
       {showButtons ? (
         <div className='col-md-12 mt-4'>
@@ -326,6 +319,4 @@ SEDStart.propTypes = {
   vedtakId: PT.string
 }
 
-const ConnectedSEDStart = connect(mapStateToProps, mapDispatchToProps)(SEDStart)
-ConnectedSEDStart.displayName = 'Connect(SEDStart)'
-export default ConnectedSEDStart
+export default connect(mapStateToProps, mapDispatchToProps)(SEDStart)

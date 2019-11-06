@@ -1,5 +1,4 @@
 @import '../../constants';
-@import (reference) '../../variabler';
 
 .c-topHeader {
 
@@ -11,7 +10,7 @@
     flex-shrink: 0;
 
     .skillelinje {
-      border-left: 1px solid black;
+      border-left: 1px solid @black;
       display: flex;
       height: 30px;
       width: 1px;
@@ -31,7 +30,7 @@
       }
 
       .tittel {
-        color: white;
+        color: @white;
         display: flex;
         font-size: 13pt;
         padding-left: 15px;
@@ -45,25 +44,25 @@
       align-items: center;
 
       .SAKSBEHANDLER {
-         color: red;
+         color: @navRod;
       }
 
       .BRUKER {
-         color: green;
+         color: @navGronn;
       }
 
       .username-span {
         padding: 0.45rem;
         padding-left: 0.5rem;
         padding-right: 1.6rem;
-        color: white;
+        color: @white;
       }
 
       .username-select {
 
         .selectContainer:before,
         .selectContainer:after {
-            background: white !important;
+            background: @white !important;
         }
 
         position: relative;
@@ -74,10 +73,10 @@
              border-color: transparent !important;
            }
            &:hover {
-             border-color: white !important;
+             border-color: @white !important;
            }
         }
-        color: white;
+        color: @white;
 
         option {
             background: @pension-orange;
@@ -92,7 +91,7 @@
     }
 
   .skjemaelement__input {
-    color: white;
+    color: @white;
   }
 }
 
@@ -100,6 +99,6 @@
    background-color: @black;
 
    .skillelinje {
-      border-left: 1px solid white;
+      border-left: 1px solid @white;
    }
 }

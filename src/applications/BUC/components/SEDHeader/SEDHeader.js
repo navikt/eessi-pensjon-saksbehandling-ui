@@ -3,14 +3,13 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import classNames from 'classnames'
 import moment from 'moment'
-
 import { Icons, Nav } from 'eessi-pensjon-ui'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import './SEDHeader.css'
 
-const SEDHeader = ({ border = 'none', buc, className, institutionNames, locale, onSEDNew, sed, followUpSeds, t }) => {
+const SEDHeader = ({ buc, className, institutionNames, locale, onSEDNew, sed, followUpSeds, t }) => {
   const institutionList = sed.participants ? sed.participants.map(participant => {
     return {
       country: participant.organisation.countryCode,
@@ -28,7 +27,7 @@ const SEDHeader = ({ border = 'none', buc, className, institutionNames, locale, 
     <Nav.PanelBase
       className={classNames('a-buc-c-sedheader', 'w-100', 'p-0', className)}
     >
-      <div className={classNames('a-buc-c-sedheader__content pt-2 pb-2', 'a-buc-c-sedheader__border-' + border)}>
+      <div className={classNames('a-buc-c-sedheader__content pt-2 pb-2')}>
         <div className='a-buc-c-sedheader__column a-buc-c-sedheader__name col-4'>
           <Nav.Element>{sed.type}{sedLabel ? ' - ' + sedLabel : ''}</Nav.Element>
         </div>
@@ -77,7 +76,6 @@ const SEDHeader = ({ border = 'none', buc, className, institutionNames, locale, 
 }
 
 SEDHeader.propTypes = {
-  border: PT.string,
   buc: PT.object,
   className: PT.string,
   institutionNames: PT.object,

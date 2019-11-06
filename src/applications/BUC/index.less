@@ -1,3 +1,5 @@
+@import '../../constants';
+
 .a-buc-widget {
 
   &__header {
@@ -27,13 +29,13 @@
   }
 
   .grey select {
-    color: grey;
+    color: @form-dark-gray;
     option {
-      color: black;
+      color: @black;
     }
   }
 
   button.knapp:hover:not(:disabled) svg * {
-    stroke: white;
+    stroke: @white;
   }
 }

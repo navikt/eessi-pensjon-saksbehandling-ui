@@ -1,4 +1,3 @@
-import React from 'react'
 import * as BUCUtils from './BUCUtils'
 import Mustache from 'mustache'
 

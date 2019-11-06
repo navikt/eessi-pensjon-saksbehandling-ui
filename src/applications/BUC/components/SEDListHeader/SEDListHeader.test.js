@@ -28,7 +28,7 @@ describe('applications/BUC/components/SEDListHeader/SEDListHeader', () => {
 
   it('Has proper HTML structure', () => {
     expect(wrapper.exists('.a-buc-c-sedlistheader')).toBeTruthy()
-    expect(wrapper.find('.a-buc-c-sedlistheader__name').hostNodes().render().text()).toEqual('P2000 - buc:buc-P2000ui:received29.05.2019')
+    expect(wrapper.find('.a-buc-c-sedlistheader__name').hostNodes().render().text()).toEqual('P2000 - buc:buc-P2000buc:status-received29.05.2019')
 
     const status = wrapper.find('.a-buc-c-sedlistheader__status').hostNodes()
     expect(status.find('SEDStatus').render().text()).toEqual('ui:' + sed.status)

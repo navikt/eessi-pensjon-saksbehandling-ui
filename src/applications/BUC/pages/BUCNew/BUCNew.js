@@ -9,7 +9,7 @@ const BUCNew = (props) => {
   const { t } = props
   return (
     <>
-      <Nav.Panel className='a-buc-bucnew s-border'>
+      <Nav.Panel className='a-buc-p-bucnew s-border'>
         <Nav.Systemtittel>{t('buc:step-startBUCTitle')}</Nav.Systemtittel>
         <hr />
         <BUCStart mode='widget' {...props} />
