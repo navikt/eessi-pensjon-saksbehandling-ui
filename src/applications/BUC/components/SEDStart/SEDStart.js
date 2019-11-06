@@ -4,7 +4,7 @@ import { connect, bindActionCreators } from 'store'
 import _ from 'lodash'
 import Step1 from './Step1'
 import Step2 from './Step2'
-import { Nav } from 'eessi-pensjon-ui'
+import { Alert, Nav } from 'eessi-pensjon-ui'
 import * as bucActions from 'actions/buc'
 import * as uiActions from 'actions/ui'
 import * as storageActions from 'actions/storage'
@@ -19,6 +19,7 @@ const mapStateToProps = /* istanbul ignore next */ (state) => {
     bucsInfoList: state.buc.bucsInfoList,
     countryList: state.buc.countryList,
     institutionList: state.buc.institutionList,
+    attachmentsError: state.buc.attachmentsError,
     loading: state.loading,
     locale: state.ui.locale,
     sed: state.buc.sed,
@@ -33,7 +34,7 @@ const mapDispatchToProps = /* istanbul ignore next */ (dispatch) => {
 }
 
 export const SEDStart = (props) => {
-  const { actions, aktoerId, avdodfnr, attachments, bucs, bucsInfoList, countryList, currentBuc, currentSed } = props
+  const { actions, aktoerId, avdodfnr, attachments, attachmentsError, bucs, bucsInfoList, countryList, currentBuc, currentSed } = props
   const { initialAttachments = {}, initialSed = undefined, initialStep = 0, institutionList, institutionNames } = props
   const { loading, p4000info, sakId, sed, setMode, t, vedtakId } = props
 
@@ -249,19 +250,27 @@ export const SEDStart = (props) => {
         />
       ) : null}
       {sendingAttachments ? (
-        <SEDAttachmentSender
-          className='ml-3 w-50'
-          sendAttachmentToSed={actions.sendAttachmentToSed}
-          aktoerId={aktoerId}
-          buc={buc}
-          sed={sed}
-          allAttachments={_attachments.joark}
-          savedAttachments={attachments}
-          onFinished={() => {
-            setAttachmentsSent(true)
-          }}
-          t={t}
-        />
+        !attachmentsError ? (
+          <SEDAttachmentSender
+            className='ml-3 w-50'
+            sendAttachmentToSed={actions.sendAttachmentToSed}
+            aktoerId={aktoerId}
+            buc={buc}
+            sed={sed}
+            allAttachments={_attachments.joark}
+            savedAttachments={attachments}
+            onFinished={() => {
+              setAttachmentsSent(true)
+            }}
+            t={t}
+          />
+        ) : (
+          <Alert
+            type='client'
+            message={t('buc:error-sendingAttachments')}
+            status='ERROR'
+          />
+        )
       ) : null}
       {showButtons ? (
         <div className='col-md-12 mt-4'>

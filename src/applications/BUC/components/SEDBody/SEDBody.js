@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import SEDAttachments from '../SEDAttachments/SEDAttachments'
-import { Nav } from 'eessi-pensjon-ui'
+import { Alert, Nav } from 'eessi-pensjon-ui'
 import { IS_TEST } from 'constants/environment'
 import SEDAttachmentSender from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 
-const SEDBody = ({ actions, attachments, aktoerId, buc, t, sed }) => {
+const SEDBody = ({ actions, attachments, attachmentsError, aktoerId, buc, t, sed }) => {
   const [_attachments, setAttachments] = useState({ sed: sed.attachments || [], joark: [] })
   const [sendingAttachments, setSendingAttachments] = useState(false)
   const [attachmentsSent, setAttachmentsSent] = useState(false)
@@ -41,19 +41,28 @@ const SEDBody = ({ actions, attachments, aktoerId, buc, t, sed }) => {
         open={seeAttachmentPanel}
         onOpen={() => { setSeeAttachmentPanel(!seeAttachmentPanel) }}
         onSubmit={onHandleSubmit}
+        disableButtons={sendingAttachments}
       />
       {sendingAttachments ? (
-        <SEDAttachmentSender
-          className='mt-3 mb-3 w-100'
-          sendAttachmentToSed={actions.sendAttachmentToSed}
-          aktoerId={aktoerId}
-          buc={buc}
-          sed={sed}
-          allAttachments={_attachments.joark}
-          savedAttachments={attachments}
-          onFinished={() => setAttachmentsSent(true)}
-          t={t}
-        />
+        !attachmentsError ? (
+          <SEDAttachmentSender
+            className='mt-3 mb-3 w-100'
+            sendAttachmentToSed={actions.sendAttachmentToSed}
+            aktoerId={aktoerId}
+            buc={buc}
+            sed={sed}
+            allAttachments={_attachments.joark}
+            savedAttachments={attachments}
+            onFinished={() => setAttachmentsSent(true)}
+            t={t}
+          />
+        ) : (
+          <Alert
+            type='client'
+            message={t('buc:error-sendingAttachments')}
+            status='ERROR'
+          />
+        )
       ) : null}
     </div>
   )

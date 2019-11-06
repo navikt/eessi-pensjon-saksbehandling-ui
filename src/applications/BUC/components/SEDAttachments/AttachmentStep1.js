@@ -5,7 +5,7 @@ import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
 import { Nav } from 'eessi-pensjon-ui'
 
 export const AttachmentStep1 = (props) => {
-  const { files, onSubmit, t } = props
+  const { disableButtons, files, onSubmit, t } = props
   const [mode, setMode] = useState('view')
   const [localFiles, setLocalFiles] = useState(files && _.isArray(files.joark) ? files.joark : [])
 
@@ -44,7 +44,7 @@ export const AttachmentStep1 = (props) => {
         {mode === 'confirm' ? (
           <>
             <Nav.Hovedknapp
-              disabled={_.isEmpty(localFiles)}
+              disabled={_.isEmpty(localFiles) || disableButtons}
               id='a-buc-sedbody__submit-button-id'
               className='a-buc-sedbody__submit-button mr-2'
               onClick={() => onSubmitJoarkFiles(localFiles)}
@@ -52,6 +52,7 @@ export const AttachmentStep1 = (props) => {
               {t('buc:form-submitSelectedAttachments')}
             </Nav.Hovedknapp>
             <Nav.Knapp
+              disabled={disableButtons}
               id='a-buc-sedbody__cancel-button-id'
               className='a-buc-sedbody__cancel-button'
               onClick={() => setMode('view')}

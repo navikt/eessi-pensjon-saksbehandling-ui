@@ -12,7 +12,7 @@ import moment from 'moment'
 import './BUCEdit.css'
 
 const BUCEdit = ({
-  actions, aktoerId, attachments, bucs, bucsInfo, currentBuc, initialSearch, initialStatusSearch,
+  actions, aktoerId, attachments, attachmentsError, bucs, bucsInfo, currentBuc, initialSearch, initialStatusSearch,
   institutionNames, loading, locale, rinaUrl, setMode, t, tagList
 }) => {
   const [search, setSearch] = useState(initialSearch)
@@ -99,6 +99,7 @@ const BUCEdit = ({
                   actions={actions}
                   aktoerId={aktoerId}
                   attachments={attachments}
+                  attachmentsError={attachmentsError}
                   style={{ animationDelay: (0.2 * index) + 's' }}
                   buc={buc}
                   locale={locale}
@@ -147,6 +148,7 @@ BUCEdit.propTypes = {
   actions: PT.object.isRequired,
   aktoerId: PT.string.isRequired,
   attachments: PT.array,
+  attachmentsError: PT.bool,
   bucs: PT.object.isRequired,
   bucsInfo: PT.object,
   currentBuc: PT.string,

@@ -6,7 +6,10 @@ import SEDListHeader from 'applications/BUC/components/SEDListHeader/SEDListHead
 import SEDBody from '../SEDBody/SEDBody'
 import './SEDPanel.css'
 
-const SEDPanel = ({ actions, aktoerId, attachments, buc, followUpSeds, institutionNames, locale, onSEDNew, rinaUrl, sed, style, t }) => {
+const SEDPanel = ({
+  actions, aktoerId, attachments, attachmentsError, buc, followUpSeds, institutionNames, locale, onSEDNew,
+  rinaUrl, sed, style, t
+}) => {
   const sedHasOption = (sed) => {
     const allowedStatus = ['new', 'active']
     return _.includes(allowedStatus, sed.status)
@@ -50,6 +53,7 @@ const SEDPanel = ({ actions, aktoerId, attachments, buc, followUpSeds, instituti
         actions={actions}
         aktoerId={aktoerId}
         attachments={attachments}
+        attachmentsError={attachmentsError}
         buc={buc}
         sed={sed}
         t={t}

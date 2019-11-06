@@ -91,6 +91,7 @@
   "buc-M040"   : "Krav om førtidspensjon",
 
   "error-noBucs" : "Feil å hente BUC-er",
+  "error-sendingAttachments" : "Feil å sende vedlegg",
 
   "form-addAttachmentsFromJOARK"      : "Legg til vedlegg",
   "form-addAttachmentsFromFileUpload" : "Laster opp ny vedlegg fra din datamaskin",

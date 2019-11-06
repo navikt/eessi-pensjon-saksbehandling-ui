@@ -3,6 +3,7 @@ import _ from 'lodash'
 
 export const initialBucState = {
   attachments: [],
+  attachmentsError: false,
   avdodBucs: undefined,
   bucs: undefined,
   bucsInfoList: undefined,
@@ -344,6 +345,18 @@ const bucReducer = (state = initialBucState, action) => {
         attachments: existingAttachments
       }
     }
+
+    case types.BUC_SEND_ATTACHMENT_REQUEST:
+      return {
+        ...state,
+        attachmentsError: false
+      }
+
+    case types.BUC_SEND_ATTACHMENT_FAILURE:
+      return {
+        ...state,
+        attachmentsError: true
+      }
 
     case types.BUC_GET_P4000_LIST_SUCCESS:
       return {

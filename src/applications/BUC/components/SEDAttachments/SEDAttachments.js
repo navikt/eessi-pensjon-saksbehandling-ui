@@ -6,7 +6,7 @@ import AttachmentStep1 from './AttachmentStep1'
 import AttachmentStep2 from './AttachmentStep2'
 
 const SEDAttachments = (props) => {
-  const { t, initialStep = 1, open = false, onOpen, onSubmit } = props
+  const { initialStep = 1, open = false, onOpen, t } = props
   const [step, setStep] = useState(initialStep)
 
   const handleButtonClick = () => {
@@ -30,8 +30,8 @@ const SEDAttachments = (props) => {
           </div>
         </Nav.Knapp>
       ) : null}
-      {open && step === 1 ? <AttachmentStep1 setStep={setStep} onSubmit={onSubmit} {...props} /> : null}
-      {open && step === 2 ? <AttachmentStep2 setStep={setStep} onSubmit={onSubmit} {...props} /> : null}
+      {open && step === 1 ? <AttachmentStep1 setStep={setStep} {...props} /> : null}
+      {open && step === 2 ? <AttachmentStep2 setStep={setStep} {...props} /> : null}
     </div>
   )
 }
