@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { CountryData, Flag, Nav } from 'eessi-pensjon-ui'
 import './InstitutionList.css'
 
-const InstitutionList = ({ className, flag = true, flagType = 'circle', institutions, institutionNames, locale, t, type }) => {
+const InstitutionList = ({ className, flag = true, flagType = 'circle', institutions = [], institutionNames, locale, t, type = 'joined' }) => {
   const institutionList = {}
   if (institutions) {
     institutions.forEach(item => {
@@ -23,44 +23,45 @@ const InstitutionList = ({ className, flag = true, flagType = 'circle', institut
   }
 
   if (_.isEmpty(institutionList)) {
-    return <Nav.Normaltekst>{t('buc:form-noInstitutionYet')}</Nav.Normaltekst>
+    return (
+      <div
+        className={classNames('a-buc-c-institutionlist', className)}
+      >
+        <Nav.Normaltekst>{t('buc:form-noInstitutionYet')}</Nav.Normaltekst>
+      </div>
+    )
+  }
+
+  const getLabel = (landkode, institutionId) => {
+    return institutionNames &&
+    Object.prototype.hasOwnProperty.call(institutionNames, landkode + ':' + institutionId)
+      ? institutionNames[landkode + ':' + institutionId]
+      : institutionId
   }
 
   return Object.keys(institutionList).map(landkode => {
     const country = CountryData.findByValue(locale, landkode)
-
     return (
       <div
-        id='a-buc-c-institutionlist-id'
         className={classNames('a-buc-c-institutionlist', className)}
         key={landkode}
       >
         {type === 'joined' ? (
-          <div className='a-buc-c-institution'>
+          <div className='a-buc-c-institutionlist__institution'>
             {flag ? <Flag className='mr-2' label={country.label} country={landkode} size='M' type={flagType} /> : null}
-            <Nav.Normaltekst>{institutionList[landkode].map(institutionId => {
-              return institutionNames &&
-          Object.prototype.hasOwnProperty.call(institutionNames, landkode + ':' + institutionId)
-                ? institutionNames[landkode + ':' + institutionId]
-                : institutionId
-            }).join(', ')}
+            <Nav.Normaltekst>
+              {institutionList[landkode].map(institutionId => getLabel(landkode, institutionId)).join(', ')}
             </Nav.Normaltekst>
           </div>
         ) : null}
-        {type === 'separated' ? institutionList[landkode].map(institutionId => {
-          return (
-            <div className='a-buc-c-institution' key={institutionId}>
-              {flag ? <Flag className='mr-2' label={country ? country.label : landkode} country={landkode} size='M' type={flagType} /> : null}
-              <Nav.Normaltekst>{
-                institutionNames &&
-                Object.prototype.hasOwnProperty.call(institutionNames, landkode + ':' + institutionId)
-                  ? institutionNames[landkode + ':' + institutionId]
-                  : institutionId
-              }
-              </Nav.Normaltekst>
-            </div>
-          )
-        }) : null}
+        {type === 'separated' ? institutionList[landkode].map(institutionId => (
+          <div className='a-buc-c-institutionlist__institution' key={institutionId}>
+            {flag ? <Flag className='mr-2' label={country ? country.label : landkode} country={landkode} size='M' type={flagType} /> : null}
+            <Nav.Normaltekst>
+              {getLabel(landkode, institutionId)}
+            </Nav.Normaltekst>
+          </div>
+        )) : null}
       </div>
     )
   })
@@ -70,11 +71,11 @@ InstitutionList.propTypes = {
   className: PT.string,
   flag: PT.bool,
   flagType: PT.string,
-  institutions: PT.array.isRequired,
+  institutions: PT.array,
   institutionNames: PT.object,
   locale: PT.string.isRequired,
   t: PT.func.isRequired,
-  type: PT.string.isRequired
+  type: PT.string
 }
 
 export default InstitutionList

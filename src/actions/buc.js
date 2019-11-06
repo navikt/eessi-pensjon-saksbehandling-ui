@@ -276,6 +276,7 @@ export const sendAttachmentToSed = (params, context) => {
   return api.call({
     url: sprintf(urls.BUC_SEND_ATTACHMENT_URL, params),
     method: 'PUT',
+    cascadeFailureError: true,
     expectedPayload: context,
     context: context,
     type: {

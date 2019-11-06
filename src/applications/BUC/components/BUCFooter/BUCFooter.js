@@ -5,7 +5,7 @@ import { Icons, Nav } from 'eessi-pensjon-ui'
 import './BUCFooter.css'
 
 const BUCFooter = ({ className, rinaUrl, t }) => (
-  <div className={classNames('a-buc-footer', className)}>
+  <div className={classNames('a-buc-c-footer', className)}>
     <Nav.Lenke
       id='a-buc-c-buclist__gotorina-link'
       className='a-buc-c-buclist__gotorina'

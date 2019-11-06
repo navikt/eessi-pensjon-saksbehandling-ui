@@ -38,7 +38,7 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl,
 
   if (buc.error) {
     return (
-      <div className='a-buc-c-bucheader'>
+      <div className='a-buc-c-bucheader p-0 w-100'>
         <Nav.AlertStripe type='advarsel' className='w-100'>{buc.error}</Nav.AlertStripe>
       </div>
     )
@@ -47,10 +47,10 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl,
   return (
     <div
       id={'a-buc-c-bucheader__' + buc.type + '-' + buc.caseId}
-      className='a-buc-c-bucheader'
+      className='a-buc-c-bucheader p-0 w-100'
     >
       <Nav.Undertittel
-        className='a-buc-c-bucheader__title w-100 pb-1'
+        className='a-buc-c-bucheader__title pb-1 w-100'
       >
         {buc.type + ' - ' + getBucTypeLabel({
           t: t,

@@ -22,6 +22,6 @@ describe('applications/BUC/components/BUCFooter/BUCFooter', () => {
   })
 
   it('Has proper HTML structure', () => {
-    expect(wrapper.exists('.a-buc-footer')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-footer')).toBeTruthy()
   })
 })

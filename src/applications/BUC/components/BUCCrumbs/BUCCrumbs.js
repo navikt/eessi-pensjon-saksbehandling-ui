@@ -58,7 +58,7 @@ const BUCCrumbs = ({ actions, bucs, currentBuc, className, mode, setMode, showLa
         const onBucCrumbClick = buccrumb.func
         return (
           <React.Fragment key={i}>
-            {!first ? <Nav.Chevron className='separator' type='høyre' /> : null}
+            {!first ? <Nav.Chevron className='separator ml-1 mr-1' type='høyre' /> : null}
             <div className='a-buc-c-buccrumb'>
               {last && !showLastLink
                 ? t(buccrumb.label)

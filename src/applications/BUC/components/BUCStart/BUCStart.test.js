@@ -31,6 +31,7 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
     subjectAreaList: ['mockSubjectArea1', 'mockSubjectArea2'],
     locale: 'nb',
     mode: 'widget',
+    onTagsChanged: jest.fn(),
     setMode: jest.fn(),
     t: jest.fn(t => t)
   }
@@ -56,6 +57,17 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
   it('Renders null if no aktoerId', () => {
     wrapper = mount(<BUCStart {...initialMockProps} aktoerId={undefined} />)
     expect(wrapper.isEmptyRender()).toBeTruthy()
+  })
+
+  it('Renders a spinner when fetching data', () => {
+    wrapper.setProps({ loading: { gettingSubjectAreaList: true } })
+    expect(wrapper.exists('.a-buc-c-bucstart__spinner')).toBeTruthy()
+  })
+
+  it('Renders as a standalone page', () => {
+    wrapper.setProps({ mode: 'page' })
+    expect(wrapper.exists('.a-buc-c-bucstart__page-title')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucstart EESSIPensjonVeilederPanel')).toBeTruthy()
   })
 
   it('UseEffect: fetches subject areas, bucs, tags list if empty', () => {
@@ -115,15 +127,14 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
     })
   })
 
-  it('Renders a spinner when fetching data', () => {
-    wrapper.setProps({ loading: { gettingSubjectAreaList: true } })
-    expect(wrapper.exists('.a-buc-c-bucstart__spinner')).toBeTruthy()
-  })
-
-  it('Renders as a standalone page', () => {
-    wrapper.setProps({ mode: 'page' })
-    expect(wrapper.exists('.a-buc-c-bucstart__page-title')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-c-bucstart EESSIPensjonVeilederPanel')).toBeTruthy()
+  it('Has proper HTML structure', () => {
+    expect(wrapper.exists('div.a-buc-c-bucstart')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucstart__subjectarea-select')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucstart__buc-select')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucstart__tags-select')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucstart__buttons')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucstart__forward-button')).toBeTruthy()
+    expect(wrapper.exists('.a-buc-c-bucstart__cancel-button')).toBeTruthy()
   })
 
   it('Handles valid onForwardButtonClick()', () => {
@@ -150,13 +161,9 @@ describe('applications/BUC/components/BUCStart/BUCStart with no sakId or aktoerI
     expect(initialMockProps.setMode).toHaveBeenCalledWith('buclist')
   })
 
-  it('Has proper HTML structure', () => {
-    expect(wrapper.exists('div.a-buc-c-bucstart')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-c-bucstart__subjectarea-select')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-c-bucstart__buc-select')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-c-bucstart__tags-select')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-c-bucstart__buttons')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-c-bucstart__forward-button')).toBeTruthy()
-    expect(wrapper.exists('.a-buc-c-bucstart__cancel-button')).toBeTruthy()
+  it('Handles onTagsChange()', () => {
+    wrapper.find('.a-buc-c-bucstart__tags-select .multipleSelect__dropdown-indicator').hostNodes().simulate('keyDown', { key: 'ArrowDown' })
+    wrapper.find('.c-multipleOption').hostNodes().first().simulate('keyDown', { key: 'Enter' })
+    expect(initialMockProps.onTagsChanged).toHaveBeenCalledWith([{ label: 'buc:mockTag1', value: 'mockTag1' }])
   })
 })

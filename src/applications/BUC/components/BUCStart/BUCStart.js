@@ -11,7 +11,8 @@ const placeholders = {
 }
 
 const BUCStart = ({
-  actions, aktoerId, buc, bucParam, bucsInfo, bucList, loading, locale, mode, sakId, setMode, subjectAreaList, tagList, t
+  actions, aktoerId, buc, bucParam, bucsInfo, bucList, loading, locale, mode,
+  onTagsChanged, sakId, setMode, subjectAreaList, tagList, t
 }) => {
   const [_buc, setBuc] = useState(bucParam)
   const [_subjectArea, setSubjectArea] = useState('Pensjon')
@@ -120,6 +121,9 @@ const BUCStart = ({
 
   const onTagsChange = (tagsList) => {
     setTags(tagsList)
+    if (_.isFunction(onTagsChanged)) {
+      onTagsChanged(tagsList)
+    }
   }
 
   const renderOptions = (options, type) => {
@@ -288,6 +292,7 @@ BUCStart.propTypes = {
   loading: PT.object,
   locale: PT.string,
   mode: PT.string,
+  onTagsChanged: PT.func,
   sakId: PT.string,
   subjectAreaList: PT.array,
   tagList: PT.array,

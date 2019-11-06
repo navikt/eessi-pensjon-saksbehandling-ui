@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { MultipleSelect, Nav } from 'eessi-pensjon-ui'
 import './BUCTools.css'
 
-const BUCTools = ({ actions, aktoerId, buc, bucInfo, bucsInfo, className, loading, locale, onTagChange, t, tagList }) => {
+const BUCTools = ({ actions, aktoerId, buc, bucInfo, bucsInfo, className, loading, onTagChange, t, tagList }) => {
   const [comment, setComment] = useState(bucInfo ? bucInfo.comment : undefined)
   const [allTags, setAllTags] = useState(undefined)
   const [tags, setTags] = useState(bucInfo && bucInfo.tags ? bucInfo.tags.map(tag => ({
@@ -100,7 +100,6 @@ BUCTools.propTypes = {
   bucsInfo: PT.object,
   className: PT.string,
   loading: PT.object.isRequired,
-  locale: PT.string.isRequired,
   onTagChange: PT.func,
   t: PT.func.isRequired,
   tagList: PT.array
