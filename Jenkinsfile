@@ -39,25 +39,6 @@ node {
       }
     }
 
-    stage("deploy T8") {
-        deploy_to_fss: {
-          def version = sh(script: 'git describe --abbrev=0', returnStdout: true).trim()
-          build([
-            job       : 'nais-deploy-pipeline',
-            wait      : true,
-            parameters: [
-              string(name: 'APP', value: "eessi-pensjon-frontend-ui-fss"),
-              string(name: 'REPO', value: "navikt/eessi-pensjon-saksbehandling-ui"),
-              string(name: 'VERSION', value: version),
-              string(name: 'DEPLOY_REF', value: version),
-              string(name: 'DEPLOY_ENV', value: 't8'),
-              string(name: 'NAMESPACE', value: 't8'),
-              string(name: 'CLUSTER', value: 'fss')
-            ]
-          ])
-        }
-    }
-
     stage("deploy Q6") {
         deploy_to_fss: {
           def version = sh(script: 'git describe --abbrev=0', returnStdout: true).trim()
@@ -77,7 +58,7 @@ node {
           ])
         }
     }
-    /*
+
     stage("deploy Q2") {
         deploy_to_fss: {
           def version = sh(script: 'git describe --abbrev=0', returnStdout: true).trim()
@@ -97,7 +78,7 @@ node {
           ])
         }
     }
-    */
+
 
     github.commitStatus("success", "navikt/eessi-pensjon-saksbehandling-ui", appToken, commitHash)
   } catch (err) {
