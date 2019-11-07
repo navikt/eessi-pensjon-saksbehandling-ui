@@ -9,6 +9,11 @@ export default [{
   akronym: '002',
   landkode: 'NO'
 }, {
+  id: 'NO:NAVAT07',
+  navn: 'NAV ACCEPTANCE TEST 07',
+  akronym: 'NAVAT07',
+  landkode: 'NO'
+}, {
   id: 'SE:DEMO003',
   navn: 'Demo institution 003',
   akronym: '003',

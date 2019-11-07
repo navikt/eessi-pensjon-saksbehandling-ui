@@ -4,7 +4,7 @@ import { connect, bindActionCreators } from 'store'
 import _ from 'lodash'
 import moment from 'moment'
 import { withTranslation } from 'react-i18next'
-import { Icons, Nav, RefreshButton, WaitingPanel } from 'eessi-pensjon-ui'
+import { Icons, Nav, RefreshButton, TableSorter, WaitingPanel } from 'eessi-pensjon-ui'
 import * as pinfoActions from 'actions/pinfo'
 import * as storageActions from 'actions/storage'
 import { ReactComponent as VeilederSVG } from 'resources/images/NavPensjonVeileder.svg'
@@ -124,6 +124,19 @@ export const VarslerPanel = (props) => {
   }
 
   const user = _.get(person, 'aktoer.ident.ident') || '-'
+
+  const items = _files && !_.isEmpty(_files) ? Object.keys(_files)
+    .sort((a, b) => _files[b].timestamp.localeCompare(_files[a].timestamp))
+    .map((file) => {
+      const content = _files[file]
+      return {
+        key: file,
+        type: content.tittel || file,
+        sender: content.fulltnavn || t('unknown'),
+        date: moment(content.timestamp).toDate()
+      }
+    }) : []
+
   return (
     <Nav.EkspanderbartpanelBase
       className='w-varslerPanel s-border'
@@ -175,41 +188,33 @@ export const VarslerPanel = (props) => {
               onRefreshClicked={onRefreshHandle}
             />
           </div>
-          {!isReady ? (
-            <WaitingPanel style={{ paddingTop: '3rem' }} message={t('ui:loading')} />
+          {!_.isEmpty(items) ? (
+            <TableSorter
+              className='w-varslerPanel__table w-100 mt-2'
+              items={items}
+              searchable
+              selectable={false}
+              sortable
+              loading={!isReady}
+              columns={[
+                {
+                  id: 'type',
+                  label: t('ui:sentDocuments'),
+                  type: 'object',
+                  needle: (it) => it.toLowerCase(),
+                  toTableCell: (item) => (
+                    <div>
+                      <Icons className='mr-2' kind='nav-message-sent' />
+                      <label>{item.type}</label>
+                    </div>
+                  )
+                },
+                { id: 'sender', label: t('ui:sender'), type: 'string' },
+                { id: 'date', label: t('ui:dateandtime'), type: 'date' }
+              ]}
+            />
           ) : (
-            <table className='w-100 mt-2'>
-              <thead>
-                <tr style={{ borderBottom: '1px solid lightgrey' }}>
-                  <th />
-                  <th>{t('ui:sentDocuments')}</th>
-                  <th>{t('ui:sender')}</th>
-                  <th>{t('ui:dateandtime')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {_files && !_.isEmpty(_files)
-                  ? (
-                    Object.keys(_files)
-                      .sort((a, b) => _files[b].timestamp.localeCompare(_files[a].timestamp))
-                      .map((file, index) => {
-                        const content = _files[file]
-                        return (
-                          <tr className='slideAnimate' style={{ animationDelay: index * 0.03 + 's' }} key={file}>
-                            <td><Icons kind='nav-message-sent' /></td>
-                            <td>{content.tittel || file}</td>
-                            <td>{content.fulltnavn || t('unknown')}</td>
-                            <td>{content.timestamp ? moment(content.timestamp).format('DD.MM.YYYY') : t('unknown')}</td>
-                          </tr>
-                        )
-                      })
-                  ) : (
-                    <tr>
-                      <td colSpan={4} align='center' className='p-2 font-italic'>{t('ui:widget-overview-sendNotification-noMessages')}</td>
-                    </tr>
-                  )}
-              </tbody>
-            </table>
+            <div align='center' className='p-2 font-italic'>{t('ui:widget-overview-sendNotification-noMessages')}</div>
           )}
         </div>
       </Nav.Row>

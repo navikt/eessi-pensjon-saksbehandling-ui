@@ -23,8 +23,12 @@ const mockListStorageFiles = /* istanbul ignore next */ (userId, namespace) => {
   }
   if (namespace === storage.NAMESPACE_VARSLER + '___123') {
     return [
-      userId + '___' + namespace + '___1970-01-01Z00:00:00',
-      userId + '___' + namespace + '___1980-01-01Z00:00:00'
+      userId + '___' + namespace + '___2019-02-02Z00:00:00',
+      userId + '___' + namespace + '___2019-02-27Z00:00:00',
+      userId + '___' + namespace + '___2019-03-10Z00:00:00',
+      userId + '___' + namespace + '___2019-03-22Z00:00:00',
+      userId + '___' + namespace + '___2019-04-01Z00:00:00',
+      userId + '___' + namespace + '___2019-06-15Z00:00:00',
     ]
   }
   return []
@@ -50,9 +54,10 @@ export const getStorageFile = ({ userId, namespace, file }, context) => {
     method: 'GET',
     expectedPayload: /* istanbul ignore next */  () => {
       if (namespace === storage.NAMESPACE_VARSLER) {
+        const names = ['Ola Nordmenn', 'Kari Olsen', 'Bjørn Knutsen', 'Are Petersen', 'Harald Eide', 'Ragnhild Dahl']
         return {
-          tittel: 'mockTittel',
-          fulltnavn: 'mockFulltnavn',
+          tittel: 'E207',
+          fulltnavn: names[Math.floor(Math.random()*names.length)],
           timestamp: file.replace('123___', '')
         }
       }
