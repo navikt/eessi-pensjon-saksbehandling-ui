@@ -337,7 +337,7 @@ const Step1 = ({
 
 Step1.propTypes = {
   actions: PT.object.isRequired,
-  attachments: PT.array,
+  _attachments: PT.object,
   buc: PT.object.isRequired,
   countryList: PT.array,
   institutionList: PT.object,

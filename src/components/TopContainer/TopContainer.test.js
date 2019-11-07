@@ -75,7 +75,7 @@ describe('components/TopContainer', () => {
     const modal = wrapper.find('.c-topContainer > Modal')
     expect(modal.props().modal).toEqual(expect.objectContaining(mockModal))
 
-    modal.find('button').simulate('click')
+    modal.find('button').hostNodes().last().simulate('click')
     expect(initialMockProps.actions.closeModal).toHaveBeenCalled()
   })
 })

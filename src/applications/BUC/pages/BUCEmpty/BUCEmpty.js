@@ -50,7 +50,7 @@ const BUCEmpty = ({ actions, aktoerId, onBUCNew, rinaUrl, sakId, t }) => {
           <img alt='' className='mouse' src={MousePNG} />
           <img alt='' className='map' src={MapPNG} />
         </div>
-        <Nav.Undertittel className='a-buc-bucempty__title mb-3'>
+        <Nav.Undertittel className='a-buc-p-bucempty__title mb-3'>
           <Nav.Lenke
             id='a-buc-p-bucempty__newbuc-link-id'
             className='a-buc-p-bucempty__newbuc-link'

@@ -55,7 +55,7 @@ describe('actions/joark', () => {
 
   it('setPreviewJoarkFile()', () => {
     const mockItem = 'mockItem'
-    const generatedResult = joarkActions.getPreviewJoarkFile(mockItem)
+    const generatedResult = joarkActions.setPreviewJoarkFile(mockItem)
     expect(generatedResult).toMatchObject({
       type: types.JOARK_PREVIEW_SET,
       payload: mockItem
@@ -65,26 +65,21 @@ describe('actions/joark', () => {
   it('getJoarkFile()', () => {
     const mockItem = {
       journalpostId: '1',
-      dokumentInfoId: '4'
+      dokumentInfoId: '4',
+      variant: { variantformat: 'mockVariant' }
     }
-    const mockVariant = {
-      variantformat: 'mockVariant'
-    }
-    joarkActions.getJoarkFile(mockItem, mockVariant)
+    joarkActions.getJoarkFile(mockItem)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.JOARK_GET_REQUEST,
         success: types.JOARK_GET_SUCCESS,
         failure: types.JOARK_GET_FAILURE
       },
-      context: {
-        ...mockItem,
-        variant: mockVariant
-      },
+      context: mockItem,
       url: sprintf(urls.API_JOARK_GET_URL, {
         dokumentInfoId: mockItem.dokumentInfoId,
         journalpostId: mockItem.journalpostId,
-        variantformat: mockVariant.variantformat
+        variantformat: mockItem.variant.variantformat
       })
     }))
   })

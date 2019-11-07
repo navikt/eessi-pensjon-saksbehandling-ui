@@ -146,8 +146,8 @@ export const VarslerPanel = (props) => {
                   : <div dangerouslySetInnerHTML={{ __html: t('ui:widget-overview-sendNotification-description', { user: user }) }} />}
               </>
             )}
-            type={invite ? (invite.status === 'ERROR' ? 'feilmelding' : 'suksess') : ''}
-            fargetema={invite ? (invite.status === 'ERROR' ? 'feilmelding' : 'suksess') : ''}
+            type={invite ? (invite.status === 'ERROR' ? 'feilmelding' : 'suksess') : 'normal'}
+            fargetema={invite ? (invite.status === 'ERROR' ? 'feilmelding' : 'suksess') : 'normal'}
             posisjon='bunn'
           >
             <VeilederSVG />

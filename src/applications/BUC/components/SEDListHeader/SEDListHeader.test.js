@@ -31,7 +31,7 @@ describe('applications/BUC/components/SEDListHeader/SEDListHeader', () => {
     expect(wrapper.find('.a-buc-c-sedlistheader__name').hostNodes().render().text()).toEqual('P2000 - buc:buc-P2000buc:status-received29.05.2019')
 
     const status = wrapper.find('.a-buc-c-sedlistheader__status').hostNodes()
-    expect(status.find('SEDStatus').render().text()).toEqual('ui:' + sed.status)
+    expect(status.find('SEDStatus').render().text()).toEqual('buc:status-' + sed.status)
     expect(status.find('Normaltekst').render().text()).toEqual('29.05.2019')
 
     const institutions = wrapper.find('.a-buc-c-sedlistheader__institutions').hostNodes()

@@ -103,7 +103,7 @@ describe('applications/BUC/index', () => {
     initialMockProps.actions.setMode.mockReset()
     wrapper = mount(<BUCIndex {...initialMockProps} sakId={undefined} aktoerId={undefined} />)
     expect(wrapper.exists('BUCEmpty')).toBeTruthy()
-    wrapper.find('#a-buc-bucempty__newbuc-link-id').hostNodes().simulate('click')
+    wrapper.find('#a-buc-p-bucempty__newbuc-link-id').hostNodes().simulate('click')
     expect(initialMockProps.actions.setMode).toHaveBeenCalledWith('bucnew')
   })
 

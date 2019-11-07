@@ -50,7 +50,6 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
 
   it('Renders', () => {
     expect(wrapper.isEmptyRender()).toBeFalsy()
-    expect(wrapper).toMatchSnapshot()
   })
 
   it('Render: loading', () => {
@@ -109,30 +108,22 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
     expect(initialMockProps.onFilesChange).toHaveBeenCalledWith([expectedFile])
   })
 
-  it('Calls onItemClicked', () => {
+  it('Calls onPreviewItem', () => {
     initialMockProps.actions.getPreviewJoarkFile.mockReset()
-    wrapper.find('.c-joarkbrowser__subcell a').hostNodes().first().simulate('click')
+    wrapper.find('.c-tablesorter__preview-button').hostNodes().first().simulate('click')
     expect(initialMockProps.actions.getPreviewJoarkFile).toHaveBeenCalledWith(expect.objectContaining({
-      datoOpprettet: expect.any(Date),
+      date: expect.any(Date),
       dokumentInfoId: '4',
       journalpostId: '1',
+      key: 'view-1-4-ARKIV',
+      label: 'ARKIV (23534345.pdf)',
+      name: 'blue.pdf',
+      selected: false,
       tema: 'foo',
-      tilleggsopplysninger: undefined,
-      tittel: 'blue.pdf',
       variant: {
         filnavn: '23534345.pdf',
         variantformat: 'ARKIV'
-      },
-      varianter: [{
-        filnavn: '23534345.pdf',
-        variantformat: 'ARKIV'
-      }, {
-        filnavn: '908745345.pdf',
-        variantformat: 'DUMMY'
-      }]
-    }), expect.objectContaining({
-      filnavn: '23534345.pdf',
-      variantformat: 'ARKIV'
+      }
     }))
   })
 })

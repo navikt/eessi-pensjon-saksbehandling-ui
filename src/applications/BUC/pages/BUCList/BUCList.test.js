@@ -7,9 +7,9 @@ jest.mock('eessi-pensjon-ui', () => {
   const Ui = jest.requireActual('eessi-pensjon-ui')
   return {
     ...Ui,
+    ExpandingPanel: ({ heading, children }) => <div className='ExpandingPanel'>{heading}{children}</div>,
     Nav: {
-      ...Ui.Nav,
-      EkspanderbartpanelBase: ({ heading, children }) => <div className='mock-EkspanderbartpanelBase'>{heading}{children}</div>
+      ...Ui.Nav
     }
   }
 })
@@ -84,7 +84,7 @@ describe('applications/BUC/widgets/BUCList/BUCList', () => {
     expect(wrapper.exists('.a-buc-p-buclist')).toBeTruthy()
     expect(wrapper.exists('.a-buc-p-buclist__buttons')).toBeTruthy()
     expect(wrapper.exists('#a-buc-p-buclist__newbuc-button-id')).toBeTruthy()
-    expect(wrapper.find('.mock-EkspanderbartpanelBase').hostNodes().length).toEqual(sampleBucs.length)
+    expect(wrapper.find('.mock-ExpandingPanel').hostNodes().length).toEqual(sampleBucs.length)
     expect(wrapper.exists('.a-buc-c-sedlist')).toBeTruthy()
     expect(wrapper.find('.a-buc-p-buclist__sedheader-head').hostNodes().length).toEqual(30)
     expect(wrapper.exists('.a-buc-footer')).toBeTruthy()

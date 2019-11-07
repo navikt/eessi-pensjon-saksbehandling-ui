@@ -13,7 +13,7 @@ describe('applications/BUC/components/SEDStart/Step1', () => {
 
   const initialMockProps = {
     actions: {},
-    _attachments: [],
+    _attachments: {},
     buc: mockBucs['195440'],
     _countries: [],
     countryList: [],
