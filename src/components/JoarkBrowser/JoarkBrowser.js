@@ -136,6 +136,7 @@ export const JoarkBrowser = ({
         <Nav.Normaltekst>{item.label}</Nav.Normaltekst>
         <div>
           <Nav.Knapp
+            data-tip={t('ui:preview')}
             form='kompakt'
             disabled={previewing}
             spinner={previewing}
@@ -148,13 +149,14 @@ export const JoarkBrowser = ({
           </Nav.Knapp>
           {context.mode === 'confirm' ? (
             <Nav.Knapp
+              data-tip={t('ui:delete')}
               form='kompakt'
               id={'c-tablesorter__delete-button-' + item.journalpostId + '-' + item.dokumentInfoId + '-' +
             convertSomeNonAlphanumericCharactersToUnderscore(item.label)}
               className='c-tablesorter__delete-button mr-2 ml-2'
               onClick={() => onDeleteItem(context.files, item)}
             >
-              <Icons kind='trashcan' />
+              <Icons kind='trashcan' color='#0067C5'/>
             </Nav.Knapp>
           ) : null}
         </div>
@@ -178,12 +180,14 @@ export const JoarkBrowser = ({
         variant = file.variant
       }
       return {
-        key: mode + '-' + file.journalpostId + '-' + file.dokumentInfoId + '-' + variant,
+        key: mode + '-' + file.journalpostId + '-' + file.dokumentInfoId + '-' + variant.variantformat,
         name: file.tittel,
         tema: file.tema,
         date: file.datoOpprettet,
         label: variant.variantformat + (variant.filnavn ? ' (' + variant.filnavn + ')' : ''),
         variant: variant,
+        dokumentInfoId: file.dokumentInfoId,
+        journalpostId: file.journalpostId,
         selected: _.find(files, {
           dokumentInfoId: file.dokumentInfoId,
           journalpostId: file.journalpostId,
