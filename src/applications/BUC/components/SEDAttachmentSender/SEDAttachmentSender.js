@@ -18,6 +18,7 @@ const SEDAttachmentSender = ({ allAttachments, attachmentsError, className, payl
   useEffect(() => {
     // all attachments are sent - conclude
     if (allAttachments.length === _storeAttachments.length) {
+      /* istanbul ignore next */
       if (!IS_TEST) {
         console.log('SEDAttachmentSender: allAttachments (' + allAttachments.length +
           ') same as _storeAttachments (' + _storeAttachments.length + ')')
@@ -28,6 +29,7 @@ const SEDAttachmentSender = ({ allAttachments, attachmentsError, className, payl
 
   useEffect(() => {
     if (!sendingAttachment) {
+      /* istanbul ignore next */
       if (!IS_TEST) {
         console.log('SEDAttachmentSender: Picking a new unsent attachment')
       }
@@ -41,6 +43,7 @@ const SEDAttachmentSender = ({ allAttachments, attachmentsError, className, payl
 
       // all sent, mark sending attachments as done
       if (_.isEmpty(unsentAttachments)) {
+        /* istanbul ignore next */
         if (!IS_TEST) {
           console.log('SEDAttachmentSender: No more unsent attachment')
         }
@@ -55,6 +58,7 @@ const SEDAttachmentSender = ({ allAttachments, attachmentsError, className, payl
         dokumentInfoId: unsentAttachment.dokumentInfoId,
         variantformat: unsentAttachment.variant.variantformat
       }
+      /* istanbul ignore next */
       if (!IS_TEST) {
         console.log('Sending unsent attachment ' + (_storeAttachments.length + 1) + ' of ' + allAttachments.length + ': ' +
           unsentAttachment.journalpostId + '/' + unsentAttachment.dokumentInfoId + '/' + unsentAttachment.variant.variantformat)
@@ -67,6 +71,7 @@ const SEDAttachmentSender = ({ allAttachments, attachmentsError, className, payl
   useEffect(() => {
     // handle if we have a newly sent attachment
     if (sendingAttachment && _storeAttachments.length !== savedAttachments.length) {
+      /* istanbul ignore next */
       if (!IS_TEST) {
         console.log('SEDAttachmentSender: Attachment ' + (savedAttachments.length) + ' of ' + allAttachments.length + ' sent')
       }

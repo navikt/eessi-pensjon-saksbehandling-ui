@@ -77,7 +77,8 @@ export const JoarkBrowser = ({
           >
             <File
               file={previewFile}
-              width={400} height={600}
+              width='100%'
+              height='100%'
               onContentClick={handleModalClose}
             />
           </div>
@@ -166,7 +167,10 @@ export const JoarkBrowser = ({
     items = list ? list.map((file) => {
       let variant
       if (file.varianter !== undefined) {
-        variant = _.find(file.varianter, v => v.variantformat === 'ARKIV')
+        variant = _.find(file.varianter, v => v.variantformat === 'SLADDET')
+        if (!variant) {
+          variant = _.find(file.varianter, v => v.variantformat === 'ARKIV')
+        }
         if (!variant && !_.isEmpty(file.varianter)) {
           variant = file.varianter[0]
         }
@@ -174,8 +178,7 @@ export const JoarkBrowser = ({
         variant = file.variant
       }
       return {
-        journalpostId: file.journalpostId,
-        dokumentInfoId: file.dokumentInfoId,
+        key: mode + '-' + file.journalpostId + '-' + file.dokumentInfoId + '-' + variant,
         name: file.tittel,
         tema: file.tema,
         date: file.datoOpprettet,
@@ -185,8 +188,7 @@ export const JoarkBrowser = ({
           dokumentInfoId: file.dokumentInfoId,
           journalpostId: file.journalpostId,
           variant: variant
-        }) !== undefined,
-        focused: _previewFile ? _previewFile.journalpostId === file.journalpostId && _previewFile.variant === variant : false
+        }) !== undefined
       }
     }) : []
   } else {
@@ -204,6 +206,7 @@ export const JoarkBrowser = ({
     <div className='c-joarkBrowser'>
       <Modal modal={modal} onModalClose={handleModalClose} />
       <TableSorter
+        className={mode}
         items={items}
         context={context}
         searchable
