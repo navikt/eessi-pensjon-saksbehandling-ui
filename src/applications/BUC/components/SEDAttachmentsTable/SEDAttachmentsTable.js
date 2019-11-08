@@ -38,6 +38,13 @@ const SEDAttachmentsTable = ({ attachments, t }) => {
           renderCell: (item, value) => <Nav.EtikettLiten>{value}</Nav.EtikettLiten>
         }, {
           id: 'title', label: t('ui:title'), type: 'string'
+        }, {
+          id: 'buttons',
+          label: '',
+          type: 'object',
+          renderCell: (item, value) => {
+            return <div />
+          }
         }
       ]}
     />

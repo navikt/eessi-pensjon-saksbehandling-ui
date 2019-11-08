@@ -122,7 +122,7 @@ export const JoarkBrowser = ({
     return text.replace(/[ .\-\\(\\)]/g, '_')
   }
 
-  const renderVarianterCell = (item, value, context) => {
+  const renderButtonsCell = (item, value, context) => {
     const previewing = context.loadingJoarkPreviewFile
     const spinner = previewing && _.isEqual(item, context.clickedPreviewFile)
     return (
@@ -130,7 +130,6 @@ export const JoarkBrowser = ({
         key={item.label}
         className='c-joarkbrowser__variant'
       >
-        <Nav.Normaltekst>{item.label}</Nav.Normaltekst>
         <div className='buttons'>
           <Nav.Knapp
             data-tip={t('ui:preview')}
@@ -230,11 +229,15 @@ export const JoarkBrowser = ({
             label: t('ui:date'),
             type: 'date'
           }, {
-            id: 'varianter',
+            id: 'label',
             label: t('ui:variant'),
             type: 'object',
-            needle: (it) => it.label.toLowerCase(),
-            renderCell: renderVarianterCell
+            renderCell: (item, value) => <Nav.Normaltekst>{value}</Nav.Normaltekst>
+          }, {
+            id: 'buttons',
+            label: '',
+            type: 'object',
+            renderCell: renderButtonsCell
           }
         ]}
         onRowSelectChange={onSelectedItemChange}
