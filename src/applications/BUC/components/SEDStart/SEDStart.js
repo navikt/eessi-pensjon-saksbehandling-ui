@@ -249,7 +249,7 @@ export const SEDStart = (props) => {
           validation={validation} setValidation={setValidation}
         />
       ) : null}
-      {sendingAttachments ? (
+      {sendingAttachments || attachmentsSent ? (
         <SEDAttachmentSender
           className='ml-3 w-50'
           attachmentsError={attachmentsError}

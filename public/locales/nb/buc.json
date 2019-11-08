@@ -98,6 +98,7 @@
   "form-addSelectedAttachments"       : "Legg til markerte vedlegg",
   "form-actions"                      : "Aksjoner",
   "form-aktoerId"                     : "Fødsels- og personnummer",
+  "form-attachmentsSent"              : "Vedlegg sendt",
   "form-avdodfnr"                     : "Avdød fnr",
   "form-avdodfnrInput"                : "Legg inn avdød fnr",
   "form-avdodfnrButton"               : "Avdød fnr knapp",

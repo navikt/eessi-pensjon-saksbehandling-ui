@@ -29,6 +29,7 @@ export const sedFilter = (sed) => {
 }
 
 export const bucFilter = (buc) => {
-  console.log(buc.type)
-  return buc.error || buc.type.startsWith('P_BUC') || _.includes(['H_BUC_07', 'R_BUC_01', 'R_BUC_02', 'M_BUC_02', 'M_BUC_03a', 'M_BUC_03b'], buc.type)
+  return buc.error ||
+    buc.type.startsWith('P_BUC') ||
+    _.includes(['H_BUC_07', 'R_BUC_01', 'R_BUC_02', 'M_BUC_02', 'M_BUC_03a', 'M_BUC_03b'], buc.type)
 }

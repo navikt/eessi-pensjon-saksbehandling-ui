@@ -3,6 +3,7 @@ import SEDAttachments from '../SEDAttachments/SEDAttachments'
 import { Nav } from 'eessi-pensjon-ui'
 import { IS_TEST } from 'constants/environment'
 import SEDAttachmentSender from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
+import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
 
 const SEDBody = ({ actions, aktoerId, attachments, attachmentsError, buc, sed, t }) => {
   const [_attachments, setAttachments] = useState({ sed: sed.attachments || [], joark: [] })
@@ -33,15 +34,22 @@ const SEDBody = ({ actions, aktoerId, attachments, attachmentsError, buc, sed, t
   return (
     <div className='a-buc-c-sedbody'>
       <Nav.Undertittel className='mt-4 mb-4'>{t('ui:attachments')}</Nav.Undertittel>
+      <div className='mt-4 mb-4'>
+        {!sendingAttachments ? <SEDAttachmentsTable attachments={_attachments} t={t} /> : null}
+      </div>
+      {seeAttachmentPanel ? <Nav.Undertittel className='mb-3 mt-3'>{t('ui:addAttachments')}</Nav.Undertittel> : null}
       <SEDAttachments
         t={t}
         files={_attachments}
         open={seeAttachmentPanel}
-        onOpen={() => { setSeeAttachmentPanel(!seeAttachmentPanel) }}
+        onOpen={() => {
+          setSeeAttachmentPanel(!seeAttachmentPanel)
+          setAttachmentsSent(false)
+        }}
         onSubmit={onHandleSubmit}
         disableButtons={sendingAttachments}
       />
-      {sendingAttachments ? (
+      {sendingAttachments || attachmentsSent ? (
         <SEDAttachmentSender
           className='mt-3 mb-3 w-100'
           attachmentsError={attachmentsError}

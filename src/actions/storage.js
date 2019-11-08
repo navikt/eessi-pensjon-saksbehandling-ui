@@ -28,7 +28,7 @@ const mockListStorageFiles = /* istanbul ignore next */ (userId, namespace) => {
       userId + '___' + namespace + '___2019-03-10Z00:00:00',
       userId + '___' + namespace + '___2019-03-22Z00:00:00',
       userId + '___' + namespace + '___2019-04-01Z00:00:00',
-      userId + '___' + namespace + '___2019-06-15Z00:00:00',
+      userId + '___' + namespace + '___2019-06-15Z00:00:00'
     ]
   }
   return []
@@ -57,7 +57,7 @@ export const getStorageFile = ({ userId, namespace, file }, context) => {
         const names = ['Ola Nordmenn', 'Kari Olsen', 'Bjørn Knutsen', 'Are Petersen', 'Harald Eide', 'Ragnhild Dahl']
         return {
           tittel: 'E207',
-          fulltnavn: names[Math.floor(Math.random()*names.length)],
+          fulltnavn: names[Math.floor(Math.random() * names.length)],
           timestamp: file.replace('123___', '')
         }
       }

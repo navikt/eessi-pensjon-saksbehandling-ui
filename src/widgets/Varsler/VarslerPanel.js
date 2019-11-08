@@ -201,7 +201,7 @@ export const VarslerPanel = (props) => {
                   label: t('ui:sentDocuments'),
                   type: 'object',
                   needle: (it) => it.toLowerCase(),
-                  toTableCell: (item) => (
+                  renderCell: (item) => (
                     <div>
                       <Icons className='mr-2' kind='nav-message-sent' />
                       <label>{item.type}</label>

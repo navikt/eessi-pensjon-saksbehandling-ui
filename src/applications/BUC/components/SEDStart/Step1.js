@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
-import { Nav, MultipleSelect, WaitingPanel, CountryData } from 'eessi-pensjon-ui'
+import { CountryData, Nav, MultipleSelect, WaitingPanel } from 'eessi-pensjon-ui'
 import SEDAttachments from 'applications/BUC/components/SEDAttachments/SEDAttachments'
+import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 
@@ -18,10 +19,10 @@ const Step1 = ({
   layout = 'row', loading, locale, _sed, sedCanHaveAttachments, setAttachments, setCountries, setInstitutions,
   sedList, sedNeedsVedtakId, setSed, setValidation, setVedtakId, t, validation, vedtakId
 }) => {
+  const [seeAttachmentPanel, setSeeAttachmentPanel] = useState(false)
   const countryObjectList = (countryList ? CountryData.filterByValueOnArray(locale, countryList) : [])
   const countryValueList = _countries ? CountryData.filterByValueOnArray(locale, _countries) : []
   const notHostInstitution = institution => institution.id !== 'NO:DEMO001'
-  const [seeAttachmentPanel, setSeeAttachmentPanel] = useState(false)
   const institutionObjectList = []
   if (institutionList) {
     Object.keys(institutionList).forEach(landkode => {
@@ -207,6 +208,7 @@ const Step1 = ({
   }
 
   const setFiles = (files) => {
+    setSeeAttachmentPanel(false)
     setAttachments(files)
   }
 
@@ -231,7 +233,7 @@ const Step1 = ({
         <Nav.Select
           className='a-buc-c-sedstart__sed-select flex-fill'
           id='a-buc-c-sedstart__sed-select-id'
-          placeholder={t(placeholders.institution)}
+          disabled={loading.gettingSedList}
           aria-describedby='help-sed'
           bredde='fullbredde'
           feil={validation.sedFail ? { feilmelding: validation.sedFail } : null}
@@ -239,7 +241,9 @@ const Step1 = ({
           value={_sed || placeholders.sed}
           onChange={onSedChange}
         >
-          {renderOptions(sedList, 'sed')}
+          {!loading.gettingSedList
+            ? renderOptions(sedList, 'sed')
+            : <option>{t('buc:loading-sed')}</option>}
         </Nav.Select>
         {sedNeedsVedtakId() ? (
           <div className='mb-3'>
@@ -263,7 +267,8 @@ const Step1 = ({
                 <MultipleSelect
                   className='a-buc-c-sedstart__country-select'
                   id='a-buc-c-sedstart__country-select-id'
-                  placeholder={t(placeholders.country)}
+                  disabled={loading.gettingCountryList}
+                  placeholder={loading.gettingCountryList ? getSpinner('buc:loading-country') : t(placeholders.country)}
                   aria-describedby='help-country'
                   values={countryValueList}
                   hideSelectedOptions={false}
@@ -276,7 +281,8 @@ const Step1 = ({
                 <MultipleSelect
                   className='a-buc-c-sedstart__institution-select'
                   id='a-buc-c-sedstart__institution-select-id'
-                  placeholder={t(placeholders.institution)}
+                  disabled={loading.institutionList}
+                  placeholder={loading.institutionList ? getSpinner('buc:loading-institution') : t(placeholders.institution)}
                   aria-describedby='help-institution'
                   values={institutionValueList}
                   onSelect={onInstitutionsChange}
@@ -303,25 +309,15 @@ const Step1 = ({
         {sedCanHaveAttachments() ? (
           <div className='mt-4'>
             <Nav.Undertittel className='mb-2'>{t('ui:attachments')}</Nav.Undertittel>
-            {!_.isEmpty(_attachments) ? Object.keys(_attachments).map((key, index1) => {
-              return _attachments[key].map((att, index2) => {
-                return (
-                  <Nav.Normaltekst key={index1 + '-' + index2}>
-                    {att.tittel || att.name} - {att.variant.variantformat} ({att.variant.filnavn})
-                  </Nav.Normaltekst>
-                )
-              })
-            }) : <Nav.Normaltekst>{t('buc:form-noAttachmentsYet')}</Nav.Normaltekst>}
+            <SEDAttachmentsTable attachments={_attachments} t={t} />
           </div>
         ) : null}
-        <div className='selectBoxMessage mt-2 mb-2'>{!loading ? null
-          : loading.gettingSedList ? getSpinner('buc:loading-sed')
-            : loading.institutionList ? getSpinner('buc:loading-institution')
-              : loading.gettingCountryList ? getSpinner('buc:loading-country') : null}
-        </div>
       </div>
       {sedCanHaveAttachments() ? (
         <div className={layout === 'row' ? 'col-md-6' : 'col-md-12'}>
+          <Nav.Undertittel className='mb-3'>
+            {t('ui:attachments')}
+          </Nav.Undertittel>
           <SEDAttachments
             t={t}
             onSubmit={setFiles}

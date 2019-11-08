@@ -4,7 +4,7 @@ import _ from 'lodash'
 import { connect, bindActionCreators } from 'store'
 import * as joarkActions from 'actions/joark'
 import * as uiActions from 'actions/ui'
-import { File, Icons, Modal, Nav, TableSorter, WaitingPanel } from 'eessi-pensjon-ui'
+import { File, Icons, Modal, Nav, TableSorter } from 'eessi-pensjon-ui'
 import './JoarkBrowser.css'
 
 const mapStateToProps = /* istanbul ignore next */ (state) => {
@@ -29,6 +29,7 @@ export const JoarkBrowser = ({
 }) => {
   const [_file, setFile] = useState(file)
   const [_previewFile, setPreviewFile] = useState(previewFile)
+  const [clickedPreviewFile, setClickedPreviewFile] = useState(undefined)
   const [mounted, setMounted] = useState(false)
   const [modal, setModal] = useState(undefined)
 
@@ -77,8 +78,8 @@ export const JoarkBrowser = ({
           >
             <File
               file={previewFile}
-              width='100%'
-              height='100%'
+              width={600}
+              height={800}
               onContentClick={handleModalClose}
             />
           </div>
@@ -98,13 +99,8 @@ export const JoarkBrowser = ({
     return null
   }
 
-  if (loadingJoarkList) {
-    return (
-      <WaitingPanel size='XS' message={t('ui:loading')} />
-    )
-  }
-
   const onPreviewItem = (clickedItem) => {
+    setClickedPreviewFile(clickedItem)
     const foundFile = _.find(files, (file) => (equalFiles(file, clickedItem) && file.content !== undefined))
     if (!foundFile) {
       actions.getPreviewJoarkFile(clickedItem)
@@ -126,26 +122,27 @@ export const JoarkBrowser = ({
     return text.replace(/[ .\-\\(\\)]/g, '_')
   }
 
-  const renderTableCell = (item, value, context) => {
+  const renderVarianterCell = (item, value, context) => {
     const previewing = context.loadingJoarkPreviewFile
+    const spinner = previewing && _.isEqual(item, context.clickedPreviewFile)
     return (
       <div
         key={item.label}
-        className='c-joarkbrowser__subcell'
+        className='c-joarkbrowser__variant'
       >
         <Nav.Normaltekst>{item.label}</Nav.Normaltekst>
-        <div>
+        <div className='buttons'>
           <Nav.Knapp
             data-tip={t('ui:preview')}
             form='kompakt'
             disabled={previewing}
-            spinner={previewing}
+            spinner={spinner}
             id={'c-tablesorter__preview-button-' + item.journalpostId + '-' + item.dokumentInfoId + '-' +
           convertSomeNonAlphanumericCharactersToUnderscore(item.label)}
             className='c-tablesorter__preview-button mr-2 ml-2'
             onClick={() => onPreviewItem(item)}
           >
-            {previewing ? '' : <Icons kind='view' />}
+            {spinner ? '' : <Icons kind='view' />}
           </Nav.Knapp>
           {context.mode === 'confirm' ? (
             <Nav.Knapp
@@ -156,7 +153,7 @@ export const JoarkBrowser = ({
               className='c-tablesorter__delete-button mr-2 ml-2'
               onClick={() => onDeleteItem(context.files, item)}
             >
-              <Icons kind='trashcan' color='#0067C5'/>
+              <Icons kind='trashcan' color='#0067C5' />
             </Nav.Knapp>
           ) : null}
         </div>
@@ -203,7 +200,8 @@ export const JoarkBrowser = ({
     files: files,
     mode: mode,
     loadingJoarkPreviewFile: loadingJoarkPreviewFile,
-    previewFile: _previewFile
+    previewFile: _previewFile,
+    clickedPreviewFile: clickedPreviewFile
   }
 
   return (
@@ -213,20 +211,30 @@ export const JoarkBrowser = ({
         className={mode}
         items={items}
         context={context}
-        searchable
+        searchable={mode === 'view'}
         selectable={mode === 'view'}
         sortable
-        loading={loadingJoarkFile || loadingJoarkPreviewFile}
+        loading={loadingJoarkList || loadingJoarkFile}
         columns={[
-          { id: 'name', label: t('ui:title'), type: 'string' },
-          { id: 'tema', label: t('ui:tema'), type: 'tag' },
-          { id: 'date', label: t('ui:date'), type: 'date' },
           {
+            id: 'name',
+            label: t('ui:title'),
+            type: 'string'
+          }, {
+            id: 'tema',
+            label: t('ui:tema'),
+            type: 'string',
+            renderCell: (item, value) => <Nav.EtikettLiten>{value}</Nav.EtikettLiten>
+          }, {
+            id: 'date',
+            label: t('ui:date'),
+            type: 'date'
+          }, {
             id: 'varianter',
             label: t('ui:variant'),
             type: 'object',
             needle: (it) => it.label.toLowerCase(),
-            toTableCell: renderTableCell
+            renderCell: renderVarianterCell
           }
         ]}
         onRowSelectChange={onSelectedItemChange}

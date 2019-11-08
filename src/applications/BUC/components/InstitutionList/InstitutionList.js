@@ -11,7 +11,7 @@ const InstitutionList = ({ className, flag = true, flagType = 'circle', institut
     institutions.forEach(item => {
       let institution = item.institution
       const country = item.country
-      if (institution.startsWith(country + ':')) {
+      if (institution && institution.startsWith(country + ':')) {
         institution = institution.substring(institution.indexOf(':') + 1, institution.length)
       }
       if (Object.prototype.hasOwnProperty.call(institutionList, country)) {
@@ -48,7 +48,7 @@ const InstitutionList = ({ className, flag = true, flagType = 'circle', institut
       >
         {type === 'joined' ? (
           <div className='a-buc-c-institutionlist__institution'>
-            {flag ? <Flag className='mr-2' label={country.label} country={landkode} size='M' type={flagType} /> : null}
+            {flag ? <Flag className='mr-2' label={country ? country.label : landkode} country={landkode} size='M' type={flagType} /> : null}
             <Nav.Normaltekst>
               {institutionList[landkode].map(institutionId => getLabel(landkode, institutionId)).join(', ')}
             </Nav.Normaltekst>
