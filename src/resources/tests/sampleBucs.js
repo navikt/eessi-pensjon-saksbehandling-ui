@@ -1026,7 +1026,7 @@ export default [
     error: null
   },
   {
-    type: 'P_BUC_01',
+    type: 'P_BUC_02',
     creator: {
       country: 'NO',
       institution: 'NO:NAVAT07',
@@ -1930,7 +1930,7 @@ export default [
     ]
   },
   {
-    type: 'P_BUC_01',
+    type: 'P_BUC_03',
     creator: {
       country: 'NO',
       institution: 'NO:DEMO002',
@@ -2940,6 +2940,22 @@ export default [
       }],
       attachments: []
     }]
+  },
+  {
+    type: 'X_BUC_XX',
+    caseId: '362453',
+    description: 'This BUC should not be shown as it is not in the list of allowed bucs',
+    creator: {
+      country: 'NO',
+      institution: 'NO:NAVAT07',
+      name: 'NAV ACCEPTANCE TEST 07'
+    },
+    sakType: null,
+    status: 'open',
+    startDate: 1571818162145,
+    lastUpdate: 1571818216000,
+    institusjon: [],
+    seds: []
   },
   {
     type: '',

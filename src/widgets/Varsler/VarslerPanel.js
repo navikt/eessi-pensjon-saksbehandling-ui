@@ -4,7 +4,7 @@ import { connect, bindActionCreators } from 'store'
 import _ from 'lodash'
 import moment from 'moment'
 import { withTranslation } from 'react-i18next'
-import { Icons, Nav, RefreshButton, TableSorter, WaitingPanel } from 'eessi-pensjon-ui'
+import { Icons, Nav, RefreshButton, TableSorter } from 'eessi-pensjon-ui'
 import * as pinfoActions from 'actions/pinfo'
 import * as storageActions from 'actions/storage'
 import { ReactComponent as VeilederSVG } from 'resources/images/NavPensjonVeileder.svg'
@@ -179,7 +179,6 @@ export const VarslerPanel = (props) => {
         </div>
         <div className='col-md-8'>
           <div className='w-varslerPanel__title'>
-            {/* <Undertittel>{t('ui:widget-overview-sendNotification-title')}</Undertittel> */}
             <div />
             <RefreshButton
               className='w-varslerPanel__refresh-button'

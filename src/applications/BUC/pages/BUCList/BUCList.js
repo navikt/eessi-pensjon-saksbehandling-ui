@@ -8,6 +8,7 @@ import { ExpandingPanel, Nav, WaitingPanel } from 'eessi-pensjon-ui'
 import BUCHeader from 'applications/BUC/components/BUCHeader/BUCHeader'
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import SEDList from 'applications/BUC/components/SEDList/SEDList'
+import { bucFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import './BUCList.css'
 
 const BUCList = ({ actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionList, institutionNames, loading, locale, rinaUrl, sakId, setMode, t }) => {
@@ -109,6 +110,7 @@ const BUCList = ({ actions, aktoerId, bucs, bucsInfoList, bucsInfo, institutionL
         ) : null}
       {!loading.gettingBUCs && !_.isEmpty(bucs)
         ? Object.keys(bucs).map(key => bucs[key])
+          .filter(bucFilter)
           .sort((firstEl, secondEl) => {
             return moment(firstEl.startDate).isSameOrAfter(moment(secondEl.startDate)) ? -1 : 1
           }).map((buc, index) => {

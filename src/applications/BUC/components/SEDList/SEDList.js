@@ -3,13 +3,13 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import { Nav } from 'eessi-pensjon-ui'
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
-import { sedSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import { sedFilter, sedSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import './SEDList.css'
 
 const SEDList = ({ buc, institutionNames, locale, onSEDNew, seds, t }) => (
   <div className='a-buc-c-sedlist'>
     {seds ? seds
-      .filter(sed => sed.status !== 'empty')
+      .filter(sedFilter)
       .sort(sedSorter)
       .slice(0, 5).map((sed, index) => {
         return (
@@ -28,7 +28,7 @@ const SEDList = ({ buc, institutionNames, locale, onSEDNew, seds, t }) => (
         )
       }) : null}
     <div className='a-buc-c-sedlist__footer mt-2'>
-      {!_.isEmpty(seds) && seds.filter(sed => sed.status !== 'empty').length > 5
+      {!_.isEmpty(seds) && seds.filter(sedFilter).length > 5
         ? <Nav.Normaltekst>{t('buc:form-lastNonEmpty5')}</Nav.Normaltekst> : null}
     </div>
   </div>

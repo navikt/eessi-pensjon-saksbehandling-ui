@@ -7,7 +7,7 @@ import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
 import BUCDetail from 'applications/BUC/components/BUCDetail/BUCDetail'
 import BUCTools from 'applications/BUC/components/BUCTools/BUCTools'
 import SEDPanelHeader from 'applications/BUC/components/SEDPanelHeader/SEDPanelHeader'
-import { getBucTypeLabel, sedSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import { getBucTypeLabel, sedFilter, sedSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import moment from 'moment'
 import './BUCEdit.css'
 
@@ -35,7 +35,7 @@ const BUCEdit = ({
     setSearch(search)
   }
 
-  const sedFilter = (sed) => {
+  const sedSearchFilter = (sed) => {
     let match = true
     if (match && search) {
       const _search = search.toLowerCase()
@@ -89,8 +89,8 @@ const BUCEdit = ({
           />
           <SEDPanelHeader t={t} />
           {buc.seds ? buc.seds
-            .filter(sed => sed.status !== 'empty')
             .filter(sedFilter)
+            .filter(sedSearchFilter)
             .sort(sedSorter)
             .map((sed, index) => {
               return (

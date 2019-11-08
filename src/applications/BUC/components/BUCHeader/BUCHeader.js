@@ -4,13 +4,13 @@ import _ from 'lodash'
 import moment from 'moment'
 import { FlagList, Icons, Nav } from 'eessi-pensjon-ui'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import { getBucTypeLabel, sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import './BUCHeader.css'
 
 const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl, t }) => {
   const institutionList = {}
   const attachments = []
-  const numberOfSeds = buc.seds ? buc.seds.filter(sed => sed.status !== 'empty').length : 0
+  const numberOfSeds = buc.seds ? buc.seds.filter(sedFilter).length : 0
 
   const onBucHandle = useCallback((buc, e) => {
     e.preventDefault()

@@ -22,6 +22,16 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
     const CORRECT_ORDER = -1
     const WRONG_ORDER_WILL_SWAP = 1
     expect(BUCUtils.sedSorter(
+      { lastUpdate: new Date(2010, 1, 2), type: 'P1000' },
+      { lastUpdate: new Date(2010, 1, 1), type: 'P1000' }
+    )).toEqual(CORRECT_ORDER)
+
+    expect(BUCUtils.sedSorter(
+      { lastUpdate: new Date(2010, 1, 1), type: 'P1000' },
+      { lastUpdate: new Date(2010, 1, 2), type: 'P1000' }
+    )).toEqual(WRONG_ORDER_WILL_SWAP)
+
+    expect(BUCUtils.sedSorter(
       { lastUpdate: new Date(2010, 1, 1), type: 'P1000' },
       { lastUpdate: new Date(2010, 1, 1), type: 'P2000' }
     )).toEqual(CORRECT_ORDER)
@@ -35,5 +45,27 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
       { lastUpdate: new Date(2010, 1, 1), type: 'P1000' },
       { lastUpdate: new Date(2010, 1, 1), type: 'X1000' }
     )).toEqual(CORRECT_ORDER)
+  })
+
+  it('sedFilter', () => {
+    expect(BUCUtils.sedFilter({ status: 'empty' })).toBeFalsy()
+    expect(BUCUtils.sedFilter({ status: 'notempty' })).toBeTruthy()
+  })
+
+  it('bucFilter', () => {
+    expect(BUCUtils.bucFilter({ type: 'P_BUC_01' })).toBeTruthy()
+    expect(BUCUtils.bucFilter({ type: 'P_BUC_09' })).toBeTruthy()
+
+    expect(BUCUtils.bucFilter({ type: 'H_BUC_01' })).toBeFalsy()
+    expect(BUCUtils.bucFilter({ type: 'H_BUC_07' })).toBeTruthy()
+
+    expect(BUCUtils.bucFilter({ type: 'R_BUC_01' })).toBeTruthy()
+    expect(BUCUtils.bucFilter({ type: 'R_BUC_02' })).toBeTruthy()
+    expect(BUCUtils.bucFilter({ type: 'R_BUC_03' })).toBeFalsy()
+
+    expect(BUCUtils.bucFilter({ type: 'M_BUC_01' })).toBeFalsy()
+    expect(BUCUtils.bucFilter({ type: 'M_BUC_02' })).toBeTruthy()
+    expect(BUCUtils.bucFilter({ type: 'M_BUC_03a' })).toBeTruthy()
+    expect(BUCUtils.bucFilter({ type: 'M_BUC_03b' })).toBeTruthy()
   })
 })
