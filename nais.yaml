@@ -36,9 +36,6 @@ fasitResources:
 
     used:
 
-    - alias: appres.cms
-      resourceType: baseurl
-
     - alias: eessi-pensjon-frontend-zone
       resourceType: ApplicationProperties
 
