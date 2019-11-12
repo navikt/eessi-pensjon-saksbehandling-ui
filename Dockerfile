@@ -1,4 +1,4 @@
-FROM repo.adeo.no:5443/pus/decorator:228.20190926.1521
+FROM repo.adeo.no:5443/pus/decorator:232.20191111.1347
 ENV APPLICATION_NAME=eessipen
 ENV PUBLIC_ZONE=fss
 ENV DISABLE_FRONTEND_LOGGER=true

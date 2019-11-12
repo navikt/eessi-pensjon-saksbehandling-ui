@@ -36,6 +36,9 @@ fasitResources:
 
     used:
 
+    - alias: nav.dekoratoren
+      resourceType: baseurl
+
     - alias: eessi-pensjon-frontend-zone
       resourceType: ApplicationProperties
 
