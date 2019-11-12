@@ -48,7 +48,7 @@ const PeriodWork = ({
           label={
             <div className='a-buc-c-sedp4000-period__label'>
               <Nav.UndertekstBold>{t('buc:p4000-label-work-activity')}</Nav.UndertekstBold>
-              <Nav.Hjelpetekst id='p4000-help-work-activity'>
+              <Nav.Hjelpetekst>
                 {t('buc:p4000-help-work-activity')}
               </Nav.Hjelpetekst>
             </div>
@@ -66,7 +66,7 @@ const PeriodWork = ({
           label={
             <div className='a-buc-c-sedp4000-period__label'>
               <Nav.UndertekstBold>{t('buc:p4000-label-insurance-id')}</Nav.UndertekstBold>
-              <Nav.Hjelpetekst id='p4000-help-insurance-id'>
+              <Nav.Hjelpetekst>
                 {t('buc:p4000-help-insurance-id')}
               </Nav.Hjelpetekst>
             </div>
@@ -107,7 +107,7 @@ const PeriodWork = ({
           label={
             <div className='a-buc-c-sedp4000-period__label'>
               <Nav.UndertekstBold>{t('buc:p4000-label-work-street')}</Nav.UndertekstBold>
-              <Nav.Hjelpetekst id='p4000-help-work-street'>
+              <Nav.Hjelpetekst>
                 {t('buc:p4000-help-work-street')}
               </Nav.Hjelpetekst>
             </div>
@@ -125,7 +125,7 @@ const PeriodWork = ({
           label={
             <div className='a-buc-c-sedp4000-period__label'>
               <Nav.UndertekstBold>{t('buc:p4000-label-work-city')}</Nav.UndertekstBold>
-              <Nav.Hjelpetekst id='p4000-help-work-city'>
+              <Nav.Hjelpetekst>
                 {t('buc:p4000-help-work-city')}
               </Nav.Hjelpetekst>
             </div>
@@ -143,7 +143,7 @@ const PeriodWork = ({
           label={
             <div className='a-buc-c-sedp4000-period__label'>
               <Nav.UndertekstBold>{t('buc:p4000-label-work-zipcode')}</Nav.UndertekstBold>
-              <Nav.Hjelpetekst id='p4000-help-work-zipcode'>
+              <Nav.Hjelpetekst>
                 {t('buc:p4000-help-work-zipcode')}
               </Nav.Hjelpetekst>
             </div>
@@ -161,7 +161,7 @@ const PeriodWork = ({
           label={
             <div className='a-buc-c-sedp4000-period__label'>
               <Nav.UndertekstBold>{t('buc:p4000-label-work-region')}</Nav.UndertekstBold>
-              <Nav.Hjelpetekst id='p4000-help-work-region'>
+              <Nav.Hjelpetekst>
                 {t('buc:p4000-help-work-region')}
               </Nav.Hjelpetekst>
             </div>

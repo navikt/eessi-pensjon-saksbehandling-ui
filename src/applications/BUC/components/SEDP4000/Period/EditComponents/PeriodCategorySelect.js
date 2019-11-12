@@ -5,12 +5,16 @@ import { Nav } from 'eessi-pensjon-ui'
 const PeriodCategorySelect = ({ mode, period, setType, t }) => (
   <Nav.Row className={mode}>
     <div className='col-sm-8'>
+      <Nav.Hjelpetekst>
+        {t('buc:p4000-help-category')}
+      </Nav.Hjelpetekst>
+
       <Nav.Select
         id='a-buc-c-sedp4000-period__kategori-select'
         label={(
-          <div className='a-buc-c-sedp4000-period__label'>
+          <div className='d-flex'>
             <span>{t('buc:p4000-label-category')}</span>
-            <Nav.Hjelpetekst id='p4000-category-select-help'>
+            <Nav.Hjelpetekst>
               {t('buc:p4000-help-category')}
             </Nav.Hjelpetekst>
           </div>

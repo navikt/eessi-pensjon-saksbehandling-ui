@@ -202,7 +202,7 @@ export const VarslerPanel = (props) => {
                   type: 'object',
                   needle: (it) => it.toLowerCase(),
                   renderCell: (item) => (
-                    <div>
+                    <div className='d-flex'>
                       <Icons className='mr-2' kind='nav-message-sent' />
                       <label>{item.type}</label>
                     </div>

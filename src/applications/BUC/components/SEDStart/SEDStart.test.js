@@ -130,7 +130,7 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
     expect(initialMockProps.actions.createSed).toHaveBeenCalledWith({
       aktoerId: '123',
       attachments: [],
-      buc: 'P_BUC_01',
+      buc: 'P_BUC_02',
       euxCaseId: '195440',
       institutions: [],
       periodeInfo: targetP4000info.trygdetid,

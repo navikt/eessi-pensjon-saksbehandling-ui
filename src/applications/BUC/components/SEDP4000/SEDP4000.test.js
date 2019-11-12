@@ -1,6 +1,9 @@
 import React from 'react'
 import { SEDP4000 } from './SEDP4000'
 import sampleP4000info from 'resources/tests/sampleP4000info'
+jest.mock('./Period/Period', () => {
+  return () => <div className='mock-period' />
+})
 
 describe('applications/BUC/components/SEDP4000/SEDP4000', () => {
   let wrapper

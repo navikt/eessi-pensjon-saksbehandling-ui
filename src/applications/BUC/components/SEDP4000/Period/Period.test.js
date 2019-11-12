@@ -2,7 +2,16 @@ import React from 'react'
 import Period from 'applications/BUC/components/SEDP4000/Period/Period'
 import _ from 'lodash'
 import sampleP4000info from 'resources/tests/sampleP4000info'
-
+jest.mock('eessi-pensjon-ui', () => {
+  const Ui = jest.requireActual('eessi-pensjon-ui')
+  return {
+    ...Ui,
+    Nav: {
+      ...Ui.Nav,
+      Hjelpetekst: ({ children }) => <div className='mock-hjelpetekst'>{children}</div>
+    }
+  }
+})
 const samplePeriod = _(sampleP4000info.stayAbroad).find(it => it.type === 'work')
 
 const initialMockProps = {

@@ -175,8 +175,7 @@ export const SEDStart = (props) => {
         sed: _sed,
         institutions: institutions,
         aktoerId: aktoerId,
-        euxCaseId: buc.caseId,
-        attachments: attachments
+        euxCaseId: buc.caseId
       }
 
       if (_sed === 'P4000' && p4000info) {
@@ -211,7 +210,7 @@ export const SEDStart = (props) => {
   }
 
   const createSedNeedsMoreSteps = () => {
-    return false
+    return _sed === 'P4000'
   }
 
   const allowedToForward = () => {

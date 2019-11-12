@@ -13,7 +13,8 @@ const SEDAttachmentsTable = ({ attachments, t }) => {
         items.push({
           key: index1 + '_' + index2,
           bucket: key,
-          title: (att.tittel || att.name) + ' - ' + att.variant.variantformat + ' (' + att.variant.filnavn + ')'
+          title: (att.tittel || att.name) +
+            (att.variant ? ' + ' + att.variant.variantformat + ' (' + att.variant.filnavn + ')' : '')
         })
       })
     })

@@ -1,20 +1,8 @@
 @import './constants';
 @import './keyframes';
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  color: @font-color;
-  line-height: 1.42857143;
-  font-family: 'Source Sans Pro', Arial, sans-serif;
-}
 
 hr {
   border-color: @navGra60;
-}
-
-pre {
-  font-family: 'Source Sans Pro', Arial, sans-serif;
 }
 
 .fieldset {
@@ -55,37 +43,6 @@ pre {
     }
 }
 
-.bold {
-  font-weight: bold;
-}
-
-.italic {
-  font-style: italic;
-}
-
-// fix Bootstrap overriding {
-
-.modal {
-  display: block;
-  position: relative !important;
-}
-
-.mv-center {
-  margin-top: auto !important;
-  margin-bottom: auto !important;
-}
-
-.ekspanderbartPanel--apen .ReactCollapse--collapse {
-  will-change: max-height, height;
-  max-height: 150em;
-  animation: animation-open 250ms ease;
-}
-
-.ekspanderbartPanel--lukket .ReactCollapse--collapse {
-  will-change: max-height, height;
-  max-height: 0;
-  animation: animation-close 250ms ease;
-}
 
 li.stegindikator__steg {
   z-index: 0;

@@ -12,7 +12,7 @@ const PeriodLearn = ({ localErrors, period, setLearnInstitution, t }) => (
           <div className='a-buc-c-sedp4000-period__label'>
             <div className='a-buc-c-sedp4000-period__label'>
               <Nav.UndertekstBold>{t('buc:p4000-label-learn-institution-name')}</Nav.UndertekstBold>
-              <Nav.Hjelpetekst id='p4000-help-learn-institution'>
+              <Nav.Hjelpetekst>
                 {t('buc:p4000-help-learn-institution')}
               </Nav.Hjelpetekst>
             </div>
