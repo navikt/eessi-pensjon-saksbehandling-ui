@@ -56,13 +56,13 @@ describe('applications/BUC/components/BUCTools/BUCTools', () => {
     wrapper.find('EkspanderbartpanelBase button').simulate('click')
     expect(wrapper.exists('#a-buc-c-buctools__comment-textarea-id')).toBeTruthy()
 
-    let tagSelect = wrapper.find('#a-buc-c-buctools__comment-textarea-id').hostNodes()
-    expect(tagSelect.props().value).toEqual(firstMockedComment)
+    let commentTextarea = wrapper.find('#a-buc-c-buctools__comment-textarea-id').hostNodes()
+    expect(commentTextarea.props().value).toEqual(firstMockedComment)
 
-    tagSelect.simulate('change', { target: { value: secondMockedComment } })
+    commentTextarea.simulate('change', { target: { value: secondMockedComment } })
     wrapper.update()
-    tagSelect = wrapper.find('#a-buc-c-buctools__comment-textarea-id').hostNodes()
-    expect(tagSelect.props().value).toEqual(secondMockedComment)
+    commentTextarea = wrapper.find('#a-buc-c-buctools__comment-textarea-id').hostNodes()
+    expect(commentTextarea.props().value).toEqual(secondMockedComment)
   })
 
   it('Handles onSaveButtonClick()', () => {

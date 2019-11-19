@@ -45,7 +45,7 @@ describe('applications/BUC/components/BUCHeader/BUCHeader', () => {
     expect(wrapper.exists('.a-buc-c-bucheader__owner-institutions')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__icons')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__icon-numberofseds')).toBeTruthy()
-    expect(wrapper.find('.a-buc-c-bucheader__icon-numberofseds').render().text()).toEqual('1')
+    expect(wrapper.find('.a-buc-c-bucheader__icon-numberofseds').render().text()).toEqual('8')
     expect(wrapper.exists('.a-buc-c-bucheader__icon-tags')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__actions')).toBeTruthy()
     expect(wrapper.exists('.a-buc-c-bucheader__bucedit-link')).toBeTruthy()

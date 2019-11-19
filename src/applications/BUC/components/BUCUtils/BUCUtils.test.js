@@ -45,6 +45,11 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
       { lastUpdate: new Date(2010, 1, 1), type: 'P1000' },
       { lastUpdate: new Date(2010, 1, 1), type: 'X1000' }
     )).toEqual(CORRECT_ORDER)
+
+    expect(BUCUtils.sedSorter(
+      { lastUpdate: new Date(2010, 1, 1), type: 'X1000' },
+      { lastUpdate: new Date(2010, 1, 1), type: 'H1000' }
+    )).toEqual(WRONG_ORDER_WILL_SWAP)
   })
 
   it('sedFilter', () => {

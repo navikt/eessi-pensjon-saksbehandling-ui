@@ -1,19 +1,20 @@
 @import '../../constants';
 
 .c-topContainer {
-    background-color: @white;
+  background-color: @white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  ._container,
+  main {
+    flex: 1 0 auto;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+  }
 
-    ._container {
-        flex: 1 0 auto;
-        display: flex;
-        flex-direction: column;
-    }
-
-    &.highContrast {
-        color: @navOransje !important;
-        background-color: @black !important;
-    }
+  &.highContrast {
+      color: @navOransje !important;
+      background-color: @black !important;
+  }
 }

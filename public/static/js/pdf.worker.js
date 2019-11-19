@@ -16616,7 +16616,7 @@ var Lexer = function LexerClosure() {
           break;
         } else if (specialChars[ch] === 1) {
           ch = this.nextChar();
-          continue;
+
         } else {
           if (isFirstHex) {
             firstDigit = toHexDigit(ch);
@@ -29866,8 +29866,6 @@ var OperatorList = function OperatorListClosure() {
         case _util.OPS.paintInlineImageXObjectGroup:
         case _util.OPS.paintImageMaskXObject:
           var arg = argsArray[i][0];
-          ;
-
           if (!arg.cached) {
             transfers.push(arg.data.buffer);
           }
@@ -32325,7 +32323,7 @@ var PartialEvaluator = function PartialEvaluatorClosure() {
 
         if (charCode in encoding && widthsByGlyphName[encoding[charCode]]) {
           widths[charCode] = widthsByGlyphName[encoding[charCode]];
-          continue;
+
         }
       }
 
@@ -34188,7 +34186,7 @@ var CMapFactory = function CMapFactoryClosure() {
         }
 
         (0, _util.warn)('Invalid cMap data: ' + ex);
-        continue;
+
       }
     }
 

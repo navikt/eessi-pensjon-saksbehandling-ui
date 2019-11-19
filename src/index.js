@@ -19,6 +19,7 @@ import { I18nextProvider } from 'react-i18next'
 import { StoreProvider } from 'store'
 import Loadable from 'loadable'
 import reducer, { initialState } from 'reducer'
+import { IS_PRODUCTION } from 'constants/environment'
 import 'moment'
 import 'moment/locale/en-gb'
 import 'moment/locale/nb'
@@ -39,6 +40,11 @@ const Pages = {
 window.onerror = (msg, src, lineno, colno, error) => {
   console.log('error', msg, src, lineno, colno, error)
   return <div>Error</div>
+}
+
+if (!IS_PRODUCTION) {
+  var axe = require('react-axe')
+  axe(React, ReactDOM, 1000)
 }
 
 ReactDOM.render(

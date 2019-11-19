@@ -39,6 +39,6 @@ describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
     expect(wrapper.find('#a-buc-c-bucdetail__props-tags-id').render().text()).toEqual('buc:tag-vip')
     expect(wrapper.find('#a-buc-c-bucdetail__props-comment-id').render().text()).toEqual(bucInfo.comment)
     expect(wrapper.exists('.a-buc-c-bucdetail__institutions')).toBeTruthy()
-    expect(wrapper.find('.a-buc-c-bucdetail__institutions').hostNodes().render().text()).toEqual('NAVAT07DEMO001DEMO002DEMO003DEMO004DEMO005')
+    expect(wrapper.find('.a-buc-c-bucdetail__institutions').hostNodes().render().text()).toEqual(['NAVAT07', 'DEMO001', 'DEMO001', 'DEMO001'].join(''))
   })
 })

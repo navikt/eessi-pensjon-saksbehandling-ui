@@ -36,4 +36,5 @@ i18n
 i18n.loadLanguages(['nb'], () => {})
 i18n.locale = 'nb'
 i18n.language = 'nb'
+document.documentElement.lang = 'nb'
 export default i18n

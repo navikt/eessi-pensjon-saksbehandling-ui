@@ -173,14 +173,15 @@ const PeriodWork = ({
         />
       </div>
       <div className='col-sm-8 mb-2'>
-        <label className='skjemaelement__label'>
-          <div className='a-buc-c-sedp4000-period__label'>
-            {t('buc:p4000-label-country')}
-          </div>
-        </label>
         <CountrySelect
+          ariaLabel={t('buc:p4000-label-country')}
           id='a-buc-c-sedp4000-period__land-select-id'
           className='a-buc-c-sedp4000-period__land-select'
+          label={(
+            <div className='a-buc-c-sedp4000-period__label'>
+              {t('buc:p4000-label-country')}
+            </div>
+          )}
           locale={locale}
           includeList={CountryFilter.EEA}
           value={period.country || null}

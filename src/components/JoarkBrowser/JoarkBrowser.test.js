@@ -99,18 +99,31 @@ describe('components/JoarkBrowser/JoarkBrowser', () => {
 
   it('Calls onFilesChange when selecting a file', () => {
     initialMockProps.onFilesChange.mockReset()
-    wrapper.find('#c-tablesorter__checkbox-1-4-ARKIV__23534345_pdf_').hostNodes().simulate('change', { target: { checked: true } })
+    wrapper.find('#c-tableSorter__row-checkbox-id-view-1-4-ARKIV').hostNodes().simulate('change', { target: { checked: true } })
     const expectedFile = files[0]
     expectedFile.variant = {
       variantformat: 'ARKIV',
       filnavn: '23534345.pdf'
     }
-    expect(initialMockProps.onFilesChange).toHaveBeenCalledWith([expectedFile])
+    expect(initialMockProps.onFilesChange).toHaveBeenCalledWith([{
+      date: new Date('2018-12-27T13:42:24.000Z'),
+      dokumentInfoId: '4',
+      journalpostId: '1',
+      key: 'view-1-4-ARKIV',
+      label: 'ARKIV (23534345.pdf)',
+      name: 'blue.pdf',
+      selected: true,
+      tema: 'foo',
+      variant: {
+        filnavn: '23534345.pdf',
+        variantformat: 'ARKIV'
+      }
+    }])
   })
 
   it('Calls onPreviewItem', () => {
     initialMockProps.actions.getPreviewJoarkFile.mockReset()
-    wrapper.find('.c-tablesorter__preview-button').hostNodes().first().simulate('click')
+    wrapper.find('#c-tablesorter__preview-button-1-4-ARKIV__23534345_pdf_').hostNodes().first().simulate('click')
     expect(initialMockProps.actions.getPreviewJoarkFile).toHaveBeenCalledWith(expect.objectContaining({
       date: expect.any(Date),
       dokumentInfoId: '4',

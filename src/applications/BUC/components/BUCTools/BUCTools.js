@@ -62,6 +62,8 @@ const BUCTools = ({ actions, aktoerId, buc, bucInfo, bucsInfo, className, loadin
       <div className='mb-3'>
         <Nav.Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Nav.Normaltekst>
         <MultipleSelect
+          ariaLabel={t('buc:form-tagsForBUC')}
+          label={t('buc:form-tagsForBUC')}
           id='a-buc-c-buctools__tags-select-id'
           className='a-buc-c-buctools__tags-select'
           placeholder={t('buc:form-tagPlaceholder')}

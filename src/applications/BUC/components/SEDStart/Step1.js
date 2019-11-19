@@ -263,8 +263,9 @@ const Step1 = ({
           ? (
             <>
               <div className='mb-3 flex-fill'>
-                <label className='skjemaelement__label'>{t('ui:country')}</label>
                 <MultipleSelect
+                  ariaLabel={t('ui:country')}
+                  label={t('ui:country')}
                   className='a-buc-c-sedstart__country-select'
                   id='a-buc-c-sedstart__country-select-id'
                   disabled={loading.gettingCountryList}
@@ -277,8 +278,9 @@ const Step1 = ({
                 />
               </div>
               <div className='mb-3 flex-fill'>
-                <label className='skjemaelement__label'>{t('ui:institution')}</label>
                 <MultipleSelect
+                  ariaLabel={t('ui:institution')}
+                  label={t('ui:institution')}
                   className='a-buc-c-sedstart__institution-select'
                   id='a-buc-c-sedstart__institution-select-id'
                   disabled={loading.institutionList}

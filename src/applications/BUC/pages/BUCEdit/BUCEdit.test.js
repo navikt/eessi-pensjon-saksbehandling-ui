@@ -64,7 +64,7 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
   })
 
   it('SEDSearch status start triggers the filter functions', () => {
-    expect(wrapper.find('.a-buc-c-sedheader').hostNodes().length).toEqual(1)
+    expect(wrapper.find('.a-buc-c-sedlistheader').hostNodes().length).toEqual(1)
     const sedSearch = wrapper.find('.a-buc-c-sedsearch').hostNodes()
 
     const statusSelect = sedSearch.find('#a-buc-c-sedsearch__status-select-id input')
@@ -98,12 +98,12 @@ describe('applications/BUC/widgets/BUCEdit/BUCEdit', () => {
   })
 
   it('Performs a status search that will not find elements', () => {
-    wrapper = mount(<BUCEdit {...initialMockProps} initialStatusSearch='XXX' />)
+    wrapper = mount(<BUCEdit {...initialMockProps} initialStatusSearch={[{ value: 'XXX' }]} />)
     expect(wrapper.find('.a-buc-c-sedlistheader').hostNodes().length).toEqual(0)
   })
 
   it('Performs a status search that will find elements', () => {
-    wrapper = mount(<BUCEdit {...initialMockProps} initialStatusSearch='cancelled' />)
+    wrapper = mount(<BUCEdit {...initialMockProps} initialStatusSearch={[{ label: 'ui:received', value: 'received' }]} />)
     expect(wrapper.find('.a-buc-c-sedlistheader').hostNodes().length).toEqual(1)
   })
 })

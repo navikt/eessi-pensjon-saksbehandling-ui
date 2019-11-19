@@ -102,7 +102,9 @@ export const TopContainer = ({
         className='_container p-0'
         fluid={fluid}
       >
-        {children}
+        <main role='main'>
+          {children}
+        </main>
       </Nav.Container>
       <Modal
         modal={modal}

@@ -51,6 +51,8 @@ const SEDSearch = ({ className, onSearch, onStatusSearch, t }) => {
         placeholder={t('buc:form-filterSED')}
       />
       <MultipleSelect
+        ariaLabel={t('buc:form-searchForStatus')}
+        label=''
         id='a-buc-c-sedsearch__status-select-id'
         className='a-buc-c-sedsearch__status-select multipleSelect pl-1 pr-1 w-50'
         placeholder={t('buc:form-searchForStatus')}

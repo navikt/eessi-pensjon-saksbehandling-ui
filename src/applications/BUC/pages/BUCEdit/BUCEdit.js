@@ -153,7 +153,7 @@ BUCEdit.propTypes = {
   bucsInfo: PT.object,
   currentBuc: PT.string,
   initialSearch: PT.string,
-  initialStatusSearch: PT.string,
+  initialStatusSearch: PT.array,
   institutionNames: PT.object,
   loading: PT.object,
   locale: PT.string.isRequired,

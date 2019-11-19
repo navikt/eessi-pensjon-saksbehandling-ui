@@ -1,23 +1,18 @@
 export default {
   bucs: {
+    600891: {
+      tags: ['tag-vip'],
+      comment: 'this is a comment for caseId 600891'
+    },
+
     195440: {
-      tags: ['tag-vip'],
-      comment: 'this is a comment for P_BUC_01 195440'
-    },
-
-    185666: {
       tags: ['tag-vip', 'tag-secret'],
-      comment: 'this is a comment for P_BUC_01 196304'
+      comment: 'this is a comment for caseId 195440'
     },
 
-    195366: {
+    158123: {
       tags: ['tag-vip'],
-      comment: 'this is a comment for P_BUC_03 195309'
-    },
-
-    296304: {
-      tags: ['tag-vip', 'tag-secret'],
-      comment: 'this is a comment for P_BUC_03 195766'
+      comment: 'this is a comment for caseId 158123'
     }
   }
 }
