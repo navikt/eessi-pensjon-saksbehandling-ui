@@ -25,37 +25,37 @@ const Period = ({
     valueSetProperty(key, validateFunction, e.target.value)
   }, [valueSetProperty])
 
-  const setType = (e) => eventSetProperty('type', periodValidation.periodType, e)
+  const setType = /* istanbul ignore next */ (e) => eventSetProperty('type', periodValidation.periodType, e)
 
-  const setStartDate = (e) => dateSetProperty('startDate', periodValidation.periodStartDateOnChange, e)
-  const setEndDate = (e) => dateSetProperty('endDate', periodValidation.periodEndDateOnChange, e)
-  const blurStartDate = (e) => dateBlur('startDate', periodValidation.periodStartDateOnBlur, e)
-  const blurEndDate = (e) => dateBlur('endDate', periodValidation.periodEndDateOnBlur, e)
-  const setUncertainDate = (e) => eventSetCheckbox('uncertainDate', null, e)
-  const setDateType = useCallback((e) => eventSetProperty('dateType', null, e), [eventSetProperty])
+  const setStartDate = /* istanbul ignore next */ (e) => dateSetProperty('startDate', periodValidation.periodStartDateOnChange, e)
+  const setEndDate = /* istanbul ignore next */ (e) => dateSetProperty('endDate', periodValidation.periodEndDateOnChange, e)
+  const blurStartDate = /* istanbul ignore next */ (e) => dateBlur('startDate', periodValidation.periodStartDateOnBlur, e)
+  const blurEndDate = /* istanbul ignore next */ (e) => dateBlur('endDate', periodValidation.periodEndDateOnBlur, e)
+  const setUncertainDate = /* istanbul ignore next */ (e) => eventSetCheckbox('uncertainDate', null, e)
+  const setDateType = /* istanbul ignore next */ (e) => eventSetProperty('dateType', null, e)
 
-  const setCountry = (e) => valueSetProperty('country', periodValidation.periodCountry, e)
-  const setComment = (e) => eventSetProperty('comment', null, e)
-  const setAttachments = (e) => valueSetProperty('attachments', null, e)
+  const setCountry = /* istanbul ignore next */ (e) => valueSetProperty('country', periodValidation.periodCountry, e)
+  const setComment = /* istanbul ignore next */ (e) => eventSetProperty('comment', null, e)
+  const setAttachments = /* istanbul ignore next */ (e) => valueSetProperty('attachments', null, e)
 
-  const setWorkActivity = (e) => eventSetProperty('workActivity', periodValidation.workActivity, e)
-  const setWorkName = (e) => eventSetProperty('workName', periodValidation.workName, e)
-  const setWorkType = useCallback((e) => eventSetProperty('workType', periodValidation.workType, e), [eventSetProperty])
-  const setWorkStreet = (e) => eventSetProperty('workStreet', periodValidation.workStreet, e)
-  const setWorkCity = (e) => eventSetProperty('workCity', periodValidation.workCity, e)
-  const setWorkZipCode = (e) => eventSetProperty('workZipCode', periodValidation.workZipCode, e)
-  const setWorkRegion = (e) => eventSetProperty('workRegion', periodValidation.workRegion, e)
+  const setWorkActivity = /* istanbul ignore next */ (e) => eventSetProperty('workActivity', periodValidation.workActivity, e)
+  const setWorkName = /* istanbul ignore next */ (e) => eventSetProperty('workName', periodValidation.workName, e)
+  const setWorkType = /* istanbul ignore next */ (e) => eventSetProperty('workType', periodValidation.workType, e)
+  const setWorkStreet = /* istanbul ignore next */ (e) => eventSetProperty('workStreet', periodValidation.workStreet, e)
+  const setWorkCity = /* istanbul ignore next */ (e) => eventSetProperty('workCity', periodValidation.workCity, e)
+  const setWorkZipCode = /* istanbul ignore next */ (e) => eventSetProperty('workZipCode', periodValidation.workZipCode, e)
+  const setWorkRegion = /* istanbul ignore next */ (e) => eventSetProperty('workRegion', periodValidation.workRegion, e)
 
-  const setInsuranceId = (e) => eventSetProperty('insuranceId', periodValidation.insuranceId, e)
+  const setInsuranceId = /* istanbul ignore next */ (e) => eventSetProperty('insuranceId', periodValidation.insuranceId, e)
 
-  const setChildFirstName = (e) => eventSetProperty('childFirstName', periodValidation.childFirstName, e)
-  const setChildLastName = (e) => eventSetProperty('childLastName', periodValidation.childLastName, e)
-  const setChildBirthDate = (e) => dateSetProperty('childBirthDate', periodValidation.childBirthDateOnChange, e)
-  const blurChildBirthDate = (e) => dateBlur('childBirthDate', periodValidation.childBirthDateOnBlur, e)
+  const setChildFirstName = /* istanbul ignore next */ (e) => eventSetProperty('childFirstName', periodValidation.childFirstName, e)
+  const setChildLastName = /* istanbul ignore next */ (e) => eventSetProperty('childLastName', periodValidation.childLastName, e)
+  const setChildBirthDate = /* istanbul ignore next */ (e) => dateSetProperty('childBirthDate', periodValidation.childBirthDateOnChange, e)
+  const blurChildBirthDate = /* istanbul ignore next */ (e) => dateBlur('childBirthDate', periodValidation.childBirthDateOnBlur, e)
 
-  const setLearnInstitution = (e) => eventSetProperty('learnInstitution', periodValidation.learnInstitution, e)
-  const setPayingInstitution = (e) => eventSetProperty('payingInstitution', periodValidation.payingInstitution, e)
-  const setOtherType = (e) => eventSetProperty('otherType', periodValidation.otherType, e)
+  const setLearnInstitution = /* istanbul ignore next */ (e) => eventSetProperty('learnInstitution', periodValidation.learnInstitution, e)
+  const setPayingInstitution = /* istanbul ignore next */ (e) => eventSetProperty('payingInstitution', periodValidation.payingInstitution, e)
+  const setOtherType = /* istanbul ignore next */ (e) => eventSetProperty('otherType', periodValidation.otherType, e)
 
   useEffect(() => {
     if (period.type && !period.dateType) {
@@ -140,8 +140,8 @@ const Period = ({
         delete newPeriod.childBirthDate
       }
 
-      newPeriod.id = new Date().getTime()
       newPeriods.push(newPeriod)
+      newPeriods.forEach((period, i) => (period.id = i))
       setPeriods(newPeriods)
       setPeriod({})
       setLocalErrors({})
@@ -160,11 +160,9 @@ const Period = ({
     if (hasNoErrors(errors)) {
       const newPeriods = _.clone(periods)
       const newPeriod = _.clone(period)
-      newPeriod.id = new Date().getTime()
       const index = _.findIndex(periods, { id: period.id })
       if (index >= 0) {
-        newPeriods.splice(index, 1)
-        newPeriods.push(newPeriod)
+        newPeriods[index] = newPeriod
         setPeriods(newPeriods)
         setPeriod({})
         setLocalErrors({})

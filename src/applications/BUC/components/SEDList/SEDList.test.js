@@ -7,6 +7,7 @@ describe('applications/BUC/components/SEDList/SEDList', () => {
   const initialMockProps = {
     buc: sampleBucs[0],
     locale: 'nb',
+    maxSeds: 99,
     onSEDNew: jest.fn(),
     seds: sampleBucs[0].seds,
     t: jest.fn(t => t)

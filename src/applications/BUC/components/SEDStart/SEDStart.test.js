@@ -123,13 +123,11 @@ describe('applications/BUC/components/SEDStart/SEDStart', () => {
   })
 
   it('With SED P4000 we get a proper submit', () => {
+    initialMockProps.actions.createSed.mockReset()
     wrapper.find('#a-buc-c-sedstart__sed-select-id').hostNodes().simulate('change', { target: { value: 'P4000' } })
-    wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().simulate('click')
-    wrapper.update()
     wrapper.find('#a-buc-c-sedstart__forward-button-id').hostNodes().simulate('click')
     expect(initialMockProps.actions.createSed).toHaveBeenCalledWith({
       aktoerId: '123',
-      attachments: [],
       buc: 'P_BUC_02',
       euxCaseId: '195440',
       institutions: [],

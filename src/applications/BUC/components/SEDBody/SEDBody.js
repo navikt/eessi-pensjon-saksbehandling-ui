@@ -1,34 +1,48 @@
 import React, { useEffect, useState } from 'react'
+import PT from 'prop-types'
+import _ from 'lodash'
 import SEDAttachments from '../SEDAttachments/SEDAttachments'
 import { Nav } from 'eessi-pensjon-ui'
-import { IS_TEST } from 'constants/environment'
 import SEDAttachmentSender from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
 
-const SEDBody = ({ actions, aktoerId, attachments, attachmentsError, buc, sed, t }) => {
+const SEDBody = ({
+  actions, aktoerId, attachments, attachmentsError, buc, initialAttachmentsSent = false, initialSeeAttachmentPanel = false,
+  initialSendingAttachments = false, onAttachmentsSubmit, onAttachmentsPanelOpen, sed, t
+}) => {
   const [_attachments, setAttachments] = useState({ sed: sed.attachments || [], joark: [] })
-  const [sendingAttachments, setSendingAttachments] = useState(false)
-  const [attachmentsSent, setAttachmentsSent] = useState(false)
-  const [seeAttachmentPanel, setSeeAttachmentPanel] = useState(false)
+  const [sendingAttachments, setSendingAttachments] = useState(initialSendingAttachments)
+  const [attachmentsSent, setAttachmentsSent] = useState(initialAttachmentsSent)
+  const [seeAttachmentPanel, setSeeAttachmentPanel] = useState(initialSeeAttachmentPanel)
 
   useEffect(() => {
     // cleanup after attachments sent
     if (sendingAttachments && attachmentsSent) {
-      if (!IS_TEST) {
-        console.log('SEDBody: Attachments sent, cleaning up')
-      }
       setSendingAttachments(false)
       setSeeAttachmentPanel(false)
       actions.resetSedAttachments()
     }
   }, [actions, attachmentsSent, sendingAttachments])
 
-  const onHandleSubmit = (files) => {
-    setAttachments({
+  const onAttachmentsPanelOpened = () => {
+    const newSeeAttachmentPanel = !seeAttachmentPanel
+    setSeeAttachmentPanel(newSeeAttachmentPanel)
+    setAttachmentsSent(false)
+    if (_.isFunction(onAttachmentsPanelOpen)) {
+      onAttachmentsPanelOpen(newSeeAttachmentPanel)
+    }
+  }
+
+  const onAttachmentsSubmitted = (files) => {
+    const newFiles = {
       ..._attachments,
       joark: files.joark
-    })
+    }
+    setAttachments(newFiles)
     setSendingAttachments(true)
+    if (_.isFunction(onAttachmentsSubmit)) {
+      onAttachmentsSubmit(newFiles)
+    }
   }
 
   return (
@@ -42,11 +56,8 @@ const SEDBody = ({ actions, aktoerId, attachments, attachmentsError, buc, sed, t
         t={t}
         files={_attachments}
         open={seeAttachmentPanel}
-        onOpen={() => {
-          setSeeAttachmentPanel(!seeAttachmentPanel)
-          setAttachmentsSent(false)
-        }}
-        onSubmit={onHandleSubmit}
+        onOpen={onAttachmentsPanelOpened}
+        onSubmit={onAttachmentsSubmitted}
         disableButtons={sendingAttachments}
       />
       {sendingAttachments || attachmentsSent ? (
@@ -67,6 +78,21 @@ const SEDBody = ({ actions, aktoerId, attachments, attachmentsError, buc, sed, t
       ) : null}
     </div>
   )
+}
+
+SEDBody.propTypes = {
+  actions: PT.object.isRequired,
+  aktoerId: PT.string,
+  attachments: PT.array,
+  attachmentsError: PT.bool,
+  buc: PT.object,
+  initialAttachmentsSent: PT.bool,
+  initialSeeAttachmentPanel: PT.bool,
+  initialSendingAttachments: PT.bool,
+  onAttachmentsSubmit: PT.func,
+  onAttachmentsPanelOpen: PT.func,
+  sed: PT.object.isRequired,
+  t: PT.func.isRequired
 }
 
 export default SEDBody

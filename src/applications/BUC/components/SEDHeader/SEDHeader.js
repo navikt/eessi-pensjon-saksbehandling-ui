@@ -34,10 +34,10 @@ const SEDHeader = ({ buc, className, institutionNames, locale, onSEDNew, sed, fo
         <div className='a-buc-c-sedheader__column a-buc-c-sedheader__status col-3'>
           <SEDStatus t={t} className='col-auto' status={sed.status} />
           <div className='pl-2'>
-            <Nav.Normaltekst data-tip={t('ui:lastUpdate')}>
+            <Nav.Normaltekst className='a-buc-c-sedheader__lastUpdate' data-tip={t('ui:lastUpdate')}>
               {sed.lastUpdate ? moment(sed.lastUpdate).format('DD.MM.YYYY') : null}
             </Nav.Normaltekst>
-            {sed.version ? <Nav.Normaltekst>{t('ui:version')}{': '}{sed.version || '-'}</Nav.Normaltekst> : null}
+            {sed.version ? <Nav.Normaltekst className='a-buc-c-sedheader__version'>{t('ui:version')}{': '}{sed.version || '-'}</Nav.Normaltekst> : null}
           </div>
         </div>
         <div className='a-buc-c-sedheader__column a-buc-c-sedheader__institutions col-3'>

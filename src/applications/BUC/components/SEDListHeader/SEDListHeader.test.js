@@ -28,15 +28,17 @@ describe('applications/BUC/components/SEDListHeader/SEDListHeader', () => {
 
   it('Has proper HTML structure', () => {
     expect(wrapper.exists('.a-buc-c-sedlistheader')).toBeTruthy()
-    expect(wrapper.find('.a-buc-c-sedlistheader__name').hostNodes().render().text()).toEqual('P2000 - buc:buc-P2000buc:status-received29.05.2019')
+    expect(wrapper.find('.a-buc-c-sedlistheader__name').hostNodes().render().text()).toEqual(
+      ['X008 - buc:buc-X008', 'buc:status-received', '23.10.2019', 'ui:version: 1'].join('')
+    )
 
     const status = wrapper.find('.a-buc-c-sedlistheader__status').hostNodes()
     expect(status.find('SEDStatus').render().text()).toEqual('buc:status-' + sed.status)
-    expect(status.find('Normaltekst').render().text()).toEqual('29.05.2019')
+    expect(status.find('Normaltekst.a-buc-c-sedlistheader__lastUpdate').render().text()).toEqual('23.10.2019')
 
     const institutions = wrapper.find('.a-buc-c-sedlistheader__institutions').hostNodes()
-    expect(institutions.find('InstitutionList').first().render().text()).toEqual('DEMO002')
-    expect(institutions.find('InstitutionList').last().render().text()).toEqual('DEMO001')
+    expect(institutions.find('InstitutionList').first().render().text()).toEqual('NAV ACCEPTANCE TEST 07')
+    expect(institutions.find('InstitutionList').last().render().text()).toEqual('NAV ACCEPTANCE TEST 08')
 
     const actions = wrapper.find('.a-buc-c-sedlistheader__actions').hostNodes()
     expect(actions.exists('Icons')).toBeTruthy()

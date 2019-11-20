@@ -26,6 +26,7 @@ const PeriodWork = ({
           legend={t('buc:p4000-label-work-type')}
         >
           <Nav.Radio
+            id='a-buc-c-sedp4000-period__workType-radio-option-01-id'
             label={t('buc:p4000-label-work-type-01')}
             name='period-workType'
             value='01'
@@ -33,6 +34,7 @@ const PeriodWork = ({
             onChange={setWorkType}
           />
           <Nav.Radio
+            id='a-buc-c-sedp4000-period__workType-radio-option-02-id'
             label={t('buc:p4000-label-work-type-02')}
             name='period-workType'
             value='02'

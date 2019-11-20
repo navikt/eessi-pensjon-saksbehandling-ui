@@ -4,21 +4,19 @@ import _ from 'lodash'
 import { Nav, TableSorter } from 'eessi-pensjon-ui'
 import './SEDAttachmentsTable.css'
 
-const SEDAttachmentsTable = ({ attachments, t }) => {
+const SEDAttachmentsTable = ({ attachments = {}, t }) => {
   const items = []
 
-  if (!_.isEmpty(attachments)) {
-    Object.keys(attachments).forEach((key, index1) => {
-      attachments[key].forEach((att, index2) => {
-        items.push({
-          key: index1 + '_' + index2,
-          bucket: key,
-          title: (att.tittel || att.name) +
-            (att.variant ? ' + ' + att.variant.variantformat + ' (' + att.variant.filnavn + ')' : '')
-        })
+  Object.keys(attachments).forEach((key, index1) => {
+    attachments[key].forEach((att, index2) => {
+      items.push({
+        key: index1 + '_' + index2,
+        bucket: key,
+        title: (att.tittel || att.name) +
+          (att.variant ? ' + ' + att.variant.variantformat + ' (' + att.variant.filnavn + ')' : '')
       })
     })
-  }
+  })
 
   if (_.isEmpty(items)) {
     return <Nav.Normaltekst>{t('buc:form-noAttachmentsYet')}</Nav.Normaltekst>
@@ -53,7 +51,7 @@ const SEDAttachmentsTable = ({ attachments, t }) => {
 }
 
 SEDAttachmentsTable.propTypes = {
-  attachments: PT.array
+  attachments: PT.object
 }
 
 export default SEDAttachmentsTable

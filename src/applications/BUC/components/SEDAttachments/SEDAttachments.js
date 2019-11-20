@@ -8,7 +8,7 @@ const SEDAttachments = ({ disableButtons, files, initialMode = 'view', open = fa
   const [mode, setMode] = useState(initialMode)
   const [localFiles, setLocalFiles] = useState(files && _.isArray(files.joark) ? files.joark : [])
 
-  const handleButtonClick = () => {
+  const onEnableAttachmentsButtonClicked = () => {
     if (_(onOpen).isFunction()) {
       onOpen()
     }
@@ -37,7 +37,7 @@ const SEDAttachments = ({ disableButtons, files, initialMode = 'view', open = fa
           id='a-buc-c-sedattachments__enable-button-id'
           className='a-buc-c-sedattachments__enable-button'
           label={t('buc:form-enableAttachments')}
-          onClick={handleButtonClick}
+          onClick={onEnableAttachmentsButtonClicked}
         >
           <div className='d-flex'>
             <Icons className='mr-2' kind='tilsette' />

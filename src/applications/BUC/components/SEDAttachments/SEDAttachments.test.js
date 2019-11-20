@@ -36,13 +36,22 @@ describe('applications/BUC/components/SEDAttachments/SEDAttachments', () => {
   })
 
   it('onFilesChanged triggered', () => {
+    initialMockProps.onFilesChange.mockReset()
     wrapper.find('.mock-joarkbrowser').simulate('click')
     expect(initialMockProps.onFilesChange).toHaveBeenCalledWith([{ foo: 'bar' }])
   })
 
   it('onSubmit triggered', () => {
+    initialMockProps.onOpen.mockReset()
     wrapper = mount(<SEDAttachments {...initialMockProps} initialMode='confirm' files={{ joark: [{ foo: 'bar2' }] }} />)
     wrapper.find('button.a-buc-c-sedattachments__submit-button').props().onClick()
     expect(initialMockProps.onSubmit).toHaveBeenCalledWith({ joark: [{ foo: 'bar2' }] })
+  })
+
+  it('onEnableAttachmentsButtonClicked triggered', () => {
+    initialMockProps.onOpen.mockReset()
+    wrapper = mount(<SEDAttachments {...initialMockProps} open={false} />)
+    wrapper.find('Knapp.a-buc-c-sedattachments__enable-button').props().onClick()
+    expect(initialMockProps.onOpen).toHaveBeenCalled()
   })
 })

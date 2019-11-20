@@ -210,7 +210,7 @@ export const SEDStart = (props) => {
   }
 
   const createSedNeedsMoreSteps = () => {
-    return _sed === 'P4000'
+    return false // _sed === 'P4000'
   }
 
   const allowedToForward = () => {

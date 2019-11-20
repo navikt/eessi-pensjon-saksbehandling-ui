@@ -12,7 +12,15 @@ jest.mock('eessi-pensjon-ui', () => {
     }
   }
 })
-const samplePeriod = _(sampleP4000info.stayAbroad).find(it => it.type === 'work')
+const sampleWorkPeriod = _(sampleP4000info.stayAbroad).find(it => it.type === 'work')
+sampleWorkPeriod.attachments = [{
+  name: 'mock.pdf',
+  type: 'application/pdf',
+  content: 'mokContent',
+  size: 123
+}]
+
+const sampleHomePeriod = _(sampleP4000info.stayAbroad).find(it => it.type === 'home')
 
 const initialMockProps = {
   actions: {
@@ -20,15 +28,7 @@ const initialMockProps = {
     closeModal: jest.fn()
   },
   locale: 'nb',
-  period: {
-    ...samplePeriod,
-    attachments: [{
-      name: 'mock.pdf',
-      type: 'application/pdf',
-      content: 'mokContent',
-      size: 123
-    }]
-  },
+  period: sampleWorkPeriod,
   periods: [],
   localErrors: {},
   setPeriod: jest.fn(),
@@ -42,7 +42,7 @@ describe('applications/BUC/components/SEDP4000/Period - view/confirm mode', () =
   it('Renders', () => {
     const wrapper = mount(<Period {...initialMockProps} mode='view' />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
-  //  expect(wrapper).toMatchSnapshot()
+    expect(wrapper).toMatchSnapshot()
   })
 
   it('Has proper HTML structure', () => {
@@ -97,10 +97,17 @@ describe('applications/BUC/components/SEDP4000/Period - new mode', () => {
     expect(wrapper.exists('#a-buc-c-sedp4000-period__cancel-button-id')).toBeTruthy()
   })
 
-  it('Saves new period', () => {
+  it('Saves new work period, then appends new home period', () => {
+    initialMockProps.setPeriods.mockReset()
     const wrapper = mount(<Period {...initialMockProps} mode='new' />)
     wrapper.find('#a-buc-c-sedp4000-period__save-button-id').hostNodes().simulate('click')
-    expect(initialMockProps.setPeriods).toHaveBeenCalled()
+    expect(initialMockProps.setPeriods).toHaveBeenCalledWith([{ ...sampleWorkPeriod, id: 0 }])
+
+    initialMockProps.setPeriods.mockReset()
+    wrapper.setProps({ periods: [sampleWorkPeriod], period: sampleHomePeriod })
+    wrapper.update()
+    wrapper.find('#a-buc-c-sedp4000-period__save-button-id').hostNodes().simulate('click')
+    expect(initialMockProps.setPeriods).toHaveBeenCalledWith([{ ...sampleWorkPeriod, id: 0 }, { ...sampleHomePeriod, id: 1 }])
   })
 })
 

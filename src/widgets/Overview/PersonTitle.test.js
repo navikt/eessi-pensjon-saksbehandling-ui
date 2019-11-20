@@ -26,7 +26,7 @@ describe('widgets/Overview/PersonTitle', () => {
 
   it('Renders waiting spinner if no person is given', () => {
     wrapper = mount(<PersonTitle {...initialMockProps} person={undefined} />)
-    expect(wrapper.exists('.c-waitingpanel')).toBeTruthy()
+    expect(wrapper.exists('WaitingPanel')).toBeTruthy()
   })
 
   it('Has proper HTML structure', () => {
