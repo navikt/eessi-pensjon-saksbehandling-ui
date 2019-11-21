@@ -4,7 +4,7 @@ import moment from 'moment'
 import { CountryData, Icons, Nav, PostalCodes } from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 
-const PersonPanel = ({ t, person }) => {
+const PersonPanel = ({ highContrast, person, t }) => {
   if (!person) {
     return null
   }
@@ -107,19 +107,19 @@ const PersonPanel = ({ t, person }) => {
       <Nav.Row className='w-overview-personPanel__content m-4'>
         <div className='w-overview-personPanel__item col-md-4'>
           <div className='mr-2'>
-            <Icons kind='nav-home' />
+            <Icons kind='nav-home' color={highContrast ? 'white' : 'black'} />
           </div>
           {renderEntity('ui:bostedsadresse', bostedsadresse)}
         </div>
         <div className='w-overview-personPanel__item col-md-4'>
           <div className='mr-2'>
-            <Icons kind='calendar' />
+            <Icons kind='calendar' color={highContrast ? 'white' : 'black'} />
           </div>
           {renderEntity('ui:birthdate', birthDateString)}
         </div>
         <div className='w-overview-personPanel__item col-md-4'>
           <div className='mr-2'>
-            <Icons kind='nav-work' />
+            <Icons kind='nav-work' color={highContrast ? 'white' : 'black'} />
           </div>
           {renderEntity('ui:nationality', nationality)}
         </div>
@@ -128,19 +128,19 @@ const PersonPanel = ({ t, person }) => {
       <Nav.Row className='w-overview-personPanel__content m-4'>
         <div className='w-overview-personPanel__item col-md-4'>
           <div className='mr-2'>
-            <Icons kind='address' />
+            <Icons kind='address' color={highContrast ? 'white' : 'black'} />
           </div>
           {renderEntity('ui:postadresse', postadresse)}
         </div>
         <div className='w-overview-personPanel__item col-md-4'>
           <div className='mr-2'>
-            <Icons kind='calendar' />
+            <Icons kind='calendar' color={highContrast ? 'white' : 'black'} />
           </div>
           {renderEntity('ui:deathdate', deathDateString)}
         </div>
         <div className='w-overview-personPanel__item col-md-4'>
           <div className='mr-2'>
-            <Icons kind='nav-child' />
+            <Icons kind='nav-child' color={highContrast ? 'white' : 'black'} />
           </div>
           {renderEntity('ui:marital-status',
             t('ui:widget-overview-maritalstatus-' + maritalStatus) +
@@ -154,8 +154,9 @@ const PersonPanel = ({ t, person }) => {
 }
 
 PersonPanel.propTypes = {
-  t: PT.func.isRequired,
-  person: PT.object
+  highContrast: PT.bool,
+  person: PT.object,
+  t: PT.func.isRequired
 }
 
 export default PersonPanel

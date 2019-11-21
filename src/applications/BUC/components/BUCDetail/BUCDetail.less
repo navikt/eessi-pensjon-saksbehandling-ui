@@ -1,3 +1,5 @@
+@import '../../../../constants';
+
 .a-buc-c-bucdetail {
   opacity: 0;
   transform: translateX(20px);
@@ -9,7 +11,7 @@
     width: 100%;
 
     .odd {
-      background-color: whitesmoke;
+      background-color: @navLysGra;
     }
 
     dt {
@@ -28,5 +30,15 @@
       padding-top: .25rem;
       margin-bottom: 0;
     }
+  }
+}
+
+.highContrast .a-buc-c-bucdetail {
+  background: @black;
+  .odd {
+    background: @navMorkGra;
+  }
+  .ekspanderbartPanel__hode {
+    background: @black;
   }
 }

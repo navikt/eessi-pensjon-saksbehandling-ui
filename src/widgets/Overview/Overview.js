@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PT from 'prop-types'
+import classNames from 'classnames'
 import _ from 'lodash'
 import { withTranslation } from 'react-i18next'
 import { connect, bindActionCreators } from 'store'
@@ -7,7 +8,6 @@ import * as appActions from 'actions/app'
 import { Nav } from 'eessi-pensjon-ui'
 import PersonTitle from './PersonTitle'
 import PersonPanel from './PersonPanel'
-
 import './Overview.css'
 
 const mapStateToProps = (state) => {
@@ -18,7 +18,8 @@ const mapStateToProps = (state) => {
     isSendingPinfo: state.loading.isSendingPinfo,
     locale: state.ui.locale,
     person: state.app.person,
-    sakId: state.app.params.sakId
+    sakId: state.app.params.sakId,
+    highContrast: state.ui.highContrast
   }
 }
 
@@ -28,7 +29,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export const Overview = (props) => {
-  const { actions, aktoerId, onUpdate, t, widget } = props
+  const { actions, aktoerId, highContrast, onUpdate, t, widget } = props
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -54,7 +55,7 @@ export const Overview = (props) => {
 
   return (
     <Nav.EkspanderbartpanelBase
-      className='w-overview s-border'
+      className={classNames('w-overview', 's-border', { highContrast: highContrast })}
       apen={!widget.options.collapsed}
       onClick={onExpandablePanelChange}
       heading={<PersonTitle {...props} />}
@@ -67,6 +68,7 @@ export const Overview = (props) => {
 Overview.propTypes = {
   actions: PT.object.isRequired,
   aktoerId: PT.string,
+  hihContrast: PT.bool,
   onUpdate: PT.func.isRequired,
   widget: PT.object.isRequired,
   t: PT.func.isRequired

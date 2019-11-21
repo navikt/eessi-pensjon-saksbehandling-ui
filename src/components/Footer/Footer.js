@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { Nav } from 'eessi-pensjon-ui'
 import './Footer.css'
 
-const Footer = ({ actions, footerOpen, params = {} }) => {
+const Footer = ({ actions, className, footerOpen, params = {} }) => {
   const validParams = ['buc', 'sed', 'rinaId', 'sakId', 'aktoerId', 'avdodfnr', 'vedtakId', 'kravId', 'fnr', 'mottaker']
   const [paramName, setParamName] = useState(undefined)
   const [paramValue, setParamValue] = useState(undefined)
@@ -38,7 +38,7 @@ const Footer = ({ actions, footerOpen, params = {} }) => {
   }
 
   return (
-    <footer role='contentinfo' className={classNames('c-footer', { toggled: footerOpen })}>
+    <footer role='contentinfo' className={classNames('c-footer', className, { toggled: footerOpen })}>
       <div className={classNames('contents', { fullWidth: !footerOpen })}>
         <div
           className={classNames({ footerButtonOpen: footerOpen, footerButtonClosed: !footerOpen })}
@@ -83,6 +83,7 @@ const Footer = ({ actions, footerOpen, params = {} }) => {
 
 Footer.propTypes = {
   actions: PT.object.isRequired,
+  className: PT.string,
   footerOpen: PT.bool,
   params: PT.object
 }
