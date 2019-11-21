@@ -1,5 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
+import _ from 'lodash'
 import classNames from 'classnames'
 import { connect, bindActionCreators } from 'store'
 import * as alertActions from 'actions/alert'
@@ -8,7 +9,7 @@ import * as uiActions from 'actions/ui'
 import Header from 'components/Header/Header'
 import Footer from 'components/Footer/Footer'
 import SessionMonitor from 'components/SessionMonitor/SessionMonitor'
-import { Alert, Banner, Modal, Nav } from 'eessi-pensjon-ui'
+import { Alert, Banner, Modal } from 'eessi-pensjon-ui'
 import './TopContainer.css'
 
 const mapStateToProps = /* istanbul ignore next */ (state) => {
@@ -67,60 +68,66 @@ export const TopContainer = ({
     return serverErrorMessage ? t(serverErrorMessage) : undefined
   }
 
+  if (_.isNil(window.onerror)) {
+    window.onerror = (msg, src, lineno, colno, error) => {
+      actions.clientError({ message: msg })
+    }
+  }
+
   return (
-    <div
-      className={classNames('c-topContainer', className, { highContrast: highContrast })}
-    >
+    <>
       <Header
         actions={actions}
+        className={classNames({ highContrast: highContrast })}
         t={t}
         history={history}
         username={username}
         gettingUserInfo={gettingUserInfo}
         isLoggingOut={isLoggingOut}
-      />
-      {header ? (
-        <Banner
-          header={header}
-          onHighContrastClicked={handleHighContrastToggle}
-          labelHighContrast={t('ui:highContrast')}
-        />) : null}
-      <Alert
-        type='client'
-        message={getClientErrorMessage()}
-        status={clientErrorStatus}
-        error={error}
-        onClose={onClear}
-      />
-      <Alert
-        type='server'
-        message={getServerErrorMessage()}
-        error={error}
-        onClose={onClear}
-      />
-      <Nav.Container
-        className='_container p-0'
-        fluid={fluid}
       >
-        <main role='main'>
-          {children}
-        </main>
-      </Nav.Container>
-      <Modal
-        modal={modal}
-        onModalClose={handleModalClose}
-      />
-      <SessionMonitor
-        t={t}
-        actions={actions}
-        expirationTime={expirationTime}
-      />
+        {header ? (
+          <Banner
+            header={header}
+            onHighContrastClicked={handleHighContrastToggle}
+            labelHighContrast={t('ui:highContrast')}
+          />) : null}
+        <Alert
+          type='client'
+          message={getClientErrorMessage()}
+          status={clientErrorStatus}
+          error={error}
+          onClose={onClear}
+        />
+        <Alert
+          type='server'
+          message={getServerErrorMessage()}
+          error={error}
+          onClose={onClear}
+        />
+        {modal ? (
+          <Modal
+            appElement={document.getElementById('main')}
+            modal={modal}
+            onModalClose={handleModalClose}
+          />
+        ) : null}
+        <SessionMonitor
+          t={t}
+          actions={actions}
+          expirationTime={expirationTime}
+        />
+      </Header>
+      <main id='main' role='main' className={classNames('_container', 'p-0', { 'container-fluid': fluid, highContrast: highContrast })}>
+        {children}
+      </main>
       <Footer
+        className={classNames({ highContrast: highContrast })}
+        role='contentinfo'
         actions={actions}
         params={params}
         footerOpen={footerOpen}
       />
-    </div>
+    </>
   )
 }
 

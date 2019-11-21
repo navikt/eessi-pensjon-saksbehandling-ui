@@ -5,3 +5,10 @@ export const clientClear = () => {
     type: types.ALERT_CLIENT_CLEAR
   }
 }
+
+export const clientError = (payload) => {
+  return {
+    type: types.ALERT_CLIENT_ERROR,
+    payload: payload
+  }
+}

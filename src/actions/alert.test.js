@@ -8,4 +8,13 @@ describe('actions/alert', () => {
       type: types.ALERT_CLIENT_CLEAR
     })
   })
+
+  it('clientError()', () => {
+    const mockPayload = 'mockPayload'
+    const generatedResult = alertActions.clientError(mockPayload)
+    expect(generatedResult).toMatchObject({
+      type: types.ALERT_CLIENT_ERROR,
+      payload: mockPayload
+    })
+  })
 })

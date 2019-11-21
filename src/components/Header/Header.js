@@ -6,7 +6,7 @@ import * as routes from 'constants/routes'
 import NavLogoTransparent from 'resources/images/NavLogoTransparent'
 import './Header.css'
 
-const Header = ({ actions, gettingUserInfo, header, history, isLoggingOut, t, username }) => {
+const Header = ({ actions, children, gettingUserInfo, header, history, isLoggingOut, t, username }) => {
   const onLogoClick = () => {
     actions.clearData()
     history.push({
@@ -23,14 +23,28 @@ const Header = ({ actions, gettingUserInfo, header, history, isLoggingOut, t, us
   }
 
   return (
-    <>
-      <header className='c-topHeader'>
+    <header role='banner'>
+      <div className='c-topHeader'>
         <div className='brand'>
           <a href='#index' id='c-topHeader__logo-link' onClick={onLogoClick}>
             <NavLogoTransparent width='100' height='45' color='white' />
           </a>
           <div className='skillelinje' />
           <div className='tittel'><span>{t('app-headerTitle')}</span></div>
+        </div>
+        <div>
+          <Nav.Lenke
+            id='c-topHeader__highcontrast-link-id'
+            className='c-topHeader__highcontrast-link mt-1'
+            href='#highContrast'
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              actions.toggleHighContrast()
+            }}
+          >
+            {t('ui:highContrast')}
+          </Nav.Lenke>
         </div>
         <div className='user'>
           {isLoggingOut
@@ -66,7 +80,7 @@ const Header = ({ actions, gettingUserInfo, header, history, isLoggingOut, t, us
                 )}
           </div>
         </div>
-      </header>
+      </div>
       {header
         ? (
           <Nav.Systemtittel className='m-4'>
@@ -74,7 +88,8 @@ const Header = ({ actions, gettingUserInfo, header, history, isLoggingOut, t, us
           </Nav.Systemtittel>
         )
         : null}
-    </>
+      {children}
+    </header>
   )
 }
 

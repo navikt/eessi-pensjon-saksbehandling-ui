@@ -2,95 +2,100 @@
 
 .c-topHeader {
 
-    background-color: @navMorkGra;
+  background-color: @navMorkGra;
+  display: flex;
+  flex-direction: row;
+  height: 4rem;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+
+  .skillelinje {
+    border-left: 1px solid @white;
+    display: flex;
+    height: 30px;
+    width: 1px;
+  }
+
+  .brand {
+    align-items: center;
     display: flex;
     flex-direction: row;
-    height: 4rem;
-    justify-content: space-between;
-    flex-shrink: 0;
 
-    .skillelinje {
-      border-left: 1px solid @black;
+    .logo {
       display: flex;
-      height: 30px;
-      width: 1px;
+      height: auto;
+      padding-left: 20px;
+      padding-right: 15px;
+      width: 85px;
     }
 
-    .brand {
-      align-items: center;
+    .tittel {
+      color: @white;
       display: flex;
-      flex-direction: row;
+      font-size: 13pt;
+      padding-left: 15px;
+    }
+  }
 
-      .logo {
-        display: flex;
-        height: auto;
-        padding-left: 20px;
-        padding-right: 15px;
-        width: 85px;
+  .user {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .SAKSBEHANDLER {
+       color: @navRod;
+    }
+
+    .BRUKER {
+       color: @navGronn;
+    }
+
+    .username-span {
+      padding: 0.45rem;
+      padding-left: 0.5rem;
+      padding-right: 1.6rem;
+      color: @white;
+    }
+
+    .username-select {
+
+      .selectContainer:before,
+      .selectContainer:after {
+          background: @white !important;
       }
 
-      .tittel {
-        color: @white;
-        display: flex;
-        font-size: 13pt;
-        padding-left: 15px;
+      position: relative;
+      select {
+         background: transparent !important;
+
+         &:not(:hover) {
+           border-color: transparent !important;
+         }
+         &:hover {
+           border-color: @white !important;
+         }
+      }
+      color: @white;
+
+      option {
+          background: @pension-orange;
+          padding: 0.5rem;
       }
     }
 
-    .user {
-      align-items: flex-end;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-
-      .SAKSBEHANDLER {
-         color: @navRod;
-      }
-
-      .BRUKER {
-         color: @navGronn;
-      }
-
-      .username-span {
-        padding: 0.45rem;
-        padding-left: 0.5rem;
-        padding-right: 1.6rem;
-        color: @white;
-      }
-
-      .username-select {
-
-        .selectContainer:before,
-        .selectContainer:after {
-            background: @white !important;
-        }
-
-        position: relative;
-        select {
-           background: transparent !important;
-
-           &:not(:hover) {
-             border-color: transparent !important;
-           }
-           &:hover {
-             border-color: @white !important;
-           }
-        }
-        color: @white;
-
-        option {
-            background: @pension-orange;
-            padding: 0.5rem;
-        }
-      }
-
-      .name {
-        margin: auto 0px;
-        padding: 0.3em;
-      }
+    .name {
+      margin: auto 0px;
+      padding: 0.3em;
     }
+  }
 
   .skjemaelement__input {
+    color: @white;
+  }
+
+  &__highcontrast-link {
     color: @white;
   }
 }

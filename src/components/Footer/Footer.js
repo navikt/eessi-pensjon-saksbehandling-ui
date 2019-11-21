@@ -38,7 +38,7 @@ const Footer = ({ actions, footerOpen, params = {} }) => {
   }
 
   return (
-    <footer className={classNames('c-footer', { toggled: footerOpen })}>
+    <footer role='contentinfo' className={classNames('c-footer', { toggled: footerOpen })}>
       <div className={classNames('contents', { fullWidth: !footerOpen })}>
         <div
           className={classNames({ footerButtonOpen: footerOpen, footerButtonClosed: !footerOpen })}

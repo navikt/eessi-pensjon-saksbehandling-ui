@@ -82,6 +82,7 @@
     "dropFilesHere" : "Klikk her for å velge filer. Filformat er JPG, PNG og PDF, maks {{maxFiles}} filer.",
     "edit" : "Redigere",
     "empty" : "Tømt",
+    "error": "Feil",
     "endDate" : "Sluttdato",
     "exit" : "Avslutt",
     "export" : "Eksport",

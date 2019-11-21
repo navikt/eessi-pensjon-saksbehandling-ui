@@ -21,14 +21,15 @@ const alertReducer = (state = initialAlertState, action = {}) => {
         break
 
       default:
-        serverErrorMessage = 'ui:serverInternalError'
+        serverErrorMessage = action.payload && action.payload.message ? action.payload.message : 'ui:serverInternalError'
         break
     }
 
     return {
       ...state,
       serverErrorMessage: serverErrorMessage,
-      error: action.payload
+      error: action.payload ? action.payload.error : null,
+      uuid: action.payload ? action.payload.uuid : null
     }
   }
 
@@ -150,7 +151,8 @@ const alertReducer = (state = initialAlertState, action = {}) => {
       ...state,
       clientErrorStatus: clientErrorMessage ? clientErrorStatus : undefined,
       clientErrorMessage: clientErrorMessage,
-      error: action.payload
+      error: action.payload ? action.payload.error : null,
+      uuid: action.payload.uuid
     }
   }
 
@@ -194,6 +196,7 @@ const alertReducer = (state = initialAlertState, action = {}) => {
     ...state,
     clientErrorStatus: 'OK',
     clientErrorMessage: clientErrorMessage,
+    uuid: undefined,
     error: undefined
   }
 }

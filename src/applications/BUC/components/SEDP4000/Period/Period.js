@@ -32,7 +32,7 @@ const Period = ({
   const blurStartDate = /* istanbul ignore next */ (e) => dateBlur('startDate', periodValidation.periodStartDateOnBlur, e)
   const blurEndDate = /* istanbul ignore next */ (e) => dateBlur('endDate', periodValidation.periodEndDateOnBlur, e)
   const setUncertainDate = /* istanbul ignore next */ (e) => eventSetCheckbox('uncertainDate', null, e)
-  const setDateType = /* istanbul ignore next */ (e) => eventSetProperty('dateType', null, e)
+  const setDateType = /* istanbul ignore next */ useCallback((e) => eventSetProperty('dateType', null, e), [eventSetProperty])
 
   const setCountry = /* istanbul ignore next */ (e) => valueSetProperty('country', periodValidation.periodCountry, e)
   const setComment = /* istanbul ignore next */ (e) => eventSetProperty('comment', null, e)
@@ -40,7 +40,7 @@ const Period = ({
 
   const setWorkActivity = /* istanbul ignore next */ (e) => eventSetProperty('workActivity', periodValidation.workActivity, e)
   const setWorkName = /* istanbul ignore next */ (e) => eventSetProperty('workName', periodValidation.workName, e)
-  const setWorkType = /* istanbul ignore next */ (e) => eventSetProperty('workType', periodValidation.workType, e)
+  const setWorkType = /* istanbul ignore next */ useCallback((e) => eventSetProperty('workType', periodValidation.workType, e), [eventSetProperty])
   const setWorkStreet = /* istanbul ignore next */ (e) => eventSetProperty('workStreet', periodValidation.workStreet, e)
   const setWorkCity = /* istanbul ignore next */ (e) => eventSetProperty('workCity', periodValidation.workCity, e)
   const setWorkZipCode = /* istanbul ignore next */ (e) => eventSetProperty('workZipCode', periodValidation.workZipCode, e)
