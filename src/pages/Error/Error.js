@@ -34,20 +34,19 @@ export const Error = ({ history, t, type }) => {
       className={classNames('p-error')}
       t={t}
       history={history}
-      header={t('app-headerTitle')}
     >
-      <div className='col-md-12 text-center'>
-        <div className='EESSIPensjonVeileder mt-3 mb-4'>
+      <div className='p-error__content'>
+        <div className='EESSIPensjonVeileder'>
           <EESSIPensjonVeileder mood='trist' id='EESSIPensjonVeileder' />
         </div>
         <Nav.Undertittel className='title m-4'>
           {title}
         </Nav.Undertittel>
-        <div className='description mb-4'>
+        <div className='description'>
           <div dangerouslySetInnerHTML={{ __html: description }} />
         </div>
         <div className='line' />
-        <Nav.Normaltekst className='mt-2 mb-4'>
+        <Nav.Normaltekst className='mt-2'>
           {t('ui:error-footer')}
         </Nav.Normaltekst>
       </div>

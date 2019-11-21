@@ -8,6 +8,7 @@ import * as appActions from 'actions/app'
 import { WaitingPanel } from 'eessi-pensjon-ui'
 import * as constants from 'constants/constants'
 import * as routes from 'constants/routes'
+import './AuthenticatedRoute.css'
 
 const mapStateToProps = (state) => {
   /* istanbul ignore next */
@@ -79,7 +80,11 @@ export const AuthenticatedRoute = (props) => {
   }, [loggedIn, actions, requestingUserInfo, requestingLogin, mounted])
 
   if (!mounted) {
-    return <WaitingPanel message={t('authenticating')} />
+    return (
+      <div className='c-authenticatedRoute'>
+        <WaitingPanel size='XL' essage={t('authenticating')} />
+      </div>
+    )
   }
 
   if (userRole !== constants.SAKSBEHANDLER) {
