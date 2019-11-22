@@ -6,7 +6,8 @@ export const initialUiState = {
   locale: i18n.locale,
   modal: undefined,
   footerOpen: false,
-  highContrast: false
+  highContrast: false,
+  snow: true
 }
 
 const uiReducer = (state = initialUiState, action = {}) => {
@@ -37,6 +38,13 @@ const uiReducer = (state = initialUiState, action = {}) => {
       return {
         ...state,
         highContrast: !state.highContrast
+      }
+
+    case types.UI_SNOW_TOGGLE :
+
+      return {
+        ...state,
+        snow: !state.snow
       }
 
     default:

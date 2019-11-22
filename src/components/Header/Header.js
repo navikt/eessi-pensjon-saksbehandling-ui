@@ -6,7 +6,7 @@ import * as routes from 'constants/routes'
 import NavLogoTransparent from 'resources/images/NavLogoTransparent'
 import './Header.css'
 
-const Header = ({ actions, children, gettingUserInfo, header, history, isLoggingOut, t, username }) => {
+const Header = ({ actions, children, gettingUserInfo, header, history, isLoggingOut, snow, t, username }) => {
   const onLogoClick = () => {
     actions.clearData()
     history.push({
@@ -35,7 +35,7 @@ const Header = ({ actions, children, gettingUserInfo, header, history, isLogging
         <div>
           <Nav.Lenke
             id='c-topHeader__highcontrast-link-id'
-            className='c-topHeader__highcontrast-link mt-1'
+            className='c-topHeader__highcontrast-link c-topHeader__link mt-1'
             href='#highContrast'
             onClick={(e) => {
               e.preventDefault()
@@ -44,6 +44,18 @@ const Header = ({ actions, children, gettingUserInfo, header, history, isLogging
             }}
           >
             {t('ui:highContrast')}
+          </Nav.Lenke>
+          <Nav.Lenke
+            id='c-topHeader__snow-link-id'
+            className='c-topHeader__snow-link c-topHeader__link ml-4 mt-1'
+            href='#snow'
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              actions.toggleSnow()
+            }}
+          >
+            {!snow ? 'la det snø!' : 'nok med snø!'}
           </Nav.Lenke>
         </div>
         <div className='user'>

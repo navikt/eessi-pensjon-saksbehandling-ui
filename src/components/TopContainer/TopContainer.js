@@ -9,6 +9,7 @@ import * as uiActions from 'actions/ui'
 import Header from 'components/Header/Header'
 import Footer from 'components/Footer/Footer'
 import SessionMonitor from 'components/SessionMonitor/SessionMonitor'
+import SnowStorm from 'react-snowstorm'
 import { Alert, Banner, Modal } from 'eessi-pensjon-ui'
 import './TopContainer.css'
 
@@ -25,6 +26,7 @@ const mapStateToProps = /* istanbul ignore next */ (state) => {
     isLoggingOut: state.loading.isLoggingOut,
     footerOpen: state.ui.footerOpen,
     modal: state.ui.modal,
+    snow: state.ui.snow,
     highContrast: state.ui.highContrast
   }
 }
@@ -36,7 +38,7 @@ const mapDispatchToProps = /* istanbul ignore next */ (dispatch) => {
 export const TopContainer = ({
   actions, className, children, clientErrorMessage, clientErrorStatus, error,
   expirationTime, fluid = true, footerOpen, gettingUserInfo, header, history,
-  highContrast, isLoggingOut, modal, params, serverErrorMessage, t, username
+  highContrast, isLoggingOut, modal, params, serverErrorMessage, snow, t, username
 }) => {
   const handleModalClose = () => {
     actions.closeModal()
@@ -76,6 +78,7 @@ export const TopContainer = ({
 
   return (
     <>
+      {snow ? <SnowStorm /> : null}
       <Header
         actions={actions}
         className={classNames({ highContrast: highContrast })}
@@ -84,6 +87,7 @@ export const TopContainer = ({
         username={username}
         gettingUserInfo={gettingUserInfo}
         isLoggingOut={isLoggingOut}
+        snow={snow}
       >
         {header ? (
           <Banner

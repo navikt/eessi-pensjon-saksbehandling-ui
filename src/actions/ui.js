@@ -34,3 +34,9 @@ export const toggleHighContrast = () => {
     type: types.UI_HIGHCONTRAST_TOGGLE
   }
 }
+
+export const toggleSnow = () => {
+  return {
+    type: types.UI_SNOW_TOGGLE
+  }
+}
