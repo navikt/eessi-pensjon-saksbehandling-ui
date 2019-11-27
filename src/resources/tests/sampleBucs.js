@@ -1073,8 +1073,8 @@ export default [
         institution: 'FI:DEMO002'
       },
       {
-        country: 'UK',
-        institution: 'UK:DEMO003'
+        country: 'GB',
+        institution: 'GB:DEMO003'
       },
       {
         country: 'PT',

@@ -1,10 +1,12 @@
 import React from 'react'
+import PT from 'prop-types'
 import _ from 'lodash'
 import moment from 'moment'
-import { CountryData, Icons, Nav, PostalCodes } from 'eessi-pensjon-ui'
-import PT from 'prop-types'
+import { CountryData, Icons } from 'eessi-pensjon-ui'
+import * as Nav from 'eessi-pensjon-ui/src/Nav'
+import PostalCodes from 'eessi-pensjon-ui/src/components/PostalCodes/PostalCodes'
 
-const PersonPanel = ({ highContrast, person, t }) => {
+const PersonPanel = ({ highContrast, locale, person, t }) => {
   if (!person) {
     return null
   }
@@ -51,7 +53,7 @@ const PersonPanel = ({ highContrast, person, t }) => {
   }
 
   const getCountry = (value) => {
-    const nationality = CountryData.findByValue3('nb', value)
+    const nationality = CountryData.getCountryInstance(locale).findByValue3(value)
     if (nationality) {
       return nationality.label
     }
@@ -155,6 +157,7 @@ const PersonPanel = ({ highContrast, person, t }) => {
 
 PersonPanel.propTypes = {
   highContrast: PT.bool,
+  locale: PT.string,
   person: PT.object,
   t: PT.func.isRequired
 }

@@ -19,15 +19,16 @@ const Step1 = ({
   layout = 'row', loading, locale, _sed, sedCanHaveAttachments, setAttachments, setCountries, setInstitutions,
   sedList, sedNeedsVedtakId, setSed, setValidation, setVedtakId, t, validation, vedtakId
 }) => {
+  const countryData = CountryData.getCountryInstance(locale)
   const [seeAttachmentPanel, setSeeAttachmentPanel] = useState(false)
-  const countryObjectList = (countryList ? CountryData.filterByValueOnArray(locale, countryList) : [])
-  const countryValueList = _countries ? CountryData.filterByValueOnArray(locale, _countries) : []
+  const countryObjectList = (countryList ? countryData.filterByValueOnArray(countryList) : [])
+  const countryValueList = _countries ? countryData.filterByValueOnArray(_countries) : []
   const notHostInstitution = institution => institution.id !== 'NO:DEMO001'
   const institutionObjectList = []
   if (institutionList) {
     Object.keys(institutionList).forEach(landkode => {
       if (_countries.indexOf(landkode) >= 0) {
-        const label = CountryData.findByValue(locale, landkode)
+        const label = countryData.findByValue(landkode)
         institutionObjectList.push({
           label: label.label,
           options: institutionList[landkode].filter(notHostInstitution).map(institution => {

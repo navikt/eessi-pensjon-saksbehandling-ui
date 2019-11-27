@@ -40,7 +40,7 @@ const InstitutionList = ({ className, flag = true, flagType = 'circle', institut
   }
 
   return Object.keys(institutionList).map(landkode => {
-    const country = CountryData.findByValue(locale, landkode)
+    const country = CountryData.getCountryInstance(locale).findByValue(landkode)
     return (
       <div
         className={classNames('a-buc-c-institutionlist', className)}

@@ -223,8 +223,13 @@ export const getSedList = (buc) => {
 }
 
 export const getInstitutionsListForBucAndCountry = (buc, country) => {
+  // RINA uses UK, not GB
+  let _country = country
+  if (_country.toUpperCase() === 'GB') {
+    _country = 'UK'
+  }
   return api.call({
-    url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: buc, country: country }),
+    url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: buc, country: _country }),
     context: {
       buc: buc,
       country: country
