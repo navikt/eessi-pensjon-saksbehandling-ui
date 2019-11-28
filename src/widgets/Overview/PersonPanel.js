@@ -2,9 +2,7 @@ import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import moment from 'moment'
-import { CountryData, Icons } from 'eessi-pensjon-ui'
-import * as Nav from 'eessi-pensjon-ui/src/Nav'
-import PostalCodes from 'eessi-pensjon-ui/src/components/PostalCodes/PostalCodes'
+import { CountryData, Icons, Nav, PostalCodes } from 'eessi-pensjon-ui'
 
 const PersonPanel = ({ highContrast, locale, person, t }) => {
   if (!person) {

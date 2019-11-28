@@ -9,62 +9,64 @@ import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import sampleP4000info from 'resources/tests/sampleP4000info'
 import sampleInstitutions from 'resources/tests/sampleInstitutions'
 import { CountryFilter } from 'eessi-pensjon-ui'
-
+import moment from 'moment'
+import { Action } from './actions' // eslint-disable-line
+import {Buc, BucsInfo, NewSedPayload, Sed, P4000Info, ErrorBuc} from 'constants/types' // eslint-disable-line
 const sprintf = require('sprintf-js').sprintf
 
-export const setMode = (mode) => {
+export const setMode = (mode: string): Action<string> => {
   return {
     type: types.BUC_MODE_SET,
     payload: mode
   }
 }
 
-export const setCurrentBuc = (bucCaseId) => {
+export const setCurrentBuc = (bucCaseId: string): Action<string> => {
   return {
     type: types.BUC_CURRENTBUC_SET,
     payload: bucCaseId
   }
 }
 
-export const setCurrentSed = (sedDocumentId) => {
+export const setCurrentSed = (sedDocumentId: string) : Action<string> => {
   return {
     type: types.BUC_CURRENTSED_SET,
     payload: sedDocumentId
   }
 }
 
-export const setSedList = (sedList) => {
+export const setSedList = (sedList: Array<string>): Action<Array<string>> => {
   return {
     type: types.BUC_SEDLIST_SET,
     payload: sedList
   }
 }
 
-export const resetBuc = () => {
+export const resetBuc = (): Action<string> => {
   return {
     type: types.BUC_BUC_RESET
   }
 }
 
-export const resetSed = () => {
+export const resetSed = (): Action<string> => {
   return {
     type: types.BUC_SED_RESET
   }
 }
-export const resetSedAttachments = () => {
+export const resetSedAttachments = (): Action<string> => {
   return {
     type: types.BUC_SED_ATTACHMENTS_RESET
   }
 }
 
-export const setP4000Info = (p4000) => {
+export const setP4000Info = (p4000: P4000Info): Action<P4000Info> => {
   return {
     type: types.BUC_P4000_INFO_SET,
     payload: p4000
   }
 }
 
-export const fetchSingleBuc = (rinaCaseId) => {
+export const fetchSingleBuc = (rinaCaseId: string): Function => {
   return api.call({
     url: sprintf(urls.BUC_GET_SINGLE_BUC, { rinaCaseId: rinaCaseId }),
     expectedPayload: sampleBucs[0],
@@ -76,7 +78,7 @@ export const fetchSingleBuc = (rinaCaseId) => {
   })
 }
 
-export const fetchBucs = (aktoerId) => {
+export const fetchBucs = (aktoerId: string): Function => {
   return api.call({
     url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
     cascadeFailureError: true,
@@ -89,7 +91,7 @@ export const fetchBucs = (aktoerId) => {
   })
 }
 
-export const fetchAvdodBucs = (aktoerId) => {
+export const fetchAvdodBucs = (aktoerId: string): Function => {
   return api.call({
     url: sprintf(urls.BUC_GET_BUCS_URL, { aktoerId: aktoerId }),
     cascadeFailureError: true,
@@ -102,7 +104,7 @@ export const fetchAvdodBucs = (aktoerId) => {
   })
 }
 
-export const fetchBucsInfoList = (aktoerId) => {
+export const fetchBucsInfoList = (aktoerId: string): Function => {
   return api.call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_BUC }),
     expectedPayload: [aktoerId + '___' + storage.NAMESPACE_BUC + '___' + storage.FILE_BUCINFO],
@@ -114,7 +116,7 @@ export const fetchBucsInfoList = (aktoerId) => {
   })
 }
 
-export const fetchBucsInfo = (userId, namespace, file) => {
+export const fetchBucsInfo = (userId: string, namespace: string, file: string): Function => {
   return api.call({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: userId, namespace: namespace, file: file }),
     expectedPayload: sampleBucsInfo,
@@ -126,7 +128,7 @@ export const fetchBucsInfo = (userId, namespace, file) => {
   })
 }
 
-export const getSubjectAreaList = () => {
+export const getSubjectAreaList = (): Function => {
   return api.call({
     url: urls.EUX_SUBJECT_AREA_URL,
     expectedPayload: ['Pensjon'],
@@ -138,7 +140,7 @@ export const getSubjectAreaList = () => {
   })
 }
 
-export const getBucList = () => {
+export const getBucList = (): Function => {
   return api.call({
     url: urls.BUC_GET_BUC_LIST_URL,
     expectedPayload: ['DEMO_BUC_01'],
@@ -150,14 +152,14 @@ export const getBucList = () => {
   })
 }
 
-export const getTagList = () => {
+export const getTagList = (): Action<Array<string>> => {
   return {
     type: types.BUC_GET_TAG_LIST_SUCCESS,
     payload: tagsList
   }
 }
 
-export const createBuc = (buc) => {
+export const createBuc = (buc: Buc | ErrorBuc): Function => {
   return api.call({
     url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
     method: 'POST',
@@ -177,10 +179,20 @@ export const createBuc = (buc) => {
   })
 }
 
-export const saveBucsInfo = ({ aktoerId, buc, bucsInfo = {}, comment, tags }) => {
+interface BucsInfoProps {
+  aktoerId: string;
+  buc: {
+    caseId: string;
+  };
+  bucsInfo: BucsInfo;
+  comment?: string;
+  tags?: Array<{value: string}>;
+}
+
+export const saveBucsInfo = ({ aktoerId, buc, bucsInfo = { bucs: {} }, comment, tags }: BucsInfoProps): Function => {
   const newBucsInfo = _.cloneDeep(bucsInfo)
   const newTags = tags ? tags.map(tag => tag.value) : []
-  const bucId = buc.caseId
+  const bucId = parseInt(buc.caseId, 10)
   newBucsInfo.bucs = newBucsInfo.bucs || {}
   newBucsInfo.bucs[bucId] = newBucsInfo.bucs[bucId] || {}
   if (tags) {
@@ -202,14 +214,14 @@ export const saveBucsInfo = ({ aktoerId, buc, bucsInfo = {}, comment, tags }) =>
   })
 }
 
-export const getCountryList = () => {
+export const getCountryList = (): Action<Array<string>> => {
   return {
     type: types.BUC_GET_COUNTRY_LIST_SUCCESS,
-    payload: CountryFilter.EESSI_READY
-  }
+    payload: moment(new Date()).isAfter(new Date(2019, 11, 2)) ? CountryFilter.EESSI_READY_2 :  CountryFilter.EESSI_READY
+}
 }
 
-export const getSedList = (buc) => {
+export const getSedList = (buc: {type: string, caseId: string}): Function => {
   const url = sprintf(urls.BUC_GET_SED_LIST_URL, { buc: buc.type, rinaId: buc.caseId })
   return api.call({
     url: url,
@@ -222,16 +234,16 @@ export const getSedList = (buc) => {
   })
 }
 
-export const getInstitutionsListForBucAndCountry = (buc, country) => {
+export const getInstitutionsListForBucAndCountry = (bucType: string, country: string): Function => {
   // RINA uses UK, not GB
   let _country = country
   if (_country.toUpperCase() === 'GB') {
     _country = 'UK'
   }
   return api.call({
-    url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: buc, country: _country }),
+    url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: bucType, country: _country }),
     context: {
-      buc: buc,
+      buc: bucType,
       country: country
     },
     expectedPayload: sampleInstitutions,
@@ -243,7 +255,7 @@ export const getInstitutionsListForBucAndCountry = (buc, country) => {
   })
 }
 
-export const createSed = (payload) => {
+export const createSed = (payload: NewSedPayload): Function => {
   return api.call({
     url: urls.BUC_CREATE_SED_URL,
     payload: payload,
@@ -260,7 +272,7 @@ export const createSed = (payload) => {
   })
 }
 
-export const createReplySed = (payload, parentId) => {
+export const createReplySed = (payload: NewSedPayload, parentId: string): Function => {
   return api.call({
     url: sprintf(urls.BUC_CREATE_REPLY_SED_URL, { parentId: parentId }),
     payload: payload,
@@ -277,7 +289,7 @@ export const createReplySed = (payload, parentId) => {
   })
 }
 
-export const sendAttachmentToSed = (params, context) => {
+export const sendAttachmentToSed = (params: any, context: any): Function => {
   return api.call({
     url: sprintf(urls.BUC_SEND_ATTACHMENT_URL, params),
     method: 'PUT',
@@ -292,7 +304,7 @@ export const sendAttachmentToSed = (params, context) => {
   })
 }
 
-export const getRinaUrl = () => {
+export const getRinaUrl = (): Function => {
   return api.call({
     url: urls.EUX_RINA_URL,
     expectedPayload: {
@@ -306,7 +318,7 @@ export const getRinaUrl = () => {
   })
 }
 
-export const listP4000 = (aktoerId) => {
+export const listP4000 = (aktoerId: string): Function => {
   return api.call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_PINFO }),
     expectedPayload: [
@@ -320,7 +332,7 @@ export const listP4000 = (aktoerId) => {
   })
 }
 
-export const getP4000 = (file) => {
+export const getP4000 = (file: string): Function => {
   return api.call({
     url: sprintf(urls.API_STORAGE_GET_URL, { file: file }),
     expectedPayload: sampleP4000info,
@@ -332,7 +344,7 @@ export const getP4000 = (file) => {
   })
 }
 
-export const saveP4000asSaksbehandler = (aktoerId, file) => {
+export const saveP4000asSaksbehandler = (aktoerId: string, file: string): Function => {
   return api.call({
     url: sprintf(urls.API_STORAGE_POST_URL, { userId: aktoerId, namespace: storage.NAMESPACE_PINFO, file: 'PINFOSB.json' }),
     payload: file,

@@ -1,4 +1,4 @@
-import { call } from 'eessi-pensjon-ui/dist/api'
+import { call as originalCall } from 'eessi-pensjon-ui/dist/api'
 import * as storageActions from 'actions/storage'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
@@ -7,6 +7,7 @@ const sprintf = require('sprintf-js').sprintf
 jest.mock('eessi-pensjon-ui/dist/api', () => ({
   call: jest.fn()
 }))
+const call = originalCall as jest.Mock<typeof originalCall>
 
 describe('actions/storage', () => {
   afterEach(() => {
@@ -57,7 +58,7 @@ describe('actions/storage', () => {
       userId: 'mockUser',
       namespace: storage.NAMESPACE_VARSLER
     }
-    storageActions.listStorageFiles(mockParams)
+    storageActions.listStorageFiles(mockParams, undefined)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.STORAGE_LIST_REQUEST,
@@ -95,7 +96,7 @@ describe('actions/storage', () => {
       namespace: 'namespace',
       file: 'file'
     }
-    storageActions.getStorageFile(mockParams)
+    storageActions.getStorageFile(mockParams, undefined)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.STORAGE_GET_REQUEST,
@@ -137,7 +138,7 @@ describe('actions/storage', () => {
       file: 'file'
     }
     const mockPayload = { foo: 'bar' }
-    storageActions.postStorageFile(mockParams, mockPayload)
+    storageActions.postStorageFile(mockParams, mockPayload, undefined)
     expect(call).toBeCalledWith({
       type: {
         request: types.STORAGE_POST_REQUEST,

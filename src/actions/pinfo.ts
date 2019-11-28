@@ -3,7 +3,12 @@ import * as urls from 'constants/urls'
 import * as api from 'eessi-pensjon-ui/dist/api'
 const sprintf = require('sprintf-js').sprintf
 
-export const sendInvite = (params) => {
+interface InviteParams {
+  aktoerId: string;
+  sakId: string;
+}
+
+export const sendInvite = (params: InviteParams): Function => {
   return api.call({
     url: sprintf(urls.API_VARSEL_URL, params),
     method: 'POST',

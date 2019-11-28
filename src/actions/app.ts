@@ -2,9 +2,15 @@ import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as api from 'eessi-pensjon-ui/dist/api'
 import samplePerson from 'resources/tests/samplePerson'
+import { Action, JustTypeAction } from './actions' // eslint-disable-line
 const sprintf = require('sprintf-js').sprintf
 
-export const setStatusParam = (key, value) => {
+interface PayloadParam {
+  key: string,
+  value?: any
+}
+
+export const setStatusParam = (key: string, value: any): Action<PayloadParam> => {
   return {
     type: types.APP_PARAM_SET,
     payload: {
@@ -14,7 +20,7 @@ export const setStatusParam = (key, value) => {
   }
 }
 
-export const unsetStatusParam = (key) => {
+export const unsetStatusParam = (key: string): Action<PayloadParam> => {
   return {
     type: types.APP_PARAM_UNSET,
     payload: {
@@ -23,7 +29,7 @@ export const unsetStatusParam = (key) => {
   }
 }
 
-export const login = () => {
+export const login = (): JustTypeAction => {
   const redirect = window.location.origin // http://hostname
   const context = encodeURIComponent(window.location.pathname + window.location.search)
   window.location.href = urls.LOGIN_URL + '?redirect=' + redirect + '&context=' + context
@@ -32,14 +38,14 @@ export const login = () => {
   }
 }
 
-export const logout = () => {
+export const logout = (): JustTypeAction => {
   window.location.href = urls.LOGOUT_URL
   return {
     type: types.APP_LOGOUT_REQUEST
   }
 }
 
-export const getUserInfo = () => {
+export const getUserInfo = (): Function => {
   return api.call({
     url: urls.API_USERINFO_URL,
     cascadeFailureError: true,
@@ -56,7 +62,7 @@ export const getUserInfo = () => {
   })
 }
 
-export const getPersonInfo = (aktoerId) => {
+export const getPersonInfo = (aktoerId: string): Function => {
   return api.call({
     url: sprintf(urls.PERSON_URL, { aktoerId: aktoerId }),
     expectedPayload: samplePerson,
@@ -68,7 +74,7 @@ export const getPersonInfo = (aktoerId) => {
   })
 }
 
-export const getSakType = (sakId, aktoerId) => {
+export const getSakType = (sakId: string, aktoerId: string): Function => {
   return api.call({
     url: sprintf(urls.PENSJON_GET_SAKTYPE_URL, { sakId: sakId, aktoerId: aktoerId }),
     expectedPayload: {
@@ -83,7 +89,7 @@ export const getSakType = (sakId, aktoerId) => {
   })
 }
 
-export const clearData = () => {
+export const clearData = (): JustTypeAction => {
   return {
     type: types.APP_CLEAR_DATA
   }

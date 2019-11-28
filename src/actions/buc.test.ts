@@ -1,15 +1,16 @@
 import * as bucActions from 'actions/buc'
-import { call } from 'eessi-pensjon-ui/dist/api'
+import { call as originalCall } from 'eessi-pensjon-ui/dist/api'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
 import { CountryFilter } from 'eessi-pensjon-ui'
-
-const sprintf = require('sprintf-js').sprintf
+import sampleBucs from '../resources/tests/sampleBucs'
 jest.mock('eessi-pensjon-ui/dist/api', () => ({
   call: jest.fn()
 }))
+const call = originalCall as jest.Mock<typeof originalCall>
+const sprintf = require('sprintf-js').sprintf
 
 describe('actions/buc', () => {
   afterEach(() => {
@@ -48,7 +49,7 @@ describe('actions/buc', () => {
   })
 
   it('setSedList()', () => {
-    const mockedSedList = 'sedlist'
+    const mockedSedList = ['P2000', 'P4000', 'P6000']
     const generatedResult = bucActions.setSedList(mockedSedList)
     expect(generatedResult).toMatchObject({
       type: types.BUC_SEDLIST_SET,
@@ -78,7 +79,7 @@ describe('actions/buc', () => {
   })
 
   it('setP4000Info()', () => {
-    const mockedP4000 = { foo: 'bar' }
+    const mockedP4000 = { person: {}, bank: {}, stayAbroad: [] }
     const generatedResult = bucActions.setP4000Info(mockedP4000)
     expect(generatedResult).toMatchObject({
       type: types.BUC_P4000_INFO_SET,
@@ -100,7 +101,7 @@ describe('actions/buc', () => {
   })
 
   it('fetchBucs()', () => {
-    const mockAktoerId = 123
+    const mockAktoerId = '123'
     bucActions.fetchBucs(mockAktoerId)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
@@ -114,7 +115,7 @@ describe('actions/buc', () => {
   })
 
   it('fetchAvdodBucs()', () => {
-    const mockAktoerId = 123
+    const mockAktoerId = '123'
     bucActions.fetchAvdodBucs(mockAktoerId)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
@@ -127,7 +128,7 @@ describe('actions/buc', () => {
   })
 
   it('fetchBucsInfoList()', () => {
-    const mockUserId = 123
+    const mockUserId = '123'
     bucActions.fetchBucsInfoList(mockUserId)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
@@ -187,7 +188,7 @@ describe('actions/buc', () => {
   })
 
   it('createBuc()', () => {
-    const mockBuc = 'mockBuc'
+    const mockBuc = sampleBucs[0]
     bucActions.createBuc(mockBuc)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
@@ -202,11 +203,16 @@ describe('actions/buc', () => {
 
   it('saveBucsInfo() with empty params', () => {
     const mockParams = {
+      bucsInfo: { bucs: {} },
+      aktoerId: '123',
       buc: {
-        type: 'mockBuc',
         caseId: '456'
-      },
-      aktoerId: 123
+      }
+    }
+    const expectedPayload = {
+      bucs: {
+        456: {}
+      }
     }
     bucActions.saveBucsInfo(mockParams)
     expect(call).toBeCalledWith({
@@ -216,29 +222,29 @@ describe('actions/buc', () => {
         failure: types.BUC_SAVE_BUCSINFO_FAILURE
       },
       method: 'POST',
-      context: {
-        bucs: {
-          456: {}
-        }
-      },
-      payload: {
-        bucs: {
-          456: {}
-        }
-      },
+      context: expectedPayload,
+      payload: expectedPayload,
       url: sprintf(urls.API_STORAGE_POST_URL, { userId: mockParams.aktoerId, namespace: storage.NAMESPACE_BUC, file: storage.FILE_BUCINFO })
     })
   })
 
   it('saveBucsInfo() with non-empty params', () => {
     const mockParams = {
+      bucsInfo: { bucs: {} },
+      aktoerId: '123',
+      tags: [{ value: 'tag' }],
+      comment: 'comment',
       buc: {
-        type: 'mockBuc',
         caseId: '456'
-      },
-      comment: 'dummy comment',
-      tags: [{ value: 'DUMMY' }],
-      aktoerId: 123
+      }
+    }
+    const expectedPayload = {
+      bucs: {
+        456: {
+          tags: ['tag'],
+          comment: 'comment'
+        }
+      }
     }
     bucActions.saveBucsInfo(mockParams)
     expect(call).toBeCalledWith({
@@ -248,22 +254,8 @@ describe('actions/buc', () => {
         failure: types.BUC_SAVE_BUCSINFO_FAILURE
       },
       method: 'POST',
-      payload: {
-        bucs: {
-          456: {
-            tags: ['DUMMY'],
-            comment: 'dummy comment'
-          }
-        }
-      },
-      context: {
-        bucs: {
-          456: {
-            tags: ['DUMMY'],
-            comment: 'dummy comment'
-          }
-        }
-      },
+      payload: expectedPayload,
+      context: expectedPayload,
       url: sprintf(urls.API_STORAGE_POST_URL, { userId: mockParams.aktoerId, namespace: storage.NAMESPACE_BUC, file: storage.FILE_BUCINFO })
     })
   })
@@ -277,9 +269,8 @@ describe('actions/buc', () => {
   })
 
   it('getSedList()', () => {
-    const mockBuc = { type: 'mockBucType', caseId: 456 }
-    const mockRinaId = '123'
-    bucActions.getSedList(mockBuc, mockRinaId)
+    const mockBuc = { type: 'mockBucType', caseId: '456' }
+    bucActions.getSedList(mockBuc)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_SED_LIST_REQUEST,
@@ -291,9 +282,9 @@ describe('actions/buc', () => {
   })
 
   it('getInstitutionsListForBucAndCountry()', () => {
-    const mockBuc = 'P_BUC_01'
+    const mockBucType = 'P_BUC_01'
     const mockCountry = 'NO'
-    bucActions.getInstitutionsListForBucAndCountry(mockBuc, mockCountry)
+    bucActions.getInstitutionsListForBucAndCountry(mockBucType, mockCountry)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
         request: types.BUC_GET_INSTITUTION_LIST_REQUEST,
@@ -301,15 +292,22 @@ describe('actions/buc', () => {
         failure: types.BUC_GET_INSTITUTION_LIST_FAILURE
       },
       context: {
-        buc: mockBuc,
+        buc: mockBucType,
         country: mockCountry
       },
-      url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: mockBuc, country: mockCountry })
+      url: sprintf(urls.EUX_INSTITUTIONS_FOR_BUC_AND_COUNTRY_URL, { buc: mockBucType, country: mockCountry })
     }))
   })
 
   it('createSed()', () => {
-    const mockedPayload = {}
+    const mockedPayload = {
+      sakId: '123',
+      buc: 'P_BUC_01',
+      sed: 'P2000',
+      institutions: [],
+      aktoerId: '123',
+      euxCaseId: '456'
+    }
     bucActions.createSed(mockedPayload)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
@@ -324,7 +322,14 @@ describe('actions/buc', () => {
   })
 
   it('createReplySed()', () => {
-    const mockedPayload = {}
+    const mockedPayload = {
+      sakId: '123',
+      buc: 'P_BUC_01',
+      sed: 'P2000',
+      institutions: [],
+      aktoerId: '123',
+      euxCaseId: '456'
+    }
     const mockParentId = '123'
     bucActions.createReplySed(mockedPayload, mockParentId)
     expect(call).toBeCalledWith(expect.objectContaining({

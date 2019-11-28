@@ -6,6 +6,7 @@ describe('widgets/Overview/PersonPanel', () => {
   let wrapper
   const initialMockProps = {
     person: samplePerson.person,
+    locale: 'nb',
     t: jest.fn(t => t)
   }
 

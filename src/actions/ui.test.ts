@@ -1,12 +1,15 @@
-import i18n from 'i18n'
 import * as types from 'constants/actionTypes'
 import * as uiActions from 'actions/ui'
+import i18n from 'i18n'
+jest.mock('i18n', () => ({
+  changeLanguage: jest.fn()
+}))
 
 describe('actions/ui', () => {
   it('changeLanguage()', () => {
-    i18n.changeLanguage = jest.fn()
     const mockLanguage = 'zz'
     const generatedResult = uiActions.changeLanguage(mockLanguage)
+    // @ts-ignore
     expect(i18n.changeLanguage).toBeCalledWith(mockLanguage)
     expect(generatedResult).toMatchObject({
       type: types.UI_LANGUAGE_CHANGED,

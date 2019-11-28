@@ -2,9 +2,16 @@ import * as api from 'eessi-pensjon-ui/dist/api'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as storage from 'constants/storage'
+import { Action, JustTypeAction } from 'actions/actions' // eslint-disable-line
 const sprintf = require('sprintf-js').sprintf
 
-export const openStorageModal = (options) => {
+interface StorageParams {
+  userId: string;
+  namespace: string;
+  file?: string;
+}
+
+export const openStorageModal = (options: any): Action<any> => {
   return {
     type: types.STORAGE_MODAL_OPEN,
     payload: options
@@ -17,7 +24,7 @@ export const closeStorageModal = () => {
   }
 }
 
-const mockListStorageFiles = /* istanbul ignore next */ (userId, namespace) => {
+const mockListStorageFiles = /* istanbul ignore next */ (userId: string, namespace: string): Array<string> => {
   if (namespace === storage.NAMESPACE_PINFO) {
     return [userId + '___' + namespace + '___' + storage.FILE_PINFO]
   }
@@ -34,7 +41,7 @@ const mockListStorageFiles = /* istanbul ignore next */ (userId, namespace) => {
   return []
 }
 
-export const listStorageFiles = ({ userId, namespace }, context) => {
+export const listStorageFiles = ({ userId, namespace }: StorageParams, context: any | undefined): Function => {
   return api.call({
     url: sprintf(urls.API_STORAGE_LIST_URL, { userId: userId, namespace: namespace }),
     method: 'GET',
@@ -48,7 +55,7 @@ export const listStorageFiles = ({ userId, namespace }, context) => {
   })
 }
 
-export const getStorageFile = ({ userId, namespace, file }, context) => {
+export const getStorageFile = ({ userId, namespace, file }: StorageParams, context: any | undefined): Function => {
   return api.call({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'GET',
@@ -58,7 +65,7 @@ export const getStorageFile = ({ userId, namespace, file }, context) => {
         return {
           tittel: 'E207',
           fulltnavn: names[Math.floor(Math.random() * names.length)],
-          timestamp: file.replace('123___', '')
+          timestamp: file ? file.replace('123___', '') : undefined
         }
       }
     },
@@ -71,7 +78,7 @@ export const getStorageFile = ({ userId, namespace, file }, context) => {
   })
 }
 
-export const getAttachmentFromStorage = ({ userId, namespace, file }) => {
+export const getAttachmentFromStorage = ({ userId, namespace, file }: StorageParams): Function => {
   return api.call({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'GET',
@@ -83,7 +90,7 @@ export const getAttachmentFromStorage = ({ userId, namespace, file }) => {
   })
 }
 
-export const postStorageFile = ({ userId, namespace, file }, payload, context) => {
+export const postStorageFile = ({ userId, namespace, file }: StorageParams, payload: any, context: any | undefined): Function => {
   return api.call({
     url: sprintf(urls.API_STORAGE_POST_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'POST',
@@ -97,7 +104,7 @@ export const postStorageFile = ({ userId, namespace, file }, payload, context) =
   })
 }
 
-export const deleteStorageFile = ({ userId, namespace, file }) => {
+export const deleteStorageFile = ({ userId, namespace, file }: StorageParams): Function => {
   return api.call({
     url: sprintf(urls.API_STORAGE_DELETE_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'DELETE',
@@ -109,7 +116,7 @@ export const deleteStorageFile = ({ userId, namespace, file }) => {
   })
 }
 
-export const deleteAllStorageFilesFromUser = ({ userId, namespace }) => {
+export const deleteAllStorageFilesFromUser = ({ userId, namespace }: StorageParams): Function => {
   return api.call({
     url: sprintf(urls.API_STORAGE_MULTIPLE_DELETE_URL, { userId: userId, namespace: namespace }),
     method: 'DELETE',
@@ -121,14 +128,14 @@ export const deleteAllStorageFilesFromUser = ({ userId, namespace }) => {
   })
 }
 
-export const setTargetFileToDelete = (file) => {
+export const setTargetFileToDelete = (file: any): Action<any> => {
   return {
     type: types.STORAGE_TARGET_FILE_TO_DELETE_SET,
     payload: file
   }
 }
 
-export const cancelTargetFileToDelete = () => {
+export const cancelTargetFileToDelete = (): JustTypeAction => {
   return {
     type: types.STORAGE_TARGET_FILE_TO_DELETE_CANCEL
   }

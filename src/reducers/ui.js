@@ -7,7 +7,7 @@ export const initialUiState = {
   modal: undefined,
   footerOpen: false,
   highContrast: false,
-  snow: true
+  snow: false
 }
 
 const uiReducer = (state = initialUiState, action = {}) => {

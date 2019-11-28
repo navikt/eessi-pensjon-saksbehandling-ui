@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { call } from 'eessi-pensjon-ui/dist/api'
+import { call as originalCall } from 'eessi-pensjon-ui/dist/api'
 import * as joarkActions from 'actions/joark'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
@@ -8,6 +8,7 @@ const sprintf = require('sprintf-js').sprintf
 jest.mock('eessi-pensjon-ui/dist/api', () => ({
   call: jest.fn()
 }))
+const call = originalCall as jest.Mock<typeof originalCall>
 
 describe('actions/joark', () => {
   afterEach(() => {
@@ -17,9 +18,17 @@ describe('actions/joark', () => {
   afterAll(() => {
     call.mockRestore()
   })
+  const mockItem = {
+    tittel: 'tittel',
+    tema: 'tema',
+    datoOpprettet: 'date',
+    journalpostId: '1',
+    dokumentInfoId: '4',
+    variant: { variantformat: 'mockVariant' }
+  }
 
   it('listJoarkFiles()', () => {
-    const mockUserId = 123
+    const mockUserId = '123'
     joarkActions.listJoarkFiles(mockUserId)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
@@ -32,11 +41,6 @@ describe('actions/joark', () => {
   })
 
   it('getPreviewJoarkFile()', () => {
-    const mockItem = {
-      journalpostId: '1',
-      dokumentInfoId: '4',
-      variant: { variantformat: 'mockVariant' }
-    }
     joarkActions.getPreviewJoarkFile(mockItem)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
@@ -54,7 +58,6 @@ describe('actions/joark', () => {
   })
 
   it('setPreviewJoarkFile()', () => {
-    const mockItem = 'mockItem'
     const generatedResult = joarkActions.setPreviewJoarkFile(mockItem)
     expect(generatedResult).toMatchObject({
       type: types.JOARK_PREVIEW_SET,
@@ -63,11 +66,6 @@ describe('actions/joark', () => {
   })
 
   it('getJoarkFile()', () => {
-    const mockItem = {
-      journalpostId: '1',
-      dokumentInfoId: '4',
-      variant: { variantformat: 'mockVariant' }
-    }
     joarkActions.getJoarkFile(mockItem)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
@@ -99,10 +97,11 @@ describe('actions/joark', () => {
     const newJoarkActions = require('actions/joark')
     const expectedItem = _.find(sampleJoark.mockdata.data.dokumentoversiktBruker.journalposter, { journalpostId: mockJournalpostId })
     const generatedResult = newJoarkActions.getMockedPayload(mockJournalpostId)
+    const tittel = expectedItem ? expectedItem.tittel : ''
     expect(generatedResult).toMatchObject({
-      fileName: expectedItem.tittel,
+      fileName: tittel,
       contentType: 'application/pdf',
-      filInnhold: sampleJoark.files[expectedItem.tittel]
+      filInnhold: (sampleJoark.files as any)[tittel]
     })
   })
 })

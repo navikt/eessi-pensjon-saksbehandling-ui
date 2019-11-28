@@ -1,11 +1,12 @@
 import * as pinfoActions from 'actions/pinfo'
-import { call } from 'eessi-pensjon-ui/dist/api'
+import { call as originalCall } from 'eessi-pensjon-ui/dist/api'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 const sprintf = require('sprintf-js').sprintf
 jest.mock('eessi-pensjon-ui/dist/api', () => ({
   call: jest.fn()
 }))
+const call = originalCall as jest.Mock<typeof originalCall>
 
 describe('actions/pinfo', () => {
   afterEach(() => {

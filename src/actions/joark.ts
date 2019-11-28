@@ -4,9 +4,11 @@ import * as types from 'constants/actionTypes'
 import { IS_TEST } from 'constants/environment'
 import * as urls from 'constants/urls'
 import sampleJoark from 'resources/tests/sampleJoark'
+import { Action } from 'actions/actions' // eslint-disable-line
+import { JoarkFile } from 'constants/types' // eslint-disable-line
 const sprintf = require('sprintf-js').sprintf
 
-export const listJoarkFiles = (userId) => {
+export const listJoarkFiles = (userId: string): Function => {
   return api.call({
     url: sprintf(urls.API_JOARK_LIST_URL, { userId: userId }),
     expectedPayload: sampleJoark.mockdata,
@@ -18,7 +20,7 @@ export const listJoarkFiles = (userId) => {
   })
 }
 
-export const getPreviewJoarkFile = (item) => {
+export const getPreviewJoarkFile = (item: JoarkFile): Function => {
   return api.call({
     url: sprintf(urls.API_JOARK_GET_URL, {
       dokumentInfoId: item.dokumentInfoId,
@@ -35,14 +37,14 @@ export const getPreviewJoarkFile = (item) => {
   })
 }
 
-export const setPreviewJoarkFile = (item) => {
+export const setPreviewJoarkFile = (item: JoarkFile): Action<JoarkFile> => {
   return {
     type: types.JOARK_PREVIEW_SET,
     payload: item
   }
 }
 
-export const getJoarkFile = (item) => {
+export const getJoarkFile = (item: JoarkFile): Function => {
   return api.call({
     url: sprintf(urls.API_JOARK_GET_URL, {
       dokumentInfoId: item.dokumentInfoId,
@@ -59,13 +61,20 @@ export const getJoarkFile = (item) => {
   })
 }
 
-export const getMockedPayload = (journalpostId) => {
+interface JoarkPayload {
+  fileName: string | undefined;
+  contentType: string;
+  filInnhold: string;
+}
+
+export const getMockedPayload = (journalpostId: string): JoarkPayload | undefined => {
   if (urls.HOST === 'localhost' && !IS_TEST) {
     const item = _.find(sampleJoark.mockdata.data.dokumentoversiktBruker.journalposter, { journalpostId: journalpostId })
+    const tittel: string = item ? item.tittel : 'red.pdf'
     return {
-      fileName: item.tittel,
+      fileName: tittel,
       contentType: 'application/pdf',
-      filInnhold: sampleJoark.files[item.tittel]
+      filInnhold: (sampleJoark.files as any)[tittel]
     }
   }
   return undefined
