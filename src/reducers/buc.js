@@ -62,7 +62,9 @@ const bucReducer = (state = initialBucState, action) => {
     case types.BUC_SED_RESET:
       return {
         ...state,
-        sed: undefined
+        sed: undefined,
+        countryList: undefined,
+        institutionList: undefined
       }
 
     case types.BUC_SED_ATTACHMENTS_RESET: {

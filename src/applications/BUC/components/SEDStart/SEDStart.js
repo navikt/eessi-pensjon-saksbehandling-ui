@@ -62,7 +62,7 @@ export const SEDStart = (props) => {
 
   useEffect(() => {
     if (_.isEmpty(countryList) && !loading.gettingCountryList) {
-      actions.getCountryList()
+      actions.getCountryList(buc.type)
     }
   }, [actions, countryList, loading])
 

@@ -214,11 +214,19 @@ export const saveBucsInfo = ({ aktoerId, buc, bucsInfo = { bucs: {} }, comment, 
   })
 }
 
-export const getCountryList = (): Action<Array<string>> => {
-  return {
-    type: types.BUC_GET_COUNTRY_LIST_SUCCESS,
-    payload: moment(new Date()).isAfter(new Date(2019, 11, 2)) ? CountryFilter.EESSI_READY_2 :  CountryFilter.EESSI_READY
-}
+export const getCountryList = (bucType: string): Function => {
+  return api.call({
+    url: sprintf(urls.EUX_COUNTRIES_FOR_BUC_URL, { bucType: bucType }),
+    context: {
+      buc: bucType
+    },
+    expectedPayload: CountryFilter.EESSI_READY,
+    type: {
+      request: types.BUC_GET_COUNTRY_LIST_REQUEST,
+      success: types.BUC_GET_COUNTRY_LIST_SUCCESS,
+      failure: types.BUC_GET_COUNTRY_LIST_FAILURE
+    }
+  })
 }
 
 export const getSedList = (buc: {type: string, caseId: string}): Function => {
