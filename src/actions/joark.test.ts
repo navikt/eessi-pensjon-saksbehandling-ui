@@ -3,7 +3,7 @@ import { call as originalCall } from 'eessi-pensjon-ui/dist/api'
 import * as joarkActions from 'actions/joark'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
-import sampleJoark from 'resources/tests/sampleJoark'
+import sampleJoark from 'resources/tests/sampleJoarkRaw'
 const sprintf = require('sprintf-js').sprintf
 jest.mock('eessi-pensjon-ui/dist/api', () => ({
   call: jest.fn()

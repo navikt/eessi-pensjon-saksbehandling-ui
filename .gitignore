@@ -39,6 +39,7 @@ node_modules
 npm-debug.log
 testem.log
 /typings
+*.orig
 
 # e2e
 /e2e/*.js

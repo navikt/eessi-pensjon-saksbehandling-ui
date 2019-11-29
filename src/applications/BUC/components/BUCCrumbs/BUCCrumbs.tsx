@@ -1,13 +1,30 @@
-import React, { useCallback } from 'react'
-import PT from 'prop-types'
+import { Bucs } from 'applications/BUC/declarations/buc'
 import classNames from 'classnames'
 import { Nav } from 'eessi-pensjon-ui'
-import { BUCCrumbsProps, BUCCrumbLink } from './BUCCrumbs.d' // eslint-disable-line
+import PT from 'prop-types'
+import React, { useCallback } from 'react'
+import { ActionCreators, T } from 'types'
 import './BUCCrumbs.css'
 
-const BUCCrumbs = (
-  { actions, bucs, currentBuc, className, mode, setMode, showLastLink = false, t }: BUCCrumbsProps
-) => {
+export interface BUCCrumbsProps {
+  actions: ActionCreators;
+  bucs: Bucs;
+  className?: string;
+  currentBuc: string | undefined;
+  mode: string;
+  setMode: Function;
+  showLastLink ?: boolean;
+  t: T;
+}
+
+interface BUCCrumbLink {
+  label: string;
+  func: Function
+}
+
+const BUCCrumbs = ({
+  actions, bucs, currentBuc, className, mode, setMode, showLastLink = false, t
+}: BUCCrumbsProps) => {
   const goToHome: Function = useCallback(() => {
     actions.resetSed()
     actions.resetBuc()
@@ -40,10 +57,12 @@ const BUCCrumbs = (
   }
 
   if (mode === 'bucedit' || mode === 'sednew') {
-    buccrumbs.push({
-      label: t(`buc:buc-${bucs[currentBuc].type}`),
-      func: goToEdit
-    })
+    if (currentBuc !== undefined) {
+      buccrumbs.push({
+        label: t(`buc:buc-${bucs[currentBuc].type}`),
+        func: goToEdit
+      })
+    }
   }
 
   if (mode === 'sednew') {

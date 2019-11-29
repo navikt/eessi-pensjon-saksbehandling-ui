@@ -2,7 +2,8 @@ import * as api from 'eessi-pensjon-ui/dist/api'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as storage from 'constants/storage'
-import { Action, SimpleAction } from 'actions/actions' // eslint-disable-line
+import { Action, ActionWithPayload } from 'types'
+import { Varsler } from 'widgets/Varsler/VarslerPanel'
 const sprintf = require('sprintf-js').sprintf
 
 interface StorageParams {
@@ -11,7 +12,7 @@ interface StorageParams {
   file?: string;
 }
 
-export const openStorageModal = (options: any): Action<any> => {
+export const openStorageModal = (options: any): ActionWithPayload<any> => {
   return {
     type: types.STORAGE_MODAL_OPEN,
     payload: options
@@ -55,17 +56,11 @@ export const listStorageFiles = ({ userId, namespace }: StorageParams, context: 
   })
 }
 
-interface VarslerPayload {
-  tittel: string;
-  fulltnavn: string;
-  timestamp: string;
-}
-
 export const getStorageFile = ({ userId, namespace, file }: StorageParams, context: any | undefined): Function => {
   return api.call({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'GET',
-    expectedPayload: /* istanbul ignore next */ (): VarslerPayload | undefined => {
+    expectedPayload: /* istanbul ignore next */ (): Varsler | undefined => {
       if (namespace === storage.NAMESPACE_VARSLER) {
         const names = ['Ola Nordmenn', 'Kari Olsen', 'Bjørn Knutsen', 'Are Petersen', 'Harald Eide', 'Ragnhild Dahl']
         return {
@@ -135,14 +130,14 @@ export const deleteAllStorageFilesFromUser = ({ userId, namespace }: StoragePara
   })
 }
 
-export const setTargetFileToDelete = (file: any): Action<any> => {
+export const setTargetFileToDelete = (file: any): ActionWithPayload<any> => {
   return {
     type: types.STORAGE_TARGET_FILE_TO_DELETE_SET,
     payload: file
   }
 }
 
-export const cancelTargetFileToDelete = (): SimpleAction => {
+export const cancelTargetFileToDelete = (): Action => {
   return {
     type: types.STORAGE_TARGET_FILE_TO_DELETE_CANCEL
   }

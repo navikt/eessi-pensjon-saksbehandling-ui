@@ -27,7 +27,6 @@ const PeriodEdit = ({
   localErrors,
   mode,
   period,
-  periods,
   saveEditPeriod,
   saveNewPeriod,
   setAttachments,

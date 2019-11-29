@@ -3,9 +3,9 @@ import * as api from 'eessi-pensjon-ui/dist/api'
 import * as types from 'constants/actionTypes'
 import { IS_TEST } from 'constants/environment'
 import * as urls from 'constants/urls'
-import sampleJoark from 'resources/tests/sampleJoark'
-import { Action } from 'actions/actions' // eslint-disable-line
-import { JoarkFile } from 'constants/types' // eslint-disable-line
+import sampleJoark from 'resources/tests/sampleJoarkRaw'
+import { ActionWithPayload } from 'types'
+import { JoarkFile } from 'applications/BUC/declarations/joark'
 const sprintf = require('sprintf-js').sprintf
 
 export const listJoarkFiles = (userId: string): Function => {
@@ -37,7 +37,7 @@ export const getPreviewJoarkFile = (item: JoarkFile): Function => {
   })
 }
 
-export const setPreviewJoarkFile = (item: JoarkFile): Action<JoarkFile> => {
+export const setPreviewJoarkFile = (item: JoarkFile): ActionWithPayload<JoarkFile> => {
   return {
     type: types.JOARK_PREVIEW_SET,
     payload: item

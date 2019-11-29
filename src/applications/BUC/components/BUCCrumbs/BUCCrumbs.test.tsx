@@ -1,9 +1,8 @@
-import React from 'react'
-import BUCCrumbs from './BUCCrumbs'
+import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
+import React from 'react'
 import sampleBucs from 'resources/tests/sampleBucs'
-import { BUCCrumbsProps } from './BUCCrumbs.d' // eslint-disable-line
-import { mount, ReactWrapper } from 'enzyme' // eslint-disable-line
+import BUCCrumbs, { BUCCrumbsProps } from './BUCCrumbs'
 
 const mockBucs = _.keyBy(sampleBucs, 'caseId')
 

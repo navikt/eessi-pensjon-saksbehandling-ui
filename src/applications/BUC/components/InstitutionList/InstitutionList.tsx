@@ -1,13 +1,27 @@
-import React from 'react'
-import PT from 'prop-types'
-import _ from 'lodash'
+import { Institution, InstitutionListMap, InstitutionNames } from 'applications/BUC/declarations/buc'
 import classNames from 'classnames'
-import { InstitutionListProps } from './InstitutionList.d'
 import { CountryData, Flag, Nav } from 'eessi-pensjon-ui'
+import _ from 'lodash'
+import PT from 'prop-types'
+import React from 'react'
+import { AllowedLocaleString, T } from 'types'
 import './InstitutionList.css'
 
-const InstitutionList = ({ className, flag = true, flagType = 'circle', institutions = [], institutionNames, locale, t, type = 'joined' }: InstitutionListProps) => {
-  const institutionList: { [k: string] : any} = {}
+export interface InstitutionListProps {
+  className?: string;
+  flag?: boolean;
+  flagType?: string;
+  institutions: Array<Institution>;
+  institutionNames: InstitutionNames;
+  locale: AllowedLocaleString;
+  t: T;
+  type?: string;
+}
+
+const InstitutionList = (
+  { className, flag = true, flagType = 'circle', institutions = [], institutionNames, locale, t, type = 'joined' }: InstitutionListProps
+) => {
+  const institutionList: InstitutionListMap<string> = {}
   if (institutions) {
     institutions.forEach(item => {
       let institution = item.institution
@@ -31,12 +45,13 @@ const InstitutionList = ({ className, flag = true, flagType = 'circle', institut
   }
 
   return _.isEmpty(institutionList) ? (
-      <div
-        className={classNames('a-buc-c-institutionlist', className)} >
-        <Nav.Normaltekst>{t('buc:form-noInstitutionYet')}</Nav.Normaltekst>
-      </div>
-    )
-    : <>
+    <div
+      className={classNames('a-buc-c-institutionlist', className)}
+    >
+      <Nav.Normaltekst>{t('buc:form-noInstitutionYet')}</Nav.Normaltekst>
+    </div>
+  ) : (
+    <>
       {Object.keys(institutionList).map(landkode => {
         const country = CountryData.getCountryInstance(locale).findByValue(landkode)
         return (
@@ -62,8 +77,9 @@ const InstitutionList = ({ className, flag = true, flagType = 'circle', institut
             )) : null}
           </div>
         )
-      })
-    }</>
+      })}
+    </>
+  )
 }
 
 InstitutionList.propTypes = {

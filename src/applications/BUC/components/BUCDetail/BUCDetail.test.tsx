@@ -1,15 +1,14 @@
-import React from 'react'
+import { Buc, BucInfo, BucsInfo } from 'applications/BUC/declarations/buc'
+import { mount, ReactWrapper } from 'enzyme'
 import moment from 'moment'
-import { mount, ReactWrapper } from 'enzyme' // eslint-disable-line
-import BUCDetail from './BUCDetail'
-import { BUCDetailProps } from './BUCDetail.d' // eslint-disable-line
+import React from 'react'
 import sampleBucs from 'resources/tests/sampleBucs'
-import { Buc, BucsInfo, BucInfo, ErrorBuc } from 'constants/types' // eslint-disable-line
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
+import BUCDetail, { BUCDetailProps } from './BUCDetail'
 
 describe('applications/BUC/components/BUCDetail/BUCDetail', () => {
   let wrapper: ReactWrapper
-  const buc: Buc | ErrorBuc = sampleBucs[0]
+  const buc: Buc = sampleBucs[0]
   const bucInfo: BucInfo = (sampleBucsInfo as BucsInfo).bucs['' + buc.caseId]
   const initialMockProps: BUCDetailProps = {
     buc: buc,

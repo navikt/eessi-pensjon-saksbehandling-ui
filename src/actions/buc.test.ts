@@ -4,7 +4,6 @@ import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as storage from 'constants/storage'
 import tagsList from 'constants/tagsList'
-import { CountryFilter } from 'eessi-pensjon-ui'
 import sampleBucs from '../resources/tests/sampleBucs'
 jest.mock('eessi-pensjon-ui/dist/api', () => ({
   call: jest.fn()

@@ -9,56 +9,57 @@ import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import sampleP4000info from 'resources/tests/sampleP4000info'
 import sampleInstitutions from 'resources/tests/sampleInstitutions'
 import { CountryFilter } from 'eessi-pensjon-ui'
-import { SimpleAction, Action } from './actions' // eslint-disable-line
-import {Buc, BucsInfo, NewSedPayload, P4000Info, ErrorBuc} from 'constants/types' // eslint-disable-line
+import { Action, ActionWithPayload } from 'types'
+import { Buc, BucsInfo, NewSedPayload } from 'applications/BUC/declarations/buc'
+import { P4000Info } from 'applications/BUC/declarations/period'
 const sprintf = require('sprintf-js').sprintf
 
-export const setMode = (mode: string): Action<string> => {
+export const setMode = (mode: string): ActionWithPayload<string> => {
   return {
     type: types.BUC_MODE_SET,
     payload: mode
   }
 }
 
-export const setCurrentBuc = (bucCaseId: string): Action<string> => {
+export const setCurrentBuc = (bucCaseId: string): ActionWithPayload<string> => {
   return {
     type: types.BUC_CURRENTBUC_SET,
     payload: bucCaseId
   }
 }
 
-export const setCurrentSed = (sedDocumentId: string) : Action<string> => {
+export const setCurrentSed = (sedDocumentId: string) : ActionWithPayload<string> => {
   return {
     type: types.BUC_CURRENTSED_SET,
     payload: sedDocumentId
   }
 }
 
-export const setSedList = (sedList: Array<string>): Action<Array<string>> => {
+export const setSedList = (sedList: Array<string>): ActionWithPayload<Array<string>> => {
   return {
     type: types.BUC_SEDLIST_SET,
     payload: sedList
   }
 }
 
-export const resetBuc = (): SimpleAction => {
+export const resetBuc = (): Action => {
   return {
     type: types.BUC_BUC_RESET
   }
 }
 
-export const resetSed = (): SimpleAction => {
+export const resetSed = (): Action => {
   return {
     type: types.BUC_SED_RESET
   }
 }
-export const resetSedAttachments = (): SimpleAction => {
+export const resetSedAttachments = (): Action => {
   return {
     type: types.BUC_SED_ATTACHMENTS_RESET
   }
 }
 
-export const setP4000Info = (p4000: P4000Info): Action<P4000Info> => {
+export const setP4000Info = (p4000: P4000Info): ActionWithPayload<P4000Info> => {
   return {
     type: types.BUC_P4000_INFO_SET,
     payload: p4000
@@ -151,14 +152,14 @@ export const getBucList = (): Function => {
   })
 }
 
-export const getTagList = (): Action<Array<string>> => {
+export const getTagList = (): ActionWithPayload<Array<string>> => {
   return {
     type: types.BUC_GET_TAG_LIST_SUCCESS,
     payload: tagsList
   }
 }
 
-export const createBuc = (buc: Buc | ErrorBuc): Function => {
+export const createBuc = (buc: Buc): Function => {
   return api.call({
     url: sprintf(urls.BUC_CREATE_BUC_URL, { buc: buc }),
     method: 'POST',
@@ -178,7 +179,7 @@ export const createBuc = (buc: Buc | ErrorBuc): Function => {
   })
 }
 
-interface BucsInfoProps {
+export interface SaveBucsInfoProps {
   aktoerId: string;
   buc: {
     caseId: string;
@@ -188,7 +189,7 @@ interface BucsInfoProps {
   tags?: Array<{value: string}>;
 }
 
-export const saveBucsInfo = ({ aktoerId, buc, bucsInfo = { bucs: {} }, comment, tags }: BucsInfoProps): Function => {
+export const saveBucsInfo = ({ aktoerId, buc, bucsInfo = { bucs: {} }, comment, tags }: SaveBucsInfoProps): Function => {
   const newBucsInfo = _.cloneDeep(bucsInfo)
   const newTags = tags ? tags.map(tag => tag.value) : []
   const bucId = parseInt(buc.caseId, 10)
