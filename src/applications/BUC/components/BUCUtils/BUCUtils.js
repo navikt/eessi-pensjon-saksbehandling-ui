@@ -6,7 +6,7 @@ export const getBucTypeLabel = ({ type, locale, t }) => {
     return t('buc:buc-' + type)
   }
   const country = type.match(/_(.*)$/)[1]
-  const countryLabel = CountryData.getCountryInstance(locale).findByValue(locale, country)
+  const countryLabel = CountryData.getCountryInstance(locale).findByValue(country)
   return t('buc:buc-P3000_XX', { country: countryLabel.label })
 }
 

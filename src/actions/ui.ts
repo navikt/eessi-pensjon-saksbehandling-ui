@@ -1,6 +1,6 @@
 import i18n from 'i18n'
 import * as types from 'constants/actionTypes'
-import { Action, JustTypeAction } from 'actions/actions' // eslint-disable-line
+import { Action, SimpleAction } from 'actions/actions' // eslint-disable-line
 
 export const changeLanguage = (language: string): Action<string> => {
   // @ts-ignore
@@ -25,19 +25,19 @@ export const closeModal = (): Action<undefined> => {
   }
 }
 
-export const toggleFooterOpen = (): JustTypeAction => {
+export const toggleFooterOpen = (): SimpleAction => {
   return {
     type: types.UI_FOOTER_TOGGLE_OPEN
   }
 }
 
-export const toggleHighContrast = (): JustTypeAction => {
+export const toggleHighContrast = (): SimpleAction => {
   return {
     type: types.UI_HIGHCONTRAST_TOGGLE
   }
 }
 
-export const toggleSnow = (): JustTypeAction => {
+export const toggleSnow = (): SimpleAction => {
   return {
     type: types.UI_SNOW_TOGGLE
   }

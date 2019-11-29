@@ -2,29 +2,32 @@ import React, { useCallback } from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
 import { Nav } from 'eessi-pensjon-ui'
+import { BUCCrumbsProps, BUCCrumbLink } from './BUCCrumbs.d' // eslint-disable-line
 import './BUCCrumbs.css'
 
-const BUCCrumbs = ({ actions, bucs, currentBuc, className, mode, setMode, showLastLink = false, t }) => {
-  const goToHome = useCallback(() => {
+const BUCCrumbs = (
+  { actions, bucs, currentBuc, className, mode, setMode, showLastLink = false, t }: BUCCrumbsProps
+) => {
+  const goToHome: Function = useCallback(() => {
     actions.resetSed()
     actions.resetBuc()
     setMode('buclist')
   }, [actions, setMode])
 
-  const goToEdit = useCallback(() => {
+  const goToEdit: Function = useCallback(() => {
     actions.resetSed()
     setMode('bucedit')
   }, [actions, setMode])
 
-  const goToNewBUC = useCallback(() => {
+  const goToNewBUC: Function = useCallback(() => {
     setMode('bucnew')
   }, [setMode])
 
-  const goToNewSED = useCallback(() => {
+  const goToNewSED: Function = useCallback(() => {
     setMode('sednew')
   }, [setMode])
 
-  const buccrumbs = [{
+  const buccrumbs: Array<BUCCrumbLink> = [{
     label: t('buc:buccrumb-home'),
     func: goToHome
   }]
@@ -53,9 +56,9 @@ const BUCCrumbs = ({ actions, bucs, currentBuc, className, mode, setMode, showLa
   return (
     <div className={classNames('a-buc-c-buccrumbs', className)}>
       {buccrumbs.map((buccrumb, i) => {
-        const first = i === 0
-        const last = (i === buccrumbs.length - 1)
-        const onBucCrumbClick = buccrumb.func
+        const first: boolean = i === 0
+        const last: boolean = (i === buccrumbs.length - 1)
+        const onBucCrumbClick: Function = buccrumb.func
         return (
           <React.Fragment key={i}>
             {!first ? <Nav.Chevron className='separator ml-1 mr-1' type='høyre' /> : null}
@@ -76,8 +79,8 @@ BUCCrumbs.propTypes = {
   bucs: PT.object,
   currentBuc: PT.string,
   mode: PT.string.isRequired,
-  sed: PT.object,
   showLastLink: PT.bool,
   t: PT.func.isRequired
 }
+
 export default BUCCrumbs

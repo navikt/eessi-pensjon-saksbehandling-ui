@@ -1,16 +1,15 @@
 import React from 'react'
 import BUCCrumbs from './BUCCrumbs'
+import _ from 'lodash'
 import sampleBucs from 'resources/tests/sampleBucs'
+import { BUCCrumbsProps } from './BUCCrumbs.d' // eslint-disable-line
+import { mount, ReactWrapper } from 'enzyme' // eslint-disable-line
 
-const bucReducer = (currentBucs, newBuc) => {
-  currentBucs[newBuc.caseId] = newBuc
-  return currentBucs
-}
-const mockBucs = sampleBucs.reduce(bucReducer, {})
+const mockBucs = _.keyBy(sampleBucs, 'caseId')
 
 describe('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {
-  let wrapper
-  const initialMockProps = {
+  let wrapper: ReactWrapper
+  const initialMockProps: BUCCrumbsProps = {
     actions: {
       resetSed: jest.fn(),
       resetBuc: jest.fn()
@@ -28,7 +27,7 @@ describe('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {
   })
 
   it('Renders', () => {
-    wrapper = shallow(<BUCCrumbs {...initialMockProps} />)
+    wrapper = mount(<BUCCrumbs {...initialMockProps} />)
     expect(wrapper.isEmptyRender()).toBeFalsy()
     expect(wrapper).toMatchSnapshot()
   })
@@ -51,7 +50,7 @@ describe('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {
   })
 
   it('Goes to Home when in Edit BUC mode', () => {
-    wrapper = mount(<BUCCrumbs {...initialMockProps} mode='bucedit' buc={{ type: 'mockBuc' }} />)
+    wrapper = mount(<BUCCrumbs {...initialMockProps} mode='bucedit' />)
     expect(wrapper.find('div.a-buc-c-buccrumb')).toHaveLength(2)
     expect(wrapper.find('a')).toHaveLength(2)
     wrapper.find('a[title="buc:buccrumb-home"]').simulate('click')
@@ -59,7 +58,7 @@ describe('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {
   })
 
   it('Goes to Home when in New SED mode', () => {
-    wrapper = mount(<BUCCrumbs {...initialMockProps} mode='sednew' buc={{ type: 'mockBuc' }} />)
+    wrapper = mount(<BUCCrumbs {...initialMockProps} mode='sednew' />)
     expect(wrapper.find('div.a-buc-c-buccrumb')).toHaveLength(3)
     expect(wrapper.find('a')).toHaveLength(3)
     wrapper.find('a[title="buc:buccrumb-home"]').simulate('click')
@@ -67,13 +66,13 @@ describe('applications/BUC/components/BUCCrumbs/BUCCrumbs', () => {
   })
 
   it('Goes to BUC Edit when in New SED mode', () => {
-    wrapper = mount(<BUCCrumbs {...initialMockProps} mode='sednew' buc={{ type: 'mockBuc' }} />)
+    wrapper = mount(<BUCCrumbs {...initialMockProps} mode='sednew' currentBuc={sampleBucs[0].caseId} />)
     wrapper.find('a[title="buc:buc-P_BUC_01"]').simulate('click')
     expect(initialMockProps.setMode).toBeCalledWith('bucedit')
   })
 
   it('Goes to SEDNew when in SED new mode', () => {
-    wrapper = mount(<BUCCrumbs {...initialMockProps} mode='sednew' buc={{ type: 'mockBuc' }} />)
+    wrapper = mount(<BUCCrumbs {...initialMockProps} mode='sednew' />)
     wrapper.find('a[title="buc:buccrumb-newsed"]').simulate('click')
     expect(initialMockProps.setMode).toBeCalledWith('sednew')
   })

@@ -306,6 +306,7 @@ const bucReducer = (state = initialBucState, action) => {
             buc: action.context.buc
           })
         }
+        existingInstitutions.sort((a, b) => a.navn.localeCompare(b.navn))
         institutionList[institution.landkode] = existingInstitutions
         institutionNames[institution.id] = institution.navn
       })

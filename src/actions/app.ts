@@ -2,15 +2,11 @@ import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as api from 'eessi-pensjon-ui/dist/api'
 import samplePerson from 'resources/tests/samplePerson'
-import { Action, JustTypeAction } from './actions' // eslint-disable-line
+import { Action, SimpleAction } from './actions' // eslint-disable-line
+import { ParamPayload } from './app.d'
 const sprintf = require('sprintf-js').sprintf
 
-interface PayloadParam {
-  key: string,
-  value?: any
-}
-
-export const setStatusParam = (key: string, value: any): Action<PayloadParam> => {
+export const setStatusParam = (key: string, value: any): Action<ParamPayload> => {
   return {
     type: types.APP_PARAM_SET,
     payload: {
@@ -20,7 +16,7 @@ export const setStatusParam = (key: string, value: any): Action<PayloadParam> =>
   }
 }
 
-export const unsetStatusParam = (key: string): Action<PayloadParam> => {
+export const unsetStatusParam = (key: string): Action<ParamPayload> => {
   return {
     type: types.APP_PARAM_UNSET,
     payload: {
@@ -29,7 +25,7 @@ export const unsetStatusParam = (key: string): Action<PayloadParam> => {
   }
 }
 
-export const login = (): JustTypeAction => {
+export const login = (): SimpleAction => {
   const redirect = window.location.origin // http://hostname
   const context = encodeURIComponent(window.location.pathname + window.location.search)
   window.location.href = urls.LOGIN_URL + '?redirect=' + redirect + '&context=' + context
@@ -38,7 +34,7 @@ export const login = (): JustTypeAction => {
   }
 }
 
-export const logout = (): JustTypeAction => {
+export const logout = (): SimpleAction => {
   window.location.href = urls.LOGOUT_URL
   return {
     type: types.APP_LOGOUT_REQUEST
@@ -89,7 +85,7 @@ export const getSakType = (sakId: string, aktoerId: string): Function => {
   })
 }
 
-export const clearData = (): JustTypeAction => {
+export const clearData = (): SimpleAction => {
   return {
     type: types.APP_CLEAR_DATA
   }

@@ -21,8 +21,8 @@ const Step1 = ({
 }) => {
   const countryData = CountryData.getCountryInstance(locale)
   const [seeAttachmentPanel, setSeeAttachmentPanel] = useState(false)
-  const countryObjectList = (countryList ? countryData.filterByValueOnArray(countryList) : [])
-  const countryValueList = _countries ? countryData.filterByValueOnArray(_countries) : []
+  const countryObjectList = (countryList ? countryData.filterByValueOnArray(countryList).sort((a, b) => a.label.localeCompare(b.label)) : [])
+  const countryValueList = _countries ? countryData.filterByValueOnArray(_countries).sort((a, b) => a.label.localeCompare(b.label)) : []
   const notHostInstitution = institution => institution.id !== 'NO:DEMO001'
   const institutionObjectList = []
   if (institutionList) {

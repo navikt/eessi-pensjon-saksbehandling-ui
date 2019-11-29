@@ -1,3 +1,4 @@
+
 export interface Date {
   year: number;
   month: string;
@@ -66,8 +67,8 @@ export interface Sed {
 
 export interface Institution {
   country: string;
-  institution: string;
-  name?: string;
+  institution: string | null;
+  name?: string | undefined;
 }
 
 export interface ErrorBuc {
@@ -75,7 +76,7 @@ export interface ErrorBuc {
   caseId: string | null;
   creator: null;
   sakType: null;
-  status: null;
+  status: any;
   startDate: null;
   lastUpdate: null;
   institusjon: null;
@@ -87,12 +88,14 @@ export interface Buc {
   type: string;
   caseId: string;
   creator: Institution;
-  sakType?: string | null;
+  sakType: string | null;
+  aktoerId?: string | null;
   status: string;
   startDate: number;
   lastUpdate: number;
   institusjon: Array<Institution>;
   seds: Array<Sed>;
+  error?: null | undefined;
 }
 
 export interface BucInfo {
@@ -102,7 +105,7 @@ export interface BucInfo {
 
 export interface BucsInfo {
   bucs: {
-    [key: number] : BucInfo
+    [key: string] : BucInfo
   };
 }
 

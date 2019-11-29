@@ -5,9 +5,10 @@ import moment from 'moment'
 import { Nav } from 'eessi-pensjon-ui'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
+import { BUCDetailProps } from './BUCDetail.d' // eslint-disable-line
 import './BUCDetail.css'
 
-const BUCDetail = ({ buc, bucInfo, className, institutionNames, locale, rinaUrl, t }) => {
+const BUCDetail = ({ buc, bucInfo, className, institutionNames, locale, rinaUrl, t }: BUCDetailProps) => {
   return (
     <Nav.EkspanderbartpanelBase
       id='a-buc-c-bucdetail__panel-id'
@@ -39,11 +40,11 @@ const BUCDetail = ({ buc, bucInfo, className, institutionNames, locale, rinaUrl,
           </dt>
           <dd id='a-buc-c-bucdetail__props-creator-id'>
             <InstitutionList
-              t={t}
               institutions={[buc.creator]}
               institutionNames={institutionNames}
               locale={locale}
               type='joined'
+              t={t}
             />
           </dd>
           <dt className='odd'>

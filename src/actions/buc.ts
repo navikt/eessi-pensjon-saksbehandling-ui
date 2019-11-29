@@ -9,9 +9,8 @@ import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import sampleP4000info from 'resources/tests/sampleP4000info'
 import sampleInstitutions from 'resources/tests/sampleInstitutions'
 import { CountryFilter } from 'eessi-pensjon-ui'
-import moment from 'moment'
-import { Action } from './actions' // eslint-disable-line
-import {Buc, BucsInfo, NewSedPayload, Sed, P4000Info, ErrorBuc} from 'constants/types' // eslint-disable-line
+import { SimpleAction, Action } from './actions' // eslint-disable-line
+import {Buc, BucsInfo, NewSedPayload, P4000Info, ErrorBuc} from 'constants/types' // eslint-disable-line
 const sprintf = require('sprintf-js').sprintf
 
 export const setMode = (mode: string): Action<string> => {
@@ -42,18 +41,18 @@ export const setSedList = (sedList: Array<string>): Action<Array<string>> => {
   }
 }
 
-export const resetBuc = (): Action<string> => {
+export const resetBuc = (): SimpleAction => {
   return {
     type: types.BUC_BUC_RESET
   }
 }
 
-export const resetSed = (): Action<string> => {
+export const resetSed = (): SimpleAction => {
   return {
     type: types.BUC_SED_RESET
   }
 }
-export const resetSedAttachments = (): Action<string> => {
+export const resetSedAttachments = (): SimpleAction => {
   return {
     type: types.BUC_SED_ATTACHMENTS_RESET
   }

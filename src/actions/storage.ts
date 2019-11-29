@@ -2,7 +2,7 @@ import * as api from 'eessi-pensjon-ui/dist/api'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import * as storage from 'constants/storage'
-import { Action, JustTypeAction } from 'actions/actions' // eslint-disable-line
+import { Action, SimpleAction } from 'actions/actions' // eslint-disable-line
 const sprintf = require('sprintf-js').sprintf
 
 interface StorageParams {
@@ -55,19 +55,26 @@ export const listStorageFiles = ({ userId, namespace }: StorageParams, context: 
   })
 }
 
+interface VarslerPayload {
+  tittel: string;
+  fulltnavn: string;
+  timestamp: string;
+}
+
 export const getStorageFile = ({ userId, namespace, file }: StorageParams, context: any | undefined): Function => {
   return api.call({
     url: sprintf(urls.API_STORAGE_GET_URL, { userId: userId, namespace: namespace, file: file }),
     method: 'GET',
-    expectedPayload: /* istanbul ignore next */  () => {
+    expectedPayload: /* istanbul ignore next */ (): VarslerPayload | undefined => {
       if (namespace === storage.NAMESPACE_VARSLER) {
         const names = ['Ola Nordmenn', 'Kari Olsen', 'Bjørn Knutsen', 'Are Petersen', 'Harald Eide', 'Ragnhild Dahl']
         return {
           tittel: 'E207',
           fulltnavn: names[Math.floor(Math.random() * names.length)],
-          timestamp: file ? file.replace('123___', '') : undefined
+          timestamp: file ? file.replace('123___', '') : '-'
         }
       }
+      return undefined
     },
     context: context || { notification: true },
     type: {
@@ -135,7 +142,7 @@ export const setTargetFileToDelete = (file: any): Action<any> => {
   }
 }
 
-export const cancelTargetFileToDelete = (): JustTypeAction => {
+export const cancelTargetFileToDelete = (): SimpleAction => {
   return {
     type: types.STORAGE_TARGET_FILE_TO_DELETE_CANCEL
   }

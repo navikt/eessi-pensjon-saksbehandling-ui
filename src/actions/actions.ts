@@ -1,12 +1,12 @@
 export interface Action<T> {
   type: string,
-  payload?: T
+  payload: T
 }
 
-export interface JustTypeAction {
+export interface SimpleAction {
   type: string
 }
 
-export interface PayloadError {
+export interface ErrorPayload {
   error: any
 }
