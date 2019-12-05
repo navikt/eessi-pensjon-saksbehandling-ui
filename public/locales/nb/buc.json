@@ -44,6 +44,8 @@
   "buc-R_BUC_01" : "Motregning for feilutbetaling av ytelser",
   "buc-R_BUC_02" : "Motregning av overskytende utbetaling i etterbetalinger",
   "buc-M_BUC_02" : "Krav om ytelser ved tidligpensjonering",
+  "buc-M_BUC_03a": "Utveksling av informasjon om  inntekt for særskilte innskuddsfrie kontantytelser",
+  "buc-M_BUC_03b": "Utveksling av informasjon om perioder for ansettelsesforhold / selvstendig næringsvirksomhet / bosetningsperioder for særskilte avgiftsfrie kontantytelser",
 
   "buc-P1000"    : "Anmodning om perioder med omsorg for barn",
   "buc-P1100"    : "Svar på anmodning om perioder med omsorg for barn",
