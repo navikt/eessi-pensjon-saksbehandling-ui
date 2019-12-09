@@ -24,7 +24,7 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.6",
-    "core-js": "^3.4.7",
+    "core-js": "^3.4.8",
     "eessi-pensjon-ui": "https://github.com/navikt/eessi-pensjon-ui#1.4.3",
     "history": "^4.10.1",
     "http-proxy-middleware": "^0.20.0",
@@ -45,9 +45,9 @@
     "sprintf-js": "^1.1.2"
   },
   "devDependencies": {
-    "@babel/runtime": "^7.7.4",
+    "@babel/runtime": "^7.7.6",
     "@types/classnames": "^2.2.9",
-    "@types/enzyme": "^3.10.3",
+    "@types/enzyme": "^3.10.4",
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/jest": "^24.0.23",
     "@types/lodash": "^4.14.149",
