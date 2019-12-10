@@ -27,7 +27,7 @@ export const API_USERINFO_URL = API_URL + '/userinfo'
 export const API_SUBMISSION_RESUBMIT_URL = API_URL + '/submission/resubmit'
 
 // VarselController
-export const API_VARSEL_URL = API_URL + '/varsel/%(sakId)s/%(aktoerId)s'
+export const API_VARSEL_URL = API_URL + '/varsel?saksId=%(sakId)s&aktoerId=%(aktoerId)s'
 
 // StorageController
 export const API_STORAGE_LIST_URL = API_URL + '/storage/list/%(userId)s___%(namespace)s'
