@@ -16,10 +16,12 @@ const ERROR = 'ERROR'
 const BucWebSocket = ({ actions, aktoerId, avdodfnr }) => {
   const [status, setStatus] = useState(NOTCONNECTED)
   const [log, setLog] = useState([])
+  const [simpleLog, setSimpleLog] = useState([])
   const [websocketConnection, setWebsocketConnection] = useState(undefined)
 
   const onMessageHandler = useCallback((e) => {
     setStatus(RECEIVING)
+    console.log('Receiving websocket message')
     try {
       const data = JSON.parse(e.data)
       if (data.bucUpdated && data.bucUpdated.caseId) {
@@ -95,6 +97,7 @@ const BucWebSocket = ({ actions, aktoerId, avdodfnr }) => {
       }
     }
     setLog(log => [...log, (<span key={line} className={classNames('log', level)}>{line}</span>)].slice(-100))
+    setSimpleLog(log => [...log, level + ': ' + line].slice(-100))
   }
 
   const getAnchor = () => {
@@ -114,7 +117,7 @@ const BucWebSocket = ({ actions, aktoerId, avdodfnr }) => {
 
   return (
     <div className='a-buc-websocket' title={'websocket: ' + status}>
-      <Icons kind={getAnchor()} size={24} onClick={() => console.log(log)} />
+      <Icons kind={getAnchor()} size={24} onClick={() => console.log(simpleLog.join('\n'))} />
     </div>
   )
 }
