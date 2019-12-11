@@ -1,3 +1,5 @@
+/* global WebSocket */
+
 import React, { useState, useEffect, useCallback } from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
@@ -13,7 +15,7 @@ const CONNECTED = 'CONNECTED'
 const RECEIVING = 'RECEIVING'
 const ERROR = 'ERROR'
 
-const BucWebSocket = ({ actions, aktoerId, avdodfnr }) => {
+const BucWebSocket = ({ actions, fnr, avdodfnr }) => {
   const [status, setStatus] = useState(NOTCONNECTED)
   const [log, setLog] = useState([])
   const [simpleLog, setSimpleLog] = useState([])
@@ -40,8 +42,8 @@ const BucWebSocket = ({ actions, aktoerId, avdodfnr }) => {
 
   const websocketSubscribe = useCallback((connection) => {
     const ids = []
-    if (aktoerId) {
-      ids.push(aktoerId)
+    if (fnr) {
+      ids.push(fnr)
     }
     if (avdodfnr) {
       ids.push(avdodfnr)
@@ -51,9 +53,9 @@ const BucWebSocket = ({ actions, aktoerId, avdodfnr }) => {
         subscriptions: ids
       }
       connection.send(JSON.stringify(message))
-      pushToLog('info', 'Request subscribing to aktoerId ' + aktoerId + ' and avdodfnr ' + avdodfnr)
+      pushToLog('info', 'Request subscribing to fnr ' + fnr + ' and avdodfnr ' + avdodfnr)
     }
-  }, [aktoerId, avdodfnr])
+  }, [fnr, avdodfnr])
 
   const connectToWebSocket = useCallback(() => {
     setStatus(CONNECTING)
@@ -65,7 +67,7 @@ const BucWebSocket = ({ actions, aktoerId, avdodfnr }) => {
     connection.onopen = () => {
       pushToLog('info', 'Connected')
       setStatus(CONNECTED)
-      websocketSubscribe(connection, aktoerId)
+      websocketSubscribe(connection)
     }
     connection.onmessage = onMessageHandler
     connection.onclose = () => {
@@ -77,13 +79,14 @@ const BucWebSocket = ({ actions, aktoerId, avdodfnr }) => {
       setStatus(ERROR)
     }
     return connection
-  }, [aktoerId, onMessageHandler, websocketSubscribe])
+  }, [onMessageHandler, websocketSubscribe])
 
   useEffect(() => {
-    if (!websocketConnection) {
+    if (!websocketConnection && (fnr || avdodfnr)) {
+      pushToLog('Got fnr ' + fnr + ' avdodfnr ' + avdodfnr + ', starting websocket connection')
       setWebsocketConnection(connectToWebSocket())
     }
-  }, [connectToWebSocket, websocketConnection])
+  }, [connectToWebSocket, websocketConnection, fnr, avdodfnr])
 
   const pushToLog = (level, message) => {
     const now = new Date()
@@ -124,7 +127,7 @@ const BucWebSocket = ({ actions, aktoerId, avdodfnr }) => {
 
 BucWebSocket.propTypes = {
   actions: PT.object.isRequired,
-  aktoerId: PT.string.isRequired,
+  fnr: PT.string,
   avdodfnr: PT.string
 }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import PT from 'prop-types'
+import _ from 'lodash'
 import { withTranslation } from 'react-i18next'
 import { connect, bindActionCreators } from 'store'
 import * as bucActions from 'actions/buc'
@@ -41,7 +42,8 @@ const mapStateToProps = /* istanbul ignore next */ (state) => {
     seds: state.buc.seds,
     loading: state.loading,
     locale: state.ui.locale,
-    sakType: state.app.params.sakType
+    sakType: state.app.params.sakType,
+    person: state.app.person
   }
 }
 
@@ -52,8 +54,8 @@ const mapDispatchToProps = /* istanbul ignore next */ (dispatch) => {
 }
 
 export const BUCIndex = (props) => {
-  const { actions, aktoerId, allowFullScreen, avdodfnr, avdodBucs, bucs, currentBuc, loading, mode, onFullFocus, onRestoreFocus } = props
-  const { rinaUrl, sakId, t, waitForMount = true, sakType } = props
+  const { actions, aktoerId, allowFullScreen, avdodfnr, avdodBucs, bucs, currentBuc, loading, mode, onFullFocus } = props
+  const { onRestoreFocus, person, rinaUrl, sakId, t, waitForMount = true, sakType } = props
   const [mounted, setMounted] = useState(!waitForMount)
   const [_avdodfnr, setAvdodfnr] = useState('')
   const [show, setShow] = useState(false)
@@ -132,7 +134,7 @@ export const BUCIndex = (props) => {
           mode={mode}
           setMode={setMode}
         />
-        <BUCWebSocket actions={actions} aktoerId={aktoerId} avdodfnr={avdodfnr} />
+        <BUCWebSocket actions={actions} fnr={_.get(person, 'aktoer.ident.ident')} avdodfnr={avdodfnr} />
       </div>
       {sakType === 'Gjenlevendeytelse' && !avdodfnr
         ? (
@@ -166,6 +168,7 @@ BUCIndex.propTypes = {
   mode: PT.string.isRequired,
   onFullFocus: PT.func,
   onRestoreFocus: PT.func,
+  person: PT.object,
   rinaUrl: PT.string,
   sakId: PT.string,
   t: PT.func.isRequired,
