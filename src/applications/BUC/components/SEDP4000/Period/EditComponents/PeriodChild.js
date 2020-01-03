@@ -1,20 +1,20 @@
 import React from 'react'
 import PT from 'prop-types'
-import { DatePicker, Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 
 const PeriodChild = ({ blurChildBirthDate, localErrors, period, setChildBirthDate, setChildFirstName, setChildLastName, t }) => (
-  <Nav.Row>
+  <Ui.Nav.Row>
     <div className='col-sm-12'>
-      <Nav.Undertittel className='mt-5 mb-2'>
+      <Ui.Nav.Undertittel className='mt-5 mb-2'>
         {t('buc:p4000-title-child-info')}
-      </Nav.Undertittel>
-      <Nav.Input
+      </Ui.Nav.Undertittel>
+      <Ui.Nav.Input
         id='a-buc-c-sedp4000-period__omsorgforbarn-etternavn-input-id'
         className='a-buc-c-sedp4000-period__omsorgforbarn-etternavn-input'
         label={
           <div className='pinfo-label'>
             <div className='pinfo-label'>
-              <Nav.UndertekstBold>{t('buc:p4000-label-lastname')}</Nav.UndertekstBold>
+              <Ui.Nav.UndertekstBold>{t('buc:p4000-label-lastname')}</Ui.Nav.UndertekstBold>
             </div>
           </div>
         }
@@ -25,13 +25,13 @@ const PeriodChild = ({ blurChildBirthDate, localErrors, period, setChildBirthDat
       />
     </div>
     <div className='col-sm-12'>
-      <Nav.Input
+      <Ui.Nav.Input
         id='a-buc-c-sedp4000-period__omsorgforbarn-fornavn-input-id'
         className='a-buc-c-sedp4000-period__omsorgforbarn-fornavn-input'
         label={
           <div className='pinfo-label'>
             <div className='pinfo-label'>
-              <Nav.UndertekstBold>{t('buc:p4000-label-firstname')}</Nav.UndertekstBold>
+              <Ui.Nav.UndertekstBold>{t('buc:p4000-label-firstname')}</Ui.Nav.UndertekstBold>
             </div>
           </div>
         }
@@ -45,7 +45,7 @@ const PeriodChild = ({ blurChildBirthDate, localErrors, period, setChildBirthDat
       <label className='datepickerLabel skjemaelement__label'>
         {t('buc:p4000-label-birthdate')}
       </label>
-      <DatePicker
+      <Ui.DatePicker
         onBlur={blurChildBirthDate}
         id='a-buc-c-sedp4000-period__omsorgforbarn-fodelsdato-date-id'
         className='a-buc-c-sedp4000-period__omsorgforbarn-fodelsdato-dat pr-2'
@@ -65,7 +65,7 @@ const PeriodChild = ({ blurChildBirthDate, localErrors, period, setChildBirthDat
         error={localErrors.childBirthDate || localErrors.timeSpan ? t(localErrors.childBirthDate || localErrors.timeSpan) : undefined}
       />
     </div>
-  </Nav.Row>
+  </Ui.Nav.Row>
 )
 
 PeriodChild.propTypes = {

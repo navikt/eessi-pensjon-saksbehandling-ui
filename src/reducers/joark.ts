@@ -1,7 +1,7 @@
 import * as types from 'constants/actionTypes'
 import { Action, State } from 'types'
-import {JoarkDoc, JoarkFile, JoarkPoster, JoarkFileVariant } from "../applications/BUC/declarations/joark";
-import _ from "lodash";
+import { JoarkDoc, JoarkFile, JoarkPoster, JoarkFileVariant } from '../applications/BUC/declarations/joark'
+import _ from 'lodash'
 
 export const initialJoarkState: State = {
   list: undefined,

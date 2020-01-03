@@ -1,5 +1,5 @@
 import TopContainer from 'components/TopContainer/TopContainer'
-import { Dashboard } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React from 'react'
 import { withTranslation } from 'react-i18next'
@@ -15,7 +15,7 @@ export interface IndexPageProps {
   username: string;
 }
 
-const defaultLayout = [{
+const defaultLayouts = [{
   label: 'default',
   body: {
     lg: [
@@ -33,7 +33,7 @@ const defaultLayout = [{
   }
 }]
 
-const defaultLayoutWithVarsel = [{
+const defaultLayoutsWithVarsel = [{
   label: 'default',
   body: {
     lg: [
@@ -130,11 +130,11 @@ export const IndexPage = ({ history, t, username }: IndexPageProps) => {
       history={history}
     >
       <ReactTooltip place='top' type='dark' effect='solid' />
-      <Dashboard
+      <Ui.Dashboard
         id='eessi-pensjon-ui-fss'
         extraWidgets={extraWidgets}
         defaultWidgets={username === 'Z990706' ? defaultWidgetsWithVarsel : defaultWidgets}
-        defaultLayout={username === 'Z990706' ? defaultLayoutWithVarsel : defaultLayout}
+        defaultLayouts={username === 'Z990706' ? defaultLayoutsWithVarsel : defaultLayouts}
         defaultConfig={defaultConfig}
         allowedWidgets={allowedWidgets}
         afterLayoutChange={afterLayoutChange}

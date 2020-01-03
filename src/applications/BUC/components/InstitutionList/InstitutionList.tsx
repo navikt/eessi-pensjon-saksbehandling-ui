@@ -1,6 +1,6 @@
 import { Institution, InstitutionListMap, InstitutionNames } from 'applications/BUC/declarations/buc'
 import classNames from 'classnames'
-import { CountryData, Flag, Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React from 'react'
@@ -48,12 +48,12 @@ const InstitutionList = (
     <div
       className={classNames('a-buc-c-institutionlist', className)}
     >
-      <Nav.Normaltekst>{t('buc:form-noInstitutionYet')}</Nav.Normaltekst>
+      <Ui.Nav.Normaltekst>{t('buc:form-noInstitutionYet')}</Ui.Nav.Normaltekst>
     </div>
   ) : (
     <>
       {Object.keys(institutionList).map(landkode => {
-        const country = CountryData.getCountryInstance(locale).findByValue(landkode)
+        const country = Ui.CountryData.getCountryInstance(locale).findByValue(landkode)
         return (
           <div
             className={classNames('a-buc-c-institutionlist', className)}
@@ -61,18 +61,18 @@ const InstitutionList = (
           >
             {type === 'joined' ? (
               <div className='a-buc-c-institutionlist__institution'>
-                {flag ? <Flag className='mr-2' label={country ? country.label : landkode} country={landkode} size='M' type={flagType} /> : null}
-                <Nav.Normaltekst>
+                {flag ? <Ui.Flag className='mr-2' label={country ? country.label : landkode} country={landkode} size='M' type={flagType} /> : null}
+                <Ui.Nav.Normaltekst>
                   {institutionList[landkode].map((institutionId: string) => getLabel(landkode, institutionId)).join(', ')}
-                </Nav.Normaltekst>
+                </Ui.Nav.Normaltekst>
               </div>
             ) : null}
             {type === 'separated' ? institutionList[landkode].map((institutionId : string) => (
               <div className='a-buc-c-institutionlist__institution' key={institutionId}>
-                {flag ? <Flag className='mr-2' label={country ? country.label : landkode} country={landkode} size='M' type={flagType} /> : null}
-                <Nav.Normaltekst>
+                {flag ? <Ui.Flag className='mr-2' label={country ? country.label : landkode} country={landkode} size='M' type={flagType} /> : null}
+                <Ui.Nav.Normaltekst>
                   {getLabel(landkode, institutionId)}
-                </Nav.Normaltekst>
+                </Ui.Nav.Normaltekst>
               </div>
             )) : null}
           </div>

@@ -15,7 +15,7 @@ import {
 import { P4000Info } from 'applications/BUC/declarations/period'
 import { IS_TEST } from 'constants/environment'
 import * as storage from 'constants/storage'
-import { Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
@@ -74,7 +74,7 @@ const mapDispatchToProps = /* istanbul ignore next */ (dispatch: Dispatch) => {
 export const SEDStart = (props: SEDStartProps) => {
   const { actions, aktoerId, avdodfnr, attachments, attachmentsError, bucs, bucsInfoList, countryList, currentBuc, currentSed } = props
   const { initialAttachments = {}, initialSed = undefined, initialStep = 0, institutionList, institutionNames } = props
-  const { loading, locale, p4000info, sakId, sed, sedList, setMode, t, vedtakId = undefined} = props
+  const { loading, locale, p4000info, sakId, sed, sedList, setMode, t, vedtakId = undefined } = props
 
   const [_sed, setSed] = useState<string | undefined>(initialSed)
   const [_institutions, setInstitutions] = useState<Array<string>>(
@@ -101,7 +101,7 @@ export const SEDStart = (props: SEDStartProps) => {
     if (_.isEmpty(countryList) && !loading.gettingCountryList) {
       actions.getCountryList(buc.type)
     }
-  }, [actions, countryList, loading])
+  }, [actions, countryList, loading, buc.type])
 
   useEffect(() => {
     if (!mounted) {
@@ -261,7 +261,7 @@ export const SEDStart = (props: SEDStartProps) => {
   }
 
   return (
-    <Nav.Row className='a-buc-c-sedstart'>
+    <Ui.Nav.Row className='a-buc-c-sedstart'>
       {step === 0 ? (
         <Step1
           {...props}
@@ -305,7 +305,7 @@ export const SEDStart = (props: SEDStartProps) => {
       ) : null}
       {showButtons ? (
         <div className='col-md-12 mt-4'>
-          <Nav.Hovedknapp
+          <Ui.Nav.Hovedknapp
             id='a-buc-c-sedstart__forward-button-id'
             className='a-buc-c-sedstart__forward-button'
             disabled={!allowedToForward()}
@@ -316,24 +316,24 @@ export const SEDStart = (props: SEDStartProps) => {
               : sendingAttachments ? t('buc:loading-sendingSEDattachments')
                 : createSedNeedsMoreSteps() ? t('ui:next')
                   : t('buc:form-orderSED')}
-          </Nav.Hovedknapp>
+          </Ui.Nav.Hovedknapp>
           {step > 0 ? (
-            <Nav.Flatknapp
+            <Ui.Nav.Flatknapp
               id='a-buc-c-sedstart__back-button-id'
               className='a-buc-c-sedstart__back-button'
               onClick={onBackButtonClick}
             >{t('ui:back')}
-            </Nav.Flatknapp>
+            </Ui.Nav.Flatknapp>
           ) : null}
-          <Nav.Flatknapp
+          <Ui.Nav.Flatknapp
             id='a-buc-c-sedstart__cancel-button-id'
             className='a-buc-c-sedstart__cancel-button'
             onClick={onCancelButtonClick}
           >{t('ui:cancel')}
-          </Nav.Flatknapp>
+          </Ui.Nav.Flatknapp>
         </div>
       ) : null}
-    </Nav.Row>
+    </Ui.Nav.Row>
   )
 }
 

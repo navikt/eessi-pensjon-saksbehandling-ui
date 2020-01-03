@@ -2,7 +2,7 @@ import React from 'react'
 import PT from 'prop-types'
 import _ from 'lodash'
 import moment from 'moment'
-import { CountryData, Icons, Nav, PostalCodes } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import { T } from 'types'
 
 export interface PersonPanelProps {
@@ -40,12 +40,12 @@ const PersonPanel = ({ highContrast, locale, person, t }: PersonPanelProps) => {
         id={'w-overview-personPanel__element-' + label.replace('ui:', '')}
         className='w-overview-personPanel__element'
       >
-        <Nav.Undertekst className='mr-2'>
+        <Ui.Nav.Undertekst className='mr-2'>
           <strong>{t(label)}</strong>:
-        </Nav.Undertekst>
-        <Nav.Normaltekst>
+        </Ui.Nav.Undertekst>
+        <Ui.Nav.Normaltekst>
           {_value.map((val: any) => val)}
-        </Nav.Normaltekst>
+        </Ui.Nav.Normaltekst>
       </div>
     )
   }
@@ -59,7 +59,7 @@ const PersonPanel = ({ highContrast, locale, person, t }: PersonPanelProps) => {
   }
 
   const getCountry = (value: string): string | null => {
-    const nationality = CountryData.getCountryInstance(locale).findByValue3(value)
+    const nationality = Ui.CountryData.getCountryInstance(locale).findByValue3(value)
     if (nationality) {
       return nationality.label
     }
@@ -97,7 +97,7 @@ const PersonPanel = ({ highContrast, locale, person, t }: PersonPanelProps) => {
     bostedsadresse = addAddressLine(bostedsadresse, _.get(person, 'bostedsadresse.strukturertAdresse.tilleggsadresse'), t('ui:tilleggsadresse'), <br key={4} />)
     bostedsadresse = addAddressLine(bostedsadresse, zipCode, t('ui:poststed'), <span className='mr-2' key={5} />)
     if (zipCode) {
-      bostedsadresse = addAddressLine(bostedsadresse, PostalCodes.get(zipCode), t('ui:city'), <br key={6} />)
+      bostedsadresse = addAddressLine(bostedsadresse, Ui.PostalCodes.get(zipCode), t('ui:city'), <br key={6} />)
     }
   }
 
@@ -112,43 +112,43 @@ const PersonPanel = ({ highContrast, locale, person, t }: PersonPanelProps) => {
   }
   return (
     <>
-      <Nav.Row className='w-overview-personPanel__content m-4'>
+      <Ui.Nav.Row className='w-overview-personPanel__content m-4'>
         <div className='w-overview-personPanel__item col-md-4'>
           <div className='mr-2'>
-            <Icons kind='nav-home' color={highContrast ? 'white' : 'black'} />
+            <Ui.Icons kind='nav-home' color={highContrast ? 'white' : 'black'} />
           </div>
           {bostedsadresse ? renderEntity('ui:bostedsadresse', bostedsadresse) : null}
         </div>
         <div className='w-overview-personPanel__item col-md-4'>
           <div className='mr-2'>
-            <Icons kind='calendar' color={highContrast ? 'white' : 'black'} />
+            <Ui.Icons kind='calendar' color={highContrast ? 'white' : 'black'} />
           </div>
           {renderEntity('ui:birthdate', birthDateString)}
         </div>
         <div className='w-overview-personPanel__item col-md-4'>
           <div className='mr-2'>
-            <Icons kind='nav-work' color={highContrast ? 'white' : 'black'} />
+            <Ui.Icons kind='nav-work' color={highContrast ? 'white' : 'black'} />
           </div>
           {renderEntity('ui:nationality', nationality)}
         </div>
-      </Nav.Row>
+      </Ui.Nav.Row>
       <hr className='m-4' />
-      <Nav.Row className='w-overview-personPanel__content m-4'>
+      <Ui.Nav.Row className='w-overview-personPanel__content m-4'>
         <div className='w-overview-personPanel__item col-md-4'>
           <div className='mr-2'>
-            <Icons kind='address' color={highContrast ? 'white' : 'black'} />
+            <Ui.Icons kind='address' color={highContrast ? 'white' : 'black'} />
           </div>
           {renderEntity('ui:postadresse', postadresse)}
         </div>
         <div className='w-overview-personPanel__item col-md-4'>
           <div className='mr-2'>
-            <Icons kind='calendar' color={highContrast ? 'white' : 'black'} />
+            <Ui.Icons kind='calendar' color={highContrast ? 'white' : 'black'} />
           </div>
           {renderEntity('ui:deathdate', deathDateString)}
         </div>
         <div className='w-overview-personPanel__item col-md-4'>
           <div className='mr-2'>
-            <Icons kind='nav-child' color={highContrast ? 'white' : 'black'} />
+            <Ui.Icons kind='nav-child' color={highContrast ? 'white' : 'black'} />
           </div>
           {renderEntity('ui:marital-status',
             t('ui:widget-overview-maritalstatus-' + maritalStatus) +
@@ -156,7 +156,7 @@ const PersonPanel = ({ highContrast, locale, person, t }: PersonPanelProps) => {
               ? ' (' + dateString + ')' : '')
           )}
         </div>
-      </Nav.Row>
+      </Ui.Nav.Row>
     </>
   )
 }

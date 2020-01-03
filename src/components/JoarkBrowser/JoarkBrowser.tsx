@@ -1,7 +1,7 @@
 import * as joarkActions from 'actions/joark'
 import * as uiActions from 'actions/ui'
 import { JoarkFile, JoarkFileWithContent } from 'applications/BUC/declarations/joark'
-import { File, Icons, Modal, Nav, TableSorter } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -24,7 +24,6 @@ export interface JoarkBrowserProps {
   previewFile: JoarkFileWithContent | undefined;
   t: T
 }
-
 
 const mapStateToProps = /* istanbul ignore next */ (state: State) => {
   return {
@@ -95,7 +94,7 @@ export const JoarkBrowser = ({
             style={{ cursor: 'pointer' }}
             onClick={handleModalClose}
           >
-            <File
+            <Ui.File
               file={previewFile}
               width={600}
               height={800}
@@ -151,7 +150,7 @@ export const JoarkBrowser = ({
         className='c-joarkbrowser__variant'
       >
         <div className='buttons'>
-          <Nav.Knapp
+          <Ui.Nav.Knapp
             data-tip={t('ui:preview')}
             form='kompakt'
             disabled={previewing}
@@ -161,10 +160,10 @@ export const JoarkBrowser = ({
             className='c-tablesorter__preview-button mr-2 ml-2'
             onClick={() => onPreviewItem(item)}
           >
-            {spinner ? '' : <Icons kind='view' />}
-          </Nav.Knapp>
+            {spinner ? '' : <Ui.Icons kind='view' />}
+          </Ui.Nav.Knapp>
           {context.mode === 'confirm' ? (
-            <Nav.Knapp
+            <Ui.Nav.Knapp
               data-tip={t('ui:delete')}
               form='kompakt'
               id={'c-tablesorter__delete-button-' + item.journalpostId + '-' + item.dokumentInfoId + '-' +
@@ -172,8 +171,8 @@ export const JoarkBrowser = ({
               className='c-tablesorter__delete-button mr-2 ml-2'
               onClick={() => onDeleteItem(context.files, item)}
             >
-              <Icons kind='trashcan' color='#0067C5' />
-            </Nav.Knapp>
+              <Ui.Icons kind='trashcan' color='#0067C5' />
+            </Ui.Nav.Knapp>
           ) : null}
         </div>
       </div>
@@ -213,8 +212,8 @@ export const JoarkBrowser = ({
 
   return (
     <div className='c-joarkBrowser'>
-      <Modal modal={modal} onModalClose={handleModalClose} />
-      <TableSorter
+      <Ui.Modal modal={modal} onModalClose={handleModalClose} />
+      <Ui.TableSorter
         className={mode}
         items={items}
         context={context}
@@ -231,7 +230,7 @@ export const JoarkBrowser = ({
             id: 'tema',
             label: t('ui:tema'),
             type: 'string',
-            renderCell: (item: any, value: any) => <Nav.EtikettLiten>{value}</Nav.EtikettLiten>
+            renderCell: (item: any, value: any) => <Ui.Nav.EtikettLiten>{value}</Ui.Nav.EtikettLiten>
           }, {
             id: 'date',
             label: t('ui:date'),
@@ -240,7 +239,7 @@ export const JoarkBrowser = ({
             id: 'label',
             label: t('ui:variant'),
             type: 'object',
-            renderCell: (item: any, value: any) => <Nav.Normaltekst>{value}</Nav.Normaltekst>
+            renderCell: (item: any, value: any) => <Ui.Nav.Normaltekst>{value}</Ui.Nav.Normaltekst>
           }, {
             id: 'buttons',
             label: '',

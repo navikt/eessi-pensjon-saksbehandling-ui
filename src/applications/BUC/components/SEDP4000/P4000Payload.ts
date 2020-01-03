@@ -23,10 +23,10 @@ export default class P4000Payload {
     const day = typeof date.day === 'number' ? date.day : parseInt(date.day) || 1
     const month = typeof date.month === 'number' ? date.month - 1 : parseInt(date.month, 10) - 1
     const year = typeof date.year === 'number' ? date.year : parseInt(date.year)
-    return new Date( year, month, day )
+    return new Date(year, month, day)
   }
 
-  renderDate (date: PeriodDate | null |  undefined): string | null {
+  renderDate (date: PeriodDate | null | undefined): string | null {
     if (!date) {
       return this.t('ui:unknown')
     } else {

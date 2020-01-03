@@ -4,10 +4,10 @@ import SEDAttachments from 'applications/BUC/components/SEDAttachments/SEDAttach
 import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
 import { Buc, InstitutionListMap, InstitutionNames, RawInstitution, Sed } from 'applications/BUC/declarations/buc'
 import { Country } from 'applications/BUC/declarations/period'
-import { CountryData, MultipleSelect, Nav, WaitingPanel } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { ActionCreators, AllowedLocaleString, Loading, Option, T, Validation } from 'types'
 
 export interface Step1Props {
@@ -15,7 +15,7 @@ export interface Step1Props {
   _attachments: {[namespace: string]: Array<any>};
   buc: Buc;
   _countries: Array<string>;
-  countryList:  Array<string>;
+  countryList: Array<string>;
   currentSed ?: string | undefined;
   _institutions: Array<string>;
   institutionList: InstitutionListMap<RawInstitution>;
@@ -50,10 +50,10 @@ const Step1 = ({
   layout = 'row', loading, locale, _sed, sedCanHaveAttachments, setAttachments, setCountries, setInstitutions,
   sedList, sedNeedsVedtakId, setSed, setValidation, setVedtakId, t, validation, vedtakId
 }: Step1Props) => {
-  const countryData = CountryData.getCountryInstance(locale)
+  const countryData = Ui.CountryData.getCountryInstance(locale)
   const [mounted, setMounted] = useState<boolean>(false)
   const [seeAttachmentPanel, setSeeAttachmentPanel] = useState<boolean>(false)
-  const countryObjectList = (!_.isEmpty(countryList)? countryData.filterByValueOnArray(countryList).sort((a: Country, b: Country) => a.label.localeCompare(b.label)) : [])
+  const countryObjectList = (!_.isEmpty(countryList) ? countryData.filterByValueOnArray(countryList).sort((a: Country, b: Country) => a.label.localeCompare(b.label)) : [])
   const countryValueList = _countries ? countryData.filterByValueOnArray(_countries).sort((a: Country, b: Country) => a.label.localeCompare(b.label)) : []
   const notHostInstitution = (institution: RawInstitution) => institution.id !== 'NO:DEMO001'
   const institutionObjectList: Array<{label: string, options: Array<Option>}> = []
@@ -93,6 +93,53 @@ const Step1 = ({
     })
   }
 
+  const resetValidationState = useCallback((_key: string): void => {
+    setValidation(_.omitBy(validation, (value, key) => {
+      return key === _key
+    }))
+  }, [setValidation, validation])
+
+  const setValidationState = useCallback((key: string, value: string): void => {
+    setValidation({
+      ...validation,
+      [key]: value
+    })
+  }, [setValidation, validation])
+
+  const validateCountries = useCallback((country: Array<string>): boolean => {
+    if (_.isEmpty(country)) {
+      setValidationState('countryFail', t('buc:validation-chooseCountry'))
+      return false
+    } else {
+      resetValidationState('countryFail')
+      return true
+    }
+  }, [resetValidationState, setValidationState, t])
+
+  const fetchCountries = useCallback(
+    (countries: Array<Country>) => {
+    const newCountries = countries ? countries.map(item => {
+      return item.value
+    }) : []
+
+    const oldCountriesList = _.cloneDeep(_countries)
+    const addedCountries = newCountries.filter(country => !oldCountriesList.includes(country))
+    const removedCountries = oldCountriesList.filter(country => !newCountries.includes(country))
+
+    addedCountries.map(country => {
+      return actions.getInstitutionsListForBucAndCountry(buc.type, country)
+    })
+    removedCountries.forEach(country => {
+      const newInstitutions = _institutions.filter(item => {
+        var [_country] = item.split(':')
+        return country !== _country
+      })
+      setInstitutions(newInstitutions)
+    })
+    setCountries(newCountries)
+    validateCountries(newCountries)
+  }, [_countries, _institutions, actions, buc.type, setCountries, setInstitutions, validateCountries])
+
   useEffect(() => {
     if (_.isArray(sedList) && sedList.length === 1 && !_sed) {
       setSed(sedList[0])
@@ -102,10 +149,10 @@ const Step1 = ({
   useEffect(() => {
     if (!mounted) {
       // when mounts, fetch country info for the default SED countries
-      fetchCountries(_countries.map(country => ({value: country} as Country)))
+      fetchCountries(_countries.map(country => ({ value: country } as Country)))
       setMounted(true)
     }
-  }, [mounted])
+  }, [mounted, fetchCountries, _countries])
 
   const validateSed = (sed: string): boolean => {
     if (!sed || sed === placeholders.sed) {
@@ -127,16 +174,6 @@ const Step1 = ({
     }
   }
 
-  const validateCountries = (country: Array<string>): boolean => {
-    if (_.isEmpty(country)) {
-      setValidationState('countryFail', t('buc:validation-chooseCountry'))
-      return false
-    } else {
-      resetValidationState('countryFail')
-      return true
-    }
-  }
-
   const validateVedtakId = (vedtakId: number | undefined): boolean => {
     if (sedNeedsVedtakId() && !_.isNumber(vedtakId)) {
       setValidationState('vedtakFail', t('buc:validation-chooseVedtakId'))
@@ -145,19 +182,6 @@ const Step1 = ({
       resetValidationState('vedtakFail')
       return true
     }
-  }
-
-  const resetValidationState = (_key: string): void => {
-    setValidation(_.omitBy(validation, (value, key) => {
-      return key === _key
-    }))
-  }
-
-  const setValidationState = (key: string, value: string): void => {
-    setValidation({
-      ...validation,
-      [key]: value
-    })
   }
 
   const onSedChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -178,29 +202,6 @@ const Step1 = ({
     fetchCountries(countries)
   }
 
-  const fetchCountries = (countries: Array<Country>) => {
-    const newCountries = countries ? countries.map(item => {
-      return item.value
-    }) : []
-
-    const oldCountriesList = _.cloneDeep(_countries)
-    const addedCountries = newCountries.filter(country => !oldCountriesList.includes(country))
-    const removedCountries = oldCountriesList.filter(country => !newCountries.includes(country))
-
-    addedCountries.map(country => {
-      return actions.getInstitutionsListForBucAndCountry(buc.type, country)
-    })
-    removedCountries.forEach(country => {
-      const newInstitutions = _institutions.filter(item => {
-        var [_country] = item.split(':')
-        return country !== _country
-      })
-      setInstitutions(newInstitutions)
-    })
-    setCountries(newCountries)
-    validateCountries(newCountries)
-  }
-
   const onVedtakIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let vedtakId
     try {
@@ -211,7 +212,7 @@ const Step1 = ({
   }
 
   const renderOptions = (options: Array<Option | string> | undefined, type: string): Array<JSX.Element> => {
-    let _options: Array<Option | string> = _.concat([{
+    const _options: Array<Option | string> = _.concat([{
       value: placeholders[type],
       label: t(placeholders[type])
     }], options || [])
@@ -244,7 +245,7 @@ const Step1 = ({
 
   const getSpinner = (text: string) => {
     return (
-      <WaitingPanel className='a-buc-c-sedstart__spinner' size='S' message={t(text)} />
+      <Ui.WaitingPanel className='a-buc-c-sedstart__spinner' size='S' message={t(text)} />
     )
   }
 
@@ -256,7 +257,7 @@ const Step1 = ({
   return (
     <div className='a-buc-sedstart-step1 w-100'>
       <div className='col-md-12'>
-        <Nav.Systemtittel>{
+        <Ui.Nav.Systemtittel>{
           !currentSed
             ? t('buc:step-startSEDTitle', {
               buc: t(`buc:buc-${buc.type}`),
@@ -267,11 +268,11 @@ const Step1 = ({
               sed: buc.seds!.find((sed: Sed) => sed.id === currentSed)!.type
             })
         }
-        </Nav.Systemtittel>
+        </Ui.Nav.Systemtittel>
         <hr />
       </div>
       <div className={layout === 'row' ? 'col-md-6 pr-3' : 'col-md-12'}>
-        <Nav.Select
+        <Ui.Nav.Select
           className='a-buc-c-sedstart__sed-select flex-fill'
           id='a-buc-c-sedstart__sed-select-id'
           disabled={loading.gettingSedList}
@@ -285,10 +286,10 @@ const Step1 = ({
           {!loading.gettingSedList
             ? renderOptions(sedList, 'sed')
             : <option>{t('buc:loading-sed')}</option>}
-        </Nav.Select>
+        </Ui.Nav.Select>
         {sedNeedsVedtakId() ? (
           <div className='mb-3'>
-            <Nav.Input
+            <Ui.Nav.Input
               id='a-buc-c-sedstart__vedtakid-input-id'
               className='a-buc-c-sedstart__vedtakid-input'
               label={t('buc:form-vedtakId')}
@@ -304,7 +305,7 @@ const Step1 = ({
           ? (
             <>
               <div className='mb-3 flex-fill'>
-                <MultipleSelect
+                <Ui.MultipleSelect
                   ariaLabel={t('ui:country')}
                   label={t('ui:country')}
                   className='a-buc-c-sedstart__country-select'
@@ -319,7 +320,7 @@ const Step1 = ({
                 />
               </div>
               <div className='mb-3 flex-fill'>
-                <MultipleSelect
+                <Ui.MultipleSelect
                   ariaLabel={t('ui:institution')}
                   label={t('ui:institution')}
                   className='a-buc-c-sedstart__institution-select'
@@ -333,7 +334,7 @@ const Step1 = ({
                   options={institutionObjectList}
                 />
               </div>
-              <Nav.Undertittel className='mb-2'>{t('buc:form-chosenInstitutions')}</Nav.Undertittel>
+              <Ui.Nav.Undertittel className='mb-2'>{t('buc:form-chosenInstitutions')}</Ui.Nav.Undertittel>
               <InstitutionList
                 t={t}
                 institutionNames={institutionNames!}
@@ -351,16 +352,16 @@ const Step1 = ({
           ) : null}
         {sedCanHaveAttachments() ? (
           <div className='mt-4'>
-            <Nav.Undertittel className='mb-2'>{t('ui:attachments')}</Nav.Undertittel>
+            <Ui.Nav.Undertittel className='mb-2'>{t('ui:attachments')}</Ui.Nav.Undertittel>
             <SEDAttachmentsTable attachments={_attachments} t={t} />
           </div>
         ) : null}
       </div>
       {sedCanHaveAttachments() ? (
         <div className={layout === 'row' ? 'col-md-6' : 'col-md-12'}>
-          <Nav.Undertittel className='mb-3'>
+          <Ui.Nav.Undertittel className='mb-3'>
             {t('ui:attachments')}
-          </Nav.Undertittel>
+          </Ui.Nav.Undertittel>
           <SEDAttachments
             t={t}
             onSubmit={setFiles}

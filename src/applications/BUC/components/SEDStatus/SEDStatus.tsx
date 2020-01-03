@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React from 'react'
 import { T } from 'types'
@@ -23,9 +23,9 @@ const statusList: {[k: string]: string} = {
 const SEDStatus = ({ className, status, t }: SEDStatusProps) => {
   const tagType: string = Object.prototype.hasOwnProperty.call(statusList, status) ? statusList[status] : statusList.unknown
   return (
-    <Nav.EtikettBase className={classNames('a-buc-c-sedstatus', 'a-buc-c-sedstatus__' + status, className)} type={tagType}>
+    <Ui.Nav.EtikettBase className={classNames('a-buc-c-sedstatus', 'a-buc-c-sedstatus__' + status, className)} type={tagType}>
       {t('buc:status-' + status)}
-    </Nav.EtikettBase>
+    </Ui.Nav.EtikettBase>
   )
 }
 

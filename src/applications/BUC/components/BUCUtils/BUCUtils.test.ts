@@ -52,7 +52,7 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
     )).toEqual(WRONG_ORDER_WILL_SWAP)
   })
 
-  let mockSed = {
+  const mockSed = {
     id: '123',
     type: 'mockType',
     creationDate: 1,
@@ -61,7 +61,7 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
     attachments: []
   }
 
-  let mockBuc = {
+  const mockBuc = {
     caseId: '123',
     sakType: 'mockSakType',
     creator: {
@@ -76,24 +76,24 @@ describe('applications/BUC/components/BUCUtils/BUCUtils', () => {
   }
 
   it('sedFilter', () => {
-    expect(BUCUtils.sedFilter({...mockSed, status: 'empty' })).toBeFalsy()
-    expect(BUCUtils.sedFilter({...mockSed,  status: 'notempty' })).toBeTruthy()
+    expect(BUCUtils.sedFilter({ ...mockSed, status: 'empty' })).toBeFalsy()
+    expect(BUCUtils.sedFilter({ ...mockSed, status: 'notempty' })).toBeTruthy()
   })
 
   it('bucFilter', () => {
-    expect(BUCUtils.bucFilter({...mockBuc, type: 'P_BUC_01' })).toBeTruthy()
-    expect(BUCUtils.bucFilter({...mockBuc, type: 'P_BUC_09' })).toBeTruthy()
+    expect(BUCUtils.bucFilter({ ...mockBuc, type: 'P_BUC_01' })).toBeTruthy()
+    expect(BUCUtils.bucFilter({ ...mockBuc, type: 'P_BUC_09' })).toBeTruthy()
 
-    expect(BUCUtils.bucFilter({...mockBuc, type: 'H_BUC_01' })).toBeFalsy()
-    expect(BUCUtils.bucFilter({...mockBuc, type: 'H_BUC_07' })).toBeTruthy()
+    expect(BUCUtils.bucFilter({ ...mockBuc, type: 'H_BUC_01' })).toBeFalsy()
+    expect(BUCUtils.bucFilter({ ...mockBuc, type: 'H_BUC_07' })).toBeTruthy()
 
-    expect(BUCUtils.bucFilter({...mockBuc, type: 'R_BUC_01' })).toBeTruthy()
-    expect(BUCUtils.bucFilter({...mockBuc, type: 'R_BUC_02' })).toBeTruthy()
-    expect(BUCUtils.bucFilter({...mockBuc, type: 'R_BUC_03' })).toBeFalsy()
+    expect(BUCUtils.bucFilter({ ...mockBuc, type: 'R_BUC_01' })).toBeTruthy()
+    expect(BUCUtils.bucFilter({ ...mockBuc, type: 'R_BUC_02' })).toBeTruthy()
+    expect(BUCUtils.bucFilter({ ...mockBuc, type: 'R_BUC_03' })).toBeFalsy()
 
-    expect(BUCUtils.bucFilter({...mockBuc, type: 'M_BUC_01' })).toBeFalsy()
-    expect(BUCUtils.bucFilter({...mockBuc, type: 'M_BUC_02' })).toBeTruthy()
-    expect(BUCUtils.bucFilter({...mockBuc, type: 'M_BUC_03a' })).toBeTruthy()
-    expect(BUCUtils.bucFilter({...mockBuc, type: 'M_BUC_03b' })).toBeTruthy()
+    expect(BUCUtils.bucFilter({ ...mockBuc, type: 'M_BUC_01' })).toBeFalsy()
+    expect(BUCUtils.bucFilter({ ...mockBuc, type: 'M_BUC_02' })).toBeTruthy()
+    expect(BUCUtils.bucFilter({ ...mockBuc, type: 'M_BUC_03a' })).toBeTruthy()
+    expect(BUCUtils.bucFilter({ ...mockBuc, type: 'M_BUC_03b' })).toBeTruthy()
   })
 })

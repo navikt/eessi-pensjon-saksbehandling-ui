@@ -9,7 +9,7 @@ import BUCList from 'applications/BUC/pages/BUCList/BUCList'
 import BUCNew from 'applications/BUC/pages/BUCNew/BUCNew'
 import SEDNew from 'applications/BUC/pages/SEDNew/SEDNew'
 import BUCWebSocket from 'applications/BUC/websocket/WebSocket'
-import { Nav, WaitingPanel } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
@@ -50,7 +50,6 @@ export interface BUCIndexProps {
   vedtakId: string | undefined;
   sakType?: string;
 }
-
 
 const mapStateToProps = /* istanbul ignore next */ (state: State) => {
   return {
@@ -147,7 +146,7 @@ export const BUCIndex = (props: BUCIndexProps) => {
   }, [loading.gettingBUCs, mode, setMode])
 
   if (!mounted) {
-    return <WaitingPanel />
+    return <Ui.WaitingPanel />
   }
 
   if (!sakId || !aktoerId) {
@@ -181,11 +180,11 @@ export const BUCIndex = (props: BUCIndexProps) => {
         ? (
           show ? (
             <div className='d-flex flex-row align-items-end'>
-              <Nav.Input bredde='S' label={t('buc:form-avdodfnrInput')} value={_avdodfnr} onChange={(e: ChangeEvent<HTMLInputElement>) => setAvdodfnr(e.target.value)} />
-              <Nav.Knapp mini className='ml-2 mb-3' onClick={() => actions.setStatusParam('avdodfnr', _avdodfnr)}>{t('buc:form-avdodfnrButton')}</Nav.Knapp>
+              <Ui.Nav.Input bredde='S' label={t('buc:form-avdodfnrInput')} value={_avdodfnr} onChange={(e: ChangeEvent<HTMLInputElement>) => setAvdodfnr(e.target.value)} />
+              <Ui.Nav.Knapp mini className='ml-2 mb-3' onClick={() => actions.setStatusParam('avdodfnr', _avdodfnr)}>{t('buc:form-avdodfnrButton')}</Ui.Nav.Knapp>
             </div>
           ) : (
-            <Nav.Knapp mini onClick={() => setShow(true)}>{t('buc:form-avdodfnr')}</Nav.Knapp>
+            <Ui.Nav.Knapp mini onClick={() => setShow(true)}>{t('buc:form-avdodfnr')}</Ui.Nav.Knapp>
           )
         )
         : null}

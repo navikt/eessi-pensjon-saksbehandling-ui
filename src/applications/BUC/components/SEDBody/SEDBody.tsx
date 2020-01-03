@@ -1,7 +1,7 @@
 import SEDAttachmentSender from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
 import { Buc, Sed } from 'applications/BUC/declarations/buc'
-import { Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
@@ -64,11 +64,11 @@ const SEDBody = ({
 
   return (
     <div className='a-buc-c-sedbody'>
-      <Nav.Undertittel className='mt-4 mb-4'>{t('ui:attachments')}</Nav.Undertittel>
+      <Ui.Nav.Undertittel className='mt-4 mb-4'>{t('ui:attachments')}</Ui.Nav.Undertittel>
       <div className='mt-4 mb-4'>
         {!sendingAttachments ? <SEDAttachmentsTable attachments={_attachments} t={t} /> : null}
       </div>
-      {seeAttachmentPanel ? <Nav.Undertittel className='mb-3 mt-3'>{t('ui:addAttachments')}</Nav.Undertittel> : null}
+      {seeAttachmentPanel ? <Ui.Nav.Undertittel className='mb-3 mt-3'>{t('ui:addAttachments')}</Ui.Nav.Undertittel> : null}
       <SEDAttachments
         t={t}
         files={_attachments}

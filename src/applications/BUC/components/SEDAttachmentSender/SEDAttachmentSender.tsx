@@ -1,7 +1,7 @@
 import { JoarkFile } from 'applications/BUC/declarations/joark'
 import classNames from 'classnames'
 import { IS_TEST } from 'constants/environment'
-import { ProgressBar } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -116,14 +116,14 @@ const SEDAttachmentSender = ({
 
   return (
     <div className={classNames('a-buc-c-sedAttachmentSender', className)}>
-      <ProgressBar now={percentage} status={status}>
+      <Ui.ProgressBar now={percentage} status={status}>
         {status === 'inprogress' ? t('buc:loading-sendingXofY', {
           current: current,
           total: total
         }) : null}
         {status === 'done' ? t('buc:form-attachmentsSent') : null}
         {status === 'error' ? t('buc:error-sendingAttachments') : null}
-      </ProgressBar>
+      </Ui.ProgressBar>
     </div>
   )
 }

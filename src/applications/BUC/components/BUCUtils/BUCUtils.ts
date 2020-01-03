@@ -1,4 +1,4 @@
-import { CountryData } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import { Buc, Sed, ValidBuc } from 'applications/BUC/declarations/buc'
 import moment from 'moment'
@@ -15,7 +15,7 @@ export const getBucTypeLabel: Function = ({ type, locale, t }: getBucTypeLabelPr
   }
   // @ts-ignore
   const country = type.match(/_(.*)$/)[1]
-  const countryLabel = CountryData.getCountryInstance(locale).findByValue(country)
+  const countryLabel = Ui.CountryData.getCountryInstance(locale).findByValue(country)
   return t('buc:buc-P3000_XX', { country: countryLabel.label })
 }
 
@@ -47,5 +47,5 @@ export const bucFilter = (buc: Buc): boolean => {
       buc.type.startsWith('P_BUC') ||
     _.includes(['H_BUC_07', 'R_BUC_01', 'R_BUC_02', 'M_BUC_02', 'M_BUC_03a', 'M_BUC_03b'], buc.type)
     ) : true
-  )
+    )
 }

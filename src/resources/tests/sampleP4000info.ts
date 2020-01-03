@@ -5,7 +5,7 @@ export default {
     id: 1,
     type: 'other',
     startDate: { day: '1', month: '1', year: '1970' },
-    endDate: { day: '1', month: '1', year: '1971'},
+    endDate: { day: '1', month: '1', year: '1971' },
     dateType: 'both',
     uncertainDate: true,
     country: { label: 'mockAA', value: 'AF' },

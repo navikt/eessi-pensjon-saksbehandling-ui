@@ -1,5 +1,5 @@
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
-import { Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import MonitorPNG from 'resources/images/artwork/dataskjerm.png'
@@ -58,18 +58,18 @@ const BUCEmpty = ({ actions, aktoerId, onBUCNew, rinaUrl, sakId, t }: BUCEmptyPr
           <img alt='' className='mouse' src={MousePNG} />
           <img alt='' className='map' src={MapPNG} />
         </div>
-        <Nav.Undertittel className='a-buc-p-bucempty__title mb-3'>
-          <Nav.Lenke
+        <Ui.Nav.Undertittel className='a-buc-p-bucempty__title mb-3'>
+          <Ui.Nav.Lenke
             id='a-buc-p-bucempty__newbuc-link-id'
             className='a-buc-p-bucempty__newbuc-link'
             href='#' onClick={onBUCNew}
           >
             {t('buc:form-empty-startANewCase')}
-          </Nav.Lenke>
-        </Nav.Undertittel>
+          </Ui.Nav.Lenke>
+        </Ui.Nav.Undertittel>
         {!aktoerId ? (
           <div className='a-buc-p-bucempty__form'>
-            <Nav.Input
+            <Ui.Nav.Input
               id='a-buc-p-bucempty__aktoerid-input-id'
               className='a-buc-p-bucempty__aktoerid-input'
               label={t('ui:aktoerId')}
@@ -78,18 +78,18 @@ const BUCEmpty = ({ actions, aktoerId, onBUCNew, rinaUrl, sakId, t }: BUCEmptyPr
               onChange={onAktoerIdChange}
               feil={validation ? { feilmelding: validation } : null}
             />
-            <Nav.Hovedknapp
+            <Ui.Nav.Hovedknapp
               id='a-buc-p-bucempty__aktoerid-button-id'
               className='a-buc-p-bucempty__aktoerid-button ml-3'
               onClick={onSubmitAktoerId}
             >
               {t('ui:add')}
-            </Nav.Hovedknapp>
+            </Ui.Nav.Hovedknapp>
           </div>
         ) : null}
         {!sakId ? (
           <div className='a-buc-p-bucempty__form'>
-            <Nav.Input
+            <Ui.Nav.Input
               id='a-buc-p-bucempty__sakid-input-id'
               className='a-buc-p-bucempty__sakid-input'
               label={t('buc:form-caseId')}
@@ -98,13 +98,13 @@ const BUCEmpty = ({ actions, aktoerId, onBUCNew, rinaUrl, sakId, t }: BUCEmptyPr
               onChange={onSakIdChange}
               feil={validation ? { feilmelding: validation } : null}
             />
-            <Nav.Hovedknapp
+            <Ui.Nav.Hovedknapp
               id='a-buc-p-bucempty__sakid-button-id'
               className='a-buc-p-bucempty__sakid-button ml-3'
               onClick={onSubmitSakId}
             >
               {t('ui:add')}
-            </Nav.Hovedknapp>
+            </Ui.Nav.Hovedknapp>
           </div>
         ) : null}
       </div>

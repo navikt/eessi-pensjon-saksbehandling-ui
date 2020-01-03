@@ -2,7 +2,7 @@ import Period from 'applications/BUC/components/SEDP4000/Period/Period'
 import { P4000Info, Period as PeriodD, PeriodErrors } from 'applications/BUC/declarations/period'
 import classNames from 'classnames'
 import * as storage from 'constants/storage'
-import { Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
@@ -128,54 +128,54 @@ export const SEDP4000 = ({
   if (!isReady) {
     return (
       <div className='a-buc-c-sedp4000__notReady col-md-8 d-flex mt-5 mb-5 align-items-center justify-content-center'>
-        {loadingP4000list || loadingP4000info ? <Nav.Spinner className='ml-3 mr-3' type='M' /> : null}
+        {loadingP4000list || loadingP4000info ? <Ui.Nav.Spinner className='ml-3 mr-3' type='M' /> : null}
         {loadingP4000list ? <span className='pl-2'>{t('buc:loading-p4000list')}</span> : null}
         {loadingP4000info ? <span className='pl-2'>{t('buc:loading-p4000info')}</span> : null}
         {!loadingP4000info && p4000list !== undefined && p4000info === undefined
           ? (noP4000Info() ? (
             <span>
-              <Nav.Normaltekst>{t('buc:p4000-label-p4000' + role + 'FileNotFound')}</Nav.Normaltekst>
-              <Nav.Hovedknapp
+              <Ui.Nav.Normaltekst>{t('buc:p4000-label-p4000' + role + 'FileNotFound')}</Ui.Nav.Normaltekst>
+              <Ui.Nav.Hovedknapp
                 id='a-buc-c-sedp4000__continue-button-id'
                 className='a-buc-c-sedp4000__continue-button mt-3'
                 onClick={handleContinueButton}
               >
                 {t('ui:continue')}
-              </Nav.Hovedknapp>
+              </Ui.Nav.Hovedknapp>
             </span>
           ) : (
             <span>
-              <Nav.Normaltekst>{t('buc:p4000-label-p4000' + role + 'FileFound')}</Nav.Normaltekst>
-              <Nav.Hovedknapp
+              <Ui.Nav.Normaltekst>{t('buc:p4000-label-p4000' + role + 'FileFound')}</Ui.Nav.Normaltekst>
+              <Ui.Nav.Hovedknapp
                 id='a-buc-c-sedp4000__getP4000info-button-id'
                 className='a-buc-c-sedp4000__getP4000info-button mt-3'
                 onClick={handleGetP4000infoButton}
               >
                 {t('ui:getInfo')}
-              </Nav.Hovedknapp>
+              </Ui.Nav.Hovedknapp>
             </span>)
           ) : null}
         {!loadingP4000list && p4000list === undefined ? (
           <div className='d-flex flex-column'>
             <div>
-              <Nav.Normaltekst>{t('buc:p4000-help-listP4000user')}</Nav.Normaltekst>
-              <Nav.Hovedknapp
+              <Ui.Nav.Normaltekst>{t('buc:p4000-help-listP4000user')}</Ui.Nav.Normaltekst>
+              <Ui.Nav.Hovedknapp
                 id='a-buc-c-sedp4000__listP4000user-button-id'
                 className='a-buc-c-sedp4000__listP4000user-button mt-3'
                 onClick={handleListP4000userButton}
               >
                 {t('buc:p4000-button-listP4000user')}
-              </Nav.Hovedknapp>
+              </Ui.Nav.Hovedknapp>
             </div>
             <div className='mt-3'>
-              <Nav.Normaltekst>{t('buc:p4000-help-listP4000saksbehandler')}</Nav.Normaltekst>
-              <Nav.Hovedknapp
+              <Ui.Nav.Normaltekst>{t('buc:p4000-help-listP4000saksbehandler')}</Ui.Nav.Normaltekst>
+              <Ui.Nav.Hovedknapp
                 id='a-buc-c-sedp4000__listP4000saksbehandler-button-id'
                 className='a-buc-c-sedp4000__listP4000saksbehandler-button mt-3'
                 onClick={handleListP4000saksbehandlerButton}
               >
                 {t('buc:p4000-button-listP4000saksbehandler')}
-              </Nav.Hovedknapp>
+              </Ui.Nav.Hovedknapp>
             </div>
           </div>
         ) : null}
@@ -187,21 +187,21 @@ export const SEDP4000 = ({
     <div className={classNames('a-buc-c-sedp4000', mode)}>
       {mode === 'new' ? (
         <>
-          <Nav.Undertittel className='mb-3'>{t('buc:p4000-app-title')}</Nav.Undertittel>
-          <Nav.Undertekst className='mb-2'>{t('buc:p4000-app-description')}</Nav.Undertekst>
-          <Nav.Undertekst className='mb-3'>{t('buc:p4000-app-help')}</Nav.Undertekst>
+          <Ui.Nav.Undertittel className='mb-3'>{t('buc:p4000-app-title')}</Ui.Nav.Undertittel>
+          <Ui.Nav.Undertekst className='mb-2'>{t('buc:p4000-app-description')}</Ui.Nav.Undertekst>
+          <Ui.Nav.Undertekst className='mb-3'>{t('buc:p4000-app-help')}</Ui.Nav.Undertekst>
         </>
       ) : null}
       {_errorMessage ? (
-        <Nav.AlertStripe className='a-buc-c-sedp4000d__alert mt-4 mb-4' type='advarsel'>
+        <Ui.Nav.AlertStripe className='a-buc-c-sedp4000d__alert mt-4 mb-4' type='advarsel'>
           {t(_errorMessage)}
-        </Nav.AlertStripe>
+        </Ui.Nav.AlertStripe>
       ) : null}
       {p4000info && !_.isEmpty(p4000info.stayAbroad) && mode === 'new' ? (
         <>
-          <Nav.Undertittel className='mt-5 mb-2'>{t('buc:p4000-title-previousPeriods')}</Nav.Undertittel>
+          <Ui.Nav.Undertittel className='mt-5 mb-2'>{t('buc:p4000-title-previousPeriods')}</Ui.Nav.Undertittel>
           {p4000info ? p4000info.stayAbroad.sort((a: PeriodD, b: PeriodD) => {
-            return P4000Payload.pinfoDateToDate(a.startDate)!.getDate()  - P4000Payload.pinfoDateToDate(b.startDate)!.getDate()
+            return P4000Payload.pinfoDateToDate(a.startDate)!.getDate() - P4000Payload.pinfoDateToDate(b.startDate)!.getDate()
           }).map((period, index) => {
             return (
               <Period
@@ -239,9 +239,9 @@ export const SEDP4000 = ({
         setPeriods={setPeriods}
       />
       {_errorMessage ? (
-        <Nav.AlertStripe className='a-buc-c-sedp4000d__alert mt-4 mb-4' type='advarsel'>
+        <Ui.Nav.AlertStripe className='a-buc-c-sedp4000d__alert mt-4 mb-4' type='advarsel'>
           {t(_errorMessage)}
-        </Nav.AlertStripe>
+        </Ui.Nav.AlertStripe>
       ) : null}
     </div>
   )

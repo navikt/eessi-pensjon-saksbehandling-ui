@@ -1,7 +1,7 @@
 import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
-import { Icons, Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import * as routes from 'constants/routes'
 import NavLogoTransparent from 'resources/images/NavLogoTransparent'
 import { ActionCreators, T } from 'types'
@@ -47,7 +47,7 @@ const Header = ({ actions, className, children, gettingUserInfo, header, history
           <div className='tittel'><span>{t('app-headerTitle')}</span></div>
         </div>
         <div>
-          <Nav.Lenke
+          <Ui.Nav.Lenke
             id='c-topHeader__highcontrast-link-id'
             className='c-topHeader__highcontrast-link c-topHeader__link mt-1'
             href='#highContrast'
@@ -58,8 +58,8 @@ const Header = ({ actions, className, children, gettingUserInfo, header, history
             }}
           >
             {t('ui:highContrast')}
-          </Nav.Lenke>
-          <Nav.Lenke
+          </Ui.Nav.Lenke>
+          <Ui.Nav.Lenke
             id='c-topHeader__snow-link-id'
             className='c-topHeader__snow-link c-topHeader__link ml-4 mt-1'
             href='#snow'
@@ -70,14 +70,14 @@ const Header = ({ actions, className, children, gettingUserInfo, header, history
             }}
           >
             {!snow ? 'la det snø!' : 'nok med snø!'}
-          </Nav.Lenke>
+          </Ui.Nav.Lenke>
         </div>
         <div className='user'>
           {isLoggingOut
-            ? <Nav.Spinner type='XS' />
+            ? <Ui.Nav.Spinner type='XS' />
             : (
               <div className={classNames('mr-2', 'SAKSBEHANDLER')}>
-                <Icons kind='user' />
+                <Ui.Icons kind='user' />
               </div>
             )}
           <div className='skillelinje' />
@@ -85,7 +85,7 @@ const Header = ({ actions, className, children, gettingUserInfo, header, history
             {gettingUserInfo ? t('buc:loading-gettingUserInfo')
               : username
                 ? (
-                  <Nav.Select
+                  <Ui.Nav.Select
                     id='username-select-id'
                     className='username-select'
                     label=''
@@ -96,11 +96,11 @@ const Header = ({ actions, className, children, gettingUserInfo, header, history
                     <option value=''>{username}</option>
                     <option value='feedback'>{t('ui:giveFeedback')}</option>
                     <option value='logout'>{t('logout')}</option>
-                  </Nav.Select>
+                  </Ui.Nav.Select>
                 )
                 : (
                   <>
-                    <Icons kind='advarsel' size={16} />
+                    <Ui.Icons kind='advarsel' size={16} />
                     <span className='username-span'>{t('unknown')}</span>
                   </>
                 )}
@@ -109,9 +109,9 @@ const Header = ({ actions, className, children, gettingUserInfo, header, history
       </div>
       {header
         ? (
-          <Nav.Systemtittel className='m-4'>
+          <Ui.Nav.Systemtittel className='m-4'>
             {header}
-          </Nav.Systemtittel>
+          </Ui.Nav.Systemtittel>
         )
         : null}
       {children}

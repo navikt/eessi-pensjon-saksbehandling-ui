@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import Footer from 'components/Footer/Footer'
 import Header from 'components/Header/Header'
 import SessionMonitor from 'components/SessionMonitor/SessionMonitor'
-import { Alert, Banner, Modal } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React from 'react'
@@ -35,7 +35,6 @@ export interface TopContainerProps {
   t: T;
   username: string;
 }
-
 
 const mapStateToProps = /* istanbul ignore next */ (state: State) => {
   return {
@@ -95,7 +94,7 @@ export const TopContainer = ({
   }
 
   if (_.isNil(window.onerror)) {
-    window.onerror = (msg, src, lineno, colno, error) => {
+    window.onerror = (msg) => {
       actions.clientError({ message: msg })
     }
   }
@@ -114,26 +113,26 @@ export const TopContainer = ({
         snow={snow}
       >
         {header ? (
-          <Banner
+          <Ui.Banner
             header={header}
             onHighContrastClicked={handleHighContrastToggle}
             labelHighContrast={t('ui:highContrast')}
           />) : null}
-        <Alert
+        <Ui.Alert
           type='client'
           message={getClientErrorMessage()}
           status={clientErrorStatus}
           error={error}
           onClose={onClear}
         />
-        <Alert
+        <Ui.Alert
           type='server'
           message={getServerErrorMessage()}
           error={error}
           onClose={onClear}
         />
         {modal ? (
-          <Modal
+          <Ui.Modal
             appElement={document.getElementById('main')}
             modal={modal}
             onModalClose={handleModalClose}

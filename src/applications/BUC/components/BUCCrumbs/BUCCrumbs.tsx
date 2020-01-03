@@ -1,6 +1,6 @@
 import { Bucs } from 'applications/BUC/declarations/buc'
 import classNames from 'classnames'
-import { Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React, { useCallback } from 'react'
 import { ActionCreators, T } from 'types'
@@ -80,11 +80,11 @@ const BUCCrumbs = ({
         const onBucCrumbClick: Function = buccrumb.func
         return (
           <React.Fragment key={i}>
-            {!first ? <Nav.Chevron className='separator ml-1 mr-1' type='høyre' /> : null}
+            {!first ? <Ui.Nav.Chevron className='separator ml-1 mr-1' type='høyre' /> : null}
             <div className='a-buc-c-buccrumb'>
               {last && !showLastLink
                 ? t(buccrumb.label)
-                : <Nav.Lenke href='#' title={buccrumb.label} onClick={onBucCrumbClick}>{buccrumb.label}</Nav.Lenke>}
+                : <Ui.Nav.Lenke href='#' title={buccrumb.label} onClick={onBucCrumbClick}>{buccrumb.label}</Ui.Nav.Lenke>}
             </div>
           </React.Fragment>
         )

@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import './Footer.css'
@@ -57,17 +57,17 @@ const Footer = ({ actions, className, footerOpen, params = {} }: FooterProps) =>
         {footerOpen
           ? (
             <div className='c-footer__form'>
-              <Nav.Select id='c-footer__select-id' className='c-footer__select' label='' onChange={onSetParamName}>
+              <Ui.Nav.Select id='c-footer__select-id' className='c-footer__select' label='' onChange={onSetParamName}>
                 <option value=''>--</option>
                 {validParams.map(param => {
                   return params[param] ? null : <option key={param} value={param}>{param}</option>
                 })}
-              </Nav.Select>
-              <Nav.Input
+              </Ui.Nav.Select>
+              <Ui.Nav.Input
                 label='' id='c-footer__input-id' className='c-footer__input' value={paramValue || ''}
                 onChange={onSetParamValue}
               />
-              <Nav.Knapp id='c-footer__add-button-id' className='c-footer__add-button' onClick={onSetParam}>&nbsp;+&nbsp;</Nav.Knapp>
+              <Ui.Nav.Knapp id='c-footer__add-button-id' className='c-footer__add-button' onClick={onSetParam}>&nbsp;+&nbsp;</Ui.Nav.Knapp>
             </div>
           ) : null}
       </div>
@@ -76,10 +76,10 @@ const Footer = ({ actions, className, footerOpen, params = {} }: FooterProps) =>
           {validParams.map(param => {
             return params[param] ? (
               <div key={param} className='c-footer__param'>
-                <Nav.EtikettBase className='c-footer__param-string' type='info'>
+                <Ui.Nav.EtikettBase className='c-footer__param-string' type='info'>
                   <b>{param}</b> {params[param]}
-                </Nav.EtikettBase>
-                <Nav.Lukknapp className='c-footer__remove-button' onClick={() => onUnsetParam(param)} />
+                </Ui.Nav.EtikettBase>
+                <Ui.Nav.Lukknapp className='c-footer__remove-button' onClick={() => onUnsetParam(param)} />
               </div>
             ) : null
           })}

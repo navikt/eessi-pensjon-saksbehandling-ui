@@ -1,6 +1,6 @@
 import { JoarkFile } from 'applications/BUC/declarations/joark'
 import JoarkBrowser from 'components/JoarkBrowser/JoarkBrowser'
-import { Icons, Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useState } from 'react'
@@ -48,17 +48,17 @@ const SEDAttachments = ({
   return (
     <div className='a-buc-c-sedattachments'>
       {!open ? (
-        <Nav.Knapp
+        <Ui.Nav.Knapp
           id='a-buc-c-sedattachments__enable-button-id'
           className='a-buc-c-sedattachments__enable-button'
           label={t('buc:form-enableAttachments')}
           onClick={onEnableAttachmentsButtonClicked}
         >
           <div className='d-flex'>
-            <Icons className='mr-2' kind='tilsette' />
+            <Ui.Icons className='mr-2' kind='tilsette' />
             <span>{t('ui:addAttachments')}</span>
           </div>
-        </Nav.Knapp>
+        </Ui.Nav.Knapp>
       ) : (
         <>
           <JoarkBrowser
@@ -69,33 +69,33 @@ const SEDAttachments = ({
           />
           <div className='mt-4'>
             {mode === 'view' ? (
-              <Nav.Hovedknapp
+              <Ui.Nav.Hovedknapp
                 disabled={_.isEmpty(localFiles)}
                 id='a-buc-c-sedattachments__upload-button-id'
                 className='a-buc-c-sedattachments__upload-button'
                 onClick={() => setMode('confirm')}
               >
                 {t('buc:form-addSelectedAttachments')}
-              </Nav.Hovedknapp>
+              </Ui.Nav.Hovedknapp>
             ) : null}
             {mode === 'confirm' ? (
               <>
-                <Nav.Hovedknapp
+                <Ui.Nav.Hovedknapp
                   disabled={_.isEmpty(localFiles) || disableButtons}
                   id='a-buc-c-sedattachments__submit-button-id'
                   className='a-buc-c-sedattachments__submit-button mr-2'
                   onClick={() => onSubmitJoarkFiles(localFiles)}
                 >
                   {t('buc:form-submitSelectedAttachments')}
-                </Nav.Hovedknapp>
-                <Nav.Knapp
+                </Ui.Nav.Hovedknapp>
+                <Ui.Nav.Knapp
                   disabled={disableButtons}
                   id='a-buc-c-sedattachments__cancel-button-id'
                   className='a-buc-c-sedattachments__cancel-button'
                   onClick={() => setMode('view')}
                 >
                   {t('buc:form-selectAgainAttachments')}
-                </Nav.Knapp>
+                </Ui.Nav.Knapp>
               </>
             ) : null}
           </div>

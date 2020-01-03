@@ -1,7 +1,7 @@
 import { sedFilter, sedSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
 import { Buc, InstitutionNames, Sed } from 'applications/BUC/declarations/buc'
-import { Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React from 'react'
@@ -42,7 +42,7 @@ const SEDList = ({
       }) : null}
     <div className='a-buc-c-sedlist__footer mt-2'>
       {!_.isEmpty(seds) && seds.filter(sedFilter).length > maxSeds
-        ? <Nav.Normaltekst>{t('buc:form-lastNonEmpty5')}</Nav.Normaltekst> : null}
+        ? <Ui.Nav.Normaltekst>{t('buc:form-lastNonEmpty5')}</Ui.Nav.Normaltekst> : null}
     </div>
   </div>
 )

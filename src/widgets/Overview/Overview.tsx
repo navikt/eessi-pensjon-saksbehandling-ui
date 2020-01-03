@@ -1,6 +1,6 @@
 import * as appActions from 'actions/app'
 import classNames from 'classnames'
-import { Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
@@ -59,21 +59,21 @@ export const Overview = (props: OverviewProps) => {
 
   if (!aktoerId) {
     return (
-      <Nav.AlertStripe type='advarsel' className='w-overview__alert w-100'>
+      <Ui.Nav.AlertStripe type='advarsel' className='w-overview__alert w-100'>
         {t('buc:validation-noAktoerId')}
-      </Nav.AlertStripe>
+      </Ui.Nav.AlertStripe>
     )
   }
 
   return (
-    <Nav.EkspanderbartpanelBase
+    <Ui.Nav.EkspanderbartpanelBase
       className={classNames('w-overview', 's-border', { highContrast: highContrast })}
       apen={!widget.options.collapsed}
       onClick={onExpandablePanelChange}
       heading={<PersonTitle {...props} />}
     >
       <PersonPanel {...props} />
-    </Nav.EkspanderbartpanelBase>
+    </Ui.Nav.EkspanderbartpanelBase>
   )
 }
 

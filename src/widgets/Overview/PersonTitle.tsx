@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { Icons, Nav, WaitingPanel } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import moment, { Moment } from 'moment'
 import PT from 'prop-types'
@@ -18,7 +18,7 @@ const PersonTitle = ({ gettingPersonInfo, person, t }: PersonTitleProps) => {
   let deathDate: Date | Moment | undefined
 
   if (!person || gettingPersonInfo) {
-    return <WaitingPanel className='w-overview-personPanel__waiting' message={t('ui:loading')} />
+    return <Ui.WaitingPanel className='w-overview-personPanel__waiting' message={t('ui:loading')} />
   }
 
   if (person && person.foedselsdato && person.foedselsdato.foedselsdato) {
@@ -45,10 +45,10 @@ const PersonTitle = ({ gettingPersonInfo, person, t }: PersonTitleProps) => {
 
   return (
     <div className='w-overview-personPanel__title'>
-      <Icons size={40} kind={kind} className={classNames('w-overview-personPanel__icon', { dead: !_.isNil(deathDate) })} />
-      <Nav.Systemtittel className='ml-2'>
+      <Ui.Icons size={40} kind={kind} className={classNames('w-overview-personPanel__icon', { dead: !_.isNil(deathDate) })} />
+      <Ui.Nav.Systemtittel className='ml-2'>
         {person.personnavn.sammensattNavn} ({age}) - {person.aktoer.ident.ident}
-      </Nav.Systemtittel>
+      </Ui.Nav.Systemtittel>
     </div>
   )
 }

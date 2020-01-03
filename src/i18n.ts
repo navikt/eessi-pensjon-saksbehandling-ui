@@ -27,7 +27,7 @@ i18n
       bindStore: 'added removed',
       nsMode: 'default'
     }
-  }, (err, t) => {
+  }, (err) => {
     if (err) return console.log('Loading i18n error', err)
     i18n.changeLanguage('nb')
   })

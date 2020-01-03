@@ -49,7 +49,7 @@ export interface PayloadPeriod {
       fom: string | null;
       tom: string | null;
     }
-    openPeriode?:  {
+    openPeriode?: {
       fom: string | null;
       extra: string;
     }
@@ -71,7 +71,7 @@ export interface PayloadPeriod {
     region: string | undefined;
   };
   navnPaaInstitusjon ?: string;
-  informasjonBarn ?:  {
+  informasjonBarn ?: {
     etternavn: string | null | undefined;
     fornavn: string | null | undefined;
     foedseldato: string | null | undefined;

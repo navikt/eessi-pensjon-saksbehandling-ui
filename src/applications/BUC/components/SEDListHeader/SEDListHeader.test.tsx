@@ -1,3 +1,4 @@
+import SEDListHeader, { SEDListHeaderProps } from 'applications/BUC/components/SEDListHeader/SEDListHeader'
 import { Buc, Sed } from 'applications/BUC/declarations/buc'
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'

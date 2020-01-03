@@ -8,7 +8,7 @@ import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import sampleP4000info from 'resources/tests/sampleP4000info'
 import sampleInstitutions from 'resources/tests/sampleInstitutions'
-import { CountryFilter } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import { Action, ActionWithPayload } from 'types'
 import { Buc, BucsInfo, NewSedPayload } from 'applications/BUC/declarations/buc'
 import { P4000Info } from 'applications/BUC/declarations/period'
@@ -220,7 +220,7 @@ export const getCountryList = (bucType: string): Function => {
     context: {
       buc: bucType
     },
-    expectedPayload: CountryFilter.EESSI_READY,
+    expectedPayload: Ui.CountryFilter.EESSI_READY,
     type: {
       request: types.BUC_GET_COUNTRY_LIST_REQUEST,
       success: types.BUC_GET_COUNTRY_LIST_SUCCESS,

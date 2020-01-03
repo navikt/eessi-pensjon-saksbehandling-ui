@@ -1,23 +1,23 @@
 import React from 'react'
 import PT from 'prop-types'
-import { Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 
 const PeriodComment = ({ period, setComment, t }) => (
-  <Nav.Row>
+  <Ui.Nav.Row>
     <div className='col-sm-12'>
-      <Nav.Undertittel className='mt-5 mb-2'>{t('buc:p4000-title-comment-info')}</Nav.Undertittel>
-      <Nav.Textarea
+      <Ui.Nav.Undertittel className='mt-5 mb-2'>{t('buc:p4000-title-comment-info')}</Ui.Nav.Undertittel>
+      <Ui.Nav.Textarea
         id='a-buc-c-sedp4000-period__comment-id'
         className='a-buc-c-sedp4000-period__comment skjemaelement__input'
         label={
           <div className='a-buc-c-sedp4000-period__label'>
             <div className='a-buc-c-sedp4000-period__label'>
-              <Nav.UndertekstBold>{t('buc:p4000-label-comment-info')}</Nav.UndertekstBold>
-              <Nav.Hjelpetekst>
+              <Ui.Nav.UndertekstBold>{t('buc:p4000-label-comment-info')}</Ui.Nav.UndertekstBold>
+              <Ui.Nav.Hjelpetekst>
                 {t('buc:p4000-help-comment-info')}
-              </Nav.Hjelpetekst>
+              </Ui.Nav.Hjelpetekst>
             </div>
-            <Nav.Normaltekst className='optional'>{t('ui:optional')}</Nav.Normaltekst>
+            <Ui.Nav.Normaltekst className='optional'>{t('ui:optional')}</Ui.Nav.Normaltekst>
           </div>
         }
         placeholder={t('buc:p4000-placeholder-comment-info')}
@@ -26,7 +26,7 @@ const PeriodComment = ({ period, setComment, t }) => (
         maxLength={2300}
       />
     </div>
-  </Nav.Row>
+  </Ui.Nav.Row>
 )
 
 PeriodComment.propTypes = {

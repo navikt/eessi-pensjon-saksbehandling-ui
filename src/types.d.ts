@@ -1,10 +1,10 @@
 
-export type AllowedLocaleString  = 'en' | 'nb'
+export type AllowedLocaleString = 'en' | 'nb'
 
 export type T = (line: string, ...args: any[]) => string
 
-export type ActionCreators = {[k: string]: Function}
 export type ActionCreator = Function
+export type ActionCreators = {[k: string]: ActionCreator}
 export type Dispatch = Function
 export type State = { [k: string]: any }
 
@@ -31,4 +31,3 @@ export interface ActionWithPayload<T> extends Action {
 export interface ErrorPayload {
   error: any
 }
-

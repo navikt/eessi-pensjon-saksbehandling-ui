@@ -8,14 +8,14 @@ import P4000Payload from './P4000Payload'
 describe('applications/BUC/components/SEDP4000/P4000Payload - empty payload', () => {
   let util: P4000Payload
   const t: T = jest.fn(t => t)
-  let mockPeriod: Period = {
+  const mockPeriod: Period = {
     startDate: { day: '1', month: '1', year: '1970' },
     endDate: { day: '1', month: '1', year: '1980' },
     dateType: 'both',
     uncertainDate: false,
     comment: '',
     type: 'work',
-    country: {label: 'Norge', value: 'NO'}
+    country: { label: 'Norge', value: 'NO' }
   } as Period
 
   beforeAll(() => {
@@ -84,7 +84,7 @@ describe('applications/BUC/components/SEDP4000/P4000Payload - empty payload', ()
   })
 
   it('handleCountry()', () => {
-    expect(util.handleCountry({ label:'mockCountryLabel', value: 'mockCountryValue' })).toEqual('mockCountryValue')
+    expect(util.handleCountry({ label: 'mockCountryLabel', value: 'mockCountryValue' })).toEqual('mockCountryValue')
   })
 
   it('handleWorkPeriod()', () => {

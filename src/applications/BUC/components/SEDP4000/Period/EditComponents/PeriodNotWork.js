@@ -1,11 +1,11 @@
 import React from 'react'
 import PT from 'prop-types'
-import { CountrySelect, CountryFilter, Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 
 const PeriodNotWork = ({ localErrors, locale, period, setCountry, t }) => (
-  <Nav.Row>
+  <Ui.Nav.Row>
     <div className='col-sm-8 mb-2'>
-      <CountrySelect
+      <Ui.CountrySelect
         ariaLabel={t('buc:p4000-label-country')}
         id='a-buc-c-sedp4000-period__land-select-id'
         className='a-buc-c-sedp4000-period__land-select'
@@ -15,13 +15,13 @@ const PeriodNotWork = ({ localErrors, locale, period, setCountry, t }) => (
             {t('buc:p4000-label-country')}
           </div>
         )}
-        includeList={CountryFilter.EEA}
+        includeList={Ui.CountryFilter.EEA}
         value={period.country || null}
         onOptionSelected={setCountry}
         error={localErrors.country ? t(localErrors.country) : undefined}
       />
     </div>
-  </Nav.Row>
+  </Ui.Nav.Row>
 )
 
 PeriodNotWork.propTypes = {

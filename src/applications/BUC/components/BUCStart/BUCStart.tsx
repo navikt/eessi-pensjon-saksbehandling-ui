@@ -1,7 +1,7 @@
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import { Buc, BucsInfo, Tags } from 'applications/BUC/declarations/buc'
 import classNames from 'classnames'
-import { EESSIPensjonVeilederPanel, MultipleSelect, Nav, WaitingPanel } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
@@ -190,7 +190,7 @@ const BUCStart = ({
   }
 
   const getSpinner: Function = (text:string): JSX.Element => {
-    return <WaitingPanel className='a-buc-c-bucstart__spinner ml-2' size='S' message={t(text)} />
+    return <Ui.WaitingPanel className='a-buc-c-bucstart__spinner ml-2' size='S' message={t(text)} />
   }
 
   const tagObjectList: Tags = tagList ? tagList.map(tag => {
@@ -212,17 +212,17 @@ const BUCStart = ({
     <div className='a-buc-c-bucstart'>
       {mode === 'page' ? (
         <>
-          <Nav.Systemtittel className='a-buc-c-bucstart__page-title mb-4'>
+          <Ui.Nav.Systemtittel className='a-buc-c-bucstart__page-title mb-4'>
             {t('buc:app-startCaseDescription')}
-          </Nav.Systemtittel>
+          </Ui.Nav.Systemtittel>
           <div className='mb-5'>
-            <EESSIPensjonVeilederPanel closeButton>{t('help-startCase2')}</EESSIPensjonVeilederPanel>
+            <Ui.EESSIPensjonVeilederPanel closeButton>{t('help-startCase2')}</Ui.EESSIPensjonVeilederPanel>
           </div>
         </>
       ) : null}
-      <Nav.Row className='mb-3'>
+      <Ui.Nav.Row className='mb-3'>
         <div className='col-md-6 pr-3'>
-          <Nav.Select
+          <Ui.Nav.Select
             id='a-buc-c-bucstart__subjectarea-select-id'
             className={classNames('a-buc-c-bucstart__subjectarea-select flex-fill', {
               grey: !_subjectArea || _subjectArea === placeholders.subjectArea
@@ -236,8 +236,8 @@ const BUCStart = ({
             onChange={onSubjectAreaChange}
           >
             {renderOptions(subjectAreaList, 'subjectArea')}
-          </Nav.Select>
-          <Nav.Select
+          </Ui.Nav.Select>
+          <Ui.Nav.Select
             id='a-buc-c-bucstart__buc-select-id'
             className={classNames('a-buc-c-bucstart__buc-select flex-fill', {
               grey: !_buc || _buc === placeholders.buc
@@ -251,14 +251,14 @@ const BUCStart = ({
             onChange={onBucChange}
           >
             {renderOptions(bucList, 'buc')}
-          </Nav.Select>
+          </Ui.Nav.Select>
         </div>
         <div className='col-md-6 pl-3'>
           <div className='flex-fill'>
-            <Nav.Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Nav.Undertittel>
+            <Ui.Nav.Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Ui.Nav.Undertittel>
             <div className='mb-3'>
-              <Nav.Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Nav.Normaltekst>
-              <MultipleSelect
+              <Ui.Nav.Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Ui.Nav.Normaltekst>
+              <Ui.MultipleSelect
                 ariaLabel={t('buc:form-tagsForBUC')}
                 label={t('buc:form-tagsForBUC')}
                 id='a-buc-c-bucstart__tags-select-id'
@@ -277,10 +277,10 @@ const BUCStart = ({
               : loading.gettingBucList ? getSpinner('buc:loading-buc') : null}
           </div>
         </div>
-      </Nav.Row>
-      <Nav.Row className='mb-3'>
+      </Ui.Nav.Row>
+      <Ui.Nav.Row className='mb-3'>
         <div className='a-buc-c-bucstart__buttons col-md-12'>
-          <Nav.Hovedknapp
+          <Ui.Nav.Hovedknapp
             id='a-buc-c-bucstart__forward-button-id'
             className='a-buc-c-bucstart__forward-button'
             disabled={!allowedToForward()}
@@ -290,15 +290,15 @@ const BUCStart = ({
             {loading.creatingBUC ? t('buc:loading-creatingCaseinRINA')
               : loading.savingBucsInfo ? t('buc:loading-savingBucInfo')
                 : t('buc:form-createCaseinRINA')}
-          </Nav.Hovedknapp>
-          <Nav.Flatknapp
+          </Ui.Nav.Hovedknapp>
+          <Ui.Nav.Flatknapp
             id='a-buc-c-bucstart__cancel-button-id'
             className='a-buc-c-bucstart__cancel-button ml-2'
             onClick={onCancelButtonClick}
           >{t('ui:cancel')}
-          </Nav.Flatknapp>
+          </Ui.Nav.Flatknapp>
         </div>
-      </Nav.Row>
+      </Ui.Nav.Row>
     </div>
   )
 }

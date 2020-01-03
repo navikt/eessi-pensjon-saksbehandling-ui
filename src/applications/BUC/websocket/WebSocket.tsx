@@ -3,7 +3,7 @@
 import classNames from 'classnames'
 import { IS_TEST } from 'constants/environment'
 import { WEBSOCKET_LOCALHOST_URL } from 'constants/urls'
-import { Icons, Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
@@ -142,8 +142,8 @@ const BucWebSocket = ({ actions, fnr, avdodfnr }: BucWebSocketProps) => {
 
   return (
     <div className='a-buc-websocket' title={'websocket: ' + status}>
-      <Icons kind={getAnchor()} size={24} onClick={handleClick} />
-      <Nav.Popover ankerEl={popoverAnchor}>{log}</Nav.Popover>
+      <Ui.Icons kind={getAnchor()} size={24} onClick={handleClick} />
+      <Ui.Nav.Popover ankerEl={popoverAnchor}>{log}</Ui.Nav.Popover>
     </div>
   )
 }

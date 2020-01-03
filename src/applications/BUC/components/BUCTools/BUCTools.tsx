@@ -1,6 +1,6 @@
 import { Buc, BucInfo, BucsInfo, Tags } from 'applications/BUC/declarations/buc'
 import classNames from 'classnames'
-import { MultipleSelect, Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
@@ -19,7 +19,6 @@ export interface BUCToolsProps {
   t: T;
   tagList: Array<string> | undefined;
 }
-
 
 const BUCTools = (
   { actions, aktoerId, buc, bucInfo, bucsInfo, className, loading, onTagChange, t, tagList }: BUCToolsProps
@@ -68,19 +67,19 @@ const BUCTools = (
   }
 
   return (
-    <Nav.EkspanderbartpanelBase
+    <Ui.Nav.EkspanderbartpanelBase
       id='a-buc-c-buctools__panel-id'
       className={classNames('a-buc-c-buctools', 's-border', className)}
       heading={
-        <Nav.Systemtittel className='a-buc-c-buctools__title'>
+        <Ui.Nav.Systemtittel className='a-buc-c-buctools__title'>
           {t('buc:form-BUCtools')}
-        </Nav.Systemtittel>
+        </Ui.Nav.Systemtittel>
       }
     >
-      <Nav.Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Nav.Undertittel>
+      <Ui.Nav.Undertittel className='mb-2'>{t('buc:form-tagsForBUC')}</Ui.Nav.Undertittel>
       <div className='mb-3'>
-        <Nav.Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Nav.Normaltekst>
-        <MultipleSelect
+        <Ui.Nav.Normaltekst className='mb-2'>{t('buc:form-tagsForBUC-description')}</Ui.Nav.Normaltekst>
+        <Ui.MultipleSelect
           ariaLabel={t('buc:form-tagsForBUC')}
           label={t('buc:form-tagsForBUC')}
           id='a-buc-c-buctools__tags-select-id'
@@ -93,23 +92,23 @@ const BUCTools = (
           options={allTags}
         />
       </div>
-      <Nav.Undertittel className='mb-2'>{t('buc:form-commentForBUC')}</Nav.Undertittel>
-      <Nav.Textarea
+      <Ui.Nav.Undertittel className='mb-2'>{t('buc:form-commentForBUC')}</Ui.Nav.Undertittel>
+      <Ui.Nav.Textarea
         id='a-buc-c-buctools__comment-textarea-id'
         className='a-buc-c-buctools__comment-textarea skjemaelement__input'
         label=''
         value={comment || ''}
         onChange={onCommentChange}
       />
-      <Nav.Knapp
+      <Ui.Nav.Knapp
         id='a-buc-c-buctools__save-button-id'
         className='a-buc-c-buctools__save-button'
         disabled={loading.savingBucsInfo}
         onClick={onSaveButtonClick}
       >
         {loading.savingBucsInfo ? t('ui:saving') : t('ui:change')}
-      </Nav.Knapp>
-    </Nav.EkspanderbartpanelBase>
+      </Ui.Nav.Knapp>
+    </Ui.Nav.EkspanderbartpanelBase>
   )
 }
 

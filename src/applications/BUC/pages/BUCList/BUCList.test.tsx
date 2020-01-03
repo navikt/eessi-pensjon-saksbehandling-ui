@@ -4,7 +4,7 @@ import sampleBucs from 'resources/tests/sampleBucs'
 import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import * as storage from 'constants/storage'
 import { mount, ReactWrapper } from 'enzyme'
-import _ from "lodash";
+import _ from 'lodash'
 
 jest.mock('eessi-pensjon-ui', () => {
   const Ui = jest.requireActual('eessi-pensjon-ui')

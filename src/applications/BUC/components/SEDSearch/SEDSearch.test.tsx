@@ -3,7 +3,7 @@ import React from 'react'
 import SEDSearch, { SEDSearchProps } from './SEDSearch'
 
 describe('applications/BUC/components/SEDSearch/SEDSearch', () => {
-  let wrapper: ReactWrapper;
+  let wrapper: ReactWrapper
   const initialMockProps: SEDSearchProps = {
     onSearch: jest.fn(),
     onStatusSearch: jest.fn(),

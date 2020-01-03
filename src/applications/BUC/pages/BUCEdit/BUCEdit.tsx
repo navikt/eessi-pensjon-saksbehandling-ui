@@ -5,7 +5,7 @@ import SEDPanel from 'applications/BUC/components/SEDPanel/SEDPanel'
 import SEDPanelHeader from 'applications/BUC/components/SEDPanelHeader/SEDPanelHeader'
 import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
 import { Buc, BucInfo, Bucs, BucsInfo, InstitutionNames, Sed, Tags } from 'applications/BUC/declarations/buc'
-import { CountryData, Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
@@ -71,7 +71,7 @@ const BUCEdit = ({
           const organizationId = it.organisation.id.toLowerCase()
           const organizationName = it.organisation.name.toLowerCase()
           const countryCode = it.organisation.countryCode.toLowerCase()
-          const countryName = CountryData.getCountryInstance(locale).findByValue(countryCode.toUpperCase()).label.toLowerCase()
+          const countryName = Ui.CountryData.getCountryInstance(locale).findByValue(countryCode.toUpperCase()).label.toLowerCase()
           const creationDate = moment(sed.creationDate).format('DD.MM.YYYY')
           const lastUpdate = moment(sed.lastUpdate).format('DD.MM.YYYY')
           const status = t('ui:' + sed.status).toLowerCase()
@@ -92,14 +92,14 @@ const BUCEdit = ({
   return (
     <div className='a-buc-p-bucedit'>
       <div className='a-buc-p-bucedit__buttons mb-3'>
-        <Nav.Knapp
+        <Ui.Nav.Knapp
           id='a-buc-p-bucedit__new-sed-button-id'
           className='a-buc-p-bucedit__new-sed-button'
           onClick={() => onSEDNew(undefined)}
         >{t('buc:form-orderNewSED')}
-        </Nav.Knapp>
+        </Ui.Nav.Knapp>
       </div>
-      <Nav.Row>
+      <Ui.Nav.Row>
         <div className='col-md-8'>
           <SEDSearch
             className='mb-2'
@@ -156,7 +156,7 @@ const BUCEdit = ({
             tagList={tagList}
           />
         </div>
-      </Nav.Row>
+      </Ui.Nav.Row>
     </div>
   )
 }

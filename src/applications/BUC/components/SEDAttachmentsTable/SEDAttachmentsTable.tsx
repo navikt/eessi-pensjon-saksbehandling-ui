@@ -1,5 +1,5 @@
 import { JoarkFile } from 'applications/BUC/declarations/joark'
-import { Nav, TableSorter } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React from 'react'
@@ -32,11 +32,11 @@ const SEDAttachmentsTable = ({ attachments = {}, t }: SEDAttachmentsTableProps) 
   })
 
   if (_.isEmpty(items)) {
-    return <Nav.Normaltekst>{t('buc:form-noAttachmentsYet')}</Nav.Normaltekst>
+    return <Ui.Nav.Normaltekst>{t('buc:form-noAttachmentsYet')}</Ui.Nav.Normaltekst>
   }
 
   return (
-    <TableSorter
+    <Ui.TableSorter
       className='a-buc-c-sedattachmentstable'
       items={items}
       sortable={false}
@@ -47,16 +47,14 @@ const SEDAttachmentsTable = ({ attachments = {}, t }: SEDAttachmentsTableProps) 
           id: 'bucket',
           label: t('ui:type'),
           type: 'string',
-          renderCell: (item: any, value: any) => <Nav.EtikettLiten>{value}</Nav.EtikettLiten>
+          renderCell: (item: any, value: any) => <Ui.Nav.EtikettLiten>{value}</Ui.Nav.EtikettLiten>
         }, {
           id: 'title', label: t('ui:title'), type: 'string'
         }, {
           id: 'buttons',
           label: '',
           type: 'object',
-          renderCell: (item: any, value: any) => {
-            return <div />
-          }
+          renderCell: () => (<div />)
         }
       ]}
     />

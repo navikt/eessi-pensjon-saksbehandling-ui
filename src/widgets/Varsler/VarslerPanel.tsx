@@ -1,6 +1,6 @@
 import * as pinfoActions from 'actions/pinfo'
 import * as storageActions from 'actions/storage'
-import { Icons, Nav, RefreshButton, TableSorter } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
@@ -57,7 +57,6 @@ const mapDispatchToProps = /* istanbul ignore next */ (dispatch: Dispatch) => {
 export const VarslerPanel = ({
   actions, aktoerId, file, fileList, isInvitingPinfo, invite, onUpdate, person, sakId, sakType, t, widget
 }: VarslerPanelProps) => {
-
   const [isReady, setIsReady] = useState(false)
   const [_fileList, setFileList] = useState<Array<string> | undefined | null>(undefined)
   const [_files, setFiles] = useState<{[k: string]: Varsler}>({})
@@ -137,17 +136,17 @@ export const VarslerPanel = ({
 
   if (mounted && !hasParams) {
     return (
-      <Nav.Panel className='w-varslerPanel s-border'>
-        <Nav.Systemtittel className='w-varslerPanel__noParams-title pb-3'>{t('ui:widget-overview-notifications')}</Nav.Systemtittel>
-        <Nav.Veileder
+      <Ui.Nav.Panel className='w-varslerPanel s-border'>
+        <Ui.Nav.Systemtittel className='w-varslerPanel__noParams-title pb-3'>{t('ui:widget-overview-notifications')}</Ui.Nav.Systemtittel>
+        <Ui.Nav.Veileder
           tekst={t('pinfo:error-noParams')}
           posisjon='høyre'
           type='feilmelding'
           fargetema='feilmelding'
         >
           <VeilederSVG />
-        </Nav.Veileder>
-      </Nav.Panel>
+        </Ui.Nav.Veileder>
+      </Ui.Nav.Panel>
     )
   }
 
@@ -166,20 +165,20 @@ export const VarslerPanel = ({
     }) : []
 
   return (
-    <Nav.EkspanderbartpanelBase
+    <Ui.Nav.EkspanderbartpanelBase
       className='w-varslerPanel s-border'
       apen={!widget.options.collapsed}
       onClick={onExpandablePanelChange}
-      heading={<Nav.Systemtittel className='pb-3'>{t('ui:widget-overview-notifications')}</Nav.Systemtittel>}
+      heading={<Ui.Nav.Systemtittel className='pb-3'>{t('ui:widget-overview-notifications')}</Ui.Nav.Systemtittel>}
     >
-      <Nav.Row>
+      <Ui.Nav.Row>
         <div className='col-md-4'>
           <div style={{ display: 'none' }}>
             <div><label className='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakId')}</label>: {sakId}</div>
             <div><label className='skjemaelement__label d-inline-block'>{t('ui:aktoerId')}</label>: {aktoerId}</div>
             <div><label className='skjemaelement__label d-inline-block'>{t('pinfo:sb-sakType')}</label>: {sakType}</div>
           </div>
-          <Nav.Veileder
+          <Ui.Nav.Veileder
             tekst={(
               <>
                 {!_.isEmpty(invite)
@@ -192,9 +191,9 @@ export const VarslerPanel = ({
             posisjon='bunn'
           >
             <VeilederSVG />
-          </Nav.Veileder>
+          </Ui.Nav.Veileder>
           <div className='text-center'>
-            <Nav.Hovedknapp
+            <Ui.Nav.Hovedknapp
               id='w-varslerPanel__invite-button-id'
               className='w-varslerPanel__invite-button mt-3'
               disabled={isInvitingPinfo}
@@ -202,13 +201,13 @@ export const VarslerPanel = ({
               onClick={onInviteButtonClick}
             >
               {isInvitingPinfo ? t('sending') : t('ui:widget-overview-sendNotification-button')}
-            </Nav.Hovedknapp>
+            </Ui.Nav.Hovedknapp>
           </div>
         </div>
         <div className='col-md-8'>
           <div className='w-varslerPanel__title'>
             <div />
-            <RefreshButton
+            <Ui.RefreshButton
               className='w-varslerPanel__refresh-button'
               labelRefresh={t('ui:refresh')}
               rotating={!isReady}
@@ -216,7 +215,7 @@ export const VarslerPanel = ({
             />
           </div>
           {!_.isEmpty(items) ? (
-            <TableSorter
+            <Ui.TableSorter
               className='w-varslerPanel__table w-100 mt-2'
               items={items}
               searchable
@@ -231,7 +230,7 @@ export const VarslerPanel = ({
                   needle: (it: string) => it.toLowerCase(),
                   renderCell: (item: any) => (
                     <div className='d-flex'>
-                      <Icons className='mr-2' kind='nav-message-sent' />
+                      <Ui.Icons className='mr-2' kind='nav-message-sent' />
                       <label>{item.type}</label>
                     </div>
                   )
@@ -244,8 +243,8 @@ export const VarslerPanel = ({
             <div className='p-2 w-varslerPanel__noMessages font-italic'>{t('ui:widget-overview-sendNotification-noMessages')}</div>
           )}
         </div>
-      </Nav.Row>
-    </Nav.EkspanderbartpanelBase>
+      </Ui.Nav.Row>
+    </Ui.Nav.EkspanderbartpanelBase>
   )
 }
 

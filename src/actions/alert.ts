@@ -1,5 +1,5 @@
 import * as types from 'constants/actionTypes'
-import {Action, ActionWithPayload, ErrorPayload} from 'types'
+import { Action, ActionWithPayload, ErrorPayload } from 'types'
 
 export const clientClear = (): Action => ({
   type: types.ALERT_CLIENT_CLEAR

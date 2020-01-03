@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { Icons, Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React from 'react'
 import { RinaUrl, T } from 'types'
@@ -13,17 +13,17 @@ export interface BUCFooterProps {
 
 const BUCFooter = ({ className, rinaUrl, t }: BUCFooterProps) => (
   <div className={classNames('a-buc-c-footer', className)}>
-    <Nav.Lenke
+    <Ui.Nav.Lenke
       id='a-buc-c-buclist__gotorina-link'
       className='a-buc-c-buclist__gotorina'
       href={rinaUrl}
       target='rinaWindow'
     >
       <div className='d-flex'>
-        <Icons className='mr-2' color='#0067C5' kind='outlink' />
+        <Ui.Icons className='mr-2' color='#0067C5' kind='outlink' />
         <span>{t('ui:goToRina')}</span>
       </div>
-    </Nav.Lenke>
+    </Ui.Nav.Lenke>
   </div>
 )
 

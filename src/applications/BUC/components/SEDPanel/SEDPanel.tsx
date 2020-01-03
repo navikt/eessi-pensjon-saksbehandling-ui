@@ -1,7 +1,7 @@
 import SEDListHeader from 'applications/BUC/components/SEDListHeader/SEDListHeader'
 import { Buc, InstitutionNames, Sed } from 'applications/BUC/declarations/buc'
 import classNames from 'classnames'
-import { Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import React from 'react'
 import { ActionCreators, AllowedLocaleString, T } from 'types'
@@ -48,7 +48,7 @@ const SEDPanel = ({
           onSEDNew={onSEDNew}
         />
       ) : (
-        <Nav.EkspanderbartpanelBase
+        <Ui.Nav.EkspanderbartpanelBase
           style={style}
           className='mb-3 s-border'
           heading={
@@ -72,7 +72,7 @@ const SEDPanel = ({
             sed={sed}
             t={t}
           />
-        </Nav.EkspanderbartpanelBase>
+        </Ui.Nav.EkspanderbartpanelBase>
       )}
     </div>
   )

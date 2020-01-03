@@ -2,7 +2,7 @@ import React from 'react'
 import PT from 'prop-types'
 import { withTranslation } from 'react-i18next'
 import classNames from 'classnames'
-import { Nav, EESSIPensjonVeileder } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import TopContainer from 'components/TopContainer/TopContainer'
 import { T } from 'types'
 import './Error.css'
@@ -43,18 +43,18 @@ export const Error = ({ history, t, type }: ErrorProps) => {
     >
       <div className='p-error__content'>
         <div className='EESSIPensjonVeileder'>
-          <EESSIPensjonVeileder mood='trist' id='EESSIPensjonVeileder' />
+          <Ui.EESSIPensjonVeileder mood='trist' id='EESSIPensjonVeileder' />
         </div>
-        <Nav.Undertittel className='title m-4'>
+        <Ui.Nav.Undertittel className='title m-4'>
           {title}
-        </Nav.Undertittel>
+        </Ui.Nav.Undertittel>
         <div className='description'>
           <div dangerouslySetInnerHTML={{ __html: description }} />
         </div>
         <div className='line' />
-        <Nav.Normaltekst className='mt-2'>
+        <Ui.Nav.Normaltekst className='mt-2'>
           {t('ui:error-footer')}
-        </Nav.Normaltekst>
+        </Ui.Nav.Normaltekst>
       </div>
     </TopContainer>
   )

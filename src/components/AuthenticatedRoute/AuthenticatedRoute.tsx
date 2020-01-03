@@ -1,7 +1,7 @@
 import * as appActions from 'actions/app'
 import * as constants from 'constants/constants'
 import * as routes from 'constants/routes'
-import { WaitingPanel } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
@@ -86,7 +86,7 @@ export const AuthenticatedRoute = (props: any) => {
   if (!mounted) {
     return (
       <div className='c-authenticatedRoute'>
-        <WaitingPanel size='XL' essage={t('authenticating')} />
+        <Ui.WaitingPanel size='XL' essage={t('authenticating')} />
       </div>
     )
   }

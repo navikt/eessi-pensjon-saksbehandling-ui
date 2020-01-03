@@ -3,7 +3,7 @@ import InstitutionList from 'applications/BUC/components/InstitutionList/Institu
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
 import { Buc, Institution, InstitutionNames, Participant, Sed } from 'applications/BUC/declarations/buc'
 import classNames from 'classnames'
-import { Icons, Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
@@ -51,20 +51,20 @@ const SEDListHeader = ({
   })
 
   return (
-    <Nav.PanelBase
+    <Ui.Nav.PanelBase
       style={style}
       className={classNames('a-buc-c-sedlistheader', 'w-100', 'p-0', className)}
     >
       <div className={classNames('a-buc-c-sedlistheader__content pt-2 pb-2')}>
         <div className='a-buc-c-sedlistheader__column a-buc-c-sedlistheader__name col-4'>
-          <Nav.Element>{sed.type}{sedLabel ? ' - ' + sedLabel : ''}</Nav.Element>
+          <Ui.Nav.Element>{sed.type}{sedLabel ? ' - ' + sedLabel : ''}</Ui.Nav.Element>
           <div className='a-buc-c-sedlistheader__status'>
             <SEDStatus t={t} className='col-auto' status={sed.status} />
             <div className='pl-2'>
-              <Nav.Normaltekst className='a-buc-c-sedlistheader__lastUpdate' data-tip={t('ui:lastUpdate')}>
+              <Ui.Nav.Normaltekst className='a-buc-c-sedlistheader__lastUpdate' data-tip={t('ui:lastUpdate')}>
                 {sed.lastUpdate ? moment(sed.lastUpdate).format('DD.MM.YYYY') : null}
-              </Nav.Normaltekst>
-              {sed.version ? <Nav.Normaltekst className='a-buc-c-sedlistheader__version'>{t('ui:version')}{': '}{sed.version || '-'}</Nav.Normaltekst> : null}
+              </Ui.Nav.Normaltekst>
+              {sed.version ? <Ui.Nav.Normaltekst className='a-buc-c-sedlistheader__version'>{t('ui:version')}{': '}{sed.version || '-'}</Ui.Nav.Normaltekst> : null}
             </div>
           </div>
         </div>
@@ -92,23 +92,23 @@ const SEDListHeader = ({
               className='a-buc-c-sedlistheader__actions-attachments'
               data-tip={t('buc:form-youHaveXAttachmentsInSed', { attachments: sed.attachments.length })}
             >
-              <Icons kind='paperclip' />
+              <Ui.Icons kind='paperclip' />
             </div>
           ) : null}
           {(!_.isEmpty(followUpSeds) && sed.status === 'received')
             ? (
-              <Nav.Flatknapp
+              <Ui.Nav.Flatknapp
                 mini
                 className='a-buc-c-sedlistheader__actions-answer-button'
                 onClick={() => onSEDNew(buc, sed)}
               >
                 {t('buc:form-answerSED')}
-              </Nav.Flatknapp>
+              </Ui.Nav.Flatknapp>
             )
             : null}
         </div>
       </div>
-    </Nav.PanelBase>
+    </Ui.Nav.PanelBase>
   )
 }
 

@@ -14,7 +14,7 @@ import {
 } from 'applications/BUC/declarations/buc'
 import classNames from 'classnames'
 import * as storage from 'constants/storage'
-import { ExpandingPanel, Nav, WaitingPanel } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 
 import _ from 'lodash'
 import PT from 'prop-types'
@@ -122,19 +122,19 @@ const BUCList = ({
       <div className='a-buc-p-buclist__buttons mb-3'>
         {aktoerId && sakId
           ? (
-            <Nav.Knapp
+            <Ui.Nav.Knapp
               id='a-buc-p-buclist__newbuc-button-id'
               className='a-buc-p-buclist__newbuc-button'
               onClick={onBUCNew}
             >
               {t('buc:form-createNewCase')}
-            </Nav.Knapp>
+            </Ui.Nav.Knapp>
           )
           : null}
       </div>
       {loading.gettingBUCs
         ? (
-          <WaitingPanel className='mt-5 a-buc-p-buclist__loading' size='XL' message={t('buc:loading-bucs')} />
+          <Ui.WaitingPanel className='mt-5 a-buc-p-buclist__loading' size='XL' message={t('buc:loading-bucs')} />
         ) : null}
       {bucs === null
         ? (
@@ -150,7 +150,7 @@ const BUCList = ({
             const bucId = buc.caseId
             const bucInfo: BucInfo = bucsInfo && bucsInfo.bucs ? bucsInfo.bucs[bucId!] : {} as BucInfo
             return (
-              <ExpandingPanel
+              <Ui.ExpandingPanel
                 id={'a-buc-p-buclist__buc-' + bucId}
                 className={classNames('a-buc-p-buclist__buc', 'mb-3', 's-border')}
                 key={index}
@@ -172,13 +172,13 @@ const BUCList = ({
                   className='a-buc-p-buclist__sedheader pb-1'
                 >
                   <div className='a-buc-p-buclist__sedheader-head col-4'>
-                    <Nav.Element>{t('buc:form-name')}</Nav.Element>
+                    <Ui.Nav.Element>{t('buc:form-name')}</Ui.Nav.Element>
                   </div>
                   <div className='a-buc-p-buclist__sedheader_head col-3'>
-                    <Nav.Element>{t('buc:form-status')}</Nav.Element>
+                    <Ui.Nav.Element>{t('buc:form-status')}</Ui.Nav.Element>
                   </div>
                   <div className='a-buc-p-buclist__sedheader-head col-3'>
-                    <Nav.Element>{t('buc:form-senderreceiver')}</Nav.Element>
+                    <Ui.Nav.Element>{t('buc:form-senderreceiver')}</Ui.Nav.Element>
                   </div>
                   <div className='a-buc-p-buclist__sedheader-head col-2' />
                 </div>
@@ -190,7 +190,7 @@ const BUCList = ({
                   institutionNames={institutionNames}
                   onSEDNew={onSEDNew}
                 />
-              </ExpandingPanel>
+              </Ui.ExpandingPanel>
             )
           }) : null}
       {rinaUrl ? <BUCFooter className='w-100 mt-2 mb-2' rinaUrl={rinaUrl} t={t} /> : null}

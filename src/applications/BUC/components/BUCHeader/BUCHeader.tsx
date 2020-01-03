@@ -9,7 +9,7 @@ import {
   InstitutionNames,
   Sed
 } from 'applications/BUC/declarations/buc'
-import { FlagList, Icons, Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
@@ -58,7 +58,7 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl,
   if (buc.error) {
     return (
       <div className='a-buc-c-bucheader p-0 w-100'>
-        <Nav.AlertStripe type='advarsel' className='w-100'>{buc.error}</Nav.AlertStripe>
+        <Ui.Nav.AlertStripe type='advarsel' className='w-100'>{buc.error}</Ui.Nav.AlertStripe>
       </div>
     )
   }
@@ -68,7 +68,7 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl,
       id={'a-buc-c-bucheader__' + buc.type + '-' + buc.caseId}
       className='a-buc-c-bucheader p-0 w-100'
     >
-      <Nav.Undertittel
+      <Ui.Nav.Undertittel
         className='a-buc-c-bucheader__title pb-1 w-100'
       >
         {buc.type + ' - ' + getBucTypeLabel({
@@ -76,23 +76,23 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl,
           locale: locale,
           type: buc.type
         })}
-      </Nav.Undertittel>
-      <Nav.Row className='a-buc-c-bucheader__row no-gutters w-100'>
+      </Ui.Nav.Undertittel>
+      <Ui.Nav.Row className='a-buc-c-bucheader__row no-gutters w-100'>
         <div className='a-buc-c-bucheader__label col-sm-4'>
 
-          <Nav.Normaltekst
+          <Ui.Nav.Normaltekst
             id='a-buc-c-bucheader__description-id'
             className='a-buc-c-bucheader__description'
           >
             {t('ui:created')}: {moment(buc.startDate!).format('DD.MM.YYYY')}
-          </Nav.Normaltekst>
+          </Ui.Nav.Normaltekst>
           <div
             id='a-buc-c-bucheader__owner-id'
             className='a-buc-c-bucheader__owner'
           >
-            <Nav.Normaltekst className='pr-2 text-nowrap'>
+            <Ui.Nav.Normaltekst className='pr-2 text-nowrap'>
               {t('buc:form-caseOwner') + ': '}
-            </Nav.Normaltekst>
+            </Ui.Nav.Normaltekst>
             <InstitutionList
               t={t}
               flagType='circle'
@@ -108,9 +108,9 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl,
               id='a-buc-c-bucheader__case-id'
               className='a-buc-c-bucheader__case'
             >
-              <Nav.Normaltekst className='pr-2 text-nowrap'>
+              <Ui.Nav.Normaltekst className='pr-2 text-nowrap'>
                 {t('buc:form-caseNumberInRina') + ': '}
-                <Nav.Lenke
+                <Ui.Nav.Lenke
                   className='a-buc-c-bucheader__gotorina-link'
                   href={rinaUrl + buc.caseId}
                   target='rinaWindow'
@@ -120,13 +120,13 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl,
                   }}
                 >
                   {buc.caseId}
-                </Nav.Lenke>
-              </Nav.Normaltekst>
+                </Ui.Nav.Lenke>
+              </Ui.Nav.Normaltekst>
             </div>
           ) : null}
         </div>
         <div className='a-buc-c-bucheader__icons col-sm-4'>
-          <FlagList
+          <Ui.FlagList
             locale={locale}
             type='circle'
             size='L'
@@ -153,21 +153,21 @@ const BUCHeader = ({ buc, bucInfo, institutionNames, locale, onBUCEdit, rinaUrl,
                 className='a-buc-c-bucheader__icon-tags'
                 data-tip={bucInfo.tags.map((tag: string) => t('buc:' + tag)).join(', ')}
               >
-                <Icons kind='problem' size={32} />
+                <Ui.Icons kind='problem' size={32} />
               </div>
             ) : null}
         </div>
         <div className='a-buc-c-bucheader__actions col-sm-4'>
-          <Nav.Lenke
+          <Ui.Nav.Lenke
             id='a-buc-c-bucheader__bucedit-link-id'
             className='a-buc-c-bucheader__bucedit-link knapp text-decoration-none mr-3'
             onClick={(e: MouseEvent) => onBucHandle(buc, e)}
             href={'#' + buc.type}
           >
             {t('ui:processing')}
-          </Nav.Lenke>
+          </Ui.Nav.Lenke>
         </div>
-      </Nav.Row>
+      </Ui.Nav.Row>
     </div>
   )
 }

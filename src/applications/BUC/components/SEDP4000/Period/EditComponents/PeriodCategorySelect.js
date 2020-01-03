@@ -1,22 +1,22 @@
 import React from 'react'
 import PT from 'prop-types'
-import { Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 
 const PeriodCategorySelect = ({ mode, period, setType, t }) => (
-  <Nav.Row className={mode}>
+  <Ui.Nav.Row className={mode}>
     <div className='col-sm-8'>
-      <Nav.Hjelpetekst>
+      <Ui.Nav.Hjelpetekst>
         {t('buc:p4000-help-category')}
-      </Nav.Hjelpetekst>
+      </Ui.Nav.Hjelpetekst>
 
-      <Nav.Select
+      <Ui.Nav.Select
         id='a-buc-c-sedp4000-period__kategori-select'
         label={(
           <div className='d-flex'>
             <span>{t('buc:p4000-label-category')}</span>
-            <Nav.Hjelpetekst>
+            <Ui.Nav.Hjelpetekst>
               {t('buc:p4000-help-category')}
-            </Nav.Hjelpetekst>
+            </Ui.Nav.Hjelpetekst>
           </div>
         )}
         onChange={setType}
@@ -33,9 +33,9 @@ const PeriodCategorySelect = ({ mode, period, setType, t }) => (
         <option value='daily'>{t('buc:p4000-label-category-daily')}</option>
         <option value='sick'>{t('buc:p4000-label-category-sick')}</option>
         <option value='other'>{t('buc:p4000-label-category-other')}</option>
-      </Nav.Select>
+      </Ui.Nav.Select>
     </div>
-  </Nav.Row>
+  </Ui.Nav.Row>
 )
 
 PeriodCategorySelect.propTypes = {

@@ -7,7 +7,7 @@ import sampleP4000info from 'resources/tests/sampleP4000info'
 import targetP4000info from 'resources/tests/targetP4000info'
 import { SEDStart, SEDStartProps } from './SEDStart'
 jest.mock('applications/BUC/components/SEDP4000/SEDP4000', () => {
-  return ({children}: {children: JSX.Element}) => {
+  return ({ children }: {children: JSX.Element}) => {
     return (
       <div className='mock-sedP4000'>
         {children}

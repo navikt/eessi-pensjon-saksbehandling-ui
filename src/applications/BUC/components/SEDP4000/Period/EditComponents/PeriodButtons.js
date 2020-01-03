@@ -1,37 +1,37 @@
 import React from 'react'
 import PT from 'prop-types'
-import { Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 
 const PeriodButtons = ({ cancelPeriodRequest, mode, saveEditPeriod, saveNewPeriod, t }) => (
-  <Nav.Row>
+  <Ui.Nav.Row>
     <div className='mt-4 mb-4 col-sm-12'>
       {mode === 'edit' ? (
-        <Nav.Knapp
+        <Ui.Nav.Knapp
           className='a-buc-c-sedp4000-period__edit-button mb-2 mr-4 w-sm-100'
           id='a-buc-c-sedp4000-period__edit-button-id'
           onClick={saveEditPeriod}
         >
           {t('buc:p4000-button-saveEditPeriod')}
-        </Nav.Knapp>
+        </Ui.Nav.Knapp>
       ) : null}
       {mode === 'new' ? (
-        <Nav.Hovedknapp
+        <Ui.Nav.Hovedknapp
           className='a-buc-c-sedp4000-period__save-button mb-2 mr-4 w-sm-100'
           id='a-buc-c-sedp4000-period__save-button-id'
           onClick={saveNewPeriod}
         >
           {t('buc:p4000-button-saveNewPeriod')}
-        </Nav.Hovedknapp>
+        </Ui.Nav.Hovedknapp>
       ) : null}
-      <Nav.Flatknapp
+      <Ui.Nav.Flatknapp
         className='a-buc-c-sedp4000-period__cancel-button mb-2 w-sm-100'
         id='a-buc-c-sedp4000-period__cancel-button-id'
         onClick={cancelPeriodRequest}
       >
         {t('buc:p4000-button-cancelPeriod')}
-      </Nav.Flatknapp>
+      </Ui.Nav.Flatknapp>
     </div>
-  </Nav.Row>
+  </Ui.Nav.Row>
 )
 
 PeriodButtons.propTypes = {

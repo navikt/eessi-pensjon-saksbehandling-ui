@@ -10,7 +10,8 @@ jest.mock('eessi-pensjon-ui', () => {
       ...Ui.Nav,
       EkspanderbartpanelBase: ({ onClick, children } : {onClick: () => void, children: JSX.Element}) => (
         <div className='mock-EkspanderbartpanelBase' onClick={onClick}>{children}</div>
-      )}
+      )
+    }
   }
 })
 

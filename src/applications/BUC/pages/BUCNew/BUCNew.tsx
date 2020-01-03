@@ -1,6 +1,6 @@
 import BUCFooter from 'applications/BUC/components/BUCFooter/BUCFooter'
 import BUCStart, { BUCStartProps } from 'applications/BUC/components/BUCStart/BUCStart'
-import { Nav } from 'eessi-pensjon-ui'
+import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React from 'react'
 import { RinaUrl } from 'types'
@@ -14,11 +14,11 @@ const BUCNew = (props: BUCNewProps) => {
   const { t } = props
   return (
     <>
-      <Nav.Panel className='a-buc-p-bucnew s-border'>
-        <Nav.Systemtittel>{t('buc:step-startBUCTitle')}</Nav.Systemtittel>
+      <Ui.Nav.Panel className='a-buc-p-bucnew s-border'>
+        <Ui.Nav.Systemtittel>{t('buc:step-startBUCTitle')}</Ui.Nav.Systemtittel>
         <hr />
         <BUCStart mode='widget' {...props} />
-      </Nav.Panel>
+      </Ui.Nav.Panel>
       <BUCFooter className='w-100 mt-2 mb-2' {...props} />
     </>
   )

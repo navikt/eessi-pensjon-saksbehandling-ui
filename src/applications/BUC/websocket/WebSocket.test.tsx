@@ -23,7 +23,7 @@ describe('applications/BUC/websocket/WebSocket', () => {
   let mockSocket: WebSocket
   mockServer.on('connection', socket => {
     socket.on('message', data => {
-      socket.send(JSON.stringify({ subscriptions: true }))
+      socket.send(JSON.stringify({ data: data, subscriptions: true }))
     })
     mockSocket = socket
   })
@@ -50,7 +50,7 @@ describe('applications/BUC/websocket/WebSocket', () => {
 
   it('Connects in a while', async (done) => {
     await act(async () => {
-      await new Promise(resolve => {
+      await new Promise(() => {
         setTimeout(() => {
           wrapper.update()
           const logs = wrapper.find('Hjelpetekst span.log')
@@ -65,7 +65,7 @@ describe('applications/BUC/websocket/WebSocket', () => {
   })
 
   it('Replies to messages', async (done) => {
-    await new Promise(resolve => {
+    await new Promise(() => {
       setTimeout(() => {
         mockSocket.send(JSON.stringify({ bucUpdated: { caseId: '123' } }))
         setTimeout(() => {
@@ -85,7 +85,7 @@ describe('applications/BUC/websocket/WebSocket', () => {
     act(() => {
       mockServer.simulate('error')
     })
-    await new Promise(resolve => {
+    await new Promise(() => {
       setTimeout(() => {
         wrapper.update()
         expect(wrapper.find('.a-buc-websocket').props().title).toEqual('websocket: ERROR')
@@ -99,7 +99,7 @@ describe('applications/BUC/websocket/WebSocket', () => {
     act(() => {
       mockSocket.close()
     })
-    await new Promise(resolve => {
+    await new Promise(() => {
       setTimeout(() => {
         wrapper.update()
         expect(wrapper.find('.a-buc-websocket').props().title).toEqual('websocket: NOTCONNECTED')

@@ -1,6 +1,6 @@
 import { mount, ReactWrapper } from 'enzyme'
 import React from 'react'
-import SessionMonitor, { SessionMonitorProps }  from './SessionMonitor'
+import SessionMonitor, { SessionMonitorProps } from './SessionMonitor'
 
 jest.mock('i18next', () => {
   const use = jest.fn()
