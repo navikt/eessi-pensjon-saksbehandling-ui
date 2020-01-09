@@ -37,7 +37,7 @@ export const initialLoadingState: State = {
 }
 
 const loadingReducer = (state: State = initialLoadingState, action: Action) => {
-  let status
+  let status: string | undefined
 
   if (_.endsWith(action.type, '/ERROR')) {
     return initialLoadingState

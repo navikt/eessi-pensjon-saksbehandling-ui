@@ -36,5 +36,5 @@ export interface JoarkFileWithContent extends JoarkFile {
   content: Content;
   name: string;
   size: number;
-  mometype: string;
+  mimetype: string;
 }

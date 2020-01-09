@@ -5,7 +5,7 @@ import _ from 'lodash'
 export const initialAlertState: State = {}
 
 const alertReducer = (state: State = initialAlertState, action: Action) => {
-  let clientErrorMessage, serverErrorMessage, clientErrorStatus
+  let clientErrorMessage: string | undefined, serverErrorMessage: string, clientErrorStatus: string
 
   if (action.type === types.ALERT_CLIENT_CLEAR) {
     return initialAlertState

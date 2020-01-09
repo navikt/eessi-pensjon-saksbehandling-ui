@@ -28,7 +28,7 @@ export interface PeriodProps {
 const Period = ({
   actions, first, last, locale, localErrors, mode, period, periods,
   setLocalError, setLocalErrors, setPeriod, setPeriods, t
-}: PeriodProps) => {
+}: PeriodProps): JSX.Element => {
   const valueSetProperty = useCallback((key, validateFunction, value) => {
     const error = validateFunction ? validateFunction(value) : undefined
     setPeriod({
@@ -297,7 +297,7 @@ const Period = ({
         />
       )
     default:
-      return null
+      return <div/>
   }
 }
 

@@ -16,13 +16,13 @@ export default [
       institution: 'NO:NAVAT07',
       name: 'NAV ACCEPTANCE TEST 07'
     }, {
-      country: 'IT',
-      institution: 'IT:DEMO001',
-      name: 'Italy Demo 01'
+      country: 'GB',
+      institution: 'GB:DEMO001',
+      name: 'GB Demo 01'
     }, {
-      country: 'ES',
-      institution: 'ES:DEMO001',
-      name: 'Spain Demo 01'
+      country: 'UK',
+      institution: 'UK:DEMO001',
+      name: 'UK Demo 01'
     }, {
       country: 'FR',
       institution: 'FR:DEMO001',

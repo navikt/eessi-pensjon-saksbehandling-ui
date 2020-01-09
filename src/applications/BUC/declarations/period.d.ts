@@ -92,10 +92,12 @@ export interface Payload {
   andrePerioder ?: Array<PayloadPeriod>;
 }
 
+export type StayAbroad = Array<Period>
+
 export interface P4000Info {
   person: any,
   bank: any,
-  stayAbroad: Array<Period>
+  stayAbroad: StayAbroad
 }
 
 export interface P4000PayloadInfo {

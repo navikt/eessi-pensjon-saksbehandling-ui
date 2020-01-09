@@ -80,7 +80,7 @@ export const SEDStart = (props: SEDStartProps) => {
   const [_institutions, setInstitutions] = useState<Array<string>>(
     bucs[currentBuc!] && bucs[currentBuc!].institusjon
       ? bucs[currentBuc!].institusjon!
-        .filter(inst => inst.institution !== bucs[currentBuc!].creator!.institution)
+        .filter(inst => inst.country !== 'NO')
         .map(inst => inst.institution) : [])
   const [_countries, setCountries] = useState<Array<string>>(
     bucs[currentBuc!] && bucs[currentBuc!].institusjon

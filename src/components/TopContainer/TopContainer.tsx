@@ -58,29 +58,29 @@ const mapDispatchToProps = /* istanbul ignore next */ (dispatch: Dispatch) => {
   return { actions: bindActionCreators({ ...alertActions, ...appActions, ...uiActions }, dispatch) }
 }
 
-export const TopContainer = ({
+export const TopContainer: React.FC<TopContainerProps> = ({
   actions, children, clientErrorMessage, clientErrorStatus, error,
   expirationTime, fluid = true, footerOpen, gettingUserInfo, header, history,
   highContrast, isLoggingOut, modal, params, serverErrorMessage, snow, t, username
-}: TopContainerProps) => {
-  const handleModalClose = () => {
+}: TopContainerProps): JSX.Element => {
+  const handleModalClose = (): void => {
     actions.closeModal()
   }
 
-  const onClear = () => {
+  const onClear = (): void => {
     actions.clientClear()
   }
 
-  const handleHighContrastToggle = () => {
+  const handleHighContrastToggle = (): void => {
     actions.toggleHighContrast()
   }
 
-  const getClientErrorMessage = () => {
+  const getClientErrorMessage = (): string | null => {
     if (!clientErrorMessage) {
       return null
     }
-    const separatorIndex = clientErrorMessage.lastIndexOf('|')
-    let message
+    const separatorIndex: number = clientErrorMessage.lastIndexOf('|')
+    let message: string
     if (separatorIndex >= 0) {
       message = t(clientErrorMessage.substring(0, separatorIndex)) + ': ' + clientErrorMessage.substring(separatorIndex + 1)
     } else {
@@ -89,7 +89,7 @@ export const TopContainer = ({
     return message
   }
 
-  const getServerErrorMessage = () => {
+  const getServerErrorMessage = (): string | undefined => {
     return serverErrorMessage ? t(serverErrorMessage) : undefined
   }
 
@@ -158,10 +158,10 @@ export const TopContainer = ({
 }
 
 TopContainer.propTypes = {
-  actions: PT.object.isRequired,
-  children: PT.node.isRequired,
+  actions: PT.oneOf<ActionCreators>([]).isRequired,
+  children: PT.any,
   fluid: PT.bool,
-  header: PT.oneOfType([PT.node, PT.string]),
+  header: PT.any,
   history: PT.object.isRequired,
   highContrast: PT.bool,
   t: PT.func.isRequired

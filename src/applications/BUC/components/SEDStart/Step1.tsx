@@ -118,27 +118,27 @@ const Step1 = ({
 
   const fetchCountries = useCallback(
     (countries: Array<Country>) => {
-    const newCountries = countries ? countries.map(item => {
-      return item.value
-    }) : []
+      const newCountries = countries ? countries.map(item => {
+        return item.value
+      }) : []
 
-    const oldCountriesList = _.cloneDeep(_countries)
-    const addedCountries = newCountries.filter(country => !oldCountriesList.includes(country))
-    const removedCountries = oldCountriesList.filter(country => !newCountries.includes(country))
+      const oldCountriesList = _.cloneDeep(_countries)
+      const addedCountries = newCountries.filter(country => !oldCountriesList.includes(country))
+      const removedCountries = oldCountriesList.filter(country => !newCountries.includes(country))
 
-    addedCountries.map(country => {
-      return actions.getInstitutionsListForBucAndCountry(buc.type, country)
-    })
-    removedCountries.forEach(country => {
-      const newInstitutions = _institutions.filter(item => {
-        var [_country] = item.split(':')
-        return country !== _country
+      addedCountries.map(country => {
+        return actions.getInstitutionsListForBucAndCountry(buc.type, country)
       })
-      setInstitutions(newInstitutions)
-    })
-    setCountries(newCountries)
-    validateCountries(newCountries)
-  }, [_countries, _institutions, actions, buc.type, setCountries, setInstitutions, validateCountries])
+      removedCountries.forEach(country => {
+        const newInstitutions = _institutions.filter(item => {
+          var [_country] = item.split(':')
+          return country !== _country
+        })
+        setInstitutions(newInstitutions)
+      })
+      setCountries(newCountries)
+      validateCountries(newCountries)
+    }, [_countries, _institutions, actions, buc.type, setCountries, setInstitutions, validateCountries])
 
   useEffect(() => {
     if (_.isArray(sedList) && sedList.length === 1 && !_sed) {

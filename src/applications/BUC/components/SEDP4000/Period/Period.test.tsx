@@ -64,7 +64,7 @@ describe('applications/BUC/components/SEDP4000/Period - view/confirm mode', () =
 
     const periodDescription = period.find('.a-buc-c-sedp4000-period__existingPeriod-description').hostNodes()
     expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-type UndertekstBold').render().text()).toEqual('buc:p4000-label-category-work')
-    expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-type Flag').props().country).toEqual('MX')
+    expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-type Flag img').props().alt).toEqual('MX')
     expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-type Normaltekst').render().text()).toEqual('mockMM')
     expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-dates').render().text()).toEqual('buc:p4000-label-period: 01.01.1993 - 01.01.1994 (?)')
     expect(periodDescription.find('.a-buc-c-sedp4000-period__existingPeriod-workActivity').render().text()).toEqual('buc:p4000-label-work-activity2: work period 1 workActivity')
@@ -158,11 +158,8 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
   })
 
   it('Has proper HTML structure in home edit', () => {
-    const mockProps = {
-      ...initialMockProps,
-      period: _(sampleP4000info.stayAbroad).find(it => it.type === 'home')
-    }
-    const wrapper = mount(<Period {...mockProps} mode='edit' />)
+    const mockPeriod: IPeriod = _(sampleP4000info.stayAbroad).find(it => it.type === 'home')!
+    const wrapper = mount(<Period {...initialMockProps} period={mockPeriod} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('home')
     expect(wrapper.find('.a-buc-c-sedp4000-period__alert_home').hostNodes().render().text()).toEqual('buc:p4000-warning-home-period')
     expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-title-home')
@@ -178,11 +175,8 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
   })
 
   it('Has proper HTML structure in learn edit', () => {
-    const mockProps = {
-      ...initialMockProps,
-      period: _(sampleP4000info.stayAbroad).find(it => it.type === 'learn')
-    }
-    const wrapper = mount(<Period {...mockProps} mode='edit' />)
+    const mockPeriod: IPeriod = _(sampleP4000info.stayAbroad).find(it => it.type === 'learn')!
+    const wrapper = mount(<Period {...initialMockProps} period={mockPeriod} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('learn')
     expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-title-learn')
     expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-help-date')
@@ -199,11 +193,8 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
   })
 
   it('Has proper HTML structure in other edit', () => {
-    const mockProps = {
-      ...initialMockProps,
-      period: _(sampleP4000info.stayAbroad).find(it => it.type === 'other')
-    }
-    const wrapper = mount(<Period {...mockProps} mode='edit' />)
+    const mockPeriod: IPeriod = _(sampleP4000info.stayAbroad).find(it => it.type === 'other')!
+    const wrapper = mount(<Period {...initialMockProps} period={mockPeriod} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('other')
     expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-title-other')
     expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-help-date')
@@ -220,11 +211,8 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
   })
 
   it('Has proper HTML structure in daily edit', () => {
-    const mockProps = {
-      ...initialMockProps,
-      period: _(sampleP4000info.stayAbroad).find(it => it.type === 'daily')
-    }
-    const wrapper = mount(<Period {...mockProps} mode='edit' />)
+    const mockPeriod: IPeriod = _(sampleP4000info.stayAbroad).find(it => it.type === 'daily')!
+    const wrapper = mount(<Period {...initialMockProps} period={mockPeriod} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('daily')
     expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-title-daily')
     expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-help-date')
@@ -241,11 +229,8 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
   })
 
   it('Has proper HTML structure in sick edit', () => {
-    const mockProps = {
-      ...initialMockProps,
-      period: _(sampleP4000info.stayAbroad).find(it => it.type === 'sick')
-    }
-    const wrapper = mount(<Period {...mockProps} mode='edit' />)
+    const mockPeriod: IPeriod = _(sampleP4000info.stayAbroad).find(it => it.type === 'sick')!
+    const wrapper = mount(<Period {...initialMockProps} period={mockPeriod} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('sick')
     expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-title-sick')
     expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-help-date')
@@ -262,12 +247,8 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
   })
 
   it('Has proper HTML structure in child edit', () => {
-    const mockProps = {
-      ...initialMockProps,
-      period: _(sampleP4000info.stayAbroad).find(it => it.type === 'child')
-    }
-
-    const wrapper = mount(<Period {...mockProps} mode='edit' />)
+    const mockPeriod: IPeriod = _(sampleP4000info.stayAbroad).find(it => it.type === 'child')!
+    const wrapper = mount(<Period {...initialMockProps} period={mockPeriod} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('child')
     expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-title-child')
     expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-help-date')
@@ -286,11 +267,8 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
   })
 
   it('Has proper HTML structure in military edit', () => {
-    const mockProps = {
-      ...initialMockProps,
-      period: _(sampleP4000info.stayAbroad).find(it => it.type === 'military')
-    }
-    const wrapper = mount(<Period {...mockProps} mode='edit' />)
+    const mockPeriod: IPeriod = _(sampleP4000info.stayAbroad).find(it => it.type === 'military')!
+    const wrapper = mount(<Period {...initialMockProps} period={mockPeriod} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('military')
     expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-title-military')
     expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-help-date')
@@ -305,11 +283,8 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
   })
 
   it('Has proper HTML structure in voluntary edit', () => {
-    const mockProps = {
-      ...initialMockProps,
-      period: _(sampleP4000info.stayAbroad).find(it => it.type === 'voluntary')
-    }
-    const wrapper = mount(<Period {...mockProps} mode='edit' />)
+    const mockPeriod: IPeriod = _(sampleP4000info.stayAbroad).find(it => it.type === 'voluntary')!
+    const wrapper = mount(<Period {...initialMockProps} period={mockPeriod} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('voluntary')
     expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-title-voluntary')
     expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-help-date')
@@ -324,11 +299,8 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
   })
 
   it('Has proper HTML structure in birth edit', () => {
-    const mockProps = {
-      ...initialMockProps,
-      period: _(sampleP4000info.stayAbroad).find(it => it.type === 'birth')
-    }
-    const wrapper = mount(<Period {...mockProps} mode='edit' />)
+    const mockPeriod: IPeriod = _(sampleP4000info.stayAbroad).find(it => it.type === 'birth')!
+    const wrapper = mount(<Period {...initialMockProps} period={mockPeriod} mode='edit' />)
     expect(wrapper.find('#a-buc-c-sedp4000-period__kategori-select').hostNodes().props().value).toEqual('birth')
     expect(wrapper.find('.a-buc-c-sedp4000-period__subtitle').hostNodes().render().text()).toEqual('buc:p4000-title-birth')
     expect(wrapper.find('.a-buc-c-sedp4000-period__description').hostNodes().render().text()).toEqual('buc:p4000-help-date')
@@ -345,7 +317,7 @@ describe('applications/BUC/components/SEDP4000/Period - edit mode', () => {
   it('throws a validation error when child not properly filled out', () => {
     const mockProps = {
       ...initialMockProps,
-      period: { ..._(sampleP4000info.stayAbroad).find(it => it.type === 'child'), childFirstName: undefined },
+      period: { ..._(sampleP4000info.stayAbroad).find(it => it.type === 'child') as IPeriod, childFirstName: undefined },
       mode: 'edit'
     }
     const wrapper = mount(<Period {...mockProps} />)
