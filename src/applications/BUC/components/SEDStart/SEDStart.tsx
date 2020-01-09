@@ -1,6 +1,7 @@
 import * as bucActions from 'actions/buc'
 import * as storageActions from 'actions/storage'
 import * as uiActions from 'actions/ui'
+import { sedFilter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDAttachmentSender from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import P4000Payload from 'applications/BUC/components/SEDP4000/P4000Payload'
 import {
@@ -75,16 +76,37 @@ export const SEDStart = (props: SEDStartProps) => {
   const { actions, aktoerId, avdodfnr, attachments, attachmentsError, bucs, bucsInfoList, countryList, currentBuc, currentSed } = props
   const { initialAttachments = {}, initialSed = undefined, initialStep = 0, institutionList, institutionNames } = props
   const { loading, locale, p4000info, sakId, sed, sedList, setMode, t, vedtakId = undefined } = props
-
+  const prefillInstitutions: () => Array<string> = () => {
+    const institutions: Array<string> = bucs[currentBuc!] && bucs[currentBuc!].institusjon
+      ? bucs[currentBuc!]
+        .seds!
+        .filter(sedFilter)
+        .map((sed: Sed) => {
+          return sed.participants
+            .filter(p => p.role === 'Sender')
+            .map(p => p.organisation.id)
+        })
+        .flat()
+      : []
+    return Array.from(new Set(institutions)) // remove duplicates
+  }
+  const prefillCountries: () => Array<string> = () => {
+    const countries: Array<string> = bucs[currentBuc!] && bucs[currentBuc!].institusjon
+      ? bucs[currentBuc!]
+        .seds!
+        .filter(sedFilter)
+        .map((sed: Sed) => {
+          return sed.participants
+            .filter(p => p.role === 'Sender')
+            .map(p => p.organisation.countryCode)
+        })
+        .flat()
+      : []
+    return Array.from(new Set(countries)) // remove duplicates
+  }
   const [_sed, setSed] = useState<string | undefined>(initialSed)
-  const [_institutions, setInstitutions] = useState<Array<string>>(
-    bucs[currentBuc!] && bucs[currentBuc!].institusjon
-      ? bucs[currentBuc!].institusjon!
-        .filter(inst => inst.country !== 'NO')
-        .map(inst => inst.institution) : [])
-  const [_countries, setCountries] = useState<Array<string>>(
-    bucs[currentBuc!] && bucs[currentBuc!].institusjon
-      ? _.uniq(bucs[currentBuc!].institusjon!.map(inst => inst.country)) : [])
+  const [_institutions, setInstitutions] = useState<Array<string>>(prefillInstitutions())
+  const [_countries, setCountries] = useState<Array<string>>(prefillCountries())
   const [_vedtakId, setVedtakId] = useState<number | undefined>(vedtakId ? parseInt(vedtakId, 10) : undefined)
   const [_attachments, setAttachments] = useState<{ [namespace: string]: Array<any> }>(initialAttachments)
   const [step, setStep] = useState<number>(initialStep)
