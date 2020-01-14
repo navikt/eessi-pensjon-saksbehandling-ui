@@ -6,7 +6,7 @@ import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
 import { bindActionCreators, connect } from 'store'
-import { ActionCreators, Dispatch, State, T } from 'types'
+import { ActionCreators, Dispatch, State, T } from 'types.d'
 import './JoarkBrowser.css'
 
 export interface JoarkBrowserProps {

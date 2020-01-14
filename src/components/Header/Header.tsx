@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import Ui from 'eessi-pensjon-ui'
 import * as routes from 'constants/routes'
 import NavLogoTransparent from 'resources/images/NavLogoTransparent'
-import { ActionCreators, T } from 'types'
+import { ActionCreators, T } from 'types.d'
 import './Header.css'
 
 export interface HeaderProps {

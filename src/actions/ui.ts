@@ -1,6 +1,6 @@
 import i18n from 'i18n'
 import * as types from 'constants/actionTypes'
-import { Action, ActionWithPayload } from 'types'
+import { Action, ActionWithPayload } from 'types.d'
 
 export const changeLanguage = (language: string): ActionWithPayload<string> => {
   // @ts-ignore

@@ -4,7 +4,7 @@ import * as types from 'constants/actionTypes'
 import { IS_TEST } from 'constants/environment'
 import * as urls from 'constants/urls'
 import sampleJoark from 'resources/tests/sampleJoarkRaw'
-import { ActionWithPayload } from 'types'
+import { ActionWithPayload } from 'types.d'
 import { JoarkFile } from 'applications/BUC/declarations/joark'
 const sprintf = require('sprintf-js').sprintf
 

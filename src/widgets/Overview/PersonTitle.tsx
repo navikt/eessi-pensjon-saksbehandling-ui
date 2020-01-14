@@ -4,7 +4,7 @@ import _ from 'lodash'
 import moment, { Moment } from 'moment'
 import PT from 'prop-types'
 import React from 'react'
-import { T } from 'types'
+import { T } from 'types.d'
 import './PersonTitle.css'
 
 export interface PersonTitleProps {

@@ -15,7 +15,7 @@ import PT from 'prop-types'
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { withTranslation } from 'react-i18next'
 import { bindActionCreators, connect } from 'store'
-import { ActionCreators, AllowedLocaleString, Dispatch, Loading, RinaUrl, State, T } from 'types'
+import { ActionCreators, AllowedLocaleString, Dispatch, Loading, RinaUrl, State, T } from 'types.d'
 import { Bucs, BucsInfo, InstitutionListMap, InstitutionNames, RawInstitution, Sed } from './declarations/buc'
 import './index.css'
 

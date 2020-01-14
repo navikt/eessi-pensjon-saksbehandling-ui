@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import sampleP4000info from 'resources/tests/sampleP4000info'
 import targetP4000info from 'resources/tests/targetP4000info'
-import { T } from 'types'
+import { T } from 'types.d'
 import { Period, PeriodDate } from '../../declarations/period'
 import P4000Payload from './P4000Payload'
 

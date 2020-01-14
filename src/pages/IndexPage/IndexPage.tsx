@@ -1,25 +1,26 @@
 import TopContainer from 'components/TopContainer/TopContainer'
 import Ui from 'eessi-pensjon-ui'
+import { LayoutTabs, Widgets } from 'eessi-pensjon-ui/dist/declarations/Dashboard'
 import PT from 'prop-types'
 import React from 'react'
 import { withTranslation } from 'react-i18next'
 import ReactTooltip from 'react-tooltip'
 import { connect } from 'store'
-import { State, T } from 'types'
+import { State, T } from 'types.d'
 import * as extraWidgets from 'widgets'
 import './IndexPage.css'
 
 export interface IndexPageProps {
   history: any;
   t: T;
-  username: string;
+  username?: string;
 }
 
-const defaultLayouts = [{
+const defaultLayouts: LayoutTabs = [{
   label: 'default',
   body: {
     lg: [
-      { i: 'w-1-overview', x: 0, y: 0, w: 12, h: 1, minW: 6, maxW: 12, minH: 1, maxH: 999 },
+      { i: 'w-1-overview ', x: 0, y: 0, w: 12, h: 1, minW: 6, maxW: 12, minH: 1, maxH: 999 },
       { i: 'w-2-buc', x: 0, y: 2, w: 12, h: 6, minW: 6, maxW: 12, minH: 2, maxH: 999 }
     ],
     md: [
@@ -33,7 +34,7 @@ const defaultLayouts = [{
   }
 }]
 
-const defaultLayoutsWithVarsel = [{
+const defaultLayoutsWithVarsel: LayoutTabs = [{
   label: 'default',
   body: {
     lg: [
@@ -55,7 +56,7 @@ const defaultLayoutsWithVarsel = [{
   }
 }]
 
-const defaultWidgets = [{
+const defaultWidgets: Widgets = [{
   i: 'w-1-overview',
   type: 'overview',
   title: 'Overview widget',
@@ -79,7 +80,7 @@ const defaultWidgets = [{
   options: {}
 }]
 
-const defaultWidgetsWithVarsel = [{
+const defaultWidgetsWithVarsel: Widgets = [{
   i: 'w-1-overview',
   type: 'overview',
   title: 'Overview widget',
@@ -119,7 +120,7 @@ const mapStateToProps = (state: State) => ({
   username: state.app.username
 })
 
-export const IndexPage = ({ history, t, username }: IndexPageProps) => {
+export const IndexPage: React.FC<IndexPageProps> = ({ history, t, username }: IndexPageProps): JSX.Element => {
   const afterLayoutChange = () => {
     ReactTooltip.rebuild()
   }

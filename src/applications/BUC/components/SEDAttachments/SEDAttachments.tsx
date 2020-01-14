@@ -4,7 +4,7 @@ import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useState } from 'react'
-import { T } from 'types'
+import { T } from 'types.d'
 
 export interface SEDAttachmentsProps {
   disableButtons?: boolean;

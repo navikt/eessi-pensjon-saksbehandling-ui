@@ -1,12 +1,12 @@
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
-import { Buc, BucInfo, Institution, InstitutionNames } from 'applications/BUC/declarations/buc'
+import { Buc, BucInfo, Institution, InstitutionNames } from 'applications/BUC/declarations/buc.d'
 import classNames from 'classnames'
 import Ui from 'eessi-pensjon-ui'
 import moment from 'moment'
 import PT from 'prop-types'
 import React from 'react'
-import { AllowedLocaleString, RinaUrl, T } from 'types'
+import { AllowedLocaleString, RinaUrl, T } from 'types.d'
 import './BUCDetail.css'
 
 export interface BUCDetailProps {

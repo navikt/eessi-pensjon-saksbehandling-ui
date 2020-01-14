@@ -1,8 +1,8 @@
 import SEDP4000 from 'applications/BUC/components/SEDP4000/SEDP4000'
-import { Buc } from 'applications/BUC/declarations/buc'
+import { Buc } from 'applications/BUC/declarations/buc.d'
 import Ui from 'eessi-pensjon-ui'
 import React from 'react'
-import { AllowedLocaleString, T, Validation } from 'types'
+import { AllowedLocaleString, T, Validation } from 'types.d'
 
 export interface Step2Props {
   buc: Buc;

@@ -1,6 +1,6 @@
 import Ui from 'eessi-pensjon-ui'
 import React from 'react'
-import { T } from 'types'
+import { T } from 'types.d'
 import './SEDPanelHeader.css'
 
 export interface SEDPanelHeaderProps {

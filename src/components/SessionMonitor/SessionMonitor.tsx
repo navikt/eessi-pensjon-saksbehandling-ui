@@ -1,6 +1,6 @@
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { ActionCreators, T } from 'types'
+import { ActionCreators, T } from 'types.d'
 
 export interface SessionMonitorProps {
   actions: ActionCreators;

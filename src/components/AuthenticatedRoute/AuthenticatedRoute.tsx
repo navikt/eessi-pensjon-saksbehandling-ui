@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react'
 import { withTranslation } from 'react-i18next'
 import { Redirect, Route, withRouter } from 'react-router'
 import { bindActionCreators, connect } from 'store'
-import { Dispatch, State } from 'types'
+import { Dispatch, State } from 'types.d'
 import './AuthenticatedRoute.css'
 
 const mapStateToProps = (state: State) => {

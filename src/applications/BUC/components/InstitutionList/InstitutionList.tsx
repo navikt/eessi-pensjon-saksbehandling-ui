@@ -1,10 +1,10 @@
-import { Institution, InstitutionListMap, InstitutionNames } from 'applications/BUC/declarations/buc'
+import { Institution, InstitutionListMap, InstitutionNames } from 'applications/BUC/declarations/buc.d'
 import classNames from 'classnames'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React from 'react'
-import { AllowedLocaleString, T } from 'types'
+import { AllowedLocaleString, T } from 'types.d'
 import './InstitutionList.css'
 
 export interface InstitutionListProps {

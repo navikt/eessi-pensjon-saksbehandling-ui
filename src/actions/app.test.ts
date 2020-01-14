@@ -2,10 +2,12 @@ import * as appActions from 'actions/app'
 import * as types from 'constants/actionTypes'
 import * as urls from 'constants/urls'
 import { call as originalCall } from 'eessi-pensjon-ui/dist/api'
+import { Action, ActionWithPayload } from 'types'
+
 jest.mock('eessi-pensjon-ui/dist/api', () => ({
   call: jest.fn()
 }))
-const call = originalCall as jest.Mock<typeof originalCall>
+const call: jest.Mock = originalCall as jest.Mock<typeof originalCall>
 const sprintf = require('sprintf-js').sprintf
 
 describe('actions/app', () => {
@@ -18,9 +20,9 @@ describe('actions/app', () => {
   })
 
   it('setStatusParam()', () => {
-    const mockKey = 'mockKey'
-    const mockValue = 'mockValue'
-    const generatedResult = appActions.setStatusParam(mockKey, mockValue)
+    const mockKey: string = 'mockKey'
+    const mockValue: string = 'mockValue'
+    const generatedResult: ActionWithPayload<appActions.ParamPayload> = appActions.setStatusParam(mockKey, mockValue)
     expect(generatedResult).toMatchObject({
       type: types.APP_PARAM_SET,
       payload: {
@@ -31,8 +33,8 @@ describe('actions/app', () => {
   })
 
   it('unsetStatusParam()', () => {
-    const mockKey = 'mockKey'
-    const generatedResult = appActions.unsetStatusParam(mockKey)
+    const mockKey: string = 'mockKey'
+    const generatedResult: ActionWithPayload<appActions.ParamPayload> = appActions.unsetStatusParam(mockKey)
     expect(generatedResult).toMatchObject({
       type: types.APP_PARAM_UNSET,
       payload: {
@@ -51,7 +53,7 @@ describe('actions/app', () => {
         href: 'http://fake-url.nav.no/path?var=param'
       }
     })
-    const generatedResult = appActions.login()
+    const generatedResult: Action = appActions.login()
     expect(window.location.href).toEqual('http://localhost/frontend/login?redirect=http://fake-url.nav.no/&context=%2Fpath%3Fvar%3Dparam')
     expect(generatedResult).toMatchObject({
       type: types.APP_LOGIN_REQUEST
@@ -63,7 +65,7 @@ describe('actions/app', () => {
       writable: true,
       value: {}
     })
-    const generatedResult = appActions.logout()
+    const generatedResult: Action = appActions.logout()
     expect(window.location.href).toEqual(urls.LOGOUT_URL)
     expect(generatedResult).toMatchObject({
       type: types.APP_LOGOUT_REQUEST
@@ -84,7 +86,7 @@ describe('actions/app', () => {
   })
 
   it('getPersonInfo()', () => {
-    const mockAktoerId = '123'
+    const mockAktoerId: string = '123'
     appActions.getPersonInfo(mockAktoerId)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
@@ -97,8 +99,8 @@ describe('actions/app', () => {
   })
 
   it('getSakType()', () => {
-    const mockSakId = '123'
-    const mockAktoerId = '456'
+    const mockSakId: string = '123'
+    const mockAktoerId: string = '456'
     appActions.getSakType(mockSakId, mockAktoerId)
     expect(call).toBeCalledWith(expect.objectContaining({
       type: {
@@ -111,7 +113,7 @@ describe('actions/app', () => {
   })
 
   it('clearData()', () => {
-    const generatedResult = appActions.clearData()
+    const generatedResult: Action = appActions.clearData()
     expect(generatedResult).toMatchObject({
       type: types.APP_CLEAR_DATA
     })

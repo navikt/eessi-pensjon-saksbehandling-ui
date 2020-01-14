@@ -1,11 +1,11 @@
 import { sedFilter, sedSorter } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import SEDHeader from 'applications/BUC/components/SEDHeader/SEDHeader'
-import { Buc, InstitutionNames, Sed } from 'applications/BUC/declarations/buc'
+import { Buc, InstitutionNames, Sed } from 'applications/BUC/declarations/buc.d'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React from 'react'
-import { AllowedLocaleString, T } from 'types'
+import { AllowedLocaleString, T } from 'types.d'
 import './SEDList.css'
 
 export interface SEDListProps {

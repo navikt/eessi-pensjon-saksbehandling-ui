@@ -1,11 +1,11 @@
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
-import { Buc, BucsInfo, Tags } from 'applications/BUC/declarations/buc'
+import { Buc, BucsInfo, Tags } from 'applications/BUC/declarations/buc.d'
 import classNames from 'classnames'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { ActionCreators, AllowedLocaleString, Loading, Option, T, Validation } from 'types'
+import { ActionCreators, AllowedLocaleString, Loading, Option, T, Validation } from 'types.d'
 
 export interface BUCStartProps {
   actions: ActionCreators;

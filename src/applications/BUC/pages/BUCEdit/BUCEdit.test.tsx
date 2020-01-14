@@ -1,4 +1,4 @@
-import { BucsInfo, Tags } from 'applications/BUC/declarations/buc'
+import { BucsInfo, Tags } from 'applications/BUC/declarations/buc.d'
 import { mount, ReactWrapper } from 'enzyme'
 import _ from 'lodash'
 import React from 'react'

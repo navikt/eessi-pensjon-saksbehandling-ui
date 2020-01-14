@@ -6,7 +6,7 @@ import MonitorPNG from 'resources/images/artwork/dataskjerm.png'
 import CupPNG from 'resources/images/artwork/kop.png'
 import MousePNG from 'resources/images/artwork/NAVmusematte.png'
 import MapPNG from 'resources/images/artwork/saksstatus.png'
-import { ActionCreators, RinaUrl, T } from 'types'
+import { ActionCreators, RinaUrl, T } from 'types.d'
 import './BUCEmpty.css'
 
 export interface BUCEmptyProps {

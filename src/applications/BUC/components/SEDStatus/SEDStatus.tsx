@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React from 'react'
-import { T } from 'types'
+import { T } from 'types.d'
 import './SEDStatus.css'
 
 export interface SEDStatusProps {

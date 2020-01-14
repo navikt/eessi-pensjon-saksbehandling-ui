@@ -3,7 +3,7 @@ import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React, { useState } from 'react'
 import './Footer.css'
-import { ActionCreators } from 'types'
+import { ActionCreators } from 'types.d'
 
 export interface FooterProps {
   actions: ActionCreators;

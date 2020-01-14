@@ -1,10 +1,10 @@
-import { Buc, BucInfo, BucsInfo, Tags } from 'applications/BUC/declarations/buc'
+import { Buc, BucInfo, BucsInfo, Tags } from 'applications/BUC/declarations/buc.d'
 import classNames from 'classnames'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { ActionCreators, Loading, T } from 'types'
+import { ActionCreators, Loading, T } from 'types.d'
 import './BUCTools.css'
 
 export interface BUCToolsProps {

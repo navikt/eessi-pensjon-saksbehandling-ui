@@ -11,7 +11,7 @@ import PT from 'prop-types'
 import React from 'react'
 import SnowStorm from 'react-snowstorm'
 import { bindActionCreators, connect } from 'store'
-import { ActionCreators, Dispatch, State, T } from 'types'
+import { ActionCreators, Dispatch, State, T } from 'types.d'
 import './TopContainer.css'
 
 export interface TopContainerProps {

@@ -1,11 +1,11 @@
 import SEDAttachmentSender from 'applications/BUC/components/SEDAttachmentSender/SEDAttachmentSender'
 import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
-import { Buc, Sed } from 'applications/BUC/declarations/buc'
+import { Buc, Sed } from 'applications/BUC/declarations/buc.d'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { ActionCreators, T } from 'types'
+import { ActionCreators, T } from 'types.d'
 import SEDAttachments from '../SEDAttachments/SEDAttachments'
 
 export interface SEDBodyProps {

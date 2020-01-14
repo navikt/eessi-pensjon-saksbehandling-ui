@@ -1,18 +1,31 @@
-import React from 'react'
-import PT from 'prop-types'
-import _ from 'lodash'
+import 'applications/BUC/components/SEDP4000/Period/Period.css'
+import { Period } from 'applications/BUC/declarations/period.d'
 import classNames from 'classnames'
 import Ui from 'eessi-pensjon-ui'
+import _ from 'lodash'
+import PT from 'prop-types'
+import React from 'react'
+import { T } from 'types.d'
 import P4000Payload from '../P4000Payload'
 
-import 'applications/BUC/components/SEDP4000/Period/Period.css'
 
-const PeriodView = ({ first, last, mode, period, removePeriodRequest, requestEditPeriod, t }) => {
-  const util = new P4000Payload({}, t)
+export interface PeriodViewProps {
+  first?: boolean;
+  last?: boolean;
+  mode: string;
+  period: Period;
+  removePeriodRequest: (p: Period) => void;
+  requestEditPeriod: (p: Period) => void;
+  t: T;
+}
+
+const PeriodView: React.FC<PeriodViewProps> = ({
+  first, last, mode, period, removePeriodRequest, requestEditPeriod, t
+}: PeriodViewProps): JSX.Element => {
   return (
     <Ui.Nav.Row className={classNames('a-buc-c-sedp4000-period', mode)}>
       <div className={classNames('col-12', { 'col-md-6': mode === 'view' })}>
-        <div id={period.id} className='a-buc-c-sedp4000-period__existingPeriod'>
+        <div id={'' + period.id} className='a-buc-c-sedp4000-period__existingPeriod'>
           <div className='a-buc-c-sedp4000-period__existingPeriod-icon mr-3 ml-3'>
             <div className={classNames('topHalf', { line: !first })} />
             <div className={classNames('bottomHalf', { line: !last })} />
@@ -29,7 +42,7 @@ const PeriodView = ({ first, last, mode, period, removePeriodRequest, requestEdi
             <div className='a-buc-c-sedp4000-period__existingPeriod-dates'>
               <Ui.Nav.UndertekstBold className='mr-2'>{t('buc:p4000-label-period') + ': '}</Ui.Nav.UndertekstBold>
               <Ui.Nav.Normaltekst>
-                {util.renderDate(period.startDate)}{' - '}{util.renderDate(period.endDate)}
+                {P4000Payload.renderDate(period.startDate, t)}{' - '}{P4000Payload.renderDate(period.endDate, t)}
                 {period.uncertainDate ? ' (?)' : ''}
               </Ui.Nav.Normaltekst>
             </div>
@@ -78,7 +91,7 @@ const PeriodView = ({ first, last, mode, period, removePeriodRequest, requestEdi
               ? (
                 <div className='a-buc-c-sedp4000-period__existingPeriod-attachments'>
                   <Ui.Nav.UndertekstBold className='mr-2'>{t('buc:p4000-label-attachments') + ': '}</Ui.Nav.UndertekstBold>
-                  <Ui.Nav.Normaltekst>{period.attachments.map(att => att.name).join(', ')}</Ui.Nav.Normaltekst>
+                  <Ui.Nav.Normaltekst>{period.attachments.map((att: any) => att.name).join(', ')}</Ui.Nav.Normaltekst>
                 </div>
               ) : null}
           </div>
@@ -103,9 +116,9 @@ PeriodView.propTypes = {
   first: PT.bool,
   last: PT.bool,
   mode: PT.string.isRequired,
-  period: PT.object,
-  removePeriodRequest: PT.func,
-  requestEditPeriod: PT.func,
+  period: PT.any.isRequired,
+  removePeriodRequest: PT.func.isRequired,
+  requestEditPeriod: PT.func.isRequired,
   t: PT.func.isRequired
 }
 

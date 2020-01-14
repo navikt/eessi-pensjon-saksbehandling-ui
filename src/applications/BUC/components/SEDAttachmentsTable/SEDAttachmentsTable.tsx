@@ -3,7 +3,7 @@ import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React from 'react'
-import { T } from 'types'
+import { T } from 'types.d'
 import './SEDAttachmentsTable.css'
 
 export interface SEDAttachmentsTableProps {

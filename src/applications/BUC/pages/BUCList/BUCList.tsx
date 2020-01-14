@@ -11,7 +11,7 @@ import {
   InstitutionNames,
   Participant,
   Sed
-} from 'applications/BUC/declarations/buc'
+} from 'applications/BUC/declarations/buc.d'
 import classNames from 'classnames'
 import * as storage from 'constants/storage'
 import Ui from 'eessi-pensjon-ui'
@@ -19,7 +19,7 @@ import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { ActionCreators, AllowedLocaleString, Loading, RinaUrl, T } from 'types'
+import { ActionCreators, AllowedLocaleString, Loading, RinaUrl, T } from 'types.d'
 import { InstitutionListMap, RawInstitution } from '../../declarations/buc'
 import './BUCList.css'
 

@@ -8,13 +8,13 @@ import {
   InstitutionListMap,
   InstitutionNames,
   Sed
-} from 'applications/BUC/declarations/buc'
+} from 'applications/BUC/declarations/buc.d'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
 import React, { useCallback } from 'react'
-import { AllowedLocaleString, RinaUrl, T } from 'types'
+import { AllowedLocaleString, RinaUrl, T } from 'types.d'
 import './BUCHeader.css'
 
 export interface BUCHeaderProps {

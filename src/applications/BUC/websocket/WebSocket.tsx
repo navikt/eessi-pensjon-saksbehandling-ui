@@ -7,7 +7,7 @@ import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
-import { ActionCreators } from 'types'
+import { ActionCreators } from 'types.d'
 import './WebSocket.css'
 
 export interface BucWebSocketProps {

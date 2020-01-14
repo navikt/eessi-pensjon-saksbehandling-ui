@@ -7,7 +7,7 @@ import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { connect } from 'store'
-import { ActionCreators, AllowedLocaleString, State, T } from 'types'
+import { ActionCreators, AllowedLocaleString, State, T } from 'types.d'
 import P4000Payload from './P4000Payload'
 
 export interface SEDP4000Props {

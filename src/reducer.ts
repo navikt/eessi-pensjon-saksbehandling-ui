@@ -6,7 +6,7 @@ import loadingReducer, { initialLoadingState } from './reducers/loading'
 import pinfoReducer, { initialPinfoState } from './reducers/pinfo'
 import storageReducer, { initialStorageState } from './reducers/storage'
 import uiReducer, { initialUiState } from './reducers/ui'
-import { Action, State } from 'types'
+import { Action, State } from 'types.d'
 
 const mainReducer = (state: State, action: Action) => {
   return {

@@ -1,14 +1,14 @@
 import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDStatus from 'applications/BUC/components/SEDStatus/SEDStatus'
-import { Buc, Institution, InstitutionNames, Participant, Sed } from 'applications/BUC/declarations/buc'
+import { Buc, Institution, InstitutionNames, Participant, Sed } from 'applications/BUC/declarations/buc.d'
 import classNames from 'classnames'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
 import React from 'react'
-import { AllowedLocaleString, T } from 'types'
+import { AllowedLocaleString, T } from 'types.d'
 import './SEDHeader.css'
 
 export interface SEDHeaderProps {

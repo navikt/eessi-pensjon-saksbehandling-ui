@@ -9,8 +9,8 @@ import sampleBucsInfo from 'resources/tests/sampleBucsInfo'
 import sampleP4000info from 'resources/tests/sampleP4000info'
 import sampleInstitutions from 'resources/tests/sampleInstitutions'
 import Ui from 'eessi-pensjon-ui'
-import { Action, ActionWithPayload } from 'types'
-import { Buc, BucsInfo, NewSedPayload } from 'applications/BUC/declarations/buc'
+import { Action, ActionWithPayload } from 'types.d'
+import { Buc, BucsInfo, NewSedPayload } from 'applications/BUC/declarations/buc.d'
 import { P4000Info } from 'applications/BUC/declarations/period'
 const sprintf = require('sprintf-js').sprintf
 

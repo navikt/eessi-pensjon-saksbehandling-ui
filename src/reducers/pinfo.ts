@@ -1,5 +1,5 @@
 import * as types from 'constants/actionTypes'
-import { Action, State } from 'types'
+import { Action, State } from 'types.d'
 
 export const initialPinfoState: State = {
   invite: undefined

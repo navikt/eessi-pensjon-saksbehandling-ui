@@ -1,7 +1,6 @@
 import React from 'react'
 import PT from 'prop-types'
 import classNames from 'classnames'
-
 import PeriodAttachments from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodAttachments'
 import PeriodButtons from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodButtons'
 import PeriodCategorySelect from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodCategorySelect'
@@ -14,10 +13,47 @@ import PeriodNotWork from 'applications/BUC/components/SEDP4000/Period/EditCompo
 import PeriodOther from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodOther'
 import PeriodTitle from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodTitle'
 import PeriodWork from 'applications/BUC/components/SEDP4000/Period/EditComponents/PeriodWork'
-
 import 'applications/BUC/components/SEDP4000/Period/Period.css'
 
-const PeriodEdit = ({
+export interface PeriodEditProps {
+  actions: any;
+  blurChildBirthDate?: () => void;
+  blurEndDate?: () => void;
+  blurStartDate?: () => void;
+  cancelPeriodRequest?: () => void;
+  locale: string;
+  localErrors: any;
+  mode: string;
+  period: any;
+  periods: Array<any>;
+  saveEditPeriod: () => void;
+  saveNewPeriod: () => void;
+  setAttachments: (e: any) => void;
+  setChildBirthDate: (e: any) => void;
+  setChildFirstName: (e: any) => void;
+  setChildLastName: (e: any) => void;
+  setComment: (e: any) => void;
+  setCountry: (e: any) => void;
+  setDateType: (e: any) => void;
+  setEndDate: (e: any) => void;
+  setInsuranceId: (e: any) => void;
+  setLearnInstitution: (e: any) => void;
+  setOtherType: (e: any) => void;
+  setPayingInstitution: (e: any) => void;
+  setStartDate: (e: any) => void;
+  setType: (e: any) => void;
+  setUncertainDate: (e: any) => void;
+  setWorkActivity: (e: any) => void;
+  setWorkCity: (e: any) => void;
+  setWorkName: (e: any) => void;
+  setWorkRegion: (e: any) => void;
+  setWorkStreet: (e: any) => void;
+  setWorkType: (e: any) => void;
+  setWorkZipCode: (e: any) => void;
+  t: any;
+}
+
+const PeriodEdit: React.FC<PeriodEditProps> = ({
   actions,
   blurChildBirthDate,
   blurEndDate,
@@ -52,7 +88,7 @@ const PeriodEdit = ({
   setWorkType,
   setWorkZipCode,
   t
-}) => {
+}: PeriodEditProps): JSX.Element => {
   return (
     <div className={classNames('a-buc-c-sedp4000-period', mode)}>
       <PeriodTitle mode={mode} t={t} />
@@ -118,7 +154,7 @@ const PeriodEdit = ({
 }
 
 PeriodEdit.propTypes = {
-  actions: PT.object.isRequired,
+  actions: PT.any.isRequired,
   blurChildBirthDate: PT.func,
   blurEndDate: PT.func,
   blurStartDate: PT.func,
@@ -127,31 +163,31 @@ PeriodEdit.propTypes = {
   localErrors: PT.object,
   mode: PT.string.isRequired,
   period: PT.object,
-  periods: PT.array,
-  saveEditPeriod: PT.func,
-  saveNewPeriod: PT.func,
+  periods: PT.array.isRequired,
+  saveEditPeriod: PT.func.isRequired,
+  saveNewPeriod: PT.func.isRequired,
   setAttachments: PT.func.isRequired,
-  setChildBirthDate: PT.func,
-  setChildFirstName: PT.func,
-  setChildLastName: PT.func,
-  setComment: PT.func,
-  setCountry: PT.func,
-  setDateType: PT.func,
-  setEndDate: PT.func,
-  setInsuranceId: PT.func,
-  setLearnInstitution: PT.func,
-  setOtherType: PT.func,
-  setPayingInstitution: PT.func,
-  setStartDate: PT.func,
-  setType: PT.func,
-  setUncertainDate: PT.func,
-  setWorkActivity: PT.func,
-  setWorkCity: PT.func,
-  setWorkName: PT.func,
-  setWorkRegion: PT.func,
-  setWorkStreet: PT.func,
-  setWorkType: PT.func,
-  setWorkZipCode: PT.func,
+  setChildBirthDate: PT.func.isRequired,
+  setChildFirstName: PT.func.isRequired,
+  setChildLastName: PT.func.isRequired,
+  setComment: PT.func.isRequired,
+  setCountry: PT.func.isRequired,
+  setDateType: PT.func.isRequired,
+  setEndDate: PT.func.isRequired,
+  setInsuranceId: PT.func.isRequired,
+  setLearnInstitution: PT.func.isRequired,
+  setOtherType: PT.func.isRequired,
+  setPayingInstitution: PT.func.isRequired,
+  setStartDate: PT.func.isRequired,
+  setType: PT.func.isRequired,
+  setUncertainDate: PT.func.isRequired,
+  setWorkActivity: PT.func.isRequired,
+  setWorkCity: PT.func.isRequired,
+  setWorkName: PT.func.isRequired,
+  setWorkRegion: PT.func.isRequired,
+  setWorkStreet: PT.func.isRequired,
+  setWorkType: PT.func.isRequired,
+  setWorkZipCode: PT.func.isRequired,
   t: PT.func.isRequired
 }
 

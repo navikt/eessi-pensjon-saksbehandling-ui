@@ -4,13 +4,13 @@ import { getBucTypeLabel, sedFilter, sedSorter } from 'applications/BUC/componen
 import SEDPanel from 'applications/BUC/components/SEDPanel/SEDPanel'
 import SEDPanelHeader from 'applications/BUC/components/SEDPanelHeader/SEDPanelHeader'
 import SEDSearch from 'applications/BUC/components/SEDSearch/SEDSearch'
-import { Buc, BucInfo, Bucs, BucsInfo, InstitutionNames, Sed, Tags } from 'applications/BUC/declarations/buc'
+import { Buc, BucInfo, Bucs, BucsInfo, InstitutionNames, Sed, Tags } from 'applications/BUC/declarations/buc.d'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import moment from 'moment'
 import PT from 'prop-types'
 import React, { useState } from 'react'
-import { ActionCreators, AllowedLocaleString, Loading, T } from 'types'
+import { ActionCreators, AllowedLocaleString, Loading, T } from 'types.d'
 import './BUCEdit.css'
 
 export interface BUCEditProps {

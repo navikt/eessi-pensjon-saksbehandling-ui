@@ -1,5 +1,5 @@
 import * as types from 'constants/actionTypes'
-import { Action, State } from 'types'
+import { Action, State } from 'types.d'
 import { JoarkDoc, JoarkFile, JoarkPoster, JoarkFileVariant } from '../applications/BUC/declarations/joark'
 import _ from 'lodash'
 

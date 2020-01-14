@@ -6,7 +6,7 @@ import PeriodView from 'applications/BUC/components/SEDP4000/Period/PeriodView'
 import { periodValidation } from 'applications/BUC/components/SEDP4000/Validation/singleTests'
 import { periodStep } from 'applications/BUC/components/SEDP4000/Validation/stepTests'
 import {Period as IPeriod, Periods as IPeriods, PeriodDate, PeriodErrors} from 'applications/BUC/declarations/period'
-import { ActionCreators, AllowedLocaleString, T } from 'types'
+import { ActionCreators, AllowedLocaleString, T } from 'types.d'
 import 'applications/BUC/components/SEDP4000/Period/Period.css'
 
 export interface PeriodProps {

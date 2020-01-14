@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React from 'react'
-import { RinaUrl, T } from 'types'
+import { RinaUrl, T } from 'types.d'
 import './BUCFooter.css'
 
 export interface BUCFooterProps {

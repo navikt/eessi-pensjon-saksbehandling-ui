@@ -12,7 +12,7 @@ import {
   InstitutionNames,
   RawInstitution,
   Sed
-} from 'applications/BUC/declarations/buc'
+} from 'applications/BUC/declarations/buc.d'
 import { P4000Info } from 'applications/BUC/declarations/period'
 import { IS_TEST } from 'constants/environment'
 import * as storage from 'constants/storage'
@@ -21,7 +21,7 @@ import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { bindActionCreators, connect } from 'store'
-import { ActionCreators, AllowedLocaleString, Dispatch, Loading, State, T } from 'types'
+import { ActionCreators, AllowedLocaleString, Dispatch, Loading, State, T } from 'types.d'
 import Step1 from './Step1'
 import Step2 from './Step2'
 

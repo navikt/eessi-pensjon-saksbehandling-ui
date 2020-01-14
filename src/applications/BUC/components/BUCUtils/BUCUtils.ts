@@ -1,6 +1,6 @@
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
-import { Buc, Sed, ValidBuc } from 'applications/BUC/declarations/buc'
+import { Buc, Sed, ValidBuc } from 'applications/BUC/declarations/buc.d'
 import moment from 'moment'
 
 interface getBucTypeLabelProps {

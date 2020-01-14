@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react'
 import { withTranslation } from 'react-i18next'
 import { ReactComponent as VeilederSVG } from 'resources/images/NavPensjonVeileder.svg'
 import { bindActionCreators, connect } from 'store'
-import { ActionCreators, Dispatch, State, T } from 'types'
+import { ActionCreators, Dispatch, State, T } from 'types.d'
 import './VarslerPanel.css'
 
 export interface Varsler {

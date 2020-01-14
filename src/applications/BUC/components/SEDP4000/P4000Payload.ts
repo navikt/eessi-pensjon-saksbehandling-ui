@@ -8,7 +8,7 @@ import {
 } from 'applications/BUC/declarations/period'
 import _ from 'lodash'
 import moment, { Moment } from 'moment'
-import { T } from 'types'
+import { T } from 'types.d'
 
 export default class P4000Payload {
   public pinfo: Array<Period>
@@ -26,9 +26,9 @@ export default class P4000Payload {
     return new Date(year, month, day)
   }
 
-  renderDate (date: PeriodDate | null | undefined): string | null {
+  static renderDate (date: PeriodDate | null | undefined, t: T): string | null {
     if (!date) {
-      return this.t('ui:unknown')
+      return t('ui:unknown')
     } else {
       const dd: Date | null = P4000Payload.pinfoDateToDate(date)
       if (dd) {
@@ -38,6 +38,10 @@ export default class P4000Payload {
         return null
       }
     }
+  }
+
+  renderDate (date: PeriodDate | null | undefined): string | null {
+    return P4000Payload.renderDate(date, this.t)
   }
 
   handleDate (period: Period) {

@@ -3,7 +3,7 @@ import PT from 'prop-types'
 import _ from 'lodash'
 import moment from 'moment'
 import Ui from 'eessi-pensjon-ui'
-import { T } from 'types'
+import { T } from 'types.d'
 
 export interface PersonPanelProps {
   highContrast: boolean;

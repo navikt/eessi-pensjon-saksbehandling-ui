@@ -2,13 +2,13 @@ import { getBucTypeLabel } from 'applications/BUC/components/BUCUtils/BUCUtils'
 import InstitutionList from 'applications/BUC/components/InstitutionList/InstitutionList'
 import SEDAttachments from 'applications/BUC/components/SEDAttachments/SEDAttachments'
 import SEDAttachmentsTable from 'applications/BUC/components/SEDAttachmentsTable/SEDAttachmentsTable'
-import { Buc, InstitutionListMap, InstitutionNames, RawInstitution, Sed } from 'applications/BUC/declarations/buc'
+import { Buc, InstitutionListMap, InstitutionNames, RawInstitution, Sed } from 'applications/BUC/declarations/buc.d'
 import { Country } from 'applications/BUC/declarations/period'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
-import { ActionCreators, AllowedLocaleString, Loading, Option, T, Validation } from 'types'
+import { ActionCreators, AllowedLocaleString, Loading, Option, T, Validation } from 'types.d'
 
 export interface Step1Props {
   actions: ActionCreators;

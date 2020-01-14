@@ -34,7 +34,7 @@ export interface Period {
   childBirthDate ?: PeriodDate;
   learnInstitution ?: string;
   payingInstitution ?: string;
-  attachments ?: Array[any];
+  attachments ?: Array<IFile>;
   [key: string]: any;
 }
 

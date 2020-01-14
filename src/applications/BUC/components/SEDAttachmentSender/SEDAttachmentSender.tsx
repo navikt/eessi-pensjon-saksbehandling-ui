@@ -5,7 +5,7 @@ import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import PT from 'prop-types'
 import React, { useCallback, useEffect, useState } from 'react'
-import { T } from 'types'
+import { T } from 'types.d'
 
 export interface SEDAttachmentSenderProps {
   allAttachments: Array<JoarkFile>;

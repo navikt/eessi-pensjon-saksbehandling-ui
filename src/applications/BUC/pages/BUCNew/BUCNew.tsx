@@ -3,7 +3,7 @@ import BUCStart, { BUCStartProps } from 'applications/BUC/components/BUCStart/BU
 import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React from 'react'
-import { RinaUrl } from 'types'
+import { RinaUrl } from 'types.d'
 import './BUCNew.css'
 
 export interface BUCNewProps extends BUCStartProps {

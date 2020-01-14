@@ -1,10 +1,10 @@
 import SEDListHeader from 'applications/BUC/components/SEDListHeader/SEDListHeader'
-import { Buc, InstitutionNames, Sed } from 'applications/BUC/declarations/buc'
+import { Buc, InstitutionNames, Sed } from 'applications/BUC/declarations/buc.d'
 import classNames from 'classnames'
 import Ui from 'eessi-pensjon-ui'
 import _ from 'lodash'
 import React from 'react'
-import { ActionCreators, AllowedLocaleString, T } from 'types'
+import { ActionCreators, AllowedLocaleString, T } from 'types.d'
 import SEDBody from '../SEDBody/SEDBody'
 import './SEDPanel.css'
 

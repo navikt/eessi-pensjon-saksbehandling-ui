@@ -1,9 +1,9 @@
-import { Bucs } from 'applications/BUC/declarations/buc'
+import { Bucs } from 'applications/BUC/declarations/buc.d'
 import classNames from 'classnames'
 import Ui from 'eessi-pensjon-ui'
 import PT from 'prop-types'
 import React, { useCallback } from 'react'
-import { ActionCreators, T } from 'types'
+import { ActionCreators, T } from 'types.d'
 import './BUCCrumbs.css'
 
 export interface BUCCrumbsProps {
